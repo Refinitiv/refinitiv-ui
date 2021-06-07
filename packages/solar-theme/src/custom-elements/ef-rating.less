@@ -1,0 +1,34 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-rating';
+
+:host {
+
+  @icon-dir: '../resources/images/rating';
+  @default-color: @rating-background-color;
+  @active-color: @rating-active-background-color;
+
+  font-size: 10px;
+
+  [part^=icon] {
+    background-image: inline-svg('@{icon-dir}/star-full.svg', 'path', 'fill: @{default-color}');
+  }
+
+  &[size=large] {
+    font-size: 15px;
+  }
+
+  &:not([interactive]), &[interactive] [part=container]:not(:hover) {
+    [part~=icon-full] {
+      background-image: inline-svg('@{icon-dir}/star-full.svg', 'path', 'fill: @{active-color}');
+    }
+    [part~=icon-half] {
+      background-image: inline-svg('@{icon-dir}/star-half.svg', '#right', 'fill: @{default-color}', '#left', 'fill: @{active-color}');
+    }
+  }
+
+  &[interactive] {
+    [part^=icon]:hover, [part^=icon]:hover ~ [part^=icon] {
+      background-image: inline-svg('@{icon-dir}/star-full.svg', 'path', 'fill: @{active-color}');
+    }
+  }
+
+}

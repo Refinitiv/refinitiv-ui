@@ -1,0 +1,26 @@
+@import '../shared-styles/input';
+
+select {
+  appearance: none;
+  font-family: @input-font-family;
+  font-size: @input-font-size;
+  height: @input-height;
+  width: @input-width;
+  max-width: 100%;
+  padding: @input-padding;
+  margin: @input-margin;
+  outline: @input-outline;
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  background: @input-background-color;
+  border-style: @input-border-style;
+  border-color: @input-border-color;
+  border-width: max(@input-border-width);
+  color: @input-text-color;
+
+  &:focus {
+    .input-focus;
+  }
+}

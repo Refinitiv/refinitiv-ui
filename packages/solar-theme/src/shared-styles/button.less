@@ -1,0 +1,53 @@
+@import '@refinitiv-ui/elemental-theme/src/responsive';
+
+.button-defaults() {
+
+  background-image: @button-background-image;
+
+  &[cta] {
+
+    background-image: @button-cta-background-image;
+
+    .desktop-specific({
+      &:hover {
+        color: @button-cta-text-color;
+      }
+
+      &:focus:not([focused]), &[focused=visible] {
+        border-color: @button-border-color;
+        box-shadow: @button-focused-box-shadow;
+        color: @button-cta-text-color;
+      }
+    });
+
+    &:active {
+      background-color: @button-cta-pressed-background-color;
+      background-image: @button-cta-pressed-background-image;
+    }
+
+    &[disabled] {
+      opacity: @input-disabled-opacity;
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.4;
+  }
+
+  &[toggles][active] {
+    color: @button-toggle-active-text-color !important;
+    background-color: @button-toggle-active-background-color !important;
+    background-image: @button-toggle-active-background-image;
+  }
+
+  &:active {
+    background-image: @button-pressed-background-image;
+  }
+
+  .desktop-specific({
+    &:focus:not([focused]), &[focused=visible] {
+      border-style: dotted;
+      box-shadow: @button-focused-box-shadow;
+    }
+  });
+}

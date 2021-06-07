@@ -1,0 +1,18 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-item';
+
+:host {
+  &[type=header] {
+    border: none;
+    border-top: @list-item-header-border;
+    border-bottom: solid 1px transparent;
+    text-transform: none;
+    align-items: center;
+  }
+  [part=left] ::slotted(*), [part=icon] {
+    margin-right: 0.33em; // Third of the icon size
+  }
+
+  [part=right] ::slotted(*) {
+    margin-left: 0.33em;
+  }
+}

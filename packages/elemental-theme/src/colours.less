@@ -1,0 +1,55 @@
+@_DARK_MODIFIER_: 40%;
+@_LIGHT_MODFIER_: 40%;
+
+// Main
+@color-scheme-primary         : hsl(236, 77%, 62%);
+@color-scheme-secondary       : hsl(236, 34%, 34%);
+@color-scheme-tertiary        : @color-grey;
+@color-scheme-complementary   : hsl(337, 80%, 49%);
+
+// Greyscale
+@color-black                  : hsl(220, 12%, 0%);
+@color-darkecho               : hsl(220, 12%, 10%);
+@color-vinyl                  : hsl(220, 12%, 15%);
+@color-slate                  : hsl(220, 12%, 28%);
+@color-grey                   : hsl(220, 12%, 50%);
+@color-steel                  : hsl(220, 12%, 75%);
+@color-aluminium              : hsl(220, 12%, 85%);
+@color-paper                  : hsl(220, 12%, 98%);
+@color-white                  : hsl(220, 12%, 100%);
+
+// Data-viz - standard
+@color-dataviz-red            : rgb(229, 68, 95);
+@color-dataviz-orange         : rgb(241, 143, 52);
+@color-dataviz-yellow         : rgb(209, 206, 0);
+@color-dataviz-green          : rgb(46, 197, 126);
+@color-dataviz-blue           : @color-scheme-primary;
+@color-dataviz-cyan           : rgb(25, 170, 238);
+@color-dataviz-purple         : rgb(151, 94, 197);
+@color-dataviz-pink           : rgb(251, 90, 202);
+@color-dataviz-coral          : rgb(243, 61, 85);
+@color-dataviz-grey           : @color-scheme-tertiary;
+
+// Data-viz - light
+@color-dataviz-lightred       : tint(@color-dataviz-red, @_LIGHT_MODFIER_);
+@color-dataviz-lightorange    : tint(@color-dataviz-orange, @_LIGHT_MODFIER_);
+@color-dataviz-lightyellow    : tint(@color-dataviz-yellow, @_LIGHT_MODFIER_);
+@color-dataviz-lightgreen     : tint(@color-dataviz-green, @_LIGHT_MODFIER_);
+@color-dataviz-lightblue      : tint(@color-dataviz-blue, @_LIGHT_MODFIER_);
+@color-dataviz-lightcyan      : tint(@color-dataviz-cyan, @_LIGHT_MODFIER_);
+@color-dataviz-lightpurple    : tint(@color-dataviz-purple, @_LIGHT_MODFIER_);
+@color-dataviz-lightpink      : tint(@color-dataviz-pink, @_LIGHT_MODFIER_);
+@color-dataviz-lightcoral     : tint(@color-dataviz-coral, @_LIGHT_MODFIER_);
+@color-dataviz-lightgrey      : tint(@color-dataviz-grey, @_LIGHT_MODFIER_);
+
+// Data-viz - dark
+@color-dataviz-darkred        : shade(@color-dataviz-red, @_DARK_MODIFIER_);
+@color-dataviz-darkorange     : shade(@color-dataviz-orange, @_DARK_MODIFIER_);
+@color-dataviz-darkyellow     : shade(@color-dataviz-yellow, @_DARK_MODIFIER_);
+@color-dataviz-darkgreen      : shade(@color-dataviz-green, @_DARK_MODIFIER_);
+@color-dataviz-darkblue       : shade(@color-dataviz-blue, @_DARK_MODIFIER_);
+@color-dataviz-darkcyan       : shade(@color-dataviz-cyan, @_DARK_MODIFIER_);
+@color-dataviz-darkpurple     : shade(@color-dataviz-purple, @_DARK_MODIFIER_);
+@color-dataviz-darkpink       : shade(@color-dataviz-pink, @_DARK_MODIFIER_);
+@color-dataviz-darkcoral      : shade(@color-dataviz-coral, @_DARK_MODIFIER_);
+@color-dataviz-darkgrey       : shade(@color-dataviz-grey, @_DARK_MODIFIER_);

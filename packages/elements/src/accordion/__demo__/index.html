@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Accordion</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <style>
+      .content {
+        height: 100px;
+      }
+      ef-checkbox {
+        padding-right: 8px;
+      }
+      .inner {
+        padding-left: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/accordion';
+      import '@refinitiv-ui/elements/checkbox';
+      import '@refinitiv-ui/elements/button';
+      import '@refinitiv-ui/demo-block';
+    </script>
+
+    <!-- DEFAULT -->
+    <demo-block header="Default" layout="normal">
+      <ef-accordion>
+        <ef-collapse header="Group One">
+          Content for Group One
+        </ef-collapse>
+        <ef-collapse expanded header="Group Two">
+          <div style="height: 200px">Content inside a div with a fixed 200px height for Group Two</div>
+        </ef-collapse>
+        <ef-collapse header="Group Three">
+          Content for Group Three
+        </ef-collapse>
+        <ef-collapse header="Group Four">
+          Content for Group Four - has expanded attribute set so will be open initially
+        </ef-collapse>
+      </ef-accordion>
+    </demo-block>
+
+    <!-- AUTO COLLAPSE DISABLED -->
+    <demo-block header="Auto Collapse Disabled" layout="normal" tags="auto-collapse">
+      <ef-accordion auto-collapse-disabled>
+        <ef-collapse header="Group One">
+          Content for Group One
+        </ef-collapse>
+        <ef-collapse header="Group Two">
+          Content for Group Two
+        </ef-collapse>
+        <ef-collapse header="Group Three">
+          Content for Group Three
+        </ef-collapse>
+      </ef-accordion>
+    </demo-block>
+
+    <!-- SET LEVEL -->
+    <demo-block header="Set Level" layout="normal" tags="level, auto-collapse">
+      <ef-accordion auto-collapse-disabled>
+        <ef-collapse level="1" header="Group One">
+          Content for Group One
+        </ef-collapse>
+        <ef-collapse level="2" header="Group Two">
+          Content for Group Two
+        </ef-collapse>
+        <ef-collapse level="3" header="Group Three">
+          Content for Group Three
+        </ef-collapse>
+      </ef-accordion>
+    </demo-block>
+
+    <!-- WITH SPACING -->
+    <demo-block header="Spacing" layout="normal" tags="spacing">
+      <ef-accordion spacing>
+        <ef-collapse header="Group One">
+          Content for Group One
+        </ef-collapse>
+        <ef-collapse header="Group Two">
+          Content for Group Two
+        </ef-collapse>
+        <ef-collapse header="Group Three">
+          Content for Group Three
+        </ef-collapse>
+      </ef-accordion>
+    </demo-block>
+
+    <demo-block header="Use Slot" layout="normal" tags="slot">
+      <ef-accordion>
+        <ef-collapse header="Close above 14D SMA">
+          <ef-checkbox slot="header-left"></ef-checkbox>
+          <div slot="header-right">8</div>
+          <ef-button slot="header-right" icon="menu" transparent></ef-button>
+          <div class="content">Content inside a div with a fixed 100px height</div>
+        </ef-collapse>
+
+        <ef-collapse header="1 Day reversal buy">
+          <ef-checkbox slot="header-left"></ef-checkbox>
+          <div slot="header-right">10</div>
+          <ef-button slot="header-right" icon="menu" transparent></ef-button>
+          <div class="content">Content inside a div with a fixed 100px height</div>
+        </ef-collapse>
+
+        <ef-collapse header="Reversal sell">
+          <ef-checkbox slot="header-left"></ef-checkbox>
+          <div slot="header-right">7</div>
+          <ef-button slot="header-right" icon="menu" transparent></ef-button>
+          <div class="content">Content inside a div with a fixed 100px height</div>
+        </ef-collapse>
+      </ef-accordion>
+    </demo-block>
+
+    <demo-block header="Nested accordion" layout="normal">
+      <ef-accordion>
+        <ef-collapse header="Group One">
+          <div class="inner">
+            <ef-accordion auto-collapse-disabled>
+              <ef-collapse header="Nested group One">
+                Content for nested group One. Auto collapse disabled
+              </ef-collapse>
+              <ef-collapse header="Nested group Two">
+                Content for nested group Two. Auto collapse disabled
+              </ef-collapse>
+            </ef-accordion>
+          </div>
+        </ef-collapse>
+        <ef-collapse header="Group Two">
+          <div class="inner">
+            <ef-accordion>
+              <ef-collapse header="Nested group One">
+                Content for nested group One. Auto collapse enabled
+              </ef-collapse>
+              <ef-collapse header="Nested group Two">
+                Content for nested group Two. Auto collapse enabled
+              </ef-collapse>
+            </ef-accordion>
+          </div>
+        </ef-collapse>
+      </ef-accordion>
+    </demo-block>
+  </body>
+</html>

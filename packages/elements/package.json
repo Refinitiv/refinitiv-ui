@@ -1,0 +1,45 @@
+{
+  "name": "@refinitiv-ui/elements",
+  "version": "5.0.0-alpha.1",
+  "description": "Element Framework Elements",
+  "author": "Refinitiv",
+  "license": "BSD-3-Clause",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "directory": "packages/elements"
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./*": "./lib/*/index.js",
+    "./lib/*": "./lib/*/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch --preserveWatchOutput --sourceMap",
+    "lint": "eslint . --fix",
+    "test": "yarn build && karma start ../../karma.conf.js",
+    "test:watch": "yarn build && yarn test --auto-watch=true --single-run=false"
+  },
+  "dependencies": {
+    "@refinitiv-ui/core": "^5.0.0-alpha.1",
+    "@refinitiv-ui/translate": "^5.0.0-alpha.1",
+    "@refinitiv-ui/utils": "^5.0.0-alpha.1",
+    "browser-sparkline": "1.1.6",
+    "chart.js": "2.9.3",
+    "date-fns": "^2.22.1",
+    "d3-color": "^2.0.0",
+    "d3-interpolate": "^2.0.1",
+    "lightweight-charts": "^3.3.0"
+  },
+  "devDependencies": {
+    "@refinitiv-ui/demo-block": "^5.0.0-alpha.1",
+    "@refinitiv-ui/test-helpers": "^5.0.0-alpha.1",
+    "@types/chart.js": "^2.9.31",
+    "@types/d3-color": "^2.0.1",
+    "@types/d3-interpolate": "^2.0.0"
+  }
+}

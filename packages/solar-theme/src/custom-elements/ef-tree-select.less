@@ -1,0 +1,72 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-tree-select';
+@import (reference) '../native-elements/button';
+@import 'ef-combo-box';
+
+:host {
+  @list-max-height: var(--list-max-height, 400px);
+  @panel-width: var(--panel-width, unit((@input-width * 2.5), px));
+  width: unit((@input-width * 2), px);
+  --panel-background-color: @tree-select-popup-background-color;
+  @border-color: @button-border-color;
+
+  [part=list] {
+    padding: 3px;
+    width: @panel-width;
+    max-width: var(--list-max-width, @panel-width);
+    max-height: @list-max-height;
+  }
+
+  [part~=full-filter], [part~=selected-filter] {
+    &:extend(button all);
+  }
+
+  [part~=filter-wrapper] {
+    padding: 0;
+    margin: 0;
+  }
+
+  [part~=control] {
+    &[part~=active] {
+      &:extend(button[toggles][active]);
+    }
+    &:focus {
+      border-style: @button-focused-border-style;
+    }
+  }
+
+  [part~=filter-control], [part~=footer], [part~=tree-control] {
+    padding: 0;
+    border: none;
+    background: none;
+  }
+
+  [part~=selected-filter] {
+    margin-left: -(@button-border-width);
+  }
+
+  [part~=tree-control] {
+    margin-top: 3px;
+    background: @header-level2-bg-color;
+    padding: 5px;
+    border: 1px solid @border-color;
+    border-bottom: none;
+  }
+
+  [part=tree], [part=pills] {
+    border: 1px solid @border-color;
+    margin-bottom: 3px;
+  }
+
+  [part=toggle-button] {
+    &:extend(button all);
+    &:extend(:host [part=toggle-button]);
+  }
+
+  [part=selected-count] {
+    margin-left: 2px;
+  }
+
+  [part=cancel-button] {
+    margin-right: 3px;
+  }
+}

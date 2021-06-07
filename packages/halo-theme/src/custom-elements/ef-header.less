@@ -1,0 +1,24 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-header';
+
+:host {
+  @split-padding: (extract(@header-padding, 2) / 2);
+  background-color: @header-level2-bg-color;
+  text-transform: uppercase;
+  padding-left: floor(@split-padding);
+
+  [part=spacer] {
+    width: ceil(@split-padding);
+  }
+
+  &[level="1"] {
+    background-color: @header-level1-bg-color;
+  }
+
+  &[level="3"] {
+    background-color: @header-level3-bg-color;
+  }
+
+  &[level="4"] {
+    background-color: @header-level4-bg-color;
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@refinitiv-ui/configurations",
+  "version": "5.0.0-alpha.1",
+  "description": "The configuration files used for Element Framework",
+  "repository": {
+    "type": "git",
+    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "directory": "packages/configurations"
+  },
+  "keywords": [
+    "Element Framework",
+    "v5",
+    "configurations",
+    "eslint",
+    "tsconfig",
+    "eslintconfig"
+  ],
+  "author": "Refinitiv",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
+    "eslint-plugin-html": "^6.1.2"
+  },
+  "peerDependencies": {
+    "eslint": "^7.19.0",
+    "typescript": "^4.2.4"
+  }
+}

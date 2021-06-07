@@ -1,0 +1,33 @@
+{
+  "name": "@refinitiv-ui/halo-theme",
+  "version": "5.0.0-alpha.0",
+  "main": "index.less",
+  "description": "Official theme for Refinitiv products",
+  "scripts": {
+    "build:dark": "elf-tc dark --variant=dark",
+    "build:light": "elf-tc light --variant=light",
+    "build": "npm run build:dark && npm run build:light",
+    "watch": "watch \"npm run build\" src --wait=10",
+    "prepack": "npm run build",
+    "prepublishOnly": "tagver patch --filter '4.x' --branch 'v4' --base '4.0.0-0' && npm version from-git"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "directory": "packages/halo-theme"
+  },
+  "author": "Refinitiv",
+  "license": "BSD-3-Clause",
+  "files": [
+    "*",
+    "!.*"
+  ],
+  "dependencies": {
+    "@refinitiv-ui/elemental-theme": "5.0.0-alpha.0"
+  },
+  "devDependencies": {
+  },
+  "publishConfig": {
+    "registry": "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.cloud"
+  }
+}

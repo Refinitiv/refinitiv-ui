@@ -1,0 +1,111 @@
+@import '../responsive';
+
+.button-defaults(@isHost: false) {
+
+  // Fixes for mobile
+  appearance: none;
+
+  // Variable controlled properties
+  border-radius: @button-border-radius;
+  background-color: @button-background-color;
+  color: @button-text-color;
+  border: @button-border;
+  height: @button-height;
+  box-shadow: @button-box-shadow;
+  padding: @button-padding;
+  outline: @button-outline;
+  font-family: @button-font-family;
+  font-size: @button-font-size;
+  font-weight: @button-font-weight;
+  min-width: @button-min-width;
+  margin: @button-margin;
+  transition: @button-transition;
+  text-align: center;
+  .states();
+
+  // Fixed properties
+  box-sizing: border-box;
+  user-select: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: bottom;
+  position: relative;
+  overflow: hidden;
+
+  &[cta] {
+    background-color: @button-cta-background-color;
+    color: @button-cta-text-color;
+    border-color: @button-cta-border-color;
+    box-shadow: @button-cta-box-shadow;
+    outline: @button-cta-outline;
+    .states(@button-cta-background-color, @button-cta-text-color);
+  };
+
+  &[toggles] {
+    background-color: @button-toggle-background-color;
+    color: @button-toggle-text-color;
+    border-color: @button-toggle-border-color;
+    box-shadow: @button-toggle-box-shadow;
+    outline: @button-toggle-outline;
+    .states(@button-toggle-background-color, @button-toggle-text-color);
+  }
+
+  &[toggles][active] {
+    background-color: @button-toggle-active-background-color;
+    color: @button-toggle-active-text-color;
+    border-color: @button-toggle-active-border-color;
+    box-shadow: @button-toggle-active-box-shadow;
+    outline: @button-toggle-active-outline;
+    .states(@button-toggle-active-background-color, @button-toggle-active-text-color);
+  }
+
+  .states(@background: @button-background-color, @foreground: @button-text-color) {
+
+    @button-text-color: @foreground;
+    @button-background-color: @background;
+
+    .desktop-specific({
+      &:focus:not([focused]), &[focused=visible] {
+        background-color: @button-focused-background-color;
+        color: @button-focused-text-color;
+        box-shadow: @button-focused-box-shadow;
+        border-color: @button-focused-border-color;
+        outline: @button-focused-outline;
+      }
+
+      &:hover {
+        background-color: @button-hover-background-color;
+        color: @button-hover-text-color;
+        box-shadow: @button-hover-box-shadow;
+
+        &:not(:focus) {
+          border-color: @button-hover-border-color;
+          outline: @button-hover-outline;
+        }
+      }
+    });
+
+    .all-browsers({
+      &:active {
+        background-color: @button-pressed-background-color;
+        color: @button-pressed-text-color;
+        box-shadow: @button-pressed-box-shadow;
+
+        &:not(:focus) {
+          border-color: @button-pressed-border-color;
+          outline: @button-pressed-outline;
+        }
+      }
+      &[disabled] {
+        background-color: @button-disabled-background-color;
+        color: @button-disabled-text-color;
+        border-color: @button-disabled-border-color;
+        box-shadow: @button-disabled-box-shadow;
+        outline: @button-disabled-outline;
+        pointer-events: none;
+      }
+    });
+
+  }
+}

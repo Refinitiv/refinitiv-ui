@@ -1,0 +1,24 @@
+@import (reference) './ef-text-field.less';
+
+:host {
+  // extending all styles from <ef-text-field />
+  &:extend(:host all);
+
+  [part='input'] {
+    appearance: textfield;
+  }
+  [part='spinner'] {
+    height: 85%;
+    margin-left: 6px;
+  }
+   &:not([no-spinner]) {
+    padding: 0 0 0 6px;
+  }
+  [part='spinner-up'],
+  [part='spinner-down'] {
+    color: @control-text-color;
+    margin: 0;
+    padding: 0;
+    min-width: 40px;
+  }
+}

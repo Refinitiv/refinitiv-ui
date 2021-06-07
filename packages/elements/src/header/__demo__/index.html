@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ef-header</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/header';
+      import '@refinitiv-ui/elements/icon';
+      import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/elements/button';
+      import '@refinitiv-ui/elements/checkbox';
+
+    </script>
+
+    <!-- HEADER LEVELS 1,2,3 (LABELS) -->
+    <demo-block header="Default" layout="normal" tags="level">
+      <ef-header level="1">Header Level 1</ef-header>
+      <ef-header level="2">Header Level 2</ef-header>
+      <ef-header level="3">Header Level 3</ef-header>
+    </demo-block>
+
+    <!-- HEADER LEVELS 1,2,3 (LINKS) -->
+    <demo-block header="Header With Link" layout="normal" tags="level,link">
+      <ef-header level="1"><a href="#">Header Level Link 1 ></a></ef-header>
+      <ef-header level="2"><a href="#">Header Level Link 2 ></a></ef-header>
+      <ef-header level="3"><a href="#">Header Level Link 3 ></a></ef-header>
+    </demo-block>
+
+    <!-- HEADER SLOT -->
+    <demo-block header="Use Slot" layout="normal" tags="level,slot">
+      <ef-header level="1">Header Level 1
+        <ef-button slot="left" icon="menu" transparent></ef-button>
+        <ef-checkbox slot="right" checked>Option</ef-checkbox>
+      </ef-header>
+      <ef-header level="2">Header Level 2
+        <ef-checkbox slot="right" checked>Option</ef-checkbox>
+      </ef-header>
+      <ef-header level="3">Header Level 3
+        <ef-button slot="right" icon="tick" transparent></ef-button>
+        <ef-checkbox slot="right" checked>Option</ef-checkbox>
+      </ef-header>
+    </demo-block>
+  </body>
+</html>

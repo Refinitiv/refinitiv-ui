@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <script type="module">
+      import '@refinitiv-ui/elements/swing-gauge';
+      import '@refinitiv-ui/demo-block';
+    </script>
+    <shady-css-scoped>
+      <style type="text/css">
+
+        ef-swing-gauge {
+          height: 160px;
+        }
+
+        ef-swing-gauge[small] {
+          width: 40%;
+          height: 60%;
+        }
+
+        ef-swing-gauge[medium] {
+          width: 60%;
+          height: 90%;
+        }
+
+        .resize {
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: flex-end;
+          height: 200px;
+        }
+
+        ef-swing-gauge[custom-color] {
+          --primary-color: #FF5000;
+          --secondary-color: #00C389;
+          --text-color: #000000;
+          --border-color: #000000;
+          --center-line-color: #000000;
+          --center-line-opacity: 1;
+        }
+
+        ef-swing-gauge[centerline-dotted] {
+          --center-line: dotted;
+        }
+
+        ef-swing-gauge[centerline-none] {
+          --center-line: none;
+        }
+      </style>
+    </shady-css-scoped>
+  </head>
+  <body>
+      <!-- DEFAULT -->
+      <demo-block layout="normal" header="Default">
+        <ef-swing-gauge id="swingGaugeDefault" primary-value="25" primary-label="In" secondary-value="95" secondary-label="Out"></ef-swing-gauge>
+      </demo-block>
+
+      <!-- Sizing -->
+      <demo-block layout="normal" header="Sizing">
+          <div class="resize">
+            <ef-swing-gauge id="swingGaugeSizing1"  primary-label="In" secondary-label="Out" small></ef-swing-gauge>
+            <ef-swing-gauge id="swingGaugeSizing2"  primary-label="In" secondary-label="Out" medium></ef-swing-gauge>
+          </div>
+        </demo-block>
+
+      <!-- Modified segment colours -->
+      <demo-block layout="normal" header="Modified colors">
+        <ef-swing-gauge id="swingGaugeColours" primary-label="Color1" secondary-label="Color2" custom-color ></ef-swing-gauge>
+      </demo-block>
+
+      <!-- Center line - Dotted -->
+      <demo-block layout="normal" header="Dotted center line">
+        <ef-swing-gauge id="swingGaugeDotted" centerline-dotted primary-label="In" secondary-label="Out"></ef-swing-gauge>
+      </demo-block>
+
+      <!-- Center line - None -->
+      <demo-block layout="normal" header="No center line">
+        <ef-swing-gauge id="swingGaugeCenterLineNone" centerline-none primary-label="In" secondary-label="Out"></ef-swing-gauge>
+      </demo-block>
+
+      <!-- No data/text -->
+      <demo-block layout="normal" header="No data">
+        <ef-swing-gauge></ef-swing-gauge>
+      </demo-block>
+
+      <!-- Long text -->
+      <demo-block layout="normal" header="Long Text">
+        <ef-swing-gauge id="swingGaugeLongText" primary-label="Longer bit of text..." secondary-label="Short"></ef-swing-gauge>
+      </demo-block>
+
+      <script type="text/javascript">
+        let value1;
+        let value2;
+        const min = 20;
+        let gauges = Array.prototype.slice.call(
+          document.querySelectorAll('ef-swing-gauge[id]'));
+
+        setInterval(function () {
+          gauges.forEach(function (gauge) {
+            value1 = min + (100 - min * 2) * Math.random();
+            value2 = 100 - value1;
+            gauge.primaryValue = value1;
+            gauge.secondaryValue = value2;
+          });
+        }, 2000);
+      </script>
+  </body>
+</html>

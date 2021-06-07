@@ -1,0 +1,57 @@
+@import 'element:ef-overlay';
+@import 'element:ef-list';
+@import 'element:ef-pill';
+@import 'element:ef-text-field';
+@import 'ef-select';
+@import '../shared-styles/scrollbar';
+@import (reference) '../responsive.less';
+
+:host {
+
+  padding: 0;
+
+  [part=input-wrapper] {
+    .touch-action();
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  [part=input] {
+    width: 100%;
+  }
+
+  [part~=button] {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: none;
+  }
+
+  [part=list] {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  .ie-specific({
+    [part=list] ::slotted(ef-list) {
+      max-height: inherit;
+    }
+  });
+
+  [part=selection-badge] {
+    @size: unit((@button-font-size + 9), px);
+    height: @size;
+    min-width: @size;
+    flex-shrink: 0;
+  }
+
+  .ie-scrollbars();
+  .mozilla-scrollbars();
+
+}
+
+.webkit-scrollbars();

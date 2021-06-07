@@ -1,0 +1,31 @@
+{
+  "name": "@refinitiv-ui/elemental-theme",
+  "version": "5.0.0-alpha.0",
+  "description": "Base theme for Element Framework Components",
+  "main": "index.less",
+  "scripts": {
+    "build:light": "elf-tc light --variant=light",
+    "build:dark": "elf-tc dark --variant=dark",
+    "build": "npm run build:light && npm run build:dark",
+    "watch": "watch \"npm run build\" src --wait=10",
+    "prepack": "npm run build",
+    "prepublishOnly": "tagver  patch --filter '4.x' --branch 'v4' --base '4.0.0-0' && npm version from-git"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "directory": "packages/elemental-theme"
+  },
+  "author": "Refinitiv",
+  "license": "BSD-3-Clause",
+  "files": [
+    "*",
+    "!.*"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+  },
+  "publishConfig": {
+    "registry": "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.cloud"
+  }
+}

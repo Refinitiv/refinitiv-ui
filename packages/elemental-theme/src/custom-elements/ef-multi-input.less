@@ -1,0 +1,34 @@
+@import '../shared-styles/scrollbar';
+@import '../shared-styles/input';
+@import 'element:ef-text-field';
+@import 'element:ef-pill';
+
+:host {
+  @size: unit((@button-font-size + 9), px);
+
+  .input-defaults;
+  .input-standard(true);
+  &[focused] {
+    .input-focus;
+  }
+
+  display: flex;
+  width: 100%;
+  height: auto;
+  min-height: @input-height;
+  justify-content: normal;  // override default justify
+  padding: unit(((@control-height - unit(@size)) / 2), px) 0;
+
+  [part=search] {
+    height: @size;
+    margin: (1px + 1 * @airiness);
+  }
+
+  [part=search-holder] {
+    align-items: center;
+  }
+  .ie-scrollbars();
+  .mozilla-scrollbars();
+}
+
+.webkit-scrollbars();

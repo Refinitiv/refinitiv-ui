@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>elf translate</title>
+    <style>
+      header {
+        font-weight: bold;
+        padding: 10px 10px 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      // load test polyfills for IE11
+      import '@formatjs/intl-getcanonicallocales/polyfill';
+      import '@formatjs/intl-pluralrules/polyfill';
+      import '@formatjs/intl-numberformat/polyfill';
+      import '@formatjs/intl-pluralrules/locale-data/en';
+      import '@formatjs/intl-numberformat/locale-data/en';
+
+      import '../lib/test/test-translate';
+      import '../lib/test/test-inherited';
+      import '../lib/test/test-promise';
+    </script>
+
+    <header>Default Navigator Language</header>
+    <test-translate></test-translate>
+
+    <header>en-GB Locale</header>
+    <test-translate lang="en-GB"></test-translate>
+
+    <header>en-US Locale</header>
+    <test-translate lang="en-US"></test-translate>
+
+    <header>utf8 ru Locale</header>
+    <test-translate lang="ru"></test-translate>
+
+    <header>Default Language with parameters (Wed Mar 03 1999 14:15:19 GMT+0000 (GMT))</header>
+    <test-translate date="920470519000" lang="en-GB"></test-translate>
+
+    <header>Fallback Language: en-ZA -> en</header>
+    <test-translate lang="en"></test-translate>
+
+    <header>Fallback Language: it -> en</header>
+    <test-translate lang="it"></test-translate>
+
+    <header>Localised properties and attributes are supported</header>
+    <test-translate with-nested></test-translate>
+
+    <header>Include plurals. IE11 needs polyfills for that</header>
+    <test-translate with-plurals></test-translate>
+
+    <header>Inherit one translated element from another</header>
+    <test-inherited></test-inherited>
+
+    <header>Test Promise</header>
+    <test-promise></test-promise>
+  </body>
+</html>

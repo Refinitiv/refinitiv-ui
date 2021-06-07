@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Color Dialog</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  </head>
+  <body>
+    <script type="module">
+      // Translations
+      import '@refinitiv-ui/phrasebook/lib/locale/de/color-dialog';
+      import '@refinitiv-ui/phrasebook/lib/locale/ja/color-dialog';
+      import '@refinitiv-ui/phrasebook/lib/locale/zh/color-dialog';
+      import '@refinitiv-ui/phrasebook/lib/locale/zh-hant/color-dialog';
+    </script>
+
+    <script type="module">
+      import '@refinitiv-ui/elements/color-dialog';
+      import '@refinitiv-ui/demo-block';
+    </script>
+    <style>
+      .output {
+        width: 100%;
+        height: 100px;
+      }
+
+      .hex-input {
+        width: 100px !important;
+      }
+
+      textarea {
+        height: 100px;
+        width: 100%;
+        resize: none;
+      }
+    </style>
+    <demo-block layout="normal" header="Default">
+      Default Hex Value (Optional): <input id="hexInputDefault" class="hex-input" value="">
+      <button class="small" onclick="openDefaultColorDialog()">Open Color Dialog</button>
+      <ef-color-dialog id="defaultColorDialog"></ef-color-dialog>
+      <div>
+        <p> Output: </p>
+        <textarea readonly id="defaultColorOutput"></textarea>
+      </div>
+      <script>
+        // Default Color Dialog
+        const defaultColorDialog = document.getElementById('defaultColorDialog');
+        const hexInputDefault = document.getElementById('hexInputDefault');
+        const defaultColorOutput = document.getElementById('defaultColorOutput');
+
+        window.openDefaultColorDialog = function () {
+          defaultColorDialog.setAttribute('value', hexInputDefault.value);
+          defaultColorDialog.opened = true;
+        };
+
+        defaultColorDialog.addEventListener('value-changed', function (event) {
+          const value = event.detail.value;
+          hexInputDefault.value = value;
+          defaultColorOutput.value += 'Value Change : ' + value + '\n';
+        });
+      </script>
+    </demo-block>
+
+    <demo-block layout="normal" header="No Color">
+      Default Hex Value (Optional): <input id="hexInputNoColor" class="hex-input" value="">
+      <button class="small" onclick="openNoColorColorDialog()">Open Color Dialog</button>
+      <ef-color-dialog id="noColorColorDialog" allow-nocolor></ef-color-dialog>
+      <div>
+        <p> Output: </p>
+        <textarea readonly id="noColorOutput"></textarea>
+      </div>
+    </demo-block>
+    <script>
+      // No-Color Color Dialog
+      const noColorDialog = document.getElementById('noColorColorDialog');
+      const hexInputNoColor = document.getElementById('hexInputNoColor');
+      const noColorOutput = document.getElementById('noColorOutput');
+
+      window.openNoColorColorDialog = function () {
+        noColorDialog.setAttribute('value', hexInputNoColor.value);
+        noColorDialog.opened = true;
+      };
+
+      noColorDialog.addEventListener('value-changed', function (e) {
+        const value = e.detail.value;
+        hexInputNoColor.value = value;
+        noColorOutput.value += 'Value Change : ' + value + '\n';
+      });
+    </script>
+
+    <demo-block header="Translations" tags="translations,i18n">
+      <ef-color-dialog id="translationsColorDialog"></ef-color-dialog>
+      <ef-button onclick="openTranslateColorDialog('')">Default</ef-button>
+      <ef-button onclick="openTranslateColorDialog('de')">de</ef-button>
+      <ef-button onclick="openTranslateColorDialog('en')">en</ef-button>
+      <ef-button onclick="openTranslateColorDialog('ja')">ja</ef-button>
+      <ef-button onclick="openTranslateColorDialog('zh')">zh</ef-button>
+      <ef-button onclick="openTranslateColorDialog('zh-hant')">zh-hant</ef-button>
+      <script>
+        const translationsColorDialog = document.getElementById('translationsColorDialog');
+        window.openTranslateColorDialog = function (lang) {
+          translationsColorDialog.lang = lang;
+          translationsColorDialog.opened = true;
+        };
+      </script>
+    </demo-block>
+  </body>
+</html>

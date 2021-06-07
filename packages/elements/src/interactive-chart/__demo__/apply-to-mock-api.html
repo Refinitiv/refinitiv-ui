@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>ef-interactive-chart</title>
+  <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+</head>
+
+<body>
+  <script type="module">
+    import '@refinitiv-ui/elements/interactive-chart';
+    import '@refinitiv-ui/demo-block';
+  </script>
+
+  <h3>Interactive Chart</h3>
+  <code>
+    <a href="./index.html"><button>Basics</button></a>
+    <a href="./apply-to-mock-api.html"><button>Applied to Mock API</button></a>
+  </code>
+
+  <demo-block layout="normal" header="Re passing config">
+    <ef-interactive-chart id="re_passing_config"></ef-interactive-chart>
+    <button id="config1">Config 1</button>
+    <button id="config2">Config 2</button>
+    <button id="config5">OHLC : Mock call API</button>
+    <button id="config6">Price : Mock call API</button>
+    <button id="config3">No data</button>
+    <button id="config4">Config wrong</button>
+
+    <script>
+      const chart = document.getElementById('re_passing_config');
+      const customPriceFormatter = ({ isRebaseZeroChecked, precision }) => (price) => {
+        if (price) {
+          price = Number(price);
+          const additionSymbol = isRebaseZeroChecked ? '%' : '';
+          return `${price.toFixed(precision)}${additionSymbol}`;
+        }
+      };
+      const config1 = {
+        series: [{
+          symbol: 'Price',
+          type: 'area',
+          legendPriceFormatter: customPriceFormatter({ isRebaseZeroChecked: true, precision: 3 }),
+          data: [
+            { time: '2019-04-11', value: 180.01 },
+            { time: '2019-04-12', value: 156.63 },
+            { time: '2019-04-13', value: 166.64 },
+            { time: '2019-04-14', value: 181.89 }
+          ],
+          seriesOptions: {
+            priceFormat: {
+              type: 'custom',
+              formatter: customPriceFormatter({ isRebaseZeroChecked: true, precision: 3 })
+            }
+          }
+        }, {
+          symbol: 'Price2',
+          type: 'area',
+          legendPriceFormatter: customPriceFormatter({ isRebaseZeroChecked: true, precision: 3 }),
+          data: [
+            { time: '2019-04-11', value: 190.01 },
+            { time: '2019-04-12', value: 256.63 },
+            { time: '2019-04-13', value: 168.64 },
+            { time: '2019-04-14', value: 381.89 }
+          ],
+          seriesOptions: {
+            priceFormat: {
+              type: 'custom',
+              formatter: customPriceFormatter({ isRebaseZeroChecked: true, precision: 3 })
+            }
+          }
+        }]
+      };
+      const config2 = {
+        series: [{
+          symbol: 'Price',
+          type: 'candlestick',
+          legendPriceFormatter: customPriceFormatter({ isRebaseZeroChecked: true, precision: 2 }),
+          data: [
+            { time: '2019-04-11', open: 141.77, high: 170.39, low: 120.25, close: 145.72 },
+            { time: '2019-04-12', open: 145.72, high: 147.99, low: 100.11, close: 108.19 },
+            { time: '2019-04-13', open: 108.19, high: 118.43, low: 74.22, close: 75.16 },
+            { time: '2019-04-14', open: 75.16, high: 82.84, low: 36.16, close: 45.72 }
+          ],
+          seriesOptions: {
+            priceFormat: {
+              type: 'custom',
+              formatter: customPriceFormatter({ isRebaseZeroChecked: true, precision: 2 })
+            }
+          }
+        },
+        {
+          symbol: 'Price3',
+          type: 'candlestick',
+          legendPriceFormatter: customPriceFormatter({ isRebaseZeroChecked: true, precision: 2 }),
+          data: [
+            { time: '2018-12-19', open: 141.77, high: 170.39, low: 120.25, close: 145.72 },
+            { time: '2018-12-20', open: 145.72, high: 147.99, low: 100.11, close: 108.19 },
+            { time: '2018-12-21', open: 108.19, high: 118.43, low: 74.22, close: 75.16 },
+            { time: '2018-12-22', open: 75.16, high: 82.84, low: 36.16, close: 45.72 }
+          ],
+          seriesOptions: {
+            priceFormat: {
+              type: 'custom',
+              formatter: customPriceFormatter({ isRebaseZeroChecked: true, precision: 2 })
+            }
+          }
+        }]
+      };
+
+      const config3 = {
+        series: [{
+          symbol: 'Price',
+          type: 'area'
+        }]
+      };
+
+      chart.config = config1;
+
+      const cfg1 = document.getElementById('config1');
+      const cfg2 = document.getElementById('config2');
+      const cfg3 = document.getElementById('config3');
+      const cfg4 = document.getElementById('config4');
+      const cfg5 = document.getElementById('config5');
+      const cfg6 = document.getElementById('config6');
+
+
+      var genDataPrice = function (total, start, init) {
+        var initVal = init || 10000;
+        var startDate = start || new Date();
+        var ret = [];
+        total = total < 0 ? 10 : total;
+        for (var i = 0; i < total; i++) {
+          var volatility = (Math.random() * (4.5) - 2) / 100000; // random % volatility
+          var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
+          var val = initVal + initVal * volatility;
+          initVal = val;
+          var point = {
+            time: date.getTime() / 1000.0,
+            value: val.toFixed(2)
+          };
+          ret.push(point);
+        }
+        return ret;
+      };
+
+      var genDataOHLC = function (total, start, init) {
+        var initVal = init || 20;
+        total = total < 0 ? 10 : total;
+        var startDate = start || new Date();
+        var ret = [];
+        for (var i = 0; i < total; i++) {
+          var volatility = (Math.random() * (4.5) - 2) / 100000; // random % volatility
+          var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
+          var openVal = initVal + initVal * volatility;
+          var closeVal = openVal + (openVal * volatility * 2);
+          var highVal = openVal > closeVal ? openVal + 0.1 : closeVal + 0.5;
+          var lowVal = openVal < closeVal ? openVal - 0.5 : closeVal - 0.2;
+          initVal = closeVal;
+          var point = {
+            time: date.getTime() / 1000.0,
+            open: openVal.toFixed(2),
+            high: highVal.toFixed(2),
+            low: lowVal.toFixed(2),
+            close: closeVal.toFixed(2)
+          };
+          ret.push(point);
+        }
+        return ret;
+      };
+
+
+      var randomNumber = function (start, end) {
+        return Math.floor(Math.random() * end) + start;
+      };
+
+      var genConfig = function (chartType) {
+        var config = { series: [] };
+        var randomArray = randomNumber(2, 8);
+        var randomValue = randomNumber(1000, 99999);
+
+        for (var index = 0; index < randomArray; index++) {
+          var randomDataSeries = randomNumber(500, 2000);
+
+          var data = [];
+          if(chartType === 'bar' || chartType === 'candlestick') {
+            data = genDataOHLC(randomDataSeries, null, randomValue);
+          }
+          else {
+            data = genDataPrice(randomDataSeries, null, randomValue);
+          }
+
+          var series = {
+            legendPriceFormatter: customPriceFormatter({ isRebaseZeroChecked: true, precision: 2 }),
+            type: chartType,
+            data: data,
+            symbol: 'price' + index,
+            seriesOptions: {
+              priceFormat: {
+                type: 'custom',
+                formatter: customPriceFormatter({ isRebaseZeroChecked: true, precision: 2 })
+              }
+            }
+          };
+          config.series.push(series);
+        }
+        return config;
+      };
+
+      var updateMockConfig = function (dataConfig) {
+
+        var oldData = dataConfig;
+        var removeDataIndex = randomNumber(1, dataConfig.series.length);
+
+        if(dataConfig.series[removeDataIndex]) {
+          var backupData = dataConfig.series[removeDataIndex]['data'];
+          // Remove data
+          oldData.series[removeDataIndex].data = [];
+          chart.config = oldData;
+
+          // loading Api
+          setTimeout(function () { // add delay re-passing config
+            // Update new data after call api success
+            dataConfig.series[removeDataIndex].data = backupData;
+            chart.seriesList[removeDataIndex].setData(backupData);
+            chart.config = dataConfig;
+          }, 1500);
+        }
+      };
+
+      cfg1.addEventListener('click', function () {
+        setTimeout(function () { // add delay re-passing config
+          chart.config = config1;
+        }, 1000);
+      });
+
+      cfg2.addEventListener('click', function () {
+        setTimeout(function () { // add delay re-passing config
+          chart.config = config2;
+        }, 1000);
+      });
+
+      cfg3.addEventListener('click', function () {
+        setTimeout(function () { // add delay re-passing config
+          chart.config = config3;
+        }, 1000);
+      });
+
+      cfg4.addEventListener('click', function () {
+        setTimeout(function () { // add delay re-passing config
+          chart.config = {};
+        }, 1000);
+      });
+
+      cfg5.addEventListener('click', function () {
+        var dataConfig = genConfig('bar', 100);
+        setTimeout(function () {
+          if(dataConfig) {
+            updateMockConfig(dataConfig);
+          }
+        }, 1000);
+      });
+
+      cfg6.addEventListener('click', function () {
+        var dataConfig = genConfig('line', 100);
+        setTimeout(function () {
+          if(dataConfig) {
+            updateMockConfig(dataConfig);
+          }
+        }, 1000);
+      });
+    </script>
+  </demo-block>
+
+</body>
+
+</html>

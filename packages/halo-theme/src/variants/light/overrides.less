@@ -1,0 +1,153 @@
+// Light Overrides
+
+// Scheme colours
+@scheme-color-tertiary                    : @color-alabaster;
+@scheme-color-complementary               : @color-lights-out; // TODO: Not sure if this is right color
+@scheme-color-confirm                     : @dataviz-color-green;
+@scheme-color-warning                     : @dataviz-color-yellow;
+@scheme-color-error                       : @dataviz-color-darkred;
+
+// Globals
+@global-background-color                  : @color-white;
+@global-text-color                        : @color-lights-out;
+@global-box-shadow-color                  : rgba(0, 0, 0, 0.25);
+
+// Control globals
+@control-text-color                       : @color-tundora;
+@control-border-color                     : @color-scorpion;
+
+// Inputs
+@input-hover-text-color                   : @color-lights-out;
+@input-hover-border-color                 : @color-lights-out;
+
+// Table/Grid
+@grid-row-background-color                : @panel-background-color;
+@grid-border-color                        : @color-desert-storm;
+@grid-row-text-color                      : @control-text-color;
+@grid-header-text-color                   : @grid-row-text-color;
+@grid-header-background-color             : @color-concrete;
+@grid-header-hover-text-color             : @global-text-color;
+@grid-header-hover-background-color       : @color-mercury;
+@grid-row-hover-text-color                : @global-text-color;
+@grid-row-hover-background-color          : fade(@grid-header-background-color, 100%);
+@grid-row-active-background-color         : fade(@global-background-color, 100%);
+@grid-row-active-text-color               : @global-text-color;
+
+//Buttons
+@button-border-color                      : @color-silver;
+@button-focused-text-color                : @color-black;
+@button-cta-text-color                    : @color-silver;
+@button-cta-border-color                  : @color-lights-out;
+
+// Tabs
+@tab-border-color                         : @color-white;
+@tab-background-color                     : @color-mercury;
+@tab-active-text-color                    : @color-white;
+@tab-vertical-border-color                : @color-alto;
+
+// Tab Bar
+@tab-bar-background-color                 : @color-concrete;
+
+// Links
+@link-text-color                          : @color-torea-bay;
+@link-hover-text-color                    : @scheme-color-primary;
+
+// Panels
+@panel-background-color                   : @color-alabaster;
+@panel-box-shadow                         : 0px 2px 8px @global-box-shadow-color;
+
+// Tooltip
+@tooltip-background-color                 : @color-barley-white;
+
+// DataViz
+@dataviz-color-primary                    : @color-blue-ribbon;
+
+// DataViz - Standard
+@dataviz-color-grey                       : @color-dusty-grey;
+@dataviz-color-red                        : @color-chestnut-rose;
+@dataviz-color-yellow                     : @color-buddha-gold;
+@dataviz-color-green                      : @color-everglade;
+
+// DataViz - Light
+@dataviz-color-lightred                   : @color-sea-pink;
+@dataviz-color-lightgreen                 : @color-vista-blue;
+@dataviz-color-lightyellow                : @color-sparkler;
+
+// DataViz - Dark
+@dataviz-color-darkred                    : @color-chestnut-rose;
+@dataviz-color-darkyellow                 : @color-olive;
+@dataviz-color-darkgreen                  : @color-everglade;
+
+// DataViz - Charting
+@dataviz-color-1                          : @dataviz-color-primary;
+@dataviz-color-2                          : @color-black;
+@dataviz-color-3                          : @color-olive;
+@dataviz-color-4                          : @color-butterfly;
+@dataviz-color-5                          : @color-teal;
+@dataviz-color-6                          : @color-grenadier;
+@dataviz-color-7                          : @color-rain-forest;
+@dataviz-color-8                          : @color-cerise-red;
+@dataviz-color-9                          : @color-scorpion;
+@dataviz-color-10                         : @color-jelly-bean;
+@dataviz-color-11                         : @color-genoa;
+@dataviz-color-12                         : @color-brown-rust;
+@dataviz-color-13                         : @color-torea-bay;
+@dataviz-color-14                         : @color-dove-grey ;
+@dataviz-color-15                         : @color-saddle-brown;
+@dataviz-color-16                         : @color-victoria;
+@dataviz-color-17                         : @color-sherpa-blue;
+@dataviz-color-18                         : @color-oregon;
+@dataviz-color-19                         : @color-kaitoke-green;
+@dataviz-color-20                         : @color-maroon-flush;
+@dataviz-color-21                         : @color-tundora;
+@dataviz-color-22                         : @color-chathams-blue;
+@dataviz-color-23                         : @color-eden;
+@dataviz-color-24                         : @color-mule-fawn;
+@dataviz-color-25                         : @color-heath;
+
+// Separators
+@separator-color                          : @color-alto;
+
+// Slider
+@slider-track-color                       : @color-alto;
+@slider-step-color                        : @scheme-color-primary;
+@slider-thumb-color                       : @color-alabaster;
+
+// List
+@list-item-selected-text-color            : @color-lights-out;
+@list-item-header-text-color              : @color-dove-grey;
+
+// Scrollbar
+@scrollbar-track-background-color         : @color-concrete;
+@scrollbar-thumb-background-color         : @color-dusty-grey;
+
+// Movement colours profile (American)
+@tickup-color-american                    : @color-everglade;
+@tickdown-color-american                  : @color-chestnut-rose;
+@positive-color-american                  : @color-everglade;
+@neutral-color-american                   : @color-tundora;
+@negative-color-american                  : @color-chestnut-rose;
+
+// Movement colours profile (Asian1)
+@tickup-color-asian1                      : @color-chestnut-rose;
+@tickdown-color-asian1                    : @color-everglade;
+@positive-color-asian1                    : @color-chestnut-rose;
+@neutral-color-asian1                     : @color-tundora;
+@negative-color-asian1                    : @color-everglade;
+
+// Movement colours profile (Asian2)
+@tickup-color-asian2                      : @color-everglade;
+@tickdown-color-asian2                    : @color-chestnut-rose;
+@positive-color-asian2                    : @color-blue-ribbon;
+@neutral-color-asian2                     : @color-everglade;
+@negative-color-asian2                    : @color-chestnut-rose;
+
+// Tick colours (European)
+@tickup-color-european                    : @color-everglade;
+@tickdown-color-european                  : @color-chestnut-rose;
+@positive-color-european                  : @color-blue-ribbon;
+@neutral-color-european                   : @color-everglade;
+@negative-color-european                  : @color-chestnut-rose;
+
+// Tick text colour (All profiles)
+@tick-text-color                          : @color-white;

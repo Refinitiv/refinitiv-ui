@@ -1,0 +1,45 @@
+@import (reference) './ef-text-field.less';
+
+@import '../shared-styles/button';
+@import '@refinitiv-ui/elemental-theme/src/native-elements/button';
+
+:host {
+  &:extend(:host all);
+
+  [part='input'] {
+    appearance: textfield;
+  }
+
+  [part='spinner'] {
+    line-height: 0;
+    height: 100%;
+    max-width: 23px;
+    margin: 0 1px 0 5px;
+  }
+
+  &:not([no-spinner]) {
+    padding: 0 0 0 5px;
+  }
+
+  [part='spinner-up'],
+  [part='spinner-down'] {
+    .button-defaults();
+    padding: 0;
+    border: none;
+    min-height: 9px;
+  }
+
+  [part='spinner-down'] {
+    margin-top: 0;
+  }
+
+  &[readonly] {
+    [part='spinner-up'],
+    [part='spinner-down'] {
+      &:hover {
+        color: @button-text-color;
+        background-color: @button-background-color;
+      }
+    }
+  }
+}

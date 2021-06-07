@@ -1,0 +1,68 @@
+@import 'element:ef-number-field';
+@import (reference) 'ef-number-field';
+@import '../responsive';
+
+:host {
+  &:extend(:host); // Extend ef-number-field
+  width: auto;
+  min-width: max-content;
+  padding: 0;
+
+  [part=input] {
+    width: 30px;
+    margin: 0;
+    text-align: center;
+    padding: 0;
+    color: inherit;
+  }
+
+  [part=divider]::before {
+    content: ':';
+  }
+
+  [part=toggle] {
+    width: 20px;
+    font-size: 50%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    outline: none;
+    cursor: pointer;
+    .touch-action();
+  }
+
+  [part=input], [part=toggle] {
+    height: 100%;
+    position: relative;
+    &:focus::after, &[focused]::after {
+      content: '';
+      border-right: 8px solid transparent;
+      border-bottom: 4px solid @input-focused-border-color;
+      border-left: 8px solid transparent;
+      position: absolute;
+      left: calc(50% - 8px);
+      bottom: 0;
+    }
+  }
+
+  [part=toggle-item] {
+    opacity: 0.5;
+    &[active] {
+      opacity: 1;
+    }
+  }
+}
+
+:host:hover {
+  &:extend(:host:hover); // Extend ef-number-field:hover
+}
+
+:host[focused] {
+  &:extend(:host[focused]); // Extend ef-number-field[focused]
+}
+
+:host[disabled] {
+  &:extend(:host[disabled]); // Extend ef-number-field[disabled]
+}

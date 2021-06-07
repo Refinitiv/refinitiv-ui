@@ -1,0 +1,26 @@
+{
+  "name": "@refinitiv-ui/phrasebook",
+  "version": "5.0.0-alpha.1",
+  "description": "Collection of messages in ELF components for translation",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "directory": "packages/phrasebook"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && mocha __test__/**/*.js --require esm"
+  },
+  "author": "Refinitiv",
+  "license": "BSD-3-Clause",
+  "organisationConfig": {
+    "public": true
+  },
+  "devDependencies": {
+    "mocha": "^8.4.0",
+    "esm": "^3.2.25"
+  }
+}

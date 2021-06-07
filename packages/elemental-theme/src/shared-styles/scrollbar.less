@@ -1,0 +1,211 @@
+// Helper Mixins. Shared between IE & Webkit.
+.scrollbar-corner-background(@property: background) {
+  @{property}: @scrollbar-corner-background-color;
+}
+.scrollbar-thumb-background(@property: background) {
+  @{property}: @scrollbar-thumb-background-color;
+}
+.scrollbar-thumb-background-hover(@property: background) {
+  @{property}: @scrollbar-thumb-hover-background-color;
+}
+.scrollbar-thumb-background-active(@property: background) {
+  @{property}: @scrollbar-thumb-active-background-color;
+}
+.scrollbar-track-background(@property: background) {
+  @{property}: @scrollbar-track-background-color;
+}
+
+// Webkit Scrollbars
+// Includes Chrome, Safari, Opera and most mobile devices
+.webkit-scrollbars() {
+
+  @pixel-legth: 2; // Can be 1 or 2, but no more.
+  @arrow-size: round((@scrollbar-size * 0.6));
+  @pixel: linear-gradient(@scrollbar-thumb-background-color, @scrollbar-thumb-background-color);
+  @pixel-hover: linear-gradient(@scrollbar-thumb-hover-background-color, @scrollbar-thumb-hover-background-color);
+  @pixel-active: linear-gradient(@scrollbar-thumb-active-background-color, @scrollbar-thumb-active-background-color);
+
+  // Function to draw an arrow
+  .draw-arrow(@s, @type, @direction: up) {
+
+    // Make size an odd number
+    @size: (ceil((@s / 2)) * 2 + 1);
+
+    // Function to draw the individual pieces/pixels
+    .draw(@n) when (@n > 0) {
+
+      .draw((@n - 1)); // Loop: Draw until finished
+
+      @index: (@size - @n);
+      @arrow-depth: ceil((@size / 2));
+      @midpoint-x: (@scrollbar-size / 2);
+      @midpoint-y: (@scrollbar-button-size / 2);
+
+      background-image+: @type; // Draw the piece/pixel
+
+      // Up Arrow
+      & when (@direction = up) {
+        @point-start-y: (@midpoint-y + @arrow-depth / 2 - floor((@pixel-legth / 2)));
+        @point-start-x: (@midpoint-x - @size / 2);
+        & when (@index < @arrow-depth) {
+          background-position+: unit((@point-start-x + @index), px) unit((@point-start-y - @index - 1), px);
+        }
+        & when (@index >= @arrow-depth) {
+          background-position+: unit((@point-start-x + @index), px) unit((@point-start-y - @n), px);
+        }
+      }
+
+      // Down Arrow
+      & when (@direction = down) {
+        @point-start-y: (@scrollbar-button-size - @midpoint-y - @arrow-depth / 2);
+        @point-start-x: (@midpoint-x - @size / 2);
+        & when (@index < @arrow-depth) {
+          background-position+: unit((@point-start-x + @index), px) unit((@point-start-y + @index), px);
+        }
+        & when (@index >= @arrow-depth) {
+          background-position+: unit((@point-start-x + @index), px) unit((@point-start-y + @n - 1), px);
+        }
+      }
+
+      // Left Arrow
+      & when (@direction = left) {
+        @point-start-y: (@midpoint-y + @arrow-depth / 2 - 1);
+        @point-start-x: (@midpoint-x - @size / 2);
+        & when (@index < @arrow-depth) {
+          background-position+: unit((@point-start-y - @index - 1), px) unit((@point-start-x + @index), px);
+        }
+        & when (@index >= @arrow-depth) {
+          background-position+: unit((@point-start-y - @n), px) unit((@point-start-x + @index), px);
+        }
+      }
+
+      // Right Arrow
+      & when (@direction = right) {
+        @point-start-y: (@scrollbar-button-size - @midpoint-y - @arrow-depth / 2);
+        @point-start-x: (@midpoint-x - @size / 2);
+        & when (@index < @arrow-depth) {
+          background-position+: unit((@point-start-y + @index), px) unit((@point-start-x + @index), px);
+        }
+        & when (@index >= @arrow-depth) {
+          background-position+: unit((@point-start-y + @n - 1), px) unit((@point-start-x + @index), px);
+        }
+      }
+
+    }
+    .draw(@size);
+  }
+
+  &::-webkit-scrollbar {
+    width: @scrollbar-size;
+    height: @scrollbar-size;
+  }
+
+  &::-webkit-scrollbar-button {
+    .scrollbar-track-background;
+    height: @scrollbar-button-size;
+    width: @scrollbar-button-size;
+    display: block;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    .scrollbar-thumb-background;
+    .scrollbar-track-background(border-color);
+    border-radius: @scrollbar-thumb-border-radius;
+    border-width: @scrollbar-thumb-margin;
+    border-style: solid;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    .scrollbar-thumb-background-hover;
+  }
+
+  &::-webkit-scrollbar-thumb:active {
+    .scrollbar-thumb-background-active;
+  }
+
+  &::-webkit-scrollbar-track {
+    .scrollbar-track-background;
+  }
+
+  &::-webkit-scrollbar-corner {
+    .scrollbar-corner-background;
+  }
+
+  &::-webkit-scrollbar-button:start:increment,
+  &::-webkit-scrollbar-button:end:decrement {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-button {
+    background-size: 1px unit(@pixel-legth, px);
+    background-repeat: no-repeat;
+  }
+
+  &::-webkit-scrollbar-button:horizontal {
+    background-size: unit(@pixel-legth, px) 1px;
+  }
+
+  &::-webkit-scrollbar-button:vertical:start:decrement {
+    .draw-arrow(@arrow-size, @pixel, up);
+    &:hover {
+      .draw-arrow(@arrow-size, @pixel-hover, up);
+    }
+    &:active {
+      .draw-arrow(@arrow-size, @pixel-active, up);
+    }
+  }
+
+  &::-webkit-scrollbar-button:vertical:end:increment {
+    .draw-arrow(@arrow-size, @pixel, down);
+    &:hover {
+      .draw-arrow(@arrow-size, @pixel-hover, down);
+    }
+    &:active {
+      .draw-arrow(@arrow-size, @pixel-active, down);
+    }
+  }
+
+  &::-webkit-scrollbar-button:horizontal:start:decrement {
+    .draw-arrow(@arrow-size, @pixel, left);
+    &:hover {
+      .draw-arrow(@arrow-size, @pixel-hover, left);
+    }
+    &:active {
+      .draw-arrow(@arrow-size, @pixel-active, left);
+    }
+  }
+
+  &::-webkit-scrollbar-button:horizontal:end:increment {
+    .draw-arrow(@arrow-size, @pixel, right);
+    &:hover {
+      .draw-arrow(@arrow-size, @pixel-hover, right);
+    }
+    &:active {
+      .draw-arrow(@arrow-size, @pixel-active, right);
+    }
+  }
+}
+
+// Basic colouring for IE
+.ie-scrollbars() {
+  & {
+    .scrollbar-thumb-background(scrollbar-face-color);
+    .scrollbar-thumb-background(scrollbar-shadow-color);
+    .scrollbar-thumb-background(scrollbar-highlight-color);
+    .scrollbar-thumb-background(scrollbar-arrow-color);
+    .scrollbar-track-background(scrollbar-track-color);
+    .scrollbar-corner-background(scrollbar-3dlight-color);
+    .scrollbar-corner-background(scrollbar-darkshadow-color);
+  }
+}
+
+.mozilla-scrollbars () {
+  & {
+    scrollbar-color: @scrollbar-thumb-background-color @scrollbar-track-background-color;
+  }
+}
+
+.scrollbars() {
+  .webkit-scrollbars();
+  .ie-scrollbars();
+}

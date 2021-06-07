@@ -1,0 +1,20 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-led-gauge';
+
+:host {
+
+  height: 68px;
+  font-size: 10px;
+
+  --led-width: 5px;
+  --led-spacing: 4px;
+
+  --top-selected-color: @dataviz-color-orange;
+  --bottom-selected-color: @dataviz-color-cyan;
+
+  --range-color: @dataviz-color-blue;
+
+  [part=label] {
+    padding: 2px;
+  }
+
+}

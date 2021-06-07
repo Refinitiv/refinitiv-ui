@@ -1,0 +1,73 @@
+@import 'element:ef-text-field';
+@import 'element:ef-number-field';
+@import 'element:ef-button';
+@import 'element:ef-panel';
+@import 'element:ef-dialog';
+@import '../responsive';
+
+:host {
+  width: 425px;
+
+  [part=content-section] {
+    display: flex;
+    min-width: 0;
+  }
+
+  [part=inputs-container] {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-left: 15px;
+    & > * {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+  }
+
+  [part=color-input],
+  [part=preview-color] {
+    .touch-action();
+    margin: 2px;
+    width: 100px;
+    box-sizing: border-box;
+  }
+
+  [part=preview-color] {
+    border: 1px solid @control-border-color;
+    height: @control-height; // use same height as input box
+    margin-bottom: 10px;
+  }
+
+  [part=palettes-container] {
+    width: 100%;
+  }
+
+  [part=color-palettes] {
+    width: 100%;
+    height: calc(100% - 23px);
+  }
+
+  [part=grayscale-palettes] {
+    height: 23px;
+  }
+
+  [part=color-palettes], [part=grayscale-palettes] {
+    .touch-action();
+  }
+
+  [part=footer] {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  [part=button] {
+    .touch-action();
+    margin: @panel-padding;
+    margin-left: round((min(@panel-padding) / 2));
+    &:first-child {
+      margin-right: 0;
+    }
+  }
+}

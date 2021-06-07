@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Item</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <style>
+      .truncated {
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/item';
+      import '@refinitiv-ui/demo-block';
+    </script>
+
+    <demo-block header="Default" layout="normal" tags="default">
+      <ef-item>Text Content</ef-item>
+      <ef-item><b>Custom Content Tags</b></ef-item>
+    </demo-block>
+    <demo-block header="Label, content and types usage" layout="normal" tags="header,divider,label,truncated">
+      <ef-item type="header" label="Header Label"></ef-item>
+      <ef-item type="header">Header Content</ef-item>
+      <ef-item type="header" label="Header label">Header Content with label</ef-item>
+      <ef-item class="truncated" type="header" label="Header label">Header Content  with label will be truncated. Header Content  with label will be truncated</ef-item>
+      <ef-item type="divider"></ef-item>
+      <ef-item label="Label Content"></ef-item>
+      <ef-item label="This text should not be displayed">Item Content with label</ef-item>
+      <ef-item>Long content inside item that should not be truncated</ef-item>
+      <ef-item type="divider"></ef-item>
+      <ef-item class="truncated" label="This long label will be truncated at some point"></ef-item>
+      <ef-item class="truncated" label="Item Label">This long Content with Label will be truncated at some point</ef-item>
+      <ef-item class="truncated">This long content will be truncated at some point</ef-item>
+    </demo-block>
+    <demo-block header="Usage" layout="normal" tags="icon,disabled,selected,type,highlighted,readonly,divider">
+      <ef-item icon="menu">Item with icon</ef-item>
+      <ef-item disabled icon="tick">Disabled item with icon</ef-item>
+      <ef-item type="divider"></ef-item>
+      <ef-item selected>Selected Item</ef-item>
+      <ef-item highlighted>Highlighted Item</ef-item>
+      <ef-item type="divider"></ef-item>
+      <ef-item disabled>Disabled Item</ef-item>
+      <ef-item readonly>Readonly Item</ef-item>
+      <ef-item type="divider"></ef-item>
+      <ef-item multiple>Multiple Item</ef-item>
+      <ef-item multiple selected>Multiple Selected Item</ef-item>
+      <ef-item type="divider"></ef-item>
+    </demo-block>
+    <demo-block header="Slots and icons" layout="normal" tags="slots,icon">
+      <ef-item>
+        <div slot="left">Left Slot</div>
+        Center Slot Content
+        <div slot="right">Right Slot</div>
+      </ef-item>
+      <ef-item icon="settings">
+        <div slot="left"><u>Left slot</u></div>
+        <span>Test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap</span>
+        <div slot="right"><u>Right Slot</u></div>
+      </ef-item>
+      <ef-item icon="search" label="Icon with slot">
+        <div slot="left">Left</div>
+        <div slot="right">Right</div>
+      </ef-item>
+    </demo-block>
+    <demo-block header="Item types usage with sublabel" layout="normal" tags="header,divider,label,truncated,subLabel">
+      <ef-item type="header" label="Header Label with sub label" sub-label="This is the sub label"></ef-item>
+      <ef-item type="divider" sub-label="This is the sub label"></ef-item>
+      <ef-item label="Label Content with sub label" sub-label="This is the sub label"></ef-item>
+      <ef-item sub-label="This is the sub label">Item content with sub-label</ef-item>
+      <ef-item class="truncated" label="Label Content with truncated sub label" sub-label="This is the sub label which should be truncated at some point"></ef-item>
+      <ef-item sub-label="This is the sub label without label or content"></ef-item>
+    </demo-block>
+    <demo-block header="Items with special conditions" layout="normal" tags="special">
+      <ef-item for="element_id">Open menu for</ef-item>
+    </demo-block>
+  </body>
+</html>

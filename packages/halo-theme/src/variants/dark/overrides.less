@@ -1,0 +1,262 @@
+/*
+HALO THEME DARK
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+These variables inherits from Elemental Theme but require to
+be overridden following Halo specifications.
+
+New variables that only need for Halo should be added in variables.less instead.
+
+Rules:
+‾‾‾‾‾
+1. Defines only variables that need to be customised.
+2. Any size should align with 4px baseline grid system.
+3. Uses colour variables. Do not use colour code e.g. hex.
+4. Test components that use the variables after any modifications.
+5. Do not change something for the sake of it, it can have disastrous effects.
+6. Never rename a variable.
+***********************************************************************************/
+
+// Scheme colours
+@scheme-color-primary                     : @color-blue-ribbon;
+@scheme-color-secondary                   : @color-cornflower-blue;
+@scheme-color-tertiary                    : @color-charcoal;
+@scheme-color-complementary               : @color-white; // TODO: Not sure if this is the right color
+@scheme-color-info                        : @color-teal;
+@scheme-color-confirm                     : @dataviz-color-darkgreen;
+@scheme-color-warning                     : @dataviz-color-darkyellow;
+@scheme-color-error                       : @dataviz-color-darkred;
+
+// Modifiers
+@roundness                                : 0;
+@shadowing                                : 0;
+
+// Globals
+@global-text-size                         : 12rem;
+@global-background-color                  : @color-lights-out;
+@global-text-color                        : @color-silver;
+@global-text-mark-color                   : @color-white;
+@global-text-mark-background              : @scheme-color-primary;
+@global-transition-duration               : 100ms;
+@global-text-selection-color              : @color-white;
+@global-text-selection-background         : @scheme-color-primary;
+@global-box-shadow-color                  : rgba(0, 0, 0, 0.5);
+@global-margin                            : (1px * @airiness) 0;
+
+// Icons
+@icon-size                                : 16px;
+
+// Control globals
+@control-height                           : 24px;
+@control-border-color                     : @color-tundora;
+@control-text-color                       : @color-silver;
+
+// Inputs
+@input-width                              : 152px;
+@input-border-width                       : 1px;
+@input-padding                            : 0 8px;
+@input-background-color                   : @global-background-color; // or should be transparent?
+@input-hover-text-color                   : @color-white;
+@input-hover-border-color                 : @color-grey;
+@input-focused-text-color                 : @input-hover-text-color;
+@input-focused-border-color               : @scheme-color-primary;
+@input-disabled-text-color                : fade(@input-text-color, 50%);
+@input-disabled-border-color              : fade(@input-border-color, 50%);
+@input-disabled-background-color          : fade(@input-background-color, 50%);
+
+// Separators
+@separator-color: @color-tundora;
+
+// Buttons
+@button-min-width                         : 60px;
+@button-padding                           : 0px 12px;
+@button-border-width                      : 1px;
+@button-text-color                        : @global-text-color;
+@button-border-color                      : @color-lights-out;
+@button-hover-background-color            : @scheme-color-primary;
+@button-hover-text-color                  : @color-white;
+@button-hover-border-color                : @button-hover-background-color;
+@button-pressed-text-color                : @button-hover-text-color;
+@button-pressed-background-color          : @color-torea-bay;
+@button-focused-text-color                : @button-hover-text-color;
+@button-focused-box-shadow                : none;
+@button-cta-background-color              : @color-lights-out;
+@button-cta-border-color                  : @color-grey;
+@button-toggle-active-background-color    : @scheme-color-primary;
+@button-toggle-active-text-color          : @button-hover-text-color;
+@button-disabled-background-color         : @button-background-color;
+@button-disabled-border-color             : @button-border-color;
+@button-disabled-text-color               : @button-text-color;
+
+// Tabs
+@tab-height                               : 36px;
+@tab-min-width                            : 36px;
+@tab-padding                              : 9px 12px;
+@tab-text-color                           : @global-text-color;
+@tab-background-color                     : @color-tundora;
+@tab-border-color                         : @color-lights-out;
+@tab-hover-text-color                     : @color-white;
+@tab-hover-background-color               : @scheme-color-primary;
+@tab-pressed-text-color                   : @tab-hover-text-color;
+@tab-pressed-background-color             : @color-torea-bay;
+@tab-focused-box-shadow                   : none;
+@tab-focused-text-color                   : @scheme-color-secondary;
+@tab-disabled-text-color                  : fade(@global-text-color, 50%);
+@tab-disabled-background-color            : fade(@tab-background-color, 50%);
+@tab-active-text-color                    : @color-white;
+@tab-active-background-color              : @scheme-color-primary;
+@tab-active-pressed-background-color      : @color-torea-bay;
+@tab-active-disabled-text-color           : fade(@color-white, 50%);
+@tab-active-disabled-background-color     : fade(@scheme-color-primary, 50%);
+@tab-vertical-border-color                : @color-tundora;
+
+// Tab Bar
+@tab-bar-background-color                 : @color-cod-grey;
+
+// Links
+@link-text-color                          : @color-periwinkle;
+@link-hover-text-color                    : @color-white;
+
+// Panels
+@panel-background-color                   : @color-cod-grey;
+@panel-padding                            : 12px 8px;
+@panel-box-shadow                         : 0px 2px 12px @global-box-shadow-color;
+
+// Overlay
+@overlay-background-color                 : @color-black;
+
+// Headers
+@header-height                            : 28px;
+@header-background-color                  : @header-level3-bg-color;
+@header-text-color                        : @global-text-color;
+@header-padding                           : 0 8px;
+
+// Table/Grid
+@grid-row-background-color                : @panel-background-color;
+@grid-border-color                        : @color-charcoal;
+@grid-row-text-color                      : @control-text-color;
+@grid-header-text-color                   : @grid-row-text-color;
+@grid-header-background-color             : @color-mine-shaft;
+@grid-header-hover-text-color             : @color-white;
+@grid-header-hover-background-color       : @color-charcoal;
+@grid-header-height                       : 28px;
+@grid-row-height                          : 28px;
+@grid-row-hover-text-color                : @color-white;
+@grid-row-hover-background-color          : fade(@grid-header-background-color, 100%);
+@grid-row-active-background-color         : fade(@global-background-color, 100%);
+@grid-row-active-border-color             : @scheme-color-primary;
+@grid-row-focus-border-color              : @grid-row-active-border-color;
+@grid-row-active-border                   : @grid-row-active-border-width solid @grid-row-active-border-color;
+@grid-row-focus-border                    : @grid-row-focus-border-width solid @grid-row-focus-border-color;
+@grid-column-active-border-color          : @scheme-color-primary;
+
+// Tooltip
+@tooltip-background-color                 : @color-white;
+@tooltip-padding                          : 4px 8px;
+@tooltip-max-width                        : 320px;
+@tooltip-margin                           : unit((4 * @airiness), px);
+
+// DataViz
+@dataviz-color-primary                    : @color-cornflower-blue;
+
+// DataViz - Standard
+@dataviz-color-grey                       : @color-silver;
+@dataviz-color-red                        : @color-carnation;
+@dataviz-color-green                      : @color-emerald;
+@dataviz-color-yellow                     : @color-supernova;
+
+// DataViz - Light
+@dataviz-color-lightred                   : @color-rose-bud;
+@dataviz-color-lightgreen                 : @color-algae-green;
+@dataviz-color-lightyellow                : @color-sparkler;
+
+// DataViz - Dark
+@dataviz-color-darkred                    : @color-mexican-red;
+@dataviz-color-darkgreen                  : @color-green-pea;
+@dataviz-color-darkyellow                 : @color-olive;
+
+// DataViz - Charting
+@dataviz-color-1                          : @dataviz-color-primary;
+@dataviz-color-2                          : @color-white;
+@dataviz-color-3                          : @color-supernova;
+@dataviz-color-4                          : @color-amethyst;
+@dataviz-color-5                          : @color-robins-egg;
+@dataviz-color-6                          : @color-inter-orange;
+@dataviz-color-7                          : @color-caribbean-green;
+@dataviz-color-8                          : @color-amaranth;
+@dataviz-color-9                          : @color-dusty-grey;
+@dataviz-color-10                         : @color-dodger-blue;
+@dataviz-color-11                         : @color-elm;
+@dataviz-color-12                         : @color-crail;
+@dataviz-color-13                         : @color-periwinkle;
+@dataviz-color-14                         : @color-grey;
+@dataviz-color-15                         : @color-dandelion;
+@dataviz-color-16                         : @color-light-wisteria;
+@dataviz-color-17                         : @color-turquoise-blue;
+@dataviz-color-18                         : @color-atomic-tangerine;
+@dataviz-color-19                         : @color-spray;
+@dataviz-color-20                         : @color-mauvelous;
+@dataviz-color-21                         : @color-silver;
+@dataviz-color-22                         : @color-anakiwa;
+@dataviz-color-23                         : @color-neptune;
+@dataviz-color-24                         : @color-petite-orchid;
+@dataviz-color-25                         : @color-illusion;
+
+// Slider
+@slider-track-color                       : @color-charcoal;
+@slider-track-height                      : 4px;
+@slider-step-color                        : @scheme-color-secondary;
+@slider-thumb-color                       : @color-silver;
+
+// List
+@list-item-padding                        : 4px 8px;
+@list-item-height                         : 24px;
+@list-item-focus-background-color         : @scheme-color-primary;
+@list-item-focus-text-color               : @color-white;
+@list-item-selected-text-color            : @color-white;
+@list-item-header-font-size               : 83%;
+@list-item-header-font-weight             : 500;
+@list-item-header-text-color              : @color-dusty-grey;
+@list-item-divider-margin                 : 2px 0px;
+@list-item-divider-color                  : @separator-color;
+@list-item-disabled-text-color            : mix(@control-text-color, @list-background-color);
+
+// Scrollbar
+@scrollbar-thumb-border-radius            : 0;
+@scrollbar-thumb-margin                   : 1px;
+@scrollbar-size                           : 8px;
+@scrollbar-thumb-background-color         : @color-scorpion;
+@scrollbar-thumb-hover-background-color   : @color-blue-ribbon;
+@scrollbar-thumb-active-background-color  : @color-torea-bay;
+@scrollbar-track-background-color         : @color-cod-grey;
+@scrollbar-button-size                    : 16px;
+
+// Movement colours profile (American)
+@tickup-color-american                    : @color-emerald;
+@tickdown-color-american                  : @color-carnation;
+@positive-color-american                  : @color-emerald;
+@neutral-color-american                   : @color-silver;
+@negative-color-american                  : @color-carnation;
+
+// Movement colours profile (Asian1)
+@tickup-color-asian1                      : @color-carnation;
+@tickdown-color-asian1                    : @color-emerald;
+@positive-color-asian1                    : @color-carnation;
+@neutral-color-asian1                     : @color-silver;
+@negative-color-asian1                    : @color-emerald;
+
+// Movement colours profile (Asian2)
+@tickup-color-asian2                      : @color-supernova;
+@tickdown-color-asian2                    : @color-carnation;
+@positive-color-asian2                    : @color-robins-egg;
+@neutral-color-asian2                     : @color-emerald;
+@negative-color-asian2                    : @color-carnation;
+
+// Tick colours (European)
+@tickup-color-european                    : @color-emerald;
+@tickdown-color-european                  : @color-carnation;
+@positive-color-european                  : @color-robins-egg;
+@neutral-color-european                   : @color-emerald;
+@negative-color-european                  : @color-carnation;
+
+// Tick text colour (All profiles)
+@tick-text-color                           : @color-lights-out;

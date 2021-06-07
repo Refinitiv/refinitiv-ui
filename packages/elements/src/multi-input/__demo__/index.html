@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Multi Input</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <style>
+      p {
+        margin-top: 10px !important;
+      }
+
+      .scroller {
+        height: 200px;
+        width: 600px;
+      }
+
+      #full-log {
+        width: 100%;
+        white-space: pre;
+      }
+
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/multi-input';
+      import '@refinitiv-ui/demo-block';
+    </script>
+
+    <script>
+      window.randomGen = (length) => {
+        const lookup = [
+          'apple',
+          'apricot',
+          'avocado',
+          'banana',
+          'bell pepper',
+          'bilberry',
+          'blackberry',
+          'blackcurrant',
+          'blood orange',
+          'blueberry',
+          'boysenberry',
+          'breadfruit',
+          'canary melon',
+          'cantaloupe',
+          'cherimoya',
+          'cherry',
+          'chili pepper',
+          'clementine',
+          'cloudberry',
+          'coconut',
+          'cranberry',
+          'cucumber',
+          'currant',
+          'damson',
+          'date',
+          'dragonfruit',
+          'durian',
+          'eggplant',
+          'elderberry',
+          'feijoa',
+          'fig',
+          'goji berry',
+          'gooseberry',
+          'grape',
+          'grapefruit',
+          'guava',
+          'honeydew',
+          'huckleberry',
+          'jackfruit',
+          'jambul',
+          'jujube',
+          'kiwi fruit',
+          'kumquat',
+          'lemon',
+          'lime',
+          'loquat',
+          'lychee',
+          'mandarine',
+          'mango',
+          'mulberry',
+          'nectarine',
+          'nut',
+          'olive',
+          'orange',
+          'pamelo',
+          'papaya',
+          'passionfruit',
+          'peach',
+          'pear',
+          'persimmon',
+          'physalis',
+          'pineapple',
+          'plum',
+          'pomegranate',
+          'pomelo',
+          'purple mangosteen',
+          'quince',
+          'raisin',
+          'rambutan',
+          'raspberry',
+          'redcurrant',
+          'rock melon',
+          'salal berry',
+          'satsuma',
+          'star fruit',
+          'strawberry',
+          'tamarillo',
+          'tangerine',
+          'tomato',
+          'ugli fruit',
+          'watermelon'
+        ];
+        const arr = [];
+        const used = [];
+        const getRandomIndex = () => {
+          let randomIndex = Math.floor(Math.random() * lookup.length);
+          if (used.length < lookup.length) {
+            if (used.indexOf(randomIndex) === -1) {
+              used.push(randomIndex);
+            }
+            else {
+              randomIndex = getRandomIndex();
+            }
+          }
+          return randomIndex;
+        };
+        for (let x = 0; x < length; ++x) {
+          const item = lookup[getRandomIndex()];
+          arr.push({ value: item, label: item.charAt(0).toUpperCase() + item.slice(1) });
+        }
+        return arr;
+      };
+    </script>
+
+    <!-- DEFAULT -->
+    <demo-block layout="normal" header="Default" tags="Default">
+
+      <ef-multi-input id="default" placeholder="Enter text here"></ef-multi-input>
+
+      <p>`multi-input` event: <span id="eventLog"></span></p>
+      <textarea id="full-log" rows="10"></textarea>
+
+      <script>
+        (() => {
+          let el = document.querySelector('#default');
+          el.data = [
+            { value: 'banana', label: 'Banana' },
+            { value: 'orange', label: 'Orange' },
+            { value: 'grapes', label: 'Grapes' }
+          ];
+
+          const log = document.querySelector('#eventLog');
+          const fullLog = document.querySelector('#full-log');
+          // event log callbacks
+          const onEvent = function (event) {
+            log.textContent = event.type + ' ' + JSON.stringify(event.detail);
+            fullLog.value = event.type + ' ' + JSON.stringify(event.detail) + '\n\n' + fullLog.value;
+          };
+
+          el.addEventListener('keydown', event => {
+            log.textContent = event.type + ' > keyCode = ' + event.keyCode + '; code = ' + event.code;
+          }, false);
+
+          // log focus and blur events
+          el.addEventListener('focus', onEvent, false);
+          el.addEventListener('blur', onEvent, false);
+
+          // handle Add and Remove buttons
+          el.addEventListener('item-added', onEvent, false);
+          el.addEventListener('item-removed', onEvent, false);
+          el.addEventListener('item-error', onEvent, false);
+          el.addEventListener('value-changed', onEvent, false);
+        })();
+      </script>
+    </demo-block>
+
+    <!-- MAXLENGTH, MINLENGTH -->
+    <demo-block layout="normal" header="Max length, Min length" tags="Default">
+      <ef-multi-input id="input" minLength="5" maxLength="10" placeholder="Enter text here"></ef-multi-input>
+      <p>`multi-input` event: <span id="eventLog2"></span></p>
+      <textarea id="full-log2" rows="10"></textarea>
+
+      <script>
+        (() => {
+          let el = document.querySelector('#input');
+          el.data = [
+            { value: 'banana', label: 'Banana' },
+            { value: 'orange', label: 'Orange' },
+            { value: 'grapes', label: 'Grapes' }
+          ];
+
+          const log = document.querySelector('#eventLog2');
+          const fullLog = document.querySelector('#full-log2');
+          // event log callbacks
+          const onEvent = function (event) {
+            log.textContent = event.type + ' ' + JSON.stringify(event.detail);
+            fullLog.value = event.type + ' ' + JSON.stringify(event.detail) + '\n\n' + fullLog.value;
+          };
+
+          el.addEventListener('keydown', event => {
+            log.textContent = event.type + ' > keyCode = ' + event.keyCode + '; code = ' + event.code;
+          }, false);
+
+          // log focus and blur events
+          el.addEventListener('focus', onEvent, false);
+          el.addEventListener('blur', onEvent, false);
+          el.addEventListener('error-changed', onEvent, false);
+
+
+          // handle Add and Remove buttons
+          el.addEventListener('item-added', onEvent, false);
+          el.addEventListener('item-removed', onEvent, false);
+          el.addEventListener('item-error', onEvent, false);
+          el.addEventListener('value-changed', onEvent, false);
+        })();
+      </script>
+    </demo-block>
+
+    <!-- ADDING ITEMS THROUGH INPUT BOX-->
+    <demo-block layout="normal" header="Adding Items with input box using public API"
+                tags="Prevent default, public API">
+      <ef-multi-input id="multiInputEnter" placeholder="Enter text here"></ef-multi-input>
+      <p>
+        <button onclick="addItem()">Add Item</button>
+        <button onclick="removeItem()">Remove Last Item</button>
+      </p>
+      <script>
+        (() => {
+          const el = document.querySelector('#multiInputEnter');
+          el.data = [
+            { value: 'banana', label: 'Banana' },
+            { value: 'orange', label: 'Orange' },
+            { value: 'grapes', label: 'Grapes' }
+          ];
+          el.addEventListener('item-added', (event) => {
+            event.preventDefault();
+
+            el.add({ value: el.value.toLowerCase(), label: el.value.charAt(0).toUpperCase() + el.value.slice(1) });
+            el.value = 'public API add ' + el.value;
+          });
+
+          el.addEventListener('item-removed', (event) => {
+            event.preventDefault();
+
+            const item = event.detail.item;
+            const items = event.detail.items;
+
+            const index = items.indexOf(item);
+
+            el.removeByIndex(index);
+
+            setTimeout(() => {
+              el.value = 'public API remove ' + item.value;
+            });
+          });
+
+          let newItems = randomGen(200);
+
+          window.addItem = function () {
+            let randomIndex = Math.floor(Math.random() * newItems.length);
+            const item = newItems[randomIndex];
+            el.add(item);
+            el.value = 'public API add ' + item.value;
+          };
+
+          window.removeItem = function () {
+            const item = el.removeLastItem();
+
+            el.value = 'public API remove ' + item.value;
+          };
+        })();
+      </script>
+    </demo-block>
+
+    <!-- READONLY ON ITEMS -->
+    <demo-block layout="normal" header="Read-only" tags="Readonly">
+      <ef-multi-input id="readonly" placeholder="Enter text here" readonly></ef-multi-input>
+      <ef-multi-input id="custom-readonly" placeholder="First item readonly"></ef-multi-input>
+      <script>
+        (() => {
+          const el = document.querySelector('#readonly');
+          el.data = [
+            { value: 'banana', label: 'Banana' },
+            { value: 'orange', label: 'Orange' },
+            { value: 'grapes', label: 'Grapes' }
+          ];
+          const el2 = document.querySelector('#custom-readonly');
+          el2.data = [
+            { value: 'banana', label: 'Banana-readonly', readonly: true },
+            { value: 'orange', label: 'Orange' },
+            { value: 'grapes', label: 'Grapes' }
+          ];
+        })();
+      </script>
+    </demo-block>
+
+    <!-- READONLY ON ITEMS -->
+    <demo-block layout="normal" header="Disabled" tags="Disabled">
+      <ef-multi-input id="disabled" placeholder="Enter text here" disabled></ef-multi-input>
+      <ef-multi-input id="custom-disabled" placeholder="First item disabled"></ef-multi-input>
+      <script>
+        (() => {
+          const el = document.querySelector('#disabled');
+          el.data = [
+            { value: 'banana', label: 'Banana' },
+            { value: 'orange', label: 'Orange' },
+            { value: 'grapes', label: 'Grapes' }
+          ];
+          const el2 = document.querySelector('#custom-disabled');
+          el2.data = [
+            { value: 'banana', label: 'Banana-disabled', disabled: true },
+            { value: 'orange', label: 'Orange' },
+            { value: 'grapes', label: 'Grapes' }
+          ];
+        })();
+      </script>
+    </demo-block>
+
+    <!-- HIDE SEARCH  -->
+    <demo-block layout="normal" header="Show pills only" tags="Show pills only">
+      <ef-multi-input id="pills-only" placeholder="Enter text here" pills-only></ef-multi-input>
+      <script>
+        (() => {
+          const el = document.querySelector('#pills-only');
+          el.data = [
+            { value: 'banana', label: 'Banana' },
+            { value: 'orange', label: 'Orange' },
+            { value: 'grapes', label: 'Grapes' }
+          ];
+        })();
+      </script>
+    </demo-block>
+
+    <!-- WARNING -->
+    <demo-block layout="normal" header="Warning" tags="Warning">
+      <ef-multi-input id="warning" placeholder="Enter text here" warning></ef-multi-input>
+      <script>
+        (() => {
+          const el = document.querySelector('#warning');
+          el.data = [
+            { value: 'banana', label: 'Banana' },
+            { value: 'orange', label: 'Orange' },
+            { value: 'grapes', label: 'Grapes' }
+          ];
+        })();
+      </script>
+    </demo-block>
+
+    <!-- ERROR -->
+    <demo-block layout="normal" header="Error" tags="Error">
+      <ef-multi-input id="error" placeholder="Enter text here" error></ef-multi-input>
+      <script>
+        (() => {
+          const el = document.querySelector('#error');
+          el.data = [
+            { value: 'banana', label: 'Banana' },
+            { value: 'orange', label: 'Orange' },
+            { value: 'grapes', label: 'Grapes' }
+          ];
+        })();
+      </script>
+    </demo-block>
+
+    <!-- SCROLLING -->
+    <demo-block layout="normal" header="Scrolling" tags="Scrolling">
+      <ef-multi-input id="scroller" class="scroller" placeholder="Enter text here"></ef-multi-input>
+      <script>
+        (() => {
+          const el = document.querySelector('#scroller');
+          el.data = randomGen(200);
+        })();
+      </script>
+    </demo-block>
+
+    <!-- SELECTION -->
+    <demo-block layout="normal" header="Selection" tags="selection">
+      <ef-multi-input id="selection" value="Text to select"></ef-multi-input>
+    <p>
+      <button class="select-button" id="select-all-button">Select All</button>
+      <button class="select-button" id="select-range-button">Selection Range(3, 10)</button>
+      <button class="select-button" id="select-clear-button">Clear Selection</button>
+    </p>
+    <script>
+      (() => {
+        const selection = document.getElementById('selection');
+        selection.data = [
+          { value: 'banana', label: 'Banana' },
+          { value: 'orange', label: 'Orange' },
+          { value: 'grapes', label: 'Grapes' }
+        ];
+        const selectAll = () => {
+          selection.select();
+          selection.focus();
+        };
+        const selectRange = () => {
+          selection.setSelectionRange(3, 10);
+          selection.focus();
+        };
+        const selectClear = () => {
+          window.getSelection().removeAllRanges();
+        };
+        const selectButtons = document.querySelectorAll('.select-button');
+        selectButtons.forEach((button) => {
+          button.addEventListener('tap', () => {
+            switch (button.id) {
+              case 'select-all-button':
+                selectAll();
+                break;
+              case 'select-range-button':
+                selectRange();
+                break;
+              case 'select-clear-button':
+                selectClear();
+                break;
+              default:
+              // do nothing
+            }
+          });
+        });
+      })();
+    </script>
+    </demo-block>
+  </body>
+</html>

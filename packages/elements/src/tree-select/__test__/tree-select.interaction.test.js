@@ -1,0 +1,231 @@
+import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+
+// import element and theme
+import '@refinitiv-ui/elements/tree-select';
+import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
+import { flatData, flatSelection } from './mock_data/flat';
+import { nestedData, nestedSelection, selectableCount } from './mock_data/nested';
+import { changeItemSelection, checkMemo, doValuesMatch, openedUpdated } from './utils';
+
+describe('TreeSelect', () => {
+  describe('Interaction Test', () => {
+
+    it('Persists a selection - flat', async function () {
+      const el = await fixture('<ef-tree-select opened></ef-tree-select>');
+      // ensure events are fired
+      el.data = flatData;
+      const expectedSelection = changeItemSelection(el, flatSelection);
+      checkMemo(el, {
+        expandable: 0,
+        expanded: 0,
+        selectable: flatData.length,
+        selected: flatSelection.length
+      });
+      el.save();
+      const savedValues = el.values;
+      expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+    });
+
+    it('Persists a selection - nested', async () => {
+      const el = await fixture('<ef-tree-select opened></ef-tree-select>');
+      el.data = nestedData;
+      const expectedSelection = changeItemSelection(el, nestedSelection);
+      checkMemo(el, {
+        expandable: 2,
+        expanded: 0,
+        selectable: selectableCount,
+        selected: nestedSelection.length
+      });
+      el.save();
+      const savedValues = el.values;
+      expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+    });
+
+    it('Cancels a selection - flat', async () => {
+      const el = await fixture('<ef-tree-select opened></ef-tree-select>');
+      // ensure events are fired
+      el.data = flatData;
+      const expectedSelection = [];
+      changeItemSelection(el, flatSelection);
+      checkMemo(el, {
+        expandable: 0,
+        expanded: 0,
+        selectable: flatData.length,
+        selected: flatSelection.length
+      });
+      el.cancel();
+      const savedValues = el.values;
+      expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+      expect(el.treeManager.visibleItems.length).to.equal(flatData.length, 'Data list should remain the same');
+    });
+
+    it('Cancels a selection - nested', async () => {
+      const el = await fixture('<ef-tree-select opened></ef-tree-select>');
+      el.data = nestedData;
+      const expectedSelection = [];
+      changeItemSelection(el, flatSelection);
+      el.cancel();
+      await elementUpdated(el);
+      const savedValues = el.values;
+      expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+      expect(el.opened).to.equal(false, 'Cancel should close the list');
+    });
+
+    it('Persist a selection, make changes and cancel - flat', async () => {
+      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      // ensure events are fired
+      el.data = flatData;
+      const expectedSelection = changeItemSelection(el, flatSelection);
+      el.save();
+      const savedValues = el.values;
+      expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+      // make change with no commit
+      changeItemSelection(el, flatSelection, true);
+      expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+    });
+
+    it('Persist a selection, make changes and cancel - nested', async () => {
+      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      // ensure events are fired
+      el.data = nestedData;
+      const expectedSelection = changeItemSelection(el, nestedSelection);
+      el.save();
+      const savedValues = el.values;
+      expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+      // make change with no commit
+      changeItemSelection(el, nestedSelection, true);
+      expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+    });
+
+    it('Adds selection to pills', async () => {
+      const el = await fixture('<ef-tree-select show-pills></ef-tree-select>');
+      el.data = flatData;
+      el.opened = true;
+      await openedUpdated(el);
+      const pillValues = el.pillsData.map(item => item.value);
+      expect(pillValues).to.deep.equal(el.values, 'Values do not match');
+    });
+
+    it('Removes from selection on pill removal', async () => {
+      const el = await fixture('<ef-tree-select show-pills opened></ef-tree-select>');
+      const itemToRemove = flatSelection[0];
+      el.data = flatData;
+      el.opened = true;
+      changeItemSelection(el, flatSelection);
+      await nextFrame();
+      const elementToRemove = [...el.shadowRoot.querySelectorAll('ef-pill')].find(el => el.value === itemToRemove.value); // Austria
+      elementToRemove.dispatchEvent(new CustomEvent('clear', {
+        detail: {
+          value: itemToRemove.value
+        }
+      }));
+      expect(el.treeManager.checkedItems.indexOf(itemToRemove) === -1).to.equal(true, 'Item is removed');
+
+    });
+
+    it('Toggles expand all', async function () {
+      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      el.data = nestedData;
+      el.opened = true;
+      el.expansionToggleClickHandler();
+      await openedUpdated(el);
+      const tree = el.shadowRoot.querySelector('[part=tree]');
+      await aTimeout(200);
+      checkMemo(el, {
+        expandable: 2,
+        expanded: 2,
+        selectable: selectableCount,
+        selected: 0
+      });
+      expect(tree.children.length).to.equal(selectableCount + 2, 'Children are expanded');
+      // and collapse
+      el.expansionToggleClickHandler();
+      await aTimeout(200);
+      checkMemo(el, {
+        expandable: 2,
+        expanded: 0,
+        selectable: selectableCount,
+        selected: 0
+      });
+      expect(tree.children.length).to.equal(2, 'Children are collapsed');
+    }).timeout(4000);
+
+    it('Toggles select all - flat', async () => {
+      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      el.data = flatData;
+      el.selectionToggleHandler({
+        detail: {
+          value: true
+        }
+      });
+      await elementUpdated(el);
+      await aTimeout(200);
+      checkMemo(el, {
+        expandable: 0,
+        expanded: 0,
+        selectable: flatData.length,
+        selected: flatData.length
+      });
+      expect(el.values.length).to.equal(0, 'Values are unaffected');
+      const tempSelected = el.composer.queryItemsByPropertyValue('selected', true);
+      expect(tempSelected.length).to.equal(flatData.length, 'All items are selected');
+      el.selectionToggleHandler({
+        detail: {
+          value: false
+        }
+      });
+      await aTimeout(200);
+      checkMemo(el, {
+        expandable: 0,
+        expanded: 0,
+        selectable: flatData.length,
+        selected: 0
+      });
+      expect(el.values.length).to.equal(0, 'Values are unaffected');
+      const tempSelectedAfter = el.composer.queryItemsByPropertyValue('selected', true);
+      expect(tempSelectedAfter.length).to.equal(0, 'No items are selected');
+    });
+
+    it('Toggles select all - nested', async () => {
+      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      el.data = nestedData;
+      el.selectionToggleHandler({
+        detail: {
+          value: true
+        }
+      });
+      // the metadata used to determine the toggle state is currently throttled
+      await aTimeout(200);
+      checkMemo(el, {
+        expandable: 2,
+        expanded: 0,
+        selectable: selectableCount,
+        selected: selectableCount
+      });
+      expect(el.values.length).to.equal(0, 'Values are unaffected');
+      expect(el.treeManager.checkedItems.slice().length).to.equal(selectableCount, 'All items are selected');
+      el.selectionToggleHandler({
+        detail: {
+          value: false
+        }
+      });
+      // await for update delay
+      await aTimeout(200);
+      checkMemo(el, {
+        expandable: 2,
+        expanded: 0,
+        selectable: selectableCount,
+        selected: 0
+      });
+      expect(el.treeManager.checkedItems.slice().length).to.equal(0, 'No items are selected');
+    });
+  });
+});

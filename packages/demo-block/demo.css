@@ -1,0 +1,19 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #515c61;
+  height: 100%;
+}
+
+body {
+  visibility: hidden;
+}
+
+html body {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  margin: 0 auto;
+  margin-bottom: 100px; /* Force scrollbar for testing */
+}

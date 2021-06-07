@@ -1,0 +1,48 @@
+@import '../responsive';
+
+:host {
+  @icon-dir: '../resources/images/rating';
+  @default-color: @control-border-color;
+  @active-color: @button-toggle-active-background-color;
+  font-size: @icon-size;
+
+  [part=container] {
+    .touch-action();
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: nowrap;
+  }
+
+  [part^=icon] {
+    margin: 0 1px;
+    background: inline-svg('@{icon-dir}/star.svg', 'path', 'fill: @{default-color}') no-repeat;
+    background-size: 100%;
+    width: 1em;
+    height: 1em;
+
+    &:first-child, &:last-child {
+      margin: 0;
+    }
+  }
+
+
+  &:not([interactive]), &[interactive] [part=container]:not(:hover) {
+    [part~=icon-full] {
+      background-image: inline-svg('@{icon-dir}/star-full.svg', 'path', 'fill: @{active-color}');
+    }
+    [part~=icon-half] {
+      background-image: inline-svg('@{icon-dir}/star-half.svg', '#right', 'fill: @{default-color}', '#left', 'fill: @{active-color}');
+    }
+  }
+
+  &[interactive] {
+    [part^=icon] {
+      cursor: pointer;
+    }
+
+    [part^=icon]:hover, [part^=icon]:hover ~ [part^=icon] {
+      background-image: inline-svg('@{icon-dir}/star-full.svg', 'path', 'fill: @{active-color}');
+    }
+  }
+
+}
