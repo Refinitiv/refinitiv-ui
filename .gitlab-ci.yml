@@ -1,36 +1,47 @@
 before_script:
+  # Setup credentials for pipeline
   - git clone -b v4 --single-branch git@git.sami.int.thomsonreuters.com:elf/gitlab-ci-tasks.git ci-tasks
   - node ci-tasks/before_script
 
 stages:
-  # - test
+  - test
   - deploy
 
-# test_v4:
-#   stage: test
-#   script:
-#     - call yarn --ignore-scripts --frozen-lockfile
-#     - call yarn lerna run build --include-dependencies --since
-#     - call yarn lerna run test --concurrency=1 --include-dependents --since
-#   except:
-#     - v4@elf/elements
-#     - tags@elf/elements
+test_v5:
+  stage: test
+  script:
+    # Installing dependencies, strictly based on lock file
+    - call yarn --ignore-scripts --frozen-lockfile
 
-release_v4:
+    # Build changed package and its dependencies, only what's required
+    - call yarn lerna run build --include-dependencies --since
+
+    # Test changed package and its dependents
+    - call yarn lerna run test --concurrency=1 --include-dependents --since
+  except:
+    - v5@elf/refinitiv-ui
+    - tags@elf/refinitiv-ui
+
+release_v5:
   stage: deploy
   tags:
     - node
     - linux
   script:
-    - git remote set-url origin https://git.sami.int.thomsonreuters.com/elf/elements.git
+    - git remote set-url origin https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui.git
+    - git checkout v5
+    - git pull origin v5
 
-    - git checkout all-in-one
-    - git pull origin all-in-one
-
+    # Installing dependencies, strictly based on lock file
     - yarn --ignore-scripts --frozen-lockfile
+
+    # Build changed package and its dependencies, only what's required
     - yarn lerna run build --include-dependencies --since
 
+    # Get changed package version from commit message
     - yarn lerna version --conventional-commits --conventional-prerelease --no-git-tag-version --yes
-    # - yarn lerna publish from-package --yes --dist-tag next
+
+    # Publish to registry
+    - yarn lerna publish from-package --yes --dist-tag next
   only:
-    - all-in-one@elf/elements
+    - v5@elf/elements
