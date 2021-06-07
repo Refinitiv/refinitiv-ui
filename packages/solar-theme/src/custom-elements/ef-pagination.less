@@ -1,0 +1,15 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-pagination';
+
+:host {
+  --first-icon: previous;
+  --last-icon: next;
+  --previous-icon: left;
+  --next-icon:  right;
+  --responsive-width: 300;
+
+  [part=input] {
+    height: @pagination-input-height;
+    width: 150px;
+    margin: @pagination-input-margin;
+  }
+}

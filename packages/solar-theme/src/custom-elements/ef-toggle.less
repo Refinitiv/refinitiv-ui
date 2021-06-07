@@ -1,0 +1,46 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-toggle';
+
+:host {
+  @height            : 24px;
+  @switch-margin     : 1px;
+  @switch-width      : 20px;
+  @label-padding     : 3px;
+  // Padding left/right include the switch button, use for align the label to center
+  @switching-padding : unit((@switch-width + @switch-margin + @label-padding), px);
+
+  width: 44px;
+  height: @height;
+  color: @toggle-text-color;
+  background-color: @input-background-color;
+  line-height: unit((@height - (@label-padding * 2)), px);
+
+  [part=toggle] {
+    padding: @label-padding;
+    padding-left: @switching-padding;
+    &::after {
+      top: @switch-margin;
+      left: @switch-margin;
+      width: calc(50% - @switch-margin);
+      height: calc(100% - (@switch-margin * 2));
+      background-image: @button-background-image;
+    }
+  }
+
+  &[label] [part=toggle]::after {
+    width: @switch-width;
+  }
+
+  &[checked] [part=toggle] {
+    padding-right: @switching-padding;
+    padding-left: @label-padding;
+    &::after {
+      right: @switch-margin;
+    }
+  }
+
+  &:hover:not([readonly]), &[focused=visible] {
+    [part=toggle] {
+      border-style: dotted;
+    }
+  }
+}

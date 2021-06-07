@@ -1,0 +1,46 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-dialog';
+
+:host {
+  @inner-border: 2px solid @dialog-inner-border-color;
+
+  [part=header] {
+    border: 2px solid @dialog-inner-border-color;
+    border-bottom: 1px solid @dialog-inner-border-color;
+  }
+
+  [part=content] {
+    border-left: @inner-border;
+    border-right: @inner-border;
+  }
+
+  [part=close] {
+    opacity: 1;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    padding: 6px;
+    background: @dialog-close-button-background-color;
+    color: @color-white;
+
+    &:hover {
+      background: @dialog-close-button-hover-background-color;
+    }
+
+    &:active {
+      background: @dialog-close-button-pressed-background-color;
+    }
+  }
+  [part=default-button] {
+    width: 83px;
+    margin: 10px 10px 10px 3px;
+    &:first-of-type {
+      margin-right: 3px;
+    }
+  }
+  [part=footer] {
+    background: @dialog-footer-background-color;
+    border-left: @inner-border;
+    border-right: @inner-border;
+    border-bottom: @inner-border;
+  }
+}

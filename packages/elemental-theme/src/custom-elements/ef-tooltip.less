@@ -1,0 +1,26 @@
+@import 'element:ef-overlay';
+
+:host {
+  [part=tooltip] {
+    --panel-background-color: @tooltip-background-color;
+
+    pointer-events: none;
+    border: @panel-border;
+    border-color: @tooltip-border-color;
+    padding: @tooltip-padding;
+    background-color: @tooltip-background-color;
+    border-radius: @control-border-radius;
+    overflow: hidden;
+    max-width: @tooltip-max-width;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    margin: @tooltip-margin;
+  }
+
+  &[position="auto"], &:not([position]) {
+    [part=tooltip] {
+      margin-top: 20px; /* These values to match default title position in Chrome with default cursor size on MacOS */
+      margin-left: 0;
+    }
+  }
+}

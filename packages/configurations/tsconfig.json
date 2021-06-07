@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "ES2015",
+    "moduleResolution": "node",
+    "lib": ["ES2017", "DOM", "DOM.Iterable", "ES2018.Intl", "ESNext.Intl"],
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "sourceMap": true,
+    "declaration": true
+  }
+}

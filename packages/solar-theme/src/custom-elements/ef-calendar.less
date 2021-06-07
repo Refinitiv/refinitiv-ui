@@ -1,0 +1,127 @@
+@import 'element:ef-button';
+@import '../shared-styles/defaults';
+
+:host {
+  .defaults();
+
+  outline: none;
+  font-size: @control-font-size;
+  color: @global-text-color;
+  min-width: 224px;
+  user-select: none;
+  background: @calendar-background-color;
+  padding: 4px;
+
+  [part=navigation] {
+    padding-bottom: 4px;
+  }
+
+  [part=btn-view],
+  [part=btn-prev],
+  [part=btn-next] {
+    margin: 0;
+  }
+
+  [part=btn-view] {
+    background: none;
+    color: inherit;
+    box-shadow: none;
+    margin-left: @icon-size;
+    padding: 0;
+    &:not([focused=visible]) {
+      border: none;
+    }
+  }
+
+  [part=table] {
+    width: 100%;
+    box-shadow: 0 0 0 1px @button-border-color;
+    background: @calendar-cell-background-color;
+  }
+
+  [part~=row] {
+    &:not(:last-of-type) {
+      box-shadow: 0 1px 0 0 @separator-color;
+    }
+
+    &:not(:first-of-type) [part~=cell] [part~=selection] {
+      top: 1px;
+    }
+  }
+
+  [part~=cell] {
+    &:not(:last-of-type) {
+      box-shadow: 1px 0 0 0 @separator-color;
+    }
+    outline: none;
+
+    &[disabled] [part~="selection"] {
+      opacity: 0.4;
+    }
+
+    &[today] {
+      color: @calendar-cell-today-text-color;
+      [part~="selection"] {
+        background: @calendar-cell-today-background-color;
+      }
+    }
+
+    &:not([selected]):not([range]):not([disabled])[idle] [part~="selection"] {
+      opacity: 0.6;
+    }
+
+    &:not([selected]):not([range]):focus, &:not([selected]):not([range]):hover {
+      [part~=selection] {
+        background: @calendar-cell-focused-background-color;
+        color: @calendar-cell-hover-text-color;
+      }
+    }
+
+    &:not([selected]):not([range]):focus {
+      [part~=selection] {
+        outline: @button-border-width @button-focused-border-style @button-focused-border-color;
+      }
+    }
+
+    &[range] [part~=selection] {
+      background: fade(@scheme-color-primary, 20%);
+    }
+
+    &[range][today] {
+      color: @calendar-cell-range-today-text-color;
+    }
+
+    &[selected] {
+      color: @calendar-selected-text-color;
+      [part~=selection] {
+        background: @scheme-color-primary;
+      }
+    }
+
+    &:not(:first-of-type) [part~=selection] {
+      left: 1px;
+    }
+
+    &:not([tabindex]) {
+      pointer-events: none;
+    }
+  }
+
+  [part~=day-name] {
+    background-color: @calendar-header-background-color;
+    color: @calendar-header-text-color;
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  [part~=selection] {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+  
+  &[disabled] {
+    opacity: 0.4;
+  }
+}

@@ -1,0 +1,41 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-multi-input';
+@import '../shared-styles/scrollbar';
+
+:host {
+  margin: 0;
+  padding: 0;
+
+  [part=pill] {
+    margin: 2px;
+    height: 18px;
+  }
+  
+  [part=search] {
+    margin: 0;
+    height: 20px;
+  }
+
+  &:not([readonly]):not([error]):not([warning]):hover {
+    border-color: @input-hover-border-color;
+  }
+
+  &[readonly]:not([focused]) {
+    border-color: @input-disabled-border-color;
+  }
+
+  &[warning] {
+    border-color: @control-warning-color;
+  }
+
+  &[warning]:hover:not([readonly]) {
+    border-color: @control-hover-warning-color;
+  }
+
+  &[error] {
+    border-color: @control-error-color;
+  }
+
+  &[error]:hover:not([readonly]) {
+    border-color: @control-hover-error-color;
+  }
+}

@@ -1,0 +1,122 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-combo-box';
+@import 'ef-select';
+@import (reference) '../shared-styles/scrollbar';
+
+:host {
+
+  padding: 0;
+
+  [part=input-wrapper] {
+    border-left-color: inherit;
+  }
+
+  [part=input] {
+    padding: @input-padding;
+  }
+
+  [part~=button] {
+    height: 100%;
+    width: @button-height;
+  }
+
+  [part~=button-toggle] {
+    border-left: @input-border;
+    border-left-color: inherit;
+
+    &::before { // used for pointer event only
+      content: '';
+      display: block;
+      position: absolute;
+      top: -@input-border-width;
+      right: -@input-border-width;
+      bottom: -@input-border-width;
+      border: @input-border;
+      width: @button-height;
+      border: @input-border;
+      border-color: transparent;
+    }
+  }
+
+  &:not([readonly]) {
+
+    [part~=button-clear]:hover {
+      color: @input-focused-border-color;
+    }
+
+    &:hover {
+      [part~=button-toggle] {
+        color: @input-focused-border-color;
+      }
+    }
+
+    &[focused] {
+      [part~=button-toggle] {
+        border-left-color: @input-focused-border-color;
+        color: @input-focused-border-color;
+      }
+    }
+
+    [part~=button-toggle]:hover {
+      border-left-color: @input-focused-border-color;
+      color: @button-hover-text-color;
+      background: @button-hover-background-color;
+
+      &::after { // draws faux border on control
+        content: '';
+        display: block;
+        position: absolute;
+        border-color: transparent;
+        top: -@input-border-width;
+        right: -@input-border-width;
+        bottom: -@input-border-width;
+        left: -@input-border-width;
+        border: @input-border;
+        border-color: @input-focused-border-color;
+        pointer-events: none;
+      }
+    }
+
+    [part~=button-toggle]:active {
+      background: @button-pressed-background-color;
+    }
+
+    [part~=button]:active {
+      color: @button-hover-text-color;
+    }
+
+    [part~=icon] {
+      color: inherit !important;
+    }
+
+  }
+
+  &[readonly], &[disabled] {
+    [part~=button-toggle] {
+      border-left-color: @input-disabled-border-color;
+    }
+  }
+
+  &[readonly] {
+    [part~=button-toggle] {
+      color: @input-disabled-text-color;
+      cursor: default;
+    }
+  }
+
+  &[focused][readonly] {
+    [part~=button-toggle] {
+      border-left-color: @input-focused-border-color;
+    }
+  }
+
+  // Fix for IE only
+  // Overrides select slotted styles
+  [part=list] ::slotted(ef-list) {
+    display: block;
+  }
+
+  [part=selection-badge] {
+    height: 17px;
+    min-width: 20px;
+  }
+}

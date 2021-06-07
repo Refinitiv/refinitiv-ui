@@ -1,0 +1,21 @@
+@import 'element:ef-layout';
+@import '../shared-styles/scrollbar';
+
+:host {
+  --sidebar-width: 250px;
+  .ie-scrollbars();
+  .mozilla-scrollbars();
+
+  &:not([sidebar-position]) [part=sidebar],
+  &[sidebar-position=left] [part=sidebar] {
+    border-right: @separator-width solid @separator-color;
+    transition: margin-left @global-transition-duration ease;
+  }
+  &[sidebar-position=right] [part=sidebar] {
+    order: 1;
+    border-left: @separator-width solid @separator-color;
+    transition: margin-right @global-transition-duration ease;
+  }
+}
+
+.webkit-scrollbars();

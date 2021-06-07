@@ -1,0 +1,18 @@
+@import 'ef-panel';
+@import '../shared-styles/scrollbar';
+@import 'element:ef-overlay-backdrop';
+
+:host {
+  &[transition-style] {
+    animation-duration: @global-transition-duration;
+  }
+
+  &[with-shadow] {
+    box-shadow: @panel-box-shadow;
+  }
+
+  .ie-scrollbars();
+  .mozilla-scrollbars();
+}
+
+.webkit-scrollbars();

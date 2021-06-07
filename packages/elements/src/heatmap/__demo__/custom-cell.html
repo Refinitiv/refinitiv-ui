@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  <style>
+    demo-block {
+      max-width: none !important;
+      width: 100% !important;
+    }
+
+    #with-cell-header {
+        height: 575px;
+    }
+  </style>
+</head>
+
+<body>
+  <script type="module">
+    import '@refinitiv-ui/elements/heatmap';
+    import '@refinitiv-ui/elements/sparkline';
+    import '@refinitiv-ui/demo-block';
+  </script>
+
+  <h3>EF Heatmap - Custom cell</h3>
+  <code>
+    <a href="./index.html"><button>Basics</button></a>
+    <a href="./color.html"><button>Colors</button></a>
+    <a href="./custom-cell.html"><button>Custom cell properties</button></a>
+  </code>
+
+  <demo-block layout="normal" header="Label hidden (label-hidden)">
+    <ef-heatmap id="label-hidden" label-hidden></ef-heatmap>
+  </demo-block>
+
+  <demo-block layout="normal" header="Custom label">
+    <ef-heatmap id="custom-label"></ef-heatmap>
+  </demo-block>
+
+  <demo-block layout="normal" header="No cell data">
+    <ef-heatmap id="diagonal-line"></ef-heatmap>
+  </demo-block>
+
+  <demo-block layout="normal" header="With cell header">
+    <ef-heatmap id="with-cell-header"></ef-heatmap>
+  </demo-block>
+
+  <script>
+      var el;
+      var generateData = function (r, c, withHeader) {
+        var rows = Array(r);
+        for (let i = 0; i < rows.length; i++) {
+          var columns = Array(c);
+          for (let ii = 0; ii < columns.length; ii++) {
+            var shift = (i * ii) / (c * r);
+            var value = -1 + shift + (Math.random() / 2 + 0.5 * shift) * (2 - shift) * 1;
+            columns[ii] = {
+              header: withHeader ? Math.random().toString(36).substring(2, 5).toUpperCase() : null,
+              value
+            };
+          }
+          rows[i] = columns;
+        }
+        return rows;
+      };
+
+      var generateDataWithDiagonalLine = function (r, c) {
+        var rows = Array(r);
+        for (let i = 0; i < rows.length; i++) {
+          var columns = Array(c);
+          for (let ii = 0; ii < columns.length; ii++) {
+            var shift = (Math.random(1) * 1.5) / (c * r);
+            var value = -0.75 + shift + (Math.random() / 2 + 0.75 * shift) * (2 - shift) * 1.5;
+
+            if ((i === ii)) {
+              columns[ii] = null;
+            }
+            else {
+              columns[ii] = { value };
+            }
+          }
+          rows[i] = columns;
+        }
+        return rows;
+      };
+
+      var generateSparkline = function () {
+        var result = [];
+        for (var i = 0; i < 10; i++) {
+          result.push(Math.random());
+        }
+        return result;
+      };
+      var initEl = function (id, rows, columns) {
+        el = document.getElementById(id);
+        el.tooltipCallback = function (cell) {
+          var tooltip = document.createElement('div');
+          var template = `
+                <div style="font-weight: bold">Actual value:</div>
+                <div style="color:${cell.color}">${cell.value}</div>
+                <ef-sparkline data="[${generateSparkline().join()}]" style="width: 100%;margin-top:5px;"></ef-sparkline>
+              `;
+          tooltip.innerHTML = template;
+          return tooltip;
+        };
+
+        el.config = {};
+        if (id === 'diagonal-line') {
+          el.config = {
+            data: generateDataWithDiagonalLine(16, 16),
+            yAxis: {
+              labels: ['EUR', 'USD', 'JPY', 'GBP', 'CHF', 'AUD', 'CAD', 'THB', 'NZD', 'HKD', 'INR', 'RUB', 'SGD', 'UGX', 'XAU', 'XAG']
+            },
+            xAxis: {
+              labels: ['EUR', 'USD', 'JPY', 'GBP', 'CHF', 'AUD', 'CAD', 'THB', 'NZD', 'HKD', 'INR', 'RUB', 'SGD', 'UGX', 'XAU', 'XAG']
+            }
+          };
+        }
+        else if (id === 'with-cell-header') {
+          el.config.data = generateData(6, 10, true);
+        }
+        else {
+          el.config.data = generateData(rows || 10, columns || 15);
+        }
+
+
+        if (id === 'custom-label') {
+          el.renderCallback = function (cell) {
+            return {
+              label: (cell.value * 100).toFixed(2) + '%'
+            };
+          };
+        }
+
+        if (id === 'with-cell-header') {
+          el.renderCallback = function (cell) {
+            const roundedValue = cell.value.toFixed(2);
+            return {
+              label: roundedValue > 0 ? `+${roundedValue}` : roundedValue
+            };
+          };
+        }
+      };
+
+      initEl('custom-label', 6, 8);
+      initEl('label-hidden', 5, 5);
+      initEl('diagonal-line', 15, 15);
+      initEl('with-cell-header');
+</script>
+</body>
+
+</html>

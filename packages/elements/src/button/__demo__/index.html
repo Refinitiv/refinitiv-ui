@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Button</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <style type="text/css">
+      .demos {
+        list-style-type: none;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .demos li {
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      .demos li.baseline {
+        display: flex;
+        justify-content: center;
+      }
+
+      ef-button + ef-button {
+        margin-left: 5px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/elements/icon';
+      import '@refinitiv-ui/elements/button';
+    </script>
+
+    <!-- DEFAULT -->
+    <demo-block layout="normal" header="Default" tags="default, disabled">
+      <ul class="demos">
+        <li>
+          <ef-button>Button</ef-button>
+        </li>
+        <li>
+          <ef-button disabled>Disabled</ef-button>
+        </li>
+      </ul>
+    </demo-block>
+
+    <!-- IN LINE ICON -->
+    <demo-block layout="normal" header="Inline Icon" tags="icon, disabled">
+      <ul class="demos">
+        <li>
+          <ef-button icon="tick">Button</ef-button>
+        </li>
+        <li>
+          <ef-button icon="tick" disabled>Disabled</ef-button>
+        </li>
+      </ul>
+    </demo-block>
+
+    <!-- IN LINE ICON (TEXT BEFORE) -->
+    <demo-block layout="normal" header="Inline Icon + Textpos" tags="icon, textpos">
+      <ul class="demos">
+        <li>
+          <ef-button icon="tick" textpos="before">Button</ef-button>
+        </li>
+        <li>
+          <ef-button icon="tick" textpos="before" disabled>Disabled</ef-button>
+        </li>
+      </ul>
+    </demo-block>
+
+    <!-- IN LINE + TEXT BEFORE + WIDTH -->
+    <demo-block layout="normal" header="Inline Icon + Textpos + Width" tags="style, icon, textpos">
+      <ul class="demos">
+        <li>
+          <ef-button style="width:150px;" icon="tick" textpos="before">Button</ef-button>
+        </li>
+        <li>
+          <ef-button style="width:150px;" icon="tick" textpos="before" disabled>Disabled</ef-button>
+        </li>
+        <span>Set <b>height: auto</b> if content in button is more than one line.</span>
+        <li>
+          <ef-button style="width:200px; height: auto;" icon="tick" textpos="before">
+            With a long piece of text to test positioning
+          </ef-button>
+        </li>
+      </ul>
+    </demo-block>
+
+    <!-- ICON / transparent ICON -->
+    <demo-block layout="normal" header="Icon / transparent Icon" tags="icon, transparent, disabled">
+      <ul class="demos">
+        <li>
+          <ef-button icon="nine-charts"></ef-button>
+          <ef-button icon="nine-charts" transparent></ef-button>
+          <ef-button icon="nine-charts" transparent toggles></ef-button>
+          <ef-button icon="nine-charts" cta transparent></ef-button>
+          <ef-button icon="nine-charts" cta transparent toggles></ef-button>
+        </li>
+        <li>
+          <ef-button icon="nine-charts" disabled></ef-button>
+          <ef-button icon="nine-charts" transparent disabled></ef-button>
+          <ef-button icon="nine-charts" transparent disabled toggles></ef-button>
+          <ef-button icon="nine-charts" cta transparent disabled></ef-button>
+          <ef-button icon="nine-charts" cta transparent disabled toggles></ef-button>
+        </li>
+      </ul>
+    </demo-block>
+
+    <!-- HOVER ICON -->
+    <demo-block layout="normal" header="Hover Icon" tags="icon, hover-icon">
+      <ul class="demos">
+        <li>
+          <ef-button icon="tick" hover-icon="cross"></ef-button>
+          <ef-button icon="cross" hover-icon="tick"></ef-button>
+        </li>
+      </ul>
+    </demo-block>
+
+    <!-- TOGGLE -->
+    <demo-block layout="normal" header="Toggle" tags="toggles">
+      <ul class="demos">
+        <li>
+          <ef-button toggles>Click to toggle</ef-button>
+          <ef-button toggles icon="nine-charts"></ef-button>
+        </li>
+      </ul>
+    </demo-block>
+
+    <!-- CALL TO ACTION -->
+    <demo-block layout="normal" header="Call To Action" tags="cta, style, icon, textpos, disabled">
+      <ul class="demos">
+        <li>
+          <ef-button cta>OK</ef-button>
+        </li>
+        <li>
+          <ef-button cta style="width: 100px;">Fixed width</ef-button>
+        </li>
+        <li>
+          <ef-button icon="tick" cta>OK</ef-button>
+          <ef-button icon="tick" cta toggles>OK Toggle</ef-button>
+          <ef-button icon="tick" textpos="before" cta>OK</ef-button>
+        </li>
+        <li class="baseline">
+          <ef-button cta disabled>Disabled</ef-button>
+          <ef-button cta disabled toggles>Disabled Toggle</ef-button>
+          <ef-button icon="tick" cta disabled></ef-button>
+          <ef-button icon="tick" cta disabled toggles>Disabled with icon</ef-button>
+        </li>
+      </ul>
+    </demo-block>
+
+    <demo-block id="click-counter" header="Click Counter" layout="normal" tags="click,tap,enter,space">
+      <ul class="demos">
+        <li>
+          <ef-button>Click me</ef-button>
+          <ef-button toggles>Toggles</ef-button>
+          <ef-button icon="tick">Icon</ef-button>
+          <ef-button disabled>Disabled</ef-button>
+        </li>
+        <li class="baseline">
+          Number of click events generated by simple mouse clicking and pressing "space" or "enter"
+        </li>
+        <li>
+          <span id="keyboard-clicked"></span>
+        </li>
+        <li>
+          <span id="mouse-clicked"></span>
+        </li>
+        <li>
+          <span id="tap"></span>
+        </li>
+        <li>
+          <span id="tap-start"></span>
+        </li>
+        <li>
+          <span id="tap-end"></span>
+        </li>
+      </ul>
+      <script>
+        (function () {
+          let keyboardClicksCount = 0;
+          let mouseClicksCount = 0;
+          let tapCount = 0;
+          let tapStartCount = 0;
+          let tapEndCount = 0;
+
+          const mouseClicked = document.getElementById('mouse-clicked');
+          const keyboardClicked = document.getElementById('keyboard-clicked');
+          const tapElement = document.getElementById('tap');
+          const tapStartElement = document.getElementById('tap-start');
+          const tapEndElement = document.getElementById('tap-end');
+
+          const generateMouseClickContent = () => {
+            mouseClicked.innerHTML = `Clicked ${mouseClicksCount} by mouse`;
+            mouseClicksCount += 1;
+          };
+          const generateKeyboardClickContent = () => {
+            keyboardClicked.innerHTML = `Clicked ${keyboardClicksCount} by space or enter`;
+            keyboardClicksCount += 1;
+          };
+          const generateKeyboardTapContent = () => {
+            tapElement.innerHTML = `tap fired ${tapCount} times`;
+            tapCount += 1;
+          };
+          const generateKeyboardTapStartContent = () => {
+            tapStartElement.innerHTML = `tap-start fired ${tapStartCount} times`;
+            tapStartCount += 1;
+          };
+          const generateKeyboardTapEndContent = () => {
+            tapEndElement.innerHTML = `tap-end fired ${tapEndCount} times`;
+            tapEndCount += 1;
+          };
+
+          const clickHandler = event => {
+            if (event instanceof PointerEvent ? event.pointerType !== 'mouse' : event.detail === 0) {
+              generateKeyboardClickContent();
+            }
+            else {
+              generateMouseClickContent();
+            }
+          };
+
+          generateMouseClickContent();
+          generateKeyboardClickContent();
+          generateKeyboardTapContent();
+          generateKeyboardTapStartContent();
+          generateKeyboardTapEndContent();
+
+          document.querySelectorAll('#click-counter ef-button').forEach(button => {
+            button.addEventListener('click', clickHandler);
+            button.addEventListener('tap', generateKeyboardTapContent);
+            button.addEventListener('tapstart', generateKeyboardTapStartContent);
+            button.addEventListener('tapend', generateKeyboardTapEndContent);
+          });
+        })();
+      </script>
+    </demo-block>
+  </body>
+</html>

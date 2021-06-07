@@ -1,0 +1,15 @@
+{
+  "root": true,
+  "extends": ["./node_modules/@refinitiv-ui/configurations/typescript.eslint-config.js"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "@typescript-eslint/no-namespace": 0
+  },
+  "ignorePatterns": [
+    "packages/**/lib",
+    "__test__",
+    "*.md"
+  ] // .eslintignore resolves relative to working dir, this is needed to ignore files in workspaces
+}

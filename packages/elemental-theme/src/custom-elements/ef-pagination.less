@@ -1,0 +1,34 @@
+@import 'element:ef-button';
+@import 'element:ef-text-field';
+@import 'element:ef-button-bar';
+@import 'element:ef-layout';
+@import '../responsive';
+
+:host {
+  [part=container] {
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  [part=info] {
+    margin-right: 10px;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &[disabled] [part=info] {
+    color: @input-disabled-text-color;
+  }
+
+  [part=input] {
+    width: 180px;
+    min-width: 40px;
+    text-align: center;
+  }
+
+  [part=input], [part=button] {
+    .touch-action();
+  }
+}

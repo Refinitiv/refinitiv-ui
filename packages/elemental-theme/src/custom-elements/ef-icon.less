@@ -1,0 +1,47 @@
+:host {
+
+  --cdn-prefix: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/';
+
+  // to make :active work on IE11
+  svg {
+    pointer-events: none;
+  }
+
+  g,
+  path,
+  rect,
+  line,
+  circle,
+  ellipse,
+  polyline,
+  polygon {
+    &[fill]:not([fill=none]) {
+      fill: currentColor;
+    }
+    &[stroke]:not([stroke=none]) {
+      stroke: currentColor;
+    }
+  }
+
+  // some icons need to be branded with colours by default
+  &[icon=powerpoint] {
+    color: #ff3535;
+  }
+
+  &[icon=excel] { 
+    color: #00a626;
+  }
+
+  &[icon=pdf] {
+    color: #ff3535;
+  }
+
+  &[icon=word] { 
+    color: #0094c4;
+  }
+
+  &[icon=twitter] {
+    color: #1da1f2;
+  }
+
+}

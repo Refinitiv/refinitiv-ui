@@ -1,0 +1,66 @@
+@import 'element:ef-panel';
+@import 'element:ef-header';
+@import 'element:ef-icon';
+@import '../responsive';
+
+:host {
+  [part="toggle"] {
+    transition: @global-transition-duration @global-transition-easing;
+    opacity: .5;
+    margin-right: 0.5em;
+    margin-left: 0.8em;
+    flex-shrink: 0;
+  }
+
+  &[expanded] [part="toggle"] {
+    transform: rotate(90deg);
+  }
+
+  [part="header"] {
+    .touch-action();
+  }
+
+  @keyframes expand {
+    from {
+      height: 0;
+    }
+
+    to {
+      height: var(--target-height);
+    }
+  }
+
+  @keyframes collapse {
+    from {
+      height: var(--target-height);
+    }
+
+    to {
+      height: 0;
+    }
+  }
+
+  [part="content"] {
+    animation-duration: @global-transition-duration;
+    animation-timing-function: @global-transition-easing;
+  }
+
+  &:not([expanded]) {
+    [part="content"] {
+      height: 0;
+      animation-name: collapse;
+    }
+
+    [part="toggle"] {
+      transform: rotate(0deg);
+    }
+  }
+
+  &[expanded] [part="content"] {
+    animation-name: expand;
+  }
+
+  [part="content"] ef-panel:not([spacing]) {
+    padding: var(--panel-padding);
+  }
+}

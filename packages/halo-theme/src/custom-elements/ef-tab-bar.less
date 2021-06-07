@@ -1,0 +1,108 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-tab-bar';
+
+:host {
+  [part="left-btn"], [part="right-btn"] {
+    width: 36px;
+    border: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      margin: auto;
+      width: 1px;
+      background: @tab-level2-border-color;
+      height: 70%;
+      top: 0;
+      bottom: 0;
+    }
+  }
+
+  &[level="1"] {
+    [part="left-btn"], [part="right-btn"] {
+      &::after {
+        content: none;
+      }
+    }
+    [part="left-btn"] {
+      border-right: 1px solid @tab-border-color;
+    }
+    [part="right-btn"]  {
+      border-left: 1px solid @tab-border-color;
+    }
+  }
+
+  &[level="2"], &[level="3"] {
+    [part="left-btn"]::after {
+      right: 0;
+    }
+    [part="right-btn"]::after {
+      left: 0;
+    }
+  }
+
+  &[level="2"] {
+    [part="left-btn"], [part="right-btn"] {
+      &:not(:active):not(:hover){
+        background-color: @tab-level2-bg-color;
+      }
+      &::after {
+        height: 70%;
+      }
+    }
+  }
+
+  &[level="3"] {
+    [part="left-btn"], [part="right-btn"] {
+      border-color: transparent;
+      &:not(:active):not(:hover){
+        background-color: @global-background-color;
+      }
+      &::after {
+        height: 30%;
+      }
+    }
+  }
+
+  // For border bottom in vertical mode
+  @border-height: 1px;
+  @border-position: calc(100% + @border-height);
+  @border-side-size: 2% @border-height;
+  @border-center-size: 100% @border-height; // required 100% width, Chrome miscalculate with 96% width (100% - width of each side)
+
+  // vertical tab bar
+  &[vertical] {
+    [part=content] {
+      ::slotted(ef-tab) {
+        border-bottom-color: transparent;
+        border-right: none !important; // won't work on IE11 without important
+        background: linear-gradient(@tab-bar-background-color, @tab-bar-background-color) left @border-position / @border-side-size no-repeat,
+                    linear-gradient(@tab-bar-background-color, @tab-bar-background-color) right @border-position / @border-side-size no-repeat,
+                    linear-gradient(@tab-vertical-border-color, @tab-vertical-border-color) center @border-position / @border-center-size no-repeat;
+      }
+
+      ::slotted(ef-tab[active]:not(:active):not(:hover)) {
+        background: linear-gradient(@global-background-color, @global-background-color) left @border-position / @border-side-size no-repeat,
+                    linear-gradient(@global-background-color, @global-background-color) right @border-position / @border-side-size no-repeat,
+                    linear-gradient(@tab-vertical-border-color, @tab-vertical-border-color) center @border-position / @border-center-size no-repeat;
+      }
+      ::slotted(ef-tab:not([active]):not(:active):not(:hover)) {
+        background-color: @tab-bar-background-color;
+      }
+      ::slotted(ef-tab:hover) {
+        color: @tab-hover-text-color;
+        background-color: @tab-hover-background-color;
+      }
+      ::slotted(ef-tab:active) {
+        background-color: @tab-pressed-background-color;
+      }
+    }
+    &[level="1"], &[level="3"] {
+      [part=content] {
+        ::slotted(ef-tab[active]:not(:active):not(:hover)) {
+          color: @tab-level2-active-bg-color;
+          background-color: @global-background-color;
+        }
+      }
+    }
+  }
+}

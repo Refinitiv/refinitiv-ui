@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Pill</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/pill';
+      import '@refinitiv-ui/demo-block';
+    </script>
+
+    <demo-block header="Default Pill" layout="normal" tags="default,readonly,disabled">
+      <ef-pill>Default</ef-pill>
+      <ef-pill readonly>Readonly</ef-pill>
+      <ef-pill disabled>Disabled</ef-pill>
+    </demo-block>
+
+    <demo-block header="Clears Pill" layout="normal" tags="clears">
+      <ef-pill clears>Clears</ef-pill>
+      <ef-pill readonly clears>Readonly Clears</ef-pill>
+      <ef-pill disabled clears>Disabled Clears</ef-pill>
+    </demo-block>
+
+    <demo-block header="Toggles Pill" layout="normal" tags="toggles,active">
+      <ef-pill toggles>Toggles</ef-pill>
+      <ef-pill toggles active>Toggles Active</ef-pill>
+      <ef-pill toggles readonly>Toggles Readonly</ef-pill>
+      <ef-pill toggles disabled>Toggles Disabled</ef-pill>
+    </demo-block>
+
+    <demo-block header="Pill + Clear Button" layout="normal" tags="clears,toggles,active">
+      <ef-pill clears>Default</ef-pill>
+      <ef-pill toggles clears>Toggles</ef-pill>
+      <ef-pill toggles active clears>Toggles Active</ef-pill>
+      <ef-pill toggles clears readonly>Readonly</ef-pill>
+      <ef-pill toggles clears disabled>Disabled</ef-pill>
+    </demo-block>
+  </body>
+</html>

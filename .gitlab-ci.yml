@@ -1,0 +1,36 @@
+before_script:
+  - git clone -b v4 --single-branch git@git.sami.int.thomsonreuters.com:elf/gitlab-ci-tasks.git ci-tasks
+  - node ci-tasks/before_script
+
+stages:
+  # - test
+  - deploy
+
+# test_v4:
+#   stage: test
+#   script:
+#     - call yarn --ignore-scripts --frozen-lockfile
+#     - call yarn lerna run build --include-dependencies --since
+#     - call yarn lerna run test --concurrency=1 --include-dependents --since
+#   except:
+#     - v4@elf/elements
+#     - tags@elf/elements
+
+release_v4:
+  stage: deploy
+  tags:
+    - node
+    - linux
+  script:
+    - git remote set-url origin https://git.sami.int.thomsonreuters.com/elf/elements.git
+
+    - git checkout all-in-one
+    - git pull origin all-in-one
+
+    - yarn --ignore-scripts --frozen-lockfile
+    - yarn lerna run build --include-dependencies --since
+
+    - yarn lerna version --conventional-commits --conventional-prerelease --no-git-tag-version --yes
+    # - yarn lerna publish from-package --yes --dist-tag next
+  only:
+    - all-in-one@elf/elements

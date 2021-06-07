@@ -1,0 +1,23 @@
+kbd {
+  display: inline-flex;
+  border-radius: 2px;
+  font-family: inherit;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  /*
+  Always white keys */
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); // add shadow for light backgrounds
+  /*
+  Always dark text */
+  color: if(lightness(@global-background-color) < 50%, @global-background-color, @global-text-color);
+  /*
+  The following styles are designed to not
+  increase line height when kbd elements are used */
+  min-width: 1.33em;
+  height: 1.33em;
+  padding: 0 0.3em;
+  font-size: 0.76em;
+}

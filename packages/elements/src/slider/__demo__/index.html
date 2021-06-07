@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Slider</title>
+  <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+</head>
+
+<body>
+  <script type="module">
+    import '@refinitiv-ui/elements/slider';
+    import '@refinitiv-ui/demo-block';
+  </script>
+
+  <style>
+    ef-slider[custom-color] {
+      --track-color: #c1d4c1;
+      --step-color: rgb(0, 73, 0);
+      --thumb-color: green;
+      --pin-color: orange;
+      --pin-text-color: black;
+    }
+
+    ef-slider[pin] {
+      margin-top: 25px;
+    }
+  </style>
+
+  <demo-block layout="normal" header="Default">
+    <ef-slider value="20"></ef-slider>
+  </demo-block>
+  <demo-block layout="normal" header="Steps">
+    <ef-slider step="10"></ef-slider>
+  </demo-block>
+  <demo-block layout="normal" header="Show Pin" tag="5">
+    <ef-slider value="40" pin></ef-slider>
+  </demo-block>
+  <demo-block layout="normal" header="Show Steps">
+    <ef-slider min="20" max="150" value="64" step="10" show-steps></ef-slider>
+  </demo-block>
+  <demo-block layout="normal" header="Show Steps and pin">
+    <ef-slider min="20" max="100" value="50" step="10" show-steps pin></ef-slider>
+  </demo-block>
+  <demo-block layout="normal" header="Disabled">
+    <ef-slider value="50" disabled step="10"></ef-slider>
+  </demo-block>
+  <demo-block layout="normal" header="Read Only">
+    <ef-slider value="16" step="10" readonly show-steps></ef-slider>
+  </demo-block>
+  <demo-block layout="normal" header="Modified Color">
+    <ef-slider custom-color min="0" max="110" value="50" step="20" show-steps pin></ef-slider>
+  </demo-block>
+  <demo-block layout="normal" header="Range">
+    <ef-slider min="-50" max="110" from="10" to="50" range step="5"></ef-slider>
+  </demo-block>
+  <demo-block layout="normal" header="Range show steps and pin">
+    <ef-slider min="-50" max="110" step="20" from="10" to="50" show-steps pin range></ef-slider>
+  </demo-block>
+  <demo-block layout="normal" header="Show input field">
+    <ef-slider min="20" max="110" value="30" step="5" show-input-field></ef-slider>
+  </demo-block>
+  <demo-block layout="normal" header="Show input field on range">
+    <ef-slider min="-50" max="110" from="10" to="50" show-input-field range step="5"></ef-slider>
+  </demo-block>
+
+  <demo-block layout="normal" header="Set Min range">
+    <ef-slider min="-10" max="10" from="-5" to="5" min-range="5" show-input-field range ></ef-slider>
+  </demo-block>
+
+  <demo-block layout="normal" header="Set Min range">
+    <ef-slider min="-10" max="10" from="-5" to="5" min-range="5" show-input-field range ></ef-slider>
+  </demo-block>
+
+  <demo-block layout="normal" header="Set step decimal">
+    <ef-slider min="0.1" max="10" value="0" step="0.5" show-steps show-input-field></ef-slider>
+  </demo-block>
+
+  <demo-block layout="normal" header="Range set step decimal">
+    <ef-slider range min="0.1" max="10" value="0" step="0.5" show-steps show-input-field></ef-slider>
+  </demo-block>
+
+  <script>
+    var demoBlock = document.querySelectorAll('demo-block');
+    demoBlock.forEach(function (block) {
+
+      var slider = block.querySelector('ef-slider');
+      var span = document.createElement('span');
+      var valueText = document.createTextNode('Value:');
+      var valueFromText = document.createTextNode('From:');
+      var valueToText = document.createTextNode('To:');
+      var minText = document.createTextNode('Min:');
+      var maxText = document.createTextNode('Max:');
+      var minRangeText = document.createTextNode('Min Range:');
+
+      span.appendChild(minText);
+
+      if (!slider.hasAttribute('range')) {
+        span.appendChild(document.createElement('br'));
+        span.appendChild(valueText);
+      }
+      if (slider.hasAttribute('range')) {
+        span.appendChild(document.createElement('br'));
+        span.appendChild(valueFromText);
+        span.appendChild(document.createElement('br'));
+        span.appendChild(valueToText);
+        span.appendChild(document.createElement('br'));
+        span.appendChild(minRangeText);
+      }
+      span.appendChild(document.createElement('br'));
+      span.appendChild(maxText);
+
+      block.appendChild(span);
+
+      slider.addEventListener('min-changed', function (e) {
+        minText.nodeValue = 'Min:' + e.detail.value;
+      });
+      slider.addEventListener('max-changed', function (e) {
+        maxText.nodeValue = 'Max:' + e.detail.value;
+      });
+      slider.addEventListener('value-changed', function (e) {
+        valueText.nodeValue = 'Value:' + e.detail.value;
+      });
+      slider.addEventListener('from-changed', function (e) {
+        valueFromText.nodeValue = 'From:' + e.detail.value;
+      });
+      slider.addEventListener('to-changed', function (e) {
+        valueToText.nodeValue = 'To:' + e.detail.value;
+        minRangeText.nodeValue = 'MinRage:' + slider.minRange;
+      });
+    });
+  </script>
+</body>
+</html>

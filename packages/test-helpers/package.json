@@ -1,0 +1,24 @@
+{
+  "name": "@refinitiv-ui/test-helpers",
+  "version": "5.0.0-alpha.1",
+  "description": "Helper methods for writing tests in ELF components",
+  "main": "./lib/test-helpers.js",
+  "module": "./lib/test-helpers.js",
+  "types": "./lib/test-helpers.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "directory": "packages/test-helpers"
+  },
+  "author": "Refinitiv",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "build": "tsc --sourceMap false",
+    "lint": "eslint . --fix",
+    "test": "yarn build && karma start ../../karma.conf.js",
+    "test:watch": "yarn build && yarn test --auto-watch=true --single-run=false"
+  },
+  "dependencies": {
+    "@open-wc/testing": "^2.5.32"
+  }
+}

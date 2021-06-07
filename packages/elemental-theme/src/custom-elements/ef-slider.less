@@ -1,0 +1,129 @@
+@import 'element:ef-number-field';
+@import '../responsive';
+
+:host {
+	@input-field-margin: 16px; // margin between input and slider
+  .touch-action();
+	height: @control-height;
+	margin: @control-margin;
+	opacity: .9;
+
+	&:not([disabled]):hover{
+	  opacity: 1;
+	}
+
+	[part=track-wrapper] {
+		height: @slider-track-height;
+		background: var(--track-color, @slider-track-color);
+	}
+
+	&:not([disabled]) [part=track-fill]{
+		height: inherit;
+		background: var(--thumb-color, @slider-thumb-color);
+	}
+
+	&[disabled] {
+		[part=thumb],
+    	[part=thumb]:hover,
+    	[part=track-wrapper]::after,
+    	[part=track-fill] {
+		  background: @slider-track-disabled-color;
+		  content: '';
+    	}
+	}
+
+	[part=thumb-container] {
+		@slider-thumb-container-size : unit((@slider-thumb-size + 2), px);
+		width: @slider-thumb-container-size;
+		height: 100%;
+		margin-left: ((-(@slider-thumb-container-size) + @slider-step-width) / 2);
+	}
+
+	[part=thumb]{
+		top: calc((100% - @slider-thumb-size + @slider-track-height) / 2);
+		height: @slider-thumb-size;
+		width: @slider-thumb-size;
+		box-sizing: border-box;
+		border: 3px solid transparent;
+		border-radius: 100%;
+		transform: scale(.7);
+		background: var(--thumb-color, @slider-thumb-color);
+	}
+
+	&.grabbable [part=thumb] {
+		border-width: 2px;
+		transform: scale(1);
+	}
+
+	// show-steps styles
+	&[show-steps] [part=step-container]{
+		height: inherit;
+	}
+
+	&[show-steps]:not([disabled]) [part=step]{
+		height: inherit;
+		background-image: linear-gradient(to right,
+																			var(--step-color, @slider-step-color),
+																			var(--step-color, @slider-step-color) @slider-step-width,
+																			transparent 0,
+																			transparent);
+	}
+
+	&[show-steps]:not([disabled]) [part=track-wrapper]::after{
+		height: inherit;
+		width: @slider-step-width;
+		background-color: var(--step-color, @slider-step-color);
+	}
+
+	// slider pin
+	[part=pin] {
+		width: 26px;
+		height: 26px;
+		margin-top: -6px;
+		margin-left: -2px;
+		transform: rotate(-45deg) scale(0) translate(0);
+		transition: transform .1s ease-out;
+		border-radius: 50% 50% 50% 0;
+		background-color: var(--pin-color, @slider-marker-background-color);
+	}
+
+	[part=pin-value-marker] {
+		font-family: @control-font-family;
+		font-size: 0.8em;
+		color: var(--pin-text-color, @slider-marker-text-color);
+		line-height: 1.25rem;
+		font-weight: 400;
+		letter-spacing: .01786em;
+		text-decoration: inherit;
+		text-transform: inherit;
+		transform: rotate(45deg);
+		user-select: none;
+	}
+
+	&[pin].grabbable [part=pin] {
+		transform: rotate(-45deg) scale(1) translate(19px,-20px);
+	}
+
+	&[pin].grabbable [part=thumb] {
+		transform: scale(.7);
+	}
+
+	[part=input] {
+		margin: 0;
+		padding: 0;
+    width: var(--input-field-width, 40px);
+    min-width: 40px;
+    text-align: center;
+    height: 100%;
+	}
+
+	[part=input][name=to],
+	[part=input][name=value] {
+		margin-left: @input-field-margin;
+	}
+	
+	[part=input][name=from] {
+		margin-right: @input-field-margin;
+	}
+
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Search Field</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/search-field';
+      import '@refinitiv-ui/demo-block';
+    </script>
+
+    <!-- DEFAULT -->
+    <demo-block layout="normal" header="Default" tags="default">
+      <p><ef-search-field placeholder="Default" id="test"></ef-search-field></p>
+      <p><ef-search-field transparent placeholder="Default Transparent"></ef-search-field></p>
+      <p><ef-search-field placeholder="Disabled" disabled></ef-search-field></p>
+      <p><ef-search-field placeholder="Read Only" readonly></ef-search-field></p>
+    </demo-block>
+
+    <!-- DEFAULT (FIXED WIDTH) -->
+    <demo-block layout="normal" header="Default (Fixed Width)" tags="fixed width">
+      <p><ef-search-field style="width:200px;" placeholder="Default"></ef-search-field></p>
+      <p><ef-search-field style="width:200px;" placeholder="Disabled" disabled></ef-search-field></p>
+      <p><ef-search-field style="width:200px;" placeholder="Read Only" readonly></ef-search-field></p>
+      <p><ef-search-field style="width:200px;" placeholder="Icon Has Action" icon-has-action></ef-search-field></p>
+    </demo-block>
+
+    <!-- ERROR -->
+    <demo-block layout="normal" header="Error" tags="error">
+      <p><ef-search-field placeholder="Default" error></ef-search-field></p>
+      <p><ef-search-field placeholder="Disabled" disabled error></ef-search-field></p>
+      <p><ef-search-field placeholder="Read Only" readonly error></ef-search-field></p>
+    </demo-block>
+
+    <!-- WARNING -->
+    <demo-block layout="normal" header="Warning" tags="warning">
+      <p><ef-search-field placeholder="Default" warning></ef-search-field></p>
+      <p><ef-search-field placeholder="Disabled" disabled warning></ef-search-field></p>
+      <p><ef-search-field placeholder="Read Only" readonly warning></ef-search-field></p>
+    </demo-block>
+
+    <!-- MIN LENGTH -->
+    <demo-block layout="normal" header="Minlength" tags="minlength">
+      <p><ef-search-field class="minLengthValidation" placeholder="Minlength set to 5" minlength="5" value=""></ef-search-field></p>
+      <p class="isLongEnough"></p>
+    </demo-block>
+
+
+    <!-- MAX LENGTH -->
+    <demo-block layout="normal" header="Maxlength" tags="maxlength">
+      <p><ef-search-field placeholder="Maxlength set to 5" maxlength="5" value=""></ef-search-field></p>
+    </demo-block>
+
+    <!-- PATTERN -->
+    <demo-block layout="normal" header="Pattern expression" tags="pattern">
+      <p><ef-search-field class="patternValidation" pattern='[a-z]{1,5}' placeholder="Current pattern: [a-z]{1,5}"></ef-search-field></p>
+      <p class="isValid"></p>
+      <script>
+        let patternValidationInput = document.querySelector('.patternValidation');
+        let isValidPTag = document.querySelector('.isValid');
+
+        patternValidationInput.addEventListener('error-changed', function (e) {
+          isValidPTag.innerHTML = `isValid: ${!e.detail.value}`;
+        }, false);
+      </script>
+    </demo-block>
+
+    <!-- FOCUS/BLUR -->
+    <demo-block layout="normal" header="Focus/Blur" tags="focus/blur">
+      <p><ef-search-field class="focusblur" placeholder="Focus/Blur"></ef-search-field></p>
+      <p>
+        <button onClick="focusblur.focus();">Focus</button>
+        <button onClick="focusblur.blur();">Blur</button>
+      </p>
+      <p class="focusblurevent"></p>
+      <script>
+        const focusblur = document.querySelector('.focusblur');
+        const focusblurevent = document.querySelector('.focusblurevent');
+
+        focusblur.addEventListener('blur', function () {
+          focusblurevent.innerHTML = '`blur` event triggered';
+        }, false);
+
+        focusblur.addEventListener('focus', function () {
+          focusblurevent.innerHTML = '`focus` event triggered';
+        }, false);
+      </script>
+    </demo-block>
+
+    <!-- ICON HAS ACTION -->
+    <demo-block layout="normal" header="Icon Has Action" tags="icon-has-action">
+      <p>
+        <ef-search-field class="icon-has-no-action" placeholder="Icon Has No Action"></ef-search-field>
+      </p>
+      <p>
+        <ef-search-field class="icon-has-action" placeholder="Icon Has Action" icon-has-action></ef-search-field>
+      </p>
+      <p class="icon-click-event"></p>
+      <script>
+        const fieldWithoutAction = document.querySelector('.icon-has-action');
+        const fieldWith = document.querySelector('.icon-has-action');
+        const iconActionLogger = document.querySelector('.icon-click-event');
+        let counter = 0;
+
+        const loggerFunc = () => {
+          iconActionLogger.innerHTML = `clicked: ${counter += 1} times`;
+        };
+
+        fieldWithoutAction.addEventListener('icon-click', loggerFunc);
+        fieldWith.addEventListener('icon-click', loggerFunc);
+      </script>
+    </demo-block>
+
+  </body>
+</html>

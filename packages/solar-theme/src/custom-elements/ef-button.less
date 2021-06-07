@@ -1,0 +1,23 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-button';
+@import '@refinitiv-ui/elemental-theme/src/responsive';
+@import '../shared-styles/button';
+
+:host {
+  .button-defaults();
+  &[disabled] {
+    border-color: @button-border-color;
+  }
+  &:not([cta])[empty][icon][transparent] {
+    color: @button-text-color;
+
+    &[disabled] {
+      color: @button-text-color;
+    }
+
+    &:hover {
+      .desktop-specific({
+        color: @button-hover-text-color;
+      });
+    }
+  }
+}

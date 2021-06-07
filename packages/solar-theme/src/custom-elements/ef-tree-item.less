@@ -1,0 +1,21 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-tree-item';
+
+:host {
+  min-height: @tree-item-height;
+  background-color: @tree-item-default-background-color;
+  border-bottom: @list-item-divider-thickness solid @tree-item-divider-color;
+  &[depth="0"] {
+    background-color: @tree-item-depth0-background-color;
+  }
+  &[highlighted] {
+    background-color: @tree-item-hover-background-color;
+  }
+  &[focused=visible] {
+    outline: @tree-item-selected-outline;
+    outline-offset: -1px; // No IE support but it removes a sentient element
+    border-color: transparent;
+  }
+  &:last-of-type {
+    border-color: transparent;
+  }
+}

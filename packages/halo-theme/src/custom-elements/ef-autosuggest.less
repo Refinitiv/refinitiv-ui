@@ -1,0 +1,62 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-autosuggest';
+@import '../native-elements/kbd';
+@import '../native-elements/mark';
+@import '../shared-styles/scrollbar';
+
+:host {
+  border-color: @scheme-color-primary;
+  margin: 2px 0;
+
+  [part=content] {
+    ::slotted(ef-item:not([part=more-results])) {
+      background-color: @search-list-background-color;
+    }
+
+    ::slotted(ef-item:not([type=header]):not([part=more-results])) {
+      color: @search-list-color;
+    }
+
+    ::slotted(ef-item:not([part=more-results]):not(:first-child)) {
+      box-shadow: 0px -1px 0 @separator-color;
+    }
+
+    ::slotted(ef-item:not([part=more-results]):focus),
+    ::slotted(ef-item:not([part=more-results])[highlighted]) {
+      background-color: @search-list-hover-background-color;
+    }
+
+    ::slotted(ef-item:not([part=more-results]):focus:not([selected])),
+    ::slotted(ef-item:not([part=more-results])[highlighted]:not([selected])) {
+      color: @search-list-hover-color;
+    }
+  }
+
+  [part=more-results] {
+    border-top-color: @separator-color;
+
+    color: @search-list-more-search-color;
+    background-color: @search-list-more-search-background-color;
+
+    &:focus, &[highlighted] {
+      background-color: @search-list-more-search-hover-background-color;
+      color: @search-list-more-search-color;
+    }
+  }
+
+  [part=more-results-text] {
+    font-size: inherit;
+  }
+
+  [part=more-results-keys] {
+    kbd {
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+    kbd:first-of-type {
+      margin-left: 0;
+    }
+    kbd:last-of-type {
+      margin-right: 0;
+    }
+  }
+}

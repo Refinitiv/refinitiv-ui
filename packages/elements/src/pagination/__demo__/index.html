@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+</head>
+
+<body>
+  <script type="module">
+    // Translations polyfills
+    import '@formatjs/intl-getcanonicallocales/polyfill';
+    import '@formatjs/intl-pluralrules/polyfill';
+    import '@formatjs/intl-pluralrules/locale-data/en';
+    import '@formatjs/intl-pluralrules/locale-data/zh';
+    import '@formatjs/intl-pluralrules/locale-data/de';
+    import '@formatjs/intl-pluralrules/locale-data/ja';
+
+    // Translations
+    import '@refinitiv-ui/phrasebook/lib/locale/de/pagination';
+    import '@refinitiv-ui/phrasebook/lib/locale/ja/pagination';
+    import '@refinitiv-ui/phrasebook/lib/locale/zh/pagination';
+    import '@refinitiv-ui/phrasebook/lib/locale/zh-hant/pagination';
+  </script>
+
+  <script type="module">
+    import '@refinitiv-ui/elements/pagination';
+    import '@refinitiv-ui/demo-block';
+  </script>
+
+  <demo-block layout="normal" header="Default" tags="default">
+    <ef-pagination></ef-pagination>
+  </demo-block>
+
+  <demo-block layout="normal" header="Event" tags="event">
+    <ef-pagination id="pagination" page-size="5" total-items="32"></ef-pagination>
+    <br>
+    <code style="float:right;">page-changed: <span id="page"></span></code>
+    <script>
+      let el = document.getElementById('pagination');
+      el.addEventListener('page-changed', (e) => {
+        document.getElementById('page').textContent = e.detail.value;
+      });
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Translations" tags="translations,i18n">
+    <ef-pagination page-size="5" total-items="32" title="Default"></ef-pagination>
+    <ef-pagination lang="de" page-size="5" total-items="32" title="de"></ef-pagination>
+    <ef-pagination lang="en" page-size="5" total-items="32" title="en"></ef-pagination>
+    <ef-pagination lang="ja" page-size="5" total-items="32" title="ja"></ef-pagination>
+    <ef-pagination lang="zh" page-size="5" total-items="32" title="zh"></ef-pagination>
+    <ef-pagination lang="zh-Hant" page-size="5" total-items="32" title="zh-Hant"></ef-pagination>
+  </demo-block>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+@import '../shared-styles/button';
+@import '../shared-styles/input';
+
+input {
+  .input-defaults;
+  .input-webkit-normaliser;
+}
+
+input[type=button],
+input[type=submit] {
+  .button-defaults;
+}
+
+input:not([type]),
+input[type=url],
+input[type=tel],
+input[type=text],
+input[type=email],
+input[type=search],
+input[type=number],
+input[type=password],
+input[type=date],
+input[type=week],
+input[type=month],
+input[type=file] {
+  .input-standard;
+  appearance: none;
+
+  &:focus {
+    .input-focus;
+  }  
+}
+
+input[type=file]::-webkit-file-upload-button {
+  width: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  border: none;
+  height: 100%;
+  font-family: @input-font-family;
+  font-size: @input-font-size;
+}
+
+input[type=radio],
+input[type=checkbox] {
+  display: inline-block;
+  width: round((@input-height * 0.56));
+  height: round((@input-height * 0.56));
+  border-radius: @input-border-radius;
+  border-style: @input-border-style;
+  border-color: @input-border-color;
+  border-width: max(@input-border-width);
+  background-color: @input-background-color;
+  margin: @input-margin;
+  transition: box-shadow 150ms @global-transition-easing, border-color 150ms @global-transition-easing;
+  vertical-align: middle;
+  box-shadow: inset 0 0 (@global-box-shadow-blur-radius * 0.75) @global-box-shadow-color;
+
+  + label:not(:empty) {
+    vertical-align: middle;
+    margin: @input-margin;
+    margin-right: 7px;
+    margin-left: 4px;
+    display: inline-block;
+  }
+
+  &:not([tabindex="-1"]):focus {
+    border-color: @input-focused-border-color;
+    box-shadow: 0 0 (@global-box-shadow-blur-radius * 0.75) @input-focused-border-color;
+  }
+}
+
+input[type=radio] {
+  border-radius: 100%;
+  &:checked {
+    background-image: radial-gradient(@dataviz-color-primary 25%, transparent 30%);
+    background-size: 100%;
+  }
+}
+
+input[type=checkbox] {
+  // encode base64 otherwise css will corrupt in ef-grid
+  &:checked {
+    background: data-uri('image/svg+xml;base64', '../resources/images/checkbox/checked.svg') no-repeat center center;
+    background-color: @input-background-color;
+  }
+  &:indeterminate {
+    background: data-uri('image/svg+xml;base64', '../resources/images/checkbox/indeterminate.svg') no-repeat center center;
+    background-color: @input-background-color;
+  }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+
+  <custom-style>
+    <style type="text/css">
+      ef-sparkline[custom-line-color] {
+        --line-color: #f12ce8;
+      }
+      ef-sparkline[custom-threshold-color] {
+        --upper-line-color: #4286f4;
+        --lower-line-color: #f4b541;
+        --reference-line-color: #74f441;
+        --previous-line-color: #f12ce8;
+        --fill-color-style: solid;
+      }
+
+      ef-sparkline:not(#default) {
+        width: 100%;
+        height: 160px;
+      }
+    </style>
+  </custom-style>
+</head>
+
+<body>
+  <script type="module">
+    import '@refinitiv-ui/elements/sparkline';
+    import '@refinitiv-ui/demo-block';
+  </script>
+
+  <demo-block header="Default Size" layout="normal">
+    <ef-sparkline id="default" data="[-2, -3, 1, 1, 4, 6, -3, 1, 4, 6, 10, 9, 10, 9, 6, 4, 5, 0, 3, 2, 3, -1, -4, 2, 3, 4, 3, 6]"></ef-sparkline>
+  </demo-block>
+
+  <demo-block header="Normal usage" layout="normal">
+    <ef-sparkline data="[-2, -3, 1, 1, 4, 6, -3, 1, 4, 6, 10, 9, 10, 9, 6, 4, 5, 0, 3, 2, 3, -1, -4, 2, 3, 4, 3, 6]"></ef-sparkline>
+  </demo-block>
+
+  <demo-block header="Set threshold" layout="normal">
+    <ef-sparkline reference-value="2" data="[-2, -3, 1, 1, 4, 6, -3, 1, 4, 6, 10, 9, 10, 9, 6, 4, 5, 0, 3, 2, 3, -1, -4, 2, 3, 4, 3, 6]"></ef-sparkline>
+  </demo-block>
+
+  <demo-block header="Previous data" layout="normal">
+    <ef-sparkline data="[6, -3, 1, 4, 6, 10, 9, 10, 9, 6, 4, 5, 0, 3, 2, 3, -1, -4, 2, 3, 4, 3, 6]" previous-data="[-1, 2, 6, 5, -3, -1, -2, -3, 1, 1, 4]"></ef-sparkline>
+  </demo-block>
+
+  <demo-block header="Set line color" layout="normal">
+    <ef-sparkline custom-line-color data="[-2, -3, 1, 1, 4, 6, -3, 1, 4, 6, 10, 9, 10, 9, 6, 4, 5, 0, 3, 2, 3, -1, -4, 2, 3, 4, 3, 6]"></ef-sparkline>
+  </demo-block>
+
+  <demo-block header="Set custom colors" layout="normal">
+    <ef-sparkline custom-threshold-color reference-value="0" data="[6, -3, 1, 4, 6, 10, 9, 10, 9, 6, 4, 5, 0, 3, 2, 3, -1, -4, 2, 3, 4, 3, 6]" previous-data="[-1, 2, 6, 5, -3, -1, -2, -3, 1, 1, 4]"></ef-sparkline>
+  </demo-block>
+</body>
+
+</html>

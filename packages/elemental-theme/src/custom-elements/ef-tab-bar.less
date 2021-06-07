@@ -1,0 +1,64 @@
+@import 'element:ef-tab';
+@import 'element:ef-button';
+
+:host {
+  position: relative;
+  background-color: @tab-bar-background-color;
+
+  // overflow content
+  [part="content"] {
+    display: flex;
+    overflow: hidden;
+  }
+
+  // left and right scroll button
+  [part="left-btn"], [part="right-btn"] {
+    display: none;
+    position: absolute;
+    height: auto;
+    margin: auto;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    background-color: @tab-background-color;
+
+    &:hover {
+      background-color: @tab-hover-background-color;
+    }
+
+    &:active {
+      background-color: @tab-pressed-background-color;
+    }
+
+    // keyboard navigation
+    &:focus:not([focused]), &[focused=visible] {
+      background-color: @tab-active-focused-background-color;
+
+        &:not([active]):not(:hover) {
+          color: @tab-focused-text-color;
+          background-color: @tab-background-color;
+      }
+    }
+  }
+
+  [part="left-btn"] {
+    left: 0;
+  }
+  [part="right-btn"] {
+    right: 0;
+  }
+
+  &[vertical] {
+    width: @tab-bar-vertical-width;
+    flex-shrink: 0; // Keep it fixed
+
+    [part="content"] {
+      flex-direction: column;
+
+      ::slotted(ef-tab) {
+        justify-content: flex-start;
+        border-bottom: 1px solid @tab-vertical-border-color;
+      }
+    }
+  }
+}

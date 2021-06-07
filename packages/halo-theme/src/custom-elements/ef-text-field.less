@@ -1,0 +1,88 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-text-field';
+// @import '../shared-styles/input';
+
+:host {
+  @input-readonly-icon-color: @input-disabled-text-color;
+  @input-readonly-border-color: @input-disabled-border-color;
+  @input-readonly-background-color: @input-disabled-background-color;
+
+  color: @input-text-color;
+
+  ::selection {
+    color: @global-text-selection-color;
+    background-color: @global-text-selection-background;
+  }
+
+  [part='icon'] {
+    padding-left: 2px;
+  }
+
+  &:not([readonly]):not([error]):not([warning]):not([focused]):hover {
+    border-color: @input-hover-border-color;
+    color: @input-hover-text-color;
+
+    [part='icon'] {
+      color: @scheme-color-secondary;
+      & when (@variant = light) {
+        color: @scheme-color-primary;
+      }
+    }
+  }
+
+  &[warning] {
+    border-color: @control-warning-color;
+  }
+
+  &[error], &[error][warning] {
+    border-color: @control-error-color;
+  }
+
+  &[warning]:hover:not([readonly]):not([focused]) {
+    color: @input-hover-text-color;
+    border-color: @control-hover-warning-color;
+  }
+
+  &[warning][disabled],
+  &[warning][readonly]:not([focused]) {
+    border-color: fade(@control-hover-warning-color, 50%);
+  }
+
+  &[error]:hover:not([readonly]):not([focused])  {
+    color: @input-hover-text-color;
+    border-color: @control-hover-error-color;
+  }
+
+  &[error][disabled],
+  &[error][warning][disabled],
+  &[error][readonly]:not([focused]) {
+    border-color: fade(@control-hover-error-color, 50%);
+  }
+
+  &[disabled] {
+    color: @input-disabled-text-color;
+    border-color: @input-disabled-border-color;
+    background-color: @input-disabled-background-color;
+  }
+
+  &[readonly]:not([focused]) {
+    border-color: @input-readonly-border-color;
+    background-color: @input-readonly-background-color;
+
+    [part='icon'] {
+      color: @input-readonly-icon-color;
+    }
+  }
+
+  &[focused],
+  &[focused][error][warning] {
+    border-color: @input-focused-border-color;
+    color: @input-focused-text-color;
+
+    [part='icon'] {
+      color: @scheme-color-secondary;
+      & when (@variant = light) {
+        color: @scheme-color-primary;
+      }
+    }
+  }
+}
