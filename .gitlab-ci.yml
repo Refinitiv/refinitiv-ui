@@ -10,13 +10,14 @@ stages:
 test_v5:
   stage: test
   script:
+    # Using `call` because this job runs on Windows
     # Installing dependencies, strictly based on lock file
     - call yarn --ignore-scripts --frozen-lockfile
 
-    # Build changed package and its dependencies, only what's required
+    # Build only changed packages and its dependencies
     - call yarn lerna run build --include-dependencies --since
 
-    # Test changed package and its dependents
+    # Test only changed packages and its dependents
     - call yarn lerna run test --concurrency=1 --include-dependents --since
   except:
     - v5@elf/refinitiv-ui
@@ -35,13 +36,13 @@ release_v5:
     # Installing dependencies, strictly based on lock file
     - yarn --ignore-scripts --frozen-lockfile
 
-    # Build changed package and its dependencies, only what's required
+    # Build only changed packages and its dependencies
     - yarn lerna run build --include-dependencies --since
 
-    # Get changed package version from commit message
+    # Get changed packages version from conventional commit message
     - yarn lerna version --conventional-commits --conventional-prerelease --no-git-tag-version --yes
 
     # Publish to registry
     - yarn lerna publish from-package --yes --dist-tag next
   only:
-    - v5@elf/elements
+    - v5@elf/refinitiv-ui
