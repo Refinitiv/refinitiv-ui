@@ -20,11 +20,36 @@ const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 /**
  * Container for tabs
  */
-@customElement('ef-tab-bar')
+@customElement('ef-tab-bar', {
+  alias: 'coral-tab-bar'
+})
 export class TabBar extends ResponsiveElement {
-  @query('[part="content"') private content!: HTMLElement;
-  @query('[part="left-btn"]') private leftBtn!: Button;
-  @query('[part="right-btn"]') private rightBtn!: Button;
+  /**
+   * A `CSSResult` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @returns CSS template
+   */
+  static get styles (): CSSResult | CSSResult[] {
+    return css`
+      :host {
+        display: flex;
+      }
+      :host([alignment=center]) {
+        justify-content: center;
+      }
+      :host([alignment=right]) {
+        justify-content: flex-end;
+      }
+    `;
+  }
+
+  @query('[part="content"')
+  private content!: HTMLElement;
+  @query('[part="left-btn"]')
+  private leftBtn!: Button;
+  @query('[part="right-btn"]')
+  private rightBtn!: Button;
 
 
   /**
@@ -195,26 +220,6 @@ export class TabBar extends ResponsiveElement {
     }
 
     tweenAnimate({ target: this.content, startPosition: scrollLeft, endPosition });
-  }
-
-  /**
-   * A `CSSResult` that will be used
-   * to style the host, slotted children
-   * and the internal template of the element.
-   * @returns CSS template
-   */
-  static get styles (): CSSResult | CSSResult[] {
-    return css`
-      :host {
-        display: flex;
-      }
-      :host([alignment=center]) {
-        justify-content: center;
-      }
-      :host([alignment=right]) {
-        justify-content: flex-end;
-      }
-    `;
   }
 
   /**

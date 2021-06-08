@@ -16,7 +16,9 @@ import '../icon';
  *
  * @slot right - place custom content on the right of bar.
  */
-@customElement('ef-appstate-bar')
+@customElement('ef-appstate-bar', {
+  alias: 'amber-appstate-bar'
+})
 export class AppstateBar extends BasicElement {
   /**
    * Text to display in heading section.

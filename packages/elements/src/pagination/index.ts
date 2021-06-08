@@ -31,7 +31,9 @@ type PageInfo = {
  *
  * @fires page-changed - Fired when the `page` property is changed
  */
-@customElement('ef-pagination')
+@customElement('ef-pagination', {
+  alias: 'emerald-pagination'
+})
 export class Pagination extends BasicElement {
   /**
    * Getter for info part

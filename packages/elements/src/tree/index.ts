@@ -24,7 +24,9 @@ const deselectAllDeprecation = new DeprecationNotice('deselectAll is deprecated,
  *
  * @fires value-changed - Fired when the users changed selection item.
  */
-@customElement('ef-tree')
+@customElement('ef-tree', {
+  alias: 'coral-tree'
+})
 export class Tree<T extends TreeItemData = TreeItemData> extends List<T> {
   /**
    * Tree manager used for manipulation

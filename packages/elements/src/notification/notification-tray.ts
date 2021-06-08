@@ -22,9 +22,10 @@ export type Task = {
   options: TaskOptions;
 }
 
-@customElement('ef-notification-tray')
+@customElement('ef-notification-tray', {
+  alias: 'amber-notification-tray'
+})
 export class NotificationTray extends ResponsiveElement {
-
   private queue: Array<Task> = [];
   private showing: Array<Task> = [];
   private resizeTask = new TimeoutTaskRunner();

@@ -16,7 +16,9 @@ import {
  * @slot left - Slot to add custom contents to the left side of header e.g. ef-icon, ef-checkbox
  * @slot right - Slot to add custom contents to the right side of header e.g. ef-icon, ef-checkbox
  */
-@customElement('ef-header')
+@customElement('ef-header', {
+  alias: 'coral-header'
+})
 export class Header extends BasicElement {
   /**
    * Style definition

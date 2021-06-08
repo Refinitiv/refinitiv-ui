@@ -71,7 +71,9 @@ const clamp = function (value: number, min: number, max: number): string {
  * @fires from-changed - Fired when the `from` changes.
  * @fires to-changed - Fired when the `to` changes.
  */
-@customElement('ef-slider')
+@customElement('ef-slider', {
+  alias: 'coral-slider'
+})
 export class Slider extends ControlElement {
   private activeThumb!: HTMLElement;
   private dragging = false;

@@ -114,7 +114,9 @@ const MONTH_VIEW = {
  *
  * @slot footer - Adds slotted content into the footer of the calendar control
  */
-@customElement('ef-calendar')
+@customElement('ef-calendar', {
+  alias: 'coral-calendar'
+})
 export class Calendar extends ControlElement implements MultiValue {
 
   /**

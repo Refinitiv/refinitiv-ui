@@ -1,4 +1,3 @@
-
 import {
   BasicElement,
   html,
@@ -17,7 +16,9 @@ import { Button } from '../button';
 /**
  * Used to display multiple buttons to create a list of commands bar.
  */
-@customElement('ef-button-bar')
+@customElement('ef-button-bar', {
+  alias: 'coral-split-button'
+})
 export class ButtonBar extends BasicElement {
   /**
    * A `CSSResult` that will be used
@@ -146,8 +147,7 @@ export class ButtonBar extends BasicElement {
    */
   private getManagedButtons (): Button[] {
     const elements = this.getElementsOfSlot();
-    const buttons = elements.filter(element => element instanceof Button) as Button[];
-    return buttons.filter(button => button.toggles);
+    return elements.filter(element => element instanceof Button && element.toggles) as Button[];
   }
 
   /**

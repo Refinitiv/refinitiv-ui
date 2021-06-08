@@ -112,9 +112,10 @@ const INPUT_FORMAT = {
  * @slots footer - Footer slot
  * @slots left - Left slot
  */
-@customElement('ef-datetime-picker')
+@customElement('ef-datetime-picker', {
+  alias: 'emerald-datetime-picker'
+})
 export class DatetimePicker extends ControlElement implements MultiValue {
-
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
