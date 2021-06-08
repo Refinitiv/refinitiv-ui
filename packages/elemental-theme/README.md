@@ -68,7 +68,7 @@ Add a build task in you `package.json`
 ```json
 ...
   "scripts": {
-    "build": "elf-tc dist"
+    "build": "theme-compiler dist"
   }
 ...
 ```

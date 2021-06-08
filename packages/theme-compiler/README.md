@@ -10,14 +10,14 @@ In the `package.json` of each theme, add a new build script which calls the comp
 Usage:
 ``` json
 "scripts": {
-  "build": "elf-tc [out directory] [less variables]"
+  "build": "theme-compiler [out directory] [less variables]"
 }
 ```
 
 Example:
 ``` json
 "scripts": {
-  "build": "elf-tc dark --variant=dark"
+  "build": "theme-compiler dark --variant=dark"
 }
 ```
 
@@ -37,7 +37,7 @@ Then you can modify you npm scripts to watch for file changes and recompile the 
 Example:
 ``` json
 "scripts": {
-  "build": "elf-tc dark --variant=dark",
+  "build": "theme-compiler dark --variant=dark",
   "watch": "watch 'npm run build' src"
 }
 ```
