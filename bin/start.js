@@ -27,7 +27,7 @@ exports.handler = (argv) => {
   if (isPackages(element)) {
     type = 'Package';
     commands = [
-      { command: `cd ${packagesPath(element)} && yarn start` }
+      { command: `cd ${packagesPath(element)} && yarn start`, prefixColor: '#007ACC', name: `${element}: Start` }
     ];
   } else if (isElements(element)) {
     const elPath = elementsPath();
