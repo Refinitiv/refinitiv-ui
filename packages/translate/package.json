@@ -15,19 +15,16 @@
   "scripts": {
     "build": "tsc --sourceMap false",
     "build:watch": "tsc --watch --preserveWatchOutput --sourceMap",
-    "lint": "eslint .",
+    "lint": "eslint . --fix",
     "start": "concurrently \"yarn build:watch\" \"web-dev-server --config ../../server.config.js\"",
     "test": "yarn build && karma start ../../karma.conf.js",
-    "test:watch": "yarn build && yarn __test__ --auto-watch=true --single-run=false"
+    "test:watch": "yarn build && yarn test --auto-watch=true --single-run=false"
   },
   "dependencies": {
     "@refinitiv-ui/core": "^5.0.0-alpha.1",
     "@refinitiv-ui/phrasebook": "^5.0.0-alpha.1",
     "@refinitiv-ui/i18n": "^5.0.0-alpha.1",
     "lit-html": "^1.3.0"
-  },
-  "devDependencies": {
-    "@refinitiv-ui/test-helpers": "^5.0.0-alpha.1"
   },
   "organisationConfig": {
     "public": true
