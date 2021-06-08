@@ -60,7 +60,7 @@ If for some reason you want to completely write the styles for an element, but u
 The first starting point when creating a new theme is to install the ELemental Theme and Theme Compiler as a dependency.
 
 ```shell
-$ npm i --save-dev @elf/elf-theme-elemental @elf/theme-compiler
+$ npm i --save-dev @elf/elf-theme-elemental @refinitiv-ui/theme-compiler
 ```
 
 Add a build task in you `package.json`

@@ -22,11 +22,8 @@
   "license": "BSD-3-Clause",
   "dependencies": {
     "@refinitiv-ui/core": "^5.0.0-alpha.1",
-    "@refinitiv-ui/elemental-theme": "5.0.0-alpha.0",
-    "@refinitiv-ui/halo-theme": "5.0.0-alpha.0",
-    "@refinitiv-ui/solar-theme": "5.0.0-alpha.0"
-  },
-  "devDependencies": {
-    "@refinitiv-ui/test-helpers": "^5.0.0-alpha.1"
+    "@refinitiv-ui/elemental-theme": "^5.0.0-alpha.1",
+    "@refinitiv-ui/halo-theme": "^5.0.0-alpha.1",
+    "@refinitiv-ui/solar-theme": "^5.0.0-alpha.1"
   }
 }

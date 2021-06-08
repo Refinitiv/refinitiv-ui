@@ -12,7 +12,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "npm run build && mocha __test__/**/*.js --require esm"
+    "lint": "eslint . --fix",
+    "test": "yarn build && mocha __test__/**/*.js --require esm"
   },
   "author": "Refinitiv",
   "license": "BSD-3-Clause",
