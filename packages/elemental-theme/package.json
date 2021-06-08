@@ -4,8 +4,8 @@
   "description": "Base theme for Element Framework Components",
   "main": "index.less",
   "scripts": {
-    "build:light": "elf-tc light --variant=light",
-    "build:dark": "elf-tc dark --variant=dark",
+    "build:light": "theme-compiler light --variant=light",
+    "build:dark": "theme-compiler dark --variant=dark",
     "build": "npm run build:light && npm run build:dark",
     "watch": "watch \"npm run build\" src --wait=10",
     "prepack": "npm run build",

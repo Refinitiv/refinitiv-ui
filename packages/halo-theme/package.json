@@ -4,8 +4,8 @@
   "main": "index.less",
   "description": "Official theme for Refinitiv products",
   "scripts": {
-    "build:dark": "elf-tc dark --variant=dark",
-    "build:light": "elf-tc light --variant=light",
+    "build:dark": "theme-compiler dark --variant=dark",
+    "build:light": "theme-compiler light --variant=light",
     "build": "npm run build:dark && npm run build:light",
     "watch": "watch \"npm run build\" src --wait=10",
     "prepack": "npm run build",

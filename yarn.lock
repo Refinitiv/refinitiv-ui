@@ -1879,9 +1879,9 @@
     universal-user-agent "^6.0.0"
 
 "@octokit/openapi-types@^7.2.3":
-  version "7.2.3"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@octokit/openapi-types/-/openapi-types-7.2.3.tgz#a7105796db9b85d25d3feba9a1785a124c7803e4"
-  integrity sha1-pxBXltubhdJdP+upoXhaEkx4A+Q=
+  version "7.3.0"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@octokit/openapi-types/-/openapi-types-7.3.0.tgz#1d9ed79828513c57a95e6360b7c9b4749503e79d"
+  integrity sha1-HZ7XmChRPFepXmNgt8m0dJUD550=
 
 "@octokit/plugin-enterprise-rest@^6.0.1":
   version "6.0.1"
@@ -2449,9 +2449,9 @@
   integrity sha1-MV1XDMtWxTRS/4Y4c432BybVtuo=
 
 "@types/node@*", "@types/node@>=10.0.0":
-  version "15.12.1"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@types/node/-/node-15.12.1.tgz#9b60797dee1895383a725f828a869c86c6caa5c2"
-  integrity sha1-m2B5fe4YlTg6cl+CioachsbKpcI=
+  version "15.12.2"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@types/node/-/node-15.12.2.tgz#1f2b42c4be7156ff4a6f914b2fb03d05fa84e38d"
+  integrity sha1-HytCxL5xVv9Kb5FLL7A9BfqE440=
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -2533,12 +2533,12 @@
     "@types/node" "*"
 
 "@typescript-eslint/eslint-plugin@^4.23.0":
-  version "4.26.0"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.26.0.tgz#12bbd6ebd5e7fabd32e48e1e60efa1f3554a3242"
-  integrity sha1-ErvW69Xn+r0y5I4eYO+h81VKMkI=
+  version "4.26.1"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.26.1.tgz#b9c7313321cb837e2bf8bebe7acc2220659e67d3"
+  integrity sha1-uccxMyHLg34r+L6+eswiIGWeZ9M=
   dependencies:
-    "@typescript-eslint/experimental-utils" "4.26.0"
-    "@typescript-eslint/scope-manager" "4.26.0"
+    "@typescript-eslint/experimental-utils" "4.26.1"
+    "@typescript-eslint/scope-manager" "4.26.1"
     debug "^4.3.1"
     functional-red-black-tree "^1.0.1"
     lodash "^4.17.21"
@@ -2546,60 +2546,60 @@
     semver "^7.3.5"
     tsutils "^3.21.0"
 
-"@typescript-eslint/experimental-utils@4.26.0":
-  version "4.26.0"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/experimental-utils/-/experimental-utils-4.26.0.tgz#ba7848b3f088659cdf71bce22454795fc55be99a"
-  integrity sha1-unhIs/CIZZzfcbziJFR5X8Vb6Zo=
+"@typescript-eslint/experimental-utils@4.26.1":
+  version "4.26.1"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/experimental-utils/-/experimental-utils-4.26.1.tgz#a35980a2390da9232aa206b27f620eab66e94142"
+  integrity sha1-o1mAojkNqSMqogayf2IOq2bpQUI=
   dependencies:
     "@types/json-schema" "^7.0.7"
-    "@typescript-eslint/scope-manager" "4.26.0"
-    "@typescript-eslint/types" "4.26.0"
-    "@typescript-eslint/typescript-estree" "4.26.0"
+    "@typescript-eslint/scope-manager" "4.26.1"
+    "@typescript-eslint/types" "4.26.1"
+    "@typescript-eslint/typescript-estree" "4.26.1"
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
 
 "@typescript-eslint/parser@^4.23.0":
-  version "4.26.0"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/parser/-/parser-4.26.0.tgz#31b6b732c9454f757b020dab9b6754112aa5eeaf"
-  integrity sha1-Mba3MslFT3V7Ag2rm2dUESql7q8=
+  version "4.26.1"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/parser/-/parser-4.26.1.tgz#cecfdd5eb7a5c13aabce1c1cfd7fbafb5a0f1e8e"
+  integrity sha1-zs/dXrelwTqrzhwc/X+6+1oPHo4=
   dependencies:
-    "@typescript-eslint/scope-manager" "4.26.0"
-    "@typescript-eslint/types" "4.26.0"
-    "@typescript-eslint/typescript-estree" "4.26.0"
+    "@typescript-eslint/scope-manager" "4.26.1"
+    "@typescript-eslint/types" "4.26.1"
+    "@typescript-eslint/typescript-estree" "4.26.1"
     debug "^4.3.1"
 
-"@typescript-eslint/scope-manager@4.26.0":
-  version "4.26.0"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/scope-manager/-/scope-manager-4.26.0.tgz#60d1a71df162404e954b9d1c6343ff3bee496194"
-  integrity sha1-YNGnHfFiQE6VS50cY0P/O+5JYZQ=
+"@typescript-eslint/scope-manager@4.26.1":
+  version "4.26.1"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/scope-manager/-/scope-manager-4.26.1.tgz#075a74a15ff33ee3a7ed33e5fce16ee86689f662"
+  integrity sha1-B1p0oV/zPuOn7TPl/OFu6GaJ9mI=
   dependencies:
-    "@typescript-eslint/types" "4.26.0"
-    "@typescript-eslint/visitor-keys" "4.26.0"
+    "@typescript-eslint/types" "4.26.1"
+    "@typescript-eslint/visitor-keys" "4.26.1"
 
-"@typescript-eslint/types@4.26.0":
-  version "4.26.0"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/types/-/types-4.26.0.tgz#7c6732c0414f0a69595f4f846ebe12616243d546"
-  integrity sha1-fGcywEFPCmlZX0+Ebr4SYWJD1UY=
+"@typescript-eslint/types@4.26.1":
+  version "4.26.1"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/types/-/types-4.26.1.tgz#9e7c523f73c34b04a765e4167ca5650436ef1d38"
+  integrity sha1-nnxSP3PDSwSnZeQWfKVlBDbvHTg=
 
-"@typescript-eslint/typescript-estree@4.26.0":
-  version "4.26.0"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/typescript-estree/-/typescript-estree-4.26.0.tgz#aea17a40e62dc31c63d5b1bbe9a75783f2ce7109"
-  integrity sha1-rqF6QOYtwxxj1bG76adXg/LOcQk=
+"@typescript-eslint/typescript-estree@4.26.1":
+  version "4.26.1"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/typescript-estree/-/typescript-estree-4.26.1.tgz#b2ce2e789233d62283fae2c16baabd4f1dbc9633"
+  integrity sha1-ss4ueJIz1iKD+uLBa6q9Tx28ljM=
   dependencies:
-    "@typescript-eslint/types" "4.26.0"
-    "@typescript-eslint/visitor-keys" "4.26.0"
+    "@typescript-eslint/types" "4.26.1"
+    "@typescript-eslint/visitor-keys" "4.26.1"
     debug "^4.3.1"
     globby "^11.0.3"
     is-glob "^4.0.1"
     semver "^7.3.5"
     tsutils "^3.21.0"
 
-"@typescript-eslint/visitor-keys@4.26.0":
-  version "4.26.0"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/visitor-keys/-/visitor-keys-4.26.0.tgz#26d2583169222815be4dcd1da4fe5459bc3bcc23"
-  integrity sha1-JtJYMWkiKBW+Tc0dpP5UWbw7zCM=
+"@typescript-eslint/visitor-keys@4.26.1":
+  version "4.26.1"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@typescript-eslint/visitor-keys/-/visitor-keys-4.26.1.tgz#0d55ea735cb0d8903b198017d6d4f518fdaac546"
+  integrity sha1-DVXqc1yw2JA7GYAX1tT1GP2qxUY=
   dependencies:
-    "@typescript-eslint/types" "4.26.0"
+    "@typescript-eslint/types" "4.26.1"
     eslint-visitor-keys "^2.0.0"
 
 "@ungap/promise-all-settled@1.1.2":
@@ -6379,9 +6379,9 @@ lint-staged@^10.5.4:
     stringify-object "^3.3.0"
 
 listr2@^3.2.2:
-  version "3.9.0"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/listr2/-/listr2-3.9.0.tgz#27f23c91ba4fdf513b0682bf604bc6b0ab36b6c1"
-  integrity sha1-J/I8kbpP31E7BoK/YEvGsKs2tsE=
+  version "3.10.0"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/listr2/-/listr2-3.10.0.tgz#58105a53ed7fa1430d1b738c6055ef7bb006160f"
+  integrity sha1-WBBaU+1/oUMNG3OMYFXve7AGFg8=
   dependencies:
     cli-truncate "^2.1.0"
     colorette "^1.2.2"
@@ -8395,9 +8395,9 @@ rimraf@^3.0.0, rimraf@^3.0.2:
     glob "^7.1.3"
 
 rollup@^2.35.1, rollup@^2.38.1, rollup@^2.7.2:
-  version "2.51.0"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/rollup/-/rollup-2.51.0.tgz#ffd847882283998fc8611cd57af917f173b4ab5c"
-  integrity sha1-/9hHiCKDmY/IYRzVevkX8XO0q1w=
+  version "2.51.1"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/rollup/-/rollup-2.51.1.tgz#87bcd4095fe79b14c9bec0edc7ffa44e4827f793"
+  integrity sha1-h7zUCV/nmxTJvsDtx/+kTkgn95M=
   optionalDependencies:
     fsevents "~2.3.1"
 
@@ -8978,9 +8978,9 @@ supports-color@^7.1.0:
     has-flag "^4.0.0"
 
 systemjs@^6.3.1, systemjs@^6.8.3:
-  version "6.9.0"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/systemjs/-/systemjs-6.9.0.tgz#f01a0093d4d70332fff59f2e5ff385de28284ff5"
-  integrity sha1-8BoAk9TXAzL/9Z8uX/OF3igoT/U=
+  version "6.10.0"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/systemjs/-/systemjs-6.10.0.tgz#4392b040f054d1f7beead4f8cf2f7371469d66df"
+  integrity sha1-Q5KwQPBU0fe+6tT4zy9zcUadZt8=
 
 table-layout@^1.0.1:
   version "1.0.2"

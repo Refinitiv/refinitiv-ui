@@ -4,8 +4,8 @@
   "main": "index.less",
   "description": "Solar theme for the Element Framework",
   "scripts": {
-    "build:charcoal": "elf-tc charcoal --variant=charcoal",
-    "build:pearl": "elf-tc pearl --variant=pearl",
+    "build:charcoal": "theme-compiler charcoal --variant=charcoal",
+    "build:pearl": "theme-compiler pearl --variant=pearl",
     "build": "npm run build:charcoal && npm run build:pearl",
     "watch": "watch \"npm run build\" src --wait=10",
     "prepack": "npm run build",
