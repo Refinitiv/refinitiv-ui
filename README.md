@@ -33,35 +33,22 @@ yarn build
 
 ### CLI Commands
 
+The command-line interface tool that you can use to demo, develop, test, and maintain this repository
+
 Run demo page of individual element:
 
 ```bash
 yarn start button
 ```
 
-Test individual element:
+#### Command overview
+You can input package or element name in `<target>` to run a commands.
+| Command | Target | Options| Description | Example |
+| ------- |:- | - | ----------- | - |
+| yarn start | `<target>`&#160;(required) | NA| Build and serves a package or element which demoable. | yarn start button
+| yarn test  | `<target>` | --watch <br/> &#x2011;&#x2011;snapshot  | Runs unit tests in a package or element. If not define the `<target>`, it will runs unit test in all packages. | yarn&#160;test&#160;icon&#160;&#x2011;&#x2011;watch      
+| yarn lint  | `<target>` | --fix | Runs linting tools in a package or element. If not define the `<target>`, it will runs linting in all packages. | yarn lint --fix
 
-```bash
-yarn test button --watch
-```
-
-Test all packages:
-
-```bash
-yarn test
-```
-
-Lint individual element:
-
-```bash
-yarn lint button
-```
-
-Lint all packages:
-
-```bash
-yarn lint
-```
 
 ### Commit prefixes
 
