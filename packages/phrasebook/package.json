@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/phrasebook",
-  "version": "5.0.0-alpha.3",
+  "version": "5.0.0-alpha.4",
   "description": "Collection of messages in ELF components for translation",
   "author": "Refinitiv",
   "license": "BSD-3-Clause",
