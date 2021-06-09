@@ -40,7 +40,7 @@ release_v5:
     - yarn lerna run build --include-dependencies --since
 
     # Get changed packages version from conventional commit message
-    - yarn lerna version --conventional-commits --conventional-prerelease --no-git-tag-version --yes
+    - yarn lerna version --conventional-commits --conventional-prerelease --yes
 
     # Publish to registry
     - yarn lerna publish from-package --yes --dist-tag next
