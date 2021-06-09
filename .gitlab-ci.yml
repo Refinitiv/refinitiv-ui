@@ -43,6 +43,6 @@ release_v5:
     - yarn lerna version --conventional-commits --conventional-prerelease --yes
 
     # Publish to registry
-    - yarn lerna publish from-package --yes --dist-tag next
+    - yarn lerna publish from-git --yes --dist-tag next
   only:
     - v5@elf/refinitiv-ui
