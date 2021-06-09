@@ -22,12 +22,15 @@
     "build:watch": "tsc --watch --preserveWatchOutput --sourceMap",
     "lint": "eslint . --fix",
     "test": "yarn build && karma start ../../karma.conf.js",
-    "test:watch": "yarn build && yarn test --auto-watch=true --single-run=false"
+    "test:watch": "yarn build && yarn test --auto-watch=true --single-run=false",
+    "prepublishOnly": "node __release-scripts__/index.js"
   },
   "dependencies": {
     "@refinitiv-ui/core": "^5.0.0-alpha.1",
     "@refinitiv-ui/translate": "^5.0.0-alpha.1",
     "@refinitiv-ui/utils": "^5.0.0-alpha.1",
+    "@refinitiv-ui/halo-theme": "^5.0.0-alpha.1",
+    "@refinitiv-ui/solar-theme": "^5.0.0-alpha.1",
     "browser-sparkline": "1.1.6",
     "chart.js": "2.9.3",
     "date-fns": "^2.22.1",

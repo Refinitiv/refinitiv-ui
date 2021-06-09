@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const chalk = require('chalk');
 const { ELEMENT_DIST, getElementTagName, getElementList } = require('./util');
 
 /**
@@ -43,7 +44,9 @@ const handler = async () => {
 
     if (!fs.existsSync(typeDeclaration)) return;
 
-    const elementClassName = toPascalCase(elementName);
+    // A web component tag always consists of atleast one hyphen
+    // Using the later part of hyphen
+    const elementClassName = toPascalCase(elementName.slice(elementName.indexOf('-') + 1));
     const typeDeclarationContent = fs.readFileSync(typeDeclaration, {
       encoding: 'utf-8',
     });
@@ -69,20 +72,21 @@ const handler = async () => {
     const depth = (file.split('/').length - 1) - path.join(process.cwd(), ELEMENT_DIST).split('/').length;
 
     let content = '';
-    content += `import { JSXInterface } from '${'../'.repeat(depth)}${JSX_TYPE_DECLARATION}';\n`;
+    // Import path should not end with *.d.ts
+    content += `import { JSXInterface } from '${'../'.repeat(depth)}${path.basename(JSX_TYPE_DECLARATION, '.d.ts')}';\n`;
     content += typeDeclarationContent + '\n';
     content += template;
 
     fs.writeFileSync(typeDeclaration, content);
   }
 
-  console.log(`\nFinish generating JSX Type declaration.\n`)
+  console.log(chalk.green(`\nFinish generating JSX Type declaration.\n`))
 };
 
 try {
   console.log(`\nGenerating JSX Type declarations...\n`);
   handler();
 } catch (error) {
-  console.error(`jsx.d.ts Generator Error: ${error}`)
+  console.error(chalk.red(`jsx.d.ts Generator Error: ${error}`))
 }
 
