@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0-alpha.2",
   "description": "Element Framework Elements",
   "author": "Refinitiv",
   "license": "BSD-3-Clause",
@@ -26,20 +26,20 @@
     "prepublishOnly": "node __release-scripts__/index.js"
   },
   "dependencies": {
-    "@refinitiv-ui/core": "^5.0.0-alpha.1",
-    "@refinitiv-ui/translate": "^5.0.0-alpha.1",
-    "@refinitiv-ui/utils": "^5.0.0-alpha.1",
-    "@refinitiv-ui/halo-theme": "^5.0.0-alpha.1",
-    "@refinitiv-ui/solar-theme": "^5.0.0-alpha.1",
+    "@refinitiv-ui/core": "^5.0.0-alpha.2",
+    "@refinitiv-ui/halo-theme": "^5.0.0-alpha.2",
+    "@refinitiv-ui/solar-theme": "^5.0.0-alpha.2",
+    "@refinitiv-ui/translate": "^5.0.0-alpha.2",
+    "@refinitiv-ui/utils": "^5.0.0-alpha.2",
     "browser-sparkline": "1.1.6",
     "chart.js": "2.9.3",
-    "date-fns": "^2.22.1",
     "d3-color": "^2.0.0",
     "d3-interpolate": "^2.0.1",
+    "date-fns": "^2.22.1",
     "lightweight-charts": "^3.3.0"
   },
   "devDependencies": {
-    "@refinitiv-ui/demo-block": "^5.0.0-alpha.1",
+    "@refinitiv-ui/demo-block": "^5.0.0-alpha.2",
     "@types/chart.js": "^2.9.31",
     "@types/d3-color": "^2.0.1",
     "@types/d3-interpolate": "^2.0.0"
