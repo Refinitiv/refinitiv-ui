@@ -3270,9 +3270,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001033, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001219:
-  version "1.0.30001235"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/caniuse-lite/-/caniuse-lite-1.0.30001235.tgz#ad5ca75bc5a1f7b12df79ad806d715a43a5ac4ed"
-  integrity sha1-rVynW8Wh97Et95rYBtcVpDpaxO0=
+  version "1.0.30001236"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/caniuse-lite/-/caniuse-lite-1.0.30001236.tgz#0a80de4cdf62e1770bb46a30d884fc8d633e3958"
+  integrity sha1-CoDeTN9i4XcLtGow2IT8jWM+OVg=
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -3320,7 +3320,7 @@ chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.4.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chalk@^4.0.0, chalk@^4.1.0:
+chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.1:
   version "4.1.1"
   resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/chalk/-/chalk-4.1.1.tgz#c80b3fab28bf6371e6863325eee67e618b77e6ad"
   integrity sha1-yAs/qyi/Y3HmhjMl7uZ+YYt35q0=
@@ -4246,9 +4246,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.723:
-  version "1.3.749"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/electron-to-chromium/-/electron-to-chromium-1.3.749.tgz#0ecebc529ceb49dd2a7c838ae425236644c3439a"
-  integrity sha1-Ds68UpzrSd0qfIOK5CUjZkTDQ5o=
+  version "1.3.750"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/electron-to-chromium/-/electron-to-chromium-1.3.750.tgz#7e5ef6f478316b0bd656af5942fe502610e97eaf"
+  integrity sha1-fl729HgxawvWVq9ZQv5QJhDpfq8=
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -9146,7 +9146,7 @@ tr46@^1.0.1:
   dependencies:
     punycode "^2.1.0"
 
-tr46@^2.0.2:
+tr46@^2.1.0:
   version "2.1.0"
   resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/tr46/-/tr46-2.1.0.tgz#fa87aa81ca5d5941da8cbf1f9b749dc969a4e240"
   integrity sha1-+oeqgcpdWUHajL8fm3SdyWmk4kA=
@@ -9610,12 +9610,12 @@ whatwg-url@^7.0.0, whatwg-url@^7.1.0:
     webidl-conversions "^4.0.2"
 
 whatwg-url@^8.4.0:
-  version "8.5.0"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/whatwg-url/-/whatwg-url-8.5.0.tgz#7752b8464fc0903fec89aa9846fc9efe07351fd3"
-  integrity sha1-d1K4Rk/AkD/siaqYRvye/gc1H9M=
+  version "8.6.0"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/whatwg-url/-/whatwg-url-8.6.0.tgz#27c0205a4902084b872aecb97cf0f2a7a3011f4c"
+  integrity sha1-J8AgWkkCCEuHKuy5fPDyp6MBH0w=
   dependencies:
     lodash "^4.7.0"
-    tr46 "^2.0.2"
+    tr46 "^2.1.0"
     webidl-conversions "^6.1.0"
 
 which-boxed-primitive@^1.0.2:
