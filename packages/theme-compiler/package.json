@@ -5,7 +5,7 @@
   "author": "Refinitiv",
   "license": "BSD-3-Clause",
   "bin": {
-    "elf-tc": "./bin/theme-compiler"
+    "theme-compiler": "./bin/theme-compiler.js"
   },
   "repository": {
     "type": "git",
