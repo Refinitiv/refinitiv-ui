@@ -3,7 +3,7 @@
   "version": "5.0.0-alpha.4",
   "description": "Solar theme for the Element Framework",
   "author": "Refinitiv",
-  "license": "BSD-3-Clause",
+  "license": "SEE LICENSE IN LICENSE.TXT",
   "main": "index.less",
   "repository": {
     "type": "git",

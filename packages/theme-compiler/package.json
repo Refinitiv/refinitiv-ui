@@ -3,7 +3,7 @@
   "version": "5.0.0-alpha.4",
   "description": "Compiles Element Framwork themes into usable JavaScript",
   "author": "Refinitiv",
-  "license": "BSD-3-Clause",
+  "license": "Apache-2.0",
   "bin": {
     "theme-compiler": "./bin/theme-compiler.js"
   },

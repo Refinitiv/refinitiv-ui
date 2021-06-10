@@ -3,7 +3,7 @@
   "version": "5.0.0-alpha.4",
   "description": "Official theme for Refinitiv products",
   "author": "Refinitiv",
-  "license": "BSD-3-Clause",
+  "license": "SEE LICENSE IN LICENSE.TXT",
   "main": "index.less",
   "repository": {
     "type": "git",

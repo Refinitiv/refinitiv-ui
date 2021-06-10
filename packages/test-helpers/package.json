@@ -11,7 +11,7 @@
     "directory": "packages/test-helpers"
   },
   "author": "Refinitiv",
-  "license": "BSD-3-Clause",
+  "license": "Apache-2.0",
   "scripts": {
     "build": "tsc --sourceMap false",
     "lint": "eslint . --fix",
