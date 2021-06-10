@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const chalk = require('chalk');
 const fg = require('fast-glob');
 const wca = require('web-component-analyzer');
 
@@ -177,12 +178,12 @@ const handler = async () => {
     }
   }
 
-  console.log(`\nFinish analyzing element\'s public API.\n`)
+  console.log(chalk.green(`\nFinish analyzing element\'s public API.\n`))
 };
 
 try {
   console.log(`\nAnalyzing element\'s API...\n`);
   handler();
 } catch (error) {
-  console.error(`Element Analyzer Error: ${error}`)
+  console.error(chalk.red(`Element Analyzer Error: ${error}`))
 }

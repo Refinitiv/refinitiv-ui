@@ -1,0 +1,17 @@
+{
+  "name": "@refinitiv-ui/polyfills",
+  "version": "5.0.0-alpha.1",
+  "description": "Verified polyfills for the Element Framework",
+  "main": "entrypoints/all.js",
+  "author": "Refinitiv",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "@webcomponents/custom-elements": "^1.4.1",
+    "@webcomponents/shadycss": "^1.10.0",
+    "@webcomponents/shadydom": "^1.7.3",
+    "@webcomponents/template": "^1.4.2",
+    "@webcomponents/webcomponents-platform": "^1.0.0",
+    "core-js": "^2.6.11",
+    "shady-css-scoped-element": "0.0.2"
+  }
+}

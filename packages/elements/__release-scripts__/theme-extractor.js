@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const chalk = require('chalk');
 const fg = require('fast-glob');
 
 const { ELEMENT_DIST, getElementList, getElementTagName } = require('./util');
@@ -7,13 +8,16 @@ const { ELEMENT_DIST, getElementList, getElementTagName } = require('./util');
 // List of themes to be extracted
 const THEMES = ['halo', 'solar'];
 
-// Where to look for theme files
-const THEME_SOURCE = '../../node_modules/@elf/elf-theme-';
-
 // Element package scope
-const ELEMENT_SCOPE = require('../package.json').name;
+const PACKAGE_NAME = require('../package.json').name;
 
-// Where all the theme lives, relative to each element's outDir
+// Where to look for theme files
+const THEME_SOURCE = `../../node_modules/${PACKAGE_NAME.split('/')[0]}/`;
+
+// Post-fix of theme name
+const THEME_POSTFIX = '-theme';
+
+// Where all the themes are, relative to each element's outDir
 const THEMES_DIRECTORY = 'themes';
 
 /**
@@ -46,14 +50,15 @@ const createDependencyMap = async () => {
   }, []);
 
   // Mapping dependencies into dependency map
-  // Assuming all themes have the same dependency as Halo
   let map = [];
   for (let i = 0; i < elements.length; i++) {
     let dependencies = [];
     const group = elements[i];
 
     for (let j = 0; j < group.elements.length; j++) {
-      const themesFound = await fg(`${THEME_SOURCE}halo/**/${group.elements[j]}.js`);
+      // Assuming all themes have the same set of dependency
+      const themeRepositoryName = THEMES[0] + THEME_POSTFIX;
+      const themesFound = await fg(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${group.elements[j]}.js`);
 
       for (const theme of themesFound) {
         dependencies = dependencies
@@ -97,7 +102,8 @@ const extractThemeDependency = (themePath) => {
 const getThemes = async (elements) => {
   let themes = [];
   for (const theme of THEMES) {
-    themes = themes.concat(await fg(`${THEME_SOURCE}${theme}/**/${elements[0]}.js`));
+    const themeRepositoryName = theme + THEME_POSTFIX;
+    themes = themes.concat(await fg(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${elements[0]}.js`));
   }
 
   return themes;
@@ -123,9 +129,9 @@ const handler = async () => {
     for (const variant of themes) {
       /**
        * Strip prefix of theme source path and rename to index.js
-       * @example 'node_modules/@elf/theme-halo/dark/ef-icon.js' -> 'halo/dark/indexjs'
+       * @example 'node_modules/@refinitiv-ui/halo-theme/dark/ef-icon.js' -> 'halo/dark/indexjs'
        */
-      const variantPath = variant.split(THEME_SOURCE)[1].replace(path.basename(variant, '.js'), 'index')
+      const variantPath = variant.split(THEME_SOURCE)[1].replace(THEME_POSTFIX, '').replace(path.basename(variant, '.js'), 'index');
 
       /**
        * Entrypoint, using lib for backward compatibility
@@ -140,9 +146,11 @@ const handler = async () => {
 
       // Appending dependencies to each entrypoint
       for (const dependency of dependencies) {
-        const prefix = path.join(ELEMENT_SCOPE, ELEMENT_DIST);
+        const prefix = path.join(PACKAGE_NAME, ELEMENT_DIST);
+        // Strip element prefix
+        const dep = dependency.replace(`${dependency.split('-')[0]}-`, '');
         const variant = path.dirname(variantPath);
-        const dependencyImport = `import '${path.join(prefix, dependency, variant)}';\n`;
+        const dependencyImport = `import '${path.join(prefix, dep, THEMES_DIRECTORY, variant)}';\n`;
 
         // Skip if file already contain the same import
         if (fs.existsSync(entrypoint)) {
@@ -166,7 +174,9 @@ const handler = async () => {
 
         // Skip if the file already contain the same component definition
         if (fs.existsSync(entrypoint)) {
-          if (!componentThemeDefinition || fs.readFileSync(entrypoint).toString().includes(componentThemeDefinition)) continue;
+          if (!componentThemeDefinition || fs.readFileSync(entrypoint).toString().includes(componentThemeDefinition)) {
+            continue;
+          }
         }
 
         fs.appendFileSync(entrypoint, `\n${componentThemeDefinition}`);
@@ -174,12 +184,12 @@ const handler = async () => {
     }
   }
 
-  console.log(`\nFinish extracting themes of ${dependencyMap.length} elements.\n`)
+  console.log(chalk.green(`\nFinish extracting themes of ${dependencyMap.length} elements.\n`))
 };
 
 try {
   console.log(`\nExtracting themes...\n`);
   handler();
 } catch (error) {
-  console.error(`\nTheme Extractor Error: ${error}\n`)
+  console.error(chalk.red(`\nTheme Extractor Error: ${error}\n`))
 }

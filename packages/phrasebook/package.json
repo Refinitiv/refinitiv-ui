@@ -1,7 +1,9 @@
 {
   "name": "@refinitiv-ui/phrasebook",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0-alpha.4",
   "description": "Collection of messages in ELF components for translation",
+  "author": "Refinitiv",
+  "license": "BSD-3-Clause",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -15,13 +17,8 @@
     "lint": "eslint . --fix",
     "test": "yarn build && mocha __test__/**/*.js --require esm"
   },
-  "author": "Refinitiv",
-  "license": "BSD-3-Clause",
-  "organisationConfig": {
-    "public": true
-  },
   "devDependencies": {
-    "mocha": "^8.4.0",
-    "esm": "^3.2.25"
+    "esm": "^3.2.25",
+    "mocha": "^8.4.0"
   }
 }
