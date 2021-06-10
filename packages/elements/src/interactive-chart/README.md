@@ -9,57 +9,57 @@
 </style>
 <ef-interactive-chart id="candle"></ef-interactive-chart>
 <script>
-      var initVal = 20;
-      var maxVal = initVal * 2;
-      var generateData = function (total, start) {     
-        var startDate = start || new Date();
-        var ret = [];
-        total = total < 0 ? 10 : total;
-        for (var i = 0; i < total; i++) {
-          var volatility = (Math.random() * (4.5) - 2) / 100; // random % volatility
-          var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
-          var openVal = initVal + initVal * volatility;
-          var closeVal = openVal + (openVal * volatility * 1.5);
-          var highVal = openVal > closeVal ? openVal + 0.1 : closeVal + 0.5;
-          var lowVal = openVal < closeVal ? openVal - 0.5 : closeVal - 0.2;
-          initVal = closeVal > maxVal ? closeVal - (closeVal * 0.2) : closeVal;
-          var point = {
-            time: date.getTime() / 1000.0,
-            open: openVal.toFixed(2),
-            high: highVal.toFixed(2),
-            low: lowVal.toFixed(2),
-            close: closeVal.toFixed(2)
-          };
-          ret.push(point);
-        }
-        return ret;
+  var initVal = 20;
+  var maxVal = initVal * 2;
+  var generateData = function (total, start) {     
+    var startDate = start || new Date();
+    var ret = [];
+    total = total < 0 ? 10 : total;
+    for (var i = 0; i < total; i++) {
+      var volatility = (Math.random() * (4.5) - 2) / 100; // random % volatility
+      var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
+      var openVal = initVal + initVal * volatility;
+      var closeVal = openVal + (openVal * volatility * 1.5);
+      var highVal = openVal > closeVal ? openVal + 0.1 : closeVal + 0.5;
+      var lowVal = openVal < closeVal ? openVal - 0.5 : closeVal - 0.2;
+      initVal = closeVal > maxVal ? closeVal - (closeVal * 0.2) : closeVal;
+      var point = {
+        time: date.getTime() / 1000.0,
+        open: parseFloat(openVal.toFixed(2)),
+        high: parseFloat(highVal.toFixed(2)),
+        low: parseFloat(lowVal.toFixed(2)),
+        close: parseFloat(closeVal.toFixed(2))
       };
+      ret.push(point);
+    }
+    return ret;
+  };
 
-      var generateCurrent = function (prevDate) {
-        var newPoint = generateData(1, prevDate);
-        return newPoint[0] || {};
-      };
+  var generateCurrent = function (prevDate) {
+    var newPoint = generateData(1, prevDate);
+    return newPoint[0] || {};
+  };
 
-      const chart = document.getElementById('candle');
-      chart.config = {
-        series: [
-          {
-            type: 'candlestick',
-            data: generateData(100)
-          }
-        ]
-      };
+  const chart = document.getElementById('candle');
+  chart.config = {
+    series: [
+      {
+        type: 'candlestick',
+        data: generateData(100)
+      }
+    ]
+  };
 
-      setInterval(function () {
-        var lastIndex = chart.config.series[0].data.length - 1;
-          var time = chart.config.series[0].data[lastIndex].time;
-          var latestTime = time || null;
-          latestTime += 86400; // Update time Next day
-          var prevDate = new Date(latestTime * 1000);
-          var current = generateCurrent(prevDate);
-          chart.config.series[0].data.push(current);
-          chart.seriesList[0].update(current);
-      }, 1000);
+  setInterval(function () {
+    var lastIndex = chart.config.series[0].data.length - 1;
+      var time = chart.config.series[0].data[lastIndex].time;
+      var latestTime = time || null;
+      latestTime += 86400; // Update time Next day
+      var prevDate = new Date(latestTime * 1000);
+      var current = generateCurrent(prevDate);
+      chart.config.series[0].data.push(current);
+      chart.seriesList[0].update(current);
+  }, 1000);
 </script>
 ```
 
@@ -69,7 +69,7 @@ While you can use interactive chart to draw several chart types such as line, ba
 
 ### Create chart
 
-You can create chart by passing configuration and initial dataset using `config` property. Interactive chart supports the following chart types.
+You can create chart by passing configuration and initial dataset using `config` property. Interactive chart supports the following chart types. The `value` must be number.
 
 | Type          | Description                 |
 | ------------- | --------------------------- |
@@ -81,7 +81,7 @@ You can create chart by passing configuration and initial dataset using `config`
 
 ```html
 <ef-interactive-chart id="line"></ef-interactive-chart>
-
+```
 ```javascript
 const chart = document.getElementById("line");
 chart.config = {
@@ -168,15 +168,15 @@ chart.config = {
     symbol: 'Price',
     type: 'area',
     data: [
-      { time: Date.parse('2019-04-10 08:40:10')/1000, value: 82.90 },
-      { time: Date.parse('2019-04-10 09:13:11')/1000, value: 83.89 },
-      { time: Date.parse('2019-04-10 10:21:25')/1000, value: 81.81 },
-      { time: Date.parse('2019-04-10 11:43:13')/1000, value: 85.39 },
-      { time: Date.parse('2019-04-11 12:24:20')/1000, value: 81.42 },
-      { time: Date.parse('2019-04-11 13:52:15')/1000, value: 83.71 },
-      { time: Date.parse('2019-04-11 14:11:45')/1000, value: 80.11 },
-      { time: Date.parse('2019-04-11 15:10:12')/1000, value: 83.16 },
-      { time: Date.parse('2019-04-11 16:05:11')/1000, value: 80.78 },
+      { time: Date.parse('2019-04-10T08:40:10') / 1000, value: 82.90 },
+      { time: Date.parse('2019-04-10T09:13:11') / 1000, value: 83.89 },
+      { time: Date.parse('2019-04-10T10:21:25') / 1000, value: 81.81 },
+      { time: Date.parse('2019-04-10T11:43:13') / 1000, value: 85.39 },
+      { time: Date.parse('2019-04-11T12:24:20') / 1000, value: 81.42 },
+      { time: Date.parse('2019-04-11T13:52:15') / 1000, value: 83.71 },
+      { time: Date.parse('2019-04-11T14:11:45') / 1000, value: 80.11 },
+      { time: Date.parse('2019-04-11T15:10:12') / 1000, value: 83.16 },
+      { time: Date.parse('2019-04-11T16:05:11') / 1000, value: 80.78 },
     ]
   }]
 };
@@ -195,15 +195,15 @@ chart.config = {
     symbol: 'Price',
     type: 'area',
     data: [
-      { time: Date.parse('2019-04-10 08:40:10')/1000, value: 82.90 },
-      { time: Date.parse('2019-04-10 09:13:11')/1000, value: 83.89 },
-      { time: Date.parse('2019-04-10 10:21:25')/1000, value: 81.81 },
-      { time: Date.parse('2019-04-10 11:43:13')/1000, value: 85.39 },
-      { time: Date.parse('2019-04-11 12:24:20')/1000, value: 81.42 },
-      { time: Date.parse('2019-04-11 13:52:15')/1000, value: 83.71 },
-      { time: Date.parse('2019-04-11 14:11:45')/1000, value: 80.11 },
-      { time: Date.parse('2019-04-11 15:10:12')/1000, value: 83.16 },
-      { time: Date.parse('2019-04-11 16:05:11')/1000, value: 80.78 },      
+      { time: Date.parse('2019-04-10T08:40:10') / 1000, value: 82.90 },
+      { time: Date.parse('2019-04-10T09:13:11') / 1000, value: 83.89 },
+      { time: Date.parse('2019-04-10T10:21:25') / 1000, value: 81.81 },
+      { time: Date.parse('2019-04-10T11:43:13') / 1000, value: 85.39 },
+      { time: Date.parse('2019-04-11T12:24:20') / 1000, value: 81.42 },
+      { time: Date.parse('2019-04-11T13:52:15') / 1000, value: 83.71 },
+      { time: Date.parse('2019-04-11T14:11:45') / 1000, value: 80.11 },
+      { time: Date.parse('2019-04-11T15:10:12') / 1000, value: 83.16 },
+      { time: Date.parse('2019-04-11T16:05:11') / 1000, value: 80.78 },    
     ]
   }]
 };
@@ -213,40 +213,6 @@ chart.config = {
 
 Chart can display multiple series by passing an array to `config.series`. For example, rebasing chart can be created as below.
 
-
-```javascript
-chart.config = {
-  options: {
-    priceScale: {
-      mode: 2
-    }
-  },  
-  series: [
-    {
-      symbol: 'GOOGL.O',
-      type: 'area',
-      data: [
-        { time: '2019-04-11', value: 180.01 },
-        { time: '2019-04-12', value: 156.63 },
-        { time: '2019-04-13', value: 166.64 },
-        { time: '2019-04-14', value: 181.89 },
-        ...
-      ]
-    },
-    {
-      symbol: 'AMZN.OQ',
-      type: 'line',
-      data: [
-        { time: '2019-04-11', value: 20.31 },
-        { time: '2019-04-12', value: 30.27 },
-        { time: '2019-04-13', value: 70.28 },
-        { time: '2019-04-14', value: 49.29 },
-        ...
-      ]
-    }
-  ]
-};
-```
 
 ```live
 <style>
@@ -269,7 +235,7 @@ chart.config = {
       initVal = val;
       var point = {
         time: date.getTime() / 1000.0,
-        value: val.toFixed(2)
+        value: parseFloat(val.toFixed(2))
       };
       ret.push(point);
     }
@@ -323,12 +289,101 @@ chart.config = {
   };
 </script>
 ```
+```javascript
+chart.config = {
+  options: {
+    priceScale: {
+      mode: 2
+    }
+  },  
+  series: [
+    {
+      symbol: 'GOOGL.O',
+      type: 'area',
+      data: [
+        { time: '2019-04-11', value: 180.01 },
+        { time: '2019-04-12', value: 156.63 },
+        { time: '2019-04-13', value: 166.64 },
+        { time: '2019-04-14', value: 181.89 },
+        ...
+      ]
+    },
+    {
+      symbol: 'AMZN.OQ',
+      type: 'line',
+      data: [
+        { time: '2019-04-11', value: 20.31 },
+        { time: '2019-04-12', value: 30.27 },
+        { time: '2019-04-13', value: 70.28 },
+        { time: '2019-04-14', value: 49.29 },
+        ...
+      ]
+    }
+  ]
+};
+```
 
 ### Volume chart
 
 To create chart with volume, add volume series and set `seriesOptions` as following.
 
 
+```live
+<style>
+  ef-interactive-chart {
+    width: 100%;
+    height: 300px;
+  }
+</style>
+<ef-interactive-chart id="volume"></ef-interactive-chart>
+<script>
+  var generateData = function (total, start, init) {
+    var initVal = init || 20;        
+    var startDate = start || new Date();
+    var ret = [];
+    total = total < 0 ? 10 : total;
+    for (var i = 0; i < total; i++) {
+      var volatility = (Math.random() * (20) - 6) / 100; // random % volatility
+      var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
+      var val = initVal + initVal * volatility;
+      initVal = val;
+      var point = {
+        time: date.getTime() / 1000.0,
+        value: parseFloat(val.toFixed(2))
+      };
+      ret.push(point);
+    }
+    return ret;
+  };
+
+  const chart = document.getElementById('volume');
+  chart.config = {
+    series: [
+      {
+        symbol: 'Price',
+        type: 'area',
+        data: generateData(70)
+      },
+      {
+        symbol: 'Vol',
+        type: 'volume',
+        seriesOptions : {
+          overlay: true,
+          priceFormat: {
+            type: 'volume'
+          },
+          scaleMargins: {
+            top: 0.8,
+            bottom: 0
+          },
+          lineWidth: 3,      
+        },
+        data: generateData(70, null, 2000000)
+      }
+    ]
+  };
+</script>
+```
 ```javascript
 chart.config = {
   series: [
@@ -366,6 +421,9 @@ chart.config = {
   ]
 };
 ```
+### Seasonality chart 
+
+Seasonality chart can be created by using multiple series with same timespan. You can use API to customize displayed legend, X-Axis label and cross hair vertical label.
 
 ```live
 <style>
@@ -374,55 +432,155 @@ chart.config = {
     height: 300px;
   }
 </style>
-<ef-interactive-chart id="volume"></ef-interactive-chart>
+<ef-interactive-chart id="seasonality"></ef-interactive-chart>
 <script>
-  var generateData = function (total, start, init) {
-    var initVal = init || 20;        
-    var startDate = start || new Date();
-    var ret = [];
-    total = total < 0 ? 10 : total;
-    for (var i = 0; i < total; i++) {
-      var volatility = (Math.random() * (4.5) - 2) / 100; // random % volatility
-      var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
-      var val = initVal + initVal * volatility;
-      initVal = val;
-      var point = {
-        time: date.getTime() / 1000.0,
-        value: val.toFixed(2)
-      };
-      ret.push(point);
-    }
-    return ret;
-  };
-
-  const chart = document.getElementById('volume');
+  const monthCount = {};
+  const months = {
+      1: "January",
+      2: "February",
+      3: "March",
+      4: "April",
+      5: "May",
+      6: "June",
+      7: "July",
+      8: "August",
+      9: "September",
+      10: "October",
+      11: "November",
+      12: "December"
+  }
+  const chart = document.getElementById('seasonality');
   chart.config = {
-    series: [
+    lastValueVisible: false,
+    options: {
+      timeScale: {
+        tickMarkFormatter: function (time, tickMarkType, locale) {
+          if(!monthCount[time.month]) {
+            monthCount[time.month] = 1;
+            return months[time.month];
+          }
+          return "";
+        }
+      },
+      localization: {
+        timeFormatter: function (date) {
+          return date.day + ' ' + months[date.month];
+        }
+      }
+    },
+     series: [
       {
-        symbol: 'Price',
-        type: 'area',
-        data: generateData(70)
+        symbol: '2011-2020',
+        symbolName: 'Avg. 2011-2020',
+        lastValueVisible: false,
+        type: 'line',
+        data: [
+          { time: '2020-01-11', value: 20.31 },
+          { time: '2020-02-12', value: 30.27 },
+          { time: '2020-03-13', value: 70.28 },
+          { time: '2020-04-11', value: 20.31 },
+          { time: '2020-05-12', value: 30.27 },
+          { time: '2020-06-13', value: 70.28 },
+          { time: '2020-07-11', value: 49.29 },
+          { time: '2020-08-12', value: 20.31 },
+          { time: '2020-09-13', value: 30.27 },
+          { time: '2020-10-11', value: 70.28 },
+          { time: '2020-11-12', value: 49.29 },
+          { time: '2020-12-13', value: 70.28 },
+        ]
       },
       {
-        symbol: 'Vol',
-        type: 'volume',
-        seriesOptions : {
-          overlay: true,
-          priceFormat: {
-            type: 'volume'
-          },
-          scaleMargins: {
-            top: 0.8,
-            bottom: 0
-          },
-          lineWidth: 3,      
-        },
-        data: generateData(70, null, 2000000)
-      }
+        symbol: '2021',
+        symbolName: '2021',
+        type: 'area',
+        data: [
+          { time: '2020-01-11', value: 45.01 },
+          { time: '2020-02-12', value: 60.63 },
+          { time: '2020-03-13', value: 166.64 },
+          { time: '2020-04-11', value: 180.01 },
+          { time: '2020-05-12', value: 156.63 },
+          { time: '2020-06-13', value: 166.64 },
+          { time: '2020-07-11', value: 181.89 }
+        ]
+      },
     ]
   };
 </script>
 ```
+```javascript
+const monthCount = {};
+const months = {
+    1: "January",
+    2: "February",
+    3: "March",
+    4: "April",
+    5: "May",
+    6: "June",
+    7: "July",
+    8: "August",
+    9: "September",
+    10: "October",
+    11: "November",
+    12: "December"
+}
+const chart = document.getElementById('seasonality');
+chart.config = {
+  lastValueVisible: false,
+  options: {
+    timeScale: {
+      tickMarkFormatter: function (time, tickMarkType, locale) {
+        if(!monthCount[time.month]) {
+          monthCount[time.month] = 1;
+          return months[time.month];
+        }
+        return "";
+      }
+    },
+    localization: {
+      timeFormatter: function (date) {
+        return date.day + ' ' + months[date.month];
+      }
+    }
+  },
+  series: [
+    {
+      symbol: '2011-2020',
+      symbolName: 'Avg. 2011-2020',
+      lastValueVisible: false,
+      type: 'line',
+      data: [
+        { time: '2020-01-11', value: 20.31 },
+        { time: '2020-02-12', value: 30.27 },
+        { time: '2020-03-13', value: 70.28 },
+        { time: '2020-04-11', value: 20.31 },
+        { time: '2020-05-12', value: 30.27 },
+        { time: '2020-06-13', value: 70.28 },
+        { time: '2020-07-11', value: 49.29 },
+        { time: '2020-08-12', value: 20.31 },
+        { time: '2020-09-13', value: 30.27 },
+        { time: '2020-10-11', value: 70.28 },
+        { time: '2020-11-12', value: 49.29 },
+        { time: '2020-12-13', value: 70.28 },
+      ]
+    },
+    {
+      symbol: '2021',
+      symbolName: '2021',
+      type: 'area',
+      data: [
+        { time: '2020-01-11', value: 45.01 },
+        { time: '2020-02-12', value: 60.63 },
+        { time: '2020-03-13', value: 166.64 },
+        { time: '2020-04-11', value: 180.01 },
+        { time: '2020-05-12', value: 156.63 },
+        { time: '2020-06-13', value: 166.64 },
+        { time: '2020-07-11', value: 181.89 }
+      ]
+    },
+  ]
+};
+```
+
 
 ### Setting chart options
 
@@ -434,23 +592,23 @@ For example, in `lightweight-charts` documents, you can pass options to chart in
 
 ```json
 {
-    crosshair: {
-        vertLine: {
-            color: "#4d4d4d",
-            width: 0.5,
-            style: 1,
-            visible: true,
-            labelVisible: false,
-        },
-        horzLine: {
-            color: "#4d4d4d",
-            width: 1.5,
-            style: 0,
-            visible: true,
-            labelVisible: true,
-        },
-        mode: 1,
+  crosshair: {
+    vertLine: {
+      color: "#4d4d4d",
+      width: 0.5,
+      style: 1,
+      visible: true,
+      labelVisible: false,
     },
+    horzLine: {
+      color: "#4d4d4d",
+      width: 1.5,
+      style: 0,
+      visible: true,
+      labelVisible: true,
+    },
+    mode: 1,
+  },
 }
 ```
 
@@ -458,24 +616,25 @@ In `ef-interactive-chart`, you will need to pass those options to `config.option
 
 ```json
 chart.config = {
-    options: {
-        crosshair: {
-            vertLine: {
-                color: "#4d4d4d",
-                width: 0.5,
-                style: 1,
-                visible: true,
-                labelVisible: false,
-            },
-            horzLine: {
-                color: "#4d4d4d",
-                width: 1.5,
-                style: 0,
-                visible: true,
-                labelVisible: true,
-            },
-        },
-    }
+  options: {
+    crosshair: {
+      vertLine: {
+        color: "#4d4d4d",
+        width: 0.5,
+        style: 1,
+        visible: true,
+        labelVisible: false,
+      },
+      horzLine: {
+        color: "#4d4d4d",
+        width: 1.5,
+        style: 0,
+        visible: true,
+        labelVisible: true,
+      },
+    },
+  }
+};
 ```
 
 ```live
@@ -544,9 +703,9 @@ For example, in `lightweight-chart`, you can pass options to set preferred decim
 
 ```json
 {
-    priceFormat: {
-        precision: 3,
-    },
+  priceFormat: {
+      precision: 3,
+  },
 }
 ```
 
@@ -638,7 +797,7 @@ chart.config = {
     },
     data: [...]
   }]
-}
+};
 ```
 
 ```live
@@ -721,7 +880,7 @@ chart.config = {
     },
     data: [...]
   }]
-}
+};
 ```
 
 
@@ -812,14 +971,14 @@ In case you want to preserve `symbol` value and show a custom name on legend, us
 
 ```javascript
 line.config = {
-    series: [
-      {
-        symbol: 'APPL.O',
-        symbolName: 'Price',
-        type: 'line',
-        data: [...]
-      }
-    ]
+  series: [
+    {
+      symbol: 'APPL.O',
+      symbolName: 'Price',
+      type: 'line',
+      data: [...]
+    }
+  ]
 };
 ```
 
@@ -829,47 +988,47 @@ For example, you can format price to show three decimal places on the legend.
 
 ```javascript
 chart.config = {
-    series: [
-      {
-        symbol: 'AAPL',
-        legendPriceFormatter: price => '$' + price.toFixed(3),
-        type: 'area',
-        data: [...],
-      }
-    ]
+  series: [
+    {
+      symbol: 'AAPL',
+      legendPriceFormatter: function (price) { return '$' + price.toFixed(3); },
+      type: 'area',
+      data: [...],
+    }
+  ]
 };
 ```
 ```live
 <ef-interactive-chart id="legend_formatter"></ef-interactive-chart>
-    <script>
-      const chart = document.getElementById('legend_formatter');
-      chart.config = {
-        series: [
-          {
-            legendPriceFormatter: function (price) { return '$' + price.toFixed(3); },
-            type: 'area',
-            data: [
-              { time: '2018-12-22', value: 32.51 },
-              { time: '2018-12-23', value: 31.11 },
-              { time: '2018-12-24', value: 27.02 },
-              { time: '2018-12-25', value: 27.32 },
-              { time: '2018-12-26', value: 25.17 },
-              { time: '2018-12-27', value: 28.89 },
-              { time: '2018-12-28', value: 25.46 },
-              { time: '2018-12-29', value: 23.92 },
-              { time: '2018-12-30', value: 22.68 },
-              { time: '2018-12-31', value: 22.67 }
-            ],
-            seriesOptions: {
-              priceFormat: {
-                type: 'custom',
-                formatter: function (price) { return '$' + price.toFixed(3); }
-              }
-            }
+<script>
+  const chart = document.getElementById('legend_formatter');
+  chart.config = {
+    series: [
+      {
+        legendPriceFormatter: function (price) { return '$' + price.toFixed(3); },
+        type: 'area',
+        data: [
+          { time: '2018-12-22', value: 32.51 },
+          { time: '2018-12-23', value: 31.11 },
+          { time: '2018-12-24', value: 27.02 },
+          { time: '2018-12-25', value: 27.32 },
+          { time: '2018-12-26', value: 25.17 },
+          { time: '2018-12-27', value: 28.89 },
+          { time: '2018-12-28', value: 25.46 },
+          { time: '2018-12-29', value: 23.92 },
+          { time: '2018-12-30', value: 22.68 },
+          { time: '2018-12-31', value: 22.67 }
+        ],
+        seriesOptions: {
+          priceFormat: {
+            type: 'custom',
+            formatter: function (price) { return '$' + price.toFixed(3); }
           }
-        ]
-      };
-    </script>
+        }
+      }
+    ]
+  };
+</script>
 ```
 
 ### Custom legend
@@ -945,15 +1104,14 @@ Custom legend can also be used to implement a custom tooltip.
         const legendWidth = 60;
         const legendHeight = 30;
         const legendMargin = 10;
-
         var y = param.point.y;
         var left = param.point.x + legendMargin;
+        var top = y + legendMargin;
 
         if (left > event.target.clientWidth - legendWidth) {
           left = param.point.x - legendMargin - legendWidth;
         }
 
-        var top = y + legendMargin;
         if (top > event.target.clientHeight - legendHeight) {
           top = y - legendHeight - legendMargin;
         }
@@ -970,7 +1128,6 @@ Custom legend can also be used to implement a custom tooltip.
         legend.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
         legend.style.border = 'solid 1px rgb(0,0,0)';
         legend.style.color = 'rgb(0,0,0)';
-
         legend.textContent = param.seriesPrices.get(seriesList[0]);
       }
     });
