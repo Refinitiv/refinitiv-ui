@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/test-helpers",
-  "version": "5.0.0-alpha.4",
+  "version": "5.0.0-alpha.5",
   "description": "Helper methods for writing tests in ELF components",
   "main": "./lib/test-helpers.js",
   "module": "./lib/test-helpers.js",
