@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/core",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0-alpha.4",
   "description": "Element Framework Core",
   "main": "./lib/elf.js",
   "module": "./lib/elf.js",
