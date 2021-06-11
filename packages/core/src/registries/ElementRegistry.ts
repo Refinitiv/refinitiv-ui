@@ -41,7 +41,7 @@ const upgrade = (name: string, definition: ElementConstructor): void => {
 const upgradeAlias = (name: string, alias: string, definition: ElementConstructor): void => {
   // Re, themes are must be defined at this point from main upgrade
   const AliasDefinition = class extends definition {
-    private static elementDeprecated = new Notice(`The tag name "${alias}" will be deprecated in the next major release. To silence this message, update all references to "${name}" instead.`);
+    private static elementDeprecated = new Notice(`The tag name <${alias}></${alias}> will be deprecated in the next major release. To silence this message, update all references to <${name}></${name}> instead.`);
     constructor () {
       super();
       AliasDefinition.elementDeprecated.once();
