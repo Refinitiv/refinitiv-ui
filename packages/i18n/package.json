@@ -18,7 +18,7 @@
     "test:watch": "yarn build && yarn test --auto-watch=true --single-run=false"
   },
   "author": "Refinitiv",
-  "license": "BSD-3-Clause",
+  "license": "Apache-2.0",
   "dependencies": {
     "@formatjs/intl-utils": "^3.8.4",
     "@refinitiv-ui/phrasebook": "^5.0.0-alpha.4",

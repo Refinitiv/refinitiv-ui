@@ -3,7 +3,7 @@
   "version": "5.0.0-alpha.4",
   "description": "Base theme for Element Framework Components",
   "author": "Refinitiv",
-  "license": "BSD-3-Clause",
+  "license": "Apache-2.0",
   "main": "index.less",
   "repository": {
     "type": "git",

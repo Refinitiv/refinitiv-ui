@@ -16,7 +16,7 @@
     "eslintconfig"
   ],
   "author": "Refinitiv",
-  "license": "BSD-3-Clause",
+  "license": "Apache-2.0",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",

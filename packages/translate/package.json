@@ -3,7 +3,7 @@
   "version": "5.0.0-alpha.4",
   "description": "i18n implementation for Element Framework components",
   "author": "Refinitiv",
-  "license": "BSD-3-Clause",
+  "license": "Apache-2.0",
   "main": "./lib/translate.js",
   "module": "./lib/translate.js",
   "types": "./lib/translate.d.ts",

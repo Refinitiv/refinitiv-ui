@@ -19,7 +19,7 @@
     "directory": "packages/demo-block"
   },
   "author": "Refinitiv",
-  "license": "BSD-3-Clause",
+  "license": "Apache-2.0",
   "dependencies": {
     "@refinitiv-ui/core": "^5.0.0-alpha.4",
     "@refinitiv-ui/elemental-theme": "^5.0.0-alpha.4",
