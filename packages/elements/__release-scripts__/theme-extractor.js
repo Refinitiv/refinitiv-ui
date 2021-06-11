@@ -150,7 +150,7 @@ const handler = async () => {
         // Strip element prefix
         const dep = dependency.replace(`${dependency.split('-')[0]}-`, '');
         const variant = path.dirname(variantPath);
-        const dependencyImport = `import '${path.join(prefix, dep, variant)}';\n`;
+        const dependencyImport = `import '${path.join(prefix, dep, THEMES_DIRECTORY, variant)}';\n`;
 
         // Skip if file already contain the same import
         if (fs.existsSync(entrypoint)) {
