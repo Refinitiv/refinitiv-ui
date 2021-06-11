@@ -26,9 +26,12 @@ const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
 export { Cell, XAxis, YAxis, Config, TooltipCallback, RenderCallback } from './helpers/types';
 
 /**
- * A graphical representation of data where the individual values contained in a matrix are represented as colors
+ * A graphical representation of data where the individual
+ * values contained in a matrix are represented as colors
  */
-@customElement('ef-heatmap')
+@customElement('ef-heatmap', {
+  alias: 'sapphire-heatmap'
+})
 export class Heatmap extends ResponsiveElement {
   /**
    * A `CSSResult` that will be used

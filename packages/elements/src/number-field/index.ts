@@ -38,9 +38,10 @@ enum Direction {
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-number-field')
+@customElement('ef-number-field', {
+  alias: 'coral-number-field'
+})
 export class NumberField extends ControlElement {
-
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

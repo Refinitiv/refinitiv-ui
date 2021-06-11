@@ -42,7 +42,9 @@ const isIE = (/Trident/g).test(navigator.userAgent) || (/MSIE/g).test(navigator.
  *
  * @slot footer - Hide default OK and Cancel button and replace dialog's footer with your custom content.
  */
-@customElement('ef-dialog')
+@customElement('ef-dialog', {
+  alias: 'coral-dialog'
+})
 export class Dialog extends Overlay {
   public static get styles (): CSSResult | CSSResult[] {
     return [...(Overlay.styles as CSSResult[]), css`

@@ -58,10 +58,10 @@ import './elements/grayscale-palettes';
  *
  * @prop {boolean} [withShadow=true] - False to remove shadow for dialog component.
  */
-@customElement('ef-color-dialog')
+@customElement('ef-color-dialog', {
+  alias: 'emerald-color-dialog'
+})
 export class ColorDialog extends Dialog {
-
-
   public static get styles (): CSSResult | CSSResult[] {
     return [...(Dialog.styles as CSSResult[]),
       css`

@@ -18,7 +18,9 @@ import type { TornadoItem } from'./tornado-item';
  * @slot header - Any HTML contents to display at chart header section
  * @slot footer - Any HTML contents to display at chart footer section
  */
-@customElement('ef-tornado-chart')
+@customElement('ef-tornado-chart', {
+  alias: 'sapphire-parity-chart'
+})
 export class TornadoChart extends ResponsiveElement {
   /**
    * Primary bar chart legend text

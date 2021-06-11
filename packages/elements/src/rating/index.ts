@@ -18,7 +18,9 @@ interface ItemType {
  * Star visualisation component that is generally used for ranking
  * @fires value-changed - Fired when the `value` changes.
  */
-@customElement('ef-rating')
+@customElement('ef-rating', {
+  alias: 'sapphire-rating'
+})
 export class Rating extends BasicElement {
   private items: ItemType[] = [];
   private valuePrevious = 0;

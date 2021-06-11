@@ -37,10 +37,10 @@ const PositionMap: PositionMap = {
  * Tooltip displays extra information when the
  * user hovers the pointer over an item.
  */
-@customElement('ef-tooltip')
+@customElement('ef-tooltip', {
+  alias: 'coral-tooltip'
+})
 class Tooltip extends BasicElement {
-
-
   private matchTarget: HTMLElement | null = null;
   private matchTargetRect: ClientRect | null = null;
   private showDelay = 300;

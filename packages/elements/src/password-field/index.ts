@@ -32,7 +32,9 @@ let isEyeOffPreloadRequested = false;
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-password-field')
+@customElement('ef-password-field', {
+  alias: 'coral-password-field'
+})
 export class PasswordField extends ControlElement {
 
 

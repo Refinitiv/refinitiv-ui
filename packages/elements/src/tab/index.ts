@@ -21,7 +21,9 @@ const isAllWhitespaceTextNode = (node: Node): boolean =>
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-tab')
+@customElement('ef-tab', {
+  alias: 'coral-tab'
+})
 export class Tab extends ControlElement {
 
   /**

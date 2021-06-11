@@ -14,7 +14,9 @@ export { preload } from './utils/IconLoader';
 
 const EmptyTemplate = svg``;
 
-@customElement('ef-icon')
+@customElement('ef-icon', {
+  alias: 'coral-icon'
+})
 export class Icon extends BasicElement {
   private _src: string | null = null;
   private _icon: string | null = null;

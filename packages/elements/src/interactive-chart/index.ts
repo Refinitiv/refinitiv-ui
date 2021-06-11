@@ -52,7 +52,9 @@ export {
  * By lightweight-charts library.
  * @slot legend - Slot to use for implementing custom legend.
  */
-@customElement('ef-interactive-chart')
+@customElement('ef-interactive-chart', {
+  alias: 'sapphire-interactive-chart'
+})
 export class InteractiveChart extends ResponsiveElement {
   private static readonly CSS_COLOR_PREFIX = '--chart-color-';
   private static readonly DEFAULT_LINE_WIDTH = '2';

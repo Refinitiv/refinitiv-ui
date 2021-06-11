@@ -14,7 +14,9 @@ import {
  * to draw graphics on a web page,
  * it works similarly to the normal HTML5 Canvas element.
  */
-@customElement('ef-canvas')
+@customElement('ef-canvas', {
+  alias: 'sapphire-canvas'
+})
 export class Canvas extends ResponsiveElement {
   /*
    * Width of canvas

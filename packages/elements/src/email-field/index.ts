@@ -30,7 +30,9 @@ const isIE = (/Trident/g).test(navigator.userAgent);
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-email-field')
+@customElement('ef-email-field', {
+  alias: 'coral-email-field'
+})
 export class EmailField extends ControlElement {
   /**
    * A `CSSResult` that will be used
