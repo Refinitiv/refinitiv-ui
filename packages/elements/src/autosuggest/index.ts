@@ -10,21 +10,35 @@ import {
   TemplateResult,
   unsafeHTML
 } from '@refinitiv-ui/core';
-import { escapeRegExp, itemHighlightable, itemRenderer, queryWordSelect } from './helpers/utils';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils';
+
 import { Overlay } from '../overlay';
 import '../loader';
-import {
-  AttachTargetElement,
-  HighlightableFunction,
-  MethodType,
-  Query,
-  ReasonType,
-  RendererFunction,
-  SuggestionType
-} from './types';
-import { isIE, isMobile } from './const';
 
+import {
+  AutosuggestTargetElement,
+  AutosuggestHighlightable,
+  AutosuggestMethodType,
+  AutosuggestQuery,
+  AutosuggestRenderer,
+  AutosuggestReason,
+  AutosuggestItem,
+  AutosuggestSelectItemEvent,
+  AutosuggestHighlightItemEvent,
+  AutosuggestQueryAction
+} from './helpers/types';
+import { escapeRegExp, itemHighlightable, itemRenderer, queryWordSelect } from './helpers/utils';
+import { isIE, isMobile } from './helpers/const';
+
+export {
+  AutosuggestTargetElement,
+  AutosuggestHighlightable,
+  AutosuggestMethodType,
+  AutosuggestQuery,
+  AutosuggestRenderer,
+  AutosuggestReason,
+  AutosuggestItem
+} from './helpers/types';
 export { queryWordSelect, itemRenderer, escapeRegExp, itemHighlightable, updateElementContent } from './helpers/utils';
 
 /**
@@ -48,48 +62,6 @@ export { queryWordSelect, itemRenderer, escapeRegExp, itemHighlightable, updateE
  */
 @customElement('ef-autosuggest')
 export class Autosuggest extends Overlay {
-
-
-  /**
-   * A basic regexp matching pattern to replace text based on string input.
-   * @param text Value to test against
-   * @param query The query
-   * @param [pattern=<mark>$1</mark>] Provide a pattern to replace string
-   * @returns innerHTML The text that can be used as innerHTML
-   */
-  public static QueryWordSelect (text: string, query = '', pattern = '<mark>$1</mark>'): string {
-    return queryWordSelect(text, query, pattern);
-  }
-
-  /**
-   * Build item element from data object
-   * @param suggestion Suggestion data
-   * @param query A query data (usually string, but could be any entity )
-   * @returns item
-   */
-  public static ItemRenderer (suggestion: SuggestionType, query: Query | null): HTMLElement {
-    return itemRenderer(suggestion, query);
-  }
-
-  /**
-   * Replace forbidden characters in regular expressions
-   * @param string A string to process
-   * @returns clean string
-   */
-  public static EscapeRegExp (string = ''): string {
-    return escapeRegExp(string);
-  }
-
-  /**
-   * Check whether item can be highlighted
-   * @param suggestion Suggestion object
-   * @param target item element
-   * @returns highlightable
-   */
-  public static ItemHighlightable (suggestion: SuggestionType, target: HTMLElement): boolean {
-    return itemHighlightable(suggestion, target);
-  }
-
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -115,16 +87,56 @@ export class Autosuggest extends Overlay {
     `];
   }
 
+  /**
+   * A basic regexp matching pattern to replace text based on string input.
+   * @param text Value to test against
+   * @param query The query
+   * @param [pattern=<mark>$1</mark>] Provide a pattern to replace string
+   * @returns innerHTML The text that can be used as innerHTML
+   */
+  public static QueryWordSelect (text: string, query = '', pattern = '<mark>$1</mark>'): string {
+    return queryWordSelect(text, query, pattern);
+  }
+
+  /**
+   * Build item element from data object
+   * @param suggestion Suggestion data
+   * @param query A query data (usually string, but could be any entity )
+   * @returns item
+   */
+  public static ItemRenderer (suggestion: AutosuggestItem, query: AutosuggestQuery | null): HTMLElement {
+    return itemRenderer(suggestion, query);
+  }
+
+  /**
+   * Replace forbidden characters in regular expressions
+   * @param string A string to process
+   * @returns clean string
+   */
+  public static EscapeRegExp (string = ''): string {
+    return escapeRegExp(string);
+  }
+
+  /**
+   * Check whether item can be highlighted
+   * @param suggestion Suggestion object
+   * @param target item element
+   * @returns highlightable
+   */
+  public static ItemHighlightable (suggestion: AutosuggestItem, target: HTMLElement): boolean {
+    return itemHighlightable(suggestion, target);
+  }
+
   public static readonly defaultDebounceRate = 100;
 
   public static readonly defaultMoreSearchText = 'More results for {0}';
 
   /**
    * An HTML Element or CSS selector
-   * @type {HTMLElement | string | null}
+   * @type {AutosuggestTargetElement | string | null}
    */
   @property({ type: String })
-  public attach: AttachTargetElement | string | null = null;
+  public attach: AutosuggestTargetElement | string | null = null;
 
   /**
    * Request suggestions when attach target is focused
@@ -152,10 +164,10 @@ export class Autosuggest extends Overlay {
 
   /**
    * An object that represents a query from attach target
-   * @type {Query | null}
+   * @type {AutosuggestQuery | null}
    */
   @property({ type: Object, attribute: false })
-  public query: Query | null = null;
+  public query: AutosuggestQuery | null = null;
 
   /**
    * Debounce rate in ms of the filter as a number.
@@ -168,26 +180,26 @@ export class Autosuggest extends Overlay {
   /**
    * A renderer applied to suggestion.
    * By default a render maps data to item attributes
-   * @type {Renderer}
+   * @type {AutosuggestRenderer}
    */
   @property({ type: Function, attribute: false })
-  public renderer: RendererFunction = itemRenderer;
+  public renderer: AutosuggestRenderer = itemRenderer;
 
   /**
    * A function that is applied to every suggestion during the render process
    * to say whether the item can be highlighted and selected. Only items that return true are considered.
    * By default the function checks for `item` `highlightable` property.
-   * @type {Function}
+   * @type {AutosuggestHighlightable}
    */
   @property({ type: Function, attribute: false })
-  public highlightable: HighlightableFunction = itemHighlightable;
+  public highlightable: AutosuggestHighlightable = itemHighlightable;
 
   /**
    * A list of suggestion items
-   * @type {Suggestion[]}
+   * @type {AutosuggestItem[]}
    */
-  @property({ attribute: false })
-  public suggestions: SuggestionType[] = [];
+  @property({ type: Array, attribute: false })
+  public suggestions: AutosuggestItem[] = [];
 
   /**
    * If set to true, the render function is not called. Instead the wrapper element
@@ -197,33 +209,42 @@ export class Autosuggest extends Overlay {
   @property({ type: Boolean, attribute: 'html-renderer' })
   public htmlRenderer = false;
 
+  @query('#moreResults')
+  protected moreResultsItem?: HTMLElement | null;
+
+  @query('#contentSlot')
+  private contentSlot?: HTMLSlotElement | null;
+
+  @query('[part="content"]')
+  private contentElement?: HTMLElement | null;
+
+  @query('[part="header"]')
+  private headerElement?: HTMLElement | null;
+
+  @query('[part="footer"]')
+  private footerElement?: HTMLElement | null;
+
   // used to map render elements with data
-  private suggestionMap = new Map<HTMLElement, SuggestionType>();
+  private suggestionMap = new Map<HTMLElement, AutosuggestItem>();
 
   protected highlightedItem: HTMLElement | null = null;
 
-  @query('#moreResults') protected moreResultsItem?: HTMLElement | null;
-
-  protected attachTarget: AttachTargetElement | null = null;
+  protected attachTarget: AutosuggestTargetElement | null = null;
 
   private lastActiveElement: HTMLElement | null = null;
 
-  @query('#contentSlot') private contentSlot?: HTMLSlotElement | null;
-
   private suspendedKey = false;
 
-  private preservedQueryValue: Query | null = null;
+  private preservedQueryValue: AutosuggestQuery | null = null;
 
   private focusSuspended = false;
 
   private jobRunner = new TimeoutTaskRunner(this.debounceRate);
 
-  @query('[part="content"]') private contentElement?: HTMLElement | null;
-  @query('[part="header"]') private headerElement?: HTMLElement | null;
-  @query('[part="footer"]') private footerElement?: HTMLElement | null;
-
   private attachChangeRunner = new AnimationTaskRunner();
+
   private moreResultsRunner = new AnimationTaskRunner();
+
   private loadingRunner = new AnimationTaskRunner();
 
   /**
@@ -442,8 +463,8 @@ export class Autosuggest extends Overlay {
   }
 
   /**
-   * add listener to listen when on suggestion tap
-   * @param changedProperties properties that was changed on first update
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
@@ -529,12 +550,12 @@ export class Autosuggest extends Overlay {
    * @param event Select action
    * @returns {void}
    */
-  protected itemSelectAction (event: CustomEvent): void {
+  protected itemSelectAction (event: AutosuggestSelectItemEvent): void {
     const { detail: { query, suggestion } } = event;
 
     /* istanbul ignore next */
     if (this.attachTarget) {
-      this.attachTarget.value = suggestion ? suggestion.label : query;
+      this.attachTarget.value = suggestion && suggestion?.label || query;
     }
   }
 
@@ -543,8 +564,9 @@ export class Autosuggest extends Overlay {
    * @param event Highlight action
    * @returns {void}
    */
-  protected itemHighlightAction (event: CustomEvent): void {
-    const { detail: { target, oldTarget } } = event;
+  protected itemHighlightAction (event: AutosuggestHighlightItemEvent): void {
+    const target = event.detail.target;
+    const oldTarget = event.detail.oldTarget;
 
     if (target) {
       target.highlighted = true;
@@ -666,7 +688,7 @@ export class Autosuggest extends Overlay {
    * @param query A query
    * @returns innerHTML
    */
-  protected highlightText (moreResults: boolean, moreSearchText: string, query: Query | null): TemplateResult | null {
+  protected highlightText (moreResults: boolean, moreSearchText: string, query: AutosuggestQuery | null): TemplateResult | null {
     if (!moreResults) {
       return null;
     }
@@ -686,7 +708,7 @@ export class Autosuggest extends Overlay {
    * @param debounce True to debounce
    * @returns {void}
    */
-  protected requestSuggestions (reason: ReasonType, debounce = false): void {
+  protected requestSuggestions (reason: AutosuggestReason, debounce = false): void {
     this.dispatchSuggestionsQuery(reason);
 
     if (this.preservedQueryValue === this.query) { // if the query is the same do not re-issue the request, instead try to open auto suggest
@@ -827,7 +849,7 @@ export class Autosuggest extends Overlay {
   }
 
   /**
-   * highlight it on mouse move
+   * Highlight it on mouse move
    * @param event for item
    * @returns {void}
    */
@@ -848,7 +870,7 @@ export class Autosuggest extends Overlay {
    * @param target Target to check
    * @returns suggestion
    */
-  protected getSuggestionFor (target: HTMLElement | null): SuggestionType {
+  protected getSuggestionFor (target: HTMLElement | null): AutosuggestItem {
     return target && this.suggestionMap.get(target);
   }
 
@@ -858,7 +880,7 @@ export class Autosuggest extends Overlay {
    * @param method 'click', 'enter' or 'navigation'
    * @returns {void}
    */
-  protected selectItem (target: HTMLElement, method: MethodType): void {
+  protected selectItem (target: HTMLElement, method: AutosuggestMethodType): void {
     if (this.canSelect(target)) {
       // more results
       if (target === this.moreResultsItem) {
@@ -995,7 +1017,7 @@ export class Autosuggest extends Overlay {
   private attachChangeFrameCallback = (): void => {
     this.dispatchAttachEventsRemoveAction();
 
-    const attachTarget = (typeof this.attach === 'string' ? document.querySelector(this.attach) : this.attach) as AttachTargetElement;
+    const attachTarget = (typeof this.attach === 'string' ? document.querySelector(this.attach) : this.attach) as AutosuggestTargetElement;
 
     if (attachTarget && attachTarget.nodeType === document.ELEMENT_NODE) {
       this.attachTarget = attachTarget;
@@ -1059,13 +1081,13 @@ export class Autosuggest extends Overlay {
    * @param target Target for suggestion
    * @returns {void}
    */
-  private dispatchItemSelect (method: MethodType, target: HTMLElement | null = null): void {
+  private dispatchItemSelect (method: AutosuggestMethodType, target: HTMLElement | null = null): void {
     this.suspend();
 
     /**
      * @event item-select
      * Fired when an item gets selected
-     * @param {MethodType} method Select method
+     * @param {AutosuggestMethodType} method Select method
      * @param {HTMLElement} target Selection target
      * @param {*} [suggestion] Selected suggestion or null
      * @param {*} [query] Saved query object or null
@@ -1088,7 +1110,7 @@ export class Autosuggest extends Overlay {
    * @param reason Dispatch reason
    * @returns {void}
    */
-  private dispatchSuggestionsFetchRequested (reason: ReasonType): void {
+  private dispatchSuggestionsFetchRequested (reason: AutosuggestReason): void {
     /**
      * @event suggestions-fetch-requested
      * Fired when auto suggest requests the data.
@@ -1126,7 +1148,7 @@ export class Autosuggest extends Overlay {
    * @param reason Dispatch reason
    * @returns {void}
    */
-  private dispatchSuggestionsQuery (reason: ReasonType): void {
+  private dispatchSuggestionsQuery (reason: AutosuggestReason): void {
     /**
      * @event suggestions-query
      * Fired when input value has changed and the query must be set.
@@ -1146,7 +1168,7 @@ export class Autosuggest extends Overlay {
    * @param defaultAction Default action to run
    * @returns {void}
    */
-  private dispatchEventDefault (event: CustomEvent, defaultAction: Function): void {
+  private dispatchEventDefault (event: CustomEvent, defaultAction: AutosuggestQueryAction): void {
     this.dispatchEvent(event);
 
     if (!event.defaultPrevented) {
@@ -1311,7 +1333,7 @@ export class Autosuggest extends Overlay {
     el.parentNode && el.parentNode.removeChild(el);
   };
 
-  private generateSuggestionsFragment = (fragment: DocumentFragment, suggestion: SuggestionType): DocumentFragment => {
+  private generateSuggestionsFragment = (fragment: DocumentFragment, suggestion: AutosuggestItem): DocumentFragment => {
     const el = this.renderer(suggestion, this.preservedQueryValue);
     fragment.appendChild(el);
 
