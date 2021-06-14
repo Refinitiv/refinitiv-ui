@@ -22,5 +22,8 @@
   },
   "dependencies": {
     "@refinitiv-ui/elemental-theme": "^5.0.0-alpha.4"
+  },
+  "devDependencies": {
+    "@refinitiv-ui/theme-compiler": "^5.0.0-alpha.4"
   }
 }
