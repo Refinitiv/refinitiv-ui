@@ -7,14 +7,11 @@ import {
   CSSResult,
   PropertyValues,
   WarningNotice,
+  styleMap,
   query
 } from '@refinitiv-ui/core';
-import { styleMap } from 'lit-html/directives/style-map';
 import { translate, Translate } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/lib/locale/en/color-dialog';
-import { Dialog } from '../dialog';
-import { ColorHelpers } from './helpers/color-helpers';
-import { ValueModel } from './helpers/value-model';
 
 import type { NumberField } from '../number-field';
 import type { TextField } from '../text-field';
@@ -23,12 +20,18 @@ import type { Palettes } from './elements/palettes';
 import '../button';
 import '../number-field';
 import '../text-field';
+import { Dialog } from '../dialog';
+
 import './elements/color-palettes';
 import './elements/grayscale-palettes';
+
+import { ColorHelpers } from './helpers/color-helpers';
+import { ValueModel } from './helpers/value-model';
 
 /**
  * Displays a colour picker dialog,
  * for selecting a predefined range of colours.
+ *
  * @fires value-changed - Fired when the `value` property changes.
  * @fires opened-changed - Fired when the `opened` property changes.
  *
@@ -60,8 +63,12 @@ import './elements/grayscale-palettes';
  */
 @customElement('ef-color-dialog')
 export class ColorDialog extends Dialog {
-
-
+  /**
+   * A `CSSResult` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @return {CSSResult | CSSResult[]} CSS template
+   */
   public static get styles (): CSSResult | CSSResult[] {
     return [...(Dialog.styles as CSSResult[]),
       css`
@@ -186,12 +193,26 @@ export class ColorDialog extends Dialog {
   @translate()
   protected t!: Translate;
 
-  @query('#redInput') private redInputEl?: NumberField
-  @query('#greenInput') private greenInputEl?: NumberField
-  @query('#blueInput') private blueInputEl?: NumberField
+  /**
+   * A rgb color input for red spectrum
+   */
+  @query('#redInput')
+  private redInputEl?: NumberField
 
   /**
-   * check if component should be updated
+   * A rgb color input for green spectrum
+   */
+  @query('#greenInput')
+  private greenInputEl?: NumberField
+
+  /**
+   * A rgb color input for blue spectrum
+   */
+  @query('#blueInput')
+  private blueInputEl?: NumberField
+
+  /**
+   * Check if component should be updated
    * @param changedProperties properties changed on shouldUpdate lifecycle callback
    * @returns boolean should component update
    */
@@ -350,14 +371,16 @@ export class ColorDialog extends Dialog {
    * Check if apply button is disabled
    * The button is disabled if value is invalid
    * or value has not changed
-   * @returns true if disabled
+   * @returns {boolean} true if disabled
    */
   private isApplyDisabled (): boolean {
     return this.valueModel.hasChanged() && this.valueModel.isValid() ? this.allowNocolor ? false : this.valueModel.hex === '' : true;
   }
 
   /**
-   * Override the content region
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return {TemplateResult}  Render template
    */
   protected get contentRegion (): TemplateResult {
     if (!this.lazyRendered) {
@@ -436,7 +459,9 @@ export class ColorDialog extends Dialog {
   }
 
   /**
-   * Override the footer region
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return {TemplateResult}  Render template
    */
   protected get footerRegion (): TemplateResult {
     if (!this.lazyRendered) {
