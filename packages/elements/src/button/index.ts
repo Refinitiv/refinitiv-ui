@@ -19,7 +19,13 @@ import '../icon';
  */
 @customElement('ef-button')
 export class Button extends ControlElement {
-  public static get styles (): CSSResult | CSSResult[] {
+  /**
+   * A `CSSResult` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @return {CSSResult | CSSResult[]} CSS template
+   */
+  static get styles (): CSSResult | CSSResult[] {
     return css`
       :host(:not(:hover)) #hover-icon,
       :host(:hover) [part=icon]:not(#hover-icon) {
@@ -32,37 +38,44 @@ export class Button extends ControlElement {
    * Customises text alignment when specified alongside `icon` property
    * Value can be `before` or `after`
    */
-  @property({ type: String, reflect: true }) textpos: 'before' | 'after' = 'after';
+  @property({ type: String, reflect: true })
+  public textpos: 'before' | 'after' = 'after';
 
   /**
    * Removes background when specified alongside `icon` property
    */
-  @property({ type: Boolean, reflect: true }) transparent = false;
+  @property({ type: Boolean, reflect: true })
+  public transparent = false;
 
   /**
    * Specify icon to display in button. Value can be icon name
    */
-  @property({ type: String, reflect: true }) icon: string | null = null;
+  @property({ type: String, reflect: true })
+  public icon: string | null = null;
 
   /**
    * Specify icon to display when hovering. Value can be icon name
    */
-  @property({ type: String, reflect: true, attribute: 'hover-icon' }) hoverIcon: string | null = null;
+  @property({ type: String, reflect: true, attribute: 'hover-icon' })
+  public hoverIcon: string | null = null;
 
   /**
    * Set state to call-to-action
    */
-  @property({ type: Boolean, reflect: true }) cta = false;
+  @property({ type: Boolean, reflect: true })
+  public cta = false;
 
   /**
-   * it's a property attribute for the style of toggle
+   * Enable or disable ability to be toggled
    */
-  @property({ type: Boolean, reflect: true }) toggles = false;
+  @property({ type: Boolean, reflect: true })
+  public toggles = false;
 
   /**
-   * it's a property attribute using toggles for a style of host
+   * An active or inactive state, can only be used with toggles property/attribute
    */
-  @property({ type: Boolean, reflect: true }) active = false;
+  @property({ type: Boolean, reflect: true })
+  public active = false;
 
   /**
    * Use by theme to detect when no content inside button
@@ -70,32 +83,23 @@ export class Button extends ControlElement {
   private empty = false;
 
   /**
-   * the lifecycle method called when properties changed first time
-   *
-   * @param changedProperties properties it's the Map object which has the updated properties
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
-    this.addEventHandlers();
+    this.addEventListener('tap', this.toggleActive);
+    this.addEventListener('tapstart', this.setPressed);
+    this.addEventListener('tapend', this.unsetPressed);
+    this.addEventListener('keyup', this.onKeyUpHandler);
+
     this.emptyComputed();
   }
 
   /**
-   * @returns the method renders this element
-   */
-  protected render (): TemplateResult {
-    return html`
-        ${this.iconAndHoverIconTemplates}
-        <span part="label">
-          <slot @slotchange="${this.onDefaultSlotChangeHandler}"></slot>
-        </span>
-    `;
-  }
-
-  /**
-   * the method acts to handle the slotchange event of default slot
+   * Handle the slotchange event of default slot
    * @returns {void}
    */
   private onDefaultSlotChangeHandler = (): void => {
@@ -103,19 +107,7 @@ export class Button extends ControlElement {
   };
 
   /**
-   * the method adds click and tap event handlers for switching active
-   *
-   * @returns {void}
-   */
-  private addEventHandlers (): void {
-    this.addEventListener('tap', this.toggleActive);
-    this.addEventListener('tapstart', this.setPressed);
-    this.addEventListener('tapend', this.unsetPressed);
-    this.addEventListener('keyup', this.onKeyUpHandler);
-  }
-
-  /**
-   * handle keydown event
+   * Handle keydown event
    * @param event the keyboard event
    * @returns {void}
    */
@@ -126,7 +118,7 @@ export class Button extends ControlElement {
   };
 
   /**
-   * check key names
+   * Check key names
    * @param key the keyboard key
    * @returns true if space or enter pressed
    */
@@ -138,9 +130,7 @@ export class Button extends ControlElement {
   }
 
   /**
-   * it's a method for handling active property
-   * when the toggles property exists
-   *
+   * Handle active property, when toggles is true
    * @returns {void}
    */
   private toggleActive = (): void => {
@@ -157,7 +147,7 @@ export class Button extends ControlElement {
   };
 
   /**
-   * set pressed attribute
+   * Set pressed attribute
    * @returns {void}
    */
   private setPressed = (): void => {
@@ -165,7 +155,7 @@ export class Button extends ControlElement {
   };
 
   /**
-   * remove pressed attribute
+   * Remove pressed attribute
    * @returns {void}
    */
   private unsetPressed = (): void => {
@@ -173,8 +163,7 @@ export class Button extends ControlElement {
   };
 
   /**
-   * the method computes the empty property based on the textContent
-   *
+   * Compute empty property based on textContent
    * @returns {void}
    */
   private emptyComputed (): void {
@@ -183,8 +172,7 @@ export class Button extends ControlElement {
   }
 
   /**
-   * set or remove attribute "empty" based on slot present
-   *
+   * Set or remove attribute "empty" based on slot present
    * @returns {void}
    */
   private switchEmptyAttribute (): void {
@@ -197,9 +185,8 @@ export class Button extends ControlElement {
   }
 
   /**
-   * this getter returns the ef-icon if the icon property exists
-   *
-   * @returns icon template or null
+   * Returns icon template if exists
+   * @return {TemplateResult | null}  Render template
    */
   private get iconTemplate (): TemplateResult | null {
     return this.icon
@@ -208,9 +195,8 @@ export class Button extends ControlElement {
   }
 
   /**
-   * the getter returns the ef-icon if the hoverIcon or icon property exists
-   *
-   * @returns hover icon template or null
+   * Returns hover icon template if exists
+   * @return {TemplateResult | null}  Render template
    */
   private get hoverIconTemplate (): TemplateResult | null {
     const hoverIcon = this.hoverIcon || this.icon;
@@ -220,14 +206,17 @@ export class Button extends ControlElement {
   }
 
   /**
-   * the getter return two templates of icons
-   *
-   * @returns part of template
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return {TemplateResult}  Render template
    */
-  private get iconAndHoverIconTemplates (): TemplateResult {
+  protected render (): TemplateResult {
     return html`
       ${this.iconTemplate}
       ${this.hoverIconTemplate}
+      <span part="label">
+        <slot @slotchange="${this.onDefaultSlotChangeHandler}"></slot>
+      </span>
     `;
   }
 }
