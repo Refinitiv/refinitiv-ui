@@ -20,9 +20,10 @@ export { info, confirm, warn, error } from './helpers';
  * @fires dismiss - Dispatched when notification is dismissed
  *
  */
-@customElement('ef-notification')
+@customElement('ef-notification', {
+  alias: 'amber-notification'
+})
 export class Notification extends BasicElement {
-
   /**
    * The message to show in the notification.
    */

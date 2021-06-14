@@ -146,7 +146,7 @@ describe('List', () => {
     el.data = data;
     el.value = 'hi';
     await elementUpdated(el);
-    expect(el.selectedItem).to.equal(data[0]);
+    expect(el.queryItemsByPropertyValue('selected', true)[0]).to.equal(data[0]);
   });
 
   it('Supports setting values via property', async () => {
@@ -154,7 +154,7 @@ describe('List', () => {
     el.data = data;
     el.values = ['hi'];
     await elementUpdated(el);
-    expect(el.selectedItem).to.equal(data[0]);
+    expect(el.queryItemsByPropertyValue('selected', true)[0]).to.equal(data[0]);
   });
 
   it('Supports setting values via property (multiple)', async () => {
@@ -162,7 +162,7 @@ describe('List', () => {
     el.data = data;
     el.values = ['hi', 'bye'];
     await elementUpdated(el);
-    expect(el.selectedItem).to.equal(data[0]);
+    expect(el.queryItemsByPropertyValue('selected', true)[0]).to.equal(data[0]);
   });
 
   it('Handles list being tapped (not list item)', async () => {

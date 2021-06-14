@@ -25,7 +25,9 @@ import '../icon';
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-pill')
+@customElement('ef-pill', {
+  alias: 'coral-pill'
+})
 export class Pill extends ControlElement {
   constructor () {
     super();

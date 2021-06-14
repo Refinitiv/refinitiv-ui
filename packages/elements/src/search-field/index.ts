@@ -30,10 +30,10 @@ const isIE = (/Trident/g).test(navigator.userAgent);
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-search-field')
+@customElement('ef-search-field', {
+  alias: 'coral-search-field'
+})
 export class SearchField extends ControlElement {
-
-
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

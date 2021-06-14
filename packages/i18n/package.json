@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/i18n",
-  "version": "5.0.0-alpha.4",
+  "version": "5.0.0-alpha.5",
   "description": "i18n support for Web Components",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -18,10 +18,10 @@
     "test:watch": "yarn build && yarn test --auto-watch=true --single-run=false"
   },
   "author": "Refinitiv",
-  "license": "BSD-3-Clause",
+  "license": "Apache-2.0",
   "dependencies": {
     "@formatjs/intl-utils": "^3.8.4",
-    "@refinitiv-ui/phrasebook": "^5.0.0-alpha.4",
+    "@refinitiv-ui/phrasebook": "^5.0.0-alpha.5",
     "intl-format-cache": "^4.3.1",
     "intl-messageformat": "~9.4.0"
   },

@@ -54,7 +54,9 @@ export { OverlayMenuData };
  *
  * @prop {string} [value=] - Returns the first selected item from values.
  */
-@customElement('ef-overlay-menu')
+@customElement('ef-overlay-menu', {
+  alias: 'emerald-popup-menu'
+})
 export class OverlayMenu extends Overlay {
   constructor () {
     super();

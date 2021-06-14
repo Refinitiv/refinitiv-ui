@@ -53,7 +53,9 @@ const splitSegments = (value: string): number[] => {
  * @fires value-changed - Fired when the value property changes while ticking.
  * @fires offset-changed - Fired when the the user offsets the clock in `interactive` mode.
  */
-@customElement('ef-clock')
+@customElement('ef-clock', {
+  alias: 'sapphire-clock'
+})
 export class Clock extends BasicElement {
   /**
    * A `CSSResult` that will be used

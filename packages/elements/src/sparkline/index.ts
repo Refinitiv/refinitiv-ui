@@ -18,7 +18,9 @@ import type { StaticDataConfig, ThemeConfig } from 'browser-sparkline/lib/browse
 import { helpers } from './helpers';
 export { helpers };
 
-@customElement('ef-sparkline')
+@customElement('ef-sparkline', {
+  alias: 'sapphire-sparkline'
+})
 export class Sparkline extends ResponsiveElement {
   /**
    * Chart data as an array of number.

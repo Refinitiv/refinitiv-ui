@@ -2700,10 +2700,30 @@
     "@types/parse5" "^5.0.3"
     parse5 "^6.0.1"
 
-"@webcomponents/shadycss@^1.10.2":
+"@webcomponents/custom-elements@^1.4.1":
+  version "1.4.3"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@webcomponents/custom-elements/-/custom-elements-1.4.3.tgz#1800d49f38bb4425ebfd160b50115e62776109d7"
+  integrity sha1-GADUnzi7RCXr/RYLUBFeYndhCdc=
+
+"@webcomponents/shadycss@^1.10.0", "@webcomponents/shadycss@^1.10.2":
   version "1.10.2"
   resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@webcomponents/shadycss/-/shadycss-1.10.2.tgz#40e03cab6dc5e12f199949ba2b79e02f183d1e7b"
   integrity sha1-QOA8q23F4S8ZmUm6K3ngLxg9Hns=
+
+"@webcomponents/shadydom@^1.7.3":
+  version "1.8.0"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@webcomponents/shadydom/-/shadydom-1.8.0.tgz#be4bce3549a04c8db0f5fae142bebead5f94b04a"
+  integrity sha1-vkvONUmgTI2w9frhQr6+rV+UsEo=
+
+"@webcomponents/template@^1.4.2":
+  version "1.4.4"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@webcomponents/template/-/template-1.4.4.tgz#2ca5a68b65b6e9cd9b17b25a951514f254c00742"
+  integrity sha1-LKWmi2W26c2bF7JalRUU8lTAB0I=
+
+"@webcomponents/webcomponents-platform@^1.0.0":
+  version "1.0.1"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/@webcomponents/webcomponents-platform/-/webcomponents-platform-1.0.1.tgz#4e7ae8b40bcade06f5fdfa73fdb0211d90908866"
+  integrity sha1-TnrotAvK3gb1/fpz/bAhHZCQiGY=
 
 "@webcomponents/webcomponentsjs@^2.4.0", "@webcomponents/webcomponentsjs@^2.5.0":
   version "2.5.0"
@@ -3816,6 +3836,11 @@ core-js-compat@^3.14.0, core-js-compat@^3.9.1:
   dependencies:
     browserslist "^4.16.6"
     semver "7.0.0"
+
+core-js@^2.6.11:
+  version "2.6.12"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
+  integrity sha1-2TM9+nsGXjR8xWgiGdb2kIWcwuw=
 
 core-js@^3.6.1:
   version "3.14.0"
@@ -8491,7 +8516,7 @@ setprototypeof@1.2.0:
   resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
   integrity sha1-ZsmiSnP5/CjL5msJ/tPTPcrxtCQ=
 
-shady-css-scoped-element@^0.0.2:
+shady-css-scoped-element@0.0.2, shady-css-scoped-element@^0.0.2:
   version "0.0.2"
   resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/shady-css-scoped-element/-/shady-css-scoped-element-0.0.2.tgz#c538fcfe2317e979cd02dfec533898b95b4ea8fe"
   integrity sha1-xTj8/iMX6XnNAt/sUziYuVtOqP4=

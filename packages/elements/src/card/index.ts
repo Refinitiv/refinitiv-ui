@@ -34,9 +34,10 @@ export type CardConfiguration = {
  *
  * @fires item-trigger - Fired when card menu is selected.
  */
-@customElement('ef-card')
+@customElement('ef-card', {
+  alias: 'coral-card'
+})
 export class Card extends BasicElement {
-
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

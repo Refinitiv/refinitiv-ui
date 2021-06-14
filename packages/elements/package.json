@@ -1,9 +1,9 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "5.0.0-alpha.4",
+  "version": "5.0.0-alpha.8",
   "description": "Element Framework Elements",
   "author": "Refinitiv",
-  "license": "BSD-3-Clause",
+  "license": "Apache-2.0",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -26,11 +26,11 @@
     "prepublishOnly": "node __release-scripts__/index.js"
   },
   "dependencies": {
-    "@refinitiv-ui/core": "^5.0.0-alpha.4",
-    "@refinitiv-ui/halo-theme": "^5.0.0-alpha.4",
-    "@refinitiv-ui/solar-theme": "^5.0.0-alpha.4",
-    "@refinitiv-ui/translate": "^5.0.0-alpha.4",
-    "@refinitiv-ui/utils": "^5.0.0-alpha.4",
+    "@refinitiv-ui/core": "^5.0.0-alpha.6",
+    "@refinitiv-ui/halo-theme": "^5.0.0-alpha.5",
+    "@refinitiv-ui/solar-theme": "^5.0.0-alpha.5",
+    "@refinitiv-ui/translate": "^5.0.0-alpha.6",
+    "@refinitiv-ui/utils": "^5.0.0-alpha.5",
     "browser-sparkline": "1.1.6",
     "chart.js": "2.9.3",
     "d3-color": "^2.0.0",

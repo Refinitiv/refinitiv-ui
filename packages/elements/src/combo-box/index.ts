@@ -77,10 +77,10 @@ export type Filter<T extends DataItem> = (item: T) => boolean;
  * @fires query-changed - Dispatched when query changes
  * @fires opened-changed - Dispatched when opened state changes
  */
-@customElement('ef-combo-box')
+@customElement('ef-combo-box', {
+  alias: 'coral-combo-box'
+})
 export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
-
-
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

@@ -61,7 +61,9 @@ export const isValidValue = function (value: string): boolean {
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-time-picker')
+@customElement('ef-time-picker', {
+  alias: 'coral-time-picker'
+})
 export class TimePicker extends ControlElement {
 
   private isMobile = false;

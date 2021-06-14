@@ -55,7 +55,9 @@ window.Chart.helpers.merge(DEFAULT_CHART_CONFIG, ELF_CHART_CONFIG);
 /**
  * Charting component that use chartjs library
  */
-@customElement('ef-chart')
+@customElement('ef-chart', {
+  alias: 'sapphire-chart'
+})
 export class Chart extends BasicElement {
   /**
    * Chart.js object

@@ -1,7 +1,6 @@
 import {
   customElement,
   property,
-  DeprecationNotice,
   PropertyValues,
   TapEvent
 } from '@refinitiv-ui/core';
@@ -15,16 +14,15 @@ export { DefaultRenderer };
 
 const EXPAND_TOGGLE_ATTR = 'expand-toggle';
 
-const selectAllDeprecation = new DeprecationNotice('selectAll is deprecated, use checkAll instead.');
-const deselectAllDeprecation = new DeprecationNotice('deselectAll is deprecated, use uncheckAll instead.');
-
 /**
  * Displays a tree structure
  * to be used for menus and group selections
  *
  * @fires value-changed - Fired when the users changed selection item.
  */
-@customElement('ef-tree')
+@customElement('ef-tree', {
+  alias: 'coral-tree'
+})
 export class Tree<T extends TreeItemData = TreeItemData> extends List<T> {
   /**
    * Tree manager used for manipulation
@@ -79,33 +77,11 @@ export class Tree<T extends TreeItemData = TreeItemData> extends List<T> {
   }
 
   /**
-   * Checks all editable items
-   * @returns {void}
-   * @deprecated
-   * @ignore
-   */
-  public selectAll (): void {
-    selectAllDeprecation.once();
-    this.checkAll();
-  }
-
-  /**
    * Unchecks all editable items
    * @returns {void}
    */
   public uncheckAll (): void {
     this.manager.uncheckAllItems();
-  }
-
-  /**
-   * Unchecks all editable items
-   * @returns {void}
-   * @deprecated
-   * @ignore
-   */
-  public deselectAll (): void {
-    deselectAllDeprecation.once();
-    this.uncheckAll();
   }
 
   /**
