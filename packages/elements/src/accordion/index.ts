@@ -28,7 +28,7 @@ const getClosestAccordion = (element: Element | null): Accordion | null => {
 };
 
 /**
- * checks if specified element is a direct child of current accordion.
+ * Checks if specified element is a direct child of current accordion.
  * @param element - child that checked
  * @param accordion - parent accordion
  * @returns is current accordion has child accordion that wraps checked element
@@ -48,8 +48,10 @@ const isDirectAccordionChild = (element: Element, accordion: Accordion): boolean
 @customElement('ef-accordion')
 export class Accordion extends Collapse {
   /**
-   * @returns A `CSSResult` that will be used to style the host,
-   * slotted children and the internal template of the element.
+   * A `CSSResult` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @return {CSSResult | CSSResult[]} CSS template
    */
   static get styles (): CSSResult | CSSResult[] {
     return css`
@@ -62,32 +64,25 @@ export class Accordion extends Collapse {
   /**
    * Allow multiple sections expand at the same time
    */
-  @property({ type: Boolean, attribute: 'auto-collapse-disabled' }) autoCollapseDisabled = false;
+  @property({ type: Boolean, attribute: 'auto-collapse-disabled' })
+  public autoCollapseDisabled = false;
 
   /**
    * Add spacing to content section in all collapse items
    */
-  @property({ type: Boolean, reflect: true }) spacing = false;
+  @property({ type: Boolean, reflect: true })
+  public spacing = false;
 
   /**
    * Allow the collapse animation to be disabled
    */
-  @property({ type: Boolean, attribute: 'collapse-animation-disabled' }) collapseAnimationDisabled = false;
+  @property({ type: Boolean, attribute: 'collapse-animation-disabled' })
+  public collapseAnimationDisabled = false;
 
   /**
-   * A `TemplateResult` that will be used
-   * to render the updated internal template.
-   * @return Render template
-   */
-  protected render (): TemplateResult {
-    return html`
-      <slot></slot>
-    `;
-  }
-
-  /**
-   * @param changedProperties map of properties that was changed first time
-   * @return {void}
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
+   * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
@@ -98,13 +93,13 @@ export class Accordion extends Collapse {
 
   /**
    * handle bubbled clicks from items
-   * @param e the click event object
+   * @param event the click event object
    * @return void
    */
-  private handleClick = (e: Event): void => {
-    if (!this.autoCollapseDisabled && isDirectAccordionChild(e.target as Element, this)) {
-      this.processChildrenOnClick(e.target);
-      e.stopPropagation();
+  private handleClick = (event: Event): void => {
+    if (!this.autoCollapseDisabled && isDirectAccordionChild(event.target as Element, this)) {
+      this.processChildrenOnClick(event.target);
+      event.stopPropagation();
     }
   };
 
@@ -132,4 +127,14 @@ export class Accordion extends Collapse {
     }
   }
 
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return {TemplateResult}  Render template
+   */
+  protected render (): TemplateResult {
+    return html`
+      <slot></slot>
+    `;
+  }
 }
