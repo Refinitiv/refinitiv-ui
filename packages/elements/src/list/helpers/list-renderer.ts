@@ -1,7 +1,8 @@
 import { CollectionComposer } from '@refinitiv-ui/utils';
-import { Item, ItemType, ItemData } from '../item';
-import { Renderer } from './renderer';
-import '../item';
+
+import '../../item';
+import { Item, ItemType, ItemData } from '../../item';
+import { Renderer } from '../renderer';
 
 /**
  * Basic render context
@@ -14,7 +15,7 @@ type Context = {
  * Renders list items as `ef-item` elements.
  * This is the default renderer for lists.
  */
-export class DefaultRenderer extends Renderer {
+export class ListRenderer extends Renderer {
   constructor (context?: unknown) {
     /**
      * Create and return render function
