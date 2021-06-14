@@ -19,5 +19,8 @@
     "build:dark": "theme-compiler dark --variant=dark",
     "build": "npm run build:light && npm run build:dark",
     "watch": "watch \"npm run build\" src --wait=10"
+  },
+  "devDependencies": {
+    "@refinitiv-ui/theme-compiler": "^5.0.0-alpha.4"
   }
 }

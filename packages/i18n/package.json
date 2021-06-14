@@ -24,5 +24,8 @@
     "@refinitiv-ui/phrasebook": "^5.0.0-alpha.5",
     "intl-format-cache": "^4.3.1",
     "intl-messageformat": "~9.4.0"
+  },
+  "devDependencies": {
+    "@refinitiv-ui/test-helpers": "^5.0.0-alpha.4"
   }
 }
