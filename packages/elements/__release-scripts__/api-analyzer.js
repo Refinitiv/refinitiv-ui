@@ -141,6 +141,22 @@ const INPUT_FILENAME = 'index.ts';
 const OUTPUT_FILENAME = 'custom-elements.json';
 
 /**
+ * Analyze API
+ *
+ * @param {string} file  file path
+ * @returns {Object}
+ */
+const analyze = (file) => {
+  const data = fs.readFileSync(file, { encoding: 'utf8' });
+  const meta = wca.analyzeText(data);
+  const rawJson = wca.transformAnalyzerResult('json', meta.results, meta.program);
+  const jsonObj = JSON.parse(rawJson);
+  const methods = getMethods(jsonObj, meta);
+
+  return { jsonObj, methods };
+};
+
+/**
  * Analyzes element's public API from TypeScript, output a JSON file
  * @returns {void}
  */
@@ -151,19 +167,22 @@ const handler = async () => {
   if (entries.length === 0) return;
 
   for (const entrypoint of entries) {
+    const element = entrypoint.match(/^.*\/src\/([\w-]+)/)[1];
     const outDir = entrypoint.replace(ELEMENT_SRC, ELEMENT_DIST).replace(INPUT_FILENAME, '');
     const outFile = path.join(outDir, OUTPUT_FILENAME);
 
-    const entrypointFile = fs.readFileSync(entrypoint, { encoding: 'utf8' });
-    const meta = wca.analyzeText(entrypointFile);
-    const rawJson = wca.transformAnalyzerResult(
-      'json',
-      meta.results,
-      meta.program
-    );
+    // Analyze API
+    let { jsonObj, methods } = analyze(entrypoint);
 
-    const jsonObj = JSON.parse(rawJson);
-    const methods = getMethods(jsonObj, meta);
+    // If analyze but not found anything, try to use element.ts file in `elements` sub directory.
+    if (!jsonObj.tags.length && !methods.length) {
+      const altEntrypoint = entrypoint.replace('index.ts', path.join('elements', `${element}.ts`));
+      if (fs.existsSync(altEntrypoint)) {
+        const result  = analyze(altEntrypoint);
+        jsonObj = result.jsonObj;
+        methods = result.methods;
+      }
+    }
 
     // Extract method details from meta data and added to jsonObj
     if (jsonObj.tags && jsonObj.tags.length > 0 && methods.length > 0) {
