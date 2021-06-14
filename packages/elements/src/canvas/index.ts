@@ -16,24 +16,6 @@ import {
  */
 @customElement('ef-canvas')
 export class Canvas extends ResponsiveElement {
-  /*
-   * Width of canvas
-   */
-  public width: number;
-  /*
-   * Height of canvas
-   */
-  public height: number;
-  private frameId: number;
-  private _autoloop: boolean;
-
-  constructor () {
-    super();
-    this.frameId = 0;
-    this.width = 0;
-    this.height = 0;
-    this._autoloop = false;
-  }
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -55,6 +37,25 @@ export class Canvas extends ResponsiveElement {
         left: 0;
       }
     `;
+  }
+
+  /*
+   * Width of canvas
+   */
+  public width: number;
+  /*
+   * Height of canvas
+   */
+  public height: number;
+  private frameId: number;
+  private _autoloop: boolean;
+
+  constructor () {
+    super();
+    this.frameId = 0;
+    this.width = 0;
+    this.height = 0;
+    this._autoloop = false;
   }
 
   /**
@@ -112,17 +113,17 @@ export class Canvas extends ResponsiveElement {
 
   /**
    * Dispatch frame event
-   * @param t timestamp
+   * @param timestamp timestamp
    * @return {void}
    */
-  protected fireFrame (t: number): void {
+  protected fireFrame (timestamp: number): void {
     cancelAnimationFrame(this.frameId);
     /**
      * Frame fires next frame event when autoloop is set to true.
      */
     this.dispatchEvent(
       new CustomEvent('frame', {
-        detail: { timestamp: t },
+        detail: { timestamp },
         bubbles: false
       })
     );
@@ -151,7 +152,7 @@ export class Canvas extends ResponsiveElement {
   /**
    * Return context of canvas,
    * support only 2D mode
-   * @param {String} mode mode of canvas's context
+   * @param {string} mode mode of canvas's context
    * @return context of canvas
    */
   public getContext (mode: string): CanvasRenderingContext2D | null {
