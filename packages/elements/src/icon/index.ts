@@ -16,10 +16,6 @@ const EmptyTemplate = svg``;
 
 @customElement('ef-icon')
 export class Icon extends BasicElement {
-  private _src: string | null = null;
-  private _icon: string | null = null;
-  private _template: TemplateResult = EmptyTemplate;
-
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -40,6 +36,8 @@ export class Icon extends BasicElement {
     `;
   }
 
+  private _icon: string | null = null;
+
   /**
    * Name of a known icon to render.
    * @example heart
@@ -56,6 +54,8 @@ export class Icon extends BasicElement {
       void this.requestUpdate('icon', oldValue);
     }
   }
+
+  private _src: string | null = null;
 
   /**
    * Src location of an svg icon.
@@ -75,28 +75,7 @@ export class Icon extends BasicElement {
     }
   }
 
-  /**
-   * Called after the component is first rendered
-   * @param changedProperties Properties which have changed
-   * @returns {void}
-   */
-  protected firstUpdated (changedProperties: PropertyValues): void {
-    super.firstUpdated(changedProperties);
-    /**
-     * We have to call this here because
-     * polyfilled browsers only get variables at this point.
-     */
-    this.setPrefix();
-  }
-
-  /**
-   * A `TemplateResult` that will be used
-   * to render the updated internal template.
-   * @return Render template
-   */
-  protected render (): TemplateResult {
-    return this.template;
-  }
+  private _template: TemplateResult = EmptyTemplate;
 
   /**
    * The icon template to render
@@ -109,6 +88,20 @@ export class Icon extends BasicElement {
       this._template = value;
       void this.requestUpdate();
     }
+  }
+
+  /**
+   * Called after the component is first rendered
+   * @param changedProperties Properties which have changed
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    /**
+     * We have to call this here because
+     * polyfilled browsers only get variables at this point.
+     */
+    this.setPrefix();
   }
 
   /**
@@ -153,6 +146,15 @@ export class Icon extends BasicElement {
    */
   private clearIcon (): void {
     this.template = EmptyTemplate;
+  }
+
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return Render template
+   */
+  protected render (): TemplateResult {
+    return this.template;
   }
 }
 
