@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/solar-theme",
-  "version": "5.0.0-alpha.5",
+  "version": "5.0.0-alpha.6",
   "description": "Solar theme for the Element Framework",
   "author": "Refinitiv",
   "license": "SEE LICENSE IN LICENSE.TXT",
@@ -21,7 +21,7 @@
     "watch": "watch \"npm run build\" src --wait=10"
   },
   "dependencies": {
-    "@refinitiv-ui/elemental-theme": "^5.0.0-alpha.4"
+    "@refinitiv-ui/elemental-theme": "^5.0.0-alpha.6"
   },
   "devDependencies": {
     "@refinitiv-ui/theme-compiler": "^5.0.0-alpha.4"
