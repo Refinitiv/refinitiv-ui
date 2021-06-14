@@ -1,16 +1,18 @@
 import { CollectionComposer } from '@refinitiv-ui/utils';
+import { TreeItemData } from './types';
 import { TreeManager, TreeManagerMode, CheckedState } from './tree-manager';
-import { Renderer } from '../list/renderer';
-import { TreeItemData } from './tree-item-data';
-import { TreeItem } from './tree-item';
-import './tree-item';
+
+import { Renderer } from '../../list/renderer';
+
+import '../elements/tree-item';
+import { TreeItem } from '../elements/tree-item';
 
 type RendererScope = {
   multiple?: boolean;
   noRelation?: boolean;
 };
 
-export class DefaultRenderer extends Renderer {
+export class TreeRenderer extends Renderer {
   constructor (scope?: unknown) {
     let manager: TreeManager<TreeItemData>;
     let currentMode: TreeManagerMode;
