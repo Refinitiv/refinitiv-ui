@@ -8,9 +8,13 @@
     align-self: flex-end;
   }
 
-  [part~='hours'], [part~='minutes'] {
+  [part~='hours'], [part~='minutes'], [part~='seconds'] {
     position: relative;
     outline: none;
+
+    &[part~='shifted'] {
+      color: @scheme-color-primary;
+    }
   }
 
   [part~='am-pm'] {
@@ -59,7 +63,7 @@
     }
   }
 
-  [part~='hours']:focus, [part~='minutes']:focus {
+  [part~='hours']:focus, [part~='minutes']:focus, [part~='seconds']:focus {
     color: @scheme-color-primary;
 
     [part='increment-button'], [part='decrement-button'] {

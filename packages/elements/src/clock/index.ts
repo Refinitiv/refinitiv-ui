@@ -405,6 +405,25 @@ export class Clock extends BasicElement {
   }
 
   /**
+  * Returns `true` or `false` depends on the offset value's effect on giving segment
+  *
+  * @param segment segment's name
+  * @returns Result
+  */
+  private isSegmentShifted (segment: string): boolean {
+    switch (segment) {
+      case 'hours':
+        return this.hours !== this.displayHours24;
+      case 'minutes':
+        return this.minutes !== this.displayMinutes;
+      case 'seconds':
+        return this.seconds !== this.displaySeconds;
+      default:
+        return false;
+    }
+  }
+
+  /**
    * Handles any keydown events
    * Used for control keys
    * @param event Event Object
@@ -488,7 +507,7 @@ export class Clock extends BasicElement {
   */
   private generateSegmentTemplate (name: string, value: number): TemplateResult {
     return html`
-      <div part="segment ${name}" tabindex="${ifDefined(this.interactive ? '0' : undefined)}">
+      <div part="segment ${name}${ifDefined(this.isSegmentShifted(name) ? ' shifted' : '')}" tabindex="${ifDefined(this.interactive ? '0' : undefined)}">
         ${this.formatNumber(value)}
         ${this.interactive ? this.generateButtonsTemplate() : undefined}
       </div>
