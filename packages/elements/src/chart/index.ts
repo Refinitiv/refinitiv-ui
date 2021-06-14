@@ -52,6 +52,8 @@ const ELF_CHART_CONFIG = {
 
 window.Chart.helpers.merge(DEFAULT_CHART_CONFIG, ELF_CHART_CONFIG);
 
+export type { ChartConfiguration };
+
 /**
  * Charting component that use chartjs library
  */

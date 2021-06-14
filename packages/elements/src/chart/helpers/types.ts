@@ -15,9 +15,7 @@ export type DatasetColors = {
 
 export type ChartDataSetsColor = Chart.ChartColor | Chart.ChartColor[] | Chart.Scriptable<Chart.ChartColor> | undefined;
 
-export interface ChartConfiguration extends Chart.ChartConfiguration {
-  data?: Chart.ChartData;
-}
+export type ChartConfiguration = Chart.ChartConfiguration;
 
 export type ChartUpdateProps = Chart.ChartUpdateProps;
 
