@@ -10,7 +10,7 @@ import {
   query
 } from '@refinitiv-ui/core';
 import '../tooltip';
-import { TextHelpers } from './helpers/text-helpers';
+import { TextHelpers } from './helpers/text';
 
 // Observer config for items
 const observerOptions = {
@@ -24,7 +24,6 @@ const observerOptions = {
  */
 @customElement('ef-label')
 export class Label extends ResponsiveElement {
-
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -73,14 +72,20 @@ export class Label extends ResponsiveElement {
   /**
    * Set state to error
    */
-  @property({ type: Boolean, reflect: true }) error = false;
+  @property({ type: Boolean, reflect: true })
+  public error = false;
 
   /**
    * Set state to warning
    */
-  @property({ type: Boolean, reflect: true }) warning = false;
+  @property({ type: Boolean, reflect: true })
+  public warning = false;
 
-  @query('span') private span!: HTMLElement;
+  /**
+   * Use to set title attribute for tooltip
+   */
+  @query('span', true)
+  private span!: HTMLElement;
 
   /**
    * Use to prevent resizes observer in certain use cases
@@ -257,7 +262,7 @@ export class Label extends ResponsiveElement {
    * @param size element dimensions
    * @returns {void}
    */
-  resizedCallback (): void {
+  public resizedCallback (): void {
     clearTimeout(this.updateTimer);
     // split layout updating to another execution-loop
     // to prevents resizeObserver triggers resize-loop-error
