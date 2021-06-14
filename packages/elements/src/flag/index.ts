@@ -10,6 +10,7 @@ import {
   PropertyValues
 } from '@refinitiv-ui/core';
 import { FlagLoader } from './utils/FlagLoader';
+
 export { preload } from './utils/FlagLoader';
 
 const EmptyTemplate = svg``;
@@ -23,10 +24,6 @@ const EmptyTemplate = svg``;
  */
 @customElement('ef-flag')
 export class Flag extends BasicElement {
-  private _src: string | null = null;
-  private _flag: string | null = null;
-  private _template: TemplateResult = EmptyTemplate;
-
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -50,6 +47,8 @@ export class Flag extends BasicElement {
     `;
   }
 
+  private _flag: string | null = null;
+
   /**
    * Name of a known flag to render.
    * @example gb
@@ -61,9 +60,11 @@ export class Flag extends BasicElement {
   public set flag (value: string | null) {
     if (this.flag !== value) {
       this._flag = value;
-      this.setFlagSrc();
+      void this.setFlagSrc();
     }
   }
+
+  private _src: string | null = null;
 
   /**
    * Src location of an svg flag.
@@ -78,8 +79,23 @@ export class Flag extends BasicElement {
       this._src = value;
       this.clearFlag();
       if (value) {
-        this.loadAndRenderFlag(value);
+        void this.loadAndRenderFlag(value);
       }
+    }
+  }
+
+  private _template: TemplateResult = EmptyTemplate;
+
+  /**
+   * The flag template to render
+   */
+  private get template (): TemplateResult {
+    return this._template;
+  }
+  private set template (value: TemplateResult) {
+    if (this._template !== value) {
+      this._template = value;
+      void this.requestUpdate();
     }
   }
 
@@ -95,28 +111,6 @@ export class Flag extends BasicElement {
      * polyfilled browsers only get variables at this point.
      */
     this.setPrefix();
-  }
-
-  /**
-   * A `TemplateResult` that will be used
-   * to render the updated internal template.
-   * @return Render template
-   */
-  protected render (): TemplateResult {
-    return this.template;
-  }
-
-  /**
-   * The flag template to render
-   */
-  private get template (): TemplateResult {
-    return this._template;
-  }
-  private set template (value: TemplateResult) {
-    if (this._template !== value) {
-      this._template = value;
-      void this.requestUpdate();
-    }
   }
 
   /**
@@ -163,6 +157,15 @@ export class Flag extends BasicElement {
    */
   private clearFlag (): void {
     this.template = EmptyTemplate;
+  }
+
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return {TemplateResult} Render template
+   */
+  protected render (): TemplateResult {
+    return this.template;
   }
 }
 
