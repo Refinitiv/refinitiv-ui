@@ -1,31 +1,21 @@
-type TooltipCallback = (activeCell: Cell) => HTMLElement | undefined;
-
-type CustomisableProperties = {
-  label?: string;
-  backgroundColor?: string;
-  foregroundColor?: string;
+type HeatmapConfiguration = {
+  data: Array<HeatmapCell[]>;
+  yAxis?: HeatmapYAxis;
+  xAxis?: HeatmapXAxis;
 }
 
-type RenderCallback = (cell: Cell) => CustomisableProperties;
-
-type Config = {
-  data: Array<Cell[]>;
-  yAxis?: YAxis;
-  xAxis?: XAxis;
-}
-
-type XAxis = {
+type HeatmapXAxis = {
   labels: string[];
   shortLabels: string[];
   position: 'top' | 'bottom';
 }
 
-type YAxis = {
+type HeatmapYAxis = {
   labels: string[];
   position: 'left' | 'right';
 }
 
-type Cell = {
+type HeatmapCell = {
   rowIndex: number;
   colIndex: number;
   x: number;
@@ -44,7 +34,16 @@ type Cell = {
   customForegroundColor?: string;
 }
 
+type HeatmapCustomisableProperties = {
+  label?: string;
+  backgroundColor?: string;
+  foregroundColor?: string;
+}
+
+type HeatmapTooltipCallback = (activeCell: HeatmapCell) => HTMLElement | undefined;
+
+type HeatmapRenderCallback = (cell: HeatmapCell) => HeatmapCustomisableProperties;
 
 export {
-  Cell, XAxis, YAxis, Config, TooltipCallback, RenderCallback
+  HeatmapCell, HeatmapXAxis, HeatmapYAxis, HeatmapConfiguration, HeatmapTooltipCallback, HeatmapRenderCallback, HeatmapCustomisableProperties
 };
