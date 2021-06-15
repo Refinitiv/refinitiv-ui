@@ -1,5 +1,6 @@
-import { Notification } from '.';
-import { NotificationTray, TaskOptions } from './notification-tray';
+import { Notification } from '../elements/notification';
+import { NotificationTray } from '../elements/notification-tray';
+import { TaskOptions } from './types';
 
 // TODO: Add to utils?
 const DEV_ENV = (/^(localhost|127\.0\.0\.1)$/).test(location.hostname);
@@ -36,7 +37,6 @@ const getTray = (name: string, forName: string): void => {
 
 /**
  * Connects the default tray to the document.
- *
  * @returns {void}
  */
 const connect = (): void => {
@@ -52,7 +52,6 @@ const connect = (): void => {
 
 /**
  * Prepares the default tray making sure it is available in the DOM.
- *
  * @returns {void}
  */
 const prepareTray = (): void => {

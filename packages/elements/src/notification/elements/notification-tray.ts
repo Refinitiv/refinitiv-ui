@@ -8,19 +8,10 @@ import {
   PropertyValues
 } from '@refinitiv-ui/core';
 
-import { Notification } from './index';
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils';
 
-export type TaskOptions = {
-  message: string;
-  type: string;
-  duration: number;
-}
-
-export type Task = {
-  el: Notification;
-  options: TaskOptions;
-}
+import { Notification } from './notification';
+import { Task, TaskOptions } from '../helpers/types';
 
 @customElement('ef-notification-tray', {
   alias: 'amber-notification-tray'
@@ -113,7 +104,7 @@ export class NotificationTray extends ResponsiveElement {
       const paddingPoint = `padding-${this.isValidAttatchPoint(this.attach) ? this.attach : 'top'}`;
       if (padding) {
         root.style.setProperty('box-sizing', 'border-box');
-        root.style.setProperty(paddingPoint, padding + 'px');
+        root.style.setProperty(paddingPoint, `${padding}px`);
       }
       else {
         root.style.removeProperty('border-sizing');
