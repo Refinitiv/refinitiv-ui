@@ -15,3 +15,5 @@ export { uuid } from './miscellaneous/uuid';
 
 export { CdnLoader } from './loader/cdn-loader';
 export { Deferred } from './loader/deferred';
+
+export * from './date';

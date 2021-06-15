@@ -1,0 +1,365 @@
+import {
+  pad
+} from './utils';
+
+/**
+ * Date segment
+ */
+type Segment = {
+  /**
+   * Year, e.g. 2020, 30, -2
+   */
+  year: number;
+  /**
+   * Month, e.g. 0, 1, 11
+   */
+  month: number;
+  /**
+   * Day of the month, e.g. 1, 28, 31
+   */
+  day: number;
+};
+
+/**
+ * Date format:
+ * - yyyy-MM-dd (e.g. 2020-06-30, 0030-04-30, -0002-12-31)
+ * - yyyy-MM (e.g. 2020-06, 0030-04, -0002-12)
+ * - yyyy (e.g. 2020, 0030, -0002)
+ */
+enum Format {
+  yyyy = 'yyyy',
+  yyyyMM = 'yyyy-MM',
+  yyyyMMdd = 'yyyy-MM-dd'
+}
+
+type DateFormat = Format | 'yyyy' | 'yyyy-MM' | 'yyyy-MM-dd';
+
+const yyyy_REGEXP = /^-?\d+$/;
+const yyyyMM_REGEXP = /^-?\d+-(0[1-9]|1[0-2])$/;
+const yyyyMMdd_REGEXP = /^-?\d+-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$/; // validate number of days separately via the table
+
+const padYear = (year: number): string => pad(year, year >= 0 ? 4 : 6);
+const padMonth = (month: number): string => pad(month + 1, 2);
+const padDay = (day: number): string => pad(day, 2);
+
+/**
+ * Get Local/UTC values segments of Date object or value string
+ * @param value Valid date or a string in a format 2019, 2019-12 or 2019-12-31
+ * @param [isUTC=false] True to get UTC values, false to get Local values
+ * @returns Segment
+ */
+const toSegment = (value: string | Date, isUTC = false): Segment => {
+  if (value instanceof Date) {
+    const year = isUTC ? value.getUTCFullYear() : value.getFullYear();
+    const month = isUTC ? value.getUTCMonth() : value.getMonth();
+    const day = isUTC ? value.getUTCDate() : value.getDate();
+    return { year, month, day };
+  }
+
+  const split = value.split('-');
+
+  if (value.startsWith('-')) { /* must be negative */
+    split.shift();
+    split[0] = '-' + split[0];
+  }
+
+
+  return {
+    year: Number(split[0]),
+    month: Number(split[1]) - 1 || 0,
+    day: Number(split[2]) || 1
+  };
+};
+
+/**
+ * @private
+ * @param value A valid Date or Segment
+ * @param format Date format
+ * @param isUTC Local or UTC
+ * @returns A formatted date
+ */
+const formatDate = (value: Segment | Date, format: DateFormat, isUTC: boolean): string => {
+  const segment: Segment = value instanceof Date ? toSegment(value, isUTC) : value;
+  switch (format) {
+    case Format.yyyy:
+      return `${padYear(segment.year)}}`;
+    case Format.yyyyMM:
+      return `${padYear(segment.year)}-${padMonth(segment.month)}`;
+    case Format.yyyyMMdd:
+    default:
+      return `${padYear(segment.year)}-${padMonth(segment.month)}-${padDay(segment.day)}`;
+  }
+};
+
+/**
+ * Format Date or Segment to Local Date string.
+ * @param value A valid Date or Segment
+ * @param [format='yyyy-MM-dd'] Date format, one of 'yyyy-MM-dd' | 'yyyy-MM' | 'yyyy'
+ * @returns A formatted date
+ */
+const format = (value: Segment | Date, format: DateFormat = Format.yyyyMMdd): string => formatDate(value, format, false);
+
+/**
+ * Format Date or Segment to UTC Date string.
+ * @param value A valid Date or Segment
+ * @param [format='yyyy-MM-dd'] Date format, one of 'yyyy-MM-dd' | 'yyyy-MM' | 'yyyy'
+ * @returns A formatted date
+ */
+const utcFormat = (value: Segment | Date, format: DateFormat = Format.yyyyMMdd): string => formatDate(value, format, true);
+
+/**
+ * Try to guess date format
+ * @param value Value to test
+ * @returns format Date format or 'yyyy'
+ */
+const getFormat = function (value: string): DateFormat {
+  if (yyyyMMdd_REGEXP.test(value)) {
+    return Format.yyyyMMdd;
+  }
+  if (yyyyMM_REGEXP.test(value)) {
+    return Format.yyyyMM;
+  }
+  return Format.yyyy;
+};
+
+/**
+ * Return true if value confirms ta a passed format
+ * @param value Value to check
+ * @param [format] The format to validate value against. If not defined, try to guess the format
+ * @returns true if value format is correct
+ */
+const isValid = (value: string, format?: DateFormat): boolean => {
+  format = format || getFormat(value);
+
+  if (format === Format.yyyy) {
+    return yyyy_REGEXP.test(value);
+  }
+  else if (format === Format.yyyyMM) {
+    return yyyyMM_REGEXP.test(value);
+  }
+
+  // default
+  if (yyyyMMdd_REGEXP.test(value)) { // number of days
+    const segment = toSegment(value);
+    return segment.day <= getDaysInMonth(segment.year, segment.month);
+  }
+
+  return false;
+};
+
+/**
+ * @private
+ * @param value A Date string or Segment
+ * @param isUTC Local or UTC
+ * @returns A Date object
+ */
+const parseDate = (value: string | Segment, isUTC: boolean): Date => {
+  if (typeof value === 'string') {
+    const valid = isValid(value);
+    if (!valid) {
+      return new Date(NaN);
+    }
+    value = toSegment(value, isUTC);
+  }
+
+  let date: Date;
+  if (isUTC) {
+    date = new Date(0);
+    date.setUTCFullYear(value.year, value.month, value.day);
+    date.setUTCHours(0, 0, 0, 0);
+  }
+  else {
+    // the code for Local Dates is inconsistent across different browsers
+    date = new Date();
+    date.setFullYear(value.year, value.month, value.day);
+    date.setHours(0, 0, 0, 0);
+  }
+  return date;
+};
+
+/**
+ * Get Local Date object from value string or Segment.
+ * @param value Value to parse, Segment or 'yyyy-MM-dd' | 'yyyy-MM' | 'yyyy'
+ * @returns parsed date or invalid date
+ */
+const parse = (value: string | Segment): Date => parseDate(value, false);
+
+/**
+ * Get UTC Date object from value string or Segment.
+ * @param value Value to parse, Segment or 'yyyy-MM-dd' | 'yyyy-MM' | 'yyyy'
+ * @returns parsed date or invalid date
+ */
+const utcParse = (value: string | Segment): Date => parseDate(value, true);
+
+/**
+ * Get number of day in a month
+ * @param year A year to check
+ * @param month A month to check
+ * @returns the number of days in month
+ */
+const getDaysInMonth = (year: number, month: number): number => {
+  const lastDayOfMonth = utcParse({ year, month: month + 1, day: 0 });
+  return lastDayOfMonth.getUTCDate();
+};
+
+/**
+ * Are the given dates in the same day?
+ * @param value the first date to check
+ * @param compare the second date to check
+ * @returns the dates are in the same day
+ */
+const isSameDay = (value: string, compare: string): boolean => {
+  const valueSegment = toSegment(value);
+  const compareSegment = toSegment(compare);
+  return valueSegment.year === compareSegment.year && valueSegment.month === compareSegment.month && valueSegment.day === compareSegment.day;
+};
+
+/**
+ * Are the given dates in the same month?
+ * @param value the first date to check
+ * @param compare the second date to check
+ * @returns the dates are in the same month
+ */
+const isSameMonth = (value: string, compare: string): boolean => {
+  const valueSegment = toSegment(value);
+  const compareSegment = toSegment(compare);
+  return valueSegment.year === compareSegment.year && valueSegment.month === compareSegment.month;
+};
+
+/**
+ * Are the given dates in the same year?
+ * @param value the first date to check
+ * @param compare the second date to check
+ * @returns the dates are in the same year
+ */
+const isSameYear = (value: string, compare: string): boolean => {
+  const valueSegment = toSegment(value);
+  const compareSegment = toSegment(compare);
+  return valueSegment.year === compareSegment.year;
+};
+
+/**
+ * Is the given date today?
+ * @param value the date to check
+ * @returns the date is today
+ */
+const isToday = (value: string): boolean => {
+  const today = format(new Date()); // must be local time
+  return isSameDay(value, today);
+};
+
+/**
+ * Is the given date this month?
+ * @param value the date to check
+ * @returns the date is this month
+ */
+const isThisMonth = (value: string): boolean => {
+  const today = format(new Date()); // must be local time
+  return isSameMonth(value, today);
+};
+
+/**
+ * Is the given date this year?
+ * @param value the date to check
+ * @returns the date is this year
+ */
+const isThisYear = (value: string): boolean => {
+  const today = format(new Date()); // must be local time
+  return isSameYear(value, today);
+};
+
+/**
+ * Add the specified number of months to the given date
+ * @param value the date to be changed
+ * @param amount the amount of months to be added
+ * @returns the new date with the months added
+ */
+const addMonths = (value: string, amount: number): string => {
+  if (!amount) {
+    return value;
+  }
+
+  const date = utcParse(value);
+  const dayOfMonth = date.getUTCDate();
+  const endOfDesiredMonth = new Date(date.getTime());
+  endOfDesiredMonth.setUTCMonth(date.getUTCMonth() + amount + 1, 0);
+  const daysInMonth = endOfDesiredMonth.getUTCDate();
+  const format = getFormat(value);
+
+  if (dayOfMonth >= daysInMonth) {
+    return utcFormat(endOfDesiredMonth, format);
+  }
+  else {
+    date.setUTCFullYear(endOfDesiredMonth.getUTCFullYear(), endOfDesiredMonth.getUTCMonth(), dayOfMonth);
+    return utcFormat(date, format);
+  }
+};
+
+/**
+ * Subtract the specified number of months to the given date
+ * @param value the date to be changed
+ * @param amount the amount of months to be subtracted
+ * @returns the new date with the months subtracted
+ */
+const subMonths = (value: string, amount: number): string => {
+  return addMonths(value, -amount);
+};
+
+/**
+ * Does the given date fall on a weekend?
+ * @param value the date to check
+ * @returns the date falls on a weekend
+ */
+const isWeekend = (value: string): boolean => {
+  const date = utcParse(value);
+  const day = date.getUTCDay();
+  return day === 0 || day === 6;
+};
+
+/**
+ * Is the first date after the second one?
+ * @param value the date that should be after the other one to return true
+ * @param compare the date to compare with
+ * @returns the first date is after the second date
+ */
+const isAfter = (value: string, compare: string): boolean => {
+  const date = utcParse(value);
+  const compareDate = utcParse(compare);
+  return date.getTime() > compareDate.getTime();
+};
+
+/**
+ * Is the first date before the second one?
+ * @param value the date that should be before the other one to return true
+ * @param compare the date to compare with
+ * @returns the first date is before the second date
+ */
+const isBefore = (value: string, compare: string): boolean => {
+  const date = utcParse(value);
+  const compareDate = utcParse(compare);
+  return date.getTime() < compareDate.getTime();
+};
+
+export {
+  Segment,
+  Format,
+  toSegment,
+  getFormat,
+  format,
+  utcFormat,
+  parse,
+  utcParse,
+  isValid,
+  getDaysInMonth,
+  isSameDay,
+  isSameMonth,
+  isSameYear,
+  isToday,
+  isThisMonth,
+  isThisYear,
+  addMonths,
+  subMonths,
+  isWeekend,
+  isAfter,
+  isBefore
+};
