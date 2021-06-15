@@ -19,6 +19,8 @@ import { MultiDataItem, MultiInputEvents } from './types';
 import { TextField } from '../text-field';
 import { Pill } from '../pill';
 
+export { MultiDataItem };
+
 type SelectionIndex = number | null;
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
@@ -67,7 +69,6 @@ export class MultiInput extends ControlElement implements MultiValue {
       :host {
         display: block;
       }
-
       [part=list] {
        flex-flow: row wrap;
        max-height: 100%;
@@ -79,17 +80,13 @@ export class MultiInput extends ControlElement implements MultiValue {
        overflow-y: auto;
        margin: auto;
       }
-
       [part=pill] {
         display: inline-flex;
       }
-
       [part=search] {
         flex: 1;
         min-width: 170px;
       }
-
-      /* new */
       [scrollable] {
         overflow: auto;
       }
@@ -109,38 +106,44 @@ export class MultiInput extends ControlElement implements MultiValue {
   /**
    * Hide text input box
    */
-  @property({ type: Boolean, attribute: 'pills-only', reflect: true }) pillsOnly = false;
+  @property({ type: Boolean, attribute: 'pills-only', reflect: true })
+  public pillsOnly = false;
 
   /**
    * Specify icon to display inside input box
    */
-  @property({ type: String }) icon = '';
+  @property({ type: String })
+  public icon = '';
 
   /**
    * Placeholder text to display in input box
    */
-  @property({ type: String }) placeholder = '';
+  @property({ type: String })
+  public placeholder = '';
 
   /**
    * Set state to error
    */
-  @property({ type: Boolean, reflect: true }) error = false;
+  @property({ type: Boolean, reflect: true })
+  public error = false;
 
   /**
    * Set state to warning
    */
-  @property({ type: Boolean, reflect: true }) warning = false;
-
+  @property({ type: Boolean, reflect: true })
+  public warning = false;
 
   /**
    * Set character max limit
    */
-  @property({ type: Number, attribute: 'maxlength', reflect: true }) maxLength: number | null = null;
+  @property({ type: Number, attribute: 'maxlength', reflect: true })
+  public maxLength: number | null = null;
 
   /**
    * Set character min limit
    */
-  @property({ type: Number, attribute: 'minlength', reflect: true, hasChanged }) minLength: number | null = null;
+  @property({ type: Number, attribute: 'minlength', reflect: true, hasChanged })
+  public minLength: number | null = null;
 
   /**
    * Selection start index
@@ -205,12 +208,14 @@ export class MultiInput extends ControlElement implements MultiValue {
   /**
    * the component of the list in rendered template
    */
-  @query('[part="list"]') private list!: HTMLElement;
+  @query('[part="list"]')
+  private list!: HTMLElement;
 
   /**
    * the component of the search in rendered template
    */
-  @query('[part="search"]') private search?: TextField | null;
+  @query('[part="search"]')
+  private search?: TextField | null;
 
   private composer: CollectionComposer<MultiDataItem> = new CollectionComposer([]);
 
@@ -358,7 +363,6 @@ export class MultiInput extends ControlElement implements MultiValue {
     }
     return error;
   }
-
 
   /** Old value for handle reset value */
   private oldValue = '';
