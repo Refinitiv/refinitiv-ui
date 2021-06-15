@@ -255,20 +255,6 @@ describe('Tree', () => {
       expect(el.value).to.equal('1.1');
       expect(el.values).to.deep.equal(['1.1', '1.2']);
     });
-
-    it('Deprecated APIs should still work', async () => {
-      const el = await fixture('<ef-tree multiple></ef-tree>');
-      el.data = nestedData;
-      await elementUpdated(el);
-      expect(el.values).to.deep.equal(['1.2']);
-      el.deselectAll();
-      await elementUpdated(el);
-      expect(el.values).to.deep.equal([]);
-      el.selectAll();
-      await elementUpdated(el);
-      expect(el.values).to.deep.equal(['1.1', '1.2', '4']);
-    });
-
   });
 });
 

@@ -22,7 +22,9 @@ const observerOptions = {
 /**
  * Displays a text with alternative truncation
  */
-@customElement('ef-label')
+@customElement('ef-label', {
+  alias: 'quartz-label'
+})
 export class Label extends ResponsiveElement {
   /**
    * A `CSSResult` that will be used

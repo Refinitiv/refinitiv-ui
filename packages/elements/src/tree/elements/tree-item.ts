@@ -20,7 +20,9 @@ const emptyTemplate = html``;
  * Displays a tree list item.
  * Groups display expansion arrows.
  */
-@customElement('ef-tree-item')
+@customElement('ef-tree-item', {
+  alias: 'coral-tree-item'
+})
 export class TreeItem<T extends TreeItemData = TreeItemData> extends ControlElement {
 
   /**

@@ -6,11 +6,13 @@ import { BasicElement, customElement, html, PropertyValues, TemplateResult } fro
 let cachedParts: readonly string[];
 
 /**
- * `Loader` is an animated graphical component,
+ *  An animated graphical component,
  *  used to show that an app is performing an action
  *  in the background such as downloading content.
  */
-@customElement('ef-loader')
+@customElement('ef-loader', {
+  alias: 'amber-loader'
+})
 export class Loader extends BasicElement {
   /**
    * Collection of template part names,

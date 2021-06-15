@@ -25,7 +25,9 @@ import {
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-checkbox')
+@customElement('ef-checkbox', {
+  alias: 'coral-checkbox'
+})
 export class Checkbox extends ControlElement {
   /**
    * A `CSSResult` that will be used

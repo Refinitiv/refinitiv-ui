@@ -56,7 +56,9 @@ const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === und
  * @attr {string} value - Current value of text field
  *
  */
-@customElement('ef-multi-input')
+@customElement('ef-multi-input', {
+  alias: 'coral-multi-input'
+})
 export class MultiInput extends ControlElement implements MultiValue {
   /**
    * A `CSSResult` that will be used

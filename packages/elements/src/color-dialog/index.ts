@@ -61,7 +61,9 @@ import { ValueModel } from './helpers/value-model';
  *
  * @prop {boolean} [withShadow=true] - False to remove shadow for dialog component.
  */
-@customElement('ef-color-dialog')
+@customElement('ef-color-dialog', {
+  alias: 'emerald-color-dialog'
+})
 export class ColorDialog extends Dialog {
   /**
    * A `CSSResult` that will be used

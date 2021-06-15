@@ -15,7 +15,9 @@ import '../icon';
  * Used to display at the top of application to provide a status or information.
  * @slot right - place custom content on the right of bar.
  */
-@customElement('ef-appstate-bar')
+@customElement('ef-appstate-bar', {
+  alias: 'amber-appstate-bar'
+})
 export class AppstateBar extends BasicElement {
   /**
    * A `CSSResult` that will be used

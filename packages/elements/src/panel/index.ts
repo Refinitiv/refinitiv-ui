@@ -9,10 +9,12 @@ import {
 } from '@refinitiv-ui/core';
 
 /**
- * Panel is a container for components.
+ * A container for components.
  * It provides a standard background color and padding, depends on theme.
  */
-@customElement('ef-panel')
+@customElement('ef-panel', {
+  alias: 'coral-panel'
+})
 export class Panel extends BasicElement {
   /**
    * A `CSSResult` that will be used

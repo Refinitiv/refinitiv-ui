@@ -70,6 +70,32 @@ describe('Clock', () => {
       expect(el.displayMinutes, 'minutes should be 0').to.be.equal(0);
       expect(el.displaySeconds, 'seconds should be 0').to.be.equal(0);
     });
+    it('Should color on segment when offset is set', async () => {
+      el.showSeconds = true;
+      await elementUpdated(el);
+      
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=hours]'), 'hours segment should not color by default').to.be.null;
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=minutes]'), 'minutes segment should not color by default').to.be.null;
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=seconds]'), 'seconds segment should not color by default').to.be.null;
+
+      el.offset = 3600;
+      await elementUpdated(el);
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=hours]'), 'hours segment should color').to.be.not.null;
+
+      el.offset = 60;
+      await elementUpdated(el);
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=minutes]'), 'minutes segment should color').to.be.not.null;
+
+      el.offset = 5;
+      await elementUpdated(el);
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=seconds]'), 'seconds segment should color').to.be.not.null;
+
+      el.offset = 3665;
+      await elementUpdated(el);
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=hours]'), 'hours segment should color').to.be.not.null;
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=minutes]'), 'minutes segment should color').to.be.not.null;
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=seconds]'), 'seconds segment should color').to.be.not.null;
+    });
     it('Should not fire offset-changed when offset is programmatically set', async () => {
       let offsetChangedCount = 0;
       const offsetSpy = () => offsetChangedCount++;

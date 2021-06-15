@@ -24,7 +24,9 @@ import { Header } from '../header';
  * @slot header-left - Slot to add custom contents to the left side of header e.g. ef-icon, ef-checkbox
  * @slot header-right - Slot to add custom contents to the right side of header e.g. ef-icon, ef-checkbox
  */
-@customElement('ef-collapse')
+@customElement('ef-collapse', {
+  alias: 'coral-collapse'
+})
 export class Collapse extends BasicElement {
   /**
    * A `CSSResult` that will be used

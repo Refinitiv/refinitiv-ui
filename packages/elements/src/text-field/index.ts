@@ -33,9 +33,10 @@ const isIE = (/Trident/g).test(navigator.userAgent);
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-text-field')
+@customElement('ef-text-field', {
+  alias: 'coral-text-field'
+})
 export class TextField extends ControlElement {
-
   /**
    * @returns A `CSSResult` that will be used to style the host,
    * slotted children and the internal template of the element.

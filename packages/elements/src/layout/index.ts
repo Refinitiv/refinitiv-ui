@@ -13,7 +13,9 @@ import {
  * Layout component for creating responsive applications and components
  * @fires resize - Fired when the element's size changes.
  */
-@customElement('ef-layout')
+@customElement('ef-layout', {
+  alias: 'quartz-layout'
+})
 export class Layout extends ResponsiveElement {
   /**
  * A `CSSResult` that will be used

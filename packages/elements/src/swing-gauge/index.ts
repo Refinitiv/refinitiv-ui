@@ -12,7 +12,9 @@ import { Canvas } from '../canvas';
 /**
  * Data visualisation showing the percentage between two values
  */
-@customElement('ef-swing-gauge')
+@customElement('ef-swing-gauge', {
+  alias: 'sapphire-swing-gauge'
+})
 export class SwingGauge extends Canvas {
 
   private w: number | null = null;

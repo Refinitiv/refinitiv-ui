@@ -20,7 +20,9 @@ import {
  *
  * @fires checked-changed - Fired when the `checked` property changes.
  */
-@customElement('ef-toggle')
+@customElement('ef-toggle', {
+  alias: 'coral-toggle'
+})
 export class Toggle extends ControlElement {
 
   /**

@@ -35,6 +35,26 @@
 
     <demo-block header="Interactive" tags="interactive">
       <ef-clock interactive></ef-clock>
+      <ef-clock interactive show-seconds></ef-clock>
+    </demo-block>
+
+    <demo-block header="Interactive and sync clock with the offset" tags="offset" id="offset-change">
+      <ef-clock interactive value="01:01:01" show-seconds></ef-clock>
+      <ef-clock interactive value="01:01:01" show-seconds></ef-clock>
+      <ef-clock interactive value="01:01:01" show-seconds></ef-clock>
+
+      <script>
+        (function () {
+          const interactiveClocks = document.querySelectorAll('#offset-change ef-clock');
+          interactiveClocks.forEach(clock => {
+            clock.addEventListener('offset-changed', event => {
+              interactiveClocks.forEach(clock => {
+                clock.offset = event.detail.value;
+              });
+            });
+          });
+        })();
+      </script>
     </demo-block>
 
     <demo-block header="Analogue Clock" tags="analogue">

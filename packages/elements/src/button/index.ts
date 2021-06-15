@@ -17,7 +17,9 @@ import '../icon';
  * @attr {boolean} disabled - Set state to disabled
  * @prop {boolean} [disabled=false] - Set state to disabled
  */
-@customElement('ef-button')
+@customElement('ef-button', {
+  alias: 'coral-button'
+})
 export class Button extends ControlElement {
   /**
    * A `CSSResult` that will be used

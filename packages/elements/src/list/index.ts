@@ -3,7 +3,6 @@ import {
   css,
   CSSResult,
   customElement,
-  DeprecationNotice,
   html,
   property,
   PropertyValues,
@@ -28,16 +27,14 @@ enum Direction {
   DOWN = 1
 }
 
-const selectedItemDeprecation = new DeprecationNotice(
-  'selectedItem is deprecated, use value instead and map back to original item.'
-);
-
 const valueFormatWarning = new WarningNotice('The specified \'values\' format does not conform to the required format.');
 
 /**
  * Provides listing and immutable selection
  */
-@customElement('ef-list')
+@customElement('ef-list', {
+  alias: 'coral-list'
+})
 export class List<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Used to timestamp renders.
@@ -186,16 +183,6 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
         void this.requestUpdate('values', oldValue);
       }
     }
-  }
-
-  /**
-   * Retrieve the selected data item
-   * @returns Selected data item
-   * @deprecated
-   */
-  public get selectedItem (): T | undefined {
-    selectedItemDeprecation.once();
-    return this.queryItemsByPropertyValue('selected', true)[0];
   }
 
   /**

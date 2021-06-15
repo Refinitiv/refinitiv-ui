@@ -57,7 +57,9 @@ export type { ChartConfiguration };
 /**
  * Charting component that use chartjs library
  */
-@customElement('ef-chart')
+@customElement('ef-chart', {
+  alias: 'sapphire-chart'
+})
 export class Chart extends BasicElement {
   /**
    * Chart.js object

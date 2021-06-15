@@ -45,7 +45,9 @@ const isDirectAccordionChild = (element: Element, accordion: Accordion): boolean
  * @slot header-right - Slot to add custom contents to the right side of header e.g. ef-icon, ef-checkbox
  *
  */
-@customElement('ef-accordion')
+@customElement('ef-accordion', {
+  alias: 'coral-accordion'
+})
 export class Accordion extends Collapse {
   /**
    * A `CSSResult` that will be used

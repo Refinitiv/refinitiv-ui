@@ -33,7 +33,9 @@ const isAllWhitespaceTextNode = (node: Node): boolean =>
  * @slot left - Used to render the content on the left of the label.
  * @slot right - Used to render the content on the right of the label.
  */
-@customElement('ef-item')
+@customElement('ef-item', {
+  alias: 'coral-item'
+})
 export class Item extends ControlElement {
   /**
    * @returns `CSSResult` that will be used to style the host,

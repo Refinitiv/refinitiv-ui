@@ -60,7 +60,9 @@ export { queryWordSelect, itemRenderer, escapeRegExp, itemHighlightable, updateE
  * @attr {boolean} opened - Set to open auto suggest popup
  * @prop {boolean} [opened=false] -  Auto suggest popup's open state
  */
-@customElement('ef-autosuggest')
+@customElement('ef-autosuggest', {
+  alias: 'emerald-autosuggest'
+})
 export class Autosuggest extends Overlay {
   /**
    * A `CSSResult` that will be used

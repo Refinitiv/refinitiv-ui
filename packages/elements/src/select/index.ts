@@ -60,9 +60,10 @@ type StyleInfo = {
  * @fires value-changed - Fired when the value property changes.
  * @fires opened-changed - Fired when the opened property changes.
  */
-@customElement('ef-select')
+@customElement('ef-select', {
+  alias: 'coral-select'
+})
 export class Select extends ControlElement implements MultiValue {
-
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
