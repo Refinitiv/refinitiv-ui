@@ -1,4 +1,6 @@
-import { DataItem } from '@refinitiv-ui/utils';
+import { CollectionComposer, DataItem } from '@refinitiv-ui/utils';
+
+export type TreeData<T extends TreeItemData> = T[] | CollectionComposer<T> | null;
 
 export interface TreeItemData extends DataItem {
   /**

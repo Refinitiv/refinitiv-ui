@@ -9,11 +9,11 @@ import { CollectionComposer } from '@refinitiv-ui/utils';
 
 import { List } from '../../list';
 
-import { TreeItemData } from '../helpers/types';
+import { TreeData, TreeItemData } from '../helpers/types';
 import { TreeRenderer } from '../helpers/tree-renderer';
 import { TreeManager, TreeManagerMode } from '../helpers/tree-manager';
 
-export { TreeRenderer, TreeItemData };
+export { TreeRenderer, TreeData, TreeItemData };
 
 const EXPAND_TOGGLE_ATTR = 'expand-toggle';
 
@@ -291,12 +291,12 @@ export class Tree<T extends TreeItemData = TreeItemData> extends List<T> {
   /**
    * Data object to be used for creating tree
    * @override
-   * @type {TreeManager<T>}
+   * @type {TreeData<T>}
    */
-  public get data (): T[] | CollectionComposer<T> | null {
+  public get data (): TreeData<T> {
     return super.data;
   }
-  public set data (data: T[] | CollectionComposer<T> | null) {
+  public set data (data: TreeData<T>) {
     super.data = data;
     this.manager = new TreeManager<T>(this.composer, this.mode);
   }
