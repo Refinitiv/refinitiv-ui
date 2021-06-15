@@ -1,13 +1,15 @@
-import { ComboBox, Filter } from './index';
 import { DataItem } from '@refinitiv-ui/utils';
-import { ItemText, ItemData } from '../item';
+
+import { ComboBox } from '../index';
+import { ComboBoxFilter } from './types';
+import { ItemText, ItemData } from '../../item';
 
 /**
  * Default filter used by combo box
  * @param el ComboBox instance to filter
  * @returns Filter accepting an item
  */
-export const defaultFilter = <T extends DataItem = ItemData>(el: ComboBox<T>): Filter<T> => {
+export const defaultFilter = <T extends DataItem = ItemData>(el: ComboBox<T>): ComboBoxFilter<T> => {
   // reference query string for validating queryRegExp cache state
   let query = '';
   // cache RegExp
