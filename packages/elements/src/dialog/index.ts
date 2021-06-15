@@ -44,6 +44,12 @@ const isIE = (/Trident/g).test(navigator.userAgent) || (/MSIE/g).test(navigator.
  */
 @customElement('ef-dialog')
 export class Dialog extends Overlay {
+  /**
+   * A `CSSResult` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @return {CSSResult | CSSResult[]} CSS template
+   */
   public static get styles (): CSSResult | CSSResult[] {
     return [...(Overlay.styles as CSSResult[]), css`
       :host {
@@ -164,7 +170,7 @@ export class Dialog extends Overlay {
   }
 
   /**
-   * check if component should be updated
+   * Check if component should be updated
    * @param changedProperties properties changed on shouldUpdate lifecycle callback
    * @returns boolean should component update
    */
@@ -186,48 +192,6 @@ export class Dialog extends Overlay {
     if (this.isDraggableBehaviourNeedToBeChanged(changedProperties)) {
       this.updateDraggableBehavior();
     }
-  }
-
-  /**
-   * Get the default content region
-   */
-  protected get contentRegion (): TemplateResult {
-    return html`<slot></slot>`;
-  }
-
-  /**
-   * Get the default footer region
-   */
-  protected get footerRegion (): TemplateResult {
-    return html`<slot name="footer">
-      <div part="default-buttons">
-        <ef-button part="default-button" cta @tap=${this.defaultConfirm}">${this.t('OK')}</ef-button>
-        <ef-button part="default-button" @tap="${this.defaultCancel}">${this.t('CANCEL')}</ef-button>
-      </div>
-    </slot>`;
-  }
-
-  /**
-   * Get the default header region
-   */
-  protected get headerRegion (): TemplateResult {
-    return html`
-      ${this.header === null ? this.t('HEADER') : this.header}
-      <ef-icon part="close" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
-    `;
-  }
-
-  /**
-   * A `TemplateResult` that will be used
-   * to render the updated internal template.
-   * @return Render template
-   */
-  protected render (): TemplateResult {
-    return html`
-        <ef-header drag-handle part="header">${this.headerRegion}</ef-header>
-        <ef-panel part="content" spacing transparent>${this.contentRegion}</ef-panel>
-        <div part="footer">${this.footerRegion}</div>
-    `;
   }
 
   /**
@@ -305,7 +269,7 @@ export class Dialog extends Overlay {
   }
 
   /**
-   * update draggable behavior looking to properties draggable and opened
+   * Update draggable behavior looking to properties draggable and opened
    * @returns {void}
    */
   private updateDraggableBehavior (): void {
@@ -339,5 +303,50 @@ export class Dialog extends Overlay {
     this.dispatchEvent(event);
 
     return !event.defaultPrevented;
+  }
+
+  /**
+   * Get the default content region
+   * @return {TemplateResult} Render template
+   */
+  protected get contentRegion (): TemplateResult {
+    return html`<slot></slot>`;
+  }
+
+  /**
+   * Get the default footer region
+   * @return {TemplateResult} Render template
+   */
+  protected get footerRegion (): TemplateResult {
+    return html`<slot name="footer">
+      <div part="default-buttons">
+        <ef-button part="default-button" cta @tap=${this.defaultConfirm}">${this.t('OK')}</ef-button>
+        <ef-button part="default-button" @tap="${this.defaultCancel}">${this.t('CANCEL')}</ef-button>
+      </div>
+    </slot>`;
+  }
+
+  /**
+   * Get the default header region
+   * @return {TemplateResult} Render template
+   */
+  protected get headerRegion (): TemplateResult {
+    return html`
+      ${this.header === null ? this.t('HEADER') : this.header}
+      <ef-icon part="close" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
+    `;
+  }
+
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return {TemplateResult} Render template
+   */
+  protected render (): TemplateResult {
+    return html`
+        <ef-header drag-handle part="header">${this.headerRegion}</ef-header>
+        <ef-panel part="content" spacing transparent>${this.contentRegion}</ef-panel>
+        <div part="footer">${this.footerRegion}</div>
+    `;
   }
 }
