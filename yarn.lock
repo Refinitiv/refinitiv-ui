@@ -8207,9 +8207,9 @@ regenerator-transform@^0.14.2:
     "@babel/runtime" "^7.8.4"
 
 regexpp@^3.1.0:
-  version "3.1.0"
-  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/regexpp/-/regexpp-3.1.0.tgz#206d0ad0a5648cffbdb8ae46438f3dc51c9f78e2"
-  integrity sha1-IG0K0KVkjP+9uK5GQ489xRyfeOI=
+  version "3.2.0"
+  resolved "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.global/regexpp/-/regexpp-3.2.0.tgz#0425a2768d8f23bad70ca4b90461fa2f1213e1b2"
+  integrity sha1-BCWido2PI7rXDKS5BGH6LxIT4bI=
 
 regexpu-core@^4.7.1:
   version "4.7.1"
