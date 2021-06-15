@@ -11,22 +11,22 @@ import {
   ifDefined
 } from '@refinitiv-ui/core';
 import { CollectionComposer, TimeoutTaskRunner } from '@refinitiv-ui/utils';
+import '@refinitiv-ui/phrasebook/lib/locale/en/tree-select';
 
-import { ComboBox } from '../combo-box';
-import { TreeItemData as T } from '../tree/tree-item-data';
 import '../icon';
-import { Overlay } from '../overlay';
-import { DefaultRenderer } from '../tree';
 import '../text-field';
 import '../pill';
 import '../button';
 import '../checkbox';
 import '../tree';
-import { CheckedState, TreeManager, TreeManagerMode } from '../tree/tree-manager';
+import { Overlay } from '../overlay';
+import { ComboBox } from '../combo-box';
+import { TreeRenderer as TreeSelectRenderer } from '../tree';
+import { TreeItemData as T } from '../tree/helpers/types';
+import { CheckedState, TreeManager, TreeManagerMode } from '../tree/helpers/tree-manager';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/lib/locale/en/tree-select';
 
-export { DefaultRenderer };
+export { TreeSelectRenderer };
 
 const MEMO_THROTTLE = 16;
 const POPUP_POSITION = ['bottom-start', 'top-start'];
@@ -175,6 +175,7 @@ export class TreeSelect extends ComboBox<T> {
   /**
    * Returns a values collection of the currently
    * selected item values
+   * @type {string[]}
    */
   @property({ type: Array, attribute: false })
   public get values (): string[] {
@@ -187,9 +188,10 @@ export class TreeSelect extends ComboBox<T> {
 
   /**
    * Renderer used to render tree item elements
+   * @type {TreeSelectRenderer}
    */
   @property({ type: Function, attribute: false })
-  public renderer = new DefaultRenderer(this);
+  public renderer = new TreeSelectRenderer(this);
 
   /**
    * Internal reference to selection area element
@@ -202,7 +204,6 @@ export class TreeSelect extends ComboBox<T> {
    */
   @query('[part=list]')
   protected popupEl?: Overlay;
-
 
   /**
    * Set resolved data
@@ -464,7 +465,7 @@ export class TreeSelect extends ComboBox<T> {
    * @param event checked-change event
    * @returns {void}
    */
-  protected selectionToggleHandler (event: CustomEvent): void {
+  protected selectionToggleHandler (event: CustomEvent<HTMLInputElement>): void {
     if (event.detail.value) {
       this.treeManager.checkAllItems();
     }
@@ -627,7 +628,7 @@ export class TreeSelect extends ComboBox<T> {
    *
    * @returns {void}
    */
-  protected onPillRemoved (event: CustomEvent): void {
+  protected onPillRemoved (event: CustomEvent<HTMLInputElement>): void {
     const item = this.queryItemsByPropertyValue('value', event.detail.value)[0];
     if (item) {
       this.treeManager.uncheckItem(item);
@@ -704,7 +705,7 @@ export class TreeSelect extends ComboBox<T> {
     // The logic needs to happen after the update cycle
     // as otherwise focus logic may contradict with other components
     // and the focus is not moved
-    this.updateComplete.then(() => {
+    void this.updateComplete.then(() => {
       this.selectionAreaEl?.focus();
     });
   }
