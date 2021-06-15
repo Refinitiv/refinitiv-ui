@@ -9,3 +9,6 @@ import { DataItem } from '@refinitiv-ui/utils';
  * @return Does item match filter
  */
 export type ComboBoxFilter<T extends DataItem> = (item: T) => boolean;
+
+
+export type ComboBoxData<T> = T[] | Promise<T[]>;

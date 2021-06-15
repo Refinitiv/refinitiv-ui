@@ -28,10 +28,10 @@ import { ItemData } from '../item';
 import { TextField } from '../text-field';
 
 import { defaultFilter } from './helpers/filter';
-import { ComboBoxFilter } from './helpers/types';
+import { ComboBoxData, ComboBoxFilter } from './helpers/types';
 import { CustomKeyboardEvent } from './helpers/keyboard-event';
 
-export { ComboBoxRenderer, ComboBoxFilter };
+export { ComboBoxRenderer, ComboBoxFilter, ComboBoxData };
 
 const QUERY_DEBOUNCE_RATE = 0;
 
@@ -107,7 +107,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Custom filter for static data
    * Set this to null when data is filtered externally, eg XHR
-   * @type {ComboBoxFilter | null}
+   * @type {ComboBoxFilter<T> | null}
    */
   @property({ type: Function, attribute: false })
   public filter: ComboBoxFilter<T> | null = defaultFilter<T>(this);
@@ -212,15 +212,16 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
     }
   }
 
-  private _data: T[] | Promise<T[]> = []; // Local data object set through data setter
+  private _data: ComboBoxData<T> = []; // Local data object set through data setter
   /**
    * Data array to be displayed
+   * @type {ComboBoxData<T>}
    */
   @property({ attribute: false })
-  public get data (): T[] | Promise<T[]> {
+  public get data (): ComboBoxData<T> {
     return this._data;
   }
-  public set data (value: T[] | Promise<T[]>) {
+  public set data (value: ComboBoxData<T>) {
     this._data = value;
     void this.resolveDataPromise(value);
   }
@@ -254,13 +255,14 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Returns a values collection of the currently
    * selected item values
+   * @type {string[]}
    */
   @property({ type: Array, attribute: false })
   public get values (): string[] {
     // In free text mode, compare selected to values
     return this.freeTextValue ? [this.freeTextValue] : this.composerValues;
   }
-  public set values (values) {
+  public set values (values: string[]) {
     if (!Array.isArray(values)) {
       valueFormatWarning.show();
       this.values = [];
@@ -439,7 +441,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    * @param data Data promise
    * @returns Promise<void>
    */
-  protected async resolveDataPromise (data: T[] | Promise<T[]>): Promise<void> {
+  protected async resolveDataPromise (data: ComboBoxData<T>): Promise<void> {
     const dataPromiseCounter = this.dataPromiseCounter += 1;
     let resolvedData: T[];
 
