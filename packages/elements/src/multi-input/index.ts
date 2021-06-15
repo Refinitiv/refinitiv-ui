@@ -12,12 +12,14 @@ import {
   PropertyValues
 } from '@refinitiv-ui/core';
 
+import { CollectionComposer } from '@refinitiv-ui/utils';
+
 import '../pill';
 import '../text-field';
-import { CollectionComposer } from '@refinitiv-ui/utils';
-import { MultiDataItem, MultiInputEvents } from './types';
-import { TextField } from '../text-field';
 import { Pill } from '../pill';
+import { TextField } from '../text-field';
+
+import { MultiDataItem, MultiInputEvents } from './helpers/types';
 
 export { MultiDataItem };
 
