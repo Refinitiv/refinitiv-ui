@@ -142,6 +142,7 @@ export class Collapse extends BasicElement {
   private handleTap = (event: Event): void => {
     const target = event.target as HTMLElement;
 
+    // This is to prevent toggling when elements on slots are tap
     if (Collapse.isHeader(target)) {
       this.toggle();
     }
