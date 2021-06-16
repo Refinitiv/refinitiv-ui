@@ -10,6 +10,7 @@ import {
   query,
   ifDefined
 } from '@refinitiv-ui/core';
+import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import { CollectionComposer, TimeoutTaskRunner } from '@refinitiv-ui/utils';
 import '@refinitiv-ui/phrasebook/lib/locale/en/tree-select';
 
@@ -23,8 +24,7 @@ import { Overlay } from '../overlay';
 import { ComboBox } from '../combo-box';
 import { TreeRenderer as TreeSelectRenderer } from '../tree';
 import { TreeItemData as T } from '../tree/helpers/types';
-import { CheckedState, TreeManager, TreeManagerMode } from '../tree/helpers/tree-manager';
-import { translate, TranslateDirective } from '@refinitiv-ui/translate';
+import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager';
 
 export { TreeSelectRenderer };
 

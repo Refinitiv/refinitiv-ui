@@ -6,11 +6,12 @@ import {
   ControlElement,
   PropertyValues
 } from '@refinitiv-ui/core';
+
 import '../../icon';
-import '../../checkbox';
-import { CheckedState } from '../helpers/tree-manager';
-import { TreeItemData } from '../helpers/types';
 import { preload } from '../../icon';
+import '../../checkbox';
+import { TreeItemData } from '../helpers/types';
+import { CheckedState } from '../managers/tree-manager';
 
 preload('right');
 

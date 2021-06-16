@@ -9,11 +9,9 @@ import { CollectionComposer } from '@refinitiv-ui/utils';
 
 import { List } from '../../list';
 
+import { TreeRenderer } from '../helpers/renderer';
 import { TreeData, TreeItemData } from '../helpers/types';
-import { TreeRenderer } from '../helpers/tree-renderer';
-import { TreeManager, TreeManagerMode } from '../helpers/tree-manager';
-
-export { TreeRenderer, TreeData, TreeItemData };
+import { TreeManager, TreeManagerMode } from '../managers/tree-manager';
 
 const EXPAND_TOGGLE_ATTR = 'expand-toggle';
 

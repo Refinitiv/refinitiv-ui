@@ -1,6 +1,6 @@
 import { CollectionComposer } from '@refinitiv-ui/utils';
 import { TreeItemData } from './types';
-import { TreeManager, TreeManagerMode, CheckedState } from './tree-manager';
+import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager';
 
 import { Renderer } from '../../list/renderer';
 
