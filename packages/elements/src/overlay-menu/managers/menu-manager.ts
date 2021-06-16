@@ -1,12 +1,9 @@
-import { OverlayMenu } from './index';
-import { getOverlays } from '../overlay/managers/zindex-manager';
 import { AfterRenderTaskRunner } from '@refinitiv-ui/utils';
-import { Item } from '../item';
 
-type NestedMenu = {
-  menu: OverlayMenu;
-  item: Item;
-};
+import { Item } from '../../item';
+import { OverlayMenu } from '../index';
+import { NestedMenu } from '../helpers/types';
+import { getOverlays } from '../../overlay/managers/zindex-manager';
 
 /**
  * Overlay menu manager monitors menu nesting and ensures
