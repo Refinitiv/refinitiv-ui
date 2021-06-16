@@ -143,6 +143,12 @@ const INPUT_FILENAME = 'index.ts';
 // The output filename
 const OUTPUT_FILENAME = 'custom-elements.json';
 
+// Validate if data from analyzer is match to element's tag name
+const isValidAPI = (data, element) => {
+  jsonObj = JSON.parse(data);
+  return (jsonObj.tags.length && jsonObj.tags[0].name === `${ELEMENT_PREFIX}-${element}`);
+};
+
 /**
  * Analyze API
  *
@@ -150,17 +156,12 @@ const OUTPUT_FILENAME = 'custom-elements.json';
  * @param {string} element element name
  * @returns {(Object|boolean)} element api
  */
-const analyze = (file, element) => {
+const analyze = (file) => {
   const data = fs.readFileSync(file, { encoding: 'utf8' });
   const meta = wca.analyzeText(data);
   const rawJson = wca.transformAnalyzerResult('json', meta.results, meta.program);
   const jsonObj = JSON.parse(rawJson);
   const methods = getMethods(jsonObj, meta);
-
-  // Analyze for specific element
-  if (element && (!jsonObj.tags.length || jsonObj.tags[0].name !== `${ELEMENT_PREFIX}-${element}`)) {
-    return false;
-  }
 
   // Extract method details from meta data and added to jsonObj
   if (jsonObj.tags && jsonObj.tags.length > 0 && methods.length > 0) {
@@ -175,41 +176,45 @@ const analyze = (file, element) => {
  * @returns {void}
  */
 const handler = async () => {
-  // Looking for `index.ts` 1 level under `src/`
-  const entries = await fg([`./src/*/${INPUT_FILENAME}`], { unique: true });
+  // Looking for `index.ts` in each element source folder
+  const entries = await fg([`./${ELEMENT_SRC}/*/${INPUT_FILENAME}`], { unique: true });
 
   if (entries.length === 0) return;
   for (const entrypoint of entries) {
-    const element = entrypoint.match(/^.*\/src\/([\w-]+)/)[1];
+    const elementNameRegEx = new RegExp(`^.*\\/${ELEMENT_SRC}\\/([\\w-]+)`);
+    const element = entrypoint.match(elementNameRegEx)[1];
     const outDir = entrypoint.replace(ELEMENT_SRC, ELEMENT_DIST).replace(INPUT_FILENAME, '');
     const outFile = path.join(outDir, OUTPUT_FILENAME);
 
     // Analyze API
-    let elementAPI = analyze(entrypoint, element);
+    let elementAPI = analyze(entrypoint);
 
     /**
-     * If not found any API in default entrypoint, try to use the other TypeScript file
-     * in the sub directories which file has the same element name.
+     * If not found any API in default entrypoint,
+     * try to look for <element name>.ts file in the sub directories
      */
-    if (!elementAPI) {
+    if (!isValidAPI(elementAPI, element)) {
       const altEntrypoint = (await fg([`./src/**/${element}.ts`], { unique: true }) || [])[0];
       if (altEntrypoint) {
-        elementAPI = analyze(altEntrypoint, element);
+        elementAPI = analyze(altEntrypoint);
       }
     }
 
-    // Only write file if there is any API
-    if (elementAPI) {
+    // Only write file if API is matched to element tag
+    if (isValidAPI(elementAPI, element)) {
+      console.log(`Generating API for ${element} ${chalk.green('OK')}`);
       fs.writeFileSync(outFile, elementAPI, 'utf8');
+    } else {
+      console.log(`Generating API for ${element} ${chalk.red('ERROR')}`);
     }
   }
 
-  console.log(chalk.green(`\nFinish analyzing element\'s public API.\n`))
+  console.log(chalk.green(`\nFinish analyzing element\'s public API.\n`));
 };
 
 try {
   console.log(`\nAnalyzing element\'s API...\n`);
   handler();
 } catch (error) {
-  console.error(chalk.red(`Element Analyzer Error: ${error}`))
+  console.error(chalk.red(`Element Analyzer Error: ${error}`));
 }
