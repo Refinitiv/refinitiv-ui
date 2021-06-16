@@ -1,55 +1,17 @@
-interface DataInterface {
-  size: number;
-  w: number;
-  h: number;
-  duration: number;
-  fillPercentage?: number;
-  primaryValue: number;
-  primaryLabel: string;
-  secondaryValue: number;
-  secondaryLabel: string;
-}
-
-interface CtxOptionsType {
-  strokeWidth: number;
-  primaryColor: string;
-  secondaryColor: string;
-  fillStyle: string;
-  fontFamily: string;
-  fontSize: number;
-  maxFontSize: number;
-  borderColor: string;
-  centerline: string;
-  centerlineOptions: string[];
-  centerlineOpacity: string;
-  centerlineColor: string;
-}
-
-interface DrawParamInterface {
-  ctxOptions: CtxOptionsType;
-}
-
-interface PointInterface {
-  x: number;
-  y: number;
-}
-
-export interface CanvasSizeType {
-  width: number;
-  height: number;
-}
+import { ElementSize } from '@refinitiv-ui/core';
+import { SwingGaugeData, SwingGaugeDrawOption, Coordinate } from './types';
 
 let ctx: CanvasRenderingContext2D;
-let data: DataInterface;
-let params: DrawParamInterface;
+let data: SwingGaugeData;
+let params: SwingGaugeDrawOption;
 let fillPercentage = 0.5;
 
-const clear = (canvasSize: CanvasSizeType, drawCtx: CanvasRenderingContext2D): void => {
+const clear = (canvasSize: ElementSize, drawCtx: CanvasRenderingContext2D): void => {
   drawCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
 };
 
 // Helper to get arc x and y points
-const getPoints = (radians: number): PointInterface => {
+const getCoordinate = (radians: number): Coordinate => {
   return {
     x: Math.round(data.w / 2 + Math.cos(radians) * (data.size * 0.7)),
     y: Math.round(data.h + Math.sin(radians) * (data.size * 0.7))
@@ -72,7 +34,7 @@ const drawAndCenterText = (text: string, x: number, y: number): void => {
   ctx.restore();
 };
 
-const draw = (drawData: DataInterface, drawCtx: CanvasRenderingContext2D, canvasSize: CanvasSizeType, drawParams: DrawParamInterface): void => {
+const draw = (drawData: SwingGaugeData, drawCtx: CanvasRenderingContext2D, canvasSize: ElementSize, drawParams: SwingGaugeDrawOption): void => {
   ctx = drawCtx;
   data = drawData;
   params = drawParams;
@@ -88,20 +50,20 @@ const draw = (drawData: DataInterface, drawCtx: CanvasRenderingContext2D, canvas
   ctx.fillStyle = params.ctxOptions.fillStyle;
 
   // Get the center positions of each arc
-  const leftPos = getPoints((1 + fillPercentage / 2) * Math.PI);
-  const rightPos = getPoints((1 + fillPercentage + (1 - fillPercentage) / 2) * Math.PI);
+  const leftPos = getCoordinate((1 + fillPercentage / 2) * Math.PI);
+  const rightPos = getCoordinate((1 + fillPercentage + (1 - fillPercentage) / 2) * Math.PI);
 
   // Has text
   if (!!data.primaryLabel && !!data.secondaryLabel) {
 
     // Calculate responsive font size
-    ctx.font = params.ctxOptions.fontSize + 'px ' + params.ctxOptions.fontFamily;
+    ctx.font = `${params.ctxOptions.fontSize}px${params.ctxOptions.fontFamily}`;
     let fontSize1 = ctx.measureText(data.primaryLabel).width;
     const fontSize2 = ctx.measureText(data.secondaryLabel).width;
     fontSize1 = fontSize1 > fontSize2 ? fontSize1 : fontSize2;
     params.ctxOptions.fontSize *= (data.size * 0.6 * 0.8 / fontSize1);
     params.ctxOptions.fontSize = Math.round(params.ctxOptions.fontSize > params.ctxOptions.maxFontSize ? params.ctxOptions.maxFontSize : params.ctxOptions.fontSize);
-    ctx.font = params.ctxOptions.fontSize + 'px ' + params.ctxOptions.fontFamily;
+    ctx.font = `${params.ctxOptions.fontSize}px${params.ctxOptions.fontFamily}`;
     ctx.textBaseline = 'top';
 
     // Write the labels
@@ -113,7 +75,7 @@ const draw = (drawData: DataInterface, drawCtx: CanvasRenderingContext2D, canvas
   }
 
   // Calculate the responsive font size for values
-  ctx.font = Math.round(Math.round(data.size * 0.12)) + 'px ' + params.ctxOptions.fontFamily;
+  ctx.font = `${Math.round(Math.round(data.size * 0.12))}px${params.ctxOptions.fontFamily}`;
 
   // Write that values
   drawAndCenterText((fillPercentage * 100).toFixed(2) + '%', leftPos.x, leftPos.y + 1);
@@ -140,7 +102,7 @@ const draw = (drawData: DataInterface, drawCtx: CanvasRenderingContext2D, canvas
     if (params.ctxOptions.centerline === 'solid') {
       ctx.globalAlpha = Number(params.ctxOptions.centerlineOpacity);
     }
-    else if(params.ctxOptions.centerline === 'dotted') {
+    else if (params.ctxOptions.centerline === 'dotted') {
       ctx.setLineDash([params.ctxOptions.strokeWidth, params.ctxOptions.strokeWidth < 2 ? 2 : params.ctxOptions.strokeWidth]);
     }
     else {
@@ -155,14 +117,15 @@ const draw = (drawData: DataInterface, drawCtx: CanvasRenderingContext2D, canvas
 };
 
 // Helper function for elastic easing
-const elasticOut = ((amplitude: number, period: number): Function => {
+const elasticOut = ((amplitude: number, period: number): (time: number) => number => {
   const pi2 = Math.PI * 2;
-  return function (t: number): number {
-    if (t === 0 || t === 1) {
-      return t;
+
+  return function (time: number): number {
+    if (time === 0 || time === 1) {
+      return time;
     }
     const s = period / pi2 * Math.asin(1 / amplitude);
-    return (amplitude * Math.pow(2, -10 * t) * Math.sin((t - s) * pi2 / period) + 1);
+    return (amplitude * Math.pow(2, -10 * time) * Math.sin((time - s) * pi2 / period) + 1);
   };
 })(1.2, 0.5);
 
