@@ -19,11 +19,9 @@ import '../text-field';
 import { Pill } from '../pill';
 import { TextField } from '../text-field';
 
-import { MultiDataItem, MultiInputEvents } from './helpers/types';
+import { MultiInputData, MultiInputDataItem, MultiInputEvents, SelectionIndex } from './helpers/types';
 
-export { MultiDataItem };
-
-type SelectionIndex = number | null;
+export { MultiInputData, MultiInputDataItem };
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
 
@@ -185,29 +183,28 @@ export class MultiInput extends ControlElement implements MultiValue {
 
   /**
    * The data object, used to render the list.
-   * @type {MultiDataItem[] | null}
+   * @type {MultiInputData | null}
    */
   @property({ attribute: false })
-  public get data (): MultiDataItem[] | null {
+  public get data (): MultiInputData | null {
     return this._data;
   }
-
-  public set data (value: MultiDataItem[] | null) {
+  public set data (value: MultiInputData | null) {
     const oldValue = this._data;
     if (oldValue === value) {
       return;
     }
     else if (Array.isArray(value)) {
-      this.composer = new CollectionComposer<MultiDataItem>(value);
+      this.composer = new CollectionComposer<MultiInputDataItem>(value);
     }
     else {
-      this.composer = new CollectionComposer<MultiDataItem>([]);
+      this.composer = new CollectionComposer<MultiInputDataItem>([]);
     }
     this._data = value;
     void this.requestUpdate('data', oldValue);
   }
 
-  private _data: MultiDataItem[] | null = null;
+  private _data: MultiInputData | null = null;
 
   /**
    * the component of the list in rendered template
@@ -221,7 +218,7 @@ export class MultiInput extends ControlElement implements MultiValue {
   @query('[part="search"]')
   private search?: TextField | null;
 
-  private composer: CollectionComposer<MultiDataItem> = new CollectionComposer([]);
+  private composer: CollectionComposer<MultiInputDataItem> = new CollectionComposer([]);
 
   /**
    * @ignore
@@ -233,16 +230,16 @@ export class MultiInput extends ControlElement implements MultiValue {
    * @param value {string} Value of item to remove
    * @returns array of removed items
    */
-  public removeByValue (value: string): MultiDataItem[] {
+  public removeByValue (value: string): MultiInputData {
     return this.removeByProperty(value, 'value');
   }
 
   /**
    * Add a new item to the input. Return newly added object or null if added invalid object.
-   * @param item {MultiDataItem} Item to add. Object must have at least value and label
-   * @returns {MultiDataItem | null} added item
+   * @param item to add. Object must have at least value and label
+   * @returns {MultiInputDataItem | null} added item
    */
-  public add (item: MultiDataItem): MultiDataItem | null {
+  public add (item: MultiInputDataItem): MultiInputDataItem | null {
     if (!this.isItem(item)) {
       this.notify(item, 'item-error');
       return null;
@@ -252,9 +249,9 @@ export class MultiInput extends ControlElement implements MultiValue {
 
   /**
    * Removes last item. Returns item that removed or null if list was empty
-   * @returns {MultiDataItem | null} Removed item or null if list was empty
+   * @returns {MultiInputDataItem | null} Removed item or null if list was empty
    */
-  public removeLastItem (): MultiDataItem | null {
+  public removeLastItem (): MultiInputDataItem | null {
     if (!this.values.length) {
       return null;
     }
@@ -264,10 +261,10 @@ export class MultiInput extends ControlElement implements MultiValue {
   /**
    * Removes pill by index. Returns item that removed or null if list was empty
    * @param {number} index of pill to be removed
-   * @returns {MultiDataItem | null} Removed item or null if list was empty
+   * @returns {MultiInputDataItem | null} Removed item or null if list was empty
    */
-  public removeByIndex (index: number): MultiDataItem | null {
-    const items = this.composer.queryItems(() => true) as MultiDataItem[];
+  public removeByIndex (index: number): MultiInputDataItem | null {
+    const items = this.composer.queryItems(() => true) as MultiInputData;
     if (items.length <= index) {
       return null;
     }
@@ -282,7 +279,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * @param notifyEvent should notify about changes
    * @returns removed item or null
    */
-  private removeItem (item: MultiDataItem, notifyEvent = false): MultiDataItem | null {
+  private removeItem (item: MultiInputDataItem, notifyEvent = false): MultiInputDataItem | null {
     let process = true;
 
     if (notifyEvent) {
@@ -305,7 +302,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * @param property name
    * @returns array of removed items
    */
-  private removeByProperty (value: string, property: 'id' | 'value'): MultiDataItem[] {
+  private removeByProperty (value: string, property: 'id' | 'value'): MultiInputData {
     const items = this.composer.queryItemsByPropertyValue(property, value);
 
     const result = [];
@@ -325,7 +322,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * @param notifyEvent should notify about changes
    * @returns added item or null
    */
-  private addItem (item: MultiDataItem, notifyEvent = false): MultiDataItem | null {
+  private addItem (item: MultiInputDataItem, notifyEvent = false): MultiInputDataItem | null {
     let process = true;
 
     if (notifyEvent) {
@@ -346,7 +343,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * validate input according `minLength` and `maxLength` properties
    * @param {string} value value for validate
    * change state of `error` property according validation
-   * @returns void
+   * @returns {void}
    */
   private validateInput (value: string): void {
     const error = this.shouldValidateForMinLength(value);
@@ -494,7 +491,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    */
   private pillsTemplate (): TemplateResult {
     return html`
-      ${(this.composer.queryItems(() => true) as MultiDataItem[]).map(this.pillTemplate)}
+      ${(this.composer.queryItems(() => true) as MultiInputData).map(this.pillTemplate)}
     `;
   }
 
@@ -504,7 +501,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * @param index the position item of values
    * @returns the template of a pill component
    */
-  private pillTemplate = (item: MultiDataItem, index: number): TemplateResult => {
+  private pillTemplate = (item: MultiInputDataItem, index: number): TemplateResult => {
     return html`
       <ef-pill
         part="pill"
@@ -531,7 +528,7 @@ export class MultiInput extends ControlElement implements MultiValue {
       return;
     }
 
-    const items = this.composer.queryItems(() => true) as MultiDataItem[];
+    const items = this.composer.queryItems(() => true) as MultiInputData;
     const item = items[Number(index)];
     this.removeItem(item, true);
   }
@@ -542,7 +539,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * @param eventType notify mode - [item-removed|item-added|item-error]
    * @returns true if event was not prevented
    */
-  private notify (item: MultiDataItem, eventType: MultiInputEvents): boolean {
+  private notify (item: MultiInputDataItem, eventType: MultiInputEvents): boolean {
     const customEventInit: CustomEventInit = {
       detail: { item, items: this.composer.queryItems(() => true) },
       cancelable: true
@@ -585,7 +582,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    */
   private removeLastItemByKeyboard (event: KeyboardEvent): void {
     if (this.isSearchValueEmptyWithoutReadonlyAndDisabled()) {
-      const items = this.composer.queryItems(() => true) as MultiDataItem[];
+      const items = this.composer.queryItems(() => true) as MultiInputData;
       if (!items.length) {
         return;
       }
@@ -607,7 +604,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    */
   private addItemByKeyboard (): void {
     if (this.isSearchValueNotEmptyWithoutReadonlyAndDisabled()) {
-      const newItem: MultiDataItem = { value: this.value, label: this.value };
+      const newItem: MultiInputDataItem = { value: this.value, label: this.value };
       const item = this.addItem(newItem, true);
       if (item) {
         this.setValueAndNotify('');
@@ -636,7 +633,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * @param item Item to check
    * @returns true if item exists and contains value and label
    */
-  private isItem (item: MultiDataItem): boolean {
+  private isItem (item: MultiInputDataItem): boolean {
     return !!(item.value && item.label);
   }
 }
