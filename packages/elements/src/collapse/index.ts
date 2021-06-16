@@ -82,13 +82,13 @@ export class Collapse extends BasicElement {
   /**
    * An ef-panel wrapper
    */
-  @query('[part="content"]')
+  @query('[part="content"]', true)
   private panelHolder!: HTMLElement;
 
   /**
    * A panel used to display content
    */
-  @query('ef-panel')
+  @query('ef-panel', true)
   private panel!: HTMLElement;
 
   /**
@@ -98,7 +98,7 @@ export class Collapse extends BasicElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.panelHolder.setAttribute('no-animation', '');
+    this.panelHolder && this.panelHolder.setAttribute('no-animation', '');
   }
 
   /**
