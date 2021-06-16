@@ -131,6 +131,9 @@ const getMethods = (data, meta) => {
   return methods;
 };
 
+// Element tag prefix
+const ELEMENT_PREFIX = 'ef';
+
 // Element source path
 const ELEMENT_SRC = 'src';
 
@@ -144,16 +147,27 @@ const OUTPUT_FILENAME = 'custom-elements.json';
  * Analyze API
  *
  * @param {string} file  file path
- * @returns {Object}
+ * @param {string} element element name
+ * @returns {(Object|boolean)} element api
  */
-const analyze = (file) => {
+const analyze = (file, element) => {
   const data = fs.readFileSync(file, { encoding: 'utf8' });
   const meta = wca.analyzeText(data);
   const rawJson = wca.transformAnalyzerResult('json', meta.results, meta.program);
   const jsonObj = JSON.parse(rawJson);
   const methods = getMethods(jsonObj, meta);
 
-  return { jsonObj, methods };
+  // Analyze for specific element
+  if (element && (!jsonObj.tags.length || jsonObj.tags[0].name !== `${ELEMENT_PREFIX}-${element}`)) {
+    return false;
+  }
+
+  // Extract method details from meta data and added to jsonObj
+  if (jsonObj.tags && jsonObj.tags.length > 0 && methods.length > 0) {
+    jsonObj.tags[0].methods = methods;
+  }
+
+  return JSON.stringify(jsonObj, null, 2);
 };
 
 /**
@@ -165,35 +179,28 @@ const handler = async () => {
   const entries = await fg([`./src/*/${INPUT_FILENAME}`], { unique: true });
 
   if (entries.length === 0) return;
-
   for (const entrypoint of entries) {
     const element = entrypoint.match(/^.*\/src\/([\w-]+)/)[1];
     const outDir = entrypoint.replace(ELEMENT_SRC, ELEMENT_DIST).replace(INPUT_FILENAME, '');
     const outFile = path.join(outDir, OUTPUT_FILENAME);
 
     // Analyze API
-    let { jsonObj, methods } = analyze(entrypoint);
+    let elementAPI = analyze(entrypoint, element);
 
-    // If analyze but not found anything, try to use element.ts file in `elements` sub directory.
-    if (!jsonObj.tags.length && !methods.length) {
-      const altEntrypoint = entrypoint.replace('index.ts', path.join('elements', `${element}.ts`));
-      if (fs.existsSync(altEntrypoint)) {
-        const result  = analyze(altEntrypoint);
-        jsonObj = result.jsonObj;
-        methods = result.methods;
+    /**
+     * If not found any API in default entrypoint, try to use the other TypeScript file
+     * in the sub directories which file has the same element name.
+     */
+    if (!elementAPI) {
+      const altEntrypoint = (await fg([`./src/**/${element}.ts`], { unique: true }) || [])[0];
+      if (altEntrypoint) {
+        elementAPI = analyze(altEntrypoint, element);
       }
     }
 
-    // Extract method details from meta data and added to jsonObj
-    if (jsonObj.tags && jsonObj.tags.length > 0 && methods.length > 0) {
-      jsonObj.tags[0].methods = methods;
-    }
-
-    const json = JSON.stringify(jsonObj, null, 2);
-
     // Only write file if there is any API
-    if (jsonObj.tags.length) {
-      fs.writeFileSync(outFile, json, 'utf8');
+    if (elementAPI) {
+      fs.writeFileSync(outFile, elementAPI, 'utf8');
     }
   }
 
