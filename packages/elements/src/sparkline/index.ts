@@ -15,7 +15,7 @@ import 'browser-sparkline';
 import type { BrowserSparklineChart } from 'browser-sparkline';
 import type { StaticDataConfig, ThemeConfig } from 'browser-sparkline/lib/browserSparklineCanvas';
 
-import { helpers } from './helpers';
+import { helpers } from './helpers/color';
 export { helpers };
 
 @customElement('ef-sparkline', {
