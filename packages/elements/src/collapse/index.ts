@@ -12,7 +12,6 @@ import {
 import '../header';
 import '../panel';
 import '../icon';
-import { Header } from '../header';
 
 /**
  * Allows users to hide non-critical information
@@ -50,6 +49,9 @@ export class Collapse extends BasicElement {
         overflow: hidden;
         box-sizing: border-box;
       }
+      [no-animation] {
+        animation: none !important;
+      }
     `;
   }
 
@@ -78,10 +80,26 @@ export class Collapse extends BasicElement {
   public spacing = false;
 
   /**
+   * An ef-panel wrapper
+   */
+  @query('[part="content"]')
+  private panelHolder!: HTMLElement;
+
+  /**
    * A panel used to display content
    */
   @query('ef-panel')
   private panel!: HTMLElement;
+
+  /**
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    this.panelHolder.setAttribute('no-animation', '');
+  }
 
   /**
    * Invoked whenever the element is updated
@@ -108,10 +126,36 @@ export class Collapse extends BasicElement {
   }
 
   /**
+   * Check if target is a header
+   * @param element for checking
+   * @returns {boolean} true if target is ef-header
+   */
+  private static isHeader (element: HTMLElement): boolean {
+    return element.localName === 'ef-header' || element.getAttribute('part') === 'toggle';
+  }
+
+  /**
+   * Handle tap on the item header, will toggle the expanded state
+   * @param event Event object
+   * @returns {void}
+   */
+  private handleTap = (event: Event): void => {
+    const target = event.target as HTMLElement;
+
+    if (Collapse.isHeader(target)) {
+      this.toggle();
+    }
+  };
+
+  /**
    * Show or Hide the item depending on the expanded state
    * @returns {void}
    */
   private showHide (): void {
+    if (!this.panelHolder) {
+      return;
+    }
+    this.panelHolder.removeAttribute(('no-animation'));
     this.setAnimationTargetHeight(this.getContentHeight());
   }
 
@@ -140,7 +184,7 @@ export class Collapse extends BasicElement {
    */
   protected render (): TemplateResult {
     return html`
-      <ef-header part="header" level="${this.level}" @tap="${this.toggle}">
+      <ef-header part="header" level="${this.level}" @tap="${this.handleTap}">
         <ef-icon icon="right" slot="left" part="toggle"></ef-icon>
         <slot slot="left" name="header-left"></slot>
         <slot slot="right" name="header-right"></slot>
