@@ -1,9 +1,9 @@
-import { Position as OverlayPosition } from '../overlay';
+import { Position as OverlayPosition } from '../../overlay';
 
-export type Condition = (target: HTMLElement, paths: EventTarget[]) => boolean;
-export type Renderer = (target: HTMLElement) => undefined | null | string | HTMLElement | DocumentFragment;
-export type Position = 'auto' | 'above' | 'right' | 'below' | 'left';
-export type PositionMap = { [K in Position]: OverlayPosition[] };
+export type TooltipCondition = (target: HTMLElement, paths: EventTarget[]) => boolean;
+export type TooltipRenderer = (target: HTMLElement) => undefined | null | string | HTMLElement | DocumentFragment;
+export type TooltipPosition = 'auto' | 'above' | 'right' | 'below' | 'left';
+export type TooltipPositionMap = { [K in TooltipPosition]: OverlayPosition[] };
 
 // Manager Types
 type MouseMoveCallback = (event: MouseEvent, paths: EventTarget[]) => void;

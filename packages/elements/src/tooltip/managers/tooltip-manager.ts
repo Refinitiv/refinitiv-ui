@@ -1,6 +1,6 @@
-import { Tooltip } from './index';
+import { Tooltip } from '../index';
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils';
-import { DocumentCallbacks } from './types';
+import { DocumentCallbacks } from '../helpers/types';
 
 /**
  * Tooltip manager is here to avoid setting multiple

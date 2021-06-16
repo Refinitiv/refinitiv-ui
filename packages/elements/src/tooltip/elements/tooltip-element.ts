@@ -1,9 +1,9 @@
-import './index';
-import { Tooltip } from './index';
-import { Condition, Renderer } from './types';
+import '../index';
+import { Tooltip } from '../index';
+import { TooltipCondition, TooltipRenderer } from '../helpers/types';
 
-const defaultTooltipMap = new Map<Condition, Renderer>();
-const rendererElementMap = new WeakMap<HTMLElement, Renderer>();
+const defaultTooltipMap = new Map<TooltipCondition, TooltipRenderer>();
+const rendererElementMap = new WeakMap<HTMLElement, TooltipRenderer>();
 
 /**
  * Add the new condition to the default tooltip
@@ -11,7 +11,7 @@ const rendererElementMap = new WeakMap<HTMLElement, Renderer>();
  * @param renderer Renderer for condition
  * @returns {void}
  */
-const addTooltipCondition = (condition: Condition, renderer: Renderer): void => {
+const addTooltipCondition = (condition: TooltipCondition, renderer: TooltipRenderer): void => {
   defaultTooltipMap.set(condition, renderer);
 };
 
@@ -20,11 +20,11 @@ const addTooltipCondition = (condition: Condition, renderer: Renderer): void => 
  * @param condition Condition to remove
  * @returns {void}
  */
-const removeTooltipCondition = (condition: Condition): void => {
+const removeTooltipCondition = (condition: TooltipCondition): void => {
   defaultTooltipMap.delete(condition);
 };
 
-const condition: Condition = (target, paths) => {
+const condition: TooltipCondition = (target, paths) => {
   let res = false;
   for (const [condition, renderer] of defaultTooltipMap.entries()) {
     res = condition(target, paths);
@@ -38,7 +38,7 @@ const condition: Condition = (target, paths) => {
   return res;
 };
 
-const renderer: Renderer = (target) => {
+const renderer: TooltipRenderer = (target) => {
   const render = rendererElementMap.get(target);
   return render ? render(target) : undefined;
 };

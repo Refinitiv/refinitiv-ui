@@ -11,21 +11,20 @@ import {
   matches
 } from '@refinitiv-ui/core';
 import '../overlay';
-import { TransitionStyle, Overlay, Position as OverlayPosition } from '../overlay';
-import { register, deregister } from './tooltip-manager';
-import {
-  PositionMap,
-  Condition,
-  Renderer,
-  Position
-} from './types';
-import './title-tooltip';
-import { tooltipRenderer } from './utils';
-import {
-  register as registerOverflowTooltip
-} from './overflow-tooltip';
+import { TransitionStyle as TooltipTransitionStyle, Overlay, Position as OverlayPosition } from '../overlay';
 
-const PositionMap: PositionMap = {
+import './elements/title-tooltip';
+import { register, deregister } from './managers/tooltip-manager';
+import {
+  TooltipCondition,
+  TooltipRenderer,
+  TooltipPosition,
+  TooltipPositionMap
+} from './helpers/types';
+import { tooltipRenderer } from './helpers/renderer';
+import { register as registerOverflowTooltip } from './helpers/overflow-tooltip';
+
+const TooltipPositionMap: TooltipPositionMap = {
   'auto': ['bottom-start', 'top-start'],
   'above': ['top-middle'],
   'right': ['right-middle'],
@@ -113,19 +112,19 @@ class Tooltip extends BasicElement {
   /**
   * Provide a function to test against the target.
   * Return `true` if the target matches
-  * @type { function }
+  * @type {TooltipCondition}
   */
   @property({ type: Function, attribute: false })
-  public condition: Condition | undefined;
+  public condition: TooltipCondition | undefined;
 
   /**
   * A renderer to define tooltip internal content.
   * Return undefined, `String`, `HTMLElement` or `DocumentFragment`.
   * If the content is not present, tooltip will not be displayed
-  * @type { function }
+  * @type {TooltipRenderer}
   */
   @property({ type: Function, attribute: false })
-  public renderer: Renderer | undefined;
+  public renderer: TooltipRenderer | undefined;
 
   /**
   * The position of the tooltip. Use the following values:
@@ -134,7 +133,6 @@ class Tooltip extends BasicElement {
   * `right` - display to the right of the element
   * `below` - display beneath the element
   * `left` - display to the left of the element
-  *  @type {string}
   */
   @property({ type: String })
   public position: 'auto' | 'above' | 'right' | 'below' | 'left' = 'auto';
@@ -143,10 +141,10 @@ class Tooltip extends BasicElement {
   * Set the transition style.
   * Value can be `fade`, `zoom`, `slide-down`, `slide-up`, `slide-right`,
   * `slide-left`, `slide-right-down`, `slide-right-up`, `slide-left-down`, `slide-left-up`, or null in case of no transition
-  *  @type {string}
+  *  @type {TooltipTransitionStyle}
   */
   @property({ type: String, attribute: 'transition-style' })
-  public transitionStyle: TransitionStyle | null = 'fade';
+  public transitionStyle: TooltipTransitionStyle | null = 'fade';
 
   /**
    * Get tooltip popup window
@@ -521,7 +519,7 @@ class Tooltip extends BasicElement {
    * Get popup position based on tooltip position
    */
   private get tipPosition (): OverlayPosition[] {
-    return PositionMap[this.position];
+    return TooltipPositionMap[this.position];
   }
 
   /**
@@ -554,12 +552,13 @@ class Tooltip extends BasicElement {
   }
 }
 
-export * from './tooltip-element';
+export * from './elements/tooltip-element';
 
 export {
   registerOverflowTooltip,
   Tooltip,
-  Condition,
-  Renderer,
-  Position
+  TooltipCondition,
+  TooltipRenderer,
+  TooltipPosition,
+  TooltipTransitionStyle
 };
