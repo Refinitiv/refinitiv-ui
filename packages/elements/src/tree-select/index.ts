@@ -21,12 +21,12 @@ import '../button';
 import '../checkbox';
 import '../tree';
 import { Overlay } from '../overlay';
-import { ComboBox } from '../combo-box';
+import { ComboBox, ComboBoxData as TreeSelectData, ComboBoxFilter as TreeSelectFilter } from '../combo-box';
 import { TreeRenderer as TreeSelectRenderer } from '../tree';
 import { TreeItemData as T } from '../tree/helpers/types';
 import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager';
 
-export { TreeSelectRenderer };
+export { TreeSelectRenderer, TreeSelectData, TreeSelectFilter };
 
 const MEMO_THROTTLE = 16;
 const POPUP_POSITION = ['bottom-start', 'top-start'];
