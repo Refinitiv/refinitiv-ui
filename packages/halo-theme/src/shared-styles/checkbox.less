@@ -37,4 +37,9 @@
   &:focus[readonly]:not([checked]) [part='container'] {
     border-color: @control-border-color;
   }
+
+  &[focused=visible] {
+    outline: @input-border-width @input-border-style @input-focused-border-color;
+    outline-offset: 2px; //not support IE11
+  }
 }
