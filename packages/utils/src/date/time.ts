@@ -1,6 +1,5 @@
 import { pad } from './utils';
 import {
-  HOURS_OF_NOON,
   MILLISECONDS_IN_DAY,
   MILLISECONDS_IN_HOUR,
   MILLISECONDS_IN_MINUTE,
@@ -38,7 +37,7 @@ enum Format {
   HHmmssSSS = 'HH:mm:ss.SSS'
 }
 
-type TimeFormat = Format | 'HH:mm' | 'HH:mm:ss' | 'HH:mm:ss.SSS';
+type InputFormat = Format | 'HH:mm' | 'HH:mm:ss' | 'HH:mm:ss.SSS';
 
 /**
  * Regular expression to check for valid time
@@ -57,7 +56,7 @@ const padMillisecond = (millisecond: number): string => pad(millisecond, 3);
  * @param value Value to test
  * @returns format Time format or 'HH:mm'
  */
-const getFormat = function (value: string): TimeFormat {
+const getFormat = function (value: string): Format {
   if (HHmmssSSS_REGEXP.test(value)) {
     return Format.HHmmssSSS;
   }
@@ -74,7 +73,7 @@ const getFormat = function (value: string): TimeFormat {
  * @param [format] The format to validate value against. If not defined, try to guess the format
  * @returns value is valid.
  */
-const isValid = function (value: string, format?: TimeFormat): boolean {
+const isValid = function (value: string, format?: InputFormat): boolean {
   format = format || getFormat(value);
 
   switch (format) {
@@ -121,7 +120,7 @@ const toSegment = (value: string | Date, isUTC = false): Segment => {
  * @param isUTC Local or UTC
  * @returns A formatted time
  */
-const formatTime = (value: Segment | Date, format: TimeFormat, isUTC: boolean): string => {
+const formatTime = (value: Segment | Date, format: InputFormat, isUTC: boolean): string => {
   const segment: Segment = value instanceof Date ? toSegment(value, isUTC) : value;
   switch (format) {
     case Format.HHmmss:
@@ -140,7 +139,7 @@ const formatTime = (value: Segment | Date, format: TimeFormat, isUTC: boolean): 
  * @param [format='HH:mm'] Time format, one of 'HH:mm' | 'HH:mm:ss' | 'HH:mm:ss.SSS'
  * @returns A formatted time
  */
-const format = (value: Segment | Date, format: TimeFormat = Format.HHmm): string => formatTime(value, format, false);
+const format = (value: Segment | Date, format: InputFormat = Format.HHmm): string => formatTime(value, format, false);
 
 /**
  * Format Date or Segment to UTC Time string.
@@ -148,7 +147,7 @@ const format = (value: Segment | Date, format: TimeFormat = Format.HHmm): string
  * @param [format='HH:mm'] Time format, one of 'HH:mm' | 'HH:mm:ss' | 'HH:mm:ss.SSS'
  * @returns A formatted time
  */
-const utcFormat = (value: Segment | Date, format: TimeFormat = Format.HHmm): string => formatTime(value, format, true);
+const utcFormat = (value: Segment | Date, format: InputFormat = Format.HHmm): string => formatTime(value, format, true);
 
 /**
  * @private
@@ -193,31 +192,16 @@ const parse = (value: string | Segment): Date => parseTime(value, false);
 const utcParse = (value: string | Segment): Date => parseTime(value, true);
 
 /**
- * Returns `true` or `false` depending on whether the hours are before, or, after noon
- * @param value the time to check
- * @returns Result
- */
-const isAM = (value: string): boolean => {
-  const segment = toSegment(value);
-  return segment.hours < HOURS_OF_NOON;
-};
-
-/**
- * Returns opposite of isAM
- * @param value the time to check
- * @returns Result
- */
-const isPM = (value: string): boolean => {
-  return !isAM(value);
-};
-
-/**
  * Add offset in milliseconds to the value
  * @param value the time
  * @param amount number of milliseconds to add
  * @returns new value
  */
 const addOffset = (value: string, amount: number): string => {
+  if (!amount) {
+    return value;
+  }
+
   const segment = toSegment(value);
   let duration
     = segment.hours * MILLISECONDS_IN_HOUR
@@ -250,12 +234,11 @@ const subOffset = (value: string, amount: number): string => addOffset(value, -a
 export {
   Segment,
   Format,
+  InputFormat,
   isValid,
   toSegment,
   format,
   utcFormat,
-  isAM,
-  isPM,
   addOffset,
   subOffset,
   getFormat,

@@ -3,16 +3,22 @@ import {
   TimeSegment,
   DateFormat,
   TimeFormat,
-  getTimeFormat,
   isValidDate,
   isValidTime,
   toTimeSegment,
-  toDateSegment,
-  formatDate,
-  utcFormatDate,
-  formatTime,
-  utcFormatTime
+  toDateSegment
 } from './';
+
+import {
+  format as formatTime,
+  utcFormat as utcFormatTime,
+  getFormat as getTimeFormat
+} from './time';
+
+import {
+  format as formatDate,
+  utcFormat as utcFormatDate
+} from './date';
 
 /*
 * DateTime segment
@@ -40,7 +46,7 @@ enum Format {
   yyyMMddTHHmmssSSS = 'yyyy-MM-dd\'T\'HH:mm:ss.SSS'
 }
 
-type DateTimeFormat = Format | 'yyyy-MM-dd\'T\'HH:mm' | 'yyyy-MM-dd\'T\'HH:mm:ss' | 'yyyy-MM-dd\'T\'HH:mm:ss.SSS';
+type InputFormat = Format | 'yyyy-MM-dd\'T\'HH:mm' | 'yyyy-MM-dd\'T\'HH:mm:ss' | 'yyyy-MM-dd\'T\'HH:mm:ss.SSS';
 
 /**
  * @private
@@ -61,7 +67,7 @@ const split = (value: string): { date: string, time: string } => {
  * @param value Value to test
  * @returns format DateTime format or 'yyyy-MM-dd'T'HH:mm'
  */
-const getFormat = function (value: string): DateTimeFormat {
+const getFormat = function (value: string): Format {
   const { date, time } = split(value);
 
   if (!date || !time || !isValidDate(date, DateFormat.yyyyMMdd) || !isValidTime(time)) {
@@ -88,7 +94,7 @@ const getFormat = function (value: string): DateTimeFormat {
  * @param [format] The format to validate value against. If not defined, try to guess the format
  * @returns value is valid.
  */
-const isValid = function (value: string, format?: DateTimeFormat): boolean {
+const isValid = function (value: string, format?: InputFormat): boolean {
   const { date, time } = split(value);
   if (!date || !time || !isValidDate(date, DateFormat.yyyyMMdd) || !isValidTime(time)) {
     return false;
@@ -131,7 +137,7 @@ const toSegment = (value: string | Date, isUTC = false): Segment => {
  * @param isUTC Local or UTC
  * @returns A formatted date time
  */
-const formatDateTime = (value: Segment | Date, format: DateTimeFormat, isUTC: boolean): string => {
+const formatDateTime = (value: Segment | Date, format: InputFormat, isUTC: boolean): string => {
   const segment: Segment = value instanceof Date ? toSegment(value, isUTC) : value;
   const dateSegment: DateSegment = {
     year: segment.year,
@@ -170,7 +176,7 @@ const formatDateTime = (value: Segment | Date, format: DateTimeFormat, isUTC: bo
  * @param [format='yyyy-MM-dd'T'HH:mm'] Date Time format
  * @returns A formatted time
  */
-const format = (value: Segment | Date, format: DateTimeFormat = Format.yyyMMddTHHmm): string => formatDateTime(value, format, false);
+const format = (value: Segment | Date, format: InputFormat = Format.yyyMMddTHHmm): string => formatDateTime(value, format, false);
 
 /**
  * Format Date or Segment to UTC Date Time string.
@@ -178,7 +184,7 @@ const format = (value: Segment | Date, format: DateTimeFormat = Format.yyyMMddTH
  * @param [format='yyyy-MM-dd'T'HH:mm'] Date Time format
  * @returns A formatted time
  */
-const utcFormat = (value: Segment | Date, format: DateTimeFormat = Format.yyyMMddTHHmm): string => formatDateTime(value, format, true);
+const utcFormat = (value: Segment | Date, format: InputFormat = Format.yyyMMddTHHmm): string => formatDateTime(value, format, true);
 
 /**
  * @private
@@ -227,6 +233,7 @@ const utcParse = (value: string | Segment): Date => parseDateTime(value, true);
 export {
   Segment,
   Format,
+  InputFormat,
   getFormat,
   isValid,
   toSegment,
