@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/demo-block",
-  "version": "5.0.0-alpha.8",
+  "version": "5.0.0-alpha.9",
   "description": "Demo page handler for Element Framework elements",
   "main": "./lib/demo-block.js",
   "module": "./lib/demo-block.js",
@@ -23,7 +23,7 @@
   "dependencies": {
     "@refinitiv-ui/core": "^5.0.0-alpha.7",
     "@refinitiv-ui/elemental-theme": "^5.0.0-alpha.7",
-    "@refinitiv-ui/halo-theme": "^5.0.0-alpha.7",
+    "@refinitiv-ui/halo-theme": "^5.0.0-alpha.8",
     "@refinitiv-ui/solar-theme": "^5.0.0-alpha.7"
   },
   "devDependencies": {

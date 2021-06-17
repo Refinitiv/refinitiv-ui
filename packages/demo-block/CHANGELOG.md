@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0-alpha.9](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/demo-block@5.0.0-alpha.8...@refinitiv-ui/demo-block@5.0.0-alpha.9) (2021-06-17)
+
+**Note:** Version bump only for package @refinitiv-ui/demo-block
+
+
+
+
+
 # [5.0.0-alpha.8](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/demo-block@5.0.0-alpha.7...@refinitiv-ui/demo-block@5.0.0-alpha.8) (2021-06-15)
 
 **Note:** Version bump only for package @refinitiv-ui/demo-block
