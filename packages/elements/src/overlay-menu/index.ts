@@ -15,7 +15,7 @@ import { AnimationTaskRunner, CollectionComposer } from '@refinitiv-ui/utils';
 import '../icon';
 import '../item';
 import { Item, ItemData } from '../item';
-import { Overlay, Position, PositionTarget } from '../overlay';
+import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay';
 
 import { getId } from './helpers/uuid';
 import { OverlayMenuData } from './helpers/types';
@@ -113,8 +113,8 @@ export class OverlayMenu extends Overlay {
 
   private dataDisconnectThrottler = new AnimationTaskRunner();
   private menuHighlightedItem?: Item;
-  private oldPosition?: Position[];
-  private oldPositionTarget?: PositionTarget | HTMLElement | null;
+  private oldPosition?: OverlayPosition[];
+  private oldPositionTarget?: OverlayPositionTarget | HTMLElement | null;
   private oldInteractiveElements: HTMLElement[] = [];
   private menuIndex: { /* used to bind items to menus */
     [key: string]: {

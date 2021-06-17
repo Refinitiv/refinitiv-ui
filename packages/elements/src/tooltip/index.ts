@@ -11,7 +11,7 @@ import {
   matches
 } from '@refinitiv-ui/core';
 import '../overlay';
-import { TransitionStyle as TooltipTransitionStyle, Overlay, Position as OverlayPosition } from '../overlay';
+import { OverlayTransitionStyle as TooltipTransitionStyle, Overlay, OverlayPosition } from '../overlay';
 
 import './elements/title-tooltip';
 import { register, deregister } from './managers/tooltip-manager';
