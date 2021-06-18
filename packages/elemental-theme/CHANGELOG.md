@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0-alpha.8](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.0.0-alpha.7...@refinitiv-ui/elemental-theme@5.0.0-alpha.8) (2021-06-18)
+
+
+### Bug Fixes
+
+* **button:** support text overflow ([28e47df](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/28e47df2c0b7c4ac168957cc0db365fcd7e12a76))
+
+
+
+
+
 # [5.0.0-alpha.7](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.0.0-alpha.6...@refinitiv-ui/elemental-theme@5.0.0-alpha.7) (2021-06-15)
 
 
