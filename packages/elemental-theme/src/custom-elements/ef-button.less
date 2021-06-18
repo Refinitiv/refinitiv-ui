@@ -5,6 +5,17 @@
 :host {
   cursor: pointer;
 
+  [part=icon] {
+    flex: none;
+  }
+  &:not([empty]) [part=label] {
+    white-space: inherit;
+    overflow: inherit;
+    text-overflow: inherit;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
   .desktop-specific({
     &:hover #icon {
       display: none;

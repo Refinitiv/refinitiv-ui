@@ -6,10 +6,12 @@ import {
   html,
   property,
   PropertyValues,
-  TemplateResult
+  TemplateResult,
+  query
 } from '@refinitiv-ui/core';
 
 import '../icon';
+import { registerOverflowTooltip } from '../tooltip';
 
 /**
  * Use button for actions in forms, dialogs,
@@ -72,6 +74,12 @@ export class Button extends ControlElement {
   private empty = false;
 
   /**
+   * Get native label element from shadow roots
+   */
+  @query('[part="label"]')
+  private labelElement!: HTMLSpanElement;
+
+  /**
    * the lifecycle method called when properties changed first time
    *
    * @param changedProperties properties it's the Map object which has the updated properties
@@ -82,6 +90,7 @@ export class Button extends ControlElement {
 
     this.addEventHandlers();
     this.emptyComputed();
+    registerOverflowTooltip(this.labelElement, () => this.textContent);
   }
 
   /**
