@@ -15,7 +15,7 @@ export type DatasetColors = {
 
 export type ChartDataSetsColor = Chart.ChartColor | Chart.ChartColor[] | Chart.Scriptable<Chart.ChartColor> | undefined;
 
-export type ChartConfiguration = Chart.ChartConfiguration;
+export type ChartConfig = Chart.ChartConfiguration;
 
 export type ChartUpdateProps = Chart.ChartUpdateProps;
 
@@ -33,7 +33,7 @@ export interface ChartHelpers {
 export interface ChartJS extends Chart {
   new(
     context: string | CanvasRenderingContext2D | HTMLCanvasElement | ArrayLike<CanvasRenderingContext2D | HTMLCanvasElement>,
-    options: ChartConfiguration
+    options: ChartConfig
   ): Chart;
   defaults: {
     global: Chart.ChartOptions & Chart.ChartFontOptions & {

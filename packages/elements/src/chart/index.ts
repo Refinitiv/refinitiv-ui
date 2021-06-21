@@ -18,7 +18,7 @@ import '../layout';
 
 import {
   ChartJS,
-  ChartConfiguration,
+  ChartConfig,
   ChartUpdateProps,
   ChartDataSetsColor,
   MergeObject,
@@ -52,7 +52,7 @@ const ELF_CHART_CONFIG = {
 
 window.Chart.helpers.merge(DEFAULT_CHART_CONFIG, ELF_CHART_CONFIG);
 
-export type { ChartConfiguration };
+export type { ChartConfig };
 
 /**
  * Charting component that use chartjs library
@@ -68,10 +68,10 @@ export class Chart extends BasicElement {
 
   /**
    * Chart configurations. Same configuration as ChartJS
-   * @type {ChartConfiguration}
+   * @type {ChartConfig}
    */
   @property({ type: Object })
-  public config: ChartConfiguration | null = null;
+  public config: ChartConfig | null = null;
 
   /**
    * Html canvas element
@@ -88,9 +88,9 @@ export class Chart extends BasicElement {
 
   /**
    * Required properties, needed for chart to work correctly.
-   * @returns {ChartConfiguration} config
+   * @returns {ChartConfig} config
    */
-  protected get requiredConfig (): ChartConfiguration {
+  protected get requiredConfig (): ChartConfig {
     return {
       options: {
         responsive: true,
@@ -174,9 +174,9 @@ export class Chart extends BasicElement {
   /**
    * Themable parts of the config.
    * This will be merged into the configuration object.
-   * @returns {ChartConfiguration} chart config with theme
+   * @returns {ChartConfig} chart config with theme
    */
-  protected get themableConfig (): ChartConfiguration {
+  protected get themableConfig (): ChartConfig {
     const style = getComputedStyle(this);
 
     // TODO: Try and remove the need for global object modification.
