@@ -1,4 +1,4 @@
-type HeatmapConfiguration = {
+type HeatmapConfig = {
   data: Array<HeatmapCell[]>;
   yAxis?: HeatmapYAxis;
   xAxis?: HeatmapXAxis;
@@ -45,5 +45,5 @@ type HeatmapTooltipCallback = (activeCell: HeatmapCell) => HTMLElement | undefin
 type HeatmapRenderCallback = (cell: HeatmapCell) => HeatmapCustomisableProperties;
 
 export {
-  HeatmapCell, HeatmapXAxis, HeatmapYAxis, HeatmapConfiguration, HeatmapTooltipCallback, HeatmapRenderCallback, HeatmapCustomisableProperties
+  HeatmapCell, HeatmapXAxis, HeatmapYAxis, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback, HeatmapCustomisableProperties
 };

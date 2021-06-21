@@ -17,13 +17,13 @@ import '../tooltip';
 
 import { Track } from './helpers/track';
 import { blend, brighten, darken, isLight, interpolate } from './helpers/color';
-import { HeatmapCell, HeatmapConfiguration, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
+import { HeatmapCell, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
 import { getResponsiveFontSize, getMaximumTextWidth, getMaximumLabelTextWidth, MIN_FONT_SIZE } from './helpers/text';
 
 const MAX_CELL_WIDTH_RATIO = 0.85;
 const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
 
-export { HeatmapCell, HeatmapXAxis, HeatmapYAxis, HeatmapConfiguration, HeatmapTooltipCallback, HeatmapRenderCallback, HeatmapCustomisableProperties } from './helpers/types';
+export { HeatmapCell, HeatmapXAxis, HeatmapYAxis, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback, HeatmapCustomisableProperties } from './helpers/types';
 
 /**
  * A graphical representation of data where the individual
@@ -85,10 +85,10 @@ export class Heatmap extends ResponsiveElement {
 
   /**
    * Heatmap configuration options.
-   * @type {HeatmapConfiguration}
+   * @type {HeatmapConfig}
    */
   @property({ type: Object })
-  public config: HeatmapConfiguration | null = null;
+  public config: HeatmapConfig | null = null;
 
   /**
    * Number of maximum label width that cell can paint in pixel.
