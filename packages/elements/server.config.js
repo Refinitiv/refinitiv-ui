@@ -25,7 +25,7 @@ module.exports = Object.assign(config, {
       if (url === '/' || url === '/index.html') {
         context.url = `${elementRootDir}/src/${argv.element}/__demo__/index.html`;
       }
-      else if (url.startsWith('/lib')) {
+      else if (url.startsWith('/lib') || url.startsWith('/src')) {
         context.url = `${elementRootDir}${url}`;
       }
 

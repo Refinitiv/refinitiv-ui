@@ -22,7 +22,7 @@ module.exports = {
       if (url === '/' || url === '/index.html') {
         context.url = `${packagesPath}/__demo__/index.html`;
       }
-      else if (url.startsWith('/lib')) {
+      else if (url.startsWith('/lib') || url.startsWith('/src')) {
         context.url = `${packagesPath}${url}`;
       }
       return next();
