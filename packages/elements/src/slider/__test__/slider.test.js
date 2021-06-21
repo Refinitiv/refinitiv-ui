@@ -33,10 +33,10 @@ describe('Slider', () => {
       else {
         displayValue = value.toFixed(valueDecimalCount).toString();
       }
-      return Number(displayValue).toString();
+      return Number(displayValue);
     }
     else{
-      return calculateDragValue(el, mouseX).toString();
+      return calculateDragValue(el, mouseX);
     }
   };
 
@@ -643,7 +643,7 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: 100, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.value).to.equal(calculateValue(el, 100).toString());
+        expect(el.value).to.equal(calculateValue(el, 100).toFixed(0).toString());
       });
 
       it('Drag thumb slider has range on desktop', async () => {
@@ -656,7 +656,7 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: 100, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, 100));
+        expect(el.from).to.equal(calculateValue(el, 100).toFixed(0));
         expect(el.to).to.equal('100');
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: 150, clientY: 0 })));
@@ -665,16 +665,16 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: 150, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.from).to.equal(calculateValue(el, 150));
+        expect(el.from).to.equal(calculateValue(el, 150).toFixed(0));
         expect(el.to).to.equal('100');
 
         // Drag to
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: window.innerWidth - 100, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, 150));
+        expect(el.from).to.equal(calculateValue(el, 150).toFixed(0));
 
-        expect(el.to).to.equal(calculateValue(el, window.innerWidth - 100));
+        expect(el.to).to.equal(calculateValue(el, window.innerWidth - 100).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: window.innerWidth - 90, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -682,8 +682,8 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: window.innerWidth - 90, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.from).to.equal(calculateValue(el, 150));
-        expect(el.to).to.equal(calculateValue(el, window.innerWidth - 90));
+        expect(el.from).to.equal(calculateValue(el, 150).toFixed(0));
+        expect(el.to).to.equal(calculateValue(el, window.innerWidth - 90).toString());
       });
 
       it('Drag "from" thumb slider to end of right.', async () => {
@@ -696,7 +696,7 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: 100, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, 100));
+        expect(el.from).to.equal(calculateValue(el, 100).toFixed(0));
         expect(el.to).to.equal('100');
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: window.innerWidth, clientY: 0 })));
@@ -720,7 +720,7 @@ describe('Slider', () => {
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
         expect(el.from).to.equal('0');
-        expect(el.to).to.equal(calculateValue(el, window.innerWidth - 100));
+        expect(el.to).to.equal(calculateValue(el, window.innerWidth - 100).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: 0, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -745,15 +745,15 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: clickFromPosition, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, clickFromPosition));
+        expect(el.from).to.equal(calculateValue(el, clickFromPosition).toString());
         expect(el.to).to.equal('100');
 
         // Click to
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: clickToPosition, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, clickFromPosition));
-        expect(el.to).to.equal(calculateValue(el, clickToPosition));
+        expect(el.from).to.equal(calculateValue(el, clickFromPosition).toString());
+        expect(el.to).to.equal(calculateValue(el, clickToPosition).toString());
       });
 
       it('Event fires only when the "value-changed" in slider', async () => {
@@ -773,7 +773,7 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragValuePositionFirst, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.value).to.equal(calculateValue(el, dragValuePositionFirst));
+        expect(el.value).to.equal(calculateValue(el, dragValuePositionFirst).toString());
 
         // Dragging
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragValuePositionLast, clientY: 0 })));
@@ -783,13 +783,13 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragValuePositionLast, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.value).to.equal(calculateValue(el, dragValuePositionLast));
+        expect(el.value).to.equal(calculateValue(el, dragValuePositionLast).toString());
 
         // Drag 'value' position 30 to 20
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragValuePositionSecond, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.value).to.equal(calculateValue(el, dragValuePositionSecond));
+        expect(el.value).to.equal(calculateValue(el, dragValuePositionSecond).toString());
 
         // dragging
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragValuePositionLast, clientY: 0 })));
@@ -799,7 +799,7 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragValuePositionLast, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.value).to.equal(calculateValue(el, dragValuePositionLast));
+        expect(el.value).to.equal(calculateValue(el, dragValuePositionLast).toString());
 
         // Check call fire event
         expect(callCountValue).to.equal(1);
@@ -830,7 +830,7 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragFromPositionFirst, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, dragFromPositionFirst));
+        expect(el.from).to.equal(calculateValue(el, dragFromPositionFirst).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragFromPositionLast, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -838,13 +838,13 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragFromPositionLast, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.from).to.equal(calculateValue(el, dragFromPositionLast));
+        expect(el.from).to.equal(calculateValue(el, dragFromPositionLast).toString());
 
         // Drag 'from' position 30 to 20
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragFromPositionSecond, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, dragFromPositionSecond));
+        expect(el.from).to.equal(calculateValue(el, dragFromPositionSecond).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragFromPositionLast, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -852,7 +852,7 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragFromPositionLast, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.from).to.equal(calculateValue(el, dragFromPositionLast));
+        expect(el.from).to.equal(calculateValue(el, dragFromPositionLast).toString());
 
         const dragToPositionFirst = tabSliderPosition(90);
         const dragToPositionSecond = tabSliderPosition(60);
@@ -862,7 +862,7 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragToPositionFirst, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.to).to.equal(calculateValue(el, dragToPositionFirst));
+        expect(el.to).to.equal(calculateValue(el, dragToPositionFirst).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragToPositionLast, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -870,13 +870,13 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragToPositionLast, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.to).to.equal(calculateValue(el, dragToPositionLast));
+        expect(el.to).to.equal(calculateValue(el, dragToPositionLast).toString());
 
         // Drag 'to' position 60 to 50
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragToPositionSecond, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.to).to.equal(calculateValue(el, dragToPositionSecond));
+        expect(el.to).to.equal(calculateValue(el, dragToPositionSecond).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragToPositionLast, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -884,7 +884,7 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragToPositionLast, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.to).to.equal(calculateValue(el, dragToPositionLast));
+        expect(el.to).to.equal(calculateValue(el, dragToPositionLast).toString());
 
         // Check call fire event
         expect(callCountFrom).to.equal(1);
@@ -1017,7 +1017,7 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: clickPositionLeft, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, clickPositionLeft));
+        expect(el.from).to.equal(calculateValue(el, clickPositionLeft).toString());
         expect(el.to).to.equal(el.max);
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: clickPositionLeft, clientY: 0 })));
@@ -1026,7 +1026,7 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: clickPositionLeft, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.from).to.equal(calculateValue(el, clickPositionLeft));
+        expect(el.from).to.equal(calculateValue(el, clickPositionLeft).toString());
         expect(el.to).to.equal(el.max);
 
         await elementUpdated(el);
@@ -1036,8 +1036,8 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: clickPositionRight, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, clickPositionLeft));
-        expect(el.to).to.equal(calculateValue(el, clickPositionRight));
+        expect(el.from).to.equal(calculateValue(el, clickPositionLeft).toString());
+        expect(el.to).to.equal(calculateValue(el, clickPositionRight).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: clickPositionRight, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -1045,8 +1045,8 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: clickPositionRight, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.from).to.equal(calculateValue(el, clickPositionLeft));
-        expect(el.to).to.equal(calculateValue(el, clickPositionRight));
+        expect(el.from).to.equal(calculateValue(el, clickPositionLeft).toString());
+        expect(el.to).to.equal(calculateValue(el, clickPositionRight).toString());
       });
 
       it('Drag thumb slider range to left and right when has max="10"', async () => {
@@ -1063,8 +1063,8 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: clickPositionLeft, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, clickPositionLeft));
-        expect(el.to).to.equal(calculateValue(el, clickPositionRight));
+        expect(el.from).to.equal(calculateValue(el, clickPositionLeft).toString());
+        expect(el.to).to.equal(calculateValue(el, clickPositionRight).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: clickPositionLeft, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -1072,8 +1072,8 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: clickPositionLeft, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.from).to.equal(calculateValue(el, clickPositionLeft));
-        expect(el.to).to.equal(calculateValue(el, clickPositionRight));
+        expect(el.from).to.equal(calculateValue(el, clickPositionLeft).toString());
+        expect(el.to).to.equal(calculateValue(el, clickPositionRight).toString());
 
         await elementUpdated(el);
 
@@ -1081,8 +1081,8 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: clickPositionRight, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, clickPositionLeft));
-        expect(el.to).to.equal(calculateValue(el, clickPositionRight));
+        expect(el.from).to.equal(calculateValue(el, clickPositionLeft).toString());
+        expect(el.to).to.equal(calculateValue(el, clickPositionRight).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: clickPositionRight, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -1090,8 +1090,8 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: clickPositionRight, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.from).to.equal(calculateValue(el, clickPositionLeft));
-        expect(el.to).to.equal(calculateValue(el, clickPositionRight));
+        expect(el.from).to.equal(calculateValue(el, clickPositionLeft).toString());
+        expect(el.to).to.equal(calculateValue(el, clickPositionRight).toString());
       });
 
       it('Drag thumb slider range when has min="0.1", max="10" and step="0.5"', async () => {
@@ -1110,8 +1110,8 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: clickPositionLeft, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, clickPositionLeft));
-        expect(el.to).to.equal(calculateValue(el, clickPositionRight));
+        expect(el.from).to.equal(calculateValue(el, clickPositionLeft).toString());
+        expect(el.to).to.equal(calculateValue(el, clickPositionRight).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: clickPositionLeft, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -1119,8 +1119,8 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: clickPositionLeft, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.from).to.equal(calculateValue(el, clickPositionLeft));
-        expect(el.to).to.equal(calculateValue(el, clickPositionRight));
+        expect(el.from).to.equal(calculateValue(el, clickPositionLeft).toString());
+        expect(el.to).to.equal(calculateValue(el, clickPositionRight).toString());
 
         await elementUpdated(el);
 
@@ -1128,8 +1128,8 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: clickPositionRight, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, clickPositionLeft));
-        expect(el.to).to.equal(calculateValue(el, clickPositionRight));
+        expect(el.from).to.equal(calculateValue(el, clickPositionLeft).toString());
+        expect(el.to).to.equal(calculateValue(el, clickPositionRight).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: clickPositionRight, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -1137,8 +1137,8 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: clickPositionRight, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.from).to.equal(calculateValue(el, clickPositionLeft));
-        expect(el.to).to.equal(calculateValue(el, clickPositionRight));
+        expect(el.from).to.equal(calculateValue(el, clickPositionLeft).toString());
+        expect(el.to).to.equal(calculateValue(el, clickPositionRight).toString());
       });
 
       it('Drag thumb slider range when has min-range more than step', async () => {
@@ -1161,8 +1161,8 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition20, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, dragPosition20));
-        expect(el.to).to.equal(calculateValue(el, dragPosition100));
+        expect(el.from).to.equal(calculateValue(el, dragPosition20).toString());
+        expect(el.to).to.equal(calculateValue(el, dragPosition100).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition40, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -1170,8 +1170,8 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPosition40, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.from).to.equal(calculateValue(el, dragPosition40));
-        expect(el.to).to.equal(calculateValue(el, dragPosition100));
+        expect(el.from).to.equal(calculateValue(el, dragPosition40).toString());
+        expect(el.to).to.equal(calculateValue(el, dragPosition100).toString());
 
         await elementUpdated(el);
 
@@ -1179,8 +1179,8 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition80, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, dragPosition40));
-        expect(el.to).to.equal(calculateValue(el, dragPosition80));
+        expect(el.from).to.equal(calculateValue(el, dragPosition40).toString());
+        expect(el.to).to.equal(calculateValue(el, dragPosition80).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition40, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -1189,8 +1189,8 @@ describe('Slider', () => {
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
 
-        expect(el.from).to.equal(calculateValue(el, dragPosition40));
-        expect(el.to).to.equal(calculateValue(el, dragPosition60));
+        expect(el.from).to.equal(calculateValue(el, dragPosition40).toString());
+        expect(el.to).to.equal(calculateValue(el, dragPosition60).toString());
       });
 
       it('Drag thumb slider range when has min-range less more step', async () => {
@@ -1212,8 +1212,8 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition20, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, dragPosition20));
-        expect(el.to).to.equal(calculateValue(el, dragPosition100));
+        expect(el.from).to.equal(calculateValue(el, dragPosition20).toString());
+        expect(el.to).to.equal(calculateValue(el, dragPosition100).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition40, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -1221,8 +1221,8 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPosition40, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.from).to.equal(calculateValue(el, dragPosition40));
-        expect(el.to).to.equal(calculateValue(el, dragPosition100));
+        expect(el.from).to.equal(calculateValue(el, dragPosition40).toString());
+        expect(el.to).to.equal(calculateValue(el, dragPosition100).toString());
 
         await elementUpdated(el);
 
@@ -1230,8 +1230,8 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition80, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, dragPosition40));
-        expect(el.to).to.equal(calculateValue(el, dragPosition80));
+        expect(el.from).to.equal(calculateValue(el, dragPosition40).toString());
+        expect(el.to).to.equal(calculateValue(el, dragPosition80).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition40, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -1240,8 +1240,8 @@ describe('Slider', () => {
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
 
-        expect(el.from).to.equal(calculateValue(el, dragPosition40));
-        expect(el.to).to.equal(calculateValue(el, dragPosition40));
+        expect(el.from).to.equal(calculateValue(el, dragPosition40).toString());
+        expect(el.to).to.equal(calculateValue(el, dragPosition40).toString());
       });
 
       it('Drag thumb slider to the right when value decimal boundary more than max decimal', async () => {
@@ -1287,8 +1287,8 @@ describe('Slider', () => {
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition80, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, dragPosition0));
-        expect(el.to).to.equal(calculateValue(el, dragPosition80));
+        expect(el.from).to.equal(calculateValue(el, dragPosition0).toString());
+        expect(el.to).to.equal(calculateValue(el, dragPosition80).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition100, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -1297,15 +1297,15 @@ describe('Slider', () => {
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
 
-        expect(el.from).to.equal(calculateValue(el, dragPosition0));
-        expect(el.to).to.equal(calculateValue(el, dragPosition100));
+        expect(el.from).to.equal(calculateValue(el, dragPosition0).toString());
+        expect(el.to).to.equal(calculateValue(el, dragPosition100).toString());
 
         // Drag from
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition20, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
         expect(el.dragging).to.be.true;
-        expect(el.from).to.equal(calculateValue(el, dragPosition20));
-        expect(el.to).to.equal(calculateValue(el, dragPosition100));
+        expect(el.from).to.equal(calculateValue(el, dragPosition20).toString());
+        expect(el.to).to.equal(calculateValue(el, dragPosition100).toString());
 
         setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition100, clientY: 0 })));
         await oneEvent(window, 'mousemove');
@@ -1313,8 +1313,8 @@ describe('Slider', () => {
         setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPosition100, clientY: 0 })));
         await oneEvent(window, 'mouseup');
         expect(el.dragging).to.be.false;
-        expect(el.from).to.equal(calculateValue(el, dragPosition100));
-        expect(el.to).to.equal(calculateValue(el, dragPosition100));
+        expect(el.from).to.equal(calculateValue(el, dragPosition100).toString());
+        expect(el.to).to.equal(calculateValue(el, dragPosition100).toString());
       });
 
       it('Event value-changed should not fired when property programmatically set', async () => {
