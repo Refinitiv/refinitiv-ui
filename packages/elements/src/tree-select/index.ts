@@ -22,8 +22,8 @@ import '../checkbox';
 import '../tree';
 import { Overlay } from '../overlay';
 import { ComboBox, ComboBoxData as TreeSelectData, ComboBoxFilter as TreeSelectFilter } from '../combo-box';
-import { TreeRenderer as TreeSelectRenderer } from '../tree';
-import { TreeDataItem as T } from '../tree/helpers/types';
+
+import { TreeRenderer as TreeSelectRenderer, TreeDataItem as T } from '../tree';
 import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager';
 
 export { TreeSelectRenderer, TreeSelectData, TreeSelectFilter };
