@@ -10,7 +10,7 @@ import {
 import '../../icon';
 import { preload } from '../../icon';
 import '../../checkbox';
-import { TreeItemData } from '../helpers/types';
+import { TreeDataItem } from '../helpers/types';
 import { CheckedState } from '../managers/tree-manager';
 
 preload('right');
@@ -24,7 +24,7 @@ const emptyTemplate = html``;
 @customElement('ef-tree-item', {
   alias: 'coral-tree-item'
 })
-export class TreeItem<T extends TreeItemData = TreeItemData> extends ControlElement {
+export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElement {
 
   /**
    * Checked state of the item

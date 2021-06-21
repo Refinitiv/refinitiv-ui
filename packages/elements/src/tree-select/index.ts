@@ -23,7 +23,7 @@ import '../tree';
 import { Overlay } from '../overlay';
 import { ComboBox, ComboBoxData as TreeSelectData, ComboBoxFilter as TreeSelectFilter } from '../combo-box';
 import { TreeRenderer as TreeSelectRenderer } from '../tree';
-import { TreeItemData as T } from '../tree/helpers/types';
+import { TreeDataItem as T } from '../tree/helpers/types';
 import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager';
 
 export { TreeSelectRenderer, TreeSelectData, TreeSelectFilter };

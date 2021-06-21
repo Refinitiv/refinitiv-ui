@@ -1,5 +1,5 @@
 import { CollectionComposer } from '@refinitiv-ui/utils';
-import { TreeItemData } from './types';
+import { TreeDataItem } from './types';
 import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager';
 
 import { Renderer } from '../../list/renderer';
@@ -14,10 +14,10 @@ type RendererScope = {
 
 export class TreeRenderer extends Renderer {
   constructor (scope?: unknown) {
-    let manager: TreeManager<TreeItemData>;
+    let manager: TreeManager<TreeDataItem>;
     let currentMode: TreeManagerMode;
-    let currentComposer: CollectionComposer<TreeItemData>;
-    super((item: TreeItemData, composer: CollectionComposer<TreeItemData>, element = document.createElement('ef-tree-item')): HTMLElement => {
+    let currentComposer: CollectionComposer<TreeDataItem>;
+    super((item: TreeDataItem, composer: CollectionComposer<TreeDataItem>, element = document.createElement('ef-tree-item')): HTMLElement => {
       const el = element as TreeItem;
       const multiple = !!scope && (scope as RendererScope).multiple === true;
       const noRelation = !!scope && (scope as RendererScope).noRelation === true;

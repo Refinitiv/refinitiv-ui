@@ -1,8 +1,8 @@
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils';
 
-export type TreeData<T extends TreeItemData = TreeItemData> = T[] | CollectionComposer<T> | null;
+export type TreeData<T extends TreeDataItem = TreeDataItem> = T[] | CollectionComposer<T> | null;
 
-export interface TreeItemData extends DataItem {
+export interface TreeDataItem extends DataItem {
   /**
    * Label to show, when rendering the item.
    */

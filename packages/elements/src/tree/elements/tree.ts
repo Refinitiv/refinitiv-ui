@@ -10,7 +10,7 @@ import { CollectionComposer } from '@refinitiv-ui/utils';
 import { List } from '../../list';
 
 import { TreeRenderer } from '../helpers/renderer';
-import { TreeData, TreeItemData } from '../helpers/types';
+import { TreeData, TreeDataItem } from '../helpers/types';
 import { TreeManager, TreeManagerMode } from '../managers/tree-manager';
 
 const EXPAND_TOGGLE_ATTR = 'expand-toggle';
@@ -25,7 +25,7 @@ const deselectAllDeprecation = new DeprecationNotice('deselectAll is deprecated,
  * @fires value-changed - Fired when the users changed selection item.
  */
 @customElement('ef-tree')
-export class Tree<T extends TreeItemData = TreeItemData> extends List<T> {
+export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * Tree manager used for manipulation
    */

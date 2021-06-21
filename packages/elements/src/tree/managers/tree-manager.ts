@@ -1,5 +1,5 @@
 import { CollectionComposer } from '@refinitiv-ui/utils';
-import { TreeItemData } from '../helpers/types';
+import { TreeDataItem } from '../helpers/types';
 
 export enum CheckedState {
   CHECKED = 1,
@@ -18,7 +18,7 @@ export enum TreeManagerMode {
   INDEPENDENT = 0
 }
 
-export class TreeManager<T extends TreeItemData> {
+export class TreeManager<T extends TreeDataItem> {
   /**
    * Internal composer used for managing the data
    */
