@@ -20,6 +20,10 @@ import {
   utcFormat as utcFormatDate
 } from './date';
 
+import {
+  throwInvalidFormat
+} from './utils';
+
 /*
 * DateTime segment
 */
@@ -49,8 +53,7 @@ enum Format {
 type InputFormat = Format | 'yyyy-MM-dd\'T\'HH:mm' | 'yyyy-MM-dd\'T\'HH:mm:ss' | 'yyyy-MM-dd\'T\'HH:mm:ss.SSS';
 
 /**
- * @private
- * Split datetime
+ * Split datetime into date and time segments
  * @param value Datetime string
  * @returns object containing date and time
  */
@@ -65,13 +68,13 @@ const split = (value: string): { date: string, time: string } => {
 /**
  * Try to guess datetime format
  * @param value Value to test
- * @returns format DateTime format or 'yyyy-MM-dd'T'HH:mm'
+ * @returns format DateTime format
  */
-const getFormat = function (value: string): Format {
+const getFormat = function (value: string): Format | null {
   const { date, time } = split(value);
 
   if (!date || !time || !isValidDate(date, DateFormat.yyyyMMdd) || !isValidTime(time)) {
-    return Format.yyyMMddTHHmm;
+    return null;
   }
 
   const timeFormat = getTimeFormat(time);
@@ -94,7 +97,7 @@ const getFormat = function (value: string): Format {
  * @param [format] The format to validate value against. If not defined, try to guess the format
  * @returns value is valid.
  */
-const isValid = function (value: string, format?: InputFormat): boolean {
+const isValid = function (value: string, format?: InputFormat | null): boolean {
   const { date, time } = split(value);
   if (!date || !time || !isValidDate(date, DateFormat.yyyyMMdd) || !isValidTime(time)) {
     return false;
@@ -163,8 +166,10 @@ const formatDateTime = (value: Segment | Date, format: InputFormat, isUTC: boole
       timeFormat = TimeFormat.HHmmss;
       break;
     case Format.yyyMMddTHHmm:
-    default:
       timeFormat = TimeFormat.HHmm;
+      break;
+    default:
+      throw throwInvalidFormat(format);
   }
   const time = isUTC ? utcFormatTime(timeSegment, timeFormat) : formatTime(timeSegment, timeFormat);
   return `${date}T${time}`;
@@ -240,5 +245,6 @@ export {
   format,
   utcFormat,
   parse,
-  utcParse
+  utcParse,
+  split
 };

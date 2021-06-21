@@ -5,6 +5,7 @@
 import {
   isValidTime,
   isValidDate,
+  isValidDateTime,
   DateTimeSegment,
   TimeSegment,
   DateSegment,
@@ -44,6 +45,11 @@ import {
 } from './datetime';
 
 import {
+  throwInvalidFormat,
+  throwInvalidValue
+} from './utils';
+
+import {
   HOURS_OF_NOON
 } from './timestamps';
 
@@ -65,11 +71,41 @@ type Segment = DateTimeSegment | (TimeSegment & {
 });
 
 const isTime = (value: string | Segment): boolean => {
-  return typeof value === 'string' ? isValidTime(value) : value.year === undefined;
+  if (typeof value === 'string') {
+    return isValidTime(value);
+  }
+
+  return value.year === undefined
+    && value.month === undefined
+    && value.day === undefined
+    && value.hours !== undefined
+    && value.minutes !== undefined;
 };
 
 const isDate = (value: string | Segment): boolean => {
-  return typeof value === 'string' ? isValidDate(value) : value.hours === undefined;
+  if (typeof value === 'string') {
+    return isValidDate(value);
+  }
+
+  return value.year !== undefined
+    && value.month !== undefined
+    && value.day !== undefined
+    && value.hours === undefined
+    && value.minutes === undefined
+    && value.seconds === undefined
+    && value.milliseconds === undefined;
+};
+
+const isDateTime = (value: string | Segment): boolean => {
+  if (typeof value === 'string') {
+    return isValidDateTime(value);
+  }
+
+  return value.year !== undefined
+    && value.month !== undefined
+    && value.day !== undefined
+    && value.hours !== undefined
+    && value.minutes !== undefined;
 };
 
 const toSegment = (value: string | Date, isUTC = false): Segment => {
@@ -85,17 +121,21 @@ const toSegment = (value: string | Date, isUTC = false): Segment => {
     return toDateSegment(value, isUTC);
   }
 
-  return toDateTimeSegment(value, isUTC);
+  if (isDateTime(value)) {
+    return toDateTimeSegment(value, isUTC);
+  }
+
+  throw throwInvalidValue(value);
 };
 
 /**
  * @private
  * @param value A valid Date or Segment
- * @param format Date format
+ * @param [format] Date format
  * @param isUTC Local or UTC
  * @returns A formatted date
  */
-const formatAll = (value: Segment | Date, format: Format, isUTC: boolean): string => {
+const formatAll = (value: Segment | Date, format: Format = DateTimeFormat.yyyMMddTHHmm, isUTC: boolean): string => {
   if (value instanceof Date) {
     value = toSegment(value, isUTC);
   }
@@ -127,9 +167,10 @@ const formatAll = (value: Segment | Date, format: Format, isUTC: boolean): strin
     case DateFormat.yyyy:
       const dateSegment = { year, month, day };
       return isUTC ? utcFormatDate(dateSegment, format) : formatDate(dateSegment, format);
-    default:
-      return isUTC ? utcFormatDateTime(dateTimeSegment, DateTimeFormat.yyyMMddTHHmm) : formatDateTime(dateTimeSegment, DateTimeFormat.yyyMMddTHHmm);
+    // no default
   }
+
+  throw throwInvalidFormat(format);
 };
 
 /**
@@ -156,7 +197,7 @@ const utcFormat = (value: Segment | Date, format: Format = DateTimeFormat.yyyMMd
  */
 const parseAll = (value: string | Segment, isUTC: boolean): Date => {
   if (typeof value === 'string') {
-    value = toSegment(value);
+    value = toSegment(value, isUTC);
   }
 
   const {
@@ -179,8 +220,12 @@ const parseAll = (value: string | Segment, isUTC: boolean): Date => {
     return isUTC ? utcParseDate(dateSegment) : parseDate(dateSegment);
   }
 
-  const dateTimeSegment = { year, month, day, hours, minutes, seconds, milliseconds };
-  return isUTC ? utcParseDateTime(dateTimeSegment) : parseDateTime(dateTimeSegment);
+  if (isDateTime(value)) {
+    const dateTimeSegment = { year, month, day, hours, minutes, seconds, milliseconds };
+    return isUTC ? utcParseDateTime(dateTimeSegment) : parseDateTime(dateTimeSegment);
+  }
+
+  return new Date(NaN);
 };
 
 /**
@@ -200,17 +245,20 @@ const utcParse = (value: string | Segment): Date => parseAll(value, true);
 /**
  * Try to guess value format
  * @param value Value to test
- * @returns format Format or 'yyyy-MM-dd'T'HH:mm'
+ * @returns format Format
  */
-const getFormat = function (value: string): Format {
+const getFormat = function (value: string): Format | null {
   if (isValidTime(value)) {
     return getTimeFormat(value);
   }
   if (isValidDate(value)) {
     return getDateFormat(value);
   }
+  if (isValidDateTime(value)) {
+    return getDateTimeFormat(value);
+  }
 
-  return getDateTimeFormat(value);
+  return null;
 };
 
 /**
@@ -325,12 +373,17 @@ const addMonths = (value: string, amount: number): string => {
     return value;
   }
 
+  const format = getFormat(value);
+
+  if (!format) {
+    throw throwInvalidValue(value);
+  }
+
   const date = utcParse(value);
   const dayOfMonth = date.getUTCDate();
   const endOfDesiredMonth = new Date(date.getTime());
   endOfDesiredMonth.setUTCMonth(date.getUTCMonth() + amount + 1, 0);
   const daysInMonth = endOfDesiredMonth.getUTCDate();
-  const format = getFormat(value);
 
   if (dayOfMonth >= daysInMonth) {
     return utcFormat(endOfDesiredMonth, format);
@@ -380,10 +433,14 @@ const addDateTimeOffset = (value: string, amount: number): string => {
   if (!amount) {
     return value;
   }
+  const format = getFormat(value);
+  if (!format) {
+    throw throwInvalidValue(value);
+  }
   const date = utcParse(value);
   const offsetDate = new Date(date.getTime() + amount);
 
-  return utcFormat(offsetDate, getFormat(value));
+  return utcFormat(offsetDate, format);
 };
 
 /**

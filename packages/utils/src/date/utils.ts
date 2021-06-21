@@ -4,7 +4,7 @@
  * @param size Size of end string
  * @returns padded string
  */
-const pad = (number: number, size: number): string => {
+const padNumber = (number: number, size: number): string => {
   let s = `${Math.abs(number)}`;
   while (s.length < size) {
     s = '0' + s;
@@ -12,6 +12,26 @@ const pad = (number: number, size: number): string => {
   return `${number < 0 ? '-' : ''}${s}`;
 };
 
+/**
+ * Throw invalid format error
+ * @param format Invalid format
+ * @returns {void}
+ */
+const throwInvalidFormat = (format: string): void => {
+  throw new Error(`Invalid format provided: \'${format}\'`);
+};
+
+/**
+ * Throw invalid value error
+ * @param value Invalid value
+ * @returns {void}
+ */
+const throwInvalidValue = (value: string): void => {
+  throw new Error(`Invalid value provided: \'${value}\'`);
+};
+
 export {
-  pad
+  padNumber,
+  throwInvalidFormat,
+  throwInvalidValue
 };

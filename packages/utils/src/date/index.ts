@@ -32,15 +32,19 @@ import {
   Segment as DateTimeSegment,
   Format as DateTimeFormat,
   isValid as isValidDateTime,
-  toSegment as toDateTimeSegment
+  toSegment as toDateTimeSegment,
+  split as splitDateTime
 } from './datetime';
 
 export {
   DateTimeSegment,
   DateTimeFormat,
   isValidDateTime,
-  toDateTimeSegment
+  toDateTimeSegment,
+  splitDateTime
 };
+
+export { padNumber } from './utils';
 
 export * from './timestamps';
 export * from './shared';

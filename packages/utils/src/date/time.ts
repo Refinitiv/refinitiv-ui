@@ -1,4 +1,8 @@
-import { pad } from './utils';
+import {
+  padNumber,
+  throwInvalidFormat,
+  throwInvalidValue
+} from './utils';
 import {
   MILLISECONDS_IN_DAY,
   MILLISECONDS_IN_HOUR,
@@ -46,24 +50,28 @@ const HHmm_REGEXP = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/;
 const HHmmss_REGEXP = /^([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/;
 const HHmmssSSS_REGEXP = /^([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])\.([0-9][0-9][0-9])$/;
 
-const padHour = (hour: number): string => pad(hour, 2);
-const padMinute = (minute: number): string => pad(minute, 2);
-const padSecond = (second: number): string => pad(second, 2);
-const padMillisecond = (millisecond: number): string => pad(millisecond, 3);
+const padHour = (hour: number): string => padNumber(hour, 2);
+const padMinute = (minute: number): string => padNumber(minute, 2);
+const padSecond = (second: number): string => padNumber(second, 2);
+const padMillisecond = (millisecond: number): string => padNumber(millisecond, 3);
 
 /**
  * Try to guess time format
  * @param value Value to test
- * @returns format Time format or 'HH:mm'
+ * @returns format Time format or undefined
  */
-const getFormat = function (value: string): Format {
+const getFormat = function (value: string): Format | null {
   if (HHmmssSSS_REGEXP.test(value)) {
     return Format.HHmmssSSS;
   }
   if (HHmmss_REGEXP.test(value)) {
     return Format.HHmmss;
   }
-  return Format.HHmm;
+  if (HHmm_REGEXP.test(value)) {
+    return Format.HHmm;
+  }
+
+  return null;
 };
 
 /**
@@ -73,7 +81,7 @@ const getFormat = function (value: string): Format {
  * @param [format] The format to validate value against. If not defined, try to guess the format
  * @returns value is valid.
  */
-const isValid = function (value: string, format?: InputFormat): boolean {
+const isValid = function (value: string, format?: InputFormat | null): boolean {
   format = format || getFormat(value);
 
   switch (format) {
@@ -82,9 +90,11 @@ const isValid = function (value: string, format?: InputFormat): boolean {
     case Format.HHmmssSSS:
       return HHmmssSSS_REGEXP.test(value);
     case Format.HHmm:
-    default:
       return HHmm_REGEXP.test(value);
+    // no default
   }
+
+  return false;
 };
 
 /**
@@ -103,7 +113,7 @@ const toSegment = (value: string | Date, isUTC = false): Segment => {
   }
 
   const msSplit = value.split('.');
-  const split = msSplit[0].split(':');
+  const split = (msSplit[0] || '').split(':');
 
   return {
     hours: Number(split[0]) || 0,
@@ -128,9 +138,11 @@ const formatTime = (value: Segment | Date, format: InputFormat, isUTC: boolean):
     case Format.HHmmssSSS:
       return `${padHour(segment.hours)}:${padMinute(segment.minutes)}:${padSecond(segment.seconds || 0)}.${padMillisecond(segment.milliseconds || 0)}`;
     case Format.HHmm:
-    default:
       return `${padHour(segment.hours)}:${padMinute(segment.minutes)}`;
+    // no default
   }
+
+  throw throwInvalidFormat(format);
 };
 
 /**
@@ -202,6 +214,12 @@ const addOffset = (value: string, amount: number): string => {
     return value;
   }
 
+  const format = getFormat(value);
+
+  if (!format) {
+    throw throwInvalidValue(value);
+  }
+
   const segment = toSegment(value);
   let duration
     = segment.hours * MILLISECONDS_IN_HOUR
@@ -220,7 +238,7 @@ const addOffset = (value: string, amount: number): string => {
     minutes: Math.floor((duration / MILLISECONDS_IN_MINUTE) % 60),
     seconds: Math.floor((duration / MILLISECONDS_IN_SECOND) % 60),
     milliseconds: Math.floor(duration % 1000)
-  }, getFormat(value), false);
+  }, format, false);
 };
 
 /**

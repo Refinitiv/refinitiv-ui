@@ -1,5 +1,6 @@
 import {
-  pad
+  padNumber,
+  throwInvalidFormat
 } from './utils';
 
 /**
@@ -38,9 +39,9 @@ const yyyy_REGEXP = /^-?\d+$/;
 const yyyyMM_REGEXP = /^-?\d+-(0[1-9]|1[0-2])$/;
 const yyyyMMdd_REGEXP = /^-?\d+-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$/; // validate number of days separately via the table
 
-const padYear = (year: number): string => pad(year, year >= 0 ? 4 : 6);
-const padMonth = (month: number): string => pad(month + 1, 2);
-const padDay = (day: number): string => pad(day, 2);
+const padYear = (year: number): string => padNumber(year, year >= 0 ? 4 : 6);
+const padMonth = (month: number): string => padNumber(month + 1, 2);
+const padDay = (day: number): string => padNumber(day, 2);
 
 /**
  * Get Local/UTC values segments of Date object or value string
@@ -62,7 +63,6 @@ const toSegment = (value: string | Date, isUTC = false): Segment => {
     split.shift();
     split[0] = '-' + split[0];
   }
-
 
   return {
     year: Number(split[0]),
@@ -86,9 +86,11 @@ const formatDate = (value: Segment | Date, format: InputFormat, isUTC: boolean):
     case Format.yyyyMM:
       return `${padYear(segment.year)}-${padMonth(segment.month)}`;
     case Format.yyyyMMdd:
-    default:
       return `${padYear(segment.year)}-${padMonth(segment.month)}-${padDay(segment.day)}`;
+    // no default
   }
+
+  throw throwInvalidFormat(format);
 };
 
 /**
@@ -110,16 +112,20 @@ const utcFormat = (value: Segment | Date, format: InputFormat = Format.yyyyMMdd)
 /**
  * Try to guess date format
  * @param value Value to test
- * @returns format Date format or 'yyyy'
+ * @returns format Date format
  */
-const getFormat = function (value: string): Format {
+const getFormat = function (value: string): Format | null {
   if (yyyyMMdd_REGEXP.test(value)) {
     return Format.yyyyMMdd;
   }
   if (yyyyMM_REGEXP.test(value)) {
     return Format.yyyyMM;
   }
-  return Format.yyyy;
+  if (yyyy_REGEXP.test(value)) {
+    return Format.yyyy;
+  }
+
+  return null;
 };
 
 /**
@@ -128,7 +134,7 @@ const getFormat = function (value: string): Format {
  * @param [format] The format to validate value against. If not defined, try to guess the format
  * @returns true if value format is correct
  */
-const isValid = (value: string, format?: InputFormat): boolean => {
+const isValid = (value: string, format?: InputFormat | null): boolean => {
   format = format || getFormat(value);
 
   if (format === Format.yyyy) {
@@ -137,11 +143,9 @@ const isValid = (value: string, format?: InputFormat): boolean => {
   else if (format === Format.yyyyMM) {
     return yyyyMM_REGEXP.test(value);
   }
-
-  // default
-  if (yyyyMMdd_REGEXP.test(value)) { // number of days
+  else if (format === Format.yyyyMMdd && yyyyMMdd_REGEXP.test(value)) {
     const segment = toSegment(value);
-    return segment.day <= getDaysInMonth(segment.year, segment.month);
+    return segment.day <= getDaysInMonth(segment.year, segment.month); // number of days
   }
 
   return false;
