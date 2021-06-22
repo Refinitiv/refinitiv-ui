@@ -6,7 +6,7 @@
   "command": {
     "publish": {
       "message": "chore(release): publish [skip ci]",
-      "registry": "https://bams-aws.refinitiv.com/artifactory/api/npm/default.npm.cloud"
+      "registry": "https://registry.npmjs.org"
     }
   },
   "ignoreChanges": ["**/__test__/**", "**/__demo__/**", "**/__snapshots__/**"]
