@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "5.0.0-alpha.14",
+  "version": "5.0.0-alpha.15",
   "description": "Element Framework Elements",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -30,7 +30,7 @@
     "@refinitiv-ui/halo-theme": "^5.0.0-alpha.9",
     "@refinitiv-ui/solar-theme": "^5.0.0-alpha.8",
     "@refinitiv-ui/translate": "^5.0.0-alpha.7",
-    "@refinitiv-ui/utils": "^5.0.0-alpha.5",
+    "@refinitiv-ui/utils": "^5.0.0-alpha.6",
     "browser-sparkline": "1.1.6",
     "chart.js": "2.9.3",
     "d3-color": "^2.0.0",

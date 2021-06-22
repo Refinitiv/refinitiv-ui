@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/utils",
-  "version": "5.0.0-alpha.5",
+  "version": "5.0.0-alpha.6",
   "description": "Shared utilities for Element Framework",
   "main": "lib/utils.js",
   "module": "lib/utils.js",
@@ -16,9 +16,9 @@
     "build": "tsc --sourceMap false"
   },
   "dependencies": {
-    "d3-color": "^2.0.0",
-    "uuid": "^8.3.2",
     "@types/d3-color": "^2.0.1",
-    "@types/uuid": "^8.3.0"    
+    "@types/uuid": "^8.3.0",
+    "d3-color": "^2.0.0",
+    "uuid": "^8.3.2"
   }
 }
