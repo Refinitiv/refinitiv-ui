@@ -37,7 +37,7 @@ release_v5:
     - yarn --ignore-scripts --frozen-lockfile
 
     # Build only changed packages and its dependencies
-    - yarn lerna run build --include-dependencies --since
+    - yarn lerna run build
 
     # Get changed packages version from conventional commit message
     - yarn lerna version --conventional-commits --conventional-prerelease --preid=beta --yes
