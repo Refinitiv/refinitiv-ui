@@ -5,6 +5,11 @@
   "author": "Refinitiv",
   "license": "Apache-2.0",
   "main": "entrypoints/all.js",
+  "repository": {
+    "type": "git",
+    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "directory": "packages/polyfills"
+  },
   "dependencies": {
     "@webcomponents/custom-elements": "^1.4.1",
     "@webcomponents/shadycss": "^1.10.0",
@@ -13,5 +18,8 @@
     "@webcomponents/webcomponents-platform": "^1.0.0",
     "core-js": "^2.6.11",
     "shady-css-scoped-element": "0.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

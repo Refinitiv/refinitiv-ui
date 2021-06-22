@@ -25,5 +25,8 @@
   "peerDependencies": {
     "eslint": "^7.19.0",
     "typescript": "^4.2.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

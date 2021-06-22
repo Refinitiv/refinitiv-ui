@@ -26,5 +26,8 @@
     "less-plugin-npm-import": "^2.1.0",
     "postcss": "^7.0.18",
     "yargs-parser": "^15.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

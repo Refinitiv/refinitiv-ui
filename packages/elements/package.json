@@ -44,5 +44,8 @@
     "@types/chart.js": "^2.9.31",
     "@types/d3-color": "^2.0.1",
     "@types/d3-interpolate": "^2.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

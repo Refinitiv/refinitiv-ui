@@ -1,7 +1,7 @@
 {
   "name": "@refinitiv-ui/phrasebook",
   "version": "5.0.0-beta.0",
-  "description": "Collection of messages in ELF components for translation",
+  "description": "Collection of messages in EF components for translation",
   "author": "Refinitiv",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
@@ -20,5 +20,8 @@
   "devDependencies": {
     "esm": "^3.2.25",
     "mocha": "^8.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
