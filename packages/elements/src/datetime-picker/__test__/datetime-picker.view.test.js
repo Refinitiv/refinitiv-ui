@@ -1,6 +1,5 @@
 import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-import { formatToView } from '@refinitiv-ui/elements/datetime-picker';
-import { addMonths, typeText, calendarClickNext } from './utils';
+import { typeText, calendarClickNext, formatToView, addMonths } from './utils';
 
 // import element and theme
 import '@refinitiv-ui/elements/datetime-picker';
@@ -17,6 +16,7 @@ describe('DatetimePicker', () => {
     it('Check default view duplex', async () => {
       const el = await fixture('<ef-datetime-picker duplex></ef-datetime-picker>');
       expect(el.views[0]).to.be.equal(formatToView(now), 'Default view duplex from should be set to this month');
+      console.log(formatToView(addMonths(now, 1)));
       expect(el.views[1]).to.be.equal(formatToView(addMonths(now, 1)), 'Default view duplex to should be set to next month');
     });
     it('Check default view duplex=split', async () => {
@@ -126,26 +126,26 @@ describe('DatetimePicker', () => {
     it('In duplex="split" mode calendar view should be in sync', async () => {
       const el = await fixture('<ef-datetime-picker duplex="split" opened></ef-datetime-picker>');
       el.views = ['2020-04', '2020-05'];
-      await elementUpdated();
+      await elementUpdated(el);
       const calendarFrom = el.calendarEl;
       const calendarTo = el.calendarToEl;
       calendarClickNext(calendarFrom);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(calendarFrom.view).to.equal('2020-05', 'Calendar from is not in sync');
       expect(calendarTo.view).to.equal('2020-05', 'Calendar to is not in sync');
       expect(String(el.views)).to.equal('2020-05,2020-05', 'Clicking next on from calendar did not synchronise views');
       calendarClickNext(calendarFrom);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(calendarFrom.view).to.equal('2020-06', 'Calendar from is not in sync');
       expect(calendarTo.view).to.equal('2020-06', 'Calendar to is not in sync');
       expect(String(el.views)).to.equal('2020-06,2020-06', 'From view cannot be after to view');
       calendarClickNext(calendarTo);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(calendarFrom.view).to.equal('2020-06', 'Calendar from is not in sync');
       expect(calendarTo.view).to.equal('2020-07', 'Calendar to is not in sync');
       expect(String(el.views)).to.equal('2020-06,2020-07', 'Clicking next on to calendar did not synchronise views');
       calendarClickNext(calendarTo);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(calendarFrom.view).to.equal('2020-06', 'Calendar from is not in sync');
       expect(calendarTo.view).to.equal('2020-08', 'Calendar to is not in sync');
       expect(String(el.views)).to.equal('2020-06,2020-08', 'Clicking next on to calendar did not synchronise views');

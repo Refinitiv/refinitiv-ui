@@ -5,8 +5,9 @@ import {
 } from './utils';
 
 // import element and theme
-import { parse } from '@refinitiv-ui/elements/calendar';
+import '@refinitiv-ui/elements/calendar';
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
+import { parse } from '@refinitiv-ui/utils';
 import { RenderView } from '../../../lib/calendar/types.js';
 
 describe('Calendar', () => {
