@@ -5,6 +5,7 @@
   "version": "independent",
   "command": {
     "publish": {
+      "access": "public",
       "message": "chore(release): publish [skip ci]",
       "registry": "https://registry.npmjs.org"
     }
