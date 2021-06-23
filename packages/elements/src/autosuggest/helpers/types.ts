@@ -1,10 +1,10 @@
 import { ItemType } from '../../item';
 
-export type AutosuggestSelectItemEvent = CustomEvent<HTMLElement & { query: string, suggestion: Suggestion }>;
+export type AutosuggestSelectItemEvent = CustomEvent<{ query: string, suggestion: Suggestion }>;
 
 export type AutosuggestHighlightItem = { highlighted: boolean };
 
-export type AutosuggestHighlightItemEvent = CustomEvent<HTMLElement & { target: AutosuggestHighlightItem, oldTarget: AutosuggestHighlightItem }>;
+export type AutosuggestHighlightItemEvent = CustomEvent<{ target: AutosuggestHighlightItem, oldTarget: AutosuggestHighlightItem }>;
 
 export type AutosuggestQueryAction = (event: CustomEvent) => void;
 
