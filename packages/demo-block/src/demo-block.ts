@@ -21,7 +21,7 @@ const Themes = [
 // eslint-disable-next-line @typescript-eslint/no-namespace
 declare namespace ShadyCSS {
   const nativeCss: boolean;
-  function styleDocument(styles: {}): void;
+  function styleDocument(styles: Record<string, unknown>): void;
 }
 
 /* istanbul ignore next */
