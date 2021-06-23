@@ -103,7 +103,7 @@ export abstract class BasicElement extends LitElement {
    * this.getComputedVariable('--invalid-name', '10px'); // return fallback value 10px
    */
   protected getComputedVariable (...options: (CSSValue)[]): string {
-    const option = options.length ? options.shift() + '' : '';
+    const option = options.length ? String(options.shift()) : '';
     if (CSS_VARIABLE_REGEXP.test(option)) {
       const val = getComputedStyleValue(this, option)
       .trim().replace(CSS_VARIABLE_REPLACE_REGEXP, '$1');
@@ -127,7 +127,7 @@ export abstract class BasicElement extends LitElement {
         this.style.removeProperty(key);
       }
       else {
-        this.style.setProperty(key, value + '');
+        this.style.setProperty(key, String(value));
       }
     }
   }
