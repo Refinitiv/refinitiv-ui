@@ -390,7 +390,7 @@ export class Calendar extends ControlElement implements MultiValue {
   protected async performUpdate (): Promise<void> {
     const localFirstDayOfWeek = Number(await this.tPromise('FIRST_DAY_OF_WEEK'));
     this.localFirstDayOfWeek = isNaN(localFirstDayOfWeek) ? FIRST_DAY_OF_WEEK : (localFirstDayOfWeek % 7);
-    super.performUpdate();
+    void super.performUpdate();
   }
 
   /**
