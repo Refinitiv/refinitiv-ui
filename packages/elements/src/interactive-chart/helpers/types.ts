@@ -64,7 +64,7 @@ interface InteractiveChartSeries {
   type: string;
   symbol?: string;
   symbolName?: string;
-  legendPriceFormatter?: Function;
+  legendPriceFormatter?: CallableFunction;
   data: SeriesData;
   seriesOptions?: SeriesPartialOptions<SeriesOptions>;
 }

@@ -435,7 +435,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param param value color
    * @returns color parse
    */
-  private convertColorToString (fn: Function, param: string, ...args: (string|number|undefined)[]): string | object {
+  private convertColorToString (fn: CallableFunction, param: string, ...args: (string|number|undefined)[]): string | object {
     return param ? fn(param, ...args).toString() : {};
   }
 
@@ -806,10 +806,10 @@ export class InteractiveChart extends ResponsiveElement {
     const formatter = this.internalConfig.series[index].hasOwnProperty('legendPriceFormatter') ? this.internalConfig.series[index].legendPriceFormatter : null;
     if(formatter) {
       rowData = {
-        open: formatter(rowData.open),
-        high: formatter(rowData.high),
-        low: formatter(rowData.low),
-        close: formatter(rowData.close)
+        open: formatter(rowData.open) as number,
+        high: formatter(rowData.high) as number,
+        low: formatter(rowData.low) as number,
+        close: formatter(rowData.close) as number
       } as BarData;
     }
 
@@ -863,7 +863,7 @@ export class InteractiveChart extends ResponsiveElement {
   private createTextPrice (rowLegend: RowLegend, price: number, priceColor: string, index: number): void {
     // Uses price formatter if provided
     const formatter = this.internalConfig.series[index].hasOwnProperty('legendPriceFormatter') ? this.internalConfig.series[index].legendPriceFormatter : null;
-    price = formatter ? formatter(price) : price;
+    price = (formatter ? formatter(price) : price) as number;
 
     // Create text price after chart has rendered
     if (this.isHTMLElement(rowLegend)) {
@@ -882,19 +882,21 @@ export class InteractiveChart extends ResponsiveElement {
 
   /**
    * Create span in legend element by several series types
+   * @param rowLegend Legend element
    * @param args text value
    * @returns {void}
    */
-  private createSpan (...args: (string | number | HTMLElement)[]): void {
-    const div = args[0] as HTMLElement; // rowLegend
+  private createSpan (rowLegend: RowLegend, ...args: (string | number)[]): void {
+    const div = rowLegend as HTMLElement; // rowLegend
     const arg = args;
     const len = args.length;
     const color = div.getAttribute('data-color') as string;
-    for (let idx = 1; idx < len; idx++) {
+    for (let idx = 0; idx < len; idx++) {
       const span = document.createElement('span');
-      span.textContent = `${arg[idx]}`;
+      const textContent = `${arg[idx]}`;
+      span.textContent = textContent;
       // Set class by Text O H L C
-      if (['O', 'H', 'L', 'C'].includes(`${arg[idx]}`)) {
+      if (['O', 'H', 'L', 'C'].includes(textContent)) {
         span.setAttribute('class', 'ohlc');
       }
       else {
