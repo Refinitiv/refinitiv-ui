@@ -208,10 +208,10 @@ export class ColorHelpers {
   private static numberToHex (num: number): string {
     if (num && num > 0) {
       if (num < 10) {
-        return '0' + num;
+        return `0${num}`;
       }
       else if (num <= 15) {
-        return '0' + num.toString(16);
+        return `0${num.toString(16)}`;
       }
       else {
         return num.toString(16);
