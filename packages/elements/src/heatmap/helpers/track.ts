@@ -23,7 +23,7 @@ export class Track {
    * Sets track size
    * @param value number of track size
    */
-  set trackSize (value) {
+  set trackSize (value: number) {
     this.init(value, this.laneCount);
   }
 
@@ -39,7 +39,7 @@ export class Track {
    * Sets lane count
    * @param value number of lane count
    */
-  set laneCount (value) {
+  set laneCount (value: number) {
     this.init(this.trackSize, value);
   }
 
@@ -55,7 +55,7 @@ export class Track {
    * Sets cells margin
    * @param value number margin
    */
-  set margin (value) {
+  set margin (value: number) {
     this._margin = value;
   }
 
@@ -67,8 +67,8 @@ export class Track {
    */
   public init (trackSize: number, laneCount: number): void {
     this._trackSize = trackSize;
-    this._laneSizes = new Array(laneCount);
-    this._laneStarts = new Array(laneCount); // For easy hit testing
+    this._laneSizes = [laneCount];
+    this._laneStarts = [laneCount]; // For easy hit testing
     this._laneStarts[0] = 0;
 
     if (trackSize && laneCount) {
