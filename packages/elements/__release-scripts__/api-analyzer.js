@@ -25,11 +25,11 @@ const generateParamByInfo = (info, result) => {
   if (info) {
     result.description = info.node.comment;
     if (
-      info &&
-      info.node &&
-      info.node.typeExpression &&
-      info.node.typeExpression.type &&
-      info.node.typeExpression.type.typeName
+      info
+      && info.node
+      && info.node.typeExpression
+      && info.node.typeExpression.type
+      && info.node.typeExpression.type.typeName
     ) {
       result.type = info.node.typeExpression.type.typeName.escapedText;
     }
@@ -51,10 +51,10 @@ const generateInfo = (declarationMethod, name) => {
 
 const generateParamByDetail = (detail, result) => {
   if (
-    detail &&
-    detail.valueDeclaration &&
-    detail.valueDeclaration.type &&
-    detail.valueDeclaration.type.typeName
+    detail
+    && detail.valueDeclaration
+    && detail.valueDeclaration.type
+    && detail.valueDeclaration.type.typeName
   ) {
     result.type = detail.valueDeclaration.type.typeName.escapedText;
   }
@@ -103,7 +103,7 @@ const declarationMethodMapCallback = (declarationMethod) => {
   return {
     name,
     description,
-    params,
+    params
   };
 };
 
@@ -179,7 +179,9 @@ const handler = async () => {
   // Looking for `index.ts` in each element source folder
   const entries = await fg([`./${ELEMENT_SRC}/*/${INPUT_FILENAME}`], { unique: true });
 
-  if (entries.length === 0) return;
+  if (entries.length === 0) {
+    return;
+  }
   for (const entrypoint of entries) {
     const elementNameRegEx = new RegExp(`^.*\\/${ELEMENT_SRC}\\/([\\w-]+)`);
     const element = entrypoint.match(elementNameRegEx)[1];
@@ -204,17 +206,19 @@ const handler = async () => {
     if (isValidAPI(elementAPI, element)) {
       console.log(`Generating API for ${element} ${chalk.green('OK')}`);
       fs.writeFileSync(outFile, elementAPI, 'utf8');
-    } else {
+    }
+    else {
       console.log(`Generating API for ${element} ${chalk.red('ERROR')}`);
     }
   }
 
-  console.log(chalk.green(`\nFinish analyzing element\'s public API.\n`));
+  console.log(chalk.green('\nFinish analyzing element\'s public API.\n'));
 };
 
 try {
-  console.log(`\nAnalyzing element\'s API...\n`);
+  console.log('\nAnalyzing element\'s API...\n');
   handler();
-} catch (error) {
+}
+catch (error) {
   console.error(chalk.red(`Element Analyzer Error: ${error}`));
 }

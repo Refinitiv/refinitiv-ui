@@ -31,7 +31,7 @@ module.exports = Object.assign(config, {
 
       return next();
     },
-    function rewriteDemoResources(context, next) {
+    function rewriteDemoResources (context, next) {
       const url = context.url;
       if (url.startsWith('/') && !url.startsWith('/node_modules')) {
         context.url = `${elementRootDir}/src/${argv.element}/__demo__${url}`;

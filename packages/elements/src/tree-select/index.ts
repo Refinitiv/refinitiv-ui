@@ -8,7 +8,8 @@ import {
   css,
   repeat,
   query,
-  ifDefined
+  ifDefined,
+  StandardEvent
 } from '@refinitiv-ui/core';
 import { CollectionComposer, TimeoutTaskRunner } from '@refinitiv-ui/utils';
 
@@ -466,7 +467,7 @@ export class TreeSelect extends ComboBox<T> {
    * @param event checked-change event
    * @returns {void}
    */
-  protected selectionToggleHandler (event: CustomEvent): void {
+  protected selectionToggleHandler (event: StandardEvent): void {
     if (event.detail.value) {
       this.treeManager.checkAllItems();
     }
@@ -629,7 +630,7 @@ export class TreeSelect extends ComboBox<T> {
    *
    * @returns {void}
    */
-  protected onPillRemoved (event: CustomEvent): void {
+  protected onPillRemoved (event: StandardEvent): void {
     const item = this.queryItemsByPropertyValue('value', event.detail.value)[0];
     if (item) {
       this.treeManager.uncheckItem(item);
@@ -857,7 +858,7 @@ export class TreeSelect extends ComboBox<T> {
           .readonly="${pill.readonly || this.readonly}"
           .disabled="${pill.disabled || this.disabled}"
           .value="${pill.value}"
-          @clear="${this.onPillRemoved}">${pill.label}</ef-pill`
+          @clear="${this.onPillRemoved}">${pill.label}</ef-pill>`
         )}
       </div>`;
     }

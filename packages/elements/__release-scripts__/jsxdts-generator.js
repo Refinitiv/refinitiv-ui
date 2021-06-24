@@ -42,17 +42,21 @@ const handler = async () => {
     // Assuming all JavaScript files will be compiled with TypeScript declaration
     const typeDeclaration = file.replace('.js', '.d.ts');
 
-    if (!fs.existsSync(typeDeclaration)) return;
+    if (!fs.existsSync(typeDeclaration)) {
+      return;
+    }
 
     // A web component tag always consists of atleast one hyphen
     // Using the later part of hyphen
     const elementClassName = toPascalCase(elementName.slice(elementName.indexOf('-') + 1));
     const typeDeclarationContent = fs.readFileSync(typeDeclaration, {
-      encoding: 'utf-8',
+      encoding: 'utf-8'
     });
 
     // If JSXInterface already exist
-    if (typeDeclarationContent.indexOf('JSXInterface') !== -1) return;
+    if (typeDeclarationContent.indexOf('JSXInterface') !== -1) {
+      return;
+    }
 
     const template = fs
       .readFileSync(JSX_MERGE_TEMPLATE, { encoding: 'utf-8' })
@@ -80,13 +84,14 @@ const handler = async () => {
     fs.writeFileSync(typeDeclaration, content);
   }
 
-  console.log(chalk.green(`\nFinish generating JSX Type declaration.\n`))
+  console.log(chalk.green('\nFinish generating JSX Type declaration.\n'));
 };
 
 try {
-  console.log(`\nGenerating JSX Type declarations...\n`);
+  console.log('\nGenerating JSX Type declarations...\n');
   handler();
-} catch (error) {
-  console.error(chalk.red(`jsx.d.ts Generator Error: ${error}`))
+}
+catch (error) {
+  console.error(chalk.red(`jsx.d.ts Generator Error: ${error}`));
 }
 
