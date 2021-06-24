@@ -12,7 +12,8 @@ import {
   TemplateResult,
   WarningNotice,
   FocusedPropertyKey,
-  eventOptions
+  eventOptions,
+  StyleInfo
 } from '@refinitiv-ui/core';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import { AnimationTaskRunner, CollectionComposer, DataItem, TimeoutTaskRunner } from '@refinitiv-ui/utils';
@@ -46,13 +47,6 @@ const POPUP_POSITION = ['bottom-start', 'top-start'];
 
 const valueFormatWarning = new WarningNotice('The specified \'values\' format does not conform to the required format.');
 const freeTextMultipleWarning = new WarningNotice('"free-text" mode is not compatible with "multiple" mode');
-
-/**
- * Style required by popup
- */
-type StyleInfo = {
-  [name: string]: string;
-}
 
 /**
  * Combines a popup with a filterable selection list

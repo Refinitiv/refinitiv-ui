@@ -10,7 +10,8 @@ import {
   PropertyValues,
   MultiValue,
   query,
-  FocusedPropertyKey
+  FocusedPropertyKey,
+  StyleInfo
 } from '@refinitiv-ui/core';
 import '../overlay';
 import { Item } from '../item';
@@ -48,10 +49,6 @@ const observerOptions = {
 const LABEL_SEPARATOR = ', '; // TODO: for multiselect
 const POPUP_POSITION = ['bottom-start', 'top-start'];
 const KEY_SEARCH_DEBOUNCER = 300;
-
-type StyleInfo = {
-  [name: string]: string;
-}
 
 /**
  * Expands upon the native select element,
