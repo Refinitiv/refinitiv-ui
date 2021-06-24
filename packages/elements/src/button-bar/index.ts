@@ -87,8 +87,8 @@ export class ButtonBar extends BasicElement {
   private defaultSlot!: HTMLSlotElement;
 
   /**
-   * Called after the component is first rendered
-   * @param changedProperties Properties which have changed
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
@@ -153,7 +153,7 @@ export class ButtonBar extends BasicElement {
   /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
-   * @return Render template
+   * @return {TemplateResult}  Render template
    */
   protected render (): TemplateResult {
     return html`<slot></slot>`;

@@ -38,7 +38,7 @@ export class EmailField extends ControlElement {
    * A `CSSResult` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return CSS template
+   * @return {CSSResult | CSSResult[]} CSS template
    */
   static get styles (): CSSResult | CSSResult[] {
     return css`
@@ -134,14 +134,13 @@ export class EmailField extends ControlElement {
   /**
    * Get native input element from shadow roots
    */
-  @query('[part="input"]')
+  @query('[part="input"]', true)
   private inputElement!: HTMLInputElement;
 
   /**
    * Select the contents of input
-   * @returns void
+   * @returns {void}
    */
-
   /* istanbul ignore next */
   public select (): void {
     if (!this.disabled && !this.readonly) {
@@ -152,7 +151,7 @@ export class EmailField extends ControlElement {
   /**
    * Called when the element’s DOM has been updated and rendered
    * @param changedProperties Properties that has changed
-   * @returns shouldUpdate
+   * @returns {void}
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
@@ -178,48 +177,6 @@ export class EmailField extends ControlElement {
   }
 
   /**
-   * Renders icon element if property present
-   * @returns {void}
-   */
-  private renderIcon (): TemplateResult | null {
-    return this.icon ? html`
-    <ef-icon
-        part="icon"
-        icon="${this.icon}"
-        ?readonly="${this.readonly}"
-        ?disabled="${this.disabled}"
-        @tap="${this.iconClick}"
-        @keydown="${this.handleKeyDown}"
-        tabindex="${ifDefined(this.iconHasAction ? '0' : undefined)}"
-      ></ef-icon>
-    ` : null;
-  }
-
-  /**
-   * A `TemplateResult` that will be used
-   * to render the updated internal template.
-   * @return Render template
-   */
-  protected render (): TemplateResult {
-    return html`
-      <input
-        type="email"
-        part="input"
-        ?readonly="${this.readonly}"
-        placeholder="${ifDefined(this.placeholder || undefined)}"
-        maxlength="${ifDefined(this.maxLength || undefined)}"
-        minlength="${ifDefined(this.minLength || undefined)}"
-        @input="${this.onPossibleValueChange}"
-        @change="${this.onPossibleValueChange}"
-        pattern="${ifDefined(this.pattern || undefined)}"
-        ?multiple="${this.multiple}"
-        autocomplete="off"
-      />
-      ${this.renderIcon()}
-    `;
-  }
-
-  /**
    * Check if value is changed and fire event
    * @returns {void}
    */
@@ -231,7 +188,7 @@ export class EmailField extends ControlElement {
   /**
    * Validate input according `pattern`, `minLength` and `maxLength` properties
    * change state of `error` property according pattern validation
-   * @returns void
+   * @returns {void}
    */
   private validateInput (): void {
     let error = !this.inputElement.checkValidity();
@@ -267,7 +224,7 @@ export class EmailField extends ControlElement {
 
   /**
    * Process internal icon click and fire `icon-click` event
-   * @returns void
+   * @returns {void}
    */
   private iconClick (): void {
     this.notifyIcon();
@@ -284,5 +241,47 @@ export class EmailField extends ControlElement {
        */
       this.dispatchEvent(new CustomEvent('icon-click', { bubbles: false }));
     }
+  }
+
+  /**
+   * Renders icon element if property present
+   * @returns {TemplateResult | null} Template result
+   */
+  private renderIcon (): TemplateResult | null {
+    return this.icon ? html`
+    <ef-icon
+        part="icon"
+        icon="${this.icon}"
+        ?readonly="${this.readonly}"
+        ?disabled="${this.disabled}"
+        @tap="${this.iconClick}"
+        @keydown="${this.handleKeyDown}"
+        tabindex="${ifDefined(this.iconHasAction ? '0' : undefined)}"
+      ></ef-icon>
+    ` : null;
+  }
+
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return {TemplateResult} Render template
+   */
+  protected render (): TemplateResult {
+    return html`
+      <input
+        type="email"
+        part="input"
+        ?readonly="${this.readonly}"
+        placeholder="${ifDefined(this.placeholder || undefined)}"
+        maxlength="${ifDefined(this.maxLength || undefined)}"
+        minlength="${ifDefined(this.minLength || undefined)}"
+        @input="${this.onPossibleValueChange}"
+        @change="${this.onPossibleValueChange}"
+        pattern="${ifDefined(this.pattern || undefined)}"
+        ?multiple="${this.multiple}"
+        autocomplete="off"
+      />
+      ${this.renderIcon()}
+    `;
   }
 }

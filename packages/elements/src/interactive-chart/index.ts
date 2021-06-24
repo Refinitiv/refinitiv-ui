@@ -31,21 +31,21 @@ import {
 
 import '../tooltip';
 
-import {
-  TimeType,
-  ConfigChart,
-  ThemeInterface,
-  SeriesInterface,
-  SeriesStyleOptionsInterface,
-  SeriesListInterface,
-  SeriesDataItemInterface,
-  RowLegendInterface
-} from './types';
+import type {
+  InteractiveChartConfig,
+  InteractiveChartSeries,
+  Time,
+  Theme,
+  RowLegend,
+  SeriesList,
+  SeriesDataItem,
+  SeriesStyleOptions
+} from './helpers/types';
 
 export {
-  ConfigChart,
-  SeriesInterface
-} from './types';
+  InteractiveChartConfig,
+  InteractiveChartSeries
+};
 
 /**
  * A charting component that allows you to create several use cases of financial chart.
@@ -69,10 +69,10 @@ export class InteractiveChart extends ResponsiveElement {
 
   /**
    * Chart configurations for init chart
-   * @type {ConfigChart}
+   * @type {InteractiveChartConfig}
   */
   @property({ type: Object })
-  public config: ConfigChart | null = null;
+  public config: InteractiveChartConfig | null = null;
 
   /**
    * Hide legend
@@ -93,25 +93,25 @@ export class InteractiveChart extends ResponsiveElement {
   public legendStyle: 'vertical' | 'horizontal' = 'vertical';
 
   /** Array of series instances in chart */
-  public seriesList: SeriesListInterface[] = [];
+  public seriesList: SeriesList[] = [];
 
   private jumpButtonInitialized = false;
   private legendInitialized = false;
   private isCrosshairVisible = false;
 
   protected chart: IChartApi | null = null;
-  protected rowLegend: RowLegendInterface = null;
+  protected rowLegend: RowLegend = null;
   private timeScale: ITimeScaleApi | null = null;
 
   private width = 0;
   private height = 0;
-  private theme: ThemeInterface | null = null;
+  private theme: Theme | null = null;
   private themeColors: string[] = [];
 
   /**
    * @returns return config of property component
    */
-  protected get internalConfig (): ConfigChart {
+  protected get internalConfig (): InteractiveChartConfig {
     // Check config is available
     return this.config === null ? { series: [] } : this.config;
   }
@@ -261,7 +261,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param config data config
    * @returns {void}
    */
-  private createChart (width: number, height: number, config: ConfigChart | null): void {
+  private createChart (width: number, height: number, config: InteractiveChartConfig | null): void {
     this.destroyChart();
     if (config && width && height) {
 
@@ -345,7 +345,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param config data configuration for create chart
    * @returns {void}
    */
-  protected mergeConfig (config: ConfigChart): void {
+  protected mergeConfig (config: InteractiveChartConfig): void {
     if (config && config.hasOwnProperty('series')) {
       this.createSeriesOptions();
       this.createSeries();
@@ -364,7 +364,7 @@ export class InteractiveChart extends ResponsiveElement {
     // Loop for add multiple series
     for (let index = 0; index < this.internalConfig.series.length; index++) {
       const config = this.internalConfig.series[index];
-      const series = this.addSeriesConfig(config) as SeriesListInterface;
+      const series = this.addSeriesConfig(config) as SeriesList;
       this.seriesList.push(series);
     }
   }
@@ -387,8 +387,8 @@ export class InteractiveChart extends ResponsiveElement {
    * @param config data configuration for add series
    * @returns series data
    */
-  protected addSeriesConfig (config: SeriesInterface): SeriesListInterface | null {
-    let series: SeriesListInterface | null = null;
+  protected addSeriesConfig (config: InteractiveChartSeries): SeriesList | null {
+    let series: SeriesList | null = null;
     if (this.chart) {
       const { type, data, seriesOptions } = config;
       // Create instance series
@@ -450,7 +450,7 @@ export class InteractiveChart extends ResponsiveElement {
       for (let index = 0; index < this.internalConfig.series.length; index++) {
 
         // Get seriesOptions and type
-        const seriesOptions = this.internalConfig.series[index].seriesOptions as SeriesOptions<SeriesStyleOptionsInterface> || {};
+        const seriesOptions = this.internalConfig.series[index].seriesOptions as SeriesOptions<SeriesStyleOptions> || {};
         const type = this.internalConfig.series[index].type;
 
         let seriesThemeOptions = {};
@@ -522,7 +522,7 @@ export class InteractiveChart extends ResponsiveElement {
         }
         // Update config seriesOptions not have seriesOptions
         if (!this.internalConfig.series[index].seriesOptions) {
-          this.internalConfig.series[index].seriesOptions = seriesThemeOptions as SeriesOptions<SeriesStyleOptionsInterface>;
+          this.internalConfig.series[index].seriesOptions = seriesThemeOptions as SeriesOptions<SeriesStyleOptions>;
         }
         else {
           this.mergeObjects(seriesOptions, seriesThemeOptions);
@@ -536,7 +536,7 @@ export class InteractiveChart extends ResponsiveElement {
   * @param config value config
   * @returns {void}
   */
-  private applyTheme (config: ConfigChart): void {
+  private applyTheme (config: InteractiveChartConfig): void {
     if (this.chart && this.theme) {
       const style = getComputedStyle(this);
       const defaultFontFamily = style.getPropertyValue('font-family');
@@ -687,7 +687,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param eventMove Event mouse move on chart
    * @return {void}
    */
-  private createRowLegend (rowLegend?: RowLegendInterface, eventMove?: MouseEventParams): void {
+  private createRowLegend (rowLegend?: RowLegend, eventMove?: MouseEventParams): void {
     let rowLegendElem: HTMLElement;
     for (let idx = 0; idx < this.internalConfig.series.length; idx++) {
       const chartType = this.internalConfig.series[idx].type;
@@ -752,7 +752,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param index index of series
    * @returns {void}
    */
-  protected renderTextLegend (chartType: string, rowLegendElem: RowLegendInterface, value: SeriesDataItemInterface | number, priceColor: string, index: number): void {
+  protected renderTextLegend (chartType: string, rowLegendElem: RowLegend, value: SeriesDataItem | number, priceColor: string, index: number): void {
     if (chartType === 'bar' || chartType === 'candlestick') {
       this.createTextOHLC(rowLegendElem, value as BarData, priceColor, index);
     }
@@ -766,7 +766,7 @@ export class InteractiveChart extends ResponsiveElement {
   * @param rowLegend Legend element
   * @returns true if not have `node` inside row legend
   */
-  private isHTMLElement (rowLegend: RowLegendInterface): rowLegend is HTMLElement {
+  private isHTMLElement (rowLegend: RowLegend): rowLegend is HTMLElement {
     return (rowLegend as NodeListOf<Element>).length === undefined;
   }
 
@@ -775,7 +775,7 @@ export class InteractiveChart extends ResponsiveElement {
   * @param rowLegend Legend element
   * @returns true if have `node` inside row legend
   */
-  private isNodeListElement (rowLegend: RowLegendInterface): rowLegend is NodeListOf<Element> {
+  private isNodeListElement (rowLegend: RowLegend): rowLegend is NodeListOf<Element> {
     return (rowLegend as NodeListOf<Element>) !== undefined;
   }
 
@@ -786,7 +786,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param priceColor Color of series
    * @returns {void}
    */
-  private createSpanOHLC (rowLegend: RowLegendInterface, rowData: BarData, priceColor: string): void {
+  private createSpanOHLC (rowLegend: RowLegend, rowData: BarData, priceColor: string): void {
     if(this.isHTMLElement(rowLegend)) {
       rowLegend.setAttribute('data-color', priceColor);
       this.createSpan(rowLegend, 'O', rowData.open, 'H', rowData.high, 'L', rowData.low, 'C', rowData.close);
@@ -801,7 +801,7 @@ export class InteractiveChart extends ResponsiveElement {
   * @param index Series index
   * @returns {void}
   */
-  private createTextOHLC (rowLegend: RowLegendInterface, rowData: BarData, priceColor: string, index: number): void {
+  private createTextOHLC (rowLegend: RowLegend, rowData: BarData, priceColor: string, index: number): void {
     // Uses price formatter if provided
     const formatter = this.internalConfig.series[index].hasOwnProperty('legendPriceFormatter') ? this.internalConfig.series[index].legendPriceFormatter : null;
     if(formatter) {
@@ -860,7 +860,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param index Series index
    * @returns {void}
    */
-  private createTextPrice (rowLegend: RowLegendInterface, price: number, priceColor: string, index: number): void {
+  private createTextPrice (rowLegend: RowLegend, price: number, priceColor: string, index: number): void {
     // Uses price formatter if provided
     const formatter = this.internalConfig.series[index].hasOwnProperty('legendPriceFormatter') ? this.internalConfig.series[index].legendPriceFormatter : null;
     price = formatter ? formatter(price) : price;
@@ -940,7 +940,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param index index of list series
    * @returns color value
    */
-  protected getColorInSeries (seriesData: SeriesDataItemInterface | MouseEventParams, chartType: string, index: number): string {
+  protected getColorInSeries (seriesData: SeriesDataItem | MouseEventParams, chartType: string, index: number): string {
     if(chartType === 'line') {
       return this.getLegendPriceColor((this.seriesList[index].options() as LineSeriesOptions).color);
     }
@@ -962,8 +962,8 @@ export class InteractiveChart extends ResponsiveElement {
       let dataItem = {};
       this.internalConfig.series[index].data.forEach((dataConfig: BarData | HistogramData) => {
         const data = dataConfig as HistogramData;
-        const time = data.time as TimeType;
-        const timeSeriesData = seriesData.time as TimeType;
+        const time = data.time as Time;
+        const timeSeriesData = seriesData.time as Time;
         //  if via time point data string format 'yyyy-mm-dd' or object '{ year: 2019, month: 6, day: 1 }'
         if(time.hasOwnProperty('day') && time.hasOwnProperty('month') && time.hasOwnProperty('year')) {
           if(time.day === timeSeriesData.day

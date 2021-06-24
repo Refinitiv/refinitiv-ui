@@ -1,8 +1,11 @@
 import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
+import '@refinitiv-ui/elements/collapse';
 import '@refinitiv-ui/elements/accordion';
+
 import '@refinitiv-ui/elemental-theme/light/ef-accordion';
+import '@refinitiv-ui/elemental-theme/light/ef-collapse';
 
 describe('Accordion', () => {
   describe('Should Have A Correct DOM', () => {

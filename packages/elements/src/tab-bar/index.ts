@@ -44,14 +44,6 @@ export class TabBar extends ResponsiveElement {
     `;
   }
 
-  @query('[part="content"')
-  private content!: HTMLElement;
-  @query('[part="left-btn"]')
-  private leftBtn!: Button;
-  @query('[part="right-btn"]')
-  private rightBtn!: Button;
-
-
   /**
    * Specify tab's horizontal alignment
    */
@@ -61,12 +53,23 @@ export class TabBar extends ResponsiveElement {
   /**
    * Use level styling from theme
    */
-  @property({ type: String, reflect: true }) level = '1';
+  @property({ type: String, reflect: true })
+  public level: '1' | '2' | '3' = '1';
 
   /**
    * Use to switch from horizontal to vertical layout.
    */
-  @property({ type: Boolean, reflect: true }) vertical = false;
+  @property({ type: Boolean, reflect: true })
+  public vertical = false;
+
+  @query('[part="content"')
+  private content!: HTMLElement;
+
+  @query('[part="left-btn"]')
+  private leftBtn!: Button;
+
+  @query('[part="right-btn"]')
+  private rightBtn!: Button;
 
   private isScrolling!: NodeJS.Timeout; // timer id
 
@@ -114,7 +117,7 @@ export class TabBar extends ResponsiveElement {
    * @param size element dimensions
    * @returns {void}
    */
-  resizedCallback (size: ElementSize): void {
+  public resizedCallback (size: ElementSize): void {
     if(!this.vertical) {
       this.toggleScrollButton(size.width);
     }
