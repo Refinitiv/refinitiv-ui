@@ -163,20 +163,20 @@
 <demo-block header="Custom renderer" layout="normal" tags="renderer">
   <ef-combo-box id="custom-renderer"></ef-combo-box>
   <script type="module">
-    import { DefaultRenderer } from '@refinitiv-ui/elements/combo-box';
+    import { ComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
     import '@refinitiv-ui/elements/flag';
 
-    class FlagRender extends DefaultRenderer {
+    class FlagRender extends ComboBoxRenderer {
       constructor (context) {
         // Keep the reference to the default renderer
-        const defaultRenderer = super(context);
+        const renderer = super(context);
         // store reference to flag for easy access.
         // Use WeakMap to not care about memory leaks
         const flagMap = new WeakMap();
 
         // Return the closure
         return (item, composer, element) => {
-          element = defaultRenderer(item, composer, element);
+          element = renderer(item, composer, element);
           const type = composer.getItemPropertyValue(item, 'type');
           // reuse existing flag element if available
           let flagElement = flagMap.get(element);

@@ -16,14 +16,14 @@ import { Canvas } from '../canvas';
 import '../tooltip';
 
 import { Track } from './helpers/track';
-import { Cell, Config, TooltipCallback, RenderCallback } from './helpers/types';
 import { blend, brighten, darken, isLight, interpolate } from './helpers/color';
+import { HeatmapCell, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
 import { getResponsiveFontSize, getMaximumTextWidth, getMaximumLabelTextWidth, MIN_FONT_SIZE } from './helpers/text';
 
 const MAX_CELL_WIDTH_RATIO = 0.85;
 const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
 
-export { Cell, XAxis, YAxis, Config, TooltipCallback, RenderCallback } from './helpers/types';
+export { HeatmapCell, HeatmapXAxis, HeatmapYAxis, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback, HeatmapCustomisableProperties } from './helpers/types';
 
 /**
  * A graphical representation of data where the individual
@@ -85,10 +85,10 @@ export class Heatmap extends ResponsiveElement {
 
   /**
    * Heatmap configuration options.
-   * @type {Config}
+   * @type {HeatmapConfig}
    */
   @property({ type: Object })
-  public config: Config | null = null;
+  public config: HeatmapConfig | null = null;
 
   /**
    * Number of maximum label width that cell can paint in pixel.
@@ -115,12 +115,12 @@ export class Heatmap extends ResponsiveElement {
    */
   @property({ type: Object, attribute: false })
   /* istanbul ignore next */
-  public get activeCell (): Cell | null {
+  public get activeCell (): HeatmapCell | null {
     return this._activeCell;
   }
 
   /* istanbul ignore next */
-  public set activeCell (activeCell: Cell | null) {
+  public set activeCell (activeCell: HeatmapCell | null) {
     const previousActiveCell = this._activeCell;
     this._activeCell = activeCell;
 
@@ -162,69 +162,77 @@ export class Heatmap extends ResponsiveElement {
 
   /**
    * A callback function that allows tooltip rendering on cell hover
-   * @type {TooltipCallback}
+   * @type {HeatmapTooltipCallback}
    */
   @property({ type: Function, attribute: false })
-  public tooltipCallback: TooltipCallback | undefined;
+  public tooltipCallback: HeatmapTooltipCallback | undefined;
 
   /**
    * Render callback function use for custom cell properties.
    * Accepts custom label, foreground and background color
-   * @type {RenderCallback}
+   * @type {HeatmapRenderCallback}
    */
   @property({ type: Function, attribute: false })
-  public renderCallback: RenderCallback | undefined;
+  public renderCallback: HeatmapRenderCallback | undefined;
 
   /**
    * HTML canvas DOM used to render heatmap
    */
-  @query('[part=canvas]', true) private canvas!: HTMLCanvasElement & Canvas;
+  @query('[part=canvas]', true)
+  private canvas!: HTMLCanvasElement & Canvas;
 
   /**
    * Main component's container DOM
    */
-  @query('#container', true) private container!: HTMLElement;
+  @query('#container', true)
+  private container!: HTMLElement;
 
   /**
    * Cross-box DOM
    */
-  @query('[part=cross-box]', true) private crossBox!: HTMLElement;
+  @query('[part=cross-box]', true)
+  private crossBox!: HTMLElement;
 
   /**
    * Y-axis DOM
    */
-  @query('[part=y-axis]', true) private yAxis?: HTMLElement;
+  @query('[part=y-axis]', true)
+  private yAxis?: HTMLElement;
 
   /**
    * X-axis DOM
    */
-  @query('[part=x-axis]', true) private xAxis?: HTMLElement;
+  @query('[part=x-axis]', true)
+  private xAxis?: HTMLElement;
 
   /**
    * Box containing canvas and x-axis DOM
    */
-  @query('#canvas-container', true) private canvasContainer!: HTMLElement;
+  @query('#canvas-container', true)
+  private canvasContainer!: HTMLElement;
 
   /**
    * Contains a y-axis and a cross box DOM
    */
-  @query('#y-axis-container', true) private yAxisBox?: HTMLElement;
+  @query('#y-axis-container', true)
+  private yAxisBox?: HTMLElement;
 
   /**
    * Overlay used for moving target around for rendering tooltip when a cell is hit.
    * Canvas alone cannot do this. It is one whole element.
    */
-  @query('#tooltip-overlay') private tooltipOverlay!: HTMLElement;
+  @query('#tooltip-overlay')
+  private tooltipOverlay!: HTMLElement;
 
   /**
    * Current active cell
    */
-  private _activeCell: Cell | null = null;
+  private _activeCell: HeatmapCell | null = null;
 
   /**
    * Internal cells data storage
    */
-  private cells: Cell[] = [];
+  private cells: HeatmapCell[] = [];
 
   /**
    * Canvas's font color according to theme
@@ -316,7 +324,7 @@ export class Heatmap extends ResponsiveElement {
    * Safely gets the row data
    * @returns array of row data
    */
-  private get rows (): Cell[][] {
+  private get rows (): HeatmapCell[][] {
     return this.config && Array.isArray(this.config?.data) ? this.config.data : [];
   }
 
@@ -479,7 +487,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns cell
    */
   /* istanbul ignore next */
-  private getCellByLocation (row: number, column: number): Cell | null {
+  private getCellByLocation (row: number, column: number): HeatmapCell | null {
     if (row < 0 || row >= this.rowCount) {
       return null;
     }
@@ -496,7 +504,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private updateTooltipOverlayPosition (cell: Cell): void {
+  private updateTooltipOverlayPosition (cell: HeatmapCell): void {
     // Compensate x-axis height for overlay when x-axis is at top position
     let marginOverlayTop = 0;
     if(this.config?.xAxis && this.xAxis?.offsetHeight) {
@@ -517,7 +525,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private activeCellChanged (cell: Cell | null, previousCell: Cell | null): void {
+  private activeCellChanged (cell: HeatmapCell | null, previousCell: HeatmapCell | null): void {
     if (cell && cell.value !== null) {
 
       if (this.tooltipCallback) {
@@ -572,11 +580,11 @@ export class Heatmap extends ResponsiveElement {
 
   /**
    * Stop any current animations on a cell.
-   * @param {Cell} cell cell to stop the animation on
+   * @param {HeatmapCell} cell cell to stop the animation on
    * @returns {void}
    */
   /* istanbul ignore next */
-  private stopAnimation (cell: Cell): void {
+  private stopAnimation (cell: HeatmapCell): void {
     if (cell.animationFrame) {
       cancelAnimationFrame(cell.animationFrame);
     }
@@ -596,7 +604,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private resetCell (cell: Cell): void {
+  private resetCell (cell: HeatmapCell): void {
     this.canvasContext?.clearRect(
       cell.x,
       cell.y,
@@ -615,7 +623,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private fade (cell: Cell, from: string, to: string, duration: number): void {
+  private fade (cell: HeatmapCell, from: string, to: string, duration: number): void {
     const start = performance.now();
     const end = start + duration;
 
@@ -672,7 +680,7 @@ export class Heatmap extends ResponsiveElement {
     for (let rowIndex = 0; rowIndex < this.rowTrack.laneCount; rowIndex++) {
       for (let columnIndex = 0; columnIndex < this.colTrack.laneCount; columnIndex++) {
 
-        const cell: Cell = this.rows[rowIndex][columnIndex];
+        const cell: HeatmapCell = this.rows[rowIndex][columnIndex];
 
         const cellValue = cell ? cell.value : null;
         const cellLabel = cellValue !== null && typeof cellValue === 'number' ? cellValue.toFixed(2) : '';
@@ -785,7 +793,7 @@ export class Heatmap extends ResponsiveElement {
    * @param cell cell to paint
    * @returns {void}
    */
-  private paintLabel (cell: Cell): void {
+  private paintLabel (cell: HeatmapCell): void {
     const margin = cell.header ? this.calculateHeaderMargin(cell.height) : 0;
     const label = typeof cell.customLabel === 'string' ? cell.customLabel : cell.label;
 
@@ -934,10 +942,10 @@ export class Heatmap extends ResponsiveElement {
 
   /**
    * Retrieve custom cell properties for a single cell
-   * @param {Cell} cell cell to assign colours
+   * @param {HeatmapCell} cell cell to assign colours
    * @returns {void}
    */
-  private retrieveCustomCellProperties (cell: Cell): void {
+  private retrieveCustomCellProperties (cell: HeatmapCell): void {
     const customCellProperties = this.renderCallback ? this.renderCallback(Object.assign({}, cell)) : null;
 
     if (customCellProperties) {
@@ -959,10 +967,10 @@ export class Heatmap extends ResponsiveElement {
 
   /**
    * Paints cell header
-   * @param {Cell} cell cell to paint
+   * @param {HeatmapCell} cell cell to paint
    * @returns {void}
    */
-  private paintHeader (cell: Cell): void {
+  private paintHeader (cell: HeatmapCell): void {
     if (this.canvasContext) {
       const labelFontStyle = this.canvasContext.font;
       const margin = this.labelHidden ? 0 : this.calculateHeaderMargin(cell.height);
@@ -992,7 +1000,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private paintCell (cell: Cell): void {
+  private paintCell (cell: HeatmapCell): void {
     this.paintCellBackground(cell);
 
     if (!this.labelHidden && this.contentWithinCellBoundary) {
@@ -1017,10 +1025,10 @@ export class Heatmap extends ResponsiveElement {
 
   /**
   * Paints a single cell background colour
-  * @param {Cell} cell cell to paint
+  * @param {HeatmapCell} cell cell to paint
   * @returns {void}
   */
-  private paintCellBackground (cell: Cell): void {
+  private paintCellBackground (cell: HeatmapCell): void {
     if (this.canvasContext) {
       this.canvasContext.fillStyle = cell.customBackgroundColor || cell.backgroundColor;
       this.canvasContext.fillRect(cell.x, cell.y, cell.width, cell.height);
@@ -1243,21 +1251,21 @@ export class Heatmap extends ResponsiveElement {
    */
   protected render (): TemplateResult {
     return html`
-    <div id="container">
-      ${this.config?.yAxis && !this.axisHidden ? html`
-      <div id="y-axis-container">
-        <div part="cross-box"></div>
-        <div part="y-axis"></div>
-      </div>` : null}
-      <div id="canvas-container">
-        ${this.config?.xAxis && !this.axisHidden ? html`<div part="x-axis"></div>` : null}
-        <ef-canvas part="canvas" @resize=${this.onCanvasResize} @mousemove=${this.onMouseMove}></ef-canvas>
-        ${this.tooltipCallback ? html`<div id="tooltip-overlay"></div>` : null}
+      <div id="container">
+        ${this.config?.yAxis && !this.axisHidden ? html`
+        <div id="y-axis-container">
+          <div part="cross-box"></div>
+          <div part="y-axis"></div>
+        </div>` : null}
+        <div id="canvas-container">
+          ${this.config?.xAxis && !this.axisHidden ? html`<div part="x-axis"></div>` : null}
+          <ef-canvas part="canvas" @resize=${this.onCanvasResize} @mousemove=${this.onMouseMove}></ef-canvas>
+          ${this.tooltipCallback ? html`<div id="tooltip-overlay"></div>` : null}
+        </div>
       </div>
-    </div>
-    ${this.tooltipCallback ? html`
-      <ef-tooltip .condition=${this.tooltipCondition} .renderer=${this.tooltipRenderer}></ef-tooltip>
-    ` : null}
-  `;
+      ${this.tooltipCallback ? html`
+        <ef-tooltip .condition=${this.tooltipCondition} .renderer=${this.tooltipRenderer}></ef-tooltip>
+      ` : null}
+    `;
   }
 }
