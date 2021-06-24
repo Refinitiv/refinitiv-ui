@@ -14,7 +14,7 @@ export { classMap } from 'lit-html/directives/class-map';
 export { guard } from 'lit-html/directives/guard';
 export { ifDefined } from 'lit-html/directives/if-defined';
 export { repeat } from 'lit-html/directives/repeat';
-export { styleMap, StyleInfo } from 'lit-html/directives/style-map';
+export { styleMap } from 'lit-html/directives/style-map';
 export { unsafeHTML } from 'lit-html/directives/unsafe-html';
 export { until } from 'lit-html/directives/until';
 
@@ -60,6 +60,7 @@ export { TapEvent } from './events/TapEvent';
  */
 export { MultiValue } from './interfaces/MultiValue';
 export { StandardEvent } from './interfaces/StandardEvent';
+export { StyleInfo } from './interfaces/StyleInfo';
 
 /**
  * Export useful utils
