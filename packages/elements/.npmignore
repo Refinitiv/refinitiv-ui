@@ -26,7 +26,8 @@ tsconfig.json
 /test/
 /__test__/
 /coverage/
-/__snapshots__/
+/snapshots/
+/bin/
 
 ## temp folders
 /.tmp/
@@ -46,4 +47,4 @@ tsconfig.json
 server.config.js
 
 # release scripts
-/__release-scripts__/
+/build/
