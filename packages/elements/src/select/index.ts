@@ -13,11 +13,14 @@ import {
   FocusedPropertyKey
 } from '@refinitiv-ui/core';
 import '../overlay';
-import { ItemData, Item } from '../item';
+import { Item } from '../item';
 import '../item';
 import '../icon';
 import { CollectionComposer, TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils';
 import { Overlay } from '../overlay';
+import { SelectData, SelectDataItem } from './helpers/types';
+
+export { SelectData, SelectDataItem };
 
 /**
  * Key direction
@@ -133,8 +136,8 @@ export class Select extends ControlElement implements MultiValue {
     `;
   }
 
-  private composer: CollectionComposer<ItemData> = new CollectionComposer([]);
-  private _data: ItemData[] | null = null;
+  private composer: CollectionComposer<SelectDataItem> = new CollectionComposer([]);
+  private _data: SelectData | null = null;
   private mutationObserver?: MutationObserver;
   private popupDynamicStyles: StyleInfo = {}; /* set popup min-width based on select width or CSS vars */
   private lazyRendered = false; /* speed up rendering by not populating popup window on first load */
@@ -210,22 +213,22 @@ export class Select extends ControlElement implements MultiValue {
 
   /**
   * Construct the menu from data object. Cannot be used with slotted content
-  * @type {ItemData[] | null}
+  * @type {SelectData | null}
   */
   @property({ attribute: false })
-  public get data (): ItemData[] | null {
+  public get data (): SelectData | null {
     return this._data;
   }
-  public set data (value: ItemData[] | null) {
+  public set data (value: SelectData | null) {
     const oldValue = this._data;
     if (oldValue === value) {
       return;
     }
     else if (Array.isArray(value)) {
-      this.composer = new CollectionComposer<ItemData>(value);
+      this.composer = new CollectionComposer<SelectDataItem>(value);
     }
     else {
-      this.composer = new CollectionComposer<ItemData>([]);
+      this.composer = new CollectionComposer<SelectDataItem>([]);
     }
     this._data = value;
 
@@ -336,7 +339,7 @@ export class Select extends ControlElement implements MultiValue {
     super.updated(changedProperties);
 
     // we must wait while all elements in the tree are updated before starting the mutation observer
-    this.updateComplete.then(() => {
+    void this.updateComplete.then(() => {
       // Start watching for any child mutations
       this.observeMutations();
     });
@@ -804,7 +807,7 @@ export class Select extends ControlElement implements MultiValue {
    */
   private clearSelection (): void {
     if (this.hasDataItems()) {
-      this.selectedDataItems.forEach((item: ItemData) => this.composer.setItemPropertyValue(item, 'selected', false));
+      this.selectedDataItems.forEach((item: SelectDataItem) => this.composer.setItemPropertyValue(item, 'selected', false));
     }
     else {
       this.selectedSlotItems.forEach(item => {
@@ -894,8 +897,8 @@ export class Select extends ControlElement implements MultiValue {
    * Retrieve the selected data items
    * @returns Selected data item
    */
-  private get selectedDataItems (): ItemData[] {
-    return this.composer.queryItemsByPropertyValue('selected', true) as ItemData[];
+  private get selectedDataItems (): SelectData {
+    return this.composer.queryItemsByPropertyValue('selected', true) as SelectData;
   }
 
   /**
@@ -919,7 +922,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param item JSON object to parse
    * @returns template result
    */
-  private toItem (item: ItemData): TemplateResult {
+  private toItem (item: SelectDataItem): TemplateResult {
     switch (item.type) {
       case 'divider':
         return html`<ef-item part="item" type="divider"></ef-item>`;
@@ -976,7 +979,7 @@ export class Select extends ControlElement implements MultiValue {
    * Get data iterator template
    */
   private get dataContent (): TemplateResult {
-    return html`${(this.composer.queryItems(() => true) as ItemData[]).map(item => this.toItem(item))}`;
+    return html`${(this.composer.queryItems(() => true) as SelectData).map(item => this.toItem(item))}`;
   }
 
   /**

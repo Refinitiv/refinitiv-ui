@@ -18,6 +18,34 @@ import { COLOR_ITEMS, ColorHelpers } from '../helpers/color-helpers';
  */
 @customElement('ef-color-palettes', { theme: false })
 export class ColorPalettes extends Palettes {
+  /**
+   * A `CSSResult` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @return {CSSResult | CSSResult[]} CSS template
+   */
+  static get styles (): CSSResult | CSSResult[] {
+    return css`
+      :host {
+        display: block;
+      }
+      svg {
+        width: 100%;
+      }
+      .color-selector {
+        stroke: #fff;
+        stroke-width: 2;
+        fill: none;
+        pointer-events: none;
+      }
+      .color-selector-shadow {
+        stroke: black;
+        stroke-width: 3;
+        fill: none;
+        pointer-events: none;
+      }
+    `;
+  }
 
   /**
    * create color items template from COLOR_ITEMS array
@@ -43,7 +71,7 @@ export class ColorPalettes extends Palettes {
   }
 
   /**
-   * update color selector element when value has been changed
+   * Update color selector element when value has been changed
    * @param changedProperties Properties that has changed
    * @return {void}
    */
@@ -60,33 +88,10 @@ export class ColorPalettes extends Palettes {
     }
   }
 
-  static get styles (): CSSResult | CSSResult[] {
-    return css`
-      :host {
-        display: block;
-      }
-      svg {
-        width: 100%;
-      }
-      .color-selector {
-        stroke: #fff;
-        stroke-width: 2;
-        fill: none;
-        pointer-events: none;
-      }
-      .color-selector-shadow {
-        stroke: black;
-        stroke-width: 3;
-        fill: none;
-        pointer-events: none;
-      }
-    `;
-  }
-
   /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
-   * @return Render template
+   * @return {TemplateResult}  Render template
    */
   protected render (): TemplateResult {
     return html`
