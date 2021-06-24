@@ -204,21 +204,26 @@ const handler = async () => {
 
     // Only write file if API is matched to element tag
     if (isValidAPI(elementAPI, element)) {
+      /* eslint-disable no-console */
       console.log(`Generating API for ${element} ${chalk.green('OK')}`);
       fs.writeFileSync(outFile, elementAPI, 'utf8');
     }
     else {
+      /* eslint-disable no-console */
       console.log(`Generating API for ${element} ${chalk.red('ERROR')}`);
     }
   }
 
+  /* eslint-disable no-console */
   console.log(chalk.green('\nFinish analyzing element\'s public API.\n'));
 };
 
 try {
+  /* eslint-disable no-console */
   console.log('\nAnalyzing element\'s API...\n');
   handler();
 }
 catch (error) {
+  /* eslint-disable no-console */
   console.error(chalk.red(`Element Analyzer Error: ${error}`));
 }

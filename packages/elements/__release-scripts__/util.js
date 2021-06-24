@@ -6,7 +6,7 @@ const ELEMENT_DIST = 'lib';
 
 /**
  * Get element tag name from file path
- * @param {string} path
+ * @param {string} path element's path
  * @returns {string} element tag name
  */
 const getElementTagName = (path) => {
@@ -26,7 +26,7 @@ const DECORATE_SYNTAX = '__decorate([\n    customElement';
 
 /**
  * Get list of element file path which contain element defining syntax
- * @param {string} directory
+ * @param {string} directory directory's name
  * @returns {string[]} a list of element file path
  */
 const getElementList = async (directory) => {
