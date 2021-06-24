@@ -1149,7 +1149,7 @@ export class Overlay extends ResponsiveElement {
    * @param clb Callback to run if cache has changed
    * @returns {void}
    */
-  private refitIfChanged (clb: Function): void {
+  private refitIfChanged (clb: CallableFunction): void {
     const getRefitString = (): string => {
       const positionTargetConfig = this.positionTargetConfig;
       const targetRect = positionTargetConfig.rect;
