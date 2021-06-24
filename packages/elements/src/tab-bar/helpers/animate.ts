@@ -4,7 +4,7 @@ interface Configs {
   endPosition: number;
   duration?: number;
   easing?: string;
-  complete?: Function;
+  complete?: CallableFunction;
 }
 
 const ANIMATION_DURATION = 100; // specifies the length of time an animation should take to complete
@@ -15,7 +15,7 @@ const DEFAULT_EASING = 'easeOutQuad';
  * @param name type of easing
  * @returns easing function
  */
-const functionEasings: {[name: string]: Function} = {
+const functionEasings: {[name: string]: CallableFunction} = {
   /**
    * Decelerating to zero velocity
    * @param time current time or position
@@ -53,7 +53,7 @@ const tweenAnimate = (configs: Configs): void => {
   const tweenLoop = (): void => {
     const currentTime = 'now' in window.performance ? performance.now() : new Date().getTime();
     const step = Math.min(1, ((currentTime - startTime) / duration));
-    const factor = functionEasings[easing](step); // factor can be a decimal
+    const factor = functionEasings[easing](step) as number; // factor can be a decimal
 
     configs.target.scrollLeft = startPosition + delta * factor;
   
