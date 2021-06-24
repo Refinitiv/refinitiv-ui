@@ -97,8 +97,8 @@ export class SwingGauge extends Canvas {
   private size: number | null = null;
   private maxFontSize: number | null = null;
   private centerlineOptions: string[] = ['solid', 'dotted', 'dashed'];
-  private onFrame: Function = requestAnimationFrame.bind(window);
-  private cancelFrame: Function = cancelAnimationFrame.bind(window);
+  private onFrame: CallableFunction = requestAnimationFrame.bind(window);
+  private cancelFrame: CallableFunction = cancelAnimationFrame.bind(window);
   private previousFillPercentage: number | null = null;
   private fillPercentage: number | null = null;
   private frameHandler: number | null = null;
@@ -214,7 +214,7 @@ export class SwingGauge extends Canvas {
     this.fillPercentage = (from + (to - from) * canvasHelper.elasticOut(diff > 1 ? 1 : diff < 0 ? 0 : diff)) || 0;
     if (this.fillPercentage !== to) {
       this.cancelFrame(this.frameHandler);
-      this.frameHandler = this.onFrame(() => this.easeTo(to, from, time));
+      this.frameHandler = this.onFrame(() => this.easeTo(to, from, time)) as number;
     }
   }
 
