@@ -185,10 +185,10 @@ const plugins: Chart.PluginServiceRegistrationOptions = {
     for (let i = 0; i < texts.length; i++) {
       let targetFont;
       if (texts[i].bold) {
-        targetFont = 'bold ' + fontSizeToUse * fontSizeHeaderRatio + 'px ' + defaultFontStyle;
+        targetFont = `bold ${fontSizeToUse * fontSizeHeaderRatio}px ${defaultFontStyle}`;
       }
       else {
-        targetFont = fontSizeToUse + 'px ' + defaultFontStyle;
+        targetFont = `${fontSizeToUse}px ${defaultFontStyle}`;
       }
 
       ctx.font = targetFont;
