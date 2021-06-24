@@ -31,7 +31,7 @@
     "@refinitiv-ui/solar-theme": "^5.0.0-beta.1",
     "@refinitiv-ui/translate": "^5.0.0-beta.1",
     "@refinitiv-ui/utils": "^5.0.0-beta.1",
-    "browser-sparkline": "1.1.6",
+    "@refinitiv-ui/browser-sparkline": "1.1.7",
     "chart.js": "2.9.3",
     "d3-color": "^2.0.0",
     "d3-interpolate": "^2.0.1",
