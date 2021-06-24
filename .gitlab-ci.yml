@@ -21,6 +21,7 @@ test_v5:
     - call yarn lerna run test --concurrency=1 --include-dependents --since
   except:
     - v5@elf/refinitiv-ui
+    - v5-dev@elf/refinitiv-ui
     - tags@elf/refinitiv-ui
 
 release_v5:
