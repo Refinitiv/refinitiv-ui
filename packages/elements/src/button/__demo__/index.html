@@ -25,6 +25,13 @@
       ef-button + ef-button {
         margin-left: 5px;
       }
+
+      .ellipsis {
+        width: 90px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     </style>
 
   </head>
@@ -54,6 +61,9 @@
           <ef-button icon="tick">Button</ef-button>
         </li>
         <li>
+          <ef-button icon="tick" class="ellipsis">Long text Button</ef-button>
+        </li>
+        <li>
           <ef-button icon="tick" disabled>Disabled</ef-button>
         </li>
       </ul>
@@ -64,6 +74,9 @@
       <ul class="demos">
         <li>
           <ef-button icon="tick" textpos="before">Button</ef-button>
+        </li>
+        <li>
+          <ef-button icon="tick" textpos="before" class="ellipsis">Long text Button</ef-button>
         </li>
         <li>
           <ef-button icon="tick" textpos="before" disabled>Disabled</ef-button>

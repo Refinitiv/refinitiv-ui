@@ -21,6 +21,7 @@ test_v5:
     - call yarn lerna run test --concurrency=1 --include-dependents --since
   except:
     - v5@elf/refinitiv-ui
+    - v5-dev@elf/refinitiv-ui
     - tags@elf/refinitiv-ui
 
 release_v5:
@@ -40,7 +41,7 @@ release_v5:
     - yarn lerna run build --include-dependencies --since
 
     # Get changed packages version from conventional commit message
-    - yarn lerna version --conventional-commits --conventional-prerelease --yes
+    - yarn lerna version --conventional-commits --conventional-prerelease --preid=beta --yes
 
     # Publish to registry
     - yarn lerna publish from-git --yes --dist-tag next

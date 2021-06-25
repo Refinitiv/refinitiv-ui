@@ -42,7 +42,7 @@ module.exports = async function (config) {
   config.set({
     autoWatch: false,
     singleRun: true,
-    concurrency: Infinity,
+    concurrency: Infinity, // Set the value to `1`, When Karma has a problem to connect a test browser on Windows.
     browserNoActivityTimeout: 60000,
     browserDisconnectTimeout: 60000,
     browsers: defaultBrowsers,
