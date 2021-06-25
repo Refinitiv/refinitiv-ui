@@ -33,7 +33,7 @@ enum Format {
   yyyyMMdd = 'yyyy-MM-dd'
 }
 
-type InputFormat = Format | 'yyyy' | 'yyyy-MM' | 'yyyy-MM-dd';
+type InputFormat = Format | keyof typeof Format;
 
 const yyyy_REGEXP = /^-?\d+$/;
 const yyyyMM_REGEXP = /^-?\d+-(0[1-9]|1[0-2])$/;
