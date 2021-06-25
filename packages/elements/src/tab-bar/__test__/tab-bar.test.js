@@ -106,7 +106,7 @@ describe('TabBar', () => {
 
     it('Should show all scroll button', async () => {
       content.scrollLeft = OVERFLOW_DISTANCE;
-      await aTimeout(100); // wait scroll end
+      await scrollUpdated(); // wait scroll end
 
       expect(getElementStyle(leftScrollBtn, 'display')).equal('flex');
       expect(getElementStyle(rightScrollBtn, 'display')).equal('flex');
@@ -114,7 +114,7 @@ describe('TabBar', () => {
 
     it('Should show only left scroll button', async () => {
       content.scrollLeft = content.scrollWidth - content.clientWidth;
-      await aTimeout(100); // wait scroll end
+      await scrollUpdated(); // wait scroll end
 
       expect(getElementStyle(leftScrollBtn, 'display')).equal('flex');
       expect(getElementStyle(rightScrollBtn, 'display')).equal('none');
@@ -144,7 +144,7 @@ describe('TabBar', () => {
     it('Should scroll to the rightmost', async () => {
       const availableScroll = content.scrollWidth - content.clientWidth;
       content.scrollLeft = availableScroll - (BAR_TRAVEL_DISTANCE * 1.25);
-      await aTimeout(100); // wait scroll end
+      await scrollUpdated(); // wait scroll end
 
       rightScrollBtn.dispatchEvent(new CustomEvent('tap'));
       await scrollUpdated();
@@ -156,7 +156,7 @@ describe('TabBar', () => {
 
     it('Should scroll to the leftmost', async () => {
       content.scrollLeft = BAR_TRAVEL_DISTANCE * 1.25;
-      await aTimeout(100); // wait scroll end
+      await scrollUpdated(); // wait scroll end
 
       leftScrollBtn.dispatchEvent(new CustomEvent('tap'));
       await scrollUpdated();

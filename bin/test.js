@@ -38,7 +38,7 @@ exports.handler = (argv) => {
 
   if (!package) {
     type = 'All Packages';
-    command = 'yarn lerna run build && yarn lerna run test --concurrency=1';
+    command = 'yarn lerna run test --concurrency=1';
 
   } else if (isElements(package)) {
     const elementOption = argv.package ? `--element ${package}` : '';
@@ -46,11 +46,11 @@ exports.handler = (argv) => {
     const snapshotsOption = argv.snapshots ? '--update-snapshots --prune-snapshots' : '';
     const options = `${elementOption} ${watchOption} ${snapshotsOption}`;
     type = 'Element';
-    command = `cd ${elementsPath()} && yarn build && yarn karma start ../../karma.conf.js ${options}`;
+    command = `cd ${elementsPath()} && yarn test -- ${options}`;
 
   } else if (isPackages(package)) {
     type = 'Package';
-    command = `cd ${packagesPath(package)} && yarn build && yarn test`;
+    command = `cd ${packagesPath(package)} && yarn test`;
   }
 
   message(`Test: ${type} ${package || ''}`, 'blue');

@@ -7,10 +7,10 @@ import {
   CSSResult,
   PropertyValues,
   BasicElement,
-  internalProperty,
   ifDefined,
   WarningNotice,
-  query
+  query,
+  state
 } from '@refinitiv-ui/core';
 
 import {
@@ -24,8 +24,8 @@ import {
 } from './utils/timestamps';
 
 import {
-  deRegister,
-  register
+  register,
+  deRegister
 } from './utils/TickManager';
 
 const UP = 'Up';
@@ -61,7 +61,7 @@ export class Clock extends BasicElement {
    * A `CSSResult` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @returns CSS template
+   * @return {CSSResult | CSSResult[]} CSS template
    */
   static get styles (): CSSResult | CSSResult[] {
     return css`
@@ -100,7 +100,7 @@ export class Clock extends BasicElement {
   /**
    * Current time in seconds
    */
-  @internalProperty()
+  @state()
   private get currentTime (): number {
     return this.baseTime + this.sessionTicks;
   }
@@ -109,20 +109,20 @@ export class Clock extends BasicElement {
    * Base value to use when calculating current time.
    * This value is updated whenever the value property is set.
    */
-  @internalProperty()
+  @state()
   private baseTime = 0;
 
   /**
    * Current amount of ticks in session.
    */
-  @internalProperty()
+  @state()
   private sessionTicks = 0;
 
   /**
    * Timestamp of when the tick property was last updated.
    * Used for accurately ticking time.
    */
-  @internalProperty()
+  @state()
   private tickTimestamp = 0;
 
   /**
@@ -405,6 +405,25 @@ export class Clock extends BasicElement {
   }
 
   /**
+  * Returns `true` or `false` depends on the offset value's effect on giving segment
+  *
+  * @param segment segment's name
+  * @returns Result
+  */
+  private isSegmentShifted (segment: string): boolean {
+    switch (segment) {
+      case 'hours':
+        return this.hours !== this.displayHours24;
+      case 'minutes':
+        return this.minutes !== this.displayMinutes;
+      case 'seconds':
+        return this.seconds !== this.displaySeconds;
+      default:
+        return false;
+    }
+  }
+
+  /**
    * Handles any keydown events
    * Used for control keys
    * @param event Event Object
@@ -470,7 +489,7 @@ export class Clock extends BasicElement {
   /**
   * Template for increment and decrement button
   * if interactive mode is enabled.
-  * @returns template
+  * @returns {TemplateResult} template result
   */
   private generateButtonsTemplate (): TemplateResult {
     return html`
@@ -484,11 +503,11 @@ export class Clock extends BasicElement {
   * @param name segment's name
   * @param value segment's value
   * @param shiftAmount amount to shift
-  * @returns template
+  * @returns {TemplateResult} template
   */
   private generateSegmentTemplate (name: string, value: number): TemplateResult {
     return html`
-      <div part="segment ${name}" tabindex="${ifDefined(this.interactive ? '0' : undefined)}">
+      <div part="segment ${name}${ifDefined(this.isSegmentShifted(name) ? ' shifted' : '')}" tabindex="${ifDefined(this.interactive ? '0' : undefined)}">
         ${this.formatNumber(value)}
         ${this.interactive ? this.generateButtonsTemplate() : undefined}
       </div>
@@ -497,7 +516,7 @@ export class Clock extends BasicElement {
 
   /**
   * Template of divider
-  * @returns template
+  * @returns {TemplateResult} template
   */
   private get dividerTemplate (): TemplateResult {
     return html`
@@ -507,7 +526,7 @@ export class Clock extends BasicElement {
 
   /**
   * Template of amPm segment
-  * @returns template
+  * @returns {TemplateResult} template
   */
   private get amPmTemplate (): TemplateResult {
     return html`
@@ -517,7 +536,7 @@ export class Clock extends BasicElement {
 
   /**
   * Template of hours segment
-  * @returns template
+  * @returns {TemplateResult} template
   */
   private get hoursSegmentTemplate (): TemplateResult {
     return this.generateSegmentTemplate('hours', this.displayHours);
@@ -525,7 +544,7 @@ export class Clock extends BasicElement {
 
   /**
   * Template of minutes segment
-  * @returns template
+  * @returns {TemplateResult} template
   */
   private get minutesSegmentTemplate (): TemplateResult {
     return this.generateSegmentTemplate('minutes', this.displayMinutes);
@@ -533,7 +552,7 @@ export class Clock extends BasicElement {
 
   /**
   * Template of seconds segment
-  * @returns template
+  * @returns {TemplateResult} template
   */
   private get secondsSegmentTemplate (): TemplateResult {
     return this.generateSegmentTemplate('seconds', this.displaySeconds);
@@ -558,8 +577,8 @@ export class Clock extends BasicElement {
   }
 
   /**
-   * Called after the component is first rendered
-   * @param changedProperties Properties which have changed
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
@@ -570,7 +589,7 @@ export class Clock extends BasicElement {
 
   /**
   * Template for digital clock
-  * @returns template
+  * @returns {TemplateResult} template
   */
   protected get digitalClockTemplate (): TemplateResult {
     return html`
@@ -587,7 +606,7 @@ export class Clock extends BasicElement {
 
   /**
   * Template for analogue clock
-  * @returns template
+  * @returns {TemplateResult} template
   */
   protected get analogueClockTemplate (): TemplateResult {
     const secAngle = 6 * this.displaySeconds;
@@ -607,7 +626,7 @@ export class Clock extends BasicElement {
   /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
-   * @returns Render template
+   * @returns {TemplateResult} Render template
    */
   protected render (): TemplateResult {
     return this.analogue ? this.analogueClockTemplate : this.digitalClockTemplate;

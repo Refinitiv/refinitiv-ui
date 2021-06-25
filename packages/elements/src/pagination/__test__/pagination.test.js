@@ -6,7 +6,8 @@ import {
   oneEvent,
   triggerFocusFor,
   keyboardEvent,
-  nextFrame
+  nextFrame,
+  triggerBlurFor
 } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/pagination';
@@ -109,9 +110,9 @@ describe('Pagination', () => {
 
       setTimeout(() => textField.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' })));
       await elementUpdated(textField);
-
       await nextFrame();
       await nextFrame();
+      await triggerBlurFor(textField);
 
       expect(el.page).to.equal('3');
     });
@@ -172,6 +173,7 @@ describe('Pagination', () => {
 
       await nextFrame();
       await nextFrame();
+      await triggerBlurFor(el);
 
       expect(document.activeElement).to.not.equal(el, 'It should blur the element');
     });

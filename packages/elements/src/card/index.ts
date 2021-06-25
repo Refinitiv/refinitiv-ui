@@ -16,22 +16,12 @@ import '../button';
 import { Button } from '../button';
 import '../overlay-menu';
 import { OverlayMenu, OverlayMenuData } from '../overlay-menu';
+import { CardConfig } from './helpers/types';
 
-export type CardConfiguration = {
-  /**
-  * Configuration for side menu
-  */
-  menu?: {
-   /**
-    * Menu data object as defined in `overlay-menu`
-    */
-   data: OverlayMenuData;
-  };
-};
+export { CardConfig };
 
 /**
  * A card frame component.
- *
  * @fires item-trigger - Fired when card menu is selected.
  */
 @customElement('ef-card', {
@@ -53,7 +43,7 @@ export class Card extends BasicElement {
     `;
   }
 
-  private _config: CardConfiguration | undefined;
+  private _config: CardConfig | undefined;
 
   /**
    * Set text on the header
@@ -71,10 +61,10 @@ export class Card extends BasicElement {
    * Set card configurations
    */
   @property({ type: Object, attribute: false })
-  public get config (): CardConfiguration | undefined {
+  public get config (): CardConfig | undefined {
     return this._config;
   }
-  public set config (config: CardConfiguration | undefined) {
+  public set config (config: CardConfig | undefined) {
     const data = config?.menu?.data;
     if (data !== this.menuData) {
       this.menuData = data;
