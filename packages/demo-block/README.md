@@ -1,31 +1,34 @@
-# Demo Page Handler
+# Demo Block Element
+
+A custom element that can wrap around any other elements for demo and development purpose.
+
+## Installation
+
+```sh
+npm install -D @refinitiv-ui/demo-block
+```
+
+## Usage
+
+Include demo styles to `<head>` section and import the module to your page.
 
 ```html
-<!doctype html>
-<html>
-<head>
-  <title>My Element</title>
+<link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+```
 
-  <!--Import Demo Handler-->
-  <script src="../../elf-demo/demo.js"></script>
+```javascript
+<script type="module">
+  import '@refinitiv-ui/demo-block';
+</script>
+```
 
-  <!--Import Custom Element-->
-  <script type="module" src="../my-element.js"></script>
-</head>
-<body>
+Wrap element or content that you want to show in demo block inside `<demo-block>`.
 
-  <demo-block header="Default State" tags="Alpha, Beta, Preview">
-    Default layout is flex row.
-    <my-element></my-element>
-  </demo-block>
-
-  <demo-block header="Layout option" layout="normal">
-    This is standard block layout
-    <h1>Header Level 1</h1>
-    <h2>Header Level 2</h2>
-    <h3>Header Level 3</h3>
-  </demo-block>
-
-</body>
-</html>
+```html
+<demo-block header="Layout option" layout="normal" tags="header">
+  This is standard block layout
+  <h1>Header Level 1</h1>
+  <h2>Header Level 2</h2>
+  <h3>Header Level 3</h3>
+</demo-block>
 ```
