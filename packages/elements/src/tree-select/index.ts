@@ -468,7 +468,7 @@ export class TreeSelect extends ComboBox<T> {
    * @param event checked-change event
    * @returns {void}
    */
-  protected selectionToggleHandler (event: StandardEvent<string>): void {
+  protected selectionToggleHandler (event: StandardEvent): void {
     if (event.detail.value) {
       this.treeManager.checkAllItems();
     }
@@ -631,7 +631,7 @@ export class TreeSelect extends ComboBox<T> {
    *
    * @returns {void}
    */
-  protected onPillRemoved (event: StandardEvent<string>): void {
+  protected onPillRemoved (event: StandardEvent): void {
     const item = this.queryItemsByPropertyValue('value', event.detail.value)[0];
     if (item) {
       this.treeManager.uncheckItem(item);

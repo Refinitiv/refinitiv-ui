@@ -921,7 +921,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event view-changed event
    * @returns {void}
    */
-  private onCalendarViewChanged (event: StandardEvent<string>): void {
+  private onCalendarViewChanged (event: StandardEvent): void {
     const index = event.target === this.calendarToEl ? 1 : 0; /* 0 - from, single; 1 - to */
     const view = event.detail.value;
     this.notifyViewsChange(this.composeViews(view, index));
@@ -932,7 +932,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event value-changed event
    * @returns {void}
    */
-  private onCalendarValueChanged (event: CustomEvent): void {
+  private onCalendarValueChanged (event: StandardEvent): void {
     const values = (event.target as Calendar).values;
     this.interimSegments = values.map((value, index) => {
       const segment = this.interimSegments[index] || new DateTimeSegment();
@@ -966,7 +966,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event value-changed event
    * @returns {void}
    */
-  private onTimePickerValueChanged (event: CustomEvent): void {
+  private onTimePickerValueChanged (event: StandardEvent): void {
     const target = event.target as TimePicker;
     const index = target === this.timepickerToEl ? 1 : 0; /* 0 - from, single; 1 - to */
     const segment = this.interimSegments[index] || new DateTimeSegment();
@@ -1013,7 +1013,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event value-changed event
    * @returns {void}
    */
-  private onInputValueChanged (event: CustomEvent): void {
+  private onInputValueChanged (event: StandardEvent): void {
     const target = event.target as TextField;
     const index = target === this.inputToEl ? 1 : 0; /* 0 - from, single; 1 - to */
     const inputValue = target.value;

@@ -1,2 +1,3 @@
-export interface StandardEvent extends CustomEvent<{value: string}> {
-}
+export type StandardEvent<T=string> = CustomEvent<{
+    value: T
+}>;

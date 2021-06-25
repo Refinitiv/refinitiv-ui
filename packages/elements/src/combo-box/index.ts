@@ -13,7 +13,8 @@ import {
   WarningNotice,
   FocusedPropertyKey,
   eventOptions,
-  StyleInfo
+  StyleInfo,
+  StandardEvent
 } from '@refinitiv-ui/core';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import { AnimationTaskRunner, CollectionComposer, DataItem, TimeoutTaskRunner } from '@refinitiv-ui/utils';
@@ -882,7 +883,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    * @param event Custom Event fired from text-field
    * @returns {void}
    */
-  protected onInputValueChanged (event: CustomEvent<HTMLInputElement>): void {
+  protected onInputValueChanged (event: StandardEvent): void {
     const inputText = event.detail.value;
     /**
      * Query is used to track if there is a query
