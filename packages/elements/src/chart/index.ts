@@ -16,7 +16,7 @@ import { Header } from '../header';
 import '../header';
 import '../layout';
 
-import {
+import type {
   ChartJS,
   ChartConfig,
   ChartUpdateProps,
@@ -32,7 +32,7 @@ window.Chart.pluginService.register(doughnutCenterPlugin);
 
 const CSS_COLOR_PREFIX = '--chart-color-';
 const CHART_TYPE_OPAQUE = ['line', 'bubble', 'radar', 'polarArea'];
-const DEFAULT_CHART_CONFIG = window.Chart.defaults;
+const DEFAULT_CHART_CONFIG = (window.Chart as unknown as ChartJS).defaults;
 const ELF_CHART_CONFIG = {
   polarArea: {
     scale: {
@@ -50,9 +50,10 @@ const ELF_CHART_CONFIG = {
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 window.Chart.helpers.merge(DEFAULT_CHART_CONFIG, ELF_CHART_CONFIG);
 
-export type { ChartConfig };
+export type { ChartConfig, ChartUpdateProps };
 
 /**
  * Charting component that use chartjs library
@@ -133,7 +134,7 @@ export class Chart extends BasicElement {
     let color;
     let index = 0;
     const colors = [];
-    while ((color = this.getComputedVariable(CSS_COLOR_PREFIX + (index += 1)))) {
+    while ((color = this.getComputedVariable(`${CSS_COLOR_PREFIX}${++index}`))) {
       colors.push(color);
     }
     return colors;
@@ -190,8 +191,8 @@ export class Chart extends BasicElement {
     window.Chart.defaults.global.defaultFontStyle = style.getPropertyValue('font-style');
 
     // Set grid line globals
-    window.Chart.defaults.scale.gridLines.color = this.getComputedVariable('--grid-line-color', 'transparent');
-    window.Chart.defaults.scale.gridLines.zeroLineColor = this.getComputedVariable('--zero-line-color', 'transparent');
+    (window.Chart as unknown as ChartJS).defaults.scale.gridLines.color = this.getComputedVariable('--grid-line-color', 'transparent');
+    (window.Chart as unknown as ChartJS).defaults.scale.gridLines.zeroLineColor = this.getComputedVariable('--zero-line-color', 'transparent');
 
     return {
       options: {
@@ -257,15 +258,20 @@ export class Chart extends BasicElement {
       return [];
     }
 
+    const chartOption = DEFAULT_CHART_CONFIG[this.config.type] as Chart.ChartOptions;
+
     if (
       this.datasets.length
-      && DEFAULT_CHART_CONFIG[this.config.type].legend
+      && chartOption.legend
       && Array.isArray(this.datasets[0].backgroundColor)
     ) {
 
-      const legends = DEFAULT_CHART_CONFIG[this.config.type].legend.labels.generateLabels(chart);
+      let legends: Chart.ChartLegendLabelItem[] = [];
+      if (chartOption.legend.labels?.generateLabels) {
+        legends = chartOption.legend.labels?.generateLabels(chart);
+      }
 
-      // Customize for doughnut chart change border color to backgroud color
+      // Customize for doughnut chart change border color to background color
       if (['pie', 'doughnut'].includes(this.config?.type) && this.datasets.length > 1) {
         legends.forEach((label: Chart.ChartLegendLabelItem)=> {
           label.strokeStyle = label.fillStyle;
@@ -310,6 +316,7 @@ export class Chart extends BasicElement {
     this.mergeObjects(this.config, this.requiredConfig, true);
   }
 
+
   /**
    * Merges properties of one object into another.
    * @param {MergeObject} a Object to merge into
@@ -318,17 +325,17 @@ export class Chart extends BasicElement {
    * @param {object[]} record Record of objects, to check for circular references
    * @returns {void}
    */
-  protected mergeObjects (a: MergeObject, b: MergeObject, force = false, record: object[] = []): void {
+  protected mergeObjects (a: MergeObject, b: MergeObject, force = false, record: Record<string, unknown>[] = []): void {
     let value;
     let isObject;
 
     Object.keys(b).forEach(key => {
-      value = b[key];
-      isObject = value && value.toString() === '[object Object]';
+      value = b[key] as unknown;
+      isObject = value && typeof value === 'object' && value.toString() === '[object Object]';
       if (!(key in a) || (force && !isObject)) {
-        a[key] = b[key];
+        a[key] = b[key] as unknown;
       }
-      if (isObject && !record.includes(value)) {
+      if (isObject && !record.includes(value as Record<string, unknown>)) {
         record.push(b[key]);
         this.mergeObjects(a[key], b[key], force, record);
       }
@@ -344,7 +351,7 @@ export class Chart extends BasicElement {
 
     const extendColorsIfRequired = (currentColors: ChartDataSetsColor, infoColors: ChartDataSetsColor): void => {
       if (Array.isArray(currentColors) && Array.isArray(infoColors) && currentColors.length < infoColors.length) {
-        this.mergeObjects(currentColors, infoColors);
+        this.mergeObjects(currentColors as MergeObject, infoColors as MergeObject);
       }
     };
 
