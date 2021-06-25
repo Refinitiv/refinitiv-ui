@@ -1,41 +1,10 @@
-## Compile solar theme
+# Solar Theme
 
-* Setup **theme compiler**
-```
-$ clone git@git.sami.int.thomsonreuters.com:elf/theme-compiler.git
-$ cd theme-compiler
-$ yarn link
-```
+This is a legacy theme. It's only to use for Eikon products and services and shall not use within Refinitiv Workspace.
 
-* Setup a base theme of solar theme which is **elf-theme-elemental**
-```
-$ clone git@git.sami.int.thomsonreuters.com:elf/elf-theme-elemental.git#
-$ cd elf-theme-elemental
-$ yarn link
-```
+The theme needs to use with EF elements. See list of elements, demo and more tutorial by visiting [EF Documentation](https://cdn.ppe.refinitiv.com/public/apps/elf-docs/book/en/index.html).
 
-* Compile solar theme
-```
-$ clone git@git.sami.int.thomsonreuters.com:elf/elf-theme-solar.git
-$ cd elf-theme-solar
-$ yarn link @elf/elf-theme-elemental
-$ yarn run build
-```
-The compilation output will be in /pearl/ and /charcoal/ directory
+# License
+Solar theme shall only be used within Refinitiv products or services due to license of the font "Proxima Nova Fin".
 
-## Use theme from local machine
-
-To use this theme from your local machine, run a link command in the solar theme directory.
-It may also be useful to run watch if you need to modify the theme together while developing your element.
-
-```
-$ yarn link
-$ yarn run watch
-```
-
-In the element, link the **elf-theme-solar**
-
-```
-$ yarn link @elf/elf-theme-solar
-```
-
+The font "Proxima Nova Fin" shall only be used within Refinitiv products or services. The copyright owner must approve any use of such font outside of Refinitiv products or services, which may be subject to a fee. Please see https://www.fontspring.com/lic/fontspring/webfont#license_text

@@ -1,10 +1,10 @@
-# Element Framework / Core
+# Core Components for Element Framework
 
-This library provides core functionality for building Elements and exports the following classes:
+Core functionality for building Element Framework elements, it exports the following classes:
 
+## Basic Element
 
-### BasicElement
-Used for simple elements that have minimal functionality.
+A base class for extending simple element that have minimal functionality.
 
 ```js
 import { BasicElement, customElement } from '@refinitiv-ui/core';
@@ -15,10 +15,9 @@ class MyAvatar extends BasicElement {
 }
 ```
 
----
+## Control Element
 
-### ControlElement
-Used for control elements, ones usually referred to as form elements. These controls have additional functionality, such as, disabled and read-only states.
+A base class for extending control element, usually referred to as form elements. These controls have additional functionality, such as, disabled and read-only states.
 
 ```js
 import { ControlElement, customElement } from '@refinitiv-ui/core';
@@ -29,10 +28,9 @@ class MyButton extends ControlElement {
 }
 ```
 
----
+## Responsive Element
 
-### ResponsiveElement
-Used for creating elements which need to respond to their dimensions. Mainly grids, lists and data visualizations.
+A base class for extending element which needs to respond to their dimensions e.g data visualizations. The base class provides resize observer callback which will trigger whenever that the element's dimensions are changed.
 
 ```js
 import { ResponsiveElement, customElement } from '@refinitiv-ui/core';
@@ -43,23 +41,9 @@ class MyChart extends ResponsiveElement {
 }
 ```
 
----
+<br>
 
-### WidgetElement
-Used for creating high-level widget elements. These elements usually have a data connection and can work by themselves, allowing integration into 
-
-```js
-import { WidgetElement, customElement } from '@refinitiv-ui/core';
-
-@customElement('my-data-feed')
-class MyDataFeed extends WidgetElement {
-  ...
-}
-```
-
----
-
-## Deprecation Notices
+# Helper for Deprecation Notices
 
 The core provides a way of showing uniform deprecation notices, when deprecated features are used in elements.
 
@@ -68,13 +52,13 @@ import { BasicElement, DeprecationNotice } from '@refinitiv-ui/core';
 
 class MyElement extends BasicElement {
 
-  private deprecationNotice = new DerecationNotice(
+  private deprecationNotice = new DeprecationNotice(
     'The feature of hopping has be replaced by skipping. Please update to use the latest API.',
     'https://a.support.link'
   )
 
-  private checkAndWarnAboutDeprecations () {
-    // some logic to check if deprecated features are being used
+  private showDeprecationNotice () {
+    // you can some logic to check if deprecated features are being used
     if (!this.deprecationNotice.shown && deprecatedFeatureUsed) {
       this.deprecationNotice.show();
     }
@@ -83,11 +67,11 @@ class MyElement extends BasicElement {
 }
 ```
 
----
+<br>
 
-## Error Handling
+# Error Handling
 
-All errors handled in the core, should use the `GenericError` class provided and should, where possible, provide an additional support URL. Additional error types can be added to `./src/errors/`.
+All errors handling in the core should use the `GenericError` class. Also, where possible, you should provide an additional support URL. Additional error types can be added to `./src/errors/`.
 
 ```js
 import { GenericError } from './src/errors/GenericError';
@@ -96,6 +80,6 @@ throw new GenericError(
   // Message
   'Something has gone wrong',
   // Support URL
-  'https://elf.int.refinitiv.com/error/something'
+  'https://support/error/something'
 );
 ```
