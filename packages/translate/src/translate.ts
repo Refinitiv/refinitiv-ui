@@ -132,13 +132,13 @@ const observeTranslations = function (this: BasicElement, scope = this.localName
       // this ensures that requestUpdate always comes through
       // however, external applications still can detect that the change is coming for translations
       // this is better than empty requestUpdate() as in that case in is not possible to detect source of update
-      this.requestUpdate(TranslatePropertyKey, {});
+      void this.requestUpdate(TranslatePropertyKey, {});
     }
   });
 
   // Observe new translations for the scope
   return Phrasebook.observe(scope, () => {
-    this.requestUpdate(TranslatePropertyKey, {});
+    void this.requestUpdate(TranslatePropertyKey, {});
   });
 };
 
@@ -160,7 +160,7 @@ const disconnectTranslations = function (this: BasicElement, key: ObserverKey): 
  * If not provided provided, `scope = element.localName` and `mode = 'directive'`
  * @returns translate directive
  */
-const translate = function (options?: string | DecoratorOptions): Function {
+const translate = function (options?: string | DecoratorOptions): CallableFunction {
   return (
     prototype: BasicElement,
     name: PropertyKey
@@ -194,7 +194,7 @@ const translate = function (options?: string | DecoratorOptions): Function {
         }
       } : {
         get (this: BasicElement): TranslateDirective {
-          return (key: string, options?: TranslateOptions, translateParams?: TranslateParams): Function => {
+          return (key: string, options?: TranslateOptions, translateParams?: TranslateParams): CallableFunction => {
             return translateDirective(scope || this.localName, getLocale(this), key, options, translateParams);
           };
         }
