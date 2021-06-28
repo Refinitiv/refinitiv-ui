@@ -126,7 +126,7 @@ export class Chart extends BasicElement {
   }
 
   /**
-   * List of avalaible chart colors
+   * List of available chart colors
    * @type {string[]}
    * @returns {string[]} List of available chart colors
    */
