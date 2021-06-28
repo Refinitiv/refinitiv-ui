@@ -39,12 +39,18 @@ import type {
   RowLegend,
   SeriesList,
   SeriesDataItem,
-  SeriesStyleOptions
+  SeriesStyleOptions,
+  ColorToStringFunction
 } from './helpers/types';
 
 export {
   InteractiveChartConfig,
   InteractiveChartSeries
+};
+
+export type MergeObject = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any; // Allow any type of value
 };
 
 /**
@@ -435,8 +441,18 @@ export class InteractiveChart extends ResponsiveElement {
    * @param param value color
    * @returns color parse
    */
-  private convertColorToString (fn: CallableFunction, param: string, ...args: (string|number|undefined)[]): string | object {
-    return param ? fn(param, ...args).toString() : {};
+  private convertColorToString (fn: ColorToStringFunction, param: string, ...args: (string|number|undefined)[]): string | Record<string, unknown> {
+    let color = null;
+    if (param) {
+      color = fn(param, ...args);
+      if (color) {
+        color = color.toString();
+      }
+    }
+    else {
+      color = {};
+    }
+    return color || {};
   }
 
   /**
@@ -1113,19 +1129,19 @@ export class InteractiveChart extends ResponsiveElement {
    * @param record Record of objects, to check for circular references
    * @returns {void}
    */
-  private mergeObjects (a: object, b: object, force = false, record: object[] = []): void {
+  private mergeObjects (a: MergeObject, b: MergeObject, force = false, record: MergeObject[] = []): void {
     let value;
     let isObject;
     /* eslint-disable @typescript-eslint/no-explicit-any */
     Object.keys(b).forEach(key => {
-      value = (b as any)[key];
-      isObject = value && value.toString() === '[object Object]';
+      value = b[key] as unknown;
+      isObject = value && typeof value === 'object' && value.toString() === '[object Object]';
       if (!(key in a) || (!isObject && force)) {
-        (a as any)[key] = (b as any)[key];
+        a[key] = b[key] as unknown;
       }
       if (isObject && !record.includes(value as never)) {
-        record.push((b as any)[key]);
-        this.mergeObjects((a as any)[key], (b as any)[key], force, record);
+        record.push(b[key]);
+        this.mergeObjects(a[key], b[key], force, record);
       }
     });
   }
