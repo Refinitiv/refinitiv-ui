@@ -1,5 +1,10 @@
 export const MAIN_MOUSE_BUTTON = 0;
 
+type DraggableFunctions = {
+  mouseDownListener: CallableFunction;
+  handle: HTMLElement;
+};
+
 class DraggableManager {
   private lastX = 0;
   private lastY = 0;
@@ -9,7 +14,7 @@ class DraggableManager {
   private xOffset = 0;
   private yOffset = 0;
 
-  private draggableElements = new Map();
+  private draggableElements = new Map<HTMLElement, DraggableFunctions>();
   private draggableElement: HTMLElement | null = null;
 
   /**
@@ -38,8 +43,10 @@ class DraggableManager {
    */
   public deregister (draggableElement: HTMLElement): void {
     if (this.draggableElements.has(draggableElement)) {
-
-      DraggableManager.removeHandleCursor(this.draggableElements.get(draggableElement).handle);
+      const handle = this.draggableElements.get(draggableElement)?.handle;
+      if (handle) {
+        DraggableManager.removeHandleCursor(handle);
+      }
       this.removeHandleListeners(draggableElement);
       this.draggableElements.delete(draggableElement);
 
@@ -53,7 +60,7 @@ class DraggableManager {
   /**
    * Shifts the drag container by the specified x/y values
    * @param x Amount to shift the x-axis
-   * @param y Amaount to shift the y-axis
+   * @param y Amount to shift the y-axis
    * @returns {void}
    */
   private shift (x: number, y: number): void {
@@ -100,10 +107,10 @@ class DraggableManager {
    * @returns {void}
    */
   private setHandleListeners (draggableElement: HTMLElement): void {
-    this.draggableElements.get(draggableElement).handle
+    this.draggableElements.get(draggableElement)?.handle
       .addEventListener(
         'mousedown',
-        this.draggableElements.get(draggableElement).mouseDownListener
+        this.draggableElements.get(draggableElement)?.mouseDownListener as EventListener
       );
   }
 
@@ -113,9 +120,9 @@ class DraggableManager {
    * @returns {void}
    */
   private removeHandleListeners (draggableElement: HTMLElement): void {
-    this.draggableElements.get(draggableElement).handle.removeEventListener(
+    this.draggableElements.get(draggableElement)?.handle.removeEventListener(
       'mousedown',
-      this.draggableElements.get(draggableElement).mouseDownListener
+      this.draggableElements.get(draggableElement)?.mouseDownListener as EventListener
     );
   }
 
