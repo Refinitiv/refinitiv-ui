@@ -5,15 +5,15 @@ import { tooltipRenderer } from '../helpers/renderer';
 // Support title attribute
 Object.defineProperty(HTMLElement.prototype, 'title', {
   get: function () {
-    const title = this.getAttribute('title');
+    const title = (this as HTMLElement).getAttribute('title');
     if (title) {
-      this.title = title;
+      (this as HTMLElement).title = title;
     }
-    return this.getAttribute('tooltip');
+    return (this as HTMLElement).getAttribute('tooltip');
   },
   set: function (value) {
-    this.setAttribute('title', '');
-    this.setAttribute('tooltip', value);
+    (this as HTMLElement).setAttribute('title', '');
+    (this as HTMLElement).setAttribute('tooltip', value);
   }
 });
 
