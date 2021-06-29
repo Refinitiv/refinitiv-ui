@@ -21,7 +21,7 @@
     "build": "tsc",
     "build:watch": "tsc --watch --preserveWatchOutput --sourceMap",
     "lint": "eslint . --fix",
-    "test": "yarn build && karma start ../../karma.conf.js",
+    "test": "yarn lint && yarn build && karma start ../../karma.conf.js",
     "test:watch": "yarn build && yarn test --auto-watch=true --single-run=false",
     "prepublishOnly": "node __release-scripts__/index.js"
   },
