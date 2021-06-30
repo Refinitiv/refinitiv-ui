@@ -1,14 +1,7 @@
+#!/usr/bin/env node
 const osType = require('os').type();
 const path = require('path');
-const yargs = require('yargs/yargs');
-const { hideBin } = require('yargs/helpers');
-const pluginCommonJs = require('./transform-commonjs-plugin');
-
-const argv = yargs(hideBin(process.argv)).option('element', {
-  alias: 'e',
-  type: 'string',
-  description: 'Element to start',
-}).argv;
+const { pluginTransformCommonJS } = require('./scripts/dev-server');
 
 /**
  * Browsers
@@ -67,17 +60,18 @@ module.exports = async function (config) {
     },
     files: [
       {
-        pattern: path.join(process.cwd(), `**/${argv.element || ''}/__test__/**/*.test.js`),
-        type: 'module',
+        pattern: path.join(process.cwd(), '**/__test__/**/*.test.js'),
+        type: 'module'
       },
+      path.join(process.cwd(), '**/snapshots/**/*.md')
     ],
     esm: {
       coverage: true,
-      coverageExclude: argv.element ? ['**/__test__/**', `!**/${argv.element}/**/*`]: ['**/__test__/**'],
+      coverageExclude: ['**/__test__/**', '**/__snapshots__/**', '**/__demo__/**'],
       nodeResolve: true,
       compatibility: 'auto',
       preserveSymlinks: true,
-      plugins: [pluginCommonJs()],
+      plugins: [pluginTransformCommonJS()],
 
       // prevent compiling es5 libs
       babelExclude: [
@@ -85,28 +79,31 @@ module.exports = async function (config) {
         '**/node_modules/chai/**/*',
         '**/node_modules/sinon-chai/**/*',
         '**/node_modules/chai-dom/**/*',
-        '**/node_modules/core-js-bundle/**/*',
+        '**/node_modules/core-js-bundle/**/*'
       ],
       // sinon is not completely es5...
       babelModernExclude: ['**/node_modules/sinon/**/*'],
       // prevent compiling non-module libs
       babelModuleExclude: [
         '**/node_modules/mocha/**/*',
-        '**/node_modules/core-js-bundle/**/*',
+        '**/node_modules/core-js-bundle/**/*'
       ],
-      exclude: ['**/__snapshots__/**/*'],
+      // exclude files served via Karma internally
+      karmaExclude: [
+        '**/__snapshots__/**'
+      ]
     },
     snapshot: {
       update: updateSnapshots,
       prune: pruneSnapshots,
-      pathResolver(basePath, suiteName) {
-        return path.join(process.cwd(), `__snapshots__/${suiteName}.md`); // required in order for snapshots to prune and update correctly
+      pathResolver1(basePath, suiteName) {
+        return path.join(process.cwd(), `snapshots/${suiteName}.md`); // required in order for snapshots to prune and update correctly
       },
     },
     plugins: [
       // resolve plugins relative to this config so that they don't always need to exist
       // at the top level
-      require.resolve('@open-wc/karma-esm'),
+      require.resolve('./scripts/karma-server/karma-esm'),
       require.resolve('karma-mocha'),
       require.resolve('karma-mocha-reporter'),
       require.resolve('karma-source-map-support'),
@@ -121,14 +118,14 @@ module.exports = async function (config) {
       'karma-*',
     ],
     frameworks: [
-      'esm',
-      'mocha',
       'snapshot',
       'mocha-snapshot',
+      'esm',
+      'mocha',
       'source-map-support',
     ],
     preprocessors: {
-      '**/__snapshots__/**/*.md': ['snapshot'],
+      '**/__snapshots__/**/*.md': ['snapshot']
     },
     reporters: ['mocha', 'coverage-istanbul'],
     mochaReporter: {

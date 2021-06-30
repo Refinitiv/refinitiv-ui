@@ -4,10 +4,14 @@
   "workspaces": [
     "packages/*"
   ],
+  "engines": {
+    "node": ">=14.15.4",
+    "npm": "^7.19.0"
+  },
   "scripts": {
     "lerna": "lerna",
     "build": "lerna run build",
-    "start": "node cli.js start",
+    "start1": "node cli.js start",
     "test": "node cli.js test",
     "lint": "node cli.js lint"
   },
@@ -26,6 +30,8 @@
     "@web/dev-server-legacy": "^0.1.7",
     "chalk": "^4.1.1",
     "concurrently": "^6.1.0",
+    "deepmerge": "^4.2.2",
+    "es-dev-server": "^2.1.0",
     "eslint": "^7.19.0",
     "fast-glob": "^3.2.5",
     "husky": "^4.3.8",
@@ -43,6 +49,7 @@
     "lerna": "^4.0.0",
     "lint-staged": "^10.5.4",
     "micromatch": "^4.0.4",
+    "request": "^2.88.2",
     "rollup": "^2.38.1",
     "sinon": "^9.2.4",
     "typescript": "^4.2.4",

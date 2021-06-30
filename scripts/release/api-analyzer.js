@@ -1,10 +1,11 @@
+#!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
-const chalk = require('chalk');
 const fg = require('fast-glob');
 const wca = require('web-component-analyzer');
 
-const { ELEMENT_DIST } = require('./util');
+const { log, errorHandler, success, error } = require('../helpers');
+const { ELEMENT_DIST, PACKAGE_ROOT } = require('./util');
 
 const getDeclarationMethods = (meta) => {
   if (!meta || !meta.results || !meta.results.length) {
@@ -25,11 +26,11 @@ const generateParamByInfo = (info, result) => {
   if (info) {
     result.description = info.node.comment;
     if (
-      info &&
-      info.node &&
-      info.node.typeExpression &&
-      info.node.typeExpression.type &&
-      info.node.typeExpression.type.typeName
+      info
+      && info.node
+      && info.node.typeExpression
+      && info.node.typeExpression.type
+      && info.node.typeExpression.type.typeName
     ) {
       result.type = info.node.typeExpression.type.typeName.escapedText;
     }
@@ -51,10 +52,10 @@ const generateInfo = (declarationMethod, name) => {
 
 const generateParamByDetail = (detail, result) => {
   if (
-    detail &&
-    detail.valueDeclaration &&
-    detail.valueDeclaration.type &&
-    detail.valueDeclaration.type.typeName
+    detail
+    && detail.valueDeclaration
+    && detail.valueDeclaration.type
+    && detail.valueDeclaration.type.typeName
   ) {
     result.type = detail.valueDeclaration.type.typeName.escapedText;
   }
@@ -103,7 +104,7 @@ const declarationMethodMapCallback = (declarationMethod) => {
   return {
     name,
     description,
-    params,
+    params
   };
 };
 
@@ -177,9 +178,11 @@ const analyze = (file) => {
  */
 const handler = async () => {
   // Looking for `index.ts` in each element source folder
-  const entries = await fg([`./${ELEMENT_SRC}/*/${INPUT_FILENAME}`], { unique: true });
+  const entries = await fg([`${PACKAGE_ROOT}/${ELEMENT_SRC}/*/${INPUT_FILENAME}`], { unique: true });
 
-  if (entries.length === 0) return;
+  if (entries.length === 0) {
+    return;
+  }
   for (const entrypoint of entries) {
     const elementNameRegEx = new RegExp(`^.*\\/${ELEMENT_SRC}\\/([\\w-]+)`);
     const element = entrypoint.match(elementNameRegEx)[1];
@@ -194,7 +197,7 @@ const handler = async () => {
      * try to look for <element name>.ts file in the sub directories
      */
     if (!isValidAPI(elementAPI, element)) {
-      const altEntrypoint = (await fg([`./src/**/${element}.ts`], { unique: true }) || [])[0];
+      const altEntrypoint = (await fg([`${PACKAGE_ROOT}/${ELEMENT_SRC}/**/${element}.ts`], { unique: true }) || [])[0];
       if (altEntrypoint) {
         elementAPI = analyze(altEntrypoint);
       }
@@ -202,19 +205,19 @@ const handler = async () => {
 
     // Only write file if API is matched to element tag
     if (isValidAPI(elementAPI, element)) {
-      console.log(`Generating API for ${element} ${chalk.green('OK')}`);
+      success(`Generating API for ${element}`);
       fs.writeFileSync(outFile, elementAPI, 'utf8');
     } else {
-      console.log(`Generating API for ${element} ${chalk.red('ERROR')}`);
+      error(`Generating API for ${element}`);
     }
   }
 
-  console.log(chalk.green(`\nFinish analyzing element\'s public API.\n`));
+  success('Finish analyzing element\'s public API.');
 };
 
 try {
-  console.log(`\nAnalyzing element\'s API...\n`);
+  log('Analyzing element\'s API...');
   handler();
 } catch (error) {
-  console.error(chalk.red(`Element Analyzer Error: ${error}`));
+  errorHandler(`Element Analyzer Error: ${error}`);
 }

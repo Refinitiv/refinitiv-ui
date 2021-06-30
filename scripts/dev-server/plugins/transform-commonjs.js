@@ -1,7 +1,12 @@
-// keep simple key/value pairs for re-use
+#!/usr/bin/env node
+
+/**
+ * The plugin is used to transform commonjs plugins into
+ * esm modules. Once full ESM support is added the plugin can be deprecated
+ */
 const storage = {};
 
-async function build(packageName, moduleName) {
+async function build (packageName, moduleName) {
   const rollup = require('rollup');
   const resolve = require('@rollup/plugin-node-resolve').nodeResolve;
   const commonjs = require('@rollup/plugin-commonjs');

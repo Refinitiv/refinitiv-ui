@@ -1,18 +1,19 @@
+#!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
-const chalk = require('chalk');
 const fg = require('fast-glob');
 
-const { ELEMENT_DIST, getElementList, getElementTagName } = require('./util');
+const { log, errorHandler, success, ROOT } = require('../helpers');
+const { ELEMENT_DIST, PACKAGE_ROOT, getElementList, getElementTagName } = require('./util');
 
 // List of themes to be extracted
 const THEMES = ['halo', 'solar'];
 
 // Element package scope
-const PACKAGE_NAME = require('../package.json').name;
+const PACKAGE_NAME = require(`${PACKAGE_ROOT}/package.json`).name;
 
 // Where to look for theme files
-const THEME_SOURCE = `../../node_modules/${PACKAGE_NAME.split('/')[0]}/`;
+const THEME_SOURCE = `${ROOT}/node_modules/${PACKAGE_NAME.split('/')[0]}/`;
 
 // Post-fix of theme name
 const THEME_POSTFIX = '-theme';
@@ -91,7 +92,7 @@ const extractThemeDependency = (themePath) => {
   return themeContent
     .match(importRegex)
     .filter((matched) => !matched.includes('native-elements'))
-    .map((matched) => matched.replace("import './", '').replace(".js';", ''));
+    .map((matched) => matched.replace(`import './`, '').replace(".js';", ''));
 };
 
 /**
@@ -184,12 +185,12 @@ const handler = async () => {
     }
   }
 
-  console.log(chalk.green(`\nFinish extracting themes of ${dependencyMap.length} elements.\n`))
+  success(`Finish extracting themes of ${dependencyMap.length} elements.`);
 };
 
 try {
-  console.log(`\nExtracting themes...\n`);
+  log('Extracting themes...');
   handler();
 } catch (error) {
-  console.error(chalk.red(`\nTheme Extractor Error: ${error}\n`))
+  errorHandler(`Theme Extractor Error: ${error}`);
 }

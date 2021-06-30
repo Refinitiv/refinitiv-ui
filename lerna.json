@@ -1,6 +1,6 @@
 {
   "packages": ["packages/*"],
-  "npmClient": "yarn",
+  "npmClient": "npm",
   "useWorkspaces": true,
   "version": "independent",
   "command": {
@@ -9,5 +9,5 @@
       "registry": "https://registry.npmjs.org"
     }
   },
-  "ignoreChanges": ["**/__test__/**", "**/__demo__/**", "**/__snapshots__/**"]
+  "ignoreChanges": ["**/__test__/**", "**/__demo__/**", "**/snapshots/**"]
 }

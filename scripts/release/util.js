@@ -1,16 +1,20 @@
+#!/usr/bin/env node
 const fs = require('fs');
 const fg = require('fast-glob');
 
 // Element built files
+const PACKAGE_ROOT = process.env.PACKAGE_ROOT || process.cwd();
 const ELEMENT_DIST = 'lib';
 
 /**
  * Get element tag name from file path
- * @param {string} path
- * @returns {string} element tag name
+ * @param {string} path element's path
+ * @returns {string|void} element tag name
  */
 const getElementTagName = (path) => {
-  if (!fs.existsSync(path)) return;
+  if (!fs.existsSync(path)) {
+    return;
+  }
 
   const content = fs.readFileSync(path, { encoding: 'utf-8' });
   const tagName = content.split(`${DECORATE_SYNTAX}('`)[1].split("'")[0];
@@ -20,11 +24,11 @@ const getElementTagName = (path) => {
 
 // This is a compiled syntax of decorator we used to define our elements
 // This will help to detect if the JavaScript file is an element or not
-const DECORATE_SYNTAX = `__decorate([\n    customElement`;
+const DECORATE_SYNTAX = '__decorate([\n    customElement';
 
 /**
  * Get list of element file path which contain element defining syntax
- * @param {string} directory
+ * @param {string} directory directory's name
  * @returns {string[]} a list of element file path
  */
 const getElementList = async (directory) => {
@@ -39,4 +43,9 @@ const getElementList = async (directory) => {
     );
 };
 
-module.exports = { ELEMENT_DIST, getElementTagName, getElementList }
+module.exports = {
+  ELEMENT_DIST,
+  PACKAGE_ROOT,
+  getElementTagName,
+  getElementList
+};
