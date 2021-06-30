@@ -59,7 +59,6 @@ export { TapEvent } from './events/TapEvent';
  * Export common interfaces
  */
 export { MultiValue } from './interfaces/MultiValue';
-export { StandardEvent } from './interfaces/StandardEvent';
 export { StyleInfo } from './interfaces/StyleInfo';
 
 /**

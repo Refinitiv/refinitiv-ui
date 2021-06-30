@@ -11,8 +11,7 @@ import {
   MultiValue,
   query,
   FocusedPropertyKey,
-  StyleInfo,
-  StandardEvent
+  StyleInfo
 } from '@refinitiv-ui/core';
 import '../overlay';
 import { Item } from '../item';
@@ -511,7 +510,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param event opened-changed event
    * @returns {void}
    */
-  private onPopupOpenedChanged (event: StandardEvent<boolean>): void {
+  private onPopupOpenedChanged (event: CustomEvent<{ value: boolean }>): void {
     event.preventDefault();
     this.setOpened(event.detail.value);
   }
@@ -520,7 +519,7 @@ export class Select extends ControlElement implements MultiValue {
    * Run when popup gets opened
    * @returns {void}
    */
-  private onPopupOpened ({ target }: StandardEvent<boolean>): void {
+  private onPopupOpened ({ target }: CustomEvent<{ value: boolean }>): void {
     this.scrollToSelected();
     this.setItemHighlight(this.getSelectedElements()[0]);
 
@@ -536,7 +535,7 @@ export class Select extends ControlElement implements MultiValue {
    * Run when popup gets closed
    * @returns {void}
    */
-  private onPopupClosed ({ target }: StandardEvent<boolean>): void {
+  private onPopupClosed ({ target }: CustomEvent<{ value: boolean }>): void {
     const eventOptions = { /* need this for IE11, otherwise the event is not removed */
       capture: true,
       passive: true
