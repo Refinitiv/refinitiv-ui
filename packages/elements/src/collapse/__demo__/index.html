@@ -89,5 +89,19 @@
         <div class="content">Content inside a div with a fixed 100px height</div>
       </ef-collapse>
     </demo-block>
+
+    <demo-block header="Prevent Expanding" layout="normal" tags="cancel event">
+      <ef-collapse header="Not allow to collapse" id="cancel-event" expanded>
+        <div class="content">
+          Content is uncollapsed. expanded-changed is canceled.
+        </div>
+      </ef-collapse>
+      <script>
+        const element = document.getElementById('cancel-event');
+        element.addEventListener('expanded-changed', function (event) {
+          event.preventDefault();
+        });
+      </script>
+    </demo-block>
   </body>
 </html>
