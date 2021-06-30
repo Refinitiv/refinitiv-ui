@@ -3,7 +3,7 @@ import { elementUpdated, expect, fixture, isIE } from '@refinitiv-ui/test-helper
 import '@refinitiv-ui/elements/text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 
-describe('TextField', () => {
+describe('text-field/SelectionRange', () => {
   describe('TextField Selection Range', () => {
 
     it('Applies selectionStart', async function () {

@@ -5,7 +5,7 @@ import '@refinitiv-ui/elements/time-picker';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
 import '@refinitiv-ui/elemental-theme/light/ef-time-picker';
 
-describe('TimePicker', () => {
+describe('time-picker/TimePicker', () => {
   let el;
   let hoursPart;
   let minutesPart;

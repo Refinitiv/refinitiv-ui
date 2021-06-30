@@ -15,7 +15,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-pagination';
 
 const itBrowser = isIE() ? xit : it;
 
-describe('Pagination', () => {
+describe('pagination/Pagination', () => {
   describe('Snapshots', () => {
     itBrowser('DOM structure is correct', async () => {
       const el = await fixture('<ef-pagination></ef-pagination>');

@@ -5,7 +5,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
 import { openedUpdated, triggerMouseMove } from './utils';
 import { nestedMarkup } from './markup';
 
-describe('OverlayMenu', () => {
+describe('overlay-menu/Positioning', () => {
   describe('Positioning Test', () => {
     const checkDefaultMenus = async (el) => {
       let menus = el.querySelectorAll('ef-overlay-menu');

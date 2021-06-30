@@ -6,7 +6,7 @@ import { nestedData, selectableCount } from './mock_data/nested';
 import { openedUpdated } from './utils';
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
 
-describe('TreeSelect', () => {
+describe('tree-select/Data', () => {
   describe('Data Test', () => {
 
     it('Takes data', async () => {

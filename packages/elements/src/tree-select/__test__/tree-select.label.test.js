@@ -5,7 +5,7 @@ import '@refinitiv-ui/elements/tree-select';
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
 import { nestedData } from './mock_data/nested';
 
-describe('TreeSelect', () => {
+describe('tree-select/Label', () => {
   describe('Label Test - Subset of ComboBox Tests', () => {
 
     it('Is blank by default', async () => {

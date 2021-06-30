@@ -4,7 +4,7 @@ import { getData, openedUpdated, snapshotIgnore } from './utils';
 import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 
-describe('ComboBox', () => {
+describe('combo-box/Template', () => {
   describe('Template Parts', () => {
     it('Empty DOM has all required parts', async () => {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');

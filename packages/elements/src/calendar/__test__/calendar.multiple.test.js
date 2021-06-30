@@ -16,7 +16,7 @@ const listenValueChangeEvent = (el) => {
   return values;
 };
 
-describe('Calendar', () => {
+describe('calendar/Multiple', () => {
   describe('Multiple Test', () => {
     it('Multiple: selected values should be highlighted', async () => {
       const el = await fixture('<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-GB"></ef-calendar>');

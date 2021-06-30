@@ -8,7 +8,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-select';
 // set this flag to false to run all tests locally in IE
 const skipCITest = isIE() && true;
 
-describe('Select', () => {
+describe('select/Events', () => {
   describe('opened-changed event is fired only on internal actions', () => {
     it('opened-changed is not fired when opened flag changed externally', async () => {
       const el = await fixture(`<ef-select>${getOptions()}</ef-select>`);

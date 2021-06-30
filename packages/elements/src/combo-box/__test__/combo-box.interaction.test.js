@@ -34,7 +34,7 @@ const makeQueryRequest = async (el, textInput) => {
   await aTimeout(100);
 };
 
-describe('ComboBox', () => {
+describe('combo-box/Interaction', () => {
   describe('Can Open Popup By Different Means', () => {
     it('Tapping on combo-box should open popup', async function () {
       if (skipCITest) {

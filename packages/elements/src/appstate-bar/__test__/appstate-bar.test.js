@@ -4,7 +4,7 @@ import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-he
 import '@refinitiv-ui/elements/appstate-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-appstate-bar.js';
 
-describe('AppstateBar', () => {
+describe('appstate-bar/AppstateBar', () => {
 
   let el;
   let headingPart;

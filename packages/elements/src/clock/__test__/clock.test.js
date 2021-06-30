@@ -8,7 +8,7 @@ import {
 import '@refinitiv-ui/elements/clock';
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
 
-describe('Clock', () => {
+describe('clock/Clock', () => {
   let el;
 
   describe('DOM structure', () => {

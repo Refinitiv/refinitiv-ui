@@ -6,7 +6,7 @@ import { triggerMouseMove } from './utils';
 import '@refinitiv-ui/elements/overlay-menu';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
 
-describe('OverlayMenu', () => {
+describe('overlay-menu/Events', () => {
   describe('Events Test', () => {
 
     it('Fires opened', async () => {

@@ -7,7 +7,7 @@ import { flatData, flatSelection } from './mock_data/flat';
 import { nestedData, nestedSelection, selectableCount } from './mock_data/nested';
 import { changeItemSelection, checkMemo, doValuesMatch, openedUpdated } from './utils';
 
-describe('TreeSelect', () => {
+describe('tree-select/Interaction', () => {
   describe('Interaction Test', () => {
 
     it('Persists a selection - flat', async function () {

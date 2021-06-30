@@ -4,7 +4,7 @@ import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-he
 import '@refinitiv-ui/elements/accordion';
 import '@refinitiv-ui/elemental-theme/light/ef-accordion';
 
-describe('Accordion', () => {
+describe('accordion/Accordion', () => {
   describe('Should Have A Correct DOM', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-accordion></ef-accordion>');

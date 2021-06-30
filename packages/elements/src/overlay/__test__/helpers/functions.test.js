@@ -2,7 +2,7 @@ import { expect } from '@refinitiv-ui/test-helpers';
 
 import { valueOrNull, valueOrZero } from '../../../../lib/overlay/helpers/functions.js';
 
-describe('Overlay', () => {
+describe('overlay/helpers/Functions', () => {
   describe('Functions From Helpers', () => {
     it('Test valueOrZero', () => {
       expect(valueOrZero(100)).to.equal(100, 'expect valueOrZero of 100 to equal 100');

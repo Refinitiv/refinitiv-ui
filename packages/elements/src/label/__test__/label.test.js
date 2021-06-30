@@ -22,7 +22,7 @@ const waitTooltipUpdated = async () => {
 const SHORT_LABEL = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 const LONG_LABEL = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu.';
 
-describe('Label', () => {
+describe('label/Label', () => {
   let el;
   describe('DOM Structure is Correct', () => {
     it('Default', async () => {

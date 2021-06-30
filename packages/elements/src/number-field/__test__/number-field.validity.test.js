@@ -3,7 +3,7 @@ import { fixture, expect } from '@refinitiv-ui/test-helpers';
 import '@refinitiv-ui/elements/number-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
 
-describe('NumberField', () => {
+describe('number-field/Validity', () => {
   describe('Check Validity', () => {
     it('Input is valid by default', async () => {
       const el = await fixture('<ef-number-field></ef-number-field>');

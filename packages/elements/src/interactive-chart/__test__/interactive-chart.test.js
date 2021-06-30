@@ -352,7 +352,7 @@ let customLegendCandlestickChart = {
   }]
 };
 
-describe('InteractiveChart', () => {
+describe('interactive-chart/InteractiveChart', () => {
   const generateData = function (total, start, init) {
     let initVal = init || 20;
     let startDate = start || new Date();

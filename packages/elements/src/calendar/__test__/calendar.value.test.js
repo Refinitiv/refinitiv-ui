@@ -18,7 +18,7 @@ const listenValueChangeEvent = (el) => {
   return values;
 };
 
-describe('Calendar', () => {
+describe('calendar/Value', () => {
   describe('Value Is Selected', () => {
     it('Selected value should be highlighted when set as attribute', async () => {
       const el = await fixture('<ef-calendar value="2005-04-21" lang="en-GB"></ef-calendar>');

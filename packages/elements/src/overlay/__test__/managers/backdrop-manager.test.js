@@ -11,7 +11,7 @@ const createFixture = async (zIndex) => {
     fixture(`<ef-overlay z-index="${zIndex}" opened with-backdrop>test</ef-overlay>`);
 };
 
-describe('Overlay', () => {
+describe('overlay/manager/BackdropManager', () => {
   describe('Backdrop Manager', () => {
 
     let manager = {};

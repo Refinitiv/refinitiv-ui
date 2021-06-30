@@ -11,7 +11,7 @@ import {
 import '@refinitiv-ui/elements/layout';
 import '@refinitiv-ui/elemental-theme/light/ef-layout.js';
 
-describe('Layout', function () {
+describe('layout/Layout', function () {
   const defaultLayout = '<ef-layout></ef-layout>';
   const flexLayout = '<ef-layout flex></ef-layout>';
   const noflexLayout = '<ef-layout noflex></ef-layout>';

@@ -8,7 +8,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-datetime-picker';
 
 const now = new Date();
 
-describe('DatetimePicker', () => {
+describe('datetime-picker/View', () => {
   describe('View Test', () => {
     it('Check default view', async () => {
       const el = await fixture('<ef-datetime-picker></ef-datetime-picker>');

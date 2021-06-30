@@ -40,7 +40,7 @@ const createFixture = (type = '') => {
   }
 };
 
-describe('Item', () => {
+describe('item/Item', () => {
   describe('Defaults', () => {
     it('Should have correct Shadow DOM structure', async () => {
       const el = await createFixture();

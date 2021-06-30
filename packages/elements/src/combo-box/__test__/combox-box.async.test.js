@@ -4,7 +4,7 @@ import { getData, snapshotIgnore } from './utils';
 import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 
-describe('ComboBox', () => {
+describe('combo-box/AsyncFilter', () => {
   describe('Setting Data Asynchronously', () => {
     it('Should be possible to set data asynchronously', async () => {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');

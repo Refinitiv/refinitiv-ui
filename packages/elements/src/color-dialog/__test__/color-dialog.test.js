@@ -7,7 +7,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
 import { COLOR_ITEMS, ColorHelpers } from '../../../lib/color-dialog/helpers/color-helpers';
 
-describe('ColorDialog', () => {
+describe('color-dialog/ColorDialog', () => {
   describe('Default Color Dialog', () => {
     let defaultColorDialog;
     let colorPalettes;

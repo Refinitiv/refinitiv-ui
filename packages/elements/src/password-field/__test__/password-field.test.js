@@ -4,7 +4,7 @@ import '@refinitiv-ui/elements/password-field';
 import '@refinitiv-ui/elemental-theme/light/ef-password-field';
 import { fireKeydownEvent } from './helper.js';
 
-describe('PasswordField', () => {
+describe('password-field/PasswordField', () => {
   describe('Should have a correct DOM structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture(`

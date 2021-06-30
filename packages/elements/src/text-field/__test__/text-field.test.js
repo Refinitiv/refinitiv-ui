@@ -3,7 +3,7 @@ import { elementUpdated, expect, fixture, isIE, oneEvent, keyboardEvent } from '
 import '@refinitiv-ui/elements/text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 
-describe('TextField', () => {
+describe('text-field/TextField', () => {
   describe('Should have a correct DOM structure', () => {
     it('Label and DOM structure is correct', async () => {
       const el = await fixture(`

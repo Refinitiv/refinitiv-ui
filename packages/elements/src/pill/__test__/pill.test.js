@@ -3,7 +3,7 @@ import { elementUpdated, expect, fixture, html, oneEvent } from '@refinitiv-ui/t
 import '@refinitiv-ui/elements/pill';
 import '@refinitiv-ui/elemental-theme/light/ef-pill';
 
-describe('Pill', () => {
+describe('pill/Pill', () => {
   it('Should have correct default Shadow DOM structure', async () => {
     const el = await fixture(html`<ef-pill>Tiger</ef-pill>`);
     expect(el).shadowDom.to.equalSnapshot();

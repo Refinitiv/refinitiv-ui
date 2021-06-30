@@ -4,7 +4,7 @@ import { getData, getOptions, openedUpdated, snapshotIgnore } from './utils';
 import '@refinitiv-ui/elements/select';
 import '@refinitiv-ui/elemental-theme/light/ef-select';
 
-describe('Select', () => {
+describe('select/Value', () => {
   describe('Selection by Value Attribute', () => {
     it('Options Selected: Afghanistan', async () => {
       const el = await fixture(`<ef-select opened placeholder="Placeholder">${getOptions()}</ef-select>`);

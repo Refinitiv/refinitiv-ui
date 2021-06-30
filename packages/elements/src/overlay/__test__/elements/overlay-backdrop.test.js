@@ -2,7 +2,7 @@ import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import '../../../../lib/overlay/elements/overlay-backdrop.js';
 
-describe('Overlay', () => {
+describe('overlay/elements/OverlayBackdrop', () => {
   describe('Overlay Backdrop', () => {
     describe('shadowDOM Correctness', () => {
       it('DOM structure is correct', async () => {

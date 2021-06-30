@@ -4,7 +4,7 @@ import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-h
 import '@refinitiv-ui/elements/led-gauge';
 import '@refinitiv-ui/elemental-theme/light/ef-led-gauge.js';
 
-describe('LedGauge', () => {
+describe('led-gauge/LedGauge', () => {
   let canvas;
   let top;
   let bottom;

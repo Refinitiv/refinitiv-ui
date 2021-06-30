@@ -14,7 +14,7 @@ import {
 } from './helpers/helpers';
 import sinon from 'sinon';
 
-describe('Flag', () => {
+describe('flag/Flag', () => {
   describe('Should Have Correct DOM Structure', () => {
     it('without flag or src attributes', async () => {
       const el = await createAndWaitForLoad('<ef-flag></ef-flag>');

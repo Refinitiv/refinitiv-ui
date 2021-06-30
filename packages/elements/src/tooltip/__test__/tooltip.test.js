@@ -40,7 +40,7 @@ const mouseMove = async (config = {}) => {
   await nextFrame();
 };
 
-describe('Tooltip', () => {
+describe('tooltip/Tooltip', () => {
   it('DOM structure is correct', async () => {
     const el = await fixture('<ef-tooltip></ef-tooltip>');
     expect(el).shadowDom.to.equalSnapshot();

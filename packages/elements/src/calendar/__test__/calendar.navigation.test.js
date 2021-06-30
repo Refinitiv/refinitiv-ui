@@ -21,7 +21,7 @@ const listenViewChangeEvent = (el) => {
 import '@refinitiv-ui/elements/calendar';
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 
-describe('Calendar', () => {
+describe('calendar/Navigation', () => {
   describe('Navigation Day', () => {
     it('Day: previous button switches month to previous', async () => {
       const el = await fixture('<ef-calendar view="2020-02" lang="en-GB"></ef-calendar>');

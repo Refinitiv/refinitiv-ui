@@ -31,7 +31,7 @@ const expectValues = async (el, values, direction, stepFactor) => {
 
 // All below tests were obtained manually from native number input in Google Chrome 90
 // and are considered as the source of truth
-describe('NumberField', () => {
+describe('number-field/Step', () => {
   describe('Step', () => {
     it('Default (no arguments), Step Up', async () => {
       const el = await fixture('<ef-number-field></ef-number-field>');

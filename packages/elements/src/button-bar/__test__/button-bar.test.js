@@ -4,7 +4,7 @@ import { Button } from '@refinitiv-ui/elements/button';
 import { ButtonBar } from '@refinitiv-ui/elements/button-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-button-bar';
 
-describe('ButtonBar', () => {
+describe('button-bar/ButtonBar', () => {
   it('should be created', async () => {
     const el = await fixture(html`<ef-button-bar></ef-button-bar>`);
     expect(el).is.instanceOf(HTMLElement);

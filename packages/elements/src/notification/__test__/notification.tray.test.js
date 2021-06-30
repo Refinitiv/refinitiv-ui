@@ -5,7 +5,7 @@ import '@refinitiv-ui/elements/notification';
 import '../../../lib/notification/notification-tray';
 import '@refinitiv-ui/elemental-theme/light/ef-notification';
 
-describe('Notification', () => {
+describe('notification/NotificationTray', () => {
   describe('Notification Tray', () => {
 
     let el;

@@ -3,7 +3,7 @@ import { isIE, fixture, expect, elementUpdated } from '@refinitiv-ui/test-helper
 import '@refinitiv-ui/elements/tornado-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-tornado-chart.js';
 
-describe('TornadoChart', () => {
+describe('tornado-chart/TornadoChartItem', () => {
   describe('TornadoItem', () => {
     describe('Snapshots', () => {
       const IGNORE = {

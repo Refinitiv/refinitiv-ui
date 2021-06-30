@@ -16,7 +16,7 @@ const isCanvasBlank = function (canvas) {
   return !foundSome;
 };
 
-describe('Sparkline', () => {
+describe('sparkline/Sparkline', () => {
   let el;
   let data;
   let canvas;

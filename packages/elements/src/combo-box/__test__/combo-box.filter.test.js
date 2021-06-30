@@ -13,7 +13,7 @@ const setInputEl = async (el, textInput) => {
   await elementUpdated(el);
 };
 
-describe('ComboBox', () => {
+describe('combo-box/Filter', () => {
   describe('Can Filter Data', () => {
     it('Default filter filters data', async () => {
       const el = await fixture('<ef-combo-box opened></ef-combo-box>');
