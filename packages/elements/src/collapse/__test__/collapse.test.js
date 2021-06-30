@@ -226,4 +226,20 @@ describe('collapse/Collapse', () => {
     });
   });
 
+  describe('Cancel expanded-changed event', () => {
+    it('Should not change expanded property', async () => {
+      const el = await fixture('<ef-collapse expanded></ef-collapse>');
+      const header = el.shadowRoot.querySelector('[part=header]');
+      const expanded = el.expanded;
+
+      const onExpandedEvent = (e) => e.preventDefault();
+      el.addEventListener('expanded-changed', onExpandedEvent);
+
+      setTimeout(() => header.dispatchEvent(new Event('tap')));
+      await oneEvent(el, 'expanded-changed');
+      await elementUpdated(el);
+      expect(el.expanded).to.equal(expanded);
+      expect(el.hasAttribute('expanded')).to.equal(expanded);
+    });
+  });
 });

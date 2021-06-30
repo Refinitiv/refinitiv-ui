@@ -10,15 +10,14 @@ import {
   TemplateResult,
   WarningNotice
 } from '@refinitiv-ui/core';
-
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils';
-
-import { DefaultRenderer } from './default-renderer';
 
 import '../item';
 import { ItemData } from '../item';
+import { ListData } from './helpers/types';
+import { ListRenderer } from './helpers/list-renderer';
 
-export { DefaultRenderer };
+export { ListData, ListRenderer };
 
 /**
  * Key direction
@@ -80,9 +79,10 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
 
   /**
    * Renderer used to render list item elements
+   * @type {ListRenderer}
    */
   @property({ type: Function, attribute: false })
-  public renderer = new DefaultRenderer(this);
+  public renderer = new ListRenderer(this);
 
   /**
    * Disable selections
@@ -93,17 +93,18 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Allow multiple selections
    */
-  @property({ type: Boolean }) multiple = false;
+  @property({ type: Boolean })
+  public multiple = false;
 
   /**
    * The data object, used to render the list.
+   * @type {ListData}
    */
   @property({ attribute: false })
-  public get data (): T[] | CollectionComposer<T> | null {
+  public get data (): ListData<T> {
     return this._data;
   }
-
-  public set data (value: T[] | CollectionComposer<T> | null) {
+  public set data (value: ListData<T>) {
     const oldValue = this._data;
     if (oldValue === value) {
       return;
@@ -126,7 +127,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     void this.requestUpdate('data', oldValue);
   }
 
-  private _data: T[] | CollectionComposer<T> | null = null;
+  private _data: ListData<T> = null;
 
   /**
    * Returns the first selected item value.
@@ -519,14 +520,16 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       previousItem && this.elementMap.delete(previousItem);
       this.elementMap.set(item, reusableElement);
     }
-    const freshElement = this.renderer(item, this.composer, this.elementFromItem(item));
+    const freshElement = this.renderer(item, this.composer, this.elementFromItem(item)) as HTMLElement;
     if (cachedElement && cachedElement !== freshElement) {
       // Renderer returned a new element, so remove the old link.
       this.itemMap.delete(cachedElement);
     }
+
     this.itemMap.set(freshElement, item); // Link element to item
     this.elementMap.set(item, freshElement); // Link item to element
     this.renderTimestamp.set(item, performance.now());
+
     return freshElement;
   }
 

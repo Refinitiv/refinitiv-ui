@@ -1,5 +1,4 @@
 import { oneEvent, expect } from '@refinitiv-ui/test-helpers';
-
 import { info, confirm, warn, error } from '@refinitiv-ui/elements/notification';
 
 describe('notification/Helpers', () => {

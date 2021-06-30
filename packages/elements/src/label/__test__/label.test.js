@@ -4,7 +4,7 @@ import { fixture, expect, elementUpdated, isIE, nextFrame } from '@refinitiv-ui/
 import '@refinitiv-ui/elements/label';
 import '@refinitiv-ui/elemental-theme/light/ef-label.js';
 
-import { TextHelpers } from '../../../lib/label/helpers/text-helpers.js';
+import { TextHelpers } from '../../../lib/label/helpers/text';
 
 const getTooltipContent = (element) => {
   const textContainer = element.shadowRoot.querySelector('span');

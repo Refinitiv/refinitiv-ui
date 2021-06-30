@@ -13,7 +13,7 @@
   </head>
   <body>
     <script type="module">
-      import { DefaultRenderer } from '@refinitiv-ui/elements/tree';
+      import { TreeRenderer } from '@refinitiv-ui/elements/tree';
       import '@refinitiv-ui/elements/tree';
       import '@refinitiv-ui/demo-block';
       let nextId = 0;
@@ -51,13 +51,13 @@
       }
 
       const custom = document.getElementById('renderer');
-      const defaultRenderer = new DefaultRenderer(custom);
+      const renderer = new TreeRenderer(custom);
       const knownElements = new WeakSet();
 
       custom.renderer = function (item, composer, element) {
 
         // Use default renderer to create/recycle element
-        element = defaultRenderer(item, composer, element);
+        element = renderer(item, composer, element);
 
         let img;
         let span;

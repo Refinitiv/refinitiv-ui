@@ -2,7 +2,6 @@ import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-he
 
 // import element and theme
 import '@refinitiv-ui/elements/notification';
-import '../../../lib/notification/notification-tray';
 import '@refinitiv-ui/elemental-theme/light/ef-notification';
 
 describe('notification/NotificationTray', () => {

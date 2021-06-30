@@ -6,6 +6,7 @@ import {
   html,
   property,
   PropertyValues,
+  query,
   TemplateResult
 } from '@refinitiv-ui/core';
 import '../header';
@@ -17,9 +18,10 @@ import '../icon';
  * or areas of the screen, maximizing the amount of real estate
  * for their primary displays.
  *
+ * @fires expanded-changed - Fired when the `expanded` property changes.
+ *
  * @slot header-left - Slot to add custom contents to the left side of header e.g. ef-icon, ef-checkbox
  * @slot header-right - Slot to add custom contents to the right side of header e.g. ef-icon, ef-checkbox
- *
  */
 @customElement('ef-collapse', {
   alias: 'coral-collapse'
@@ -29,11 +31,11 @@ export class Collapse extends BasicElement {
    * A `CSSResult` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return CSS template
+   * @return {CSSResult | CSSResult[]} CSS template
    */
   static get styles (): CSSResult | CSSResult[] {
     return css`
-       :host {
+      :host {
         display: block;
       }
       [part="header"] {
@@ -53,116 +55,102 @@ export class Collapse extends BasicElement {
     `;
   }
 
-  private panelHolder: HTMLElement | null = null;
-  private panel: HTMLElement | null = null;
-
   /**
    * Set text on the header
    */
-  @property({ type: String }) header: string | null = null;
+  @property({ type: String })
+  public header: string | null = null;
 
   /**
    * Use level styling from theme
    */
-  @property({ type: String }) level = '3';
+  @property({ type: String })
+  public level: '1'| '2'| '3' = '3';
 
   /**
    * Set to expand the item
    */
-  @property({ type: Boolean, reflect: true }) expanded = false;
+  @property({ type: Boolean, reflect: true })
+  public expanded = false;
 
   /**
    * Set to apply padding from theme to content section
    */
-  @property({ type: Boolean }) spacing = false;
+  @property({ type: Boolean })
+  public spacing = false;
 
   /**
-   * @param changedProperties {PropertyValues}
-   * @return {void}
+   * An ef-panel wrapper
+   */
+  @query('[part="content"]', true)
+  private panelHolder!: HTMLElement;
+
+  /**
+   * A panel used to display content
+   */
+  @query('ef-panel', true)
+  private panel!: HTMLElement;
+
+  /**
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
+   * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-
-    this.panelHolder = this.shadowRoot && this.shadowRoot.querySelector('[part="content"]');
-    this.panel = this.shadowRoot && this.shadowRoot.querySelector('ef-panel');
     this.panelHolder && this.panelHolder.setAttribute('no-animation', '');
   }
 
   /**
-   * @param changedProperties {PropertyValues}
+   * Invoked whenever the element is updated
+   * @param changedProperties map of changed properties with old values
    * @return {void}
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
-
     if (changedProperties.has('expanded')) {
       this.showHide();
     }
   }
 
   /**
-   * A `TemplateResult` that will be used
-   * to render the updated internal template.
-   * @return Render template
-   */
-  protected render (): TemplateResult {
-    return html`
-      <ef-header part="header" level="${this.level}" @tap="${this.handleTap}">
-        <ef-icon icon="right" slot="left" part="toggle"></ef-icon>
-        <slot slot="left" name="header-left"></slot>
-        <slot slot="right" name="header-right"></slot>
-        ${this.header}
-      </ef-header>
-
-      <div part="content">
-        <ef-panel ?spacing="${this.spacing}" transparent>
-          <slot></slot>
-        </ef-panel>
-      </div>
-    `;
-  }
-
-  /**
    * Toggle the item
-   * @returns void
+   * @returns {void}
    */
   private toggle (): void {
     this.expanded = !this.expanded;
-    /* @fires expanded-changed
-       * Fired when the `expanded` property changes.
-       */
-    this.dispatchEvent(new CustomEvent('expanded-changed', {
-      detail: { value: this.expanded },
-      cancelable: true
-    }));
+    const event = this.notifyPropertyChange('expanded', this.expanded, true);
+    if (!event) { // revert expanded if event is cancelled
+      this.expanded = !this.expanded;
+    }
   }
 
   /**
-   * only handle clicks from ef-header/toggle part, not ef-header content
+   * Check if target is a header
    * @param element for checking
-   * @returns boolean
+   * @returns {boolean} true if target is ef-header
    */
-
   private static isHeader (element: HTMLElement): boolean {
     return element.localName === 'ef-header' || element.getAttribute('part') === 'toggle';
   }
 
   /**
    * Handle tap on the item header, will toggle the expanded state
-   * @param e - Event object
-   * @returns void
+   * @param event Event object
+   * @returns {void}
    */
-  private handleTap = (e: Event): void => {
-    const target = e.target as HTMLElement;
+  private handleTap = (event: Event): void => {
+    const target = event.target as HTMLElement;
 
+    // This is to prevent toggling when elements on slots are tap
     if (Collapse.isHeader(target)) {
       this.toggle();
     }
-  };
+  }
 
   /**
    * Show or Hide the item depending on the expanded state
-   * @returns void
+   * @returns {void}
    */
   private showHide (): void {
     if (!this.panelHolder) {
@@ -175,10 +163,10 @@ export class Collapse extends BasicElement {
   /**
    * Set current content height at the target-height
    * @param height number or null value
-   * @returns void
+   * @returns {void}
    */
   private setAnimationTargetHeight (height: number): void {
-    this.updateVariable('--target-height', height + 'px');
+    this.updateVariable('--target-height', `${height}px`);
   }
 
   /**
@@ -188,5 +176,26 @@ export class Collapse extends BasicElement {
    */
   private getContentHeight (): number {
     return this.panel && this.panel.clientHeight || 0;
+  }
+
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return {TemplateResult}  Render template
+   */
+  protected render (): TemplateResult {
+    return html`
+      <ef-header part="header" level="${this.level}" @tap="${this.handleTap}">
+        <ef-icon icon="right" slot="left" part="toggle"></ef-icon>
+        <slot slot="left" name="header-left"></slot>
+        <slot slot="right" name="header-right"></slot>
+        ${this.header}
+      </ef-header>
+      <div part="content">
+        <ef-panel ?spacing="${this.spacing}" transparent>
+          <slot></slot>
+        </ef-panel>
+      </div>
+    `;
   }
 }
