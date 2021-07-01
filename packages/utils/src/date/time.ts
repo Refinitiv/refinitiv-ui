@@ -41,7 +41,7 @@ enum Format {
   HHmmssSSS = 'HH:mm:ss.SSS'
 }
 
-type InputFormat = Format | 'HH:mm' | 'HH:mm:ss' | 'HH:mm:ss.SSS';
+type InputFormat = Format | keyof typeof Format;
 
 /**
  * Regular expression to check for valid time

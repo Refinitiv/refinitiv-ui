@@ -1,41 +1,45 @@
-# Theme Compiler
+# Element Framework Theme Compiler
 
 Theme compiler for Element Framework Themes.
 
-### Usage:
+```sh
+npm install -D @refinitiv-ui/theme-compiler
+```
 
 The theme compiler needs to be a dependency of each theme.
 In the `package.json` of each theme, add a new build script which calls the compiler.
 
-Usage:
-``` json
+## Usage
+
+You can create npm script and use `theme-compiler` command to build EF theme.
+
+```json
 "scripts": {
-  "build": "theme-compiler [out directory] [less variables]"
+  "build": "theme-compiler [output directory] [additional less variables]"
 }
 ```
 
 Example:
-``` json
+
+```json
 "scripts": {
   "build": "theme-compiler dark --variant=dark"
 }
 ```
 
-Then you can run `npm run build`.
-
-
-### Adding a watcher for development
+## Watch
 
 To watch for changes while you are developing a theme, you can include the `watch` library.
 
-```
-$ npm i --save-dev watch
+```sh
+npm i --save-dev watch
 ```
 
-Then you can modify you npm scripts to watch for file changes and recompile the theme.
+Modify you npm scripts to watch for file changes and recompile the theme.
 
 Example:
-``` json
+
+```json
 "scripts": {
   "build": "theme-compiler dark --variant=dark",
   "watch": "watch 'npm run build' src"

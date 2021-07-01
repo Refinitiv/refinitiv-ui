@@ -50,7 +50,7 @@ enum Format {
   yyyMMddTHHmmssSSS = 'yyyy-MM-dd\'T\'HH:mm:ss.SSS'
 }
 
-type InputFormat = Format | 'yyyy-MM-dd\'T\'HH:mm' | 'yyyy-MM-dd\'T\'HH:mm:ss' | 'yyyy-MM-dd\'T\'HH:mm:ss.SSS';
+type InputFormat = Format | keyof typeof Format;
 
 /**
  * Split datetime into date and time segments

@@ -496,13 +496,12 @@ export class Clock extends BasicElement {
   */
   private generateSegmentTemplate (name: string, value: number): TemplateResult {
     return html`
-      <div part="segment ${name}" tabindex="${ifDefined(this.interactive ? '0' : undefined)}">
+      <div part="segment ${name}${ifDefined(this.isSegmentShifted(name) ? ' shifted' : '')}" tabindex="${ifDefined(this.interactive ? '0' : undefined)}">
         ${padNumber(value, 2)}
         ${this.interactive ? this.generateButtonsTemplate() : undefined}
       </div>
     `;
   }
-
   /**
   * Template of divider
   * @returns {TemplateResult} template
