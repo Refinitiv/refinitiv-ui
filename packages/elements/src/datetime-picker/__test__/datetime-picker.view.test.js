@@ -16,7 +16,6 @@ describe('DatetimePicker', () => {
     it('Check default view duplex', async () => {
       const el = await fixture('<ef-datetime-picker duplex></ef-datetime-picker>');
       expect(el.views[0]).to.be.equal(formatToView(now), 'Default view duplex from should be set to this month');
-      console.log(formatToView(addMonths(now, 1)));
       expect(el.views[1]).to.be.equal(formatToView(addMonths(now, 1)), 'Default view duplex to should be set to next month');
     });
     it('Check default view duplex=split', async () => {

@@ -221,7 +221,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
   /**
   * Custom filter, used for enabling/disabling certain dates
-  * @type {Filter | null}
+  * @type {DatetimePickerFilter | null}
   */
   @property({ attribute: false })
   public filter: DatetimePickerFilter | null = null;
@@ -392,7 +392,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
   /**
   * Display two calendar pickers.
-  * @type {string | null}
+  * @type {"" | "consecutive" | "split"}
   */
   @property({ type: String, reflect: true })
   public duplex: DatetimePickerDuplex | null = null;

@@ -246,7 +246,7 @@ export class Calendar extends ControlElement implements MultiValue {
   */
   @property({ type: String })
   public set view (view: string) {
-    if (view && !isValidDate(view, 'yyyy-MM')) {
+    if (view && !isValidDate(view, DateFormat.yyyyMM)) {
       this.warnInvalidView(view);
       view = '';
     }
@@ -315,7 +315,7 @@ export class Calendar extends ControlElement implements MultiValue {
   /**
    * Set multiple selected values
    * @param values Values to set
-   * @type {array}
+   * @type {string[]}
    */
   @property({
     converter: {
