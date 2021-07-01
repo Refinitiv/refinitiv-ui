@@ -15,8 +15,8 @@
   "scripts": {
     "build": "tsc --sourceMap false",
     "lint": "eslint . --fix",
-    "test": "yarn build && karma start ../../karma.conf.js",
-    "test:watch": "yarn build && yarn test --auto-watch=true --single-run=false"
+    "test": "eslint . && npm run build && karma start ../../karma.config.js --package=test-helpers --include-snapshots=false",
+    "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
     "@open-wc/testing": "^2.5.32"

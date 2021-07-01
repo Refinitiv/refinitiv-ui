@@ -4,7 +4,8 @@ const { execSync } = require('child_process');
 const {
   getElements,
   info,
-  errorHandler
+  errorHandler,
+  PACKAGE_NAME
 } = require('../helpers');
 
 const elements = ['all', ...getElements()];
@@ -27,12 +28,7 @@ exports.builder = yargs => {
       alias: 's',
       type: 'boolean',
       default: false,
-      description: 'Update Snapshots'
-    })
-    .option('prune-snapshots', {
-      type: 'boolean',
-      default: false,
-      description: 'Prune Snapshots'
+      description: 'Update and prune snapshots'
     })
     .completion('completion', () => elements);
 };
@@ -40,16 +36,11 @@ exports.handler = (argv) => {
   const element = argv.element || 'all';
   const watch = !!argv.watch;
   const snapshots = !!argv.snapshots;
-  const pruneSnapshots = !!argv['prune-snapshots'];
 
   info(watch ? `Start Karma Server: ${ element }` : `Test: ${ element }`);
 
   if (snapshots) {
-    info(`Update Snapshots: ${ element }`);
-  }
-
-  if (pruneSnapshots) {
-    info(`Prune Snapshots: ${ element }`);
+    info(`Update and prune snapshots: ${ element }`);
   }
 
   try {
@@ -58,10 +49,9 @@ exports.handler = (argv) => {
     // linting
     execSync(`node cli lint ${element}`, { stdio: 'inherit' });
 
-    const command = ['karma', 'start', 'karma.config.js'];
-    watch && command.push('--auto-watch=true', '--single-run=false');
-    snapshots && command.push('--update-snapshots');
-    pruneSnapshots && command.push('--prune-snapshots');
+    const command = ['karma', 'start', 'karma.config.js', `--package=${PACKAGE_NAME}`];
+    watch && command.push('--watch');
+    snapshots && command.push('--snapshots');
 
     execSync(command.join(' '), {
       stdio: 'inherit',

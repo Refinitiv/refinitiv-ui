@@ -14,11 +14,10 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc",
-    "build:watch": "tsc --watch --preserveWatchOutput --sourceMap",
     "lint": "eslint . --fix",
-    "test": "yarn build && karma start ../../karma.conf.js",
-    "test:snapshots": "yarn build && yarn test --update-snapshots --prune-snapshots",
-    "test:watch": "yarn build && yarn test --auto-watch=true --single-run=false"
+    "test": "eslint . && npm run build && karma start ../../karma.config.js --package=core",
+    "test:snapshots": "npm run test -- --snapshots",
+    "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.3.0",

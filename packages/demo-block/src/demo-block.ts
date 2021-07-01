@@ -21,6 +21,7 @@ const Themes = [
 // eslint-disable-next-line @typescript-eslint/no-namespace
 declare namespace ShadyCSS {
   const nativeCss: boolean;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   function styleDocument(styles: {}): void;
 }
 

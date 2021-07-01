@@ -15,9 +15,10 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint . --fix",
-    "test": "yarn build && mocha __test__/**/*.js --require esm"
+    "test": "npm run build && mocha __test__/**/*.js --require esm"
   },
   "devDependencies": {
+    "chai": "4.3.4",
     "esm": "^3.2.25",
     "mocha": "^8.4.0"
   },

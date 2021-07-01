@@ -2,7 +2,7 @@
 const path = require('path');
 const karmaConfig = require('../../karma.config');
 const { extractConfig } = require('../../scripts/karma-server');
-const { ELEMENTS_ROOT, ROOT, MONOREPO_ELEMENTS, checkElement } = require('./scripts/helpers');
+const { ELEMENTS_ROOT, MONOREPO_ELEMENTS, checkElement } = require('./scripts/helpers');
 
 const ELEMENT = process.env.ELEMENT;
 const testAll = ELEMENT === 'all' || ELEMENT === undefined;
@@ -25,7 +25,6 @@ module.exports = async function (config) {
   !testAll && coverageExclude.push(`!**/${ELEMENT}/**/*`);
 
   elementsConfig.esm.coverageExclude = coverageExclude;
-  elementsConfig.basePath = ROOT;
   elementsConfig.snapshot.pathResolver = (basePath, suiteName) => {
     const split = suiteName.split('/');
     const element = split.shift();

@@ -12,6 +12,10 @@ const {
   PACKAGES_ROOT
 } = require('../../../../scripts/helpers');
 
+/**
+ * The name of the package
+ * @type {string}
+ */
 const PACKAGE_NAME = 'elements';
 
 /**
@@ -62,6 +66,7 @@ module.exports = {
   ELEMENTS_ROOT,
   ROOT,
   MONOREPO_ELEMENTS,
+  PACKAGE_NAME,
   checkElement,
   getDemoPath,
   getElementPath,
