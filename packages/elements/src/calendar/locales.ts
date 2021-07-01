@@ -1,6 +1,6 @@
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
 import { DEFAULT_LOCALE, resolveLocale, MessageFormats, TranslateParams } from '@refinitiv-ui/i18n';
-import { utcDateFromSegment } from './utils';
+import { utcParse } from '@refinitiv-ui/utils';
 
 // While Intl can support literally all world languages
 // for safety still limit the number of locales, for the following reasons
@@ -98,10 +98,10 @@ const weekdaysNames = (locale: string, width: Intl.DateTimeFormatOptions['weekda
 
   // we know that Jan 04 1970 is Sunday
   let day = 4;
-  const date = utcDateFromSegment({
+  const date = utcParse({
     year: 1970,
     month: 0,
-    date: day
+    day: day
   });
   const weekdays = [];
   while (day < 11) {
@@ -123,10 +123,10 @@ const monthsNames = (locale: string, width: Intl.DateTimeFormatOptions['month'] 
   locale = getLocale(locale);
 
   let month = 0;
-  const date = utcDateFromSegment({
+  const date = utcParse({
     year: 1970,
     month,
-    date: 1
+    day: 1
   });
   const months = [];
   while (month < 12) {
@@ -148,7 +148,7 @@ const monthsNames = (locale: string, width: Intl.DateTimeFormatOptions['month'] 
  * @param [includeEra=false] tru to include era descriptor
  * @returns formatted dates
  */
-const formatDate = (date: Date, locale: string, includeMonth = false, includeEra = false): string => {
+const formatLocaleDate = (date: Date, locale: string, includeMonth = false, includeEra = false): string => {
   const monthNames = monthsNames(locale, 'long');
   locale = getLocale(locale);
   const year = date.getUTCFullYear();
@@ -165,6 +165,6 @@ const formatDate = (date: Date, locale: string, includeMonth = false, includeEra
 export {
   weekdaysNames,
   monthsNames,
-  formatDate,
+  formatLocaleDate,
   ViewFormatTranslateParams
 };
