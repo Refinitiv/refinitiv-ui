@@ -325,17 +325,18 @@ export class Chart extends BasicElement {
    * @param {object[]} record Record of objects, to check for circular references
    * @returns {void}
    */
-  protected mergeObjects (a: MergeObject, b: MergeObject, force = false, record: Record<string, unknown>[] = []): void {
+  protected mergeObjects (a: MergeObject, b: MergeObject, force = false, record: MergeObject[] = []): void {
     let value;
     let isObject;
 
     Object.keys(b).forEach(key => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       value = b[key] as unknown;
       isObject = value && typeof value === 'object' && value.toString() === '[object Object]';
       if (!(key in a) || (force && !isObject)) {
         a[key] = b[key] as unknown;
       }
-      if (isObject && !record.includes(value as Record<string, unknown>)) {
+      if (isObject && !record.includes(value as MergeObject)) {
         record.push(b[key]);
         this.mergeObjects(a[key], b[key], force, record);
       }
