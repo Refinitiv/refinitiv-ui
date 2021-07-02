@@ -140,7 +140,7 @@ export abstract class BasicElement extends LitElement {
    */
   protected updateStyles (props?: CSSProps): void {
     if (ShadyCSS) {
-      ShadyCSS.styleDocument(props);
+      ShadyCSS.styleDocument(props as StyleInfo);
     }
   }
 
