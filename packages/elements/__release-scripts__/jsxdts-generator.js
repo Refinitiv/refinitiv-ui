@@ -5,14 +5,14 @@ const { ELEMENT_DIST, getElementTagName, getElementList } = require('./util');
 
 /**
  * Remove hyphen and transform to upper case
- * @param {string} text raw text
+ * @param {string} text
  * @returns {string} upper case text without hyphen
  */
 const clearAndUpper = (text) => text.replace(/-/, '').toUpperCase();
 
 /**
  * Transform text to pascal case
- * @param {string} text raw text
+ * @param {string} text
  * @returns {string} text with pascal case
  */
 const toPascalCase = (text) => text.replace(/(^\w|-\w)/g, clearAndUpper);
@@ -84,17 +84,14 @@ const handler = async () => {
     fs.writeFileSync(typeDeclaration, content);
   }
 
-  /* eslint-disable no-console */
   console.log(chalk.green('\nFinish generating JSX Type declaration.\n'));
 };
 
 try {
-  /* eslint-disable no-console */
   console.log('\nGenerating JSX Type declarations...\n');
   handler();
 }
 catch (error) {
-  /* eslint-disable no-console */
   console.error(chalk.red(`jsx.d.ts Generator Error: ${error}`));
 }
 
