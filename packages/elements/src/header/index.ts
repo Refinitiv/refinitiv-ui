@@ -44,7 +44,7 @@ export class Header extends BasicElement {
    * Use level styling from theme
    */
   @property({ type: String, reflect: true })
-  public level = '2';
+  public level: '1'| '2'| '3' = '2';
 
   /**
    * A `TemplateResult` that will be used

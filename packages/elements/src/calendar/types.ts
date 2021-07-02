@@ -22,7 +22,7 @@ export interface Cell extends CellSelectionModel {
   now?: boolean;
 }
 
-export type Filter = (value: string) => boolean;
+export type CalendarFilter = (value: string) => boolean;
 
 export type Comparator = (
   value: string,

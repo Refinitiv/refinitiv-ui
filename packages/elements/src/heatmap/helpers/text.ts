@@ -1,4 +1,4 @@
-import { Cell } from './types';
+import { HeatmapCell } from './types';
 
 const MIN_FONT_SIZE = 10;
 const MAX_FONT_SIZE = 16;
@@ -30,7 +30,7 @@ const getResponsiveFontSize = (ratio: number, cellHeight: number, cellWidth: num
  * @param hasCellHeader if header property is present in the cell
  * @returns label width measured in canvas
  */
-const getMaximumTextWidth = (ctx: CanvasRenderingContext2D, cells: Cell[], hasCellHeader: boolean): number => {
+const getMaximumTextWidth = (ctx: CanvasRenderingContext2D, cells: HeatmapCell[], hasCellHeader: boolean): number => {
   let maxHeaderLength = 0;
   let maxLabelLength = 0;
 
