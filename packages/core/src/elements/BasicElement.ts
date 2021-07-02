@@ -3,6 +3,7 @@ import { ElementRegistry } from '../registries/ElementRegistry';
 import { FocusRegistry } from '../registries/FocusRegistry';
 import { ShadyCSS } from '../utils/shadyStyles';
 import { FocusableHelper } from '../utils/focusableHelper';
+import { StyleInfo } from '../interfaces/StyleInfo';
 
 type CSSValue = string|number;
 type CSSProps = {
@@ -121,7 +122,7 @@ export abstract class BasicElement extends LitElement {
   protected updateVariable (key: string, value: CSSValue|null|undefined): void {
     if (CSS_VARIABLE_REGEXP.test(key)) {
       if (ShadyCSS) {
-        ShadyCSS.styleSubtree(this, { [key]: value });
+        ShadyCSS.styleSubtree(this, { [key]: value } as StyleInfo);
       }
       else if (isNullOrUndefined(value)) {
         this.style.removeProperty(key);
