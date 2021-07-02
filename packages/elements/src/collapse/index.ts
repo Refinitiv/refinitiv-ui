@@ -35,7 +35,7 @@ export class Collapse extends BasicElement {
    */
   static get styles (): CSSResult | CSSResult[] {
     return css`
-       :host {
+      :host {
         display: block;
       }
       [part="header"] {
@@ -119,10 +119,10 @@ export class Collapse extends BasicElement {
    */
   private toggle (): void {
     this.expanded = !this.expanded;
-    this.dispatchEvent(new CustomEvent('expanded-changed', {
-      detail: { value: this.expanded },
-      cancelable: true
-    }));
+    const event = this.notifyPropertyChange('expanded', this.expanded, true);
+    if (!event) { // revert expanded if event is cancelled
+      this.expanded = !this.expanded;
+    }
   }
 
   /**
@@ -146,7 +146,7 @@ export class Collapse extends BasicElement {
     if (Collapse.isHeader(target)) {
       this.toggle();
     }
-  };
+  }
 
   /**
    * Show or Hide the item depending on the expanded state

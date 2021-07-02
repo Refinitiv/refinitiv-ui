@@ -21,12 +21,14 @@ import '../button';
 import '../checkbox';
 import '../tree';
 import { Overlay } from '../overlay';
-import { ComboBox, ComboBoxData as TreeSelectData, ComboBoxFilter as TreeSelectFilter } from '../combo-box';
+import { ComboBox, ComboBoxFilter as TreeSelectFilter } from '../combo-box';
 
-import { TreeRenderer as TreeSelectRenderer, TreeDataItem as T } from '../tree';
+import { TreeRenderer as TreeSelectRenderer } from '../tree';
 import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager';
 
-export { TreeSelectRenderer, TreeSelectData, TreeSelectFilter };
+import { TreeSelectData, TreeSelectDataItem } from './helpers/types';
+
+export { TreeSelectRenderer, TreeSelectData, TreeSelectDataItem, TreeSelectFilter };
 
 const MEMO_THROTTLE = 16;
 const POPUP_POSITION = ['bottom-start', 'top-start'];
@@ -47,7 +49,7 @@ const POPUP_POSITION = ['bottom-start', 'top-start'];
 @customElement('ef-tree-select', {
   alias: 'emerald-multi-select'
 })
-export class TreeSelect extends ComboBox<T> {
+export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   constructor () {
     super();
     /**
@@ -124,7 +126,7 @@ export class TreeSelect extends ComboBox<T> {
   /**
    * Extracted values from {@link this.checkedGroupedItems}
    */
-  protected pillsData: T[] = [];
+  protected pillsData: TreeSelectDataItem[] = [];
 
   /**
    * Are there pills visible
@@ -135,17 +137,17 @@ export class TreeSelect extends ComboBox<T> {
    * Store references to items selected and visible at point of selection filter being applied
    * Allow for items to be removed from the selection, but still be visible
    */
-  protected editSelectionItems: Set<T> = new Set();
+  protected editSelectionItems: Set<TreeSelectDataItem> = new Set();
 
   /**
    * Composer used for live changes
    */
-  protected composer: CollectionComposer<T> = new CollectionComposer([]);
+  protected composer: CollectionComposer<TreeSelectDataItem> = new CollectionComposer([]);
 
   /**
    * Provide access to tree interface
    */
-  protected treeManager: TreeManager<T> = new TreeManager(this.composer);
+  protected treeManager: TreeManager<TreeSelectDataItem> = new TreeManager(this.composer);
 
   /**
    * Modification updates are called a lot
@@ -211,7 +213,7 @@ export class TreeSelect extends ComboBox<T> {
    * Set resolved data
    * @param value resolved data
    */
-  protected set resolvedData (value: T[]) {
+  protected set resolvedData (value: TreeSelectDataItem[]) {
     const oldValue = this.resolvedData;
     if (value !== oldValue) {
       super.resolvedData = value;
@@ -228,7 +230,7 @@ export class TreeSelect extends ComboBox<T> {
       void this.requestUpdate('data', oldValue);
     }
   }
-  protected get resolvedData (): T[] {
+  protected get resolvedData (): TreeSelectDataItem[] {
     return super.resolvedData;
   }
 
@@ -243,7 +245,7 @@ export class TreeSelect extends ComboBox<T> {
   /**
    * Provide list of currently selected items
    */
-  protected get selection (): T[] {
+  protected get selection (): TreeSelectDataItem[] {
     return this.treeManager.checkedItems.slice();
   }
 
@@ -310,7 +312,7 @@ export class TreeSelect extends ComboBox<T> {
    * If all leaves are selected, a parent becomes selected
    * If mode is INDEPENDENT, grouping is not applied
    */
-  protected get checkedGroupedItems (): readonly T[] {
+  protected get checkedGroupedItems (): readonly TreeSelectDataItem[] {
     const treeManager = this.treeManager;
     const checkedItems = treeManager.checkedItems;
 
@@ -318,8 +320,8 @@ export class TreeSelect extends ComboBox<T> {
       return checkedItems;
     }
 
-    const checkedGroupItems: T[] = [];
-    const unchecked: T[] = []; // need for performance to not double check same ancestors
+    const checkedGroupItems: TreeSelectDataItem[] = [];
+    const unchecked: TreeSelectDataItem[] = []; // need for performance to not double check same ancestors
 
     checkedItems.forEach(item => {
       const ancestors = treeManager.getItemAncestors(item);
@@ -596,9 +598,9 @@ export class TreeSelect extends ComboBox<T> {
    *
    * @returns {void}
    */
-  protected addExpandedAncestorsToRender (items: T[]): void {
+  protected addExpandedAncestorsToRender (items: TreeSelectDataItem[]): void {
     // establish unique ancestors set
-    const ancestors = new Set<T>();
+    const ancestors = new Set<TreeSelectDataItem>();
     // we iterate each item match so as to find ancestors
     items.forEach((item) => {
       // get the ancestors
@@ -619,7 +621,7 @@ export class TreeSelect extends ComboBox<T> {
    *
    * @returns {void}
    */
-  protected addExpandedAncestorToRender (ancestor: T): void {
+  protected addExpandedAncestorToRender (ancestor: TreeSelectDataItem): void {
     this.treeManager.includeItem(ancestor);
     this.treeManager.expandItem(ancestor);
   }
@@ -742,7 +744,7 @@ export class TreeSelect extends ComboBox<T> {
    * @returns Collection of matched items
    * @override
    */
-  protected queryItems (engine: (item: T, composer: CollectionComposer<T>) => boolean): readonly T[] {
+  protected queryItems (engine: (item: TreeSelectDataItem, composer: CollectionComposer<TreeSelectDataItem>) => boolean): readonly TreeSelectDataItem[] {
     return this.composer.queryItems(engine, Infinity);
   }
 
@@ -754,7 +756,7 @@ export class TreeSelect extends ComboBox<T> {
    * @returns Collection of matched items
    * @override
    */
-  protected queryItemsByPropertyValue<K extends keyof T> (property: K, value: T[K]): readonly T[] {
+  protected queryItemsByPropertyValue<K extends keyof TreeSelectDataItem> (property: K, value: TreeSelectDataItem[K]): readonly TreeSelectDataItem[] {
     return this.composer.queryItemsByPropertyValue(property, value, Infinity);
   }
 

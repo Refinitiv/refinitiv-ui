@@ -45,6 +45,244 @@
     </script>
   </demo-block>
 
+  <demo-block layout="normal" header="No Data Point">
+    <ef-interactive-chart id="default-value"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('default-value');
+      chart.config = {
+        options: {
+          rightPriceScale: {
+            visible: true
+          },
+          leftPriceScale: {
+            visible: true
+          }
+        },
+        series: [{
+          symbol: 'IBM.N',
+          type: 'area',
+          seriesOptions: {
+            priceScaleId: 'right'
+          },
+          data: [
+            { time: '2019-04-11', value: 280.01 },
+            { time: '2019-04-12', value: 186.63 },
+            { time: '2019-04-13', value: 366.64 },
+            { time: '2019-04-14', value: 381.89 },
+            { time: '2019-04-15', value: 374.43 },
+            { time: '2019-04-16', value: 240.01 },
+            // { time: '2019-04-17', value: 276.63 },
+            { time: '2019-04-18', value: 286.64 },
+            { time: '2019-04-20', value: 301.89 },
+            { time: '2019-04-21', value: 290.01 },
+            { time: '2019-04-22', value: 296.63 },
+            { time: '2019-04-23', value: 278.64 },
+            { time: '2019-04-24', value: 341.89 },
+            { time: '2019-04-25', value: 354.43 },
+            { time: '2019-04-26', value: 370.01 },
+            { time: '2019-04-27', value: 296.63 },
+            { time: '2019-04-28', value: 276.64 },
+            { time: '2019-04-29', value: 181.89 }
+          ]
+        },
+        {
+          symbol: 'GOOG.O',
+          type: 'area',
+          seriesOptions: {
+            priceScaleId: 'left'
+          },
+          data: [
+            { time: '2019-04-11', value: 180.01 },
+            { time: '2019-04-12', value: 156.63 },
+            { time: '2019-04-13', value: 166.64 },
+            { time: '2019-04-14', value: 181.89 },
+            { time: '2019-04-15', value: 174.43 },
+            { time: '2019-04-16', value: 180.01 },
+            { time: '2019-04-17', value: 196.63 },
+            { time: '2019-04-18', value: 176.64 },
+            { time: '2019-04-20', value: 181.89 },
+            { time: '2019-04-21', value: 190.01 },
+            { time: '2019-04-22', value: 196.63 },
+            { time: '2019-04-23', value: 178.64 },
+            { time: '2019-04-24', value: 141.89 },
+            { time: '2019-04-25', value: 154.43 },
+            { time: '2019-04-26', value: 170.01 },
+            { time: '2019-04-27', value: 196.63 },
+            { time: '2019-04-28', value: 176.64 },
+            { time: '2019-04-29', value: 181.89 }
+          ]
+        }]
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="No Data Point With OHLC data">
+    <ef-interactive-chart id="candlestick_no_data"></ef-interactive-chart>
+    <script type="module">
+      customElements.whenDefined('ef-interactive-chart').then(function () {
+        const chart = document.getElementById('candlestick_no_data');
+        const colors = chart.colors();
+        chart.config = {
+          series: [
+            {
+              symbol: 'IBM.N',
+              type: 'candlestick',
+              data: [{
+                'time': '2018-12-10',
+                'open': '20.03',
+                'high': '20.60',
+                'low': '19.53',
+                'close': '20.10'
+              },
+              {
+                'time': '2018-12-11',
+                'open': '20.36',
+                'high': '21.40',
+                'low': '19.86',
+                'close': '20.90'
+              },
+              {
+                'time': '2018-12-12',
+                'open': '21.32',
+                'high': '22.70',
+                'low': '20.82',
+                'close': '22.20'
+              },
+              {
+                'time': '2018-12-13',
+                'open': '22.02',
+                'high': '22.12',
+                'low': '21.48',
+                'close': '21.68'
+              },
+              {
+                'time': '2018-12-14',
+                'open': '21.82',
+                'high': '22.59',
+                'low': '21.32',
+                'close': '22.09'
+              },
+              {
+                'time': '2018-12-15',
+                'open': '21.76',
+                'high': '21.86',
+                'low': '20.89',
+                'close': '21.09'
+              },
+              {
+                'time': '2018-12-16',
+                'open': '20.75',
+                'high': '20.85',
+                'low': '19.88',
+                'close': '20.08'
+              },
+              {
+                'time': '2018-12-17',
+                'open': '20.01',
+                'high': '20.11',
+                'low': '19.67',
+                'close': '19.87'
+              },
+              {
+                'time': '2018-12-18',
+                'open': '20.33',
+                'high': '21.77',
+                'low': '19.83',
+                'close': '21.27'
+              },
+              {
+                'time': '2018-12-19',
+                'open': '21.79',
+                'high': '23.38',
+                'low': '21.29',
+                'close': '22.88'
+              }
+              ],
+              seriesOptions: {
+                upColor: colors[0],
+                downColor: 'transparent',
+                borderUpColor: colors[0],
+                borderDownColor: colors[0],
+                wickUpColor: colors[0],
+                wickDownColor: colors[0]
+              }
+            },
+            {
+              symbol: 'GOOG.O',
+              type: 'candlestick',
+              data: [
+                {
+                  'time': '2018-12-10',
+                  'open': '22.98',
+                  'high': '23.68',
+                  'low': '22.48',
+                  'close': '23.18'
+                },
+                {
+                  'time': '2018-12-11',
+                  'open': '23.19',
+                  'high': '23.70',
+                  'low': '22.69',
+                  'close': '23.20'
+                },
+                {
+                  'time': '2018-12-13',
+                  'open': '24.52',
+                  'high': '25.48',
+                  'low': '24.02',
+                  'close': '24.98'
+                },
+                {
+                  'time': '2018-12-14',
+                  'open': '25.16',
+                  'high': '26.01',
+                  'low': '24.66',
+                  'close': '25.51'
+                },
+                {
+                  'time': '2018-12-15',
+                  'open': '25.10',
+                  'high': '25.20',
+                  'low': '24.08',
+                  'close': '24.28'
+                },
+                {
+                  'time': '2018-12-16',
+                  'open': '24.04',
+                  'high': '24.14',
+                  'low': '23.36',
+                  'close': '23.56'
+                },
+                {
+                  'time': '2018-12-17',
+                  'open': '23.39',
+                  'high': '23.49',
+                  'low': '22.84',
+                  'close': '23.04'
+                },
+                {
+                  'time': '2018-12-18',
+                  'open': '22.62',
+                  'high': '22.72',
+                  'low': '21.59',
+                  'close': '21.79'
+                }
+              ],
+              seriesOptions: {
+                upColor: colors[1],
+                downColor: 'transparent',
+                borderUpColor: colors[1],
+                borderDownColor: colors[1],
+                wickUpColor: colors[1],
+                wickDownColor: colors[1]
+              }
+            }
+          ]
+        };
+      });
+    </script>
+  </demo-block>
+
   <demo-block layout="normal" header="No Data Legend">
     <ef-interactive-chart id="no-data"></ef-interactive-chart>
     <script type="module">
