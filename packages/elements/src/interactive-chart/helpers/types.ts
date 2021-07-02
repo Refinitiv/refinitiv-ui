@@ -19,6 +19,8 @@ import {
   SeriesType
 } from 'lightweight-charts';
 
+import type { RGBColor, HSLColor } from '@refinitiv-ui/utils';
+
 type SeriesOptions = AreaSeriesPartialOptions | BarSeriesPartialOptions | CandlestickSeriesPartialOptions | HistogramSeriesPartialOptions | LineSeriesPartialOptions;
 type SeriesStyleOptions = LineStyleOptions & AreaStyleOptions & BarStyleOptions & CandlestickStyleOptions & HistogramStyleOptions;
 
@@ -28,16 +30,17 @@ type SeriesDataItem = BarData | LineData;
 
 type RowLegend = NodeListOf<Element> | HTMLElement | null;
 
+type ColorToStringFunction = (param: string, ...arg: (string|number|undefined)[]) => RGBColor | HSLColor | null;
+
+type MergeObject = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any; // Allow any type of value
+};
+
 interface Time {
   day: number;
   month: number;
   year: number;
-}
-
-interface ColorSeriesStyle {
-  barColor: string;
-  barBorderColor: string;
-  barWickColor: string;
 }
 
 interface InteractiveChartConfig {
@@ -64,7 +67,7 @@ interface InteractiveChartSeries {
   type: string;
   symbol?: string;
   symbolName?: string;
-  legendPriceFormatter?: Function;
+  legendPriceFormatter?: CallableFunction;
   data: SeriesData;
   seriesOptions?: SeriesPartialOptions<SeriesOptions>;
 }
@@ -77,5 +80,7 @@ export {
   RowLegend,
   SeriesList,
   SeriesDataItem,
-  SeriesStyleOptions
+  SeriesStyleOptions,
+  ColorToStringFunction,
+  MergeObject
 };
