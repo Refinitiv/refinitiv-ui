@@ -1,17 +1,17 @@
 @import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-interactive-chart';
 
 :host {
-  @jump-button-backgroud-color: @panel-background-color;
-  @jump-button-hover-background-color: lighten(@jump-button-backgroud-color, 10%);
+  @jump-button-background-color: @panel-background-color;
+  @jump-button-hover-background-color: lighten(@jump-button-background-color, 10%);
   @jump-button-border-color: @global-text-color;
 
   [part=jump-button-container]{
-    background-color: @jump-button-backgroud-color;
+    background-color: @jump-button-background-color;
     &:hover {
       background-color: @jump-button-hover-background-color;
     }
     &:active {
-      background-color: @jump-button-backgroud-color;
+      background-color: @jump-button-background-color;
     }
   }
 
