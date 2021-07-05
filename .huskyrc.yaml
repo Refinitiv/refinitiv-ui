@@ -1,5 +1,5 @@
 hooks:
   # On pre-commit, run lint-staged where we'll run eslint command on staged files
-  # pre-commit: lint-staged
+  pre-commit: lint-staged
   # Then run a check on commit messsage
   commit-msg: commitlint -E HUSKY_GIT_PARAMS
