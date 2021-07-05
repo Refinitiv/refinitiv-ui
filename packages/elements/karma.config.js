@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const path = require('path');
 const karmaConfig = require('../../karma.config');
-const { extractConfig } = require('../../scripts/karma-server');
+const { extractConfig } = require('../../scripts/karma');
 const { ELEMENTS_ROOT, MONOREPO_ELEMENTS, checkElement } = require('./scripts/helpers');
 
 const ELEMENT = process.env.ELEMENT;

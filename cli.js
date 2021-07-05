@@ -1,18 +1,53 @@
 #!/usr/bin/env node
+const { execSync } = require('child_process');
+const fs = require('fs');
+const path = require('path');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
+const { PACKAGES_ROOT, errorHandler } = require('./scripts/helpers');
 
-yargs(hideBin(process.argv))
-  .usage('MonoRepo - Element Framework CLI Commands\n\nUsage: $0 <command> [options]')
-  .commandDir('bin')
-  .demandCommand(1, 'You need at least one command.')
-  .version(false)
-  .help('help').alias('help', 'h')
-  .fail(function (msg, err, yargs) {
-    if (msg) {
-      console.error(msg);
-    }
-    console.log('Specify --help for available options.');
-    process.exit(1);
+const argvNoBin = hideBin(process.argv);
+const argv = yargs(argvNoBin)
+  .command('$0 <reflect> <package>', 'reflect the command', yargs => {
+    yargs.require('reflect')
+    yargs.positional('reflect', {
+      describe: 'npm command to reflect',
+      type: 'string'
+    })
+    yargs.require('package')
+    yargs.positional('package', {
+      describe: 'Package or element name',
+      type: 'string'
+    })
   })
-  .argv;
+  .demandCommand()
+  .help()
+  .argv
+
+const options = argvNoBin.slice(1);
+
+// Element or package
+try {
+  const isElement = !fs.existsSync(path.resolve(PACKAGES_ROOT, argv.package));
+  const workspace = isElement ? 'elements' : argv.package;
+  const elementName = isElement ? argv.package : undefined;
+
+  // For workspace package real name is required
+  const package = fs.readFileSync(path.resolve(PACKAGES_ROOT, workspace, 'package.json'));
+
+  const packageName = JSON.parse(package).name;
+
+  const command = ['npm', 'run', argv.reflect, `--workspace=${packageName}`];
+  elementName && command.push(elementName);
+  command.push(...options);
+
+  console.log(command.join(' '));
+
+  execSync(command.join(' '), {
+    stdio: 'inherit'
+  });
+}
+catch (error) {
+  errorHandler(error);
+  process.exit(1);
+}

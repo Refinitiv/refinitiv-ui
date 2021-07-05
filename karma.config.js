@@ -78,7 +78,7 @@ const preprocessors = {};
 const plugins = [
   // resolve plugins relative to this config so that they don't always need to exist
   // at the top level
-  require.resolve('./scripts/karma-server/karma-esm'),
+  require.resolve('./scripts/karma/karma-esm'),
   require.resolve('karma-mocha'),
   require.resolve('karma-mocha-reporter'),
   require.resolve('karma-source-map-support'),

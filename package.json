@@ -6,14 +6,14 @@
   ],
   "engines": {
     "node": ">=14.15.4",
-    "npm": "^7.19.0"
+    "npm": ">=7.19.1"
   },
   "scripts": {
     "lerna": "lerna",
     "build": "lerna run build",
-    "start1": "node cli.js start",
-    "test": "node cli.js test",
-    "lint": "node cli.js lint"
+    "start": "node cli start",
+    "test": "node cli test",
+    "lint": "node cli lint"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",

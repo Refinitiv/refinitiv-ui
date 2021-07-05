@@ -9,5 +9,5 @@
       "registry": "https://registry.npmjs.org"
     }
   },
-  "ignoreChanges": ["**/__test__/**", "**/__demo__/**", "**/snapshots/**"]
+  "ignoreChanges": ["**/__test__/**", "**/__demo__/**", "**/__snapshots__/**"]
 }

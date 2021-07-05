@@ -1,20 +1,20 @@
 # Element Framework (EF) V5
 
-EF is Refinitiv design system components that provides components and tooling with Refinitiv's design system to help product teams work faster and more efficiently.
+Element Framework is Refinitiv design system components that provides components and tooling with Refinitiv's design system to help product teams work faster and more efficiently.
 
 ## Elements Monorepo
 
-This is the monorepo for EF elements, its supporting modules and tools.
+This is the monorepo for Element Framework elements, its supporting modules and tools.
 
 * `packages` - All packages.
 * `packages/elements` - Elements package.
 
 ### Setup development environment
 
-Install Yarn CLI:
+Install npm@7 CLI:
 
 ```bash
-npm install -g yarn@1
+npm install -g npm
 ```
 
 Initialize project:
@@ -22,13 +22,13 @@ Initialize project:
 ```bash
 git clone git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git
 cd refinitiv-ui
-yarn
+npm install
 ```
 
 Build all packages:
 
 ```bash
-yarn build
+npm run build
 ```
 
 ### CLI Commands
@@ -37,18 +37,32 @@ The command-line interface tool that you can use to demo, develop, test, and mai
 
 Run demo page of individual element:
 
-```bash
-yarn start button
+``` bach
+cd packages/elements
+npm start button
 ```
 
-#### Command overview
-You can input package or element name in `<target>` to run a commands.
+or
 
-| Command | Target | Options | Description | Example |
-| --- |:--- | --- | --- | --- |
-| yarn start | `<target>`&#160;(required) | NA| Build and serves a package or element which demoable. | yarn start button |
-| yarn test  | `<target>` | --watch <br/> &#x2011;&#x2011;snapshot | Runs unit tests in a package or element. If not define the `<target>`, it will runs unit test in all packages. | yarn&#160;test&#160;icon&#160;&#x2011;&#x2011;watch |
-| yarn lint  | `<target>` | --fix | Runs linting tools in a package or element. If not define the `<target>`, it will runs linting in all packages. | yarn lint --fix |
+``` bach
+npm start button -w=@refinitiv-ui/elements
+```
+
+For simplicity, some commands reflected at the root level as well:
+
+```bash
+npm start button
+```
+
+#### Elements Package Command Overview
+
+| Command | Target | Description | Example |
+| --- |:--- | --- | --- |
+| npm start | `<target>`&#160;(required) | Build and serves a package or element which demoable. | npm start button |
+| npm run test  | `<target>` | Runs unit tests in a package or element. If not define the `<target>`, it will runs unit test in all packages. | npm run test button |
+| npm run test:watch  | `<target>` | Runs Karma server for a package or element. | npm run test:watch button |
+| npm run lint  | `<target>` | Runs linting tools in a package or element. If not define the `<target>`, it will runs linting in all packages. | npm run lint button |
+| npm run lint:fix  | `<target>` | Fix linting errors for a package or element. | npm run lint:fix button |
 
 
 ### Commit prefixes

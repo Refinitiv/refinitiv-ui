@@ -44,6 +44,6 @@ exports.handler = (argv) => {
   }
   catch (error) {
     errorHandler(error);
-    process.exit(0);
+    process.exit(1);
   }
 };
