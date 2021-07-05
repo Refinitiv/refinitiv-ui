@@ -1,15 +1,15 @@
-# ELF Translate
+# Element Framework Translate
 
-`elf-translate` is a decorator to enable translations for ELF elements.
+`@refinitiv-ui/translate` is a decorator to enable translations for Element Framework components.
 
-It is used in conjunction with [@elf/core-phrasebook](https://git.sami.int.thomsonreuters.com/elf/core-phrasebook) and [@elf/elf-i18n](https://git.sami.int.thomsonreuters.com/elf/elf-i18n).
+It is used in conjunction with `@refinitiv-ui/phrasebook` and `@refinitiv-ui/i18n`.
 
-## Setup element
+## Usage
 
-`elf-translate` is designed for ELF v4 and Lit Element.
+`@refinitiv-ui/translate` is designed for Element Framework v5 and Lit Element.
 
-``` cli
-npm i @elf/elf-translate;
+```cli
+npm install @refinitiv-ui/translate
 ```
 
 A typical element configuration may look as follows.
@@ -20,18 +20,18 @@ import {
   html,
   customElement,
   TemplateResult,
-  property
-} from '@elf/core';
+  property,
+} from '@refinitiv-ui/core';
 
 // translate decorator
 import {
   translate,
   TranslateDirective,
-  TranslatePromise
-} from '@elf/elf-translate';
+  TranslatePromise,
+} from '@refinitiv-ui/translate';
 
 // import default English language
-import '@elf/core-phrasebook/lib/locale/en/my-translate-element';
+import '@refinitiv-ui/phrasebook/lib/locale/en/my-translate-element';
 
 @customElement('my-translate-element')
 export class MyTranslateElement extends BasicElement {
@@ -53,17 +53,20 @@ export class MyTranslateElement extends BasicElement {
    * You may need to pass arguments to fulfil translation
    * @return Render template
    */
-  protected render (): TemplateResult {
-    return html`<div part="label">${this.t('TRANSLATE_COUNT', {
-      count: this.count
-    })}</div><slot></slot>`;
+  protected render(): TemplateResult {
+    return html`<div part="label">
+        ${this.t('TRANSLATE_COUNT', {
+          count: this.count,
+        })}
+      </div>
+      <slot></slot>`;
   }
 }
 ```
 
 ## Translate
 
-Translate decorator is used to bind an Element with translate functionality. By applying the decorator, the element subscribes to *Phrasebook* updates in order to react on new translations; and to *lang* attribute changes on document and element levels.
+Translate decorator is used to bind an Element with translate functionality. By applying the decorator, the element subscribes to _Phrasebook_ updates in order to react on new translations; and to _lang_ attribute changes on document and element levels.
 
 In order to limit the number of unnecessary updates, translations are scoped. Scope names are usually the element's local name by default. For example, `my-translate-element`.
 
@@ -73,7 +76,7 @@ Decorator can be applied in different contexts described below.
 
 Directive is part of [LitHTML](https://lit-html.polymer-project.org/guide/creating-directives). Directives are used from within `render` function as part of `TemplateResult`.
 
-``` ts
+```ts
 // default scope is element.localName.
 @translate()
 private t!: TranslateDirective;
@@ -85,7 +88,7 @@ private tCustom!: TranslateDirective;
 
 Directive translations are applied in the `render` method.
 
-``` ts
+```ts
 protected render (): TemplateResult {
   return html`
     <div>${this.t('KEY')}</div>
@@ -97,13 +100,13 @@ protected render (): TemplateResult {
 }
 ```
 
-Translation *key* and *options* are defined by the translation itself. To get a better idea you may read [intl-messageformat](https://formatjs.io/docs/intl-messageformat).
+Translation _key_ and _options_ are defined by the translation itself. To get a better idea you may read [intl-messageformat](https://formatjs.io/docs/intl-messageformat).
 
 ### Translate Promise
 
-Translations can be resolved outside `render` context by using `mode = promise` in the `translate` decorator. 
+Translations can be resolved outside `render` context by using `mode = promise` in the `translate` decorator.
 
-``` ts
+```ts
 // default scope is element.localName.
 @translate({
   mode: 'promise'
@@ -120,19 +123,11 @@ private tCustom!: TranslatePromise;
 
 Promise translations can be resolved in any asynchronous function. `performUpdate` is a good place to obtain the value before first render.
 
-``` ts
+```ts
 protected async performUpdate (): Promise<void> {
   const key = await this.t('KEY');
   console.log(key);
 
   super.performUpdate();
 }
-```
-
-### Development
-
-You can find demo samples in `src/test` folder. To run demo use:
-
-``` cli
-npm run start
 ```

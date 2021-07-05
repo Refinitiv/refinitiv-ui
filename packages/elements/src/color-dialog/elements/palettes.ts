@@ -5,12 +5,22 @@ import {
   SVGTemplateResult,
   query
 } from '@refinitiv-ui/core';
+import { VERSION } from '../../';
 
 /**
  * Element base class usually used
  * for creating palettes elements.
  */
 export class Palettes extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   @query('.color-selector')
   private colorSelector?: HTMLElement | null;
 
@@ -24,8 +34,8 @@ export class Palettes extends BasicElement {
   public value = '';
 
   /**
-   * create selector template
-   * @return selector template
+   * Create selector template
+   * @return {SVGTemplateResult} selector template
    */
   protected get SelectorTemplate (): SVGTemplateResult {
     return (
@@ -37,7 +47,7 @@ export class Palettes extends BasicElement {
   }
 
   /**
-   * hide selector element
+   * Hide selector element
    * @return {void}
    */
   protected hideSelector (): void {
@@ -48,7 +58,7 @@ export class Palettes extends BasicElement {
   }
 
   /**
-   * show selector element on specific points
+   * Show selector element on specific points
    * @return {void}
    * @param points points of colorSelector
    */
@@ -62,7 +72,7 @@ export class Palettes extends BasicElement {
   }
 
   /**
-   * update color value when tab on color item
+   * Update color value when tab on color item
    * @param event mouse event
    * @return {void}
    */
@@ -72,7 +82,7 @@ export class Palettes extends BasicElement {
   }
 
   /**
-   * update color value when drag on color item
+   * Update color value when drag on color item
    * @param event mouse event
    * @return {void}
    */
@@ -90,7 +100,7 @@ export class Palettes extends BasicElement {
   }
 
   /**
-   * update color value when drag on color item in mobile device
+   * Update color value when drag on color item in mobile device
    * @param event touch event
    * @return {void}
    */
@@ -101,8 +111,7 @@ export class Palettes extends BasicElement {
   }
 
   /**
-   * update color value and
-   * fired value-changed event
+   * Update color value and fired value-changed event
    * @param element target element to get value
    * @return {void}
    */

@@ -7,46 +7,40 @@ import {
   CSSResult,
   PropertyValues,
   BasicElement,
-  internalProperty,
   ifDefined,
   WarningNotice,
-  query
+  query,
+  state
 } from '@refinitiv-ui/core';
+
+import {
+  MILLISECONDS_IN_SECOND,
+  HOURS_OF_NOON,
+  isValidTime,
+  toTimeSegment,
+  TimeFormat,
+  format,
+  padNumber
+} from '@refinitiv-ui/utils';
 
 import {
   HOURS_IN_DAY,
   MINUTES_IN_HOUR,
   SECONDS_IN_DAY,
   SECONDS_IN_HOUR,
-  SECONDS_IN_MINUTE,
-  HOURS_IN_HALF_DAY,
-  MILLISECONDS_IN_SECOND
+  SECONDS_IN_MINUTE
 } from './utils/timestamps';
 
 import {
-  deRegister,
-  register
+  register,
+  deRegister
 } from './utils/TickManager';
+import { VERSION } from '../';
 
 const UP = 'Up';
 const DOWN = 'Down';
-const VALUE_REGEXP = /^([0-1][0-9]|2[0-3])\:([0-5][0-9])(\:([0-5][0-9]))?$/;
 
 type UpOrDown = typeof UP | typeof DOWN;
-
-/**
- * Splits a time string into segments
- * @param value Time string to parse
- * @returns Array of time segments `[hh, mm, ss]`
- */
-const splitSegments = (value: string): number[] => {
-  const raw = value.split(':');
-  const result = [];
-  for (let s = 0; s < 3; s += 1) {
-    result[s] = Number(raw[s]) || 0;
-  }
-  return result;
-};
 
 /**
  * Display hours, minutes and seconds as clock interface
@@ -57,11 +51,20 @@ const splitSegments = (value: string): number[] => {
   alias: 'sapphire-clock'
 })
 export class Clock extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @returns CSS template
+   * @return {CSSResult | CSSResult[]} CSS template
    */
   static get styles (): CSSResult | CSSResult[] {
     return css`
@@ -100,7 +103,7 @@ export class Clock extends BasicElement {
   /**
    * Current time in seconds
    */
-  @internalProperty()
+  @state()
   private get currentTime (): number {
     return this.baseTime + this.sessionTicks;
   }
@@ -109,20 +112,20 @@ export class Clock extends BasicElement {
    * Base value to use when calculating current time.
    * This value is updated whenever the value property is set.
    */
-  @internalProperty()
+  @state()
   private baseTime = 0;
 
   /**
    * Current amount of ticks in session.
    */
-  @internalProperty()
+  @state()
   private sessionTicks = 0;
 
   /**
    * Timestamp of when the tick property was last updated.
    * Used for accurately ticking time.
    */
-  @internalProperty()
+  @state()
   private tickTimestamp = 0;
 
   /**
@@ -131,7 +134,12 @@ export class Clock extends BasicElement {
    */
   @property({ type: String })
   public get value (): string {
-    return `${this.formatNumber(this.hours)}:${this.formatNumber(this.minutes)}:${this.formatNumber(this.seconds)}`;
+    return format({
+      hours: this.hours,
+      minutes: this.minutes,
+      seconds: this.seconds,
+      milliseconds: 0
+    }, TimeFormat.HHmmss);
   }
 
   /**
@@ -140,15 +148,15 @@ export class Clock extends BasicElement {
    * @returns {void}
    */
   public set value (value: string) {
-    if (typeof value !== 'string' || !VALUE_REGEXP.test(value)) {
+    if (typeof value !== 'string' || (value !== '' && !isValidTime(value))) {
       new WarningNotice(`The specified value "${value}" is not valid. The format should be hh:mm or hh:mm:ss.`).show();
       value = '';
     }
     const oldValue = this.value;
     if (oldValue !== value) {
       this.synchronise(); // Required to reset any tick session
-      const [hh, mm, ss] = splitSegments(value);
-      this.baseTime = hh * SECONDS_IN_HOUR + mm * SECONDS_IN_MINUTE + ss;
+      const { hours, minutes, seconds } = toTimeSegment(value);
+      this.baseTime = hours * SECONDS_IN_HOUR + minutes * SECONDS_IN_MINUTE + seconds;
       void this.requestUpdate('value', oldValue);
     }
   }
@@ -293,7 +301,7 @@ export class Clock extends BasicElement {
    * @returns display hours
    */
   private get displayHours12 (): number {
-    return (this.displayHours24 % HOURS_IN_HALF_DAY) || HOURS_IN_HALF_DAY;
+    return (this.displayHours24 % HOURS_OF_NOON) || HOURS_OF_NOON;
   }
 
   /**
@@ -333,16 +341,7 @@ export class Clock extends BasicElement {
    * @returns Result
    */
   private get isAM (): boolean {
-    return this.displayHours24 < HOURS_IN_HALF_DAY;
-  }
-
-  /**
-   * Format the numbers to a two digit string
-   * @param n number
-   * @returns number in two digit string
-   */
-  private formatNumber (n: number): string {
-    return `${(n < 10 ? '0' : '')}${n}`;
+    return this.displayHours24 < HOURS_OF_NOON;
   }
 
   /**
@@ -489,7 +488,7 @@ export class Clock extends BasicElement {
   /**
   * Template for increment and decrement button
   * if interactive mode is enabled.
-  * @returns template
+  * @returns {TemplateResult} template result
   */
   private generateButtonsTemplate (): TemplateResult {
     return html`
@@ -503,20 +502,19 @@ export class Clock extends BasicElement {
   * @param name segment's name
   * @param value segment's value
   * @param shiftAmount amount to shift
-  * @returns template
+  * @returns {TemplateResult} template
   */
   private generateSegmentTemplate (name: string, value: number): TemplateResult {
     return html`
       <div part="segment ${name}${ifDefined(this.isSegmentShifted(name) ? ' shifted' : '')}" tabindex="${ifDefined(this.interactive ? '0' : undefined)}">
-        ${this.formatNumber(value)}
+        ${padNumber(value, 2)}
         ${this.interactive ? this.generateButtonsTemplate() : undefined}
       </div>
     `;
   }
-
   /**
   * Template of divider
-  * @returns template
+  * @returns {TemplateResult} template
   */
   private get dividerTemplate (): TemplateResult {
     return html`
@@ -526,7 +524,7 @@ export class Clock extends BasicElement {
 
   /**
   * Template of amPm segment
-  * @returns template
+  * @returns {TemplateResult} template
   */
   private get amPmTemplate (): TemplateResult {
     return html`
@@ -536,7 +534,7 @@ export class Clock extends BasicElement {
 
   /**
   * Template of hours segment
-  * @returns template
+  * @returns {TemplateResult} template
   */
   private get hoursSegmentTemplate (): TemplateResult {
     return this.generateSegmentTemplate('hours', this.displayHours);
@@ -544,7 +542,7 @@ export class Clock extends BasicElement {
 
   /**
   * Template of minutes segment
-  * @returns template
+  * @returns {TemplateResult} template
   */
   private get minutesSegmentTemplate (): TemplateResult {
     return this.generateSegmentTemplate('minutes', this.displayMinutes);
@@ -552,7 +550,7 @@ export class Clock extends BasicElement {
 
   /**
   * Template of seconds segment
-  * @returns template
+  * @returns {TemplateResult} template
   */
   private get secondsSegmentTemplate (): TemplateResult {
     return this.generateSegmentTemplate('seconds', this.displaySeconds);
@@ -577,8 +575,8 @@ export class Clock extends BasicElement {
   }
 
   /**
-   * Called after the component is first rendered
-   * @param changedProperties Properties which have changed
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
@@ -589,7 +587,7 @@ export class Clock extends BasicElement {
 
   /**
   * Template for digital clock
-  * @returns template
+  * @returns {TemplateResult} template
   */
   protected get digitalClockTemplate (): TemplateResult {
     return html`
@@ -606,7 +604,7 @@ export class Clock extends BasicElement {
 
   /**
   * Template for analogue clock
-  * @returns template
+  * @returns {TemplateResult} template
   */
   protected get analogueClockTemplate (): TemplateResult {
     const secAngle = 6 * this.displaySeconds;
@@ -626,7 +624,7 @@ export class Clock extends BasicElement {
   /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
-   * @returns Render template
+   * @returns {TemplateResult} Render template
    */
   protected render (): TemplateResult {
     return this.analogue ? this.analogueClockTemplate : this.digitalClockTemplate;

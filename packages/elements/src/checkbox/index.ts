@@ -10,6 +10,7 @@ import {
   TapEvent,
   query
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 import '../icon';
 import {
   registerOverflowTooltip
@@ -29,11 +30,20 @@ import {
   alias: 'coral-checkbox'
 })
 export class Checkbox extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return CSS template
+   * @return {CSSResult | CSSResult[]} CSS template
    */
   static get styles (): CSSResult | CSSResult[] {
     return css`
@@ -100,8 +110,8 @@ export class Checkbox extends ControlElement {
   }
 
   /**
-   * The lifecycle method called when properties changed first time
-   * @param changedProperties properties it's the Map object which has the updated properties
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
@@ -160,7 +170,7 @@ export class Checkbox extends ControlElement {
   /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
-   * @return Render template
+   * @return {TemplateResult}  Render template
    */
   protected render (): TemplateResult {
     return html`

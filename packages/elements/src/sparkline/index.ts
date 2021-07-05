@@ -10,18 +10,26 @@ import {
   html,
   query
 } from '@refinitiv-ui/core';
+import { color } from '@refinitiv-ui/utils';
 
-import 'browser-sparkline';
-import type { BrowserSparklineChart } from 'browser-sparkline';
-import type { StaticDataConfig, ThemeConfig } from 'browser-sparkline/lib/browserSparklineCanvas';
-
-import { helpers } from './helpers';
-export { helpers };
+import '@refinitiv-ui/browser-sparkline';
+import type { BrowserSparklineChart } from '@refinitiv-ui/browser-sparkline';
+import type { StaticDataConfig, ThemeConfig } from '@refinitiv-ui/browser-sparkline/lib/browserSparklineCanvas';
+import { VERSION } from '../';
 
 @customElement('ef-sparkline', {
   alias: 'sapphire-sparkline'
 })
 export class Sparkline extends ResponsiveElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Chart data as an array of number.
    */
@@ -68,12 +76,12 @@ export class Sparkline extends ResponsiveElement {
     return {
       width: this.width,
       height: this.height,
-      lineColor: helpers.colorToHex(this.getComputedVariable('--line-color', '#ff9933')),
+      lineColor: color(this.getComputedVariable('--line-color', '#ff9933'))?.formatHex(),
       lineWidth: parseInt(this.getComputedVariable('--line-width', '2px'), 10),
-      referenceLineColor: helpers.colorToHex(this.getComputedVariable('--reference-line-color', 'rgba(120, 120, 130, 0.5)')),
-      previousLineColor: helpers.colorToHex(this.getComputedVariable('--previous-line-color', '#bfbfbf')),
-      upperLineColor: helpers.colorToHex(this.getComputedVariable('--upper-line-color', '#309054')),
-      lowerLineColor: helpers.colorToHex(this.getComputedVariable('--lower-line-color', '#d94255')),
+      referenceLineColor: color(this.getComputedVariable('--reference-line-color', 'rgba(120, 120, 130, 0.5)'))?.formatHex(),
+      previousLineColor: color(this.getComputedVariable('--previous-line-color', '#bfbfbf'))?.formatHex(),
+      upperLineColor: color(this.getComputedVariable('--upper-line-color', '#309054'))?.formatHex(),
+      lowerLineColor: color(this.getComputedVariable('--lower-line-color', '#d94255'))?.formatHex(),
       fillColorStyle: this.getComputedVariable('--fill-color-style', 'gradient')
     };
   }

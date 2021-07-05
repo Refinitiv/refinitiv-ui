@@ -3,7 +3,7 @@ import './shared';
 
 const translations = {
   MULTIPLE_ITEMS: '多項',
-  NO_OPTIONS: '沒有選擇'
+  NO_OPTIONS: '未找到結果。'
 };
 
 Phrasebook.define('zh-Hant', 'ef-combo-box', translations);

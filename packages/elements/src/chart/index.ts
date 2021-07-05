@@ -18,7 +18,7 @@ import '../layout';
 
 import {
   ChartJS,
-  ChartConfiguration,
+  ChartConfig,
   ChartUpdateProps,
   ChartDataSetsColor,
   MergeObject,
@@ -28,6 +28,7 @@ import { helpers as legendHelper } from './helpers/legend';
 
 // Register plugins
 import doughnutCenterPlugin from './plugins/doughnut-center-label';
+import { VERSION } from '../';
 window.Chart.pluginService.register(doughnutCenterPlugin);
 
 const CSS_COLOR_PREFIX = '--chart-color-';
@@ -52,6 +53,8 @@ const ELF_CHART_CONFIG = {
 
 window.Chart.helpers.merge(DEFAULT_CHART_CONFIG, ELF_CHART_CONFIG);
 
+export type { ChartConfig };
+
 /**
  * Charting component that use chartjs library
  */
@@ -59,6 +62,15 @@ window.Chart.helpers.merge(DEFAULT_CHART_CONFIG, ELF_CHART_CONFIG);
   alias: 'sapphire-chart'
 })
 export class Chart extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Chart.js object
    */
@@ -66,10 +78,10 @@ export class Chart extends BasicElement {
 
   /**
    * Chart configurations. Same configuration as ChartJS
-   * @type {ChartConfiguration}
+   * @type {ChartConfig}
    */
   @property({ type: Object })
-  public config: ChartConfiguration | null = null;
+  public config: ChartConfig | null = null;
 
   /**
    * Html canvas element
@@ -86,9 +98,9 @@ export class Chart extends BasicElement {
 
   /**
    * Required properties, needed for chart to work correctly.
-   * @returns {ChartConfiguration} config
+   * @returns {ChartConfig} config
    */
-  protected get requiredConfig (): ChartConfiguration {
+  protected get requiredConfig (): ChartConfig {
     return {
       options: {
         responsive: true,
@@ -172,9 +184,9 @@ export class Chart extends BasicElement {
   /**
    * Themable parts of the config.
    * This will be merged into the configuration object.
-   * @returns {ChartConfiguration} chart config with theme
+   * @returns {ChartConfig} chart config with theme
    */
-  protected get themableConfig (): ChartConfiguration {
+  protected get themableConfig (): ChartConfig {
     const style = getComputedStyle(this);
 
     // TODO: Try and remove the need for global object modification.

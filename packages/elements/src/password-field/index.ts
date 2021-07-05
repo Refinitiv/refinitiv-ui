@@ -12,6 +12,7 @@ import {
 } from '@refinitiv-ui/core';
 import { preload } from '../icon';
 import '../icon';
+import { VERSION } from '../';
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
 const isIE = (/Trident/g).test(navigator.userAgent);
@@ -37,6 +38,13 @@ let isEyeOffPreloadRequested = false;
 })
 export class PasswordField extends ControlElement {
 
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
 
   /**
    * @return A `CSSResult` that will be used to style the host,

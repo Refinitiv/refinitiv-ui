@@ -10,6 +10,7 @@ import {
   query,
   TemplateResult
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 import '../icon';
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
@@ -34,6 +35,15 @@ const isIE = (/Trident/g).test(navigator.userAgent);
   alias: 'coral-search-field'
 })
 export class SearchField extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

@@ -10,6 +10,7 @@ import {
   query,
   TemplateResult
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 import '../icon';
 import { registerOverflowTooltip } from '../tooltip';
 
@@ -37,6 +38,15 @@ const isIE = (/Trident/g).test(navigator.userAgent);
   alias: 'coral-text-field'
 })
 export class TextField extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * @returns A `CSSResult` that will be used to style the host,
    * slotted children and the internal template of the element.

@@ -7,6 +7,7 @@ import {
   CSSResult,
   ControlElement
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 
 import '../icon';
 import '../label';
@@ -17,7 +18,6 @@ const isAllWhitespaceTextNode = (node: Node): boolean =>
 
 /**
  * A building block for individual tab
- *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
@@ -25,6 +25,14 @@ const isAllWhitespaceTextNode = (node: Node): boolean =>
   alias: 'coral-tab'
 })
 export class Tab extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
 
   /**
    * Specify icon name to display in tab
@@ -66,18 +74,20 @@ export class Tab extends ControlElement {
    * Limit the number of lines before truncating
    */
   @property({ type: String, reflect: true, attribute: 'max-line' })
-  public maxLine: 'string' | null | undefined;
+  public maxLine: string | null | undefined;
 
   /**
    * Set tab to clearable on hover
    */
-  @property({ type: Boolean, reflect: true, attribute: 'clears-on-hover' }) clearsOnHover = false;
+  @property({ type: Boolean, reflect: true, attribute: 'clears-on-hover' })
+  public clearsOnHover = false;
 
   /**
    * Use level styling from theme
    * @ignore
    */
-  @property({ type: String, reflect: true }) level = '1';
+  @property({ type: String, reflect: true })
+  public level: '1' | '2' | '3' = '1';
 
   /**
    * True, if there is slotted content

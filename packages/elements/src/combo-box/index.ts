@@ -14,21 +14,25 @@ import {
   FocusedPropertyKey,
   eventOptions
 } from '@refinitiv-ui/core';
+import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import { AnimationTaskRunner, CollectionComposer, DataItem, TimeoutTaskRunner } from '@refinitiv-ui/utils';
+import '@refinitiv-ui/phrasebook/lib/locale/en/combo-box';
+
 import '../icon';
 import '../overlay';
 import '../list';
 import '../pill';
 import '../text-field';
-import { List, DefaultRenderer } from '../list';
-import { defaultFilter } from './default-filter';
+import { List, ListRenderer as ComboBoxRenderer } from '../list';
 import { ItemData } from '../item';
 import { TextField } from '../text-field';
-import { translate, TranslateDirective } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/lib/locale/en/combo-box';
-import { CustomKeyboardEvent } from './keyboard-event';
 
-export { DefaultRenderer, CustomKeyboardEvent };
+import { defaultFilter } from './helpers/filter';
+import { ComboBoxData, ComboBoxFilter } from './helpers/types';
+import { CustomKeyboardEvent } from './helpers/keyboard-event';
+import { VERSION } from '../';
+
+export { ComboBoxRenderer, ComboBoxFilter, ComboBoxData };
 
 const QUERY_DEBOUNCE_RATE = 0;
 
@@ -52,16 +56,6 @@ type StyleInfo = {
 }
 
 /**
- * Predicate callback
- *
- * Matches item against filter function
- *
- * @param item Item to filter
- * @return Does item match filter
- */
-export type Filter<T extends DataItem> = (item: T) => boolean;
-
-/**
  * Combines a popup with a filterable selection list
  *
  * @attr {boolean} readonly - Set readonly state
@@ -81,6 +75,15 @@ export type Filter<T extends DataItem> = (item: T) => boolean;
   alias: 'coral-combo-box'
 })
 export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -116,15 +119,17 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Custom filter for static data
    * Set this to null when data is filtered externally, eg XHR
+   * @type {ComboBoxFilter<T> | null}
    */
   @property({ type: Function, attribute: false })
-  public filter: Filter<T> | null = defaultFilter<T>(this);
+  public filter: ComboBoxFilter<T> | null = defaultFilter<T>(this);
 
   /**
    * Renderer used to render list item elements
+   * @type {ComboBoxRenderer}
    */
   @property({ type: Function, attribute: false })
-  public renderer = new DefaultRenderer(this);
+  public renderer = new ComboBoxRenderer(this);
 
   private _multiple = false;
   /**
@@ -219,15 +224,16 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
     }
   }
 
-  private _data: T[] | Promise<T[]> = []; // Local data object set through data setter
+  private _data: ComboBoxData<T> = []; // Local data object set through data setter
   /**
    * Data array to be displayed
+   * @type {ComboBoxData<T>}
    */
   @property({ attribute: false })
-  public get data (): T[] | Promise<T[]> {
+  public get data (): ComboBoxData<T> {
     return this._data;
   }
-  public set data (value: T[] | Promise<T[]>) {
+  public set data (value: ComboBoxData<T>) {
     this._data = value;
     void this.resolveDataPromise(value);
   }
@@ -261,13 +267,14 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Returns a values collection of the currently
    * selected item values
+   * @type {string[]}
    */
   @property({ type: Array, attribute: false })
   public get values (): string[] {
     // In free text mode, compare selected to values
     return this.freeTextValue ? [this.freeTextValue] : this.composerValues;
   }
-  public set values (values) {
+  public set values (values: string[]) {
     if (!Array.isArray(values)) {
       valueFormatWarning.show();
       this.values = [];
@@ -446,7 +453,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    * @param data Data promise
    * @returns Promise<void>
    */
-  protected async resolveDataPromise (data: T[] | Promise<T[]>): Promise<void> {
+  protected async resolveDataPromise (data: ComboBoxData<T>): Promise<void> {
     const dataPromiseCounter = this.dataPromiseCounter += 1;
     let resolvedData: T[];
 
@@ -609,8 +616,8 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   }
 
   /**
-   * Called after the component is first rendered
-   * @param changedProperties Properties which have changed
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
@@ -891,7 +898,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    * @param event Custom Event fired from text-field
    * @returns {void}
    */
-  protected onInputValueChanged (event: CustomEvent): void {
+  protected onInputValueChanged (event: CustomEvent<HTMLInputElement>): void {
     const inputText = event.detail.value;
     /**
      * Query is used to track if there is a query
@@ -1070,10 +1077,11 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
       this.resetInput();
       const label = this.label;
       this.setOpened(false);
+
       // make sure that focus is kept withing an element
       // and the cursor is positioned at the end of input
       // Wait before the update cycle completes
-      this.updateComplete.then(() => {
+      void this.updateComplete.then(() => {
         this.inputEl.focus();
         this.inputEl.setSelectionRange(label.length, label.length);
       });

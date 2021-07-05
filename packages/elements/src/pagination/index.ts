@@ -9,6 +9,8 @@ import {
   TemplateResult,
   CSSResult
 } from '@refinitiv-ui/core';
+import '@refinitiv-ui/phrasebook/lib/locale/en/pagination';
+import { translate, Translate } from '@refinitiv-ui/translate';
 
 import '../button';
 import '../button-bar';
@@ -16,60 +18,40 @@ import '../layout';
 import '../text-field';
 import { Button } from '../button';
 import { TextField } from '../text-field';
-import { translate, Translate } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/lib/locale/en/pagination';
-
-type PageInfo = {
-  from: number;
-  to: number;
-  totalCount: number;
-  pageSize: number;
-};
+import { PageInfo } from './helpers/types';
+import { VERSION } from '../';
 
 /**
  * Used to control and navigate through multiple pages
- *
  * @fires page-changed - Fired when the `page` property is changed
  */
 @customElement('ef-pagination', {
   alias: 'emerald-pagination'
 })
 export class Pagination extends BasicElement {
-  /**
-   * Getter for info part
-   */
-  @query('#info')
-  private infoElement!: HTMLElement;
 
   /**
-   * Getter for text field as input part
+   * Element version number
+   * @returns version number
    */
-  @query('#input')
-  private input!: TextField;
+  static get version (): string {
+    return VERSION;
+  }
 
   /**
-   * Getter for first button as first part
+   * A `CSSResult` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @return CSS template
    */
-  @query('#first')
-  private firstPageButton!: Button;
-
-  /**
-   * Getter for previous button as previous part
-   */
-  @query('#previous')
-  private previousPageButton!: Button;
-
-  /**
-   * Getter for next button as next part
-   */
-  @query('#next')
-  private nextPageButton!: Button;
-
-  /**
-   * Getter for last button as last part
-   */
-  @query('#last')
-  private lastPageButton!: Button;
+  static get styles (): CSSResult | CSSResult[] {
+    return css`
+      :host {
+        display: block;
+        --responsive-width: 450;
+      }
+    `;
+  }
 
   /**
    * Set current page
@@ -94,6 +76,42 @@ export class Pagination extends BasicElement {
    */
   @property({ type: Boolean, reflect: true })
   public disabled = false;
+
+  /**
+   * Getter for info part
+   */
+  @query('#info')
+  private infoElement!: HTMLElement;
+
+  /**
+    * Getter for text field as input part
+    */
+  @query('#input')
+  private input!: TextField;
+
+  /**
+    * Getter for first button as first part
+    */
+  @query('#first')
+  private firstPageButton!: Button;
+
+  /**
+    * Getter for previous button as previous part
+    */
+  @query('#previous')
+  private previousPageButton!: Button;
+
+  /**
+  * Getter for next button as next part
+  */
+  @query('#next')
+  private nextPageButton!: Button;
+
+  /**
+  * Getter for last button as last part
+  */
+  @query('#last')
+  private lastPageButton!: Button;
 
   /**
    * Used for translations
@@ -132,12 +150,13 @@ export class Pagination extends BasicElement {
   private pageSizeChanged (): void {
     const page = Number.parseInt(this.page, 10);
     const pageSize = Number.parseInt(this.pageSize, 10);
+
     // page must have at least 1 item
     if (pageSize < 1) {
       this.pageSize = '1';
     }
     if (page > this.totalPage) {
-      this.page = '' + this.totalPage;
+      this.page = this.totalPage.toString();
     }
     this.updateButtons();
   }
@@ -155,7 +174,7 @@ export class Pagination extends BasicElement {
       this.page = '1';
     }
     else if (page > this.totalPage) {
-      this.page = '' + this.totalPage;
+      this.page = this.totalPage.toString();
     }
     this.updateButtons();
   }
@@ -197,15 +216,17 @@ export class Pagination extends BasicElement {
   /**
    * Calculate and return total pages
    * Total pages should never less than 1
-   * @returns {Number} Number of total page
+   * @returns {number} Number of total page
    */
   private get totalPage (): number {
     const pageSize = Number.parseInt(this.pageSize, 10);
     const totalItems = Number.parseInt(this.totalItems, 10);
+
     if (pageSize > 0) {
       const totalPage = Math.ceil(totalItems / pageSize);
       return totalPage > 0 ? totalPage : 1;
     }
+
     return 1;
   }
 
@@ -235,7 +256,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Get text to display in info part
-   * @returns Info used for translations
+   * @returns {PageInfo} Used for translations
    */
   private get pageInfo (): PageInfo {
     const page = Number.parseInt(this.page, 10);
@@ -243,6 +264,7 @@ export class Pagination extends BasicElement {
     const totalCount = Number.parseInt(this.totalItems, 10);
     const from = ((page - 1) * pageSize) + 1;
     const to = page * pageSize > totalCount ? totalCount : page * pageSize;
+
     return {
       from,
       to,
@@ -319,7 +341,7 @@ export class Pagination extends BasicElement {
     const limit = direction === 'increment' ? page < this.totalPage : page > 1;
 
     if (limit) {
-      this.page = direction === 'increment' ? '' + (page + 1) : '' + (page - 1);
+      this.page = direction === 'increment' ? (page + 1).toString() : (page - 1).toString();
 
       if (event) {
         this.notifyPropertyChange('page', this.page);
@@ -387,7 +409,7 @@ export class Pagination extends BasicElement {
    */
   public last (): void {
     this.input.blur();
-    this.page = '' + this.totalPage;
+    this.page = this.totalPage.toString();
   }
 
   /**
@@ -400,24 +422,9 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * A `CSSResult` that will be used
-   * to style the host, slotted children
-   * and the internal template of the element.
-   * @return CSS template
-   */
-  static get styles (): CSSResult | CSSResult[] {
-    return css`
-      :host {
-        display: block;
-        --responsive-width: 450;
-      }
-    `;
-  }
-
-  /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
-   * @return Render template
+   * @return {TemplateResult} Render template
    */
   protected render (): TemplateResult {
     return html`

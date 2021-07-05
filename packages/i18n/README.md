@@ -1,29 +1,29 @@
-# elf-i18n
+# I18N
 
-`elf-i18n` provides wrappers and APIs around formatjs [IntlMessageFormat](https://formatjs.io/docs/intl-messageformat/) and [@elf/core-phrasebook](https://git.sami.int.thomsonreuters.com/elf/core-phrasebook). In addition it provides tools to observe `lang` attribute changes.
+`@refinitiv-ui/i18n` provides wrappers and APIs around formatjs [IntlMessageFormat](https://formatjs.io/docs/intl-messageformat/) and `@refinitiv-ui/phrasebook`. In addition it provides tools to observe `lang` attribute changes.
 
-## Using with ELF
+## Usage
 
-Use [elf-translate](https://git.sami.int.thomsonreuters.com/elf/elf-translate) to translate ELF elements.
+Use with `@refinitiv-ui/translate` to translate Element Framework components.
 
 ## API Overview
 
-`elf-18n` provides a set of APIs to facilities translations.
+`@refinitiv-ui/i18n` provides a set of APIs to facilities translations.
 
-### t
+### t()
 
-`t` function is used to get the translation message from Phrasebook. Please refer to [Phrasebook](https://git.sami.int.thomsonreuters.com/elf/core-phrasebook) documentation on how to populate phrasebooks.
+`t` function is used to get the translation message from **Phrasebook**. Please refer to `@refinitiv-ui/phrasebook` documentation on how to populate phrasebooks.
 
-``` js
+```js
 // get translation for "element-scope" scope, "en" locale, "TRANSLATE_KEY" with options
 const message = await t('element-scope', 'en', 'TRANSLATE_KEY', {
-  option: 'value'
+  option: 'value',
 });
 ```
 
-If the requested locale is not available, `t` always tries to resolve the translation from the default locale (`DEFAULT_LOCALE`). If translation cannot be found the requested *translation key* is returned:
+If the requested locale is not available, `t` always tries to resolve the translation from the default locale (`DEFAULT_LOCALE`). If translation cannot be found the requested _translation key_ is returned:
 
-``` js
+```js
 // outputs 'TRANSLATION_KEY'
 const message = await t('element-scope', 'unknown-LOCALE', 'TRANSLATION_KEY');
 ```
@@ -32,9 +32,9 @@ const message = await t('element-scope', 'unknown-LOCALE', 'TRANSLATION_KEY');
 
 It is common that translations are applied based on `lang` HTML attribute. Please see [Language tag syntax](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang) to get additional information.
 
-`LangAttributeObserver` utilises [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to run a callback when `lang` attribute changes either on document level or on element level.
+`LangAttributeObserver` utilizes [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to run a callback when `lang` attribute changes either on document level or on element level.
 
-``` html
+```html
 <!-- Define document level locale -->
 <html lang="en-GB">
   <body>
@@ -47,7 +47,7 @@ It is common that translations are applied based on `lang` HTML attribute. Pleas
 </html>
 ```
 
-``` js
+```js
 const paragraph1 = document.getElementById('first');
 const paragraph2 = document.getElementById('second');
 
@@ -68,16 +68,16 @@ paragraph2.lang = 'es';
 
 To stop observing `lang` changes and avoid memory leaks you **must** disconnect an element.
 
-``` js
+```js
 LangAttributeObserver.disconnect(paragraph1);
 LangAttributeObserver.disconnect(paragraph2);
 ```
 
-### clearCache and clearCachedRecord
+### clearCache() and clearCachedRecord()
 
-`elf-18n` caches translations for efficient re-use. In rare scenarios you might need to clear the cache manually.
+`@refinitiv-ui/i18n` caches translations for efficient re-use. In rare scenarios, you might need to clear the cache manually.
 
-``` js
+```js
 // Clear all cached records
 clearCache();
 
@@ -85,11 +85,11 @@ clearCache();
 clearCachedRecord('element-scope', 'en');
 ```
 
-### resolveLocale
+### resolveLocale()
 
 The function is used to get the most suitable locale for the scope by checking supported locales from Phrasebook.
 
-``` js
+```js
 // If supported locales for "element-scope" are "['en', 'zh-Hant', 'zh-Hans']"
 resolveLocale('element-scope', 'en'); // resolved as "en"
 resolveLocale('element-scope', 'en-GB'); // resolved as "en"
@@ -104,49 +104,56 @@ resolveLocale('element-scope', 'zh-Hant-HK'); // resolved as "zh-Hant"
 
 ### Locale resolution
 
-`elf-i18n` tries to match the best available locale or fallback to default if none is available.
+`@refinitiv-ui/i18n` tries to match the best available locale or fallback to default if none is available.
 
 For example, if the Phrasebooks defines the following locales: `['en', 'zh-Hant', 'zh-Hans']`. The list below shows how the locales will be resolved:
 
- * en -> en
- * en-GB -> en
- * en-US -> en
- * ru -> DEFAULT_LOCALE (en-GB) -> en
- * zh -> DEFAULT_LOCALE (en-GB) -> en
- * zh-Hant -> zh-Hant
- * zh-Hant-HK -> zh-Hant
+- en -> en
+- en-GB -> en
+- en-US -> en
+- ru -> DEFAULT_LOCALE (en-GB) -> en
+- zh -> DEFAULT_LOCALE (en-GB) -> en
+- zh-Hant -> zh-Hant
+- zh-Hant-HK -> zh-Hant
 
 ### Caching
 
-Creating instances of `Intl` formats is an expensive operation. `elf-i18n` re-uses [Intl Format Cache](https://www.npmjs.com/package/intl-format-cache) to memoise translations.
+Creating instances of `Intl` formats is an expensive operation. `@refinitiv-ui/i18n` re-uses [Intl Format Cache](https://www.npmjs.com/package/intl-format-cache) to memoise translations.
 
 ### Unicode Extension
 
 Translate object supports [BCP47 unicode extensions](https://www.w3.org/International/multilingualweb/dublin/slides/23b-davis.pdf). You can provide unicode as part of `locale` or by passing `unicodeExtensions` to `t` function.
 
-``` html
+```html
 <!-- English locale with Islamic Calendar and 24h time format -->
 <html lang="en-u-hc-h24-ca-islamic"></html>
 ```
 
-``` js
-const message = await t('element-scope', 'en', 'TRANSLATE_KEY', {
-  option: 'value'
-}, {
-  // English locale with Islamic Calendar and 24h time format
-  unicodeExtensions: {
-    hc: 'h24',
-    ca: 'islamic'
+```js
+const message = await t(
+  'element-scope',
+  'en',
+  'TRANSLATE_KEY',
+  {
+    option: 'value',
+  },
+  {
+    // English locale with Islamic Calendar and 24h time format
+    unicodeExtensions: {
+      hc: 'h24',
+      ca: 'islamic',
+    },
   }
-});
+);
 ```
 
 Note that you cannot provide more than one list of unicode extensions. Therefore if extensions are provided via html and JavaScript, the list is merged.
 
 ## References
 
-You can get additional information about internationalisation:
-* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
-* https://formatjs.io/
-* https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang
-* https://messageformat.github.io/messageformat/page-guide
+You can get additional information about internationalization:
+
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
+- https://formatjs.io/
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang
+- https://messageformat.github.io/messageformat/page-guide

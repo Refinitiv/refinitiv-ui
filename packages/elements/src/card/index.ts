@@ -16,28 +16,28 @@ import '../button';
 import { Button } from '../button';
 import '../overlay-menu';
 import { OverlayMenu, OverlayMenuData } from '../overlay-menu';
+import { CardConfig } from './helpers/types';
+import { VERSION } from '../';
 
-export type CardConfiguration = {
-  /**
-  * Configuration for side menu
-  */
-  menu?: {
-   /**
-    * Menu data object as defined in `overlay-menu`
-    */
-   data: OverlayMenuData;
-  };
-};
+export { CardConfig };
 
 /**
  * A card frame component.
- *
  * @fires item-trigger - Fired when card menu is selected.
  */
 @customElement('ef-card', {
   alias: 'coral-card'
 })
 export class Card extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -53,7 +53,7 @@ export class Card extends BasicElement {
     `;
   }
 
-  private _config: CardConfiguration | undefined;
+  private _config: CardConfig | undefined;
 
   /**
    * Set text on the header
@@ -71,10 +71,10 @@ export class Card extends BasicElement {
    * Set card configurations
    */
   @property({ type: Object, attribute: false })
-  public get config (): CardConfiguration | undefined {
+  public get config (): CardConfig | undefined {
     return this._config;
   }
-  public set config (config: CardConfiguration | undefined) {
+  public set config (config: CardConfig | undefined) {
     const data = config?.menu?.data;
     if (data !== this.menuData) {
       this.menuData = data;

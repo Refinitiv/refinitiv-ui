@@ -6,8 +6,10 @@ import {
   ElementSize,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { helpers as canvasHelper, CanvasSizeType } from './canvasHelpers.js';
+
+import { helpers as canvasHelper } from './helpers/canvas';
 import { Canvas } from '../canvas';
+import { VERSION } from '../';
 
 /**
  * Data visualisation showing the percentage between two values
@@ -17,25 +19,12 @@ import { Canvas } from '../canvas';
 })
 export class SwingGauge extends Canvas {
 
-  private w: number | null = null;
-  private h: number | null = null;
-  private min: number | null = null;
-  private max: number | null = null;
-  private size: number | null = null;
-  private maxFontSize: number | null = null;
-  private centerlineOptions: string[] = ['solid', 'dotted', 'dashed'];
-  private onFrame: Function = requestAnimationFrame.bind(window);
-  private cancelFrame: Function = cancelAnimationFrame.bind(window);
-  private previousFillPercentage: number | null = null;
-  private fillPercentage: number | null = null;
-  private frameHandler: number | null = null;
-
-  constructor () {
-    super();
-    /**
-     * @ignore
-     */
-    this.autoloop = true;
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
   }
 
   /**
@@ -51,14 +40,12 @@ export class SwingGauge extends Canvas {
         overflow: hidden;
         position: relative;
       }
-
       :host::before {
         content: '';
         display: block;
         min-height: 200px;
         box-sizing: border-box;
       }
-
       canvas {
         top: 0;
         left: 0;
@@ -104,13 +91,34 @@ export class SwingGauge extends Canvas {
 
   /**
    * Getter size of component
-   * @returns {CanvasSizeType} return size of component
+   * @returns {ElementSize} return size of component
    */
-  public get canvasSize (): CanvasSizeType {
+  public get canvasSize (): ElementSize {
     return {
       width: this.width,
       height: this.height
     };
+  }
+
+  private w: number | null = null;
+  private h: number | null = null;
+  private min: number | null = null;
+  private max: number | null = null;
+  private size: number | null = null;
+  private maxFontSize: number | null = null;
+  private centerlineOptions: string[] = ['solid', 'dotted', 'dashed'];
+  private onFrame: Function = requestAnimationFrame.bind(window);
+  private cancelFrame: Function = cancelAnimationFrame.bind(window);
+  private previousFillPercentage: number | null = null;
+  private fillPercentage: number | null = null;
+  private frameHandler: number | null = null;
+
+  constructor () {
+    super();
+    /**
+     * @ignore
+     */
+    this.autoloop = true;
   }
 
   /**
@@ -127,11 +135,11 @@ export class SwingGauge extends Canvas {
   /**
    * Handles when event frame fired to re-draw canvas
    * @protected
-   * @param t timestamp
+   * @param time timestamp
    * @returns {void}
    */
-  protected fireFrame (t: number): void {
-    super.fireFrame(t);
+  protected fireFrame (time: number): void {
+    super.fireFrame(time);
     this.renderCanvas(true);
   }
 
@@ -183,7 +191,6 @@ export class SwingGauge extends Canvas {
 
   /**
    * Calls easing based on both left and right values
-   *
    * @private
    * @param {number} v1 left value
    * @param {number} v2 right value
@@ -205,27 +212,24 @@ export class SwingGauge extends Canvas {
 
   /**
    * Eases the fill percentage
-   *
    * @private
    * @param {number} to ease to value
    * @param {number} from ease from value
-   * @param {number} t ease time
+   * @param {number} time ease time
    * @returns {void}
    */
-  private easeTo (to: number, from: number, t: number): void {
-    let diff = this.duration - (t - performance.now());
+  private easeTo (to: number, from: number, time: number): void {
+    let diff = this.duration - (time - performance.now());
     diff /= this.duration;
     this.fillPercentage = (from + (to - from) * canvasHelper.elasticOut(diff > 1 ? 1 : diff < 0 ? 0 : diff)) || 0;
     if (this.fillPercentage !== to) {
       this.cancelFrame(this.frameHandler);
-      this.frameHandler = this.onFrame(() => this.easeTo(to, from, t));
+      this.frameHandler = this.onFrame(() => this.easeTo(to, from, time));
     }
   }
 
   /**
    * Does the control has valid data?
-   *
-   * @private
    * @returns {boolean} will return true if valid data
    */
   private dataValid (): boolean {
@@ -235,8 +239,6 @@ export class SwingGauge extends Canvas {
   /**
    * Are we able to render?
    * Used to prevent frame painting if data hasn't changed
-   *
-   * @private
    * @returns {boolean} will return true if canvas can render
    */
   private canRender (): boolean {
@@ -245,8 +247,6 @@ export class SwingGauge extends Canvas {
 
   /**
    * Calculate fill percentage and re-render chart
-   *
-   * @private
    * @returns {void}
    */
   private reDrawCanvas (): void {
@@ -256,8 +256,6 @@ export class SwingGauge extends Canvas {
 
   /**
    * Render chart
-   *
-   * @private
    * @param isFrameUpdated Optional called by on frame event
    * @returns {void}
    */

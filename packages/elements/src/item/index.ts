@@ -11,9 +11,10 @@ import {
 } from '@refinitiv-ui/core';
 import '../icon';
 import '../checkbox';
-import { ItemType } from './types';
+import { ItemType } from './helpers/types';
+import { VERSION } from '../';
 
-export * from './types';
+export * from './helpers/types';
 
 const isAllWhitespaceTextNode = (node: Node): boolean =>
   node.nodeType === document.TEXT_NODE
@@ -37,6 +38,15 @@ const isAllWhitespaceTextNode = (node: Node): boolean =>
   alias: 'coral-item'
 })
 export class Item extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * @returns `CSSResult` that will be used to style the host,
    * slotted children and the internal template of the element.
@@ -47,21 +57,17 @@ export class Item extends ControlElement {
         display: flex;
         align-items: center;
       }
-
       [part=checkbox] {
         pointer-events: none;
       }
-
       [part=left],
       [part=right] {
         display: flex;
         align-items: center;
       }
-
       [part=center] {
         flex: 1;
       }
-
       :host([type=divider]) > * {
         display: none;
       }
@@ -199,30 +205,6 @@ export class Item extends ControlElement {
   }
 
   /**
-   * A `TemplateResult` that will be used
-   * to render the updated internal template.
-   * @returns Render template
-   */
-  protected render (): TemplateResult {
-    return html`
-      <div part="left">
-        ${this.iconTemplate}
-        ${this.multipleTemplate}
-        <slot name="left"></slot>
-      </div>
-      <div part="center" id="label">
-        ${this.labelTemplate}
-        <slot @slotchange="${this.checkSlotChildren}"></slot>
-        ${this.subLabelTemplate}
-      </div>
-      <div part="right">
-        <slot name="right"></slot>
-        ${this.forTemplate}
-      </div>
-    `;
-  }
-
-  /**
    * Return true if the item can be highlighted. True if not disabled and type is Text
    * @prop {boolean} highlightable
    * @returns whether element is highlightable
@@ -252,5 +234,29 @@ export class Item extends ControlElement {
     else if (!this.disabled) {
       this.enableFocus();
     }
+  }
+
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @returns Render template
+   */
+  protected render (): TemplateResult {
+    return html`
+      <div part="left">
+        ${this.iconTemplate}
+        ${this.multipleTemplate}
+        <slot name="left"></slot>
+      </div>
+      <div part="center" id="label">
+        ${this.labelTemplate}
+        <slot @slotchange="${this.checkSlotChildren}"></slot>
+        ${this.subLabelTemplate}
+      </div>
+      <div part="right">
+        <slot name="right"></slot>
+        ${this.forTemplate}
+      </div>
+    `;
   }
 }

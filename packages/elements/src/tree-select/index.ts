@@ -10,23 +10,26 @@ import {
   query,
   ifDefined
 } from '@refinitiv-ui/core';
+import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import { CollectionComposer, TimeoutTaskRunner } from '@refinitiv-ui/utils';
+import '@refinitiv-ui/phrasebook/lib/locale/en/tree-select';
 
-import { ComboBox } from '../combo-box';
-import { TreeItemData as T } from '../tree/tree-item-data';
 import '../icon';
-import { Overlay } from '../overlay';
-import { DefaultRenderer } from '../tree';
 import '../text-field';
 import '../pill';
 import '../button';
 import '../checkbox';
 import '../tree';
-import { CheckedState, TreeManager, TreeManagerMode } from '../tree/tree-manager';
-import { translate, TranslateDirective } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/lib/locale/en/tree-select';
+import { Overlay } from '../overlay';
+import { ComboBox, ComboBoxFilter as TreeSelectFilter } from '../combo-box';
 
-export { DefaultRenderer };
+import { TreeRenderer as TreeSelectRenderer } from '../tree';
+import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager';
+
+import { TreeSelectData, TreeSelectDataItem } from './helpers/types';
+import { VERSION } from '..';
+
+export { TreeSelectRenderer, TreeSelectData, TreeSelectDataItem, TreeSelectFilter };
 
 const MEMO_THROTTLE = 16;
 const POPUP_POSITION = ['bottom-start', 'top-start'];
@@ -47,7 +50,16 @@ const POPUP_POSITION = ['bottom-start', 'top-start'];
 @customElement('ef-tree-select', {
   alias: 'emerald-multi-select'
 })
-export class TreeSelect extends ComboBox<T> {
+export class TreeSelect extends ComboBox<TreeSelectDataItem> {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   constructor () {
     super();
     /**
@@ -124,7 +136,7 @@ export class TreeSelect extends ComboBox<T> {
   /**
    * Extracted values from {@link this.checkedGroupedItems}
    */
-  protected pillsData: T[] = [];
+  protected pillsData: TreeSelectDataItem[] = [];
 
   /**
    * Are there pills visible
@@ -135,17 +147,17 @@ export class TreeSelect extends ComboBox<T> {
    * Store references to items selected and visible at point of selection filter being applied
    * Allow for items to be removed from the selection, but still be visible
    */
-  protected editSelectionItems: Set<T> = new Set();
+  protected editSelectionItems: Set<TreeSelectDataItem> = new Set();
 
   /**
    * Composer used for live changes
    */
-  protected composer: CollectionComposer<T> = new CollectionComposer([]);
+  protected composer: CollectionComposer<TreeSelectDataItem> = new CollectionComposer([]);
 
   /**
    * Provide access to tree interface
    */
-  protected treeManager: TreeManager<T> = new TreeManager(this.composer);
+  protected treeManager: TreeManager<TreeSelectDataItem> = new TreeManager(this.composer);
 
   /**
    * Modification updates are called a lot
@@ -177,6 +189,7 @@ export class TreeSelect extends ComboBox<T> {
   /**
    * Returns a values collection of the currently
    * selected item values
+   * @type {string[]}
    */
   @property({ type: Array, attribute: false })
   public get values (): string[] {
@@ -189,9 +202,10 @@ export class TreeSelect extends ComboBox<T> {
 
   /**
    * Renderer used to render tree item elements
+   * @type {TreeSelectRenderer}
    */
   @property({ type: Function, attribute: false })
-  public renderer = new DefaultRenderer(this);
+  public renderer = new TreeSelectRenderer(this);
 
   /**
    * Internal reference to selection area element
@@ -205,12 +219,11 @@ export class TreeSelect extends ComboBox<T> {
   @query('[part=list]')
   protected popupEl?: Overlay;
 
-
   /**
    * Set resolved data
    * @param value resolved data
    */
-  protected set resolvedData (value: T[]) {
+  protected set resolvedData (value: TreeSelectDataItem[]) {
     const oldValue = this.resolvedData;
     if (value !== oldValue) {
       super.resolvedData = value;
@@ -227,7 +240,7 @@ export class TreeSelect extends ComboBox<T> {
       void this.requestUpdate('data', oldValue);
     }
   }
-  protected get resolvedData (): T[] {
+  protected get resolvedData (): TreeSelectDataItem[] {
     return super.resolvedData;
   }
 
@@ -242,7 +255,7 @@ export class TreeSelect extends ComboBox<T> {
   /**
    * Provide list of currently selected items
    */
-  protected get selection (): T[] {
+  protected get selection (): TreeSelectDataItem[] {
     return this.treeManager.checkedItems.slice();
   }
 
@@ -309,7 +322,7 @@ export class TreeSelect extends ComboBox<T> {
    * If all leaves are selected, a parent becomes selected
    * If mode is INDEPENDENT, grouping is not applied
    */
-  protected get checkedGroupedItems (): readonly T[] {
+  protected get checkedGroupedItems (): readonly TreeSelectDataItem[] {
     const treeManager = this.treeManager;
     const checkedItems = treeManager.checkedItems;
 
@@ -317,8 +330,8 @@ export class TreeSelect extends ComboBox<T> {
       return checkedItems;
     }
 
-    const checkedGroupItems: T[] = [];
-    const unchecked: T[] = []; // need for performance to not double check same ancestors
+    const checkedGroupItems: TreeSelectDataItem[] = [];
+    const unchecked: TreeSelectDataItem[] = []; // need for performance to not double check same ancestors
 
     checkedItems.forEach(item => {
       const ancestors = treeManager.getItemAncestors(item);
@@ -466,7 +479,7 @@ export class TreeSelect extends ComboBox<T> {
    * @param event checked-change event
    * @returns {void}
    */
-  protected selectionToggleHandler (event: CustomEvent): void {
+  protected selectionToggleHandler (event: CustomEvent<HTMLInputElement>): void {
     if (event.detail.value) {
       this.treeManager.checkAllItems();
     }
@@ -595,9 +608,9 @@ export class TreeSelect extends ComboBox<T> {
    *
    * @returns {void}
    */
-  protected addExpandedAncestorsToRender (items: T[]): void {
+  protected addExpandedAncestorsToRender (items: TreeSelectDataItem[]): void {
     // establish unique ancestors set
-    const ancestors = new Set<T>();
+    const ancestors = new Set<TreeSelectDataItem>();
     // we iterate each item match so as to find ancestors
     items.forEach((item) => {
       // get the ancestors
@@ -618,7 +631,7 @@ export class TreeSelect extends ComboBox<T> {
    *
    * @returns {void}
    */
-  protected addExpandedAncestorToRender (ancestor: T): void {
+  protected addExpandedAncestorToRender (ancestor: TreeSelectDataItem): void {
     this.treeManager.includeItem(ancestor);
     this.treeManager.expandItem(ancestor);
   }
@@ -629,7 +642,7 @@ export class TreeSelect extends ComboBox<T> {
    *
    * @returns {void}
    */
-  protected onPillRemoved (event: CustomEvent): void {
+  protected onPillRemoved (event: CustomEvent<HTMLInputElement>): void {
     const item = this.queryItemsByPropertyValue('value', event.detail.value)[0];
     if (item) {
       this.treeManager.uncheckItem(item);
@@ -706,7 +719,7 @@ export class TreeSelect extends ComboBox<T> {
     // The logic needs to happen after the update cycle
     // as otherwise focus logic may contradict with other components
     // and the focus is not moved
-    this.updateComplete.then(() => {
+    void this.updateComplete.then(() => {
       this.selectionAreaEl?.focus();
     });
   }
@@ -741,7 +754,7 @@ export class TreeSelect extends ComboBox<T> {
    * @returns Collection of matched items
    * @override
    */
-  protected queryItems (engine: (item: T, composer: CollectionComposer<T>) => boolean): readonly T[] {
+  protected queryItems (engine: (item: TreeSelectDataItem, composer: CollectionComposer<TreeSelectDataItem>) => boolean): readonly TreeSelectDataItem[] {
     return this.composer.queryItems(engine, Infinity);
   }
 
@@ -753,7 +766,7 @@ export class TreeSelect extends ComboBox<T> {
    * @returns Collection of matched items
    * @override
    */
-  protected queryItemsByPropertyValue<K extends keyof T> (property: K, value: T[K]): readonly T[] {
+  protected queryItemsByPropertyValue<K extends keyof TreeSelectDataItem> (property: K, value: TreeSelectDataItem[K]): readonly TreeSelectDataItem[] {
     return this.composer.queryItemsByPropertyValue(property, value, Infinity);
   }
 

@@ -1,5 +1,5 @@
 import { Item } from '../../item';
-import { HighlightableFunction, Query, RendererFunction, Suggestion, SuggestionType } from '../types';
+import { AutosuggestHighlightable, AutosuggestQuery, AutosuggestRenderer, Suggestion, AutosuggestItem } from './types';
 
 /**
  * Check whether item can be highlighted
@@ -7,7 +7,7 @@ import { HighlightableFunction, Query, RendererFunction, Suggestion, SuggestionT
  * @param target item element
  * @returns highlightable
  */
-export const itemHighlightable: HighlightableFunction = (suggestion: SuggestionType, target: HTMLElement): boolean => {
+export const itemHighlightable: AutosuggestHighlightable = (suggestion: AutosuggestItem, target: HTMLElement): boolean => {
   return (target as Item).highlightable;
 };
 
@@ -48,7 +48,7 @@ export const queryWordSelect = (text: string, query = '', pattern = '<mark>$1</m
  * @return {void}
  */
 export const updateElementContent = (el: Item, query: string, label: string, value: string | number): void => {
-  if (itemHighlightable(value as SuggestionType, el)) {
+  if (itemHighlightable(value as AutosuggestItem, el)) {
     el.innerHTML = queryWordSelect(label, query);
   }
   else {
@@ -62,7 +62,7 @@ export const updateElementContent = (el: Item, query: string, label: string, val
  * @param query A query data (usually string, but could be any entity )
  * @returns item
  */
-export const itemRenderer: RendererFunction = (suggestion: SuggestionType, query: Query | null): HTMLElement => {
+export const itemRenderer: AutosuggestRenderer = (suggestion: AutosuggestItem, query: AutosuggestQuery | null): HTMLElement => {
   const el = new Item();
 
   if (typeof suggestion === 'object') {
@@ -87,7 +87,7 @@ export const itemRenderer: RendererFunction = (suggestion: SuggestionType, query
     updateElementContent(el, query as string || '', label || '', el.value);
   }
   else {
-    const value = `${suggestion || ''}`;
+    const value = suggestion as string || '';
 
     el.label = value;
     el.value = value;

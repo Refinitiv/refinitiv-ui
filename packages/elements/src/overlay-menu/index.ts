@@ -11,19 +11,16 @@ import {
   WarningNotice
 } from '@refinitiv-ui/core';
 import { AnimationTaskRunner, CollectionComposer } from '@refinitiv-ui/utils';
-import { Overlay, Position, PositionTarget } from '../overlay';
-import { Item, ItemData } from '../item';
+
 import '../icon';
 import '../item';
-import {
-  OpenedMenusManager
-} from './menu-manager';
-import {
-  getId
-} from './utils';
-import {
-  OverlayMenuData
-} from './types';
+import { Item, ItemData } from '../item';
+import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay';
+
+import { getId } from './helpers/uuid';
+import { OverlayMenuData } from './helpers/types';
+import { OpenedMenusManager } from './managers/menu-manager';
+import { VERSION } from '../';
 
 export { OverlayMenuData };
 
@@ -58,6 +55,36 @@ export { OverlayMenuData };
   alias: 'emerald-popup-menu'
 })
 export class OverlayMenu extends Overlay {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
+  /**
+   * A `CSSResult` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @return CSS template
+   */
+  static get styles (): CSSResult | CSSResult[] {
+    return [
+      super.styles as CSSResult,
+      css`
+        :host {
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+        :host([compact]:not([active])) { /* active is set in menu-manager */
+          opacity: 0;
+        }
+      `
+    ];
+  }
+
   constructor () {
     super();
     /**
@@ -96,8 +123,8 @@ export class OverlayMenu extends Overlay {
 
   private dataDisconnectThrottler = new AnimationTaskRunner();
   private menuHighlightedItem?: Item;
-  private oldPosition?: Position[];
-  private oldPositionTarget?: PositionTarget | HTMLElement | null;
+  private oldPosition?: OverlayPosition[];
+  private oldPositionTarget?: OverlayPositionTarget | HTMLElement | null;
   private oldInteractiveElements: HTMLElement[] = [];
   private menuIndex: { /* used to bind items to menus */
     [key: string]: {
@@ -110,27 +137,6 @@ export class OverlayMenu extends Overlay {
   private _data: OverlayMenuData | undefined;
   private parentDataItem?: ItemData; /* used to reference CC to get the correct collection */
   private lazyRendered = false; /* speed up rendering by not populating overlay on first load */
-
-  /**
-   * A `CSSResult` that will be used
-   * to style the host, slotted children
-   * and the internal template of the element.
-   * @return CSS template
-   */
-  static get styles (): CSSResult | CSSResult[] {
-    return [
-      super.styles as CSSResult,
-      css`
-        :host {
-          overflow-y: auto;
-          overflow-x: hidden;
-        }
-        :host([compact]:not([active])) { /* active is set in menu-manager */
-          opacity: 0;
-        }
-      `
-    ];
-  }
 
   /**
    * Switch to compact style menu
@@ -975,7 +981,7 @@ export class OverlayMenu extends Overlay {
 
   /**
    * Construct items from data
-   * @returns template result
+   * @returns {TemplateResult} Template result
    */
   private get fromDataItems (): TemplateResult[] | undefined {
     if (!this.lazyRendered) {
@@ -987,22 +993,24 @@ export class OverlayMenu extends Overlay {
 
   /**
    * Construct back item for compact menu
-   * @returns template result
+   * @returns {TemplateResult} Template result
    */
   private compactBackItem (): TemplateResult | undefined {
     if (!this.compact || !OpenedMenusManager.isNested(this)) {
       return undefined;
     }
 
-    return html`<ef-item part="menu-back" id="back" label="Back" @tap=${this.onBackItemTap} @mousemove=${this.onBackItemMouseMove}>
-      <ef-icon slot="left" icon="left"></ef-icon>
-    </ef-item>`;
+    return html`
+      <ef-item part="menu-back" id="back" label="Back" @tap=${this.onBackItemTap} @mousemove=${this.onBackItemMouseMove}>
+        <ef-icon slot="left" icon="left"></ef-icon>
+      </ef-item>
+    `;
   }
 
   /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
-   * @returns Render template
+   * @returns {TemplateResult} Render template
    */
   protected render (): TemplateResult {
     /**

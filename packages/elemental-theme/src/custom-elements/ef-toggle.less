@@ -34,8 +34,6 @@
     box-sizing: border-box;
     border: 1px solid @control-border-color;
     border-radius: inherit;
-    padding: @label-padding;
-    padding-left: @switching-padding;
     text-overflow: inherit;
     overflow: inherit;
     user-select: none;
@@ -55,9 +53,20 @@
 
   &[label] {
     width: unit((@width * @control-scale-large), px);
+    min-width: @width;
 
-    [part=toggle]::after {
-      width: @switch-width;
+    &[checked] [part=toggle] {
+      padding-right: @switching-padding;
+      padding-left: @label-padding;
+    }
+
+    [part=toggle] {
+      padding: @label-padding;
+      padding-left: @switching-padding;
+
+      &::after {
+        width: @switch-width;
+      }
     }
   }
 
@@ -69,15 +78,11 @@
     opacity: 0.5;
   }
 
-  &[checked] [part=toggle] {
-    padding-right: @switching-padding;
-    padding-left: @label-padding;
-    &::after {
-      right: @switch-margin;
-      left: auto;
-      border-color: @scheme-color-primary;
-      background-color: @scheme-color-primary;
-    }
+  &[checked] [part=toggle]::after {
+    right: @switch-margin;
+    left: auto;
+    border-color: @scheme-color-primary;
+    background-color: @scheme-color-primary;
   }
 
   &:hover:not([readonly]), &[focused=visible] {

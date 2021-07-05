@@ -18,14 +18,12 @@ import '../icon';
 import '../overlay';
 import '../text-field';
 import '../time-picker';
-import {
-  DuplexMode
-} from './types';
 import { Icon } from '../icon';
+import { Calendar } from '../calendar';
 import {
-  Filter,
-  Calendar
-} from '../calendar';
+  DatetimePickerDuplex,
+  DatetimePickerFilter
+} from './types';
 import {
   getDateFNSLocale
 } from './locales';
@@ -44,46 +42,38 @@ import {
 } from 'date-fns';
 
 import {
-  DateTimeSegment,
-  isValidDate,
-  isValidDateTime,
-  isValidView,
-  getCurrentTime,
-  formatToView,
-  formatToDate,
-  formatToDateTime,
-  formatToTime,
   addMonths,
   subMonths,
   isAfter,
   isBefore,
-  parse
+  isValidDate,
+  isValidDateTime,
+  DateFormat,
+  DateTimeFormat,
+  parse,
+  format
+} from '@refinitiv-ui/utils';
+
+import {
+  DateTimeSegment,
+  formatToView,
+  getCurrentTime
 } from './utils';
 
 import { preload } from '../icon';
 import { TimePicker } from '../time-picker';
 import { TextField } from '../text-field';
 import { Overlay } from '../overlay';
+import { VERSION } from '../';
 
 preload('calendar', 'down', 'left', 'right'); /* preload calendar icons for faster loading */
 
 export {
-  Filter,
-  DuplexMode,
-  formatToView,
-  formatToDate,
-  formatToTime,
-  formatToDateTime,
-  parse
+  DatetimePickerFilter,
+  DatetimePickerDuplex
 };
 
 const POPUP_POSITION = ['bottom-start', 'top-start', 'bottom-end', 'top-end', 'bottom-middle', 'top-middle'];
-
-const VALUE_FORMAT = {
-  DATE: 'yyyy-MM-dd',
-  DATETIME: "yyyy-MM-dd'T'HH:mm",
-  DATETIME_SECONDS: "yyyy-MM-dd'T'HH:mm:ss"
-};
 
 const INPUT_FORMAT = {
   DATE: 'dd-MMM-yyyy',
@@ -116,6 +106,15 @@ const INPUT_FORMAT = {
   alias: 'emerald-datetime-picker'
 })
 export class DatetimePicker extends ControlElement implements MultiValue {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -171,35 +170,51 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private inputSyncing = true; /* true when inputs and pickers are in sync. False while user types in input */
 
   private _min = '';
-  private _minSegment: DateTimeSegment | null = null; /* parsed min */
+  private minDate = '';
   /**
   * Set minimum date
   * @param min date
   */
   @property({ type: String })
   public set min (min: string) {
-    const oldMin = this._min;
-    this._min = min;
-    void this.requestUpdate('_min', oldMin); /* cannot be `min` as lit element check of hasChanged */
+    if (!this.isValidValue(min)) {
+      this.warnInvalidValue(min);
+      min = '';
+    }
+
+    const oldMin = this.min;
+    if (oldMin !== min) {
+      this._min = min;
+      this.minDate = min ? format(parse(min), DateFormat.yyyyMMdd) : '';
+      void this.requestUpdate('min', oldMin);
+    }
   }
   public get min (): string {
-    return this._minSegment ? this._minSegment.value : '';
+    return this._min;
   }
 
   private _max = '';
-  private _maxSegment: DateTimeSegment | null = null; /* parsed max */
+  private maxDate = '';
   /**
   * Set maximum date
   * @param max date
   */
   @property({ type: String })
   public set max (max: string) {
-    const oldMax = this._max;
-    this._max = max;
-    void this.requestUpdate('_max', oldMax);
+    if (!this.isValidValue(max)) {
+      this.warnInvalidValue(max);
+      max = '';
+    }
+
+    const oldMax = this.max;
+    if (oldMax !== max) {
+      this._max = max;
+      this.maxDate = max ? format(parse(max), DateFormat.yyyyMMdd) : '';
+      void this.requestUpdate('max', oldMax);
+    }
   }
   public get max (): string {
-    return this._maxSegment ? this._maxSegment.value : '';
+    return this._max;
   }
 
   /**
@@ -216,10 +231,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
   /**
   * Custom filter, used for enabling/disabling certain dates
-  * @type {Filter | null}
+  * @type {DatetimePickerFilter | null}
   */
   @property({ attribute: false })
-  public filter: Filter | null = null;
+  public filter: DatetimePickerFilter | null = null;
 
   /**
    * Set the first day of the week.
@@ -387,10 +402,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
   /**
   * Display two calendar pickers.
-  * @type {string | null}
+  * @type {"" | "consecutive" | "split"}
   */
   @property({ type: String, reflect: true })
-  public duplex: DuplexMode | null = null;
+  public duplex: DatetimePickerDuplex | null = null;
 
   /**
   * Set the current calendar view.
@@ -480,14 +495,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       this.valuesToSegments();
     }
 
-    if (changedProperties.has('_min')) {
-      this.minToSegment();
-    }
-
-    if (changedProperties.has('_max')) {
-      this.maxToSegment();
-    }
-
     if (changedProperties.has('opened') && this.opened) {
       this.lazyRendered = true;
     }
@@ -528,7 +535,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     if (value === '') {
       return true;
     }
-    return this.timepicker ? isValidDateTime(value) : isValidDate(value);
+    return this.timepicker
+      ? isValidDateTime(value)
+      : isValidDate(value, DateFormat.yyyyMMdd);
   }
 
   /**
@@ -558,36 +567,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const newSegments = this.filterAndWarnInvalidValues(this._values).map(value => DateTimeSegment.fromString(value));
     this._segments = newSegments;
     this.interimSegments = newSegments;
-  }
-
-  /**
-   * Convert min to min segment
-   * Warn if min has an invalid value
-   * @returns {void}
-   */
-  private minToSegment (): void {
-    const min = this._min;
-    if (!this.isValidValue(min)) {
-      this.warnInvalidValue(min);
-      this._minSegment = null;
-      return;
-    }
-    this._minSegment = DateTimeSegment.fromString(min);
-  }
-
-  /**
-   * Convert max to max segment
-   * Warn if max has an invalid value
-   * @returns {void}
-   */
-  private maxToSegment (): void {
-    const max = this._max;
-    if (!this.isValidValue(max)) {
-      this.warnInvalidValue(max);
-      this._maxSegment = null;
-      return;
-    }
-    this._maxSegment = DateTimeSegment.fromString(max);
   }
 
   /**
@@ -633,7 +612,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private filterAndWarnInvalidViews (views: string[]): string[] {
     for (let i = 0; i < views.length; i += 1) {
       const view = views[i];
-      if (!isValidView(view)) {
+      if (!isValidDate(view, DateFormat.yyyyMM)) {
         this.warnInvalidView(view);
         return []; /* if at least one view is invalid, do not care about the rest to avoid empty views */
       }
@@ -1029,7 +1008,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       });
 
       if (isValid(date)) {
-        dateString = inputFormat(date, this.timepicker ? this.showSeconds ? VALUE_FORMAT.DATETIME_SECONDS : VALUE_FORMAT.DATETIME : VALUE_FORMAT.DATE);
+        dateString = inputFormat(date, this.timepicker ? this.showSeconds ? DateTimeFormat.yyyMMddTHHmmss : DateTimeFormat.yyyMMddTHHmm : DateFormat.yyyyMMdd);
         this.resetViews(); /* user input should be treated similar to manually switching the views */
       }
     }
@@ -1067,10 +1046,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private isValueWithinMinMax (): boolean {
     if (this.min || this.max) {
-      const minTime = this.min ? DateTimeSegment.fromString(this.min).getTime() : -Infinity;
-      const maxTime = this.max ? DateTimeSegment.fromString(this.max).getTime() : Infinity;
+      const minTime = this.min ? parse(this.min).getTime() : -Infinity;
+      const maxTime = this.max ? parse(this.max).getTime() : Infinity;
       for (let i = 0; i < this.values.length; i += 1) {
-        const valueTime = DateTimeSegment.fromString(this.values[i]).getTime();
+        const valueTime = parse(this.values[i]).getTime();
         if (minTime > valueTime || maxTime < valueTime) {
           return false;
         }
@@ -1090,9 +1069,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       const to = this.values[1];
 
       if (from && to) {
-        const fromSegment = DateTimeSegment.fromString(from);
-        const toSegment = DateTimeSegment.fromString(to);
-        if (fromSegment.getTime() > toSegment.getTime()) {
+        if (parse(from).getTime() > parse(to).getTime()) {
           return false;
         }
       }
@@ -1177,8 +1154,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       .fillCells=${!this.isDuplex()}
       .range=${this.range}
       .multiple=${this.multiple}
-      .min=${this._minSegment ? this._minSegment.dateSegment : ''}
-      .max=${this._maxSegment ? this._maxSegment.dateSegment : ''}
+      .min=${this.minDate}
+      .max=${this.maxDate}
       .weekdaysOnly=${this.weekdaysOnly}
       .weekendsOnly=${this.weekendsOnly}
       .firstDayOfWeek=${ifDefined(this.firstDayOfWeek)}
