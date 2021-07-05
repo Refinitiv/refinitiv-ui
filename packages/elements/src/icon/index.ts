@@ -28,6 +28,7 @@ export class Icon extends BasicElement {
     return css`
       :host {
         display: inline-block;
+        line-height: 1;
         width: 1em;
         height: 1em;
       }
