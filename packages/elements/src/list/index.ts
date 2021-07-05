@@ -16,6 +16,7 @@ import '../item';
 import { ItemData } from '../item';
 import { ListData } from './helpers/types';
 import { ListRenderer } from './helpers/list-renderer';
+import { VERSION } from '../';
 
 export { ListData, ListRenderer };
 
@@ -36,6 +37,15 @@ const valueFormatWarning = new WarningNotice('The specified \'values\' format do
   alias: 'coral-list'
 })
 export class List<T extends DataItem = ItemData> extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Used to timestamp renders.
    * This enables diff checking against item updates,

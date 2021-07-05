@@ -8,6 +8,7 @@ import {
   CSSResult,
   ElementSize
 } from '@refinitiv-ui/core';
+import { VERSION } from '../../';
 
 import'./tornado-item';
 import type { TornadoItem } from'./tornado-item';
@@ -22,6 +23,15 @@ import type { TornadoItem } from'./tornado-item';
   alias: 'sapphire-parity-chart'
 })
 export class TornadoChart extends ResponsiveElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Primary bar chart legend text
    */

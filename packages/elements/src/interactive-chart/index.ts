@@ -29,6 +29,7 @@ import {
   HistogramSeriesOptions,
   BarPrices
 } from 'lightweight-charts';
+import { VERSION } from '../';
 
 import '../tooltip';
 
@@ -65,6 +66,15 @@ const NO_DATA_POINT = '--';
   alias: 'sapphire-interactive-chart'
 })
 export class InteractiveChart extends ResponsiveElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   private static readonly CSS_COLOR_PREFIX = '--chart-color-';
   private static readonly DEFAULT_LINE_WIDTH = '2';
   private static readonly DEFAULT_FILL_OPACITY = '0.4';

@@ -6,6 +6,7 @@ import {
   TemplateResult,
   html
 } from '@refinitiv-ui/core';
+import { VERSION } from '../../';
 
 /**
  * A private element to find overlay size boundaries
@@ -14,6 +15,14 @@ import {
   theme: false
 })
 export class OverlayViewport extends ResponsiveElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
 
   private static Template = html``; /* IE11 need empty template */
 

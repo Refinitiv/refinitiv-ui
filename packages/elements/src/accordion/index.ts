@@ -7,6 +7,7 @@ import {
   TemplateResult,
   CSSResult
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 import { Collapse } from '../collapse';
 
 /**
@@ -49,6 +50,15 @@ const isDirectAccordionChild = (element: Element, accordion: Accordion): boolean
   alias: 'coral-accordion'
 })
 export class Accordion extends Collapse {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

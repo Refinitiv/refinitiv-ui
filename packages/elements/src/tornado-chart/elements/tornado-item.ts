@@ -11,6 +11,7 @@ import {
 
 import '../../progress-bar';
 import '../../layout';
+import { VERSION } from '../../';
 
 /**
  * A part of <ef-tornado-chart />,
@@ -18,6 +19,15 @@ import '../../layout';
  */
 @customElement('ef-tornado-item')
 export class TornadoItem extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Internal vertical flag value, used only by its getter and setter
    */

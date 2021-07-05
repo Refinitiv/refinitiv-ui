@@ -27,6 +27,7 @@ import './elements/grayscale-palettes';
 
 import { ColorHelpers } from './helpers/color-helpers';
 import { ValueModel } from './helpers/value-model';
+import { VERSION } from '../';
 
 /**
  * Displays a colour picker dialog,
@@ -65,6 +66,15 @@ import { ValueModel } from './helpers/value-model';
   alias: 'emerald-color-dialog'
 })
 export class ColorDialog extends Dialog {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

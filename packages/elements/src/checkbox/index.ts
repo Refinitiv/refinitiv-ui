@@ -10,6 +10,7 @@ import {
   TapEvent,
   query
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 import '../icon';
 import {
   registerOverflowTooltip
@@ -29,6 +30,15 @@ import {
   alias: 'coral-checkbox'
 })
 export class Checkbox extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

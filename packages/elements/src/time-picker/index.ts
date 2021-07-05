@@ -25,6 +25,7 @@ import {
   addOffset,
   padNumber
 } from '@refinitiv-ui/utils';
+import { VERSION } from '../';
 
 enum Segment {
   HOURS = 'hours',
@@ -59,6 +60,14 @@ const Placeholder = {
   alias: 'coral-time-picker'
 })
 export class TimePicker extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
 
   private isMobile = false;
 

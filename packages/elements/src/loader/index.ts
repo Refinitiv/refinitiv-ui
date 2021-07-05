@@ -1,4 +1,5 @@
 import { BasicElement, customElement, html, PropertyValues, TemplateResult } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 
 /**
  * Global cache for loader template parts
@@ -14,6 +15,15 @@ let cachedParts: readonly string[];
   alias: 'amber-loader'
 })
 export class Loader extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Collection of template part names,
    * used to create and theme different loader styles

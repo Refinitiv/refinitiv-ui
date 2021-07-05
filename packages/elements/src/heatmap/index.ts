@@ -19,6 +19,7 @@ import { Track } from './helpers/track';
 import { blend, brighten, darken, isLight, interpolate } from './helpers/color';
 import { HeatmapCell, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
 import { getResponsiveFontSize, getMaximumTextWidth, getMaximumLabelTextWidth, MIN_FONT_SIZE } from './helpers/text';
+import { VERSION } from '../';
 
 const MAX_CELL_WIDTH_RATIO = 0.85;
 const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
@@ -33,6 +34,15 @@ export { HeatmapCell, HeatmapXAxis, HeatmapYAxis, HeatmapConfig, HeatmapTooltipC
   alias: 'sapphire-heatmap'
 })
 export class Heatmap extends ResponsiveElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

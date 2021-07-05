@@ -23,6 +23,7 @@ import {
 } from './helpers/types';
 import { tooltipRenderer } from './helpers/renderer';
 import { register as registerOverflowTooltip } from './helpers/overflow-tooltip';
+import { VERSION } from '../';
 
 const TooltipPositionMap: TooltipPositionMap = {
   'auto': ['bottom-start', 'top-start'],
@@ -40,6 +41,15 @@ const TooltipPositionMap: TooltipPositionMap = {
   alias: 'coral-tooltip'
 })
 class Tooltip extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   private matchTarget: HTMLElement | null = null;
   private matchTargetRect: ClientRect | null = null;
   private showDelay = 300;

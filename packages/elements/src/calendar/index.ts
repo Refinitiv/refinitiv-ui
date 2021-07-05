@@ -63,6 +63,7 @@ import {
   CellSelectionModel,
   CellDivElement
 } from './types';
+import { VERSION } from '..';
 
 export {
   CalendarFilter
@@ -109,6 +110,14 @@ const MONTH_VIEW = {
   alias: 'coral-calendar'
 })
 export class Calendar extends ControlElement implements MultiValue {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
 
   /**
    * A `CSSResult` that will be used

@@ -10,6 +10,7 @@ import {
   styleMap,
   query
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 import '../number-field';
 import { NumberField } from '../number-field';
 
@@ -75,6 +76,15 @@ const clamp = function (value: number, min: number, max: number): string {
   alias: 'coral-slider'
 })
 export class Slider extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   private activeThumb!: HTMLElement;
   private dragging = false;
   private stepUse = 1;

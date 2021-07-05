@@ -14,6 +14,7 @@ import { Tab } from '../tab';
 import { tweenAnimate } from './helpers/animate';
 import { Button } from '../button';
 import '../button';
+import { VERSION } from '../';
 
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 
@@ -24,6 +25,15 @@ const BAR_TRAVEL_DISTANCE = 150; // scroll distance
   alias: 'coral-tab-bar'
 })
 export class TabBar extends ResponsiveElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

@@ -64,6 +64,7 @@ import { preload } from '../icon';
 import { TimePicker } from '../time-picker';
 import { TextField } from '../text-field';
 import { Overlay } from '../overlay';
+import { VERSION } from '../';
 
 preload('calendar', 'down', 'left', 'right'); /* preload calendar icons for faster loading */
 
@@ -105,6 +106,15 @@ const INPUT_FORMAT = {
   alias: 'emerald-datetime-picker'
 })
 export class DatetimePicker extends ControlElement implements MultiValue {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

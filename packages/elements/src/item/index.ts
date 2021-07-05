@@ -12,6 +12,7 @@ import {
 import '../icon';
 import '../checkbox';
 import { ItemType } from './helpers/types';
+import { VERSION } from '../';
 
 export * from './helpers/types';
 
@@ -37,6 +38,15 @@ const isAllWhitespaceTextNode = (node: Node): boolean =>
   alias: 'coral-item'
 })
 export class Item extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * @returns `CSSResult` that will be used to style the host,
    * slotted children and the internal template of the element.

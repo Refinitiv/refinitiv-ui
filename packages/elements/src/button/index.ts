@@ -9,6 +9,7 @@ import {
   TemplateResult,
   query
 } from '@refinitiv-ui/core';
+import { VERSION } from '..';
 
 import '../icon';
 import { registerOverflowTooltip } from '../tooltip';
@@ -23,6 +24,15 @@ import { registerOverflowTooltip } from '../tooltip';
   alias: 'coral-button'
 })
 export class Button extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

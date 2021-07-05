@@ -27,6 +27,7 @@ import { TreeRenderer as TreeSelectRenderer } from '../tree';
 import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager';
 
 import { TreeSelectData, TreeSelectDataItem } from './helpers/types';
+import { VERSION } from '..';
 
 export { TreeSelectRenderer, TreeSelectData, TreeSelectDataItem, TreeSelectFilter };
 
@@ -50,6 +51,15 @@ const POPUP_POSITION = ['bottom-start', 'top-start'];
   alias: 'emerald-multi-select'
 })
 export class TreeSelect extends ComboBox<TreeSelectDataItem> {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   constructor () {
     super();
     /**
