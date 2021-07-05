@@ -11,16 +11,22 @@ import {
 } from '@refinitiv-ui/core';
 import '../number-field';
 import { NumberField } from '../number-field';
+import {
+  isValidTime,
+  toTimeSegment,
+  TimeFormat,
+  getFormat,
+  format,
+  isAM,
+  isPM,
+  MILLISECONDS_IN_SECOND,
+  MILLISECONDS_IN_MINUTE,
+  MILLISECONDS_IN_HOUR,
+  addOffset,
+  padNumber
+} from '@refinitiv-ui/utils';
 
-interface TimeSegmentInterface {
-  valid: boolean;
-  format: string;
-  hours: number | null;
-  minutes: number | null;
-  seconds: number | null;
-}
-
-enum TimeSegment {
+enum Segment {
   HOURS = 'hours',
   MINUTES = 'minutes',
   SECONDS = 'seconds'
@@ -32,23 +38,11 @@ const MAX_MINUTES = 59;
 const MAX_SECONDS = 59;
 const HOURS_IN_DAY = 24;
 const HOURS_OF_NOON = 12;
-const VALUE_REGEXP = /^([0-1][0-9]|2[0-3])\:([0-5][0-9])(\:([0-5][0-9]))?$/;
 
-const TimeFormat = { HHMM: 'hh:mm', HHMMSS: 'hh:mm:ss' };
 const Placeholder = {
   HOURS: '--',
   MINUTES: '--',
   SECONDS: '--'
-};
-
-/**
- * Check if passed value is a valid time string.
- * For instance: 10:00; 23:59:59
- * @param value Value to check
- * @returns value is valid.
- */
-export const isValidValue = function (value: string): boolean {
-  return VALUE_REGEXP.test(value);
 };
 
 /**
@@ -203,14 +197,18 @@ export class TimePicker extends ControlElement {
     }
 
     if (oldValue !== value) { /** never store actual value, instead operate with hours/minutes/seconds */
-      const info = this.timeStringInfo(value);
-      this.valueWithSeconds = info.format === TimeFormat.HHMMSS;
+      const info = toTimeSegment(value);
+      const format = getFormat(value);
+      this.valueWithSeconds = format === TimeFormat.HHmmss || format === TimeFormat.HHmmssSSS;
       this.hours = info.hours;
       this.minutes = info.minutes;
       this.seconds = info.seconds;
     }
   }
   public get value (): string {
+    if (this.hours === null || this.minutes === null || (this.isShowSeconds && this.seconds === null)) {
+      return '';
+    }
     return this.currentTimeString;
   }
 
@@ -247,23 +245,18 @@ export class TimePicker extends ControlElement {
   /**
    * Return the current time string, based on the current hours, minutes and seconds.
    * Used internally to set the value string after updates.
-   *
-   * @readonly
    */
   private get currentTimeString (): string {
-    return this.timeSegmentsToTimeString({
-      hours: this.hours,
-      minutes: this.minutes,
-      seconds: this.seconds,
-      valid: true,
-      format: this.isShowSeconds ? TimeFormat.HHMMSS : TimeFormat.HHMM
-    });
+    return format({
+      hours: this.hours || 0,
+      minutes: this.minutes || 0,
+      seconds: this.seconds || 0,
+      milliseconds: 0
+    }, this.isShowSeconds ? TimeFormat.HHmmss : TimeFormat.HHmm);
   }
 
   /**
    * Seconds are automatically shown when `hh:mm:ss` time format is provided as a value.
-   *
-   * @readonly
    */
   private get isShowSeconds (): boolean {
     return this.showSeconds || this.valueWithSeconds;
@@ -271,8 +264,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Formats the hours value
-   *
-   * @readonly
    */
   private get formattedHours (): string {
     const _hours = this.hours;
@@ -287,8 +278,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Formats the minutes value
-   *
-   * @readonly
    */
   private get formattedMinutes (): string {
     return this.formattedUnit(this.minutes);
@@ -296,8 +285,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Formats the seconds value
-   *
-   * @readonly
    * @returns Formatted number
    */
   private get formattedSeconds (): string {
@@ -317,7 +304,6 @@ export class TimePicker extends ControlElement {
     this.renderRoot.addEventListener('blur', this.onBlur, true);
     this.renderRoot.addEventListener('focus', this.onFocus, true);
     this.renderRoot.addEventListener('keydown', this.onKeydown, true);
-    this.renderRoot.addEventListener('keypress', this.onKeypress, true);
   }
 
   /**
@@ -342,18 +328,7 @@ export class TimePicker extends ControlElement {
    * @returns {boolean} result
    */
   protected isValidValue (value: string): boolean {
-    return value === '' || isValidValue(value);
-  }
-
-  /**
-   * On *user-interaction* set the value and notify.
-   * @param value New value
-   * @returns {void}
-   */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected setValueAndNotify (value: string): void {
-    // there is no setter or getter for value
-    // instead setSegmentAndNotify must be used
+    return value === '' || isValidTime(value);
   }
 
   /**
@@ -362,16 +337,16 @@ export class TimePicker extends ControlElement {
    * @param value Value to check
    * @returns {void}
    */
-  protected setSegmentAndNotify (segment: TimeSegment, value: number | null): void {
+  protected setSegmentAndNotify (segment: Segment, value: number | null): void {
     const oldValue = this.value;
     switch (segment) {
-      case TimeSegment.HOURS:
+      case Segment.HOURS:
         this.hours = value;
         break;
-      case TimeSegment.MINUTES:
+      case Segment.MINUTES:
         this.minutes = value;
         break;
-      case TimeSegment.SECONDS:
+      case Segment.SECONDS:
         this.seconds = value;
         break;
       // no default
@@ -379,10 +354,10 @@ export class TimePicker extends ControlElement {
 
     // Pre-populate empty segments
     if (value !== null) {
-      if (segment === TimeSegment.HOURS && this.minutes === null) {
+      if (segment === Segment.HOURS && this.minutes === null) {
         this.minutes = 0;
       }
-      if (this.isShowSeconds && this.seconds === null && (segment === TimeSegment.HOURS || segment === TimeSegment.MINUTES)) {
+      if (this.isShowSeconds && this.seconds === null && (segment === Segment.HOURS || segment === Segment.MINUTES)) {
         this.seconds = 0;
       }
     }
@@ -427,19 +402,6 @@ export class TimePicker extends ControlElement {
   }
 
   /**
-   * Validates user input into the time segment elements
-   *
-   * @param event Keyboard Event Object
-   * @returns {void}
-   */
-  private validateNumberInput (event: KeyboardEvent): void {
-    const isNumber = (/\d/).test(event.key);
-    if (!isNumber || (event.target as NumberField).value.length >= 2) {
-      event.preventDefault();
-    }
-  }
-
-  /**
    * Handles value change from native time picker on mobile devices
    *
    * @param event Event Object
@@ -463,42 +425,6 @@ export class TimePicker extends ControlElement {
   }
 
   /**
-   * Converts hours, minutes and seconds into a valid time string, based on a time format
-   *
-   * @param segments Object containing hours, minutes and seconds
-   * @param timeFormat Time format to use, either `hh:mm` or 'hh:mm:ss`
-   * @returns Time string e.g. 00:00, or empty string if no value
-   */
-  private timeSegmentsToTimeString (segments: TimeSegmentInterface): string {
-    const hh = this.formattedUnit(segments.hours);
-    const mm = this.formattedUnit(segments.minutes);
-    const ss = this.formattedUnit(segments.seconds);
-
-    if (!hh || !mm || (segments.format === TimeFormat.HHMMSS && !ss)) {
-      return '';
-    }
-
-    return segments.format === TimeFormat.HHMMSS ? `${hh}:${mm}:${ss}` : `${hh}:${mm}`;
-  }
-
-  /**
-   * Gets information of a time string
-   *
-   * @param timeString Time string to parse
-   * @returns Result containing information about the time string
-   */
-  private timeStringInfo (timeString: string): TimeSegmentInterface {
-    const segments = (timeString || '').split(':');
-    return {
-      valid: VALUE_REGEXP.test(timeString),
-      format: this.showSeconds || segments.length === 3 ? TimeFormat.HHMMSS : TimeFormat.HHMM,
-      hours: Number(segments.shift()) || 0,
-      minutes: Number(segments.shift()) || 0,
-      seconds: Number(segments.shift()) || 0
-    };
-  }
-
-  /**
    * Handles the blur event of any inputs
    *
    * @param event Event Object
@@ -514,13 +440,13 @@ export class TimePicker extends ControlElement {
     let segment;
 
     if (target === this.hoursInput) {
-      segment = TimeSegment.HOURS;
+      segment = Segment.HOURS;
     }
     else if (target === this.minutesInput) {
-      segment = TimeSegment.MINUTES;
+      segment = Segment.MINUTES;
     }
     else if (target === this.secondsInput) {
-      segment = TimeSegment.SECONDS;
+      segment = Segment.SECONDS;
     }
 
     /* istanbul ignore next */
@@ -542,8 +468,8 @@ export class TimePicker extends ControlElement {
    * @param value Unit to change to
    * @returns {void}
    */
-  private updateTimeSegmentTo (segment: TimeSegment, value: number): void {
-    if (segment === TimeSegment.HOURS) {
+  private updateTimeSegmentTo (segment: Segment, value: number): void {
+    if (segment === Segment.HOURS) {
       value = this.getHoursSegment(value);
     }
     this.setSegmentAndNotify(segment, value);
@@ -555,15 +481,15 @@ export class TimePicker extends ControlElement {
    * @param segment Segment's name
    * @returns {void}
    */
-  private updateSegmentValue (segment: TimeSegment): void {
+  private updateSegmentValue (segment: Segment): void {
     switch (segment) {
-      case TimeSegment.HOURS:
+      case Segment.HOURS:
         this.updateHoursSegmentValue();
         break;
-      case TimeSegment.MINUTES:
+      case Segment.MINUTES:
         this.updateMinutesSegmentValue();
         break;
-      case TimeSegment.SECONDS:
+      case Segment.SECONDS:
         this.updateSecondsSegmentValue();
         break;
 
@@ -593,17 +519,6 @@ export class TimePicker extends ControlElement {
    */
   private onKeydown = (event: Event): void => {
     this.manageControlKeys(event as KeyboardEvent);
-  }
-
-  /**
-   * Handles any keypress events
-   * Used for user input
-   *
-   * @param event Event Object
-   * @returns {void}
-   */
-  private onKeypress = (event: Event): void => {
-    this.validateNumberInput(event as KeyboardEvent);
   }
 
   /**
@@ -682,13 +597,13 @@ export class TimePicker extends ControlElement {
     const target = event.target as EventTarget;
 
     if (target === this.hoursInput) {
-      this.setSegmentAndNotify(TimeSegment.HOURS, null);
+      this.setSegmentAndNotify(Segment.HOURS, null);
     }
     else if (target === this.minutesInput) {
-      this.setSegmentAndNotify(TimeSegment.MINUTES, null);
+      this.setSegmentAndNotify(Segment.MINUTES, null);
     }
     else if (target === this.secondsInput) {
-      this.setSegmentAndNotify(TimeSegment.SECONDS, null);
+      this.setSegmentAndNotify(Segment.SECONDS, null);
     }
   }
 
@@ -705,13 +620,13 @@ export class TimePicker extends ControlElement {
       this.toggle();
     }
     else if (target === this.hoursInput) {
-      this.changeValueBy(amount, TimeSegment.HOURS);
+      this.changeValueBy(amount, Segment.HOURS);
     }
     else if (target === this.minutesInput) {
-      this.changeValueBy(amount, TimeSegment.MINUTES);
+      this.changeValueBy(amount, Segment.MINUTES);
     }
     else if (target === this.secondsInput) {
-      this.changeValueBy(amount, TimeSegment.SECONDS);
+      this.changeValueBy(amount, Segment.SECONDS);
     }
   }
 
@@ -723,28 +638,23 @@ export class TimePicker extends ControlElement {
    * @param segment Segment id
    * @returns {void}
    */
-  private changeValueBy (amount: number, segment: TimeSegment): void {
+  private changeValueBy (amount: number, segment: Segment): void {
+    let offset = 0;
     switch (segment) {
-      case TimeSegment.HOURS:
-        const hours = this.hours === null ? 0 : this.hours + amount;
-        this.setSegmentAndNotify(segment, hours < MIN_UNIT ? MAX_HOURS : hours > MAX_HOURS ? MIN_UNIT : hours);
+      case Segment.HOURS:
+        offset = this.hours === null ? 0 : amount * MILLISECONDS_IN_HOUR;
         break;
-      case TimeSegment.MINUTES:
-        const minutes = this.minutes === null ? 0 : this.minutes + amount;
-        if (minutes < MIN_UNIT || minutes > MAX_MINUTES) {
-          this.changeValueBy(amount, TimeSegment.HOURS);
-        }
-        this.setSegmentAndNotify(segment, minutes < MIN_UNIT ? MAX_MINUTES : minutes > MAX_MINUTES ? MIN_UNIT : minutes);
+      case Segment.MINUTES:
+        offset = this.minutes === null ? 0 : amount * MILLISECONDS_IN_MINUTE;
         break;
-      case TimeSegment.SECONDS:
-        const seconds = this.seconds === null ? 0 : this.seconds + amount;
-        if (seconds < MIN_UNIT || seconds > MAX_SECONDS) {
-          this.changeValueBy(amount, TimeSegment.MINUTES);
-        }
-        this.setSegmentAndNotify(segment, seconds < MIN_UNIT ? MAX_SECONDS : seconds > MAX_SECONDS ? MIN_UNIT : seconds);
+      case Segment.SECONDS:
+        offset = this.seconds === null ? 0 : amount * MILLISECONDS_IN_SECOND;
         break;
       // no default
     }
+
+    const value = addOffset(this.currentTimeString, offset);
+    this.setValueAndNotify(value);
   }
 
   /**
@@ -807,7 +717,7 @@ export class TimePicker extends ControlElement {
    * @returns Formatted number
    */
   private formattedUnit (n: number | null): string {
-    return n === null ? '' : !n ? '00' : n >= 10 ? `${n}` : `0${n}`;
+    return n === null ? '' : padNumber(n, 2);
   }
 
   /**
@@ -816,7 +726,7 @@ export class TimePicker extends ControlElement {
    * @returns Result
    */
   private isAM (): boolean {
-    return this.hours === null ? true : this.hours < HOURS_IN_DAY / 2;
+    return isAM(this.currentTimeString);
   }
 
   /**
@@ -825,7 +735,7 @@ export class TimePicker extends ControlElement {
    * @returns Result
    */
   private isPM (): boolean {
-    return !this.isAM();
+    return isPM(this.currentTimeString);
   }
 
   /**
@@ -836,7 +746,7 @@ export class TimePicker extends ControlElement {
   public toggle (): void {
     if (this.amPm) {
       const hours = this.hours === null ? new Date().getHours() : (this.hours + HOURS_IN_DAY / 2) % HOURS_IN_DAY;
-      this.setSegmentAndNotify(TimeSegment.HOURS, hours);
+      this.setSegmentAndNotify(Segment.HOURS, hours);
     }
   }
 

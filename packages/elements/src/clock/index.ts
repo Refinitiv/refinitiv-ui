@@ -14,13 +14,21 @@ import {
 } from '@refinitiv-ui/core';
 
 import {
+  MILLISECONDS_IN_SECOND,
+  HOURS_OF_NOON,
+  isValidTime,
+  toTimeSegment,
+  TimeFormat,
+  format,
+  padNumber
+} from '@refinitiv-ui/utils';
+
+import {
   HOURS_IN_DAY,
   MINUTES_IN_HOUR,
   SECONDS_IN_DAY,
   SECONDS_IN_HOUR,
-  SECONDS_IN_MINUTE,
-  HOURS_IN_HALF_DAY,
-  MILLISECONDS_IN_SECOND
+  SECONDS_IN_MINUTE
 } from './utils/timestamps';
 
 import {
@@ -30,23 +38,8 @@ import {
 
 const UP = 'Up';
 const DOWN = 'Down';
-const VALUE_REGEXP = /^([0-1][0-9]|2[0-3])\:([0-5][0-9])(\:([0-5][0-9]))?$/;
 
 type UpOrDown = typeof UP | typeof DOWN;
-
-/**
- * Splits a time string into segments
- * @param value Time string to parse
- * @returns Array of time segments `[hh, mm, ss]`
- */
-const splitSegments = (value: string): number[] => {
-  const raw = value.split(':');
-  const result = [];
-  for (let s = 0; s < 3; s += 1) {
-    result[s] = Number(raw[s]) || 0;
-  }
-  return result;
-};
 
 /**
  * Display hours, minutes and seconds as clock interface
@@ -131,7 +124,12 @@ export class Clock extends BasicElement {
    */
   @property({ type: String })
   public get value (): string {
-    return `${this.formatNumber(this.hours)}:${this.formatNumber(this.minutes)}:${this.formatNumber(this.seconds)}`;
+    return format({
+      hours: this.hours,
+      minutes: this.minutes,
+      seconds: this.seconds,
+      milliseconds: 0
+    }, TimeFormat.HHmmss);
   }
 
   /**
@@ -140,15 +138,15 @@ export class Clock extends BasicElement {
    * @returns {void}
    */
   public set value (value: string) {
-    if (typeof value !== 'string' || !VALUE_REGEXP.test(value)) {
+    if (typeof value !== 'string' || (value !== '' && !isValidTime(value))) {
       new WarningNotice(`The specified value "${value}" is not valid. The format should be hh:mm or hh:mm:ss.`).show();
       value = '';
     }
     const oldValue = this.value;
     if (oldValue !== value) {
       this.synchronise(); // Required to reset any tick session
-      const [hh, mm, ss] = splitSegments(value);
-      this.baseTime = hh * SECONDS_IN_HOUR + mm * SECONDS_IN_MINUTE + ss;
+      const { hours, minutes, seconds } = toTimeSegment(value);
+      this.baseTime = hours * SECONDS_IN_HOUR + minutes * SECONDS_IN_MINUTE + seconds;
       void this.requestUpdate('value', oldValue);
     }
   }
@@ -293,7 +291,7 @@ export class Clock extends BasicElement {
    * @returns display hours
    */
   private get displayHours12 (): number {
-    return (this.displayHours24 % HOURS_IN_HALF_DAY) || HOURS_IN_HALF_DAY;
+    return (this.displayHours24 % HOURS_OF_NOON) || HOURS_OF_NOON;
   }
 
   /**
@@ -333,16 +331,7 @@ export class Clock extends BasicElement {
    * @returns Result
    */
   private get isAM (): boolean {
-    return this.displayHours24 < HOURS_IN_HALF_DAY;
-  }
-
-  /**
-   * Format the numbers to a two digit string
-   * @param n number
-   * @returns number in two digit string
-   */
-  private formatNumber (n: number): string {
-    return `${(n < 10 ? '0' : '')}${n}`;
+    return this.displayHours24 < HOURS_OF_NOON;
   }
 
   /**
@@ -508,12 +497,11 @@ export class Clock extends BasicElement {
   private generateSegmentTemplate (name: string, value: number): TemplateResult {
     return html`
       <div part="segment ${name}${ifDefined(this.isSegmentShifted(name) ? ' shifted' : '')}" tabindex="${ifDefined(this.interactive ? '0' : undefined)}">
-        ${this.formatNumber(value)}
+        ${padNumber(value, 2)}
         ${this.interactive ? this.generateButtonsTemplate() : undefined}
       </div>
     `;
   }
-
   /**
   * Template of divider
   * @returns {TemplateResult} template

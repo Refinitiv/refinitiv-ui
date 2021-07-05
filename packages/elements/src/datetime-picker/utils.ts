@@ -1,39 +1,10 @@
 import {
-  parse as parseDate,
-  format as formatDate,
-  isValidValue as isValidDate,
-  isValidView,
-  addMonths,
-  subMonths
-} from '../calendar';
-
-import {
-  isValidValue as isValidTime
-} from '../time-picker';
-
-/**
- * Check if passed value is valid datetime string, e.g.: 2020-06-30T23:59:59
- * @param value Value to check
- * @returns true if date is valid
- */
-const isValidDateTime = (value: string): boolean => {
-  const valueSplit = value.split('T');
-  return isValidDate(valueSplit[0]) && isValidTime(valueSplit[1]);
-};
-
-/**
- * Pad a number with 0
- * @param number Number to pad
- * @param size Size of end string
- * @returns padded string
- */
-const pad = (number: number, size: number): string => {
-  let s = `${Math.abs(number)}`;
-  while (s.length < size) {
-    s = '0' + s;
-  }
-  return `${number < 0 ? '-' : ''}${s}`;
-};
+  format,
+  DateFormat,
+  parse,
+  TimeFormat,
+  toTimeSegment
+} from '@refinitiv-ui/utils';
 
 /**
  * A helper class to split date time string into date and time segments
@@ -91,11 +62,11 @@ class DateTimeSegment {
    * @returns {number} time
    */
   public getTime (): number {
-    const date = this.dateSegment ? parseDate(this.dateSegment) : new Date(0);
-    const segments = this.timeSegment.split(':');
-    date.setHours(Number(segments.shift()) || 0);
-    date.setMinutes(Number(segments.shift()) || 0);
-    date.setSeconds(Number(segments.shift()) || 0);
+    const date = this.dateSegment ? parse(this.dateSegment) : new Date(0);
+    const timeSegment = toTimeSegment(this.timeSegment);
+    date.setHours(timeSegment.hours);
+    date.setMinutes(timeSegment.minutes);
+    date.setSeconds(timeSegment.seconds);
     return date.getTime();
   }
 
@@ -103,21 +74,6 @@ class DateTimeSegment {
     return this.value;
   }
 }
-
-/**
- * Parse date string to Date object
- * Value formats: "yyyy-DD", "yyyy-DD-mm", "yyyy-MM-dd'T'HH:mm", or "yyyy-MM-dd'T'HH:mm:ss"
- * @param value A value string
- * @returns Date object
- */
-const parse = (value: string): Date => {
-  const isValid = isValidDateTime(value) || isValidDate(value) || isValidView(value);
-  if (isValid) {
-    return new Date(DateTimeSegment.fromString(value).getTime());
-  }
-
-  return new Date(NaN);
-};
 
 /**
 * Check if passed Date object is valid
@@ -148,76 +104,7 @@ const toDate = (date: string | Date | number): Date => {
  */
 const formatToView = (date: Date | number | string): string => {
   date = toDate(date);
-  return isValid(date) ? formatDate(date, false) : '';
-};
-
-/**
- * Format Date object to local date string.
- * Output format: "yyyy-DD-mm".
- * @param date A Date object
- * @returns A formatted date or empty string if invalid
- */
-const formatToDate = (date: Date | number | string): string => {
-  date = toDate(date);
-  return isValid(date) ? formatDate(date) : '';
-};
-
-/**
- * Format Date object to local time string.
- * Output format: "HH:mm" or "HH:mm:ss".
- * @param date Date object
- * @param [includeSeconds=false] true to include seconds
- * @returns A formatted date or empty string if invalid
- */
-const formatToTime = (date: Date | number | string, includeSeconds = false): string => {
-  date = toDate(date);
-  if (!isValid(date)) {
-    return '';
-  }
-
-  let time = `${pad(date.getHours(), 2)}:${pad(date.getMinutes(), 2)}`;
-
-  if (includeSeconds) {
-    time += `:${pad(date.getSeconds(), 2)}`;
-  }
-
-  return time;
-};
-
-/**
- * Format Date object to local datetime string.
- * Output format: "yyyy-MM-dd'T'HH:mm", or "yyyy-MM-dd'T'HH:mm:ss".
- * @param date A Date object
- * @param [includeSeconds=false] true to include seconds
- * @returns A formatted date or empty string if invalid
- */
-const formatToDateTime = (date: Date | number | string, includeSeconds = false): string => {
-  date = toDate(date);
-  return isValid(date) ? `${formatDate(date)}T${formatToTime(date, includeSeconds)}` : '';
-};
-
-/**
- * Is the first date after the second one?
- * @param value the date that should be after the other one to return true
- * @param compare the date to compare with
- * @returns the first date is after the second date
- */
-const isAfter = (value: string, compare: string): boolean => {
-  const date = parse(value);
-  const compareDate = parse(compare);
-  return date.getTime() > compareDate.getTime();
-};
-
-/**
- * Is the first date before the second one?
- * @param value the date that should be before the other one to return true
- * @param compare the date to compare with
- * @returns the first date is before the second date
- */
-const isBefore = (value: string, compare: string): boolean => {
-  const date = parse(value);
-  const compareDate = parse(compare);
-  return date.getTime() < compareDate.getTime();
+  return isValid(date) ? format(date, DateFormat.yyyyMM) : '';
 };
 
 /**
@@ -226,22 +113,11 @@ const isBefore = (value: string, compare: string): boolean => {
  * @returns A formatted time string
  */
 const getCurrentTime = (includeSeconds = false): string => {
-  return formatToTime(new Date(), includeSeconds);
+  return format(new Date(), includeSeconds ? TimeFormat.HHmmss : TimeFormat.HHmm);
 };
 
 export {
   DateTimeSegment,
-  isValidDate,
-  isValidDateTime,
   getCurrentTime,
-  formatToView,
-  formatToDate,
-  formatToDateTime,
-  addMonths,
-  subMonths,
-  isAfter,
-  isBefore,
-  formatToTime,
-  parse,
-  isValidView
+  formatToView
 };

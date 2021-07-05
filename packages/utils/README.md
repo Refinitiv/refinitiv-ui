@@ -31,3 +31,6 @@ taskRunner.schedule(() => {
 
 `taskRunner.schedule()` can be called multiple times. Only the last callback will be executed.
 This is to enable simplified code inside of elements, when multiple actions occur.
+
+### Date Time Helper
+Helper functions to support date and time manipulations.

@@ -14,14 +14,12 @@ import {
 import '../button';
 
 import {
-  monthInfo,
-  isValidValue,
-  isValidView,
-  segmentFromString,
-  utcDateFromString,
-  utcDateFromSegment,
-  utcFormatToValue,
-  utcFormatToView,
+  DateSegment,
+  DateFormat,
+  format,
+  utcFormat,
+  utcParse,
+  isValidDate,
   isWeekend,
   isAfter,
   isBefore,
@@ -33,17 +31,18 @@ import {
   isSameDay,
   isSameMonth,
   isSameYear,
-  format,
-  parse,
-  utcFormat,
-  utcParse,
-  DateSegment
+  toDateSegment
+} from '@refinitiv-ui/utils';
+
+import {
+  monthInfo
 } from './utils';
+
 import './locales';
 import {
   weekdaysNames,
   monthsNames,
-  formatDate,
+  formatLocaleDate,
   ViewFormatTranslateParams
 } from './locales';
 
@@ -60,21 +59,13 @@ import {
   Cell,
   Row,
   Comparator,
-  Filter,
+  CalendarFilter,
   CellSelectionModel,
   CellDivElement
 } from './types';
 
 export {
-  Filter,
-  isValidValue,
-  isValidView,
-  utcParse,
-  parse,
-  utcFormat,
-  format,
-  addMonths,
-  subMonths
+  CalendarFilter
 };
 
 const isIE = (/Trident/g).test(navigator.userAgent) || (/MSIE/g).test(navigator.userAgent);
@@ -242,10 +233,10 @@ export class Calendar extends ControlElement implements MultiValue {
 
   /**
   * Custom filter, used for enabling/disabling certain dates
-  * @type {Filter | null}
+  * @type {CalendarFilter | null}
   */
   @property({ attribute: false })
-  public filter: Filter | null = null;
+  public filter: CalendarFilter | null = null;
 
   private _view = '';
   /**
@@ -255,7 +246,7 @@ export class Calendar extends ControlElement implements MultiValue {
   */
   @property({ type: String })
   public set view (view: string) {
-    if (view && !isValidView(view)) {
+    if (view && !isValidDate(view, DateFormat.yyyyMM)) {
       this.warnInvalidView(view);
       view = '';
     }
@@ -267,7 +258,7 @@ export class Calendar extends ControlElement implements MultiValue {
   }
   public get view (): string {
     /* as soon as user interaction has happened, always rely on view */
-    return this._view || (this.value ? utcFormatToView(segmentFromString(this.value)) : format(new Date(), false));
+    return this._view || (this.value ? utcFormat(toDateSegment(this.value), DateFormat.yyyyMM) : format(new Date(), DateFormat.yyyyMM));
   }
 
   private localFirstDayOfWeek = FIRST_DAY_OF_WEEK; // used from locales. 0 stands for Sunday
@@ -324,7 +315,7 @@ export class Calendar extends ControlElement implements MultiValue {
   /**
    * Set multiple selected values
    * @param values Values to set
-   * @type {array}
+   * @type {string[]}
    */
   @property({
     converter: {
@@ -364,7 +355,7 @@ export class Calendar extends ControlElement implements MultiValue {
   @property({ type: String })
   private renderView: RenderView = RenderView.DAY;
 
-  private isDateAvailable: Filter | null = null; /* a constructed filter based on multiple local filters */
+  private isDateAvailable: CalendarFilter | null = null; /* a constructed filter based on multiple local filters */
 
   /**
    * Get weekday numbers.
@@ -390,7 +381,7 @@ export class Calendar extends ControlElement implements MultiValue {
   protected async performUpdate (): Promise<void> {
     const localFirstDayOfWeek = Number(await this.tPromise('FIRST_DAY_OF_WEEK'));
     this.localFirstDayOfWeek = isNaN(localFirstDayOfWeek) ? FIRST_DAY_OF_WEEK : (localFirstDayOfWeek % 7);
-    super.performUpdate();
+    void super.performUpdate();
   }
 
   /**
@@ -445,7 +436,7 @@ export class Calendar extends ControlElement implements MultiValue {
   * @returns false if value is invalid
   */
   protected isValidValue (value: string): boolean {
-    return value === '' || isValidValue(value);
+    return value === '' || isValidDate(value);
   }
 
   /**
@@ -486,7 +477,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private constructFilters (): void {
-    const filters: Filter[] = [];
+    const filters: CalendarFilter[] = [];
 
     this.min && filters.push(date => isSameDay(date, this.min) || isAfter(date, this.min));
     this.max && filters.push(date => isSameDay(date, this.max) || isBefore(date, this.max));
@@ -577,11 +568,11 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onNextTap (): void {
-    let viewSegment = segmentFromString(this.view);
+    let viewSegment = toDateSegment(this.view);
 
     switch (this.renderView) {
       case RenderView.DAY:
-        viewSegment = segmentFromString(addMonths(this.view, 1));
+        viewSegment = toDateSegment(addMonths(this.view, 1));
         break;
       case RenderView.MONTH:
         viewSegment.year += 1;
@@ -601,11 +592,11 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onPreviousTap (): void {
-    let viewSegment = segmentFromString(this.view);
+    let viewSegment = toDateSegment(this.view);
 
     switch (this.renderView) {
       case RenderView.DAY:
-        viewSegment = segmentFromString(subMonths(this.view, 1));
+        viewSegment = toDateSegment(subMonths(this.view, 1));
         break;
       case RenderView.MONTH:
         viewSegment.year -= 1;
@@ -665,8 +656,8 @@ export class Calendar extends ControlElement implements MultiValue {
       return;
     }
 
-    const cellSegment = segmentFromString(cell.value);
-    const viewSegment = segmentFromString(this.view);
+    const cellSegment = toDateSegment(cell.value);
+    const viewSegment = toDateSegment(this.view);
 
     if (this.renderView === RenderView.YEAR) { /* YEAR -> MONTH */
       viewSegment.year = cellSegment.year;
@@ -753,7 +744,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private notifyViewChange (view: DateSegment): boolean {
-    const viewString = utcFormatToView(view);
+    const viewString = utcFormat(view, DateFormat.yyyyMM);
     const res = this.notifyPropertyChange('view', viewString, true);
     if (res) {
       this.view = viewString;
@@ -771,12 +762,12 @@ export class Calendar extends ControlElement implements MultiValue {
     const year = segment.year;
     const isBC = year <= 0;
     const includeEra = isBC;
-    const date = utcDateFromSegment(segment);
+    const date = utcParse(segment);
 
     // Unfortunately IE11 does not support date formatting for year <= 0
     // Do manual conversion instead
     if (isIE && isBC) {
-      return html`${formatDate(date, getLocale(this), includeMonth, includeEra)}`;
+      return html`${formatLocaleDate(date, getLocale(this), includeMonth, includeEra)}`;
     }
 
     return html`${this.t('VIEW_FORMAT', {
@@ -791,17 +782,17 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns template result
    */
   private get formattedViewRender (): TemplateResult {
-    const segment = segmentFromString(this.view);
+    const segment = toDateSegment(this.view);
 
     switch (this.renderView) {
       case RenderView.MONTH:
         return this.viewFormattedDate(segment);
       case RenderView.YEAR:
         const month = segment.month;
-        const date = segment.date;
+        const day = segment.day;
         const fromYear = Math.floor(segment.year / YEARS_PER_YEAR_VIEW) * YEARS_PER_YEAR_VIEW;
         const toYear = fromYear + YEARS_PER_YEAR_VIEW - 1;
-        return html`${this.viewFormattedDate({ year: fromYear, month, date })} - ${this.viewFormattedDate({ year: toYear, month, date })}`;
+        return html`${this.viewFormattedDate({ year: fromYear, month, day })} - ${this.viewFormattedDate({ year: toYear, month, day })}`;
       case RenderView.DAY:
       default:
         return this.viewFormattedDate(segment, true);
@@ -824,7 +815,7 @@ export class Calendar extends ControlElement implements MultiValue {
    */
   private get yearView (): TemplateResult {
     const view = RenderView.YEAR;
-    const currentYear = segmentFromString(this.view).year;
+    const currentYear = toDateSegment(this.view).year;
     const startIdx = Math.floor(currentYear / YEARS_PER_YEAR_VIEW) * YEARS_PER_YEAR_VIEW;
 
     const years: Cell[] = [];
@@ -841,7 +832,7 @@ export class Calendar extends ControlElement implements MultiValue {
       }
 
       const year = startIdx + i;
-      const value = utcFormatToValue({ year, month: 0, date: 1 });
+      const value = utcFormat({ year, month: 0, day: 1 }, DateFormat.yyyyMMdd);
       cell = {
         view,
         text: year > 0 ? `${year}` : year === 0 ? '1' : `${Math.abs(year - 1)}`,
@@ -863,7 +854,7 @@ export class Calendar extends ControlElement implements MultiValue {
    */
   private get monthView (): TemplateResult {
     const view = RenderView.MONTH;
-    const currentYear = segmentFromString(this.view).year;
+    const currentYear = toDateSegment(this.view).year;
     const columnCount = MONTH_VIEW.columnCount;
     const monthCount = 12;
     const totalCount = MONTH_VIEW.totalCount;
@@ -887,13 +878,13 @@ export class Calendar extends ControlElement implements MultiValue {
 
       const month = (startIdx + i) % monthCount; /* 0 for Jan, 11 for Dev */
       const year = currentYear + Math.floor((i - before) / monthCount);
-      const segment = { year, month, date: 1 };
-      const value = utcFormatToValue(segment);
+      const segment = { year, month, day: 1 };
+      const value = utcFormat(segment, DateFormat.yyyyMMdd);
       const idle = i < before || i >= after;
       cell = {
         view,
         text: monthsNames[month],
-        value: utcFormatToView(segment),
+        value: utcFormat(segment, DateFormat.yyyyMM),
         idle,
         now: isThisMonth(value),
         ...this.getCellSelection(value, isSameMonth)
@@ -914,7 +905,7 @@ export class Calendar extends ControlElement implements MultiValue {
   private get dayView (): TemplateResult {
     const view = RenderView.DAY;
     const firstDayOfWeek = this.firstDayOfWeek;
-    const padding = (7 + utcDateFromString(this.view).getUTCDay() - firstDayOfWeek) % 7;
+    const padding = (7 + utcParse(this.view).getUTCDay() - firstDayOfWeek) % 7;
     const viewMonth = monthInfo(this.view);
     const prevMonth = monthInfo(subMonths(this.view, 1));
     const nextMonth = monthInfo(addMonths(this.view, 1));
@@ -923,7 +914,7 @@ export class Calendar extends ControlElement implements MultiValue {
     const rows: Row[] = [];
     let cells: Cell[] = [];
 
-    let date: number;
+    let day: number;
     let month: number;
     let year: number;
 
@@ -945,7 +936,7 @@ export class Calendar extends ControlElement implements MultiValue {
           });
           continue;
         }
-        date = prevMonth.days + datePadding;
+        day = prevMonth.days + datePadding;
         month = prevMonth.month;
         year = prevMonth.year;
       }
@@ -957,21 +948,21 @@ export class Calendar extends ControlElement implements MultiValue {
           continue;
         }
 
-        date = datePadding - viewMonth.days;
+        day = datePadding - viewMonth.days;
         month = nextMonth.month;
         year = nextMonth.year;
       }
       else {
-        date = datePadding;
+        day = datePadding;
         month = viewMonth.month;
         year = viewMonth.year;
       }
 
-      const value = utcFormatToValue({ year, month, date });
+      const value = utcFormat({ year, month, day }, DateFormat.yyyyMMdd);
       const disabled = this.isDateAvailable ? !this.isDateAvailable(value) : false;
       const dayCell: Cell = {
         view,
-        text: date.toString(),
+        text: day.toString(),
         value,
         disabled,
         idle: month !== viewMonth.month || year !== viewMonth.year,
