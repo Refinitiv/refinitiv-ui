@@ -15,10 +15,10 @@ test_v5:
     - call yarn --ignore-scripts --frozen-lockfile
 
     # Build only changed packages and its dependencies
-    - call yarn lerna run build --include-dependencies --since
+    - call yarn lerna run build --include-dependencies --since origin/v5-dev...HEAD
 
     # Test only changed packages and its dependents
-    - call yarn lerna run test --concurrency=1 --include-dependents --since
+    - call yarn lerna run test --concurrency=1 --include-dependents --since origin/v5-dev...HEAD
   except:
     - v5@elf/refinitiv-ui
     - v5-dev@elf/refinitiv-ui
