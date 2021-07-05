@@ -649,7 +649,7 @@ describe('InteractiveChart', () => {
 
     it('Set via attribute horizontal legend to vertical', async () => {
 
-      el = await fixture('<ef-interactive-chart legendstyle="horizontal"></ef-interactive-chart>');
+      el = await fixture('<ef-interactive-chart legend-style="horizontal"></ef-interactive-chart>');
 
       el.config = line;
       await elementUpdated();
@@ -810,5 +810,38 @@ describe('InteractiveChart', () => {
     expect(legendText[1].innerText.indexOf('$')).to.equal(0); // high
     expect(legendText[2].innerText.indexOf('$')).to.equal(0); // low
     expect(legendText[3].innerText.indexOf('$')).to.equal(0); // close
+  });
+
+  describe('Test deprecated attribute', () => {
+    it('Switch attribute legendstyle horizontal to vertical, it should display vertical style', async () => {
+      el = await fixture('<ef-interactive-chart legendstyle="horizontal"></ef-interactive-chart>');
+  
+      el.config = line;
+      await elementUpdated();
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
+      
+      el.setAttribute('legendstyle','vertical');
+      
+      await nextFrame();
+      await elementUpdated();
+      expect(el.getAttribute('legend-style')).to.null;
+      expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
+    });
+    it('Set legend-style to vertical when legendstyle horizontal, it should display vertical style', async () => {
+      el = await fixture('<ef-interactive-chart legendstyle="horizontal"></ef-interactive-chart>');
+  
+      el.config = line;
+      await elementUpdated();
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
+      expect(el.getAttribute('legendstyle')).to.equal('horizontal');
+      
+      el.setAttribute('legend-style','vertical');
+      
+      await nextFrame();
+      await elementUpdated();
+      expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
+    });
   });
 });
