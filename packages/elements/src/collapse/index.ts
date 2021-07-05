@@ -12,6 +12,7 @@ import {
 import '../header';
 import '../panel';
 import '../icon';
+import { VERSION } from '../';
 
 /**
  * Allows users to hide non-critical information
@@ -27,6 +28,15 @@ import '../icon';
   alias: 'coral-collapse'
 })
 export class Collapse extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

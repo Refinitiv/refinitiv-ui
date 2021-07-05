@@ -7,6 +7,7 @@ import '../button';
 import { deregister as draggableDeregister, register as draggableRegister } from './draggable-element';
 import { translate, Translate, TranslatePropertyKey } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/lib/locale/en/dialog';
+import { VERSION } from '../';
 
 // TODO: use metrics once available
 const isIE = (/Trident/g).test(navigator.userAgent) || (/MSIE/g).test(navigator.userAgent);
@@ -46,6 +47,15 @@ const isIE = (/Trident/g).test(navigator.userAgent) || (/MSIE/g).test(navigator.
   alias: 'coral-dialog'
 })
 export class Dialog extends Overlay {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

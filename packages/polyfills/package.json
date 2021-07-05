@@ -16,7 +16,7 @@
     "@webcomponents/shadydom": "^1.7.3",
     "@webcomponents/template": "^1.4.2",
     "@webcomponents/webcomponents-platform": "^1.0.0",
-    "core-js": "^2.6.11",
+    "core-js": "^3.14.0",
     "shady-css-scoped-element": "0.0.2"
   },
   "publishConfig": {

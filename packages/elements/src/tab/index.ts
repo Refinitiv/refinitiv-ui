@@ -7,6 +7,7 @@ import {
   CSSResult,
   ControlElement
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 
 import '../icon';
 import '../label';
@@ -24,6 +25,15 @@ const isAllWhitespaceTextNode = (node: Node): boolean =>
   alias: 'coral-tab'
 })
 export class Tab extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Specify icon name to display in tab
    */

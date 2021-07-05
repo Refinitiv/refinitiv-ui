@@ -12,6 +12,7 @@ import {
 
 import { Palettes } from './palettes';
 import { GRAYSCALE_ITEMS, NOCOLOR_POINTS, ColorHelpers } from '../helpers/color-helpers';
+import { VERSION } from '../../';
 
 /**
  * Component that allows user to select any
@@ -19,6 +20,15 @@ import { GRAYSCALE_ITEMS, NOCOLOR_POINTS, ColorHelpers } from '../helpers/color-
  */
 @customElement('ef-grayscale-palettes', { theme: false })
 export class GrayscalePalettes extends Palettes {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

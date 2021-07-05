@@ -8,7 +8,8 @@ import {
   CSSResult,
   PropertyValues,
   ElementSize,
-  query
+  query,
+  DeprecationNotice
 } from '@refinitiv-ui/core';
 import { color as parseColor, RGBColor, HSLColor } from '@refinitiv-ui/utils';
 import {
@@ -28,6 +29,7 @@ import {
   HistogramSeriesOptions,
   BarPrices
 } from 'lightweight-charts';
+import { VERSION } from '../';
 
 import '../tooltip';
 
@@ -39,13 +41,21 @@ import type {
   RowLegend,
   SeriesList,
   SeriesDataItem,
-  SeriesStyleOptions
+  SeriesStyleOptions,
+  ColorToStringFunction,
+  MergeObject
 } from './helpers/types';
+
+import { LegendStyle } from './helpers/types';
 
 export {
   InteractiveChartConfig,
-  InteractiveChartSeries
+  InteractiveChartSeries,
+  LegendStyle
 };
+
+const NOT_AVAILABLE_DATA = 'N/A';
+const NO_DATA_POINT = '--';
 
 /**
  * A charting component that allows you to create several use cases of financial chart.
@@ -56,6 +66,15 @@ export {
   alias: 'sapphire-interactive-chart'
 })
 export class InteractiveChart extends ResponsiveElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   private static readonly CSS_COLOR_PREFIX = '--chart-color-';
   private static readonly DEFAULT_LINE_WIDTH = '2';
   private static readonly DEFAULT_FILL_OPACITY = '0.4';
@@ -66,6 +85,8 @@ export class InteractiveChart extends ResponsiveElement {
     LARGE_DASHED: 3,
     SPARSE_DOTTED: 4
   };
+
+  private _legendStyle?: LegendStyle;
 
   /**
    * Chart configurations for init chart
@@ -87,10 +108,37 @@ export class InteractiveChart extends ResponsiveElement {
   public disabledJumpButton = false;
 
   /**
-   * Set legend style i.e. `horizontal`, `vertical`. Default is `vertical`.
-   */
-  @property({ type: String, reflect: true, attribute: 'legendstyle' })
-  public legendStyle: 'vertical' | 'horizontal' = 'vertical';
+  * @deprecated
+  * @ignore
+  * Set legend style i.e. `horizontal`, `vertical`. Default is `vertical`.
+  **/
+  @property({ type: String, attribute: 'legendstyle' })
+  public deprecatedLegendStyle: LegendStyle | undefined;
+
+  /**
+   * Set legend style i.e. `horizontal`, `vertical`.
+   * Default is `vertical`.
+   * @param {LegendStyle} value legend style value
+   * @type {"vertical" | "horizontal"} type of legend style
+   **/
+  @property({ type: String, attribute: 'legend-style' })
+  public set legendStyle (value: LegendStyle) {
+    const oldValue = this.legendStyle;
+    if (oldValue !== value) {
+      this._legendStyle = value;
+      void this.requestUpdate('legend-style', oldValue);
+    }
+  }
+
+  public get legendStyle (): LegendStyle {
+    return this._legendStyle || this.deprecatedLegendStyle || LegendStyle.vertical;
+  }
+
+  /**
+   * Deprecation noticed, used to display a warning message
+   * when deprecated features are used.
+  */
+  private deprecationNotice = new DeprecationNotice('`legendstyle` attribute and property are deprecated. Use `legend-style` for attribute and `legendStyle` property instead.');
 
   /** Array of series instances in chart */
   public seriesList: SeriesList[] = [];
@@ -107,6 +155,8 @@ export class InteractiveChart extends ResponsiveElement {
   private height = 0;
   private theme: Theme | null = null;
   private themeColors: string[] = [];
+
+  private hasDataPoint = false;
 
   /**
    * @returns return config of property component
@@ -163,8 +213,11 @@ export class InteractiveChart extends ResponsiveElement {
       this.onJumpButtonChange(this.disabledJumpButton);
     }
 
-    if (changedProperties.has('legendStyle')) {
-      const oldLegendStyle = changedProperties.get('legendStyle') as string;
+    if (changedProperties.has('deprecatedLegendStyle') || changedProperties.has('legend-style')) {
+      if(changedProperties.has('deprecatedLegendStyle')) {
+        this.deprecationNotice.show();
+      }
+      const oldLegendStyle = (changedProperties.get('legend-style') || changedProperties.get('deprecatedLegendStyle')) as LegendStyle;
       this.onLegendStyleChange(this.legendStyle, oldLegendStyle);
     }
   }
@@ -208,7 +261,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param previousValue Previous legend style value
    * @returns {void}
    */
-  private onLegendStyleChange (value: string, previousValue: string): void {
+  private onLegendStyleChange (value: string | undefined, previousValue: string): void {
     if (value === 'horizontal') {
       if (previousValue) {
         this.legendContainer.classList.remove(previousValue);
@@ -435,8 +488,18 @@ export class InteractiveChart extends ResponsiveElement {
    * @param param value color
    * @returns color parse
    */
-  private convertColorToString (fn: Function, param: string, ...args: (string|number|undefined)[]): string | object {
-    return param ? fn(param, ...args).toString() : {};
+  private convertColorToString (fn: ColorToStringFunction, param: string, ...args: (string|number|undefined)[]): string | Record<string, unknown> {
+    let color = null;
+    if (param) {
+      color = fn(param, ...args);
+      if (color) {
+        color = color.toString();
+      }
+    }
+    else {
+      color = {};
+    }
+    return color || {};
   }
 
   /**
@@ -659,6 +722,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param param MouseEventParams
    * @returns {void} return undefined has out of boundary chart
    */
+  /* istanbul ignore next */
   private handleCrosshairMoved = (param: MouseEventParams): void => {
     if (!param) {
       return;
@@ -693,7 +757,6 @@ export class InteractiveChart extends ResponsiveElement {
       const chartType = this.internalConfig.series[idx].type;
       const dataSet = this.internalConfig.series[idx].data || [];
       const symbol = (this.internalConfig.series[idx].symbolName || this.internalConfig.series[idx].symbol) || '';
-
       // Create row legend element
       if (!rowLegend) {
         rowLegendElem = document.createElement('div');
@@ -701,6 +764,7 @@ export class InteractiveChart extends ResponsiveElement {
         this.createTextSymbol(rowLegendElem, symbol);
 
         if (dataSet.length) {
+          this.hasDataPoint = true;
           const lastData = dataSet[dataSet.length - 1];
           const priceColor = this.getColorInSeries(lastData, chartType, idx);
           const lastDataValue = chartType === 'bar' || chartType === 'candlestick' ? lastData : (lastData as LineData).value;
@@ -710,7 +774,7 @@ export class InteractiveChart extends ResponsiveElement {
         else {
           const span = document.createElement('span');
           span.className = 'price';
-          span.textContent = 'N/A';
+          span.textContent = NOT_AVAILABLE_DATA;
           rowLegendElem.appendChild(span);
         }
 
@@ -719,6 +783,7 @@ export class InteractiveChart extends ResponsiveElement {
       /* Update value legend element on subscribeCrosshairMove.
        * Don't need to be updated if chart has no data.
        */
+      /* istanbul ignore next */
       else if (rowLegend && dataSet.length) {
         let value;
         let priceColor = '';
@@ -727,6 +792,13 @@ export class InteractiveChart extends ResponsiveElement {
           value = eventMove.seriesPrices.get(this.seriesList[idx]);
           priceColor = this.getColorInSeries(eventMove, chartType, idx);
           this.isCrosshairVisible = true;
+          this.hasDataPoint = true;
+        }
+        // when there's no data point in the series object.
+        else if (!eventMove?.seriesPrices.get(this.seriesList[idx]) && eventMove?.time) {
+          value = NO_DATA_POINT;
+          this.isCrosshairVisible = true;
+          this.hasDataPoint = false;
         }
         // Get latest value when mouse move out of scope
         else {
@@ -735,10 +807,12 @@ export class InteractiveChart extends ResponsiveElement {
             priceColor = this.getColorInSeries(latestData, chartType, idx);
             value = chartType === 'bar' || chartType === 'candlestick' ? latestData : (latestData as LineData).value;
             this.isCrosshairVisible = false;
+            this.hasDataPoint = true;
+
           }
         }
         // Render legend by series type
-        this.renderTextLegend(chartType, rowLegend, value as number, priceColor, idx);
+        this.renderTextLegend(chartType, rowLegend, value as (number | string), priceColor, idx);
       }
     }
   }
@@ -752,12 +826,22 @@ export class InteractiveChart extends ResponsiveElement {
    * @param index index of series
    * @returns {void}
    */
-  protected renderTextLegend (chartType: string, rowLegendElem: RowLegend, value: SeriesDataItem | number, priceColor: string, index: number): void {
+  protected renderTextLegend (chartType: string, rowLegendElem: RowLegend, value: SeriesDataItem | number | string, priceColor: string, index: number): void {
     if (chartType === 'bar' || chartType === 'candlestick') {
-      this.createTextOHLC(rowLegendElem, value as BarData, priceColor, index);
+      if (!this.hasDataPoint && this.isNodeListElement(rowLegendElem)) {
+        const spanElem = rowLegendElem[index].querySelectorAll('span.price,span.ohlc');
+        spanElem.forEach(span => rowLegendElem[index].removeChild(span));
+        const span = document.createElement('span');
+        span.className = 'price';
+        span.textContent = value as string;
+        rowLegendElem[index].appendChild(span);
+      }
+      else {
+        this.createTextOHLC(rowLegendElem, value as BarData, priceColor, index);
+      }
     }
     else {
-      this.createTextPrice(rowLegendElem, value as number, priceColor, index);
+      this.createTextPrice(rowLegendElem, value as (number | string), priceColor, index);
     }
   }
 
@@ -806,13 +890,12 @@ export class InteractiveChart extends ResponsiveElement {
     const formatter = this.internalConfig.series[index].hasOwnProperty('legendPriceFormatter') ? this.internalConfig.series[index].legendPriceFormatter : null;
     if(formatter) {
       rowData = {
-        open: formatter(rowData.open),
-        high: formatter(rowData.high),
-        low: formatter(rowData.low),
-        close: formatter(rowData.close)
+        open: formatter(rowData.open) as number,
+        high: formatter(rowData.high) as number,
+        low: formatter(rowData.low) as number,
+        close: formatter(rowData.close) as number
       } as BarData;
     }
-
     // Create text price after chart has rendered
     if (this.isHTMLElement(rowLegend)) {
       this.createSpanOHLC(rowLegend, rowData, priceColor);
@@ -824,8 +907,10 @@ export class InteractiveChart extends ResponsiveElement {
       for (let spanIndex = 0; spanIndex < rowSpanLength; spanIndex++) {
         const spanElem = rowLegend[index].children[spanIndex] as HTMLElement;
 
-        // Create a new row the previous time there was no data.
-        if(spanElem.textContent === 'N/A') {
+        /**
+         * Create a new span OHLC after displaying (--) or (N/A)
+         */
+        if(spanElem.textContent === NOT_AVAILABLE_DATA || spanElem.textContent === NO_DATA_POINT) {
           rowLegend[index].removeChild(spanElem);
           this.createSpanOHLC(rowLegend[index] as HTMLElement, rowData, priceColor);
         }
@@ -860,10 +945,10 @@ export class InteractiveChart extends ResponsiveElement {
    * @param index Series index
    * @returns {void}
    */
-  private createTextPrice (rowLegend: RowLegend, price: number, priceColor: string, index: number): void {
+  private createTextPrice (rowLegend: RowLegend, price: number | string, priceColor: string, index: number): void {
     // Uses price formatter if provided
     const formatter = this.internalConfig.series[index].hasOwnProperty('legendPriceFormatter') ? this.internalConfig.series[index].legendPriceFormatter : null;
-    price = formatter ? formatter(price) : price;
+    price = (formatter ? formatter(price) : price) as number;
 
     // Create text price after chart has rendered
     if (this.isHTMLElement(rowLegend)) {
@@ -882,19 +967,21 @@ export class InteractiveChart extends ResponsiveElement {
 
   /**
    * Create span in legend element by several series types
+   * @param rowLegend Legend element
    * @param args text value
    * @returns {void}
    */
-  private createSpan (...args: (string | number | HTMLElement)[]): void {
-    const div = args[0] as HTMLElement; // rowLegend
+  private createSpan (rowLegend: RowLegend, ...args: (string | number)[]): void {
+    const div = rowLegend as HTMLElement; // rowLegend
     const arg = args;
     const len = args.length;
     const color = div.getAttribute('data-color') as string;
-    for (let idx = 1; idx < len; idx++) {
+    for (let idx = 0; idx < len; idx++) {
       const span = document.createElement('span');
-      span.textContent = `${arg[idx]}`;
+      const textContent = `${arg[idx]}`;
+      span.textContent = textContent;
       // Set class by Text O H L C
-      if (['O', 'H', 'L', 'C'].includes(`${arg[idx]}`)) {
+      if (['O', 'H', 'L', 'C'].includes(textContent)) {
         span.setAttribute('class', 'ohlc');
       }
       else {
@@ -1111,19 +1198,19 @@ export class InteractiveChart extends ResponsiveElement {
    * @param record Record of objects, to check for circular references
    * @returns {void}
    */
-  private mergeObjects (a: object, b: object, force = false, record: object[] = []): void {
+  private mergeObjects (a: MergeObject, b: MergeObject, force = false, record: MergeObject[] = []): void {
     let value;
     let isObject;
     /* eslint-disable @typescript-eslint/no-explicit-any */
     Object.keys(b).forEach(key => {
-      value = (b as any)[key];
-      isObject = value && value.toString() === '[object Object]';
+      value = b[key] as unknown;
+      isObject = value && typeof value === 'object' && value.toString() === '[object Object]';
       if (!(key in a) || (!isObject && force)) {
-        (a as any)[key] = (b as any)[key];
+        a[key] = b[key] as unknown;
       }
       if (isObject && !record.includes(value as never)) {
-        record.push((b as any)[key]);
-        this.mergeObjects((a as any)[key], (b as any)[key], force, record);
+        record.push(b[key]);
+        this.mergeObjects(a[key], b[key], force, record);
       }
     });
   }

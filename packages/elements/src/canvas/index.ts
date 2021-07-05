@@ -8,6 +8,7 @@ import {
   CSSResult,
   ElementSize
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 
 /**
  * A Component uses
@@ -18,6 +19,15 @@ import {
   alias: 'sapphire-canvas'
 })
 export class Canvas extends ResponsiveElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

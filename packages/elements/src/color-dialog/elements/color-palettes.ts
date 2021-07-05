@@ -11,6 +11,7 @@ import {
 
 import { Palettes } from './palettes';
 import { COLOR_ITEMS, ColorHelpers } from '../helpers/color-helpers';
+import { VERSION } from '../../';
 
 /**
  * Component that allows user to select
@@ -18,6 +19,15 @@ import { COLOR_ITEMS, ColorHelpers } from '../helpers/color-helpers';
  */
 @customElement('ef-color-palettes', { theme: false })
 export class ColorPalettes extends Palettes {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

@@ -5,12 +5,22 @@ import {
   SVGTemplateResult,
   query
 } from '@refinitiv-ui/core';
+import { VERSION } from '../../';
 
 /**
  * Element base class usually used
  * for creating palettes elements.
  */
 export class Palettes extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   @query('.color-selector')
   private colorSelector?: HTMLElement | null;
 

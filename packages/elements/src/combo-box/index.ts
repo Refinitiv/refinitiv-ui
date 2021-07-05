@@ -30,6 +30,7 @@ import { TextField } from '../text-field';
 import { defaultFilter } from './helpers/filter';
 import { ComboBoxData, ComboBoxFilter } from './helpers/types';
 import { CustomKeyboardEvent } from './helpers/keyboard-event';
+import { VERSION } from '../';
 
 export { ComboBoxRenderer, ComboBoxFilter, ComboBoxData };
 
@@ -74,6 +75,15 @@ type StyleInfo = {
   alias: 'coral-combo-box'
 })
 export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
