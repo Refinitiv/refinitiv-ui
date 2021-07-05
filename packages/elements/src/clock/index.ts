@@ -35,6 +35,7 @@ import {
   register,
   deRegister
 } from './utils/TickManager';
+import { VERSION } from '../';
 
 const UP = 'Up';
 const DOWN = 'Down';
@@ -50,6 +51,15 @@ type UpOrDown = typeof UP | typeof DOWN;
   alias: 'sapphire-clock'
 })
 export class Clock extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

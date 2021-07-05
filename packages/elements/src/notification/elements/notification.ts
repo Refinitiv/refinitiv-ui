@@ -8,6 +8,7 @@ import {
   CSSResult,
   PropertyValues
 } from '@refinitiv-ui/core';
+import { VERSION } from '../../';
 
 import '../../icon';
 
@@ -22,6 +23,15 @@ import '../../icon';
   alias: 'amber-notification'
 })
 export class Notification extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+  
   /**
    * The message to show in the notification.
    */

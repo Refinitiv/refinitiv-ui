@@ -20,6 +20,7 @@ import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay';
 import { getId } from './helpers/uuid';
 import { OverlayMenuData } from './helpers/types';
 import { OpenedMenusManager } from './managers/menu-manager';
+import { VERSION } from '../';
 
 export { OverlayMenuData };
 
@@ -54,6 +55,15 @@ export { OverlayMenuData };
   alias: 'emerald-popup-menu'
 })
 export class OverlayMenu extends Overlay {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

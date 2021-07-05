@@ -12,6 +12,7 @@ import {
   FocusedPropertyKey,
   TapEvent
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 import '../icon';
 
 const NUMBER_PATTERN = '^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$';
@@ -42,6 +43,15 @@ enum Direction {
   alias: 'coral-number-field'
 })
 export class NumberField extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

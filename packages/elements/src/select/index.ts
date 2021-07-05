@@ -19,6 +19,7 @@ import '../icon';
 import { CollectionComposer, TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils';
 import { Overlay } from '../overlay';
 import { SelectData, SelectDataItem } from './helpers/types';
+import { VERSION } from '../';
 
 export { SelectData, SelectDataItem };
 
@@ -67,6 +68,15 @@ type StyleInfo = {
   alias: 'coral-select'
 })
 export class Select extends ControlElement implements MultiValue {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

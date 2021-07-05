@@ -17,6 +17,7 @@ import { Button } from '../button';
 import '../overlay-menu';
 import { OverlayMenu, OverlayMenuData } from '../overlay-menu';
 import { CardConfig } from './helpers/types';
+import { VERSION } from '../';
 
 export { CardConfig };
 
@@ -28,6 +29,15 @@ export { CardConfig };
   alias: 'coral-card'
 })
 export class Card extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

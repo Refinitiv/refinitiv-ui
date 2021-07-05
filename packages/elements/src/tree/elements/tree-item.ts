@@ -12,6 +12,7 @@ import { preload } from '../../icon';
 import '../../checkbox';
 import { TreeDataItem } from '../helpers/types';
 import { CheckedState } from '../managers/tree-manager';
+import { VERSION } from '../../';
 
 preload('right');
 
@@ -25,6 +26,14 @@ const emptyTemplate = html``;
   alias: 'coral-tree-item'
 })
 export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
 
   /**
    * Checked state of the item
