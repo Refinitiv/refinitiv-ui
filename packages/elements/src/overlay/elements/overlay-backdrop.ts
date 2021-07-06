@@ -7,6 +7,7 @@ import {
   TemplateResult,
   html
 } from '@refinitiv-ui/core';
+import { VERSION } from '../../';
 
 import {
   NullOrUndefined
@@ -17,6 +18,14 @@ import {
  */
 @customElement('ef-overlay-backdrop')
 export class OverlayBackdrop extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
 
   private static Template = html``;
 

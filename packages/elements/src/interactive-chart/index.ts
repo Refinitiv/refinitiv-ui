@@ -8,7 +8,8 @@ import {
   CSSResult,
   PropertyValues,
   ElementSize,
-  query
+  query,
+  DeprecationNotice
 } from '@refinitiv-ui/core';
 import { color as parseColor, RGBColor, HSLColor } from '@refinitiv-ui/utils';
 import {
@@ -28,6 +29,7 @@ import {
   HistogramSeriesOptions,
   BarPrices
 } from 'lightweight-charts';
+import { VERSION } from '../';
 
 import '../tooltip';
 
@@ -44,9 +46,12 @@ import type {
   MergeObject
 } from './helpers/types';
 
+import { LegendStyle } from './helpers/types';
+
 export {
   InteractiveChartConfig,
-  InteractiveChartSeries
+  InteractiveChartSeries,
+  LegendStyle
 };
 
 const NOT_AVAILABLE_DATA = 'N/A';
@@ -61,6 +66,15 @@ const NO_DATA_POINT = '--';
   alias: 'sapphire-interactive-chart'
 })
 export class InteractiveChart extends ResponsiveElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   private static readonly CSS_COLOR_PREFIX = '--chart-color-';
   private static readonly DEFAULT_LINE_WIDTH = '2';
   private static readonly DEFAULT_FILL_OPACITY = '0.4';
@@ -71,6 +85,8 @@ export class InteractiveChart extends ResponsiveElement {
     LARGE_DASHED: 3,
     SPARSE_DOTTED: 4
   };
+
+  private _legendStyle?: LegendStyle;
 
   /**
    * Chart configurations for init chart
@@ -92,10 +108,37 @@ export class InteractiveChart extends ResponsiveElement {
   public disabledJumpButton = false;
 
   /**
-   * Set legend style i.e. `horizontal`, `vertical`. Default is `vertical`.
-   */
-  @property({ type: String, reflect: true, attribute: 'legendstyle' })
-  public legendStyle: 'vertical' | 'horizontal' = 'vertical';
+  * @deprecated
+  * @ignore
+  * Set legend style i.e. `horizontal`, `vertical`. Default is `vertical`.
+  **/
+  @property({ type: String, attribute: 'legendstyle' })
+  public deprecatedLegendStyle: LegendStyle | undefined;
+
+  /**
+   * Set legend style i.e. `horizontal`, `vertical`.
+   * Default is `vertical`.
+   * @param {LegendStyle} value legend style value
+   * @type {"vertical" | "horizontal"} type of legend style
+   **/
+  @property({ type: String, attribute: 'legend-style' })
+  public set legendStyle (value: LegendStyle) {
+    const oldValue = this.legendStyle;
+    if (oldValue !== value) {
+      this._legendStyle = value;
+      void this.requestUpdate('legend-style', oldValue);
+    }
+  }
+
+  public get legendStyle (): LegendStyle {
+    return this._legendStyle || this.deprecatedLegendStyle || LegendStyle.vertical;
+  }
+
+  /**
+   * Deprecation noticed, used to display a warning message
+   * when deprecated features are used.
+  */
+  private deprecationNotice = new DeprecationNotice('`legendstyle` attribute and property are deprecated. Use `legend-style` for attribute and `legendStyle` property instead.');
 
   /** Array of series instances in chart */
   public seriesList: SeriesList[] = [];
@@ -114,7 +157,7 @@ export class InteractiveChart extends ResponsiveElement {
   private themeColors: string[] = [];
 
   private hasDataPoint = false;
-  
+
   /**
    * @returns return config of property component
    */
@@ -170,8 +213,11 @@ export class InteractiveChart extends ResponsiveElement {
       this.onJumpButtonChange(this.disabledJumpButton);
     }
 
-    if (changedProperties.has('legendStyle')) {
-      const oldLegendStyle = changedProperties.get('legendStyle') as string;
+    if (changedProperties.has('deprecatedLegendStyle') || changedProperties.has('legend-style')) {
+      if(changedProperties.has('deprecatedLegendStyle')) {
+        this.deprecationNotice.show();
+      }
+      const oldLegendStyle = (changedProperties.get('legend-style') || changedProperties.get('deprecatedLegendStyle')) as LegendStyle;
       this.onLegendStyleChange(this.legendStyle, oldLegendStyle);
     }
   }
@@ -215,7 +261,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param previousValue Previous legend style value
    * @returns {void}
    */
-  private onLegendStyleChange (value: string, previousValue: string): void {
+  private onLegendStyleChange (value: string | undefined, previousValue: string): void {
     if (value === 'horizontal') {
       if (previousValue) {
         this.legendContainer.classList.remove(previousValue);

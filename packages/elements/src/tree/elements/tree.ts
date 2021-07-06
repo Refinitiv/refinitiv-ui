@@ -6,6 +6,7 @@ import {
   TapEvent
 } from '@refinitiv-ui/core';
 import { CollectionComposer } from '@refinitiv-ui/utils';
+import { VERSION } from '../../';
 
 import { List } from '../../list';
 
@@ -26,6 +27,15 @@ const deselectAllDeprecation = new DeprecationNotice('deselectAll is deprecated,
  */
 @customElement('ef-tree')
 export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Tree manager used for manipulation
    */

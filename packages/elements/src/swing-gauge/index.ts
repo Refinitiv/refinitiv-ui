@@ -9,6 +9,7 @@ import {
 
 import { helpers as canvasHelper } from './helpers/canvas';
 import { Canvas } from '../canvas';
+import { VERSION } from '../';
 
 /**
  * Data visualisation showing the percentage between two values
@@ -17,6 +18,15 @@ import { Canvas } from '../canvas';
   alias: 'sapphire-swing-gauge'
 })
 export class SwingGauge extends Canvas {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

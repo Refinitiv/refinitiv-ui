@@ -20,6 +20,7 @@ import { Pill } from '../pill';
 import { TextField } from '../text-field';
 
 import { MultiInputData, MultiInputDataItem, MultiInputEvents, SelectionIndex } from './helpers/types';
+import { VERSION } from '../';
 
 export { MultiInputData, MultiInputDataItem };
 
@@ -60,6 +61,15 @@ const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === und
   alias: 'coral-multi-input'
 })
 export class MultiInput extends ControlElement implements MultiValue {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

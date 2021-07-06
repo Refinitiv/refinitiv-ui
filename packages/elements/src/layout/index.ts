@@ -8,6 +8,7 @@ import {
   CSSResult,
   PropertyValues
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 
 /**
  * Layout component for creating responsive applications and components
@@ -17,6 +18,15 @@ import {
   alias: 'quartz-layout'
 })
 export class Layout extends ResponsiveElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
  * A `CSSResult` that will be used
  * to style the host, slotted children

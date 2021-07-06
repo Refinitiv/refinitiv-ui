@@ -10,6 +10,7 @@ import {
   queryAll,
   repeat
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 interface ItemType {
   item: string;
 }
@@ -22,6 +23,15 @@ interface ItemType {
   alias: 'sapphire-rating'
 })
 export class Rating extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   private items: ItemType[] = [];
   private valuePrevious = 0;
 

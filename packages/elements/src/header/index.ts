@@ -7,6 +7,7 @@ import {
   TemplateResult,
   CSSResult
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 
 /**
  * Use to identify and separate different sections of a page.
@@ -20,6 +21,15 @@ import {
   alias: 'coral-header'
 })
 export class Header extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Style definition
    * @return CSS template

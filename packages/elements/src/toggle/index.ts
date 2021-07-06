@@ -8,6 +8,7 @@ import {
   CSSResult,
   PropertyValues
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 
 /**
  * Form control that can toggle between 2 states
@@ -24,6 +25,14 @@ import {
   alias: 'coral-toggle'
 })
 export class Toggle extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
 
   /**
    * Label of toggle checked

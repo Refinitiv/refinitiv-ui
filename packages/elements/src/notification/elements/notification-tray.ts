@@ -12,11 +12,21 @@ import { TimeoutTaskRunner } from '@refinitiv-ui/utils';
 
 import { Notification } from './notification';
 import { Task, TaskOptions } from '../helpers/types';
+import { VERSION } from '../../';
 
 @customElement('ef-notification-tray', {
   alias: 'amber-notification-tray'
 })
 export class NotificationTray extends ResponsiveElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   private queue: Array<Task> = [];
   private showing: Array<Task> = [];
   private resizeTask = new TimeoutTaskRunner();

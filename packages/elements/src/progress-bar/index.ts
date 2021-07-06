@@ -10,6 +10,7 @@ import {
   DeprecationNotice,
   PropertyValues
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 
 /**
  * Data visualisation component,
@@ -20,6 +21,14 @@ import {
   alias: 'sapphire-bar'
 })
 export class ProgressBar extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
 
   private valuePrevious = '';
 

@@ -32,10 +32,10 @@ type RowLegend = NodeListOf<Element> | HTMLElement | null;
 
 type ColorToStringFunction = (param: string, ...arg: (string|number|undefined)[]) => RGBColor | HSLColor | null;
 
-type MergeObject = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any; // Allow any type of value
-};
+enum LegendStyle {
+  vertical='vertical',
+  horizontal='horizontal'
+}
 
 interface Time {
   day: number;
@@ -72,6 +72,11 @@ interface InteractiveChartSeries {
   seriesOptions?: SeriesPartialOptions<SeriesOptions>;
 }
 
+type MergeObject = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any; // Allow any type of value
+};
+
 export {
   InteractiveChartConfig,
   InteractiveChartSeries,
@@ -82,5 +87,6 @@ export {
   SeriesDataItem,
   SeriesStyleOptions,
   ColorToStringFunction,
+  LegendStyle,
   MergeObject
 };

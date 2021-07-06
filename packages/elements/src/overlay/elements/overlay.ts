@@ -33,6 +33,7 @@ import { register as backdropRegister, deregister as backdropDeregister } from '
 import { register as closeRegister, deregister as closeDeregister } from '../managers/close-manager';
 import { register as focusableRegister, deregister as focusableDeregister } from '../managers/focus-manager';
 import { MicroTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils';
+import { VERSION } from '../../';
 
 export {
   TransitionStyle,
@@ -108,6 +109,14 @@ const shouldRefitProperties: string[] = ['position', 'x', 'y', 'positionTarget',
   alias: 'coral-popup-panel'
 })
 export class Overlay extends ResponsiveElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
 
   protected readonly defaultTabIndex = -1;
 

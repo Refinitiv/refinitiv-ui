@@ -28,6 +28,7 @@ import { helpers as legendHelper } from './helpers/legend';
 
 // Register plugins
 import doughnutCenterPlugin from './plugins/doughnut-center-label';
+import { VERSION } from '../';
 window.Chart.pluginService.register(doughnutCenterPlugin);
 
 const CSS_COLOR_PREFIX = '--chart-color-';
@@ -62,6 +63,15 @@ export type { ChartConfig, ChartUpdateProps };
   alias: 'sapphire-chart'
 })
 export class Chart extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Chart.js object
    */

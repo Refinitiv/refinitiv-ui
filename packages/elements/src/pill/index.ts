@@ -9,6 +9,7 @@ import {
   query,
   TemplateResult
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 
 import '../icon';
 
@@ -29,6 +30,15 @@ import '../icon';
   alias: 'coral-pill'
 })
 export class Pill extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   constructor () {
     super();
     /** @ignore */

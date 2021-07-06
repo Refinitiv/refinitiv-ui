@@ -9,6 +9,7 @@ import {
   TemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 import { FlagLoader } from './utils/FlagLoader';
 
 export { preload } from './utils/FlagLoader';
@@ -26,6 +27,15 @@ const EmptyTemplate = svg``;
   alias: 'coral-flag'
 })
 export class Flag extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
