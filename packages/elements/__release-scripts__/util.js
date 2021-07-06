@@ -10,9 +10,7 @@ const ELEMENT_DIST = 'lib';
  * @returns {string} element tag name
  */
 const getElementTagName = (path) => {
-  if (!fs.existsSync(path)) {
-    return;
-  }
+  if (!fs.existsSync(path)) return;
 
   const content = fs.readFileSync(path, { encoding: 'utf-8' });
   const tagName = content.split(`${DECORATE_SYNTAX}('`)[1].split("'")[0];
@@ -22,7 +20,7 @@ const getElementTagName = (path) => {
 
 // This is a compiled syntax of decorator we used to define our elements
 // This will help to detect if the JavaScript file is an element or not
-const DECORATE_SYNTAX = '__decorate([\n    customElement';
+const DECORATE_SYNTAX = `__decorate([\n    customElement`;
 
 /**
  * Get list of element file path which contain element defining syntax
@@ -41,4 +39,4 @@ const getElementList = async (directory) => {
     );
 };
 
-module.exports = { ELEMENT_DIST, getElementTagName, getElementList };
+module.exports = { ELEMENT_DIST, getElementTagName, getElementList }

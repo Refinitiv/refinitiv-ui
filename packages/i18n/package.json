@@ -14,7 +14,7 @@
     "build": "tsc --sourceMap false",
     "build:watch": "tsc --watch --preserveWatchOutput --sourceMap",
     "lint": "eslint . --fix",
-    "test": "yarn lint && yarn build && karma start ../../karma.conf.js",
+    "test": "yarn build && karma start ../../karma.conf.js",
     "test:watch": "yarn build && yarn test --auto-watch=true --single-run=false"
   },
   "author": "Refinitiv",
