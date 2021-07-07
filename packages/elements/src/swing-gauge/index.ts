@@ -18,7 +18,6 @@ import { VERSION } from '../';
   alias: 'sapphire-swing-gauge'
 })
 export class SwingGauge extends Canvas {
-
   /**
    * Element version number
    * @returns version number

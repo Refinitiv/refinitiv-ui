@@ -61,6 +61,7 @@ const NO_DATA_POINT = '--';
  * A charting component that allows you to create several use cases of financial chart.
  * By lightweight-charts library.
  * @slot legend - Slot to use for implementing custom legend.
+ * @fires initialized - Dispatched when chart is initialized
  */
 @customElement('ef-interactive-chart', {
   alias: 'sapphire-interactive-chart'

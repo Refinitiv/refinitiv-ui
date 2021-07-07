@@ -13,6 +13,7 @@ import {
   TapEvent,
   WarningNotice
 } from '@refinitiv-ui/core';
+import { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent } from '../events';
 import '../calendar';
 import '../icon';
 import '../overlay';
@@ -889,7 +890,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event opened-change event
    * @returns {void}
    */
-  private onPopupOpenedChanged (event: CustomEvent<{ value: boolean }>): void {
+  private onPopupOpenedChanged (event: OpenedChangedEvent): void {
     event.preventDefault(); /* re-target opened changed event */
     this.setOpened(event.detail.value);
   }
@@ -899,7 +900,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event view-changed event
    * @returns {void}
    */
-  private onCalendarViewChanged (event: CustomEvent<{ value: string }>): void {
+  private onCalendarViewChanged (event: ViewChangedEvent): void {
     const index = event.target === this.calendarToEl ? 1 : 0; /* 0 - from, single; 1 - to */
     const view = event.detail.value;
     this.notifyViewsChange(this.composeViews(view, index));
@@ -910,7 +911,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event value-changed event
    * @returns {void}
    */
-  private onCalendarValueChanged (event: CustomEvent<{ value: string }>): void {
+  private onCalendarValueChanged (event: ValueChangedEvent): void {
     const values = (event.target as Calendar).values;
     this.interimSegments = values.map((value, index) => {
       const segment = this.interimSegments[index] || new DateTimeSegment();
@@ -944,7 +945,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event value-changed event
    * @returns {void}
    */
-  private onTimePickerValueChanged (event: CustomEvent<{ value: string }>): void {
+  private onTimePickerValueChanged (event: ValueChangedEvent): void {
     const target = event.target as TimePicker;
     const index = target === this.timepickerToEl ? 1 : 0; /* 0 - from, single; 1 - to */
     const segment = this.interimSegments[index] || new DateTimeSegment();
@@ -991,7 +992,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event value-changed event
    * @returns {void}
    */
-  private onInputValueChanged (event: CustomEvent<{ value: string }>): void {
+  private onInputValueChanged (event: ValueChangedEvent): void {
     const target = event.target as TextField;
     const index = target === this.inputToEl ? 1 : 0; /* 0 - from, single; 1 - to */
     const inputValue = target.value;

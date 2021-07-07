@@ -32,6 +32,7 @@ const valueFormatWarning = new WarningNotice('The specified \'values\' format do
 
 /**
  * Provides listing and immutable selection
+ * @fires value-changed - Dispatched when value changes
  */
 @customElement('ef-list', {
   alias: 'coral-list'

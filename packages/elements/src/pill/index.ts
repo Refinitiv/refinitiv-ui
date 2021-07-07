@@ -7,6 +7,7 @@ import {
   property,
   PropertyValues,
   query,
+  TapEvent,
   TemplateResult
 } from '@refinitiv-ui/core';
 import { VERSION } from '../';
@@ -25,6 +26,8 @@ import '../icon';
  *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
+ *
+ * @fires clear - Dispatched when click on cross button occurs
  */
 @customElement('ef-pill', {
   alias: 'coral-pill'
@@ -169,18 +172,12 @@ export class Pill extends ControlElement {
    * @param event event from close button
    * @returns {void}
    */
-  private clear (event: MouseEvent): void {
+  private clear (event: TapEvent): void {
     event.stopPropagation();
+
     /**
-     * Fires when click on cross occurs. `detail.value` provides value of pill if defined. `detail.active` provides current selected state.
-     * @param detail.value - value stored on the pill, not set if undefined
-     * @param detail.active - current selected state, always present
+     * Fires when click on cross occurs.
      */
-    this.dispatchEvent(new CustomEvent('clear', {
-      detail: {
-        value: this.value,
-        active: this.active
-      }
-    }));
+    this.dispatchEvent(new CustomEvent('clear'));
   }
 }

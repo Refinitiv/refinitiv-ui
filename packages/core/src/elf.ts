@@ -24,7 +24,7 @@ export { until } from 'lit-html/directives/until';
 import { BasicElement } from './elements/BasicElement';
 export { BasicElement };
 export { ControlElement } from './elements/ControlElement';
-export { ResponsiveElement, ElementSize } from './elements/ResponsiveElement';
+export { ResponsiveElement, ElementSize, ResizeEvent } from './elements/ResponsiveElement';
 export class LitElement extends BasicElement {
   constructor () {
     /* eslint-disable-next-line no-console */

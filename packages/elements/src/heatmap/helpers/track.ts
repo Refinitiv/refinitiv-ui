@@ -15,7 +15,7 @@ export class Track {
    * Get track size
    * @returns track size
    */
-  get trackSize (): number {
+  public get trackSize (): number {
     return this._trackSize;
   }
 
@@ -23,7 +23,7 @@ export class Track {
    * Sets track size
    * @param value number of track size
    */
-  set trackSize (value: number) {
+  public set trackSize (value: number) {
     this.init(value, this.laneCount);
   }
 
@@ -31,7 +31,7 @@ export class Track {
    * Get lane count
    * @returns lane count
    */
-  get laneCount (): number {
+  public get laneCount (): number {
     return this.laneSizes.length;
   }
 
@@ -39,7 +39,7 @@ export class Track {
    * Sets lane count
    * @param value number of lane count
    */
-  set laneCount (value: number) {
+  public set laneCount (value: number) {
     this.init(this.trackSize, value);
   }
 
@@ -47,7 +47,7 @@ export class Track {
    * Get margin
    * @returns margin in pixel
    */
-  get margin (): number {
+  public get margin (): number {
     return this._margin;
   }
 
@@ -55,7 +55,7 @@ export class Track {
    * Sets cells margin
    * @param value number margin
    */
-  set margin (value: number) {
+  public set margin (value: number) {
     this._margin = value;
   }
 
@@ -88,7 +88,7 @@ export class Track {
    * Get lane start
    * @returns lane start position in pixel
    */
-  get laneStarts (): number[] {
+  public get laneStarts (): number[] {
     return this._laneStarts;
   }
 
@@ -96,7 +96,7 @@ export class Track {
    * Get lane size
    * @returns lane size in pixel
    */
-  get laneSizes (): number[] {
+  public get laneSizes (): number[] {
     return this._laneSizes;
   }
 
