@@ -14,8 +14,9 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint . --fix",
-    "test": "eslint . && npm run build && karma start ../../karma.config.js --package=core",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "npm run build && karma start ../../karma.config.js --package=core",
     "test:snapshots": "npm run test -- --snapshots",
     "test:watch": "npm run test -- --watch"
   },

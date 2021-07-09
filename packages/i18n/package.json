@@ -12,8 +12,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "lint": "eslint . --fix",
-    "test": "eslint . && npm run build && karma start ../../karma.config.js --package=i18n --include-snapshots=false",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "npm run build && karma start ../../karma.config.js --package=i18n --include-snapshots=false",
     "test:watch": "npm run test -- --watch"
   },
   "author": "Refinitiv",

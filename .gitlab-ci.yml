@@ -16,6 +16,9 @@ test_v5:
     # Build only changed packages and its dependencies
     - npx lerna run build --include-dependencies --since origin/v5-dev...HEAD
 
+    # Lint only changed packages and its dependents
+    - npx lerna run lint --concurrency=1 --include-dependents --since origin/v5-dev...HEAD
+
     # Test only changed packages and its dependents
     - npx lerna run test --concurrency=1 --include-dependents --since origin/v5-dev...HEAD
   except:

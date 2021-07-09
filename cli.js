@@ -24,7 +24,7 @@ const argv = yargs(argvNoBin)
   .help()
   .argv
 
-const options = argvNoBin.slice(1);
+const options = argvNoBin.slice(2);
 
 // Element or package
 try {

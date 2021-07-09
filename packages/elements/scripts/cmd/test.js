@@ -46,9 +46,6 @@ exports.handler = (argv) => {
   try {
     execSync('node cli build', { stdio: 'inherit' });
 
-    // linting
-    execSync(`node cli lint ${element}`, { stdio: 'inherit' });
-
     const command = ['karma', 'start', 'karma.config.js', `--package=${PACKAGE_NAME}`];
     watch && command.push('--watch');
     snapshots && command.push('--snapshots');

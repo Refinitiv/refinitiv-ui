@@ -14,7 +14,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "lint": "eslint . --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "npm run build && mocha __test__/**/*.js --require esm"
   },
   "devDependencies": {
