@@ -616,8 +616,8 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.addEventListener('keydown', event => this.onKeyDown(event));
-    this.addEventListener('tapstart', event => this.onTapStart(event as TapEvent));
+    this.addEventListener('keydown', this.onKeyDown);
+    this.addEventListener('tapstart', this.onTapStart);
   }
 
   /**

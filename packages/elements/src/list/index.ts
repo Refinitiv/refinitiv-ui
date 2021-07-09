@@ -588,12 +588,12 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
 
   protected firstUpdated (changeProperties: PropertyValues): void {
     super.firstUpdated(changeProperties);
-    this.addEventListener('keydown', event => this.onKeyDown(event));
-    this.addEventListener('tap', event => this.onTap(event as TapEvent));
-    this.addEventListener('mousemove', event => this.onMouse(event));
-    this.addEventListener('mouseleave', () => this.clearHighlighted());
-    this.addEventListener('focusin', event => this.onFocus(event));
-    this.addEventListener('focusout', () => this.onBlur());
+    this.addEventListener('keydown', this.onKeyDown);
+    this.addEventListener('tap', this.onTap);
+    this.addEventListener('mousemove', this.onMouse);
+    this.addEventListener('mouseleave', this.clearHighlighted);
+    this.addEventListener('focusin', this.onFocus);
+    this.addEventListener('focusout', this.onBlur);
   }
 
   protected update (changeProperties: PropertyValues): void {

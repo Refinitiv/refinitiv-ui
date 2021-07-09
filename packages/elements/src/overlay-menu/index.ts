@@ -106,14 +106,6 @@ export class OverlayMenu extends Overlay {
     /**
     * @ignore
     */
-    this.onItemTap = this.onItemTap.bind(this);
-    /**
-    * @ignore
-    */
-    this.onItemMouseMove = this.onItemMouseMove.bind(this);
-    /**
-    * @ignore
-    */
     this.toItem = this.toItem.bind(this);
     /**
     * @ignore
@@ -393,8 +385,8 @@ export class OverlayMenu extends Overlay {
 
     this.addEventListener('keydown', this.onKeyDown);
     this.addEventListener('keyup', this.onKeyUp);
-    this.renderRoot.addEventListener('tap', this.onItemTap as EventListener);
-    this.renderRoot.addEventListener('mousemove', this.onItemMouseMove as EventListener); /* listen shadow root to support data */
+    this.renderRoot.addEventListener('tap', (event) => this.onItemTap(event as TapEvent));
+    this.renderRoot.addEventListener('mousemove', (event) => this.onItemMouseMove(event as MouseEvent)); /* listen shadow root to support data */
   }
 
   /**

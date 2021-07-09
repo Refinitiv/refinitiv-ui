@@ -335,7 +335,7 @@ export class Select extends ControlElement implements MultiValue {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.addEventListener('keydown', event => this.onKeyDown(event)); /* keydown when select is closed */
+    this.addEventListener('keydown', this.onKeyDown); /* keydown when select is closed */
   }
 
   /**

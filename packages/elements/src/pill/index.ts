@@ -42,17 +42,6 @@ export class Pill extends ControlElement {
     return VERSION;
   }
 
-  constructor () {
-    super();
-    /** @ignore */
-    this.onTapHandler = this.onTapHandler.bind(this);
-    /** @ignore */
-    this.onStartPress = this.onStartPress.bind(this);
-    /** @ignore */
-    this.onEndPress = this.onEndPress.bind(this);
-  }
-
-
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -132,7 +121,7 @@ export class Pill extends ControlElement {
    * @param event tapstart event
    * @returns {void}
    */
-  private onStartPress (event: Event): void {
+  private onStartPress (event: TapEvent): void {
     if (this.couldBePressed(event)) {
       this.pressed = true;
     }

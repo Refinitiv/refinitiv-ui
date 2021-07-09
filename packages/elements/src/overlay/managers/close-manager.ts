@@ -1,5 +1,6 @@
 import { Overlay } from '../elements/overlay';
 import { getOverlays } from './zindex-manager';
+import { TapEvent } from '@refinitiv-ui/core';
 
 type CloseCallback = () => void;
 type OverlayClose = {
@@ -70,7 +71,7 @@ export class CloseManager {
    * @param event event object
    * @returns {void}
    */
-  private onTapStart = (event: Event): void => {
+  private onTapStart = (event: TapEvent): void => {
     const topOverlay = this.getTopOverlay();
 
     /* istanbul ignore next */
