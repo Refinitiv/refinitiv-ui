@@ -54,17 +54,6 @@ For simplicity, some commands reflected at the root level as well:
 npm start button
 ```
 
-#### Elements Package Command Overview
-
-| Command | Target | Description | Example |
-| --- |:--- | --- | --- |
-| npm start | `<target>`&#160;(required) | Build and serves a package or element which demoable. | npm start button |
-| npm run test  | `<target>` | Runs unit tests in a package or element. If not define the `<target>`, it will runs unit test in all packages. | npm run test button |
-| npm run test:watch  | `<target>` | Runs Karma server for a package or element. | npm run test:watch button |
-| npm run lint  | `<target>` | Runs linting tools in a package or element. If not define the `<target>`, it will runs linting in all packages. | npm run lint button |
-| npm run lint:fix  | `<target>` | Fix linting errors for a package or element. | npm run lint:fix button |
-
-
 ### Commit prefixes
 
 Commit prefixes must be written in a correct pattern when committing code into EF repositories. It will be used to determine running version when release the package and for generating changelogs.

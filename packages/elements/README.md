@@ -51,6 +51,17 @@ Now, you can use the elements in your app.
 </ef-panel>
 ```
 
+## Command Overview
+
+| Command | Target | Description | Example |
+| --- |:--- | --- | --- |
+| npm start | `<element>` | Build and serve an element. | npm start button |
+| npm run test  | `<element>` &#124; `all` | Run unit tests. | npm run test button |
+| npm run test:watch  | `<element>` | Run test server. | npm run test:watch button |
+| npm run test:snapshots  | `<element>` &#124; `all` | Update and prune snapshots.  | npm run test:watch button |
+| npm run lint  | `<element>` &#124; `all` | Run linting tools.  | npm run lint button |
+| npm run lint:fix  | `<element>` &#124; `all` | Fix linting errors. | npm run lint:fix button |
+
 # Documentation
 
 See list of elements, demo and more tutorial by visiting [EF Documentation](https://cdn.ppe.refinitiv.com/public/apps/elf-docs/book/en/index.html).
