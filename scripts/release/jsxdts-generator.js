@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
-const { ELEMENT_DIST, PACKAGE_ROOT, getElementTagName, getElementList } = require('./util');
+const { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList } = require('./util');
 const { log, errorHandler, success } = require('../helpers');
 
 /**
@@ -47,9 +47,11 @@ const handler = async () => {
       return;
     }
 
-    // A web component tag always consists of atleast one hyphen
-    // Using the later part of hyphen
-    const elementClassName = toPascalCase(elementName.slice(elementName.indexOf('-') + 1));
+    // Check if element starts with element prefix
+    // Then use element tag name with or without prefix to produce class name
+    const startsWithEF = elementName.split('-')[0] === ELEMENT_PREFIX;
+
+    const elementClassName = toPascalCase(startsWithEF ? elementName.slice(elementName.indexOf('-') + 1): elementName);
     const typeDeclarationContent = fs.readFileSync(typeDeclaration, {
       encoding: 'utf-8'
     });
@@ -78,7 +80,7 @@ const handler = async () => {
 
     let content = '';
     // Import path should not end with *.d.ts
-    content += `import { JSXInterface } from '${'../'.repeat(depth)}${path.basename(JSX_TYPE_DECLARATION, '.d.ts')}';\n`;
+    content += `import { JSXInterface } from '${depth !== 0 ? '../'.repeat(depth): './'}${path.basename(JSX_TYPE_DECLARATION, '.d.ts')}';\n`;
     content += typeDeclarationContent + '\n';
     content += template;
 
