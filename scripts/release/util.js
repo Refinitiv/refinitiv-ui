@@ -4,6 +4,7 @@ const fg = require('fast-glob');
 
 // Element built files
 const PACKAGE_ROOT = process.env.PACKAGE_ROOT || process.cwd();
+const ELEMENT_PREFIX = 'ef';
 const ELEMENT_DIST = 'lib';
 
 /**
@@ -45,6 +46,7 @@ const getElementList = async (directory) => {
 
 module.exports = {
   ELEMENT_DIST,
+  ELEMENT_PREFIX,
   PACKAGE_ROOT,
   getElementTagName,
   getElementList

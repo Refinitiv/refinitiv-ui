@@ -5,7 +5,7 @@ const fg = require('fast-glob');
 const wca = require('web-component-analyzer');
 
 const { log, errorHandler, success, error } = require('../helpers');
-const { ELEMENT_DIST, PACKAGE_ROOT } = require('./util');
+const { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT } = require('./util');
 
 const getDeclarationMethods = (meta) => {
   if (!meta || !meta.results || !meta.results.length) {
@@ -131,9 +131,6 @@ const getMethods = (data, meta) => {
     .filter(declarationMethodFilter);
   return methods;
 };
-
-// Element tag prefix
-const ELEMENT_PREFIX = 'ef';
 
 // Element source path
 const ELEMENT_SRC = 'src';
