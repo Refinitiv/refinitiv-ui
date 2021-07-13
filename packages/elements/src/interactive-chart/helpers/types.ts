@@ -72,11 +72,6 @@ interface InteractiveChartSeries {
   seriesOptions?: SeriesPartialOptions<SeriesOptions>;
 }
 
-type MergeObject = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any; // Allow any type of value
-};
-
 export {
   InteractiveChartConfig,
   InteractiveChartSeries,
@@ -87,6 +82,5 @@ export {
   SeriesDataItem,
   SeriesStyleOptions,
   ColorToStringFunction,
-  LegendStyle,
-  MergeObject
+  LegendStyle
 };
