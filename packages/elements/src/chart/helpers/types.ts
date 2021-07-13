@@ -5,11 +5,6 @@ export interface ResizeEvent extends CustomEvent {
   detail: ElementSize;
 }
 
-export type MergeObject = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any; // Allow any type of value
-};
-
 export type DatasetColors = {
   solid: string | string[];
   opaque: string | string[];

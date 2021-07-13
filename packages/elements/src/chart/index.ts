@@ -16,15 +16,18 @@ import { Header } from '../header';
 import '../header';
 import '../layout';
 
+import {
+  legendHelper,
+  merge,
+  MergeObject
+} from './helpers';
 import type {
   ChartJS,
   ChartConfig,
   ChartUpdateProps,
   ChartDataSetsColor,
-  MergeObject,
   DatasetColors
 } from './helpers/types';
-import { helpers as legendHelper } from './helpers/legend';
 
 // Register plugins
 import doughnutCenterPlugin from './plugins/doughnut-center-label';
@@ -322,35 +325,8 @@ export class Chart extends BasicElement {
       return;
     }
 
-    this.mergeObjects(this.config, this.themableConfig);
-    this.mergeObjects(this.config, this.requiredConfig, true);
-  }
-
-
-  /**
-   * Merges properties of one object into another.
-   * @param {MergeObject} a Object to merge into
-   * @param {MergeObject} b Object to merge from
-   * @param {boolean} force Force apply the change
-   * @param {object[]} record Record of objects, to check for circular references
-   * @returns {void}
-   */
-  protected mergeObjects (a: MergeObject, b: MergeObject, force = false, record: MergeObject[] = []): void {
-    let value;
-    let isObject;
-
-    Object.keys(b).forEach(key => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      value = b[key] as unknown;
-      isObject = value && typeof value === 'object' && value.toString() === '[object Object]';
-      if (!(key in a) || (force && !isObject)) {
-        a[key] = b[key] as unknown;
-      }
-      if (isObject && !record.includes(value as MergeObject)) {
-        record.push(b[key]);
-        this.mergeObjects(a[key], b[key], force, record);
-      }
-    });
+    merge(this.config as MergeObject, this.themableConfig as MergeObject);
+    merge(this.config as MergeObject, this.requiredConfig as MergeObject, true);
   }
 
   /**
@@ -362,7 +338,7 @@ export class Chart extends BasicElement {
 
     const extendColorsIfRequired = (currentColors: ChartDataSetsColor, infoColors: ChartDataSetsColor): void => {
       if (Array.isArray(currentColors) && Array.isArray(infoColors) && currentColors.length < infoColors.length) {
-        this.mergeObjects(currentColors as MergeObject, infoColors as MergeObject);
+        merge(currentColors, infoColors);
       }
     };
 
