@@ -1,10 +1,12 @@
 export const MAIN_MOUSE_BUTTON = 0;
 
 type DraggableFunctions = {
-  mouseDownListener: CallableFunction;
+  mouseDownListener: MouseEventListener;
   handle: HTMLElement;
 };
-
+interface MouseEventListener {
+  (event: MouseEvent): void;
+}
 class DraggableManager {
   private lastX = 0;
   private lastY = 0;
@@ -88,8 +90,8 @@ class DraggableManager {
    * @param handle element that will be touched for dragging
    * @returns {void}
    */
-  private mouseDownListener = (draggableElement: HTMLElement, handle: HTMLElement) => (e: MouseEvent): void => {
-    if (e.button === MAIN_MOUSE_BUTTON && e.target === handle) {
+  private mouseDownListener = (draggableElement: HTMLElement, handle: HTMLElement): MouseEventListener => (event: MouseEvent): void => {
+    if (event.button === MAIN_MOUSE_BUTTON && event.target === handle) {
       this.draggableElement = draggableElement;
       this.setSelectingOfText(false);
 
@@ -97,7 +99,7 @@ class DraggableManager {
       document.addEventListener('mousemove', this.onMove);
 
       this.updateOffset();
-      this.drag(e.pageX, e.pageY);
+      this.drag(event.pageX, event.pageY);
     }
   };
 
@@ -107,11 +109,14 @@ class DraggableManager {
    * @returns {void}
    */
   private setHandleListeners (draggableElement: HTMLElement): void {
-    this.draggableElements.get(draggableElement)?.handle
+    const element = this.draggableElements.get(draggableElement);
+    if (element) {
+      element.handle
       .addEventListener(
         'mousedown',
-        this.draggableElements.get(draggableElement)?.mouseDownListener as EventListener
+        element.mouseDownListener
       );
+    }
   }
 
   /**
@@ -120,10 +125,13 @@ class DraggableManager {
    * @returns {void}
    */
   private removeHandleListeners (draggableElement: HTMLElement): void {
-    this.draggableElements.get(draggableElement)?.handle.removeEventListener(
-      'mousedown',
-      this.draggableElements.get(draggableElement)?.mouseDownListener as EventListener
-    );
+    const element = this.draggableElements.get(draggableElement);
+    if (element) {
+      element.handle.removeEventListener(
+        'mousedown',
+        element.mouseDownListener
+      );
+    }
   }
 
   /**
