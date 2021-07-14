@@ -4,18 +4,26 @@ interface Configs {
   endPosition: number;
   duration?: number;
   easing?: string;
-  complete?: CallableFunction;
+  complete?: () => void;
+}
+
+enum Easings {
+  EaseOutQuad = 'easeOutQuad'
+}
+
+type EasingsFunction = {
+  [name: string]: (time: number) => number
 }
 
 const ANIMATION_DURATION = 100; // specifies the length of time an animation should take to complete
-const DEFAULT_EASING = 'easeOutQuad';
+const DEFAULT_EASING = Easings.EaseOutQuad;
 
 /**
  * Common easing equations from https://easings.net
  * @param name type of easing
  * @returns easing function
  */
-const functionEasings: {[name: string]: CallableFunction} = {
+const functionEasings: EasingsFunction = {
   /**
    * Decelerating to zero velocity
    * @param time current time or position
@@ -53,10 +61,10 @@ const tweenAnimate = (configs: Configs): void => {
   const tweenLoop = (): void => {
     const currentTime = 'now' in window.performance ? performance.now() : new Date().getTime();
     const step = Math.min(1, ((currentTime - startTime) / duration));
-    const factor = functionEasings[easing](step) as number; // factor can be a decimal
+    const factor = functionEasings[easing as Easings](step); // factor can be a decimal
 
     configs.target.scrollLeft = startPosition + delta * factor;
-  
+
     if (step < 1 && configs.target.scrollLeft !== endPosition) {
       animate = requestAnimationFrame(tweenLoop);
     }
