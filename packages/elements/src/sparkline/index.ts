@@ -21,7 +21,6 @@ import { VERSION } from '../';
   alias: 'sapphire-sparkline'
 })
 export class Sparkline extends ResponsiveElement {
-
   /**
    * Element version number
    * @returns version number

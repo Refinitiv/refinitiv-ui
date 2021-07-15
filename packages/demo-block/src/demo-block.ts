@@ -6,7 +6,8 @@ import {
   customElement,
   property,
   TemplateResult,
-  CSSResult
+  CSSResult,
+  StyleInfo
 } from '@refinitiv-ui/core';
 
 const Themes = [
@@ -21,8 +22,7 @@ const Themes = [
 // eslint-disable-next-line @typescript-eslint/no-namespace
 declare namespace ShadyCSS {
   const nativeCss: boolean;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  function styleDocument(styles: {}): void;
+  function styleDocument(styles: StyleInfo): void;
 }
 
 /* istanbul ignore next */
@@ -121,7 +121,7 @@ export class DemoBlock extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version() {
+  static get version () {
     return 'PUBLISH_VERSION';
   }
 

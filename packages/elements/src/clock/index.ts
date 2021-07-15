@@ -10,7 +10,8 @@ import {
   ifDefined,
   WarningNotice,
   query,
-  state
+  state,
+  TapEvent
 } from '@refinitiv-ui/core';
 
 import {
@@ -428,8 +429,8 @@ export class Clock extends BasicElement {
    * @param event Event Object
    * @returns {void}
    */
-  private onKeydown (event: Event): void {
-    this.manageControlKeys(event as KeyboardEvent);
+  private onKeydown (event: KeyboardEvent): void {
+    this.manageControlKeys(event);
   }
 
   /**
@@ -438,7 +439,7 @@ export class Clock extends BasicElement {
    * @param event Event Object
    * @returns {void}
    */
-  private onTapStart (event: Event): void {
+  private onTapStart (event: TapEvent): void {
     if (event.target instanceof HTMLElement && event.target.dataset.key) {
       this.shift(event.target.dataset.key as UpOrDown, this.getShiftAmountFromTarget(event.target));
     }
@@ -581,8 +582,8 @@ export class Clock extends BasicElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.renderRoot.addEventListener('keydown', (event) => this.onKeydown(event));
-    this.renderRoot.addEventListener('tapstart', (event) => this.onTapStart(event));
+    this.renderRoot.addEventListener('keydown', (event) => this.onKeydown(event as KeyboardEvent));
+    this.renderRoot.addEventListener('tapstart', (event) => this.onTapStart(event as TapEvent));
   }
 
   /**

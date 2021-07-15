@@ -45,11 +45,6 @@ export class NotificationTray extends ResponsiveElement {
   @property({ type: String, reflect: true })
   public attach = '';
 
-  public constructor () {
-    super();
-    this.addEventListener('collapsed', (e: Event) => this.removeChild(e.target as Node), true);
-  }
-
   /**
    * Does the tray has room to show another notification?
    * @returns true if tray is ready to show
@@ -73,6 +68,7 @@ export class NotificationTray extends ResponsiveElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
+    this.addEventListener('collapsed', (event) => this.removeChild(event.target as Node), true);
     this.max = parseInt(this.getComputedVariable('--max'), 10) || 1;
     this.defaultTimeout = parseInt(this.getComputedVariable('--default-timeout'), 10) || 10000;
   }

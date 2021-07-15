@@ -15,12 +15,13 @@ import '../icon';
 /**
  * Used to display at the top of application to provide a status or information.
  * @slot right - place custom content on the right of bar.
+ *
+ * @fires clear - fired when clear button is clicked
  */
 @customElement('ef-appstate-bar', {
   alias: 'amber-appstate-bar'
 })
 export class AppstateBar extends BasicElement {
-
   /**
    * Element version number
    * @returns version number

@@ -60,16 +60,16 @@ describe('tab/Tab', () => {
       const closeBtn = el.shadowRoot.querySelector("[part='close']");
       const onTap = () => closeBtn.dispatchEvent(new Event('tap'));
       setTimeout(onTap);
-      const e = await oneEvent(el, 'clear');
-      expect(e.detail.label).to.equal(el.label);
+      await oneEvent(el, 'clear');
+      expect(el.label).to.equal(el.label);
     });
     it('fired clear event when tap on clear button with clears-on-hover attr', async () => {
       const el = await fixture('<ef-tab clears-on-hover icon="home"></ef-tab>');
       const closeBtn = el.shadowRoot.querySelector("[part='close']");
       const onTap = () => closeBtn.dispatchEvent(new Event('tap'));
       setTimeout(onTap);
-      const e = await oneEvent(el, 'clear');
-      expect(e.detail.label).to.equal(el.label);
+      await oneEvent(el, 'clear');
+      expect(el.label).to.equal(el.label);
     });
   });
   describe('Sub-label', () => {

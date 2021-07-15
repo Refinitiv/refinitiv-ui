@@ -165,7 +165,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @returns Unique item property key
    */
   private getItemPropertyKey<K extends keyof T> (item: T, property: K): string {
-    return this.getItemKey(item) + property;
+    return this.getItemKey(item) + String(property);
   }
 
   /**
@@ -294,7 +294,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
     this.addItemAtIndex(item, index, childDepth);
     this.registerItemModification(item);
   }
-  
+
   /**
    * Removes a data item from the composer
    * @param item Data item to remove
@@ -564,7 +564,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
      * Index to start retrieving descendants
      */
     const startIndex = parentIndex + 1;
-    
+
     for (let i = startIndex; i > 0 && i < this.items.length; i += 1) {
       const depth = this.depths[i];
       if (depth <= parentDepth) {

@@ -81,7 +81,7 @@ export class TabBar extends ResponsiveElement {
   @query('[part="right-btn"]')
   private rightBtn!: Button;
 
-  private isScrolling!: NodeJS.Timeout; // timer id
+  private isScrolling!: number; // timer id
 
   /**
    * Called after the element’s DOM has been updated the first time.
@@ -93,9 +93,9 @@ export class TabBar extends ResponsiveElement {
     super.firstUpdated(changedProperties);
     this.content.addEventListener('scroll', () => {
       // Clear our timeout throughout the scroll
-      clearTimeout(this.isScrolling);
+      window.clearTimeout(this.isScrolling);
       // Set a timeout to run after scrolling ends
-      this.isScrolling = setTimeout(() => {
+      this.isScrolling = window.setTimeout(() => {
         this.toggleScrollButton(this.content.clientWidth);
       }, 66); // equal 15 fps for compatibility
     });
@@ -131,16 +131,6 @@ export class TabBar extends ResponsiveElement {
     if(!this.vertical) {
       this.toggleScrollButton(size.width);
     }
-    /**
-     * Resize fired when the element's size changes.
-     */
-    this.dispatchEvent(
-      new CustomEvent('resize', {
-        bubbles: false,
-        cancelable: false,
-        detail: size
-      })
-    );
   }
 
   /**

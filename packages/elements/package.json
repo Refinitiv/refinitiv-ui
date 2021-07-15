@@ -14,7 +14,9 @@
   },
   "exports": {
     ".": "./lib/index.js",
+    "./events": "./lib/events.js",
     "./*": "./lib/*/index.js",
+    "./lib/events": "./lib/events.js",
     "./lib/*": "./lib/*/index.js"
   },
   "scripts": {

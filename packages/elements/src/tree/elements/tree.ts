@@ -1,7 +1,6 @@
 import {
   customElement,
   property,
-  DeprecationNotice,
   PropertyValues,
   TapEvent
 } from '@refinitiv-ui/core';
@@ -15,9 +14,6 @@ import { TreeData, TreeDataItem } from '../helpers/types';
 import { TreeManager, TreeManagerMode } from '../managers/tree-manager';
 
 const EXPAND_TOGGLE_ATTR = 'expand-toggle';
-
-const selectAllDeprecation = new DeprecationNotice('selectAll is deprecated, use checkAll instead.');
-const deselectAllDeprecation = new DeprecationNotice('deselectAll is deprecated, use uncheckAll instead.');
 
 /**
  * Displays a tree structure
@@ -89,33 +85,11 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   }
 
   /**
-   * Checks all editable items
-   * @returns {void}
-   * @deprecated
-   * @ignore
-   */
-  public selectAll (): void {
-    selectAllDeprecation.once();
-    this.checkAll();
-  }
-
-  /**
    * Unchecks all editable items
    * @returns {void}
    */
   public uncheckAll (): void {
     this.manager.uncheckAllItems();
-  }
-
-  /**
-   * Unchecks all editable items
-   * @returns {void}
-   * @deprecated
-   * @ignore
-   */
-  public deselectAll (): void {
-    deselectAllDeprecation.once();
-    this.uncheckAll();
   }
 
   /**

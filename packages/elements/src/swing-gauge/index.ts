@@ -18,7 +18,6 @@ import { VERSION } from '../';
   alias: 'sapphire-swing-gauge'
 })
 export class SwingGauge extends Canvas {
-
   /**
    * Element version number
    * @returns version number
@@ -107,8 +106,8 @@ export class SwingGauge extends Canvas {
   private size: number | null = null;
   private maxFontSize: number | null = null;
   private centerlineOptions: string[] = ['solid', 'dotted', 'dashed'];
-  private onFrame: Function = requestAnimationFrame.bind(window);
-  private cancelFrame: Function = cancelAnimationFrame.bind(window);
+  private onFrame = requestAnimationFrame.bind(window);
+  private cancelFrame = cancelAnimationFrame.bind(window);
   private previousFillPercentage: number | null = null;
   private fillPercentage: number | null = null;
   private frameHandler: number | null = null;
@@ -223,7 +222,9 @@ export class SwingGauge extends Canvas {
     diff /= this.duration;
     this.fillPercentage = (from + (to - from) * canvasHelper.elasticOut(diff > 1 ? 1 : diff < 0 ? 0 : diff)) || 0;
     if (this.fillPercentage !== to) {
-      this.cancelFrame(this.frameHandler);
+      if (this.frameHandler) {
+        this.cancelFrame(this.frameHandler);
+      }
       this.frameHandler = this.onFrame(() => this.easeTo(to, from, time));
     }
   }
@@ -301,7 +302,7 @@ export class SwingGauge extends Canvas {
         secondaryColor: this.getComputedVariable('--secondary-color', '#C93C4B'),
         borderColor: this.getComputedVariable('--border-color', '#000'),
         centerline: `${this.getComputedVariable('--center-line', 'solid')}`.trim(),
-        centerlineOpacity: this.getComputedVariable('--center-line-opacity', 0.6),
+        centerlineOpacity: this.getComputedVariable('--center-line-opacity', '0.6'),
         centerlineColor: this.getComputedVariable('--center-line-color', '#000'),
         centerlineOptions: this.centerlineOptions
       }

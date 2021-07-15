@@ -27,7 +27,7 @@ abstract class LangAttributeObserver {
     observer.disconnect();
   }
 
-  private static onDocumentLang <LangObserverCallback> (): void {
+  private static onDocumentLang (): void {
     this.callbacks.forEach(this.documentChangeCallback);
   }
 

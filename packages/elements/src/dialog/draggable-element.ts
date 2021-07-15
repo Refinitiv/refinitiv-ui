@@ -1,5 +1,10 @@
 export const MAIN_MOUSE_BUTTON = 0;
 
+type MouseEventListener = (event: MouseEvent) => void;
+type DraggableFunctions = {
+  mouseDownListener: MouseEventListener;
+  handle: HTMLElement;
+};
 class DraggableManager {
   private lastX = 0;
   private lastY = 0;
@@ -9,7 +14,7 @@ class DraggableManager {
   private xOffset = 0;
   private yOffset = 0;
 
-  private draggableElements = new Map();
+  private draggableElements = new Map<HTMLElement, DraggableFunctions>();
   private draggableElement: HTMLElement | null = null;
 
   /**
@@ -38,8 +43,10 @@ class DraggableManager {
    */
   public deregister (draggableElement: HTMLElement): void {
     if (this.draggableElements.has(draggableElement)) {
-
-      DraggableManager.removeHandleCursor(this.draggableElements.get(draggableElement).handle);
+      const handle = this.draggableElements.get(draggableElement)?.handle;
+      if (handle) {
+        DraggableManager.removeHandleCursor(handle);
+      }
       this.removeHandleListeners(draggableElement);
       this.draggableElements.delete(draggableElement);
 
@@ -53,7 +60,7 @@ class DraggableManager {
   /**
    * Shifts the drag container by the specified x/y values
    * @param x Amount to shift the x-axis
-   * @param y Amaount to shift the y-axis
+   * @param y Amount to shift the y-axis
    * @returns {void}
    */
   private shift (x: number, y: number): void {
@@ -81,8 +88,8 @@ class DraggableManager {
    * @param handle element that will be touched for dragging
    * @returns {void}
    */
-  private mouseDownListener = (draggableElement: HTMLElement, handle: HTMLElement) => (e: MouseEvent): void => {
-    if (e.button === MAIN_MOUSE_BUTTON && e.target === handle) {
+  private mouseDownListener = (draggableElement: HTMLElement, handle: HTMLElement): MouseEventListener => (event: MouseEvent): void => {
+    if (event.button === MAIN_MOUSE_BUTTON && event.target === handle) {
       this.draggableElement = draggableElement;
       this.setSelectingOfText(false);
 
@@ -90,7 +97,7 @@ class DraggableManager {
       document.addEventListener('mousemove', this.onMove);
 
       this.updateOffset();
-      this.drag(e.pageX, e.pageY);
+      this.drag(event.pageX, event.pageY);
     }
   };
 
@@ -100,11 +107,14 @@ class DraggableManager {
    * @returns {void}
    */
   private setHandleListeners (draggableElement: HTMLElement): void {
-    this.draggableElements.get(draggableElement).handle
+    const element = this.draggableElements.get(draggableElement);
+    if (element) {
+      element.handle
       .addEventListener(
         'mousedown',
-        this.draggableElements.get(draggableElement).mouseDownListener
+        element.mouseDownListener
       );
+    }
   }
 
   /**
@@ -113,10 +123,13 @@ class DraggableManager {
    * @returns {void}
    */
   private removeHandleListeners (draggableElement: HTMLElement): void {
-    this.draggableElements.get(draggableElement).handle.removeEventListener(
-      'mousedown',
-      this.draggableElements.get(draggableElement).mouseDownListener
-    );
+    const element = this.draggableElements.get(draggableElement);
+    if (element) {
+      element.handle.removeEventListener(
+        'mousedown',
+        element.mouseDownListener
+      );
+    }
   }
 
   /**
@@ -200,22 +213,22 @@ class DraggableManager {
 
   /**
    * provides functionality needs for release draggable element
-   * @param e mouse up event
+   * @param event mouse up event
    * @returns {void}
    */
-  private onRelease = (e: MouseEvent): void => {
+  private onRelease = (event: MouseEvent): void => {
     if (this.draggableElement) {
       this.setSelectingOfText(true);
       this.release();
 
-      e.preventDefault();
-      e.stopPropagation();
+      event.preventDefault();
+      event.stopPropagation();
     }
   };
 
-  private onMove = (e: MouseEvent): void => {
-    if (this.draggableElement && e.button === MAIN_MOUSE_BUTTON) {
-      this.getDeltaAndShift(e.pageX, e.pageY);
+  private onMove = (event: MouseEvent): void => {
+    if (this.draggableElement && event.button === MAIN_MOUSE_BUTTON) {
+      this.getDeltaAndShift(event.pageX, event.pageY);
     }
     else {
       this.release();

@@ -8,9 +8,33 @@ type TapSupport = { ontap: unknown; ontapstart: unknown; ontapend: unknown };
 type Positions = { pageX: number; pageY: number; screenX: number; screenY: number; clientX: number; clientY: number };
 type MetaKeys = { altKey: boolean; ctrlKey: boolean; metaKey: boolean; shiftKey: boolean };
 
+// Define tap events for global scope
+declare global {
+  interface GlobalEventHandlersEventMap {
+    /**
+     * @event tap
+     * Simulates consistent click/tap events across pointer/touch devices
+     */
+    tap: TapEvent;
+    /**
+     * @event tapstart
+     * Simulates consistent mousedown/touchstart events across pointer/touch devices
+     */
+    tapstart: TapEvent;
+    /**
+     * @event tapend
+     * Simulates consistent mouseup/touchend events across pointer/touch devices
+     */
+    tapend: TapEvent;
+  }
+}
+
 let positions: Positions;
 let metaKeys: MetaKeys | undefined;
 
+/**
+ * Simulates consistent click/tap events across pointer/touch devices
+ */
 export class TapEvent extends Event {
 
   public pageX = 0;

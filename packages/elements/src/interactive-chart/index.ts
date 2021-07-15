@@ -42,11 +42,11 @@ import type {
   SeriesList,
   SeriesDataItem,
   SeriesStyleOptions,
-  ColorToStringFunction,
-  MergeObject
+  ColorToStringFunction
 } from './helpers/types';
 
 import { LegendStyle } from './helpers/types';
+import { merge, MergeObject } from './helpers/merge';
 
 export {
   InteractiveChartConfig,
@@ -61,6 +61,7 @@ const NO_DATA_POINT = '--';
  * A charting component that allows you to create several use cases of financial chart.
  * By lightweight-charts library.
  * @slot legend - Slot to use for implementing custom legend.
+ * @fires initialized - Dispatched when chart is initialized
  */
 @customElement('ef-interactive-chart', {
   alias: 'sapphire-interactive-chart'
@@ -588,7 +589,7 @@ export class InteractiveChart extends ResponsiveElement {
           this.internalConfig.series[index].seriesOptions = seriesThemeOptions as SeriesOptions<SeriesStyleOptions>;
         }
         else {
-          this.mergeObjects(seriesOptions, seriesThemeOptions);
+          merge(seriesOptions as unknown as MergeObject, seriesThemeOptions);
         }
       }
     }
@@ -641,7 +642,7 @@ export class InteractiveChart extends ResponsiveElement {
         }
       };
 
-      this.mergeObjects(chartOptions, chartThemeOptions);
+      merge(chartOptions, chartThemeOptions);
 
       if (!config.options) {
         this.chart.applyOptions(chartThemeOptions);
@@ -1188,31 +1189,6 @@ export class InteractiveChart extends ResponsiveElement {
       }
     }
     return colors;
-  }
-
-  /**
-   * Merges properties of one object into another.
-   * @param a Object to merge into
-   * @param b Object to merge from
-   * @param force Force apply the change
-   * @param record Record of objects, to check for circular references
-   * @returns {void}
-   */
-  private mergeObjects (a: MergeObject, b: MergeObject, force = false, record: MergeObject[] = []): void {
-    let value;
-    let isObject;
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    Object.keys(b).forEach(key => {
-      value = b[key] as unknown;
-      isObject = value && typeof value === 'object' && value.toString() === '[object Object]';
-      if (!(key in a) || (!isObject && force)) {
-        a[key] = b[key] as unknown;
-      }
-      if (isObject && !record.includes(value as never)) {
-        record.push(b[key]);
-        this.mergeObjects(a[key], b[key], force, record);
-      }
-    });
   }
 
   /**

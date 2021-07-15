@@ -11,15 +11,14 @@ import {
 import { VERSION } from '../';
 
 /**
- * A Component uses
- * to draw graphics on a web page,
+ * A Component uses to draw graphics on a web page,
  * it works similarly to the normal HTML5 Canvas element.
+ * @fires frame - dispatched when next Frame event occurs when autoloop is set to true
  */
 @customElement('ef-canvas', {
   alias: 'sapphire-canvas'
 })
 export class Canvas extends ResponsiveElement {
-
   /**
    * Element version number
    * @returns version number

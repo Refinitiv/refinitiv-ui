@@ -78,9 +78,9 @@ const getLegendFillStyle = (dataset: Chart.ChartDataSets, usePointStyle: boolean
   }
 };
 
-const helpers = {
+const legendHelper = {
   getLegendFillStyle,
   getLegendStrokeStyle
 };
 
-export { helpers };
+export { legendHelper };
