@@ -35,6 +35,7 @@ type DecoratorOptions = {
    */
   mode?: 'directive' | 'promise';
 };
+type TranslateFunction = (prototype: BasicElement, name: PropertyKey) => void;
 type TranslateDirective = (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => void;
 type TranslatePromise = (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => Promise<string>;
 type Translate = TranslateDirective | TranslatePromise;
@@ -160,7 +161,7 @@ const disconnectTranslations = function (this: BasicElement, key: ObserverKey): 
  * If not provided provided, `scope = element.localName` and `mode = 'directive'`
  * @returns translate directive
  */
-const translate = function (options?: string | DecoratorOptions): CallableFunction {
+const translate = function (options?: string | DecoratorOptions): TranslateFunction {
   return (
     prototype: BasicElement,
     name: PropertyKey
