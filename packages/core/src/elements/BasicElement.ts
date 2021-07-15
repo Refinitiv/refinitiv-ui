@@ -122,7 +122,7 @@ export abstract class BasicElement extends LitElement {
   protected updateVariable (key: string, value: CSSValue|null|undefined): void {
     if (CSS_VARIABLE_REGEXP.test(key)) {
       if (ShadyCSS) {
-        ShadyCSS.styleSubtree(this, { [key]: value } as StyleInfo);
+        ShadyCSS.styleSubtree(this, { [key]: value as string });
       }
       else if (isNullOrUndefined(value)) {
         this.style.removeProperty(key);
