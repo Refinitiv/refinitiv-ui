@@ -33,7 +33,7 @@ exports.handler = async (argv, options) => {
   let command = null;
   let type = null;
   if (!package) {
-    type = 'All Element';
+    type = 'All Packages';
     command = 'yarn lerna run lint';
   } else if (isElements(package)) {
     type = 'Element';
