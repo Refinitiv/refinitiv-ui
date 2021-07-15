@@ -1,12 +1,10 @@
 export const MAIN_MOUSE_BUTTON = 0;
 
+type MouseEventListener = (event: MouseEvent) => void;
 type DraggableFunctions = {
   mouseDownListener: MouseEventListener;
   handle: HTMLElement;
 };
-interface MouseEventListener {
-  (event: MouseEvent): void;
-}
 class DraggableManager {
   private lastX = 0;
   private lastY = 0;
@@ -215,22 +213,22 @@ class DraggableManager {
 
   /**
    * provides functionality needs for release draggable element
-   * @param e mouse up event
+   * @param event mouse up event
    * @returns {void}
    */
-  private onRelease = (e: MouseEvent): void => {
+  private onRelease = (event: MouseEvent): void => {
     if (this.draggableElement) {
       this.setSelectingOfText(true);
       this.release();
 
-      e.preventDefault();
-      e.stopPropagation();
+      event.preventDefault();
+      event.stopPropagation();
     }
   };
 
-  private onMove = (e: MouseEvent): void => {
-    if (this.draggableElement && e.button === MAIN_MOUSE_BUTTON) {
-      this.getDeltaAndShift(e.pageX, e.pageY);
+  private onMove = (event: MouseEvent): void => {
+    if (this.draggableElement && event.button === MAIN_MOUSE_BUTTON) {
+      this.getDeltaAndShift(event.pageX, event.pageY);
     }
     else {
       this.release();
