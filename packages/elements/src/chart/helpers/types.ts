@@ -1,10 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-import type { ElementSize } from '@refinitiv-ui/core';
-
-export interface ResizeEvent extends CustomEvent {
-  detail: ElementSize;
-}
-
 export type DatasetColors = {
   solid: string | string[];
   opaque: string | string[];
@@ -12,8 +5,8 @@ export type DatasetColors = {
 
 export type ChartDataSetsColor = Chart.ChartColor | Chart.ChartColor[] | Chart.Scriptable<Chart.ChartColor> | undefined;
 
-export interface ChartConfig extends Chart.ChartConfiguration{}
-export interface ChartUpdateProps extends Chart.ChartUpdateProps{}
+export type ChartConfig = Chart.ChartConfiguration
+export type ChartUpdateProps = Chart.ChartUpdateProps
 
 export interface MetaData {
   _chart: Chart;

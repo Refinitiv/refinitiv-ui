@@ -32,11 +32,18 @@ import type {
 // Register plugins
 import doughnutCenterPlugin from './plugins/doughnut-center-label';
 import { VERSION } from '../';
+
+declare global {
+  interface Window {
+    Chart: ChartJS;
+  }
+}
+
 window.Chart.pluginService.register(doughnutCenterPlugin);
 
 const CSS_COLOR_PREFIX = '--chart-color-';
 const CHART_TYPE_OPAQUE = ['line', 'bubble', 'radar', 'polarArea'];
-const DEFAULT_CHART_CONFIG = (window.Chart as unknown as ChartJS).defaults;
+const DEFAULT_CHART_CONFIG = window.Chart.defaults;
 const ELF_CHART_CONFIG = {
   polarArea: {
     scale: {
@@ -60,7 +67,7 @@ window.Chart.helpers.merge(DEFAULT_CHART_CONFIG, ELF_CHART_CONFIG);
 export type { ChartConfig, ChartUpdateProps };
 
 /**
- * Charting component that use chartjs library
+ * Charting component that use ChartJS library
  */
 @customElement('ef-chart', {
   alias: 'sapphire-chart'
@@ -102,7 +109,7 @@ export class Chart extends BasicElement {
 
   /**
    * Required properties, needed for chart to work correctly.
-   * @returns {ChartConfig} config
+   * @returns config
    */
   protected get requiredConfig (): ChartConfig {
     return {
@@ -118,7 +125,7 @@ export class Chart extends BasicElement {
 
   /**
    * Safely returns the chart title
-   * @returns {string} chart title
+   * @returns chart title
    */
   protected get chartTitle (): string {
     const title = this.config?.options?.title?.text;
@@ -132,7 +139,7 @@ export class Chart extends BasicElement {
 
   /**
    * Safely returns a dataset array
-   * @returns {Chart.ChartDataSets[]} dataset array
+   * @returns dataset array
    */
   protected get datasets (): Chart.ChartDataSets[] {
     return this.config?.data?.datasets || [];
@@ -169,7 +176,7 @@ export class Chart extends BasicElement {
    * Element connected
    * @returns {void}
    */
-  connectedCallback (): void {
+  public connectedCallback (): void {
     super.connectedCallback();
     if(this.canvas) {
       this.createChart();
@@ -180,7 +187,7 @@ export class Chart extends BasicElement {
    * Element disconnected
    * @returns {void}
    */
-  disconnectedCallback (): void {
+  public disconnectedCallback (): void {
     super.disconnectedCallback();
     this.destroyChart();
   }
@@ -204,8 +211,8 @@ export class Chart extends BasicElement {
     window.Chart.defaults.global.defaultFontStyle = style.getPropertyValue('font-style');
 
     // Set grid line globals
-    (window.Chart as unknown as ChartJS).defaults.scale.gridLines.color = this.getComputedVariable('--grid-line-color', 'transparent');
-    (window.Chart as unknown as ChartJS).defaults.scale.gridLines.zeroLineColor = this.getComputedVariable('--zero-line-color', 'transparent');
+    window.Chart.defaults.scale.gridLines.color = this.getComputedVariable('--grid-line-color', 'transparent');
+    window.Chart.defaults.scale.gridLines.zeroLineColor = this.getComputedVariable('--zero-line-color', 'transparent');
 
     return {
       options: {
@@ -256,7 +263,7 @@ export class Chart extends BasicElement {
    * Get as CSS variable and tries to convert it into a usable number
    * @returns {(number|undefined)} The value as a number, or, undefined if NaN.
    */
-  protected cssVarAsNumber (...args: string[] | number[]): number | undefined {
+  protected cssVarAsNumber (...args: string[]): number | undefined {
     const result = Number(this.getComputedVariable(...args).replace(/\D+$/, ''));
     return isNaN(result) ? undefined : result;
   }
