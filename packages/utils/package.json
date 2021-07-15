@@ -13,8 +13,9 @@
   "author": "Refinitiv",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "tsc --sourceMap false",
-    "lint": "eslint . --fix"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "tsc --sourceMap false"
   },
   "dependencies": {
     "@types/d3-color": "^2.0.1",

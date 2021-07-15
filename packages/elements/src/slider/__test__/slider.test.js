@@ -5,7 +5,7 @@ import '@refinitiv-ui/elements/slider';
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
 
 
-describe('Slider', () => {
+describe('slider/Slider', () => {
 
   let el;
 

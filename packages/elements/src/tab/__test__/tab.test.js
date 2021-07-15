@@ -3,7 +3,7 @@ import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-he
 import '@refinitiv-ui/elements/tab';
 import '@refinitiv-ui/elemental-theme/light/ef-tab';
 
-describe('Tab', () => {
+describe('tab/Tab', () => {
   describe('DOM Structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-tab></ef-tab>');

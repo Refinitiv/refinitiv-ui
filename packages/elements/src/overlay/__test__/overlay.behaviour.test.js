@@ -3,7 +3,7 @@ import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 import '@refinitiv-ui/elements/overlay';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 
-describe('Overlay', () => {
+describe('overlay/Behaviour', () => {
   describe('User Interaction Test', () => {
     it('Overlay should close on click', async () => {
       const el = await fixture('<ef-overlay opened><div>Default</div></ef-overlay>');

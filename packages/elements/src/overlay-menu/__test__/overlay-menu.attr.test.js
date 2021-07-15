@@ -6,7 +6,7 @@ import { flatData, nestedData } from './data';
 import { openedUpdated } from './utils';
 import { flatMarkupOpened, nestedMarkup } from './markup';
 
-describe('OverlayMenu', () => {
+describe('overlay-menu/Attributes', () => {
   describe('Attributes Test', () => {
 
     it('Uses compact', async () => {

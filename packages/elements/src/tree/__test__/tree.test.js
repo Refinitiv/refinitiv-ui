@@ -59,7 +59,7 @@ const nestedData = [{
   value: '4'
 }];
 
-describe('Tree', () => {
+describe('tree/Tree', () => {
 
   describe('Basic Tests', () => {
 

@@ -9,7 +9,7 @@ const dispatchTapEvent = (el) => {
   }));
 };
 
-describe('NumberField', () => {
+describe('number-field/NumberField', () => {
   describe('Dom Structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-number-field></ef-number-field>');

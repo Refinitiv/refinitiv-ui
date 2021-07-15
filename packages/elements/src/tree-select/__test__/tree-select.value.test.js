@@ -7,7 +7,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
 const data1 = [{ items: [{ selected: true, value: '1' }] }];
 const data2 = [{ items: [{ selected: true, value: '1' }, { selected: true, value: '2' }] }];
 
-describe('TreeSelect', () => {
+describe('tree-select/Value', () => {
   describe('Value Test', () => {
 
     it('Value/values is empty by default', async () => {

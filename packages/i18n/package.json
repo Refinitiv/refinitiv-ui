@@ -11,11 +11,11 @@
     "directory": "packages/i18n"
   },
   "scripts": {
-    "build": "tsc --sourceMap false",
-    "build:watch": "tsc --watch --preserveWatchOutput --sourceMap",
-    "lint": "eslint . --fix",
-    "test": "yarn build && karma start ../../karma.conf.js",
-    "test:watch": "yarn build && yarn test --auto-watch=true --single-run=false"
+    "build": "tsc",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "npm run build && karma start ../../karma.config.js --package=i18n --include-snapshots=false",
+    "test:watch": "npm run test -- --watch"
   },
   "author": "Refinitiv",
   "license": "Apache-2.0",

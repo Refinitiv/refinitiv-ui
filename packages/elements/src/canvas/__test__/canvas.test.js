@@ -4,7 +4,7 @@ import { fixture, assert, expect, nextFrame, elementUpdated } from '@refinitiv-u
 import '@refinitiv-ui/elements/canvas';
 import '@refinitiv-ui/elemental-theme/light/ef-canvas.js';
 
-describe('Canvas', () => {
+describe('canvas/Canvas', () => {
   let el;
 
   beforeEach(async () => {

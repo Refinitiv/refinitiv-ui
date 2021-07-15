@@ -46,7 +46,7 @@ const emulateMouseMove = async (el, scope) => {
   expect(scope.querySelector('[highlighted]') === children[2]).to.equal(true, 'Header cannot be highlighted');
 };
 
-describe('Select', () => {
+describe('select/Navigation', () => {
   describe('Navigation', () => {
     it('Default highlighted', async () => {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);

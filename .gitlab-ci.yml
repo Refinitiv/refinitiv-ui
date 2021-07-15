@@ -10,15 +10,17 @@ stages:
 test_v5:
   stage: test
   script:
-    # Using `call` because this job runs on Windows
     # Installing dependencies, strictly based on lock file
-    - call yarn --ignore-scripts --frozen-lockfile
+    - npm ci --ignore-scripts --audit=false --fund=false
 
     # Build only changed packages and its dependencies
-    - call yarn lerna run build --include-dependencies --since origin/v5-dev...HEAD
+    - npx lerna run build --include-dependencies --since origin/v5-dev...HEAD
+
+    # Lint only changed packages and its dependents
+    - npx lerna run lint --concurrency=1 --include-dependents --since origin/v5-dev...HEAD
 
     # Test only changed packages and its dependents
-    - call yarn lerna run test --concurrency=1 --include-dependents --since origin/v5-dev...HEAD
+    - npx lerna run test --concurrency=1 --include-dependents --since origin/v5-dev...HEAD
   except:
     - v5@elf/refinitiv-ui
     - v5-dev@elf/refinitiv-ui
@@ -35,15 +37,15 @@ release_v5:
     - git pull origin v5
 
     # Installing dependencies, strictly based on lock file
-    - yarn --ignore-scripts --frozen-lockfile
+    - npm ci --ignore-scripts --audit=false --fund=false
 
     # Build only changed packages and its dependencies
-    - yarn lerna run build --include-dependencies --since
+    - npx lerna run build --include-dependencies --since
 
     # Get changed packages version from conventional commit message
-    - yarn lerna version --conventional-commits --conventional-prerelease --preid=beta --yes
+    - npx lerna version --conventional-commits --conventional-prerelease --preid=beta --yes
 
     # Publish to registry
-    - yarn lerna publish from-git --yes --dist-tag next
+    - npx lerna publish from-git --yes --dist-tag next
   only:
     - v5@elf/refinitiv-ui

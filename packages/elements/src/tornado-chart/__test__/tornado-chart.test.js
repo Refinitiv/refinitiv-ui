@@ -3,7 +3,7 @@ import { fixture, expect, oneEvent, elementUpdated } from '@refinitiv-ui/test-he
 import '@refinitiv-ui/elements/tornado-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-tornado-chart.js';
 
-describe('TornadoChart', () => {
+describe('tornado-chart/TornadoChart', () => {
 
   describe('Snapshots', () => {
     it('DOM structure is correct', async () => {

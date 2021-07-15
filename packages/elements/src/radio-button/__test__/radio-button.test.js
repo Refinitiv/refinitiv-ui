@@ -11,7 +11,7 @@ const updateGroup = async (group) => {
   }
 };
 
-describe('RadioButton', () => {
+describe('radio-button/RadioButton', () => {
   describe('DOM structure', () => {
     it('DOM structure unchecked is correct', async () => {
       const el = await fixture('<ef-radio-button>unchecked</ef-radio-button>');

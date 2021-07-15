@@ -5,7 +5,7 @@ import '@refinitiv-ui/elements/email-field';
 import '@refinitiv-ui/elemental-theme/light/ef-email-field';
 import { fireKeydownEvent } from './helper';
 
-describe('EmailField', () => {
+describe('email-field/EmailField', () => {
   describe('Should Have Correct DOM Structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture(`

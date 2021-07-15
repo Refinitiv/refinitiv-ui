@@ -5,7 +5,7 @@ import { snapshotIgnore } from './utils';
 import '@refinitiv-ui/elements/datetime-picker';
 import '@refinitiv-ui/elemental-theme/light/ef-datetime-picker';
 
-describe('DatetimePicker', () => {
+describe('datetime-picker/DOMStructure', () => {
   describe('DOM Structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-datetime-picker view="2020-04"></ef-datetime-picker>');

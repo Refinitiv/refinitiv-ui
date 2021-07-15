@@ -10,7 +10,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 import { parse } from '@refinitiv-ui/utils';
 import { RenderView } from '../../../lib/calendar/types.js';
 
-describe('Calendar', () => {
+describe('calendar/Defaults', () => {
   describe('Defaults Test', () => {
     it('Check default properties', async () => {
       const el = await fixture('<ef-calendar></ef-calendar>');

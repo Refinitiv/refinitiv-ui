@@ -4,7 +4,7 @@ import '@refinitiv-ui/elements/overlay-menu';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
 import { flatData, nestedData, numberData } from './data';
 
-describe('OverlayMenu', () => {
+describe('overlay-menu/Data', () => {
   describe('Data Test', () => {
 
     it('Loads data', async () => {

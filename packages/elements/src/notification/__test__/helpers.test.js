@@ -1,7 +1,7 @@
 import { oneEvent, expect } from '@refinitiv-ui/test-helpers';
 import { info, confirm, warn, error } from '@refinitiv-ui/elements/notification';
 
-describe('Notification', () => {
+describe('notification/Helpers', () => {
   describe('Helpers', () => {
     it('info() should be show the correct notification', async () => {
       const message = 'Info';

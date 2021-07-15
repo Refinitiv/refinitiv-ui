@@ -117,6 +117,14 @@ document.body.appendChild(themeLabel);
 @customElement('demo-block', { theme: false })
 export class DemoBlock extends BasicElement {
 
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version () {
+    return 'PUBLISH_VERSION';
+  }
+
   static get styles (): CSSResult {
     return css`
       :host {

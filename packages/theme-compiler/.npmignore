@@ -26,7 +26,6 @@ tsconfig.json
 /test/
 /__test__/
 /coverage/
-/__snapshots__/
 
 ## temp folders
 /.tmp/

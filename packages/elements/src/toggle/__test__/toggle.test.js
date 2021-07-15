@@ -4,7 +4,7 @@ import { fixture, expect, elementUpdated, oneEvent, isIE } from '@refinitiv-ui/t
 import '@refinitiv-ui/elements/toggle';
 import '@refinitiv-ui/elemental-theme/light/ef-toggle';
 
-describe('Toggle', () => {
+describe('toggle/Toggle', () => {
   describe('DOM Structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-toggle></ef-toggle>');

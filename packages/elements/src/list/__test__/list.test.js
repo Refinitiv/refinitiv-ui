@@ -41,7 +41,7 @@ const data = [{
 
 // TODO: Actually test results. These are just placeholders for coverage.
 
-describe('List', () => {
+describe('list/List', () => {
 
   it('Label and DOM structure is correct', async () => {
     const el = await fixture('<ef-list></ef-list>');

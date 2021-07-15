@@ -4,7 +4,7 @@ import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 import '@refinitiv-ui/elements/swing-gauge';
 import '@refinitiv-ui/elemental-theme/light/ef-swing-gauge.js';
 
-describe('SwingGauge', () => {
+describe('swing-gauge/SwingGauge', () => {
   let el;
 
   const noVal = '<ef-swing-gauge></ef-swing-gauge>';

@@ -11,7 +11,7 @@ import {
   tapAction
 } from './helpers/helpers';
 
-describe('Autosuggest', () => {
+describe('autosuggest/Functional', () => {
   describe('Functionality', async () => {
 
     it('Attach target event are set and public functions fired and removed', async function () {

@@ -14,7 +14,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-sidebar-layout.js';
 import '@refinitiv-ui/elemental-theme/light/ef-panel.js';
 import '@refinitiv-ui/elemental-theme/light/ef-header.js';
 
-describe('SidebarLayout', () => {
+describe('sidebar-layout/SidebarLayout', () => {
   const defaultLayout = `
     <ef-sidebar-layout>
       <ef-header slot="sidebar-header">Sidebar Header</ef-header>

@@ -16,7 +16,7 @@ import {
   checkRequestedUrl
 } from './helpers/helpers';
 
-describe('Icon', () => {
+describe('icon/Icon', () => {
   describe('Should Have Correct DOM Structure', () => {
     it('without icon or src attributes', async () => {
       const el = await createAndWaitForLoad('<ef-icon></ef-icon>');

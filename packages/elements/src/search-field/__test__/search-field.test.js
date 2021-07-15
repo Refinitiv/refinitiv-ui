@@ -4,7 +4,7 @@ import '@refinitiv-ui/elements/search-field';
 import '@refinitiv-ui/elemental-theme/light/ef-search-field';
 import { fireKeydownEvent } from './helper';
 
-describe('SearchField', () => {
+describe('search-field/SearchField', () => {
 
   describe('Should have a correct DOM structure', () => {
     it('DOM structure is correct', async () => {

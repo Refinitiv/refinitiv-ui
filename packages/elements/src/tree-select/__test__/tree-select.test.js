@@ -6,7 +6,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
 import { flatData, flatSelection } from './mock_data/flat';
 import { changeItemSelection, openedUpdated } from './utils';
 
-describe('TreeSelect', () => {
+describe('tree-select/TreeSelect', () => {
   describe('Defaults', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-tree-select></ef-tree-select>');

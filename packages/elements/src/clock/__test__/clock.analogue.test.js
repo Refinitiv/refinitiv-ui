@@ -3,7 +3,7 @@ import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 import '@refinitiv-ui/elements/clock';
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
 
-describe('Clock', () => {
+describe('clock/Analogue', () => {
   describe('Analogue', () => {
     let el;
     let hoursHand;

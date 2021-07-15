@@ -4,7 +4,7 @@ import { fixture, expect, oneEvent, elementUpdated } from '@refinitiv-ui/test-he
 import '@refinitiv-ui/elements/collapse';
 import '@refinitiv-ui/elemental-theme/light/ef-collapse';
 
-describe('Collapse', () => {
+describe('collapse/Collapse', () => {
 
   describe('Should Have Correct DOM', () => {
     it('Label and DOM structure is correct', async () => {

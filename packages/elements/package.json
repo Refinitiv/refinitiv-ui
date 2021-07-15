@@ -20,12 +20,14 @@
     "./lib/*": "./lib/*/index.js"
   },
   "scripts": {
-    "build": "tsc",
-    "build:watch": "tsc --watch --preserveWatchOutput --sourceMap",
-    "lint": "eslint . --fix",
-    "test": "yarn build && karma start ../../karma.conf.js",
-    "test:watch": "yarn build && yarn test --auto-watch=true --single-run=false",
-    "prepublishOnly": "node __release-scripts__/index.js"
+    "build": "node cli build",
+    "start": "node cli start",
+    "test": "node cli test",
+    "test:watch": "node cli test --watch",
+    "test:snapshots": "node cli test --snapshots",
+    "lint": "node cli lint",
+    "lint:fix": "node cli lint --fix",
+    "prepublishOnly": "node scripts/release"
   },
   "dependencies": {
     "@refinitiv-ui/browser-sparkline": "1.1.7",

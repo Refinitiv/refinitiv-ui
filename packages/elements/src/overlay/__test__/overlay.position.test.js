@@ -90,7 +90,7 @@ const bottomRight = async el => {
 
 const withHeightStyle = `style="width: ${width}px; height: ${height}px;"`;
 
-describe('Overlay', () => {
+describe('overlay/Position', () => {
   describe('Position Target Screen Test', () => {
     it('Default Screen Position Target', async () => {
       await centerCenter(await fixture(`<ef-overlay ${withHeightStyle} opened>Default Position</ef-overlay>`));

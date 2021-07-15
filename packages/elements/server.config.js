@@ -1,42 +1,16 @@
 #!/usr/bin/env node
-const yargs = require('yargs/yargs');
-const { hideBin } = require('yargs/helpers');
-const config = require('../../server.config');
-const pluginCommonJs = require('../../transform-commonjs-plugin');
-const elementRootDir = 'packages/elements';
-const { legacyPlugin } = require('@web/dev-server-legacy');
+const path = require('path');
+const deepmerge = require('deepmerge');
+const { middlewareOverrideDemoPath } = require('../../scripts/dev-server');
+const baseConfig = require('../../server.config');
+const { getDemoPath, MONOREPO_ELEMENTS, ROOT } = require('./scripts/helpers');
 
+const ELEMENT = process.env.ELEMENT;
+const demoPath = path.join(MONOREPO_ELEMENTS, getDemoPath(ELEMENT));
 
-const argv = yargs(hideBin(process.argv)).option('element', {
-  alias: 'e',
-  type: 'string',
-  description: 'Element to start'
-}).argv;
-
-module.exports = Object.assign(config, {
-  appIndex: '/',
-  plugins: [
-    pluginCommonJs(),
-    legacyPlugin()
-  ],
+module.exports = deepmerge(baseConfig, {
+  rootDir: ROOT,
   middleware: [
-    function rewriteDemoIndex (context, next) {
-      const url = context.url;
-      if (url === '/' || url === '/index.html') {
-        context.url = `${elementRootDir}/src/${argv.element}/__demo__/index.html`;
-      }
-      else if (url.startsWith('/lib') || url.startsWith('/src')) {
-        context.url = `${elementRootDir}${url}`;
-      }
-
-      return next();
-    },
-    function rewriteDemoResources(context, next) {
-      const url = context.url;
-      if (url.startsWith('/') && !url.startsWith('/node_modules')) {
-        context.url = `${elementRootDir}/src/${argv.element}/__demo__${url}`;
-      }
-      return next();
-    }
+    middlewareOverrideDemoPath(MONOREPO_ELEMENTS, demoPath)
   ]
 });

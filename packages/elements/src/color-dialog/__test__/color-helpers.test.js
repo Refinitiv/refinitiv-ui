@@ -1,7 +1,7 @@
 import { ColorHelpers } from '../../../lib/color-dialog/helpers/color-helpers.js';
 import { expect } from '@refinitiv-ui/test-helpers';
 
-describe('ColorDialog', () => {
+describe('color-dialog/Hekpers', () => {
   describe('removeHashSign Method', () => {
     it('should return string that do not start with #', async () => {
       const str1 = '#str1';

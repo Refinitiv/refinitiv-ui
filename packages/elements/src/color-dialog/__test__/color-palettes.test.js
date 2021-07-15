@@ -4,7 +4,7 @@ import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers.js'
 import '../../../lib/color-dialog/elements/color-palettes';
 import '../../../lib/color-dialog/elements/grayscale-palettes';
 
-describe('ColorDialog', () => {
+describe('color-dialog/ColorPalettes', () => {
   describe('Color Palettes', () => {
     let palettes;
     let polygonItems;

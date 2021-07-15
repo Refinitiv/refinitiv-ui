@@ -4,7 +4,7 @@ import { fixture, expect } from '@refinitiv-ui/test-helpers';
 import '@refinitiv-ui/elements/overlay';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 
-describe('Overlay', () => {
+describe('overlay/Snapshot', () => {
   describe('Snapshot Test', () => {
 
     it('Title and DOM structure is correct', async () => {

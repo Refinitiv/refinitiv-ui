@@ -4,7 +4,7 @@ import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-he
 import '@refinitiv-ui/elements/progress-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-progress-bar.js';
 
-describe('ProgressBar', () => {
+describe('progress-bar/ProgressBar', () => {
 
   it('DOM structure is correct', async () => {
     const el = await fixture('<ef-progress-bar></ef-progress-bar>');

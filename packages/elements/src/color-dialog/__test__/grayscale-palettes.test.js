@@ -1,7 +1,7 @@
 import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
 import { GRAYSCALE_ITEMS, NOCOLOR_POINTS } from '../../../lib/color-dialog/helpers/color-helpers.js';
 
-describe('ColorDialog', () => {
+describe('color-dialog/GrayscalePalettes', () => {
   describe('Grayscale Palettes', () => {
     let palettes;
     let nocolorPalettes;
