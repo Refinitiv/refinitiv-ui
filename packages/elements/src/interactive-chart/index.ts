@@ -108,7 +108,7 @@ export class InteractiveChart extends ResponsiveElement {
   public disabledJumpButton = false;
 
   /**
-  * @deprecated
+  * @deprecated `legendstyle` attribute is deprecated, use `legend-style` instead.
   * @ignore
   * Set legend style i.e. `horizontal`, `vertical`. Default is `vertical`.
   **/
