@@ -212,10 +212,10 @@ describe('Pill', () => {
       const closeElement = el.shadowRoot.querySelector('[part="close"]');
 
       setTimeout(() => closeElement.dispatchEvent(new Event('tap')));
-      const { detail } = await oneEvent(el, 'clear');
+      await oneEvent(el, 'clear');
 
-      expect(detail.active).to.equal(false);
-      expect(detail.value).to.equal('tiger');
+      expect(el.active).to.equal(false);
+      expect(el.value).to.equal('tiger');
     });
 
     it('should set pressed to be true on tapstart', async () => {

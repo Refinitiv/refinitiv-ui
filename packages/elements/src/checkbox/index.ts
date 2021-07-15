@@ -116,8 +116,8 @@ export class Checkbox extends ControlElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.addEventListener('tap', event => this.onTap(event as TapEvent));
-    this.addEventListener('keydown', event => this.onKeyDown(event));
+    this.addEventListener('tap', this.onTap);
+    this.addEventListener('keydown', this.onKeyDown);
 
     registerOverflowTooltip(this.labelEl, () => this.textContent);
   }

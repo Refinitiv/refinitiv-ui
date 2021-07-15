@@ -7,6 +7,21 @@ export type ElementSize = {
 };
 
 /**
+ * @event resize
+ * Dispatched when the content changes its size
+ */
+export type ResizeEvent = CustomEvent<{
+  /**
+   * New width of the element
+   */
+  width: number;
+  /**
+   * New height of the element
+   */
+  height: number;
+}>;
+
+/**
  * Triggers resizedCallback on an element,
  * allowing for content to react to changes
  * before firing a resize event.

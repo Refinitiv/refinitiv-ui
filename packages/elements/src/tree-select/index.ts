@@ -22,12 +22,13 @@ import '../checkbox';
 import '../tree';
 import { Overlay } from '../overlay';
 import { ComboBox, ComboBoxFilter as TreeSelectFilter } from '../combo-box';
-
+import { CheckChangedEvent } from '../events';
 import { TreeRenderer as TreeSelectRenderer } from '../tree';
 import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager';
 
 import { TreeSelectData, TreeSelectDataItem } from './helpers/types';
 import { VERSION } from '..';
+import { Pill } from '../pill';
 
 export { TreeSelectRenderer, TreeSelectData, TreeSelectDataItem, TreeSelectFilter };
 
@@ -479,7 +480,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @param event checked-change event
    * @returns {void}
    */
-  protected selectionToggleHandler (event: CustomEvent<HTMLInputElement>): void {
+  protected selectionToggleHandler (event: CheckChangedEvent): void {
     if (event.detail.value) {
       this.treeManager.checkAllItems();
     }
@@ -642,8 +643,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    *
    * @returns {void}
    */
-  protected onPillRemoved (event: CustomEvent<HTMLInputElement>): void {
-    const item = this.queryItemsByPropertyValue('value', event.detail.value)[0];
+  protected onPillRemoved (event: CustomEvent): void {
+    const pill = event.target as Pill;
+    const item = this.queryItemsByPropertyValue('value', pill.value)[0];
     if (item) {
       this.treeManager.uncheckItem(item);
       // Focus must be shifted as otherwise focus is shifted to body once the item is removed and popup gets closed
@@ -870,7 +872,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
           .readonly="${pill.readonly || this.readonly}"
           .disabled="${pill.disabled || this.disabled}"
           .value="${pill.value}"
-          @clear="${this.onPillRemoved}">${pill.label}</ef-pill`
+          @clear="${this.onPillRemoved}">${pill.label}</ef-pill>`
         )}
       </div>`;
     }

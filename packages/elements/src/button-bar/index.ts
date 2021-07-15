@@ -103,7 +103,7 @@ export class ButtonBar extends BasicElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.addEventListener('tap', event => this.onTapHandler(event as TapEvent));
+    this.addEventListener('tap', this.onTapHandler);
   }
 
   /**

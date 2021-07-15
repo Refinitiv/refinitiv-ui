@@ -10,7 +10,8 @@ import {
   PropertyValues,
   MultiValue,
   query,
-  FocusedPropertyKey
+  FocusedPropertyKey,
+  StyleMap
 } from '@refinitiv-ui/core';
 import '../overlay';
 import { Item } from '../item';
@@ -19,6 +20,7 @@ import '../icon';
 import { CollectionComposer, TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils';
 import { Overlay } from '../overlay';
 import { SelectData, SelectDataItem } from './helpers/types';
+import { OpenedChangedEvent } from '../events';
 import { VERSION } from '../';
 
 export { SelectData, SelectDataItem };
@@ -49,10 +51,6 @@ const observerOptions = {
 const LABEL_SEPARATOR = ', '; // TODO: for multiselect
 const POPUP_POSITION = ['bottom-start', 'top-start'];
 const KEY_SEARCH_DEBOUNCER = 300;
-
-type StyleInfo = {
-  [name: string]: string;
-}
 
 /**
  * Expands upon the native select element,
@@ -149,7 +147,7 @@ export class Select extends ControlElement implements MultiValue {
   private composer: CollectionComposer<SelectDataItem> = new CollectionComposer([]);
   private _data: SelectData | null = null;
   private mutationObserver?: MutationObserver;
-  private popupDynamicStyles: StyleInfo = {}; /* set popup min-width based on select width or CSS vars */
+  private popupDynamicStyles: StyleMap = {}; /* set popup min-width based on select width or CSS vars */
   private lazyRendered = false; /* speed up rendering by not populating popup window on first load */
   private popupScrollTop = 0; /* remember scroll position on popup refit actions */
   private observingMutations = false;
@@ -337,7 +335,7 @@ export class Select extends ControlElement implements MultiValue {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.addEventListener('keydown', event => this.onKeyDown(event)); /* keydown when select is closed */
+    this.addEventListener('keydown', this.onKeyDown); /* keydown when select is closed */
   }
 
   /**
@@ -458,13 +456,7 @@ export class Select extends ControlElement implements MultiValue {
    */
   private setOpened (opened: boolean): void {
     if (this.opened !== opened) {
-      const event = new CustomEvent('opened-changed', {
-        detail: {
-          value: opened
-        }
-      });
-
-      this.dispatchEvent(event);
+      this.notifyPropertyChange('opened', opened);
       this.opened = opened;
     }
   }
@@ -529,7 +521,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param event opened-changed event
    * @returns {void}
    */
-  private onPopupOpenedChanged (event: CustomEvent): void {
+  private onPopupOpenedChanged (event: OpenedChangedEvent): void {
     event.preventDefault();
     this.setOpened(event.detail.value);
   }

@@ -1,5 +1,5 @@
 import { AfterRenderTaskRunner } from '@refinitiv-ui/utils';
-
+import { TapEvent } from '@refinitiv-ui/core';
 import { Item } from '../../item';
 import { OverlayMenu } from '../index';
 import { NestedMenu } from '../helpers/types';
@@ -37,18 +37,19 @@ abstract class OpenedMenusManager {
    * @param event Tap start event
    * @returns {void}
    */
-  private static closeOnOutsideOfMenuTap (event: Event): void {
+  private static closeOnOutsideOfMenuTap (event: TapEvent): void {
+    const manager = OpenedMenusManager;
     const paths = [...event.composedPath()];
     while (paths.length) {
       const node = paths.shift();
-      if (node instanceof OverlayMenu && this.registry.has(node)) {
+      if (node instanceof OverlayMenu && manager.registry.has(node)) {
         return;
       }
     }
-    const topMenu = this.overlayStack[this.overlayStack.length - 1];
+    const topMenu = manager.overlayStack[manager.overlayStack.length - 1];
 
     if (topMenu && !topMenu.noCancelOnOutsideClick) {
-      this.setOpened(topMenu, false);
+      manager.setOpened(topMenu, false);
     }
   }
 
@@ -144,7 +145,7 @@ abstract class OpenedMenusManager {
   */
   public static register (menu: OverlayMenu): void {
     if (!this.registry.size) {
-      document.addEventListener('tapstart', this.closeOnOutsideOfMenuTap.bind(this), {
+      document.addEventListener('tapstart', this.closeOnOutsideOfMenuTap, {
         capture: true,
         passive: true
       });
