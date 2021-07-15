@@ -24,6 +24,11 @@ const deselectAllDeprecation = new DeprecationNotice('deselectAll is deprecated,
  * to be used for menus and group selections
  *
  * @fires value-changed - Fired when the users changed selection item.
+ * @fires expanded-changed - Fired when an item's expanded state has changed.
+ *
+ * @attr {boolean} [stateless=false] - Disable selections
+ * @prop {boolean} [stateless=false] - Disable selections
+ *
  */
 @customElement('ef-tree')
 export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
@@ -153,7 +158,6 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    */
   protected dispatchExpandedChangedEvent (item: T): void {
     /**
-    * @fires expanded-changed Fired when an item's expanded state has changed.
     * Property `detail.value` is the current expanded state.
     * Property `detail.item` is the original data item of which the property has been modified.
     */
