@@ -11,7 +11,7 @@ import {
   MultiValue,
   query,
   FocusedPropertyKey,
-  StyleInfo
+  StyleMap
 } from '@refinitiv-ui/core';
 import '../overlay';
 import { Item } from '../item';
@@ -147,7 +147,7 @@ export class Select extends ControlElement implements MultiValue {
   private composer: CollectionComposer<SelectDataItem> = new CollectionComposer([]);
   private _data: SelectData | null = null;
   private mutationObserver?: MutationObserver;
-  private popupDynamicStyles: StyleInfo = {}; /* set popup min-width based on select width or CSS vars */
+  private popupDynamicStyles: StyleMap = {}; /* set popup min-width based on select width or CSS vars */
   private lazyRendered = false; /* speed up rendering by not populating popup window on first load */
   private popupScrollTop = 0; /* remember scroll position on popup refit actions */
   private observingMutations = false;

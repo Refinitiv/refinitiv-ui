@@ -302,7 +302,7 @@ export class SwingGauge extends Canvas {
         secondaryColor: this.getComputedVariable('--secondary-color', '#C93C4B'),
         borderColor: this.getComputedVariable('--border-color', '#000'),
         centerline: `${this.getComputedVariable('--center-line', 'solid')}`.trim(),
-        centerlineOpacity: this.getComputedVariable('--center-line-opacity', 0.6),
+        centerlineOpacity: this.getComputedVariable('--center-line-opacity', '0.6'),
         centerlineColor: this.getComputedVariable('--center-line-color', '#000'),
         centerlineOptions: this.centerlineOptions
       }

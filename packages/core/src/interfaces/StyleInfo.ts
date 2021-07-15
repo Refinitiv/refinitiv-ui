@@ -1,3 +1,8 @@
+import { CSSValue } from '../types/base';
+
+/**
+ * Used to add and remove CSS properties
+ */
 export interface StyleInfo {
-  [name: string]: string;
+  [key: string]: CSSValue | null | undefined;
 }

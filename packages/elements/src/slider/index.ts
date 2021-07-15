@@ -9,7 +9,7 @@ import {
   property,
   styleMap,
   query,
-  StyleInfo
+  StyleMap
 } from '@refinitiv-ui/core';
 import { VERSION } from '../';
 import '../number-field';
@@ -1081,10 +1081,10 @@ export class Slider extends ControlElement {
   private renderTrackWrapper (range: boolean): TemplateResult {
     const stepContainerSize: number = this.calculatePercentage(this.minNumber + this.stepNumber);
     const translateX = (stepContainerSize / 2);
-    const stepsStyle: StyleInfo = { transform: `translateX(${translateX}%)`, backgroundSize: `${stepContainerSize}% 100%` };
-    const stepContainerStyle: StyleInfo = { transform: `translateX(-${translateX}%)` };
-    
-    const trackFillStyle: StyleInfo = range
+    const stepsStyle = { transform: `translateX(${translateX}%)`, backgroundSize: `${stepContainerSize}% 100%` };
+    const stepContainerStyle = { transform: `translateX(-${translateX}%)` };
+
+    const trackFillStyle: StyleMap = range
       ? { width: `${this.calculatePercentage(this.toNumber) - this.calculatePercentage(this.fromNumber)}%`, left: `${this.calculatePercentage(this.fromNumber)}%` }
       : { width: `${this.calculatePercentage(Number(this.value))}%` };
 
@@ -1106,7 +1106,7 @@ export class Slider extends ControlElement {
    * @returns Track template
    */
   private renderThumb (value: number, percentageValue: number, name: string): TemplateResult {
-    const thumbStyle: StyleInfo = { left: `${percentageValue}%` };
+    const thumbStyle = { left: `${percentageValue}%` };
     return html`
     <div part="thumb-container" name=${name} id="thumbContainer" style=${styleMap(thumbStyle)}>
       <div part="pin">

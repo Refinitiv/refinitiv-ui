@@ -13,7 +13,7 @@ import {
   WarningNotice,
   FocusedPropertyKey,
   eventOptions,
-  StyleInfo
+  StyleMap
 } from '@refinitiv-ui/core';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import { AnimationTaskRunner, CollectionComposer, DataItem, TimeoutTaskRunner } from '@refinitiv-ui/utils';
@@ -372,7 +372,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Hold popup styling applied on open
    */
-  protected popupDynamicStyles: StyleInfo = {};
+  protected popupDynamicStyles: StyleMap = {};
 
   /**
    * Internal reference to text-field element

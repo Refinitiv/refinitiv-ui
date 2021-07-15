@@ -4,18 +4,12 @@ import { FocusRegistry } from '../registries/FocusRegistry';
 import { ShadyCSS } from '../utils/shadyStyles';
 import { FocusableHelper } from '../utils/focusableHelper';
 import { StyleInfo } from '../interfaces/StyleInfo';
-
-type CSSValue = string|number;
-type CSSProps = {
-  key: string;
-  value: CSSValue;
-}
+import { CSSValue } from '../types/base';
 
 const CSS_VARIABLE_REGEXP = /^--\w/;
 const CSS_VARIABLE_REPLACE_REGEXP = /['"]([^'"]+?)['"]/g;
 const NOTIFY_REGEXP = /([a-zA-Z])(?=[A-Z])/g;
 
-const isNullOrUndefined = (v: unknown): boolean => v === undefined || v === null;
 const toChangedEvent = (name: string): string => `${name.replace(NOTIFY_REGEXP, '$1-').toLowerCase()}-changed`;
 
 /**
@@ -104,7 +98,8 @@ export abstract class BasicElement extends LitElement {
    * this.getComputedVariable('--invalid-name', '10px'); // return fallback value 10px
    */
   protected getComputedVariable (...options: (CSSValue)[]): string {
-    const option = options.length ? String(options.shift()) : '';
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const option = options.length ? options.shift()! : '';
     if (CSS_VARIABLE_REGEXP.test(option)) {
       const val = getComputedStyleValue(this, option)
       .trim().replace(CSS_VARIABLE_REPLACE_REGEXP, '$1');
@@ -119,28 +114,28 @@ export abstract class BasicElement extends LitElement {
    * @param value css variable value
    * @returns {void}
    */
-  protected updateVariable (key: string, value: CSSValue|null|undefined): void {
+  protected updateVariable (key: string, value: CSSValue | null | undefined): void {
     if (CSS_VARIABLE_REGEXP.test(key)) {
       if (ShadyCSS) {
-        ShadyCSS.styleSubtree(this, { [key]: value as string });
+        ShadyCSS.styleSubtree(this, { [key]: value });
       }
-      else if (isNullOrUndefined(value)) {
+      else if (value === null || value === undefined) {
         this.style.removeProperty(key);
       }
       else {
-        this.style.setProperty(key, String(value));
+        this.style.setProperty(key, value);
       }
     }
   }
 
   /**
    * Update styles when using ShadyCSS scoping and custom property shim
-   * @param {CSSProps} props properties for apply to the document
+   * @param props properties for apply to the document
    * @returns {void}
    */
-  protected updateStyles (props?: CSSProps): void {
+  protected updateStyles (props?: StyleInfo): void {
     if (ShadyCSS) {
-      ShadyCSS.styleDocument(props as StyleInfo);
+      ShadyCSS.styleDocument(props);
     }
   }
 
@@ -164,11 +159,7 @@ export abstract class BasicElement extends LitElement {
 
     this.dispatchEvent(event);
 
-    if (event.defaultPrevented) {
-      return false;
-    }
-
-    return true;
+    return !event.defaultPrevented;
   }
 
   /**
