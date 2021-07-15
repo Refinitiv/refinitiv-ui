@@ -43,7 +43,7 @@
     disabled=""
     tabindex="-1"
   >
-    No Options
+    No results found.
   </ef-item>
 </ef-overlay>
 

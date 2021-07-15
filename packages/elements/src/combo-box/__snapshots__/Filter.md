@@ -29,6 +29,7 @@
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
+  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
