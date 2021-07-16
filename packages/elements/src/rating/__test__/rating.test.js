@@ -4,7 +4,7 @@ import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 import '@refinitiv-ui/elements/rating';
 import '@refinitiv-ui/elemental-theme/light/ef-rating.js';
 
-describe('Rating', () => {
+describe('rating/Rating', () => {
 
   let el;
   beforeEach(async () => {

@@ -19,6 +19,7 @@ import '../text-field';
 import { Button } from '../button';
 import { TextField } from '../text-field';
 import { PageInfo } from './helpers/types';
+import { VERSION } from '../';
 
 /**
  * Used to control and navigate through multiple pages
@@ -28,6 +29,15 @@ import { PageInfo } from './helpers/types';
   alias: 'emerald-pagination'
 })
 export class Pagination extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

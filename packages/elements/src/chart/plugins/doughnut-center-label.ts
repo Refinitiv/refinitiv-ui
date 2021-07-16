@@ -26,7 +26,7 @@ interface CenterLabelConfig {
 
 const CHART = window.Chart as unknown as ChartJS;
 const getPluginConfig = (chart: DoughnutChart): CenterLabelConfig => {
-  return chart.config.options?.plugins?.centerLabel;
+  return chart.config.options?.plugins?.centerLabel as CenterLabelConfig;
 };
 
 /**
@@ -43,14 +43,14 @@ const drawItemBorder = function (chart: DoughnutChart, active: MetaData[]): void
 
   if (active?.length) {
     const ctx = chart.ctx;
-    const chartItem = active[0];
+    const chartItem = active[0] as unknown as MetaData;
     const vm = chartItem._view;
     const datasets = chart.data.datasets[chartItem._datasetIndex];
 
-    vm.backgroundColor = (datasets.backgroundColor as Chart.ChartColor[])[chartItem._index];
+    vm.backgroundColor = (datasets.backgroundColor as Chart.ChartColor[])[chartItem._index] as string;
     vm.backgroundColor = CHART.helpers.getHoverColor(vm.backgroundColor); // we need to make color bolder
-    vm.borderWidth = datasets.borderWidth || chart.config.options?.elements?.arc?.borderWidth;
-    vm.borderColor = getComputedStyle(chart.canvas as HTMLCanvasElement).getPropertyValue('--doughnut-border-color') || CHART.defaults.global.defaultFontColor;
+    vm.borderWidth = (datasets.borderWidth || chart.config.options?.elements?.arc?.borderWidth) as number;
+    vm.borderColor = (getComputedStyle(chart.canvas as HTMLCanvasElement).getPropertyValue('--doughnut-border-color') || CHART.defaults.global.defaultFontColor) as string;
 
     const sA = vm.startAngle;
     const eA = vm.endAngle;
@@ -58,8 +58,8 @@ const drawItemBorder = function (chart: DoughnutChart, active: MetaData[]): void
     if (ctx) {
       ctx.beginPath();
 
-      ctx.arc(vm.x, vm.y, vm.outerRadius, sA, eA);
-      ctx.arc(vm.x, vm.y, vm.innerRadius, eA, sA, true);
+      ctx.arc(vm.x, vm.y, vm.outerRadius as number, sA as number, eA as number);
+      ctx.arc(vm.x, vm.y, vm.innerRadius as number, eA as number, sA as number, true);
 
       ctx.closePath();
 
@@ -185,10 +185,10 @@ const plugins: Chart.PluginServiceRegistrationOptions = {
     for (let i = 0; i < texts.length; i++) {
       let targetFont;
       if (texts[i].bold) {
-        targetFont = 'bold ' + fontSizeToUse * fontSizeHeaderRatio + 'px ' + defaultFontStyle;
+        targetFont = `bold ${fontSizeToUse * fontSizeHeaderRatio}px ${defaultFontStyle || ''}`;
       }
       else {
-        targetFont = fontSizeToUse + 'px ' + defaultFontStyle;
+        targetFont = `${fontSizeToUse}px ${defaultFontStyle || ''}`;
       }
 
       ctx.font = targetFont;

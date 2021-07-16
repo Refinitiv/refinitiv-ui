@@ -9,6 +9,7 @@ import {
   TemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 import { IconLoader } from './utils/IconLoader';
 export { preload } from './utils/IconLoader';
 
@@ -18,6 +19,15 @@ const EmptyTemplate = svg``;
   alias: 'coral-icon'
 })
 export class Icon extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -28,6 +38,7 @@ export class Icon extends BasicElement {
     return css`
       :host {
         display: inline-block;
+        line-height: 1;
         width: 1em;
         height: 1em;
       }

@@ -8,6 +8,7 @@ import {
   CSSResult,
   PropertyValues
 } from '@refinitiv-ui/core';
+import { VERSION } from '../../';
 
 import '../../icon';
 
@@ -22,6 +23,15 @@ import '../../icon';
   alias: 'amber-notification'
 })
 export class Notification extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * The message to show in the notification.
    */
@@ -52,9 +62,14 @@ export class Notification extends BasicElement {
   @property({ type: Boolean, reflect: true })
   public collapsed = false;
 
-  public constructor () {
-    super();
-    this.addEventListener('animationend', () => this.onAnimationEnd());
+  /**
+   * On first updated lifecycle
+   * @param changedProperties changed property
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    this.addEventListener('animationend', this.onAnimationEnd);
   }
 
   protected update (changedProperties: PropertyValues): void {

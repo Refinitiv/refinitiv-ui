@@ -8,6 +8,7 @@ import {
   CSSResult,
   PropertyValues
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 
 import '../canvas';
 
@@ -28,6 +29,14 @@ const SECTION_DIVIDER = 5; // To separate led-gauge to 5 sections
   alias: 'sapphire-led-gauge'
 })
 export class LedGauge extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
 
   private _zero: string;
 

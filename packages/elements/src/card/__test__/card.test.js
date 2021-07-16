@@ -6,7 +6,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-card';
 
 const menuData = [{ label: 'Spain', value: 'Spain'  }, { label: 'France',value: 'France', disabled: true }, { label: 'Italy', value: 'Italy' }];
 
-describe('Card', () => {
+describe('card/Card', () => {
   describe('DOM structure', () => {
     let el;
     beforeEach(async () => {

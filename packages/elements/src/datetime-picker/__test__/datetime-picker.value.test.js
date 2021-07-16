@@ -5,7 +5,7 @@ import { typeText } from './utils';
 import '@refinitiv-ui/elements/datetime-picker';
 import '@refinitiv-ui/elemental-theme/light/ef-datetime-picker';
 
-describe('DatetimePicker', () => {
+describe('datetime-picker/Value', () => {
   describe('Value Test', () => {
     it('Changing the value should fire value-changed event', async () => {
       const el = await fixture('<ef-datetime-picker opened></ef-datetime-picker>');

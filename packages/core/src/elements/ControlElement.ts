@@ -44,7 +44,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
     }
     if (oldValue !== value) {
       this._value = value;
-      this.requestUpdate('value', oldValue);
+      void this.requestUpdate('value', oldValue);
     }
   }
 
@@ -163,7 +163,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
       return '';
     }
 
-    return `${value}`;
+    return String(value);
   }
 
   /**

@@ -7,6 +7,7 @@ import {
   CSSResult,
   ControlElement
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 
 import '../icon';
 import '../label';
@@ -19,11 +20,22 @@ const isAllWhitespaceTextNode = (node: Node): boolean =>
  * A building block for individual tab
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
+ *
+ * @fires clear - Dispatched when click on cross button occurs
  */
 @customElement('ef-tab', {
   alias: 'coral-tab'
 })
 export class Tab extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Specify icon name to display in tab
    */
@@ -119,16 +131,9 @@ export class Tab extends ControlElement {
   private handleClickClear (event: MouseEvent): void {
     event.stopPropagation();
     /**
-     * Fires when click on cross occurs. `detail.label` provides label of tab if defined. `detail.active` provides current active state.
-     * @param detail.label - label stored on the tab
-     * @param detail.active - current active state, always present
+     * Fires when click on cross occurs
      */
-    this.dispatchEvent(new CustomEvent('clear', {
-      detail: {
-        label: this.label,
-        active: this.active
-      }
-    }));
+    this.dispatchEvent(new CustomEvent('clear'));
   }
 
   /**

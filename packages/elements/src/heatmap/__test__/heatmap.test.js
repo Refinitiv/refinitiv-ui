@@ -18,7 +18,7 @@ const CONFIG = {
   }
 };
 
-describe('Heatmap', () => {
+describe('heatmap/Heatmap', () => {
   describe('DOM Structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-heatmap></ef-heatmap>');

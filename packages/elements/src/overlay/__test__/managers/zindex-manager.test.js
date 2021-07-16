@@ -23,7 +23,7 @@ const createFixture = async (zIndex) => {
     fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
 };
 
-describe('Overlay', () => {
+describe('overlay/manager/ZIndexManager', () => {
   describe('ZIndex Manager', () => {
     let manager = {};
 

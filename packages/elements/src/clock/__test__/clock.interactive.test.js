@@ -3,7 +3,7 @@ import { fixture, expect, elementUpdated, oneEvent, keyboardEvent } from '@refin
 import '@refinitiv-ui/elements/clock';
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
 
-describe('Clock', () => {
+describe('clock/Interactive', () => {
   describe('Interactive', () => {
     let el;
     let hoursSegment;

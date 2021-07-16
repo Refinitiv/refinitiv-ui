@@ -15,11 +15,20 @@ import { color } from '@refinitiv-ui/utils';
 import '@refinitiv-ui/browser-sparkline';
 import type { BrowserSparklineChart } from '@refinitiv-ui/browser-sparkline';
 import type { StaticDataConfig, ThemeConfig } from '@refinitiv-ui/browser-sparkline/lib/browserSparklineCanvas';
+import { VERSION } from '../';
 
 @customElement('ef-sparkline', {
   alias: 'sapphire-sparkline'
 })
 export class Sparkline extends ResponsiveElement {
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Chart data as an array of number.
    */

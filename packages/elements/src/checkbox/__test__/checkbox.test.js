@@ -6,7 +6,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-checkbox';
 const createEnterKeyboardEvent = () => keyboardEvent('keydown', { key: 'Enter' });
 const createSpacebarKeyboardEvent = () => keyboardEvent('keydown', { key: isIE() ? 'Spacebar' : ' ' });
 
-describe('Checkbox', () => {
+describe('checkbox/Checkbox', () => {
   let el;
   const label = 'Call me label';
 

@@ -59,18 +59,18 @@ export class EventEmitter<T = DefaultDataMap> {
   /**
    * Collection of subscribed event handlers.
    */
-  private events = new Map<keyof T, Function[]>();
+  private events = new Map<keyof T, CallableFunction[]>();
 
   /**
    * Gets the event listeners for a specific event name.
    * @param name Name of the event
    * @returns Collection of active listeners
    */
-  private getEventListeners<K extends keyof T> (name: K): Function[] {
+  private getEventListeners<K extends keyof T> (name: K): CallableFunction[] {
     if (!this.events.has(name)) {
       this.events.set(name, []);
     }
-    return this.events.get(name) as Function[];
+    return this.events.get(name) as CallableFunction[];
   }
 
   /**

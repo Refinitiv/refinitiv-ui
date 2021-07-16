@@ -27,7 +27,7 @@ const createEnterEvent = () => {
   return event;
 };
 
-describe('MultiInput', () => {
+describe('multi-input/MultiInput', () => {
   let data;
   beforeEach(() => {
     data = getData();

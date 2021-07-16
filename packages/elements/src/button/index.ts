@@ -9,6 +9,7 @@ import {
   TemplateResult,
   query
 } from '@refinitiv-ui/core';
+import { VERSION } from '..';
 
 import '../icon';
 import { registerOverflowTooltip } from '../tooltip';
@@ -18,11 +19,20 @@ import { registerOverflowTooltip } from '../tooltip';
  * and more with support for different states and styles.
  * @attr {boolean} disabled - Set state to disabled
  * @prop {boolean} [disabled=false] - Set state to disabled
+ * @fires active-changed - Dispatched on changing `active` property state by taping on button when property `toggles` is true.
  */
 @customElement('ef-button', {
   alias: 'coral-button'
 })
 export class Button extends ControlElement {
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -144,18 +154,15 @@ export class Button extends ControlElement {
    * Handle active property, when toggles is true
    * @returns {void}
    */
-  private toggleActive = (): void => {
+  private toggleActive (): void {
     if (this.toggles) {
       this.active = !this.active;
       /**
        * Fired on changing `active` property state by taping on button when property `toggles` is true.
-       * Provides new state of `active` property in detail.value field
        */
-      this.dispatchEvent(new CustomEvent('active-changed', {
-        detail: { value: this.active }
-      }));
+      this.notifyPropertyChange('active', this.active);
     }
-  };
+  }
 
   /**
    * Set pressed attribute

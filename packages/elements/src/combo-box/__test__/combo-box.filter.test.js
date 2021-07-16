@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
 import { getData, snapshotIgnore } from './utils';
 
 import '@refinitiv-ui/elements/combo-box';
@@ -13,12 +13,13 @@ const setInputEl = async (el, textInput) => {
   await elementUpdated(el);
 };
 
-describe('ComboBox', () => {
+describe('combo-box/Filter', () => {
   describe('Can Filter Data', () => {
     it('Default filter filters data', async () => {
       const el = await fixture('<ef-combo-box opened></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
+      await nextFrame(); // needs for IE11
       let textInput = 'Al';
       await setInputEl(el, textInput);
       expect(el.query).to.equal(textInput, 'Query should be the same as input text: "Al"');

@@ -14,7 +14,7 @@ import { changeItemSelection, openedUpdated } from './utils';
 *
 */
 
-describe('TreeSelect', () => {
+describe('tree-select/Filter', () => {
   describe('Filter Test', () => {
 
     it('No filter applied', async () => {

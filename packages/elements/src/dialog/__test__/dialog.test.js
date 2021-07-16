@@ -5,7 +5,7 @@ import { MAIN_MOUSE_BUTTON } from '../../../lib/dialog/draggable-element.js';
 import '@refinitiv-ui/elemental-theme/light/ef-dialog';
 import '@refinitiv-ui/elements/overlay';
 
-describe('Dialog', () => {
+describe('dialog/Dialog', () => {
 
   it('Should renders DOM structure correctly', async () => {
     const el = await fixture('<ef-dialog></ef-dialog>');

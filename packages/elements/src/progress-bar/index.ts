@@ -7,9 +7,9 @@ import {
   CSSResult,
   TemplateResult,
   BasicElement,
-  DeprecationNotice,
   PropertyValues
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 
 /**
  * Data visualisation component,
@@ -20,6 +20,14 @@ import {
   alias: 'sapphire-bar'
 })
 export class ProgressBar extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
 
   private valuePrevious = '';
 
@@ -87,14 +95,6 @@ export class ProgressBar extends BasicElement {
   public label = '';
 
   /**
-   * Deprecation noticed, used to display a warning message
-   * when deprecated features are used.
-   */
-  private deprecationNotice = new DeprecationNotice(
-    '--bar-color variable has been deprecated in favour of using the standard color property.'
-  );
-
-  /**
    * Converts value from string to number for calculations
    * @returns value of bar as a number
    */
@@ -107,17 +107,6 @@ export class ProgressBar extends BasicElement {
     }
 
     return value;
-  }
-
-  /**
-   * Checks to see if any deprecated features are being used
-   * and warns against them, providing an updated approach.
-   * @returns {void}
-   */
-  private checkAndWarnAboutDeprecations (): void {
-    if (!this.deprecationNotice.shown && this.getComputedVariable('--bar-color')) {
-      this.deprecationNotice.show();
-    }
   }
 
   /**
@@ -151,7 +140,6 @@ export class ProgressBar extends BasicElement {
    * @returns {void}
    */
   protected updated (changedProperties: PropertyValues): void {
-    this.checkAndWarnAboutDeprecations();
     changedProperties.forEach((oldValue, propName) => {
       if (propName === 'value') {
         this.valuePrevious = oldValue as string;

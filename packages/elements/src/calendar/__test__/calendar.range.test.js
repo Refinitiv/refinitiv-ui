@@ -18,7 +18,7 @@ const listenValueChangeEvent = (el) => {
   return values;
 };
 
-describe('Calendar', () => {
+describe('calendar/Range', () => {
   describe('Range', () => {
     it('Range: selected values should be highlighted', async () => {
       const el = await fixture('<ef-calendar range view="2005-04" values="2005-04-01,2005-04-01" lang="en-GB"></ef-calendar>');

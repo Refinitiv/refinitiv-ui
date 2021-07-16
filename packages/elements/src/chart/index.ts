@@ -17,17 +17,28 @@ import '../header';
 import '../layout';
 
 import {
+  legendHelper,
+  merge,
+  MergeObject
+} from './helpers';
+import type {
   ChartJS,
   ChartConfig,
   ChartUpdateProps,
   ChartDataSetsColor,
-  MergeObject,
   DatasetColors
 } from './helpers/types';
-import { helpers as legendHelper } from './helpers/legend';
 
 // Register plugins
 import doughnutCenterPlugin from './plugins/doughnut-center-label';
+import { VERSION } from '../';
+
+declare global {
+  interface Window {
+    Chart: ChartJS;
+  }
+}
+
 window.Chart.pluginService.register(doughnutCenterPlugin);
 
 const CSS_COLOR_PREFIX = '--chart-color-';
@@ -50,17 +61,27 @@ const ELF_CHART_CONFIG = {
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 window.Chart.helpers.merge(DEFAULT_CHART_CONFIG, ELF_CHART_CONFIG);
 
-export type { ChartConfig };
+export type { ChartConfig, ChartUpdateProps };
 
 /**
- * Charting component that use chartjs library
+ * Charting component that use ChartJS library
  */
 @customElement('ef-chart', {
   alias: 'sapphire-chart'
 })
 export class Chart extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Chart.js object
    */
@@ -88,7 +109,7 @@ export class Chart extends BasicElement {
 
   /**
    * Required properties, needed for chart to work correctly.
-   * @returns {ChartConfig} config
+   * @returns config
    */
   protected get requiredConfig (): ChartConfig {
     return {
@@ -104,7 +125,7 @@ export class Chart extends BasicElement {
 
   /**
    * Safely returns the chart title
-   * @returns {string} chart title
+   * @returns chart title
    */
   protected get chartTitle (): string {
     const title = this.config?.options?.title?.text;
@@ -118,14 +139,14 @@ export class Chart extends BasicElement {
 
   /**
    * Safely returns a dataset array
-   * @returns {Chart.ChartDataSets[]} dataset array
+   * @returns dataset array
    */
   protected get datasets (): Chart.ChartDataSets[] {
     return this.config?.data?.datasets || [];
   }
 
   /**
-   * List of avalaible chart colors
+   * List of available chart colors
    * @type {string[]}
    * @returns {string[]} List of available chart colors
    */
@@ -133,7 +154,7 @@ export class Chart extends BasicElement {
     let color;
     let index = 0;
     const colors = [];
-    while ((color = this.getComputedVariable(CSS_COLOR_PREFIX + (index += 1)))) {
+    while ((color = this.getComputedVariable(`${CSS_COLOR_PREFIX}${++index}`))) {
       colors.push(color);
     }
     return colors;
@@ -155,7 +176,7 @@ export class Chart extends BasicElement {
    * Element connected
    * @returns {void}
    */
-  connectedCallback (): void {
+  public connectedCallback (): void {
     super.connectedCallback();
     if(this.canvas) {
       this.createChart();
@@ -166,7 +187,7 @@ export class Chart extends BasicElement {
    * Element disconnected
    * @returns {void}
    */
-  disconnectedCallback (): void {
+  public disconnectedCallback (): void {
     super.disconnectedCallback();
     this.destroyChart();
   }
@@ -242,7 +263,7 @@ export class Chart extends BasicElement {
    * Get as CSS variable and tries to convert it into a usable number
    * @returns {(number|undefined)} The value as a number, or, undefined if NaN.
    */
-  protected cssVarAsNumber (...args: string[] | number[]): number | undefined {
+  protected cssVarAsNumber (...args: string[]): number | undefined {
     const result = Number(this.getComputedVariable(...args).replace(/\D+$/, ''));
     return isNaN(result) ? undefined : result;
   }
@@ -257,15 +278,20 @@ export class Chart extends BasicElement {
       return [];
     }
 
+    const chartOption = DEFAULT_CHART_CONFIG[this.config.type] as Chart.ChartOptions;
+
     if (
       this.datasets.length
-      && DEFAULT_CHART_CONFIG[this.config.type].legend
+      && chartOption.legend
       && Array.isArray(this.datasets[0].backgroundColor)
     ) {
 
-      const legends = DEFAULT_CHART_CONFIG[this.config.type].legend.labels.generateLabels(chart);
+      let legends: Chart.ChartLegendLabelItem[] = [];
+      if (chartOption.legend.labels?.generateLabels) {
+        legends = chartOption.legend.labels?.generateLabels(chart);
+      }
 
-      // Customize for doughnut chart change border color to backgroud color
+      // Customize for doughnut chart change border color to background color
       if (['pie', 'doughnut'].includes(this.config?.type) && this.datasets.length > 1) {
         legends.forEach((label: Chart.ChartLegendLabelItem)=> {
           label.strokeStyle = label.fillStyle;
@@ -306,33 +332,8 @@ export class Chart extends BasicElement {
       return;
     }
 
-    this.mergeObjects(this.config, this.themableConfig);
-    this.mergeObjects(this.config, this.requiredConfig, true);
-  }
-
-  /**
-   * Merges properties of one object into another.
-   * @param {MergeObject} a Object to merge into
-   * @param {MergeObject} b Object to merge from
-   * @param {boolean} force Force apply the change
-   * @param {object[]} record Record of objects, to check for circular references
-   * @returns {void}
-   */
-  protected mergeObjects (a: MergeObject, b: MergeObject, force = false, record: object[] = []): void {
-    let value;
-    let isObject;
-
-    Object.keys(b).forEach(key => {
-      value = b[key];
-      isObject = value && value.toString() === '[object Object]';
-      if (!(key in a) || (force && !isObject)) {
-        a[key] = b[key];
-      }
-      if (isObject && !record.includes(value)) {
-        record.push(b[key]);
-        this.mergeObjects(a[key], b[key], force, record);
-      }
-    });
+    merge(this.config as MergeObject, this.themableConfig as MergeObject);
+    merge(this.config as MergeObject, this.requiredConfig as MergeObject, true);
   }
 
   /**
@@ -344,7 +345,7 @@ export class Chart extends BasicElement {
 
     const extendColorsIfRequired = (currentColors: ChartDataSetsColor, infoColors: ChartDataSetsColor): void => {
       if (Array.isArray(currentColors) && Array.isArray(infoColors) && currentColors.length < infoColors.length) {
-        this.mergeObjects(currentColors, infoColors);
+        merge(currentColors, infoColors);
       }
     };
 

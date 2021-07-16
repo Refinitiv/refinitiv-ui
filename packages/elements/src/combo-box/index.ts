@@ -12,12 +12,13 @@ import {
   TemplateResult,
   WarningNotice,
   FocusedPropertyKey,
-  eventOptions
+  eventOptions,
+  StyleMap
 } from '@refinitiv-ui/core';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import { AnimationTaskRunner, CollectionComposer, DataItem, TimeoutTaskRunner } from '@refinitiv-ui/utils';
 import '@refinitiv-ui/phrasebook/lib/locale/en/combo-box';
-
+import { ValueChangedEvent } from '../events';
 import '../icon';
 import '../overlay';
 import '../list';
@@ -30,6 +31,7 @@ import { TextField } from '../text-field';
 import { defaultFilter } from './helpers/filter';
 import { ComboBoxData, ComboBoxFilter } from './helpers/types';
 import { CustomKeyboardEvent } from './helpers/keyboard-event';
+import { VERSION } from '../';
 
 export { ComboBoxRenderer, ComboBoxFilter, ComboBoxData };
 
@@ -46,13 +48,6 @@ const POPUP_POSITION = ['bottom-start', 'top-start'];
 
 const valueFormatWarning = new WarningNotice('The specified \'values\' format does not conform to the required format.');
 const freeTextMultipleWarning = new WarningNotice('"free-text" mode is not compatible with "multiple" mode');
-
-/**
- * Style required by popup
- */
-type StyleInfo = {
-  [name: string]: string;
-}
 
 /**
  * Combines a popup with a filterable selection list
@@ -74,6 +69,15 @@ type StyleInfo = {
   alias: 'coral-combo-box'
 })
 export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -368,7 +372,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Hold popup styling applied on open
    */
-  protected popupDynamicStyles: StyleInfo = {};
+  protected popupDynamicStyles: StyleMap = {};
 
   /**
    * Internal reference to text-field element
@@ -612,8 +616,8 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.addEventListener('keydown', event => this.onKeyDown(event));
-    this.addEventListener('tapstart', event => this.onTapStart(event as TapEvent));
+    this.addEventListener('keydown', this.onKeyDown);
+    this.addEventListener('tapstart', this.onTapStart);
   }
 
   /**
@@ -888,7 +892,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    * @param event Custom Event fired from text-field
    * @returns {void}
    */
-  protected onInputValueChanged (event: CustomEvent<HTMLInputElement>): void {
+  protected onInputValueChanged (event: ValueChangedEvent): void {
     const inputText = event.detail.value;
     /**
      * Query is used to track if there is a query

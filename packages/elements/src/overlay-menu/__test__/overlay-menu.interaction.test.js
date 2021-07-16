@@ -6,7 +6,7 @@ import { nestedMarkup } from './markup';
 import { getMenuTriggers, openedUpdated, triggerKeyEvent, triggerMouseMove } from './utils';
 import { nestedData } from './data';
 
-describe('OverlayMenu', () => {
+describe('overlay-menu/Interaction', () => {
   describe('Interaction Test', () => {
     it('Opens nested menu', async () => {
       const el = await fixture(nestedMarkup);

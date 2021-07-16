@@ -8,7 +8,7 @@ import '@refinitiv-ui/elements/text-field';
 
 import { createFixture, createInputElement } from './helpers/helpers';
 
-describe('Autosuggest', () => {
+describe('autosuggest/Autosuggest', () => {
 
   it('DOM structure is correct', async () => {
     await createInputElement();

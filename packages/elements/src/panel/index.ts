@@ -7,6 +7,7 @@ import {
   css,
   TemplateResult
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 
 /**
  * A container for components.
@@ -16,6 +17,15 @@ import {
   alias: 'coral-panel'
 })
 export class Panel extends BasicElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

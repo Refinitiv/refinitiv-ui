@@ -10,6 +10,7 @@ import {
   query,
   TapEvent
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 import {
   registerOverflowTooltip
 } from '../tooltip';
@@ -40,6 +41,14 @@ import {
   alias: 'coral-radio-button'
 })
 export class RadioButton extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
 
   /**
    * A `CSSResult` that will be used
@@ -128,8 +137,8 @@ export class RadioButton extends ControlElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.addEventListener('tap', event => this.onTap(event as TapEvent));
-    this.addEventListener('keydown', event => this.onKeyDown(event));
+    this.addEventListener('tap', this.onTap);
+    this.addEventListener('keydown', this.onKeyDown);
 
     registerOverflowTooltip(this.labelEl, () => this.textContent);
   }

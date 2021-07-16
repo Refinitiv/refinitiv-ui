@@ -32,10 +32,10 @@ type RowLegend = NodeListOf<Element> | HTMLElement | null;
 
 type ColorToStringFunction = (param: string, ...arg: (string|number|undefined)[]) => RGBColor | HSLColor | null;
 
-type MergeObject = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any; // Allow any type of value
-};
+enum LegendStyle {
+  vertical='vertical',
+  horizontal='horizontal'
+}
 
 interface Time {
   day: number;
@@ -82,5 +82,5 @@ export {
   SeriesDataItem,
   SeriesStyleOptions,
   ColorToStringFunction,
-  MergeObject
+  LegendStyle
 };

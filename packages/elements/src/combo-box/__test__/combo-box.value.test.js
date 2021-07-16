@@ -4,7 +4,7 @@ import { getData, openedUpdated, snapshotIgnore } from './utils';
 import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 
-describe('ComboBox', () => {
+describe('combo-box/Value', () => {
   describe('Selection by Value Attribute', () => {
     it('Data Selected: Afghanistan', async () => {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');

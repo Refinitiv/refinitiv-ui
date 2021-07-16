@@ -4,7 +4,7 @@ import { getData, getOptions, openedUpdated, snapshotIgnore } from './utils';
 import '@refinitiv-ui/elements/select';
 import '@refinitiv-ui/elemental-theme/light/ef-select';
 
-describe('Select', () => {
+describe('select/Template', () => {
   describe('Template Parts', () => {
     it('Empty DOM has all required parts', async () => {
       const el = await fixture('<ef-select></ef-select>');

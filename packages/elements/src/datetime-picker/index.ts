@@ -13,6 +13,7 @@ import {
   TapEvent,
   WarningNotice
 } from '@refinitiv-ui/core';
+import { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent } from '../events';
 import '../calendar';
 import '../icon';
 import '../overlay';
@@ -64,6 +65,7 @@ import { preload } from '../icon';
 import { TimePicker } from '../time-picker';
 import { TextField } from '../text-field';
 import { Overlay } from '../overlay';
+import { VERSION } from '../';
 
 preload('calendar', 'down', 'left', 'right'); /* preload calendar icons for faster loading */
 
@@ -105,6 +107,15 @@ const INPUT_FORMAT = {
   alias: 'emerald-datetime-picker'
 })
 export class DatetimePicker extends ControlElement implements MultiValue {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -511,8 +522,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.addEventListener('keydown', event => this.onKeyDown(event));
-    this.addEventListener('tap', event => this.onTap(event as TapEvent));
+    this.addEventListener('keydown', this.onKeyDown);
+    this.addEventListener('tap', this.onTap);
   }
 
   /**
@@ -879,7 +890,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event opened-change event
    * @returns {void}
    */
-  private onPopupOpenedChanged (event: CustomEvent): void {
+  private onPopupOpenedChanged (event: OpenedChangedEvent): void {
     event.preventDefault(); /* re-target opened changed event */
     this.setOpened(event.detail.value);
   }
@@ -889,7 +900,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event view-changed event
    * @returns {void}
    */
-  private onCalendarViewChanged (event: CustomEvent): void {
+  private onCalendarViewChanged (event: ViewChangedEvent): void {
     const index = event.target === this.calendarToEl ? 1 : 0; /* 0 - from, single; 1 - to */
     const view = event.detail.value;
     this.notifyViewsChange(this.composeViews(view, index));
@@ -900,7 +911,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event value-changed event
    * @returns {void}
    */
-  private onCalendarValueChanged (event: CustomEvent): void {
+  private onCalendarValueChanged (event: ValueChangedEvent): void {
     const values = (event.target as Calendar).values;
     this.interimSegments = values.map((value, index) => {
       const segment = this.interimSegments[index] || new DateTimeSegment();
@@ -934,7 +945,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event value-changed event
    * @returns {void}
    */
-  private onTimePickerValueChanged (event: CustomEvent): void {
+  private onTimePickerValueChanged (event: ValueChangedEvent): void {
     const target = event.target as TimePicker;
     const index = target === this.timepickerToEl ? 1 : 0; /* 0 - from, single; 1 - to */
     const segment = this.interimSegments[index] || new DateTimeSegment();
@@ -981,7 +992,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event value-changed event
    * @returns {void}
    */
-  private onInputValueChanged (event: CustomEvent): void {
+  private onInputValueChanged (event: ValueChangedEvent): void {
     const target = event.target as TextField;
     const index = target === this.inputToEl ? 1 : 0; /* 0 - from, single; 1 - to */
     const inputValue = target.value;

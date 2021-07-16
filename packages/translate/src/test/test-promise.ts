@@ -45,7 +45,7 @@ export class TestPromise extends BasicElement {
 
   protected async performUpdate (): Promise<void> {
     this.promiseResult = await this.t('DEFAULT');
-    super.performUpdate();
+    void super.performUpdate();
   }
 
   /**

@@ -8,8 +8,10 @@ import {
   PropertyValues,
   property,
   styleMap,
-  query
+  query,
+  StyleMap
 } from '@refinitiv-ui/core';
+import { VERSION } from '../';
 import '../number-field';
 import { NumberField } from '../number-field';
 
@@ -31,6 +33,7 @@ enum NumberFieldNameType {
   fromInput = 'fromInput',
   toInput = 'toInput',
 }
+
 /**
   * Set prevent default action and stop bubbles event
   * @private
@@ -75,6 +78,15 @@ const clamp = function (value: number, min: number, max: number): string {
   alias: 'coral-slider'
 })
 export class Slider extends ControlElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   private activeThumb!: HTMLElement;
   private dragging = false;
   private stepUse = 1;
@@ -290,7 +302,7 @@ export class Slider extends ControlElement {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     // initialize slider
-    this.updateComplete.then(() => {
+    void this.updateComplete.then(() => {
       this.initializeProperty();
       this.initSlider();
       this.updateEventListeners();
@@ -1069,12 +1081,12 @@ export class Slider extends ControlElement {
   private renderTrackWrapper (range: boolean): TemplateResult {
     const stepContainerSize: number = this.calculatePercentage(this.minNumber + this.stepNumber);
     const translateX = (stepContainerSize / 2);
-    const stepsStyle: {} = { transform: 'translateX(' + translateX + '%)', backgroundSize: stepContainerSize + '% 100%' };
-    const stepContainerStyle: {} = { transform: 'translateX(-' + translateX + '%)' };
+    const stepsStyle = { transform: `translateX(${translateX}%)`, backgroundSize: `${stepContainerSize}% 100%` };
+    const stepContainerStyle = { transform: `translateX(-${translateX}%)` };
 
-    const trackFillStyle: {} = range
-      ? { width: this.calculatePercentage(this.toNumber) - this.calculatePercentage(this.fromNumber) + '%', left: this.calculatePercentage(this.fromNumber) + '%' }
-      : { width: this.calculatePercentage(Number(this.value)) + '%' };
+    const trackFillStyle: StyleMap = range
+      ? { width: `${this.calculatePercentage(this.toNumber) - this.calculatePercentage(this.fromNumber)}%`, left: `${this.calculatePercentage(this.fromNumber)}%` }
+      : { width: `${this.calculatePercentage(Number(this.value))}%` };
 
     return html`
     <div part="track-wrapper" id="trackWrapper">
@@ -1094,7 +1106,7 @@ export class Slider extends ControlElement {
    * @returns Track template
    */
   private renderThumb (value: number, percentageValue: number, name: string): TemplateResult {
-    const thumbStyle: {} = { left: percentageValue + '%' };
+    const thumbStyle = { left: `${percentageValue}%` };
     return html`
     <div part="thumb-container" name=${name} id="thumbContainer" style=${styleMap(thumbStyle)}>
       <div part="pin">

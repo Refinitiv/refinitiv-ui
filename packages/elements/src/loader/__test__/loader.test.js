@@ -28,7 +28,7 @@ const areDotsHaveEnoughSpaceInside = loader => {
   return allDotsWidth <= wrapperWidth && highestDot <= wrapperHeight;
 };
 
-describe('Loader', () => {
+describe('loader/Loader', () => {
   const defaultLoader = '<ef-loader></ef-loader>';
 
   it('Should have correct Shadow DOM structure', async () => {

@@ -1,11 +1,11 @@
 import {
   customElement,
   property,
-  DeprecationNotice,
   PropertyValues,
   TapEvent
 } from '@refinitiv-ui/core';
 import { CollectionComposer } from '@refinitiv-ui/utils';
+import { VERSION } from '../../';
 
 import { List } from '../../list';
 
@@ -15,17 +15,28 @@ import { TreeManager, TreeManagerMode } from '../managers/tree-manager';
 
 const EXPAND_TOGGLE_ATTR = 'expand-toggle';
 
-const selectAllDeprecation = new DeprecationNotice('selectAll is deprecated, use checkAll instead.');
-const deselectAllDeprecation = new DeprecationNotice('deselectAll is deprecated, use uncheckAll instead.');
-
 /**
  * Displays a tree structure
  * to be used for menus and group selections
  *
  * @fires value-changed - Fired when the users changed selection item.
+ * @fires expanded-changed - Fired when an item's expanded state has changed.
+ *
+ * @attr {boolean} [stateless=false] - Disable selections
+ * @prop {boolean} [stateless=false] - Disable selections
+ *
  */
 @customElement('ef-tree')
 export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * Tree manager used for manipulation
    */
@@ -79,33 +90,11 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   }
 
   /**
-   * Checks all editable items
-   * @returns {void}
-   * @deprecated
-   * @ignore
-   */
-  public selectAll (): void {
-    selectAllDeprecation.once();
-    this.checkAll();
-  }
-
-  /**
    * Unchecks all editable items
    * @returns {void}
    */
   public uncheckAll (): void {
     this.manager.uncheckAllItems();
-  }
-
-  /**
-   * Unchecks all editable items
-   * @returns {void}
-   * @deprecated
-   * @ignore
-   */
-  public deselectAll (): void {
-    deselectAllDeprecation.once();
-    this.uncheckAll();
   }
 
   /**
@@ -143,7 +132,6 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    */
   protected dispatchExpandedChangedEvent (item: T): void {
     /**
-    * @fires expanded-changed Fired when an item's expanded state has changed.
     * Property `detail.value` is the current expanded state.
     * Property `detail.item` is the original data item of which the property has been modified.
     */

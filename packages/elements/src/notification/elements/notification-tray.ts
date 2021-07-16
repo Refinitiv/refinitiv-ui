@@ -12,11 +12,21 @@ import { TimeoutTaskRunner } from '@refinitiv-ui/utils';
 
 import { Notification } from './notification';
 import { Task, TaskOptions } from '../helpers/types';
+import { VERSION } from '../../';
 
 @customElement('ef-notification-tray', {
   alias: 'amber-notification-tray'
 })
 export class NotificationTray extends ResponsiveElement {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   private queue: Array<Task> = [];
   private showing: Array<Task> = [];
   private resizeTask = new TimeoutTaskRunner();
@@ -34,11 +44,6 @@ export class NotificationTray extends ResponsiveElement {
    */
   @property({ type: String, reflect: true })
   public attach = '';
-
-  public constructor () {
-    super();
-    this.addEventListener('collapsed', (e: Event) => this.removeChild(e.target as Node), true);
-  }
 
   /**
    * Does the tray has room to show another notification?
@@ -63,6 +68,7 @@ export class NotificationTray extends ResponsiveElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
+    this.addEventListener('collapsed', (event) => this.removeChild(event.target as Node), true);
     this.max = parseInt(this.getComputedVariable('--max'), 10) || 1;
     this.defaultTimeout = parseInt(this.getComputedVariable('--default-timeout'), 10) || 10000;
   }

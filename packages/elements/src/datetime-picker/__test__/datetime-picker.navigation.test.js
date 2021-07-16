@@ -10,7 +10,7 @@ import { fireKeydownEvent } from './utils';
 import '@refinitiv-ui/elements/datetime-picker';
 import '@refinitiv-ui/elemental-theme/light/ef-datetime-picker';
 
-describe('DatetimePicker', () => {
+describe('datetime-picker/Navigation', () => {
   describe('Navigation', () => {
     it('Clicking on datetime picker icon should open/close calendar and fire opened-changed event', async () => {
       const el = await fixture('<ef-datetime-picker></ef-datetime-picker>');

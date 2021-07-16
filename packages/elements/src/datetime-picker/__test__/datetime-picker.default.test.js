@@ -12,7 +12,7 @@ const INPUT_FORMAT = {
   DATETIME_SECONDS_AM_PM: 'dd-MMM-yyyy hh:mm:ss aaa'
 };
 
-describe('DatetimePicker', () => {
+describe('datetime-picker/DatetimePicker', () => {
   describe('Defaults', () => {
     it('Check default properties', async () => {
       const el = await fixture('<ef-datetime-picker></ef-datetime-picker>');

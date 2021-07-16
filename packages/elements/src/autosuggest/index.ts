@@ -29,6 +29,7 @@ import {
 } from './helpers/types';
 import { escapeRegExp, itemHighlightable, itemRenderer, queryWordSelect } from './helpers/utils';
 import { isIE, isMobile } from './helpers/const';
+import { VERSION } from '../';
 
 export {
   AutosuggestTargetElement,
@@ -64,6 +65,15 @@ export { queryWordSelect, itemRenderer, escapeRegExp, itemHighlightable, updateE
   alias: 'emerald-autosuggest'
 })
 export class Autosuggest extends Overlay {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

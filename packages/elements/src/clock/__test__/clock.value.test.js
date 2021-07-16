@@ -7,7 +7,7 @@ import {
 import '@refinitiv-ui/elements/clock';
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
 
-describe('Clock', () => {
+describe('clock/Value', () => {
   let el;
   describe('Value', () => {
     beforeEach(async () => {
@@ -73,7 +73,7 @@ describe('Clock', () => {
     it('Should color on segment when offset is set', async () => {
       el.showSeconds = true;
       await elementUpdated(el);
-      
+
       expect(el.shadowRoot.querySelector('[part~=shifted][part~=hours]'), 'hours segment should not color by default').to.be.null;
       expect(el.shadowRoot.querySelector('[part~=shifted][part~=minutes]'), 'minutes segment should not color by default').to.be.null;
       expect(el.shadowRoot.querySelector('[part~=shifted][part~=seconds]'), 'seconds segment should not color by default').to.be.null;

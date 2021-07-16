@@ -20,6 +20,7 @@ import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay';
 import { getId } from './helpers/uuid';
 import { OverlayMenuData } from './helpers/types';
 import { OpenedMenusManager } from './managers/menu-manager';
+import { VERSION } from '../';
 
 export { OverlayMenuData };
 
@@ -54,6 +55,15 @@ export { OverlayMenuData };
   alias: 'emerald-popup-menu'
 })
 export class OverlayMenu extends Overlay {
+
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children
@@ -93,14 +103,6 @@ export class OverlayMenu extends Overlay {
     * @ignore
     */
     this.position = ['bottom-start', 'top-start'];
-    /**
-    * @ignore
-    */
-    this.onItemTap = this.onItemTap.bind(this);
-    /**
-    * @ignore
-    */
-    this.onItemMouseMove = this.onItemMouseMove.bind(this);
     /**
     * @ignore
     */
@@ -383,8 +385,8 @@ export class OverlayMenu extends Overlay {
 
     this.addEventListener('keydown', this.onKeyDown);
     this.addEventListener('keyup', this.onKeyUp);
-    this.renderRoot.addEventListener('tap', this.onItemTap as EventListener);
-    this.renderRoot.addEventListener('mousemove', this.onItemMouseMove as EventListener); /* listen shadow root to support data */
+    this.renderRoot.addEventListener('tap', (event) => this.onItemTap(event as TapEvent));
+    this.renderRoot.addEventListener('mousemove', (event) => this.onItemMouseMove(event as MouseEvent)); /* listen shadow root to support data */
   }
 
   /**

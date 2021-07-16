@@ -4,7 +4,7 @@ import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 import '@refinitiv-ui/elements/header';
 import '@refinitiv-ui/elemental-theme/light/ef-header.js';
 
-describe('Header', () => {
+describe('header/Header', () => {
   it('Should renders DOM structure correctly', async () => {
     const el = await fixture('<ef-header></ef-header>');
 

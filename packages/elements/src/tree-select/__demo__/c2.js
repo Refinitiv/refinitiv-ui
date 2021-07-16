@@ -1,3 +1,4 @@
+/* eslint-disable */
 const treeCollection = [
   {
     'value': 'AFR',
@@ -156,3 +157,4 @@ const treeCollection = [
     ]
   }
 ];
+/* eslint-enable */

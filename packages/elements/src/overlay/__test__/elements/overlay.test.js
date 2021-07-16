@@ -3,7 +3,7 @@ import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv
 import '@refinitiv-ui/elements/overlay';
 import { openedUpdated } from '../mocks/helper';
 
-describe('Overlay', () => {
+describe('overlay/elements/Overlay', () => {
   describe('Methods', () => {
     let originWarn = null;
     const customWarn = () => {

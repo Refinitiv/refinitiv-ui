@@ -6,7 +6,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-chart.js';
 
 import * as config from './mock-config.js';
 
-describe('Chart', () => {
+describe('chart/Chart', () => {
   let el;
 
   const chartRendered = async (el) => {
