@@ -43,9 +43,9 @@ release_v5:
     - npx lerna run build --include-dependencies --since
 
     # Get changed packages version from conventional commit message
-    - npx lerna version --conventional-commits --conventional-prerelease --preid=beta --yes
+    - npx lerna version --conventional-commits --conventional-graduate --yes
 
     # Publish to registry
-    - npx lerna publish from-git --yes --dist-tag next
+    - npx lerna publish from-git --yes
   only:
     - v5@elf/refinitiv-ui
