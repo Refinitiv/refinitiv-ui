@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.0.0-beta.3...@refinitiv-ui/elements@5.0.0) (2021-07-16)
+
+
+### Bug Fixes
+
+* [@types](https://git.sami.int.thomsonreuters.com/types) dependencies incorrect ([09ea997](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/09ea9970c67766e5011686dd9395c93775ad7ee5))
+* chart linting ([84a810f](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/84a810f03d33b45ee86cb97961c50da7d8fd4c11))
+* chart linting ([b0f2599](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/b0f25990d94da4d9aecaedc33457a639167829b6))
+* chart typo ([2d24cd6](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/2d24cd60f79e0014a413850d9a75f2be45bdf7b2))
+* **chart:** improve types ([e83f9f1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/e83f9f1b098d40fce51fc5ae9fa089275a7afc23))
+* dialog linting ([43f2189](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/43f2189f1b8bdb9b81318c3df452dca02df85244))
+* **dialog:** improve types ([bb98a7d](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/bb98a7d5bd9f7aef0666baa82ac29a4f97411c1b))
+* **icon:** fixed line height in icon ([b6d2820](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/b6d28208e0b7038d446cb0258e42acc2438b2b3e))
+* ignore release script ([0d02a91](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/0d02a914f07d77b89f3ac220a86da005f38f99cd))
+* interactive chart linting ([ade94d2](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/ade94d2bb0d2b5fc73def82037718f232afe69d5))
+* **interactive-chart:** change attribute name to legend-style ([3270b8d](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/3270b8d00e28e0f65455ed060e46b3e9ded958f9))
+* list linting ([428cf91](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/428cf91fdc70a28042bd8bb3cdf08d8538db7b05))
+* tooltip linting ([7f31788](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/7f3178826e7fcd4331c70e30ed2cb5255f9f0708))
+
+
+### Features
+
+* add TapEvent into GlobalEventHandlersEventsMap ([5ddbe00](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/5ddbe003edb0725fdd7d0f5774d214e76b088dab))
+* **elements:** move snapshots to individual folders ([c86f35a](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/c86f35a8806dec5f709a68eba702f19e8d6319f9))
+* introduce generic events ([9c3444c](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/9c3444ceb2ca8de151af791f289f3ce5c56866b2))
+* rollback files and folders that do not need to be changed ([83a382a](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/83a382a522c10895b4c31c69fe19f5f7d00c9f66))
+* **tree:** remove deprecated code ([359b96c](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/359b96c500d37501fd6309513a98b48ba63eabce))
+
+
+### Reverts
+
+* Revert "fix release-script lint" ([70cd4e7](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/70cd4e772aebca7520c19f2f8870b7d745903034))
+
+
+
+
+
 # [5.0.0-beta.3](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.0.0-beta.1...@refinitiv-ui/elements@5.0.0-beta.3) (2021-07-02)
 
 ### Bug Fixes

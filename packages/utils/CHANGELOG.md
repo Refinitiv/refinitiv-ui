@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/utils@5.0.0-beta.3...@refinitiv-ui/utils@5.0.0) (2021-07-16)
+
+
+### Features
+
+* rollback files and folders that do not need to be changed ([83a382a](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/83a382a522c10895b4c31c69fe19f5f7d00c9f66))
+
+
+
+
+
 # [5.0.0-beta.3](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/utils@5.0.0-beta.1...@refinitiv-ui/utils@5.0.0-beta.3) (2021-07-02)
 
 ### Features
