@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.0.0-beta.3...@refinitiv-ui/halo-theme@5.0.0) (2021-07-16)
+
+
+### Bug Fixes
+
+* pill text off-center ([360c8d8](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/360c8d8b674a8fb3311076e4397a47be64021f7b))
+
+
+
+
+
 # [5.0.0-beta.3](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.0.0-beta.1...@refinitiv-ui/halo-theme@5.0.0-beta.3) (2021-07-02)
 
 ### Bug Fixes
