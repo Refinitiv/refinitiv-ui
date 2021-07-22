@@ -10,8 +10,8 @@ stages:
 test_v5:
   stage: test
   script:
-    - node --version
-    - npm --version
+    - call node --version
+    - call npm --version
 
     # Installing dependencies, strictly based on lock file
     - call npm ci --ignore-scripts --audit=false --fund=false
