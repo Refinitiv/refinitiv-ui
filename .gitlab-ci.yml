@@ -11,7 +11,7 @@ test_v5:
   stage: test
   script:
     # Installing dependencies, strictly based on lock file
-    - npm ci --ignore-scripts --audit=false --fund=false
+    - call npm ci --ignore-scripts --audit=false --fund=false
 
     # Build only changed packages and its dependencies
     - call npx lerna run build --include-dependencies --since origin/v5-dev...HEAD
