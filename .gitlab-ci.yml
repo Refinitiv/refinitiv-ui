@@ -14,7 +14,7 @@ test_v5:
     - call npm ci --ignore-scripts --audit=false --fund=false
 
     # Build only changed packages and its dependencies
-    - call npx lerna run build --include-dependencies --since origin/v5-dev...HEAD
+    - call npx lerna run build --include-dependencies
 
     # Lint only changed packages and its dependents
     - call npx lerna run lint --concurrency=1 --include-dependents --since origin/v5-dev...HEAD
