@@ -7,7 +7,7 @@ import { utcParse } from '@refinitiv-ui/utils';
 // 1) different browsers and OS support different locales, and the result might be different.
 // 2) first day of week is different. Currently it is not possible to get this info out of Intl object
 const globals = {
-  VIEW_FORMAT: '{includeMonth, select, true {{includeEra, select, true {{ date, date, calendarMonthEra }} false {{ date, date, calendarMonth }}}} false {{ includeEra, select, true {{ date, date, calendarYearEra }} false {{ date, date, calendarYear }}}}}',
+  VIEW_FORMAT: '{includeMonth, select, true {{includeEra, select, true {{ date, date, calendarMonthEra }} other {{ date, date, calendarMonth }}}} other {{ includeEra, select, true {{ date, date, calendarYearEra }} other {{ date, date, calendarYear }}}}}',
   FIRST_DAY_OF_WEEK: '1'
 };
 

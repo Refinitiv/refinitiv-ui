@@ -9,8 +9,8 @@ const translations = {
   // used as a toggle control
   FULL_LIST: '完整列表',
   SELECTED: '已選項列表',
-  EXPAND_COLLAPSE: '{expansion, select, false {全部展開} true {全部收起}}',
-  SELECT_CONTROL: '{selected, select, false {全選} true {取消全選}}',
+  EXPAND_COLLAPSE: '{expansion, select, true {全部收起} other {全部展開}}',
+  SELECT_CONTROL: '{selected, select, true {取消全選} other {全選}}',
   // button control
   DONE: '完成',
   // selection/filter feedback

@@ -9,8 +9,8 @@ const translations = {
   // used as a toggle control
   FULL_LIST: '一覧を表示',
   SELECTED: '選択項目のみ表示',
-  EXPAND_COLLAPSE: '{expansion, select, false {すべてを展開} true {すべてを折りたたむ}}',
-  SELECT_CONTROL: '{selected, select, false {すべて選択} true {選択をすべて解除}}',
+  EXPAND_COLLAPSE: '{expansion, select, true {すべてを折りたたむ} other {すべてを展開}}',
+  SELECT_CONTROL: '{selected, select, true {選択をすべて解除} other {すべて選択}}',
   // button control
   DONE: '完了',
   // selection/filter feedback
