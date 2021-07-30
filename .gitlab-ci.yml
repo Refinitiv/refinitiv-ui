@@ -43,7 +43,7 @@ release_v5:
     - npx lerna run build --include-dependencies --since
 
     # Get changed packages version from conventional commit message
-    - npx lerna version --conventional-commits --conventional-graduate --yes
+    - npx lerna version --conventional-commits --yes
 
     # Publish to registry
     - npx lerna publish from-git --yes

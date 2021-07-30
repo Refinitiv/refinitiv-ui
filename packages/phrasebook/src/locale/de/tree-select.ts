@@ -9,8 +9,8 @@ const translations = {
   // used as a toggle control
   FULL_LIST: 'Vollständige Liste',
   SELECTED: 'Ausgewählt',
-  EXPAND_COLLAPSE: '{expansion, select, false {Alle ausklappen} true {Alle einklappen}}',
-  SELECT_CONTROL: '{selected, select, false {Alle auswählen} true {Auswahl aufheben}}',
+  EXPAND_COLLAPSE: '{expansion, select, true {Alle einklappen} other {Alle ausklappen}}',
+  SELECT_CONTROL: '{selected, select, true {Auswahl aufheben} other {Alle auswählen}}',
   // button control
   DONE: 'Fertig',
   // selection/filter feedback

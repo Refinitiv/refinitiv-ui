@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 const osType = require('os').type();
 const path = require('path');
-const { pluginTransformCommonJS } = require('./scripts/dev-server');
 const { ROOT, PACKAGES } = require('./scripts/helpers');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
@@ -107,7 +106,6 @@ const baseConfig = {
     nodeResolve: true,
     compatibility: 'auto',
     preserveSymlinks: true,
-    plugins: [pluginTransformCommonJS()],
 
     // prevent compiling es5 libs
     babelExclude: [

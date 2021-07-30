@@ -20,10 +20,11 @@
   "author": "Refinitiv",
   "license": "Apache-2.0",
   "dependencies": {
+    "@formatjs/icu-messageformat-parser": "^2.0.7",
     "@formatjs/intl-utils": "^3.8.4",
     "@refinitiv-ui/phrasebook": "^5.0.0",
     "intl-format-cache": "^4.3.1",
-    "intl-messageformat": "~9.4.0"
+    "intl-messageformat": "^9.7.1"
   },
   "devDependencies": {
     "@refinitiv-ui/test-helpers": "^5.0.0"
