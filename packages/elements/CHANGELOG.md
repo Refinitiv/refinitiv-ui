@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.0.0...@refinitiv-ui/elements@5.1.0) (2021-07-30)
+
+
+### Bug Fixes
+
+* **dialog:** missing attribute opening quote ([2729247](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/27292471334ab6b83d8c8437fc46d15803121483))
+
+
+### Features
+
+* use latest FormatJS polyfills and ICU parser ([b7855e4](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/b7855e409d10d9c8b9f31a34953470549295a8ab))
+
+
+
+
+
 # [5.0.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.0.0-beta.3...@refinitiv-ui/elements@5.0.0) (2021-07-16)
 
 
