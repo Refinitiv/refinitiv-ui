@@ -9,7 +9,8 @@ import {
   property,
   styleMap,
   query,
-  StyleMap
+  StyleMap,
+  WarningNotice
 } from '@refinitiv-ui/core';
 import { VERSION } from '../';
 import '../number-field';
@@ -320,6 +321,11 @@ export class Slider extends ControlElement {
     if (changedProperties.has('disabled') || changedProperties.has('readonly')) {
       this.updateEventListeners();
     }
+    changedProperties.forEach((oldValue, propName) => {
+      if(['value', 'min', 'max', 'from', 'to', 'step', 'minRange'].includes(propName as string)) {
+        this.showWarningInvalidProperty(propName as string);
+      }
+    });
   }
 
   /**
@@ -355,6 +361,51 @@ export class Slider extends ControlElement {
         this.initSlider();
       }
     });
+  }
+
+  /**
+   * Show Warning a warning message invalid property
+   * @param propName value for checking
+   * @returns {void}
+   */
+  private showWarningInvalidProperty (propName: string): void {
+    let isValid = true;
+    let message = '';
+ 
+    if (propName === 'value') {
+      isValid = this.isValueInBoundary(this.valueNumber, '');
+      message = 'value should be between min and max.';
+    }
+    else if (propName === 'min') {
+      isValid = this.minNumber <= this.maxNumber;
+      message = 'value should be less than max.';
+    }
+    else if (propName === 'max') {
+      isValid = this.maxNumber >= this.minNumber;
+      message = 'value should be more than min.';
+    }
+    else if (propName === 'from' && this.range) {
+      isValid = (this.fromNumber >= this.minNumber && this.fromNumber <= this.toNumber);
+      message = 'value should be more than min and less than to.';
+    }
+    else if (propName === 'to' && this.range) {
+      isValid = (this.toNumber <= this.maxNumber && this.toNumber >= this.fromNumber);
+      message = 'value should be less than max and more than from.';
+    }
+    else if (propName === 'step') {
+      isValid = ((this.maxNumber - this.minNumber) >= this.stepNumber);
+      message = 'value should be between min and max.';
+    }
+    else if (propName === 'minRange' && this.minRangeNumber > 0) {
+      const distanceFromTo = Math.abs(this.toNumber - this.fromNumber);
+      const distanceMinMax = Math.abs(this.maxNumber - this.minNumber);
+      isValid = (distanceMinMax >= this.minRangeNumber && distanceFromTo >= this.minRangeNumber);
+      message = 'value should be less than distance from and to, min and max.';
+    }
+ 
+    if(!isValid) {
+      new WarningNotice(`${this.localName}: Invalid ${propName} provided, The correct ${propName} ${message}`).show();
+    }
   }
 
   /**
