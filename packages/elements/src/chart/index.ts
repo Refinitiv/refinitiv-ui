@@ -114,8 +114,7 @@ export class Chart extends BasicElement {
   protected get requiredConfig (): ChartConfig {
     return {
       options: {
-        // ChartJS resize event not work well on IE, use manual resize instead
-        responsive: false,
+        responsive: false, // use framework resize events instead
         maintainAspectRatio: false,
         title: {
           display: false
