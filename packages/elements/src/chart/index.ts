@@ -114,7 +114,8 @@ export class Chart extends BasicElement {
   protected get requiredConfig (): ChartConfig {
     return {
       options: {
-        responsive: true,
+        // ChartJS resize event not work well on IE, use manual resize instead
+        responsive: false,
         maintainAspectRatio: false,
         title: {
           display: false
@@ -447,26 +448,37 @@ export class Chart extends BasicElement {
   protected createChart (): void {
     const ctx = this.canvas.getContext('2d');
     if (ctx && this.config) {
+
+      // Are we reusing an old chart canvas?
+      const isReusingCanvas = this.destroyChart();
+
       // Preparing the resources before create chart
-      this.destroyChart();
       this.decorateConfig();
       this.manageTitle();
 
       // Create chart
       this.chart = new window.Chart(ctx, this.config) as ChartJS;
+
+      if (isReusingCanvas) {
+        // If we're reusing an old chart canvas, we need to resize it.
+        // Destroying a chart has some strange side-effects on the canvas.
+        this.chart.resize();
+      }
     }
   }
 
   /**
    * Destroys the chart.js object
-   * @returns {void}
+   * @returns True if a chart object has been destroyed
    */
-  protected destroyChart (): void {
+  protected destroyChart (): boolean {
     if (this.chart) {
       // Destroy the chart
       this.chart.destroy();
       this.chart = null;
+      return true;
     }
+    return false;
   }
 
   /**
@@ -542,6 +554,14 @@ export class Chart extends BasicElement {
   }
 
   /**
+   * Handles resize event of the chart region
+   * @returns {void}
+   */
+  protected onResize (): void {
+    this.chart?.resize();
+  }
+
+  /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
    * @return Render template
@@ -550,7 +570,7 @@ export class Chart extends BasicElement {
     return html`
       <ef-layout flex container>
         <ef-header></ef-header>
-        <ef-layout part="chart">
+        <ef-layout part="chart" @resize="${this.onResize}">
           <canvas id="canvas"></canvas>
         </ef-layout>
       </ef-layout>`;
