@@ -110,6 +110,12 @@ themeLabel.style.fontWeight = 'bold';
 themeLabel.style.textTransform = 'uppercase';
 themeLabel.innerHTML = removePrefixName(currentTheme);
 
+const versionTag = document.createElement('span');
+versionTag.innerHTML = 'V5';
+versionTag.style.marginLeft = '8px';
+versionTag.style.color = '#334BFF';
+themeLabel.appendChild(versionTag);
+
 document.body.appendChild(nextBtn);
 document.body.appendChild(prevBtn);
 document.body.appendChild(themeLabel);
