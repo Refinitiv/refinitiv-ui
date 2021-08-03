@@ -947,21 +947,21 @@ export class InteractiveChart extends ResponsiveElement {
    * @returns {void}
    */
   private createTextPrice (rowLegend: RowLegend, price: number | string, priceColor: string, index: number): void {
-    // Uses price formatter if provided
-    const formatter = this.internalConfig.series[index].hasOwnProperty('legendPriceFormatter') ? this.internalConfig.series[index].legendPriceFormatter : null;
-    price = (formatter ? formatter(price) : price) as number;
+    const formatter = this.internalConfig.series[index].legendPriceFormatter;
+    // Formats legend only when formatter and data point are provided
+    const formattedPrice = !!formatter && price !== NO_DATA_POINT ? formatter(price) : price;
 
     // Create text price after chart has rendered
     if (this.isHTMLElement(rowLegend)) {
       rowLegend.setAttribute('data-color', priceColor);
-      this.createSpan(rowLegend, price);
+      this.createSpan(rowLegend, formattedPrice);
     }
     // Handle update text price when mouse crosshairMove in chart
     else if (this.isNodeListElement(rowLegend)) {
       const symbolElem = rowLegend[index].children[0];
       const spanIndex = symbolElem.getAttribute('class')?.indexOf('symbol') === 0 ? 1 : 0;
       const rowLegendElem = rowLegend[index];
-      rowLegendElem.children[spanIndex].textContent = `${price}`;
+      rowLegendElem.children[spanIndex].textContent = `${formattedPrice}`;
       (rowLegendElem.children[spanIndex] as HTMLElement).style.color = `${priceColor}`;
     }
   }

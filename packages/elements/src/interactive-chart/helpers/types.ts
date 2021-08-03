@@ -59,15 +59,15 @@ interface Theme {
   crossHairColor: string;
   chartUpColor: string;
   chartDownColor: string;
-  fillOpacity: number | undefined;
-  lineWidth: number | undefined;
+  fillOpacity?: number;
+  lineWidth?: number;
 }
 
 interface InteractiveChartSeries {
   type: string;
   symbol?: string;
   symbolName?: string;
-  legendPriceFormatter?: CallableFunction;
+  legendPriceFormatter?: (price: string | number) => string | number;
   data: SeriesData;
   seriesOptions?: SeriesPartialOptions<SeriesOptions>;
 }
