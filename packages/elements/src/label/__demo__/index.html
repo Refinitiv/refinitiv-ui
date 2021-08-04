@@ -62,7 +62,7 @@
       <script>
         var txt = interactive.textContent.trim();
         myInput.addEventListener('input', (e) => {
-          interactive.textContent = txt + ' ' + e.target.value;
+          interactive.innerText = txt + ' ' + e.target.value;
         });
       </script>
     </demo-block>
