@@ -15,7 +15,7 @@ const translations = {
   DONE: '完成',
   // selection/filter feedback
   SELECTED_NUM: '{numSelected, plural, =0 {} =1 {已選 1 項。} other {已選 # 項。}}',
-  MATCHES_NUM: '{numMatched, plural, =0 {無匹配結果。} =1 {匹配到 1 條結果。} other {匹配到 # 條結果。}}'
+  MATCHES_NUM: '{numMatched, plural, =0 {未找到結果。} =1 {找到了 1 個結果。} other {找到了 # 個結果。}}'
 };
 
 Phrasebook.define('zh-Hant', 'ef-tree-select', translations);
