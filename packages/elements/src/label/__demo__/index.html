@@ -23,20 +23,36 @@
         margin: 10px 0px;
       }
     </style>
-    <demo-block header="Default" layout="normal" tags="default">
-      <h5>Normal html</h5>
+    <demo-block header="Native" layout="normal" tags="native,html">
+      <h5>Single Character</h5>
+      <label>A</label>
+      <hr>
+      <h5>Single Word (short)</h5>
+      <label>To</label>
+      <hr>
+      <h5>Single Word (long)</h5>
+      <label>Toomuchlenghthererightandthiswordwillnotbreakbydefaultsoitneedstosplittheworditselfinordertoaddelippsis</label>
+      <hr>
+      <h5>Label</h5>
+      <label>
         <div>
           Container
           <p>
             Paragraph <span>Content</span>
           </p>
+          After Paragraph
         </div>
-      <hr>
+      </label>
+    </demo-block>
+    <demo-block header="Default" layout="normal" tags="default">
       <h5>Single Character</h5>
       <ef-label>A</ef-label>
       <hr>
-      <h5>Single Word</h5>
+      <h5>Single Word (short)</h5>
       <ef-label>To</ef-label>
+      <hr>
+      <h5>Single Word (long)</h5>
+      <ef-label>Toomuchlenghthererightandthiswordwillnotbreakbydefaultsoitneedstosplittheworditselfinordertoaddelippsis</ef-label>
       <hr>
       <h5>Label</h5>
       <ef-label>

@@ -97,7 +97,7 @@ export class Label extends BasicElement {
         text-overflow: ellipsis;
         position: relative;
       }
-      .clamp.legacy {
+      .clamp.legacy-X {
         border-bottom: 8px solid transparent;
         background: linear-gradient(currentColor, currentColor), linear-gradient(currentColor, currentColor), linear-gradient(currentColor, currentColor);
         background-size: 2px 2px;
@@ -211,18 +211,23 @@ export class Label extends BasicElement {
     const words = this.chunks;
     const left: string[] = [];
     const right: string[] = [];
-    const half = Math.round(words.length / 2);
-    for (let i = 0; i < words.length; i++) {
-      (i < half ? left : right).push(words[i]);
+    const isSingleWord = words.length === 1;
+    if (isSingleWord) {
+      const word = words[0];
+      const split = Math.round(word.length / 2);
+      left.push(word.substr(0, split));
+      right.push(word.substr(split));
     }
-    const leftPart = html`
-      <div class="split left ${browserType}">${left.join(_)}</div>
-    `;
-    const rightPart = right.length ? html`
-      <div class="split center">&nbsp;</div>
-      <div class="split right ${browserType}"><span dir="ltr">${right.join(_)}</span></div>
-    ` : undefined;
-    return html`${leftPart}${rightPart}`;
+    else {
+      const split = Math.round(words.length / 2);
+      for (let i = 0; i < words.length; i++) {
+        (i < split ? left : right).push(words[i]);
+      }
+    }
+    const leftPart = html`<div class="split left ${browserType}">${left.join(_)}</div>`;
+    const centerPart = isSingleWord ? undefined : html`<div class="split center">&nbsp;</div>`;
+    const rightPart = right.length ? html`<div class="split right ${browserType}"><span dir="ltr">${right.join(_)}</span></div>` : undefined;
+    return html`${leftPart}${centerPart}${rightPart}`;
   }
 
   /**
