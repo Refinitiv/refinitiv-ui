@@ -332,7 +332,7 @@ export class Dialog extends Overlay {
   protected get footerRegion (): TemplateResult {
     return html`<slot name="footer">
       <div part="default-buttons">
-        <ef-button part="default-button" cta @tap=${this.defaultConfirm}">${this.t('OK')}</ef-button>
+        <ef-button part="default-button" cta @tap="${this.defaultConfirm}">${this.t('OK')}</ef-button>
         <ef-button part="default-button" @tap="${this.defaultCancel}">${this.t('CANCEL')}</ef-button>
       </div>
     </slot>`;

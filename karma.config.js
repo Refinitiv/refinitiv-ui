@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 const osType = require('os').type();
 const path = require('path');
-const { pluginTransformCommonJS } = require('./scripts/dev-server');
 const { ROOT, PACKAGES } = require('./scripts/helpers');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
@@ -97,7 +96,7 @@ const baseConfig = {
   autoWatch: argv.watch,
   singleRun: !argv.watch,
   basePath: ROOT, // must be in the root in order for node_modules to be resolved correctly
-  concurrency: 1, // Set the value to `1`, When Karma has a problem to connect a test browser on Windows.
+  concurrency: Infinity, // Set the value to `1`, When Karma has a problem to connect a test browser on Windows.
   browserNoActivityTimeout: 60000,
   browserDisconnectTimeout: 60000,
   files,
@@ -107,7 +106,6 @@ const baseConfig = {
     nodeResolve: true,
     compatibility: 'auto',
     preserveSymlinks: true,
-    plugins: [pluginTransformCommonJS()],
 
     // prevent compiling es5 libs
     babelExclude: [

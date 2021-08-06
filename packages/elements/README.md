@@ -7,13 +7,13 @@ Element Framework (EF) is a collection of elements that includes theming capabil
 EF elements are published under single package.
 
 ```sh
-npm install @refinitiv-ui/elements@next
+npm install @refinitiv-ui/elements
 ```
 
 The elements are required theme to instantiate itself in the app. Refinitiv's design system is called Halo theme and you can install it from npm command.
 
 ```sh
-npm install @refinitiv-ui/halo-theme@next
+npm install @refinitiv-ui/halo-theme
 ```
 
 Finally, import both elements that you want to use and its themes into your application and it is ready to go. To follow Refinitiv design system, it is required styles of some native elements e.g. typography.

@@ -1,6 +1,6 @@
 # I18N
 
-`@refinitiv-ui/i18n` provides wrappers and APIs around formatjs [IntlMessageFormat](https://formatjs.io/docs/intl-messageformat/) and `@refinitiv-ui/phrasebook`. In addition it provides tools to observe `lang` attribute changes.
+`@refinitiv-ui/i18n` provides wrappers and APIs around formatjs [IntlMessageFormat](https://formatjs.io/docs/intl-messageformat/) and `@refinitiv-ui/phrasebook`. In addition, it provides tools to observe `lang` attribute changes.
 
 ## Usage
 
@@ -147,7 +147,7 @@ const message = await t(
 );
 ```
 
-Note that you cannot provide more than one list of unicode extensions. Therefore if extensions are provided via html and JavaScript, the list is merged.
+Note that you cannot provide more than one list of unicode extensions. Therefore, if extensions are provided via html and JavaScript, the list is merged.
 
 ## References
 

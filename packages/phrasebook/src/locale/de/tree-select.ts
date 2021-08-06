@@ -9,13 +9,13 @@ const translations = {
   // used as a toggle control
   FULL_LIST: 'Vollständige Liste',
   SELECTED: 'Ausgewählt',
-  EXPAND_COLLAPSE: '{expansion, select, false {Alle ausklappen} true {Alle einklappen}}',
-  SELECT_CONTROL: '{selected, select, false {Alle auswählen} true {Auswahl aufheben}}',
+  EXPAND_COLLAPSE: '{expansion, select, true {Alle einklappen} other {Alle ausklappen}}',
+  SELECT_CONTROL: '{selected, select, true {Auswahl aufheben} other {Alle auswählen}}',
   // button control
   DONE: 'Fertig',
   // selection/filter feedback
   SELECTED_NUM: '{numSelected, plural, =0 {} =1 {Eine Auswahl.} other {# ausgewählt.}}',
-  MATCHES_NUM: '{numMatched, plural, =0 {Keine Übereinstimmungen} =1 {Eine Übereinstimmung.} other {# Übereinstimmungen.}}'
+  MATCHES_NUM: '{numMatched, plural, =0 {Keine Ergebnisse gefunden.} =1 {1 Ergebnis gefunden.} other {# Ergebnisse gefunden.}}'
 };
 
 Phrasebook.define('de', 'ef-tree-select', translations);

@@ -5,7 +5,6 @@
  */
 const { legacyPlugin } = require('@web/dev-server-legacy');
 const { ROOT } = require('./scripts/helpers');
-const { pluginTransformCommonJS } = require('./scripts/dev-server');
 
 module.exports = {
   rootDir: ROOT,
@@ -15,8 +14,7 @@ module.exports = {
   preserveSymlinks: true,
   appIndex: '/',
   plugins: [
-    legacyPlugin(), // IE11 support
-    pluginTransformCommonJS()
+    legacyPlugin() // IE11 support
   ],
   polyfillsLoader: {
     polyfills: {
