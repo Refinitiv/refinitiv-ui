@@ -5,7 +5,8 @@ import {
   customElement,
   property,
   TemplateResult,
-  CSSResult
+  CSSResult,
+  styleMap
 } from '@refinitiv-ui/core';
 import { VERSION } from '../';
 import { addTooltipCondition, removeTooltipCondition } from '../tooltip';
@@ -96,6 +97,7 @@ export class Label extends BasicElement {
         display: -webkit-inline-box;
         text-overflow: ellipsis;
         position: relative;
+        overflow-wrap: break-word;
       }
       .clamp.legacy-X {
         border-bottom: 8px solid transparent;
@@ -111,7 +113,7 @@ export class Label extends BasicElement {
    * Limit the number of lines before truncating
    */
   @property({ type: Number, attribute: 'line-clamp' })
-  public lineClamp = 1;
+  public lineClamp = 0;
 
   /**
    * Set state to error
@@ -205,7 +207,7 @@ export class Label extends BasicElement {
   }
 
   /**
-   * Default template (When line clamp is 1)
+   * Default template
    */
   protected get truncateTemplate (): TemplateResult {
     const words = this.chunks;
@@ -220,7 +222,7 @@ export class Label extends BasicElement {
     }
     else {
       const split = Math.round(words.length / 2);
-      for (let i = 0; i < words.length; i++) {
+      for (let i = 0; i < words.length; i += 1) {
         (i < split ? left : right).push(words[i]);
       }
     }
@@ -231,17 +233,21 @@ export class Label extends BasicElement {
   }
 
   /**
-   * Template for when line clamp is above 1
+   * Template for when line clamp is set
    */
   protected get clampTemplate (): TemplateResult {
-    let maxHeight = 'none';
+    const styles = {
+      maxHeight: '',
+      lineClamp: `${this.lineClamp}`,
+      '-webkit-line-clamp': `${this.lineClamp}`
+    };
     if (browserType === 'legacy') {
       const cs = getComputedStyle(this);
       const lineHeight = parseFloat(cs.lineHeight) || 1.2/* css default */;
-      maxHeight = `calc(1em * ${lineHeight} * ${this.lineClamp})`;
+      styles.maxHeight = `calc(1em * ${lineHeight} * ${this.lineClamp})`;
     }
     return html`
-      <span class="clamp ${browserType}" style="line-clamp:${this.lineClamp};-webkit-line-clamp:${this.lineClamp};max-height:${maxHeight}">${this.text}</span>
+      <span class="clamp ${browserType}" style="${styleMap(styles)}">${this.text}</span>
     `;
   }
 
@@ -251,6 +257,6 @@ export class Label extends BasicElement {
    * @return Render template
    */
   protected render (): TemplateResult {
-    return this.lineClamp > 1 ? this.clampTemplate : this.truncateTemplate;
+    return this.lineClamp ? this.clampTemplate : this.truncateTemplate;
   }
 }
