@@ -12,7 +12,11 @@ const { startServer, createConfig } = require('es-dev-server');
 
 const regexpKarmaLoaded = /window\.__karma__\.loaded\(\);/gm;
 
-// @override two Regex which doesn't work on Karma 6
+/**
+ * @override
+ * Allow this plugin to be compatible with Karma 6.
+ * A Karma 6 script tag could have some other attributes before type="module"
+ */
 const regexpScriptSrcGlobal = /<script .*?type="module"[^>]*src="([^"]*)"/gm;
 const regexpScriptSrc = /<script .*?type="module"[^>]*src="([^"]*)"/m;
 
