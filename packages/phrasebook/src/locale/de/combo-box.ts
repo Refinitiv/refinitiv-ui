@@ -3,7 +3,7 @@ import './shared';
 
 const translations = {
   MULTIPLE_ITEMS: 'Mehrere Objekte',
-  NO_OPTIONS: 'Keine Ergebnisse gefunden.'
+  NO_OPTIONS: 'Keine Ergebnisse'
 };
 
 Phrasebook.define('de', 'ef-combo-box', translations);
