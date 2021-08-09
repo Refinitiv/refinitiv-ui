@@ -46,7 +46,6 @@ const availableBrowsers = ['chrome', 'firefox', 'opera'];
 
 if (isWin) {
   defaultBrowsers.push('IE_no_addons');
-  availableBrowsers.push('chrome');
 }
 
 if (isDarwin) {
@@ -97,8 +96,8 @@ const baseConfig = {
   singleRun: !argv.watch,
   basePath: ROOT, // must be in the root in order for node_modules to be resolved correctly
   concurrency: Infinity, // Set the value to `1`, When Karma has a problem to connect a test browser on Windows.
-  browserNoActivityTimeout: 60000,
-  browserDisconnectTimeout: 60000,
+  browserNoActivityTimeout: 60000 * 2,
+  browserDisconnectTimeout: 60000 * 2,
   files,
   esm: {
     coverage: argv.includeCoverage,

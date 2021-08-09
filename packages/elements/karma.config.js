@@ -2,7 +2,7 @@
 const path = require('path');
 const karmaConfig = require('../../karma.config');
 const { extractConfig } = require('../../scripts/karma');
-const { ELEMENTS_ROOT, MONOREPO_ELEMENTS, checkElement } = require('./scripts/helpers');
+const { ELEMENTS_ROOT, MONOREPO_ELEMENTS, BUILD_FOLDER_NAME, checkElement } = require('./scripts/helpers');
 
 const ELEMENT = process.env.ELEMENT;
 const testAll = ELEMENT === 'all' || ELEMENT === undefined;
@@ -22,7 +22,11 @@ module.exports = async function (config) {
   ];
 
   const coverageExclude = [...elementsConfig.esm.coverageExclude];
-  !testAll && coverageExclude.push(`!**/${ELEMENT}/**/*`);
+  if (!testAll) {
+    // Must exclude first to make the next nagated exclude work.
+    coverageExclude.push(`**/${BUILD_FOLDER_NAME}/**/`); // Firefox need spacial end slash of pattern.
+    coverageExclude.push(`!**/${BUILD_FOLDER_NAME}/${ELEMENT}/**`);
+  }
 
   elementsConfig.esm.coverageExclude = coverageExclude;
   elementsConfig.snapshot.pathResolver = (basePath, suiteName) => {

@@ -4,7 +4,7 @@ const micromatch = require('micromatch');
 const { virtualFilePrefix } = require('es-dev-server');
 const esmFramework = require('@open-wc/karma-esm/src/esm-framework.js');
 const { createEsmConfig } = require('@open-wc/karma-esm/src/esm-config');
-const setupDevServer = require('@open-wc/karma-esm/src/setup-es-dev-server');
+const setupDevServer = require('./setup-es-dev-server');
 
 // Override configurations to support snapshots
 function esmMiddlewareFactory(config, karmaEmitter) {
