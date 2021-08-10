@@ -23,9 +23,12 @@ module.exports = async function (config) {
 
   const coverageExclude = [...elementsConfig.esm.coverageExclude];
   if (!testAll) {
-    // Must exclude first to make the next nagated exclude work.
+    /**
+     * Must exclude first to make the next nagated exclude work,
+     * because the `babel-plugins-istanbul` using `test-exclude` which it has this logic.
+     */
     coverageExclude.push(`**/${BUILD_FOLDER_NAME}/**/`); // Firefox need spacial end slash of pattern.
-    coverageExclude.push(`!**/${BUILD_FOLDER_NAME}/${ELEMENT}/**`);
+    coverageExclude.push(`!**/${BUILD_FOLDER_NAME}/${ELEMENT}/**`); // Exclude the other elements except the element target.
   }
 
   elementsConfig.esm.coverageExclude = coverageExclude;
