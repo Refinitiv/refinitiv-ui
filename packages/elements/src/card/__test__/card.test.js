@@ -13,14 +13,18 @@ describe('card/Card', () => {
       el = await fixture('<ef-card></ef-card>');
     });
     it("DOM structure is correct", async () => {
-      expect(el).shadowDom.to.equalSnapshot();
+      expect(el).shadowDom.to.equalSnapshot({
+        ignoreAttributes: ['style']
+      });
     });
     it("DOM structure with header and footer is correct", async () => {
       el.setAttribute('header', 'Sample Card');
       el.setAttribute('footer', 'Footer Info');
       el.config = menuData
       await elementUpdated(el);
-      expect(el).shadowDom.to.equalSnapshot();
+      expect(el).shadowDom.to.equalSnapshot({
+        ignoreAttributes: ['style']
+      });
     });
   });
 

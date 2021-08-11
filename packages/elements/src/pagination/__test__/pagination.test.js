@@ -19,7 +19,11 @@ describe('pagination/Pagination', () => {
   describe('Snapshots', () => {
     itBrowser('DOM structure is correct', async () => {
       const el = await fixture('<ef-pagination></ef-pagination>');
-      expect(el).shadowDom.to.equalSnapshot();
+      expect(el).shadowDom.to.equalSnapshot({
+        ignoreAttributes: [{
+          tags: ['ef-layout'], attributes: ['style']
+        }]
+      });
     });
   });
 
