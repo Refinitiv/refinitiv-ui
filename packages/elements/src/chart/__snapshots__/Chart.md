@@ -30,10 +30,7 @@
     Line Chart - Price of TRI.N in 2016
   </ef-header>
   <ef-layout part="chart">
-    <canvas
-      class="chartjs-render-monitor"
-      id="canvas"
-    >
+    <canvas id="canvas">
     </canvas>
   </ef-layout>
 </ef-layout>

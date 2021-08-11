@@ -123,20 +123,20 @@ export class Button extends ControlElement {
    * Handle the slotchange event of default slot
    * @returns {void}
    */
-  private onDefaultSlotChangeHandler = (): void => {
+  private onDefaultSlotChangeHandler (): void {
     this.emptyComputed();
-  };
+  }
 
   /**
    * Handle keydown event
    * @param event the keyboard event
    * @returns {void}
    */
-  private onKeyUpHandler = (event: KeyboardEvent): void => {
+  private onKeyUpHandler (event: KeyboardEvent) {
     if (this.isReturnOrSpaceKey(event.key)) {
       this.click();
     }
-  };
+  }
 
   /**
    * Check key names
@@ -168,17 +168,17 @@ export class Button extends ControlElement {
    * Set pressed attribute
    * @returns {void}
    */
-  private setPressed = (): void => {
+  private setPressed (): void {
     this.setAttribute('pressed', '');
-  };
+  }
 
   /**
    * Remove pressed attribute
    * @returns {void}
    */
-  private unsetPressed = (): void => {
+  private unsetPressed (): void {
     this.removeAttribute('pressed');
-  };
+  }
 
   /**
    * Compute empty property based on textContent
