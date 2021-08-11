@@ -110,9 +110,14 @@ describe('pagination/Pagination', () => {
 
       setTimeout(() => textField.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' })));
       await elementUpdated(textField);
+
       await nextFrame();
       await nextFrame();
+
       await triggerBlurFor(textField);
+
+      await nextFrame();
+      await nextFrame();
 
       expect(el.page).to.equal('3');
     });
@@ -173,7 +178,11 @@ describe('pagination/Pagination', () => {
 
       await nextFrame();
       await nextFrame();
+
       await triggerBlurFor(el);
+
+      await nextFrame();
+      await nextFrame();
 
       expect(document.activeElement).to.not.equal(el, 'It should blur the element');
     });
