@@ -35,6 +35,7 @@ const isIE = () => !!navigator.userAgent.match(/Trident/g) || !!navigator.userAg
 /**
  * Determines if the browser is legacy or modern.
  */
+/* istanbul ignore next */
 const browserType = isIE() ? 'legacy' : 'modern';
 
 /**
@@ -241,6 +242,7 @@ export class Label extends BasicElement {
       lineClamp: `${this.lineClamp}`,
       '-webkit-line-clamp': `${this.lineClamp}`
     };
+    /* istanbul ignore if */
     if (browserType === 'legacy') {
       const cs = getComputedStyle(this);
       const lineHeight = parseFloat(cs.lineHeight) || 1.2/* css default */;
