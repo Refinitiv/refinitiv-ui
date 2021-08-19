@@ -1,3 +1,4 @@
+@import '../shared-styles/scrollbar';
 @import 'element:ef-icon';
 @import 'element:ef-overlay-menu';
 @import 'element:ef-label';
@@ -9,6 +10,7 @@
   width: 400px;
   box-shadow: @panel-box-shadow;
   background-color: @panel-background-color;
+  overflow: hidden;
 
   [part~=body], [part~=header], [part~=footer] {
     position: relative;
@@ -20,6 +22,7 @@
 
   [part~=header], [part~=footer] {
     overflow: hidden;
+    flex: 1 0 auto;
   }
 
   [part~=header] {
@@ -55,4 +58,8 @@
     color: @list-item-header-text-color;
     border-top: @separator-width solid @separator-color;
   }
+
+  .ie-scrollbars();
+  .mozilla-scrollbars();
 }
+.webkit-scrollbars();

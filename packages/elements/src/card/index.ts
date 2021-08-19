@@ -57,13 +57,16 @@ export class Card extends BasicElement {
       }
       [part~=header] {
         display: flex;
-        align-items: center;
       }
       [part~=header-body] {
         flex: 1;
       }
       [part~=footer]:not([part~="has-content"]), [part~=header]:not([part~="has-content"]) {
         display: none;
+      }
+      [part~=menu-container] {
+        display: flex;
+        align-items: center;
       }
     `;
   }
@@ -213,16 +216,18 @@ export class Card extends BasicElement {
    */
   protected get menuTemplate (): TemplateResult {
     return html`${this.menuData ? html`
+    <div part="menu-container">
       <ef-icon
-        role="button"
-        tabindex="0"
-        part="menu-button"
-        @tap="${this.openMenu}"
-        icon="more"></ef-icon>
-      <ef-overlay-menu
-        part="menu-popup"
-        .data=${this.menuData}
-        position="bottom-end"></ef-overlay-menu>` : undefined }
+          role="button"
+          tabindex="0"
+          part="menu-button"
+          @tap="${this.openMenu}"
+          icon="more"></ef-icon>
+        <ef-overlay-menu
+          part="menu-popup"
+          .data=${this.menuData}
+          position="bottom-end"></ef-overlay-menu>` : undefined }
+    </div>
     `;
   }
 
@@ -235,7 +240,7 @@ export class Card extends BasicElement {
       <div part="header${this.withHeader ? ' has-content' : ''}">
         <div part="header-body">
           <slot name="header" @slotchange="${this.onHeaderSlotChange}"></slot>
-          ${!this.headerHasContent && this.header ? html`<ef-label max-line="3" part="header-text">${this.header}</ef-label>` : null}
+          ${!this.headerHasContent && this.header ? html`<ef-label line-clamp="3" part="header-text">${this.header}</ef-label>` : null}
         </div>
         ${this.menuTemplate}
       </div>
@@ -251,7 +256,7 @@ export class Card extends BasicElement {
       <div part="footer${this.withFooter ? ' has-content' : ''}">
         <div part="footer-body">
           <slot name="footer" @slotchange="${this.onFooterSlotChange}"></slot>
-          ${!this.footerHasContent && this.footer ? html`<ef-label max-line="3">${this.footer}</ef-label>` : undefined}
+          ${!this.footerHasContent && this.footer ? html`<ef-label line-clamp="3">${this.footer}</ef-label>` : undefined}
         </div>
       </div>
     `;
