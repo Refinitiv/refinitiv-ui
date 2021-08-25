@@ -60,13 +60,10 @@ export class Card extends BasicElement {
       }
       [part~=header-body] {
         flex: 1;
+        min-width: 0px;
       }
       [part~=footer]:not([part~="has-content"]), [part~=header]:not([part~="has-content"]) {
         display: none;
-      }
-      [part~=menu-container] {
-        display: flex;
-        align-items: center;
       }
     `;
   }
@@ -216,18 +213,16 @@ export class Card extends BasicElement {
    */
   protected get menuTemplate (): TemplateResult {
     return html`${this.menuData ? html`
-    <div part="menu-container">
       <ef-icon
-          role="button"
-          tabindex="0"
-          part="menu-button"
-          @tap="${this.openMenu}"
-          icon="more"></ef-icon>
-        <ef-overlay-menu
-          part="menu-popup"
-          .data=${this.menuData}
-          position="bottom-end"></ef-overlay-menu>` : undefined }
-    </div>
+        role="button"
+        tabindex="0"
+        part="menu-button"
+        @tap="${this.openMenu}"
+        icon="more"></ef-icon>
+      <ef-overlay-menu
+        part="menu-popup"
+        .data=${this.menuData}
+        position="bottom-end"></ef-overlay-menu>` : undefined }
     `;
   }
 
