@@ -175,6 +175,7 @@ export class PasswordField extends ControlElement {
         type=${this.isPasswordVisible ? 'text' : 'password'}
         part="input"
         ?readonly="${this.readonly}"
+        ?disabled="${this.disabled}"
         placeholder="${ifDefined(this.placeholder || undefined)}"
         minlength="${ifDefined(this.minLength || undefined)}"
         maxlength="${ifDefined(this.maxLength || undefined)}"
