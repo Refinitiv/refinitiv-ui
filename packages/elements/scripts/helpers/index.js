@@ -33,6 +33,12 @@ const MONOREPO_ELEMENTS = path.join(PACKAGES, PACKAGE_NAME);
 const DEMO_FOLDER_NAME = '__demo__';
 
 /**
+ * The name of the build directory
+ * @type {string}
+ */
+const BUILD_FOLDER_NAME = 'lib';
+
+/**
  * Get path to element folder
  * @param {string} name Element name
  * @returns {string} path
@@ -67,6 +73,7 @@ module.exports = {
   ROOT,
   MONOREPO_ELEMENTS,
   PACKAGE_NAME,
+  BUILD_FOLDER_NAME,
   checkElement,
   getDemoPath,
   getElementPath,

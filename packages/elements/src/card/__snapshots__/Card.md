@@ -19,7 +19,6 @@
   <ef-label
     max-line="3"
     part="header-text"
-    style="--max-line:3;"
   >
     Sample Card
   </ef-label>
@@ -31,7 +30,6 @@
 <ef-label
   max-line="3"
   part="footer"
-  style="--max-line:3;"
 >
   Footer Info
 </ef-label>
