@@ -360,7 +360,6 @@
       aria-readonly="false"
       highlighted=""
       tabindex="0"
-      type="header"
     >
     </ef-item>
     <ef-item
