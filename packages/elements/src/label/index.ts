@@ -6,7 +6,8 @@ import {
   property,
   TemplateResult,
   CSSResult,
-  styleMap
+  styleMap,
+  DeprecationNotice
 } from '@refinitiv-ui/core';
 import { VERSION } from '../';
 import { addTooltipCondition, removeTooltipCondition } from '../tooltip';
@@ -37,6 +38,12 @@ const isIE = () => !!navigator.userAgent.match(/Trident/g) || !!navigator.userAg
  */
 /* istanbul ignore next */
 const browserType = isIE() ? 'legacy' : 'modern';
+
+/**
+ * Deprecation notice to show users
+ * who are using deprecated maxLine property.
+ */
+const deprecationNotice = new DeprecationNotice('Property `maxLine` is deprecated, use `lineClamp` instead.');
 
 /**
  * Displays a text with alternative truncation
@@ -100,14 +107,20 @@ export class Label extends BasicElement {
         position: relative;
         overflow-wrap: break-word;
       }
-      .clamp.legacy-X {
-        border-bottom: 8px solid transparent;
-        background: linear-gradient(currentColor, currentColor), linear-gradient(currentColor, currentColor), linear-gradient(currentColor, currentColor);
-        background-size: 2px 2px;
-        background-repeat: no-repeat;
-        background-position: 0 calc(100% + 6px), 3px calc(100% + 6px), 6px calc(100% + 6px);
-      }
     `;
+  }
+
+  /**
+   * Limit the number of lines before truncating
+   * @deprecated
+   */
+  @property({ type: Number, attribute: 'max-line' })
+  public get maxLine (): number {
+    return this.lineClamp;
+  }
+  public set maxLine (value: number) {
+    deprecationNotice.once();
+    this.lineClamp = value;
   }
 
   /**
@@ -239,6 +252,7 @@ export class Label extends BasicElement {
   protected get clampTemplate (): TemplateResult {
     const styles = {
       maxHeight: '',
+      whiteSpace: '',
       lineClamp: `${this.lineClamp}`,
       '-webkit-line-clamp': `${this.lineClamp}`
     };
@@ -246,7 +260,8 @@ export class Label extends BasicElement {
     if (browserType === 'legacy') {
       const cs = getComputedStyle(this);
       const lineHeight = parseFloat(cs.lineHeight) || 1.2/* css default */;
-      styles.maxHeight = `calc(1em * ${lineHeight} * ${this.lineClamp})`;
+      styles.maxHeight = `calc(1em * ${lineHeight} * ${this.lineClamp})`; // faux clamp in legacy browsers
+      styles.whiteSpace = this.lineClamp === 1 ? 'nowrap' : ''; // show ellipsis in legacy browsers
     }
     return html`
       <span class="clamp ${browserType}" style="${styleMap(styles)}">${this.text}</span>
