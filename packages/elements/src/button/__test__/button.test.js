@@ -97,7 +97,8 @@ describe('button/Button', () => {
     it('the active attribute should exist if the active property sets to true', async () => {
       const el = await fixture(html`<ef-button></ef-button>`);
       el.active = true;
-      expect(el.hasAttribute('active')).to.exist;
+      await elementUpdated(el);
+      expect(el.hasAttribute('active')).to.be.equal(true);
     });
   });
 

@@ -768,6 +768,15 @@ export class Overlay extends ResponsiveElement {
     else if (isEdge) {
       this.redrawThrottler.schedule(() => this.updateVariable('--redraw', `${Date.now()}`));
     }
+
+    /*
+    https://github.com/juggle/resize-observer/issues/42
+
+    This event ensures that ResizeObserver picks up resize events
+    when overlay is deeply nested inside shadow root.
+    TODO: remove this workaround once ResizeObserver handles shadow root scenario
+    */
+    window.dispatchEvent(new Event('animationiteration'));
   }
 
   /**

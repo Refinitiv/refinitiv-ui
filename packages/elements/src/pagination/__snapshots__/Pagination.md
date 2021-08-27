@@ -9,7 +9,6 @@
   flex=""
   nowrap=""
   part="container"
-  style="--flex:1 1 auto;"
 >
   <div
     id="info"

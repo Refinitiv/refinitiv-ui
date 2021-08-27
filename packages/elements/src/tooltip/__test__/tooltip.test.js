@@ -243,6 +243,8 @@ describe('tooltip/Tooltip', () => {
       tooltip
     });
 
+    await elementUpdated(el);
+
     expect(tooltip.opened, 'Tooltip is not opened').to.be.true;
 
     await mouseMove({
@@ -250,6 +252,8 @@ describe('tooltip/Tooltip', () => {
       transitionTime: 0,
       tooltip
     });
+
+    await elementUpdated(el);
 
     expect(tooltip.opened, 'Tooltip is not hidden').to.be.false;
   }).timeout(MouseMoveDelay * 2);

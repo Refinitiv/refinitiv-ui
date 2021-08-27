@@ -253,6 +253,7 @@ export class TextField extends ControlElement {
         type="text"
         part="input"
         ?readonly="${this.readonly}"
+        ?disabled="${this.disabled}"
         placeholder="${ifDefined(this.placeholder || undefined)}"
         maxlength="${ifDefined(this.maxLength || undefined)}"
         minlength="${ifDefined(this.minLength || undefined)}"

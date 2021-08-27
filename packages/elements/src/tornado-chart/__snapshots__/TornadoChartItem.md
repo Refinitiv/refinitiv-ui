@@ -11,12 +11,10 @@
   flex=""
   nowrap=""
   part="container"
-  style="--flex:1 1 auto;"
 >
   <ef-layout
     flex=""
     size="25%"
-    style="--flex:0 0 25%;"
   >
     <div part="label">
       <slot>
@@ -26,7 +24,6 @@
   <ef-layout
     basis="40%"
     flex=""
-    style="--flex:1 1 40%;"
   >
     <ef-progress-bar
       alignment="right"
@@ -39,7 +36,6 @@
   <ef-layout
     basis="40%"
     flex=""
-    style="--flex:1 1 40%;"
   >
     <ef-progress-bar
       alignment="left"
@@ -59,21 +55,14 @@
   flex=""
   nowrap=""
   part="container"
-  style="--flex:1 1 auto;"
 >
-  <ef-layout
-    flex=""
-    style="--flex:1 1 auto;"
-  >
+  <ef-layout flex="">
     <div part="label">
       <slot>
       </slot>
     </div>
   </ef-layout>
-  <ef-layout
-    flex=""
-    style="--flex:1 1 auto;"
-  >
+  <ef-layout flex="">
     <ef-progress-bar
       alignment="left"
       part="primary-bar"
@@ -82,10 +71,7 @@
   </ef-layout>
   <div part="seperator">
   </div>
-  <ef-layout
-    flex=""
-    style="--flex:1 1 auto;"
-  >
+  <ef-layout flex="">
     <ef-progress-bar
       alignment="left"
       part="secondary-bar"
@@ -103,12 +89,10 @@
   flex=""
   nowrap=""
   part="container"
-  style="--flex:1 1 auto;"
 >
   <ef-layout
     flex=""
     size="25%"
-    style="--flex:0 0 25%;"
   >
     <div part="label">
       <slot>
@@ -118,7 +102,6 @@
   <ef-layout
     basis="40%"
     flex=""
-    style="--flex:1 1 40%;"
   >
     <ef-progress-bar
       alignment="right"
@@ -133,7 +116,6 @@
   <ef-layout
     basis="40%"
     flex=""
-    style="--flex:1 1 40%;"
   >
     <ef-progress-bar
       alignment="left"
@@ -154,12 +136,10 @@
   flex=""
   nowrap=""
   part="container"
-  style="--flex:1 1 auto;"
 >
   <ef-layout
     flex=""
     size="25%"
-    style="--flex:0 0 25%;"
   >
     <div part="label">
       <slot>
@@ -169,7 +149,6 @@
   <ef-layout
     basis="40%"
     flex=""
-    style="--flex:1 1 40%;"
   >
     <ef-progress-bar
       alignment="right"
@@ -184,7 +163,6 @@
   <ef-layout
     basis="40%"
     flex=""
-    style="--flex:1 1 40%;"
   >
     <ef-progress-bar
       alignment="left"

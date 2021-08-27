@@ -515,21 +515,22 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Allows for a mapping to be created between
    * Data Item and Item Element.
    * @param item Data item context
-   * @param reusableElement Child element available for reuse
+   * @param recyclableElements Child elements available for reuse
    * @returns List item element
    */
-  private createListItem (item: T, reusableElement?: HTMLElement): Element {
+  private createListItem (item: T, recyclableElements: HTMLElement[]): Element {
     const cachedElement = this.elementFromItem(item);
     const previousTimestamp = this.renderTimestamp.get(item) || NaN;
     if (cachedElement && previousTimestamp > this.composer.getItemTimestamp(item)) {
       return cachedElement; // don't re-render if the item hasn't changed
     }
-    if (!cachedElement && reusableElement) {
+    if (!cachedElement && recyclableElements.length) {
       // Remove any old ties with the reusable element.
-      const previousItem = this.itemFromElement(reusableElement);
-      this.itemMap.delete(reusableElement);
+      const recycledElement = recyclableElements.pop() as HTMLElement;
+      const previousItem = this.itemFromElement(recycledElement);
+      this.itemMap.delete(recycledElement);
       previousItem && this.elementMap.delete(previousItem);
-      this.elementMap.set(item, reusableElement);
+      this.elementMap.set(item, recycledElement);
     }
     const freshElement = this.renderer(item, this.composer, this.elementFromItem(item)) as HTMLElement;
     if (cachedElement && cachedElement !== freshElement) {
@@ -566,16 +567,33 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   }
 
   /**
+   * Calculates what elements can be recycled safely
+   * @param renderItems Current items to render
+   * @returns Collection of elements to be recycled
+   */
+  private calculateRecyclableElements (renderItems: T[] | readonly T[]): HTMLElement[] {
+    const result: HTMLElement[] = [];
+    for (const element of this.children) {
+      const item = this.itemFromElement(element as HTMLElement);
+      if (item && !renderItems.includes(item)) {
+        result.push(element as HTMLElement);
+      }
+    }
+    return result;
+  }
+
+  /**
    * Renders updates to light DOM
    * @returns {void}
    */
   protected renderLightDOM (): void {
+    const renderItems = this.renderItems;
     const currentChildren = Array.from(this.children);
-    const renderChildren = this.renderItems.map((item, index) => this.createListItem(item, currentChildren[index] as HTMLElement));
-    const additions = renderChildren.filter(item => !currentChildren.includes(item));
+    const recyclableElements = this.calculateRecyclableElements(renderItems);
+    const renderChildren = renderItems.map((item) => this.createListItem(item, recyclableElements));
     const deletions = currentChildren.filter(item => !renderChildren.includes(item));
     deletions.forEach(item => this.removeChild(item));
-    additions.forEach(item => {
+    renderChildren.forEach(item => {
       const index = renderChildren.indexOf(item);
       if (this.children.length === index) {
         this.appendChild(item);
