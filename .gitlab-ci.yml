@@ -10,17 +10,20 @@ stages:
 test_v5:
   stage: test
   script:
+    - call node --version
+    - call npm --version
+
     # Installing dependencies, strictly based on lock file
-    - npm ci --ignore-scripts --audit=false --fund=false
+    - call npm ci --ignore-scripts --audit=false --fund=false
 
     # Build only changed packages and its dependencies
-    - npx lerna run build --include-dependencies --since origin/v5-dev...HEAD
+    - call npx lerna run build --include-dependencies --since origin/v5-dev...HEAD
 
     # Lint only changed packages and its dependents
-    - npx lerna run lint --concurrency=1 --include-dependents --since origin/v5-dev...HEAD
+    - call npx lerna run lint --concurrency=1 --include-dependents --since origin/v5-dev...HEAD
 
     # Test only changed packages and its dependents
-    - npx lerna run test --concurrency=1 --include-dependents --since origin/v5-dev...HEAD
+    - call npx lerna run test --concurrency=1 --include-dependents --since origin/v5-dev...HEAD
   except:
     - v5@elf/refinitiv-ui
     - v5-dev@elf/refinitiv-ui
@@ -32,6 +35,8 @@ release_v5:
     - node
     - linux
   script:
+    - node --version
+    - npm --version
     - git remote set-url origin https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui.git
     - git checkout v5
     - git pull origin v5

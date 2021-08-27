@@ -20,7 +20,11 @@ describe('tornado-chart/TornadoChartItem', () => {
           expect(el).shadowDom.to.equalSnapshot(IGNORE);
         }
         else {
-          expect(el).shadowDom.to.equalSnapshot();
+          expect(el).shadowDom.to.equalSnapshot({
+            ignoreAttributes: [{
+              tags: ['ef-layout'], attributes: ['style']
+            }]
+          });
         }
       });
       it('DOM structure with vertical property is correct', async () => {
@@ -29,7 +33,11 @@ describe('tornado-chart/TornadoChartItem', () => {
           expect(el).shadowDom.to.equalSnapshot(IGNORE);
         }
         else {
-          expect(el).shadowDom.to.equalSnapshot();
+          expect(el).shadowDom.to.equalSnapshot({
+            ignoreAttributes: [{
+              tags: ['ef-layout'], attributes: ['style']
+            }]
+          });
         }
       });
       it('DOM structure with values and labels is correct', async () => {
@@ -46,7 +54,11 @@ describe('tornado-chart/TornadoChartItem', () => {
           expect(el).shadowDom.to.equalSnapshot(IGNORE);
         }
         else {
-          expect(el).shadowDom.to.equalSnapshot();
+          expect(el).shadowDom.to.equalSnapshot({
+            ignoreAttributes: [{
+              tags: ['ef-layout'], attributes: ['style']
+            }]
+          });
         }
       });
       it('DOM structure with values, labels and highlighted state is correct', async () => {
@@ -64,7 +76,11 @@ describe('tornado-chart/TornadoChartItem', () => {
           expect(el).shadowDom.to.equalSnapshot(IGNORE);
         }
         else {
-          expect(el).shadowDom.to.equalSnapshot();
+          expect(el).shadowDom.to.equalSnapshot({
+            ignoreAttributes: [{
+              tags: ['ef-layout'], attributes: ['style']
+            }]
+          });
         }
       });
     });

@@ -775,6 +775,7 @@ export class NumberField extends ControlElement {
         inputmode="decimal"
         pattern="${NUMBER_PATTERN}"
         ?readonly=${this.readonly}
+        ?disabled=${this.disabled}
         placeholder=${ifDefined(this.placeholder ? this.placeholder : undefined)}
         @input="${this.onNativeInputChange}"
         @keydown="${this.onNativeInputKeyDown}"

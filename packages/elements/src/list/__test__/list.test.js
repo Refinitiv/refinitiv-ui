@@ -233,6 +233,7 @@ describe('list/List', () => {
     const el = await fixture('<ef-list></ef-list>');
     el.data = new CollectionComposer(data);
     await elementUpdated(el);
+    el.data.setItemPropertyValue(data[2], 'hidden', true);
     el.data.setItemPropertyValue(data[1], 'hidden', false);
     await elementUpdated(el);
   });

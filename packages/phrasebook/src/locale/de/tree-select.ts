@@ -15,7 +15,7 @@ const translations = {
   DONE: 'Fertig',
   // selection/filter feedback
   SELECTED_NUM: '{numSelected, plural, =0 {} =1 {Eine Auswahl.} other {# ausgewählt.}}',
-  MATCHES_NUM: '{numMatched, plural, =0 {Keine Übereinstimmungen} =1 {Eine Übereinstimmung.} other {# Übereinstimmungen.}}'
+  MATCHES_NUM: '{numMatched, plural, =0 {Keine Ergebnisse} =1 {1 Ergebnis} other {# Ergebnisse}}'
 };
 
 Phrasebook.define('de', 'ef-tree-select', translations);

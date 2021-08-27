@@ -947,21 +947,21 @@ export class InteractiveChart extends ResponsiveElement {
    * @returns {void}
    */
   private createTextPrice (rowLegend: RowLegend, price: number | string, priceColor: string, index: number): void {
-    // Uses price formatter if provided
-    const formatter = this.internalConfig.series[index].hasOwnProperty('legendPriceFormatter') ? this.internalConfig.series[index].legendPriceFormatter : null;
-    price = (formatter ? formatter(price) : price) as number;
+    const formatter = this.internalConfig.series[index].legendPriceFormatter;
+    // Formats legend only when formatter and data point are provided
+    const formattedPrice = !!formatter && price !== NO_DATA_POINT ? formatter(price) : price;
 
     // Create text price after chart has rendered
     if (this.isHTMLElement(rowLegend)) {
       rowLegend.setAttribute('data-color', priceColor);
-      this.createSpan(rowLegend, price);
+      this.createSpan(rowLegend, formattedPrice);
     }
     // Handle update text price when mouse crosshairMove in chart
     else if (this.isNodeListElement(rowLegend)) {
       const symbolElem = rowLegend[index].children[0];
       const spanIndex = symbolElem.getAttribute('class')?.indexOf('symbol') === 0 ? 1 : 0;
       const rowLegendElem = rowLegend[index];
-      rowLegendElem.children[spanIndex].textContent = `${price}`;
+      rowLegendElem.children[spanIndex].textContent = `${formattedPrice}`;
       (rowLegendElem.children[spanIndex] as HTMLElement).style.color = `${priceColor}`;
     }
   }
@@ -1222,8 +1222,8 @@ export class InteractiveChart extends ResponsiveElement {
         <div part="jump-button"></div>
       </div>
       <div part="branding-container" title="" tooltip="Powered by Trading View">
-        <svg viewBox="0 0 33 19" part="branding">
-          <path d="M29.0317379,7.38247569 C29.5989701,8.20545373 29.9478191,9.19057395 29.9946037,10.2541551 C31.7452105,10.8703835 33,12.5386559 33,14.5 C33,16.9852814 30.9852814,19 28.5,19 L6,19 C4.35376245,19 2.86237543,18.3370061 1.7782826,17.2634619 L11.3238065,9.70658883 C11.6743726,9.89384408 12.0747893,10 12.5,10 C12.8814296,10 13.242908,9.91457903 13.5663489,9.76182351 L18.1165746,13.743271 C18.0408521,13.9819846 18,14.2362216 18,14.5 C18,15.8807119 19.1192881,17 20.5,17 C21.8807119,17 23,15.8807119 23,14.5 C23,14.1775704 22.9389612,13.8693971 22.8278086,13.586405 L29.0317379,7.38247569 Z M27.6175243,5.96826213 L21.413595,12.1721914 C21.1306029,12.0610388 20.8224296,12 20.5,12 C20.1185704,12 19.757092,12.085421 19.4336511,12.2381765 L14.8834254,8.25672903 C14.9591479,8.01801537 15,7.76377844 15,7.5 C15,6.11928813 13.8807119,5 12.5,5 C11.1192881,5 10,6.11928813 10,7.5 C10,7.72070771 10.0286003,7.93473545 10.082297,8.13857926 L0.609477485,15.6378947 C0.219150823,14.8417652 0,13.9464753 0,13 C0,9.6862915 2.6862915,7 6,7 C6.02064279,7 6.04126123,7.00010425 6.06185483,7.00031224 C6.55381427,3.0538495 9.92027475,0 14,0 C17.6455896,0 20.7216389,2.43849213 21.6860468,5.77337533 C22.5093073,5.28219823 23.4716982,5 24.5,5 C25.6574983,5 26.7314831,5.35756404 27.6175243,5.96826213 Z"></path>
+        <svg width="33" height="19" viewBox="0 0 611 314"  part="branding">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M341 124C375.242 124 403 96.2417 403 62C403 27.7583 375.242 0 341 0C306.758 0 279 27.7583 279 62C279 96.2417 306.758 124 341 124ZM481 314H337L467 4H611L481 314ZM124 4H248V128V314H124V128H0V4H124Z"/>
         </svg>
       </div>
       <div part="chart"></div>
