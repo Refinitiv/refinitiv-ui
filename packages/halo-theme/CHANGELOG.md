@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.0.0...@refinitiv-ui/halo-theme@5.0.1) (2021-08-27)
+
+**Note:** Version bump only for package @refinitiv-ui/halo-theme
+
+
+
+
+
 # [5.0.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.0.0-beta.3...@refinitiv-ui/halo-theme@5.0.0) (2021-07-16)
 
 
