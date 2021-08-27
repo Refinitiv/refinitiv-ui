@@ -432,7 +432,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns {void}
    */
   protected closeAndReset (): void {
-    this.setQuery('');
+    this.resetInput();
     this.setOpened(false);
   }
 
@@ -592,6 +592,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
       // do not expand EMS if there is no filter applied
       if (this.query || this.editSelectionItems.size) {
+        this.addItemDescendantsToRender(items);
         this.addExpandedAncestorsToRender(items);
       }
 
@@ -600,6 +601,53 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     }
 
     this.forcePopupLayout();
+  }
+
+  /**
+   * Utility method
+   * Adds descendants for each item passed
+   * @param items List of child items
+   * @returns {void}
+   */
+  protected addItemDescendantsToRender (items: TreeSelectDataItem[]): void {
+    items.forEach((item) => {
+      // all items will be collapsed by default
+      if (this.treeManager.isItemExpanded(item)) {
+        this.treeManager.collapseItem(item);
+      }
+
+      /**
+       * show all descendants of items to make them all are selectable
+       * and user can navigate into nested data
+       */
+      const children = this.treeManager.getItemChildren(item);
+      if (children.length) {
+        this.addNestedItemsToRender(children, items);
+      }
+    });
+  }
+
+  /**
+   * Utility method
+   * Add nested children of item list
+   * @param items List of items
+   * @param excludeItems List of exclude items
+   * @returns void
+   */
+  protected addNestedItemsToRender (items: readonly TreeSelectDataItem[], excludeItems: readonly TreeSelectDataItem[]): void {
+    items.forEach(item => {
+
+      // Skip excluding item
+      if (!excludeItems.includes(item)) {
+
+        // Add item and nested children
+        this.treeManager.includeItem(item);
+        const children = this.treeManager.getItemChildren(item);
+        if (children.length) {
+          this.addNestedItemsToRender(children, excludeItems);
+        }
+      }
+    });
   }
 
   /**
