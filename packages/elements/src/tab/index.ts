@@ -146,9 +146,7 @@ export class Tab extends ControlElement {
     return css`
       :host {
         display: inline-flex;
-      }
-      :host [part=sub-label] {
-        display: block;
+        flex-shrink: 0;
       }
     `;
   }
