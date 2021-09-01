@@ -503,7 +503,7 @@ class Tooltip extends BasicElement {
   }
 
   /**
-   * Run when document click event happens
+   * Run when document click or contextmenu event happens
    * @returns {void}
    */
   private onClick = (): void => {

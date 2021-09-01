@@ -3,6 +3,12 @@ import { TimeoutTaskRunner } from '@refinitiv-ui/utils';
 import { DocumentCallbacks } from '../helpers/types';
 
 /**
+ * Helper to check if the browser is IE
+ * @returns True if the browser is IE
+ */
+const isIE = () => !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
+
+/**
  * Tooltip manager is here to avoid setting multiple
  * events on document and do expensive pre-processing
  * in a common way
@@ -53,7 +59,7 @@ class TooltipManager {
   };
 
   /**
-   * @param event Mouse click event
+   * @param event Mouse click or contextmenu event
    * @returns {void}
    */
   private onClick = (event: MouseEvent): void => {
@@ -102,13 +108,20 @@ class TooltipManager {
 
   public register (tooltip: Tooltip, documentCallbacks: DocumentCallbacks): void {
     if (!this.registry.size) {
-      document.addEventListener('mousemove', this.onMouseMove);
-      document.addEventListener('click', this.onClick, true);
-      document.addEventListener('mouseout', this.onMouseOut);
-      document.addEventListener('mouseleave', this.onMouseLeave);
-      document.addEventListener('wheel', this.onWheel);
-      document.addEventListener('keydown', this.onKeyDown);
-      document.body.addEventListener('blur', this.onBlur);
+      // IE11 does not support event options
+      const supportOptions = !isIE();
+      const eventOptions = supportOptions ? { passive: true } : undefined;
+
+      document.addEventListener('mousemove', this.onMouseMove, eventOptions);
+      document.addEventListener('mouseout', this.onMouseOut, eventOptions);
+      document.addEventListener('mouseleave', this.onMouseLeave, eventOptions);
+      document.addEventListener('wheel', this.onWheel, eventOptions);
+      document.addEventListener('keydown', this.onKeyDown, eventOptions);
+      document.body.addEventListener('blur', this.onBlur, eventOptions);
+
+      const clickEventOptions = supportOptions ? { passive: true, capture: true } : true;
+      document.addEventListener('click', this.onClick, clickEventOptions);
+      document.addEventListener('contextmenu', this.onClick, clickEventOptions);
     }
 
     this.registry.set(tooltip, documentCallbacks);
@@ -119,12 +132,14 @@ class TooltipManager {
 
     if (!this.registry.size) {
       document.removeEventListener('mousemove', this.onMouseMove);
-      document.removeEventListener('click', this.onClick, true);
       document.removeEventListener('mouseout', this.onMouseOut);
       document.removeEventListener('mouseleave', this.onMouseLeave);
       document.removeEventListener('wheel', this.onWheel);
       document.removeEventListener('keydown', this.onKeyDown);
       document.body.removeEventListener('blur', this.onBlur);
+
+      document.removeEventListener('click', this.onClick, true);
+      document.removeEventListener('contextmenu', this.onClick, true);
     }
   }
 }
