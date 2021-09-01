@@ -461,7 +461,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
-   * Validate input. Mark as error if input is invalid
+   * Validates the input, marking the element as invalid if its value does not meet the validation criteria.
    * @returns {void}
    */
   public validateInput (): void {
