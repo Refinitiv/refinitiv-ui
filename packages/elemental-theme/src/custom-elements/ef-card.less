@@ -5,7 +5,6 @@
 
 :host {
   padding: @panel-padding;
-  --card-padding: 1em;
   box-sizing: border-box;
   width: 400px;
   box-shadow: @panel-box-shadow;
@@ -26,7 +25,7 @@
   }
 
   [part~=header] {
-    padding-bottom: var(--card-padding);
+    padding-bottom: inherit;
   }
 
   [part~=header-body] {
@@ -53,7 +52,7 @@
   }
 
   [part~=footer-body] {
-    padding-top: calc(var(--card-padding) / 2);
+    padding-top: calc(1em - @separator-width);
     font-family: inherit;
     color: @list-item-header-text-color;
     border-top: @separator-width solid @separator-color;

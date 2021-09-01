@@ -32,9 +32,8 @@
     <slot name="header">
     </slot>
     <ef-label
-      max-line="3"
+      line-clamp="3"
       part="header-text"
-      style="--max-line:3;"
     >
       Header
     </ef-label>
@@ -48,10 +47,7 @@
   <div part="footer-body">
     <slot name="footer">
     </slot>
-    <ef-label
-      max-line="3"
-      style="--max-line:3;"
-    >
+    <ef-label line-clamp="3">
       Footer
     </ef-label>
   </div>
