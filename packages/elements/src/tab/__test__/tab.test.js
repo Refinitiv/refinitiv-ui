@@ -105,17 +105,28 @@ describe('tab/Tab', () => {
     beforeEach(async () => {
       el = await fixture('<ef-tab label="Application Details"></ef-tab>');
     });
-    it('Should pass truncate with empty string value to ef-label by default', async () => {
+    it('Should pass truncate 1 line to quartz-label by default', async () => {
       const labelPart = el.shadowRoot.querySelector("[part='label']");
-      expect(labelPart.truncate).to.equal('');
+      expect(labelPart.lineClamp).to.equal(1);
     });
-    it('Should be ignore max-line when sub-label is provided', async () => {
+    it('Should be line-clamp=0 to quartz-label when middle ellipsis', async () => {
+      el.lineClamp = null;
+      const labelPart = el.shadowRoot.querySelector("[part='label']");
+      await elementUpdated();
+      expect(labelPart.lineClamp).to.equal(0);
+
+      el.lineClamp = 0;
+      await elementUpdated();
+      expect(labelPart.lineClamp).to.equal(0);
+    });
+    it('Should be ignore multiple lines when sub-label is provided', async () => {
+      el.lineClamp = 2;
       const subLabelText = 'Secondary Text';
       el.subLabel = subLabelText;
       await elementUpdated();
       const labelPart = el.shadowRoot.querySelector("[part='label']");
       expect(el.subLabel).to.equal(subLabelText);
-      expect(labelPart.maxLine).to.equal(null);
+      expect(labelPart.lineClamp).to.equal(1);
     });
   });
   describe('Slot', () => {

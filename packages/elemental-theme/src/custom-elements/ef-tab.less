@@ -68,7 +68,7 @@
     }
   }
 
-  &:not([truncate=center])[max-line] {
+  &[line-clamp="2"], &[line-clamp="3"] {
     height: unit((@tab-height + 10), px);
   }
 
