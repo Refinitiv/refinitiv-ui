@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.1.0...@refinitiv-ui/elements@5.1.1) (2021-08-27)
+
+
+### Bug Fixes
+
+* **chart:** render chart correctly in IE ([575e820](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/575e820d5d8ac8eeb910b510320322b06d8b829b))
+* **email-field:** can focus while disabled ([d045ea8](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/d045ea81a3d916cfb4dc5bbe8ff6722e7ca62f38))
+* **interactive-chart:** legendPriceFormatter should not be called if there is no value ([8f40610](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/8f40610b37cededb60bbf6d1bc51b538feab0ef4))
+* **interactive-chart:** update Trading View logo ([8acda57](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/8acda574874746a216eca9ed234c96e860e21ade))
+* **list:** render order wrong when recycling nodes ([eed56c7](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/eed56c7947ca5974e7f15f81e0aef8bca67a8692))
+* **number-field:** can focus while disabled ([9fd1e65](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/9fd1e65a0d8a75aa4338dc96f504fc13066a0132))
+* **password-field:** can focus while disabled ([7f8f941](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/7f8f941a53ec51262a54aadca887a4122c8a32f6))
+* **search-field:** can focus while disabled ([73aad4a](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/73aad4ae37a4e8570a4bcb5e2cf5ae3d7d33070b))
+* **slider:** add warning invalid property ([70e8a00](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/70e8a007f48c3c289bd9c44a53a73b9099f9645f))
+* **text-field:** can focus while disabled ([25f2733](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/25f273331acb325865fe373223eb51185db2d1a3))
+
+
+
+
+
 # [5.1.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.0.0...@refinitiv-ui/elements@5.1.0) (2021-07-30)
 
 
