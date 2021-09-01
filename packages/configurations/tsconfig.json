@@ -8,6 +8,7 @@
     "esModuleInterop": true,
     "strict": true,
     "sourceMap": true,
-    "declaration": true
+    "declaration": true,
+    "declarationMap": true,
   }
 }
