@@ -26,12 +26,15 @@
 
   [part~=header] {
     padding-bottom: inherit;
+    min-height: @control-height;
   }
 
   [part~=header-body] {
     font-weight: 400;
     font-size: 130%;
     font-family: inherit;
+    display: flex;
+    align-items: center;
   }
 
   [part~="menu-button"] {
