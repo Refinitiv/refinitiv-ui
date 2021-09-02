@@ -103,8 +103,14 @@
     margin-right: auto;
   }
 
-  [part=cancel-button] {
-    margin-right: extract(@control-margin, 1);
+  [part=cancel-button], [part=done-button] {
+    margin: extract(@control-margin, 1);
+  }
+
+  [part~=footer] [part*=-button] {
+    &:first-child {
+      margin-right: 0;
+    }
   }
 
   [part=pills] {

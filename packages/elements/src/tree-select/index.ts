@@ -893,14 +893,14 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   protected get commitControlsTemplate (): TemplateResult {
     return html`
       <ef-button
-        id="cancel"
-        part="cancel-button"
-        @tap="${this.cancel}">${this.t('CANCEL')}</ef-button>
-      <ef-button
         id="done"
         part="done-button"
         cta
         @tap="${this.save}">${this.t('DONE')}</ef-button>
+      <ef-button
+        id="cancel"
+        part="cancel-button"
+        @tap="${this.cancel}">${this.t('CANCEL')}</ef-button>
     `;
   }
 
