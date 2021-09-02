@@ -6,7 +6,7 @@ import { DocumentCallbacks } from '../helpers/types';
  * Helper to check if the browser is IE
  * @returns True if the browser is IE
  */
-const isIE = () => !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
+const isIE = (): boolean => !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
 
 /**
  * Tooltip manager is here to avoid setting multiple
