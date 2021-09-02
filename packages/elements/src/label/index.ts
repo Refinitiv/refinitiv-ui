@@ -1,19 +1,21 @@
 import {
-  ResponsiveElement,
+  BasicElement,
   html,
   css,
   customElement,
   property,
   TemplateResult,
   CSSResult,
-  PropertyValues,
-  query
+  styleMap,
+  DeprecationNotice
 } from '@refinitiv-ui/core';
 import { VERSION } from '../';
-import '../tooltip';
-import { TextHelpers } from './helpers/text';
+import { addTooltipCondition, removeTooltipCondition } from '../tooltip';
 
-// Observer config for items
+/**
+ * Configuration object
+ * for mutations observers
+ */
 const observerOptions = {
   subtree: true,
   childList: true,
@@ -21,12 +23,35 @@ const observerOptions = {
 };
 
 /**
+ * Reusable SPACE
+ */
+const _ = ' ';
+
+/**
+ * Helper to check if the browser is IE
+ * @returns True if the browser is IE
+ */
+const isIE = () => !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
+
+/**
+ * Determines if the browser is legacy or modern.
+ */
+/* istanbul ignore next */
+const browserType = isIE() ? 'legacy' : 'modern';
+
+/**
+ * Deprecation notice to show users
+ * who are using deprecated maxLine property.
+ */
+const deprecationNotice = new DeprecationNotice('Property `maxLine` is deprecated, use `lineClamp` instead.');
+
+/**
  * Displays a text with alternative truncation
  */
 @customElement('ef-label', {
   alias: 'quartz-label'
 })
-export class Label extends ResponsiveElement {
+export class Label extends BasicElement {
 
   /**
    * Element version number
@@ -45,41 +70,64 @@ export class Label extends ResponsiveElement {
   static get styles (): CSSResult | CSSResult[] {
     return css`
       :host {
-        display: inline-block;
+        display: inline-flex;
         max-width: 100%;
-        box-sizing: border-box;
       }
-      :host([truncate]) {
-        white-space: nowrap;
-        text-overflow: ellipsis;
+      .split {
+        height: 1.2em;
+        line-height: 1.2em;
+        margin-top: -0.1em;
+        flex: 0 1 auto;
+        min-width: 0;
         overflow: hidden;
+        white-space: nowrap;
       }
-      :host([max-line]) {
-        display: -webkit-inline-box;
-        -webkit-line-clamp: var(--max-line);
+      .left.modern {
+        word-break: break-all;
         white-space: normal;
-        -webkit-box-orient: vertical;
-        text-overflow: ellipsis;
-        overflow: hidden;
       }
-      :host([truncate=center]) {
-        white-space: nowrap;
-        text-overflow: clip;
+      .left.legacy {
+        text-overflow: ellipsis;
+      }
+      .center {
+        flex: 0 100 auto;
+      }
+      .right.modern {
+        direction: rtl;
+        text-overflow: ellipsis;
+      }
+      .right.legacy span {
+        float: right;
+      }
+      .clamp {
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        display: -webkit-inline-box;
+        text-overflow: ellipsis;
+        position: relative;
+        overflow-wrap: break-word;
       }
     `;
   }
 
   /**
-   * Enable shortening the slot content
+   * Limit the number of lines before truncating
+   * @deprecated
    */
-  @property({ type: String, reflect: true })
-  public truncate: 'center' | '' | null | undefined = null;
+  @property({ type: Number, attribute: 'max-line' })
+  public get maxLine (): number {
+    return this.lineClamp;
+  }
+  public set maxLine (value: number) {
+    deprecationNotice.once();
+    this.lineClamp = value;
+  }
 
   /**
    * Limit the number of lines before truncating
    */
-  @property({ type: String, reflect: true, attribute: 'max-line' })
-  public maxLine = null;
+  @property({ type: Number, attribute: 'line-clamp' })
+  public lineClamp = 0;
 
   /**
    * Set state to error
@@ -94,211 +142,130 @@ export class Label extends ResponsiveElement {
   public warning = false;
 
   /**
-   * Use to set title attribute for tooltip
+   * Trimmed chunks of textual content
    */
-  @query('span', true)
-  private span!: HTMLElement;
+  private chunks: string[] = [];
 
   /**
-   * Use to prevent resizes observer in certain use cases
+   * Mutation Observer used to detect changes in the Light DOM
    */
-  private updateTimer!: NodeJS.Timeout;
+  private mutationObserver = new MutationObserver(() => this.recalculate(true));
 
   /**
-   * Store trimmed text content
+   * Render used to display the tooltip
+   * @returns Tooltip text
    */
-  private rawText = '';
+  protected tooltipRenderer = (): string => this.text;
 
   /**
-   * Tooltip state when truncate = center
+   * Condition used to display the tooltip
+   * @param target Tooltip target
+   * @returns Whether the tooltip should be shown or not.
    */
-  private enableTooltip = false;
-
-  private mutationObserver?: MutationObserver;
-
+  protected tooltipCondition = (target: HTMLElement): boolean => this.shouldShowTooltip(target);
 
   /**
-   * The lifecycle method called when properties changed first time
-   * @param changedProperties properties it's the Map object which has the updated properties
+   * @override
+   */
+  public connectedCallback (): void {
+    super.connectedCallback();
+    addTooltipCondition(this.tooltipCondition, this.tooltipRenderer);
+    this.mutationObserver.observe(this, observerOptions);
+    !isIE() && this.recalculate(); // In IE the mutation will trigger
+  }
+
+  /**
+   * @override
+   */
+  public disconnectedCallback (): void {
+    super.disconnectedCallback();
+    removeTooltipCondition(this.tooltipCondition);
+    this.mutationObserver.disconnect();
+  }
+
+  /**
+   * Decides whether the tooltip should b shown
+   * @param tooltipTarget Target element passed by the tooltip condition
+   * @returns True if the tooltip should be shown
+   */
+  protected shouldShowTooltip (tooltipTarget: HTMLElement): boolean {
+    const targetMatches = tooltipTarget === this;
+    const part = this.renderRoot.firstElementChild;
+    if (targetMatches && part) {
+      return part.clientHeight !== part.scrollHeight || part.clientWidth !== part.scrollWidth;
+    }
+    return false;
+  }
+
+  /**
+   * Handles any modifications to the internal HTML
+   * @param [mutation=false] is the request from a mutation event?
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
-    super.firstUpdated(changedProperties);
-    this.rawText = this.retrieveSlotContent();
-  }
-
-  /**
-   * Called when the element’s DOM has been updated and rendered
-   * @param changedProperties Properties that has changed
-   * @returns shouldUpdate
-   */
-  protected updated (changedProperties: PropertyValues): void {
-    super.updated(changedProperties);
-    if (changedProperties.has('truncate')) {
-      if (this.truncate === 'center') {
-        this.restoreTextContent();
-        this.middleEllipsis(this, this.span, this.rawText);
-      }
-      else {
-        this.restoreTextContent();
-        if (this.maxLine) {
-          this.style.setProperty('--max-line', this.maxLine);
-        }
-      }
-      this.updateTooltip();
-    }
-    else if (changedProperties.has('maxLine')) {
-      this.style.setProperty('--max-line', this.maxLine);
-      this.updateTooltip();
-    }
-
-    // we must wait while all elements in the tree are updated before starting the mutation observer
-    void this.updateComplete.then(() => {
-      if(!this.mutationObserver) {
-        // Start watching for any child mutations
-        this.mutationObserver = new MutationObserver(this.handleSlotChange.bind(this));
-        this.mutationObserver.observe(this, observerOptions);
-      }
-    });
-  }
-
-  /**
-   * Used to prevent handler fired when previous content are the same as last content
-   */
-  private previousContent = '';
-
-  /**
-   * Handle statement after slot or innerHTML has been changed
-   * @returns void
-   */
-  private handleSlotChange (): void {
-    // get new text content when label changed
-    this.rawText = this.retrieveSlotContent();
-    if(this.previousContent !== this.rawText) {
-      this.previousContent = this.rawText;
-      this.restoreTextContent();
-      if (this.truncate === 'center') {
-        this.middleEllipsis(this, this.span, this.rawText);
-      }
-      this.updateTooltip();
+  protected recalculate (mutation = false): void {
+    mutation; // keeping here for future use
+    const oldValue = this.text;
+    const raw = this.textContent || '';
+    this.chunks = raw.split(_).map(chunk => chunk.trim()).filter(chunk => chunk);
+    const newValue = this.text;
+    if (oldValue !== newValue) {
+      void this.requestUpdate('text', oldValue);
     }
   }
 
   /**
-   * Restore text content
-   * @returns {void}
+   * Returns cleaned version of `this.textContent`.
    */
-  private restoreTextContent (): void {
-    this.span.innerHTML = this.rawText;
+  protected get text (): string {
+    return this.chunks.join(_);
   }
 
   /**
-   * concatenating all of text content in the slots
-   * @returns trimmed text content
+   * Default template
    */
-  private retrieveSlotContent (): string {
-    let text = this.textContent || '';
-    const slot = this.querySelector('slot');
-    if(slot) {
-      const slotContent = slot.assignedNodes({ flatten: true });
-      for(let i = 0; i < slotContent.length; i++) {
-        text += slotContent[i].textContent;
-      }
-    }
-
-    return TextHelpers.trim(text);
-  }
-
-  /**
-   * Get element width minus padding
-   * @param node parent node that wrapper text node
-   * @returns {number} width minus padding
-   */
-  private getElementWidthMinusPadding (node: HTMLElement): number {
-    const paddingLeft = getComputedStyle(node).paddingLeft;
-    const paddingRight = getComputedStyle(node).paddingRight;
-    return node.offsetWidth - parseFloat(paddingLeft) - parseFloat(paddingRight);
-  }
-
-  /**
-   * Truncate a long string in the middle and add an ellipsis.
-   * @param parentNode parent node
-   * @param textNode text node
-   * @param fullText string
-   * @returns {void}
-   */
-  private middleEllipsis (parentNode: HTMLElement, textNode: HTMLElement, fullText: string): void {
-    const parentWidth = this.getElementWidthMinusPadding(parentNode);
-    const textWidth = textNode.offsetWidth;
-    this.enableTooltip = false;
-
-    if(textWidth <= parentWidth) {
-      return;
-    }
-    TextHelpers.middleEllipsis(textNode, parentWidth, fullText);
-    this.enableTooltip = true;
-    void this.requestUpdate();
-  }
-
-  /**
-   * Handle text ellipsis and tooltip state when element has been resized
-   * @returns void
-   */
-  private onResize (): void {
-    if (this.truncate === 'center') {
-      this.restoreTextContent(); // TODO: find a way to remove this to improve performance
-      this.middleEllipsis(this, this.span, TextHelpers.trim(this.span.textContent || ''));
-    }
-    this.updateTooltip();
-  }
-
-  /**
-   * Handle tooltip statement when properties changed
-   * @returns void
-   */
-  private updateTooltip (): void {
-    // determine tooltip state
-    if (this.isShowTooltip()) {
-      this.span.setAttribute('title', this.rawText);
+  protected get truncateTemplate (): TemplateResult {
+    const words = this.chunks;
+    const left: string[] = [];
+    const right: string[] = [];
+    const isSingleWord = words.length === 1;
+    if (isSingleWord) {
+      const word = words[0];
+      const split = Math.round(word.length / 2);
+      left.push(word.substr(0, split));
+      right.push(word.substr(split));
     }
     else {
-      this.span.removeAttribute('tooltip');
-      this.span.removeAttribute('title');
+      const split = Math.round(words.length / 2);
+      for (let i = 0; i < words.length; i += 1) {
+        (i < split ? left : right).push(words[i]);
+      }
     }
+    const leftPart = html`<div class="split left ${browserType}">${left.join(_)}</div>`;
+    const centerPart = isSingleWord ? undefined : html`<div class="split center">&nbsp;</div>`;
+    const rightPart = right.length ? html`<div class="split right ${browserType}"><span dir="ltr">${right.join(_)}</span></div>` : undefined;
+    return html`${leftPart}${centerPart}${rightPart}`;
   }
 
   /**
-   * private method but can't override
-   * access modifiers in typescript.
-   * @ignore
-   * @param size element dimensions
-   * @returns {void}
+   * Template for when line clamp is set
    */
-  public resizedCallback (): void {
-    clearTimeout(this.updateTimer);
-    // split layout updating to another execution-loop
-    // to prevents resizeObserver triggers resize-loop-error
-    this.updateTimer = setTimeout(() => this.onResize(), 0);
-  }
-
-  /**
-   * Determine show/hide tooltip state
-   * @returns {boolean} true if center truncate or the element is smaller than a parent
-   */
-  private isShowTooltip (): boolean {
-    if(this.offsetWidth !== this.scrollWidth) {
-      return true;
+  protected get clampTemplate (): TemplateResult {
+    const styles = {
+      maxHeight: '',
+      whiteSpace: '',
+      lineClamp: `${this.lineClamp}`,
+      '-webkit-line-clamp': `${this.lineClamp}`
+    };
+    /* istanbul ignore if */
+    if (browserType === 'legacy') {
+      const cs = getComputedStyle(this);
+      const lineHeight = parseFloat(cs.lineHeight) || 1.2/* css default */;
+      styles.maxHeight = `calc(1em * ${lineHeight} * ${this.lineClamp})`; // faux clamp in legacy browsers
+      styles.whiteSpace = this.lineClamp === 1 ? 'nowrap' : ''; // show ellipsis in legacy browsers
     }
-    // truncate is center and text is overflow
-    if (this.truncate === 'center' && this.enableTooltip) {
-      return true;
-    }
-    // maxLine is provided and text is overflow
-    else if (this.maxLine && this.offsetHeight !== this.scrollHeight) {
-      return true;
-    }
-
-    return false;
+    return html`
+      <span class="clamp ${browserType}" style="${styleMap(styles)}">${this.text}</span>
+    `;
   }
 
   /**
@@ -307,11 +274,6 @@ export class Label extends ResponsiveElement {
    * @return Render template
    */
   protected render (): TemplateResult {
-    return html`
-      <div style="display: none;">
-        <slot></slot>
-      </div>
-      <span .title=${this.isShowTooltip() ? this.rawText : ''}></span>
-    `;
+    return this.lineClamp ? this.clampTemplate : this.truncateTemplate;
   }
 }

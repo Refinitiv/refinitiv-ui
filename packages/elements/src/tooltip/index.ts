@@ -10,6 +10,7 @@ import {
   query,
   matches
 } from '@refinitiv-ui/core';
+import { isSlotEmpty } from '@refinitiv-ui/utils';
 import '../overlay';
 import { OverlayTransitionStyle as TooltipTransitionStyle, Overlay, OverlayPosition } from '../overlay';
 
@@ -330,9 +331,7 @@ class Tooltip extends BasicElement {
       return false;
     }
 
-    // Space characters (e.g. space, tab, EOL) don't count as having content
-    const nodes = this.contentSlot.assignedNodes() || [];
-    return nodes.some(({ nodeType, textContent }) => nodeType === Node.ELEMENT_NODE || textContent && textContent.search(/\S/) >= 0); // If node is element always return true
+    return isSlotEmpty(this.contentSlot);
   }
 
   /**
@@ -504,7 +503,7 @@ class Tooltip extends BasicElement {
   }
 
   /**
-   * Run when document click event happens
+   * Run when document click or contextmenu event happens
    * @returns {void}
    */
   private onClick = (): void => {

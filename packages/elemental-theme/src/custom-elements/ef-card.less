@@ -1,44 +1,67 @@
-@import 'element:ef-button';
+@import '../shared-styles/scrollbar';
+@import 'element:ef-icon';
 @import 'element:ef-overlay-menu';
 @import 'element:ef-label';
 
 :host {
-  @spacing: 16px;
+  padding: @panel-padding;
+  box-sizing: border-box;
   width: 400px;
-  box-shadow: 0px 2px 8px 0px @global-box-shadow-color;
-  padding: @spacing;
-  background-color: @color-vinyl;
-  & when (@variant = light) {
-    background-color: @color-white; 
+  box-shadow: @panel-box-shadow;
+  background-color: @panel-background-color;
+  overflow: hidden;
+
+  [part~=body], [part~=header], [part~=footer] {
+    position: relative;
   }
-  [part=body] {
+
+  [part~=body] {
+    overflow: auto;
+  }
+
+  [part~=header], [part~=footer] {
+    overflow: hidden;
     flex: 1 0 auto;
   }
-	[part=header] {
-    display: flex;
-    position: relative;
-    margin-bottom: @spacing;
+
+  [part~=header] {
+    padding-bottom: inherit;
+    min-height: @control-height;
   }
-  [part="menu-button"] {
+
+  [part~=header-body] {
+    font-weight: 400;
+    font-size: 130%;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+  }
+
+  [part~="menu-button"] {
     transform: rotate(90deg);
     font-size: @icon-size;
-    margin: 0;
-    height: 20px;
-  }
-  [part=header-text] {
-    font-size: @icon-size;
-    font-weight: 700;
-    width: 100%;
-  }
-  [part=footer] {
-    border-top: @separator-width solid @separator-color;
-    margin-top: @spacing;
-    padding-top: 8px;
-    width: 100%;
-  }
-  &:not([header]) {
-    [part=header] {
-      justify-content: flex-end;
+    cursor: pointer;
+    outline: none;
+    border: @control-border-width @button-border-style transparent;
+    border-radius: @button-border-radius;
+
+    &[focused=visible] {
+      border-color: @input-focused-border-color;
     }
   }
+
+  [part~=footer] {
+    padding-top: inherit;
+  }
+
+  [part~=footer-body] {
+    padding-top: calc(1em - @separator-width);
+    font-family: inherit;
+    color: @list-item-header-text-color;
+    border-top: @separator-width solid @separator-color;
+  }
+
+  .ie-scrollbars();
+  .mozilla-scrollbars();
 }
+.webkit-scrollbars();

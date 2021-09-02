@@ -16,10 +16,7 @@
 
 ```html
 <div part="label-container">
-  <ef-label
-    part="label"
-    truncate=""
-  >
+  <ef-label part="label">
     Home
   </ef-label>
   <slot>
@@ -32,16 +29,10 @@
 
 ```html
 <div part="label-container">
-  <ef-label
-    part="label"
-    truncate=""
-  >
+  <ef-label part="label">
     Home
   </ef-label>
-  <ef-label
-    part="sub-label"
-    truncate=""
-  >
+  <ef-label part="sub-label">
     Secondary Info
   </ef-label>
   <slot>
