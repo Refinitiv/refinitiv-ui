@@ -82,22 +82,45 @@
       color: @calendar-cell-hover-text-color;
     }
 
-    &:hover {
+    &:hover:not(:active) {
       [part~=selection] {
         border-color: @calendar-cell-hover-background-color;
       }
     }
 
-    &:not([selected]):not([range]):not([today]):hover {
-      [part~=selection] {
-        border-color: @calendar-cell-hover-background-color;
-        background: @calendar-cell-hover-background-color;
+    &:not([selected]):not([range]):not([today]) {
+      &:hover {
+        [part~=selection] {
+          background: @calendar-cell-hover-background-color;
+        }
+      }
+
+      &:hover:not(:active) {
+        [part~=selection] {
+          border-color: @calendar-cell-hover-background-color;
+        }
+      }
+
+      &:active {
+        [part~=selection] {
+          color: @calendar-cell-hover-text-color;
+          background-color: @calendar-cell-press-background-color;
+        }
       }
     }
 
-    &[selected]:hover, &[today]:hover, &[range]:hover {
-      [part~=selection] {
-        border-color: @calendar-cell-hover-background-color;
+    &[selected], &[today], &[range] {
+      &:hover:not(:active) {
+        [part~=selection] {
+          border-color: @calendar-cell-hover-background-color;
+        }
+      }
+
+      &:active {
+        [part~=selection] {
+          color: @calendar-cell-hover-text-color;
+          background-color: @calendar-cell-press-background-color;
+        }
       }
     }
 
