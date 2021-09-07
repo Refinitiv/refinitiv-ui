@@ -274,6 +274,14 @@ export class Label extends BasicElement {
    * @return Render template
    */
   protected render (): TemplateResult {
-    return this.lineClamp ? this.clampTemplate : this.truncateTemplate;
+    const template = this.lineClamp ? this.clampTemplate : this.truncateTemplate;
+
+    /* istanbul ignore if */
+    if (browserType === 'legacy') {
+      // Mutation observer does not fire in IE11 if slot is not present
+      return html`${ template }<span style="display: none !important;"><slot></slot></span>`;
+    }
+
+    return template;
   }
 }
