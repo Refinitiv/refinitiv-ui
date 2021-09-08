@@ -6,8 +6,7 @@ import {
   property,
   TemplateResult,
   CSSResult,
-  styleMap,
-  DeprecationNotice
+  styleMap
 } from '@refinitiv-ui/core';
 import { VERSION } from '../';
 import { addTooltipCondition, removeTooltipCondition } from '../tooltip';
@@ -38,12 +37,6 @@ const isIE = () => !!navigator.userAgent.match(/Trident/g) || !!navigator.userAg
  */
 /* istanbul ignore next */
 const browserType = isIE() ? 'legacy' : 'modern';
-
-/**
- * Deprecation notice to show users
- * who are using deprecated maxLine property.
- */
-const deprecationNotice = new DeprecationNotice('Property `maxLine` is deprecated, use `lineClamp` instead.');
 
 /**
  * Displays a text with alternative truncation
@@ -108,19 +101,6 @@ export class Label extends BasicElement {
         overflow-wrap: break-word;
       }
     `;
-  }
-
-  /**
-   * Limit the number of lines before truncating
-   * @deprecated
-   */
-  @property({ type: Number, attribute: 'max-line' })
-  public get maxLine (): number {
-    return this.lineClamp;
-  }
-  public set maxLine (value: number) {
-    deprecationNotice.once();
-    this.lineClamp = value;
   }
 
   /**
