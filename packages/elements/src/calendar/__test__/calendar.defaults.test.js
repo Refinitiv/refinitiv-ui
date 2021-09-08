@@ -85,6 +85,11 @@ describe('calendar/Defaults', () => {
       expect(el.firstDayOfWeek, 'first-day-of-week is not propagated').to.equal(4);
       expect(el).shadowDom.to.equalSnapshot();
     });
+
+    it('Should be possible to set first day of week to 0', async () => {
+      const el = await fixture('<ef-calendar view="2005-04" lang="ru" first-day-of-week="0"></ef-calendar>');
+      expect(el.firstDayOfWeek, 'first-day-of-week is not propagated').to.equal(0);
+    });
   });
 
   describe('Weekends Only Option', () => {
