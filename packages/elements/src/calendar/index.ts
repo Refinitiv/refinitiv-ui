@@ -285,7 +285,7 @@ export class Calendar extends ControlElement implements MultiValue {
   @property({ type: Number, attribute: 'first-day-of-week' })
   public set firstDayOfWeek (firstDayOfWeek: number) {
     firstDayOfWeek %= 7;
-    const oldFirstDayOfWeek = this.firstDayOfWeek;
+    const oldFirstDayOfWeek = this._firstDayOfWeek;
     if (oldFirstDayOfWeek !== firstDayOfWeek) {
       this._firstDayOfWeek = firstDayOfWeek;
       void this.requestUpdate('firstDayOfWeek', oldFirstDayOfWeek);
