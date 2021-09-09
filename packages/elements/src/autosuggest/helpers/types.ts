@@ -17,12 +17,33 @@ export type AutosuggestReason =
   | 'more-results';
 
 export interface Suggestion {
+  /**
+   * Type of item. Value can be `text`, `header`, `divider`
+   */
   type?: ItemType;
+  /**
+   * The text for the label indicating the meaning of the item.
+   */
   label?: string;
+  /**
+   * The text for the pop-up of item when it's hover.
+   */
   title?: string;
+  /**
+   * Set the icon name from the coral-icon list
+   */
   icon?: string;
+  /**
+   * Sets the item to be disabled.
+   */
   disabled?: boolean;
+  /**
+   * Value of the data item.
+   */
   value?: string;
+  /**
+   * Sort data item into the group.
+   */
   group?: string;
 }
 
