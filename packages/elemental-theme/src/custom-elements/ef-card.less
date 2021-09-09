@@ -1,5 +1,5 @@
 @import '../shared-styles/scrollbar';
-@import 'element:ef-icon';
+@import 'element:ef-button';
 @import 'element:ef-overlay-menu';
 @import 'element:ef-label';
 
@@ -20,16 +20,16 @@
   }
 
   [part~=header], [part~=footer] {
-    overflow: hidden;
     flex: 1 0 auto;
   }
 
   [part~=header] {
     padding-bottom: inherit;
-    min-height: @control-height;
+    min-height: @button-height;
   }
 
   [part~=header-body] {
+    z-index: 0;
     font-weight: 400;
     font-size: 130%;
     font-family: inherit;
@@ -38,16 +38,9 @@
   }
 
   [part~="menu-button"] {
+    margin: 0;
     transform: rotate(90deg);
     font-size: @icon-size;
-    cursor: pointer;
-    outline: none;
-    border: @control-border-width @button-border-style transparent;
-    border-radius: @button-border-radius;
-
-    &[focused=visible] {
-      border-color: @input-focused-border-color;
-    }
   }
 
   [part~=footer] {

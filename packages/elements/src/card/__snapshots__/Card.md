@@ -85,13 +85,17 @@
     <slot name="header">
     </slot>
   </div>
-  <ef-icon
+  <ef-button
+    aria-disabled="false"
+    aria-readonly="false"
+    empty=""
     icon="more"
     part="menu-button"
-    role="button"
     tabindex="0"
+    textpos="after"
+    transparent=""
   >
-  </ef-icon>
+  </ef-button>
   <ef-overlay-menu
     part="menu-popup"
     position="bottom-end"

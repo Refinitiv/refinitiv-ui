@@ -47,12 +47,14 @@
         margin-right: 8px;
         margin-top: 8px;
       }
-
-      /* for selector in IE 10+ */
-      @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-        #fixed-min-height {
-          height: 0;  /* workaround for apply min-height */
-        }
+      .draggable {
+        position: absolute;
+        cursor: move;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
       }
     </style>
     <script>
@@ -85,6 +87,24 @@
         <span slot="footer">Footer Slot</span>
         Content
       </ef-card>
+    </demo-block>
+
+    <demo-block header="Header Slot with Draggable Area" layout="normal" tags="slot,draggable,absolute">
+      <ef-card id="draggable-card">
+        <div slot="header">
+          <div class="draggable"></div>
+          Draggable Header
+        </div>
+        Content
+      </ef-card>
+      <script>
+        const draggableCard = document.getElementById('draggable-card');
+        draggableCard.config = {
+          menu: {
+            data: window.data
+          }
+        };
+      </script>
     </demo-block>
 
     <demo-block header="Header and Footer" layout="normal" tags="header,footer">
