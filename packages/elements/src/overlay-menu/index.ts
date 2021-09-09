@@ -50,6 +50,24 @@ export { OverlayMenuData };
  * @prop {string|null} [transitionStyle=null] - Set the transition style
  *
  * @prop {string} [value=] - Returns the first selected item from values.
+ *
+ * @attr {number} x - Set a specific x coordinate
+ * @prop {number} x - Set a specific x coordinate
+ *
+ * @attr {number} y - Set a specific y coordinate
+ * @prop {number} y - Set a specific y coordinate
+ *
+ * @attr {number} horizontal-offset - A pixel value that will be added to the position calculated on the horizontal axis. The offset will be applied either to the `left` or `right` depending on the `positionTarget`
+ * @prop {number} horizontalOffset - A pixel value that will be added to the position calculated on the horizontal axis. The offset will be applied either to the `left` or `right` depending on the `positionTarget`
+ *
+ * @attr {number} vertical-offset - A pixel value that will be added to the position calculated on the vertical axis. The offset will be applied either to the `top` or `bottom` depending on the `positionTarget`
+ * @prop {number} verticalOffset - A pixel value that will be added to the position calculated on the vertical axis. The offset will be applied either to the `top` or `bottom` depending on the `positionTarget`
+ *
+ * @attr {number} offset - A pixel value that will be added to the position calculated on the vertical or horizontal axis. The offset is applied dynamically depending on the `positionTarget`
+ * @prop {number} offset - A pixel value that will be added to the position calculated on the vertical or horizontal axis. The offset is applied dynamically depending on the `positionTarget`
+ *
+ * @attr {{} | undefined} position - Set position and align against the attach target.
+ * @prop {{} | undefined} position - Set position and align against the attach target.
  */
 @customElement('ef-overlay-menu', {
   alias: 'emerald-popup-menu'
