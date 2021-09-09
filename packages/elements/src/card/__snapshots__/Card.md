@@ -86,8 +86,13 @@
     </slot>
   </div>
   <ef-button
+    aria-disabled="false"
+    aria-readonly="false"
+    empty=""
     icon="more"
     part="menu-button"
+    tabindex="0"
+    textpos="after"
     transparent=""
   >
   </ef-button>
