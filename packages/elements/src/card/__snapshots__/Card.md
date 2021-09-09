@@ -85,13 +85,12 @@
     <slot name="header">
     </slot>
   </div>
-  <ef-icon
+  <ef-button
     icon="more"
     part="menu-button"
-    role="button"
-    tabindex="0"
+    transparent=""
   >
-  </ef-icon>
+  </ef-button>
   <ef-overlay-menu
     part="menu-popup"
     position="bottom-end"

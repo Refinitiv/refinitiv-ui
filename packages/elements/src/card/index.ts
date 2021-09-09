@@ -213,12 +213,12 @@ export class Card extends BasicElement {
    */
   protected get menuTemplate (): TemplateResult {
     return html`${this.menuData ? html`
-      <ef-icon
-        role="button"
-        tabindex="0"
-        part="menu-button"
+      <ef-button
         @tap="${this.openMenu}"
-        icon="more"></ef-icon>
+        part="menu-button"
+        icon="more"
+        transparent
+      ></ef-button>
       <ef-overlay-menu
         part="menu-popup"
         .data=${this.menuData}
