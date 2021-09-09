@@ -13,8 +13,8 @@ import {
 import { isSlotEmpty } from '@refinitiv-ui/utils';
 
 import '../label';
-import '../icon';
-import { Icon } from '../icon';
+import '../button';
+import { Button } from '../button';
 import '../overlay-menu';
 import { OverlayMenu, OverlayMenuData } from '../overlay-menu';
 import { CardConfig } from './helpers/types';
@@ -107,7 +107,7 @@ export class Card extends BasicElement {
    * Get button element from shadow root
    */
   @query('[part=menu-button]')
-  private openMenuElement?: Icon;
+  private openMenuElement?: Button;
 
   /**
    * Menu data for creating overlay-menu
