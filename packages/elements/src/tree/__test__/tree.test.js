@@ -11,15 +11,18 @@ const keyArrowRight = keyboardEvent('keydown', { key: 'Right' });
 const keyEnter = keyboardEvent('keydown', { key: 'Enter' });
 
 const flatData = [{
+  icon: 'info',
   label: 'Item 1',
   value: '1'
 },
 {
+  icon: '',
   label: 'Item 2',
   value: '2',
   readonly: true
 },
 {
+  icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg',
   label: 'Item 3',
   value: '3',
   disabled: true
@@ -67,6 +70,52 @@ describe('tree/Tree', () => {
       const el = await fixture('<ef-tree></ef-tree>');
       expect(el).to.equalSnapshot();
       expect(el).shadowDom.to.equalSnapshot();
+    });
+
+    it('Icon in DOM structure is correct', async () => {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = flatData;
+      await elementUpdated(el);
+
+      const firstElementIcon = el.children[0].shadowRoot.querySelector('[part="label-icon"]');
+      expect(firstElementIcon.attributes.src.value).to.equal('info');
+
+      const secondElementIcon = el.children[1].shadowRoot.querySelector('[part="label-icon"]');
+      expect(secondElementIcon.attributes.src.value).to.equal('');
+
+      const thirdElementIcon = el.children[2].shadowRoot.querySelector('[part="label-icon"]');
+      expect(thirdElementIcon.attributes.src.value).to.equal('https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg');
+
+      const forthElementIcon = el.children[3].shadowRoot.querySelector('[part="label-icon"]');
+      expect(forthElementIcon).to.equal(null);
+    });
+
+    it('Should set the correct icon value', async () => {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = flatData;
+      await elementUpdated(el);
+
+      const iconElement = el.children[0].shadowRoot.querySelector('[part="label-icon"]');
+
+      el.composer.setItemPropertyValue(el.manager.visibleItems[0], 'icon', '');
+      await elementUpdated(el);
+      await nextFrame();
+      expect(iconElement.attributes.src.value).to.equal('');
+
+      el.composer.setItemPropertyValue(el.manager.visibleItems[0], 'icon', 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg');
+      await elementUpdated(el);
+      await nextFrame();
+      expect(iconElement.attributes.src.value).to.equal('https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg');
+
+      el.composer.setItemPropertyValue(el.manager.visibleItems[0], 'icon', 'buzz');
+      await elementUpdated(el);
+      await nextFrame();
+      expect(iconElement.attributes.src.value).to.equal('buzz');
+
+      el.composer.setItemPropertyValue(el.manager.visibleItems[0], 'icon', undefined);
+      await elementUpdated(el);
+      await nextFrame();
+      expect(el.children[0].shadowRoot.querySelector('[part="label-icon"]')).to.equal(null);
     });
 
     it('Supports a flat data structure', async () => {
