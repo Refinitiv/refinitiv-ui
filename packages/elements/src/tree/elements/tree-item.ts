@@ -72,6 +72,12 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   public label = '';
 
   /**
+   * Icon of the item
+   */
+  @property({ type: String })
+  public icon = '';
+
+  /**
    * Original data item, used for interacting with the tree manager
    */
   @property({ attribute: false })
@@ -127,6 +133,17 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   }
 
   /**
+   * Template for rendering the icon
+   */
+  protected get iconTemplate (): TemplateResult {
+    if(typeof this.icon === 'undefined') {
+      return emptyTemplate;
+    }
+
+    return html`<ef-icon part="label-icon" src="${this.icon}"></ef-icon>`;
+  }
+
+  /**
    * Is the item fully checked?
    */
   protected get checked (): boolean {
@@ -161,6 +178,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
       ${this.indentTemplate}
       ${this.toggleTemplate}
       ${this.checkboxTemplate}
+      ${this.iconTemplate}
       <div part="label">
         <slot>${this.label}</slot>
       </div>
