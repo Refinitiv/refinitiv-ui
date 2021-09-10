@@ -3,45 +3,42 @@
  */
 
 import {
-  isValidTime,
-  isValidDate,
-  isValidDateTime,
-  DateTimeSegment,
-  TimeSegment,
-  DateSegment,
-  toDateTimeSegment,
-  toTimeSegment,
-  toDateSegment,
-  TimeFormat,
-  DateTimeFormat,
-  DateFormat
-} from './';
-
-import {
-  format as formatTime,
-  utcFormat as utcFormatTime,
-  utcParse as utcParseTime,
-  parse as parseTime,
-  InputFormat as InputTimeFormat,
-  getFormat as getTimeFormat
-} from './time';
-
-import {
-  format as formatDate,
-  utcFormat as utcFormatDate,
+  Format as DateFormat,
   InputFormat as InputDateFormat,
+  Segment as DateSegment,
+  format as formatDate,
   getFormat as getDateFormat,
+  isValid as isValidDate,
   parse as parseDate,
+  toSegment as toDateSegment,
+  utcFormat as utcFormatDate,
   utcParse as utcParseDate
 } from './date';
 
 import {
-  format as formatDateTime,
-  utcFormat as utcFormatDateTime,
-  parse as parseDateTime,
-  utcParse as utcParseDateTime,
+  Format as TimeFormat,
+  InputFormat as InputTimeFormat,
+  Segment as TimeSegment,
+  format as formatTime,
+  getFormat as getTimeFormat,
+  isValid as isValidTime,
+  parse as parseTime,
+  toSegment as toTimeSegment,
+  utcFormat as utcFormatTime,
+  utcParse as utcParseTime
+} from './time';
+
+import {
+  Format as DateTimeFormat,
   InputFormat as InputDateTimeFormat,
-  getFormat as getDateTimeFormat
+  Segment as DateTimeSegment,
+  format as formatDateTime,
+  getFormat as getDateTimeFormat,
+  isValid as isValidDateTime,
+  parse as parseDateTime,
+  toSegment as toDateTimeSegment,
+  utcFormat as utcFormatDateTime,
+  utcParse as utcParseDateTime
 } from './datetime';
 
 import {
