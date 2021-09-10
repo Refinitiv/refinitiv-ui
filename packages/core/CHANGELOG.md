@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/core@5.0.0...@refinitiv-ui/core@5.0.1) (2021-09-10)
+
+
+### Bug Fixes
+
+* **overlay:** revert merge error ([6fee0da](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/6fee0da06422afff26cc968f83bab529c2b0b2a3))
+
+
+
+
+
 # [5.0.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/core@5.0.0-beta.3...@refinitiv-ui/core@5.0.0) (2021-07-16)
 
 

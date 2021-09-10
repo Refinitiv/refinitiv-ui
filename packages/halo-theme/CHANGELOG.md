@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.0.1...@refinitiv-ui/halo-theme@5.1.0) (2021-09-10)
+
+
+### Bug Fixes
+
+* **calendar:** add pressed style ([b8fb14f](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/b8fb14fe045dbf966c88302599df0e64b754146e))
+* **card:** fix unsupport css on IE ([f1c67b9](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/f1c67b9169c4d496a87d7cba10aedaaa6fa7b2f0))
+
+
+### Features
+
+* **counter:** add counter element ([ee6283b](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/ee6283b20f93b980df51e519618db0cf2f673e41))
+
+
+
+
+
 ## [5.0.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.0.0...@refinitiv-ui/halo-theme@5.0.1) (2021-08-27)
 
 **Note:** Version bump only for package @refinitiv-ui/halo-theme

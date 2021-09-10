@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.1.1...@refinitiv-ui/elements@5.2.0) (2021-09-10)
+
+
+### Bug Fixes
+
+* **calendar:** first day of week is not applied in some scenarios ([9001a33](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/9001a334915ddece0b7e63aa451a64f699672326))
+* **card:** fix unsupport css on IE ([f1c67b9](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/f1c67b9169c4d496a87d7cba10aedaaa6fa7b2f0))
+* **card:** integrate with new label ([4f607fb](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/4f607fb9923c509c0f1f459bcf3f411e765db497))
+* **card:** use ef-button import ([57e4de9](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/57e4de98c68f93216df15ef4471027777b66b6b8))
+* **label:** allow single line ellipsis in IE ([2aa3cf6](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/2aa3cf67a095f65ea33c12953d8a45065856c808))
+* **label:** break single long words ([0652629](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/0652629389eadb8963e97a2e143cdad2a1060452))
+* **label:** remove max-line property as it's deprecated ([0463ce0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/0463ce09ad242482ab00cb7d4a90d0cb0cd4e533))
+* **overlay:** revert merge error ([6fee0da](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/6fee0da06422afff26cc968f83bab529c2b0b2a3))
+* **tab:** remove override label display ([4dc04c5](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/4dc04c58bfebf7c30fa9a5918127fecaa00bd0ca))
+* **tooltip:** add return type ([7ff2d55](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/7ff2d554adb7e1abe9964d994d2dbc52319d7f96))
+* **tooltip:** use passive event listeners ([19f1c03](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/19f1c030accacd520834ffd55f33453423337f0c))
+* **tree-select:** swap position of the action button ([0eb828c](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/0eb828ce7e23fd03c7c3d0a22e979b764b5b0d5c))
+* **tree-select:** unable to select a filtered parent item ([6c7a81f](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/6c7a81fe452975d6ced85cec5c44d209ba17a970))
+
+
+### Features
+
+* **coral-tree:** add icon to coral tree ([d4dfc1c](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/d4dfc1c57428fea52002491afce303b5a8626009))
+* **counter:** add counter element ([ee6283b](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/ee6283b20f93b980df51e519618db0cf2f673e41))
+* **label:** add IE support ([2f9d782](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/2f9d7826aedc43fbc6eb20f69c93c0e5bd30d221))
+* **label:** allow all truncation methods ([81a7e57](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/81a7e57e56310c85c55908652de0a59f547fea63))
+
+
+
+
+
 ## [5.1.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.1.0...@refinitiv-ui/elements@5.1.1) (2021-08-27)
 
 
