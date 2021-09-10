@@ -12,6 +12,7 @@ export { DataItem } from './collection/data-item';
 
 export { EventEmitter, EventEmitterListener } from './event/event-emitter';
 export { uuid } from './miscellaneous/uuid';
+export { isSlotEmpty } from './miscellaneous/isSlotEmpty';
 
 export { CdnLoader } from './loader/cdn-loader';
 export { Deferred } from './loader/deferred';

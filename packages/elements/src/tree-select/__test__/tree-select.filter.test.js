@@ -5,6 +5,7 @@ import '@refinitiv-ui/elements/tree-select';
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
 import { flatData, flatSelection } from './mock_data/flat';
 import { nestedData, nestedSelection, selectableCount } from './mock_data/nested';
+import { multiLevelData } from './mock_data/multi-level';
 import { changeItemSelection, openedUpdated } from './utils';
 
 /*
@@ -42,6 +43,32 @@ describe('tree-select/Filter', () => {
       expect(el.treeManager.visibleItems.length).to.equal(2, 'Two items shown');
       expect(el.treeManager.visibleItems[0].label).to.equal('Europe');
       expect(el.treeManager.visibleItems[1].label).to.equal('Republic of Macedonia');
+    });
+
+    it('Text filter applied - multi level', async () => {
+      // If filter match a parent but not match any children, the parent will be collapsed
+      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      el.data = multiLevelData;
+      await openedUpdated(el);
+      el.opened = true;
+      await openedUpdated(el);
+      el.query = 'Level 2';
+      // Level 1 will be visible and level 2 will be visible and collapsed
+      expect(el.treeManager.visibleItems.length).to.equal(6, 'Level 2 are collapsed');
+      expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[1])).to.equal(false, 'Level 2-1 is collapsed');
+      expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[2])).to.equal(false, 'Level 2-2 is collapsed');
+      expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[4])).to.equal(false, 'Level 2-3 is collapsed');
+
+      // Query all level have suffix "-2"
+      el.query = '-2';
+      await elementUpdated(el);
+      // Matched items should be visible and expanding and collapsing should be shown correctly.
+      expect(el.treeManager.visibleItems.length).to.equal(5, 'Visible all level have suffix "-2"');
+      expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[0])).to.equal(true, 'Level 1-1 is expanded because matched child item');
+      expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[1])).to.equal(true, 'Level 2-1 is expanded because matched child item');
+      expect(el.treeManager.isItemVisible(el.treeManager.visibleItems[2])).to.equal(true, 'Level 3-2 is matched item and visible');
+      expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[3])).to.equal(false, 'Level 2-2 is matched item and collapsed because not matched any descendant items');
+      expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[4])).to.equal(false, 'Level 1-2 is matched item and collapsed because not matched any descendant items');
     });
 
     it('Text filter applied, no result - flat', async () => {

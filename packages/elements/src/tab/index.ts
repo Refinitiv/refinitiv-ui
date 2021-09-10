@@ -67,16 +67,10 @@ export class Tab extends ControlElement {
   public clears = false;
 
   /**
-   * Enable shortening the label
-   */
-  @property({ type: String, reflect: true })
-  public truncate: 'center' | '' | null | undefined = '';
-
-  /**
    * Limit the number of lines before truncating
    */
-  @property({ type: String, reflect: true, attribute: 'max-line' })
-  public maxLine: string | null | undefined;
+  @property({ type: Number, reflect: true, attribute: 'line-clamp' })
+  public lineClamp = 1;
 
   /**
    * Set tab to clearable on hover
@@ -117,11 +111,11 @@ export class Tab extends ControlElement {
   };
 
   /**
-   * Omitted maxLine if subLabel is provided
-   * @returns Max line value
+   * Omitted lineClamp if subLabel is provided
+   * @returns line Clamp value
    */
-  private getMaxLine (): string | null | undefined {
-    return this.subLabel ? null : this.maxLine;
+  private getLineClamp (): number {
+    return !this.lineClamp ? 0 : this.subLabel ? 1 : this.lineClamp;
   }
 
   /**
@@ -146,9 +140,7 @@ export class Tab extends ControlElement {
     return css`
       :host {
         display: inline-flex;
-      }
-      :host [part=sub-label] {
-        display: block;
+        flex-shrink: 0;
       }
     `;
   }
@@ -176,9 +168,7 @@ export class Tab extends ControlElement {
     return html`
       <ef-label
         part="label"
-        .truncate=${this.truncate}
-        .maxLine=${this.getMaxLine()}
-      >
+        .lineClamp=${this.getLineClamp()}>
         ${this.label}
       </ef-label>
     `;
@@ -195,8 +185,7 @@ export class Tab extends ControlElement {
     return html`
       <ef-label
       part="sub-label"
-      .truncate=${this.truncate}
-      .maxLine=${this.getMaxLine()}>
+      .lineClamp=${this.getLineClamp()}>
         ${this.subLabel}
       </ef-label>
     `;

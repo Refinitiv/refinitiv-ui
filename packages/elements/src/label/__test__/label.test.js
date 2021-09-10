@@ -1,46 +1,56 @@
-import { fixture, expect, elementUpdated, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, isIE, nextFrame, aTimeout, oneEvent } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/label';
 import '@refinitiv-ui/elemental-theme/light/ef-label.js';
 
-import { TextHelpers } from '../../../lib/label/helpers/text';
+const hover = (el) => el.dispatchEvent(new MouseEvent('mousemove', { bubbles: true }));
 
-const getTooltipContent = (element) => {
-  const textContainer = element.shadowRoot.querySelector('span');
-  if(!textContainer) {
-    return '';
-  }
-  return textContainer.getAttribute('tooltip') || textContainer.getAttribute('title');
-};
-
-const waitTooltipUpdated = async () => {
-  await nextFrame();
-  await nextFrame();
-};
-
+const SINGLE_LETTER = 'L';
+const SHORT_WORD = 'Lorem';
 const SHORT_LABEL = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 const LONG_LABEL = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu.';
 
 describe('label/Label', () => {
-  let el;
-  describe('DOM Structure is Correct', () => {
-    it('Default', async () => {
-      el = await fixture('<ef-label></ef-label>');
+  let el, left, right;
+  describe('DOM structure is correct', () => {
+    it('Should default to use the truncate template', async function () {
+      if (isIE()) {
+        this.skip();
+      }
+      el = await fixture(`<ef-label style="width: 50px">${LONG_LABEL}</ef-label>`);
+      await nextFrame();
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('With truncate', async () => {
-      el = await fixture('<ef-label truncate></ef-label>');
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-    it('With truncate center', async () => {
-      el = await fixture('<ef-label truncate="center"></ef-label>');
+    it('Should switch to line clamp template if line-clamp is set', async function () {
+      if (isIE()) {
+        this.skip();
+      }
+      el = await fixture(`<ef-label style="width: 50px" line-clamp="1">${LONG_LABEL}</ef-label>`);
+      await nextFrame();
       expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
-  describe('Basic Features', () => {
-    it('Should render only text', async () => {
+  describe('Basic feature', () => {
+    it('Should render the same text as the input', async () => {
+      el = await fixture(
+        `<ef-label>${LONG_LABEL}</ef-label>`
+      );
+      await elementUpdated(el);
+      await nextFrame();
+      left = el.renderRoot.querySelector('.split.left');
+      right = el.renderRoot.querySelector('.split.right');
+      expect(el.text).to.equal(LONG_LABEL, 'The label should be the same as the input');
+      expect(`${left.textContent} ${right.textContent}`).to.equal(LONG_LABEL, 'The label should split across segments.');
+      el = await fixture(
+        `<ef-label style="width: 50px;">${LONG_LABEL}</ef-label>`
+      );
+      await elementUpdated(el);
+      await nextFrame();
+      expect(el.text).to.equal(LONG_LABEL, 'Truncation should not affect the output label');
+    });
+    it('Should only render the textual content of the light DOM', async () => {
       const content = 'button1inside text button2';
       el = await fixture(
         `<ef-label style="width: 50px;">
@@ -48,210 +58,65 @@ describe('label/Label', () => {
         </ef-label>`
       );
       await elementUpdated(el);
-      expect(el.shadowRoot.querySelector('span').innerHTML).to.be.equal(content);
+      await nextFrame();
+      expect(el.text).to.be.equal(content);
     });
-    it('Label should be update when text content has been changed', async () => {
-      el = await fixture(`<ef-label>${SHORT_LABEL}</ef-label>`);
-      el.textContent = LONG_LABEL;
+    it('Should show a single letter', async () => {
+      el = await fixture(
+        `<ef-label>${SINGLE_LETTER}</ef-label>`
+      );
       await elementUpdated(el);
       await nextFrame();
-      expect(el.shadowRoot.querySelector('span').innerHTML).to.be.equal(LONG_LABEL);
+      left = el.renderRoot.querySelector('.split.left');
+      right = el.renderRoot.querySelector('.split.right');
+      expect(el.text).to.equal(SINGLE_LETTER, 'Single letter should be parsed correctly.');
+      expect(left.textContent).to.equal(SINGLE_LETTER, 'Single letter should be placed in the left segment.');
+      expect(right.textContent).to.equal('', 'Nothing should be placed in the right segment.');
     });
-  });
-
-  describe('Truncated Center', () => {
-    it('Should add middle ellipsis correctly', async () => {
-      el = await fixture(`<ef-label style="width: 100px;" truncate="center">${LONG_LABEL}</ef-label>`);
-      const truncateStyles = 'width: 100px;display: inline-block;max-width: 100%;box-sizing: border-box;white-space: nowrap;text-overflow:clip;';
-      const mockEl = await fixture(`<span style=${truncateStyles}>${LONG_LABEL}</span>`);
-      TextHelpers.middleEllipsis(mockEl, 100, LONG_LABEL);
-      await elementUpdated(mockEl);
-      expect(el.shadowRoot.querySelector('span').innerHTML).to.be.equal(mockEl.innerHTML);
-    });
-    it('Should restore label to default when remove truncate center props', async () => {
-      el = await fixture(`<ef-label style="width: 100px;" truncate="center">${LONG_LABEL}</ef-label>`);
-      el.truncate = undefined;
-      await elementUpdated(el);
-      expect(el.shadowRoot.querySelector('span').innerHTML).to.be.equal(LONG_LABEL);
-    });
-    it('Should change to middle ellipsis correctly', async () => {
-      el = await fixture(`<ef-label style="width: 100px;">${LONG_LABEL}</ef-label>`);
-      el.truncate = 'center';
-      await elementUpdated(el);
-      expect(el.shadowRoot.querySelector('span').innerHTML).not.equal(LONG_LABEL);
-    });
-  });
-
-  /* Max line is not support on IE */
-  if (!isIE()) {
-    describe('Max line', () => {
-      it('Set lines = 2 via attribute', async () => {
-        const maxLines = '2';
-        el = await fixture(`<ef-label max-line="${maxLines}" style="width: 50px;">${LONG_LABEL}</ef-label>`);
-        const mockEl = await fixture(`<span style="width: 50px;display: -webkit-inline-box;-webkit-line-clamp: ${maxLines};white-space: initial;-webkit-box-orient: vertical;text-overflow: ellipsis;overflow: hidden;">${LONG_LABEL}</span>`);
-        await elementUpdated(el);
-        await elementUpdated(mockEl);
-        expect(el.offsetHeight).to.be.equal(mockEl.offsetHeight);
-      });
-      it('Increase max lines = 3', async () => {
-        const maxLines = '3';
-        el = await fixture(`<ef-label max-line="2" style="width: 50px;">${LONG_LABEL}</ef-label>`);
-        el.maxLine = '3';
-        const mockEl = await fixture(`<span style="width: 50px;display: -webkit-inline-box;-webkit-line-clamp: ${maxLines};white-space: initial;-webkit-box-orient: vertical;text-overflow: ellipsis;overflow: hidden;">${LONG_LABEL}</span>`);
-        await elementUpdated(el);
-        await elementUpdated(mockEl);
-        expect(el.offsetHeight).to.be.equal(mockEl.offsetHeight);
-      });
-    });
-  }
-
-  describe('Tooltip', () => {
-    describe('When size is not enough, Tooltip should be there', () => {
-      it('When set truncate center', async () => {
-        el = await fixture(`<ef-label truncate="center" style="width: 50px;">${LONG_LABEL}</ef-label>`);
-        await elementUpdated(el);
-        await waitTooltipUpdated();
-        expect(getTooltipContent(el)).to.be.equal(LONG_LABEL);
-      });
-      it('When set truncate', async () => {
-        el = await fixture(`<ef-label truncate style="width: 50px;">${LONG_LABEL}</ef-label>`);
-        await elementUpdated(el);
-        expect(getTooltipContent(el)).to.be.equal(LONG_LABEL);
-      });
-      it('When max-line is less than content', async () => {
-        if (!isIE()) {
-          el = await fixture(`<ef-label max-line="2" style="width: 50px;">${LONG_LABEL}</ef-label>`);
-          await elementUpdated(el);
-          expect(getTooltipContent(el)).to.be.equal(LONG_LABEL);
-        }
-      });
-      it('When text content has been changed', async () => {
-        el = await fixture(`<ef-label truncate style="width: 500px;">${SHORT_LABEL}</ef-label>`);
-        await waitTooltipUpdated();
-        expect(getTooltipContent(el)).to.be.equal(null);
-        el.textContent = LONG_LABEL;
-        await elementUpdated(el);
-        await waitTooltipUpdated();
-        expect(getTooltipContent(el)).to.be.equal(LONG_LABEL);
-      });
-    });
-    describe('When size is enough, Tooltip should not be there', () => {
-      it('When set truncate center', async () => {
-        el = await fixture(`<ef-label truncate="center" style="width: 500px;">${SHORT_LABEL}</ef-label>`);
-        await elementUpdated(el);
-        await waitTooltipUpdated();
-        expect(getTooltipContent(el)).to.be.equal(null);
-      });
-      it('When set truncate', async () => {
-        el = await fixture(`<ef-label truncate style="width: 500px;">${SHORT_LABEL}</ef-label>`);
-        await elementUpdated(el);
-        await waitTooltipUpdated();
-        expect(getTooltipContent(el)).to.be.equal(null);
-      });
-      it('When max-line is less than content', async () => {
-        if (!isIE()) {
-          el = await fixture(`<ef-label max-line="2" style="width: 500px;">${SHORT_LABEL}</ef-label>`);
-          await elementUpdated(el);
-          expect(getTooltipContent(el)).to.be.equal(null);
-        }
-      });
-      it('When text content has been changed', async () => {
-        el = await fixture(`<ef-label truncate style="width: 400px;">${LONG_LABEL}</ef-label>`);
-        expect(getTooltipContent(el)).to.be.equal(LONG_LABEL);
-        el.textContent = SHORT_LABEL;
-        await elementUpdated(el);
-        await waitTooltipUpdated();
-        expect(getTooltipContent(el)).to.be.equal(null);
-      });
-    });
-  });
-
-  describe('Resize', () => {
-    describe('When size is not enough, Tooltip should be there', () => {
-      it('When set truncate center', async () => {
-        el = await fixture(`<ef-label truncate="center">${LONG_LABEL}</ef-label>`);
-        el.style.width = '50px';
-        await elementUpdated(el);
-        await waitTooltipUpdated();
-        expect(getTooltipContent(el)).to.be.equal(LONG_LABEL);
-      });
-      it('When set truncate', async () => {
-        el = await fixture(`<ef-label truncate>${LONG_LABEL}</ef-label>`);
-        el.style.width = '50px';
-        await elementUpdated(el);
-        await waitTooltipUpdated();
-        expect(getTooltipContent(el)).to.be.equal(LONG_LABEL);
-      });
-      it('When max-line is less than content', async () => {
-        if (!isIE()) {
-          el = await fixture(`<ef-label max-line="2">${LONG_LABEL}</ef-label>`);
-          el.style.width = '50px';
-          await elementUpdated(el);
-          await waitTooltipUpdated();
-          expect(getTooltipContent(el)).to.be.equal(LONG_LABEL);
-        }
-      });
-    });
-    describe('When size is enough, Tooltip should not be there', () => {
-      it('When set truncate center', async () => {
-        el = await fixture(`<ef-label truncate="center" style="width: 100px;">${SHORT_LABEL}</ef-label>`);
-        el.style.width = '400px';
-        await elementUpdated(el);
-        await waitTooltipUpdated();
-        expect(getTooltipContent(el)).to.be.equal(null);
-      });
-      it('When set truncate', async () => {
-        el = await fixture(`<ef-label truncate style="width: 50px;">${SHORT_LABEL}</ef-label>`);
-        el.style.width = '500px';
-        await elementUpdated(el);
-        await waitTooltipUpdated();
-        expect(getTooltipContent(el)).to.be.equal(null);
-      });
-      it('When max-line is less than content', async () => {
-        if (!isIE()) {
-          el = await fixture(`<ef-label max-line="2" style="width: 50px;">${SHORT_LABEL}</ef-label>`);
-          el.style.width = '500px';
-          await elementUpdated(el);
-          await waitTooltipUpdated();
-          expect(getTooltipContent(el)).to.be.equal(null);
-        }
-      });
-    });
-  });
-  describe('Appearances', () => {
-    let defaultElement;
-    beforeEach(async () => {
-      defaultElement = await fixture(
-        `<ef-label>${SHORT_LABEL}</ef-label>`
+    it('Should show a single word', async () => {
+      el = await fixture(
+        `<ef-label>${SHORT_WORD}</ef-label>`
       );
+      await elementUpdated(el);
+      await nextFrame();
+      left = el.renderRoot.querySelector('.split.left');
+      right = el.renderRoot.querySelector('.split.right');
+      expect(el.text).to.equal(SHORT_WORD, 'Small word should be parsed correctly.');
+      expect(`${left.textContent}${right.textContent}`).to.equal(SHORT_WORD, 'Small word should split across segments.');
     });
-    it('Should have error attribute', () => {
-      defaultElement.setAttribute('error', true);
-
-      expect(defaultElement.error).to.equal(true);
-      expect(defaultElement.getAttribute('error')).to.equal('true');
+    it('Should update the label if its content changes', async () => {
+      el = await fixture(
+        `<ef-label>${LONG_LABEL}</ef-label>`
+      );
+      await elementUpdated(el);
+      await nextFrame();
+      expect(el.text).to.equal(LONG_LABEL, 'The label should initialise with LONG_LABEL');
+      el.innerHTML = SHORT_LABEL;
+      await elementUpdated(el);
+      await nextFrame();
+      expect(el.text).to.equal(SHORT_LABEL, 'The label should be updated to use SHORT_LABEL');
     });
-    it('Should have error attribute when it is set directly', async () => {
-      defaultElement.error = true;
-
-      await elementUpdated();
-
-      expect(defaultElement.error).to.equal(true);
-      expect(defaultElement.getAttribute('error')).to.not.null;
+    it('Should show a tooltip when truncated', async () => {
+      el = await fixture(
+        `<ef-label style="width:50px">${LONG_LABEL}</ef-label>`
+      );
+      await elementUpdated(el);
+      const tooltip = el.ownerDocument.querySelector('ef-tooltip');
+      const tooltipOverlay = tooltip.renderRoot.querySelector('[part=tooltip]');
+      hover(el);
+      await oneEvent(tooltipOverlay, 'opened');
+      expect(tooltip.opened).to.be.true;
+      expect(tooltip.textContent).to.equal(el.text);
     });
-    it('Should have warning attribute', () => {
-      defaultElement.setAttribute('warning', true);
-
-      expect(defaultElement.warning).to.equal(true);
-      expect(defaultElement.getAttribute('warning')).to.equal('true');
-    });
-    it('Should have warning attribute when it is set directly', async () => {
-      defaultElement.warning = true;
-
-      await elementUpdated();
-
-      expect(defaultElement.warning).to.equal(true);
-      expect(defaultElement.getAttribute('warning')).to.not.null;
+    it('Should not show a tooltip if all content is visible', async () => {
+      el = await fixture(
+        `<ef-label style="width:1000px">${SHORT_LABEL}</ef-label>`
+      );
+      await elementUpdated(el);
+      const tooltip = el.ownerDocument.querySelector('ef-tooltip');
+      hover(el);
+      await aTimeout(1000); // Hard to test not opening tooltip so just wait a while
+      expect(tooltip.opened).to.be.false;
     });
   });
 });

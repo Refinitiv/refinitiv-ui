@@ -28,26 +28,15 @@
         max-width: 100%;
         height: auto;
       }
-      .content {
-        height: 150px;
-        overflow: hidden;
-      }
       #tab-content {
         height: 100px;
         padding: 10px;
-      }
-      #line {
-        width: 100%;
-        --background-color: transparent;
       }
       #fixed-height {
         height: 150px;
       }
       #fixed-min-height {
         min-height: 300px;
-      }
-      #fixed-min-height .content {
-        height: auto;
       }
       #flex {
         display: flex;
@@ -58,12 +47,14 @@
         margin-right: 8px;
         margin-top: 8px;
       }
-
-      /* for selector in IE 10+ */
-      @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-        #fixed-min-height {
-          height: 0;  /* workaround for apply min-height */
-        }
+      .draggable {
+        position: absolute;
+        cursor: move;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
       }
     </style>
     <script>
@@ -88,6 +79,32 @@
       <ef-card>
         <span>An empty card with no header and footer</span>
       </ef-card>
+    </demo-block>
+
+    <demo-block header="Header and Footer Slot" layout="normal" tags="slot,header,footer">
+      <ef-card>
+        <span slot="header">Header Slot</span>
+        <span slot="footer">Footer Slot</span>
+        Content
+      </ef-card>
+    </demo-block>
+
+    <demo-block header="Header Slot with Draggable Area" layout="normal" tags="slot,draggable,absolute">
+      <ef-card id="draggable-card">
+        <div slot="header">
+          <div class="draggable"></div>
+          Draggable Header
+        </div>
+        Content
+      </ef-card>
+      <script>
+        const draggableCard = document.getElementById('draggable-card');
+        draggableCard.config = {
+          menu: {
+            data: window.data
+          }
+        };
+      </script>
     </demo-block>
 
     <demo-block header="Header and Footer" layout="normal" tags="header,footer">
@@ -127,38 +144,33 @@
             data: window.data
           }
         };
-        cardEllipsisHeader.addEventListener('item-trigger', (e) => {
-          const value = e.detail.value;
+        cardEllipsisHeader.addEventListener('item-trigger', event => {
+          const value = event.detail.value;
           document.getElementById('selected-menu').innerHTML = value;
-          cardEllipsisHeader.menu.opened = false;
         });
       </script>
     </demo-block>
 
     <demo-block header="Fixed height" layout="normal" tags="fixed height">
       <ef-card id="fixed-height">
-        <div class="content">
-          <div class="photo-content">
-            <img class="photo" src="https://picsum.photos/id/1025/200/150" width="200" height="150">
-          </div>
-          <span class="description">EW YORK/LONDON, May 14 (Reuters) - U.S. stocks extended their recovery on Friday as investors set aside inflation worries and bought shares hammered by the week's volatility, with the shift back into riskier assets dragging on the dollar.EW YORK/LONDON, May 14 (Reuters) - U.S. stocks extended their recovery on Friday as investors set aside inflation worries and bought shares hammered by the week's volatility, with the shift back into riskier assets dragging on the dollar.</span>
+        <div class="photo-content">
+          <img class="photo" src="https://picsum.photos/id/1025/200/150" width="200" height="150">
         </div>
+        <span class="description">EW YORK/LONDON, May 14 (Reuters) - U.S. stocks extended their recovery on Friday as investors set aside inflation worries and bought shares hammered by the week's volatility, with the shift back into riskier assets dragging on the dollar.EW YORK/LONDON, May 14 (Reuters) - U.S. stocks extended their recovery on Friday as investors set aside inflation worries and bought shares hammered by the week's volatility, with the shift back into riskier assets dragging on the dollar.</span>
       </ef-card>
     </demo-block>
 
     <demo-block header="Fix min-height" layout="normal" tags="header,footer,fixed min-height">
       <ef-card id="fixed-min-height" header="Bitcoin’s star backers, dip buyers help cryptos recover" footer="May 20, 2021 5:27 PM +07">
-        <div class="content">
-          <div class="photo-content">
-            <img class="photo" src="https://picsum.photos/id/1025/200/150" width="200" height="150">
-          </div>
-          <span class="description">
+        <div class="photo-content">
+          <img class="photo" src="https://picsum.photos/id/1025/200/150" width="200" height="150">
+        </div>
+        <span class="description">
             Bitcoin regained some lost ground to trade near $40,000 on Thursday, a day aftera brutal selloff on concerns over tighter regulation in China and unease over the extent of leveraged positions in the cryptocurrency world.
             <br/><br/>
             The biggest and most popular cryptocurrency rose 9% to a touch below $40,000, after plunging 14% on Wednesday to its lowest since late January. Smaller rival ether was up 11% at $2,700 at 0829 GMT, after its 28% tumble.
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores adipisci blanditiis placeat officia reprehenderit repudiandae nam eos, voluptatibus fuga facilis.
           </span>
-        </div>
       </ef-card>
     </demo-block>
 
@@ -279,7 +291,6 @@
           }
 
           chart.config = chartConfig;
-          cardChart.menu.opened = false;
         });
       </script>
     </demo-block>

@@ -4,6 +4,10 @@ export type TreeData<T extends TreeDataItem = TreeDataItem> = T[] | CollectionCo
 
 export interface TreeDataItem extends DataItem {
   /**
+   * Icon to show, when rendering the item.
+   */
+  icon?: string;
+  /**
    * Label to show, when rendering the item.
    */
   label?: string;

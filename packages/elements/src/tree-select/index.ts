@@ -42,6 +42,7 @@ const POPUP_POSITION = ['bottom-start', 'top-start'];
  * @prop {boolean} [opened=false] - Set dropdown to open
  * @attr {string} placeholder - Set placeholder text
  * @prop {string} placeholder - Set placeholder text
+ * @prop {TreeSelectData[]} data - Data object to be used for creating tree
  * @fires confirm - Fired when selection is confirmed
  * @fires cancel - Fired when selection is cancelled
  * @fires query-changed - Fired when query in input box changed
@@ -432,7 +433,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns {void}
    */
   protected closeAndReset (): void {
-    this.setQuery('');
+    this.resetInput();
     this.setOpened(false);
   }
 
@@ -592,6 +593,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
       // do not expand EMS if there is no filter applied
       if (this.query || this.editSelectionItems.size) {
+        this.addItemDescendantsToRender(items);
         this.addExpandedAncestorsToRender(items);
       }
 
@@ -600,6 +602,53 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     }
 
     this.forcePopupLayout();
+  }
+
+  /**
+   * Utility method
+   * Adds descendants for each item passed
+   * @param items List of child items
+   * @returns {void}
+   */
+  protected addItemDescendantsToRender (items: TreeSelectDataItem[]): void {
+    items.forEach((item) => {
+      // all items will be collapsed by default
+      if (this.treeManager.isItemExpanded(item)) {
+        this.treeManager.collapseItem(item);
+      }
+
+      /**
+       * show all descendants of items to make them all are selectable
+       * and user can navigate into nested data
+       */
+      const children = this.treeManager.getItemChildren(item);
+      if (children.length) {
+        this.addNestedItemsToRender(children, items);
+      }
+    });
+  }
+
+  /**
+   * Utility method
+   * Add nested children of item list
+   * @param items List of items
+   * @param excludeItems List of exclude items
+   * @returns void
+   */
+  protected addNestedItemsToRender (items: readonly TreeSelectDataItem[], excludeItems: readonly TreeSelectDataItem[]): void {
+    items.forEach(item => {
+
+      // Skip excluding item
+      if (!excludeItems.includes(item)) {
+
+        // Add item and nested children
+        this.treeManager.includeItem(item);
+        const children = this.treeManager.getItemChildren(item);
+        if (children.length) {
+          this.addNestedItemsToRender(children, excludeItems);
+        }
+      }
+    });
   }
 
   /**
@@ -845,14 +894,14 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   protected get commitControlsTemplate (): TemplateResult {
     return html`
       <ef-button
-        id="cancel"
-        part="cancel-button"
-        @tap="${this.cancel}">${this.t('CANCEL')}</ef-button>
-      <ef-button
         id="done"
         part="done-button"
         cta
         @tap="${this.save}">${this.t('DONE')}</ef-button>
+      <ef-button
+        id="cancel"
+        part="cancel-button"
+        @tap="${this.cancel}">${this.t('CANCEL')}</ef-button>
     `;
   }
 

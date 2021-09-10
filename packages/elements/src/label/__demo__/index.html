@@ -12,79 +12,69 @@
       import '@refinitiv-ui/demo-block';
     </script>
     <style>
-      h5 {
-        margin-top: 0px;
+      h4 {
+        margin-top: 0;
+        font-size: 1.2em;
       }
       hr {
-        margin: 15px;
-      }
-      .responsive {
-        width: 100%;
+        margin: 1em 0;
       }
     </style>
-    <demo-block header="Default" layout="normal" tags="default">
-      <h5>Normal html</h5>
-        <div>
-          Container
-          <p>
-            Paragraph <span>Content</span>
-          </p>
-        </div>
+    <demo-block header="Default" layout="normal" tags="truncate, center">
+      <h4>Single Character</h4>
+      <ef-label>A</ef-label>
       <hr>
-      <h5>Label</h5>
+      <h4>Single Word (short)</h4>
+      <ef-label>To</ef-label>
+      <hr>
+      <h4>Single Word (long)</h4>
+      <ef-label>Toomuchlenghthererightandthiswordwillnotbreakbydefaultsoitneedstosplittheworditselfinordertoaddelippsis</ef-label>
+      <hr>
+      <h4>Child Elements</h4>
       <ef-label>
         <div>
           Container
           <p>
             Paragraph <span>Content</span>
           </p>
+          After Paragraph
         </div>
       </ef-label>
-    </demo-block>
-    <demo-block header="Default Truncate" layout="normal" tags="truncate">
-      <ef-label truncate class="responsive">
+      <hr>
+      <h4>Long paragraph</h4>
+      <ef-label>
         Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever. As Cicero's text doesn't contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.
       </ef-label>
     </demo-block>
-    <demo-block header="Center" layout="normal" tags="truncate, center">
-      <ef-label truncate="center" class="responsive" id="truncateCenter">
-        Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever. As Cicero's text doesn't contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.
+    <demo-block header="Content Changes" layout="normal" tags="DOM, mutation">
+      <div style="margin-bottom:1em">
+        <input id="myInput" placeholder="Add more text..."/>
+      </div>
+      <ef-label id="interactive">
+        Try and add some more content, using the input.
       </ef-label>
-      <input id="myInput"/>
       <script>
+        var txt = interactive.textContent.trim();
         myInput.addEventListener('input', (e) => {
-          truncateCenter.innerHTML = e.target.value;
+          interactive.innerHTML = txt + ' ' + e.target.value;
         });
       </script>
     </demo-block>
-    <demo-block header="Max line" layout="normal" tags="max-line">
-      <ef-label max-line="2" class="responsive">
+    <demo-block header="Line Clamp" layout="normal" tags="line-clamp, truncate, end">
+      <h4>One Line</h4>
+      <ef-label line-clamp="1">
         Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever. As Cicero's text doesn't contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.
       </ef-label>
-    </demo-block>
-    <demo-block header="Tooltip" layout="normal" tags="tooltip, truncate, center, max-line">
-      <h5>Tooltip will show when the text is ellipsis</h5>
-      <div>
-        <style>
-          .fix-width {
-            width: 150px;
-            margin: 10px 0px;
-          }
-        </style>
-        <ef-label truncate class="fix-width">
-          <button>Hover this text</button> to show tooltip
-        </ef-label>
-      </div>
-      <div>
-        <ef-label truncate="center" class="fix-width">
-          <button>Hover this text</button> to show tooltip
-        </ef-label>
-      </div>
-      <div>
-        <ef-label max-line="2" class="fix-width">
-          <button>Hover this text</button> that contains multiple lines = 2 to show tooltip
-        </ef-label>
-      </div>
+      <hr>
+      <h4>Two Lines</h4>
+      <ef-label line-clamp="2">
+        Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever. As Cicero's text doesn't contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.
+      </ef-label>
+      <hr>
+      <h4>Three Lines</h4>
+      <ef-label line-clamp="3">
+        Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever. As Cicero's text doesn't contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.
+      </ef-label>
     </demo-block>
     <demo-block header="Warning / Error state" layout="normal" tags="warning, error">
       <div>

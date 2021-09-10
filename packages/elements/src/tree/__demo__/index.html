@@ -24,13 +24,25 @@
           const readonly = detail.count === 4;
           const selected = detail.count === 5;
           const hidden = i % 10 === 9;
-          return {
+          const data = {
             label: depth < 2 ? `Group ${depth + 1}.${i + 1}` : `Item number ${i + 1}${readonly ? ' (readonly)' : ''}`,
             value: (nextId++).toString(),
             disabled, readonly, selected, hidden,
             expanded: i === 1,
             items: depth < 3 ? makeData(depth + 1, detail) : []
           };
+
+          if(depth === 1) {
+            data['icon'] = (i % 2 === 0) ? 'info' : 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg';
+          }
+          else if(depth === 2) {
+            data['icon'] = (i % 2 === 0) ? 'map-layers' : '';
+          }
+          else if(depth === 3 && i % 2 === 0) {
+            data['icon'] = 'clock-2';
+          }
+
+          return data;
         });
       };
 
@@ -47,7 +59,6 @@
         collapseBtn.onclick = () => tree.collapseAll();
         checkBtn.onclick = () => tree.checkAll();
         uncheckBtn.onclick = () => tree.uncheckAll();
-
       }
 
       const custom = document.getElementById('renderer');

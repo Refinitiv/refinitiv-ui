@@ -1,4 +1,3 @@
-import '../index';
 import { Tooltip } from '../index';
 import { TooltipCondition, TooltipRenderer } from '../helpers/types';
 
