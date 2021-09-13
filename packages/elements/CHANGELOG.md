@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.2.0...@refinitiv-ui/elements@5.2.1) (2021-09-13)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
 # [5.2.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.1.1...@refinitiv-ui/elements@5.2.0) (2021-09-10)
 
 
