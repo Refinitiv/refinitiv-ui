@@ -125,18 +125,18 @@ export class Heatmap extends ResponsiveElement {
    */
   @property({ type: Object, attribute: false })
   /* istanbul ignore next */
-  public get activeCell (): HeatmapCell | null {
-    return this._activeCell;
+  public get hoverCell (): HeatmapCell | null {
+    return this._hoverCell;
   }
 
   /* istanbul ignore next */
-  public set activeCell (activeCell: HeatmapCell | null) {
-    const previousActiveCell = this._activeCell;
-    this._activeCell = activeCell;
+  public set hoverCell (hoverCell: HeatmapCell | null) {
+    const previousHoverCell = this._hoverCell;
+    this._hoverCell = hoverCell;
 
-    if (this._activeCell !== previousActiveCell) {
-      void this.requestUpdate('activeCell', previousActiveCell);
-      this.activeCellChanged(this._activeCell, previousActiveCell);
+    if (this._hoverCell !== previousHoverCell) {
+      void this.requestUpdate('hoverCell', previousHoverCell);
+      this.hoverCellChanged(this._hoverCell, previousHoverCell);
     }
   }
 
@@ -169,6 +169,16 @@ export class Heatmap extends ResponsiveElement {
    */
   @property({ type: Number })
   public saturation = 0.4;
+
+  /**
+   * Returns data of interactive cell
+   * @param event an event that occur while the user interacting with element
+   * @returns data of cell
+   */
+  /* istanbul ignore next */
+  public getCellDataAtEvent (event: MouseEvent): HeatmapCell | null {
+    return this.hitTest(event);
+  }
 
   /**
    * A callback function that allows tooltip rendering on cell hover
@@ -237,7 +247,7 @@ export class Heatmap extends ResponsiveElement {
   /**
    * Current active cell
    */
-  private _activeCell: HeatmapCell | null = null;
+  private _hoverCell: HeatmapCell | null = null;
 
   /**
    * Internal cells data storage
@@ -372,6 +382,8 @@ export class Heatmap extends ResponsiveElement {
     this.tooltipRenderer = this.tooltipRenderer.bind(this);
     /** @ignore */
     this.tooltipCondition = this.tooltipCondition.bind(this);
+    /** @ignore */
+    this.onMouseLeave = this.onMouseLeave.bind(this);
   }
 
   /**
@@ -414,12 +426,22 @@ export class Heatmap extends ResponsiveElement {
    */
   /* istanbul ignore next */
   private onMouseMove (event: MouseEvent): void {
-    if (event.composedPath().includes(this.canvas)) {
-      this.hitTest(event);
+    if (event.composedPath().includes(this.canvas) || this.tooltipCallback && this.tooltipOverlay === event.target) {
+      this.hoverCell = this.hitTest(event);
     }
     else {
-      this.activeCell = null;
+      this.hoverCell = null;
     }
+  }
+
+  /**
+   * Handles when mouse moving outside element
+   * @param event mouseleave event
+   * @returns {void}
+   */
+  /* istanbul ignore next */
+  private onMouseLeave (): void {
+    this.hoverCell = null;
   }
 
   /**
@@ -477,17 +499,17 @@ export class Heatmap extends ResponsiveElement {
   /**
    * Hit testing on heatmap
    * @param event mouse event
-   * @returns {void}
+   * @returns cell
    */
   /* istanbul ignore next */
-  private hitTest (event: MouseEvent): void {
+  private hitTest (event: MouseEvent): HeatmapCell | null {
     const box = this.canvas.getBoundingClientRect();
     const x = event.clientX - box.left;
     const y = event.clientY - box.top;
     const row = this.rowTrack.hitTest(y);
     const column = this.colTrack.hitTest(x);
 
-    this.activeCell = this.getCellByLocation(row, column);
+    return this.getCellByLocation(row, column);
   }
 
   /**
@@ -535,7 +557,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private activeCellChanged (cell: HeatmapCell | null, previousCell: HeatmapCell | null): void {
+  private hoverCellChanged (cell: HeatmapCell | null, previousCell: HeatmapCell | null): void {
     if (cell && cell.value !== null) {
 
       if (this.tooltipCallback) {
@@ -1237,8 +1259,8 @@ export class Heatmap extends ResponsiveElement {
    */
   /* istanbul ignore next */
   private tooltipRenderer (): HTMLElement | undefined {
-    if (this.activeCell && this.canvasContext && this.tooltipCallback) {
-      return this.tooltipCallback(this.activeCell);
+    if (this.hoverCell && this.canvasContext && this.tooltipCallback) {
+      return this.tooltipCallback(this.hoverCell);
     }
 
     return undefined;
@@ -1261,7 +1283,7 @@ export class Heatmap extends ResponsiveElement {
    */
   protected render (): TemplateResult {
     return html`
-      <div id="container">
+      <div id="container" @mousemove=${this.onMouseMove} @mouseleave=${this.onMouseLeave}>
         ${this.config?.yAxis && !this.axisHidden ? html`
         <div id="y-axis-container">
           <div part="cross-box"></div>
@@ -1269,7 +1291,7 @@ export class Heatmap extends ResponsiveElement {
         </div>` : null}
         <div id="canvas-container">
           ${this.config?.xAxis && !this.axisHidden ? html`<div part="x-axis"></div>` : null}
-          <ef-canvas part="canvas" @resize=${this.onCanvasResize} @mousemove=${this.onMouseMove}></ef-canvas>
+          <ef-canvas part="canvas" @resize=${this.onCanvasResize}></ef-canvas>
           ${this.tooltipCallback ? html`<div id="tooltip-overlay"></div>` : null}
         </div>
       </div>
