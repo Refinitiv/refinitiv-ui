@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.3](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/translate@5.1.2...@refinitiv-ui/translate@5.1.3) (2021-09-13)
+
+**Note:** Version bump only for package @refinitiv-ui/translate
+
+
+
+
+
 ## [5.1.2](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/translate@5.1.1...@refinitiv-ui/translate@5.1.2) (2021-09-10)
 
 **Note:** Version bump only for package @refinitiv-ui/translate
