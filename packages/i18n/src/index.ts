@@ -1,5 +1,3 @@
-const DEFAULT_LOCALE = 'en-GB';
-
 export {
   TranslateOptions,
   TranslateMessage,
@@ -23,4 +21,4 @@ export {
 
 export {
   DEFAULT_LOCALE
-};
+} from './constants';
