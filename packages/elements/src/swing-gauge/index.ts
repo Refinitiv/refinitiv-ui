@@ -36,6 +36,8 @@ const PRIMARY_RADIAN = 1.25;
 const SECONDARY_RADIAN = 1.75;
 const LINE_POINTER_OFFSET = 0.3;
 const POINT_POINTER_OFFSET = 0.1;
+const DEFAULT_OFFSET = 0.05;
+const OVERFLOW_OFFSET = 0.08;
 
 // When either value is below this threshold, the label position changes
 const GAUGE_PERCENTAGE_THRESHOLD = 30;
@@ -208,7 +210,6 @@ export class SwingGauge extends ResponsiveElement {
   private pointPointerOffset: number = POINT_POINTER_OFFSET;
   private primaryLineRadian: number = PRIMARY_RADIAN;
   private secondaryLineRadian: number = SECONDARY_RADIAN;
-  private linePointerOffsetOverflow: number = LINE_POINTER_OFFSET;
 
   /**
   * Data requires to draw swing gauge
@@ -221,9 +222,8 @@ export class SwingGauge extends ResponsiveElement {
   private width = 0;
   private height = 0;
   private size = 0;
-  private lineLength = 50;
+  private lineLength = 60;
   private scale = 1;
-  private overflowScale = 0.1;
 
   /**
   * Current fill percentage
@@ -234,6 +234,11 @@ export class SwingGauge extends ResponsiveElement {
   * Keeps previous percentage calculation to avoid re-rendering the same value
   */
   private previousFillPercentage = 0;
+
+  /**
+  * This for keep line number of label for calculate new radius
+  */
+  private labelLineNumber = 1;
 
   /**
   * Get primary percentage
@@ -504,7 +509,20 @@ export class SwingGauge extends ResponsiveElement {
    * @returns swing-gauge data
    */
   private getData (): SwingGaugeData {
-    let primaryPosLine = this.getPositionStyle(
+    // Recalculate radius to prevent container overflow
+    const gaugeHeight = this.size * this.gaugeHeightScale;
+    const containerHeight = this.labelLineNumber * MIN_LABEL_FONT_SIZE + MIN_VALUE_FONT_SIZE;
+    if (containerHeight > gaugeHeight) {
+      // The value of 'reverseScale' increases as the value of 'scale' decreases.
+      const reverseScale = 1 - this.scale;
+
+      // increase the offset by 25%, this for buffer to make label have some space from bottom
+      this.linePointerOffset = (containerHeight / gaugeHeight) * reverseScale * 1.25;
+      this.primaryLineRadian = PRIMARY_RADIAN + DEFAULT_OFFSET + (OVERFLOW_OFFSET * reverseScale);
+      this.secondaryLineRadian = 3 - this.primaryLineRadian;
+    }
+
+    const primaryPosLine = this.getPositionStyle(
       Segment.PRIMARY,
       this.primaryLineRadian,
       this.linePointerOffset,
@@ -516,7 +534,7 @@ export class SwingGauge extends ResponsiveElement {
       this.pointPointerOffset,
       0
     );
-    let secondaryPosLine = this.getPositionStyle(
+    const secondaryPosLine = this.getPositionStyle(
       Segment.SECONDARY,
       this.secondaryLineRadian,
       this.linePointerOffset,
@@ -528,62 +546,6 @@ export class SwingGauge extends ResponsiveElement {
       this.pointPointerOffset,
       0
     );
-
-    // Recalculate radian to prevent container overflow
-    let primaryHeight = 0;
-    if (this.primaryContainer.children[0] as HTMLElement) {
-      primaryHeight += (this.primaryContainer.children[0] as HTMLElement).offsetHeight;
-    }
-    if (this.primaryContainer.children[1] as HTMLElement) {
-      primaryHeight += (this.primaryContainer.children[1] as HTMLElement).offsetHeight;
-    }
-    const primarySpace = this.height - this.getValueFromStyle(primaryPosLine.top);
-    const primaryOverflow = primarySpace < primaryHeight && this.primaryPercentage >= GAUGE_PERCENTAGE_THRESHOLD && primarySpace > 0 && primaryHeight > 0;
-    
-    let secondaryHeight = 0;
-    if (this.secondaryContainer.children[0] as HTMLElement) {
-      secondaryHeight += (this.secondaryContainer.children[0] as HTMLElement).offsetHeight;
-    }
-    if (this.secondaryContainer.children[1] as HTMLElement) {
-      secondaryHeight += (this.secondaryContainer.children[1] as HTMLElement).offsetHeight;
-    }
-    const secondarySpace = this.height - this.getValueFromStyle(secondaryPosLine.top);
-    const secondaryOverflow = secondarySpace < secondaryHeight && this.secondaryPercentage >= GAUGE_PERCENTAGE_THRESHOLD && secondarySpace > 0 && secondaryHeight > 0;
-    
-    if (primaryOverflow || secondaryOverflow) {
-      let containerHeight = primaryHeight;
-      let containerHeightOverflow = primarySpace;
-      let containerWidth = (this.width / 2) - this.getValueFromStyle(primaryPosLine.left);
-
-      if ((!primaryOverflow && secondaryOverflow)
-      || (primaryOverflow && secondaryOverflow && secondaryHeight > primaryHeight)) {
-        containerHeight = secondaryHeight;
-        containerHeightOverflow = secondarySpace;
-        containerWidth = this.getValueFromStyle(secondaryPosLine.left) - (this.width / 2);
-      }
-
-      // Prevents container overflow
-      const oldRadius = Math.sqrt(Math.pow(containerHeightOverflow, 2) + Math.pow(containerWidth, 2));
-      const newRadius = Math.sqrt(Math.pow(containerHeight, 2) + Math.pow(containerWidth, 2));
-      
-      this.linePointerOffset *= Math.pow(2, newRadius / oldRadius);
-      this.linePointerOffset = this.linePointerOffset > 4 ? 4 : this.linePointerOffset;
-      this.linePointerOffsetOverflow = this.linePointerOffset;
-      this.overflowScale = this.scale;
-
-      primaryPosLine = this.getPositionStyle(
-        Segment.PRIMARY,
-        this.primaryLineRadian,
-        this.linePointerOffset,
-        0
-      );
-      secondaryPosLine = this.getPositionStyle(
-        Segment.SECONDARY,
-        this.secondaryLineRadian,
-        this.linePointerOffset,
-        0
-      );
-    }
 
     return {
       width: this.width,
@@ -710,7 +672,7 @@ export class SwingGauge extends ResponsiveElement {
     }
     this.scale = this.scale < 0.1 ? 0.1 : this.scale;
 
-    this.lineLength = this.scale * lineLength < 50 ? 50 : this.scale * lineLength;
+    this.lineLength = this.scale * lineLength;
     this.gaugeWidthScale = this.scale * GAUGE_WIDTH_SCALE;
     this.gaugeHeightScale = this.scale * GAUGE_HEIGHT_SCALE;
     this.gaugeUpperBound = this.scale * GAUGE_UPPER_BOUND;
@@ -722,15 +684,16 @@ export class SwingGauge extends ResponsiveElement {
     this.pointPointerOffset = POINT_POINTER_OFFSET;
 
     if (this.scale < 1) {
-      const offset = 0.05 * (1 - this.scale);
+      // The value of 'reverseScale' increases as the value of 'scale' decreases.
+      // This mean when scale down the offset will grow up
+      const reverseScale = 1 - this.scale;
+      const offset = DEFAULT_OFFSET * reverseScale;
+
       this.primaryLineRadian = PRIMARY_RADIAN + offset;
       this.secondaryLineRadian = SECONDARY_RADIAN - offset;
       this.linePointerOffset = LINE_POINTER_OFFSET + (0.4 * (1 - this.scale));
-
-      if (this.scale <= this.overflowScale) {
-        this.linePointerOffset = this.linePointerOffsetOverflow;
-      }
     }
+
     this.primaryLineRadian = this.primaryLineRadian > 1.3 ? 1.3 : this.primaryLineRadian;
     this.secondaryLineRadian = this.primaryLineRadian > 1.7 ? 1.7 : this.secondaryLineRadian;
   }
@@ -783,6 +746,10 @@ export class SwingGauge extends ResponsiveElement {
 
     if (numberOfLines > maxLine) {
       numberOfLines = maxLine;
+    }
+
+    if (textType === TextType.LABEL) {
+      this.labelLineNumber = numberOfLines;
     }
 
     do {
