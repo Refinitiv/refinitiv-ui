@@ -1,5 +1,5 @@
 import { AnimationTaskRunner } from '@refinitiv-ui/utils';
-import { Overlay } from '../elements/overlay';
+import type { Overlay } from '../elements/overlay';
 import '../elements/overlay-viewport';
 import { OverlayViewport } from '../elements/overlay-viewport';
 import { ViewAreaInfo } from '../helpers/types';

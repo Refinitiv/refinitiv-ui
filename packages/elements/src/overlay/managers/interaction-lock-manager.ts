@@ -1,5 +1,5 @@
 import { AnimationTaskRunner } from '@refinitiv-ui/utils';
-import { Overlay } from '../elements/overlay';
+import type { Overlay } from '../elements/overlay';
 import { getOverlays } from './zindex-manager';
 
 type TouchPosition = {

@@ -1,6 +1,5 @@
-import { Overlay } from '../elements/overlay';
+import type { Overlay } from '../elements/overlay';
 import { AfterRenderTaskRunner } from '@refinitiv-ui/utils';
-import { applyLock } from './interaction-lock-manager';
 
 export const ZIndex = 103; /* initial z-index to match Polymer. 102 is used for backdrop */
 
@@ -107,7 +106,6 @@ export class ZIndexManager {
 
   public toFront (overlay: Overlay): void {
     this.setZIndex(overlay, this.getNextZIndex(overlay));
-    applyLock();
   }
 
   public register (overlay: Overlay): void {
