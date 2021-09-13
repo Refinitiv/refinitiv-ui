@@ -7,4 +7,20 @@
   --center-line-color: @color-white;
   --border-color: @dataviz-color-primary;
   --center-line: dotted;
+
+  @symbol-size: 12px;
+
+  [part=primary-legend-symbol], [part=secondary-legend-symbol] {
+    margin-top: 1px;
+    height: @symbol-size;
+    width: @symbol-size;
+
+    & when (@variant = dark) {
+      // color of secondary is same as background so we need border
+      border: 1px solid var(--border-color, @dataviz-color-primary);
+      // deduct size of border to keep size of symbol same in both light and dark
+      height: (@symbol-size - 2);
+      width: (@symbol-size - 2);
+    }
+  }
 }
