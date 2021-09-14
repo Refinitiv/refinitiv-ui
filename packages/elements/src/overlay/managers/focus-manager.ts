@@ -1,4 +1,4 @@
-import { Overlay } from '../elements/overlay';
+import type { Overlay } from '../elements/overlay';
 import { AnimationTaskRunner } from '@refinitiv-ui/utils';
 import { getOverlays } from './zindex-manager';
 import { FocusableHelper } from '@refinitiv-ui/core';
@@ -152,7 +152,7 @@ export class FocusManager {
    * @param target Target to check
    * @returns true if registered overlay
    */
-  private isRegisteredOverlay = (target: EventTarget): boolean => target instanceof Overlay && this.overlays.includes(target);
+  private isRegisteredOverlay = (target: EventTarget): boolean => this.overlays.includes(target as Overlay);
 
   /**
    * Run on overlay focus order to restore overlay focus

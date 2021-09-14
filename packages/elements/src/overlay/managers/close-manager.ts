@@ -1,4 +1,4 @@
-import { Overlay } from '../elements/overlay';
+import type { Overlay } from '../elements/overlay';
 import { getOverlays } from './zindex-manager';
 import { TapEvent } from '@refinitiv-ui/core';
 
