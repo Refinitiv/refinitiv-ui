@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.1.0...@refinitiv-ui/halo-theme@5.2.0) (2021-09-15)
+
+
+### Bug Fixes
+
+* **halo-theme:** improve spacing when tree item show multi lines ([a0b41cf](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/a0b41cff9f809e041b553d73a8de1ba184df43d6))
+
+
+### Features
+
+* **swing-gauge:** redesign ([fc0bf03](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/fc0bf03941cbd893ebde3c322fc5ff3cc7fe1330))
+
+
+
+
+
 # [5.1.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.0.1...@refinitiv-ui/halo-theme@5.1.0) (2021-09-10)
 
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.2.1...@refinitiv-ui/elements@5.3.0) (2021-09-15)
+
+
+### Features
+
+* **heatmap:** add method to retrieve data from cell's events ([d4e03f7](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/d4e03f7a423fd4312c20b3ec1fb84181884c8479))
+* **swing-gauge:** redesign ([fc0bf03](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/fc0bf03941cbd893ebde3c322fc5ff3cc7fe1330))
+
+
+
+
+
 ## [5.2.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.2.0...@refinitiv-ui/elements@5.2.1) (2021-09-13)
 
 **Note:** Version bump only for package @refinitiv-ui/elements

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.1.0...@refinitiv-ui/elemental-theme@5.2.0) (2021-09-15)
+
+
+### Bug Fixes
+
+* **tree-select:** import button theme ([8d1ca94](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/8d1ca94c678c84ccb43181595424e17f9ffce17f))
+
+
+### Features
+
+* **swing-gauge:** redesign ([fc0bf03](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/fc0bf03941cbd893ebde3c322fc5ff3cc7fe1330))
+
+
+
+
+
 # [5.1.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.0.1...@refinitiv-ui/elemental-theme@5.1.0) (2021-09-10)
 
 
