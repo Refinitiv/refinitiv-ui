@@ -19,7 +19,7 @@ import '../text-field';
 import { Button } from '../button';
 import { TextField } from '../text-field';
 import { PageInfo } from './helpers/types';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 /**
  * Used to control and navigate through multiple pages

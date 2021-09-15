@@ -29,7 +29,7 @@ import {
 } from './helpers/types';
 import { escapeRegExp, itemHighlightable, itemRenderer, queryWordSelect } from './helpers/utils';
 import { isIE, isMobile } from './helpers/const';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 export {
   AutosuggestTargetElement,

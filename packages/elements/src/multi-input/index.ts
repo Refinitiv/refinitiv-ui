@@ -20,7 +20,7 @@ import { Pill } from '../pill';
 import { TextField } from '../text-field';
 
 import { MultiInputData, MultiInputDataItem, MultiInputEvents, SelectionIndex } from './helpers/types';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 export { MultiInputData, MultiInputDataItem };
 

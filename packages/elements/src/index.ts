@@ -1,2 +1,2 @@
-export const VERSION = 'PUBLISH_VERSION';
+export { VERSION } from './version';
 export * from '@refinitiv-ui/core';

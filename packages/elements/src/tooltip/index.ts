@@ -24,7 +24,7 @@ import {
 } from './helpers/types';
 import { tooltipRenderer } from './helpers/renderer';
 import { register as registerOverflowTooltip } from './helpers/overflow-tooltip';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 const TooltipPositionMap: TooltipPositionMap = {
   'auto': ['bottom-start', 'top-start'],

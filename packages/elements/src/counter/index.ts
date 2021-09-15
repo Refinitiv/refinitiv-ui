@@ -8,7 +8,7 @@ import {
   TemplateResult,
   CSSResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 import {
   truncateDecimal,
@@ -130,12 +130,12 @@ export class Counter extends BasicElement {
     const countValue = truncateDecimal(value);
     const maxValue = this.max ? truncateDecimal(this.max) : Infinity;
 
-    
+
     // Format value if value greater than max
     // If max is null, it will show the value
     return countValue > maxValue ? `${convertToCompactNotation(maxValue)}+` : convertToCompactNotation(countValue);
   }
-  
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

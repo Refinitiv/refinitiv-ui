@@ -8,7 +8,7 @@ import {
   CSSResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 import '../canvas';
 

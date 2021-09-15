@@ -31,7 +31,7 @@ import type {
 
 // Register plugins
 import doughnutCenterPlugin from './plugins/doughnut-center-label';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 declare global {
   interface Window {

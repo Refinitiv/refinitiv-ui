@@ -12,7 +12,7 @@ import {
   StyleMap,
   WarningNotice
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 import '../number-field';
 import { NumberField } from '../number-field';
 
@@ -371,7 +371,7 @@ export class Slider extends ControlElement {
   private showWarningInvalidProperty (propName: string): void {
     let isValid = true;
     let message = '';
- 
+
     if (propName === 'value') {
       isValid = this.isValueInBoundary(this.valueNumber, '');
       message = 'value should be between min and max.';
@@ -402,7 +402,7 @@ export class Slider extends ControlElement {
       isValid = (distanceMinMax >= this.minRangeNumber && distanceFromTo >= this.minRangeNumber);
       message = 'value should be less than distance from and to, min and max.';
     }
- 
+
     if(!isValid) {
       new WarningNotice(`${this.localName}: Invalid ${propName} provided, The correct ${propName} ${message}`).show();
     }

@@ -12,7 +12,7 @@ import {
 
 import { Palettes } from './palettes';
 import { GRAYSCALE_ITEMS, NOCOLOR_POINTS, ColorHelpers } from '../helpers/color-helpers';
-import { VERSION } from '../../';
+import { VERSION } from '../../version';
 
 /**
  * Component that allows user to select any

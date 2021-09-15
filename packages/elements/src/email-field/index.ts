@@ -10,7 +10,7 @@ import {
   query,
   TemplateResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 import '../icon';
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;

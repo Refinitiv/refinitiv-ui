@@ -8,7 +8,7 @@ import {
   CSSResult,
   ElementSize
 } from '@refinitiv-ui/core';
-import { VERSION } from '../../';
+import { VERSION } from '../../version';
 
 import'./tornado-item';
 import type { TornadoItem } from'./tornado-item';

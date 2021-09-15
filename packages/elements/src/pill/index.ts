@@ -10,7 +10,7 @@ import {
   TapEvent,
   TemplateResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 import '../icon';
 

@@ -14,7 +14,7 @@ import {
   WarningNotice
 } from '@refinitiv-ui/core';
 
-import { VERSION } from '../';
+import { VERSION } from '../version';
 import { Canvas } from '../canvas';
 import '../canvas';
 import '../label';
@@ -348,11 +348,11 @@ export class SwingGauge extends ResponsiveElement {
    */
   protected update (changedProperties: PropertyValues): void {
     super.update(changedProperties);
-    
+
     if (changedProperties.has('primaryValue') || changedProperties.has('secondaryValue')
     || (this.primaryValue === 0 && this.secondaryValue === 0)) {
       this.canvas.autoloop = true;
-      
+
       this.renderCanvas('frame');
       this.animateCanvas();
     }
@@ -442,11 +442,11 @@ export class SwingGauge extends ResponsiveElement {
   private renderCanvas (onDraw: 'frame' | 'resize', isFrameUpdated?: boolean): void {
     const percentageChanged = this.previousFillPercentage !== this.fillPercentage;
     const canRender = this.hasValidSize && percentageChanged;
-    
+
     if ((isFrameUpdated && !canRender) || !this.hasValidSize) {
       return;
     }
-    
+
     this.width = this.canvas.width;
     this.height = this.canvas.height;
 
@@ -473,12 +473,12 @@ export class SwingGauge extends ResponsiveElement {
       canvasHelper.clear(canvasSize, this.canvas.ctx);
     };
     this.canvas.addEventListener(onDraw, clear, { once: true });
-    
+
     const draw = (): void => {
       if (!this.canvas.ctx) {
         return;
       }
-      
+
       canvasHelper.draw(
         this.data === null ? this.getData() : this.data,
         this.canvas.ctx,
@@ -539,7 +539,7 @@ export class SwingGauge extends ResponsiveElement {
     }
     const primarySpace = this.height - this.getValueFromStyle(primaryPosLine.top);
     const primaryOverflow = primarySpace < primaryHeight && this.primaryPercentage >= GAUGE_PERCENTAGE_THRESHOLD && primarySpace > 0 && primaryHeight > 0;
-    
+
     let secondaryHeight = 0;
     if (this.secondaryContainer.children[0] as HTMLElement) {
       secondaryHeight += (this.secondaryContainer.children[0] as HTMLElement).offsetHeight;
@@ -549,7 +549,7 @@ export class SwingGauge extends ResponsiveElement {
     }
     const secondarySpace = this.height - this.getValueFromStyle(secondaryPosLine.top);
     const secondaryOverflow = secondarySpace < secondaryHeight && this.secondaryPercentage >= GAUGE_PERCENTAGE_THRESHOLD && secondarySpace > 0 && secondaryHeight > 0;
-    
+
     if (primaryOverflow || secondaryOverflow) {
       let containerHeight = primaryHeight;
       let containerHeightOverflow = primarySpace;
@@ -565,7 +565,7 @@ export class SwingGauge extends ResponsiveElement {
       // Prevents container overflow
       const oldRadius = Math.sqrt(Math.pow(containerHeightOverflow, 2) + Math.pow(containerWidth, 2));
       const newRadius = Math.sqrt(Math.pow(containerHeight, 2) + Math.pow(containerWidth, 2));
-      
+
       this.linePointerOffset *= Math.pow(2, newRadius / oldRadius);
       this.linePointerOffset = this.linePointerOffset > 4 ? 4 : this.linePointerOffset;
       this.linePointerOffsetOverflow = this.linePointerOffset;
@@ -623,7 +623,7 @@ export class SwingGauge extends ResponsiveElement {
     if (!this.hasValidSize) {
       return;
     }
-    
+
     const primaryPosition = this.getPositionStyle(
       Segment.PRIMARY,
       this.primaryLineRadian,
@@ -701,7 +701,7 @@ export class SwingGauge extends ResponsiveElement {
     const lineLength = this.canvas.height * 0.75;
     const bestWidth = 2 * (GAUGE_UPPER_BOUND + LINE_POINTER_OFFSET) * this.canvas.height + 2 * lineLength;
     const ratio = bestWidth / this.canvas.height;
- 
+
     this.scale = 1;
     if (this.canvas.width < bestWidth) {
       const width = this.canvas.width;

@@ -10,7 +10,7 @@ import {
   PropertyValues,
   TapEvent
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 import { Button } from '../button';
 

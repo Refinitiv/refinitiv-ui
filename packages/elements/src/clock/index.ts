@@ -36,7 +36,7 @@ import {
   register,
   deRegister
 } from './utils/TickManager';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 const UP = 'Up';
 const DOWN = 'Down';

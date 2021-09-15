@@ -29,7 +29,7 @@ import {
   HistogramSeriesOptions,
   BarPrices
 } from 'lightweight-charts';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 import '../tooltip';
 

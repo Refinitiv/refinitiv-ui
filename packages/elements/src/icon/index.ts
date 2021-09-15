@@ -9,7 +9,7 @@ import {
   TemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 import { IconLoader } from './utils/IconLoader';
 export { preload } from './utils/IconLoader';
 

@@ -12,7 +12,7 @@ import {
 } from '@refinitiv-ui/core';
 import { preload } from '../icon';
 import '../icon';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
 const isIE = (/Trident/g).test(navigator.userAgent);

@@ -31,7 +31,7 @@ import { TextField } from '../text-field';
 import { defaultFilter } from './helpers/filter';
 import { ComboBoxData, ComboBoxFilter } from './helpers/types';
 import { CustomKeyboardEvent } from './helpers/keyboard-event';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 export { ComboBoxRenderer, ComboBoxFilter, ComboBoxData };
 

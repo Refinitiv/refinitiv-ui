@@ -25,7 +25,7 @@ import {
   addOffset,
   padNumber
 } from '@refinitiv-ui/utils';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 enum Segment {
   HOURS = 'hours',

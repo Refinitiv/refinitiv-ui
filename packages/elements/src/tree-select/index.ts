@@ -27,7 +27,7 @@ import { TreeRenderer as TreeSelectRenderer } from '../tree';
 import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager';
 
 import { TreeSelectData, TreeSelectDataItem } from './helpers/types';
-import { VERSION } from '..';
+import { VERSION } from '../version';
 import { Pill } from '../pill';
 
 export { TreeSelectRenderer, TreeSelectData, TreeSelectDataItem, TreeSelectFilter };

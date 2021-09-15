@@ -8,7 +8,7 @@ import {
   CSSResult,
   ElementSize
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 /**
  * A Component uses to draw graphics on a web page,

@@ -12,7 +12,7 @@ import {
 import '../header';
 import '../panel';
 import '../icon';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 /**
  * Allows users to hide non-critical information

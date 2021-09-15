@@ -12,7 +12,7 @@ import {
 import '../icon';
 import '../checkbox';
 import { ItemType } from './helpers/types';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 export * from './helpers/types';
 

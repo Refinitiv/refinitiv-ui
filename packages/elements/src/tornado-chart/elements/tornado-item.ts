@@ -11,7 +11,7 @@ import {
 
 import '../../progress-bar';
 import '../../layout';
-import { VERSION } from '../../';
+import { VERSION } from '../../version';
 
 /**
  * A part of <ef-tornado-chart />,

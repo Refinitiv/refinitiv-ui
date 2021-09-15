@@ -9,7 +9,7 @@ import {
   TemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 import { FlagLoader } from './utils/FlagLoader';
 
 export { preload } from './utils/FlagLoader';

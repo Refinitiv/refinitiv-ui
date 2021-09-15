@@ -8,7 +8,7 @@ import {
   CSSResult,
   styleMap
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 import { addTooltipCondition, removeTooltipCondition } from '../tooltip';
 
 /**

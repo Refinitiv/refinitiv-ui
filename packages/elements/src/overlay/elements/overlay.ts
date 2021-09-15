@@ -33,7 +33,7 @@ import { register as backdropRegister, deregister as backdropDeregister } from '
 import { register as closeRegister, deregister as closeDeregister } from '../managers/close-manager';
 import { register as focusableRegister, deregister as focusableDeregister } from '../managers/focus-manager';
 import { MicroTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils';
-import { VERSION } from '../../';
+import { VERSION } from '../../version';
 
 export {
   TransitionStyle,

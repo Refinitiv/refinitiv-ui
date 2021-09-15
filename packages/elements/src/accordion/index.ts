@@ -7,7 +7,7 @@ import {
   TemplateResult,
   CSSResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 import { Collapse } from '../collapse';
 
 /**

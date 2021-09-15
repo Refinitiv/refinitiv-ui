@@ -11,7 +11,7 @@ import {
 
 import { Palettes } from './palettes';
 import { COLOR_ITEMS, ColorHelpers } from '../helpers/color-helpers';
-import { VERSION } from '../../';
+import { VERSION } from '../../version';
 
 /**
  * Component that allows user to select

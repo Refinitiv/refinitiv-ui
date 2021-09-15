@@ -16,7 +16,7 @@ import '../item';
 import { ItemData } from '../item';
 import { ListData } from './helpers/types';
 import { ListRenderer } from './helpers/list-renderer';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 export { ListData, ListRenderer };
 

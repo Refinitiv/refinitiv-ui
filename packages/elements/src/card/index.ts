@@ -18,7 +18,7 @@ import { Button } from '../button';
 import '../overlay-menu';
 import { OverlayMenu, OverlayMenuData } from '../overlay-menu';
 import { CardConfig } from './helpers/types';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 export { CardConfig };
 

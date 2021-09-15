@@ -7,7 +7,7 @@ import {
   TemplateResult,
   CSSResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 /**
  * Use to identify and separate different sections of a page.

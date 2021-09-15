@@ -21,7 +21,7 @@ import { CollectionComposer, TimeoutTaskRunner, AnimationTaskRunner } from '@ref
 import { Overlay } from '../overlay';
 import { SelectData, SelectDataItem } from './helpers/types';
 import { OpenedChangedEvent } from '../events';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 export { SelectData, SelectDataItem };
 

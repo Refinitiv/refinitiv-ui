@@ -12,7 +12,7 @@ import {
   FocusedPropertyKey,
   TapEvent
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 import '../icon';
 
 const NUMBER_PATTERN = '^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$';

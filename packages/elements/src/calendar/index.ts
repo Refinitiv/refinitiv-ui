@@ -63,7 +63,7 @@ import {
   CellSelectionModel,
   CellDivElement
 } from './types';
-import { VERSION } from '..';
+import { VERSION } from '../version';
 
 export {
   CalendarFilter

@@ -7,7 +7,7 @@ import {
   TemplateResult,
   html
 } from '@refinitiv-ui/core';
-import { VERSION } from '../../';
+import { VERSION } from '../../version';
 
 import {
   NullOrUndefined

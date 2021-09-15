@@ -27,7 +27,7 @@ import './elements/grayscale-palettes';
 
 import { ColorHelpers } from './helpers/color-helpers';
 import { ValueModel } from './helpers/value-model';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 /**
  * Displays a colour picker dialog,

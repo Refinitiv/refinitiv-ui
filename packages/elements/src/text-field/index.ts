@@ -10,7 +10,7 @@ import {
   query,
   TemplateResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 import '../icon';
 import { registerOverflowTooltip } from '../tooltip';
 

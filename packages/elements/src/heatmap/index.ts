@@ -19,7 +19,7 @@ import { Track } from './helpers/track';
 import { blend, brighten, darken, isLight, interpolate } from './helpers/color';
 import { HeatmapCell, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
 import { getResponsiveFontSize, getMaximumTextWidth, getMaximumLabelTextWidth, MIN_FONT_SIZE } from './helpers/text';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 const MAX_CELL_WIDTH_RATIO = 0.85;
 const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3

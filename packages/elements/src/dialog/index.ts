@@ -7,7 +7,7 @@ import '../button';
 import { deregister as draggableDeregister, register as draggableRegister } from './draggable-element';
 import { translate, Translate, TranslatePropertyKey } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/lib/locale/en/dialog';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 // TODO: use metrics once available
 const isIE = (/Trident/g).test(navigator.userAgent) || (/MSIE/g).test(navigator.userAgent);

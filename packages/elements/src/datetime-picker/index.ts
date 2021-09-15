@@ -65,7 +65,7 @@ import { preload } from '../icon';
 import { TimePicker } from '../time-picker';
 import { TextField } from '../text-field';
 import { Overlay } from '../overlay';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 preload('calendar', 'down', 'left', 'right'); /* preload calendar icons for faster loading */
 

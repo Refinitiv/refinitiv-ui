@@ -5,7 +5,7 @@ import {
   TapEvent
 } from '@refinitiv-ui/core';
 import { CollectionComposer } from '@refinitiv-ui/utils';
-import { VERSION } from '../../';
+import { VERSION } from '../../version';
 
 import { List } from '../../list';
 

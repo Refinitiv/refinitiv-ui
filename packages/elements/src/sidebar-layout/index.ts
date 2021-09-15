@@ -12,7 +12,7 @@ import {
 } from '@refinitiv-ui/core';
 import { Layout } from '../layout';
 import '../layout';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 /**
  * Provides an app layout with sidebar.

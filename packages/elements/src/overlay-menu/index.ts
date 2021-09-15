@@ -20,7 +20,7 @@ import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay';
 import { getId } from './helpers/uuid';
 import { OverlayMenuData } from './helpers/types';
 import { OpenedMenusManager } from './managers/menu-manager';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 export { OverlayMenuData };
 

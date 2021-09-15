@@ -10,7 +10,7 @@ import {
   queryAll,
   repeat
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 interface ItemType {
   item: string;
 }

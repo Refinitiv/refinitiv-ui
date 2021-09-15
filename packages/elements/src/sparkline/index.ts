@@ -15,7 +15,7 @@ import { color } from '@refinitiv-ui/utils';
 import '@refinitiv-ui/browser-sparkline';
 import type { BrowserSparklineChart } from '@refinitiv-ui/browser-sparkline';
 import type { StaticDataConfig, ThemeConfig } from '@refinitiv-ui/browser-sparkline/lib/browserSparklineCanvas';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 @customElement('ef-sparkline', {
   alias: 'sapphire-sparkline'

@@ -12,7 +12,7 @@ import { preload } from '../../icon';
 import '../../checkbox';
 import { TreeDataItem } from '../helpers/types';
 import { CheckedState } from '../managers/tree-manager';
-import { VERSION } from '../../';
+import { VERSION } from '../../version';
 
 preload('right');
 

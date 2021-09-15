@@ -14,7 +14,7 @@ import { Tab } from '../tab';
 import { tweenAnimate } from './helpers/animate';
 import { Button } from '../button';
 import '../button';
-import { VERSION } from '../';
+import { VERSION } from '../version';
 
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 

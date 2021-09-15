@@ -12,7 +12,7 @@ import { TimeoutTaskRunner } from '@refinitiv-ui/utils';
 
 import { Notification } from './notification';
 import { Task, TaskOptions } from '../helpers/types';
-import { VERSION } from '../../';
+import { VERSION } from '../../version';
 
 @customElement('ef-notification-tray', {
   alias: 'amber-notification-tray'
