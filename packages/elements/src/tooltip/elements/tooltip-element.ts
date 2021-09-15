@@ -1,4 +1,4 @@
-import { Tooltip } from '../index';
+import type { Tooltip } from '../index';
 import { TooltipCondition, TooltipRenderer } from '../helpers/types';
 
 const defaultTooltipMap = new Map<TooltipCondition, TooltipRenderer>();
