@@ -4,7 +4,7 @@ import {
 import { supportedLocales } from '@formatjs/intl-utils';
 import {
   DEFAULT_LOCALE
-} from './index';
+} from './constants';
 
 import {
   TranslateOptions,

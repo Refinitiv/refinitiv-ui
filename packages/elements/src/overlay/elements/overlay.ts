@@ -1666,6 +1666,7 @@ export class Overlay extends ResponsiveElement {
    */
   public toFront (): void {
     toFront(this);
+    applyLock();
   }
 
   /**

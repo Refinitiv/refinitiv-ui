@@ -1,5 +1,5 @@
 import { OverlayBackdrop } from '../elements/overlay-backdrop';
-import { Overlay } from '../elements/overlay';
+import type { Overlay } from '../elements/overlay';
 import { OverlayLayer, getOverlayLayers } from './zindex-manager';
 
 import '../elements/overlay-backdrop';

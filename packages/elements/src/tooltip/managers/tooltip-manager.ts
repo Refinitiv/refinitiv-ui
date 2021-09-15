@@ -1,4 +1,4 @@
-import { Tooltip } from '../index';
+import type { Tooltip } from '../index';
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils';
 import { DocumentCallbacks } from '../helpers/types';
 

@@ -1,24 +1,21 @@
 import {
-  DateSegment,
-  TimeSegment,
-  DateFormat,
-  TimeFormat,
-  isValidDate,
-  isValidTime,
-  toTimeSegment,
-  toDateSegment
-} from './';
-
-import {
-  format as formatTime,
-  utcFormat as utcFormatTime,
-  getFormat as getTimeFormat
-} from './time';
-
-import {
+  Format as DateFormat,
+  Segment as DateSegment,
   format as formatDate,
+  isValid as isValidDate,
+  toSegment as toDateSegment,
   utcFormat as utcFormatDate
 } from './date';
+
+import {
+  Format as TimeFormat,
+  Segment as TimeSegment,
+  format as formatTime,
+  getFormat as getTimeFormat,
+  isValid as isValidTime,
+  toSegment as toTimeSegment,
+  utcFormat as utcFormatTime
+} from './time';
 
 import {
   throwInvalidFormat
