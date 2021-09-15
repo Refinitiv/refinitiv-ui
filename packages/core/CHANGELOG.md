@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.2](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/core@5.0.1...@refinitiv-ui/core@5.0.2) (2021-09-15)
+
+
+### Bug Fixes
+
+* **core:** fix webpack issue on CodeBook client machine ([c946a5f](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/c946a5f97bc551375c38fa4852dee37420fc9350))
+* it is not allowed to have duplicated exports. Use named exports instead ([4d5b2c3](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/4d5b2c391436c3124f9d1980086db44ab28dc329))
+
+
+
+
+
 ## [5.0.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/core@5.0.0...@refinitiv-ui/core@5.0.1) (2021-09-10)
 
 

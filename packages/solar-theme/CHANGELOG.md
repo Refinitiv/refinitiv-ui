@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/solar-theme@5.1.0...@refinitiv-ui/solar-theme@5.2.0) (2021-09-15)
+
+
+### Features
+
+* **swing-gauge:** redesign ([fc0bf03](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/fc0bf03941cbd893ebde3c322fc5ff3cc7fe1330))
+
+
+
+
+
 # [5.1.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/solar-theme@5.0.1...@refinitiv-ui/solar-theme@5.1.0) (2021-09-10)
 
 
