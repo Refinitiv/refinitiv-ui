@@ -18,13 +18,21 @@ jobs:
         with:
           # NPM 7 is compatible with Node.js 15 or above
           node-version: 15.x
+          registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
       - run: npm ci --ignore-scripts --audit=false --fund=false
 
       - run: echo "Building... 🛠"
-      - run: npm run build
+      - run: lerna run build --include-dependencies
+
+      # - run: echo "Tagging version... 🛠"
+      # - run: lerna version --conventional-commits
 
       # - run: echo "Publishing... ✅"
-      # - run: npm run publish
+      # - run: lerna publish from-git --no-git-tag-version --no-push
+
+      - run: npm publish --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
