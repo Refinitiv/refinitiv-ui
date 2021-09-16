@@ -1,32 +1,9 @@
-/**
- * Export all from lit-element
- * Named export is done to avoid ambiguity with same name re-export of:
- * - LitElement
- * - customElement
- * Add re-exported modules if something is missing.
- */
 export {
-  CSSResult,
-  PropertyValues,
-  ReactiveElement,
-  SVGTemplateResult,
-  TemplateResult,
-  UpdatingElement,
-  css,
-  eventOptions,
   html,
-  internalProperty,
-  notEqual,
-  property,
-  query,
-  queryAll,
-  queryAsync,
-  queryAssignedNodes,
-  state,
   svg,
-  supportsAdoptingStyleSheets,
-  unsafeCSS
-} from 'lit-element';
+  TemplateResult,
+  SVGTemplateResult
+} from 'lit-html';
 
 /**
  * Export directives from lit-html
@@ -42,6 +19,32 @@ export { repeat } from 'lit-html/directives/repeat';
 export { styleMap } from 'lit-html/directives/style-map';
 export { unsafeHTML } from 'lit-html/directives/unsafe-html';
 export { until } from 'lit-html/directives/until';
+
+/**
+ * Export all from lit-element
+ * Named export is done to avoid ambiguity with same name re-export of:
+ * - LitElement
+ * - customElement
+ * Add re-exported modules if something is missing.
+ */
+export {
+  CSSResult,
+  PropertyValues,
+  ReactiveElement,
+  UpdatingElement,
+  css,
+  eventOptions,
+  internalProperty,
+  notEqual,
+  property,
+  query,
+  queryAll,
+  queryAsync,
+  queryAssignedNodes,
+  state,
+  supportsAdoptingStyleSheets,
+  unsafeCSS
+} from 'lit-element';
 
 /**
  * Export element base classes
