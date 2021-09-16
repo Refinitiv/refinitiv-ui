@@ -19,9 +19,7 @@
   },
   "dependencies": {
     "@types/d3-color": "^2.0.1",
-    "@types/uuid": "^8.3.0",
-    "d3-color": "^2.0.0",
-    "uuid": "^8.3.2"
+    "d3-color": "^2.0.0"
   },
   "publishConfig": {
     "access": "public"

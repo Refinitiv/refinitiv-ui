@@ -29,6 +29,6 @@ release_v5_pre:
     - npx lerna version --conventional-prerelease --conventional-commits --preid=next --yes
 
     # Publish to registry
-    - npx lerna publish from-git --yes
+    - npx lerna publish from-git --dist-tag next --yes
   only:
     - v5-version-path@elf/refinitiv-ui
