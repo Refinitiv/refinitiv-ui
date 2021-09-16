@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.1-next.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.3.0...@refinitiv-ui/elements@5.3.1-next.0) (2021-09-16)
+
+
+### Bug Fixes
+
+* add version.ts ([4a2b405](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/4a2b40522394335e41546779e30b5ef0014ca523))
+* VERSION path ([5472a0a](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/5472a0af0ceb5c8e059f2da4ed3c6439c58a44ad))
+
+
+
+
+
 # [5.3.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.2.1...@refinitiv-ui/elements@5.3.0) (2021-09-15)
 
 

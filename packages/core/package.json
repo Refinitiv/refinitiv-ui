@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/core",
-  "version": "5.0.2",
+  "version": "5.0.3-next.0",
   "description": "Element Framework Core",
   "main": "./lib/elf.js",
   "module": "./lib/elf.js",
@@ -26,7 +26,7 @@
     "lit-html": "^1.4.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/test-helpers": "^5.0.1"
+    "@refinitiv-ui/test-helpers": "^5.0.2-next.0"
   },
   "publishConfig": {
     "access": "public"
