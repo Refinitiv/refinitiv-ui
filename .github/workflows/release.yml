@@ -1,0 +1,30 @@
+name: Release
+on:
+  push:
+    branches: [main]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          # NPM 7 is compatible with Node.js 15 or above
+          node-version: 15.x
+          cache: 'npm'
+      - run: npm ci --ignore-scripts --audit=false --fund=false
+
+      - run: echo "Building... 🛠"
+      - run: npm run build
+
+      # - run: echo "Publishing... ✅"
+      # - run: npm run publish
+
+      - run: echo "🍏 This job's status is ${{ job.status }}."
