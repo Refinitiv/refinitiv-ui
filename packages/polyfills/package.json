@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/polyfills",
-  "version": "5.0.1-next.0",
+  "version": "5.0.1-next.1",
   "description": "Verified polyfills for the Element Framework",
   "author": "Refinitiv",
   "license": "Apache-2.0",

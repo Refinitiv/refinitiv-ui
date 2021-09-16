@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0-next.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/core@5.0.3-next.0...@refinitiv-ui/core@5.1.0-next.0) (2021-09-16)
+
+
+### Features
+
+* **utils:** use own simplified version of uuid for bundlers that do not support browser export ([a171873](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/a1718734fca10d8d42638739dd735fb0725b66d8))
+
+
+
+
+
 ## [5.0.3-next.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/core@5.0.2...@refinitiv-ui/core@5.0.3-next.0) (2021-09-16)
 
 **Note:** Version bump only for package @refinitiv-ui/core

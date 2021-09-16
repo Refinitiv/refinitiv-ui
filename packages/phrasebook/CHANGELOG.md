@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.3-next.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/phrasebook@5.1.3-next.0...@refinitiv-ui/phrasebook@5.1.3-next.1) (2021-09-16)
+
+**Note:** Version bump only for package @refinitiv-ui/phrasebook
+
+
+
+
+
 ## [5.1.3-next.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/phrasebook@5.1.2...@refinitiv-ui/phrasebook@5.1.3-next.0) (2021-09-16)
 
 **Note:** Version bump only for package @refinitiv-ui/phrasebook
