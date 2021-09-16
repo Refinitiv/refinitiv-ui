@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Appstate Bar</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <style type="text/css">
+      ef-appstate-bar {
+        margin-bottom: 10px;
+      }
+
+      a ef-icon {
+        font-size: 20px;
+        vertical-align: middle;
+      }
+
+      a span {
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/appstate-bar';
+      import '@refinitiv-ui/elements/icon';
+      import '@refinitiv-ui/demo-block';
+    </script>
+
+<demo-block layout="normal">
+  <ef-appstate-bar heading="Preview">
+    This is a preview version.
+    <a alt href="#">What's changing?</a>
+  </ef-appstate-bar>
+  <ef-appstate-bar heading="IN DEVELOPMENT" state="info">
+    Internal use only.
+    <span slot="right">
+      <a alt href="#">
+        <ef-icon icon="message"></ef-icon>
+        <span>Send us feedback</span>
+      </a>
+    </span>
+  </ef-appstate-bar>
+  <ef-appstate-bar heading="New" state="highlight">
+    Welcome to new version.
+    <a alt href="#">What's new?</a>
+    <a alt href="#" slot="right">
+      <ef-icon icon="emote"></ef-icon>
+      <span>Help</span>
+    </a>
+  </ef-appstate-bar>
+</demo-block>
+  </body>
+</html>

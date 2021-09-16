@@ -1,0 +1,5 @@
+export const HOURS_OF_NOON = 12;
+export const MILLISECONDS_IN_DAY = 86400000;
+export const MILLISECONDS_IN_HOUR = 3600000;
+export const MILLISECONDS_IN_MINUTE = 60000;
+export const MILLISECONDS_IN_SECOND = 1000;

@@ -1,0 +1,28 @@
+{
+  "name": "@refinitiv-ui/test-helpers",
+  "version": "5.0.1",
+  "description": "Helper methods for writing tests in EF elements",
+  "main": "./lib/test-helpers.js",
+  "module": "./lib/test-helpers.js",
+  "types": "./lib/test-helpers.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "directory": "packages/test-helpers"
+  },
+  "author": "Refinitiv",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc --sourceMap false",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "npm run build && karma start ../../karma.config.js --package=test-helpers --include-snapshots=false",
+    "test:watch": "npm run test -- --watch"
+  },
+  "dependencies": {
+    "@open-wc/testing": "^2.5.32"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

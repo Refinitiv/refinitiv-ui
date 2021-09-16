@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/clock';
+      import '@refinitiv-ui/demo-block';
+    </script>
+
+    <demo-block header="Default" tags="Default">
+      <ef-clock></ef-clock>
+    </demo-block>
+
+    <demo-block header="Custom value" tags="custom-value">
+      <ef-clock value="13:30:40"></ef-clock>
+    </demo-block>
+
+    <demo-block header="Show seconds" tags="Show-seconds">
+      <ef-clock show-seconds></ef-clock>
+    </demo-block>
+
+    <demo-block header="AM / PM" tags="am-pm">
+      <ef-clock value="13:30:40" show-seconds am-pm></ef-clock>
+    </demo-block>
+
+    <demo-block header="Tick" tags="tick">
+      <ef-clock tick show-seconds></ef-clock>
+      <ef-clock tick show-seconds value="01:00:00"></ef-clock>
+      <ef-clock tick show-seconds value="02:00:00"></ef-clock>
+    </demo-block>
+
+    <demo-block header="Interactive" tags="interactive">
+      <ef-clock interactive></ef-clock>
+      <ef-clock interactive show-seconds></ef-clock>
+    </demo-block>
+
+    <demo-block header="Interactive and sync clock with the offset" tags="offset" id="offset-change">
+      <ef-clock interactive value="01:01:01" show-seconds></ef-clock>
+      <ef-clock interactive value="01:01:01" show-seconds></ef-clock>
+      <ef-clock interactive value="01:01:01" show-seconds></ef-clock>
+
+      <script>
+        (function () {
+          const interactiveClocks = document.querySelectorAll('#offset-change ef-clock');
+          interactiveClocks.forEach(clock => {
+            clock.addEventListener('offset-changed', event => {
+              interactiveClocks.forEach(clock => {
+                clock.offset = event.detail.value;
+              });
+            });
+          });
+        })();
+      </script>
+    </demo-block>
+
+    <demo-block header="Analogue Clock" tags="analogue">
+      <ef-clock analogue value="10:08:40"></ef-clock>
+      <ef-clock analogue show-seconds value="10:08:40"></ef-clock>
+    </demo-block>
+
+    <demo-block header="Analogue Clock" tags="analogue,am-pm">
+      <ef-clock analogue am-pm value="10:08:40"></ef-clock>
+      <ef-clock analogue am-pm show-seconds value="10:08:40"></ef-clock>
+    </demo-block>
+
+    <demo-block header="Analogue Clock Tick" tags="analogue,tick">
+      <ef-clock analogue value="10:08:40"></ef-clock>
+      <ef-clock analogue show-seconds tick value="10:08:40"></ef-clock>
+    </demo-block>
+
+    <demo-block header="Analogue Clock Interactive" tags="analogue,interactive">
+      <ef-clock analogue interactive value="10:08:40"></ef-clock>
+      <ef-clock analogue interactive show-seconds tick value="10:08:40"></ef-clock>
+    </demo-block>
+
+    <demo-block header="Responsive" layout="normal" tags="analogue,responsive">
+      <ef-clock analogue value="10:08:40" show-seconds tick></ef-clock>
+    </demo-block>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-datetime-picker';
+@import '../shared-styles/input';
+
+:host {
+  .input-solar(true);
+
+  [part=calendar] {
+    width: 224px;
+    padding: 4px;
+  }
+
+  [part=list] {
+    margin-top: 1px;
+  }
+
+  &[range] {
+    width: (2 * @input-width);
+  }
+
+  [part=timepicker-wrapper] {
+    box-shadow: none;
+    padding: 0 3px 3px 3px;
+  }
+}

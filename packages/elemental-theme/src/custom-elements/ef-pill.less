@@ -1,0 +1,68 @@
+@import '../shared-styles/close-button';
+@import 'element:ef-icon';
+@import '../responsive';
+
+:host {
+  .touch-action();
+  @size: unit((@button-font-size + 9), px);
+  @padding: 0 round((@size * 0.25));
+  @cross-size: round((@size / 2 + 1));
+  background: @button-toggle-background-color;
+  border-radius: round((@button-border-radius * @control-scale-small));
+  transition: @button-transition;
+  color: @button-text-color;
+  height: @size;
+  margin: (1px + 1 * @airiness);
+  font-family: @button-font-family;
+  font-size: @button-font-size;
+  font-weight: @button-font-weight;
+  padding: @padding;
+  min-width: @size;
+  max-width: 180px;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  vertical-align: middle;
+  position: relative;
+  overflow: hidden;
+
+  &[toggles][active] {
+    color: @button-toggle-active-text-color;
+    background-color: @button-toggle-active-background-color;
+
+    [part=close] {
+      color: @button-toggle-active-background-color;
+    }
+  }
+
+  [part=close] {
+    .touch-action();
+    border-radius: 100%;
+    position: relative;
+    display: flex;
+    margin-left: 4px;
+    flex: none;
+
+    color: @button-toggle-background-color;
+    background-color: @button-text-color;
+
+    width: @cross-size;
+    height: @cross-size;
+
+    box-sizing: border-box;
+    cursor: pointer;
+    background-clip: content-box;
+
+    &:active {
+      border: 1px solid transparent;
+    }
+  }
+
+  &[clears]:hover {
+    [part=close] {
+      display: flex;
+    }
+  }
+}

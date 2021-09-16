@@ -1,0 +1,29 @@
+{
+  "name": "@refinitiv-ui/elemental-theme",
+  "version": "5.2.0",
+  "description": "Base theme for Element Framework Components",
+  "author": "Refinitiv",
+  "license": "Apache-2.0",
+  "main": "index.less",
+  "repository": {
+    "type": "git",
+    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "directory": "packages/elemental-theme"
+  },
+  "files": [
+    "*",
+    "!.*"
+  ],
+  "scripts": {
+    "build:light": "theme-compiler light --variant=light",
+    "build:dark": "theme-compiler dark --variant=dark",
+    "build": "npm run build:light && npm run build:dark",
+    "watch": "watch \"npm run build\" src --wait=10"
+  },
+  "devDependencies": {
+    "@refinitiv-ui/theme-compiler": "^5.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

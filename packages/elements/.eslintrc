@@ -1,0 +1,10 @@
+{
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "ignorePatterns": [
+    "./**/__demo__",
+    "./**/__test__/**",
+    "./**/__snapshots__/**"
+  ] // .eslintignore resolves relative to working dir, this is needed to ignore files in workspaces
+}

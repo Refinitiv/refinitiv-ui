@@ -1,0 +1,41 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-item';
+
+:host {
+  &[type=header] {
+    align-items: center;
+  }
+
+  [part=checkbox] {
+    margin-right: 8px;
+  }
+
+  [part=sub-label] {
+    font-size: 90%;
+  }
+
+  &[sub-label] {
+    padding: 4px extract(@list-item-padding, 2);
+  }
+
+  &[selected] {
+    &:not([highlighted]):not([focused]) {
+      background-color: @list-item-selected-background-color;
+    }
+    &:not([multiple]){
+      background-image: linear-gradient(@scheme-color-primary, @scheme-color-primary);
+      background-size: 4px 100%;
+      background-position: left top;
+      background-repeat: no-repeat;
+    }
+    &[highlighted], &[focused]{
+      color: @list-item-focus-text-color;
+    }
+    font-weight: 500;
+    
+  }
+
+
+  &[focused], &[highlighted] {
+    color: @list-item-focus-text-color;
+  }
+}

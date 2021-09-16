@@ -1,0 +1,223 @@
+/*
+
+VARIABLE OVERRIDES
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+This file overrides variables from Elemental.
+
+*/
+
+// Modifiers
+@roundness                                : 0;
+@shadowing                                : 0;
+
+// Scheme Colours
+@scheme-color-primary                     : @color-orange-neon-carrot;
+@scheme-color-secondary                   : darken(@color-orange-neon-carrot, 25%);
+@scheme-color-tertiary                    : @color-grey-loblolly;
+@scheme-color-complementary               : @color-curious-blue;
+
+@scheme-color-error                       : @color-red-radical;
+@scheme-color-warning                     : @color-orange-neon-carrot;
+
+// Globals
+@global-text-size                         : 14rem;
+@global-icon-size                         : 15px;
+@global-text-color                        : @color-grey-silver;
+@global-background-color                  : @color-grey-woodsmoke;
+@global-text-selection-color              : @color-black;
+@global-text-selection-background         : @color-orange-neon-carrot;
+@global-text-mark-color                   : @color-orange-mango-tango;
+@global-text-mark-background              : transparent;
+@global-margin                            : 1px 0;
+@global-box-shadow-color                  : rgba(0, 0, 0, 0.6);
+
+// Movement colours profile (NEGATIVE)
+@negative-color-american                  : @color-red-radical;
+@negative-color-asian1                    : @color-green-medium-sea;
+@negative-color-asian2                    : @color-red-radical;
+@negative-color-european                  : @color-red-radical;
+
+// Movement colours profile (NEUTRAL)
+@neutral-color-american                   : @color-grey-mercury;
+@neutral-color-asian1                     : @color-grey-mercury;
+@neutral-color-asian2                     : @color-green-medium-sea;
+@neutral-color-european                   : @color-green-medium-sea;
+
+// Movement colours profile (POSITIVE)
+@positive-color-american                  : @color-green-medium-sea;
+@positive-color-asian1                    : @color-red-radical;
+@positive-color-asian2                    : @color-cyan-scooter;
+@positive-color-european                  : @color-cyan-scooter;
+
+// Tick colours (NEGATIVE)
+@tickdown-color-american                  : @color-red-radical;
+@tickdown-color-asian1                    : @color-green-medium-sea;
+@tickdown-color-asian2                    : @color-red-radical;
+@tickdown-color-european                  : @color-red-radical;
+
+// Tick colours (POSITIVE)
+@tickup-color-american                    : @color-green-medium-sea;
+@tickup-color-asian1                      : @color-red-radical;
+@tickup-color-asian2                      : @color-gorse;
+@tickup-color-european                    : @color-green-medium-sea;
+
+// Tick text colour
+@tick-text-color                           : @color-black;
+
+// Overlay
+@overlay-background-color                 : @color-black;
+
+// Shapes
+@arrow-border-radius                      : 0;
+@arrow-border-thickness                   : 0.1em;
+@arrow-down-size                          : 4px;
+@arrow-down-vertical-offset               : -3px;
+
+
+// Icons
+@icon-size                                : 15px;
+
+// Inputs
+@input-width                              : 140px;
+@input-padding                            : 0 5px;
+@input-background-color                   : @color-black;
+@input-border-width                       : 1px;
+@input-focused-border-color               : @color-orange-neon-carrot;
+@input-focused-border-style               : dotted;
+@input-disabled-background-color          : @input-background-color;
+@input-disabled-box-shadow                : @input-box-shadow;
+@input-disabled-outline                   : @input-outline;
+@input-hover-border-color                 : tint(@input-border-color, 25%);
+@input-disabled-text-color                : fadeout(@input-text-color, 40%);
+@input-disabled-border-color              : fadeout(@input-border-color, 40%);
+@input-text-color                         : @global-text-color;
+
+// Headers
+@header-padding                           : 0 10px;
+@header-height                            : 27px;
+
+// Controls
+@control-height                           : 23px;
+@control-font-size                        : 13rem;
+@control-border-color                     : @color-grey-abbey;
+@control-text-color                       : @color-grey-mercury;
+// Buttons
+@button-transition                        : all 70ms @global-transition-easing;
+@button-height                            : 23px;
+@button-min-width                         : 23px;
+@button-border-width                      : 1px;
+@button-border-color                      : @color-black;
+@button-padding                           : 0 8px;
+@button-text-color                        : @color-grey-silver;
+@button-background-color                  : @color-grey-tuna;
+@button-disabled-text-color               : @button-text-color;
+@button-disabled-background-color         : @button-background-color;
+@button-focused-border-color              : @color-orange-neon-carrot;
+@button-focused-border-style              : dotted;
+@button-focused-box-shadow                : inset 0 0 0 1px @button-border-color;
+@button-focused-text-color                : @color-grey-silver;
+@button-hover-text-color                  : @color-grey-mercury;
+@button-hover-background-color            : lighten(@button-background-color, 7%);
+@button-toggle-text-color                 : @button-text-color;
+@button-toggle-background-color           : @button-background-color;
+@button-toggle-active-text-color          : @color-orange-neon-carrot;
+@button-toggle-active-background-color    : @button-pressed-background-color;
+@button-cta-background-color              : @color-orange-neon-carrot;
+@button-cta-text-color                    : @color-grey-black;
+@button-cta-hover-text-color              : @button-cta-text-color;
+
+// Panels
+@panel-background-color                   : @color-grey-whale;
+@panel-padding                            : 6px 10px;
+@panel-box-shadow                         : 0 0 8px 0 @global-box-shadow-color;
+
+// Separators
+@separator-color                          : @color-grey-black;
+
+// Scrollbar
+@scrollbar-thumb-background-color         : @color-grey-mid-grey;
+@scrollbar-thumb-hover-background-color   : @color-grey-mercury;
+@scrollbar-thumb-active-background-color  : @color-orange-neon-carrot;
+@scrollbar-track-background-color         : @color-grey-shark;
+@scrollbar-size                           : 13px;
+@scrollbar-button-size                    : 12px;
+
+// Data viz - Charting
+@dataviz-color-1                          : @dataviz-color-primary;
+@dataviz-color-2                          : @color-electric-purple;
+@dataviz-color-3                          : @color-mantis;
+@dataviz-color-4                          : @color-curious-blue;
+@dataviz-color-5                          : @color-vermilion;
+@dataviz-color-6                          : @color-gorse;
+@dataviz-color-7                          : @color-grey-suva;
+@dataviz-color-8                          : @color-neon-blue;
+@dataviz-color-9                          : @color-cerise-red;
+@dataviz-color-10                         : @color-olive-drab;
+@dataviz-color-11                         : @color-summer-sky;
+@dataviz-color-12                         : @color-violet-red;
+@dataviz-color-13                         : @color-cornflower-blue;
+@dataviz-color-14                         : @color-paris-daisy;
+@dataviz-color-15                         : @color-radical-red;
+@dataviz-color-16                         : @color-inch-worm;
+@dataviz-color-17                         : @color-grey-silver;
+@dataviz-color-18                         : @color-cerulean;
+@dataviz-color-19                         : @color-bright-sun;
+@dataviz-color-20                         : @color-japanese-laurel;
+@dataviz-color-21                         : @color-purple-blue;
+@dataviz-color-22                         : @color-free-speech-magenta;
+@dataviz-color-23                         : @color-iris-blue;
+@dataviz-color-24                         : @color-screaming-green;
+@dataviz-color-25                         : @color-lochmara;
+
+@dataviz-color-red                        : @color-red-radical;
+@dataviz-color-orange                     : @color-orange-neon-carrot;
+@dataviz-color-yellow                     : @color-gorse;
+@dataviz-color-green                      : @color-green-medium-sea;
+@dataviz-color-blue                       : @color-pelorous;
+@dataviz-color-cyan                       : @color-light-cornflower;
+@dataviz-color-grey                       : @color-grey-silver;
+
+// Table/Grid
+@grid-header-height                       : 32px;
+@grid-row-height                          : 32px;
+@grid-header-background-color             : @header-level3-bg-color;
+@grid-header-text-color                   : @header-level3-text-color;
+@grid-header-border-color                 : @color-grey-black;
+@grid-row-hover-text-color                : @color-grey-mercury;
+@grid-row-active-text-color               : @scheme-color-primary;
+@grid-row-background-color                : @color-grey-whale;
+@grid-row-hover-background-color          : fade(lighten(@grid-row-background-color, 10%), 70%);
+@grid-row-active-background-color         : fade(mix(@scheme-color-primary, @grid-row-background-color, 15%), 70%);
+
+
+// List
+@list-item-height                          : 22px;
+@list-item-padding                         : 0px 7px;
+@list-item-focus-text-color                : @color-white;
+@list-item-focus-background-color          : fade(@color-white, 10%);
+@list-item-header-background-color         : @color-grey-abbey;
+@list-item-header-text-color               : @list-text-color;
+@list-item-header-border                   : solid 1px @color-grey-black;
+@list-item-header-font-size                : 100%;
+@list-item-header-font-weight              : normal;
+@list-item-divider-margin                  : 2px 0px;
+@list-item-divider-color                   : @color-grey-shark;
+@list-item-selected-text-color             : @scheme-color-primary;
+
+//Combo box
+@combo-box-clear-button-size               : 4.5px;
+
+// Tree
+@tree-item-height                          : 29px;
+@tree-item-outline-thickness               : @list-item-divider-thickness;
+@tree-item-selected-outline                : @tree-item-outline-thickness dotted @scheme-color-primary;
+@tree-item-focus-background-color          : @color-grey-black-russian;
+@tree-item-selected-text-color             : @scheme-color-primary;
+@tree-item-highlighted-text-color          : @scheme-color-primary;
+
+// Tooltip
+@tooltip-background-color                  : @color-grey-tuna;
+@tooltip-border-color                      : @color-black;
+
+// Slider
+@slider-track-color                        : @color-grey-mid-grey;

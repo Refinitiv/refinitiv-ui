@@ -1,0 +1,31 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-tree-item';
+@import (reference) 'ef-item';
+
+:host {
+
+  margin-top: -1px;
+  border-top: 1px solid @separator-color;
+  border-bottom: 1px solid @separator-color;
+  background-color: @tree-menu-item-background-color;
+  min-height: @tree-menu-item-height;
+
+  &[group] {
+    &:not([focused]):not([highlighted]) {
+      background-color: @tree-menu-item-group-background-color;
+    }
+    &[focused], &[highlighted] {
+      &:not([multiple]) {
+        color: @tree-menu-item-group-hover-text-color;
+        background-color: @tree-menu-item-group-hover-background-color;
+      }
+    }
+  }
+
+  [part=indent] {
+    font-size: 20px;
+  }
+
+  [part=label] {
+    line-height: 1.2;
+  }
+}

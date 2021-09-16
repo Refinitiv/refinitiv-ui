@@ -1,0 +1,36 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-icon';
+@import (reference) '../responsive.less';
+
+:host {
+
+  --cdn-prefix: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/';
+  
+  font-size: @icon-size;
+
+  &[icon] {
+    g,
+    path,
+    rect,
+    line,
+    circle,
+    ellipse,
+    polyline,
+    polygon {
+      vector-effect: non-scaling-stroke;
+    }
+    
+    .ie-specific({
+      g,
+      path,
+      rect,
+      line,
+      circle,
+      ellipse,
+      polyline,
+      polygon {
+        vector-effect: none;
+        stroke-width: calc(@icon-size/0.01em); // Absolute hack for IE to enable stroke scaling!
+      }
+    });
+  }
+}

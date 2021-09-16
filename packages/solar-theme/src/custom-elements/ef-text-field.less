@@ -1,0 +1,18 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-text-field';
+@import '../shared-styles/input';
+
+:host {
+  .input-solar(true);
+
+  &[focused] {
+    .input-focus;
+  }
+
+  &[disabled] {
+    [part=input] {
+      .placeholder({
+        color: @input-disabled-placeholder-color;
+      });
+    }
+  }
+}

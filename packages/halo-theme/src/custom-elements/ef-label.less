@@ -1,0 +1,10 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-label';
+
+:host {
+  &[warning] {
+    color: @control-warning-color;
+  }
+  &[error], &[error][warning] {
+    color: @control-error-color;
+  }
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>ef-rating</title>
+  <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+</head>
+
+<body>
+  <script type="module">
+    import '@refinitiv-ui/elements/rating';
+    import '@refinitiv-ui/demo-block';
+  </script>
+  <style>
+    #custom {
+      font-size: 30px;
+    }
+  </style>
+
+  <demo-block layout="normal" header="Default" tags="default">
+    <div>
+      <ef-rating></ef-rating>
+    </div>
+  </demo-block>
+
+  <demo-block layout="normal" header="Value" tags="value">
+    <div>
+      <ef-rating value="1"></ef-rating>
+    </div>
+    <div>
+      <ef-rating value="2.25"></ef-rating>
+    </div>
+    <div>
+      <ef-rating value="3.5"></ef-rating>
+    </div>
+    <div>
+      <ef-rating value="5"></ef-rating>
+    </div>
+  </demo-block>
+
+  <demo-block layout="normal" header="Interactive" tags="interactive,value">
+    <div>
+      <ef-rating interactive value="5"></ef-rating>
+    </div>
+    <div>
+      <ef-rating interactive value="2.5"></ef-rating>
+    </div>
+    <div>
+      <ef-rating interactive value="3"></ef-rating>
+    </div>
+  </demo-block>
+
+  <demo-block layout="normal" header="Max" tags="max,value">
+    <div>
+      <ef-rating max="1" value="3"></ef-rating>
+    </div>
+    <div>
+      <ef-rating max="7" value="4.75"></ef-rating>
+    </div>
+    <div>
+      <ef-rating max="10" value="3"></ef-rating>
+    </div>
+    <div>
+      <ef-rating max="3.5" value="3"></ef-rating>
+    </div>
+  </demo-block>
+
+  <demo-block layout="normal" header="Custom size with font size" tags="custom-size,interactive,value">
+    <div>
+      <ef-rating id="custom" interactive value="2.5"></ef-rating>
+    </div>
+    <div>
+      <ef-rating id="custom" interactive value="3.5"></ef-rating>
+    </div>
+  </demo-block>
+
+  <demo-block layout="normal" header="Event" tags="max,value,interactive,event">
+    <ef-rating id="event" max="10" value="7" interactive></ef-rating>
+    <p>You have selected: <span id="ratingValue"></span></p>
+    <script>
+      var el = document.getElementById('event');
+      el.addEventListener('value-changed', function (e) {
+        ratingValue.innerText = e.detail.value;
+        console.log('You have selected: ', e.detail.value); // eslint-disable-line
+      });
+    </script>
+  </demo-block>
+
+</body>
+
+</html>

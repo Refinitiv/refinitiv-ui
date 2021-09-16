@@ -1,0 +1,29 @@
+{
+  "name": "@refinitiv-ui/utils",
+  "version": "5.0.2",
+  "description": "Shared utilities for Element Framework",
+  "main": "lib/utils.js",
+  "module": "lib/utils.js",
+  "types": "lib/utils.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "directory": "packages/utils"
+  },
+  "author": "Refinitiv",
+  "license": "Apache-2.0",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "tsc --sourceMap false"
+  },
+  "dependencies": {
+    "@types/d3-color": "^2.0.1",
+    "@types/uuid": "^8.3.0",
+    "d3-color": "^2.0.0",
+    "uuid": "^8.3.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

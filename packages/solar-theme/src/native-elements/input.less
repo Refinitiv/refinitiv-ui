@@ -1,0 +1,51 @@
+@import '@refinitiv-ui/elemental-theme/src/native-elements/input';
+@import '../shared-styles/button';
+@import '../shared-styles/input';
+
+input:not([type]),
+input[type=url],
+input[type=tel],
+input[type=text],
+input[type=email],
+input[type=search],
+input[type=number],
+input[type=password],
+input[type=date],
+input[type=week],
+input[type=month],
+input[type=file] {
+  .input-standard;
+  .input-solar;
+  color: inherit;
+  &[disabled] {
+    .placeholder({ color: @input-disabled-placeholder-color });
+  }
+  &:focus {
+    .input-focus;
+  }
+}
+
+input[type=radio],
+input[type=checkbox] {
+  &:not([tabindex="-1"]):focus {
+    border-style: @input-focused-border-style ;
+  }
+}
+
+input[type=radio] {
+  &:checked {
+    background-image: radial-gradient(@dataviz-color-primary 45%, transparent 50%);
+  }
+}
+
+input[type=checkbox] {
+  // encode base64 otherwise css will corrupt in emerald-grid
+  &:checked {
+    background: data-uri('image/svg+xml;base64', '../resources/images/@{variant}/checkbox/checked.svg') no-repeat center center;
+    background-color: @input-background-color;
+  }
+  &:indeterminate {
+    background: data-uri('image/svg+xml;base64', '../resources/images/@{variant}/checkbox/indeterminate.svg') no-repeat center center;
+    background-color: @input-background-color;
+  }
+}

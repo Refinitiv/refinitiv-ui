@@ -1,0 +1,3 @@
+{
+  "extends": "@refinitiv-ui/configurations/tsconfig.json"
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>List</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  </head>
+  <body>
+
+    <script type="module">
+      import '@refinitiv-ui/elements/list';
+      import '@refinitiv-ui/demo-block';
+      const makeData = () => {
+        return Array(100).fill(0).map((_, i) => ({
+          type: i % 10 === 0 ? 'header' : 'text',
+          label: i % 10 === 0 ? `${i}'s` : `Item number ${i}`,
+          value: (i).toString(),
+          selected: i === 5,
+          disabled: i % 10 === 7,
+          hidden: i % 10 === 9
+        }));
+      };
+      document.getElementById('multiple').data = makeData();
+      document.getElementById('default').data = makeData();
+      document.getElementById('stateless').data = makeData();
+    </script>
+
+    <demo-block header="Default" layout="normal" tags="default">
+      <ef-list id="default"></ef-list>
+    </demo-block>
+
+    <demo-block header="Multiple" layout="normal" tags="default">
+      <ef-list id="multiple" multiple></ef-list>
+    </demo-block>
+
+    <demo-block header="Stateless" layout="normal" tags="default">
+      <ef-list id="stateless" stateless></ef-list>
+    </demo-block>
+
+  </body>
+</html>

@@ -1,0 +1,180 @@
+@import 'overrides';
+// Scheme
+@scheme-color-highlight                           : @color-mirage;
+
+// Notifications
+@notification-error-background-color              : @color-stiletto;
+@notification-warning-background-color            : @color-brandy-punch;
+@notification-confirm-background-color            : @color-green-pea;
+@notification-info-background-color               : @color-st-tropaz;
+
+// Link
+@link-text-color                                  : @global-text-color;
+@link-hover-text-color                            : @color-white;
+@link-visited-text-color                          : @color-grey-mid-grey;
+@link-alt-text-color                              : @color-light-cornflower;
+@link-alt-hover-text-color                        : @color-blue-maya;
+@link-alt-visited-text-color                      : @color-blue-astral;
+
+// Inputs
+@input-focused-border-style                       : dotted;
+@input-disabled-opacity                           : .4;
+@input-readonly-opacity                           : .4;
+
+// Buttons
+@button-background-image                          : linear-gradient(fade(@color-white, 10%) 10%,fade(@color-white, 0%) 100%);
+@button-cta-background-image                      : @button-background-image;
+@button-cta-pressed-background-image              : @button-background-image;
+@button-cta-pressed-background-color              : @button-cta-background-color;
+@button-pressed-background-image                  : @button-background-image;
+@button-toggle-active-background-image            : linear-gradient(fade(@color-white, 0%) 0%,fade(@color-white, 10%) 90%);
+
+// Select
+@select-list-background-color                     : @color-grey-tuna;
+@select-box-shadow-color                          : @color-black;
+@select-focused-border-color                      : @button-focused-border-color;
+
+// Popup Menu
+@popup-border-color                               : @color-black;
+
+// Combo-box
+@combo-box-popup-background-color                  : @color-grey-tuna;
+
+// Checkbox
+@checkbox-disabled-check-color                    : @color-grey-silver;
+@checkbox-readonly-check-color                    : fade(@checkbox-disabled-check-color, 50%);
+
+// Pill
+@pill-text-color                                  : @color-black;
+@pill-background-color                            : @color-grey-silver;
+@pill-hover-background-color                      : @color-white;
+@pill-selected-background-color                   : @color-orange-neon-carrot;
+@pill-selected-hover-background-color             : tint(@pill-selected-background-color, 25%);
+@pill-height                                      : 17px;
+@pill-margin                                      : 3px 3px 0 0;
+
+// Headings
+@heading-color-1                                  : @color-white;
+@heading-color-2                                  : @color-grey-mercury;
+@heading-color-3                                  : @color-grey-mercury;
+@heading-color-4                                  : @color-grey-mercury;
+@heading-color-5                                  : @color-grey-mercury;
+@heading-color-6                                  : @color-grey-mercury;
+
+// Headers
+@header-level1-text-color                         : @color-grey-mercury;
+@header-level2-text-color                         : @color-grey-silver;
+@header-level3-text-color                         : @color-grey-suva;
+@header-level1-bg-color                           : @color-grey-abbey;
+@header-level2-bg-color                           : @color-grey-shark;
+@header-level3-bg-color                           : @color-grey-black-russian;
+@header-level1-link-hover-color                   : @color-grey-tuna;
+@header-level2-link-hover-color                   : @color-cornflower-blue;
+@header-level3-link-hover-color                   : @color-green-medium-sea;
+@header-level1-background-image                   : linear-gradient(fade(@color-white, 3%) 0,fade(@color-white, 0%) 100%);
+@header-text-color                                : @header-level1-text-color;
+@header-background-color                          : @header-level1-bg-color;
+
+// Input
+@input-readonly-border-color                      : @input-disabled-border-color;
+@input-placeholder-text-color                     : @color-grey-mid-grey;
+@input-disabled-placeholder-color                 : fadeout(@input-placeholder-text-color, percentage(@input-disabled-opacity));
+@input-indirect-border-color                      : @color-pacifika;
+@input-indirect-text-color                        : @color-cyan-aqua;
+@input-indirect-background-color                  : @input-background-color;
+@input-highlight-background-color                 : @scheme-color-highlight;
+@input-disabled-background-color                  : fadeout(@input-background-color, percentage(@input-disabled-opacity));
+@input-readonly-background-color                  : @input-disabled-background-color;
+
+// App State Bar
+@app-state-bar-heading-text-color                 : @color-light-cornflower;
+@app-state-bar-heading-background-color           : @color-tangaroa;
+@app-state-bar-text-color                         : @global-text-color;
+@app-state-bar-background-color                   : @color-black-pearl;
+@app-state-bar-info-heading-background-color      : @color-blue-charcoal;
+@app-state-bar-info-heading-text-color            : @color-grey-silver;
+@app-state-bar-highlight-heading-background-color : @color-orange-neon-carrot;
+@app-state-bar-highlight-heading-text-color       : @color-black;
+@app-state-bar-border-color                       : @color-black;
+
+// Dialog
+@dialog-close-button-icon-color                   : fade(@color-white, 80%);
+@dialog-close-button-background-color             : @color-classic-red;
+@dialog-close-button-hover-background-color       : tint(@dialog-close-button-background-color, 5%);
+@dialog-close-button-pressed-background-color     : shade(@dialog-close-button-background-color, 10%);
+@dialog-footer-background-color                   : @color-grey-black-russian;
+@dialog-inner-border-color                        : @color-black;
+@dialog-outer-border-color                        : @color-grey-abbey;
+
+// Calendar
+@calendar-background-color                        : @color-grey-tuna;
+@calendar-header-text-color                       : @color-grey-mid-grey;
+@calendar-header-background-color                 : @color-grey-woodsmoke;
+@calendar-cell-text-color                         : @global-text-color;
+@calendar-cell-hover-text-color                   : @color-grey-mercury;
+@calendar-cell-background-color                   : @color-grey-black-russian;
+@calendar-cell-today-text-color                   : @scheme-color-primary;
+@calendar-cell-range-today-text-color             : @calendar-cell-today-text-color;
+@calendar-cell-today-background-color             : @color-grey-tuna;
+@calendar-cell-focused-background-color           : @calendar-cell-today-background-color;
+@calendar-selected-text-color                     : @color-black;
+@calendar-selected-background-color               : @scheme-color-primary;
+
+// Pagination
+@pagination-input-height                          : (@control-height - @input-border-width*2);
+@pagination-input-margin                          : 0;
+
+// Rating
+@rating-background-color                          : @color-grey-mid-grey;
+@rating-active-background-color                   : @color-orange-neon-carrot;
+
+// Tree
+@tree-base-background-color                       : @color-grey-baltic-sea;
+@tree-item-divider-color                          : @color-grey-black;
+@tree-item-default-background-color               : @color-grey-woodsmoke;
+@tree-item-depth0-background-color                : @color-grey-black-russian;
+@tree-item-hover-background-color                 : @color-grey-haiti;
+
+// Swing Gauge
+@swing-gauge-primary-color               : @color-steep-turquoise;
+@swing-gauge-secondary-color             : @color-mahogany;
+@swing-gauge-text-color                  : @color-white;
+@swing-gauge-border-color                : @color-black;
+@swing-gauge-center-line                 : solid;
+@swing-gauge-center-line-color           : @color-black;
+@swing-gauge-center-line-opacity         : 0.6;
+
+// Tree Select
+@tree-select-counter-background-color            : @color-grey-silver;
+@tree-select-counter-text-color                  : @color-grey-black-russian;
+@tree-select-popup-background-color              : @calendar-background-color;
+@tree-select-loader-overlay-color                : @overlay-background-color;
+
+// Surface 3D Chart
+@surface-chart-grid-color                         : @color-grey-abbey;
+
+// Autosuggest
+@autosuggest-background-color                     : @color-grey-tuna;
+
+// Atlas Auto Suggest
+// TODO:Potentially to be move out from elf theme as this is for atlas
+@atlas-autosuggest-background-color               : @color-grey-tuna;
+@atlas-autosuggest-color                          : @color-grey-mercury;
+@atlas-autosuggest-more-search-border-color       : @color-black-ink;
+@atlas-autosuggest-more-search-background-color   : @color-grey-shark;
+@atlas-autosuggest-more-search-color              : @color-pacific-blue;
+
+// Atlas Suggest Item
+// TODO:Potentially to be move out from elf theme as this is for atlas
+@atlas-suggest-item-asset-color                   : @color-grey-mid-grey;
+@atlas-suggest-selected-asset-color               : lighten(@atlas-suggest-item-asset-color, 10%);
+@atlas-suggest-item-asset-background-color        : @color-grey-shark;
+@atlas-suggest-item-description-color             : @color-grey-suva;
+@atlas-suggest-selected-background-image          : linear-gradient(fade(@color-white, 10%), fade(@color-white, 10%));
+@atlas-suggest-item-border-color                  : @color-grey-haiti;
+
+// Toggle
+@toggle-text-color                                : @control-text-color;
+
+// Card
+@card-background-color                            : @color-grey-whale;

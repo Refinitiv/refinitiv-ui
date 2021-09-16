@@ -1,0 +1,57 @@
+name: Test
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  test-ubuntu:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # NPM 7 is compatible with Node.js 15 or above
+        node-version: [15.x, 16.x]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci --ignore-scripts --audit=false --fund=false
+      - run: lerna run build --include-dependencies --since main...HEAD
+      - run: lerna run test --concurrency=1 --include-dependents --since main...HEAD
+  test-windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        node-version: [15.x, 16.x]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci --ignore-scripts --audit=false --fund=false
+      - run: lerna run build --include-dependencies --since main...HEAD
+      - run: lerna run test --concurrency=1 --include-dependents --since main...HEAD
+  test-macos:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        node-version: [15.x, 16.x]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci --ignore-scripts --audit=false --fund=false
+      - run: lerna run build --include-dependencies --since main...HEAD
+      - run: lerna run test --concurrency=1 --include-dependents --since main...HEAD
