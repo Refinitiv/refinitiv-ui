@@ -1,0 +1,38 @@
+:host {
+
+  --max: 1;
+  --default-timeout: 5000;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+
+  &[attach] {
+    position: fixed;
+    z-index: 100000;
+  }
+
+  &[attach=top] {
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &[attach=right] {
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &[attach=bottom] {
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &[attach=left] {
+    top: 0;
+    left: 0;
+    bottom: 0;
+  }
+}

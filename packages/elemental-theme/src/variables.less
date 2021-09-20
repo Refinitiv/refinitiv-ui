@@ -1,0 +1,436 @@
+/*
+
+ELEMENTAL THEME VARIABLES
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+These variables are here to cover simple styling of controls.
+They are not here to cover every single piece of styling
+available across multiple themes.
+
+Rules:
+‾‾‾‾‾
+1. Keep it simple.
+   These variables are used to style basic properties, nothing more.
+   More advanced overrides should be performed inside of the CSS selector.
+
+2. Do not add/modify a variable because another theme needs it.
+   If a dependent theme needs different overrides, they can implement it internally.
+
+3. Test elemental theme and all dependent themes after any modifications.
+
+4. Do not change something for the sake of it, it can have disastrous effects.
+
+5. Never rename a variable.
+
+***********************************************************************************/
+
+@import 'colours';
+
+// Modifiers
+@scale: 1;
+@weight: 1;
+@airiness: 1;
+@roundness: 1;
+@shadowing: 1;
+
+// Scheme Colours
+@scheme-color-primary                    : @color-scheme-primary;
+@scheme-color-secondary                  : @color-scheme-secondary;
+@scheme-color-tertiary                   : @color-scheme-tertiary;
+@scheme-color-complementary              : @color-scheme-complementary;
+
+@scheme-color-error                      : @color-dataviz-red;
+@scheme-color-warning                    : @color-dataviz-orange;
+@scheme-color-confirm                    : @color-dataviz-green;
+@scheme-color-info                       : @color-dataviz-cyan;
+
+// Globals
+@global-text-size                        : 15rem; // Equivalent to 15px
+@global-text-color                       : @color-slate;
+@global-background-color                 : @color-white;
+@global-text-selection-color             : inherit;
+@global-text-selection-background        : lighten(@scheme-color-primary, 20%);
+@global-text-mark-color                  : @color-white;
+@global-text-mark-background             : @color-scheme-complementary;
+@global-transition-delay                 : 0;
+@global-transition-duration              : 200ms;
+@global-transition-easing                : ease;
+@global-transition                       : all @global-transition-duration @global-transition-duration @global-transition-easing;
+@global-box-shadow-offset                : 0 min((1px * @shadowing), 1px);
+@global-box-shadow-blur-radius           : unit(min((4 + 1 * @shadowing), (5 * @shadowing)), px);
+@global-box-shadow-spread-radius         : 0;
+@global-box-shadow-color                 : rgba(0, 0, 0, min((0.2 * @shadowing), 1));
+@global-box-shadow                       : @global-box-shadow-offset @global-box-shadow-blur-radius @global-box-shadow-spread-radius @global-box-shadow-color;
+@global-margin                           : (10px * @airiness) 0;
+
+// Movement colours profile (NEGATIVE)
+@negative-color-american                 : @color-dataviz-red;
+@negative-color-asian1                   : @color-dataviz-green;
+@negative-color-asian2                   : @color-dataviz-red;
+@negative-color-european                 : @color-dataviz-red;
+
+// Movement colours profile (NEUTRAL)
+@neutral-color-american                  : @color-slate;
+@neutral-color-asian1                    : @color-slate;
+@neutral-color-asian2                    : @color-dataviz-green;
+@neutral-color-european                  : @color-dataviz-green;
+
+// Movement colours profile (POSITIVE)
+@positive-color-american                 : @color-dataviz-green;
+@positive-color-asian1                   : @color-dataviz-red;
+@positive-color-asian2                   : @color-dataviz-cyan;
+@positive-color-european                 : @color-dataviz-cyan;
+
+// Tick colours (NEGATIVE)
+@tickdown-color-american                 : @color-dataviz-red;
+@tickdown-color-asian1                   : @color-dataviz-green;
+@tickdown-color-asian2                   : @color-dataviz-red;
+@tickdown-color-european                 : @color-dataviz-red;
+
+// Tick colours (POSITIVE)
+@tickup-color-american                   : @color-dataviz-green;
+@tickup-color-asian1                     : @color-dataviz-red;
+@tickup-color-asian2                     : @color-dataviz-green;
+@tickup-color-european                   : @color-dataviz-green;
+
+// Tick text colour
+@tick-text-color                          : @color-white;
+
+// Overlay
+@overlay-background-color                : @color-aluminium;
+@overlay-opacity                         : 0.6;
+
+// Icons
+@icon-size                               : 17px;
+
+// Links
+@link-text-color                         : @scheme-color-primary;
+@link-hover-text-color                   : tint(@link-text-color , 7%);
+@link-active-text-color                  : shade(@link-text-color , 7%);
+
+// Scrollbar
+@scrollbar-track-background-color        : @color-paper;
+@scrollbar-corner-background-color       : @scrollbar-track-background-color;
+@scrollbar-thumb-background-color        : @color-aluminium;
+@scrollbar-thumb-hover-background-color  : @color-steel;
+@scrollbar-thumb-active-background-color : @color-grey;
+@scrollbar-thumb-border-radius           : round((@scrollbar-size / 2));
+@scrollbar-size                          : 15px;
+@scrollbar-button-size                   : @scrollbar-size;
+@scrollbar-thumb-margin                  : 2px;
+
+// Panels
+@panel-margin                            : unit((20 * @airiness), px);
+@panel-padding                           : unit((15 * @airiness), px);
+@panel-background-color                  : @color-white;
+@panel-border-width                      : unit(@weight, px);
+@panel-border-color                      : @color-steel;
+@panel-border                            : @panel-border-width solid @panel-border-color;
+@panel-box-shadow                        : @global-box-shadow;
+
+// Popup
+@popup-transition                        : opacity @global-transition-duration, transform @global-transition-duration;
+
+// Controls
+@control-font-family                     : inherit;
+@control-font-size                       : @global-text-size;
+@control-font                            : @control-font-size @control-font-family;
+@control-font-weight                     : normal;
+@control-height                          : unit((40 * @scale), px);
+@control-padding                         : unit((3  * @scale), px) unit((10 * @scale), px);
+@control-margin                          : @global-margin;
+@control-outline                         : none;
+@control-box-shadow                      : none;
+@control-text-color                      : @global-text-color;
+@control-background-color                : @global-background-color;
+@control-border-color                    : @color-aluminium;
+@control-border-radius                   : unit((3 * @roundness), px);
+@control-border-width                    : unit((1 * @weight), px);
+@control-border-style                    : solid;
+@control-border                          : @control-border-width @control-border-style @control-border-color;
+@control-scale-small                     : 0.7;
+@control-scale-large                     : 1.3;
+
+// Buttons
+@button-transition                       : all 120ms @global-transition-easing;
+@button-font-family                      : @control-font-family;
+@button-font-size                        : @control-font-size;
+@button-font                             : @button-font-size @button-font-family;
+@button-font-weight                      : @control-font-weight;
+@button-height                           : (@control-height * @scale);
+@button-padding                          : unit((7 * @scale), px) unit((15 * @scale), px);
+@button-min-width                        : unit((90 * @scale), px);
+@button-margin                           : @control-margin;
+@button-border-radius                    : @control-border-radius;
+@button-border-width                     : 0;
+@button-border-style                     : @control-border-style;
+@button-border                           : @button-border-width @button-border-style @button-border-color;
+@button-text-color                       : @color-white;
+@button-background-color                 : @scheme-color-tertiary;
+@button-border-color                     : @control-border-color;
+@button-box-shadow                       : @global-box-shadow;
+@button-outline                          : @control-outline;
+@button-cta-text-color                   : @button-text-color;
+@button-cta-background-color             : @scheme-color-primary;
+@button-cta-border-color                 : @button-border-color;
+@button-cta-box-shadow                   : @button-box-shadow;
+@button-cta-outline                      : @button-outline;
+@button-focused-text-color               : @button-text-color;
+@button-focused-background-color         : @button-background-color;
+@button-focused-border-color             : @button-border-color;
+@button-focused-box-shadow               : @global-box-shadow-offset (@global-box-shadow-blur-radius * 1.4) (@global-box-shadow-spread-radius + 2px) fadein(@global-box-shadow-color, 30%);
+@button-focused-outline                  : @button-outline;
+@button-hover-text-color                 : @button-text-color;
+@button-hover-background-color           : tint(@button-background-color, 7%);
+@button-hover-border-color               : @button-border-color;
+@button-hover-box-shadow                 : @global-box-shadow-offset (@global-box-shadow-blur-radius * 1.4) @global-box-shadow-spread-radius fadein(@global-box-shadow-color, 30%);
+@button-hover-outline                    : @button-outline;
+@button-toggle-text-color                : @button-text-color;
+@button-toggle-background-color          : @scheme-color-tertiary;
+@button-toggle-border-color              : @button-border-color;
+@button-toggle-box-shadow                : @button-box-shadow;
+@button-toggle-outline                   : @button-outline;
+@button-toggle-active-text-color         : @button-text-color;
+@button-toggle-active-background-color   : @color-scheme-complementary;
+@button-toggle-active-border-color       : @button-border-color;
+@button-toggle-active-box-shadow         : @button-box-shadow;
+@button-toggle-active-outline            : @button-outline;
+@button-pressed-text-color               : @button-text-color;
+@button-pressed-background-color         : shade(@button-background-color, 7%);
+@button-pressed-border-color             : @button-border-color;
+@button-pressed-box-shadow               : @button-box-shadow;
+@button-pressed-outline                  : @button-outline;
+@button-disabled-text-color              : mix(@button-text-color, @button-disabled-background-color);
+@button-disabled-background-color        : tint(@button-background-color, 20%);
+@button-disabled-border-color            : tint(@button-border-color, 20%);
+@button-disabled-box-shadow              : none;
+@button-disabled-outline                 : @button-outline;
+
+// Tabs
+@tab-background-color                    : @scheme-color-tertiary;
+@tab-height                              : (@control-height * @scale);
+@tab-text-color                          : @color-white;
+@tab-padding                             : unit((7 * @scale), px) unit((15 * @scale), px);
+@tab-min-width                           : unit((90 * @scale), px);
+@tab-border-color                        : @control-border-color;
+@tab-outline                             : @control-outline;
+@tab-box-shadow                          : @global-box-shadow;
+@tab-clears-box-shadow                   : -1em 0px 0.75em -0.5em; // box-shadow on left side only
+@tab-font-size                           : @control-font-size;
+@tab-font-weight                         : @control-font-weight;
+@tab-hover-text-color                    : @tab-text-color;
+@tab-hover-background-color              : tint(@tab-background-color, 7%);
+@tab-hover-box-shadow                    : @global-box-shadow-offset (@global-box-shadow-blur-radius * 1.4) @global-box-shadow-spread-radius fadein(@global-box-shadow-color, 30%);
+@tab-disabled-text-color                 : mix(@tab-text-color, @tab-disabled-background-color);
+@tab-disabled-background-color           : tint(@tab-background-color, 20%);
+@tab-active-text-color                   : @tab-text-color;
+@tab-active-background-color             : @color-scheme-complementary;
+@tab-active-hover-background-color       : tint(@tab-active-background-color, 7%);
+@tab-active-focused-background-color     : @tab-active-hover-background-color;
+@tab-active-disabled-background-color    : tint(@tab-active-background-color, 20%);
+@tab-active-disabled-text-color          : mix(@tab-text-color, @tab-active-disabled-background-color);
+@tab-active-pressed-background-color     : shade(@tab-active-background-color, 7%);
+@tab-pressed-text-color                  : @tab-text-color;
+@tab-pressed-background-color            : shade(@tab-background-color, 7%);
+@tab-focused-text-color                  : @tab-text-color;
+@tab-focused-box-shadow                  : @global-box-shadow-offset (@global-box-shadow-blur-radius * 1.4) (@global-box-shadow-spread-radius + 2px) fadein(@global-box-shadow-color, 30%);
+@tab-vertical-border-color               : @tab-border-color;
+
+// Tab bar
+@tab-bar-background-color                : @global-background-color;
+@tab-bar-vertical-width                  : 180px;
+
+// Inputs
+@input-font-family                       : @control-font-family;
+@input-font-size                         : @control-font-size;
+@input-font                              : @input-font-size @input-font-family;
+@input-font-weight                       : @control-font-weight;
+@input-height                            : @control-height;
+@input-width                             : 300px;
+@input-padding                           : 0 unit((6 * @scale), px);
+@input-margin                            : @control-margin;
+@input-border-radius                     : @control-border-radius;
+@input-border-width                      : 0 0 @control-border-width 0;
+@input-border-style                      : solid;
+@input-border-color                      : @control-border-color;
+@input-border                            : @input-border-width @input-border-style @input-border-color;
+@input-text-color                        : @control-text-color;
+@input-background-color                  : transparent;
+@input-box-shadow                        : @control-box-shadow;
+@input-outline                           : @control-outline;
+@input-focused-text-color                : @input-text-color;
+@input-focused-background-color          : @input-background-color;
+@input-focused-border-color              : @scheme-color-primary;
+@input-focused-box-shadow                : @input-hover-box-shadow;
+@input-focused-outline                   : @input-outline;
+@input-hover-text-color                  : @input-text-color;
+@input-hover-background-color            : @input-background-color;
+@input-hover-border-color                : @input-border-color;
+@input-hover-box-shadow                  : @input-box-shadow;
+@input-hover-outline                     : @input-outline;
+@input-disabled-text-color               : tint(@input-text-color, 50%);
+@input-disabled-background-color         : @input-background-color;
+@input-disabled-border-color             : @input-border-color;
+@input-disabled-box-shadow               : @input-box-shadow;
+@input-disabled-outline                  : @input-outline;
+
+// Separators
+@separator-width                         : unit((1 * @weight), px);
+@separator-color                         : @color-aluminium;
+@separator-margin                        : 20px auto 40px;
+
+// Headers
+@header-font-family                      : inherit;
+@header-font-size                        : @global-text-size;
+@header-font                             : @header-font-size @header-font-family;
+@header-text-color                       : @color-paper;
+@header-background-color                 : @scheme-color-tertiary;
+@header-padding                          : 0 @panel-padding;
+@header-height                           : 44px;
+
+// Table/Grid
+@grid-cell-padding-top                   : 0;
+@grid-cell-padding-left                  : unit((8 * @airiness), px);
+@grid-cell-padding-bottom                : 0;
+@grid-cell-padding-right                 : @grid-cell-padding-left;
+@grid-cell-padding                       : @grid-cell-padding-top @grid-cell-padding-right @grid-cell-padding-bottom @grid-cell-padding-left;
+@grid-border-width                       : @separator-width;
+@grid-border-color                       : @separator-color;
+@grid-border                             : @grid-border-width solid @grid-border-color;
+@grid-header-text-color                  : @header-text-color;
+@grid-header-background-color            : @header-background-color;
+@grid-header-border-color                : @grid-header-background-color;
+@grid-header-height                      : @control-height;
+@grid-header-cell-padding                : @grid-cell-padding;
+@grid-row-height                         : @control-height;
+@grid-row-text-color                     : @global-text-color;
+@grid-row-background-color               : @global-background-color;
+@grid-row-hover-text-color               : @grid-row-text-color;
+@grid-row-hover-background-color         : fade(mix(@scheme-color-primary, @grid-row-background-color, 15%), 50%);
+@grid-row-active-text-color              : @grid-row-text-color;
+@grid-row-active-background-color        : @grid-row-hover-background-color;
+@grid-row-active-border-width            : @grid-border-width;
+@grid-row-active-border-color            : @scheme-color-primary;
+@grid-row-active-border                  : @grid-row-active-border-width dotted @grid-row-active-border-color;
+@grid-row-focus-border-width             : @grid-border-width;
+@grid-row-focus-border-color             : @scheme-color-primary;
+@grid-row-focus-border                   : @grid-row-focus-border-width dotted @grid-row-focus-border-color;
+
+// Intentionally use invalidColor cause we need css to malformat
+// And then no border rendered cause css malformat
+@grid-column-active-border-color         : invalidColor;
+
+// Grid
+@grid-text-color                         : @global-text-color;
+@grid-header-alt-background-color        : @header-background-color;
+@grid-row-alternate-background-color     : darken(@grid-row-background-color, 2%);
+
+//
+// Data viz
+@dataviz-color-primary                   : @scheme-color-primary;
+@dataviz-color-secondary                 : @scheme-color-secondary;
+@dataviz-color-complementary             : @scheme-color-complementary;
+@dataviz-color-tertiary                  : @scheme-color-tertiary;
+
+// Data viz - standard
+@dataviz-color-red                       : @color-dataviz-red;
+@dataviz-color-orange                    : @color-dataviz-orange;
+@dataviz-color-yellow                    : @color-dataviz-yellow;
+@dataviz-color-green                     : @color-dataviz-green;
+@dataviz-color-blue                      : @color-dataviz-blue;
+@dataviz-color-cyan                      : @color-dataviz-cyan;
+@dataviz-color-purple                    : @color-dataviz-purple;
+@dataviz-color-pink                      : @color-dataviz-pink;
+@dataviz-color-coral                     : @color-dataviz-coral;
+@dataviz-color-grey                      : @color-dataviz-grey;
+@dataviz-color-black                     : @color-black;
+@dataviz-color-white                     : @color-white;
+
+// Data viz - light
+@dataviz-color-lightred                  : @color-dataviz-lightred;
+@dataviz-color-lightorange               : @color-dataviz-lightorange;
+@dataviz-color-lightyellow               : @color-dataviz-lightyellow;
+@dataviz-color-lightgreen                : @color-dataviz-lightgreen;
+@dataviz-color-lightblue                 : @color-dataviz-lightblue;
+@dataviz-color-lightcyan                 : @color-dataviz-lightcyan;
+@dataviz-color-lightpurple               : @color-dataviz-lightpurple;
+@dataviz-color-lightpink                 : @color-dataviz-lightpink;
+@dataviz-color-lightgrey                 : @color-dataviz-lightgrey;
+@dataviz-color-lightcoral                : @color-dataviz-lightcoral;
+
+// Data viz - dark
+@dataviz-color-darkred                   : @color-dataviz-darkred;
+@dataviz-color-darkorange                : @color-dataviz-darkorange;
+@dataviz-color-darkyellow                : @color-dataviz-darkyellow;
+@dataviz-color-darkgreen                 : @color-dataviz-darkgreen;
+@dataviz-color-darkblue                  : @color-dataviz-darkblue;
+@dataviz-color-darkcyan                  : @color-dataviz-darkcyan;
+@dataviz-color-darkpurple                : @color-dataviz-darkpurple;
+@dataviz-color-darkpink                  : @color-dataviz-darkpink;
+@dataviz-color-darkcoral                 : @color-dataviz-darkcoral;
+@dataviz-color-darkgrey                  : @color-dataviz-darkgrey;
+
+// Data viz - standard, numbered
+@dataviz-color-1                         : @dataviz-color-primary;
+@dataviz-color-2                         : @dataviz-color-pink;
+@dataviz-color-3                         : @dataviz-color-green;
+@dataviz-color-4                         : @dataviz-color-red;
+@dataviz-color-5                         : @dataviz-color-yellow;
+@dataviz-color-6                         : @dataviz-color-purple;
+@dataviz-color-7                         : @dataviz-color-orange;
+@dataviz-color-8                         : @dataviz-color-grey;
+@dataviz-color-9                         : @dataviz-color-cyan;
+@dataviz-color-10                        : @dataviz-color-coral;
+
+// List
+@list-text-color                         : @grid-row-text-color;
+@list-background-color                   : transparent;
+@list-item-height                        : @grid-row-height;
+
+// Item left padding should align with header left padding
+@list-item-padding-top                   : unit((5 * @airiness), px);
+@list-item-padding-right                 : unit((10 * @airiness), px);
+@list-item-padding-bottom                : @list-item-padding-top;
+@list-item-padding-left                  : @list-item-padding-right;
+@list-item-padding                       : @list-item-padding-top @list-item-padding-right @list-item-padding-bottom @list-item-padding-left;
+@list-item-focus-text-color              : @grid-row-hover-text-color;
+@list-item-focus-background-color        : @grid-row-hover-background-color;
+@list-item-selected-text-color           : @scheme-color-complementary;
+@list-item-disabled-text-color           : mix(@global-text-color, @list-background-color);
+@list-item-divider-color                 : @separator-color;
+@list-item-divider-thickness             : @separator-width;
+@list-item-divider-margin                : 5px 0px;
+@list-item-header-height                 : @list-item-height;
+@list-item-header-text-color             : fade(@list-text-color, 60%);
+@list-item-header-background-color       : transparent;
+@list-item-header-font-size              : 70%;
+@list-item-header-font-weight            : bold;
+@list-item-header-border                 : none;
+@list-item-text-highlighted-color        : @list-item-selected-text-color;
+
+// Tree
+@tree-item-highlighted-text-color        : @scheme-color-complementary;
+@tree-item-outline-thickness             : 1px;
+@tree-item-selected-outline              : none;
+@tree-item-height                        : @control-height;
+@tree-item-toggle-color                  : @global-text-color;
+@tree-item-focus-background-color        : @list-item-focus-background-color;
+
+// Tooltip
+@tooltip-spacing                          : unit((7 * @airiness), px);
+@tooltip-margin                           : unit((7 * @airiness), px);
+@tooltip-padding                          : unit((5 * @scale), px) unit((8 * @scale), px);
+@tooltip-background-color                 : @color-paper;
+@tooltip-border-color                     : fade(@panel-border-color, 15%);
+@tooltip-max-width                        : 250px;
+
+// Slider
+@slider-track-color                       : @separator-color;
+@slider-track-disabled-color              : @slider-track-color;
+@slider-track-height                      : 3px;
+@slider-step-color                        : @scheme-color-primary;
+@slider-step-width                        : @slider-track-height;
+@slider-thumb-color                       : @slider-step-color;
+@slider-thumb-size                        : 20px;
+@slider-marker-background-color           : @slider-thumb-color;
+@slider-marker-text-color                 : @color-white;
+

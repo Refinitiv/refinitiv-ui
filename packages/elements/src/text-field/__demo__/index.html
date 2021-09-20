@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <title>Text Field</title>
+  <link href="/node_modules/@refinitiv-ui/demo-block/demo.css" rel="stylesheet">
+</head>
+<body>
+<script type="module">
+  import '@refinitiv-ui/elements/text-field';
+  import '@refinitiv-ui/demo-block';
+</script>
+
+<!-- DEFAULT -->
+<demo-block header="Default" layout="normal" tags="default">
+  <p>
+    <ef-text-field id="test" placeholder="Default"></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field placeholder="Default Transparent" transparent></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field disabled placeholder="Disabled"></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field placeholder="Read Only" readonly></ef-text-field>
+  </p>
+</demo-block>
+
+<!-- DEFAULT (IN LINE ICON) -->
+<demo-block header="Default (In Line Icon)" layout="normal" tags="icon">
+  <p>
+    <ef-text-field icon="calendar" placeholder="Default"></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field disabled icon="calendar" placeholder="Disabled"></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field icon="calendar" placeholder="Read Only" readonly></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field icon="calendar" icon-has-action placeholder="Icon Has Action"></ef-text-field>
+  </p>
+</demo-block>
+
+<!-- DEFAULT (IN LINE ICON, FIXED WIDTH) -->
+<demo-block header="Default (In Line Icon, Fixed Width)" layout="normal" tags="icon, fixed width">
+  <p>
+    <ef-text-field icon="calendar" placeholder="Default" style="width:200px;"></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field disabled icon="calendar" placeholder="Disabled" style="width:200px;"></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field icon="calendar" placeholder="Read Only" readonly style="width:200px;"></ef-text-field>
+  </p>
+</demo-block>
+
+<!-- ERROR -->
+<demo-block header="Error" layout="normal" tags="error">
+  <p>
+    <ef-text-field error placeholder="Default"></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field disabled error placeholder="Disabled"></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field error placeholder="Read Only" readonly></ef-text-field>
+  </p>
+</demo-block>
+
+<!-- WARNING -->
+<demo-block header="Warning" layout="normal" tags="warning">
+  <p>
+    <ef-text-field placeholder="Default" warning></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field disabled placeholder="Disabled" warning></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field placeholder="Read Only" readonly warning></ef-text-field>
+  </p>
+</demo-block>
+
+<!-- MAX LENGTH -->
+<demo-block header="Maxlength" layout="normal" tags="max length">
+  <p>
+    <ef-text-field maxlength="5" placeholder="Maxlength set to 5" value=""></ef-text-field>
+  </p>
+</demo-block>
+
+<!-- MIN LENGTH -->
+<demo-block header="Minlength" layout="normal" tags="minlength">
+  <p>
+    <ef-text-field class="minLengthValidation" minlength="5" placeholder="Minlength set to 5"
+                      value=""></ef-text-field>
+  </p>
+</demo-block>
+
+<!-- PATTERN -->
+<demo-block header="Pattern expression" layout="normal" tags="pattern">
+  <p>
+    <ef-text-field class="patternValidation" pattern='[a-z]{1,5}'
+                      placeholder="Current pattern: [a-z]{1,5}"></ef-text-field>
+  </p>
+  <p class="isValid"></p>
+  <script>
+    var patternValidationInput = document.querySelector('.patternValidation');
+    var isValidPTag = document.querySelector('.isValid');
+
+    patternValidationInput.addEventListener('error-changed', function (e) {
+      isValidPTag.innerHTML = `isValid: ${!e.detail.value}`;
+    }, false);
+  </script>
+</demo-block>
+
+<!-- FOCUS/BLUR -->
+<demo-block header="Focus/Blur" layout="normal" tags="focus, blur">
+  <p>
+    <ef-text-field class="focusblur" placeholder="Focus/Blur"></ef-text-field>
+  </p>
+  <p>
+    <button onClick="focusblur.focus();">Focus</button>
+    <button onClick="focusblur.blur();">Blur</button>
+  </p>
+  <p class="focusblurevent"></p>
+  <script>
+    const focusblur = document.querySelector('.focusblur');
+    const focusblurevent = document.querySelector('.focusblurevent');
+
+    focusblur.addEventListener('blur', function () {
+      focusblurevent.innerHTML = '`blur` event triggered';
+    }, false);
+
+    focusblur.addEventListener('focus', function () {
+      focusblurevent.innerHTML = '`focus` event triggered';
+    }, false);
+  </script>
+</demo-block>
+
+<!-- ICON HAS ACTION -->
+<demo-block header="Action" layout="normal" tags="icon-has-action">
+  <p>
+    <ef-text-field class="icon-has-no-action" icon="calendar"
+                      placeholder="Icon Has No Action"></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field class="icon-has-action" icon="calendar" icon-has-action
+                      placeholder="Icon Has Action"></ef-text-field>
+  </p>
+  <p class="icon-click-event"></p>
+  <script>
+    const fieldWithoutAction = document.querySelector('.icon-has-action');
+    const fieldWith = document.querySelector('.icon-has-action');
+    const iconActionLogger = document.querySelector('.icon-click-event');
+    let counter = 0;
+
+    const loggerFunc = () => {
+      iconActionLogger.innerHTML = `clicked: ${counter += 1} times`;
+    };
+
+    fieldWithoutAction.addEventListener('icon-click', loggerFunc);
+    fieldWith.addEventListener('icon-click', loggerFunc);
+  </script>
+</demo-block>
+
+<!-- SELECTION -->
+<demo-block header="Selection" layout="normal" tags="selection">
+  <p>
+    <ef-text-field id="selection" value="Text to select"></ef-text-field>
+  </p>
+  <p>
+    <button class="select-button" id="select-all-button">Select All</button>
+    <button class="select-button" id="select-range-button">Selection Range(3, 10)</button>
+    <button class="select-button" id="select-clear-button">Clear Selection</button>
+  </p>
+  <script>
+    const selection = document.getElementById('selection');
+    const selectAll = () => {
+      selection.select();
+      selection.focus();
+    };
+    const selectRange = () => {
+      selection.setSelectionRange(3, 10);
+      selection.focus();
+    };
+    const selectClear = () => {
+      window.getSelection().removeAllRanges();
+    };
+    const selectButtons = document.querySelectorAll('.select-button');
+    selectButtons.forEach((button) => {
+      button.addEventListener('tap', () => {
+        switch (button.id) {
+          case 'select-all-button':
+            selectAll();
+            break;
+          case 'select-range-button':
+            selectRange();
+            break;
+          case 'select-clear-button':
+            selectClear();
+            break;
+          default:
+          // do nothing
+        }
+      });
+    });
+  </script>
+</demo-block>
+
+</body>
+</html>

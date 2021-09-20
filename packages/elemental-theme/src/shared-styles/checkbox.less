@@ -1,0 +1,68 @@
+.checkbox-defaults() {
+
+  margin: @input-margin;
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  font-size: inherit;
+  font-weight: inherit;
+
+  &:focus {
+    outline: none;
+  }
+
+  .container-styles() {
+
+    // Fixes for mobile
+    appearance: none;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: round((@input-height * 0.56));
+    height: round((@input-height * 0.56));
+    border-radius: @input-border-radius;
+    border-style: @input-border-style;
+    border-color: @input-border-color;
+    border-width: max(@input-border-width);
+    background-color: if(@input-background-color = transparent, @global-background-color, @input-background-color);
+    transition: box-shadow 150ms @global-transition-easing, border-color 150ms @global-transition-easing;
+    box-shadow: inset 0 0 (@global-box-shadow-blur-radius * 0.75) @global-box-shadow-color;
+    user-select: none;
+    position: relative;
+
+  }
+
+  .container-focus-styles() {
+    border-color: @input-focused-border-color;
+    box-shadow: 0 0 (@global-box-shadow-blur-radius * 0.75) @input-focused-border-color;
+  }
+
+  .check-styles() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+    box-sizing: border-box;
+    color: var(--check-color, @dataviz-color-primary);
+  }
+
+  .check-indeterminate-styles() {
+    border: none;
+    background-color: currentColor;
+    width: 34%;
+    height: 34%;
+    transform: none;
+    border-radius: 1px;
+    margin: 0;
+  }
+
+  .label-styles() {
+    margin: 0 7px;
+    cursor: default;
+  }
+
+}

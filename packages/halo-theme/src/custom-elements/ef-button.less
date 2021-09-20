@@ -1,0 +1,157 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-button';
+@import '@refinitiv-ui/elemental-theme/src/responsive';
+
+:host {
+  [part=label] {
+    // make label vertically center
+    line-height: (@button-height - (@button-border-width * 2));
+  }
+  [part=icon] {
+    opacity: inherit;
+    min-width: @icon-size;
+  }
+  &[toggles]:hover:not(:focus) {
+    border-color: @button-border-color;
+  }
+  &[toggles][active]:focus {
+    color: @button-toggle-active-text-color;
+  }
+  &[toggles]:focus:not([focused]),
+  &[toggles][active][focused="visible"]  {
+    color: @button-text-color;
+  }
+  &[cta]:hover {
+    border-color: @button-hover-border-color;
+  }
+  &[cta]:active {
+    border-color: @button-border-color;
+  }
+
+  &[icon] {
+
+    &:not([toggles])[cta][transparent] {
+      [part=icon] {
+        color: @button-cta-transparent-icon-color;
+      }
+    }
+
+    &:hover {
+
+      &[transparent] {
+        [empty] {
+          color: @button-transparent-hover-icon-color;
+        }
+
+        &[cta] {
+          [part=icon] {
+            color: @button-hover-text-color;
+          }
+
+          &[toggles] {
+            [part=icon] {
+              color: @button-hover-text-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .mobile-specific({
+    &:hover {
+      &[transparent][cta]:not([toggles]) {
+        &:not(:active) {
+          background-color: @button-cta-background-color;
+          border-color: transparent;
+        }
+      }
+      &[transparent][cta][toggles] {
+        border-color: @button-border-color;
+        &:not([active]):not(:active) {
+          [part=icon] {
+            color: @button-text-color;
+          }
+        }
+      }
+    }
+  });
+
+  &[toggles][active][transparent] {
+    color: @button-toggle-active-text-color;
+    &:not(:focus) {
+      color: @scheme-color-secondary;
+    }
+    &:hover {
+      color: @button-hover-text-color;
+    }
+    &[cta] {
+      color: @button-hover-text-color;
+    }
+  }
+
+  &:not(:hover):not(:focus):not(:active):not([cta])[transparent] {
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  &:not([cta])[empty][icon][transparent] { //override elemental
+    &[toggles][active] {
+      color: @scheme-color-secondary;
+      &:hover,&[focused], &[focused="visible"] {
+        color: @scheme-color-primary;
+      }
+    }
+    color: @button-icon-color;
+    &:not([active]):hover {
+      color: @button-transparent-hover-icon-color;
+    }
+    &[disabled]{
+      color: @button-icon-color;
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    &[transparent][empty] {
+      color: @button-icon-color;
+    }
+
+    &[cta]{
+      &:not([empty]) {
+        color: fade(@color-silver, 50%);;
+        opacity: 1;
+        background-color: @color-lights-out;
+        border-color: @button-cta-border-color;
+
+        [part=icon] {
+          color: inherit;
+        }
+      }
+
+      &[icon][empty]:not([toggles]) {
+        border-color: @button-cta-border-color;
+      }
+    }
+  }
+
+  &:not([cta])[empty][icon][transparent] {
+    &:active:not(:focus) {
+      background-color: transparent !important;
+    }
+
+    &:hover {
+      &:not(:focus) {
+        background-color: transparent !important;
+        border-color: transparent !important;
+      }
+    }
+  }
+  &:focus:not([focused]),
+  &[toggles][focused="visible"],
+  &[cta][focused="visible"],
+  &[focused=visible] {
+    border-color: @button-border-color;
+    background-color: @button-hover-background-color;
+    color: @color-white;
+  }
+}

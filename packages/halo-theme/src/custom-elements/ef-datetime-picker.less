@@ -1,0 +1,53 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-datetime-picker';
+
+:host {
+  [part=calendar] {
+    width: 196px;
+    padding: 4px 3px;
+  }
+
+  [part=list] {
+    margin-top: 2px;
+    border: 1px solid @scheme-color-primary;
+    background-color: @calendar-background-color;
+  }
+
+  &[range] {
+    width: (2 * @input-width);
+  }
+
+  [part=timepicker-wrapper] {
+    box-shadow: none;
+    padding: 0 3px 4px 3px;
+  }
+
+  [part=icon] {
+    color: inherit;
+    & when (@variant = light) {
+      color: @control-border-color;
+    }
+  }
+
+  &[disabled] {
+    [part=icon] {
+      color: @input-disabled-text-color
+    }
+  }
+
+  &[focused],
+  &[focused][error][warning],
+  &:not([disabled]):hover {
+    [part=icon] {
+      color: @scheme-color-secondary;
+
+      & when (@variant = light) {
+        color: @scheme-color-primary;
+      }
+    }
+  }
+
+  &:not([readonly]):not([error]):not([warning]):not([focused]):hover {
+    border-color: @input-hover-border-color;
+    color: @input-hover-text-color;
+  }
+}

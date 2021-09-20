@@ -1,0 +1,35 @@
+{
+  "name": "@refinitiv-ui/i18n",
+  "version": "5.1.4",
+  "description": "i18n support for Web Components",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "directory": "packages/i18n"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "npm run build && karma start ../../karma.config.js --package=i18n --include-snapshots=false",
+    "test:watch": "npm run test -- --watch"
+  },
+  "author": "Refinitiv",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@formatjs/icu-messageformat-parser": "^2.0.7",
+    "@formatjs/intl-utils": "^3.8.4",
+    "@refinitiv-ui/phrasebook": "^5.1.2",
+    "intl-format-cache": "^4.3.1",
+    "intl-messageformat": "^9.7.1"
+  },
+  "devDependencies": {
+    "@refinitiv-ui/test-helpers": "^5.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

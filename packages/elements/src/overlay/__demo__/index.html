@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Overlay</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <style>
+      .center-button {
+        text-align: center;
+      }
+
+      .content {
+        text-align: center;
+        max-width: 350px;
+        min-width: 200px;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      ef-overlay {
+        border: solid red 2px;
+      }
+
+      .content-button-bar {
+        display: flex;
+        box-sizing: border-box;
+        padding: 20px;
+        width: 100%;
+      }
+
+      .content-button-bar > *:not(:last-child) {
+        margin-right: 10px;
+      }
+
+      .content-button-bar > *:last-child {
+        margin-left: auto;
+      }
+
+      [full-screen] .content {
+        width: 100%;
+      }
+
+      #outer-rel {
+        position: relative;
+        height: 100px;
+        padding: 0;
+      }
+
+      #inner-abs {
+        background: deeppink;
+        height: 50px;
+        width: 100%;
+        z-index: 2000;
+        padding: 0;
+      }
+
+      .demo-wrapper {
+        display: flex;
+      }
+
+      .demo-wrapper > *:not(:last-child) {
+        margin-right: 20px;
+      }
+
+      .transformed {
+        transform: translate3d(0, 0, 0);
+      }
+
+      .transformed::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border: 3px dashed red;
+        pointer-events: none;
+      }
+
+      .filtered {
+        filter: drop-shadow(20px 20px 20px red);
+      }
+
+      .zoomed {
+        zoom: 0.5;
+      }
+
+      .label {
+        display: flex;
+      }
+
+      .label > input {
+        flex: none;
+      }
+
+      #interactiveElementsDemo ef-text-field:hover {
+        outline: 2px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/overlay';
+      import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/elements/button';
+      import '@refinitiv-ui/elements/text-field';
+      import '@refinitiv-ui/elements/number-field';
+    </script>
+
+    <script type="text/javascript">
+        (function () {
+          window.getRandomColor = function () {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i += 1) {
+              color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+          };
+
+          window.overlayAction = function (el, action, callFirst) {
+            el = document.getElementById(el);
+            if (callFirst) {
+              callFirst(el);
+            }
+            if (action === 'open') {
+              el.opened = true;
+            }
+            else if (action === 'close') {
+              el.opened = false;
+            }
+          };
+          window.linkOverlay = function (overlayId, targetId) {
+            const layeredOverlay = document.getElementById(overlayId);
+            layeredOverlay.positionTarget = document.getElementById(targetId);
+            layeredOverlay.position = ['center-middle'];
+          };
+          window.setCheckboxProperty = function (ch, overlay) {
+            const set = function () {
+              overlay[ch.getAttribute('ref')] = ch.checked || false;
+            };
+            set();
+            ch.addEventListener('change', set);
+          };
+          window.addContent = function (overlayId) {
+            const overlay = document.getElementById(overlayId);
+            const node = document.createElement('div');
+            node.style.minHeight = '50px';
+            node.style.margin = '20px';
+            node.style.border = '1px solid ' + getRandomColor();
+            node.setAttribute('ref', 'dynamic-content');
+
+            overlay.appendChild(node);
+          };
+
+          window.removeContent = function (overlayId) {
+            const overlay = document.getElementById(overlayId);
+            const node = overlay.querySelector('div[ref=dynamic-content]');
+
+            if (node) {
+              node.parentNode.removeChild(node);
+            }
+          };
+
+          window.setTransform = (el, enable) => {
+            el.classList.toggle('transformed', enable);
+          };
+
+          window.setZoom = (el, enable) => {
+            el.classList.toggle('zoomed', enable);
+          };
+
+          window.setFilter = (el, enable) => {
+            el.classList.toggle('filtered', enable);
+          };
+        })();
+    </script>
+
+    <demo-block id="basic" header="Basic" layout="normal" tags="default,transparent,shadow,auto-hide,backdrop,full-screen,scroll-lock,focus">
+      <div class="demo-wrapper">
+        <div>
+          <ef-button onclick="overlayAction('default-overlay', 'open')">Open</ef-button>
+          <ef-overlay id="default-overlay">
+            <div class="content">
+              Default panel
+            </div>
+            <div class="content-button-bar">
+              <ef-button onclick="addContent('default-overlay')">Add</ef-button>
+              <ef-button onclick="removeContent('default-overlay')">Remove</ef-button>
+              <ef-button onclick="overlayAction('default-overlay', 'close')">Close</ef-button>
+            </div>
+          </ef-overlay>
+        </div>
+        <div class="demo-wrapper">
+          <div>
+            <div class="label"><input type="checkbox" ref="transparent" name="basic-transparent"><label for="basic-transparent">Make overlay transparent</label></div>
+            <div class="label"><input type="checkbox" ref="withShadow" name="basic-withShadow"><label for="basic-withShadow">Show overlay shadow</label></div>
+            <div class="label"><input type="checkbox" ref="noCancelOnOutsideClick" name="basic-noCancelOnOutsideClick"><label for="basic-noCancelOnOutsideClick">No auto hide. You close button only</label></div>
+            <div class="label"><input type="checkbox" ref="noCancelOnEscKey" name="basic-noCancelOnEscKey"><label for="basic-noCancelOnEscKey">Do not hide on ESC key</label></div>
+            <div class="label"><input type="checkbox" ref="withBackdrop" name="basic-withBackdrop"><label for="basic-withBackdrop">Show backdrop for the overlay</label></div>
+          </div>
+          <div>
+            <div class="label"><input type="checkbox" ref="spacing" name="basic-spacing"><label for="basic-spacing">Show spacing inside the overlay</label></div>
+            <div class="label"><input type="checkbox" ref="fullScreen" name="basic-fullScreen"><label for="basic-fullScreen">Show overlay in full screen mode</label></div>
+            <div class="label"><input type="checkbox" ref="noInteractionLock" name="basic-noInteractionLock"><label for="basic-noInteractionLock">Do not lock body interaction when overlay is opened</label></div>
+            <div class="label"><input type="checkbox" ref="noAutoFocus" name="basic-noAutoFocus"><label for="basic-noAutoFocus">Do not focus on overlay</label></div>
+            <div class="label"><input type="checkbox" ref="noFocusManagement" name="basic-noFocusManagement"><label for="basic-noFocusManagement">Do not provide focus management</label></div>
+            <div class="label"><input type="checkbox" id="body-transform" name="body-transform"><label for="body-transform">Add Transform to body: translate3d(0, 0, 0);</label></div>
+            <div class="label"><input type="checkbox" id="body-filter" name="body-filter"><label for="body-filter">Add Filter to body: drop-shadow;</label></div>
+            <div class="label"><input type="checkbox" id="body-zoom" name="body-zoom"><label for="body-zoom">Add Zoom to body: zoom: 0.5;</label></div>
+          </div>
+        </div>
+      </div>
+      <script>
+          (function () {
+            const overlay = document.getElementById('default-overlay');
+            document.querySelectorAll('#basic input[type=checkbox][ref]').forEach(function (ch) {
+              setCheckboxProperty(ch, overlay);
+            });
+            document.getElementById('body-transform').addEventListener('change', ({ target }) => setTransform(document.body, target.checked));
+            document.getElementById('body-filter').addEventListener('change', ({ target }) => setFilter(document.body, target.checked));
+            document.getElementById('body-zoom').addEventListener('change', ({ target }) => setZoom(document.body, target.checked));
+          })();
+      </script>
+    </demo-block>
+
+    <demo-block id="screenPositionDemo" header="Position Against Screen" layout="normal" tags="x,y,screen,position">
+      <div class="demo-wrapper">
+        <div>
+          <ef-button onclick="overlayAction('screen-position-overlay', 'open')">Open</ef-button>
+          <ef-overlay id="screen-position-overlay" style="overflow: auto;">
+            <div class="content">
+              The overlay is positioned against the screen or X and Y coordinates
+            </div>
+            <div class="content-button-bar">
+              <ef-button onclick="addContent('screen-position-overlay')">Add</ef-button>
+              <ef-button onclick="removeContent('screen-position-overlay')">Remove</ef-button>
+              <ef-button onclick="overlayAction('screen-position-overlay', 'close')">Close</ef-button>
+            </div>
+          </ef-overlay>
+        </div>
+        <div class="demo-wrapper">
+          <div>
+            <label for="screen-position-vertical">Vertical Alignment</label>
+            <select id="screen-position-vertical">
+              <option></option>
+              <option>top</option>
+              <option>center</option>
+              <option>bottom</option>
+            </select>
+            <br>
+            <label for="screen-position-horizontal">Horizontal Alignment</label>
+            <select id="screen-position-horizontal">
+              <option></option>
+              <option>left</option>
+              <option>center</option>
+              <option>right</option>
+            </select><br>
+            <ef-number-field type="number" id="screen-position-x" placeholder="X coordinate" min="0"></ef-number-field>
+            <ef-number-field type="number" id="screen-position-y" placeholder="Y coordinate" min="0"></ef-number-field>
+            <div class="label"><input type="checkbox" ref="withBackdrop" name="screenPositionDemo-withBackdrop"><label for="screenPositionDemo-withBackdrop">Show backdrop for the overlay</label></div>
+            <div class="label"><input type="checkbox" ref="fullScreen" name="screenPositionDemo-fullScreen"><label for="screenPositionDemo-fullScreen">Show overlay in full screen mode</label></div>
+            <div class="label"><input type="checkbox" ref="noInteractionLock" name="screenPositionDemo-noInteractionLock"><label for="screenPositionDemo-noInteractionLock">Do not lock body interaction when overlay is opened</label></div>
+            <div class="label"><input type="checkbox" id="screen-position-transform" name="screen-position-transform"><label for="screen-position-transform">Add Transform: translate3d(0, 0, 0);</label></div>
+            <div class="label"><input type="checkbox" id="screen-position-filter" name="screen-position-filter"><label for="screen-position-filter">Add Filter: drop-shadow;</label></div>
+          </div>
+          <div>
+            <ef-text-field id="screen-position-target" placeholder="Position Target"></ef-text-field>
+          </div>
+        </div>
+      </div>
+      <script>
+          (function () {
+            const overlay = document.getElementById('screen-position-overlay');
+            const screenPositionVertical = document.getElementById('screen-position-vertical');
+            const screenPositionHorizontal = document.getElementById('screen-position-horizontal');
+            const screenPositionTarget = document.getElementById('screen-position-target');
+            const setAlignmentValue = function () {
+              const value = [];
+              const setValue = function (v) {
+                v && value.push(v);
+              };
+              setValue(screenPositionVertical.value);
+              setValue(screenPositionHorizontal.value);
+              screenPositionTarget.value = value.join(' ');
+              overlay.positionTarget = screenPositionTarget.value;
+            };
+            screenPositionVertical.addEventListener('change', setAlignmentValue);
+            screenPositionHorizontal.addEventListener('change', setAlignmentValue);
+            screenPositionTarget.addEventListener('value-changed', ({ target: { value } }) => {
+              overlay.positionTarget = value;
+            });
+            document.getElementById('screen-position-x').addEventListener('value-changed', ({ target: { value } }) => {
+              overlay.x = value ? parseFloat(value) : undefined;
+            });
+            document.getElementById('screen-position-y').addEventListener('value-changed', ({ target: { value } }) => {
+              overlay.y = value ? parseFloat(value) : undefined;
+            });
+            document.querySelectorAll('#screenPositionDemo input[type=checkbox][ref]').forEach(ch => setCheckboxProperty(ch, overlay));
+            document.getElementById('screen-position-transform').addEventListener('change', ({ target }) => setTransform(document.getElementById('screenPositionDemo'), target.checked));
+            document.getElementById('screen-position-filter').addEventListener('change', ({ target }) => setFilter(document.getElementById('screenPositionDemo'), target.checked));
+          })();
+      </script>
+    </demo-block>
+
+    <demo-block id="positionTargetDemo" header="Position Against Target Element" layout="normal" tags="position,target,element">
+      <div class="center-button">
+        <ef-button cta id="position-target-btn">Target Element</ef-button>
+      </div>
+      <br>
+      <br>
+      <br>
+      <div class="demo-wrapper">
+        <div>
+          <ef-button onclick="overlayAction('position-target-overlay', 'open')">Open</ef-button>
+          <ef-overlay id="position-target-overlay" style="overflow: auto;">
+            <div class="content">
+              Overlay is positioned against the target. Try to resize and scroll the screen to see different position strategies.
+            </div>
+            <div class="content-button-bar">
+              <ef-button onclick="addContent('position-target-overlay')">Add</ef-button>
+              <ef-button onclick="removeContent('position-target-overlay')">Remove</ef-button>
+              <ef-button onclick="overlayAction('position-target-overlay', 'close')">Close</ef-button>
+            </div>
+          </ef-overlay>
+        </div>
+        <div class="demo-wrapper">
+          <div>
+            <label for="element-position">Position</label>
+            <ef-text-field id="element-position"
+              placeholder="Position"
+              value="bottom-start, top-start, right-middle, left-middle" style="width: 325px;"></ef-text-field>
+              <br>
+            <label for="select-transition-style">Transition Style: </label>
+            <select id="select-transition-style">
+              <option></option>
+              <option value="fade">fade</option>
+              <option value="zoom">zoom</option>
+              <option value="slide">slide</option>
+              <option value="slide-down">slide-down</option>
+              <option value="slide-up">slide-up</option>
+              <option value="slide-right">slide-right</option>
+              <option value="slide-left">slide-left</option>
+              <option value="slide-right-up">slide-right-up</option>
+              <option value="slide-left-up">slide-left-up</option>
+              <option value="slide-right-down">slide-right-down</option>
+              <option value="slide-left-down">slide-left-down</option>
+            </select>
+            <div class="label"><input type="checkbox" ref="noOverlap" name="positionTargetDemo-noOverlap"><label for="positionTargetDemo-noOverlap">No overlap</label></div>
+            <div class="label"><input type="checkbox" ref="noInteractionLock" name="positionTargetDemo-noInteractionLock"><label for="positionTargetDemo-noInteractionLock">Do not lock body interaction when overlay is opened</label></div>
+            <div class="label"><input type="checkbox" ref="lockPositionTarget" name="positionTargetDemo-lockPositionTarget"><label for="positionTargetDemo-lockPositionTarget">Lock position target by applying "pointer-events: none"</label></div>
+            <div class="label"><input type="checkbox" id="position-target-transform" name="position-target-transform"><label for="position-target-transform">Add Transform: translate3d(0, 0, 0);</label></div>
+            <div class="label"><input type="checkbox" id="position-target-filter" name="position-target-filter"><label for="position-target-filter">Add Filter: drop-shadow;</label></div>
+          </div>
+          <ul>
+            <li>First argument is position around the target. <code>top</code>, <code>right</code>, <code>bottom</code> or <code>left</code>.</li>
+            <li>Second argument is alignment against the position. Alignment can be omitted. <code>start</code>, <code>middle</code> or <code>end</code></li>
+            <li>The comma separated list defines the priority to align the overlay against.</li>
+            <li>For example:
+              <ul>
+                <li><code>bottom, top</code></li>
+                <li><code>bottom-end</code></li>
+                <li><code>right-start, left-end, top-middle</code></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <script>
+          (function () {
+            const overlay = document.getElementById('position-target-overlay');
+            overlay.positionTarget = document.getElementById('position-target-btn');
+
+            document.querySelectorAll('#positionTargetDemo input[type=checkbox][ref]').forEach(ch => setCheckboxProperty(ch, overlay));
+            document.getElementById('element-position').addEventListener('value-changed', ({ target: { value } }) => {
+              overlay.setAttribute('position', value);
+            });
+            document.getElementById('select-transition-style').addEventListener('change', ({ target: { value } }) => {
+              overlay.transitionStyle = value;
+            });
+            document.getElementById('position-target-transform').addEventListener('change', ({ target }) => setTransform(document.getElementById('positionTargetDemo'), target.checked));
+            document.getElementById('position-target-filter').addEventListener('change', ({ target }) => setFilter(document.getElementById('positionTargetDemo'), target.checked));
+          })();
+      </script>
+    </demo-block>
+
+    <demo-block id="nestedDemoBlock" header="Nested" layout="normal" tags="nested">
+      <div class="demo-wrapper">
+        <div>
+          <ef-button onclick="overlayAction('nested-overlay', 'open')">Open</ef-button>
+        </div>
+        <div class="demo-wrapper">
+          <div>
+            <div class="label"><input type="checkbox" ref="withBackdrop" name="nestedDemoBlock-withBackdrop"><label for="nestedDemoBlock-withBackdrop">Show backdrop for the overlay</label></div>
+            <div class="label"><input type="checkbox" ref="noCancelOnOutsideClick" name="nestedDemoBlock-noCancelOnOutsideClick"><label for="nestedDemoBlock-noCancelOnOutsideClick">Do not cancel on outside click</label></div>
+          </div>
+        </div>
+      </div>
+      <script>
+          (function () {
+            let nr = 0;
+            const createOverlay = (parentNode, opened) => {
+              const overlay = document.createElement('ef-overlay');
+              nr += 1;
+              document.querySelectorAll('#nestedDemoBlock input[type=checkbox][ref]').forEach(ch => setCheckboxProperty(ch, overlay));
+              overlay.style.setProperty('border-color', `${getRandomColor()}`);
+
+              const content = document.createElement('div');
+              content.classList.add('content');
+              content.textContent = `This is overlay Nr. ${nr}. Click 'Close' to close this panel. Click 'Open' to open nested panel.`;
+
+              const buttonBar = document.createElement('div');
+              buttonBar.classList.add('content-button-bar');
+
+              const openButton = document.createElement('ef-button');
+              openButton.addEventListener('click', () => {
+                createOverlay(overlay, true);
+              });
+              openButton.textContent = 'Open Nested';
+              buttonBar.appendChild(openButton);
+
+              const closeButton = document.createElement('ef-button');
+              closeButton.addEventListener('click', () => {
+                overlay.opened = false;
+                if (parentNode) {
+                  overlay.parentNode.removeChild(overlay);
+                }
+              });
+              closeButton.textContent = 'Close';
+              buttonBar.appendChild(closeButton);
+
+              overlay.appendChild(content);
+              overlay.appendChild(buttonBar);
+
+              if (parentNode) {
+                overlay.positionTarget = parentNode;
+                overlay.lockPositionTarget = true;
+                overlay.position = ['center-middle'];
+                overlay.verticalOffset = 20;
+                overlay.horizontalOffset = 20;
+              }
+
+              document.getElementById('nestedDemoBlock').appendChild(overlay);
+              overlay.opened = opened;
+
+              return overlay;
+            };
+
+            const overlay = createOverlay();
+            overlay.id = 'nested-overlay';
+            document.querySelectorAll('#nestedDemoBlock input[type=checkbox][ref]').forEach(ch => setCheckboxProperty(ch, overlay));
+          })();
+      </script>
+    </demo-block>
+
+    <demo-block header="Overlay Inside Overlay" layout="normal" tags="inside">
+      <ef-overlay id="inside-overlay-l1" spacing with-backdrop>
+        <div class="content">This is a top level overlay
+          <br> Click 'Open' to open nested panel.
+          <br> Click 'Close' to close this panel.
+          <br>
+          <div class="content-button-bar">
+            <ef-button onclick="overlayAction('inside-overlay-l2', 'open')">Open</ef-button>
+            <ef-button onclick="overlayAction('inside-overlay-l1', 'close')">Close</ef-button>
+          </div>
+        </div>
+        <ef-overlay id="inside-overlay-l2" with-backdrop>
+          <div class="content">
+            This overlay is inside another overlay.
+            <br>
+            <div class="content-button-bar">
+              <ef-button onclick="overlayAction('inside-overlay-l3', 'open')">Open</ef-button>
+              <ef-button onclick="overlayAction('inside-overlay-l2', 'close')">Close</ef-button>
+            </div>
+          </div>
+          <ef-overlay id="inside-overlay-l3" with-backdrop>
+            <div class="content">
+              Inner overlay.
+              <br>
+              <ef-button onclick="overlayAction('inside-overlay-l3', 'close')">Close</ef-button>
+            </div>
+          </ef-overlay>
+        </ef-overlay>
+      </ef-overlay>
+      <ef-button onclick="overlayAction('inside-overlay-l1', 'open')">Open</ef-button>
+    </demo-block>
+
+    <demo-block header="Overflow Overlay Inside Another Overlay" layout="normal" tags="inside,overflow,safari">
+      <ef-overlay id="inside-overflow-l1" spacing>
+        <div class="content">This is a top level overlay
+          <br> Click 'Open' to open nested panel.
+          <br> Click 'Close' to close this panel.
+          <br>The content of nested panel must be visible and scrollable</br>
+          <br>
+          <div class="content-button-bar">
+            <ef-button onclick="overlayAction('inside-overflow-l2', 'open')">Open</ef-button>
+            <ef-button onclick="overlayAction('inside-overflow-l1', 'close')">Close</ef-button>
+          </div>
+        </div>
+        <ef-overlay id="inside-overflow-l2" style="overflow: auto;">
+          <div class="content" style="height: 200vh;">
+            <div class="content-button-bar">
+              <ef-button onclick="overlayAction('inside-overflow-l2', 'close')">Close</ef-button>
+            </div>
+          </div>
+        </ef-overlay>
+      </ef-overlay>
+      <ef-button onclick="overlayAction('inside-overflow-l1', 'open')">Open</ef-button>
+    </demo-block>
+
+    <demo-block header="Same Z-Index" layout="normal" tags="z-index">
+      <ef-overlay id="z-index-l1" spacing style="border-color: red;" z-index="1">
+        <div class="content">
+          <div>Panel 1</div>
+          <br>
+          <div class="content-button-bar">
+            <ef-button onclick="overlayAction('z-index-l2', 'open')">Open 2</ef-button>
+            <ef-button onclick="overlayAction('z-index-l3', 'open')">Open 3</ef-button>
+            <ef-button onclick="overlayAction('z-index-l1', 'close')">Close 1</ef-button>
+          </div>
+        </div>
+      </ef-overlay>
+      <ef-overlay id="z-index-l2" spacing offset="100" style="border-color: green;" z-index="1">
+        <div class="content">
+          <div>Panel 2</div>
+          <br>
+          <div class="content-button-bar">
+            <ef-button onclick="overlayAction('z-index-l1', 'open')">Open 1</ef-button>
+            <ef-button onclick="overlayAction('z-index-l3', 'open')">Open 3</ef-button>
+            <ef-button onclick="overlayAction('z-index-l2', 'close')">Close 2</ef-button>
+          </div>
+        </div>
+      </ef-overlay>
+      <ef-overlay id="z-index-l3" spacing offset="200" style="border-color: blue;" z-index="1">
+        <div class="content">
+          <div>Panel 3</div>
+          <br>
+          <div class="content-button-bar">
+            <ef-button onclick="overlayAction('z-index-l1', 'open')">Open 1</ef-button>
+            <ef-button onclick="overlayAction('z-index-l2', 'open')">Open 2</ef-button>
+            <ef-button onclick="overlayAction('z-index-l3', 'close')">Close 3</ef-button>
+          </div>
+        </div>
+      </ef-overlay>
+      <div>All overlays have the same z-index. The last open overlay must be at the front.</div>
+      <ef-button onclick="overlayAction('z-index-l1', 'open')">Open 1</ef-button>
+      <ef-button onclick="overlayAction('z-index-l2', 'open')">Open 2</ef-button>
+      <ef-button onclick="overlayAction('z-index-l3', 'open')">Open 3</ef-button>
+    </demo-block>
+
+    <demo-block header="Internal Scrollbars" layout="normal" tags="scrollbar,lock">
+      <ef-overlay id="internal-scrollbars">
+        <div class="content" style="max-width: none">
+          <div><b>All scrollbars inside overlay must be unlocked.</b></div>
+          <div style="display: flex">
+            <div style="margin: 0 5px; height: 200px; overflow: auto; border: 1px solid red; flex: 1">
+              <div style="height: 300px;">
+                <div>RED</div>
+                <div style="display: flex">
+                  <div style="margin: 5px; height: 200px; overflow: auto; border: 1px solid yellow; flex: 1"><div style="height: 400px; width: 400px;">YELLOW</div></div>
+                  <div style="margin: 5px; height: 200px; overflow: auto; border: 1px solid violet; flex: 1"><div style="height: 400px; width: 400px;">VIOLET</div></div>
+                </div>
+              </div>
+            </div>
+            <div style="margin: 0 5px; height: 200px; overflow: auto; border: 1px solid blue; flex: 1"><div style="height: 400px; width: 400px;">BLUE</div></div>
+          </div>
+          <br>
+          <ef-button onclick="overlayAction('internal-scrollbars', 'close')">Close</ef-button>
+        </div>
+      </ef-overlay>
+      <div><b>All scrollbars inside demo-block must be locked when overlay is open.</b></div>
+      <br>
+      <div style="display: flex">
+        <div style="margin: 0 5px; height: 200px; overflow: auto; border: 1px solid red; flex: 1">
+          <div style="height: 300px;">
+            <div>RED</div>
+            <div style="display: flex">
+              <div style="margin: 5px; height: 200px; overflow: auto; border: 1px solid yellow; flex: 1"><div style="height: 400px; width: 400px;">YELLOW</div></div>
+              <div style="margin: 5px; height: 200px; overflow: auto; border: 1px solid violet; flex: 1"><div style="height: 400px; width: 400px;">VIOLET</div></div>
+            </div>
+          </div>
+        </div>
+        <div style="margin: 0 5px; height: 200px; overflow: auto; border: 1px solid blue; flex: 1"><div style="height: 400px; width: 400px;">BLUE</div></div>
+      </div>
+      <ef-button onclick="overlayAction('internal-scrollbars', 'open')">Open</ef-button>
+    </demo-block>
+
+    <demo-block header="Layering" layout="normal" tags="z-index">
+      <div id="outer-rel">
+        <div id="inner-abs">
+          z-index: 2000
+        </div>
+        <ef-overlay id="layered-outside" spacing with-backdrop z-index="4000">
+          <div class="content">This panel is structured outside the z-indexed content and has its own z-index of 4000
+            applied via attribute.
+            <br> Click 'Close' to close this panel.
+            <br>
+            <ef-button onclick="overlayAction('layered-outside', 'close')">Close</ef-button>
+          </div>
+        </ef-overlay>
+      </div>
+
+      <ef-button onclick="overlayAction('layered-outside', 'open')">Open outside z-indexed div</ef-button>
+      <script>
+          window.linkOverlay('layered-outside', 'inner-abs');
+      </script>
+    </demo-block>
+
+    <demo-block id="interactiveElementsDemo" header="Interactive Elements" layout="normal" tags="interactive elements">
+      <div class="demo-wrapper">
+        <div style="width: 300px;">
+          <ef-text-field id="interactiveElements-input-1" placeholder="Not Locked"></ef-text-field>
+          <ef-text-field id="interactiveElements-input-2" placeholder="Locked"></ef-text-field>
+          <ef-text-field id="interactiveElements-input-3" placeholder="Not Locked"></ef-text-field>
+        </div>
+        <div style="flex: 1">
+          <ef-overlay id="interactiveElementsOverlay" style="max-width: 300px;" spacing position="bottom-start">
+            First and third inputs should NOT be locked, while a second input should always be locked.
+            <div class="content-button-bar">
+              <ef-button onclick="overlayAction('interactiveElementsOverlay', 'close')">Close</ef-button>
+            </div>
+          </ef-overlay>
+          <ef-button id="interactiveElements-open" onclick="overlayAction('interactiveElementsOverlay', 'open')">Open</ef-button>
+        </div>
+      </div>
+      <script>
+         (function () {
+           const overlay = document.getElementById('interactiveElementsOverlay');
+           overlay.positionTarget = document.getElementById('interactiveElements-open');
+           overlay.interactiveElements = [
+             document.getElementById('interactiveElements-input-1'),
+             document.getElementById('interactiveElements-input-3')
+           ];
+         })();
+      </script>
+    </demo-block>
+
+    <demo-block header="No Fixed Width" layout="normal" tags="width">
+      <ef-overlay id="no-width">
+        What is Lorem Ipsum?
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+Why do we use it?
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+
+
+Where does it come from?
+Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+
+The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+
+Where can I get some?
+There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+        <div class="content-button-bar">
+          <ef-button onclick="overlayAction('no-width', 'close')">Close</ef-button>
+        </div>
+      </ef-overlay>
+      <ef-button onclick="overlayAction('no-width', 'open')">Open</ef-button>
+    </demo-block>
+
+    <demo-block header="Nested Item Focus" layout="normal" tags="nested,focus,item">
+      <ef-overlay id="nested-item-focus-parent" spacing  style="overflow: auto;">
+        <div>After closing nested overlay, focus should stay within "Focus should revert here" input</div>
+        <div>After closing nested overlay with "no-interaction-lock", focus should move to clicked item</div>
+        <ef-text-field placeholder="First Input"></ef-text-field>
+        <br>
+        <ef-text-field placeholder="Second Input"></ef-text-field>
+        <br>
+        <ef-text-field readonly placeholder="Focus should revert here" onclick="overlayAction('nested-item-focus-child', 'open', function (overlay) { overlay.noInteractionLock = false })"></ef-text-field>
+        <br>
+        <ef-text-field readonly placeholder="Focus should be natural" onclick="overlayAction('nested-item-focus-child', 'open', function (overlay) { overlay.noInteractionLock = true })"></ef-text-field>
+        <ef-overlay id="nested-item-focus-child" spacing>
+          <ef-text-field placeholder="First Nested Input"></ef-text-field>
+          <br>
+          <ef-text-field placeholder="Second Nested Input"></ef-text-field>
+          <div class="content-button-bar">
+            <ef-button onclick="overlayAction('nested-item-focus-child', 'close')">Close</ef-button>
+          </div>
+        </ef-overlay>
+        <div class="content-button-bar">
+          <ef-button onclick="overlayAction('nested-item-focus-parent', 'close')">Close</ef-button>
+        </div>
+      </ef-overlay>
+      <ef-button onclick="overlayAction('nested-item-focus-parent', 'open')">Open</ef-button>
+    </demo-block>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-pagination';
+
+:host {
+  --responsive-width: 400;
+  margin: @control-margin;
+
+  [part=input] {
+    & when (@variant = dark) {
+      height: (@control-height - @input-border-width * 2);
+    }
+    width: 150px;
+    margin: 0;
+    & when (@variant = light) {
+      // input should have margin left/right in light theme
+      margin: 0 1px;
+    }
+  }
+
+  [part=buttons] {
+      margin: 0;
+  }
+}

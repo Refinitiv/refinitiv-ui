@@ -16,6 +16,5 @@ jobs:
           node-version: 15.x
           cache: 'npm'
       - run: npm ci --ignore-scripts --audit=false --fund=false
-
-      - run: npm run build
-      - run: lerna run lint --concurrency=1 --include-dependents --since origin/main...HEAD
+      - run: lerna run build --include-dependencies --since
+      - run: lerna run lint --include-dependents --since

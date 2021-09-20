@@ -1,0 +1,24 @@
+@import 'element:ef-item';
+@import '../shared-styles/scrollbar';
+@import '../responsive';
+
+:host {
+  --item-indent: extract(@list-item-padding, 2);
+  --item-height: @list-item-height;
+  color: @list-text-color;
+  background-color: @list-background-color;
+
+  .touch-action();
+  .ie-scrollbars();
+  .mozilla-scrollbars();
+
+  &:focus {
+    outline: none;
+  }
+
+  &[readonly] [part=list-item] {
+    cursor: default;
+  }
+}
+
+.webkit-scrollbars();

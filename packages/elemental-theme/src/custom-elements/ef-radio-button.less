@@ -1,0 +1,46 @@
+@import '../shared-styles/checkbox';
+@import 'element:ef-tooltip';
+@import '../responsive';
+
+:host {
+  .checkbox-defaults;
+  .touch-action();
+
+  [part="container"] {
+    .container-styles;
+    border-radius: 100%;
+  }
+
+  [part="check"] {
+    .check-styles;
+    .check-indeterminate-styles; // Override check with solid background
+    border-radius: 100%;
+  }
+
+  [part="label"] {
+    .label-styles;
+  }
+
+  &[disabled] [part="check"],
+  &[readonly] [part="check"] {
+    color: var(--check-color, @control-text-color)
+  }
+
+  &[disabled] [part="check"] {
+    opacity: 0.5;
+  }
+
+  &[disabled][checked] [part="check"] {
+    opacity: 0.5;
+  }
+
+  &[disabled] [part="label"] {
+    opacity: 0.65;
+  }
+
+  @media (-ms-high-contrast:none), (pointer:fine){
+    &:focus [part="container"] {
+      .container-focus-styles;
+    }
+  }
+}

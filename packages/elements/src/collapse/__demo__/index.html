@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Collapse</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <style>
+      .content {
+        height: 100px;
+      }
+      .badge {
+        border-radius: 100%;
+        height: 21px;
+        width: 21px;
+        font-size: 12px;
+        line-height: 18px;
+        border: 2px solid currentColor;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+      }
+      .overflow {
+        background: red;
+        position: absolute;
+        top: 60px;
+        left: 20px;
+        width: 200%;
+        height: 200%;
+      }
+      .checkbox {
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/collapse';
+      import '@refinitiv-ui/elements/checkbox';
+      import '@refinitiv-ui/elements/button';
+      import '@refinitiv-ui/demo-block';
+    </script>
+
+    <demo-block header="Default" layout="normal">
+      <ef-collapse header="Collapsible">
+        <div class="content">Content inside a div with a fixed 100px height</div>
+      </ef-collapse>
+    </demo-block>
+
+    <demo-block header="Set Level" layout="normal" tags="level">
+      <ef-collapse level="1" header="Collapsible Level 1">
+        <div class="content">Content inside a div with a fixed 100px height</div>
+      </ef-collapse>
+      <ef-collapse level="2" header="Collapsible Level 2">
+        <div class="content">Content inside a div with a fixed 100px height</div>
+      </ef-collapse>
+      <ef-collapse header="Collapsible Level 3">
+        <div class="content">Content inside a div with a fixed 100px height</div>
+      </ef-collapse>
+    </demo-block>
+
+    <demo-block header="Expand" layout="normal" tags="expanded">
+      <ef-collapse expanded header="Expand">
+        <div class="content">Content inside a div with a fixed 100px height</div>
+      </ef-collapse>
+    </demo-block>
+
+    <demo-block header="Expand + Spacing" layout="normal" tags="expanded, spacing">
+      <ef-collapse expanded spacing header="Expand + Spacing">
+        <div class="content">Content inside a div with a fixed 100px height</div>
+      </ef-collapse>
+    </demo-block>
+
+    <demo-block header="Overflow" layout="normal" tags="spacing">
+      <ef-collapse spacing header="Overflowing content">
+        <div class="content">
+          Content inside a div with a fixed 100px height
+          <div class="overflow"></div>
+        </div>
+      </ef-collapse>
+    </demo-block>
+
+    <demo-block header="Use Slot" layout="normal" tags="slot">
+      <ef-checkbox slot="header-left"></ef-checkbox>
+      <ef-collapse header="Close above 14D SMA">
+        <ef-checkbox slot="header-left" class="checkbox"></ef-checkbox>
+        <div slot="header-right" class="badge">8</div>
+        <ef-button slot="header-right" icon="menu" transparent></ef-button>
+        <div class="content">Content inside a div with a fixed 100px height</div>
+      </ef-collapse>
+    </demo-block>
+
+    <demo-block header="Prevent Expanding" layout="normal" tags="cancel event">
+      <ef-collapse header="Not allow to collapse" id="cancel-event" expanded>
+        <div class="content">
+          Content is uncollapsed. expanded-changed is canceled.
+        </div>
+      </ef-collapse>
+      <script>
+        const element = document.getElementById('cancel-event');
+        element.addEventListener('expanded-changed', function (event) {
+          event.preventDefault();
+        });
+      </script>
+    </demo-block>
+  </body>
+</html>

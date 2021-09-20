@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ef-progress-bar</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  </head>
+  <body>
+    <style>
+      ef-progress-bar {
+        margin-bottom: 8px;
+        margin: 20px 50px;
+      }
+      ef-progress-bar[auto] {
+        margin-top: 32px;
+      }
+    </style>
+    <script type="module">
+      import '@refinitiv-ui/elements/progress-bar';
+      import '@refinitiv-ui/demo-block';
+
+      const auto = document.querySelector('[auto]');
+      setInterval(() => {
+        auto.value = Math.random() * 100;
+        auto.label = Math.round(auto.value) + '%';
+      }, 1000);
+    </script>
+
+    <demo-block header="Default" layout="normal" tags="zero config">
+      <ef-progress-bar></ef-progress-bar>
+    </demo-block>
+
+    <demo-block header="Transitions" layout="normal" tags="dynamic,animation">
+      <ef-progress-bar auto value="0" label="0%"></ef-progress-bar>
+    </demo-block>
+
+    <demo-block header="Values" layout="normal" tags="progress,percentage">
+      <ef-progress-bar value="0" label="0%"></ef-progress-bar>
+      <ef-progress-bar value="0.01" label="0.01%"></ef-progress-bar>
+      <ef-progress-bar value="10" label="10%"></ef-progress-bar>
+      <ef-progress-bar value="25" label="25%"></ef-progress-bar>
+      <ef-progress-bar value="50" label="50%"></ef-progress-bar>
+      <ef-progress-bar value="75" label="75%"></ef-progress-bar>
+      <ef-progress-bar value="100" label="100%"></ef-progress-bar value="75">
+    </demo-block>
+
+    <demo-block header="Alignment" layout="normal" tags="reverse,align,right">
+      <ef-progress-bar alignment="right" value="0" label="0%"></ef-progress-bar>
+      <ef-progress-bar alignment="right" value="0.01" label="0.01%"></ef-progress-bar alignment="right">
+      <ef-progress-bar alignment="right" value="10" label="10%"></ef-progress-bar alignment="right">
+      <ef-progress-bar alignment="right" value="25" label="25%"></ef-progress-bar alignment="right">
+      <ef-progress-bar alignment="right" value="50" label="50%"></ef-progress-bar alignment="right">
+      <ef-progress-bar alignment="right" value="75" label="75%"></ef-progress-bar alignment="right">
+      <ef-progress-bar alignment="right" value="100" label="100%"></ef-progress-bar value="75">
+    </demo-block>
+
+    <demo-block header="Colours" layout="normal" tags="customisation">
+      <ef-progress-bar style="color:blue" value="0" label="0%"></ef-progress-bar>
+      <ef-progress-bar style="color:chocolate" value="0.01" label="0.01%"></ef-progress-bar style="color:blue">
+      <ef-progress-bar style="color:forestgreen" value="10" label="10%"></ef-progress-bar style="color:blue">
+      <ef-progress-bar style="color:goldenrod" value="25" label="25%"></ef-progress-bar style="color:blue">
+      <ef-progress-bar style="color:darkmagenta" value="50" label="50%"></ef-progress-bar style="color:blue">
+      <ef-progress-bar style="color:deeppink" value="75" label="75%"></ef-progress-bar style="color:blue">
+      <ef-progress-bar style="color:steelblue" value="100" label="100%"></ef-progress-bar value="75">
+    </demo-block>
+
+    <demo-block header="Slotted Labels" layout="normal" tags="slots,label colours">
+      <ef-progress-bar value="33">
+        <span slot="label">
+          Hi 👋
+        </span>
+      </ef-progress-bar>
+      <ef-progress-bar value="66">
+        <span slot="label" style="color: red">
+          RED 👋
+        </span>
+      </ef-progress-bar>
+    </demo-block>
+
+  </body>
+</html>

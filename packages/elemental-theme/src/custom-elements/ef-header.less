@@ -1,0 +1,24 @@
+@import 'element:a';
+@import '../shared-styles/header';
+
+:host {
+  .header-defaults;
+  padding: 0; // Padding ef-header with the spacer instead.
+
+  [part="spacer"] {
+    flex: none;
+    width: extract(@header-padding, 2);
+  }
+
+  [part="label"] {
+    flex: 1 1 auto;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-right: extract(@header-padding, 2);
+  }
+
+  ::slotted(ef-button[transparent]) {
+    color: inherit !important;
+  }
+}

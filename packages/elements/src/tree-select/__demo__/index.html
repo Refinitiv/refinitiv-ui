@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tree Select</title>
+    <script src="./countries.js"></script>
+
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/tree-select';
+      import '@refinitiv-ui/demo-block';
+      // Translations
+      import '@refinitiv-ui/phrasebook/lib/locale/de/tree-select';
+      import '@refinitiv-ui/phrasebook/lib/locale/ja/tree-select';
+      import '@refinitiv-ui/phrasebook/lib/locale/zh/tree-select';
+      import '@refinitiv-ui/phrasebook/lib/locale/zh-hant/tree-select';
+    </script>
+    <script type="module">
+      const makeData = (config = {}) => {
+        return Array(300).fill(0).map((_, i) => ({
+          type: i % 10 === 0 ? 'header' : 'item',
+          label: i % 10 === 0 ? `${i}'s` : `Item number ${i}`,
+          value: (i).toString(),
+          selected: config.selected || config.selected === undefined ? i === 5 : false,
+          disabled: i % 10 === 7,
+          hidden: i % 10 === 9
+        }));
+      };
+      document.querySelectorAll('ef-tree-select').forEach((el) => {
+        switch (el.id) {
+          case 'empty':
+          case 'load':
+            // do nothing
+            break;
+          case 'placeholder':
+            el.data = makeData({ selected: false });
+            break;
+          default:
+            el.data = treeCollection;
+            break;
+        }
+      });
+    </script>
+    <demo-block header="Default" layout="normal" tags="default">
+      <ef-tree-select></ef-tree-select>
+    </demo-block>
+
+    <demo-block header="With pills" layout="normal" tags="pills">
+      <ef-tree-select show-pills></ef-tree-select>
+    </demo-block>
+
+    <demo-block header="No Relation" layout="normal" tags="individual">
+      <ef-tree-select no-relation></ef-tree-select>
+    </demo-block>
+
+    <demo-block header="Translations" tags="translations,i18n" layout="normal">
+      <ef-tree-select id="translationsMultiSelect"></ef-tree-select>
+      <div>
+        <button onclick="openTranslate('')">Default</button>
+        <button onclick="openTranslate('de')">de</button>
+        <button onclick="openTranslate('en')">en</button>
+        <button onclick="openTranslate('ja')">ja</button>
+        <button onclick="openTranslate('zh')">zh</button>
+        <button onclick="openTranslate('zh-Hant')">zh-hant</button>
+      </div>
+      <script>
+        const translationsMultiSelect = document.getElementById('translationsMultiSelect');
+        window.openTranslate = function (lang) {
+          translationsMultiSelect.lang = lang;
+        };
+      </script>
+    </demo-block>
+  </body>
+</html>

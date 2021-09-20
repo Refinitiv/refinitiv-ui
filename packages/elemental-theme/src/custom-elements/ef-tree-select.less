@@ -1,0 +1,124 @@
+@import '../responsive';
+@import 'element:ef-overlay';
+@import 'element:ef-tree';
+@import 'element:ef-checkbox';
+@import 'element:ef-pill';
+@import 'element:ef-button';
+@import 'ef-combo-box';
+@import '../shared-styles/scrollbar';
+
+:host {
+  @list-max-height: var(--list-max-height, 450px);
+  @panel-width: var(--panel-width, unit((@input-width * 1.5), px));
+  @popup-padding: extract(@list-item-padding, 2);
+
+  [part=list] {
+    width: @panel-width;
+    min-width: @panel-width;
+    max-width: var(--list-max-width, @panel-width);
+    max-height: @list-max-height;
+  }
+
+  [part~=control-container] {
+    height: @list-item-height;
+    padding: 0 @popup-padding;
+  }
+
+  [part~=footer] {
+    height: @control-height;
+    padding: @popup-padding;
+    border-top: @separator-width solid @separator-color;
+    background: @scrollbar-track-background-color;
+    align-content: space-between;
+    justify-content: flex-end;
+    box-sizing: content-box;
+  }
+
+  [part~=filter-wrapper] {
+    margin-right: -@popup-padding;
+    padding: unit((@popup-padding / 2), px);
+    display: flex;
+    align-items: center;
+  }
+
+  [part~=control] {
+    display: block;
+    position: relative;
+    padding: extract(@control-padding, 1) unit((@popup-padding / 2), px);
+    border: @control-border-width @button-border-style transparent;
+    border-radius: @button-border-radius;
+    cursor: pointer;
+    outline: none;
+
+    &:focus {
+      // Use z-index if buttons have borders to make sure focused button is on top
+      z-index: 1;
+    }
+  }
+
+  &[focused=visible] [part~=control] {
+    &:focus {
+      border-color: @input-focused-border-color;
+    }
+  }
+
+  [part~=filter-control] {
+    align-content: space-between;
+    border-bottom: @separator-width solid @separator-color;
+    background: @scrollbar-track-background-color;
+  }
+
+  [part=match-count-wrapper] {
+    display: inline-flex;
+    margin-right: auto;
+  }
+
+  [part~=tree-control] {
+    justify-content: space-between;
+    border-bottom: @separator-width solid @separator-color;
+  }
+
+  [part~=control] {
+    &[part~=active] {
+      color: @scheme-color-complementary;
+    }
+    &[part~=disabled] {
+      cursor: default;
+      color: @input-disabled-text-color;
+    }
+  }
+
+  [part~=full-filter] {
+    &::after {
+      content: '';
+      border-right: @control-border;
+      position: absolute;
+      top: 0;
+      right: -(unit((extract(@control-padding, 1) - @separator-width), px));
+      bottom: 0;
+    }
+  }
+
+  [part=selected-count] {
+    display: inline-flex;
+    margin-right: auto;
+  }
+
+  [part=cancel-button], [part=done-button] {
+    margin: extract(@control-margin, 1);
+  }
+
+  [part~=footer] [part*=-button] {
+    &:first-child {
+      margin-right: 0;
+    }
+  }
+
+  [part=pills] {
+    padding: extract(@control-padding, 1);
+    border-top: @separator-width solid @separator-color;
+    max-height: 72px;
+    overflow-y: auto;
+    background-color: @input-background-color;
+  }
+}

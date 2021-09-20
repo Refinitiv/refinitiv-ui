@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Datetime Picker</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <style type="text/css">
+      ef-datetime-picker[range][timepicker] {
+        width: 400px;
+      }
+      demo-block {
+        width: 1400px;
+      }
+      ef-text-field, ef-select {
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/datetime-picker';
+      import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/elements/button';
+      import '@refinitiv-ui/elements/checkbox';
+      import '@refinitiv-ui/elements/select';
+      import '@refinitiv-ui/elements/item';
+      import '@refinitiv-ui/elements/radio-button';
+    </script>
+
+    <demo-block header="Date Time Picker" tags="default,configurator">
+      <div style="display: flex; width: 100%">
+        <div style="flex: 1">
+          <p style="height: 430px;">
+            <ef-datetime-picker id="default" style="width: 500px;"></ef-datetime-picker>
+          </p>
+        </div>
+        <div style="flex: 1">
+          <p>
+            <textarea id="console" readonly style="width: 500px; height: 350px; font-size: 10rem;"></textarea>
+          </p>
+          <p>
+            <textarea id="events" style="width: 500px; height: 100px; font-size: 10rem;"></textarea>
+          </p>
+          <p>
+            <ef-datetime-picker id="date-value" placeholder="Set Value"></ef-datetime-picker>
+            <ef-datetime-picker id="date-from" placeholder="Set From"></ef-datetime-picker>
+            <ef-datetime-picker id="date-to" placeholder="Set To"></ef-datetime-picker>
+          </p>
+          <p>
+            <ef-checkbox id="range" title="Switch calendar to range mode">Range</ef-checkbox>
+          </p>
+          <p>
+            <ef-button id="reset-view">Reset View</ef-button>
+          </p>
+          <p>
+            <ef-radio-button name="duplex" value="single" title="Switch calendar to single mode" checked>Single</ef-radio-button>
+            <ef-radio-button name="duplex" value="duplex" title="Switch calendar to duplex mode">Duplex</ef-radio-button>
+            <ef-radio-button name="duplex" value="duplex-split" title="Switch calendar to split mode">Duplex Split</ef-radio-button>
+          </p>
+          <p>
+            <ef-checkbox id="timepicker" title="Turn on timepicker">Timepicker</ef-checkbox>
+            <ef-checkbox id="am-pm" title="Set timepicker to AM-PM mode">AM-PM mode</ef-checkbox>
+            <ef-checkbox id="show-seconds" title="Turn on timepicker">Show Seconds</ef-checkbox>
+          </p>
+          <p>
+            <ef-select id="lang" placeholder="Set locale">
+              <ef-item value="">Browser Default</ef-item>
+              <ef-item value="en">EN</ef-item>
+              <ef-item value="en-gb">EN-GB</ef-item>
+              <ef-item value="ar">AR</ef-item>
+              <ef-item value="de">DE</ef-item>
+              <ef-item value="es">ES</ef-item>
+              <ef-item value="fr">FR</ef-item>
+              <ef-item value="it">IT</ef-item>
+              <ef-item value="ja">JA</ef-item>
+              <ef-item value="ko">KO</ef-item>
+              <ef-item value="pl">PL</ef-item>
+              <ef-item value="ru">RU</ef-item>
+              <ef-item value="th">TH</ef-item>
+              <ef-item value="zh-cn">ZH-CN</ef-item>
+            </ef-select>
+            <ef-select id="format" placeholder="Date format">
+              <ef-item value="">Default Format</ef-item>
+              <ef-item>do MMMM yyyy</ef-item>
+              <ef-item>d MMMM yyyy</ef-item>
+              <ef-item value="'Year:' yyyy; 'Month:' MMMM; 'Date:' d">Year: yyyy; Month: MMMM; Date: d</ef-item>
+            </ef-select>
+            <ef-text-field id="placeholder" placeholder="Set placeholder"></ef-text-field>
+          </p>
+          <p>
+            <ef-checkbox id="weekdaysOnly">Weekdays Only</ef-checkbox>
+            <ef-checkbox id="weekendsOnly">Weekends Only</ef-checkbox>
+            <ef-checkbox id="readonly">Readonly</ef-checkbox>
+            <ef-checkbox id="disabled">Disabled</ef-checkbox>
+          </p>
+          <p>
+            <ef-checkbox id="inputTriggerDisabled">Input Trigger Disabled</ef-checkbox>
+            <ef-checkbox id="inputDisabled">Input Disabled</ef-checkbox>
+            <ef-checkbox id="popupDisabled">Popup Disabled</ef-checkbox>
+          </p>
+        </div>
+      </div>
+      <script>
+        const dateTimePicker = document.getElementById('default');
+        const dateValue = document.getElementById('date-value');
+        const dateFrom = document.getElementById('date-from');
+        const dateTo = document.getElementById('date-to');
+        const consoleEl = document.getElementById('console');
+        const setConsole = () => {
+          const data = {
+            value: dateTimePicker.value,
+            values: dateTimePicker.values,
+            view: dateTimePicker.view,
+            views: dateTimePicker.views,
+            opened: dateTimePicker.opened,
+            disabled: dateTimePicker.disabled,
+            readonly: dateTimePicker.readonly,
+            focused: dateTimePicker.focused,
+            range: dateTimePicker.range,
+            duplex: dateTimePicker.duplex,
+            timepicker: dateTimePicker.timepicker,
+            amPm: dateTimePicker.amPm,
+            error: dateTimePicker.error,
+            showSeconds: dateTimePicker.showSeconds,
+            lang: dateTimePicker.lang,
+            placeholder: dateTimePicker.placeholder,
+            format: dateTimePicker.format,
+            monthsDesc: dateTimePicker.monthsDesc,
+            yearsDesc: dateTimePicker.yearsDesc,
+            weekdaysOnly: dateTimePicker.weekdaysOnly,
+            weekendsOnly: dateTimePicker.weekendsOnly,
+            inputTriggerDisabled: dateTimePicker.inputTriggerDisabled,
+            inputDisabled: dateTimePicker.inputDisabled,
+            popupDisabled: dateTimePicker.popupDisabled
+          };
+
+          consoleEl.value = JSON.stringify(data, undefined, 4);
+
+          requestAnimationFrame(() => {
+            setConsole();
+          });
+        };
+
+        setConsole();
+
+        const resetValue = () => {
+          dateValue.value = '';
+          dateFrom.value = '';
+          dateTo.value = '';
+          dateTimePicker.value = '';
+          dateValue.view = '';
+          dateFrom.view = '';
+          dateTo.view = '';
+        };
+
+        const setRange = (value) => {
+          document.getElementById('range').checked = value;
+
+          resetValue();
+          dateTimePicker.range = value;
+
+          if (value) {
+            dateValue.style.setProperty('display', 'none');
+            dateFrom.style.removeProperty('display');
+            dateTo.style.removeProperty('display');
+          }
+          else {
+            dateValue.style.removeProperty('display');
+            dateFrom.style.setProperty('display', 'none');
+            dateTo.style.setProperty('display', 'none');
+          }
+        };
+        setRange(false); /* default value */
+
+        document.getElementById('range').addEventListener('checked-changed', ({ detail: { value } }) => {
+          setRange(value);
+        });
+        document.querySelectorAll('ef-radio-button[name=duplex]').forEach((ch, i) => {
+          ch.addEventListener('checked-changed', ({ detail: { value } }) => {
+            if (value) {
+              dateTimePicker.view = undefined;
+              dateTimePicker.duplex = i === 0 ? undefined : i === 1 ? '' : 'split';
+            }
+          });
+        });
+
+        const setTimePicker = (value) => {
+          document.getElementById('timepicker').checked = value;
+
+          resetValue();
+          dateTimePicker.timepicker = value;
+          dateValue.timepicker = value;
+          dateFrom.timepicker = value;
+          dateTo.timepicker = value;
+
+          if (!value) {
+            setAmPm(false);
+            setShowSeconds(false);
+          }
+        };
+
+        const setAmPm = (value) => {
+          document.getElementById('am-pm').checked = value;
+          if (value) {
+            setTimePicker(true);
+          }
+          dateTimePicker.amPm = value;
+          dateValue.amPm = value;
+          dateFrom.amPm = value;
+          dateTo.amPm = value;
+        };
+
+        const setShowSeconds = (value) => {
+          document.getElementById('show-seconds').checked = value;
+          if (value) {
+            setTimePicker(true);
+          }
+          dateTimePicker.showSeconds = value;
+          dateValue.showSeconds = value;
+          dateFrom.showSeconds = value;
+          dateTo.showSeconds = value;
+        };
+
+        document.getElementById('timepicker').addEventListener('checked-changed', ({ detail: { value } }) => {
+          setTimePicker(value);
+        });
+        document.getElementById('am-pm').addEventListener('checked-changed', ({ detail: { value } }) => {
+          setAmPm(value);
+        });
+        document.getElementById('show-seconds').addEventListener('checked-changed', ({ detail: { value } }) => {
+          setShowSeconds(value);
+        });
+        document.getElementById('lang').addEventListener('value-changed', ({ detail: { value } }) => {
+          // resetValue();
+          dateTimePicker.lang = value ? value : '';
+        });
+        document.getElementById('format').addEventListener('value-changed', ({ detail: { value } }) => {
+          resetValue();
+          dateTimePicker.format = value ? value : '';
+        });
+        document.getElementById('placeholder').addEventListener('value-changed', ({ detail: { value } }) => {
+          resetValue();
+          dateTimePicker.placeholder = value ? value : '';
+        });
+        document.getElementById('reset-view').addEventListener('click', () => {
+          dateTimePicker.view = '';
+        });
+        dateValue.addEventListener('value-changed', ({ detail: { value } }) => {
+          dateTimePicker.value = value;
+          if (value) {
+            dateFrom.value = '';
+            dateTo.value = '';
+          }
+        });
+        dateFrom.addEventListener('value-changed', ({ detail: { value } }) => {
+          const values = [...dateTimePicker.values];
+          values[0] = value;
+          dateTimePicker.values = values;
+          if (value) {
+            dateValue.value = '';
+          }
+        });
+        dateTo.addEventListener('value-changed', ({ detail: { value } }) => {
+          const values = [...dateTimePicker.values];
+          if (!values[0]) {
+            values[0] = '';
+          }
+          values[1] = value;
+          dateTimePicker.values = values;
+          if (value) {
+            dateValue.value = '';
+          }
+        });
+        document.getElementById('weekdaysOnly').addEventListener('checked-changed', ({ detail: { value } }) => {
+          resetValue();
+          dateTimePicker.weekdaysOnly = value;
+          dateValue.weekdaysOnly = value;
+          dateFrom.weekdaysOnly = value;
+          dateTo.weekdaysOnly = value;
+        });
+        document.getElementById('weekendsOnly').addEventListener('checked-changed', ({ detail: { value } }) => {
+          resetValue();
+          dateTimePicker.weekendsOnly = value;
+          dateValue.weekendsOnly = value;
+          dateFrom.weekendsOnly = value;
+          dateTo.weekendsOnly = value;
+        });
+        document.getElementById('inputTriggerDisabled').addEventListener('checked-changed', ({ detail: { value } }) => {
+          dateTimePicker.inputTriggerDisabled = value || undefined;
+        });
+        document.getElementById('disabled').addEventListener('checked-changed', ({ detail: { value } }) => {
+          dateTimePicker.disabled = value || undefined;
+        });
+        document.getElementById('readonly').addEventListener('checked-changed', ({ detail: { value } }) => {
+          dateTimePicker.readonly = value || undefined;
+        });
+        document.getElementById('inputDisabled').addEventListener('checked-changed', ({ detail: { value } }) => {
+          dateTimePicker.inputDisabled = value || undefined;
+        });
+        document.getElementById('popupDisabled').addEventListener('checked-changed', ({ detail: { value } }) => {
+          dateTimePicker.popupDisabled = value || undefined;
+        });
+
+        const eventLog = [];
+        const onEvent = (event) => {
+          eventLog.unshift(`${event.type}: ${JSON.stringify(event.detail)}`);
+          if (eventLog.length > 50) {
+            eventLog.length = 50;
+          }
+          document.getElementById('events').value = eventLog.join('\n');
+        };
+
+        dateTimePicker.addEventListener('opened-changed', onEvent);
+        dateTimePicker.addEventListener('value-changed', onEvent);
+        dateTimePicker.addEventListener('view-changed', onEvent);
+      </script>
+    </demo-block>
+
+    <demo-block header="Custom Filter (Odds Only)" tags="custom,filter">
+      <ef-datetime-picker filtered></ef-datetime-picker>
+      <ef-datetime-picker filtered range duplex></ef-datetime-picker>
+      <script type="module">
+        import { parse } from '@refinitiv-ui/utils';
+        (function () {
+          document.querySelectorAll('[filtered]').forEach(el => {
+            el.filter = function (date) {
+              return parse(date).getDate() % 2;
+            };
+          });
+        })();
+      </script>
+    </demo-block>
+
+    <demo-block header="Custom Slots" tags="slot">
+      <style type="text/css">
+        .range-nav-bar {
+          display: flex;
+          flex-direction: column;
+          padding: 10px;
+        }
+        .range-nav-bar ef {
+          padding: 5px;
+          margin: 5px 0;
+          height: 25px;
+          min-width: 50px;
+          font-size: 75%;
+        }
+      </style>
+
+      <ef-datetime-picker id="default-range" range duplex="split" timepicker>
+        <div slot="left" class="range-nav-bar">
+          <ef-button id="default-range-today">Today</ef-button>
+          <ef-button id="default-range-1-week">1 Week</ef-button>
+          <ef-button id="default-range-1-month">1 Month</ef-button>
+          <ef-button id="default-range-3-month">3 Months</ef-button>
+        </div>
+      </ef-datetime-picker>
+      <script type="module">
+        import { format, DateTimeFormat } from '@refinitiv-ui/utils';
+
+        (function () {
+          const toValues = (from, to) => [format(from, DateTimeFormat.yyyMMddTHHmm), format(to, DateTimeFormat.yyyMMddTHHmm)];
+
+          const rangePicker = document.getElementById('default-range');
+          document.getElementById('default-range-today').addEventListener('tap', () => {
+            const to = new Date().setSeconds(0, 0);
+            const from = new Date(to).setHours(0, 0, 0, 0);
+            rangePicker.values = toValues(new Date(from), new Date(to));
+          });
+          document.getElementById('default-range-1-week').addEventListener('tap', () => {
+            const to = new Date().setSeconds(0, 0);
+            const from = new Date(to) - 7 * 24 * 60 * 60 * 1000;
+            rangePicker.values = toValues(new Date(from), new Date(to));
+          });
+          document.getElementById('default-range-1-month').addEventListener('tap', () => {
+            const now = new Date();
+            const to = now.setSeconds(0, 0);
+            const from = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate(), now.getHours(), now.getMinutes());
+            rangePicker.values = toValues(from, new Date(to));
+          });
+          document.getElementById('default-range-3-month').addEventListener('tap', () => {
+            const now = new Date();
+            const to = now.setSeconds(0, 0);
+            const from = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate(), now.getHours(), now.getMinutes());
+            rangePicker.values = toValues(from, new Date(to));
+          });
+        })();
+      </script>
+    </demo-block>
+  </body>
+</html>

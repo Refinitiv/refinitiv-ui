@@ -1,0 +1,10 @@
+@import 'element:ef-tooltip';
+
+:host {
+  &[warning] {
+    color: @scheme-color-warning;
+  }
+  &[error], &[error][warning] {
+    color: @scheme-color-error;
+  }
+}

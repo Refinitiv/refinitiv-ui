@@ -1,0 +1,54 @@
+## miscellaneous
+.editorconfig
+.eslintignore
+.eslintrc
+tsconfig.json
+.gitlab/
+.gitlab-ci.yml
+*.lock
+*.log
+
+## editors
+/.idea
+/.vscode
+
+## system files
+.DS_Store
+._.DS_Store
+
+## npm
+/node_modules/
+/npm-debug.log
+*.lock
+*.log
+
+## testing
+/test/
+/__test__/
+/__snapshots__/
+/coverage/
+/bin/
+
+## temp folders
+/.tmp/
+
+# build
+/_site/
+/dist/
+/lib/.tsbuildinfo
+
+# source
+/src/
+
+# demo
+/__demo__/
+
+# map files
+/lib/**/*.d.ts.map
+
+# config
+*.config.js
+
+# release scripts
+cli.js
+/scripts/

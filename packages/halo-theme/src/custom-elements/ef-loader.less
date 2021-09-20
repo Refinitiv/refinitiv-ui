@@ -1,0 +1,260 @@
+:host {
+
+  @size              : 32px;
+  @box-color         : @global-background-color;
+  @box-flash-color   : @global-text-color;
+  @cycle-duration    : 2s;
+  @sin-45            : 0.707106781186548;
+  @outer-position    : (25% * @sin-45);
+
+
+  // Parts to be created in the element's template
+  --parts:
+  bar,
+  shape shape-1,
+  shape shape-2,
+  shape shape-3,
+  bar bar-1,
+  bar bar-2,
+  box box-1,
+  box box-2,
+  box box-3,
+  shape shape-1 flash flash-1,
+  shape shape-2 flash flash-2,
+  shape shape-3 flash flash-3;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  [part=wrapper] {
+    font-size: @size;
+    width: 2.75em;
+    height: 1em;
+    color: @loader-bar-color;
+    position: absolute;
+    top: calc(50% - 0.5em);
+    left: calc(50% - 1.375em);
+    display: block;
+  }
+
+  [part~=shape] {
+    color: @loader-shape-color;
+    border: 1px solid;
+    width: 0.5em;
+    height: 0.5em;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 50%;
+    margin: calc(-0.25em - 1px);
+  }
+
+  [part~=shape-1] {
+    left: @outer-position;
+    animation: shape-1 (@cycle-duration / 2) linear infinite alternate;
+  }
+
+  [part~=shape-2] {
+    left: 50%;
+    animation: shape-2 (@cycle-duration / 4) linear infinite alternate;
+  }
+
+  [part~=shape-3] {
+    right: @outer-position;
+    animation: shape-3 (@cycle-duration / 2) linear infinite alternate;
+  }
+
+  [part~=flash] {
+    color: @loader-accent-color;
+    box-sizing: border-box;
+    outline: 2px solid currentColor;
+    margin: -0.25em;
+  }
+
+  [part~=flash-1] {
+    animation: flash-1 (@cycle-duration / 2) linear infinite alternate;
+  }
+
+  [part~=flash-2] {
+    animation: flash-2 (@cycle-duration / 4) linear infinite alternate;
+  }
+
+  [part~=flash-3] {
+    animation: flash-3 (@cycle-duration / 2) linear infinite alternate;
+  }
+
+  [part~=box] {
+    position: absolute;
+    border: 1px solid;
+    margin: calc(-1em / 32 - 1px);
+    width: calc(1em / 16);
+    height: calc(1em / 16);
+    top: 50%;
+  }
+
+  [part~='box-1'] {
+    left: @outer-position;
+    animation: box-1 (@cycle-duration / 2) linear infinite alternate;
+  }
+
+  [part~='box-2'] {
+    left: 50%;
+    animation: box-2 (@cycle-duration / 4) linear infinite alternate;
+  }
+
+  [part~='box-3'] {
+    right: @outer-position;
+    animation: box-3 (@cycle-duration / 2) linear infinite alternate;
+  }
+
+  [part~=bar] {
+    position: absolute;
+    top: 50%;
+    left: @outer-position;
+    right: @outer-position;
+    height: 2px;
+    margin-top: -1px;
+    background-color: currentColor;
+  }
+
+  [part~=bar-1] {
+    left: @outer-position;
+    right: 50%;
+    background-color: @loader-accent-color;
+    animation: bar-1 (@cycle-duration / 2) linear infinite alternate;
+  }
+
+  [part~=bar-2] {
+    right: @outer-position;
+    left: 50%;
+    background-color: @loader-accent-color;
+    animation: bar-2 (@cycle-duration / 2) linear infinite alternate;
+  }
+
+  @keyframes shape-1 {
+    0%, 10% {
+      opacity: 0;
+    }
+    25%, 100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes shape-2 {
+    0%, 50% {
+      opacity: 1;
+    }
+    80%, 100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes shape-3 {
+    0%, 75% {
+      opacity: 1;
+    }
+    90%, 100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes flash-1 {
+    0% {
+      opacity: 1;
+    }
+    25%, 100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes flash-2 {
+    0%, 50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes flash-3 {
+    0%, 75% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes box-1 {
+    0%, 20% {
+      background-color: @box-flash-color;
+      border-color: transparent;
+    }
+    25%, 100% {
+      background-color: @box-color;
+      border-color: inherit;
+    }
+  }
+
+  @keyframes box-2 {
+    0%, 50% {
+      background-color: @box-color;
+      border-color: inherit;
+    }
+    60%, 100% {
+      background-color: @box-flash-color;
+      border-color: transparent;
+    }
+  }
+
+  @keyframes box-3 {
+    0%, 75% {
+      background-color: @box-color;
+      border-color: inherit;
+    }
+    80%, 100% {
+      background-color: @box-flash-color;
+      border-color: transparent;
+    }
+  }
+
+  @keyframes bar-1 {
+    0%, 5% {
+      transform: scaleX(0);
+      transform-origin: left center;
+    }
+    24% {
+      transform: scaleX(1);
+      transform-origin: left center;
+    }
+    26% {
+      transform: scaleX(1);
+      transform-origin: right center;
+    }
+    45%, 100% {
+      transform: scaleX(0);
+      transform-origin: right center;
+    }
+  }
+
+  @keyframes bar-2 {
+    0%, 55% {
+      transform: scaleX(0);
+      transform-origin: left center;
+    }
+    74% {
+      transform: scaleX(1);
+      transform-origin: left center;
+    }
+    76% {
+      transform: scaleX(1);
+      transform-origin: right center;
+    }
+    95%, 100% {
+      transform: scaleX(0);
+      transform-origin: right center;
+    }
+  }
+}

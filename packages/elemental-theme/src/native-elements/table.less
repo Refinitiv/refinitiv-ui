@@ -1,0 +1,44 @@
+table {
+  font-size: inherit;
+  font-weight: inherit;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr {
+  height: @grid-row-height;
+  color: @grid-row-text-color;
+  background-color: @grid-row-background-color;
+}
+
+th {
+  height: @grid-header-height;
+  line-height: 1em;
+  text-align: left;
+  padding: @grid-header-cell-padding;
+  box-sizing: border-box;
+  color: @grid-header-text-color;
+  background-color: @grid-header-background-color;
+  border: @grid-border-width solid @grid-header-border-color;
+}
+
+td {
+  text-align: left;
+  border: @grid-border;
+  padding: @grid-cell-padding;
+}
+
+tr:hover td {
+  color: @grid-row-hover-text-color;
+  background-color: @grid-row-hover-background-color;
+}
+
+tr[active] {
+  color: @grid-row-active-text-color;
+  background-color: @grid-row-active-background-color;
+  outline: @grid-row-active-border
+}
+
+tr[focused], tr:focus {
+  outline: @grid-row-focus-border;
+}

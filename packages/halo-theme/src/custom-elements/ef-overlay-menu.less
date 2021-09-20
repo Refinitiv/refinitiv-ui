@@ -1,0 +1,21 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-overlay-menu';
+
+:host {
+  background-color: @overlay-menu-background-color;
+  border: 1px solid @scheme-color-primary;
+  padding: 4px 0;
+
+  ef-item,
+  ::slotted(ef-item) {
+    padding-left: 12px;
+  }
+
+  [part=menu-back]:hover {
+    color: @list-item-focus-text-color;
+  }
+
+  &[nested]:not([compact]) {
+    // accommodate shadow, and padding 4px + 1px border
+    margin: -5px 2px 0 2px;
+  }
+}

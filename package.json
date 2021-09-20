@@ -1,0 +1,56 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=15.0.0",
+    "npm": ">=7.0.0"
+  },
+  "scripts": {
+    "lerna": "lerna",
+    "build": "lerna run build",
+    "start": "node cli start",
+    "test": "node cli test",
+    "lint": "node cli lint"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@formatjs/intl-getcanonicallocales": "^1.7.1",
+    "@formatjs/intl-locale": "^2.4.33",
+    "@formatjs/intl-numberformat": "^7.1.5",
+    "@formatjs/intl-pluralrules": "^4.0.28",
+    "@open-wc/karma-esm": "^4.0.0",
+    "@web/dev-server": "^0.1.17",
+    "@web/dev-server-legacy": "^0.1.7",
+    "chalk": "^4.1.1",
+    "concurrently": "^6.1.0",
+    "deepmerge": "^4.2.2",
+    "es-dev-server": "^2.1.0",
+    "eslint": "^7.19.0",
+    "fast-glob": "^3.2.5",
+    "husky": "^4.3.8",
+    "karma": "^6.3.4",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage-istanbul-reporter": "^3.0.3",
+    "karma-edge-launcher": "^0.4.2",
+    "karma-firefox-launcher": "^2.1.0",
+    "karma-ie-launcher": "^1.0.0",
+    "karma-mocha": "^2.0.1",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma-mocha-snapshot": "^0.2.1",
+    "karma-snapshot": "^0.6.0",
+    "karma-source-map-support": "^1.4.0",
+    "lerna": "^4.0.0",
+    "lint-staged": "^10.5.4",
+    "micromatch": "^4.0.4",
+    "request": "^2.88.2",
+    "sinon": "^9.2.4",
+    "typescript": "~4.3.5",
+    "watch": "^1.0.2",
+    "web-component-analyzer": "~1.0.3",
+    "yargs": "^17.0.1"
+  }
+}

@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>ef-interactive-chart</title>
+  <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+</head>
+
+<body>
+  <script type="module">
+    import '@refinitiv-ui/elements/interactive-chart';
+    import '@refinitiv-ui/demo-block';
+  </script>
+  <h3>Interactive Chart</h3>
+  <code>
+    <a href="./index.html"><button>Basics</button></a>
+    <a href="./apply-to-mock-api.html"><button>Applied to Mock API</button></a>
+  </code>
+  <demo-block layout="normal" header="Default">
+    <ef-interactive-chart id="default"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('default');
+      chart.config = {
+        series: [
+          {
+            symbol: 'AAPL',
+            type: 'area',
+            data: [
+              { time: '2018-12-22', value: 32.51 },
+              { time: '2018-12-23', value: 31.11 },
+              { time: '2018-12-24', value: 27.02 },
+              { time: '2018-12-25', value: 27.32 },
+              { time: '2018-12-26', value: 25.17 },
+              { time: '2018-12-27', value: 28.89 },
+              { time: '2018-12-28', value: 25.46 },
+              { time: '2018-12-29', value: 23.92 },
+              { time: '2018-12-30', value: 22.68 },
+              { time: '2018-12-31', value: 22.67 }
+            ]
+          }
+        ]
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="No Data Point">
+    <ef-interactive-chart id="default-value"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('default-value');
+      chart.config = {
+        options: {
+          rightPriceScale: {
+            visible: true
+          },
+          leftPriceScale: {
+            visible: true
+          }
+        },
+        series: [{
+          symbol: 'IBM.N',
+          type: 'area',
+          seriesOptions: {
+            priceScaleId: 'right'
+          },
+          data: [
+            { time: '2019-04-11', value: 280.01 },
+            { time: '2019-04-12', value: 186.63 },
+            { time: '2019-04-13', value: 366.64 },
+            { time: '2019-04-14', value: 381.89 },
+            { time: '2019-04-15', value: 374.43 },
+            { time: '2019-04-16', value: 240.01 },
+            // { time: '2019-04-17', value: 276.63 },
+            { time: '2019-04-18', value: 286.64 },
+            { time: '2019-04-20', value: 301.89 },
+            { time: '2019-04-21', value: 290.01 },
+            { time: '2019-04-22', value: 296.63 },
+            { time: '2019-04-23', value: 278.64 },
+            { time: '2019-04-24', value: 341.89 },
+            { time: '2019-04-25', value: 354.43 },
+            { time: '2019-04-26', value: 370.01 },
+            { time: '2019-04-27', value: 296.63 },
+            { time: '2019-04-28', value: 276.64 },
+            { time: '2019-04-29', value: 181.89 }
+          ]
+        },
+        {
+          symbol: 'GOOG.O',
+          type: 'area',
+          seriesOptions: {
+            priceScaleId: 'left'
+          },
+          data: [
+            { time: '2019-04-11', value: 180.01 },
+            { time: '2019-04-12', value: 156.63 },
+            { time: '2019-04-13', value: 166.64 },
+            { time: '2019-04-14', value: 181.89 },
+            { time: '2019-04-15', value: 174.43 },
+            { time: '2019-04-16', value: 180.01 },
+            { time: '2019-04-17', value: 196.63 },
+            { time: '2019-04-18', value: 176.64 },
+            { time: '2019-04-20', value: 181.89 },
+            { time: '2019-04-21', value: 190.01 },
+            { time: '2019-04-22', value: 196.63 },
+            { time: '2019-04-23', value: 178.64 },
+            { time: '2019-04-24', value: 141.89 },
+            { time: '2019-04-25', value: 154.43 },
+            { time: '2019-04-26', value: 170.01 },
+            { time: '2019-04-27', value: 196.63 },
+            { time: '2019-04-28', value: 176.64 },
+            { time: '2019-04-29', value: 181.89 }
+          ]
+        }]
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="No Data Point With OHLC data">
+    <ef-interactive-chart id="candlestick_no_data"></ef-interactive-chart>
+    <script type="module">
+      customElements.whenDefined('ef-interactive-chart').then(function () {
+        const chart = document.getElementById('candlestick_no_data');
+        const colors = chart.colors();
+        chart.config = {
+          series: [
+            {
+              symbol: 'IBM.N',
+              type: 'candlestick',
+              data: [{
+                'time': '2018-12-10',
+                'open': '20.03',
+                'high': '20.60',
+                'low': '19.53',
+                'close': '20.10'
+              },
+              {
+                'time': '2018-12-11',
+                'open': '20.36',
+                'high': '21.40',
+                'low': '19.86',
+                'close': '20.90'
+              },
+              {
+                'time': '2018-12-12',
+                'open': '21.32',
+                'high': '22.70',
+                'low': '20.82',
+                'close': '22.20'
+              },
+              {
+                'time': '2018-12-13',
+                'open': '22.02',
+                'high': '22.12',
+                'low': '21.48',
+                'close': '21.68'
+              },
+              {
+                'time': '2018-12-14',
+                'open': '21.82',
+                'high': '22.59',
+                'low': '21.32',
+                'close': '22.09'
+              },
+              {
+                'time': '2018-12-15',
+                'open': '21.76',
+                'high': '21.86',
+                'low': '20.89',
+                'close': '21.09'
+              },
+              {
+                'time': '2018-12-16',
+                'open': '20.75',
+                'high': '20.85',
+                'low': '19.88',
+                'close': '20.08'
+              },
+              {
+                'time': '2018-12-17',
+                'open': '20.01',
+                'high': '20.11',
+                'low': '19.67',
+                'close': '19.87'
+              },
+              {
+                'time': '2018-12-18',
+                'open': '20.33',
+                'high': '21.77',
+                'low': '19.83',
+                'close': '21.27'
+              },
+              {
+                'time': '2018-12-19',
+                'open': '21.79',
+                'high': '23.38',
+                'low': '21.29',
+                'close': '22.88'
+              }
+              ],
+              seriesOptions: {
+                upColor: colors[0],
+                downColor: 'transparent',
+                borderUpColor: colors[0],
+                borderDownColor: colors[0],
+                wickUpColor: colors[0],
+                wickDownColor: colors[0]
+              }
+            },
+            {
+              symbol: 'GOOG.O',
+              type: 'candlestick',
+              data: [
+                {
+                  'time': '2018-12-10',
+                  'open': '22.98',
+                  'high': '23.68',
+                  'low': '22.48',
+                  'close': '23.18'
+                },
+                {
+                  'time': '2018-12-11',
+                  'open': '23.19',
+                  'high': '23.70',
+                  'low': '22.69',
+                  'close': '23.20'
+                },
+                {
+                  'time': '2018-12-13',
+                  'open': '24.52',
+                  'high': '25.48',
+                  'low': '24.02',
+                  'close': '24.98'
+                },
+                {
+                  'time': '2018-12-14',
+                  'open': '25.16',
+                  'high': '26.01',
+                  'low': '24.66',
+                  'close': '25.51'
+                },
+                {
+                  'time': '2018-12-15',
+                  'open': '25.10',
+                  'high': '25.20',
+                  'low': '24.08',
+                  'close': '24.28'
+                },
+                {
+                  'time': '2018-12-16',
+                  'open': '24.04',
+                  'high': '24.14',
+                  'low': '23.36',
+                  'close': '23.56'
+                },
+                {
+                  'time': '2018-12-17',
+                  'open': '23.39',
+                  'high': '23.49',
+                  'low': '22.84',
+                  'close': '23.04'
+                },
+                {
+                  'time': '2018-12-18',
+                  'open': '22.62',
+                  'high': '22.72',
+                  'low': '21.59',
+                  'close': '21.79'
+                }
+              ],
+              seriesOptions: {
+                upColor: colors[1],
+                downColor: 'transparent',
+                borderUpColor: colors[1],
+                borderDownColor: colors[1],
+                wickUpColor: colors[1],
+                wickDownColor: colors[1]
+              }
+            }
+          ]
+        };
+      });
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="No Data Legend">
+    <ef-interactive-chart id="no-data"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('no-data');
+      chart.config = {
+        series: [
+          {
+            symbol: 'AAPL',
+            type: 'area',
+            data: [
+              { time: '2018-12-22', value: 32.51 },
+              { time: '2018-12-23', value: 31.11 },
+              { time: '2018-12-24', value: 27.02 },
+              { time: '2018-12-25', value: 27.32 },
+              { time: '2018-12-26', value: 25.17 },
+              { time: '2018-12-27', value: 28.89 },
+              { time: '2018-12-28', value: 25.46 },
+              { time: '2018-12-29', value: 23.92 },
+              { time: '2018-12-30', value: 22.68 },
+              { time: '2018-12-31', value: 22.67 }
+            ]
+          },
+          {
+            symbol: 'APEX',
+            type: 'area',
+            data: []
+          }
+        ]
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Set symbol name">
+    <ef-interactive-chart id="symbol_name"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('symbol_name');
+      var generateData = function (total, start, init) {
+        var initVal = init || 20;
+        var startDate = start || new Date();
+        var ret = [];
+        total = total < 0 ? 10 : total;
+        for (var i = 0; i < total; i++) {
+          var volatility = (Math.random() * (4.5) - 2) / 100; // random % volatility
+          var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
+          var val = initVal + initVal * volatility;
+          initVal = val;
+          var point = {
+            time: date.getTime() / 1000.0,
+            value: val.toFixed(2)
+          };
+          ret.push(point);
+        }
+        return ret;
+      };
+
+      chart.config = {
+        series: [{
+          symbol: 'BX.N',
+          type: 'area',
+          data: generateData(70)
+        },
+        {
+          symbol: 'BX.N',
+          symbolName: 'BX.N Volume', // set symbol name
+          type: 'volume',
+          seriesOptions: {
+            overlay: true,
+            priceFormat: {
+              type: 'volume'
+            },
+            scaleMargins: {
+              top: 0.8,
+              bottom: 0
+            },
+            lineWidth: 3
+          },
+          data: generateData(70, null, 2000000)
+        }
+        ]
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="No Legend & No Jump Button">
+    <ef-interactive-chart id="no-legend" disabled-legend disabled-jump-button></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('no-legend');
+      chart.config = {
+        series: [
+          {
+            symbol: 'AAPL',
+            type: 'area',
+            data: [
+              { time: '2018-12-22', value: 32.51 },
+              { time: '2018-12-23', value: 31.11 },
+              { time: '2018-12-24', value: 27.02 },
+              { time: '2018-12-25', value: 27.32 },
+              { time: '2018-12-26', value: 25.17 },
+              { time: '2018-12-27', value: 28.89 },
+              { time: '2018-12-28', value: 25.46 },
+              { time: '2018-12-29', value: 23.92 },
+              { time: '2018-12-30', value: 22.68 },
+              { time: '2018-12-31', value: 22.67 }
+            ]
+          }
+        ]
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Y-Axis Left and color transparent" tags="custom,chart">
+    <ef-interactive-chart id="price_scale_left"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('price_scale_left');
+      chart.config = {
+        series: [
+          {
+            symbol: 'AAPL',
+            type: 'area',
+            data: [
+              { time: '2018-12-22', value: 32.51 },
+              { time: '2018-12-23', value: 31.11 },
+              { time: '2018-12-24', value: 27.02 },
+              { time: '2018-12-25', value: 27.32 },
+              { time: '2018-12-26', value: 25.17 },
+              { time: '2018-12-27', value: 28.89 },
+              { time: '2018-12-28', value: 25.46 },
+              { time: '2018-12-29', value: 23.92 },
+              { time: '2018-12-30', value: 22.68 },
+              { time: '2018-12-31', value: 22.67 }
+            ],
+            seriesOptions: {
+              bottomColor: 'transparent',
+              priceScaleId: 'left'
+            }
+          }
+        ],
+        options: {
+          leftPriceScale: {
+            visible: true
+          },
+          rightPriceScale: {
+            visible: false
+          }
+        }
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Two price scales">
+    <ef-interactive-chart id="two_price"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('two_price');
+      chart.config = {
+        series: [
+          {
+            symbol: 'AAPL',
+            type: 'area',
+            data: [
+              { time: '2018-12-22', value: 32.51 },
+              { time: '2018-12-23', value: 31.11 },
+              { time: '2018-12-24', value: 27.02 },
+              { time: '2018-12-25', value: 27.32 },
+              { time: '2018-12-26', value: 25.17 },
+              { time: '2018-12-27', value: 28.89 },
+              { time: '2018-12-28', value: 25.46 },
+              { time: '2018-12-29', value: 23.92 },
+              { time: '2018-12-30', value: 22.68 },
+              { time: '2018-12-31', value: 22.67 }
+            ],
+            seriesOptions: {
+              priceScaleId: 'left'
+            }
+          },
+          {
+            symbol: 'AAPL2',
+            type: 'area',
+            data: [
+              { time: '2018-12-22', value: 42.51 },
+              { time: '2018-12-23', value: 51.11 },
+              { time: '2018-12-24', value: 67.02 },
+              { time: '2018-12-25', value: 17.32 },
+              { time: '2018-12-26', value: 45.17 },
+              { time: '2018-12-27', value: 38.89 },
+              { time: '2018-12-28', value: 75.46 },
+              { time: '2018-12-29', value: 13.92 },
+              { time: '2018-12-30', value: 9.68 },
+              { time: '2018-12-31', value: 11.67 }
+            ],
+            seriesOptions: {
+              priceScaleId: 'right'
+            }
+          }
+        ],
+        options: {
+          leftPriceScale: {
+            visible: true
+          },
+          rightPriceScale: {
+            visible: true
+          }
+        }
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="None price scales">
+    <ef-interactive-chart id="none_price"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('none_price');
+      chart.config = {
+        series: [
+          {
+            symbol: 'AAPL',
+            type: 'area',
+            data: [
+              { time: '2018-12-22', value: 32.51 },
+              { time: '2018-12-23', value: 31.11 },
+              { time: '2018-12-24', value: 27.02 },
+              { time: '2018-12-25', value: 27.32 },
+              { time: '2018-12-26', value: 25.17 },
+              { time: '2018-12-27', value: 28.89 },
+              { time: '2018-12-28', value: 25.46 },
+              { time: '2018-12-29', value: 23.92 },
+              { time: '2018-12-30', value: 22.68 },
+              { time: '2018-12-31', value: 22.67 }
+            ]
+          }
+        ],
+        options: {
+          leftPriceScale: {
+            visible: false
+          },
+          rightPriceScale: {
+            visible: false
+          }
+        }
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Custom Legend" tags="custom,tooltip,legend">
+    <ef-interactive-chart id="legend-custom" legend>
+      <div slot="legend" id="custom-legend">
+      </div>
+    </ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('legend-custom');
+      chart.config = {
+        series: [
+          {
+            symbol: 'AAPL',
+            type: 'area',
+            data: [
+              { time: '2018-12-22', value: 32.51 },
+              { time: '2018-12-23', value: 31.11 },
+              { time: '2018-12-24', value: 27.02 },
+              { time: '2018-12-25', value: 27.32 },
+              { time: '2018-12-26', value: 25.17 },
+              { time: '2018-12-27', value: 28.89 },
+              { time: '2018-12-28', value: 25.46 },
+              { time: '2018-12-29', value: 23.92 },
+              { time: '2018-12-30', value: 22.68 },
+              { time: '2018-12-31', value: 22.67 }
+            ]
+          }
+        ]
+      };
+      chart.addEventListener('initialized', (event) => {
+        const chart = event.target.chart;
+        const seriesList = event.target.seriesList;
+        let legend = document.getElementById('custom-legend');
+        chart.subscribeCrosshairMove((param) => {
+          if (param.point === undefined || !param.time || param.point.x < 0 || param.point.x > event.target.clientWidth || param.point.y < 0 || param.point.y > event.target.clientHeight) {
+            legend.style.display = 'none';
+          }
+          else {
+            const legendWidth = 60;
+            const legendHeight = 30;
+            const legendMargin = 10;
+
+            let y = param.point.y;
+            let left = param.point.x + legendMargin;
+
+            if (left > event.target.clientWidth - legendWidth) {
+              left = param.point.x - legendMargin - legendWidth;
+            }
+
+            let top = y + legendMargin;
+            if (top > event.target.clientHeight - legendHeight) {
+              top = y - legendHeight - legendMargin;
+            }
+
+            legend.style.zIndex = 1000;
+            legend.style.left = left + 'px';
+            legend.style.top = top + 'px';
+            legend.style.display = 'flex';
+            legend.style.alignItems = 'center';
+            legend.style.justifyContent = 'center';
+            legend.style.position = 'absolute';
+            legend.style.width = legendWidth + 'px';
+            legend.style.height = legendHeight + 'px';
+            legend.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+            legend.style.border = 'solid 1px rgb(0,0,0)';
+            legend.style.color = 'rgb(0,0,0)';
+
+            legend.textContent = param.seriesPrices.get(seriesList[0]);
+          }
+        });
+      });
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Candlestick Chart">
+    <ef-interactive-chart id="candlestick"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('candlestick');
+      chart.config = {
+        series: [
+          {
+            symbol: 'EUR/USD',
+            type: 'candlestick',
+            data: [
+              { time: '2018-12-19', open: 141.77, high: 170.39, low: 120.25, close: 145.72 },
+              { time: '2018-12-20', open: 145.72, high: 147.99, low: 100.11, close: 108.19 },
+              { time: '2018-12-21', open: 108.19, high: 118.43, low: 74.22, close: 75.16 },
+              { time: '2018-12-22', open: 75.16, high: 82.84, low: 36.16, close: 45.72 },
+              { time: '2018-12-23', open: 45.12, high: 53.90, low: 45.12, close: 48.09 },
+              { time: '2018-12-24', open: 60.71, high: 60.71, low: 53.39, close: 59.29 },
+              { time: '2018-12-25', open: 68.26, high: 68.26, low: 59.04, close: 60.50 },
+              { time: '2018-12-26', open: 67.71, high: 105.85, low: 66.67, close: 91.04 },
+              { time: '2018-12-27', open: 91.04, high: 121.40, low: 82.70, close: 111.40 },
+              { time: '2018-12-28', open: 111.51, high: 142.83, low: 103.34, close: 131.25 },
+              { time: '2018-12-29', open: 131.33, high: 151.17, low: 77.68, close: 96.43 },
+              { time: '2018-12-30', open: 106.33, high: 110.20, low: 90.39, close: 98.10 },
+              { time: '2018-12-31', open: 109.87, high: 114.69, low: 85.66, close: 111.26 }
+            ]
+          }
+        ]
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Candlestick Realtime Chart">
+    <ef-interactive-chart id="candlestick_realtime"></ef-interactive-chart>
+    <script type="module">
+      var initVal = 20;
+      var generateData = function (total, start) {
+        total = total < 0 ? 10 : total;
+        var startDate = start || new Date();
+        var ret = [];
+        for (var i = 0; i < total; i++) {
+          var volatility = (Math.random() * (4.5) - 2) / 100; // random % volatility
+          var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
+          var openVal = initVal + initVal * volatility;
+          var closeVal = openVal + (openVal * volatility * 2);
+          var highVal = openVal > closeVal ? openVal + 0.1 : closeVal + 0.5;
+          var lowVal = openVal < closeVal ? openVal - 0.5 : closeVal - 0.2;
+          initVal = closeVal;
+          var point = {
+            time: date.getTime() / 1000.0,
+            open: openVal.toFixed(2),
+            high: highVal.toFixed(2),
+            low: lowVal.toFixed(2),
+            close: closeVal.toFixed(2)
+          };
+          ret.push(point);
+        }
+        return ret;
+      };
+
+      var generateCurrent = function (prevDate) {
+        var newPoint = generateData(1, prevDate);
+        return newPoint[0] || {};
+      };
+
+      const chart = document.getElementById('candlestick_realtime');
+      chart.config = {
+        series: [
+          {
+            type: 'candlestick',
+            data: generateData(100)
+          }
+        ]
+      };
+      customElements.whenDefined('ef-interactive-chart').then(function () {
+        setInterval(function () {
+          var lastIndex = chart.config.series[0].data.length - 1;
+          var time = chart.config.series[0].data[lastIndex].time;
+          var latestTime = time || null;
+          latestTime += 86400; // Update time Next day
+          var prevDate = new Date(latestTime * 1000);
+          var current = generateCurrent(prevDate);
+          chart.config.series[0].data.push(current);
+          chart.seriesList[0].update(current);
+        }, 2000);
+      });
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Muti candlestick chart and use colors method">
+    <ef-interactive-chart id="muti_candlestick"></ef-interactive-chart>
+    <script type="module">
+      var generateData = function (total, start, initVal) {
+        initVal = 20;
+        total = total < 0 ? 10 : total;
+        var startDate = start || new Date();
+        var ret = [];
+        for (var i = 0; i < total; i++) {
+          var volatility = (Math.random() * (4.5) - 2) / 100; // random % volatility
+          var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
+          var openVal = initVal + initVal * volatility;
+          var closeVal = openVal + (openVal * volatility * 2);
+          var highVal = openVal > closeVal ? openVal + 0.1 : closeVal + 0.5;
+          var lowVal = openVal < closeVal ? openVal - 0.5 : closeVal - 0.2;
+          initVal = closeVal;
+          var point = {
+            time: date.getTime() / 1000.0,
+            open: openVal.toFixed(2),
+            high: highVal.toFixed(2),
+            low: lowVal.toFixed(2),
+            close: closeVal.toFixed(2)
+          };
+          ret.push(point);
+        }
+        return ret;
+      };
+
+      customElements.whenDefined('ef-interactive-chart').then(function () {
+        const chart = document.getElementById('muti_candlestick');
+        const colors = chart.colors();
+        chart.config = {
+          series: [
+            {
+              type: 'candlestick',
+              data: generateData(50),
+              seriesOptions: {
+                upColor: colors[0],
+                downColor: 'transparent',
+                borderUpColor: colors[0],
+                borderDownColor: colors[0],
+                wickUpColor: colors[0],
+                wickDownColor: colors[0]
+              }
+            },
+            {
+              type: 'candlestick',
+              data: generateData(50),
+              seriesOptions: {
+                upColor: colors[1],
+                downColor: 'transparent',
+                borderUpColor: colors[1],
+                borderDownColor: colors[1],
+                wickUpColor: colors[1],
+                wickDownColor: colors[1]
+              }
+            },
+            {
+              type: 'candlestick',
+              data: generateData(50),
+              seriesOptions: {
+                upColor: colors[2],
+                downColor: 'transparent',
+                borderUpColor: colors[2],
+                borderDownColor: colors[2],
+                wickUpColor: colors[2],
+                wickDownColor: colors[2]
+              }
+            }
+          ]
+        };
+      });
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Muti bar chart use colors method and transparent color">
+    <ef-interactive-chart id="muti_bar"></ef-interactive-chart>
+    <script type="module">
+      var generateData = function (total, start, initVal) {
+        initVal = 20;
+        total = total < 0 ? 10 : total;
+        var startDate = start || new Date();
+        var ret = [];
+        for (var i = 0; i < total; i++) {
+          var volatility = (Math.random() * (4.5) - 2) / 100; // random % volatility
+          var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
+          var openVal = initVal + initVal * volatility;
+          var closeVal = openVal + (openVal * volatility * 2);
+          var highVal = openVal > closeVal ? openVal + 0.1 : closeVal + 0.5;
+          var lowVal = openVal < closeVal ? openVal - 0.5 : closeVal - 0.2;
+          initVal = closeVal;
+          var point = {
+            time: date.getTime() / 1000.0,
+            open: openVal.toFixed(2),
+            high: highVal.toFixed(2),
+            low: lowVal.toFixed(2),
+            close: closeVal.toFixed(2)
+          };
+          ret.push(point);
+        }
+        return ret;
+      };
+      customElements.whenDefined('ef-interactive-chart').then(function () {
+        const chart = document.getElementById('muti_bar');
+        const colors = chart.colors();
+        chart.config = {
+          series: [
+            {
+              type: 'bar',
+              data: generateData(50),
+              seriesOptions: {
+                upColor: colors[0],
+                downColor: colors[0]
+              }
+            },
+            {
+              type: 'bar',
+              data: generateData(50),
+              seriesOptions: {
+                upColor: colors[1],
+                downColor: colors[1]
+              }
+            },
+            {
+              type: 'bar',
+              data: generateData(50),
+              seriesOptions: {
+                upColor: colors[2],
+                downColor: 'transparent'
+              }
+            }
+          ]
+        };
+      });
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Multi Line Chart and transparent color">
+    <ef-interactive-chart id="multi_line"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('multi_line');
+      chart.config = {
+        series: [
+          {
+            symbol: 'A',
+            type: 'line',
+            seriesOptions: {
+              title: 'A'
+            },
+            data: [
+              { time: '2019-04-11', value: 80.01 },
+              { time: '2019-04-12', value: 96.63 },
+              { time: '2019-04-13', value: 76.64 },
+              { time: '2019-04-14', value: 81.89 },
+              { time: '2019-04-15', value: 74.43 },
+              { time: '2019-04-16', value: 80.01 },
+              { time: '2019-04-17', value: 96.63 },
+              { time: '2019-04-18', value: 76.64 },
+              { time: '2019-04-19', value: 81.89 }
+            ]
+          }, {
+            symbol: 'B',
+            type: 'line',
+            seriesOptions: {
+              title: 'B'
+            },
+            data: [
+              { time: '2019-04-11', value: 10.01 },
+              { time: '2019-04-12', value: 26.63 },
+              { time: '2019-04-13', value: 36.64 },
+              { time: '2019-04-14', value: 61.89 },
+              { time: '2019-04-15', value: 44.43 },
+              { time: '2019-04-16', value: 20.01 },
+              { time: '2019-04-17', value: 6.63 },
+              { time: '2019-04-18', value: 6.64 },
+              { time: '2019-04-19', value: 99.89 }
+            ]
+          },
+          {
+            symbol: 'C',
+            type: 'line',
+            seriesOptions: {
+              title: 'C',
+              color: 'transparent'
+            },
+            data: [
+              { time: '2019-04-11', value: 1.01 },
+              { time: '2019-04-12', value: 5.63 },
+              { time: '2019-04-13', value: 26.64 },
+              { time: '2019-04-14', value: 31.89 },
+              { time: '2019-04-15', value: 14.43 },
+              { time: '2019-04-16', value: 50.01 },
+              { time: '2019-04-17', value: 6.63 },
+              { time: '2019-04-18', value: 66.64 },
+              { time: '2019-04-19', value: 19.89 }
+            ]
+          }
+        ]
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Bar Chart">
+    <ef-interactive-chart id="bar"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('bar');
+      chart.config = {
+        series: [
+          {
+            type: 'bar',
+            data: [
+              { time: '2018-12-19', open: 141.77, high: 170.39, low: 120.25, close: 145.72 },
+              { time: '2018-12-20', open: 145.72, high: 147.99, low: 100.11, close: 108.19 },
+              { time: '2018-12-21', open: 108.19, high: 118.43, low: 74.22, close: 75.16 },
+              { time: '2018-12-22', open: 75.16, high: 82.84, low: 36.16, close: 45.72 },
+              { time: '2018-12-23', open: 45.12, high: 53.90, low: 45.12, close: 48.09 },
+              { time: '2018-12-24', open: 60.71, high: 60.71, low: 53.39, close: 59.29 },
+              { time: '2018-12-25', open: 68.26, high: 68.26, low: 59.04, close: 60.50 },
+              { time: '2018-12-26', open: 67.71, high: 105.85, low: 66.67, close: 91.04 },
+              { time: '2018-12-27', open: 91.04, high: 121.40, low: 82.70, close: 111.40 },
+              { time: '2018-12-28', open: 111.51, high: 142.83, low: 103.34, close: 131.25 },
+              { time: '2018-12-29', open: 131.33, high: 151.17, low: 77.68, close: 96.43 },
+              { time: '2018-12-30', open: 106.33, high: 110.20, low: 90.39, close: 98.10 },
+              { time: '2018-12-31', open: 109.87, high: 114.69, low: 85.66, close: 111.26 }
+            ]
+          }
+        ]
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Volume Chart">
+    <ef-interactive-chart id="volume"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('volume');
+      chart.config = {
+        series: [
+          {
+            type: 'volume',
+            data: [
+              { time: '2018-12-20', value: 20.31 },
+              { time: '2018-12-21', value: 30.27 },
+              { time: '2018-12-22', value: 70.28 },
+              { time: '2018-12-23', value: 49.29 },
+              { time: '2018-12-24', value: 40.64 },
+              { time: '2018-12-25', value: 57.46 },
+              { time: '2018-12-26', value: 50.55 },
+              { time: '2018-12-27', value: 34.85 },
+              { time: '2018-12-28', value: 56.68 },
+              { time: '2018-12-29', value: 51.60 },
+              { time: '2018-12-30', value: 75.33 },
+              { time: '2018-12-31', value: 54.85 }
+            ]
+          }
+        ]
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Custom Color Volume Chart">
+    <ef-interactive-chart id="volume_custom"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('volume_custom');
+      chart.config = {
+        series: [
+          {
+            type: 'volume',
+            data: [
+              { time: '2018-12-20', value: 20.31, color: '#fb5aca' },
+              { time: '2018-12-21', value: 30.27, color: '#fb5aca' },
+              { time: '2018-12-22', value: 70.28, color: '#fb5aca' },
+              { time: '2018-12-23', value: 49.29, color: '#f33d55' },
+              { time: '2018-12-24', value: 40.64, color: '#f33d55' },
+              { time: '2018-12-25', value: 57.46, color: '#f33d55' },
+              { time: '2018-12-26', value: 50.55, color: '#19aaee' },
+              { time: '2018-12-27', value: 34.85, color: '#19aaee' },
+              { time: '2018-12-28', value: 56.68, color: '#19aaee' },
+              { time: '2018-12-29', value: 51.60, color: '#2ec57e' },
+              { time: '2018-12-30', value: 75.33, color: '#2ec57e' },
+              { time: '2018-12-31', value: 75.33, color: '#2ec57e' },
+              { time: '2019-01-01', value: 80.85, color: 'transparent' },
+              { time: '2019-01-02', value: 75.33, color: '#ffd700' }
+            ]
+          }
+        ]
+      };
+    </script>
+  </demo-block>
+  <demo-block layout="normal" header="Candlestick + Line">
+    <ef-interactive-chart id="candlestick_line"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('candlestick_line');
+      chart.config = {
+        series: [
+          {
+            type: 'candlestick',
+            data: [
+              { time: '2019-04-11', open: 141.77, high: 170.39, low: 120.25, close: 145.72 },
+              { time: '2019-04-12', open: 145.72, high: 147.99, low: 100.11, close: 108.19 },
+              { time: '2019-04-13', open: 108.19, high: 118.43, low: 74.22, close: 75.16 },
+              { time: '2019-04-14', open: 75.16, high: 82.84, low: 36.16, close: 45.72 },
+              { time: '2019-04-15', open: 45.12, high: 53.90, low: 45.12, close: 48.09 },
+              { time: '2019-04-16', open: 60.71, high: 60.71, low: 53.39, close: 59.29 },
+              { time: '2019-04-17', open: 68.26, high: 68.26, low: 59.04, close: 60.50 },
+              { time: '2019-04-18', open: 67.71, high: 105.85, low: 66.67, close: 91.04 },
+              { time: '2019-04-19', open: 91.04, high: 121.40, low: 82.70, close: 111.40 },
+              { time: '2019-04-20', open: 111.51, high: 142.83, low: 103.34, close: 131.25 },
+              { time: '2019-04-21', open: 131.33, high: 151.17, low: 77.68, close: 96.43 },
+              { time: '2019-04-22', open: 106.33, high: 110.20, low: 90.39, close: 98.10 },
+              { time: '2019-04-23', open: 109.87, high: 114.69, low: 85.66, close: 111.26 }
+            ]
+          }
+        ]
+      };
+    </script>
+  </demo-block>
+  <demo-block layout="normal" header="Multi Types Chart">
+    <ef-interactive-chart id="multi"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('multi');
+      chart.config = {
+        series: [
+          {
+            symbol: 'Data A',
+            type: 'line',
+            data: [
+              { time: '2019-04-11', value: 80.01 },
+              { time: '2019-04-12', value: 96.63 },
+              { time: '2019-04-13', value: 76.64 },
+              { time: '2019-04-14', value: 81.89 },
+              { time: '2019-04-15', value: 74.43 },
+              { time: '2019-04-16', value: 80.01 },
+              { time: '2019-04-17', value: 96.63 },
+              { time: '2019-04-18', value: 76.64 },
+              { time: '2019-04-19', value: 81.89 }
+            ]
+          },
+          {
+            symbol: 'Data B',
+            type: 'area',
+            data: [
+              { time: '2019-04-11', value: 80.01 },
+              { time: '2019-04-12', value: 76.63 },
+              { time: '2019-04-13', value: 76.64 },
+              { time: '2019-04-14', value: 81.89 },
+              { time: '2019-04-15', value: 64.43 },
+              { time: '2019-04-16', value: 80.01 },
+              { time: '2019-04-17', value: 96.63 },
+              { time: '2019-04-18', value: 56.64 },
+              { time: '2019-04-19', value: 81.89 }
+            ]
+          },
+          {
+            symbol: 'Vol',
+            type: 'volume',
+            seriesOptions: {
+              overlay: true,
+              priceFormat: {
+                type: 'volume'
+              },
+              scaleMargins: {
+                top: 0.8,
+                bottom: 0
+              }
+            },
+            data: [
+              { time: '2019-04-11', value: 23100000 },
+              { time: '2019-04-12', value: 32700000 },
+              { time: '2019-04-13', value: 72800000 },
+              { time: '2019-04-14', value: 49000000 },
+              { time: '2019-04-16', value: 46400000 },
+              { time: '2019-04-17', value: 57460000 },
+              { time: '2019-04-18', value: 55500000 },
+              { time: '2019-04-19', value: 34850000 },
+              { time: '2019-04-19', value: 68500000 }
+            ]
+          }
+        ]
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Customization Chart">
+    <ef-interactive-chart id="custom"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('custom');
+      chart.config = {
+        series: [
+          {
+            symbol: 'Line',
+            type: 'line',
+            data: [
+              { time: '2019-04-11', value: 10.01 },
+              { time: '2019-04-12', value: 26.63 },
+              { time: '2019-04-13', value: 36.64 },
+              { time: '2019-04-14', value: 61.89 },
+              { time: '2019-04-15', value: 44.43 },
+              { time: '2019-04-16', value: 20.01 },
+              { time: '2019-04-17', value: 6.63 },
+              { time: '2019-04-18', value: 6.64 },
+              { time: '2019-04-19', value: 99.89 }
+            ],
+            seriesOptions: {
+              color: 'yellow',
+              lineWidth: 2,
+              lineType: 1
+            }
+          },
+          {
+            symbol: 'Area',
+            type: 'area',
+            data: [
+              { time: '2019-04-11', value: 80.01 },
+              { time: '2019-04-12', value: 96.63 },
+              { time: '2019-04-13', value: 76.64 },
+              { time: '2019-04-14', value: 81.89 },
+              { time: '2019-04-15', value: 74.43 },
+              { time: '2019-04-16', value: 80.01 },
+              { time: '2019-04-17', value: 96.63 },
+              { time: '2019-04-18', value: 76.64 },
+              { time: '2019-04-19', value: 81.89 }
+            ],
+            seriesOptions: {
+              topColor: 'rgba(21, 146, 230, 0.4)',
+              bottomColor: 'rgba(21, 146, 230, 0)',
+              lineColor: 'rgba(21, 146, 230, 1)'
+            }
+          },
+          {
+            symbol: 'Line2',
+            type: 'line',
+            data: [
+              { time: '2019-04-11', value: 0 },
+              { time: '2019-04-12', value: 20.63 },
+              { time: '2019-04-13', value: 30.64 },
+              { time: '2019-04-14', value: 40.89 },
+              { time: '2019-04-15', value: 50.43 },
+              { time: '2019-04-16', value: 60.01 },
+              { time: '2019-04-17', value: 73 },
+              { time: '2019-04-18', value: 80.64 },
+              { time: '2019-04-19', value: 90.89 }
+            ]
+          },
+          {
+            symbol: 'Volume',
+            type: 'volume',
+            data: [
+              { time: '2019-04-11', value: 5 },
+              { time: '2019-04-12', value: 0.63 },
+              { time: '2019-04-13', value: 0.64 },
+              { time: '2019-04-14', value: 4.89 },
+              { time: '2019-04-15', value: 10.43 },
+              { time: '2019-04-16', value: 50.01 },
+              { time: '2019-04-17', value: 43 },
+              { time: '2019-04-18', value: 30.64 },
+              { time: '2019-04-19', value: 50.89 }
+            ]
+          }
+        ],
+        options: {
+          watermark: {
+            color: 'blue',
+            visible: true,
+            text: 'Customization Chart'
+          },
+          layout: {
+            backgroundColor: '#e3e3e3',
+            textColor: 'red'
+          },
+          grid: {
+            vertLines: {
+              color: 'green'
+            },
+            horzLines: {
+              color: 'green'
+            }
+          },
+          priceScale: {
+            borderColor: 'red'
+          },
+          timeScale: {
+            borderColor: 'red'
+          },
+          crosshair: {
+            vertLine: {
+              color: 'sky'
+            },
+            horzLine: {
+              color: 'black'
+            }
+          }
+        }
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Legend price formatter area chart">
+    <ef-interactive-chart id="formatter_area"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('formatter_area');
+      chart.config = {
+        series: [
+          {
+            symbol: 'AAPL',
+            legendPriceFormatter: price => '$' + price.toFixed(3),
+            type: 'area',
+            data: [
+              { time: '2018-12-22', value: 32.51 },
+              { time: '2018-12-23', value: 31.11 },
+              { time: '2018-12-24', value: 27.02 },
+              { time: '2018-12-25', value: 27.32 },
+              { time: '2018-12-26', value: 25.17 },
+              { time: '2018-12-27', value: 28.89 },
+              { time: '2018-12-28', value: 25.46 },
+              { time: '2018-12-29', value: 23.92 },
+              { time: '2018-12-30', value: 22.68 },
+              { time: '2018-12-31', value: 22.67 }
+            ],
+            seriesOptions: {
+              priceFormat: {
+                type: 'custom',
+                formatter: price => '$' + price.toFixed(3)
+              }
+            }
+          }
+        ]
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Legend price formatter candlestick chart">
+    <ef-interactive-chart id="formatter_candlestick"></ef-interactive-chart>
+    <script type="module">
+      const chart = document.getElementById('formatter_candlestick');
+      chart.config = {
+        series: [
+          {
+            symbol: 'EUR/USD',
+            type: 'candlestick',
+            legendPriceFormatter: price => '$' + price.toFixed(3),
+            data: [
+              { time: '2018-12-19', open: 141.77, high: 170.39, low: 120.25, close: 145.72 },
+              { time: '2018-12-20', open: 145.72, high: 147.99, low: 100.11, close: 108.19 },
+              { time: '2018-12-21', open: 108.19, high: 118.43, low: 74.22, close: 75.16 },
+              { time: '2018-12-22', open: 75.16, high: 82.84, low: 36.16, close: 45.72 },
+              { time: '2018-12-23', open: 45.12, high: 53.90, low: 45.12, close: 48.09 },
+              { time: '2018-12-24', open: 60.71, high: 60.71, low: 53.39, close: 59.29 },
+              { time: '2018-12-25', open: 68.26, high: 68.26, low: 59.04, close: 60.50 },
+              { time: '2018-12-26', open: 67.71, high: 105.85, low: 66.67, close: 91.04 },
+              { time: '2018-12-27', open: 91.04, high: 121.40, low: 82.70, close: 111.40 },
+              { time: '2018-12-28', open: 111.51, high: 142.83, low: 103.34, close: 131.25 },
+              { time: '2018-12-29', open: 131.33, high: 151.17, low: 77.68, close: 96.43 },
+              { time: '2018-12-30', open: 106.33, high: 110.20, low: 90.39, close: 98.10 },
+              { time: '2018-12-31', open: 109.87, high: 114.69, low: 85.66, close: 111.26 }
+            ],
+            seriesOptions: {
+              priceFormat: {
+                type: 'custom',
+                formatter: price => '$' + price.toFixed(3)
+              }
+            }
+          }
+        ]
+      };
+    </script>
+  </demo-block>
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Toggle</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/toggle';
+      import '@refinitiv-ui/demo-block';
+    </script>
+
+    <demo-block header="Default" layout="normal" tags="default">
+      <p><ef-toggle></ef-toggle></p>
+      <p><ef-toggle checked></ef-toggle></p>
+    </demo-block>
+
+    <demo-block header="Label" layout="normal" tags="label">
+      <p><ef-toggle label="On" checked class="label-change"></ef-toggle></p>
+      <p><ef-toggle label="Long Text"></ef-toggle></p>
+      <p><ef-toggle label="Long Text" checked style="width: 100px; text-overflow: ellipsis; white-space: nowrap;"></ef-toggle></p>
+
+      <script>
+        document.querySelectorAll('.label-change').forEach((element) => {
+          element.addEventListener('checked-changed', function (e) {
+            e.target.label = e.target.checked ? 'On' : 'Off';
+          });
+        });
+      </script>
+    </demo-block>
+
+    <demo-block header="Disabled" layout="normal" tags="disabled">
+      <p><ef-toggle disabled></ef-toggle></p>
+      <p><ef-toggle checked disabled></ef-toggle></p>
+      <p><ef-toggle label="Off" disabled></ef-toggle></p>
+    </demo-block>
+    <demo-block header="Readonly" layout="normal" tags="readonly">
+      <p><ef-toggle readonly></ef-toggle></p>
+      <p><ef-toggle checked readonly></ef-toggle></p>
+      <p><ef-toggle label="On" checked readonly></ef-toggle></p>
+    </demo-block>
+    <demo-block header="Event" layout="normal" tags="event">
+      <div style="display: flex; align-items: center;">
+        <ef-toggle id="toggle"></ef-toggle><div style="margin-left: 1em;">Switch <span id="text">OFF</span></div>
+      </div>
+      <script>
+        var text = document.getElementById('text');
+        var toggle = document.getElementById('toggle');
+
+        toggle.addEventListener('checked-changed', function (e) {
+          text.innerHTML = e.target.checked ? 'ON' : 'OFF';
+        });
+      </script>
+    </demo-block>
+
+    <demo-block header="Checked Label" layout="normal" tags="checked-label">
+      <p><ef-toggle label="OFF" checked-label="ON" checked></ef-toggle></p>
+      <p><ef-toggle label="OFF" checked-label="ON"></ef-toggle></p>
+      <p><ef-toggle label="Disable" checked-label="Enable" style="width: 90px; text-overflow: ellipsis; white-space: nowrap;"></ef-toggle></p>
+    </demo-block>
+
+    <!-- Sizes are flexible and can be overriden -->
+    <!-- <demo-block header="Sizes" layout="normal" tags="size">
+      <div style="display: flex;align-items: center;"><ef-toggle style="height: 20px; width: 36px;"></ef-toggle><p style="margin: 0 1em;">Light switch</p></div>
+      <br>
+      <div style="display: flex;align-items: center;"><ef-toggle style="height: 22px; width: 40px;"></ef-toggle><p style="margin: 1em;">Light switch</p></div>
+      <br>
+      <div style="display: flex;align-items: center;"><ef-toggle></ef-toggle><p style="margin: 1em;">Light switch</p></div>
+    </demo-block> -->
+  </body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>ef-tornado-chart</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/tornado-chart';
+      import '@refinitiv-ui/demo-block';
+    </script>
+    <style>
+      #responsive {
+        max-width: 399px;
+      }
+      [slot="header"] {
+        margin-bottom: 15px;
+      }
+      [slot="header"] p {
+        margin: 0;
+      }
+      [slot="footer"],
+      [slot="header"] .sub-title {
+        font-size: 12px;
+      }
+      [slot="footer"] {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 15px;
+      }
+      [slot="footer"] > * {
+        margin-right: 10px;
+        margin-bottom: 5px;
+      }
+    </style>
+    <shady-css-scoped>
+      <style>
+        #custom-colors,
+        #custom-colors ef-tornado-item {
+          --primary-color: #bf5f82;
+          --secondary-color: #f48fb1;
+        }
+
+        #custom-colors ef-tornado-item[highlighted] {
+          --primary-color: #a00037;
+          --secondary-color: #d81b60;
+        }
+      </style>
+    </shady-css-scoped>
+
+    <demo-block layout="normal" header="Default" tags="default">
+      <ef-tornado-chart id="default" primary="7+ hours" secondary="less than 7 hours">
+        <ef-tornado-item primary-value="61" primary-label="61%" secondary-value="39" secondary-label="39%">India</ef-tornado-item>
+        <ef-tornado-item primary-value="35" primary-label="35%" secondary-value="65" secondary-label="65%">China</ef-tornado-item>
+        <ef-tornado-item primary-value="28" primary-label="28%" secondary-value="72" secondary-label="72%">Thailand</ef-tornado-item>
+        <ef-tornado-item primary-value="25" primary-label="25%" secondary-value="75" secondary-label="75%"
+          highlighted>Global Average</ef-tornado-item>
+        <ef-tornado-item primary-value="22" primary-label="22%" secondary-value="78" secondary-label="78%">United
+          States</ef-tornado-item>
+        <ef-tornado-item primary-value="10" primary-label="10%" secondary-value="90" secondary-label="90%">Britain</ef-tornado-item>
+        <ef-tornado-item primary-value="5" primary-label="5%" secondary-value="95" secondary-label="95%">Finland</ef-tornado-item>
+      </ef-tornado-chart>
+    </demo-block>
+
+    <demo-block layout="normal" header="Customise Color" tags="custome color,css variable">
+      <ef-tornado-chart id="custom-colors"  primary="more than $1000" secondary="less than $1000">
+        <div slot="header">
+          <h3>Customise Color</h3>
+        </div>
+      </ef-tornado-chart>
+    </demo-block>
+
+    <demo-block layout="normal" header="Slot" tags="header,footer">
+      <ef-tornado-chart id="slot" primary="7+ hours" secondary="less than 7 hours">
+        <div slot="header">
+          <h3>Slots</h3>
+          <p>
+            How much time do you spend on average helping your child
+            academically with thier education* per week?
+          </p>
+          <p class="sub-title">December 2017</p>
+        </div>
+        <div slot="footer">
+          <p>Source: The Varkey Foundation</p>
+          <p>*Reading to them or helping with homework</p>
+        </div>
+      </ef-tornado-chart>
+    </demo-block>
+
+    <demo-block layout="normal" header="Responsive" tags="responsive, compact">
+      <ef-tornado-chart id="responsive" primary="7+ hours" secondary="less than 7 hours">
+        <div slot="header">
+          <h3>Responsive</h3>
+          <p>
+            How much time do you spend on average helping your child
+            academically with thier education* per week?
+          </p>
+          <p class="sub-title">December 2017</p>
+        </div>
+        <div slot="footer">
+          <p>Source: The Varkey Foundation</p>
+          <p>*Reading to them or helping with homework</p>
+        </div>
+      </ef-tornado-chart>
+    </demo-block>
+
+    <script>
+      var init = function (id) {
+        var el = document.getElementById(id);
+        var countries = ['India', 'China', 'Singapore', 'Thailand', 'Global Average', 'United States', 'Britain', 'Finland'];
+
+        for (let index = 0; index < countries.length; index++) {
+          var item = document.createElement('ef-tornado-item');
+
+          var primary = (Math.random() * 100).toFixed(1);
+          var secondary = (Math.random() * 100).toFixed(1);
+
+          item.setAttribute('primary-value', primary);
+          item.setAttribute('primary-label', primary + '%');
+          item.setAttribute('secondary-value', secondary);
+          item.setAttribute('secondary-label', secondary + '%');
+
+          if (index === 4) {
+            item.setAttribute('highlighted', 'true');
+          }
+
+          item.innerText = countries[index];
+
+          el.appendChild(item);
+        }
+      };
+
+      init('custom-colors');
+      init('slot');
+      init('responsive');
+    </script>
+  </body>
+</html>

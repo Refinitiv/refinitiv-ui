@@ -1,0 +1,12 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-multi-input';
+@import '../shared-styles/input';
+
+:host {
+  .input-solar(true);
+  padding: 0 0 max(@pill-margin) max(@pill-margin);
+
+  [part=search] {
+    height: @pill-height;
+    margin: @pill-margin;
+  }
+}

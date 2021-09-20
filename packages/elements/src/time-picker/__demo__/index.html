@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Time Picker</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/time-picker';
+      import '@refinitiv-ui/demo-block';
+    </script>
+
+    <demo-block header="Default" layout="normal" tags="default">
+      <ef-time-picker></ef-time-picker>
+    </demo-block>
+    <demo-block header="Local Current Time" layout="normal" tags="current">
+      <ef-time-picker id="local-time"></ef-time-picker>
+      <script>
+        (function () {
+          const date = new Date();
+          const localTimePicker = document.getElementById('local-time');
+          localTimePicker.hours = date.getHours();
+          localTimePicker.minutes = date.getMinutes();
+        })();
+      </script>
+    </demo-block>
+    <demo-block header="UTC Current Time" layout="normal" tags="utc">
+      <ef-time-picker id="utc-time"></ef-time-picker>
+      <script>
+        (function () {
+          const date = new Date();
+          const utcTimePicker = document.getElementById('utc-time');
+          utcTimePicker.hours = date.getUTCHours();
+          utcTimePicker.minutes = date.getUTCMinutes();
+        })();
+      </script>
+    </demo-block>
+    <demo-block header="Show Seconds" layout="normal" tags="show-seconds">
+      <ef-time-picker show-seconds></ef-time-picker>
+    </demo-block>
+    <demo-block header="AM/PM" layout="normal" tags="am-pm">
+      <ef-time-picker am-pm></ef-time-picker>
+    </demo-block>
+    <demo-block header="Value" layout="normal" tags="value">
+      <ef-time-picker value="13:30:25" am-pm></ef-time-picker>
+    </demo-block>
+    <demo-block header="Specifig segment value" layout="normal" tags="hours, miutes, seconds">
+      <ef-time-picker hours="20" minutes="50" seconds="30" show-seconds></ef-time-picker>
+    </demo-block>
+    <demo-block header="Readonly" layout="normal" tags="readonly">
+      <ef-time-picker value="13:30:25" readonly></ef-time-picker>
+    </demo-block>
+    <demo-block header="Disabled" layout="normal" tags="disabled">
+      <ef-time-picker value="13:30:25" disabled></ef-time-picker>
+    </demo-block>
+    <demo-block id="event" header="Event" layout="normal" tags="event">
+      <ef-time-picker value="15:30:25"></ef-time-picker>
+      <ef-time-picker value="15:30:25" am-pm></ef-time-picker>
+      <div>
+        <span>value-changed: </span>
+        <input id="log" readonly>
+      </div>
+      <script>
+        (function () {
+          const log = document.getElementById('log');
+          const onValueChanged = (event) => {
+            log.value = JSON.stringify(event.detail);
+          };
+          document.querySelectorAll('#event ef-time-picker').forEach(
+            element => element.addEventListener('value-changed', onValueChanged)
+          );
+        })();
+      </script>
+    </demo-block>
+  </body>
+</html>

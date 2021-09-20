@@ -1,0 +1,90 @@
+@import 'element:ef-icon';
+@import 'element:ef-checkbox';
+@import '../responsive';
+
+:host {
+  outline: none;
+
+  // type=text and default
+  cursor: pointer;
+  padding: 0 extract(@list-item-padding, 2);
+  min-height: @list-item-height;
+  box-sizing: border-box;
+  .touch-action();
+
+  .ie-specific({
+    &:after { /* IE11 fix for flex */
+      content: '';
+      min-height: inherit;
+      font-size: 0;
+    }
+  });
+
+  &[selected] {
+    color: @list-item-selected-text-color;
+  }
+
+  &[readonly] {
+    cursor: default;
+  }
+
+  &[focused], &[highlighted] {
+    background-color: @list-item-focus-background-color;
+
+    &:not([selected]) {
+      color: @list-item-focus-text-color;
+    }
+  }
+
+  [part=center], [part=sub-label] {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &[disabled] {
+    color: @list-item-disabled-text-color;
+  }
+  &[type="header"], &[type="divider"] {
+    pointer-events: none;
+    min-height: auto;
+
+    [part=sub-label] {
+      display: none;
+    }
+  }
+  &[type="header"] {
+    color: @list-item-header-text-color;
+    background-color: @list-item-header-background-color;
+    font-size: @list-item-header-font-size;
+    font-weight: @list-item-header-font-weight;
+    border: @list-item-header-border;
+    height: @list-item-header-height;
+    align-items: flex-end;
+    margin: 0;
+    min-height: 0;
+    text-transform: uppercase;
+  }
+
+  &[type="divider"] {
+    border: none;
+    padding: 0;
+    margin: 0;
+    height: ((@list-item-divider-thickness + extract(@list-item-divider-margin, 1) * 2));
+    background: linear-gradient(@list-item-divider-color, @list-item-divider-color) no-repeat extract(@list-item-divider-margin, 2)
+      center/calc(100% - (extract(@list-item-divider-margin, 2) * 2)) @list-item-divider-thickness;
+  }
+
+  [part=left] ::slotted(*), [part=icon], [part=checkbox] {
+    margin: 0;
+    margin-right: 0.5em; // half of the icon size
+  }
+
+  [part=right] ::slotted(*) {
+    margin-left: 0.5em;
+  }
+
+  [part=sub-label] {
+    font-size: 80%;
+  }
+}

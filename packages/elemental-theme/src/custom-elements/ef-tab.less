@@ -1,0 +1,186 @@
+@import 'element:ef-icon';
+@import 'element:ef-label';
+@import '../responsive';
+
+:host {
+  cursor: pointer;
+
+  background-color: @tab-background-color;
+  color: @tab-text-color;
+  height: @tab-height;
+  padding: @tab-padding;
+  outline: @tab-outline;
+  font-size: @tab-font-size;
+  font-weight: 500;
+  transition: @button-transition;
+
+  position: relative;
+  box-sizing: border-box;
+  user-select: none;
+  align-items: center;
+  justify-content: center;
+
+  [part=icon] {
+    min-width: 1em;
+    font-size: 1.5em; // increased size by 50% of tab font-size
+  }
+
+  /* label */
+  [part=label-container] {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+  }
+
+  &:not([sub-label]) [part=label-container] {
+    align-items: center;
+  }
+
+  &[icon] [part=label-container] {
+    padding-left: 0.3em;
+  }
+
+  /* sub-label */
+  [part=sub-label] {
+    font-weight: @control-font-weight;
+    font-size: 0.875em; // ~ tab-font-size - 2px
+  }
+
+  &:not([active]):not(:active):not(:hover) [part=sub-label] {
+    opacity: 0.7;
+  }
+
+  &[sub-label] {
+    height: unit((@tab-height + 10), px);
+
+    [part=icon] {
+      font-size: 1.8em; // increased size by 80% of tab font-size
+    }
+
+    [part=close] {
+      font-size: 1.25em; // increased size by 25%
+    }
+
+    &[clears] {
+      padding-right: 2.5em;
+    }
+  }
+
+  &[line-clamp="2"], &[line-clamp="3"] {
+    height: unit((@tab-height + 10), px);
+  }
+
+  &[icon][sub-label] [part=label-container] {
+    padding-left: 0.5em;
+  }
+
+  /* clears, clears-on-hover */
+  &[clears] {
+    padding-right: 2em;
+  }
+
+  [part=close-container] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  [part=close] {
+    margin-right: 0.5em;
+    min-width: 1em;
+    font-size: 1em;
+  }
+
+  &[clears-on-hover] {
+    [part=close] {
+      color: @tab-hover-text-color;
+    }
+    [part=close-container] {
+      width: 2em;
+      opacity: 0;
+      transition: @button-transition;
+      background: @tab-hover-background-color;
+      box-shadow: @tab-clears-box-shadow @tab-hover-background-color;
+    }
+  }
+
+  /* states */
+  .touch-action();
+
+  &[active] {
+    color: @tab-active-text-color;
+    background-color: @tab-active-background-color;
+
+    &:hover {
+      background-color: @tab-active-hover-background-color;
+    }
+    &:hover[clears-on-hover] {
+      [part=close-container] {
+        background-color: @tab-active-hover-background-color;
+        box-shadow: @tab-clears-box-shadow @tab-active-hover-background-color;
+      }
+    }
+
+    &:active {
+      background-color: @tab-active-pressed-background-color;
+    }
+    &:active[clears-on-hover] {
+      [part=close-container] {
+        background-color: @tab-active-pressed-background-color;
+        box-shadow: @tab-clears-box-shadow @tab-active-pressed-background-color;
+      }
+    }
+
+    &[disabled] {
+      color: @tab-active-disabled-text-color;
+      background-color: @tab-active-disabled-background-color;
+    }
+  }
+
+  &[disabled] {
+    pointer-events: none;
+    color: @tab-disabled-text-color;
+    background-color: @tab-disabled-background-color;
+  }
+
+  // keyboard navigation
+  &:focus:not([focused]), &[focused=visible] {
+    box-shadow: @tab-focused-box-shadow;
+    background-color: @tab-active-focused-background-color;
+
+      &:not([active]):not(:hover) {
+        color: @tab-focused-text-color;
+        background-color: @tab-background-color;
+    }
+  }
+
+  &:hover {
+    color: @tab-hover-text-color;
+    box-shadow: @tab-hover-box-shadow;
+    background-color: @tab-hover-background-color;
+
+    &[clears-on-hover] {
+      [part=close-container] {
+        opacity: 1;
+      }
+    }
+  }
+
+  &:active {
+    color: @tab-pressed-text-color;
+    background-color: @tab-pressed-background-color;
+
+    &[clears-on-hover] {
+      [part=close-container] {
+        background-color: @tab-pressed-background-color;
+        box-shadow: @tab-clears-box-shadow @tab-pressed-background-color;
+      }
+    }
+  }
+}
