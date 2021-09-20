@@ -33,6 +33,7 @@
     "@refinitiv-ui/browser-sparkline": "1.1.7",
     "@refinitiv-ui/core": "^5.1.0-next.2",
     "@refinitiv-ui/halo-theme": "^5.2.1-next.1",
+    "@refinitiv-ui/i18n": "^5.1.5-next.2",
     "@refinitiv-ui/solar-theme": "^5.2.1-next.1",
     "@refinitiv-ui/translate": "^5.2.0-next.2",
     "@refinitiv-ui/utils": "^5.1.0-next.1",
