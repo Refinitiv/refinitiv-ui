@@ -1,4 +1,5 @@
-import { property, PropertyValues } from 'lit-element';
+import { PropertyValues } from 'lit';
+import { property } from 'lit/decorators.js';
 import { BasicElement } from './BasicElement';
 import { WarningNotice } from '../notices/WarningNotice';
 import { ControlProperties as IControlProperties } from '../interfaces/ControlProperties';
@@ -44,7 +45,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
     }
     if (oldValue !== value) {
       this._value = value;
-      void this.requestUpdate('value', oldValue);
+      this.requestUpdate('value', oldValue);
     }
   }
 

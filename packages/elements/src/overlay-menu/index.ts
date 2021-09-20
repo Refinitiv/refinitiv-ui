@@ -10,14 +10,13 @@ import {
   ifDefined,
   WarningNotice
 } from '@refinitiv-ui/core';
-import { AnimationTaskRunner, CollectionComposer } from '@refinitiv-ui/utils';
+import { AnimationTaskRunner, CollectionComposer, uuid } from '@refinitiv-ui/utils';
 
 import '../icon';
 import '../item';
 import { Item, ItemData } from '../item';
 import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay';
 
-import { getId } from './helpers/uuid';
 import { OverlayMenuData } from './helpers/types';
 import { OpenedMenusManager } from './managers/menu-manager';
 import { VERSION } from '../version';
@@ -937,7 +936,7 @@ export class OverlayMenu extends Overlay {
     menu.transitionStyle = this.transitionStyle;
     menu.noCancelOnOutsideClick = true;
     menu.compact = this.compact;
-    menu.id = getId();
+    menu.id = uuid();
     return menu;
   }
 

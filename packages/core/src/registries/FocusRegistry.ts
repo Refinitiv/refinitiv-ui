@@ -150,7 +150,7 @@ const updateFocusedState = (): void => {
       if (!focusedPath.includes(el)) {
         focusedMap.delete(el);
         el.removeAttribute('focused');
-        void el.requestUpdate(FocusedPropertyKey, true);
+        el.requestUpdate(FocusedPropertyKey, true);
       }
     });
     focusedPath.forEach(el => {

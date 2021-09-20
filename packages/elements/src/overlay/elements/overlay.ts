@@ -710,7 +710,7 @@ export class Overlay extends ResponsiveElement {
     this.setRegisters(changedProperties);
 
     // Should update routing is calling render method. Not every attribute should result in render being called
-    let shouldUpdate = opening || closing || this.hasUpdated === 0 || changedProperties.size === 0;
+    let shouldUpdate = opening || closing || !this.hasUpdated || changedProperties.size === 0;
 
     // Element may need to be updated if other attributes has been changed while the overlay is opened
     if (!shouldUpdate && isOpened) {

@@ -2,49 +2,40 @@ export {
   html,
   svg,
   TemplateResult,
-  SVGTemplateResult
-} from 'lit-html';
-
-/**
- * Export directives from lit-html
- * todo: asyncAppend/Replace breaks build
- */
-// export { asyncAppend } from 'lit-html/directives/async-append';
-// export { asyncReplace } from 'lit-html/directives/async-replace';
-export { cache } from 'lit-html/directives/cache';
-export { classMap } from 'lit-html/directives/class-map';
-export { guard } from 'lit-html/directives/guard';
-export { ifDefined } from 'lit-html/directives/if-defined';
-export { repeat } from 'lit-html/directives/repeat';
-export { styleMap } from 'lit-html/directives/style-map';
-export { unsafeHTML } from 'lit-html/directives/unsafe-html';
-export { until } from 'lit-html/directives/until';
-
-/**
- * Export all from lit-element
- * Named export is done to avoid ambiguity with same name re-export of:
- * - LitElement
- * - customElement
- * Add re-exported modules if something is missing.
- */
-export {
+  SVGTemplateResult,
   CSSResult,
   PropertyValues,
   ReactiveElement,
-  UpdatingElement,
   css,
-  eventOptions,
-  internalProperty,
   notEqual,
+  supportsAdoptingStyleSheets,
+  unsafeCSS
+} from 'lit';
+
+export {
+  eventOptions,
   property,
   query,
   queryAll,
   queryAsync,
   queryAssignedNodes,
-  state,
-  supportsAdoptingStyleSheets,
-  unsafeCSS
-} from 'lit-element';
+  state
+} from 'lit/decorators.js';
+
+/**
+ * Export directives from lit
+ * todo: asyncAppend/Replace breaks build
+ */
+// export { asyncAppend } from 'lit/directives/async-append.js';
+// export { asyncReplace } from 'lit/directives/async-replace.js';
+export { cache } from 'lit/directives/cache.js';
+export { classMap } from 'lit/directives/class-map.js';
+export { guard } from 'lit/directives/guard.js';
+export { ifDefined } from 'lit/directives/if-defined.js';
+export { repeat } from 'lit/directives/repeat.js';
+export { styleMap } from 'lit/directives/style-map.js';
+export { unsafeHTML } from 'lit/directives/unsafe-html.js';
+export { until } from 'lit/directives/until.js';
 
 /**
  * Export element base classes

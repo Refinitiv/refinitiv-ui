@@ -1,12 +1,7 @@
-import {
-  directive,
-  Part,
-  NodePart,
-  AttributePart,
-  PropertyPart,
-  isPrimitive
-} from 'lit-html';
-import { BasicElement } from '@refinitiv-ui/core';
+import { PartInfo, PartType, DirectiveResult } from 'lit/directive.js';
+import { AsyncDirective, directive } from 'lit/async-directive.js';
+import { BasicElement, unsafeHTML } from '@refinitiv-ui/core';
+import { noChange } from 'lit';
 
 import {
   LangAttributeObserver,
@@ -36,57 +31,42 @@ type DecoratorOptions = {
   mode?: 'directive' | 'promise';
 };
 type TranslateFunction = (prototype: BasicElement, name: PropertyKey) => void;
-type TranslateDirective = (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => void;
+type TranslateDirective = (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => DirectiveResult<typeof AsyncTranslateDirective>;
 type TranslatePromise = (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => Promise<string>;
 type Translate = TranslateDirective | TranslatePromise;
 
-// For each part, remember the value that was last rendered to the part
-const previousNodeValues = new WeakMap<Part, { value: string; fragment: DocumentFragment }>();
+class AsyncTranslateDirective extends AsyncDirective {
+  private readonly partType: number;
 
-const updatePart = (part: Part, value: string): void => {
-  // support unsafeHTML syntax
-  if (part instanceof NodePart) {
-    const previousValue = previousNodeValues.get(part);
-    if (previousValue !== undefined && isPrimitive(value) && value === previousValue.value && part.value === previousValue.fragment) {
-      return;
+  constructor (partInfo: PartInfo) {
+    super(partInfo);
+    this.partType = partInfo.type;
+
+    if (!(this.partType === PartType.CHILD || this.partType === PartType.ATTRIBUTE || this.partType === PartType.PROPERTY)) {
+      throw new Error('Element Framework Translate can only be used in content, attribute or property bindings');
     }
-
-    const template = document.createElement('template');
-    template.innerHTML = value; // innerHTML casts to string internally
-    const fragment = document.importNode(template.content, true);
-    previousNodeValues.set(part, { value, fragment });
-    part.setValue(fragment);
-    part.commit();
-    return;
   }
 
-  part.setValue(value);
-  part.commit();
-};
+  render (scope: string, locale: string, key: string, options?: TranslateOptions, translateParams?: TranslateParams) {
+    Promise.resolve(t(scope, locale, key, options, translateParams))
+      .then(message => {
+        this.setValue(this.partType === PartType.CHILD ? unsafeHTML(message) : message);
+      })
+      .catch(error => {
+        this.setValue(key);
 
-const translateDirective = directive((scope: string, locale: string, key: string, options?: TranslateOptions, translateParams?: TranslateParams) => (part: Part): void => {
-  /* istanbul ignore next */
-  if (!(part instanceof NodePart || part instanceof AttributePart || part instanceof PropertyPart)) {
-    throw new Error('Element Framework Translate can only be used in content, attribute or property bindings');
-  }
-
-  // TODO: support additional API to show some text while translations are loading
-  // it can be just an English translation, greyed div, loading mask etc.
-
-  Promise.resolve(t(scope, locale, key, options, translateParams))
-    .then(message => {
-      updatePart(part, message);
-    })
-    .catch(error => {
-      updatePart(part, key);
-
-      // the code may fail if polyfills are not available in IE11 or translate syntax is wrong
-      /* istanbul ignore next */
-      setTimeout(() => {
-        throw new Error(error);
+        // the code may fail if polyfills are not available in IE11 or translate syntax is wrong
+        /* istanbul ignore next */
+        setTimeout(() => {
+          throw new Error(error);
+        });
       });
-    });
-});
+
+    return noChange;
+  }
+}
+
+const translateDirective = directive(AsyncTranslateDirective);
 
 const translatePromise = (scope: string, locale: string, key: string, options?: TranslateOptions, translateParams?: TranslateParams): Promise<string> => {
   return Promise.resolve(t(scope, locale, key, options, translateParams))
@@ -195,7 +175,7 @@ const translate = function (options?: string | DecoratorOptions): TranslateFunct
         }
       } : {
         get (this: BasicElement): TranslateDirective {
-          return (key: string, options?: TranslateOptions, translateParams?: TranslateParams): CallableFunction => {
+          return (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => {
             return translateDirective(scope || this.localName, getLocale(this), key, options, translateParams);
           };
         }

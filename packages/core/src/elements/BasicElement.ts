@@ -1,4 +1,5 @@
-import { LitElement, property } from 'lit-element';
+import { LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 import { ElementRegistry } from '../registries/ElementRegistry';
 import { FocusRegistry } from '../registries/FocusRegistry';
 import { ShadyCSS } from '../utils/shadyStyles';

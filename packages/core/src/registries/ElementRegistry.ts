@@ -1,6 +1,6 @@
 import { ready } from '../utils/elementReady';
 import { CustomStyleRegistry } from './CustomStyleRegistry';
-import { unsafeCSS, CSSResultArray } from 'lit-element';
+import { unsafeCSS, CSSResultArray } from 'lit';
 import { ElementConstructor } from '../interfaces/ElementConstructor';
 import { DuplicateElementError } from '../errors/DuplicateElementError';
 import { Notice } from '../notices/Notice';
@@ -22,19 +22,8 @@ class ElementRegistrationItem {
 const register = new Map<string, ElementRegistrationItem>();
 
 const upgrade = (name: string, definition: ElementConstructor): void => {
-  const baseStyles = definition.styles;
   const themeStyles = unsafeCSS(CustomStyleRegistry.get(name));
-  const styles = ([] as CSSResultArray).concat(baseStyles ? [baseStyles, themeStyles] : themeStyles);
-  /**
-   * Override the static styles property,
-   * defined in the element. Inject element styles + theme styles.
-   * @override
-   */
-  Object.defineProperty(definition, 'styles', {
-    get () {
-      return styles;
-    }
-  });
+  definition.elementStyles.push(themeStyles);
   customElements.define(name, definition);
 };
 
