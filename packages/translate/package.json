@@ -23,12 +23,12 @@
     "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
-    "@refinitiv-ui/core": "^5.1.0-next.2",
     "@refinitiv-ui/i18n": "^5.1.5-next.2",
     "@refinitiv-ui/phrasebook": "^5.1.3-next.1",
     "lit": "^2.0.0-rc.4"
   },
   "devDependencies": {
+    "@refinitiv-ui/core": "^5.1.0-next.2",
     "@refinitiv-ui/test-helpers": "^5.0.2-next.2"
   },
   "publishConfig": {

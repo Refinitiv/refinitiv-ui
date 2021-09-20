@@ -1,7 +1,8 @@
 import { PartInfo, PartType, DirectiveResult } from 'lit/directive.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { AsyncDirective, directive } from 'lit/async-directive.js';
-import { BasicElement, unsafeHTML } from '@refinitiv-ui/core';
 import { noChange } from 'lit';
+import type { BasicElement } from '@refinitiv-ui/core';
 
 import {
   LangAttributeObserver,
