@@ -20,13 +20,13 @@
     </script>
     <script type="module">
       const makeData = (config = {}) => {
-        return Array(300).fill(0).map((_, i) => ({
+        return Array(config.size || 300).fill(0).map((_, i) => ({
           type: i % 10 === 0 ? 'header' : 'item',
           label: i % 10 === 0 ? `${i}'s` : `Item number ${i}`,
           value: (i).toString(),
-          selected: config.selected || config.selected === undefined ? i === 5 : false,
-          disabled: i % 10 === 7,
-          hidden: i % 10 === 9
+          selected: config.selected || (config.selected === undefined ? i === 5 : false),
+          disabled: !config.disabled ? false : i % 10 === 7,
+          hidden: !config.hidden ? false : i % 10 === 9
         }));
       };
       document.querySelectorAll('ef-tree-select').forEach((el) => {
@@ -38,6 +38,10 @@
           case 'placeholder':
             el.data = makeData({ selected: false });
             break;
+          case 'selection-tooltip':
+            el.data = makeData({ selected: true, disabled: false, hidden: false, size: 1001 });
+            break;
+
           default:
             el.data = treeCollection;
             break;
@@ -45,7 +49,12 @@
       });
     </script>
     <demo-block header="Default" layout="normal" tags="default">
-      <ef-tree-select></ef-tree-select>
+      <p>
+        <ef-tree-select></ef-tree-select>
+      </p>
+      <p>
+        <ef-tree-select id="selection-tooltip"></ef-tree-select>
+      </p>
     </demo-block>
 
     <demo-block header="With pills" layout="normal" tags="pills">
