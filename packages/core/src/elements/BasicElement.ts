@@ -1,11 +1,12 @@
+import type { StyleInfo } from '../interfaces/StyleInfo';
+import type { CSSValue } from '../types/base';
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { ElementRegistry } from '../registries/ElementRegistry';
-import { FocusRegistry } from '../registries/FocusRegistry';
-import { ShadyCSS } from '../utils/shadyStyles';
-import { FocusableHelper } from '../utils/focusableHelper';
-import { StyleInfo } from '../interfaces/StyleInfo';
-import { CSSValue } from '../types/base';
+import { ElementRegistry } from '../registries/ElementRegistry.js';
+import { FocusRegistry } from '../registries/FocusRegistry.js';
+import { ShadyCSS } from '../utils/shadyStyles.js';
+import { FocusableHelper } from '../utils/focusableHelper.js';
+import { BasicElementSymbol } from '../utils/helpers.js';
 
 const CSS_VARIABLE_REGEXP = /^--\w/;
 const CSS_VARIABLE_REPLACE_REGEXP = /['"]([^'"]+?)['"]/g;
@@ -204,6 +205,11 @@ export abstract class BasicElement extends LitElement {
   public get tabbableElements (): HTMLElement[] {
     return FocusableHelper.getTabbableNodes(this);
   }
+
+  /**
+   * A symbol to check if an element is BasicElement
+   */
+  public static readonly [BasicElementSymbol] = BasicElementSymbol;
 
   /**
    * Placeholder for getting an element's version number

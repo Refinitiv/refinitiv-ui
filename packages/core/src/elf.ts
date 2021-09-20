@@ -40,10 +40,10 @@ export { until } from 'lit/directives/until.js';
 /**
  * Export element base classes
  */
-import { BasicElement } from './elements/BasicElement';
+import { BasicElement } from './elements/BasicElement.js';
 export { BasicElement };
-export { ControlElement } from './elements/ControlElement';
-export { ResponsiveElement, ElementSize, ResizeEvent } from './elements/ResponsiveElement';
+export { ControlElement } from './elements/ControlElement.js';
+export { ResponsiveElement, ElementSize, ResizeEvent } from './elements/ResponsiveElement.js';
 export class LitElement extends BasicElement {
   constructor () {
     /* eslint-disable-next-line no-console */
@@ -57,8 +57,8 @@ export class LitElement extends BasicElement {
  * These can be used to show warning messages in the console.
  * For example, when deprecated features are used in elements.
  */
-export { WarningNotice } from './notices/WarningNotice';
-export { DeprecationNotice } from './notices/DeprecationNotice';
+export { WarningNotice } from './notices/WarningNotice.js';
+export { DeprecationNotice } from './notices/DeprecationNotice.js';
 
 /**
  * Export Custom Element decorator
@@ -66,36 +66,36 @@ export { DeprecationNotice } from './notices/DeprecationNotice';
  * Overrides customElement decorator from lit-element export.
  * @override
  */
-import { CustomElement as customElement } from './decorators/CustomElement';
+import { CustomElement as customElement } from './decorators/CustomElement.js';
 export { customElement }; // We have to do this due to some transpilation issue (es-dev-server --> IE)
 
 /**
  * Export TapEvent
  */
-export { TapEvent } from './events/TapEvent';
+export { TapEvent } from './events/TapEvent.js';
 
 /**
  * Export common interfaces
  */
-export { MultiValue } from './interfaces/MultiValue';
-export { StyleMap } from './interfaces/StyleMap';
-export { StyleInfo } from './interfaces/StyleInfo';
+export type { MultiValue } from './interfaces/MultiValue';
+export type { StyleMap } from './interfaces/StyleMap';
+export type { StyleInfo } from './interfaces/StyleInfo';
 
 /**
  * Export useful utils
  */
-export { FocusableHelper } from './utils/focusableHelper';
-export { matches } from './utils/matches';
+export { FocusableHelper } from './utils/focusableHelper.js';
+export { matches } from './utils/matches.js';
 
 /**
  * Export focused key.
  * Used to observe `focused` attribute changes
  */
-export { FocusedPropertyKey } from './registries/FocusRegistry';
+export { FocusedPropertyKey } from './registries/FocusRegistry.js';
 
-import { CustomStyleRegistry } from './registries/CustomStyleRegistry';
-import { NativeStyleRegistry } from './registries/NativeStyleRegistry';
-import { global } from './utils/global';
+import { CustomStyleRegistry } from './registries/CustomStyleRegistry.js';
+import { NativeStyleRegistry } from './registries/NativeStyleRegistry.js';
+import { global } from './utils/global.js';
 
 global.elf = global.Elf = global.ELF = {
   customStyles: CustomStyleRegistry,

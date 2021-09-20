@@ -1,6 +1,6 @@
-import { ElementRegistry } from '../registries/ElementRegistry';
-import { ElementConstructor } from '../interfaces/ElementConstructor';
-import { CustomStyleRegistry } from '../registries/CustomStyleRegistry';
+import type { ElementConstructor } from '../interfaces/ElementConstructor';
+import { ElementRegistry } from '../registries/ElementRegistry.js';
+import { CustomStyleRegistry } from '../registries/CustomStyleRegistry.js';
 
 interface ElementOptions {
   /**
