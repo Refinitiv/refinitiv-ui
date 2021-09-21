@@ -1,5 +1,5 @@
 import type { Overlay } from '../elements/overlay';
-import { AnimationTaskRunner } from '@refinitiv-ui/utils';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async';
 import { getOverlays } from './zindex-manager';
 import { FocusableHelper } from '@refinitiv-ui/core';
 

@@ -9,9 +9,9 @@ import {
   TemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../version';
-import { IconLoader } from './utils/IconLoader';
-export { preload } from './utils/IconLoader';
+import { VERSION } from '../version.js';
+import { IconLoader } from './utils/IconLoader.js';
+export { preload } from './utils/IconLoader.js';
 
 const EmptyTemplate = svg``;
 

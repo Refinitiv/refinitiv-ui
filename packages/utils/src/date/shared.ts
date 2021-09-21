@@ -13,7 +13,7 @@ import {
   toSegment as toDateSegment,
   utcFormat as utcFormatDate,
   utcParse as utcParseDate
-} from './date';
+} from './date.js';
 
 import {
   Format as TimeFormat,
@@ -26,7 +26,7 @@ import {
   toSegment as toTimeSegment,
   utcFormat as utcFormatTime,
   utcParse as utcParseTime
-} from './time';
+} from './time.js';
 
 import {
   Format as DateTimeFormat,
@@ -39,20 +39,20 @@ import {
   toSegment as toDateTimeSegment,
   utcFormat as utcFormatDateTime,
   utcParse as utcParseDateTime
-} from './datetime';
+} from './datetime.js';
 
 import {
   throwInvalidFormat,
   throwInvalidValue
-} from './utils';
+} from './utils.js';
 
 import {
   HOURS_OF_NOON
-} from './timestamps';
+} from './timestamps.js';
 
 import {
   addOffset as addTimeOffset
-} from './time';
+} from './time.js';
 
 type Format = InputTimeFormat | InputDateFormat | InputDateTimeFormat;
 

@@ -11,7 +11,7 @@ import {
   MultiValue,
   WarningNotice
 } from '@refinitiv-ui/core';
-import '../button';
+import '../button/index.js';
 
 import {
   DateSegment,
@@ -32,19 +32,19 @@ import {
   isSameMonth,
   isSameYear,
   toDateSegment
-} from '@refinitiv-ui/utils';
+} from '@refinitiv-ui/utils/lib/date';
 
 import {
   monthInfo
-} from './utils';
+} from './utils.js';
 
-import './locales';
+import './locales.js';
 import {
   weekdaysNames,
   monthsNames,
   formatLocaleDate,
   ViewFormatTranslateParams
-} from './locales';
+} from './locales.js';
 
 import {
   translate,
@@ -63,7 +63,7 @@ import {
   CellSelectionModel,
   CellDivElement
 } from './types';
-import { VERSION } from '../version';
+import { VERSION } from '../version.js';
 
 export {
   CalendarFilter

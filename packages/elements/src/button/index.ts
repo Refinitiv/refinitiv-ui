@@ -9,10 +9,10 @@ import {
   TemplateResult,
   query
 } from '@refinitiv-ui/core';
-import { VERSION } from '../version';
+import { VERSION } from '../version.js';
 
-import '../icon';
-import { registerOverflowTooltip } from '../tooltip';
+import '../icon/index.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
 
 /**
  * Use button for actions in forms, dialogs,

@@ -1,7 +1,7 @@
 import {
   toDateSegment,
   getDaysInMonth
-} from '@refinitiv-ui/utils';
+} from '@refinitiv-ui/utils/lib/date';
 
 export type MonthInfo = {
   days: number;

@@ -1,6 +1,6 @@
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
 import { DEFAULT_LOCALE, resolveLocale, MessageFormats, TranslateParams } from '@refinitiv-ui/i18n';
-import { utcParse } from '@refinitiv-ui/utils';
+import { utcParse } from '@refinitiv-ui/utils/lib/date';
 
 // While Intl can support literally all world languages
 // for safety still limit the number of locales, for the following reasons

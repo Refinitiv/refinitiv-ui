@@ -16,28 +16,28 @@
     ".": {
       "default": "./lib/index.js"
     },
-    "./events.js": {
+    "./events": {
       "default": "./lib/events.js"
     },
-    "./version.js": {
+    "./version": {
       "default": "./lib/version.js"
     },
-    "./button.js": {
+    "./button": {
       "default": "./lib/button/index.js"
     },
-    "./lib/button.js": {
+    "./lib/button": {
       "default": "./lib/button/index.js"
     },
-    "./calendar.js": {
+    "./calendar": {
       "default": "./lib/calendar/index.js"
     },
-    "./lib/calendar.js": {
+    "./lib/calendar": {
       "default": "./lib/calendar/index.js"
     },
-    "./icon.js": {
+    "./icon": {
       "default": "./lib/icon/index.js"
     },
-    "./lib/icon.js": {
+    "./lib/icon": {
       "default": "./lib/icon/index.js"
     }
   },

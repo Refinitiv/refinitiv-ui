@@ -4,6 +4,32 @@
   "description": "Shared utilities for Element Framework",
   "main": "lib/utils.js",
   "module": "lib/utils.js",
+  "exports": {
+    ".": {
+      "default": "./lib/utils.js"
+    },
+    "./lib/async": {
+      "default": "./lib/async/index.js"
+    },
+    "./lib/collection": {
+      "default": "./lib/collection/index.js"
+    },
+    "./lib/color": {
+      "default": "./lib/color/index.js"
+    },
+    "./lib/date": {
+      "default": "./lib/date/index.js"
+    },
+    "./lib/event": {
+      "default": "./lib/event/index.js"
+    },
+    "./lib/loader": {
+      "default": "./lib/loader/index.js"
+    },
+    "./lib/miscellaneous": {
+      "default": "./lib/miscellaneous/index.js"
+    }
+  },
   "types": "lib/utils.d.ts",
   "repository": {
     "type": "git",

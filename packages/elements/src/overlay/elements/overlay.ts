@@ -32,7 +32,7 @@ import { register as zIndexRegister, deregister as zIndexDeregister, toFront } f
 import { register as backdropRegister, deregister as backdropDeregister } from '../managers/backdrop-manager';
 import { register as closeRegister, deregister as closeDeregister } from '../managers/close-manager';
 import { register as focusableRegister, deregister as focusableDeregister } from '../managers/focus-manager';
-import { MicroTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils';
+import { MicroTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async';
 import { VERSION } from '../../version';
 
 export {

@@ -1,6 +1,6 @@
-import type { Tooltip } from '../index';
-import { TimeoutTaskRunner } from '@refinitiv-ui/utils';
-import { DocumentCallbacks } from '../helpers/types';
+import type { Tooltip } from '../index.js';
+import type { DocumentCallbacks } from '../helpers/types';
+import { TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/async';
 
 /**
  * Helper to check if the browser is IE

@@ -1,4 +1,4 @@
-import { AnimationTaskRunner } from '@refinitiv-ui/utils';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async';
 import type { Overlay } from '../elements/overlay';
 import { getOverlays } from './zindex-manager';
 

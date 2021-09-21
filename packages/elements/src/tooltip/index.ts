@@ -10,7 +10,7 @@ import {
   query,
   matches
 } from '@refinitiv-ui/core';
-import { isSlotEmpty } from '@refinitiv-ui/utils';
+import { isSlotEmpty } from '@refinitiv-ui/utils/lib/miscellaneous';
 import '../overlay';
 import { OverlayTransitionStyle as TooltipTransitionStyle, Overlay, OverlayPosition } from '../overlay';
 
