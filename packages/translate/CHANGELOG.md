@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0-next.4](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/translate@5.2.0-next.3...@refinitiv-ui/translate@5.2.0-next.4) (2021-09-21)
+
+
+### Bug Fixes
+
+* **core:** fix nested theme styles ([3c28bbd](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/3c28bbd67061271dd7fb66eabe5e5158389a23d1))
+
+
+
+
+
 # [5.2.0-next.3](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/translate@5.2.0-next.2...@refinitiv-ui/translate@5.2.0-next.3) (2021-09-20)
 
 **Note:** Version bump only for package @refinitiv-ui/translate
