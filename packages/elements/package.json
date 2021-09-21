@@ -31,9 +31,11 @@
     "./calendar": {
       "default": "./lib/calendar/index.js"
     },
-    "./lib/calendar": {
-      "default": "./lib/calendar/index.js"
-    },
+    "./lib/calendar": "./lib/calendar/index.js",
+    "./calendar/themes/halo/dark": "./lib/calendar/themes/halo/dark/index.js",
+    "./calendar/themes/halo/light": "./lib/calendar/themes/halo/light/index.js",
+    "./calendar/themes/solar/charcoal": "./lib/calendar/themes/solar/charcoal/index.js",
+    "./calendar/themes/solar/pearl": "./lib/calendar/themes/solar/pearl/index.js",
     "./icon": {
       "default": "./lib/icon/index.js"
     },
