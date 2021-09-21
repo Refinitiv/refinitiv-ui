@@ -14,11 +14,11 @@ module.exports = {
   preserveSymlinks: true,
   appIndex: '/',
   plugins: [
-    legacyPlugin() // IE11 support
-  ],
-  polyfillsLoader: {
-    polyfills: {
-      shadyCssCustomStyle: true
-    }
-  }
+    legacyPlugin({
+      polyfills: {
+        webcomponents: true,
+        shadyCssCustomStyle: true
+      }
+    }) // IE11 support
+  ]
 };
