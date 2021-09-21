@@ -44,7 +44,7 @@ describe('tree-select/Label', () => {
       const input = el.shadowRoot.querySelector('[part=input]');
       expect(input.value).to.equal('Republic of the Congo;  Djibouti', 'Actual input value should match');
       const selectionBadge = el.shadowRoot.querySelector('[part=selection-badge]');
-      expect(selectionBadge.textContent.trim()).to.equal('2', 'badge is 2');
+      expect(selectionBadge.value.toString()).to.equal('2', 'badge is 2');
     });
   });
 });

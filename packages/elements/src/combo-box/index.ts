@@ -13,6 +13,7 @@ import {
   WarningNotice,
   FocusedPropertyKey,
   eventOptions,
+  ifDefined,
   StyleMap
 } from '@refinitiv-ui/core';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
@@ -22,8 +23,9 @@ import { ValueChangedEvent } from '../events';
 import '../icon';
 import '../overlay';
 import '../list';
-import '../pill';
+import '../counter';
 import '../text-field';
+import '../tooltip';
 import { List, ListRenderer as ComboBoxRenderer } from '../list';
 import { ItemData } from '../item';
 import { TextField } from '../text-field';
@@ -100,9 +102,6 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
       }
       [part=input]::-ms-clear {
         display: none;
-      }
-      [part=selection-badge] {
-        pointer-events: none;
       }
       [hidden] {
         display: none !important;
@@ -1181,7 +1180,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
       // benefit of being localised too
       if (this.focused || selectionLength > 1) {
         return html`
-        <ef-pill readonly part="selection-badge" tabindex="-1">${selectionLength}</ef-pill>
+        <ef-counter part="selection-badge" tabindex="-1" .value=${selectionLength} title=${ifDefined(selectionLength > 999 ? selectionLength.toLocaleString() : undefined)} max="999"></ef-counter>
       `;
       }
     }
