@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "5.3.1-next.8",
+  "version": "5.3.1-next.9",
   "description": "Element Framework Elements",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -56,7 +56,7 @@
   "dependencies": {
     "@refinitiv-ui/browser-sparkline": "1.1.7",
     "@refinitiv-ui/core": "^5.1.0-next.3",
-    "@refinitiv-ui/halo-theme": "^5.2.1-next.1",
+    "@refinitiv-ui/halo-theme": "^5.2.1-next.2",
     "@refinitiv-ui/i18n": "^5.1.5-next.2",
     "@refinitiv-ui/phrasebook": "^5.1.3-next.1",
     "@refinitiv-ui/solar-theme": "^5.2.1-next.1",
@@ -70,7 +70,7 @@
     "lightweight-charts": "^3.3.0"
   },
   "devDependencies": {
-    "@refinitiv-ui/demo-block": "^5.0.4-next.4",
+    "@refinitiv-ui/demo-block": "^5.0.4-next.5",
     "@refinitiv-ui/test-helpers": "^5.0.2-next.2",
     "@types/d3-color": "^2.0.1",
     "@types/d3-interpolate": "^2.0.0"
