@@ -1,7 +1,6 @@
 import type { ElementConstructor } from '../interfaces/ElementConstructor';
 import { ready } from '../utils/elementReady.js';
 import { CustomStyleRegistry } from './CustomStyleRegistry.js';
-import { unsafeCSS } from 'lit';
 import { DuplicateElementError } from '../errors/DuplicateElementError.js';
 import { Notice } from '../notices/Notice.js';
 
@@ -22,8 +21,7 @@ class ElementRegistrationItem {
 const register = new Map<string, ElementRegistrationItem>();
 
 const upgrade = (name: string, definition: ElementConstructor): void => {
-  const themeStyles = unsafeCSS(CustomStyleRegistry.get(name));
-  definition.elementStyles.push(themeStyles);
+  definition.applyThemeStyles(CustomStyleRegistry.get(name));
   customElements.define(name, definition);
 };
 

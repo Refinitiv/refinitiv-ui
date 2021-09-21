@@ -1,6 +1,6 @@
 import type { StyleInfo } from '../interfaces/StyleInfo';
 import type { CSSValue } from '../types/base';
-import { LitElement } from 'lit';
+import { LitElement, unsafeCSS, CSSResultArray } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ElementRegistry } from '../registries/ElementRegistry.js';
 import { FocusRegistry } from '../registries/FocusRegistry.js';
@@ -48,6 +48,23 @@ export abstract class BasicElement extends LitElement {
   public constructor () {
     super();
     ElementRegistry.create(this);
+  }
+
+  /**
+   * Apply theme styles
+   * @param theme Theme CSS
+   * @returns {void}
+   */
+  public static applyThemeStyles (theme: string): void {
+    const baseStyles = this.styles;
+    const themeStyles = unsafeCSS(theme);
+    const styles = ([] as CSSResultArray).concat(baseStyles ? [baseStyles, themeStyles] : themeStyles);
+    Object.defineProperty(this, 'styles', {
+      get () {
+        return styles;
+      }
+    });
+    this.elementStyles = this.finalizeStyles(this.styles);
   }
 
   /**

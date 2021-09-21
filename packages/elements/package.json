@@ -13,11 +13,33 @@
     "directory": "packages/elements"
   },
   "exports": {
-    ".": "./lib/index.js",
-    "./events": "./lib/events.js",
-    "./*": "./lib/*/index.js",
-    "./lib/events": "./lib/events.js",
-    "./lib/*": "./lib/*/index.js"
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./events.js": {
+      "default": "./lib/events.js"
+    },
+    "./version.js": {
+      "default": "./lib/version.js"
+    },
+    "./button.js": {
+      "default": "./lib/button/index.js"
+    },
+    "./lib/button.js": {
+      "default": "./lib/button/index.js"
+    },
+    "./calendar.js": {
+      "default": "./lib/calendar/index.js"
+    },
+    "./lib/calendar.js": {
+      "default": "./lib/calendar/index.js"
+    },
+    "./icon.js": {
+      "default": "./lib/icon/index.js"
+    },
+    "./lib/icon.js": {
+      "default": "./lib/icon/index.js"
+    }
   },
   "scripts": {
     "build": "node cli build",
