@@ -17,18 +17,14 @@
       <p><ef-toggle checked></ef-toggle></p>
     </demo-block>
 
-    <demo-block header="Label" layout="normal" tags="label">
-      <p><ef-toggle label="On" checked class="label-change"></ef-toggle></p>
-      <p><ef-toggle label="Long Text"></ef-toggle></p>
-      <p><ef-toggle label="Long Text" checked style="width: 100px; text-overflow: ellipsis; white-space: nowrap;"></ef-toggle></p>
-
-      <script>
-        document.querySelectorAll('.label-change').forEach((element) => {
-          element.addEventListener('checked-changed', function (e) {
-            e.target.label = e.target.checked ? 'On' : 'Off';
-          });
-        });
-      </script>
+    <demo-block header="Label, CheckedLabel" layout="normal" tags="label, checked-label">
+      <p><ef-toggle label="off" checked-label="on"></ef-toggle></p>
+      <p><ef-toggle label="off" checked-label="on" checked></ef-toggle></p>
+    </demo-block>
+    <demo-block header="Long text" layout="normal" tags="long text">
+      <p><ef-toggle label="disable" checked-label="enable"></ef-toggle></p>
+      <p><ef-toggle label="disable" checked-label="enable" checked></ef-toggle></p>
+      <p><ef-toggle label="disable" checked-label="enable" style="width: 90px;"></ef-toggle></p>
     </demo-block>
 
     <demo-block header="Disabled" layout="normal" tags="disabled">
@@ -53,12 +49,6 @@
           text.innerHTML = e.target.checked ? 'ON' : 'OFF';
         });
       </script>
-    </demo-block>
-
-    <demo-block header="Checked Label" layout="normal" tags="checked-label">
-      <p><ef-toggle label="OFF" checked-label="ON" checked></ef-toggle></p>
-      <p><ef-toggle label="OFF" checked-label="ON"></ef-toggle></p>
-      <p><ef-toggle label="Disable" checked-label="Enable" style="width: 90px; text-overflow: ellipsis; white-space: nowrap;"></ef-toggle></p>
     </demo-block>
 
     <!-- Sizes are flexible and can be overriden -->
