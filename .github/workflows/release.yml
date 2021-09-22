@@ -13,6 +13,9 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
+      - name: Fetch all history for all tags and branches to compare
+        run: git fetch
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -23,10 +26,10 @@ jobs:
       - run: npm ci --ignore-scripts --audit=false --fund=false
 
       - run: echo "Building... 🛠"
-      - run: lerna run build --include-dependencies
+      - run: lerna run build --include-dependencies --since origin/main
 
-      - run: echo "Tagging version... 🛠"
-      - run: lerna version from-package --conventional-commits
+      - run: echo "Tagging version... ⓥ"
+      - run: lerna version --conventional-commits
 
       - run: echo "Publishing... ✅"
       - run: lerna publish from-git --no-git-tag-version --no-push

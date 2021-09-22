@@ -9,22 +9,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          # NPM 7 is compatible with Node.js 15 or above
-          node-version: 15.x
-          cache: 'npm'
-
-      - run: npm ci --ignore-scripts --audit=false --fund=false
-      - run: lerna run build --include-dependencies
-      - run: lerna run test --concurrency=1 --include-dependents
-
-  test-windows:
-    runs-on: windows-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
+      - name: Fetch all history for all tags and branches to compare
+        run: git fetch
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -34,5 +20,25 @@ jobs:
           cache: 'npm'
 
       - run: npm ci --ignore-scripts --audit=false --fund=false
-      - run: lerna run build --include-dependencies
-      - run: lerna run test --concurrency=1 --include-dependents
+      - run: lerna run build --include-dependencies --since origin/main
+      - run: lerna run test --include-dependents --since origin/main
+
+  # test-windows:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v2
+
+  #     - name: Fetch all history for all tags and branches to compare
+  #       run: git fetch
+
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         # NPM 7 is compatible with Node.js 15 or above
+  #         node-version: 15.x
+  #         cache: 'npm'
+
+  #     - run: npm ci --ignore-scripts --audit=false --fund=false
+  #     - run: lerna run build --include-dependencies --since origin/main
+  #     - run: lerna run test --include-dependents --since origin/main
