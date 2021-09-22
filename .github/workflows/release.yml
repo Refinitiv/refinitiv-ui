@@ -25,14 +25,10 @@ jobs:
       - run: echo "Building... 🛠"
       - run: lerna run build --include-dependencies
 
-      # - run: echo "Tagging version... 🛠"
-      # - run: lerna version --conventional-commits
+      - run: echo "Tagging version... 🛠"
+      - run: lerna version from-package --conventional-commits
 
-      # - run: echo "Publishing... ✅"
-      # - run: lerna publish from-git --no-git-tag-version --no-push
-
-      - run: npm publish --dry-run
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: echo "Publishing... ✅"
+      - run: lerna publish from-git --no-git-tag-version --no-push
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
