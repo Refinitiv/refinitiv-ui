@@ -26,7 +26,7 @@ jobs:
       - run: lerna run build --include-dependencies
 
       - run: echo "Tagging version... 🛠"
-      - run: lerna version from-package --conventional-commits
+      - run: lerna version --conventional-commits
 
       - run: echo "Publishing... ✅"
       - run: lerna publish from-git --no-git-tag-version --no-push

@@ -9,6 +9,9 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
+      - name: Fetch all history for all tags and branches to compare
+        run: git fetch
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -17,8 +20,8 @@ jobs:
           cache: 'npm'
 
       - run: npm ci --ignore-scripts --audit=false --fund=false
-      - run: lerna run build --include-dependencies
-      - run: lerna run test --concurrency=1 --include-dependents
+      - run: lerna run build --include-dependencies --since origin/main
+      - run: lerna run test --include-dependents --since origin/main
 
   test-windows:
     runs-on: windows-latest
@@ -26,6 +29,9 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
+      - name: Fetch all history for all tags and branches to compare
+        run: git fetch
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -34,5 +40,5 @@ jobs:
           cache: 'npm'
 
       - run: npm ci --ignore-scripts --audit=false --fund=false
-      - run: lerna run build --include-dependencies
-      - run: lerna run test --concurrency=1 --include-dependents
+      - run: lerna run build --include-dependencies --since origin/main
+      - run: lerna run test --include-dependents --since origin/main
