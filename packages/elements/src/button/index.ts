@@ -34,21 +34,6 @@ export class Button extends ControlElement {
   }
 
   /**
-   * A `CSSResult` that will be used
-   * to style the host, slotted children
-   * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
-   */
-  static get styles (): CSSResult | CSSResult[] {
-    return css`
-      :host(:not(:hover)) #hover-icon,
-      :host(:hover) [part=icon]:not(#hover-icon) {
-        display: none;
-      }
-    `;
-  }
-
-  /**
    * Customises text alignment when specified alongside `icon` property
    * Value can be `before` or `after`
    */
@@ -230,8 +215,7 @@ export class Button extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-      ${this.iconTemplate}
-      ${this.hoverIconTemplate}
+      ${this.hoverIcon ? html`${this.iconTemplate} ${this.hoverIconTemplate}` : this.iconTemplate}
       <span part="label">
         <slot @slotchange="${this.onDefaultSlotChangeHandler}"></slot>
       </span>
