@@ -20,8 +20,8 @@ jobs:
           cache: 'npm'
 
       - run: npm ci --ignore-scripts --audit=false --fund=false
-      - run: lerna run build --include-dependencies --since origin/main
-      - run: lerna run test --include-dependents --since origin/main
+      - run: lerna run build --include-dependencies --since origin/main...HEAD
+      - run: lerna run test --include-dependents --since origin/main...HEAD
 
   # test-windows:
   #   runs-on: windows-latest
@@ -40,5 +40,5 @@ jobs:
   #         cache: 'npm'
 
   #     - run: npm ci --ignore-scripts --audit=false --fund=false
-  #     - run: lerna run build --include-dependencies --since origin/main
-  #     - run: lerna run test --include-dependents --since origin/main
+  #     - run: lerna run build --include-dependencies --since origin/main...HEAD
+  #     - run: lerna run test --include-dependents --since origin/main...HEAD
