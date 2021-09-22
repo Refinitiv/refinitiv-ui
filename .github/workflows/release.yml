@@ -26,7 +26,7 @@ jobs:
       - run: npm ci --ignore-scripts --audit=false --fund=false
 
       - run: echo "Building... 🛠"
-      - run: lerna run build --include-dependencies --since origin/main
+      - run: lerna run build --include-dependencies --since origin/main...HEAD
 
       - run: echo "Tagging version... ⓥ"
       - run: lerna version --conventional-commits
