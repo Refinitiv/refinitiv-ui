@@ -14,6 +14,8 @@ import { VERSION } from '../';
 import '../icon';
 import { registerOverflowTooltip } from '../tooltip';
 
+// fix
+
 type SelectionIndex = number | null;
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
