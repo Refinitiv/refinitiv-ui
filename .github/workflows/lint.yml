@@ -9,10 +9,12 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags. Pulls all commits (needed for Lerna)
           fetch-depth: 0
 
-      - name: Fetch all history for all tags and branches to compare
-        run: git fetch
+      # Pulls all git tags (needed for Lerna)
+      # - name: Fetching git tags
+      #   run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -20,6 +22,14 @@ jobs:
           # NPM 7 is compatible with Node.js 15 or above
           node-version: 15.x
           cache: 'npm'
+
+      - run: echo "Detecting changed packages..."
+      - run: lerna changed
+
       - run: npm ci --ignore-scripts --audit=false --fund=false
+
+      - run: echo "Building... 🛠"
       - run: lerna run build --include-dependencies --since origin/main...HEAD
+
+      - run: echo "Linting... 🧾"
       - run: lerna run lint --include-dependents --since origin/main...HEAD

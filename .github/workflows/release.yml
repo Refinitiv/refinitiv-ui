@@ -13,10 +13,13 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
           fetch-depth: 0
 
-      - name: Fetch all history for all tags and branches to compare
-        run: git fetch
+      # Pulls all git tags (needed for Lerna)
+      # - name: Fetching git tags
+      #   run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -29,6 +32,9 @@ jobs:
 
       - run: echo "Building... 🛠"
       - run: lerna run build --include-dependencies --since origin/main...HEAD
+
+      - run: echo "Detecting changed packages..."
+      - run: lerna changed
 
       - run: echo "Tagging version... ⓥ"
       - run: lerna version --conventional-commits
