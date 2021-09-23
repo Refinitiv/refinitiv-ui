@@ -16,23 +16,22 @@
     flex: 1 1 auto;
   }
 
-  .desktop-specific({
-    &:hover #icon {
+  &[hover-icon] {
+    #hover-icon {
       display: none;
     }
-    &:not(:hover) #hover-icon {
-      display: none;
-    }
-  });
 
-  .mobile-specific({
-    &:hover #icon[icon] {
-      display: block;
+    &:hover {
+      .desktop-specific({
+        #icon {
+          display: none;
+        }
+        #hover-icon {
+          display: block;
+        }
+      });
     }
-    &:hover #hover-icon {
-      display: none;
-    }
-  });
+  }
 
   .button-defaults;
   .touch-action();
