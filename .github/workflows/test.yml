@@ -1,0 +1,29 @@
+name: Test
+on:
+  pull_request:
+    branches: [develop]
+jobs:
+  test-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15.x
+          cache: 'npm'
+
+      # Detecting changed packages...
+      - run: lerna changed
+
+      - run: npm ci --ignore-scripts --audit=false --fund=false
+
+      - run: lerna run build --include-dependencies --since origin/develop...HEAD
+
+      - run: lerna run test --include-dependents --since origin/develop...HEAD
