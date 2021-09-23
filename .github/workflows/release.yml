@@ -32,6 +32,6 @@ jobs:
       - run: lerna version --conventional-commits
 
       - run: echo "Publishing... ✅"
-      - run: lerna publish from-git --no-git-tag-version --no-push
+      - run: lerna publish from-package --no-git-tag-version --no-push
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
