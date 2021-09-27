@@ -25,14 +25,12 @@ jobs:
           git config --global user.email "RefinitivUIDev@refinitiv.com"
           git config --global user.name "refinitiv-ui-dev"
 
-      - run: lerna changed
-
       - run: npm ci --ignore-scripts --audit=false --fund=false
 
-      - run: lerna run build --include-dependencies --since
+      - run: lerna run build
 
       - run: lerna version --conventional-commits --yes
 
-      - run: lerna publish from-package --yes
+      - run: lerna publish --force-publish @refinitiv-ui/solar-theme,@refinitiv-ui/halo-theme,@refinitiv-ui/demo-block,@refinitiv-ui/elements,@refinitiv-ui/elemental-theme patch --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
