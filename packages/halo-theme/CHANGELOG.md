@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.2.0...@refinitiv-ui/halo-theme@5.2.1) (2021-09-27)
+
+
+### Bug Fixes
+
+* **toggle:** fix reflect label attribute ([4878f4e](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/4878f4ee38f774420eb2641e1879461bc9f3356a))
+
+
+
+
+
 # [5.2.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.1.0...@refinitiv-ui/halo-theme@5.2.0) (2021-09-15)
 
 
