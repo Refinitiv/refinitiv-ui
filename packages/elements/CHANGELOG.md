@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.3.0...@refinitiv-ui/elements@5.3.1) (2021-09-27)
+
+
+### Bug Fixes
+
+* **button:** remove hover-icon template if hover-icon is not specified ([6459a18](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/6459a18cf6d3d08d79831c35586fa3bc132155b0))
+* **swing-gauge:** label container overflow ([c1760ca](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/c1760cad4dc5426ef473f4a2a45b868e443c8818))
+* **toggle:** fix reflect label attribute ([4878f4e](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/commits/4878f4ee38f774420eb2641e1879461bc9f3356a))
+
+
+
+
+
 # [5.3.0](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.2.1...@refinitiv-ui/elements@5.3.0) (2021-09-15)
 
 
