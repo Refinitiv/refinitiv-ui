@@ -19,8 +19,6 @@ jobs:
           node-version: 15.x
           cache: 'npm'
 
-      - run: lerna changed
-
       - run: npm ci --ignore-scripts --audit=false --fund=false
 
       - run: lerna run build --include-dependencies --since origin/develop...HEAD
