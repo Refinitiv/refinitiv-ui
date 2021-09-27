@@ -20,13 +20,19 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
 
-      # Detecting changed packages...
+      - name: Configure Git User
+        run: |
+          git config --global user.email "RefinitivUIDev@refinitiv.com"
+          git config --global user.name "refinitiv-ui-dev"
+
       - run: lerna changed
 
       - run: npm ci --ignore-scripts --audit=false --fund=false
 
       - run: lerna run build --include-dependencies --since origin/main...HEAD
 
-      # - run: lerna version --conventional-commits
+      - run: lerna version --conventional-commits --yes
 
-      # - run: lerna publish from-package --no-git-tag-version --no-push
+      - run: lerna publish from-package --yes
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

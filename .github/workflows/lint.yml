@@ -19,7 +19,6 @@ jobs:
           node-version: 15.x
           cache: 'npm'
 
-      # Detecting changed packages...
       - run: lerna changed
 
       - run: npm ci --ignore-scripts --audit=false --fund=false
