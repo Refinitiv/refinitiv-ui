@@ -19,24 +19,34 @@
 </script>
 <script type="module">
   const makeData = (config = {}) => {
-    return window.countries.reduce((countries, _, i) => {
-      const lastItem = countries[countries.length - 1];
-      if (!lastItem || lastItem.label[0] !== _.label[0]) {
-        countries.push({
-          type: 'header',
-          label: `${_.label[0]}`
-        });
-      }
-      countries.push({
+    if (config.selectionTooltip) {
+      return Array(1001).fill(0).map((_, i) => ({
         type: 'text',
-        label: _.label,
-        value: _.value,
-        selected: config.selected || config.selected === undefined ? i === 109 || (config.multiple && i === 1) : false,
-        disabled: config.disabled === undefined ? i % 10 === 7 : false,
-        hidden: config.hidden === undefined ? i % 50 === 49 : false
-      });
-      return countries;
-    }, []);
+        label: `Item number ${i + 1}`,
+        value: (i + 1).toString(),
+        selected: true
+      }));
+    }
+    else {
+      return window.countries.reduce((countries, _, i) => {
+        const lastItem = countries[countries.length - 1];
+        if (!lastItem || lastItem.label[0] !== _.label[0]) {
+          countries.push({
+            type: 'header',
+            label: `${_.label[0]}`
+          });
+        }
+        countries.push({
+          type: 'text',
+          label: _.label,
+          value: _.value,
+          selected: config.selected || config.selected === undefined ? i === 109 || (config.multiple && i === 1) : false,
+          disabled: config.disabled === undefined ? i % 10 === 7 : false,
+          hidden: config.hidden === undefined ? i % 50 === 49 : false
+        });
+        return countries;
+      }, []);
+    }
   };
   window.makeData = makeData;
 
@@ -55,6 +65,10 @@
       case 'multiple':
         el.data = makeData({ multiple: true });
         break;
+      case 'selection-tooltip':
+        el.data = makeData({ selectionTooltip: true });
+        break;
+
       default:
         el.data = makeData();
         break;
@@ -71,7 +85,12 @@
 </demo-block>
 
 <demo-block header="Multiple" layout="normal" tags="multiple selection">
-  <ef-combo-box id="multiple" multiple></ef-combo-box>
+  <p>
+    <ef-combo-box id="multiple" multiple></ef-combo-box>
+  </p>
+  <p>
+    <ef-combo-box id="selection-tooltip" multiple></ef-combo-box>
+  </p>  
 </demo-block>
 
 <demo-block header="Empty" layout="normal" tags="empty">

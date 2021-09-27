@@ -302,15 +302,12 @@
     transparent=""
   >
   </ef-text-field>
-  <ef-pill
-    aria-disabled="false"
-    aria-readonly="true"
+  <ef-counter
+    max="999"
     part="selection-badge"
-    readonly=""
     tabindex="-1"
   >
-    2
-  </ef-pill>
+  </ef-counter>
   <div
     id="toggle-button"
     part="button button-toggle"

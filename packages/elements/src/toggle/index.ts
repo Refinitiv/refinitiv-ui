@@ -11,6 +11,17 @@ import {
 import { VERSION } from '../';
 
 /**
+ * Return the attribute that converted from the property
+ * Prevent empty string that reflected to attribute
+ * @private
+ * @param value value from the property
+ * @returns string converted to attribute
+ */
+const emptyStringToNull = function (value: string): string | null {
+  return value || null;
+};
+
+/**
  * Form control that can toggle between 2 states
  *
  * @attr {boolean} readonly - Set readonly state
@@ -37,13 +48,22 @@ export class Toggle extends ControlElement {
   /**
    * Label of toggle checked
    */
-  @property({ type: String, attribute: 'checked-label' })
+  @property({
+    type: String,
+    attribute: 'checked-label',
+    reflect: true,
+    converter: { toAttribute: emptyStringToNull }
+  })
   public checkedLabel = '';
 
   /**
    * Label of toggle
    */
-  @property({ type: String })
+  @property({
+    type: String,
+    reflect: true,
+    converter: { toAttribute: emptyStringToNull }
+  })
   public label = '';
 
   /**

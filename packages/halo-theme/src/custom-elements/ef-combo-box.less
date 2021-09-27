@@ -116,7 +116,11 @@
   }
 
   [part=selection-badge] {
-    height: 17px;
+    height: 16px;
     min-width: 20px;
+    &:hover {
+      background-color: @button-hover-background-color;
+      color: @global-text-selection-color;
+    }
   }
 }

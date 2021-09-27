@@ -17,6 +17,33 @@ describe('toggle/Toggle', () => {
     });
   });
 
+  describe('Reflect attribute', () => {
+    it('Label', async () => {
+      const el = await fixture('<ef-toggle></ef-toggle>');
+      const label = 'OFF';
+      el.label = label;
+      await elementUpdated(el);
+
+      expect(el.getAttribute('label')).to.equal(label);
+    });
+    it('CheckedLabel', async () => {
+      const el = await fixture('<ef-toggle></ef-toggle>');
+      const checkedLabel = 'ON';
+      el.checkedLabel = checkedLabel;
+      await elementUpdated(el);
+
+      expect(el.getAttribute('checked-label')).to.equal(checkedLabel);
+    });
+    it('Checked', async () => {
+      const el = await fixture('<ef-toggle></ef-toggle>');
+      const checked = true;
+      el.checked = checked;
+      await elementUpdated(el);
+
+      expect(el.getAttribute('checked')).to.equal('');
+    });
+  });
+
   describe('Checked', () => {
     it('Should be unchecked by default', async () => {
       const el = await fixture('<ef-toggle></ef-toggle>');

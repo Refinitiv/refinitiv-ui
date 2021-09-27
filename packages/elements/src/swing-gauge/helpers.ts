@@ -106,7 +106,7 @@ const draw = (
   ctx.arc(
     data.width / 2,
     data.height,
-    data.size * data.gaugeUpperBound - style.strokeWidth / 2,
+    data.size * data.gaugeUpperBound,
     0,
     2 * Math.PI
   );
