@@ -1,14 +1,14 @@
 import {
   html,
   css,
-  customElement,
-  property,
   PropertyValues,
   TemplateResult,
   CSSResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import { Collapse } from '../collapse';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
+import { Collapse } from '../collapse/index.js';
 
 /**
  * Finds closest accordion parent of element.

@@ -2,17 +2,17 @@ import {
   ControlElement,
   css,
   CSSResult,
-  customElement,
   html,
-  property,
   PropertyValues,
-  query,
   TapEvent,
   TemplateResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
 
-import '../icon';
+import '../icon/index.js';
 
 /**
  * A small button style component

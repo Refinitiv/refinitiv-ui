@@ -1,4 +1,4 @@
-import { ColorHelpers } from './color-helpers';
+import { ColorHelpers } from './color-helpers.js';
 
 /**
  * A helper model in order to keep and update values between RGB and HEX

@@ -2,16 +2,16 @@ import {
   BasicElement,
   svg,
   css,
-  customElement,
-  property,
   CSSResult,
-  unsafeHTML,
   TemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import { IconLoader } from './utils/IconLoader';
-export { preload } from './utils/IconLoader';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { unsafeHTML } from '@refinitiv-ui/core/lib/directives/unsafe-html.js';
+import { VERSION } from '../version.js';
+import { IconLoader } from './utils/IconLoader.js';
+export { preload } from './utils/IconLoader.js';
 
 const EmptyTemplate = svg``;
 

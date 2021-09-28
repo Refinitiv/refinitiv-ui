@@ -1,11 +1,11 @@
 import {
   BasicElement,
-  property,
   svg,
-  SVGTemplateResult,
-  query
+  SVGTemplateResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../../';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../../version.js';
 
 /**
  * Element base class usually used

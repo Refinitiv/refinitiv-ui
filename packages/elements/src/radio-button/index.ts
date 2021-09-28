@@ -1,24 +1,24 @@
 import {
   html,
   css,
-  customElement,
-  property,
   CSSResult,
   ControlElement,
   TemplateResult,
   PropertyValues,
-  query,
   TapEvent
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
 import {
   registerOverflowTooltip
-} from '../tooltip';
+} from '../tooltip/index.js';
 import {
   applyRegistry,
   removeFromRegistry,
   getRadioGroup
-} from './radio-button-registry';
+} from './radio-button-registry.js';
 
 /**
  * Basic radio button

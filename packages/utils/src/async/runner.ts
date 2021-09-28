@@ -1,4 +1,4 @@
-import { Task, TaskClass, TaskCallback } from './task';
+import { Task, TaskClass, TaskCallback } from './task.js';
 
 
 

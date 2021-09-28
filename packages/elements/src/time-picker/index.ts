@@ -2,15 +2,14 @@ import {
   ControlElement,
   html,
   css,
-  query,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import '../number-field';
-import { NumberField } from '../number-field';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
 import {
   isValidTime,
   toTimeSegment,
@@ -24,8 +23,9 @@ import {
   MILLISECONDS_IN_HOUR,
   addOffset,
   padNumber
-} from '@refinitiv-ui/utils';
-import { VERSION } from '../';
+} from '@refinitiv-ui/utils/lib/date.js';
+import '../number-field/index.js';
+import type { NumberField } from '../number-field';
 
 enum Segment {
   HOURS = 'hours',

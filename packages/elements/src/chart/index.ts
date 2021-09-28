@@ -2,25 +2,22 @@ import {
   BasicElement,
   html,
   css,
-  query,
-  customElement,
-  property,
   PropertyValues,
   TemplateResult,
   CSSResult
 } from '@refinitiv-ui/core';
-import { color as parseColor } from '@refinitiv-ui/utils';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import { color as parseColor } from '@refinitiv-ui/utils/lib/color.js';
 import 'chart.js/dist/Chart.bundle.min.js';
-
-import { Header } from '../header';
-import '../header';
-import '../layout';
 
 import {
   legendHelper,
   merge,
   MergeObject
-} from './helpers';
+} from './helpers/index.js';
 import type {
   ChartJS,
   ChartConfig,
@@ -29,9 +26,12 @@ import type {
   DatasetColors
 } from './helpers/types';
 
+import type { Header } from '../header';
+import '../header/index.js';
+import '../layout/index.js';
+
 // Register plugins
-import doughnutCenterPlugin from './plugins/doughnut-center-label';
-import { VERSION } from '../';
+import doughnutCenterPlugin from './plugins/doughnut-center-label.js';
 
 declare global {
   interface Window {

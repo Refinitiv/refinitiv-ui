@@ -2,25 +2,24 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
-  query,
-  state,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { isSlotEmpty } from '@refinitiv-ui/utils';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
+import { VERSION } from '../version.js';
+import { isSlotEmpty } from '@refinitiv-ui/utils/lib/is-slot-empty.js';
+import type { Button } from '../button';
+import type { OverlayMenu, OverlayMenuData } from '../overlay-menu';
+import type { CardConfig } from './helpers/types';
+import '../label/index.js';
+import '../button/index.js';
+import '../overlay-menu/index.js';
 
-import '../label';
-import '../button';
-import { Button } from '../button';
-import '../overlay-menu';
-import { OverlayMenu, OverlayMenuData } from '../overlay-menu';
-import { CardConfig } from './helpers/types';
-import { VERSION } from '../';
-
-export { CardConfig };
+export type { CardConfig };
 
 /**
  * A card frame component.

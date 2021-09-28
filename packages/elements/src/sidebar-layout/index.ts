@@ -2,17 +2,17 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
-  PropertyValues,
-  ifDefined,
-  query
+  PropertyValues
 } from '@refinitiv-ui/core';
-import { Layout } from '../layout';
-import '../layout';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import type { Layout } from '../layout';
+import '../layout/index.js';
 
 /**
  * Provides an app layout with sidebar.

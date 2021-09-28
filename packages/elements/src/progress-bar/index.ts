@@ -1,15 +1,15 @@
 import {
   css,
   html,
-  property,
-  customElement,
-  styleMap,
   CSSResult,
   TemplateResult,
   BasicElement,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
+import { VERSION } from '../version.js';
 
 /**
  * Data visualisation component,

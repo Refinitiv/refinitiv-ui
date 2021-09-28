@@ -2,17 +2,17 @@ import {
   ControlElement,
   css,
   CSSResult,
-  customElement,
   html,
-  property,
   PropertyValues,
-  TemplateResult,
-  query
+  TemplateResult
 } from '@refinitiv-ui/core';
-import '../icon';
-import '../checkbox';
-import { ItemType } from './helpers/types';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import type { ItemType } from './helpers/types';
+import '../icon/index.js';
+import '../checkbox/index.js';
 
 export * from './helpers/types';
 

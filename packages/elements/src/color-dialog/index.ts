@@ -1,33 +1,29 @@
 import {
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
   PropertyValues,
-  WarningNotice,
-  styleMap,
-  query
+  WarningNotice
 } from '@refinitiv-ui/core';
-import { translate, Translate } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/lib/locale/en/color-dialog';
-
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
+import { VERSION } from '../version.js';
 import type { NumberField } from '../number-field';
 import type { TextField } from '../text-field';
 import type { Palettes } from './elements/palettes';
-
-import '../button';
-import '../number-field';
-import '../text-field';
-import { Dialog } from '../dialog';
-
-import './elements/color-palettes';
-import './elements/grayscale-palettes';
-
-import { ColorHelpers } from './helpers/color-helpers';
-import { ValueModel } from './helpers/value-model';
-import { VERSION } from '../';
+import { ColorHelpers } from './helpers/color-helpers.js';
+import { ValueModel } from './helpers/value-model.js';
+import '../button/index.js';
+import '../number-field/index.js';
+import '../text-field/index.js';
+import { Dialog } from '../dialog/index.js';
+import './elements/color-palettes.js';
+import './elements/grayscale-palettes.js';
+import { translate, Translate } from '@refinitiv-ui/translate';
+import '@refinitiv-ui/phrasebook/lib/locale/en/color-dialog.js';
 
 /**
  * Displays a colour picker dialog,

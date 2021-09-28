@@ -1,7 +1,7 @@
-import { EventEmitter } from '../event/event-emitter';
-import { MicroTaskRunner } from '../async/micro-task-runner';
-import { CollectionItem } from './collection-item';
-import { flatten } from './flatten';
+import { EventEmitter } from '../event/event-emitter.js';
+import { MicroTaskRunner } from '../async/micro-task-runner.js';
+import { CollectionItem } from './collection-item.js';
+import { flatten } from './flatten.js';
 
 /**
  * Item which can be indexed by a string key

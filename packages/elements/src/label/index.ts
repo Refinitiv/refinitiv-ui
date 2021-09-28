@@ -2,14 +2,15 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
-  styleMap
+  CSSResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import { addTooltipCondition, removeTooltipCondition } from '../tooltip';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
+import { VERSION } from '../version.js';
+import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
+import { addTooltipCondition, removeTooltipCondition } from '../tooltip/index.js';
 
 /**
  * Configuration object
@@ -27,16 +28,10 @@ const observerOptions = {
 const _ = ' ';
 
 /**
- * Helper to check if the browser is IE
- * @returns True if the browser is IE
- */
-const isIE = () => !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
-
-/**
  * Determines if the browser is legacy or modern.
  */
 /* istanbul ignore next */
-const browserType = isIE() ? 'legacy' : 'modern';
+const browserType = isIE ? 'legacy' : 'modern';
 
 /**
  * Displays a text with alternative truncation
@@ -151,7 +146,7 @@ export class Label extends BasicElement {
     super.connectedCallback();
     addTooltipCondition(this.tooltipCondition, this.tooltipRenderer);
     this.mutationObserver.observe(this, observerOptions);
-    !isIE() && this.recalculate(); // In IE the mutation will trigger
+    !isIE && this.recalculate(); // In IE the mutation will trigger
   }
 
   /**

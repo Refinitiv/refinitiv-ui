@@ -3,12 +3,12 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
   StyleInfo
 } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 
 const Themes = [
   'elemental-theme/light',
@@ -127,7 +127,7 @@ export class DemoBlock extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version () {
+  static get version (): string {
     return 'PUBLISH_VERSION';
   }
 

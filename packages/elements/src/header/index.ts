@@ -2,12 +2,12 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
 
 /**
  * Use to identify and separate different sections of a page.

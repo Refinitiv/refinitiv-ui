@@ -1,10 +1,12 @@
-import { LitElement, property } from 'lit-element';
-import { ElementRegistry } from '../registries/ElementRegistry';
-import { FocusRegistry } from '../registries/FocusRegistry';
-import { ShadyCSS } from '../utils/shadyStyles';
-import { FocusableHelper } from '../utils/focusableHelper';
-import { StyleInfo } from '../interfaces/StyleInfo';
-import { CSSValue } from '../types/base';
+import type { StyleInfo } from '../interfaces/StyleInfo';
+import type { CSSValue } from '../types/base';
+import { LitElement, unsafeCSS, CSSResultArray } from 'lit';
+import { property } from '../decorators/property.js';
+import { ElementRegistry } from '../registries/ElementRegistry.js';
+import { FocusRegistry } from '../registries/FocusRegistry.js';
+import { ShadyCSS } from '../utils/shadyStyles.js';
+import { FocusableHelper } from '../utils/focusableHelper.js';
+import { BasicElementSymbol } from '../utils/helpers.js';
 
 const CSS_VARIABLE_REGEXP = /^--\w/;
 const CSS_VARIABLE_REPLACE_REGEXP = /['"]([^'"]+?)['"]/g;
@@ -46,6 +48,23 @@ export abstract class BasicElement extends LitElement {
   public constructor () {
     super();
     ElementRegistry.create(this);
+  }
+
+  /**
+   * Apply theme styles
+   * @param theme Theme CSS
+   * @returns {void}
+   */
+  public static applyThemeStyles (theme: string): void {
+    const baseStyles = this.styles;
+    const themeStyles = unsafeCSS(theme);
+    const styles = ([] as CSSResultArray).concat(baseStyles ? [baseStyles, themeStyles] : themeStyles);
+    Object.defineProperty(this, 'styles', {
+      get () {
+        return styles;
+      }
+    });
+    this.elementStyles = this.finalizeStyles(this.styles);
   }
 
   /**
@@ -203,6 +222,11 @@ export abstract class BasicElement extends LitElement {
   public get tabbableElements (): HTMLElement[] {
     return FocusableHelper.getTabbableNodes(this);
   }
+
+  /**
+   * A symbol to check if an element is BasicElement
+   */
+  public static readonly [BasicElementSymbol] = BasicElementSymbol;
 
   /**
    * Placeholder for getting an element's version number

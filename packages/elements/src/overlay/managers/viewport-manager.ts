@@ -1,8 +1,8 @@
-import { AnimationTaskRunner } from '@refinitiv-ui/utils';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import type { OverlayViewport } from '../elements/overlay-viewport';
+import type { ViewAreaInfo } from '../helpers/types';
 import type { Overlay } from '../elements/overlay';
-import '../elements/overlay-viewport';
-import { OverlayViewport } from '../elements/overlay-viewport';
-import { ViewAreaInfo } from '../helpers/types';
+import '../elements/overlay-viewport.js';
 
 /**
   * Default values for area info

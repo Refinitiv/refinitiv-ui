@@ -2,26 +2,27 @@ import {
   ControlElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
-  styleMap,
   PropertyValues,
   MultiValue,
-  query,
   FocusedPropertyKey,
   StyleMap
 } from '@refinitiv-ui/core';
-import '../overlay';
-import { Item } from '../item';
-import '../item';
-import '../icon';
-import { CollectionComposer, TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils';
-import { Overlay } from '../overlay';
-import { SelectData, SelectDataItem } from './helpers/types';
-import { OpenedChangedEvent } from '../events';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
+import { VERSION } from '../version.js';
+import '../overlay/index.js';
+import '../item/index.js';
+import '../icon/index.js';
+import { Item } from '../item/index.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
+import { TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import type { Overlay } from '../overlay';
+import type { SelectData, SelectDataItem } from './helpers/types';
+import type { OpenedChangedEvent } from '../events';
 
 export { SelectData, SelectDataItem };
 

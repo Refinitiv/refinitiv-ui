@@ -2,19 +2,17 @@ import {
   ControlElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
   PropertyValues,
-  TapEvent,
-  query
+  TapEvent
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import '../icon';
-import {
-  registerOverflowTooltip
-} from '../tooltip';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import '../icon/index.js';
 
 /**
  * Form control for selecting one or several options

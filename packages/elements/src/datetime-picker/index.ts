@@ -2,46 +2,42 @@ import {
   ControlElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   MultiValue,
   PropertyValues,
   CSSResult,
-  query,
-  ifDefined,
   TapEvent,
   WarningNotice
 } from '@refinitiv-ui/core';
-import { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent } from '../events';
-import '../calendar';
-import '../icon';
-import '../overlay';
-import '../text-field';
-import '../time-picker';
-import { Icon } from '../icon';
-import { Calendar } from '../calendar';
-import {
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import type { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent } from '../events';
+import type {
   DatetimePickerDuplex,
   DatetimePickerFilter
 } from './types';
-import {
-  getDateFNSLocale
-} from './locales';
-
+import '../calendar/index.js';
+import '../icon/index.js';
+import '../overlay/index.js';
+import '../text-field/index.js';
+import '../time-picker/index.js';
+import type { Icon } from '../icon';
+import type { Calendar } from '../calendar';
 import {
   translate,
   TranslateDirective,
   getLocale,
   TranslatePropertyKey
 } from '@refinitiv-ui/translate';
-
 import {
-  format as inputFormat,
-  parse as inputParse,
-  isValid
-} from 'date-fns';
-
+  getDateFNSLocale
+} from './locales.js';
+import inputFormat from 'date-fns/esm/format/index.js';
+import inputParse from 'date-fns/esm/parse/index.js';
+import isValid from 'date-fns/esm/isValid/index.js';
 import {
   addMonths,
   subMonths,
@@ -53,23 +49,23 @@ import {
   DateTimeFormat,
   parse,
   format
-} from '@refinitiv-ui/utils';
+} from '@refinitiv-ui/utils/lib/date.js';
 
 import {
   DateTimeSegment,
   formatToView,
   getCurrentTime
-} from './utils';
+} from './utils.js';
 
-import { preload } from '../icon';
-import { TimePicker } from '../time-picker';
-import { TextField } from '../text-field';
-import { Overlay } from '../overlay';
-import { VERSION } from '../';
+import { preload } from '../icon/index.js';
+import type { TimePicker } from '../time-picker';
+import type { TextField } from '../text-field';
+import type { Overlay } from '../overlay';
+
 
 preload('calendar', 'down', 'left', 'right'); /* preload calendar icons for faster loading */
 
-export {
+export type {
   DatetimePickerFilter,
   DatetimePickerDuplex
 };

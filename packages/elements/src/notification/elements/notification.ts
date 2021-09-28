@@ -2,15 +2,15 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../../version.js';
 
-import '../../icon';
+import '../../icon/index.js';
 
 /**
  * Used to show informative content when something happens in the application

@@ -2,15 +2,14 @@ import {
   ResponsiveElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
   ElementSize
 } from '@refinitiv-ui/core';
-import { VERSION } from '../../';
-
-import'./tornado-item';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../../version.js';
+import './tornado-item.js';
 import type { TornadoItem } from'./tornado-item';
 
 /**

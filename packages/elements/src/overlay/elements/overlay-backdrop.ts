@@ -1,15 +1,15 @@
 import {
   BasicElement,
   css,
-  customElement,
   CSSResult,
-  property,
   TemplateResult,
   html
 } from '@refinitiv-ui/core';
-import { VERSION } from '../../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../../version.js';
 
-import {
+import type {
   NullOrUndefined
 } from '../helpers/types';
 

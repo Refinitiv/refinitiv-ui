@@ -1,6 +1,6 @@
-import { ElementRegistry } from '../registries/ElementRegistry';
-import { ElementConstructor } from '../interfaces/ElementConstructor';
-import { CustomStyleRegistry } from '../registries/CustomStyleRegistry';
+import type { ElementConstructor } from '../interfaces/ElementConstructor';
+import { ElementRegistry } from '../registries/ElementRegistry.js';
+import { CustomStyleRegistry } from '../registries/CustomStyleRegistry.js';
 
 interface ElementOptions {
   /**
@@ -29,7 +29,7 @@ type DecoratorFunction = (target: ElementConstructor) => void;
  * @param options element registration options
  * @returns Element registration decorator
  */
-export const CustomElement = function (name: string, options: ElementOptions = defaultOptions): DecoratorFunction {
+export const customElement = function (name: string, options: ElementOptions = defaultOptions): DecoratorFunction {
   options = { ...defaultOptions, ...options };
   return (target: ElementConstructor): void => {
     ElementRegistry.define(name, target, {

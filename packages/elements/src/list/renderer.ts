@@ -1,5 +1,5 @@
-import { ExtensibleFunction } from './extensible-function';
-import { DataItem, CollectionComposer } from '@refinitiv-ui/utils';
+import { ExtensibleFunction } from './extensible-function.js';
+import type { DataItem, CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
 
 /**
  * Render function interface

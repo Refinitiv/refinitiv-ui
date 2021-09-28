@@ -1,13 +1,13 @@
 import {
   BasicElement,
   html,
-  customElement,
-  property,
   CSSResult,
   css,
   TemplateResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
 
 /**
  * A container for components.

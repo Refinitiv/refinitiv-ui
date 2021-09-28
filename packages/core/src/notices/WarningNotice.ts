@@ -1,4 +1,4 @@
-import { Notice } from './Notice';
+import { Notice } from './Notice.js';
 
 /**
  * **Warning Notice**\

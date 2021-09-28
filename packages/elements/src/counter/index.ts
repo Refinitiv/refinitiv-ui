@@ -2,18 +2,17 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   WarningNotice,
   TemplateResult,
   CSSResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
 import {
   truncateDecimal,
   convertToCompactNotation
-} from './utils';
+} from './utils.js';
 
 /**
  * Counter is an item count badge,
@@ -130,12 +129,12 @@ export class Counter extends BasicElement {
     const countValue = truncateDecimal(value);
     const maxValue = this.max ? truncateDecimal(this.max) : Infinity;
 
-    
+
     // Format value if value greater than max
     // If max is null, it will show the value
     return countValue > maxValue ? `${convertToCompactNotation(maxValue)}+` : convertToCompactNotation(countValue);
   }
-  
+
   /**
    * A `CSSResult` that will be used
    * to style the host, slotted children

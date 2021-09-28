@@ -1,28 +1,29 @@
 import {
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
   PropertyValues,
   TapEvent,
-  ifDefined,
   WarningNotice
 } from '@refinitiv-ui/core';
-import { AnimationTaskRunner, CollectionComposer } from '@refinitiv-ui/utils';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
+import { uuid } from '@refinitiv-ui/utils/lib/uuid.js';
 
-import '../icon';
-import '../item';
-import { Item, ItemData } from '../item';
-import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay';
+import '../icon/index.js';
+import '../item/index.js';
+import { Item, ItemData } from '../item/index.js';
+import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay/index.js';
 
-import { getId } from './helpers/uuid';
-import { OverlayMenuData } from './helpers/types';
-import { OpenedMenusManager } from './managers/menu-manager';
-import { VERSION } from '../';
+import type { OverlayMenuData } from './helpers/types';
+import { OpenedMenusManager } from './managers/menu-manager.js';
 
-export { OverlayMenuData };
+export type { OverlayMenuData };
 
 /**
  * Overlay that supports single-level and multi-level menus
@@ -937,7 +938,7 @@ export class OverlayMenu extends Overlay {
     menu.transitionStyle = this.transitionStyle;
     menu.noCancelOnOutsideClick = true;
     menu.compact = this.compact;
-    menu.id = getId();
+    menu.id = uuid();
     return menu;
   }
 

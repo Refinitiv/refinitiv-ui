@@ -2,16 +2,17 @@ import {
   ResponsiveElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
   PropertyValues,
   ElementSize,
-  query,
   DeprecationNotice
 } from '@refinitiv-ui/core';
-import { color as parseColor, RGBColor, HSLColor } from '@refinitiv-ui/utils';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import { color as parseColor, RGBColor, HSLColor } from '@refinitiv-ui/utils/lib/color.js';
 import {
   createChart as chart,
   IChartApi,
@@ -29,9 +30,8 @@ import {
   HistogramSeriesOptions,
   BarPrices
 } from 'lightweight-charts';
-import { VERSION } from '../';
 
-import '../tooltip';
+import '../tooltip/index.js';
 
 import type {
   InteractiveChartConfig,
@@ -45,10 +45,10 @@ import type {
   ColorToStringFunction
 } from './helpers/types';
 
-import { LegendStyle } from './helpers/types';
-import { merge, MergeObject } from './helpers/merge';
+import { LegendStyle } from './helpers/types.js';
+import { merge, MergeObject } from './helpers/merge.js';
 
-export {
+export type {
   InteractiveChartConfig,
   InteractiveChartSeries,
   LegendStyle

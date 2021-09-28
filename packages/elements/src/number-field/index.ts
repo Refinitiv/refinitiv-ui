@@ -2,18 +2,18 @@ import {
   ControlElement,
   html,
   css,
-  query,
-  ifDefined,
-  property,
-  customElement,
   CSSResult,
   TemplateResult,
   PropertyValues,
   FocusedPropertyKey,
   TapEvent
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import '../icon';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import '../icon/index.js';
 
 const NUMBER_PATTERN = '^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$';
 const DEFAULT_STEP_BASE = 1;

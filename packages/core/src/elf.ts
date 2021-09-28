@@ -1,55 +1,24 @@
-/**
- * Export all from lit-element
- * Named export is done to avoid ambiguity with same name re-export of:
- * - LitElement
- * - customElement
- * Add re-exported modules if something is missing.
- */
 export {
+  html,
+  svg,
+  css
+} from 'lit';
+
+export type {
+  TemplateResult,
+  SVGTemplateResult,
   CSSResult,
   PropertyValues,
-  ReactiveElement,
-  SVGTemplateResult,
-  TemplateResult,
-  UpdatingElement,
-  css,
-  eventOptions,
-  html,
-  internalProperty,
-  notEqual,
-  property,
-  query,
-  queryAll,
-  queryAsync,
-  queryAssignedNodes,
-  state,
-  svg,
-  supportsAdoptingStyleSheets,
-  unsafeCSS
-} from 'lit-element';
-
-/**
- * Export directives from lit-html
- * todo: asyncAppend/Replace breaks build
- */
-// export { asyncAppend } from 'lit-html/directives/async-append';
-// export { asyncReplace } from 'lit-html/directives/async-replace';
-export { cache } from 'lit-html/directives/cache';
-export { classMap } from 'lit-html/directives/class-map';
-export { guard } from 'lit-html/directives/guard';
-export { ifDefined } from 'lit-html/directives/if-defined';
-export { repeat } from 'lit-html/directives/repeat';
-export { styleMap } from 'lit-html/directives/style-map';
-export { unsafeHTML } from 'lit-html/directives/unsafe-html';
-export { until } from 'lit-html/directives/until';
+  ReactiveElement
+} from 'lit';
 
 /**
  * Export element base classes
  */
-import { BasicElement } from './elements/BasicElement';
+import { BasicElement } from './elements/BasicElement.js';
 export { BasicElement };
-export { ControlElement } from './elements/ControlElement';
-export { ResponsiveElement, ElementSize, ResizeEvent } from './elements/ResponsiveElement';
+export { ControlElement } from './elements/ControlElement.js';
+export { ResponsiveElement, ElementSize, ResizeEvent } from './elements/ResponsiveElement.js';
 export class LitElement extends BasicElement {
   constructor () {
     /* eslint-disable-next-line no-console */
@@ -63,45 +32,36 @@ export class LitElement extends BasicElement {
  * These can be used to show warning messages in the console.
  * For example, when deprecated features are used in elements.
  */
-export { WarningNotice } from './notices/WarningNotice';
-export { DeprecationNotice } from './notices/DeprecationNotice';
-
-/**
- * Export Custom Element decorator
- * Use this to register elements into the registry.
- * Overrides customElement decorator from lit-element export.
- * @override
- */
-import { CustomElement as customElement } from './decorators/CustomElement';
-export { customElement }; // We have to do this due to some transpilation issue (es-dev-server --> IE)
+export { WarningNotice } from './notices/WarningNotice.js';
+export { DeprecationNotice } from './notices/DeprecationNotice.js';
 
 /**
  * Export TapEvent
  */
-export { TapEvent } from './events/TapEvent';
+export { TapEvent } from './events/TapEvent.js';
 
 /**
  * Export common interfaces
  */
-export { MultiValue } from './interfaces/MultiValue';
-export { StyleMap } from './interfaces/StyleMap';
-export { StyleInfo } from './interfaces/StyleInfo';
+export type { MultiValue } from './interfaces/MultiValue';
+export type { StyleMap } from './interfaces/StyleMap';
+export type { StyleInfo } from './interfaces/StyleInfo';
 
 /**
  * Export useful utils
  */
-export { FocusableHelper } from './utils/focusableHelper';
-export { matches } from './utils/matches';
+export { FocusableHelper } from './utils/focusableHelper.js';
+export { matches } from './utils/matches.js';
 
 /**
  * Export focused key.
  * Used to observe `focused` attribute changes
  */
-export { FocusedPropertyKey } from './registries/FocusRegistry';
+export { FocusedPropertyKey } from './registries/FocusRegistry.js';
 
-import { CustomStyleRegistry } from './registries/CustomStyleRegistry';
-import { NativeStyleRegistry } from './registries/NativeStyleRegistry';
-import { global } from './utils/global';
+import { CustomStyleRegistry } from './registries/CustomStyleRegistry.js';
+import { NativeStyleRegistry } from './registries/NativeStyleRegistry.js';
+import { global } from './utils/global.js';
 
 global.elf = global.Elf = global.ELF = {
   customStyles: CustomStyleRegistry,

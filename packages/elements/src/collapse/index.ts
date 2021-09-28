@@ -2,17 +2,17 @@ import {
   BasicElement,
   css,
   CSSResult,
-  customElement,
   html,
-  property,
   PropertyValues,
-  query,
   TemplateResult
 } from '@refinitiv-ui/core';
-import '../header';
-import '../panel';
-import '../icon';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import '../header/index.js';
+import '../panel/index.js';
+import '../icon/index.js';
 
 /**
  * Allows users to hide non-critical information

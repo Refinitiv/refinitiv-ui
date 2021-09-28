@@ -2,29 +2,29 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
   PropertyValues,
-  query,
   matches
 } from '@refinitiv-ui/core';
-import { isSlotEmpty } from '@refinitiv-ui/utils';
-import '../overlay';
-import { OverlayTransitionStyle as TooltipTransitionStyle, Overlay, OverlayPosition } from '../overlay';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import { isSlotEmpty } from '@refinitiv-ui/utils/lib/is-slot-empty.js';
+import '../overlay/index.js';
+import type { OverlayTransitionStyle as TooltipTransitionStyle, Overlay, OverlayPosition } from '../overlay';
 
-import './elements/title-tooltip';
-import { register, deregister } from './managers/tooltip-manager';
+import './elements/title-tooltip.js';
+import { register, deregister } from './managers/tooltip-manager.js';
 import {
   TooltipCondition,
   TooltipRenderer,
   TooltipPosition,
   TooltipPositionMap
-} from './helpers/types';
-import { tooltipRenderer } from './helpers/renderer';
-import { register as registerOverflowTooltip } from './helpers/overflow-tooltip';
-import { VERSION } from '../';
+} from './helpers/types.js';
+import { tooltipRenderer } from './helpers/renderer.js';
+import { register as registerOverflowTooltip } from './helpers/overflow-tooltip.js';
 
 const TooltipPositionMap: TooltipPositionMap = {
   'auto': ['bottom-start', 'top-start'],
@@ -561,7 +561,7 @@ class Tooltip extends BasicElement {
   }
 }
 
-export * from './elements/tooltip-element';
+export * from './elements/tooltip-element.js';
 
 export {
   registerOverflowTooltip,

@@ -2,15 +2,14 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-
-import '../icon';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
+import '../icon/index.js';
 
 /**
  * Used to display at the top of application to provide a status or information.

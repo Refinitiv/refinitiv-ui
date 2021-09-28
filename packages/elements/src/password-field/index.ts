@@ -2,20 +2,20 @@ import {
   ControlElement,
   css,
   CSSResult,
-  customElement,
   html,
-  ifDefined,
-  property,
   PropertyValues,
-  query,
   TemplateResult
 } from '@refinitiv-ui/core';
-import { preload } from '../icon';
-import '../icon';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
+import { preload } from '../icon/index.js';
+import '../icon/index.js';
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
-const isIE = (/Trident/g).test(navigator.userAgent);
 let isEyeOffPreloadRequested = false;
 
 /**

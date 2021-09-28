@@ -1,20 +1,20 @@
 import {
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
   PropertyValues,
-  query,
   ResponsiveElement,
   ElementSize
 } from '@refinitiv-ui/core';
-import { Tab } from '../tab';
-import { tweenAnimate } from './helpers/animate';
-import { Button } from '../button';
-import '../button';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import type { Tab } from '../tab';
+import { tweenAnimate } from './helpers/animate.js';
+import type { Button } from '../button';
+import '../button/index.js';
 
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 

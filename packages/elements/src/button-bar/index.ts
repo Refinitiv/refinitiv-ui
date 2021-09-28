@@ -2,17 +2,16 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
-  query,
   PropertyValues,
   TapEvent
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-
-import { Button } from '../button';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
+import { Button } from '../button/index.js';
 
 /**
  * Used to display multiple buttons to create a list of commands bar.

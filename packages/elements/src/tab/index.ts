@@ -1,16 +1,16 @@
 import {
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
   ControlElement
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
 
-import '../icon';
-import '../label';
+import '../icon/index.js';
+import '../label/index.js';
 
 const isAllWhitespaceTextNode = (node: Node): boolean =>
   node.nodeType === document.TEXT_NODE

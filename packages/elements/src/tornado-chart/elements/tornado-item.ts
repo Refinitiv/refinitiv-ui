@@ -2,16 +2,15 @@ import {
   BasicElement,
   html,
   css,
-  property,
-  customElement,
   TemplateResult,
-  CSSResult,
-  ifDefined
+  CSSResult
 } from '@refinitiv-ui/core';
-
-import '../../progress-bar';
-import '../../layout';
-import { VERSION } from '../../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../../version.js';
+import '../../progress-bar/index.js';
+import '../../layout/index.js';
 
 /**
  * A part of <ef-tornado-chart />,

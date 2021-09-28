@@ -1,18 +1,19 @@
 import {
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
   PropertyValues,
   BasicElement,
-  ifDefined,
   WarningNotice,
-  query,
-  state,
   TapEvent
 } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
 
 import {
   MILLISECONDS_IN_SECOND,
@@ -22,7 +23,7 @@ import {
   TimeFormat,
   format,
   padNumber
-} from '@refinitiv-ui/utils';
+} from '@refinitiv-ui/utils/lib/date.js';
 
 import {
   HOURS_IN_DAY,
@@ -30,13 +31,12 @@ import {
   SECONDS_IN_DAY,
   SECONDS_IN_HOUR,
   SECONDS_IN_MINUTE
-} from './utils/timestamps';
+} from './utils/timestamps.js';
 
 import {
   register,
   deRegister
-} from './utils/TickManager';
-import { VERSION } from '../';
+} from './utils/TickManager.js';
 
 const UP = 'Up';
 const DOWN = 'Down';

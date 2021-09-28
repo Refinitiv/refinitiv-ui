@@ -1,4 +1,4 @@
-import { StyleInfo } from '../interfaces/StyleInfo';
+import type { StyleInfo } from '../interfaces/StyleInfo';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 declare namespace window.ShadyCSS {

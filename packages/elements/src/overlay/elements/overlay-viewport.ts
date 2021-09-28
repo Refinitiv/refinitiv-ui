@@ -1,12 +1,12 @@
 import {
   ResponsiveElement,
   css,
-  customElement,
   CSSResult,
   TemplateResult,
   html
 } from '@refinitiv-ui/core';
-import { VERSION } from '../../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { VERSION } from '../../version.js';
 
 /**
  * A private element to find overlay size boundaries

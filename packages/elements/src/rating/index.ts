@@ -2,15 +2,15 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
-  PropertyValues,
-  queryAll,
-  repeat
+  PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { queryAll } from '@refinitiv-ui/core/lib/decorators/query-all.js';
+import { repeat } from '@refinitiv-ui/core/lib/directives/repeat.js';
+import { VERSION } from '../version.js';
 interface ItemType {
   item: string;
 }

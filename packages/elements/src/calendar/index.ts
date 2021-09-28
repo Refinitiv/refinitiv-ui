@@ -2,17 +2,17 @@ import {
   ControlElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   CSSResult,
-  ifDefined,
   PropertyValues,
   MultiValue,
   WarningNotice
 } from '@refinitiv-ui/core';
-import '../button';
-
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
 import {
   DateSegment,
   DateFormat,
@@ -32,20 +32,14 @@ import {
   isSameMonth,
   isSameYear,
   toDateSegment
-} from '@refinitiv-ui/utils';
-
+} from '@refinitiv-ui/utils/lib/date.js';
 import {
-  monthInfo
-} from './utils';
-
-import './locales';
-import {
+  monthInfo,
   weekdaysNames,
   monthsNames,
   formatLocaleDate,
   ViewFormatTranslateParams
-} from './locales';
-
+} from './utils.js';
 import {
   translate,
   TranslateDirective,
@@ -53,9 +47,15 @@ import {
   getLocale,
   TranslatePropertyKey
 } from '@refinitiv-ui/translate';
-
 import {
   RenderView,
+  FIRST_DAY_OF_WEEK,
+  YEARS_PER_YEAR_VIEW,
+  DAY_VIEW,
+  YEAR_VIEW,
+  MONTH_VIEW
+} from './constants.js';
+import type {
   Cell,
   Row,
   Comparator,
@@ -63,33 +63,11 @@ import {
   CellSelectionModel,
   CellDivElement
 } from './types';
-import { VERSION } from '..';
+import './locales.js';
+import '../button/index.js';
 
-export {
+export type {
   CalendarFilter
-};
-
-const isIE = (/Trident/g).test(navigator.userAgent) || (/MSIE/g).test(navigator.userAgent);
-
-const FIRST_DAY_OF_WEEK = 0; // 0 for Sunday
-const YEARS_PER_YEAR_VIEW = 16; /* must be a square number */
-
-const DAY_VIEW = {
-  rowCount: 6,
-  columnCount: 7,
-  totalCount: 6 * 7
-};
-
-const YEAR_VIEW = {
-  rowCount: 4,
-  columnCount: 4,
-  totalCount: 4 * 4
-};
-
-const MONTH_VIEW = {
-  rowCount: 4,
-  columnCount: 4,
-  totalCount: 4 * 4
 };
 
 /**

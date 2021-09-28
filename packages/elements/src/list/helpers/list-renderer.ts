@@ -1,8 +1,7 @@
-import { CollectionComposer } from '@refinitiv-ui/utils';
-
-import '../../item';
-import { Item, ItemType, ItemData } from '../../item';
-import { Renderer } from '../renderer';
+import type { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
+import type { Item, ItemType, ItemData } from '../../item';
+import '../../item/index.js';
+import { Renderer } from '../renderer.js';
 
 /**
  * Basic render context

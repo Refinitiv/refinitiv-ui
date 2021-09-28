@@ -2,27 +2,24 @@ import {
   ControlElement,
   css,
   CSSResult,
-  customElement,
   html,
   MultiValue,
-  property,
-  query,
   TemplateResult,
-  ifDefined,
   PropertyValues
 } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
+import type { Pill } from '../pill';
+import type { TextField } from '../text-field';
+import type { MultiInputData, MultiInputDataItem, MultiInputEvents, SelectionIndex } from './helpers/types';
+import '../pill/index.js';
+import '../text-field/index.js';
 
-import { CollectionComposer } from '@refinitiv-ui/utils';
-
-import '../pill';
-import '../text-field';
-import { Pill } from '../pill';
-import { TextField } from '../text-field';
-
-import { MultiInputData, MultiInputDataItem, MultiInputEvents, SelectionIndex } from './helpers/types';
-import { VERSION } from '../';
-
-export { MultiInputData, MultiInputDataItem };
+export type { MultiInputData, MultiInputDataItem };
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
 

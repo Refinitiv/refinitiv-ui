@@ -2,24 +2,23 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
-  query,
   PropertyValues,
   TemplateResult,
   CSSResult
 } from '@refinitiv-ui/core';
-import '@refinitiv-ui/phrasebook/lib/locale/en/pagination';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import '../button/index.js';
+import '../button-bar/index.js';
+import '../layout/index.js';
+import '../text-field/index.js';
+import type { Button } from '../button';
+import type { TextField } from '../text-field';
+import type { PageInfo } from './helpers/types';
+import '@refinitiv-ui/phrasebook/lib/locale/en/pagination.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
-
-import '../button';
-import '../button-bar';
-import '../layout';
-import '../text-field';
-import { Button } from '../button';
-import { TextField } from '../text-field';
-import { PageInfo } from './helpers/types';
-import { VERSION } from '../';
 
 /**
  * Used to control and navigate through multiple pages

@@ -1,17 +1,16 @@
 import {
   html,
   css,
-  customElement,
   TemplateResult,
   CSSResult,
   SVGTemplateResult,
   svg,
   PropertyValues
 } from '@refinitiv-ui/core';
-
-import { Palettes } from './palettes';
-import { COLOR_ITEMS, ColorHelpers } from '../helpers/color-helpers';
-import { VERSION } from '../../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { VERSION } from '../../version.js';
+import { Palettes } from './palettes.js';
+import { COLOR_ITEMS, ColorHelpers } from '../helpers/color-helpers.js';
 
 /**
  * Component that allows user to select

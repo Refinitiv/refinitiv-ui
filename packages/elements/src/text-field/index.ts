@@ -2,22 +2,22 @@ import {
   ControlElement,
   css,
   CSSResult,
-  customElement,
   html,
-  ifDefined,
-  property,
   PropertyValues,
-  query,
   TemplateResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import '../icon';
-import { registerOverflowTooltip } from '../tooltip';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
+import '../icon/index.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
 
 type SelectionIndex = number | null;
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
-const isIE = (/Trident/g).test(navigator.userAgent);
 
 /**
  * Form control element for text

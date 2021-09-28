@@ -1,18 +1,15 @@
 import {
   ControlElement,
-  css,
-  CSSResult,
-  customElement,
   html,
-  property,
   PropertyValues,
-  TemplateResult,
-  query
+  TemplateResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '..';
-
-import '../icon';
-import { registerOverflowTooltip } from '../tooltip';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import '../icon/index.js';
 
 /**
  * Use button for actions in forms, dialogs,

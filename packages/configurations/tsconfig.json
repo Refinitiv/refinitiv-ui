@@ -10,5 +10,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
+    "noEmitHelpers": true,
+    "importHelpers": true
   }
 }

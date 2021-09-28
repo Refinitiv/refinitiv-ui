@@ -1,26 +1,25 @@
 import {
   ResponsiveElement,
   css,
-  customElement,
-  property,
   CSSResult,
   PropertyValues,
   TemplateResult,
   html,
-  styleMap,
-  query,
-  state,
   StyleMap,
   WarningNotice
 } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
+import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
+import { VERSION } from '../version.js';
+import type { Canvas } from '../canvas';
+import '../canvas/index.js';
+import '../label/index.js';
 
-import { VERSION } from '../';
-import { Canvas } from '../canvas';
-import '../canvas';
-import '../label';
-
-import { helpers as canvasHelper } from './helpers';
-import { SwingGaugeData, SwingGaugeCanvasSize, SwingGaugeValueFormatter } from './types';
+import { helpers as canvasHelper } from './helpers.js';
+import type { SwingGaugeData, SwingGaugeCanvasSize, SwingGaugeValueFormatter } from './types';
 import { DefaultStyle, Segment, TextType } from './const.js';
 
 export { SwingGaugeValueFormatter };
@@ -353,11 +352,11 @@ export class SwingGauge extends ResponsiveElement {
    */
   protected update (changedProperties: PropertyValues): void {
     super.update(changedProperties);
-    
+
     if (changedProperties.has('primaryValue') || changedProperties.has('secondaryValue')
     || (this.primaryValue === 0 && this.secondaryValue === 0)) {
       this.canvas.autoloop = true;
-      
+
       this.renderCanvas('frame');
       this.animateCanvas();
     }
@@ -447,11 +446,11 @@ export class SwingGauge extends ResponsiveElement {
   private renderCanvas (onDraw: 'frame' | 'resize', isFrameUpdated?: boolean): void {
     const percentageChanged = this.previousFillPercentage !== this.fillPercentage;
     const canRender = this.hasValidSize && percentageChanged;
-    
+
     if ((isFrameUpdated && !canRender) || !this.hasValidSize) {
       return;
     }
-    
+
     this.width = this.canvas.width;
     this.height = this.canvas.height;
 
@@ -478,12 +477,12 @@ export class SwingGauge extends ResponsiveElement {
       canvasHelper.clear(canvasSize, this.canvas.ctx);
     };
     this.canvas.addEventListener(onDraw, clear, { once: true });
-    
+
     const draw = (): void => {
       if (!this.canvas.ctx) {
         return;
       }
-      
+
       canvasHelper.draw(
         this.data === null ? this.getData() : this.data,
         this.canvas.ctx,
@@ -585,7 +584,7 @@ export class SwingGauge extends ResponsiveElement {
     if (!this.hasValidSize) {
       return;
     }
-    
+
     const primaryPosition = this.getPositionStyle(
       Segment.PRIMARY,
       this.primaryLineRadian,
@@ -663,7 +662,7 @@ export class SwingGauge extends ResponsiveElement {
     const lineLength = this.canvas.height * 0.75;
     const bestWidth = 2 * (GAUGE_UPPER_BOUND + LINE_POINTER_OFFSET) * this.canvas.height + 2 * lineLength;
     const ratio = bestWidth / this.canvas.height;
- 
+
     this.scale = 1;
     if (this.canvas.width < bestWidth) {
       const width = this.canvas.width;
