@@ -5,9 +5,10 @@
   "version": "independent",
   "command": {
     "publish": {
+      "ignoreChanges": ["**/__test__/**", "**/__demo__/**", "**/__snapshots__/**"],
       "message": "chore(release): publish [skip ci]",
       "registry": "https://registry.npmjs.org"
     }
   },
-  "ignoreChanges": ["**/__test__/**", "**/__demo__/**", "**/__snapshots__/**"]
+  "ignoreChanges": ["**/__demo__/**", "**/__snapshots__/**"]
 }
