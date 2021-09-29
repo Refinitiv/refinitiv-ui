@@ -6,8 +6,7 @@ import {
   oneEvent,
   triggerFocusFor,
   keyboardEvent,
-  nextFrame,
-  triggerBlurFor
+  aTimeout
 } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/pagination';
@@ -108,20 +107,13 @@ describe('pagination/Pagination', () => {
     itBrowser('Should be able to change page number by typing a number into the input', async () => {
       const textField = el.shadowRoot.querySelector('[part=input]');
       await triggerFocusFor(textField);
+      await aTimeout(50);
 
       setTimeout(() => { textField.value = '3' });
-      await elementUpdated(textField);
+      await aTimeout(50);
 
       setTimeout(() => textField.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' })));
-      await elementUpdated(textField);
-
-      await nextFrame();
-      await nextFrame();
-
-      await triggerBlurFor(textField);
-
-      await nextFrame();
-      await nextFrame();
+      await aTimeout(50);
 
       expect(el.page).to.equal('3');
     });
@@ -174,19 +166,12 @@ describe('pagination/Pagination', () => {
     });
     it('Should blur the input when Enter key is pressed in text-field', async () => {
       await triggerFocusFor(inputPart);
+      await aTimeout(50);
+
       expect(document.activeElement).to.equal(el);
 
       setTimeout(() => inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' })));
-
-      await elementUpdated(inputPart);
-
-      await nextFrame();
-      await nextFrame();
-
-      await triggerBlurFor(el);
-
-      await nextFrame();
-      await nextFrame();
+      await aTimeout(50);
 
       expect(document.activeElement).to.not.equal(el, 'It should blur the element');
     });
@@ -463,16 +448,13 @@ describe('pagination/Pagination', () => {
     });
     itBrowser('Should fire page-changed event when page changes through the text input', async () => {
       const textField = el.shadowRoot.querySelector('[part=input]');
-
       await triggerFocusFor(textField);
+      await aTimeout(50);
 
       expect(el.page).to.equal('1', 'Initial page should be 1');
-      expect(textField.value).to.equal('1', 'Input value should change to current page number');
 
-      setTimeout(() => {
-        textField.value = '3';
-      });
-      await elementUpdated(textField);
+      setTimeout(() => { textField.value = '3' });
+      await aTimeout(50);
 
       setTimeout(() => textField.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' })));
 
