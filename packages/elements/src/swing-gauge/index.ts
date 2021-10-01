@@ -1,7 +1,7 @@
 import {
   ResponsiveElement,
   css,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
   TemplateResult,
   html,
@@ -65,12 +65,12 @@ export class SwingGauge extends ResponsiveElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;

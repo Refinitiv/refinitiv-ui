@@ -2,9 +2,10 @@ import {
   html,
   css,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
-  WarningNotice
+  WarningNotice,
+  StyleMap
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
@@ -72,13 +73,14 @@ export class ColorDialog extends Dialog {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @return CSS template
    */
-  public static get styles (): CSSResult | CSSResult[] {
-    return [...(Dialog.styles as CSSResult[]),
+  public static get styles (): CSSResultGroup {
+    return [
+      super.styles,
       css`
         :host {
           display: block;
@@ -415,7 +417,7 @@ export class ColorDialog extends Dialog {
           <div
             part="preview-color"
             style=${styleMap({
-              backgroundColor: this.valueModel.value
+              backgroundColor: this.valueModel.value || undefined
             })}
             ?no-color=${!this.valueModel.value}></div>
           <div>${this.t('RED')}&nbsp;:

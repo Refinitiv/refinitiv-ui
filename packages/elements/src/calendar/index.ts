@@ -3,7 +3,7 @@ import {
   html,
   css,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
   MultiValue,
   WarningNotice
@@ -98,12 +98,12 @@ export class Calendar extends ControlElement implements MultiValue {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;

@@ -2,7 +2,7 @@ import {
   ControlElement,
   html,
   css,
-  CSSResult,
+  CSSResultGroup,
   TemplateResult,
   PropertyValues,
   FocusedPropertyKey,
@@ -53,12 +53,12 @@ export class NumberField extends ControlElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;

@@ -4,7 +4,7 @@ import {
   html,
   css,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   StyleInfo
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
@@ -131,7 +131,7 @@ export class DemoBlock extends BasicElement {
     return 'PUBLISH_VERSION';
   }
 
-  static get styles (): CSSResult {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         box-shadow: 0 3px 5px 1px rgba(0, 0, 0, 0.2);

@@ -1,7 +1,7 @@
 import {
   ControlElement,
   css,
-  CSSResult,
+  CSSResultGroup,
   html,
   PropertyValues,
   TemplateResult
@@ -48,10 +48,11 @@ export class Item extends ControlElement {
   }
 
   /**
-   * @returns `CSSResult` that will be used to style the host,
+   * `CSSResultGroup` that will be used to style the host,
    * slotted children and the internal template of the element.
+   * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: flex;

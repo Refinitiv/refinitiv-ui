@@ -1,7 +1,7 @@
 import {
   ControlElement,
   css,
-  CSSResult,
+  CSSResultGroup,
   html,
   PropertyValues,
   TapEvent,
@@ -80,12 +80,12 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-flex;

@@ -1,7 +1,7 @@
 import {
   html,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   css
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
@@ -72,7 +72,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     this.multiple = true;
   }
 
-  public static get styles (): CSSResult | CSSResult[] {
+  public static get styles (): CSSResultGroup {
     return css`
       [part=list] {
         display: flex;

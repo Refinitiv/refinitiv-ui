@@ -3,7 +3,7 @@ import {
   html,
   css,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
@@ -30,13 +30,13 @@ export class AppstateBar extends BasicElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    *
-   * @returns {(CSSResult|CSSResult[])} CSS template
+   * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;

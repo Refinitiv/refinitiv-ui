@@ -1,7 +1,7 @@
 import {
   css,
   html,
-  CSSResult,
+  CSSResultGroup,
   TemplateResult,
   BasicElement,
   PropertyValues
@@ -32,12 +32,12 @@ export class ProgressBar extends BasicElement {
   private valuePrevious = '';
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult {
+  static get styles (): CSSResultGroup {
     return css`
     :host {
       height: 10px;

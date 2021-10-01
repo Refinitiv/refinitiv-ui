@@ -5,7 +5,7 @@ import {
   TemplateResult,
   MultiValue,
   PropertyValues,
-  CSSResult,
+  CSSResultGroup,
   TapEvent,
   WarningNotice
 } from '@refinitiv-ui/core';
@@ -113,12 +113,12 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;

@@ -1,4 +1,4 @@
-import { css, CSSResult, html, TemplateResult, ElementSize, PropertyValues } from '@refinitiv-ui/core';
+import { css, CSSResultGroup, html, TemplateResult, ElementSize, PropertyValues } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
@@ -58,13 +58,15 @@ export class Dialog extends Overlay {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @returns CSS template
    */
-  public static get styles (): CSSResult | CSSResult[] {
-    return [...(Overlay.styles as CSSResult[]), css`
+  public static get styles (): CSSResultGroup {
+    return [
+      super.styles,
+      css`
       :host {
         width: 400px;
         display: flex;

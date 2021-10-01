@@ -2,7 +2,7 @@ import {
   html,
   css,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   SVGTemplateResult,
   svg,
   PropertyValues
@@ -29,12 +29,12 @@ export class GrayscalePalettes extends Palettes {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: flex;

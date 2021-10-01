@@ -3,7 +3,7 @@ import {
   css,
   ControlElement,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
   StyleMap,
   WarningNotice
@@ -1210,7 +1210,7 @@ export class Slider extends ControlElement {
    * Define styles in a tagged template literal, using the css tag function.
    * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: flex;

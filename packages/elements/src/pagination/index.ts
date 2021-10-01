@@ -4,7 +4,7 @@ import {
   css,
   PropertyValues,
   TemplateResult,
-  CSSResult
+  CSSResultGroup
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
@@ -38,12 +38,12 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;

@@ -1,7 +1,7 @@
 import {
   ControlElement,
   css,
-  CSSResult,
+  CSSResultGroup,
   html,
   PropertyValues,
   TemplateResult
@@ -47,10 +47,11 @@ export class PasswordField extends ControlElement {
   }
 
   /**
-   * @return A `CSSResult` that will be used to style the host,
+   * A `CSSResultGroup` that will be used to style the host,
    * slotted children and the internal template of the element.
+   * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;

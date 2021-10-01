@@ -1,6 +1,6 @@
 import {
   css,
-  CSSResult,
+  CSSResultGroup,
   ElementSize,
   html,
   PropertyValues,
@@ -73,28 +73,31 @@ export class Autosuggest extends Overlay {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
-    return [Overlay.styles as CSSResult, css`
-      :host {
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-      }
-      [part=content] {
-        flex: 1 1 auto;
-        overflow-x: hidden;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      [part=header], [part=footer] {
-        flex: none;
-      }
-    `];
+  static get styles (): CSSResultGroup {
+    return [
+      super.styles,
+      css`
+        :host {
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+        }
+        [part=content] {
+          flex: 1 1 auto;
+          overflow-x: hidden;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        [part=header], [part=footer] {
+          flex: none;
+        }
+      `
+    ];
   }
 
   /**

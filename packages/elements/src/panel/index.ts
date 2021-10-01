@@ -1,7 +1,7 @@
 import {
   BasicElement,
   html,
-  CSSResult,
+  CSSResultGroup,
   css,
   TemplateResult
 } from '@refinitiv-ui/core';
@@ -27,12 +27,12 @@ export class Panel extends BasicElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         position: relative;

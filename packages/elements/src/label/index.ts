@@ -3,7 +3,8 @@ import {
   html,
   css,
   TemplateResult,
-  CSSResult
+  CSSResultGroup,
+  StyleMap
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
@@ -50,12 +51,12 @@ export class Label extends BasicElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-flex;
@@ -225,9 +226,7 @@ export class Label extends BasicElement {
    * Template for when line clamp is set
    */
   protected get clampTemplate (): TemplateResult {
-    const styles = {
-      maxHeight: '',
-      whiteSpace: '',
+    const styles:StyleMap = {
       lineClamp: `${this.lineClamp}`,
       '-webkit-line-clamp': `${this.lineClamp}`
     };

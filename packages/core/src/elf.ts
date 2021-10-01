@@ -9,6 +9,7 @@ export type {
   TemplateResult,
   SVGTemplateResult,
   CSSResult,
+  CSSResultGroup,
   PropertyValues,
   ReactiveElement
 } from 'lit';

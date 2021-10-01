@@ -3,7 +3,7 @@ import {
   html,
   css,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
   ElementSize
 } from '@refinitiv-ui/core';
@@ -120,12 +120,12 @@ export class Overlay extends ResponsiveElement {
   private static Template = html`<slot></slot>`;
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;

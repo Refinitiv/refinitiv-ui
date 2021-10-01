@@ -1,7 +1,7 @@
 import {
   ResponsiveElement,
   css,
-  CSSResult,
+  CSSResultGroup,
   TemplateResult,
   html
 } from '@refinitiv-ui/core';
@@ -27,12 +27,12 @@ export class OverlayViewport extends ResponsiveElement {
   private static Template = html``; /* IE11 need empty template */
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
