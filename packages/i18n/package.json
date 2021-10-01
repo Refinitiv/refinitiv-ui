@@ -11,7 +11,8 @@
     "directory": "packages/i18n"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --sourceMap --declarationMap",
+    "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "npm run build && karma start ../../karma.config.js --package=i18n --include-snapshots=false",
