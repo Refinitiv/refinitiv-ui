@@ -48,7 +48,7 @@
     "micromatch": "^4.0.4",
     "request": "^2.88.2",
     "sinon": "^9.2.4",
-    "typescript": "~4.3.5",
+    "typescript": "^4.4.3",
     "watch": "^1.0.2",
     "web-component-analyzer": "~1.0.3",
     "yargs": "^17.0.1"

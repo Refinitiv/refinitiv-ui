@@ -100,6 +100,10 @@ export class ViewportManager {
     const screenRect = this.screenViewport.getBoundingClientRect();
 
     // since screenViewport is applied on html element, it does not include body zoom
+    // Zoom is a legacy feature and must not be used by any means.
+    // Kept here for compatibility with old apps
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const zoom = parseFloat(window.getComputedStyle(document.body).zoom);
     const screenHeight = screenRect.height / zoom;
     const screenWidth = screenRect.width / zoom;

@@ -1,7 +1,8 @@
 export {
   html,
   svg,
-  css
+  css,
+  unsafeCSS
 } from 'lit';
 
 export type {
