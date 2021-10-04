@@ -18,9 +18,9 @@
     "build": "tsc --sourceMap false"
   },
   "dependencies": {
-    "@types/d3-color": "^2.0.1",
+    "@types/d3-color": "^3.0.2",
     "@types/uuid": "^8.3.0",
-    "d3-color": "^2.0.0",
+    "d3-color": "^3.0.1",
     "uuid": "^8.3.2"
   },
   "publishConfig": {
