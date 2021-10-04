@@ -131,7 +131,7 @@ export class ColorDialog extends Dialog {
       value = '';
     }
     this._value = value;
-    void this.requestUpdate('value', oldValue);
+    this.requestUpdate('value', oldValue);
   }
   public get value (): string {
     return this._value;
@@ -324,7 +324,7 @@ export class ColorDialog extends Dialog {
    */
   private onColorChanged (event: Event): void {
     this.valueModel.hex = ColorHelpers.removeHashSign((event.target as Palettes).value);
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**
@@ -334,7 +334,7 @@ export class ColorDialog extends Dialog {
    */
   private onHexChanged (event: InputEvent): void {
     this.valueModel.hex = (event.target as TextField).value;
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**
@@ -355,7 +355,7 @@ export class ColorDialog extends Dialog {
       this.valueModel.blue = this.blueInputEl.value;
     }
 
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**

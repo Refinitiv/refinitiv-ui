@@ -58,7 +58,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @returns Update promise.
    */
   private modificationUpdate = (): void => {
-    void this.requestUpdate();
+    this.requestUpdate();
   };
 
   /**
@@ -134,7 +134,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     );
     this.clearMaps();
     this._data = value;
-    void this.requestUpdate('data', oldValue);
+    this.requestUpdate('data', oldValue);
   }
 
   private _data: ListData<T> = null;
@@ -156,7 +156,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       if (item) {
         this.composer.setItemPropertyValue(item, 'selected', true);
       }
-      void this.requestUpdate('value', oldValue);
+      this.requestUpdate('value', oldValue);
     }
   }
 
@@ -190,7 +190,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
           matches.forEach((match) => this.composer.setItemPropertyValue(match, 'selected', true));
           return !this.multiple; // Only set the fist value if multiple is not enabled
         });
-        void this.requestUpdate('values', oldValue);
+        this.requestUpdate('values', oldValue);
       }
     }
   }
@@ -496,7 +496,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   protected clearSelection (): void {
     this.queryItemsByPropertyValue('selected', true)
       .forEach((item: T) => this.composer.setItemPropertyValue(item, 'selected', false));
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**

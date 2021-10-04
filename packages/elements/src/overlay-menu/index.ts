@@ -170,7 +170,7 @@ export class OverlayMenu extends Overlay {
     }
 
     this.withData ? this.setDataValues(values) : this.setSlottedValues(values);
-    void this.requestUpdate('values', oldValues);
+    this.requestUpdate('values', oldValues);
   }
 
   /**
@@ -220,7 +220,7 @@ export class OverlayMenu extends Overlay {
       this.modificationUpdate // Update the template
     );
 
-    void this.requestUpdate('data', oldValue);
+    this.requestUpdate('data', oldValue);
   }
 
   /**
@@ -514,7 +514,7 @@ export class OverlayMenu extends Overlay {
    */
   private modificationUpdate (): void {
     this.constructDataMenus();
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**

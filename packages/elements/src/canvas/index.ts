@@ -80,7 +80,7 @@ export class Canvas extends ResponsiveElement {
   set autoloop (val: boolean) {
     const oldValue = this._autoloop;
     this._autoloop = val;
-    void this.requestUpdate('autoloop', oldValue);
+    this.requestUpdate('autoloop', oldValue);
     this.loop();
   }
 

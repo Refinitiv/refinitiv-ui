@@ -107,7 +107,7 @@ export class Flag extends BasicElement {
   private set template (value: TemplateResult) {
     if (this._template !== value) {
       this._template = value;
-      void this.requestUpdate();
+      this.requestUpdate();
     }
   }
 

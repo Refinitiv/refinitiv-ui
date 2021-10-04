@@ -1,6 +1,6 @@
 import { elementUpdated, expect, fixture, isIE } from '@refinitiv-ui/test-helpers';
 import { BasicElement } from '../../lib/elements/BasicElement.js';
-import { CustomElement } from '../../lib/decorators/CustomElement.js';
+import { customElement } from '../../lib/decorators/custom-element.js';
 import { asyncFrames } from '../helper.js';
 
 class BasicElementTest extends BasicElement {
@@ -29,7 +29,7 @@ class BasicElementTest extends BasicElement {
   }
 }
 
-CustomElement('basic-element-test', {
+customElement('basic-element-test', {
   theme: false
 })(BasicElementTest);
 

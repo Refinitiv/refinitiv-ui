@@ -136,7 +136,7 @@ export class Heatmap extends ResponsiveElement {
     this._hoverCell = hoverCell;
 
     if (this._hoverCell !== previousHoverCell) {
-      void this.requestUpdate('hoverCell', previousHoverCell);
+      this.requestUpdate('hoverCell', previousHoverCell);
       this.hoverCellChanged(this._hoverCell, previousHoverCell);
     }
   }

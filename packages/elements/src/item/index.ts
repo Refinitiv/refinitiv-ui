@@ -153,7 +153,7 @@ export class Item extends ControlElement {
   private checkSlotChildren = (event: Event): void => {
     const slot = event.target as HTMLSlotElement;
     this.isSlotEmpty = !slot.assignedNodes().filter(node => !this.isIgnorable(node)).length;
-    void this.requestUpdate();
+    this.requestUpdate();
   };
 
   /**

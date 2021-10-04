@@ -158,7 +158,7 @@ export class Clock extends BasicElement {
       this.synchronise(); // Required to reset any tick session
       const { hours, minutes, seconds } = toTimeSegment(value);
       this.baseTime = hours * SECONDS_IN_HOUR + minutes * SECONDS_IN_MINUTE + seconds;
-      void this.requestUpdate('value', oldValue);
+      this.requestUpdate('value', oldValue);
     }
   }
 
@@ -190,7 +190,7 @@ export class Clock extends BasicElement {
 
     if (oldOffset !== newOffset) {
       this._offset = newOffset;
-      void this.requestUpdate('offset', oldOffset);
+      this.requestUpdate('offset', oldOffset);
     }
   }
 
@@ -210,7 +210,7 @@ export class Clock extends BasicElement {
       this._tick = newValue;
       this.synchronise();
       this.configureTickManager();
-      void this.requestUpdate('tick', oldValue);
+      this.requestUpdate('tick', oldValue);
     }
   }
 

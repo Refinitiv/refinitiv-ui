@@ -261,6 +261,6 @@ export class PasswordField extends ControlElement {
    */
   private togglePasswordVisibility (): void {
     this.isPasswordVisible = !this.isPasswordVisible;
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 }

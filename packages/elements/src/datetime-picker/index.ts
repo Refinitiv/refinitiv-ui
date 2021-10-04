@@ -183,7 +183,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     if (oldMin !== min) {
       this._min = min;
       this.minDate = min ? format(parse(min), DateFormat.yyyyMMdd) : '';
-      void this.requestUpdate('min', oldMin);
+      this.requestUpdate('min', oldMin);
     }
   }
   public get min (): string {
@@ -207,7 +207,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     if (oldMax !== max) {
       this._max = max;
       this.maxDate = max ? format(parse(max), DateFormat.yyyyMMdd) : '';
-      void this.requestUpdate('max', oldMax);
+      this.requestUpdate('max', oldMax);
     }
   }
   public get max (): string {
@@ -291,7 +291,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const oldValues = this._values;
     if (String(oldValues) !== String(values)) {
       this._values = values;
-      void this.requestUpdate('_values', oldValues); /* segments are populated in update */
+      this.requestUpdate('_values', oldValues); /* segments are populated in update */
     }
   }
   public get values (): string[] {
@@ -321,7 +321,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const oldPlaceholder = this._placeholder;
     if (oldPlaceholder !== placeholder) {
       this._placeholder = placeholder;
-      void this.requestUpdate('placeholder', oldPlaceholder);
+      this.requestUpdate('placeholder', oldPlaceholder);
     }
   }
   public get placeholder (): string {
@@ -376,7 +376,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const oldFormat = this._format;
     if (oldFormat !== format) {
       this._format = format;
-      void this.requestUpdate('format', oldFormat);
+      this.requestUpdate('format', oldFormat);
     }
   }
   public get format (): string {
@@ -430,7 +430,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     views = this.filterAndWarnInvalidViews(views);
     if (oldViews.toString() !== views.toString()) {
       this._views = views;
-      void this.requestUpdate('views', oldViews);
+      this.requestUpdate('views', oldViews);
     }
   }
   public get views (): string[] {
@@ -979,7 +979,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       const inputValues = [...this.inputValues];
       inputValues[index] = formattedValue;
       this.inputValues = inputValues;
-      void this.requestUpdate();
+      this.requestUpdate();
     }
   }
 

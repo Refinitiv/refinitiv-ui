@@ -65,7 +65,7 @@ export class TornadoItem extends BasicElement {
       this.showHorizontalMode();
     }
 
-    void this.requestUpdate('vertical', previousValue);
+    this.requestUpdate('vertical', previousValue);
   }
 
   /**

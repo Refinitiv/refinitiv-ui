@@ -177,7 +177,7 @@ export class Calendar extends ControlElement implements MultiValue {
     }
     if (oldMin !== min) {
       this._min = min;
-      void this.requestUpdate('min', oldMin);
+      this.requestUpdate('min', oldMin);
     }
   }
   public get min (): string {
@@ -199,7 +199,7 @@ export class Calendar extends ControlElement implements MultiValue {
     }
     if (oldMax !== max) {
       this._max = max;
-      void this.requestUpdate('max', oldMax);
+      this.requestUpdate('max', oldMax);
     }
   }
   public get max (): string {
@@ -240,7 +240,7 @@ export class Calendar extends ControlElement implements MultiValue {
     const oldView = this._view;
     if (oldView !== view) {
       this._view = view;
-      void this.requestUpdate('view', oldView);
+      this.requestUpdate('view', oldView);
     }
   }
   public get view (): string {
@@ -266,7 +266,7 @@ export class Calendar extends ControlElement implements MultiValue {
     const oldFirstDayOfWeek = this._firstDayOfWeek;
     if (oldFirstDayOfWeek !== firstDayOfWeek) {
       this._firstDayOfWeek = firstDayOfWeek;
-      void this.requestUpdate('firstDayOfWeek', oldFirstDayOfWeek);
+      this.requestUpdate('firstDayOfWeek', oldFirstDayOfWeek);
     }
   }
   public get firstDayOfWeek (): number {
@@ -317,7 +317,7 @@ export class Calendar extends ControlElement implements MultiValue {
 
     if (oldValues.toString() !== newValues.toString()) {
       this._values = newValues;
-      void this.requestUpdate('values', oldValues);
+      this.requestUpdate('values', oldValues);
     }
   }
   public get values (): string[] {

@@ -168,7 +168,7 @@ export class LedGauge extends BasicElement {
     else {
       this._zero = ZERO_MAP.CENTER;
     }
-    void this.requestUpdate('zero', oldValue);
+    this.requestUpdate('zero', oldValue);
   }
 
   private get _shadowRoot (): ShadowRoot {

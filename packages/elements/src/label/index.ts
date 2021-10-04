@@ -185,7 +185,7 @@ export class Label extends BasicElement {
     this.chunks = raw.split(_).map(chunk => chunk.trim()).filter(chunk => chunk);
     const newValue = this.text;
     if (oldValue !== newValue) {
-      void this.requestUpdate('text', oldValue);
+      this.requestUpdate('text', oldValue);
     }
   }
 

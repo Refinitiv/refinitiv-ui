@@ -240,7 +240,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
       this.updateMemo();
       this.updatePills();
-      void this.requestUpdate('data', oldValue);
+      this.requestUpdate('data', oldValue);
     }
   }
   protected get resolvedData (): TreeSelectDataItem[] {
@@ -426,7 +426,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       }
       return false;
     });
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**

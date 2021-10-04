@@ -301,7 +301,7 @@ export class Pagination extends BasicElement {
     const oldPageValue = this.page;
     this.page = this.validatePage(this.page, event.target.value);
     // need this to update input text
-    void this.requestUpdate();
+    this.requestUpdate();
 
     if (this.page !== oldPageValue) {
       this.notifyPropertyChange('page', this.page);

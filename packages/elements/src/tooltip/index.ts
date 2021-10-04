@@ -183,7 +183,7 @@ class Tooltip extends BasicElement {
     const oldX = this._x;
     if (oldX !== x) {
       this._x = x;
-      void this.requestUpdate('x', oldX);
+      this.requestUpdate('x', oldX);
     }
   }
 
@@ -196,7 +196,7 @@ class Tooltip extends BasicElement {
     const oldY = this._y;
     if (oldY !== y) {
       this._y = y;
-      void this.requestUpdate('y', oldY);
+      this.requestUpdate('y', oldY);
     }
   }
 
@@ -209,7 +209,7 @@ class Tooltip extends BasicElement {
     const oldPositionTarget = this._positionTarget;
     if (positionTarget !== oldPositionTarget) {
       this._positionTarget = positionTarget;
-      void this.requestUpdate('positionTarget', oldPositionTarget);
+      this.requestUpdate('positionTarget', oldPositionTarget);
     }
   }
 
@@ -223,7 +223,7 @@ class Tooltip extends BasicElement {
     const oldOpened = this._opened;
     if (oldOpened !== opened) {
       this._opened = opened;
-      void this.requestUpdate('opened', oldOpened);
+      this.requestUpdate('opened', oldOpened);
     }
   }
 

@@ -107,7 +107,7 @@ export class TimePicker extends ControlElement {
     this._hours = this.validUnit(hours, MIN_UNIT, MAX_HOURS, oldHours);
 
     if (this._hours !== oldHours) {
-      void this.requestUpdate('hours', oldHours);
+      this.requestUpdate('hours', oldHours);
     }
   }
 
@@ -132,7 +132,7 @@ export class TimePicker extends ControlElement {
     }
     this._minutes = this.validUnit(minutes, MIN_UNIT, MAX_MINUTES, oldMinutes);
     if (this._minutes !== oldMinutes) {
-      void this.requestUpdate('minutes', oldMinutes);
+      this.requestUpdate('minutes', oldMinutes);
     }
   }
 
@@ -157,7 +157,7 @@ export class TimePicker extends ControlElement {
     }
     this._seconds = this.validUnit(seconds, MIN_UNIT, MAX_SECONDS, oldSeconds);
     if (this._seconds !== oldSeconds) {
-      void this.requestUpdate('seconds', oldSeconds);
+      this.requestUpdate('seconds', oldSeconds);
     }
   }
 

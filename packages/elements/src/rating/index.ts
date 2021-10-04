@@ -107,7 +107,7 @@ export class Rating extends BasicElement {
     }
 
     this.valuePrevious = value;
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**

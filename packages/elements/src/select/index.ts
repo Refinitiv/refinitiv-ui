@@ -247,7 +247,7 @@ export class Select extends ControlElement implements MultiValue {
       this.value = this.cachedValue;
     }
 
-    void this.requestUpdate('data', oldValue);
+    this.requestUpdate('data', oldValue);
   }
 
   /**
@@ -274,7 +274,7 @@ export class Select extends ControlElement implements MultiValue {
       // either defined in data or by having selected as an attribute
       this.clearSelection();
       this.selectValue(value);
-      void this.requestUpdate('value', oldValue);
+      this.requestUpdate('value', oldValue);
     }
   }
   public get value (): string {
@@ -413,7 +413,7 @@ export class Select extends ControlElement implements MultiValue {
     const hasLightDomMutations = mutations
       .some(m => m.target.getRootNode() !== this.shadowRoot);
     if (hasLightDomMutations) {
-      void this.requestUpdate();
+      this.requestUpdate();
     }
   }
 
@@ -430,7 +430,7 @@ export class Select extends ControlElement implements MultiValue {
       this.resizeThrottler.schedule(() => {
         if (this.offsetWidth) { /* must be here to avoid infinitive loop */
           this.restrictPopupWidth();
-          void this.requestUpdate();
+          this.requestUpdate();
         }
       });
 
@@ -817,7 +817,7 @@ export class Select extends ControlElement implements MultiValue {
         item.selected = false;
       });
     }
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**

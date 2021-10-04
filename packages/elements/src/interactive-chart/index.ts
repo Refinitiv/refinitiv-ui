@@ -127,7 +127,7 @@ export class InteractiveChart extends ResponsiveElement {
     const oldValue = this.legendStyle;
     if (oldValue !== value) {
       this._legendStyle = value;
-      void this.requestUpdate('legend-style', oldValue);
+      this.requestUpdate('legend-style', oldValue);
     }
   }
 

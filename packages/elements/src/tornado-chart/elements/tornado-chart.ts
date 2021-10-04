@@ -60,7 +60,7 @@ export class TornadoChart extends ResponsiveElement {
    */
   private setLegendAlignment (responsive: boolean): void {
     this.legendAlignment = responsive;
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**

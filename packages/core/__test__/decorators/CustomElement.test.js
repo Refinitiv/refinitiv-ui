@@ -1,5 +1,5 @@
 import { expect, html, nextFrame } from '@refinitiv-ui/test-helpers';
-import { CustomElement } from '../../lib/decorators/CustomElement.js';
+import { customElement } from '../../lib/decorators/custom-element.js';
 import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry.js';
 import { BasicElement } from '../../lib/elf';
 import { asyncFrames, getErrors, mockCssString, setErrors } from '../helper.js';
@@ -26,7 +26,7 @@ describe('TestCustomElement', () => {
     let elementDefineFunction;
 
     expect(() => {
-      elementDefineFunction = CustomElement('test-custom-element-0-tag');
+      elementDefineFunction = customElement('test-custom-element-0-tag');
     }).to.not.throw();
 
     expect(elementDefineFunction).to.exist;
@@ -44,7 +44,7 @@ describe('TestCustomElement', () => {
     let elementDefineFunction;
 
     expect(() => {
-      elementDefineFunction = CustomElement('test-custom-element-1-tag', { theme: false });
+      elementDefineFunction = customElement('test-custom-element-1-tag', { theme: false });
     }).to.not.throw();
 
     expect(elementDefineFunction).to.exist;
@@ -59,7 +59,7 @@ describe('TestCustomElement', () => {
   it('Test create and exec decorator with no theme twice', async () => {
     let MockBasicElement = createEmptyStyleMockClass();
 
-    const elementDefineFunction = CustomElement('test-custom-element-2-tag', { theme: false });
+    const elementDefineFunction = customElement('test-custom-element-2-tag', { theme: false });
 
     elementDefineFunction(MockBasicElement);
 

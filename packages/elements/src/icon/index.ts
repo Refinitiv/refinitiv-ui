@@ -64,7 +64,7 @@ export class Icon extends BasicElement {
     if (oldValue !== value) {
       this._icon = value;
       void this.setIconSrc();
-      void this.requestUpdate('icon', oldValue);
+      this.requestUpdate('icon', oldValue);
     }
   }
 
@@ -99,7 +99,7 @@ export class Icon extends BasicElement {
   private set template (value: TemplateResult) {
     if (this._template !== value) {
       this._template = value;
-      void this.requestUpdate();
+      this.requestUpdate();
     }
   }
 

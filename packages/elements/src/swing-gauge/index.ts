@@ -133,7 +133,7 @@ export class SwingGauge extends ResponsiveElement {
     const oldValue = this._primaryValue;
     if (oldValue !== value) {
       this._primaryValue = value;
-      void this.requestUpdate('primaryValue', oldValue);
+      this.requestUpdate('primaryValue', oldValue);
     }
   }
   public get primaryValue (): number {
@@ -157,7 +157,7 @@ export class SwingGauge extends ResponsiveElement {
     const oldValue = this._secondaryValue;
     if (oldValue !== value) {
       this._secondaryValue = value;
-      void this.requestUpdate('secondaryValue', oldValue);
+      this.requestUpdate('secondaryValue', oldValue);
     }
   }
   public get secondaryValue (): number {

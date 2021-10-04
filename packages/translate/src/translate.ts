@@ -114,13 +114,13 @@ const observeTranslations = function (this: BasicElement, scope = this.localName
       // this ensures that requestUpdate always comes through
       // however, external applications still can detect that the change is coming for translations
       // this is better than empty requestUpdate() as in that case in is not possible to detect source of update
-      void this.requestUpdate(TranslatePropertyKey, {});
+      this.requestUpdate(TranslatePropertyKey, {});
     }
   });
 
   // Observe new translations for the scope
   return Phrasebook.observe(scope, () => {
-    void this.requestUpdate(TranslatePropertyKey, {});
+    this.requestUpdate(TranslatePropertyKey, {});
   });
 };
 

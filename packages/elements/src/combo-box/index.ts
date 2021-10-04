@@ -136,7 +136,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
     }
     const oldMultiple = this._multiple;
     this._multiple = multiple;
-    void this.requestUpdate('multiple', oldMultiple);
+    this.requestUpdate('multiple', oldMultiple);
   }
   public get multiple (): boolean {
     return this._multiple;
@@ -176,7 +176,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
     }
     const oldFreeText = this._freeText;
     this._freeText = freeText;
-    void this.requestUpdate('freeText', oldFreeText);
+    this.requestUpdate('freeText', oldFreeText);
   }
   public get freeText (): boolean {
     return this._freeText;
@@ -281,7 +281,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
       // Should we update the selection state?
       if (newComparison !== oldComparison) {
         this.updateComposerValues(newValues);
-        void this.requestUpdate('values', oldValues);
+        this.requestUpdate('values', oldValues);
       }
     }
   }
@@ -319,7 +319,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
     if (oldVal !== this._query) {
       this.clearHighlighted();
       this.filterItems();
-      void this.requestUpdate('query', oldVal);
+      this.requestUpdate('query', oldVal);
     }
   }
 
@@ -435,7 +435,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
         this.value = this.cachedValue;
         this.cachedValue = ''; // Reset as it's only needed for initialisation
       }
-      void this.requestUpdate('data', oldValue);
+      this.requestUpdate('data', oldValue);
     }
   }
 
@@ -635,7 +635,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    * @returns {void}
    */
   protected modificationUpdate (): void {
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**
@@ -731,7 +731,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
       this.resizeThrottler.schedule(() => {
         if (this.offsetWidth) { /* must be here to avoid infinitive loop */
           this.restrictPopupWidth();
-          void this.requestUpdate();
+          this.requestUpdate();
         }
       });
       return;

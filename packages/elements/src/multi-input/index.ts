@@ -208,7 +208,7 @@ export class MultiInput extends ControlElement implements MultiValue {
       this.composer = new CollectionComposer<MultiInputDataItem>([]);
     }
     this._data = value;
-    void this.requestUpdate('data', oldValue);
+    this.requestUpdate('data', oldValue);
   }
 
   private _data: MultiInputData | null = null;
@@ -295,7 +295,7 @@ export class MultiInput extends ControlElement implements MultiValue {
 
     if (process) {
       this.composer.removeItem(item);
-      void this.requestUpdate();
+      this.requestUpdate();
       this.focus(); /* keep focus on multi-input */
       return item;
     }
@@ -338,7 +338,7 @@ export class MultiInput extends ControlElement implements MultiValue {
 
     if (process) {
       this.composer.addItem(item);
-      void this.requestUpdate();
+      this.requestUpdate();
 
       return item;
     }
@@ -390,7 +390,7 @@ export class MultiInput extends ControlElement implements MultiValue {
     }
     if (oldValue !== value) {
       this.oldValue = value;
-      void this.requestUpdate('value', oldValue);
+      this.requestUpdate('value', oldValue);
     }
   }
   public get value (): string {

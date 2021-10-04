@@ -50,7 +50,7 @@ export class Counter extends BasicElement {
      const oldValue = this._value;
      if (oldValue !== value) {
        this._value = value;
-       void this.requestUpdate('value', oldValue);
+       this.requestUpdate('value', oldValue);
      }
    }
   /**
@@ -73,7 +73,7 @@ export class Counter extends BasicElement {
     const oldValue = this._max;
     if (oldValue !== value) {
       this._max = value;
-      void this.requestUpdate('max', oldValue);
+      this.requestUpdate('max', oldValue);
     }
   }
   /**

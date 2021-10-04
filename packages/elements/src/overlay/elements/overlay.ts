@@ -438,7 +438,7 @@ export class Overlay extends ResponsiveElement {
     if (oldPosition !== value) {
       this._positionStrategy = undefined;
       this._position = value;
-      void this.requestUpdate('position', oldPosition);
+      this.requestUpdate('position', oldPosition);
     }
   }
   public get position (): Position[] | undefined {
