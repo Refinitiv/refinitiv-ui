@@ -4,6 +4,7 @@ const path = require('path');
 const { ROOT, PACKAGES } = require('./scripts/helpers');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
+const { injectLitPolyfill } = require('./scripts/karma/plugins/inject-lit-polyfill')
 
 const argv = yargs(hideBin(process.argv))
   .option('include-snapshots', {
@@ -126,6 +127,9 @@ const baseConfig = {
     // exclude files served via Karma internally
     karmaExclude: [
       '**/__snapshots__/**'
+    ],
+    plugins: [
+      injectLitPolyfill()
     ]
   },
   plugins,
