@@ -215,7 +215,7 @@ export class Card extends BasicElement {
       <ef-button
         @tap="${this.openMenu}"
         part="menu-button"
-        icon="more"
+        icon="more-vertical"
         transparent
       ></ef-button>
       <ef-overlay-menu
