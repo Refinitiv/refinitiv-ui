@@ -1,0 +1,34 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-tab';
+
+:host {
+  border: 1px solid @tab-border-color;
+  border-left: none;
+  [part=icon] {
+    font-size: 1em;
+  }
+  &[sub-label] {
+    [part=icon] {
+      font-size: 1.2em;
+    }
+  }
+  :hover {
+    color: @button-hover-text-color;
+  }
+  &[active]:hover,
+  &[active] [part="icon"]:hover,
+  &[active] [part="sub-label"]:hover,
+  &[active] [part="label-container"]:hover,
+  &[active] [part="label"]:hover,
+  &[active] [part="close"]:hover {
+      color: @tab-active-text-color;
+  }
+  &[active]:hover {
+    background-color: lighten(@tab-active-background-color, 10%);
+  }
+
+  & when (@variant = charcoal) {
+    &[active][disabled] {
+      color: fade(@tab-active-text-color, 70%);
+    }
+  }
+}
