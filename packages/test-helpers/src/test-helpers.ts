@@ -1,8 +1,9 @@
 /* istanbul ignore file */
 import { isIE } from '@open-wc/testing';
-export { html, unsafeStatic } from 'lit/static-html.js';
 
 export {
+  html,
+  unsafeStatic,
   expect,
   should,
   assert,
