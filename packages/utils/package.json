@@ -15,7 +15,8 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "build": "tsc --sourceMap false"
+    "build": "tsc --sourceMap --declarationMap",
+    "build:prod": "tsc"
   },
   "dependencies": {
     "@types/d3-color": "^2.0.1",

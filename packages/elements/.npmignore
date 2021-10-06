@@ -44,7 +44,7 @@ tsconfig.json
 /__demo__/
 
 # map files
-/lib/**/*.d.ts.map
+/lib/**/*.map
 
 # config
 *.config.js
