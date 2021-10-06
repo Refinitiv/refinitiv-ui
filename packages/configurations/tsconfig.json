@@ -7,9 +7,9 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "strict": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": false,
     "noEmitHelpers": true,
     "importHelpers": true
   }
