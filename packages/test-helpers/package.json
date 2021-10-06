@@ -7,7 +7,7 @@
   "types": "./lib/test-helpers.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/test-helpers"
   },
   "author": "Refinitiv",
