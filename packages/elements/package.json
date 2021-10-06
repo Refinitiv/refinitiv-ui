@@ -20,7 +20,8 @@
     "./lib/*": "./lib/*/index.js"
   },
   "scripts": {
-    "build": "node cli build",
+    "build": "node cli build --sourceMap --declarationMap",
+    "build:prod": "node cli build",
     "start": "node cli start",
     "test": "node cli test",
     "test:watch": "node cli test --watch",
