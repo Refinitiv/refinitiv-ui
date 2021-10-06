@@ -39,16 +39,14 @@
     "@refinitiv-ui/utils": "^5.0.2",
     "@types/chart.js": "^2.9.31",
     "chart.js": "~2.9.4",
-    "d3-color": "^2.0.0",
-    "d3-interpolate": "^2.0.1",
+    "d3-interpolate": "^3.0.1",
     "date-fns": "^2.22.1",
     "lightweight-charts": "^3.3.0"
   },
   "devDependencies": {
     "@refinitiv-ui/demo-block": "^5.0.5",
     "@refinitiv-ui/test-helpers": "^5.0.1",
-    "@types/d3-color": "^2.0.1",
-    "@types/d3-interpolate": "^2.0.0"
+    "@types/d3-interpolate": "^3.0.1"
   },
   "publishConfig": {
     "access": "public"
