@@ -28,8 +28,8 @@ Please search though open and closed issues to see if a similar issue already ex
 ## Pull Requests
 In the event you have coding suggestions and you would like to create pull request to this repository, it is required that you read and sign the following:
 
-* Individual Contributor License Agreement ([Download](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/blob/v5/Workspace%20SDK%20Refinitiv-UI%20Entity%20Contributor%20License%20Agreement.pdf))
-* Entity Contributor License Agreement ([Download](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/blob/v5/Workspace%20SDK%20Refinitiv-UI%20Individual%20Contributor%20License%20Agreement.pdf))
+* Individual Contributor License Agreement ([Download](https://github.com/Refinitiv/refinitiv-ui/blob/main/Workspace%20SDK%20Refinitiv-UI%20Individual%20Contributor%20License%20Agreement.pdf))
+* Entity Contributor License Agreement ([Download](https://github.com/Refinitiv/refinitiv-ui/blob/main/Workspace%20SDK%20Refinitiv-UI%20Entity%20Contributor%20License%20Agreement.pdf))
 
 Please email a signed and scanned copy to [RefinitivUIDev@refinitiv.com](mailto:RefinitivUIDev@refinitiv.com). If you require that a signed agreement has to be physically mailed to us, please email the request for a mailing address and we will get back to you on where you can send the signed documents.
 
@@ -65,7 +65,7 @@ npm install -g npm
 Initialize project:
 
 ```bash
-git clone git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git
+git clone git@github.com:Refinitiv/refinitiv-ui.git
 cd refinitiv-ui
 npm install
 ```
