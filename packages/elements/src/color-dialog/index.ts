@@ -10,6 +10,7 @@ import {
   styleMap,
   query
 } from '@refinitiv-ui/core';
+import { rgb } from '@refinitiv-ui/utils';
 import { translate, Translate } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/lib/locale/en/color-dialog';
 
@@ -25,7 +26,7 @@ import { Dialog } from '../dialog';
 import './elements/color-palettes';
 import './elements/grayscale-palettes';
 
-import { ColorHelpers } from './helpers/color-helpers';
+import { isHex } from './helpers/color-helpers';
 import { ValueModel } from './helpers/value-model';
 import { VERSION } from '../';
 
@@ -154,7 +155,7 @@ export class ColorDialog extends Dialog {
   }
   public get hex (): string {
     const value = this.value;
-    return value ? ColorHelpers.removeHashSign(value) : '';
+    return value ? value.slice(1) : '';
   }
 
   /**
@@ -165,10 +166,10 @@ export class ColorDialog extends Dialog {
   @property({ type: String })
   public set red (red: string) {
     red = String(red);
-    this.value = this.isValidRGB(red) ? ColorHelpers.rgbToHex(red, this.green, this.blue) : '';
+    this.value = this.isValidRGB(red) ? rgb(Number(red), Number(this.green), Number(this.blue)).formatHex() : '';
   }
   public get red (): string {
-    return this.hex ? ColorHelpers.hexToRGB(this.hex).red : '';
+    return this.hex ? rgb(`#${this.hex}`).r.toString() : '';
   }
 
   /**
@@ -179,10 +180,10 @@ export class ColorDialog extends Dialog {
   @property({ type: String })
   public set green (green: string) {
     green = String(green);
-    this.value = this.isValidRGB(green) ? ColorHelpers.rgbToHex(this.red, green, this.blue) : '';
+    this.value = this.isValidRGB(green) ? rgb(Number(this.red), Number(green), Number(this.blue)).formatHex() : '';
   }
   public get green (): string {
-    return this.hex ? ColorHelpers.hexToRGB(this.hex).green : '';
+    return this.hex ? rgb(`#${this.hex}`).g.toString() : '';
   }
 
   /**
@@ -193,10 +194,10 @@ export class ColorDialog extends Dialog {
   @property({ type: String })
   public set blue (blue: string) {
     blue = String(blue);
-    this.value = this.isValidRGB(blue) ? ColorHelpers.rgbToHex(this.red, this.green, blue) : '';
+    this.value = this.isValidRGB(blue) ? rgb(Number(this.red), Number(this.green), Number(blue)).formatHex() : '';
   }
   public get blue (): string {
-    return this.hex ? ColorHelpers.hexToRGB(this.hex).blue : '';
+    return this.hex ? rgb(`#${this.hex}`).b.toString() : '';
   }
 
   /**
@@ -286,7 +287,7 @@ export class ColorDialog extends Dialog {
    * @returns true if value is valid
    */
   private isValidValue (value: string): boolean {
-    const isValid = value === '' || ColorHelpers.isHex(value);
+    const isValid = value === '' || isHex(value);
     if (!isValid) {
       new WarningNotice(`The specified value "${value}" is not valid value. The correct value should look like "#fff" or "#ffffff".`).show();
     }
@@ -299,7 +300,7 @@ export class ColorDialog extends Dialog {
    * @returns true if value is valid
    */
   private isValidHex (value: string): boolean {
-    const isValid = value === '' || (!value.includes('#') && ColorHelpers.isHex(`#${value}`));
+    const isValid = value === '' || (!value.includes('#') && isHex(`#${value}`));
     if (!isValid) {
       new WarningNotice(`The specified hex "${value}" is not valid color. The correct value should look like "fff" or "ffffff".`).show();
     }
@@ -312,7 +313,7 @@ export class ColorDialog extends Dialog {
    * @returns true if value is within 0 - 255
    */
   private isValidRGB (value: string): boolean {
-    const isValid = value === '' || ColorHelpers.isValidDecimalForRGB(value);
+    const isValid = value === '' || Number(value) >= 0 && Number(value) <= 255;
     if (!isValid) {
       new WarningNotice(`The specified RGB "${value}" is not valid color. The value should be 0 - 255.`).show();
     }
@@ -325,7 +326,7 @@ export class ColorDialog extends Dialog {
    * @return {void}
    */
   private onColorChanged (event: Event): void {
-    this.valueModel.hex = ColorHelpers.removeHashSign((event.target as Palettes).value);
+    this.valueModel.hex = (event.target as Palettes).value.slice(1);
     void this.requestUpdate();
   }
 

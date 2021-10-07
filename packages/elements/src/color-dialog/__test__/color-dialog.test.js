@@ -5,7 +5,8 @@ import '@refinitiv-ui/elements/color-dialog';
 import '@refinitiv-ui/elemental-theme/light/ef-color-dialog';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
-import { COLOR_ITEMS, ColorHelpers } from '../../../lib/color-dialog/helpers/color-helpers';
+import { rgb } from '@refinitiv-ui/utils';
+import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers';
 
 describe('color-dialog/ColorDialog', () => {
   describe('Default Color Dialog', () => {
@@ -49,31 +50,31 @@ describe('color-dialog/ColorDialog', () => {
     });
 
     it('should updated value of r,g,b input correctly when tapping on color palettes', async () => {
-      const rgbValue = ColorHelpers.hexToRGB(COLOR_ITEMS[5][1]);
+      const rgbValue = rgb(COLOR_ITEMS[5][1]);
       polygonItems[5].dispatchEvent(new Event('tap'));
       await elementUpdated();
-      expect(redInput.value).to.equal(`${rgbValue.red}`);
-      expect(greenInput.value).to.equal(`${rgbValue.green}`);
-      expect(blueInput.value).to.equal(`${rgbValue.blue}`);
+      expect(redInput.value).to.equal(`${rgbValue.r}`);
+      expect(greenInput.value).to.equal(`${rgbValue.g}`);
+      expect(blueInput.value).to.equal(`${rgbValue.b}`);
     });
 
     it('should updated value of hex input correctly when tapping on color palettes', async () => {
-      const hexValue = ColorHelpers.removeHashSign(COLOR_ITEMS[5][1]);
+      const hexValue = COLOR_ITEMS[5][1].slice(1);
       polygonItems[5].dispatchEvent(new Event('tap'));
       await elementUpdated();
       expect(hexInput.value).to.equal(hexValue);
     });
 
     it('should updated previewColor element styled correctly when tapping on color palettes', async () => {
-      const rgbValue = ColorHelpers.hexToRGB(COLOR_ITEMS[10][1]);
-      const rgbStr = `rgb(${rgbValue.red}, ${rgbValue.green}, ${rgbValue.blue})`;
+      const rgbValue = rgb(COLOR_ITEMS[10][1]);
+      const rgbStr = `rgb(${rgbValue.r}, ${rgbValue.g}, ${rgbValue.b})`;
       polygonItems[10].dispatchEvent(new Event('tap'));
       await elementUpdated();
       expect(previewColor.style.backgroundColor).to.equal(rgbStr);
     });
 
     it('should updated other value correctly when update r,g,b value', async () => {
-      const hexColor = ColorHelpers.rgbToHex(10, 30, 20);
+      const hexColor = rgb(10, 30, 20).formatHex();
       defaultColorDialog.red = '10';
       defaultColorDialog.green = '30';
       defaultColorDialog.blue = '20';
@@ -81,11 +82,11 @@ describe('color-dialog/ColorDialog', () => {
       expect(colorPalettes.value).to.equal(hexColor);
       expect(defaultColorDialog.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal('rgb(10, 30, 20)');
-      expect(hexInput.value).to.equal(ColorHelpers.removeHashSign(hexColor));
+      expect(hexInput.value).to.equal(hexColor.slice(1));
     });
 
     it('should updated other value correctly when update r,g,b value by typing', async () => {
-      const hexColor = ColorHelpers.rgbToHex(10, 30, 20);
+      const hexColor = rgb(10, 30, 20).formatHex();
       redInput.value = 10;
       redInput.dispatchEvent(new Event('value-changed'));
       greenInput.value = 30;
@@ -95,7 +96,7 @@ describe('color-dialog/ColorDialog', () => {
       await elementUpdated();
       expect(colorPalettes.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal('rgb(10, 30, 20)');
-      expect(hexInput.value).to.equal(ColorHelpers.removeHashSign(hexColor));
+      expect(hexInput.value).to.equal(hexColor.slice(1));
       confirmBtn.click();
       await elementUpdated();
       expect(defaultColorDialog.value).to.equal(hexColor);
@@ -103,30 +104,30 @@ describe('color-dialog/ColorDialog', () => {
 
     it('should updated other value correctly when update hex value', async () => {
       const hexColor = '#fefefe';
-      const rgbValue = ColorHelpers.hexToRGB('#fefefe');
-      const rgbStr = `rgb(${rgbValue.red}, ${rgbValue.green}, ${rgbValue.blue})`;
+      const rgbValue = rgb('#fefefe');
+      const rgbStr = `rgb(${rgbValue.r}, ${rgbValue.g}, ${rgbValue.b})`;
       defaultColorDialog.hex = 'fefefe';
       await elementUpdated();
       expect(colorPalettes.value).to.equal(hexColor);
       expect(defaultColorDialog.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal(rgbStr);
-      expect(redInput.value).to.equal(`${rgbValue.red}`);
-      expect(greenInput.value).to.equal(`${rgbValue.green}`);
-      expect(blueInput.value).to.equal(`${rgbValue.blue}`);
+      expect(redInput.value).to.equal(`${rgbValue.r}`);
+      expect(greenInput.value).to.equal(`${rgbValue.g}`);
+      expect(blueInput.value).to.equal(`${rgbValue.b}`);
     });
 
     it('should updated other value correctly when update hex value by typing', async () => {
       const hexColor = '#fefefe';
-      const rgbValue = ColorHelpers.hexToRGB('#fefefe');
-      const rgbStr = `rgb(${rgbValue.red}, ${rgbValue.green}, ${rgbValue.blue})`;
+      const rgbValue = rgb('#fefefe');
+      const rgbStr = `rgb(${rgbValue.r}, ${rgbValue.g}, ${rgbValue.b})`;
       hexInput.value = 'fefefe';
       hexInput.dispatchEvent(new Event('value-changed'));
       await elementUpdated();
       expect(colorPalettes.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal(rgbStr);
-      expect(redInput.value).to.equal(`${rgbValue.red}`);
-      expect(greenInput.value).to.equal(`${rgbValue.green}`);
-      expect(blueInput.value).to.equal(`${rgbValue.blue}`);
+      expect(redInput.value).to.equal(`${rgbValue.r}`);
+      expect(greenInput.value).to.equal(`${rgbValue.g}`);
+      expect(blueInput.value).to.equal(`${rgbValue.b}`);
       confirmBtn.click();
       await elementUpdated();
       expect(defaultColorDialog.value).to.equal(hexColor);
@@ -134,15 +135,15 @@ describe('color-dialog/ColorDialog', () => {
 
     it('should updated other value correctly when update hex value in shorthand', async () => {
       const hexColor = '#fef';
-      const rgbValue = ColorHelpers.hexToRGB(hexColor);
-      const rgbStr = `rgb(${rgbValue.red}, ${rgbValue.green}, ${rgbValue.blue})`;
+      const rgbValue = rgb(hexColor);
+      const rgbStr = `rgb(${rgbValue.r}, ${rgbValue.g}, ${rgbValue.b})`;
       defaultColorDialog.hex = 'fef';
       await elementUpdated();
       expect(colorPalettes.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal(rgbStr);
-      expect(redInput.value).to.equal(`${rgbValue.red}`);
-      expect(greenInput.value).to.equal(`${rgbValue.green}`);
-      expect(blueInput.value).to.equal(`${rgbValue.blue}`);
+      expect(redInput.value).to.equal(`${rgbValue.r}`);
+      expect(greenInput.value).to.equal(`${rgbValue.g}`);
+      expect(blueInput.value).to.equal(`${rgbValue.b}`);
       confirmBtn.click();
       await elementUpdated();
       expect(defaultColorDialog.value).to.equal(hexColor);
@@ -150,17 +151,17 @@ describe('color-dialog/ColorDialog', () => {
 
     it('should updated other value correctly when update hex value after set wrong r,g,b', async () => {
       const hexColor = '#fef';
-      const rgbValue = ColorHelpers.hexToRGB(hexColor);
-      const rgbStr = `rgb(${rgbValue.red}, ${rgbValue.green}, ${rgbValue.blue})`;
+      const rgbValue = rgb(hexColor);
+      const rgbStr = `rgb(${rgbValue.r}, ${rgbValue.g}, ${rgbValue.b})`;
       defaultColorDialog.red = 'invalid';
       await elementUpdated();
       defaultColorDialog.hex = 'fef';
       await elementUpdated();
       expect(colorPalettes.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal(rgbStr);
-      expect(redInput.value).to.equal(`${rgbValue.red}`);
-      expect(greenInput.value).to.equal(`${rgbValue.green}`);
-      expect(blueInput.value).to.equal(`${rgbValue.blue}`);
+      expect(redInput.value).to.equal(`${rgbValue.r}`);
+      expect(greenInput.value).to.equal(`${rgbValue.g}`);
+      expect(blueInput.value).to.equal(`${rgbValue.b}`);
       confirmBtn.click();
       await elementUpdated();
       expect(defaultColorDialog.value).to.equal(hexColor);
