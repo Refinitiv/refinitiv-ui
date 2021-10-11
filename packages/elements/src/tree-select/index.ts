@@ -614,8 +614,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   protected addItemDescendantsToRender (items: TreeSelectDataItem[]): void {
     items.forEach((item) => {
       /**
-       * Prevent tree keep the expand state of item which does not matched with query,
-       * collapse them to make the result of filtering is crystal clear
+       * Collapse an item to prevent tree show too many nested expanded
        */
       if (this.treeManager.isItemExpanded(item)) {
         this.treeManager.collapseItem(item);
