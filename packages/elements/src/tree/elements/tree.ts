@@ -329,8 +329,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   protected addItemDescendantsToRender (items: T[]): void {
     items.forEach((item) => {
       /**
-       * Prevent tree keep the expand state of item which does not matched with query,
-       * collapse them to make the result of filtering is crystal clear
+       * Collapse an item to prevent tree show too many nested expanded
        */
       if (this.manager.isItemExpanded(item)) {
         this.manager.collapseItem(item);
@@ -352,7 +351,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * Add nested children of item list
    * @param items List of items
    * @param excludeItems List of exclude items
-   * @param includeHidden Include hidden items
+   * @param [includeHidden=false] Include hidden items
    * @returns {void}
    */
   protected addNestedItemsToRender (items: readonly T[], excludeItems: readonly T[], includeHidden = false): void {

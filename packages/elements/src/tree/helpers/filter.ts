@@ -1,4 +1,3 @@
-import { lab } from 'd3-color';
 import { Tree, TreeDataItem } from '../index';
 import { TreeFilter } from './types';
 
@@ -11,7 +10,7 @@ export const defaultFilter = <T extends TreeDataItem = TreeDataItem>(el: Tree<T>
   // reference query string for validating queryRegExp cache state
   let query = '';
   // cache RegExp
-  let queryRegExp: RegExp | undefined;
+  let queryRegExp: RegExp;
 
   // Get current RegExp, or renew if out of date
   // this is fetched on demand by filter/renderer
@@ -26,14 +25,14 @@ export const defaultFilter = <T extends TreeDataItem = TreeDataItem>(el: Tree<T>
 
   // return scoped custom filter
   return (item): boolean => {
-    const label = (item as unknown as TreeDataItem)?.label;
+    const label = item.label;
     if (!label) {
       return false;
     }
 
     const regex = getRegularExpressionOfQuery();
     const result = regex.test(label);
-    // this example uses global scope, so the index needs resetting
+    // this regex uses global scope, so the index needs resetting
     regex.lastIndex = 0;
     return result;
   };
