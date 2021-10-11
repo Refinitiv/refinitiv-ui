@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.0.2...@refinitiv-ui/core@5.0.3) (2021-10-11)
+
+
+### Bug Fixes
+
+* remove source maps reference from the production build ([655d0bb](https://github.com/Refinitiv/refinitiv-ui/commit/655d0bb57290e5fe1276bf1a99bd7a0190d7a2f8))
+
+
+
+
+
 ## [5.0.2](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/core@5.0.1...@refinitiv-ui/core@5.0.2) (2021-09-15)
 
 
