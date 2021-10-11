@@ -86,12 +86,6 @@ export class Accordion extends Collapse {
   public spacing = false;
 
   /**
-   * Allow the collapse animation to be disabled
-   */
-  @property({ type: Boolean, attribute: 'collapse-animation-disabled' })
-  public collapseAnimationDisabled = false;
-
-  /**
    * Called once after the component is first rendered
    * @param changedProperties map of changed properties with old values
    * @returns {void}

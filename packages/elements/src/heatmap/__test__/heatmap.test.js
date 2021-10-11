@@ -1,11 +1,10 @@
 import { Track } from '../../../lib/heatmap/helpers/track.js';
-import { fixture, expect, aTimeout, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/heatmap';
 import '@refinitiv-ui/elemental-theme/light/ef-heatmap.js';
 
 const removeUnit = /[^-\d\.]/g;
-const TIMEOUT = 50;
 const CONFIG = {
   data: [[{ value: 1, header: 'ABC' }, { value: 0.5, header: 'DEF' }]],
   yAxis: {
@@ -17,6 +16,12 @@ const CONFIG = {
     shortLabels: ['xal-1', 'xal-2']
   }
 };
+
+const canvasUpdated = async () => {
+  await nextFrame();
+  await nextFrame(); // IE11 needs second animation frame, otherwise resize observer is not run.
+};
+
 
 describe('heatmap/Heatmap', () => {
   describe('DOM Structure', () => {
@@ -52,7 +57,7 @@ describe('heatmap/Heatmap', () => {
     it('Should render canvas', async () => {
       const el = await fixture('<ef-heatmap></ef-heatmap>');
 
-      await aTimeout(TIMEOUT);
+      await canvasUpdated();
 
       const canvas = el.shadowRoot.querySelector('[part=canvas]');
       const canvasHeight = window.getComputedStyle(canvas).height.replace(removeUnit, '');
@@ -108,6 +113,7 @@ describe('heatmap/Heatmap', () => {
     beforeEach(async () => {
       el = await fixture('<ef-heatmap></ef-heatmap>');
       el.config = CONFIG;
+      await elementUpdated(el);
     });
 
     it('Should not render any axes', async () => {
@@ -130,7 +136,7 @@ describe('heatmap/Heatmap', () => {
     });
 
     it('Should render x-axis', async () => {
-      await aTimeout(TIMEOUT);
+      await canvasUpdated();
 
       const xAxis = el.shadowRoot.querySelector('[part=x-axis]');
       const xAxisHeight = window.getComputedStyle(xAxis).height.replace(removeUnit, '');
@@ -141,7 +147,7 @@ describe('heatmap/Heatmap', () => {
     });
 
     it('Should render y-axis', async () => {
-      await aTimeout(TIMEOUT);
+      await canvasUpdated();
 
       const yAxis = el.shadowRoot.querySelector('[part=y-axis]');
       const yAxisHeight = window.getComputedStyle(yAxis).height.replace(removeUnit, '');
@@ -152,7 +158,7 @@ describe('heatmap/Heatmap', () => {
     });
 
     it('Should render cross box', async () => {
-      await aTimeout(TIMEOUT);
+      await canvasUpdated();
 
       const crossBox = el.shadowRoot.querySelector('[part=cross-box]');
       const crossBoxHeight = window.getComputedStyle(crossBox).height.replace(removeUnit, '');
@@ -184,7 +190,7 @@ describe('heatmap/Heatmap', () => {
     it('Should align the y-axis to the left using row flex-direction', async () => {
       el.config.yAxis.position = 'left';
 
-      await aTimeout(TIMEOUT);
+      await canvasUpdated();
 
       const container = el.shadowRoot.querySelector('#container');
       const containerFlexDirection = window.getComputedStyle(container).flexDirection;
@@ -195,7 +201,7 @@ describe('heatmap/Heatmap', () => {
     it('Should align the y-axis to the right using row-reverse flex-direction', async () => {
       el.config.yAxis.position = 'right';
 
-      await aTimeout(TIMEOUT);
+      await canvasUpdated();
 
       const container = el.shadowRoot.querySelector('#container');
       const containerFlexDirection = window.getComputedStyle(container).flexDirection;
@@ -206,7 +212,7 @@ describe('heatmap/Heatmap', () => {
     it('Should align the x-axis to the top with y-axis display: block', async () => {
       el.config.xAxis.position = 'top';
 
-      await aTimeout(TIMEOUT);
+      await canvasUpdated();
 
       const xAxisContainer = el.shadowRoot.querySelector('#canvas-container');
       const xAxisContainerFlexDirection = window.getComputedStyle(xAxisContainer).flexDirection;
@@ -221,7 +227,7 @@ describe('heatmap/Heatmap', () => {
     it('Should align the x-axis to the bottom using column-reverse flex-direction and set y-axis to column-reverse', async () => {
       el.config.xAxis.position = 'bottom';
 
-      await aTimeout(TIMEOUT);
+      await canvasUpdated();
 
       const xAxisContainer = el.shadowRoot.querySelector('#canvas-container');
       const xAxisContainerFlexDirection = window.getComputedStyle(xAxisContainer).flexDirection;
@@ -246,7 +252,7 @@ describe('heatmap/Heatmap', () => {
         }
       };
 
-      await aTimeout(TIMEOUT);
+      await canvasUpdated();
 
       const yAxisContainer = el.shadowRoot.querySelector('[part=y-axis]');
       const yAxisItems = yAxisContainer.getElementsByClassName('y-axis-item');
@@ -267,7 +273,7 @@ describe('heatmap/Heatmap', () => {
         }
       };
 
-      await aTimeout(TIMEOUT);
+      await canvasUpdated();
 
       const xAxisContainer = el.shadowRoot.querySelector('[part=x-axis]');
       const xAxisItems = xAxisContainer.getElementsByClassName('x-axis-item');
@@ -294,7 +300,7 @@ describe('heatmap/Heatmap', () => {
         };
       };
 
-      await aTimeout(TIMEOUT);
+      await canvasUpdated();
 
       expect(el.cells[0]).to.not.equal(null);
       expect(el.cells[0].customBackgroundColor).to.equal('turquoise');

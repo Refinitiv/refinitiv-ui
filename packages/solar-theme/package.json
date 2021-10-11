@@ -7,7 +7,7 @@
   "main": "index.less",
   "repository": {
     "type": "git",
-    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/solar-theme"
   },
   "files": [
@@ -18,6 +18,7 @@
     "build:charcoal": "theme-compiler charcoal --variant=charcoal",
     "build:pearl": "theme-compiler pearl --variant=pearl",
     "build": "npm run build:charcoal && npm run build:pearl",
+    "build:prod": "npm run build",
     "watch": "watch \"npm run build\" src --wait=10"
   },
   "dependencies": {

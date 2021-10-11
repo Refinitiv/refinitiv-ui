@@ -7,7 +7,7 @@
   "main": "index.less",
   "repository": {
     "type": "git",
-    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/halo-theme"
   },
   "files": [
@@ -18,6 +18,7 @@
     "build:dark": "theme-compiler dark --variant=dark",
     "build:light": "theme-compiler light --variant=light",
     "build": "npm run build:dark && npm run build:light",
+    "build:prod": "npm run build",
     "watch": "watch \"npm run build\" src --wait=10"
   },
   "dependencies": {

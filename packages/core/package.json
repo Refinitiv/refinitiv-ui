@@ -7,13 +7,14 @@
   "types": "./lib/elf.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/core"
   },
   "author": "Refinitiv",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --sourceMap --declarationMap",
+    "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "npm run build && karma start ../../karma.config.js --package=core",
