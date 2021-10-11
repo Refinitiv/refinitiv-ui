@@ -29,7 +29,9 @@ jobs:
 
       - run: lerna run build:prod
 
+
       # - run: lerna version patch --force-publish --yes
+
 
       - run: lerna publish from-package --yes
         env:
