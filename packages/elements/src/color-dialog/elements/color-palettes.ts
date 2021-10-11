@@ -8,9 +8,8 @@ import {
   svg,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { rgb } from '@refinitiv-ui/utils';
 import { Palettes } from './palettes';
-import { COLOR_ITEMS, isHex } from '../helpers/color-helpers';
+import { COLOR_ITEMS } from '../helpers/color-helpers';
 import { VERSION } from '../../';
 
 /**
@@ -87,7 +86,7 @@ export class ColorPalettes extends Palettes {
    */
   protected updated (changedProperties: PropertyValues): void {
     if(changedProperties.has('value')) {
-      const value = isHex(this.value) ? rgb(this.value).formatHex() : '';
+      const value = this.expandHex(this.value);
       const item = COLOR_ITEMS.find((item: string[]) => item[1] === value);
       if(item) {
         this.showSelector(item[0]);

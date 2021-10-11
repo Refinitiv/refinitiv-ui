@@ -26,7 +26,7 @@ import { Dialog } from '../dialog';
 import './elements/color-palettes';
 import './elements/grayscale-palettes';
 
-import { isHex } from './helpers/color-helpers';
+import { isHex, removeHashSign } from './helpers/color-helpers';
 import { ValueModel } from './helpers/value-model';
 import { VERSION } from '../';
 
@@ -155,7 +155,7 @@ export class ColorDialog extends Dialog {
   }
   public get hex (): string {
     const value = this.value;
-    return value ? value.slice(1) : '';
+    return value ? removeHashSign(value) : '';
   }
 
   /**
@@ -326,7 +326,7 @@ export class ColorDialog extends Dialog {
    * @return {void}
    */
   private onColorChanged (event: Event): void {
-    this.valueModel.hex = (event.target as Palettes).value.slice(1);
+    this.valueModel.hex = removeHashSign((event.target as Palettes).value);
     void this.requestUpdate();
   }
 

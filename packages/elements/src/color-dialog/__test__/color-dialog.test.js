@@ -6,7 +6,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-color-dialog';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
 import { rgb } from '@refinitiv-ui/utils';
-import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers';
+import { COLOR_ITEMS, removeHashSign } from '../../../lib/color-dialog/helpers/color-helpers';
 
 describe('color-dialog/ColorDialog', () => {
   describe('Default Color Dialog', () => {
@@ -59,7 +59,7 @@ describe('color-dialog/ColorDialog', () => {
     });
 
     it('should updated value of hex input correctly when tapping on color palettes', async () => {
-      const hexValue = COLOR_ITEMS[5][1].slice(1);
+      const hexValue = removeHashSign(COLOR_ITEMS[5][1]);
       polygonItems[5].dispatchEvent(new Event('tap'));
       await elementUpdated();
       expect(hexInput.value).to.equal(hexValue);
@@ -82,7 +82,7 @@ describe('color-dialog/ColorDialog', () => {
       expect(colorPalettes.value).to.equal(hexColor);
       expect(defaultColorDialog.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal('rgb(10, 30, 20)');
-      expect(hexInput.value).to.equal(hexColor.slice(1));
+      expect(hexInput.value).to.equal(removeHashSign(hexColor));
     });
 
     it('should updated other value correctly when update r,g,b value by typing', async () => {
@@ -96,7 +96,7 @@ describe('color-dialog/ColorDialog', () => {
       await elementUpdated();
       expect(colorPalettes.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal('rgb(10, 30, 20)');
-      expect(hexInput.value).to.equal(hexColor.slice(1));
+      expect(hexInput.value).to.equal(removeHashSign(hexColor));
       confirmBtn.click();
       await elementUpdated();
       expect(defaultColorDialog.value).to.equal(hexColor);
