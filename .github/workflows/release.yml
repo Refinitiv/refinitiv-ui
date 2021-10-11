@@ -25,14 +25,15 @@ jobs:
           git config --global user.email "RefinitivUIDev@refinitiv.com"
           git config --global user.name "refinitiv-ui-dev"
 
+      # Installing package dependencies strictly based on lock file
       - run: npm ci --ignore-scripts --audit=false --fund=false
 
-      - run: lerna run build:prod
+      # Builds only changed packages including its dependencies
+      - run: lerna run build:prod --include-dependencies --since
 
+      # Increment version for change packages according to conventional commits
+      - run: lerna version --conventional-commits --yes
 
-      # - run: lerna version patch --force-publish --yes
-
-
-      - run: lerna publish from-package --yes
+      - run: lerna publish --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
