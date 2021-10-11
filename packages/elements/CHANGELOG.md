@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.3.2...@refinitiv-ui/elements@5.3.3) (2021-10-11)
+
+
+### Bug Fixes
+
+* **accordion:** remove unuse property collapseAnimationDisabled ([0b8bd7b](https://github.com/Refinitiv/refinitiv-ui/commit/0b8bd7bf9e886eb711802b37dbbe90874d52cf21))
+* **card:** use new icon ([af5d7fc](https://github.com/Refinitiv/refinitiv-ui/commit/af5d7fcfa30e4400259d641435e6aebddceba88d))
+* remove source maps reference from the production build ([655d0bb](https://github.com/Refinitiv/refinitiv-ui/commit/655d0bb57290e5fe1276bf1a99bd7a0190d7a2f8))
+
+
+
+
+
 ## [5.3.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elements@5.3.0...@refinitiv-ui/elements@5.3.1) (2021-09-27)
 
 

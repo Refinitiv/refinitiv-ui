@@ -1,13 +1,13 @@
 {
   "name": "@refinitiv-ui/utils",
-  "version": "5.0.2",
+  "version": "5.0.4",
   "description": "Shared utilities for Element Framework",
   "main": "lib/utils.js",
   "module": "lib/utils.js",
   "types": "lib/utils.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/utils"
   },
   "author": "Refinitiv",

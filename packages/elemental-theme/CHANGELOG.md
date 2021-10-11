@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.2.2...@refinitiv-ui/elemental-theme@5.2.3) (2021-10-11)
+
+
+### Bug Fixes
+
+* **card:** use new icon ([af5d7fc](https://github.com/Refinitiv/refinitiv-ui/commit/af5d7fcfa30e4400259d641435e6aebddceba88d))
+* remove source maps reference from the production build ([655d0bb](https://github.com/Refinitiv/refinitiv-ui/commit/655d0bb57290e5fe1276bf1a99bd7a0190d7a2f8))
+
+
+
+
+
 ## [5.2.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.2.0...@refinitiv-ui/elemental-theme@5.2.1) (2021-09-27)
 
 

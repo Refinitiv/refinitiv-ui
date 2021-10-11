@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/translate",
-  "version": "5.1.4",
+  "version": "5.1.6",
   "description": "i18n implementation for Element Framework components",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -9,7 +9,7 @@
   "types": "./lib/translate.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/translate"
   },
   "scripts": {
@@ -24,13 +24,13 @@
     "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
-    "@refinitiv-ui/core": "^5.0.2",
-    "@refinitiv-ui/i18n": "^5.1.4",
-    "@refinitiv-ui/phrasebook": "^5.1.2",
+    "@refinitiv-ui/core": "^5.0.4",
+    "@refinitiv-ui/i18n": "^5.1.6",
+    "@refinitiv-ui/phrasebook": "^5.1.4",
     "lit-html": "^1.3.0"
   },
   "devDependencies": {
-    "@refinitiv-ui/test-helpers": "^5.0.1"
+    "@refinitiv-ui/test-helpers": "^5.0.3"
   },
   "publishConfig": {
     "access": "public"
