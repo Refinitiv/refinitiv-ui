@@ -11,21 +11,10 @@
       font-size: 1.2em;
     }
   }
-  :hover {
-    color: @button-hover-text-color;
-  }
-  &[active]:hover,
-  &[active] [part="icon"]:hover,
-  &[active] [part="sub-label"]:hover,
-  &[active] [part="label-container"]:hover,
-  &[active] [part="label"]:hover,
-  &[active] [part="close"]:hover {
-      color: @tab-active-text-color;
-  }
   &[active]:hover {
+    color: @tab-active-text-color;
     background-color: lighten(@tab-active-background-color, 10%);
   }
-
   & when (@variant = charcoal) {
     &[active][disabled] {
       color: fade(@tab-active-text-color, 70%);
