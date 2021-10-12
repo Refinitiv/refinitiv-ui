@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.2.2...@refinitiv-ui/halo-theme@5.2.3) (2021-10-11)
+
+
+### Bug Fixes
+
+* **button:** wrong disabled button styles for cta buttons ([3af37ff](https://github.com/Refinitiv/refinitiv-ui/commit/3af37ff826eb0f533fd1c8bb71111484d358fdd6))
+* remove source maps reference from the production build ([655d0bb](https://github.com/Refinitiv/refinitiv-ui/commit/655d0bb57290e5fe1276bf1a99bd7a0190d7a2f8))
+
+
+
+
+
 ## [5.2.1](https://git.sami.int.thomsonreuters.com/elf/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.2.0...@refinitiv-ui/halo-theme@5.2.1) (2021-09-27)
 
 

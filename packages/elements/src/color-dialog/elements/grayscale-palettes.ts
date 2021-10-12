@@ -9,9 +9,8 @@ import {
   svg,
   PropertyValues
 } from '@refinitiv-ui/core';
-
 import { Palettes } from './palettes';
-import { GRAYSCALE_ITEMS, NOCOLOR_POINTS, ColorHelpers } from '../helpers/color-helpers';
+import { GRAYSCALE_ITEMS, NOCOLOR_POINTS } from '../helpers/color-helpers';
 import { VERSION } from '../../';
 
 /**
@@ -122,7 +121,7 @@ export class GrayscalePalettes extends Palettes {
    */
   protected updated (changedProperties: PropertyValues): void {
     if(changedProperties.has('value')) {
-      const value = ColorHelpers.expandHex(this.value);
+      const value = this.expandHex(this.value);
       const item = GRAYSCALE_ITEMS.find((item: string[]) => item[1] === value);
       if(this.allowNocolor && this.value === '') {
         this.showSelector(NOCOLOR_POINTS);
