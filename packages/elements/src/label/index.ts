@@ -65,6 +65,7 @@ export class Label extends BasicElement {
       :host {
         display: inline-flex;
         max-width: 100%;
+        color: red;
       }
       .split {
         height: 1.2em;
