@@ -58,6 +58,11 @@ export abstract class BasicElement extends LitElement {
   protected readonly defaultTabIndex: number | null = null;
 
   /**
+   * Element's role attribute for accessibility
+   */
+  protected readonly defaultRole: string | null = null;
+
+  /**
    * False to not delegate the focus by default
    */
   public readonly delegatesFocus: boolean = false;
@@ -173,6 +178,10 @@ export abstract class BasicElement extends LitElement {
     // process tabindex before any other callbacks
     if (!this.hasAttribute('tabindex') && typeof this.defaultTabIndex === 'number') {
       this.tabIndex = this.defaultTabIndex;
+    }
+
+    if (!this.hasAttribute('role') && typeof this.defaultRole === 'string') {
+      this.setAttribute('role', this.defaultRole);
     }
 
     FocusRegistry.connect(this);
