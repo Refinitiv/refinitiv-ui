@@ -134,10 +134,6 @@ describe('accordion/Accordion', () => {
       expect(el.spacing).to.equal(false);
       expect(el.hasAttribute('spacing')).to.equal(false, 'attribute "spacing" should not be exists');
       expect(el.getAttribute('spacing')).to.equal(null, 'attribute "spacing" should equal null');
-
-      expect(el.collapseAnimationDisabled).to.equal(false);
-      expect(el.hasAttribute('collapseAnimationDisabled')).to.equal(false, 'attribute "collapseAnimationDisabled" should not be exists');
-      expect(el.getAttribute('collapseAnimationDisabled')).to.equal(null, 'attribute "collapseAnimationDisabled" should equal null');
     });
 
     it('Spacing property', async () => {

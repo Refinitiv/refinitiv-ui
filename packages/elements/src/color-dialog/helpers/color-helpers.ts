@@ -148,129 +148,18 @@ export const GRAYSCALE_ITEMS = [
 export const NOCOLOR_POINTS = '6, 2, 15, 6, 15, 17, 6, 21, -3, 17, -3, 6';
 
 const HEX_REGEXP = /^#([0-9A-F]{3}){1,2}$/i; // used to validate HEX
-const RGB_REGEXP = /^([0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/; // used to validate RGB colours, e.g. 0 to 255
+export const isHex = (value: string): boolean => HEX_REGEXP.test(value);
 
-type rgbValue = {
-  red: string;
-  green: string;
-  blue: string;
-}
-
-export class ColorHelpers {
-
-  /**
-   * Remove hash (#) sign from hex value
-   * @param hex Hex to check
-   * @returns hex value without # sign
-   */
-  public static removeHashSign (hex: string): string {
-    if (hex) {
-      if (hex.startsWith('#')) {
-        hex = hex.slice(1);
-      }
-    }
-    return hex;
-  }
-
-  /**
-   * Expand short format hex into long format
-   * For instance, "#fff" becomes "#ffffff"
-   * @param value hex to expand
-   * @returns expanded hex value
-   */
-  public static expandHex (value: string): string {
-    const hex = this.removeHashSign(value);
-    if(hex && hex.length <= 3) {
-      return '#' + hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-    }
-    return value;
-  }
-
-  /**
-   * Transform RGB value into hex (with #)
-   * @param red Red value, 0 - 255
-   * @param green Green value, 0 - 255
-   * @param blue Blue value, 0 - 255
-   * @returns hex value
-   */
-  public static rgbToHex (red: string, green: string, blue: string): string {
-    const rHex = this.numberToHex(parseInt(red, 10));
-    const gHex = this.numberToHex(parseInt(green, 10));
-    const bHex = this.numberToHex(parseInt(blue, 10));
-    return `#${rHex}${gHex}${bHex}`;
-  }
-
-  /**
-   * Transform 10 base number to HEX number
-   * @param num Number to transform
-   * @returns hex representation
-   */
-  private static numberToHex (num: number): string {
-    if (num && num > 0) {
-      if (num < 10) {
-        return `0${num}`;
-      }
-      else if (num <= 15) {
-        return `0${num.toString(16)}`;
-      }
-      else {
-        return num.toString(16);
-      }
-    }
-    else {
-      return '00';
+/**
+ * Remove hash (#) sign from hex value
+ * @param hex Hex to check
+ * @returns hex value without # sign
+ */
+export const removeHashSign = (hex: string): string => {
+  if (hex) {
+    if (hex.startsWith('#')) {
+      hex = hex.slice(1);
     }
   }
-
-  /**
-   * Transform Hex to RGB
-   * @param hex Hex to transform
-   * @returns rgb values
-   */
-  public static hexToRGB (hex: string): rgbValue {
-    hex = this.removeHashSign(hex);
-    if (!hex) {
-      return {
-        red: '',
-        green: '',
-        blue: ''
-      };
-    }
-    if (hex.length === 3) {
-      let hex6 = '';
-      for (let i = 0; i < 3; i++) {
-        const c = hex[i];
-        hex6 += '' + c + c;
-      }
-      hex = hex6;
-    }
-
-    const bigint = parseInt(hex, 16);
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-    return {
-      red: String(r),
-      green: String(g),
-      blue: String(b)
-    };
-  }
-
-  /**
-   * Check if value is a valid hex (including #)
-   * @param value Value to check
-   * @returns true if valid hex
-   */
-  public static isHex (value: string): boolean {
-    return HEX_REGEXP.test(value);
-  }
-
-  /**
-   * Check if value is a valid RGB string number between 0 - 255
-   * @param value Value to check
-   * @returns true if a valid number
-   */
-  public static isValidDecimalForRGB (value: string): boolean {
-    return RGB_REGEXP.test(value);
-  }
-}
+  return hex;
+};

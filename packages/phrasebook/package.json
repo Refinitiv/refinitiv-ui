@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/phrasebook",
-  "version": "5.1.2",
+  "version": "5.1.4",
   "description": "Collection of messages in EF components for translation",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -9,11 +9,12 @@
   "types": "./lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/phrasebook"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --sourceMap --declarationMap",
+    "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "npm run build && mocha __test__/**/*.js --require esm"

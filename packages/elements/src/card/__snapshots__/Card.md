@@ -89,7 +89,7 @@
     aria-disabled="false"
     aria-readonly="false"
     empty=""
-    icon="more"
+    icon="more-vertical"
     part="menu-button"
     tabindex="0"
     textpos="after"
