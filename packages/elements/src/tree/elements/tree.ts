@@ -268,7 +268,6 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @override
    */
   protected update (changedProperties: PropertyValues): void {
-    super.update(changedProperties);
     if (changedProperties.has('noRelation') || changedProperties.has('multiple')) {
       this.manager.setMode(this.mode);
     }
@@ -276,6 +275,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
     if (changedProperties.has('query') || changedProperties.has('data')) {
       this.filterItems();
     }
+    super.update(changedProperties);
   }
 
   /**
