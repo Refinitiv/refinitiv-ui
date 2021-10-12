@@ -9,12 +9,13 @@
   "types": "./lib/translate.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/translate"
   },
   "scripts": {
-    "build": "tsc --sourceMap false",
-    "build:watch": "tsc --watch --preserveWatchOutput --sourceMap",
+    "build": "tsc --sourceMap --declarationMap",
+    "build:prod": "tsc",
+    "build:watch": "npm run build -- --watch --preserveWatchOutput",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start": "npm run build && concurrently \"npm run build:watch\" \"web-dev-server --config ../../server.config.js --app-index __demo__\"",

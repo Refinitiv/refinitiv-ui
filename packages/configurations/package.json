@@ -4,7 +4,7 @@
   "description": "The configuration files used for Element Framework",
   "repository": {
     "type": "git",
-    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/configurations"
   },
   "keywords": [
