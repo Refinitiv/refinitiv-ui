@@ -14,7 +14,8 @@
     "build:prod": "lerna run build:prod",
     "start": "node cli start",
     "test": "node cli test",
-    "lint": "node cli lint"
+    "lint": "node cli lint",
+    "prepublishOnly": "node scripts/release/versioning.js"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
