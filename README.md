@@ -88,7 +88,7 @@ npm run start demo-block
 ```
 Run the unit test in specific element or package:
 ```bash
-npm run test button -- --<options>
+npm run test button -- <options>
 ```
 Run the unit test on all packages:
 ```bash
@@ -97,9 +97,9 @@ npm run test:all
 Run linting tools in specific a element or package:
 
 ```bash
-npm run lint button -- --<option>
+npm run lint button -- <options>
 #or
-npm run lint demo-block -- --<option>
+npm run lint demo-block -- <options>
 ```
 
 Run linting tools in all elements or packages:
