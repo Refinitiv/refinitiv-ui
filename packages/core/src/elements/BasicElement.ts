@@ -176,11 +176,11 @@ export abstract class BasicElement extends LitElement {
     ElementRegistry.connect(this);
 
     // process tabindex before any other callbacks
-    if (!this.hasAttribute('tabindex') && typeof this.defaultTabIndex === 'number') {
+    if (typeof this.defaultTabIndex === 'number' && !this.hasAttribute('tabindex')) {
       this.tabIndex = this.defaultTabIndex;
     }
 
-    if (!this.hasAttribute('role') && typeof this.defaultRole === 'string') {
+    if (typeof this.defaultRole === 'string' && !this.hasAttribute('role')) {
       this.setAttribute('role', this.defaultRole);
     }
 
