@@ -14,7 +14,9 @@
     "build:prod": "lerna run build:prod",
     "start": "node cli start",
     "test": "node cli test",
-    "lint": "node cli lint"
+    "test:all": "lerna run test",
+    "lint": "node cli lint",
+    "lint:all": "lerna run lint"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
