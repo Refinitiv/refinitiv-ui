@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/core",
-  "version": "5.0.2",
+  "version": "5.0.4",
   "description": "Element Framework Core",
   "main": "./lib/elf.js",
   "module": "./lib/elf.js",
@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@git.sami.int.thomsonreuters.com:elf/refinitiv-ui.git",
+    "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/core"
   },
   "author": "Refinitiv",
@@ -50,7 +50,7 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/test-helpers": "^5.0.1"
+    "@refinitiv-ui/test-helpers": "^5.0.3"
   },
   "publishConfig": {
     "access": "public"

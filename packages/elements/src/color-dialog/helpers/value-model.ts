@@ -1,4 +1,7 @@
-import { ColorHelpers } from './color-helpers.js';
+import { rgb } from '@refinitiv-ui/utils/lib/color.js';
+import { isHex } from './color-helpers.js';
+
+const rgbNumberToString = (value: number): string => isNaN(value) ? '' : `${value}`; // replace NaN with empty string
 
 /**
  * A helper model in order to keep and update values between RGB and HEX
@@ -17,12 +20,12 @@ class ValueModel {
    */
   constructor (value = '') {
     this.initialValue = value;
-    const { red, green, blue } = ColorHelpers.hexToRGB(value);
+    const { r, g, b } = rgb(value);
 
-    this._red = red;
-    this._green = green;
-    this._blue = blue;
-    this._hex = ColorHelpers.removeHashSign(value);
+    this._red = rgbNumberToString(r);
+    this._green = rgbNumberToString(g);
+    this._blue = rgbNumberToString(b);
+    this._hex = value.slice(1);
   }
 
   private getHexValue (): string {
@@ -33,16 +36,16 @@ class ValueModel {
       return '';
     }
 
-    const hex = ColorHelpers.rgbToHex(this.red, this.green, this.blue);
-    return hex ? ColorHelpers.removeHashSign(hex) : '';
+    const hex = rgb(Number(this.red), Number(this.green), Number(this.blue)).formatHex();
+    return hex ? hex.slice(1) : '';
   }
 
   private isValidRGBValue (value: string): boolean {
-    return value === '' || ColorHelpers.isValidDecimalForRGB(value);
+    return value === '' || Number(value) >= 0 && Number(value) <= 255;
   }
 
   private isValidHexValue (value: string): boolean {
-    return value === '' || ColorHelpers.isHex(`#${value}`);
+    return value === '' || isHex(`#${value}`);
   }
 
   private isValidRGB (): boolean {
@@ -58,10 +61,10 @@ class ValueModel {
   /**
    * Check if new value is different to initial
    * ignoring hex length
-   * @returns tru if different
+   * @returns true if different
    */
   public hasChanged (): boolean {
-    return ColorHelpers.expandHex(this.initialValue) !== ColorHelpers.expandHex(this.value);
+    return rgb(this.initialValue).formatHex() !== rgb(this.value).formatHex();
   }
 
   /**
@@ -140,10 +143,10 @@ class ValueModel {
       this._blue = '';
     }
     else {
-      const rgb = ColorHelpers.hexToRGB(hex);
-      this._red = rgb.red;
-      this._green = rgb.green;
-      this._blue = rgb.blue;
+      const { r, g, b } = rgb(`#${hex}`);
+      this._red = rgbNumberToString(r);
+      this._green = rgbNumberToString(g);
+      this._blue = rgbNumberToString(b);
     }
 
     this._hex = hex;

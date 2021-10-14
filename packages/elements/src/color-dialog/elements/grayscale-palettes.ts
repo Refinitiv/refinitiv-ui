@@ -11,7 +11,7 @@ import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { VERSION } from '../../version.js';
 import { Palettes } from './palettes.js';
-import { GRAYSCALE_ITEMS, NOCOLOR_POINTS, ColorHelpers } from '../helpers/color-helpers.js';
+import { GRAYSCALE_ITEMS, NOCOLOR_POINTS } from '../helpers/color-helpers.js';
 
 /**
  * Component that allows user to select any
@@ -121,7 +121,7 @@ export class GrayscalePalettes extends Palettes {
    */
   protected updated (changedProperties: PropertyValues): void {
     if(changedProperties.has('value')) {
-      const value = ColorHelpers.expandHex(this.value);
+      const value = this.expandHex(this.value);
       const item = GRAYSCALE_ITEMS.find((item: string[]) => item[1] === value);
       if(this.allowNocolor && this.value === '') {
         this.showSelector(NOCOLOR_POINTS);

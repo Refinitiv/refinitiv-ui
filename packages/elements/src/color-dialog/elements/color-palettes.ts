@@ -10,7 +10,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { VERSION } from '../../version.js';
 import { Palettes } from './palettes.js';
-import { COLOR_ITEMS, ColorHelpers } from '../helpers/color-helpers.js';
+import { COLOR_ITEMS } from '../helpers/color-helpers.js';
 
 /**
  * Component that allows user to select
@@ -86,7 +86,7 @@ export class ColorPalettes extends Palettes {
    */
   protected updated (changedProperties: PropertyValues): void {
     if(changedProperties.has('value')) {
-      const value = ColorHelpers.expandHex(this.value);
+      const value = this.expandHex(this.value);
       const item = COLOR_ITEMS.find((item: string[]) => item[1] === value);
       if(item) {
         this.showSelector(item[0]);
