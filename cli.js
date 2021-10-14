@@ -39,6 +39,7 @@ try {
 
   const command = ['npm', 'run', argv.reflect, `--workspace=${packageName}`];
   elementName && command.push(elementName);
+  options.length > 0 && command.push('--')
   command.push(...options);
 
   console.log(command.join(' '));

@@ -1,7 +1,5 @@
 import {
   ControlElement,
-  css,
-  CSSResult,
   customElement,
   html,
   property,
