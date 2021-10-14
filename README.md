@@ -80,17 +80,42 @@ npm run build
 
 The command-line interface tool that you can use to demo, develop, test, and maintain this repository. The command should be run at root level.
 
-Run demo page of individual element:
+Run and serve the element or package:
+```bash
+npm run start button 
+#or
+npm run start demo-block
+```
+Run the unit test in specific element or package:
+```bash
+npm run test button -- --<options>
+```
+Run the unit test on all packages:
+```bash
+npm run test:all
+```
+Run linting tools in specific a element or package:
 
 ```bash
-npm start button
+npm run lint button -- --<option>
+#or
+npm run lint demo-block -- --<option>
 ```
 
-Run test page of individual element:
+Run linting tools in all elements or packages:
 
 ```bash
-npm run test button
+npm run lint:all
 ```
+
+#### Options for unit test and linting command
+
+| Option | Description |
+|---|---|
+| `--browsers` or `-b` | You can specific browser(s) to run the unit test. List of available browsers are following: `chrome`, `firefox` and `ie` <br>You can check the list of available browsers by add option `--help`.  <br>Usage: `npm run test button -- --browsers chrome firefox` |
+| `--watch` or `-w` | Run test and watch file change. <br>Usage: `npm run test button -- --watch` |
+| `--snapshots` or `-s` | Update and prune snapshots (`--browsers` must be chrome). <br>Usage:`npm run test button -- --snapshots --browsers chrome` |
+| `--fix`  or `-f` | Run linting and fix the issues that can lead to bugs or inconsistencies with code health and style. <br>Usage:`npm run test button --fix` |
 
 ### Commit prefixes
 
