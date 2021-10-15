@@ -30,7 +30,6 @@ import {
   alias: 'coral-checkbox'
 })
 export class Checkbox extends ControlElement {
-
   /**
    * Element version number
    * @returns version number
@@ -38,6 +37,8 @@ export class Checkbox extends ControlElement {
   static get version (): string {
     return VERSION;
   }
+
+  protected readonly defaultRole = 'checkbox';
 
   /**
    * A `CSSResult` that will be used
@@ -73,23 +74,73 @@ export class Checkbox extends ControlElement {
     `;
   }
 
+  private _checked = false;
   /**
    * Value of checkbox
+   * @param value new checked value
    */
   @property({ type: Boolean, reflect: true })
-  public checked = false;
+  public set checked (value: boolean) {
+    const oldValue = this._checked;
+    if (oldValue !== value) {
+      this._checked = value;
 
+      this.ariaChecked = String(value);
+
+      void this.requestUpdate('checked', oldValue);
+    }
+  }
+  public get checked (): boolean {
+    return this._checked;
+  }
+
+  private _indeterminate = false;
   /**
    * Set state to indeterminate
+   * @param value new indeterminate value
    */
   @property({ type: Boolean, reflect: true })
-  public indeterminate = false;
+  public set indeterminate (value: boolean) {
+    const oldValue = this._indeterminate;
+    if (oldValue !== value) {
+      this._indeterminate = value;
+
+      if (value) {
+        this.ariaChecked = 'mixed';
+      }
+
+      void this.requestUpdate('indeterminate', oldValue);
+    }
+  }
+  public get indeterminate (): boolean {
+    return this._indeterminate;
+  }
+
+  /**
+   * Indicates current state of checkbox
+   */
+  @property({ type: String, reflect: true, attribute: 'aria-checked' })
+  private ariaChecked = 'false';
 
   /**
    * Getter for label
    */
   @query('[part=label]', true)
   private labelEl!: HTMLElement;
+
+  /**
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+
+    this.addEventListener('tap', this.onTap);
+    this.addEventListener('keydown', this.onKeyDown);
+
+    registerOverflowTooltip(this.labelEl, () => this.textContent);
+  }
 
   /**
    * Updates the element
@@ -107,19 +158,6 @@ export class Checkbox extends ControlElement {
     }
 
     super.update(changedProperties);
-  }
-
-  /**
-   * Called once after the component is first rendered
-   * @param changedProperties map of changed properties with old values
-   * @returns {void}
-   */
-  protected firstUpdated (changedProperties: PropertyValues): void {
-    super.firstUpdated(changedProperties);
-    this.addEventListener('tap', this.onTap);
-    this.addEventListener('keydown', this.onKeyDown);
-
-    registerOverflowTooltip(this.labelEl, () => this.textContent);
   }
 
   /**
