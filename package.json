@@ -16,8 +16,7 @@
     "test": "node cli test",
     "test:all": "lerna run test",
     "lint": "node cli lint",
-    "lint:all": "lerna run lint",
-    "prepublishOnly": "node scripts/release/versioning.js"
+    "lint:all": "lerna run lint"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
