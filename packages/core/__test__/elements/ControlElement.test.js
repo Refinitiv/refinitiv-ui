@@ -77,9 +77,6 @@ describe('TestControlElement', () => {
         expect(el.getAttribute('disabled')).to.equal(null, 'attribute "disabled" should equal null by default');
         expect(el.hasAttribute('disabled')).to.equal(false, 'attribute "disabled" should not be exists by default');
 
-        expect(el.hasAttribute('aria-disabled')).to.equal(true, 'attribute "aria-disabled" should be present');
-        expect(el.getAttribute('aria-disabled')).to.equal('false', 'by default "aria-disabled" should be false');
-
         el.setAttribute('disabled', '');
         await elementUpdated(el);
 
@@ -88,9 +85,6 @@ describe('TestControlElement', () => {
         expect(el.getAttribute('disabled')).to.equal('', 'attribute "disabled" should equal ""');
 
         expect(el.style.pointerEvents).to.equal('none', 'pointer events should be set to "none"');
-
-        expect(el.hasAttribute('aria-disabled')).to.equal(true, 'attribute "aria-disabled" should be present');
-        expect(el.getAttribute('aria-disabled')).to.equal('true', '"aria-disabled" should be true');
 
         expect(el.tabIndex).to.equal(-1, 'property tabIndex should be changed to -1 if element disabled');
         expect(el.getAttribute('tabindex')).to.equal('-1', 'attribute "tabindex" should be changed to "-1" if element disabled');
@@ -101,9 +95,6 @@ describe('TestControlElement', () => {
         expect(el.disabled).to.equal(false, 'property "disabled" need to be set false');
         expect(el.getAttribute('disabled')).to.equal(null, 'property "disabled" should reflected');
         expect(el.hasAttribute('disabled')).to.equal(false, 'property "disabled" should reflected');
-
-        expect(el.hasAttribute('aria-disabled')).to.equal(true, 'attribute "aria-disabled" should be present');
-        expect(el.getAttribute('aria-disabled')).to.equal('false', '"aria-disabled" should be false');
 
         expect(el.tabIndex).to.equal(0, 'property tabIndex should be changed to 0 (default property value) if element enabled');
         expect(el.getAttribute('tabindex')).to.equal('0', 'attribute "tabindex" should be changed to "0" (default attribute value) if element disabled');
@@ -118,9 +109,6 @@ describe('TestControlElement', () => {
 
         expect(el.style.pointerEvents).to.equal('none', 'pointer events should be set to "none"');
 
-        expect(el.hasAttribute('aria-disabled')).to.equal(true, 'attribute "aria-disabled" should be present');
-        expect(el.getAttribute('aria-disabled')).to.equal('true', '"aria-disabled" should be true');
-
         expect(el.tabIndex).to.equal(-1, 'property tabIndex should be changed to -1 if element disabled');
         expect(el.getAttribute('tabindex')).to.equal('-1', 'attribute "tabindex" should be changed to "-1" if element disabled');
       });
@@ -134,9 +122,6 @@ describe('TestControlElement', () => {
         expect(el.getAttribute('readonly')).to.equal(null, 'attribute "readonly" should equal null by default');
         expect(el.hasAttribute('readonly')).to.equal(false, 'attribute "readonly" should not be exists by default');
 
-        expect(el.hasAttribute('aria-readonly')).to.equal(true, 'attribute "aria-readonly" should be present');
-        expect(el.getAttribute('aria-readonly')).to.equal('false', '"aria-readonly" should be false');
-
         el.setAttribute('readonly', '');
         await elementUpdated(el);
 
@@ -144,20 +129,12 @@ describe('TestControlElement', () => {
         expect(el.hasAttribute('readonly')).to.equal(true, 'attribute "readonly" should be exists');
         expect(el.getAttribute('readonly')).to.equal('', 'attribute "readonly" should equal ""');
 
-        expect(el.hasAttribute('aria-readonly')).to.equal(true, 'attribute "aria-readonly" should be present');
-        expect(el.getAttribute('aria-readonly')).to.equal('true', '"aria-readonly" should be true');
-
         el.readonly = false;
         await elementUpdated(el);
 
         expect(el.readonly).to.equal(false, 'property "readonly" need to be set false');
         expect(el.getAttribute('readonly')).to.equal(null, 'property "readonly" should reflected');
         expect(el.hasAttribute('readonly')).to.equal(false, 'property "readonly" should reflected');
-
-        expect(el.hasAttribute('aria-readonly')).to.equal(true, 'attribute "aria-readonly" should be present');
-        expect(el.getAttribute('aria-readonly')).to.equal('false', '"aria-readonly" should be false');
-
-        expect(el.getAttribute('aria-readonly')).to.equal('false', 'attribute "aria-readonly" should equal "false" by default');
       });
 
       it('Should have correct property and attribute "readonly"', async () => {
@@ -166,10 +143,6 @@ describe('TestControlElement', () => {
         expect(el.readonly).to.equal(true, 'property "readonly" should be setted');
         expect(el.getAttribute('readonly')).to.equal('', 'attribute "readonly" should equal empty string');
         expect(el.hasAttribute('readonly')).to.equal(true, 'attribute "readonly" should be present');
-
-
-        expect(el.hasAttribute('aria-readonly')).to.equal(true, 'attribute "aria-readonly" should be present');
-        expect(el.getAttribute('aria-readonly')).to.equal('true', '"aria-readonly" should be true');
       });
     });
 
@@ -676,7 +649,6 @@ describe('TestControlElement', () => {
         expect(el.hasAttribute('focused')).to.equal(false, 'element attribute focused should be set to false when disabled');
         expect(el.style.pointerEvents).to.equal('none', 'pointer events should be set to none when disabled');
         expect(el.tabIndex).to.equal(-1, 'tabIndex should be set to -1');
-        expect(el.getAttribute('aria-disabled')).to.equal('true', 'attribute aria-disabled should be set to "true" for disabled element');
       });
 
       it('Test element delegate focus', async function () {
