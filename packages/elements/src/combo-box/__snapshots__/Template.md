@@ -7,8 +7,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -34,8 +32,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -59,8 +55,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -84,8 +78,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -111,8 +103,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -142,36 +132,20 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list
-    aria-disabled="false"
-    aria-readonly="false"
-    id="internal-list"
-  >
+  <ef-list id="internal-list">
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       tabindex="-1"
       type="header"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       highlighted=""
       tabindex="0"
     >
     </ef-item>
-    <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
-      tabindex="0"
-    >
+    <ef-item tabindex="0">
     </ef-item>
-    <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
-      tabindex="0"
-    >
+    <ef-item tabindex="0">
     </ef-item>
   </ef-list>
 </ef-overlay>
@@ -181,8 +155,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -208,36 +180,20 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list
-    aria-disabled="false"
-    aria-readonly="false"
-    id="internal-list"
-  >
+  <ef-list id="internal-list">
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       tabindex="-1"
       type="header"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       highlighted=""
       tabindex="0"
     >
     </ef-item>
-    <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
-      tabindex="0"
-    >
+    <ef-item tabindex="0">
     </ef-item>
-    <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
-      tabindex="0"
-    >
+    <ef-item tabindex="0">
     </ef-item>
   </ef-list>
 </ef-overlay>
@@ -249,8 +205,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -280,36 +234,20 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list
-    aria-disabled="false"
-    aria-readonly="false"
-    id="internal-list"
-  >
+  <ef-list id="internal-list">
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       tabindex="-1"
       type="header"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       highlighted=""
       tabindex="0"
     >
     </ef-item>
-    <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
-      tabindex="0"
-    >
+    <ef-item tabindex="0">
     </ef-item>
-    <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
-      tabindex="0"
-    >
+    <ef-item tabindex="0">
     </ef-item>
   </ef-list>
 </ef-overlay>
@@ -319,8 +257,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -350,33 +286,17 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list
-    aria-disabled="false"
-    aria-readonly="false"
-    id="internal-list"
-  >
+  <ef-list id="internal-list">
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       highlighted=""
       tabindex="0"
     >
     </ef-item>
-    <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
-      tabindex="0"
-    >
+    <ef-item tabindex="0">
+    </ef-item>
+    <ef-item tabindex="0">
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
-      tabindex="0"
-    >
-    </ef-item>
-    <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       tabindex="-1"
       type="header"
     >
@@ -389,8 +309,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -421,8 +339,6 @@
   with-shadow=""
 >
   <ef-item
-    aria-disabled="true"
-    aria-readonly="false"
     disabled=""
     tabindex="-1"
   >

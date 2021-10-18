@@ -41,8 +41,6 @@
       <div>
         R :
         <ef-number-field
-          aria-disabled="false"
-          aria-readonly="false"
           id="redInput"
           max="255"
           min="0"
@@ -54,8 +52,6 @@
       <div>
         G :
         <ef-number-field
-          aria-disabled="false"
-          aria-readonly="false"
           id="greenInput"
           max="255"
           min="0"
@@ -67,8 +63,6 @@
       <div>
         B :
         <ef-number-field
-          aria-disabled="false"
-          aria-readonly="false"
           id="blueInput"
           max="255"
           min="0"
@@ -80,8 +74,6 @@
       <div>
         # :
         <ef-text-field
-          aria-disabled="false"
-          aria-readonly="false"
           icon=""
           id="hexInput"
           maxlength="6"
@@ -95,8 +87,6 @@
 </ef-panel>
 <div part="footer">
   <ef-button
-    aria-disabled="true"
-    aria-readonly="false"
     cta=""
     disabled=""
     id="confirmButton"
@@ -107,8 +97,6 @@
     Apply
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     id="closeButton"
     part="button"
     textpos="after"

@@ -4,8 +4,6 @@
 
 ```html
 <ef-button
-  aria-disabled="false"
-  aria-readonly="false"
   empty=""
   icon="left"
   part="left-btn"
@@ -18,8 +16,6 @@
   </slot>
 </div>
 <ef-button
-  aria-disabled="false"
-  aria-readonly="false"
   empty=""
   icon="right"
   part="right-btn"

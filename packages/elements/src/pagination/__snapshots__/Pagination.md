@@ -18,8 +18,6 @@
   </div>
   <ef-button-bar part="buttons">
     <ef-button
-      aria-disabled="true"
-      aria-readonly="false"
       disabled=""
       empty=""
       icon="skip-to-start"
@@ -30,8 +28,6 @@
     >
     </ef-button>
     <ef-button
-      aria-disabled="true"
-      aria-readonly="false"
       disabled=""
       empty=""
       icon="left"
@@ -43,8 +39,6 @@
     </ef-button>
   </ef-button-bar>
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     id="input"
     no-spinner=""
@@ -54,8 +48,6 @@
   </ef-text-field>
   <ef-button-bar part="buttons">
     <ef-button
-      aria-disabled="true"
-      aria-readonly="false"
       disabled=""
       empty=""
       icon="right"
@@ -66,8 +58,6 @@
     >
     </ef-button>
     <ef-button
-      aria-disabled="true"
-      aria-readonly="false"
       disabled=""
       empty=""
       icon="skip-to-end"
