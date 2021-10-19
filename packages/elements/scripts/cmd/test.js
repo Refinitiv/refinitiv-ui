@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const { execSync } = require('child_process');
-const browserList = require('../../browserList');
+const browsersConfig = require('../../browsers.config');
 
 const {
   getElements,
@@ -34,8 +34,8 @@ exports.builder = yargs => {
     .option('browsers', {
       alias: 'b',
       type: 'array',
-      default: browserList.defaultBrowsers,
-      choices: browserList.availableBrowsers,
+      default: browsersConfig.defaultBrowsers,
+      choices: browsersConfig.availableBrowsers,
       description: 'Specific browser(s) to run units test'
     })
     .completion('completion', () => elements);
