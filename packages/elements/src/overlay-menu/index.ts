@@ -453,8 +453,6 @@ export class OverlayMenu extends Overlay {
       this.oldPosition = undefined;
       this.oldInteractiveElements = [];
     }
-
-    super.onClosed();
   }
 
   /**
