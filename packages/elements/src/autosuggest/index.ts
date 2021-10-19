@@ -28,6 +28,7 @@ import { escapeRegExp, itemHighlightable, itemRenderer, queryWordSelect } from '
 import { isIE, isMobile } from '@refinitiv-ui/utils/lib/browser.js';
 import { Overlay } from '../overlay/index.js';
 import '../loader/index.js';
+import '../item/index.js';
 
 export type {
   AutosuggestTargetElement,

@@ -4,6 +4,8 @@ import { customElement } from '../../lib/decorators/custom-element.js';
 import { asyncFrames } from '../helper.js';
 
 class BasicElementTest extends BasicElement {
+  defaultRole = 'button';
+
   checkNotifyNoCancelable (value) {
     return this.notifyPropertyChange('fakeName', value, false);
   }
@@ -35,6 +37,25 @@ customElement('basic-element-test', {
 
 describe('TestBasicElement', () => {
   describe('Test properties and attributes', () => {
+    describe('Test "role" attribute', () => {
+      it('Should have no role by default', async () => {
+        const roleELement = class RoleElementTest extends BasicElement {};
+        CustomElement('role-element-test', {
+          theme: false
+        })(roleELement);
+
+        const el = await fixture('<role-element-test></role-element-test>');
+        expect(el.getAttribute('role')).to.equal(null);
+      });
+      it('Should be able to assign role using defaultRole property', async () => {
+        const el = await fixture('<basic-element-test></basic-element-test>');
+        expect(el.getAttribute('role')).to.equal('button');
+      });
+      it('Should take custom role as higher priority than default role', async () => {
+        const el = await fixture('<basic-element-test role="checkbox"></basic-element-test>');
+        expect(el.getAttribute('role')).to.equal('checkbox');
+      })
+    })
     describe('Test "autofocus" property and attribute', async () => {
       it('Should have correct property and attribute "autofocus" by default', async () => {
         const el = await fixture('<control-element-test></control-element-test>');
