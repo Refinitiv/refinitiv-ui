@@ -40,7 +40,7 @@ describe('TestBasicElement', () => {
     describe('Test "role" attribute', () => {
       it('Should have no role by default', async () => {
         const roleELement = class RoleElementTest extends BasicElement {};
-        CustomElement('role-element-test', {
+        customElement('role-element-test', {
           theme: false
         })(roleELement);
 
