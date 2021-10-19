@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-const osType = require('os').type();
 const path = require('path');
 const { ROOT, PACKAGES } = require('./scripts/helpers');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
+const browsersConfig = require('./browsers.config');
 
 const argv = yargs(hideBin(process.argv))
   .option('include-snapshots', {
@@ -29,30 +29,16 @@ const argv = yargs(hideBin(process.argv))
   .option('watch', {
     type: 'boolean',
     default: false,
-    description: 'Enable watching files and executing the tests whenever one of these files changes'
+    description: 'Run test and watch file change'
+  })
+  .option('browsers', {
+    type: 'array',
+    alias: 'b',
+    default: browsersConfig.defaultBrowsers,
+    choices: browsersConfig.availableBrowsers,
+    description: 'Specific browser(s) to run units test'
   })
   .argv
-
-/**
- * Browsers
- */
-const isWin = osType === 'Windows_NT';
-const isDarwin = osType === 'Darwin'; /* macOS, iOS, iPadOS */
-
-const defaultBrowsers = ['chrome']; // TODO: add Firefox after fix unstable test case on Firefox
-const availableBrowsers = ['chrome', 'firefox', 'opera'];
-
-// do not perform browser check as it is slow and never required
-
-if (isWin) {
-  // TODO: uncomment this line after all IE11 tests pass
-  // defaultBrowsers.push('IE_no_addons');
-}
-
-if (isDarwin) {
-  // defaultBrowsers.push('safari'); /* there is a bug https://github.com/karma-runner/karma-safari-launcher/issues/29, so do not include it by default  */
-  availableBrowsers.push('safari');
-}
 
 const packageName = argv.package || path.basename(process.cwd()); // if no package provided, try to guess
 const packagePath = path.join(ROOT, PACKAGES, packageName);
@@ -96,7 +82,7 @@ const baseConfig = {
   autoWatch: argv.watch,
   singleRun: !argv.watch,
   basePath: ROOT, // must be in the root in order for node_modules to be resolved correctly
-  concurrency: Infinity, // Set the value to `1`, When Karma has a problem to connect a test browser on Windows.
+  concurrency: 1, // Set the value to `1`, When Karma has a problem to connect a test browser on Windows.
   // IE 11 must add extra time to loading all scripts for testing concurrently.
   browserNoActivityTimeout: 60000 * 2,
   browserDisconnectTimeout: 60000 * 2,
@@ -146,7 +132,7 @@ const baseConfig = {
 
 // Do not run headless browsers in watch mode, it significantly slow down debugging
 if (!argv.watch) {
-  baseConfig.browsers = defaultBrowsers;
+  baseConfig.browsers = argv.browsers;
   baseConfig.customLaunchers = {
     firefox: {
       base: 'Firefox',
@@ -161,7 +147,7 @@ if (!argv.watch) {
         '--disable-extensions'
       ]
     },
-    IE_no_addons: {
+    ie: {
       base: 'IE',
         flags: ['-extoff']
     }
