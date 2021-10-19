@@ -120,7 +120,7 @@ export class Checkbox extends ControlElement {
    * Indicates current state of checkbox
    */
   @property({ type: String, reflect: true, attribute: 'aria-checked' })
-  private ariaChecked = 'false';
+  private ariaChecked = String(this.checked);
 
   /**
    * Getter for label

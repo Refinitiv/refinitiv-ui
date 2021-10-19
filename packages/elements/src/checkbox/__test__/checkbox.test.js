@@ -54,15 +54,11 @@ describe('checkbox/Checkbox', () => {
     });
     it('should pass a11y test when disabled', async () => {
       const el = await fixture(disabled);
-
       await expect(el).to.be.accessible();
-      await expect(el.ariaChecked).to.equal('false');
     });
     it('should pass a11y test when readonly', async () => {
       const el = await fixture(readonly);
-
       await expect(el).to.be.accessible();
-      await expect(el.ariaChecked).to.equal('false');
     });
   })
 
