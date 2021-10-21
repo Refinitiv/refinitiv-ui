@@ -19,7 +19,7 @@ import '../icon/index.js';
 import '../item/index.js';
 import { Item, ItemData } from '../item/index.js';
 import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay/index.js';
-
+import { applyLock } from '../overlay/managers/interaction-lock-manager.js';
 import type { OverlayMenuData } from './helpers/types';
 import { OpenedMenusManager } from './managers/menu-manager.js';
 
@@ -434,8 +434,17 @@ export class OverlayMenu extends Overlay {
     });
 
     this.setItemHighlight();
+    this.restoreNestedProperties();
 
-    if (OpenedMenusManager.isNested(this)) {
+    super.onClosed();
+  }
+
+  /**
+   * Restore properties back to original before bounding to parent menu
+   * @returns {void}
+   */
+  private restoreNestedProperties (): void {
+    if (this.nested) {
       this.nested = false;
       this.position = this.oldPosition;
       this.positionTarget = this.oldPositionTarget;
@@ -444,8 +453,6 @@ export class OverlayMenu extends Overlay {
       this.oldPosition = undefined;
       this.oldInteractiveElements = [];
     }
-
-    super.onClosed();
   }
 
   /**
@@ -474,6 +481,7 @@ export class OverlayMenu extends Overlay {
   private opening (): void {
     const parentMenuItem = OpenedMenusManager.getParentMenuItem(this);
     this.dataDisconnectThrottler.cancel();
+    this.restoreNestedProperties();
 
     if (parentMenuItem) {
       this.nested = true;
@@ -496,6 +504,11 @@ export class OverlayMenu extends Overlay {
         this.positionTarget = parentMenu?.positionTarget;
         this.position = parentMenu?.position;
       }
+
+      // Managers are applied in shouldUpdate lifecycles (as not every property causes re-render)
+      // The process must follow certain order (which is better not to touch)
+      // `applyLock` fixes a problem when changes in properties above where not take into account
+      applyLock();
     }
     this.registerMenu();
   }

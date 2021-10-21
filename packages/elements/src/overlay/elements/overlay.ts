@@ -383,7 +383,7 @@ export class Overlay extends ResponsiveElement {
     attribute: false,
     hasChanged: (newVal: HTMLElement[], oldVal?: HTMLElement[]): boolean => {
       if (!oldVal || newVal.length !== oldVal.length) {
-        return false;
+        return true;
       }
       return newVal.some(el => !oldVal.includes(el));
     }
@@ -789,14 +789,14 @@ export class Overlay extends ResponsiveElement {
 
     /* !!! Obligatory managers cannot be removed here, as this function is synchronous and animations must be taken into account !!! */
     if (opening) {
-      /* Obligatory managers */
+      // must come first as used by other managers
+      zIndexRegister(this);
+
       viewportRegister(this);
 
       closeRegister(this, () => {
         this.setOpened(false);
       });
-
-      zIndexRegister(this);
     }
 
     const enablingFocusManagement = (opening && !this.noFocusManagement) || (opened && changedProperties.get('noFocusManagement'));
@@ -808,7 +808,7 @@ export class Overlay extends ResponsiveElement {
       focusableDeregister(this);
     }
 
-    if (opening || changedProperties.has('noInteractionLock')) {
+    if (opening || changedProperties.has('noInteractionLock') || changedProperties.has('lockPositionTarget') || changedProperties.has('interactiveElements')) {
       applyLock();
     }
 
@@ -830,9 +830,9 @@ export class Overlay extends ResponsiveElement {
    * @returns {void}
    */
   private removeMainRegisters (): void {
+    zIndexDeregister(this);
     viewportDeregister(this);
     closeDeregister(this);
-    zIndexDeregister(this);
     focusableDeregister(this);
   }
 
@@ -1637,6 +1637,10 @@ export class Overlay extends ResponsiveElement {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public resizedCallback (size: ElementSize): void {
     this.resizedThrottler.schedule(() => {
+      if (!this.opened && this._fullyOpened === OpenedState.CLOSED) {
+        // Do nothing on last resized callback
+        return;
+      }
       this.setResizeSizingInfo();
       this.fitNonThrottled();
 
