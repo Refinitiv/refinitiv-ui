@@ -83,15 +83,47 @@ export class RadioButton extends ControlElement {
 
   /**
    * Radio button checked state
+   * @param value checked state
+   * @returns {void}
    */
   @property({ type: Boolean, reflect: true })
-  public checked = false;
+  public set checked (value: boolean) {
+    const oldValue = this._checked;
+    if (oldValue !== value) {
+      this._checked = value;
+
+      this.ariaChecked = String(value);
+      void this.requestUpdate('checked', oldValue);
+    }
+
+    if (this.name) {
+      this.tabIndex = value ? 0 : -1;
+    }
+  }
+
+  public get checked (): boolean {
+    return this._checked;
+  }
+
+  private _checked = false;
 
   /**
    * Getter for label
    */
   @query('[part=label]', true)
   private labelEl!: HTMLElement;
+  
+  /**
+   * Element's role attribute for accessibility
+   */
+  protected readonly defaultRole = 'radio';
+
+  /**
+   * Current state of radio for accessibility
+  */
+  @property({ type: String, reflect: true, attribute: 'aria-checked' })
+  private ariaChecked = 'false';
+
 
   /**
    * Called when connected to DOM
@@ -139,6 +171,8 @@ export class RadioButton extends ControlElement {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.onTap);
     this.addEventListener('keydown', this.onKeyDown);
+    this.addEventListener('focus', this.onFocus);
+    this.addEventListener('blur', this.onBlur);
 
     registerOverflowTooltip(this.labelEl, () => this.textContent);
   }
@@ -177,18 +211,51 @@ export class RadioButton extends ControlElement {
     if (this.disabled || this.readonly || event.defaultPrevented) {
       return;
     }
-
     switch (event.key) {
       case 'Enter':
       case ' ':
       case 'Spacebar':
         this.handleChangeChecked();
         break;
+      case 'ArrowRight':
+      case 'ArrowDown':
+        this.navigateToNext();
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        this.navigateToPrevious();
+        break;
       default:
         return;
     }
 
     event.preventDefault();
+  }
+
+  /**
+   * Handles focus event
+   * @returns {void}
+   */
+  private onFocus (): void {
+    if (!this.name || this.checked) {
+      return;
+    }
+    getRadioGroup(this).filter(radio => radio !== this).forEach(radio => {
+      radio.tabIndex = -1; // Set tabIndex = -1 for all radio button in group except the one that being focused.
+    });
+  }
+
+  /**
+   * Handles blur event
+   * @returns {void}
+   */
+  private onBlur (): void {
+    if (!this.name || this.checked) {
+      return;
+    }
+    getRadioGroup(this).filter(radio => radio !== this).forEach(radio => {
+      radio.tabIndex = 0; // Set tabIndex = 0 for all radio button in group when blur.
+    });
   }
 
   /**
@@ -201,6 +268,58 @@ export class RadioButton extends ControlElement {
     if (!this.checked) {
       this.checked = true;
       this.notifyPropertyChange('checked', this.checked);
+    }
+  }
+
+  /**
+   * Handle when press arrow left/up.
+   * To move focus and check the previous radio button in the group.
+   * Unchecked the previous radio button
+   * @returns {void}
+   */
+  private navigateToPrevious (): void {
+    if (!this.name) {
+      return;
+    }
+
+    const radioGroup = getRadioGroup(this);
+    const currectItemIndex = radioGroup.indexOf(this);
+    const lastIndex = radioGroup.length - 1;
+    radioGroup[currectItemIndex].checked = false;
+    radioGroup[currectItemIndex].blur();
+    
+    if (currectItemIndex > 0) {
+      radioGroup[currectItemIndex - 1].checked = true;
+      radioGroup[currectItemIndex - 1].focus();
+    }
+    else {
+      radioGroup[lastIndex].checked = true;
+      radioGroup[lastIndex].focus();
+    }
+  }
+
+  /**
+   * Handle when press arrow right/down.
+   * To move focus and check the next radio button in the group.
+   * Unchecked the previous radio button
+   * @returns {void}
+   */
+  private navigateToNext (): void {
+    if (!this.name) {
+      return;
+    }
+    const radioGroup = getRadioGroup(this);
+    const currectState = radioGroup.indexOf(this);
+
+    radioGroup[currectState].checked = false;
+    radioGroup[currectState].blur();
+    if (currectState < radioGroup.length - 1) {
+      radioGroup[currectState + 1].checked = true;
+      radioGroup[currectState + 1].focus();
+    }
+    else {
+      radioGroup[0].checked = true;
+      radioGroup[0].focus();
     }
   }
 

@@ -4,6 +4,8 @@ import '@refinitiv-ui/elemental-theme/light/ef-radio-button';
 
 const createEnterKeyboardEvent = () => keyboardEvent('keydown', { key: 'Enter' });
 const createSpacebarKeyboardEvent = () => keyboardEvent('keydown', { key: isIE() ? 'Spacebar' : ' ' });
+const keyArrowLeft = () => keyboardEvent('keydown', { key: 'ArrowLeft'});
+const keyArrowRight = () => keyboardEvent('keydown', { key: 'ArrowRight'});
 
 const updateGroup = async (group) => {
   for (let i = 0; i < group.length; i += 1) {
@@ -441,6 +443,56 @@ describe('radio-button/RadioButton', () => {
     });
   });
 
+  describe('Group navigation', () => {
+    it('Should uncheck the current button and move to check previous button', async () => {
+      const option1 = await fixture('<ef-radio-button name="group2">Option 1</ef-radio-button>');
+      const option2 = await fixture('<ef-radio-button name="group2" checked>Option 2</ef-radio-button>');
+      expect(option1.checked).to.equal(false);
+      expect(option2.checked).to.equal(true);
+      setTimeout(() => option2.dispatchEvent(keyArrowLeft()));
+      const event = await oneEvent(option2, 'keydown');
+      expect(event.key).to.equal('ArrowLeft');
+      expect(option1.checked).to.equal(true);
+      expect(option2.checked).to.equal(false);
+      
+    });
+    it('Should uncheck the current button and move to check last button', async () => {
+      const option1 = await fixture('<ef-radio-button name="group2" checked>Option 1</ef-radio-button>');
+      const option2 = await fixture('<ef-radio-button name="group2">Option 2</ef-radio-button>');
+      expect(option1.checked).to.equal(true);
+      expect(option2.checked).to.equal(false);
+
+      setTimeout(() => option1.dispatchEvent(keyArrowLeft()));
+      const event = await oneEvent(option1, 'keydown');
+      expect(event.key).to.equal('ArrowLeft');
+      expect(option1.checked).to.equal(false);
+      expect(option2.checked).to.equal(true);
+    });
+    it('Should uncheck the current button and check next button', async () => {
+      const option1 = await fixture('<ef-radio-button name="group2" checked>Option 1</ef-radio-button>');
+      const option2 = await fixture('<ef-radio-button name="group2">Option 2</ef-radio-button>');
+      expect(option1.checked).to.equal(true);
+      expect(option2.checked).to.equal(false);
+
+      setTimeout(() => option1.dispatchEvent(keyArrowRight()));
+      const event = await oneEvent(option1, 'keydown');
+      expect(event.key).to.equal('ArrowRight');
+      expect(option1.checked).to.equal(false);
+      expect(option2.checked).to.equal(true);
+    });
+    it('Should uncheck the current button and check first button', async () => {
+      const option1 = await fixture('<ef-radio-button name="group2">Option 1</ef-radio-button>');
+        const option2 = await fixture('<ef-radio-button name="group2" checked>Option 2</ef-radio-button>');
+        expect(option1.checked).to.equal(false);
+        expect(option2.checked).to.equal(true);
+        setTimeout(() => option2.dispatchEvent(keyArrowRight()));
+        const event = await oneEvent(option2, 'keydown');
+        expect(event.key).to.equal('ArrowRight');
+        expect(option1.checked).to.equal(true);
+        expect(option2.checked).to.equal(false);
+    });
+  });
+
   describe('No label', () => {
     let noLabelRadio;
     let labelPart;
@@ -463,6 +515,35 @@ describe('radio-button/RadioButton', () => {
       noLabelRadio.textContent = '';
       await elementUpdated(noLabelRadio);
       expect(window.getComputedStyle(labelPart).display).equal('none');
+    });
+  });
+
+  describe('Accessiblity', () => {
+    it('should fail without label', async () => {
+      const el = await fixture('<ef-radio-button></ef-radio-button>');
+      await expect(el).not.to.be.accessible();
+    });
+    it('should pass a11y test with aria-label', async () => {
+      const el = await fixture(`<ef-radio-button aria-label="Radio Button"></ef-checkbox>`);
+      await expect(el).to.be.accessible({ignoredRules: ['aria-allowed-attr']});
+      expect(el.ariaChecked).to.be.equal(String(el.checked), 'ariaChecked');
+      expect(el.getAttribute('aria-checked')).to.be.equal(String(el.checked), 'aria-checked');
+    });
+    it('should pass a11y test with slotted label', async () => {
+      const el = await fixture(`<ef-radio-button>Radio Button</ef-checkbox>`);
+      await expect(el).to.be.accessible({ignoredRules: ['aria-allowed-attr']});
+      expect(el.ariaChecked).to.be.equal(String(el.checked), 'ariaChecked');
+      expect(el.getAttribute('aria-checked')).to.be.equal(String(el.checked), 'aria-checked');
+    });
+    it('should pass a11y test when radio button is checked', async () => {
+      const el = await fixture(`<ef-radio-button checked>Radio Button</ef-checkbox>`);
+      await expect(el).to.be.accessible({ignoredRules: ['aria-allowed-attr']});
+      expect(el.ariaChecked).to.be.equal(String(el.checked), 'ariaChecked');
+      expect(el.getAttribute('aria-checked')).to.be.equal(String(el.checked), 'aria-checked');
+    });
+    it('should pass a11y test when disabled', async () => {
+      const el = await fixture(`<ef-radio-button disabled>Radio Button</ef-checkbox>`);
+      await expect(el).to.be.accessible({ignoredRules: ['aria-allowed-attr']});
     });
   });
 });
