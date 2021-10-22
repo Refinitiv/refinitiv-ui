@@ -7,6 +7,7 @@ import {
   CSSResult,
   unsafeHTML,
   TemplateResult,
+  SVGTemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
 import { VERSION } from '../';
@@ -14,6 +15,13 @@ import { IconLoader } from './utils/IconLoader';
 export { preload } from './utils/IconLoader';
 
 const EmptyTemplate = svg``;
+
+/**
+ * Cache for reusing SVG template results across multiple icons.
+ * Reusing these templates increases performance dramatically when many icons are rendered.
+ * As the cache key is an absolute URL, we can assume no clashes will occur.
+ */
+const iconTemplateCache = new Map<string, Promise<SVGTemplateResult>>();
 
 @customElement('ef-icon', {
   alias: 'coral-icon'
@@ -133,10 +141,16 @@ export class Icon extends BasicElement {
    * @returns {void}
    */
   private async loadAndRenderIcon (src: string): Promise<void> {
-    const svgBody = await IconLoader.loadSVG(src);
-    if (svgBody) {
-      this.template = svg`${unsafeHTML(svgBody)}`;
+    const iconTemplateCacheItem = iconTemplateCache.get(src);
+    if (!iconTemplateCacheItem) {
+      iconTemplateCache.set(
+        src,
+        IconLoader.loadSVG(src)
+        .then(body => svg`${unsafeHTML(body)}`)
+      );
+      return this.loadAndRenderIcon(src); // Load again and await cache result
     }
+    this.template = await iconTemplateCacheItem;
   }
 
   /**
