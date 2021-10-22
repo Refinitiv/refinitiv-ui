@@ -52,8 +52,8 @@ export class Icon extends BasicElement {
   private _icon: string | null = null;
 
   /**
-   * Name of a known icon to render.
-   * @example heart
+   * Name of a known icon to render or URL of SVG icon.
+   * @example heart | https://cdn.io/icons/heart.svg
    */
   @property({ type: String, reflect: true })
   public get icon (): string | null {
@@ -73,6 +73,7 @@ export class Icon extends BasicElement {
   /**
    * Src location of an svg icon.
    * @example https://cdn.io/icons/heart.svg
+   * @deprecated Use `icon` instead
    */
   @property({ type: String })
   public get src (): string | null {
