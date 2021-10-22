@@ -18,6 +18,9 @@
       import '@refinitiv-ui/demo-block';
       let nextId = 0;
       const makeData = (depth = 0, detail = { count: 0 }) => {
+        if (!detail.count) {
+          nextId = 0;
+        }
         return Array(depth ? 5 : 4).fill(0).map((_, i) => {
           detail.count += 1;
           const disabled = detail.count === 3;
