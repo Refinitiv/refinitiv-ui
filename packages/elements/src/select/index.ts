@@ -2,26 +2,27 @@ import {
   ControlElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
-  styleMap,
+  CSSResultGroup,
   PropertyValues,
   MultiValue,
-  query,
   FocusedPropertyKey,
   StyleMap
 } from '@refinitiv-ui/core';
-import '../overlay';
-import { Item } from '../item';
-import '../item';
-import '../icon';
-import { CollectionComposer, TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils';
-import { Overlay } from '../overlay';
-import { SelectData, SelectDataItem } from './helpers/types';
-import { OpenedChangedEvent } from '../events';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
+import { VERSION } from '../version.js';
+import '../overlay/index.js';
+import '../item/index.js';
+import '../icon/index.js';
+import { Item } from '../item/index.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
+import { TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import type { Overlay } from '../overlay';
+import type { SelectData, SelectDataItem } from './helpers/types';
+import type { OpenedChangedEvent } from '../events';
 
 export { SelectData, SelectDataItem };
 
@@ -76,12 +77,12 @@ export class Select extends ControlElement implements MultiValue {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         outline: none;
@@ -246,7 +247,7 @@ export class Select extends ControlElement implements MultiValue {
       this.value = this.cachedValue;
     }
 
-    void this.requestUpdate('data', oldValue);
+    this.requestUpdate('data', oldValue);
   }
 
   /**
@@ -273,7 +274,7 @@ export class Select extends ControlElement implements MultiValue {
       // either defined in data or by having selected as an attribute
       this.clearSelection();
       this.selectValue(value);
-      void this.requestUpdate('value', oldValue);
+      this.requestUpdate('value', oldValue);
     }
   }
   public get value (): string {
@@ -412,7 +413,7 @@ export class Select extends ControlElement implements MultiValue {
     const hasLightDomMutations = mutations
       .some(m => m.target.getRootNode() !== this.shadowRoot);
     if (hasLightDomMutations) {
-      void this.requestUpdate();
+      this.requestUpdate();
     }
   }
 
@@ -429,7 +430,7 @@ export class Select extends ControlElement implements MultiValue {
       this.resizeThrottler.schedule(() => {
         if (this.offsetWidth) { /* must be here to avoid infinitive loop */
           this.restrictPopupWidth();
-          void this.requestUpdate();
+          this.requestUpdate();
         }
       });
 
@@ -816,7 +817,7 @@ export class Select extends ControlElement implements MultiValue {
         item.selected = false;
       });
     }
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**

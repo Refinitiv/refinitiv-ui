@@ -2,15 +2,14 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-
-import '../icon';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
+import '../icon/index.js';
 
 /**
  * Used to display at the top of application to provide a status or information.
@@ -31,13 +30,13 @@ export class AppstateBar extends BasicElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    *
-   * @returns {(CSSResult|CSSResult[])} CSS template
+   * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;

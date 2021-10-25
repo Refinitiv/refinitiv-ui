@@ -1,5 +1,5 @@
-import { CenterLineStyle, DefaultStyle } from './const';
-import { SwingGaugeCanvasSize, SwingGaugeData, SwingGaugeStyle } from './types';
+import { CenterLineStyle, DefaultStyle } from './const.js';
+import type { SwingGaugeCanvasSize, SwingGaugeData, SwingGaugeStyle } from './types';
 
 let ctx: CanvasRenderingContext2D;
 let data: SwingGaugeData;
@@ -78,7 +78,7 @@ const draw = (
   const secondaryEnd = 1;
   secondaryStart = secondaryStart < 0.01 ? 0.01 : secondaryStart;
   secondaryStart = secondaryStart > 0.99 ? 0.99 : secondaryStart;
-  
+
   // Draw segments
   drawSegment(primaryStart, primaryEnd, style.primaryColor);
   drawSegment(secondaryStart, secondaryEnd, style.secondaryColor);

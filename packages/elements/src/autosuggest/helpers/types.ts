@@ -1,4 +1,4 @@
-import { ItemType } from '../../item';
+import type { ItemType } from '../../item';
 
 export type AutosuggestSelectItemEvent = CustomEvent<{ query: string, suggestion: Suggestion }>;
 

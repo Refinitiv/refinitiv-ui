@@ -4,7 +4,7 @@ import {
   toSegment as toDateSegment,
   isValid as isValidDate,
   getDaysInMonth
-} from './date';
+} from './date/date.js';
 
 export {
   DateSegment,
@@ -19,7 +19,7 @@ import {
   Format as TimeFormat,
   isValid as isValidTime,
   toSegment as toTimeSegment
-} from './time';
+} from './date/time.js';
 
 export {
   TimeSegment,
@@ -34,7 +34,7 @@ import {
   isValid as isValidDateTime,
   toSegment as toDateTimeSegment,
   split as splitDateTime
-} from './datetime';
+} from './date/datetime.js';
 
 export {
   DateTimeSegment,
@@ -44,7 +44,7 @@ export {
   splitDateTime
 };
 
-export { padNumber } from './utils';
+export { padNumber } from './date/utils.js';
 
-export * from './timestamps';
-export * from './shared';
+export * from './date/timestamps.js';
+export * from './date/shared.js';

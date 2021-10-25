@@ -5,6 +5,7 @@
  */
 const { legacyPlugin } = require('@web/dev-server-legacy');
 const { ROOT } = require('./scripts/helpers');
+const path = require('path');
 
 module.exports = {
   rootDir: ROOT,
@@ -17,7 +18,17 @@ module.exports = {
     legacyPlugin({
       polyfills: {
         webcomponents: true,
-        shadyCssCustomStyle: true
+        shadyCssCustomStyle: true,
+        // Inject lit's polyfill-support module into test files, which is required
+        // for interfacing with the webcomponents polyfills
+        custom: [
+          {
+            name: 'lit-polyfill-support',
+            path: path.resolve(ROOT, 'node_modules/lit/polyfill-support.js'),
+            test: "!('attachShadow' in Element.prototype)",
+            module: false,
+          }
+        ]
       }
     }) // IE11 support
   ]

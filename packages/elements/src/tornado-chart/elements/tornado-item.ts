@@ -2,16 +2,15 @@ import {
   BasicElement,
   html,
   css,
-  property,
-  customElement,
   TemplateResult,
-  CSSResult,
-  ifDefined
+  CSSResultGroup
 } from '@refinitiv-ui/core';
-
-import '../../progress-bar';
-import '../../layout';
-import { VERSION } from '../../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../../version.js';
+import '../../progress-bar/index.js';
+import '../../layout/index.js';
 
 /**
  * A part of <ef-tornado-chart />,
@@ -66,7 +65,7 @@ export class TornadoItem extends BasicElement {
       this.showHorizontalMode();
     }
 
-    void this.requestUpdate('vertical', previousValue);
+    this.requestUpdate('vertical', previousValue);
   }
 
   /**
@@ -158,12 +157,12 @@ export class TornadoItem extends BasicElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;

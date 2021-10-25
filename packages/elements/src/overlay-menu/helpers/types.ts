@@ -1,7 +1,6 @@
-import { CollectionComposer } from '@refinitiv-ui/utils';
-
-import { OverlayMenu } from '../index';
-import { Item, ItemData } from '../../item';
+import type { CollectionComposer } from '@refinitiv-ui/utils/lib/collection';
+import type { OverlayMenu } from '../index';
+import type { Item, ItemData } from '../../item';
 
 export type NestedMenu = {
   menu: OverlayMenu;

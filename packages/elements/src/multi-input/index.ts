@@ -1,28 +1,25 @@
 import {
   ControlElement,
   css,
-  CSSResult,
-  customElement,
+  CSSResultGroup,
   html,
   MultiValue,
-  property,
-  query,
   TemplateResult,
-  ifDefined,
   PropertyValues
 } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
+import type { Pill } from '../pill';
+import type { TextField } from '../text-field';
+import type { MultiInputData, MultiInputDataItem, MultiInputEvents, SelectionIndex } from './helpers/types';
+import '../pill/index.js';
+import '../text-field/index.js';
 
-import { CollectionComposer } from '@refinitiv-ui/utils';
-
-import '../pill';
-import '../text-field';
-import { Pill } from '../pill';
-import { TextField } from '../text-field';
-
-import { MultiInputData, MultiInputDataItem, MultiInputEvents, SelectionIndex } from './helpers/types';
-import { VERSION } from '../';
-
-export { MultiInputData, MultiInputDataItem };
+export type { MultiInputData, MultiInputDataItem };
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
 
@@ -71,12 +68,12 @@ export class MultiInput extends ControlElement implements MultiValue {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -211,7 +208,7 @@ export class MultiInput extends ControlElement implements MultiValue {
       this.composer = new CollectionComposer<MultiInputDataItem>([]);
     }
     this._data = value;
-    void this.requestUpdate('data', oldValue);
+    this.requestUpdate('data', oldValue);
   }
 
   private _data: MultiInputData | null = null;
@@ -298,7 +295,7 @@ export class MultiInput extends ControlElement implements MultiValue {
 
     if (process) {
       this.composer.removeItem(item);
-      void this.requestUpdate();
+      this.requestUpdate();
       this.focus(); /* keep focus on multi-input */
       return item;
     }
@@ -341,7 +338,7 @@ export class MultiInput extends ControlElement implements MultiValue {
 
     if (process) {
       this.composer.addItem(item);
-      void this.requestUpdate();
+      this.requestUpdate();
 
       return item;
     }
@@ -393,7 +390,7 @@ export class MultiInput extends ControlElement implements MultiValue {
     }
     if (oldValue !== value) {
       this.oldValue = value;
-      void this.requestUpdate('value', oldValue);
+      this.requestUpdate('value', oldValue);
     }
   }
   public get value (): string {

@@ -1,12 +1,7 @@
-import type { Tooltip } from '../index';
-import { TimeoutTaskRunner } from '@refinitiv-ui/utils';
-import { DocumentCallbacks } from '../helpers/types';
-
-/**
- * Helper to check if the browser is IE
- * @returns True if the browser is IE
- */
-const isIE = (): boolean => !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
+import type { Tooltip } from '../index.js';
+import type { DocumentCallbacks } from '../helpers/types';
+import { TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
 
 /**
  * Tooltip manager is here to avoid setting multiple
@@ -109,7 +104,7 @@ class TooltipManager {
   public register (tooltip: Tooltip, documentCallbacks: DocumentCallbacks): void {
     if (!this.registry.size) {
       // IE11 does not support event options
-      const supportOptions = !isIE();
+      const supportOptions = !isIE;
       const eventOptions = supportOptions ? { passive: true } : undefined;
 
       document.addEventListener('mousemove', this.onMouseMove, eventOptions);

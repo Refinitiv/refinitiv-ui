@@ -1,7 +1,7 @@
 import { expect, fixture, oneEvent, html } from '@refinitiv-ui/test-helpers';
 import { ResponsiveElement } from '../../lib/elements/ResponsiveElement';
 import { css } from '../../lib/elf';
-import { CustomElement } from '../../lib/decorators/CustomElement';
+import { customElement } from '../../lib/decorators/custom-element';
 import { asyncFrames } from '../helper';
 
 class ResponsiveElementTest extends ResponsiveElement {
@@ -26,7 +26,7 @@ class ResponsiveElementTest extends ResponsiveElement {
   }
 }
 
-CustomElement('responsive-element-test', {
+customElement('responsive-element-test', {
   theme: false
 })(ResponsiveElementTest);
 

@@ -14,18 +14,18 @@
       <div
         id="trackFill"
         part="track-fill"
-        style="width: 0%;"
+        style="width:0%;"
       >
       </div>
       <div
         id="stepContainer"
         part="step-container"
-        style="transform: translateX(-0.5%);"
+        style="transform:translateX(-0.5%);"
       >
         <div
           id="steps"
           part="step"
-          style="transform: translateX(0.5%); background-size: 1% 100%;"
+          style="transform:translateX(0.5%);background-size:1% 100%;"
         >
         </div>
       </div>
@@ -34,7 +34,7 @@
       id="thumbContainer"
       name="value"
       part="thumb-container"
-      style="left: 0%;"
+      style="left:0%;"
     >
       <div part="pin">
         <span

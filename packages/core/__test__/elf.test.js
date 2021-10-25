@@ -1,12 +1,12 @@
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
-import { CustomElement } from './../lib/decorators/CustomElement';
+import { customElement } from './../lib/decorators/custom-element';
 import { LitElement } from '../lib/elf';
 
 class BasicElementTest extends LitElement {
 
 }
 
-CustomElement('lit-element-element-test', {
+customElement('lit-element-element-test', {
   theme: false
 })(BasicElementTest);
 

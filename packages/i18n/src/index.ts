@@ -1,4 +1,4 @@
-export {
+export type {
   TranslateOptions,
   TranslateMessage,
   TranslateParams,
@@ -10,15 +10,15 @@ export {
 export {
   LangObserverCallback,
   LangAttributeObserver
-} from './lang-attribute-observer';
+} from './lang-attribute-observer.js';
 
 export {
   t,
   clearCache,
   resolveLocale,
   clearCachedRecord
-} from './translate';
+} from './translate.js';
 
 export {
   DEFAULT_LOCALE
-} from './constants';
+} from './constants.js';
