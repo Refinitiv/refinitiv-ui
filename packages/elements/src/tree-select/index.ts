@@ -1,34 +1,35 @@
 import {
-  customElement,
   html,
-  property,
-  styleMap,
   TemplateResult,
-  CSSResult,
-  css,
-  repeat,
-  query,
-  ifDefined
+  CSSResultGroup,
+  css
 } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
+import { repeat } from '@refinitiv-ui/core/lib/directives/repeat.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
+import { TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+
+import '../icon/index.js';
+import '../text-field/index.js';
+import '../pill/index.js';
+import '../button/index.js';
+import '../checkbox/index.js';
+import '../tree/index.js';
+import type { Overlay } from '../overlay';
+import { ComboBox, ComboBoxFilter as TreeSelectFilter } from '../combo-box/index.js';
+import type { CheckChangedEvent } from '../events';
+import { TreeRenderer as TreeSelectRenderer } from '../tree/index.js';
+import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager.js';
+
+import type { TreeSelectData, TreeSelectDataItem } from './helpers/types';
+import type { Pill } from '../pill';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
-import { CollectionComposer, TimeoutTaskRunner } from '@refinitiv-ui/utils';
-import '@refinitiv-ui/phrasebook/lib/locale/en/tree-select';
-
-import '../icon';
-import '../text-field';
-import '../pill';
-import '../button';
-import '../checkbox';
-import '../tree';
-import { Overlay } from '../overlay';
-import { ComboBox, ComboBoxFilter as TreeSelectFilter } from '../combo-box';
-import { CheckChangedEvent } from '../events';
-import { TreeRenderer as TreeSelectRenderer } from '../tree';
-import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager';
-
-import { TreeSelectData, TreeSelectDataItem } from './helpers/types';
-import { VERSION } from '..';
-import { Pill } from '../pill';
+import '@refinitiv-ui/phrasebook/lib/locale/en/tree-select.js';
 
 export { TreeSelectRenderer, TreeSelectData, TreeSelectDataItem, TreeSelectFilter };
 
@@ -71,7 +72,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     this.multiple = true;
   }
 
-  public static get styles (): CSSResult | CSSResult[] {
+  public static get styles (): CSSResultGroup {
     return css`
       [part=list] {
         display: flex;
@@ -239,7 +240,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
       this.updateMemo();
       this.updatePills();
-      void this.requestUpdate('data', oldValue);
+      this.requestUpdate('data', oldValue);
     }
   }
   protected get resolvedData (): TreeSelectDataItem[] {
@@ -425,7 +426,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       }
       return false;
     });
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**
@@ -558,36 +559,37 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   }
 
   /**
-   * Filter the internal items by query
-   * Changes items' hidden state
-   *
+   * Filter the internal items by query. Changes items' hidden state.
    * @returns {void}
    */
   protected filterItems (): void {
     // if filter is null, it is off and external app is responsible
     if (this.filter) {
       const filter = this.filter;
-      const items = this.queryItems((item, composer): boolean => {
+      const items = this.queryItems((item): boolean => {
         // do not filter hidden items
         if (item.hidden) {
           return false;
         }
+
         // does item match the selection filter
         let result = true;
         if (this.editSelectionItems.size && !this.editSelectionItems.has(item)) {
           result = false;
         }
+
         // item matches selection, can have conventional filter applied
         if (result) {
           result = filter(item);
         }
+
         if (result) {
-          composer.updateItemTimestamp(item);
           this.treeManager.includeItem(item);
         }
         else {
           this.treeManager.excludeItem(item);
         }
+
         return result;
       }).slice();
 
@@ -612,7 +614,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    */
   protected addItemDescendantsToRender (items: TreeSelectDataItem[]): void {
     items.forEach((item) => {
-      // all items will be collapsed by default
+      /**
+       * Collapse an item to prevent tree show too many nested expanded
+       */
       if (this.treeManager.isItemExpanded(item)) {
         this.treeManager.collapseItem(item);
       }
@@ -633,14 +637,12 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Add nested children of item list
    * @param items List of items
    * @param excludeItems List of exclude items
-   * @returns void
+   * @returns {void}
    */
   protected addNestedItemsToRender (items: readonly TreeSelectDataItem[], excludeItems: readonly TreeSelectDataItem[]): void {
     items.forEach(item => {
-
-      // Skip excluding item
-      if (!excludeItems.includes(item)) {
-
+      // Skip hidden and exclude item
+      if (!item.hidden && !excludeItems.includes(item)) {
         // Add item and nested children
         this.treeManager.includeItem(item);
         const children = this.treeManager.getItemChildren(item);
@@ -653,9 +655,8 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
   /**
    * Utility method
-   * @param items List of child items
    * Adds ancestors for each item passed and expand
-   *
+   * @param items List of child items
    * @returns {void}
    */
   protected addExpandedAncestorsToRender (items: TreeSelectDataItem[]): void {
@@ -676,9 +677,8 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
   /**
    * Utility method
-   * @param ancestor parent item
    * Adds parent and expands
-   *
+   * @param ancestor parent item
    * @returns {void}
    */
   protected addExpandedAncestorToRender (ancestor: TreeSelectDataItem): void {

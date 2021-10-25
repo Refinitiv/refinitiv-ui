@@ -2,11 +2,11 @@
 import { isIE } from '@open-wc/testing';
 
 export {
+  html,
+  unsafeStatic,
   expect,
   should,
   assert,
-  html,
-  unsafeStatic,
   triggerBlurFor,
   triggerFocusFor,
   oneEvent,

@@ -3,7 +3,8 @@ const path = require('path');
 const { ROOT, PACKAGES } = require('./scripts/helpers');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
-const browserList = require('./browserList');
+const { injectLitPolyfill } = require('./scripts/karma/plugins/inject-lit-polyfill')
+const browsersConfig = require('./browsers.config');
 
 const argv = yargs(hideBin(process.argv))
   .option('include-snapshots', {
@@ -34,8 +35,8 @@ const argv = yargs(hideBin(process.argv))
   .option('browsers', {
     type: 'array',
     alias: 'b',
-    default: browserList.defaultBrowsers,
-    choices: browserList.availableBrowsers,
+    default: browsersConfig.defaultBrowsers,
+    choices: browsersConfig.availableBrowsers,
     description: 'Specific browser(s) to run units test'
   })
   .argv
@@ -112,6 +113,9 @@ const baseConfig = {
     // exclude files served via Karma internally
     karmaExclude: [
       '**/__snapshots__/**'
+    ],
+    plugins: [
+      injectLitPolyfill()
     ]
   },
   plugins,

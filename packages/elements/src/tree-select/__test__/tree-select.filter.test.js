@@ -45,14 +45,47 @@ describe('tree-select/Filter', () => {
       expect(el.treeManager.visibleItems[1].label).to.equal('Republic of Macedonia');
     });
 
-    it('Text filter applied - multi level', async () => {
+    it('Text filter applied, expanded ancestors of matched items correctly - multi level', async () => {
+      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      el.data = multiLevelData;
+      await elementUpdated(el);
+      el.opened = true;
+      await openedUpdated(el);
+      el.query = '-2';
+      await elementUpdated(el);
+      expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[0])).to.equal(true, 'Level 1-1 is expanded because matched some descendant item');
+      expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[1])).to.equal(true, 'Level 2-1 is expanded because matched some descendant item');
+    });
+
+    it('Text filter applied, collapsed children of matched items and included descendants correctly - multi level', async () => {
+      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      el.data = multiLevelData;
+      await elementUpdated(el);
+      el.opened = true;
+      await openedUpdated(el);
+      el.query = '-2';
+      await elementUpdated(el);
+      // Matched item must be collapsed when does not have any matched descendants
+      expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[3])).to.equal(false, 'Level 2-2 is collapsed because does not matched any descendant item');
+      expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[4])).to.equal(false, 'Level 1-2 is collapsed because does not matched any descendant item');
+
+      // All descendants of matched items must be included
+      const descendants = [
+        ...el.treeManager.getItemDescendants(el.treeManager.parentItems[2]), // Level 2-2
+        ...el.treeManager.getItemDescendants(el.treeManager.parentItems[3]) // Level 1-2
+      ];
+      descendants.forEach(item => expect(el.treeManager.isItemHidden(item)).to.equal(false, 'Descendants of matched items must be included'));
+    });
+
+    it('Text filter applied, expanded and collapsed correctly - multi level', async () => {
       // If filter match a parent but not match any children, the parent will be collapsed
       const el = await fixture('<ef-tree-select></ef-tree-select>');
       el.data = multiLevelData;
-      await openedUpdated(el);
+      await elementUpdated(el);
       el.opened = true;
       await openedUpdated(el);
       el.query = 'Level 2';
+      await elementUpdated(el);
       // Level 1 will be visible and level 2 will be visible and collapsed
       expect(el.treeManager.visibleItems.length).to.equal(6, 'Level 2 are collapsed');
       expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[1])).to.equal(false, 'Level 2-1 is collapsed');
@@ -69,6 +102,13 @@ describe('tree-select/Filter', () => {
       expect(el.treeManager.isItemVisible(el.treeManager.visibleItems[2])).to.equal(true, 'Level 3-2 is matched item and visible');
       expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[3])).to.equal(false, 'Level 2-2 is matched item and collapsed because not matched any descendant items');
       expect(el.treeManager.isItemExpanded(el.treeManager.visibleItems[4])).to.equal(false, 'Level 1-2 is matched item and collapsed because not matched any descendant items');
+
+      // All descendants of matched items must be included
+      const descendants = [
+        ...el.treeManager.getItemDescendants(el.treeManager.parentItems[2]), // Level 2-2
+        ...el.treeManager.getItemDescendants(el.treeManager.parentItems[3]) // Level 1-2
+      ];
+      descendants.forEach(item => expect(el.treeManager.isItemHidden(item)).to.equal(false, 'Descendants of matched items must be included'));
     });
 
     it('Text filter applied, no result - flat', async () => {

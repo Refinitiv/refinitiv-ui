@@ -1,6 +1,4 @@
-import {
-  Translations
-} from './index';
+import type { Translations } from './types';
 
 const SHARED_SCOPE = '__shared__'; /* unique scope identifier */
 

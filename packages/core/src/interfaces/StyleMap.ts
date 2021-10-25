@@ -1,4 +1,4 @@
-import { CSSValue } from '../types/base';
+import type { CSSValue } from '../types/base';
 
 /**
  * Used to declare CSS property value map

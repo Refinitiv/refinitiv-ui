@@ -2,19 +2,17 @@ import {
   ControlElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
-  TapEvent,
-  query
+  TapEvent
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import '../icon';
-import {
-  registerOverflowTooltip
-} from '../tooltip';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import '../icon/index.js';
 
 /**
  * Form control for selecting one or several options
@@ -41,12 +39,12 @@ export class Checkbox extends ControlElement {
   protected readonly defaultRole = 'checkbox';
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -124,9 +122,10 @@ export class Checkbox extends ControlElement {
 
   /**
    * Indicates current state of checkbox
+   * @ignore
    */
   @property({ type: String, reflect: true, attribute: 'aria-checked' })
-  private ariaChecked = String(this.checked);
+  public ariaChecked = String(this.checked);
 
   /**
    * Getter for label
@@ -147,24 +146,6 @@ export class Checkbox extends ControlElement {
 
     registerOverflowTooltip(this.labelEl, () => this.textContent);
   }
-
-  /**
-   * Updates the element
-   * @param changedProperties Properties that has changed
-   * @returns {void}
-   */
-  // protected update (changedProperties: PropertyValues): void {
-  //   // remove indeterminate if change state to checked
-  //   if(changedProperties.get('checked') === false && this.checked && this.indeterminate) {
-  //     this.indeterminate = false;
-  //   }
-  //   // remove checked if change state to indeterminate
-  //   if(changedProperties.get('indeterminate') === false && this.indeterminate && this.checked) {
-  //     this.checked = false;
-  //   }
-
-  //   super.update(changedProperties);
-  // }
 
   /**
    * Run when checkbox is tapped

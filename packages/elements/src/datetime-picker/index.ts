@@ -2,46 +2,42 @@ import {
   ControlElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
   MultiValue,
   PropertyValues,
-  CSSResult,
-  query,
-  ifDefined,
+  CSSResultGroup,
   TapEvent,
   WarningNotice
 } from '@refinitiv-ui/core';
-import { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent } from '../events';
-import '../calendar';
-import '../icon';
-import '../overlay';
-import '../text-field';
-import '../time-picker';
-import { Icon } from '../icon';
-import { Calendar } from '../calendar';
-import {
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import type { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent } from '../events';
+import type {
   DatetimePickerDuplex,
   DatetimePickerFilter
 } from './types';
-import {
-  getDateFNSLocale
-} from './locales';
-
+import '../calendar/index.js';
+import '../icon/index.js';
+import '../overlay/index.js';
+import '../text-field/index.js';
+import '../time-picker/index.js';
+import type { Icon } from '../icon';
+import type { Calendar } from '../calendar';
 import {
   translate,
   TranslateDirective,
   getLocale,
   TranslatePropertyKey
 } from '@refinitiv-ui/translate';
-
 import {
-  format as inputFormat,
-  parse as inputParse,
-  isValid
-} from 'date-fns';
-
+  getDateFNSLocale
+} from './locales.js';
+import inputFormat from 'date-fns/esm/format/index.js';
+import inputParse from 'date-fns/esm/parse/index.js';
+import isValid from 'date-fns/esm/isValid/index.js';
 import {
   addMonths,
   subMonths,
@@ -53,23 +49,23 @@ import {
   DateTimeFormat,
   parse,
   format
-} from '@refinitiv-ui/utils';
+} from '@refinitiv-ui/utils/lib/date.js';
 
 import {
   DateTimeSegment,
   formatToView,
   getCurrentTime
-} from './utils';
+} from './utils.js';
 
-import { preload } from '../icon';
-import { TimePicker } from '../time-picker';
-import { TextField } from '../text-field';
-import { Overlay } from '../overlay';
-import { VERSION } from '../';
+import { preload } from '../icon/index.js';
+import type { TimePicker } from '../time-picker';
+import type { TextField } from '../text-field';
+import type { Overlay } from '../overlay';
+
 
 preload('calendar', 'down', 'left', 'right'); /* preload calendar icons for faster loading */
 
-export {
+export type {
   DatetimePickerFilter,
   DatetimePickerDuplex
 };
@@ -117,12 +113,12 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -187,7 +183,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     if (oldMin !== min) {
       this._min = min;
       this.minDate = min ? format(parse(min), DateFormat.yyyyMMdd) : '';
-      void this.requestUpdate('min', oldMin);
+      this.requestUpdate('min', oldMin);
     }
   }
   public get min (): string {
@@ -211,7 +207,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     if (oldMax !== max) {
       this._max = max;
       this.maxDate = max ? format(parse(max), DateFormat.yyyyMMdd) : '';
-      void this.requestUpdate('max', oldMax);
+      this.requestUpdate('max', oldMax);
     }
   }
   public get max (): string {
@@ -295,7 +291,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const oldValues = this._values;
     if (String(oldValues) !== String(values)) {
       this._values = values;
-      void this.requestUpdate('_values', oldValues); /* segments are populated in update */
+      this.requestUpdate('_values', oldValues); /* segments are populated in update */
     }
   }
   public get values (): string[] {
@@ -325,7 +321,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const oldPlaceholder = this._placeholder;
     if (oldPlaceholder !== placeholder) {
       this._placeholder = placeholder;
-      void this.requestUpdate('placeholder', oldPlaceholder);
+      this.requestUpdate('placeholder', oldPlaceholder);
     }
   }
   public get placeholder (): string {
@@ -380,7 +376,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const oldFormat = this._format;
     if (oldFormat !== format) {
       this._format = format;
-      void this.requestUpdate('format', oldFormat);
+      this.requestUpdate('format', oldFormat);
     }
   }
   public get format (): string {
@@ -434,7 +430,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     views = this.filterAndWarnInvalidViews(views);
     if (oldViews.toString() !== views.toString()) {
       this._views = views;
-      void this.requestUpdate('views', oldViews);
+      this.requestUpdate('views', oldViews);
     }
   }
   public get views (): string[] {
@@ -983,7 +979,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       const inputValues = [...this.inputValues];
       inputValues[index] = formattedValue;
       this.inputValues = inputValues;
-      void this.requestUpdate();
+      this.requestUpdate();
     }
   }
 

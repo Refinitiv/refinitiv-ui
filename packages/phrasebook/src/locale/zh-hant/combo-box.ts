@@ -1,5 +1,5 @@
-import { Phrasebook } from '../../';
-import './shared';
+import { Phrasebook } from '../../translation.js';
+import './shared.js';
 
 const translations = {
   MULTIPLE_ITEMS: '多項',
