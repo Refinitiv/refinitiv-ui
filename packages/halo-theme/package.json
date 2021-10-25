@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/halo-theme",
-  "version": "5.2.4",
+  "version": "5.2.5",
   "description": "Official theme for Refinitiv products",
   "author": "Refinitiv",
   "license": "SEE LICENSE IN LICENSE",
@@ -22,10 +22,10 @@
     "watch": "watch \"npm run build\" src --wait=10"
   },
   "dependencies": {
-    "@refinitiv-ui/elemental-theme": "^5.2.4"
+    "@refinitiv-ui/elemental-theme": "^5.2.5"
   },
   "devDependencies": {
-    "@refinitiv-ui/theme-compiler": "^5.0.3"
+    "@refinitiv-ui/theme-compiler": "^5.0.4"
   },
   "publishConfig": {
     "access": "public"
