@@ -36,7 +36,6 @@ const emptyStringToNull = function (value: string): string | null {
   alias: 'coral-toggle'
 })
 export class Toggle extends ControlElement {
-
   /**
    * Element version number
    * @returns version number
@@ -44,6 +43,8 @@ export class Toggle extends ControlElement {
   static get version (): string {
     return VERSION;
   }
+
+  protected readonly defaultRole = 'switch';
 
   /**
    * Label of toggle checked
@@ -66,11 +67,30 @@ export class Toggle extends ControlElement {
   })
   public label = '';
 
+  private _checked = false;
   /**
    * Value of toggle
+   * @param value new checked value
    */
   @property({ type: Boolean, reflect: true })
-  public checked = false;
+  public set checked (value: boolean) {
+    const oldValue = this._checked;
+    if (oldValue !== value) {
+      this._checked = value;
+      this.ariaChecked = String(value);
+      void this.requestUpdate('checked', oldValue);
+    }
+  }
+  public get checked (): boolean {
+    return this._checked;
+  }
+
+  /**
+   * Aria indicating current state of toggle
+   * @ignore
+   */
+  @property({ type: String, reflect: true, attribute: 'aria-checked' })
+  public ariaChecked = String(this.checked);
 
   /**
    * A `CSSResultGroup` that will be used
