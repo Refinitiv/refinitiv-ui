@@ -87,9 +87,10 @@ export class Toggle extends ControlElement {
 
   /**
    * Aria indicating current state of toggle
+   * @ignore
    */
   @property({ type: String, reflect: true, attribute: 'aria-checked' })
-  private ariaChecked = String(this.checked);
+  public ariaChecked = String(this.checked);
 
   /**
    * A `CSSResult` that will be used
