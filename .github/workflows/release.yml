@@ -31,8 +31,10 @@ jobs:
       # Builds only changed packages including its dependencies
       - run: lerna run build:prod --include-dependencies --since
 
+
       # Increment version for change packages according to conventional commits
       - run: lerna version --conventional-commits --yes
+
 
       - run: lerna publish --yes
         env:
