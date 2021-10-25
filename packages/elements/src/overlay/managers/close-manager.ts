@@ -1,6 +1,6 @@
 import type { Overlay } from '../elements/overlay';
-import { getOverlays } from './zindex-manager';
-import { TapEvent } from '@refinitiv-ui/core';
+import type { TapEvent } from '@refinitiv-ui/core';
+import { getOverlays } from './zindex-manager.js';
 
 type CloseCallback = () => void;
 type OverlayClose = {

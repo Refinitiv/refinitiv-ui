@@ -2,13 +2,13 @@ import {
   ResponsiveElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
 
 /**
  * Layout component for creating responsive applications and components
@@ -28,12 +28,12 @@ export class Layout extends ResponsiveElement {
   }
 
   /**
- * A `CSSResult` that will be used
+ * A `CSSResultGroup` that will be used
  * to style the host, slotted children
  * and the internal template of the element.
  * @return CSS template
  */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         box-sizing: border-box;

@@ -1,1 +1,1 @@
-import './entrypoints/minimal';
+import './entrypoints/minimal.js';

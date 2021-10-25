@@ -1,18 +1,17 @@
 import {
-  customElement,
-  property,
   PropertyValues,
   TapEvent
 } from '@refinitiv-ui/core';
-import { CollectionComposer } from '@refinitiv-ui/utils';
-import { VERSION } from '../../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../../version.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
 
-import { List } from '../../list';
-
-import { TreeRenderer } from '../helpers/renderer';
-import { defaultFilter } from '../helpers/filter';
-import { TreeData, TreeDataItem, TreeFilter } from '../helpers/types';
-import { TreeManager, TreeManagerMode } from '../managers/tree-manager';
+import { List } from '../../list/index.js';
+import { TreeRenderer } from '../helpers/renderer.js';
+import { defaultFilter } from '../helpers/filter.js';
+import type { TreeData, TreeDataItem, TreeFilter } from '../helpers/types';
+import { TreeManager, TreeManagerMode } from '../managers/tree-manager.js';
 
 const EXPAND_TOGGLE_ATTR = 'expand-toggle';
 

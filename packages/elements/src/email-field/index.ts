@@ -1,20 +1,20 @@
 import {
   ControlElement,
   css,
-  CSSResult,
-  customElement,
+  CSSResultGroup,
   html,
-  ifDefined,
-  property,
   PropertyValues,
-  query,
   TemplateResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import '../icon';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
+import '../icon/index.js';
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
-const isIE = (/Trident/g).test(navigator.userAgent);
 
 /**
  * A form control element for email
@@ -45,12 +45,12 @@ export class EmailField extends ControlElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;

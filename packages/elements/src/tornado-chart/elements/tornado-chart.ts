@@ -2,15 +2,14 @@ import {
   ResponsiveElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   ElementSize
 } from '@refinitiv-ui/core';
-import { VERSION } from '../../';
-
-import'./tornado-item';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../../version.js';
+import './tornado-item.js';
 import type { TornadoItem } from'./tornado-item';
 
 /**
@@ -61,7 +60,7 @@ export class TornadoChart extends ResponsiveElement {
    */
   private setLegendAlignment (responsive: boolean): void {
     this.legendAlignment = responsive;
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**
@@ -93,12 +92,12 @@ export class TornadoChart extends ResponsiveElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;

@@ -1,5 +1,6 @@
-import { BasicElement } from '../elements/BasicElement';
-import { matches } from './matches';
+import type { BasicElement } from '../elements/BasicElement';
+import { isBasicElement } from './helpers.js';
+import { matches } from './matches.js';
 
 type DelegatedList = {
   element: BasicElement;
@@ -71,7 +72,7 @@ export abstract class FocusableHelper {
 
 
     // If element delegates focus, but does not have any children, the element still can be focused.
-    if (element instanceof BasicElement && element.delegatesFocus && tabIndex >= 0 && tabbableChildren.length && element.hasAttribute('tabindex')) {
+    if (isBasicElement(element) && element.delegatesFocus && tabIndex >= 0 && tabbableChildren.length && element.hasAttribute('tabindex')) {
       // Sort collection immediately as the order is dictated by delegated element
       if (childrenNeedSort) {
         tabbableChildren = this.sortByTabIndex(tabbableChildren);

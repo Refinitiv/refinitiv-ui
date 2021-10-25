@@ -1,13 +1,13 @@
 import {
   BasicElement,
-  property,
   svg,
-  SVGTemplateResult,
-  query
+  SVGTemplateResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../../';
-import { rgb } from '@refinitiv-ui/utils';
-import { isHex } from '../helpers/color-helpers';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../../version.js';
+import { rgb } from '@refinitiv-ui/utils/lib/color.js';
+import { isHex } from '../helpers/color-helpers.js';
 
 /**
  * Element base class usually used
@@ -78,7 +78,7 @@ export class Palettes extends BasicElement {
    * @param event mouse event
    * @return {void}
    */
-  protected onTapItem = (event: MouseEvent): void => {
+  protected onTapItem (event: MouseEvent): void {
     const polygonElement = event.target as SVGAElement;
     this.updateValue(polygonElement);
   }
@@ -88,7 +88,7 @@ export class Palettes extends BasicElement {
    * @param event mouse event
    * @return {void}
    */
-  protected onMousemove = (event: MouseEvent): void => {
+  protected onMousemove (event: MouseEvent): void {
     const polygonElement = event.target as SVGAElement;
     let mouseButton = event.buttons;
     if (mouseButton === undefined) { // buttons property is not supported in safari
@@ -106,8 +106,14 @@ export class Palettes extends BasicElement {
    * @param event touch event
    * @return {void}
    */
-  protected onTouchmove = (event: TouchEvent): void => {
+  protected onTouchmove (event: TouchEvent): void {
     const touchOffsets = event.changedTouches[0];
+
+    // TODO: it is a bug of TypeScript@4.4 remove ts-ignore once it is fixed
+    // https://github.com/microsoft/TypeScript/issues/45047
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const realTarget = this.shadowRoot?.elementFromPoint(touchOffsets.clientX, touchOffsets.clientY) as SVGAElement;
     this.updateValue(realTarget);
   }

@@ -1,17 +1,17 @@
 import {
   html,
   css,
-  property,
-  customElement,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   SVGTemplateResult,
   svg,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { Palettes } from './palettes';
-import { GRAYSCALE_ITEMS, NOCOLOR_POINTS } from '../helpers/color-helpers';
-import { VERSION } from '../../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../../version.js';
+import { Palettes } from './palettes.js';
+import { GRAYSCALE_ITEMS, NOCOLOR_POINTS } from '../helpers/color-helpers.js';
 
 /**
  * Component that allows user to select any
@@ -29,12 +29,12 @@ export class GrayscalePalettes extends Palettes {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: flex;

@@ -1,5 +1,5 @@
-import { CollectionComposer } from '@refinitiv-ui/utils';
-import { TreeDataItem } from '../helpers/types';
+import type { CollectionComposer } from '@refinitiv-ui/utils/lib/collection';
+import type { TreeDataItem } from '../helpers/types';
 
 export enum CheckedState {
   CHECKED = 1,

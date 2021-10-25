@@ -1,16 +1,17 @@
-import { css, CSSResult, customElement, html, property, TemplateResult, ElementSize, query, PropertyValues } from '@refinitiv-ui/core';
-import { Overlay } from '../overlay';
-import '../icon';
-import '../panel';
-import '../header';
-import '../button';
-import { deregister as draggableDeregister, register as draggableRegister } from './draggable-element';
+import { css, CSSResultGroup, html, TemplateResult, ElementSize, PropertyValues } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
+import { deregister as draggableDeregister, register as draggableRegister } from './draggable-element.js';
+import { Overlay } from '../overlay/index.js';
+import '../icon/index.js';
+import '../panel/index.js';
+import '../header/index.js';
+import '../button/index.js';
 import { translate, Translate, TranslatePropertyKey } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/lib/locale/en/dialog';
-import { VERSION } from '../';
-
-// TODO: use metrics once available
-const isIE = (/Trident/g).test(navigator.userAgent) || (/MSIE/g).test(navigator.userAgent);
+import '@refinitiv-ui/phrasebook/lib/locale/en/dialog.js';
 
 /**
  * Popup window, designed to contain and show any HTML content.
@@ -57,13 +58,15 @@ export class Dialog extends Overlay {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @returns CSS template
    */
-  public static get styles (): CSSResult | CSSResult[] {
-    return [...(Overlay.styles as CSSResult[]), css`
+  public static get styles (): CSSResultGroup {
+    return [
+      super.styles,
+      css`
       :host {
         width: 400px;
         display: flex;

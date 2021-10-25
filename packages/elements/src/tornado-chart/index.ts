@@ -1,2 +1,2 @@
-export { TornadoChart } from './elements/tornado-chart';
-export { TornadoItem } from './elements/tornado-item';
+export { TornadoChart } from './elements/tornado-chart.js';
+export { TornadoItem } from './elements/tornado-item.js';
