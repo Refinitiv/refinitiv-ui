@@ -12,6 +12,17 @@ import { registerOverflowTooltip } from '../tooltip/index.js';
 import '../icon/index.js';
 
 /**
+ * Return the attribute that converted from the property
+ * Prevent empty string that reflected to attribute
+ * @private
+ * @param value value from the property
+ * @returns string converted to attribute
+ */
+const emptyStringToNull = function (value: string): string | null {
+  return value || null;
+};
+
+/**
  * Use button for actions in forms, dialogs,
  * and more with support for different states and styles.
  * @attr {boolean} disabled - Set state to disabled
@@ -29,6 +40,11 @@ export class Button extends ControlElement {
   static get version (): string {
     return VERSION;
   }
+  
+  /**
+  * Overrided element's role
+  */
+  protected readonly defaultRole = 'button';
 
   /**
    * Customises text alignment when specified alongside `icon` property
@@ -63,15 +79,41 @@ export class Button extends ControlElement {
 
   /**
    * Enable or disable ability to be toggled
+   * @param value toggle state
    */
   @property({ type: Boolean, reflect: true })
-  public toggles = false;
+  public set toggles (value: boolean) {
+    const oldValue = this._toggles;
+    if (oldValue !== value) {
+      this._toggles = value;
+      this.active = value ? this.active : false;
+      void this.requestUpdate('toggles', oldValue);
+    }
+  }
+  public get toggles (): boolean {
+    return this._toggles;
+  }
+
+  private _toggles = false;
 
   /**
    * An active or inactive state, can only be used with toggles property/attribute
+   * @param value active state
    */
   @property({ type: Boolean, reflect: true })
-  public active = false;
+  public set active (value: boolean) {
+    const oldValue = this._active;
+    if (oldValue !== value) {
+      this._active = value;
+      void this.requestUpdate('active', oldValue);
+    }
+    this.ariaPressed = this.toggles ? String(this._active) : '';
+  }
+  public get active (): boolean {
+    return this._active;
+  }
+
+  private _active = false;
 
   /**
    * Use by theme to detect when no content inside button
@@ -83,6 +125,17 @@ export class Button extends ControlElement {
    */
   @query('[part="label"]')
   private labelElement!: HTMLSpanElement;
+
+  /**
+   * Toggle button state for accessibility
+   * @ignore
+   */
+  @property({ type: String,
+    reflect: true,
+    attribute: 'aria-pressed',
+    converter: { toAttribute: emptyStringToNull } // TODO: Remove after typescript update to allow nullable for ARIAMixin
+  })
+  public ariaPressed = '';
 
   /**
    * the lifecycle method called when properties changed first time

@@ -19,3 +19,12 @@
 
 ```
 
+####   `Checked Label DOM structure is correct`
+
+```html
+<div part="toggle">
+  OFF
+</div>
+
+```
+

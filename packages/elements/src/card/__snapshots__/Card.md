@@ -91,6 +91,7 @@
     empty=""
     icon="more-vertical"
     part="menu-button"
+    role="button"
     tabindex="0"
     textpos="after"
     transparent=""
