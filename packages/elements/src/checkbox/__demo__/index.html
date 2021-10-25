@@ -11,6 +11,10 @@
       .ellipsis {
         width: 200px;
       }
+      .group {
+        display: flex;
+        flex-direction: column;
+      }
     </style>
     <script type="module">
       import '@refinitiv-ui/elements/checkbox';
@@ -22,6 +26,16 @@
       <ef-checkbox checked>Checked</ef-checkbox>
       <ef-checkbox indeterminate>Partially Checked</ef-checkbox>
       <ef-checkbox></ef-checkbox>
+    </demo-block>
+
+    <demo-block header="Group Checkbox" tags="accessibility">
+      <div role="group" aria-labelledby="header" class="group">
+        <h6 id="header">Sandwich Condiments</h6>
+        <ef-checkbox>Lettuce</ef-checkbox>
+        <ef-checkbox>Tomato</ef-checkbox>
+        <ef-checkbox checked>Mustard</ef-checkbox>
+        <ef-checkbox>Sprouts</ef-checkbox>
+      </div>
     </demo-block>
 
     <!-- TRUNCATE CHECKBOX -->
