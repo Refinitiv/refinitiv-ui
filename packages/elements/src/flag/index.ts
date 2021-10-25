@@ -2,17 +2,17 @@ import {
   BasicElement,
   svg,
   css,
-  customElement,
-  property,
-  CSSResult,
-  unsafeHTML,
+  CSSResultGroup,
   TemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import { FlagLoader } from './utils/FlagLoader';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { unsafeHTML } from '@refinitiv-ui/core/lib/directives/unsafe-html.js';
+import { VERSION } from '../version.js';
+import { FlagLoader } from './utils/FlagLoader.js';
 
-export { preload } from './utils/FlagLoader';
+export { preload } from './utils/FlagLoader.js';
 
 const EmptyTemplate = svg``;
 
@@ -37,12 +37,12 @@ export class Flag extends BasicElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResult {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -107,7 +107,7 @@ export class Flag extends BasicElement {
   private set template (value: TemplateResult) {
     if (this._template !== value) {
       this._template = value;
-      void this.requestUpdate();
+      this.requestUpdate();
     }
   }
 

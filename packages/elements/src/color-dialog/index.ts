@@ -1,34 +1,30 @@
 import {
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
-  WarningNotice,
-  styleMap,
-  query
+  WarningNotice
 } from '@refinitiv-ui/core';
-import { rgb } from '@refinitiv-ui/utils';
-import { translate, Translate } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/lib/locale/en/color-dialog';
-
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
+import { rgb } from '@refinitiv-ui/utils/lib/color.js';
+import { VERSION } from '../version.js';
 import type { NumberField } from '../number-field';
 import type { TextField } from '../text-field';
 import type { Palettes } from './elements/palettes';
-
-import '../button';
-import '../number-field';
-import '../text-field';
-import { Dialog } from '../dialog';
-
-import './elements/color-palettes';
-import './elements/grayscale-palettes';
-
-import { isHex, removeHashSign } from './helpers/color-helpers';
-import { ValueModel } from './helpers/value-model';
-import { VERSION } from '../';
+import { ValueModel } from './helpers/value-model.js';
+import { isHex, removeHashSign } from './helpers/color-helpers.js';
+import '../button/index.js';
+import '../number-field/index.js';
+import '../text-field/index.js';
+import { Dialog } from '../dialog/index.js';
+import './elements/color-palettes.js';
+import './elements/grayscale-palettes.js';
+import { translate, Translate } from '@refinitiv-ui/translate';
+import '@refinitiv-ui/phrasebook/lib/locale/en/color-dialog.js';
 
 /**
  * Displays a colour picker dialog,
@@ -77,13 +73,14 @@ export class ColorDialog extends Dialog {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @return CSS template
    */
-  public static get styles (): CSSResult | CSSResult[] {
-    return [...(Dialog.styles as CSSResult[]),
+  public static get styles (): CSSResultGroup {
+    return [
+      super.styles,
       css`
         :host {
           display: block;
@@ -134,7 +131,7 @@ export class ColorDialog extends Dialog {
       value = '';
     }
     this._value = value;
-    void this.requestUpdate('value', oldValue);
+    this.requestUpdate('value', oldValue);
   }
   public get value (): string {
     return this._value;
@@ -327,7 +324,7 @@ export class ColorDialog extends Dialog {
    */
   private onColorChanged (event: Event): void {
     this.valueModel.hex = removeHashSign((event.target as Palettes).value);
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**
@@ -337,7 +334,7 @@ export class ColorDialog extends Dialog {
    */
   private onHexChanged (event: InputEvent): void {
     this.valueModel.hex = (event.target as TextField).value;
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**
@@ -358,7 +355,7 @@ export class ColorDialog extends Dialog {
       this.valueModel.blue = this.blueInputEl.value;
     }
 
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**
@@ -420,7 +417,7 @@ export class ColorDialog extends Dialog {
           <div
             part="preview-color"
             style=${styleMap({
-              backgroundColor: this.valueModel.value
+              backgroundColor: this.valueModel.value || undefined
             })}
             ?no-color=${!this.valueModel.value}></div>
           <div>${this.t('RED')}&nbsp;:

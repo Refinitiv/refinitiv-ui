@@ -1,22 +1,21 @@
 import {
   ControlElement,
   css,
-  CSSResult,
-  customElement,
+  CSSResultGroup,
   html,
-  property,
   PropertyValues,
   TapEvent,
   TemplateResult,
   WarningNotice
 } from '@refinitiv-ui/core';
-import { CollectionComposer, DataItem } from '@refinitiv-ui/utils';
-
-import '../item';
-import { ItemData } from '../item';
-import { ListData } from './helpers/types';
-import { ListRenderer } from './helpers/list-renderer';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
+import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/lib/collection.js';
+import type { ItemData } from '../item';
+import type { ListData } from './helpers/types';
+import { ListRenderer } from './helpers/list-renderer.js';
+import '../item/index.js';
 
 export { ListData, ListRenderer };
 
@@ -59,7 +58,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @returns Update promise.
    */
   private modificationUpdate = (): void => {
-    void this.requestUpdate();
+    this.requestUpdate();
   };
 
   /**
@@ -135,7 +134,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     );
     this.clearMaps();
     this._data = value;
-    void this.requestUpdate('data', oldValue);
+    this.requestUpdate('data', oldValue);
   }
 
   private _data: ListData<T> = null;
@@ -157,7 +156,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       if (item) {
         this.composer.setItemPropertyValue(item, 'selected', true);
       }
-      void this.requestUpdate('value', oldValue);
+      this.requestUpdate('value', oldValue);
     }
   }
 
@@ -191,7 +190,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
           matches.forEach((match) => this.composer.setItemPropertyValue(match, 'selected', true));
           return !this.multiple; // Only set the fist value if multiple is not enabled
         });
-        void this.requestUpdate('values', oldValue);
+        this.requestUpdate('values', oldValue);
       }
     }
   }
@@ -497,7 +496,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   protected clearSelection (): void {
     this.queryItemsByPropertyValue('selected', true)
       .forEach((item: T) => this.composer.setItemPropertyValue(item, 'selected', false));
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**
@@ -622,12 +621,12 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;

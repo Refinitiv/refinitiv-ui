@@ -1,4 +1,4 @@
-import {
+import type {
   LineData,
   BarData,
   HistogramData,
@@ -19,7 +19,7 @@ import {
   SeriesType
 } from 'lightweight-charts';
 
-import type { RGBColor, HSLColor } from '@refinitiv-ui/utils';
+import type { RGBColor, HSLColor } from '@refinitiv-ui/utils/lib/color.js';
 
 type SeriesOptions = AreaSeriesPartialOptions | BarSeriesPartialOptions | CandlestickSeriesPartialOptions | HistogramSeriesPartialOptions | LineSeriesPartialOptions;
 type SeriesStyleOptions = LineStyleOptions & AreaStyleOptions & BarStyleOptions & CandlestickStyleOptions & HistogramStyleOptions;

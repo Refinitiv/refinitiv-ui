@@ -2,15 +2,15 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
-  PropertyValues,
-  queryAll,
-  repeat
+  CSSResultGroup,
+  PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { queryAll } from '@refinitiv-ui/core/lib/decorators/query-all.js';
+import { repeat } from '@refinitiv-ui/core/lib/directives/repeat.js';
+import { VERSION } from '../version.js';
 interface ItemType {
   item: string;
 }
@@ -107,7 +107,7 @@ export class Rating extends BasicElement {
     }
 
     this.valuePrevious = value;
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**
@@ -148,12 +148,12 @@ export class Rating extends BasicElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;

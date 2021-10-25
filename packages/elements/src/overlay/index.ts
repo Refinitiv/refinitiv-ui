@@ -1,4 +1,4 @@
-export {
+export type {
   Position as OverlayPosition,
   PositionTarget as OverlayPositionTarget,
   TransitionStyle as OverlayTransitionStyle
@@ -6,4 +6,4 @@ export {
 
 export {
   Overlay
-} from './elements/overlay';
+} from './elements/overlay.js';

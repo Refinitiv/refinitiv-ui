@@ -1,4 +1,4 @@
-import {
+import type {
   TapEvent,
   ResizeEvent
 } from '@refinitiv-ui/core';

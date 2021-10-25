@@ -1,5 +1,5 @@
-import { Runner } from './runner';
-import { TaskCallback } from './task';
+import { Runner } from './runner.js';
+import { TaskCallback } from './task.js';
 
 /**
  * Debounces a task

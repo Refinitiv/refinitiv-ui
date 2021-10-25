@@ -1,6 +1,6 @@
-import { Notification } from '../elements/notification';
-import { NotificationTray } from '../elements/notification-tray';
-import { TaskOptions } from './types';
+import type { Notification } from '../elements/notification';
+import type { TaskOptions } from './types';
+import { NotificationTray } from '../elements/notification-tray.js';
 
 // TODO: Add to utils?
 const DEV_ENV = (/^(localhost|127\.0\.0\.1)$/).test(location.hostname);

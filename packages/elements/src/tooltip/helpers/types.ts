@@ -1,4 +1,4 @@
-import { OverlayPosition } from '../../overlay';
+import type { OverlayPosition } from '../../overlay';
 
 export type TooltipCondition = (target: HTMLElement, paths: EventTarget[]) => boolean;
 export type TooltipRenderer = (target: HTMLElement) => undefined | null | string | HTMLElement | DocumentFragment;

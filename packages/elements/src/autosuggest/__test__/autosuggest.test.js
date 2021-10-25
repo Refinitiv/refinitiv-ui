@@ -1,10 +1,10 @@
 import { elementUpdated, expect, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import { itemHighlightable, itemRenderer } from '../../../lib/autosuggest/helpers/utils.js';
-import '@refinitiv-ui/elemental-theme/light/ef-autosuggest';
-import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import { Autosuggest } from '@refinitiv-ui/elements/autosuggest';
 import '@refinitiv-ui/elements/text-field';
+import '@refinitiv-ui/elemental-theme/light/ef-autosuggest';
+import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 
 import { createFixture, createInputElement } from './helpers/helpers';
 

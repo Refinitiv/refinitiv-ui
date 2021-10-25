@@ -1,16 +1,16 @@
 import {
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   ControlElement
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
 
-import '../icon';
-import '../label';
+import '../icon/index.js';
+import '../label/index.js';
 
 const isAllWhitespaceTextNode = (node: Node): boolean =>
   node.nodeType === document.TEXT_NODE
@@ -107,7 +107,7 @@ export class Tab extends ControlElement {
   private checkSlotChildren = (event: Event): void => {
     const slot = event.target as HTMLSlotElement;
     this.isSlotHasChildren = !slot.assignedNodes().filter(node => !this.isIgnorable(node)).length;
-    void this.requestUpdate();
+    this.requestUpdate();
   };
 
   /**
@@ -131,12 +131,12 @@ export class Tab extends ControlElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-flex;

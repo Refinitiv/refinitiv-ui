@@ -1,5 +1,5 @@
-import { DuplicateStyleError } from '../errors/DuplicateStyleError';
-import { ShadyCSS } from '../utils/shadyStyles';
+import { DuplicateStyleError } from '../errors/DuplicateStyleError.js';
+import { ShadyCSS } from '../utils/shadyStyles.js';
 
 const register = new Map<string, string>();
 

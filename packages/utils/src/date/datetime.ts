@@ -5,7 +5,7 @@ import {
   isValid as isValidDate,
   toSegment as toDateSegment,
   utcFormat as utcFormatDate
-} from './date';
+} from './date.js';
 
 import {
   Format as TimeFormat,
@@ -15,11 +15,11 @@ import {
   isValid as isValidTime,
   toSegment as toTimeSegment,
   utcFormat as utcFormatTime
-} from './time';
+} from './time.js';
 
 import {
   throwInvalidFormat
-} from './utils';
+} from './utils.js';
 
 /*
 * DateTime segment
