@@ -1,5 +1,5 @@
-import { TooltipCondition, TooltipRenderer } from './types';
-import { addTooltipCondition } from '../elements/tooltip-element';
+import type { TooltipCondition, TooltipRenderer } from './types';
+import { addTooltipCondition } from '../elements/tooltip-element.js';
 
 const registry = new WeakMap<HTMLElement, TooltipRenderer>();
 const overflowCondition: TooltipCondition = (target) => registry.has(target) && (target.scrollWidth - target.offsetWidth) > 1;

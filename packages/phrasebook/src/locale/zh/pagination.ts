@@ -1,6 +1,6 @@
 // Component docs https://elf.int.refinitiv.com/elements/pagination.html
-import { Phrasebook } from '../../';
-import './shared';
+import { Phrasebook } from '../../translation.js';
+import './shared.js';
 
 const translations = {
   // page: current page #

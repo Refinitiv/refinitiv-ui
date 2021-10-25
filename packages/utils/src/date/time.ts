@@ -2,13 +2,13 @@ import {
   padNumber,
   throwInvalidFormat,
   throwInvalidValue
-} from './utils';
+} from './utils.js';
 import {
   MILLISECONDS_IN_DAY,
   MILLISECONDS_IN_HOUR,
   MILLISECONDS_IN_MINUTE,
   MILLISECONDS_IN_SECOND
-} from './timestamps';
+} from './timestamps.js';
 
 /**
  * Time segment

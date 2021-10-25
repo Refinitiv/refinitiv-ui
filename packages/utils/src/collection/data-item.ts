@@ -1,4 +1,4 @@
-import { CollectionItem } from './collection-item';
+import { CollectionItem } from './collection-item.js';
 
 /**
  * Basic-level data item,

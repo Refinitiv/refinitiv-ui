@@ -1,5 +1,5 @@
 import type { Tooltip } from '../index';
-import { TooltipCondition, TooltipRenderer } from '../helpers/types';
+import type { TooltipCondition, TooltipRenderer } from '../helpers/types';
 
 const defaultTooltipMap = new Map<TooltipCondition, TooltipRenderer>();
 const rendererElementMap = new WeakMap<HTMLElement, TooltipRenderer>();

@@ -1,6 +1,6 @@
-import { Task, TaskCallback } from './task';
-import { ThrottlerRunner } from './throttler-runner';
-import { AnimationTaskRunner } from './animation-task-runner';
+import { Task, TaskCallback } from './task.js';
+import { ThrottlerRunner } from './throttler-runner.js';
+import { AnimationTaskRunner } from './animation-task-runner.js';
 
 const throwErrorAsync = (error: Error): void => {
   setTimeout(() => {
@@ -46,7 +46,7 @@ class MicroTaskRunner extends ThrottlerRunner {
     }
     super.schedule(callback);
   }
-  
+
   cancel (): void {
     if (this.loopRunner) {
       this.loopRunner.cancel();

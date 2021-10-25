@@ -1,2 +1,2 @@
-export * from './elements/notification';
-export { info, confirm, warn, error } from './helpers/status';
+export * from './elements/notification.js';
+export { info, confirm, warn, error } from './helpers/status.js';

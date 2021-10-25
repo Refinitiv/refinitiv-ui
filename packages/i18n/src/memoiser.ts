@@ -1,9 +1,8 @@
 // see https://github.com/formatjs/formatjs/tree/main/packages/intl-format-cache
 // to understand more why memoiser is required
-
 import IntlMessageFormat from 'intl-messageformat';
 import memoizeFormatConstructor from 'intl-format-cache';
-import {
+import type {
   TranslateOptions,
   TranslateMessage,
   MessageFormats,

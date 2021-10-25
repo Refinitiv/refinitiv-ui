@@ -1,21 +1,18 @@
 import {
   css,
-  CSSResult,
-  customElement,
+  CSSResultGroup,
   ElementSize,
   html,
-  property,
   PropertyValues,
-  query,
-  TemplateResult,
-  unsafeHTML
+  TemplateResult
 } from '@refinitiv-ui/core';
-import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils';
-
-import { Overlay } from '../overlay';
-import '../loader';
-
-import {
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { unsafeHTML } from '@refinitiv-ui/core/lib/directives/unsafe-html.js';
+import { VERSION } from '../version.js';
+import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import type {
   AutosuggestTargetElement,
   AutosuggestHighlightable,
   AutosuggestMethodType,
@@ -27,11 +24,13 @@ import {
   AutosuggestHighlightItemEvent,
   AutosuggestQueryAction
 } from './helpers/types';
-import { escapeRegExp, itemHighlightable, itemRenderer, queryWordSelect } from './helpers/utils';
-import { isIE, isMobile } from './helpers/const';
-import { VERSION } from '../';
+import { escapeRegExp, itemHighlightable, itemRenderer, queryWordSelect } from './helpers/utils.js';
+import { isIE, isMobile } from '@refinitiv-ui/utils/lib/browser.js';
+import { Overlay } from '../overlay/index.js';
+import '../loader/index.js';
+import '../item/index.js';
 
-export {
+export type {
   AutosuggestTargetElement,
   AutosuggestHighlightable,
   AutosuggestMethodType,
@@ -40,7 +39,7 @@ export {
   AutosuggestReason,
   AutosuggestItem
 } from './helpers/types';
-export { queryWordSelect, itemRenderer, escapeRegExp, itemHighlightable, updateElementContent } from './helpers/utils';
+export { queryWordSelect, itemRenderer, escapeRegExp, itemHighlightable, updateElementContent } from './helpers/utils.js';
 
 /**
  * Shows suggestions based on users' query.
@@ -75,28 +74,31 @@ export class Autosuggest extends Overlay {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
-    return [Overlay.styles as CSSResult, css`
-      :host {
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-      }
-      [part=content] {
-        flex: 1 1 auto;
-        overflow-x: hidden;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      [part=header], [part=footer] {
-        flex: none;
-      }
-    `];
+  static get styles (): CSSResultGroup {
+    return [
+      super.styles,
+      css`
+        :host {
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+        }
+        [part=content] {
+          flex: 1 1 auto;
+          overflow-x: hidden;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        [part=header], [part=footer] {
+          flex: none;
+        }
+      `
+    ];
   }
 
   /**
