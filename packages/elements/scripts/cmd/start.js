@@ -37,7 +37,7 @@ exports.handler = (argv) => {
         ELEMENT: element
       }
     }, {
-      command: 'node cli build --watch',
+      command: 'node cli build --watch --sourceMap --declarationMap',
       prefixColor: '#007ACC',
       name: `${element}: TypeScript`
     }
@@ -46,7 +46,7 @@ exports.handler = (argv) => {
   try {
     // Must do this step first to make sure that the first
     // start of the server contains up to date code
-    execSync('node cli build', { stdio: 'inherit' });
+    execSync('node cli build --sourceMap --declarationMap');
 
     concurrently(
       commands,

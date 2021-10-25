@@ -147,6 +147,29 @@
       <button uncheck>Uncheck All</button>
     </demo-block>
 
+    <demo-block header="Query" layout="normal" tags="query">
+      <input id="inputQuery" type="text" placeholder="Input query" />
+      <ef-tree id="queryTree" ></ef-tree>
+      <button expand>Expand All</button>
+      <button collapse>Collapse All</button>
+      <button check>Check All</button>
+      <button uncheck>Uncheck All</button>
+      <script>
+        const debounce = (callback, delay = 500) => {
+          let timeout;
+          return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => callback.apply(this, args), delay);
+          };
+        };
+        const el = document.getElementById('queryTree');
+        const setQuery = function (e) {
+          el.query = e.target.value;
+        };
+        document.getElementById('inputQuery').addEventListener('keyup', debounce(setQuery));
+      </script>
+    </demo-block>
+
     <demo-block header="Custom Renderer" layout="normal" tags="renderer">
       <ef-tree id="renderer" multiple></ef-tree>
       <button expand>Expand All</button>

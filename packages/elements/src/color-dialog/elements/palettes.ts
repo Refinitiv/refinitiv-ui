@@ -6,6 +6,8 @@ import {
   query
 } from '@refinitiv-ui/core';
 import { VERSION } from '../../';
+import { rgb } from '@refinitiv-ui/utils';
+import { isHex } from '../helpers/color-helpers';
 
 /**
  * Element base class usually used
@@ -121,5 +123,15 @@ export class Palettes extends BasicElement {
       this.value = color;
       this.notifyPropertyChange('value', color);
     }
+  }
+
+  /**
+   * Expand short format hex into long format
+   * For instance, "#fff" becomes "#ffffff"
+   * @param hex hex to expand
+   * @returns expanded hex value
+   */
+  protected expandHex (hex: string): string {
+    return isHex(hex) ? rgb(this.value).formatHex() : '';
   }
 }
