@@ -1,4 +1,4 @@
-import { WarningNotice } from './WarningNotice';
+import { WarningNotice } from './WarningNotice.js';
 
 /**
  * **Deprecation Notice**\

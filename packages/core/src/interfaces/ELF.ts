@@ -1,5 +1,5 @@
-import { CustomStyleRegistry } from '../registries/CustomStyleRegistry';
-import { NativeStyleRegistry } from '../registries/NativeStyleRegistry';
+import type { CustomStyleRegistry } from '../registries/CustomStyleRegistry';
+import type { NativeStyleRegistry } from '../registries/NativeStyleRegistry';
 
 export interface ELF {
   version: string;

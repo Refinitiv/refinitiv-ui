@@ -1,4 +1,4 @@
-import { DataItem } from '@refinitiv-ui/utils';
+import type { DataItem } from '@refinitiv-ui/utils/lib/collection.js';
 
 export type ItemType = 'text' | 'header' | 'divider';
 

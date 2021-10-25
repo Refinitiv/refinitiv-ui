@@ -52,7 +52,7 @@
   &[readonly] {
     .border(@input-readonly-border-color);
   }
-  &:not([focused]):not(:focus):hover {
+  &:not([focused]):not(:focus):not([disabled]):not([readonly]):hover {
     .border(@input-hover-border-color);
   }
 }

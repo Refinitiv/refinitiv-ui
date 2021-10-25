@@ -1,18 +1,18 @@
 import {
   ControlElement,
   css,
-  CSSResult,
-  customElement,
+  CSSResultGroup,
   html,
-  property,
   PropertyValues,
-  TemplateResult,
-  query
+  TemplateResult
 } from '@refinitiv-ui/core';
-import '../icon';
-import '../checkbox';
-import { ItemType } from './helpers/types';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import type { ItemType } from './helpers/types';
+import '../icon/index.js';
+import '../checkbox/index.js';
 
 export * from './helpers/types';
 
@@ -48,10 +48,11 @@ export class Item extends ControlElement {
   }
 
   /**
-   * @returns `CSSResult` that will be used to style the host,
+   * `CSSResultGroup` that will be used to style the host,
    * slotted children and the internal template of the element.
+   * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: flex;
@@ -152,7 +153,7 @@ export class Item extends ControlElement {
   private checkSlotChildren = (event: Event): void => {
     const slot = event.target as HTMLSlotElement;
     this.isSlotEmpty = !slot.assignedNodes().filter(node => !this.isIgnorable(node)).length;
-    void this.requestUpdate();
+    this.requestUpdate();
   };
 
   /**

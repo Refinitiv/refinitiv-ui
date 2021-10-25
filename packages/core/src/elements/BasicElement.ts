@@ -1,10 +1,12 @@
-import { LitElement, property } from 'lit-element';
-import { ElementRegistry } from '../registries/ElementRegistry';
-import { FocusRegistry } from '../registries/FocusRegistry';
-import { ShadyCSS } from '../utils/shadyStyles';
-import { FocusableHelper } from '../utils/focusableHelper';
-import { StyleInfo } from '../interfaces/StyleInfo';
-import { CSSValue } from '../types/base';
+import type { StyleInfo } from '../interfaces/StyleInfo';
+import type { CSSValue } from '../types/base';
+import { LitElement, unsafeCSS, CSSResultArray } from 'lit';
+import { property } from '../decorators/property.js';
+import { ElementRegistry } from '../registries/ElementRegistry.js';
+import { FocusRegistry } from '../registries/FocusRegistry.js';
+import { ShadyCSS } from '../utils/shadyStyles.js';
+import { FocusableHelper } from '../utils/focusableHelper.js';
+import { BasicElementSymbol } from '../utils/helpers.js';
 
 const CSS_VARIABLE_REGEXP = /^--\w/;
 const CSS_VARIABLE_REPLACE_REGEXP = /['"]([^'"]+?)['"]/g;
@@ -49,6 +51,23 @@ export abstract class BasicElement extends LitElement {
   }
 
   /**
+   * Apply theme styles
+   * @param theme Theme CSS
+   * @returns {void}
+   */
+  public static applyThemeStyles (theme: string): void {
+    const baseStyles = this.styles;
+    const themeStyles = unsafeCSS(theme);
+    const styles = ([] as CSSResultArray).concat(baseStyles ? [baseStyles, themeStyles] : themeStyles);
+    Object.defineProperty(this, 'styles', {
+      get () {
+        return styles;
+      }
+    });
+    this.elementStyles = this.finalizeStyles(this.styles);
+  }
+
+  /**
    * Set the default tabindex of element
    * null - for unset
    * -1 - can be focused; but cannot be tabbed
@@ -56,6 +75,11 @@ export abstract class BasicElement extends LitElement {
    * >= 1 - can be focused; can be tabbed; the order is based on tabindex (anti-pattern)
    */
   protected readonly defaultTabIndex: number | null = null;
+
+  /**
+   * Element's role attribute for accessibility
+   */
+  protected readonly defaultRole: string | null = null;
 
   /**
    * False to not delegate the focus by default
@@ -171,8 +195,12 @@ export abstract class BasicElement extends LitElement {
     ElementRegistry.connect(this);
 
     // process tabindex before any other callbacks
-    if (!this.hasAttribute('tabindex') && typeof this.defaultTabIndex === 'number') {
+    if (typeof this.defaultTabIndex === 'number' && !this.hasAttribute('tabindex')) {
       this.tabIndex = this.defaultTabIndex;
+    }
+
+    if (typeof this.defaultRole === 'string' && !this.hasAttribute('role')) {
+      this.setAttribute('role', this.defaultRole);
     }
 
     FocusRegistry.connect(this);
@@ -203,6 +231,11 @@ export abstract class BasicElement extends LitElement {
   public get tabbableElements (): HTMLElement[] {
     return FocusableHelper.getTabbableNodes(this);
   }
+
+  /**
+   * A symbol to check if an element is BasicElement
+   */
+  public static readonly [BasicElementSymbol] = BasicElementSymbol;
 
   /**
    * Placeholder for getting an element's version number

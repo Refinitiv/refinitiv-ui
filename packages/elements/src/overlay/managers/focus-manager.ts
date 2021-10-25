@@ -1,6 +1,6 @@
 import type { Overlay } from '../elements/overlay';
-import { AnimationTaskRunner } from '@refinitiv-ui/utils';
-import { getOverlays } from './zindex-manager';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { getOverlays } from './zindex-manager.js';
 import { FocusableHelper } from '@refinitiv-ui/core';
 
 type ActiveTabbableNodes = {

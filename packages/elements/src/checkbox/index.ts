@@ -2,19 +2,17 @@ import {
   ControlElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
-  TapEvent,
-  query
+  TapEvent
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import '../icon';
-import {
-  registerOverflowTooltip
-} from '../tooltip';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import '../icon/index.js';
 
 /**
  * Form control for selecting one or several options
@@ -40,12 +38,12 @@ export class Checkbox extends ControlElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;

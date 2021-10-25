@@ -1,4 +1,4 @@
-import { BasicElement } from './BasicElement';
+import { BasicElement } from './BasicElement.js';
 import { ResizeObserver, ResizeObserverEntry } from '@juggle/resize-observer';
 
 export type ElementSize = {

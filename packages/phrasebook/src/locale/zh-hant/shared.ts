@@ -1,4 +1,4 @@
-import { Phrasebook } from '../../';
+import { Phrasebook } from '../../translation.js';
 
 // these are used for buttons
 const translations = {

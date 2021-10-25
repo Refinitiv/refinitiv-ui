@@ -1,4 +1,4 @@
-import { ChartJS, ChartHelpers, MetaData } from '../helpers/types';
+import type { ChartJS, ChartHelpers, MetaData } from '../helpers/types';
 
 type DoughnutChart = ChartJS & Chart.DoughnutModel & ChartHelpers;
 

@@ -1,4 +1,4 @@
-import { TooltipRenderer } from './types';
+import type { TooltipRenderer } from './types';
 
 /**
  * A default renderer that renders `tooltip` attribute

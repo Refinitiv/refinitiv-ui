@@ -1,7 +1,7 @@
 import {
   padNumber,
   throwInvalidFormat
-} from './utils';
+} from './utils.js';
 
 /**
  * Date segment

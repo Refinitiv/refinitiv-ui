@@ -1,6 +1,6 @@
 import { elementUpdated, expect, fixture, html, oneEvent, triggerFocusFor, isIE } from '@refinitiv-ui/test-helpers';
 import { ControlElement } from '../../lib/elements/ControlElement';
-import { CustomElement } from '../../lib/decorators/CustomElement';
+import { customElement } from '../../lib/decorators/custom-element';
 import { elementUpdatedWithAsyncFrames, isChrome, asyncFrames } from '../helper';
 
 const MOCKED_COMPARE_LENGTH_VALUE = 12;
@@ -50,7 +50,7 @@ class ControlElementTest extends ControlElement {
   }
 }
 
-CustomElement('control-element-test', {
+customElement('control-element-test', {
   theme: false
 })(ControlElementTest);
 

@@ -2,16 +2,16 @@ import {
   BasicElement,
   svg,
   css,
-  customElement,
-  property,
-  CSSResult,
-  unsafeHTML,
+  CSSResultGroup,
   TemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import { IconLoader } from './utils/IconLoader';
-export { preload } from './utils/IconLoader';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { unsafeHTML } from '@refinitiv-ui/core/lib/directives/unsafe-html.js';
+import { VERSION } from '../version.js';
+import { IconLoader } from './utils/IconLoader.js';
+export { preload } from './utils/IconLoader.js';
 
 const EmptyTemplate = svg``;
 
@@ -29,12 +29,12 @@ export class Icon extends BasicElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -64,7 +64,7 @@ export class Icon extends BasicElement {
     if (oldValue !== value) {
       this._icon = value;
       void this.setIconSrc();
-      void this.requestUpdate('icon', oldValue);
+      this.requestUpdate('icon', oldValue);
     }
   }
 
@@ -99,7 +99,7 @@ export class Icon extends BasicElement {
   private set template (value: TemplateResult) {
     if (this._template !== value) {
       this._template = value;
-      void this.requestUpdate();
+      this.requestUpdate();
     }
   }
 

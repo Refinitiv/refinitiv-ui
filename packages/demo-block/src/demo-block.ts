@@ -3,12 +3,12 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   StyleInfo
 } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 
 const Themes = [
   'elemental-theme/light',
@@ -127,11 +127,11 @@ export class DemoBlock extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version () {
+  static get version (): string {
     return 'PUBLISH_VERSION';
   }
 
-  static get styles (): CSSResult {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         box-shadow: 0 3px 5px 1px rgba(0, 0, 0, 0.2);

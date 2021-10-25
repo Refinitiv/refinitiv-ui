@@ -1,5 +1,5 @@
-import { global } from '../utils/global';
-import { matches } from '../utils/matches';
+import { global } from '../utils/global.js';
+import { matches } from '../utils/matches.js';
 
 const isIE = (/Trident/g).test(navigator.userAgent);
 

@@ -2,19 +2,19 @@ import {
   html,
   css,
   ControlElement,
-  customElement,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
-  property,
-  styleMap,
-  query,
   StyleMap,
   WarningNotice
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import '../number-field';
-import { NumberField } from '../number-field';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
+import { VERSION } from '../version.js';
+import '../number-field/index.js';
+import type { NumberField } from '../number-field';
 
 type SliderEvent = MouseEvent | TouchEvent;
 
@@ -371,7 +371,7 @@ export class Slider extends ControlElement {
   private showWarningInvalidProperty (propName: string): void {
     let isValid = true;
     let message = '';
- 
+
     if (propName === 'value') {
       isValid = this.isValueInBoundary(this.valueNumber, '');
       message = 'value should be between min and max.';
@@ -402,7 +402,7 @@ export class Slider extends ControlElement {
       isValid = (distanceMinMax >= this.minRangeNumber && distanceFromTo >= this.minRangeNumber);
       message = 'value should be less than distance from and to, min and max.';
     }
- 
+
     if(!isValid) {
       new WarningNotice(`${this.localName}: Invalid ${propName} provided, The correct ${propName} ${message}`).show();
     }
@@ -1210,7 +1210,7 @@ export class Slider extends ControlElement {
    * Define styles in a tagged template literal, using the css tag function.
    * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: flex;
