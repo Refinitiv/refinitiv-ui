@@ -2,19 +2,17 @@ import {
   ControlElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
-  TapEvent,
-  query
+  TapEvent
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import '../icon';
-import {
-  registerOverflowTooltip
-} from '../tooltip';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import '../icon/index.js';
 
 /**
  * Form control for selecting one or several options
@@ -30,7 +28,6 @@ import {
   alias: 'coral-checkbox'
 })
 export class Checkbox extends ControlElement {
-
   /**
    * Element version number
    * @returns version number
@@ -39,13 +36,15 @@ export class Checkbox extends ControlElement {
     return VERSION;
   }
 
+  protected readonly defaultRole = 'checkbox';
+
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -73,17 +72,60 @@ export class Checkbox extends ControlElement {
     `;
   }
 
+  private _checked = false;
   /**
    * Value of checkbox
+   * @param value new checked value
    */
   @property({ type: Boolean, reflect: true })
-  public checked = false;
+  public set checked (value: boolean) {
+    const oldValue = this._checked;
+    if (oldValue !== value) {
+      this._checked = value;
 
+      // remove indeterminate if change state to checked
+      if (this._checked) {
+        this.indeterminate = false;
+      }
+
+      this.ariaChecked = String(value);
+      void this.requestUpdate('checked', oldValue);
+    }
+  }
+  public get checked (): boolean {
+    return this._checked;
+  }
+
+  private _indeterminate = false;
   /**
    * Set state to indeterminate
+   * @param value new indeterminate value
    */
   @property({ type: Boolean, reflect: true })
-  public indeterminate = false;
+  public set indeterminate (value: boolean) {
+    const oldValue = this._indeterminate;
+    if (oldValue !== value) {
+      this._indeterminate = value;
+
+      // remove checked if change state to indeterminate
+      if (value) {
+        this.checked = false;
+      }
+
+      this.ariaChecked = value ? 'mixed' : String(this.checked);
+      void this.requestUpdate('indeterminate', oldValue);
+    }
+  }
+  public get indeterminate (): boolean {
+    return this._indeterminate;
+  }
+
+  /**
+   * Indicates current state of checkbox
+   * @ignore
+   */
+  @property({ type: String, reflect: true, attribute: 'aria-checked' })
+  public ariaChecked = String(this.checked);
 
   /**
    * Getter for label
@@ -92,30 +134,13 @@ export class Checkbox extends ControlElement {
   private labelEl!: HTMLElement;
 
   /**
-   * Updates the element
-   * @param changedProperties Properties that has changed
-   * @returns {void}
-   */
-  protected update (changedProperties: PropertyValues): void {
-    // remove indeterminate if change state to checked
-    if(changedProperties.get('checked') === false && this.checked && this.indeterminate) {
-      this.indeterminate = false;
-    }
-    // remove checked if change state to indeterminate
-    if(changedProperties.get('indeterminate') === false && this.indeterminate && this.checked) {
-      this.checked = false;
-    }
-
-    super.update(changedProperties);
-  }
-
-  /**
    * Called once after the component is first rendered
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
+
     this.addEventListener('tap', this.onTap);
     this.addEventListener('keydown', this.onKeyDown);
 

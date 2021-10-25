@@ -1,5 +1,5 @@
 // Keeps registration records of radio button group per its name
-import { RadioButton } from './index';
+import type { RadioButton } from './index';
 
 const registry: RadioButton[] = [];
 

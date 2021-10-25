@@ -1,18 +1,18 @@
 import {
   ControlElement,
   css,
-  CSSResult,
-  customElement,
+  CSSResultGroup,
   html,
-  property,
   PropertyValues,
-  query,
   TapEvent,
   TemplateResult
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
 
-import '../icon';
+import '../icon/index.js';
 
 /**
  * A small button style component
@@ -43,12 +43,12 @@ export class Pill extends ControlElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult {
+  static get styles (): CSSResultGroup {
     return css`
     :host {
       display: inline-block;

@@ -1,8 +1,8 @@
-import { AnimationTaskRunner } from '@refinitiv-ui/utils';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import type { OverlayViewport } from '../elements/overlay-viewport';
+import type { ViewAreaInfo } from '../helpers/types';
 import type { Overlay } from '../elements/overlay';
-import '../elements/overlay-viewport';
-import { OverlayViewport } from '../elements/overlay-viewport';
-import { ViewAreaInfo } from '../helpers/types';
+import '../elements/overlay-viewport.js';
 
 /**
   * Default values for area info
@@ -100,6 +100,10 @@ export class ViewportManager {
     const screenRect = this.screenViewport.getBoundingClientRect();
 
     // since screenViewport is applied on html element, it does not include body zoom
+    // Zoom is a legacy feature and must not be used by any means.
+    // Kept here for compatibility with old apps
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const zoom = parseFloat(window.getComputedStyle(document.body).zoom);
     const screenHeight = screenRect.height / zoom;
     const screenWidth = screenRect.width / zoom;

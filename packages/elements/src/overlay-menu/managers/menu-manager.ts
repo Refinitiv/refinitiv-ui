@@ -1,9 +1,9 @@
-import { AfterRenderTaskRunner } from '@refinitiv-ui/utils';
+import { AfterRenderTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
 import { TapEvent } from '@refinitiv-ui/core';
-import { Item } from '../../item';
-import { OverlayMenu } from '../index';
-import { NestedMenu } from '../helpers/types';
-import { getOverlays } from '../../overlay/managers/zindex-manager';
+import type { Item } from '../../item';
+import { OverlayMenu } from '../index.js';
+import type { NestedMenu } from '../helpers/types';
+import { getOverlays } from '../../overlay/managers/zindex-manager.js';
 
 /**
  * Overlay menu manager monitors menu nesting and ensures

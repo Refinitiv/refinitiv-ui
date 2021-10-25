@@ -20,10 +20,12 @@
     "test": "npm run build && karma start ../../karma.config.js --package=test-helpers --include-snapshots=false",
     "test:watch": "npm run test -- --watch"
   },
-  "dependencies": {
-    "@open-wc/testing": "^2.5.32"
-  },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@open-wc/testing": "^3.0.0-next.5",
+    "@types/mocha": "^5.2.7",
+    "mocha": "^6.2.3"
   }
 }

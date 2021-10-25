@@ -1,5 +1,5 @@
 import { elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-import { RenderView } from '../../../lib/calendar/types.js';
+import { RenderView } from '../../../lib/calendar/constants.js';
 
 export const setView = async (el, view) => {
   el.renderView = view;

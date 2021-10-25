@@ -1,4 +1,4 @@
-export {
+export type {
   Translations
 } from './types';
 
@@ -6,4 +6,4 @@ export {
   Phrasebook,
   ObserverCallback,
   ObserverKey
-} from './translation';
+} from './translation.js';

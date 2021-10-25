@@ -1,8 +1,8 @@
-import { OverlayBackdrop } from '../elements/overlay-backdrop';
+import type { OverlayBackdrop } from '../elements/overlay-backdrop';
 import type { Overlay } from '../elements/overlay';
-import { OverlayLayer, getOverlayLayers } from './zindex-manager';
+import { OverlayLayer, getOverlayLayers } from './zindex-manager.js';
 
-import '../elements/overlay-backdrop';
+import '../elements/overlay-backdrop.js';
 
 /**
  * Backdrop manager adds a backdrop to the body

@@ -1,10 +1,9 @@
 import {
-  customElement,
   html,
-  TemplateResult,
-  query
+  TemplateResult
 } from '@refinitiv-ui/core';
-
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import {
   translate,
   TranslateDirective

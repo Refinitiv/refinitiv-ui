@@ -2,15 +2,14 @@ import {
   ControlElement,
   html,
   css,
-  query,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
-import '../number-field';
-import { NumberField } from '../number-field';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
 import {
   isValidTime,
   toTimeSegment,
@@ -24,8 +23,9 @@ import {
   MILLISECONDS_IN_HOUR,
   addOffset,
   padNumber
-} from '@refinitiv-ui/utils';
-import { VERSION } from '../';
+} from '@refinitiv-ui/utils/lib/date.js';
+import '../number-field/index.js';
+import type { NumberField } from '../number-field';
 
 enum Segment {
   HOURS = 'hours',
@@ -107,7 +107,7 @@ export class TimePicker extends ControlElement {
     this._hours = this.validUnit(hours, MIN_UNIT, MAX_HOURS, oldHours);
 
     if (this._hours !== oldHours) {
-      void this.requestUpdate('hours', oldHours);
+      this.requestUpdate('hours', oldHours);
     }
   }
 
@@ -132,7 +132,7 @@ export class TimePicker extends ControlElement {
     }
     this._minutes = this.validUnit(minutes, MIN_UNIT, MAX_MINUTES, oldMinutes);
     if (this._minutes !== oldMinutes) {
-      void this.requestUpdate('minutes', oldMinutes);
+      this.requestUpdate('minutes', oldMinutes);
     }
   }
 
@@ -157,7 +157,7 @@ export class TimePicker extends ControlElement {
     }
     this._seconds = this.validUnit(seconds, MIN_UNIT, MAX_SECONDS, oldSeconds);
     if (this._seconds !== oldSeconds) {
-      void this.requestUpdate('seconds', oldSeconds);
+      this.requestUpdate('seconds', oldSeconds);
     }
   }
 
@@ -760,12 +760,12 @@ export class TimePicker extends ControlElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-flex;

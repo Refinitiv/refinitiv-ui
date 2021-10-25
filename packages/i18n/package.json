@@ -25,7 +25,8 @@
     "@formatjs/intl-utils": "^3.8.4",
     "@refinitiv-ui/phrasebook": "^5.1.6",
     "intl-format-cache": "^4.3.1",
-    "intl-messageformat": "^9.7.1"
+    "intl-messageformat": "^9.7.1",
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
     "@refinitiv-ui/test-helpers": "^5.0.5"

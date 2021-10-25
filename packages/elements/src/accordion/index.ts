@@ -1,14 +1,14 @@
 import {
   html,
   css,
-  customElement,
-  property,
   PropertyValues,
   TemplateResult,
-  CSSResult
+  CSSResultGroup
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import { Collapse } from '../collapse';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
+import { Collapse } from '../collapse/index.js';
 
 /**
  * Finds closest accordion parent of element.
@@ -60,12 +60,12 @@ export class Accordion extends Collapse {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;

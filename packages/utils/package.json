@@ -4,6 +4,20 @@
   "description": "Shared utilities for Element Framework",
   "main": "lib/utils.js",
   "module": "lib/utils.js",
+  "exports": {
+    ".": {
+      "default": "./lib/utils.js"
+    },
+    "./lib/async.js": "./lib/async.js",
+    "./lib/browser.js": "./lib/browser.js",
+    "./lib/collection.js": "./lib/collection.js",
+    "./lib/color.js": "./lib/color.js",
+    "./lib/date.js": "./lib/date.js",
+    "./lib/event.js": "./lib/event.js",
+    "./lib/is-slot-empty.js": "./lib/is-slot-empty.js",
+    "./lib/loader.js": "./lib/loader.js",
+    "./lib/uuid.js": "./lib/uuid.js"
+  },
   "types": "lib/utils.d.ts",
   "repository": {
     "type": "git",
@@ -20,9 +34,8 @@
   },
   "dependencies": {
     "@types/d3-color": "^3.0.2",
-    "@types/uuid": "^8.3.0",
     "d3-color": "^3.0.1",
-    "uuid": "^8.3.2"
+    "tslib": "^2.3.1"
   },
   "publishConfig": {
     "access": "public"

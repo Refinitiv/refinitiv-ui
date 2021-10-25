@@ -1,5 +1,5 @@
-import { Task } from './task';
-import { ThrottlerRunner } from './throttler-runner';
+import { Task } from './task.js';
+import { ThrottlerRunner } from './throttler-runner.js';
 
 /**
  * Task to be executed on the next animation frame
@@ -13,7 +13,7 @@ class AnimationTask extends Task {
     super.cancel();
     cancelAnimationFrame(this.animationFrame);
   }
-  
+
 }
 
 /**

@@ -20,11 +20,14 @@
     "test": "npm run build && mocha __test__/**/*.js --require esm"
   },
   "devDependencies": {
-    "chai": "4.3.4",
+    "chai": "^4.3.4",
     "esm": "^3.2.25",
     "mocha": "^8.4.0"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "tslib": "^2.3.1"
   }
 }

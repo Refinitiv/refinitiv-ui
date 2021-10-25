@@ -2,29 +2,30 @@ import {
   ResponsiveElement,
   html,
   css,
-  query,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { color, ColorCommonInstance, MicroTaskRunner } from '@refinitiv-ui/utils';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import { MicroTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { color, ColorCommonInstance } from '@refinitiv-ui/utils/lib/color.js';
 
-import '../canvas';
-import { Canvas } from '../canvas';
-import '../tooltip';
+import '../canvas/index.js';
+import type { Canvas } from '../canvas';
+import '../tooltip/index.js';
 
-import { Track } from './helpers/track';
-import { blend, brighten, darken, isLight, interpolate } from './helpers/color';
-import { HeatmapCell, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
-import { getResponsiveFontSize, getMaximumTextWidth, getMaximumLabelTextWidth, MIN_FONT_SIZE } from './helpers/text';
-import { VERSION } from '../';
+import { Track } from './helpers/track.js';
+import { blend, brighten, darken, isLight, interpolate } from './helpers/color.js';
+import type { HeatmapCell, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
+import { getResponsiveFontSize, getMaximumTextWidth, getMaximumLabelTextWidth, MIN_FONT_SIZE } from './helpers/text.js';
 
 const MAX_CELL_WIDTH_RATIO = 0.85;
 const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
 
-export { HeatmapCell, HeatmapXAxis, HeatmapYAxis, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback, HeatmapCustomisableProperties } from './helpers/types';
+export type { HeatmapCell, HeatmapXAxis, HeatmapYAxis, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback, HeatmapCustomisableProperties } from './helpers/types';
 
 /**
  * A graphical representation of data where the individual
@@ -44,12 +45,12 @@ export class Heatmap extends ResponsiveElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -135,7 +136,7 @@ export class Heatmap extends ResponsiveElement {
     this._hoverCell = hoverCell;
 
     if (this._hoverCell !== previousHoverCell) {
-      void this.requestUpdate('hoverCell', previousHoverCell);
+      this.requestUpdate('hoverCell', previousHoverCell);
       this.hoverCellChanged(this._hoverCell, previousHoverCell);
     }
   }

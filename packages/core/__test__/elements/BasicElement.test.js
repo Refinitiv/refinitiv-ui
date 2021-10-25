@@ -1,6 +1,6 @@
 import { elementUpdated, expect, fixture, isIE } from '@refinitiv-ui/test-helpers';
 import { BasicElement } from '../../lib/elements/BasicElement.js';
-import { CustomElement } from '../../lib/decorators/CustomElement.js';
+import { customElement } from '../../lib/decorators/custom-element.js';
 import { asyncFrames } from '../helper.js';
 
 class BasicElementTest extends BasicElement {
@@ -31,7 +31,7 @@ class BasicElementTest extends BasicElement {
   }
 }
 
-CustomElement('basic-element-test', {
+customElement('basic-element-test', {
   theme: false
 })(BasicElementTest);
 
@@ -40,7 +40,7 @@ describe('TestBasicElement', () => {
     describe('Test "role" attribute', () => {
       it('Should have no role by default', async () => {
         const roleELement = class RoleElementTest extends BasicElement {};
-        CustomElement('role-element-test', {
+        customElement('role-element-test', {
           theme: false
         })(roleELement);
 

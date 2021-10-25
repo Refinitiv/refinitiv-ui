@@ -1,41 +1,40 @@
 import {
   ControlElement,
   css,
-  CSSResult,
-  customElement,
+  CSSResultGroup,
   html,
-  property,
   PropertyValues,
-  query,
-  styleMap,
   TapEvent,
   TemplateResult,
   WarningNotice,
   FocusedPropertyKey,
-  eventOptions,
-  ifDefined,
   StyleMap
 } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { eventOptions } from '@refinitiv-ui/core/lib/decorators/event-options.js';
+import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/lib/collection.js';
+import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import type { ValueChangedEvent } from '../events';
+import type { ItemData } from '../item';
+import type { TextField } from '../text-field';
+import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
+import { List, ListRenderer as ComboBoxRenderer } from '../list/index.js';
+import { defaultFilter } from './helpers/filter.js';
+import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
+import '../icon/index.js';
+import '../overlay/index.js';
+import '../list/index.js';
+import '../pill/index.js';
+import '../text-field/index.js';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
-import { AnimationTaskRunner, CollectionComposer, DataItem, TimeoutTaskRunner } from '@refinitiv-ui/utils';
-import '@refinitiv-ui/phrasebook/lib/locale/en/combo-box';
-import { ValueChangedEvent } from '../events';
-import '../icon';
-import '../overlay';
-import '../list';
-import '../counter';
-import '../text-field';
-import '../tooltip';
-import { List, ListRenderer as ComboBoxRenderer } from '../list';
-import { ItemData } from '../item';
-import { TextField } from '../text-field';
+import '@refinitiv-ui/phrasebook/lib/locale/en/combo-box.js';
 
-import { defaultFilter } from './helpers/filter';
-import { ComboBoxData, ComboBoxFilter } from './helpers/types';
-import { CustomKeyboardEvent } from './helpers/keyboard-event';
-import { VERSION } from '../';
-
-export { ComboBoxRenderer, ComboBoxFilter, ComboBoxData };
+export type { ComboBoxRenderer, ComboBoxFilter, ComboBoxData };
 
 const QUERY_DEBOUNCE_RATE = 0;
 
@@ -81,12 +80,12 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-flex;
@@ -137,7 +136,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
     }
     const oldMultiple = this._multiple;
     this._multiple = multiple;
-    void this.requestUpdate('multiple', oldMultiple);
+    this.requestUpdate('multiple', oldMultiple);
   }
   public get multiple (): boolean {
     return this._multiple;
@@ -177,7 +176,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
     }
     const oldFreeText = this._freeText;
     this._freeText = freeText;
-    void this.requestUpdate('freeText', oldFreeText);
+    this.requestUpdate('freeText', oldFreeText);
   }
   public get freeText (): boolean {
     return this._freeText;
@@ -282,7 +281,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
       // Should we update the selection state?
       if (newComparison !== oldComparison) {
         this.updateComposerValues(newValues);
-        void this.requestUpdate('values', oldValues);
+        this.requestUpdate('values', oldValues);
       }
     }
   }
@@ -320,7 +319,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
     if (oldVal !== this._query) {
       this.clearHighlighted();
       this.filterItems();
-      void this.requestUpdate('query', oldVal);
+      this.requestUpdate('query', oldVal);
     }
   }
 
@@ -436,7 +435,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
         this.value = this.cachedValue;
         this.cachedValue = ''; // Reset as it's only needed for initialisation
       }
-      void this.requestUpdate('data', oldValue);
+      this.requestUpdate('data', oldValue);
     }
   }
 
@@ -636,7 +635,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    * @returns {void}
    */
   protected modificationUpdate (): void {
-    void this.requestUpdate();
+    this.requestUpdate();
   }
 
   /**
@@ -732,7 +731,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
       this.resizeThrottler.schedule(() => {
         if (this.offsetWidth) { /* must be here to avoid infinitive loop */
           this.restrictPopupWidth();
-          void this.requestUpdate();
+          this.requestUpdate();
         }
       });
       return;

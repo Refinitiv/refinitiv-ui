@@ -6,4 +6,4 @@ import 'core-js/es/number';
 import 'core-js/es/string';
 import 'core-js/es/math';
 import 'core-js/es/object';
-import './minimal';
+import './minimal.js';
