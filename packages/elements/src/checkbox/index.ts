@@ -85,8 +85,12 @@ export class Checkbox extends ControlElement {
     if (oldValue !== value) {
       this._checked = value;
 
-      this.ariaChecked = String(value);
+      // remove indeterminate if change state to checked
+      if (this._checked) {
+        this.indeterminate = false;
+      }
 
+      this.ariaChecked = String(value);
       void this.requestUpdate('checked', oldValue);
     }
   }
@@ -105,10 +109,12 @@ export class Checkbox extends ControlElement {
     if (oldValue !== value) {
       this._indeterminate = value;
 
+      // remove checked if change state to indeterminate
       if (value) {
-        this.ariaChecked = 'mixed';
+        this.checked = false;
       }
 
+      this.ariaChecked = value ? 'mixed' : String(this.checked);
       void this.requestUpdate('indeterminate', oldValue);
     }
   }
@@ -147,18 +153,18 @@ export class Checkbox extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
-    // remove indeterminate if change state to checked
-    if(changedProperties.get('checked') === false && this.checked && this.indeterminate) {
-      this.indeterminate = false;
-    }
-    // remove checked if change state to indeterminate
-    if(changedProperties.get('indeterminate') === false && this.indeterminate && this.checked) {
-      this.checked = false;
-    }
+  // protected update (changedProperties: PropertyValues): void {
+  //   // remove indeterminate if change state to checked
+  //   if(changedProperties.get('checked') === false && this.checked && this.indeterminate) {
+  //     this.indeterminate = false;
+  //   }
+  //   // remove checked if change state to indeterminate
+  //   if(changedProperties.get('indeterminate') === false && this.indeterminate && this.checked) {
+  //     this.checked = false;
+  //   }
 
-    super.update(changedProperties);
-  }
+  //   super.update(changedProperties);
+  // }
 
   /**
    * Run when checkbox is tapped

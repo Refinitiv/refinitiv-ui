@@ -52,6 +52,32 @@ describe('checkbox/Checkbox', () => {
       await expect(el).to.be.accessible();
       await expect(el.ariaChecked).to.equal('mixed');
     });
+    it('should have aria-checked equals to false when indeterminate changes to false', async () => {
+      const el = await fixture(indeterminate);
+      el.indeterminate = false;
+      await elementUpdated(el);
+
+      await expect(el).to.be.accessible();
+      await expect(el.checked).to.equal(false);
+      await expect(el.ariaChecked).to.equal(String(el.checked));
+    });
+    it('should have aria-checked equals to false when checked is set to indeterminate checkbox', async () => {
+      const el = await fixture(indeterminate);
+      el.checked = true;
+      await elementUpdated(el);
+
+      await expect(el).to.be.accessible();
+      await expect(el.checked).to.equal(true);
+      await expect(el.ariaChecked).to.equal(String(el.checked));
+    });
+    it('should have aria-checked equals to mixed when indeterminate is set to checked checkbox', async () => {
+      const el = await fixture(checked);
+      el.indeterminate = true;
+      await elementUpdated(el);
+
+      await expect(el).to.be.accessible();
+      await expect(el.ariaChecked).to.equal('mixed');
+    });
     it('should pass a11y test when disabled', async () => {
       const el = await fixture(disabled);
       await expect(el).to.be.accessible();
