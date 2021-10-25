@@ -559,36 +559,37 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   }
 
   /**
-   * Filter the internal items by query
-   * Changes items' hidden state
-   *
+   * Filter the internal items by query. Changes items' hidden state.
    * @returns {void}
    */
   protected filterItems (): void {
     // if filter is null, it is off and external app is responsible
     if (this.filter) {
       const filter = this.filter;
-      const items = this.queryItems((item, composer): boolean => {
+      const items = this.queryItems((item): boolean => {
         // do not filter hidden items
         if (item.hidden) {
           return false;
         }
+
         // does item match the selection filter
         let result = true;
         if (this.editSelectionItems.size && !this.editSelectionItems.has(item)) {
           result = false;
         }
+
         // item matches selection, can have conventional filter applied
         if (result) {
           result = filter(item);
         }
+
         if (result) {
-          composer.updateItemTimestamp(item);
           this.treeManager.includeItem(item);
         }
         else {
           this.treeManager.excludeItem(item);
         }
+
         return result;
       }).slice();
 
@@ -613,7 +614,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    */
   protected addItemDescendantsToRender (items: TreeSelectDataItem[]): void {
     items.forEach((item) => {
-      // all items will be collapsed by default
+      /**
+       * Collapse an item to prevent tree show too many nested expanded
+       */
       if (this.treeManager.isItemExpanded(item)) {
         this.treeManager.collapseItem(item);
       }
@@ -634,14 +637,12 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Add nested children of item list
    * @param items List of items
    * @param excludeItems List of exclude items
-   * @returns void
+   * @returns {void}
    */
   protected addNestedItemsToRender (items: readonly TreeSelectDataItem[], excludeItems: readonly TreeSelectDataItem[]): void {
     items.forEach(item => {
-
-      // Skip excluding item
-      if (!excludeItems.includes(item)) {
-
+      // Skip hidden and exclude item
+      if (!item.hidden && !excludeItems.includes(item)) {
         // Add item and nested children
         this.treeManager.includeItem(item);
         const children = this.treeManager.getItemChildren(item);
@@ -654,9 +655,8 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
   /**
    * Utility method
-   * @param items List of child items
    * Adds ancestors for each item passed and expand
-   *
+   * @param items List of child items
    * @returns {void}
    */
   protected addExpandedAncestorsToRender (items: TreeSelectDataItem[]): void {
@@ -677,9 +677,8 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
   /**
    * Utility method
-   * @param ancestor parent item
    * Adds parent and expands
-   *
+   * @param ancestor parent item
    * @returns {void}
    */
   protected addExpandedAncestorToRender (ancestor: TreeSelectDataItem): void {
