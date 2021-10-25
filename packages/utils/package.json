@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/utils",
-  "version": "5.0.5",
+  "version": "5.0.6",
   "description": "Shared utilities for Element Framework",
   "main": "lib/utils.js",
   "module": "lib/utils.js",

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@5.2.3...@refinitiv-ui/solar-theme@5.4.0) (2021-10-25)
+
+
+### Bug Fixes
+
+* **solar-theme:** remove border styled of input on readonly state ([#36](https://github.com/Refinitiv/refinitiv-ui/issues/36)) ([33068b4](https://github.com/Refinitiv/refinitiv-ui/commit/33068b48e591b6c827b3c5aac9a97964223cf391))
+
+
+### Features
+
+* **solar-theme:** support tab and tab-bar ([#23](https://github.com/Refinitiv/refinitiv-ui/issues/23)) ([7df76c1](https://github.com/Refinitiv/refinitiv-ui/commit/7df76c1d00699ebf0f4ed7cfc3ea16680209217a))
+
+
+
+
+
 # [5.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@5.2.3...@refinitiv-ui/solar-theme@5.3.0) (2021-10-25)
 
 
