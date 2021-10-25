@@ -1,4 +1,4 @@
-import { GenericError } from './GenericError';
+import { GenericError } from './GenericError.js';
 
 const generateMessage = (name: string): string =>
 /* eslint-disable-next-line indent */

@@ -2,18 +2,18 @@ import {
   ControlElement,
   html,
   css,
-  query,
-  ifDefined,
-  property,
-  customElement,
-  CSSResult,
+  CSSResultGroup,
   TemplateResult,
   PropertyValues,
   FocusedPropertyKey,
   TapEvent
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-import '../icon';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import '../icon/index.js';
 
 const NUMBER_PATTERN = '^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$';
 const DEFAULT_STEP_BASE = 1;
@@ -53,12 +53,12 @@ export class NumberField extends ControlElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;

@@ -2,29 +2,29 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
-  query,
   matches
 } from '@refinitiv-ui/core';
-import { isSlotEmpty } from '@refinitiv-ui/utils';
-import '../overlay';
-import { OverlayTransitionStyle as TooltipTransitionStyle, Overlay, OverlayPosition } from '../overlay';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import { isSlotEmpty } from '@refinitiv-ui/utils/lib/is-slot-empty.js';
+import '../overlay/index.js';
+import type { OverlayTransitionStyle as TooltipTransitionStyle, Overlay, OverlayPosition } from '../overlay';
 
-import './elements/title-tooltip';
-import { register, deregister } from './managers/tooltip-manager';
+import './elements/title-tooltip.js';
+import { register, deregister } from './managers/tooltip-manager.js';
 import {
   TooltipCondition,
   TooltipRenderer,
   TooltipPosition,
   TooltipPositionMap
-} from './helpers/types';
-import { tooltipRenderer } from './helpers/renderer';
-import { register as registerOverflowTooltip } from './helpers/overflow-tooltip';
-import { VERSION } from '../';
+} from './helpers/types.js';
+import { tooltipRenderer } from './helpers/renderer.js';
+import { register as registerOverflowTooltip } from './helpers/overflow-tooltip.js';
 
 const TooltipPositionMap: TooltipPositionMap = {
   'auto': ['bottom-start', 'top-start'],
@@ -60,12 +60,12 @@ class Tooltip extends BasicElement {
   private contentNodes?: (Node)[];
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult [] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: contents;
@@ -183,7 +183,7 @@ class Tooltip extends BasicElement {
     const oldX = this._x;
     if (oldX !== x) {
       this._x = x;
-      void this.requestUpdate('x', oldX);
+      this.requestUpdate('x', oldX);
     }
   }
 
@@ -196,7 +196,7 @@ class Tooltip extends BasicElement {
     const oldY = this._y;
     if (oldY !== y) {
       this._y = y;
-      void this.requestUpdate('y', oldY);
+      this.requestUpdate('y', oldY);
     }
   }
 
@@ -209,7 +209,7 @@ class Tooltip extends BasicElement {
     const oldPositionTarget = this._positionTarget;
     if (positionTarget !== oldPositionTarget) {
       this._positionTarget = positionTarget;
-      void this.requestUpdate('positionTarget', oldPositionTarget);
+      this.requestUpdate('positionTarget', oldPositionTarget);
     }
   }
 
@@ -223,7 +223,7 @@ class Tooltip extends BasicElement {
     const oldOpened = this._opened;
     if (oldOpened !== opened) {
       this._opened = opened;
-      void this.requestUpdate('opened', oldOpened);
+      this.requestUpdate('opened', oldOpened);
     }
   }
 
@@ -561,7 +561,7 @@ class Tooltip extends BasicElement {
   }
 }
 
-export * from './elements/tooltip-element';
+export * from './elements/tooltip-element.js';
 
 export {
   registerOverflowTooltip,

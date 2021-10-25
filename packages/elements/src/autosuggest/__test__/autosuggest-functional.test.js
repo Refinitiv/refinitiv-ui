@@ -131,7 +131,7 @@ describe('autosuggest/Functional', () => {
 
       expect(addTargetEvents, 'onInputFocus was run').to.equal(0);
       expect(removeTargetEvents, 'onInputKeyDown was run').to.equal(0);
-    });
+    }, 4000);
 
     it('Test suggestions-query and suggestions-fetch-requested', async function () {
       if (isIE()) {
@@ -221,7 +221,7 @@ describe('autosuggest/Functional', () => {
       expect(fetchQueries[2], 'suggestions-fetch-requested more-results event is not fired or is wrong').to.equal('test2');
       expect(fetchQueries[3], 'suggestions-fetch-requested more-results event is not fired or is wrong').to.equal('test2');
       expect(fetchQueries[4], 'suggestions-fetch-requested escape-pressed event is not fired or is wrong').to.equal('');
-    });
+    }, 4000);
 
     it('Test opened, suggestions-clear-requested, item-select and item-highlight', async function () {
       if (isIE()) {
@@ -302,7 +302,7 @@ describe('autosuggest/Functional', () => {
 
       expect(highlightCount, 'ArrowDown: item-highlight is not fired').to.equal(1);
       expect(selectCount, 'ArrowDown: item-select is not fired ').to.equal(1);
-    });
+    }, 4000);
 
     it('Ensure that custom renderer works', async () => {
       const input = await createInputElement();
@@ -361,7 +361,7 @@ describe('autosuggest/Functional', () => {
       expect(highlightCount, 'highlightable was not called for every suggestion').to.equal(data.length);
       expect(renderCount, 'renderer was not called for every suggestion').to.equal(data.length);
       expect(autoSuggest.children.length, 'The number of items is wrong').to.equal(data.length);
-    });
+    }, 4000);
 
     it('check suggest open on input with same query', async function () {
       if (isIE()) {
@@ -390,7 +390,7 @@ describe('autosuggest/Functional', () => {
       await inputAction(input);
 
       expect(autoSuggest.opened).to.equal(true, 'AutoSuggest is not opened');
-    });
+    }, 4000);
 
     it('check debounce rate is applied', async function () {
       if (isIE()) {
@@ -436,7 +436,7 @@ describe('autosuggest/Functional', () => {
       expect(event.detail.reason).to.equal('value-changed', 'value-changed is not fired');
       expect(finishTime - callTime).to.greaterThan(autoSuggest.debounceRate, 'time less then debounceRate');
       expect(finishTime - callTime).to.lessThan(autoSuggest.debounceRate + 50, 'time to call much greater than debounceRate');
-    });
+    }, 4000);
 
     it('the highlightable property returns true', async () => {
       const input = await createInputElement();

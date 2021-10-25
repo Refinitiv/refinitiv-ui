@@ -4,9 +4,9 @@ import {
 import { supportedLocales } from '@formatjs/intl-utils';
 import {
   DEFAULT_LOCALE
-} from './constants';
+} from './constants.js';
 
-import {
+import type {
   TranslateOptions,
   TranslateParams,
   UnicodeExtensions
@@ -14,7 +14,7 @@ import {
 
 import {
   Memoiser
-} from './memoiser';
+} from './memoiser.js';
 
 /**
  * Resolve translation from provided locale. For instance:

@@ -1,8 +1,17 @@
-import { fixture, expect, elementUpdated, isIE, nextFrame, keyboardEvent, oneEvent } from '@refinitiv-ui/test-helpers';
+import {
+  fixture,
+  expect,
+  elementUpdated,
+  isIE,
+  nextFrame,
+  keyboardEvent,
+  oneEvent
+} from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/tree';
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
+import { multiLevelData } from './mock_data/multi-level';
 
 const keyArrowUp = keyboardEvent('keydown', { key: 'Up' });
 const keyArrowDown = keyboardEvent('keydown', { key: 'Down' });
@@ -304,6 +313,98 @@ describe('tree/Tree', () => {
       expect(el.value).to.equal('1.1');
       expect(el.values).to.deep.equal(['1.1', '1.2']);
     });
+  });
+
+  describe('Filter Tests', () => {
+
+    it('Text filter applied, query attribute - multi level', async () => {
+      const el = await fixture('<ef-tree query="-3" ></ef-tree>');
+      el.data = multiLevelData;
+      await elementUpdated(el);
+      expect(el.manager.visibleItems.length).to.equal(5, 'Visible all level have suffix "-3"');
+
+      // Change attribute
+      el.setAttribute('query', '5');
+      await elementUpdated(el);
+      expect(el.manager.visibleItems.length).to.equal(3, 'Visible 3 items');
+
+      // Remove attribute
+      el.removeAttribute('query');
+      await elementUpdated(el);
+      expect(el.manager.visibleItems.length).to.equal(11, 'Visible 11 items');
+    });
+
+    it('Text filter applied, query property - multi level', async () => {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = multiLevelData;
+      el.query = 'Level 2';
+      await elementUpdated(el);
+      expect(el.manager.visibleItems.length).to.equal(6, 'Level 1 and 2 are visible');
+
+      el.query = 'Level 3';
+      await elementUpdated(el);
+      expect(el.manager.visibleItems.length).to.equal(10, 'Level 3 are visible');
+
+      // Show all items when query is empty
+      el.query = '';
+      await elementUpdated(el);
+      expect(el.manager.visibleItems.length).to.equal(11, 'All items are visible');
+    });
+
+    it('Text filter applied, expanded ancestors of matched items correctly - multi level', async () => {
+      const el = await fixture('<ef-tree query="-2"></ef-tree');
+      el.data = multiLevelData;
+      await elementUpdated(el);
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[0])).to.equal(true, 'Level 1-1 is expanded because matched some descendant item');
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[1])).to.equal(true, 'Level 2-1 is expanded because matched some descendant item');
+    });
+
+    it('Text filter applied, collapsed children of matched items and included descendants correctly - multi level', async () => {
+      const el = await fixture('<ef-tree query="-2"></ef-tree');
+      el.data = multiLevelData;
+      await elementUpdated(el);
+
+      // Matched item must be collapsed when does not have any matched descendants
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[3])).to.equal(false, 'Level 2-2 is collapsed because does not matched any descendant item');
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[4])).to.equal(false, 'Level 1-2 is collapsed because does not matched any descendant item');
+
+      // All descendants of matched items must be included
+      const descendants = [
+        ...el.manager.getItemDescendants(el.manager.parentItems[2]), // Level 2-2
+        ...el.manager.getItemDescendants(el.manager.parentItems[3]) // Level 1-2
+      ];
+      descendants.forEach(item => expect(el.manager.isItemHidden(item)).to.equal(false, 'Descendants of matched items must be included'));
+    });
+
+    it('Text filter applied, expanded and the collapsed must be display correctly  - multi level', async () => {
+      // If filter match a parent but not match any children, the parent will be collapsed
+      const el = await fixture('<ef-tree></ef-tree');
+      el.data = multiLevelData;
+      await elementUpdated(el);
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[1])).to.equal(false, 'Level 2-1 is collapsed');
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[2])).to.equal(false, 'Level 2-2 is collapsed');
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[4])).to.equal(false, 'Level 2-3 is collapsed');
+
+      // Query all level have suffix "-2"
+      el.query = '-2';
+      await elementUpdated(el);
+      // Matched items should be visible and expanding and collapsing should be shown correctly.
+      expect(el.manager.visibleItems.length).to.equal(5, 'Visible all level have suffix "-2"');
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[0])).to.equal(true, 'Level 1-1 is expanded because matched child item');
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[1])).to.equal(true, 'Level 2-1 is expanded because matched child item');
+      expect(el.manager.isItemVisible(el.manager.visibleItems[2])).to.equal(true, 'Level 3-2 is matched item and visible');
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[3])).to.equal(false, 'Level 2-2 is matched item and collapsed because not matched any descendant items');
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[4])).to.equal(false, 'Level 1-2 is matched item and collapsed because not matched any descendant items');
+
+
+      // All descendants of matched items must be included
+      const descendants = [
+        ...el.manager.getItemDescendants(el.manager.parentItems[2]), // Level 2-2
+        ...el.manager.getItemDescendants(el.manager.parentItems[3]) // Level 1-2
+      ];
+      descendants.forEach(item => expect(el.manager.isItemHidden(item)).to.equal(false, 'Descendants of matched items must be included'));
+    });
+
   });
 });
 

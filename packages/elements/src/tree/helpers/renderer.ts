@@ -1,11 +1,9 @@
-import { CollectionComposer } from '@refinitiv-ui/utils';
-import { TreeDataItem } from './types';
-import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager';
-
-import { Renderer } from '../../list/renderer';
-
-import '../elements/tree-item';
-import { TreeItem } from '../elements/tree-item';
+import type { CollectionComposer } from '@refinitiv-ui/utils/lib/collection';
+import type { TreeDataItem } from './types';
+import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager.js';
+import { Renderer } from '../../list/renderer.js';
+import '../elements/tree-item.js';
+import type { TreeItem } from '../elements/tree-item';
 
 type RendererScope = {
   multiple?: boolean;

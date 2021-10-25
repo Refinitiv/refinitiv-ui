@@ -1,4 +1,4 @@
-export * from './elements/tree';
-export * from './elements/tree-item';
-export { TreeRenderer } from './helpers/renderer';
-export { TreeData, TreeDataItem } from './helpers/types';
+export * from './elements/tree.js';
+export * from './elements/tree-item.js';
+export { TreeRenderer } from './helpers/renderer.js';
+export type { TreeData, TreeDataItem } from './helpers/types';

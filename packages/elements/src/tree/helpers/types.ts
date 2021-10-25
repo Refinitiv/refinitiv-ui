@@ -1,4 +1,4 @@
-import { CollectionComposer, DataItem } from '@refinitiv-ui/utils';
+import type { CollectionComposer, DataItem } from '@refinitiv-ui/utils/lib/collection';
 
 export type TreeData<T extends TreeDataItem = TreeDataItem> = T[] | CollectionComposer<T> | null;
 
@@ -17,3 +17,13 @@ export interface TreeDataItem extends DataItem {
    */
   expanded?: boolean;
 }
+
+
+/**
+ * Predicate callback
+ * Matches item against filter function
+ *
+ * @param item Item to filter
+ * @return Does item match filter
+ */
+export type TreeFilter<T extends TreeDataItem = TreeDataItem> = (item: T) => boolean;

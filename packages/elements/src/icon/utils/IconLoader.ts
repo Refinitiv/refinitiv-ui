@@ -1,4 +1,4 @@
-import { CdnLoader, Deferred } from '@refinitiv-ui/utils';
+import { CdnLoader, Deferred } from '@refinitiv-ui/utils/lib/loader.js';
 const isUrl = (str: string): boolean => (/^(https?:\/{2}|\.?\/)/i).test(str);
 
 /**

@@ -2,15 +2,15 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
 
-import '../canvas';
+import '../canvas/index.js';
 
 const ZERO_MAP = {
   LEFT: 'left',
@@ -45,12 +45,12 @@ export class LedGauge extends BasicElement {
     this._zero = ZERO_MAP.CENTER;
   }
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult {
+  static get styles (): CSSResultGroup {
     return css`
 
       :host {
@@ -168,7 +168,7 @@ export class LedGauge extends BasicElement {
     else {
       this._zero = ZERO_MAP.CENTER;
     }
-    void this.requestUpdate('zero', oldValue);
+    this.requestUpdate('zero', oldValue);
   }
 
   private get _shadowRoot (): ShadowRoot {

@@ -2,14 +2,16 @@ import {
   ResponsiveElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
   ElementSize
 } from '@refinitiv-ui/core';
-
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../../version.js';
+import { MicroTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { isIE, isEdge } from '@refinitiv-ui/utils/lib/browser.js';
 import {
   TransitionStyle,
   PositionTarget,
@@ -24,27 +26,21 @@ import {
   CalculatedPosition,
   SizingInfoRect,
   ViewAreaInfo
-} from '../helpers/types';
-import { valueOrZero, valueOrNull } from '../helpers/functions';
-import { applyLock } from '../managers/interaction-lock-manager';
-import { register as viewportRegister, deregister as viewportDeregister, getViewAreaInfo } from '../managers/viewport-manager';
-import { register as zIndexRegister, deregister as zIndexDeregister, toFront } from '../managers/zindex-manager';
-import { register as backdropRegister, deregister as backdropDeregister } from '../managers/backdrop-manager';
-import { register as closeRegister, deregister as closeDeregister } from '../managers/close-manager';
-import { register as focusableRegister, deregister as focusableDeregister } from '../managers/focus-manager';
-import { MicroTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils';
-import { VERSION } from '../../';
+} from '../helpers/types.js';
+import { valueOrZero, valueOrNull } from '../helpers/functions.js';
+import { applyLock } from '../managers/interaction-lock-manager.js';
+import { register as viewportRegister, deregister as viewportDeregister, getViewAreaInfo } from '../managers/viewport-manager.js';
+import { register as zIndexRegister, deregister as zIndexDeregister, toFront } from '../managers/zindex-manager.js';
+import { register as backdropRegister, deregister as backdropDeregister } from '../managers/backdrop-manager.js';
+import { register as closeRegister, deregister as closeDeregister } from '../managers/close-manager.js';
+import { register as focusableRegister, deregister as focusableDeregister } from '../managers/focus-manager.js';
 
-export {
+export type {
   TransitionStyle,
   PositionTarget,
   Position,
   PositionTargetStrategy
 };
-
-// TODO: use metrics once available
-const isEdge = (/Edge\/\d./i).test(navigator.userAgent);
-const isIE = (/Trident/g).test(navigator.userAgent) || (/MSIE/g).test(navigator.userAgent);
 
 /**
  * Possible states of the overlay
@@ -124,12 +120,12 @@ export class Overlay extends ResponsiveElement {
   private static Template = html`<slot></slot>`;
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -387,7 +383,7 @@ export class Overlay extends ResponsiveElement {
     attribute: false,
     hasChanged: (newVal: HTMLElement[], oldVal?: HTMLElement[]): boolean => {
       if (!oldVal || newVal.length !== oldVal.length) {
-        return false;
+        return true;
       }
       return newVal.some(el => !oldVal.includes(el));
     }
@@ -442,7 +438,7 @@ export class Overlay extends ResponsiveElement {
     if (oldPosition !== value) {
       this._positionStrategy = undefined;
       this._position = value;
-      void this.requestUpdate('position', oldPosition);
+      this.requestUpdate('position', oldPosition);
     }
   }
   public get position (): Position[] | undefined {
@@ -710,7 +706,7 @@ export class Overlay extends ResponsiveElement {
     this.setRegisters(changedProperties);
 
     // Should update routing is calling render method. Not every attribute should result in render being called
-    let shouldUpdate = opening || closing || this.hasUpdated === 0 || changedProperties.size === 0;
+    let shouldUpdate = opening || closing || !this.hasUpdated || changedProperties.size === 0;
 
     // Element may need to be updated if other attributes has been changed while the overlay is opened
     if (!shouldUpdate && isOpened) {
@@ -793,14 +789,14 @@ export class Overlay extends ResponsiveElement {
 
     /* !!! Obligatory managers cannot be removed here, as this function is synchronous and animations must be taken into account !!! */
     if (opening) {
-      /* Obligatory managers */
+      // must come first as used by other managers
+      zIndexRegister(this);
+
       viewportRegister(this);
 
       closeRegister(this, () => {
         this.setOpened(false);
       });
-
-      zIndexRegister(this);
     }
 
     const enablingFocusManagement = (opening && !this.noFocusManagement) || (opened && changedProperties.get('noFocusManagement'));
@@ -812,7 +808,7 @@ export class Overlay extends ResponsiveElement {
       focusableDeregister(this);
     }
 
-    if (opening || changedProperties.has('noInteractionLock')) {
+    if (opening || changedProperties.has('noInteractionLock') || changedProperties.has('lockPositionTarget') || changedProperties.has('interactiveElements')) {
       applyLock();
     }
 
@@ -834,9 +830,9 @@ export class Overlay extends ResponsiveElement {
    * @returns {void}
    */
   private removeMainRegisters (): void {
+    zIndexDeregister(this);
     viewportDeregister(this);
     closeDeregister(this);
-    zIndexDeregister(this);
     focusableDeregister(this);
   }
 
@@ -1641,6 +1637,10 @@ export class Overlay extends ResponsiveElement {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public resizedCallback (size: ElementSize): void {
     this.resizedThrottler.schedule(() => {
+      if (!this.opened && this._fullyOpened === OpenedState.CLOSED) {
+        // Do nothing on last resized callback
+        return;
+      }
       this.setResizeSizingInfo();
       this.fitNonThrottled();
 

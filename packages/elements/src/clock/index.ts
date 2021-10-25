@@ -1,18 +1,19 @@
 import {
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
   BasicElement,
-  ifDefined,
   WarningNotice,
-  query,
-  state,
   TapEvent
 } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
 
 import {
   MILLISECONDS_IN_SECOND,
@@ -22,7 +23,7 @@ import {
   TimeFormat,
   format,
   padNumber
-} from '@refinitiv-ui/utils';
+} from '@refinitiv-ui/utils/lib/date.js';
 
 import {
   HOURS_IN_DAY,
@@ -30,13 +31,12 @@ import {
   SECONDS_IN_DAY,
   SECONDS_IN_HOUR,
   SECONDS_IN_MINUTE
-} from './utils/timestamps';
+} from './utils/timestamps.js';
 
 import {
   register,
   deRegister
-} from './utils/TickManager';
-import { VERSION } from '../';
+} from './utils/TickManager.js';
 
 const UP = 'Up';
 const DOWN = 'Down';
@@ -62,12 +62,12 @@ export class Clock extends BasicElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-flex;
@@ -158,7 +158,7 @@ export class Clock extends BasicElement {
       this.synchronise(); // Required to reset any tick session
       const { hours, minutes, seconds } = toTimeSegment(value);
       this.baseTime = hours * SECONDS_IN_HOUR + minutes * SECONDS_IN_MINUTE + seconds;
-      void this.requestUpdate('value', oldValue);
+      this.requestUpdate('value', oldValue);
     }
   }
 
@@ -190,7 +190,7 @@ export class Clock extends BasicElement {
 
     if (oldOffset !== newOffset) {
       this._offset = newOffset;
-      void this.requestUpdate('offset', oldOffset);
+      this.requestUpdate('offset', oldOffset);
     }
   }
 
@@ -210,7 +210,7 @@ export class Clock extends BasicElement {
       this._tick = newValue;
       this.synchronise();
       this.configureTickManager();
-      void this.requestUpdate('tick', oldValue);
+      this.requestUpdate('tick', oldValue);
     }
   }
 

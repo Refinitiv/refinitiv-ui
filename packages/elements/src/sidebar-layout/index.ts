@@ -2,17 +2,17 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
-  PropertyValues,
-  ifDefined,
-  query
+  CSSResultGroup,
+  PropertyValues
 } from '@refinitiv-ui/core';
-import { Layout } from '../layout';
-import '../layout';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { VERSION } from '../version.js';
+import type { Layout } from '../layout';
+import '../layout/index.js';
 
 /**
  * Provides an app layout with sidebar.
@@ -37,12 +37,12 @@ export class SidebarLayout extends BasicElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;

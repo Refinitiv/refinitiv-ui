@@ -1,18 +1,18 @@
 import {
   BasicElement,
   css,
-  CSSResult,
-  customElement,
+  CSSResultGroup,
   html,
-  property,
   PropertyValues,
-  query,
   TemplateResult
 } from '@refinitiv-ui/core';
-import '../header';
-import '../panel';
-import '../icon';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import '../header/index.js';
+import '../panel/index.js';
+import '../icon/index.js';
 
 /**
  * Allows users to hide non-critical information
@@ -38,12 +38,12 @@ export class Collapse extends BasicElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResult | CSSResult[]} CSS template
+   * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;

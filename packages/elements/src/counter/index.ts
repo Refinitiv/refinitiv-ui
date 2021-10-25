@@ -2,18 +2,17 @@ import {
   BasicElement,
   html,
   css,
-  customElement,
-  property,
   WarningNotice,
   TemplateResult,
-  CSSResult
+  CSSResultGroup
 } from '@refinitiv-ui/core';
-import { VERSION } from '../';
-
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../version.js';
 import {
   truncateDecimal,
   convertToCompactNotation
-} from './utils';
+} from './utils.js';
 
 /**
  * Counter is an item count badge,
@@ -51,7 +50,7 @@ export class Counter extends BasicElement {
      const oldValue = this._value;
      if (oldValue !== value) {
        this._value = value;
-       void this.requestUpdate('value', oldValue);
+       this.requestUpdate('value', oldValue);
      }
    }
   /**
@@ -74,7 +73,7 @@ export class Counter extends BasicElement {
     const oldValue = this._max;
     if (oldValue !== value) {
       this._max = value;
-      void this.requestUpdate('max', oldValue);
+      this.requestUpdate('max', oldValue);
     }
   }
   /**
@@ -130,19 +129,19 @@ export class Counter extends BasicElement {
     const countValue = truncateDecimal(value);
     const maxValue = this.max ? truncateDecimal(this.max) : Infinity;
 
-    
+
     // Format value if value greater than max
     // If max is null, it will show the value
     return countValue > maxValue ? `${convertToCompactNotation(maxValue)}+` : convertToCompactNotation(countValue);
   }
-  
+
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;

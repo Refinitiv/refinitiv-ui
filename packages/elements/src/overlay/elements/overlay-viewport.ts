@@ -1,12 +1,12 @@
 import {
   ResponsiveElement,
   css,
-  customElement,
-  CSSResult,
+  CSSResultGroup,
   TemplateResult,
   html
 } from '@refinitiv-ui/core';
-import { VERSION } from '../../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { VERSION } from '../../version.js';
 
 /**
  * A private element to find overlay size boundaries
@@ -27,12 +27,12 @@ export class OverlayViewport extends ResponsiveElement {
   private static Template = html``; /* IE11 need empty template */
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;

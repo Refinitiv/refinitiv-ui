@@ -1,5 +1,5 @@
-import { Item } from '../../item';
-import { AutosuggestHighlightable, AutosuggestQuery, AutosuggestRenderer, Suggestion, AutosuggestItem } from './types';
+import type { Item } from '../../item';
+import type { AutosuggestHighlightable, AutosuggestQuery, AutosuggestRenderer, Suggestion, AutosuggestItem } from './types';
 
 /**
  * Check whether item can be highlighted
@@ -63,7 +63,7 @@ export const updateElementContent = (el: Item, query: string, label: string, val
  * @returns item
  */
 export const itemRenderer: AutosuggestRenderer = (suggestion: AutosuggestItem, query: AutosuggestQuery | null): HTMLElement => {
-  const el = new Item();
+  const el = document.createElement('ef-item') as Item;
 
   if (typeof suggestion === 'object') {
     const {
