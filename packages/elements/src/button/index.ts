@@ -40,10 +40,7 @@ export class Button extends ControlElement {
   static get version (): string {
     return VERSION;
   }
-  
-  /**
-  * Overrided element's role
-  */
+
   protected readonly defaultRole = 'button';
 
   /**
@@ -79,14 +76,12 @@ export class Button extends ControlElement {
 
   /**
    * Enable or disable ability to be toggled
-   * @param value toggle state
    */
   @property({ type: Boolean, reflect: true })
   public toggles = false;
 
   /**
    * An active or inactive state, can only be used with toggles property/attribute
-   * @param value active state
    */
   @property({ type: Boolean, reflect: true })
   public active = false;
@@ -103,7 +98,7 @@ export class Button extends ControlElement {
   private labelElement!: HTMLSpanElement;
 
   /**
-   * Toggle button state for accessibility
+   * Aria indicating state of toggle button
    * @ignore
    */
   @property({ type: String,
@@ -119,12 +114,10 @@ export class Button extends ControlElement {
   * @returns {void}
   */
   protected update (changedProperties: PropertyValues): void {
-    if(changedProperties.has('active') && this.toggles) {
+    if(changedProperties.has('active') && this.toggles || changedProperties.has('toggles') && this.toggles) {
       this.ariaPressed = String(this.active);
     }
-    if(changedProperties.has('toggles') && this.toggles) {
-      this.ariaPressed = String(this.active);
-    }
+
     super.update(changedProperties);
   }
 
