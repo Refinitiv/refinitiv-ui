@@ -8,9 +8,9 @@ import { VERSION } from '../../version.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
 
 import { List } from '../../list/index.js';
-
 import { TreeRenderer } from '../helpers/renderer.js';
-import type { TreeData, TreeDataItem } from '../helpers/types';
+import { defaultFilter } from '../helpers/filter.js';
+import type { TreeData, TreeDataItem, TreeFilter } from '../helpers/types';
 import { TreeManager, TreeManagerMode } from '../managers/tree-manager.js';
 
 const EXPAND_TOGGLE_ATTR = 'expand-toggle';
@@ -54,6 +54,19 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    */
   @property({ attribute: 'no-relation', type: Boolean })
   public noRelation = false;
+
+  /**
+   * Query string applied to tree
+   */
+  @property({ type: String })
+  public query = '';
+
+  /**
+   * Custom filter for static data
+   * @type {TreeFilter<T> | null}
+   * @ignore set to protected for now and need to discuss before set to public API
+   */
+  protected filter: TreeFilter<T> | null = defaultFilter<T>(this);
 
   /**
    * Renderer used for generating tree items
@@ -257,7 +270,134 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
     if (changedProperties.has('noRelation') || changedProperties.has('multiple')) {
       this.manager.setMode(this.mode);
     }
+
+    if (changedProperties.has('query') || changedProperties.has('data')) {
+      this.filterItems();
+    }
     super.update(changedProperties);
+  }
+
+  /**
+   * Filter the internal items by query changes items' hidden state
+   * @returns {void}
+   */
+  protected filterItems (): void {
+    // if filter is null, it is off and external app is responsible
+    if (this.filter) {
+      const filter = this.filter;
+      const items = this.queryItems((item): boolean => {
+        // Do not filter hidden items
+        if (item.hidden) {
+          return false;
+        }
+
+        const result = filter(item);
+        if (result) {
+          this.manager.includeItem(item);
+        }
+        else {
+          this.manager.excludeItem(item);
+        }
+
+        return result;
+      }).slice();
+
+      // Do not expand tree if there is no filter applied
+      if (this.query) {
+        /**
+         * Add all descendants of item list to make the descendants
+         * are accessible which user can navigate into the nested data
+         */
+        this.addItemDescendantsToRender(items);
+
+        /**
+         * Add all parents of item list which they must be shown
+         * when some descendant is shown.
+         */
+        this.addExpandedAncestorsToRender(items);
+      }
+    }
+  }
+
+  /**
+   * Utility method
+   * Adds descendants for each item passed
+   * @param items List of child items
+   * @returns {void}
+   */
+  protected addItemDescendantsToRender (items: T[]): void {
+    items.forEach((item) => {
+      /**
+       * Collapse an item to prevent tree show too many nested expanded
+       */
+      if (this.manager.isItemExpanded(item)) {
+        this.manager.collapseItem(item);
+      }
+
+      /**
+       * show all descendants of items to make them all are selectable
+       * and user can navigate into nested data
+       */
+      const children = this.composer.getItemChildren(item);
+      if (children.length) {
+        this.addNestedItemsToRender(children, items, false);
+      }
+    });
+  }
+
+  /**
+   * Utility method
+   * Add nested children of item list
+   * @param items List of items
+   * @param excludeItems List of exclude items
+   * @param [includeHidden=false] Include hidden items
+   * @returns {void}
+   */
+  protected addNestedItemsToRender (items: readonly T[], excludeItems: readonly T[], includeHidden = false): void {
+    items.forEach(item => {
+      // Skip hidden and exclude item
+      if (!item.hidden && !excludeItems.includes(item)) {
+        // Add item and nested children
+        this.manager.includeItem(item);
+        const children = this.manager.getItemChildren(item);
+        if (children.length) {
+          this.addNestedItemsToRender(children, excludeItems, includeHidden);
+        }
+      }
+    });
+  }
+
+  /**
+   * Utility method
+   * Adds ancestors for each item passed and expand
+   * @param items List of child items
+   * @returns {void}
+   */
+  protected addExpandedAncestorsToRender (items: T[]): void {
+    // Establish unique ancestors set
+    const ancestors = new Set<T>();
+    // we iterate each item match so as to find ancestors
+    items.forEach((item) => {
+      // Get the ancestors
+      const parent = this.manager.getItemParent(item);
+      if (parent && !ancestors.has(parent)) {
+        this.manager.getItemAncestors(item).forEach((ancestor) => {
+          ancestors.add(ancestor); // track ancestors
+          this.addExpandedAncestorToRender(ancestor);
+        });
+      }
+    });
+  }
+
+  /**
+   * Utility method
+   * Adds parent and expands
+   * @param ancestor parent item
+   * @returns {void}
+   */
+  protected addExpandedAncestorToRender (ancestor: T): void {
+    this.manager.includeItem(ancestor);
+    this.manager.expandItem(ancestor);
   }
 
   /**
