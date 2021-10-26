@@ -38,29 +38,19 @@ const closest = (grid: NavigationGrid, rowIndex: number, target: number, directi
   if (!row) {
     return null;
   }
-  let columnIndex = NaN;
-  let columnDiff = Infinity;
-  const start = direction === 1 ? 0 : row.length - 1;
-  for (let i = start; (direction === 1 ? i < row.length : i >= 0); i += direction) {
-    const value = row[i];
-    if (!value) {
-      continue;
+
+  for (let i = 0; i < row.length; i += 1) {
+    const nextIndex = target + (i * direction);
+    if (row[nextIndex]) {
+      return [rowIndex, nextIndex];
     }
-    const diff = Math.abs(i - target);
-    if (diff < columnDiff) {
-      columnDiff = diff;
-      columnIndex = i;
-    }
-    else {
-      break;
+    const prevIndex = target - (i * direction);
+    if (row[prevIndex]) {
+      return [rowIndex, prevIndex];
     }
   }
 
-  if (isNaN(columnIndex)) {
-    return null;
-  }
-
-  return [rowIndex, columnIndex];
+  return null;
 };
 
 /**
@@ -133,7 +123,7 @@ const previousRowCell = (grid: NavigationGrid, cell: CellIndex): CellIndex | nul
   const columnIndex = cell[1];
 
   while ((rowIndex -= 1) >= 0) {
-    const cell = closest(grid, rowIndex, columnIndex, -1);
+    const cell = closest(grid, rowIndex, columnIndex, 1);
     if (cell) {
       return cell;
     }
@@ -154,7 +144,7 @@ const nextRowCell = (grid: NavigationGrid, cell: CellIndex): CellIndex | null =>
   const [rowCount] = counts(grid);
 
   while ((rowIndex += 1) < rowCount) {
-    const cell = closest(grid, rowIndex, columnIndex, 1);
+    const cell = closest(grid, rowIndex, columnIndex, -1);
     if (cell) {
       return cell;
     }
