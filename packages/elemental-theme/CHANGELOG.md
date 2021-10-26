@@ -11,14 +11,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [5.2.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.2.3...@refinitiv-ui/elemental-theme@5.2.5) (2021-10-25)
-
-**Note:** Version bump only for package @refinitiv-ui/elemental-theme
-
-
-
-
-
 ## [5.2.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.2.2...@refinitiv-ui/elemental-theme@5.2.3) (2021-10-11)
 
 

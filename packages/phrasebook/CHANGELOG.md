@@ -11,14 +11,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [5.1.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@5.1.3...@refinitiv-ui/phrasebook@5.1.5) (2021-10-25)
-
-**Note:** Version bump only for package @refinitiv-ui/phrasebook
-
-
-
-
-
 ## [5.1.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@5.1.2...@refinitiv-ui/phrasebook@5.1.3) (2021-10-11)
 
 

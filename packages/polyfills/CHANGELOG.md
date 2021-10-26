@@ -11,14 +11,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [5.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/polyfills@5.0.1...@refinitiv-ui/polyfills@5.0.3) (2021-10-25)
-
-**Note:** Version bump only for package @refinitiv-ui/polyfills
-
-
-
-
-
 ## [5.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/polyfills@5.0.0...@refinitiv-ui/polyfills@5.0.1) (2021-10-11)
 
 **Note:** Version bump only for package @refinitiv-ui/polyfills

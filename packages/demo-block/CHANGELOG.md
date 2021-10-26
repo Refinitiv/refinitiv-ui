@@ -11,14 +11,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [5.0.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@5.0.6...@refinitiv-ui/demo-block@5.0.8) (2021-10-25)
-
-**Note:** Version bump only for package @refinitiv-ui/demo-block
-
-
-
-
-
 ## [5.0.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@5.0.5...@refinitiv-ui/demo-block@5.0.6) (2021-10-11)
 
 

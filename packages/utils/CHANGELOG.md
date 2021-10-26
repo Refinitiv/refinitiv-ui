@@ -11,14 +11,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [5.0.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@5.0.3...@refinitiv-ui/utils@5.0.5) (2021-10-25)
-
-**Note:** Version bump only for package @refinitiv-ui/utils
-
-
-
-
-
 ## [5.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@5.0.2...@refinitiv-ui/utils@5.0.3) (2021-10-11)
 
 

@@ -11,14 +11,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [5.1.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@5.1.5...@refinitiv-ui/translate@5.1.7) (2021-10-25)
-
-**Note:** Version bump only for package @refinitiv-ui/translate
-
-
-
-
-
 ## [5.1.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@5.1.4...@refinitiv-ui/translate@5.1.5) (2021-10-11)
 
 
