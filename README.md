@@ -1,9 +1,32 @@
 # Element Framework (EF) V5
 
+[![Linting](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/lint.yml/badge.svg)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/lint.yml)
+[![Testing](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test.yml/badge.svg)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test.yml)
+[![Release](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/release.yml/badge.svg)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/release.yml)
+
 Element Framework is Refinitiv design system components that provides components and tooling with Refinitiv's design system to help product teams work faster and more efficiently.
 
 # Documentation
 Getting started and usage guide are available from this [documentation](https://cdn.ppe.refinitiv.com/public/apps/elf-docs/book/en/index.html).
+
+# Packages
+| Package                       | Version                                                                                                                               | Change Log                                                                                                                                                                 |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| @refinitiv-ui/configurations  | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/configurations)](https://www.npmjs.com/package/@refinitiv-ui/configurations)   | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/configurations/CHANGELOG.md)  |
+| @refinitiv-ui/core            | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/core)](https://www.npmjs.com/package/@refinitiv-ui/core)                       | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/core/CHANGELOG.md)            |
+| @refinitiv-ui/demo-block      | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/demo-block)](https://www.npmjs.com/package/@refinitiv-ui/demo-block)           | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/demo-block/CHANGELOG.md)      |
+| @refinitiv-ui/elemental-theme | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/elemental-theme)](https://www.npmjs.com/package/@refinitiv-ui/elemental-theme) | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/elemental-theme/CHANGELOG.md) |
+| @refinitiv-ui/elements        | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/elements)](https://www.npmjs.com/package/@refinitiv-ui/elements)               | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/elements/CHANGELOG.md)        |
+| @refinitiv-ui/halo-theme      | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/halo-theme)](https://www.npmjs.com/package/@refinitiv-ui/halo-theme)           | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/halo-theme/CHANGELOG.md)      |
+| @refinitiv-ui/i18n            | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/i18n)](https://www.npmjs.com/package/@refinitiv-ui/i18n)                       | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/i18n/CHANGELOG.md)            |
+| @refinitiv-ui/phrasebook      | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/phrasebook)](https://www.npmjs.com/package/@refinitiv-ui/phrasebook)           | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/phrasebook/CHANGELOG.md)      |
+| @refinitiv-ui/polyfills       | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/polyfills)](https://www.npmjs.com/package/@refinitiv-ui/polyfills)             | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/polyfills/CHANGELOG.md)       |
+| @refinitiv-ui/solar-theme     | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/solar-theme)](https://www.npmjs.com/package/@refinitiv-ui/solar-theme)         | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/solar-theme/CHANGELOG.md)     |
+| @refinitiv-ui/test-helpers    | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/test-helpers)](https://www.npmjs.com/package/@refinitiv-ui/test-helpers)       | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/test-helpers/CHANGELOG.md)    |
+| @refinitiv-ui/theme-compiler  | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/theme-compiler)](https://www.npmjs.com/package/@refinitiv-ui/theme-compiler)   | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/theme-compiler/CHANGELOG.md)  |
+| @refinitiv-ui/translate       | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/translate)](https://www.npmjs.com/package/@refinitiv-ui/translate)             | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/translate/CHANGELOG.md)       |
+| @refinitiv-ui/utils           | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/utils)](https://www.npmjs.com/package/@refinitiv-ui/utils)                     | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/main/packages/utils/CHANGELOG.md)           |
+
 
 # License Information
 License details can be found in the `LICENSE` file. It's available in each package inside `./packages/` directory. Code is governed by the Apache License, Version 2.0 except following packages which has special license for font files.
@@ -110,25 +133,25 @@ npm run lint:all
 
 #### Options for unit test and linting command
 
-| Option | Description |
-|---|---|
-| `--browsers` or `-b` | You can specific browser(s) to run the unit test. List of available browsers are following: `chrome`, `firefox` and `ie` <br>You can check the list of available browsers by add option `--help`.  <br>Usage: `npm run test button -- --browsers chrome firefox` |
-| `--watch` or `-w` | Run test and watch file change. <br>Usage: `npm run test button -- --watch` |
-| `--snapshots` or `-s` | Update and prune snapshots (`--browsers` must be chrome). <br>Usage:`npm run test button -- --snapshots --browsers chrome` |
-| `--fix`  or `-f` | Run linting and fix the issues that can lead to bugs or inconsistencies with code health and style. <br>Usage:`npm run test button --fix` |
+| Option                | Description                                                                                                                                                                                                                                                      |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--browsers` or `-b`  | You can specific browser(s) to run the unit test. List of available browsers are following: `chrome`, `firefox` and `ie` <br>You can check the list of available browsers by add option `--help`.  <br>Usage: `npm run test button -- --browsers chrome firefox` |
+| `--watch` or `-w`     | Run test and watch file change. <br>Usage: `npm run test button -- --watch`                                                                                                                                                                                      |
+| `--snapshots` or `-s` | Update and prune snapshots (`--browsers` must be chrome). <br>Usage:`npm run test button -- --snapshots --browsers chrome`                                                                                                                                       |
+| `--fix`  or `-f`      | Run linting and fix the issues that can lead to bugs or inconsistencies with code health and style. <br>Usage:`npm run test button --fix`                                                                                                                        |
 
 ### Commit prefixes
 
 Commit prefixes must be written in a correct pattern when committing code into EF repositories. It will be used to determine running version when release the package and for generating changelogs.
 
-| Prefix | Incremental Version | Usage |
-|---|:---:|---|
-| `BREAKING CHANGE(<package-name>):` | MAJOR | Changes that breaking existing public API.<br/>**BREAKING CHANGE(coral-button): cta attribute has been removed** |
-| `feat(<package-name>):` | MINOR | A new feature.<br/>**feat(coral-button): element sings a song every Sunday** |
-| `fix(<package-name>):` | PATCH | A bug fix.<br/>**fix(coral-button): auto-play issue (#39)**|
-| `style(<package-name>):` | PATCH | Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).<br/>**style(coral-button): removed trailing white space** |
-| `docs(<package-name>):` | PATCH | Documentation only changes.<br/>**docs(coral-button): included complex sample to README** |
-| `refactor(<package-name>):` | PATCH | A code change that neither fixes a bug nor adds a feature.<br/>**refactor(coral-button): changed song picker algorithm** |
-| `performance(<package-name>):` | PATCH | A code change that improves performance.<br/>**performance(coral-button): lazy load internal DOM structure** |
-| `test(<package-name>):` | PATCH | Add missing tests.<br/>**test(coral-button): increase code coverage to 85%** |
-| `chore(<package-name>):` | PATCH | Changes to the build process, dependency updates and other maintenance-related commits.<br/>**chore(coral-button): upgrade dependencies** |
+| Prefix                             | Incremental Version | Usage                                                                                                                                                             |
+| ---------------------------------- | :-----------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BREAKING CHANGE(<package-name>):` |        MAJOR        | Changes that breaking existing public API.<br/>**BREAKING CHANGE(coral-button): cta attribute has been removed**                                                  |
+| `feat(<package-name>):`            |        MINOR        | A new feature.<br/>**feat(coral-button): element sings a song every Sunday**                                                                                      |
+| `fix(<package-name>):`             |        PATCH        | A bug fix.<br/>**fix(coral-button): auto-play issue (#39)**                                                                                                       |
+| `style(<package-name>):`           |        PATCH        | Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).<br/>**style(coral-button): removed trailing white space** |
+| `docs(<package-name>):`            |        PATCH        | Documentation only changes.<br/>**docs(coral-button): included complex sample to README**                                                                         |
+| `refactor(<package-name>):`        |        PATCH        | A code change that neither fixes a bug nor adds a feature.<br/>**refactor(coral-button): changed song picker algorithm**                                          |
+| `performance(<package-name>):`     |        PATCH        | A code change that improves performance.<br/>**performance(coral-button): lazy load internal DOM structure**                                                      |
+| `test(<package-name>):`            |        PATCH        | Add missing tests.<br/>**test(coral-button): increase code coverage to 85%**                                                                                      |
+| `chore(<package-name>):`           |        PATCH        | Changes to the build process, dependency updates and other maintenance-related commits.<br/>**chore(coral-button): upgrade dependencies**                         |
