@@ -12,6 +12,17 @@ import { registerOverflowTooltip } from '../tooltip/index.js';
 import '../icon/index.js';
 
 /**
+ * Return the attribute that converted from the property
+ * Prevent empty string that reflected to attribute
+ * @private
+ * @param value value from the property
+ * @returns string converted to attribute
+ */
+const emptyStringToNull = function (value: string): string | null {
+  return value || null;
+};
+
+/**
  * Use button for actions in forms, dialogs,
  * and more with support for different states and styles.
  * @attr {boolean} disabled - Set state to disabled
@@ -29,6 +40,8 @@ export class Button extends ControlElement {
   static get version (): string {
     return VERSION;
   }
+
+  protected readonly defaultRole = 'button';
 
   /**
    * Customises text alignment when specified alongside `icon` property
@@ -83,6 +96,30 @@ export class Button extends ControlElement {
    */
   @query('[part="label"]')
   private labelElement!: HTMLSpanElement;
+
+  /**
+   * Aria indicating state of toggle button
+   * @ignore
+   */
+  @property({ type: String,
+    reflect: true,
+    attribute: 'aria-pressed',
+    converter: { toAttribute: emptyStringToNull } // TODO: Remove after typescript update to allow nullable for ARIAMixin
+  })
+  public ariaPressed = '';
+
+  /**
+  * Updates the element
+  * @param changedProperties Properties that has changed
+  * @returns {void}
+  */
+  protected update (changedProperties: PropertyValues): void {
+    if(changedProperties.has('active') && this.toggles || changedProperties.has('toggles') && this.toggles) {
+      this.ariaPressed = String(this.active);
+    }
+
+    super.update(changedProperties);
+  }
 
   /**
    * the lifecycle method called when properties changed first time

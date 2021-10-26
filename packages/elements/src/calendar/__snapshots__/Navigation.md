@@ -12,6 +12,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -21,6 +22,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -32,6 +34,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -389,6 +392,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -398,6 +402,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -409,6 +414,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -774,6 +780,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -783,6 +790,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -794,6 +802,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -1161,6 +1170,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -1170,6 +1180,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -1181,6 +1192,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -1542,6 +1554,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -1551,6 +1564,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -1562,6 +1576,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -1927,6 +1942,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -1936,6 +1952,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -1947,6 +1964,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -2316,6 +2334,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -2325,6 +2344,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -2336,6 +2356,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -2689,6 +2710,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -2698,6 +2720,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -2709,6 +2732,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -3074,6 +3098,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -3083,6 +3108,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -3094,6 +3120,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -3461,6 +3488,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -3470,6 +3498,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -3481,6 +3510,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -3842,6 +3872,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -3851,6 +3882,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -3862,6 +3894,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -4227,6 +4260,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -4236,6 +4270,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -4247,6 +4282,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -4616,6 +4652,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -4625,6 +4662,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -4636,6 +4674,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -4800,6 +4839,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -4809,6 +4849,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -4820,6 +4861,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -4984,6 +5026,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -4993,6 +5036,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -5004,6 +5048,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -5170,6 +5215,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -5179,6 +5225,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -5190,6 +5237,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -5354,6 +5402,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -5363,6 +5412,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -5374,6 +5424,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -5538,6 +5589,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -5547,6 +5599,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -5558,6 +5611,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -5726,6 +5780,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -5735,6 +5790,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -5746,6 +5802,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -5910,6 +5967,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -5919,6 +5977,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -5930,6 +5989,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -6094,6 +6154,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -6103,6 +6164,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -6114,6 +6176,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -6280,6 +6343,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -6289,6 +6353,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -6300,6 +6365,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -6464,6 +6530,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -6473,6 +6540,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -6484,6 +6552,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -6648,6 +6717,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -6657,6 +6727,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -6668,6 +6739,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -6836,6 +6908,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -6845,6 +6918,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -6856,6 +6930,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -7016,6 +7091,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -7025,6 +7101,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -7036,6 +7113,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -7196,6 +7274,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -7205,6 +7284,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -7216,6 +7296,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -7378,6 +7459,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -7387,6 +7469,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -7398,6 +7481,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -7558,6 +7642,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -7567,6 +7652,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -7578,6 +7664,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -7738,6 +7825,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -7747,6 +7835,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -7758,6 +7847,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -7922,6 +8012,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -7931,6 +8022,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -7942,6 +8034,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -8102,6 +8195,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -8111,6 +8205,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -8122,6 +8217,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -8282,6 +8378,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -8291,6 +8388,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -8302,6 +8400,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -8464,6 +8563,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -8473,6 +8573,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -8484,6 +8585,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -8644,6 +8746,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -8653,6 +8756,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -8664,6 +8768,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -8824,6 +8929,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -8833,6 +8939,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -8844,6 +8951,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -9008,6 +9116,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -9017,6 +9126,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -9028,6 +9138,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -9389,6 +9500,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -9398,6 +9510,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -9409,6 +9522,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -9569,6 +9683,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -9578,6 +9693,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -9589,6 +9705,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -9950,6 +10067,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -9959,6 +10077,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -9970,6 +10089,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -10134,6 +10254,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -10143,6 +10264,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -10154,6 +10276,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -10519,6 +10642,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -10528,6 +10652,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -10539,6 +10664,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -10699,6 +10825,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -10708,6 +10835,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -10719,6 +10847,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -10883,6 +11012,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -10892,6 +11022,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -10903,6 +11034,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -11069,6 +11201,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -11078,6 +11211,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -11089,6 +11223,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -11255,6 +11390,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -11264,6 +11400,7 @@
     aria-readonly="false"
     icon="up"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -11275,6 +11412,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -11443,6 +11581,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -11452,6 +11591,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -11463,6 +11603,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -11826,6 +11967,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -11835,6 +11977,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -11846,6 +11989,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -12211,6 +12355,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -12220,6 +12365,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -12231,6 +12377,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -12592,6 +12739,7 @@
     empty=""
     icon="left"
     part="btn-prev"
+    role="button"
     tabindex="0"
     textpos="after"
   >
@@ -12601,6 +12749,7 @@
     aria-readonly="false"
     icon="down"
     part="btn-view"
+    role="button"
     tabindex="0"
     textpos="before"
   >
@@ -12612,6 +12761,7 @@
     empty=""
     icon="right"
     part="btn-next"
+    role="button"
     tabindex="0"
     textpos="after"
   >
