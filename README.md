@@ -1,4 +1,4 @@
-# Element Framework (EF) V5
+# Element Framework (EF)
 
 Element Framework is Refinitiv design system components that provides components and tooling with Refinitiv's design system to help product teams work faster and more efficiently.
 
