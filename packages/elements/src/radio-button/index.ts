@@ -49,6 +49,11 @@ export class RadioButton extends ControlElement {
   static get version (): string {
     return VERSION;
   }
+  
+  /**
+  * Element's role attribute for accessibility
+  */
+  protected readonly defaultRole = 'radio';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -112,17 +117,13 @@ export class RadioButton extends ControlElement {
    */
   @query('[part=label]', true)
   private labelEl!: HTMLElement;
-  
-  /**
-   * Element's role attribute for accessibility
-   */
-  protected readonly defaultRole = 'radio';
 
   /**
    * Current state of radio for accessibility
+   * @ignore
   */
   @property({ type: String, reflect: true, attribute: 'aria-checked' })
-  private ariaChecked = 'false';
+  public ariaChecked = String(this.checked);
 
 
   /**
@@ -283,6 +284,10 @@ export class RadioButton extends ControlElement {
     }
 
     const radioGroup = getRadioGroup(this);
+    if (radioGroup.length < 2) {
+      return;
+    }
+
     const currectItemIndex = radioGroup.indexOf(this);
     const lastIndex = radioGroup.length - 1;
     radioGroup[currectItemIndex].checked = false;
@@ -308,9 +313,13 @@ export class RadioButton extends ControlElement {
     if (!this.name) {
       return;
     }
-    const radioGroup = getRadioGroup(this);
-    const currectState = radioGroup.indexOf(this);
 
+    const radioGroup = getRadioGroup(this);
+    if (radioGroup.length < 2) {
+      return;
+    }
+
+    const currectState = radioGroup.indexOf(this);
     radioGroup[currectState].checked = false;
     radioGroup[currectState].blur();
     if (currectState < radioGroup.length - 1) {
