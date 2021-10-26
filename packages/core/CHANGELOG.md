@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.0.3...@refinitiv-ui/core@5.2.0) (2021-10-25)
+
+
+### Features
+
+* add a utility to set role attribute ([1e511f1](https://github.com/Refinitiv/refinitiv-ui/commit/1e511f107bf832213b7b9697c8f1ae813c59f80d))
+
+
+### Performance Improvements
+
+* use typeof before hasAttribute checks ([6b2b08f](https://github.com/Refinitiv/refinitiv-ui/commit/6b2b08f0ff1c6f562d96c07b7c773150a7ea6d4d))
+
+
+
+
+
 ## [5.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.0.2...@refinitiv-ui/core@5.0.3) (2021-10-11)
 
 
