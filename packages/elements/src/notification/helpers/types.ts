@@ -1,4 +1,4 @@
-import { Notification } from '../elements/notification';
+import type { Notification } from '../elements/notification';
 
 export type Task = {
   el: Notification;

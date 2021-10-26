@@ -1,5 +1,5 @@
-import { Task } from './task';
-import { ThrottlerRunner } from './throttler-runner';
+import { Task } from './task.js';
+import { ThrottlerRunner } from './throttler-runner.js';
 
 /**
  * Task to be executed after next animation frame

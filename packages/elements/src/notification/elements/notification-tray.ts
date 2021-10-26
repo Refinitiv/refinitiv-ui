@@ -2,17 +2,15 @@ import {
   ResponsiveElement,
   ElementSize,
   html,
-  customElement,
-  property,
   TemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-
-import { TimeoutTaskRunner } from '@refinitiv-ui/utils';
-
-import { Notification } from './notification';
-import { Task, TaskOptions } from '../helpers/types';
-import { VERSION } from '../../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { VERSION } from '../../version.js';
+import { TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import type { Notification } from './notification';
+import type { Task, TaskOptions } from '../helpers/types';
 
 @customElement('ef-notification-tray', {
   alias: 'amber-notification-tray'

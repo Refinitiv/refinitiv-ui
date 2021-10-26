@@ -1,4 +1,4 @@
-import { ChartDataSetsColor } from './types';
+import type { ChartDataSetsColor } from './types';
 
 /**
  * Validate color

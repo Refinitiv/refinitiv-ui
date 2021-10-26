@@ -1,4 +1,4 @@
-import { OverlayMenuData } from '../../overlay-menu';
+import type { OverlayMenuData } from '../../overlay-menu';
 
 export type CardConfig = {
   /**

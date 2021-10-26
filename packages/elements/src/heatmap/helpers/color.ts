@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
-import { color, rgb, hsl, ColorCommonInstance } from '@refinitiv-ui/utils';
+import { color, rgb, hsl, ColorCommonInstance } from '@refinitiv-ui/utils/lib/color.js';
 import { interpolate } from 'd3-interpolate';
 
 /**

@@ -1,20 +1,20 @@
 import {
   html,
   css,
-  customElement,
-  property,
   TemplateResult,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
-  query,
   ResponsiveElement,
   ElementSize
 } from '@refinitiv-ui/core';
-import { Tab } from '../tab';
-import { tweenAnimate } from './helpers/animate';
-import { Button } from '../button';
-import '../button';
-import { VERSION } from '../';
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import type { Tab } from '../tab';
+import { tweenAnimate } from './helpers/animate.js';
+import type { Button } from '../button';
+import '../button/index.js';
 
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 
@@ -35,12 +35,12 @@ export class TabBar extends ResponsiveElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         display: flex;

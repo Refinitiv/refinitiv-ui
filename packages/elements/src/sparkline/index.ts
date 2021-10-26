@@ -1,21 +1,20 @@
 import {
   css,
-  customElement,
-  property,
-  CSSResult,
+  CSSResultGroup,
   PropertyValues,
   ResponsiveElement,
   TemplateResult,
   ElementSize,
-  html,
-  query
+  html
 } from '@refinitiv-ui/core';
-import { color } from '@refinitiv-ui/utils';
-
+import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { VERSION } from '../version.js';
+import { color } from '@refinitiv-ui/utils/lib/color.js';
 import '@refinitiv-ui/browser-sparkline';
 import type { BrowserSparklineChart } from '@refinitiv-ui/browser-sparkline';
 import type { StaticDataConfig, ThemeConfig } from '@refinitiv-ui/browser-sparkline/lib/browserSparklineCanvas';
-import { VERSION } from '../';
 
 @customElement('ef-sparkline', {
   alias: 'sapphire-sparkline'
@@ -180,12 +179,12 @@ export class Sparkline extends ResponsiveElement {
   }
 
   /**
-   * A `CSSResult` that will be used
+   * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult {
+  static get styles (): CSSResultGroup {
     return css`
       :host {
         width: 100px;

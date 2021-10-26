@@ -1,8 +1,4 @@
-export enum RenderView {
-  DAY = 'day',
-  MONTH = 'month',
-  YEAR = 'year'
-}
+import { RenderView } from './constants.js';
 
 export interface CellSelectionModel {
   selected?: boolean;
