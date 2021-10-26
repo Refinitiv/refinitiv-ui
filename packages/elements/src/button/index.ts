@@ -82,38 +82,14 @@ export class Button extends ControlElement {
    * @param value toggle state
    */
   @property({ type: Boolean, reflect: true })
-  public set toggles (value: boolean) {
-    const oldValue = this._toggles;
-    if (oldValue !== value) {
-      this._toggles = value;
-      this.active = value ? this.active : false;
-      void this.requestUpdate('toggles', oldValue);
-    }
-  }
-  public get toggles (): boolean {
-    return this._toggles;
-  }
-
-  private _toggles = false;
+  public toggles = false;
 
   /**
    * An active or inactive state, can only be used with toggles property/attribute
    * @param value active state
    */
   @property({ type: Boolean, reflect: true })
-  public set active (value: boolean) {
-    const oldValue = this._active;
-    if (oldValue !== value) {
-      this._active = value;
-      void this.requestUpdate('active', oldValue);
-    }
-    this.ariaPressed = this.toggles ? String(this._active) : '';
-  }
-  public get active (): boolean {
-    return this._active;
-  }
-
-  private _active = false;
+  public active = false;
 
   /**
    * Use by theme to detect when no content inside button
@@ -136,6 +112,21 @@ export class Button extends ControlElement {
     converter: { toAttribute: emptyStringToNull } // TODO: Remove after typescript update to allow nullable for ARIAMixin
   })
   public ariaPressed = '';
+
+  /**
+  * Updates the element
+  * @param changedProperties Properties that has changed
+  * @returns {void}
+  */
+  protected update (changedProperties: PropertyValues): void {
+    if(changedProperties.has('active') && this.toggles) {
+      this.ariaPressed = String(this.active);
+    }
+    if(changedProperties.has('toggles') && this.toggles) {
+      this.ariaPressed = String(this.active);
+    }
+    super.update(changedProperties);
+  }
 
   /**
    * the lifecycle method called when properties changed first time
