@@ -101,6 +101,7 @@
     disabled=""
     id="confirmButton"
     part="button"
+    role="button"
     style="pointer-events: none;"
     textpos="after"
   >
@@ -111,6 +112,7 @@
     aria-readonly="false"
     id="closeButton"
     part="button"
+    role="button"
     textpos="after"
   >
     Close
