@@ -20,6 +20,13 @@ const PACKAGES = 'packages';
 const PACKAGES_ROOT = path.resolve(ROOT, PACKAGES);
 
 /**
+ * Resolved path to release scripts folder.
+ * Tools to publish elements
+ * @type {string}
+ */
+const RELEASE_SCRIPTS_PATH = path.resolve(ROOT, 'scripts', 'release');
+
+/**
  * Show log with optional colour
  *
  * @param {string} message Message to show
@@ -84,5 +91,6 @@ module.exports = {
   errorHandler,
   ROOT,
   PACKAGES,
-  PACKAGES_ROOT
+  PACKAGES_ROOT,
+  RELEASE_SCRIPTS_PATH
 };
