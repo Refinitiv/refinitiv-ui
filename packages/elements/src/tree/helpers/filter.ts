@@ -1,5 +1,5 @@
-import { Tree, TreeDataItem } from '../index';
-import { TreeFilter } from './types';
+import type { Tree, TreeDataItem } from '../index';
+import type { TreeFilter } from './types';
 
 /**
  * Default filter used by tree
