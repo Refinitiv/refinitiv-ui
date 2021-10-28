@@ -100,10 +100,6 @@ export class RadioButton extends ControlElement {
       this.ariaChecked = String(value);
       void this.requestUpdate('checked', oldValue);
     }
-
-    if (this.name) {
-      this.tabIndex = value ? 0 : -1;
-    }
   }
 
   public get checked (): boolean {
@@ -152,7 +148,7 @@ export class RadioButton extends ControlElement {
    */
   protected update (changedProperties: PropertyValues): void {
     if (this.isConnected && this.hasUpdated && changedProperties.has('name')) {
-      applyRegistry(this);
+      applyRegistry(this, changedProperties.get('name'));
     }
 
     // Ensure only one radio button is checked
@@ -173,7 +169,6 @@ export class RadioButton extends ControlElement {
     this.addEventListener('tap', this.onTap);
     this.addEventListener('keydown', this.onKeyDown);
     this.addEventListener('focus', this.onFocus);
-    this.addEventListener('blur', this.onBlur);
 
     registerOverflowTooltip(this.labelEl, () => this.textContent);
   }
@@ -186,6 +181,9 @@ export class RadioButton extends ControlElement {
     if (this.checked && this.name) {
       getRadioGroup(this).filter(radio => radio !== this).forEach(radio => {
         radio.checked = false; // unchecking the rest of the group members
+        if (!radio.checked && radio.tabIndex === 0) {
+          radio.tabIndex = -1;
+        }
       });
     }
   }
@@ -209,22 +207,25 @@ export class RadioButton extends ControlElement {
    * @returns {void}
    */
   private onKeyDown (event: KeyboardEvent): void {
-    if (this.disabled || this.readonly || event.defaultPrevented) {
+    if (this.disabled || event.defaultPrevented) {
       return;
     }
     switch (event.key) {
       case 'Enter':
       case ' ':
       case 'Spacebar':
+        if (this.readonly) {
+          return;
+        }
         this.handleChangeChecked();
         break;
       case 'ArrowRight':
       case 'ArrowDown':
-        this.navigateToNext();
+        this.navigateToElement(1);
         break;
       case 'ArrowLeft':
       case 'ArrowUp':
-        this.navigateToPrevious();
+        this.navigateToElement(-1);
         break;
       default:
         return;
@@ -238,24 +239,13 @@ export class RadioButton extends ControlElement {
    * @returns {void}
    */
   private onFocus (): void {
-    if (!this.name || this.checked) {
+    if (!this.name) {
       return;
     }
-    getRadioGroup(this).filter(radio => radio !== this).forEach(radio => {
-      radio.tabIndex = -1; // Set tabIndex = -1 for all radio button in group except the one that being focused.
-    });
-  }
-
-  /**
-   * Handles blur event
-   * @returns {void}
-   */
-  private onBlur (): void {
-    if (!this.name || this.checked) {
-      return;
-    }
-    getRadioGroup(this).filter(radio => radio !== this).forEach(radio => {
-      radio.tabIndex = 0; // Set tabIndex = 0 for all radio button in group when blur.
+    
+    getRadioGroup(this).forEach(radio => {
+      // Set tabIndex = -1 for all radio button in group except the one that being focused.
+      radio.tabIndex = radio !== this ? -1 : 0;
     });
   }
 
@@ -273,62 +263,35 @@ export class RadioButton extends ControlElement {
   }
 
   /**
-   * Handle when press arrow left/up.
-   * To move focus and check the previous radio button in the group.
-   * Unchecked the previous radio button
+   * Navigate to next or previous checkable element if present
+   * @param direction -1 - up/next; 1 - down/previous
    * @returns {void}
    */
-  private navigateToPrevious (): void {
+  private navigateToElement (direction: number): void {
     if (!this.name) {
       return;
     }
 
-    const radioGroup = getRadioGroup(this);
-    if (radioGroup.length < 2) {
-      return;
-    }
-
-    const currectItemIndex = radioGroup.indexOf(this);
-    const lastIndex = radioGroup.length - 1;
-    radioGroup[currectItemIndex].checked = false;
-    radioGroup[currectItemIndex].blur();
-    
-    if (currectItemIndex > 0) {
-      radioGroup[currectItemIndex - 1].checked = true;
-      radioGroup[currectItemIndex - 1].focus();
+    const radioGroup = getRadioGroup(this).filter(radio => !radio.disabled);
+    const idx = radioGroup.indexOf(this);
+    let navigateToElement;
+    if (direction === 1) {
+      navigateToElement = idx === -1 ? radioGroup[0] : radioGroup[idx + 1];
     }
     else {
-      radioGroup[lastIndex].checked = true;
-      radioGroup[lastIndex].focus();
-    }
-  }
-
-  /**
-   * Handle when press arrow right/down.
-   * To move focus and check the next radio button in the group.
-   * Unchecked the previous radio button
-   * @returns {void}
-   */
-  private navigateToNext (): void {
-    if (!this.name) {
-      return;
+      navigateToElement = idx === -1 ? radioGroup[radioGroup.length - 1] : radioGroup[idx - 1];
     }
 
-    const radioGroup = getRadioGroup(this);
-    if (radioGroup.length < 2) {
-      return;
+    if (!navigateToElement) {
+      navigateToElement = direction === 1 ? radioGroup[0] : radioGroup[radioGroup.length - 1];
     }
 
-    const currectState = radioGroup.indexOf(this);
-    radioGroup[currectState].checked = false;
-    radioGroup[currectState].blur();
-    if (currectState < radioGroup.length - 1) {
-      radioGroup[currectState + 1].checked = true;
-      radioGroup[currectState + 1].focus();
-    }
-    else {
-      radioGroup[0].checked = true;
-      radioGroup[0].focus();
+    if (navigateToElement) {
+      if (!navigateToElement.readonly) {
+        this.checked = false;
+        navigateToElement.checked = true;
+      }
+      navigateToElement.focus();
     }
   }
 
