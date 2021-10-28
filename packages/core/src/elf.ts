@@ -38,9 +38,10 @@ export { WarningNotice } from './notices/WarningNotice.js';
 export { DeprecationNotice } from './notices/DeprecationNotice.js';
 
 /**
- * Export TapEvent
+ * Export events
  */
 export { TapEvent } from './events/TapEvent.js';
+export { FocusedChangedEvent } from './events/FocusedChangedEvent.js';
 
 /**
  * Export common interfaces

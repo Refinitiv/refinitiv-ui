@@ -1,4 +1,5 @@
 import type { BasicElement } from '../elements/BasicElement';
+import type { FocusedChangedEvent } from '../events/FocusedChangedEvent';
 import { isBasicElement } from '../utils/helpers.js';
 
 const register = new Set<BasicElement>(); /* Track all active elements */
@@ -132,6 +133,21 @@ const shouldDelegateOnFocus = (target: HTMLElement | null): boolean => {
     && getActiveElement(true) === target;
 };
 
+/**
+ * Dispatch `focused-changed` event
+ * @param element Element to dispatch event for
+ * @param focused Focused state
+ * @returns {void}
+ */
+const dispatchFocusedChangedEvent = (element: HTMLElement, focused: boolean): void => {
+  const event: FocusedChangedEvent = new CustomEvent('focused-changed', {
+    detail: {
+      value: focused
+    }
+  });
+  element.dispatchEvent(event);
+};
+
 let syncAnimationFrame: number | null = null;
 /**
  * Set element `focused` state in asynchronous way
@@ -151,6 +167,7 @@ const updateFocusedState = (): void => {
       if (!focusedPath.includes(el)) {
         focusedMap.delete(el);
         el.removeAttribute('focused');
+        dispatchFocusedChangedEvent(el, false);
         el.requestUpdate(FocusedPropertyKey, true);
       }
     });
@@ -159,6 +176,7 @@ const updateFocusedState = (): void => {
       if (!focusedChanged || focusedMap.get(el) !== focused) {
         focusedMap.set(el, focused);
         el.setAttribute('focused', focused);
+        dispatchFocusedChangedEvent(el, true);
         focusedChanged && el.requestUpdate(FocusedPropertyKey, false);
       }
     });
