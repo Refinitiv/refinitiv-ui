@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/core",
-  "version": "5.0.4",
+  "version": "5.2.0",
   "description": "Element Framework Core",
   "main": "./lib/elf.js",
   "module": "./lib/elf.js",
@@ -42,7 +42,8 @@
     "lint:fix": "eslint . --fix",
     "test": "npm run build && karma start ../../karma.config.js --package=core",
     "test:snapshots": "npm run test -- --snapshots",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "prepublishOnly": "node scripts/release"
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.3.1",
@@ -50,7 +51,7 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/test-helpers": "^5.0.3"
+    "@refinitiv-ui/test-helpers": "^5.0.5"
   },
   "publishConfig": {
     "access": "public"
