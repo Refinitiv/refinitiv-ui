@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163 163" color="hsl(220.00000000000006, 12.000000000000005%, 28.000000000000004%)">
+    <circle xmlns="http://www.w3.org/2000/svg" cx="81.5" cy="81.5" r="80" stroke="currentColor" stroke-width="3" fill-opacity="0"/>
+    <path stroke-width="4" stroke="currentColor" d="M81.5 0v9.3"/>
+    <path stroke-width="4" stroke="currentColor" d="m122.25 10.919-4.65 8.054"/>
+    <path stroke-width="4" stroke="currentColor" d="m152.081 40.75-8.054 4.65"/>
+    <path stroke-width="4" stroke="currentColor" d="M163 81.5h-9.3"/>
+    <path stroke-width="4" stroke="currentColor" d="m152.081 122.25-8.054-4.65"/>
+    <path stroke-width="4" stroke="currentColor" d="m122.25 152.081-4.65-8.054"/>
+    <path stroke-width="4" stroke="currentColor" d="M81.5 163v-9.3"/>
+    <path stroke-width="4" stroke="currentColor" d="m40.75 10.919 4.65 8.054"/>
+    <path stroke-width="4" stroke="currentColor" d="m10.919 40.75 8.054 4.65"/>
+    <path stroke-width="4" stroke="currentColor" d="M0 81.5h9.3"/>
+    <path stroke-width="4" stroke="currentColor" d="m10.919 122.25 8.054-4.65"/>
+    <path stroke-width="4" stroke="currentColor" d="m40.75 152.081 4.65-8.054"/>
+</svg>

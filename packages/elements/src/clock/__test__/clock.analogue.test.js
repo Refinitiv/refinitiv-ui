@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/clock';
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
@@ -43,6 +43,13 @@ describe('clock/Analogue', () => {
       await elementUpdated(el);
 
       expect(getClockHand('second').style.transform, 'seconds hand should have 270 degrees angle').to.be.equal('rotate(270deg)');
+    });
+    it('Shows small size clock when width is less than 130px', async () => {
+      el.style.width = '129px';
+      await elementUpdated(el);
+      await nextFrame();
+
+      expect(el.hasAttribute('size')).to.equal(true, 'attribute "size" should be present');
     });
   });
 });

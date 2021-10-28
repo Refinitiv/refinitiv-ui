@@ -4,9 +4,10 @@ import {
   TemplateResult,
   CSSResultGroup,
   PropertyValues,
-  BasicElement,
   WarningNotice,
-  TapEvent
+  TapEvent,
+  ResponsiveElement,
+  ElementSize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
@@ -51,7 +52,7 @@ type UpOrDown = typeof UP | typeof DOWN;
 @customElement('ef-clock', {
   alias: 'sapphire-clock'
 })
-export class Clock extends BasicElement {
+export class Clock extends ResponsiveElement {
 
   /**
    * Element version number
@@ -255,6 +256,17 @@ export class Clock extends BasicElement {
   */
   @query('[part~=seconds]', true)
   private secondsPart!: HTMLDivElement;
+
+  /**
+  * Size of the clock.
+  * True, if size is small
+  */
+  private size = false;
+
+  /**
+  * Width of the clock.
+  */
+  private width = 160;
 
   /**
    * Get the display time in seconds.
@@ -558,6 +570,17 @@ export class Clock extends BasicElement {
   }
 
   /**
+   * Called when the element's dimension have changed
+   * @param size Element size
+   * @returns {void}
+   */
+  public resizedCallback (size: ElementSize): void {
+    this.size = size.width < 130;
+    this.width = size.width;
+    this.requestUpdate();
+  }
+
+  /**
    * Called when the element has been appended to the DOM
    * @returns {void}
    */
@@ -611,10 +634,19 @@ export class Clock extends BasicElement {
     const secAngle = 6 * this.displaySeconds;
     const minAngle = this.showSeconds ? Number((6 * (this.displayMinutes + (1 / 60) * this.displaySeconds)).toFixed(2)) : 6 * this.displayMinutes;
     const hourAngle = Number((30 * (this.displayHours24 + (1 / 60) * this.displayMinutes)).toFixed(2));
-
+    this.size ? this.setAttribute('size', 'small') : this.removeAttribute('size');
+    
+    if(this.size) {
+      this.style.fontSize = (this.width / 2).toString() + 'px'; // Calculate font-size for small size of the clock. We cannot set font-size rely on the width of element (`vw` unit only work on the width of the browser).
+    }
+    else {
+      this.style.fontSize = '2.5em'; // Need to set font-size to default if the size is not small.
+    }
+    
     return html`
       <div part="hands">
-        <div part="digital">${this.digitalClockTemplate}</div>
+        ${!this.size ? html`<div part="digital">${this.digitalClockTemplate}</div>` : undefined}
+        ${this.size ? html`${this.amPm ? this.amPmTemplate : undefined}` : undefined}
         <div part="hand hour" style="transform: rotate(${hourAngle}deg)"></div>
         <div part="hand minute" style="transform: rotate(${minAngle}deg)"></div>
         ${this.showSeconds ? html`<div part="hand second" style="transform: rotate(${secAngle}deg)"></div>` : undefined}
