@@ -148,7 +148,7 @@ export class RadioButton extends ControlElement {
    */
   protected update (changedProperties: PropertyValues): void {
     if (this.isConnected && this.hasUpdated && changedProperties.has('name')) {
-      applyRegistry(this, changedProperties.get('name'));
+      applyRegistry(this, changedProperties.get('name') as string);
     }
 
     // Ensure only one radio button is checked
