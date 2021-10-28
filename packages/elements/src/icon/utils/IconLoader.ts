@@ -60,6 +60,11 @@ class IconLoader extends CdnLoader {
     return iconName ? `${await this.getCdnPrefix()}${iconName}.svg` : '';
   }
 
+  /**
+   * Loads icon and returns the body of the SVG
+   * @param icon Icon name to load
+   * @returns SVG body of the response
+   */
   public async loadSVG (icon: string): Promise<string | undefined> {
     if (!icon) {
       return;
