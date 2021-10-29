@@ -41,7 +41,7 @@ export { DeprecationNotice } from './notices/DeprecationNotice.js';
  * Export events
  */
 export { TapEvent } from './events/TapEvent.js';
-export { FocusedChangedEvent } from './events/FocusedChangedEvent.js';
+export type { FocusedChangedEvent } from './types/events';
 
 /**
  * Export common interfaces

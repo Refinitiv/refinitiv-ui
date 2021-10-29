@@ -1,5 +1,5 @@
 import type { BasicElement } from '../elements/BasicElement';
-import type { FocusedChangedEvent } from '../events/FocusedChangedEvent';
+import type { FocusedChangedEvent } from '../types/events';
 import { isBasicElement } from '../utils/helpers.js';
 
 const register = new Set<BasicElement>(); /* Track all active elements */
