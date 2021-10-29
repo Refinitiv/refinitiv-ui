@@ -39,6 +39,8 @@ const getComputedStyleValue = (el: HTMLElement, key: string): string => {
 /**
  * Basic element base class.
  * Usually used for creating low-level elements.
+ *
+ * @fires focused-changed Fired when `focused` property changes
  */
 export abstract class BasicElement extends LitElement {
 
