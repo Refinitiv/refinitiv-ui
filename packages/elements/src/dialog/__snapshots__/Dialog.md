@@ -32,6 +32,7 @@
         aria-readonly="false"
         cta=""
         part="default-button"
+        role="button"
         textpos="after"
       >
         OK
@@ -40,6 +41,7 @@
         aria-disabled="false"
         aria-readonly="false"
         part="default-button"
+        role="button"
         textpos="after"
       >
         Cancel

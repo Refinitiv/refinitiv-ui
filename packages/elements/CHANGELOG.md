@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.3.3...@refinitiv-ui/elements@5.5.0) (2021-10-25)
+
+
+### Bug Fixes
+
+* dev server should start with source maps and declaration maps ([3e81b33](https://github.com/Refinitiv/refinitiv-ui/commit/3e81b33d4fb2136af2b18eeaf1fc1d740bd38105))
+* **overlay-menu:** interactiveElements list is not reset in some scenarios ([6e17cce](https://github.com/Refinitiv/refinitiv-ui/commit/6e17cce224eafe3e54ee9c2fdfa7bf9bce5dcbfc))
+* **overlay-menu:** remove wrong super call ([0a63e1f](https://github.com/Refinitiv/refinitiv-ui/commit/0a63e1fc9c0bb8a161010fd15df47198a9101bfa))
+* **overlay:** incorrect change check for `interactiveElements` property ([d1da5b6](https://github.com/Refinitiv/refinitiv-ui/commit/d1da5b692df070f0bb8f08644dd30b43673ffb49))
+
+
+### Features
+
+* add browsers option to test command ([#27](https://github.com/Refinitiv/refinitiv-ui/issues/27)) ([64a1d46](https://github.com/Refinitiv/refinitiv-ui/commit/64a1d464fb3c4a1f1cf851c3ab070cd9f615fb6c))
+* **tree:** query attribute and property ([ce067c7](https://github.com/Refinitiv/refinitiv-ui/commit/ce067c723cf42a57545589dea4feb57ac1e08822))
+
+
+
+
+
 ## [5.3.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.3.2...@refinitiv-ui/elements@5.3.3) (2021-10-11)
 
 
