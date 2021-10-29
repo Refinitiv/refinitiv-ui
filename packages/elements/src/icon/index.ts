@@ -9,7 +9,7 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { unsafeHTML } from '@refinitiv-ui/core/lib/directives/unsafe-html.js';
+import { unsafeSVG } from '@refinitiv-ui/core/lib/directives/unsafe-svg.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';
@@ -146,7 +146,7 @@ export class Icon extends BasicElement {
       iconTemplateCache.set(
         src,
         IconLoader.loadSVG(src)
-        .then(body => svg`${unsafeHTML(body)}`)
+        .then(body => svg`${unsafeSVG(body)}`)
       );
       return this.loadAndRenderIcon(src); // Load again and await cache result
     }
