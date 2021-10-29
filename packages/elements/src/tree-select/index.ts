@@ -284,7 +284,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns Is all selected
    */
   protected get allSelected (): boolean {
-    return this.memo.selected === this.memo.selectable;
+    return this.memo.selectable > 0 && this.memo.selected === this.memo.selectable;
   }
 
   /**
@@ -831,7 +831,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
           <div part="match-count-wrapper">
             ${this.matchCountTemplate}
           </div>
-          <div part="filter-wrapper">
+          ${this.memo.selectable > 0 ? html`<div part="filter-wrapper">
             <div
               role="button"
               tabindex="0"
@@ -843,7 +843,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
               tabindex="${ifDefined(this.hasActiveSelection ? 0 : undefined)}"
               part="control selected-filter${this.selectionFilterState ? ' active' : ''}${!this.hasActiveSelection ? ' disabled' : ''}"
               @tap="${this.selectedClickHandler}">${this.t('SELECTED')}</div>
-          </div>
+          </div>` : html``}
         </div>
     `;
   }
@@ -853,6 +853,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns Render template
    */
   protected get treeControlsTemplate (): TemplateResult {
+    if (this.memo.selectable <= 0) {
+      return html``;
+    }
     let expansionControl = html``;
     if (this.expansionControlVisible) {
       expansionControl = html`
@@ -912,7 +915,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   protected get pillsTemplate (): TemplateResult | undefined {
     // always injected when we have show pills vs injecting and re-injecting partial
     // visibility will typically be controlled by styling: display: none / block or similar
-    if (this.showPills && this.hasPills) {
+    if (this.showPills && this.hasPills && this.memo.selectable > 0) {
       return html`<div part="pills">
         ${repeat(this.pillsData, pill => pill.value, pill => html`
         <ef-pill
