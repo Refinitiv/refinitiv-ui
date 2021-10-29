@@ -1,1 +1,1 @@
-export { templateContent } from 'lit/directives/template-content.js';
+export * from 'lit/directives/template-content.js';

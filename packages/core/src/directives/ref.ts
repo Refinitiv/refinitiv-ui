@@ -1,1 +1,1 @@
-export { ref, createRef } from 'lit/directives/ref.js';
+export * from 'lit/directives/ref.js';
