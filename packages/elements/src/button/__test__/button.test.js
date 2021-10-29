@@ -180,13 +180,9 @@ describe('button/Button', () => {
     it('should call the keyboard event with space or enter', async () => {
       const el = await fixture(html`<ef-button></ef-button>`);
 
-      setTimeout(() => el.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' })));
+      setTimeout(() => el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' })));
       const enterEvent = await oneEvent(el, 'click');
       expect(enterEvent.detail).to.equal(0, 'the clicked enter');
-
-      setTimeout(() => el.dispatchEvent(new KeyboardEvent('keyup', { key: 'Return' })));
-      const returnEvent = await oneEvent(el, 'click');
-      expect(returnEvent.detail).to.equal(0, 'the clicked return');
 
       setTimeout(() => el.dispatchEvent(new KeyboardEvent('keyup', { key: ' ' })));
       const spaceEvent = await oneEvent(el, 'click');
@@ -202,7 +198,7 @@ describe('button/Button', () => {
 
   describe('Accessiblity', () => {
     it('should not be accessible without label', async () => {
-      
+
       const el = await fixture(`<ef-button></ef-button>`);
       await expect(el).not.to.be.accessible();
     });
@@ -223,22 +219,22 @@ describe('button/Button', () => {
 
 
     describe('should pass a11y testing in toggle mode', () => {
-      it('when button is not press', async () => {      
+      it('when button is not press', async () => {
         const el = await fixture(`<ef-button toggles>Toggle</ef-button>`);
         await expect(el).to.be.accessible({
           ignoredRules: ['aria-allowed-attr', 'color-contrast']
         });
         await expect(el.ariaPressed).to.equal('false');
       });
-      
-      it('when button is press', async () => {      
+
+      it('when button is press', async () => {
         const el = await fixture(`<ef-button toggles active>Toggle</ef-button>`);
         await expect(el).to.be.accessible({
           ignoredRules: ['aria-allowed-attr', 'color-contrast']
         });
         await expect(el.ariaPressed).to.equal('true');
       });
-    });    
+    });
 
     it('should pass a11y testing when disabled is set', async () => {
       const el = await fixture(`<ef-button disabled>Disabled</ef-button>`);

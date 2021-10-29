@@ -77,21 +77,13 @@ const isButtonEnterOrSpace = (event: MouseEvent | PointerEvent): boolean => {
 };
 
 /**
- * Run click event if role='button'
- * @param event Enter or Spacebar keyboard event
- * @returns {void}
+ * Check if a passed target should have button-like behaviour (aka role="button")
+ * @param target Target to check
+ * @returns true if target has button behaviour
  */
-const onEnterOrSpacebar = (event: KeyboardEvent): void => {
-  const tapTarget = [...event.composedPath()][0];
-
-  // Matches is split because IE11 does not support `:not(input[type=button])` selector
-  if (tapTarget instanceof HTMLElement
-    && matches(tapTarget, '[role=button]')
-    && !matches(tapTarget, 'button,a,input[type=button],input[type=submit]')) {
-    event.preventDefault();
-    tapTarget.click();
-  }
-};
+const isButtonBehaviour = (target: EventTarget | null): boolean => target instanceof HTMLElement
+  && matches(target, '[role=button]')
+  && !matches(target, 'button,a,input[type=button],input[type=submit]'); /* Matches is split because IE11 does not support `:not(input[type=button])` selector; */
 
 /**
  * Applies tap events to global
@@ -323,18 +315,35 @@ const applyEvent = (target: Global): void => {
   }, true);
 
   /**
+   * Listen to `keydown` event on the target
+   * Use this to fire tap event, if `enter` is clicked and prevent default if ' ' is clicked
+   */
+  target.addEventListener('keydown', (event: KeyboardEvent) => {
+    const { target, key } = event;
+
+    if (event.defaultPrevented || !(key === 'Enter' || key === ' ' || key === 'Spacebar') || !isButtonBehaviour(target)) {
+      return;
+    }
+
+    if (key === 'Enter') {
+      (target as HTMLElement).click();
+    }
+
+    event.preventDefault();
+  }, true);
+
+  /**
    * Listen to `keyup` event on the target
-   * Use this to fire tap event, if `enter` or `space` is clicked
+   * Use this to fire tap event, if ` ` is clicked
    */
   target.addEventListener('keyup', (event: KeyboardEvent) => {
-    switch (event.key) {
-      case 'Enter':
-      case 'Spacebar':
-      case ' ':
-        onEnterOrSpacebar(event);
-        return;
-      // no default
+    const { target, key } = event;
+
+    if (event.defaultPrevented || !(key === ' ' || key === 'Spacebar') || !isButtonBehaviour(target)) {
+      return;
     }
+
+    (target as HTMLElement).click();
   }, true);
 
   /**
