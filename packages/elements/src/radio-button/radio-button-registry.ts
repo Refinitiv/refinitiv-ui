@@ -23,28 +23,29 @@ const removeFromRegistry = (radio: RadioButton): void => {
  * @returns {void}
  */
 const applyRegistry = (radio: RadioButton, oldGroupName = ''): void => {
-  const idx = registry.indexOf(radio);
-  if (radio.name && idx === -1) {
+  const isNewRadioButton = registry.indexOf(radio) === -1;
+
+  if (radio.name && isNewRadioButton) {
     registry.push(radio);
 
-    if (registry.length < 1) {
+    if (registry.length === 1) {
       return;
     }
-    // Set tabIndex = -1 for the rest of button in group if one of button in group is checked.
+
+    // Set tabIndex to -1 for the rest of button in group if one of button in group is checked.
     // This will allow checked button of group to be focusable and navigable.
     const radioGroup = getRadioGroup(radio);
-    if (radioGroup.length > 1) {
-      const checkedRadio = radioGroup.filter(radio => radio.checked);
-      if (checkedRadio.length) {
-        radioGroup.forEach(radio => {
-          if (!radio.checked) {
-            radio.tabIndex = -1;
-          }
-        });
-      }
+    const checkedRadio = radioGroup.filter(radio => radio.checked);
+
+    if (checkedRadio.length) {
+      radioGroup.forEach(radio => {
+        if (!radio.checked) {
+          radio.tabIndex = -1;
+        }
+      });
     }
   }
-  else if (!radio.name && idx !== -1) {
+  else if (!radio.name && !isNewRadioButton) {
     removeFromRegistry(radio);
     radio.tabIndex = 0; // Reset tabIndex to be focusable for individual button
 

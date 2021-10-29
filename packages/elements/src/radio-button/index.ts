@@ -49,10 +49,7 @@ export class RadioButton extends ControlElement {
   static get version (): string {
     return VERSION;
   }
-  
-  /**
-  * Element's role attribute for accessibility
-  */
+
   protected readonly defaultRole = 'radio';
 
   /**
@@ -86,6 +83,8 @@ export class RadioButton extends ControlElement {
     `;
   }
 
+  private _checked = false;
+
   /**
    * Radio button checked state
    * @param value checked state
@@ -101,26 +100,22 @@ export class RadioButton extends ControlElement {
       void this.requestUpdate('checked', oldValue);
     }
   }
-
   public get checked (): boolean {
     return this._checked;
   }
 
-  private _checked = false;
+  /**
+   * Aria indicating checked state
+   * @ignore
+   */
+  @property({ type: String, reflect: true, attribute: 'aria-checked' })
+  public ariaChecked = String(this.checked);
 
   /**
    * Getter for label
    */
   @query('[part=label]', true)
   private labelEl!: HTMLElement;
-
-  /**
-   * Current state of radio for accessibility
-   * @ignore
-  */
-  @property({ type: String, reflect: true, attribute: 'aria-checked' })
-  public ariaChecked = String(this.checked);
-
 
   /**
    * Called when connected to DOM
@@ -168,7 +163,6 @@ export class RadioButton extends ControlElement {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.onTap);
     this.addEventListener('keydown', this.onKeyDown);
-    this.addEventListener('focus', this.onFocus);
 
     registerOverflowTooltip(this.labelEl, () => this.textContent);
   }
@@ -179,11 +173,13 @@ export class RadioButton extends ControlElement {
    */
   private manageGroupState (): void {
     if (this.checked && this.name) {
+      // restore tab index when checked
+      this.tabIndex = 0;
+
       getRadioGroup(this).filter(radio => radio !== this).forEach(radio => {
-        radio.checked = false; // unchecking the rest of the group members
-        if (!radio.checked && radio.tabIndex === 0) {
-          radio.tabIndex = -1;
-        }
+        // uncheck and hide the rest of the group members from focusability
+        radio.checked = false;
+        radio.tabIndex = -1;
       });
     }
   }
@@ -221,32 +217,17 @@ export class RadioButton extends ControlElement {
         break;
       case 'ArrowRight':
       case 'ArrowDown':
-        this.navigateToElement(1);
+        this.navigateToSibling('next');
         break;
       case 'ArrowLeft':
       case 'ArrowUp':
-        this.navigateToElement(-1);
+        this.navigateToSibling('previous');
         break;
       default:
         return;
     }
 
     event.preventDefault();
-  }
-
-  /**
-   * Handles focus event
-   * @returns {void}
-   */
-  private onFocus (): void {
-    if (!this.name) {
-      return;
-    }
-    
-    getRadioGroup(this).forEach(radio => {
-      // Set tabIndex = -1 for all radio button in group except the one that being focused.
-      radio.tabIndex = radio !== this ? -1 : 0;
-    });
   }
 
   /**
@@ -263,36 +244,37 @@ export class RadioButton extends ControlElement {
   }
 
   /**
-   * Navigate to next or previous checkable element if present
-   * @param direction -1 - up/next; 1 - down/previous
+   * Navigate to next or previous checkable sibling in the same group if present
+   * @param direction up/next; down/previous
    * @returns {void}
    */
-  private navigateToElement (direction: number): void {
+  private navigateToSibling (direction: 'next' | 'previous'): void {
     if (!this.name) {
       return;
     }
 
-    const radioGroup = getRadioGroup(this).filter(radio => !radio.disabled);
-    const idx = radioGroup.indexOf(this);
-    let navigateToElement;
-    if (direction === 1) {
-      navigateToElement = idx === -1 ? radioGroup[0] : radioGroup[idx + 1];
+    const group = getRadioGroup(this).filter(radio => !radio.disabled);
+    const index = group.indexOf(this);
+
+    let element;
+
+    if (direction === 'next') {
+      element = index === -1 ? group[0] : group[index + 1];
     }
     else {
-      navigateToElement = idx === -1 ? radioGroup[radioGroup.length - 1] : radioGroup[idx - 1];
+      element = index === -1 ? group[group.length - 1] : group[index - 1];
     }
 
-    if (!navigateToElement) {
-      navigateToElement = direction === 1 ? radioGroup[0] : radioGroup[radioGroup.length - 1];
+    if (!element) {
+      element = direction === 'next' ? group[0] : group[group.length - 1];
     }
 
-    if (navigateToElement) {
-      if (!navigateToElement.readonly) {
-        this.checked = false;
-        navigateToElement.checked = true;
-      }
-      navigateToElement.focus();
+    if (!element.readonly) {
+      this.checked = false;
+      element.checked = true;
     }
+
+    element.focus();
   }
 
   /**
