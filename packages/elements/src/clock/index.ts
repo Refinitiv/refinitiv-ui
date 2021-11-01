@@ -41,7 +41,7 @@ import {
 
 const UP = 'Up';
 const DOWN = 'Down';
-
+const SMALL_SIZE = 129;
 type UpOrDown = typeof UP | typeof DOWN;
 
 /**
@@ -259,14 +259,9 @@ export class Clock extends ResponsiveElement {
 
   /**
   * Size of the clock.
-  * True, if size is small
   */
-  private size = false;
-
-  /**
-  * Width of the clock.
-  */
-  private width = 160;
+  @property({ type: String, attribute: 'size', reflect: true })
+  private size = '';
 
   /**
    * Get the display time in seconds.
@@ -575,9 +570,7 @@ export class Clock extends ResponsiveElement {
    * @returns {void}
    */
   public resizedCallback (size: ElementSize): void {
-    this.size = size.width < 130;
-    this.width = size.width;
-    this.requestUpdate();
+    this.size = Math.min(size.width, size.height) > SMALL_SIZE ? '' : 'small';
   }
 
   /**
@@ -634,19 +627,13 @@ export class Clock extends ResponsiveElement {
     const secAngle = 6 * this.displaySeconds;
     const minAngle = this.showSeconds ? Number((6 * (this.displayMinutes + (1 / 60) * this.displaySeconds)).toFixed(2)) : 6 * this.displayMinutes;
     const hourAngle = Number((30 * (this.displayHours24 + (1 / 60) * this.displayMinutes)).toFixed(2));
-    this.size ? this.setAttribute('size', 'small') : this.removeAttribute('size');
-    
-    if(this.size) {
-      this.style.fontSize = (this.width / 2).toString() + 'px'; // Calculate font-size for small size of the clock. We cannot set font-size rely on the width of element (`vw` unit only work on the width of the browser).
-    }
-    else {
-      this.style.fontSize = '2.5em'; // Need to set font-size to default if the size is not small.
-    }
+    const isSmallSize = this.size === 'small';
+    !isSmallSize ? this.removeAttribute('size') : undefined;
     
     return html`
       <div part="hands">
-        ${!this.size ? html`<div part="digital">${this.digitalClockTemplate}</div>` : undefined}
-        ${this.size ? html`${this.amPm ? this.amPmTemplate : undefined}` : undefined}
+        ${!isSmallSize ? html`<div part="digital">${this.digitalClockTemplate}</div>` : undefined}
+        ${isSmallSize ? html`${this.amPm ? this.amPmTemplate : undefined}` : undefined}
         <div part="hand hour" style="transform: rotate(${hourAngle}deg)"></div>
         <div part="hand minute" style="transform: rotate(${minAngle}deg)"></div>
         ${this.showSeconds ? html`<div part="hand second" style="transform: rotate(${secAngle}deg)"></div>` : undefined}

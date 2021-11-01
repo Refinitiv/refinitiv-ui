@@ -121,7 +121,7 @@
     &[size="small"] {
       min-width: 50px;
       background: inline-svg('../resources/images/clock/small.svg', 'svg', 'color: @{global-text-color}') no-repeat center center / cover;
-
+      font-size: inherit;
       [part=hands]::after {
         width: 6%;
         height: 6%;
@@ -160,6 +160,7 @@
         left: 0;
         right: 0;
         bottom: 8%;
+        font-size: 100%;
         justify-content: center;
         font-weight: 600;
       }

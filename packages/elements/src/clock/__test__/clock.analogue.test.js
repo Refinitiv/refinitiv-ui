@@ -49,7 +49,8 @@ describe('clock/Analogue', () => {
       await elementUpdated(el);
       await nextFrame();
 
-      expect(el.hasAttribute('size')).to.equal(true, 'attribute "size" should be present');
+      expect(el.hasAttribute('size')).to.equal(true, 'attribute size should be present');
+      expect(el.getAttribute('size')).to.equal('small', 'attribute "size" should equal "small"');
     });
   });
 });
