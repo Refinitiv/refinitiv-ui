@@ -1,9 +1,16 @@
 import { fixture, expect, isIE, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-import '../lib/test/test-translate';
 
-import {
-  getHTMLContent
-} from './utils';
+// Translations polyfills
+import '@formatjs/intl-locale/polyfill.iife';
+import '@formatjs/intl-getcanonicallocales/polyfill.iife';
+import '@formatjs/intl-pluralrules/polyfill.iife';
+import '@formatjs/intl-pluralrules/locale-data/en';
+import '@formatjs/intl-pluralrules/locale-data/zh';
+import '@formatjs/intl-pluralrules/locale-data/de';
+import '@formatjs/intl-pluralrules/locale-data/ja';
+
+import '../lib/test/test-translate';
+import { getHTMLContent } from './utils';
 
 describe('Elf Translate Element Lang Test', () => {
   it('en-GB: check directive translations', async function () {
@@ -65,10 +72,6 @@ describe('Elf Translate Element Lang Test', () => {
   });
 
   it('Check plurals', async function () {
-    // IE does not support plurals without polyfills
-    if (isIE()) {
-      this.skip();
-    }
 
     const el = await fixture('<test-translate lang="en-GB" with-plurals></test-translate>');
     const ruEl = await fixture('<test-translate lang="ru" with-plurals></test-translate>');
@@ -166,8 +169,4 @@ describe('Elf Translate Element Lang Test', () => {
     expect(elRU.dateEl.innerText).to.equal('Date: Дата: ‎вторник‎, ‎21‎ ‎июля‎ ‎2020‎ г., ‎23‎:‎59‎:‎50', 'ru: date');
   });
 
-  it('IE11: Check Plurals', async function () {
-    // IE11 does not support plurals without polyfills. polyfills are managed by format.js
-    this.skip();
-  });
 });
