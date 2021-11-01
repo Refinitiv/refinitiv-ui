@@ -86,6 +86,20 @@ const isButtonBehaviour = (target: EventTarget | null): boolean => target instan
   && !matches(target, 'button,a,input[type=button],input[type=submit]'); /* Matches is split because IE11 does not support `:not(input[type=button])` selector; */
 
 /**
+ * Check if `enter` key is pressed
+ * @param event Keyboard event
+ * @returns true is `enter` key
+ */
+const isEnterKey = (event: KeyboardEvent) => event.key === 'Enter';
+
+/**
+ * Check if `space` key is pressed
+ * @param event Keyboard event
+ * @returns true is `space` key
+ */
+const isSpaceKey = (event: KeyboardEvent) => event.key === ' ' || event.key === 'Spacebar';
+
+/**
  * Applies tap events to global
  * @param target globalThis or window object
  * @returns {void}
@@ -316,16 +330,17 @@ const applyEvent = (target: Global): void => {
 
   /**
    * Listen to `keydown` event on the target
-   * Use this to fire tap event, if `enter` is clicked and prevent default if ' ' is clicked
+   * Use this to fire tap event, if `enter` is pressed and prevent default if `space` is pressed.
    */
   target.addEventListener('keydown', (event: KeyboardEvent) => {
-    const { target, key } = event;
+    const { target } = event;
+    const enterKey = isEnterKey(event);
 
-    if (event.defaultPrevented || !(key === 'Enter' || key === ' ' || key === 'Spacebar') || !isButtonBehaviour(target)) {
+    if (event.defaultPrevented || !(enterKey || isSpaceKey(event)) || !isButtonBehaviour(target)) {
       return;
     }
 
-    if (key === 'Enter') {
+    if (enterKey) {
       (target as HTMLElement).click();
     }
 
@@ -334,12 +349,12 @@ const applyEvent = (target: Global): void => {
 
   /**
    * Listen to `keyup` event on the target
-   * Use this to fire tap event, if ` ` is clicked
+   * Use this to fire tap event, if `space` is pressed.
    */
   target.addEventListener('keyup', (event: KeyboardEvent) => {
-    const { target, key } = event;
+    const { target } = event;
 
-    if (event.defaultPrevented || !(key === ' ' || key === 'Spacebar') || !isButtonBehaviour(target)) {
+    if (event.defaultPrevented || !isSpaceKey(event) || !isButtonBehaviour(target)) {
       return;
     }
 

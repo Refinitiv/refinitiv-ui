@@ -235,10 +235,10 @@ describe('TestTapEvent', async () => {
 
     it('Should support tap event on role=button when Enter is pressed', async function () {
       const el = await fixture(html`<div role="button">Fake Button</div>`);
-      let event = keyboardEvent('keydown', { key: 'Enter' });
-      el.dispatchEvent(event);
-      event = keyboardEvent('keyup', { key: 'Enter' });
-      el.dispatchEvent(event);
+      const keyDownEvent = keyboardEvent('keydown', { key: 'Enter' });
+      el.dispatchEvent(keyDownEvent);
+      const keyUpEvent = keyboardEvent('keyup', { key: 'Enter' });
+      el.dispatchEvent(keyUpEvent);
       expect(tapEvent).to.be.exist;
       expect(tapEvent.target).to.equal(el);
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
@@ -246,10 +246,10 @@ describe('TestTapEvent', async () => {
 
     it('Should support tap event on role=button when Spacebar is pressed', async function () {
       const el = await fixture(html`<div role="button">Fake Button</div>`);
-      let event = keyboardEvent('keydown', { key: ' ' });
-      el.dispatchEvent(event);
-      event = keyboardEvent('keyup', { key: ' ' });
-      el.dispatchEvent(event);
+      const keyDownEvent = keyboardEvent('keydown', { key: ' ' });
+      el.dispatchEvent(keyDownEvent);
+      const keyUpEvent = keyboardEvent('keyup', { key: ' ' });
+      el.dispatchEvent(keyUpEvent);
       expect(tapEvent).to.be.exist;
       expect(tapEvent.target).to.equal(el);
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
@@ -257,8 +257,8 @@ describe('TestTapEvent', async () => {
 
     it('Should not fire tap event twice on native button with role=button when Enter is pressed', async function () {
       const el = await fixture(html`<button role="button">Native Button</button>`);
-      const event = keyboardEvent('keydown', { key: 'Enter' });
-      el.dispatchEvent(event);
+      const keyDownEvent = keyboardEvent('keydown', { key: 'Enter' });
+      el.dispatchEvent(keyDownEvent);
       expect(tapCount).to.equal(0, 'tap event should not be fired');
     });
 
