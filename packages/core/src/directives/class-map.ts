@@ -1,1 +1,1 @@
-export { classMap, ClassInfo } from 'lit/directives/class-map.js';
+export * from 'lit/directives/class-map.js';
