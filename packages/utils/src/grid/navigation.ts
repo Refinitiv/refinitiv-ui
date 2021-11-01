@@ -14,7 +14,8 @@ type NavigationRow = (0 | 1)[];
 type NavigationGrid = NavigationRow[];
 
 /**
- * Cell, where first number is row index and second number is column index
+ * Cell, where first number is column index and second number is row index.
+ * Indexes are zero-based
  */
 type CellIndex = [number, number];
 
@@ -40,13 +41,13 @@ const closest = (grid: NavigationGrid, rowIndex: number, target: number, directi
   }
 
   for (let i = 0; i < row.length; i += 1) {
-    const nextIndex = target + (i * direction);
-    if (row[nextIndex]) {
-      return [rowIndex, nextIndex];
+    const nextColumnIndex = target + (i * direction);
+    if (row[nextColumnIndex]) {
+      return [nextColumnIndex, rowIndex];
     }
-    const prevIndex = target - (i * direction);
-    if (row[prevIndex]) {
-      return [rowIndex, prevIndex];
+    const prevColumnIndex = target - (i * direction);
+    if (row[prevColumnIndex]) {
+      return [prevColumnIndex, rowIndex];
     }
   }
 
@@ -54,13 +55,15 @@ const closest = (grid: NavigationGrid, rowIndex: number, target: number, directi
 };
 
 /**
- * Get the previous active cell
+ * Navigate left from the start cell.
+ * If there is no active cell on the left,
+ * than iterate over preceding rows to to find one
  * @param grid Navigation grid
  * @param cell Start cell
  * @returns cell Previous cell. If none return null
  */
-const previousCell = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
-  let [rowIndex, columnIndex] = cell;
+const left = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
+  let [columnIndex, rowIndex] = cell;
   const columnCount = counts(grid)[1];
 
   while (rowIndex >= 0) {
@@ -75,7 +78,7 @@ const previousCell = (grid: NavigationGrid, cell: CellIndex): CellIndex | null =
     }
     const cell = row[columnIndex];
     if (cell) {
-      return [rowIndex, columnIndex];
+      return [columnIndex, rowIndex];
     }
   }
 
@@ -83,13 +86,15 @@ const previousCell = (grid: NavigationGrid, cell: CellIndex): CellIndex | null =
 };
 
 /**
- * Get the next active cell
+ * Navigate right from the start cell.
+ * If there is no active cell on the right,
+ * than iterate over following rows to to find one
  * @param grid Navigation grid
  * @param cell Start cell
  * @returns cell Next cell. If none return null
  */
-const nextCell = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
-  let [rowIndex, columnIndex] = cell;
+const right = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
+  let [columnIndex, rowIndex] = cell;
   const [rowCount, columnCount] = counts(grid);
 
   while (rowIndex < rowCount) {
@@ -105,7 +110,7 @@ const nextCell = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
     }
     const cell = row[columnIndex];
     if (cell) {
-      return [rowIndex, columnIndex];
+      return [columnIndex, rowIndex];
     }
   }
 
@@ -113,14 +118,15 @@ const nextCell = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
 };
 
 /**
- * Get the closest active cell on the previous row
+ * Navigate up from the start cell trying to
+ * find the closest cell on the preceding rows
  * @param grid Navigation grid
  * @param cell Start cell
  * @returns cell Closest cell on the previous row. If none return null
  */
-const previousRowCell = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
-  let rowIndex = cell[0];
-  const columnIndex = cell[1];
+const up = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
+  const columnIndex = cell[0];
+  let rowIndex = cell[1];
 
   while ((rowIndex -= 1) >= 0) {
     const cell = closest(grid, rowIndex, columnIndex, 1);
@@ -133,14 +139,15 @@ const previousRowCell = (grid: NavigationGrid, cell: CellIndex): CellIndex | nul
 };
 
 /**
- * Get the closest active cell on the next row
+ * Navigate down from the start cell trying to
+ * find the closest cell on the following rows
  * @param grid Navigation grid
  * @param cell Start cell
  * @returns cell Closest cell on the next row. If none return null
  */
-const nextRowCell = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
-  let rowIndex = cell[0];
-  const columnIndex = cell[1];
+const down = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
+  const columnIndex = cell[0];
+  let rowIndex = cell[1];
   const [rowCount] = counts(grid);
 
   while ((rowIndex += 1) < rowCount) {
@@ -158,26 +165,26 @@ const nextRowCell = (grid: NavigationGrid, cell: CellIndex): CellIndex | null =>
  * @param grid Navigation grid
  * @returns cell The first active cell. If none return null
  */
-const firstCell = (grid: NavigationGrid): CellIndex | null => nextCell(grid, [0, -1]);
+const first = (grid: NavigationGrid): CellIndex | null => right(grid, [-1, 0]);
 
 /**
  * Get the last active cell
  * @param grid Navigation grid
  * @returns cell The last active cell. If none return null
  */
-const lastCell = (grid: NavigationGrid): CellIndex | null => {
+const last = (grid: NavigationGrid): CellIndex | null => {
   const [rowCount, columnCount] = counts(grid);
-  return previousCell(grid, [rowCount - 1, columnCount]);
+  return left(grid, [columnCount, rowCount - 1]);
 };
 
 export {
   NavigationRow,
   NavigationGrid,
   CellIndex,
-  nextCell,
-  previousCell,
-  nextRowCell,
-  previousRowCell,
-  firstCell,
-  lastCell
+  right,
+  left,
+  down,
+  up,
+  first,
+  last
 };
