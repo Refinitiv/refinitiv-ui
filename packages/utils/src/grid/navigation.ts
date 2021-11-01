@@ -148,7 +148,7 @@ const up = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
 const down = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
   const columnIndex = cell[0];
   let rowIndex = cell[1];
-  const rowCount = counts(grid)[1];
+  const [, rowCount] = counts(grid);
 
   while ((rowIndex += 1) < rowCount) {
     const cell = closest(grid, rowIndex, columnIndex, -1);
