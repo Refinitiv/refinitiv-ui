@@ -20,11 +20,11 @@ type NavigationGrid = NavigationRow[];
 type CellIndex = [number, number];
 
 /**
- * Get number of rows and columns in the grid
+ * Get number of columns and rows in the grid
  * @param grid Navigation grid
- * @returns counts RowCount and ColumnCount
+ * @returns counts ColumnCount and RowCount
  */
-const counts = (grid: NavigationGrid): [number, number] => [grid.length, grid.length ? grid[0].length : 0];
+const counts = (grid: NavigationGrid): [number, number] => [grid.length ? grid[0].length : 0, grid.length];
 
 /**
  * Get the closest active cell for provided rowIndex and target
@@ -64,7 +64,7 @@ const closest = (grid: NavigationGrid, rowIndex: number, target: number, directi
  */
 const left = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
   let [columnIndex, rowIndex] = cell;
-  const columnCount = counts(grid)[1];
+  const [columnCount] = counts(grid);
 
   while (rowIndex >= 0) {
     columnIndex -= 1;
@@ -95,7 +95,7 @@ const left = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
  */
 const right = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
   let [columnIndex, rowIndex] = cell;
-  const [rowCount, columnCount] = counts(grid);
+  const [columnCount, rowCount] = counts(grid);
 
   while (rowIndex < rowCount) {
     columnIndex += 1;
@@ -148,7 +148,7 @@ const up = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
 const down = (grid: NavigationGrid, cell: CellIndex): CellIndex | null => {
   const columnIndex = cell[0];
   let rowIndex = cell[1];
-  const [rowCount] = counts(grid);
+  const rowCount = counts(grid)[1];
 
   while ((rowIndex += 1) < rowCount) {
     const cell = closest(grid, rowIndex, columnIndex, -1);
@@ -173,7 +173,7 @@ const first = (grid: NavigationGrid): CellIndex | null => right(grid, [-1, 0]);
  * @returns cell The last active cell. If none return null
  */
 const last = (grid: NavigationGrid): CellIndex | null => {
-  const [rowCount, columnCount] = counts(grid);
+  const [columnCount, rowCount] = counts(grid);
   return left(grid, [columnCount, rowCount - 1]);
 };
 
