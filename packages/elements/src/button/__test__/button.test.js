@@ -219,7 +219,7 @@ describe('button/Button', () => {
 
 
     describe('should pass a11y testing in toggle mode', () => {
-      it('when button is not press', async () => {
+      it('when button is not pressed', async () => {
         const el = await fixture(`<ef-button toggles>Toggle</ef-button>`);
         await expect(el).to.be.accessible({
           ignoredRules: ['aria-allowed-attr', 'color-contrast']
@@ -227,7 +227,7 @@ describe('button/Button', () => {
         await expect(el.ariaPressed).to.equal('false');
       });
 
-      it('when button is press', async () => {
+      it('when button is pressed', async () => {
         const el = await fixture(`<ef-button toggles active>Toggle</ef-button>`);
         await expect(el).to.be.accessible({
           ignoredRules: ['aria-allowed-attr', 'color-contrast']
