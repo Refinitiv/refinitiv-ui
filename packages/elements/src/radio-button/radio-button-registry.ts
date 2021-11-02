@@ -37,44 +37,45 @@ const applyRegistry = (radio: RadioButton, oldGroupName = ''): void => {
       radio.tabIndex = -1;
     }
   }
+  // Removed from the group
   else if (!radio.name && !isNewRadioButton) {
     removeFromRegistry(radio);
-    radio.tabIndex = 0; // Restore tab Index to be focusable for single mode
+    radio.tabIndex = 0; // Restores tabIndex and switch to single mode
 
-    // Re-computed tab index for old radio group was removed from group.
+    // Re-compute tabIndex for old radio group
     const oldRadioGroup = registry.filter(radio => radio.name === oldGroupName);
     restoreTabIndex(oldRadioGroup);
   }
+  // Changes group
   else if (radio.name && !isNewRadioButton) {
-    // Re-computed tab index for new radio group when name attribute has changed.
+    // Re-compute tabIndex for new radio group when name attribute has changed
     const newRadioGroup = getRadioGroup(radio);
     if (radio.checked) {
       radio.tabIndex = 0;
-      newRadioGroup.forEach(newRadio => {
-        if (newRadio !== radio) {
-          // uncheck and hide the rest of the group members from focusability
-          newRadio.checked = false;
-          newRadio.tabIndex = -1;
-        }
+
+      // uncheck and hide the rest of the group members from focusability
+      newRadioGroup.filter((newRadio) => newRadio !== radio).forEach(newRadio => {
+        newRadio.checked = false;
+        newRadio.tabIndex = -1;
       });
     }
     else {
       radio.tabIndex = -1;
       restoreTabIndex(newRadioGroup);
     }
-    
-    // Re-computed tab index for old radio group when name attribute has changed.
+
+    // Re-compute tabIndex for old radio group when name attribute has changed.
     const oldRadioGroup = registry.filter(radio => radio.name === oldGroupName);
     restoreTabIndex(oldRadioGroup);
   }
 };
 
 /**
- * Re-computed tab index for the radio group
+ * Re-compute tabIndex for the radio group
  * Set tabIndex to 0 for first radio button in the group.
  * Set tabIndex to -1 for the rest of button in group.
  * @param radioGroup collection of radio buttons
- * @returns void
+ * @returns {void}
  */
 const restoreTabIndex = (radioGroup: RadioButton[]): void => {
   if (!radioGroup.length) {
@@ -85,7 +86,7 @@ const restoreTabIndex = (radioGroup: RadioButton[]): void => {
   if (checkedRadio.length) {
     return;
   }
-  
+
   radioGroup.forEach((radio, index) => {
     radio.tabIndex = index === 0 ? 0 : -1;
   });
