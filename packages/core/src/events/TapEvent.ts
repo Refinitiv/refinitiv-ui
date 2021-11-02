@@ -100,6 +100,13 @@ const isEnterKey = (event: KeyboardEvent) => event.key === 'Enter';
 const isSpaceKey = (event: KeyboardEvent) => event.key === ' ' || event.key === 'Spacebar';
 
 /**
+ * Get top most event target for the composed path
+ * @param event Event
+ * @returns composed event target
+ */
+const topPathTarget = (event: Event): EventTarget => [...event.composedPath()][0];
+
+/**
  * Applies tap events to global
  * @param target globalThis or window object
  * @returns {void}
@@ -321,8 +328,7 @@ const applyEvent = (target: Global): void => {
    */
   target.addEventListener('click', (event: MouseEvent | PointerEvent) => {
     if (isButtonEnterOrSpace(event)) {
-      const path = [...event.composedPath()];
-      const tapTarget = path[0];
+      const tapTarget = topPathTarget(event);
 
       onTap && dispatchTapOnTarget('tap', tapTarget, event);
     }
@@ -333,7 +339,7 @@ const applyEvent = (target: Global): void => {
    * Use this to fire tap event, if `enter` is pressed and prevent default if `space` is pressed.
    */
   target.addEventListener('keydown', (event: KeyboardEvent) => {
-    const { target } = event;
+    const target = topPathTarget(event);
     const enterKey = isEnterKey(event);
 
     if (event.defaultPrevented || !(enterKey || isSpaceKey(event)) || !isButtonBehaviour(target)) {
@@ -352,7 +358,7 @@ const applyEvent = (target: Global): void => {
    * Use this to fire tap event, if `space` is pressed.
    */
   target.addEventListener('keyup', (event: KeyboardEvent) => {
-    const { target } = event;
+    const target = topPathTarget(event);
 
     if (event.defaultPrevented || !isSpaceKey(event) || !isButtonBehaviour(target)) {
       return;
