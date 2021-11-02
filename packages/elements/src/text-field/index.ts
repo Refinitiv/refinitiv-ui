@@ -144,6 +144,9 @@ export class TextField extends ControlElement {
   @query('[part="input"]')
   private inputElement!: HTMLInputElement;
 
+  private errorLabelId = 'error-label-id';
+  private errorLabel: string | null = null;
+
   /**
    * Selection start index
    */
@@ -195,6 +198,7 @@ export class TextField extends ControlElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
+    this.addEventListener('focus', this.onFocus, true);
     registerOverflowTooltip(this.inputElement, () => this.value);
   }
 
@@ -226,14 +230,61 @@ export class TextField extends ControlElement {
   }
 
   /**
-   * renders icon element if property present
+   * Assigns different aria labels into focusable input on focus
+   * @returns {void}
+   */
+  private onFocus ():void {
+    if (this.hasAttribute('aria-label')) {
+      this.ariaLabel = this.getAttribute('aria-label') || '';
+    }
+    else if (this.hasAttribute('aria-labelledby')) {
+      const id = this.getAttribute('aria-labelledby');
+      if (!id) {
+        return;
+      }
+
+      const label = document.getElementById(id);
+      if (!label) {
+        return;
+      }
+
+      this.ariaLabel = label.textContent || '';
+    }
+    else if (this.id) {
+      const labelFor = document.querySelector(`label[for='${this.id}']`) as HTMLElement;
+      if (!labelFor) {
+        return;
+      }
+
+      this.ariaLabel = labelFor.textContent || '';
+    }
+
+    if (this.hasAttribute('aria-describedby')) {
+      const id = this.getAttribute('aria-describedby');
+      if (!id) {
+        return;
+      }
+
+      const label = document.getElementById(id);
+      if (!label) {
+        return;
+      }
+
+      this.errorLabel = label.textContent || '';
+    }
+  }
+
+  /**
+   * Renders icon element if property present
    * @returns {void}
    */
   private renderIcon (): TemplateResult | null {
     return this.icon ? html`
     <ef-icon
+        role="${ifDefined(this.iconHasAction ? 'button' : undefined)}"
         part="icon"
         icon="${this.icon}"
+        aria-label="${this.icon}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         @tap="${this.iconClick}"
@@ -250,9 +301,13 @@ export class TextField extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
+      ${this.error ? html`<div id="${this.errorLabelId}" style="display: none;">${this.errorLabel}</div>` : null}
       <input
         type="text"
         part="input"
+        aria-label="${ifDefined(this.ariaLabel || undefined)}"
+        aria-invalid="${!!this.error}"
+        aria-describedby="${ifDefined(!!this.error && this.errorLabelId || undefined)}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         placeholder="${ifDefined(this.placeholder || undefined)}"
@@ -268,7 +323,7 @@ export class TextField extends ControlElement {
   }
 
   /**
-   * check if value is changed and fire event
+   * Checks if value is changed and fire event
    * @returns {void}
    */
   private onPossibleValueChange (): void {
@@ -277,8 +332,8 @@ export class TextField extends ControlElement {
   }
 
   /**
-   * validate input according `pattern`, `minLength` and `maxLength` properties
-   * change state of `error` property according pattern validation
+   * Validates input according `pattern`, `minLength` and `maxLength` properties
+   * and changes the state of `error` property according pattern validation
    * @returns void
    */
   private validateInput (): void {
@@ -295,7 +350,7 @@ export class TextField extends ControlElement {
   }
 
   /**
-   * @param error existing state of error
+   * @param error Existing state of error
    * @returns true if there is no error and browser is IE11 and minLength more than 0 and value exists
    */
   private shouldValidateForMinLength (error: boolean): boolean {
