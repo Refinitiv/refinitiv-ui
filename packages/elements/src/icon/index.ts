@@ -4,16 +4,24 @@ import {
   css,
   CSSResultGroup,
   TemplateResult,
+  SVGTemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { unsafeHTML } from '@refinitiv-ui/core/lib/directives/unsafe-html.js';
+import { unsafeSVG } from '@refinitiv-ui/core/lib/directives/unsafe-svg.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';
 
 const EmptyTemplate = svg``;
+
+/**
+ * Cache for reusing SVG template results across multiple icons.
+ * Reusing these templates increases performance dramatically when many icons are rendered.
+ * As the cache key is an absolute URL, we can assume no clashes will occur.
+ */
+const iconTemplateCache = new Map<string, Promise<SVGTemplateResult>>();
 
 @customElement('ef-icon', {
   alias: 'coral-icon'
@@ -52,8 +60,8 @@ export class Icon extends BasicElement {
   private _icon: string | null = null;
 
   /**
-   * Name of a known icon to render.
-   * @example heart
+   * Name of a known icon to render or URL of SVG icon.
+   * @example heart | https://cdn.io/icons/heart.svg
    */
   @property({ type: String, reflect: true })
   public get icon (): string | null {
@@ -73,6 +81,7 @@ export class Icon extends BasicElement {
   /**
    * Src location of an svg icon.
    * @example https://cdn.io/icons/heart.svg
+   * @deprecated Use `icon` instead
    */
   @property({ type: String })
   public get src (): string | null {
@@ -132,10 +141,16 @@ export class Icon extends BasicElement {
    * @returns {void}
    */
   private async loadAndRenderIcon (src: string): Promise<void> {
-    const svgBody = await IconLoader.loadSVG(src);
-    if (svgBody) {
-      this.template = svg`${unsafeHTML(svgBody)}`;
+    const iconTemplateCacheItem = iconTemplateCache.get(src);
+    if (!iconTemplateCacheItem) {
+      iconTemplateCache.set(
+        src,
+        IconLoader.loadSVG(src)
+        .then(body => svg`${unsafeSVG(body)}`)
+      );
+      return this.loadAndRenderIcon(src); // Load again and await cache result
     }
+    this.template = await iconTemplateCacheItem;
   }
 
   /**

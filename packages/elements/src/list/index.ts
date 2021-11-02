@@ -590,15 +590,14 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     const currentChildren = Array.from(this.children);
     const recyclableElements = this.calculateRecyclableElements(renderItems);
     const renderChildren = renderItems.map((item) => this.createListItem(item, recyclableElements));
-    const deletions = currentChildren.filter(item => !renderChildren.includes(item));
-    deletions.forEach(item => this.removeChild(item));
-    renderChildren.forEach(item => {
-      const index = renderChildren.indexOf(item);
+    const deletions = currentChildren.filter(element => !renderChildren.includes(element));
+    deletions.forEach(element => this.removeChild(element));
+    renderChildren.forEach((element, index) => {
       if (this.children.length === index) {
-        this.appendChild(item);
+        this.appendChild(element);
       }
-      else {
-        this.insertBefore(item, this.children[index]);
+      else if (element !== this.children[index]) {
+        this.insertBefore(element, this.children[index]);
       }
     });
   }
