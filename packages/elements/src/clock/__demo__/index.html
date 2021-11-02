@@ -57,7 +57,7 @@
       </script>
     </demo-block>
 
-    <demo-block header="Analogue Clock" tags="analogue">
+    <demo-block header="Analogue Clock with AM/PM" tags="analogue">
       <ef-clock analogue value="10:08:40"></ef-clock>
       <ef-clock analogue show-seconds value="10:08:40"></ef-clock>
     </demo-block>
@@ -77,12 +77,19 @@
       <ef-clock analogue interactive show-seconds tick value="10:08:40"></ef-clock>
     </demo-block>
 
-    <demo-block header="Responsive" layout="normal" tags="analogue,responsive">
+    <demo-block header="Responsive" tags="analogue,responsive">
+      <ef-clock analogue style="width:30%; margin-right: 20px;" value="10:08:40" show-seconds tick></ef-clock>
       <ef-clock analogue value="10:08:40" show-seconds tick></ef-clock>
+      <ef-clock style="font-size: 2vw;" show-second am-pm></ef-clock>
+      <ef-clock style="font-size: 5vw;" show-second am-pm></ef-clock>
+      <ef-clock style="font-size: 10vw;" show-second am-pm></ef-clock>
     </demo-block>
 
     <demo-block header="Small Analogue Clock " tags="analogue, small">
-      <ef-clock style="width: 120px;" analogue interactive show-seconds am-pm value="12:30:20"></ef-clock>
+      <ef-clock style="width: 120px;" analogue show-seconds am-pm value="01:45:00"></ef-clock>
+      <ef-clock style="width: 64px;" analogue show-seconds am-pm value="01:45:00"></ef-clock>
+      <ef-clock style="width: 64px;" analogue show-seconds tick am-pm value="01:45:00"></ef-clock>
+      <ef-clock style="width: 64px;opacity: 0.6;" analogue value="01:45:00"></ef-clock>
     </demo-block>
     
   </body>

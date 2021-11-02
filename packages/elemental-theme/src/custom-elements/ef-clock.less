@@ -1,3 +1,13 @@
+// mixin to allow inherited themes able to customize color of svg
+.default-analog-svg(@color) {
+  background: inline-svg('../resources/images/clock/default.svg', 'svg', 'color: @{color}') no-repeat center center;
+}
+
+.small-analog-svg(@color) {
+  background: inline-svg('../resources/images/clock/small.svg', 'svg', 'color: @{color}') no-repeat center center / cover;
+}
+//
+
 :host {
   font-size: 2.5em;
   user-select: none;
@@ -73,9 +83,20 @@
 
   // Analogue clock
   &[analogue] {
+    border-radius: 100%;
     width: 160px;
     max-width: 200px;
-    background: inline-svg('../resources/images/clock/default.svg', 'svg', 'color: @{global-text-color}') no-repeat center center;
+    .default-analog-svg(@global-text-color);
+
+    [part=digital] {
+      display: flex;
+      position: absolute;
+      top: 20%;
+      left: 0;
+      right: 0;
+      justify-content: center;
+      font-size: 0.4em;
+    }
 
     [part=hands]::after {
       content: '';
@@ -88,6 +109,11 @@
       border: 2px solid @scheme-color-complementary;
       box-sizing: border-box;
       z-index: 1;
+    }
+
+    [part~="hand"]::after {
+      content: '';
+      position: absolute;
     }
 
     [part~="second"] {
@@ -108,20 +134,18 @@
       background-color: @scheme-color-complementary;
     }
 
-    [part~="hour"] {
-      &::after {
-        width: 3%;
-        height: 28%;
-        margin-top: 18%;
-        margin-left: 48.5%;
-        background-color: @scheme-color-complementary;
-      }
+    [part~="hour"]::after {
+      width: 3%;
+      height: 28%;
+      margin-top: 18%;
+      margin-left: 48.5%;
+      background-color: @scheme-color-complementary;
     }
 
     &[size="small"] {
+      font-size: 10px;
       min-width: 50px;
-      background: inline-svg('../resources/images/clock/small.svg', 'svg', 'color: @{global-text-color}') no-repeat center center / cover;
-      font-size: inherit;
+      .small-analog-svg(@global-text-color);
       [part=hands]::after {
         width: 6%;
         height: 6%;
@@ -159,27 +183,11 @@
         position: absolute;
         left: 0;
         right: 0;
-        bottom: 8%;
+        bottom: 15%;
         font-size: 100%;
         justify-content: center;
-        font-weight: 600;
       }
     }
-  }
-
-  [part~="hand"]::after {
-    content: '';
-    position: absolute;
-  }
-
-  [part=digital] {
-    display: flex;
-    position: absolute;
-    top: 20%;
-    left: 0;
-    right: 0;
-    justify-content: center;
-    font-size: 0.4em;
   }
 
 }
