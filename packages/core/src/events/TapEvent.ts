@@ -77,21 +77,27 @@ const isButtonEnterOrSpace = (event: MouseEvent | PointerEvent): boolean => {
 };
 
 /**
- * Run click event if role='button'
- * @param event Enter or Spacebar keyboard event
- * @returns {void}
+ * Check if a passed target should have button-like behaviour (aka role="button")
+ * @param target Target to check
+ * @returns true if target has button behaviour
  */
-const onEnterOrSpacebar = (event: KeyboardEvent): void => {
-  const tapTarget = [...event.composedPath()][0];
+const isButtonBehaviour = (target: EventTarget | null): boolean => target instanceof HTMLElement
+  && matches(target, '[role=button]')
+  && !matches(target, 'button,a,input[type=button],input[type=submit]'); /* Matches is split because IE11 does not support `:not(input[type=button])` selector; */
 
-  // Matches is split because IE11 does not support `:not(input[type=button])` selector
-  if (tapTarget instanceof HTMLElement
-    && matches(tapTarget, '[role=button]')
-    && !matches(tapTarget, 'button,a,input[type=button],input[type=submit]')) {
-    event.preventDefault();
-    tapTarget.click();
-  }
-};
+/**
+ * Check if `enter` key is pressed
+ * @param event Keyboard event
+ * @returns true is `enter` key
+ */
+const isEnterKey = (event: KeyboardEvent) => event.key === 'Enter';
+
+/**
+ * Check if `space` key is pressed
+ * @param event Keyboard event
+ * @returns true is `space` key
+ */
+const isSpaceKey = (event: KeyboardEvent) => event.key === ' ' || event.key === 'Spacebar';
 
 /**
  * Applies tap events to global
@@ -323,18 +329,36 @@ const applyEvent = (target: Global): void => {
   }, true);
 
   /**
+   * Listen to `keydown` event on the target
+   * Use this to fire tap event, if `enter` is pressed and prevent default if `space` is pressed.
+   */
+  target.addEventListener('keydown', (event: KeyboardEvent) => {
+    const { target } = event;
+    const enterKey = isEnterKey(event);
+
+    if (event.defaultPrevented || !(enterKey || isSpaceKey(event)) || !isButtonBehaviour(target)) {
+      return;
+    }
+
+    if (enterKey) {
+      (target as HTMLElement).click();
+    }
+
+    event.preventDefault();
+  }, true);
+
+  /**
    * Listen to `keyup` event on the target
-   * Use this to fire tap event, if `enter` or `space` is clicked
+   * Use this to fire tap event, if `space` is pressed.
    */
   target.addEventListener('keyup', (event: KeyboardEvent) => {
-    switch (event.key) {
-      case 'Enter':
-      case 'Spacebar':
-      case ' ':
-        onEnterOrSpacebar(event);
-        return;
-      // no default
+    const { target } = event;
+
+    if (event.defaultPrevented || !isSpaceKey(event) || !isButtonBehaviour(target)) {
+      return;
     }
+
+    (target as HTMLElement).click();
   }, true);
 
   /**
