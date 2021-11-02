@@ -291,6 +291,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const oldValues = this._values;
     if (String(oldValues) !== String(values)) {
       this._values = values;
+      this.valuesToSegments();
       this.requestUpdate('_values', oldValues); /* segments are populated in update */
     }
   }
@@ -488,10 +489,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns {void}
    */
   protected update (changedProperties: PropertyValues): void {
-    if (changedProperties.has('_values')) {
-      this.valuesToSegments();
-    }
-
     if (changedProperties.has('opened') && this.opened) {
       this.lazyRendered = true;
     }
@@ -782,7 +779,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private notifyValuesChange (values: string[]): void {
     if (this.values.toString() !== values.toString()) {
       this.values = values;
-      this.valuesToSegments(); /* need to be here to get correct value synchronously */
       this.notifyPropertyChange('value', this.value);
     }
   }
