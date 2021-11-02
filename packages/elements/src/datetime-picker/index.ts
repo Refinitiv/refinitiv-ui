@@ -529,7 +529,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     if (value === '') {
       return true;
     }
-    return this.timepicker
+    // Need to check for the attribute to cover the case when
+    // timepicker and value attributes are set
+    return (this.timepicker || this.hasAttribute('timepicker'))
       ? isValidDateTime(value)
       : isValidDate(value, DateFormat.yyyyMMdd);
   }
