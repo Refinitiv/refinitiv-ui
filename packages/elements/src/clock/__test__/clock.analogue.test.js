@@ -46,11 +46,19 @@ describe('clock/Analogue', () => {
     });
     it('Shows small size clock when width is less than 130px', async () => {
       el.style.width = '129px';
+      el.amPm = true;
       await elementUpdated(el);
       await nextFrame();
 
-      expect(el.hasAttribute('size')).to.equal(true, 'attribute size should be present');
       expect(el.getAttribute('size')).to.equal('small', 'attribute "size" should equal "small"');
+      expect(el.shadowRoot.querySelector('[part="digital"]'), 'digital clock should not display').to.be.null;
+      expect(el.shadowRoot.querySelector('[part="hands"] [part="segment am-pm"]'), 'AM/PM should display correctly').not.to.be.null;
+
+      el.amPm = false;
+      await elementUpdated(el);
+      await nextFrame();
+
+      expect(el.shadowRoot.querySelector('[part="hands"] [part="segment am-pm"]'), 'AM/PM should not display ').to.be.null;
     });
   });
 });

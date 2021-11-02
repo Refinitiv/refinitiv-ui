@@ -2,16 +2,11 @@
 
 :host {
   [part~='seconds'] {
-    color: @color-dusty-grey;
-  }
-  [part~='am-pm'] {
-    font-size: 60%;
-    line-height: 1.5em;
-    padding-left: 4px;
+    color: @color-grey;
   }
 
   &[analogue] {
-    color: @color-dusty-grey;
-    .default-analog-svg(@color-dusty-grey);
+    color: @color-grey;
+    .default-analog-svg(@color-grey);
   }
 }

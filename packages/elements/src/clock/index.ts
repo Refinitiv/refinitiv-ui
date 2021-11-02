@@ -41,7 +41,7 @@ import {
 
 const UP = 'Up';
 const DOWN = 'Down';
-const SMALL_SIZE = 129;
+const SMALL_SIZE = 130; // Break point for small size clock face.
 type UpOrDown = typeof UP | typeof DOWN;
 
 /**
@@ -261,7 +261,7 @@ export class Clock extends ResponsiveElement {
   * Size of the clock.
   */
   @property({ type: String, attribute: 'size', reflect: true })
-  private size = '';
+  private size:null | 'small' = null;
 
   /**
    * Get the display time in seconds.
@@ -570,7 +570,7 @@ export class Clock extends ResponsiveElement {
    * @returns {void}
    */
   public resizedCallback (size: ElementSize): void {
-    this.size = Math.min(size.width, size.height) > SMALL_SIZE ? '' : 'small';
+    this.size = Math.min(size.width, size.height) >= SMALL_SIZE ? null : 'small';
   }
 
   /**
@@ -627,13 +627,10 @@ export class Clock extends ResponsiveElement {
     const secAngle = 6 * this.displaySeconds;
     const minAngle = this.showSeconds ? Number((6 * (this.displayMinutes + (1 / 60) * this.displaySeconds)).toFixed(2)) : 6 * this.displayMinutes;
     const hourAngle = Number((30 * (this.displayHours24 + (1 / 60) * this.displayMinutes)).toFixed(2));
-    const isSmallSize = this.size === 'small';
-    !isSmallSize ? this.removeAttribute('size') : undefined;
-    
+
     return html`
       <div part="hands">
-        ${!isSmallSize ? html`<div part="digital">${this.digitalClockTemplate}</div>` : undefined}
-        ${isSmallSize ? html`${this.amPm ? this.amPmTemplate : undefined}` : undefined}
+        ${this.size === 'small' ? html`${this.amPm ? this.amPmTemplate : undefined}` : html`<div part="digital">${this.digitalClockTemplate}</div>`}
         <div part="hand hour" style="transform: rotate(${hourAngle}deg)"></div>
         <div part="hand minute" style="transform: rotate(${minAngle}deg)"></div>
         ${this.showSeconds ? html`<div part="hand second" style="transform: rotate(${secAngle}deg)"></div>` : undefined}
