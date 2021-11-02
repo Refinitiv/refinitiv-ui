@@ -1,1 +1,1 @@
-export { live } from 'lit/directives/live.js';
+export * from 'lit/directives/live.js';
