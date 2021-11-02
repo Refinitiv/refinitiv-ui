@@ -1,1 +1,1 @@
-export { cache } from 'lit/directives/cache.js';
+export * from 'lit/directives/cache.js';

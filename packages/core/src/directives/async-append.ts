@@ -1,1 +1,1 @@
-export { asyncAppend } from 'lit/directives/async-append.js';
+export * from 'lit/directives/async-append.js';

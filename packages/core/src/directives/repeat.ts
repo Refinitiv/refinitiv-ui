@@ -1,1 +1,1 @@
-export { repeat } from 'lit/directives/repeat.js';
+export * from 'lit/directives/repeat.js';
