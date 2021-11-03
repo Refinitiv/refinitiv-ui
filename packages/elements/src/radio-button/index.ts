@@ -50,6 +50,8 @@ export class RadioButton extends ControlElement {
     return VERSION;
   }
 
+  protected readonly defaultRole = 'radio';
+
   /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
@@ -81,11 +83,33 @@ export class RadioButton extends ControlElement {
     `;
   }
 
+  private _checked = false;
+
   /**
    * Radio button checked state
+   * @param value checked state
+   * @returns {void}
    */
   @property({ type: Boolean, reflect: true })
-  public checked = false;
+  public set checked (value: boolean) {
+    const oldValue = this._checked;
+    if (oldValue !== value) {
+      this._checked = value;
+
+      this.ariaChecked = String(value);
+      void this.requestUpdate('checked', oldValue);
+    }
+  }
+  public get checked (): boolean {
+    return this._checked;
+  }
+
+  /**
+   * Aria indicating checked state
+   * @ignore
+   */
+  @property({ type: String, reflect: true, attribute: 'aria-checked' })
+  public ariaChecked = String(this.checked);
 
   /**
    * Getter for label
@@ -119,7 +143,7 @@ export class RadioButton extends ControlElement {
    */
   protected update (changedProperties: PropertyValues): void {
     if (this.isConnected && this.hasUpdated && changedProperties.has('name')) {
-      applyRegistry(this);
+      applyRegistry(this, changedProperties.get('name') as string);
     }
 
     // Ensure only one radio button is checked
@@ -149,8 +173,13 @@ export class RadioButton extends ControlElement {
    */
   private manageGroupState (): void {
     if (this.checked && this.name) {
+      // restore tab index when checked
+      this.tabIndex = 0;
+
       getRadioGroup(this).filter(radio => radio !== this).forEach(radio => {
-        radio.checked = false; // unchecking the rest of the group members
+        // uncheck and hide the rest of the group members from focusability
+        radio.checked = false;
+        radio.tabIndex = -1;
       });
     }
   }
@@ -174,15 +203,25 @@ export class RadioButton extends ControlElement {
    * @returns {void}
    */
   private onKeyDown (event: KeyboardEvent): void {
-    if (this.disabled || this.readonly || event.defaultPrevented) {
+    if (this.disabled || event.defaultPrevented) {
       return;
     }
-
     switch (event.key) {
       case 'Enter':
       case ' ':
       case 'Spacebar':
+        if (this.readonly) {
+          return;
+        }
         this.handleChangeChecked();
+        break;
+      case 'ArrowRight':
+      case 'ArrowDown':
+        this.navigateToSibling('next');
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        this.navigateToSibling('previous');
         break;
       default:
         return;
@@ -202,6 +241,40 @@ export class RadioButton extends ControlElement {
       this.checked = true;
       this.notifyPropertyChange('checked', this.checked);
     }
+  }
+
+  /**
+   * Navigate to next or previous checkable sibling in the same group if present
+   * @param direction up/next; down/previous
+   * @returns {void}
+   */
+  private navigateToSibling (direction: 'next' | 'previous'): void {
+    if (!this.name) {
+      return;
+    }
+
+    const group = getRadioGroup(this).filter(radio => !radio.disabled);
+    const index = group.indexOf(this);
+
+    let element;
+
+    if (direction === 'next') {
+      element = index === -1 ? group[0] : group[index + 1];
+    }
+    else {
+      element = index === -1 ? group[group.length - 1] : group[index - 1];
+    }
+
+    if (!element) {
+      element = direction === 'next' ? group[0] : group[group.length - 1];
+    }
+
+    if (!element.readonly) {
+      this.checked = false;
+      element.checked = true;
+    }
+
+    element.focus();
   }
 
   /**
