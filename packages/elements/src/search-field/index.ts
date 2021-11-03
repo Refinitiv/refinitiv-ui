@@ -155,6 +155,7 @@ export class SearchField extends ControlElement {
       <input
         type="search"
         part="input"
+        inputmode="search"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         placeholder="${ifDefined(this.placeholder || undefined)}"
@@ -166,8 +167,10 @@ export class SearchField extends ControlElement {
         autocomplete="off"
       />
       <ef-icon
+        role="${ifDefined(this.iconHasAction ? 'button' : undefined)}"
         part="icon"
         icon="search"
+        aria-label="${ifDefined(this.iconHasAction ? 'Search button, tap Enter to perform search' : undefined)}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         @tap="${this.notifyIcon}"
