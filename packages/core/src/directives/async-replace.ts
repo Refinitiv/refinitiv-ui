@@ -1,1 +1,1 @@
-export { asyncReplace } from 'lit/directives/async-replace.js';
+export * from 'lit/directives/async-replace.js';

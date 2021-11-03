@@ -5,5 +5,6 @@ export * from './collection.js';
 export * from './event.js';
 export * from './is-slot-empty.js';
 export * from './loader.js';
+export * from './grid.js';
 export * from './date.js';
 export * from './uuid.js';
