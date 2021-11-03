@@ -101,10 +101,10 @@ export class TextField extends ControlElement {
   public error = false;
 
   /**
-   * Error message
+   * A describe message for the field
    */
   @property({ type: String })
-  private errorMessage = '';
+  private description = '';
 
   /**
    * Set state to warning
@@ -262,7 +262,7 @@ export class TextField extends ControlElement {
         part="input"
         aria-label="${ifDefined(this.ariaLabel || undefined)}"
         aria-invalid="${ifDefined(this.error || undefined)}"
-        aria-description="${ifDefined(this.error && this.errorMessage || undefined)}"
+        aria-description="${ifDefined(this.description || undefined)}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         placeholder="${ifDefined(this.placeholder || undefined)}"
@@ -302,21 +302,7 @@ export class TextField extends ControlElement {
       this.error = error;
       this.notifyPropertyChange('error', this.error);
 
-      if (!this.hasAttribute('aria-describedby')) {
-        return;
-      }
-
-      const id = this.getAttribute('aria-describedby');
-      if (!id) {
-        return;
-      }
-
-      const errorMessage = document.getElementById(id);
-      if (!errorMessage) {
-        return;
-      }
-      
-      this.errorMessage = errorMessage.textContent || '';
+      this.queryFieldDescription();
     }
   }
 
@@ -365,6 +351,16 @@ export class TextField extends ControlElement {
    * @returns {void}
    */
   private onFocus (): void {
+    this.queryFieldLabel();
+    this.queryFieldDescription();
+  }
+
+  /**
+   * query field's label from host to native input
+   * to support accessibility
+   * @returns {void}
+   */
+  private queryFieldLabel (): void {
     if (this.hasAttribute('aria-label')) {
       this.ariaLabel = this.getAttribute('aria-label') || '';
     }
@@ -375,9 +371,10 @@ export class TextField extends ControlElement {
       }
 
       const labelElement = document.getElementById(id);
-      if (labelElement) {
-        this.ariaLabel = labelElement.textContent || '';
+      if (!labelElement) {
+        return;
       }
+      this.ariaLabel = labelElement.textContent || '';
     }
     else if (this.id) {
       const labelForElement = document.querySelector(`[for="${this.id}"]`);
@@ -387,5 +384,35 @@ export class TextField extends ControlElement {
       
       this.ariaLabel = labelForElement.textContent || '';
     }
+  }
+
+  /**
+   * query field's description from host to native input
+   * to support accessibility
+   * @returns {void}
+   */
+  private queryFieldDescription (): void {
+    if (!this.hasAttribute('aria-describedby')) {
+      return;
+    }
+
+    this.description = '';
+    const ids = this.getAttribute('aria-describedby');
+    if (!ids) {
+      return;
+    }
+    const elementIds = ids.split(' ');
+    elementIds.forEach(id => {
+      const element = document.getElementById(id);
+      if (!element) {
+        return;
+      }
+
+      const text = element.textContent || '';
+      if (this.description && text) {
+        this.description += ' ';
+      }
+      this.description += text;
+    });
   }
 }
