@@ -60,6 +60,16 @@ describe('clock/Analogue', () => {
     });
 
     it('Small size clock show AM/PM if it has attribute "am-pm"', async () => {
+      el.style.width = '129px';
+      await elementUpdated(el);
+      await nextFrame();
+      
+      // test default behavior
+      expect(el.hasAttribute('am-pm')).to.be.equal(false);
+      expect(el.amPm).to.be.equal(false);
+      expect(el.shadowRoot.querySelector('[part="segment am-pm"]')).to.be.null;
+      
+      // test when it has am-pm attribute
       el = await fixture('<ef-clock analog am-pm></ef-clock>');
       el.style.width = '129px';
       await elementUpdated(el);
@@ -67,6 +77,12 @@ describe('clock/Analogue', () => {
       
       expect(el.amPm, 'amPm property should be true if am-pm attribute is set').to.be.equal(true);
       expect(el.shadowRoot.querySelector('[part="segment am-pm"]'), 'AM/PM should display on clock').not.to.be.null;
+
+      // test when am-pm is set programmatically
+      el.amPm = false;
+      await elementUpdated(el);
+      await nextFrame();
+      expect(el.shadowRoot.querySelector('[part="segment am-pm"]'), 'AM/PM should be hidden if set amPm to false').to.be.null;
     });
 
     it('Attribute "size=small" should not present if it is not analogue clock', async () => {
