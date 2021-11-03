@@ -132,7 +132,6 @@ export class Button extends ControlElement {
     this.addEventListener('tap', this.toggleActive);
     this.addEventListener('tapstart', this.setPressed);
     this.addEventListener('tapend', this.unsetPressed);
-    this.addEventListener('keyup', this.onKeyUpHandler);
 
     this.emptyComputed();
     registerOverflowTooltip(this.labelElement, () => this.textContent);
@@ -144,29 +143,6 @@ export class Button extends ControlElement {
    */
   private onDefaultSlotChangeHandler (): void {
     this.emptyComputed();
-  }
-
-  /**
-   * Handle keydown event
-   * @param event the keyboard event
-   * @returns {void}
-   */
-  private onKeyUpHandler (event: KeyboardEvent) {
-    if (this.isReturnOrSpaceKey(event.key)) {
-      this.click();
-    }
-  }
-
-  /**
-   * Check key names
-   * @param key the keyboard key
-   * @returns true if space or enter pressed
-   */
-  private isReturnOrSpaceKey (key: string): boolean {
-    return key === ' '
-      || key === 'Spacebar'
-      || key === 'Enter'
-      || key === 'Return';
   }
 
   /**

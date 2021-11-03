@@ -139,7 +139,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
       return emptyTemplate;
     }
 
-    return html`<ef-icon part="label-icon" src="${this.icon}"></ef-icon>`;
+    return html`<ef-icon part="label-icon" icon="${this.icon}"></ef-icon>`;
   }
 
   /**
