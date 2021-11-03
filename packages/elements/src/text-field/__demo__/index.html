@@ -11,7 +11,37 @@
   import '@refinitiv-ui/elements/text-field';
   import '@refinitiv-ui/demo-block';
 </script>
-
+<demo-block header="A11y" layout="normal" tags="accessibility">
+  <p>
+    <label>Text Field 1</label>
+    <ef-text-field aria-label="Text Field 1"></ef-text-field>
+  </p>
+  <p>
+    <label id="text2">Text Field 2</label>
+    <ef-text-field aria-labelledby="text2"></ef-text-field>
+  </p>
+  <p>
+    <label for="text3">Text Field 3</label>
+    <ef-text-field id="text3"></ef-text-field>
+  </p>
+  <p>
+    <label for="text4">Text Field 4</label>
+    <coral-text-field id="text4" pattern="[a-z]{4,8}" aria-describedby="error-text"></coral-text-field>
+    <p id="error-text"></p>
+    <script>
+      var element = document.getElementById('text4');
+      var errorChangedText = document.getElementById('error-text');
+      element.addEventListener('error-changed', function (e) {
+        if (e.detail.value) {
+          errorChangedText.innerHTML = 'Nickname must be lowercase letters and 4-8 characters.';
+        }
+        else {
+          errorChangedText.innerHTML = '';
+        }
+      });
+    </script>
+  </p>
+</demo-block>
 <!-- DEFAULT -->
 <demo-block header="Default" layout="normal" tags="default">
   <p>

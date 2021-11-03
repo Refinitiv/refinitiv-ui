@@ -101,6 +101,12 @@ export class TextField extends ControlElement {
   public error = false;
 
   /**
+   * Error message
+   */
+  @property({ type: String })
+  private errorMessage = '';
+
+  /**
    * Set state to warning
    */
   @property({ type: Boolean, reflect: true })
@@ -196,6 +202,7 @@ export class TextField extends ControlElement {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     registerOverflowTooltip(this.inputElement, () => this.value);
+    this.addEventListener('focus', this.onFocus);
   }
 
   /**
@@ -253,6 +260,9 @@ export class TextField extends ControlElement {
       <input
         type="text"
         part="input"
+        aria-label="${ifDefined(this.ariaLabel || undefined)}"
+        aria-invalid="${ifDefined(this.error || undefined)}"
+        aria-description="${ifDefined(this.error && this.errorMessage || undefined)}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         placeholder="${ifDefined(this.placeholder || undefined)}"
@@ -291,6 +301,22 @@ export class TextField extends ControlElement {
     if (this.error !== error) {
       this.error = error;
       this.notifyPropertyChange('error', this.error);
+
+      if (!this.hasAttribute('aria-describedby')) {
+        return;
+      }
+
+      const id = this.getAttribute('aria-describedby');
+      if (!id) {
+        return;
+      }
+
+      const errorMessage = document.getElementById(id);
+      if (!errorMessage) {
+        return;
+      }
+      
+      this.errorMessage = errorMessage.textContent || '';
     }
   }
 
@@ -331,6 +357,35 @@ export class TextField extends ControlElement {
        * Dispatched only when element has icon-has-action attribute and icon is clicked
        */
       this.dispatchEvent(new CustomEvent('icon-click', { bubbles: false }));
+    }
+  }
+
+  /**
+   * Handles the focus event
+   * @returns {void}
+   */
+  private onFocus (): void {
+    if (this.hasAttribute('aria-label')) {
+      this.ariaLabel = this.getAttribute('aria-label') || '';
+    }
+    else if (this.hasAttribute('aria-labelledby')) {
+      const id = this.getAttribute('aria-labelledby');
+      if (!id) {
+        return;
+      }
+
+      const labelElement = document.getElementById(id);
+      if (labelElement) {
+        this.ariaLabel = labelElement.textContent || '';
+      }
+    }
+    else if (this.id) {
+      const labelForElement = document.querySelector(`[for="${this.id}"]`);
+      if (!labelForElement) {
+        return;
+      }
+      
+      this.ariaLabel = labelForElement.textContent || '';
     }
   }
 }
