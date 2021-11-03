@@ -1,3 +1,13 @@
+// mixin to allow inherited themes able to customize color of svg
+.default-analog-svg(@color) {
+  background: inline-svg('../resources/images/clock/default.svg', 'svg', 'color: @{color}') no-repeat center center;
+}
+
+.small-analog-svg(@color) {
+  background: inline-svg('../resources/images/clock/small.svg', 'svg', 'color: @{color}') no-repeat center center / cover;
+}
+//
+
 :host {
   font-size: 2.5em;
   user-select: none;
@@ -18,8 +28,9 @@
   }
 
   [part~='am-pm'] {
-    font-size: 35%;
-    line-height: 2em;
+    font-size: 60%;
+    line-height: 1.5em;
+    padding-left: 3px;
   }
 
   [part='increment-button'], [part='decrement-button'] {
@@ -73,64 +84,108 @@
 
   // Analogue clock
   &[analogue] {
-    min-width: 160px;
+    border-radius: 100%;
+    width: 160px;
     max-width: 200px;
-    background: inline-svg('../resources/images/clock/default.svg', 'svg', 'color: @{global-text-color}') no-repeat center center;
-  }
+    .default-analog-svg(@global-text-color);
 
-  [part~="hand"]::after {
-    content: '';
-    position: absolute;
-  }
+    [part=digital] {
+      display: flex;
+      position: absolute;
+      top: 20%;
+      left: 0;
+      right: 0;
+      justify-content: center;
+      font-size: 0.3em;
+      [part~='am-pm'] {
+        font-size: 100%;
+        line-height: 1;
+      }
+    }
 
-  [part~="second"] {
-    &::after {
-      width: 1%;
+    [part=hands]::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      width: 9%;
+      height: 9%;
+      top: 45.5%;
+      left: 45.5%;
+      border: 2px solid @scheme-color-complementary;
+      box-sizing: border-box;
+      z-index: 1;
+    }
+
+    [part~="hand"]::after {
+      content: '';
+      position: absolute;
+    }
+
+    [part~="second"] {
+      &::after {
+        width: 1%;
+        height: 43%;
+        margin-top: 3%;
+        margin-left: 49.5%;
+        background-color: @scheme-color-primary;
+      }
+    }
+
+    [part~="minute"]::after {
+      width: 3%;
       height: 43%;
       margin-top: 3%;
-      margin-left: 49.5%;
-      background-color: @scheme-color-primary;
+      margin-left: 48.5%;
+      background-color: @scheme-color-complementary;
     }
-  }
 
-  [part~="minute"]::after {
-    width: 3%;
-    height: 43%;
-    margin-top: 3%;
-    margin-left: 48.5%;
-    background-color: @scheme-color-complementary;
-  }
-
-  [part~="hour"] {
-    &::after {
+    [part~="hour"]::after {
       width: 3%;
       height: 28%;
       margin-top: 18%;
       margin-left: 48.5%;
       background-color: @scheme-color-complementary;
     }
+
+    &[size="small"] {
+      font-size: 10px;
+      min-width: 50px;
+      .small-analog-svg(@global-text-color);
+      [part=hands]::after {
+        background-color: @scheme-color-complementary;
+      }
+
+      [part~="second"] {
+        &::after {
+          width: 1.5%;
+          height: 32%;
+          margin-top: 16%;
+        }
+      }
+
+      [part~="minute"]::after {
+        height: 37%;
+        margin-top: 12%;
+      }
+
+      [part~="hour"] {
+        &::after {
+          height: 26%;
+          margin-top: 23%;
+        }
+      }
+      
+      [part~='am-pm'] {
+        padding-left: 0;
+        display: flex;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 15%;
+        font-size: 100%;
+        justify-content: center;
+      }
+    }
   }
 
-  [part=digital] {
-    display: flex;
-    position: absolute;
-    top: 20%;
-    left: 0;
-    right: 0;
-    justify-content: center;
-    font-size: 0.4em;
-  }
-
-  [part=hands]::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    width: 9%;
-    height: 9%;
-    top: 45.5%;
-    left: 45.5%;
-    border: 2px solid @scheme-color-complementary;
-    box-sizing: border-box;
-    z-index: 1;
-  }
 }
