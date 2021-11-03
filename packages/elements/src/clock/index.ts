@@ -570,7 +570,7 @@ export class Clock extends ResponsiveElement {
    * @returns {void}
    */
   public resizedCallback (size: ElementSize): void {
-    if(this.analogue) {
+    if(this.analogue) { // Prevent digital clock from adding attribute `size`.
       this.size = Math.min(size.width, size.height) >= SMALL_SIZE ? null : 'small';
     }
   }

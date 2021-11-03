@@ -22,11 +22,11 @@ describe('clock/Clock', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure of small size analogue is correct', async () => {
-      el = await fixture('<ef-clock analogue ></ef-clock>');
+      el = await fixture('<ef-clock analogue></ef-clock>');
       el.style.width = '129px';
       await elementUpdated(el);
       await nextFrame();
-      
+
       expect(el).shadowDom.to.equalSnapshot();
     });
   });
