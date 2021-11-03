@@ -1,5 +1,5 @@
 import { CdnLoader, Deferred } from '@refinitiv-ui/utils/lib/loader.js';
-const isUrl = (str: string): boolean => (/^https?:\/\//i).test(str);
+const isUrl = (str: string): boolean => (/^(https?:\/{2}|\.?\/)/i).test(str);
 
 /**
  * Caches and provides icon SVGs, Loaded either by name from CDN or directly by URL.
@@ -54,27 +54,34 @@ class IconLoader extends CdnLoader {
    * @returns Promise, which will be resolved with complete source.
    */
   public async getSrc (iconName: string): Promise<string> {
+    if (isUrl(iconName)) {
+      return iconName;
+    }
     return iconName ? `${await this.getCdnPrefix()}${iconName}.svg` : '';
   }
 
+  /**
+   * Loads icon and returns the body of the SVG
+   * @param icon Icon name to load
+   * @returns SVG body of the response
+   */
   public async loadSVG (icon: string): Promise<string | undefined> {
-    if (icon) {
-      if (!isUrl(icon)) {
-        icon = await this.getSrc(icon);
-      }
-      const response = await this.load(icon);
-      if (response && response.status === 200 && response.getResponseHeader('content-type') === 'image/svg+xml') {
-        const container = document.createElement('svg');
-        container.innerHTML = response.responseText;
-        this.stripUnsafeNodes(...container.children);
-        const svgRoot = container.firstElementChild as SVGElement | null;
-        if (svgRoot) {
-          svgRoot.setAttribute('focusable', 'false'); /* disable IE11 focus on SVG root element */
-        }
-        return Promise.resolve(container.innerHTML);
-      }
-      return Promise.resolve('');
+    if (!icon) {
+      return;
     }
+    icon = await this.getSrc(icon);
+    const response = await this.load(icon);
+    if (response && response.status === 200 && response.getResponseHeader('content-type') === 'image/svg+xml') {
+      const container = document.createElement('svg');
+      container.innerHTML = response.responseText;
+      this.stripUnsafeNodes(...container.children);
+      const svgRoot = container.firstElementChild as SVGElement | null;
+      if (svgRoot) {
+        svgRoot.setAttribute('focusable', 'false'); /* disable IE11 focus on SVG root element */
+      }
+      return container.innerHTML;
+    }
+    return '';
   }
 }
 

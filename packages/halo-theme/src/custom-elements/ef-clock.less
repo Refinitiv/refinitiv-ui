@@ -1,1 +1,12 @@
 @import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-clock';
+
+:host {
+  [part~='seconds'] {
+    color: @color-grey;
+  }
+
+  &[analogue] {
+    color: @color-grey;
+    .default-analog-svg(@color-grey);
+  }
+}
