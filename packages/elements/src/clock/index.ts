@@ -570,7 +570,9 @@ export class Clock extends ResponsiveElement {
    * @returns {void}
    */
   public resizedCallback (size: ElementSize): void {
-    this.size = Math.min(size.width, size.height) >= SMALL_SIZE ? null : 'small';
+    if(this.analogue) {
+      this.size = Math.min(size.width, size.height) >= SMALL_SIZE ? null : 'small';
+    }
   }
 
   /**
