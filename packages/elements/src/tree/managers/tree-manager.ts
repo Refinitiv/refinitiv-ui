@@ -108,8 +108,7 @@ export class TreeManager<T extends TreeDataItem> {
    */
   private getVisibleItems (items: readonly T[], result: T[] = []): T[] {
     for (const item of items) {
-      if (this.isItemVisible(item)) {
-        result.push(item);
+      if (!this.isItemHidden(item) && result.push(item) && this.isItemExpanded(item)) {
         const children = this.getItemChildren(item);
         children.length && this.getVisibleItems(children, result);
       }
@@ -124,17 +123,6 @@ export class TreeManager<T extends TreeDataItem> {
    */
   private isItemHidden (item: T): boolean {
     return this.composer.getItemPropertyValue(item, 'hidden') === true;
-  }
-
-  /**
-   * Is the item visible?
-   * @param item Original data item
-   * @returns `True` if the item is visible
-   */
-  private isItemVisible (item: T): boolean {
-    return !this.isItemHidden(item)
-      && !this.composer.getItemAncestors(item)
-      .some(ancestor => !this.isItemExpanded(ancestor));
   }
 
   /**
