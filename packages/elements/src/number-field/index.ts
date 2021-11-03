@@ -770,6 +770,7 @@ export class NumberField extends ControlElement {
   protected render (): TemplateResult {
     return html`
       <input
+        role="spinbutton"
         part="input"
         type="text"
         inputmode="decimal"
