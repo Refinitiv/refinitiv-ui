@@ -260,6 +260,7 @@ export class EmailField extends ControlElement {
   private renderIcon (): TemplateResult | null {
     return this.icon ? html`
     <ef-icon
+        role="${ifDefined(this.iconHasAction ? 'button' : undefined)}"
         part="icon"
         icon="${this.icon}"
         ?readonly="${this.readonly}"
@@ -281,6 +282,7 @@ export class EmailField extends ControlElement {
       <input
         type="email"
         part="input"
+        inputmode="email"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         placeholder="${ifDefined(this.placeholder || undefined)}"
