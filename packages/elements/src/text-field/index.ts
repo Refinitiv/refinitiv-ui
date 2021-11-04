@@ -107,6 +107,12 @@ export class TextField extends ControlElement {
   private ariaDescription = '';
 
   /**
+   * A label of the field
+   */
+  @property({ type: String })
+  public ariaLabel = '';
+
+  /**
    * Set state to warning
    */
   @property({ type: Boolean, reflect: true })
