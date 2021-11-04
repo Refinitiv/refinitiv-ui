@@ -245,7 +245,7 @@ export class TextField extends ControlElement {
   private renderIcon (): TemplateResult | null {
     return this.icon ? html`
     <ef-icon
-        role="button"
+        role="${ifDefined(this.iconHasAction ? 'button' : undefined)}"
         part="icon"
         icon="${this.icon}"
         aria-label="${ifDefined(this.iconHasAction ? this.icon : undefined)}"
@@ -365,7 +365,7 @@ export class TextField extends ControlElement {
 
   /**
    * query field's label from host to native input
-   * to support accessibility
+   * to support aria label when using screen reader
    * @returns {void}
    */
   private queryFieldLabel (): void {
@@ -385,7 +385,7 @@ export class TextField extends ControlElement {
       this.ariaLabel = labelElement.textContent || '';
     }
     else if (this.id) {
-      const labelForElement = document.querySelector(`[for="${this.id}"]`);
+      const labelForElement = document.querySelector(`label[for="${this.id}"]`);
       if (!labelForElement) {
         return;
       }
@@ -396,11 +396,19 @@ export class TextField extends ControlElement {
 
   /**
    * query field's description from host to native input
-   * to support accessibility
+   * to support aria description when using screen reader
    * @returns {void}
    */
   private queryFieldDescription (): void {
     if (!this.hasAttribute('aria-describedby')) {
+
+      // Support `aria-description` only if `aria-describedby` is not in use.
+      if (!this.hasAttribute('aria-description')) {
+        return;
+      }
+
+      this.ariaDescription = this.getAttribute('aria-description') || '';
+
       return;
     }
 

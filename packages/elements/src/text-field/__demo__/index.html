@@ -212,28 +212,27 @@
 <demo-block header="Accessibility" layout="normal" tags="accessibility">
   <p>
     <label>Text Field 1</label>
-    <ef-text-field aria-label="Text Field 1"></ef-text-field>
+    <ef-text-field aria-label="Text Field 1" aria-description="This field is using aria label"></ef-text-field>
   </p>
   <p>
     <label id="text2">Text Field 2</label>
-    <ef-text-field aria-labelledby="text2"></ef-text-field>
+    <ef-text-field aria-labelledby="text2" aria-description="This field is using aria labelled by"></ef-text-field>
   </p>
   <p>
     <label for="text3">Text Field 3</label>
-    <ef-text-field id="text3"></ef-text-field>
+    <ef-text-field id="text3" aria-description="This field is using label for and id"></ef-text-field>
   </p>
   <p>
-    
-    <label for="text4">Nickname</label>
-    <coral-text-field id="text4" pattern="[a-z]{4,8}" aria-describedby="help-text error-text"></coral-text-field>
-    <p id="help-text" hidden>Please fill you nickname.</p>
-    <p style="color:red" id="error-text"></p>
+    <label for="text4">Text Field 4</label>
+    <ef-text-field id="text4" pattern="[a-z]{4,8}" aria-describedby="help-text error-text"></ef-text-field><br>
+    <span id="help-text" hidden>This is field's description.</span>
+    <span style="color:red" id="error-text"></span>
     <script>
       var element = document.getElementById('text4');
       var errorChangedText = document.getElementById('error-text');
       element.addEventListener('error-changed', function (e) {
         if (e.detail.value) {
-          errorChangedText.innerHTML = 'Nickname must be lowercase letters and 4-8 characters.';
+          errorChangedText.innerHTML = 'Field must be lowercase letters and 4-8 characters.';
         }
         else {
           errorChangedText.innerHTML = '';
