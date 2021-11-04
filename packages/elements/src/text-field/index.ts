@@ -104,7 +104,7 @@ export class TextField extends ControlElement {
    * A describe message for the field
    */
   @property({ type: String })
-  private description = '';
+  private ariaDescription = '';
 
   /**
    * Set state to warning
@@ -239,8 +239,10 @@ export class TextField extends ControlElement {
   private renderIcon (): TemplateResult | null {
     return this.icon ? html`
     <ef-icon
+        role="button"
         part="icon"
         icon="${this.icon}"
+        aria-label="${ifDefined(this.iconHasAction ? this.icon : undefined)}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         @tap="${this.iconClick}"
@@ -262,7 +264,7 @@ export class TextField extends ControlElement {
         part="input"
         aria-label="${ifDefined(this.ariaLabel || undefined)}"
         aria-invalid="${ifDefined(this.error || undefined)}"
-        aria-description="${ifDefined(this.description || undefined)}"
+        aria-description="${ifDefined(this.ariaDescription || undefined)}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         placeholder="${ifDefined(this.placeholder || undefined)}"
@@ -396,7 +398,7 @@ export class TextField extends ControlElement {
       return;
     }
 
-    this.description = '';
+    this.ariaDescription = '';
     const ids = this.getAttribute('aria-describedby');
     if (!ids) {
       return;
@@ -409,10 +411,11 @@ export class TextField extends ControlElement {
       }
 
       const text = element.textContent || '';
-      if (this.description && text) {
-        this.description += ' ';
+      if (this.ariaDescription && text) {
+        this.ariaDescription += ' ';
       }
-      this.description += text;
+      
+      this.ariaDescription += text;
     });
   }
 }
