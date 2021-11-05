@@ -15,9 +15,6 @@ import '@formatjs/intl-locale/polyfill.iife';
 import '@formatjs/intl-getcanonicallocales/polyfill.iife';
 import '@formatjs/intl-pluralrules/polyfill.iife';
 import '@formatjs/intl-pluralrules/locale-data/en';
-import '@formatjs/intl-pluralrules/locale-data/zh';
-import '@formatjs/intl-pluralrules/locale-data/de';
-import '@formatjs/intl-pluralrules/locale-data/ja';
 
 import '@refinitiv-ui/elements/pagination';
 import '@refinitiv-ui/elemental-theme/light/ef-pagination';
