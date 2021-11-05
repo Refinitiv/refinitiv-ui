@@ -358,27 +358,6 @@ describe('text-field/TextField', () => {
       expect(clickCount).to.equal(1, 'Icon should be clickable');
     });
 
-    xit('icon-click event is fired when icon-has-action and `Enter` is pressed', async () => {
-      const el = await fixture('<ef-text-field icon="menu" icon-has-action></ef-text-field>');
-      const icon = el.shadowRoot.querySelector('[part=icon]');
-
-      let clickCount = 0;
-
-      el.addEventListener('icon-click', () => {
-        clickCount += 1;
-      });
-
-
-      const keyDownEvent = keyboardEvent('keydown', { key: 'Enter' });
-      icon.dispatchEvent(keyDownEvent);
-      const keyUpEvent = keyboardEvent('keyup', { key: 'Enter' });
-      icon.dispatchEvent(keyUpEvent);
-
-      await nextFrame();
-
-      expect(clickCount).to.equal(1, 'icon-click should be fired with `enter` keydown');
-    });
-
     it('icon-click with icon-has-action and press `tab` should not fire event', async () => {
       const el = await fixture('<ef-text-field icon="menu" icon-has-action></ef-text-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');

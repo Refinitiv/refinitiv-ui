@@ -330,18 +330,10 @@ export class TextField extends ControlElement {
   }
 
   /**
-   * Process internal icon click and fire `icon-click` event
-   * @returns void
-   */
-  private iconClick (): void {
-    this.notifyIcon();
-  }
-
-  /**
    * Fires event on `icon` click
    * @returns {void}
    */
-  private notifyIcon (): void {
+  private iconClick (): void {
     if (this.iconHasAction) {
       /**
        * Dispatched only when element has icon-has-action attribute and icon is clicked
@@ -381,7 +373,7 @@ export class TextField extends ControlElement {
         if (this.ariaLabel && label) {
           this.ariaLabel += ' ';
         }
-        
+
         this.ariaLabel += label;
       });
     }
@@ -412,7 +404,6 @@ export class TextField extends ControlElement {
       }
 
       this.ariaDescription = this.getAttribute('aria-description') || '';
-
       return;
     }
 
