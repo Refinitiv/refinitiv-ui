@@ -358,7 +358,7 @@ describe('text-field/TextField', () => {
       expect(clickCount).to.equal(1, 'Icon should be clickable');
     });
 
-    it('icon-click with icon-has-action and press `enter`', async () => {
+    it('icon-click event is fired when icon-has-action and `Enter` is pressed', async () => {
       const el = await fixture('<ef-text-field icon="menu" icon-has-action></ef-text-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');
 
@@ -368,14 +368,15 @@ describe('text-field/TextField', () => {
         clickCount += 1;
       });
 
-      icon.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+
+      const keyDownEvent = keyboardEvent('keydown', { key: 'Enter' });
+      icon.dispatchEvent(keyDownEvent);
+      const keyUpEvent = keyboardEvent('keyup', { key: 'Enter' });
+      icon.dispatchEvent(keyUpEvent);
+
+      await nextFrame();
+
       expect(clickCount).to.equal(1, 'icon-click should be fired with `enter` keydown');
-
-      icon.dispatchEvent(keyboardEvent('keydown', { key: ' ' }));
-      expect(clickCount).to.equal(2, 'icon-click should be fired with ` ` keydown');
-
-      icon.dispatchEvent(keyboardEvent('keydown', { key: 'Spacebar' }));
-      expect(clickCount).to.equal(3, 'icon-click should be fired with `Spacebar` keydown');
     });
 
     it('icon-click with icon-has-action and press `tab` should not fire event', async () => {
@@ -533,7 +534,7 @@ describe('text-field/TextField', () => {
       const el = await fixture(`<ef-text-field id="txt" aria-labelledby="label sub-label"></ef-text-field>`);
       setTimeout(() => el.dispatchEvent(new Event('focus')));
       await oneEvent(el, 'focus');
-      
+
       const input = el.shadowRoot.querySelector('[part=input]');
       expect(input.getAttribute('aria-label')).to.be.equal(`${label.textContent} ${subLabel.textContent}`);
       expect(el).to.be.accessible();
@@ -544,7 +545,7 @@ describe('text-field/TextField', () => {
       const el = await fixture('<ef-text-field id="text"></ef-text-field>');
       setTimeout(() => el.dispatchEvent(new Event('focus')));
       await oneEvent(el, 'focus');
-      
+
       const input = el.shadowRoot.querySelector('[part=input]');
       expect(input.getAttribute('aria-label')).to.be.equal('Text Field');
       expect(el).to.be.accessible();
