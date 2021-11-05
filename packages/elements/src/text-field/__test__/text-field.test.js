@@ -358,7 +358,7 @@ describe('text-field/TextField', () => {
       expect(clickCount).to.equal(1, 'Icon should be clickable');
     });
 
-    it('icon-click event is fired when icon-has-action and `Enter` is pressed', async () => {
+    xit('icon-click event is fired when icon-has-action and `Enter` is pressed', async () => {
       const el = await fixture('<ef-text-field icon="menu" icon-has-action></ef-text-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');
 
