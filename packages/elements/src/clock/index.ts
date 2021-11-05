@@ -4,9 +4,10 @@ import {
   TemplateResult,
   CSSResultGroup,
   PropertyValues,
-  BasicElement,
   WarningNotice,
-  TapEvent
+  TapEvent,
+  ResponsiveElement,
+  ElementSize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
@@ -40,7 +41,7 @@ import {
 
 const UP = 'Up';
 const DOWN = 'Down';
-
+const SMALL_SIZE = 130; // Break point for small size clock face.
 type UpOrDown = typeof UP | typeof DOWN;
 
 /**
@@ -51,7 +52,7 @@ type UpOrDown = typeof UP | typeof DOWN;
 @customElement('ef-clock', {
   alias: 'sapphire-clock'
 })
-export class Clock extends BasicElement {
+export class Clock extends ResponsiveElement {
 
   /**
    * Element version number
@@ -255,6 +256,12 @@ export class Clock extends BasicElement {
   */
   @query('[part~=seconds]', true)
   private secondsPart!: HTMLDivElement;
+
+  /**
+  * Size of the clock.
+  */
+  @property({ type: String, attribute: 'size', reflect: true })
+  private size:null | 'small' = null;
 
   /**
    * Get the display time in seconds.
@@ -558,6 +565,16 @@ export class Clock extends BasicElement {
   }
 
   /**
+   * Called when the element's dimension have changed
+   * @param size Element size
+   * @returns {void}
+   */
+  public resizedCallback (size: ElementSize): void {
+    // size should be set to small only if it's analog clock and it's smaller than defined break point
+    this.size = this.analogue && Math.min(size.width, size.height) < SMALL_SIZE ? 'small' : null;
+  }
+
+  /**
    * Called when the element has been appended to the DOM
    * @returns {void}
    */
@@ -614,7 +631,7 @@ export class Clock extends BasicElement {
 
     return html`
       <div part="hands">
-        <div part="digital">${this.digitalClockTemplate}</div>
+        ${this.size === 'small' ? html`${this.amPm ? this.amPmTemplate : undefined}` : html`<div part="digital">${this.digitalClockTemplate}</div>`}
         <div part="hand hour" style="transform: rotate(${hourAngle}deg)"></div>
         <div part="hand minute" style="transform: rotate(${minAngle}deg)"></div>
         ${this.showSeconds ? html`<div part="hand second" style="transform: rotate(${secAngle}deg)"></div>` : undefined}
