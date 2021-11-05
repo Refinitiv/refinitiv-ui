@@ -22,7 +22,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-pagination';
 describe('pagination/Pagination', () => {
   describe('Snapshots', () => {
     it('DOM structure is correct', async () => {
-      const el = await fixture('<ef-pagination></ef-pagination>');
+      const el = await fixture('<ef-pagination lang="en-gb" lang="en-gb"></ef-pagination>');
       expect(el).shadowDom.to.equalSnapshot({
         ignoreAttributes: [{
           tags: ['ef-layout'], attributes: ['style', 'class']
@@ -35,11 +35,11 @@ describe('pagination/Pagination', () => {
     let el;
 
     beforeEach(async () => {
-      el = await fixture('<ef-pagination page-size="5" total-items="32"></ef-pagination>');
+      el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
     });
 
     it('Should have default value of page at 1, pageSize at 10, totalItems at 10', async () => {
-      el = await fixture('<ef-pagination></ef-pagination>');
+      el = await fixture('<ef-pagination lang="en-gb"></ef-pagination>');
       expect(el.page).to.equal('1');
       expect(el.pageSize).to.equal('10');
       expect(el.totalItems).to.equal('10');
@@ -133,7 +133,7 @@ describe('pagination/Pagination', () => {
     let lastButton;
 
     beforeEach(async () => {
-      el = await fixture('<ef-pagination page-size="5" total-items="32"></ef-pagination>');
+      el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
       inputPart = el.shadowRoot.querySelector('[part=input]');
       firstButton = el.shadowRoot.querySelector('#first');
       previousButton = el.shadowRoot.querySelector('#previous');
@@ -191,7 +191,7 @@ describe('pagination/Pagination', () => {
 
     beforeEach(async () => {
       el = await fixture(
-        '<ef-pagination page-size=5 total-items=32></ef-pagination>'
+        '<ef-pagination page-size=5 total-items=32 lang="en-gb"></ef-pagination>'
       );
       firstButton = el.shadowRoot.querySelector('#first');
       previousButton = el.shadowRoot.querySelector('#previous');
@@ -241,7 +241,7 @@ describe('pagination/Pagination', () => {
     let lastButton;
 
     beforeEach(async () => {
-      el = await fixture('<ef-pagination page-size="5" total-items="32"></ef-pagination>');
+      el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
 
       firstButton = el.shadowRoot.querySelector('#first');
       previousButton = el.shadowRoot.querySelector('#previous');
@@ -305,7 +305,7 @@ describe('pagination/Pagination', () => {
     let lastButton;
 
     beforeEach(async () => {
-      el = await fixture('<ef-pagination page-size="5" total-items="32"></ef-pagination>');
+      el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
       firstButton = el.shadowRoot.querySelector('#first');
       previousButton = el.shadowRoot.querySelector('#previous');
       nextButton = el.shadowRoot.querySelector('#next');
@@ -334,7 +334,7 @@ describe('pagination/Pagination', () => {
       expect(detail.value).to.equal('2');
     });
     it('Should not fire page-changed event when next button is click but the page is already at the maximum page', async () => {
-      let eventFired = null;
+      let eventFired;
       el.page = '7';
 
       setTimeout(() => nextButton.click());
@@ -360,7 +360,7 @@ describe('pagination/Pagination', () => {
       expect(detail.value).to.equal('3');
     });
     it('Should not fire page-changed event when previous button is click but the page is already at the minimum page', async () => {
-      let eventFired = null;
+      let eventFired;
       el.page = '1';
 
       setTimeout(() => previousButton.click());
@@ -387,7 +387,7 @@ describe('pagination/Pagination', () => {
     });
 
     it('Should not fire page-changed event when page changes through attribute', async () => {
-      let eventFired = null;
+      let eventFired;
       setTimeout(() => el.setAttribute('page', '2'));
 
       try {
@@ -401,7 +401,7 @@ describe('pagination/Pagination', () => {
       expect(eventFired).to.equal(false, 'Event must not be fired');
     });
     it('Should not fire page-changed event when page is changes through property', async () => {
-      let eventFired = null;
+      let eventFired;
       setTimeout(() => el.page = '2');
 
       try {
@@ -436,7 +436,7 @@ describe('pagination/Pagination', () => {
     let el;
 
     beforeEach(async () => {
-      el = await fixture('<ef-pagination page-size="5" total-items="15"></ef-pagination>');
+      el = await fixture('<ef-pagination page-size="5" total-items="15" lang="en-gb"></ef-pagination>');
     });
 
     it('Should navigate to first page when first() is called', async () => {
@@ -489,7 +489,7 @@ describe('pagination/Pagination', () => {
 
   describe('Responsive', () => {
     it('Should hide pagination info when the component width is smaller than provided responsive width', async () => {
-      const el = await fixture('<ef-pagination page-size="5" total-items="32"></ef-pagination>');
+      const el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
       const infoPart = el.shadowRoot.querySelector('[part=info]');
 
       el.style.width = '100px';
