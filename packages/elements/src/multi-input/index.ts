@@ -296,7 +296,6 @@ export class MultiInput extends ControlElement implements MultiValue {
     if (process) {
       this.composer.removeItem(item);
       this.requestUpdate();
-      this.focus(); /* keep focus on multi-input */
       return item;
     }
 
@@ -538,6 +537,7 @@ export class MultiInput extends ControlElement implements MultiValue {
     const items = this.composer.queryItems(() => true) as MultiInputData;
     const item = items[Number(index)];
     this.removeItem(item, true);
+    this.focus(); // keep focus on multi-input
   }
 
   /**
