@@ -1,9 +1,10 @@
 name: Test
 on:
-  pull_request:
-    branches: [develop]
+  push:
+    branches:
+      - improve-ci-pipeline-2
 jobs:
-  test-ubuntu:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -17,10 +18,159 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 15.x
-          cache: 'npm'
 
-      - run: npm ci --ignore-scripts --audit=false --fund=false
+      - name: Setup caching dependencies
+        uses: actions/cache@v2
+        id: cache-npm
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
-      - run: lerna run build --include-dependencies --since origin/develop...HEAD
+      - name: Install Dependencies
+        if: steps.cache-npm.outputs.cache-hit != 'true'
+        run: |
+          npm ci --ignore-scripts --audit=false --fund=false
 
-      - run: lerna run test --include-dependents --since origin/develop...HEAD
+      - name: Setup caching build
+        uses: actions/cache@v2
+        id: cache-build
+        with:
+          path: |
+            packages/*/lib
+            packages/*/light
+            packages/*/dark
+            packages/*/charcoal
+            packages/*/pearl
+          key: ${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-build-${{ github.sha }}
+
+      - name: Build changed packages
+        if: steps.cache-build.outputs.cache-hit != 'true'
+        run: |
+          lerna run build --include-dependencies --since origin/develop...HEAD
+
+
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15.x
+
+      - name: Setup caching dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Setup caching build
+        uses: actions/cache@v2
+        id: cache-build
+        with:
+          path: |
+            packages/*/lib
+            packages/*/light
+            packages/*/dark
+            packages/*/charcoal
+            packages/*/pearl
+          key: ${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-build-${{ github.sha }}
+
+      - run: lerna run lint --include-dependents --since origin/develop...HEAD
+
+  test-google-chrome:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15.x
+
+      - name: Setup caching dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Setup caching build
+        uses: actions/cache@v2
+        id: cache-build
+        with:
+          path: |
+            packages/*/lib
+            packages/*/light
+            packages/*/dark
+            packages/*/charcoal
+            packages/*/pearl
+          key: ${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-build-${{ github.sha }}
+
+      - run: lerna bootstrap
+      - run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers chrome
+
+  test-firefox:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15.x
+
+      - name: Setup caching dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Setup caching build
+        uses: actions/cache@v2
+        id: cache-build
+        with:
+          path: |
+            packages/*/lib
+            packages/*/light
+            packages/*/dark
+            packages/*/charcoal
+            packages/*/pearl
+          key: ${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-build-${{ github.sha }}
+
+      - run: lerna bootstrap
+      - run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers firefox --includeCoverage false
