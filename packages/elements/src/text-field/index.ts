@@ -101,13 +101,22 @@ export class TextField extends ControlElement {
   public error = false;
 
   /**
-   * A describe message for the field
+   * Aria indicating if the field is required
+   * @ignore
    */
-  @property({ type: String })
-  private ariaDescription = '';
+  @property({ type: String, attribute: 'aria-required' })
+  public ariaRequired = 'false';
 
   /**
-   * A label of the field
+   * Aria description used to describe input or error to screen reader
+   * @ignore
+   */
+  @property({ type: String })
+  public ariaDescription = '';
+
+  /**
+   * Aria label used to label input to screen reader
+   * @ignore
    */
   @property({ type: String })
   public ariaLabel = '';
@@ -163,7 +172,6 @@ export class TextField extends ControlElement {
   public get selectionStart (): number | null {
     return this.inputElement.selectionStart;
   }
-
   public set selectionStart (index: SelectionIndex) {
     this.inputElement.selectionStart = index;
   }
@@ -175,7 +183,6 @@ export class TextField extends ControlElement {
   public get selectionEnd (): number | null {
     return this.inputElement.selectionEnd;
   }
-
   public set selectionEnd (index: SelectionIndex) {
     this.inputElement.selectionEnd = index;
   }
@@ -239,7 +246,7 @@ export class TextField extends ControlElement {
   }
 
   /**
-   * renders icon element if property present
+   * Renders icon element if property present
    * @returns {void}
    */
   private renderIcon (): TemplateResult | null {
@@ -252,7 +259,6 @@ export class TextField extends ControlElement {
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         @tap="${this.iconClick}"
-        @keydown="${this.handleKeyDown}"
         tabindex="${ifDefined(this.iconHasAction ? '0' : undefined)}"
       ></ef-icon>
     ` : null;
@@ -268,6 +274,7 @@ export class TextField extends ControlElement {
       <input
         type="text"
         part="input"
+        aria-required="${this.ariaRequired}"
         aria-label="${ifDefined(this.ariaLabel || undefined)}"
         aria-invalid="${ifDefined(this.error || undefined)}"
         aria-description="${ifDefined(this.ariaDescription || undefined)}"
@@ -286,7 +293,7 @@ export class TextField extends ControlElement {
   }
 
   /**
-   * check if value is changed and fire event
+   * Check if value is changed and fire event
    * @returns {void}
    */
   private onPossibleValueChange (): void {
@@ -295,7 +302,7 @@ export class TextField extends ControlElement {
   }
 
   /**
-   * validate input according `pattern`, `minLength` and `maxLength` properties
+   * Validate input according `pattern`, `minLength` and `maxLength` properties
    * change state of `error` property according pattern validation
    * @returns void
    */
@@ -323,17 +330,6 @@ export class TextField extends ControlElement {
   }
 
   /**
-   * Detect `enter` and `space` keydown and fire
-   * @param event keydown event
-   * @returns {void}
-   */
-  private handleKeyDown (event: KeyboardEvent): void {
-    if (event.key === 'Spacebar' || event.key === ' ' || event.key === 'Enter') {
-      this.notifyIcon();
-    }
-  }
-
-  /**
    * Process internal icon click and fire `icon-click` event
    * @returns void
    */
@@ -342,7 +338,7 @@ export class TextField extends ControlElement {
   }
 
   /**
-   * Fire event on `icon` click
+   * Fires event on `icon` click
    * @returns {void}
    */
   private notifyIcon (): void {
@@ -364,7 +360,7 @@ export class TextField extends ControlElement {
   }
 
   /**
-   * query field's label from host to native input
+   * Query field's label from host to native input
    * to support aria label when using screen reader
    * @returns {void}
    */
@@ -389,13 +385,13 @@ export class TextField extends ControlElement {
       if (!labelForElement) {
         return;
       }
-      
+
       this.ariaLabel = labelForElement.textContent || '';
     }
   }
 
   /**
-   * query field's description from host to native input
+   * Query field's description from host to native input
    * to support aria description when using screen reader
    * @returns {void}
    */
@@ -417,6 +413,8 @@ export class TextField extends ControlElement {
     if (!ids) {
       return;
     }
+
+    // In scenarios where there is multiple ids
     const elementIds = ids.split(' ');
     elementIds.forEach(id => {
       const element = document.getElementById(id);
@@ -428,7 +426,7 @@ export class TextField extends ControlElement {
       if (this.ariaDescription && text) {
         this.ariaDescription += ' ';
       }
-      
+
       this.ariaDescription += text;
     });
   }
