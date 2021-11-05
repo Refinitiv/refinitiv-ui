@@ -528,13 +528,14 @@ describe('text-field/TextField', () => {
       expect(el).to.be.accessible();
     });
     it('should pass a11y test with aria-labelledby', async () => {
-      await fixture('<label id="text">Text Field</label>');
-      const el = await fixture(`<ef-text-field id="txt" aria-labelledby="text"></ef-text-field>`);
+      const label = await fixture('<span id="label">Label</label>');
+      const subLabel = await fixture('<span id="sub-label">Sub Label</label>');
+      const el = await fixture(`<ef-text-field id="txt" aria-labelledby="label sub-label"></ef-text-field>`);
       setTimeout(() => el.dispatchEvent(new Event('focus')));
       await oneEvent(el, 'focus');
       
       const input = el.shadowRoot.querySelector('[part=input]');
-      expect(input.getAttribute('aria-label')).to.be.equal('Text Field');
+      expect(input.getAttribute('aria-label')).to.be.equal(`${label.textContent} ${subLabel.textContent}`);
       expect(el).to.be.accessible();
     });
 

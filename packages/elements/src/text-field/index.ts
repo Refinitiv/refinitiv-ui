@@ -370,16 +370,24 @@ export class TextField extends ControlElement {
    */
   private queryFieldLabel (): void {
     if (this.hasAttribute('aria-labelledby')) {
-      const id = this.getAttribute('aria-labelledby');
-      if (!id) {
+      const ids = this.getAttribute('aria-labelledby');
+      if (!ids) {
         return;
       }
 
-      const labelElement = document.getElementById(id);
-      if (!labelElement) {
-        return;
-      }
-      this.ariaLabel = labelElement.textContent || '';
+      const elementIds = ids.split(' ');
+      elementIds.forEach(id => {
+        const element = document.getElementById(id);
+        if (!element) {
+          return;
+        }
+        const label = element.textContent || '';
+        if (this.ariaLabel && label) {
+          this.ariaLabel += ' ';
+        }
+        
+        this.ariaLabel += label;
+      });
     }
     else if (this.hasAttribute('aria-label')) {
       this.ariaLabel = this.getAttribute('aria-label') || '';
