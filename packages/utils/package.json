@@ -14,9 +14,9 @@
     "./lib/color.js": "./lib/color.js",
     "./lib/date.js": "./lib/date.js",
     "./lib/event.js": "./lib/event.js",
-    "./lib/grid.js": "./lib/grid.js",
     "./lib/is-slot-empty.js": "./lib/is-slot-empty.js",
     "./lib/loader.js": "./lib/loader.js",
+    "./lib/navigation.js": "./lib/navigation.js",
     "./lib/uuid.js": "./lib/uuid.js"
   },
   "types": "lib/utils.d.ts",
