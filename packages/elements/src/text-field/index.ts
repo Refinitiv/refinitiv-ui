@@ -369,10 +369,7 @@ export class TextField extends ControlElement {
    * @returns {void}
    */
   private queryFieldLabel (): void {
-    if (this.hasAttribute('aria-label')) {
-      this.ariaLabel = this.getAttribute('aria-label') || '';
-    }
-    else if (this.hasAttribute('aria-labelledby')) {
+    if (this.hasAttribute('aria-labelledby')) {
       const id = this.getAttribute('aria-labelledby');
       if (!id) {
         return;
@@ -383,6 +380,9 @@ export class TextField extends ControlElement {
         return;
       }
       this.ariaLabel = labelElement.textContent || '';
+    }
+    else if (this.hasAttribute('aria-label')) {
+      this.ariaLabel = this.getAttribute('aria-label') || '';
     }
     else if (this.id) {
       const labelForElement = document.querySelector(`label[for="${this.id}"]`);

@@ -6,6 +6,7 @@
 
 ```html
 <input
+  aria-invalid="true"
   autocomplete="off"
   maxlength="10"
   minlength="5"
