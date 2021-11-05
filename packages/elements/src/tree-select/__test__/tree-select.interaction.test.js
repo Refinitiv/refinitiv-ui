@@ -227,5 +227,17 @@ describe('tree-select/Interaction', () => {
       });
       expect(el.treeManager.checkedItems.slice().length).to.equal(0, 'No items are selected');
     });
+
+    it('Toggles select all - search with no result', async () => { // jira ELF-1373
+      const el = await fixture('<ef-tree-select opened></ef-tree-select>');
+      el.data = nestedData;
+      await aTimeout(200);
+
+      el.query = 'asd'; // query with no result matched
+      await aTimeout(200);
+      expect(el.shadowRoot.querySelector('[part="tree-control"]')).to.equal(null, 'tree-control should hide');
+      expect(el.shadowRoot.querySelectorAll('[part="filter-wrapper"]').length).to.equal(0, 'filter-wrapper should hide');
+      expect(el.shadowRoot.querySelector('[part="pills"]')).to.equal(null, 'pills should hide');
+  });
   });
 });
