@@ -222,29 +222,10 @@ export class EmailField extends ControlElement {
   }
 
   /**
-   * Detect `enter` and `space` keydown and fire
-   * @param event keydown event
-   * @returns {void}
-   */
-  private handleKeyDown (event: KeyboardEvent): void {
-    if (event.key === 'Spacebar' || event.key === ' ' || event.key === 'Enter') {
-      this.notifyIcon();
-    }
-  }
-
-  /**
-   * Process internal icon click and fire `icon-click` event
-   * @returns {void}
-   */
-  private iconClick (): void {
-    this.notifyIcon();
-  }
-
-  /**
    * Fire event on `icon` click
    * @returns {void}
    */
-  private notifyIcon (): void {
+  private iconClick (): void {
     if (this.iconHasAction) {
       /**
        * Dispatched only when element has icon-has-action attribute and icon is clicked
@@ -266,7 +247,6 @@ export class EmailField extends ControlElement {
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         @tap="${this.iconClick}"
-        @keydown="${this.handleKeyDown}"
         tabindex="${ifDefined(this.iconHasAction ? '0' : undefined)}"
       ></ef-icon>
     ` : null;

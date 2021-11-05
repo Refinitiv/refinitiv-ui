@@ -1,9 +1,7 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
 
-// import element and theme
 import '@refinitiv-ui/elements/email-field';
 import '@refinitiv-ui/elemental-theme/light/ef-email-field';
-import { fireKeydownEvent } from './helper';
 
 describe('email-field/EmailField', () => {
   describe('Should Have Correct DOM Structure', () => {
@@ -378,7 +376,7 @@ describe('email-field/EmailField', () => {
       expect(clickCount).to.equal(1, 'Icon should be clickable');
     });
 
-    it('icon-click with icon-has-action and press `enter`', async () => {
+    it('icon-click with icon-has-action should fire when Enter is pressed', async () => {
       const el = await fixture('<ef-email-field icon="menu" icon-has-action></ef-email-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');
 
@@ -388,17 +386,14 @@ describe('email-field/EmailField', () => {
         clickCount += 1;
       });
 
-      fireKeydownEvent(icon, 'Enter');
+      const keyDownEvent = keyboardEvent('keydown', { key: 'Enter' });
+      icon.dispatchEvent(keyDownEvent);
+      const keyUpEvent = keyboardEvent('keyup', { key: 'Enter' });
+      icon.dispatchEvent(keyUpEvent);
       expect(clickCount).to.equal(1, 'icon-click should be fired with `enter` keydown');
-
-      fireKeydownEvent(icon, ' ');
-      expect(clickCount).to.equal(2, 'icon-click should be fired with ` ` keydown');
-
-      fireKeydownEvent(icon, 'Spacebar');
-      expect(clickCount).to.equal(3, 'icon-click should be fired with `Spacebar` keydown');
     });
 
-    it('icon-click with icon-has-action and press `tab` should not fire event', async () => {
+    it('icon-click with icon-has-action should fire when ` ` is pressed', async () => {
       const el = await fixture('<ef-email-field icon="menu" icon-has-action></ef-email-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');
 
@@ -408,9 +403,27 @@ describe('email-field/EmailField', () => {
         clickCount += 1;
       });
 
-      fireKeydownEvent(icon, 'Tab');
+      const keyDownEvent = keyboardEvent('keydown', { key: ' ' });
+      icon.dispatchEvent(keyDownEvent);
+      const keyUpEvent = keyboardEvent('keyup', { key: ' ' });
+      icon.dispatchEvent(keyUpEvent);
+      expect(clickCount).to.equal(1, 'icon-click should be fired with ` ` keydown');
+    });
+    it('icon-click with icon-has-action should fire when `Spacebar` is pressed', async () => {
+      const el = await fixture('<ef-email-field icon="menu" icon-has-action></ef-email-field>');
+      const icon = el.shadowRoot.querySelector('[part=icon]');
 
-      expect(clickCount).to.equal(0, 'Icon-click event should not be fired');
+      let clickCount = 0;
+
+      el.addEventListener('icon-click', () => {
+        clickCount += 1;
+      });
+
+      const keyDownEvent = keyboardEvent('keydown', { key: 'Spacebar' });
+      icon.dispatchEvent(keyDownEvent);
+      const keyUpEvent = keyboardEvent('keyup', { key: 'Spacebar' });
+      icon.dispatchEvent(keyUpEvent);
+      expect(clickCount).to.equal(1, 'icon-click should be fired with `Spacebar` keydown');
     });
 
     it('test focus method for enabled element', async () => {
