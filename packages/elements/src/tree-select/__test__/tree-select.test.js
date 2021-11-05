@@ -15,18 +15,18 @@ import { changeItemSelection, openedUpdated } from './utils';
 describe('tree-select/TreeSelect', () => {
   describe('Defaults', () => {
     it('DOM structure is correct', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Does not render popup content initially', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       expect(el.querySelector('[part=list]')).to.equal(null);
     });
 
     xit('Renders popup when opened', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.opened = true;
       await openedUpdated(el);
@@ -34,7 +34,7 @@ describe('tree-select/TreeSelect', () => {
     });
 
     it('Displays pills appropriately', async () => {
-      const el = await fixture('<ef-tree-select show-pills opened></ef-tree-select>');
+      const el = await fixture('<ef-tree-select show-pills opened lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       changeItemSelection(el, flatSelection);
       await openedUpdated(el);
