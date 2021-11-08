@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/polyfills@5.0.4...@refinitiv-ui/polyfills@5.1.0) (2021-11-08)
+
+
+### Features
+
+* **polyfills:** add support for Lit@2 ([d63aa44](https://github.com/Refinitiv/refinitiv-ui/commit/d63aa448199da4417725033765e773102c5c6817))
+
+
+
+
+
 ## [5.0.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/polyfills@5.0.1...@refinitiv-ui/polyfills@5.0.4) (2021-10-25)
 
 **Note:** Version bump only for package @refinitiv-ui/polyfills
