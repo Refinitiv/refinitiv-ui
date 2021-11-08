@@ -1,1 +1,1 @@
-export { guard } from 'lit/directives/guard.js';
+export * from 'lit/directives/guard.js';

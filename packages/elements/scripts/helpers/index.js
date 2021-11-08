@@ -9,7 +9,8 @@ const {
   errorHandler,
   ROOT,
   PACKAGES,
-  PACKAGES_ROOT
+  PACKAGES_ROOT,
+  RELEASE_SCRIPTS_PATH
 } = require('../../../../scripts/helpers');
 
 /**
@@ -74,6 +75,7 @@ module.exports = {
   MONOREPO_ELEMENTS,
   PACKAGE_NAME,
   BUILD_FOLDER_NAME,
+  RELEASE_SCRIPTS_PATH,
   checkElement,
   getDemoPath,
   getElementPath,

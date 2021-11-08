@@ -1,1 +1,1 @@
-export { styleMap } from 'lit/directives/style-map.js';
+export * from 'lit/directives/style-map.js';

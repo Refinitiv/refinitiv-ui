@@ -1,1 +1,1 @@
-export { until } from 'lit/directives/until.js';
+export * from 'lit/directives/until.js';

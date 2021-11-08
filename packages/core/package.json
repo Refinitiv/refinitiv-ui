@@ -15,9 +15,13 @@
     "./lib/directives/class-map.js": "./lib/directives/class-map.js",
     "./lib/directives/guard.js": "./lib/directives/guard.js",
     "./lib/directives/if-defined.js": "./lib/directives/if-defined.js",
+    "./lib/directives/live.js": "./lib/directives/live.js",
+    "./lib/directives/ref.js": "./lib/directives/ref.js",
     "./lib/directives/repeat.js": "./lib/directives/repeat.js",
     "./lib/directives/style-map.js": "./lib/directives/style-map.js",
+    "./lib/directives/template-content.js": "./lib/directives/template-content.js",
     "./lib/directives/unsafe-html.js": "./lib/directives/unsafe-html.js",
+    "./lib/directives/unsafe-svg.js": "./lib/directives/unsafe-svg.js",
     "./lib/directives/until.js": "./lib/directives/until.js",
     "./lib/decorators/custom-element.js": "./lib/decorators/custom-element.js",
     "./lib/decorators/event-options.js": "./lib/decorators/event-options.js",
@@ -42,7 +46,8 @@
     "lint:fix": "eslint . --fix",
     "test": "npm run build && karma start ../../karma.config.js --package=core",
     "test:snapshots": "npm run test -- --snapshots",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "prepublishOnly": "node scripts/release"
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.3.1",

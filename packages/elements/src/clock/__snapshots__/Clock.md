@@ -46,3 +46,21 @@
 
 ```
 
+####   `DOM structure of small size analogue is correct`
+
+```html
+<div part="hands">
+  <div
+    part="hand hour"
+    style="transform: rotate(0deg)"
+  >
+  </div>
+  <div
+    part="hand minute"
+    style="transform: rotate(0deg)"
+  >
+  </div>
+</div>
+
+```
+
