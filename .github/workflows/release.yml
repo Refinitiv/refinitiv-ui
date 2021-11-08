@@ -29,11 +29,11 @@ jobs:
       - run: npm ci --ignore-scripts --audit=false --fund=false
 
       # Builds only changed packages including its dependencies
-      - run: lerna run build:prod
+      - run: lerna run build:prod --include-dependencies --since
 
       # Increment version for change packages according to conventional commits
-      # - run: lerna version --conventional-commits --yes
+      - run: lerna version --conventional-commits --yes
 
-      - run: lerna publish from-package --yes
+      - run: lerna publish --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
