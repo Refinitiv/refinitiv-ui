@@ -42,10 +42,11 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",
+    "build:watch": "npm run build -- --watch --preserveWatchOutput",
     "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "npm run build && karma start ../../karma.config.js --package=core",
+    "test": "karma start ../../karma.config.js --package=core",
     "test:snapshots": "npm run test -- --snapshots",
     "test:watch": "npm run build && npm run test -- --watch",
     "prepublishOnly": "node scripts/release"
