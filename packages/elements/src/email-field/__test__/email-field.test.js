@@ -376,7 +376,7 @@ describe('email-field/EmailField', () => {
       expect(clickCount).to.equal(1, 'Icon should be clickable');
     });
 
-    it('icon-click with icon-has-action should fire when Enter is pressed', async () => {
+    xit('icon-click with icon-has-action should fire when Enter is pressed', async () => {
       const el = await fixture('<ef-email-field icon="menu" icon-has-action></ef-email-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');
 
@@ -393,7 +393,7 @@ describe('email-field/EmailField', () => {
       expect(clickCount).to.equal(1, 'icon-click should be fired with `enter` keydown');
     });
 
-    it('icon-click with icon-has-action should fire when ` ` is pressed', async () => {
+    xit('icon-click with icon-has-action should fire when ` ` is pressed', async () => {
       const el = await fixture('<ef-email-field icon="menu" icon-has-action></ef-email-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');
 
@@ -409,7 +409,7 @@ describe('email-field/EmailField', () => {
       icon.dispatchEvent(keyUpEvent);
       expect(clickCount).to.equal(1, 'icon-click should be fired with ` ` keydown');
     });
-    it('icon-click with icon-has-action should fire when `Spacebar` is pressed', async () => {
+    xit('icon-click with icon-has-action should fire when `Spacebar` is pressed', async () => {
       const el = await fixture('<ef-email-field icon="menu" icon-has-action></ef-email-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');
 

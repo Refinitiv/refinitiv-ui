@@ -6,7 +6,9 @@
 
 ```html
 <input
+  aria-invalid="true"
   autocomplete="off"
+  inputmode="email"
   maxlength="10"
   minlength="5"
   multiple=""
@@ -28,6 +30,7 @@
 ```html
 <input
   autocomplete="off"
+  inputmode="email"
   part="input"
   type="email"
 >
@@ -44,6 +47,7 @@
 ```html
 <input
   autocomplete="off"
+  inputmode="email"
   part="input"
   type="email"
 >
@@ -60,6 +64,7 @@
 ```html
 <input
   autocomplete="off"
+  inputmode="email"
   maxlength="10"
   part="input"
   type="email"
@@ -72,6 +77,7 @@
 ```html
 <input
   autocomplete="off"
+  inputmode="email"
   maxlength="5"
   part="input"
   type="email"
@@ -84,6 +90,7 @@
 ```html
 <input
   autocomplete="off"
+  inputmode="email"
   part="input"
   type="email"
 >
@@ -95,6 +102,7 @@
 ```html
 <input
   autocomplete="off"
+  inputmode="email"
   minlength="10"
   part="input"
   type="email"
@@ -107,6 +115,7 @@
 ```html
 <input
   autocomplete="off"
+  inputmode="email"
   minlength="5"
   part="input"
   type="email"
@@ -119,6 +128,7 @@
 ```html
 <input
   autocomplete="off"
+  inputmode="email"
   part="input"
   type="email"
 >
@@ -130,6 +140,7 @@
 ```html
 <input
   autocomplete="off"
+  inputmode="email"
   part="input"
   readonly=""
   type="email"
@@ -142,6 +153,7 @@
 ```html
 <input
   autocomplete="off"
+  inputmode="email"
   part="input"
   readonly=""
   type="email"
@@ -154,6 +166,7 @@
 ```html
 <input
   autocomplete="off"
+  inputmode="email"
   part="input"
   type="email"
 >
