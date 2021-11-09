@@ -1,3 +1,4 @@
+import { NavigationGrid, CellIndex } from '@refinitiv-ui/utils/lib/grid.js';
 import { RenderView } from './constants.js';
 
 export interface CellSelectionModel {
@@ -12,6 +13,7 @@ export interface CellSelectionModel {
 export interface Cell extends CellSelectionModel {
   view: RenderView;
   text?: string;
+  active?: boolean;
   value?: string;
   disabled?: boolean;
   idle?: boolean;
@@ -32,6 +34,14 @@ export interface CellDivElement extends HTMLDivElement, Cell {
   selected?: boolean;
   range?: boolean;
 }
+
+export type NavigationMap = {
+  grid: NavigationGrid;
+  map: { [key: string]: CellDivElement; }
+  active?: CellIndex;
+};
+
+export type NavigationDirection = 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'ArrowDown' | 'Home' | 'End';
 
 export type Row = {
   cells: Cell[];
