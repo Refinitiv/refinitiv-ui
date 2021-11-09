@@ -71,6 +71,7 @@
           aria-disabled="false"
           aria-readonly="false"
           id="calendar"
+          lang="en-gb"
           part="calendar"
           tabindex="0"
         >
@@ -148,6 +149,7 @@
           aria-disabled="false"
           aria-readonly="false"
           id="calendar"
+          lang="en-gb"
           part="calendar"
           range=""
           tabindex="0"
@@ -214,6 +216,7 @@
           aria-disabled="false"
           aria-readonly="false"
           id="calendar"
+          lang="en-gb"
           part="calendar"
           tabindex="0"
         >
@@ -222,6 +225,7 @@
           aria-disabled="false"
           aria-readonly="false"
           id="calendar-to"
+          lang="en-gb"
           part="calendar"
           tabindex="0"
         >
@@ -287,6 +291,7 @@
           aria-disabled="false"
           aria-readonly="false"
           id="calendar"
+          lang="en-gb"
           part="calendar"
           tabindex="0"
         >
@@ -362,6 +367,7 @@
           aria-disabled="false"
           aria-readonly="false"
           id="calendar"
+          lang="en-gb"
           part="calendar"
           tabindex="0"
         >
@@ -449,6 +455,7 @@
           aria-disabled="false"
           aria-readonly="false"
           id="calendar"
+          lang="en-gb"
           part="calendar"
           range=""
           tabindex="0"

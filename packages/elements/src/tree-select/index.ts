@@ -280,11 +280,19 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   }
 
   /**
+   * Returns memoized selectable state
+   * @returns Has selectable
+   */
+  protected get hasSelectable (): boolean {
+    return this.memo.selectable > 0;
+  }
+
+  /**
    * Returns memoized all selected count
    * @returns Is all selected
    */
-  protected get allSelected (): boolean {
-    return this.memo.selected === this.memo.selectable;
+  protected get isAllSelected (): boolean {
+    return this.hasSelectable && this.memo.selected === this.memo.selectable;
   }
 
   /**
@@ -831,7 +839,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
           <div part="match-count-wrapper">
             ${this.matchCountTemplate}
           </div>
-          <div part="filter-wrapper">
+          ${this.hasSelectable ? html`<div part="filter-wrapper">
             <div
               role="button"
               tabindex="0"
@@ -843,7 +851,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
               tabindex="${ifDefined(this.hasActiveSelection ? 0 : undefined)}"
               part="control selected-filter${this.selectionFilterState ? ' active' : ''}${!this.hasActiveSelection ? ' disabled' : ''}"
               @tap="${this.selectedClickHandler}">${this.t('SELECTED')}</div>
-          </div>
+          </div>` : html``}
         </div>
     `;
   }
@@ -853,6 +861,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns Render template
    */
   protected get treeControlsTemplate (): TemplateResult {
+    if (!this.hasSelectable) {
+      return html``;
+    }
     let expansionControl = html``;
     if (this.expansionControlVisible) {
       expansionControl = html`
@@ -869,9 +880,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
         <div part="control-container tree-control">
             <ef-checkbox
               part="selection-toggle"
-              .checked="${this.allSelected}"
-              .indeterminate="${this.hasActiveSelection && !this.allSelected}"
-              @checked-changed="${this.selectionToggleHandler}">${this.t('SELECT_CONTROL', { selected: this.allSelected })}</ef-checkbox>
+              .checked="${this.isAllSelected}"
+              .indeterminate="${this.hasActiveSelection && !this.isAllSelected}"
+              @checked-changed="${this.selectionToggleHandler}">${this.t('SELECT_CONTROL', { selected: this.isAllSelected })}</ef-checkbox>
           ${expansionControl}
         </div>
     `;
@@ -912,7 +923,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   protected get pillsTemplate (): TemplateResult | undefined {
     // always injected when we have show pills vs injecting and re-injecting partial
     // visibility will typically be controlled by styling: display: none / block or similar
-    if (this.showPills && this.hasPills) {
+    if (this.showPills && this.hasPills && this.hasSelectable) {
       return html`<div part="pills">
         ${repeat(this.pillsData, pill => pill.value, pill => html`
         <ef-pill

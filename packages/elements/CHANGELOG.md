@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.6.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.5.0...@refinitiv-ui/elements@5.6.0) (2021-11-08)
+
+
+### Bug Fixes
+
+* **datetime-picker:** values are not update synchronously ([#59](https://github.com/Refinitiv/refinitiv-ui/issues/59)) ([55500a3](https://github.com/Refinitiv/refinitiv-ui/commit/55500a30f4daab1110d7664b6c244dd2b83995cb))
+* incorrect tap behaviour ([#57](https://github.com/Refinitiv/refinitiv-ui/issues/57)) ([a245fbe](https://github.com/Refinitiv/refinitiv-ui/commit/a245fbe1999057de0525313e35d5156cc497135f))
+* **multi-input:** only focus input on click clear button ([#64](https://github.com/Refinitiv/refinitiv-ui/issues/64)) ([214452a](https://github.com/Refinitiv/refinitiv-ui/commit/214452ac02f77c91090226597c2c02e95fc3d084))
+* **tree-select:** update selectAll condition when search no match ([#53](https://github.com/Refinitiv/refinitiv-ui/issues/53)) ([c3b5e46](https://github.com/Refinitiv/refinitiv-ui/commit/c3b5e461bdf56ad9d17ae921d1c5f980d44754ac))
+
+
+### Features
+
+* **button:** improve accessibility for screen readers ([#33](https://github.com/Refinitiv/refinitiv-ui/issues/33)) ([89f2e19](https://github.com/Refinitiv/refinitiv-ui/commit/89f2e19f631257e5572d2c74cf7449f9be265aca))
+* **checkbox:** improve accessibility for screen readers ([#37](https://github.com/Refinitiv/refinitiv-ui/issues/37)) ([93509d0](https://github.com/Refinitiv/refinitiv-ui/commit/93509d0ec801b880b9bf68013d83c140075c59dd))
+* **clock:** small analogue clock face ([#54](https://github.com/Refinitiv/refinitiv-ui/issues/54)) ([bc4b2a8](https://github.com/Refinitiv/refinitiv-ui/commit/bc4b2a816135ef70819d826d15ba9b36dda99207))
+* **core:** add latest lit directives, add focused-changed event ([69168f6](https://github.com/Refinitiv/refinitiv-ui/commit/69168f6fe3e6eea8e9abb2a875a2f283eb06d42b))
+* **icon:** support icon names and icon urls ([6d3a92d](https://github.com/Refinitiv/refinitiv-ui/commit/6d3a92db329c5198d56aeed4a1944ef3d0e29f1d))
+* Lit@2 upgrade ([dbda63b](https://github.com/Refinitiv/refinitiv-ui/commit/dbda63be97257f891cb1f2c5ff46b638c70e0b15))
+* **radio-button:** improve radio button accessibility ([#43](https://github.com/Refinitiv/refinitiv-ui/issues/43)) ([12d2b23](https://github.com/Refinitiv/refinitiv-ui/commit/12d2b238c988e880d8055afe280cfb93ace6dd51))
+* **text-field:** improve screen reader support ([#65](https://github.com/Refinitiv/refinitiv-ui/issues/65)) ([65bfa44](https://github.com/Refinitiv/refinitiv-ui/commit/65bfa4404bb4b462f20163c733b75fd509485b1b))
+* **toggle:** improve accessibility for screen readers ([#42](https://github.com/Refinitiv/refinitiv-ui/issues/42)) ([7554471](https://github.com/Refinitiv/refinitiv-ui/commit/755447104777606247bb06bfba5e97accb893ccf))
+
+
+### Performance Improvements
+
+* **icon:** cache svg template results ([463c6ba](https://github.com/Refinitiv/refinitiv-ui/commit/463c6ba1f0403aa25605fd363ac863159ee4c492))
+* **list:** check before positioning element in dom ([244b44f](https://github.com/Refinitiv/refinitiv-ui/commit/244b44fba553e1f40e0a55ecda93e7d943b13994))
+* **tree:** reduce calculations for visible items ([c231f06](https://github.com/Refinitiv/refinitiv-ui/commit/c231f06a1a4a901bafefdee7dcc1e009a7902ac5))
+
+
+
+
+
 # [5.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.3.3...@refinitiv-ui/elements@5.5.0) (2021-10-25)
 
 
