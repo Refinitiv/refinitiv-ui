@@ -127,5 +127,39 @@
         fieldWith.addEventListener('icon-click', loggerFunc);
       </script>
     </demo-block>
+
+    <!-- Accessibility -->
+<demo-block header="Accessibility" layout="normal" tags="accessibility">
+  <p>
+    <label>Email Field 1</label>
+    <ef-email-field aria-label="Email Field 1" aria-description="This field is using aria label"></ef-email-field>
+  </p>
+  <p>
+    <label id="text2">Email Field 2</label>
+    <ef-email-field aria-labelledby="text2" aria-description="This field is using aria labelled by"></ef-email-field>
+  </p>
+  <p>
+    <label for="text3">Email Field 3</label>
+    <ef-email-field id="text3" aria-description="This field is using label for and id"></ef-email-field>
+  </p>
+  <p>
+    <label for="text4">Email Field 4</label>
+    <ef-email-field id="text4" pattern='.+@mail.com' aria-describedby="helper-text error"></ef-email-field></p>
+    <span hidden id="helper-text">Email pattern must contain .+@mail.com.</span>
+    <span style="color:red" id="error"></span>
+  <script>
+    let emailAccessibleField = document.querySelector('#text4');
+    let errorElment = document.querySelector('#error');
+
+    emailAccessibleField.addEventListener('error-changed', function (e) {
+      if (e.detail.value) {
+        errorElment.innerHTML = 'Email is invalid.';
+      }
+      else {
+        errorElment.innerHTML = '';
+      }
+    }, false);
+  </script>
+</demo-block>
   </body>
 </html>

@@ -509,4 +509,63 @@ describe('email-field/EmailField', () => {
       expect(detail.value).to.equal('mail2@mail');
     });
   });
+  describe('Accessiblity', () => {
+    it('should fail without label', async () => {
+      const el = await fixture('<ef-email-field></ef-email-field>');
+      expect(el).not.to.be.accessible();
+    });
+    it('should pass a11y test with aria-label', async () => {
+      const el = await fixture('<ef-email-field aria-label="Text Field"></ef-email-field>');
+      setTimeout(() => el.dispatchEvent(new Event('focus')));
+      await oneEvent(el, 'focus');
+
+      const input = el.shadowRoot.querySelector('[part=input]');
+      expect(input.getAttribute('aria-label')).to.be.equal('Text Field');
+      expect(el).to.be.accessible();
+    });
+    it('should pass a11y test with aria-labelledby', async () => {
+      const label = await fixture('<span id="label">Label</label>');
+      const subLabel = await fixture('<span id="sub-label">Sub Label</label>');
+      const el = await fixture(`<ef-email-field id="txt" aria-labelledby="label sub-label"></ef-email-field>`);
+      setTimeout(() => el.dispatchEvent(new Event('focus')));
+      await oneEvent(el, 'focus');
+
+      const input = el.shadowRoot.querySelector('[part=input]');
+      expect(input.getAttribute('aria-label')).to.be.equal(`${label.textContent} ${subLabel.textContent}`);
+      expect(el).to.be.accessible();
+    });
+
+    it('should pass a11y test using label for and id', async () => {
+      await fixture('<label for="text">Email Field</label>');
+      const el = await fixture('<ef-email-field id="text"></ef-email-field>');
+      setTimeout(() => el.dispatchEvent(new Event('focus')));
+      await oneEvent(el, 'focus');
+
+      const input = el.shadowRoot.querySelector('[part=input]');
+      expect(input.getAttribute('aria-label')).to.be.equal('Email Field');
+      expect(el).to.be.accessible();
+    });
+
+    it('should pass a11y test when using aria-description', async () => {
+      const el = await fixture('<ef-email-field aria-description="Email Field"></ef-email-field>');
+      setTimeout(() => el.dispatchEvent(new Event('focus')));
+      await oneEvent(el, 'focus');
+
+      const input = el.shadowRoot.querySelector('[part=input]');
+      expect(input.getAttribute('aria-description')).to.be.equal('Email Field');
+      expect(el).to.be.accessible();
+    });
+
+    it('should pass a11y test when using aria-describedby', async () => {
+      const helperMessage = await fixture('<span id="helper-message">Field description</label>');
+      const errorMessage = await fixture('<span id="error-message">Error</label>');
+      const el = await fixture('<ef-email-field aria-describedby="helper-message error-message"></ef-email-field>');
+      setTimeout(() => el.dispatchEvent(new Event('focus')));
+      await oneEvent(el, 'focus');
+
+      const input = el.shadowRoot.querySelector('[part=input]');
+      expect(input.getAttribute('aria-description')).to.be.equal(`${helperMessage.textContent} ${errorMessage.textContent}`);
+      expect(el).to.be.accessible();
+    });
+  });
 });
