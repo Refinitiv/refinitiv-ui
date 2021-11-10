@@ -1,5 +1,11 @@
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
+// Translations polyfills
+import '@formatjs/intl-locale/polyfill.iife';
+import '@formatjs/intl-getcanonicallocales/polyfill.iife';
+import '@formatjs/intl-pluralrules/polyfill.iife';
+import '@formatjs/intl-pluralrules/locale-data/en';
+
 // import element and theme
 import '@refinitiv-ui/elements/tree-select';
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
@@ -9,7 +15,7 @@ describe('tree-select/Label', () => {
   describe('Label Test - Subset of ComboBox Tests', () => {
 
     it('Is blank by default', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       await elementUpdated(el);
       expect(el.inputText).to.equal('', 'Input should be empty');
@@ -20,7 +26,7 @@ describe('tree-select/Label', () => {
     });
 
     it('Shows selected label - one item', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       const copiedData = JSON.parse(JSON.stringify(nestedData));
       copiedData[0].items[5].selected = true;
       el.data = copiedData;
@@ -35,7 +41,7 @@ describe('tree-select/Label', () => {
     });
 
     it('Shows multiple label', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       const copiedData = JSON.parse(JSON.stringify(nestedData));
       copiedData[0].items[3].selected = true;
       copiedData[0].items[5].selected = true;
