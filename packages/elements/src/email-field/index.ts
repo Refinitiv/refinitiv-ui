@@ -283,6 +283,7 @@ export class EmailField extends ControlElement {
    */
   private queryFieldLabel (): void {
     if (this.hasAttribute('aria-labelledby')) {
+      this.ariaLabel = '';
       const ids = this.getAttribute('aria-labelledby');
       if (!ids) {
         return;

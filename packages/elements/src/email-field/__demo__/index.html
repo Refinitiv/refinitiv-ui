@@ -131,24 +131,24 @@
     <!-- Accessibility -->
     <demo-block header="Accessibility" layout="normal" tags="accessibility">
       <p>
-        <label>Email Field 1</label>
-        <ef-email-field aria-label="Email Field 1" aria-description="This field is using aria label"></ef-email-field>
+        <label>Email</label>
+        <ef-email-field aria-label="Email" aria-description="This field is using aria label"></ef-email-field>
       </p>
       <p>
-        <label id="email2">Email Field 2</label>
+        <label id="email2">Email</label>
         <ef-email-field aria-labelledby="email2" aria-description="This field is using aria labelled by"></ef-email-field>
       </p>
       <p>
-        <label for="email3">Email Field 3</label>
+        <label for="email3">Email</label>
         <ef-email-field id="email3" aria-description="This field is using label for and id"></ef-email-field>
       </p>
       <p>
-        <label for="email4">Email Field 4</label>
+        <label for="email4">Email</label>
         <ef-email-field id="email4" pattern='.+@mail.com' aria-describedby="helper-text error"></ef-email-field></p>
         <span hidden id="helper-text">Email pattern must contain .+@mail.com.</span>
         <span style="color:red" id="error"></span>
         <script>
-          let emailAccessibleField = document.querySelector('#text4');
+          let emailAccessibleField = document.querySelector('#email4');
           let errorElment = document.querySelector('#error');
 
           emailAccessibleField.addEventListener('error-changed', function (e) {
