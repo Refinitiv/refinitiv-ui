@@ -1,5 +1,11 @@
 import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
+// Translations polyfills
+import '@formatjs/intl-locale/polyfill.iife';
+import '@formatjs/intl-getcanonicallocales/polyfill.iife';
+import '@formatjs/intl-pluralrules/polyfill.iife';
+import '@formatjs/intl-pluralrules/locale-data/en';
+
 // import element and theme
 import '@refinitiv-ui/elements/tree-select';
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
@@ -11,7 +17,7 @@ describe('tree-select/Interaction', () => {
   describe('Interaction Test', () => {
 
     it('Persists a selection - flat', async function () {
-      const el = await fixture('<ef-tree-select opened></ef-tree-select>');
+      const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
       // ensure events are fired
       el.data = flatData;
       const expectedSelection = changeItemSelection(el, flatSelection);
@@ -28,7 +34,7 @@ describe('tree-select/Interaction', () => {
     });
 
     it('Persists a selection - nested', async () => {
-      const el = await fixture('<ef-tree-select opened></ef-tree-select>');
+      const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       const expectedSelection = changeItemSelection(el, nestedSelection);
       checkMemo(el, {
@@ -44,7 +50,7 @@ describe('tree-select/Interaction', () => {
     });
 
     it('Cancels a selection - flat', async () => {
-      const el = await fixture('<ef-tree-select opened></ef-tree-select>');
+      const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
       // ensure events are fired
       el.data = flatData;
       const expectedSelection = [];
@@ -63,7 +69,7 @@ describe('tree-select/Interaction', () => {
     });
 
     it('Cancels a selection - nested', async () => {
-      const el = await fixture('<ef-tree-select opened></ef-tree-select>');
+      const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       const expectedSelection = [];
       changeItemSelection(el, flatSelection);
@@ -76,7 +82,7 @@ describe('tree-select/Interaction', () => {
     });
 
     it('Persist a selection, make changes and cancel - flat', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       // ensure events are fired
       el.data = flatData;
       const expectedSelection = changeItemSelection(el, flatSelection);
@@ -91,7 +97,7 @@ describe('tree-select/Interaction', () => {
     });
 
     it('Persist a selection, make changes and cancel - nested', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       // ensure events are fired
       el.data = nestedData;
       const expectedSelection = changeItemSelection(el, nestedSelection);
@@ -106,7 +112,7 @@ describe('tree-select/Interaction', () => {
     });
 
     it('Adds selection to pills', async () => {
-      const el = await fixture('<ef-tree-select show-pills></ef-tree-select>');
+      const el = await fixture('<ef-tree-select show-pills lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.opened = true;
       await openedUpdated(el);
@@ -115,7 +121,7 @@ describe('tree-select/Interaction', () => {
     });
 
     it('Removes from selection on pill removal', async () => {
-      const el = await fixture('<ef-tree-select show-pills opened></ef-tree-select>');
+      const el = await fixture('<ef-tree-select show-pills opened lang="en-gb"></ef-tree-select>');
       const itemToRemove = flatSelection[0];
       el.data = flatData;
       el.opened = true;
@@ -132,7 +138,7 @@ describe('tree-select/Interaction', () => {
     });
 
     it('Toggles expand all', async function () {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       el.opened = true;
       el.expansionToggleClickHandler();
@@ -159,7 +165,7 @@ describe('tree-select/Interaction', () => {
     }).timeout(4000);
 
     it('Toggles select all - flat', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.selectionToggleHandler({
         detail: {
@@ -195,7 +201,7 @@ describe('tree-select/Interaction', () => {
     });
 
     it('Toggles select all - nested', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       el.selectionToggleHandler({
         detail: {
@@ -227,5 +233,17 @@ describe('tree-select/Interaction', () => {
       });
       expect(el.treeManager.checkedItems.slice().length).to.equal(0, 'No items are selected');
     });
+
+    it('Toggles select all - search with no result', async () => { // jira ELF-1373
+      const el = await fixture('<ef-tree-select opened></ef-tree-select>');
+      el.data = nestedData;
+      await aTimeout(200);
+
+      el.query = 'asd'; // query with no result matched
+      await aTimeout(200);
+      expect(el.shadowRoot.querySelector('[part="tree-control"]')).to.equal(null, 'tree-control should hide');
+      expect(el.shadowRoot.querySelectorAll('[part="filter-wrapper"]').length).to.equal(0, 'filter-wrapper should hide');
+      expect(el.shadowRoot.querySelector('[part="pills"]')).to.equal(null, 'pills should hide');
+  });
   });
 });

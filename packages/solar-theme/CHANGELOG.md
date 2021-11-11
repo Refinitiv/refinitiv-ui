@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@5.4.0...@refinitiv-ui/solar-theme@5.5.0) (2021-11-08)
+
+
+### Features
+
+* **clock:** small analogue clock face ([#54](https://github.com/Refinitiv/refinitiv-ui/issues/54)) ([bc4b2a8](https://github.com/Refinitiv/refinitiv-ui/commit/bc4b2a816135ef70819d826d15ba9b36dda99207))
+
+
+
+
+
 # [5.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@5.2.3...@refinitiv-ui/solar-theme@5.4.0) (2021-10-25)
 
 
