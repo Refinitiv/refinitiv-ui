@@ -1,5 +1,11 @@
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
+// Translations polyfills
+import '@formatjs/intl-locale/polyfill.iife';
+import '@formatjs/intl-getcanonicallocales/polyfill.iife';
+import '@formatjs/intl-pluralrules/polyfill.iife';
+import '@formatjs/intl-pluralrules/locale-data/en';
+
 // import element and theme
 import '@refinitiv-ui/elements/tree-select';
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
@@ -19,12 +25,12 @@ describe('tree-select/Filter', () => {
   describe('Filter Test', () => {
 
     it('No filter applied', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
     });
 
     it('Text filter applied - flat', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.opened = true;
       await openedUpdated(el);
@@ -34,7 +40,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Text filter applied - nested', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       await openedUpdated(el);
       el.opened = true;
@@ -46,7 +52,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Text filter applied, expanded ancestors of matched items correctly - multi level', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = multiLevelData;
       await elementUpdated(el);
       el.opened = true;
@@ -58,7 +64,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Text filter applied, collapsed children of matched items and included descendants correctly - multi level', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = multiLevelData;
       await elementUpdated(el);
       el.opened = true;
@@ -79,7 +85,7 @@ describe('tree-select/Filter', () => {
 
     it('Text filter applied, expanded and collapsed correctly - multi level', async () => {
       // If filter match a parent but not match any children, the parent will be collapsed
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = multiLevelData;
       await elementUpdated(el);
       el.opened = true;
@@ -113,7 +119,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Text filter applied, no result - flat', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.opened = true;
       await openedUpdated(el);
@@ -122,7 +128,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Removes Text filter', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.opened = true;
       await openedUpdated(el);
@@ -135,7 +141,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Removes Text filter - nested', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       await elementUpdated(el);
       el.opened = true;
@@ -151,7 +157,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Selection filter applied', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       await openedUpdated(el);
       changeItemSelection(el, flatSelection);
@@ -160,7 +166,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Selection filter applied - nested', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       await openedUpdated(el);
       changeItemSelection(el, nestedSelection);
@@ -171,7 +177,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Selection filter applied and selection changed within', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       changeItemSelection(el, flatSelection);
       el.selectedClickHandler();
@@ -181,7 +187,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Selection filter applied and selection changed within - nested', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       changeItemSelection(el, nestedSelection);
       el.selectedClickHandler();
@@ -194,7 +200,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Removes selection filter', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       changeItemSelection(el, flatSelection);
       el.selectedClickHandler();
@@ -205,7 +211,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Removes selection filter - nested', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       changeItemSelection(el, nestedSelection);
       el.selectedClickHandler();
@@ -216,7 +222,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Text and selection filter applied', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       changeItemSelection(el, flatSelection);
       el.selectedClickHandler();
@@ -226,7 +232,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Text and selection filter applied - nested', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       changeItemSelection(el, nestedSelection);
       el.selectedClickHandler();
@@ -236,7 +242,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Text and selection filter removed', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.opened = true;
       await openedUpdated(el);
@@ -250,7 +256,7 @@ describe('tree-select/Filter', () => {
     });
 
     it('Text and selection filter removed - nested', async () => {
-      const el = await fixture('<ef-tree-select></ef-tree-select>');
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       changeItemSelection(el, nestedSelection);
       el.selectedClickHandler();
