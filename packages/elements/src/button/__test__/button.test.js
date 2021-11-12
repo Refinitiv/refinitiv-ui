@@ -200,19 +200,19 @@ describe('button/Button', () => {
     it('should not be accessible without label', async () => {
 
       const el = await fixture(`<ef-button></ef-button>`);
-      await expect(el).not.to.be.accessible();
+      expect(el).not.to.be.accessible();
     });
 
     it('should pass a11y testing with aria-label', async () => {
       const el = await fixture(`<ef-button aria-label="Tick Icon" icon="tick"></ef-button>`);
-      await expect(el).to.be.accessible({
+      expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr']
       });
     });
 
     it('should pass a11y testing with slotted label', async () => {
       const el = await fixture(`<ef-button>TEST</ef-button>`);
-      await expect(el).to.be.accessible({
+      expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr', 'color-contrast']
       });
     });
@@ -221,7 +221,7 @@ describe('button/Button', () => {
     describe('should pass a11y testing in toggle mode', () => {
       it('when button is not pressed', async () => {
         const el = await fixture(`<ef-button toggles>Toggle</ef-button>`);
-        await expect(el).to.be.accessible({
+        expect(el).to.be.accessible({
           ignoredRules: ['aria-allowed-attr', 'color-contrast']
         });
         await expect(el.ariaPressed).to.equal('false');
@@ -229,7 +229,7 @@ describe('button/Button', () => {
 
       it('when button is pressed', async () => {
         const el = await fixture(`<ef-button toggles active>Toggle</ef-button>`);
-        await expect(el).to.be.accessible({
+        expect(el).to.be.accessible({
           ignoredRules: ['aria-allowed-attr', 'color-contrast']
         });
         await expect(el.ariaPressed).to.equal('true');
@@ -238,7 +238,7 @@ describe('button/Button', () => {
 
     it('should pass a11y testing when disabled is set', async () => {
       const el = await fixture(`<ef-button disabled>Disabled</ef-button>`);
-      await expect(el).to.be.accessible({
+      expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr', 'color-contrast']
       });
     });
