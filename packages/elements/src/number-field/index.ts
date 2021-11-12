@@ -95,6 +95,27 @@ export class NumberField extends ControlElement {
   }
 
   /**
+ * Aria indicating if the field is required
+ * @ignore
+ */
+  @property({ type: String, attribute: 'aria-required' })
+  public ariaRequired = 'false';
+
+  /**
+   * Aria description used to describe input or error to screen reader
+   * @ignore
+   */
+  @property({ type: String })
+  public ariaDescription = '';
+
+  /**
+   * Aria label used to label input to screen reader
+   * @ignore
+   */
+  @property({ type: String })
+  public ariaLabel = '';
+
+  /**
    * Set placeholder text
    */
   @property({ type: String, reflect: true })
@@ -773,6 +794,10 @@ export class NumberField extends ControlElement {
         part="input"
         type="text"
         inputmode="decimal"
+        aria-required="${this.ariaRequired}"
+        aria-label="${ifDefined(this.ariaLabel || undefined)}"
+        aria-invalid="${ifDefined(this.error || undefined)}"
+        aria-description="${ifDefined(this.ariaDescription || undefined)}"
         pattern="${NUMBER_PATTERN}"
         ?readonly=${this.readonly}
         ?disabled=${this.disabled}
