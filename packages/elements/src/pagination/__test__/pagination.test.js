@@ -486,21 +486,4 @@ describe('pagination/Pagination', () => {
       expect(el.page).to.equal('1', 'It should not go less than the first page');
     });
   });
-
-  describe('Responsive', () => {
-    it('Should hide pagination info when the component width is smaller than provided responsive width', async () => {
-      const el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
-      const infoPart = el.shadowRoot.querySelector('[part=info]');
-
-      el.style.width = '100px';
-      await elementUpdated(el);
-      await elementUpdated(infoPart);
-      expect(infoPart.style.display).to.equal('none');
-
-      el.style.width = '1000px';
-      await elementUpdated(el);
-      await elementUpdated(infoPart);
-      expect(infoPart.style.display).to.equal('block');
-    });
-  });
 });

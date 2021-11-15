@@ -47,7 +47,6 @@ export class Pagination extends BasicElement {
     return css`
       :host {
         display: block;
-        --responsive-width: 450;
       }
     `;
   }
@@ -75,12 +74,6 @@ export class Pagination extends BasicElement {
    */
   @property({ type: Boolean, reflect: true })
   public disabled = false;
-
-  /**
-   * Getter for info part
-   */
-  @query('#info')
-  private infoElement!: HTMLElement;
 
   /**
     * Getter for text field as input part
@@ -183,13 +176,6 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private disabledChanged (): void {
-    if (this.disabled) {
-      this.infoElement.setAttribute('disabled', '');
-    }
-    else {
-      this.infoElement.removeAttribute('disabled');
-    }
-
     this.input.disabled = this.disabled;
 
     // recalculate button state
@@ -270,15 +256,6 @@ export class Pagination extends BasicElement {
       totalCount,
       pageSize
     };
-  }
-
-  /**
-   * Hide info part when it's too small
-   * @returns {void}
-   */
-  private onResize (): void {
-    const display = this.clientWidth < Number.parseInt(this.getComputedVariable('--responsive-width'), 10) ? 'none' : 'block';
-    this.infoElement.style.display = display;
   }
 
   /**
@@ -427,8 +404,7 @@ export class Pagination extends BasicElement {
    */
   protected render (): TemplateResult {
     return html`
-      <ef-layout part="container" flex nowrap @resize="${this.onResize}">
-        <div id="info" part="info">${this.t('ITEM_INFO', this.pageInfo)}</div>
+      <ef-layout part="container" flex nowrap>
         <ef-button-bar part="buttons">
           <ef-button id="first" icon="skip-to-start" @tap="${this.onFirstTap}"></ef-button>
           <ef-button id="previous" icon="left" @tap="${this.onPreviousTap}"></ef-button>
