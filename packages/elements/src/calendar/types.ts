@@ -1,4 +1,4 @@
-import { NavigationGrid, CellIndex } from '@refinitiv-ui/utils/lib/grid.js';
+import { NavigationGrid, CellIndex } from '@refinitiv-ui/utils/lib/navigation.js';
 import { RenderView } from './constants.js';
 
 export interface CellSelectionModel {
