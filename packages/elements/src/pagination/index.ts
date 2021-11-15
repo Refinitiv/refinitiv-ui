@@ -253,14 +253,17 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Handle when input is click
+   * Handle input page selection when input has a click or focus
    * @returns {void}
    */
-  private onInputClick (): void {
-    this.input.value = this.page;
-    setTimeout(() => {
-      this.input.select();
-    });
+  private handleInputPageSelection (): void {
+    // Need to check focus to prevent tap and focus event listeners perform duplicate task
+    if(this.focused) {
+      this.input.value = this.page;
+      setTimeout(() => {
+        this.input.select();
+      });
+    }
   }
 
   /**
@@ -408,8 +411,8 @@ export class Pagination extends BasicElement {
         <ef-text-field
           id="input"
           part="input"
-          @focus=${this.onInputClick}
-          @click=${this.onInputClick}
+          @focus=${this.handleInputPageSelection}
+          @tap=${this.handleInputPageSelection}
           @blur="${this.onInputBlur}"
           @keydown="${this.onInputKeyDown}"
           .value=${live(this.infinitePaginate ? this.t('PAGE', { page: this.page }) : this.t('PAGE_OF', { page: this.page, pageTotal: this.totalPage }))}
