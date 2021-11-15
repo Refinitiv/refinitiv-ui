@@ -40,6 +40,7 @@
   <ef-item
     aria-disabled="true"
     aria-readonly="false"
+    aria-selected="false"
     disabled=""
     tabindex="-1"
   >
@@ -91,6 +92,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="-1"
       type="header"
     >
@@ -98,6 +100,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       highlighted=""
       tabindex="0"
     >
@@ -105,12 +108,14 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="0"
     >
     </ef-item>
