@@ -18,7 +18,6 @@ import '../layout/index.js';
 import '../text-field/index.js';
 import type { Button } from '../button';
 import type { TextField } from '../text-field';
-import type { PageInfo } from './helpers/types';
 import '@refinitiv-ui/phrasebook/lib/locale/en/pagination.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
 
@@ -254,25 +253,6 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Get text to display in info part
-   * @returns {PageInfo} Used for translations
-   */
-  private get pageInfo (): PageInfo {
-    const page = Number.parseInt(this.page, 10);
-    const pageSize = Number.parseInt(this.pageSize, 10);
-    const totalCount = Number.parseInt(this.totalItems, 10);
-    const from = ((page - 1) * pageSize) + 1;
-    const to = page * pageSize > totalCount ? totalCount : page * pageSize;
-
-    return {
-      from,
-      to,
-      totalCount,
-      pageSize
-    };
-  }
-
-  /**
    * Handle when input is click
    * @returns {void}
    */
@@ -428,6 +408,7 @@ export class Pagination extends BasicElement {
         <ef-text-field
           id="input"
           part="input"
+          @focus=${this.onInputClick}
           @click=${this.onInputClick}
           @blur="${this.onInputBlur}"
           @keydown="${this.onInputKeyDown}"
