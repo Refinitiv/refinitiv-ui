@@ -4,6 +4,8 @@ import './shared.js';
 
 const translations = {
   // page: current page #
+  PAGE: 'Page {page}',
+  // page: current page #
   // pageTotal: total number of pages
   PAGE_OF: 'Page {page} of {pageTotal}'
 };

@@ -7,7 +7,8 @@ import {
   triggerFocusFor,
   keyboardEvent,
   aTimeout,
-  waitUntil
+  waitUntil,
+  nextFrame
 } from '@refinitiv-ui/test-helpers';
 
 // Translations polyfills
@@ -38,12 +39,13 @@ describe('pagination/Pagination', () => {
       el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
     });
 
-    it('Should have default value of page at 1, pageSize at 10, totalItems at 10', async () => {
+    it('Should have default value of page at 1, pageSize at 10, totalItems is empty', async () => {
       el = await fixture('<ef-pagination lang="en-gb"></ef-pagination>');
       expect(el.page).to.equal('1');
       expect(el.pageSize).to.equal('10');
-      expect(el.totalItems).to.equal('10');
+      expect(el.totalItems).to.equal('');
     });
+
     it('Calculates total page correctly', async () => {
       expect(el.pageSize).to.equal('5');
       expect(el.totalItems).to.equal('32');
@@ -52,13 +54,19 @@ describe('pagination/Pagination', () => {
       el.pageSize = '1';
       el.totalItems = '0';
       await elementUpdated(el);
-      expect(el.totalPage).to.equal(1);
+      expect(el.totalPage).to.equal(Infinity);
+
+      el.pageSize = '1';
+      el.totalItems = '';
+      await elementUpdated(el);
+      expect(el.totalPage).to.equal(Infinity);
 
       el.pageSize = '4';
       el.totalItems = '9';
       await elementUpdated(el);
       expect(el.totalPage).to.equal(3);
     });
+
     it('Should have page size set to 1 if set page size 0', async () => {
       el.pageSize = '0';
       await elementUpdated(el);
@@ -66,21 +74,25 @@ describe('pagination/Pagination', () => {
       expect(el.totalItems).to.equal('32');
       expect(el.totalPage).to.equal(Number.parseInt(el.totalItems, 10));
     });
+
     it('Should reset page size set to 1 when page set to zero', async () => {
       el.page = '0';
       await elementUpdated(el);
       expect(el.page).to.equal('1');
     });
+
     it('Should reset page size set to 1 when page set is below 1', async () => {
       el.page = '-5';
       await elementUpdated(el);
       expect(el.page).to.equal('1');
     });
+
     it('Should reset page size set to total page number when page set is more than maximum page', async () => {
       el.page = '100';
       await elementUpdated(el);
       expect(el.page).to.equal('7');
     });
+
     it('Should reset page value to total page when total-items is change and page becomes more than total page', async () => {
       el.page = '5';
       await elementUpdated(el);
@@ -92,6 +104,7 @@ describe('pagination/Pagination', () => {
       expect(el.page).to.not.equal('5');
       expect(el.page).to.equal('2');
     });
+
     it('Should reset page value to total page when page-size is change and page becomes more than total page', async () => {
       el.page = '5';
       await elementUpdated(el);
@@ -103,12 +116,14 @@ describe('pagination/Pagination', () => {
       expect(el.page).to.not.equal('5');
       expect(el.page).to.equal('2');
     });
+
     it('Should have total page set to 1 if page size value is more than total items', async () => {
       el.totalItems = '32';
       el.pageSize = '40';
       await elementUpdated(el);
       expect(el.totalPage).to.equal(1);
     });
+
     it('Should be able to change page number by typing a number into the input', async () => {
       const textField = el.shadowRoot.querySelector('[part=input]');
       await triggerFocusFor(textField);
@@ -119,7 +134,6 @@ describe('pagination/Pagination', () => {
 
       setTimeout(() => textField.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' })));
       await aTimeout(50);
-
       expect(el.page).to.equal('3');
     });
   });
@@ -180,6 +194,29 @@ describe('pagination/Pagination', () => {
 
       expect(document.activeElement).to.not.equal(el, 'It should blur the element');
     });
+
+    it('Should transform the selected text input value when focus/blur', async () => {
+      expect(inputPart.value).to.equal('Page 1 of 7', 'Incorrect transform text input');
+
+      inputPart.click()
+      expect(inputPart.value).to.equal('1', 'Incorrect transform text input');
+
+      inputPart.blur();
+      await aTimeout(50);
+      expect(inputPart.value).to.equal('Page 1 of 7', 'Incorrect transform text input');
+
+      lastButton.click();
+      await aTimeout(50);
+      expect(inputPart.value).to.equal('Page 7 of 7', 'Incorrect transform text input');
+
+      inputPart.click()
+      expect(inputPart.value).to.equal('7');
+
+      inputPart.blur();
+      setTimeout(() => {
+        expect(inputPart.value).to.equal('Page 7 of 7', 'Incorrect transform text input');
+      }, 0);
+    });
   });
 
   describe('Button State', () => {
@@ -198,6 +235,7 @@ describe('pagination/Pagination', () => {
       nextButton = el.shadowRoot.querySelector('#next');
       lastButton = el.shadowRoot.querySelector('#last');
     });
+
     it('First and previous buttons should be disabled on the first page', async () => {
       el.page = '1';
       await elementUpdated(el);
@@ -206,6 +244,7 @@ describe('pagination/Pagination', () => {
       expect(nextButton.disabled).to.equal(false);
       expect(lastButton.disabled).to.equal(false);
     });
+
     it('Last and next buttons should be disabled on the last page', async () => {
       el.page = el.totalPage.toString();
       await elementUpdated(el);
@@ -214,6 +253,27 @@ describe('pagination/Pagination', () => {
       expect(nextButton.disabled).to.equal(true);
       expect(lastButton.disabled).to.equal(true);
     });
+
+    it('Next button should be always enabled and last button should be always disabled when `max` attribute/property is not set', async () => {
+      el.page = '1';
+      el.removeAttribute('total-items');
+      await elementUpdated(el);
+      expect(nextButton.disabled).to.equal(false);
+      expect(lastButton.disabled).to.equal(true);
+
+      el.page = '1';
+      el.totalItems = '100';
+      await elementUpdated(el);
+      expect(nextButton.disabled).to.equal(false);
+      expect(lastButton.disabled).to.equal(false);
+
+      el.page = '99999';
+      el.totalItems = '';
+      await elementUpdated(el);
+      expect(nextButton.disabled).to.equal(false);
+      expect(lastButton.disabled).to.equal(true);
+    });
+
     it('All buttons should be enabled if not first or last page', async () => {
       el.page = '2';
       await elementUpdated(el);
@@ -222,6 +282,7 @@ describe('pagination/Pagination', () => {
       expect(nextButton.disabled).to.equal(false);
       expect(lastButton.disabled).to.equal(false);
     });
+
     it('All buttons should be disabled if only have one page', async () => {
       el.pageSize = '1';
       el.totalItems = '1';
@@ -256,6 +317,7 @@ describe('pagination/Pagination', () => {
       await elementUpdated(el);
       expect(el.page).to.equal('1');
     });
+
     it('Should go to previous page when the previous button is clicked', async () => {
       el.page = '3';
       await elementUpdated(el);
@@ -269,6 +331,7 @@ describe('pagination/Pagination', () => {
       await elementUpdated(el);
       expect(el.page).to.equal('1');
     });
+
     it('Should go to the last page when the last button is clicked', async () => {
       el.page = '3';
       await elementUpdated(el);
@@ -276,6 +339,7 @@ describe('pagination/Pagination', () => {
       await elementUpdated(el);
       expect(el.page).to.equal('7');
     });
+
     it('Should go to the next page when the next button is clicked', async () => {
       el.page = '5';
       await elementUpdated(el);
@@ -289,6 +353,7 @@ describe('pagination/Pagination', () => {
       await elementUpdated(el);
       expect(el.page).to.equal('7');
     });
+
     it('Should go to the last page when current page is more than total page when page size changed', async () => {
       el.page = '5';
       el.pageSize = '10';
@@ -333,6 +398,7 @@ describe('pagination/Pagination', () => {
       expect(el.page).to.equal('2');
       expect(detail.value).to.equal('2');
     });
+
     it('Should not fire page-changed event when next button is click but the page is already at the maximum page', async () => {
       let eventFired;
       el.page = '7';
@@ -349,6 +415,7 @@ describe('pagination/Pagination', () => {
       expect(el.page).to.equal('7');
       expect(eventFired).to.equal(false);
     });
+
     it('Should fire page-changed event when previous button is click and page changes', async () => {
       el.page = '4';
       setTimeout(() => {
@@ -359,6 +426,7 @@ describe('pagination/Pagination', () => {
       expect(el.page).to.equal('3');
       expect(detail.value).to.equal('3');
     });
+
     it('Should not fire page-changed event when previous button is click but the page is already at the minimum page', async () => {
       let eventFired;
       el.page = '1';
@@ -375,6 +443,7 @@ describe('pagination/Pagination', () => {
       expect(el.page).to.equal('1');
       expect(eventFired).to.equal(false);
     });
+
     it('Should fire page-changed event when last button is click and page changes', async () => {
       el.page = '4';
       setTimeout(() => {
@@ -400,6 +469,7 @@ describe('pagination/Pagination', () => {
       expect(el.page).to.equal('2');
       expect(eventFired).to.equal(false, 'Event must not be fired');
     });
+
     it('Should not fire page-changed event when page is changes through property', async () => {
       let eventFired;
       setTimeout(() => el.page = '2');
@@ -413,6 +483,7 @@ describe('pagination/Pagination', () => {
 
       expect(eventFired).to.equal(false, 'Event must not be fired');
     });
+
     it('Should fire page-changed event when page changes through the text input', async () => {
       const textField = el.shadowRoot.querySelector('[part=input]');
       await triggerFocusFor(textField);
@@ -439,14 +510,15 @@ describe('pagination/Pagination', () => {
       el = await fixture('<ef-pagination page-size="5" total-items="15" lang="en-gb"></ef-pagination>');
     });
 
-    it('Should navigate to first page when first() is called', async () => {
+    it('Should navigate to first page when first() is called', () => {
       el.page = '5';
       expect(el.page).to.equal('5');
 
       el.first();
       expect(el.page).to.equal('1');
     });
-    it('Should navigate to next page when next() is called', async () => {
+
+    it('Should navigate to next page when next() is called', () => {
       el.next();
       expect(el.page).to.equal('2');
       el.next();
@@ -454,11 +526,26 @@ describe('pagination/Pagination', () => {
       el.next();
       expect(el.page).to.equal('3', 'It should not go beyond the last page');
     });
-    it('Should navigate to last page when last() is called', async () => {
+
+    it('Should navigate to last page when last() is called', () => {
       el.last();
       expect(el.page).to.equal('3');
     });
-    it('Should navigate to previous page when previous() is called', async () => {
+
+    it('Should navigate to last page when last() is called', () => {
+      el.last();
+      expect(el.page).to.equal('3');
+    });
+
+    it('Should not navigate to last page when last() is called but `max` attribute/property is not set', async () => {
+      el.page = '1';
+      el.totalItems = '';
+      await elementUpdated(el);
+      el.last();
+      expect(el.page).to.equal('1');
+    });
+
+    it('Should navigate to previous page when previous() is called', () => {
       el.page = '3';
       expect(el.page).to.equal('3');
 
@@ -469,7 +556,8 @@ describe('pagination/Pagination', () => {
       el.previous();
       expect(el.page).to.equal('1', 'It should not go less than the first page');
     });
-    it('Should be able to change page via public functions even when control is disabled', async () => {
+
+    it('Should be able to change page via public functions even when control is disabled', () => {
       el.disabled = true;
 
       el.next();

@@ -4,11 +4,13 @@ import {
   css,
   PropertyValues,
   TemplateResult,
-  CSSResultGroup
+  CSSResultGroup,
+  WarningNotice
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { live } from '@refinitiv-ui/core/lib/directives/live.js';
 import { VERSION } from '../version.js';
 import '../button/index.js';
 import '../button-bar/index.js';
@@ -67,13 +69,20 @@ export class Pagination extends BasicElement {
    * Total items
    */
   @property({ type: String, attribute: 'total-items' })
-  public totalItems = '10';
+  public totalItems = '';
 
   /**
    * Set state to disable
    */
   @property({ type: Boolean, reflect: true })
   public disabled = false;
+
+  /**
+   * Get infinite pagination state
+   */
+  private get infinitePaginate (): boolean {
+    return !this.totalItems || Number.parseInt(this.totalItems, 10) <= 0;
+  }
 
   /**
     * Getter for text field as input part
@@ -118,7 +127,6 @@ export class Pagination extends BasicElement {
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
-
     if (changedProperties.has('disabled')) {
       this.disabledChanged();
     }
@@ -191,10 +199,12 @@ export class Pagination extends BasicElement {
   private updateButtons (): void {
     const page = Number.parseInt(this.page, 10);
     const firstPage = this.disabled || page <= 1;
-    const lastPage = this.disabled || page >= this.totalPage;
+    const nextPage = this.disabled || page >= this.totalPage;
+    const lastPage = nextPage || this.infinitePaginate;
+
     this.previousPageButton.disabled = firstPage;
     this.firstPageButton.disabled = firstPage;
-    this.nextPageButton.disabled = lastPage;
+    this.nextPageButton.disabled = nextPage;
     this.lastPageButton.disabled = lastPage;
   }
 
@@ -206,6 +216,10 @@ export class Pagination extends BasicElement {
   private get totalPage (): number {
     const pageSize = Number.parseInt(this.pageSize, 10);
     const totalItems = Number.parseInt(this.totalItems, 10);
+
+    if (!totalItems) {
+      return Infinity;
+    }
 
     if (pageSize > 0) {
       const totalPage = Math.ceil(totalItems / pageSize);
@@ -259,10 +273,10 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Handle when input is focus
+   * Handle when input is click
    * @returns {void}
    */
-  private onInputFocus (): void {
+  private onInputClick (): void {
     this.input.value = this.page;
     setTimeout(() => {
       this.input.select();
@@ -277,8 +291,6 @@ export class Pagination extends BasicElement {
   private onInputBlur (event: {target: HTMLInputElement}): void {
     const oldPageValue = this.page;
     this.page = this.validatePage(this.page, event.target.value);
-    // need this to update input text
-    this.requestUpdate();
 
     if (this.page !== oldPageValue) {
       this.notifyPropertyChange('page', this.page);
@@ -353,7 +365,7 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Go to the previous page and fires evetn
+   * Go to the previous page and fires event
    * @returns {void}
    */
   private onPreviousTap (): void {
@@ -384,6 +396,10 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   public last (): void {
+    if (!this.totalItems) {
+      new WarningNotice(`${this.localName}: Method "last()" does not support, when the element does not have "max" attribute/property.`).show();
+      return;
+    }
     this.input.blur();
     this.page = this.totalPage.toString();
   }
@@ -412,13 +428,10 @@ export class Pagination extends BasicElement {
         <ef-text-field
           id="input"
           part="input"
-          @focus="${this.onInputFocus}"
+          @click=${this.onInputClick}
           @blur="${this.onInputBlur}"
           @keydown="${this.onInputKeyDown}"
-          .value="${this.t('PAGE_OF', {
-            page: this.page,
-            pageTotal: this.totalPage
-          })}"
+          .value=${live(this.infinitePaginate ? this.t('PAGE', { page: this.page }) : this.t('PAGE_OF', { page: this.page, pageTotal: this.totalPage }))}
           no-spinner></ef-text-field>
         <ef-button-bar part="buttons">
           <ef-button id="next" icon="right" @tap="${this.onNextTap}"></ef-button>
