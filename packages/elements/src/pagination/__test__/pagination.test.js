@@ -198,24 +198,28 @@ describe('pagination/Pagination', () => {
     it('Should transform the selected text input value when focus/blur', async () => {
       expect(inputPart.value).to.equal('Page 1 of 7', 'Incorrect transform text input');
 
-      inputPart.click()
+      await triggerFocusFor(inputPart);
       expect(inputPart.value).to.equal('1', 'Incorrect transform text input');
 
       inputPart.blur();
-      await aTimeout(50);
-      expect(inputPart.value).to.equal('Page 1 of 7', 'Incorrect transform text input');
+      setTimeout(() => {
+        expect(inputPart.value).to.equal('Page 1 of 7', 'Incorrect transform text input');
+      });
 
-      lastButton.click();
-      await aTimeout(50);
-      expect(inputPart.value).to.equal('Page 7 of 7', 'Incorrect transform text input');
+      await triggerFocusFor(inputPart);
+      setTimeout(() => {
+        expect(inputPart.value).to.equal('Page 7 of 7', 'Incorrect transform text input');
+      });
 
-      inputPart.click()
-      expect(inputPart.value).to.equal('7');
+      await triggerFocusFor(inputPart);
+      setTimeout(() => {
+        expect(inputPart.value).to.equal('7');
+      });
 
       inputPart.blur();
       setTimeout(() => {
         expect(inputPart.value).to.equal('Page 7 of 7', 'Incorrect transform text input');
-      }, 0);
+      });
     });
   });
 
