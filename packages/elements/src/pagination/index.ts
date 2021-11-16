@@ -10,7 +10,6 @@ import {
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
-import { live } from '@refinitiv-ui/core/lib/directives/live.js';
 import { VERSION } from '../version.js';
 import '../button/index.js';
 import '../button-bar/index.js';
@@ -278,6 +277,7 @@ export class Pagination extends BasicElement {
     this.inputEditing = false;
     const oldPageValue = this.page;
     this.page = this.validatePage(this.page, event.target.value);
+    this.requestUpdate();
 
     if (this.page !== oldPageValue) {
       this.notifyPropertyChange('page', this.page);
