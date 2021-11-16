@@ -5,7 +5,8 @@ import {
   PropertyValues,
   TemplateResult,
   CSSResultGroup,
-  WarningNotice
+  WarningNotice,
+  DeprecationNotice
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
@@ -21,9 +22,12 @@ import type { TextField } from '../text-field';
 import '@refinitiv-ui/phrasebook/lib/locale/en/pagination.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
 
+const pageDeprecation = new DeprecationNotice('Property `page` is deprecated, use `value` instead.');
+const totalItemsDeprecation = new DeprecationNotice('Property `totalItems ` is deprecated, use `max` instead.');
+
 /**
  * Used to control and navigate through multiple pages
- * @fires page-changed - Fired when the `page` property is changed
+ * @fires value-changed - Fired when the `value` property is changed
  */
 @customElement('ef-pagination', {
   alias: 'emerald-pagination'
@@ -53,10 +57,28 @@ export class Pagination extends BasicElement {
   }
 
   /**
+   * current page
+   * @deprecated
+   * @ignore
+   */
+  @property({ type: String })
+  public get page (): string {
+    return this.value;
+  }
+  /**
+   * @ignore
+   * @param {String} value - Set current page
+   */
+  public set page (value: string) {
+    pageDeprecation.once();
+    this.value = value;
+  }
+
+  /**
    * Set current page
    */
   @property({ type: String })
-  public page = '1';
+  public value = '1';
 
   /**
    * Number of item per page
@@ -66,9 +88,27 @@ export class Pagination extends BasicElement {
 
   /**
    * Total items
+   * @deprecated
+   * @ignore
    */
   @property({ type: String, attribute: 'total-items' })
-  public totalItems = '';
+  public get totalItems (): string {
+    return this.max;
+  }
+  /**
+  * @ignore
+  * @param {String} value - Set total items
+  */
+  public set totalItems (value: string) {
+    totalItemsDeprecation.once();
+    this.max = value;
+  }
+
+  /**
+   * Max
+   */
+  @property({ type: String })
+  public max = '';
 
   /**
    * Set state to disable
@@ -80,7 +120,7 @@ export class Pagination extends BasicElement {
    * Get infinite pagination state
    */
   private get infinitePaginate (): boolean {
-    return !this.totalItems || Number.parseInt(this.totalItems, 10) <= 0;
+    return !this.max || Number.parseInt(this.max, 10) <= 0;
   }
 
   /**
@@ -135,16 +175,16 @@ export class Pagination extends BasicElement {
     if (changedProperties.has('disabled')) {
       this.disabledChanged();
     }
-    if (changedProperties.has('page')) {
-      const previousPage = changedProperties.get('page') as string;
-      this.page = this.validatePage(previousPage, this.page);
+    if (changedProperties.has('value')) {
+      const previousPage = changedProperties.get('value') as string;
+      this.value = this.validatePage(previousPage, this.value);
       this.updateButtons();
     }
     if (changedProperties.has('pageSize')) {
       this.pageSizeChanged();
     }
-    if (changedProperties.has('totalItems')) {
-      this.totalItemsChanged();
+    if (changedProperties.has('max')) {
+      this.maxChanged();
     }
   }
 
@@ -153,33 +193,33 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private pageSizeChanged (): void {
-    const page = Number.parseInt(this.page, 10);
+    const value = Number.parseInt(this.value, 10);
     const pageSize = Number.parseInt(this.pageSize, 10);
 
     // page must have at least 1 item
     if (pageSize < 1) {
       this.pageSize = '1';
     }
-    if (page > this.totalPage) {
-      this.page = this.totalPage.toString();
+    if (value > this.totalPage) {
+      this.value = this.totalPage.toString();
     }
     this.updateButtons();
   }
 
   /**
-   * Handle when total-items property changed
+   * Handle when max property changed
    * @returns {void}
    */
-  private totalItemsChanged (): void {
-    const page = Number.parseInt(this.page, 10);
-    const totalItems = Number.parseInt(this.totalItems, 10);
+  private maxChanged (): void {
+    const value = Number.parseInt(this.value, 10);
+    const max = Number.parseInt(this.max, 10);
     // handle if someone doesn't know how to count
-    if (totalItems < 1) {
-      this.totalItems = '0';
-      this.page = '1';
+    if (max < 1) {
+      this.max = '0';
+      this.value = '1';
     }
-    else if (page > this.totalPage) {
-      this.page = this.totalPage.toString();
+    else if (value > this.totalPage) {
+      this.value = this.totalPage.toString();
     }
     this.updateButtons();
   }
@@ -202,9 +242,9 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private updateButtons (): void {
-    const page = Number.parseInt(this.page, 10);
-    const firstPage = this.disabled || page <= 1;
-    const nextPage = this.disabled || page >= this.totalPage;
+    const value = Number.parseInt(this.value, 10);
+    const firstPage = this.disabled || value <= 1;
+    const nextPage = this.disabled || value >= this.totalPage;
     const lastPage = nextPage || this.infinitePaginate;
 
     this.previousPageButton.disabled = firstPage;
@@ -220,14 +260,14 @@ export class Pagination extends BasicElement {
    */
   private get totalPage (): number {
     const pageSize = Number.parseInt(this.pageSize, 10);
-    const totalItems = Number.parseInt(this.totalItems, 10);
+    const max = Number.parseInt(this.max, 10);
 
-    if (!totalItems) {
+    if (!max) {
       return Infinity;
     }
 
     if (pageSize > 0) {
-      const totalPage = Math.ceil(totalItems / pageSize);
+      const totalPage = Math.ceil(max / pageSize);
       return totalPage > 0 ? totalPage : 1;
     }
 
@@ -236,26 +276,26 @@ export class Pagination extends BasicElement {
 
   /**
    * Check a new page value to be usable
-   * if a new page value is allow then return newPage
+   * if a new page value is allow then return a new
    * Condition to be old value is null or NaN or undefined or string or less than 1
-   * @param oldPage a old page value
-   * @param newPage a new page value
+   * @param oldValue a old page value
+   * @param newValue a new page value
    * @return return a new page value
    */
-  private validatePage (oldPage: string, newPage: string): string {
-    let page = Number.parseInt(newPage, 10);
+  private validatePage (oldValue: string, newValue: string): string {
+    let value = Number.parseInt(newValue, 10);
 
-    if(!page || isNaN(Number(newPage)) || isNaN(page)) {
-      page = Number.parseInt(oldPage, 10);
+    if(!value || isNaN(Number(newValue)) || isNaN(value)) {
+      value = Number.parseInt(oldValue, 10);
     }
-    else if (page > this.totalPage) {
-      page = this.totalPage;
+    else if (value > this.totalPage) {
+      value = this.totalPage;
     }
-    else if (page < 1) {
-      page = 1;
+    else if (value < 1) {
+      value = 1;
     }
 
-    return page.toString();
+    return value.toString();
   }
 
   /**
@@ -275,12 +315,12 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private onInputBlur (event: {target: HTMLInputElement}): void {
-    const oldPageValue = this.page;
-    this.page = this.validatePage(this.page, event.target.value);
+    const oldPageValue = this.value;
+    this.value = this.validatePage(this.value, event.target.value);
     this.inputEditing = false;
 
-    if (this.page !== oldPageValue) {
-      this.notifyPropertyChange('page', this.page);
+    if (this.value !== oldPageValue) {
+      this.notifyValueChange();
     }
   }
 
@@ -312,16 +352,26 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private updatePage (direction: 'increment' | 'decrement', event = false): void {
-    const page = parseInt(this.page, 10);
-    const limit = direction === 'increment' ? page < this.totalPage : page > 1;
+    const value = parseInt(this.value, 10);
+    const limit = direction === 'increment' ? value < this.totalPage : value > 1;
 
     if (limit) {
-      this.page = direction === 'increment' ? (page + 1).toString() : (page - 1).toString();
+      this.value = direction === 'increment' ? (value + 1).toString() : (value - 1).toString();
 
       if (event) {
-        this.notifyPropertyChange('page', this.page);
+        this.notifyValueChange();
       }
     }
+  }
+
+
+  /**
+   * Fires event when value change
+   * @returns {void}
+   */
+  private notifyValueChange ():void {
+    this.notifyPropertyChange('value', this.value);
+    this.notifyPropertyChange('page', this.value); // deprecated. support backward compat
   }
 
   /**
@@ -366,7 +416,7 @@ export class Pagination extends BasicElement {
    */
   public first (): void {
     this.input.blur();
-    this.page = '1';
+    this.value = '1';
   }
 
   /**
@@ -375,7 +425,7 @@ export class Pagination extends BasicElement {
    */
   private onFirstTap (): void {
     this.first();
-    this.notifyPropertyChange('page', this.page);
+    this.notifyValueChange();
   }
 
   /**
@@ -383,12 +433,12 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   public last (): void {
-    if (!this.totalItems) {
+    if (!this.max) {
       new WarningNotice(`${this.localName}: Method "last()" does not support, when the element does not have "max" attribute/property.`).show();
       return;
     }
     this.input.blur();
-    this.page = this.totalPage.toString();
+    this.value = this.totalPage.toString();
   }
 
   /**
@@ -397,7 +447,7 @@ export class Pagination extends BasicElement {
    */
   private onLastTap (): void {
     this.last();
-    this.notifyPropertyChange('page', this.page);
+    this.notifyValueChange();
   }
 
   /**
@@ -408,10 +458,10 @@ export class Pagination extends BasicElement {
   protected render (): TemplateResult {
     let inputValue;
     if (this.inputEditing) {
-      inputValue = this.page;
+      inputValue = this.value;
     }
     else {
-      inputValue = this.infinitePaginate ? this.t('PAGE', { page: this.page }) : this.t('PAGE_OF', { page: this.page, pageTotal: this.totalPage });
+      inputValue = this.infinitePaginate ? this.t('PAGE', { page: this.value }) : this.t('PAGE_OF', { page: this.value, pageTotal: this.totalPage });
     }
     return html`
       <ef-layout part="container" flex nowrap>
