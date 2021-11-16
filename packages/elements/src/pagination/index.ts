@@ -10,6 +10,7 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { VERSION } from '../version.js';
 import '../button/index.js';
@@ -161,6 +162,7 @@ export class Pagination extends BasicElement {
   /**
    * State for check the input is editing
    */
+  @state()
   private inputEditing = false;
 
   /**
@@ -302,7 +304,6 @@ export class Pagination extends BasicElement {
    */
   private handleInputPageSelection (): void {
     this.inputEditing = true;
-    this.requestUpdate();
     setTimeout(() => {
       this.input.select();
     });
@@ -314,10 +315,9 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private onInputBlur (event: {target: HTMLInputElement}): void {
-    this.inputEditing = false;
     const oldPageValue = this.value;
     this.value = this.validatePage(this.value, event.target.value);
-    this.requestUpdate();
+    this.inputEditing = false;
 
     if (this.value !== oldPageValue) {
       this.notifyPropertyChange('value', this.value);
