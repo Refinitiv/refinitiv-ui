@@ -120,6 +120,11 @@ export class Pagination extends BasicElement {
   protected t!: Translate;
 
   /**
+   * State for check the input is editing
+   */
+  private inputEditing = false;
+
+  /**
    * Invoked whenever the element is updated
    * @param changedProperties Map of changed properties with old values
    * @returns {void}
@@ -257,13 +262,11 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private handleInputPageSelection (): void {
-    // Need to check focus to prevent tap and focus event listeners perform duplicate task
-    if(this.focused) {
-      this.input.value = this.page;
-      setTimeout(() => {
-        this.input.select();
-      });
-    }
+    this.inputEditing = true;
+    this.requestUpdate();
+    setTimeout(() => {
+      this.input.select();
+    });
   }
 
   /**
@@ -272,6 +275,7 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private onInputBlur (event: {target: HTMLInputElement}): void {
+    this.inputEditing = false;
     const oldPageValue = this.page;
     this.page = this.validatePage(this.page, event.target.value);
 
@@ -402,6 +406,13 @@ export class Pagination extends BasicElement {
    * @return {TemplateResult} Render template
    */
   protected render (): TemplateResult {
+    let inputValue;
+    if (this.inputEditing) {
+      inputValue = this.page;
+    }
+    else {
+      inputValue = this.infinitePaginate ? this.t('PAGE', { page: this.page }) : this.t('PAGE_OF', { page: this.page, pageTotal: this.totalPage });
+    }
     return html`
       <ef-layout part="container" flex nowrap>
         <ef-button-bar part="buttons">
@@ -412,10 +423,9 @@ export class Pagination extends BasicElement {
           id="input"
           part="input"
           @focus=${this.handleInputPageSelection}
-          @tap=${this.handleInputPageSelection}
           @blur="${this.onInputBlur}"
           @keydown="${this.onInputKeyDown}"
-          .value=${live(this.infinitePaginate ? this.t('PAGE', { page: this.page }) : this.t('PAGE_OF', { page: this.page, pageTotal: this.totalPage }))}
+          .value=${inputValue}
           no-spinner></ef-text-field>
         <ef-button-bar part="buttons">
           <ef-button id="next" icon="right" @tap="${this.onNextTap}"></ef-button>
