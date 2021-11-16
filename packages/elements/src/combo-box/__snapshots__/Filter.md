@@ -9,8 +9,8 @@
   <ef-text-field
     aria-disabled="false"
     aria-readonly="false"
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -73,8 +73,8 @@
   <ef-text-field
     aria-disabled="false"
     aria-readonly="false"
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >

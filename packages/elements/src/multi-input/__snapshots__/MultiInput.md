@@ -11,6 +11,7 @@
     aria-disabled="false"
     aria-readonly="false"
     part="search"
+    role="textbox"
     tabindex="1"
     transparent=""
   >

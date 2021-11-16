@@ -82,11 +82,11 @@
         <ef-text-field
           aria-disabled="false"
           aria-readonly="false"
-          icon=""
           id="hexInput"
           maxlength="6"
           part="color-input"
           pattern="^([0-9a-fA-F]{3}){1,2}$"
+          role="textbox"
         >
         </ef-text-field>
       </div>

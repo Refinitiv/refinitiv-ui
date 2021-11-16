@@ -47,10 +47,10 @@
   <ef-text-field
     aria-disabled="false"
     aria-readonly="false"
-    icon=""
     id="input"
     no-spinner=""
     part="input"
+    role="textbox"
     tabindex="0"
   >
   </ef-text-field>

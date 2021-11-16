@@ -96,7 +96,7 @@ export class TextField extends FormFieldElement {
    * Specify icon to display in input. Value can be icon name
    */
   @property({ type: String, reflect: true })
-  public icon = '';
+  public icon: string | null = null;
 
   /**
    * Specify when icon need to be clickable
