@@ -320,7 +320,7 @@ export class Pagination extends BasicElement {
     this.inputEditing = false;
 
     if (this.value !== oldPageValue) {
-      this.notifyPropertyChange('value', this.value);
+      this.notifyValueChange();
     }
   }
 
@@ -359,9 +359,19 @@ export class Pagination extends BasicElement {
       this.value = direction === 'increment' ? (value + 1).toString() : (value - 1).toString();
 
       if (event) {
-        this.notifyPropertyChange('value', this.value);
+        this.notifyValueChange();
       }
     }
+  }
+
+
+  /**
+   * Fires event when value change
+   * @returns {void}
+   */
+  private notifyValueChange ():void {
+    this.notifyPropertyChange('value', this.value);
+    this.notifyPropertyChange('page', this.value); // deprecated. support backward compat
   }
 
   /**
@@ -415,7 +425,7 @@ export class Pagination extends BasicElement {
    */
   private onFirstTap (): void {
     this.first();
-    this.notifyPropertyChange('value', this.value);
+    this.notifyValueChange();
   }
 
   /**
@@ -437,7 +447,7 @@ export class Pagination extends BasicElement {
    */
   private onLastTap (): void {
     this.last();
-    this.notifyPropertyChange('value', this.value);
+    this.notifyValueChange();
   }
 
   /**
