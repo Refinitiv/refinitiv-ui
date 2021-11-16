@@ -201,25 +201,28 @@ describe('pagination/Pagination', () => {
       await triggerFocusFor(inputPart);
       expect(inputPart.value).to.equal('1', 'Incorrect transform text input');
 
-      inputPart.blur();
       setTimeout(() => {
-        expect(inputPart.value).to.equal('Page 1 of 7', 'Incorrect transform text input');
+        inputPart.focus(); // Firefox need focus before blur
+        inputPart.blur();
       });
+      await oneEvent(inputPart, 'blur');
+      await elementUpdated(el);
+      expect(inputPart.value).to.equal('Page 1 of 7', 'Incorrect transform text input');
+
+      lastButton.click();
+      await nextFrame();
+      expect(inputPart.value).to.equal('Page 7 of 7', 'Incorrect transform text input');
 
       await triggerFocusFor(inputPart);
-      setTimeout(() => {
-        expect(inputPart.value).to.equal('Page 7 of 7', 'Incorrect transform text input');
-      });
+      expect(inputPart.value).to.equal('7');
 
-      await triggerFocusFor(inputPart);
       setTimeout(() => {
-        expect(inputPart.value).to.equal('7');
+        inputPart.focus(); // Firefox need focus before blur
+        inputPart.blur();
       });
-
-      inputPart.blur();
-      setTimeout(() => {
-        expect(inputPart.value).to.equal('Page 7 of 7', 'Incorrect transform text input');
-      });
+      await oneEvent(inputPart, 'blur');
+      await elementUpdated(el);
+      expect(inputPart.value).to.equal('Page 7 of 7', 'Incorrect transform text input');
     });
   });
 
