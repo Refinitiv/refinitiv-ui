@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, isIE } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, isIE, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
@@ -12,10 +12,11 @@ describe('text-field/SelectionRange', () => {
         this.skip();
       }
       const el = await fixture('<ef-text-field value="some text to test"></ef-text-field>');
-      el.focus();
+      await triggerFocusFor(el);
       const input = el.shadowRoot.querySelector('[part=input]');
       const selectionStart = 5;
       el.selectionStart = selectionStart;
+      expect(el.selectionStart).to.equal(selectionStart);
       await elementUpdated(el);
       expect(input.selectionStart).to.equal(selectionStart);
     });
@@ -26,10 +27,11 @@ describe('text-field/SelectionRange', () => {
         this.skip();
       }
       const el = await fixture('<ef-text-field value="some text to test"></ef-text-field>');
-      el.focus();
+      await triggerFocusFor(el);
       const input = el.shadowRoot.querySelector('[part=input]');
       const selectionEnd = 5;
       el.selectionEnd = selectionEnd;
+      expect(el.selectionEnd).to.equal(selectionEnd);
       await elementUpdated(el);
       expect(input.selectionEnd).to.equal(selectionEnd);
     });
@@ -40,7 +42,7 @@ describe('text-field/SelectionRange', () => {
         this.skip();
       }
       const el = await fixture('<ef-text-field value="some text to test"></ef-text-field>');
-      el.focus();
+      await triggerFocusFor(el);
       const input = el.shadowRoot.querySelector('[part=input]');
       const selectionStart = 2;
       const selectionEnd = selectionStart;
@@ -57,11 +59,14 @@ describe('text-field/SelectionRange', () => {
         this.skip();
       }
       const el = await fixture('<ef-text-field value="some text to test"></ef-text-field>');
-      el.focus();
+      await triggerFocusFor(el);
       const input = el.shadowRoot.querySelector('[part=input]');
       const selectionStart = 4;
       const selectionEnd = 4;
       el.setSelectionRange(selectionStart, selectionEnd);
+      expect(el.selectionStart).to.equal(selectionStart);
+      expect(el.selectionEnd).to.equal(selectionEnd);
+
       await elementUpdated(el);
       expect(input.selectionStart).to.equal(selectionStart);
       expect(input.selectionEnd).to.equal(selectionEnd);

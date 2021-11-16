@@ -1,5 +1,5 @@
 import {
-  ControlElement,
+  FormFieldElement,
   css,
   CSSResultGroup,
   html,
@@ -14,8 +14,6 @@ import { VERSION } from '../version.js';
 import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
 import '../icon/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
-
-type SelectionIndex = number | null;
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
 
@@ -37,7 +35,7 @@ const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === und
 @customElement('ef-text-field', {
   alias: 'coral-text-field'
 })
-export class TextField extends ControlElement {
+export class TextField extends FormFieldElement {
 
   /**
    * Element version number
@@ -95,39 +93,6 @@ export class TextField extends ControlElement {
   public placeholder = '';
 
   /**
-   * Set state to error
-   */
-  @property({ type: Boolean, reflect: true })
-  public error = false;
-
-  /**
-   * Aria indicating if the field is required
-   * @ignore
-   */
-  @property({ type: String, attribute: 'aria-required' })
-  public ariaRequired = 'false';
-
-  /**
-   * Aria description used to describe input or error to screen reader
-   * @ignore
-   */
-  @property({ type: String })
-  public ariaDescription = '';
-
-  /**
-   * Aria label used to label input to screen reader
-   * @ignore
-   */
-  @property({ type: String })
-  public ariaLabel = '';
-
-  /**
-   * Set state to warning
-   */
-  @property({ type: Boolean, reflect: true })
-  public warning = false;
-
-  /**
    * Specify icon to display in input. Value can be icon name
    */
   @property({ type: String, reflect: true })
@@ -166,48 +131,6 @@ export class TextField extends ControlElement {
   private inputElement!: HTMLInputElement;
 
   /**
-   * Selection start index
-   */
-  @property({ type: Number, attribute: false })
-  public get selectionStart (): number | null {
-    return this.inputElement.selectionStart;
-  }
-  public set selectionStart (index: SelectionIndex) {
-    this.inputElement.selectionStart = index;
-  }
-
-  /**
-   * Selection end index
-   */
-  @property({ type: Number, attribute: false })
-  public get selectionEnd (): number | null {
-    return this.inputElement.selectionEnd;
-  }
-  public set selectionEnd (index: SelectionIndex) {
-    this.inputElement.selectionEnd = index;
-  }
-
-  /**
-   * Select the contents of input
-   * @returns void
-   */
-  public select (): void {
-    if (!this.disabled && !this.readonly) {
-      this.inputElement.select();
-    }
-  }
-
-  /**
-   * Set the selection range
-   * @param startSelection Start of selection
-   * @param endSelection End of the selection
-   * @returns {void}
-   */
-  public setSelectionRange (startSelection: number, endSelection: number): void {
-    this.inputElement.setSelectionRange(startSelection, endSelection);
-  }
-
-  /**
    * Called after the component is first rendered
    * @param changedProperties Properties which have changed
    * @returns {void}
@@ -215,7 +138,6 @@ export class TextField extends ControlElement {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     registerOverflowTooltip(this.inputElement, () => this.value);
-    this.addEventListener('focus', this.onFocus);
   }
 
   /**
@@ -272,12 +194,9 @@ export class TextField extends ControlElement {
   protected render (): TemplateResult {
     return html`
       <input
+        ${this.ariaDecorate()}
         type="text"
         part="input"
-        aria-required="${this.ariaRequired}"
-        aria-label="${ifDefined(this.ariaLabel || undefined)}"
-        aria-invalid="${ifDefined(this.error || undefined)}"
-        aria-description="${ifDefined(this.ariaDescription || undefined)}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         placeholder="${ifDefined(this.placeholder || undefined)}"
@@ -286,8 +205,7 @@ export class TextField extends ControlElement {
         @input="${this.onPossibleValueChange}"
         @change="${this.onPossibleValueChange}"
         pattern="${ifDefined(this.pattern || undefined)}"
-        autocomplete="off"
-      />
+        autocomplete="off">
       ${this.renderIcon()}
     `;
   }
@@ -304,7 +222,7 @@ export class TextField extends ControlElement {
   /**
    * Validate input according `pattern`, `minLength` and `maxLength` properties
    * change state of `error` property according pattern validation
-   * @returns void
+   * @returns {void}
    */
   private validateInput (): void {
     let error = !this.inputElement.checkValidity();
@@ -316,8 +234,6 @@ export class TextField extends ControlElement {
     if (this.error !== error) {
       this.error = error;
       this.notifyPropertyChange('error', this.error);
-
-      this.queryFieldDescription();
     }
   }
 
@@ -343,90 +259,56 @@ export class TextField extends ControlElement {
   }
 
   /**
-   * Handles the focus event
-   * @returns {void}
+   * Get selection start index
    */
-  private onFocus (): void {
-    this.queryFieldLabel();
-    this.queryFieldDescription();
+  public get selectionStart (): number | null {
+    return this.inputElement?.selectionStart;
   }
 
   /**
-   * Query field's label from host to native input
-   * to support aria label when using screen reader
-   * @returns {void}
+   * Set selection start index
+   * @param index Start index
    */
-  private queryFieldLabel (): void {
-    if (this.hasAttribute('aria-labelledby')) {
-      const ids = this.getAttribute('aria-labelledby');
-      if (!ids) {
-        return;
-      }
-
-      const elementIds = ids.split(' ');
-      elementIds.forEach(id => {
-        const element = document.getElementById(id);
-        if (!element) {
-          return;
-        }
-        const label = element.textContent || '';
-        if (this.ariaLabel && label) {
-          this.ariaLabel += ' ';
-        }
-
-        this.ariaLabel += label;
-      });
-    }
-    else if (this.hasAttribute('aria-label')) {
-      this.ariaLabel = this.getAttribute('aria-label') || '';
-    }
-    else if (this.id) {
-      const labelForElement = document.querySelector(`label[for="${this.id}"]`);
-      if (!labelForElement) {
-        return;
-      }
-
-      this.ariaLabel = labelForElement.textContent || '';
+  public set selectionStart (index: number | null) {
+    if (this.inputElement) {
+      this.inputElement.selectionStart = index;
     }
   }
 
   /**
-   * Query field's description from host to native input
-   * to support aria description when using screen reader
+   * Get selection end index
+   */
+  public get selectionEnd (): number | null {
+    return this.inputElement?.selectionEnd;
+  }
+
+  /**
+   * Set selection end index
+   * @param index End index
+   */
+  public set selectionEnd (index: number | null) {
+    if (this.inputElement) {
+      this.inputElement.selectionEnd = index;
+    }
+  }
+
+  /**
+   * Select the contents of input
+   * @returns void
+   */
+  public select (): void {
+    if (!this.disabled && !this.readonly && this.inputElement) {
+      this.inputElement.select();
+    }
+  }
+
+  /**
+   * Set the selection range
+   * @param startSelection Start of selection
+   * @param endSelection End of the selection
    * @returns {void}
    */
-  private queryFieldDescription (): void {
-    if (!this.hasAttribute('aria-describedby')) {
-
-      // Support `aria-description` only if `aria-describedby` is not in use.
-      if (!this.hasAttribute('aria-description')) {
-        return;
-      }
-
-      this.ariaDescription = this.getAttribute('aria-description') || '';
-      return;
-    }
-
-    this.ariaDescription = '';
-    const ids = this.getAttribute('aria-describedby');
-    if (!ids) {
-      return;
-    }
-
-    // In scenarios where there is multiple ids
-    const elementIds = ids.split(' ');
-    elementIds.forEach(id => {
-      const element = document.getElementById(id);
-      if (!element) {
-        return;
-      }
-
-      const text = element.textContent || '';
-      if (this.ariaDescription && text) {
-        this.ariaDescription += ' ';
-      }
-
-      this.ariaDescription += text;
-    });
+  public setSelectionRange (startSelection: number | null, endSelection: number | null): void {
+    this.inputElement?.setSelectionRange(startSelection, endSelection);
   }
 }
