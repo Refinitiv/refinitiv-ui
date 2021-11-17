@@ -28,41 +28,41 @@ describe('toggle/Toggle', () => {
 
     it('Should failed without any visible text', async () => {
       el = await fixture('<ef-toggle></ef-toggle>');
-      await expect(el).not.to.be.accessible();
+      expect(el).not.to.be.accessible();
     });
     it('Should be accessible when custom label is provided', async () => {
       el.label = 'Disable';
       el.checkedLabel = 'Enable';
 
       await elementUpdated(el);
-      await expect(el).to.be.accessible();
+      expect(el).to.be.accessible();
     });
     it('Should be accessible when aria-label is provided', async () => {
       el = await fixture('<ef-toggle aria-label="Bluetooth"></ef-toggle>');
-      await expect(el).to.be.accessible();
+      expect(el).to.be.accessible();
     });
     it('Should pass a11y test when in unchecked state', async () => {
-      await expect(el).to.be.accessible();
+      expect(el).to.be.accessible();
       await expect(el.ariaChecked).to.equal(String(el.checked));
     });
     it('Should pass a11y test when in checked state', async () => {
       el.checked = true;
 
       await elementUpdated(el);
-      await expect(el).to.be.accessible();
+      expect(el).to.be.accessible();
       await expect(el.ariaChecked).to.equal(String(el.checked));
     });
     it('Should pass a11y test when disabled', async () => {
       el.disabled = true;
 
       await elementUpdated(el);
-      await expect(el).to.be.accessible();
+      expect(el).to.be.accessible();
     });
     it('Should pass a11y test when readonly', async () => {
       el.readonly = true;
 
       await elementUpdated(el);
-      await expect(el).to.be.accessible();
+      expect(el).to.be.accessible();
     });
   })
 
