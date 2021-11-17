@@ -61,7 +61,10 @@ export class TreeManager<T extends TreeDataItem> {
    */
   public get checkedItems (): readonly T[] {
     return this.composer.queryItems((item: T) => {
-      return this.isItemChecked(item) && (!this.manageRelationships || !this.getItemChildren(item).length);
+      if (this.manageRelationships && this.isItemParent(item)) {
+        return false;
+      }
+      return this.isItemChecked(item);
     }, Infinity);
   }
 
@@ -131,7 +134,46 @@ export class TreeManager<T extends TreeDataItem> {
    * @returns `True` if the item is checked
    */
   private isItemChecked (item: T): boolean {
+    if (this.manageRelationships && this.isItemParent(item)) {
+      return !this.getItemChildren(item).some(child => !this.isItemChecked(child));
+    }
     return this.composer.getItemPropertyValue(item, 'selected') === true;
+  }
+
+  /**
+   * Is the item checked indeterminately?
+   * @param item Original data item
+   * @returns `True` is the item has managed relationships and contains checked descendants
+   */
+  private isItemCheckedIndeterminate (item: T): boolean {
+    if (this.manageRelationships && this.isItemParent(item)) {
+      return this.getItemDescendants(item).some(desc => this.isItemChecked(desc));
+    }
+    return false;
+  }
+
+  /**
+   * Determines whether the item is unchecked and can be changed to a checked state.
+   * @param item Original data item
+   * @returns True if the item can be changed to 'checked'.
+   */
+  private canCheckItem (item: T): boolean {
+    if (this.manageRelationships && this.isItemParent(item)) {
+      return this.getItemChildren(item).some(child => this.canCheckItem(child));
+    }
+    return this.isItemCheckable(item) && this.composer.getItemPropertyValue(item, 'selected') !== true;
+  }
+
+  /**
+   * Determines whether the item is checked and can be changed to an unchecked state.
+   * @param item Original data item
+   * @returns True if the item can be changed to 'unchecked'.
+   */
+  private canUncheckItem (item: T): boolean {
+    if (this.manageRelationships && this.isItemParent(item)) {
+      return this.getItemChildren(item).some(child => this.canUncheckItem(child));
+    }
+    return this.isItemCheckable(item) && this.composer.getItemPropertyValue(item, 'selected') === true;
   }
 
   /**
@@ -155,17 +197,12 @@ export class TreeManager<T extends TreeDataItem> {
 
   /**
    * Forces a modification event, so that the renderer can update.
-   * @param item Item of which to find ancestors
+   * @param item Item of which to find path
    * @returns {void}
    */
-  private forceUpdateOnAncestors (item: T): void {
-    this.composer.getItemAncestors(item).forEach(ancestor => {
-      const allSelected = !this.getItemChildren(ancestor).some(
-        child => this.isItemCheckable(child) && !this.isItemChecked(child)
-      );
-      this.composer.setItemPropertyValue(ancestor, 'selected', allSelected);
-      this.updateItem(ancestor);
-    });
+  private forceUpdateOnPath (item: T): void {
+    const path = [...this.getItemAncestors(item), item];
+    path.forEach(item => this.composer.updateItemTimestamp(item));
   }
 
   /**
@@ -254,16 +291,13 @@ export class TreeManager<T extends TreeDataItem> {
    * @returns Checked state of the item
    */
   public getItemCheckedState (item: T): CheckedState {
-    const descendants = this.getItemDescendants(item).filter(descendant => !this.composer.isItemLocked(descendant));
-    const isParent = descendants.length > 0;
-    if (isParent && this.manageRelationships) {
-      const checkedCount = descendants.reduce((count, item) => {
-        return count + (this.isItemChecked(item) === true ? 1 : 0);
-      }, 0);
-      return !checkedCount ? CheckedState.UNCHECKED
-        : checkedCount === descendants.length ? CheckedState.CHECKED : CheckedState.INDETERMINATE;
+    if (this.isItemChecked(item)) {
+      return CheckedState.CHECKED;
     }
-    return this.isItemChecked(item) === true ? CheckedState.CHECKED : CheckedState.UNCHECKED;
+    if (this.isItemCheckedIndeterminate(item)) {
+      return CheckedState.INDETERMINATE;
+    }
+    return CheckedState.UNCHECKED;
   }
 
   /**
@@ -350,16 +384,13 @@ export class TreeManager<T extends TreeDataItem> {
     return this._checkItem(item);
   }
   private _checkItem (item: T, manageRelationships = this.manageRelationships): boolean {
-    if (this.isItemCheckable(item) && !this.isItemChecked(item)) {
+    if (this.canCheckItem(item)) {
       this.composer.setItemPropertyValue(item, 'selected', true);
       if (manageRelationships) {
-        this.forceUpdateOnAncestors(item);
+        this.forceUpdateOnPath(item);
         this.getItemDescendants(item).forEach(descendant => this._checkItem(descendant, false));
       }
       return true;
-    }
-    if (this.isItemParent(item)) {
-      this.updateItem(item); // update parent checked state
     }
     return false;
   }
@@ -373,16 +404,13 @@ export class TreeManager<T extends TreeDataItem> {
     return this._uncheckItem(item);
   }
   private _uncheckItem (item: T, manageRelationships = this.manageRelationships): boolean {
-    if (this.isItemCheckable(item) && this.isItemChecked(item)) {
+    if (this.canUncheckItem(item)) {
       this.composer.setItemPropertyValue(item, 'selected', false);
       if (manageRelationships) {
-        this.forceUpdateOnAncestors(item);
+        this.forceUpdateOnPath(item);
         this.getItemDescendants(item).forEach(descendant => this._uncheckItem(descendant, false));
       }
       return true;
-    }
-    if (this.isItemParent(item)) {
-      this.updateItem(item); // update parent checked state
     }
     return false;
   }
@@ -393,7 +421,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @returns `True` if the item is modified
    */
   public toggleItem (item: T): boolean {
-    return this.isItemChecked(item) ? this.uncheckItem(item) : this.checkItem(item);
+    return this.checkItem(item) || this.uncheckItem(item);
   }
 
   /**
