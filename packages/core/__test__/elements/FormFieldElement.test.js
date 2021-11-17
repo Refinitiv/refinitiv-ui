@@ -19,13 +19,6 @@ describe('elements/FormFieldElement/DefaultsTest',  () => {
 });
 
 describe('elements/FormFieldElement/RequiredTest', () => {
-  it('required is propagated', async () => {
-    const formFieldEl = await fixture('<form-field-element-test required></form-field-element-test>');
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
-    formFieldEl.removeAttribute('required');
-    await elementUpdated(formFieldEl);
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
-  });
   it('aria-required is propagated', async () => {
     const formFieldEl = await fixture('<form-field-element-test aria-required="true"></form-field-element-test>');
     expect(formFieldEl).shadowDom.to.equalSnapshot();

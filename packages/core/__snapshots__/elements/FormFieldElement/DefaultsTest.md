@@ -6,6 +6,7 @@
 <input
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
 >
 
 ```

@@ -7,6 +7,7 @@
   aria-description="Description"
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
 >
 
 ```
@@ -15,6 +16,7 @@
 <input
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
 >
 
 ```
@@ -26,6 +28,7 @@
   aria-description="Described By"
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
 >
 
 ```
@@ -37,6 +40,7 @@
   aria-description="!ERROR! Described By"
   aria-hidden="true"
   aria-invalid="true"
+  aria-required="false"
 >
 
 ```

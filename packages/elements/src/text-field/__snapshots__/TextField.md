@@ -8,6 +8,7 @@
 <input
   aria-hidden="true"
   aria-invalid="true"
+  aria-required="false"
   autocomplete="off"
   maxlength="10"
   minlength="5"
@@ -30,6 +31,7 @@
 <input
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
   autocomplete="off"
   maxlength="5"
   part="input"
@@ -44,6 +46,7 @@
 <input
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
   autocomplete="off"
   maxlength="5"
   part="input"
@@ -58,6 +61,7 @@
 <input
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
   autocomplete="off"
   part="input"
   type="text"
@@ -71,6 +75,7 @@
 <input
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
   autocomplete="off"
   minlength="10"
   part="input"
@@ -85,6 +90,7 @@
 <input
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
   autocomplete="off"
   minlength="5"
   part="input"
@@ -99,6 +105,7 @@
 <input
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
   autocomplete="off"
   part="input"
   type="text"
@@ -112,6 +119,7 @@
 <input
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
   autocomplete="off"
   part="input"
   type="text"
@@ -130,6 +138,7 @@
 <input
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
   autocomplete="off"
   part="input"
   readonly=""
@@ -144,6 +153,7 @@
 <input
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
   autocomplete="off"
   part="input"
   readonly=""
@@ -158,6 +168,7 @@
 <input
   aria-hidden="true"
   aria-invalid="false"
+  aria-required="false"
   autocomplete="off"
   part="input"
   type="text"

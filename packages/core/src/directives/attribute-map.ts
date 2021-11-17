@@ -5,7 +5,7 @@ import { Directive, directive, PartType, PartInfo, ElementPart, DirectiveResult 
 import { noChange } from 'lit';
 
 type AttributeMap = {
-  [key: string]: boolean | string | null
+  [key: string]: string | null
 };
 
 class AttributeMapDirective extends Directive {
@@ -18,12 +18,12 @@ class AttributeMapDirective extends Directive {
     }
   }
 
-  private setAttribute (element: Element, name: string, value: boolean | string | null) {
-    if (value === null || value === false) {
+  private setAttribute (element: Element, name: string, value: string | null) {
+    if (value === null) {
       element.removeAttribute(name);
     }
     else {
-      element.setAttribute(name, value === true ? '' : value);
+      element.setAttribute(name, value);
     }
   }
 

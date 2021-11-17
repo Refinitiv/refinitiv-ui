@@ -120,13 +120,13 @@ last(grid); // Outputs [3, 3]
 Helper functions for accessibility support.
 
 ### label
-Get element label based on `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+Get element label based on `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`.
 
 ### description
-Get element description based on `aria-description` or `aria-describedby`
+Get element description based on `aria-description` or `aria-describedby`.
 
 ### required
-Get element required state based on `required` or `aria-required`
+Get element required state based on `aria-required`.
 
 ## Element Helpers
 Helper functions to query ShadowDom.

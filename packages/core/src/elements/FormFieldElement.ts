@@ -24,7 +24,7 @@ const ObservedAriaDescription = ['aria-description', 'aria-describedby'];
 /**
  * Observed attributes that cause `aria-required` to be recalculated
  */
-const ObservedAriaRequired = ['required', 'aria-required'];
+const ObservedAriaRequired = ['aria-required'];
 
 /**
  * Form Field Element base class.
@@ -162,7 +162,7 @@ export abstract class FormFieldElement extends ControlElement {
    * aria-hidden="true" - always true. Required for onLoad screen read. this is always true for Chrome. Other browsers may need to tweak
    * aria-label - calculated from `aria-label`, `aria-labelledby` and `label[for="<element.id>"]`
    * aria-description - calculated from `aria-description` or `aria-describedby`
-   * required - calculated on based on `aria-required` and `required` state
+   * aria-required="true|false" - calculated on based on `aria-required`
    * aria-invalid="true|false" - calculated on based on `error` state
    * @returns noChange, directive result
    */
@@ -172,7 +172,7 @@ export abstract class FormFieldElement extends ControlElement {
       'aria-label': this.inputAriaLabel,
       'aria-description': this.inputAriaDescription,
       'aria-invalid': this.error ? 'true' : 'false',
-      required: this.inputAriaRequired
+      'aria-required': this.inputAriaRequired ? 'true' : 'false'
     });
   }
 }
