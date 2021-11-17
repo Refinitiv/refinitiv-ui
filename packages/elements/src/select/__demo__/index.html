@@ -16,30 +16,29 @@
 
 <demo-block header="Grouping" tags="groups,selected">
   <ef-select placeholder="Pick item..." class="short">
-    <ef-item value="">--Please choose an option--</ef-item>
-    <ef-item type="header">Drinks</ef-item>
-    <ef-item value="1">Cola</ef-item>
-    <ef-item selected value="2">Lemonade</ef-item>
-    <ef-item value="3">Orange Juice</ef-item>
-    <ef-item value="4" disabled>Apple Juice</ef-item>
-    <ef-item value="5">Iced Tea</ef-item>
-    <ef-item value="6">Water</ef-item>
-    <ef-item type="header">Ice Cream</ef-item>
-    <ef-item value="7">Vanilla</ef-item>
-    <ef-item value="8">Chocolate</ef-item>
-    <ef-item value="9">Honey &amp; Walnut</ef-item>
-    <ef-item value="10">Pistachio</ef-item>
-    <ef-item value="11">Salted Caramel</ef-item>
-    <ef-item value="12">Mint Choc Chip</ef-item>
-    <ef-item value="13">Hazelnut</ef-item>
-    <ef-item value="14">Strawberry</ef-item>
-    <ef-item value="15">Raspberry</ef-item>
+    <ef-item aria-hidden="true" type="header">Drinks</ef-item>
+    <ef-item role="option" value="1">Cola</ef-item>
+    <ef-item role="option" selected value="2">Lemonade</ef-item>
+    <ef-item role="option" value="3">Orange Juice</ef-item>
+    <ef-item role="option" value="4" disabled>Apple Juice</ef-item>
+    <ef-item role="option" value="5">Iced Tea</ef-item>
+    <ef-item role="option" value="6">Water</ef-item>
+    <ef-item aria-hidden="true" header>Ice Cream</ef-item>
+    <ef-item role="option" value="7">Vanilla</ef-item>
+    <ef-item role="option" value="8">Chocolate</ef-item>
+    <ef-item role="option" value="9">Honey &amp; Walnut</ef-item>
+    <ef-item role="option" value="10">Pistachio</ef-item>
+    <ef-item role="option" value="11">Salted Caramel</ef-item>
+    <ef-item role="option" value="12">Mint Choc Chip</ef-item>
+    <ef-item role="option" value="13">Hazelnut</ef-item>
+    <ef-item role="option" value="14">Strawberry</ef-item>
+    <ef-item role="option" value="15">Raspberry</ef-item>
   </ef-select>
 
   <ef-select placeholder="Pick item" class="small">
-    <ef-item value="GBP" selected>GBP (£)</ef-item>
-    <ef-item value="EUR">EUR (€)</ef-item>
-    <ef-item value="USD">USD ($)</ef-item>
+    <ef-item value="GBP" role="option" selected>GBP (£)</ef-item>
+    <ef-item value="EUR" role="option">EUR (€)</ef-item>
+    <ef-item value="USD" role="option">USD ($)</ef-item>
   </ef-select>
 
   <custom-style>
@@ -55,7 +54,10 @@
 </demo-block>
 
 <demo-block header="Country List" tags="250+">
-  <ef-select id="country" placeholder="Choose country..."></ef-select>
+  <div>
+    <p id="country-label">Choose a country</p>
+    <ef-select id="country" aria-labelledby="country-label"></ef-select>
+  </div>
   <script>
       const el = document.getElementById('country');
       el.data = window.countries;
