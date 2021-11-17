@@ -262,15 +262,25 @@ describe('TestTapEvent', async () => {
       expect(tapCount).to.equal(0, 'tap event should not be fired');
     });
 
-    it('Should support tap event on role=button when space bar is pressed', async function () {
+    it('Should support tap event on role=button when `space` is pressed', async function () {
       const el = await fixture('<div role="button">Fake Button</div>');
-      const event = keyboardEvent('keyup', {
-        key: ' '
-      });
-      el.dispatchEvent(event);
+      const keydownEvent = keyboardEvent('keydown', { key: ' ' });
+      const keyupEvent = keyboardEvent('keyup', { key: ' ' });
+      el.dispatchEvent(keydownEvent);
+      el.dispatchEvent(keyupEvent);
       expect(tapEvent).to.be.exist;
       expect(tapEvent.target).to.equal(el);
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
+    });
+
+    it('Should not run tap event on role=button when `space` is pressed and target has changed', async function () {
+      const target1 = await fixture('<div role="button">Target 1</div>');
+      const target2 = await fixture('<div role="button">Target 2</div>');
+      const keydownEvent = keyboardEvent('keydown', { key: ' ' });
+      const keyupEvent = keyboardEvent('keyup', { key: ' ' });
+      target1.dispatchEvent(keydownEvent);
+      target2.dispatchEvent(keyupEvent);
+      expect(tapCount).to.equal(0, 'tap event should not be fired on different target');
     });
 
     it('Should not fire tap event when role=button is not set', async function () {
