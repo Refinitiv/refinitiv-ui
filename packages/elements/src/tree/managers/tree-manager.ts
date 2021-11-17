@@ -143,7 +143,7 @@ export class TreeManager<T extends TreeDataItem> {
   /**
    * Is the item checked indeterminately?
    * @param item Original data item
-   * @returns `True` is the item has managed relationships and contains checked descendants
+   * @returns `True` if the item has managed relationships and contains checked descendants
    */
   private isItemCheckedIndeterminate (item: T): boolean {
     if (this.manageRelationships && this.isItemParent(item)) {
