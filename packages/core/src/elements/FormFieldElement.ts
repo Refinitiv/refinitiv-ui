@@ -29,7 +29,7 @@ const ObservedAriaRequired = ['aria-required'];
 /**
  * Form Field Element base class.
  * Used for form field type controls.
- * Adds support for assertive technologies, `error` and `warning` states
+ * Adds support for assistive technologies, `error` and `warning` states
  */
 export abstract class FormFieldElement extends ControlElement {
   /**
