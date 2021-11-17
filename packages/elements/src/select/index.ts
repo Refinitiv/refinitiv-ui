@@ -76,6 +76,8 @@ export class Select extends ControlElement implements MultiValue {
     return VERSION;
   }
 
+  protected readonly defaultRole = 'button';
+
   /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
@@ -165,7 +167,6 @@ export class Select extends ControlElement implements MultiValue {
   public get label (): string {
     return this.labels[0];
   }
-
   /**
   * Current text content of the selected values
   * @ignore
@@ -294,6 +295,21 @@ export class Select extends ControlElement implements MultiValue {
 
     return this.selectedSlotItems.map(item => this.getItemValue(item));
   }
+
+  /**
+   * Aria indicating that select has a popup of type listbox
+   * @ignore
+   */
+  @property({ type: String, reflect: true, attribute: 'aria-haspopup' })
+  public ariaHasPopup = 'listbox';
+
+  /**
+   * Aria indicating open state of listbox popup
+   * @ignore
+   */
+  @property({ type: String, reflect: true, attribute: 'aria-expanded' })
+  public ariaExpanded = String(this.opened);
+
 
   @query('#menu')
   private menuEl?: Overlay
@@ -459,6 +475,7 @@ export class Select extends ControlElement implements MultiValue {
     if (this.opened !== opened) {
       this.notifyPropertyChange('opened', opened);
       this.opened = opened;
+      this.ariaExpanded = String(opened);
     }
   }
 
@@ -937,6 +954,7 @@ export class Select extends ControlElement implements MultiValue {
       // no default
     }
     return html`<ef-item
+      role="option"
       part="item"
       .value=${item.value}
       .label=${item.label}
@@ -994,6 +1012,7 @@ export class Select extends ControlElement implements MultiValue {
         tabindex="-1"
         id="menu"
         part="list"
+        role="listbox"
         style=${styleMap(this.popupDynamicStyles)}
         with-shadow
         lock-position-target
