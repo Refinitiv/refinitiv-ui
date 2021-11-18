@@ -333,14 +333,18 @@ describe('tree/Tree', () => {
       await elementUpdated(el);
       el.expandAll();
       await elementUpdated(el);
+      isIE() && await nextFrame();
       const item = el.children[3];
+      const itemChild = el.children[4];
       expect(item.label).to.equal('Item 1.3');
       expect(item.checkedState).to.equal(1); // Checked
       item.click();
+      isIE() && await nextFrame();
       await elementUpdated(el);
       expect(item.checkedState).to.equal(0); // Unchecked
-      item.nextElementSibling.click();
+      itemChild.click();
       await elementUpdated(el);
+      isIE() && await nextFrame();
       expect(item.checkedState).to.equal(-1); // Indeterminate
     });
 
