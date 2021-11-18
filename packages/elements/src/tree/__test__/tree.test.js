@@ -339,8 +339,8 @@ describe('tree/Tree', () => {
       expect(item.label).to.equal('Item 1.3');
       expect(item.checkedState).to.equal(1); // Checked
       item.click();
-      isIE() && await nextFrame();
       await elementUpdated(el);
+      isIE() && await nextFrame();
       expect(item.checkedState).to.equal(0); // Unchecked
       itemChild.click();
       await elementUpdated(el);
