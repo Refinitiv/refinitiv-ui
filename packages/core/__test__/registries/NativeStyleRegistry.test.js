@@ -44,7 +44,7 @@ describe('TestNativeStyleRegistry', () => {
 
     const node = document.querySelector(`[scope=${testName}]`);
 
-    expect(node).to.be.exist;
+    expect(node).to.exist;
   });
 
   it('Test empty css will not be exists in styles', () => {

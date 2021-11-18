@@ -122,19 +122,19 @@ describe('TestTapEvent', async () => {
 
       await click(element, element);
 
-      expect(tapStartEvent).to.be.exist;
+      expect(tapStartEvent).to.exist;
       expect(tapStartEvent).to.instanceOf(Event);
       expect(tapStartEvent.type).to.equal('tapstart', 'event should be of type `tapstart`');
       expect(tapStartEvent.target).to.equal(element);
       expect(tapStartCount).to.equal(1, 'tapstart event should be fired just once');
 
-      expect(tapEndEvent).to.be.exist;
+      expect(tapEndEvent).to.exist;
       expect(tapEndEvent).to.instanceOf(Event);
       expect(tapEndEvent.type).to.equal('tapend', 'event should be of type `tapend`');
       expect(tapEndEvent.target).to.equal(element);
       expect(tapEndCount).to.equal(1, 'tapend event should be fired just once');
 
-      expect(tapEvent).to.be.exist;
+      expect(tapEvent).to.exist;
       expect(tapEvent).to.instanceOf(Event);
       expect(tapEvent.type).to.equal('tap', 'event should be of type `tap`');
       expect(tapEvent.target).to.equal(element);
@@ -152,19 +152,19 @@ describe('TestTapEvent', async () => {
 
       await click(child, parent);
 
-      expect(tapStartEvent).to.be.exist;
+      expect(tapStartEvent).to.exist;
       expect(tapStartEvent).to.instanceOf(Event);
       expect(tapStartEvent.type).to.equal('tapstart', 'event should be of type `tapstart`');
       expect(tapStartEvent.target).to.equal(child);
       expect(tapStartCount).to.equal(1, 'tapstart event should be fired just once');
 
-      expect(tapEndEvent).to.be.exist;
+      expect(tapEndEvent).to.exist;
       expect(tapEndEvent).to.instanceOf(Event);
       expect(tapEndEvent.type).to.equal('tapend', 'event should be of type `tapend`');
       expect(tapEndEvent.target).to.equal(parent);
       expect(tapEndCount).to.equal(1, 'tapend event should be fired just once');
 
-      expect(tapEvent).to.be.exist;
+      expect(tapEvent).to.exist;
       expect(tapEvent).to.instanceOf(Event);
       expect(tapEvent.type).to.equal('tap', 'event should be of type `tap`');
       expect(tapEvent.target).to.equal(parent);
@@ -182,19 +182,19 @@ describe('TestTapEvent', async () => {
 
       await click(parent, child);
 
-      expect(tapStartEvent).to.be.exist;
+      expect(tapStartEvent).to.exist;
       expect(tapStartEvent).to.instanceOf(Event);
       expect(tapStartEvent.type).to.equal('tapstart', 'event should be of type `tapstart`');
       expect(tapStartEvent.target).to.equal(parent);
       expect(tapStartCount).to.equal(1, 'tapstart event should be fired just once');
 
-      expect(tapEndEvent).to.be.exist;
+      expect(tapEndEvent).to.exist;
       expect(tapEndEvent).to.instanceOf(Event);
       expect(tapEndEvent.type).to.equal('tapend', 'event should be of type `tapend`');
       expect(tapEndEvent.target).to.equal(child);
       expect(tapEndCount).to.equal(1, 'tapend event should be fired just once');
 
-      expect(tapEvent).to.be.exist;
+      expect(tapEvent).to.exist;
       expect(tapEvent).to.instanceOf(Event);
       expect(tapEvent.type).to.equal('tap', 'event should be of type `tap`');
       expect(tapEvent.target).to.equal(parent);
@@ -214,19 +214,19 @@ describe('TestTapEvent', async () => {
 
       await click(child1, child2);
 
-      expect(tapStartEvent).to.be.exist;
+      expect(tapStartEvent).to.exist;
       expect(tapStartEvent).to.instanceOf(Event);
       expect(tapStartEvent.type).to.equal('tapstart', 'event should be of type `tapstart`');
       expect(tapStartEvent.target).to.equal(child1);
       expect(tapStartCount).to.equal(1, 'tapstart event should be fired just once');
 
-      expect(tapEndEvent).to.be.exist;
+      expect(tapEndEvent).to.exist;
       expect(tapEndEvent).to.instanceOf(Event);
       expect(tapEndEvent.type).to.equal('tapend', 'event should be of type `tapend`');
       expect(tapEndEvent.target).to.equal(child2);
       expect(tapEndCount).to.equal(1, 'tapend event should be fired just once');
 
-      expect(tapEvent).to.be.exist;
+      expect(tapEvent).to.exist;
       expect(tapEvent).to.instanceOf(Event);
       expect(tapEvent.type).to.equal('tap', 'event should be of type `tap`');
       expect(tapEvent.target).to.equal(parent);
@@ -239,7 +239,7 @@ describe('TestTapEvent', async () => {
       el.dispatchEvent(keyDownEvent);
       const keyUpEvent = keyboardEvent('keyup', { key: 'Enter' });
       el.dispatchEvent(keyUpEvent);
-      expect(tapEvent).to.be.exist;
+      expect(tapEvent).to.exist;
       expect(tapEvent.target).to.equal(el);
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
     });
@@ -250,7 +250,7 @@ describe('TestTapEvent', async () => {
       el.dispatchEvent(keyDownEvent);
       const keyUpEvent = keyboardEvent('keyup', { key: ' ' });
       el.dispatchEvent(keyUpEvent);
-      expect(tapEvent).to.be.exist;
+      expect(tapEvent).to.exist;
       expect(tapEvent.target).to.equal(el);
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
     });
@@ -268,7 +268,7 @@ describe('TestTapEvent', async () => {
       const keyupEvent = keyboardEvent('keyup', { key: ' ' });
       el.dispatchEvent(keydownEvent);
       el.dispatchEvent(keyupEvent);
-      expect(tapEvent).to.be.exist;
+      expect(tapEvent).to.exist;
       expect(tapEvent.target).to.equal(el);
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
     });
@@ -302,19 +302,19 @@ describe('TestTapEvent', async () => {
 
       await touch(element, element);
 
-      expect(tapStartEvent).to.be.exist;
+      expect(tapStartEvent).to.exist;
       expect(tapStartEvent).to.instanceOf(Event);
       expect(tapStartEvent.type).to.equal('tapstart', 'event should be of type `tapstart`');
       expect(tapStartEvent.target).to.equal(element);
       expect(tapStartCount).to.equal(1, 'tapstart event should be fired just once');
 
-      expect(tapEndEvent).to.be.exist;
+      expect(tapEndEvent).to.exist;
       expect(tapEndEvent).to.instanceOf(Event);
       expect(tapEndEvent.type).to.equal('tapend', 'event should be of type `tapend`');
       expect(tapEndEvent.target).to.equal(element);
       expect(tapEndCount).to.equal(1, 'tapend event should be fired just once');
 
-      expect(tapEvent).to.be.exist;
+      expect(tapEvent).to.exist;
       expect(tapEvent).to.instanceOf(Event);
       expect(tapEvent.type).to.equal('tap', 'event should be of type `tap`');
       expect(tapEvent.target).to.equal(element);
@@ -334,19 +334,19 @@ describe('TestTapEvent', async () => {
       dispatchTouchEvent(element, 'touchend');
       await nextFrame();
 
-      expect(tapStartEvent).to.be.exist;
+      expect(tapStartEvent).to.exist;
       expect(tapStartEvent).to.instanceOf(Event);
       expect(tapStartEvent.type).to.equal('tapstart', 'event should be of type `tapstart`');
       expect(tapStartEvent.target).to.equal(element);
       expect(tapStartCount).to.equal(1, 'tapstart event should be fired just once');
 
-      expect(tapEndEvent).to.be.exist;
+      expect(tapEndEvent).to.exist;
       expect(tapEndEvent).to.instanceOf(Event);
       expect(tapEndEvent.type).to.equal('tapend', 'event should be of type `tapend`');
       expect(tapEndEvent.target).to.equal(element);
       expect(tapEndCount).to.equal(1, 'tapend event should be fired just once');
 
-      expect(tapEvent).to.be.not.exist;
+      expect(tapEvent).to.not.exist;
       expect(tapEvent).to.equal(null);
       expect(tapCount).to.equal(0, 'tap event should not be fired if touch moved');
     });
@@ -365,19 +365,19 @@ describe('TestTapEvent', async () => {
 
       await touch(child, parent);
 
-      expect(tapStartEvent).to.be.exist;
+      expect(tapStartEvent).to.exist;
       expect(tapStartEvent).to.instanceOf(Event);
       expect(tapStartEvent.type).to.equal('tapstart', 'event should be of type `tapstart`');
       expect(tapStartEvent.target).to.equal(child);
       expect(tapStartCount).to.equal(1, 'tapstart event should be fired just once');
 
-      expect(tapEndEvent).to.be.exist;
+      expect(tapEndEvent).to.exist;
       expect(tapEndEvent).to.instanceOf(Event);
       expect(tapEndEvent.type).to.equal('tapend', 'event should be of type `tapend`');
       expect(tapEndEvent.target).to.equal(parent);
       expect(tapEndCount).to.equal(1, 'tapend event should be fired just once');
 
-      expect(tapEvent).to.be.not.exist;
+      expect(tapEvent).to.not.exist;
       expect(tapEvent).to.equal(null);
       expect(tapCount).to.equal(0, 'tap event should not be fired');
     });
@@ -396,19 +396,19 @@ describe('TestTapEvent', async () => {
 
       await touch(parent, child);
 
-      expect(tapStartEvent).to.be.exist;
+      expect(tapStartEvent).to.exist;
       expect(tapStartEvent).to.instanceOf(Event);
       expect(tapStartEvent.type).to.equal('tapstart', 'event should be of type `tapstart`');
       expect(tapStartEvent.target).to.equal(parent);
       expect(tapStartCount).to.equal(1, 'tapstart event should be fired just once');
 
-      expect(tapEndEvent).to.be.exist;
+      expect(tapEndEvent).to.exist;
       expect(tapEndEvent).to.instanceOf(Event);
       expect(tapEndEvent.type).to.equal('tapend', 'event should be of type `tapend`');
       expect(tapEndEvent.target).to.equal(parent);
       expect(tapEndCount).to.equal(1, 'tapend event should be fired just once');
 
-      expect(tapEvent).to.be.not.exist;
+      expect(tapEvent).to.not.exist;
       expect(tapEvent).to.equal(null);
       expect(tapCount).to.equal(0, 'tap event should not be fired');
     });
@@ -429,19 +429,19 @@ describe('TestTapEvent', async () => {
 
       await touch(child1, child2);
 
-      expect(tapStartEvent).to.be.exist;
+      expect(tapStartEvent).to.exist;
       expect(tapStartEvent).to.instanceOf(Event);
       expect(tapStartEvent.type).to.equal('tapstart', 'event should be of type `tapstart`');
       expect(tapStartEvent.target).to.equal(child1);
       expect(tapStartCount).to.equal(1, 'tapstart event should be fired just once');
 
-      expect(tapEndEvent).to.be.exist;
+      expect(tapEndEvent).to.exist;
       expect(tapEndEvent).to.instanceOf(Event);
       expect(tapEndEvent.type).to.equal('tapend', 'event should be of type `tapend`');
       expect(tapEndEvent.target).to.equal(child2);
       expect(tapEndCount).to.equal(1, 'tapend event should be fired just once');
 
-      expect(tapEvent).to.be.not.exist;
+      expect(tapEvent).to.not.exist;
       expect(tapEvent).to.equal(null);
       expect(tapCount).to.equal(0, 'tap event should not be fired');
     });
@@ -457,19 +457,19 @@ describe('TestTapEvent', async () => {
       await touch(element, element);
       await click(element, element);
 
-      expect(tapStartEvent).to.be.exist;
+      expect(tapStartEvent).to.exist;
       expect(tapStartEvent).to.instanceOf(Event);
       expect(tapStartEvent.type).to.equal('tapstart', 'event should be of type `tapstart`');
       expect(tapStartEvent.target).to.equal(element);
       expect(tapStartCount).to.equal(1, 'tapstart event should be fired just once');
 
-      expect(tapEndEvent).to.be.exist;
+      expect(tapEndEvent).to.exist;
       expect(tapEndEvent).to.instanceOf(Event);
       expect(tapEndEvent.type).to.equal('tapend', 'event should be of type `tapend`');
       expect(tapEndEvent.target).to.equal(element);
       expect(tapEndCount).to.equal(1, 'tapend event should be fired just once');
 
-      expect(tapEvent).to.be.exist;
+      expect(tapEvent).to.exist;
       expect(tapEvent).to.instanceOf(Event);
       expect(tapEvent.type).to.equal('tap', 'event should be of type `tap`');
       expect(tapEvent.target).to.equal(element);
@@ -491,7 +491,7 @@ describe('TestTapEvent', async () => {
         detail: 0
       }));
 
-      expect(tapEvent).to.be.exist;
+      expect(tapEvent).to.exist;
       expect(tapEvent).to.instanceOf(Event);
       expect(tapEvent.type).to.equal('tap', 'event should be of type `tap`');
       expect(tapEvent.target).to.equal(element);
@@ -513,7 +513,7 @@ describe('TestTapEvent', async () => {
         detail: 1
       }));
 
-      expect(tapEvent).to.be.not.exist;
+      expect(tapEvent).to.not.exist;
       expect(tapEvent).to.equal(null);
       expect(tapCount).to.equal(0, 'regular click should not generate tap event');
     });
@@ -533,7 +533,7 @@ describe('TestTapEvent', async () => {
         pointerType: null
       }));
 
-      expect(tapEvent).to.be.exist;
+      expect(tapEvent).to.exist;
       expect(tapEvent).to.instanceOf(TapEvent);
       expect(tapEvent.type).to.equal('tap', 'event should be of type `tap`');
       expect(tapEvent.target).to.equal(element);
