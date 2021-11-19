@@ -48,27 +48,13 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * A `CSSResultGroup` that will be used
-   * to style the host, slotted children
-   * and the internal template of the element.
-   * @return CSS template
-   */
-  static get styles (): CSSResultGroup {
-    return css`
-      :host {
-        display: block;
-      }
-    `;
-  }
-
-  /**
    * Current page internal current page value
    */
   private _value = '';
 
   /**
    * Get internal current page value
-   * @returns {number} current page value
+   * @returns current page value
    */
   private get internalValue (): number {
     let value = parseInt(this.value, 10) || 1;
@@ -94,7 +80,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Set current page value
-   * @param {string} value current page
+   * @param value current page
    */
   public set value (value: string) {
     let newValue = value;
@@ -118,7 +104,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Get internal max page
-   * @returns {number} max page
+   * @returns max page
    */
   private get internalMax (): number {
     const max = parseInt(this.max, 10);
@@ -142,7 +128,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Get max page
-   * @returns {string} max page
+   * @returns max page
    */
   @property({ type: String })
   public get max (): string {
@@ -151,7 +137,7 @@ export class Pagination extends BasicElement {
 
   /**
   * Set max page
-  * @param {string} value max page
+  * @param value max page
   */
   public set max (value: string) {
     let newValue = value;
@@ -170,7 +156,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Current page
-   * @returns {string} current page
+   * @returns current page
    * @deprecated
    * @ignore
    */
@@ -182,7 +168,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Set current page
-   * @param {String} value - Set current page
+   * @param value - Set current page
    * @deprecated
    * @ignore
    */
@@ -203,7 +189,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Number of item per page
-   * @returns {string} number of items per page
+   * @returns number of items per page
    * @deprecated
    * @ignore
    */
@@ -215,7 +201,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Set number of item per page
-   * @param {string} value - number of item per page
+   * @param value - number of item per page
    * @deprecated
    * @ignore
    */
@@ -243,7 +229,7 @@ export class Pagination extends BasicElement {
   /**
    * Get internal page size
    * @deprecated
-   * @returns {number} page size
+   * @returns page size
    */
   private get internalPageSize (): number {
     return parseInt(this.pageSize, 10);
@@ -257,7 +243,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Get internal total items
-   * @returns {number} total items
+   * @returns total items
    * @deprecated
    */
   private get internalTotalitems (): number {
@@ -266,7 +252,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Total items
-   * @returns {string} total items
+   * @returns total items
    * @deprecated
    * @ignore
    */
@@ -278,7 +264,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Set total items
-   * @param {string} value total items
+   * @param value total items
    * @deprecated
    * @ignore
    */
@@ -305,7 +291,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Get infinite pagination state
-   * @returns {boolean} infinite pagination state
+   * @returns infinite pagination state
    */
   private get infinitePaginate (): boolean {
     return this.internalMax === Infinity; // internalMax always returns 1-Infinity
@@ -428,10 +414,10 @@ export class Pagination extends BasicElement {
 
   /**
    * Validate integer value
-   * @param {string} value value
-   * @param {boolean} warning show warning message when value is invalid
-   * @param {string} propName property name to show in warning message
-   * @returns {boolean} result of validation
+   * @param value value
+   * @param warning show warning message when value is invalid
+   * @param propName property name to show in warning message
+   * @returns result of validation
    */
   private validateInteger (value: string, warning = false, propName = ''): boolean {
     if ((/^[1-9]([0-9]+)?$/).test(value)) {
@@ -447,12 +433,12 @@ export class Pagination extends BasicElement {
 
   /**
    * Validate number in supported range
-   * @param {number} value value for validation
-   * @param {number} min minimum value
-   * @param {number} max maximum value
-   * @param {boolean} warning show warning message when value is invalid
-   * @param {string} propName property name to show in warning message
-   * @returns {boolean} result of validation
+   * @param value value for validation
+   * @param min minimum value
+   * @param max maximum value
+   * @param warning show warning message when value is invalid
+   * @param propName property name to show in warning message
+   * @returns result of validation
    */
   private validateRange (value: number, min: number, max: number, warning = false, propName = ''): boolean {
     if (value < min || value > max) {
@@ -619,9 +605,23 @@ export class Pagination extends BasicElement {
   }
 
   /**
+   * A `CSSResultGroup` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @return CSS template
+   */
+  static get styles (): CSSResultGroup {
+    return css`
+      :host {
+        display: block;
+      }
+    `;
+  }
+
+  /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
-   * @return {TemplateResult} Render template
+   * @return Render template
    */
   protected render (): TemplateResult {
     return html`
