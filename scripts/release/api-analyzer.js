@@ -181,7 +181,9 @@ const analyze = (file, type) => {
  */
 const handler = async () => {
   // Looking for `index.ts` in each element source folder
-  const entries = await fg([`${PACKAGE_ROOT}/${ELEMENT_SRC}/*/${INPUT_FILENAME}`], { unique: true });
+  const globUrl = `${PACKAGE_ROOT}/${ELEMENT_SRC}/*/${INPUT_FILENAME}`; 
+  // A glob pattern is always in POSIX format.
+  const entries = await fg([globUrl.replace(/\\/g, '/')], { unique: true });
 
   if (entries.length === 0) {
     return;
@@ -202,7 +204,9 @@ const handler = async () => {
      * try to look for <element name>.ts file in the sub directories
      */
     if (!isValidAPI(elementAPI, element)) {
-      const altEntrypoint = (await fg([`${PACKAGE_ROOT}/${ELEMENT_SRC}/**/${element}.ts`], { unique: true }) || [])[0];
+      const altGlobUrl = `${PACKAGE_ROOT}/${ELEMENT_SRC}/**/${element}.ts`;
+      // A glob pattern is always in POSIX format.
+      const altEntrypoint = (await fg([altGlobUrl.replace(/\\/g, '/')], { unique: true }) || [])[0];
       if (altEntrypoint) {
         elementAPI = analyze(altEntrypoint, 'json');
         elementDoc = analyze(altEntrypoint, 'md');
