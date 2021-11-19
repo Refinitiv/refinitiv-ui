@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+</head>
+
+<body>
+  <script type="module">
+    // Translations polyfills
+    import '@formatjs/intl-locale/polyfill.iife';
+    import '@formatjs/intl-getcanonicallocales/polyfill.iife';
+    import '@formatjs/intl-pluralrules/polyfill.iife';
+    import '@formatjs/intl-pluralrules/locale-data/en';
+    import '@formatjs/intl-pluralrules/locale-data/zh';
+    import '@formatjs/intl-pluralrules/locale-data/de';
+    import '@formatjs/intl-pluralrules/locale-data/ja';
+
+    // Translations
+    import '@refinitiv-ui/phrasebook/lib/locale/de/pagination';
+    import '@refinitiv-ui/phrasebook/lib/locale/ja/pagination';
+    import '@refinitiv-ui/phrasebook/lib/locale/zh/pagination';
+    import '@refinitiv-ui/phrasebook/lib/locale/zh-hant/pagination';
+  </script>
+
+  <script type="module">
+    import '@refinitiv-ui/elements/pagination';
+    import '@refinitiv-ui/demo-block';
+  </script>
+
+  <demo-block layout="normal" header="Default" tags="default">
+    <div id="info"></div>
+    <ef-pagination id="pagination"></ef-pagination>
+    <h3>New Max Attribute</h3>
+    <div>
+      <button id="setMax" onclick="add('max', 10)">Set Max = 10</button>
+      <button id="removeMax" onclick="remove('max')">Remove Max</button>
+    </div>
+    <h3>Backward Compatibility Attributes</h3>
+    <div>
+      <button id="set" onclick="add('total-items', 1000)">Set total-items = 1000</button>
+      <button id="remove" onclick="remove('total-items')">Remove total-items</button>
+    </div>
+    <div>
+      <button id="setPageSize" onclick="add('page-size', 5)">Set page-size = 5</button>
+      <button id="setPageSize" onclick="add('page-size', 10)">Set page-size = 10</button>
+      <button id="removePageSize" onclick="remove('page-size')">Remove page-size</button>
+    </div>
+    <h3>Translations</h3>
+    <div>
+      <button onclick="add('lang', 'de')">Set lang = de</button>
+      <button onclick="add('lang', 'en')">Set lang = en</button>
+      <button onclick="add('lang', 'ja')">Set lang = ja</button>
+      <button onclick="add('lang', 'zh')">Set lang = zh</button>
+      <button onclick="add('lang', 'zh-Hant')">Set lang = zh-Hant</button>
+    </div>
+    <div>
+    <script>
+      /* eslint-disable func-style */
+      // eslint-disable-next-line no-unused-vars
+      function add (attribute, value) {
+        document.getElementById('pagination').setAttribute(attribute, value);
+        document.getElementById('info').innerText = `Set attribute ${attribute} = ${value}`;
+      }
+
+      // eslint-disable-next-line no-unused-vars
+      function remove (attribute) {
+        document.getElementById('pagination').removeAttribute(attribute);
+        document.getElementById('info').innerText = `Remove attribute ${attribute}`;
+      }
+    </script>
+
+  <!-- </demo-block><demo-block layout="normal" header="Translations" tags="translations,i18n">
+    <ef-pagination page-size="5" title="Default"></ef-pagination>
+    <ef-pagination lang="de" page-size="5" title="de"></ef-pagination>
+    <ef-pagination lang="en" page-size="5" title="en"></ef-pagination>
+    <ef-pagination lang="ja" page-size="5" title="ja"></ef-pagination>
+    <ef-pagination lang="zh" page-size="5" title="zh"></ef-pagination>
+    <ef-pagination lang="zh-Hant" page-size="5" title="zh-Hant"></ef-pagination>
+  </demo-block> -->
+
+
+</body>
+
+</html>
