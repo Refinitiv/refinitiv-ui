@@ -160,6 +160,12 @@ const applyEvent = (target: Global): void => {
   let lastTapTarget: EventTarget | null;
 
   /**
+   * The last key down event target on `role=button`.
+   * This is used to ensure that keydown and keyup events run on the same target
+   */
+  let buttonLastKeydownTarget: EventTarget | null;
+
+  /**
    * Stored event path from `mousestart` event.
    * Used to match correct tap target.
    */
@@ -341,10 +347,13 @@ const applyEvent = (target: Global): void => {
   target.addEventListener('keydown', (event: KeyboardEvent) => {
     const target = topPathTarget(event);
     const enterKey = isEnterKey(event);
+    buttonLastKeydownTarget = null;
 
     if (event.defaultPrevented || !(enterKey || isSpaceKey(event)) || !isButtonBehaviour(target)) {
       return;
     }
+
+    buttonLastKeydownTarget = target;
 
     if (enterKey) {
       (target as HTMLElement).click();
@@ -360,11 +369,11 @@ const applyEvent = (target: Global): void => {
   target.addEventListener('keyup', (event: KeyboardEvent) => {
     const target = topPathTarget(event);
 
-    if (event.defaultPrevented || !isSpaceKey(event) || !isButtonBehaviour(target)) {
-      return;
+    if (buttonLastKeydownTarget === target && !event.defaultPrevented && isSpaceKey(event)) {
+      (target as HTMLElement).click();
     }
 
-    (target as HTMLElement).click();
+    buttonLastKeydownTarget = null;
   }, true);
 
   /**
