@@ -97,7 +97,13 @@ export class Pagination extends BasicElement {
    * @param {string} value current page
    */
   public set value (value: string) {
-    const newValue = this.validateInteger(value, true, 'value');
+    let newValue = value;
+    if (!newValue
+      || !this.validateInteger(newValue, true, 'value')
+      || !this.validateRange(parseInt(newValue, 10), 1, this.internalMax, true, 'value')) {
+      newValue = '';
+    }
+
     const oldValue = this._value;
     if (oldValue !== newValue) {
       this._value = newValue;
@@ -118,6 +124,7 @@ export class Pagination extends BasicElement {
     const max = parseInt(this.max, 10);
     const pageSize = this.internalPageSize;
     const totalItems = this.internalTotalitems;
+
     if (!max && !totalItems) {
       return Infinity;
     }
@@ -147,7 +154,13 @@ export class Pagination extends BasicElement {
   * @param {string} value max page
   */
   public set max (value: string) {
-    const newValue = this.validateInteger(value, true, 'max');
+    let newValue = value;
+    if (!newValue
+      || !this.validateInteger(value, true, 'max')
+      || !this.validateRange(parseInt(newValue, 10), this.internalValue, Infinity, true, 'max')) {
+      newValue = '';
+    }
+
     const oldValue = this._max;
     if (oldValue !== newValue) {
       this._max = newValue;
@@ -174,7 +187,12 @@ export class Pagination extends BasicElement {
    */
   public set page (value: string) {
     pageDeprecation.show();
-    const newValue = this.validateInteger(value, true, 'page');
+    let newValue = value;
+    if (!newValue
+      || !this.validateInteger(value, true, 'page')
+      || !this.validateRange(parseInt(newValue, 10), 1, this.internalMax, true, 'page')) {
+      newValue = '';
+    }
     const oldValue = this._value;
     if (oldValue !== newValue) {
       this._value = newValue;
@@ -201,7 +219,12 @@ export class Pagination extends BasicElement {
    */
   public set pageSize (value: string) {
     pageSizeDeprecation.show();
-    const newValue = this.validateInteger(value, true, 'page-size');
+    let newValue = value;
+    if (!newValue
+      || !this.validateInteger(value, true, 'page-size')
+      || !this.validateRange(parseInt(newValue, 10), 1, this.internalTotalitems, true, 'page-size')) {
+      newValue = '';
+    }
     const oldValue = this._pageSize;
     if (oldValue !== newValue) {
       this._pageSize = newValue;
@@ -258,7 +281,12 @@ export class Pagination extends BasicElement {
    */
   public set totalItems (value: string) {
     totalItemsDeprecation.show();
-    const newValue = this.validateInteger(value, true, 'total-items');
+    let newValue = value;
+    if (!newValue
+      || !this.validateInteger(value, true, 'total-items')
+      || !this.validateRange(parseInt(newValue, 10), this.internalValue, Infinity, true, 'total-items')) {
+      newValue = '';
+    }
     const oldValue = this._totalItems;
     if (oldValue !== newValue) {
       this._totalItems = newValue;
@@ -334,74 +362,28 @@ export class Pagination extends BasicElement {
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
+    let updateButtons = false;
     if (changedProperties.has('disabled')) {
       this.disabledChanged();
     }
 
-    if (changedProperties.has('value')) {
+    if (changedProperties.has('value') || changedProperties.has('max')) {
+      updateButtons = true;
+    }
+
+    if (changedProperties.has('pageSize') || changedProperties.has('totalItems')) {
+      if (this.max === '') {
+        updateButtons = true;
+      }
+    }
+
+    if (updateButtons) {
       this.updateButtons();
-    }
-
-    if (changedProperties.has('max')) {
-      this.maxChanged();
-    }
-
-    if (changedProperties.has('pageSize')) {
-      this.pageSizeChanged();
-    }
-
-    if (changedProperties.has('totalItems')) {
-      this.totalItemsChanged();
     }
 
     if (this.inputFocused && changedProperties.has('inputFocused')) {
       void this.selectInput();
     }
-  }
-
-  /**
-   * Handle when max property changed
-   * @returns {void}
-   */
-  private maxChanged (): void {
-    if (this.internalValue > this.internalMax) {
-      this.value = this.internalMax.toString();
-    }
-    this.updateButtons();
-  }
-
-  /**
-   * Handle when total-items property changed
-   * @returns {void}
-   */
-  private totalItemsChanged (): void {
-
-    if (this.max !== '' && this.internalMax >= 1) {
-      return;
-    }
-
-    if (!this.internalPageSize) {
-      this.value = '1';
-    }
-    else if (this.internalValue > this.internalMax) {
-      this.value = this.internalMax.toString();
-    }
-    this.updateButtons();
-  }
-
-  /**
-   * Handle when page-size property changed
-   * @returns {void}
-   */
-  private pageSizeChanged (): void {
-    if (this.max !== '' && this.internalMax >= 1) {
-      return;
-    }
-
-    if (this.internalValue > this.internalMax) {
-      this.value = this.internalMax.toString();
-    }
-    this.updateButtons();
   }
 
   /**
@@ -438,18 +420,38 @@ export class Pagination extends BasicElement {
    * @param {string} value value
    * @param {boolean} warning show warning message when value is invalid
    * @param {string} propName property name to show in warning message
-   * @returns {string} validated value
+   * @returns {boolean} result of validation
    */
-  private validateInteger (value: string, warning = false, propName = ''): string {
-    if (value === '' || (/^[1-9]([0-9]+)?$/).test(value)) {
-      return value;
+  private validateInteger (value: string, warning = false, propName = ''): boolean {
+    if ((/^[1-9]([0-9]+)?$/).test(value)) {
+      return true;
     }
     else {
-      if (value !== null && warning) {
-        new WarningNotice(`${this.localName} : The specified value "${value}" of ${propName} property is not valid, value must be integer and greater than 0 Default value will be used instead.`).show();
+      if (value !== null && warning && propName) {
+        new WarningNotice(`${this.localName} : The specified value "${value}" of ${propName} property is not valid, The value must be integer and greater than 0.`).show();
       }
-      return '';
+      return false;
     }
+  }
+
+  /**
+   * Validate number in supported range
+   * @param {number} value value for validation
+   * @param {number} min minimum value
+   * @param {number} max maximum value
+   * @param {boolean} warning show warning message when value is invalid
+   * @param {string} propName property name to show in warning message
+   * @returns {boolean} result of validation
+   */
+  private validateRange (value: number, min: number, max: number, warning = false, propName = ''): boolean {
+    if (value < min || value > max) {
+      if (warning && propName) {
+        new WarningNotice(`${this.localName} : The specified value "${value}" of ${propName} property is out of range.`).show();
+      }
+      return false;
+    }
+
+    return true;
   }
 
   /**
