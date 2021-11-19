@@ -263,14 +263,6 @@ export class Pagination extends BasicElement {
   public disabled = false;
 
   /**
-   * Get infinite pagination state
-   * @returns {boolean} infinite pagination state
-   */
-  private get infinitePaginate (): boolean {
-    return !this.max && this.internalMax <= 0 || !this.internalTotalitems;
-  }
-
-  /**
    * Getter for text field as input part
    */
   @query('#input')
@@ -321,7 +313,7 @@ export class Pagination extends BasicElement {
       return this.internalValue;
     }
     else {
-      return this.infinitePaginate ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax });
+      return this.internalMax === Infinity ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax });
     }
   }
 
@@ -423,7 +415,7 @@ export class Pagination extends BasicElement {
     const value = this.internalValue;
     const firstPage = this.disabled || value <= 1;
     const nextPage = this.disabled || value >= this.internalMax;
-    const lastPage = nextPage || this.infinitePaginate;
+    const lastPage = nextPage || this.internalMax === Infinity;
 
     this.previousPageButton.disabled = firstPage;
     this.firstPageButton.disabled = firstPage;
