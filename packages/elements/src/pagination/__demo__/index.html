@@ -35,11 +35,15 @@
   </demo-block>
 
   <demo-block layout="normal" header="Max" tags="max">
-    <ef-pagination page="1" page-size="10" max="100"></ef-pagination>
+    <ef-pagination max="10"></ef-pagination>
+  </demo-block>
+
+  <demo-block layout="normal" header="Total items" tags="page-size, total-items">
+    <ef-pagination page="1" page-size="10" total-items="1000"></ef-pagination>
   </demo-block>
 
   <demo-block layout="normal" header="Event" tags="event">
-    <ef-pagination id="pagination" page-size="5" max="32"></ef-pagination>
+    <ef-pagination id="pagination" max="32"></ef-pagination>
     <br>
     <code style="float:right;">value-changed: <span id="page"></span></code>
     <script>
@@ -51,12 +55,12 @@
   </demo-block>
 
   <demo-block layout="normal" header="Translations" tags="translations,i18n">
-    <ef-pagination page-size="5" max="32" title="Default"></ef-pagination>
-    <ef-pagination lang="de" page-size="5" max="32" title="de"></ef-pagination>
-    <ef-pagination lang="en" page-size="5" max="32" title="en"></ef-pagination>
-    <ef-pagination lang="ja" page-size="5" max="32" title="ja"></ef-pagination>
-    <ef-pagination lang="zh" page-size="5" max="32" title="zh"></ef-pagination>
-    <ef-pagination lang="zh-Hant" page-size="5" max="32" title="zh-Hant"></ef-pagination>
+    <ef-pagination max="32"  title="Default"></ef-pagination>
+    <ef-pagination max="32" lang="de" title="de"></ef-pagination>
+    <ef-pagination max="32" lang="en" title="en"></ef-pagination>
+    <ef-pagination max="32" lang="ja" title="ja"></ef-pagination>
+    <ef-pagination max="32" lang="zh" title="zh"></ef-pagination>
+    <ef-pagination max="32" lang="zh-Hant" title="zh-Hant"></ef-pagination>
   </demo-block>
 </body>
 
