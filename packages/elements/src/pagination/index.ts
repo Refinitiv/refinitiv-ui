@@ -87,7 +87,7 @@ export class Pagination extends BasicElement {
    * @param {string} value current page
    */
   public set value (value: string) {
-    const newValue = this.validateInteger(value, 'value');
+    const newValue = this.validateInteger(value, true, 'value');
     const oldValue = this._value;
     if (oldValue !== newValue) {
       this._value = newValue;
@@ -105,7 +105,22 @@ export class Pagination extends BasicElement {
    * @returns {number} max page
    */
   private get internalMax (): number {
-    return parseInt(this.max, 10);
+    const max = parseInt(this.max, 10);
+    const pageSize = this.internalPageSize;
+    const totalItems = this.internalTotalitems;
+    if (!max && !totalItems) {
+      return Infinity;
+    }
+    else if (max >= 1) {
+      return max;
+    }
+
+    if (pageSize > 0) {
+      const totalPage = Math.ceil(totalItems / pageSize);
+      return totalPage > 0 ? totalPage : 1;
+    }
+
+    return 1;
   }
 
   /**
@@ -122,7 +137,7 @@ export class Pagination extends BasicElement {
   * @param {string} value max page
   */
   public set max (value: string) {
-    const newValue = this.validateInteger(value, 'max');
+    const newValue = this.validateInteger(value, true, 'max');
     const oldValue = this._max;
     if (oldValue !== newValue) {
       this._max = newValue;
@@ -149,7 +164,7 @@ export class Pagination extends BasicElement {
    */
   public set page (value: string) {
     pageDeprecation.show();
-    const newValue = this.validateInteger(value, 'page');
+    const newValue = this.validateInteger(value, true, 'page');
     const oldValue = this._value;
     if (oldValue !== newValue) {
       this._value = newValue;
@@ -176,7 +191,7 @@ export class Pagination extends BasicElement {
    */
   public set pageSize (value: string) {
     pageSizeDeprecation.show();
-    const newValue = this.validateInteger(value, 'page-size');
+    const newValue = this.validateInteger(value, true, 'page-size');
     const oldValue = this._pageSize;
     if (oldValue !== newValue) {
       this._pageSize = newValue;
@@ -233,7 +248,7 @@ export class Pagination extends BasicElement {
    */
   public set totalItems (value: string) {
     totalItemsDeprecation.show();
-    const newValue = this.validateInteger(value, 'total-items');
+    const newValue = this.validateInteger(value, true, 'total-items');
     const oldValue = this._totalItems;
     if (oldValue !== newValue) {
       this._totalItems = newValue;
@@ -252,7 +267,7 @@ export class Pagination extends BasicElement {
    * @returns {boolean} infinite pagination state
    */
   private get infinitePaginate (): boolean {
-    return !this.max && !this.internalTotalitems || this.internalMax <= 0;
+    return !this.max && this.internalMax <= 0 || !this.internalTotalitems;
   }
 
   /**
@@ -306,7 +321,7 @@ export class Pagination extends BasicElement {
       return this.internalValue;
     }
     else {
-      return this.infinitePaginate ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.totalPage });
+      return this.infinitePaginate ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax });
     }
   }
 
@@ -343,40 +358,12 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Handle when page-size property changed
-   * @returns {void}
-   */
-  private pageSizeChanged (): void {
-    if (this.internalMax >= 1) {
-      return;
-    }
-
-    const value = this.internalValue;
-
-    // page must have at least 1 item
-    if (this.internalPageSize < 1) {
-      this.pageSize = '1';
-    }
-    if (value > this.totalPage) {
-      this.value = this.totalPage.toString();
-    }
-    this.updateButtons();
-  }
-
-  /**
    * Handle when max property changed
    * @returns {void}
    */
   private maxChanged (): void {
-    const value = this.internalValue;
-    const max = this.internalMax;
-    // Validate max value
-    if (max <= 0) {
-      this.max = '';
-      this.value = '1';
-    }
-    else if (value > this.totalPage) {
-      this.value = this.totalPage.toString();
+    if (this.internalValue > this.internalMax) {
+      this.value = this.internalMax.toString();
     }
     this.updateButtons();
   }
@@ -387,18 +374,30 @@ export class Pagination extends BasicElement {
    */
   private totalItemsChanged (): void {
 
-    if (this.internalMax >= 1) {
+    if (this.max !== '' && this.internalMax >= 1) {
       return;
     }
 
-    const page = this.internalValue;
-    // Validate total items value
-    if (this.internalTotalitems < 1) {
-      this.totalItems = '';
+    if (!this.internalPageSize) {
       this.value = '1';
     }
-    else if (page > this.totalPage) {
-      this.value = this.totalPage.toString();
+    else if (this.internalValue > this.internalMax) {
+      this.value = this.internalMax.toString();
+    }
+    this.updateButtons();
+  }
+
+  /**
+   * Handle when page-size property changed
+   * @returns {void}
+   */
+  private pageSizeChanged (): void {
+    if (this.max !== '' && this.internalMax >= 1) {
+      return;
+    }
+
+    if (this.internalValue > this.internalMax) {
+      this.value = this.internalMax.toString();
     }
     this.updateButtons();
   }
@@ -423,38 +422,13 @@ export class Pagination extends BasicElement {
   private updateButtons (): void {
     const value = this.internalValue;
     const firstPage = this.disabled || value <= 1;
-    const nextPage = this.disabled || value >= this.totalPage;
+    const nextPage = this.disabled || value >= this.internalMax;
     const lastPage = nextPage || this.infinitePaginate;
 
     this.previousPageButton.disabled = firstPage;
     this.firstPageButton.disabled = firstPage;
     this.nextPageButton.disabled = nextPage;
     this.lastPageButton.disabled = lastPage;
-  }
-
-  /**
-   * Calculate and return total pages
-   * Total pages should never less than 1
-   * @returns {number} Number of total page
-   */
-  private get totalPage (): number {
-    const max = this.internalMax;
-    const pageSize = this.internalPageSize;
-    const totalItems = this.internalTotalitems;
-
-    if (!max && !totalItems) {
-      return Infinity;
-    }
-    else if (max >= 1) {
-      return max;
-    }
-
-    if (pageSize > 0) {
-      const totalPage = Math.ceil(totalItems / pageSize);
-      return totalPage > 0 ? totalPage : 1;
-    }
-
-    return 1;
   }
 
   /**
@@ -471,22 +445,32 @@ export class Pagination extends BasicElement {
     if(!value || isNaN(Number(newValue)) || isNaN(value)) {
       value = Number.parseInt(oldValue, 10);
     }
-    else if (value > this.totalPage) {
-      value = this.totalPage;
+    else if (value > this.internalMax) {
+      value = this.internalMax;
     }
     else if (value < 1) {
+
       value = 1;
     }
 
     return value.toString();
   }
 
-  private validateInteger (value: string, propName: string): string {
+  /**
+   * Validate integer value
+   * @param {string} value value
+   * @param {boolean} warning show warning message when value is invalid
+   * @param {string} propName property name to show in warning message
+   * @returns {string} validated value
+   */
+  private validateInteger (value: string, warning = false, propName = ''): string {
     if (value === '' || (/^[1-9]([0-9]+)?$/).test(value)) {
       return value;
     }
     else {
-      new WarningNotice(`${this.localName} : The specified value "${value}" of ${propName} property is not valid, value must be integer and greater than 0 Default value will be used instead.`).show();
+      if (value !== null && warning) {
+        new WarningNotice(`${this.localName} : The specified value "${value}" of ${propName} property is not valid, value must be integer and greater than 0 Default value will be used instead.`).show();
+      }
       return '';
     }
   }
@@ -500,9 +484,14 @@ export class Pagination extends BasicElement {
     if (event.key === 'Enter' || event.keyCode === 13) {
 
       const oldPageValue = this.value;
-      this.value = this.validatePage(this.value, this.input.value);
+      const inputValue = this.validateInteger(this.input.value);
+
+      if (inputValue) {
+        this.value = this.validatePage(this.value, inputValue);
+      }
       this.input.blur();
       event.preventDefault();
+
       if (this.value !== oldPageValue) {
         this.notifyValueChange();
       }
@@ -547,7 +536,7 @@ export class Pagination extends BasicElement {
    */
   private updatePage (direction: 'increment' | 'decrement', event = false): void {
     const page = this.internalValue;
-    const limit = direction === 'increment' ? page < this.totalPage : page > 1;
+    const limit = direction === 'increment' ? page < this.internalMax : page > 1;
 
     if (limit) {
       this.value = direction === 'increment' ? (page + 1).toString() : (page - 1).toString();
@@ -630,7 +619,7 @@ export class Pagination extends BasicElement {
       return;
     }
     this.input.blur();
-    this.value = this.totalPage.toString();
+    this.value = this.internalMax.toString();
   }
 
   /**
