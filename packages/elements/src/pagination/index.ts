@@ -71,7 +71,17 @@ export class Pagination extends BasicElement {
    * @returns {number} current page value
    */
   private get internalValue (): number {
-    return parseInt(this.value, 10) || 1;
+    let value = parseInt(this.value, 10) || 1;
+
+    // Validate page in range
+    if (value > this.internalMax) {
+      value = this.internalMax;
+    }
+    else if (value <= 0) {
+      value = 1;
+    }
+
+    return value;
   }
 
   /**
@@ -424,31 +434,6 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Check a new page value to be usable
-   * if a new page value is allow then return a new
-   * Condition to be old value is null or NaN or undefined or string or less than 1
-   * @param oldValue a old page value
-   * @param newValue a new page value
-   * @return return a new page value
-   */
-  private validatePage (oldValue: string, newValue: string): string {
-    let value = Number.parseInt(newValue, 10);
-
-    if(!value || isNaN(Number(newValue)) || isNaN(value)) {
-      value = Number.parseInt(oldValue, 10);
-    }
-    else if (value > this.internalMax) {
-      value = this.internalMax;
-    }
-    else if (value < 1) {
-
-      value = 1;
-    }
-
-    return value.toString();
-  }
-
-  /**
    * Validate integer value
    * @param {string} value value
    * @param {boolean} warning show warning message when value is invalid
@@ -475,16 +460,13 @@ export class Pagination extends BasicElement {
   private onInputKeyDown (event: KeyboardEvent): void {
     if (event.key === 'Enter' || event.keyCode === 13) {
 
-      const oldPageValue = this.value;
-      const inputValue = this.validateInteger(this.input.value);
+      const oldValue = this.value;
+      this.value = this.input.value;
 
-      if (inputValue) {
-        this.value = this.validatePage(this.value, inputValue);
-      }
       this.input.blur();
       event.preventDefault();
 
-      if (this.value !== oldPageValue) {
+      if (this.value !== oldValue) {
         this.notifyValueChange();
       }
 
