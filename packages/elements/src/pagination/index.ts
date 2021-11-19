@@ -176,6 +176,7 @@ export class Pagination extends BasicElement {
    */
   @property({ type: String })
   public get page (): string {
+    pageDeprecation.show();
     return this._value;
   }
 
@@ -208,6 +209,7 @@ export class Pagination extends BasicElement {
    */
   @property({ type: String, attribute: 'page-size' })
   public get pageSize (): string {
+    pageSizeDeprecation.show();
     return this._pageSize;
   }
 
@@ -270,6 +272,7 @@ export class Pagination extends BasicElement {
    */
   @property({ type: String, attribute: 'total-items' })
   public get totalItems (): string {
+    totalItemsDeprecation.show();
     return this._totalItems;
   }
 
@@ -299,6 +302,14 @@ export class Pagination extends BasicElement {
    */
   @property({ type: Boolean, reflect: true })
   public disabled = false;
+
+  /**
+   * Get infinite pagination state
+   * @returns {boolean} infinite pagination state
+   */
+  private get infinitePaginate (): boolean {
+    return this.internalMax === Infinity; // internalMax always returns 1-Infinity
+  }
 
   /**
    * Getter for text field as input part
@@ -351,7 +362,7 @@ export class Pagination extends BasicElement {
       return this.internalValue;
     }
     else {
-      return this.internalMax === Infinity ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax });
+      return this.infinitePaginate ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax });
     }
   }
 
@@ -407,7 +418,7 @@ export class Pagination extends BasicElement {
     const value = this.internalValue;
     const firstPage = this.disabled || value <= 1;
     const nextPage = this.disabled || value >= this.internalMax;
-    const lastPage = nextPage || this.internalMax === Infinity;
+    const lastPage = nextPage || this.infinitePaginate;
 
     this.previousPageButton.disabled = firstPage;
     this.firstPageButton.disabled = firstPage;
