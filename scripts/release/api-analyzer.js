@@ -17,7 +17,7 @@ const getDeclarationMethods = (meta) => {
   }
 
   const [componentDefinition] = result.componentDefinitions;
-  const declaration = componentDefinition.declaration();
+  const declaration = componentDefinition.declaration;
   const declarationMethods = declaration.methods;
   return declarationMethods;
 };
@@ -139,7 +139,7 @@ const ELEMENT_SRC = 'src';
 const INPUT_FILENAME = 'index.ts';
 
 // The output filename
-const OUTPUT_FILENAME = 'custom-elements.json';
+const OUTPUT_FILENAME = 'custom-elements';
 
 // Validate if data from analyzer is match to element's tag name
 const isValidAPI = (data, element) => {
@@ -154,19 +154,25 @@ const isValidAPI = (data, element) => {
  * @param {string} element element name
  * @returns {(Object|boolean)} element api
  */
-const analyze = (file) => {
+const analyze = (file, type) => {
+  let output;
   const data = fs.readFileSync(file, { encoding: 'utf8' });
   const meta = wca.analyzeText(data);
-  const rawJson = wca.transformAnalyzerResult('json', meta.results, meta.program);
-  const jsonObj = JSON.parse(rawJson);
-  const methods = getMethods(jsonObj, meta);
-
-  // Extract method details from meta data and added to jsonObj
-  if (jsonObj.tags && jsonObj.tags.length > 0 && methods.length > 0) {
-    jsonObj.tags[0].methods = methods;
+  if(type === 'json') {
+    const rawJson = wca.transformAnalyzerResult('json', meta.results, meta.program);
+    const jsonObj = JSON.parse(rawJson);
+    const methods = getMethods(jsonObj, meta);
+  
+    // Extract method details from meta data and added to jsonObj
+    if (jsonObj.tags && jsonObj.tags.length > 0 && methods.length > 0) {
+      jsonObj.tags[0].methods = methods;
+    }
+  
+    output = JSON.stringify(jsonObj, null, 2);
+  } else {
+    output = wca.transformAnalyzerResult('markdown', meta.results, meta.program);
   }
-
-  return JSON.stringify(jsonObj, null, 2);
+  return output;
 };
 
 /**
@@ -175,7 +181,9 @@ const analyze = (file) => {
  */
 const handler = async () => {
   // Looking for `index.ts` in each element source folder
-  const entries = await fg([`${PACKAGE_ROOT}/${ELEMENT_SRC}/*/${INPUT_FILENAME}`], { unique: true });
+  const globUrl = `${PACKAGE_ROOT}/${ELEMENT_SRC}/*/${INPUT_FILENAME}`; 
+  // A glob pattern is always in POSIX format.
+  const entries = await fg([globUrl.replace(/\\/g, '/')], { unique: true });
 
   if (entries.length === 0) {
     return;
@@ -184,26 +192,32 @@ const handler = async () => {
     const elementNameRegEx = new RegExp(`^.*\\/${ELEMENT_SRC}\\/([\\w-]+)`);
     const element = entrypoint.match(elementNameRegEx)[1];
     const outDir = entrypoint.replace(ELEMENT_SRC, ELEMENT_DIST).replace(INPUT_FILENAME, '');
-    const outFile = path.join(outDir, OUTPUT_FILENAME);
+    const jsonFile = path.join(outDir, `${OUTPUT_FILENAME}.json`);
+    const mdFile = path.join(outDir, `${OUTPUT_FILENAME}.md`);
 
     // Analyze API
-    let elementAPI = analyze(entrypoint);
+    let elementAPI = analyze(entrypoint, 'json');
+    let elementDoc = analyze(entrypoint, 'md');
 
     /**
      * If not found any API in default entrypoint,
      * try to look for <element name>.ts file in the sub directories
      */
     if (!isValidAPI(elementAPI, element)) {
-      const altEntrypoint = (await fg([`${PACKAGE_ROOT}/${ELEMENT_SRC}/**/${element}.ts`], { unique: true }) || [])[0];
+      const altGlobUrl = `${PACKAGE_ROOT}/${ELEMENT_SRC}/**/${element}.ts`;
+      // A glob pattern is always in POSIX format.
+      const altEntrypoint = (await fg([altGlobUrl.replace(/\\/g, '/')], { unique: true }) || [])[0];
       if (altEntrypoint) {
-        elementAPI = analyze(altEntrypoint);
+        elementAPI = analyze(altEntrypoint, 'json');
+        elementDoc = analyze(altEntrypoint, 'md');
       }
     }
 
     // Only write file if API is matched to element tag
     if (isValidAPI(elementAPI, element)) {
       success(`Generating API for ${element}`);
-      fs.writeFileSync(outFile, elementAPI, 'utf8');
+      fs.writeFileSync(jsonFile, elementAPI, 'utf8');
+      fs.writeFileSync(mdFile, elementDoc, 'utf8');
     } else {
       error(`Generating API for ${element}`);
     }

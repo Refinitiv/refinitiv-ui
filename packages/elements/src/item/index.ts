@@ -95,11 +95,32 @@ export class Item extends ControlElement {
   @property({ type: String, reflect: true })
   public icon: string | null = null;
 
+
+  private _selected = false;
+
   /**
    * Indicates that the item is selected
+   * @param value selected value
    */
   @property({ type: Boolean, reflect: true })
-  public selected = false;
+  public set selected (value: boolean) {
+    const oldValue = this._selected;
+    if (oldValue !== value) {
+      this._selected = value;
+      this.ariaSelected = String(value);
+      void this.requestUpdate('selected', oldValue);
+    }
+  }
+  public get selected (): boolean {
+    return this._selected;
+  }
+
+  /**
+   * Aria indicating current select state
+   * @ignore
+   */
+  @property({ type: String, reflect: true, attribute: 'aria-selected' })
+  public ariaSelected = 'false';
 
   /**
    * Is the item part of a multiple selection
