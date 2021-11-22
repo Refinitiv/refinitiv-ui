@@ -23,7 +23,7 @@
     <ef-item role="option" value="4" disabled>Apple Juice</ef-item>
     <ef-item role="option" value="5">Iced Tea</ef-item>
     <ef-item role="option" value="6">Water</ef-item>
-    <ef-item aria-hidden="true" header>Ice Cream</ef-item>
+    <ef-item aria-hidden="true" type="header">Ice Cream</ef-item>
     <ef-item role="option" value="7">Vanilla</ef-item>
     <ef-item role="option" value="8">Chocolate</ef-item>
     <ef-item role="option" value="9">Honey &amp; Walnut</ef-item>
@@ -55,8 +55,9 @@
 
 <demo-block header="Country List" tags="250+">
   <div>
-    <p id="country-label">Choose a country</p>
-    <ef-select id="country" aria-labelledby="country-label"></ef-select>
+    <p id="country-label">Choose a country: </p>
+    <ef-select id="country" aria-labelledby="country-label country">
+    </ef-select>
   </div>
   <script>
       const el = document.getElementById('country');
