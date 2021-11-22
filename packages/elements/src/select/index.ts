@@ -26,14 +26,6 @@ import type { OpenedChangedEvent } from '../events';
 
 export { SelectData, SelectDataItem };
 
-/**
- * Key direction
- */
-enum Direction {
-  Up = -1,
-  Down = 1
-}
-
 // Observer config for items
 const observerOptions = {
   subtree: true,
@@ -666,14 +658,20 @@ export class Select extends ControlElement implements MultiValue {
         break;
       case 'Up':
       case 'ArrowUp':
-        this.focusElement(Direction.Up);
+        this.focusElement('previous');
         break;
       case 'Down':
       case 'ArrowDown':
-        this.focusElement(Direction.Down);
+        this.focusElement('next');
         break;
       case 'Tab':
-        this.focusElement(event.shiftKey ? Direction.Up : Direction.Down);
+        this.focusElement(event.shiftKey ? 'previous' : 'next');
+        break;
+      case 'Home':
+        this.focusElement('first');
+        break;
+      case 'End':
+        this.focusElement('last');
         break;
       default:
         if (this.isValidFilterKey(event)) {
@@ -702,31 +700,48 @@ export class Select extends ControlElement implements MultiValue {
   }
 
   /**
-   * Focus and highlight the next/previous element
-   * @param direction Focus next or previous element
+   * Focus and highlight element according to specified direction
+   * @param direction previous, next, first or last focusable element
    * @returns {void}
    */
-  private focusElement (direction: number): void {
+  private focusElement (direction: 'previous' | 'next' | 'first' | 'last'): void {
     const highlightedItem = this.highlightedItem || this.getSelectedElements()[0];
-    const children = this.getSelectableElements();
+    const selectableElements = this.getSelectableElements();
 
-    const idx = highlightedItem ? children.indexOf(highlightedItem) : -1;
-
-    let focusElement;
-    if (direction === 1) {
-      focusElement = idx === -1 ? children[0] : children[idx + 1];
-    }
-    else {
-      focusElement = idx === -1 ? children[children.length - 1] : children[idx - 1];
+    if (selectableElements.length === 0) {
+      return;
     }
 
-    if (!focusElement) {
-      focusElement = direction === 1 ? children[0] : children[children.length - 1];
+    const index = highlightedItem ? selectableElements.indexOf(highlightedItem) : -1;
+
+    const firstElement = selectableElements[0];
+    const lastElement = selectableElements[selectableElements.length - 1];
+
+    let element;
+    switch (direction) {
+      case 'previous':
+        element = index === -1 ? lastElement : selectableElements[index - 1];
+        break;
+      case 'next':
+        element = index === -1 ? firstElement : selectableElements[index + 1];
+        break;
+      case 'first':
+        element = firstElement;
+        break;
+      case 'last':
+        element = lastElement;
+        break;
+      default:
+        break;
     }
 
-    if (focusElement) {
-      focusElement.focus();
-      this.setItemHighlight(focusElement);
+    if (!element) {
+      element = direction === 'next' ? firstElement : lastElement;
+    }
+
+    if (element) {
+      element.focus();
+      this.setItemHighlight(element);
     }
   }
 
