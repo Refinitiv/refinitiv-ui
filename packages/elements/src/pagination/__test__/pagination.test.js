@@ -6,21 +6,26 @@ import {
   oneEvent,
   triggerFocusFor,
   keyboardEvent,
-  aTimeout
+  aTimeout,
+  waitUntil
 } from '@refinitiv-ui/test-helpers';
+
+// Translations polyfills
+import '@formatjs/intl-locale/polyfill.iife';
+import '@formatjs/intl-getcanonicallocales/polyfill.iife';
+import '@formatjs/intl-pluralrules/polyfill.iife';
+import '@formatjs/intl-pluralrules/locale-data/en';
 
 import '@refinitiv-ui/elements/pagination';
 import '@refinitiv-ui/elemental-theme/light/ef-pagination';
 
-const itBrowser = isIE() ? xit : it;
-
 describe('pagination/Pagination', () => {
   describe('Snapshots', () => {
-    itBrowser('DOM structure is correct', async () => {
-      const el = await fixture('<ef-pagination></ef-pagination>');
+    it('DOM structure is correct', async () => {
+      const el = await fixture('<ef-pagination lang="en-gb" lang="en-gb"></ef-pagination>');
       expect(el).shadowDom.to.equalSnapshot({
         ignoreAttributes: [{
-          tags: ['ef-layout'], attributes: ['style']
+          tags: ['ef-layout'], attributes: ['style', 'class']
         }]
       });
     });
@@ -30,11 +35,11 @@ describe('pagination/Pagination', () => {
     let el;
 
     beforeEach(async () => {
-      el = await fixture('<ef-pagination page-size="5" total-items="32"></ef-pagination>');
+      el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
     });
 
     it('Should have default value of page at 1, pageSize at 10, totalItems at 10', async () => {
-      el = await fixture('<ef-pagination></ef-pagination>');
+      el = await fixture('<ef-pagination lang="en-gb"></ef-pagination>');
       expect(el.page).to.equal('1');
       expect(el.pageSize).to.equal('10');
       expect(el.totalItems).to.equal('10');
@@ -104,7 +109,7 @@ describe('pagination/Pagination', () => {
       await elementUpdated(el);
       expect(el.totalPage).to.equal(1);
     });
-    itBrowser('Should be able to change page number by typing a number into the input', async () => {
+    it('Should be able to change page number by typing a number into the input', async () => {
       const textField = el.shadowRoot.querySelector('[part=input]');
       await triggerFocusFor(textField);
       await aTimeout(50);
@@ -128,7 +133,7 @@ describe('pagination/Pagination', () => {
     let lastButton;
 
     beforeEach(async () => {
-      el = await fixture('<ef-pagination page-size="5" total-items="32"></ef-pagination>');
+      el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
       inputPart = el.shadowRoot.querySelector('[part=input]');
       firstButton = el.shadowRoot.querySelector('#first');
       previousButton = el.shadowRoot.querySelector('#previous');
@@ -186,7 +191,7 @@ describe('pagination/Pagination', () => {
 
     beforeEach(async () => {
       el = await fixture(
-        '<ef-pagination page-size=5 total-items=32></ef-pagination>'
+        '<ef-pagination page-size=5 total-items=32 lang="en-gb"></ef-pagination>'
       );
       firstButton = el.shadowRoot.querySelector('#first');
       previousButton = el.shadowRoot.querySelector('#previous');
@@ -236,7 +241,7 @@ describe('pagination/Pagination', () => {
     let lastButton;
 
     beforeEach(async () => {
-      el = await fixture('<ef-pagination page-size="5" total-items="32"></ef-pagination>');
+      el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
 
       firstButton = el.shadowRoot.querySelector('#first');
       previousButton = el.shadowRoot.querySelector('#previous');
@@ -300,7 +305,7 @@ describe('pagination/Pagination', () => {
     let lastButton;
 
     beforeEach(async () => {
-      el = await fixture('<ef-pagination page-size="5" total-items="32"></ef-pagination>');
+      el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
       firstButton = el.shadowRoot.querySelector('#first');
       previousButton = el.shadowRoot.querySelector('#previous');
       nextButton = el.shadowRoot.querySelector('#next');
@@ -317,22 +322,7 @@ describe('pagination/Pagination', () => {
       expect(el.page).to.equal('1');
       expect(detail.value).to.equal('1');
     });
-    it('Should not fire page-changed event when next button is click but the page is already at the minimum page', () => {
-      let eventNotFired = false;
 
-      setTimeout(() => {
-        nextButton.click();
-      });
-
-      oneEvent(el, 'page-changed')
-        .catch(() => {
-          eventNotFired = true;
-        })
-        .then(() => {
-          expect(el.page).to.equal('1');
-          expect(eventNotFired).to.equal(true);
-        });
-    });
     it('Should fire page-changed event when next button is click and page changes', async () => {
       el.page = '1';
       setTimeout(() => {
@@ -343,22 +333,21 @@ describe('pagination/Pagination', () => {
       expect(el.page).to.equal('2');
       expect(detail.value).to.equal('2');
     });
-    it('Should not fire page-changed event when next button is click but the page is already at the maximum page', () => {
-      let eventNotFired = false;
-
+    it('Should not fire page-changed event when next button is click but the page is already at the maximum page', async () => {
+      let eventFired;
       el.page = '7';
-      setTimeout(() => {
-        nextButton.click();
-      });
 
-      oneEvent(el, 'page-changed')
-        .catch(() => {
-          eventNotFired = true;
-        })
-        .then(() => {
-          expect(el.page).to.equal('7');
-          expect(eventNotFired).to.equal(true);
-        });
+      setTimeout(() => nextButton.click());
+
+      try {
+        await waitUntil(async () => await oneEvent(el, 'page-changed'), 'Event does not fire', { timeout: 0 });
+        eventFired = true;
+      } catch (error) {
+        eventFired = false;
+      }
+
+      expect(el.page).to.equal('7');
+      expect(eventFired).to.equal(false);
     });
     it('Should fire page-changed event when previous button is click and page changes', async () => {
       el.page = '4';
@@ -370,22 +359,21 @@ describe('pagination/Pagination', () => {
       expect(el.page).to.equal('3');
       expect(detail.value).to.equal('3');
     });
-    it('Should not fire page-changed event when previous button is click but the page is already at the minimum page', () => {
-      let eventNotFired = false;
-
+    it('Should not fire page-changed event when previous button is click but the page is already at the minimum page', async () => {
+      let eventFired;
       el.page = '1';
-      setTimeout(() => {
-        previousButton.click();
-      });
 
-      oneEvent(el, 'page-changed')
-        .catch(() => {
-          eventNotFired = true;
-        })
-        .then(() => {
-          expect(el.page).to.equal('1');
-          expect(eventNotFired).to.equal(true);
-        });
+      setTimeout(() => previousButton.click());
+
+      try {
+        await waitUntil(async () => await oneEvent(el, 'page-changed'), 'Event does not fire', { timeout: 0 });
+        eventFired = true;
+      } catch (error) {
+        eventFired = false;
+      }
+
+      expect(el.page).to.equal('1');
+      expect(eventFired).to.equal(false);
     });
     it('Should fire page-changed event when last button is click and page changes', async () => {
       el.page = '4';
@@ -397,56 +385,35 @@ describe('pagination/Pagination', () => {
       expect(el.page).to.equal('7');
       expect(detail.value).to.equal('7');
     });
-    it('Should not fire page-changed event when last button is click but the page is already at the maximum page', () => {
-      let eventNotFired = false;
 
-      el.page = '7';
-      setTimeout(() => {
-        previousButton.click();
-      });
+    it('Should not fire page-changed event when page changes through attribute', async () => {
+      let eventFired;
+      setTimeout(() => el.setAttribute('page', '2'));
 
-      oneEvent(el, 'page-changed')
-        .catch(() => {
-          eventNotFired = true;
-        })
-        .then(() => {
-          expect(el.page).to.equal('7');
-          expect(eventNotFired).to.equal(true);
-        });
-    });
-    it('Should not fire page-changed event when page changes through attribute', () => {
-      let eventNotFired = false;
+      try {
+        await waitUntil(async () => await oneEvent(el, 'page-changed'), 'Event does not fire', { timeout: 0 });
+        eventFired = true;
+      } catch (error) {
+        eventFired = false;
+      }
 
-      setTimeout(() => {
-        el.setAttribute('page', '2');
-      });
-
-      oneEvent(el, 'page-changed')
-        .catch(() => {
-          eventNotFired = true;
-        })
-        .then(() => {
-          expect(el.page).to.equal('2');
-          expect(eventNotFired).to.equal(true);
-        });
+      expect(el.page).to.equal('2');
+      expect(eventFired).to.equal(false, 'Event must not be fired');
     });
     it('Should not fire page-changed event when page is changes through property', async () => {
-      let eventNotFired = false;
+      let eventFired;
+      setTimeout(() => el.page = '2');
 
-      setTimeout(() => {
-        el.page = '2';
-      });
+      try {
+        await waitUntil(async () => await oneEvent(el, 'page-changed'), 'Event does not fire', { timeout: 0 });
+        eventFired = true;
+      } catch (error) {
+        eventFired = false;
+      }
 
-      oneEvent(el, 'page-changed')
-        .catch(() => {
-          eventNotFired = true;
-        })
-        .then(() => {
-          expect(el.page).to.equal('2');
-          expect(eventNotFired).to.equal(true);
-        });
+      expect(eventFired).to.equal(false, 'Event must not be fired');
     });
-    itBrowser('Should fire page-changed event when page changes through the text input', async () => {
+    it('Should fire page-changed event when page changes through the text input', async () => {
       const textField = el.shadowRoot.querySelector('[part=input]');
       await triggerFocusFor(textField);
       await aTimeout(50);
@@ -469,7 +436,7 @@ describe('pagination/Pagination', () => {
     let el;
 
     beforeEach(async () => {
-      el = await fixture('<ef-pagination page-size="5" total-items="15"></ef-pagination>');
+      el = await fixture('<ef-pagination page-size="5" total-items="15" lang="en-gb"></ef-pagination>');
     });
 
     it('Should navigate to first page when first() is called', async () => {
@@ -522,7 +489,7 @@ describe('pagination/Pagination', () => {
 
   describe('Responsive', () => {
     it('Should hide pagination info when the component width is smaller than provided responsive width', async () => {
-      const el = await fixture('<ef-pagination page-size="5" total-items="32"></ef-pagination>');
+      const el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
       const infoPart = el.shadowRoot.querySelector('[part=info]');
 
       el.style.width = '100px';
