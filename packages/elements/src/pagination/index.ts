@@ -57,7 +57,7 @@ export class Pagination extends BasicElement {
    * @returns current page value
    */
   private get internalValue (): number {
-    let value = parseInt(this.value, 10) || 1;
+    let value = parseInt(this._value, 10) || 1;
 
     // Validate page in range
     if (value > this.internalMax) {
@@ -107,7 +107,7 @@ export class Pagination extends BasicElement {
    * @returns max page
    */
   private get internalMax (): number {
-    const max = parseInt(this.max, 10);
+    const max = parseInt(this._max, 10);
     const pageSize = this.internalPageSize;
     const totalItems = this.internalTotalitems;
 
@@ -162,7 +162,7 @@ export class Pagination extends BasicElement {
    */
   @property({ type: String })
   public get page (): string {
-    pageDeprecation.show();
+    pageDeprecation.once();
     return this._value;
   }
 
@@ -195,7 +195,7 @@ export class Pagination extends BasicElement {
    */
   @property({ type: String, attribute: 'page-size' })
   public get pageSize (): string {
-    pageSizeDeprecation.show();
+    pageSizeDeprecation.once();
     return this._pageSize;
   }
 
@@ -232,7 +232,7 @@ export class Pagination extends BasicElement {
    * @returns page size
    */
   private get internalPageSize (): number {
-    return parseInt(this.pageSize, 10);
+    return parseInt(this._pageSize, 10);
   }
 
   /**
@@ -247,7 +247,7 @@ export class Pagination extends BasicElement {
    * @deprecated
    */
   private get internalTotalitems (): number {
-    return parseInt(this.totalItems, 10);
+    return parseInt(this._totalItems, 10);
   }
 
   /**
@@ -258,7 +258,7 @@ export class Pagination extends BasicElement {
    */
   @property({ type: String, attribute: 'total-items' })
   public get totalItems (): string {
-    totalItemsDeprecation.show();
+    totalItemsDeprecation.once();
     return this._totalItems;
   }
 
@@ -587,11 +587,11 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   public last (): void {
-    if (!this.max && !this.totalItems) {
+    this.input.blur();
+    if (this.infinitePaginate) {
       new WarningNotice(`${this.localName}: Method "last()" does not support, when the element does not have "max" attribute/property.`).show();
       return;
     }
-    this.input.blur();
     this.value = this.internalMax.toString();
   }
 
