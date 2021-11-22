@@ -71,6 +71,69 @@ const nestedData = [{
   value: '4'
 }];
 
+const deepNestedData = [{
+  label: 'Item 1',
+  value: '1',
+  items: [
+    {
+      label: 'Item 1.1',
+      value: '1.1',
+    },
+    {
+      label: 'Item 1.2',
+      value: '1.2',
+    },
+    {
+      label: 'Item 1.3',
+      value: '1.3',
+      items: [
+        {
+          label: 'Item 1.3.1',
+          value: '1.3.1',
+          items: [
+            {
+              label: 'Item 1.3.1.1',
+              value: '1.3.1.1',
+              selected: true,
+            },
+            {
+              label: 'Item 1.3.1.2',
+              value: '1.3.1.2',
+              selected: true,
+            },
+            {
+              label: 'Item 1.3.1.3',
+              value: '1.3.1.3',
+              selected: true,
+            },
+          ],
+        },
+        {
+          label: 'Item 1.3.2',
+          value: '1.3.2',
+          items: [
+            {
+              label: 'Item 1.3.2.1',
+              value: '1.3.2.1',
+              selected: true,
+            },
+            {
+              label: 'Item 1.3.2.2',
+              value: '1.3.2.2',
+              selected: true,
+            },
+            {
+              label: 'Item 1.3.2.3',
+              value: '1.3.2.3',
+              selected: true,
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}];
+
 describe('tree/Tree', () => {
 
   describe('Basic Tests', () => {
@@ -263,6 +326,27 @@ describe('tree/Tree', () => {
   });
 
   describe('Multiple Selection Mode', () => {
+
+    it('Shows correct checked states', async () => {
+      const el = await fixture('<ef-tree multiple></ef-tree>');
+      el.data = deepNestedData;
+      await elementUpdated(el);
+      el.expandAll();
+      await elementUpdated(el);
+      isIE() && await nextFrame();
+      const item = el.children[3];
+      const itemChild = el.children[4];
+      expect(item.label).to.equal('Item 1.3');
+      expect(item.checkedState).to.equal(1); // Checked
+      item.click();
+      await elementUpdated(el);
+      isIE() && await nextFrame();
+      expect(item.checkedState).to.equal(0); // Unchecked
+      itemChild.click();
+      await elementUpdated(el);
+      isIE() && await nextFrame();
+      expect(item.checkedState).to.equal(-1); // Indeterminate
+    });
 
     it('Supports deselecting an item on tap', async () => {
       const el = await fixture('<ef-tree multiple></ef-tree>');

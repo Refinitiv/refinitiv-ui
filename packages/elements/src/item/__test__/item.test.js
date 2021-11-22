@@ -44,36 +44,43 @@ describe('item/Item', () => {
   describe('Defaults', () => {
     it('Should have correct Shadow DOM structure', async () => {
       const el = await createFixture();
+      expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Should have correct Shadow DOM structure with icon', async () => {
       const el = await createFixture('with_icon');
+      expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Should have correct Shadow DOM structure with empty icon', async () => {
       const el = await createFixture('with_empty_icon');
+      expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Header item should have correct Shadow DOM structure with subLabel', async () => {
       const el = await createFixture('header_with_label_and_subLabel');
+      expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Default item should have correct Shadow DOM structure with label and subLabel', async () => {
       const el = await createFixture('default_with_label_and_subLabel');
+      expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Default item should have correct Shadow DOM structure with content and subLabel', async () => {
       const el = await createFixture('default_with_content_and_subLabel');
+      expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Default item should have correct Shadow DOM structure with subLabel, if there is no content or label', async () => {
       const el = await createFixture('default_only_subLabel');
+      expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
