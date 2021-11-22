@@ -76,7 +76,7 @@ export class Select extends ControlElement implements MultiValue {
     return VERSION;
   }
 
-  protected readonly defaultRole = 'select';
+  protected readonly defaultRole = 'button';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -193,11 +193,24 @@ export class Select extends ControlElement implements MultiValue {
   @property({ type: Boolean, reflect: true })
   public opened = false;
 
+  private _error = false;
+
   /**
   * Set state to error
+  * @param value error value
   */
   @property({ type: Boolean, reflect: true })
-  public error = false;
+  public set error (value: boolean) {
+    const oldValue = this._error;
+    if (oldValue !== value) {
+      this._error = value;
+      this.ariaInvalid = String(value);
+      this.requestUpdate('error', oldValue);
+    }
+  }
+  public get error (): boolean {
+    return this._error;
+  }
 
   /**
   * Set state to warning
@@ -309,6 +322,13 @@ export class Select extends ControlElement implements MultiValue {
    */
   @property({ type: String, reflect: true, attribute: 'aria-expanded' })
   public ariaExpanded = String(this.opened);
+
+  /**
+   * Aria indicating open state of listbox popup
+   * @ignore
+   */
+  @property({ type: String, reflect: true, attribute: 'aria-invalid' })
+  public ariaInvalid = String(this.error);
 
 
   @query('#menu')
