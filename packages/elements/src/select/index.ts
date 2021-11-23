@@ -980,9 +980,10 @@ export class Select extends ControlElement implements MultiValue {
   private toItem (item: SelectDataItem): TemplateResult {
     switch (item.type) {
       case 'divider':
-        return html`<ef-item part="item" type="divider"></ef-item>`;
+        return html`<ef-item role="presentation" part="item" type="divider"></ef-item>`;
       case 'header':
         return html`<ef-item
+          role="presentation"
           part="item"
           type="header"
           .label=${item.label}></ef-item>`;
