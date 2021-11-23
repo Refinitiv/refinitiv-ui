@@ -39,6 +39,9 @@ export class ListRenderer extends Renderer {
       el.hidden = composer.getItemPropertyValue(item, 'hidden') === true;
       el.type = composer.getItemPropertyValue(item, 'type') as ItemType;
       el.multiple = !!context && (context as Context).multiple === true;
+
+      const itemRole = el.type === 'text' ? 'option' : 'presentation';
+      el.setAttribute('role', itemRole);
       tooltip ? el.setAttribute('title', tooltip) : el.removeAttribute('title');
 
       return el;

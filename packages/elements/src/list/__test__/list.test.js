@@ -125,6 +125,14 @@ describe('list/List', () => {
     }));
     await elementUpdated(el);
     el.dispatchEvent(new KeyboardEvent('keydown', {
+      key: 'Home'
+    }));
+    await elementUpdated(el);
+    el.dispatchEvent(new KeyboardEvent('keydown', {
+      key: 'End'
+    }));
+    await elementUpdated(el);
+    el.dispatchEvent(new KeyboardEvent('keydown', {
       key: ' '
     }));
     await elementUpdated(el);
