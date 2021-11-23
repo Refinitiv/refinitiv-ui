@@ -28,6 +28,7 @@
   lock-position-target=""
   opened=""
   part="list"
+  role="listbox"
   tabindex="-1"
   with-shadow=""
 >
@@ -61,6 +62,7 @@
   lock-position-target=""
   opened=""
   part="list"
+  role="listbox"
   tabindex="-1"
   with-shadow=""
 >
@@ -94,6 +96,7 @@
   lock-position-target=""
   opened=""
   part="list"
+  role="listbox"
   tabindex="-1"
   with-shadow=""
 >
@@ -129,12 +132,14 @@
   lock-position-target=""
   opened=""
   part="list"
+  role="listbox"
   tabindex="-1"
   with-shadow=""
 >
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="header"
@@ -143,8 +148,10 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="true"
     highlighted=""
     part="item"
+    role="option"
     selected=""
     tabindex="0"
   >
@@ -152,13 +159,16 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
+    role="option"
     tabindex="0"
   >
   </ef-item>
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="divider"
@@ -167,7 +177,9 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
+    role="option"
     tabindex="0"
   >
   </ef-item>
@@ -199,12 +211,14 @@
   lock-position-target=""
   opened=""
   part="list"
+  role="listbox"
   tabindex="-1"
   with-shadow=""
 >
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="header"
@@ -213,21 +227,26 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     highlighted=""
     part="item"
+    role="option"
     tabindex="0"
   >
   </ef-item>
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
+    role="option"
     tabindex="0"
   >
   </ef-item>
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="divider"
@@ -236,7 +255,9 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="true"
     part="item"
+    role="option"
     selected=""
     tabindex="0"
   >
@@ -269,12 +290,14 @@
   lock-position-target=""
   opened=""
   part="list"
+  role="listbox"
   tabindex="-1"
   with-shadow=""
 >
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="header"
@@ -283,21 +306,26 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     highlighted=""
     part="item"
+    role="option"
     tabindex="0"
   >
   </ef-item>
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
+    role="option"
     tabindex="0"
   >
   </ef-item>
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="divider"
@@ -306,7 +334,9 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="true"
     part="item"
+    role="option"
     selected=""
     tabindex="0"
   >
