@@ -141,6 +141,7 @@
     aria-readonly="false"
     aria-selected="false"
     part="item"
+    role="presentation"
     tabindex="-1"
     type="header"
   >
@@ -170,6 +171,7 @@
     aria-readonly="false"
     aria-selected="false"
     part="item"
+    role="presentation"
     tabindex="-1"
     type="divider"
   >
@@ -220,6 +222,7 @@
     aria-readonly="false"
     aria-selected="false"
     part="item"
+    role="presentation"
     tabindex="-1"
     type="header"
   >
@@ -248,6 +251,7 @@
     aria-readonly="false"
     aria-selected="false"
     part="item"
+    role="presentation"
     tabindex="-1"
     type="divider"
   >
@@ -299,6 +303,7 @@
     aria-readonly="false"
     aria-selected="false"
     part="item"
+    role="presentation"
     tabindex="-1"
     type="header"
   >
@@ -327,6 +332,7 @@
     aria-readonly="false"
     aria-selected="false"
     part="item"
+    role="presentation"
     tabindex="-1"
     type="divider"
   >
