@@ -227,6 +227,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="header"
@@ -235,6 +236,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -242,6 +244,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -249,6 +252,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="divider"
@@ -257,6 +261,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -290,6 +295,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="header"
@@ -298,6 +304,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -305,6 +312,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -312,6 +320,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="divider"
@@ -320,6 +329,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -359,6 +369,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="header"
@@ -367,6 +378,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -374,6 +386,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -381,6 +394,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="divider"
@@ -389,6 +403,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -426,6 +441,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -433,6 +449,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="divider"
@@ -441,6 +458,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -448,6 +466,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -455,6 +474,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="header"
@@ -493,6 +513,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -500,6 +521,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="divider"
@@ -508,6 +530,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -515,6 +538,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="0"
   >
@@ -522,6 +546,7 @@
   <ef-item
     aria-disabled="false"
     aria-readonly="false"
+    aria-selected="false"
     part="item"
     tabindex="-1"
     type="header"
