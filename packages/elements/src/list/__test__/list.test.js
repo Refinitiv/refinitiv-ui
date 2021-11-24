@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, keyboardEvent, nextFrame, isIE } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/list';
@@ -38,6 +38,20 @@ const data = [{
   value: 'cry',
   disabled: true
 }];
+
+
+const iterateKeyboardEvent = async (el, scope, keys = [], highlighted = []) => {
+  const children = scope.querySelectorAll('ef-item'); // 0, 1, 2, 3, 4 can be selected
+  for (let i = 0; i < keys.length; i += 1) {
+    const key = keys[i];
+    el.dispatchEvent(keyboardEvent('keydown', { key: key }));
+    await elementUpdated(el);
+    await nextFrame();
+    await nextFrame();
+
+    expect(el.querySelector('[highlighted]') === children[highlighted[i]]).to.equal(true, `Incorrect item highlighted`);
+  }
+};
 
 // TODO: Actually test results. These are just placeholders for coverage.
 
@@ -103,50 +117,70 @@ describe('list/List', () => {
     await elementUpdated(el);
   });
 
-  it('Supports key control', async () => {
-    const el = await fixture('<ef-list></ef-list>');
-    const KeyboardEvent = (/trident/i).test(navigator.userAgent) ? window.Event : window.KeyboardEvent;
-    el.data = data;
-    await elementUpdated(el);
-    el.dispatchEvent(new KeyboardEvent('keydown', {
-      key: 'Up'
-    }));
-    await elementUpdated(el);
-    el.dispatchEvent(new KeyboardEvent('keydown', {
-      key: 'ArrowUp'
-    }));
-    await elementUpdated(el);
-    el.dispatchEvent(new KeyboardEvent('keydown', {
-      key: 'Down'
-    }));
-    await elementUpdated(el);
-    el.dispatchEvent(new KeyboardEvent('keydown', {
-      key: 'ArrowDown'
-    }));
-    await elementUpdated(el);
-    el.dispatchEvent(new KeyboardEvent('keydown', {
-      key: 'Home'
-    }));
-    await elementUpdated(el);
-    el.dispatchEvent(new KeyboardEvent('keydown', {
-      key: 'End'
-    }));
-    await elementUpdated(el);
-    el.dispatchEvent(new KeyboardEvent('keydown', {
-      key: ' '
-    }));
-    await elementUpdated(el);
-    el.dispatchEvent(new KeyboardEvent('keydown', {
-      key: 'Enter'
-    }));
-    await elementUpdated(el);
-    el.dispatchEvent(new KeyboardEvent('keydown', {
-      key: 'Spacebar'
-    }));
-    await elementUpdated(el);
-    el.dispatchEvent(new KeyboardEvent('keydown', {
-      key: 'x'
-    }));
+  describe('Supports key control', async () => {
+    it('Keypress Up/ArrowUp event', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = data;
+      await elementUpdated(el);
+      await iterateKeyboardEvent(el, el, ['Up', 'Up', 'ArrowUp'], [0, 4, 3]);
+    });
+
+    it('Keypress Down/ArrowDown event', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = data;
+      await elementUpdated(el);
+      await iterateKeyboardEvent(el, el, ['Down', 'Down', 'ArrowDown'], [0, 1, 2]);
+    });
+
+    it('Keypress Home event', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = data;
+      await elementUpdated(el);
+      await iterateKeyboardEvent(el, el, ['Down', 'ArrowDown', 'Home'], [0, 1, 0]);
+    });
+
+    it('Keypress End event', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = data;
+      await elementUpdated(el);
+
+      await iterateKeyboardEvent(el, el, ['Down', 'End'], [0, 4]);
+    });
+
+    it('Keypress Enter event', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = data;
+      await elementUpdated(el);
+
+      await iterateKeyboardEvent(el, el, ['Down', 'Down', 'Enter'], [0 , 1, 1]);
+      expect(el.value).to.equal('bye');
+    });
+
+    it('Keypress Spacebar event', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = data;
+      await elementUpdated(el);
+
+      await iterateKeyboardEvent(el, el, ['Down', 'Down', 'Spacebar'], [0 , 1, 1]);
+      expect(el.value).to.equal('bye');
+    });
+
+    it('Keypress \' \' event', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = data;
+      await elementUpdated(el);
+
+      await iterateKeyboardEvent(el, el, ['Down', 'Down', ' '], [0 , 1, 1]);
+      expect(el.value).to.equal('bye');
+    });
+
+    it('Keypress not match any event', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = data;
+      await elementUpdated(el);
+
+      await iterateKeyboardEvent(el, el,  ['Down', 'Down', 'x'], [0, 1, 1]);
+    });
   });
 
   it('Supports setting value via property', async () => {

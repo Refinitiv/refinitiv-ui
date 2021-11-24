@@ -40,13 +40,16 @@
 >
   <ef-list
     aria-disabled="false"
+    aria-multiselectable="false"
     aria-readonly="false"
     id="internal-list"
+    role="listbox"
   >
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -56,6 +59,7 @@
       aria-readonly="false"
       aria-selected="true"
       highlighted=""
+      role="option"
       selected=""
       tabindex="0"
     >
@@ -64,6 +68,7 @@
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -71,6 +76,7 @@
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -115,13 +121,16 @@
 >
   <ef-list
     aria-disabled="false"
+    aria-multiselectable="false"
     aria-readonly="false"
     id="internal-list"
+    role="listbox"
   >
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -131,6 +140,7 @@
       aria-readonly="false"
       aria-selected="false"
       highlighted=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -138,6 +148,7 @@
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -145,6 +156,7 @@
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="true"
+      role="option"
       selected=""
       tabindex="0"
     >
@@ -190,13 +202,16 @@
 >
   <ef-list
     aria-disabled="false"
+    aria-multiselectable="false"
     aria-readonly="false"
     id="internal-list"
+    role="listbox"
   >
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -206,6 +221,7 @@
       aria-readonly="false"
       aria-selected="false"
       highlighted=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -213,6 +229,7 @@
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -220,6 +237,7 @@
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -266,13 +284,16 @@
 >
   <ef-list
     aria-disabled="false"
+    aria-multiselectable="false"
     aria-readonly="false"
     id="internal-list"
+    role="listbox"
   >
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -282,6 +303,7 @@
       aria-readonly="false"
       aria-selected="true"
       highlighted=""
+      role="option"
       selected=""
       tabindex="0"
     >
@@ -290,6 +312,7 @@
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -297,6 +320,7 @@
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -349,14 +373,17 @@
 >
   <ef-list
     aria-disabled="false"
+    aria-multiselectable="true"
     aria-readonly="false"
     id="internal-list"
+    role="listbox"
   >
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
       multiple=""
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -367,6 +394,7 @@
       aria-selected="true"
       highlighted=""
       multiple=""
+      role="option"
       selected=""
       tabindex="0"
     >
@@ -376,6 +404,7 @@
       aria-readonly="false"
       aria-selected="false"
       multiple=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -384,6 +413,7 @@
       aria-readonly="false"
       aria-selected="true"
       multiple=""
+      role="option"
       selected=""
       tabindex="0"
     >
@@ -429,14 +459,17 @@
 >
   <ef-list
     aria-disabled="false"
+    aria-multiselectable="true"
     aria-readonly="false"
     id="internal-list"
+    role="listbox"
   >
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
       multiple=""
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -447,6 +480,7 @@
       aria-selected="false"
       highlighted=""
       multiple=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -455,6 +489,7 @@
       aria-readonly="false"
       aria-selected="true"
       multiple=""
+      role="option"
       selected=""
       tabindex="0"
     >
@@ -464,6 +499,7 @@
       aria-readonly="false"
       aria-selected="false"
       multiple=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -508,14 +544,17 @@
 >
   <ef-list
     aria-disabled="false"
+    aria-multiselectable="true"
     aria-readonly="false"
     id="internal-list"
+    role="listbox"
   >
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
       aria-selected="false"
       multiple=""
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -526,6 +565,7 @@
       aria-selected="false"
       highlighted=""
       multiple=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -534,6 +574,7 @@
       aria-readonly="false"
       aria-selected="false"
       multiple=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -542,6 +583,7 @@
       aria-readonly="false"
       aria-selected="false"
       multiple=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
