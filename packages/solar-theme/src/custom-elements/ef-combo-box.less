@@ -23,4 +23,10 @@
     min-width: @size;
     margin-top: 0;
   }
+  &[disabled] [part~=icon] {
+    & when (@variant = charcoal) {
+      color: inherit ;
+      opacity: 0.3 ;
+    }
+  }
 }
