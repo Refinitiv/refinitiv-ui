@@ -655,7 +655,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     super.updated(changedProperties);
 
     if (changedProperties.has('multiple')) {
-      this.ariaMultiselectable = this.multiple ? 'true' : '';
+      this.ariaMultiselectable = this.multiple ? 'true' : 'false';
     }
   }
 

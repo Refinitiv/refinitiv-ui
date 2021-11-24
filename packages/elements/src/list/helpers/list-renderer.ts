@@ -40,7 +40,7 @@ export class ListRenderer extends Renderer {
       el.type = composer.getItemPropertyValue(item, 'type') as ItemType;
       el.multiple = !!context && (context as Context).multiple === true;
 
-      const itemRole = el.type === 'text' ? 'option' : 'presentation';
+      const itemRole = el.type === 'text' || !el.type ? 'option' : 'presentation';
       el.setAttribute('role', itemRole);
       tooltip ? el.setAttribute('title', tooltip) : el.removeAttribute('title');
 
