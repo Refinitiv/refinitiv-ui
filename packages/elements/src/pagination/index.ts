@@ -85,7 +85,7 @@ export class Pagination extends BasicElement {
   public set value (value: string) {
     let newValue = value;
     if (!newValue
-      || !this.validateInteger(newValue, true, 'value')
+      || !this.validatePage(newValue, true, 'value')
       || !this.validateRange(parseInt(newValue, 10), 1, this.internalMax, true, 'value')) {
       newValue = '';
     }
@@ -142,7 +142,7 @@ export class Pagination extends BasicElement {
   public set max (value: string) {
     let newValue = value;
     if (!newValue
-      || !this.validateInteger(value, true, 'max')
+      || !this.validatePage(value, true, 'max')
       || !this.validateRange(parseInt(newValue, 10), this.internalValue, Infinity, true, 'max')) {
       newValue = '';
     }
@@ -176,7 +176,7 @@ export class Pagination extends BasicElement {
     pageDeprecation.show();
     let newValue = value;
     if (!newValue
-      || !this.validateInteger(value, true, 'page')
+      || !this.validatePage(value, true, 'page')
       || !this.validateRange(parseInt(newValue, 10), 1, this.internalMax, true, 'page')) {
       newValue = '';
     }
@@ -209,7 +209,7 @@ export class Pagination extends BasicElement {
     pageSizeDeprecation.show();
     let newValue = value;
     if (!newValue
-      || !this.validateInteger(value, true, 'page-size')
+      || !this.validatePage(value, true, 'page-size')
       || !this.validateRange(parseInt(newValue, 10), 1, this.internalTotalitems, true, 'page-size')) {
       newValue = '';
     }
@@ -272,7 +272,7 @@ export class Pagination extends BasicElement {
     totalItemsDeprecation.show();
     let newValue = value;
     if (!newValue
-      || !this.validateInteger(value, true, 'total-items')
+      || !this.validatePage(value, true, 'total-items')
       || !this.validateRange(parseInt(newValue, 10), this.internalValue, Infinity, true, 'total-items')) {
       newValue = '';
     }
@@ -419,7 +419,7 @@ export class Pagination extends BasicElement {
    * @param propName property name to show in warning message
    * @returns result of validation
    */
-  private validateInteger (value: string, warning = false, propName = ''): boolean {
+  private validatePage (value: string, warning = false, propName = ''): boolean {
     if ((/^[1-9]([0-9]+)?$/).test(value)) {
       return true;
     }
@@ -460,7 +460,21 @@ export class Pagination extends BasicElement {
     if (event.key === 'Enter' || event.keyCode === 13) {
 
       const oldValue = this.value;
-      this.value = this.input.value;
+      let newValue = parseInt(this.input.value, 10);
+
+      // Reset input and boundary value into supported range.
+      if (this.validatePage(this.input.value)) {
+        if (newValue <= 0) {
+          newValue = 1;
+        }
+        else if (newValue > this.internalMax) {
+          newValue = this.internalMax;
+        }
+        this.value = newValue.toString();
+      }
+      else if (!isNaN(newValue)) {
+        this.value = '1';
+      }
 
       this.input.blur();
       event.preventDefault();
