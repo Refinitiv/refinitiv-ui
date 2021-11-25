@@ -110,14 +110,14 @@ describe('pagination/Pagination', () => {
       await aTimeout(50);
 
       setTimeout(() => { textField.value = '3' });
-      await updating(50);
-      setTimeout(() => textField.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' })));
+      await aTimeout(50);
+      textField.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
       await updating(50);
       expect(el.value).to.equal('3');
     });
   });
 
-  describe('Backward compat', () => {
+  describe('Backwards compatibility', () => {
     it('Calculates total page correctly', async () => {
       const el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
       expect(el.pageSize).to.equal('5');
@@ -188,7 +188,8 @@ describe('pagination/Pagination', () => {
       expect(inputPart.value).to.equal('Page 1 of 7', 'Incorrect transform text input');
 
       await triggerFocusFor(inputPart);
-      await aTimeout(50);
+      await elementUpdated(el);
+      await nextFrame();
       expect(inputPart.value).to.equal('1', 'Incorrect transform text input');
 
       setTimeout(() => {
@@ -204,7 +205,8 @@ describe('pagination/Pagination', () => {
       expect(inputPart.value).to.equal('Page 7 of 7', 'Incorrect transform text input');
 
       await triggerFocusFor(inputPart);
-      await aTimeout(50);
+      await elementUpdated(el);
+      await nextFrame();
       expect(inputPart.value).to.equal('7');
 
       setTimeout(() => {
@@ -267,7 +269,7 @@ describe('pagination/Pagination', () => {
         lastButton = el.shadowRoot.querySelector('#last');
       });
 
-      it('First, previous, and last buttons should be disabled on the first page', async () => {
+      it('First, previous, and last buttons should be disabled initially', async () => {
         expect(firstButton.disabled).to.equal(true);
         expect(previousButton.disabled).to.equal(true);
         expect(nextButton.disabled).to.equal(false);
