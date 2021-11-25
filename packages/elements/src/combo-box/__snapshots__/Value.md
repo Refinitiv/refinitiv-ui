@@ -46,6 +46,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="-1"
       type="header"
     >
@@ -53,6 +54,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="true"
       highlighted=""
       selected=""
       tabindex="0"
@@ -61,12 +63,14 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="0"
     >
     </ef-item>
@@ -117,6 +121,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="-1"
       type="header"
     >
@@ -124,6 +129,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       highlighted=""
       tabindex="0"
     >
@@ -131,12 +137,14 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="true"
       selected=""
       tabindex="0"
     >
@@ -188,6 +196,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="-1"
       type="header"
     >
@@ -195,6 +204,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       highlighted=""
       tabindex="0"
     >
@@ -202,12 +212,14 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="0"
     >
     </ef-item>
@@ -260,6 +272,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="-1"
       type="header"
     >
@@ -267,6 +280,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="true"
       highlighted=""
       selected=""
       tabindex="0"
@@ -275,12 +289,14 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       tabindex="0"
     >
     </ef-item>
@@ -339,6 +355,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       multiple=""
       tabindex="-1"
       type="header"
@@ -347,6 +364,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="true"
       highlighted=""
       multiple=""
       selected=""
@@ -356,6 +374,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       multiple=""
       tabindex="0"
     >
@@ -363,6 +382,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="true"
       multiple=""
       selected=""
       tabindex="0"
@@ -415,6 +435,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       multiple=""
       tabindex="-1"
       type="header"
@@ -423,6 +444,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       highlighted=""
       multiple=""
       tabindex="0"
@@ -431,6 +453,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="true"
       multiple=""
       selected=""
       tabindex="0"
@@ -439,6 +462,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       multiple=""
       tabindex="0"
     >
@@ -490,6 +514,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       multiple=""
       tabindex="-1"
       type="header"
@@ -498,6 +523,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       highlighted=""
       multiple=""
       tabindex="0"
@@ -506,6 +532,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       multiple=""
       tabindex="0"
     >
@@ -513,6 +540,7 @@
     <ef-item
       aria-disabled="false"
       aria-readonly="false"
+      aria-selected="false"
       multiple=""
       tabindex="0"
     >
