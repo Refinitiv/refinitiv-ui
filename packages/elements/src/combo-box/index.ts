@@ -34,7 +34,7 @@ import '../text-field/index.js';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/lib/locale/en/combo-box.js';
 
-export { ComboBoxFilter, ComboBoxData };
+export type { ComboBoxFilter, ComboBoxData };
 export { ComboBoxRenderer };
 
 const QUERY_DEBOUNCE_RATE = 0;
