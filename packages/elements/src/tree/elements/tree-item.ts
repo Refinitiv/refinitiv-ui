@@ -34,6 +34,8 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
     return VERSION;
   }
 
+  protected readonly defaultRole = 'treeitem';
+
   /**
    * Checked state of the item
    */
@@ -52,11 +54,30 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   @property({ type: Boolean, reflect: true })
   public multiple = false;
 
+  private _expanded = false;
+
   /**
    * Expanded state of the item
    */
   @property({ type: Boolean })
-  public expanded = false;
+  public get expanded (): boolean {
+    return this._expanded;
+  }
+  public set expanded (value: boolean) {
+    const oldValue = this._expanded;
+    if (value !== oldValue) {
+      this._expanded = value;
+      this.ariaExpanded = String(value);
+      this.requestUpdate('expanded', oldValue);
+    }
+  }
+
+  /**
+   * @ignore
+   */
+  @property({ type: String, attribute: 'aria-expanded', reflect: true })
+  public ariaExpanded = String(this.expanded);
+
 
   /**
    * Depth of the item
