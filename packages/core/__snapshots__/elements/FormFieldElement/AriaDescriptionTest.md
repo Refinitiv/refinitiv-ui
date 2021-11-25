@@ -8,6 +8,7 @@
   aria-hidden="true"
   aria-invalid="false"
   aria-required="false"
+  autocomplete="off"
 >
 
 ```
@@ -17,6 +18,7 @@
   aria-hidden="true"
   aria-invalid="false"
   aria-required="false"
+  autocomplete="off"
 >
 
 ```
@@ -29,6 +31,7 @@
   aria-hidden="true"
   aria-invalid="false"
   aria-required="false"
+  autocomplete="off"
 >
 
 ```
@@ -41,6 +44,7 @@
   aria-hidden="true"
   aria-invalid="true"
   aria-required="false"
+  autocomplete="off"
 >
 
 ```

@@ -1,10 +1,34 @@
-import { elementUpdated, expect, fixture, html } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 import { FormFieldElement } from '../../lib/elements/FormFieldElement';
 import { customElement } from '../../lib/decorators/custom-element';
 
 class FormFieldElementTest extends FormFieldElement {
-  render () {
-    return html`<input ${this.ariaDecorate()}>`;
+  inputEventCounter = 0;
+  changeEventCounter = 0;
+
+  firstUpdated (changedProperties) {
+    super.firstUpdated(changedProperties);
+    this.inputValue = 'some text to test';
+  }
+
+  onInputInput (event) {
+    this.inputEventCounter += 1;
+  }
+
+  onInputChange (event) {
+    this.changeEventCounter += 1;
+  }
+
+  get inputElement () {
+    return super.inputElement;
+  }
+
+  set inputValue (inputValue) {
+    super.inputValue = inputValue;
+  }
+
+  get inputValue () {
+    return super.inputValue;
   }
 }
 customElement('form-field-element-test', {
@@ -33,6 +57,36 @@ describe('elements/FormFieldElement/ErrorTest', () => {
     const formFieldEl = await fixture('<form-field-element-test error></form-field-element-test>');
     expect(formFieldEl).shadowDom.to.equalSnapshot();
     formFieldEl.error = false;
+    await elementUpdated(formFieldEl);
+    expect(formFieldEl).shadowDom.to.equalSnapshot();
+  });
+});
+
+describe('elements/FormFieldElement/PlaceholderTest', () => {
+  it('placeholder is propagated', async () => {
+    const formFieldEl = await fixture('<form-field-element-test placeholder="Placeholder"></form-field-element-test>');
+    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    formFieldEl.placeholder = null;
+    await elementUpdated(formFieldEl);
+    expect(formFieldEl).shadowDom.to.equalSnapshot();
+  });
+});
+
+describe('elements/FormFieldElement/ReadonlyTest', () => {
+  it('readonly is propagated', async () => {
+    const formFieldEl = await fixture('<form-field-element-test readonly></form-field-element-test>');
+    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    formFieldEl.readonly = false;
+    await elementUpdated(formFieldEl);
+    expect(formFieldEl).shadowDom.to.equalSnapshot();
+  });
+});
+
+describe('elements/FormFieldElement/DisabledTest', () => {
+  it('disabled is propagated', async () => {
+    const formFieldEl = await fixture('<form-field-element-test disabled></form-field-element-test>');
+    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    formFieldEl.disabled = false;
     await elementUpdated(formFieldEl);
     expect(formFieldEl).shadowDom.to.equalSnapshot();
   });
@@ -93,5 +147,74 @@ describe('elements/FormFieldElement/AriaDescriptionTest', () => {
     await elementUpdated(formFieldEl);
 
     expect(formFieldEl).shadowDom.to.equalSnapshot();
+  });
+});
+
+describe('elements/FormFieldElement/EventsTest', () => {
+  it('input event callback should be run', async () => {
+    const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
+    formFieldEl.inputElement.dispatchEvent(new CustomEvent('input'));
+    expect(formFieldEl.inputEventCounter).to.equal(1);
+  });
+  it('change event callback should be run', async () => {
+    const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
+    formFieldEl.inputElement.dispatchEvent(new CustomEvent('change'));
+    expect(formFieldEl.changeEventCounter).to.equal(1);
+  });
+});
+
+describe('elements/FormFieldElement/SelectionTest', () => {
+  it('Applies `selectionStart`', async () => {
+    const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
+    const inputElement = formFieldEl.inputElement;
+    await triggerFocusFor(inputElement);
+    const selectionStart = 5;
+    formFieldEl.selectionStart = selectionStart;
+    expect(formFieldEl.selectionStart).to.equal(selectionStart);
+    await elementUpdated(formFieldEl);
+    expect(inputElement.selectionStart).to.equal(selectionStart);
+  });
+  it('Applies `selectionEnd`', async () => {
+    const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
+    const inputElement = formFieldEl.inputElement;
+    await triggerFocusFor(inputElement);
+    const selectionEnd = 5;
+    formFieldEl.selectionEnd = selectionEnd;
+    expect(formFieldEl.selectionEnd).to.equal(selectionEnd);
+    await elementUpdated(formFieldEl);
+    expect(inputElement.selectionEnd).to.equal(selectionEnd);
+  });
+
+  it('Applies `selectionDirection`', async () => {
+    const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
+    const inputElement = formFieldEl.inputElement;
+    const selectionDirection = 'backward';
+    formFieldEl.selectionDirection = selectionDirection;
+    expect(formFieldEl.selectionDirection).to.equal(selectionDirection);
+    await elementUpdated(formFieldEl);
+    expect(inputElement.selectionDirection).to.equal(selectionDirection);
+  });
+
+  it('Can use `select` method', async () => {
+    const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
+    await triggerFocusFor(formFieldEl);
+    formFieldEl.select();
+    await elementUpdated(formFieldEl);
+    expect(formFieldEl.selectionStart).to.equal(0);
+    expect(formFieldEl.selectionEnd).to.equal(formFieldEl.inputValue.length);
+  });
+
+  it('Can use `setSelectionRange` method', async () => {
+    const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
+    await triggerFocusFor(formFieldEl);
+    formFieldEl.setSelectionRange(1, 2);
+    await elementUpdated(formFieldEl);
+    expect(formFieldEl.selectionStart).to.equal(1, 'selectionStart');
+    expect(formFieldEl.selectionEnd).to.equal(2, 'selectionEnd');
+
+    const valueLength = formFieldEl.inputValue.length;
+    formFieldEl.setSelectionRange(1, 2, 'backward');
+    await elementUpdated(formFieldEl);
+    expect(formFieldEl.selectionDirection).to.equal('backward');
   });
 });

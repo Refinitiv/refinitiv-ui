@@ -131,6 +131,21 @@ describe('text-field/TextField', () => {
       expect(clickCount).to.equal(1, 'Icon should be clickable');
     });
 
+    it('icon-click with icon-has-action and disabled', async () => {
+      const el = await fixture('<ef-text-field icon="menu" icon-has-action disabled></ef-text-field>');
+      const icon = el.shadowRoot.querySelector('[part=icon]');
+
+      let clickCount = 0;
+
+      el.addEventListener('icon-click', () => {
+        clickCount += 1;
+      });
+
+      icon.dispatchEvent(new CustomEvent('tap'));
+
+      expect(clickCount).to.equal(0, 'Icon should not be clickable when disabled');
+    });
+
     it('icon-click with icon-has-action and press `tab` should not fire event', async () => {
       const el = await fixture('<ef-text-field icon="menu" icon-has-action></ef-text-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');

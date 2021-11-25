@@ -35,7 +35,7 @@ import '@refinitiv-ui/phrasebook/lib/locale/en/search-field.js';
  * @prop {string} [pattern=''] - Set regular expression for input validation
  *
  * @attr {string} placeholder - Set placeholder text
- * @prop {string|null} [placeholder=null] - Set placeholder text
+ * @prop {string} [placeholder=] - Set placeholder text
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
@@ -76,7 +76,7 @@ export class SearchField extends TextField {
    * Renders icon element
    * @returns {void}
    */
-  protected renderIcon (): TemplateResult | null {
+  protected override renderIcon (): TemplateResult | null {
     return html`
       <ef-icon
         part="icon"

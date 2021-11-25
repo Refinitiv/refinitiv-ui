@@ -1,13 +1,14 @@
-# `elements/FormFieldElement/ErrorTest`
+# `elements/FormFieldElement/ReadonlyTest`
 
-#### `error is propagated`
+#### `readonly is propagated`
 
 ```html
 <input
   aria-hidden="true"
-  aria-invalid="true"
+  aria-invalid="false"
   aria-required="false"
   autocomplete="off"
+  readonly=""
 >
 
 ```

@@ -15,6 +15,8 @@ import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
 import { VERSION } from '../version.js';
 import '../icon/index.js';
 
+type SelectionDirection = 'forward' | 'backward' | 'none';
+
 const NUMBER_PATTERN = '^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$';
 const DEFAULT_STEP_BASE = 1;
 const ANY_STEP = 'any';
@@ -37,7 +39,7 @@ enum Direction {
  * @prop {boolean} [error=false] - Set error state
  *
  * @attr {string} placeholder - Set placeholder text
- * @prop {string|null} [placeholder=null] - Set placeholder text
+ * @prop {string} [placeholder=] - Set placeholder text
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
@@ -386,7 +388,7 @@ export class NumberField extends FormFieldElement {
    * @param event `input` event
    * @returns {void}
    */
-  protected onInputInput (event: InputEvent): void {
+  protected override onInputInput (event: InputEvent): void {
     this.onNativeInputChange(event);
   }
 
@@ -395,7 +397,7 @@ export class NumberField extends FormFieldElement {
    * @param event `change` event
    * @returns {void}
    */
-  protected onInputChange (event: InputEvent): void {
+  protected override onInputChange (event: InputEvent): void {
     this.onNativeInputChange(event);
   }
 
@@ -711,6 +713,69 @@ export class NumberField extends FormFieldElement {
     }
 
     return !hasError;
+  }
+
+  /**
+   * @ignore
+   * @inheritDoc
+   */
+  /* istanbul ignore next */
+  public override get selectionStart (): number | null {
+    return null;
+  }
+
+  /**
+   * @ignore
+   * @inheritDoc
+   */
+  /* istanbul ignore next */
+  public override set selectionStart (index: number | null) {
+    throw new Error('Failed to set the \'selectionStart\' property on \'NumberField\': The element does not support selection.');
+  }
+
+  /**
+   * @ignore
+   * @inheritDoc
+   */
+  /* istanbul ignore next */
+  public override get selectionEnd (): number | null {
+    return null;
+  }
+
+  /**
+   * @ignore
+   * @inheritDoc
+   */
+  /* istanbul ignore next */
+  public override set selectionEnd (index: number | null) {
+    throw new Error('Failed to set the \'selectionEnd\' property on \'NumberField\': The element does not support selection.');
+  }
+
+  /**
+   * @ignore
+   * @inheritDoc
+   */
+  /* istanbul ignore next */
+  public override get selectionDirection (): SelectionDirection | null {
+    return null;
+  }
+
+  /**
+   * @ignore
+   * @inheritDoc
+   */
+  /* istanbul ignore next */
+  public override set selectionDirection (direction: SelectionDirection | null) {
+    throw new Error('Failed to set the \'selectionDirection\' property on \'NumberField\': The element does not support selection.');
+  }
+
+  /**
+   * @ignore
+   * @inheritDoc
+   */
+  /* istanbul ignore next */
+  public override setSelectionRange (startSelection: number | null, endSelection: number | null, selectionDirection?: SelectionDirection): void {
+    throw new Error('Failed to execute \'setSelectionRange\' on \'NumberField\': The element does not support selection.');
   }
 
   /**

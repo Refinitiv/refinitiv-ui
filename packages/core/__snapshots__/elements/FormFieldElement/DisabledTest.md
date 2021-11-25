@@ -1,13 +1,14 @@
-# `elements/FormFieldElement/ErrorTest`
+# `elements/FormFieldElement/DisabledTest`
 
-#### `error is propagated`
+#### `disabled is propagated`
 
 ```html
 <input
   aria-hidden="true"
-  aria-invalid="true"
+  aria-invalid="false"
   aria-required="false"
   autocomplete="off"
+  disabled=""
 >
 
 ```

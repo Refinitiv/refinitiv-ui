@@ -31,7 +31,7 @@ const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === und
  * @prop {boolean} [error=false] - Set error state
  *
  * @attr {string} placeholder - Set placeholder text
- * @prop {string|null} [placeholder=null] - Set placeholder text
+ * @prop {string} [placeholder=] - Set placeholder text
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
@@ -167,7 +167,7 @@ export class TextField extends FormFieldElement {
    * @param event `input` event
    * @returns {void}
    */
-  protected onInputInput (event: InputEvent): void {
+  protected override onInputInput (event: InputEvent): void {
     this.onPossibleValueChange(event);
   }
 
@@ -176,7 +176,7 @@ export class TextField extends FormFieldElement {
    * @param event `change` event
    * @returns {void}
    */
-  protected onInputChange (event: InputEvent): void {
+  protected override onInputChange (event: InputEvent): void {
     this.onPossibleValueChange(event);
   }
 
@@ -218,7 +218,7 @@ export class TextField extends FormFieldElement {
    * @returns {void}
    */
   protected iconClick (): void {
-    if (this.iconHasAction && !this.disabled && !this.readonly) {
+    if (this.iconHasAction && !this.disabled) {
       this.dispatchEvent(new CustomEvent('icon-click', { bubbles: false }));
     }
   }

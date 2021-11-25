@@ -8,6 +8,8 @@ import { templateMap, TemplateMap } from '../directives/template-map.js';
 import { createRef, ref, Ref } from '../directives/ref.js';
 import { ControlElement } from './ControlElement.js';
 
+type SelectionDirection = 'forward' | 'backward' | 'none';
+
 const AriaLabelKey = Symbol('aria-label-key');
 const AriaDescriptionKey = Symbol('aria-description-key');
 const AriaRequiredKey = Symbol('aria-required-key');
@@ -319,6 +321,23 @@ export abstract class FormFieldElement extends ControlElement {
   }
 
   /**
+   * Gets the direction in which selection occurred
+   */
+  public get selectionDirection (): SelectionDirection | null {
+    return this.inputElement ? this.inputElement.selectionDirection : null;
+  }
+
+  /**
+   * Sets the direction in which selection occurred
+   * @param direction Selection direction
+   */
+  public set selectionDirection (direction: SelectionDirection | null) {
+    if (this.inputElement) {
+      this.inputElement.selectionDirection = direction;
+    }
+  }
+
+  /**
    * Select the contents of input
    * @returns void
    */
@@ -332,256 +351,10 @@ export abstract class FormFieldElement extends ControlElement {
    * Set the selection range
    * @param startSelection Start of selection
    * @param endSelection End of the selection
+   * @param [selectionDirection=none] A string indicating the direction in which the selection is considered to have been performed.
    * @returns {void}
    */
-  public setSelectionRange (startSelection: number | null, endSelection: number | null): void {
-    this.inputElement?.setSelectionRange(startSelection, endSelection);
+  public setSelectionRange (startSelection: number | null, endSelection: number | null, selectionDirection?: SelectionDirection): void {
+    this.inputElement?.setSelectionRange(startSelection, endSelection, selectionDirection);
   }
 }
-
-
-/**
- it('Should have correct property placeholder', async () => {
-      const el = await fixture('<ef-text-field placeholder="Placeholder"></ef-text-field>');
-
-      expect(el.placeholder).to.equal('Placeholder');
-      expect(el.hasAttribute('placeholder')).to.equal(true, 'attribute "placeholder" should be exists');
-      expect(el.getAttribute('placeholder')).to.equal('Placeholder', 'attribute "placeholder" should equal "Placeholder');
-
-      el.removeAttribute('placeholder');
-      await elementUpdated(el);
-
-      expect(el.placeholder).to.equal(null);
-      expect(el.hasAttribute('placeholder')).to.equal(false, 'attribute "placeholder" should not be exists');
-      expect(el.getAttribute('placeholder')).to.equal(null, 'attribute "placeholder" should equal null');
-
-      el.placeholder = 'New placeholder';
-      await elementUpdated(el);
-      expect(el.placeholder).to.equal('New placeholder');
-      expect(el.hasAttribute('placeholder')).to.equal(true, 'property "placeholder" should be reflected');
-      expect(el.getAttribute('placeholder')).to.equal('New placeholder', 'property "placeholder" should be reflected');
-    });
-
- it('Should have correct property warning', async () => {
-      const el = await fixture('<ef-text-field></ef-text-field>');
-
-      expect(el.warning).to.equal(false);
-      expect(el.getAttribute('warning')).to.equal(null, 'attribute "warning" should equal null');
-      expect(el.hasAttribute('warning')).to.equal(false, 'attribute "warning" should not be exists');
-
-      el.setAttribute('warning', '');
-      await elementUpdated(el);
-
-      expect(el.warning).to.equal(true);
-      expect(el.hasAttribute('warning')).to.equal(true, 'attribute "warning" should be exists');
-      expect(el.getAttribute('warning')).to.equal('', 'attribute "warning" should equal ""');
-
-      el.warning = false;
-      await elementUpdated(el);
-      expect(el.warning).to.equal(false);
-      expect(el.getAttribute('warning')).to.equal(null, 'property "warning" should reflected');
-      expect(el.hasAttribute('warning')).to.equal(false, 'property "warning" should reflected');
-
-    });
-
- it('Should have correct property error', async () => {
-      const el = await fixture('<ef-text-field></ef-text-field>');
-
-      expect(el.error).to.equal(false);
-      expect(el.getAttribute('error')).to.equal(null, 'attribute "error" should equal null');
-      expect(el.hasAttribute('error')).to.equal(false, 'attribute "error" should not be exists');
-
-      el.setAttribute('error', '');
-      await elementUpdated(el);
-
-      expect(el.error).to.equal(true);
-      expect(el.hasAttribute('error')).to.equal(true, 'attribute "error" should be exists');
-      expect(el.getAttribute('error')).to.equal('', 'attribute "error" should equal ""');
-
-      el.error = false;
-      await elementUpdated(el);
-      expect(el.error).to.equal(false);
-      expect(el.getAttribute('error')).to.equal(null, 'property "error" should reflected');
-      expect(el.hasAttribute('error')).to.equal(false, 'property "error" should reflected');
-
-    });
-
- it('Has correct DOM structure, when removed read only state', async () => {
-      const el = await fixture('<ef-text-field readonly></ef-text-field>');
-
-      el.removeAttribute('readonly');
-      await elementUpdated(el);
-
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-
- it('Has correct DOM structure, when no read only state initially but added later', async () => {
-      const el = await fixture('<ef-text-field></ef-text-field>');
-
-      el.readonly = true;
-      await elementUpdated(el);
-
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-
- it('Has correct DOM structure, when initialised with read only state', async () => {
-      const el = await fixture('<ef-text-field readonly></ef-text-field>');
-
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-
- it('test select for enabled element', async () => {
-      try {
-        const el = await fixture('<ef-text-field value="abbr"></ef-text-field>');
-        const input = el.shadowRoot.querySelector('[part=input]');
-
-        el.select();
-        await elementUpdated(el);
-
-        expect(input.selectionStart).to.not.equal(input.selectionEnd);
-        expect(input.selectionStart).to.lessThan(input.selectionEnd);
-        expect(input.selectionEnd - input.selectionStart).to.equal(el.value.length);
-      }
-      catch (e) {
-        // eslint-disable-next-line no-console
-        console.log('select method problem with error: ' + e.message);
-      }
-    });
-
- // need to be checked more careful
- xit('test select for disabled element', async () => {
-      try {
-        const el = await fixture('<ef-text-field disabled value="abbr"></ef-text-field>');
-        const input = el.shadowRoot.querySelector('[part=input]');
-
-        el.select();
-        await elementUpdated(el);
-
-        expect(input.selectionStart).to.equal(input.selectionEnd);
-      }
-      catch (e) {
-        // eslint-disable-next-line no-console
-        console.log('select method problem with error: ' + e.message);
-      }
-    });
-
- it('test focus method for enabled element', async function () {
-      if (isIE()) {
-        this.skip();
-      }
-
-      const el = await fixture('<ef-text-field></ef-text-field>');
-      const input = el.shadowRoot.querySelector('[part=input]');
-
-      el.focus();
-      await elementUpdated(el);
-
-      expect(el.shadowRoot.activeElement).to.equal(input);
-    });
-
- // need to be checked more careful
- xit('test focus method for disabled element', async () => {
-      try {
-        await fixture('<input type="text" />');
-        const el = await fixture('<ef-text-field disabled></ef-text-field>');
-        const input = el.shadowRoot.querySelector('[part=input]');
-
-        el.focus();
-        await elementUpdated(el);
-
-        expect(document.activeElement).to.not.equal(el);
-        expect(el.shadowRoot.activeElement).to.not.equal(input);
-      }
-      catch (e) {
-        // eslint-disable-next-line no-console
-        console.log('focus method problem with error: ' + e.message);
-      }
-    });
-
-
-
-
-
- */
-
-
-// RANGE
-/*
-import { elementUpdated, expect, fixture, isIE, triggerFocusFor } from '@refinitiv-ui/test-helpers';
-// import element and theme
-import '@refinitiv-ui/elements/text-field';
-import '@refinitiv-ui/elemental-theme/light/ef-text-field';
-
-describe('text-field/SelectionRange', () => {
-  describe('TextField Selection Range', () => {
-
-    it('Applies selectionStart', async function () {
-      // will work locally, but fail on CI
-      if (isIE()) {
-        this.skip();
-      }
-      const el = await fixture('<ef-text-field value="some text to test"></ef-text-field>');
-      await triggerFocusFor(el);
-      const input = el.shadowRoot.querySelector('[part=input]');
-      const selectionStart = 5;
-      el.selectionStart = selectionStart;
-      expect(el.selectionStart).to.equal(selectionStart);
-      await elementUpdated(el);
-      expect(input.selectionStart).to.equal(selectionStart);
-    });
-
-    it('Applies selectionEnd', async function () {
-      // will work locally, but fail on CI
-      if (isIE()) {
-        this.skip();
-      }
-      const el = await fixture('<ef-text-field value="some text to test"></ef-text-field>');
-      await triggerFocusFor(el);
-      const input = el.shadowRoot.querySelector('[part=input]');
-      const selectionEnd = 5;
-      el.selectionEnd = selectionEnd;
-      expect(el.selectionEnd).to.equal(selectionEnd);
-      await elementUpdated(el);
-      expect(input.selectionEnd).to.equal(selectionEnd);
-    });
-
-    it('Applies selectionStart and selectionEnd', async function () {
-      // will work locally, but fail on CI
-      if (isIE()) {
-        this.skip();
-      }
-      const el = await fixture('<ef-text-field value="some text to test"></ef-text-field>');
-      await triggerFocusFor(el);
-      const input = el.shadowRoot.querySelector('[part=input]');
-      const selectionStart = 2;
-      const selectionEnd = selectionStart;
-      el.selectionStart = selectionEnd;
-      el.selectionEnd = selectionEnd;
-      await elementUpdated(el);
-      expect(input.selectionStart).to.equal(selectionStart);
-      expect(input.selectionEnd).to.equal(selectionEnd);
-    });
-
-    it('Applies selection range using API', async function () {
-      // will work locally, but fail on CI
-      if (isIE()) {
-        this.skip();
-      }
-      const el = await fixture('<ef-text-field value="some text to test"></ef-text-field>');
-      await triggerFocusFor(el);
-      const input = el.shadowRoot.querySelector('[part=input]');
-      const selectionStart = 4;
-      const selectionEnd = 4;
-      el.setSelectionRange(selectionStart, selectionEnd);
-      expect(el.selectionStart).to.equal(selectionStart);
-      expect(el.selectionEnd).to.equal(selectionEnd);
-
-      await elementUpdated(el);
-      expect(input.selectionStart).to.equal(selectionStart);
-      expect(input.selectionEnd).to.equal(selectionEnd);
-    });
-
-  });
-});
-
- */

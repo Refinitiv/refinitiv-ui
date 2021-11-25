@@ -32,7 +32,7 @@ import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
  * @prop {string} [pattern=''] - Set regular expression for input validation
  *
  * @attr {string} placeholder - Set placeholder text
- * @prop {string|null} [placeholder=null] - Set placeholder text
+ * @prop {string} [placeholder=] - Set placeholder text
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
