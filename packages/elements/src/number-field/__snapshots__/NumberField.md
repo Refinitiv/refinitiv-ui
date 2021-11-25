@@ -6,6 +6,9 @@
 
 ```html
 <input
+  aria-hidden="true"
+  aria-invalid="false"
+  aria-required="false"
   autocomplete="off"
   inputmode="decimal"
   part="input"
@@ -31,6 +34,9 @@
 
 ```html
 <input
+  aria-hidden="true"
+  aria-invalid="false"
+  aria-required="false"
   autocomplete="off"
   inputmode="decimal"
   part="input"

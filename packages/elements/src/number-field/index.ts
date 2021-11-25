@@ -1,5 +1,5 @@
 import {
-  ControlElement,
+  FormFieldElement,
   html,
   css,
   CSSResultGroup,
@@ -11,7 +11,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
-import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
 import { VERSION } from '../version.js';
 import '../icon/index.js';
 
@@ -25,24 +25,36 @@ enum Direction {
 }
 
 /**
- * Form control element for numbers
+ * Form control element for numbers.
  *
  * @fires value-changed - Dispatched when value changes
  * @fires error-changed - Dispatched when error state changes
  *
- * @attr {string} value - Input's default value
- * @prop {string} [value=] - Input's value
+ * @attr {boolean} disabled - Set disabled state
+ * @prop {boolean} [disabled=false] - Set disabled state
+ *
+ * @attr {boolean} error - Set error state
+ * @prop {boolean} [error=false] - Set error state
+ *
+ * @attr {string} placeholder - Set placeholder text
+ * @prop {string|null} [placeholder=null] - Set placeholder text
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
  *
- * @attr {boolean} disabled - Set disabled state
- * @prop {boolean} [disabled=false] - Set disabled state
+ * @attr {boolean} transparent - Disables all other states and border/background styles.
+ * @prop {boolean} [transparent=false] - Disables all other states and border/background styles.
+ *
+ * @attr {boolean} warning - Set warning state
+ * @prop {boolean} [warning=false] - Set warning state
+ *
+ * @attr {string} value - Input's value
+ * @prop {string} [value=] - Input's value
  */
 @customElement('ef-number-field', {
   alias: 'coral-number-field'
 })
-export class NumberField extends ControlElement {
+export class NumberField extends FormFieldElement {
 
   /**
    * Element version number
@@ -95,12 +107,6 @@ export class NumberField extends ControlElement {
   }
 
   /**
-   * Set placeholder text
-   */
-  @property({ type: String, reflect: true })
-  public placeholder: string | null = null;
-
-  /**
    * Set spinner's visibility
    */
   @property({ type: Boolean, attribute: 'no-spinner', reflect: true })
@@ -126,24 +132,6 @@ export class NumberField extends ControlElement {
   @property({ type: String, reflect: true })
   public max: string | null = null;
 
-  /**
-   * Set state to transparent
-   */
-  @property({ type: Boolean, reflect: true })
-  public transparent = false;
-
-  /**
-   * Set state to error
-   */
-  @property({ type: Boolean, reflect: true })
-  public error = false;
-
-  /**
-   * Set state to warning
-   */
-  @property({ type: Boolean, reflect: true })
-  public warning = false;
-
   private interimValueState = false; // make sure that internal input field value is updated only on external value change
   /**
   * The value of the number entered into the input.
@@ -164,12 +152,6 @@ export class NumberField extends ControlElement {
   public get valueAsNumber (): number {
     return this.stringToNumber(this.internalValue);
   }
-
-  /**
-   * Get native input element from shadow root
-   */
-  @query('[part=input]')
-  private inputEl!: HTMLInputElement;
 
   /**
    * Get spinner up element
@@ -292,23 +274,7 @@ export class NumberField extends ControlElement {
    */
   private get internalValue (): string {
     // cover the case when value getter is called before first render or in interim state
-    return this.interimValueState || !this.inputEl ? super.value : this.inputValue;
-  }
-
-  /**
-   * Get native input value
-   * @returns string of input value
-   */
-  private get inputValue (): string {
-    return this.inputEl.value;
-  }
-
-  /**
-   * Set native input value
-   * @param value input's value
-   */
-  private set inputValue (value: string) {
-    this.inputEl.value = value;
+    return this.interimValueState || !this.inputElement ? super.value : this.inputValue;
   }
 
   /**
@@ -316,7 +282,7 @@ export class NumberField extends ControlElement {
    * @param event Key down event object
    * @returns {void}
    */
-  private onNativeInputKeyDown (event: KeyboardEvent): void {
+  protected onInputKeyDown (event: KeyboardEvent): void {
     if (this.readonly || this.disabled || event.defaultPrevented) {
       return;
     }
@@ -342,7 +308,7 @@ export class NumberField extends ControlElement {
    * @param event tap event
    * @returns {void}
    */
-  private onSpinnerTap (event: TapEvent): void {
+  protected onSpinnerTap (event: TapEvent): void {
     if (this.disabled || this.readonly || event.defaultPrevented) {
       return;
     }
@@ -362,7 +328,7 @@ export class NumberField extends ControlElement {
    * @param direction Up or Down
    * @returns {void}
    */
-  private onApplyStep (direction: Direction): void {
+  protected onApplyStep (direction: Direction): void {
     try {
       this.applyStepDirection(undefined, direction);
       this.setSilentlyValueAndNotify();
@@ -380,7 +346,7 @@ export class NumberField extends ControlElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private onNativeBeforeInputChange (event: InputEvent): void {
+  protected onBeforeInputChange (event: InputEvent): void {
     // The event is not supported in IE11 and old browsers
     // Therefore just try to prevent some of invalid characters to be entered
     // but still do full validation on actual `input` and `change` events
@@ -389,7 +355,8 @@ export class NumberField extends ControlElement {
     // cover all insert types, such as type, paste, drag&drop and others
     if (inputType.startsWith('insert')) {
       const data = event.data || '';
-      const inputEl = this.inputEl;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const inputEl = this.inputElement!;
       const oldInput = this.inputValue;
 
       // Calculate what could be the new input
@@ -415,16 +382,35 @@ export class NumberField extends ControlElement {
   }
 
   /**
+   * Runs on input element `input` event
+   * @param event `input` event
+   * @returns {void}
+   */
+  protected onInputInput (event: InputEvent): void {
+    this.onNativeInputChange(event);
+  }
+
+  /**
+   * Runs on input element `change` event
+   * @param event `change` event
+   * @returns {void}
+   */
+  protected onInputChange (event: InputEvent): void {
+    this.onNativeInputChange(event);
+  }
+
+  /**
    * Triggers when native input value change with input event or change event
    * @param event Input event
    * @returns {void}
    */
-  private onNativeInputChange (event: InputEvent): void {
+  protected onNativeInputChange (event: InputEvent): void {
     const currentInput = this.inputValue;
     const inputValue = this.stripeInvalidCharacters(currentInput, this.value, event.data || '');
 
     if (inputValue !== currentInput) {
-      const inputEl = this.inputEl;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const inputEl = this.inputElement!;
 
       // we can only stripe the characters, so try to make the best guess where the cursor should be
       const selectionStart = inputEl.selectionStart || 0;
@@ -728,20 +714,10 @@ export class NumberField extends ControlElement {
   }
 
   /**
-   * Select the contents of input
-   * @returns void
-   */
-  public select (): void {
-    if (!this.disabled) {
-      this.inputEl && this.inputEl.select();
-    }
-  }
-
-  /**
    * Renders spinner
    * @returns {TemplateResult} spinner part template
    */
-  private renderSpinner (): TemplateResult {
+  protected renderSpinner (): TemplateResult {
     return html`
       <div
         part="spinner"
@@ -763,27 +739,35 @@ export class NumberField extends ControlElement {
   }
 
   /**
+   * Decorate `<input>` element with common properties extended from form field element:
+   * type="text" - always `text`
+   * part="input" - always "input", used for styling
+   * inputmode="decimal" - show decimals keyboard by default
+   * pattern="'^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$'" - numbers only
+   * @keydown - Listener for `keydown` event. Runs `this.onInputKeyDown`
+   * @beforeinput - Listener for `beforeinput` event. Runs `this.onBeforeInputChange`
+   * @returns template map
+   */
+  protected get decorateInputMap (): TemplateMap {
+    return {
+      ...super.decorateInputMap,
+      'type': 'text',
+      'part': 'input',
+      'inputmode': 'decimal',
+      'pattern': NUMBER_PATTERN,
+      '@keydown': this.onInputKeyDown,
+      '@beforeinput': this.onBeforeInputChange
+    };
+  }
+
+  /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
   protected render (): TemplateResult {
     return html`
-      <input
-        part="input"
-        type="text"
-        inputmode="decimal"
-        pattern="${NUMBER_PATTERN}"
-        ?readonly=${this.readonly}
-        ?disabled=${this.disabled}
-        placeholder=${ifDefined(this.placeholder ? this.placeholder : undefined)}
-        @input="${this.onNativeInputChange}"
-        @keydown="${this.onNativeInputKeyDown}"
-        @beforeinput="${this.onNativeBeforeInputChange}"
-        @change="${this.onNativeInputChange}"
-        autocomplete="off"
-      >
-      ${this.noSpinner ? null : this.renderSpinner()}
-      `;
+      ${super.render()}
+      ${this.noSpinner ? null : this.renderSpinner()}`;
   }
 }

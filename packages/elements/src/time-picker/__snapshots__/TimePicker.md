@@ -15,6 +15,7 @@
   part="input"
   placeholder="00"
   readonly=""
+  role="textbox"
   tabindex="0"
   transparent=""
 >
@@ -31,6 +32,7 @@
   part="input"
   placeholder="00"
   readonly=""
+  role="textbox"
   tabindex="0"
   transparent=""
 >
@@ -47,6 +49,7 @@
   part="input"
   placeholder="00"
   readonly=""
+  role="textbox"
   tabindex="0"
   transparent=""
 >
@@ -67,6 +70,7 @@
   no-spinner=""
   part="input"
   placeholder="00"
+  role="textbox"
   style="pointer-events: none;"
   tabindex="-1"
   transparent=""
@@ -84,6 +88,7 @@
   no-spinner=""
   part="input"
   placeholder="00"
+  role="textbox"
   style="pointer-events: none;"
   tabindex="-1"
   transparent=""
@@ -101,6 +106,7 @@
   no-spinner=""
   part="input"
   placeholder="00"
+  role="textbox"
   style="pointer-events: none;"
   tabindex="-1"
   transparent=""
@@ -121,6 +127,7 @@
   no-spinner=""
   part="input"
   placeholder="08"
+  role="textbox"
   tabindex="0"
   transparent=""
 >
@@ -136,6 +143,7 @@
   no-spinner=""
   part="input"
   placeholder="16"
+  role="textbox"
   tabindex="0"
   transparent=""
 >
@@ -155,6 +163,7 @@
   no-spinner=""
   part="input"
   placeholder="08"
+  role="textbox"
   tabindex="0"
   transparent=""
 >
@@ -170,6 +179,7 @@
   no-spinner=""
   part="input"
   placeholder="16"
+  role="textbox"
   tabindex="0"
   transparent=""
 >
@@ -185,6 +195,7 @@
   no-spinner=""
   part="input"
   placeholder="32"
+  role="textbox"
   tabindex="0"
   transparent=""
 >
@@ -204,6 +215,7 @@
   no-spinner=""
   part="input"
   placeholder="01"
+  role="textbox"
   tabindex="0"
   transparent=""
 >
@@ -219,6 +231,7 @@
   no-spinner=""
   part="input"
   placeholder="30"
+  role="textbox"
   tabindex="0"
   transparent=""
 >

@@ -87,9 +87,7 @@ describe('number-field/NumberField', () => {
 
       el.placeholder = PLACEHOLDER_TEXT;
       await elementUpdated(el);
-      expect(el.getAttribute('placeholder')).to.equal(
-        PLACEHOLDER_TEXT
-      );
+      expect(el.getAttribute('placeholder')).to.equal(null);
     });
   });
 
@@ -313,26 +311,26 @@ describe('number-field/NumberField', () => {
   describe('Keyboard Events', () => {
     it('ArrowUp should increase value', async () => {
       const el = await fixture('<ef-number-field value="2"></ef-number-field>');
-      el.inputEl.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(el.value).to.be.equal('3');
     });
     it('ArrowDown should decrease value', async () => {
       const el = await fixture('<ef-number-field value="2"></ef-number-field>');
-      el.inputEl.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(el.value).to.be.equal('1');
     });
     it('ArrowUp/Down should do nothing when disabled', async () => {
       const el = await fixture('<ef-number-field value="2" disabled></ef-number-field>');
-      el.inputEl.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(el.value).to.be.equal('2');
-      el.inputEl.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(el.value).to.be.equal('2');
     });
     it('ArrowUp/Down should do nothing when readonly', async () => {
       const el = await fixture('<ef-number-field value="2" readonly></ef-number-field>');
-      el.inputEl.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(el.value).to.be.equal('2');
-      el.inputEl.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(el.value).to.be.equal('2');
     });
   });

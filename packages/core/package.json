@@ -20,6 +20,7 @@
     "./lib/directives/repeat.js": "./lib/directives/repeat.js",
     "./lib/directives/style-map.js": "./lib/directives/style-map.js",
     "./lib/directives/template-content.js": "./lib/directives/template-content.js",
+    "./lib/directives/template-map.js": "./lib/directives/template-map.js",
     "./lib/directives/unsafe-html.js": "./lib/directives/unsafe-html.js",
     "./lib/directives/unsafe-svg.js": "./lib/directives/unsafe-svg.js",
     "./lib/directives/until.js": "./lib/directives/until.js",

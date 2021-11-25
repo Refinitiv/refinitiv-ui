@@ -48,6 +48,7 @@
           min="0"
           no-spinner=""
           part="color-input"
+          role="textbox"
         >
         </ef-number-field>
       </div>
@@ -61,6 +62,7 @@
           min="0"
           no-spinner=""
           part="color-input"
+          role="textbox"
         >
         </ef-number-field>
       </div>
@@ -74,6 +76,7 @@
           min="0"
           no-spinner=""
           part="color-input"
+          role="textbox"
         >
         </ef-number-field>
       </div>
