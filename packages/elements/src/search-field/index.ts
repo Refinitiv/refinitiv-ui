@@ -67,7 +67,8 @@ export class SearchField extends TextField {
   protected get decorateInputMap (): TemplateMap {
     return {
       ...super.decorateInputMap,
-      'type': 'search'
+      'type': 'search',
+      'inputmode': 'search'
     };
   }
 

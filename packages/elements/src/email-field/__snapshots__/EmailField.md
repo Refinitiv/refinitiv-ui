@@ -8,6 +8,7 @@
   aria-invalid="false"
   aria-required="false"
   autocomplete="off"
+  inputmode="email"
   part="input"
   type="email"
 >
@@ -22,6 +23,7 @@
   aria-invalid="false"
   aria-required="false"
   autocomplete="off"
+  inputmode="email"
   multiple=""
   part="input"
   type="email"

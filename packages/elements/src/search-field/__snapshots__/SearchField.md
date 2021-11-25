@@ -8,6 +8,7 @@
   aria-invalid="false"
   aria-required="false"
   autocomplete="off"
+  inputmode="search"
   part="input"
   type="search"
 >

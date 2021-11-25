@@ -66,6 +66,7 @@ export class EmailField extends TextField {
     return {
       ...super.decorateInputMap,
       'type': 'email',
+      'inputmode': 'email',
       'multiple': this.multiple ? '' : null
     };
   }
