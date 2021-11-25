@@ -157,7 +157,8 @@ describe('combo-box/Interaction', () => {
       expect(String(el.values)).to.equal('AX,AL', 'Multiple: tapping on the list did not select the values');
       expect(el.query).to.equal('Al', 'Multiple: tapping on the list should clear a query');
       expect(el.opened).to.equal(true, 'Multiple: tapping on the list should not close the popup');
-      expect(el.inputEl.value).to.equal('Al', 'Multiple: tapping on the list did should not clear input value');
+      expect(el.inputEl.value).to.equal('Al', 'Multiple: tapping on the list did not clear input value');
+      expect(el.shadowRoot.querySelector("[part='selection-badge']").value).to.equal('2', 'Multiple: counter on the combo-box did not show correct value');
     });
     it('Enter should select a value in the list', async function () {
       if (skipCITest) {
