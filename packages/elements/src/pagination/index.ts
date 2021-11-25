@@ -57,7 +57,7 @@ export class Pagination extends BasicElement {
    * @returns current page value
    */
   private get internalValue (): number {
-    let value = parseInt(this._value, 10) || 1;
+    let value = parseInt(this._value, 10) || 0;
 
     if (value <= 0) {
       value = 1;
@@ -622,7 +622,7 @@ export class Pagination extends BasicElement {
   public last (): void {
     this.input.blur();
     if (this.infinitePaginate) {
-      new WarningNotice(`${this.localName}: Method "last()" does not support, when the element does not have "max" attribute/property.`).show();
+      new WarningNotice(`${this.localName}: Cannot call "last()" when "max" attribute/property is unset.`).show();
       return;
     }
     this.value = this.internalMax.toString();
@@ -646,7 +646,7 @@ export class Pagination extends BasicElement {
   static get styles (): CSSResultGroup {
     return css`
       :host {
-        display: block;
+        display: inline-block;
       }
     `;
   }
