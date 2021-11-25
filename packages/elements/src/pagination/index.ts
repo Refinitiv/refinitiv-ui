@@ -566,7 +566,6 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   public next (): void {
-    this.input.blur();
     this.updatePage('increment');
   }
 
@@ -575,7 +574,6 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private onNextTap (): void {
-    this.input.blur();
     this.updatePage('increment', true);
   }
 
@@ -584,7 +582,6 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   public previous (): void {
-    this.input.blur();
     this.updatePage('decrement');
   }
 
@@ -593,7 +590,6 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private onPreviousTap (): void {
-    this.input.blur();
     this.updatePage('decrement', true);
   }
 
@@ -602,7 +598,6 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   public first (): void {
-    this.input.blur();
     this.value = '1';
   }
 
@@ -620,7 +615,6 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   public last (): void {
-    this.input.blur();
     if (this.infinitePaginate) {
       new WarningNotice(`${this.localName}: Cannot call "last()" when "max" attribute/property is unset.`).show();
       return;
