@@ -59,11 +59,7 @@ export class Pagination extends BasicElement {
   private get internalValue (): number {
     let value = parseInt(this._value, 10) || 1;
 
-    // Validate page in range
-    if (value > this.internalMax) {
-      value = this.internalMax;
-    }
-    else if (value <= 0) {
+    if (value <= 0) {
       value = 1;
     }
 
@@ -84,11 +80,12 @@ export class Pagination extends BasicElement {
    */
   public set value (value: string) {
     let newValue = value;
-    if (!newValue
-      || !this.validatePage(newValue, true, 'value')
-      || !this.validateRange(parseInt(newValue, 10), 1, this.internalMax, true, 'value')) {
+    if (!newValue || !this.validatePage(newValue, true, 'value')) {
       newValue = '';
     }
+
+    // Validate to show warning only, need to keep developer value.
+    this.validateRange(parseInt(newValue, 10), 1, this.internalMax, true, 'value');
 
     const oldValue = this._value;
     if (oldValue !== newValue) {
@@ -141,10 +138,13 @@ export class Pagination extends BasicElement {
   */
   public set max (value: string) {
     let newValue = value;
-    if (!newValue
-      || !this.validatePage(value, true, 'max')
-      || !this.validateRange(parseInt(newValue, 10), this.internalValue, Infinity, true, 'max')) {
+    if (!newValue || !this.validatePage(value, true, 'max')) {
       newValue = '';
+    }
+
+    // Validate to show warning only, need to keep developer value.
+    if (!this.validateRange(parseInt(newValue, 10), this.internalValue, Infinity)) {
+      new WarningNotice(`${this.localName} : The specified value "${value}" of max property must be greater than the value property.`).show();
     }
 
     const oldValue = this._max;
@@ -175,11 +175,13 @@ export class Pagination extends BasicElement {
   public set page (value: string) {
     pageDeprecation.show();
     let newValue = value;
-    if (!newValue
-      || !this.validatePage(value, true, 'page')
-      || !this.validateRange(parseInt(newValue, 10), 1, this.internalMax, true, 'page')) {
+    if (!newValue || !this.validatePage(value, true, 'page')) {
       newValue = '';
     }
+
+    // Validate to show warning only, need to keep developer value.
+    this.validateRange(parseInt(newValue, 10), 1, this.internalMax, true, 'page');
+
     const oldValue = this._value;
     if (oldValue !== newValue) {
       this._value = newValue;
@@ -208,11 +210,13 @@ export class Pagination extends BasicElement {
   public set pageSize (value: string) {
     pageSizeDeprecation.show();
     let newValue = value;
-    if (!newValue
-      || !this.validatePage(value, true, 'page-size')
-      || !this.validateRange(parseInt(newValue, 10), 1, this.internalTotalitems, true, 'page-size')) {
+    if (!newValue || !this.validatePage(value, true, 'page-size')) {
       newValue = '';
     }
+
+    // Validate to show warning only, need to keep developer value.
+    this.validateRange(parseInt(newValue, 10), 1, this.internalTotalitems, true, 'page-size');
+
     const oldValue = this._pageSize;
     if (oldValue !== newValue) {
       this._pageSize = newValue;
@@ -271,11 +275,17 @@ export class Pagination extends BasicElement {
   public set totalItems (value: string) {
     totalItemsDeprecation.show();
     let newValue = value;
-    if (!newValue
-      || !this.validatePage(value, true, 'total-items')
-      || !this.validateRange(parseInt(newValue, 10), this.internalValue, Infinity, true, 'total-items')) {
+    if (!newValue || !this.validatePage(value, true, 'total-items')) {
       newValue = '';
     }
+
+    // Validate to show warning only, need to keep developer value.
+    // Check page still is in supported range if total-item changed
+    const newTotalPage = Math.ceil((parseInt(newValue, 10) || 1) / this.internalPageSize) || 1;
+    if (this.internalValue > newTotalPage) {
+      new WarningNotice(`${this.localName} : The specified value "${newValue}" of total-items caused the value of page property is out of page-size range.`).show();
+    }
+
     const oldValue = this._totalItems;
     if (oldValue !== newValue) {
       this._totalItems = newValue;
@@ -443,7 +453,7 @@ export class Pagination extends BasicElement {
   private validateRange (value: number, min: number, max: number, warning = false, propName = ''): boolean {
     if (value < min || value > max) {
       if (warning && propName) {
-        new WarningNotice(`${this.localName} : The specified value "${value}" of ${propName} property is out of range.`).show();
+        new WarningNotice(`${this.localName} : The specified value "${value}" of ${propName} property is out of range, the value must be between min ${min} and max ${max}.`).show();
       }
       return false;
     }
@@ -522,7 +532,16 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private updatePage (direction: 'increment' | 'decrement', event = false): void {
-    const page = this.internalValue;
+
+    /**
+     * Handle in case the value of max property is greater than value of value/page property,
+     * which it might happen by using developer API.
+     */
+    let page = this.internalValue;
+    if (page > this.internalMax) {
+      page = this.internalMax + 1;
+    }
+
     const limit = direction === 'increment' ? page < this.internalMax : page > 1;
 
     if (limit) {
@@ -649,7 +668,7 @@ export class Pagination extends BasicElement {
           part="input"
           @focused-changed=${this.onInputFocusedChanged}
           @keydown=${this.onInputKeyDown}
-          .value=${this.inputText}
+          .value=${this.inputText as string}
           no-spinner></ef-text-field>
         <ef-button-bar part="buttons">
           <ef-button id="next" icon="right" @tap="${this.onNextTap}"></ef-button>

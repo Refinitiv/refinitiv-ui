@@ -62,10 +62,10 @@ describe('pagination/Pagination', () => {
       expect(el.value).to.equal('');
     });
 
-    it('Should reset page to empty when page set to more than max', async () => {
+    it('Should show page even if page is more than max', async () => {
       el.value = '100';
       await elementUpdated(el);
-      expect(el.value).to.equal('');
+      expect(el.value).to.equal('100');
     });
 
     it('Should reset max to empty when max set to zero but value is no change', async () => {
@@ -92,16 +92,16 @@ describe('pagination/Pagination', () => {
       expect(el.value).to.equal(oldValue);
     });
 
-    it('Should reset max to empty when max set to more than max but value is no change', async () => {
-      const oldMax = el.max;
-      el.value = oldMax;
+    it('Should keep max value even if the max value is less than element value', async () => {
+      el.value = '5';
+      el.max = '10';
       await elementUpdated(el);
-      expect(el.value).to.equal(oldMax);
 
-      el.max = '2';
+      el.max = '3';
       await elementUpdated(el);
-      expect(el.max).to.equal('');
-      expect(el.value).to.equal(oldMax);
+
+      expect(el.value).to.equal('5');
+      expect(el.max).to.equal('3');
     });
 
     it('Should be able to change page number by typing a number into the input', async () => {
@@ -257,7 +257,7 @@ describe('pagination/Pagination', () => {
     let previousButton;
     let nextButton;
     let lastButton;
-    
+
     describe('default', () => {
       beforeEach(async () => {
         el = await fixture('<ef-pagination lang="en-gb"></ef-pagination>');
@@ -266,14 +266,14 @@ describe('pagination/Pagination', () => {
         nextButton = el.shadowRoot.querySelector('#next');
         lastButton = el.shadowRoot.querySelector('#last');
       });
-      
+
       it('First, previous, and last buttons should be disabled on the first page', async () => {
         expect(firstButton.disabled).to.equal(true);
         expect(previousButton.disabled).to.equal(true);
         expect(nextButton.disabled).to.equal(false);
         expect(lastButton.disabled).to.equal(true);
       });
-      
+
       it('Next button should be always enabled and last button should be always disabled when `max` attribute/property is not set', async () => {
         el.value = '2';
         await elementUpdated(el);
@@ -281,20 +281,20 @@ describe('pagination/Pagination', () => {
         expect(previousButton.disabled).to.equal(false);
         expect(nextButton.disabled).to.equal(false);
         expect(lastButton.disabled).to.equal(true);
-  
+
         el.value = '1';
         el.max = '100';
         await elementUpdated(el);
         expect(nextButton.disabled).to.equal(false);
         expect(lastButton.disabled).to.equal(false);
-  
+
         el.value = '99999';
         el.max = '';
         await elementUpdated(el);
         expect(nextButton.disabled).to.equal(false);
         expect(lastButton.disabled).to.equal(true);
       });
-      
+
     });
 
     describe('Max', () => {
@@ -305,7 +305,7 @@ describe('pagination/Pagination', () => {
         nextButton = el.shadowRoot.querySelector('#next');
         lastButton = el.shadowRoot.querySelector('#last');
       });
-      
+
       it('First and previous buttons should be disabled on the first page', async () => {
         expect(firstButton.disabled).to.equal(true);
         expect(previousButton.disabled).to.equal(true);
@@ -330,7 +330,7 @@ describe('pagination/Pagination', () => {
         expect(nextButton.disabled).to.equal(true);
         expect(lastButton.disabled).to.equal(true);
       });
-    });    
+    });
   });
 
   describe('Button Actions', () => {
@@ -552,7 +552,7 @@ describe('pagination/Pagination', () => {
       el.next();
       expect(el.value).to.equal('3', 'It should not go beyond the last page');
     });
-    
+
     it('Should navigate to last page when last() is called', () => {
       el.last();
       expect(el.value).to.equal('3');
