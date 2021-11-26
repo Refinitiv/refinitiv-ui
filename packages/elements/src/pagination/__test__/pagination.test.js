@@ -1,7 +1,6 @@
 import {
   fixture,
   expect,
-  isIE,
   elementUpdated,
   oneEvent,
   triggerFocusFor,
@@ -25,6 +24,15 @@ const updating = async (el) => {
   await aTimeout(50);
 };
 
+const blurring = async (el) => {
+  setTimeout(() => {
+    el.focus(); // Firefox need focus before blur
+    el.blur();
+  });
+  await oneEvent(el, 'blur');
+  await updating(el);
+}
+
 describe('pagination/Pagination', () => {
   describe('Snapshots', () => {
     it('DOM structure is correct', async () => {
@@ -39,9 +47,12 @@ describe('pagination/Pagination', () => {
 
   describe('Page Value', () => {
     let el;
+    const max = '32'
+    let inputPart
 
     beforeEach(async () => {
-      el = await fixture('<ef-pagination max="32" lang="en-gb"></ef-pagination>');
+      el = await fixture(`<ef-pagination max="${max}" lang="en-gb"></ef-pagination>`);
+      inputPart = el.shadowRoot.querySelector('[part=input]');
     });
 
     it('Should have default value of page is empty, max is empty', async () => {
@@ -50,84 +61,119 @@ describe('pagination/Pagination', () => {
       expect(el.max).to.equal('');
     });
 
-    it('Should reset page to empty when page set to zero', async () => {
+    it('Should passed when page value is number', async () => {
+      let value = '7';
+      el.value = value;
+      await elementUpdated(el);
+      expect(el.value).to.equal(value);
+      expect(inputPart.value).to.equal(`Page ${value} of ${max}`);
+
+      value = 6;
+      el.value = value;
+      await elementUpdated(el);
+      expect(el.value).to.equal(value);
+      expect(inputPart.value).to.equal(`Page ${value} of ${max}`);
+    });
+
+    it('Should keep page value and max value when page is more than max', async () => {
+      const value = '100';
+      el.value = value;
+      await elementUpdated(el);
+      expect(el.value).to.equal(value);
+      expect(el.max).to.equal(max);
+      expect(inputPart.value).to.equal(`Page ${value}`);
+    });
+
+    it('Should reset page to empty when page is set by invalid', async () => {
       el.value = '0';
       await elementUpdated(el);
       expect(el.value).to.equal('');
-    });
+      expect(inputPart.value).to.equal(`Page 1 of ${max}`);
 
-    it('Should reset page to empty when page set is below 1', async () => {
       el.value = '-5';
       await elementUpdated(el);
       expect(el.value).to.equal('');
+      expect(inputPart.value).to.equal(`Page 1 of ${max}`);
+
+      el.value = '100a';
+      await elementUpdated(el);
+      expect(el.value).to.equal('');
+      expect(inputPart.value).to.equal(`Page 1 of ${max}`);
+    });
+  });
+
+  describe('Max Value', () => {
+    let el;
+    const value = '5'
+    const max = '32'
+    let inputPart
+
+    beforeEach(async () => {
+      el = await fixture(`<ef-pagination value="${value}" max="${max}" lang="en-gb"></ef-pagination>`);
+      inputPart = el.shadowRoot.querySelector('[part=input]');
     });
 
-    it('Should show page even if page is more than max', async () => {
-      el.value = '100';
+    it('Should passed when max value is changed, and keep page value', async () => {
+      let newMax = '100';
+      el.value = newMax;
       await elementUpdated(el);
-      expect(el.value).to.equal('100');
+      expect(el.value).to.equal(value);
+      expect(el.max).to.equal(newMax);
+      expect(inputPart.value).to.equal(`Page ${value} of ${newMax}`);
+
+      newMax = 101;
+      el.value = newMax;
+      await elementUpdated(el);
+      expect(el.value).to.equal(value);
+      expect(el.max).to.equal(newMax);
+      expect(inputPart.value).to.equal(`Page ${value} of ${newMax}`);
     });
 
-    it('Should reset max to empty when max set to zero but value is no change', async () => {
-      const oldValue = '5';
-      el.value = oldValue;
+    it('Should keep page value and max value when max is less than value', async () => {
+      const newMax = '3';
+      el.max = newMax;
       await elementUpdated(el);
-      expect(el.value).to.equal(oldValue);
+      expect(el.value).to.equal(value);
+      expect(el.max).to.equal(newMax);
+      expect(inputPart.value).to.equal(`Page ${value}`);
+    });
 
+    it('Should reset max to empty when max is set by invalid', async () => {
       el.max = '0';
       await elementUpdated(el);
+      expect(el.value).to.equal(value);
       expect(el.max).to.equal('');
-      expect(el.value).to.equal(oldValue);
-    });
-
-    it('Should reset max to empty when max set is below 1 but value is no change', async () => {
-      const oldValue = '5';
-      el.value = oldValue;
-      await elementUpdated(el);
-      expect(el.value).to.equal(oldValue);
+      expect(inputPart.value).to.equal(`Page ${value}`);
 
       el.max = '-5';
       await elementUpdated(el);
+      expect(el.value).to.equal(value);
       expect(el.max).to.equal('');
-      expect(el.value).to.equal(oldValue);
-    });
+      expect(inputPart.value).to.equal(`Page ${value}`);
 
-    it('Should keep max value even if the max value is less than element value', async () => {
-      el.value = '5';
-      el.max = '10';
+      el.max = '100a';
       await elementUpdated(el);
-
-      el.max = '3';
-      await elementUpdated(el);
-
-      expect(el.value).to.equal('5');
-      expect(el.max).to.equal('3');
+      expect(el.value).to.equal('');
+      expect(inputPart.value).to.equal(`Page ${value}`);
     });
-
-    it('Should be able to change page number by typing a number into the input', async () => {
-      const textField = el.shadowRoot.querySelector('[part=input]');
-      await triggerFocusFor(textField);
-      await aTimeout(50);
-
-      setTimeout(() => { textField.value = '3' });
-      await aTimeout(50);
-      textField.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
-      await updating(50);
-      expect(el.value).to.equal('3');
-    });
-  });
+  })
 
   describe('Backwards compatibility', () => {
     it('Calculates total page correctly', async () => {
       const el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
+      const inputPart = el.shadowRoot.querySelector('[part=input]');
+      expect(el.page).to.equal(el.value);
       expect(el.pageSize).to.equal('5');
       expect(el.totalItems).to.equal('32');
-      expect(el.internalMax).to.equal(7);
+      expect(inputPart.value).to.equal(`Page 1 of 7`);
 
       el.pageSize = '4';
       el.totalItems = '9';
       await elementUpdated(el);
-      expect(el.internalMax).to.equal(3);
+      expect(el.page).to.equal(el.value);
+      expect(el.pageSize).to.equal('4');
+      expect(el.totalItems).to.equal('9');
+      expect(inputPart.value).to.equal(`Page 1 of 3`);
     });
   });
 
@@ -148,30 +194,6 @@ describe('pagination/Pagination', () => {
       lastButton = el.shadowRoot.querySelector('#last');
     });
 
-    it('Should blur the input when the next button is clicked', async () => {
-      await triggerFocusFor(inputPart);
-      nextButton.click();
-
-      expect(el.querySelector('[part=input]:focus')).to.be.null;
-    });
-    it('Should blur the input when the last button is clicked', async () => {
-      await triggerFocusFor(inputPart);
-      lastButton.click();
-
-      expect(el.querySelector('[part=input]:focus')).to.be.null;
-    });
-    it('Should blur the input when the previous button is clicked', async () => {
-      await triggerFocusFor(inputPart);
-      previousButton.click();
-
-      expect(el.querySelector('[part=input]:focus')).to.be.null;
-    });
-    it('Should blur the input when the first button is clicked', async () => {
-      await triggerFocusFor(inputPart);
-      firstButton.click();
-
-      expect(el.querySelector('[part=input]:focus')).to.be.null;
-    });
     it('Should blur the input when Enter key is pressed in text-field', async () => {
       await triggerFocusFor(inputPart);
       await aTimeout(50);
@@ -192,12 +214,7 @@ describe('pagination/Pagination', () => {
       await nextFrame();
       expect(inputPart.value).to.equal('1', 'Incorrect transform text input');
 
-      setTimeout(() => {
-        inputPart.focus(); // Firefox need focus before blur
-        inputPart.blur();
-      });
-      await oneEvent(inputPart, 'blur');
-      await updating(el);
+      await blurring(inputPart);
       expect(inputPart.value).to.equal('Page 1 of 7', 'Incorrect transform text input');
 
       lastButton.click();
@@ -209,12 +226,7 @@ describe('pagination/Pagination', () => {
       await nextFrame();
       expect(inputPart.value).to.equal('7');
 
-      setTimeout(() => {
-        inputPart.focus(); // Firefox need focus before blur
-        inputPart.blur();
-      });
-      await oneEvent(inputPart, 'blur');
-      await updating(el);
+      await blurring(inputPart);
       expect(inputPart.value).to.equal('Page 7 of 7', 'Incorrect transform text input');
     });
 
@@ -227,12 +239,7 @@ describe('pagination/Pagination', () => {
       await aTimeout(50);
       expect(inputPart.value).to.equal('1', 'Incorrect transform text input');
 
-      setTimeout(() => {
-        inputPart.focus(); // Firefox need focus before blur
-        inputPart.blur();
-      });
-      await oneEvent(inputPart, 'blur');
-      await updating(el);
+      await blurring(inputPart);
       expect(inputPart.value).to.equal('Page 1', 'Incorrect transform text input');
 
       nextButton.click();
@@ -243,12 +250,7 @@ describe('pagination/Pagination', () => {
       await aTimeout(50);
       expect(inputPart.value).to.equal('2');
 
-      setTimeout(() => {
-        inputPart.focus(); // Firefox need focus before blur
-        inputPart.blur();
-      });
-      await oneEvent(inputPart, 'blur');
-      await updating(el);
+      await blurring(inputPart);
       expect(inputPart.value).to.equal('Page 2', 'Incorrect transform text input');
     });
   });
@@ -335,8 +337,9 @@ describe('pagination/Pagination', () => {
     });
   });
 
-  describe('Button Actions', () => {
+  describe('Interactions', () => {
     let el;
+    let inputPart;
     let firstButton;
     let previousButton;
     let nextButton;
@@ -344,11 +347,23 @@ describe('pagination/Pagination', () => {
 
     beforeEach(async () => {
       el = await fixture('<ef-pagination max="7" lang="en-gb"></ef-pagination>');
-
+      inputPart = el.shadowRoot.querySelector('[part=input]');
       firstButton = el.shadowRoot.querySelector('#first');
       previousButton = el.shadowRoot.querySelector('#previous');
       nextButton = el.shadowRoot.querySelector('#next');
       lastButton = el.shadowRoot.querySelector('#last');
+    });
+
+    it('Should be able to change page number by typing a number into the input', async () => {
+      const textField = el.shadowRoot.querySelector('[part=input]');
+      await triggerFocusFor(textField);
+      await aTimeout(50);
+  
+      setTimeout(() => { textField.value = '3' });
+      await aTimeout(50);
+      textField.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await updating(50);
+      expect(el.value).to.equal('3');
     });
 
     it('Should go to the first page when first button is clicked', async () => {
