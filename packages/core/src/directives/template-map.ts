@@ -61,7 +61,7 @@ const setMapped = (element: Element, name: string, value: unknown, oldValue: unk
       if (typeof oldValue === 'function') {
         element.removeEventListener(name, oldValue as EventListener);
       }
-      else if (typeof value === 'function') {
+      if (typeof value === 'function') {
         element.addEventListener(name, value as EventListener);
       }
       break;
@@ -75,7 +75,7 @@ const setMapped = (element: Element, name: string, value: unknown, oldValue: unk
       break;
     case MAP_TYPE.ATTRIBUTE:
     default:
-      if (value === null) {
+      if (value === null || value === undefined) { // remove with undefined to comply with property
         element.removeAttribute(name);
       }
       else {
@@ -134,7 +134,7 @@ class TemplateMapDirective extends Directive {
 
     this.valueMap = newValueMap;
 
-    return noChange;
+    return this.render();
   }
 
   /**
