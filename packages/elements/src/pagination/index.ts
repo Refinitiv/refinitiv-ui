@@ -22,7 +22,6 @@ import '../text-field/index.js';
 import '@refinitiv-ui/phrasebook/lib/locale/en/pagination.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
 
-import type { Button } from '../button';
 import type { TextField } from '../text-field';
 import type { FocusedChangedEvent } from '../events';
 
@@ -53,8 +52,8 @@ export class Pagination extends BasicElement {
   private _value = '';
 
   /**
-   * Get internal current page value
-   * @returns current page value
+   * Internal current page
+   * @returns current page
    */
   private get internalValue (): number {
     let value = parseInt(this._value, 10) || 0;
@@ -67,7 +66,7 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Get current page value
+   * Current page
    */
   @property({ type: String })
   public get value (): string {
@@ -75,7 +74,7 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Set current page value
+   * Set current page
    * @param value current page
    */
   public set value (value: string) {
@@ -100,11 +99,11 @@ export class Pagination extends BasicElement {
   protected _max = '';
 
   /**
-   * Get internal max page
+   * Internal max page
    * @returns max page
    */
   private get internalMax (): number {
-    const max = parseInt(this._max, 10);
+    const max = parseInt(this._max, 10) || 0;
     const pageSize = this.internalPageSize;
     const totalItems = this.internalTotalitems;
 
@@ -117,14 +116,14 @@ export class Pagination extends BasicElement {
 
     if (pageSize > 0) {
       const totalPage = Math.ceil(totalItems / pageSize);
-      return totalPage > 0 ? totalPage : 1;
+      return totalPage >= 1 ? totalPage : 1;
     }
 
     return 1;
   }
 
   /**
-   * Get max page
+   * Max page
    * @returns max page
    */
   @property({ type: String })
@@ -215,7 +214,11 @@ export class Pagination extends BasicElement {
     }
 
     // Validate to show warning only, need to keep developer value.
-    this.validateRange(parseInt(newValue, 10), 1, this.internalTotalitems, true, 'page-size');
+    // Check page still is in supported range if page-size changed
+    const newTotalPage = Math.ceil(this.internalTotalitems / (parseInt(newValue, 10) || 1)) || 1;
+    if (this.internalValue > newTotalPage) {
+      new WarningNotice(`${this.localName} : The specified value "${newValue}" of page-size caused the value of page property is out of supported range.`).show();
+    }
 
     const oldValue = this._pageSize;
     if (oldValue !== newValue) {
@@ -231,7 +234,7 @@ export class Pagination extends BasicElement {
   private _pageSize = '';
 
   /**
-   * Get internal page size
+   * Internal page size
    * @deprecated
    * @returns page size
    */
@@ -246,12 +249,13 @@ export class Pagination extends BasicElement {
   private _totalItems = '';
 
   /**
-   * Get internal total items
+   * Internal total items
    * @returns total items
    * @deprecated
    */
   private get internalTotalitems (): number {
-    return parseInt(this._totalItems, 10);
+    const totalItems = parseInt(this._totalItems, 10) || 0;
+    return totalItems >= 1 ? totalItems : 0;
   }
 
   /**
@@ -283,7 +287,7 @@ export class Pagination extends BasicElement {
     // Check page still is in supported range if total-item changed
     const newTotalPage = Math.ceil((parseInt(newValue, 10) || 1) / this.internalPageSize) || 1;
     if (this.internalValue > newTotalPage) {
-      new WarningNotice(`${this.localName} : The specified value "${newValue}" of total-items caused the value of page property is out of page-size range.`).show();
+      new WarningNotice(`${this.localName} : The specified value "${newValue}" of total-items caused the value of page property is out of supported range.`).show();
     }
 
     const oldValue = this._totalItems;
@@ -314,45 +318,15 @@ export class Pagination extends BasicElement {
   private input!: TextField;
 
   /**
-   * Getter for first button as first part
-   */
-  @query('#first')
-  private firstPageButton!: Button;
-
-  /**
-   * Getter for previous button as previous part
-   */
-  @query('#previous')
-  private previousPageButton!: Button;
-
-  /**
-   * Getter for next button as next part
-   */
-  @query('#next')
-  private nextPageButton!: Button;
-
-  /**
-   * Getter for last button as last part
-   */
-  @query('#last')
-  private lastPageButton!: Button;
-
-  /**
    * Used for translations
    */
   @translate()
   protected t!: Translate;
 
   /**
-   * State for check the input focus
-   */
-  @state()
-  private inputFocused = false;
-
-  /**
-   * Getter for display text in the input
-   * @returns {(string|DirectiveResult)} input text
-   */
+  * Getter for display text in the input
+  * @returns input text
+  */
   protected get inputText ():string | DirectiveResult {
     if (this.inputFocused) {
       return this.internalValue;
@@ -363,63 +337,47 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Invoked whenever the element is updated
-   * @param changedProperties Map of changed properties with old values
-   * @returns {void}
+   * State for check the input focus
+   */
+  @state()
+  private inputFocused = false;
+
+  /**
+   * State for checking the first page button is available
+   */
+  protected get useFirstButton (): boolean {
+    return !this.disabled && this.internalValue >= 2;
+  }
+
+  /**
+   * State for checking the previous page button is available
+   */
+  protected get usePreviousButton (): boolean {
+    return this.useFirstButton;
+  }
+
+  /**
+   * State for checking the next page button is available
+   */
+  protected get useNextButton (): boolean {
+    return !this.disabled && this.internalValue < this.internalMax;
+  }
+
+  /**
+   * State for checking the last page button is available
+   */
+  protected get useLastButton (): boolean {
+    return this.useNextButton && !this.infinitePaginate;
+  }
+
+  /**
+   * @override
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
-    let updateButtons = false;
-    if (changedProperties.has('disabled')) {
-      this.disabledChanged();
-    }
-
-    if (changedProperties.has('value') || changedProperties.has('max')) {
-      updateButtons = true;
-    }
-
-    if (changedProperties.has('pageSize') || changedProperties.has('totalItems')) {
-      if (this.max === '') {
-        updateButtons = true;
-      }
-    }
-
-    if (updateButtons) {
-      this.updateButtons();
-    }
-
     if (this.inputFocused && changedProperties.has('inputFocused')) {
       void this.selectInput();
     }
-  }
-
-  /**
-   * Handle when disabled property changed
-   * @returns {void}
-   */
-  private disabledChanged (): void {
-    this.input.disabled = this.disabled;
-
-    // recalculate button state
-    this.updateButtons();
-  }
-
-  /**
-   * Update disable/enable state of first, previous, next, and last
-   * First and previous should be disabled if showing first page
-   * Next and last should be disabled if showing last page
-   * @returns {void}
-   */
-  private updateButtons (): void {
-    const value = this.internalValue;
-    const firstPage = this.disabled || value <= 1;
-    const nextPage = this.disabled || value >= this.internalMax;
-    const lastPage = nextPage || this.infinitePaginate;
-
-    this.previousPageButton.disabled = firstPage;
-    this.firstPageButton.disabled = firstPage;
-    this.nextPageButton.disabled = nextPage;
-    this.lastPageButton.disabled = lastPage;
   }
 
   /**
@@ -509,7 +467,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Handles action when input focused change
-   * @param event {FocusedChangedEvent} focus change event
+   * @param event focus change event
    * @returns {void}
    */
   private onInputFocusedChanged (event: FocusedChangedEvent): void {
@@ -518,7 +476,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Select text in input when update element complete
-   * @returns {Promise<void>} returns a promise void
+   * @returns returns a promise void
    */
   private async selectInput (): Promise<void> {
     await this.updateComplete;
@@ -542,9 +500,9 @@ export class Pagination extends BasicElement {
       page = this.internalMax + 1;
     }
 
-    const limit = direction === 'increment' ? page < this.internalMax : page > 1;
+    const limit = direction === 'increment' ? page >= this.internalMax : page <= 1;
 
-    if (limit) {
+    if (!limit) {
       this.value = direction === 'increment' ? (page + 1).toString() : (page - 1).toString();
       if (event) {
         this.notifyValueChange();
@@ -558,7 +516,7 @@ export class Pagination extends BasicElement {
    */
   private notifyValueChange ():void {
     this.notifyPropertyChange('value', this.value);
-    this.notifyPropertyChange('page', this.value); // deprecated. support backward compat
+    this.notifyPropertyChange('page', this.value); // deprecated. support backwards compatibility.
   }
 
   /**
@@ -654,8 +612,8 @@ export class Pagination extends BasicElement {
     return html`
       <ef-layout part="container" flex nowrap>
         <ef-button-bar part="buttons">
-          <ef-button id="first" icon="skip-to-start" @tap="${this.onFirstTap}"></ef-button>
-          <ef-button id="previous" icon="left" @tap="${this.onPreviousTap}"></ef-button>
+          <ef-button id="first" icon="skip-to-start" @tap="${this.onFirstTap}" .disabled=${!this.useFirstButton}></ef-button>
+          <ef-button id="previous" icon="left" @tap="${this.onPreviousTap}" .disabled=${!this.usePreviousButton}></ef-button>
         </ef-button-bar>
         <ef-text-field
           id="input"
@@ -665,8 +623,8 @@ export class Pagination extends BasicElement {
           .value=${this.inputText as string}
           no-spinner></ef-text-field>
         <ef-button-bar part="buttons">
-          <ef-button id="next" icon="right" @tap="${this.onNextTap}"></ef-button>
-          <ef-button id="last" icon="skip-to-end" @tap="${this.onLastTap}"></ef-button>
+          <ef-button id="next" icon="right" @tap="${this.onNextTap}" .disabled=${!this.useNextButton}></ef-button>
+          <ef-button id="last" icon="skip-to-end" @tap="${this.onLastTap}" .disabled=${!this.useLastButton}></ef-button>
         </ef-button-bar>
       </ef-layout>
     `;
