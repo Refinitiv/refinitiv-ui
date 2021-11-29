@@ -45,6 +45,13 @@ const LABEL_SEPARATOR = ', '; // TODO: for multiselect
 const POPUP_POSITION = ['bottom-start', 'top-start'];
 const KEY_SEARCH_DEBOUNCER = 300;
 
+enum Direction {
+  FIRST = 'First',
+  LAST = 'Last',
+  NEXT = 'Next',
+  PREVIOUS = 'Previous',
+}
+
 /**
  * Expands upon the native select element,
  * providing a fully themeable dropdown element.
@@ -179,11 +186,24 @@ export class Select extends ControlElement implements MultiValue {
   @property({ type: String })
   public placeholder = '';
 
+  private _opened = false;
+
   /**
   * Toggles the opened state of the list
+  * @param value opened value
   */
   @property({ type: Boolean, reflect: true })
-  public opened = false;
+  public set opened (value: boolean) {
+    const oldValue = this._opened;
+    if (oldValue !== value) {
+      this._opened = value;
+      this.ariaExpanded = String(value);
+      this.requestUpdate('opened', oldValue);
+    }
+  }
+  public get opened (): boolean {
+    return this._opened;
+  }
 
   private _error = false;
 
@@ -487,7 +507,6 @@ export class Select extends ControlElement implements MultiValue {
     if (this.opened !== opened) {
       this.notifyPropertyChange('opened', opened);
       this.opened = opened;
-      this.ariaExpanded = String(opened);
     }
   }
 
@@ -658,20 +677,20 @@ export class Select extends ControlElement implements MultiValue {
         break;
       case 'Up':
       case 'ArrowUp':
-        this.focusElement('previous');
+        this.focusElement(Direction.PREVIOUS);
         break;
       case 'Down':
       case 'ArrowDown':
-        this.focusElement('next');
+        this.focusElement(Direction.NEXT);
         break;
       case 'Tab':
-        this.focusElement(event.shiftKey ? 'previous' : 'next');
+        this.focusElement(event.shiftKey ? Direction.PREVIOUS : Direction.NEXT);
         break;
       case 'Home':
-        this.focusElement('first');
+        this.focusElement(Direction.FIRST);
         break;
       case 'End':
-        this.focusElement('last');
+        this.focusElement(Direction.LAST);
         break;
       default:
         if (this.isValidFilterKey(event)) {
@@ -704,7 +723,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param direction previous, next, first or last focusable element
    * @returns {void}
    */
-  private focusElement (direction: 'previous' | 'next' | 'first' | 'last'): void {
+  private focusElement (direction: Direction): void {
     const highlightedItem = this.highlightedItem || this.getSelectedElements()[0];
     const selectableElements = this.getSelectableElements();
 
@@ -719,16 +738,16 @@ export class Select extends ControlElement implements MultiValue {
 
     let element;
     switch (direction) {
-      case 'previous':
+      case Direction.PREVIOUS:
         element = index === -1 ? lastElement : selectableElements[index - 1];
         break;
-      case 'next':
+      case Direction.NEXT:
         element = index === -1 ? firstElement : selectableElements[index + 1];
         break;
-      case 'first':
+      case Direction.FIRST:
         element = firstElement;
         break;
-      case 'last':
+      case Direction.LAST:
         element = lastElement;
         break;
       default:
@@ -736,7 +755,7 @@ export class Select extends ControlElement implements MultiValue {
     }
 
     if (!element) {
-      element = direction === 'next' ? firstElement : lastElement;
+      element = direction === Direction.NEXT ? firstElement : lastElement;
     }
 
     if (element) {
