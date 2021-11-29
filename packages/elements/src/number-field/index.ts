@@ -809,6 +809,8 @@ export class NumberField extends FormFieldElement {
    * part="input" - always "input", used for styling
    * inputmode="decimal" - show decimals keyboard by default
    * pattern="'^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$'" - numbers only
+   * role="spinbutton" - number field is actually a spinner
+   * aria-valuenow - current value or 0
    * @keydown - Listener for `keydown` event. Runs `this.onInputKeyDown`
    * @beforeinput - Listener for `beforeinput` event. Runs `this.onBeforeInputChange`
    * @returns template map
@@ -820,6 +822,8 @@ export class NumberField extends FormFieldElement {
       'part': 'input',
       'inputmode': 'decimal',
       'pattern': NUMBER_PATTERN,
+      'role': 'spinbutton',
+      'aria-valuenow': `${this.value || 0}`,
       '@keydown': this.onInputKeyDown,
       '@beforeinput': this.onBeforeInputChange
     };

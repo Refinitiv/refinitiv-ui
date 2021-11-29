@@ -852,39 +852,4 @@ describe('number-field/NumberField', () => {
       expect(el.value).to.equal('1.5');
     });
   });
-
-  describe('Select', async () => {
-    it('Should select the element', async () => {
-      if (!isIE()) {
-        const el = await fixture('<ef-number-field value="10"></ef-number-field>');
-        const input = el.shadowRoot.querySelector('[part=input]');
-
-        let callCount = 0;
-        input.addEventListener('select', () => {
-          callCount += 1;
-        });
-
-        el.select();
-        await nextFrame();
-
-        expect(callCount).to.equal(1, 'select callback should be called once for enabled element');
-      }
-    });
-    it('Should not select the disabled element', async () => {
-      if (!isIE()) {
-        const el = await fixture('<ef-number-field disabled value="abbr"></ef-number-field>');
-        const input = el.shadowRoot.querySelector('[part=input]');
-
-        let callCount = 0;
-        input.addEventListener('select', () => {
-          callCount += 1;
-        });
-
-        el.select();
-        await nextFrame();
-
-        expect(callCount).to.equal(0, 'select callback should not be called for disabled element');
-      }
-    });
-  });
 });
