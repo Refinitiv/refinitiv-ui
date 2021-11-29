@@ -7,7 +7,9 @@
 ```html
 <ef-tree
   aria-disabled="false"
+  aria-multiselectable="false"
   aria-readonly="false"
+  role="listbox"
 >
 </ef-tree>
 
