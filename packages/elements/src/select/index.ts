@@ -197,7 +197,7 @@ export class Select extends ControlElement implements MultiValue {
     const oldValue = this._opened;
     if (oldValue !== value) {
       this._opened = value;
-      this.ariaExpanded = String(value);
+      this.ariaExpanded = String(!!value);
       this.requestUpdate('opened', oldValue);
     }
   }
@@ -216,7 +216,7 @@ export class Select extends ControlElement implements MultiValue {
     const oldValue = this._error;
     if (oldValue !== value) {
       this._error = value;
-      this.ariaInvalid = String(value);
+      this.ariaInvalid = String(!!value);
       this.requestUpdate('error', oldValue);
     }
   }
