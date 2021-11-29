@@ -150,13 +150,13 @@ const analyze = (file, type) => {
     result.componentDefinitions.forEach(definition => {
       const propCollection = {};
       definition.declaration.members.forEach(member => {
-        const { default: defaultValue, propName, attrName, kind, modifiers } = member;
+        let { propName, attrName, kind } = member;
         // Convert default value of properties to theirs actual type
-        if(defaultValue === 'null') {
-          defaultValue = null;
+        if(member.default === 'null') {
+          member.default = null;
         }
-        else if(defaultValue === '[]') {
-          defaultValue = [];
+        else if(member.default === '[]') {
+          member.default = [];
         }
         // Merge attributes that defined by JSDOC to properties table
         if(propName && !attrName) {
@@ -169,8 +169,8 @@ const analyze = (file, type) => {
           }
         }
         // Remove readonly modifier of properties from meta data
-        if(modifiers === 'readonly') {
-          modifiers = null;
+        if(member.modifiers === 'readonly') {
+          member.modifiers = null;
         }
       })
     })
