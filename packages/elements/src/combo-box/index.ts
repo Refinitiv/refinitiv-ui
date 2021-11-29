@@ -29,12 +29,13 @@ import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
 import '../icon/index.js';
 import '../overlay/index.js';
 import '../list/index.js';
-import '../pill/index.js';
+import '../counter/index.js';
 import '../text-field/index.js';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/lib/locale/en/combo-box.js';
 
-export type { ComboBoxRenderer, ComboBoxFilter, ComboBoxData };
+export type { ComboBoxFilter, ComboBoxData };
+export { ComboBoxRenderer };
 
 const QUERY_DEBOUNCE_RATE = 0;
 

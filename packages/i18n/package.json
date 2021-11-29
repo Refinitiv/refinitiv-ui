@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/i18n",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "description": "i18n support for Web Components",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -29,7 +29,7 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/test-helpers": "^5.1.0"
+    "@refinitiv-ui/test-helpers": "^5.1.1"
   },
   "publishConfig": {
     "access": "public"

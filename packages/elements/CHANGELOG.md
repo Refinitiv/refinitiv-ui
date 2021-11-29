@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.7.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.6.0...@refinitiv-ui/elements@5.7.0) (2021-11-22)
+
+
+### Bug Fixes
+
+* **tree:** correctly update dependant checked states ([#82](https://github.com/Refinitiv/refinitiv-ui/issues/82)) ([fdb7018](https://github.com/Refinitiv/refinitiv-ui/commit/fdb7018f9446f933f428448ada60f4a8cacc1acf))
+
+
+### Features
+
+* **item:** improve screen reader support ([#74](https://github.com/Refinitiv/refinitiv-ui/issues/74)) ([b14b950](https://github.com/Refinitiv/refinitiv-ui/commit/b14b950897cb96cdc957e12d93b510cc4361c4f3))
+
+
+
+
+
 # [5.6.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.5.0...@refinitiv-ui/elements@5.6.0) (2021-11-08)
 
 
