@@ -111,20 +111,6 @@ const declarationMethodMapCallback = (declarationMethod) => {
 const declarationMethodFilter = (method) => method !== null;
 
 const getMethods = (data, meta) => {
-  /**
-   * it will work if they fix the methods field of data
-   */
-  // const dataMethods = data.methods || [];
-  // const methods = dataMethods.map(dataMethod => ({
-  //   name: dataMethod.name,
-  //   description: dataMethod.description,
-  //   params: dataMethod.arguments || dataMethod.arguments.map(argument => ({
-  //     name: argument.name,
-  //     description: argument.description,
-  //     type: argument.type,
-  //   }))
-  // }));
-
   const declarationMethods = getDeclarationMethods(meta);
   const methods = declarationMethods
     .map(declarationMethodMapCallback)
@@ -158,6 +144,45 @@ const analyze = (file, type) => {
   let output;
   const data = fs.readFileSync(file, { encoding: 'utf8' });
   const meta = wca.analyzeText(data);
+
+  meta.results.forEach(result => {
+    result.componentDefinitions.forEach(definition => {
+      const { declaration } = definition;
+      const propCollection = {};
+      
+      if(!declaration || declaration && !declaration.members) {
+        error(`Element Analyzer Error: declaration property is missing.`);
+        return;
+      }
+
+      // WORKAROUND: Modify meta data of properties/attributes to make it fit with api reference tables of "elf-docs"
+      declaration.members.forEach(member => {
+        let { propName, attrName, kind } = member;
+        // Convert default value of properties to theirs actual type
+        if(member.default === 'null') {
+          member.default = null;
+        }
+        else if(member.default === '[]') {
+          member.default = [];
+        }
+        // Merge attributes that defined by JSDOC to properties table
+        if(propName && !attrName) {
+          propCollection[propName] = member;
+        }
+        if(kind === 'attribute' && !propName && attrName) {
+          const attrCamelCase = attrName.replace(/-./g, attr => attr.length > 0 ? attr[1].toUpperCase() : '');
+          if(propCollection[attrCamelCase]) {
+            propCollection[attrCamelCase].attrName = attrName;
+          }
+        }
+        // Remove readonly modifier of properties from meta data
+        if(member.modifiers && member.modifiers.has('readonly')) {
+          member.modifiers.delete('readonly');
+        }
+      })
+    })
+  });
+
   if(type === 'json') {
     const rawJson = wca.transformAnalyzerResult('json', meta.results, meta.program);
     const jsonObj = JSON.parse(rawJson);
