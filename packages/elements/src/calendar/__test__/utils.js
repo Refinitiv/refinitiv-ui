@@ -1,4 +1,4 @@
-import { elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, nextFrame, keyboardEvent as createKeyboardEvent } from '@refinitiv-ui/test-helpers';
 import { RenderView } from '../../../lib/calendar/constants.js';
 
 export const setView = async (el, view) => {
@@ -33,28 +33,25 @@ export const clickPrev = async (el) => {
   await elementUpdated(el);
 };
 
-export const fireKeyBoardEvent = (type, init = {}) => {
-  const event = new CustomEvent(type, {
+export const keyboardEvent = async (el, key) => {
+  const event = createKeyboardEvent('keydown', {
+    key,
     detail: 0,
     bubbles: true,
     cancelable: true,
     composed: true
   });
 
-  event.key = init.key || '';
-  event.shiftKey = init.shiftKey || false;
-  event.altKey = init.altKey || false;
-  event.ctrlKey = init.ctrlKey || false;
-  event.metaKey = init.metaKey || false;
-
-  return event;
-};
-
-export const keyboardEvent = async (el, key, options = {}) => {
-  const event = fireKeyBoardEvent('keydown', Object.assign({ key }, options));
   el.dispatchEvent(event);
   await elementUpdated(el);
   await nextFrame(); // need this for IE11 to ensure focus is set
 
   return event;
 };
+
+export const left = async (el) => await keyboardEvent(el, 'ArrowLeft');
+export const right = async (el) => await keyboardEvent(el, 'ArrowRight');
+export const up = async (el) => await keyboardEvent(el, 'ArrowUp');
+export const down = async (el) => await keyboardEvent(el, 'ArrowDown');
+export const home = async (el) => await keyboardEvent(el, 'Home');
+export const end = async (el) => await keyboardEvent(el, 'End');

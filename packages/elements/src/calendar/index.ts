@@ -288,7 +288,6 @@ export class Calendar extends ControlElement implements MultiValue {
 
   private localFirstDayOfWeek = FIRST_DAY_OF_WEEK; // used from locales. 0 stands for Sunday
   private localMonthsNames!: string[]; // resolved based on locale
-  private localFullMonthsNames!: string[]; // resolved based on locale
   private localWeekdaysNames!: string[]; // resolved based on locale
   private localFullWeekdaysNames!: string[]; // resolved based on locale
   private _firstDayOfWeek: number | null = null; // used from setter
@@ -457,7 +456,6 @@ export class Calendar extends ControlElement implements MultiValue {
     if (!this.localMonthsNames || changedProperties.has(TranslatePropertyKey)) {
       const locale = getLocale(this);
       this.localMonthsNames = monthsNames(locale);
-      this.localFullMonthsNames = monthsNames(locale, 'long');
     }
     if (!this.localWeekdaysNames || changedProperties.has(TranslatePropertyKey)) {
       const locale = getLocale(this);
@@ -479,8 +477,8 @@ export class Calendar extends ControlElement implements MultiValue {
 
     // This code is here to ensure that focus is not lost
     // while navigating through the render views using keyboard
-    if (this.focused && changedProperties.has('renderView') && this.activeElement !== this.viewBtnRef.value) {
-      this.viewBtnRef.value!.focus();
+    if (this.focused && changedProperties.has('renderView') && this.viewBtnRef.value && this.activeElement !== this.viewBtnRef.value) {
+      this.viewBtnRef.value.focus();
     }
 
     const cellIndex = this.activeCellIndex;
@@ -1147,7 +1145,6 @@ export class Calendar extends ControlElement implements MultiValue {
     const monthCount = 12;
     const totalCount = MONTH_VIEW.totalCount;
     const monthsNames = this.localMonthsNames;
-    const monthsFullNames = this.localFullMonthsNames;
     const before = (totalCount - monthCount) / 2;
     const startIdx = monthCount - before % monthCount;
     const after = before + monthCount;
