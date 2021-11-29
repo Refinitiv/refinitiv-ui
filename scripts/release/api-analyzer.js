@@ -145,10 +145,10 @@ const analyze = (file, type) => {
   const data = fs.readFileSync(file, { encoding: 'utf8' });
   const meta = wca.analyzeText(data);
 
-  // Modify meta data of properties/attributes before converted it to markdown files
   meta.results.forEach(result => {
     result.componentDefinitions.forEach(definition => {
       const propCollection = {};
+      // WORKAROUND: Modify meta data of properties/attributes to make it fit with api reference tables of "elf-docs"
       definition.declaration.members.forEach(member => {
         let { propName, attrName, kind } = member;
         // Convert default value of properties to theirs actual type
