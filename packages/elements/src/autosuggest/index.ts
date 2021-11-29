@@ -59,6 +59,9 @@ export { queryWordSelect, itemRenderer, escapeRegExp, itemHighlightable, updateE
  *
  * @attr {boolean} opened - Set to open auto suggest popup
  * @prop {boolean} [opened=false] -  Auto suggest popup's open state
+ *
+ * @slot header - Slot to add custom contents at the top of autosuggest popup
+ * @slot footer - Slot to add custom contents at the bottom of autosuggest popup
  */
 @customElement('ef-autosuggest', {
   alias: 'emerald-autosuggest'
