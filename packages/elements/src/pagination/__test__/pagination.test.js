@@ -19,7 +19,7 @@ import '@formatjs/intl-pluralrules/locale-data/en';
 import '@refinitiv-ui/elements/pagination';
 import '@refinitiv-ui/elemental-theme/light/ef-pagination';
 
-const elementFocused = async (el) => {
+const updatingElement = async (el) => {
   await elementUpdated(el);
   await nextFrame();
   await nextFrame();
@@ -94,10 +94,6 @@ describe('pagination/Pagination', () => {
       await elementUpdated(el);
       expect(el.value).to.equal('');
 
-      el.value = '100a';
-      await elementUpdated(el);
-      expect(el.value).to.equal('');
-
       el.value = 'Hello';
       await elementUpdated(el);
       expect(el.value).to.equal('');
@@ -146,7 +142,7 @@ describe('pagination/Pagination', () => {
       await elementUpdated(el);
       expect(el.max).to.equal('');
 
-      el.max = '100a';
+      el.max = 'Hello';
       await elementUpdated(el);
       expect(el.max).to.equal('');
     });
@@ -195,7 +191,7 @@ describe('pagination/Pagination', () => {
 
     it('Should blur the input when Enter key is pressed in text-field', async () => {
       await triggerFocusFor(inputPart);
-      await elementFocused(el);
+      await updatingElement(el);
       expect(document.activeElement).to.equal(el);
 
       inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
@@ -208,7 +204,7 @@ describe('pagination/Pagination', () => {
       expect(inputPart.value).to.equal('Page 1 of 7', 'Incorrect transform text input');
 
       await triggerFocusFor(inputPart);
-      await elementFocused(el);
+      await updatingElement(el);
       expect(inputPart.value).to.equal('1', 'Incorrect transform text input');
 
       await elementBlurred(inputPart);
@@ -220,7 +216,7 @@ describe('pagination/Pagination', () => {
       expect(inputPart.value).to.equal('Page 7 of 7', 'Incorrect transform text input');
 
       await triggerFocusFor(inputPart);
-      await elementFocused(el);
+      await updatingElement(el);
       expect(inputPart.value).to.equal('7');
 
       await elementBlurred(inputPart);
@@ -234,7 +230,7 @@ describe('pagination/Pagination', () => {
       expect(inputPart.value).to.equal('Page 1', 'Incorrect transform text input');
 
       await triggerFocusFor(inputPart);
-      await elementFocused(el);
+      await updatingElement(el);
 
       expect(inputPart.value).to.equal('1', 'Incorrect transform text input');
 
@@ -247,7 +243,7 @@ describe('pagination/Pagination', () => {
       expect(inputPart.value).to.equal('Page 2', 'Incorrect transform text input');
 
       await triggerFocusFor(inputPart);
-      await elementFocused(el);
+      await updatingElement(el);
 
       expect(inputPart.value).to.equal('2');
 
@@ -344,9 +340,11 @@ describe('pagination/Pagination', () => {
     let previousButton;
     let nextButton;
     let lastButton;
+    let inputPart;
 
     beforeEach(async () => {
       el = await fixture('<ef-pagination max="7" lang="en-gb"></ef-pagination>');
+      inputPart = el.shadowRoot.querySelector('[part=input]');
       firstButton = el.shadowRoot.querySelector('#first');
       previousButton = el.shadowRoot.querySelector('#previous');
       nextButton = el.shadowRoot.querySelector('#next');
@@ -354,25 +352,69 @@ describe('pagination/Pagination', () => {
     });
 
     it('Should be able to change page number by typing a number and press enter key into the input', async () => {
-      const textField = el.shadowRoot.querySelector('[part=input]');
-      await triggerFocusFor(textField);
-      await elementFocused(el);
+      await triggerFocusFor(inputPart);
+      await updatingElement(el);
 
-      textField.value = '3';
-      textField.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      inputPart.value = '3';
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
       expect(el.value).to.equal('3');
     });
 
     it('Should be able to change page number by typing a number and press tab key into the input', async () => {
-      const textField = el.shadowRoot.querySelector('[part=input]');
-      await triggerFocusFor(textField);
-      await elementFocused(el);
+      await triggerFocusFor(inputPart);
+      await updatingElement(el);
 
-      textField.value = '5';
-      textField.dispatchEvent(keyboardEvent('keydown', { key: 'Tab' }));
+      inputPart.value = '5';
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Tab' }));
       await elementUpdated(el);
       expect(el.value).to.equal('5');
+    });
+
+    it('Should reject change page if typing a invalid value', async () => {
+      const value = '3';
+      el.value = value;
+      await elementUpdated(el);      
+      
+      await triggerFocusFor(inputPart);
+      await updatingElement(el);
+      
+      inputPart.value = 'Hello';
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+      expect(el.value).to.equal(value);
+    });
+
+    it('Should go to minimum page when typing less than 1', async () => {
+      const value = '3';
+      el.value = value;
+      await elementUpdated(el);
+
+      await triggerFocusFor(inputPart);
+      await updatingElement(el);
+      inputPart.value = '-5';
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+      expect(el.value).to.equal('1');
+
+      el.value = value;
+      await elementUpdated(el);
+
+      await triggerFocusFor(inputPart);
+      await updatingElement(el);
+      inputPart.value = '0';
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+      expect(el.value).to.equal('1');
+    });
+
+    it('Should go to maximum page when typing more than max', async () => {
+      await triggerFocusFor(inputPart);
+      await updatingElement(el);
+      inputPart.value = '100';
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+      expect(el.value).to.equal(el.max);
     });
 
     it('Should go to the first page when first button is clicked', async () => {
@@ -409,6 +451,22 @@ describe('pagination/Pagination', () => {
       nextButton.click();
       await elementUpdated(el);
       expect(el.value).to.equal('7');
+    });
+
+    it('If page value is more than max, should go to minimum page when first button is clicked.', async () => {
+      el.value = '100';
+      await elementUpdated(el);
+      firstButton.click();
+      await elementUpdated(el);
+      expect(el.value).to.equal('1');
+    });
+
+    it('If page value is more than max, should go to maximum page when previous button is clicked.', async () => {
+      el.value = '100';
+      await elementUpdated(el);
+      previousButton.click();
+      await elementUpdated(el);
+      expect(el.value).to.equal(el.max);
     });
   });
 
@@ -526,14 +584,14 @@ describe('pagination/Pagination', () => {
     });
 
     it('Should fire value-changed event when page is changed through the text input', async function () {
-      const textField = el.shadowRoot.querySelector('[part=input]');
-      await triggerFocusFor(textField);
-      await elementFocused(el);
+      const inputPart = el.shadowRoot.querySelector('[part=input]');
+      await triggerFocusFor(inputPart);
+      await updatingElement(el);
 
 
-      setTimeout(() => { textField.value = '3' });
+      setTimeout(() => { inputPart.value = '3' });
       await elementUpdated(el);
-      setTimeout(() => textField.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' })));
+      setTimeout(() => inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' })));
 
       const { detail } = await oneEvent(el, 'value-changed');
       expect(el.value).to.equal('3');
@@ -584,6 +642,22 @@ describe('pagination/Pagination', () => {
       expect(el.value).to.equal('1');
       el.previous();
       expect(el.value).to.equal('1', 'It should not go less than the first page');
+    });
+
+    it('If page value is more than max, should go to minimum page when first() is called.', async () => {
+      el.value = '100';
+      await elementUpdated(el);
+      el.first();
+      await elementUpdated(el);
+      expect(el.value).to.equal('1');
+    });
+
+    it('If page value is more than max, should go to maximum page when previous() is called.', async () => {
+      el.value = '100';
+      await elementUpdated(el);
+      el.previous();
+      await elementUpdated(el);
+      expect(el.value).to.equal(el.max);
     });
 
     it('Should be able to change page via public functions even when control is disabled', () => {
