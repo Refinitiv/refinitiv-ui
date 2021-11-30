@@ -50,7 +50,7 @@ export class RadioButton extends ControlElement {
     return VERSION;
   }
 
-  protected readonly defaultRole = 'radio';
+  protected readonly defaultRole: string | null = 'radio';
 
   /**
    * A `CSSResultGroup` that will be used
