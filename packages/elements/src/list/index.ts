@@ -46,7 +46,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     return VERSION;
   }
 
-  protected readonly defaultRole = 'listbox';
+  protected readonly defaultRole: string | null = 'listbox';
 
   /**
    * Used to timestamp renders.

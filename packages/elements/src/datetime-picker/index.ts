@@ -94,10 +94,10 @@ const INPUT_FORMAT = {
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
- * @slots header - Header slot
- * @slots right - Right slot
- * @slots footer - Footer slot
- * @slots left - Left slot
+ * @slot header - Slot to add custom contents at the top of popup
+ * @slot right - Slot to add custom contents at the right of popup
+ * @slot footer - Slot to add custom contents at the bottom of popup
+ * @slot left - Slot to add custom contents at the left of popup
  */
 @customElement('ef-datetime-picker', {
   alias: 'emerald-datetime-picker'

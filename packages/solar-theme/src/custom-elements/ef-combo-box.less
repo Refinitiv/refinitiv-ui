@@ -23,4 +23,16 @@
     min-width: @size;
     margin-top: 0;
   }
+  &[disabled] {
+    [part~=icon] {
+      opacity: 0.4;
+      color: @button-disabled-text-color;
+    }
+
+    [part~=button-toggle] {
+      & when (@variant = pearl) {
+      border-color: @input-disabled-border-color;
+      }
+    }
+  }
 }
