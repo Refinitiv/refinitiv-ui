@@ -28,8 +28,6 @@
   <slot name="footer">
     <div part="default-buttons">
       <ef-button
-        aria-disabled="false"
-        aria-readonly="false"
         cta=""
         part="default-button"
         role="button"
@@ -38,8 +36,6 @@
         OK
       </ef-button>
       <ef-button
-        aria-disabled="false"
-        aria-readonly="false"
         part="default-button"
         role="button"
         textpos="after"

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.3.0...@refinitiv-ui/core@5.3.1) (2021-11-22)
+
+
+### Bug Fixes
+
+* **core:** tap event may be fired on wrong target on `space` key ([#81](https://github.com/Refinitiv/refinitiv-ui/issues/81)) ([0d8c9c5](https://github.com/Refinitiv/refinitiv-ui/commit/0d8c9c57ed3fa92d9c32ac4eb66a2c2f4228e22e))
+
+
+
+
+
 # [5.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.2.0...@refinitiv-ui/core@5.3.0) (2021-11-08)
 
 

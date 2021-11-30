@@ -12,6 +12,7 @@ jobs:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           # Pulls all commits (needed for Lerna)
           fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -34,6 +35,6 @@ jobs:
       # Increment version for change packages according to conventional commits
       - run: lerna version --conventional-commits --yes
 
-      - run: lerna publish --yes
+      - run: lerna publish from-git --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
