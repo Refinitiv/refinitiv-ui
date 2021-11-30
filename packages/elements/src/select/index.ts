@@ -158,7 +158,7 @@ export class Select extends ControlElement implements MultiValue {
   private resizeThrottler = new AnimationTaskRunner();
 
   /**
-  * (readonly) Current text content of the selected value
+  * Current text content of the selected value
   * @readonly
   */
   @property({ type: String, attribute: false })

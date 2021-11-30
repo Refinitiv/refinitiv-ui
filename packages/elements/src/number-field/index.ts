@@ -157,7 +157,7 @@ export class NumberField extends ControlElement {
   }
 
   /**
-   * (readonly) Returns the value of the element, interpreted as double number
+   * Returns the value of the element, interpreted as double number
    */
   public get valueAsNumber (): number {
     return this.stringToNumber(this.internalValue);

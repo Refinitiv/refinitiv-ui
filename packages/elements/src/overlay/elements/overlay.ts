@@ -492,7 +492,7 @@ export class Overlay extends ResponsiveElement {
   }
 
   /**
-   * (readonly) Get position target configuration based on positionTarget and fullScreen properties
+   * Get position target configuration based on positionTarget and fullScreen properties
    * Used for caching and calculations
    */
   public get positionTargetConfig (): PositionTargetStrategy {
@@ -1676,7 +1676,7 @@ export class Overlay extends ResponsiveElement {
   }
 
   /**
-   * (readonly) Returns true if the overlay is opened and animation is not running.
+   * Returns true if the overlay is opened and animation is not running.
    * Returns false if overlay is closed and animation is not running
    * @readonly
    */
@@ -1685,7 +1685,7 @@ export class Overlay extends ResponsiveElement {
   }
 
   /**
-   * (readonly) Returns true if overlay is doing opening or closing transition
+   * Returns true if overlay is doing opening or closing transition
    * @readonly
    */
   public get transitioning (): boolean {

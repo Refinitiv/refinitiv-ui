@@ -228,7 +228,7 @@ export class Item extends ControlElement {
   }
 
   /**
-   * (readonly) Return true if the item can be highlighted. True if not disabled and type is Text
+   * Return true if the item can be highlighted. True if not disabled and type is Text
    * @prop {boolean} highlightable
    * @returns whether element is highlightable
    */
@@ -237,7 +237,7 @@ export class Item extends ControlElement {
   }
 
   /**
-   * (readonly) Getter returning if the label is truncated
+   * Getter returning if the label is truncated
    * @prop {boolean} isTruncated
    * @returns whether element is truncated or not
    */

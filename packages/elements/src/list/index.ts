@@ -82,7 +82,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   protected readonly defaultTabIndex = null;
 
   /**
-   * (readonly) Element focus delegation.
+   * Element focus delegation.
    * Set to `false` and relies on native focusing.
    */
   public readonly delegatesFocus = false;
@@ -163,7 +163,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   }
 
   /**
-   * (readonly) Returns a values collection of the currently
+   * Returns a values collection of the currently
    * selected item values
    * @type {string[]}
    * @default []

@@ -146,7 +146,7 @@ export class Chart extends BasicElement {
   }
 
   /**
-   * (readonly) List of available chart colors
+   * List of available chart colors
    * @type {string[]}
    * @default []
    * @returns {string[]} List of available chart colors

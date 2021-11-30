@@ -331,7 +331,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   }
 
   /**
-   * (readonly) Label of selected value
+   * Label of selected value
    * @returns Label to use, defaults to empty string
    * @default -
    * @readonly

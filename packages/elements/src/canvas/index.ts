@@ -86,7 +86,7 @@ export class Canvas extends ResponsiveElement {
   }
 
   /**
-   * (readonly) Html canvas element
+   * Html canvas element
    * @type {HTMLCanvasElement}
    */
   public get canvas (): HTMLCanvasElement {
@@ -94,7 +94,7 @@ export class Canvas extends ResponsiveElement {
   }
 
   /**
-   * (readonly) Alias of context
+   * Alias of context
    * @type {CanvasRenderingContext2D | null}
    */
   public get ctx (): CanvasRenderingContext2D | null {
@@ -106,7 +106,7 @@ export class Canvas extends ResponsiveElement {
   }
 
   /**
-   * (readonly) The 2 dimensional context of the canvas, used for drawing
+   * The 2 dimensional context of the canvas, used for drawing
    * @type {CanvasRenderingContext2D | null}
    */
   public get context (): CanvasRenderingContext2D | null {

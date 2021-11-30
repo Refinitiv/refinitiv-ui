@@ -321,7 +321,7 @@ export class SwingGauge extends ResponsiveElement {
 
 
   /**
-   * (readonly) Getter size of component
+   * Getter size of component
    * @type {SwingGaugeCanvasSize}
    * @returns return size of canvas
    */

@@ -103,7 +103,7 @@ export class MultiInput extends ControlElement implements MultiValue {
   }
 
   /**
-   * (readonly) Array of item's values ( readonly )
+   * Array of item's values ( readonly )
    * @readonly
    * @type {string[]}
    * @default []
