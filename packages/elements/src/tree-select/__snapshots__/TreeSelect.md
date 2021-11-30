@@ -7,8 +7,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"

@@ -8,8 +8,6 @@
   part="list"
 >
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     part="search"
     tabindex="1"
     transparent=""
