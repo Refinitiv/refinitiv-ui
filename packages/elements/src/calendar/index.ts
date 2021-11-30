@@ -118,7 +118,7 @@ export class Calendar extends ControlElement implements MultiValue {
     return VERSION;
   }
 
-  protected readonly defaultRole = 'group';
+  protected readonly defaultRole: string | null = 'group';
 
   /**
    * A `CSSResultGroup` that will be used
