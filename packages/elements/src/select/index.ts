@@ -45,7 +45,7 @@ const LABEL_SEPARATOR = ', '; // TODO: for multiselect
 const POPUP_POSITION = ['bottom-start', 'top-start'];
 const KEY_SEARCH_DEBOUNCER = 300;
 
-enum Direction {
+enum Navigation {
   FIRST = 'First',
   LAST = 'Last',
   NEXT = 'Next',
@@ -677,20 +677,20 @@ export class Select extends ControlElement implements MultiValue {
         break;
       case 'Up':
       case 'ArrowUp':
-        this.focusElement(Direction.PREVIOUS);
+        this.focusElement(Navigation.PREVIOUS);
         break;
       case 'Down':
       case 'ArrowDown':
-        this.focusElement(Direction.NEXT);
+        this.focusElement(Navigation.NEXT);
         break;
       case 'Tab':
-        this.focusElement(event.shiftKey ? Direction.PREVIOUS : Direction.NEXT);
+        this.focusElement(event.shiftKey ? Navigation.PREVIOUS : Navigation.NEXT);
         break;
       case 'Home':
-        this.focusElement(Direction.FIRST);
+        this.focusElement(Navigation.FIRST);
         break;
       case 'End':
-        this.focusElement(Direction.LAST);
+        this.focusElement(Navigation.LAST);
         break;
       default:
         if (this.isValidFilterKey(event)) {
@@ -723,7 +723,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param direction previous, next, first or last focusable element
    * @returns {void}
    */
-  private focusElement (direction: Direction): void {
+  private focusElement (direction: Navigation): void {
     const highlightedItem = this.highlightedItem || this.getSelectedElements()[0];
     const selectableElements = this.getSelectableElements();
 
@@ -738,16 +738,16 @@ export class Select extends ControlElement implements MultiValue {
 
     let element;
     switch (direction) {
-      case Direction.PREVIOUS:
+      case Navigation.PREVIOUS:
         element = index === -1 ? lastElement : selectableElements[index - 1];
         break;
-      case Direction.NEXT:
+      case Navigation.NEXT:
         element = index === -1 ? firstElement : selectableElements[index + 1];
         break;
-      case Direction.FIRST:
+      case Navigation.FIRST:
         element = firstElement;
         break;
-      case Direction.LAST:
+      case Navigation.LAST:
         element = lastElement;
         break;
       default:
@@ -755,7 +755,7 @@ export class Select extends ControlElement implements MultiValue {
     }
 
     if (!element) {
-      element = direction === Direction.NEXT ? firstElement : lastElement;
+      element = direction === Navigation.NEXT ? firstElement : lastElement;
     }
 
     if (element) {
