@@ -14,10 +14,9 @@ const textFromElementIds = (rootNode: Document | DocumentFragment, ids: string):
   const elementIds = ids.split(SEPARATOR);
   for (let i = 0; i < elementIds.length; i += 1) {
     const element = rootNode.getElementById(elementIds[i]);
-    if (!element) {
-      continue;
+    if (element) {
+      labels.push(element.textContent || '');
     }
-    labels.push(element.textContent || '');
   }
 
   return labels.join(SEPARATOR);

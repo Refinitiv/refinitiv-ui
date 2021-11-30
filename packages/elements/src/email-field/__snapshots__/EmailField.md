@@ -5,8 +5,6 @@
 ```html
 <input
   aria-hidden="true"
-  aria-invalid="false"
-  aria-required="false"
   autocomplete="off"
   inputmode="email"
   part="input"
@@ -20,8 +18,6 @@
 ```html
 <input
   aria-hidden="true"
-  aria-invalid="false"
-  aria-required="false"
   autocomplete="off"
   inputmode="email"
   multiple=""

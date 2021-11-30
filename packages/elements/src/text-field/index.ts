@@ -237,8 +237,8 @@ export class TextField extends FormFieldElement {
       ...super.decorateInputMap,
       'type': 'text',
       'part': 'input',
-      'maxlength': this.maxLength ? `${this.maxLength}` : null,
-      'minlength': this.minLength ? `${this.minLength}` : null,
+      'maxlength': this.maxLength,
+      'minlength': this.minLength,
       'pattern': this.pattern || null
     };
   }

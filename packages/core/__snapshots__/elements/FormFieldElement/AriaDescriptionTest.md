@@ -6,8 +6,6 @@
 <input
   aria-description="Description"
   aria-hidden="true"
-  aria-invalid="false"
-  aria-required="false"
   autocomplete="off"
 >
 
@@ -16,8 +14,6 @@
 ```html
 <input
   aria-hidden="true"
-  aria-invalid="false"
-  aria-required="false"
   autocomplete="off"
 >
 
@@ -29,8 +25,6 @@
 <input
   aria-description="Described By"
   aria-hidden="true"
-  aria-invalid="false"
-  aria-required="false"
   autocomplete="off"
 >
 
@@ -43,7 +37,6 @@
   aria-description="!ERROR! Described By"
   aria-hidden="true"
   aria-invalid="true"
-  aria-required="false"
   autocomplete="off"
 >
 

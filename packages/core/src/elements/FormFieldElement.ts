@@ -241,8 +241,8 @@ export abstract class FormFieldElement extends ControlElement {
    * aria-hidden="true" - always true. Required for onLoad screen read. this is always true for Chrome. Other browsers may need to tweak
    * aria-label - calculated from `aria-label`, `aria-labelledby` and `label[for="<element.id>"]`
    * aria-description - calculated from `aria-description` or `aria-describedby`
-   * aria-invalid="true|false" - calculated on based on `error` state
-   * aria-required="true|false" - calculated on based on `aria-required`
+   * aria-invalid="true|null" - calculated on based on `error` state
+   * aria-required="true|null" - calculated on based on `aria-required`
    * placeholder - placeholder text
    * readonly - indicates whether the user can interact and still show value with the element
    * disabled - indicates whether the user can interact with the element
@@ -256,11 +256,11 @@ export abstract class FormFieldElement extends ControlElement {
       'aria-hidden': 'true',
       'aria-label': this.inputAriaLabel,
       'aria-description': this.inputAriaDescription,
-      'aria-invalid': this.error ? 'true' : 'false',
-      'aria-required': this.inputAriaRequired ? 'true' : 'false',
+      'aria-invalid': this.error ? 'true' : null,
+      'aria-required': this.inputAriaRequired ? 'true' : null,
       'placeholder': this.placeholder || null,
-      'readonly': this.readonly ? '' : null,
-      'disabled': this.disabled ? '' : null,
+      'readonly': this.readonly,
+      'disabled': this.disabled,
       'autocomplete': 'off',
       '@input': this.onInputInput,
       '@change': this.onInputChange

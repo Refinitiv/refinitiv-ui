@@ -5,9 +5,7 @@
 ```html
 <input
   aria-hidden="true"
-  aria-invalid="false"
   aria-label="Label"
-  aria-required="false"
   autocomplete="off"
 >
 
@@ -16,8 +14,6 @@
 ```html
 <input
   aria-hidden="true"
-  aria-invalid="false"
-  aria-required="false"
   autocomplete="off"
 >
 
@@ -28,9 +24,7 @@
 ```html
 <input
   aria-hidden="true"
-  aria-invalid="false"
   aria-label="Labelled By"
-  aria-required="false"
   autocomplete="off"
 >
 
@@ -41,9 +35,7 @@
 ```html
 <input
   aria-hidden="true"
-  aria-invalid="false"
   aria-label="Label For"
-  aria-required="false"
   autocomplete="off"
 >
 

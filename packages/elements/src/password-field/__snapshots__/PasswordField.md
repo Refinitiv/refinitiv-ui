@@ -5,8 +5,6 @@
 ```html
 <input
   aria-hidden="true"
-  aria-invalid="false"
-  aria-required="false"
   autocomplete="off"
   part="input"
   type="password"
@@ -27,8 +25,6 @@
 ```html
 <input
   aria-hidden="true"
-  aria-invalid="false"
-  aria-required="false"
   autocomplete="off"
   part="input"
   type="text"
@@ -47,8 +43,6 @@
 ```html
 <input
   aria-hidden="true"
-  aria-invalid="false"
-  aria-required="false"
   autocomplete="off"
   part="input"
   type="password"

@@ -5,9 +5,9 @@ import { Directive, directive, PartType, PartInfo, ElementPart, DirectiveResult 
 import { noChange } from 'lit';
 
 type TemplateMap = { [key: string]: unknown };
-
+type VariableElement<T> = Element & { [name: string]: T };
 type ValueMap = { [key: string]: { value: unknown, scopedValue: unknown } };
-enum MAP_TYPE { ATTRIBUTE, PROPERTY, LISTENER}
+enum MAP_TYPE { ATTRIBUTE, PROPERTY, LISTENER }
 
 /**
  * Get map type as follows
@@ -46,9 +46,9 @@ const getMapName = (key: string): string => {
 };
 
 /**
- * Apple attribute, property or event listener to an element
+ * Apply attribute, property or event listener to an element
  * @param element Element
- * @param name The name or attribute, property (starts with `.`) or event listener (starts with `@`)
+ * @param name Name of attribute, property (starts with `.`) or event listener (starts with `@`)
  * @param value New Value
  * @param oldValue Old value
  * @returns {void}
@@ -67,16 +67,19 @@ const setMapped = (element: Element, name: string, value: unknown, oldValue: unk
       break;
     case MAP_TYPE.PROPERTY:
       if (value === undefined) {
-        delete (element as Element & { [name: string]: typeof value })[name];
+        delete (element as VariableElement<unknown>)[name];
       }
       else {
-        (element as Element & { [name: string]: typeof value })[name] = value;
+        (element as VariableElement<unknown>)[name] = value;
       }
       break;
     case MAP_TYPE.ATTRIBUTE:
     default:
-      if (value === null || value === undefined) { // remove with undefined to comply with property
+      if (value === null || value === undefined || value === false) { // remove with undefined to comply with property
         element.removeAttribute(name);
+      }
+      else if (value === true) {
+        element.setAttribute(name, '');
       }
       else {
         element.setAttribute(name, String(value));
@@ -148,11 +151,11 @@ class TemplateMapDirective extends Directive {
 
 /**
  * A directive to apply attributes to template element
- * @param template template map with the following syntax:
+ * @param template Template map with the following syntax:
  * {
  *   'label': 'value', // set attribute with attribute value, e.g. `<input label="value">`
- *   'required': '', // set empty attribute, e.g. `<input required>`
- *   'error': null, // remove attribute `error`
+ *   'required': true, // set empty attribute, e.g. `<input required>`
+ *   'error': null | undefined | false, // remove attribute `error`
  *   '.prop': 'value', // set property `.prop='value'`
  *   '.warning': undefined, // remove property `warning`
  *   '@listener': this.eventListener, // set event listener via element.addEventListener('listener', this.eventListener.bind(this)),
