@@ -623,6 +623,7 @@ export class Pagination extends BasicElement {
           @focused-changed=${this.onInputFocusedChanged}
           @keydown=${this.onInputKeyDown}
           .value=${this.inputText as string}
+          .disabled=${this.disabled}
           no-spinner></ef-text-field>
         <ef-button-bar part="buttons">
           <ef-button id="next" icon="right" @tap="${this.onNextTap}" .disabled=${!this.useNextButton}></ef-button>
