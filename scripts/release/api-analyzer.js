@@ -185,6 +185,7 @@ const analyze = (file, type) => {
         }
         // Remove readonly modifier of properties from meta data
         if(member.modifiers && member.modifiers.has('readonly')) {
+          member.propName = member.propName + ' (readonly)';
           member.modifiers.delete('readonly');
         }
       })
