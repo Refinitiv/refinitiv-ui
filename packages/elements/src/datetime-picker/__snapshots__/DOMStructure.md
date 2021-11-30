@@ -7,8 +7,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     id="input"
     part="input"
@@ -30,8 +28,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     id="input"
     part="input"
@@ -68,8 +64,6 @@
     <div part="selectors-wrapper">
       <div part="calendar-wrapper">
         <ef-calendar
-          aria-disabled="false"
-          aria-readonly="false"
           id="calendar"
           lang="en-gb"
           part="calendar"
@@ -96,8 +90,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     id="input"
     part="input"
@@ -108,8 +100,6 @@
   <div part="input-separator">
   </div>
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     id="input-to"
     part="input"
@@ -146,8 +136,6 @@
     <div part="selectors-wrapper">
       <div part="calendar-wrapper">
         <ef-calendar
-          aria-disabled="false"
-          aria-readonly="false"
           id="calendar"
           lang="en-gb"
           part="calendar"
@@ -175,8 +163,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     id="input"
     part="input"
@@ -213,8 +199,6 @@
     <div part="selectors-wrapper">
       <div part="calendar-wrapper">
         <ef-calendar
-          aria-disabled="false"
-          aria-readonly="false"
           id="calendar"
           lang="en-gb"
           part="calendar"
@@ -222,8 +206,6 @@
         >
         </ef-calendar>
         <ef-calendar
-          aria-disabled="false"
-          aria-readonly="false"
           id="calendar-to"
           lang="en-gb"
           part="calendar"
@@ -250,8 +232,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     id="input"
     part="input"
@@ -288,8 +268,6 @@
     <div part="selectors-wrapper">
       <div part="calendar-wrapper">
         <ef-calendar
-          aria-disabled="false"
-          aria-readonly="false"
           id="calendar"
           lang="en-gb"
           part="calendar"
@@ -299,8 +277,6 @@
       </div>
       <div part="timepicker-wrapper">
         <ef-time-picker
-          aria-disabled="false"
-          aria-readonly="false"
           id="timepicker"
           part="time-picker"
           tabindex="0"
@@ -326,8 +302,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     id="input"
     part="input"
@@ -364,8 +338,6 @@
     <div part="selectors-wrapper">
       <div part="calendar-wrapper">
         <ef-calendar
-          aria-disabled="false"
-          aria-readonly="false"
           id="calendar"
           lang="en-gb"
           part="calendar"
@@ -375,8 +347,6 @@
       </div>
       <div part="timepicker-wrapper">
         <ef-time-picker
-          aria-disabled="false"
-          aria-readonly="false"
           id="timepicker"
           part="time-picker"
           tabindex="0"
@@ -402,8 +372,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     id="input"
     part="input"
@@ -414,8 +382,6 @@
   <div part="input-separator">
   </div>
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     id="input-to"
     part="input"
@@ -452,8 +418,6 @@
     <div part="selectors-wrapper">
       <div part="calendar-wrapper">
         <ef-calendar
-          aria-disabled="false"
-          aria-readonly="false"
           id="calendar"
           lang="en-gb"
           part="calendar"
@@ -464,8 +428,6 @@
       </div>
       <div part="timepicker-wrapper">
         <ef-time-picker
-          aria-disabled="false"
-          aria-readonly="false"
           id="timepicker"
           part="time-picker"
           tabindex="0"
@@ -474,8 +436,6 @@
         <div part="input-separator">
         </div>
         <ef-time-picker
-          aria-disabled="false"
-          aria-readonly="false"
           id="timepicker-to"
           part="time-picker"
           tabindex="0"
