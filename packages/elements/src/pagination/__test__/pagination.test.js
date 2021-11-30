@@ -19,7 +19,7 @@ import '@formatjs/intl-pluralrules/locale-data/en';
 import '@refinitiv-ui/elements/pagination';
 import '@refinitiv-ui/elemental-theme/light/ef-pagination';
 
-const updatingElement = async (el) => {
+const elementFocused = async (el) => {
   await elementUpdated(el);
   await nextFrame();
   await nextFrame();
@@ -191,7 +191,7 @@ describe('pagination/Pagination', () => {
 
     it('Should blur the input when Enter key is pressed in text-field', async () => {
       await triggerFocusFor(inputPart);
-      await updatingElement(el);
+      await elementFocused(el);
       expect(document.activeElement).to.equal(el);
 
       inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
@@ -204,7 +204,7 @@ describe('pagination/Pagination', () => {
       expect(inputPart.value).to.equal('Page 1 of 7', 'Incorrect transform text input');
 
       await triggerFocusFor(inputPart);
-      await updatingElement(el);
+      await elementFocused(el);
       expect(inputPart.value).to.equal('1', 'Incorrect transform text input');
 
       await elementBlurred(inputPart);
@@ -216,7 +216,7 @@ describe('pagination/Pagination', () => {
       expect(inputPart.value).to.equal('Page 7 of 7', 'Incorrect transform text input');
 
       await triggerFocusFor(inputPart);
-      await updatingElement(el);
+      await elementFocused(el);
       expect(inputPart.value).to.equal('7');
 
       await elementBlurred(inputPart);
@@ -230,7 +230,7 @@ describe('pagination/Pagination', () => {
       expect(inputPart.value).to.equal('Page 1', 'Incorrect transform text input');
 
       await triggerFocusFor(inputPart);
-      await updatingElement(el);
+      await elementFocused(el);
 
       expect(inputPart.value).to.equal('1', 'Incorrect transform text input');
 
@@ -243,7 +243,7 @@ describe('pagination/Pagination', () => {
       expect(inputPart.value).to.equal('Page 2', 'Incorrect transform text input');
 
       await triggerFocusFor(inputPart);
-      await updatingElement(el);
+      await elementFocused(el);
 
       expect(inputPart.value).to.equal('2');
 
@@ -353,7 +353,7 @@ describe('pagination/Pagination', () => {
 
     it('Should be able to change page number by typing a number and press enter key into the input', async () => {
       await triggerFocusFor(inputPart);
-      await updatingElement(el);
+      await elementFocused(el);
 
       inputPart.value = '3';
       inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
@@ -363,7 +363,7 @@ describe('pagination/Pagination', () => {
 
     it('Should be able to change page number by typing a number and press tab key into the input', async () => {
       await triggerFocusFor(inputPart);
-      await updatingElement(el);
+      await elementFocused(el);
 
       inputPart.value = '5';
       inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Tab' }));
@@ -377,7 +377,7 @@ describe('pagination/Pagination', () => {
       await elementUpdated(el);      
       
       await triggerFocusFor(inputPart);
-      await updatingElement(el);
+      await elementFocused(el);
       
       inputPart.value = 'Hello';
       inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
@@ -391,7 +391,7 @@ describe('pagination/Pagination', () => {
       await elementUpdated(el);
 
       await triggerFocusFor(inputPart);
-      await updatingElement(el);
+      await elementFocused(el);
       inputPart.value = '-5';
       inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
@@ -401,7 +401,7 @@ describe('pagination/Pagination', () => {
       await elementUpdated(el);
 
       await triggerFocusFor(inputPart);
-      await updatingElement(el);
+      await elementFocused(el);
       inputPart.value = '0';
       inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
@@ -410,7 +410,7 @@ describe('pagination/Pagination', () => {
 
     it('Should go to maximum page when typing more than max', async () => {
       await triggerFocusFor(inputPart);
-      await updatingElement(el);
+      await elementFocused(el);
       inputPart.value = '100';
       inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
@@ -586,7 +586,7 @@ describe('pagination/Pagination', () => {
     it('Should fire value-changed event when page is changed through the text input', async function () {
       const inputPart = el.shadowRoot.querySelector('[part=input]');
       await triggerFocusFor(inputPart);
-      await updatingElement(el);
+      await elementFocused(el);
 
 
       setTimeout(() => { inputPart.value = '3' });
