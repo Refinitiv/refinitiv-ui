@@ -72,7 +72,7 @@ describe('combo-box/Template', () => {
       expect(input.disabled).to.be.equal(true)
     });
 
-    it('Input should be disabled when readonly attribute is set', async () => {
+    it('Input should be readonly when readonly attribute is set', async () => {
         const el = await fixture('<ef-combo-box readonly></ef-combo-box>');
         const input = el.shadowRoot.querySelector('[part=input]');
 
