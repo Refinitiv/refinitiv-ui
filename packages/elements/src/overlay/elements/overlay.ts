@@ -626,7 +626,6 @@ export class Overlay extends ResponsiveElement {
   /**
    * Set focus boundary to restrict tabbing. Default's overlay itself.
    * If external focus is required, set to null
-   * @default overlay
    */
   public focusBoundary: HTMLElement | ShadowRoot | null = this;
 
