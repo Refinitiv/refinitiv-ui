@@ -46,8 +46,6 @@
   </ef-text-field>
   <ef-button-bar part="buttons">
     <ef-button
-      aria-disabled="false"
-      aria-readonly="false"
       empty=""
       icon="right"
       id="next"
