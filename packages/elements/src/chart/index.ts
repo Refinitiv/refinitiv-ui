@@ -148,7 +148,6 @@ export class Chart extends BasicElement {
   /**
    * List of available chart colors
    * @type {string[]}
-   * @default []
    * @returns {string[]} List of available chart colors
    */
   public get colors (): string[] {
