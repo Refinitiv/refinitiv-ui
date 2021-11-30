@@ -47,7 +47,7 @@ export abstract class FormFieldElement extends ControlElement {
     ]));
   }
 
-  protected readonly defaultRole = 'textbox';
+  protected readonly defaultRole: string | null = 'textbox';
 
   /**
    * Set state to error
