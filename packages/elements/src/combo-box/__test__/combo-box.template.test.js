@@ -62,4 +62,23 @@ describe('combo-box/Template', () => {
       expect(styles.minWidth).to.equal('0px', 'min width is not reset');
     });
   });
+  describe('readonly and disabled attributes test', () => {
+    it('Input should be disabled when disabled attribute is set', async () => {
+      const el = await fixture('<ef-combo-box disabled></ef-combo-box>');
+      const input = el.shadowRoot.querySelector('[part=input]');
+
+      await elementUpdated(el);
+
+      expect(input.disabled).to.be.equal(true)
+    });
+
+    it('Input should be readonly when readonly attribute is set', async () => {
+        const el = await fixture('<ef-combo-box readonly></ef-combo-box>');
+        const input = el.shadowRoot.querySelector('[part=input]');
+
+        await elementUpdated(el);
+
+        expect(input.readonly).to.be.equal(true)
+    });
+  })
 });
