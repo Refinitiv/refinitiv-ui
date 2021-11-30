@@ -7,8 +7,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     part="input"
     role="textbox"
     tabindex="0"
@@ -38,22 +36,14 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list
-    aria-disabled="false"
-    aria-readonly="false"
-    id="internal-list"
-  >
+  <ef-list id="internal-list">
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       tabindex="-1"
       type="header"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="true"
       highlighted=""
       selected=""
@@ -61,15 +51,11 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       tabindex="0"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       tabindex="0"
     >
@@ -82,8 +68,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     part="input"
     role="textbox"
     tabindex="0"
@@ -113,37 +97,25 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list
-    aria-disabled="false"
-    aria-readonly="false"
-    id="internal-list"
-  >
+  <ef-list id="internal-list">
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       tabindex="-1"
       type="header"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       highlighted=""
       tabindex="0"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       tabindex="0"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="true"
       selected=""
       tabindex="0"
@@ -157,8 +129,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     part="input"
     role="textbox"
     tabindex="0"
@@ -188,37 +158,25 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list
-    aria-disabled="false"
-    aria-readonly="false"
-    id="internal-list"
-  >
+  <ef-list id="internal-list">
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       tabindex="-1"
       type="header"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       highlighted=""
       tabindex="0"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       tabindex="0"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       tabindex="0"
     >
@@ -233,8 +191,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     part="input"
     role="textbox"
     tabindex="0"
@@ -264,22 +220,14 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list
-    aria-disabled="false"
-    aria-readonly="false"
-    id="internal-list"
-  >
+  <ef-list id="internal-list">
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       tabindex="-1"
       type="header"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="true"
       highlighted=""
       selected=""
@@ -287,15 +235,11 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       tabindex="0"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       tabindex="0"
     >
@@ -310,8 +254,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     part="input"
     role="textbox"
     tabindex="0"
@@ -347,14 +289,8 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list
-    aria-disabled="false"
-    aria-readonly="false"
-    id="internal-list"
-  >
+  <ef-list id="internal-list">
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       tabindex="-1"
@@ -362,8 +298,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="true"
       highlighted=""
       multiple=""
@@ -372,16 +306,12 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       tabindex="0"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="true"
       multiple=""
       selected=""
@@ -396,8 +326,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     part="input"
     role="textbox"
     tabindex="0"
@@ -427,14 +355,8 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list
-    aria-disabled="false"
-    aria-readonly="false"
-    id="internal-list"
-  >
+  <ef-list id="internal-list">
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       tabindex="-1"
@@ -442,8 +364,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       highlighted=""
       multiple=""
@@ -451,8 +371,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="true"
       multiple=""
       selected=""
@@ -460,8 +378,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       tabindex="0"
@@ -475,8 +391,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     part="input"
     role="textbox"
     tabindex="0"
@@ -506,14 +420,8 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list
-    aria-disabled="false"
-    aria-readonly="false"
-    id="internal-list"
-  >
+  <ef-list id="internal-list">
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       tabindex="-1"
@@ -521,8 +429,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       highlighted=""
       multiple=""
@@ -530,16 +436,12 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       tabindex="0"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       tabindex="0"

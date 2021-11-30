@@ -6,7 +6,6 @@
 
 ```html
 <ef-number-field
-  aria-disabled="false"
   aria-readonly="true"
   id="hours"
   max="23"
@@ -23,7 +22,6 @@
 <span part="divider">
 </span>
 <ef-number-field
-  aria-disabled="false"
   aria-readonly="true"
   id="minutes"
   max="59"
@@ -40,7 +38,6 @@
 <span part="divider">
 </span>
 <ef-number-field
-  aria-disabled="false"
   aria-readonly="true"
   id="seconds"
   max="59"
@@ -62,7 +59,6 @@
 ```html
 <ef-number-field
   aria-disabled="true"
-  aria-readonly="false"
   disabled=""
   id="hours"
   max="23"
@@ -80,7 +76,6 @@
 </span>
 <ef-number-field
   aria-disabled="true"
-  aria-readonly="false"
   disabled=""
   id="minutes"
   max="59"
@@ -98,7 +93,6 @@
 </span>
 <ef-number-field
   aria-disabled="true"
-  aria-readonly="false"
   disabled=""
   id="seconds"
   max="59"
@@ -119,8 +113,6 @@
 
 ```html
 <ef-number-field
-  aria-disabled="false"
-  aria-readonly="false"
   id="hours"
   max="23"
   min="0"
@@ -135,8 +127,6 @@
 <span part="divider">
 </span>
 <ef-number-field
-  aria-disabled="false"
-  aria-readonly="false"
   id="minutes"
   max="59"
   min="0"
@@ -155,8 +145,6 @@
 
 ```html
 <ef-number-field
-  aria-disabled="false"
-  aria-readonly="false"
   id="hours"
   max="23"
   min="0"
@@ -171,8 +159,6 @@
 <span part="divider">
 </span>
 <ef-number-field
-  aria-disabled="false"
-  aria-readonly="false"
   id="minutes"
   max="59"
   min="0"
@@ -187,8 +173,6 @@
 <span part="divider">
 </span>
 <ef-number-field
-  aria-disabled="false"
-  aria-readonly="false"
   id="seconds"
   max="59"
   min="0"
@@ -207,8 +191,6 @@
 
 ```html
 <ef-number-field
-  aria-disabled="false"
-  aria-readonly="false"
   id="hours"
   max="12"
   min="1"
@@ -223,8 +205,6 @@
 <span part="divider">
 </span>
 <ef-number-field
-  aria-disabled="false"
-  aria-readonly="false"
   id="minutes"
   max="59"
   min="0"
