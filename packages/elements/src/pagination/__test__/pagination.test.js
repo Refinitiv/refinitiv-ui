@@ -353,7 +353,7 @@ describe('pagination/Pagination', () => {
       lastButton = el.shadowRoot.querySelector('#last');
     });
 
-    it('Should be able to change page number by typing a number into the input', async () => {
+    it('Should be able to change page number by typing a number and press enter key into the input', async () => {
       const textField = el.shadowRoot.querySelector('[part=input]');
       await triggerFocusFor(textField);
       await elementFocused(el);
@@ -362,6 +362,17 @@ describe('pagination/Pagination', () => {
       textField.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
       expect(el.value).to.equal('3');
+    });
+
+    it('Should be able to change page number by typing a number and press tab key into the input', async () => {
+      const textField = el.shadowRoot.querySelector('[part=input]');
+      await triggerFocusFor(textField);
+      await elementFocused(el);
+
+      textField.value = '5';
+      textField.dispatchEvent(keyboardEvent('keydown', { key: 'Tab' }));
+      await elementUpdated(el);
+      expect(el.value).to.equal('5');
     });
 
     it('Should go to the first page when first button is clicked', async () => {

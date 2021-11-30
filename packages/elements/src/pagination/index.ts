@@ -420,13 +420,15 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Handles action when Enter key is press onto the input
+   * Handles action when Enter and Tab key is press onto the input
    * @param event Keyboard event
    * @returns {void}
    */
   private onInputKeyDown (event: KeyboardEvent): void {
-    if (event.key === 'Enter' || event.keyCode === 13) {
+    const isEnter = event.key === 'Enter' || event.keyCode === 13;
+    const isTab = event.key === 'Tab' || event.keyCode === 9;
 
+    if (isEnter || isTab) {
       const oldValue = this.value;
       let newValue = parseInt(this.input.value, 10);
 
@@ -444,24 +446,24 @@ export class Pagination extends BasicElement {
         this.value = '1';
       }
 
-      this.input.blur();
-      event.preventDefault();
+      if (isEnter) {
+        this.input.blur();
+        event.preventDefault();
+
+        /**
+         * Issue only in firefox
+         * cannot blur() or focus() to this.input so create a temp to this.input loses focus
+         */
+        const temp = document.createElement('input');
+        this.shadowRoot?.appendChild(temp);
+        temp.focus();
+        this.input.blur();
+        this.shadowRoot?.removeChild(temp);
+      }
 
       if (this.value !== oldValue) {
         this.notifyValueChange();
       }
-
-      /*
-      * Issue only in firefox
-      * cannot blur() or focus() to this.input
-      * so create a temp to this.input loses focus
-      */
-      const temp = document.createElement('input');
-      this.shadowRoot?.appendChild(temp);
-      temp.focus();
-      this.input.blur();
-      this.shadowRoot?.removeChild(temp);
-      event.preventDefault();
     }
   }
 
