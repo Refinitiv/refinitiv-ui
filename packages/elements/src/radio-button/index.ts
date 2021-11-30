@@ -25,11 +25,11 @@ import {
  *
  * @fires checked-changed - Fired when the `checked` property changes.
  *
- * @attr {string} [value=] - Value of the radio button
- * @prop {string} [value=] - Value of the radio button
+ * @attr {string} value - Value of the radio button
+ * @prop {string} [value=""] - Value of the radio button
 *
- * @attr {string} [name=] - Group multiple radio buttons by assigning the same name
- * @prop {string} [name=] - Group multiple radio buttons by assigning the same name
+ * @attr {string} name - Group multiple radio buttons by assigning the same name
+ * @prop {string} [name=""] - Group multiple radio buttons by assigning the same name
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
@@ -88,6 +88,7 @@ export class RadioButton extends ControlElement {
   /**
    * Radio button checked state
    * @param value checked state
+   * @default false
    * @returns {void}
    */
   @property({ type: Boolean, reflect: true })

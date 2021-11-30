@@ -34,7 +34,7 @@ import '@refinitiv-ui/phrasebook/lib/locale/en/color-dialog.js';
  * @fires opened-changed - Fired when the `opened` property changes.
  *
  * @attr {string|null} header - Set Header/Title of the color dialog
- * @prop {string|null} header - Set Header/Title of the color dialog
+ * @prop {string|null} [header=null] - Set Header/Title of the color dialog
  *
  * @attr {boolean} [opened=false] - Set dialog to open
  * @prop {boolean} [opened=false] - Set dialog to open
@@ -42,14 +42,14 @@ import '@refinitiv-ui/phrasebook/lib/locale/en/color-dialog.js';
  * @attr {boolean} [no-cancel-on-esc-key=false] - Prevents dialog to close when user presses ESC key
  * @prop {boolean} [noCancelOnEscKey=false] - Prevents dialog to close when user presses ESC key
  *
- * @attr {string} x - Set a specific x coordinate of dialog
- * @prop {string} x - Set a specific x coordinate of dialog
+ * @attr {string|undefined} x - Set a specific x coordinate of dialog
+ * @prop {string|undefined} x - Set a specific x coordinate of dialog
  *
- * @attr {string} y - Set a specific y coordinate of dialog
- * @prop {string} y - Set a specific y coordinate of dialog
+ * @attr {string|undefined} y - Set a specific y coordinate of dialog
+ * @prop {string|undefined} y - Set a specific y coordinate of dialog
  *
- * @attr {string} position-target - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
- * @prop {string} positionTarget - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
+ * @attr {string|undefined} position-target - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
+ * @prop {string|undefined} positionTarget - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
  *
  * @prop {boolean} [noCancelOnOutsideClick=true] - Prevents dialog to close when user clicks outside the dialog.
  *

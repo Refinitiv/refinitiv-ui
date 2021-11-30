@@ -72,6 +72,7 @@ export class Canvas extends ResponsiveElement {
   /**
    * Starts an automatic animation loop.
    * Enabling the frame event.
+   * @default false
    */
   @property({ type: Boolean, reflect: true })
   get autoloop (): boolean {
@@ -85,7 +86,7 @@ export class Canvas extends ResponsiveElement {
   }
 
   /**
-   * Html canvas element
+   * (readonly) Html canvas element
    * @type {HTMLCanvasElement}
    */
   public get canvas (): HTMLCanvasElement {
@@ -93,7 +94,7 @@ export class Canvas extends ResponsiveElement {
   }
 
   /**
-   * Alias of context
+   * (readonly) Alias of context
    * @type {CanvasRenderingContext2D | null}
    */
   public get ctx (): CanvasRenderingContext2D | null {
@@ -105,7 +106,7 @@ export class Canvas extends ResponsiveElement {
   }
 
   /**
-   * The 2 dimensional context of the canvas, used for drawing
+   * (readonly) The 2 dimensional context of the canvas, used for drawing
    * @type {CanvasRenderingContext2D | null}
    */
   public get context (): CanvasRenderingContext2D | null {

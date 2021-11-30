@@ -26,17 +26,17 @@ import '@refinitiv-ui/phrasebook/lib/locale/en/dialog.js';
  * @attr {boolean} [no-cancel-on-esc-key=false] - Prevents dialog to close when user presses ESC key
  * @prop {boolean} [noCancelOnEscKey=false] - Prevents dialog to close when user presses ESC key
  *
- * @attr {string} x - Set a specific x coordinate of dialog
- * @prop {string} x - Set a specific x coordinate of dialog
+ * @attr {string|undefined} x - Set a specific x coordinate of dialog
+ * @prop {string|undefined} x - Set a specific x coordinate of dialog
  *
- * @attr {string} y - Set a specific y coordinate of dialog
- * @prop {string} y - Set a specific y coordinate of dialog
+ * @attr {string|undefined} y - Set a specific y coordinate of dialog
+ * @prop {string|undefined} y - Set a specific y coordinate of dialog
  *
  * @attr {boolean} full-screen - Set dialog to full screen
- * @prop {boolean} fullScreen - Set dialog to full screen
+ * @prop {boolean} [fullScreen=false] - Set dialog to full screen
  *
- * @attr {string} position-target - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
- * @prop {string} positionTarget - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
+ * @attr {string|undefined} position-target - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
+ * @prop {string|undefined} positionTarget - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
  *
  * @fires opened-changed - Fired when value of `opened` property is changed. Prevent default to stop default action
  * @fires confirm - Fired when dialog is closed by user clicked a default OK button. Prevent default to stop default action
@@ -143,9 +143,6 @@ export class Dialog extends Overlay {
   @query('[part=footer]')
   private footerElement!: HTMLElement;
 
-  /**
-  * @ignore
-  */
   public noCancelOnOutsideClick = true;
 
   /**

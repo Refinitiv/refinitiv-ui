@@ -132,6 +132,7 @@ export class Clock extends ResponsiveElement {
 
   /**
    * Get time value in format `hh:mm:ss`
+   * @default 00:00:00
    * @returns value
    */
   @property({ type: String })
@@ -199,6 +200,7 @@ export class Clock extends ResponsiveElement {
 
   /**
    * Toggles clock ticking function.
+   * @default false
    */
   @property({ type: Boolean })
   public get tick (): boolean {

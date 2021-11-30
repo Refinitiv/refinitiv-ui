@@ -158,7 +158,7 @@ export class Select extends ControlElement implements MultiValue {
   private resizeThrottler = new AnimationTaskRunner();
 
   /**
-  * Current text content of the selected value
+  * (readonly) Current text content of the selected value
   * @readonly
   */
   @property({ type: String, attribute: false })
@@ -223,6 +223,7 @@ export class Select extends ControlElement implements MultiValue {
   /**
   * Construct the menu from data object. Cannot be used with slotted content
   * @type {SelectData | null}
+  * @default null
   */
   @property({ attribute: false })
   public get data (): SelectData | null {
@@ -260,6 +261,7 @@ export class Select extends ControlElement implements MultiValue {
   /**
   * Value of the element
   * @param value Element value
+  * @default -
   */
   @property({ type: String, attribute: false })
   public set value (value: string) {

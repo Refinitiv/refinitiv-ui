@@ -82,7 +82,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   protected readonly defaultTabIndex = null;
 
   /**
-   * Element focus delegation.
+   * (readonly) Element focus delegation.
    * Set to `false` and relies on native focusing.
    */
   public readonly delegatesFocus = false;
@@ -109,6 +109,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   /**
    * The data object, used to render the list.
    * @type {ListData}
+   * @default null
    */
   @property({ attribute: false })
   public get data (): ListData<T> {
@@ -142,6 +143,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Returns the first selected item value.
    * Use `values` when multiple selection mode is enabled.
+   * @default -
    */
   @property({ type: String })
   public get value (): string {
@@ -161,8 +163,10 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   }
 
   /**
-   * Returns a values collection of the currently
+   * (readonly) Returns a values collection of the currently
    * selected item values
+   * @type {string[]}
+   * @default []
    * @readonly
    */
   @property({ type: Array, attribute: false })

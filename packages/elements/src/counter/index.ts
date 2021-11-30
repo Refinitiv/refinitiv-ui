@@ -43,6 +43,7 @@ export class Counter extends BasicElement {
    /**
    * The value of counter as string number
    * @param value counter value
+   * @default -
    */
   @property({ type: String })
    public set value (value: string) {
@@ -65,6 +66,7 @@ export class Counter extends BasicElement {
    * Set maximum counter value.
    * This value will be displayed with suffix `+` if count value is larger than max.
    * @param value counter value
+   * @default -
    */
   @property({ type: String })
   public set max (value: string) {

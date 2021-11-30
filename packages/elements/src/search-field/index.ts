@@ -23,7 +23,7 @@ const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === und
  * @fires error-changed - Dispatched when error state changes
  *
  * @attr {string} value - Input's value
- * @prop {string} [value=] - Input's value
+ * @prop {string} [value=""] - Input's value
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state

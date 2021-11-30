@@ -26,7 +26,7 @@ const isAllWhitespaceTextNode = (node: Node): boolean =>
  * to create simple menus or navigation panels.
  *
  * @attr {string} value - The content of this attribute represents the value of the item.
- * @prop {string} [value=] - The content of this attribute represents the value of the item.
+ * @prop {string} [value=""] - The content of this attribute represents the value of the item.
  *
  * @attr {boolean} disabled - Set disabled state.
  * @prop {boolean} [disabled=false] - Set disabled state.
@@ -101,6 +101,7 @@ export class Item extends ControlElement {
   /**
    * Indicates that the item is selected
    * @param value selected value
+   * @default false
    */
   @property({ type: Boolean, reflect: true })
   public set selected (value: boolean) {
@@ -227,7 +228,7 @@ export class Item extends ControlElement {
   }
 
   /**
-   * Return true if the item can be highlighted. True if not disabled and type is Text
+   * (readonly) Return true if the item can be highlighted. True if not disabled and type is Text
    * @prop {boolean} highlightable
    * @returns whether element is highlightable
    */
@@ -236,7 +237,7 @@ export class Item extends ControlElement {
   }
 
   /**
-   * Getter returning if the label is truncated
+   * (readonly) Getter returning if the label is truncated
    * @prop {boolean} isTruncated
    * @returns whether element is truncated or not
    */

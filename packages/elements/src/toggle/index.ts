@@ -71,6 +71,7 @@ export class Toggle extends ControlElement {
   /**
    * Value of toggle
    * @param value new checked value
+   * @default false
    */
   @property({ type: Boolean, reflect: true })
   public set checked (value: boolean) {

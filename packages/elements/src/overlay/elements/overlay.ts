@@ -278,24 +278,28 @@ export class Overlay extends ResponsiveElement {
 
   /**
    * Set the transition style
+   * @type {TransitionStyle|null|undefined}
    */
   @property({ type: String, reflect: true, attribute: 'transition-style' })
   public transitionStyle: TransitionStyle | NullOrUndefined;
 
   /**
    * Set a preferable z-index to override automatically calculated z-index
+   * @type {number|null|undefined}
    */
   @property({ type: Number, attribute: 'z-index' })
   public zIndex: number | NullOrUndefined;
 
   /**
    * Set a specific x coordinate
+   * @type {number|null|undefined}
    */
   @property({ type: Number, hasChanged: hasNumberChanged })
   public x: number | NullOrUndefined;
 
   /**
    * Set a specific y coordinate
+   * @type {number|null|undefined}
    */
   @property({ type: Number, hasChanged: hasNumberChanged })
   public y: number | NullOrUndefined;
@@ -305,6 +309,7 @@ export class Overlay extends ResponsiveElement {
    * - HTMLElement if overlay is position next to the HTML element
    * - String containing `top`, `right`, `left`, `bottom`, `center` combinations to position against the screen.
    * For instance: `top left` - put the overlay at `top left` point of the screen; `bottom` - put overlay at `bottom center` point of the screen
+   * @type {PositionTarget|null|undefined}
    */
   @property({ attribute: 'position-target' })
   public positionTarget: HTMLElement | PositionTarget | NullOrUndefined;
@@ -487,7 +492,7 @@ export class Overlay extends ResponsiveElement {
   }
 
   /**
-   * Get position target configuration based on positionTarget and fullScreen properties
+   * (readonly) Get position target configuration based on positionTarget and fullScreen properties
    * Used for caching and calculations
    */
   public get positionTargetConfig (): PositionTargetStrategy {
@@ -621,6 +626,7 @@ export class Overlay extends ResponsiveElement {
   /**
    * Set focus boundary to restrict tabbing. Default's overlay itself.
    * If external focus is required, set to null
+   * @default overlay
    */
   public focusBoundary: HTMLElement | ShadowRoot | null = this;
 
@@ -1670,7 +1676,7 @@ export class Overlay extends ResponsiveElement {
   }
 
   /**
-   * Returns true if the overlay is opened and animation is not running.
+   * (readonly) Returns true if the overlay is opened and animation is not running.
    * Returns false if overlay is closed and animation is not running
    * @readonly
    */
@@ -1679,7 +1685,7 @@ export class Overlay extends ResponsiveElement {
   }
 
   /**
-   * Returns true if overlay is doing opening or closing transition
+   * (readonly) Returns true if overlay is doing opening or closing transition
    * @readonly
    */
   public get transitioning (): boolean {

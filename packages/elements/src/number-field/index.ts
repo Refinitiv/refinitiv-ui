@@ -30,9 +30,6 @@ enum Direction {
  * @fires value-changed - Dispatched when value changes
  * @fires error-changed - Dispatched when error state changes
  *
- * @attr {string} value - Input's default value
- * @prop {string} [value=] - Input's value
- *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
  *
@@ -148,6 +145,7 @@ export class NumberField extends ControlElement {
   /**
   * The value of the number entered into the input.
   * @param value number-field value
+  * @default -
   */
   @property({ type: String })
   public set value (value: string) {
@@ -159,7 +157,7 @@ export class NumberField extends ControlElement {
   }
 
   /**
-   * Returns the value of the element, interpreted as double number
+   * (readonly) Returns the value of the element, interpreted as double number
    */
   public get valueAsNumber (): number {
     return this.stringToNumber(this.internalValue);

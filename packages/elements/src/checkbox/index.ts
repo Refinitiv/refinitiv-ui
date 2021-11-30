@@ -76,6 +76,7 @@ export class Checkbox extends ControlElement {
   /**
    * Value of checkbox
    * @param value new checked value
+   * @default false
    */
   @property({ type: Boolean, reflect: true })
   public set checked (value: boolean) {
@@ -100,6 +101,7 @@ export class Checkbox extends ControlElement {
   /**
    * Set state to indeterminate
    * @param value new indeterminate value
+   * @default false
    */
   @property({ type: Boolean, reflect: true })
   public set indeterminate (value: boolean) {
