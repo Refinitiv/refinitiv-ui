@@ -7,8 +7,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -46,8 +44,6 @@
     role="listbox"
   >
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       role="presentation"
       tabindex="-1"
@@ -55,8 +51,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="true"
       highlighted=""
       role="option"
@@ -65,16 +59,12 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       role="option"
       tabindex="0"
@@ -88,8 +78,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -119,6 +107,7 @@
   tabindex="-1"
   with-shadow=""
 >
+
   <ef-list
     aria-disabled="false"
     aria-multiselectable="false"
@@ -127,8 +116,6 @@
     role="listbox"
   >
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       role="presentation"
       tabindex="-1"
@@ -136,24 +123,18 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="true"
       highlighted=""
       role="option"
@@ -169,8 +150,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -208,8 +187,6 @@
     role="listbox"
   >
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       role="presentation"
       tabindex="-1"
@@ -217,8 +194,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       highlighted=""
       role="option"
@@ -226,16 +201,12 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       role="option"
       tabindex="0"
@@ -251,8 +222,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -288,6 +257,7 @@
   tabindex="-1"
   with-shadow=""
 >
+
   <ef-list
     aria-disabled="false"
     aria-multiselectable="true"
@@ -296,8 +266,6 @@
     role="listbox"
   >
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       role="presentation"
@@ -306,8 +274,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="true"
       highlighted=""
       multiple=""
@@ -317,8 +283,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       role="option"
@@ -326,8 +290,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="true"
       multiple=""
       role="option"
@@ -343,8 +305,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -374,6 +334,7 @@
   tabindex="-1"
   with-shadow=""
 >
+
   <ef-list
     aria-disabled="false"
     aria-multiselectable="true"
@@ -382,8 +343,6 @@
     role="listbox"
   >
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       role="presentation"
@@ -392,8 +351,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       role="option"
@@ -401,8 +358,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="true"
       highlighted=""
       multiple=""
@@ -412,8 +367,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       role="option"
@@ -428,8 +381,6 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
     icon=""
     part="input"
     tabindex="0"
@@ -459,6 +410,7 @@
   tabindex="-1"
   with-shadow=""
 >
+
   <ef-list
     aria-disabled="false"
     aria-multiselectable="true"
@@ -467,8 +419,6 @@
     role="listbox"
   >
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       role="presentation"
@@ -477,8 +427,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       highlighted=""
       multiple=""
@@ -487,8 +435,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       role="option"
@@ -496,8 +442,6 @@
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       multiple=""
       role="option"
