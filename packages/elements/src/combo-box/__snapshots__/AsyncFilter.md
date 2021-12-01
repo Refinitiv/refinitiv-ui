@@ -80,9 +80,7 @@
   with-shadow=""
 >
   <ef-list
-    aria-disabled="false"
     aria-multiselectable="false"
-    aria-readonly="false"
     id="internal-list"
     role="listbox"
   >
