@@ -5,7 +5,7 @@ import { Directive, directive, PartType, PartInfo, ElementPart, DirectiveResult 
 import { noChange } from 'lit';
 
 type TemplateMap = { [key: string]: unknown };
-type VariableElement<T> = Element & { [name: string]: T };
+type VariableElement = Element & { [name: string]: unknown };
 type ValueMap = { [key: string]: { value: unknown, scopedValue: unknown } };
 enum MAP_TYPE { ATTRIBUTE, PROPERTY, LISTENER }
 
@@ -67,10 +67,10 @@ const setMapped = (element: Element, name: string, value: unknown, oldValue: unk
       break;
     case MAP_TYPE.PROPERTY:
       if (value === undefined) {
-        delete (element as VariableElement<unknown>)[name];
+        delete (element as VariableElement)[name];
       }
       else {
-        (element as VariableElement<unknown>)[name] = value;
+        (element as VariableElement)[name] = value;
       }
       break;
     case MAP_TYPE.ATTRIBUTE:
