@@ -80,6 +80,8 @@ export class EmailField extends TextField {
   protected shouldValidateInput (changedProperties: PropertyValues): boolean {
     return changedProperties.has('value')
       || changedProperties.has('pattern')
-      || changedProperties.has('minlength');
+      || changedProperties.has('minlength')
+      || changedProperties.has('maxlength')
+      || changedProperties.has('multiple');
   }
 }
