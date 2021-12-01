@@ -228,8 +228,6 @@
   with-shadow=""
 >
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="presentation"
@@ -238,8 +236,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -247,8 +243,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -256,8 +250,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="presentation"
@@ -266,8 +258,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -302,8 +292,6 @@
   with-shadow=""
 >
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="presentation"
@@ -312,8 +300,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -321,8 +307,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -330,8 +314,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="presentation"
@@ -340,8 +322,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -382,8 +362,6 @@
   with-shadow=""
 >
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="presentation"
@@ -392,8 +370,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -401,8 +377,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -410,8 +384,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="presentation"
@@ -420,8 +392,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -460,8 +430,6 @@
   with-shadow=""
 >
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -469,8 +437,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="presentation"
@@ -479,8 +445,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -488,8 +452,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -497,8 +459,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="presentation"
@@ -538,8 +498,6 @@
   with-shadow=""
 >
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -547,8 +505,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="presentation"
@@ -557,8 +513,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -566,8 +520,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="option"
@@ -575,8 +527,6 @@
   >
   </ef-item>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
     aria-selected="false"
     part="item"
     role="presentation"
