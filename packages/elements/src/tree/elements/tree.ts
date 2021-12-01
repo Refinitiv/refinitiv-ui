@@ -37,7 +37,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
     return VERSION;
   }
 
-  protected readonly defaultRole = 'tree';
+  protected readonly defaultRole: string | null = 'tree';
 
   /**
    * Tree manager used for manipulation
@@ -202,6 +202,9 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
       case 'Right':
       case 'ArrowRight':
         this.right();
+        break;
+      case '*':
+        // Expands all closed sibling nodes that are at the same level as the focused node
         break;
       default:
         return super.onKeyDown(event);

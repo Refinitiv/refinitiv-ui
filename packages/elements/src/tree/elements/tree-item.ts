@@ -42,11 +42,29 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   @property({ attribute: false })
   public checkedState: CheckedState = CheckedState.UNCHECKED;
 
+  private _parent = false;
+
   /**
    * Is the item a parent and should it show an expansion toggle?
    */
   @property({ type: Boolean, reflect: true, attribute: 'group' })
-  public parent = false;
+  public get parent (): boolean {
+    return this._parent;
+  }
+  public set parent (value: boolean) {
+    const oldValue = this._parent;
+    if (value !== oldValue) {
+      this._parent = value;
+      this.requestUpdate('parent', oldValue);
+
+      if (value) {
+        this.setAttribute('aria-expanded', String(!!this.expanded));
+      }
+      else {
+        this.removeAttribute('aria-expanded');
+      }
+    }
+  }
 
   /**
    * Display in multiple selection mode
@@ -58,6 +76,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
 
   /**
    * Expanded state of the item
+   * If it is a parent, update aria-expanded
    */
   @property({ type: Boolean })
   public get expanded (): boolean {
@@ -67,22 +86,18 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
     const oldValue = this._expanded;
     if (value !== oldValue) {
       this._expanded = value;
-      this.ariaExpanded = String(value);
       this.requestUpdate('expanded', oldValue);
+
+      if (this.parent) {
+        this.setAttribute('aria-expanded', String(!!value));
+      }
     }
   }
 
   /**
-   * @ignore
-   */
-  @property({ type: String, attribute: 'aria-expanded', reflect: true })
-  public ariaExpanded = String(this.expanded);
-
-
-  /**
    * Depth of the item
    */
-  @property({ reflect: true, type: Number })
+  @property({ type: Number, reflect: true })
   public depth = 0;
 
   /**
@@ -124,10 +139,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    */
   protected get toggleTemplate (): TemplateResult {
     return html`
-    <div
-    expand-toggle
-    part="toggle"
-    style="pointer-events:all;visibility:${this.parent ? 'visible' : 'hidden'}">
+    <div expand-toggle part="toggle" style="pointer-events:all;visibility:${this.parent ? 'visible' : 'hidden'}">
       <ef-icon part="toggle-icon${this.expanded ? ' toggle-icon-expanded' : ''}" icon="right"></ef-icon>
     </div>
     `;
@@ -140,15 +152,17 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
     if (!this.multiple) {
       return emptyTemplate;
     }
+
     return html`
     <ef-checkbox
-    part="checkbox"
-    tabindex="-1"
-    .disabled="${this.disabled}"
-    .readonly="${this.readonly}"
-    .indeterminate="${this.indeterminate}"
-    .checked="${this.checked}"
-    style="pointer-events:none"></ef-checkbox>
+      part="checkbox"
+      tabindex="-1"
+      .disabled="${this.disabled}"
+      .readonly="${this.readonly}"
+      .indeterminate="${this.indeterminate}"
+      .checked="${this.checked}"
+      style="pointer-events:none">
+    </ef-checkbox>
     `;
   }
 
@@ -179,6 +193,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
 
   protected update (changedProperties: PropertyValues): void {
     super.update(changedProperties);
+
     if (changedProperties.has('checkedState')) {
       switch (this.checkedState) {
         case CheckedState.CHECKED:
