@@ -77,11 +77,11 @@ export class EmailField extends TextField {
    * @param changedProperties Properties that has changed
    * @returns True if input should be re-validated
    */
+  /* istanbul ignore next */
   protected shouldValidateInput (changedProperties: PropertyValues): boolean {
+    // TODO: This validation should be refactored
     return changedProperties.has('value')
-      || changedProperties.has('pattern')
-      || changedProperties.has('minlength')
-      || changedProperties.has('maxlength')
-      || changedProperties.has('multiple');
+      || changedProperties.has('multiple')
+      || super.shouldValidateInput(changedProperties);
   }
 }
