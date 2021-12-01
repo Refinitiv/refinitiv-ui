@@ -1,3 +1,4 @@
+import { PropertyValues } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import '../icon/index.js';
@@ -69,5 +70,16 @@ export class EmailField extends TextField {
       'inputmode': 'email',
       'multiple': this.multiple
     };
+  }
+
+  /**
+   * Check if input should be re-validated
+   * @param changedProperties Properties that has changed
+   * @returns True if input should be re-validated
+   */
+  protected shouldValidateInput (changedProperties: PropertyValues): boolean {
+    return changedProperties.has('value')
+      || changedProperties.has('pattern')
+      || changedProperties.has('minlength');
   }
 }
