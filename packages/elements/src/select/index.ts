@@ -337,11 +337,11 @@ export class Select extends ControlElement implements MultiValue {
         this.closing();
       }
 
-      this.setAttribute('aria-expanded', String(this.opened));
+      this.setAttribute('aria-expanded', this.opened ? 'true' : 'false');
     }
 
     if (changedProperties.has('error')) {
-      this.setAttribute('aria-invalid', String(this.error));
+      this.setAttribute('aria-invalid', this.error ? 'true' : 'false');
     }
 
     super.update(changedProperties);
