@@ -649,7 +649,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     super.updated(changedProperties);
 
     if (changedProperties.has('multiple')) {
-      this.setAttribute('aria-multiselectable', String(!!this.multiple));
+      this.setAttribute('aria-multiselectable', this.multiple ? 'true' : 'false');
     }
   }
 
