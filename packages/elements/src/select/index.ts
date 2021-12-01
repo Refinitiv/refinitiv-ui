@@ -186,43 +186,17 @@ export class Select extends ControlElement implements MultiValue {
   @property({ type: String })
   public placeholder = '';
 
-  private _opened = false;
-
   /**
   * Toggles the opened state of the list
-  * @param value opened value
   */
   @property({ type: Boolean, reflect: true })
-  public set opened (value: boolean) {
-    const oldValue = this._opened;
-    if (oldValue !== value) {
-      this._opened = value;
-      this.ariaExpanded = String(!!value);
-      this.requestUpdate('opened', oldValue);
-    }
-  }
-  public get opened (): boolean {
-    return this._opened;
-  }
-
-  private _error = false;
+  public opened = false;
 
   /**
   * Set state to error
-  * @param value error value
   */
   @property({ type: Boolean, reflect: true })
-  public set error (value: boolean) {
-    const oldValue = this._error;
-    if (oldValue !== value) {
-      this._error = value;
-      this.ariaInvalid = String(!!value);
-      this.requestUpdate('error', oldValue);
-    }
-  }
-  public get error (): boolean {
-    return this._error;
-  }
+  public error = false;
 
   /**
   * Set state to warning
@@ -321,30 +295,19 @@ export class Select extends ControlElement implements MultiValue {
     return this.selectedSlotItems.map(item => this.getItemValue(item));
   }
 
-  /**
-   * Aria indicating that select has a popup of type listbox
-   * @ignore
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-haspopup' })
-  public ariaHasPopup = 'listbox';
-
-  /**
-   * Aria indicating open state of listbox popup
-   * @ignore
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-expanded' })
-  public ariaExpanded = String(this.opened);
-
-  /**
-   * Aria indicating open state of listbox popup
-   * @ignore
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-invalid' })
-  public ariaInvalid = String(this.error);
-
-
   @query('#menu')
   private menuEl?: Overlay
+
+  /**
+   * Called when connected to DOM
+   * @returns {void}
+   */
+  public connectedCallback (): void {
+    super.connectedCallback();
+
+    // Indicating that this select has a popup of type listbox
+    this.setAttribute('aria-haspopup', 'listbox');
+  }
 
   /**
    * Updates the element
@@ -366,12 +329,19 @@ export class Select extends ControlElement implements MultiValue {
     }
 
     if (changedProperties.has('opened')) {
+
       if (this.opened) {
         this.opening();
       }
       else {
         this.closing();
       }
+
+      this.setAttribute('aria-expanded', String(this.opened));
+    }
+
+    if (changedProperties.has('error')) {
+      this.setAttribute('aria-invalid', String(this.error));
     }
 
     super.update(changedProperties);
