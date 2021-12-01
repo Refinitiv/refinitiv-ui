@@ -87,9 +87,7 @@ describe('number-field/NumberField', () => {
 
       el.placeholder = PLACEHOLDER_TEXT;
       await elementUpdated(el);
-      expect(el.getAttribute('placeholder')).to.equal(
-        PLACEHOLDER_TEXT
-      );
+      expect(el.getAttribute('placeholder')).to.equal(null);
     });
   });
 
@@ -313,26 +311,26 @@ describe('number-field/NumberField', () => {
   describe('Keyboard Events', () => {
     it('ArrowUp should increase value', async () => {
       const el = await fixture('<ef-number-field value="2"></ef-number-field>');
-      el.inputEl.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(el.value).to.be.equal('3');
     });
     it('ArrowDown should decrease value', async () => {
       const el = await fixture('<ef-number-field value="2"></ef-number-field>');
-      el.inputEl.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(el.value).to.be.equal('1');
     });
     it('ArrowUp/Down should do nothing when disabled', async () => {
       const el = await fixture('<ef-number-field value="2" disabled></ef-number-field>');
-      el.inputEl.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(el.value).to.be.equal('2');
-      el.inputEl.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(el.value).to.be.equal('2');
     });
     it('ArrowUp/Down should do nothing when readonly', async () => {
       const el = await fixture('<ef-number-field value="2" readonly></ef-number-field>');
-      el.inputEl.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(el.value).to.be.equal('2');
-      el.inputEl.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(el.value).to.be.equal('2');
     });
   });
@@ -852,41 +850,6 @@ describe('number-field/NumberField', () => {
       await oneEvent(spinnerDownEl, 'tap');
 
       expect(el.value).to.equal('1.5');
-    });
-  });
-
-  describe('Select', async () => {
-    it('Should select the element', async () => {
-      if (!isIE()) {
-        const el = await fixture('<ef-number-field value="10"></ef-number-field>');
-        const input = el.shadowRoot.querySelector('[part=input]');
-
-        let callCount = 0;
-        input.addEventListener('select', () => {
-          callCount += 1;
-        });
-
-        el.select();
-        await nextFrame();
-
-        expect(callCount).to.equal(1, 'select callback should be called once for enabled element');
-      }
-    });
-    it('Should not select the disabled element', async () => {
-      if (!isIE()) {
-        const el = await fixture('<ef-number-field disabled value="abbr"></ef-number-field>');
-        const input = el.shadowRoot.querySelector('[part=input]');
-
-        let callCount = 0;
-        input.addEventListener('select', () => {
-          callCount += 1;
-        });
-
-        el.select();
-        await nextFrame();
-
-        expect(callCount).to.equal(0, 'select callback should not be called for disabled element');
-      }
     });
   });
 });

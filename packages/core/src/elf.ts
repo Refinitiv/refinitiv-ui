@@ -20,6 +20,7 @@ export type {
 import { BasicElement } from './elements/BasicElement.js';
 export { BasicElement };
 export { ControlElement } from './elements/ControlElement.js';
+export { FormFieldElement } from './elements/FormFieldElement.js';
 export { ResponsiveElement, ElementSize, ResizeEvent } from './elements/ResponsiveElement.js';
 export class LitElement extends BasicElement {
   constructor () {
