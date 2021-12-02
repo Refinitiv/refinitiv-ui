@@ -7,8 +7,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -76,8 +76,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -145,8 +145,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -215,8 +215,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -295,8 +295,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -368,8 +368,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
