@@ -13,9 +13,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous month"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -26,8 +24,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select year"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -37,9 +33,7 @@
     April 2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next month"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -669,6 +663,7 @@
   <slot name="footer">
   </slot>
 </div>
+
 ```
 
 ```html
@@ -680,9 +675,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous year"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -693,8 +686,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select date"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -704,9 +695,7 @@
     2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next year"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -961,6 +950,7 @@
   <slot name="footer">
   </slot>
 </div>
+
 ```
 
 ```html
@@ -972,9 +962,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous decade"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -985,8 +973,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select date"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -996,9 +982,7 @@
     2000 - 2015
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next decade"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -1249,1337 +1233,6 @@
   <slot name="footer">
   </slot>
 </div>
-```
-
-```html
-<div
-  aria-label="Selected none. Choose date"
-  aria-live="polite"
-  part="aria-selection"
->
-</div>
-<div part="navigation">
-  <ef-button
-    aria-disabled="false"
-    aria-label="Previous month"
-    aria-readonly="false"
-    empty=""
-    icon="left"
-    part="btn-prev"
-    role="button"
-    tabindex="0"
-    textpos="after"
-  >
-  </ef-button>
-  <ef-button
-    aria-description="Click to select year"
-    aria-disabled="false"
-    aria-readonly="false"
-    icon="down"
-    part="btn-view"
-    role="button"
-    tabindex="0"
-    textpos="before"
-  >
-    April 2005
-  </ef-button>
-  <ef-button
-    aria-disabled="false"
-    aria-label="Next month"
-    aria-readonly="false"
-    empty=""
-    icon="right"
-    part="btn-next"
-    role="button"
-    tabindex="0"
-    textpos="after"
-  >
-  </ef-button>
-</div>
-<div
-  part="table"
-  role="grid"
->
-  <div
-    part="row day-name-row"
-    role="row"
-  >
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Monday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          M
-        </span>
-      </div>
-    </div>
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Tuesday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          T
-        </span>
-      </div>
-    </div>
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Wednesday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          W
-        </span>
-      </div>
-    </div>
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Thursday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          T
-        </span>
-      </div>
-    </div>
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Friday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          F
-        </span>
-      </div>
-    </div>
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Saturday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          S
-        </span>
-      </div>
-    </div>
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Sunday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          S
-        </span>
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      first-date=""
-      part="cell day"
-      role="gridcell"
-      tabindex="0"
-    >
-      <div
-        aria-label="Friday, 1 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        1
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Saturday, 2 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        2
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Sunday, 3 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        3
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Monday, 4 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        4
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Tuesday, 5 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        5
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Wednesday, 6 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        6
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Thursday, 7 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        7
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Friday, 8 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        8
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Saturday, 9 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        9
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Sunday, 10 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        10
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Monday, 11 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        11
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Tuesday, 12 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        12
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Wednesday, 13 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        13
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Thursday, 14 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        14
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Friday, 15 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        15
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Saturday, 16 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        16
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Sunday, 17 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        17
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Monday, 18 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        18
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Tuesday, 19 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        19
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Wednesday, 20 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        20
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Thursday, 21 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        21
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Friday, 22 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        22
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Saturday, 23 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        23
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Sunday, 24 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        24
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Monday, 25 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        25
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Tuesday, 26 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        26
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Wednesday, 27 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        27
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Thursday, 28 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        28
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Friday, 29 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        29
-      </div>
-    </div>
-    <div
-      last-date=""
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Saturday, 30 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        30
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-  </div>
-</div>
-<div part="footer">
-  <slot name="footer">
-  </slot>
-</div>
-
-```
-
-```html
-<div
-  aria-label="Selected none. Choose date"
-  aria-live="polite"
-  part="aria-selection"
->
-</div>
-<div part="navigation">
-  <ef-button
-    aria-disabled="false"
-    aria-label="Previous month"
-    aria-readonly="false"
-    empty=""
-    icon="left"
-    part="btn-prev"
-    role="button"
-    tabindex="0"
-    textpos="after"
-  >
-  </ef-button>
-  <ef-button
-    aria-description="Click to select year"
-    aria-disabled="false"
-    aria-readonly="false"
-    icon="down"
-    part="btn-view"
-    role="button"
-    tabindex="0"
-    textpos="before"
-  >
-    April 2005
-  </ef-button>
-  <ef-button
-    aria-disabled="false"
-    aria-label="Next month"
-    aria-readonly="false"
-    empty=""
-    icon="right"
-    part="btn-next"
-    role="button"
-    tabindex="0"
-    textpos="after"
-  >
-  </ef-button>
-</div>
-<div
-  part="table"
-  role="grid"
->
-  <div
-    part="row day-name-row"
-    role="row"
-  >
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Monday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          M
-        </span>
-      </div>
-    </div>
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Tuesday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          T
-        </span>
-      </div>
-    </div>
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Wednesday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          W
-        </span>
-      </div>
-    </div>
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Thursday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          T
-        </span>
-      </div>
-    </div>
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Friday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          F
-        </span>
-      </div>
-    </div>
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Saturday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          S
-        </span>
-      </div>
-    </div>
-    <div
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div
-        aria-label="Sunday"
-        part="cell-content"
-      >
-        <span aria-hidden="true">
-          S
-        </span>
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      first-date=""
-      part="cell day"
-      role="gridcell"
-      tabindex="0"
-    >
-      <div
-        aria-label="Friday, 1 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        1
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Saturday, 2 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        2
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Sunday, 3 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        3
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Monday, 4 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        4
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Tuesday, 5 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        5
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Wednesday, 6 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        6
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Thursday, 7 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        7
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Friday, 8 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        8
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Saturday, 9 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        9
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Sunday, 10 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        10
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Monday, 11 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        11
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Tuesday, 12 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        12
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Wednesday, 13 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        13
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Thursday, 14 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        14
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Friday, 15 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        15
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Saturday, 16 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        16
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Sunday, 17 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        17
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Monday, 18 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        18
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Tuesday, 19 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        19
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Wednesday, 20 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        20
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Thursday, 21 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        21
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Friday, 22 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        22
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Saturday, 23 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        23
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Sunday, 24 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        24
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Monday, 25 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        25
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Tuesday, 26 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        26
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Wednesday, 27 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        27
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Thursday, 28 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        28
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Friday, 29 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        29
-      </div>
-    </div>
-    <div
-      last-date=""
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Saturday, 30 April 2005"
-        part="cell-content selection"
-        role="button"
-      >
-        30
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-  </div>
-</div>
-<div part="footer">
-  <slot name="footer">
-  </slot>
-</div>
 
 ```
 
@@ -2594,9 +1247,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous month"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -2607,20 +1258,16 @@
   </ef-button>
   <ef-button
     aria-description="Click to select year"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
     tabindex="0"
     textpos="before"
   >
-    November 2021
+    December 2021
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next month"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -2742,13 +1389,27 @@
     role="row"
   >
     <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
       first-date=""
       part="cell day"
       role="gridcell"
       tabindex="-1"
     >
       <div
-        aria-label="Monday, 1 November 2021"
+        aria-label="Wednesday, 1 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2758,10 +1419,11 @@
     <div
       part="cell day"
       role="gridcell"
-      tabindex="-1"
+      tabindex="0"
+      today=""
     >
       <div
-        aria-label="Tuesday, 2 November 2021"
+        aria-label="Today, Thursday, 2 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2774,7 +1436,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Wednesday, 3 November 2021"
+        aria-label="Friday, 3 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2787,7 +1449,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Thursday, 4 November 2021"
+        aria-label="Saturday, 4 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2800,20 +1462,25 @@
       tabindex="-1"
     >
       <div
-        aria-label="Friday, 5 November 2021"
+        aria-label="Sunday, 5 December 2021"
         part="cell-content selection"
         role="button"
       >
         5
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       part="cell day"
       role="gridcell"
       tabindex="-1"
     >
       <div
-        aria-label="Saturday, 6 November 2021"
+        aria-label="Monday, 6 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2826,25 +1493,20 @@
       tabindex="-1"
     >
       <div
-        aria-label="Sunday, 7 November 2021"
+        aria-label="Tuesday, 7 December 2021"
         part="cell-content selection"
         role="button"
       >
         7
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       part="cell day"
       role="gridcell"
       tabindex="-1"
     >
       <div
-        aria-label="Monday, 8 November 2021"
+        aria-label="Wednesday, 8 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2857,7 +1519,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Tuesday, 9 November 2021"
+        aria-label="Thursday, 9 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2870,7 +1532,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Wednesday, 10 November 2021"
+        aria-label="Friday, 10 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2883,7 +1545,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Thursday, 11 November 2021"
+        aria-label="Saturday, 11 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2896,20 +1558,25 @@
       tabindex="-1"
     >
       <div
-        aria-label="Friday, 12 November 2021"
+        aria-label="Sunday, 12 December 2021"
         part="cell-content selection"
         role="button"
       >
         12
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       part="cell day"
       role="gridcell"
       tabindex="-1"
     >
       <div
-        aria-label="Saturday, 13 November 2021"
+        aria-label="Monday, 13 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2922,25 +1589,20 @@
       tabindex="-1"
     >
       <div
-        aria-label="Sunday, 14 November 2021"
+        aria-label="Tuesday, 14 December 2021"
         part="cell-content selection"
         role="button"
       >
         14
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       part="cell day"
       role="gridcell"
       tabindex="-1"
     >
       <div
-        aria-label="Monday, 15 November 2021"
+        aria-label="Wednesday, 15 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2953,7 +1615,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Tuesday, 16 November 2021"
+        aria-label="Thursday, 16 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2966,7 +1628,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Wednesday, 17 November 2021"
+        aria-label="Friday, 17 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2979,7 +1641,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Thursday, 18 November 2021"
+        aria-label="Saturday, 18 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -2992,20 +1654,25 @@
       tabindex="-1"
     >
       <div
-        aria-label="Friday, 19 November 2021"
+        aria-label="Sunday, 19 December 2021"
         part="cell-content selection"
         role="button"
       >
         19
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       part="cell day"
       role="gridcell"
       tabindex="-1"
     >
       <div
-        aria-label="Saturday, 20 November 2021"
+        aria-label="Monday, 20 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -3018,25 +1685,20 @@
       tabindex="-1"
     >
       <div
-        aria-label="Sunday, 21 November 2021"
+        aria-label="Tuesday, 21 December 2021"
         part="cell-content selection"
         role="button"
       >
         21
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       part="cell day"
       role="gridcell"
       tabindex="-1"
     >
       <div
-        aria-label="Monday, 22 November 2021"
+        aria-label="Wednesday, 22 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -3049,7 +1711,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Tuesday, 23 November 2021"
+        aria-label="Thursday, 23 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -3062,7 +1724,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Wednesday, 24 November 2021"
+        aria-label="Friday, 24 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -3075,7 +1737,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Thursday, 25 November 2021"
+        aria-label="Saturday, 25 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -3088,20 +1750,25 @@
       tabindex="-1"
     >
       <div
-        aria-label="Friday, 26 November 2021"
+        aria-label="Sunday, 26 December 2021"
         part="cell-content selection"
         role="button"
       >
         26
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       part="cell day"
       role="gridcell"
       tabindex="-1"
     >
       <div
-        aria-label="Saturday, 27 November 2021"
+        aria-label="Monday, 27 December 2021"
         part="cell-content selection"
         role="button"
       >
@@ -3114,30 +1781,37 @@
       tabindex="-1"
     >
       <div
-        aria-label="Sunday, 28 November 2021"
+        aria-label="Tuesday, 28 December 2021"
         part="cell-content selection"
         role="button"
       >
         28
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       part="cell day"
       role="gridcell"
-      tabindex="0"
-      today=""
+      tabindex="-1"
     >
       <div
-        aria-label="Today, Monday, 29 November 2021"
+        aria-label="Wednesday, 29 December 2021"
         part="cell-content selection"
         role="button"
       >
         29
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+      tabindex="-1"
+    >
+      <div
+        aria-label="Thursday, 30 December 2021"
+        part="cell-content selection"
+        role="button"
+      >
+        30
       </div>
     </div>
     <div
@@ -3147,32 +1821,11 @@
       tabindex="-1"
     >
       <div
-        aria-label="Tuesday, 30 November 2021"
+        aria-label="Friday, 31 December 2021"
         part="cell-content selection"
         role="button"
       >
-        30
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
+        31
       </div>
     </div>
     <div
@@ -3249,6 +1902,7 @@
   <slot name="footer">
   </slot>
 </div>
+
 ```
 
 ####   `AD/BC selected value should be highlighted`
@@ -3262,9 +1916,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous month"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -3275,8 +1927,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select year"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -3286,9 +1936,7 @@
     April 12 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next month"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -3918,6 +2566,7 @@
   <slot name="footer">
   </slot>
 </div>
+
 ```
 
 ```html
@@ -3929,9 +2578,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous year"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -3942,8 +2589,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select date"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -3953,9 +2598,7 @@
     12 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next year"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -4210,6 +2853,7 @@
   <slot name="footer">
   </slot>
 </div>
+
 ```
 
 ```html
@@ -4221,9 +2865,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous decade"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -4234,8 +2876,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select date"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -4245,9 +2885,7 @@
     17 BC - 2 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next decade"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -4498,6 +3136,7 @@
   <slot name="footer">
   </slot>
 </div>
+
 ```
 
 ## `Navigation Value`
@@ -4513,9 +3152,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous month"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -4526,8 +3163,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select year"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -4537,9 +3172,7 @@
     April 2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next month"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -5169,6 +3802,7 @@
   <slot name="footer">
   </slot>
 </div>
+
 ```
 
 ```html
@@ -5180,9 +3814,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous month"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -5193,8 +3825,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select year"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -5204,9 +3834,7 @@
     April 2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next month"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -5836,6 +4464,7 @@
   <slot name="footer">
   </slot>
 </div>
+
 ```
 
 ####   `AD/BC It should be possible to select value on click`
@@ -5849,9 +4478,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous month"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -5862,8 +4489,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select year"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -5873,9 +4498,7 @@
     April 12 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next month"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -6505,6 +5128,7 @@
   <slot name="footer">
   </slot>
 </div>
+
 ```
 
 ```html
@@ -6516,9 +5140,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous month"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -6529,8 +5151,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select year"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -6540,9 +5160,7 @@
     April 12 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next month"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -7172,5 +5790,6 @@
   <slot name="footer">
   </slot>
 </div>
+
 ```
 

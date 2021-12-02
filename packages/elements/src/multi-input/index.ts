@@ -106,6 +106,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * Array of item's values ( readonly )
    * @readonly
    * @type {string[]}
+   * @default []
    */
   @property({ attribute: false })
   public get values (): string[] {
@@ -156,6 +157,7 @@ export class MultiInput extends ControlElement implements MultiValue {
 
   /**
    * Selection start index
+   * @default null
    */
   @property({ type: Number, attribute: false })
   public get selectionStart (): number | null {
@@ -173,6 +175,7 @@ export class MultiInput extends ControlElement implements MultiValue {
 
   /**
    * Selection end index
+   * @default null
    */
   @property({ type: Number, attribute: false })
   public get selectionEnd (): number | null {
@@ -191,6 +194,7 @@ export class MultiInput extends ControlElement implements MultiValue {
   /**
    * The data object, used to render the list.
    * @type {MultiInputData | null}
+   * @default null
    */
   @property({ attribute: false })
   public get data (): MultiInputData | null {

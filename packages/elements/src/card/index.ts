@@ -83,6 +83,8 @@ export class Card extends BasicElement {
 
   /**
    * Set card configurations
+   * @type {CardConfig}
+   * @default {}
    */
   @property({ type: Object, attribute: false })
   public get config (): CardConfig {

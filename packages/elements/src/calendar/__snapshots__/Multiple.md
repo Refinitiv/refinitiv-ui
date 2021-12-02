@@ -13,9 +13,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous month"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -26,8 +24,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select year"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -37,9 +33,7 @@
     April 2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next month"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -683,9 +677,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous year"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -696,8 +688,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select date"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -707,9 +697,7 @@
     2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next year"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -976,9 +964,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous decade"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -989,8 +975,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select date"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -1000,9 +984,7 @@
     2000 - 2015
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next decade"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -1269,9 +1251,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
     aria-label="Previous month"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -1282,8 +1262,6 @@
   </ef-button>
   <ef-button
     aria-description="Click to select year"
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -1293,9 +1271,7 @@
     April 2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
     aria-label="Next month"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"

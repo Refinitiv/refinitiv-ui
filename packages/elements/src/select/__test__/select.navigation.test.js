@@ -106,6 +106,24 @@ describe('select/Navigation', () => {
         shiftKey: true
       });
     });
+    it('Options: Home key', async () => {
+      const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
+      await iterate(el, el, ['Tab', 'Tab', 'Home'], [1, 2, 1]);
+    });
+    it('Data: Home key', async () => {
+      const el = await fixture('<ef-select opened></ef-select>');
+      el.data = getData();
+      await iterate(el, el.menuEl, ['Tab', 'Tab', 'Home'], [1, 2, 1]);
+    });
+    it('Options: End key', async () => {
+      const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
+      await iterate(el, el, ['End'], [4]);
+    });
+    it('Data: End key', async () => {
+      const el = await fixture('<ef-select opened></ef-select>');
+      el.data = getData();
+      await iterate(el, el.menuEl, ['End'], [4]);
+    });
   });
 
   describe('Mouse Interaction', () => {

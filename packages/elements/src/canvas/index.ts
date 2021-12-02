@@ -72,6 +72,7 @@ export class Canvas extends ResponsiveElement {
   /**
    * Starts an automatic animation loop.
    * Enabling the frame event.
+   * @default false
    */
   @property({ type: Boolean, reflect: true })
   get autoloop (): boolean {

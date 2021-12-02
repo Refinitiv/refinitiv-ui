@@ -30,15 +30,17 @@ export class Sparkline extends ResponsiveElement {
 
   /**
    * Chart data as an array of number.
+   * @type {number[]}
    */
   @property({ type: Array })
   public data: number[] = [];
 
   /**
    * Chart previous data as an array of number.
+   * @type {number[]}
    */
   @property({ attribute: 'previous-data', type: Array })
-  public previousData = [];
+  public previousData: number[] = [];
 
   /**
    * Baseline value to show horizontal line (optional)

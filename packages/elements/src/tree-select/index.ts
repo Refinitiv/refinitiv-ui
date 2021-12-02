@@ -42,8 +42,8 @@ const POPUP_POSITION = ['bottom-start', 'top-start'];
  * @attr {boolean} [opened=false] - Set dropdown to open
  * @prop {boolean} [opened=false] - Set dropdown to open
  * @attr {string} placeholder - Set placeholder text
- * @prop {string} placeholder - Set placeholder text
- * @prop {TreeSelectData[]} data - Data object to be used for creating tree
+ * @prop {string} [placeholder=""] - Set placeholder text
+ * @prop {TreeSelectData[]} [data=[]] - Data object to be used for creating tree
  * @fires confirm - Fired when selection is confirmed
  * @fires cancel - Fired when selection is cancelled
  * @fires query-changed - Fired when query in input box changed
@@ -193,6 +193,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Returns a values collection of the currently
    * selected item values
    * @type {string[]}
+   * @default []
    */
   @property({ type: Array, attribute: false })
   public get values (): string[] {
