@@ -95,6 +95,7 @@ export class TimePicker extends ControlElement {
   /**
    * Hours time segment in 24hr format
    * @param hours hours value
+   * @default null
    * @returns {void}
    */
   @property({ type: Number })
@@ -122,6 +123,7 @@ export class TimePicker extends ControlElement {
   /**
    * Minutes time segment
    * @param minutes minutes value
+   * @default null
    * @returns {void}
    */
   @property({ type: Number })
@@ -147,6 +149,7 @@ export class TimePicker extends ControlElement {
   /**
    * Seconds time segment
    * @param seconds seconds value
+   * @default null
    * @returns {void}
    */
   @property({ type: Number })

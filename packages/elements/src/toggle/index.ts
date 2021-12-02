@@ -44,7 +44,7 @@ export class Toggle extends ControlElement {
     return VERSION;
   }
 
-  protected readonly defaultRole = 'switch';
+  protected readonly defaultRole: string | null = 'switch';
 
   /**
    * Label of toggle checked
@@ -71,6 +71,7 @@ export class Toggle extends ControlElement {
   /**
    * Value of toggle
    * @param value new checked value
+   * @default false
    */
   @property({ type: Boolean, reflect: true })
   public set checked (value: boolean) {

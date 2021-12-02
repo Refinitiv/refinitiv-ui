@@ -409,6 +409,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * Selected items in tree
    * @override
    * @type {string[]}
+   * @default []
    */
   public get values (): string[] {
     return this.manager.checkedItems.map(item => {

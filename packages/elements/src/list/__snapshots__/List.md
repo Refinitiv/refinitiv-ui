@@ -4,9 +4,7 @@
 
 ```html
 <ef-list
-  aria-disabled="false"
   aria-multiselectable="false"
-  aria-readonly="false"
   role="listbox"
 >
 </ef-list>
@@ -23,9 +21,7 @@
 
 ```html
 <ef-list
-  aria-disabled="false"
   aria-multiselectable="false"
-  aria-readonly="false"
   role="listbox"
 >
 </ef-list>
@@ -42,9 +38,7 @@
 
 ```html
 <ef-list
-  aria-disabled="false"
   aria-multiselectable="false"
-  aria-readonly="false"
   role="listbox"
 >
 </ef-list>
@@ -61,9 +55,7 @@
 
 ```html
 <ef-list
-  aria-disabled="false"
   aria-multiselectable="false"
-  aria-readonly="false"
   role="listbox"
 >
 </ef-list>

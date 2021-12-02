@@ -247,8 +247,6 @@
 <div part="left">
   <ef-checkbox
     aria-checked="false"
-    aria-disabled="false"
-    aria-readonly="false"
     part="checkbox"
     role="checkbox"
     tabindex="-1"
@@ -275,8 +273,6 @@
 <div part="left">
   <ef-checkbox
     aria-checked="true"
-    aria-disabled="false"
-    aria-readonly="false"
     checked=""
     part="checkbox"
     role="checkbox"

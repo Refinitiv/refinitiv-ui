@@ -158,6 +158,7 @@ const analyze = (file, type) => {
       // WORKAROUND: Modify meta data of properties/attributes to make it fit with api reference tables of "elf-docs"
       declaration.members.forEach(member => {
         let { propName, attrName, kind } = member;
+
         // Convert default value of properties to theirs actual type
         if(member.default === 'null') {
           member.default = null;
@@ -165,6 +166,13 @@ const analyze = (file, type) => {
         else if(member.default === '[]') {
           member.default = [];
         }
+        else if(member.default === 'true' || member.default === 'false') {
+          member.default = member.default === 'true';
+        }
+        else if(member.default === '{}') {
+          member.default = {};
+        }
+
         // Merge attributes that defined by JSDOC to properties table
         if(propName && !attrName) {
           propCollection[propName] = member;
@@ -177,6 +185,7 @@ const analyze = (file, type) => {
         }
         // Remove readonly modifier of properties from meta data
         if(member.modifiers && member.modifiers.has('readonly')) {
+          member.propName = member.propName + ' (readonly)';
           member.modifiers.delete('readonly');
         }
       })

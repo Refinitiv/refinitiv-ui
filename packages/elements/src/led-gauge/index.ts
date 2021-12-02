@@ -120,6 +120,7 @@ export class LedGauge extends BasicElement {
 
   /**
    * Value of range. eg [-20, 70]
+   * @type {number[]}
    */
   @property({ type: Array })
   public range: number[] = [];
