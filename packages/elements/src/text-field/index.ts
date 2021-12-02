@@ -31,7 +31,7 @@ const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === und
  * @prop {boolean} [error=false] - Set error state
  *
  * @attr {string} placeholder - Set placeholder text
- * @prop {string} [placeholder=] - Set placeholder text
+ * @prop {string} [placeholder=""] - Set placeholder text
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
@@ -43,7 +43,7 @@ const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === und
  * @prop {boolean} [warning=false] - Set warning state
  *
  * @attr {string} value - Input's value
- * @prop {string} [value=] - Input's value
+ * @prop {string} [value=""] - Input's value
  */
 @customElement('ef-text-field', {
   alias: 'coral-text-field'

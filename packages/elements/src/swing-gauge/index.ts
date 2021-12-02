@@ -189,7 +189,8 @@ export class SwingGauge extends ResponsiveElement {
   public secondaryLegend = '';
 
   /**
-   * Custome value formatter
+   * Custom value formatter
+   * @type {SwingGaugeValueFormatter}
    */
   @property({ type: Function, attribute: false })
   public valueFormatter: SwingGaugeValueFormatter = this.defaultValueFormatter;
@@ -321,6 +322,7 @@ export class SwingGauge extends ResponsiveElement {
 
   /**
    * Getter size of component
+   * @type {SwingGaugeCanvasSize}
    * @returns return size of canvas
    */
   public get canvasSize (): SwingGaugeCanvasSize {
