@@ -4,7 +4,7 @@ import '@refinitiv-ui/elements/number-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
 
 const dispatchInputEvent = (el, input = '') => {
-  el.inputEl.dispatchEvent(new Event('input', {
+  el.inputElement.dispatchEvent(new Event('input', {
     data: input
   }));
 };

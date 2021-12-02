@@ -4,8 +4,8 @@
 
 ```html
 <ef-list
-  aria-disabled="false"
-  aria-readonly="false"
+  aria-multiselectable="false"
+  role="listbox"
 >
 </ef-list>
 
@@ -21,8 +21,8 @@
 
 ```html
 <ef-list
-  aria-disabled="false"
-  aria-readonly="false"
+  aria-multiselectable="false"
+  role="listbox"
 >
 </ef-list>
 
@@ -38,8 +38,8 @@
 
 ```html
 <ef-list
-  aria-disabled="false"
-  aria-readonly="false"
+  aria-multiselectable="false"
+  role="listbox"
 >
 </ef-list>
 
@@ -55,8 +55,8 @@
 
 ```html
 <ef-list
-  aria-disabled="false"
-  aria-readonly="false"
+  aria-multiselectable="false"
+  role="listbox"
 >
 </ef-list>
 

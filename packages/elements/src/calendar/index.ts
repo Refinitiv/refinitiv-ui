@@ -259,6 +259,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * 0 - for Sunday, 6 - for Saturday
    * @param firstDayOfWeek The first day of the week
    * @type {number | null}
+   * @default null
    */
   @property({ type: Number, attribute: 'first-day-of-week' })
   public set firstDayOfWeek (firstDayOfWeek: number) {
@@ -303,6 +304,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * Set multiple selected values
    * @param values Values to set
    * @type {string[]}
+   * @default []
    */
   @property({
     converter: {

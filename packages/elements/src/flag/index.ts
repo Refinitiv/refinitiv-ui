@@ -64,6 +64,7 @@ export class Flag extends BasicElement {
   /**
    * Name of a known flag to render.
    * @example gb
+   * @default null
    */
   @property({ type: String })
   public get flag (): string | null {
@@ -81,6 +82,7 @@ export class Flag extends BasicElement {
   /**
    * Src location of an svg flag.
    * @example https://cdn.io/flags/gb.svg
+   * @default null
    */
   @property({ type: String })
   public get src (): string | null {

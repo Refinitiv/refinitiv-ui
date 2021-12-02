@@ -7,10 +7,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >

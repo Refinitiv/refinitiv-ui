@@ -74,11 +74,6 @@ describe('TestControlElement', () => {
         const el = await fixture('<control-element-test></control-element-test>');
 
         expect(el.disabled).to.equal(false, 'property "disabled" should be false by default');
-        expect(el.getAttribute('disabled')).to.equal(null, 'attribute "disabled" should equal null by default');
-        expect(el.hasAttribute('disabled')).to.equal(false, 'attribute "disabled" should not be exists by default');
-
-        expect(el.hasAttribute('aria-disabled')).to.equal(true, 'attribute "aria-disabled" should be present');
-        expect(el.getAttribute('aria-disabled')).to.equal('false', 'by default "aria-disabled" should be false');
 
         el.setAttribute('disabled', '');
         await elementUpdated(el);
@@ -99,11 +94,6 @@ describe('TestControlElement', () => {
         await elementUpdated(el);
 
         expect(el.disabled).to.equal(false, 'property "disabled" need to be set false');
-        expect(el.getAttribute('disabled')).to.equal(null, 'property "disabled" should reflected');
-        expect(el.hasAttribute('disabled')).to.equal(false, 'property "disabled" should reflected');
-
-        expect(el.hasAttribute('aria-disabled')).to.equal(true, 'attribute "aria-disabled" should be present');
-        expect(el.getAttribute('aria-disabled')).to.equal('false', '"aria-disabled" should be false');
 
         expect(el.tabIndex).to.equal(0, 'property tabIndex should be changed to 0 (default property value) if element enabled');
         expect(el.getAttribute('tabindex')).to.equal('0', 'attribute "tabindex" should be changed to "0" (default attribute value) if element disabled');
@@ -131,11 +121,6 @@ describe('TestControlElement', () => {
         const el = await fixture('<control-element-test></control-element-test>');
 
         expect(el.readonly).to.equal(false, 'property "readonly" should be false by default');
-        expect(el.getAttribute('readonly')).to.equal(null, 'attribute "readonly" should equal null by default');
-        expect(el.hasAttribute('readonly')).to.equal(false, 'attribute "readonly" should not be exists by default');
-
-        expect(el.hasAttribute('aria-readonly')).to.equal(true, 'attribute "aria-readonly" should be present');
-        expect(el.getAttribute('aria-readonly')).to.equal('false', '"aria-readonly" should be false');
 
         el.setAttribute('readonly', '');
         await elementUpdated(el);
@@ -151,13 +136,6 @@ describe('TestControlElement', () => {
         await elementUpdated(el);
 
         expect(el.readonly).to.equal(false, 'property "readonly" need to be set false');
-        expect(el.getAttribute('readonly')).to.equal(null, 'property "readonly" should reflected');
-        expect(el.hasAttribute('readonly')).to.equal(false, 'property "readonly" should reflected');
-
-        expect(el.hasAttribute('aria-readonly')).to.equal(true, 'attribute "aria-readonly" should be present');
-        expect(el.getAttribute('aria-readonly')).to.equal('false', '"aria-readonly" should be false');
-
-        expect(el.getAttribute('aria-readonly')).to.equal('false', 'attribute "aria-readonly" should equal "false" by default');
       });
 
       it('Should have correct property and attribute "readonly"', async () => {

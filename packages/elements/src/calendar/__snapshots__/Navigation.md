@@ -7,8 +7,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -18,8 +16,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -29,8 +25,6 @@
     February 2020
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -387,8 +381,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -398,8 +390,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -409,8 +399,6 @@
     January 2020
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -775,8 +763,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -786,8 +772,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -797,8 +781,6 @@
     December 2019
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -1165,8 +1147,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -1176,8 +1156,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -1187,8 +1165,6 @@
     November 2019
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -1549,8 +1525,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -1560,8 +1534,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -1571,8 +1543,6 @@
     December 2019
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -1937,8 +1907,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -1948,8 +1916,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -1959,8 +1925,6 @@
     January 2020
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -2329,8 +2293,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -2340,8 +2302,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -2351,8 +2311,6 @@
     February 1
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -2705,8 +2663,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -2716,8 +2672,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -2727,8 +2681,6 @@
     January 1
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -3093,8 +3045,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -3104,8 +3054,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -3115,8 +3063,6 @@
     December 1 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -3483,8 +3429,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -3494,8 +3438,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -3505,8 +3447,6 @@
     November 2 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -3867,8 +3807,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -3878,8 +3816,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -3889,8 +3825,6 @@
     December 2 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -4255,8 +4189,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -4266,8 +4198,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -4277,8 +4207,6 @@
     January 1 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -4647,8 +4575,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -4658,8 +4584,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -4669,8 +4593,6 @@
     2019
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -4834,8 +4756,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -4845,8 +4765,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -4856,8 +4774,6 @@
     2018
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -5021,8 +4937,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -5032,8 +4946,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -5043,8 +4955,6 @@
     2017
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -5210,8 +5120,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -5221,8 +5129,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -5232,8 +5138,6 @@
     2017
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -5397,8 +5301,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -5408,8 +5310,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -5419,8 +5319,6 @@
     2018
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -5584,8 +5482,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -5595,8 +5491,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -5606,8 +5500,6 @@
     2019
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -5775,8 +5667,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -5786,8 +5676,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -5797,8 +5685,6 @@
     1
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -5962,8 +5848,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -5973,8 +5857,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -5984,8 +5866,6 @@
     1 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -6149,8 +6029,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -6160,8 +6038,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -6171,8 +6047,6 @@
     2 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -6338,8 +6212,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -6349,8 +6221,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -6360,8 +6230,6 @@
     2 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -6525,8 +6393,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -6536,8 +6402,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -6547,8 +6411,6 @@
     1 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -6712,8 +6574,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -6723,8 +6583,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -6734,8 +6592,6 @@
     1
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -6903,8 +6759,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -6914,8 +6768,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -6925,8 +6777,6 @@
     1968 - 1983
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -7086,8 +6936,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -7097,8 +6945,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -7108,8 +6954,6 @@
     1952 - 1967
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -7269,8 +7113,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -7280,8 +7122,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -7291,8 +7131,6 @@
     1936 - 1951
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -7454,8 +7292,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -7465,8 +7301,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -7476,8 +7310,6 @@
     1888 - 1903
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -7637,8 +7469,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -7648,8 +7478,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -7659,8 +7487,6 @@
     1904 - 1919
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -7820,8 +7646,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -7831,8 +7655,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -7842,8 +7664,6 @@
     1920 - 1935
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -8007,8 +7827,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -8018,8 +7836,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -8029,8 +7845,6 @@
     16 - 31
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -8190,8 +8004,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -8201,8 +8013,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -8212,8 +8022,6 @@
     1 BC - 15
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -8373,8 +8181,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -8384,8 +8190,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -8395,8 +8199,6 @@
     17 BC - 2 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -8558,8 +8360,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -8569,8 +8369,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -8580,8 +8378,6 @@
     17 BC - 2 BC
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -8741,8 +8537,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -8752,8 +8546,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -8763,8 +8555,6 @@
     1 BC - 15
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -8924,8 +8714,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -8935,8 +8723,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -8946,8 +8732,6 @@
     16 - 31
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -9111,8 +8895,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -9122,8 +8904,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -9133,8 +8913,6 @@
     April 2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -9495,8 +9273,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -9506,8 +9282,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -9517,8 +9291,6 @@
     2000 - 2015
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -9678,8 +9450,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -9689,8 +9459,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -9700,8 +9468,6 @@
     April 2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -10062,8 +9828,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -10073,8 +9837,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -10084,8 +9846,6 @@
     2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -10249,8 +10009,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -10260,8 +10018,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -10271,8 +10027,6 @@
     April 2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -10637,8 +10391,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -10648,8 +10400,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -10659,8 +10409,6 @@
     2000 - 2015
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -10820,8 +10568,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -10831,8 +10577,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -10842,8 +10586,6 @@
     2001
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -11007,8 +10749,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -11018,8 +10758,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -11029,8 +10767,6 @@
     2001
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -11196,8 +10932,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -11207,8 +10941,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -11218,8 +10950,6 @@
     2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -11385,8 +11115,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -11396,8 +11124,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="up"
     part="btn-view"
     role="button"
@@ -11407,8 +11133,6 @@
     2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -11576,8 +11300,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -11587,8 +11309,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -11598,8 +11318,6 @@
     April 2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -11962,8 +11680,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -11973,8 +11689,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -11984,8 +11698,6 @@
     April 2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -12350,8 +12062,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -12361,8 +12071,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -12372,8 +12080,6 @@
     April 2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
@@ -12734,8 +12440,6 @@
 ```html
 <div part="navigation">
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="left"
     part="btn-prev"
@@ -12745,8 +12449,6 @@
   >
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     icon="down"
     part="btn-view"
     role="button"
@@ -12756,8 +12458,6 @@
     April 2005
   </ef-button>
   <ef-button
-    aria-disabled="false"
-    aria-readonly="false"
     empty=""
     icon="right"
     part="btn-next"
