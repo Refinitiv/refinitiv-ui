@@ -5,7 +5,10 @@
 ####   `Label and DOM structure is correct`
 
 ```html
-<ef-tree>
+<ef-tree
+  aria-multiselectable="false"
+  role="listbox"
+>
 </ef-tree>
 
 ```
