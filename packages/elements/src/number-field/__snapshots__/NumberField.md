@@ -6,10 +6,13 @@
 
 ```html
 <input
+  aria-hidden="true"
+  aria-valuenow="0"
   autocomplete="off"
   inputmode="decimal"
   part="input"
   pattern="^[-+]?[0-9]*.?[0-9]+([eE][-+]?[0-9]+)?$"
+  role="spinbutton"
   type="text"
 >
 <div part="spinner">
@@ -31,10 +34,13 @@
 
 ```html
 <input
+  aria-hidden="true"
+  aria-valuenow="0"
   autocomplete="off"
   inputmode="decimal"
   part="input"
   pattern="^[-+]?[0-9]*.?[0-9]+([eE][-+]?[0-9]+)?$"
+  role="spinbutton"
   type="text"
 >
 

@@ -7,9 +7,9 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     id="input"
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -28,9 +28,9 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     id="input"
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -90,9 +90,9 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     id="input"
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -100,9 +100,9 @@
   <div part="input-separator">
   </div>
   <ef-text-field
-    icon=""
     id="input-to"
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -163,9 +163,9 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     id="input"
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -232,9 +232,9 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     id="input"
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -302,9 +302,9 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     id="input"
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -372,9 +372,9 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     id="input"
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -382,9 +382,9 @@
   <div part="input-separator">
   </div>
   <ef-text-field
-    icon=""
     id="input-to"
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >

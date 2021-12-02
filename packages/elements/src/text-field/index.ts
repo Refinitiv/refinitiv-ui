@@ -1,5 +1,5 @@
 import {
-  ControlElement,
+  FormFieldElement,
   css,
   CSSResultGroup,
   html,
@@ -8,36 +8,47 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
 import { VERSION } from '../version.js';
 import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
 import '../icon/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 
-type SelectionIndex = number | null;
-
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
 
 /**
- * Form control element for text
+ * Form control element for text.
  *
  * @fires value-changed - Dispatched when value changes
  * @fires error-changed - Dispatched when error state changes
+ * @fires icon-click - Dispatched when icon is clicked
  *
- * @attr {string} value - Input's value
- * @prop {string} [value=] - Input's value
+ * @attr {boolean} disabled - Set disabled state
+ * @prop {boolean} [disabled=false] - Set disabled state
+ *
+ * @attr {boolean} error - Set error state
+ * @prop {boolean} [error=false] - Set error state
+ *
+ * @attr {string} placeholder - Set placeholder text
+ * @prop {string} [placeholder=] - Set placeholder text
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
  *
- * @attr {boolean} disabled - Set disabled state
- * @prop {boolean} [disabled=false] - Set disabled state
+ * @attr {boolean} transparent - Disables all other states and border/background styles.
+ * @prop {boolean} [transparent=false] - Disables all other states and border/background styles.
+ *
+ * @attr {boolean} warning - Set warning state
+ * @prop {boolean} [warning=false] - Set warning state
+ *
+ * @attr {string} value - Input's value
+ * @prop {string} [value=] - Input's value
  */
 @customElement('ef-text-field', {
   alias: 'coral-text-field'
 })
-export class TextField extends ControlElement {
+export class TextField extends FormFieldElement {
 
   /**
    * Element version number
@@ -89,63 +100,16 @@ export class TextField extends ControlElement {
   public pattern = '';
 
   /**
-   * Set place holder text
-   */
-  @property({ type: String })
-  public placeholder = '';
-
-  /**
-   * Set state to error
-   */
-  @property({ type: Boolean, reflect: true })
-  public error = false;
-
-  /**
-   * Aria indicating if the field is required
-   * @ignore
-   */
-  @property({ type: String, attribute: 'aria-required' })
-  public ariaRequired = 'false';
-
-  /**
-   * Aria description used to describe input or error to screen reader
-   * @ignore
-   */
-  @property({ type: String })
-  public ariaDescription = '';
-
-  /**
-   * Aria label used to label input to screen reader
-   * @ignore
-   */
-  @property({ type: String })
-  public ariaLabel = '';
-
-  /**
-   * Set state to warning
-   */
-  @property({ type: Boolean, reflect: true })
-  public warning = false;
-
-  /**
    * Specify icon to display in input. Value can be icon name
    */
   @property({ type: String, reflect: true })
-  public icon = '';
+  public icon: string | null = null;
 
   /**
    * Specify when icon need to be clickable
    */
   @property({ type: Boolean, reflect: true, attribute: 'icon-has-action' })
   public iconHasAction = false;
-
-  /**
-   * Disables all other states and border/background styles.
-   * Use with advanced composite elements requiring e.g. multi selection in
-   * combo-box when parent container handles element states.
-   */
-  @property({ type: Boolean, reflect: true })
-  public transparent = false;
 
   /**
    * Set character max limit
@@ -160,62 +124,15 @@ export class TextField extends ControlElement {
   public minLength: number | null = null;
 
   /**
-   * Get native input element from shadow roots
-   */
-  @query('[part="input"]')
-  private inputElement!: HTMLInputElement;
-
-  /**
-   * Selection start index
-   */
-  @property({ type: Number, attribute: false })
-  public get selectionStart (): number | null {
-    return this.inputElement.selectionStart;
-  }
-  public set selectionStart (index: SelectionIndex) {
-    this.inputElement.selectionStart = index;
-  }
-
-  /**
-   * Selection end index
-   */
-  @property({ type: Number, attribute: false })
-  public get selectionEnd (): number | null {
-    return this.inputElement.selectionEnd;
-  }
-  public set selectionEnd (index: SelectionIndex) {
-    this.inputElement.selectionEnd = index;
-  }
-
-  /**
-   * Select the contents of input
-   * @returns void
-   */
-  public select (): void {
-    if (!this.disabled && !this.readonly) {
-      this.inputElement.select();
-    }
-  }
-
-  /**
-   * Set the selection range
-   * @param startSelection Start of selection
-   * @param endSelection End of the selection
-   * @returns {void}
-   */
-  public setSelectionRange (startSelection: number, endSelection: number): void {
-    this.inputElement.setSelectionRange(startSelection, endSelection);
-  }
-
-  /**
    * Called after the component is first rendered
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    registerOverflowTooltip(this.inputElement, () => this.value);
-    this.addEventListener('focus', this.onFocus);
+    if (this.inputElement) {
+      registerOverflowTooltip(this.inputElement, () => this.value);
+    }
   }
 
   /**
@@ -226,8 +143,8 @@ export class TextField extends ControlElement {
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
-    if (this.inputElement.value !== this.value) {
-      this.inputElement.value = this.value;
+    if (this.inputValue !== this.value) {
+      this.inputValue = this.value;
     }
 
     if (this.shouldValidateInput(changedProperties)) {
@@ -240,16 +157,101 @@ export class TextField extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns True if input should be re-validated
    */
-  private shouldValidateInput (changedProperties: PropertyValues): boolean {
+  /* istanbul ignore next */
+  protected shouldValidateInput (changedProperties: PropertyValues): boolean {
+    // TODO: This validation should be refactored
     return (changedProperties.has('pattern') || !!(this.pattern && changedProperties.has('value')))
-      || (changedProperties.has('minLength') || !!(this.minLength && changedProperties.has('value')));
+      || (changedProperties.has('minLength') || !!(this.minLength && changedProperties.has('value')))
+      || (changedProperties.has('maxLength') || !!(this.maxLength && changedProperties.has('value')));
+  }
+
+  /**
+   * Runs on input element `input` event
+   * @param event `input` event
+   * @returns {void}
+   */
+  protected override onInputInput (event: InputEvent): void {
+    this.onPossibleValueChange(event);
+  }
+
+  /**
+   * Runs on input element `change` event
+   * @param event `change` event
+   * @returns {void}
+   */
+  protected override onInputChange (event: InputEvent): void {
+    this.onPossibleValueChange(event);
+  }
+
+  /**
+   * Check if value is changed and fire event
+   * @returns {void}
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected onPossibleValueChange (event: InputEvent): void {
+    const value = this.inputElement?.value || '';
+    this.setValueAndNotify(value);
+  }
+
+  /**
+   * Validate input according `pattern`, `minLength` and `maxLength` properties
+   * change state of `error` property according pattern validation
+   * @returns {void}
+   */
+  protected validateInput (): void {
+    let error = !this.inputElement?.checkValidity();
+    /* istanbul ignore next */
+    if (this.shouldValidateForMinLength(error)) {
+      error = !!this.minLength && (this.minLength > this.value.length);
+    }
+
+    this.notifyErrorChange(error);
+  }
+
+  /**
+   * @param error existing state of error
+   * @returns true if there is no error and browser is IE11 and minLength more than 0 and value exists
+   */
+  /* istanbul ignore next */
+  protected shouldValidateForMinLength (error: boolean): boolean {
+    return !!(!error && isIE && this.minLength && !!this.value);
+  }
+
+  /**
+   * Fires event on `icon` click
+   * @returns {void}
+   */
+  protected iconClick (): void {
+    if (this.iconHasAction && !this.disabled) {
+      this.dispatchEvent(new CustomEvent('icon-click', { bubbles: false }));
+    }
+  }
+
+  /**
+   * Decorate `<input>` element with common properties extended from form field element:
+   * type="text" - always `text`
+   * part="input" - always "input", used for styling
+   * maxlength - calculated from `this.maxLength`
+   * minlength - calculated from `this.minLength`
+   * pattern - calculated from `this.pattern`
+   * @returns template map
+   */
+  protected get decorateInputMap (): TemplateMap {
+    return {
+      ...super.decorateInputMap,
+      'type': 'text',
+      'part': 'input',
+      'maxlength': this.maxLength,
+      'minlength': this.minLength,
+      'pattern': this.pattern || null
+    };
   }
 
   /**
    * Renders icon element if property present
    * @returns {void}
    */
-  private renderIcon (): TemplateResult | null {
+  protected renderIcon (): TemplateResult | null {
     return this.icon ? html`
     <ef-icon
         role="${ifDefined(this.iconHasAction ? 'button' : undefined)}"
@@ -271,162 +273,8 @@ export class TextField extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-      <input
-        type="text"
-        part="input"
-        aria-required="${this.ariaRequired}"
-        aria-label="${ifDefined(this.ariaLabel || undefined)}"
-        aria-invalid="${ifDefined(this.error || undefined)}"
-        aria-description="${ifDefined(this.ariaDescription || undefined)}"
-        ?readonly="${this.readonly}"
-        ?disabled="${this.disabled}"
-        placeholder="${ifDefined(this.placeholder || undefined)}"
-        maxlength="${ifDefined(this.maxLength || undefined)}"
-        minlength="${ifDefined(this.minLength || undefined)}"
-        @input="${this.onPossibleValueChange}"
-        @change="${this.onPossibleValueChange}"
-        pattern="${ifDefined(this.pattern || undefined)}"
-        autocomplete="off"
-      />
+      ${super.render()}
       ${this.renderIcon()}
     `;
-  }
-
-  /**
-   * Check if value is changed and fire event
-   * @returns {void}
-   */
-  private onPossibleValueChange (): void {
-    const value = this.inputElement.value;
-    this.setValueAndNotify(value);
-  }
-
-  /**
-   * Validate input according `pattern`, `minLength` and `maxLength` properties
-   * change state of `error` property according pattern validation
-   * @returns void
-   */
-  private validateInput (): void {
-    let error = !this.inputElement.checkValidity();
-
-    if (this.shouldValidateForMinLength(error)) {
-      error = !!this.minLength && (this.minLength > this.value.length);
-    }
-
-    if (this.error !== error) {
-      this.error = error;
-      this.notifyPropertyChange('error', this.error);
-
-      this.queryFieldDescription();
-    }
-  }
-
-  /**
-   * @param error existing state of error
-   * @returns true if there is no error and browser is IE11 and minLength more than 0 and value exists
-   */
-  private shouldValidateForMinLength (error: boolean): boolean {
-    return !!(!error && isIE && this.minLength && !!this.value);
-  }
-
-  /**
-   * Fires event on `icon` click
-   * @returns {void}
-   */
-  private iconClick (): void {
-    if (this.iconHasAction) {
-      /**
-       * Dispatched only when element has icon-has-action attribute and icon is clicked
-       */
-      this.dispatchEvent(new CustomEvent('icon-click', { bubbles: false }));
-    }
-  }
-
-  /**
-   * Handles the focus event
-   * @returns {void}
-   */
-  private onFocus (): void {
-    this.queryFieldLabel();
-    this.queryFieldDescription();
-  }
-
-  /**
-   * Query field's label from host to native input
-   * to support aria label when using screen reader
-   * @returns {void}
-   */
-  private queryFieldLabel (): void {
-    if (this.hasAttribute('aria-labelledby')) {
-      const ids = this.getAttribute('aria-labelledby');
-      if (!ids) {
-        return;
-      }
-
-      const elementIds = ids.split(' ');
-      elementIds.forEach(id => {
-        const element = document.getElementById(id);
-        if (!element) {
-          return;
-        }
-        const label = element.textContent || '';
-        if (this.ariaLabel && label) {
-          this.ariaLabel += ' ';
-        }
-
-        this.ariaLabel += label;
-      });
-    }
-    else if (this.hasAttribute('aria-label')) {
-      this.ariaLabel = this.getAttribute('aria-label') || '';
-    }
-    else if (this.id) {
-      const labelForElement = document.querySelector(`label[for="${this.id}"]`);
-      if (!labelForElement) {
-        return;
-      }
-
-      this.ariaLabel = labelForElement.textContent || '';
-    }
-  }
-
-  /**
-   * Query field's description from host to native input
-   * to support aria description when using screen reader
-   * @returns {void}
-   */
-  private queryFieldDescription (): void {
-    if (!this.hasAttribute('aria-describedby')) {
-
-      // Support `aria-description` only if `aria-describedby` is not in use.
-      if (!this.hasAttribute('aria-description')) {
-        return;
-      }
-
-      this.ariaDescription = this.getAttribute('aria-description') || '';
-      return;
-    }
-
-    this.ariaDescription = '';
-    const ids = this.getAttribute('aria-describedby');
-    if (!ids) {
-      return;
-    }
-
-    // In scenarios where there is multiple ids
-    const elementIds = ids.split(' ');
-    elementIds.forEach(id => {
-      const element = document.getElementById(id);
-      if (!element) {
-        return;
-      }
-
-      const text = element.textContent || '';
-      if (this.ariaDescription && text) {
-        this.ariaDescription += ' ';
-      }
-
-      this.ariaDescription += text;
-    });
   }
 }
