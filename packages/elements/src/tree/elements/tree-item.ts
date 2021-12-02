@@ -42,29 +42,11 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   @property({ attribute: false })
   public checkedState: CheckedState = CheckedState.UNCHECKED;
 
-  private _parent = false;
-
   /**
    * Is the item a parent and should it show an expansion toggle?
    */
   @property({ type: Boolean, reflect: true, attribute: 'group' })
-  public get parent (): boolean {
-    return this._parent;
-  }
-  public set parent (value: boolean) {
-    const oldValue = this._parent;
-    if (value !== oldValue) {
-      this._parent = value;
-      this.requestUpdate('parent', oldValue);
-
-      if (value) {
-        this.setAttribute('aria-expanded', String(!!this.expanded));
-      }
-      else {
-        this.removeAttribute('aria-expanded');
-      }
-    }
-  }
+  public parent = false;
 
   /**
    * Display in multiple selection mode
@@ -72,27 +54,11 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   @property({ type: Boolean, reflect: true })
   public multiple = false;
 
-  private _expanded = false;
-
   /**
    * Expanded state of the item
-   * If it is a parent, update aria-expanded
    */
   @property({ type: Boolean })
-  public get expanded (): boolean {
-    return this._expanded;
-  }
-  public set expanded (value: boolean) {
-    const oldValue = this._expanded;
-    if (value !== oldValue) {
-      this._expanded = value;
-      this.requestUpdate('expanded', oldValue);
-
-      if (this.parent) {
-        this.setAttribute('aria-expanded', String(!!value));
-      }
-    }
-  }
+  public expanded = false;
 
   /**
    * Depth of the item
@@ -170,7 +136,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * Template for rendering the icon
    */
   protected get iconTemplate (): TemplateResult {
-    if(typeof this.icon === 'undefined') {
+    if (typeof this.icon === 'undefined') {
       return emptyTemplate;
     }
 
@@ -191,25 +157,63 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
     return this.checkedState === CheckedState.INDETERMINATE;
   }
 
+  /**
+   * Setting aria-expanded based on expanded state,
+   * only parent nodes are eligible
+   * @returns {void}
+   */
+  protected expandedChanged (): void {
+    if (this.parent) {
+      this.setAttribute('aria-expanded', this.expanded ? 'true' : 'false');
+    }
+  }
+
+  protected checkedChanged (): void {
+    // Parent node in single-mode cannot be selected
+    if (this.parent && !this.multiple) {
+      return;
+    }
+
+    switch (this.checkedState) {
+      case CheckedState.CHECKED:
+        this.setAttribute('selected', '');
+        this.setAttribute('aria-selected', 'true');
+        break;
+      case CheckedState.INDETERMINATE:
+        this.setAttribute('selected', 'indeterminate');
+        this.setAttribute('aria-selected', 'false');
+        break;
+      default:
+        this.removeAttribute('selected');
+        this.setAttribute('aria-selected', 'false');
+        break;
+    }
+  }
+
+  /**
+   * Invoked whenever the element is updated
+   * @param {PropertyValues} changedProperties Map of changed properties with old values
+   * @returns {void}
+   */
   protected update (changedProperties: PropertyValues): void {
     super.update(changedProperties);
 
     if (changedProperties.has('checkedState')) {
-      switch (this.checkedState) {
-        case CheckedState.CHECKED:
-          this.setAttribute('selected', '');
-          break;
-        case CheckedState.INDETERMINATE:
-          this.setAttribute('selected', 'indeterminate');
-          break;
-        default:
-          this.removeAttribute('selected');
-      }
+      this.checkedChanged();
+    }
+
+    if (changedProperties.has('expanded')) {
+      this.expandedChanged();
     }
   }
 
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @returns Render template
+   */
   protected render (): TemplateResult {
-    return html `
+    return html`
       ${this.indentTemplate}
       ${this.toggleTemplate}
       ${this.checkboxTemplate}
