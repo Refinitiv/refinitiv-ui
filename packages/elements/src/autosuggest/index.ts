@@ -169,6 +169,7 @@ export class Autosuggest extends Overlay {
 
   /**
    * Custom text for More Search
+   * @default More results for {0}
    */
   @property({ type: String, attribute: 'more-search-text' })
   public moreSearchText = Autosuggest.defaultMoreSearchText;

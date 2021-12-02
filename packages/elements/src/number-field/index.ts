@@ -39,7 +39,7 @@ enum Direction {
  * @prop {boolean} [error=false] - Set error state
  *
  * @attr {string} placeholder - Set placeholder text
- * @prop {string} [placeholder=] - Set placeholder text
+ * @prop {string} [placeholder=""] - Set placeholder text
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
@@ -51,7 +51,7 @@ enum Direction {
  * @prop {boolean} [warning=false] - Set warning state
  *
  * @attr {string} value - Input's value
- * @prop {string} [value=] - Input's value
+ * @prop {string} [value=""] - Input's value
  */
 @customElement('ef-number-field', {
   alias: 'coral-number-field'
@@ -138,6 +138,7 @@ export class NumberField extends FormFieldElement {
   /**
   * The value of the number entered into the input.
   * @param value number-field value
+  * @default -
   */
   @property({ type: String })
   public set value (value: string) {

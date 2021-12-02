@@ -19,21 +19,21 @@ import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
  * @prop {boolean} [error=false] - Set error state
  *
  * @attr {string} icon - Specify icon to display in input. Value can be icon name
- * @prop {string|null} [icon=null] - Specify icon to display in input. Value can be icon name
+ * @prop {string | null} [icon=null] - Specify icon to display in input. Value can be icon name
  *
  * @attr {boolean} icon-has-action - Specify when icon need to be clickable
  * @prop {boolean} [iconHasAction=false] - Specify when icon need to be clickable
  *
  * @attr {number} maxlength - Set character max limit
- * @prop {number|null} [maxLength=null] - Set character max limit
+ * @prop {number | null} [maxLength=null] - Set character max limit
  *
  * @attr {number} minlength - Set character min limit
- * @prop {number|null} [minLength=null] - Set character min limit
+ * @prop {number | null} [minLength=null] - Set character min limit
  *
- * @prop {string} [pattern=''] - Set regular expression for input validation
+ * @prop {string} [pattern=""] - Set regular expression for input validation
  *
  * @attr {string} placeholder - Set placeholder text
- * @prop {string} [placeholder=] - Set placeholder text
+ * @prop {string} [placeholder=""] - Set placeholder text
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
@@ -45,7 +45,7 @@ import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
  * @prop {boolean} [warning=false] - Set warning state
  *
  * @attr {string} value - Input's value
- * @prop {string} [value=] - Input's value
+ * @prop {string} [value=""] - Input's value
  */
 @customElement('ef-email-field', {
   alias: 'coral-email-field'

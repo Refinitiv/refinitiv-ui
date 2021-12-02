@@ -111,6 +111,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   /**
    * The data object, used to render the list.
    * @type {ListData}
+   * @default null
    */
   @property({ attribute: false })
   public get data (): ListData<T> {
@@ -144,6 +145,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Returns the first selected item value.
    * Use `values` when multiple selection mode is enabled.
+   * @default -
    */
   @property({ type: String })
   public get value (): string {
@@ -165,6 +167,8 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Returns a values collection of the currently
    * selected item values
+   * @type {string[]}
+   * @default []
    * @readonly
    */
   @property({ type: Array, attribute: false })
