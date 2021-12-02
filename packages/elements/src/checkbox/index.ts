@@ -36,7 +36,7 @@ export class Checkbox extends ControlElement {
     return VERSION;
   }
 
-  protected readonly defaultRole = 'checkbox';
+  protected readonly defaultRole: string | null = 'checkbox';
 
   /**
    * A `CSSResultGroup` that will be used

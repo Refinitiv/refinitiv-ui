@@ -7,10 +7,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -39,30 +37,27 @@
   with-shadow=""
 >
   <ef-list
-    aria-disabled="false"
-    aria-readonly="false"
+    aria-multiselectable="false"
     id="internal-list"
+    role="listbox"
   >
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
+      role="presentation"
       tabindex="-1"
       type="header"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       highlighted=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -74,10 +69,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    aria-disabled="false"
-    aria-readonly="false"
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -106,23 +99,21 @@
   with-shadow=""
 >
   <ef-list
-    aria-disabled="false"
-    aria-readonly="false"
+    aria-multiselectable="false"
     id="internal-list"
+    role="listbox"
   >
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
+      role="presentation"
       tabindex="-1"
       type="header"
     >
     </ef-item>
     <ef-item
-      aria-disabled="false"
-      aria-readonly="false"
       aria-selected="false"
       highlighted=""
+      role="option"
       tabindex="0"
     >
     </ef-item>

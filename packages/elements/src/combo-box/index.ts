@@ -1257,6 +1257,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
         transparent
         .placeholder="${this.placeholder}"
         .readonly="${this.readonly}"
+        .disabled="${this.disabled}"
         .value="${inputValue}"
         @value-changed="${this.onInputValueChanged}"></ef-text-field>
       ${this.selectionBadgeTemplate}
