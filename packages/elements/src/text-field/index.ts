@@ -199,7 +199,7 @@ export class TextField extends FormFieldElement {
    * @returns {void}
    */
   protected validateInput (): void {
-    let error = !this.inputElement?.checkValidity();
+    let error = this.error || !this.inputElement?.checkValidity();
     /* istanbul ignore next */
     if (this.shouldValidateForMinLength(error)) {
       error = !!this.minLength && (this.minLength > this.value.length);
