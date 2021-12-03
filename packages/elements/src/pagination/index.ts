@@ -12,7 +12,6 @@ import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
-import { DirectiveResult } from 'lit/directive.js';
 import { VERSION } from '../version.js';
 import '../button/index.js';
 import '../button-bar/index.js';
