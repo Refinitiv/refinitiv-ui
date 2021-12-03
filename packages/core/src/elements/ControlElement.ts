@@ -88,7 +88,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
     }
 
     if (changedProperties.has('readonly')) {
-      this.readonlyChanged(this.readonly);
+      this.readonlyChanged(changedProperties);
     }
 
     super.update(changedProperties);
@@ -100,23 +100,28 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    * @returns {void}
    */
   protected disableChanged (changedProperties: PropertyValues): void {
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
-
     if (this.disabled) {
       this.disableFocus();
+      this.setAttribute('aria-disabled', 'true');
     }
     else if (changedProperties.get('disabled') === true) { /* re-enable only if disabled changed from true to false */
       this.enableFocus();
+      this.removeAttribute('aria-disabled');
     }
   }
 
   /**
    * Update readonly state if detect value changed
-   * @param readonly new value change
+   * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected readonlyChanged (readonly: boolean): void {
-    this.setAttribute('aria-readonly', readonly ? 'true' : 'false');
+  protected readonlyChanged (changedProperties: PropertyValues): void {
+    if (this.readonly) {
+      this.setAttribute('aria-readonly', 'true');
+    }
+    else if (changedProperties.get('readonly') === true) {
+      this.removeAttribute('aria-readonly');
+    }
   }
 
   /**

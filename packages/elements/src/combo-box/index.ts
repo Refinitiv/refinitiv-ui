@@ -29,12 +29,13 @@ import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
 import '../icon/index.js';
 import '../overlay/index.js';
 import '../list/index.js';
-import '../pill/index.js';
+import '../counter/index.js';
 import '../text-field/index.js';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/lib/locale/en/combo-box.js';
 
-export type { ComboBoxRenderer, ComboBoxFilter, ComboBoxData };
+export type { ComboBoxFilter, ComboBoxData };
+export { ComboBoxRenderer };
 
 const QUERY_DEBOUNCE_RATE = 0;
 
@@ -127,6 +128,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Multiple selection mode
    * @param multiple true to set multiple mode
+   * @default false
    */
   @property({ type: Boolean })
   public set multiple (multiple: boolean) {
@@ -164,6 +166,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Allow to enter any value
    * @param freeText true to set freeText mode
+   * @default false
    */
   @property({ type: Boolean, attribute: 'free-text' })
   public set freeText (freeText: boolean) {
@@ -220,6 +223,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Data array to be displayed
    * @type {ComboBoxData<T>}
+   * @default []
    */
   @property({ attribute: false })
   public get data (): ComboBoxData<T> {
@@ -238,6 +242,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Returns the first selected item value.
    * Use `values` when multiple selection mode is enabled.
+   * @default -
    */
   @property({ type: String })
   public get value (): string {
@@ -260,6 +265,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    * Returns a values collection of the currently
    * selected item values
    * @type {string[]}
+   * @default []
    */
   @property({ type: Array, attribute: false })
   public get values (): string[] {
@@ -307,6 +313,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    * Query string applied to combo-box
    * Set via internal text-field input
    * @readonly
+   * @default null
    */
   @property({ type: String, attribute: false })
   public get query (): string | null {
@@ -326,6 +333,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Label of selected value
    * @returns Label to use, defaults to empty string
+   * @default -
    * @readonly
    */
   public get label (): string {
@@ -1249,6 +1257,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
         transparent
         .placeholder="${this.placeholder}"
         .readonly="${this.readonly}"
+        .disabled="${this.disabled}"
         .value="${inputValue}"
         @value-changed="${this.onInputValueChanged}"></ef-text-field>
       ${this.selectionBadgeTemplate}

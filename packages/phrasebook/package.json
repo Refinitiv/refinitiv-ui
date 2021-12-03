@@ -12,6 +12,11 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/phrasebook"
   },
+  "exports": {
+    ".": "./lib/index.js",
+    "./locale/*": "./lib/locale/*",
+    "./lib/locale/*": "./lib/locale/*"
+  },
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",
     "build:prod": "tsc",
