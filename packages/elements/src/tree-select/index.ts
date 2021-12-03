@@ -31,7 +31,8 @@ import type { Pill } from '../pill';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/lib/locale/en/tree-select.js';
 
-export { TreeSelectRenderer, TreeSelectData, TreeSelectDataItem, TreeSelectFilter };
+export { TreeSelectRenderer };
+export type { TreeSelectFilter, TreeSelectDataItem, TreeSelectData };
 
 const MEMO_THROTTLE = 16;
 const POPUP_POSITION = ['bottom-start', 'top-start'];
