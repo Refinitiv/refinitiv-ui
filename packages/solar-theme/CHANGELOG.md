@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@5.5.0...@refinitiv-ui/solar-theme@5.5.1) (2021-12-03)
+
+
+### Bug Fixes
+
+* **combo-box:** fix arrow icon not show in Solar when disabled ([55c1008](https://github.com/Refinitiv/refinitiv-ui/commit/55c1008b7b63f915a7575059c6539e63a757e389))
+* **tree-item:** reduce space between checkbox and label ([1c221df](https://github.com/Refinitiv/refinitiv-ui/commit/1c221df6723e163925e8b0f603bc09e017a1df34))
+* **tree-item:** slightly increase margin the part checkbox on solar theme ([cd7fb0c](https://github.com/Refinitiv/refinitiv-ui/commit/cd7fb0c38319be3f08d4433a214b56d0ca3a6341))
+
+
+
+
+
 # [5.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@5.4.0...@refinitiv-ui/solar-theme@5.5.0) (2021-11-08)
 
 
