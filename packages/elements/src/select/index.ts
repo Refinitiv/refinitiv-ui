@@ -24,7 +24,7 @@ import type { Overlay } from '../overlay';
 import type { SelectData, SelectDataItem } from './helpers/types';
 import type { OpenedChangedEvent } from '../events';
 
-export { SelectData, SelectDataItem };
+export type { SelectData, SelectDataItem };
 
 /**
  * Key direction
