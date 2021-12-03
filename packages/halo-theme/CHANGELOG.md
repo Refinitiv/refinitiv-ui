@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.3.0...@refinitiv-ui/halo-theme@5.3.1) (2021-12-03)
+
+
+### Bug Fixes
+
+* **tree-item:** reduce space between checkbox and label ([1c221df](https://github.com/Refinitiv/refinitiv-ui/commit/1c221df6723e163925e8b0f603bc09e017a1df34))
+
+
+
+
+
 # [5.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.2.6...@refinitiv-ui/halo-theme@5.3.0) (2021-11-08)
 
 
