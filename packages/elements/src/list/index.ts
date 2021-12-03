@@ -46,6 +46,8 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     return VERSION;
   }
 
+  protected readonly defaultRole: string | null = 'listbox';
+
   /**
    * Used to timestamp renders.
    * This enables diff checking against item updates,
@@ -109,6 +111,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   /**
    * The data object, used to render the list.
    * @type {ListData}
+   * @default null
    */
   @property({ attribute: false })
   public get data (): ListData<T> {
@@ -142,6 +145,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Returns the first selected item value.
    * Use `values` when multiple selection mode is enabled.
+   * @default -
    */
   @property({ type: String })
   public get value (): string {
@@ -163,6 +167,8 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Returns a values collection of the currently
    * selected item values
+   * @type {string[]}
+   * @default []
    * @readonly
    */
   @property({ type: Array, attribute: false })
@@ -228,11 +234,29 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   }
 
   /**
-   * Navigate up through the list items
+   * Navigate down through the list items
    * @returns {void}
    */
   public down (): void {
     this.highlightItem(this.getNextHighlightItem(Direction.DOWN), true);
+  }
+
+  /**
+   * Navigate to first focusable item of the list
+   * @returns {void}
+   */
+  public first (): void {
+    const firstItem = this.itemMap.get(this.tabbableElements[0]);
+    this.highlightItem(firstItem, true);
+  }
+
+  /**
+   * Navigate to first focusable item of the list
+   * @returns {void}
+   */
+  public last (): void {
+    const lastItem = this.itemMap.get(this.tabbableElements[this.tabbableElements.length - 1]);
+    this.highlightItem(lastItem, true);
   }
 
   /**
@@ -405,6 +429,12 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       case 'Down':
       case 'ArrowDown':
         this.down();
+        break;
+      case 'Home':
+        this.first();
+        break;
+      case 'End':
+        this.last();
         break;
       default:
         return;
@@ -617,6 +647,14 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       this.renderTimestamp.clear(); // force render of all items
     }
     return super.update(changeProperties);
+  }
+
+  protected updated (changedProperties: PropertyValues): void {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('multiple')) {
+      this.setAttribute('aria-multiselectable', this.multiple ? 'true' : 'false');
+    }
   }
 
   /**

@@ -3,7 +3,10 @@
 #### `Label and DOM structure is correct`
 
 ```html
-<ef-list>
+<ef-list
+  aria-multiselectable="false"
+  role="listbox"
+>
 </ef-list>
 
 ```
@@ -17,7 +20,10 @@
 #### `Supports setting a data array`
 
 ```html
-<ef-list>
+<ef-list
+  aria-multiselectable="false"
+  role="listbox"
+>
 </ef-list>
 
 ```
@@ -31,7 +37,10 @@
 #### `Supports setting a data composer`
 
 ```html
-<ef-list>
+<ef-list
+  aria-multiselectable="false"
+  role="listbox"
+>
 </ef-list>
 
 ```
@@ -45,7 +54,10 @@
 #### `Supports setting null data`
 
 ```html
-<ef-list>
+<ef-list
+  aria-multiselectable="false"
+  role="listbox"
+>
 </ef-list>
 
 ```

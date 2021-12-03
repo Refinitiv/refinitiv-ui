@@ -278,24 +278,28 @@ export class Overlay extends ResponsiveElement {
 
   /**
    * Set the transition style
+   * @type {TransitionStyle|null|undefined}
    */
   @property({ type: String, reflect: true, attribute: 'transition-style' })
   public transitionStyle: TransitionStyle | NullOrUndefined;
 
   /**
    * Set a preferable z-index to override automatically calculated z-index
+   * @type {number|null|undefined}
    */
   @property({ type: Number, attribute: 'z-index' })
   public zIndex: number | NullOrUndefined;
 
   /**
    * Set a specific x coordinate
+   * @type {number|null|undefined}
    */
   @property({ type: Number, hasChanged: hasNumberChanged })
   public x: number | NullOrUndefined;
 
   /**
    * Set a specific y coordinate
+   * @type {number|null|undefined}
    */
   @property({ type: Number, hasChanged: hasNumberChanged })
   public y: number | NullOrUndefined;
@@ -305,6 +309,7 @@ export class Overlay extends ResponsiveElement {
    * - HTMLElement if overlay is position next to the HTML element
    * - String containing `top`, `right`, `left`, `bottom`, `center` combinations to position against the screen.
    * For instance: `top left` - put the overlay at `top left` point of the screen; `bottom` - put overlay at `bottom center` point of the screen
+   * @type {PositionTarget|null|undefined}
    */
   @property({ attribute: 'position-target' })
   public positionTarget: HTMLElement | PositionTarget | NullOrUndefined;

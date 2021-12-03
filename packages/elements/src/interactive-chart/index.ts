@@ -118,9 +118,9 @@ export class InteractiveChart extends ResponsiveElement {
 
   /**
    * Set legend style i.e. `horizontal`, `vertical`.
-   * Default is `vertical`.
    * @param {LegendStyle} value legend style value
    * @type {"vertical" | "horizontal"} type of legend style
+   * @default vertical
    **/
   @property({ type: String, attribute: 'legend-style' })
   public set legendStyle (value: LegendStyle) {
@@ -141,7 +141,10 @@ export class InteractiveChart extends ResponsiveElement {
   */
   private deprecationNotice = new DeprecationNotice('`legendstyle` attribute and property are deprecated. Use `legend-style` for attribute and `legendStyle` property instead.');
 
-  /** Array of series instances in chart */
+  /**
+   * @ignore
+   * Array of series instances in chart
+   */
   public seriesList: SeriesList[] = [];
 
   private jumpButtonInitialized = false;

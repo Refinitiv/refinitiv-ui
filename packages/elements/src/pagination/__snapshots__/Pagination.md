@@ -37,10 +37,10 @@
     </ef-button>
   </ef-button-bar>
   <ef-text-field
-    icon=""
     id="input"
     no-spinner=""
     part="input"
+    role="textbox"
     tabindex="0"
   >
   </ef-text-field>

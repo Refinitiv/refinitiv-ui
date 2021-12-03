@@ -171,6 +171,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
   * Set minimum date
   * @param min date
+  * @default -
   */
   @property({ type: String })
   public set min (min: string) {
@@ -195,6 +196,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
   * Set maximum date
   * @param max date
+  * @default -
   */
   @property({ type: String })
   public set max (max: string) {
@@ -257,6 +259,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   public set multiple (multiple: boolean) {
     new WarningNotice('multiple is not currently supported').show();
   }
+  /**
+  * @ignore
+  */
   public get multiple (): boolean {
     return false;
   }
@@ -264,6 +269,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
   * Current date time value
   * @param value Calendar value
+  * @default -
   */
   @property({ type: String })
   public set value (value: string) {
@@ -279,6 +285,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   * Set multiple selected values
   * @param values Values to set
   * @type {string[]}
+  * @default []
   */
   @property({
     converter: {
@@ -316,6 +323,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
   * Placeholder to display when no value is set
   * @param placeholder Placeholder
+  * @default -
   */
   @property({ type: String })
   public set placeholder (placeholder: string) {
@@ -371,6 +379,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   * Set the datetime format
   * Based on dane-fns datetime formats
   * @param format Date format
+  * @default -
   */
   @property({ type: String })
   public set format (format: string) {
@@ -409,6 +418,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   * Set the current calendar view.
   * Accepted format: 'yyyy-MM'
   * @param view view date
+  * @default -
   */
   @property({ type: String })
   public set view (view: string) {
@@ -424,6 +434,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   * Accepted format: 'yyyy-MM'
   * @param views view dates
   * @type {string[]}
+  * @default []
   */
   @property({ attribute: false })
   public set views (views: string[]) {

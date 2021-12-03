@@ -7,8 +7,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -36,9 +36,14 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list id="internal-list">
+  <ef-list
+    aria-multiselectable="false"
+    id="internal-list"
+    role="listbox"
+  >
     <ef-item
       aria-selected="false"
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -46,17 +51,20 @@
     <ef-item
       aria-selected="true"
       highlighted=""
+      role="option"
       selected=""
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -68,8 +76,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -97,9 +105,14 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list id="internal-list">
+  <ef-list
+    aria-multiselectable="false"
+    id="internal-list"
+    role="listbox"
+  >
     <ef-item
       aria-selected="false"
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -107,16 +120,19 @@
     <ef-item
       aria-selected="false"
       highlighted=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="true"
+      role="option"
       selected=""
       tabindex="0"
     >
@@ -129,8 +145,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -158,9 +174,14 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list id="internal-list">
+  <ef-list
+    aria-multiselectable="false"
+    id="internal-list"
+    role="listbox"
+  >
     <ef-item
       aria-selected="false"
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -168,16 +189,19 @@
     <ef-item
       aria-selected="false"
       highlighted=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -191,8 +215,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -220,9 +244,14 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list id="internal-list">
+  <ef-list
+    aria-multiselectable="false"
+    id="internal-list"
+    role="listbox"
+  >
     <ef-item
       aria-selected="false"
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -230,17 +259,20 @@
     <ef-item
       aria-selected="true"
       highlighted=""
+      role="option"
       selected=""
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -254,8 +286,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -289,10 +321,15 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list id="internal-list">
+  <ef-list
+    aria-multiselectable="true"
+    id="internal-list"
+    role="listbox"
+  >
     <ef-item
       aria-selected="false"
       multiple=""
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -301,6 +338,7 @@
       aria-selected="true"
       highlighted=""
       multiple=""
+      role="option"
       selected=""
       tabindex="0"
     >
@@ -308,12 +346,14 @@
     <ef-item
       aria-selected="false"
       multiple=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="true"
       multiple=""
+      role="option"
       selected=""
       tabindex="0"
     >
@@ -326,8 +366,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -355,10 +395,15 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list id="internal-list">
+  <ef-list
+    aria-multiselectable="true"
+    id="internal-list"
+    role="listbox"
+  >
     <ef-item
       aria-selected="false"
       multiple=""
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -367,12 +412,14 @@
       aria-selected="false"
       highlighted=""
       multiple=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="true"
       multiple=""
+      role="option"
       selected=""
       tabindex="0"
     >
@@ -380,6 +427,7 @@
     <ef-item
       aria-selected="false"
       multiple=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
@@ -391,8 +439,8 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
-    icon=""
     part="input"
+    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -420,10 +468,15 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-list id="internal-list">
+  <ef-list
+    aria-multiselectable="true"
+    id="internal-list"
+    role="listbox"
+  >
     <ef-item
       aria-selected="false"
       multiple=""
+      role="presentation"
       tabindex="-1"
       type="header"
     >
@@ -432,18 +485,21 @@
       aria-selected="false"
       highlighted=""
       multiple=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
       multiple=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
       multiple=""
+      role="option"
       tabindex="0"
     >
     </ef-item>
