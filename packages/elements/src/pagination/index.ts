@@ -327,12 +327,12 @@ export class Pagination extends BasicElement {
   * Getter for display text in the input
   * @returns input text
   */
-  protected get inputText ():string | DirectiveResult {
+  protected get inputText (): string {
     if (this.inputFocused) {
-      return this.internalValue;
+      return this.internalValue.toString();
     }
     else {
-      return this.infinitePaginate ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax });
+      return (this.infinitePaginate ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax })) as string;
     }
   }
 
@@ -622,7 +622,7 @@ export class Pagination extends BasicElement {
           part="input"
           @focused-changed=${this.onInputFocusedChanged}
           @keydown=${this.onInputKeyDown}
-          .value=${this.inputText as string}
+          .value=${this.inputText}
           .disabled=${this.disabled}
           no-spinner></ef-text-field>
         <ef-button-bar part="buttons">
