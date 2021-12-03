@@ -1343,7 +1343,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns template result
    */
   private renderCell (cell: Cell): TemplateResult {
-    const isValid = cell.value !== undefined && !cell.disabled;
+    const isSelectable = cell.value !== undefined && !cell.disabled;
 
     return html`<div
       role="gridcell"
@@ -1356,15 +1356,15 @@ export class Calendar extends ControlElement implements MultiValue {
       ?first-date=${cell.firstDate}
       ?last-date=${cell.lastDate}
       ?selected=${cell.selected}
-      aria-selected="${ifDefined(cell.selected ? 'true' : undefined)}"
+      aria-selected="${ifDefined(isSelectable ? (cell.selected ? 'true' : 'false') : undefined)}"
       ?range=${cell.range}
       ?range-from=${cell.rangeFrom}
       ?range-to=${cell.rangeTo}
-      tabindex=${ifDefined(isValid ? (cell.active ? 0 : -1) : undefined)}>
+      tabindex=${ifDefined(isSelectable ? (cell.active ? 0 : -1) : undefined)}>
         <div role="${ifDefined(cell.value ? 'button' : undefined)}"
              aria-disabled="${ifDefined(cell.disabled ? 'true' : undefined)}"
              aria-label="${ifDefined(this.getCellLabel(cell))}"
-             part="cell-content${isValid ? ' selection' : ''}">${cell.text}</div>
+             part="cell-content${isSelectable ? ' selection' : ''}">${cell.text}</div>
     </div>`;
   }
 
