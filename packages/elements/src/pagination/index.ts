@@ -131,9 +131,9 @@ export class Pagination extends BasicElement {
   }
 
   /**
-  * Set max page
-  * @param value max page
-  */
+   * Set max page
+   * @param value max page
+   */
   public set max (value: string) {
     let newValue = value;
     if (!newValue || !this.validatePage(value, true, 'max')) {
@@ -323,9 +323,9 @@ export class Pagination extends BasicElement {
   protected t!: Translate;
 
   /**
-  * Getter for display text in the input
-  * @returns input text
-  */
+   * Getter for display text in the input
+   * @returns input text
+   */
   protected get inputText (): string {
     if (this.inputFocused) {
       return this.internalValue.toString();
