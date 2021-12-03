@@ -14,7 +14,7 @@
   },
   "exports": {
     ".": "./lib/index.js",
-    "./locale/*": "./locale/*",
+    "./locale/*": "./lib/locale/*",
     "./lib/locale/*": "./lib/locale/*"
   },
   "scripts": {
