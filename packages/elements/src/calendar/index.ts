@@ -88,7 +88,7 @@ import './locales.js';
 import '../button/index.js';
 import '@refinitiv-ui/phrasebook/lib/locale/en/calendar.js';
 
-export type {
+export {
   CalendarFilter
 };
 
@@ -502,9 +502,6 @@ export class Calendar extends ControlElement implements MultiValue {
     super.firstUpdated(changedProperties);
 
     this.renderRoot.addEventListener('keydown', event => this.onKeyDown(event as KeyboardEvent));
-
-    // Avoid jumping views when value is set, but the first interaction has not happened
-    this._view = this.view;
   }
 
   /**

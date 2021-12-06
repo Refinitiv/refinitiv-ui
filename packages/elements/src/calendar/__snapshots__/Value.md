@@ -1323,7 +1323,7 @@
     tabindex="0"
     textpos="before"
   >
-    December 2021
+    April 2005
   </ef-button>
   <ef-button
     aria-label="Next month"
@@ -1462,6 +1462,20 @@
       </div>
     </div>
     <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
       aria-selected="false"
       first-date=""
       part="cell day"
@@ -1469,7 +1483,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Wednesday, 1 December 2021"
+        aria-label="Friday, 1 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1483,7 +1497,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Thursday, 2 December 2021"
+        aria-label="Saturday, 2 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1494,17 +1508,21 @@
       aria-selected="false"
       part="cell day"
       role="gridcell"
-      tabindex="0"
-      today=""
+      tabindex="-1"
     >
       <div
-        aria-label="Today, Friday, 3 December 2021"
+        aria-label="Sunday, 3 April 2005"
         part="cell-content selection"
         role="button"
       >
         3
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       aria-selected="false"
       part="cell day"
@@ -1512,7 +1530,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Saturday, 4 December 2021"
+        aria-label="Monday, 4 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1526,18 +1544,13 @@
       tabindex="-1"
     >
       <div
-        aria-label="Sunday, 5 December 2021"
+        aria-label="Tuesday, 5 April 2005"
         part="cell-content selection"
         role="button"
       >
         5
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       aria-selected="false"
       part="cell day"
@@ -1545,7 +1558,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Monday, 6 December 2021"
+        aria-label="Wednesday, 6 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1559,7 +1572,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Tuesday, 7 December 2021"
+        aria-label="Thursday, 7 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1573,7 +1586,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Wednesday, 8 December 2021"
+        aria-label="Friday, 8 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1587,7 +1600,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Thursday, 9 December 2021"
+        aria-label="Saturday, 9 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1601,13 +1614,18 @@
       tabindex="-1"
     >
       <div
-        aria-label="Friday, 10 December 2021"
+        aria-label="Sunday, 10 April 2005"
         part="cell-content selection"
         role="button"
       >
         10
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       aria-selected="false"
       part="cell day"
@@ -1615,7 +1633,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Saturday, 11 December 2021"
+        aria-label="Monday, 11 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1629,18 +1647,13 @@
       tabindex="-1"
     >
       <div
-        aria-label="Sunday, 12 December 2021"
+        aria-label="Tuesday, 12 April 2005"
         part="cell-content selection"
         role="button"
       >
         12
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       aria-selected="false"
       part="cell day"
@@ -1648,7 +1661,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Monday, 13 December 2021"
+        aria-label="Wednesday, 13 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1662,7 +1675,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Tuesday, 14 December 2021"
+        aria-label="Thursday, 14 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1676,7 +1689,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Wednesday, 15 December 2021"
+        aria-label="Friday, 15 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1690,7 +1703,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Thursday, 16 December 2021"
+        aria-label="Saturday, 16 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1704,13 +1717,18 @@
       tabindex="-1"
     >
       <div
-        aria-label="Friday, 17 December 2021"
+        aria-label="Sunday, 17 April 2005"
         part="cell-content selection"
         role="button"
       >
         17
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       aria-selected="false"
       part="cell day"
@@ -1718,7 +1736,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Saturday, 18 December 2021"
+        aria-label="Monday, 18 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1732,18 +1750,13 @@
       tabindex="-1"
     >
       <div
-        aria-label="Sunday, 19 December 2021"
+        aria-label="Tuesday, 19 April 2005"
         part="cell-content selection"
         role="button"
       >
         19
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       aria-selected="false"
       part="cell day"
@@ -1751,7 +1764,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Monday, 20 December 2021"
+        aria-label="Wednesday, 20 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1759,13 +1772,14 @@
       </div>
     </div>
     <div
-      aria-selected="false"
+      aria-selected="true"
       part="cell day"
       role="gridcell"
-      tabindex="-1"
+      selected=""
+      tabindex="0"
     >
       <div
-        aria-label="Tuesday, 21 December 2021"
+        aria-label="Selected: Thursday, 21 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1779,7 +1793,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Wednesday, 22 December 2021"
+        aria-label="Friday, 22 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1793,7 +1807,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Thursday, 23 December 2021"
+        aria-label="Saturday, 23 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1807,39 +1821,11 @@
       tabindex="-1"
     >
       <div
-        aria-label="Friday, 24 December 2021"
+        aria-label="Sunday, 24 April 2005"
         part="cell-content selection"
         role="button"
       >
         24
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Saturday, 25 December 2021"
-        part="cell-content selection"
-        role="button"
-      >
-        25
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Sunday, 26 December 2021"
-        part="cell-content selection"
-        role="button"
-      >
-        26
       </div>
     </div>
   </div>
@@ -1854,7 +1840,35 @@
       tabindex="-1"
     >
       <div
-        aria-label="Monday, 27 December 2021"
+        aria-label="Monday, 25 April 2005"
+        part="cell-content selection"
+        role="button"
+      >
+        25
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+      tabindex="-1"
+    >
+      <div
+        aria-label="Tuesday, 26 April 2005"
+        part="cell-content selection"
+        role="button"
+      >
+        26
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+      tabindex="-1"
+    >
+      <div
+        aria-label="Wednesday, 27 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1868,7 +1882,7 @@
       tabindex="-1"
     >
       <div
-        aria-label="Tuesday, 28 December 2021"
+        aria-label="Thursday, 28 April 2005"
         part="cell-content selection"
         role="button"
       >
@@ -1882,25 +1896,11 @@
       tabindex="-1"
     >
       <div
-        aria-label="Wednesday, 29 December 2021"
+        aria-label="Friday, 29 April 2005"
         part="cell-content selection"
         role="button"
       >
         29
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-      tabindex="-1"
-    >
-      <div
-        aria-label="Thursday, 30 December 2021"
-        part="cell-content selection"
-        role="button"
-      >
-        30
       </div>
     </div>
     <div
@@ -1911,18 +1911,11 @@
       tabindex="-1"
     >
       <div
-        aria-label="Friday, 31 December 2021"
+        aria-label="Saturday, 30 April 2005"
         part="cell-content selection"
         role="button"
       >
-        31
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
+        30
       </div>
     </div>
     <div
