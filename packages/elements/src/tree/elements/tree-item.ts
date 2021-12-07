@@ -158,7 +158,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   }
 
   /**
-   * Setting aria-expanded based on expanded state,
+   * Sets aria-expanded based on expanded state,
    * only parent nodes are eligible
    * @returns {void}
    */
@@ -168,6 +168,10 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
     }
   }
 
+  /**
+   * Sets select and aria to tree-item
+   * @returns {void}
+   */
   protected checkedChanged (): void {
     // Parent node in single-mode cannot be selected
     if (this.parent && !this.multiple) {
@@ -177,15 +181,15 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
     switch (this.checkedState) {
       case CheckedState.CHECKED:
         this.setAttribute('selected', '');
-        this.setAttribute('aria-selected', 'true');
+        this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'true');
         break;
       case CheckedState.INDETERMINATE:
         this.setAttribute('selected', 'indeterminate');
-        this.setAttribute('aria-selected', 'false');
+        this.setAttribute('aria-checked', 'mixed');
         break;
       default:
         this.removeAttribute('selected');
-        this.setAttribute('aria-selected', 'false');
+        this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'false');
         break;
     }
   }
