@@ -329,6 +329,15 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
+   * Gets a list of adjaccent nodes
+   * @param item Original data item
+   * @returns Adjaccent nodes
+   */
+  public getItemSiblings (item: T): readonly T[] {
+    return this.composer.getItemSiblings(item);
+  }
+
+  /**
    * Gets an item's child collection
    * @param item Original data item
    * @returns A list of children
