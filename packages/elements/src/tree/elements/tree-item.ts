@@ -158,43 +158,6 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   }
 
   /**
-   * Sets aria-expanded based on expanded state,
-   * only parent nodes are eligible
-   * @returns {void}
-   */
-  protected expandedChanged (): void {
-    if (this.parent) {
-      this.setAttribute('aria-expanded', this.expanded ? 'true' : 'false');
-    }
-  }
-
-  /**
-   * Sets select and aria to tree-item
-   * @returns {void}
-   */
-  protected checkedChanged (): void {
-    // Parent node in single-mode cannot be selected
-    if (this.parent && !this.multiple) {
-      return;
-    }
-
-    switch (this.checkedState) {
-      case CheckedState.CHECKED:
-        this.setAttribute('selected', '');
-        this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'true');
-        break;
-      case CheckedState.INDETERMINATE:
-        this.setAttribute('selected', 'indeterminate');
-        this.setAttribute('aria-checked', 'mixed');
-        break;
-      default:
-        this.removeAttribute('selected');
-        this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'false');
-        break;
-    }
-  }
-
-  /**
    * Invoked whenever the element is updated
    * @param {PropertyValues} changedProperties Map of changed properties with old values
    * @returns {void}
@@ -203,11 +166,25 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
     super.update(changedProperties);
 
     if (changedProperties.has('checkedState')) {
-      this.checkedChanged();
-    }
+      // Parent node in single-mode cannot be selected
+      if (this.parent && !this.multiple) {
+        return;
+      }
 
-    if (changedProperties.has('expanded')) {
-      this.expandedChanged();
+      switch (this.checkedState) {
+        case CheckedState.CHECKED:
+          this.setAttribute('selected', '');
+          this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'true');
+          break;
+        case CheckedState.INDETERMINATE:
+          this.setAttribute('selected', 'indeterminate');
+          this.setAttribute('aria-checked', 'mixed');
+          break;
+        default:
+          this.removeAttribute('selected');
+          this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'false');
+          break;
+      }
     }
   }
 

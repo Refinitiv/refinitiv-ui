@@ -41,6 +41,10 @@ export class TreeRenderer extends Renderer {
       el.setAttribute('aria-level', String(el.depth + 1));
       el.setAttribute('aria-setsize', String(composer.getItemSiblings(item).length + 1));
 
+      if (el.parent) {
+        el.setAttribute('aria-expanded', el.expanded ? 'true' : 'false');
+      }
+
       return el;
     });
   }
