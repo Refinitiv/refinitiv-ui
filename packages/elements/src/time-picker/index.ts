@@ -6,9 +6,13 @@ import {
   CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { guard } from '@refinitiv-ui/core/lib/directives/guard.js';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { FocusedChangedEvent } from '../events';
 import { VERSION } from '../version.js';
 import {
   isValidTime,
@@ -22,10 +26,17 @@ import {
   MILLISECONDS_IN_MINUTE,
   MILLISECONDS_IN_HOUR,
   addOffset,
-  padNumber
+  padNumber,
+  parse
 } from '@refinitiv-ui/utils/lib/date.js';
 import '../number-field/index.js';
 import type { NumberField } from '../number-field';
+import {
+  translate,
+  TranslateDirective
+} from '@refinitiv-ui/translate';
+import '@refinitiv-ui/phrasebook/lib/locale/en/time-picker.js';
+
 
 enum Segment {
   HOURS = 'hours',
@@ -69,6 +80,8 @@ export class TimePicker extends ControlElement {
     return VERSION;
   }
 
+  protected readonly defaultRole: string | null = 'group';
+
   private isMobile = false;
 
   /**
@@ -105,7 +118,7 @@ export class TimePicker extends ControlElement {
       return;
     }
 
-    this._hours = this.validUnit(hours, MIN_UNIT, MAX_HOURS, oldHours);
+    this._hours = TimePicker.validUnit(hours, MIN_UNIT, MAX_HOURS, oldHours);
 
     if (this._hours !== oldHours) {
       this.requestUpdate('hours', oldHours);
@@ -132,7 +145,7 @@ export class TimePicker extends ControlElement {
     if ((minutes !== null && isNaN(minutes)) || oldMinutes === minutes) {
       return;
     }
-    this._minutes = this.validUnit(minutes, MIN_UNIT, MAX_MINUTES, oldMinutes);
+    this._minutes = TimePicker.validUnit(minutes, MIN_UNIT, MAX_MINUTES, oldMinutes);
     if (this._minutes !== oldMinutes) {
       this.requestUpdate('minutes', oldMinutes);
     }
@@ -158,7 +171,7 @@ export class TimePicker extends ControlElement {
     if ((seconds !== null && isNaN(seconds)) || oldSeconds === seconds) {
       return;
     }
-    this._seconds = this.validUnit(seconds, MIN_UNIT, MAX_SECONDS, oldSeconds);
+    this._seconds = TimePicker.validUnit(seconds, MIN_UNIT, MAX_SECONDS, oldSeconds);
     if (this._seconds !== oldSeconds) {
       this.requestUpdate('seconds', oldSeconds);
     }
@@ -255,6 +268,24 @@ export class TimePicker extends ControlElement {
   private toggleEl?: HTMLElement | null;
 
   /**
+   * Used for translations
+   */
+  @translate({ mode: 'directive', scope: 'ef-time-picker' })
+  protected t!: TranslateDirective;
+
+  /**
+   * State to check currently focus input
+   */
+  @state()
+  private focusedSegment: Segment | null = null;
+
+  /**
+   * Connected to role. If false, the values are not announced in the screen reader
+   */
+  @state()
+  private announceValues = true;
+
+  /**
    * Return the current time string, based on the current hours, minutes and seconds.
    * Used internally to set the value string after updates.
    */
@@ -275,9 +306,9 @@ export class TimePicker extends ControlElement {
   }
 
   /**
-   * Formats the hours value
+   * Get hours taking into account AM/PM placeholder
    */
-  private get formattedHours (): string {
+  private get periodHours (): number | null {
     const _hours = this.hours;
     let hours = _hours;
     if (_hours !== null) {
@@ -285,14 +316,21 @@ export class TimePicker extends ControlElement {
         ? _hours - HOURS_OF_NOON : this.amPm && !_hours ? HOURS_OF_NOON : _hours;
     }
 
-    return this.formattedUnit(hours);
+    return hours;
+  }
+
+  /**
+   * Formats the hours value
+   */
+  private get formattedHours (): string {
+    return TimePicker.formattedUnit(this.periodHours);
   }
 
   /**
    * Formats the minutes value
    */
   private get formattedMinutes (): string {
-    return this.formattedUnit(this.minutes);
+    return TimePicker.formattedUnit(this.minutes);
   }
 
   /**
@@ -300,7 +338,19 @@ export class TimePicker extends ControlElement {
    * @returns Formatted number
    */
   private get formattedSeconds (): string {
-    return this.formattedUnit(this.seconds);
+    return TimePicker.formattedUnit(this.seconds);
+  }
+
+  static get observedAttributes (): string[] {
+    const observed = super.observedAttributes;
+    return ['role'].concat(observed);
+  }
+
+  public attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === 'role') {
+      this.announceValues = !(!newValue || newValue === 'none' || newValue === 'presentation');
+    }
   }
 
   /**
@@ -313,8 +363,6 @@ export class TimePicker extends ControlElement {
     super.firstUpdated(changedProperties);
 
     // add events
-    this.renderRoot.addEventListener('blur', this.onBlur, true);
-    this.renderRoot.addEventListener('focus', this.onFocus, true);
     this.renderRoot.addEventListener('keydown', this.onKeydown, true);
   }
 
@@ -328,8 +376,32 @@ export class TimePicker extends ControlElement {
     super.updated(changedProperties);
 
     /* istanbul ignore next */
-    if (this.hasTimeChanged(changedProperties) && this.isMobile) {
+    if (TimePicker.hasTimeChanged(changedProperties) && this.isMobile) {
       this.updateMobileTimePickerValue();
+    }
+
+    if (this.focusedSegment && changedProperties.has('focusedSegment')) {
+      void this.selectFocusedSegment();
+    }
+  }
+
+  /**
+   * Select text in input when update element complete
+   * @returns returns a promise void
+   */
+  private async selectFocusedSegment (): Promise<void> {
+    await this.updateComplete;
+    switch (this.focusedSegment) {
+      case Segment.HOURS:
+        this.hoursInput.select();
+        break;
+      case Segment.MINUTES:
+        this.minutesInput.select();
+        break;
+      case Segment.SECONDS:
+        this.secondsInput?.select();
+        break;
+      // no default
     }
   }
 
@@ -386,7 +458,7 @@ export class TimePicker extends ControlElement {
    * @param changedProperties changed properties
    * @returns True if changed
    */
-  private hasTimeChanged (changedProperties: PropertyValues): boolean {
+  private static hasTimeChanged (changedProperties: PropertyValues): boolean {
     return changedProperties.has('hours')
       || changedProperties.has('minutes')
       || changedProperties.has('seconds');
@@ -401,7 +473,7 @@ export class TimePicker extends ControlElement {
    * @param fallback Fallback value to use, if unit is invalid
    * @returns unit or fallback or 0 value
    */
-  private validUnit (unit: number | null, min: number, max: number, fallback: number | null): number | null {
+  private static validUnit (unit: number | null, min: number, max: number, fallback: number | null): number | null {
     if (unit === null) {
       return null;
     }
@@ -437,18 +509,13 @@ export class TimePicker extends ControlElement {
   }
 
   /**
-   * Handles the blur event of any inputs
-   *
-   * @param event Event Object
+   * Handles action when input focused change
+   * @param event focus change event
    * @returns {void}
    */
-  private onBlur = (event: Event): void => {
-    if (this.readonly) {
-      return;
-    }
-
-    const target = event.target as HTMLElement;
-    const value = (target as NumberField).value;
+  private onInputFocusedChanged (event: FocusedChangedEvent): void {
+    const target = event.target as NumberField;
+    const focused = event.detail.value;
     let segment;
 
     if (target === this.hoursInput) {
@@ -461,11 +528,14 @@ export class TimePicker extends ControlElement {
       segment = Segment.SECONDS;
     }
 
+    this.focusedSegment = focused && segment ? segment : null;
+
     /* istanbul ignore next */
-    if (!segment) {
+    if (!segment || this.readonly) {
       return;
     }
 
+    const value = target.value;
     if (value) {
       this.updateTimeSegmentTo(segment, Number(value));
     }
@@ -507,19 +577,6 @@ export class TimePicker extends ControlElement {
 
       // no default
     }
-  }
-
-  /**
-   * Handles the focus event of any inputs
-   *
-   * @param event Event Object
-   * @returns {void}
-   */
-  private onFocus = (event: Event): void => {
-    if (this.readonly) {
-      return;
-    }
-    (event.target as NumberField).value = '';
   }
 
   /**
@@ -576,7 +633,10 @@ export class TimePicker extends ControlElement {
    * @returns {void}
    */
   private handleEnterKey (event: KeyboardEvent): void {
-    (event.target as NumberField).blur();
+    if (event.target === this.toggleEl) {
+      this.toggle();
+      event.preventDefault();
+    }
   }
 
   /**
@@ -728,7 +788,7 @@ export class TimePicker extends ControlElement {
    * @param n Number to format
    * @returns Formatted number
    */
-  private formattedUnit (n: number | null): string {
+  private static formattedUnit (n: number | null): string {
     return n === null ? '' : padNumber(n, 2);
   }
 
@@ -790,24 +850,33 @@ export class TimePicker extends ControlElement {
   }
 
   /**
+   * Template for divider segment
+   * @returns Divider segment
+   */
+  private static dividerTemplate = html`<span part="divider" aria-hidden="true"></span>`;
+
+  /**
    * Template for Seconds Segment
    *
    * @returns Seconds segment
    */
   private getSecondsHtml (): TemplateResult | null {
     return this.isShowSeconds ? html`
-      <span part="divider"></span>
+      ${TimePicker.dividerTemplate}
       <ef-number-field
+        role="presentation"
         id="seconds"
         part="input"
+        aria-label="${this.t('SELECT_SECONDS', { value: this.seconds })}"
         no-spinner
         min="${MIN_UNIT}"
         max="${MAX_SECONDS}"
         .value="${this.formattedSeconds}"
-        placeholder="${this.formattedSeconds || Placeholder.SECONDS}"
+        placeholder="${ifDefined(this.formattedSeconds ? undefined : Placeholder.SECONDS)}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
-        transparent></ef-number-field>
+        transparent
+        @focused-changed=${this.onInputFocusedChanged}></ef-number-field>
     ` : null;
   }
 
@@ -816,13 +885,29 @@ export class TimePicker extends ControlElement {
    *
    * @returns Am/Pm segment
    */
-  private getAmPmHtml (): TemplateResult | null {
+  private get getAmPmHtml (): TemplateResult | null {
     const hasHours = this.hours !== null;
 
     return this.amPm ? html`
-      <div id="toggle" part="toggle" @tap=${this.toggle} tabindex="0">
-        <div part="toggle-item" ?active=${hasHours && this.isAM()}>AM</div>
-        <div part="toggle-item" ?active=${hasHours && this.isPM()}>PM</div>
+      <div role="listbox"
+           aria-label="${this.t('TOGGLE_TIME_PERIOD')}"
+           aria-activedescendant="${ifDefined(hasHours ? this.isAM() ? 'toggle-am' : 'toggle-pm' : undefined)}"
+           id="toggle"
+           part="toggle"
+           @tap=${this.toggle}
+           tabindex="0">
+        <div
+          aria-label="${this.t('BEFORE_MIDDAY')}"
+          role="option"
+          id="toggle-am"
+          part="toggle-item"
+          ?active=${hasHours && this.isAM()}>AM</div>
+        <div
+          aria-label="${this.t('AFTER_MIDDAY')}"
+          role="option"
+          id="toggle-pm"
+          part="toggle-item"
+          ?active=${hasHours && this.isPM()}>PM</div>
       </div>
     ` : null;
   }
@@ -833,8 +918,29 @@ export class TimePicker extends ControlElement {
    *
    * @returns input
    */
-  private getNativeInputForMobile (): TemplateResult | null {
+  private get nativeInputForMobile (): TemplateResult | null {
     return this.isMobile ? html`<input id="mtp" type="time" @change=${this.onMobileTimeChange}>` : null;
+  }
+
+  /**
+   * A template used to notify currently selected value for screen readers
+   * @returns template result
+   */
+  private get selectionTemplate (): TemplateResult | undefined {
+    if (!this.announceValues) {
+      return;
+    }
+    const value = this.value;
+    const showSeconds = this.isShowSeconds;
+    const amPm = this.amPm;
+
+    return html`<div
+      part="aria-selection"
+      aria-live="polite"
+      aria-label="${this.t('SELECTED', {
+        value: value ? parse(value) : null,
+        showSeconds,
+        amPm })}"></div>`;
   }
 
   /**
@@ -843,33 +949,43 @@ export class TimePicker extends ControlElement {
    * @returns Render template
    */
   protected render (): TemplateResult {
+    const hours = this.formattedHours;
+    const minutes = this.formattedMinutes;
+
     return html`
       <ef-number-field
+        role="none"
         id="hours"
         part="input"
+        aria-label="${this.t('SELECT_HOURS', { value: this.periodHours })}"
         no-spinner
         transparent
         min="${this.amPm ? 1 : MIN_UNIT}"
         max="${this.amPm ? HOURS_OF_NOON : MAX_HOURS}"
-        .value="${this.formattedHours}"
-        placeholder="${this.formattedHours || Placeholder.HOURS}"
+        .value="${hours}"
+        placeholder="${ifDefined(hours ? undefined : Placeholder.HOURS)}"
         ?disabled="${this.disabled}"
-        ?readonly="${this.readonly}"></ef-number-field>
-      <span part="divider"></span>
+        ?readonly="${this.readonly}"
+        @focused-changed=${this.onInputFocusedChanged}></ef-number-field>
+      ${TimePicker.dividerTemplate}
       <ef-number-field
+        role="none"
         id="minutes"
+        aria-label="${this.t('SELECT_MINUTES', { value: this.minutes })}"
         part="input"
         no-spinner
         min="${MIN_UNIT}"
         max="${MAX_MINUTES}"
-        .value="${this.formattedMinutes}"
-        placeholder="${this.formattedMinutes || Placeholder.MINUTES}"
+        .value="${minutes}"
+        placeholder="${ifDefined(minutes ? undefined : Placeholder.MINUTES)}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
-        transparent></ef-number-field>
+        transparent
+        @focused-changed=${this.onInputFocusedChanged}></ef-number-field>
       ${this.getSecondsHtml()}
-      ${this.getAmPmHtml()}
-      ${this.getNativeInputForMobile()}
+      ${guard([this.value, this.lang, this.amPm], () => this.getAmPmHtml)}
+      ${guard([this.isMobile], () => this.nativeInputForMobile)}
+      ${guard([this.value, this.lang, this.showSeconds, this.amPm, this.announceValues], () => this.selectionTemplate)}
     `;
   }
 }
