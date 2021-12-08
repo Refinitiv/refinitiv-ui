@@ -34,7 +34,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
     return VERSION;
   }
 
-  protected readonly defaultRole = 'treeitem';
+  protected readonly defaultRole: string | null = 'treeitem';
 
   /**
    * Checked state of the item
