@@ -479,6 +479,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       part="cell day"
       role="gridcell"
@@ -822,6 +823,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       part="cell month"
       role="gridcell"
@@ -1122,6 +1124,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       part="cell year"
       role="gridcell"
@@ -1478,6 +1481,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell day"

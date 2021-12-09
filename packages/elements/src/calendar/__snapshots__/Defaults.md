@@ -155,6 +155,7 @@
     role="row"
   >
     <div
+      active=""
       aria-selected="false"
       first-date=""
       idle=""
@@ -971,6 +972,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell day"
@@ -1530,6 +1532,7 @@
     role="row"
   >
     <div
+      active=""
       aria-selected="false"
       first-date=""
       idle=""
@@ -1831,6 +1834,7 @@
     role="row"
   >
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell year"
@@ -2240,6 +2244,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell day"
@@ -2806,6 +2811,7 @@
     role="row"
   >
     <div
+      active=""
       aria-selected="false"
       first-date=""
       idle=""
@@ -3107,6 +3113,7 @@
     role="row"
   >
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell year"
@@ -3523,6 +3530,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell day"
@@ -4103,6 +4111,7 @@
     role="row"
   >
     <div
+      active=""
       aria-selected="false"
       first-date=""
       idle=""
@@ -4404,6 +4413,7 @@
     role="row"
   >
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell year"
@@ -4836,6 +4846,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell day"
@@ -5533,6 +5544,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell day"
@@ -6199,6 +6211,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell day"
@@ -6921,7 +6934,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Friday, 1 April 2005"
         part="cell-content"
         role="button"
       >
@@ -6929,6 +6941,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       part="cell day"
       role="gridcell"
@@ -6968,7 +6981,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Monday, 4 April 2005"
         part="cell-content"
         role="button"
       >
@@ -6982,7 +6994,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Tuesday, 5 April 2005"
         part="cell-content"
         role="button"
       >
@@ -6996,7 +7007,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Wednesday, 6 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7010,7 +7020,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Thursday, 7 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7024,7 +7033,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Friday, 8 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7071,7 +7079,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Monday, 11 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7085,7 +7092,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Tuesday, 12 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7099,7 +7105,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Wednesday, 13 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7113,7 +7118,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Thursday, 14 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7127,7 +7131,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Friday, 15 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7174,7 +7177,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Monday, 18 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7188,7 +7190,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Tuesday, 19 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7202,7 +7203,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Wednesday, 20 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7216,7 +7216,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Thursday, 21 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7230,7 +7229,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Friday, 22 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7277,7 +7275,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Monday, 25 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7291,7 +7288,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Tuesday, 26 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7305,7 +7301,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Wednesday, 27 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7319,7 +7314,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Thursday, 28 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7333,7 +7327,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Friday, 29 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7608,6 +7601,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell day"
@@ -7629,7 +7623,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 2 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7643,7 +7636,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Sunday, 3 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7732,7 +7724,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 9 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7746,7 +7737,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Sunday, 10 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7835,7 +7825,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 16 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7849,7 +7838,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Sunday, 17 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7938,7 +7926,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 23 April 2005"
         part="cell-content"
         role="button"
       >
@@ -7952,7 +7939,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Sunday, 24 April 2005"
         part="cell-content"
         role="button"
       >
@@ -8042,7 +8028,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 30 April 2005"
         part="cell-content"
         role="button"
       >
@@ -8309,7 +8294,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Friday, 1 April 2005"
         part="cell-content"
         role="button"
       >
@@ -8323,7 +8307,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 2 April 2005"
         part="cell-content"
         role="button"
       >
@@ -8337,7 +8320,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Sunday, 3 April 2005"
         part="cell-content"
         role="button"
       >
@@ -8356,7 +8338,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Monday, 4 April 2005"
         part="cell-content"
         role="button"
       >
@@ -8364,6 +8345,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       part="cell day"
       role="gridcell"
@@ -8996,6 +8978,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell day"
@@ -9373,7 +9356,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Tuesday, 26 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9387,7 +9369,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Wednesday, 27 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9401,7 +9382,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Thursday, 28 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9415,7 +9395,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Friday, 29 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9430,7 +9409,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 30 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9690,6 +9668,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell day"
@@ -9711,7 +9690,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 2 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9744,7 +9722,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Monday, 4 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9772,7 +9749,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Wednesday, 6 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9800,7 +9776,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Friday, 8 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9828,7 +9803,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Sunday, 10 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9861,7 +9835,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Tuesday, 12 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9889,7 +9862,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Thursday, 14 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9917,7 +9889,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 16 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9950,7 +9921,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Monday, 18 April 2005"
         part="cell-content"
         role="button"
       >
@@ -9978,7 +9948,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Wednesday, 20 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10006,7 +9975,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Friday, 22 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10034,7 +10002,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Sunday, 24 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10067,7 +10034,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Tuesday, 26 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10095,7 +10061,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Thursday, 28 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10124,7 +10089,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 30 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10389,7 +10353,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Friday, 1 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10403,7 +10366,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 2 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10417,7 +10379,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Sunday, 3 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10436,7 +10397,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Monday, 4 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10444,6 +10404,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       part="cell day"
       role="gridcell"
@@ -10464,7 +10425,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Wednesday, 6 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10492,7 +10452,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Friday, 8 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10506,7 +10465,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 9 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10520,7 +10478,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Sunday, 10 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10553,7 +10510,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Tuesday, 12 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10581,7 +10537,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Thursday, 14 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10609,7 +10564,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 16 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10623,7 +10577,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Sunday, 17 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10642,7 +10595,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Monday, 18 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10670,7 +10622,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Wednesday, 20 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10698,7 +10649,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Friday, 22 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10712,7 +10662,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 23 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10726,7 +10675,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Sunday, 24 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10759,7 +10707,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Tuesday, 26 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10773,7 +10720,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Wednesday, 27 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10787,7 +10733,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Thursday, 28 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10801,7 +10746,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Friday, 29 April 2005"
         part="cell-content"
         role="button"
       >
@@ -10816,7 +10760,6 @@
     >
       <div
         aria-disabled="true"
-        aria-label="Saturday, 30 April 2005"
         part="cell-content"
         role="button"
       >

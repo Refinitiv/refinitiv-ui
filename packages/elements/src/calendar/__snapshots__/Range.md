@@ -183,6 +183,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       first-date=""
       part="cell day"
@@ -823,6 +824,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       part="cell month"
       range-from=""
@@ -1125,6 +1127,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       part="cell year"
       range-from=""
@@ -1482,6 +1485,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell day"
@@ -2135,6 +2139,7 @@
     role="row"
   >
     <div
+      active=""
       aria-selected="true"
       part="cell month"
       range-from=""
@@ -2461,6 +2466,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       part="cell year"
       range-from=""
@@ -2877,6 +2883,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       part="cell day"
       range-from=""
@@ -3479,6 +3486,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       part="cell month"
       range-from=""
@@ -3781,6 +3789,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       part="cell year"
       range-from=""
@@ -4216,6 +4225,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       part="cell day"
       role="gridcell"
@@ -4907,6 +4917,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       part="cell day"
       range-from=""
@@ -5707,6 +5718,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       part="cell day"
       role="gridcell"
@@ -6384,6 +6396,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="true"
       part="cell day"
       role="gridcell"
@@ -6924,6 +6937,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell day"

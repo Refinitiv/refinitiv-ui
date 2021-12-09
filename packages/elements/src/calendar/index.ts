@@ -8,7 +8,6 @@ import {
   MultiValue,
   WarningNotice
 } from '@refinitiv-ui/core';
-import type { DirectiveResult } from 'lit/directive.js';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
@@ -41,7 +40,6 @@ import {
 } from '@refinitiv-ui/utils/lib/date.js';
 import {
   NavigationGrid,
-  NavigationRow,
   CellIndex,
   left,
   right,
@@ -73,15 +71,15 @@ import {
   YEAR_VIEW,
   MONTH_VIEW
 } from './constants.js';
-import type {
+import {
   Cell,
   Row,
   Comparator,
   CalendarFilter,
   CellSelectionModel,
   CellDivElement,
-  NavigationMap,
-  NavigationDirection
+  NavigationDirection,
+  WeekdayName
 } from './types';
 import type { Button } from '../button';
 import './locales.js';
@@ -130,15 +128,6 @@ export class Calendar extends ControlElement implements MultiValue {
     return css`
       :host {
         display: inline-block;
-        position: relative;
-      }
-      [part~=aria-selection] {
-        position: absolute;
-        pointer-events: none;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
       }
       [part~=navigation], [part~=navigation] section {
         display: flex;
@@ -277,7 +266,7 @@ export class Calendar extends ControlElement implements MultiValue {
     const oldView = this._view;
     if (oldView !== view) {
       this._view = view;
-      this._activeCellIndex = null;
+      this.resetActiveCellIndex();
       this.requestUpdate('view', oldView);
     }
   }
@@ -288,8 +277,7 @@ export class Calendar extends ControlElement implements MultiValue {
 
   private localFirstDayOfWeek = FIRST_DAY_OF_WEEK; // used from locales. 0 stands for Sunday
   private localMonthsNames!: string[]; // resolved based on locale
-  private localWeekdaysNames!: string[]; // resolved based on locale
-  private localFullWeekdaysNames!: string[]; // resolved based on locale
+  private localWeekdaysNames!: WeekdayName[]; // resolved based on locale
   private _firstDayOfWeek: number | null = null; // used from setter
 
   /**
@@ -371,10 +359,13 @@ export class Calendar extends ControlElement implements MultiValue {
   public fillCells = false;
 
   /**
+   * Calendar internal translation strings
+   */
+  @translate({ mode: 'directive', scope: CalendarLocaleScope }) protected dateT!: TranslateDirective;
+  @translate({ mode: 'promise', scope: CalendarLocaleScope }) protected dateTPromise!: TranslatePromise;
+  /**
    * Used for translations
    */
-  @translate({ mode: 'directive', scope: CalendarLocaleScope }) protected localeT!: TranslateDirective;
-  @translate({ mode: 'promise', scope: CalendarLocaleScope }) protected localeTPromise!: TranslatePromise;
   @translate({ mode: 'directive', scope: 'ef-calendar' }) protected t!: TranslateDirective;
 
   /**
@@ -390,7 +381,7 @@ export class Calendar extends ControlElement implements MultiValue {
     if (oldRenderView !== renderView) {
       this._renderView = renderView;
       // always reset active cell to not focus on potentially invalid cell
-      this._activeCellIndex = null;
+      this.resetActiveCellIndex();
       this.requestUpdate('renderView', oldRenderView);
     }
   }
@@ -413,6 +404,17 @@ export class Calendar extends ControlElement implements MultiValue {
   }
 
   /**
+   * Silently reset cell index without calling request update
+   * @returns {void}
+   */
+  private resetActiveCellIndex () {
+    this._activeCellIndex = null;
+  }
+
+  // Used to store current navigation map
+  private navigationGrid: NavigationGrid = [];
+
+  /**
    * Connected to role. If false, the values are not announced in the screen reader
    */
   @state()
@@ -423,6 +425,24 @@ export class Calendar extends ControlElement implements MultiValue {
    */
   private get activeElement (): Element | null {
     return (this.shadowRoot as ShadowRoot).activeElement;
+  }
+
+  /**
+   * Get cell element by index
+   * @param index Cell index
+   * @returns cell HTML Cell element or null
+   */
+  private getCellByIndex (index: CellIndex): CellDivElement | undefined {
+    const cells = Array.from(this.renderRoot.querySelectorAll('[role=gridcell]'));
+    return (cells as CellDivElement[]).find(cell => String(cell.index) === String(index));
+  }
+
+  /**
+   * Get active cell element
+   * @returns cell HTML Cell element or null
+   */
+  private get activeCell (): CellDivElement | null {
+    return this.renderRoot.querySelector('[role=gridcell][active]');
   }
 
   private isDateAvailable: CalendarFilter | null = null; /* a constructed filter based on multiple local filters */
@@ -444,7 +464,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns promise
    */
   protected async performUpdate (): Promise<void> {
-    const localFirstDayOfWeek = Number(await this.localeTPromise('FIRST_DAY_OF_WEEK'));
+    const localFirstDayOfWeek = Number(await this.dateTPromise('FIRST_DAY_OF_WEEK'));
     this.localFirstDayOfWeek = isNaN(localFirstDayOfWeek) ? FIRST_DAY_OF_WEEK : (localFirstDayOfWeek % 7);
     void super.performUpdate();
   }
@@ -461,8 +481,10 @@ export class Calendar extends ControlElement implements MultiValue {
     }
     if (!this.localWeekdaysNames || changedProperties.has(TranslatePropertyKey)) {
       const locale = getLocale(this);
-      this.localWeekdaysNames = weekdaysNames(locale);
-      this.localFullWeekdaysNames = weekdaysNames(locale, 'long');
+      const longWeekdaysNames = weekdaysNames(locale, 'long');
+      this.localWeekdaysNames = weekdaysNames(locale).map((narrow, index) => {
+        return { narrow, long: longWeekdaysNames[index] };
+      });
     }
     this.shouldConstructFilters(changedProperties) && this.constructFilters();
 
@@ -485,8 +507,7 @@ export class Calendar extends ControlElement implements MultiValue {
 
     const cellIndex = this.activeCellIndex;
     if (cellIndex && changedProperties.has('activeCellIndex')) {
-      const matrix = this.navigationMap;
-      const cell = matrix.map[`${cellIndex[0]}-${cellIndex[1]}`];
+      const cell = this.getCellByIndex(cellIndex);
       if (cell && this.activeElement !== cell) {
         cell.focus();
       }
@@ -655,6 +676,15 @@ export class Calendar extends ControlElement implements MultiValue {
   }
 
   /**
+   * Set navigation map based on rows
+   * @param rows A collection of rows with cells
+   * @returns {void}
+   */
+  private setNavigationMap (rows: Row[]): void {
+    this.navigationGrid = rows.map(row => row.map(cell => cell.value && !cell.disabled ? 1 : 0));
+  }
+
+  /**
    * Run when next button is tapped.
    * Change current view to next view
    * @returns {void}
@@ -734,10 +764,22 @@ export class Calendar extends ControlElement implements MultiValue {
           break;
         }
         return;
+      case 'Up': // IE11
       case 'ArrowUp':
+        void this.onNavigation('ArrowUp');
+        break;
+      case 'Down':
       case 'ArrowDown':
+        void this.onNavigation('ArrowDown');
+        break;
+      case 'Left':
       case 'ArrowLeft':
+        void this.onNavigation('ArrowLeft');
+        break;
+      case 'Right':
       case 'ArrowRight':
+        void this.onNavigation('ArrowRight');
+        break;
       case 'Home':
       case 'End':
         void this.onNavigation(event.key);
@@ -785,65 +827,8 @@ export class Calendar extends ControlElement implements MultiValue {
     this.onTapSelectValue(cell.value);
   }
 
-  /**
-   * Get the navigation map matrix used for arrow keyboard navigation
-   */
-  private get navigationMap (): NavigationMap {
-    let columnCount;
-    switch (this.renderView) {
-      case RenderView.YEAR:
-        columnCount = YEAR_VIEW.columnCount;
-        break;
-      case RenderView.MONTH:
-        columnCount = MONTH_VIEW.columnCount;
-        break;
-      default:
-        columnCount = DAY_VIEW.columnCount;
-    }
-
-    const grid: NavigationGrid = [];
-    const map: { [key: string]: CellDivElement; } = {};
-    let row: NavigationRow = [];
-
-    let rowIndex = 0;
-    let columnIndex = 0;
-    let active: CellIndex | undefined;
-
-    const cells = this.renderRoot.querySelectorAll('[part~=cell][part~=day],[part~=cell][part~=year],[part~=cell][part~=month]');
-
-    for (let i = 0; i < cells.length; i += 1) {
-      const cell = cells[i] as CellDivElement;
-      if (cell && cell.value && !cell.hasAttribute('disabled')) {
-        row.push(1);
-        map[`${columnIndex}-${rowIndex}`] = cell;
-        if (cell.active) {
-          active = [columnIndex, rowIndex];
-        }
-      }
-      else {
-        row.push(0);
-      }
-
-      columnIndex += 1;
-
-      if (row.length % columnCount === 0) {
-        grid.push(row);
-        rowIndex += 1;
-        columnIndex = 0;
-        row = [];
-      }
-    }
-
-    return {
-      grid,
-      map,
-      active
-    };
-  }
-
   private async onNavigation (key: NavigationDirection): Promise<void> {
-    const matrix = this.navigationMap;
-    const grid = matrix.grid;
+    const grid = this.navigationGrid;
 
     switch (key) {
       case 'Home':
@@ -856,11 +841,11 @@ export class Calendar extends ControlElement implements MultiValue {
     }
 
     // no previously selected cell, but there is cell which is a candidate for navigation
-    if (!this.activeCellIndex && matrix.active) {
-      this.activeCellIndex = matrix.active;
-      const cell = matrix.map[`${matrix.active[0]}-${matrix.active[1]}`];
+    const activeCell = this.activeCell;
+    if (!this.activeCellIndex && activeCell) {
+      this.activeCellIndex = activeCell.index;
       // current cell is already in focus (e.g. via Tab key, continue navigation from that point)
-      if (!(this.activeElement === cell)) {
+      if (!(this.activeElement === activeCell)) {
         return;
       }
     }
@@ -1013,11 +998,7 @@ export class Calendar extends ControlElement implements MultiValue {
       return html`${formatLocaleDate(date, getLocale(this), includeMonth, includeEra)}`;
     }
 
-    return html`${this.localeT('VIEW_FORMAT', {
-      date,
-      includeMonth,
-      includeEra
-    }, ViewFormatTranslateParams)}`;
+    return html`${this.dateT('VIEW_FORMAT', { date, includeMonth, includeEra }, ViewFormatTranslateParams)}`;
   }
 
   /**
@@ -1044,9 +1025,8 @@ export class Calendar extends ControlElement implements MultiValue {
 
   /**
    * Set an active state of the cell based
-   * @param rows Rows to look through
+   * @param rows A collection of rows with cells
    * @returns {void}
-   * @private
    */
   private setActiveCell (rows: Row[]): void {
     const setActive = (cell?: Cell): void => {
@@ -1066,8 +1046,8 @@ export class Calendar extends ControlElement implements MultiValue {
 
     for (let i = 0; i < rows.length; i += 1) {
       const row = rows[i];
-      for (let e = 0; e < row.cells.length; e += 1) {
-        const cell = row.cells[e];
+      for (let e = 0; e < row.length; e += 1) {
+        const cell = row[e];
         if (cell.disabled || !cell.value) {
           continue;
         }
@@ -1088,7 +1068,7 @@ export class Calendar extends ControlElement implements MultiValue {
 
     // If a cell that was active before last render is not available now, remove index
     if (!activeCell && this.activeCellIndex) {
-      this._activeCellIndex = null; // set on private to not cause another re-render
+      this.resetActiveCellIndex(); // set on private to not cause another re-render
     }
 
     setActive(activeCell || selectedCell || nowCell || firstCell);
@@ -1110,9 +1090,7 @@ export class Calendar extends ControlElement implements MultiValue {
     for (let i = 0; i < YEAR_VIEW.totalCount; i += 1) {
       if (i % YEAR_VIEW.columnCount === 0) {
         cells = [];
-        rows.push({
-          cells
-        });
+        rows.push(cells);
       }
 
       const year = startIdx + i;
@@ -1122,6 +1100,7 @@ export class Calendar extends ControlElement implements MultiValue {
         text: year > 0 ? `${year}` : year === 0 ? '1' : `${Math.abs(year - 1)}`,
         value: `${year}`,
         now: isThisYear(value),
+        index: [cells.length, rows.length - 1],
         ...this.getCellSelection(value, isSameYear)
       };
       cells.push(cell);
@@ -1130,6 +1109,7 @@ export class Calendar extends ControlElement implements MultiValue {
     years[0].firstDate = true;
     years[years.length - 1].lastDate = true;
     this.setActiveCell(rows);
+    this.setNavigationMap(rows);
 
     return html`${this.renderRows(rows)}`;
   }
@@ -1156,9 +1136,7 @@ export class Calendar extends ControlElement implements MultiValue {
     for (let i = 0; i < totalCount; i += 1) {
       if (i % columnCount === 0) {
         cells = [];
-        rows.push({
-          cells
-        });
+        rows.push(cells);
       }
 
       const month = (startIdx + i) % monthCount; /* 0 for Jan, 11 for Dev */
@@ -1172,6 +1150,7 @@ export class Calendar extends ControlElement implements MultiValue {
         value: utcFormat(segment, DateFormat.yyyyMM),
         idle,
         now: isThisMonth(value),
+        index: [cells.length, rows.length - 1],
         ...this.getCellSelection(value, isSameMonth)
       };
       cells.push(cell);
@@ -1181,6 +1160,7 @@ export class Calendar extends ControlElement implements MultiValue {
     months[0].firstDate = true;
     months[months.length - 1].lastDate = true;
     this.setActiveCell(rows);
+    this.setNavigationMap(rows);
 
     return html`${this.renderRows(rows)}`;
   }
@@ -1208,9 +1188,7 @@ export class Calendar extends ControlElement implements MultiValue {
     for (let i = 0; i < DAY_VIEW.totalCount; i += 1) {
       if (i % DAY_VIEW.columnCount === 0) {
         cells = [];
-        rows.push({
-          cells
-        });
+        rows.push(cells);
       }
 
       const datePadding = i - padding + 1;
@@ -1218,7 +1196,8 @@ export class Calendar extends ControlElement implements MultiValue {
       if (datePadding <= 0) {
         if (!this.fillCells) {
           cells.push({
-            view
+            view,
+            index: [cells.length, rows.length - 1]
           });
           continue;
         }
@@ -1229,7 +1208,8 @@ export class Calendar extends ControlElement implements MultiValue {
       else if (datePadding > viewMonth.days) {
         if (!this.fillCells) {
           cells.push({
-            view
+            view,
+            index: [cells.length, rows.length - 1]
           });
           continue;
         }
@@ -1253,6 +1233,7 @@ export class Calendar extends ControlElement implements MultiValue {
         disabled,
         idle: month !== viewMonth.month || year !== viewMonth.year,
         now: isToday(value),
+        index: [cells.length, rows.length - 1],
         ...this.getCellSelection(value, isSameDay)
       };
 
@@ -1264,6 +1245,7 @@ export class Calendar extends ControlElement implements MultiValue {
     days[days.length - 1].lastDate = true;
 
     this.setActiveCell(rows);
+    this.setNavigationMap(rows);
 
     return html`
       ${guard([this.firstDayOfWeek, this.lang], () => this.renderWeekdayNames)}
@@ -1277,14 +1259,13 @@ export class Calendar extends ControlElement implements MultiValue {
   private get renderWeekdayNames (): TemplateResult {
     const firstDayOfWeek = this.firstDayOfWeek;
     const weekdaysNames = this.localWeekdaysNames.slice(firstDayOfWeek).concat(this.localWeekdaysNames.slice(0, firstDayOfWeek));
-    const fullWeekdaysNames = this.localFullWeekdaysNames.slice(firstDayOfWeek).concat(this.localFullWeekdaysNames.slice(0, firstDayOfWeek));
 
     return html`
       <div role="row"
-           part="row day-name-row">${weekdaysNames.map((day, index) => html`
+           part="row day-name-row">${weekdaysNames.map(day => html`
         <div scope="col" role="columnheader" part="cell day-name">
-          <div aria-label="${fullWeekdaysNames[index]}" part="cell-content">
-            <span aria-hidden="true">${day}</span>
+          <div aria-label="${day.long}" part="cell-content">
+            <span aria-hidden="true">${day.narrow}</span>
           </div>
         </div>
       `)}</div>`;
@@ -1310,28 +1291,24 @@ export class Calendar extends ControlElement implements MultiValue {
   }
 
   /**
-   * Get cell label based on value and selected state
+   * Get cell translate label key based on selected state
    * @param cell Cell
-   * @returns cell label directive
+   * @returns key Translate label key
    */
-  private getCellLabel (cell: Cell): DirectiveResult | undefined {
-    if (!cell.value) {
-      return undefined;
-    }
-    const value = parse(cell.value);
-    const view = this.renderView;
-    let key = 'CELL_LABEL';
+  private getCellLabelKey (cell: Cell): string {
     if (cell.selected && cell.now) {
-      key = 'SELECTED_NOW';
-    }
-    else if (cell.selected) {
-      key = 'SELECTED';
-    }
-    else if (cell.now) {
-      key = 'NOW';
+      return 'SELECTED_NOW';
     }
 
-    return this.t(key, { value, view });
+    if (cell.selected) {
+      return 'SELECTED';
+    }
+
+    if (cell.now) {
+      return 'NOW';
+    }
+
+    return 'CELL_LABEL';
   }
 
   /**
@@ -1345,9 +1322,10 @@ export class Calendar extends ControlElement implements MultiValue {
     return html`<div
       role="gridcell"
       part="cell ${cell.view}"
+      ?active="${cell.active}"
       ?disabled=${cell.disabled}
-      .active="${cell.active}"
       .value=${cell.value}
+      .index="${cell.index}"
       ?idle=${cell.idle}
       ?today=${cell.now}
       ?first-date=${cell.firstDate}
@@ -1360,7 +1338,11 @@ export class Calendar extends ControlElement implements MultiValue {
       tabindex=${ifDefined(isSelectable ? (cell.active ? 0 : -1) : undefined)}>
         <div role="${ifDefined(cell.value ? 'button' : undefined)}"
              aria-disabled="${ifDefined(cell.disabled ? 'true' : undefined)}"
-             aria-label="${ifDefined(this.getCellLabel(cell))}"
+             aria-label="${ifDefined(isSelectable && !isIE ? this.t(this.getCellLabelKey(cell), { /* IE11 has significant performance hit, disable */
+               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+               value: parse(cell.value!),
+               view: this.renderView
+             }) : undefined)}"
              part="cell-content${isSelectable ? ' selection' : ''}">${cell.text}</div>
     </div>`;
   }
@@ -1372,7 +1354,7 @@ export class Calendar extends ControlElement implements MultiValue {
    */
   private renderRows (rows: Row[]): TemplateResult[] {
     return rows.map(
-      row => html`<div role="row" part="row">${row.cells.map(cell => this.renderCell(cell))}</div>`
+      row => html`<div role="row" part="row">${row.map(cell => this.renderCell(cell))}</div>`
     );
   }
 
@@ -1426,7 +1408,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns template result
    */
   private get selectionTemplate (): TemplateResult | undefined {
-    if (!this.announceValues) {
+    if (isIE || !this.announceValues) { /* IE11 has significant performance complications */
       return;
     }
     return html`<div

@@ -603,6 +603,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       last-date=""
       part="cell day"
@@ -880,6 +881,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell day"
@@ -1672,6 +1674,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       idle=""
       last-date=""
@@ -1744,6 +1747,7 @@
     role="row"
   >
     <div
+      active=""
       aria-selected="false"
       first-date=""
       idle=""
@@ -2275,6 +2279,7 @@
       </div>
     </div>
     <div
+      active=""
       aria-selected="false"
       last-date=""
       part="cell year"
@@ -2346,6 +2351,7 @@
     role="row"
   >
     <div
+      active=""
       aria-selected="false"
       first-date=""
       part="cell year"

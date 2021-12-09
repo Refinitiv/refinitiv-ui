@@ -1,4 +1,4 @@
-import { NavigationGrid, CellIndex } from '@refinitiv-ui/utils/lib/navigation.js';
+import { CellIndex } from '@refinitiv-ui/utils/lib/navigation.js';
 import { RenderView } from './constants.js';
 
 export interface CellSelectionModel {
@@ -18,6 +18,7 @@ export interface Cell extends CellSelectionModel {
   disabled?: boolean;
   idle?: boolean;
   now?: boolean;
+  index: CellIndex;
 }
 
 export type CalendarFilter = (value: string) => boolean;
@@ -33,16 +34,14 @@ export interface CellDivElement extends HTMLDivElement, Cell {
   idle?: boolean;
   selected?: boolean;
   range?: boolean;
+  index: CellIndex;
 }
-
-export type NavigationMap = {
-  grid: NavigationGrid;
-  map: { [key: string]: CellDivElement; }
-  active?: CellIndex;
-};
 
 export type NavigationDirection = 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'ArrowDown' | 'Home' | 'End';
 
-export type Row = {
-  cells: Cell[];
-}
+export type Row = Cell[];
+
+export type WeekdayName = {
+  narrow: string;
+  long: string;
+};
