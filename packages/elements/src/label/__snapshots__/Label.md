@@ -23,7 +23,7 @@
 ```html
 <span
   class="clamp modern"
-  style="line-clamp:1;-webkit-line-clamp:1;"
+  style="line-clamp:1;-webkit-line-clamp:1;word-break:break-all;"
 >
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu.
 </span>
