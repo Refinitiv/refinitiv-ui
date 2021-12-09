@@ -1,0 +1,41 @@
+name: Prerelease
+on:
+  push:
+    branches: [prerelease]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15.x
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Configure Git User
+        run: |
+          git config --global user.email "RefinitivUIDev@refinitiv.com"
+          git config --global user.name "refinitiv-ui-dev"
+
+      # Installing package dependencies strictly based on lock file
+      - run: npm ci --ignore-scripts --audit=false --fund=false
+
+      # Builds only changed packages including its dependencies
+      - run: lerna run build:prod --include-dependencies --since
+
+      # Increment a prerelease version for change packages according to conventional commits
+      # Add --preid to change prerelease identifier, default to alpha
+      - run: lerna version --conventional-commits --conventional-prerelease --yes
+
+      - run: lerna publish from-git --yes
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
