@@ -1,5 +1,5 @@
 import {
-  ControlElement,
+  FormFieldElement,
   css,
   CSSResultGroup,
   html,
@@ -19,7 +19,6 @@ import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
 import { VERSION } from '../version.js';
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/lib/collection.js';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
-import type { ValueChangedEvent } from '../events';
 import type { ItemData } from '../item';
 import type { TextField } from '../text-field';
 import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
@@ -32,6 +31,7 @@ import '../list/index.js';
 import '../counter/index.js';
 import '../text-field/index.js';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
+import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
 import '@refinitiv-ui/phrasebook/lib/locale/en/combo-box.js';
 
 export type { ComboBoxFilter, ComboBoxData };
@@ -70,7 +70,7 @@ const freeTextMultipleWarning = new WarningNotice('"free-text" mode is not compa
 @customElement('ef-combo-box', {
   alias: 'coral-combo-box'
 })
-export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
+export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
   /**
    * Element version number
@@ -79,6 +79,8 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   static get version (): string {
     return VERSION;
   }
+
+  protected readonly defaultRole: string | null = 'combobox';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -99,6 +101,8 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
       }
       [part=input] {
         cursor: text;
+        background: none !important;
+        border: none !important;
       }
       [part=input]::-ms-clear {
         display: none;
@@ -405,6 +409,12 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   protected clearsButtonEl?: HTMLElement;
 
   /**
+   * Value of the list item that being highlight.
+   * Using for defined aria-activedescendant for accessibility
+   */
+  private highlightedItemValue: string | null = null;
+
+  /**
    * Use to call request update when CC changes its value
    * @returns {void}
    */
@@ -644,6 +654,13 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    */
   protected modificationUpdate (): void {
     this.requestUpdate();
+    if (this.opened && this.listEl) {
+      const focusedElement = this.queryItemsByPropertyValue('highlighted', true);
+      this.highlightedItemValue = focusedElement && focusedElement.length > 0 ? focusedElement[0].value as string : null;
+    }
+    else {
+      this.highlightedItemValue = null;
+    }
   }
 
   /**
@@ -893,13 +910,32 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
     });
   }
 
+  
+  /**
+   * Runs on input element `input` event
+   * @param event `input` event
+   * @returns {void}
+   */
+  protected override onInputInput (): void {
+    this.onInputValueChanged();
+  }
+
+  /**
+   * Runs on input element `change` event
+   * @param event `change` event
+   * @returns {void}
+   */
+  protected override onInputChange (): void {
+    this.onInputValueChanged();
+  }
+
   /**
    * Handle text value change from text-field
    * @param event Custom Event fired from text-field
    * @returns {void}
    */
-  protected onInputValueChanged (event: ValueChangedEvent): void {
-    const inputText = event.detail.value;
+  protected onInputValueChanged (): void {
+    const inputText = this.inputValue;
     /**
      * Query is used to track if there is a query
      * We always use it so the absence of it can be used to reapply the
@@ -1245,21 +1281,27 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   }
 
   /**
+   * Decorate `<input>` element with common properties extended from combobox input
+   * @returns template map
+   */
+  protected get decorateInputMap (): TemplateMap {
+    return {
+      ...super.decorateInputMap,
+      'part': 'input',
+      'role': 'combobox',
+      'value': this.focused ? this.inputText : this.freeTextValue || this.label,
+      'aria-expanded': this.opened ? 'true' : 'false',
+      'aria-activedescendant': this.highlightedItemValue ? this.highlightedItemValue : null
+    };
+  }
+
+  /**
    * Returns a template for input field
    * @returns Input template
    */
   protected get inputTemplate (): TemplateResult {
-    const inputValue = this.focused ? this.inputText : this.freeTextValue || this.label;
-
     return html`<div part="input-wrapper">
-      <ef-text-field
-        part="input"
-        transparent
-        .placeholder="${this.placeholder}"
-        .readonly="${this.readonly}"
-        .disabled="${this.disabled}"
-        .value="${inputValue}"
-        @value-changed="${this.onInputValueChanged}"></ef-text-field>
+      ${this.renderInput()}
       ${this.selectionBadgeTemplate}
       ${this.clearButtonTemplate}
       <div id="toggle-button" part="button button-toggle">

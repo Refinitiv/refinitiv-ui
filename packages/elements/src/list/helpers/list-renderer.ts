@@ -39,6 +39,7 @@ export class ListRenderer extends Renderer {
       el.hidden = composer.getItemPropertyValue(item, 'hidden') === true;
       el.type = composer.getItemPropertyValue(item, 'type') as ItemType;
       el.multiple = !!context && (context as Context).multiple === true;
+      el.id = el.value;
 
       const itemRole = el.type === 'text' || !el.type ? 'option' : 'presentation';
       el.setAttribute('role', itemRole);
