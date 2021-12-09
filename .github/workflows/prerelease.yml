@@ -3,7 +3,7 @@ on:
   push:
     branches: [prerelease]
 jobs:
-  release:
+  prerelease:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
