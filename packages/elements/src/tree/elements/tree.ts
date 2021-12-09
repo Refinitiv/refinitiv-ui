@@ -203,9 +203,6 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
       case 'ArrowRight':
         this.right();
         break;
-      case '*':
-        // Expands all closed sibling nodes that are at the same level as the focused node
-        break;
       default:
         return super.onKeyDown(event);
     }

@@ -34,7 +34,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
     return VERSION;
   }
 
-  protected readonly defaultRole = 'treeitem';
+  protected readonly defaultRole: string | null = 'treeitem';
 
   /**
    * Checked state of the item
@@ -158,41 +158,47 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   }
 
   /**
-   * Setting aria-expanded based on expanded state,
-   * only parent nodes are eligible
+   * Handles aria-checked and aria-selected on mode changes
+   * aria-checked is used for multiple mode due to tri-state support
    * @returns {void}
-   */
-  protected expandedChanged (): void {
-    if (this.parent) {
-      this.setAttribute('aria-expanded', this.expanded ? 'true' : 'false');
-    }
+   **/
+  private multipleChanged (): void {
+    this.removeAttribute(this.multiple ? 'aria-selected' : 'aria-checked');
+    this.checkedChanged();
   }
 
-  protected checkedChanged (): void {
-    // Parent node in single-mode cannot be selected
-    if (this.parent && !this.multiple) {
-      return;
-    }
-
+  /**
+   * Handles selectedd and arias attribute changes
+   * @returns {void}
+   */
+  private checkedChanged (): void {
     switch (this.checkedState) {
       case CheckedState.CHECKED:
         this.setAttribute('selected', '');
-        this.setAttribute('aria-selected', 'true');
+        this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'true');
         break;
       case CheckedState.INDETERMINATE:
         this.setAttribute('selected', 'indeterminate');
-        this.setAttribute('aria-selected', 'false');
+        this.setAttribute('aria-checked', 'mixed');
         break;
       default:
         this.removeAttribute('selected');
-        this.setAttribute('aria-selected', 'false');
+
+        if (this.multiple) {
+          this.setAttribute('aria-checked', 'false');
+        }
+
+        // In single mode, only children nodes are selectable
+        if (!this.parent && !this.multiple) {
+          this.setAttribute('aria-selected', 'false');
+        }
         break;
     }
   }
 
   /**
    * Invoked whenever the element is updated
-   * @param {PropertyValues} changedProperties Map of changed properties with old values
+   * @param changedProperties Map of changed properties with old values
    * @returns {void}
    */
   protected update (changedProperties: PropertyValues): void {
@@ -202,8 +208,8 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
       this.checkedChanged();
     }
 
-    if (changedProperties.has('expanded')) {
-      this.expandedChanged();
+    if (changedProperties.has('multiple') && changedProperties.get('multiple') !== undefined) {
+      this.multipleChanged();
     }
   }
 

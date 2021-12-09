@@ -17,7 +17,8 @@ import type { ListData } from './helpers/types';
 import { ListRenderer } from './helpers/list-renderer.js';
 import '../item/index.js';
 
-export { ListData, ListRenderer };
+export type { ListData };
+export { ListRenderer };
 
 /**
  * Key direction

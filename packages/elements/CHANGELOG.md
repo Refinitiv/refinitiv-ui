@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.8.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.8.0...@refinitiv-ui/elements@5.8.1) (2021-12-07)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
+# [5.8.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.7.0...@refinitiv-ui/elements@5.8.0) (2021-12-03)
+
+
+### Bug Fixes
+
+* change default role to more generic type for better extendibility ([#100](https://github.com/Refinitiv/refinitiv-ui/issues/100)) ([fe999dc](https://github.com/Refinitiv/refinitiv-ui/commit/fe999dc66b5f42581a37329ced697ae6ac2dc929))
+* **combo-box:** fix arrow icon not show in Solar when disabled ([55c1008](https://github.com/Refinitiv/refinitiv-ui/commit/55c1008b7b63f915a7575059c6539e63a757e389))
+* **combo-box:** import counter instead of pill ([6410c03](https://github.com/Refinitiv/refinitiv-ui/commit/6410c03dd12077f25347dddb249b6a6700186abc))
+
+
+### Features
+
+* **list:** improve screen reader ([0bc3a8c](https://github.com/Refinitiv/refinitiv-ui/commit/0bc3a8c9c4051200cd1a5c8ed655d1d3ebbd9021))
+* **select:** improve screen reader support ([#80](https://github.com/Refinitiv/refinitiv-ui/issues/80)) ([a43fbcd](https://github.com/Refinitiv/refinitiv-ui/commit/a43fbcd4b23b2f508ddc94b8007913f66da1ae89))
+
+
+
+
+
 # [5.7.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.6.0...@refinitiv-ui/elements@5.7.0) (2021-11-22)
 
 

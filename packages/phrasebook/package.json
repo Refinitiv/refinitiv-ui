@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/phrasebook",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "description": "Collection of messages in EF components for translation",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -11,6 +11,11 @@
     "type": "git",
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/phrasebook"
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./locale/*": "./lib/locale/*",
+    "./lib/locale/*": "./lib/locale/*"
   },
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",
