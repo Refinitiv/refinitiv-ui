@@ -3,9 +3,17 @@
 :host {
   @size: unit((@button-font-size + 8), px);
   border-radius: round((@size / 2));
-  min-width: @size;
-  height: @size;
+  border: 1px solid @color-silver;
+  min-width: 15px;
+  height: 18px;
   line-height: @size;
   color: @counter-text-color;
   background-color: @counter-background-color;
+  font-size: 11rem;
+  padding: 0px 4px;
+  &:hover {
+    background-color: @button-hover-background-color;
+    border-color: @button-hover-border-color;
+    color: @button-hover-text-color;
+  }
 }
