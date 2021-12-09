@@ -158,33 +158,58 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   }
 
   /**
+   * Handles aria-checked and aria-selected on mode changes
+   * aria-checked is used for multiple mode due to tri-state support
+   * @returns {void}
+   **/
+  private multipleChanged (): void {
+    this.removeAttribute(this.multiple ? 'aria-selected' : 'aria-checked');
+    this.checkedChanged();
+  }
+
+  /**
+   * Handles selectedd and arias attribute changes
+   * @returns {void}
+   */
+  private checkedChanged (): void {
+    switch (this.checkedState) {
+      case CheckedState.CHECKED:
+        this.setAttribute('selected', '');
+        this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'true');
+        break;
+      case CheckedState.INDETERMINATE:
+        this.setAttribute('selected', 'indeterminate');
+        this.setAttribute('aria-checked', 'mixed');
+        break;
+      default:
+        this.removeAttribute('selected');
+
+        if (this.multiple) {
+          this.setAttribute('aria-checked', 'false');
+        }
+
+        // In single mode, only children nodes are selectable
+        if (!this.parent && !this.multiple) {
+          this.setAttribute('aria-selected', 'false');
+        }
+        break;
+    }
+  }
+
+  /**
    * Invoked whenever the element is updated
-   * @param {PropertyValues} changedProperties Map of changed properties with old values
+   * @param changedProperties Map of changed properties with old values
    * @returns {void}
    */
   protected update (changedProperties: PropertyValues): void {
     super.update(changedProperties);
 
     if (changedProperties.has('checkedState')) {
-      // Parent node in single-mode cannot be selected
-      if (this.parent && !this.multiple) {
-        return;
-      }
+      this.checkedChanged();
+    }
 
-      switch (this.checkedState) {
-        case CheckedState.CHECKED:
-          this.setAttribute('selected', '');
-          this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'true');
-          break;
-        case CheckedState.INDETERMINATE:
-          this.setAttribute('selected', 'indeterminate');
-          this.setAttribute('aria-checked', 'mixed');
-          break;
-        default:
-          this.removeAttribute('selected');
-          this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'false');
-          break;
-      }
+    if (changedProperties.has('multiple') && changedProperties.get('multiple') !== undefined) {
+      this.multipleChanged();
     }
   }
 
