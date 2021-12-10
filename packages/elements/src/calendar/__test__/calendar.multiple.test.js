@@ -1,7 +1,8 @@
 import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 import {
   setMonthView,
-  setYearView
+  setYearView,
+  getDateCells
 } from './utils';
 
 // import element and theme
@@ -40,7 +41,7 @@ describe('calendar/Multiple', () => {
       const el = await fixture('<ef-calendar view="2005-04" multiple lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
 
-      const cells = el.shadowRoot.querySelectorAll('[part="cell day"][tabindex]');
+      const cells = getDateCells(el);
       cells[0].click(); // April 01
       await elementUpdated(el);
       expect(values.length, 'value-changed should fire on click').to.equal(1);

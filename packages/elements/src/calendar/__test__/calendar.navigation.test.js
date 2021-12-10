@@ -6,7 +6,8 @@ import {
   clickNext,
   clickPrev,
   clickView,
-  keyboardEvent
+  keyboardEvent,
+  getDateCells
 } from './utils';
 
 const listenViewChangeEvent = (el) => {
@@ -188,11 +189,11 @@ describe('calendar/Navigation', () => {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       await setYearView(el);
       expect(el, 'Year view: 2000-2015').shadowDom.to.equalSnapshot();
-      const cell2001 = el.shadowRoot.querySelectorAll('[part="cell year"]')[1];
+      const cell2001 = getDateCells(el)[1];
       cell2001.click();
       await elementUpdated(el);
       expect(el, 'Month view: 2001').shadowDom.to.equalSnapshot();
-      const cellJan2001 = el.shadowRoot.querySelectorAll('[part="cell month"]')[2];
+      const cellJan2001 = getDateCells(el)[2];
       cellJan2001.click();
       expect(el, 'Day view: 2001-01').shadowDom.to.equalSnapshot();
     });
@@ -200,7 +201,7 @@ describe('calendar/Navigation', () => {
     it('Clicking on previous year month should switch years', async () => {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       await setMonthView(el);
-      const cellNov2004 = el.shadowRoot.querySelectorAll('[part="cell month"]')[0];
+      const cellNov2004 = getDateCells(el)[0];
       cellNov2004.click();
       expect(el, 'Day view: 2004-11').shadowDom.to.equalSnapshot();
     });
@@ -208,7 +209,7 @@ describe('calendar/Navigation', () => {
     it('Clicking on next year month should switch years', async () => {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       await setMonthView(el);
-      const cellFeb2005 = el.shadowRoot.querySelectorAll('[part="cell month"]')[15];
+      const cellFeb2005 = getDateCells(el)[15];
       cellFeb2005.click();
       expect(el, 'Day view: 2005-02').shadowDom.to.equalSnapshot();
     });

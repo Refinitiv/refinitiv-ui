@@ -77,7 +77,7 @@ import {
   Comparator,
   CalendarFilter,
   CellSelectionModel,
-  CellDivElement,
+  DateButtonElement,
   NavigationDirection,
   WeekdayName
 } from './types';
@@ -147,7 +147,6 @@ export class Calendar extends ControlElement implements MultiValue {
         bottom: 0;
         left: 0;
         right: 0;
-        pointer-events: none;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -177,7 +176,10 @@ export class Calendar extends ControlElement implements MultiValue {
         width: calc(100% / ${DAY_VIEW.columnCount});
         padding-top: calc(100% / ${DAY_VIEW.columnCount});
       }
-      [part~=cell][tabindex] {
+      [part~=cell-content]:not([tabindex]) {
+        pointer-events: none;
+      }
+      [part~=selection] {
         cursor: pointer;
       }
     `;
@@ -428,21 +430,31 @@ export class Calendar extends ControlElement implements MultiValue {
   }
 
   /**
-   * Get cell element by index
+   * Get selectable date button element by index
    * @param index Cell index
-   * @returns cell HTML Cell element or null
+   * @returns cell HTML date button element or null
    */
-  private getCellByIndex (index: CellIndex): CellDivElement | undefined {
-    const cells = Array.from(this.renderRoot.querySelectorAll('[role=gridcell]'));
-    return (cells as CellDivElement[]).find(cell => String(cell.index) === String(index));
+  private getDateButtonByIndex (index: CellIndex): DateButtonElement | undefined {
+    const cells = Array.from(this.renderRoot.querySelectorAll('[part~=cell] > [part~=selection]'));
+    return cells.find((cell): cell is DateButtonElement => this.isDateButton(cell) && String(cell.index) === String(index));
   }
 
   /**
-   * Get active cell element
-   * @returns cell HTML Cell element or null
+   * Get active date button element
+   * @returns cell HTML date button element or null
    */
-  private get activeCell (): CellDivElement | null {
-    return this.renderRoot.querySelector('[role=gridcell][active]');
+  private get activeDateButton (): DateButtonElement | null {
+    return this.renderRoot.querySelector('[part~=cell][active] > [part~=selection]');
+  }
+
+  /**
+   * Return true if passed target is HTML date button element
+   * that can be selected
+   * @param target Target to check
+   * @returns isDateButtonElement
+   */
+  private isDateButton (target: EventTarget): target is DateButtonElement {
+    return (target as DateButtonElement).index !== undefined;
   }
 
   private isDateAvailable: CalendarFilter | null = null; /* a constructed filter based on multiple local filters */
@@ -507,9 +519,9 @@ export class Calendar extends ControlElement implements MultiValue {
 
     const cellIndex = this.activeCellIndex;
     if (cellIndex && changedProperties.has('activeCellIndex')) {
-      const cell = this.getCellByIndex(cellIndex);
-      if (cell && this.activeElement !== cell) {
-        cell.focus();
+      const dateButtonEl = this.getDateButtonByIndex(cellIndex);
+      if (dateButtonEl && this.activeElement !== dateButtonEl) {
+        dateButtonEl.focus();
       }
     }
   }
@@ -752,11 +764,6 @@ export class Calendar extends ControlElement implements MultiValue {
     }
 
     switch (event.key) {
-      case ' ':
-      case 'Enter':
-      case 'Spacebar':
-        this.onTableTap(event);
-        break;
       case 'Esc':
       case 'Escape':
         if (this.renderView === RenderView.YEAR || this.renderView === RenderView.MONTH) {
@@ -798,12 +805,13 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onTableTap (event: KeyboardEvent): void {
-    const cell = event.target as CellDivElement; /* here we just emulate interface */
+    const cell = event.target;
 
-    if (!cell || !cell.value) {
+    if (!cell || !this.isDateButton(cell) || !cell.value) {
       return;
     }
 
+    this.activeCellIndex = cell.index;
     const cellSegment = toDateSegment(cell.value);
     const viewSegment = toDateSegment(this.view);
 
@@ -841,11 +849,11 @@ export class Calendar extends ControlElement implements MultiValue {
     }
 
     // no previously selected cell, but there is cell which is a candidate for navigation
-    const activeCell = this.activeCell;
-    if (!this.activeCellIndex && activeCell) {
-      this.activeCellIndex = activeCell.index;
+    const activeDateEl = this.activeDateButton;
+    if (!this.activeCellIndex && activeDateEl) {
+      this.activeCellIndex = activeDateEl.index;
       // current cell is already in focus (e.g. via Tab key, continue navigation from that point)
-      if (!(this.activeElement === activeCell)) {
+      if (!(this.activeElement === activeDateEl)) {
         return;
       }
     }
@@ -1263,10 +1271,8 @@ export class Calendar extends ControlElement implements MultiValue {
     return html`
       <div role="row"
            part="row day-name-row">${weekdaysNames.map(day => html`
-        <div scope="col" role="columnheader" part="cell day-name">
-          <div aria-label="${day.long}" part="cell-content">
-            <span aria-hidden="true">${day.narrow}</span>
-          </div>
+        <div scope="col" role="columnheader" part="cell day-name" abbr="${day.long}">
+          <div part="cell-content">${day.narrow}</div>
         </div>
       `)}</div>`;
   }
@@ -1322,28 +1328,27 @@ export class Calendar extends ControlElement implements MultiValue {
     return html`<div
       role="gridcell"
       part="cell ${cell.view}"
-      ?active="${cell.active}"
+      ?active=${cell.active}
       ?disabled=${cell.disabled}
-      .value=${cell.value}
-      .index="${cell.index}"
       ?idle=${cell.idle}
       ?today=${cell.now}
       ?first-date=${cell.firstDate}
       ?last-date=${cell.lastDate}
       ?selected=${cell.selected}
-      aria-selected="${ifDefined(isSelectable ? (cell.selected ? 'true' : 'false') : undefined)}"
       ?range=${cell.range}
       ?range-from=${cell.rangeFrom}
-      ?range-to=${cell.rangeTo}
-      tabindex=${ifDefined(isSelectable ? (cell.active ? 0 : -1) : undefined)}>
+      ?range-to=${cell.rangeTo}>
         <div role="${ifDefined(cell.value ? 'button' : undefined)}"
-             aria-disabled="${ifDefined(cell.disabled ? 'true' : undefined)}"
+             tabindex=${ifDefined(isSelectable ? (cell.active ? 0 : -1) : undefined)}
+             aria-selected="${ifDefined(isSelectable ? (cell.selected ? 'true' : 'false') : undefined)}"
              aria-label="${ifDefined(isSelectable && !isIE ? this.t(this.getCellLabelKey(cell), { /* IE11 has significant performance hit, disable */
                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                value: parse(cell.value!),
                view: this.renderView
              }) : undefined)}"
-             part="cell-content${isSelectable ? ' selection' : ''}">${cell.text}</div>
+             part="cell-content${isSelectable ? ' selection' : ''}"
+             .value=${cell.value}
+             .index=${cell.index}>${cell.text}</div>
     </div>`;
   }
 

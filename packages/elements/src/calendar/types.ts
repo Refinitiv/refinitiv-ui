@@ -28,12 +28,8 @@ export type Comparator = (
   compare: string
 ) => boolean
 
-export interface CellDivElement extends HTMLDivElement, Cell {
-  value?: string;
-  disabled?: boolean;
-  idle?: boolean;
-  selected?: boolean;
-  range?: boolean;
+export interface DateButtonElement extends HTMLDivElement {
+  value: string;
   index: CellIndex;
 }
 
