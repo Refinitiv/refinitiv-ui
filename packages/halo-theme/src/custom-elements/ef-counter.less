@@ -1,11 +1,12 @@
 @import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-counter';
 
 :host {
-  border-radius: 10px;
+  @size: unit((@button-font-size + 8), px);
+  border-radius: round((@size / 2));
   border: 1px solid @color-silver;
   min-width: 14px;
   height: 16px;
-  line-height: 10px;
+  line-height: @size;
   color: @counter-text-color;
   background-color: @counter-background-color;
   font-size: 10rem;
