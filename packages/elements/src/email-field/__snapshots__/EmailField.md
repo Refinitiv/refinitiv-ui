@@ -4,7 +4,6 @@
 
 ```html
 <input
-  aria-hidden="true"
   autocomplete="off"
   inputmode="email"
   part="input"
@@ -17,7 +16,6 @@
 
 ```html
 <input
-  aria-hidden="true"
   autocomplete="off"
   inputmode="email"
   multiple=""
