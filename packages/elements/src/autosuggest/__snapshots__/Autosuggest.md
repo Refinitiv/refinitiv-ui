@@ -17,8 +17,7 @@
   <slot id="contentSlot">
   </slot>
   <ef-item
-    aria-disabled="false"
-    aria-readonly="false"
+    aria-selected="false"
     id="moreResults"
     part="more-results"
     tabindex="0"

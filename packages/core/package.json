@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/core",
-  "version": "5.2.0",
+  "version": "5.3.3",
   "description": "Element Framework Core",
   "main": "./lib/elf.js",
   "module": "./lib/elf.js",
@@ -20,6 +20,7 @@
     "./lib/directives/repeat.js": "./lib/directives/repeat.js",
     "./lib/directives/style-map.js": "./lib/directives/style-map.js",
     "./lib/directives/template-content.js": "./lib/directives/template-content.js",
+    "./lib/directives/template-map.js": "./lib/directives/template-map.js",
     "./lib/directives/unsafe-html.js": "./lib/directives/unsafe-html.js",
     "./lib/directives/unsafe-svg.js": "./lib/directives/unsafe-svg.js",
     "./lib/directives/until.js": "./lib/directives/until.js",
@@ -46,16 +47,17 @@
     "lint:fix": "eslint . --fix",
     "test": "npm run build && karma start ../../karma.config.js --package=core",
     "test:snapshots": "npm run test -- --snapshots",
-    "test:watch": "npm run test -- --watch",
+    "test:watch": "npm run build && npm run test -- --watch",
     "prepublishOnly": "node scripts/release"
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.3.1",
+    "@refinitiv-ui/utils": "^5.1.1",
     "lit": "^2.0.0",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/test-helpers": "^5.0.5"
+    "@refinitiv-ui/test-helpers": "^5.1.1"
   },
   "publishConfig": {
     "access": "public"

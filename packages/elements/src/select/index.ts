@@ -24,15 +24,7 @@ import type { Overlay } from '../overlay';
 import type { SelectData, SelectDataItem } from './helpers/types';
 import type { OpenedChangedEvent } from '../events';
 
-export { SelectData, SelectDataItem };
-
-/**
- * Key direction
- */
-enum Direction {
-  Up = -1,
-  Down = 1
-}
+export type { SelectData, SelectDataItem };
 
 // Observer config for items
 const observerOptions = {
@@ -52,6 +44,13 @@ const observerOptions = {
 const LABEL_SEPARATOR = ', '; // TODO: for multiselect
 const POPUP_POSITION = ['bottom-start', 'top-start'];
 const KEY_SEARCH_DEBOUNCER = 300;
+
+enum Navigation {
+  FIRST = 'First',
+  LAST = 'Last',
+  NEXT = 'Next',
+  PREVIOUS = 'Previous',
+}
 
 /**
  * Expands upon the native select element,
@@ -75,6 +74,8 @@ export class Select extends ControlElement implements MultiValue {
   static get version (): string {
     return VERSION;
   }
+
+  protected readonly defaultRole: string | null = 'button';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -165,7 +166,6 @@ export class Select extends ControlElement implements MultiValue {
   public get label (): string {
     return this.labels[0];
   }
-
   /**
   * Current text content of the selected values
   * @ignore
@@ -223,6 +223,7 @@ export class Select extends ControlElement implements MultiValue {
   /**
   * Construct the menu from data object. Cannot be used with slotted content
   * @type {SelectData | null}
+  * @default null
   */
   @property({ attribute: false })
   public get data (): SelectData | null {
@@ -260,6 +261,7 @@ export class Select extends ControlElement implements MultiValue {
   /**
   * Value of the element
   * @param value Element value
+  * @default -
   */
   @property({ type: String, attribute: false })
   public set value (value: string) {
@@ -299,6 +301,17 @@ export class Select extends ControlElement implements MultiValue {
   private menuEl?: Overlay
 
   /**
+   * Called when connected to DOM
+   * @returns {void}
+   */
+  public connectedCallback (): void {
+    super.connectedCallback();
+
+    // Indicating that this select has a popup of type listbox
+    this.setAttribute('aria-haspopup', 'listbox');
+  }
+
+  /**
    * Updates the element
    * @param changedProperties Properties that has changed
    * @returns {void}
@@ -318,12 +331,19 @@ export class Select extends ControlElement implements MultiValue {
     }
 
     if (changedProperties.has('opened')) {
+
       if (this.opened) {
         this.opening();
       }
       else {
         this.closing();
       }
+
+      this.setAttribute('aria-expanded', this.opened ? 'true' : 'false');
+    }
+
+    if (changedProperties.has('error')) {
+      this.setAttribute('aria-invalid', this.error ? 'true' : 'false');
     }
 
     super.update(changedProperties);
@@ -629,14 +649,20 @@ export class Select extends ControlElement implements MultiValue {
         break;
       case 'Up':
       case 'ArrowUp':
-        this.focusElement(Direction.Up);
+        this.focusElement(Navigation.PREVIOUS);
         break;
       case 'Down':
       case 'ArrowDown':
-        this.focusElement(Direction.Down);
+        this.focusElement(Navigation.NEXT);
         break;
       case 'Tab':
-        this.focusElement(event.shiftKey ? Direction.Up : Direction.Down);
+        this.focusElement(event.shiftKey ? Navigation.PREVIOUS : Navigation.NEXT);
+        break;
+      case 'Home':
+        this.focusElement(Navigation.FIRST);
+        break;
+      case 'End':
+        this.focusElement(Navigation.LAST);
         break;
       default:
         if (this.isValidFilterKey(event)) {
@@ -665,31 +691,48 @@ export class Select extends ControlElement implements MultiValue {
   }
 
   /**
-   * Focus and highlight the next/previous element
-   * @param direction Focus next or previous element
+   * Focus and highlight element according to specified direction
+   * @param direction previous, next, first or last focusable element
    * @returns {void}
    */
-  private focusElement (direction: number): void {
+  private focusElement (direction: Navigation): void {
     const highlightedItem = this.highlightedItem || this.getSelectedElements()[0];
-    const children = this.getSelectableElements();
+    const selectableElements = this.getSelectableElements();
 
-    const idx = highlightedItem ? children.indexOf(highlightedItem) : -1;
-
-    let focusElement;
-    if (direction === 1) {
-      focusElement = idx === -1 ? children[0] : children[idx + 1];
-    }
-    else {
-      focusElement = idx === -1 ? children[children.length - 1] : children[idx - 1];
+    if (selectableElements.length === 0) {
+      return;
     }
 
-    if (!focusElement) {
-      focusElement = direction === 1 ? children[0] : children[children.length - 1];
+    const index = highlightedItem ? selectableElements.indexOf(highlightedItem) : -1;
+
+    const firstElement = selectableElements[0];
+    const lastElement = selectableElements[selectableElements.length - 1];
+
+    let element;
+    switch (direction) {
+      case Navigation.PREVIOUS:
+        element = index === -1 ? lastElement : selectableElements[index - 1];
+        break;
+      case Navigation.NEXT:
+        element = index === -1 ? firstElement : selectableElements[index + 1];
+        break;
+      case Navigation.FIRST:
+        element = firstElement;
+        break;
+      case Navigation.LAST:
+        element = lastElement;
+        break;
+      default:
+        break;
     }
 
-    if (focusElement) {
-      focusElement.focus();
-      this.setItemHighlight(focusElement);
+    if (!element) {
+      element = direction === Navigation.NEXT ? firstElement : lastElement;
+    }
+
+    if (element) {
+      element.focus();
+      this.setItemHighlight(element);
     }
   }
 
@@ -928,15 +971,17 @@ export class Select extends ControlElement implements MultiValue {
   private toItem (item: SelectDataItem): TemplateResult {
     switch (item.type) {
       case 'divider':
-        return html`<ef-item part="item" type="divider"></ef-item>`;
+        return html`<ef-item role="presentation" part="item" type="divider"></ef-item>`;
       case 'header':
         return html`<ef-item
+          role="presentation"
           part="item"
           type="header"
           .label=${item.label}></ef-item>`;
       // no default
     }
     return html`<ef-item
+      role="option"
       part="item"
       .value=${item.value}
       .label=${item.label}
@@ -994,6 +1039,7 @@ export class Select extends ControlElement implements MultiValue {
         tabindex="-1"
         id="menu"
         part="list"
+        role="listbox"
         style=${styleMap(this.popupDynamicStyles)}
         with-shadow
         lock-position-target

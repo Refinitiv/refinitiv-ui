@@ -94,10 +94,10 @@ const INPUT_FORMAT = {
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
- * @slots header - Header slot
- * @slots right - Right slot
- * @slots footer - Footer slot
- * @slots left - Left slot
+ * @slot header - Slot to add custom contents at the top of popup
+ * @slot right - Slot to add custom contents at the right of popup
+ * @slot footer - Slot to add custom contents at the bottom of popup
+ * @slot left - Slot to add custom contents at the left of popup
  */
 @customElement('ef-datetime-picker', {
   alias: 'emerald-datetime-picker'
@@ -171,6 +171,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
   * Set minimum date
   * @param min date
+  * @default -
   */
   @property({ type: String })
   public set min (min: string) {
@@ -195,6 +196,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
   * Set maximum date
   * @param max date
+  * @default -
   */
   @property({ type: String })
   public set max (max: string) {
@@ -257,6 +259,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   public set multiple (multiple: boolean) {
     new WarningNotice('multiple is not currently supported').show();
   }
+  /**
+  * @ignore
+  */
   public get multiple (): boolean {
     return false;
   }
@@ -264,6 +269,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
   * Current date time value
   * @param value Calendar value
+  * @default -
   */
   @property({ type: String })
   public set value (value: string) {
@@ -279,6 +285,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   * Set multiple selected values
   * @param values Values to set
   * @type {string[]}
+  * @default []
   */
   @property({
     converter: {
@@ -291,6 +298,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const oldValues = this._values;
     if (String(oldValues) !== String(values)) {
       this._values = values;
+      this.valuesToSegments();
       this.requestUpdate('_values', oldValues); /* segments are populated in update */
     }
   }
@@ -315,6 +323,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
   * Placeholder to display when no value is set
   * @param placeholder Placeholder
+  * @default -
   */
   @property({ type: String })
   public set placeholder (placeholder: string) {
@@ -370,6 +379,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   * Set the datetime format
   * Based on dane-fns datetime formats
   * @param format Date format
+  * @default -
   */
   @property({ type: String })
   public set format (format: string) {
@@ -408,6 +418,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   * Set the current calendar view.
   * Accepted format: 'yyyy-MM'
   * @param view view date
+  * @default -
   */
   @property({ type: String })
   public set view (view: string) {
@@ -423,6 +434,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   * Accepted format: 'yyyy-MM'
   * @param views view dates
   * @type {string[]}
+  * @default []
   */
   @property({ attribute: false })
   public set views (views: string[]) {
@@ -488,10 +500,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns {void}
    */
   protected update (changedProperties: PropertyValues): void {
-    if (changedProperties.has('_values')) {
-      this.valuesToSegments();
-    }
-
     if (changedProperties.has('opened') && this.opened) {
       this.lazyRendered = true;
     }
@@ -532,7 +540,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     if (value === '') {
       return true;
     }
-    return this.timepicker
+    // Need to check for the attribute to cover the case when
+    // timepicker and value attributes are set
+    return (this.timepicker || this.hasAttribute('timepicker'))
       ? isValidDateTime(value)
       : isValidDate(value, DateFormat.yyyyMMdd);
   }
@@ -782,7 +792,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private notifyValuesChange (values: string[]): void {
     if (this.values.toString() !== values.toString()) {
       this.values = values;
-      this.valuesToSegments(); /* need to be here to get correct value synchronously */
       this.notifyPropertyChange('value', this.value);
     }
   }

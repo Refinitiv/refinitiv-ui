@@ -454,7 +454,7 @@ describe('radio-button/RadioButton', () => {
       expect(event.key).to.equal('ArrowLeft');
       expect(option1.checked).to.equal(true);
       expect(option2.checked).to.equal(false);
-      
+
     });
     it('Should uncheck the current button and move to check last button', async () => {
       const option1 = await fixture('<ef-radio-button name="group2" checked>Option 1</ef-radio-button>');
@@ -532,7 +532,7 @@ describe('radio-button/RadioButton', () => {
           await fixture('<ef-radio-button name="group1">2</ef-radio-button>'),
           await fixture('<ef-radio-button name="group1">3</ef-radio-button>')
         ];
-        
+
         group.forEach((el, index) => {
           expect(el.checked).to.equal(false);
           expect(el.getAttribute('tabIndex')).to.equal(index === 0 ? '0' : '-1');
@@ -540,7 +540,7 @@ describe('radio-button/RadioButton', () => {
         // Remove radio from group
         group[0].name = '';
         await updateGroup(group);
-  
+
         group.forEach((el, index) => {
           expect(el.checked).to.equal(false);
           expect(el.getAttribute('tabIndex')).to.equal(index === 2 ? '-1' : '0');
@@ -611,27 +611,27 @@ describe('radio-button/RadioButton', () => {
         await fixture('<ef-radio-button name="group2" checked>1</ef-radio-button>'),
         await fixture('<ef-radio-button name="group2">2</ef-radio-button>')
       ];
-  
+
       group1.forEach((el, index) => {
         expect(el.checked).to.equal(index === 0 ? true : false);
         expect(el.getAttribute('tabIndex')).to.equal(index === 0 ? '0' : '-1');
       });
-  
+
       group2.forEach((el, index) => {
         expect(el.checked).to.equal(index === 0 ? true : false);
         expect(el.getAttribute('tabIndex')).to.equal(index === 0 ? '0' : '-1');
       });
-  
+
       // Move radio to another group
       group2[0].name = 'group1';
       await updateGroup(group1);
       await updateGroup(group2);
-  
+
       group1.forEach((el, index) => {
         expect(el.checked).to.equal(false);
         expect(el.getAttribute('tabIndex')).to.equal('-1');
       });
-  
+
       group2.forEach((el, index) => {
         expect(el.checked).to.equal(index === 0 ? true : false);
         expect(el.getAttribute('tabIndex')).to.equal('0');
@@ -667,29 +667,29 @@ describe('radio-button/RadioButton', () => {
   describe('Accessiblity', () => {
     it('should fail without label', async () => {
       const el = await fixture('<ef-radio-button></ef-radio-button>');
-      await expect(el).not.to.be.accessible();
+      expect(el).not.to.be.accessible();
     });
     it('should pass a11y test with aria-label', async () => {
       const el = await fixture(`<ef-radio-button aria-label="Radio Button"></ef-checkbox>`);
-      await expect(el).to.be.accessible({ignoredRules: ['aria-allowed-attr']});
+      expect(el).to.be.accessible({ignoredRules: ['aria-allowed-attr']});
       expect(el.ariaChecked).to.be.equal(String(el.checked), 'ariaChecked');
       expect(el.getAttribute('aria-checked')).to.be.equal(String(el.checked), 'aria-checked');
     });
     it('should pass a11y test with slotted label', async () => {
       const el = await fixture(`<ef-radio-button>Radio Button</ef-checkbox>`);
-      await expect(el).to.be.accessible({ignoredRules: ['aria-allowed-attr']});
+      expect(el).to.be.accessible({ignoredRules: ['aria-allowed-attr']});
       expect(el.ariaChecked).to.be.equal(String(el.checked), 'ariaChecked');
       expect(el.getAttribute('aria-checked')).to.be.equal(String(el.checked), 'aria-checked');
     });
     it('should pass a11y test when radio button is checked', async () => {
       const el = await fixture(`<ef-radio-button checked>Radio Button</ef-checkbox>`);
-      await expect(el).to.be.accessible({ignoredRules: ['aria-allowed-attr']});
+      expect(el).to.be.accessible({ignoredRules: ['aria-allowed-attr']});
       expect(el.ariaChecked).to.be.equal(String(el.checked), 'ariaChecked');
       expect(el.getAttribute('aria-checked')).to.be.equal(String(el.checked), 'aria-checked');
     });
     it('should pass a11y test when disabled', async () => {
       const el = await fixture(`<ef-radio-button disabled>Radio Button</ef-checkbox>`);
-      await expect(el).to.be.accessible({ignoredRules: ['aria-allowed-attr']});
+      expect(el).to.be.accessible({ignoredRules: ['aria-allowed-attr']});
     });
   });
 });

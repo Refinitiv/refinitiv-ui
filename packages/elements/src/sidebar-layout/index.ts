@@ -78,7 +78,7 @@ export class SidebarLayout extends BasicElement {
 
   /**
    * Set the width of the sidebar. The value could be in both px or %, e.g. 300px, 30%
-   * @type {string}
+   * @type {string | undefined}
    */
   @property({ type: String, attribute: 'sidebar-width' })
   public sidebarWidth?: string;
@@ -97,6 +97,7 @@ export class SidebarLayout extends BasicElement {
 
   /**
    * Property to get sidebar
+   * @ignore
    */
   @query('[part=sidebar]')
   public sidebar!: Layout;

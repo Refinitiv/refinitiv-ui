@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/i18n@5.2.2...@refinitiv-ui/i18n@5.2.3) (2021-12-07)
+
+**Note:** Version bump only for package @refinitiv-ui/i18n
+
+
+
+
+
+## [5.2.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/i18n@5.2.1...@refinitiv-ui/i18n@5.2.2) (2021-12-03)
+
+**Note:** Version bump only for package @refinitiv-ui/i18n
+
+
+
+
+
+## [5.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/i18n@5.2.0...@refinitiv-ui/i18n@5.2.1) (2021-11-22)
+
+**Note:** Version bump only for package @refinitiv-ui/i18n
+
+
+
+
+
+# [5.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/i18n@5.1.8...@refinitiv-ui/i18n@5.2.0) (2021-11-08)
+
+
+### Features
+
+* Lit@2 upgrade ([dbda63b](https://github.com/Refinitiv/refinitiv-ui/commit/dbda63be97257f891cb1f2c5ff46b638c70e0b15))
+
+
+
+
+
 ## [5.1.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/i18n@5.1.5...@refinitiv-ui/i18n@5.1.8) (2021-10-25)
 
 **Note:** Version bump only for package @refinitiv-ui/i18n

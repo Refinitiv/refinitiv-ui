@@ -19,7 +19,7 @@ import '../icon/index.js';
  * which is used to show one or multiple selected item.
  * It is rarely used in the UI but inside other components to visualize multiple item selection item.
  * @attr {string} value - Value of pill
- * @prop {string} value - Value of pill
+ * @prop {string} [value=""] - Value of pill
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state

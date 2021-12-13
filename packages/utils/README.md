@@ -32,8 +32,11 @@ taskRunner.schedule(() => {
 `taskRunner.schedule()` can be called multiple times. Only the last callback will be executed.
 This is to enable simplified code inside of elements, when multiple actions occur.
 
-### Date Time Helper
+## Date Time Helper
 Helper functions to support date and time manipulations.
+
+## Navigation
+Helper functions to support keyboard navigation.
 
 ### Grid Navigation
 Helper functions to support navigation over the grid matrix.
@@ -112,3 +115,21 @@ Get the last active cell.
 ```javascript
 last(grid); // Outputs [3, 3]
 ```
+
+## Accessibility
+Helper functions for accessibility support.
+
+### label
+Get element label based on `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`.
+
+### description
+Get element description based on `aria-description` or `aria-describedby`.
+
+### required
+Get element required state based on `aria-required`.
+
+## Element Helpers
+Helper functions to query ShadowDom.
+
+### getElementScope
+Get element scope, which can be either DocumentElement, DocumentFragment or null if element is not attached to DOM.

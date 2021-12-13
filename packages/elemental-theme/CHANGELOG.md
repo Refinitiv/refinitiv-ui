@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.3.0...@refinitiv-ui/elemental-theme@5.3.1) (2021-12-03)
+
+
+### Bug Fixes
+
+* **clock:** slightly increase font size of digital part inside analog clock ([b8e1fa9](https://github.com/Refinitiv/refinitiv-ui/commit/b8e1fa9657435b4300873aa4bad6c9998c243b72))
+* **combo-box:** fix arrow icon not show in Solar when disabled ([55c1008](https://github.com/Refinitiv/refinitiv-ui/commit/55c1008b7b63f915a7575059c6539e63a757e389))
+
+
+
+
+
+# [5.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.2.6...@refinitiv-ui/elemental-theme@5.3.0) (2021-11-08)
+
+
+### Features
+
+* **clock:** small analogue clock face ([#54](https://github.com/Refinitiv/refinitiv-ui/issues/54)) ([bc4b2a8](https://github.com/Refinitiv/refinitiv-ui/commit/bc4b2a816135ef70819d826d15ba9b36dda99207))
+
+
+
+
+
 ## [5.2.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.2.3...@refinitiv-ui/elemental-theme@5.2.6) (2021-10-25)
 
 **Note:** Version bump only for package @refinitiv-ui/elemental-theme

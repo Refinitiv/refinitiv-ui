@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@5.2.0...@refinitiv-ui/phrasebook@5.2.1) (2021-12-03)
+
+
+### Bug Fixes
+
+* **phrasebook:** change ICU syntax on Japanese language ([9b235ab](https://github.com/Refinitiv/refinitiv-ui/commit/9b235ab61fa0dae5c6ce97b66acee52dfd4028d4))
+* **phrasebook:** export path should go to lib folder ([681028f](https://github.com/Refinitiv/refinitiv-ui/commit/681028ff960a831cfa888d0fdea38ddd40de815f))
+
+
+
+
+
+# [5.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@5.1.6...@refinitiv-ui/phrasebook@5.2.0) (2021-11-08)
+
+
+### Features
+
+* Lit@2 upgrade ([dbda63b](https://github.com/Refinitiv/refinitiv-ui/commit/dbda63be97257f891cb1f2c5ff46b638c70e0b15))
+
+
+
+
+
 ## [5.1.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@5.1.3...@refinitiv-ui/phrasebook@5.1.6) (2021-10-25)
 
 **Note:** Version bump only for package @refinitiv-ui/phrasebook

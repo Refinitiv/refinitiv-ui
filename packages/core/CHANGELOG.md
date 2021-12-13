@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.3.2...@refinitiv-ui/core@5.3.3) (2021-12-07)
+
+**Note:** Version bump only for package @refinitiv-ui/core
+
+
+
+
+
+## [5.3.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.3.1...@refinitiv-ui/core@5.3.2) (2021-12-03)
+
+**Note:** Version bump only for package @refinitiv-ui/core
+
+
+
+
+
+## [5.3.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.3.0...@refinitiv-ui/core@5.3.1) (2021-11-22)
+
+
+### Bug Fixes
+
+* **core:** tap event may be fired on wrong target on `space` key ([#81](https://github.com/Refinitiv/refinitiv-ui/issues/81)) ([0d8c9c5](https://github.com/Refinitiv/refinitiv-ui/commit/0d8c9c57ed3fa92d9c32ac4eb66a2c2f4228e22e))
+
+
+
+
+
+# [5.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.2.0...@refinitiv-ui/core@5.3.0) (2021-11-08)
+
+
+### Bug Fixes
+
+* **core:** tap event is not fired for Enter/Space inside ShadowDom ([#61](https://github.com/Refinitiv/refinitiv-ui/issues/61)) ([c30a706](https://github.com/Refinitiv/refinitiv-ui/commit/c30a706977278223efcdcb51e6e31548ade1dbdb))
+* incorrect tap behaviour ([#57](https://github.com/Refinitiv/refinitiv-ui/issues/57)) ([a245fbe](https://github.com/Refinitiv/refinitiv-ui/commit/a245fbe1999057de0525313e35d5156cc497135f))
+
+
+### Features
+
+* **core:** add latest lit directives, add focused-changed event ([69168f6](https://github.com/Refinitiv/refinitiv-ui/commit/69168f6fe3e6eea8e9abb2a875a2f283eb06d42b))
+* Lit@2 upgrade ([dbda63b](https://github.com/Refinitiv/refinitiv-ui/commit/dbda63be97257f891cb1f2c5ff46b638c70e0b15))
+
+
+
+
+
 # [5.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.0.3...@refinitiv-ui/core@5.2.0) (2021-10-25)
 
 

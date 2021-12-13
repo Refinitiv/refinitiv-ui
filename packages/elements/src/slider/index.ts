@@ -63,7 +63,7 @@ const clamp = function (value: number, min: number, max: number): string {
  * Allows users to make selections from a range of values
  *
  * @attr {string} value - Value of slider. Not applicable in range mode.
- * @prop {string} [value=0] - Value of slider. Not applicable in range mode.
+ * @prop {string} [value="0"] - Value of slider. Not applicable in range mode.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
