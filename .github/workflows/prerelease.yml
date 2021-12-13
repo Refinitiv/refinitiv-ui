@@ -36,6 +36,7 @@ jobs:
       # Add --preid to change prerelease identifier, default to alpha
       - run: lerna version --conventional-commits --conventional-prerelease --yes
 
-      - run: lerna publish from-git --yes
+      # Publish package to NPM at tag `next`
+      - run: lerna publish from-git --dist-tag next --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
