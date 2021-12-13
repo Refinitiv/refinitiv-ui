@@ -4,6 +4,7 @@ import {
   utcParse
 } from '@refinitiv-ui/utils/lib/date.js';
 import { DEFAULT_LOCALE, MessageFormats, resolveLocale, TranslateParams } from '@refinitiv-ui/i18n';
+import { CalendarLocaleScope } from './constants.js';
 
 export type MonthInfo = {
   days: number;
@@ -52,7 +53,7 @@ const DateMessageFormats: MessageFormats = {
  * @returns resolved locale
  */
 const getLocale = (locale: string): string => {
-  return resolveLocale('ef-calendar', locale) || DEFAULT_LOCALE;
+  return resolveLocale(CalendarLocaleScope, locale) || DEFAULT_LOCALE;
 };
 
 /**
