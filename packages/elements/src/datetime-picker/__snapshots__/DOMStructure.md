@@ -278,6 +278,7 @@
         <ef-time-picker
           id="timepicker"
           part="time-picker"
+          role="group"
           tabindex="0"
         >
         </ef-time-picker>
@@ -348,6 +349,7 @@
         <ef-time-picker
           id="timepicker"
           part="time-picker"
+          role="group"
           tabindex="0"
         >
         </ef-time-picker>
@@ -428,6 +430,7 @@
         <ef-time-picker
           id="timepicker"
           part="time-picker"
+          role="group"
           tabindex="0"
         >
         </ef-time-picker>
@@ -436,6 +439,7 @@
         <ef-time-picker
           id="timepicker-to"
           part="time-picker"
+          role="group"
           tabindex="0"
         >
         </ef-time-picker>
