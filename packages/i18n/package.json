@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/i18n",
-  "version": "5.2.3",
+  "version": "5.2.4-alpha.0",
   "description": "i18n support for Web Components",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -23,7 +23,7 @@
   "dependencies": {
     "@formatjs/icu-messageformat-parser": "^2.0.15",
     "@formatjs/intl-utils": "^3.8.4",
-    "@refinitiv-ui/phrasebook": "^5.2.1",
+    "@refinitiv-ui/phrasebook": "^5.2.2-alpha.0",
     "intl-format-cache": "^4.3.1",
     "intl-messageformat": "^9.10.0",
     "tslib": "^2.3.1"
