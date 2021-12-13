@@ -9,7 +9,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -30,7 +29,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -93,7 +91,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -103,7 +100,6 @@
   <ef-text-field
     id="input-to"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -167,7 +163,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -238,7 +233,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -309,7 +303,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -380,7 +373,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -390,7 +382,6 @@
   <ef-text-field
     id="input-to"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
