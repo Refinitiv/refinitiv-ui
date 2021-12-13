@@ -3,7 +3,8 @@ import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 import {
   setMonthView,
   setYearView,
-  clickNext
+  clickNext,
+  getDateCells
 } from './utils';
 
 // import element and theme
@@ -51,7 +52,7 @@ describe('calendar/Range', () => {
       const el = await fixture('<ef-calendar range view="2005-04" lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
 
-      let cells = el.shadowRoot.querySelectorAll('[part="cell day"][tabindex]');
+      let cells = getDateCells(el);
       cells[5].click(); // April 06
       await elementUpdated(el);
       expect(values.length, 'value-changed should fire on click').to.equal(1);
@@ -77,7 +78,7 @@ describe('calendar/Range', () => {
       expect(el).shadowDom.to.equalSnapshot();
 
       await clickNext(el); // May
-      cells = el.shadowRoot.querySelectorAll('[part="cell day"][tabindex]');
+      cells = getDateCells(el);
       cells[1].click(); // May 02
       expect(values.length, 'value-changed should fire on click').to.equal(5);
       expect(el.values.join(','), 'range should populate through views').to.equal('2005-04-12,2005-05-02');

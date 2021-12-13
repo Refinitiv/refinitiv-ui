@@ -65,6 +65,7 @@
           id="calendar"
           lang="en-gb"
           part="calendar"
+          role="group"
           tabindex="0"
         >
         </ef-calendar>
@@ -136,6 +137,7 @@
           lang="en-gb"
           part="calendar"
           range=""
+          role="group"
           tabindex="0"
         >
         </ef-calendar>
@@ -197,6 +199,7 @@
           id="calendar"
           lang="en-gb"
           part="calendar"
+          role="group"
           tabindex="0"
         >
         </ef-calendar>
@@ -204,6 +207,7 @@
           id="calendar-to"
           lang="en-gb"
           part="calendar"
+          role="group"
           tabindex="0"
         >
         </ef-calendar>
@@ -265,6 +269,7 @@
           id="calendar"
           lang="en-gb"
           part="calendar"
+          role="group"
           tabindex="0"
         >
         </ef-calendar>
@@ -334,6 +339,7 @@
           id="calendar"
           lang="en-gb"
           part="calendar"
+          role="group"
           tabindex="0"
         >
         </ef-calendar>
@@ -413,6 +419,7 @@
           lang="en-gb"
           part="calendar"
           range=""
+          role="group"
           tabindex="0"
         >
         </ef-calendar>
