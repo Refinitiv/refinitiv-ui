@@ -412,7 +412,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Value of the list item that being highlight.
    * Using for defined aria-activedescendant for accessibility
    */
-  private highlightedItemValue: string | null = null;
+  private highlightedItemValue: string | null = null
 
   /**
    * Use to call request update when CC changes its value
@@ -1019,6 +1019,25 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     this.onInputWrapperTap();
   }
 
+  
+  /**
+   * Handles keydown on clear button
+   * @param event Key down event object
+   * @returns {void}
+   */
+  protected onClearButtonKeydown (event: KeyboardEvent): void {
+    switch (event.key) {
+      case ' ':
+      case 'Enter':
+      case 'Spacebar':
+        this.onClearsButtonTap();
+        break;
+      default:
+        return;
+    }
+    event.preventDefault();
+  }
+
   /**
    * Run when tap event happens on toggle button
    * @returns {void}
@@ -1041,6 +1060,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     this.inputText = '';
     this.setQuery('');
     this.setValueAndNotify('');
+    this.inputEl.focus(); // Ensure focus on input
     this.openOnFocus();
   }
 
@@ -1206,6 +1226,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         <div
           id="clears-button"
           part="button button-clear"
+          tabindex="0"
+          role="button"
+          aria-label="Clear Value"
+          @keydown=${this.onClearButtonKeydown}
           ?hidden=${!this.label && !this.query && !this.freeTextValue && !this.inputText}><ef-icon part="icon icon-clear" icon="cross"></ef-icon>
         </div>
       `;
@@ -1289,7 +1313,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       ...super.decorateInputMap,
       'part': 'input',
       'role': 'combobox',
-      'value': this.focused ? this.inputText : this.freeTextValue || this.label,
+      '.value': this.focused ? this.inputText : this.freeTextValue || this.label,
       'aria-expanded': this.opened ? 'true' : 'false',
       'aria-activedescendant': this.highlightedItemValue ? this.highlightedItemValue : null,
       'aria-hidden': 'false'
