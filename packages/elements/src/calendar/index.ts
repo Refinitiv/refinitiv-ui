@@ -1328,6 +1328,7 @@ export class Calendar extends ControlElement implements MultiValue {
     return html`<div
       role="gridcell"
       part="cell ${cell.view}"
+      aria-selected="${ifDefined(isSelectable ? (cell.selected ? 'true' : 'false') : undefined)}"
       ?active=${cell.active}
       ?disabled=${cell.disabled}
       ?idle=${cell.idle}
@@ -1340,7 +1341,6 @@ export class Calendar extends ControlElement implements MultiValue {
       ?range-to=${cell.rangeTo}>
         <div role="${ifDefined(cell.value ? 'button' : undefined)}"
              tabindex=${ifDefined(isSelectable ? (cell.active ? 0 : -1) : undefined)}
-             aria-selected="${ifDefined(isSelectable ? (cell.selected ? 'true' : 'false') : undefined)}"
              aria-label="${ifDefined(isSelectable && !isIE ? this.t(this.getCellLabelKey(cell), { /* IE11 has significant performance hit, disable */
                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                value: parse(cell.value!),
@@ -1436,6 +1436,7 @@ export class Calendar extends ControlElement implements MultiValue {
       ${guard([this.values, this.lang, this.range, this.multiple, this.announceValues], () => this.selectionTemplate)}
       ${guard([this.view, this.renderView, this.lang], () => this.buttonNavigationTemplate)}
       <div role="grid"
+           aria-multiselectable="${this.range || this.multiple}"
            part="table"
            @tap=${this.onTableTap}>${this.viewRender}</div>
       <div part="footer"><slot name="footer"></slot></div>

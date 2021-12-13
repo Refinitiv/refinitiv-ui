@@ -44,6 +44,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -128,6 +129,7 @@
   >
     <div
       active=""
+      aria-selected="false"
       first-date=""
       idle=""
       part="cell day"
@@ -135,7 +137,6 @@
     >
       <div
         aria-label="Monday, 28 March 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -144,13 +145,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 29 March 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -159,13 +160,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 30 March 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -174,13 +175,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 31 March 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -189,12 +190,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 1 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -203,12 +204,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 2 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -217,12 +218,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 3 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -236,12 +237,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 4 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -250,12 +251,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 5 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -264,12 +265,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 6 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -278,12 +279,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 7 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -292,12 +293,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 8 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -306,12 +307,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 9 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -320,12 +321,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 10 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -339,12 +340,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 11 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -353,12 +354,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 12 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -367,12 +368,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 13 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -381,12 +382,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 14 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -395,12 +396,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 15 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -409,12 +410,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 16 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -423,12 +424,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 17 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -442,12 +443,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 18 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -456,12 +457,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 19 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -470,12 +471,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 20 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -484,12 +485,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 21 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -498,12 +499,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 22 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -512,12 +513,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 23 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -526,12 +527,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 24 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -545,12 +546,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 25 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -559,12 +560,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 26 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -573,12 +574,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 27 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -587,12 +588,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 28 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -601,12 +602,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 29 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -615,12 +616,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 30 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -629,13 +630,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 1 May 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -649,13 +650,13 @@
     role="row"
   >
     <div
+      aria-selected="false"
       idle=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 2 May 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -664,13 +665,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 3 May 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -679,13 +680,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 4 May 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -694,13 +695,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 5 May 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -709,13 +710,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 6 May 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -724,13 +725,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 7 May 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -739,6 +740,7 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       last-date=""
       part="cell day"
@@ -746,7 +748,6 @@
     >
       <div
         aria-label="Sunday, 8 May 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -805,6 +806,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -917,13 +919,13 @@
     </div>
     <div
       active=""
+      aria-selected="false"
       first-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 1 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -932,12 +934,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 2 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -946,12 +948,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 3 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -965,12 +967,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 4 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -979,12 +981,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 5 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -993,12 +995,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 6 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1007,12 +1009,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 7 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1021,12 +1023,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 8 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1035,12 +1037,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 9 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1049,12 +1051,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 10 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1068,12 +1070,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 11 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1082,12 +1084,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 12 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1096,12 +1098,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 13 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1110,12 +1112,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 14 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1124,12 +1126,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 15 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1138,12 +1140,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 16 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1152,12 +1154,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 17 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1171,12 +1173,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 18 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1185,12 +1187,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 19 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1199,12 +1201,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 20 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1213,12 +1215,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 21 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1227,12 +1229,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 22 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1241,12 +1243,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 23 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1255,12 +1257,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 24 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1274,12 +1276,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 25 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1288,12 +1290,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 26 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1302,12 +1304,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 27 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1316,12 +1318,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 28 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1330,12 +1332,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 29 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1344,13 +1346,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       last-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 30 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1468,6 +1470,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -1477,6 +1480,7 @@
   >
     <div
       active=""
+      aria-selected="false"
       first-date=""
       idle=""
       part="cell month"
@@ -1484,7 +1488,6 @@
     >
       <div
         aria-label="November 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -1493,13 +1496,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1508,12 +1511,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="January 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1522,12 +1525,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1541,12 +1544,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="March 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1555,12 +1558,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1569,12 +1572,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="May 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1583,12 +1586,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="June 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1602,12 +1605,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="July 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1616,12 +1619,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="August 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1630,12 +1633,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="September 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1644,12 +1647,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="October 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1663,12 +1666,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="November 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1677,12 +1680,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="December 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1691,13 +1694,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="January 2006"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1706,6 +1709,7 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       last-date=""
       part="cell month"
@@ -1713,7 +1717,6 @@
     >
       <div
         aria-label="February 2006"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1770,6 +1773,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -1779,13 +1783,13 @@
   >
     <div
       active=""
+      aria-selected="false"
       first-date=""
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2000"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -1794,12 +1798,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2001"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1808,12 +1812,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2002"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1822,12 +1826,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2003"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1841,12 +1845,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1855,12 +1859,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1869,12 +1873,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2006"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1883,12 +1887,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2007"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1902,12 +1906,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2008"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1916,12 +1920,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2009"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1930,12 +1934,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2010"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1944,12 +1948,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2011"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1963,12 +1967,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2012"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1977,12 +1981,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2013"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -1991,12 +1995,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2014"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2005,13 +2009,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       last-date=""
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2015"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2070,6 +2074,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -2161,13 +2166,13 @@
     </div>
     <div
       active=""
+      aria-selected="false"
       first-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 1 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -2176,12 +2181,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 2 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2190,12 +2195,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 3 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2204,12 +2209,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 4 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2218,12 +2223,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 5 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2232,12 +2237,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 6 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2251,12 +2256,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 7 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2265,12 +2270,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 8 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2279,12 +2284,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 9 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2293,12 +2298,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 10 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2307,12 +2312,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 11 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2321,12 +2326,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 12 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2335,12 +2340,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 13 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2354,12 +2359,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 14 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2368,12 +2373,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 15 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2382,12 +2387,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 16 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2396,12 +2401,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 17 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2410,12 +2415,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 18 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2424,12 +2429,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 19 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2438,12 +2443,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 20 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2457,12 +2462,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 21 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2471,12 +2476,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 22 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2485,12 +2490,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 23 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2499,12 +2504,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 24 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2513,12 +2518,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 25 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2527,12 +2532,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 26 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2541,12 +2546,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 27 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2560,13 +2565,13 @@
     role="row"
   >
     <div
+      aria-selected="false"
       last-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 28 February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2719,6 +2724,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -2728,6 +2734,7 @@
   >
     <div
       active=""
+      aria-selected="false"
       first-date=""
       idle=""
       part="cell month"
@@ -2735,7 +2742,6 @@
     >
       <div
         aria-label="November 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -2744,13 +2750,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2759,12 +2765,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="January 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2773,12 +2779,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2792,12 +2798,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="March 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2806,12 +2812,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2820,12 +2826,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="May 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2834,12 +2840,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="June 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2853,12 +2859,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="July 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2867,12 +2873,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="August 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2881,12 +2887,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="September 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2895,12 +2901,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="October 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2914,12 +2920,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="November 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2928,12 +2934,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="December 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2942,13 +2948,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="January 2006"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -2957,6 +2963,7 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       last-date=""
       part="cell month"
@@ -2964,7 +2971,6 @@
     >
       <div
         aria-label="February 2006"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3021,6 +3027,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -3030,13 +3037,13 @@
   >
     <div
       active=""
+      aria-selected="false"
       first-date=""
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2000"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -3045,12 +3052,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2001"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3059,12 +3066,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2002"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3073,12 +3080,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2003"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3092,12 +3099,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3106,12 +3113,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3120,12 +3127,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2006"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3134,12 +3141,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2007"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3153,12 +3160,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2008"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3167,12 +3174,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2009"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3181,12 +3188,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2010"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3195,12 +3202,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2011"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3214,12 +3221,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2012"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3228,12 +3235,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2013"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3242,12 +3249,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2014"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3256,13 +3263,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       last-date=""
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2015"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3321,6 +3328,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -3419,13 +3427,13 @@
     </div>
     <div
       active=""
+      aria-selected="false"
       first-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 1 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -3434,12 +3442,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 2 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3448,12 +3456,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 3 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3462,12 +3470,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 4 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3476,12 +3484,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 5 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3495,12 +3503,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 6 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3509,12 +3517,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 7 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3523,12 +3531,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 8 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3537,12 +3545,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 9 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3551,12 +3559,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 10 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3565,12 +3573,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 11 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3579,12 +3587,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 12 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3598,12 +3606,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 13 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3612,12 +3620,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 14 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3626,12 +3634,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 15 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3640,12 +3648,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 16 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3654,12 +3662,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 17 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3668,12 +3676,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 18 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3682,12 +3690,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 19 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3701,12 +3709,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 20 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3715,12 +3723,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 21 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3729,12 +3737,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 22 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3743,12 +3751,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 23 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3757,12 +3765,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 24 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3771,12 +3779,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 25 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3785,12 +3793,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 26 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3804,12 +3812,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 27 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3818,12 +3826,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 28 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3832,12 +3840,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 29 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3846,12 +3854,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 30 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3860,13 +3868,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       last-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 31 December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -3991,6 +3999,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -4000,6 +4009,7 @@
   >
     <div
       active=""
+      aria-selected="false"
       first-date=""
       idle=""
       part="cell month"
@@ -4007,7 +4017,6 @@
     >
       <div
         aria-label="November 2003"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -4016,13 +4025,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="December 2003"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4031,12 +4040,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="January 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4045,12 +4054,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="February 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4064,12 +4073,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="March 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4078,12 +4087,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="April 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4092,12 +4101,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="May 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4106,12 +4115,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="June 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4125,12 +4134,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="July 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4139,12 +4148,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="August 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4153,12 +4162,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="September 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4167,12 +4176,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="October 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4186,12 +4195,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="November 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4200,12 +4209,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="December 2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4214,13 +4223,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       part="cell month"
       role="gridcell"
     >
       <div
         aria-label="January 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4229,6 +4238,7 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       idle=""
       last-date=""
       part="cell month"
@@ -4236,7 +4246,6 @@
     >
       <div
         aria-label="February 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4293,6 +4302,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -4302,13 +4312,13 @@
   >
     <div
       active=""
+      aria-selected="false"
       first-date=""
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2000"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -4317,12 +4327,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2001"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4331,12 +4341,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2002"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4345,12 +4355,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2003"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4364,12 +4374,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2004"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4378,12 +4388,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4392,12 +4402,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2006"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4406,12 +4416,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2007"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4425,12 +4435,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2008"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4439,12 +4449,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2009"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4453,12 +4463,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2010"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4467,12 +4477,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2011"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4486,12 +4496,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2012"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4500,12 +4510,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2013"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4514,12 +4524,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2014"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4528,13 +4538,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       last-date=""
       part="cell year"
       role="gridcell"
     >
       <div
         aria-label="2015"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4595,6 +4605,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -4707,13 +4718,13 @@
     </div>
     <div
       active=""
+      aria-selected="false"
       first-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 1 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -4722,12 +4733,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 2 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4736,12 +4747,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 3 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4755,12 +4766,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 4 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4769,12 +4780,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 5 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4783,12 +4794,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 6 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4797,12 +4808,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 7 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4811,12 +4822,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 8 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4825,12 +4836,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 9 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4839,12 +4850,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 10 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4858,12 +4869,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 11 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4872,12 +4883,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 12 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4886,12 +4897,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 13 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4900,12 +4911,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 14 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4914,12 +4925,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 15 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4928,12 +4939,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 16 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4942,12 +4953,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 17 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4961,12 +4972,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 18 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4975,12 +4986,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 19 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -4989,12 +5000,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 20 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5003,12 +5014,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 21 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5017,12 +5028,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 22 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5031,12 +5042,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 23 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5045,12 +5056,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 24 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5064,12 +5075,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 25 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5078,12 +5089,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 26 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5092,12 +5103,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 27 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5106,12 +5117,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 28 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5120,12 +5131,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 29 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5134,13 +5145,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       last-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 30 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5258,6 +5269,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -5377,13 +5389,13 @@
     </div>
     <div
       active=""
+      aria-selected="false"
       first-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 1 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -5392,12 +5404,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 2 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5411,12 +5423,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 3 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5425,12 +5437,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 4 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5439,12 +5451,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 5 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5453,12 +5465,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 6 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5467,12 +5479,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 7 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5481,12 +5493,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 8 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5495,12 +5507,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 9 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5514,12 +5526,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 10 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5528,12 +5540,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 11 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5542,12 +5554,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 12 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5556,12 +5568,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 13 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5570,12 +5582,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 14 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5584,12 +5596,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 15 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5598,12 +5610,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 16 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5617,12 +5629,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 17 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5631,12 +5643,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 18 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5645,12 +5657,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 19 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5659,12 +5671,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 20 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5673,12 +5685,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 21 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5687,12 +5699,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 22 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5701,12 +5713,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 23 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5720,12 +5732,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 24 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5734,12 +5746,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 25 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5748,12 +5760,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 26 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5762,12 +5774,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 27 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5776,12 +5788,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 28 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5790,12 +5802,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 29 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5804,13 +5816,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       last-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 30 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -5925,6 +5937,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -6016,13 +6029,13 @@
     </div>
     <div
       active=""
+      aria-selected="false"
       first-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 1 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -6031,12 +6044,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 2 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6045,12 +6058,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 3 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6059,12 +6072,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 4 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6073,12 +6086,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 5 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6087,12 +6100,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 6 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6106,12 +6119,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 7 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6120,12 +6133,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 8 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6134,12 +6147,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 9 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6148,12 +6161,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 10 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6162,12 +6175,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 11 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6176,12 +6189,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 12 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6190,12 +6203,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 13 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6209,12 +6222,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 14 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6223,12 +6236,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 15 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6237,12 +6250,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 16 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6251,12 +6264,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 17 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6265,12 +6278,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 18 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6279,12 +6292,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 19 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6293,12 +6306,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 20 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6312,12 +6325,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 21 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6326,12 +6339,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 22 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6340,12 +6353,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 23 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6354,12 +6367,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 24 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6368,12 +6381,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 25 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6382,12 +6395,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 26 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6396,12 +6409,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 27 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6415,12 +6428,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 28 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6429,12 +6442,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 29 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6443,13 +6456,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       last-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 30 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6592,6 +6605,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -6717,12 +6731,12 @@
     </div>
     <div
       active=""
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 2 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -6731,12 +6745,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 3 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6810,12 +6824,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 9 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6824,12 +6838,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 10 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6903,12 +6917,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 16 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6917,12 +6931,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 17 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -6996,12 +7010,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 23 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7010,12 +7024,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 24 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7089,13 +7103,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       last-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 30 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7217,6 +7231,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -7329,13 +7344,13 @@
     </div>
     <div
       active=""
+      aria-selected="false"
       first-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 1 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -7373,12 +7388,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 4 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7387,12 +7402,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 5 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7401,12 +7416,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 6 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7415,12 +7430,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 7 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7429,12 +7444,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 8 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7472,12 +7487,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 11 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7486,12 +7501,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 12 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7500,12 +7515,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 13 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7514,12 +7529,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 14 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7528,12 +7543,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 15 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7571,12 +7586,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 18 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7585,12 +7600,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 19 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7599,12 +7614,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 20 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7613,12 +7628,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 21 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7627,12 +7642,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 22 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7670,12 +7685,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 25 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7684,12 +7699,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 26 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7698,12 +7713,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 27 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7712,12 +7727,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 28 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7726,12 +7741,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 29 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -7866,6 +7881,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -8032,12 +8048,12 @@
     </div>
     <div
       active=""
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 5 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -8046,12 +8062,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 6 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8060,12 +8076,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 7 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8074,12 +8090,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 8 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8088,12 +8104,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 9 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8102,12 +8118,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 10 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8121,12 +8137,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 11 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8135,12 +8151,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 12 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8149,12 +8165,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 13 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8163,12 +8179,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 14 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8177,12 +8193,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 15 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8191,12 +8207,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 16 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8205,12 +8221,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 17 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8224,12 +8240,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 18 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8238,12 +8254,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 19 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8252,12 +8268,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 20 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8266,12 +8282,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 21 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8280,12 +8296,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 22 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8294,12 +8310,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 23 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8308,12 +8324,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 24 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8327,12 +8343,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 25 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8341,12 +8357,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 26 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8355,12 +8371,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 27 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8369,12 +8385,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 28 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8383,12 +8399,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 29 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8397,13 +8413,13 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       last-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 30 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8525,6 +8541,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -8637,13 +8654,13 @@
     </div>
     <div
       active=""
+      aria-selected="false"
       first-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 1 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -8652,12 +8669,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 2 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8666,12 +8683,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 3 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8685,12 +8702,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 4 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8699,12 +8716,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 5 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8713,12 +8730,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 6 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8727,12 +8744,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 7 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8741,12 +8758,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 8 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8755,12 +8772,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 9 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8769,12 +8786,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 10 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8788,12 +8805,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 11 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8802,12 +8819,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 12 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8816,12 +8833,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 13 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8830,12 +8847,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 14 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8844,12 +8861,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 15 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8858,12 +8875,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 16 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8872,12 +8889,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 17 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8891,12 +8908,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 18 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8905,12 +8922,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 19 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8919,12 +8936,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 20 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8933,12 +8950,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 21 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8947,12 +8964,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 22 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8961,12 +8978,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 23 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8975,12 +8992,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 24 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -8994,12 +9011,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 25 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9182,6 +9199,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -9294,13 +9312,13 @@
     </div>
     <div
       active=""
+      aria-selected="false"
       first-date=""
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 1 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -9321,12 +9339,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 3 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9352,12 +9370,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 5 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9378,12 +9396,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 7 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9404,12 +9422,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 9 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9435,12 +9453,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 11 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9461,12 +9479,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 13 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9487,12 +9505,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 15 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9513,12 +9531,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Sunday, 17 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9544,12 +9562,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 19 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9570,12 +9588,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 21 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9596,12 +9614,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Saturday, 23 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9627,12 +9645,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 25 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9653,12 +9671,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 27 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9679,12 +9697,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 29 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -9817,6 +9835,7 @@
   </ef-button>
 </div>
 <div
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -9983,12 +10002,12 @@
     </div>
     <div
       active=""
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 5 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="0"
@@ -10009,12 +10028,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 7 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -10064,12 +10083,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 11 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -10090,12 +10109,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Wednesday, 13 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -10116,12 +10135,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Friday, 15 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -10171,12 +10190,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Tuesday, 19 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -10197,12 +10216,12 @@
       </div>
     </div>
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Thursday, 21 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
@@ -10252,12 +10271,12 @@
     role="row"
   >
     <div
+      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
         aria-label="Monday, 25 April 2005"
-        aria-selected="false"
         part="cell-content selection"
         role="button"
         tabindex="-1"
