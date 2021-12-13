@@ -1,9 +1,11 @@
 @import 'element:ef-overlay';
 @import 'element:ef-list';
 @import 'element:ef-counter';
-@import 'element:ef-text-field';
 @import 'ef-select';
+
+@import '../shared-styles/input';
 @import '../shared-styles/scrollbar';
+
 @import (reference) '../responsive.less';
 
 :host {
@@ -20,6 +22,8 @@
 
   [part=input] {
     width: 100%;
+    .input-defaults;
+    .input-standard(true);
   }
 
   [part~=button] {
