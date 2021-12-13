@@ -81,6 +81,7 @@ import {
   NavigationDirection,
   WeekdayName
 } from './types';
+import type { TapEvent } from '../events';
 import type { Button } from '../button';
 import './locales.js';
 import '../button/index.js';
@@ -432,24 +433,24 @@ export class Calendar extends ControlElement implements MultiValue {
   /**
    * Get selectable date button element by index
    * @param index Cell index
-   * @returns cell HTML date button element or null
+   * @returns button HTML date button element or null
    */
   private getDateButtonByIndex (index: CellIndex): DateButtonElement | undefined {
-    const cells = Array.from(this.renderRoot.querySelectorAll('[part~=cell] > [part~=selection]'));
-    return cells.find((cell): cell is DateButtonElement => this.isDateButton(cell) && String(cell.index) === String(index));
+    const elements = Array.from(this.renderRoot.querySelectorAll('[part~=cell] > [part~=selection]'));
+    return elements.find((element): element is DateButtonElement => this.isDateButton(element) && String(element.index) === String(index));
   }
 
   /**
    * Get active date button element
-   * @returns cell HTML date button element or null
+   * @returns button HTML date button element or null
    */
   private get activeDateButton (): DateButtonElement | null {
     return this.renderRoot.querySelector('[part~=cell][active] > [part~=selection]');
   }
 
   /**
-   * Return true if passed target is HTML date button element
-   * that can be selected
+   * Return true if passed target is HTML
+   * date button element that can be selected
    * @param target Target to check
    * @returns isDateButtonElement
    */
@@ -457,7 +458,8 @@ export class Calendar extends ControlElement implements MultiValue {
     return (target as DateButtonElement).index !== undefined;
   }
 
-  private isDateAvailable: CalendarFilter | null = null; /* a constructed filter based on multiple local filters */
+  // Cashed filter, which is constructed based on multiple local filters
+  private isDateAvailable: CalendarFilter | null = null;
 
   static get observedAttributes (): string[] {
     const observed = super.observedAttributes;
@@ -699,58 +701,37 @@ export class Calendar extends ControlElement implements MultiValue {
   /**
    * Run when next button is tapped.
    * Change current view to next view
+   * @param event Next view tap event
    * @returns {void}
    */
-  private onNextTap (): void {
-    let viewSegment = toDateSegment(this.view);
-
-    switch (this.renderView) {
-      case RenderView.DAY:
-        viewSegment = toDateSegment(addMonths(this.view, 1));
-        break;
-      case RenderView.MONTH:
-        viewSegment.year += 1;
-        break;
-      case RenderView.YEAR:
-        viewSegment.year += YEARS_PER_YEAR_VIEW;
-        break;
-      // no default
+  private onNextTap (event: TapEvent): void {
+    if (!event.defaultPrevented) {
+      this.toNextView();
     }
-
-    this.notifyViewChange(viewSegment);
   }
 
   /**
    * Run when previous button is tapped.
    * Change current view to previous view
+   * @param event Previous view tap event
    * @returns {void}
    */
-  private onPreviousTap (): void {
-    let viewSegment = toDateSegment(this.view);
-
-    switch (this.renderView) {
-      case RenderView.DAY:
-        viewSegment = toDateSegment(subMonths(this.view, 1));
-        break;
-      case RenderView.MONTH:
-        viewSegment.year -= 1;
-        break;
-      case RenderView.YEAR:
-        viewSegment.year -= YEARS_PER_YEAR_VIEW;
-        break;
-      // no default
+  private onPreviousTap (event: TapEvent): void {
+    if (!event.defaultPrevented) {
+      this.toPreviousView();
     }
-
-    this.notifyViewChange(viewSegment);
   }
 
   /**
    * Run when change view button is tapped.
    * Switch between views
+   * @param event Render view tap event
    * @returns {void}
    */
-  private onRenderViewTap (): void {
-    this.renderView = this.renderView === RenderView.DAY ? RenderView.YEAR : RenderView.DAY;
+  private onRenderViewTap (event: TapEvent): void {
+    if (!event.defaultPrevented) {
+      this.renderView = this.renderView === RenderView.DAY ? RenderView.YEAR : RenderView.DAY;
+    }
   }
 
   /**
@@ -805,6 +786,10 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onTableTap (event: KeyboardEvent): void {
+    if (event.defaultPrevented) {
+      return;
+    }
+
     const cell = event.target;
 
     if (!cell || !this.isDateButton(cell) || !cell.value) {
@@ -835,6 +820,11 @@ export class Calendar extends ControlElement implements MultiValue {
     this.onTapSelectValue(cell.value);
   }
 
+  /**
+   * Navigate over the grid
+   * @param key Navigation direction
+   * @returns navigation promise
+   */
   private async onNavigation (key: NavigationDirection): Promise<void> {
     const grid = this.navigationGrid;
 
@@ -895,18 +885,64 @@ export class Calendar extends ControlElement implements MultiValue {
     switch (key) {
       // case 'ArrowUp': // it feels better not having Up/Down in these case
       case 'ArrowLeft':
-        this.onPreviousTap();
-        await this.updateComplete;
+        this.toPreviousView();
+        await this.updateComplete; // must wait until the render cycle has finished
         await this.onNavigation('End');
         break;
       // case 'ArrowDown':
       case 'ArrowRight':
-        this.onNextTap();
+        this.toNextView();
         await this.updateComplete;
         await this.onNavigation('Home');
         break;
       // no default
     }
+  }
+
+  /**
+   * Navigate to the next view
+   * @returns {void}
+   */
+  private toNextView (): void {
+    let viewSegment = toDateSegment(this.view);
+
+    switch (this.renderView) {
+      case RenderView.DAY:
+        viewSegment = toDateSegment(addMonths(this.view, 1));
+        break;
+      case RenderView.MONTH:
+        viewSegment.year += 1;
+        break;
+      case RenderView.YEAR:
+        viewSegment.year += YEARS_PER_YEAR_VIEW;
+        break;
+      // no default
+    }
+
+    this.notifyViewChange(viewSegment);
+  }
+
+  /**
+   * Navigate to the previous view
+   * @returns {void}
+   */
+  private toPreviousView (): void {
+    let viewSegment = toDateSegment(this.view);
+
+    switch (this.renderView) {
+      case RenderView.DAY:
+        viewSegment = toDateSegment(subMonths(this.view, 1));
+        break;
+      case RenderView.MONTH:
+        viewSegment.year -= 1;
+        break;
+      case RenderView.YEAR:
+        viewSegment.year -= YEARS_PER_YEAR_VIEW;
+        break;
+      // no default
+    }
+
+    this.notifyViewChange(viewSegment);
   }
 
   /**
