@@ -4,7 +4,6 @@
 
 ```html
 <input
-  aria-hidden="true"
   autocomplete="off"
   part="input"
   type="password"
@@ -24,7 +23,6 @@
 
 ```html
 <input
-  aria-hidden="true"
   autocomplete="off"
   part="input"
   type="text"
@@ -42,7 +40,6 @@
 
 ```html
 <input
-  aria-hidden="true"
   autocomplete="off"
   part="input"
   type="password"
