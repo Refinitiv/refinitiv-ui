@@ -6,13 +6,14 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-expanded="true"
+    aria-hidden="false"
+    autocomplete="off"
     part="input"
-    role="textbox"
-    tabindex="0"
-    transparent=""
+    role="combobox"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -43,6 +44,7 @@
   >
     <ef-item
       aria-selected="false"
+      id="undefined"
       role="presentation"
       tabindex="-1"
       type="header"
@@ -51,6 +53,7 @@
     <ef-item
       aria-selected="true"
       highlighted=""
+      id="AF"
       role="option"
       selected=""
       tabindex="0"
@@ -58,12 +61,14 @@
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AX"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AL"
       role="option"
       tabindex="0"
     >
@@ -75,13 +80,14 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-expanded="true"
+    aria-hidden="false"
+    autocomplete="off"
     part="input"
-    role="textbox"
-    tabindex="0"
-    transparent=""
+    role="combobox"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -112,6 +118,7 @@
   >
     <ef-item
       aria-selected="false"
+      id="undefined"
       role="presentation"
       tabindex="-1"
       type="header"
@@ -120,18 +127,21 @@
     <ef-item
       aria-selected="false"
       highlighted=""
+      id="AF"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AX"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="true"
+      id="AL"
       role="option"
       selected=""
       tabindex="0"
@@ -144,13 +154,14 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-expanded="true"
+    aria-hidden="false"
+    autocomplete="off"
     part="input"
-    role="textbox"
-    tabindex="0"
-    transparent=""
+    role="combobox"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -181,6 +192,7 @@
   >
     <ef-item
       aria-selected="false"
+      id="undefined"
       role="presentation"
       tabindex="-1"
       type="header"
@@ -189,18 +201,21 @@
     <ef-item
       aria-selected="false"
       highlighted=""
+      id="AF"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AX"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AL"
       role="option"
       tabindex="0"
     >
@@ -214,13 +229,14 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-expanded="true"
+    aria-hidden="false"
+    autocomplete="off"
     part="input"
-    role="textbox"
-    tabindex="0"
-    transparent=""
+    role="combobox"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -251,6 +267,7 @@
   >
     <ef-item
       aria-selected="false"
+      id="undefined"
       role="presentation"
       tabindex="-1"
       type="header"
@@ -259,6 +276,7 @@
     <ef-item
       aria-selected="true"
       highlighted=""
+      id="AF"
       role="option"
       selected=""
       tabindex="0"
@@ -266,12 +284,14 @@
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AX"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AL"
       role="option"
       tabindex="0"
     >
@@ -285,13 +305,14 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-expanded="true"
+    aria-hidden="false"
+    autocomplete="off"
     part="input"
-    role="textbox"
-    tabindex="0"
-    transparent=""
+    role="combobox"
   >
-  </ef-text-field>
   <ef-counter
     max="999"
     part="selection-badge"
@@ -328,6 +349,7 @@
   >
     <ef-item
       aria-selected="false"
+      id="undefined"
       multiple=""
       role="presentation"
       tabindex="-1"
@@ -337,6 +359,7 @@
     <ef-item
       aria-selected="true"
       highlighted=""
+      id="AF"
       multiple=""
       role="option"
       selected=""
@@ -345,6 +368,7 @@
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AX"
       multiple=""
       role="option"
       tabindex="0"
@@ -352,6 +376,7 @@
     </ef-item>
     <ef-item
       aria-selected="true"
+      id="AL"
       multiple=""
       role="option"
       selected=""
@@ -365,13 +390,14 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-expanded="true"
+    aria-hidden="false"
+    autocomplete="off"
     part="input"
-    role="textbox"
-    tabindex="0"
-    transparent=""
+    role="combobox"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -402,6 +428,7 @@
   >
     <ef-item
       aria-selected="false"
+      id="undefined"
       multiple=""
       role="presentation"
       tabindex="-1"
@@ -411,6 +438,7 @@
     <ef-item
       aria-selected="false"
       highlighted=""
+      id="AF"
       multiple=""
       role="option"
       tabindex="0"
@@ -418,6 +446,7 @@
     </ef-item>
     <ef-item
       aria-selected="true"
+      id="AX"
       multiple=""
       role="option"
       selected=""
@@ -426,6 +455,7 @@
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AL"
       multiple=""
       role="option"
       tabindex="0"
@@ -438,13 +468,14 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-expanded="true"
+    aria-hidden="false"
+    autocomplete="off"
     part="input"
-    role="textbox"
-    tabindex="0"
-    transparent=""
+    role="combobox"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -475,6 +506,7 @@
   >
     <ef-item
       aria-selected="false"
+      id="undefined"
       multiple=""
       role="presentation"
       tabindex="-1"
@@ -484,6 +516,7 @@
     <ef-item
       aria-selected="false"
       highlighted=""
+      id="AF"
       multiple=""
       role="option"
       tabindex="0"
@@ -491,6 +524,7 @@
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AX"
       multiple=""
       role="option"
       tabindex="0"
@@ -498,6 +532,7 @@
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AL"
       multiple=""
       role="option"
       tabindex="0"

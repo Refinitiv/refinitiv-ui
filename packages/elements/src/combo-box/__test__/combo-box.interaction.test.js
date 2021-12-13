@@ -27,7 +27,7 @@ const makeQueryRequest = async (el, textInput) => {
   // These timeout were the only way to let the list update itself
   setTimeout(() => {
     el.inputEl.value = textInput;
-    el.inputEl.dispatchEvent(new CustomEvent('value-changed', { detail: { value: textInput } }));
+    el.inputEl.dispatchEvent(new CustomEvent('change', { detail: { value: textInput } }));
   }, 100);
   await oneEvent(el, 'query-changed');
   await elementUpdated(el);
