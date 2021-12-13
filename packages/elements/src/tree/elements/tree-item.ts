@@ -168,7 +168,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   }
 
   /**
-   * Handles selectedd and arias attribute changes
+   * Handles selected and aria attribute changes
    * @returns {void}
    */
   private checkedChanged (): void {
@@ -183,15 +183,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
         break;
       default:
         this.removeAttribute('selected');
-
-        if (this.multiple) {
-          this.setAttribute('aria-checked', 'false');
-        }
-
-        // In single mode, only children nodes are selectable
-        if (!this.parent && !this.multiple) {
-          this.setAttribute('aria-selected', 'false');
-        }
+        this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'false');
         break;
     }
   }

@@ -45,6 +45,11 @@ export class TreeRenderer extends Renderer {
         el.setAttribute('aria-expanded', el.expanded ? 'true' : 'false');
       }
 
+      // In single mode, only children nodes are selectable
+      if (el.parent && !el.multiple) {
+        el.removeAttribute('aria-selected');
+      }
+
       return el;
     });
   }
