@@ -1,4 +1,5 @@
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
+import { CalendarLocaleScope } from './constants.js';
 
 // While Intl can support literally all world languages
 // for safety still limit the number of locales, for the following reasons
@@ -25,7 +26,7 @@ const th = { ...globals, FIRST_DAY_OF_WEEK: '0' };
 const zh = globals;
 const ar = { ...globals, FIRST_DAY_OF_WEEK: '6' };
 
-const scope = 'ef-calendar';
+const scope = CalendarLocaleScope;
 Phrasebook.define('en', scope, en);
 Phrasebook.define('en-CA', scope, enCA);
 Phrasebook.define('en-US', scope, enUS);
