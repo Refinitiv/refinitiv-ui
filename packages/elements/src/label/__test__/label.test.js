@@ -120,7 +120,7 @@ describe('label/Label', () => {
     });
     it('Should break all words when line-clamp is equal to 1', async () => {
       el = await fixture(
-        `<ef-label line-clamp="1" style="width:1000px">${SHORT_LABEL}</ef-label>`
+        `<ef-label line-clamp="1" style="width:50px">${LONG_LABEL}</ef-label>`
       );
       await elementUpdated(el);
       const textContainer = el.shadowRoot.querySelector('span');
