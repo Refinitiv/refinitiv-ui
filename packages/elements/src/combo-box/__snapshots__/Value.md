@@ -12,6 +12,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -85,6 +86,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -158,6 +160,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -232,6 +235,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -307,6 +311,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <ef-counter
     max="999"
@@ -391,6 +396,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -468,6 +474,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
