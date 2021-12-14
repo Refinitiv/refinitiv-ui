@@ -6,7 +6,6 @@
 
 ```html
 <input
-  aria-hidden="true"
   aria-valuenow="0"
   autocomplete="off"
   inputmode="decimal"
@@ -34,7 +33,6 @@
 
 ```html
 <input
-  aria-hidden="true"
   aria-valuenow="0"
   autocomplete="off"
   inputmode="decimal"

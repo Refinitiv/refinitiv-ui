@@ -3,7 +3,8 @@ import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 import {
   setMonthView,
   setYearView,
-  keyboardEvent
+  keyboardEvent,
+  getDateCells
 } from './utils';
 
 // import element and theme
@@ -62,7 +63,7 @@ describe('calendar/Value', () => {
     it('It should be possible to select value on click', async () => {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
-      const cells = el.shadowRoot.querySelectorAll('[part="cell day"][tabindex]');
+      const cells = getDateCells(el);
       cells[0].click(); // April 01
       await elementUpdated(el);
       expect(el.value, 'value is not set').to.equal('2005-04-01');
@@ -78,7 +79,7 @@ describe('calendar/Value', () => {
     it('AD/BC It should be possible to select value on click', async () => {
       const el = await fixture('<ef-calendar view="-000011-04" lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
-      const cells = el.shadowRoot.querySelectorAll('[part="cell day"][tabindex]');
+      const cells = getDateCells(el);
       cells[0].click(); // April 01
       await elementUpdated(el);
       expect(el.value, 'value is not set').to.equal('-000011-04-01');
@@ -93,21 +94,23 @@ describe('calendar/Value', () => {
 
     it('It should be possible to select value on Spacebar', async () => {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
-      const cells = el.shadowRoot.querySelectorAll('[part="cell day"][tabindex]');
-      await keyboardEvent(cells[0], 'Spacebar'); // April 01
+      const cells = getDateCells(el);
+      await keyboardEvent(cells[0], 'Spacebar');
+      await keyboardEvent(cells[0], 'Spacebar', 'keyup'); // April 01
       expect(el.value, 'value is not set').to.equal('2005-04-01');
     });
 
     it('It should be possible to select value on \' \' ', async () => {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
-      const cells = el.shadowRoot.querySelectorAll('[part="cell day"][tabindex]');
-      await keyboardEvent(cells[0], ' '); // April 01
+      const cells = getDateCells(el);
+      await keyboardEvent(cells[0], ' ');
+      await keyboardEvent(cells[0], ' ', 'keyup'); // April 01
       expect(el.value, 'value is not set').to.equal('2005-04-01');
     });
 
     it('It should be possible to select value on Enter', async () => {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
-      const cells = el.shadowRoot.querySelectorAll('[part="cell day"][tabindex]');
+      const cells = getDateCells(el);
       await keyboardEvent(cells[0], 'Enter'); // April 01
       expect(el.value, 'value is not set').to.equal('2005-04-01');
     });
@@ -136,7 +139,7 @@ describe('calendar/Value', () => {
     it('Disabled: it should not be possible to select value on click', async () => {
       const el = await fixture('<ef-calendar disabled lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
-      const cells = el.shadowRoot.querySelectorAll('[part="cell day"][tabindex]');
+      const cells = getDateCells(el);
       cells[0].click(); // April 01
       expect(el.value, 'value is set on click').to.equal('');
       await keyboardEvent(cells[0], 'Spacebar'); // April 01
@@ -146,7 +149,7 @@ describe('calendar/Value', () => {
     it('Readonly: it should not be possible to select value on click', async () => {
       const el = await fixture('<ef-calendar readonly lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
-      const cells = el.shadowRoot.querySelectorAll('[part="cell day"][tabindex]');
+      const cells = getDateCells(el);
       cells[0].click(); // April 01
       expect(el.value, 'value is set on click').to.equal('');
       await keyboardEvent(cells[0], 'Spacebar'); // April 01
