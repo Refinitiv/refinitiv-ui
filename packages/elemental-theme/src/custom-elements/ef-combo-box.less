@@ -21,11 +21,11 @@
   }
 
   [part=input] {
+    .input-defaults;
+    .input-standard(true);
     width: 100%;
     background: none !important;
     border: none !important;
-    .input-defaults;
-    .input-standard(true);
   }
 
   [part~=button] {
@@ -35,7 +35,10 @@
     justify-content: center;
     align-items: center;
     flex: none;
-    outline: none;
+    &:focus-visible {
+      outline: none;
+      color: @input-focused-border-color;
+    }
   }
 
   [part=list] {
