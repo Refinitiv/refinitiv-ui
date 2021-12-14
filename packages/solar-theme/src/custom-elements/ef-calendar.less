@@ -53,7 +53,6 @@
     &:not(:last-of-type) {
       box-shadow: 1px 0 0 0 @separator-color;
     }
-    outline: none;
 
     &[disabled] [part~="selection"] {
       opacity: 0.4;
@@ -70,17 +69,15 @@
       opacity: 0.6;
     }
 
-    &:not([selected]):not([range]):focus, &:not([selected]):not([range]):hover {
-      [part~=selection] {
+    &:not([selected]):not([range]) [part~=selection] {
+      &:focus, &:hover {
         background: @calendar-cell-focused-background-color;
         color: @calendar-cell-hover-text-color;
       }
     }
 
-    &:not([selected]):not([range]):focus {
-      [part~=selection] {
-        outline: @button-border-width @button-focused-border-style @button-focused-border-color;
-      }
+    &:not([selected]):not([range]) [part~=selection]:focus {
+      outline: @button-border-width @button-focused-border-style @button-focused-border-color;
     }
 
     &[range] [part~=selection] {
@@ -101,10 +98,6 @@
     &:not(:first-of-type) [part~=selection] {
       left: 1px;
     }
-
-    &:not([tabindex]) {
-      pointer-events: none;
-    }
   }
 
   [part~=day-name] {
@@ -115,12 +108,13 @@
   }
 
   [part~=selection] {
+    outline: none;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
   }
-  
+
   &[disabled] {
     opacity: 0.4;
   }

@@ -9,7 +9,6 @@
 >
   <ef-text-field
     part="search"
-    role="textbox"
     tabindex="1"
     transparent=""
   >

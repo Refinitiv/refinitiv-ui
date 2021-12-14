@@ -1,3 +1,5 @@
+import { uuid } from '@refinitiv-ui/utils/lib/uuid.js';
+
 export enum RenderView {
   DAY = 'day',
   MONTH = 'month',
@@ -20,3 +22,7 @@ export const MONTH_VIEW = {
   columnCount: 4,
   totalCount: 4 * 4
 };
+/**
+ * A symbol to ensure these locales cannot be overridden
+ */
+export const CalendarLocaleScope = uuid();
