@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.4.0-alpha.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.3.1...@refinitiv-ui/elemental-theme@5.4.0-alpha.0) (2021-12-14)
+
+
+### Features
+
+* **calendar:** add accessibility ([#73](https://github.com/Refinitiv/refinitiv-ui/issues/73)) ([a2576cc](https://github.com/Refinitiv/refinitiv-ui/commit/a2576cc8a1f0229bb5988af0c9d0bbf8ce7f765c))
+
+
+
+
+
 ## [5.3.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.3.0...@refinitiv-ui/elemental-theme@5.3.1) (2021-12-03)
 
 
