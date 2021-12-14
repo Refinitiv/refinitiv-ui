@@ -19,9 +19,9 @@ export class ComboBoxRenderer extends Renderer {
 
       // Using value as id for `aria-activedescendant` in combobox
       if (value && element.id !== value) {
-        element.setAttribute('id', value);
+        element.id = value;
       }
-      else if (!value) {
+      else if (!value && element.id) {
         element.removeAttribute('id');
       }
 

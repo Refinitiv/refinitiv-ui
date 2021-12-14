@@ -16,13 +16,13 @@ import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { eventOptions } from '@refinitiv-ui/core/lib/decorators/event-options.js';
 import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
 import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
 import { VERSION } from '../version.js';
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/lib/collection.js';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
-import type { ItemData } from '../item';
-import type { TextField } from '../text-field';
-import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
-import { List } from '../list/index.js';
+import { ItemData } from '../item';
+import { ComboBoxData, ComboBoxFilter } from './helpers/types';
+import type { List } from '../list/index.js';
 import { ComboBoxRenderer } from './helpers/renderer.js';
 import { defaultFilter } from './helpers/filter.js';
 import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
@@ -32,7 +32,6 @@ import '../list/index.js';
 import '../counter/index.js';
 import '../text-field/index.js';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
-import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
 import '@refinitiv-ui/phrasebook/lib/locale/en/combo-box.js';
 
 export type { ComboBoxFilter, ComboBoxData };
@@ -81,8 +80,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'combobox';
-
   /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
@@ -97,13 +94,13 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         user-select: none;
         outline: none;
       }
-      [part=input-wrapper] {
+      [part~=input-wrapper] {
         cursor: pointer;
       }
-      [part=input] {
+      [part~=input] {
         cursor: text;
       }
-      [part=input]::-ms-clear {
+      [part~=input]::-ms-clear {
         display: none;
       }
       [hidden] {
@@ -387,7 +384,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Internal reference to text-field element
    */
   @query('[part=input]')
-  protected inputEl!: TextField;
+  protected inputEl!: HTMLInputElement;
 
   /**
    * Internal reference to list element
@@ -406,12 +403,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   @query('#clears-button')
   protected clearsButtonEl?: HTMLElement;
-
-  /**
-   * Value of the list item that being highlight.
-   * Using for defined aria-activedescendant for accessibility
-   */
-  private highlightedItemValue: string | null = null;
 
   /**
    * Use to call request update when CC changes its value
@@ -491,6 +482,16 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   protected get composerValues (): string[] {
     return this.queryItemsByPropertyValue('selected', true)
       .map(item => this.getItemPropertyValue(item, 'value') as string);
+  }
+
+  /**
+   * Get the first value of highlighted item
+   */
+  protected get highlightedItemValue (): string | null {
+    if (!this.opened) {
+      return null;
+    }
+    return this.highlightedItems.map(item => this.getItemPropertyValue(item, 'value') as string)[0] || '';
   }
 
   /**
@@ -653,13 +654,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   protected modificationUpdate (): void {
     this.requestUpdate();
-    if (this.opened && this.listEl) {
-      const focusedElement = this.queryItemsByPropertyValue('highlighted', true);
-      this.highlightedItemValue = focusedElement && focusedElement.length > 0 ? focusedElement[0].value as string : null;
-    }
-    else {
-      this.highlightedItemValue = null;
-    }
   }
 
   /**
@@ -724,6 +718,13 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   }
 
   /**
+   * Get a list of highlighted items
+   */
+  protected get highlightedItems (): readonly T[] {
+    return this.queryItemsByPropertyValue('highlighted', true);
+  }
+
+  /**
    * Highlights the item
    * @param item data item to highlight
    * @returns {void}
@@ -738,8 +739,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns {void}
    */
   protected clearHighlighted (): void {
-    this.queryItemsByPropertyValue('highlighted', true)
-      .forEach(item => this.setItemPropertyValue(item, 'highlighted', false));
+    this.highlightedItems.forEach(item => this.setItemPropertyValue(item, 'highlighted', false));
   }
 
   /**
@@ -914,8 +914,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param event `input` event
    * @returns {void}
    */
-  protected override onInputInput (): void {
-    this.onInputValueChanged();
+  protected override onInputInput (event: InputEvent): void {
+    this.onInputValueChanged(event);
   }
 
   /**
@@ -923,8 +923,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param event `change` event
    * @returns {void}
    */
-  protected override onInputChange (): void {
-    this.onInputValueChanged();
+  protected override onInputChange (event: InputEvent): void {
+    this.onInputValueChanged(event);
   }
 
   /**
@@ -932,7 +932,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param event Custom Event fired from text-field
    * @returns {void}
    */
-  protected onInputValueChanged (): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected onInputValueChanged (event: InputEvent): void {
     const inputText = this.inputValue;
     /**
      * Query is used to track if there is a query
@@ -1039,7 +1040,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     this.inputText = '';
     this.setQuery('');
     this.setValueAndNotify('');
-    this.inputEl.focus(); // Ensure focus on input
     this.openOnFocus();
   }
 
@@ -1291,7 +1291,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       'role': 'combobox',
       '.value': this.focused ? this.inputText : this.freeTextValue || this.label,
       'aria-expanded': this.opened ? 'true' : 'false',
-      'aria-activedescendant': this.highlightedItemValue ? this.highlightedItemValue : null
+      'aria-haspopup': 'listbox',
+      'aria-autocomplete': 'list',
+      'aria-owns': 'internal-list',
+      'aria-activedescendant': this.highlightedItemValue
     };
   }
 

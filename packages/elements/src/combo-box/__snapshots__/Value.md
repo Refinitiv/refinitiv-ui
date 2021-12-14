@@ -8,7 +8,10 @@
 <div part="input-wrapper">
   <input
     aria-activedescendant="AF"
+    aria-autocomplete="list"
     aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -44,7 +47,6 @@
   >
     <ef-item
       aria-selected="false"
-      id="undefined"
       role="presentation"
       tabindex="-1"
       type="header"
@@ -82,7 +84,10 @@
 <div part="input-wrapper">
   <input
     aria-activedescendant="AF"
+    aria-autocomplete="list"
     aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -118,7 +123,6 @@
   >
     <ef-item
       aria-selected="false"
-      id="undefined"
       role="presentation"
       tabindex="-1"
       type="header"
@@ -156,7 +160,10 @@
 <div part="input-wrapper">
   <input
     aria-activedescendant="AF"
+    aria-autocomplete="list"
     aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -192,7 +199,6 @@
   >
     <ef-item
       aria-selected="false"
-      id="undefined"
       role="presentation"
       tabindex="-1"
       type="header"
@@ -231,7 +237,10 @@
 <div part="input-wrapper">
   <input
     aria-activedescendant="AF"
+    aria-autocomplete="list"
     aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -267,7 +276,6 @@
   >
     <ef-item
       aria-selected="false"
-      id="undefined"
       role="presentation"
       tabindex="-1"
       type="header"
@@ -307,7 +315,10 @@
 <div part="input-wrapper">
   <input
     aria-activedescendant="AF"
+    aria-autocomplete="list"
     aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -349,7 +360,6 @@
   >
     <ef-item
       aria-selected="false"
-      id="undefined"
       multiple=""
       role="presentation"
       tabindex="-1"
@@ -392,7 +402,10 @@
 <div part="input-wrapper">
   <input
     aria-activedescendant="AF"
+    aria-autocomplete="list"
     aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -428,7 +441,6 @@
   >
     <ef-item
       aria-selected="false"
-      id="undefined"
       multiple=""
       role="presentation"
       tabindex="-1"
@@ -470,7 +482,10 @@
 <div part="input-wrapper">
   <input
     aria-activedescendant="AF"
+    aria-autocomplete="list"
     aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -506,7 +521,6 @@
   >
     <ef-item
       aria-selected="false"
-      id="undefined"
       multiple=""
       role="presentation"
       tabindex="-1"
