@@ -22,7 +22,8 @@ import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/
 import type { ItemData } from '../item';
 import type { TextField } from '../text-field';
 import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
-import { List, ListRenderer as ComboBoxRenderer } from '../list/index.js';
+import { List } from '../list/index.js';
+import { ComboBoxRenderer } from './helpers/renderer';
 import { defaultFilter } from './helpers/filter.js';
 import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
 import '../icon/index.js';
@@ -908,7 +909,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     });
   }
 
-  
   /**
    * Runs on input element `input` event
    * @param event `input` event
@@ -1017,7 +1017,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     this.onInputWrapperTap();
   }
 
-  
   /**
    * Handles keydown on clear button
    * @param event Key down event object
