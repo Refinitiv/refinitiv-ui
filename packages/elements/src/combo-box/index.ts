@@ -1226,7 +1226,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
           part="button button-clear"
           tabindex="0"
           role="button"
-          aria-label="Clear Value"
+          aria-label="${this.t('CLEAR')}"
           @keydown=${this.onClearButtonKeydown}
           ?hidden=${!this.label && !this.query && !this.freeTextValue && !this.inputText}><ef-icon part="icon icon-clear" icon="cross"></ef-icon>
         </div>
