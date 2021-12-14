@@ -371,14 +371,24 @@ describe('pagination/Pagination', () => {
       expect(el.value).to.equal('5');
     });
 
+    it('Should be able to change page number by typing a number and blur the input', async () => {
+      await triggerFocusFor(inputPart);
+      await elementFocused(el);
+
+      inputPart.value = '6';
+      await elementBlurred(inputPart);
+      await elementUpdated(el);
+      expect(el.value).to.equal('6');
+    });
+
     it('Should reject change page if typing a invalid value', async () => {
       const value = '3';
       el.value = value;
-      await elementUpdated(el);      
-      
+      await elementUpdated(el);
+
       await triggerFocusFor(inputPart);
       await elementFocused(el);
-      
+
       inputPart.value = 'Hello';
       inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);

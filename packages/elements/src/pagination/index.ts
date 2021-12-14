@@ -397,22 +397,7 @@ export class Pagination extends BasicElement {
     const isTab = event.key === 'Tab' || event.keyCode === 9;
 
     if (isEnter || isTab) {
-      const oldValue = this.value;
-      let newValue = parseInt(this.input.value, 10);
-
-      // Reset input and boundary value into supported range.
-      if (this.validatePage(this.input.value)) {
-        if (newValue <= 0) {
-          newValue = 1;
-        }
-        else if (newValue > this.internalMax) {
-          newValue = this.internalMax;
-        }
-        this.value = newValue.toString();
-      }
-      else if (!isNaN(newValue)) {
-        this.value = '1';
-      }
+      this.updatePageInput();
 
       if (isEnter) {
         this.input.blur();
@@ -428,10 +413,6 @@ export class Pagination extends BasicElement {
         this.input.blur();
         this.shadowRoot?.removeChild(temp);
       }
-
-      if (this.value !== oldValue) {
-        this.notifyValueChange();
-      }
     }
   }
 
@@ -442,6 +423,42 @@ export class Pagination extends BasicElement {
    */
   private onInputFocusedChanged (event: FocusedChangedEvent): void {
     this.inputFocused = event.detail.value;
+
+    if (!this.inputFocused) {
+      this.updatePageInput();
+    }
+  }
+
+  /**
+   * Update page by using value from the input
+   * @returns {void}
+   */
+  private updatePageInput (): void {
+    // Prevent update page to the same value
+    if (this.value === this.input.value) {
+      return;
+    }
+
+    const oldValue = this.value;
+    let newValue = parseInt(this.input.value, 10);
+
+    // Reset input and boundary value into supported range.
+    if (this.validatePage(this.input.value)) {
+      if (newValue <= 0) {
+        newValue = 1;
+      }
+      else if (newValue > this.internalMax) {
+        newValue = this.internalMax;
+      }
+      this.value = newValue.toString();
+    }
+    else if (!isNaN(newValue)) {
+      this.value = '1';
+    }
+
+    if (this.value !== oldValue) {
+      this.notifyValueChange();
+    }
   }
 
   /**
