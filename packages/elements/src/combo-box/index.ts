@@ -1024,6 +1024,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns {void}
    */
   protected onClearButtonKeydown (event: KeyboardEvent): void {
+    if (this.readonly) {
+      return;
+    }
     switch (event.key) {
       case ' ':
       case 'Enter':
@@ -1096,8 +1099,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns {void}
    */
   protected onKeyDown (event: KeyboardEvent): void {
-    // Check if the event is already handle by list
-    if (event.defaultPrevented) {
+    // Check if the event is already handle by list or it set to 'readonly'
+    if (event.defaultPrevented || this.readonly) {
       return;
     }
 
