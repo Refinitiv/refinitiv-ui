@@ -70,7 +70,7 @@ describe('clock/Analogue', () => {
       expect(el.shadowRoot.querySelector('[part="segment am-pm"]')).to.be.null;
       
       // test when it has am-pm attribute
-      el = await fixture('<ef-clock analog am-pm></ef-clock>');
+      el = await fixture('<ef-clock analogue am-pm></ef-clock>');
       el.style.width = '129px';
       await elementUpdated(el);
       await nextFrame();
