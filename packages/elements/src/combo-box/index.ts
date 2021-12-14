@@ -30,7 +30,6 @@ import '../icon/index.js';
 import '../overlay/index.js';
 import '../list/index.js';
 import '../counter/index.js';
-import '../text-field/index.js';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/lib/locale/en/combo-box.js';
 
@@ -311,7 +310,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   private _query: string | null = null; // Internally set and store query value
   /**
    * Query string applied to combo-box
-   * Set via internal text-field input
+   * Set via internal input
    * @readonly
    * @default null
    */
@@ -379,12 +378,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Hold popup styling applied on open
    */
   protected popupDynamicStyles: StyleMap = {};
-
-  /**
-   * Internal reference to text-field element
-   */
-  @query('[part=input]')
-  protected inputEl!: HTMLInputElement;
 
   /**
    * Internal reference to list element
@@ -606,9 +599,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
     // If label is defined it means that there is an actual value
     // Select input text to simplify clearing the value
-    if (focusedChanged && this.focused && this.label) {
-      this.inputEl.focus();
-      this.inputEl.select();
+    if (focusedChanged && this.focused && this.label && this.inputElement) {
+      this.inputElement.focus();
+      this.inputElement.select();
     }
 
     // Make sure that the first item is always highlighted
@@ -928,8 +921,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   }
 
   /**
-   * Handle text value change from text-field
-   * @param event Custom Event fired from text-field
+   * Handle text value change from input field
+   * @param event Custom Event fired from input field
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -1117,8 +1110,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       // and the cursor is positioned at the end of input
       // Wait before the update cycle completes
       void this.updateComplete.then(() => {
-        this.inputEl.focus();
-        this.inputEl.setSelectionRange(label.length, label.length);
+        if (this.inputElement) {
+          this.inputElement.focus();
+          this.inputElement.setSelectionRange(label.length, label.length);
+        }
       });
     }
   }
