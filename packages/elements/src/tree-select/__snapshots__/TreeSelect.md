@@ -6,12 +6,13 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-expanded="false"
+    aria-hidden="false"
+    autocomplete="off"
     part="input"
-    tabindex="0"
-    transparent=""
+    role="combobox"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
