@@ -9,7 +9,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -30,7 +29,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -67,6 +65,7 @@
           id="calendar"
           lang="en-gb"
           part="calendar"
+          role="group"
           tabindex="0"
         >
         </ef-calendar>
@@ -92,7 +91,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -102,7 +100,6 @@
   <ef-text-field
     id="input-to"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -140,6 +137,7 @@
           lang="en-gb"
           part="calendar"
           range=""
+          role="group"
           tabindex="0"
         >
         </ef-calendar>
@@ -165,7 +163,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -202,6 +199,7 @@
           id="calendar"
           lang="en-gb"
           part="calendar"
+          role="group"
           tabindex="0"
         >
         </ef-calendar>
@@ -209,6 +207,7 @@
           id="calendar-to"
           lang="en-gb"
           part="calendar"
+          role="group"
           tabindex="0"
         >
         </ef-calendar>
@@ -234,7 +233,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -271,6 +269,7 @@
           id="calendar"
           lang="en-gb"
           part="calendar"
+          role="group"
           tabindex="0"
         >
         </ef-calendar>
@@ -304,7 +303,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -341,6 +339,7 @@
           id="calendar"
           lang="en-gb"
           part="calendar"
+          role="group"
           tabindex="0"
         >
         </ef-calendar>
@@ -374,7 +373,6 @@
   <ef-text-field
     id="input"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -384,7 +382,6 @@
   <ef-text-field
     id="input-to"
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -422,6 +419,7 @@
           lang="en-gb"
           part="calendar"
           range=""
+          role="group"
           tabindex="0"
         >
         </ef-calendar>

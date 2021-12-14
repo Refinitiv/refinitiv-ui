@@ -8,7 +8,6 @@
 <div part="input-wrapper">
   <ef-text-field
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
@@ -70,7 +69,6 @@
 <div part="input-wrapper">
   <ef-text-field
     part="input"
-    role="textbox"
     tabindex="0"
     transparent=""
   >
