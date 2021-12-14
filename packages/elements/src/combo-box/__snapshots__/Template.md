@@ -11,6 +11,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -36,6 +37,7 @@
     part="input"
     placeholder="Placeholder"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -59,6 +61,7 @@
     part="input"
     placeholder="New Placeholder"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -81,6 +84,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -106,6 +110,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -177,6 +182,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -247,6 +253,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -319,6 +326,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -391,6 +399,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"

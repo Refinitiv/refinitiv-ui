@@ -1,7 +1,7 @@
 import type { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
 
-import { ListRenderer } from '../../list';
-import { Renderer } from '../../list/renderer';
+import { ListRenderer } from '../../list/index.js';
+import { Renderer } from '../../list/renderer.js';
 import type { Item, ItemData } from '../../item';
 
 /**
@@ -14,12 +14,18 @@ export class ComboBoxRenderer extends Renderer {
 
     super((item: ItemData, composer: CollectionComposer<ItemData>, element?: HTMLElement) => {
       // Extending renderer from listRenderer
-      const el = listRenderer(item, composer, element) as Item;
-      // Uses value as id for `aria-activedescendant` in combobox
-      if (el.value !== 'undefined' && el.id !== el.value) {
-        el.setAttribute('id', el.value);
+      element = listRenderer(item, composer, element) as Item;
+      const value = composer.getItemPropertyValue(item, 'value') as string;
+
+      // Using value as id for `aria-activedescendant` in combobox
+      if (value && element.id !== value) {
+        element.setAttribute('id', value);
       }
-      return el;
+      else if (!value) {
+        element.removeAttribute('id');
+      }
+
+      return element;
     });
   }
 }

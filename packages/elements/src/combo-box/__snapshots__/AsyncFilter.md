@@ -11,6 +11,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"
@@ -54,6 +55,7 @@
     autocomplete="off"
     part="input"
     role="combobox"
+    type="text"
   >
   <div
     id="toggle-button"

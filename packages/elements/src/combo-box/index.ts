@@ -23,7 +23,7 @@ import type { ItemData } from '../item';
 import type { TextField } from '../text-field';
 import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
 import { List } from '../list/index.js';
-import { ComboBoxRenderer } from './helpers/renderer';
+import { ComboBoxRenderer } from './helpers/renderer.js';
 import { defaultFilter } from './helpers/filter.js';
 import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
 import '../icon/index.js';
@@ -411,7 +411,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Value of the list item that being highlight.
    * Using for defined aria-activedescendant for accessibility
    */
-  private highlightedItemValue: string | null = null
+  private highlightedItemValue: string | null = null;
 
   /**
    * Use to call request update when CC changes its value
@@ -1018,27 +1018,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   }
 
   /**
-   * Handles keydown on clear button
-   * @param event Key down event object
-   * @returns {void}
-   */
-  protected onClearButtonKeydown (event: KeyboardEvent): void {
-    if (this.readonly) {
-      return;
-    }
-    switch (event.key) {
-      case ' ':
-      case 'Enter':
-      case 'Spacebar':
-        this.onClearsButtonTap();
-        break;
-      default:
-        return;
-    }
-    event.preventDefault();
-  }
-
-  /**
    * Run when tap event happens on toggle button
    * @returns {void}
    */
@@ -1226,10 +1205,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         <div
           id="clears-button"
           part="button button-clear"
-          tabindex="0"
-          role="button"
-          aria-label="${this.t('CLEAR')}"
-          @keydown=${this.onClearButtonKeydown}
           ?hidden=${!this.label && !this.query && !this.freeTextValue && !this.inputText}><ef-icon part="icon icon-clear" icon="cross"></ef-icon>
         </div>
       `;
@@ -1312,6 +1287,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     return {
       ...super.decorateInputMap,
       'part': 'input',
+      'type': 'text',
       'role': 'combobox',
       '.value': this.focused ? this.inputText : this.freeTextValue || this.label,
       'aria-expanded': this.opened ? 'true' : 'false',
