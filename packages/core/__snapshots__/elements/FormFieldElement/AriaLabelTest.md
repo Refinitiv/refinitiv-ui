@@ -4,7 +4,6 @@
 
 ```html
 <input
-  aria-hidden="true"
   aria-label="Label"
   autocomplete="off"
 >
@@ -12,10 +11,7 @@
 ```
 
 ```html
-<input
-  aria-hidden="true"
-  autocomplete="off"
->
+<input autocomplete="off">
 
 ```
 
@@ -23,7 +19,6 @@
 
 ```html
 <input
-  aria-hidden="true"
   aria-label="Labelled By"
   autocomplete="off"
 >
@@ -34,7 +29,6 @@
 
 ```html
 <input
-  aria-hidden="true"
   aria-label="Label For"
   autocomplete="off"
 >

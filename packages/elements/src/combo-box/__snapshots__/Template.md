@@ -35,7 +35,7 @@
     aria-expanded="false"
     aria-hidden="false"
     autocomplete="off"
-    part="input"
+    part="input"box
     placeholder="Placeholder"
     role="combobox"
   >
