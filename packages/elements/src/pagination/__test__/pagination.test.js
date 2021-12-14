@@ -77,12 +77,12 @@ describe('pagination/Pagination', () => {
       let value = 10;
       el.value = value;
       await elementUpdated(el);
-      expect(el.value).to.equal(value);
+      expect(el.value).to.equal(value.toString());
 
       value = 20;
       el.value = value;
       await elementUpdated(el);
-      expect(el.value).to.equal(value);
+      expect(el.value).to.equal(value.toString());
     });
 
     it('Should reset page to empty when page is set by invalid', async () => {
@@ -130,7 +130,7 @@ describe('pagination/Pagination', () => {
       newMax = 100;
       el.max = newMax;
       await elementUpdated(el);
-      expect(el.max).to.equal(newMax);
+      expect(el.max).to.equal(newMax.toString());
     });
 
     it('Should reset max to empty when max is set by invalid', async () => {

@@ -69,7 +69,7 @@ export class Pagination extends BasicElement {
    */
   @property({ type: String })
   public get value (): string {
-    return this._value;
+    return this._value.toString();
   }
 
   /**
@@ -81,9 +81,6 @@ export class Pagination extends BasicElement {
     if (!newValue || !this.validatePage(newValue, true, 'value')) {
       newValue = '';
     }
-
-    // Validate to show warning only, need to keep developer value.
-    this.validateRange(parseInt(newValue, 10), 1, this.internalMax, true, 'value');
 
     const oldValue = this._value;
     if (oldValue !== newValue) {
@@ -127,7 +124,7 @@ export class Pagination extends BasicElement {
    */
   @property({ type: String })
   public get max (): string {
-    return this._max;
+    return this._max.toString();
   }
 
   /**
@@ -138,11 +135,6 @@ export class Pagination extends BasicElement {
     let newValue = value;
     if (!newValue || !this.validatePage(value, true, 'max')) {
       newValue = '';
-    }
-
-    // Validate to show warning only, need to keep developer value.
-    if (!this.validateRange(parseInt(newValue, 10), this.internalValue, Infinity)) {
-      new WarningNotice(`${this.localName} : The specified value "${value}" of max property must be greater than the value property.`).show();
     }
 
     const oldValue = this._max;
@@ -176,9 +168,6 @@ export class Pagination extends BasicElement {
     if (!newValue || !this.validatePage(value, true, 'page')) {
       newValue = '';
     }
-
-    // Validate to show warning only, need to keep developer value.
-    this.validateRange(parseInt(newValue, 10), 1, this.internalMax, true, 'page');
 
     const oldValue = this._value;
     if (oldValue !== newValue) {
@@ -396,26 +385,6 @@ export class Pagination extends BasicElement {
       }
       return false;
     }
-  }
-
-  /**
-   * Validate number in supported range
-   * @param value value for validation
-   * @param min minimum value
-   * @param max maximum value
-   * @param warning show warning message when value is invalid
-   * @param propName property name to show in warning message
-   * @returns result of validation
-   */
-  private validateRange (value: number, min: number, max: number, warning = false, propName = ''): boolean {
-    if (value < min || value > max) {
-      if (warning && propName) {
-        new WarningNotice(`${this.localName} : The specified value "${value}" of ${propName} property is out of range, the value must be between min ${min} and max ${max}.`).show();
-      }
-      return false;
-    }
-
-    return true;
   }
 
   /**
