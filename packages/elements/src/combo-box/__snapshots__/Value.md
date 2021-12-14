@@ -9,7 +9,6 @@
   <input
     aria-activedescendant="AF"
     aria-expanded="true"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -83,7 +82,6 @@
   <input
     aria-activedescendant="AF"
     aria-expanded="true"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -157,7 +155,6 @@
   <input
     aria-activedescendant="AF"
     aria-expanded="true"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -232,7 +229,6 @@
   <input
     aria-activedescendant="AF"
     aria-expanded="true"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -308,7 +304,6 @@
   <input
     aria-activedescendant="AF"
     aria-expanded="true"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -393,7 +388,6 @@
   <input
     aria-activedescendant="AF"
     aria-expanded="true"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -471,7 +465,6 @@
   <input
     aria-activedescendant="AF"
     aria-expanded="true"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"

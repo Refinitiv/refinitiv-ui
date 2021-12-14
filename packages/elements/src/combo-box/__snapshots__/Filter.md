@@ -9,7 +9,6 @@
   <input
     aria-activedescendant="AX"
     aria-expanded="true"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -75,7 +74,6 @@
   <input
     aria-activedescendant="AX"
     aria-expanded="true"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"

@@ -1313,8 +1313,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       'role': 'combobox',
       '.value': this.focused ? this.inputText : this.freeTextValue || this.label,
       'aria-expanded': this.opened ? 'true' : 'false',
-      'aria-activedescendant': this.highlightedItemValue ? this.highlightedItemValue : null,
-      'aria-hidden': 'false'
+      'aria-activedescendant': this.highlightedItemValue ? this.highlightedItemValue : null
     };
   }
 

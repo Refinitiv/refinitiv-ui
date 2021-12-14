@@ -8,7 +8,6 @@
 <div part="input-wrapper">
   <input
     aria-expanded="false"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -33,9 +32,8 @@
 <div part="input-wrapper">
   <input
     aria-expanded="false"
-    aria-hidden="false"
     autocomplete="off"
-    part="input"box
+    part="input"
     placeholder="Placeholder"
     role="combobox"
   >
@@ -57,7 +55,6 @@
 <div part="input-wrapper">
   <input
     aria-expanded="false"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     placeholder="New Placeholder"
@@ -81,7 +78,6 @@
 <div part="input-wrapper">
   <input
     aria-expanded="false"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -107,7 +103,6 @@
   <input
     aria-activedescendant="AF"
     aria-expanded="true"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -179,7 +174,6 @@
 <div part="input-wrapper">
   <input
     aria-expanded="false"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -250,7 +244,6 @@
   <input
     aria-activedescendant="AF"
     aria-expanded="true"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -323,7 +316,6 @@
   <input
     aria-activedescendant="AL"
     aria-expanded="true"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
@@ -396,7 +388,6 @@
   <input
     aria-activedescendant="AL"
     aria-expanded="true"
-    aria-hidden="false"
     autocomplete="off"
     part="input"
     role="combobox"
