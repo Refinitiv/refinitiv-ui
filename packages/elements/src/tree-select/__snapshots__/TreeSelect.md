@@ -6,12 +6,16 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-autocomplete="list"
+    aria-expanded="false"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
+    autocomplete="off"
     part="input"
-    tabindex="0"
-    transparent=""
+    role="combobox"
+    type="text"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"

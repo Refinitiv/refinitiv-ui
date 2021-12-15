@@ -78,7 +78,7 @@ describe('combo-box/Template', () => {
 
         await elementUpdated(el);
 
-        expect(input.readonly).to.be.equal(true)
+        expect(input.readOnly).to.be.equal(true)
     });
   })
 });
