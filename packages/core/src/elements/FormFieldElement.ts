@@ -47,8 +47,6 @@ export abstract class FormFieldElement extends ControlElement {
     ]));
   }
 
-  protected readonly defaultRole: string | null = 'textbox';
-
   /**
    * Set state to error
    */
@@ -238,7 +236,6 @@ export abstract class FormFieldElement extends ControlElement {
 
   /**
    * Decorate `<input>` element with common properties:
-   * aria-hidden="true" - always true. Required for onLoad screen read. this is always true for Chrome. Other browsers may need to tweak
    * aria-label - calculated from `aria-label`, `aria-labelledby` and `label[for="<element.id>"]`
    * aria-description - calculated from `aria-description` or `aria-describedby`
    * aria-invalid="true|null" - calculated on based on `error` state
@@ -253,7 +250,6 @@ export abstract class FormFieldElement extends ControlElement {
    */
   protected get decorateInputMap (): TemplateMap {
     return {
-      'aria-hidden': 'true',
       'aria-label': this.inputAriaLabel,
       'aria-description': this.inputAriaDescription,
       'aria-invalid': this.error ? 'true' : null,

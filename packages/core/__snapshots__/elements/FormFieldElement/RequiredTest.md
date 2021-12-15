@@ -4,7 +4,6 @@
 
 ```html
 <input
-  aria-hidden="true"
   aria-required="true"
   autocomplete="off"
 >
@@ -12,10 +11,7 @@
 ```
 
 ```html
-<input
-  aria-hidden="true"
-  autocomplete="off"
->
+<input autocomplete="off">
 
 ```
 
