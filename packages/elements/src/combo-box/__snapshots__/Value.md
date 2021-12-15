@@ -6,12 +6,17 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-autocomplete="list"
+    aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
+    autocomplete="off"
     part="input"
-    tabindex="0"
-    transparent=""
+    role="combobox"
+    type="text"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -50,6 +55,7 @@
     <ef-item
       aria-selected="true"
       highlighted=""
+      id="AF"
       role="option"
       selected=""
       tabindex="0"
@@ -57,12 +63,14 @@
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AX"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AL"
       role="option"
       tabindex="0"
     >
@@ -74,12 +82,17 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-autocomplete="list"
+    aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
+    autocomplete="off"
     part="input"
-    tabindex="0"
-    transparent=""
+    role="combobox"
+    type="text"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -118,18 +131,21 @@
     <ef-item
       aria-selected="false"
       highlighted=""
+      id="AF"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AX"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="true"
+      id="AL"
       role="option"
       selected=""
       tabindex="0"
@@ -142,12 +158,17 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-autocomplete="list"
+    aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
+    autocomplete="off"
     part="input"
-    tabindex="0"
-    transparent=""
+    role="combobox"
+    type="text"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -186,18 +207,21 @@
     <ef-item
       aria-selected="false"
       highlighted=""
+      id="AF"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AX"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AL"
       role="option"
       tabindex="0"
     >
@@ -211,12 +235,17 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-autocomplete="list"
+    aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
+    autocomplete="off"
     part="input"
-    tabindex="0"
-    transparent=""
+    role="combobox"
+    type="text"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -255,6 +284,7 @@
     <ef-item
       aria-selected="true"
       highlighted=""
+      id="AF"
       role="option"
       selected=""
       tabindex="0"
@@ -262,12 +292,14 @@
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AX"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AL"
       role="option"
       tabindex="0"
     >
@@ -281,12 +313,17 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-autocomplete="list"
+    aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
+    autocomplete="off"
     part="input"
-    tabindex="0"
-    transparent=""
+    role="combobox"
+    type="text"
   >
-  </ef-text-field>
   <ef-counter
     max="999"
     part="selection-badge"
@@ -332,6 +369,7 @@
     <ef-item
       aria-selected="true"
       highlighted=""
+      id="AF"
       multiple=""
       role="option"
       selected=""
@@ -340,6 +378,7 @@
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AX"
       multiple=""
       role="option"
       tabindex="0"
@@ -347,6 +386,7 @@
     </ef-item>
     <ef-item
       aria-selected="true"
+      id="AL"
       multiple=""
       role="option"
       selected=""
@@ -360,12 +400,17 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-autocomplete="list"
+    aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
+    autocomplete="off"
     part="input"
-    tabindex="0"
-    transparent=""
+    role="combobox"
+    type="text"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -405,6 +450,7 @@
     <ef-item
       aria-selected="false"
       highlighted=""
+      id="AF"
       multiple=""
       role="option"
       tabindex="0"
@@ -412,6 +458,7 @@
     </ef-item>
     <ef-item
       aria-selected="true"
+      id="AX"
       multiple=""
       role="option"
       selected=""
@@ -420,6 +467,7 @@
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AL"
       multiple=""
       role="option"
       tabindex="0"
@@ -432,12 +480,17 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AF"
+    aria-autocomplete="list"
+    aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
+    autocomplete="off"
     part="input"
-    tabindex="0"
-    transparent=""
+    role="combobox"
+    type="text"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -477,6 +530,7 @@
     <ef-item
       aria-selected="false"
       highlighted=""
+      id="AF"
       multiple=""
       role="option"
       tabindex="0"
@@ -484,6 +538,7 @@
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AX"
       multiple=""
       role="option"
       tabindex="0"
@@ -491,6 +546,7 @@
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AL"
       multiple=""
       role="option"
       tabindex="0"

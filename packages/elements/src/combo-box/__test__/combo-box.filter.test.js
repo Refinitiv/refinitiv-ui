@@ -6,8 +6,8 @@ import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 
 const setInputEl = async (el, textInput) => {
   setTimeout(() => {
-    el.inputEl.value = textInput;
-    el.inputEl.dispatchEvent(new CustomEvent('value-changed', { detail: { value: textInput } }));
+    el.inputElement.value = textInput;
+    el.inputElement.dispatchEvent(new Event('change', { detail: { value: textInput } }));
   });
   await oneEvent(el, 'query-changed');
   await elementUpdated(el);
