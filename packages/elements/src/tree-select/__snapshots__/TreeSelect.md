@@ -7,7 +7,10 @@
 ```html
 <div part="input-wrapper">
   <input
+    aria-autocomplete="list"
     aria-expanded="false"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
     autocomplete="off"
     part="input"
     role="combobox"
