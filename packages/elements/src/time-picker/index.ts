@@ -854,12 +854,56 @@ export class TimePicker extends ControlElement {
   private static dividerTemplate = html`<span part="divider"></span>`;
 
   /**
-   * Template for Seconds Segment
-   * @returns Seconds segment
+   * Template for Hours Segment
+   * @returns template hours segment
    */
-  private getSecondsHtml (): TemplateResult | null {
-    return this.isShowSeconds ? html`
-      ${TimePicker.dividerTemplate}
+  private get hoursTemplate (): TemplateResult {
+    const hours = this.formattedHours;
+    return html`<ef-number-field
+        id="hours"
+        part="input"
+        aria-label="${ifDefined(!isIE ? this.t('SELECT_HOURS', { value: this.periodHours }) : undefined)}"
+        no-spinner
+        transparent
+        min="${this.amPm ? 1 : MIN_UNIT}"
+        max="${this.amPm ? HOURS_OF_NOON : MAX_HOURS}"
+        .value="${hours}"
+        placeholder="${ifDefined(hours ? undefined : Placeholder.HOURS)}"
+        ?disabled="${this.disabled}"
+        ?readonly="${this.readonly}"
+        @value-changed="${this.onInputValueChanged}"
+        @focused-changed=${this.onInputFocusedChanged}></ef-number-field>`;
+  }
+
+  /**
+   * Template for Minutes Segment
+   * @returns template minutes segment
+   */
+  private get minutesTemplate (): TemplateResult {
+    const minutes = this.formattedMinutes;
+    return html`<ef-number-field
+        id="minutes"
+        aria-label="${ifDefined(!isIE ? this.t('SELECT_MINUTES', { value: this.minutes }) : undefined)}"
+        part="input"
+        no-spinner
+        min="${MIN_UNIT}"
+        max="${MAX_MINUTES}"
+        .value="${minutes}"
+        placeholder="${ifDefined(minutes ? undefined : Placeholder.MINUTES)}"
+        ?readonly="${this.readonly}"
+        ?disabled="${this.disabled}"
+        transparent
+        @value-changed="${this.onInputValueChanged}"
+        @focused-changed=${this.onInputFocusedChanged}></ef-number-field>`;
+  }
+
+  /**
+   * Template for Seconds Segment
+   * @returns template seconds segment
+   */
+  private get secondsTemplate (): TemplateResult {
+    const seconds = this.formattedSeconds;
+    return html`
       <ef-number-field
         id="seconds"
         part="input"
@@ -867,14 +911,13 @@ export class TimePicker extends ControlElement {
         no-spinner
         min="${MIN_UNIT}"
         max="${MAX_SECONDS}"
-        .value="${this.formattedSeconds}"
-        placeholder="${ifDefined(this.formattedSeconds ? undefined : Placeholder.SECONDS)}"
+        .value="${seconds}"
+        placeholder="${ifDefined(seconds ? undefined : Placeholder.SECONDS)}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         transparent
         @value-changed="${this.onInputValueChanged}"
-        @focused-changed=${this.onInputFocusedChanged}></ef-number-field>
-    ` : null;
+        @focused-changed=${this.onInputFocusedChanged}></ef-number-field>`;
   }
 
   /**
@@ -939,45 +982,25 @@ export class TimePicker extends ControlElement {
   }
 
   /**
+   * Get time input template
+   * @returns template result
+   */
+  private get inputTemplate (): TemplateResult {
+    return html`
+      ${this.hoursTemplate}
+      ${TimePicker.dividerTemplate}
+      ${this.minutesTemplate}
+      ${this.isShowSeconds ? html`${TimePicker.dividerTemplate}${this.secondsTemplate}` : undefined}`;
+  }
+
+  /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
    * @returns Render template
    */
   protected render (): TemplateResult {
-    const hours = this.formattedHours;
-    const minutes = this.formattedMinutes;
-
     return html`
-      <ef-number-field
-        id="hours"
-        part="input"
-        aria-label="${ifDefined(!isIE ? this.t('SELECT_HOURS', { value: this.periodHours }) : undefined)}"
-        no-spinner
-        transparent
-        min="${this.amPm ? 1 : MIN_UNIT}"
-        max="${this.amPm ? HOURS_OF_NOON : MAX_HOURS}"
-        .value="${hours}"
-        placeholder="${ifDefined(hours ? undefined : Placeholder.HOURS)}"
-        ?disabled="${this.disabled}"
-        ?readonly="${this.readonly}"
-        @value-changed="${this.onInputValueChanged}"
-        @focused-changed=${this.onInputFocusedChanged}></ef-number-field>
-      ${TimePicker.dividerTemplate}
-      <ef-number-field
-        id="minutes"
-        aria-label="${ifDefined(!isIE ? this.t('SELECT_MINUTES', { value: this.minutes }) : undefined)}"
-        part="input"
-        no-spinner
-        min="${MIN_UNIT}"
-        max="${MAX_MINUTES}"
-        .value="${minutes}"
-        placeholder="${ifDefined(minutes ? undefined : Placeholder.MINUTES)}"
-        ?readonly="${this.readonly}"
-        ?disabled="${this.disabled}"
-        transparent
-        @value-changed="${this.onInputValueChanged}"
-        @focused-changed=${this.onInputFocusedChanged}></ef-number-field>
-      ${this.getSecondsHtml()}
+      ${this.inputTemplate}
       ${guard([this.value, this.lang, this.amPm], () => this.getAmPmHtml)}
       ${guard([this.isMobile], () => this.nativeInputForMobile)}
       ${guard([this.value, this.lang, this.showSeconds, this.amPm, this.announceValues], () => this.selectionTemplate)}
