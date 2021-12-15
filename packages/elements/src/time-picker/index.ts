@@ -83,6 +83,9 @@ export class TimePicker extends ControlElement {
 
   protected readonly defaultRole: string | null = 'group';
 
+  /**
+   * If time-picker is in mobile mode
+   */
   private isMobile = false;
 
   /**
@@ -137,7 +140,6 @@ export class TimePicker extends ControlElement {
   /**
    * Minutes time segment
    * @param minutes minutes value
-   * @default null
    * @returns {void}
    */
   @property({ type: Number })
@@ -154,7 +156,7 @@ export class TimePicker extends ControlElement {
 
   /**
    * Get minutes value
-   * @returns hours
+   * @returns minutes
    */
   public get minutes (): number | null {
     return this._minutes;
@@ -163,7 +165,6 @@ export class TimePicker extends ControlElement {
   /**
    * Seconds time segment
    * @param seconds seconds value
-   * @default null
    * @returns {void}
    */
   @property({ type: Number })
@@ -201,7 +202,6 @@ export class TimePicker extends ControlElement {
 
   /**
   * Value of the element
-  * @default -
   * @param value Element value
   */
   @property({ type: String })
@@ -346,17 +346,26 @@ export class TimePicker extends ControlElement {
 
   /**
    * Formats the seconds value
-   * @returns Formatted number
    */
   private get formattedSeconds (): string {
     return TimePicker.formattedUnit(this.seconds);
   }
 
+  /**
+   * Observes attribute change for `attributeChangedCallback`
+   */
   static get observedAttributes (): string[] {
     const observed = super.observedAttributes;
     return ['role'].concat(observed);
   }
 
+  /**
+   * Synchronizes attribute value
+   * @param name attribute name
+   * @param oldValue old attribute value
+   * @param newValue new attribute value
+   * @returns {void}
+   */
   public attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
     super.attributeChangedCallback(name, oldValue, newValue);
     if (name === 'role') {
@@ -366,20 +375,16 @@ export class TimePicker extends ControlElement {
 
   /**
    * On first updated life-cycle
-   *
    * @param changedProperties changed properties
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-
-    // add events
     this.renderRoot.addEventListener('keydown', this.onKeydown, true);
   }
 
   /**
    * On updated life-cycle
-   *
    * @param changedProperties changed properties
    * @returns {void}
    */
@@ -421,9 +426,8 @@ export class TimePicker extends ControlElement {
 
   /**
    * Overwrite validation method for value
-   *
    * @param value value
-   * @returns {boolean} result
+   * @returns True if value is valid
    */
   protected isValidValue (value: string): boolean {
     return value === '' || isValidTime(value);
@@ -480,7 +484,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Validates a given unit against a min and max value, returning a fallback if invalid.
-   *
    * @param unit Unit to validate
    * @param min Minimum allowed
    * @param max Maximum allowed
@@ -501,7 +504,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Handles value change from native time picker on mobile devices
-   *
    * @param event Event Object
    * @returns {void}
    */
@@ -512,7 +514,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Helper, used to update the mobile time picker value
-   *
    * @returns {void}
    */
   /* istanbul ignore next */
@@ -581,7 +582,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Updates a time segment to the provided value
-   *
    * @param segment Segment id
    * @param value Unit to change to
    * @returns {void}
@@ -595,7 +595,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Updates the value of a time segment (element)
-   *
    * @param segment Segment's name
    * @returns {void}
    */
@@ -610,7 +609,6 @@ export class TimePicker extends ControlElement {
       case Segment.SECONDS:
         this.updateSecondsSegmentValue();
         break;
-
       // no default
     }
   }
@@ -618,7 +616,6 @@ export class TimePicker extends ControlElement {
   /**
    * Handles any keydown events
    * Used for control keys
-   *
    * @param event Event Object
    * @returns {void}
    */
@@ -629,8 +626,7 @@ export class TimePicker extends ControlElement {
   /**
    * Handle valid control keys and execute their corresponding commands
    * Will stop when readonly is set
-   *
-   * @param event Event Object
+   * @param event Keyboard event
    * @returns {void}
    */
   private manageControlKeys (event: KeyboardEvent): void {
@@ -661,8 +657,7 @@ export class TimePicker extends ControlElement {
 
   /**
    * Handles ENTER key press
-   *
-   * @param event Event Object
+   * @param event Keyboard event
    * @returns {void}
    */
   private handleEnterKey (event: KeyboardEvent): void {
@@ -674,8 +669,7 @@ export class TimePicker extends ControlElement {
 
   /**
    * Handles UP key press
-   *
-   * @param event Event Object
+   * @param event Keyboard event
    * @returns {void}
    */
   private handleUpKey (event: KeyboardEvent): void {
@@ -684,8 +678,7 @@ export class TimePicker extends ControlElement {
 
   /**
    * Handle DOWN key press
-   *
-   * @param event Event Object
+   * @param event Keyboard event
    * @returns {void}
    */
   private handleDownKey (event: KeyboardEvent): void {
@@ -695,7 +688,6 @@ export class TimePicker extends ControlElement {
   /**
    * Toggles the amPm flag or updates the time segment value.
    * Essentially a handler for user inputs on the control.
-   *
    * @param amount to change value by
    * @param target Segment id
    * @returns {void}
@@ -718,7 +710,6 @@ export class TimePicker extends ControlElement {
   /**
    * Changes a time segment value by a specified amount.
    * Also updates parent values when rolling through cycles.
-   *
    * @param amount Amount to change by
    * @param segment Segment id
    * @returns {void}
@@ -765,7 +756,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Updates the value of the hours element
-   *
    * @returns {void}
    */
   private updateHoursSegmentValue (): void {
@@ -776,7 +766,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Updated the value of the minutes element
-   *
    * @returns {void}
    */
   private updateMinutesSegmentValue (): void {
@@ -787,7 +776,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Updates the value of the seconds element
-   *
    * @returns {void}
    */
   private updateSecondsSegmentValue (): void {
@@ -798,7 +786,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Formats a given number and prefixes a 0 on numbers lower than 10
-   *
    * @param n Number to format
    * @returns Formatted number
    */
@@ -808,8 +795,7 @@ export class TimePicker extends ControlElement {
 
   /**
    * Returns `true` or `false` depending on whether the hours are before, or, after noon
-   *
-   * @returns Result
+   * @returns True if time is AM
    */
   private isAM (): boolean {
     return isAM(this.currentTimeString);
@@ -817,8 +803,7 @@ export class TimePicker extends ControlElement {
 
   /**
    * Returns opposite of isAM
-   *
-   * @returns Result
+   * @returns True if time is PM
    */
   private isPM (): boolean {
     return isPM(this.currentTimeString);
@@ -826,7 +811,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Toggles the AM/PM state
-   *
    * @returns {void}
    */
   public toggle (): void {
@@ -871,7 +855,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Template for Seconds Segment
-   *
    * @returns Seconds segment
    */
   private getSecondsHtml (): TemplateResult | null {
@@ -896,7 +879,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Template for AmPm Segment
-   *
    * @returns Am/Pm segment
    */
   private get getAmPmHtml (): TemplateResult | null {
@@ -929,7 +911,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Native input's template for mobile
-   *
    * @returns input
    */
   private get nativeInputForMobile (): TemplateResult | null {
