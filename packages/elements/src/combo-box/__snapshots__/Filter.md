@@ -6,12 +6,17 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AX"
+    aria-autocomplete="list"
+    aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
+    autocomplete="off"
     part="input"
-    tabindex="0"
-    transparent=""
+    role="combobox"
+    type="text"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -50,12 +55,14 @@
     <ef-item
       aria-selected="false"
       highlighted=""
+      id="AX"
       role="option"
       tabindex="0"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
+      id="AL"
       role="option"
       tabindex="0"
     >
@@ -67,12 +74,17 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
+  <input
+    aria-activedescendant="AX"
+    aria-autocomplete="list"
+    aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
+    autocomplete="off"
     part="input"
-    tabindex="0"
-    transparent=""
+    role="combobox"
+    type="text"
   >
-  </ef-text-field>
   <div
     id="toggle-button"
     part="button button-toggle"
@@ -111,6 +123,7 @@
     <ef-item
       aria-selected="false"
       highlighted=""
+      id="AX"
       role="option"
       tabindex="0"
     >
