@@ -124,7 +124,7 @@ export class Pagination extends BasicElement {
    */
   @property({ type: String })
   public get max (): string {
-    return this._max.toString();
+    return this._max;
   }
 
   /**
@@ -171,7 +171,7 @@ export class Pagination extends BasicElement {
 
     const oldValue = this._value;
     if (oldValue !== newValue) {
-      this._value = newValue;
+      this._value = newValue.toString();
     }
     this.requestUpdate('page', oldValue);
   }
