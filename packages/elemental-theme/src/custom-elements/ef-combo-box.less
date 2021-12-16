@@ -1,16 +1,18 @@
 @import 'element:ef-overlay';
 @import 'element:ef-list';
 @import 'element:ef-counter';
-@import 'element:ef-text-field';
 @import 'ef-select';
+
+@import '../shared-styles/input';
 @import '../shared-styles/scrollbar';
+
 @import (reference) '../responsive.less';
 
 :host {
 
   padding: 0;
 
-  [part=input-wrapper] {
+  [part~=input-wrapper] {
     .touch-action();
     display: flex;
     align-items: center;
@@ -18,8 +20,12 @@
     height: 100%;
   }
 
-  [part=input] {
+  [part~=input] {
+    .input-defaults;
+    .input-standard(true);
     width: 100%;
+    background: none;
+    border: none;
   }
 
   [part~=button] {
@@ -31,18 +37,18 @@
     flex: none;
   }
 
-  [part=list] {
+  [part~=list] {
     display: flex;
     flex-flow: column nowrap;
   }
 
   .ie-specific({
-    [part=list] ::slotted(ef-list) {
+    [part~=list] ::slotted(ef-list) {
       max-height: inherit;
     }
   });
 
-  [part=selection-badge] {
+  [part~=selection-badge] {
     @size: unit((@button-font-size + 9), px);
     height: @size;
     min-width: @size;

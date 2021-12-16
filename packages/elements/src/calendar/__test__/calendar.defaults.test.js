@@ -29,7 +29,7 @@ describe('calendar/Defaults', () => {
     it('Today\'s date should have additional attribute set', async () => {
       const el = await fixture('<ef-calendar lang="en-GB"></ef-calendar>');
       const now = new Date();
-      const todayCells = el.shadowRoot.querySelectorAll('div[tabindex][today]');
+      const todayCells = el.shadowRoot.querySelectorAll('div[today]');
       expect(todayCells.length, 'Incorrect view or only one cell should be set to today').to.equal(1);
       expect(todayCells[0].textContent.trim(), 'Invalid cell is set to today').to.equal(now.getUTCDate().toString());
     });

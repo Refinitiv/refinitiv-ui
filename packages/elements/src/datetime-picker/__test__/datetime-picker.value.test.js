@@ -68,7 +68,7 @@ describe('datetime-picker/Value', () => {
     it('It should be possible to select value by clicking on calendar', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened view="2020-04"></ef-datetime-picker>');
       const calendarEl = el.calendarEl;
-      const cell = calendarEl.shadowRoot.querySelectorAll('div[tabindex="0"]')[2]; // 2020-04-01
+      const cell = calendarEl.shadowRoot.querySelectorAll('div[tabindex]')[2]; // 2020-04-01
       cell.click();
       await elementUpdated(el);
       expect(el.value).to.be.equal('2020-04-01', 'Value has not update');
@@ -82,13 +82,13 @@ describe('datetime-picker/Value', () => {
       await nextFrame();
 
       const calendarEl = el.calendarEl;
-      const fromCell = calendarEl.shadowRoot.querySelectorAll('div[tabindex="0"]')[0]; // 2020-04-01
+      const fromCell = calendarEl.shadowRoot.querySelectorAll('div[tabindex]')[0]; // 2020-04-01
       fromCell.click();
       await elementUpdated(el);
       await nextFrame();
 
       const calendarToEl = el.calendarToEl;
-      const toCell = calendarToEl.shadowRoot.querySelectorAll('div[tabindex="0"]')[0]; // 2020-05-01
+      const toCell = calendarToEl.shadowRoot.querySelectorAll('div[tabindex]')[0]; // 2020-05-01
       toCell.click();
       await elementUpdated(el);
       await nextFrame();
