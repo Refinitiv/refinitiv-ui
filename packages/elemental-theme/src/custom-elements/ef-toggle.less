@@ -85,10 +85,12 @@
     background-color: @scheme-color-primary;
   }
 
-  &:hover:not([readonly]), &[focused=visible] {
-    box-shadow: 0 0 (@global-box-shadow-blur-radius * 0.75) @input-focused-border-color;
-    [part=toggle] {
-      border-color: @input-focused-border-color;
+  .desktop-specific({
+    &:hover:not([readonly]), &[focused=visible] {
+      box-shadow: 0 0 (@global-box-shadow-blur-radius * 0.75) @input-focused-border-color;
+      [part=toggle] {
+        border-color: @input-focused-border-color;
+      }
     }
-  }
+  });
 }
