@@ -158,7 +158,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   }
 
   /**
-   * Handles aria-checked and aria-selected on mode changes
+   * Handles aria-checked and aria-selected when mode changes
    * aria-checked is used for multiple mode due to tri-state support
    * @returns {void}
    **/
@@ -183,9 +183,37 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
         break;
       default:
         this.removeAttribute('selected');
-        this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'false');
+
+        // In single mode, only children nodes are selectable
+        if (this.parent && !this.multiple) {
+          this.removeAttribute('aria-selected');
+        }
+        else {
+          this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'false');
+        }
+
         break;
     }
+  }
+
+  /**
+   * Handles aria-expanded when expanded state changes
+   * @returns {void}
+   */
+  private expandedChanged () :void {
+    if (this.parent) {
+      this.setAttribute('aria-expanded', this.expanded ? 'true' : 'false');
+    }
+  }
+
+  /**
+   * Called after the component is first rendered
+   * @param changedProperties Properties which have changed
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    this.setAttribute('aria-level', String(this.depth + 1));
   }
 
   /**
@@ -202,6 +230,10 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
 
     if (changedProperties.has('multiple') && changedProperties.get('multiple') !== undefined) {
       this.multipleChanged();
+    }
+
+    if (changedProperties.has('expanded')) {
+      this.expandedChanged();
     }
   }
 

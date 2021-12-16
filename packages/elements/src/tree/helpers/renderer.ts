@@ -38,17 +38,7 @@ export class TreeRenderer extends Renderer {
       el.readonly = composer.getItemPropertyValue(item, 'readonly') === true;
       el.highlighted = composer.getItemPropertyValue(item, 'highlighted') === true;
 
-      el.setAttribute('aria-level', String(el.depth + 1));
       el.setAttribute('aria-setsize', String(composer.getItemSiblings(item).length + 1));
-
-      if (el.parent) {
-        el.setAttribute('aria-expanded', el.expanded ? 'true' : 'false');
-      }
-
-      // In single mode, only children nodes are selectable
-      if (el.parent && !el.multiple) {
-        el.removeAttribute('aria-selected');
-      }
 
       return el;
     });
