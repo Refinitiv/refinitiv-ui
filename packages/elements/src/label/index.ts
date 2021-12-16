@@ -228,7 +228,8 @@ export class Label extends BasicElement {
   protected get clampTemplate (): TemplateResult {
     const styles:StyleMap = {
       lineClamp: `${this.lineClamp}`,
-      '-webkit-line-clamp': `${this.lineClamp}`
+      '-webkit-line-clamp': `${this.lineClamp}`,
+      wordBreak: this.lineClamp === 1 ? 'break-all' : ''
     };
     /* istanbul ignore if */
     if (browserType === 'legacy') {
