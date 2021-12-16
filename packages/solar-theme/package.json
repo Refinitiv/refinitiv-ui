@@ -5,6 +5,20 @@
   "author": "Refinitiv",
   "license": "SEE LICENSE IN LICENSE",
   "main": "index.less",
+  "exports": {
+    "./charcoal/all-elements": "./charcoal/imports/all-elements.js",
+    "./charcoal/custom-elements": "./charcoal/imports/custom-elements.js",
+    "./charcoal/native-elements": "./charcoal/imports/native-elements.js",
+    "./pearl/all-elements": "./pearl/imports/all-elements.js",
+    "./pearl/custom-elements": "./pearl/imports/custom-elements.js",
+    "./pearl/native-elements": "./pearl/imports/native-elements.js",
+    "./charcoal/imports/all-elements": "./charcoal/imports/all-elements.js",
+    "./charcoal/imports/custom-elements": "./charcoal/imports/custom-elements.js",
+    "./charcoal/imports/native-elements": "./charcoal/imports/native-elements.js",
+    "./pearl/imports/all-elements": "./pearl/imports/all-elements.js",
+    "./pearl/imports/custom-elements": "./pearl/imports/custom-elements.js",
+    "./pearl/imports/native-elements": "./pearl/imports/native-elements.js"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
