@@ -20,4 +20,29 @@
       });
     }
   }
+
+  // WORKAROUND: Override styles from hover state that have the wrong orders.
+  &:not([readonly]):active {
+    background-color: @button-pressed-background-color;
+    color: @button-pressed-text-color;
+    box-shadow: @button-pressed-box-shadow;
+  }
+  &[cta] {
+    &:not([readonly]):active {
+      background-color: @button-cta-background-color;
+      color: @button-cta-text-color;
+    }
+  }
+  &[toggles] {
+    &:not([readonly]):active {
+      background-color: @button-toggle-background-color;
+      color: @button-toggle-text-color;
+    }
+  }
+  &[toggles][active] {
+    &:not([readonly]):active {
+      background-color: @button-toggle-active-background-color;
+      color: @button-toggle-active-text-color;
+    }
+  }
 }
