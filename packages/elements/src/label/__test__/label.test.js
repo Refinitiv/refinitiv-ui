@@ -118,5 +118,13 @@ describe('label/Label', () => {
       await aTimeout(1000); // Hard to test not opening tooltip so just wait a while
       expect(tooltip.opened).to.be.false;
     });
+    it('Should break all words when line-clamp is equal to 1', async () => {
+      el = await fixture(
+        `<ef-label line-clamp="1" style="width:50px">${LONG_LABEL}</ef-label>`
+      );
+      await elementUpdated(el);
+      const textContainer = el.shadowRoot.querySelector('span');
+      expect(textContainer.style.wordBreak).equal('break-all');
+    });
   });
 });

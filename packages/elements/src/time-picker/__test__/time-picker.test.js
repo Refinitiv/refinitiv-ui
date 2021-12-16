@@ -1,8 +1,15 @@
-import { fixture, expect, elementUpdated, isIE, oneEvent } from '@refinitiv-ui/test-helpers';
+import {
+  fixture,
+  expect,
+  elementUpdated,
+  oneEvent,
+  triggerFocusFor,
+  triggerBlurFor,
+  keyboardEvent
+} from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/time-picker';
-import '@refinitiv-ui/elemental-theme/light/ef-number-field';
 import '@refinitiv-ui/elemental-theme/light/ef-time-picker';
 
 describe('time-picker/TimePicker', () => {
@@ -116,51 +123,10 @@ describe('time-picker/TimePicker', () => {
     }
   };
 
-  const delay = (milliseconds = 10) => {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-      if ((new Date().getTime() - start) > milliseconds) {
-        break;
-      }
-    }
-  };
-
-  const getKeyboardEvent = (eventType, keyOption) => {
-    if (isIE()) {
-      const event = document.createEvent('KeyboardEvent');
-      Object.defineProperty(event, 'which', {
-        get: () => keyOption.which
-      });
-      Object.defineProperty(event, 'keyCode', {
-        get: () => keyOption.keyCode
-      });
-      Object.defineProperty(event, 'key', {
-        get: () => keyOption.ieKey
-      });
-
-      event.initKeyboardEvent(
-        eventType,
-        true, // canBubbleArg,
-        true, // cancelableArg,
-        null, // viewArg,  Specifies UIEvent.view. This value may be null.
-        false, // ctrlKeyArg,
-        false, // altKeyArg,
-        false, // shiftKeyArg,
-        false, // metaKeyArg,
-        keyOption.keyCode, // keyCodeArg,
-        0
-      );
-      return event;
-    }
-    else {
-      return new KeyboardEvent(eventType, keyOption);
-    }
-  };
-
   const createKeyboardEvent = (elem, keyOption) => {
-    elem.dispatchEvent(getKeyboardEvent('keydown', keyOption));
-    elem.dispatchEvent(getKeyboardEvent('keypress', keyOption));
-    elem.dispatchEvent(getKeyboardEvent('keyup', keyOption));
+    elem.dispatchEvent(keyboardEvent('keydown', keyOption));
+    elem.dispatchEvent(keyboardEvent('keypress', keyOption));
+    elem.dispatchEvent(keyboardEvent('keyup', keyOption));
   };
 
   const timePickerDefaults = '<ef-time-picker></ef-time-picker>';
@@ -170,6 +136,7 @@ describe('time-picker/TimePicker', () => {
   const timePickerValueZeroWithSec = '<ef-time-picker value="00:00:00"></ef-time-picker>';
   const timePickerValueNumberWithSec = '<ef-time-picker value="08:16:32"></ef-time-picker>';
   const timePickerValueNumberWithoutSec = '<ef-time-picker value="08:16"></ef-time-picker>';
+  const timePickerRoleNone = '<ef-time-picker role="none"></ef-time-picker>';
 
   describe('Time Picker Snapshot Testing', () => {
     /* cannot test default as value is set to current time */
@@ -197,6 +164,11 @@ describe('time-picker/TimePicker', () => {
       const el = await fixture(timePickerAMPM);
       expect(el).shadowDom.to.equalSnapshot();
     });
+
+    it('DOM structure: role=none', async () => {
+      const el = await fixture(timePickerRoleNone);
+      expect(el).shadowDom.to.equalSnapshot();
+    });
   });
 
   describe('Defaults', () => {
@@ -206,8 +178,8 @@ describe('time-picker/TimePicker', () => {
     });
 
     it('Default structure is correct', () => {
-      expect(el.shadowRoot.querySelectorAll('[part=input]')).to.have.lengthOf(2);
-      expect(el.shadowRoot.querySelectorAll('[part=toggle]')).to.have.lengthOf(0);
+      expect(el.renderRoot.querySelectorAll('[part=input]')).to.have.lengthOf(2);
+      expect(el.renderRoot.querySelectorAll('[part=toggle]')).to.have.lengthOf(0);
     });
 
     it('Default properties are correct', () => {
@@ -221,39 +193,67 @@ describe('time-picker/TimePicker', () => {
     });
   });
 
-  describe('Modes', () => {
-    beforeEach(async () => {
-      el = await fixture(timePickerDefaults);
+  describe('Value', () => {
+    it('Can set and reset value', async () => {
+      const el = await fixture('<ef-time-picker value="12:20:35"></ef-time-picker>');
+      expect(el.hours).to.equal(12);
+      expect(el.minutes).to.equal(20);
+      expect(el.seconds).to.equal(35);
+      el.value = '';
+      await elementUpdated(el);
+      expect(el.hours).to.equal(null);
+      expect(el.minutes).to.equal(null);
+      expect(el.seconds).to.equal(null);
     });
 
-    it('Should show seconds input when option is set', async () => {
-      el.showSeconds = true;
+    it('Can reset value when internal input clears', async () => {
+      const el = await fixture('<ef-time-picker value="12:20:35"></ef-time-picker>');
+      const hoursPart = el.renderRoot.querySelector('#hours');
+      const minutesPart = el.renderRoot.querySelector('#minutes');
+      const secondsPart = el.renderRoot.querySelector('#seconds');
+      hoursPart.value = '';
+      hoursPart.dispatchEvent(new CustomEvent('value-changed', { bubbles: true, detail: { value: '' } }));
+      await elementUpdated(el);
+      expect(el.hours).to.equal(null);
+      minutesPart.value = '';
+      minutesPart.dispatchEvent(new CustomEvent('value-changed', { bubbles: true, detail: { value: '' } }));
+      await elementUpdated(el);
+      expect(el.minutes).to.equal(null);
+      secondsPart.value = '';
+      secondsPart.dispatchEvent(new CustomEvent('value-changed', { bubbles: true, detail: { value: '' } }));
+      await elementUpdated(el);
+      expect(el.seconds).to.equal(null);
+    });
+  });
 
-      await elementUpdated();
-      expect(el.shadowRoot.querySelectorAll('[part=input]')).to.have.lengthOf(3);
+  describe('Modes', () => {
+    it('Should show seconds input when option is set', async () => {
+      const el = await fixture(timePickerDefaults);
+      el.showSeconds = true;
+      await elementUpdated(el);
+      expect(el.renderRoot.querySelectorAll('[part=input]')).to.have.lengthOf(3);
     });
 
     it('Should show seconds input when seconds are passed as a value', async () => {
+      const el = await fixture(timePickerDefaults);
       el.value = '00:00:00';
-
-      await elementUpdated();
-      expect(el.shadowRoot.querySelectorAll('[part=input]')).to.have.lengthOf(3);
+      await elementUpdated(el);
+      expect(el.renderRoot.querySelectorAll('[part=input]')).to.have.lengthOf(3);
     });
 
     it('Should support 12hr mode', async () => {
+      const el = await fixture(timePickerDefaults);
       el.amPm = true;
-
-      await elementUpdated();
-      expect(el.shadowRoot.querySelectorAll('[part=toggle]')).to.have.lengthOf(1);
+      await elementUpdated(el);
+      expect(el.renderRoot.querySelectorAll('[part=toggle]')).to.have.lengthOf(1);
     });
 
     it('Should able to toggle mode between 12hr and 24hr by click and press arrow up/down', async () => {
-      el = await fixture(timePickerAMPM);
-      await elementUpdated();
-      let togglePart = el.shadowRoot.querySelector('[part=toggle]');
+      const el = await fixture(timePickerAMPM);
+      await elementUpdated(el);
+      let togglePart = el.renderRoot.querySelector('[part=toggle]');
       expect(togglePart).to.exist;
-
-      togglePart.focus();
+      await triggerFocusFor(togglePart);
 
       expect(el.hours).to.equal(13);
       expect(el.formattedHours).to.equal('01', 'should be 01');
@@ -261,110 +261,120 @@ describe('time-picker/TimePicker', () => {
 
       setTimeout(() => togglePart.dispatchEvent(new Event('tap')));
       await oneEvent(togglePart, 'tap');
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.hours).to.equal(1);
       expect(el.formattedHours).to.equal('01', 'should be 01');
       expect(el.value).to.equal('01:30', 'should be 01:30');
 
       setTimeout(() => togglePart.dispatchEvent(new Event('tap')));
       await oneEvent(togglePart, 'tap');
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.hours).to.equal(13);
       expect(el.formattedHours).to.equal('01', 'should be 01');
       expect(el.value).to.equal('13:30', 'should be 13:30');
 
       createKeyboardEvent(togglePart, InputKey.arrowUp);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.hours).to.equal(1);
       expect(el.formattedHours).to.equal('01', 'should be 01');
       expect(el.value).to.equal('01:30', 'should be 01:30');
 
       createKeyboardEvent(togglePart, InputKey.arrowUp);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.hours).to.equal(13);
       expect(el.formattedHours).to.equal('01', 'should be 01');
       expect(el.value).to.equal('13:30', 'should be 13:30');
 
       createKeyboardEvent(togglePart, InputKey.arrowDown);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.hours).to.equal(1);
       expect(el.formattedHours).to.equal('01', 'should be 01');
       expect(el.value).to.equal('01:30', 'should be 01:30');
 
       createKeyboardEvent(togglePart, InputKey.arrowDown);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.hours).to.equal(13);
       expect(el.formattedHours).to.equal('01', 'should be 01');
       expect(el.value).to.equal('13:30', 'should be 13:30');
 
       el.amPm = false;
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.hours).to.equal(13);
       expect(el.formattedHours).to.equal('13', 'should be 13');
       expect(el.value).to.equal('13:30', 'should be 13:30');
-      expect(el.shadowRoot.querySelectorAll('[part=toggle]')).to.have.lengthOf(0);
+      expect(el.renderRoot.querySelectorAll('[part=toggle]')).to.have.lengthOf(0);
 
       el.value = '22:20';
-      el.hoursInput.focus();
-      el.hoursInput.blur();
-      await elementUpdated();
+      await triggerFocusFor(el.hoursInput);
+      await triggerBlurFor(el.hoursInput);
+      await elementUpdated(el);
       expect(el.hours).to.equal(22);
       expect(el.formattedHours).to.equal('22', 'should be 22');
       expect(el.value).to.equal('22:20', 'should be 22:20');
 
       el.amPm = true;
-      await elementUpdated();
-      togglePart = el.shadowRoot.querySelector('[part=toggle]');
+      await elementUpdated(el);
+      togglePart = el.renderRoot.querySelector('[part=toggle]');
       expect(togglePart).to.exist;
-      el.hoursInput.focus();
-      el.hoursInput.blur();
-      await elementUpdated();
+      await triggerFocusFor(el.hoursInput);
+      await triggerBlurFor(el.hoursInput);
+      await elementUpdated(el);
       expect(el.hours).to.equal(22);
       expect(el.formattedHours).to.equal('10', 'should be 10');
       expect(el.value).to.equal('22:20', 'should be 22:20');
 
       setTimeout(() => togglePart.dispatchEvent(new Event('tap')));
       await oneEvent(togglePart, 'tap');
-      await elementUpdated();
-      el.hoursInput.focus();
-      el.hoursInput.blur();
-      await elementUpdated();
+      await elementUpdated(el);
+      await triggerFocusFor(el.hoursInput);
+      await triggerBlurFor(el.hoursInput);
+      await elementUpdated(el);
       expect(el.hours).to.equal(10);
       expect(el.formattedHours).to.equal('10', 'should be 10');
       expect(el.value).to.equal('10:20', 'should be 10:20');
     });
 
+    it('Should able to toggle am/pm', async () => {
+      const el = await fixture(timePickerAMPM);
+      const toggleEl = el.renderRoot.querySelector('#toggle');
+      toggleEl.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+      expect(el.value).to.equal('01:30');
+      toggleEl.dispatchEvent(keyboardEvent('keydown', { key: ' ' }));
+      await elementUpdated(el);
+      expect(el.value).to.equal('13:30');
+    });
   });
 
   describe('Formats and data handling', () => {
     it('Supports hh:mm:ss value format', async () => {
-      el = await fixture(timePickerValueNumberWithSec);
+      const el = await fixture(timePickerValueNumberWithSec);
       expect(el.value).to.equal('08:16:32');
       expect(el.hours).to.equal(8);
       expect(el.minutes).to.equal(16);
       expect(el.seconds).to.equal(32);
       el.hours = 9;
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       expect(el.value).to.equal('09:16:32');
     });
 
     it('Supports hh:mm value format', async () => {
-      el = await fixture(timePickerValueNumberWithoutSec);
+      const el = await fixture(timePickerValueNumberWithoutSec);
       expect(el.value).to.equal('08:16');
       expect(el.hours).to.equal(8);
       expect(el.minutes).to.equal(16);
       expect(el.seconds).to.equal(0);
       el.hours = 9;
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       expect(el.value).to.equal('09:16');
     });
 
     it('Can handle changing value from value, hours, minutes and seconds properties', async () => {
-      el = await fixture(timePickerDefaults);
+      const el = await fixture(timePickerDefaults);
 
       el.value = '01:00:00';
       await elementUpdated(el);
@@ -474,7 +484,7 @@ describe('time-picker/TimePicker', () => {
     });
 
     it('Should handle invalid use case. Value is the source of truth.', async () => {
-      el = await fixture(timePickerDefaults);
+      const el = await fixture(timePickerDefaults);
       el.value = '08:16:32';
       expect(el.value).to.equal('08:16:32');
       el.value = '99:99:99'; /* invalid value */
@@ -483,20 +493,13 @@ describe('time-picker/TimePicker', () => {
   });
 
   describe('Readonly', () => {
-    beforeEach(async () => {
-      el = await fixture(timePickerReadonly);
-      hoursPart = el.shadowRoot.querySelector('#hours');
-      minutesPart = el.shadowRoot.querySelector('#minutes');
-      secondsPart = el.shadowRoot.querySelector('#seconds');
-    });
-
     it('Should avoid to type key up/down to change value', async () => {
+      const el = await fixture(timePickerReadonly);
+      const hoursPart = el.renderRoot.querySelector('#hours');
       expect(el.hours).to.equal(0);
-
-      hoursPart.focus();
+      await triggerFocusFor(hoursPart);
       createKeyboardEvent(hoursPart, InputKey.arrowUp);
-      await elementUpdated();
-
+      await elementUpdated(el);
       expect(el.hours).to.equal(0);
     });
   });
@@ -504,74 +507,68 @@ describe('time-picker/TimePicker', () => {
   describe('Key Navigation', () => {
     beforeEach(async () => {
       el = await fixture(timePickerValueZeroWithSec);
-      hoursPart = el.shadowRoot.querySelector('#hours');
-      minutesPart = el.shadowRoot.querySelector('#minutes');
-      secondsPart = el.shadowRoot.querySelector('#seconds');
+      hoursPart = el.renderRoot.querySelector('#hours');
+      minutesPart = el.renderRoot.querySelector('#minutes');
+      secondsPart = el.renderRoot.querySelector('#seconds');
     });
 
     it('Up key should cycle though hours correctly', async () => {
       expect(hoursPart).to.exist;
-      hoursPart.focus();
-      for (let i = 0; i < 24; i++) {
+      await triggerFocusFor(hoursPart);
+      for (let i = 0; i < 24; i += 1) {
         createKeyboardEvent(hoursPart, InputKey.arrowUp);
         await elementUpdated();
         expect(el.hours).to.equal((i + 1) % 24);
-        delay();
       }
     });
 
     it('Down key should cycle though hours correctly', async () => {
       expect(hoursPart).to.exist;
-      hoursPart.focus();
+      await triggerFocusFor(hoursPart);
       for (let i = 24; i > 0; i--) {
         createKeyboardEvent(hoursPart, InputKey.arrowDown);
-        await elementUpdated();
+        await elementUpdated(el);
         expect(el.hours).to.equal((i - 1));
-        delay();
       }
     });
 
     it('Up key should cycle though minutes correctly', async () => {
       expect(minutesPart).to.exist;
-      minutesPart.focus();
-      for (let i = 0; i < 60; i++) {
+      await triggerFocusFor(minutesPart);
+      for (let i = 0; i < 60; i += 1) {
         createKeyboardEvent(minutesPart, InputKey.arrowUp);
-        await elementUpdated();
+        await elementUpdated(el);
         expect(el.minutes).to.equal((i + 1) % 60);
-        delay();
       }
     });
 
     it('Down key should cycle though minutes correctly', async () => {
       expect(minutesPart).to.exist;
-      minutesPart.focus();
+      await triggerFocusFor(minutesPart);
       for (let i = 60; i > 0; i--) {
         createKeyboardEvent(minutesPart, InputKey.arrowDown);
-        await elementUpdated();
+        await elementUpdated(el);
         expect(el.minutes).to.equal((i - 1));
-        delay();
       }
     });
 
     it('Up key should cycle though seconds correctly', async () => {
       expect(secondsPart).to.exist;
-      secondsPart.focus();
-      for (let i = 0; i < 60; i++) {
+      await triggerFocusFor(secondsPart);
+      for (let i = 0; i < 60; i += 1) {
         createKeyboardEvent(secondsPart, InputKey.arrowUp);
-        await elementUpdated();
+        await elementUpdated(el);
         expect(el.seconds).to.equal((i + 1) % 60);
-        delay();
       }
     });
 
     it('Down key should cycle though seconds correctly', async () => {
       expect(secondsPart).to.exist;
-      secondsPart.focus();
+      await triggerFocusFor(secondsPart);
       for (let i = 60; i > 0; i--) {
         createKeyboardEvent(secondsPart, InputKey.arrowDown);
-        await elementUpdated();
+        await elementUpdated(el);
         expect(el.seconds).to.equal((i - 1));
-        delay();
       }
     });
 
@@ -580,34 +577,34 @@ describe('time-picker/TimePicker', () => {
       expect(el.seconds).to.equal(0);
       expect(el.minutes).to.equal(0);
       expect(el.hours).to.equal(0);
-      secondsPart.focus();
+      await triggerFocusFor(secondsPart);
 
       createKeyboardEvent(secondsPart, InputKey.arrowDown);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.seconds).to.equal(59);
       expect(el.minutes).to.equal(59);
       expect(el.hours).to.equal(23);
 
       createKeyboardEvent(secondsPart, InputKey.arrowUp);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.seconds).to.equal(0);
       expect(el.minutes).to.equal(0);
       expect(el.hours).to.equal(0);
 
       createKeyboardEvent(secondsPart, InputKey.arrowLeft);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.seconds).to.equal(0);
       expect(el.minutes).to.equal(0);
       expect(el.hours).to.equal(0);
 
       createKeyboardEvent(secondsPart, InputKey.arrowRight);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.seconds).to.equal(0);
       expect(el.minutes).to.equal(0);
       expect(el.hours).to.equal(0);
 
       createKeyboardEvent(secondsPart, InputKey.enter);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.seconds).to.equal(0);
       expect(el.minutes).to.equal(0);
       expect(el.hours).to.equal(0);

@@ -52,7 +52,6 @@
 
   [part~=cell] {
     font-weight: normal;
-    outline: none;
 
     &[disabled] {
       opacity: 0.3;
@@ -72,8 +71,8 @@
       opacity: 0.6;
     }
 
-    &:not([selected]):not([range]):focus, &:not([selected]):not([range]):hover {
-      [part~=selection] {
+    &:not([selected]):not([range]) [part~=selection] {
+      &:focus, &:hover {
         background: fade(@scheme-color-tertiary, 10%);
       }
     }
@@ -144,15 +143,12 @@
   }
 
   [part~=selection] {
+    outline: none;
     top: 1px;
     bottom: 1px;
     right: 1px;
     left: 1px;
     border-radius: @border-radius;
-  }
-
-  [part~=cell]:not([tabindex]) {
-    pointer-events: none;
   }
 
   [part=footer] {
@@ -163,7 +159,7 @@
       margin-top: calc(100% / 14 - 0.5em);
     }
   }
-  
+
   &[disabled] {
     opacity: 0.4;
   }

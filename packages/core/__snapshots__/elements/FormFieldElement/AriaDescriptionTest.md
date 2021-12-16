@@ -5,17 +5,13 @@
 ```html
 <input
   aria-description="Description"
-  aria-hidden="true"
   autocomplete="off"
 >
 
 ```
 
 ```html
-<input
-  aria-hidden="true"
-  autocomplete="off"
->
+<input autocomplete="off">
 
 ```
 
@@ -24,7 +20,6 @@
 ```html
 <input
   aria-description="Described By"
-  aria-hidden="true"
   autocomplete="off"
 >
 
@@ -35,7 +30,6 @@
 ```html
 <input
   aria-description="!ERROR! Described By"
-  aria-hidden="true"
   aria-invalid="true"
   autocomplete="off"
 >

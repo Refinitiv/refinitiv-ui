@@ -4,7 +4,6 @@
 
 ```html
 <input
-  aria-hidden="true"
   autocomplete="off"
   part="input"
   type="text"
@@ -16,7 +15,6 @@
 
 ```html
 <input
-  aria-hidden="true"
   aria-invalid="true"
   autocomplete="off"
   maxlength="10"

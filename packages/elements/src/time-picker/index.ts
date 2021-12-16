@@ -6,9 +6,13 @@ import {
   CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { guard } from '@refinitiv-ui/core/lib/directives/guard.js';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ValueChangedEvent, FocusedChangedEvent } from '../events';
 import { VERSION } from '../version.js';
 import {
   isValidTime,
@@ -22,10 +26,18 @@ import {
   MILLISECONDS_IN_MINUTE,
   MILLISECONDS_IN_HOUR,
   addOffset,
-  padNumber
+  padNumber,
+  parse
 } from '@refinitiv-ui/utils/lib/date.js';
+import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
 import '../number-field/index.js';
 import type { NumberField } from '../number-field';
+import {
+  translate,
+  TranslateDirective
+} from '@refinitiv-ui/translate';
+import '@refinitiv-ui/phrasebook/lib/locale/en/time-picker.js';
+
 
 enum Segment {
   HOURS = 'hours',
@@ -69,6 +81,11 @@ export class TimePicker extends ControlElement {
     return VERSION;
   }
 
+  protected readonly defaultRole: string | null = 'group';
+
+  /**
+   * If time-picker is in mobile mode
+   */
   private isMobile = false;
 
   /**
@@ -105,7 +122,7 @@ export class TimePicker extends ControlElement {
       return;
     }
 
-    this._hours = this.validUnit(hours, MIN_UNIT, MAX_HOURS, oldHours);
+    this._hours = TimePicker.validUnit(hours, MIN_UNIT, MAX_HOURS, oldHours);
 
     if (this._hours !== oldHours) {
       this.requestUpdate('hours', oldHours);
@@ -123,7 +140,6 @@ export class TimePicker extends ControlElement {
   /**
    * Minutes time segment
    * @param minutes minutes value
-   * @default null
    * @returns {void}
    */
   @property({ type: Number })
@@ -132,7 +148,7 @@ export class TimePicker extends ControlElement {
     if ((minutes !== null && isNaN(minutes)) || oldMinutes === minutes) {
       return;
     }
-    this._minutes = this.validUnit(minutes, MIN_UNIT, MAX_MINUTES, oldMinutes);
+    this._minutes = TimePicker.validUnit(minutes, MIN_UNIT, MAX_MINUTES, oldMinutes);
     if (this._minutes !== oldMinutes) {
       this.requestUpdate('minutes', oldMinutes);
     }
@@ -140,7 +156,7 @@ export class TimePicker extends ControlElement {
 
   /**
    * Get minutes value
-   * @returns hours
+   * @returns minutes
    */
   public get minutes (): number | null {
     return this._minutes;
@@ -149,7 +165,6 @@ export class TimePicker extends ControlElement {
   /**
    * Seconds time segment
    * @param seconds seconds value
-   * @default null
    * @returns {void}
    */
   @property({ type: Number })
@@ -158,7 +173,7 @@ export class TimePicker extends ControlElement {
     if ((seconds !== null && isNaN(seconds)) || oldSeconds === seconds) {
       return;
     }
-    this._seconds = this.validUnit(seconds, MIN_UNIT, MAX_SECONDS, oldSeconds);
+    this._seconds = TimePicker.validUnit(seconds, MIN_UNIT, MAX_SECONDS, oldSeconds);
     if (this._seconds !== oldSeconds) {
       this.requestUpdate('seconds', oldSeconds);
     }
@@ -187,7 +202,6 @@ export class TimePicker extends ControlElement {
 
   /**
   * Value of the element
-  * @default -
   * @param value Element value
   */
   @property({ type: String })
@@ -255,6 +269,34 @@ export class TimePicker extends ControlElement {
   private toggleEl?: HTMLElement | null;
 
   /**
+   * Used for translations
+   */
+  @translate({ mode: 'directive', scope: 'ef-time-picker' })
+  protected t!: TranslateDirective;
+
+  private _selectedSegment: Segment | null = null;
+  /**
+   * State to select text in the segment
+   * Used to asynchronously select text after render cycle is complete
+   * @param segment Selected segment or null
+   */
+  @state()
+  private set selectedSegment (segment: Segment | null) {
+    const oldSelectedSegment = this._selectedSegment;
+    this._selectedSegment = segment;
+    this.requestUpdate('selectedSegment', oldSelectedSegment);
+  }
+  private get selectedSegment (): Segment | null {
+    return this._selectedSegment;
+  }
+
+  /**
+   * Connected to role. If false, the values are not announced in the screen reader
+   */
+  @state()
+  private announceValues = true;
+
+  /**
    * Return the current time string, based on the current hours, minutes and seconds.
    * Used internally to set the value string after updates.
    */
@@ -275,9 +317,9 @@ export class TimePicker extends ControlElement {
   }
 
   /**
-   * Formats the hours value
+   * Get hours taking into account AM/PM placeholder
    */
-  private get formattedHours (): string {
+  private get periodHours (): number | null {
     const _hours = this.hours;
     let hours = _hours;
     if (_hours !== null) {
@@ -285,42 +327,64 @@ export class TimePicker extends ControlElement {
         ? _hours - HOURS_OF_NOON : this.amPm && !_hours ? HOURS_OF_NOON : _hours;
     }
 
-    return this.formattedUnit(hours);
+    return hours;
+  }
+
+  /**
+   * Formats the hours value
+   */
+  private get formattedHours (): string {
+    return TimePicker.formattedUnit(this.periodHours);
   }
 
   /**
    * Formats the minutes value
    */
   private get formattedMinutes (): string {
-    return this.formattedUnit(this.minutes);
+    return TimePicker.formattedUnit(this.minutes);
   }
 
   /**
    * Formats the seconds value
-   * @returns Formatted number
    */
   private get formattedSeconds (): string {
-    return this.formattedUnit(this.seconds);
+    return TimePicker.formattedUnit(this.seconds);
+  }
+
+  /**
+   * Observes attribute change for `attributeChangedCallback`
+   */
+  static get observedAttributes (): string[] {
+    const observed = super.observedAttributes;
+    return ['role'].concat(observed);
+  }
+
+  /**
+   * Synchronizes attribute value
+   * @param name attribute name
+   * @param oldValue old attribute value
+   * @param newValue new attribute value
+   * @returns {void}
+   */
+  public attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === 'role') {
+      this.announceValues = !(!newValue || newValue === 'none' || newValue === 'presentation');
+    }
   }
 
   /**
    * On first updated life-cycle
-   *
    * @param changedProperties changed properties
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-
-    // add events
-    this.renderRoot.addEventListener('blur', this.onBlur, true);
-    this.renderRoot.addEventListener('focus', this.onFocus, true);
     this.renderRoot.addEventListener('keydown', this.onKeydown, true);
   }
 
   /**
    * On updated life-cycle
-   *
    * @param changedProperties changed properties
    * @returns {void}
    */
@@ -328,16 +392,42 @@ export class TimePicker extends ControlElement {
     super.updated(changedProperties);
 
     /* istanbul ignore next */
-    if (this.hasTimeChanged(changedProperties) && this.isMobile) {
+    if (TimePicker.hasTimeChanged(changedProperties) && this.isMobile) {
       this.updateMobileTimePickerValue();
+    }
+
+    if (this.selectedSegment && changedProperties.has('selectedSegment')) {
+      void this.selectSegment();
     }
   }
 
   /**
+   * Select text in input when update element is complete
+   * @returns returns a promise void
+   */
+  private async selectSegment (): Promise<void> {
+    await this.updateComplete;
+    switch (this.selectedSegment) {
+      case Segment.HOURS:
+        this.hoursInput.select();
+        break;
+      case Segment.MINUTES:
+        this.minutesInput.select();
+        break;
+      case Segment.SECONDS:
+        this.secondsInput?.select();
+        break;
+      // no default
+    }
+
+    // Silently clear selected segment to ensure it can be reselected
+    this._selectedSegment = null;
+  }
+
+  /**
    * Overwrite validation method for value
-   *
    * @param value value
-   * @returns {boolean} result
+   * @returns True if value is valid
    */
   protected isValidValue (value: string): boolean {
     return value === '' || isValidTime(value);
@@ -386,7 +476,7 @@ export class TimePicker extends ControlElement {
    * @param changedProperties changed properties
    * @returns True if changed
    */
-  private hasTimeChanged (changedProperties: PropertyValues): boolean {
+  private static hasTimeChanged (changedProperties: PropertyValues): boolean {
     return changedProperties.has('hours')
       || changedProperties.has('minutes')
       || changedProperties.has('seconds');
@@ -394,14 +484,13 @@ export class TimePicker extends ControlElement {
 
   /**
    * Validates a given unit against a min and max value, returning a fallback if invalid.
-   *
    * @param unit Unit to validate
    * @param min Minimum allowed
    * @param max Maximum allowed
    * @param fallback Fallback value to use, if unit is invalid
    * @returns unit or fallback or 0 value
    */
-  private validUnit (unit: number | null, min: number, max: number, fallback: number | null): number | null {
+  private static validUnit (unit: number | null, min: number, max: number, fallback: number | null): number | null {
     if (unit === null) {
       return null;
     }
@@ -415,7 +504,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Handles value change from native time picker on mobile devices
-   *
    * @param event Event Object
    * @returns {void}
    */
@@ -426,7 +514,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Helper, used to update the mobile time picker value
-   *
    * @returns {void}
    */
   /* istanbul ignore next */
@@ -437,18 +524,13 @@ export class TimePicker extends ControlElement {
   }
 
   /**
-   * Handles the blur event of any inputs
-   *
-   * @param event Event Object
+   * Handles action when input focused change
+   * @param event Focus change event
    * @returns {void}
    */
-  private onBlur = (event: Event): void => {
-    if (this.readonly) {
-      return;
-    }
-
-    const target = event.target as HTMLElement;
-    const value = (target as NumberField).value;
+  private onInputFocusedChanged (event: FocusedChangedEvent): void {
+    const target = event.target as NumberField;
+    const focused = event.detail.value;
     let segment;
 
     if (target === this.hoursInput) {
@@ -461,11 +543,14 @@ export class TimePicker extends ControlElement {
       segment = Segment.SECONDS;
     }
 
+    this.selectedSegment = focused && segment ? segment : null;
+
     /* istanbul ignore next */
-    if (!segment) {
+    if (!segment || this.readonly) {
       return;
     }
 
+    const value = target.value;
     if (value) {
       this.updateTimeSegmentTo(segment, Number(value));
     }
@@ -474,8 +559,29 @@ export class TimePicker extends ControlElement {
   }
 
   /**
+   * Handles action when input value changes
+   * @param event Value change event
+   * @returns {void}
+   */
+  private onInputValueChanged (event: ValueChangedEvent): void {
+    // Make sure that the value can be reset to null
+    if (!event.detail.value) {
+      const target = event.target;
+
+      if (target === this.hoursInput) {
+        this.setSegmentAndNotify(Segment.HOURS, null);
+      }
+      else if (target === this.minutesInput) {
+        this.setSegmentAndNotify(Segment.MINUTES, null);
+      }
+      else if (target === this.secondsInput) {
+        this.setSegmentAndNotify(Segment.SECONDS, null);
+      }
+    }
+  }
+
+  /**
    * Updates a time segment to the provided value
-   *
    * @param segment Segment id
    * @param value Unit to change to
    * @returns {void}
@@ -489,7 +595,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Updates the value of a time segment (element)
-   *
    * @param segment Segment's name
    * @returns {void}
    */
@@ -504,28 +609,13 @@ export class TimePicker extends ControlElement {
       case Segment.SECONDS:
         this.updateSecondsSegmentValue();
         break;
-
       // no default
     }
   }
 
   /**
-   * Handles the focus event of any inputs
-   *
-   * @param event Event Object
-   * @returns {void}
-   */
-  private onFocus = (event: Event): void => {
-    if (this.readonly) {
-      return;
-    }
-    (event.target as NumberField).value = '';
-  }
-
-  /**
    * Handles any keydown events
    * Used for control keys
-   *
    * @param event Event Object
    * @returns {void}
    */
@@ -536,12 +626,11 @@ export class TimePicker extends ControlElement {
   /**
    * Handle valid control keys and execute their corresponding commands
    * Will stop when readonly is set
-   *
-   * @param event Event Object
+   * @param event Keyboard event
    * @returns {void}
    */
   private manageControlKeys (event: KeyboardEvent): void {
-    if (this.readonly || this.disabled) {
+    if (this.readonly || this.disabled || event.defaultPrevented) {
       return;
     }
 
@@ -559,9 +648,6 @@ export class TimePicker extends ControlElement {
       case ' ':
         this.handleEnterKey(event);
         break;
-      case 'Backspace':
-        this.handleBackspaceKey(event);
-        return;
       default:
         return;
     }
@@ -571,18 +657,19 @@ export class TimePicker extends ControlElement {
 
   /**
    * Handles ENTER key press
-   *
-   * @param event Event Object
+   * @param event Keyboard event
    * @returns {void}
    */
   private handleEnterKey (event: KeyboardEvent): void {
-    (event.target as NumberField).blur();
+    if (event.target === this.toggleEl) {
+      this.toggle();
+      event.preventDefault();
+    }
   }
 
   /**
    * Handles UP key press
-   *
-   * @param event Event Object
+   * @param event Keyboard event
    * @returns {void}
    */
   private handleUpKey (event: KeyboardEvent): void {
@@ -591,8 +678,7 @@ export class TimePicker extends ControlElement {
 
   /**
    * Handle DOWN key press
-   *
-   * @param event Event Object
+   * @param event Keyboard event
    * @returns {void}
    */
   private handleDownKey (event: KeyboardEvent): void {
@@ -600,29 +686,8 @@ export class TimePicker extends ControlElement {
   }
 
   /**
-   * Handle Backspace key press
-   *
-   * @param event Event Object
-   * @returns {void}
-   */
-  private handleBackspaceKey (event: KeyboardEvent): void {
-    const target = event.target as EventTarget;
-
-    if (target === this.hoursInput) {
-      this.setSegmentAndNotify(Segment.HOURS, null);
-    }
-    else if (target === this.minutesInput) {
-      this.setSegmentAndNotify(Segment.MINUTES, null);
-    }
-    else if (target === this.secondsInput) {
-      this.setSegmentAndNotify(Segment.SECONDS, null);
-    }
-  }
-
-  /**
    * Toggles the amPm flag or updates the time segment value.
    * Essentially a handler for user inputs on the control.
-   *
    * @param amount to change value by
    * @param target Segment id
    * @returns {void}
@@ -645,7 +710,6 @@ export class TimePicker extends ControlElement {
   /**
    * Changes a time segment value by a specified amount.
    * Also updates parent values when rolling through cycles.
-   *
    * @param amount Amount to change by
    * @param segment Segment id
    * @returns {void}
@@ -667,6 +731,7 @@ export class TimePicker extends ControlElement {
 
     const value = addOffset(this.currentTimeString, offset);
     this.setValueAndNotify(value);
+    this.selectedSegment = segment;
   }
 
   /**
@@ -691,7 +756,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Updates the value of the hours element
-   *
    * @returns {void}
    */
   private updateHoursSegmentValue (): void {
@@ -702,7 +766,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Updated the value of the minutes element
-   *
    * @returns {void}
    */
   private updateMinutesSegmentValue (): void {
@@ -713,7 +776,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Updates the value of the seconds element
-   *
    * @returns {void}
    */
   private updateSecondsSegmentValue (): void {
@@ -724,18 +786,16 @@ export class TimePicker extends ControlElement {
 
   /**
    * Formats a given number and prefixes a 0 on numbers lower than 10
-   *
    * @param n Number to format
    * @returns Formatted number
    */
-  private formattedUnit (n: number | null): string {
+  private static formattedUnit (n: number | null): string {
     return n === null ? '' : padNumber(n, 2);
   }
 
   /**
    * Returns `true` or `false` depending on whether the hours are before, or, after noon
-   *
-   * @returns Result
+   * @returns True if time is AM
    */
   private isAM (): boolean {
     return isAM(this.currentTimeString);
@@ -743,8 +803,7 @@ export class TimePicker extends ControlElement {
 
   /**
    * Returns opposite of isAM
-   *
-   * @returns Result
+   * @returns True if time is PM
    */
   private isPM (): boolean {
     return isPM(this.currentTimeString);
@@ -752,7 +811,6 @@ export class TimePicker extends ControlElement {
 
   /**
    * Toggles the AM/PM state
-   *
    * @returns {void}
    */
   public toggle (): void {
@@ -790,39 +848,105 @@ export class TimePicker extends ControlElement {
   }
 
   /**
-   * Template for Seconds Segment
-   *
-   * @returns Seconds segment
+   * Template for divider segment
+   * @returns Divider segment
    */
-  private getSecondsHtml (): TemplateResult | null {
-    return this.isShowSeconds ? html`
-      <span part="divider"></span>
-      <ef-number-field
-        id="seconds"
+  private static dividerTemplate = html`<span part="divider"></span>`;
+
+  /**
+   * Template for Hours Segment
+   * @returns template hours segment
+   */
+  private get hoursTemplate (): TemplateResult {
+    const hours = this.formattedHours;
+    return html`<ef-number-field
+        id="hours"
+        part="input"
+        aria-label="${ifDefined(!isIE ? this.t('SELECT_HOURS', { value: this.periodHours }) : undefined)}"
+        no-spinner
+        transparent
+        min="${this.amPm ? 1 : MIN_UNIT}"
+        max="${this.amPm ? HOURS_OF_NOON : MAX_HOURS}"
+        .value="${hours}"
+        placeholder="${ifDefined(hours ? undefined : Placeholder.HOURS)}"
+        ?disabled="${this.disabled}"
+        ?readonly="${this.readonly}"
+        @value-changed="${this.onInputValueChanged}"
+        @focused-changed=${this.onInputFocusedChanged}></ef-number-field>`;
+  }
+
+  /**
+   * Template for Minutes Segment
+   * @returns template minutes segment
+   */
+  private get minutesTemplate (): TemplateResult {
+    const minutes = this.formattedMinutes;
+    return html`<ef-number-field
+        id="minutes"
+        aria-label="${ifDefined(!isIE ? this.t('SELECT_MINUTES', { value: this.minutes }) : undefined)}"
         part="input"
         no-spinner
         min="${MIN_UNIT}"
-        max="${MAX_SECONDS}"
-        .value="${this.formattedSeconds}"
-        placeholder="${this.formattedSeconds || Placeholder.SECONDS}"
+        max="${MAX_MINUTES}"
+        .value="${minutes}"
+        placeholder="${ifDefined(minutes ? undefined : Placeholder.MINUTES)}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
-        transparent></ef-number-field>
-    ` : null;
+        transparent
+        @value-changed="${this.onInputValueChanged}"
+        @focused-changed=${this.onInputFocusedChanged}></ef-number-field>`;
+  }
+
+  /**
+   * Template for Seconds Segment
+   * @returns template seconds segment
+   */
+  private get secondsTemplate (): TemplateResult {
+    const seconds = this.formattedSeconds;
+    return html`
+      <ef-number-field
+        id="seconds"
+        part="input"
+        aria-label="${ifDefined(!isIE ? this.t('SELECT_SECONDS', { value: this.seconds }) : undefined)}"
+        no-spinner
+        min="${MIN_UNIT}"
+        max="${MAX_SECONDS}"
+        .value="${seconds}"
+        placeholder="${ifDefined(seconds ? undefined : Placeholder.SECONDS)}"
+        ?readonly="${this.readonly}"
+        ?disabled="${this.disabled}"
+        transparent
+        @value-changed="${this.onInputValueChanged}"
+        @focused-changed=${this.onInputFocusedChanged}></ef-number-field>`;
   }
 
   /**
    * Template for AmPm Segment
-   *
    * @returns Am/Pm segment
    */
-  private getAmPmHtml (): TemplateResult | null {
+  private get getAmPmHtml (): TemplateResult | null {
     const hasHours = this.hours !== null;
 
     return this.amPm ? html`
-      <div id="toggle" part="toggle" @tap=${this.toggle} tabindex="0">
-        <div part="toggle-item" ?active=${hasHours && this.isAM()}>AM</div>
-        <div part="toggle-item" ?active=${hasHours && this.isPM()}>PM</div>
+      <div role="listbox"
+           aria-label="${this.t('TOGGLE_TIME_PERIOD')}"
+           aria-activedescendant="${ifDefined(hasHours ? this.isAM() ? 'toggle-am' : 'toggle-pm' : undefined)}"
+           id="toggle"
+           part="toggle"
+           @tap=${this.toggle}
+           tabindex="0">
+        <div
+          aria-label="${this.t('BEFORE_MIDDAY')}"
+          role="option"
+          id="toggle-am"
+          part="toggle-item"
+          ?active=${hasHours && this.isAM()}>AM</div>
+        <div
+          aria-label="${this.t('AFTER_MIDDAY')}"
+          role="option"
+          id="toggle-pm"
+          part="toggle-item"
+          ?active=${hasHours && this.isPM()}>PM</div>
       </div>
     ` : null;
   }
@@ -830,11 +954,43 @@ export class TimePicker extends ControlElement {
 
   /**
    * Native input's template for mobile
-   *
    * @returns input
    */
-  private getNativeInputForMobile (): TemplateResult | null {
+  private get nativeInputForMobile (): TemplateResult | null {
     return this.isMobile ? html`<input id="mtp" type="time" @change=${this.onMobileTimeChange}>` : null;
+  }
+
+  /**
+   * A template used to notify currently selected value for screen readers
+   * @returns template result
+   */
+  private get selectionTemplate (): TemplateResult | undefined {
+    if (isIE || !this.announceValues) {
+      return;
+    }
+    const value = this.value;
+    const showSeconds = this.isShowSeconds;
+    const amPm = this.amPm;
+
+    return html`<div
+      part="aria-selection"
+      aria-live="polite"
+      aria-label="${this.t('SELECTED', {
+        value: value ? parse(value) : null,
+        showSeconds,
+        amPm })}"></div>`;
+  }
+
+  /**
+   * Get time input template
+   * @returns template result
+   */
+  private get inputTemplate (): TemplateResult {
+    return html`
+      ${this.hoursTemplate}
+      ${TimePicker.dividerTemplate}
+      ${this.minutesTemplate}
+      ${this.isShowSeconds ? html`${TimePicker.dividerTemplate}${this.secondsTemplate}` : undefined}`;
   }
 
   /**
@@ -844,32 +1000,10 @@ export class TimePicker extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-      <ef-number-field
-        id="hours"
-        part="input"
-        no-spinner
-        transparent
-        min="${this.amPm ? 1 : MIN_UNIT}"
-        max="${this.amPm ? HOURS_OF_NOON : MAX_HOURS}"
-        .value="${this.formattedHours}"
-        placeholder="${this.formattedHours || Placeholder.HOURS}"
-        ?disabled="${this.disabled}"
-        ?readonly="${this.readonly}"></ef-number-field>
-      <span part="divider"></span>
-      <ef-number-field
-        id="minutes"
-        part="input"
-        no-spinner
-        min="${MIN_UNIT}"
-        max="${MAX_MINUTES}"
-        .value="${this.formattedMinutes}"
-        placeholder="${this.formattedMinutes || Placeholder.MINUTES}"
-        ?readonly="${this.readonly}"
-        ?disabled="${this.disabled}"
-        transparent></ef-number-field>
-      ${this.getSecondsHtml()}
-      ${this.getAmPmHtml()}
-      ${this.getNativeInputForMobile()}
+      ${this.inputTemplate}
+      ${guard([this.value, this.lang, this.amPm], () => this.getAmPmHtml)}
+      ${guard([this.isMobile], () => this.nativeInputForMobile)}
+      ${guard([this.value, this.lang, this.showSeconds, this.amPm, this.announceValues], () => this.selectionTemplate)}
     `;
   }
 }
