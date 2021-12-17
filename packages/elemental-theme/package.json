@@ -5,20 +5,6 @@
   "author": "Refinitiv",
   "license": "Apache-2.0",
   "main": "index.less",
-  "exports": {
-    "./dark/all-elements": "./dark/imports/all-elements.js",
-    "./dark/custom-elements": "./dark/imports/custom-elements.js",
-    "./dark/native-elements": "./dark/imports/native-elements.js",
-    "./light/all-elements": "./light/imports/all-elements.js",
-    "./light/custom-elements": "./light/imports/custom-elements.js",
-    "./light/native-elements": "./light/imports/native-elements.js",
-    "./dark/imports/all-elements": "./dark/imports/all-elements.js",
-    "./dark/imports/custom-elements": "./dark/imports/custom-elements.js",
-    "./dark/imports/native-elements": "./dark/imports/native-elements.js",
-    "./light/imports/all-elements": "./light/imports/all-elements.js",
-    "./light/imports/custom-elements": "./light/imports/custom-elements.js",
-    "./light/imports/native-elements": "./light/imports/native-elements.js"
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
