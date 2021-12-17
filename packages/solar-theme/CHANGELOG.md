@@ -3,12 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [5.6.0-alpha.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@5.5.1...@refinitiv-ui/solar-theme@5.6.0-alpha.0) (2021-12-14)
+# [5.6.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@5.5.1...@refinitiv-ui/solar-theme@5.6.0) (2021-12-15)
 
 
 ### Features
 
 * **calendar:** add accessibility ([#73](https://github.com/Refinitiv/refinitiv-ui/issues/73)) ([a2576cc](https://github.com/Refinitiv/refinitiv-ui/commit/a2576cc8a1f0229bb5988af0c9d0bbf8ce7f765c))
+* **combo-box:** improve screen reader support ([#116](https://github.com/Refinitiv/refinitiv-ui/issues/116)) ([f603de1](https://github.com/Refinitiv/refinitiv-ui/commit/f603de1d3b1900875d6903477938ecd21d055531))
 
 
 
