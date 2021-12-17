@@ -14,7 +14,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-
 ## [5.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@5.2.0...@refinitiv-ui/phrasebook@5.2.1) (2021-12-03)
 
 
