@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.1-alpha.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@5.6.0...@refinitiv-ui/solar-theme@5.6.1-alpha.0) (2021-12-17)
+
+
+### Bug Fixes
+
+* **solar-theme:** add overrided active styles of button ([#123](https://github.com/Refinitiv/refinitiv-ui/issues/123)) ([8fe0ad0](https://github.com/Refinitiv/refinitiv-ui/commit/8fe0ad090bac576c4eec40465ab2fdad7d368ea1))
+* **themes:** fix exports field ([b6d7fad](https://github.com/Refinitiv/refinitiv-ui/commit/b6d7fad4f9641298b211f0a4580a5c45a988d9ac))
+* **themes:** remove exports fields ([424fec4](https://github.com/Refinitiv/refinitiv-ui/commit/424fec4e6fb121c40c522d1c03d8520e1b5a98b7))
+
+
+
+
+
 # [5.6.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@5.5.1...@refinitiv-ui/solar-theme@5.6.0) (2021-12-15)
 
 

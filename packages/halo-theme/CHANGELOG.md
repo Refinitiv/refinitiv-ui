@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.1-alpha.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.4.0...@refinitiv-ui/halo-theme@5.4.1-alpha.0) (2021-12-17)
+
+
+### Bug Fixes
+
+* **counter:** change width height, font size, bg color to proper style ([#117](https://github.com/Refinitiv/refinitiv-ui/issues/117)) ([8388eee](https://github.com/Refinitiv/refinitiv-ui/commit/8388eeea1fdc107d5dafaaf3cf3a6cbe468b473f))
+* **themes:** fix exports field ([b6d7fad](https://github.com/Refinitiv/refinitiv-ui/commit/b6d7fad4f9641298b211f0a4580a5c45a988d9ac))
+* **themes:** remove exports fields ([424fec4](https://github.com/Refinitiv/refinitiv-ui/commit/424fec4e6fb121c40c522d1c03d8520e1b5a98b7))
+
+
+
+
+
 # [5.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.3.1...@refinitiv-ui/halo-theme@5.4.0) (2021-12-15)
 
 

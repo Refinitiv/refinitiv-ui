@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.9.1-alpha.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.9.0...@refinitiv-ui/elements@5.9.1-alpha.0) (2021-12-17)
+
+
+### Bug Fixes
+
+* **label:** break all words when line-clamp is 1 ([#115](https://github.com/Refinitiv/refinitiv-ui/issues/115)) ([3b9f456](https://github.com/Refinitiv/refinitiv-ui/commit/3b9f4566dcf39eba8464df6443be89a156c9692e))
+
+
+
+
+
 # [5.9.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.8.1...@refinitiv-ui/elements@5.9.0) (2021-12-15)
 
 ### Features
