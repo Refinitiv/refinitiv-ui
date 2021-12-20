@@ -3,7 +3,7 @@ on:
   workflow_call:
 
 jobs:
-  install:
+  install-dependencies:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
