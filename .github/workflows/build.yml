@@ -1,14 +1,9 @@
-name: Test
+name: Build Code
 on:
-  push:
-    branches:
-      - improve-ci
+  workflow_call:
+
 jobs:
   build:
-    uses: Refinitiv/refinitiv-ui/.github/workflows/build.yml@improve-ci
-
-  lint:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -25,12 +20,18 @@ jobs:
 
       - name: Setup caching dependencies
         uses: actions/cache@v2
+        id: cache-npm
         with:
           path: |
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install Dependencies
+        if: steps.cache-npm.outputs.cache-hit != 'true'
+        run: |
+          npm ci --ignore-scripts --audit=false --fund=false
 
       - name: Setup caching build
         uses: actions/cache@v2
@@ -45,18 +46,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ github.sha }}
           restore-keys: ${{ runner.os }}-build-${{ github.sha }}
 
-      - run: lerna run lint --include-dependents --since origin/develop...HEAD
-
-  google-chrome:
-    needs: lint
-    uses: Refinitiv/refinitiv-ui/.github/workflows/test-browser.yml@improve-ci
-    with:
-      browser: chrome
-      coverage: true
-
-  firefox:
-    needs: lint
-    uses: Refinitiv/refinitiv-ui/.github/workflows/test-browser.yml@improve-ci
-    with:
-      browser: firefox
-      coverage: false
+      - name: Build changed packages
+        if: steps.cache-build.outputs.cache-hit != 'true'
+        run: |
+          lerna run build --include-dependencies --since origin/develop...HEAD
