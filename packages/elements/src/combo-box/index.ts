@@ -1,5 +1,5 @@
 import {
-  ControlElement,
+  FormFieldElement,
   css,
   CSSResultGroup,
   html,
@@ -16,21 +16,20 @@ import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { eventOptions } from '@refinitiv-ui/core/lib/decorators/event-options.js';
 import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
 import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
 import { VERSION } from '../version.js';
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/lib/collection.js';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
-import type { ValueChangedEvent } from '../events';
-import type { ItemData } from '../item';
-import type { TextField } from '../text-field';
-import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
-import { List, ListRenderer as ComboBoxRenderer } from '../list/index.js';
+import { ItemData } from '../item';
+import { ComboBoxData, ComboBoxFilter } from './helpers/types';
+import type { List } from '../list/index.js';
+import { ComboBoxRenderer } from './helpers/renderer.js';
 import { defaultFilter } from './helpers/filter.js';
 import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
 import '../icon/index.js';
 import '../overlay/index.js';
 import '../list/index.js';
 import '../counter/index.js';
-import '../text-field/index.js';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/lib/locale/en/combo-box.js';
 
@@ -70,7 +69,7 @@ const freeTextMultipleWarning = new WarningNotice('"free-text" mode is not compa
 @customElement('ef-combo-box', {
   alias: 'coral-combo-box'
 })
-export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
+export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
   /**
    * Element version number
@@ -94,13 +93,13 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
         user-select: none;
         outline: none;
       }
-      [part=input-wrapper] {
+      [part~=input-wrapper] {
         cursor: pointer;
       }
-      [part=input] {
+      [part~=input] {
         cursor: text;
       }
-      [part=input]::-ms-clear {
+      [part~=input]::-ms-clear {
         display: none;
       }
       [hidden] {
@@ -311,7 +310,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   private _query: string | null = null; // Internally set and store query value
   /**
    * Query string applied to combo-box
-   * Set via internal text-field input
+   * Set via internal input
    * @readonly
    * @default null
    */
@@ -379,12 +378,6 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    * Hold popup styling applied on open
    */
   protected popupDynamicStyles: StyleMap = {};
-
-  /**
-   * Internal reference to text-field element
-   */
-  @query('[part=input]')
-  protected inputEl!: TextField;
 
   /**
    * Internal reference to list element
@@ -482,6 +475,16 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   protected get composerValues (): string[] {
     return this.queryItemsByPropertyValue('selected', true)
       .map(item => this.getItemPropertyValue(item, 'value') as string);
+  }
+
+  /**
+   * Get the first value of highlighted item
+   */
+  protected get highlightedItemValue (): string | null {
+    if (!this.opened) {
+      return null;
+    }
+    return this.highlightedItems.map(item => this.getItemPropertyValue(item, 'value') as string)[0] || '';
   }
 
   /**
@@ -596,9 +599,9 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
 
     // If label is defined it means that there is an actual value
     // Select input text to simplify clearing the value
-    if (focusedChanged && this.focused && this.label) {
-      this.inputEl.focus();
-      this.inputEl.select();
+    if (focusedChanged && this.focused && this.label && this.inputElement) {
+      this.inputElement.focus();
+      this.inputElement.select();
     }
 
     // Make sure that the first item is always highlighted
@@ -708,6 +711,13 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   }
 
   /**
+   * Get a list of highlighted items
+   */
+  protected get highlightedItems (): readonly T[] {
+    return this.queryItemsByPropertyValue('highlighted', true);
+  }
+
+  /**
    * Highlights the item
    * @param item data item to highlight
    * @returns {void}
@@ -722,8 +732,7 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    * @returns {void}
    */
   protected clearHighlighted (): void {
-    this.queryItemsByPropertyValue('highlighted', true)
-      .forEach(item => this.setItemPropertyValue(item, 'highlighted', false));
+    this.highlightedItems.forEach(item => this.setItemPropertyValue(item, 'highlighted', false));
   }
 
   /**
@@ -894,12 +903,31 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   }
 
   /**
-   * Handle text value change from text-field
-   * @param event Custom Event fired from text-field
+   * Runs on input element `input` event
+   * @param event `input` event
    * @returns {void}
    */
-  protected onInputValueChanged (event: ValueChangedEvent): void {
-    const inputText = event.detail.value;
+  protected override onInputInput (event: InputEvent): void {
+    this.onInputValueChanged(event);
+  }
+
+  /**
+   * Runs on input element `change` event
+   * @param event `change` event
+   * @returns {void}
+   */
+  protected override onInputChange (event: InputEvent): void {
+    this.onInputValueChanged(event);
+  }
+
+  /**
+   * Handle text value change from input field
+   * @param event Custom Event fired from input field
+   * @returns {void}
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected onInputValueChanged (event: InputEvent): void {
+    const inputText = this.inputValue;
     /**
      * Query is used to track if there is a query
      * We always use it so the absence of it can be used to reapply the
@@ -1042,8 +1070,8 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
    * @returns {void}
    */
   protected onKeyDown (event: KeyboardEvent): void {
-    // Check if the event is already handle by list
-    if (event.defaultPrevented) {
+    // Check if the event is already handle by list or it set to 'readonly'
+    if (event.defaultPrevented || this.readonly) {
       return;
     }
 
@@ -1082,8 +1110,10 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
       // and the cursor is positioned at the end of input
       // Wait before the update cycle completes
       void this.updateComplete.then(() => {
-        this.inputEl.focus();
-        this.inputEl.setSelectionRange(label.length, label.length);
+        if (this.inputElement) {
+          this.inputElement.focus();
+          this.inputElement.setSelectionRange(label.length, label.length);
+        }
       });
     }
   }
@@ -1245,21 +1275,31 @@ export class ComboBox<T extends DataItem = ItemData> extends ControlElement {
   }
 
   /**
+   * Decorate `<input>` element with common properties extended from combobox input
+   * @returns template map
+   */
+  protected get decorateInputMap (): TemplateMap {
+    return {
+      ...super.decorateInputMap,
+      'part': 'input',
+      'type': 'text',
+      'role': 'combobox',
+      '.value': this.focused ? this.inputText : this.freeTextValue || this.label,
+      'aria-expanded': this.opened ? 'true' : 'false',
+      'aria-haspopup': 'listbox',
+      'aria-autocomplete': 'list',
+      'aria-owns': 'internal-list',
+      'aria-activedescendant': this.highlightedItemValue
+    };
+  }
+
+  /**
    * Returns a template for input field
    * @returns Input template
    */
   protected get inputTemplate (): TemplateResult {
-    const inputValue = this.focused ? this.inputText : this.freeTextValue || this.label;
-
     return html`<div part="input-wrapper">
-      <ef-text-field
-        part="input"
-        transparent
-        .placeholder="${this.placeholder}"
-        .readonly="${this.readonly}"
-        .disabled="${this.disabled}"
-        .value="${inputValue}"
-        @value-changed="${this.onInputValueChanged}"></ef-text-field>
+      ${this.renderInput()}
       ${this.selectionBadgeTemplate}
       ${this.clearButtonTemplate}
       <div id="toggle-button" part="button button-toggle">

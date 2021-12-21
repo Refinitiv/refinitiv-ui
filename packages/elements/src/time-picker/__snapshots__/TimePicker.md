@@ -6,13 +6,13 @@
 
 ```html
 <ef-number-field
+  aria-label="0 hours"
   aria-readonly="true"
   id="hours"
   max="23"
   min="0"
   no-spinner=""
   part="input"
-  placeholder="00"
   readonly=""
   tabindex="0"
   transparent=""
@@ -21,13 +21,13 @@
 <span part="divider">
 </span>
 <ef-number-field
+  aria-label="0 minutes"
   aria-readonly="true"
   id="minutes"
   max="59"
   min="0"
   no-spinner=""
   part="input"
-  placeholder="00"
   readonly=""
   tabindex="0"
   transparent=""
@@ -36,19 +36,24 @@
 <span part="divider">
 </span>
 <ef-number-field
+  aria-label="0 seconds"
   aria-readonly="true"
   id="seconds"
   max="59"
   min="0"
   no-spinner=""
   part="input"
-  placeholder="00"
   readonly=""
   tabindex="0"
   transparent=""
 >
 </ef-number-field>
-
+<div
+  aria-label="Selected time is: 00:00:00"
+  aria-live="polite"
+  part="aria-selection"
+>
+</div>
 ```
 
 ####   `DOM structure: disabled`
@@ -56,13 +61,13 @@
 ```html
 <ef-number-field
   aria-disabled="true"
+  aria-label="0 hours"
   disabled=""
   id="hours"
   max="23"
   min="0"
   no-spinner=""
   part="input"
-  placeholder="00"
   style="pointer-events: none;"
   tabindex="-1"
   transparent=""
@@ -72,13 +77,13 @@
 </span>
 <ef-number-field
   aria-disabled="true"
+  aria-label="0 minutes"
   disabled=""
   id="minutes"
   max="59"
   min="0"
   no-spinner=""
   part="input"
-  placeholder="00"
   style="pointer-events: none;"
   tabindex="-1"
   transparent=""
@@ -88,31 +93,36 @@
 </span>
 <ef-number-field
   aria-disabled="true"
+  aria-label="0 seconds"
   disabled=""
   id="seconds"
   max="59"
   min="0"
   no-spinner=""
   part="input"
-  placeholder="00"
   style="pointer-events: none;"
   tabindex="-1"
   transparent=""
 >
 </ef-number-field>
-
+<div
+  aria-label="Selected time is: 00:00:00"
+  aria-live="polite"
+  part="aria-selection"
+>
+</div>
 ```
 
 ####   `DOM structure: value, no seconds`
 
 ```html
 <ef-number-field
+  aria-label="8 hours"
   id="hours"
   max="23"
   min="0"
   no-spinner=""
   part="input"
-  placeholder="08"
   tabindex="0"
   transparent=""
 >
@@ -120,29 +130,34 @@
 <span part="divider">
 </span>
 <ef-number-field
+  aria-label="16 minutes"
   id="minutes"
   max="59"
   min="0"
   no-spinner=""
   part="input"
-  placeholder="16"
   tabindex="0"
   transparent=""
 >
 </ef-number-field>
-
+<div
+  aria-label="Selected time is: 08:16"
+  aria-live="polite"
+  part="aria-selection"
+>
+</div>
 ```
 
 ####   `DOM structure: value, with seconds`
 
 ```html
 <ef-number-field
+  aria-label="8 hours"
   id="hours"
   max="23"
   min="0"
   no-spinner=""
   part="input"
-  placeholder="08"
   tabindex="0"
   transparent=""
 >
@@ -150,12 +165,12 @@
 <span part="divider">
 </span>
 <ef-number-field
+  aria-label="16 minutes"
   id="minutes"
   max="59"
   min="0"
   no-spinner=""
   part="input"
-  placeholder="16"
   tabindex="0"
   transparent=""
 >
@@ -163,29 +178,34 @@
 <span part="divider">
 </span>
 <ef-number-field
+  aria-label="32 seconds"
   id="seconds"
   max="59"
   min="0"
   no-spinner=""
   part="input"
-  placeholder="32"
   tabindex="0"
   transparent=""
 >
 </ef-number-field>
-
+<div
+  aria-label="Selected time is: 08:16:32"
+  aria-live="polite"
+  part="aria-selection"
+>
+</div>
 ```
 
 ####   `DOM structure: value, am/pm no seconds`
 
 ```html
 <ef-number-field
+  aria-label="1 hour"
   id="hours"
   max="12"
   min="1"
   no-spinner=""
   part="input"
-  placeholder="01"
   tabindex="0"
   transparent=""
 >
@@ -193,31 +213,79 @@
 <span part="divider">
 </span>
 <ef-number-field
+  aria-label="30 minutes"
   id="minutes"
   max="59"
   min="0"
   no-spinner=""
   part="input"
-  placeholder="30"
   tabindex="0"
   transparent=""
 >
 </ef-number-field>
 <div
+  aria-activedescendant="toggle-pm"
+  aria-label="Toggle Time Period"
   id="toggle"
   part="toggle"
+  role="listbox"
   tabindex="0"
 >
-  <div part="toggle-item">
+  <div
+    aria-label="Before Midday"
+    id="toggle-am"
+    part="toggle-item"
+    role="option"
+  >
     AM
   </div>
   <div
     active=""
+    aria-label="After Midday"
+    id="toggle-pm"
     part="toggle-item"
+    role="option"
   >
     PM
   </div>
 </div>
+<div
+  aria-label="Selected time is: 1:30 PM"
+  aria-live="polite"
+  part="aria-selection"
+>
+</div>
+```
+
+####   `DOM structure: role=none`
+
+```html
+<ef-number-field
+  aria-label="Select hours"
+  id="hours"
+  max="23"
+  min="0"
+  no-spinner=""
+  part="input"
+  placeholder="--"
+  tabindex="0"
+  transparent=""
+>
+</ef-number-field>
+<span part="divider">
+</span>
+<ef-number-field
+  aria-label="Select minutes"
+  id="minutes"
+  max="59"
+  min="0"
+  no-spinner=""
+  part="input"
+  placeholder="--"
+  tabindex="0"
+  transparent=""
+>
+</ef-number-field>
 
 ```
 
