@@ -39,10 +39,8 @@ jobs:
         with:
           path: |
             packages/*/lib
-            packages/*/light
-            packages/*/dark
-            packages/*/charcoal
-            packages/*/pearl
+            packages/*-theme/**/*.js
+            packages/*-theme/**/*.css
           key: ${{ runner.os }}-build-${{ github.sha }}
           restore-keys: ${{ runner.os }}-build-${{ github.sha }}
 
