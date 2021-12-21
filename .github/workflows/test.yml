@@ -4,11 +4,10 @@ on:
     branches:
       - improve-ci
 jobs:
-  install:
-    uses: Refinitiv/refinitiv-ui/.github/workflows/install.yml@improve-ci
+  # install:
+  #   uses: Refinitiv/refinitiv-ui/.github/workflows/install.yml@improve-ci
 
   build:
-    needs: install
     uses: Refinitiv/refinitiv-ui/.github/workflows/build.yml@improve-ci
 
   lint:
