@@ -19,8 +19,13 @@ jobs:
           node-version: 15.x
           cache: 'npm'
 
-      - run: npm ci --ignore-scripts --audit=false --fund=false
+      - name: Dependencies Installtion
+        # Installing package dependencies strictly based on lock file
+        run: npm ci --ignore-scripts --audit=false --fund=false
 
-      - run: lerna run build --include-dependencies --since origin/develop...HEAD
+      - name: Build
+        # Builds only changed packages including its dependencies
+        run: lerna run build --include-dependencies --since origin/develop...HEAD
 
-      - run: lerna run test --include-dependents --since origin/develop...HEAD
+      - name: Test
+        run: lerna run test --include-dependents --since origin/develop...HEAD
