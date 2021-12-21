@@ -50,16 +50,18 @@
     right: @switch-margin;
   }
 
-  &:hover:not([readonly]) {
-    color: @input-hover-text-color;
-    [part=toggle] {
-      border-color: @scheme-color-primary;
-      &::after {
-        background-color: @scheme-color-primary;
+  .desktop-specific({
+    &:hover:not([readonly]) {
+      color: @input-hover-text-color;
+      [part=toggle] {
         border-color: @scheme-color-primary;
+        &::after {
+          background-color: @scheme-color-primary;
+          border-color: @scheme-color-primary;
+        }
       }
     }
-  }
+  });
 
   // Spacial style for dark theme only
   & when (@variant = dark) {

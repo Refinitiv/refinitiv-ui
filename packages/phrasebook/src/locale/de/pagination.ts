@@ -4,18 +4,10 @@ import './shared.js';
 
 const translations = {
   // page: current page #
+  PAGE: 'Seite {page}',
+  // page: current page #
   // pageTotal: total number of pages
-  PAGE_OF: 'Seite {page} von {pageTotal}',
-  /*
-   * totalCount: total number of items
-   * pageSize: Number of items per page
-   * ** To translate
-   * No items
-   * of = eg page 1 of 2
-   * item
-   * items
-   */
-  ITEM_INFO: '{totalCount, plural, =0 {Keine Elemente} other {{ totalCount, plural, other { {pageSize, plural, =1 {#} other {{from} - {to}}} von {totalCount} {totalCount, plural, =1 {item} other {items}}} }} }'
+  PAGE_OF: 'Seite {page} von {pageTotal}'
 };
 
 Phrasebook.define('de', 'ef-pagination', translations);

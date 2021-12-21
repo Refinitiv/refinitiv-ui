@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.4.0...@refinitiv-ui/elemental-theme@5.4.1) (2021-12-21)
+
+
+### Bug Fixes
+
+* **counter:** change width height, font size, bg color to proper style ([#117](https://github.com/Refinitiv/refinitiv-ui/issues/117)) ([8388eee](https://github.com/Refinitiv/refinitiv-ui/commit/8388eeea1fdc107d5dafaaf3cf3a6cbe468b473f))
+* **themes:** ignore hover styles on mobile device ([#129](https://github.com/Refinitiv/refinitiv-ui/issues/129)) ([ac279a9](https://github.com/Refinitiv/refinitiv-ui/commit/ac279a91d6e961626c595deacfd8141a293f734d))
+* **tree:** prevent label icon to be shrink ([b2f68b7](https://github.com/Refinitiv/refinitiv-ui/commit/b2f68b789eb4e68ff88a47283947c0c25923df69))
+* **tree:** set width 100% on tree item so custom renderer can do layout ([332583f](https://github.com/Refinitiv/refinitiv-ui/commit/332583f3443e69ae3e66120164bb312a3c5d5cb5))
+
+
+
+
+
 # [5.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.3.1...@refinitiv-ui/elemental-theme@5.4.0) (2021-12-15)
 
 
