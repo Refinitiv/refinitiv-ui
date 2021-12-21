@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@5.3.0...@refinitiv-ui/phrasebook@5.4.0) (2021-12-21)
+
+
+### Features
+
+* **pagination:** support max unknown ([d3997ce](https://github.com/Refinitiv/refinitiv-ui/commit/d3997ce16abb9c01ecc43bcf6a80386b02cd3c12))
+
+
+
+
+
 # [5.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@5.2.1...@refinitiv-ui/phrasebook@5.3.0) (2021-12-15)
 
 
