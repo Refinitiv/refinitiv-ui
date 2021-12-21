@@ -2,7 +2,7 @@ name: Test
 on:
   push:
     branches:
-      - improve-ci
+      - improve-ci-exclude
 jobs:
   test-firefox:
     runs-on: ubuntu-latest
