@@ -24,11 +24,13 @@ jobs:
 
   test-chrome:
     needs: initial-test
+    runs-on: ubuntu-latest
     steps:
       - run: lerna run test --include-dependents --since origin/develop...HEAD
 
   test-firefox:
     needs: initial-test
+    runs-on: ubuntu-latest
     steps:
       - run: lerna run test --include-dependents --since origin/develop...HEAD
 
