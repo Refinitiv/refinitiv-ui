@@ -10,12 +10,6 @@
   nowrap=""
   part="container"
 >
-  <div
-    id="info"
-    part="info"
-  >
-    1 - 10 of 10 items
-  </div>
   <ef-button-bar part="buttons">
     <ef-button
       aria-disabled="true"
@@ -51,14 +45,11 @@
   </ef-text-field>
   <ef-button-bar part="buttons">
     <ef-button
-      aria-disabled="true"
-      disabled=""
       empty=""
       icon="right"
       id="next"
       role="button"
-      style="pointer-events: none;"
-      tabindex="-1"
+      tabindex="0"
       textpos="after"
     >
     </ef-button>
