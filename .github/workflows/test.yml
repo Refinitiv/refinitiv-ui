@@ -1,26 +1,25 @@
 name: Test PR
 on:
-  push:
-    branches:
-      - improve-ci
+  pull_request:
+    branches: [test-develop]
 jobs:
   build:
-    uses: Refinitiv/refinitiv-ui/.github/workflows/build.yml@improve-ci
+    uses: Refinitiv/refinitiv-ui/.github/workflows/build.yml@test-develop
 
   lint:
     needs: build
-    uses: Refinitiv/refinitiv-ui/.github/workflows/lint.yml@improve-ci
+    uses: Refinitiv/refinitiv-ui/.github/workflows/lint.yml@test-develop
 
   chrome:
     needs: lint
-    uses: Refinitiv/refinitiv-ui/.github/workflows/test-browser.yml@improve-ci
+    uses: Refinitiv/refinitiv-ui/.github/workflows/test-browser.yml@test-develop
     with:
       browser: chrome
       coverage: true
 
   firefox:
     needs: lint
-    uses: Refinitiv/refinitiv-ui/.github/workflows/test-browser.yml@improve-ci
+    uses: Refinitiv/refinitiv-ui/.github/workflows/test-browser.yml@test-develop
     with:
       browser: firefox
       coverage: false
