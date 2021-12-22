@@ -1,26 +1,46 @@
 name: Test PR
 on:
   pull_request:
-    branches: [test-develop]
+    branches: [develop]
 # Need to be discussed about reuse Github workflows or include all jobs to single one yml file.
 jobs:
   build:
-    uses: Refinitiv/refinitiv-ui/.github/workflows/build.yml@test-develop
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+        id: setup
+
+      - name: Install Dependencies
+        if: steps.setup.outputs.cache-dependencies-hit != 'true'
+        run: |
+          npm ci --ignore-scripts --audit=false --fund=false
+
+      - name: Build changed packages
+        if: steps.setup.outputs.cache-build-hit != 'true'
+        run: |
+          lerna run build --include-dependencies --since origin/develop...HEAD
 
   lint:
     needs: build
-    uses: Refinitiv/refinitiv-ui/.github/workflows/lint.yml@test-develop
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+      - run: lerna run lint --include-dependents --since origin/develop...HEAD
 
   chrome:
     needs: lint
-    uses: Refinitiv/refinitiv-ui/.github/workflows/test-browser.yml@test-develop
-    with:
-      browser: chrome
-      coverage: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+      - run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers chrome --includeCoverage
 
   firefox:
     needs: lint
-    uses: Refinitiv/refinitiv-ui/.github/workflows/test-browser.yml@test-develop
-    with:
-      browser: firefox
-      coverage: false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+      - run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers firefox --includeCoverage false
