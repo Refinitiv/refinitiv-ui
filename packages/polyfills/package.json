@@ -4,14 +4,7 @@
   "description": "Verified polyfills for the Element Framework",
   "author": "Refinitiv",
   "license": "Apache-2.0",
-  "main": "entrypoints/all.js",
-  "exports": {
-    ".": {
-      "default": "./entrypoints/all.js"
-    },
-    "./all.js": "./entrypoints/all.js",
-    "./minimal.js": "./entrypoints/minimal.js"
-  },
+  "main": "all.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
