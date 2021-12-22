@@ -18,24 +18,7 @@ jobs:
         with:
           node-version: 15.x
 
-      - name: Setup caching dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Setup caching build
-        uses: actions/cache@v2
-        id: cache-build
-        with:
-          path: |
-            packages/*/lib
-            packages/*-theme/**/*.js
-            packages/*-theme/**/*.css
-          key: ${{ runner.os }}-build-${{ github.sha }}
-          restore-keys: ${{ runner.os }}-build-${{ github.sha }}
+      - name: Setup caching dependencies and build output scripts
+        uses: ./.github/actions/cache
 
       - run: lerna run lint --include-dependents --since origin/develop...HEAD
