@@ -2,7 +2,6 @@ name: Test PR
 on:
   pull_request:
     branches: [test-develop]
-
 # Need to discuss about reuse Github workflows or include all jobs to single one yml file.
 jobs:
   build:
