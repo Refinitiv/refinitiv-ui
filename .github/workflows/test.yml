@@ -1,12 +1,17 @@
-name: Test PR
+name: Test
 on:
   pull_request:
     branches: [develop]
-# Need to be discussed about reuse Github workflows or include all jobs to single one yml file.
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
       - name: Setup resources and environment
         uses: ./.github/actions/setup
         id: setup
@@ -25,6 +30,10 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Setup resources and environment
         uses: ./.github/actions/setup
       - run: lerna run lint --include-dependents --since origin/develop...HEAD
@@ -33,6 +42,10 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Setup resources and environment
         uses: ./.github/actions/setup
       - run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers chrome --includeCoverage
@@ -41,6 +54,10 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Setup resources and environment
         uses: ./.github/actions/setup
       - run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers firefox --includeCoverage false

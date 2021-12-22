@@ -1,5 +1,6 @@
 name: 'Setup Environment and Resources'
-description: 'Checkout repository, setup environment and caching'
+description: 'Setup environment, resources and caching'
+
 outputs:
   cache-dependencies-hit:
     description: "Use dependencies cache"
@@ -7,16 +8,10 @@ outputs:
   cache-build-hit:
     description: "Use build output scripts cache"
     value: ${{ steps.cache-build.outputs.cache-hit }}
+
 runs:
   using: "composite"
   steps:
-    - name: Check out repository code
-      uses: actions/checkout@v2
-      with:
-        # Number of commits to fetch. 0 indicates all history for all branches and tags.
-        # Pulls all commits (needed for Lerna)
-        fetch-depth: 0
-
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
