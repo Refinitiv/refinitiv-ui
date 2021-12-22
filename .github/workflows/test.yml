@@ -12,14 +12,14 @@ jobs:
     uses: Refinitiv/refinitiv-ui/.github/workflows/lint.yml@improve-ci
 
   chrome:
-    needs: lint
+    needs: build
     uses: Refinitiv/refinitiv-ui/.github/workflows/test-browser.yml@improve-ci
     with:
       browser: chrome
       coverage: true
 
   firefox:
-    needs: lint
+    needs: build
     uses: Refinitiv/refinitiv-ui/.github/workflows/test-browser.yml@improve-ci
     with:
       browser: firefox
