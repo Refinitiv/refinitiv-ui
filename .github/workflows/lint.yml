@@ -1,8 +1,6 @@
 name: Lint
 on:
   workflow_call:
-  pull_request:
-    branches: [test-develop]
 
 jobs:
   lint-code:
