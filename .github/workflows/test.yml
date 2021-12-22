@@ -38,7 +38,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Lint
-      - run: lerna run lint --include-dependents --since origin/develop...HEAD
+        run: lerna run lint --include-dependents --since origin/develop...HEAD
 
   chrome:
     needs: lint
@@ -53,7 +53,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Test
-      - run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers chrome --includeCoverage
+        run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers chrome --includeCoverage
 
   firefox:
     needs: lint
@@ -68,4 +68,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Test
-      - run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers firefox --includeCoverage false
+        run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers firefox --includeCoverage false
