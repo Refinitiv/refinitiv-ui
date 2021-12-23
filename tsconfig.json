@@ -1,3 +1,6 @@
 {
-  "extends": "@refinitiv-ui/configurations/tsconfig.json"
+  "extends": "@refinitiv-ui/configurations/tsconfig.json",
+  "compilerOptions": {
+    "incremental": true
+  }
 }
