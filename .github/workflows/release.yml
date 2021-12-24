@@ -27,11 +27,9 @@ jobs:
           git config --global user.name "refinitiv-ui-dev"
 
       - name: Dependencies Installation
-        # Installing package dependencies strictly based on lock file
         run: npm ci --ignore-scripts --audit=false --fund=false
 
-      - name: Build
-        # Builds only changed packages including its dependencies
+      - name: Production build
         run: lerna run build:prod --include-dependencies --since
 
       - name: Bump version and create GitHub release

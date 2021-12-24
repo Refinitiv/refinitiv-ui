@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [develop]
 jobs:
-  test-ubuntu:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -13,19 +13,60 @@ jobs:
           # Pulls all commits (needed for Lerna)
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 15.x
-          cache: 'npm'
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+        id: setup
 
-      - name: Dependencies Installtion
-        # Installing package dependencies strictly based on lock file
+      - name: Install Dependencies
+        if: steps.setup.outputs.cache-dependencies-hit != 'true'
         run: npm ci --ignore-scripts --audit=false --fund=false
 
       - name: Build
-        # Builds only changed packages including its dependencies
+        if: steps.setup.outputs.cache-build-hit != 'true'
         run: lerna run build --include-dependencies --since origin/develop...HEAD
 
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+
+      - name: Lint
+        run: lerna run lint --include-dependents --since origin/develop...HEAD
+
+  chrome:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+
       - name: Test
-        run: lerna run test --include-dependents --since origin/develop...HEAD
+        run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers chrome
+
+  firefox:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+
+      - name: Test
+        # TODO: `@refinitiv/core` has test coverage below threshold on Firefox
+        run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers firefox --includeCoverage false
