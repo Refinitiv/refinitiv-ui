@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",
+    "build:watch": "npm run build -- --watch --preserveWatchOutput",
     "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
