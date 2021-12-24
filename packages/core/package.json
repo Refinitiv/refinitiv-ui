@@ -46,7 +46,7 @@
     "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "karma start ../../karma.config.js --package=core",
+    "test": "npm run build && karma start ../../karma.config.js --package=core",
     "test:snapshots": "npm run test -- --snapshots",
     "test:watch": "npm run build && npm run test -- --watch",
     "prepublishOnly": "node scripts/release"

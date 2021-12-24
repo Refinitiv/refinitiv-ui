@@ -16,7 +16,7 @@
     "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "karma start ../../karma.config.js --package=i18n --include-snapshots=false",
+    "test": "npm run build && karma start ../../karma.config.js --package=i18n --include-snapshots=false",
     "test:watch": "npm run test -- --watch"
   },
   "author": "Refinitiv",

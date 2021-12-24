@@ -53,7 +53,7 @@ exports.handler = (argv) => {
   }
 
   try {
-    // execSync('node cli build --sourceMap --declarationMap');
+    execSync('node cli build --sourceMap --declarationMap');
 
     const command = ['karma', 'start', 'karma.config.js', `--package=${PACKAGE_NAME}`];
     watch && command.push('--watch');

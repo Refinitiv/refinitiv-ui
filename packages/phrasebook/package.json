@@ -121,7 +121,7 @@
     "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "mocha __test__/**/*.js --require esm"
+    "test": "npm run build && mocha __test__/**/*.js --require esm"
   },
   "devDependencies": {
     "chai": "^4.3.4",
