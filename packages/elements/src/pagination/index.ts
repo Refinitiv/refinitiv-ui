@@ -444,10 +444,7 @@ export class Pagination extends BasicElement {
 
     // Reset input and boundary value into supported range.
     if (this.validatePage(this.input.value)) {
-      if (newValue <= 0) {
-        newValue = 1;
-      }
-      else if (newValue > this.internalMax) {
+      if (newValue > this.internalMax) {
         newValue = this.internalMax;
       }
       this.value = newValue.toString();
