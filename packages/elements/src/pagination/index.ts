@@ -369,7 +369,7 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Validate integer value
+   * Validate page value which returns true when value is valid
    * @param value value
    * @param warning show warning message when value is invalid
    * @param propName property name to show in warning message
@@ -444,15 +444,13 @@ export class Pagination extends BasicElement {
 
     // Reset input and boundary value into supported range.
     if (this.validatePage(this.input.value)) {
-      if (newValue <= 0) {
-        newValue = 1;
-      }
-      else if (newValue > this.internalMax) {
+      if (newValue > this.internalMax) {
         newValue = this.internalMax;
       }
       this.value = newValue.toString();
     }
-    else if (!isNaN(newValue)) {
+    // When input value is invalid in case less than support range (value<1), then reset value = '1'.
+    else if (!isNaN(newValue) && newValue < 1) {
       this.value = '1';
     }
 
