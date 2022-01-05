@@ -21,7 +21,7 @@ body,
 }
 .chart-container {
   display: flex;
-  width: 100%;
+  width: calc(100% - 220px);
   padding: 20px;
 }
 ef-interactive-chart {
@@ -36,6 +36,15 @@ ef-interactive-chart {
 .form-input label {
   font-weight: 500;
   margin-bottom: 5px;
+}
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 40px;
+}
+.form-footer ef-button {
+  margin-right: 10px;
 }
 ef-tab {
   min-width: 180px;

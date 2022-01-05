@@ -1,61 +1,146 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useState, useLayoutEffect } from 'react'
 
-const ProfileForm = () => {
+const ProfileForm = ({ toggleDialog }) => {
+  const textFieldRef = useRef(null);
+  const radioGroupRef = useRef(null);
+  const dateRef = useRef(null);
+  const emailRef = useRef(null);
   const overlayMenuRef = useRef(null);
+  const checkboxRef = useRef(null);
 
-  const [job, setJob] = useState('');
+  const [formData, setFormData] = useState({ isReceiveMail: true });
 
-  const handleClickJob = () => {
-    if(overlayMenuRef.current) {
-      overlayMenuRef.current.opened = true;
+  const handleChangeFormData = (data) => {
+    setFormData(prevState => {
+      return { ...prevState, ...data };
+    });
+  };
+
+  useLayoutEffect(() => {
+    const { current } = textFieldRef;
+    if(!current) {
+      return;
     }
-  }
+    current.addEventListener('value-changed', (e) => handleChangeFormData({ name: e.detail.value }));
+    return () => current.removeEventListener('value-changed', (e) => handleChangeFormData({ name: e.detail.value }));
+  }, [textFieldRef]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if(!radioGroupRef.current) {
+      return;
+    }
+    const radios = radioGroupRef.current.querySelectorAll('ef-radio-button');
+    for(const radio of radios) {
+      radio.addEventListener('checked-changed', (e) => handleChangeFormData({ gender: e.target.textContent }));
+    }
+    return () => {
+      for(const radio of radios) {
+        radio.removeEventListener('checked-changed', (e) => handleChangeFormData({ gender: e.target.textContent }));
+      }
+    }
+  }, [radioGroupRef]);
+
+  useLayoutEffect(() => {
+    const { current } = emailRef;
+    if(!current) {
+      return;
+    }
+    current.addEventListener('value-changed', (e) => handleChangeFormData({ email: e.detail.value }));
+    return () => current.removeEventListener('value-changed', (e) => handleChangeFormData({ email: e.detail.value }));
+  }, [emailRef]);
+
+  useLayoutEffect(() => {
+    const { current } = dateRef;
+    if(!current) {
+      return;
+    }
+    current.addEventListener('value-changed', (e) => handleChangeFormData({ date: e.detail.value }));
+    return () => current.removeEventListener('value-changed', (e) => handleChangeFormData({ date: e.detail.value }));
+  }, [dateRef]);
+
+  useLayoutEffect(() => {
     const jobPanel = document.getElementById('jobPanel');
     const { current: overlayMenu } = overlayMenuRef
-    if(overlayMenu) {
-      overlayMenu.positionTarget = jobPanel;
-      overlayMenu.parentElement.addEventListener('item-trigger', (e) => {
-        const value = e.detail.value;
-        if(value) {
-          setJob(value);
-          overlayMenu.opened = false;
-        }
-      });
+
+    if(!overlayMenu) {
+      return;
     }
+  
+    overlayMenu.positionTarget = jobPanel;
+
+    const handleItemTrigger = (value) => {
+      if(value) {
+        handleChangeFormData({ job: value });
+        overlayMenu.opened = false;
+      }
+    }
+
+    overlayMenu.parentElement.addEventListener('item-trigger', (e) => handleItemTrigger(e.detail.value));
+    return () => overlayMenu.parentElement.addEventListener('item-trigger', (e) => handleItemTrigger(e.detail.value));
   }, [overlayMenuRef])
+
+  useLayoutEffect(() => {
+    const { current } = checkboxRef;
+    if(!current) {
+      return;
+    }
+    current.addEventListener('checked-changed', (e) => handleChangeFormData({ isReceiveMail: e.target.checked }));
+    return () => current.removeEventListener('checked-changed', (e) => handleChangeFormData({ isReceiveMail: e.target.checked }));
+  }, [checkboxRef]);
+
+  const handleClickJob = () => {
+    if(!overlayMenuRef.current) {
+      return;
+    };
+    overlayMenuRef.current.opened = true;
+  }
+
+  const handleClickConfirm = () => {
+    console.log('data =', JSON.stringify(formData, null, 2));
+    toggleDialog();
+  }
+
+  const isSubmitDisabled = !formData.name || !formData.email ? true : undefined;
 
   return (
     <>
       <div className="form-input">
-        <label>Name</label>
-        <ef-text-field placeholder='Name'></ef-text-field>
+        <label>Name *</label>
+        <ef-text-field
+          id="nameInput"
+          ref={textFieldRef}
+          placeholder='Name'
+        >
+        </ef-text-field>
       </div>
       <div className="form-input">
         <label>Gender</label>
-        <div>
+        <div ref={radioGroupRef}>
           <ef-radio-button name='gender'>Male</ef-radio-button>
           <ef-radio-button name='gender'>Female</ef-radio-button>
-          <ef-radio-button name='gender'>Not specific</ef-radio-button>
+          <ef-radio-button name='gender'>Prefer not to say</ef-radio-button>
         </div>
       </div>
       <div className="form-input">
         <label>Date of Birth</label>
-        <ef-datetime-picker></ef-datetime-picker>
+        <ef-datetime-picker ref={dateRef}></ef-datetime-picker>
       </div>
       <div className="form-input">
         <label>Address</label>
-        <textarea rows='4' cols='50'></textarea>
+        <textarea autoCorrect="off" autoComplete="off" autoCapitalize="off" rows='4' cols='50' onChange={(e) => handleChangeFormData({ address: e.target.value })}></textarea>
       </div>
       <div className="form-input">
-        <label>Email</label>
-        <ef-email-field placeholder="user@refinitiv.com"></ef-email-field>
+        <label>Email *</label>
+        <ef-email-field
+          id="emailInput"
+          ref={emailRef}
+          placeholder="user@refinitiv.com">
+        </ef-email-field>
       </div>
       <div className="form-input">
         <label>Job Function</label>
         <div id="jobPanel" className="job-panel" role="button" onClick={handleClickJob}>
-          <div>{job}</div>
+          <div>{formData.job}</div>
           <ef-icon icon="arrow-down-fill"></ef-icon>
         </div>
         <ef-overlay-menu ref={overlayMenuRef} id="menu">
@@ -83,7 +168,11 @@ const ProfileForm = () => {
         </ef-overlay-menu>
       </div>
       <div className="form-input">
-        <ef-checkbox>I want to receive news and updates via email</ef-checkbox> 
+        <ef-checkbox ref={checkboxRef} checked={formData.isReceiveMail}>I want to receive news and updates via email</ef-checkbox> 
+      </div>
+      <div className="form-footer" slot="footer">
+        <ef-button id="confirmButton" cta onClick={handleClickConfirm} disabled={isSubmitDisabled}>Confirm</ef-button>
+        <ef-button onClick={() => toggleDialog()}>Cancel</ef-button>
       </div>
     </>
   )  
