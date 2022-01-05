@@ -1,4 +1,4 @@
-import '@refinitiv-ui/halo-theme/dark/native-elements.js';
+import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
 
 import '@refinitiv-ui/elements/button/themes/halo/dark';
 import '@refinitiv-ui/elements/toggle/themes/halo/dark';

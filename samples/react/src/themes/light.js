@@ -1,4 +1,4 @@
-import '@refinitiv-ui/halo-theme/light/native-elements.js';
+import '@refinitiv-ui/halo-theme/light/imports/native-elements';
 
 import '@refinitiv-ui/elements/button/themes/halo/light';
 import '@refinitiv-ui/elements/toggle/themes/halo/light';
