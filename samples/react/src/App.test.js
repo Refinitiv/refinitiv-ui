@@ -1,6 +1,8 @@
 import { render, fireEvent } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 
 import App from './App';
+import './themes/light';
 
 test('Should render App with light theme', () => {
   const defaultTheme = 'light'
@@ -32,26 +34,34 @@ test('Should open profile dialog', () => {
 test('Should have default value in checkbox before and after open dialog', () => {
   const { container } = render(<App />);
   let checkbox = container.querySelector('ef-checkbox');
-  expect(checkbox.getAttribute('checked')).toBe("true");
+  expect(checkbox.checked).toBe(true);
   const profileButton = container.querySelector('#profileButton');
   fireEvent.click(profileButton);
   checkbox = container.querySelector('ef-checkbox');
-  expect(checkbox.getAttribute('checked')).toBe("true");
+  expect(checkbox.checked).toBe(true);
 });
 
-test('Should disable confirm button', () => {
+test.only('Should disable/unable confirm button', () => {
   const { container } = render(<App />);
   const profileButton = container.querySelector('#profileButton');
   fireEvent.click(profileButton);
 
   let confirmButton = container.querySelector('#confirmButton');
-  expect(confirmButton.getAttribute('disabled')).toBe("true");
+  expect(confirmButton.disabled).toBe(true);
 
   const nameInput = container.querySelector('#nameInput');
   nameInput.value = 'name';
+  act(() => {
+    nameInput.dispatchEvent(new CustomEvent('value-changed', { detail: { value: 'name'} }));
+  });
+
   const emailInput = container.querySelector('#emailInput');
   emailInput.value = 'user@refinitiv.com';
+  act(() => {
+    emailInput.dispatchEvent(new CustomEvent('value-changed', { detail: { value: 'user@refinitiv.com' }}));
+  });
 
   confirmButton = container.querySelector('#confirmButton');
-  expect(confirmButton.getAttribute('disabled')).toBe(null);
-})
+  console.log('confirmButton =', confirmButton.disabled);
+  expect(confirmButton.disabled).toBe(null);
+});
