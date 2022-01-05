@@ -63,5 +63,5 @@ test.only('Should disable/unable confirm button', () => {
 
   confirmButton = container.querySelector('#confirmButton');
   console.log('confirmButton =', confirmButton.disabled);
-  expect(confirmButton.disabled).toBe(null);
+  expect(confirmButton.disabled).toBe(false);
 });
