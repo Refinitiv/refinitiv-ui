@@ -38,8 +38,6 @@ export class TreeRenderer extends Renderer {
       el.readonly = composer.getItemPropertyValue(item, 'readonly') === true;
       el.highlighted = composer.getItemPropertyValue(item, 'highlighted') === true;
 
-      el.setAttribute('aria-setsize', String(composer.getItemSiblings(item).length + 1));
-
       return el;
     });
   }
