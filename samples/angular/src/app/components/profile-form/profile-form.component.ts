@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 
@@ -19,8 +15,7 @@ export class ProfileFormComponent implements OnInit {
   @ViewChild('birthdate') birthdateEle!: ElementRef;
   @ViewChild('genderGroup') genderGroupEle!: ElementRef;
   @ViewChild('letter') mailLetterEle!: ElementRef;
- 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  
   ngOnInit (): void { }
 
   ngAfterViewInit (): void {
