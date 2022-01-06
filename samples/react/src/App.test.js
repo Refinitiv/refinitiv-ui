@@ -41,12 +41,12 @@ test('Should have default value in checkbox before and after open dialog', () =>
   expect(checkbox.checked).toBe(true);
 });
 
-test.only('Should disable/unable confirm button', () => {
+test('Should disable/enable confirm button', () => {
   const { container } = render(<App />);
   const profileButton = container.querySelector('#profileButton');
   fireEvent.click(profileButton);
 
-  let confirmButton = container.querySelector('#confirmButton');
+  const confirmButton = container.querySelector('#confirmButton');
   expect(confirmButton.disabled).toBe(true);
 
   const nameInput = container.querySelector('#nameInput');
@@ -61,7 +61,5 @@ test.only('Should disable/unable confirm button', () => {
     emailInput.dispatchEvent(new CustomEvent('value-changed', { detail: { value: 'user@refinitiv.com' }}));
   });
 
-  confirmButton = container.querySelector('#confirmButton');
-  console.log('confirmButton =', confirmButton.disabled);
   expect(confirmButton.disabled).toBe(false);
 });
