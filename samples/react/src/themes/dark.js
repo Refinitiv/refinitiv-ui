@@ -1,19 +1,19 @@
 import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
 
-import '@refinitiv-ui/elements/lib/button/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/toggle/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/header/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/interactive-chart/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/dialog/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/text-field/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/email-field/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/radio-button/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/checkbox/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/datetime-picker/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/overlay/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/overlay-menu/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/tab-bar/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/tab/themes/halo/dark';
+import '@refinitiv-ui/elements/button/themes/halo/dark';
+import '@refinitiv-ui/elements/toggle/themes/halo/dark';
+import '@refinitiv-ui/elements/header/themes/halo/dark';
+import '@refinitiv-ui/elements/interactive-chart/themes/halo/dark';
+import '@refinitiv-ui/elements/dialog/themes/halo/dark';
+import '@refinitiv-ui/elements/text-field/themes/halo/dark';
+import '@refinitiv-ui/elements/email-field/themes/halo/dark';
+import '@refinitiv-ui/elements/radio-button/themes/halo/dark';
+import '@refinitiv-ui/elements/checkbox/themes/halo/dark';
+import '@refinitiv-ui/elements/datetime-picker/themes/halo/dark';
+import '@refinitiv-ui/elements/overlay/themes/halo/dark';
+import '@refinitiv-ui/elements/overlay-menu/themes/halo/dark';
+import '@refinitiv-ui/elements/tab-bar/themes/halo/dark';
+import '@refinitiv-ui/elements/tab/themes/halo/dark';
 
 // custom css
 import '../styles/lib/dark.css';
