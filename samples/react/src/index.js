@@ -5,17 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const loadTheme = () => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const theme = sessionStorage.getItem('elf-theme') || 'light';
     import(`./themes/${theme}`);
     resolve(theme);
-  })
-}
+  });
+};
 
 loadTheme().then((theme) => {
   ReactDOM.render(
     <React.StrictMode>
-      <App theme={theme}/>
+      <App theme={theme} />
     </React.StrictMode>,
     document.getElementById('root')
   );
