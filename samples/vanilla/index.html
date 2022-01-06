@@ -199,6 +199,13 @@
           }]
         };
 
+        /* reset all tabs to inactive */
+        const resetActive = function () {
+          tabs.forEach(function (tab) {
+            tab.active = false;
+          });
+        };
+
         tabs.forEach((tab) => {
           const type = tab.label.substring(0, tab.label.indexOf(' ')).toLowerCase();
           if (chartType === type) {
