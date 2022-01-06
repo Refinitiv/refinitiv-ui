@@ -43,3 +43,6 @@ tsconfig.json
 
 # map files
 /lib/**/*.map
+
+# scriptes
+/scripts/**/*
