@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 import { Validators, FormBuilder } from '@angular/forms';
@@ -86,7 +85,6 @@ export class AppComponent implements OnInit {
   }
 
   onSaveProfile (): void {
-    // eslint-disable-next-line no-console
     console.log(this.profileForm.value);
     this.closeDialog();
   }

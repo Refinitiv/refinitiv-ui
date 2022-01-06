@@ -11,8 +11,7 @@ export class SideBarComponent implements OnInit {
   
   @Input()
   onTabClickCallback!: (args: any) => void;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  
   ngOnInit (): void {}
 
   onTabClick (chartType: string): void {
