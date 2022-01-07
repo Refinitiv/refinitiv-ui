@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="{'loading': loading}">
   <ef-header class="toolbar" slot="main-header" level="2">
     <div class="toolbar-items" slot="right">
       Theme:
@@ -16,7 +16,8 @@
   <div class="content-container">
     <app-side-bar [chartType]="chartType" [onTabClickCallback]="onTabChangeHandler"></app-side-bar>
     <div class="chart-container">
-      <ef-interactive-chart #chart></ef-interactive-chart>
+      <ef-loader *ngIf="loading"></ef-loader>
+      <ef-interactive-chart #chart [ngClass]="{'loading': loading}"></ef-interactive-chart>
     </div>
   </div>
 

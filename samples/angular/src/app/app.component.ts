@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
   async ngOnInit (): Promise<void> {
     const defaultTheme = sessionStorage.getItem('elf-theme') || 'light';
     await this.loadTheme(defaultTheme);
+    this.loading = false;
     this.checked = defaultTheme === 'dark';
   }
 
@@ -66,7 +67,6 @@ export class AppComponent implements OnInit {
         }
       ]
     };
-    // this.loading = false;
   }
 
   handleThemeToggle (): void {
