@@ -1,5 +1,4 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { timer } from 'rxjs';
 import { Validators, FormBuilder } from '@angular/forms';
 import { data } from '../mock-data';
 
