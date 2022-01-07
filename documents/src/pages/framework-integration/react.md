@@ -11,13 +11,7 @@ layout: default
 
 # React Guide
 
-@>This guideline uses create-react-app, React v17.0.2 and Yarn v1.22.10.
-
-Install yarn.
-
-```sh
-npm install -g yarn
-```
+@>This guideline uses create-react-app, React v17.0.2
 
 ## Initialize your project
 
@@ -29,19 +23,13 @@ To create a new app, you may choose one of the following methods:
 npx create-react-app my-app
 ```
 
-### yarn
-
-```sh
-yarn create react-app my-app
-```
-
 It will create a directory called `my-app` inside the current folder. Inside that directory, it will generate the initial project structure and install the required dependencies.
 
 Serve your app to check if the project is created correctly.
 
 ```sh
 cd my-app
-yarn start
+npm start
 ```
 
 ## Install EF elements and themes
@@ -49,25 +37,25 @@ yarn start
 Installs elements and themes.
 
 ```sh
-yarn add @refinitiv-ui/elements
-yarn add @refinitiv-ui/halo-theme
+npm install @refinitiv-ui/elements
+npm install @refinitiv-ui/halo-theme
 ```
 
 Import elements that you want to use and theme in `src/index.js`. You can also import EF components and themes anywhere in react components but for the simplicity we'll import all at once.
 
 ```javascript
-import '@refinitiv-ui/elements/lib/loader';
-import '@refinitiv-ui/elements/lib/button';
-import '@refinitiv-ui/elements/lib/panel';
-import '@refinitiv-ui/elements/lib/text-field';
-import '@refinitiv-ui/elements/lib/password-field';
+import '@refinitiv-ui/elements/loader';
+import '@refinitiv-ui/elements/button';
+import '@refinitiv-ui/elements/panel';
+import '@refinitiv-ui/elements/text-field';
+import '@refinitiv-ui/elements/password-field';
 
 import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
-import '@refinitiv-ui/elements/lib/loader/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/button/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/panel/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/text-field/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/password-field/themes/halo/dark';
+import '@refinitiv-ui/elements/loader/themes/halo/dark';
+import '@refinitiv-ui/elements/button/themes/halo/dark';
+import '@refinitiv-ui/elements/panel/themes/halo/dark';
+import '@refinitiv-ui/elements/text-field/themes/halo/dark';
+import '@refinitiv-ui/elements/password-field/themes/halo/dark';
 ```
 
 Use EF elements to create a simple login page. Replace the content in `src/App.js` with the following code.
@@ -214,14 +202,16 @@ function App() {
     const { current } = textFieldRef;
 
     if (current) {
-      current.value = value; // update element's value
       current.addEventListener('value-changed', handleChange);
     }
 
     return () => current.removeEventListener('value-changed', handleChange); // unsubscribe
-  }, [value, textFieldRef]);
+  }, [textFieldRef]);
 
-  return <ef-text-field ref={textFieldRef}></ef-text-field>;
+  return (
+    <ef-text-field ref={textFieldRef}></ef-text-field>
+    <p>Value: {value}</p>
+  );
 }
 ```
 
