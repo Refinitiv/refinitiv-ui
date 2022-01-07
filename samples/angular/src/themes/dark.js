@@ -2,7 +2,6 @@
 import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
 // Themes
 import '@refinitiv-ui/elements/lib/button/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/loader/themes/halo/dark';
 import '@refinitiv-ui/elements/lib/text-field/themes/halo/dark';
 import '@refinitiv-ui/elements/lib/password-field/themes/halo/dark';
 import '@refinitiv-ui/elements/lib/header/themes/halo/dark';

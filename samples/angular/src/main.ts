@@ -6,7 +6,6 @@ import { environment } from './environments/environment';
 
 // Components
 import '@refinitiv-ui/elements/lib/button';
-import '@refinitiv-ui/elements/lib/loader';
 import '@refinitiv-ui/elements/lib/text-field';
 import '@refinitiv-ui/elements/lib/password-field';
 import '@refinitiv-ui/elements/lib/header';

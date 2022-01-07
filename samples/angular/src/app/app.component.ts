@@ -52,11 +52,6 @@ export class AppComponent implements OnInit {
   }
 
   generateChart (): void {
-    this.loading = true;
-    timer(1000).subscribe(() => {
-      this.loading = false;
-    });
-    
     this.chart.nativeElement.config = {
       options: {
         timeScale: {
@@ -72,6 +67,7 @@ export class AppComponent implements OnInit {
         }
       ]
     };
+    // this.loading = false;
   }
 
   handleThemeToggle (): void {
