@@ -8,7 +8,6 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 })
 export class ProfileFormComponent implements OnInit {
   
-  defaultTheme = sessionStorage.getItem('elf-theme') || 'light'
   @Input() form!: FormGroup;
   @ViewChild('jobPanel') jobPanel!: ElementRef;
   @ViewChild('overlayMenu') overlayMenu!: ElementRef;
