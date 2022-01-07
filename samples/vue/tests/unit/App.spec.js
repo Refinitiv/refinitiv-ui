@@ -1,26 +1,11 @@
 import { mount } from '@vue/test-utils';
 import App from '../../src/App.vue'
 import (`../../src/themes/light`)
-import { data } from '../../src/chartData'
 
-const chartConfig = {
-  options: {
-    timeScale: {
-      timeVisible: true,
-      secondsVisible: true
-    }
-  },
-  series: [{
-    symbol: 'Price',
-    type: 'line',
-    data: data
-  }]
-}
 describe('App.vue', () => {
   it('Should Change chart type', async () => {
     const wrapper = mount(App)
-    let chart = wrapper.find('ef-interactive-chart');
-    chart.element.config = chartConfig;
+    const chart = await wrapper.find('ef-interactive-chart');
     expect(chart.element.config.series[0].type).toBe('line');
     await wrapper.find('#tabBarArea').trigger('click');
     expect(chart.element.config.series[0].type).toBe('area');
@@ -57,12 +42,11 @@ describe('App.vue', () => {
 
     const nameInput = wrapper.find('#nameInput');
     nameInput.element.value = 'name';
-    nameInput.element.dispatchEvent(new CustomEvent('value-changed', { detail: { value: 'name'} }));
+    await nameInput.element.dispatchEvent(new CustomEvent('value-changed', { detail: { value: 'name'} }));
 
     const emailInput = wrapper.find('#emailInput');
     emailInput.element.value = 'user@refinitiv.com';
-    emailInput.element.dispatchEvent(new CustomEvent('value-changed', { detail: { value: 'user@refinitiv.com' }}));
-    // expect(wrapper.vm.formData).toBe(false); // can check data from this line
+    await emailInput.element.dispatchEvent(new CustomEvent('value-changed', { detail: { value: 'user@refinitiv.com' }}));
     expect(confirmButton.element.disabled).toBe(false);
   });
 })
