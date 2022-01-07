@@ -31,7 +31,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles/global.less",
+              "src/styles/variant/dark.less",
+              "src/styles/variant/light.less"
             ],
             "scripts": []
           },
@@ -99,7 +101,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles/global.less"
             ],
             "scripts": []
           }
