@@ -4,27 +4,27 @@
     <ef-header class="toolbar" level="2">
       <div class="toolbar-items" slot="right">
         <ef-toggle class="theme-switcher" label="Light" checked-label="Dark" v-bind:checked.prop="this.isDarkTheme" @click="handleClickToggle"></ef-toggle>
-        <ef-button icon="profile" @click="this.$refs.dialog.opened = true" ></ef-button>
+        <ef-button id="profileButton" icon="profile" @click="toggleDialog" ></ef-button>
       </div>
     </ef-header>
     <div class="content-container">
       <div class="sidebar-container">
         <ef-tab-bar ref="tab" vertical>
-          <ef-tab @click="setChartData('line')" icon="chart-chartline" label="Line Chart" :active="chartType === 'line' || undefined"></ef-tab>
-          <ef-tab @click="setChartData('area')" icon="chart-area" label="Area Chart" :active="chartType === 'area' || undefined"></ef-tab>
-          <ef-tab @click="setChartData('bar')" icon="chart-bar" label="Bar Chart" :active="chartType === 'bar' || undefined"></ef-tab>
-          <ef-tab @click="setChartData('candlestick')" icon="chart-candles" label="Candlestick Chart" :active="chartType === 'candlestick' || undefined"></ef-tab>
-          <ef-tab @click="setChartData('volume')" icon="chart-line-bar" label="Volume Chart" :active="chartType === 'volume' || undefined"></ef-tab>
+          <ef-tab @click="setChartType('line')" icon="chart-chartline" id="tabBarLine" label="Line Chart" :active="chartType === 'line' || undefined"></ef-tab>
+          <ef-tab @click="setChartType('area')" icon="chart-area" id="tabBarArea" label="Area Chart" :active="chartType === 'area' || undefined"></ef-tab>
+          <ef-tab @click="setChartType('bar')" icon="chart-bar" id="tabBarC" label="Bar Chart" :active="chartType === 'bar' || undefined"></ef-tab>
+          <ef-tab @click="setChartType('candlestick')" icon="chart-candles" id="tabBarCandles" label="Candlestick Chart" :active="chartType === 'candlestick' || undefined"></ef-tab>
+          <ef-tab @click="setChartType('volume')" icon="chart-line-bar" id="tabBarVolume" label="Volume Chart" :active="chartType === 'volume' || undefined"></ef-tab>
         </ef-tab-bar>
       </div>
       <div class="chart-container">
-        <ef-interactive-chart v-bind:config.prop="chartConfig"></ef-interactive-chart>
+        <ef-interactive-chart ref="chart" v-bind:config.prop="chartConfig"></ef-interactive-chart>
       </div>
     </div>
     <ef-dialog ref="dialog" header="Edit profile">
       <div class="form-input">
-        <label>Name</label>
-        <ef-text-field ref="name" placeholder="Name" :value="userData.name" @value-changed="userData.name = this.$refs.name.value"></ef-text-field>
+        <label>Name*</label>
+        <ef-text-field id="nameInput" ref="name" placeholder="Name" :value="formData.name"></ef-text-field>
       </div>
       <div class="form-input">
         <label>Gender</label>
@@ -36,20 +36,20 @@
       </div>
       <div class="form-input">
         <label>Date of Birth</label>
-        <ef-datetime-picker ref="dateBirth" :value="userData.dateBirth" @value-changed="userData.dateBirth = this.$refs.dateBirth.value"></ef-datetime-picker>
+        <ef-datetime-picker ref="birthDate" :value="formData.birthDate"></ef-datetime-picker>
       </div>
       <div class="form-input">
         <label>Address</label>
-        <textarea rows='4' cols='50' v-model="userData.address"></textarea>
+        <textarea ref="address" autoCorrect="off" autoComplete="off" autoCapitalize="off" rows="4" cols="50" v-model="formData.address"></textarea>
       </div>
       <div class="form-input">
-        <label>Email</label>
-        <ef-email-field ref="email" :value="userData.email" @value-changed="userData.email = this.$refs.email.value"></ef-email-field>
+        <label>Email*</label>
+        <ef-email-field id="emailInput" ref="email" :value="formData.email"></ef-email-field>
       </div>
       <div class="form-input">
         <label>Job Function</label>
         <div ref="jobfucntion" class="job-panel">
-          <div>{{userData.job}}</div>
+          <div>{{formData.job}}</div>
           <ef-icon icon="arrow-down-fill"></ef-icon>
         </div>
         <ef-overlay-menu ref="menu" id="menu">
@@ -77,33 +77,59 @@
         </ef-overlay-menu>
       </div>
       <div class="form-input">
-        <ef-checkbox ref="checkbox" :checked="userData.receiveNew === true" >I want to receive news and updates via email</ef-checkbox>
+        <ef-checkbox ref="checkbox" :checked="formData.isReceiveMail" >I want to receive news and updates via email</ef-checkbox>
       </div>
-      <div class="custom-dialog-footer" slot="footer" style="padding: 15px 25px;">
-        <ef-button style="width:10%; margin:0px 5px" cta @click="onSave">Save</ef-button>
-        <ef-button style="width:10%; margin:0px 5px" cta @click="this.$refs.dialog.opened = false">Cancel</ef-button>
+      <div class="form-footer" slot="footer">
+        <ef-button id="confirmButton" cta @click="handleClickConfirm" :disabled="this.handleDisabledSubmit">Confirm</ef-button>
+        <ef-button cta @click="toggleDialog">Cancel</ef-button> 
       </div>
     </ef-dialog>
   </div>
 </template>
 <script>
+import '@refinitiv-ui/elements/loader';
+import '@refinitiv-ui/elements/button';
+import '@refinitiv-ui/elements/panel';
+import '@refinitiv-ui/elements/text-field';
+import '@refinitiv-ui/elements/email-field';
+import '@refinitiv-ui/elements/tab-bar';
+import '@refinitiv-ui/elements/tab';
+import '@refinitiv-ui/elements/header';
+import '@refinitiv-ui/elements/dialog';
+import '@refinitiv-ui/elements/radio-button';
+import '@refinitiv-ui/elements/datetime-picker';
+import '@refinitiv-ui/elements/checkbox';
+import '@refinitiv-ui/elements/sidebar-layout';
+import '@refinitiv-ui/elements/interactive-chart';
+import '@refinitiv-ui/elements/overlay-menu';
+import '@refinitiv-ui/elements/toggle';
+
 import { data } from "./chartData";
+
 export default {
   data() {
     return {
-      userData: {},
+      formData: {
+        isReceiveMail: true
+      },
       isDarkTheme: true,
-      chartType: this.currentChart(),
+      chartType: localStorage.chart ? localStorage.chart : 'line',
       chartConfig: {},
+      isSubmitDisabled: true,
     };
   },
+  computed: {
+    handleDisabledSubmit() {
+      return !this.formData.name || !this.formData.email ? true : undefined;
+    }
+  },
   methods: {
-    currentChart(){
-      const currentChart = localStorage.chart ? localStorage.chart : 'line';
-      return currentChart;
+    handleChangeFormData(data){
+      this.formData = { ...this.formData, ...data}
     },
-    setChartData(type) {
+    setChartType(type) {
       localStorage.chart = type;
+      this.chartType = type;
       this.chartConfig = {
         options: {
             timeScale: {
@@ -118,12 +144,13 @@ export default {
         }]
       }
     },
-    // onInput(field) {
-
-    // },
-    onSave() {
-      console.log(this.userData)
-      this.$refs.dialog.opened = false
+    toggleDialog() {
+      const dialog = this.$refs.dialog;
+      dialog.opened = !dialog.opened;
+    },
+    handleClickConfirm() {
+      console.log('data =', JSON.stringify(this.formData, null, 2));
+      this.toggleDialog()
     },
     handleClickToggle() {
       if(localStorage.theme == "dark") {
@@ -135,27 +162,40 @@ export default {
         this.isDarkTheme = true;
         window.location.reload()
       }
-    },
-
+    }
   },
   mounted() {
-    this.setChartData(this.chartType)
+    this.setChartType(this.chartType)
 
     const theme = localStorage.theme;
     document.body.setAttribute("theme", `${theme}`);
     this.isDarkTheme = theme === "dark" ? true : false;
 
+    const inputName = this.$refs.name;
+    inputName.addEventListener('value-changed', (e) =>
+      this.handleChangeFormData({ name: e.detail.value })
+    );
+
+    const inputEmail = this.$refs.email;
+    inputEmail.addEventListener('value-changed', (e) =>
+      this.handleChangeFormData({ email: e.detail.value })
+    );
+
     const radioButtonGroup = this.$refs.radio;
     radioButtonGroup.addEventListener('checked-changed', (e) => {
       if (e.target.checked) {
-        console.log(e.target.textContent);
-        this.userData.gender = e.target.textContent
+        this.formData.gender = e.target.textContent
       }
     }, true);
 
+    const birthDateInput = this.$refs.birthDate;
+    birthDateInput.addEventListener('value-changed', (e) =>
+      this.handleChangeFormData({ birthDate: e.detail.value })
+    );
+
     const checkbox = this.$refs.checkbox;
     checkbox.addEventListener('checked-changed', function (e) {
-      e.target.checked ? console.log('Checked'):console.log('Unchecked')
+      this.formData.isReceiveMail = e.target.checked;
     });
 
     const overlayMenu = this.$refs.menu;
@@ -168,19 +208,14 @@ export default {
     overlayMenu.parentElement.addEventListener('item-trigger', (e) => {
       const value = e.detail.value;
       if(value.length > 0) {
-        this.userData.job = value;
+        this.formData.job = value;
         overlayMenu.opened = false;
       }
     });
-
   },
 };
 </script>
-
 <style lang="less">
-
-
-
 body, #app, .container {
   height: 100%;
 }
@@ -243,4 +278,14 @@ ef-tab {
   width: 250px;
 }
 
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 40px;
+
+  ef-button {
+    margin-right: 10px;
+  }
+}
 </style>
