@@ -12,6 +12,7 @@
     "@refinitiv-ui/elements": "^5.10.0",
     "@refinitiv-ui/halo-theme": "^5.4.1",
     "core-js": "^3.8.3",
+    "ts-jest": "^27.1.2",
     "vue": "^3.2.13"
   },
   "devDependencies": {
