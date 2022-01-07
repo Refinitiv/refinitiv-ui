@@ -1,0 +1,122 @@
+@import './api.css';
+
+.pandora-code-viewer[theme=dark] .pandora-viewer-container {
+  background-color: #0d0d0d;
+}
+
+#element-header {
+  position: -webkit-sticky;
+  position: sticky;
+  height: 55px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  background: #F0F4F8;
+  z-index: 2;
+  top: 0;
+  left: 0;
+
+  margin-top: -40px;
+
+  transform: translate(0,0);
+  transition: transform .3s ease;
+}
+
+#element-header.hide{
+  transform: translate(0,-100%);
+  transition: transform .3s ease;
+}
+
+#element-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -50vw;
+  bottom: 0;
+  left: -50vw;
+  background: inherit;
+  z-index: -1;
+}
+
+#element-header input {
+  width: 100%;
+  cursor: pointer;
+  white-space: pre;
+  font-size: 14px;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+  overflow: hidden;
+  height: 35px;
+  box-sizing: border-box;
+  padding: 0 7px 0 35px;
+  line-height: 23px;
+  flex: auto;
+  margin-right: 5px;
+  font-family: 'Source Code Pro', monospace;
+}
+
+.input-wrapper {
+  width: 100%;;
+}
+
+.input-wrapper img {
+  opacity: 0.5;
+  position: absolute;
+  top: 20px;
+  left: 10px;
+}
+
+.input-wrapper::before {
+  content: '';
+  display: none;
+  position: absolute;
+  z-index: 9998;
+  top: 47px;
+  left: 50px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.72);
+}
+
+.input-wrapper::after {
+  content: 'Copy to Clipboard';
+  display: none;
+  position: absolute;
+  z-index: 9999;
+  top: 51px;
+  left: 0;
+  width: 114px;
+  height: 36px;
+  color: #fff;
+  font-size: 10px;
+  line-height: 36px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+#element-header input:hover {
+  border-color: #001EFF;
+}
+
+.input-wrapper:hover::before,
+.input-wrapper:hover::after {
+  display: block;
+}
+
+.input-wrapper:active,
+.input-wrapper:focus {
+  outline: none;
+}
+
+.input-wrapper:active::after,
+.input-wrapper:focus::after {
+  content: 'Copied!';
+}
+
+#element-header a {
+  display: inline-flex;
+  flex: none;
+}
