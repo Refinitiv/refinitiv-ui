@@ -139,4 +139,22 @@ Finally, try starting your app and it should be available to access through `htt
 npm run serve
 ```
 
+## Testing with Jest
+
+To use the Jest on your Vue project, you need to add Jest plugin to your application by the following command.
+```sh
+vue add unit-jest
+```
+
+### Jest configuration
+
+Jest doesn't transform dependencies from `/node_modules` and not support package exports (Webpack 5) yet. We need to add the configuration to the Jest in `jest.config.js`.
+
+```js
+  transformIgnorePatterns: ["node_modules/(?!@refinitiv-ui)/"],
+  moduleNameMapper: {
+    "@refinitiv-ui/elements/((?!lib).*)$": "<rootDir>/node_modules/@refinitiv-ui/elements/lib/$1"
+  }
+```
+
 ::footer::
