@@ -31,7 +31,7 @@
     "serve": "^13.0.2"
   },
   "dependencies": {
-    "@refinitiv-ui/elements": "^5.10.0",
+    "@refinitiv-ui/elements": "^5.9.0",
     "fast-glob": "^3.2.7",
     "fs-extra": "^10.0.0"
   }
