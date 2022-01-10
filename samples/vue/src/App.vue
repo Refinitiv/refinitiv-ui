@@ -80,8 +80,8 @@
         <ef-checkbox ref="checkbox" :checked="formData.isReceiveMail" >I want to receive news and updates via email</ef-checkbox>
       </div>
       <div class="form-footer" slot="footer">
-        <ef-button id="confirmButton" cta @click="handleClickConfirm" :disabled="this.handleDisabledSubmit">Confirm</ef-button>
-        <ef-button cta @click="toggleDialog">Cancel</ef-button> 
+        <ef-button id="confirmButton" cta @click="handleClickConfirm" :disabled="this.isSubmitDisable">Confirm</ef-button>
+        <ef-button cta @click="toggleDialog">Cancel</ef-button>
       </div>
     </ef-dialog>
   </div>
@@ -105,7 +105,7 @@ import '@refinitiv-ui/elements/overlay-menu';
 import '@refinitiv-ui/elements/toggle';
 
 import { data } from "./chartData";
-
+import { THEME } from "./main";
 export default {
   data() {
     return {
@@ -119,13 +119,15 @@ export default {
     };
   },
   computed: {
-    handleDisabledSubmit() {
+    isSubmitDisable() {
       return !this.formData.name || !this.formData.email ? true : undefined;
     }
   },
   methods: {
-    handleChangeFormData(data){
-      this.formData = { ...this.formData, ...data}
+    handleChangeFormData(propName, e){
+    let data = {};
+    data[propName] = e.detail.value
+    this.formData = { ...this.formData, ...data}
     },
     setChartType(type) {
       this.chartType = type;
@@ -152,31 +154,23 @@ export default {
       this.toggleDialog();
     },
     handleClickToggle() {
-      if(sessionStorage.getItem('theme') == "dark") {
-        sessionStorage.setItem('theme', 'light');
-        this.isDarkTheme = false;
-        window.location.reload();
-      } else {
-        sessionStorage.setItem('theme', 'dark');
-        this.isDarkTheme = true;
-        window.location.reload();
-      }
+      sessionStorage.setItem('theme', this.isDarkTheme ? 'light' : 'dark')
+      window.location.reload();
     }
   },
   mounted() {
     this.setChartType(this.chartType);
 
-    this.isDarkTheme = sessionStorage.getItem('theme') === "dark" ? true : false;
+    this.isDarkTheme = THEME === 'dark';
 
     const inputName = this.$refs.name;
-    inputName.addEventListener('value-changed', (e) =>
-      this.handleChangeFormData({ name: e.detail.value })
-    );
+    inputName.addEventListener('value-changed', this.handleChangeFormData.bind(this, 'name'));
 
     const inputEmail = this.$refs.email;
-    inputEmail.addEventListener('value-changed', (e) =>
-      this.handleChangeFormData({ email: e.detail.value })
-    );
+    inputEmail.addEventListener('value-changed', this.handleChangeFormData.bind(this, 'email'));
+
+    const birthDateInput = this.$refs.birthDate;
+    birthDateInput.addEventListener('value-changed', this.handleChangeFormData.bind(this, 'birthDate'));
 
     const radioButtonGroup = this.$refs.radio;
     radioButtonGroup.addEventListener('checked-changed', (e) => {
@@ -184,11 +178,6 @@ export default {
         this.formData.gender = e.target.textContent;
       }
     }, true);
-
-    const birthDateInput = this.$refs.birthDate;
-    birthDateInput.addEventListener('value-changed', (e) =>
-      this.handleChangeFormData({ birthDate: e.detail.value })
-    );
 
     const checkbox = this.$refs.checkbox;
     checkbox.addEventListener('checked-changed', function (e) {

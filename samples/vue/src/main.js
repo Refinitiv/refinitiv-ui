@@ -1,19 +1,18 @@
 
 
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
 
+export const THEME = sessionStorage.getItem('theme') || 'light';
 const loadTheme = () => {
   return new Promise(resolve => {
-    sessionStorage.setItem('theme', sessionStorage.getItem('theme') || 'light') ;
-    const theme = sessionStorage.getItem('theme');
-    import (`./themes/${theme}.js`)
-    resolve(theme);
+    import (`./themes/${THEME}.js`);
+    resolve(THEME);
   });
 };
 
-loadTheme().then((theme) => {
-  createApp(App).mount('#app')
-  document.body.setAttribute("theme", `${theme}`);
+loadTheme().then((THEME) => {
+  createApp(App).mount('#app');
+  document.body.setAttribute("theme", `${THEME}`);
 })
 
