@@ -311,6 +311,12 @@ module.exports = {
     filename: "index.js",
     path: path.resolve(__dirname, "dist"),
   },
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, './'),
+      watch: true
+    }
+  },
   module: {
     rules: [
       {
