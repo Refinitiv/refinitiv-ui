@@ -18,8 +18,8 @@
     "test:all": "lerna run test",
     "lint": "node cli lint",
     "lint:all": "lerna run lint",
-    "build:docs": "lerna run --scope ef-docs build",
-    "start:docs": "lerna run --scope ef-docs start"
+    "build:docs": "lerna run --scope ef-docs build --stream",
+    "start:docs": "lerna run --scope ef-docs start --stream"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
