@@ -138,3 +138,6 @@ custom-elements.json
 ## editors
 /.idea
 /.vscode
+
+#Sample App
+samples/angular/.angular/*
