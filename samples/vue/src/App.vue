@@ -113,7 +113,7 @@ export default {
         isReceiveMail: true
       },
       isDarkTheme: true,
-      chartType: localStorage.chart ? localStorage.chart : 'line',
+      chartType: 'line',
       chartConfig: {},
       isSubmitDisabled: true,
     };
@@ -128,7 +128,6 @@ export default {
       this.formData = { ...this.formData, ...data}
     },
     setChartType(type) {
-      localStorage.chart = type;
       this.chartType = type;
       this.chartConfig = {
         options: {
@@ -150,26 +149,24 @@ export default {
     },
     handleClickConfirm() {
       console.log('data =', JSON.stringify(this.formData, null, 2));
-      this.toggleDialog()
+      this.toggleDialog();
     },
     handleClickToggle() {
-      if(localStorage.theme == "dark") {
-        localStorage.theme = "light";
+      if(sessionStorage.getItem('theme') == "dark") {
+        sessionStorage.setItem('theme', 'light');
         this.isDarkTheme = false;
-        window.location.reload()
+        window.location.reload();
       } else {
-        localStorage.theme = "dark";
+        sessionStorage.setItem('theme', 'dark');
         this.isDarkTheme = true;
-        window.location.reload()
+        window.location.reload();
       }
     }
   },
   mounted() {
-    this.setChartType(this.chartType)
+    this.setChartType(this.chartType);
 
-    const theme = localStorage.theme;
-    document.body.setAttribute("theme", `${theme}`);
-    this.isDarkTheme = theme === "dark" ? true : false;
+    this.isDarkTheme = sessionStorage.getItem('theme') === "dark" ? true : false;
 
     const inputName = this.$refs.name;
     inputName.addEventListener('value-changed', (e) =>
@@ -184,7 +181,7 @@ export default {
     const radioButtonGroup = this.$refs.radio;
     radioButtonGroup.addEventListener('checked-changed', (e) => {
       if (e.target.checked) {
-        this.formData.gender = e.target.textContent
+        this.formData.gender = e.target.textContent;
       }
     }, true);
 
