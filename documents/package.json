@@ -27,7 +27,7 @@
   "devDependencies": {
     "chalk": "^4.1.2",
     "concurrently": "^6.4.0",
-    "pandora-book": "file:tools/pandora-book-3.0.0-dev.tgz",
+    "pandora-book": "file:./tools/pandora-book-3.0.0-dev.tgz",
     "serve": "^13.0.2"
   },
   "dependencies": {
