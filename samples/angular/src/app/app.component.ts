@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     address: [''],
     email: ['', [Validators.required, Validators.email]],
     job: [''],
-    mailLetter: [true]
+    mailLetter: [false]
   });
   public chartType = 'line';
   public checked = false;
@@ -40,9 +40,8 @@ export class AppComponent implements OnInit {
     this.generateChart();
   }
   
-  async loadTheme (theme: string): Promise<unknown> {
+  loadTheme (theme: string): Promise<unknown> {
     document.documentElement.setAttribute('theme', theme);
-    document.documentElement.style.setProperty('--theme', theme);
     return import(`../themes/${theme}`);
   }
 

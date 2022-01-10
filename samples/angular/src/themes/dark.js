@@ -15,4 +15,3 @@ import '@refinitiv-ui/elements/lib/overlay-menu/themes/halo/dark';
 import '@refinitiv-ui/elements/lib/dialog/themes/halo/dark';
 import '@refinitiv-ui/elements/lib/toggle/themes/halo/dark';
 import '@refinitiv-ui/elements/lib/checkbox/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/item/themes/halo/dark';

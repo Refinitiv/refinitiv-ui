@@ -19,7 +19,6 @@ import '@refinitiv-ui/elements/lib/overlay-menu';
 import '@refinitiv-ui/elements/lib/dialog';
 import '@refinitiv-ui/elements/lib/toggle';
 import '@refinitiv-ui/elements/lib/checkbox';
-import '@refinitiv-ui/elements/lib/item';
 
 if (environment.production) {
   enableProdMode();

@@ -15,4 +15,3 @@ import '@refinitiv-ui/elements/lib/overlay-menu/themes/halo/light';
 import '@refinitiv-ui/elements/lib/dialog/themes/halo/light';
 import '@refinitiv-ui/elements/lib/toggle/themes/halo/light';
 import '@refinitiv-ui/elements/lib/checkbox/themes/halo/light';
-import '@refinitiv-ui/elements/lib/item/themes/halo/light';

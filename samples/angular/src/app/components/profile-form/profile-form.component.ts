@@ -42,10 +42,6 @@ export class ProfileFormComponent implements OnInit {
     return this.form.get('email') as AbstractControl;
   }
 
-  get gender (): string {
-    return this.form.value.gender;
-  }
-
   get job (): string {
     return this.form.value.job;
   }
