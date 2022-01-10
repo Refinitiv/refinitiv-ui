@@ -17,7 +17,7 @@
     <app-side-bar [chartType]="chartType" [onTabClickCallback]="onTabChangeHandler"></app-side-bar>
     <div class="chart-container">
       <ef-loader *ngIf="loading"></ef-loader>
-      <ef-interactive-chart #chart [ngClass]="{'loading': loading}"></ef-interactive-chart>
+      <ef-interactive-chart #chart></ef-interactive-chart>
     </div>
   </div>
 
