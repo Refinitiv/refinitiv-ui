@@ -215,4 +215,24 @@ function App() {
 }
 ```
 
+### Testing With Jest
+
+If you use [Create React App](https://create-react-app.dev/), Jest is already included out of the box with useful defaults.
+
+#### Jest configuration
+
+Add this configuration to your `package.json` file.
+
+```json
+  "jest": {
+    // Because @refinitiv-ui publish to npm as uncompiled source files so we need to tell Jest to transform this module.
+    "transformIgnorePatterns": ["node_modules/(?!@refinitiv-ui)/"],
+
+    // Jest doesn’t support package exports ( webpack 5 ) yet.
+    "moduleNameMapper": {
+      "@refinitiv-ui/elements/((?!lib).*)$": "<rootDir>/node_modules/@refinitiv-ui/elements/lib/$1"
+    }
+  }
+```
+
 ::footer::
