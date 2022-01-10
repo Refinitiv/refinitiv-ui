@@ -5,7 +5,7 @@
   "description": "Element Framework Documentation",
   "engines": {
     "node": ">=14.15.4",
-    "npm": ">=7.19.1"
+    "npm": ">=7.7.6"
   },
   "scripts": {
     "start": "npm run build:api && concurrently \"pandora build dist --watch\" \"serve dist -s\"",
