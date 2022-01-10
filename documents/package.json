@@ -8,13 +8,12 @@
     "npm": ">=8.0.0"
   },
   "scripts": {
-    "postinstall": "npm run install-pandora",
     "pandora-cmd": "node ./tools/package/bin/cli.js",
     "install-pandora": "tar -xf ./tools/pandora-book-3.0.0-dev.tgz -C ./tools",
     "start": "npm run build:api && concurrently \"npm run pandora-cmd -- build dist --watch\" \"serve dist -s\"",
     "copy:resources": "cp -r resources dist/resources && cp src/theme-loader.js dist/theme-loader.js",
     "build:api": "node ./scripts/element.injector.js",
-    "build": "rm -rf build && npm run build:api && npm run pandora-cmd -- build dist --clean && npm run copy:resources"
+    "build": "npm run install-pandora && rm -rf build && npm run build:api && npm run pandora-cmd -- build dist --clean && npm run copy:resources"
   },
   "repository": {
     "type": "git",
