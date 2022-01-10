@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elemental-theme",
-  "version": "5.4.1",
+  "version": "5.5.0-alpha.0",
   "description": "Base theme for Element Framework Components",
   "author": "Refinitiv",
   "license": "Apache-2.0",
