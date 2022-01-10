@@ -1,5 +1,3 @@
-
-
 import { createApp } from 'vue';
 import App from './App.vue';
 
@@ -15,4 +13,3 @@ loadTheme().then((THEME) => {
   createApp(App).mount('#app');
   document.body.setAttribute("theme", `${THEME}`);
 })
-
