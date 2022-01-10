@@ -16,6 +16,7 @@ runs:
       uses: actions/setup-node@v2
       with:
         node-version: 15.x
+    - run: npm i -g npm@7
 
     - name: Setup caching dependencies
       uses: actions/cache@v2

@@ -5,7 +5,7 @@
   "description": "Element Framework Documentation",
   "engines": {
     "node": ">=14.15.4",
-    "npm": ">=7.7.6"
+    "npm": ">=7.19.1"
   },
   "scripts": {
     "start": "npm run build:api && concurrently \"pandora build dist --watch\" \"serve dist -s\"",
@@ -27,7 +27,7 @@
   "devDependencies": {
     "chalk": "^4.1.2",
     "concurrently": "^6.4.0",
-    "pandora-book": "file:./tools/pandora-book-3.0.0-dev.tgz",
+    "pandora-book": "file:tools/pandora-book-3.0.0-dev.tgz",
     "serve": "^13.0.2"
   },
   "dependencies": {
