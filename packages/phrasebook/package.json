@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/phrasebook",
-  "version": "5.3.1-alpha.0",
+  "version": "5.4.0",
   "description": "Collection of messages in EF components for translation",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -117,6 +117,7 @@
   },
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",
+    "build:watch": "npm run build -- --watch --preserveWatchOutput",
     "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

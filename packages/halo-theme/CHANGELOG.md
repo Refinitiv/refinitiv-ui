@@ -3,14 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [5.4.1-alpha.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.4.0...@refinitiv-ui/halo-theme@5.4.1-alpha.0) (2021-12-17)
+## [5.4.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.4.0...@refinitiv-ui/halo-theme@5.4.1) (2021-12-21)
 
 
 ### Bug Fixes
 
 * **counter:** change width height, font size, bg color to proper style ([#117](https://github.com/Refinitiv/refinitiv-ui/issues/117)) ([8388eee](https://github.com/Refinitiv/refinitiv-ui/commit/8388eeea1fdc107d5dafaaf3cf3a6cbe468b473f))
-* **themes:** fix exports field ([b6d7fad](https://github.com/Refinitiv/refinitiv-ui/commit/b6d7fad4f9641298b211f0a4580a5c45a988d9ac))
-* **themes:** remove exports fields ([424fec4](https://github.com/Refinitiv/refinitiv-ui/commit/424fec4e6fb121c40c522d1c03d8520e1b5a98b7))
+* **halo-theme:** fix backward compat with current import native-element path ([258069f](https://github.com/Refinitiv/refinitiv-ui/commit/258069f6260eab5011747a077b37fb8587121f0d))
+* **themes:** ignore hover styles on mobile device ([#129](https://github.com/Refinitiv/refinitiv-ui/issues/129)) ([ac279a9](https://github.com/Refinitiv/refinitiv-ui/commit/ac279a91d6e961626c595deacfd8141a293f734d))
 
 
 

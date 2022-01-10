@@ -3,12 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [5.9.1-alpha.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.9.0...@refinitiv-ui/elements@5.9.1-alpha.0) (2021-12-17)
+# [5.10.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.9.1...@refinitiv-ui/elements@5.10.0) (2021-12-21)
 
 
 ### Bug Fixes
 
 * **label:** break all words when line-clamp is 1 ([#115](https://github.com/Refinitiv/refinitiv-ui/issues/115)) ([3b9f456](https://github.com/Refinitiv/refinitiv-ui/commit/3b9f4566dcf39eba8464df6443be89a156c9692e))
+* **pagiantion:** convert prop toString in setter ([3c32ee9](https://github.com/Refinitiv/refinitiv-ui/commit/3c32ee95a237180da6e2449eb654b749de2340c9))
+* **pagination:** add missing feature blur to set page from the input ([f6ff2e1](https://github.com/Refinitiv/refinitiv-ui/commit/f6ff2e14509627119d8d3e22c8c2005fae81ef0c))
+* **pagination:** getter in internal will retrigger incorrect warning message ([e506885](https://github.com/Refinitiv/refinitiv-ui/commit/e50688509bc668be4592d0be73df891ffd139208))
+* **pagination:** max limit does not work ([715956e](https://github.com/Refinitiv/refinitiv-ui/commit/715956e4936f4a7b219c8d06ce755e7cbf43b755))
+* **pagination:** remove warning when set correct type value ([235b46b](https://github.com/Refinitiv/refinitiv-ui/commit/235b46b3306a1833515858ae421bd53942fe8242))
+* **pagination:** tab on the input to set a value ([675f4d6](https://github.com/Refinitiv/refinitiv-ui/commit/675f4d6039d0a391d34e946e42abf596b5f17e1b))
+* **pagination:** the input does not get disable state from the root ([6603949](https://github.com/Refinitiv/refinitiv-ui/commit/6603949d2cce1eb0c5b59f727b3c8a5273fb67a8))
+
+
+### Features
+
+* **pagination:** support max unknown ([d3997ce](https://github.com/Refinitiv/refinitiv-ui/commit/d3997ce16abb9c01ecc43bcf6a80386b02cd3c12))
+
+
+
+
+
+## [5.9.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.9.0...@refinitiv-ui/elements@5.9.1) (2021-12-15)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
 
 
 
@@ -16,21 +36,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [5.9.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.8.1...@refinitiv-ui/elements@5.9.0) (2021-12-15)
 
+
 ### Features
 
 * add named exports to elements, themes and locales to support full backward compatibility ([#114](https://github.com/Refinitiv/refinitiv-ui/issues/114)) ([7d25d50](https://github.com/Refinitiv/refinitiv-ui/commit/7d25d50c649308fc5a17d086e9e01467a0dabfb9))
 * **calendar:** improve screen reader support ([#73](https://github.com/Refinitiv/refinitiv-ui/issues/73)) ([a2576cc](https://github.com/Refinitiv/refinitiv-ui/commit/a2576cc8a1f0229bb5988af0c9d0bbf8ce7f765c))
 * **combo-box:** improve screen reader support ([#116](https://github.com/Refinitiv/refinitiv-ui/issues/116)) ([f603de1](https://github.com/Refinitiv/refinitiv-ui/commit/f603de1d3b1900875d6903477938ecd21d055531))
 * **time-picker:** improve screen reader support ([#121](https://github.com/Refinitiv/refinitiv-ui/issues/121)) ([1eb8bee](https://github.com/Refinitiv/refinitiv-ui/commit/1eb8beeb7d3b0d7be7224943e7d0a7c62c0cb788))
-* **calendar:** add accessibility ([#73](https://github.com/Refinitiv/refinitiv-ui/issues/73)) ([a2576cc](https://github.com/Refinitiv/refinitiv-ui/commit/a2576cc8a1f0229bb5988af0c9d0bbf8ce7f765c))
-
-
-
-
-
-## [5.8.2-alpha.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.8.1...@refinitiv-ui/elements@5.8.2-alpha.0) (2021-12-13)
-
-**Note:** Version bump only for package @refinitiv-ui/elements
 
 
 

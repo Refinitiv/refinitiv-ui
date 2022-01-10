@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "5.9.1-alpha.0",
+  "version": "5.10.0",
   "description": "Element Framework Elements",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -593,12 +593,12 @@
   },
   "dependencies": {
     "@refinitiv-ui/browser-sparkline": "1.1.7",
-    "@refinitiv-ui/core": "^5.3.5-alpha.0",
-    "@refinitiv-ui/halo-theme": "^5.4.1-alpha.0",
-    "@refinitiv-ui/i18n": "^5.2.5-alpha.0",
-    "@refinitiv-ui/phrasebook": "^5.3.1-alpha.0",
-    "@refinitiv-ui/solar-theme": "^5.6.1-alpha.0",
-    "@refinitiv-ui/translate": "^5.2.5-alpha.0",
+    "@refinitiv-ui/core": "^5.3.4",
+    "@refinitiv-ui/halo-theme": "^5.4.1",
+    "@refinitiv-ui/i18n": "^5.2.5",
+    "@refinitiv-ui/phrasebook": "^5.4.0",
+    "@refinitiv-ui/solar-theme": "^5.6.1",
+    "@refinitiv-ui/translate": "^5.2.5",
     "@refinitiv-ui/utils": "^5.1.1",
     "@types/chart.js": "^2.9.31",
     "chart.js": "~2.9.4",
@@ -608,7 +608,7 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/demo-block": "^5.1.5-alpha.0",
+    "@refinitiv-ui/demo-block": "^5.1.5",
     "@refinitiv-ui/test-helpers": "^5.1.1",
     "@types/d3-interpolate": "^3.0.1"
   },

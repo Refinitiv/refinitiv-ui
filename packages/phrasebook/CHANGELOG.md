@@ -3,9 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [5.3.1-alpha.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@5.3.0...@refinitiv-ui/phrasebook@5.3.1-alpha.0) (2021-12-17)
+# [5.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@5.3.0...@refinitiv-ui/phrasebook@5.4.0) (2021-12-21)
 
-**Note:** Version bump only for package @refinitiv-ui/phrasebook
+
+### Features
+
+* **pagination:** support max unknown ([d3997ce](https://github.com/Refinitiv/refinitiv-ui/commit/d3997ce16abb9c01ecc43bcf6a80386b02cd3c12))
 
 
 
@@ -18,6 +21,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * add named exports to elements, themes and locales to support full backward compatibility ([#114](https://github.com/Refinitiv/refinitiv-ui/issues/114)) ([7d25d50](https://github.com/Refinitiv/refinitiv-ui/commit/7d25d50c649308fc5a17d086e9e01467a0dabfb9))
 * **calendar:** add accessibility ([#73](https://github.com/Refinitiv/refinitiv-ui/issues/73)) ([a2576cc](https://github.com/Refinitiv/refinitiv-ui/commit/a2576cc8a1f0229bb5988af0c9d0bbf8ce7f765c))
+
 
 
 
