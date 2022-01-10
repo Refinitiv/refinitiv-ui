@@ -8,7 +8,7 @@
     "npm": ">=8.0.0"
   },
   "scripts": {
-    "pandora-cmd": "npx ./tools/pandora-book-3.0.0-dev.tgz",
+    "pandora-cmd": "npx -y ./tools/pandora-book-3.0.0-dev.tgz",
     "start": "npm run build:api && concurrently \"npm run pandora-cmd -- build dist --watch\" \"serve dist -s\"",
     "copy:resources": "cp -r resources dist/resources && cp src/theme-loader.js dist/theme-loader.js",
     "build:api": "node ./scripts/element.injector.js",
