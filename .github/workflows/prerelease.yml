@@ -26,17 +26,18 @@ jobs:
           git config --global user.email "RefinitivUIDev@refinitiv.com"
           git config --global user.name "refinitiv-ui-dev"
 
-      # Installing package dependencies strictly based on lock file
-      - run: npm ci --ignore-scripts --audit=false --fund=false
+      - name: Dependencies Installation
+        run: npm ci --ignore-scripts --audit=false --fund=false
 
-      # Builds only changed packages including its dependencies
-      - run: lerna run build:prod --include-dependencies --since
+      - name: Production build
+        run: lerna run build:prod --include-dependencies --since
 
       # Increment a prerelease version for change packages according to conventional commits
       # Add --preid to change prerelease identifier, default to alpha
-      - run: lerna version --no-changelog --conventional-commits --conventional-prerelease --yes
+      - name: Bump prerelease version
+        run: lerna version --no-changelog --conventional-commits --conventional-prerelease --yes
 
-      # Publish package to NPM at tag `next`
-      - run: lerna publish from-git --dist-tag next --yes
+      - name: Publish package to NPM at tag `next`
+        run: lerna publish from-git --dist-tag next --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
