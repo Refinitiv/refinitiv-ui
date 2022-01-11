@@ -10,7 +10,7 @@ layout: default
 </div>
 
 # Angular Guide
-@>This guideline uses Angular's seed project and Angular CLI v12.0.5
+@>This guideline uses Angular's seed project and Angular CLI 13.1.2.
 
 Install Angular CLI.
 
@@ -241,7 +241,7 @@ npm start
 
 Using third-party form control elements with Angular's forms API requires [ControlValueAccessor](https://angular.io/api/forms/ControlValueAccessor) which acts as a bridge that synchronizes the data between one and another. `ControlValueAccessor` already covers all the standard native `input` tags, but not for custom tags like EF components.
 
-However, for element such as `ef-text-field`, `coral-search-field` and `ef-password-field>` that has similar behavior to native `input[type=text]`, you can use [DefaultValueAccessor](https://angular.io/api/forms/DefaultValueAccessor) directive (`ngDefaultControl`).
+However, for element such as `ef-text-field`, `ef-search-field` and `ef-password-field>` that has similar behavior to native `input[type=text]`, you can use [DefaultValueAccessor](https://angular.io/api/forms/DefaultValueAccessor) directive (`ngDefaultControl`).
 
 ```html
 <ef-text-field formControlName="..." ngDefaultControl>
