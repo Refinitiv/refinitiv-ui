@@ -24,7 +24,7 @@
     "htmlparser2": "^4.0.0",
     "less": "3.11.1",
     "less-plugin-npm-import": "^2.1.0",
-    "postcss": "^7.0.18",
+    "postcss": "^8.2.13",
     "yargs-parser": "^15.0.0"
   },
   "publishConfig": {
