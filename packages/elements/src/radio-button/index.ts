@@ -208,7 +208,6 @@ export class RadioButton extends ControlElement {
       return;
     }
     switch (event.key) {
-      case 'Enter':
       case ' ':
       case 'Spacebar':
         if (this.readonly) {
