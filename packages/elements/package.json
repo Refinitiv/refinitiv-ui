@@ -589,6 +589,7 @@
     "test:snapshots": "node cli test --snapshots",
     "lint": "node cli lint",
     "lint:fix": "node cli lint --fix",
+    "generate-api-md-files": "node ../../scripts/release/api-analyzer.js",
     "prepublishOnly": "node scripts/release"
   },
   "dependencies": {
