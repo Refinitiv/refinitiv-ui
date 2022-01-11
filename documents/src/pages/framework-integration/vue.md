@@ -142,13 +142,15 @@ npm run serve
 ## Testing with Jest
 
 To use the Jest on your Vue project, you need to add Jest plugin to your application by the following command.
+
 ```sh
 vue add unit-jest
 ```
 
 ### Jest configuration
 
-Jest doesn't transform dependencies from `/node_modules` and not support package exports (Webpack 5) yet. We need to add the configuration to the Jest in `jest.config.js`.
+By default, Jest doesn't transform dependencies inside `/node_modules` folder, it will not understand the code and resulting in syntax error. You need to use `transformIgnorePatterns` to allow transpiling EF modules, and other modules if requires [see more](https://jestjs.io/docs/configuration#transformignorepatterns-arraystring).
+Additionally, Jest doesn't support package exports feature in package.json yet – this has been supported in new modern bundlers e.g. WebPack 5. As a result, Jest wouldn't be able to find importing modules in your application. You can resolve this by using `moduleNameMapper` in Jest configuration, `jest.config.js`.
 
 ```js
   transformIgnorePatterns: ["node_modules/(?!@refinitiv-ui)/"],
