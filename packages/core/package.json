@@ -54,7 +54,7 @@
   "dependencies": {
     "@juggle/resize-observer": "^3.3.1",
     "@refinitiv-ui/utils": "^5.1.1",
-    "lit": "^2.1.1",
+    "lit": "~2.0.2",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
