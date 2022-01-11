@@ -1,0 +1,23 @@
+{
+  "name": "vanilla-sample",
+  "version": "1.0.0",
+  "description": "A sample vanilla application is developed to work with @refinitiv-ui components",
+  "main": "index.html",
+  "private": true,
+  "scripts": {
+    "start": "npm run build && webpack serve",
+    "build": "npm run build:light && npm run build:dark && webpack build --mode production",
+    "build:light": "lessc ./src/styles/light.less ./dist/styles/light.css",
+    "build:dark": "lessc ./src/styles/dark.less ./dist/styles/dark.css"
+  },
+  "dependencies": {
+    "@refinitiv-ui/elements": "^5.10.0",
+    "@refinitiv-ui/halo-theme": "^5.4.1",
+    "less": "^4.1.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.2"
+  }
+}
