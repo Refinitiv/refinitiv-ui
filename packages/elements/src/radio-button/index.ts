@@ -207,6 +207,7 @@ export class RadioButton extends ControlElement {
     if (this.disabled || event.defaultPrevented) {
       return;
     }
+
     switch (event.key) {
       case 'Enter':
       case ' ':
@@ -216,10 +217,14 @@ export class RadioButton extends ControlElement {
         }
         this.handleChangeChecked();
         break;
+      case 'Right':
+      case 'Down':
       case 'ArrowRight':
       case 'ArrowDown':
         this.navigateToSibling('next');
         break;
+      case 'Left':
+      case 'Up':
       case 'ArrowLeft':
       case 'ArrowUp':
         this.navigateToSibling('previous');
