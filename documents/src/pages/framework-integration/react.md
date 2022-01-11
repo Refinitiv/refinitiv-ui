@@ -215,20 +215,19 @@ function App() {
 }
 ```
 
-### Testing With Jest
+## Testing With Jest
 
 If you use [Create React App](https://create-react-app.dev/), Jest is already included out of the box with useful defaults.
 
-#### Jest configuration
+### Jest configuration
 
-Add this configuration to your `package.json` file.
+By default, Jest doesn't transform dependencies inside `/node_modules` folder, it will not understand the code and resulting in syntax error. You need to use `transformIgnorePatterns` to allow transpiling EF modules, and other modules if requires [see more](https://jestjs.io/docs/configuration#transformignorepatterns-arraystring).
+
+Additionally, Jest doesn't support package exports feature in package.json yet – this has been supported in new modern bundlers e.g. WebPack 5. As a result, Jest wouldn't be able to find importing modules in your application. You can resolve this by using `moduleNameMapper` in Jest configuration, `package.json`.
 
 ```json
   "jest": {
-    // Because @refinitiv-ui publish to npm as uncompiled source files so we need to tell Jest to transform this module.
     "transformIgnorePatterns": ["node_modules/(?!@refinitiv-ui)/"],
-
-    // Jest doesn’t support package exports ( webpack 5 ) yet.
     "moduleNameMapper": {
       "@refinitiv-ui/elements/((?!lib).*)$": "<rootDir>/node_modules/@refinitiv-ui/elements/lib/$1"
     }
