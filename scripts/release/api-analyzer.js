@@ -7,6 +7,8 @@ const wca = require('web-component-analyzer');
 const { log, errorHandler, success, error } = require('../helpers');
 const { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT } = require('./util');
 
+console.log('PACKAGE_ROOT', PACKAGE_ROOT);
+
 const getDeclarationMethods = (meta) => {
   if (!meta || !meta.results || !meta.results.length) {
     return [];
