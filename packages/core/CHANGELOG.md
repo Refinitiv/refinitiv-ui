@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.3.4...@refinitiv-ui/core@5.4.0) (2022-01-12)
+
+
+### Bug Fixes
+
+* release script should not be publish to NPM ([#144](https://github.com/Refinitiv/refinitiv-ui/issues/144)) ([79984ad](https://github.com/Refinitiv/refinitiv-ui/commit/79984ad39472132586727e77855d8f63609173af))
+
+
+### Features
+
+* upgrade `lit` to 2.1.1 ([#156](https://github.com/Refinitiv/refinitiv-ui/issues/156)) ([358ca28](https://github.com/Refinitiv/refinitiv-ui/commit/358ca282491075973f12895bddbac990b79b00e6))
+
+
+
+
+
 ## [5.3.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.3.3...@refinitiv-ui/core@5.3.4) (2021-12-15)
 
 **Note:** Version bump only for package @refinitiv-ui/core
