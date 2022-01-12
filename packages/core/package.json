@@ -42,6 +42,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",
+    "build:watch": "npm run build -- --watch --preserveWatchOutput",
     "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -53,7 +54,7 @@
   "dependencies": {
     "@juggle/resize-observer": "^3.3.1",
     "@refinitiv-ui/utils": "^5.1.1",
-    "lit": "^2.0.0",
+    "lit": "~2.1.1",
     "tslib": "^2.3.1"
   },
   "devDependencies": {

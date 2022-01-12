@@ -4,14 +4,7 @@
   "description": "Verified polyfills for the Element Framework",
   "author": "Refinitiv",
   "license": "Apache-2.0",
-  "main": "entrypoints/all.js",
-  "exports": {
-    ".": {
-      "default": "./entrypoints/all.js"
-    },
-    "./all.js": "./entrypoints/all.js",
-    "./minimal.js": "./entrypoints/minimal.js"
-  },
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
@@ -24,7 +17,7 @@
     "@webcomponents/template": "^1.4.2",
     "@webcomponents/webcomponents-platform": "^1.0.0",
     "core-js": "^3.14.0",
-    "lit": "^2.0.0",
+    "lit": "~2.1.1",
     "shady-css-scoped-element": "0.0.2"
   },
   "publishConfig": {
