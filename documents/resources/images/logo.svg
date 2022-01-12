@@ -1,9 +1,1 @@
-<svg width="160px" height="160px" viewBox="0 0 160 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="icon">
-            <polygon id="Path" fill="#535DE9" points="5.92592593 29.7296528 80.0855188 -3.55271368e-15 154.074074 29.7296528 80.0855188 58.9449215"></polygon>
-            <polygon id="Path-2" fill="#CDCFEF" points="0 41.0619469 57.9775597 74.4014993 72.5925926 158.615715 16.4786794 126.39407"></polygon>
-            <polygon id="Path-3" fill="#F986B2" points="102.543647 74.0381467 160 41.0619469 144.047206 126.979079 87.4074074 159.060216"></polygon>
-        </g>
-    </g>
-</svg>
+<svg height="160" viewBox="0 0 160 160" width="160" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="m5.92592593 29.7296528 74.15959287-29.7296528 73.9885552 29.7296528-73.9885552 29.2152687z" fill="#535de9"/><path d="m0 41.0619469 57.9775597 33.3395524 14.6150329 84.2142157-56.1139132-32.221645z" fill="#cdcfef"/><path d="m102.543647 74.0381467 57.456353-32.9761998-15.952794 85.9171321-56.6397986 32.081137z" fill="#f986b2"/></g></svg>
