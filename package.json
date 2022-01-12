@@ -6,8 +6,8 @@
     "documents"
   ],
   "engines": {
-    "node": ">=15.0.0",
-    "npm": ">=7.0.0"
+    "node": ">=16.11.0",
+    "npm": ">=8.0.0"
   },
   "scripts": {
     "lerna": "lerna",
