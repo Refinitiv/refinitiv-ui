@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@5.2.5...@refinitiv-ui/translate@5.3.0) (2022-01-12)
+
+
+### Features
+
+* upgrade `lit` to 2.1.1 ([#156](https://github.com/Refinitiv/refinitiv-ui/issues/156)) ([358ca28](https://github.com/Refinitiv/refinitiv-ui/commit/358ca282491075973f12895bddbac990b79b00e6))
+
+
+
+
+
 ## [5.2.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@5.2.4...@refinitiv-ui/translate@5.2.5) (2021-12-21)
 
 **Note:** Version bump only for package @refinitiv-ui/translate
