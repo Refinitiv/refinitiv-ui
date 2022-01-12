@@ -4,8 +4,8 @@ import '@refinitiv-ui/elemental-theme/light/ef-radio-button';
 
 const createEnterKeyboardEvent = () => keyboardEvent('keydown', { key: 'Enter' });
 const createSpacebarKeyboardEvent = () => keyboardEvent('keydown', { key: isIE() ? 'Spacebar' : ' ' });
-const keyArrowLeft = () => keyboardEvent('keydown', { key: 'ArrowLeft'});
-const keyArrowRight = () => keyboardEvent('keydown', { key: 'ArrowRight'});
+const keyArrowLeft = () => keyboardEvent('keydown', { key: isIE() ? 'Left' : 'ArrowLeft'});
+const keyArrowRight = () => keyboardEvent('keydown', { key: isIE() ? 'Right' : 'ArrowRight'});
 
 const updateGroup = async (group) => {
   for (let i = 0; i < group.length; i += 1) {
