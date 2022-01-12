@@ -12,14 +12,14 @@
   "scripts": {
     "lerna": "lerna",
     "build": "lerna run build",
+    "build:docs": "lerna run --scope ef-docs build --stream",
     "build:prod": "lerna run build:prod",
     "start": "node cli start",
+    "start:docs": "lerna run --scope ef-docs start --stream",
     "test": "node cli test",
     "test:all": "lerna run test",
     "lint": "node cli lint",
-    "lint:all": "lerna run lint",
-    "build:docs": "lerna run --scope ef-docs build --stream",
-    "start:docs": "lerna run --scope ef-docs start --stream"
+    "lint:all": "lerna run lint"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
