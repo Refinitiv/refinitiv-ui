@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.10.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.10.0...@refinitiv-ui/elements@5.10.1) (2022-01-12)
+
+
+### Bug Fixes
+
+* **checkbox:** `Enter` key should not check or uncheck checkbox ([ee61255](https://github.com/Refinitiv/refinitiv-ui/commit/ee6125513ab670495ef7b87580fa97ea386c840a))
+* **pagination:** handle case when user input number with string ([#142](https://github.com/Refinitiv/refinitiv-ui/issues/142)) ([975f999](https://github.com/Refinitiv/refinitiv-ui/commit/975f9998bc1cf4b5326b567023984d8a893e6983))
+* **radio-button:** `Enter` key should not check or uncheck radio-button ([145f7bf](https://github.com/Refinitiv/refinitiv-ui/commit/145f7bfc15fe72e95d0719eaa6d691f09fd8a03c))
+* **radio-button:** add IE11 arrow keys navigation support ([#158](https://github.com/Refinitiv/refinitiv-ui/issues/158)) ([6389d00](https://github.com/Refinitiv/refinitiv-ui/commit/6389d006a07cdc5ed04ae77748f12726b7da48e1))
+
+
+
+
+
 # [5.10.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.9.1...@refinitiv-ui/elements@5.10.0) (2021-12-21)
 
 

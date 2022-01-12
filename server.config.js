@@ -11,9 +11,7 @@ module.exports = {
   rootDir: ROOT,
   open: true,
   watch: false,
-  nodeResolve: {
-    exportConditions: ['development'],
-  },
+  nodeResolve: true,
   preserveSymlinks: true,
   appIndex: '/',
   plugins: [
