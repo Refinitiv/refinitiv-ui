@@ -195,13 +195,22 @@ export class Collapse extends BasicElement {
    */
   protected render (): TemplateResult {
     return html`
-      <ef-header part="header" level="${this.level}" @tap="${this.handleTap}">
-        <ef-icon icon="right" slot="left" part="toggle"></ef-icon>
+      <ef-header
+        id="header"
+        part="header"
+        level="${this.level}"
+        @tap="${this.handleTap}"
+        tabindex="0"
+        role="button"
+        aria-expanded=${this.expanded}
+        aria-controls="content"
+      >
+        <ef-icon icon="right" slot="left" part="toggle" aria-hidden="true"></ef-icon>
         <slot slot="left" name="header-left"></slot>
         <slot slot="right" name="header-right"></slot>
         ${this.header}
       </ef-header>
-      <div part="content">
+      <div id="content" part="content" role="region" aria-labelledby="header" ?hidden=${!this.expanded}>
         <ef-panel ?spacing="${this.spacing}" transparent>
           <slot></slot>
         </ef-panel>

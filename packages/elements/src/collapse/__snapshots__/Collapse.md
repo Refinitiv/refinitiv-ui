@@ -6,10 +6,16 @@
 
 ```html
 <ef-header
+  aria-controls="content"
+  aria-expanded="false"
+  id="header"
   level="3"
   part="header"
+  role="button"
+  tabindex="0"
 >
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
@@ -26,7 +32,13 @@
   >
   </slot>
 </ef-header>
-<div part="content">
+<div
+  aria-labelledby="header"
+  hidden=""
+  id="content"
+  part="content"
+  role="region"
+>
   <ef-panel transparent="">
     <slot>
     </slot>
@@ -39,10 +51,16 @@
 
 ```html
 <ef-header
+  aria-controls="content"
+  aria-expanded="false"
+  id="header"
   level="3"
   part="header"
+  role="button"
+  tabindex="0"
 >
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
@@ -59,7 +77,13 @@
   >
   </slot>
 </ef-header>
-<div part="content">
+<div
+  aria-labelledby="header"
+  hidden=""
+  id="content"
+  part="content"
+  role="region"
+>
   <ef-panel transparent="">
     <slot>
     </slot>
@@ -72,10 +96,16 @@
 
 ```html
 <ef-header
+  aria-controls="content"
+  aria-expanded="false"
+  id="header"
   level="3"
   part="header"
+  role="button"
+  tabindex="0"
 >
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
@@ -93,7 +123,13 @@
   </slot>
   Header
 </ef-header>
-<div part="content">
+<div
+  aria-labelledby="header"
+  hidden=""
+  id="content"
+  part="content"
+  role="region"
+>
   <ef-panel transparent="">
     <slot>
     </slot>
@@ -106,10 +142,16 @@
 
 ```html
 <ef-header
+  aria-controls="content"
+  aria-expanded="false"
+  id="header"
   level="1"
   part="header"
+  role="button"
+  tabindex="0"
 >
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
@@ -126,7 +168,13 @@
   >
   </slot>
 </ef-header>
-<div part="content">
+<div
+  aria-labelledby="header"
+  hidden=""
+  id="content"
+  part="content"
+  role="region"
+>
   <ef-panel transparent="">
     <slot>
     </slot>
@@ -139,10 +187,16 @@
 
 ```html
 <ef-header
+  aria-controls="content"
+  aria-expanded="false"
+  id="header"
   level=""
   part="header"
+  role="button"
+  tabindex="0"
 >
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
@@ -159,7 +213,13 @@
   >
   </slot>
 </ef-header>
-<div part="content">
+<div
+  aria-labelledby="header"
+  hidden=""
+  id="content"
+  part="content"
+  role="region"
+>
   <ef-panel transparent="">
     <slot>
     </slot>
