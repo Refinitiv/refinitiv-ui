@@ -12,6 +12,7 @@ type RendererScope = {
 
 export class TreeRenderer extends Renderer {
   constructor (scope?: unknown) {
+
     let manager: TreeManager<TreeDataItem>;
     let currentMode: TreeManagerMode;
     let currentComposer: CollectionComposer<TreeDataItem>;
@@ -36,6 +37,7 @@ export class TreeRenderer extends Renderer {
       el.disabled = composer.getItemPropertyValue(item, 'disabled') === true;
       el.readonly = composer.getItemPropertyValue(item, 'readonly') === true;
       el.highlighted = composer.getItemPropertyValue(item, 'highlighted') === true;
+
       return el;
     });
   }
