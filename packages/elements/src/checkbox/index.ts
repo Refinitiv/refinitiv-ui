@@ -172,7 +172,6 @@ export class Checkbox extends ControlElement {
     }
 
     switch (event.key) {
-      case 'Enter':
       case ' ':
       case 'Spacebar':
         this.handleChangeChecked();
