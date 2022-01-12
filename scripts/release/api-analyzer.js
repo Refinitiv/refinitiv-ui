@@ -252,15 +252,17 @@ const handler = async () => {
     // Only write file if API is matched to element tag
     if (isValidAPI(elementAPI, element)) {
       success(`Generating API for ${element}`);
-      try {
-        fs.writeFileSync(jsonFile, elementAPI, 'utf8');
-        fs.writeFileSync(mdFile, elementDoc, 'utf8');
-      } catch (e) {
-        console.log(e);
+
+      // Create output directory path if not exist
+      const dirname = path.dirname(jsonFile);
+      if (!fs.existsSync(dirname)) {
+        fs.mkdirSync(dirname, { recursive: true });
       }
 
+      fs.writeFileSync(jsonFile, elementAPI, 'utf8');
+      fs.writeFileSync(mdFile, elementDoc, 'utf8');
     } else {
-      error(`Failed : Generating API for ${element}`);
+      error(`Failed: Unable to generate API for ${element}`);
     }
   }
 
