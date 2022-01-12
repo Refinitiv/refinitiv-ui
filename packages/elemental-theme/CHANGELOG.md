@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.4.1...@refinitiv-ui/elemental-theme@5.4.2) (2022-01-12)
+
+**Note:** Version bump only for package @refinitiv-ui/elemental-theme
+
+
+
+
+
 ## [5.4.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.4.0...@refinitiv-ui/elemental-theme@5.4.1) (2021-12-21)
 
 
