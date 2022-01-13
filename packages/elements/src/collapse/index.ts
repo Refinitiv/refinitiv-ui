@@ -44,6 +44,7 @@ export class Collapse extends BasicElement {
    * @return CSS template
    */
   static get styles (): CSSResultGroup {
+    // TODO: Need to all themes, it seems style incorrect after restructured tags for accessibility
     return css`
       :host {
         display: block;
@@ -152,10 +153,11 @@ export class Collapse extends BasicElement {
   private handleTap = (event: Event): void => {
     const target = event.target as HTMLElement;
 
+    // TODO: need to handle toggles from the button for accessibility as well
     // This is to prevent toggling when elements on slots are tap
-    if (Collapse.isHeader(target)) {
-      this.toggle();
-    }
+    // if (Collapse.isHeader(target)) {
+    this.toggle();
+    // }
   }
 
   /**
@@ -195,24 +197,17 @@ export class Collapse extends BasicElement {
    */
   protected render (): TemplateResult {
     return html`
-      <ef-header
-        id="header"
-        part="header"
-        level="${this.level}"
-        @tap="${this.handleTap}"
-        tabindex="0"
-        role="button"
-        aria-expanded=${this.expanded}
-        aria-controls="content"
-      >
-        <ef-icon icon="right" slot="left" part="toggle" aria-hidden="true"></ef-icon>
-        <slot slot="left" name="header-left"></slot>
-        <slot slot="right" name="header-right"></slot>
-        ${this.header}
+      <ef-header part="header" level="${this.level}" @tap=${this.handleTap}>
+        <div part="button" id="button" role="button" tabindex="0" aria-expanded="${this.expanded}" aria-controls="content">
+          <ef-icon icon="right" slot="left" part="toggle" aria-hidden="true"></ef-icon>
+          <slot slot="left" name="header-left"></slot>
+          <slot slot="right" name="header-right"></slot>
+          ${this.header}
+        </div>
       </ef-header>
-      <div id="content" part="content" role="region" aria-labelledby="header" ?hidden=${!this.expanded}>
+      <div id="content" part="content" role="region" aria-labelledby="button">
         <ef-panel ?spacing="${this.spacing}" transparent>
-          <slot></slot>
+          <slot ?hidden=${!this.expanded}></slot>
         </ef-panel>
       </div>
     `;
