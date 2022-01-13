@@ -2,12 +2,15 @@
   --check-color: @checkbox-checked-color;
   color: @control-text-color;
 
+  &:not([readonly]) {
+    [part='container'] {  
+      cursor: pointer;
+    }
+  }
+  
   [part='container'] {
     width: 14px;
     height: 14px;
-    &:not([readonly]) {
-      cursor: pointer;
-    }
   }
 
   [part='check'] {
