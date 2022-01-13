@@ -12,10 +12,10 @@
   "scripts": {
     "lerna": "lerna",
     "build": "lerna run build",
-    "build:docs": "lerna run --scope ef-docs build --stream",
+    "build:docs": "lerna run --scope @refinitiv-ui/docs build --stream",
     "build:prod": "lerna run build:prod",
     "start": "node cli start",
-    "start:docs": "lerna run --scope ef-docs start --stream",
+    "start:docs": "lerna run --scope @refinitiv-ui/docs start --stream",
     "test": "node cli test",
     "test:all": "lerna run test",
     "lint": "node cli lint",
