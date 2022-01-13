@@ -2,13 +2,12 @@
   --check-color: @checkbox-checked-color;
   color: @control-text-color;
 
-  &:not([readonly]) {
-    cursor: pointer;
-  }
-
   [part='container'] {
     width: 14px;
     height: 14px;
+    &:not([readonly]) {
+      cursor: pointer;
+    }
   }
 
   [part='check'] {
@@ -17,7 +16,7 @@
   }
 
   &:hover {
-    &:not([checked]):not([readonly]) [part='container'] {
+    &:not([checked]):not([indeterminate]):not([readonly]) [part='container'] {
       border-color: @input-hover-border-color;
     }
     &:not([readonly]) {
