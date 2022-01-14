@@ -1,0 +1,38 @@
+{
+  "name": "@refinitiv-ui/docs",
+  "version": "5.0.1",
+  "private": true,
+  "description": "Element Framework Documentation",
+  "engines": {
+    "node": ">=16.11.0",
+    "npm": ">=8.0.0"
+  },
+  "scripts": {
+    "start": "concurrently \"pandora build dist --watch\" \"serve dist -s\"",
+    "copy:resources": "cp -r resources dist/resources && cp src/theme-loader.js dist/theme-loader.js",
+    "build:api": "lerna run --scope @refinitiv-ui/elements api-analyzer --stream && node ./scripts/element.injector.js",
+    "build": "rm -rf build && npm run build:api && pandora build dist --clean && npm run copy:resources"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Refinitiv/refinitiv-ui.git",
+    "directory": "documents"
+  },
+  "keywords": [
+    "Element Framework",
+    "EF"
+  ],
+  "author": "Refinitiv",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "chalk": "^4.1.2",
+    "concurrently": "^6.4.0",
+    "pandora-book": "file:tools/pandora-book-3.0.0-54.tgz",
+    "serve": "^13.0.2"
+  },
+  "dependencies": {
+    "@refinitiv-ui/elements": "^5.11.0",
+    "fast-glob": "^3.2.7",
+    "fs-extra": "^10.0.0"
+  }
+}
