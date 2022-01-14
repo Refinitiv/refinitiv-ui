@@ -15,7 +15,7 @@ runs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 15.x
+        node-version: 16.x
 
     - name: Setup caching dependencies
       uses: actions/cache@v2
@@ -23,6 +23,7 @@ runs:
       with:
         path: |
           node_modules
+          */node_modules
           */*/node_modules
         key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
         restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}

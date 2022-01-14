@@ -589,7 +589,8 @@
     "test:snapshots": "node cli test --snapshots",
     "lint": "node cli lint",
     "lint:fix": "node cli lint --fix",
-    "prepublishOnly": "node scripts/release"
+    "prepublishOnly": "node scripts/release",
+    "api-analyzer": "node ../../scripts/release/api-analyzer.js"
   },
   "dependencies": {
     "@refinitiv-ui/browser-sparkline": "1.1.7",

@@ -1,0 +1,73 @@
+pandora-page {
+  overflow: visible;
+}
+#elf-docs-api {
+  margin-bottom: 60px;
+}
+#elf-docs-api .elf-docs-api-break {
+  height: 0;
+  border-top: 2px dashed #dedee1;
+  margin: 60px -50vw;
+}
+#elf-docs-api h3 {
+  color:  #ff5000;
+}
+#elf-docs-api .api-item {
+  padding: 10px 0;
+  position: relative;
+  border-top: 1px solid #ededef;
+}
+#elf-docs-api .api-item.no-border {
+  border: none;
+}
+#elf-docs-api .name {
+  font-family: 'Source Code Pro';
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+#elf-docs-api .desc {
+  color: #76768a;
+  max-width: 80%;
+}
+#elf-docs-api .type {
+  float: right;
+  font-family: 'Source Code Pro';
+  color: #535de9;
+  font-size: 9pt;
+  margin-top: 6px;
+}
+#elf-docs-api .value {
+  font-family: 'Source Code Pro';
+  color:  #ff5000;
+  margin-top: 12px;
+}
+#elf-docs-api .value::before {
+  font-family: 'knowledge';
+  content: 'Default: ';
+  color: #858588;
+}
+#elf-docs-api .params {
+  margin-top: 15px;
+}
+#elf-docs-api .params::before {
+  font-size: 10pt;
+  color: #858588;
+  content: 'Parameters:';
+  display: block;
+}
+#elf-docs-api .params .param {
+  margin: 5px 7px;
+  line-height: 1;
+}
+#elf-docs-api .params .name {
+  display: inline;
+  font-size: 9pt;
+}
+#elf-docs-api .params .type {
+  float: none;
+  display: inline;
+  font-size: 9pt;
+}
+#elf-docs-api .params .desc {
+  font-size: 11pt;
+}
