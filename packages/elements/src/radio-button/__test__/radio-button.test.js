@@ -411,31 +411,26 @@ describe('radio-button/RadioButton', () => {
       });
     });
     it('Should handle checked state of group correctly when it has been removed and appended old element back to DOM', async () => {
-      const element = await fixture(`
-        <div id="container">
-          <div id="wrapper">
-            <ef-radio-button id="btn1" name="group" checked>1</ef-radio-button>
-            <ef-radio-button id="btn2" name="group">2</ef-radio-button>
-          </div>
-        </div>`
-      );
+      const group = [
+        await fixture('<coral-radio-button name="group" id="btn1" checked>1</coral-radio-button>'),
+        await fixture('<coral-radio-button name="group" id="btn2">2</coral-radio-button>')
+      ];
+      expect(group[0].checked).to.equal(true);
+      expect(group[1].checked).to.equal(false);
 
-      const wrapper = element.querySelector('#wrapper');
+      group.shift();
+      document.querySelector('#btn1').remove();
+      group[0].checked = true;
+      await updateGroup(group);
+      expect(group[0].id).to.equal('btn2');
+      expect(group[0].checked).to.equal(true);
 
-      // Keep element in a memory then removed it from DOM
-      const btn1 = element.querySelector('#btn1');
-      wrapper.removeChild(btn1);
-      // Append element back to DOM
-      wrapper.appendChild(btn1);
-
-      const btn2 = element.querySelector('#btn2');
-      btn2.checked = true;
-
-      await updateGroup(btn1);
-
-      // Should not allow multiple checked
-      expect(btn1.checked).to.equal(false);
-      expect(btn2.checked).to.equal(true);
+      group.push(await fixture('<coral-radio-button name="group" id="btn1" checked>1</coral-radio-button>'));
+      await updateGroup(group);
+      expect(group[0].id).to.equal('btn2');
+      expect(group[0].checked).to.equal(false);
+      expect(group[1].id).to.equal('btn1');
+      expect(group[1].checked).to.equal(true);
     });
   });
 
