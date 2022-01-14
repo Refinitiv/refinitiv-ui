@@ -1,0 +1,7 @@
+html {
+  font-family: 'Source sans pro', Arial, 'Helvetica Neue', Helvetica, sans-serif;
+}
+body {
+  min-height: auto !important;
+  padding: 0 !important;
+}
