@@ -57,6 +57,8 @@ export class Dialog extends Overlay {
     return VERSION;
   }
 
+  protected readonly defaultRole: string | null = 'dialog';
+
   /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
@@ -101,11 +103,31 @@ export class Dialog extends Overlay {
     `];
   }
 
+  private _header: string | null = null;
   /**
-   * Set Header/Title of the dialog
+   * Header element
+   * @param value Header text
    */
   @property({ type: String })
-  public header: string | null = null;
+  public set header (value: string | null) {
+    const ariaLabel = this.getAttribute('aria-label');
+    if(ariaLabel === null) {
+      this.setAttribute('aria-label', String(value));
+    }
+    this._header = value;
+    this.requestUpdate('header', value);
+  }
+
+  public get header (): string | null {
+    return this._header;
+  }
+
+  /**
+   * Indicates aria modal of dialog
+   * @ignore
+   */
+   @property({ type: String, reflect: true, attribute: 'aria-modal' })
+   public ariaModal = String('true');
 
   /**
    * Should the dialog be draggable
@@ -332,8 +354,8 @@ export class Dialog extends Overlay {
   protected get footerRegion (): TemplateResult {
     return html`<slot name="footer">
       <div part="default-buttons">
-        <ef-button part="default-button" cta @tap="${this.defaultConfirm}">${this.t('OK')}</ef-button>
-        <ef-button part="default-button" @tap="${this.defaultCancel}">${this.t('CANCEL')}</ef-button>
+        <ef-button part="default-button" aria-label="${this.t('OK')}" cta @tap="${this.defaultConfirm}">${this.t('OK')}</ef-button>
+        <ef-button part="default-button" aria-label="${this.t('CANCEL')}" @tap="${this.defaultCancel}">${this.t('CANCEL')}</ef-button>
       </div>
     </slot>`;
   }
@@ -343,6 +365,9 @@ export class Dialog extends Overlay {
    * @return {TemplateResult} Render template
    */
   protected get headerRegion (): TemplateResult {
+    // const headerText = this.t('HEADER');
+    // this.setAttribute('aria-label', headerText);
+    // TODO: Not complete yet, need to translate this.t to aria-label attribute
     return html`
       ${this.header === null ? this.t('HEADER') : this.header}
       <ef-icon part="close" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
@@ -355,6 +380,7 @@ export class Dialog extends Overlay {
    * @return {TemplateResult} Render template
    */
   protected render (): TemplateResult {
+    this.getAttribute('aria-labelledby') !== null && this.removeAttribute('aria-label');
     return html`
         <ef-header drag-handle part="header">${this.headerRegion}</ef-header>
         <ef-panel part="content" spacing transparent>${this.contentRegion}</ef-panel>
