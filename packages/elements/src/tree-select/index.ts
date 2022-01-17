@@ -23,7 +23,7 @@ import '../tree/index.js';
 import type { Overlay } from '../overlay';
 import { ComboBox, ComboBoxFilter as TreeSelectFilter } from '../combo-box/index.js';
 import type { CheckChangedEvent } from '../events';
-import { TreeRenderer as TreeSelectRenderer } from '../tree/index.js';
+import { TreeSelectRenderer } from './helpers/renderer.js';
 import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager.js';
 
 import type { TreeSelectData, TreeSelectDataItem } from './helpers/types';
@@ -950,6 +950,8 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       return html`
       <ef-overlay
         part="list"
+        role="group"
+        aria-activedescendant=${this.highlightedItemValue || ''}
         style=${styleMap(this.popupDynamicStyles)}
         @opened="${this.onPopupOpened}"
         @closed="${this.onPopupClosed}"
@@ -966,11 +968,10 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
         <div part="section">
           ${this.filtersTemplate}
           ${this.treeControlsTemplate}
-          <div part="selection-area" tabindex="-1">
+          <div part="selection-area">
             <ef-tree
               id="internal-list"
               @focusin="${this.shiftFocus}"
-              tabindex="-1"
               part="tree"
               .noRelation=${this.noRelation}
               .renderer=${this.renderer}
