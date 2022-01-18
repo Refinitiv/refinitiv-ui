@@ -336,6 +336,10 @@ export class Slider extends ControlElement {
     super.updated(changedProperties);
     changedProperties.forEach((oldValue, propName) => {
       if (propName === 'value') {
+        if (!this.dragging) {
+          // Update internal `valuePrevious` when `value` was programatically set by user.
+          this.valuePrevious = this.value;
+        }
         this.onValueChange();
       }
       else if (propName === 'min') {

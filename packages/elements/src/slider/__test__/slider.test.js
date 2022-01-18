@@ -1358,6 +1358,42 @@ describe('slider/Slider', () => {
         expect(toEventFiredCount, 'Event "to-changed" should not fired').to.equal(0);
         expect(slider.to).to.equal('90');
       });
+
+      it('Event value-changed should fires when value property was programmatically set and drag the slider back to previous value', async () => {
+        expect(el.value).to.equal('0');
+        el.value = 10;
+        await elementUpdated();
+        expect(el.value).to.equal('10');
+
+        
+        let callCountValue = 0;
+        el.addEventListener('value-changed', () => {
+          callCountValue += 1;
+        });
+
+        const dragValuePositionStart = tabSliderPosition(0);
+        const dragValuePositionFirst = tabSliderPosition(10);
+        // Drag 'value' position 10 to 0
+        // Drag start
+        setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragValuePositionFirst, clientY: 0 })));
+        await oneEvent(el.slider, 'mousedown');
+        expect(el.dragging).to.be.true;
+        expect(el.value).to.equal(calculateValue(el, dragValuePositionFirst).toString());
+
+        // Dragging
+        setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragValuePositionStart, clientY: 0 })));
+        await oneEvent(window, 'mousemove');
+
+        // Darg end
+        setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragValuePositionStart, clientY: 0 })));
+        await oneEvent(window, 'mouseup');
+        expect(el.dragging).to.be.false;
+        expect(el.value).to.equal(calculateValue(el, dragValuePositionStart).toString());
+
+        // Check call fire event
+        expect(callCountValue).to.equal(1);
+      });
+
     });
   });
 });
