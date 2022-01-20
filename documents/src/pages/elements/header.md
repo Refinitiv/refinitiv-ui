@@ -109,3 +109,17 @@ halo('checkbox');
   <ef-checkbox slot="right" checked>Option</ef-checkbox>
 </ef-header>
 ```
+
+
+## Accessibility
+::a11y-intro::
+
+The Header component is assigned `role="heading"` and can include the property `aria-level`. As a best practice to accommodate accessible users, apply a logical nesting of Header levels.
+
+x>TODO: THIS CONTENT NEED TO BE REVISED
+
+*	The main heading should use Header level 1
+*	Ideally, there should only be one Header level 1 on each page
+*	Header level 2 to 6 can be used to structure the remaining content on the page
+
+::a11y-end::

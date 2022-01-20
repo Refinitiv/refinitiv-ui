@@ -165,3 +165,10 @@ card.addEventListener('item-trigger', (event) => {
 });
 
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Card component is assigned a neutral role. The header slot is assigned `role="heading"` and has the property `aria-level`. 
+
+::a11y-end::

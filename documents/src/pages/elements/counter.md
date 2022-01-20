@@ -145,3 +145,10 @@ Compact notation also work with the `max` attribute.
 <ef-counter max="90000000000000" value="99999999999999"></ef-counter>
 <ef-counter max="900000000000000" value="999999999999999"></ef-counter>
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Counter element is assigned `role="text"`. The visual label can be hidden from assistive technologies using the `aria-hidden` parameter and an off-screen label can be added to describes its context in full. This way a counter with the visual label “9K” can be announced by screen readers as something like “Nine thousand votes.” Any Counter that dynamically updates should communicate changes to assistive technologies through a live region.
+
+::a11y-end::

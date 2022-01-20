@@ -190,3 +190,10 @@ element.addEventListener('error-changed', (e) => {
   }
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Number Field is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state. 
+
+::a11y-end::

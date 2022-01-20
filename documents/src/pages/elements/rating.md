@@ -140,3 +140,10 @@ customRating.addEventListener('value-changed', (event) =>  {
   document.getElementById('result').textContent = 'You have selected: ' + event.detail.value;
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Rating control is assigned `role="radio"` and `role="radiogroup"` and can include a `checked` state. Assistive technology users ascertain the purpose that a rating button serves through its accessible name, which is computed from the visual label or `aria-label` property. The state programmatically updates to match its visual state. 
+
+::a11y-end::

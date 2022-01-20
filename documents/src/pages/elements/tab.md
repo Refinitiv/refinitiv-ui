@@ -257,3 +257,10 @@ tabs.forEach((tab) => {
   });
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Tab element is assigned the `role="tab"` and can include the `aria-selected` state. Tab can be associated with both the Tab Bar and Panel components. As a best practice to accommodate accessible users, try to minimize the number of tabs that they need to navigate within a Tab Bar. States such as `disabled`, `pressed` or `read-only` are programmatically updated to match the element’s visual state.
+
+::a11y-end::

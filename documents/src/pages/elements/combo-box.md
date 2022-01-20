@@ -526,3 +526,10 @@ ef-combo-box {
 | ----------------- | ------------------------ |
 | --list-max-width  | Max width of popup list  |
 | --list-max-height | Max height of popup list |
+
+## Accessibility
+::a11y-intro::
+
+The Combo Box component is assigned `role="combobox"` and can include properties such as `aria-autocomplete`, `aria-controls`, `aria-expanded` and `aria-activedescendant`. The expanded List Box is assigned `role="listbox"` while the List Box Item is assigned `role="option"` and can include properties such as `aria-label` and `aria-selected`. The element’s state programmatically updates to match its visual state.  
+
+::a11y-end::

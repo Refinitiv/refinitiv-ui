@@ -380,3 +380,10 @@ ef-select {
 | ------------------ | ------------------------------------ |
 | --list-max-height  | Maximum height of the drop-down list |
 | --list-max-width   | Maximum width of the drop-down list  |
+
+## Accessibility
+::a11y-intro::
+
+The Select component is assigned `role="listbox"` and can include properties such as `aria-expanded` and `aria-activedescendant`. Select options are assigned `role="option"` and can include properties such as `aria-label` and `aria-selected`. The element’s state programmatically updates to match its visual state.  
+
+::a11y-end::

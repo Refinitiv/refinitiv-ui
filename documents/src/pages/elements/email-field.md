@@ -246,3 +246,10 @@ element.addEventListener("icon-click", (e) => {
   }
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Email Field is assigned `role="textbox"`. States such as `disabled` or `read-only`   are programmatically updated to match the element’s visual state. 
+
+::a11y-end::

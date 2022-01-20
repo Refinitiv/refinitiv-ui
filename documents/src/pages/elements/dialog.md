@@ -190,3 +190,12 @@ document.getElementById('d1').noCancelOnOutsideClick = false;
 ```
 
 To prevent the dialog from closing on ESC key press, add the `no-cancel-on-esc-key` attribute to `ef-dialog`.
+
+## Accessibility
+::a11y-intro::
+
+The Dialog component is assigned `role="dialog"` and has the properties `aria-labelledby`, `aria-describedby` and `aria-modal`.
+
+Focus is automatically directed to the modal dialog when it appears. When the component is active, focus is restricted to the dialog and returned to the triggering button when dismissed. 
+
+::a11y-end::

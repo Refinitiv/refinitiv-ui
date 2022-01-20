@@ -79,3 +79,12 @@ radioButtonGroup.addEventListener('checked-changed', (e) => {
   }
 }, true);
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Radio Button element is assigned `role="radio"` and can include a `checked` state. Assistive technology users ascertain the purpose that a radio button serves through its accessible name, which is computed from the visual label or aria-label property. The radio state programmatically updates to match its visual state. 
+
+The `role="radiogroup"` or `role="group"` should be used to associate the element’s grouping with its group label. 
+
+::a11y-end::

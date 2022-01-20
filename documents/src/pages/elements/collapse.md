@@ -160,3 +160,10 @@ ef-collapse > ef-checkbox {
   </div>
 </ef-collapse>
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Collapse component is assigned `role="button"` and can include the property `aria-expanded`. The element’s properties programmatically update to match its visual state.  
+
+::a11y-end::

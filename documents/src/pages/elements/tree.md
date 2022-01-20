@@ -313,3 +313,10 @@ tree.addEventListener('value-changed', (e) => {
   console.log(tree.values); // access selected items
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Tree component is assigned `role="tree"` and can include properties such as `aria-multiselectable`, `aria-label`, or `aria-labelledby`. Since the Tree component serves as a container for the Tree Select component, it does not itself receive keyboard focus. Each node of the Tree Select is assigned `role="treeitem"` and can include properties such as `aria-selected`. 
+
+::a11y-end::

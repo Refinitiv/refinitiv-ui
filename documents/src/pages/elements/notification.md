@@ -108,3 +108,10 @@ This element can be used natively, like any other element. Using notifications t
 
 ### Application Error Notifications
 During development, when the application is running on localhost or 127.0.0.1, application errors will be shown as a notification. This is to aid development and highlight any errors that may occur, so that they can be addressed before the application is deployed. These error messages will not be shown when your application is hosted in a non-dev environment.
+
+## Accessibility
+::a11y-intro::
+
+The Notification component is a live region and is assigned `role="status"`.
+
+::a11y-end::

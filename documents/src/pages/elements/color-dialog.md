@@ -115,3 +115,10 @@ document.getElementById('button').addEventListener('click', () => {
 ```html
 <ef-color-dialog allow-nocolor></ef-color-dialog>
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Color Dialog component is assigned `"role=table"` or `"role=grid"` and can include `aria-label` to describe the context of each color for visually impaired users. For example, a color button can be announced by screen readers as, “Blue (R101, G157, B190)” and a selected color can be announced as, “Selected, Blue (R101, G157, B190).” The “aria-current” state is applied to all selected colors, which offer additional visual cues, such as bold text or a border (in addition to color changes), allowing visually impaired users to identify them more readily. Remember that any RGB input field that allows users to manually enter color codes should be programmatically associated with its respective label.
+
+::a11y-end::

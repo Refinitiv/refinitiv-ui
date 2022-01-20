@@ -463,3 +463,10 @@ A timer to show or hide a tooltip can be customized using the `--show-delay` and
 | ------------------ | ------------------------------------------------------- |
 | --show-delay       | Time to show tooltip when mouse hovers, in milliseconds |
 | --hide-delay       | Time to hide tooltip when mouse leaves, in milliseconds |
+
+## Accessibility
+::a11y-intro::
+
+The Tooltip button component is assigned `role="button"` and has properties such as `aria-expanded`, `aria-label` and `aria-describedby`. The tooltip text is a live region and assigned `role="tooltip"`.
+
+::a11y-end::

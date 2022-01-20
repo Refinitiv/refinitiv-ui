@@ -84,7 +84,14 @@ preload(
 );
 ```
 
-### Icon list
+## Accessibility
+::a11y-intro::
+
+The Flag component is assigned `role="image"`. Assistive technology users ascertain the purpose of the Flag via its accessible name.
+
+::a11y-end::
+
+## Icon list
 
 Below is a list of available icons in the Halo theme. You can use them with the `ef-icon` or with elements that provide the `icon` attribute/property e.g. `ef-button`.
 

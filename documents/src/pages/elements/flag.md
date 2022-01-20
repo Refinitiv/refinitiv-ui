@@ -82,7 +82,15 @@ preload(
 ```
 
 
-### Flag list
+## Accessibility
+::a11y-intro::
+
+The Flag component is assigned `role="image"`. Assistive technology users ascertain the purpose of the Flag via its accessible name.
+
+::a11y-end::
+
+
+## Flag list
 
 Below is a list of available flags in the Halo theme. You can use them with the `ef-flag`.
 

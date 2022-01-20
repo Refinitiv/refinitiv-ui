@@ -272,3 +272,12 @@ tabs.forEach((tab) => {
   });
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Tab Bar is assigned the `role="tablist"`. Since the Tab Bar serves as a container for Tab elements, it does not itself receive keyboard focus. As a best practice to accommodate accessible users, try to minimize the number of tabs that they need to navigate within a Tab Bar. Note that the Tab Bar should not be used in place of the Button Bar, which is intended to group buttons that allow users to take actions – maintaining this distinction will help accessible users understand the purpose of the component.
+
+!>Consider having Tab Bar receive keyboard focus and having Buttons receive focus using rowing index. 
+
+::a11y-end::

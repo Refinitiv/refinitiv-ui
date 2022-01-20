@@ -604,3 +604,11 @@ ef-heatmap {
 | --spacing           | Margin around a cell in pixels |
 | --above-point-color | Color at the maximum point     |
 | --below-point-color | Color at the minimum point     |
+
+
+## Accessibility
+::a11y-intro::
+
+The Heatmap component is assigned `role="table"`. Interactive data points are implemented as Tooltip. Access to a data table is provided as a textual alternative for accessible users. 
+
+::a11y-end::

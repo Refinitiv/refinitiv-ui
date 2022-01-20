@@ -119,3 +119,10 @@ ef-label {
     Universal basic income (UBI) is a government program in which every adult citizen receives a set amount of money on a regular basis. The goals of a basic income system are to alleviate poverty and replace other need-based social programs that potentially require greater bureaucratic involvement.
 </ef-label>
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Label component is assigned `role="text"`. Avoid limiting the line-clamp for information that is crucial to users and ensure that there are alternative ways to access the content. 
+
+::a11y-end::

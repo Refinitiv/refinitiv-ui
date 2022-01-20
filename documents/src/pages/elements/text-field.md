@@ -255,3 +255,10 @@ element.addEventListener("icon-click", (e) => {
     element.icon = "tick";
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Text Field is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state. 
+
+::a11y-end::

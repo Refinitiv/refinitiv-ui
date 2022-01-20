@@ -201,3 +201,12 @@ ef-progress-bar .thumb {
   <ef-icon class="thumb" slot="label" icon="dislike-empty"></ef-icon>
 </ef-progress-bar>
 ```
+
+## Accessibility
+::a11y-intro::
+
+!>TODO: THIS NEED TO REVIEW AS PROGRESS BAR CAN BE USED JUST FOR SIMPLE BAR CHART AS WELL
+
+The Progress Bar is assigned `role="progressbar"` and can include properties such as `aria-valuemin`, `aria-valuemax` and `aria-valuenow`. If the Progress Bar is used to indicate loading, the component can have additional properties such as `aria-describedby` and `aria-busy`.
+
+::a11y-end::

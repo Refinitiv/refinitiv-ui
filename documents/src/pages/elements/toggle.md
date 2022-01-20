@@ -85,3 +85,10 @@ toggle.addEventListener('checked-changed', (e) => {
   // console.log(e.target.checked)
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Toggle element is assigned `role="switch"` and can include the `aria-checked` state. States such as `disabled` and `checked` are programmatically updated to match the element’s visual state. It is best to include a label that visually impaired users can see with the element, making the Toggle more perceivable. 
+
+::a11y-end::

@@ -1190,3 +1190,10 @@ An instance of lightweight chart can be accessed using the `chart` and `seriesLi
   console.log('instance chart', el.chart); // instance of lightweight chart
   console.log('instance series', el.seriesList); // array of series instances
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Interactive Chart component has interactive data points implemented as Tooltip. The container and axes labels are hidden from assistive technologies. Access to a data table is provided as a textual alternative for accessible users. Animation includes functionality to pause, stop or hide animated content.
+
+::a11y-end::

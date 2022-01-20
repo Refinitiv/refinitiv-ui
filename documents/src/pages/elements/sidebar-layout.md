@@ -207,3 +207,10 @@ toggleBtn.addEventListener('click', () => {
   toggleBtn.setAttribute('icon', layout.collapsed ? 'leftpanel-closed' : 'leftpanel-open');
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Sidebar Layout component is assigned a neutral role. The header slot is assigned `role="heading"` and has the property `aria-level`. The sidebar Toggle button is assigned `role="button"` and has the property `aria-expanded` The sidebar Toolbar is assigned `role="toolbar"`.
+
+::a11y-end::

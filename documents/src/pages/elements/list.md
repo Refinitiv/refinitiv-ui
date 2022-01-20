@@ -128,3 +128,10 @@ el.renderer = (item, composer, element) => {
 
 };
 ```
+
+## Accessibility
+::a11y-intro::
+
+The List component is assigned `role="listbox"` and can include properties such as `aria-labelledby`, `aria-activedescendant` and `aria-multiselectable`. The data items are assigned the `role="option"` and can include properties such as `aria-selected` and `aria-disabled`. The element’s properties programmatically update to match its visual state.  
+
+::a11y-end::

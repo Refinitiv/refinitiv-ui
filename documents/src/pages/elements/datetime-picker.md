@@ -342,3 +342,10 @@ section {
   </div>
 </ef-datetime-picker>
 ```
+
+## Accessibility
+::a11y-intro::
+
+Datetime Picker serves as a container for the Date Picker and Time Picker components, so it does not itself receive keyboard focus.
+
+::a11y-end::

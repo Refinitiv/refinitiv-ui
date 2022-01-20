@@ -81,3 +81,10 @@ pagination.addEventListener('value-changed', (e) => {
 const pagination = document.getElementById('pagination');
 pagination.addEventListener('value-changed', (e) => console.log(e.detail.value));
 ```
+
+## Accessibility
+::a11y-intro::
+
+Pagination is comprised of a set of interrelated elements, including Text Field and Button. The component is built in such a way that screen readers will announce the current page whenever an update is made. Be sure to set the component to the “disabled” state at times that it cannot be interacted with. 
+
+::a11y-end::

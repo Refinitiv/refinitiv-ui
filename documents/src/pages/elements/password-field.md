@@ -243,3 +243,10 @@ element.addEventListener("error-changed", (e) => {
   }
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Password Field is assigned `role="textbox"`. States such as `disabled` and `pressed` are updated to match the visual state of the Password Field element and its “Show password” button. The password recommendation can be communicated to screen readers through a live region whenever the context changes.
+
+::a11y-end::

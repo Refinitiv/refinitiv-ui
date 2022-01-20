@@ -222,3 +222,12 @@ buttonBar.addEventListener('tap', (e) => {
   console.log(e.target.getAttribute('id'));
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+Since Button Bar serves as a container for Button components, it does not itself receive keyboard focus. As a best practice in accommodating accessible users, try to minimize the number of buttons that need to be navigated within a single Button Bar. Note that a Button Bar should not be used in place of a Tab Bar, which is for selecting and displaying panels – maintaining this distinction will help accessible users understand the purpose of the component.
+
+!>Consider using `role=toolbar` and `aria-activedescendant`. This way, the toolbar receives keyboard focus and buttons are focused using rowing index. 
+
+::a11y-end::

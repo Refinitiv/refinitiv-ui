@@ -240,3 +240,10 @@ searchInput.addEventListener("value-changed", (e) => {
     debounce(search(e.detail.value), 1500) // debounce search() for 1.5 seconds
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Search Field is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state. Dynamic updates such as a validation message are communicated to screen readers through a live region. 
+
+::a11y-end::

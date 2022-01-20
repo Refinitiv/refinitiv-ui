@@ -185,3 +185,10 @@ ef-slider {
 | --thumb-color       | Color of slider thumb and filled track color |
 | --step-color        | Slider step color                            |
 | --input-field-width | Set input field width                        |
+
+## Accessibility
+::a11y-intro::
+
+The Slider component is assigned `role="slider"` and can include properties such as `aria-valuemax`, `aria-valuemin` and `aria-valuenow`. The element’s properties programmatically update to match its visual state.
+
+::a11y-end::

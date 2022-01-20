@@ -112,3 +112,10 @@ The App State Bar provides a slot to display content at the right of bar. The sl
     <ef-icon icon="like-empty"></ef-icon>This is the Right slot</a>
 </ef-appstate-bar>
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Appstate Bar component is a live region and is assigned `role="status"`.
+
+::a11y-end::

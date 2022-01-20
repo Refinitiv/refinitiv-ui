@@ -179,3 +179,12 @@ ef-collapse > ef-checkbox {
   </ef-collapse>
 </ef-accordion>
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Accordion component is assigned heading level 3 and the `role="button"` and can include properties such `aria-controls`. States such as `disabled` or `expanded` are programmatically updated to match the element’s visual state. 
+
+The slots feature uses a combination of the Button and Checkbox components.  
+
+::a11y-end::

@@ -394,3 +394,10 @@ menu.addEventListener('tap', (event) => {
   // Implement selection model
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Item component is assigned different roles depending upon the control it is used for. It can have accessible roles such as `role="link"`, `role="button"`, or `role="checkbox"`. Always try to include a text label for an item - avoid relying solely upon an image or icon to convey the item’s purpose to users. The item state programmatically updates to match the element’s visual state whenever the visual state changes. 
+
+::a11y-end::

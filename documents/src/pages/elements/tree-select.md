@@ -309,3 +309,10 @@ ef-select {
 | ------------------ | ---------------------------- |
 | --list-max-width   | Max width of popup panel     |
 | --list-max-height  | Max height of selection tree |
+
+## Accessibility
+::a11y-intro::
+
+The Tree Select is assigned `role="tree"` and can include properties such as `aria-multiselectable`, `aria-label` or `aria-labelledby`. Each node of the Tree Select is assigned `role="treeitem"` and can include properties such as `aria-selected`. States for `aria-selected` can be set to `true`, `false` or `none`.
+
+::a11y-end::

@@ -643,3 +643,10 @@ The first part defines *position*. The optional second part defines *align*. For
 | `start`  | Target is aligned at the start of popup  |
 | `middle` | Target is aligned at the middle of popup |
 | `end`    | Target is aligned at the end of popup    |
+
+## Accessibility
+::a11y-intro::
+
+The Overlay Menu’s trigger element is assigned `role="button"` and has properties such as `aria-haspopup` and `aria-expanded`. The expanded menu has the `role="menu"` and the selectable items have `role="menuitem"`. Sub-menus can have properties such as `aria-haspopup` and `aria-expanded` to indicate to accessible users the presence of next-level menus. 
+
+::a11y-end::

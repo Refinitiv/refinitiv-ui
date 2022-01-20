@@ -233,3 +233,10 @@ ef-clock {
 ```html
 <ef-clock analogue tick show-seconds am-pm></ef-clock>
 ```
+
+## Accessibility
+::a11y-intro::
+
+The Clock component has its accessible name and label defined. The component has a pause, stop or hide functionality when the “tick” attribute is enabled. The component is assigned `role="timer"` when used in the context of a countdown. 
+
+::a11y-end::
