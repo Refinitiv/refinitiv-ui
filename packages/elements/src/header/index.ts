@@ -3,7 +3,6 @@ import {
   html,
   css,
   TemplateResult,
-  PropertyValues,
   CSSResultGroup
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
@@ -31,8 +30,6 @@ export class Header extends BasicElement {
     return VERSION;
   }
 
-  protected readonly defaultRole = 'heading';
-
   /**
    * Style definition
    * @return CSS template
@@ -58,13 +55,6 @@ export class Header extends BasicElement {
    */
   @property({ type: String, reflect: true })
   public level: '1'| '2'| '3' = '2';
-
-  protected updated (changedProperties: PropertyValues): void {
-    super.updated(changedProperties);
-    if (changedProperties.has('level')) {
-      this.setAttribute('aria-level', this.level);
-    }
-  }
 
   /**
    * A `TemplateResult` that will be used
