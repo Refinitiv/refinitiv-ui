@@ -1,0 +1,54 @@
+@media screen and (max-width: 1400px) {
+  table td::before {
+    content: attr(label);
+    font-weight: 500;
+    width: 120px;
+    min-width: 120px;
+    opacity: 0.7;
+  }
+
+  #properties ~ table thead,
+  #events ~ table thead,
+  #slots ~ table thead,
+  #methods ~ table thead {
+    display: none;
+  }
+
+  #properties ~ table td,
+  #events ~ table td,
+  #slots ~ table td,
+  #methods ~ table td {
+    display: flex;
+    padding: 5rem;
+  }
+
+  #properties ~ table tr td:last-child,
+  #events ~ table tr td:last-child,
+  #slots ~ table tr td:last-child,
+  #methods ~ table tr td:last-child {
+    margin-bottom: 20rem;
+  }
+
+  #properties ~ table td:nth-of-type(5) > code,
+  #events ~ table td:nth-of-type(2) > code,
+  #slots ~ table td:nth-of-type(2) > code,
+  #methods ~ table td:nth-of-type(3) > code {
+    display: contents;
+  }
+
+  #properties ~ table td:nth-of-type(1):before { content: "Property"; }
+  #properties ~ table td:nth-of-type(2):before { content: "Attribute"; }
+  #properties ~ table td:nth-of-type(3):before { content: "Type"; }
+  #properties ~ table td:nth-of-type(4):before { content: "Default"; }
+  #properties ~ table td:nth-of-type(5):before { content: "Description"; }
+
+  #events ~ table td:nth-of-type(1):before { content: "Event"; }
+  #events ~ table td:nth-of-type(2):before { content: "Description"; }
+
+  #slots ~ table td:nth-of-type(1):before { content: "Name"; }
+  #slots ~ table td:nth-of-type(2):before { content: "Description"; }
+
+  #methods ~ table td:nth-of-type(1):before { content: "Method"; }
+  #methods ~ table td:nth-of-type(2):before { content: "Type"; }
+  #methods ~ table td:nth-of-type(3):before { content: "Description"; }
+}
