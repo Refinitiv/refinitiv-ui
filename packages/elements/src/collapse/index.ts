@@ -44,7 +44,6 @@ export class Collapse extends BasicElement {
    * @return CSS template
    */
   static get styles (): CSSResultGroup {
-    // TODO: Need to all themes, it seems style incorrect after restructured tags for accessibility
     return css`
       :host {
         display: block;
@@ -103,6 +102,13 @@ export class Collapse extends BasicElement {
   private panel!: HTMLElement;
 
   /**
+   * Hierarchical level of element
+   * @ignore
+   */
+  @property({ type: String, reflect: true, attribute: 'aria-level' })
+  public ariaLevel: '1'| '2'| '3' | '4' | '5' | '6' = '2';
+
+  /**
    * Called once after the component is first rendered
    * @param changedProperties map of changed properties with old values
    * @returns {void}
@@ -142,7 +148,7 @@ export class Collapse extends BasicElement {
    * @returns {boolean} true if target is ef-header
    */
   private static isHeader (element: HTMLElement): boolean {
-    return element.localName === 'ef-header' || element.getAttribute('part') === 'toggle';
+    return element.localName === 'ef-header' || element.getAttribute('part') === 'toggle' || element.getAttribute('part') === 'header-toggle';
   }
 
   /**
@@ -153,11 +159,10 @@ export class Collapse extends BasicElement {
   private handleTap = (event: Event): void => {
     const target = event.target as HTMLElement;
 
-    // TODO: need to handle toggles from the button for accessibility as well
     // This is to prevent toggling when elements on slots are tap
-    // if (Collapse.isHeader(target)) {
-    this.toggle();
-    // }
+    if (Collapse.isHeader(target)) {
+      this.toggle();
+    }
   }
 
   /**
@@ -197,15 +202,15 @@ export class Collapse extends BasicElement {
    */
   protected render (): TemplateResult {
     return html`
-      <ef-header part="header" level="${this.level}" @tap=${this.handleTap}>
-        <div part="button" id="button" role="button" tabindex="0" aria-expanded="${this.expanded}" aria-controls="content">
-          <ef-icon icon="right" slot="left" part="toggle" aria-hidden="true"></ef-icon>
-          <slot slot="left" name="header-left"></slot>
-          <slot slot="right" name="header-right"></slot>
+      <ef-header part="header" level="${this.level}" @tap=${this.handleTap} role="heading" aria-level=${this.ariaLevel}>
+        <div part="header-toggle" id="header-toggle" role="button" tabindex="0" aria-expanded="${this.expanded}" aria-controls="content">
           ${this.header}
         </div>
+        <ef-icon icon="right" slot="left" part="toggle" aria-hidden="true"></ef-icon>
+        <slot slot="left" name="header-left"></slot>
+        <slot slot="right" name="header-right"></slot>
       </ef-header>
-      <div id="content" part="content" role="region" aria-labelledby="button">
+      <div id="content" part="content" role="region" aria-labelledby="header-toggle" ?hidden=${!this.expanded}>
         <ef-panel ?spacing="${this.spacing}" transparent>
           <slot ?hidden=${!this.expanded}></slot>
         </ef-panel>

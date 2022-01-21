@@ -4,6 +4,10 @@
 @import '../responsive';
 
 :host {
+  [part="header-toggle"] {
+    outline: none;
+  }
+
   [part="toggle"] {
     transition: @global-transition-duration @global-transition-easing;
     opacity: .5;
@@ -18,10 +22,6 @@
 
   [part="header"] {
     .touch-action();
-  }
-
-  [part="button"] { // TODO: need to check selector again or include to somewhere
-    outline: none;
   }
 
   @keyframes expand {
