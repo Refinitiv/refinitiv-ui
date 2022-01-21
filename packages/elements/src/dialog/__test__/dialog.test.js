@@ -170,5 +170,23 @@ describe('dialog/Dialog', () => {
       });
     });
   });
+  describe('Accessibility test', () => {
+    it('aria-label should be displayed the default header', async () => {
+      const el = await fixture('<ef-dialog></ef-dialog>');
+      expect(el.ariaLabel).to.equal('Dialog');
+    });
+    it('aria-label should be displayed the header', async () => {
+      const el = await fixture('<ef-dialog header="System Permission"></ef-dialog>');
+      expect(el.ariaLabel).to.equal('System Permission');
+    });
+    it('aria-label should be displayed when user add text to aria-label', async () => {
+      const el = await fixture('<ef-dialog aria-label="test dialog" header="System Permission"></ef-dialog>');
+      expect(el.ariaLabel).to.equal('test dialog');
+    });
+    it('aria-label should not displayed if aria-labelledby is present', async () => {
+      const el = await fixture('<ef-dialog aria-labelledby="testId" header="System Permission"></ef-dialog>');
+      expect(el.ariaLabel).to.equal(null);
+    });
+  });
 });
 

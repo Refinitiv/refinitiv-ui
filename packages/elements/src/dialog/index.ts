@@ -14,6 +14,17 @@ import { translate, Translate, TranslatePropertyKey } from '@refinitiv-ui/transl
 import '@refinitiv-ui/phrasebook/lib/locale/en/dialog.js';
 
 /**
+ * Return the attribute that converted from the property
+ * Prevent empty string that reflected to attribute
+ * @private
+ * @param value value from the property
+ * @returns string converted to attribute
+ */
+const emptyStringToNull = function (value: string): string | null {
+  return value || null;
+};
+
+/**
  * Popup window, designed to contain and show any HTML content.
  * It provides modal and dragging functionality,
  * and also allows custom footers and control buttons to be used.
@@ -110,12 +121,15 @@ export class Dialog extends Overlay {
    */
   @property({ type: String })
   public set header (value: string | null) {
-    const ariaLabel = this.getAttribute('aria-label');
-    if(ariaLabel === null) {
-      this.setAttribute('aria-label', String(value));
+    const oldValue = this._header;
+    const ariaLabelledby = this.getAttribute('aria-labelledby');
+    if(oldValue !== value) {
+      if(this.ariaLabel.length === 0 && ariaLabelledby == null) {
+        this.ariaLabel = String(value);
+      }
+      this._header = value;
+      this.requestUpdate('header', oldValue);
     }
-    this._header = value;
-    this.requestUpdate('header', value);
   }
 
   public get header (): string | null {
@@ -123,11 +137,15 @@ export class Dialog extends Overlay {
   }
 
   /**
-   * Indicates aria modal of dialog
+   * Aria indicating aria-label of dialog
    * @ignore
    */
-   @property({ type: String, reflect: true, attribute: 'aria-modal' })
-   public ariaModal = String('true');
+  @property({ type: String,
+    reflect: true,
+    attribute: 'aria-label',
+    converter: { toAttribute: emptyStringToNull } // TODO: Remove after typescript update to allow nullable for ARIAMixin
+  })
+  public ariaLabel = '';
 
   /**
    * Should the dialog be draggable
@@ -166,6 +184,18 @@ export class Dialog extends Overlay {
   private footerElement!: HTMLElement;
 
   public noCancelOnOutsideClick = true;
+
+
+  /**
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+
+    this.ariaModal = String('true');
+  }
 
   /**
   * @ignore
@@ -354,8 +384,8 @@ export class Dialog extends Overlay {
   protected get footerRegion (): TemplateResult {
     return html`<slot name="footer">
       <div part="default-buttons">
-        <ef-button part="default-button" aria-label="${this.t('OK')}" cta @tap="${this.defaultConfirm}">${this.t('OK')}</ef-button>
-        <ef-button part="default-button" aria-label="${this.t('CANCEL')}" @tap="${this.defaultCancel}">${this.t('CANCEL')}</ef-button>
+        <ef-button part="default-button" cta @tap="${this.defaultConfirm}">${this.t('OK')}</ef-button>
+        <ef-button part="default-button" @tap="${this.defaultCancel}">${this.t('CANCEL')}</ef-button>
       </div>
     </slot>`;
   }
@@ -365,9 +395,6 @@ export class Dialog extends Overlay {
    * @return {TemplateResult} Render template
    */
   protected get headerRegion (): TemplateResult {
-    // const headerText = this.t('HEADER');
-    // this.setAttribute('aria-label', headerText);
-    // TODO: Not complete yet, need to translate this.t to aria-label attribute
     return html`
       ${this.header === null ? this.t('HEADER') : this.header}
       <ef-icon part="close" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
@@ -380,7 +407,6 @@ export class Dialog extends Overlay {
    * @return {TemplateResult} Render template
    */
   protected render (): TemplateResult {
-    this.getAttribute('aria-labelledby') !== null && this.removeAttribute('aria-label');
     return html`
         <ef-header drag-handle part="header">${this.headerRegion}</ef-header>
         <ef-panel part="content" spacing transparent>${this.contentRegion}</ef-panel>
