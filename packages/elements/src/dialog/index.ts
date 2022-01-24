@@ -397,7 +397,7 @@ export class Dialog extends Overlay {
   protected get headerRegion (): TemplateResult {
     return html`
       ${this.header === null ? this.t('HEADER') : this.header}
-      <ef-icon part="close" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
+      <ef-icon part="close" aria-label="close dialog" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
     `;
   }
 
@@ -408,7 +408,7 @@ export class Dialog extends Overlay {
    */
   protected render (): TemplateResult {
     return html`
-        <ef-header drag-handle part="header">${this.headerRegion}</ef-header>
+        <ef-header drag-handle part="header" role="heading" aria-level="2">${this.headerRegion}</ef-header>
         <ef-panel part="content" spacing transparent>${this.contentRegion}</ef-panel>
         <div part="footer">${this.footerRegion}</div>
     `;
