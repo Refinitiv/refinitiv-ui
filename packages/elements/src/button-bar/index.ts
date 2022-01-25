@@ -125,7 +125,7 @@ export class ButtonBar extends BasicElement {
         break;
       case 'Right':
       case 'ArrowRight':
-        this.navigateToSibling('next');
+        !this.isParentButtonBarExist() && this.navigateToSibling('next');
         break;
       case 'Down':
       case 'ArrowDown':
@@ -133,17 +133,17 @@ export class ButtonBar extends BasicElement {
         break;
       case 'Left':
       case 'ArrowLeft':
-        this.navigateToSibling('previous');
+        !this.isParentButtonBarExist() && this.navigateToSibling('previous');
         break;
       case 'Up':
       case 'ArrowUp':
         this.managed && this.navigateToSibling('previous');
         break;
       case 'Home':
-        this.navigateToSibling('first');
+        !this.isParentButtonBarExist() && this.navigateToSibling('first');
         break;
       case 'End':
-        this.navigateToSibling('last');
+        !this.isParentButtonBarExist() && this.navigateToSibling('last');
         break;
       default:
         return;
@@ -194,7 +194,7 @@ export class ButtonBar extends BasicElement {
    * @returns {void}
    */
   private initialTabIndex ():void {
-    if (this.parentElement?.nodeName === 'EF-BUTTON-BAR') {
+    if (this.isParentButtonBarExist()) {
       return;
     }
     const group = this.getFocusableButtons().filter(button => !button.disabled);
@@ -208,6 +208,14 @@ export class ButtonBar extends BasicElement {
         button.tabIndex = -1;
       }
     });
+  }
+
+  /**
+   * Return parent node is button-bar
+   * @returns `True` if this contain under button-bar
+   */
+  private isParentButtonBarExist (): boolean {
+    return this.parentElement?.nodeName === 'EF-BUTTON-BAR';
   }
 
   /**
