@@ -109,13 +109,26 @@ export class Button extends ControlElement {
   public ariaPressed = '';
 
   /**
-  * Updates the element
-  * @param changedProperties Properties that has changed
-  * @returns {void}
-  */
+   * Aria indicating state of toggle button.
+   * Used when role is radio.
+   * @ignore
+   */
+  @property({ type: String,
+    reflect: true,
+    attribute: 'aria-checked',
+    converter: { toAttribute: emptyStringToNull } // TODO: Remove after typescript update to allow nullable for ARIAMixin
+  })
+  public ariaChecked = '';
+
+  /**
+   * Updates the element
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
   protected update (changedProperties: PropertyValues): void {
     if(changedProperties.has('active') && this.toggles || changedProperties.has('toggles') && this.toggles) {
-      this.ariaPressed = String(this.active);
+      const isRadio = this.getAttribute('role') === 'radio';
+      isRadio ? this.ariaChecked = String(this.active) : this.ariaPressed = String(this.active);
     }
 
     super.update(changedProperties);

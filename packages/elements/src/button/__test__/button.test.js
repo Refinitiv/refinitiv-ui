@@ -160,6 +160,21 @@ describe('button/Button', () => {
       await oneEvent(el, 'tap');
       expect(el.active).to.equal(false);
     });
+    describe('Role=radio', () => {
+      it('the element should set the active property to true if the element with toggles attribute is taped', async () => {
+        const el = await fixture(html`<ef-button toggles role="radio" icon="icon.png" hover-icon="hover-icon.png"></ef-button>`);
+        setTimeout(() => el.dispatchEvent(new Event('tap')));
+        await oneEvent(el, 'tap');
+        expect(el.active).to.equal(true);
+      });
+  
+      it('the element should set the active property to false if the element with toggles and active attributes are taped', async () => {
+        const el = await fixture(html`<ef-button toggles active role="radio" icon="icon.png" hover-icon="hover-icon.png"></ef-button>`);
+        setTimeout(() => el.dispatchEvent(new Event('tap')));
+        await oneEvent(el, 'tap');
+        expect(el.active).to.equal(false);
+      });
+    });
   });
 
   describe('Tap Method', () => {
@@ -198,7 +213,6 @@ describe('button/Button', () => {
 
   describe('Accessiblity', () => {
     it('should not be accessible without label', async () => {
-
       const el = await fixture(`<ef-button></ef-button>`);
       expect(el).not.to.be.accessible();
     });
@@ -241,6 +255,12 @@ describe('button/Button', () => {
       expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr', 'color-contrast']
       });
+    });
+
+    it('aria-checked should exist, when role=radio', async () => {
+      const el = await fixture(`<ef-button role='radio' toggles></ef-button>`);
+      expect(el.hasAttribute('aria-checked')).to.be.true;
+      expect(el.hasAttribute('aria-pressed')).to.be.false;
     });
   });
 });

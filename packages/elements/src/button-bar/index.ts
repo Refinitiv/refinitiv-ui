@@ -30,6 +30,11 @@ export class ButtonBar extends BasicElement {
   }
 
   /**
+   * Element's role attribute for accessibility
+   */
+  protected defaultRole: 'toolbar' | 'radiogroup' = 'toolbar';
+
+  /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
@@ -103,6 +108,106 @@ export class ButtonBar extends BasicElement {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.onTapHandler);
+    this.addEventListener('keydown', this.onKeyDown);
+    this.initialTabIndex();
+  }
+
+  /**
+   * Handles key down event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyDown (event: KeyboardEvent): void {
+    switch (event.key) {
+      case ' ':
+      case 'Spacebar':
+        this.onTapHandler(event as unknown as TapEvent);
+        break;
+      case 'Right':
+      case 'ArrowRight':
+        this.navigateToSibling('next');
+        break;
+      case 'Down':
+      case 'ArrowDown':
+        this.managed && this.navigateToSibling('next');
+        break;
+      case 'Left':
+      case 'ArrowLeft':
+        this.navigateToSibling('previous');
+        break;
+      case 'Up':
+      case 'ArrowUp':
+        this.managed && this.navigateToSibling('previous');
+        break;
+      case 'Home':
+        this.navigateToSibling('first');
+        break;
+      case 'End':
+        this.navigateToSibling('last');
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+  }
+
+  /**
+   * Navigate to next or previous checkable sibling in the same group if present
+   * @param direction up/next; down/previous
+   * @returns {void}
+   */
+  private navigateToSibling (direction: 'next' | 'previous' | 'first' | 'last'): void {
+    const group = this.getFocusableButtons();
+    const index = group.findIndex((button) => button.focused === true);
+
+    let element;
+
+    if (direction === 'next') {
+      element = index === -1 ? group[0] : group[index + 1];
+    }
+    else if (direction === 'first') {
+      element = group[0];
+    }
+    else if (direction === 'last') {
+      element = group[group.length - 1];
+    }
+    else {
+      element = index === -1 ? group[group.length - 1] : group[index - 1];
+    }
+
+    if (!element) {
+      element = direction === 'next' ? group[0] : group[group.length - 1];
+    }
+
+    group.forEach((button) => {
+      button.tabIndex = -1;
+    });
+    element.focus();
+    if (element.nodeName === 'EF-BUTTON') {
+      element.tabIndex = 0;
+    }
+  }
+
+  /**
+   * Set tabIndex to all buttons
+   * @returns {void}
+   */
+  private initialTabIndex ():void {
+    if (this.parentElement?.nodeName === 'EF-BUTTON-BAR') {
+      return;
+    }
+    const group = this.getFocusableButtons().filter(button => !button.disabled);
+    let isSet = false;
+    group.map((button) => {
+      if (!isSet) {
+        button.tabIndex = 0;
+        isSet = true;
+      }
+      else {
+        button.tabIndex = -1;
+      }
+    });
   }
 
   /**
@@ -147,6 +252,14 @@ export class ButtonBar extends BasicElement {
   private getElementsOfSlot (): Element[] {
     return this.defaultSlot.assignedNodes()
       .filter(node => node instanceof Element) as Element[];
+  }
+
+  /**
+   * Return the array of Buttons which can be focusable
+   * @returns the array of focusable Buttons
+   */
+  private getFocusableButtons (): Button[] {
+    return [...this.querySelectorAll<Button>('ef-button')];
   }
 
   /**

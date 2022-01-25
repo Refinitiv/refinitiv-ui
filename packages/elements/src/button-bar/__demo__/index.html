@@ -122,5 +122,21 @@
         </ef-button-bar>
     </demo-block>
 
+    <demo-block header="Accessibility" layout="normal">
+      <ef-button-bar aria-label="Text Formatting">
+        <ef-button toggles active icon="bold" aria-label="bold"></ef-button>
+        <ef-button toggles icon="italic">italic</ef-button>
+        <ef-button-bar managed role="radiogroup" aria-label="Text Alignment">
+          <ef-button toggles role="radio" icon="text-left"></ef-button>
+          <ef-button toggles role="radio" icon="text-center"></ef-button>
+          <ef-button toggles role="radio" icon="text-right"></ef-button>
+        </ef-button-bar>
+        <ef-button-bar>
+          <ef-button disabled>Copy</ef-button>
+          <ef-button disabled aria-label="paste" icon="paste"></ef-button>
+          <ef-button disabled icon="copy">Copy</ef-button>
+        </ef-button-bar>
+      </ef-button-bar>
+    </demo-block>
   </body>
 </html>

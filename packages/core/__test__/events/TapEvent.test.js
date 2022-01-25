@@ -255,6 +255,28 @@ describe('TestTapEvent', async () => {
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
     });
 
+    it('Should support tap event on role=radio when Enter is pressed', async function () {
+      const el = await fixture(html`<div role="radio">Fake Button</div>`);
+      const keyDownEvent = keyboardEvent('keydown', { key: 'Enter' });
+      el.dispatchEvent(keyDownEvent);
+      const keyUpEvent = keyboardEvent('keyup', { key: 'Enter' });
+      el.dispatchEvent(keyUpEvent);
+      expect(tapEvent).to.exist;
+      expect(tapEvent.target).to.equal(el);
+      expect(tapCount).to.equal(1, 'tap event should be fired just once');
+    });
+
+    it('Should support tap event on role=radio when Spacebar is pressed', async function () {
+      const el = await fixture(html`<div role="radio">Fake Button</div>`);
+      const keyDownEvent = keyboardEvent('keydown', { key: ' ' });
+      el.dispatchEvent(keyDownEvent);
+      const keyUpEvent = keyboardEvent('keyup', { key: ' ' });
+      el.dispatchEvent(keyUpEvent);
+      expect(tapEvent).to.exist;
+      expect(tapEvent.target).to.equal(el);
+      expect(tapCount).to.equal(1, 'tap event should be fired just once');
+    });
+
     it('Should not fire tap event twice on native button with role=button when Enter is pressed', async function () {
       const el = await fixture(html`<button role="button">Native Button</button>`);
       const keyDownEvent = keyboardEvent('keydown', { key: 'Enter' });
