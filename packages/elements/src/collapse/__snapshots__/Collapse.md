@@ -40,7 +40,6 @@
 </ef-header>
 <div
   aria-labelledby="header-toggle"
-  hidden=""
   id="content"
   part="content"
   role="region"
@@ -91,7 +90,6 @@
 </ef-header>
 <div
   aria-labelledby="header-toggle"
-  hidden=""
   id="content"
   part="content"
   role="region"
@@ -143,7 +141,6 @@
 </ef-header>
 <div
   aria-labelledby="header-toggle"
-  hidden=""
   id="content"
   part="content"
   role="region"
@@ -194,7 +191,6 @@
 </ef-header>
 <div
   aria-labelledby="header-toggle"
-  hidden=""
   id="content"
   part="content"
   role="region"
@@ -245,7 +241,6 @@
 </ef-header>
 <div
   aria-labelledby="header-toggle"
-  hidden=""
   id="content"
   part="content"
   role="region"
