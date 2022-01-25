@@ -24,14 +24,16 @@
     "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
-    "@refinitiv-ui/i18n": "^5.2.6",
-    "@refinitiv-ui/phrasebook": "^5.4.1",
     "lit": "~2.1.1",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
     "@refinitiv-ui/core": "^5.4.0",
     "@refinitiv-ui/test-helpers": "^5.1.2"
+  },
+  "peerDependencies": {
+    "@refinitiv-ui/i18n": "^5.2.6",
+    "@refinitiv-ui/phrasebook": "^5.4.1"
   },
   "publishConfig": {
     "access": "public"
