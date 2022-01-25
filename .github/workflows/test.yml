@@ -17,6 +17,9 @@ jobs:
         uses: ./.github/actions/setup
         id: setup
 
+      - name: Print versions
+        run: npm version
+
       - name: Install Dependencies
         if: steps.setup.outputs.cache-dependencies-hit != 'true'
         run: npm ci --ignore-scripts --audit=false --fund=false
