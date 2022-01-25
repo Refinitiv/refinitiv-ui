@@ -4,13 +4,13 @@
 
 ```html
 <ef-header
-  aria-level="2"
   drag-handle=""
   level="2"
   part="header"
-  role="heading"
 >
-  Dialog
+  <span aria-hidden="true">
+    Dialog
+  </span>
   <ef-icon
     aria-label="close dialog"
     icon="cross"
