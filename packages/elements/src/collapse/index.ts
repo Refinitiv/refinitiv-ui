@@ -210,7 +210,7 @@ export class Collapse extends BasicElement {
         <slot slot="left" name="header-left"></slot>
         <slot slot="right" name="header-right"></slot>
       </ef-header>
-      <div id="content" part="content" role="region" aria-labelledby="header-toggle" ?hidden=${!this.expanded}>
+      <div id="content" part="content" role="region" aria-labelledby="header-toggle">
         <ef-panel ?spacing="${this.spacing}" transparent>
           <slot ?hidden=${!this.expanded}></slot>
         </ef-panel>
