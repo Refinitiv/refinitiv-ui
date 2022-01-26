@@ -2,7 +2,20 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "packages/*",
+    "packages/configurations",
+    "packages/core",
+    "packages/utils",
+    "packages/phrasebook",
+    "packages/i18n",
+    "packages/translate",
+    "packages/demo-block",
+    "packages/test-helpers",
+    "packages/theme-compiler",
+    "packages/elemental-theme",
+    "packages/solar-theme",
+    "packages/halo-theme",
+    "packages/elements",
+    "packages/polyfills",
     "documents"
   ],
   "engines": {

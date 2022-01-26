@@ -26,7 +26,7 @@ jobs:
 
       - name: Build
         if: steps.setup.outputs.cache-build-hit != 'true'
-        run: lerna run build --include-dependencies --since origin/develop...HEAD
+        run: npm run build --workspaces
 
   lint:
     needs: build
