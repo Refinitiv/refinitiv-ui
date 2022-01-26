@@ -256,7 +256,7 @@ describe('TestTapEvent', async () => {
     });
 
     it('Should support tap event on role=radio when Enter is pressed', async function () {
-      const el = await fixture(html`<div role="radio">Fake Button</div>`);
+      const el = await fixture(html`<ef-button role="radio">Fake Button</ef-button>`);
       const keyDownEvent = keyboardEvent('keydown', { key: 'Enter' });
       el.dispatchEvent(keyDownEvent);
       const keyUpEvent = keyboardEvent('keyup', { key: 'Enter' });
@@ -267,7 +267,7 @@ describe('TestTapEvent', async () => {
     });
 
     it('Should support tap event on role=radio when Spacebar is pressed', async function () {
-      const el = await fixture(html`<div role="radio">Fake Button</div>`);
+      const el = await fixture(html`<ef-button role="radio">Fake Button</ef-button>`);
       const keyDownEvent = keyboardEvent('keydown', { key: ' ' });
       el.dispatchEvent(keyDownEvent);
       const keyUpEvent = keyboardEvent('keyup', { key: ' ' });

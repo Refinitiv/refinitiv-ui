@@ -82,7 +82,7 @@ const isButtonEnterOrSpace = (event: MouseEvent | PointerEvent): boolean => {
  * @returns true if target has button behaviour
  */
 const isButtonBehaviour = (target: EventTarget | null): boolean => target instanceof HTMLElement
-  && (matches(target, '[role=button]') || matches(target, '[role=radio]')) // Button can be role=radio by design of 1 active of a group.
+  && (matches(target, '[role=button]') || matches(target, 'ef-button[role=radio]')) // Button can be role=radio by design of 1 active of a group.
   && !matches(target, 'button,a,input[type=button],input[type=submit]'); /* Matches is split because IE11 does not support `:not(input[type=button])` selector; */
 
 /**
