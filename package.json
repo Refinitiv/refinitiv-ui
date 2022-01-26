@@ -3,8 +3,8 @@
   "private": true,
   "workspaces": [
     "packages/configurations",
-    "packages/core",
     "packages/utils",
+    "packages/core",
     "packages/phrasebook",
     "packages/i18n",
     "packages/translate",
