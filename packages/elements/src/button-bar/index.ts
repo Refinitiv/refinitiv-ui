@@ -197,7 +197,7 @@ export class ButtonBar extends BasicElement {
     if (this.isParentButtonBarExist()) {
       return;
     }
-    const group = this.getFocusableButtons().filter(button => !button.disabled);
+    const group = this.getFocusableButtons();
     let isSet = false;
     group.map((button) => {
       if (!isSet) {
@@ -267,7 +267,7 @@ export class ButtonBar extends BasicElement {
    * @returns the array of focusable Buttons
    */
   private getFocusableButtons (): Button[] {
-    return [...this.querySelectorAll<Button>('ef-button')];
+    return [...this.querySelectorAll<Button>('ef-button')].filter(button => !button.disabled);
   }
 
   /**
