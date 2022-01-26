@@ -4,6 +4,10 @@
 @import '../responsive';
 
 :host {
+  [part="header-toggle"] {
+    outline: none;
+  }
+
   [part="toggle"] {
     transition: @global-transition-duration @global-transition-easing;
     opacity: .5;
