@@ -12,6 +12,17 @@ import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { VERSION } from '../version.js';
 import { Button } from '../button/index.js';
+import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
+
+/**
+ * Configuration object
+ * for mutations observers
+ */
+const observerOptions = {
+  subtree: true,
+  childList: true,
+  characterData: true
+};
 
 /**
  * Used to display multiple buttons to create a list of commands bar.
@@ -101,6 +112,29 @@ export class ButtonBar extends BasicElement {
   private defaultSlot!: HTMLSlotElement;
 
   /**
+   * Mutation Observer used to detect changes in the Light DOM
+   */
+  private mutationObserver = new MutationObserver(() => this.manageTabIndex());
+
+  /**
+   * Called when connected to DOM
+   * @returns {void}
+   */
+  public connectedCallback (): void {
+    super.connectedCallback();
+    this.mutationObserver.observe(this, observerOptions);
+    !isIE && this.manageTabIndex(); // In IE the mutation will trigger
+  }
+
+  /**
+   * Invoked when a component is removed from the document’s DOM.
+   * @return {void}
+   */
+  public disconnectedCallback (): void {
+    super.disconnectedCallback();
+    this.mutationObserver.disconnect();
+  }
+  /**
    * Called once after the component is first rendered
    * @param changedProperties map of changed properties with old values
    * @returns {void}
@@ -109,7 +143,6 @@ export class ButtonBar extends BasicElement {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.onTapHandler);
     this.addEventListener('keydown', this.onKeyDown);
-    this.initialTabIndex();
   }
 
   /**
@@ -193,16 +226,16 @@ export class ButtonBar extends BasicElement {
    * Set tabIndex to all buttons
    * @returns {void}
    */
-  private initialTabIndex ():void {
+  private manageTabIndex ():void {
     if (this.isParentButtonBarExist()) {
       return;
     }
     const group = this.getFocusableButtons();
-    let isSet = false;
-    group.map((button) => {
-      if (!isSet) {
+    let lastFocusItem = group.findIndex(button => button.tabIndex === 0);
+    lastFocusItem === -1 ? lastFocusItem = 0 : lastFocusItem;
+    group.map((button, index) => {
+      if (lastFocusItem === index) {
         button.tabIndex = 0;
-        isSet = true;
       }
       else {
         button.tabIndex = -1;
