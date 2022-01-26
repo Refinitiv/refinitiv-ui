@@ -158,25 +158,25 @@ export class ButtonBar extends BasicElement {
         break;
       case 'Right':
       case 'ArrowRight':
-        !this.isParentButtonBarExist() && this.navigateToSibling('next');
+        !this.isNested() && this.next();
         break;
       case 'Down':
       case 'ArrowDown':
-        this.managed && this.navigateToSibling('next');
+        this.managed && this.next();
         break;
       case 'Left':
       case 'ArrowLeft':
-        !this.isParentButtonBarExist() && this.navigateToSibling('previous');
+        !this.isNested() && this.previous();
         break;
       case 'Up':
       case 'ArrowUp':
-        this.managed && this.navigateToSibling('previous');
+        this.managed && this.previous();
         break;
       case 'Home':
-        !this.isParentButtonBarExist() && this.navigateToSibling('first');
+        !this.isNested() && this.first();
         break;
       case 'End':
-        !this.isParentButtonBarExist() && this.navigateToSibling('last');
+        !this.isNested() && this.last();
         break;
       default:
         return;
@@ -186,39 +186,60 @@ export class ButtonBar extends BasicElement {
   }
 
   /**
-   * Navigate to next or previous checkable sibling in the same group if present
-   * @param direction up/next; down/previous
+   * Navigate to next focusable item of the focusable buttons
    * @returns {void}
    */
-  private navigateToSibling (direction: 'next' | 'previous' | 'first' | 'last'): void {
+  private next (): void {
     const group = this.getFocusableButtons();
     const index = group.findIndex((button) => button.focused === true);
+    const isOutofRange = ((index + 1) >= group.length);
+    const targetIndex = ((index === -1) || isOutofRange) ? 0 : (index + 1);
+    this.focusTarget(group[targetIndex], group);
+  }
 
-    let element;
+  /**
+   * Navigate to previous focusable item of the focusable buttons
+   * @returns {void}
+   */
+  private previous (): void {
+    const group = this.getFocusableButtons();
+    const index = group.findIndex((button) => button.focused === true);
+    const isOutofRange = ((index - 1) < 0);
+    const targetIndex = ((index === -1) || isOutofRange) ? (group.length - 1) : (index - 1);
+    this.focusTarget(group[targetIndex], group);
+  }
 
-    if (direction === 'next') {
-      element = index === -1 ? group[0] : group[index + 1];
-    }
-    else if (direction === 'first') {
-      element = group[0];
-    }
-    else if (direction === 'last') {
-      element = group[group.length - 1];
-    }
-    else {
-      element = index === -1 ? group[group.length - 1] : group[index - 1];
-    }
+  /**
+   * Navigate to the first focusable item of the focusable buttons
+   * @returns {void}
+   */
+  private first (): void {
+    const group = this.getFocusableButtons();
+    this.focusTarget(group[0], group);
+  }
 
-    if (!element) {
-      element = direction === 'next' ? group[0] : group[group.length - 1];
-    }
+  /**
+   * Navigate to the last focusable item of the focusable buttons
+   * @returns {void}
+   */
+  private last (): void {
+    const group = this.getFocusableButtons();
+    this.focusTarget(group[group.length - 1], group);
+  }
 
+  /**
+   * Focusing target and set tabIndex=0 to target and tabIndex=-1 to other in group
+   * @param target the button will be focused
+   * @param group Array of Button that contains target
+   * @returns {void}
+   */
+  private focusTarget (target: Button, group: Button[]):void {
     group.forEach((button) => {
       button.tabIndex = -1;
     });
-    element.focus();
-    if (element.nodeName === 'EF-BUTTON') {
-      element.tabIndex = 0;
+    target.focus();
+    if (target instanceof Button) {
+      target.tabIndex = 0;
     }
   }
 
@@ -227,7 +248,7 @@ export class ButtonBar extends BasicElement {
    * @returns {void}
    */
   private manageTabIndex ():void {
-    if (this.isParentButtonBarExist()) {
+    if (this.isNested()) {
       return;
     }
     const group = this.getFocusableButtons();
@@ -247,8 +268,8 @@ export class ButtonBar extends BasicElement {
    * Return parent node is button-bar
    * @returns `True` if this contain under button-bar
    */
-  private isParentButtonBarExist (): boolean {
-    return this.parentElement?.nodeName === 'EF-BUTTON-BAR';
+  private isNested (): boolean {
+    return this.parentElement instanceof ButtonBar;
   }
 
   /**
@@ -266,6 +287,8 @@ export class ButtonBar extends BasicElement {
       event.stopPropagation();
       this.manageButtons(target);
     }
+
+    this.focusTarget(target as Button, this.getFocusableButtons());
   }
 
   /**

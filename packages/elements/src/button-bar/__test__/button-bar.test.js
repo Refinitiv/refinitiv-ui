@@ -241,21 +241,21 @@ describe('button-bar/ButtonBar', () => {
     });
     it('Should set correct tabIndex=0 to previous button when navigate left', async () => {
       await updateElement(el)
-      setTimeout(() => el.dispatchEvent(keyArrowLeft));
+      setTimeout(() => el.dispatchEvent(keyArrowLeft)); // will navigate to last focusable button
       const event1 = await oneEvent(el, 'keydown');
       expect(event1.key).to.equal('ArrowLeft');
       await updateElement(el)
-      expect(document.activeElement).to.equal(btn4);
+      expect(document.activeElement).to.equal(btn3);
       el.getFocusableButtons().forEach((button, index) => {
-        expect(button.getAttribute('tabIndex')).to.equal(index === 3 ? '0' : '-1');
+        expect(button.getAttribute('tabIndex')).to.equal(index === 2 ? '0' : '-1');
       });
       setTimeout(() => el.dispatchEvent(keyArrowLeft));
       const event2 = await oneEvent(el, 'keydown');
       expect(event2.key).to.equal('ArrowLeft');
       await updateElement(el)
-      expect(document.activeElement).to.equal(btn3);
+      expect(document.activeElement).to.equal(btn2);
       el.getFocusableButtons().forEach((button, index) => {
-        expect(button.getAttribute('tabIndex')).to.equal(index === 2 ? '0' : '-1');
+        expect(button.getAttribute('tabIndex')).to.equal(index === 1 ? '0' : '-1');
       });
     });
     it('Should set correct tabIndex=0 to next button when navigate right', async () => {
@@ -317,9 +317,9 @@ describe('button-bar/ButtonBar', () => {
       const event1 = await oneEvent(el, 'keydown');
       expect(event1.key).to.equal('End');
       await updateElement(el)
-      expect(document.activeElement).to.equal(btn4);
+      expect(document.activeElement).to.equal(btn3);
       el.getFocusableButtons().forEach((button, index) => {
-        expect(button.getAttribute('tabIndex')).to.equal(index === 3 ? '0' : '-1');
+        expect(button.getAttribute('tabIndex')).to.equal(index === 2 ? '0' : '-1');
       });
     });
     it('Should set correct tabIndex=0 to first button when keydown Home', async () => {
@@ -333,6 +333,16 @@ describe('button-bar/ButtonBar', () => {
       el.getFocusableButtons().forEach((button, index) => {
         expect(button.getAttribute('tabIndex')).to.equal(index === 0 ? '0' : '-1');
       });
+    });
+    it('Should support inject button by coding', async () => {
+      const newButton = document.createElement('ef-button');
+      newButton.id = 'btn5';
+      newButton.innerText = 'newButton';
+      el.appendChild(newButton);
+      await updateElement(el);
+      const group = el.getFocusableButtons();
+      const addedButton = group.find((button) => button.id === 'btn5');
+      expect(addedButton.getAttribute('tabIndex')).to.equal('-1');
     });
   });
 });
