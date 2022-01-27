@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/configurations",
-  "version": "5.3.0-alpha.0",
+  "version": "5.3.0-alpha.1",
   "description": "The configuration files used for Element Framework",
   "repository": {
     "type": "git",
