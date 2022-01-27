@@ -1,13 +1,17 @@
 {
   "name": "@refinitiv-ui/utils",
-  "version": "5.1.1",
+  "version": "5.2.0-alpha.0",
   "description": "Shared utilities for Element Framework",
   "main": "lib/index.js",
   "module": "lib/index.js",
   "typesVersions": {
     "*": {
-      "*": ["lib/*"],
-      "lib/*": ["lib/*"]
+      "*": [
+        "lib/*"
+      ],
+      "lib/*": [
+        "lib/*"
+      ]
     }
   },
   "exports": {
