@@ -321,7 +321,7 @@
       <ef-datetime-picker filtered></ef-datetime-picker>
       <ef-datetime-picker filtered range duplex></ef-datetime-picker>
       <script type="module">
-        import { parse } from '@refinitiv-ui/utils/lib/date.js';
+        import { parse } from '@refinitiv-ui/utils/date.js';
         (function () {
           document.querySelectorAll('[filtered]').forEach(el => {
             el.filter = function (date) {
@@ -357,7 +357,7 @@
         </div>
       </ef-datetime-picker>
       <script type="module">
-        import { format, DateTimeFormat } from '@refinitiv-ui/utils/lib/date.js';
+        import { format, DateTimeFormat } from '@refinitiv-ui/utils/date.js';
 
         (function () {
           const toValues = (from, to) => [format(from, DateTimeFormat.yyyMMddTHHmm), format(to, DateTimeFormat.yyyMMddTHHmm)];

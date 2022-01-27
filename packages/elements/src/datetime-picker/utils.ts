@@ -4,7 +4,7 @@ import {
   parse,
   TimeFormat,
   toTimeSegment
-} from '@refinitiv-ui/utils/lib/date.js';
+} from '@refinitiv-ui/utils/date.js';
 
 /**
  * A helper class to split date time string into date and time segments

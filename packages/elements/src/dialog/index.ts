@@ -1,9 +1,9 @@
 import { css, CSSResultGroup, html, TemplateResult, ElementSize, PropertyValues } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
-import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
+import { isIE } from '@refinitiv-ui/utils/browser.js';
 import { deregister as draggableDeregister, register as draggableRegister } from './draggable-element.js';
 import { Overlay } from '../overlay/index.js';
 import '../icon/index.js';
@@ -11,7 +11,7 @@ import '../panel/index.js';
 import '../header/index.js';
 import '../button/index.js';
 import { translate, Translate, TranslatePropertyKey } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/lib/locale/en/dialog.js';
+import '@refinitiv-ui/phrasebook/locale/en/dialog.js';
 
 /**
  * Popup window, designed to contain and show any HTML content.
