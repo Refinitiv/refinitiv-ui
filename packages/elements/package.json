@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "5.12.0-alpha.1",
+  "version": "5.12.0-alpha.2",
   "description": "Element Framework Elements",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -333,7 +333,7 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/demo-block": "^5.2.0-alpha.3",
+    "@refinitiv-ui/demo-block": "^5.2.0-alpha.4",
     "@refinitiv-ui/test-helpers": "^5.1.2",
     "@types/d3-interpolate": "^3.0.1"
   },
