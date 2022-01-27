@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/demo-block",
-  "version": "5.1.7",
+  "version": "5.2.0-alpha.1",
   "description": "Demo page handler for Element Framework elements",
   "main": "./lib/demo-block.js",
   "module": "./lib/demo-block.js",
