@@ -6,7 +6,8 @@
   "module": "lib/index.js",
   "typesVersions": {
     "*": {
-      "*.js": ["lib/*.d.ts"]
+      "*": ["lib/*"],
+      "lib/*": ["lib/*"]
     }
   },
   "exports": {

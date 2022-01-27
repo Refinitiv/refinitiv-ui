@@ -7,7 +7,8 @@
   "types": "./lib/index.d.ts",
   "typesVersions": {
     "*": {
-      "*.js": ["lib/*.d.ts"]
+      "*": ["lib/*"],
+      "lib/*": ["lib/*"]
     }
   },
   "exports": {
