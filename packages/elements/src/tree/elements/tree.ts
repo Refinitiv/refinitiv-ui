@@ -37,6 +37,8 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
     return VERSION;
   }
 
+  protected readonly defaultRole: string | null = 'tree';
+
   /**
    * Tree manager used for manipulation
    */

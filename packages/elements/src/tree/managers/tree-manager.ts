@@ -439,5 +439,4 @@ export class TreeManager<T extends TreeDataItem> {
   public uncheckAllItems (): void {
     this.editableItems.forEach(item => this.uncheckItem(item));
   }
-
 }

@@ -1,0 +1,140 @@
+.elf-doc-home {
+  display: block !important;
+  z-index: 1;
+  position: relative;
+  display:flex;
+  flex-direction: column;
+  min-height:calc(100vh - 235px);
+  background-color: transparent;
+  /* background-image: linear-gradient(to bottom, white calc(100% - 100px), rgba(255, 255, 255, 0.8)), url(../images/refinitiv-bg.jpeg); */
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: left calc(100% - 30px);
+}
+
+pandora-page {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 40px;
+}
+
+.reader {
+  background-image: url(../images/refinitiv-bg.jpeg);
+  background-size: 100%;
+}
+
+.elf-doc-header {
+  display: flex;
+}
+
+.elf-doc-header img {
+  margin-top: 40px;
+  width: 110px;
+  margin-right: 40px;
+}
+
+.elf-doc-header h1 {
+  margin: 10px 0;
+  font-size: 44px;
+  font-weight: 600;
+}
+
+.elf-doc-header h2 {
+  color: rgba(44,44,44,.8);
+  margin-top: 20px;
+  font-size: 30px;
+}
+
+.elf-doc-header h3 {
+  color: rgba(44,44,44,.8);
+  margin-top: 20px;
+  font-size: 22px;
+}
+
+.elf-doc-content {
+  margin-top: 40px;
+  display:flex;
+  flex-flow:row wrap;
+}
+
+.elf-doc-content .content-box {
+  text-align: center;
+  flex: 1;
+  margin-right: 40px;
+}
+
+.elf-doc-content .content-box:last-child {
+  margin-right: 0;
+}
+
+.content-box p {
+  text-align: left;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.home-footer {
+  margin-top: 30px;
+}
+
+.home-footer p {
+  margin: 0;
+  margin-bottom: -20px;
+  max-width: 100%;
+}
+
+.footer-link a {
+  margin-right: 5px;
+}
+
+.content-box img {
+  width: 250px;
+}
+
+#get-started-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 150px;
+  height: 40px;
+  background-color: #001eff;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;  
+}
+
+#get-started-link:hover {
+  background-color: #011bdf;
+  cursor: pointer;
+  opacity: 1;
+}
+
+@media screen and (max-width: 690px) {
+  .elf-doc-header h1 {
+    font-size: 26px;
+  }
+  .elf-doc-header h3 {
+    font-size: 16px;
+  }
+  .elf-doc-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .elf-doc-content .content-box {
+    max-width: 350px;
+    margin-bottom: 20px;
+    margin-right: 0;
+    flex: auto;
+  }
+  .content-box p {
+    text-align: center;
+  }
+  .content-box img {
+    width: 200px;
+  }
+  .footer-link {
+    display: block;
+    margin-bottom: 20px;
+  }
+}
