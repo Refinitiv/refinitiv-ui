@@ -1,4 +1,4 @@
-import type { CollectionComposer } from '@refinitiv-ui/utils/lib/collection';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import type { TreeDataItem } from './types';
 import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager.js';
 import { Renderer } from '../../list/renderer.js';
@@ -12,6 +12,7 @@ type RendererScope = {
 
 export class TreeRenderer extends Renderer {
   constructor (scope?: unknown) {
+
     let manager: TreeManager<TreeDataItem>;
     let currentMode: TreeManagerMode;
     let currentComposer: CollectionComposer<TreeDataItem>;
@@ -36,6 +37,7 @@ export class TreeRenderer extends Renderer {
       el.disabled = composer.getItemPropertyValue(item, 'disabled') === true;
       el.readonly = composer.getItemPropertyValue(item, 'readonly') === true;
       el.highlighted = composer.getItemPropertyValue(item, 'highlighted') === true;
+
       return el;
     });
   }

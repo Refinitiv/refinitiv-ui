@@ -4,8 +4,8 @@ import {
   ControlElement,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
 import '../../icon/index.js';
 import { preload } from '../../icon/index.js';
@@ -34,6 +34,8 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
     return VERSION;
   }
 
+  protected readonly defaultRole: string | null = 'treeitem';
+
   /**
    * Checked state of the item
    */
@@ -61,7 +63,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   /**
    * Depth of the item
    */
-  @property({ reflect: true, type: Number })
+  @property({ type: Number, reflect: true })
   public depth = 0;
 
   /**
@@ -103,10 +105,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    */
   protected get toggleTemplate (): TemplateResult {
     return html`
-    <div
-    expand-toggle
-    part="toggle"
-    style="pointer-events:all;visibility:${this.parent ? 'visible' : 'hidden'}">
+    <div expand-toggle part="toggle" style="pointer-events:all;visibility:${this.parent ? 'visible' : 'hidden'}">
       <ef-icon part="toggle-icon${this.expanded ? ' toggle-icon-expanded' : ''}" icon="right"></ef-icon>
     </div>
     `;
@@ -119,15 +118,17 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
     if (!this.multiple) {
       return emptyTemplate;
     }
+
     return html`
     <ef-checkbox
-    part="checkbox"
-    tabindex="-1"
-    .disabled="${this.disabled}"
-    .readonly="${this.readonly}"
-    .indeterminate="${this.indeterminate}"
-    .checked="${this.checked}"
-    style="pointer-events:none"></ef-checkbox>
+      part="checkbox"
+      tabindex="-1"
+      .disabled="${this.disabled}"
+      .readonly="${this.readonly}"
+      .indeterminate="${this.indeterminate}"
+      .checked="${this.checked}"
+      style="pointer-events:none">
+    </ef-checkbox>
     `;
   }
 
@@ -135,7 +136,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * Template for rendering the icon
    */
   protected get iconTemplate (): TemplateResult {
-    if(typeof this.icon === 'undefined') {
+    if (typeof this.icon === 'undefined') {
       return emptyTemplate;
     }
 
@@ -156,24 +157,93 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
     return this.checkedState === CheckedState.INDETERMINATE;
   }
 
-  protected update (changedProperties: PropertyValues): void {
-    super.update(changedProperties);
-    if (changedProperties.has('checkedState')) {
-      switch (this.checkedState) {
-        case CheckedState.CHECKED:
-          this.setAttribute('selected', '');
-          break;
-        case CheckedState.INDETERMINATE:
-          this.setAttribute('selected', 'indeterminate');
-          break;
-        default:
-          this.removeAttribute('selected');
-      }
+  /**
+   * Handles aria-checked and aria-selected when mode changes
+   * aria-checked is used for multiple mode due to tri-state support
+   * @returns {void}
+   **/
+  private multipleChanged (): void {
+    this.removeAttribute(this.multiple ? 'aria-selected' : 'aria-checked');
+    this.checkedChanged();
+  }
+
+  /**
+   * Handles selected and aria attribute changes
+   * @returns {void}
+   */
+  private checkedChanged (): void {
+    switch (this.checkedState) {
+      case CheckedState.CHECKED:
+        this.setAttribute('selected', '');
+        this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'true');
+        break;
+      case CheckedState.INDETERMINATE:
+        this.setAttribute('selected', 'indeterminate');
+        this.setAttribute('aria-checked', 'mixed');
+        break;
+      default:
+        this.removeAttribute('selected');
+
+        // In single mode, only children nodes are selectable
+        if (this.parent && !this.multiple) {
+          this.removeAttribute('aria-selected');
+        }
+        else {
+          this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'false');
+        }
+
+        break;
     }
   }
 
+  /**
+   * Handles aria-expanded when expanded state changes
+   * @returns {void}
+   */
+  private expandedChanged () :void {
+    if (this.parent) {
+      this.setAttribute('aria-expanded', this.expanded ? 'true' : 'false');
+    }
+  }
+
+  /**
+   * Called after the component is first rendered
+   * @param changedProperties Properties which have changed
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    this.setAttribute('aria-level', String(this.depth + 1));
+  }
+
+  /**
+   * Invoked whenever the element is updated
+   * @param changedProperties Map of changed properties with old values
+   * @returns {void}
+   */
+  protected update (changedProperties: PropertyValues): void {
+    super.update(changedProperties);
+
+    if (changedProperties.has('checkedState')) {
+      this.checkedChanged();
+    }
+
+    if (changedProperties.has('multiple') && changedProperties.get('multiple') !== undefined) {
+      this.multipleChanged();
+    }
+
+    if (changedProperties.has('expanded')) {
+      this.expandedChanged();
+    }
+  }
+
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @returns Render template
+   */
   protected render (): TemplateResult {
-    return html `
+    return html`
       ${this.indentTemplate}
       ${this.toggleTemplate}
       ${this.checkboxTemplate}

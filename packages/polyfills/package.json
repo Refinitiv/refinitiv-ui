@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/polyfills",
-  "version": "5.2.0-alpha.1",
+  "version": "5.2.0",
   "description": "Verified polyfills for the Element Framework",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -10,6 +10,10 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/polyfills"
   },
+  "scripts": {
+    "build": "echo \"No build command found\"",
+    "build:prod": "echo \"No build:prod command found\""
+  },
   "dependencies": {
     "@webcomponents/custom-elements": "^1.4.1",
     "@webcomponents/shadycss": "^1.10.0",
@@ -17,7 +21,7 @@
     "@webcomponents/template": "^1.4.2",
     "@webcomponents/webcomponents-platform": "^1.0.0",
     "core-js": "^3.14.0",
-    "lit": "~2.0.2",
+    "lit": "~2.1.1",
     "shady-css-scoped-element": "0.0.2"
   },
   "publishConfig": {

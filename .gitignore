@@ -65,6 +65,8 @@ web_modules/
 
 # Output of 'npm pack'
 *.tgz
+# Allow pandora-book offline package
+!documents/tools/*.tgz
 
 # Yarn Integrity file
 .yarn-integrity
@@ -138,3 +140,6 @@ custom-elements.json
 ## editors
 /.idea
 /.vscode
+
+#Sample App
+samples/angular/.angular/*

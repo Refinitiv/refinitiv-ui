@@ -1,4 +1,4 @@
-import type { CollectionComposer } from '@refinitiv-ui/utils/lib/collection';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import type { TreeDataItem } from '../helpers/types';
 
 export enum CheckedState {
@@ -439,5 +439,4 @@ export class TreeManager<T extends TreeDataItem> {
   public uncheckAllItems (): void {
     this.editableItems.forEach(item => this.uncheckItem(item));
   }
-
 }

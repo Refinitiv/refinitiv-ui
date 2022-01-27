@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/theme-compiler",
-  "version": "5.0.6",
+  "version": "5.0.7",
   "description": "Compiles Element Framework themes into usable JavaScript",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -12,8 +12,12 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/theme-compiler"
   },
+  "scripts": {
+    "build": "echo \"No build command found\"",
+    "build:prod": "echo \"No build:prod command found\""
+  },
   "dependencies": {
-    "autoprefixer": "^9.6.5",
+    "autoprefixer": "^10.4.2",
     "chalk": "^2.4.2",
     "clean-css": "^4.2.1",
     "css-select": "^2.0.2",
@@ -24,7 +28,6 @@
     "htmlparser2": "^4.0.0",
     "less": "3.11.1",
     "less-plugin-npm-import": "^2.1.0",
-    "postcss": "^7.0.18",
     "yargs-parser": "^15.0.0"
   },
   "publishConfig": {

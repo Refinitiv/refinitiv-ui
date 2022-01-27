@@ -8,10 +8,10 @@ import {
   TemplateResult,
   WarningNotice
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
-import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/lib/collection.js';
+import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 import type { ItemData } from '../item';
 import type { ListData } from './helpers/types';
 import { ListRenderer } from './helpers/list-renderer.js';
@@ -102,6 +102,12 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    */
   @property({ type: Boolean })
   public stateless = false;
+
+  /**
+   * Aria indicating that list supports multiple selection
+   */
+  @property({ type: String, reflect: true, attribute: 'aria-multiselectable' })
+  public ariaMultiselectable = 'false';
 
   /**
    * Allow multiple selections

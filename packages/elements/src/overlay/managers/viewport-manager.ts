@@ -1,4 +1,4 @@
-import { AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 import type { OverlayViewport } from '../elements/overlay-viewport';
 import type { ViewAreaInfo } from '../helpers/types';
 import type { Overlay } from '../elements/overlay';

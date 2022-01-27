@@ -239,25 +239,26 @@ describe('checkbox/Checkbox', () => {
   describe('Keypress Enter Event', () => {
     let enterEvent;
     describe('Check / Unchecked State', () => {
-      it('can be checked by pressed Enter on the checkbox', async () => {
+      it('should not be able to check when Enter key is pressed', async () => {
         enterEvent = createEnterKeyboardEvent();
         el = await fixture(unchecked);
+        expect(el.checked).to.equal(false);
+        el.dispatchEvent(enterEvent);
+        await elementUpdated(el);
+        expect(el.checked).to.equal(false);
+      });
+      it('should not be able to uncheck when Enter key is pressed', async () => {
+        enterEvent = createEnterKeyboardEvent();
+        el = await fixture(checked);
+        expect(el.checked).to.equal(true);
         el.dispatchEvent(enterEvent);
         await elementUpdated(el);
         expect(el.checked).to.equal(true);
       });
-      it('should fired an checked-changed event on press Enter and has the correct value', async () => {
-        enterEvent = createEnterKeyboardEvent();
-        el = await fixture(unchecked);
-        const onChecked = () => el.dispatchEvent(enterEvent);
-        setTimeout(onChecked);
-        const e = await oneEvent(el, 'checked-changed');
-        expect(e.target.checked).to.equal(true);
-      });
     });
 
     describe('Disabled State', () => {
-      it('should not be able to press Enter when disabled', async () => {
+      it('should do nothing when Enter key is pressed', async () => {
         enterEvent = createEnterKeyboardEvent();
         el = await fixture(disabled);
         expect(el.disabled).to.equal(true);
@@ -269,7 +270,7 @@ describe('checkbox/Checkbox', () => {
     });
 
     describe('Readonly State', () => {
-      it('should not be able to press Enter when readonly', async () => {
+      it('should do nothing when Enter key is pressed', async () => {
         enterEvent = createEnterKeyboardEvent();
         el = await fixture(readonly);
         expect(el.readonly).to.equal(true);
@@ -280,29 +281,13 @@ describe('checkbox/Checkbox', () => {
       });
     });
     describe('Indeterminate State', () => {
-      it('can be checked by pressed Enter on the checkbox', async () => {
+      it('should not check on Enter key pressed', async () => {
         enterEvent = createEnterKeyboardEvent();
         el = await fixture(indeterminate);
         el.dispatchEvent(enterEvent);
         await elementUpdated(el);
-        expect(el.checked).to.equal(true);
-        expect(el.indeterminate).to.equal(false);
-      });
-      it('should have a correct state when users press Enter as indeterminate => checked => unchecked => checked', async () => {
-        enterEvent = createEnterKeyboardEvent();
-        el = await fixture(indeterminate);
-        el.dispatchEvent(enterEvent);
-        await elementUpdated(el);
-        expect(el.indeterminate).to.equal(false);
-        expect(el.checked).to.equal(true);
-        el.dispatchEvent(enterEvent);
-        await elementUpdated(el);
-        expect(el.indeterminate).to.equal(false);
         expect(el.checked).to.equal(false);
-        el.dispatchEvent(enterEvent);
-        await elementUpdated(el);
-        expect(el.indeterminate).to.equal(false);
-        expect(el.checked).to.equal(true);
+        expect(el.indeterminate).to.equal(true);
       });
     });
   });

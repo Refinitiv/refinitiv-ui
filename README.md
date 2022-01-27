@@ -1,7 +1,6 @@
 # Element Framework (EF) V5
 
-[![Linting](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/lint.yml?query=branch%3Amain+)
-[![Testing](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test.yml?query=branch%3Amain+)
+[![Testing](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test.yml/badge.svg)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test.yml)
 [![Release](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/release.yml?query=branch%3Amain+)
 
 Element Framework is Refinitiv design system components that provides components and tooling with Refinitiv's design system to help product teams work faster and more efficiently.

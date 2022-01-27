@@ -7,9 +7,9 @@ import {
   PropertyValues,
   TapEvent
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
 import {
   registerOverflowTooltip
@@ -207,8 +207,8 @@ export class RadioButton extends ControlElement {
     if (this.disabled || event.defaultPrevented) {
       return;
     }
+
     switch (event.key) {
-      case 'Enter':
       case ' ':
       case 'Spacebar':
         if (this.readonly) {
@@ -216,10 +216,14 @@ export class RadioButton extends ControlElement {
         }
         this.handleChangeChecked();
         break;
+      case 'Right':
+      case 'Down':
       case 'ArrowRight':
       case 'ArrowDown':
         this.navigateToSibling('next');
         break;
+      case 'Left':
+      case 'Up':
       case 'ArrowLeft':
       case 'ArrowUp':
         this.navigateToSibling('previous');

@@ -1,7 +1,7 @@
 name: Test
 on:
   pull_request:
-    branches: [develop]
+    branches: [develop,prerelease]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,13 +17,16 @@ jobs:
         uses: ./.github/actions/setup
         id: setup
 
+      - name: Print versions
+        run: npm version
+
       - name: Install Dependencies
         if: steps.setup.outputs.cache-dependencies-hit != 'true'
         run: npm ci --ignore-scripts --audit=false --fund=false
 
       - name: Build
         if: steps.setup.outputs.cache-build-hit != 'true'
-        run: lerna run build --include-dependencies --since origin/develop...HEAD
+        run: npm run build --workspaces
 
   lint:
     needs: build
