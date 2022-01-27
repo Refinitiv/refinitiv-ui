@@ -13,7 +13,8 @@
     "directory": "packages/theme-compiler"
   },
   "scripts": {
-    "build": "echo \"No build command found\""
+    "build": "echo \"No build command found\"",
+    "build:prod": "echo \"No build:prod command found\""
   },
   "dependencies": {
     "autoprefixer": "^10.4.2",

@@ -11,7 +11,8 @@
     "directory": "packages/polyfills"
   },
   "scripts": {
-    "build": "echo \"No build command found\""
+    "build": "echo \"No build command found\"",
+    "build:prod": "echo \"No build:prod command found\""
   },
   "dependencies": {
     "@webcomponents/custom-elements": "^1.4.1",

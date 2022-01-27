@@ -8,7 +8,8 @@
     "directory": "packages/configurations"
   },
   "scripts": {
-    "build": "echo \"No build command found\""
+    "build": "echo \"No build command found\"",
+    "build:prod": "echo \"No build:prod command found\""
   },
   "keywords": [
     "Element Framework",
