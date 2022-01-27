@@ -67,7 +67,7 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "@refinitiv-ui/utils": "^5.1.1"
+    "@refinitiv-ui/utils": "^5.2.0-alpha.1"
   },
   "devDependencies": {
     "@refinitiv-ui/test-helpers": "^5.1.2"

@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",
-    "build:prod": "echo \"No build:prod command found\"",
+    "build:prod": "tsc",
     "build:watch": "npm run build -- --watch --preserveWatchOutput",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
