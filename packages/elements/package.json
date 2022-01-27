@@ -334,7 +334,7 @@
     "@types/d3-interpolate": "^3.0.1"
   },
   "peerDependencies": {
-    "@refinitiv-ui/core": "^5.4.0",
+    "@refinitiv-ui/core": "^5.5.0-alpha.0",
     "@refinitiv-ui/i18n": "^5.3.0-alpha.0",
     "@refinitiv-ui/phrasebook": "^5.5.0-alpha.0",
     "@refinitiv-ui/translate": "^5.3.0",
