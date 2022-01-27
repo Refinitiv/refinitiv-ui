@@ -35,7 +35,7 @@ jobs:
       # Increment a prerelease version for change packages according to conventional commits
       # Add --preid to change prerelease identifier, default to alpha
       - name: Bump prerelease version
-        run: lerna version --no-changelog --conventional-commits --conventional-prerelease --yes
+        run: lerna version --no-changelog --conventional-commits --conventional-prerelease --force-git-tag --yes
 
       - name: Publish package to NPM at tag `next`
         run: lerna publish from-git --dist-tag next --yes
