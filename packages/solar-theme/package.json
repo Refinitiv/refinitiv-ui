@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/solar-theme",
-  "version": "5.7.0-alpha.1",
+  "version": "5.7.0-alpha.2",
   "description": "Solar theme for the Element Framework",
   "author": "Refinitiv",
   "license": "SEE LICENSE IN LICENSE",
@@ -25,7 +25,7 @@
     "@refinitiv-ui/elemental-theme": "^5.4.2"
   },
   "devDependencies": {
-    "@refinitiv-ui/theme-compiler": "^5.1.0-alpha.0"
+    "@refinitiv-ui/theme-compiler": "^5.1.0-alpha.1"
   },
   "publishConfig": {
     "access": "public"

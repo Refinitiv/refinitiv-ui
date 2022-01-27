@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/phrasebook",
-  "version": "5.5.0-alpha.1",
+  "version": "5.5.0-alpha.2",
   "description": "Collection of messages in EF components for translation",
   "author": "Refinitiv",
   "license": "Apache-2.0",
