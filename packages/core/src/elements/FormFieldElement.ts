@@ -1,7 +1,7 @@
 import { html, TemplateResult, PropertyValues } from 'lit';
-import { label as inputLabel } from '@refinitiv-ui/utils/lib/accessibility/label.js';
-import { description as inputDescription } from '@refinitiv-ui/utils/lib/accessibility/description.js';
-import { required as inputRequired } from '@refinitiv-ui/utils/lib/accessibility/required.js';
+import { label as inputLabel } from '@refinitiv-ui/utils/accessibility/label.js';
+import { description as inputDescription } from '@refinitiv-ui/utils/accessibility/description.js';
+import { required as inputRequired } from '@refinitiv-ui/utils/accessibility/required.js';
 import { state } from '../decorators/state.js';
 import { property } from '../decorators/property.js';
 import { templateMap, TemplateMap } from '../directives/template-map.js';

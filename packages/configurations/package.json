@@ -7,6 +7,10 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/configurations"
   },
+  "scripts": {
+    "build": "echo \"No build command found\"",
+    "build:prod": "echo \"No build:prod command found\""
+  },
   "keywords": [
     "Element Framework",
     "v5",

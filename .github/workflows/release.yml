@@ -30,7 +30,7 @@ jobs:
         run: npm ci --ignore-scripts --audit=false --fund=false
 
       - name: Production build
-        run: lerna run build:prod --include-dependencies --since
+        run: npm run build:prod --workspaces
 
       - name: Bump version and create GitHub release
         run: lerna version --create-release github --conventional-commits --yes

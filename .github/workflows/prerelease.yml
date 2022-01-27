@@ -30,7 +30,7 @@ jobs:
         run: npm ci --ignore-scripts --audit=false --fund=false
 
       - name: Production build
-        run: lerna run build:prod --include-dependencies --since
+        run: npm run build:prod --workspaces
 
       # Increment a prerelease version for change packages according to conventional commits
       # Add --preid to change prerelease identifier, default to alpha

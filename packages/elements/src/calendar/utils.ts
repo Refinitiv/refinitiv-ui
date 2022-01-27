@@ -2,7 +2,7 @@ import {
   toDateSegment,
   getDaysInMonth,
   utcParse
-} from '@refinitiv-ui/utils/lib/date.js';
+} from '@refinitiv-ui/utils/date.js';
 import { DEFAULT_LOCALE, MessageFormats, resolveLocale, TranslateParams } from '@refinitiv-ui/i18n';
 import { CalendarLocaleScope } from './constants.js';
 

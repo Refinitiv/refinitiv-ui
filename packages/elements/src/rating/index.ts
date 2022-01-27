@@ -6,10 +6,10 @@ import {
   CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { queryAll } from '@refinitiv-ui/core/lib/decorators/query-all.js';
-import { repeat } from '@refinitiv-ui/core/lib/directives/repeat.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { queryAll } from '@refinitiv-ui/core/decorators/query-all.js';
+import { repeat } from '@refinitiv-ui/core/directives/repeat.js';
 import { VERSION } from '../version.js';
 interface ItemType {
   item: string;

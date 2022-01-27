@@ -2,7 +2,20 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "packages/*",
+    "packages/configurations",
+    "packages/utils",
+    "packages/core",
+    "packages/phrasebook",
+    "packages/i18n",
+    "packages/translate",
+    "packages/demo-block",
+    "packages/test-helpers",
+    "packages/theme-compiler",
+    "packages/elemental-theme",
+    "packages/solar-theme",
+    "packages/halo-theme",
+    "packages/elements",
+    "packages/polyfills",
     "documents"
   ],
   "engines": {
@@ -11,9 +24,9 @@
   },
   "scripts": {
     "lerna": "lerna",
-    "build": "lerna run build",
+    "build": "npm run build --workspaces",
     "build:docs": "lerna run --scope @refinitiv-ui/docs build --stream",
-    "build:prod": "lerna run build:prod",
+    "build:prod": "npm run build:prod --workspaces",
     "start": "node cli start",
     "start:docs": "lerna run --scope @refinitiv-ui/docs start --stream",
     "test": "node cli test",

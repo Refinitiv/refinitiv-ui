@@ -6,12 +6,12 @@ import {
   PropertyValues,
   TemplateResult
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { unsafeHTML } from '@refinitiv-ui/core/lib/directives/unsafe-html.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
 import { VERSION } from '../version.js';
-import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import type {
   AutosuggestTargetElement,
   AutosuggestHighlightable,
@@ -25,7 +25,7 @@ import type {
   AutosuggestQueryAction
 } from './helpers/types';
 import { escapeRegExp, itemHighlightable, itemRenderer, queryWordSelect } from './helpers/utils.js';
-import { isIE, isMobile } from '@refinitiv-ui/utils/lib/browser.js';
+import { isIE, isMobile } from '@refinitiv-ui/utils/browser.js';
 import { Overlay } from '../overlay/index.js';
 import '../loader/index.js';
 import '../item/index.js';

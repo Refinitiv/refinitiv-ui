@@ -19,7 +19,7 @@ import type {
   SeriesType
 } from 'lightweight-charts';
 
-import type { RGBColor, HSLColor } from '@refinitiv-ui/utils/lib/color.js';
+import type { RGBColor, HSLColor } from '@refinitiv-ui/utils/color.js';
 
 type SeriesOptions = AreaSeriesPartialOptions | BarSeriesPartialOptions | CandlestickSeriesPartialOptions | HistogramSeriesPartialOptions | LineSeriesPartialOptions;
 type SeriesStyleOptions = LineStyleOptions & AreaStyleOptions & BarStyleOptions & CandlestickStyleOptions & HistogramStyleOptions;
