@@ -127,8 +127,12 @@ export class Button extends ControlElement {
    */
   protected update (changedProperties: PropertyValues): void {
     if(changedProperties.has('active') && this.toggles || changedProperties.has('toggles') && this.toggles) {
-      const isRadio = this.getAttribute('role') === 'radio';
-      isRadio ? this.ariaChecked = String(this.active) : this.ariaPressed = String(this.active);
+      if (this.getAttribute('role') === 'radio') {
+        this.ariaChecked = String(this.active);
+      }
+      else {
+        this.ariaPressed = String(this.active);
+      }
     }
 
     super.update(changedProperties);

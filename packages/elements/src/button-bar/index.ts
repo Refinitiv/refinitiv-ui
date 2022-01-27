@@ -154,23 +154,26 @@ export class ButtonBar extends BasicElement {
     switch (event.key) {
       case ' ':
       case 'Spacebar':
+      case 'Enter':
         this.onTapHandler(event as unknown as TapEvent);
         break;
       case 'Right':
       case 'ArrowRight':
-        !this.isNested() && this.next();
+        // Prevent call twice if this component is nested
+        !this.isNested() && this.navigateToSibling('next');
         break;
       case 'Down':
       case 'ArrowDown':
-        this.managed && this.next();
+        // UP/DOWN will navigate within the group by design pattern of radio role
+        this.managed && this.navigateToSibling('next');
         break;
       case 'Left':
       case 'ArrowLeft':
-        !this.isNested() && this.previous();
+        !this.isNested() && this.navigateToSibling('previous');
         break;
       case 'Up':
       case 'ArrowUp':
-        this.managed && this.previous();
+        this.managed && this.navigateToSibling('previous');
         break;
       case 'Home':
         !this.isNested() && this.first();
@@ -186,61 +189,58 @@ export class ButtonBar extends BasicElement {
   }
 
   /**
-   * Navigate to next focusable item of the focusable buttons
+   * Navigate to next or previous focusable button
+   * @param direction up/next; down/previous
    * @returns {void}
    */
-  private next (): void {
-    const group = this.getFocusableButtons();
-    const index = group.findIndex((button) => button.focused === true);
-    const isOutofRange = ((index + 1) >= group.length);
-    const targetIndex = ((index === -1) || isOutofRange) ? 0 : (index + 1);
-    this.focusTarget(group[targetIndex], group);
+  private navigateToSibling (direction: 'next' | 'previous'): void {
+    const buttons = this.getFocusableButtons();
+    if(buttons.length <= 0) {
+      return;
+    }
+
+    const focusedButtonIndex = buttons.findIndex(button => button === document.activeElement);
+
+    const nextButton = direction === 'next'
+      ? buttons[focusedButtonIndex + 1] || buttons[0]
+      : buttons[focusedButtonIndex - 1] || buttons[buttons.length - 1];
+
+    nextButton.focus();
+    this.rovingTabIndex(nextButton, buttons);
   }
 
   /**
-   * Navigate to previous focusable item of the focusable buttons
-   * @returns {void}
-   */
-  private previous (): void {
-    const group = this.getFocusableButtons();
-    const index = group.findIndex((button) => button.focused === true);
-    const isOutofRange = ((index - 1) < 0);
-    const targetIndex = ((index === -1) || isOutofRange) ? (group.length - 1) : (index - 1);
-    this.focusTarget(group[targetIndex], group);
-  }
-
-  /**
-   * Navigate to the first focusable item of the focusable buttons
+   * Navigate to the first focusable button
    * @returns {void}
    */
   private first (): void {
-    const group = this.getFocusableButtons();
-    this.focusTarget(group[0], group);
+    const buttons = this.getFocusableButtons();
+    buttons[0].focus();
+    this.rovingTabIndex(buttons[0], buttons);
   }
 
   /**
-   * Navigate to the last focusable item of the focusable buttons
+   * Navigate to the last focusable button
    * @returns {void}
    */
   private last (): void {
-    const group = this.getFocusableButtons();
-    this.focusTarget(group[group.length - 1], group);
+    const buttons = this.getFocusableButtons();
+    buttons[buttons.length - 1].focus();
+    this.rovingTabIndex(buttons[buttons.length - 1], buttons);
   }
 
   /**
-   * Focusing target and set tabIndex=0 to target and tabIndex=-1 to other in group
+   * Set tabIndex="0" to target will be focused and others items are tabIndex="-1"
+   * Manage tabIndex within the element by following Roving tabIndex
    * @param target the button will be focused
-   * @param group Array of Button that contains target
+   * @param buttons Array of Button that contains target
    * @returns {void}
    */
-  private focusTarget (target: Button, group: Button[]):void {
-    group.forEach((button) => {
+  private rovingTabIndex (target: Button, buttons: Button[]):void {
+    buttons.map((button) => {
       button.tabIndex = -1;
     });
-    target.focus();
-    if (target instanceof Button) {
-      target.tabIndex = 0;
-    }
+    target.tabIndex = 0;
   }
 
   /**
@@ -251,22 +251,20 @@ export class ButtonBar extends BasicElement {
     if (this.isNested()) {
       return;
     }
-    const group = this.getFocusableButtons();
-    let lastFocusItem = group.findIndex(button => button.tabIndex === 0);
-    lastFocusItem === -1 ? lastFocusItem = 0 : lastFocusItem;
-    group.map((button, index) => {
-      if (lastFocusItem === index) {
-        button.tabIndex = 0;
+    const buttons = this.getFocusableButtons();
+    if (buttons && buttons.length > 0) {
+      // Find previous focused button. If not found, use first Button
+      let focusedButtonIndex = buttons.findIndex(button => document.activeElement === button);
+      if (focusedButtonIndex === -1) {
+        focusedButtonIndex = 0;
       }
-      else {
-        button.tabIndex = -1;
-      }
-    });
+      this.rovingTabIndex(buttons[focusedButtonIndex], buttons);
+    }
   }
 
   /**
-   * Return parent node is button-bar
-   * @returns `True` if this contain under button-bar
+   * Check if button bar is nested, a.k.a. has parent button bar
+   * @returns `True` if button bar is nested
    */
   private isNested (): boolean {
     return this.parentElement instanceof ButtonBar;
@@ -282,13 +280,14 @@ export class ButtonBar extends BasicElement {
       return;
     }
 
-    const target = event.target;
+    const target = event.target as Button;
     if (target instanceof Button && target.toggles) {
       event.stopPropagation();
       this.manageButtons(target);
     }
 
-    this.focusTarget(target as Button, this.getFocusableButtons());
+    target.focus();
+    this.rovingTabIndex(target, this.getFocusableButtons());
   }
 
   /**
@@ -319,11 +318,11 @@ export class ButtonBar extends BasicElement {
   }
 
   /**
-   * Return the array of Buttons which can be focusable
+   * Return the array of Buttons which focusable
    * @returns the array of focusable Buttons
    */
   private getFocusableButtons (): Button[] {
-    return [...this.querySelectorAll<Button>('ef-button')].filter(button => !button.disabled);
+    return [...this.querySelectorAll<Button>('ef-button,coral-button')].filter(button => !button.disabled);
   }
 
   /**

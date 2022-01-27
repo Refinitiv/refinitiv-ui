@@ -10,11 +10,7 @@ const keyArrowDown = keyboardEvent('keydown', { key: isIE() ? 'Down' : 'ArrowDow
 const keyArrowUp = keyboardEvent('keydown', { key: isIE() ? 'Up' : 'ArrowUp'});
 const keyHome = keyboardEvent('keydown', { key: 'Home'});
 const keyEnd = keyboardEvent('keydown', { key: 'End'});
-const updateElement = async (el) => {
-  await elementUpdated(el);
-  await nextFrame();
-  await nextFrame();
-}
+
 describe('button-bar/ButtonBar', () => {
   it('should be created', async () => {
     const el = await fixture(html`<ef-button-bar></ef-button-bar>`);
@@ -240,11 +236,9 @@ describe('button-bar/ButtonBar', () => {
       });
     });
     it('Should set correct tabIndex=0 to previous button when navigate left', async () => {
-      await updateElement(el)
       setTimeout(() => el.dispatchEvent(keyArrowLeft)); // will navigate to last focusable button
       const event1 = await oneEvent(el, 'keydown');
       expect(event1.key).to.equal('ArrowLeft');
-      await updateElement(el)
       expect(document.activeElement).to.equal(btn3);
       el.getFocusableButtons().forEach((button, index) => {
         expect(button.getAttribute('tabIndex')).to.equal(index === 2 ? '0' : '-1');
@@ -252,18 +246,15 @@ describe('button-bar/ButtonBar', () => {
       setTimeout(() => el.dispatchEvent(keyArrowLeft));
       const event2 = await oneEvent(el, 'keydown');
       expect(event2.key).to.equal('ArrowLeft');
-      await updateElement(el)
       expect(document.activeElement).to.equal(btn2);
       el.getFocusableButtons().forEach((button, index) => {
         expect(button.getAttribute('tabIndex')).to.equal(index === 1 ? '0' : '-1');
       });
     });
     it('Should set correct tabIndex=0 to next button when navigate right', async () => {
-      await updateElement(el)
       setTimeout(() => el.dispatchEvent(keyArrowRight));
       const event1 = await oneEvent(el, 'keydown');
       expect(event1.key).to.equal('ArrowRight');
-      await updateElement(el)
       expect(document.activeElement).to.equal(btn2);
       el.getFocusableButtons().forEach((button, index) => {
         expect(button.getAttribute('tabIndex')).to.equal(index === 1 ? '0' : '-1');
@@ -271,52 +262,43 @@ describe('button-bar/ButtonBar', () => {
       setTimeout(() => el.dispatchEvent(keyArrowRight));
       const event2 = await oneEvent(el, 'keydown');
       expect(event2.key).to.equal('ArrowRight');
-      await updateElement(el)
       expect(document.activeElement).to.equal(btn3);
       el.getFocusableButtons().forEach((button, index) => {
         expect(button.getAttribute('tabIndex')).to.equal(index === 2 ? '0' : '-1');
       });
     });
     it('Should set correct tabIndex=0 to next button and loop inside managed button-bar when navigate down', async () => {
-      await updateElement(el)
       setTimeout(() => bar.dispatchEvent(keyArrowDown)); 
       const event1 = await oneEvent(bar, 'keydown');
       expect(event1.key).to.equal('ArrowDown');
-      await updateElement(el)
       expect(document.activeElement).to.equal(btn2);
       expect(btn1.getAttribute('tabIndex')).to.equal('-1');
       expect(btn2.getAttribute('tabIndex')).to.equal('0');
       setTimeout(() => bar.dispatchEvent(keyArrowDown));
       const event2 = await oneEvent(bar, 'keydown');
       expect(event2.key).to.equal('ArrowDown');
-      await updateElement(el)
       expect(document.activeElement).to.equal(btn1);
       expect(btn2.getAttribute('tabIndex')).to.equal('-1');
       expect(btn1.getAttribute('tabIndex')).to.equal('0');
     });
     it('Should set correct tabIndex=0 to previous button and loop inside managed button-bar when navigate up', async () => {
-      await updateElement(el)
       setTimeout(() => bar.dispatchEvent(keyArrowUp)); 
       const event1 = await oneEvent(bar, 'keydown');
       expect(event1.key).to.equal('ArrowUp');
-      await updateElement(el)
       expect(document.activeElement).to.equal(btn2);
       expect(btn1.getAttribute('tabIndex')).to.equal('-1');
       expect(btn2.getAttribute('tabIndex')).to.equal('0');
       setTimeout(() => bar.dispatchEvent(keyArrowUp));
       const event2 = await oneEvent(bar, 'keydown');
       expect(event2.key).to.equal('ArrowUp');
-      await updateElement(el)
       expect(document.activeElement).to.equal(btn1);
       expect(btn2.getAttribute('tabIndex')).to.equal('-1');
       expect(btn1.getAttribute('tabIndex')).to.equal('0');
     });
     it('Should set correct tabIndex=0 to last button when keydown End', async () => {
-      await updateElement(el)
       setTimeout(() => el.dispatchEvent(keyEnd)); 
       const event1 = await oneEvent(el, 'keydown');
       expect(event1.key).to.equal('End');
-      await updateElement(el)
       expect(document.activeElement).to.equal(btn3);
       el.getFocusableButtons().forEach((button, index) => {
         expect(button.getAttribute('tabIndex')).to.equal(index === 2 ? '0' : '-1');
@@ -324,11 +306,9 @@ describe('button-bar/ButtonBar', () => {
     });
     it('Should set correct tabIndex=0 to first button when keydown Home', async () => {
       btn3.focus();
-      await updateElement(el)
       setTimeout(() => el.dispatchEvent(keyHome)); 
       const event1 = await oneEvent(el, 'keydown');
       expect(event1.key).to.equal('Home');
-      await updateElement(el)
       expect(document.activeElement).to.equal(btn1);
       el.getFocusableButtons().forEach((button, index) => {
         expect(button.getAttribute('tabIndex')).to.equal(index === 0 ? '0' : '-1');
@@ -339,7 +319,7 @@ describe('button-bar/ButtonBar', () => {
       newButton.id = 'btn5';
       newButton.innerText = 'newButton';
       el.appendChild(newButton);
-      await updateElement(el);
+      await elementUpdated(el);
       const group = el.getFocusableButtons();
       const addedButton = group.find((button) => button.id === 'btn5');
       expect(addedButton.getAttribute('tabIndex')).to.equal('-1');
