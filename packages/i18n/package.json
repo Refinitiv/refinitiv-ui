@@ -32,7 +32,7 @@
     "@refinitiv-ui/test-helpers": "^5.1.2"
   },
   "peerDependencies": {
-    "@refinitiv-ui/phrasebook": "^5.4.1"
+    "@refinitiv-ui/phrasebook": "^5.5.0-alpha.0"
   },
   "publishConfig": {
     "access": "public"
