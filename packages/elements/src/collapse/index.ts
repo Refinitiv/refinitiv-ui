@@ -102,13 +102,6 @@ export class Collapse extends BasicElement {
   private panel!: HTMLElement;
 
   /**
-   * Hierarchical level of element
-   * @ignore
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-level' })
-  public ariaLevel: '1'| '2'| '3' | '4' | '5' | '6' = '2';
-
-  /**
    * Called once after the component is first rendered
    * @param changedProperties map of changed properties with old values
    * @returns {void}
@@ -148,7 +141,7 @@ export class Collapse extends BasicElement {
    * @returns {boolean} true if target is ef-header
    */
   private static isHeader (element: HTMLElement): boolean {
-    return element.localName === 'ef-header' || element.getAttribute('part') === 'toggle' || element.getAttribute('part') === 'header-toggle';
+    return element.localName === 'ef-header' || element.getAttribute('part') === 'toggle';
   }
 
   /**
@@ -202,17 +195,15 @@ export class Collapse extends BasicElement {
    */
   protected render (): TemplateResult {
     return html`
-      <ef-header part="header" level="${this.level}" @tap=${this.handleTap} role="heading" aria-level=${this.ariaLevel}>
-        <div part="header-toggle" id="header-toggle" role="button" tabindex="0" aria-expanded="${this.expanded}" aria-controls="content">
-          ${this.header}
-        </div>
-        <ef-icon icon="right" slot="left" part="toggle" aria-hidden="true"></ef-icon>
+      <ef-header part="header" level="${this.level}" @tap="${this.handleTap}">
+        <ef-icon icon="right" slot="left" part="toggle"></ef-icon>
         <slot slot="left" name="header-left"></slot>
         <slot slot="right" name="header-right"></slot>
+        ${this.header}
       </ef-header>
-      <div id="content" part="content" role="region" aria-labelledby="header-toggle">
+      <div part="content">
         <ef-panel ?spacing="${this.spacing}" transparent>
-          <slot ?hidden=${!this.expanded}></slot>
+          <slot></slot>
         </ef-panel>
       </div>
     `;
