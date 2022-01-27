@@ -4,8 +4,8 @@ import '@refinitiv-ui/elemental-theme/light/ef-radio-button';
 
 const createEnterKeyboardEvent = () => keyboardEvent('keydown', { key: 'Enter' });
 const createSpacebarKeyboardEvent = () => keyboardEvent('keydown', { key: isIE() ? 'Spacebar' : ' ' });
-const keyArrowLeft = () => keyboardEvent('keydown', { key: 'ArrowLeft'});
-const keyArrowRight = () => keyboardEvent('keydown', { key: 'ArrowRight'});
+const keyArrowLeft = () => keyboardEvent('keydown', { key: isIE() ? 'Left' : 'ArrowLeft'});
+const keyArrowRight = () => keyboardEvent('keydown', { key: isIE() ? 'Right' : 'ArrowRight'});
 
 const updateGroup = async (group) => {
   for (let i = 0; i < group.length; i += 1) {
@@ -70,21 +70,6 @@ describe('radio-button/RadioButton', () => {
       expect(unchecked.hasAttribute('checked')).to.equal(true, 'is checked');
       expect(unchecked.checked).to.equal(true, 'property is checked');
       expect(event.detail.value).to.equal(true, 'property is checked');
-    });
-    it('Should fire event and changes its state to checked when using Enter key', async () => {
-      const event = createEnterKeyboardEvent();
-
-      window.setTimeout(() => {
-        unchecked.dispatchEvent(event);
-      });
-
-      const { detail } = await oneEvent(unchecked, 'checked-changed');
-      await elementUpdated(unchecked);
-
-      expect(detail.value).to.equal(true, 'checked-changed event is fired');
-
-      expect(unchecked.checked).to.equal(true, 'property is checked');
-      expect(unchecked.hasAttribute('checked')).to.equal(true, 'attribute is checked');
     });
     it('Should fire event and changes its state to checked when using Space key', async () => {
       const event = createSpacebarKeyboardEvent();
@@ -308,6 +293,17 @@ describe('radio-button/RadioButton', () => {
 
       expect(group[0].checked).to.equal(false);
       expect(group[1].checked).to.equal(false);
+    });
+    it('Should not be able to check by Enter key', async () => {
+      const group = [
+        await fixture('<ef-radio-button name="group2">group2</ef-radio-button>'),
+        await fixture('<ef-radio-button name="group2">group2</ef-radio-button>')
+      ];
+      const event = createEnterKeyboardEvent();
+      group[0].dispatchEvent(event);
+      await updateGroup(group);
+
+      expect(group[0].checked).to.equal(false);
     });
     it('Should not be able to uncheck by Enter key', async () => {
       const group = [
