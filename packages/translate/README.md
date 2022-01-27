@@ -31,7 +31,7 @@ import {
 } from '@refinitiv-ui/translate';
 
 // import default English language
-import '@refinitiv-ui/phrasebook/lib/locale/en/my-translate-element';
+import '@refinitiv-ui/phrasebook/locale/en/my-translate-element';
 
 @customElement('my-translate-element')
 export class MyTranslateElement extends BasicElement {
