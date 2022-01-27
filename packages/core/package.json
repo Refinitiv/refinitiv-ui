@@ -1,14 +1,18 @@
 {
   "name": "@refinitiv-ui/core",
-  "version": "5.4.0",
+  "version": "5.5.0-alpha.0",
   "description": "Element Framework Core",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "typesVersions": {
     "*": {
-      "*": ["lib/*"],
-      "lib/*": ["lib/*"]
+      "*": [
+        "lib/*"
+      ],
+      "lib/*": [
+        "lib/*"
+      ]
     }
   },
   "exports": {
