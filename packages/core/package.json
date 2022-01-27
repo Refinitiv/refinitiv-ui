@@ -53,9 +53,11 @@
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.3.1",
-    "@refinitiv-ui/utils": "^5.1.1",
     "lit": "~2.1.1",
     "tslib": "^2.3.1"
+  },
+  "peerDependencies": {
+    "@refinitiv-ui/utils": "^5.1.1"
   },
   "devDependencies": {
     "@refinitiv-ui/test-helpers": "^5.1.2"
