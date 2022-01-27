@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",
     "build:watch": "npm run build -- --watch --preserveWatchOutput",
-    "build:prod": "tsc",
+    "build:prod": "echo \"No build:prod command found\"",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start": "npm run build && concurrently \"npm run build:watch\" \"web-dev-server --config ../../server.config.js --app-index __demo__\"",

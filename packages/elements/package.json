@@ -307,7 +307,7 @@
   },
   "scripts": {
     "build": "node cli build --sourceMap --declarationMap",
-    "build:prod": "node cli build",
+    "build:prod": "echo \"No build:prod command found\"",
     "start": "node cli start",
     "test": "node cli test",
     "test:watch": "node cli test --watch",
