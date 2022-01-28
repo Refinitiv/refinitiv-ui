@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.4.2...@refinitiv-ui/halo-theme@5.4.3) (2022-01-14)
+
+
+### Bug Fixes
+
+* **checkbox:** wrong cursor style when hover the end of checkbox label ([#165](https://github.com/Refinitiv/refinitiv-ui/issues/165)) ([1b339a8](https://github.com/Refinitiv/refinitiv-ui/commit/1b339a8107fa1fb5c2702a64051b462a4b1eca26))
+* **tree-select:** remove unnecessary x-scrollbar on default styles ([#166](https://github.com/Refinitiv/refinitiv-ui/issues/166)) ([51f4ff2](https://github.com/Refinitiv/refinitiv-ui/commit/51f4ff2352031988f129d376dd4f7d856b374f41))
+
+
+
+
+
 ## [5.4.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.4.1...@refinitiv-ui/halo-theme@5.4.2) (2022-01-12)
 
 **Note:** Version bump only for package @refinitiv-ui/halo-theme
