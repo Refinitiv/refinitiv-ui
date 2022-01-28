@@ -114,12 +114,23 @@ halo('checkbox');
 ## Accessibility
 ::a11y-intro::
 
-The Header component is assigned `role="heading"` and can include the property `aria-level`. As a best practice to accommodate accessible users, apply a logical nesting of Header levels.
+Organizing web pages by headings helps users get a sense of the page’s organization and structure. You could use `ef-header` together with HTML heading (h1-h6) on your page.
 
-x>TODO: THIS CONTENT NEED TO BE REVISED
+`ef-header` should be assigned `role="heading"` and include the property `aria-level` to create semantic heading. 
 
-*	The main heading should use Header level 1
-*	Ideally, there should only be one Header level 1 on each page
+As a best practice to accommodate accessible users, apply a logical nesting of Header levels.
+
+*	The main heading of page should use h1 or `ef-header` with `aria-level="1"`.
+*	Ideally, there should only be one main heading on each page
 *	Header level 2 to 6 can be used to structure the remaining content on the page
+
+### Notes for developers
+As `ef-header` can be used for multiple proposed, developers can decide to set attribute `role` and assign suitable `aria-level` at an application level. 
+
+```html
+<h1>Understanding The Different Types of Cryptocurrency</h1>
+<ef-header level="1" role="heading" aria-level="2">Different Types of Crypto</ef-header>
+<p></p>
+```
 
 ::a11y-end::
