@@ -159,12 +159,12 @@ export class ButtonBar extends BasicElement {
         break;
       case 'Right':
       case 'ArrowRight':
-        // Prevent call twice if this component is nested
+        // Prevent calling twice if this component is nested
         !this.isNested() && this.navigateToSibling('next');
         break;
       case 'Down':
       case 'ArrowDown':
-        // UP/DOWN will navigate within the group by design pattern of radio role
+        // Managed works as role radiogroup so UP/DOWN navigate among radios in the group
         this.managed && this.navigateToSibling('next');
         break;
       case 'Left':
@@ -230,10 +230,9 @@ export class ButtonBar extends BasicElement {
   }
 
   /**
-   * Set tabIndex="0" to target will be focused and others items are tabIndex="-1"
-   * Manage tabIndex within the element by following Roving tabIndex
-   * @param target the button will be focused
-   * @param buttons Array of Button that contains target
+   * Sets the tabindex to -1 for all buttons except the currently focused one.
+   * @param target the button to be focused
+   * @param buttons Array of Buttons that contains target
    * @returns {void}
    */
   private rovingTabIndex (target: Button, buttons: Button[]):void {
@@ -253,7 +252,7 @@ export class ButtonBar extends BasicElement {
     }
     const buttons = this.getFocusableButtons();
     if (buttons && buttons.length > 0) {
-      // Find previous focused button. If not found, use first Button
+      // Set tabindex=0 to previous focused button when new button added If not found set it to first button instead
       let focusedButtonIndex = buttons.findIndex(button => document.activeElement === button);
       if (focusedButtonIndex === -1) {
         focusedButtonIndex = 0;
