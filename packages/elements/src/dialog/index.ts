@@ -124,7 +124,7 @@ export class Dialog extends Overlay {
     const oldValue = this._header;
     const ariaLabelledby = this.getAttribute('aria-labelledby');
     if(oldValue !== value) {
-      if(this.ariaLabel.length === 0 && ariaLabelledby == null) {
+      if(!this.ariaLabel && !ariaLabelledby) {
         this.ariaLabel = String(value);
       }
       this._header = value;
