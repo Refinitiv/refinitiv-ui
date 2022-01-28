@@ -153,7 +153,7 @@ const plugins: Chart.PluginServiceRegistrationOptions = {
     const centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
 
     // Render center background color
-    if(backgroundColor) {
+    if (backgroundColor) {
       ctx.arc(centerX, centerY, chart.innerRadius, 0, 2 * Math.PI);
       ctx.fillStyle = backgroundColor;
       ctx.fill();
@@ -200,7 +200,7 @@ const plugins: Chart.PluginServiceRegistrationOptions = {
         const difSize = ctx.measureText(targetText).width - containerWidth + circlePadding;
         let numCharacter = numText - Math.ceil(difSize * numRatio);
         numCharacter = Math.max(1, numCharacter);
-        if(numCharacter) {
+        if (numCharacter) {
           targetText = targetText.slice(0, numCharacter);
           targetText += '...';
         }
