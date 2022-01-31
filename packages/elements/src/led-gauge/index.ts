@@ -163,7 +163,7 @@ export class LedGauge extends BasicElement {
     const oldValue = this._zero;
     const value = val.toLowerCase();
     const pos = [ZERO_MAP.LEFT, ZERO_MAP.CENTER, ZERO_MAP.RIGHT];
-    if(pos.includes(value)) {
+    if (pos.includes(value)) {
       this._zero = value;
     }
     else {
@@ -173,7 +173,7 @@ export class LedGauge extends BasicElement {
   }
 
   private get _shadowRoot (): ShadowRoot {
-    if(!this.shadowRoot) {
+    if (!this.shadowRoot) {
       throw new Error('Your browser not support Shadow DOM or your Shadow DOM is closed.');
     }
     return this.shadowRoot;
@@ -185,7 +185,7 @@ export class LedGauge extends BasicElement {
   private get canvas (): HTMLCanvasElement {
     const efCanvas = this._shadowRoot.querySelector('ef-canvas');
 
-    if(efCanvas && efCanvas.shadowRoot) {
+    if (efCanvas && efCanvas.shadowRoot) {
       return efCanvas.shadowRoot.getElementById('canvas') as HTMLCanvasElement;
     }
     else {
@@ -232,13 +232,13 @@ export class LedGauge extends BasicElement {
    * @returns value bar index
    */
   private getValueBarIndex (barCount: number, val: number | null): number | null {
-    if(val === null) {
+    if (val === null) {
       return null;
     }
-    if(val < this.min) {
+    if (val < this.min) {
       val = this.min;
     }
-    else if(val > this.max) {
+    else if (val > this.max) {
       val = this.max;
     }
 
@@ -257,7 +257,7 @@ export class LedGauge extends BasicElement {
    * @returns {void}
    */
   private fillBarColor (varName: string): void {
-    if(this.ctx) {
+    if (this.ctx) {
       this.ctx.fillStyle = this.getComputedVariable(varName);
     }
   }
@@ -302,11 +302,11 @@ export class LedGauge extends BasicElement {
    * @returns {void}
    */
   private updateLabelPosition (id: string, labelPos: string): void {
-    if(!labelPos) {
+    if (!labelPos) {
       return;
     }
     const elem = this._shadowRoot.getElementById(id);
-    if(elem) {
+    if (elem) {
       elem.style.left = labelPos;
     }
   }
@@ -316,7 +316,7 @@ export class LedGauge extends BasicElement {
    * @returns {void}
    */
   private renderBarGauge (): void {
-    if(!this.isConnected || !this.canvas) {
+    if (!this.isConnected || !this.canvas) {
       return;
     }
 
@@ -341,13 +341,13 @@ export class LedGauge extends BasicElement {
     let rangeMidIndex = 0;
 
     // Find value bar indexes and mid position of bar gauge
-    if(this.range && this.range.length === 2) {
+    if (this.range && this.range.length === 2) {
       this.neutralColor = true;
 
       const range = [];
-      for(let i = 0; i < this.range.length; i++) {
+      for (let i = 0; i < this.range.length; i++) {
         const index = this.getValueBarIndex(barAmount, this.range[i]);
-        if(index !== null) {
+        if (index !== null) {
           range.push(index);
         }
       }
@@ -364,21 +364,21 @@ export class LedGauge extends BasicElement {
     this.ctx.clearRect(0, 0, width, height);
 
     // Start painting
-    for(let i = 0; i < barAmount; i++) {
+    for (let i = 0; i < barAmount; i++) {
       this.ctx.fillStyle = 'transparent';
 
       let isHitValue = false;
 
       // Found top value position
-      if(i === topValueBarIndex) {
+      if (i === topValueBarIndex) {
         this.fillBarColor('--top-selected-color');
         isHitValue = true;
       }
 
       // Found bottom value position
-      if(i === bottomValueBarIndex) {
+      if (i === bottomValueBarIndex) {
         // In case top & bottom value are in the same position
-        if(i === topValueBarIndex) {
+        if (i === topValueBarIndex) {
           this.fillBarColor('--clash-color');
         }
         else {
@@ -388,9 +388,9 @@ export class LedGauge extends BasicElement {
       }
 
       // Get section color and fill the bar color
-      if(!isHitValue) {
+      if (!isHitValue) {
         // Painted range color first to allow override bar color
-        if(rangeValueBarIndexes.includes(i)) {
+        if (rangeValueBarIndexes.includes(i)) {
           this.fillBarColor('--range-color');
         }
         else {
@@ -414,24 +414,24 @@ export class LedGauge extends BasicElement {
 
     // Calculate label position
     const getLabelPos = (idx: number | null): string => {
-      if(idx === null) {
+      if (idx === null) {
         return '';
       }
       return `${Math.round(basePos + idx * barTotalWidth + labelOffset)}px`;
     };
 
     // Updated top label position
-    if(this.topValue !== null) {
+    if (this.topValue !== null) {
       this.updateLabelPosition('top', getLabelPos(topValueBarIndex));
     }
 
     // Updated bottom label position
-    if(this.bottomValue !== null) {
+    if (this.bottomValue !== null) {
       this.updateLabelPosition('bottom', getLabelPos(bottomValueBarIndex));
     }
 
     // Updated range label position
-    if(this.range && this.range.length === 2) {
+    if (this.range && this.range.length === 2) {
       this.updateLabelPosition('range', getLabelPos(rangeMidIndex));
     }
   }
@@ -443,18 +443,18 @@ export class LedGauge extends BasicElement {
    * @returns template to render
    */
   private createLabelTemplate (value: number | number[] | null, label: string, id: string): TemplateResult | null {
-    if(value === null) {
+    if (value === null) {
       return null;
     }
 
     const template = html`<span part="label" id=${id}>${label}</span>`;
 
-    if(typeof value === 'number') {
+    if (typeof value === 'number') {
       return template;
     }
     // Value is a range type
     else {
-      if(value && value.length === 2 && !(this.bottomLabel && typeof this.bottomValue === 'number')) {
+      if (value && value.length === 2 && !(this.bottomLabel && typeof this.bottomValue === 'number')) {
         return template;
       }
       return null;
