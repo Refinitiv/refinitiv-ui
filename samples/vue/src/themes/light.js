@@ -16,4 +16,4 @@ import '@refinitiv-ui/elements/interactive-chart/themes/halo/light';
 import '@refinitiv-ui/elements/overlay-menu/themes/halo/light';
 import '@refinitiv-ui/elements/toggle/themes/halo/light';
 
-import '../styles/light.less';
+import '../styles/light.less'

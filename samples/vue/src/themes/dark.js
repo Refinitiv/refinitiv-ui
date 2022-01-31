@@ -16,4 +16,4 @@ import '@refinitiv-ui/elements/interactive-chart/themes/halo/dark';
 import '@refinitiv-ui/elements/overlay-menu/themes/halo/dark';
 import '@refinitiv-ui/elements/toggle/themes/halo/dark';
 
-import '../styles/dark.less';
+import '../styles/dark.less'
