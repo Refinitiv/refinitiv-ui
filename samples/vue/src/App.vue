@@ -1,5 +1,4 @@
 <template>
-<!-- eslint-disable -->
   <div class="container">
     <ef-header class="toolbar" level="2">
       <div class="toolbar-items" slot="right">
