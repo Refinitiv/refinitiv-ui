@@ -51,7 +51,7 @@ const tweenAnimate = (configs: Configs): void => {
     complete
   } = configs;
 
-  if(!target) {
+  if (!target) {
     throw new TypeError('No target argument passed');
   }
 
@@ -70,7 +70,7 @@ const tweenAnimate = (configs: Configs): void => {
     }
     else {
       cancelAnimationFrame(animate);
-      if(typeof complete === 'function') {
+      if (typeof complete === 'function') {
         complete();
       }
       return;

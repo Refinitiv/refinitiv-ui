@@ -775,6 +775,7 @@ export class NumberField extends FormFieldElement {
    * @inheritDoc
    */
   /* istanbul ignore next */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public override setSelectionRange (startSelection: number | null, endSelection: number | null, selectionDirection?: SelectionDirection): void {
     throw new Error('Failed to execute \'setSelectionRange\' on \'NumberField\': The element does not support selection.');
   }

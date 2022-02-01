@@ -53,7 +53,7 @@ export class CdnLoader {
       const xhr = new XMLHttpRequest();
       xhr.open('GET', href);
       xhr.onload = (): void => {
-        if(xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 400) {
+        if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 400) {
           resolve(xhr);
         }
         else {
