@@ -8,7 +8,7 @@ const { Source, Build } = require('./paths');
 const PACKAGE_ROOT = '../node_modules/@refinitiv-ui/elements/lib';
 const ELEMENT_API_FILENAME = 'custom-elements.md';
 const API_REFERENCE_TITLES = ['## Properties', '## Methods', '## Events', '## Slots'];
-const FOOTER_TITLE = '::footer::';
+const FOOTER_TITLE = '::footer::'
 
 const handler = async () => {
 
