@@ -80,11 +80,6 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   protected composer = new CollectionComposer<T>([]);
 
   /**
-   * Use default `tabindex` so that items are priority focus targets
-   */
-  protected readonly defaultTabIndex = null;
-
-  /**
    * Element focus delegation.
    * Set to `false` and relies on native focusing.
    */
@@ -104,16 +99,17 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   public stateless = false;
 
   /**
+   * Allow multiple selections
+   */
+  @property({ type: Boolean })
+  public multiple = false;
+
+  /**
    * Aria indicating that list supports multiple selection
    */
   @property({ type: String, reflect: true, attribute: 'aria-multiselectable' })
   public ariaMultiselectable = 'false';
 
-  /**
-   * Allow multiple selections
-   */
-  @property({ type: Boolean })
-  public multiple = false;
 
   /**
    * The data object, used to render the list.
@@ -341,7 +337,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    */
   protected clearHighlighted (): void {
     this.queryItemsByPropertyValue('highlighted', true)
-    .forEach(item => this.composer.setItemPropertyValue(item, 'highlighted', false));
+      .forEach(item => this.composer.setItemPropertyValue(item, 'highlighted', false));
   }
 
   /**
@@ -358,17 +354,17 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       this.clearHighlighted();
       this.composer.setItemPropertyValue(item, 'highlighted', true);
       focus && elementToFocus?.focus({ preventScroll: true });
+      this.setAttribute('aria-activedescendant', String(item.value));
       scrollToItem && this.scrollToItem(item);
     }
   }
-
 
   /**
    * Gets the available tabbable elements
    */
   protected get tabbableItems (): HTMLElement[] {
-    return Array.from(this.children)
-    .filter((el): el is HTMLElement => (el as HTMLElement).tabIndex >= 0);
+    return Array.from(this.children).filter((el): el is HTMLElement =>
+      (el as HTMLElement).getAttribute('role') === 'option' && (el as HTMLElement).getAttribute('disabled') === null);
   }
 
   /**
@@ -641,6 +637,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
 
   protected firstUpdated (changeProperties: PropertyValues): void {
     super.firstUpdated(changeProperties);
+
     this.addEventListener('keydown', this.onKeyDown);
     this.addEventListener('tap', this.onTap);
     this.addEventListener('mousemove', this.onMouse);
@@ -652,16 +649,10 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   protected update (changeProperties: PropertyValues): void {
     if (changeProperties.has('multiple')) {
       this.renderTimestamp.clear(); // force render of all items
-    }
-    return super.update(changeProperties);
-  }
-
-  protected updated (changedProperties: PropertyValues): void {
-    super.updated(changedProperties);
-
-    if (changedProperties.has('multiple')) {
       this.setAttribute('aria-multiselectable', this.multiple ? 'true' : 'false');
     }
+
+    return super.update(changeProperties);
   }
 
   /**

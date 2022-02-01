@@ -31,6 +31,7 @@ export class ListRenderer extends Renderer {
 
       el.label = composer.getItemPropertyValue(item, 'label') as string;
       el.subLabel = composer.getItemPropertyValue(item, 'subLabel') as string;
+      el.id = composer.getItemPropertyValue(item, 'value') as string;
       el.value = composer.getItemPropertyValue(item, 'value') as string;
       el.icon = composer.getItemPropertyValue(item, 'icon') as string;
       el.highlighted = composer.getItemPropertyValue(item, 'highlighted') === true;
@@ -42,6 +43,7 @@ export class ListRenderer extends Renderer {
 
       const itemRole = el.type === 'text' || !el.type ? 'option' : 'presentation';
       el.setAttribute('role', itemRole);
+      el.setAttribute('tabindex', '-1');
       tooltip ? el.setAttribute('title', tooltip) : el.removeAttribute('title');
 
       return el;
