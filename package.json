@@ -19,7 +19,9 @@
     "test": "node cli test",
     "test:all": "lerna run test",
     "lint": "node cli lint",
-    "lint:all": "lerna run lint"
+    "lint:all": "lerna run lint",
+    "lint-fix": "node cli lint:fix",
+    "lint-fix:all": "lerna run lint:fix"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",

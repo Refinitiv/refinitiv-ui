@@ -453,7 +453,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const now = new Date();
     const from = this.values[0];
 
-    if(!this.isDuplex()) {
+    if (!this.isDuplex()) {
       return [formatToView(from || now)];
     }
 

@@ -165,7 +165,7 @@ export class Track {
     let index = Math.floor(mousePixel / laneSize);
 
     if (index >= 0 && index < this.laneCount) {
-      if(mousePixel < this.getContentStart(index) || mousePixel >= this.getContentEnd(index)) {
+      if (mousePixel < this.getContentStart(index) || mousePixel >= this.getContentEnd(index)) {
         index = -1;
       }
     }
