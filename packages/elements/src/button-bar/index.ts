@@ -31,6 +31,7 @@ export class ButtonBar extends BasicElement {
 
   /**
    * Element's role attribute for accessibility
+   * `role` should be `radiogroup` when it is managed.
    */
   protected defaultRole: 'toolbar' | 'radiogroup' = 'toolbar';
 
@@ -134,7 +135,7 @@ export class ButtonBar extends BasicElement {
         break;
       case 'Down':
       case 'ArrowDown':
-        // Managed works as role radiogroup so UP/DOWN navigate among radios in the group
+        // Managed works as role radiogroup so `Up` and `Down` key can navigate among radios in the group
         this.managed && this.navigateToSibling('next');
         break;
       case 'Left':
@@ -184,6 +185,9 @@ export class ButtonBar extends BasicElement {
    */
   private first (): void {
     const buttons = this.getFocusableButtons();
+    if(buttons.length <= 0) {
+      return;
+    }
     buttons[0].focus();
     this.rovingTabIndex(buttons[0], buttons);
   }
@@ -194,6 +198,9 @@ export class ButtonBar extends BasicElement {
    */
   private last (): void {
     const buttons = this.getFocusableButtons();
+    if(buttons.length <= 0) {
+      return;
+    }
     buttons[buttons.length - 1].focus();
     this.rovingTabIndex(buttons[buttons.length - 1], buttons);
   }
@@ -204,7 +211,7 @@ export class ButtonBar extends BasicElement {
    * @param buttons Array of Buttons that contains target
    * @returns {void}
    */
-  private rovingTabIndex (target: Button, buttons: Button[]):void {
+  private rovingTabIndex (target: Button, buttons: Button[]): void {
     buttons.forEach((button) => {
       button.tabIndex = -1;
     });
@@ -215,7 +222,7 @@ export class ButtonBar extends BasicElement {
    * Set tabIndex to all buttons
    * @returns {void}
    */
-  private manageTabIndex ():void {
+  private manageTabIndex (): void {
     if (this.isNested()) {
       return;
     }

@@ -45,97 +45,81 @@
     </demo-block>
 
     <demo-block header="Managed" layout="normal">
-      <ef-button-bar managed>
-        <ef-button toggles>One</ef-button>
-        <ef-button toggles>Two</ef-button>
-        <ef-button toggles>Three</ef-button>
-        <ef-button toggles>Four</ef-button>
-        <ef-button toggles>Five</ef-button>
+      <ef-button-bar managed role="radiogroup">
+        <ef-button toggles role="radio">One</ef-button>
+        <ef-button toggles role="radio">Two</ef-button>
+        <ef-button toggles role="radio">Three</ef-button>
+        <ef-button toggles role="radio">Four</ef-button>
+        <ef-button toggles role="radio">Five</ef-button>
       </ef-button-bar>
-      <ef-button-bar managed>
-        <ef-button toggles active>One</ef-button>
-        <ef-button toggles>Two</ef-button>
-        <ef-button toggles>Three</ef-button>
-        <ef-button toggles>Four</ef-button>
-        <ef-button toggles>Five</ef-button>
+      <ef-button-bar managed role="radiogroup">
+        <ef-button toggles active role="radio">One</ef-button>
+        <ef-button toggles role="radio">Two</ef-button>
+        <ef-button toggles role="radio">Three</ef-button>
+        <ef-button toggles role="radio">Four</ef-button>
+        <ef-button toggles role="radio">Five</ef-button>
       </ef-button-bar>
-      <ef-button-bar managed>
-        <ef-button toggles active>One</ef-button>
-        <ef-button toggles active>Two</ef-button>
-        <ef-button toggles>Three</ef-button>
-        <ef-button toggles>Four</ef-button>
-        <ef-button toggles>Five</ef-button>
+      <ef-button-bar managed role="radiogroup">
+        <ef-button toggles active role="radio">One</ef-button>
+        <ef-button toggles active role="radio">Two</ef-button>
+        <ef-button toggles role="radio">Three</ef-button>
+        <ef-button toggles role="radio">Four</ef-button>
+        <ef-button toggles role="radio">Five</ef-button>
       </ef-button-bar>
     </demo-block>
 
     <demo-block header="Managed + Static" layout="normal">
-      <ef-button-bar managed>
-        <ef-button toggles active>One</ef-button>
-        <ef-button toggles>Two</ef-button>
-        <ef-button toggles>Three</ef-button>
-        <ef-button toggles>Four</ef-button>
-        <ef-button toggles>Five</ef-button>
-        <ef-button icon="tick"></ef-button>
+      <ef-button-bar managed role="radiogroup">
+        <ef-button toggles active role="radio">One</ef-button>
+        <ef-button toggles role="radio">Two</ef-button>
+        <ef-button toggles role="radio">Three</ef-button>
+        <ef-button toggles role="radio">Four</ef-button>
+        <ef-button toggles role="radio">Five</ef-button>
+        <ef-button icon="tick" aria-label="tick icon"></ef-button>
       </ef-button-bar>
     </demo-block>
 
     <demo-block header="Managed + Individual" layout="normal">
-      <ef-button-bar managed>
+      <ef-button-bar managed role="radiogroup">
         <ef-button toggles active>One</ef-button>
-        <ef-button toggles>Two</ef-button>
-        <ef-button toggles>Three</ef-button>
-        <ef-button toggles>Four</ef-button>
-        <ef-button toggles>Five</ef-button>
+        <ef-button toggles role="radio">Two</ef-button>
+        <ef-button toggles role="radio">Three</ef-button>
+        <ef-button toggles role="radio">Four</ef-button>
+        <ef-button toggles role="radio">Five</ef-button>
       </ef-button-bar>
-      <ef-button icon="tick"></ef-button>
+      <ef-button icon="tick" aria-label="tick icon"></ef-button>
     </demo-block>
 
     <demo-block header="Complex nested layout" layout="normal">
-      <ef-button-bar fill>
+      <ef-button-bar fill aria-label="Text formatting">
         <ef-button disabled>Roboto (14pt)</ef-button>
-        <ef-button toggles active icon="bold"></ef-button>
-        <ef-button toggles icon="italic"></ef-button>
-        <ef-button toggles icon="underline"></ef-button>
-        <ef-button-bar managed>
-          <ef-button toggles active icon="text-left"></ef-button>
-          <ef-button toggles icon="text-center"></ef-button>
-          <ef-button toggles icon="text-right"></ef-button>
-          <ef-button toggles icon="align-justify"></ef-button>
+        <ef-button toggles active icon="bold" aria-label="bold"></ef-button>
+        <ef-button toggles icon="italic" aria-label="italic"></ef-button>
+        <ef-button toggles icon="underline" aria-label="underline"></ef-button>
+        <ef-button-bar managed role="radiogroup">
+          <ef-button toggles role="radio" active role="radio" icon="text-left" aria-label="left Alignment"></ef-button>
+          <ef-button toggles role="radio" icon="text-center" aria-label="center Alignment"></ef-button>
+          <ef-button toggles role="radio" icon="text-right" aria-label="right Alignment"></ef-button>
+          <ef-button toggles role="radio" icon="align-justify" aria-label="justify Alignment"></ef-button>
         </ef-button-bar>
-        <ef-button icon="increase-indent"></ef-button>
-        <ef-button icon="decrease-indent"></ef-button>
-        <ef-button icon="image"></ef-button>
-        <ef-button icon="print"></ef-button>
+        <ef-button icon="increase-indent" aria-label="increase indent"></ef-button>
+        <ef-button icon="decrease-indent" aria-label="decrease indent"></ef-button>
+        <ef-button icon="image" aria-label="image"></ef-button>
+        <ef-button icon="print" aria-label="print"></ef-button>
       </ef-button-bar>
 
       <ef-button-bar>
           <ef-button>One</ef-button>
           <ef-button>Two</ef-button>
-          <ef-button-bar managed>
-            <ef-button toggles>Three</ef-button>
-            <ef-button toggles>Four</ef-button>
+          <ef-button-bar managed role="radiogroup">
+            <ef-button toggles role="radio">Three</ef-button>
+            <ef-button toggles role="radio">Four</ef-button>
             <ef-button-bar>
               <ef-button toggles>Five</ef-button>
               <ef-button toggles>Six</ef-button>
             </ef-button-bar>
           </ef-button-bar>
         </ef-button-bar>
-    </demo-block>
-
-    <demo-block header="Accessibility" layout="normal">
-      <ef-button-bar aria-label="Text Formatting">
-        <ef-button toggles active icon="bold" aria-label="bold"></ef-button>
-        <ef-button toggles icon="italic">italic</ef-button>
-        <ef-button-bar managed role="radiogroup" aria-label="Text Alignment">
-          <ef-button toggles role="radio" icon="text-left" aria-label="left Alignment"></ef-button>
-          <ef-button toggles role="radio" icon="text-center" aria-label="center Alignment"></ef-button>
-          <ef-button toggles role="radio" icon="text-right" aria-label="right Alignment"></ef-button>
-        </ef-button-bar>
-        <ef-button-bar>
-          <ef-button disabled>Copy</ef-button>
-          <ef-button aria-label="paste" icon="paste" readonly></ef-button>
-        </ef-button-bar>
-      </ef-button-bar>
     </demo-block>
   </body>
 </html>
