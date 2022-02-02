@@ -159,7 +159,7 @@ export class ButtonBar extends BasicElement {
 
   /**
    * Navigate to next or previous focusable button
-   * @param direction up/next; down/previous
+   * @param direction next | down
    * @returns {void}
    */
   private navigateToSibling (direction: 'next' | 'previous'): void {

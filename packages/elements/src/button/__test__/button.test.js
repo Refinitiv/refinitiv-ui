@@ -257,7 +257,7 @@ describe('button/Button', () => {
       });
     });
 
-    it('aria-checked should exist, when role=radio', async () => {
+    it('aria-pressed should be replaced by aria-checked when button has role=radio', async () => {
       const el = await fixture(`<ef-button role='radio' toggles></ef-button>`);
       expect(el.hasAttribute('aria-checked')).to.be.true;
       expect(el.hasAttribute('aria-pressed')).to.be.false;
