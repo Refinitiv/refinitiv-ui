@@ -124,7 +124,7 @@ export class Toggle extends ControlElement {
    * @returns {void}
    */
   private handleCheckedChange (): void {
-    if(this.disabled || this.readonly) {
+    if (this.disabled || this.readonly) {
       return;
     }
 
@@ -138,7 +138,7 @@ export class Toggle extends ControlElement {
    * @returns {void}
    */
   private handleKeyDown (event: KeyboardEvent): void {
-    if(event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
       this.handleCheckedChange();
     }
     else if (event.keyCode && event.keyCode === 13 || event.keyCode === 32) { // For older browsers

@@ -126,7 +126,7 @@ export class Button extends ControlElement {
    * @returns {void}
    */
   protected update (changedProperties: PropertyValues): void {
-    if(changedProperties.has('active') && this.toggles || changedProperties.has('toggles') && this.toggles) {
+    if (changedProperties.has('active') && this.toggles || changedProperties.has('toggles') && this.toggles) {
       if (this.getAttribute('role') === 'radio') {
         this.ariaChecked = String(this.active);
       }
