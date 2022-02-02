@@ -99,5 +99,18 @@ The Checkbox element is assigned `role="checkbox"` and can have a `checked` stat
 
 The `role="group"` should be used to associate the grouping with the element’s group label. 
 
+### Notes for developers
+
+`ef-checkbox` handles role and aria value but for checkbox group, you need to assign `role="group"` by yourself.
+
+```html
+<div role="group" aria-labelledby="header">
+  <h6 id="header">Sandwich Condiments</h6>  
+  <ef-checkbox>Lettuce</ef-checkbox>
+  <ef-checkbox>Tomato</ef-checkbox>
+  <ef-checkbox checked>Mustard</ef-checkbox>
+  <ef-checkbox>Sprouts</ef-checkbox>
+</div>
+```
 
 ::a11y-end::
