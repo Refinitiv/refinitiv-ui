@@ -91,11 +91,11 @@ The `role="radiogroup"` or `role="group"` should be used to associate the elemen
 `ef-radio-button` handles role and aria value but for radio group, you need to assign `role="radiogroup"` by yourself.
 
 ```html
-  <div role="radiogroup" aria-labelledby="header">
-    <h6 id="header">Pizza Crust</h6>  
-    <ef-radio-button name="crust" checked>Regular Crust</ef-radio-button>
-    <ef-radio-button name="crust">Thin Crust</ef-radio-button>
-  </div>
+<div role="radiogroup" aria-labelledby="header">
+  <h6 id="header">Pizza Crust</h6>  
+  <ef-radio-button name="crust" checked>Regular Crust</ef-radio-button>
+  <ef-radio-button name="crust">Thin Crust</ef-radio-button>
+</div>
 ```
 
 ::a11y-end::
