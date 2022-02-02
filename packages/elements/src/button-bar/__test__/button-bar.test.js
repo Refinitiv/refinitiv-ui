@@ -1,4 +1,4 @@
-import { fixture, expect, html, oneEvent, keyboardEvent, isIE, elementUpdated, nextFrame  } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, html, oneEvent, keyboardEvent, isIE, elementUpdated } from '@refinitiv-ui/test-helpers';
 
 import { Button } from '@refinitiv-ui/elements/button';
 import { ButtonBar } from '@refinitiv-ui/elements/button-bar';
@@ -10,6 +10,7 @@ const keyArrowDown = keyboardEvent('keydown', { key: isIE() ? 'Down' : 'ArrowDow
 const keyArrowUp = keyboardEvent('keydown', { key: isIE() ? 'Up' : 'ArrowUp'});
 const keyHome = keyboardEvent('keydown', { key: 'Home'});
 const keyEnd = keyboardEvent('keydown', { key: 'End'});
+const keyTab = keyboardEvent('keydown', { key: 'Tab'});
 
 describe('button-bar/ButtonBar', () => {
   it('should be created', async () => {
@@ -42,7 +43,7 @@ describe('button-bar/ButtonBar', () => {
       const el = await fixture(html`
         <ef-button-bar></ef-button-bar>
       `);
-      const nodes = el.defaultSlot.assignedNodes();
+      const nodes = el.defaultSlot.value.assignedNodes();
       const buttons = nodes.filter(node => node instanceof Element);
       expect(buttons.length).to.equal(0);
     });
@@ -57,7 +58,7 @@ describe('button-bar/ButtonBar', () => {
           <ef-button>Five</ef-button>
         </ef-button-bar>
       `);
-      const nodes = el.defaultSlot.assignedNodes();
+      const nodes = el.defaultSlot.value.assignedNodes();
       const buttons = nodes.filter(node => node instanceof Button);
       expect(buttons.length).to.equal(5);
     });
@@ -68,7 +69,7 @@ describe('button-bar/ButtonBar', () => {
       const el = await fixture(html`
         <ef-button-bar></ef-button-bar>
       `);
-      const nodes = el.defaultSlot.assignedNodes();
+      const nodes = el.defaultSlot.value.assignedNodes();
       const buttons = nodes.filter(node => node instanceof Element);
       expect(buttons.length).to.equal(0);
     });
@@ -83,7 +84,7 @@ describe('button-bar/ButtonBar', () => {
           <ef-button>Five</ef-button>
         </ef-button-bar>
       `);
-      const nodes = el.defaultSlot.assignedNodes();
+      const nodes = el.defaultSlot.value.assignedNodes();
       const buttons = nodes.filter(node => node instanceof Button);
       expect(buttons.length).to.equal(5);
     });
@@ -98,7 +99,7 @@ describe('button-bar/ButtonBar', () => {
           <ef-button toggles>Five</ef-button>
         </ef-button-bar>
       `);
-      const nodes = el.defaultSlot.assignedNodes();
+      const nodes = el.defaultSlot.value.assignedNodes();
       const buttons = nodes.filter(node => node instanceof Button);
       const [firstButton] = buttons;
       expect(firstButton).to.be.exist;
@@ -148,7 +149,7 @@ describe('button-bar/ButtonBar', () => {
           <ef-button toggles>Five</ef-button>
         </ef-button-bar>
       `);
-      const buttons = el.defaultSlot.assignedNodes()
+      const buttons = el.defaultSlot.value.assignedNodes()
         .filter(node => node instanceof Button);
       const inactiveButton = buttons.find(button => !button.active);
       setTimeout(() =>
@@ -173,13 +174,13 @@ describe('button-bar/ButtonBar', () => {
           </ef-button-bar>
         </ef-button-bar>
       `);
-      const secondSplitButton = el.defaultSlot.assignedNodes()
+      const secondSplitButton = el.defaultSlot.value.assignedNodes()
         .filter(node => node instanceof ButtonBar)
         .find(node => node);
-      const thirdSplitButton = secondSplitButton.defaultSlot.assignedNodes()
+      const thirdSplitButton = secondSplitButton.defaultSlot.value.assignedNodes()
         .filter(node => node instanceof ButtonBar)
         .find(node => node);
-      const button = thirdSplitButton.defaultSlot.assignedNodes()
+      const button = thirdSplitButton.defaultSlot.value.assignedNodes()
         .filter(node => node instanceof Button)
         .find(node => node);
       setTimeout(() =>
@@ -195,7 +196,7 @@ describe('button-bar/ButtonBar', () => {
           <ef-button>Without toggles</ef-button>
         </ef-button-bar>
       `);
-      const button = el.defaultSlot.assignedNodes()
+      const button = el.defaultSlot.value.assignedNodes()
         .filter(node => node instanceof Button)
         .find((_, index) => index === 1);
       setTimeout(() =>
@@ -314,15 +315,22 @@ describe('button-bar/ButtonBar', () => {
         expect(button.getAttribute('tabIndex')).to.equal(index === 0 ? '0' : '-1');
       });
     });
-    it('Should support inject button by coding', async () => {
+    it('Should out of focus when press Tab in case inject a new button', async () => {
       const newButton = document.createElement('ef-button');
       newButton.id = 'btn5';
       newButton.innerText = 'newButton';
       el.appendChild(newButton);
       await elementUpdated(el);
+
+      btn1.focus();
+      setTimeout(() => el.dispatchEvent(keyTab));
+      const event1 = await oneEvent(el, 'keydown');
+      expect(event1.key).to.equal('Tab');
+
       const group = el.getFocusableButtons();
       const addedButton = group.find((button) => button.id === 'btn5');
       expect(addedButton.getAttribute('tabIndex')).to.equal('-1');
+      expect(btn1.getAttribute('tabIndex')).to.equal('0', 'Current focusing button should still be focusable');
     });
   });
 });

@@ -8,21 +8,10 @@ import {
   TapEvent
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { VERSION } from '../version.js';
 import { Button } from '../button/index.js';
-import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
-
-/**
- * Configuration object
- * for mutations observers
- */
-const observerOptions = {
-  subtree: true,
-  childList: true,
-  characterData: true
-};
+import { ref, createRef, Ref } from '@refinitiv-ui/core/lib/directives/ref.js';
 
 /**
  * Used to display multiple buttons to create a list of commands bar.
@@ -108,32 +97,8 @@ export class ButtonBar extends BasicElement {
   /**
    * Default slot
    */
-  @query('slot:not([name])')
-  private defaultSlot!: HTMLSlotElement;
+  private defaultSlot: Ref<HTMLSlotElement> = createRef();
 
-  /**
-   * Mutation Observer used to detect changes in the Light DOM
-   */
-  private mutationObserver = new MutationObserver(() => this.manageTabIndex());
-
-  /**
-   * Called when connected to DOM
-   * @returns {void}
-   */
-  public connectedCallback (): void {
-    super.connectedCallback();
-    this.mutationObserver.observe(this, observerOptions);
-    !isIE && this.manageTabIndex(); // In IE the mutation will trigger
-  }
-
-  /**
-   * Invoked when a component is removed from the document’s DOM.
-   * @return {void}
-   */
-  public disconnectedCallback (): void {
-    super.disconnectedCallback();
-    this.mutationObserver.disconnect();
-  }
   /**
    * Called once after the component is first rendered
    * @param changedProperties map of changed properties with old values
@@ -143,6 +108,7 @@ export class ButtonBar extends BasicElement {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.onTapHandler);
     this.addEventListener('keydown', this.onKeyDown);
+    this.manageTabIndex();
   }
 
   /**
@@ -152,6 +118,10 @@ export class ButtonBar extends BasicElement {
    */
   private onKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
+      case 'Tab':
+        // To prevent inserting button case, make sure there is only one tabIndex=0 in the buttons
+        this.manageTabIndex();
+        break;
       case ' ':
       case 'Spacebar':
       case 'Enter':
@@ -185,7 +155,6 @@ export class ButtonBar extends BasicElement {
         return;
     }
 
-    event.preventDefault();
   }
 
   /**
@@ -236,7 +205,7 @@ export class ButtonBar extends BasicElement {
    * @returns {void}
    */
   private rovingTabIndex (target: Button, buttons: Button[]):void {
-    buttons.map((button) => {
+    buttons.forEach((button) => {
       button.tabIndex = -1;
     });
     target.tabIndex = 0;
@@ -312,8 +281,7 @@ export class ButtonBar extends BasicElement {
    * @returns the array of Element of the default slot
    */
   private getElementsOfSlot (): Element[] {
-    return this.defaultSlot.assignedNodes()
-      .filter(node => node instanceof Element) as Element[];
+    return this.defaultSlot.value?.assignedNodes().filter(node => node instanceof Element) as Element[];
   }
 
   /**
@@ -340,6 +308,6 @@ export class ButtonBar extends BasicElement {
    * @return {TemplateResult}  Render template
    */
   protected render (): TemplateResult {
-    return html`<slot></slot>`;
+    return html`<slot ${ref(this.defaultSlot)} ></slot>`;
   }
 }
