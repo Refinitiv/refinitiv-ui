@@ -92,7 +92,7 @@ The `role="radiogroup"` or `role="group"` should be used to associate the elemen
 
 ```html
 <div role="radiogroup" aria-labelledby="header">
-  <h6 id="header">Pizza Crust</h6>  
+  <h6 id="header">Pizza Crust</h6>
   <ef-radio-button name="crust" checked>Regular Crust</ef-radio-button>
   <ef-radio-button name="crust">Thin Crust</ef-radio-button>
 </div>
