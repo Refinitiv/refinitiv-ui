@@ -165,7 +165,7 @@ export class ButtonBar extends BasicElement {
    */
   private navigateToSibling (direction: 'next' | 'previous'): void {
     const buttons = this.getFocusableButtons();
-    if(buttons.length <= 0) {
+    if (buttons.length <= 0) {
       return;
     }
 
@@ -185,7 +185,7 @@ export class ButtonBar extends BasicElement {
    */
   private first (): void {
     const buttons = this.getFocusableButtons();
-    if(buttons.length <= 0) {
+    if (buttons.length <= 0) {
       return;
     }
     buttons[0].focus();
@@ -198,7 +198,7 @@ export class ButtonBar extends BasicElement {
    */
   private last (): void {
     const buttons = this.getFocusableButtons();
-    if(buttons.length <= 0) {
+    if (buttons.length <= 0) {
       return;
     }
     buttons[buttons.length - 1].focus();
