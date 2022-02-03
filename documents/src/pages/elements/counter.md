@@ -149,6 +149,6 @@ Compact notation also work with the `max` attribute.
 ## Accessibility
 ::a11y-intro::
 
-The Counter element is assigned `role="text"`. The visual label can be hidden from assistive technologies using the `aria-hidden` parameter and an off-screen label can be added to describes its context in full. This way a counter with the visual label “9K” can be announced by screen readers as something like “Nine thousand votes.” Any Counter that dynamically updates should communicate changes to assistive technologies through a live region.
+`ef-counter` can be read by screen reader in a similar way as a generic text HTML element. It doesn't meant to be an actionable element so, generally, it shouldn't be focusable and not necessary to be assigned with any roles.
 
 ::a11y-end::
