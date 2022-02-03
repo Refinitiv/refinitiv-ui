@@ -1,7 +1,7 @@
 <template>
-<!-- eslint-disable -->
   <div class="container">
     <ef-header class="toolbar" level="2">
+      <!-- eslint-disable-next-line -->
       <div class="toolbar-items" slot="right">
         <ef-toggle class="theme-switcher" label="Light" checked-label="Dark" v-bind:checked.prop="this.isDarkTheme" @click="handleClickToggle"></ef-toggle>
         <ef-button id="profileButton" icon="profile" @click="toggleDialog" ></ef-button>
@@ -79,6 +79,7 @@
       <div class="form-input">
         <ef-checkbox ref="checkbox" :checked="formData.isReceiveMail" >I want to receive news and updates via email</ef-checkbox>
       </div>
+      <!-- eslint-disable-next-line -->
       <div class="form-footer" slot="footer">
         <ef-button id="confirmButton" cta @click="handleClickConfirm" :disabled="this.isSubmitDisable">Confirm</ef-button>
         <ef-button cta @click="toggleDialog">Cancel</ef-button>
@@ -104,10 +105,10 @@ import '@refinitiv-ui/elements/interactive-chart';
 import '@refinitiv-ui/elements/overlay-menu';
 import '@refinitiv-ui/elements/toggle';
 
-import { data } from "./chartData";
-import { THEME } from "./main";
+import { data } from './chartData';
+import { THEME } from './main';
 export default {
-  data() {
+  data () {
     return {
       formData: {
         isReceiveMail: true
@@ -115,50 +116,50 @@ export default {
       isDarkTheme: true,
       chartType: 'line',
       chartConfig: {},
-      isSubmitDisabled: true,
+      isSubmitDisabled: true
     };
   },
   computed: {
-    isSubmitDisable() {
+    isSubmitDisable () {
       return !this.formData.name || !this.formData.email ? true : undefined;
     }
   },
   methods: {
-    handleChangeFormData(propName, e){
-    let data = {};
-    data[propName] = e.detail.value
-    this.formData = { ...this.formData, ...data}
+    handleChangeFormData (propName, e) {
+      let data = {};
+      data[propName] = e.detail.value;
+      this.formData = { ...this.formData, ...data };
     },
-    setChartType(type) {
+    setChartType (type) {
       this.chartType = type;
       this.chartConfig = {
         options: {
-            timeScale: {
-              timeVisible: true,
-              secondsVisible: true
-            }
+          timeScale: {
+            timeVisible: true,
+            secondsVisible: true
+          }
         },
         series: [{
           symbol: 'Price',
           type: type,
           data: data
         }]
-      }
+      };
     },
-    toggleDialog() {
+    toggleDialog () {
       const dialog = this.$refs.dialog;
       dialog.opened = !dialog.opened;
     },
-    handleClickConfirm() {
+    handleClickConfirm () {
       console.log('data =', JSON.stringify(this.formData, null, 2));
       this.toggleDialog();
     },
-    handleClickToggle() {
-      sessionStorage.setItem('theme', this.isDarkTheme ? 'light' : 'dark')
+    handleClickToggle () {
+      sessionStorage.setItem('theme', this.isDarkTheme ? 'light' : 'dark');
       window.location.reload();
     }
   },
-  mounted() {
+  mounted () {
     this.setChartType(this.chartType);
 
     this.isDarkTheme = THEME === 'dark';
@@ -198,7 +199,7 @@ export default {
         overlayMenu.opened = false;
       }
     });
-  },
+  }
 };
 </script>
 <style lang="less">
