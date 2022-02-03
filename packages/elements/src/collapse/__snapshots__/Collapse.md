@@ -45,7 +45,7 @@
   role="region"
 >
   <ef-panel transparent="">
-    <slot hidden="">
+    <slot>
     </slot>
   </ef-panel>
 </div>
@@ -95,7 +95,7 @@
   role="region"
 >
   <ef-panel transparent="">
-    <slot hidden="">
+    <slot>
     </slot>
   </ef-panel>
 </div>
@@ -146,7 +146,7 @@
   role="region"
 >
   <ef-panel transparent="">
-    <slot hidden="">
+    <slot>
     </slot>
   </ef-panel>
 </div>
@@ -196,7 +196,7 @@
   role="region"
 >
   <ef-panel transparent="">
-    <slot hidden="">
+    <slot>
     </slot>
   </ef-panel>
 </div>
@@ -246,7 +246,7 @@
   role="region"
 >
   <ef-panel transparent="">
-    <slot hidden="">
+    <slot>
     </slot>
   </ef-panel>
 </div>
