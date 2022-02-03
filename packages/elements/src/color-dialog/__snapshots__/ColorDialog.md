@@ -15,9 +15,10 @@
     Color Picker
   </span>
   <ef-icon
-    aria-label="close dialog"
+    aria-label="Close"
     icon="cross"
     part="close"
+    role="button"
     slot="right"
   >
   </ef-icon>
