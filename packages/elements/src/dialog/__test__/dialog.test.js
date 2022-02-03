@@ -173,15 +173,18 @@ describe('dialog/Dialog', () => {
   describe('Accessibility test', () => {
     it('aria-label should be displayed default aria-label value', async () => {
       const el = await fixture('<ef-dialog></ef-dialog>');
-      expect(el.ariaLabel).to.equal('Dialog');
+      const value = el.getAttribute('aria-label');
+      expect(value).to.equal('Dialog');
     });
     it('aria-label should be displayed text content from header', async () => {
       const el = await fixture('<ef-dialog header="System Permission"></ef-dialog>');
-      expect(el.ariaLabel).to.equal('System Permission');
+      const value = el.getAttribute('aria-label');
+      expect(value).to.equal('System Permission');
     });
     it('aria-label should not displayed if aria-labelledby was present', async () => {
       const el = await fixture('<ef-dialog aria-labelledby="headerTitle" header="System Permission"></ef-dialog>');
-      expect(el.ariaLabel).to.equal(null);
+      const value = el.getAttribute('aria-label');
+      expect(value).to.equal(null);
     });
   });
 });
