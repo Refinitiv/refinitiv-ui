@@ -217,7 +217,7 @@ export class Dialog extends Overlay {
     super.updated(changedProperties);
 
     const ariaLabelledby = this.getAttribute('aria-labelledby');
-    if((changedProperties.has('header') || changedProperties.has(TranslatePropertyKey)) && !ariaLabelledby) {
+    if ((changedProperties.has('header') || changedProperties.has(TranslatePropertyKey)) && !ariaLabelledby) {
       void this.updateComplete.then(() => {
         const title = this.headerElement?.querySelector('span');
         this.setAttribute('aria-label', String(title?.textContent));
