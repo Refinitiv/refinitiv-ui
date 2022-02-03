@@ -101,12 +101,6 @@ export class Collapse extends BasicElement {
   @query('ef-panel', true)
   private panel!: HTMLElement;
 
-  /**
-   * Hierarchical level of element
-   * @ignore
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-level' })
-  public ariaLevel: '1'| '2'| '3' | '4' | '5' | '6' = '2';
 
   /**
    * Called once after the component is first rendered
@@ -143,29 +137,6 @@ export class Collapse extends BasicElement {
   }
 
   /**
-   * Check if target is a header
-   * @param element for checking
-   * @returns {boolean} true if target is ef-header
-   */
-  private static isHeader (element: HTMLElement): boolean {
-    return element.localName === 'ef-header' || element.getAttribute('part') === 'toggle' || element.getAttribute('part') === 'header-toggle';
-  }
-
-  /**
-   * Handle tap on the item header, will toggle the expanded state
-   * @param event Event object
-   * @returns {void}
-   */
-  private handleTap = (event: Event): void => {
-    const target = event.target as HTMLElement;
-
-    // This is to prevent toggling when elements on slots are tap
-    if (Collapse.isHeader(target)) {
-      this.toggle();
-    }
-  }
-
-  /**
    * Show or Hide the item depending on the expanded state
    * @returns {void}
    */
@@ -195,14 +166,9 @@ export class Collapse extends BasicElement {
     return this.panel && this.panel.clientHeight || 0;
   }
 
-  /**
-   * A `TemplateResult` that will be used
-   * to render the updated internal template.
-   * @return {TemplateResult}  Render template
-   */
   protected render (): TemplateResult {
     return html`
-      <ef-header part="header" level="${this.level}" @tap=${this.handleTap} role="heading" aria-level=${this.ariaLevel}>
+      <ef-header part="header" level="${this.level}" @tap=${this.toggle} role="heading" aria-level=${this.ariaLevel}>
         <div part="header-toggle" id="header-toggle" role="button" tabindex="0" aria-expanded="${this.expanded}" aria-controls="content">
           ${this.header}
         </div>
@@ -212,7 +178,7 @@ export class Collapse extends BasicElement {
       </ef-header>
       <div id="content" part="content" role="region" aria-labelledby="header-toggle">
         <ef-panel ?spacing="${this.spacing}" transparent>
-          <slot ?hidden=${!this.expanded}></slot>
+          <slot></slot>
         </ef-panel>
       </div>
     `;
