@@ -13,16 +13,6 @@ import '../button/index.js';
 import { translate, Translate, TranslatePropertyKey } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/lib/locale/en/dialog.js';
 
-/**
- * Return the attribute that converted from the property
- * Prevent empty string that reflected to attribute
- * @private
- * @param value value from the property
- * @returns string converted to attribute
- */
-const emptyStringToNull = function (value: string): string | null {
-  return value || null;
-};
 
 /**
  * Popup window, designed to contain and show any HTML content.
@@ -114,38 +104,11 @@ export class Dialog extends Overlay {
     `];
   }
 
-  private _header: string | null = null;
   /**
-   * Header element
-   * @param value Header text
+   * Set Header/Title of the dialog
    */
   @property({ type: String })
-  public set header (value: string | null) {
-    const oldValue = this._header;
-    const ariaLabelledby = this.getAttribute('aria-labelledby');
-    if(oldValue !== value) {
-      if(!this.ariaLabel && !ariaLabelledby) {
-        this.ariaLabel = String(value);
-      }
-      this._header = value;
-      this.requestUpdate('header', oldValue);
-    }
-  }
-
-  public get header (): string | null {
-    return this._header;
-  }
-
-  /**
-   * Aria indicating aria-label of dialog
-   * @ignore
-   */
-  @property({ type: String,
-    reflect: true,
-    attribute: 'aria-label',
-    converter: { toAttribute: emptyStringToNull } // TODO: Remove after typescript update to allow nullable for ARIAMixin
-  })
-  public ariaLabel = '';
+  public header: string | null = null;
 
   /**
    * Should the dialog be draggable
@@ -194,7 +157,7 @@ export class Dialog extends Overlay {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
-    this.ariaModal = String('true');
+    this.setAttribute('aria-modal', 'true');
   }
 
   /**
@@ -252,6 +215,14 @@ export class Dialog extends Overlay {
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
+
+    const ariaLabelledby = this.getAttribute('aria-labelledby');
+    if((changedProperties.has('header') || changedProperties.has(TranslatePropertyKey)) && !ariaLabelledby) {
+      void this.updateComplete.then(() => {
+        const title = this.headerElement?.querySelector('span');
+        this.setAttribute('aria-label', String(title?.textContent));
+      });
+    }
 
     if (this.isDraggableBehaviourNeedToBeChanged(changedProperties)) {
       this.updateDraggableBehavior();
@@ -397,7 +368,7 @@ export class Dialog extends Overlay {
   protected get headerRegion (): TemplateResult {
     return html`
       <span aria-hidden="true">${this.header === null ? this.t('HEADER') : this.header}</span>
-      <ef-icon part="close" aria-label="close dialog" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
+      <ef-icon tabindex="0" role="button" aria-label="${this.t('CLOSE')}" part="close" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
     `;
   }
 
