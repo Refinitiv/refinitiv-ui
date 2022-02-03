@@ -9,3 +9,5 @@ export * from './loader.js';
 export * from './navigation.js';
 export * from './date.js';
 export * from './uuid.js';
+
+export const test = 'TEST';
