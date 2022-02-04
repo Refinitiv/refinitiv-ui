@@ -11,17 +11,17 @@
   },
   "scripts": {
     "lerna": "lerna",
-    "build": "lerna run build",
-    "build:docs": "lerna run --scope @refinitiv-ui/docs build --stream",
-    "build:prod": "lerna run build:prod",
+    "build": "nx run-many --target build --all --parallel",
+    "build:docs": "nx run @refinitiv-ui/docs:build",
+    "build:prod": "nx run-many --target build:prod --all --parallel",
     "start": "node cli start",
-    "start:docs": "lerna run --scope @refinitiv-ui/docs start --stream",
+    "start:docs": "nx run @refinitiv-ui/docs:start",
     "test": "node cli test",
-    "test:all": "lerna run test",
+    "test:all": "nx run-many --target test --all --parallel 1",
     "lint": "node cli lint",
-    "lint:all": "lerna run lint",
+    "lint:all": "nx run-many --target lint --all --parallel",
     "lint-fix": "node cli lint:fix",
-    "lint-fix:all": "lerna run lint:fix"
+    "lint-fix:all": "nx run-many --target lint:fix --all --parallel"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
