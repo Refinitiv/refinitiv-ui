@@ -1,7 +1,7 @@
 name: Dev Release
 on:
   pull_request:
-    branches: [developx]
+    branches: [develop]
 jobs:
   release:
     runs-on: ubuntu-latest
