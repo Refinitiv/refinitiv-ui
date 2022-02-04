@@ -1,7 +1,7 @@
 name: Dev Release
 on:
   pull_request:
-    branches: [develop]
+    branches: [developx]
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -32,13 +32,7 @@ jobs:
       - name: Production build
         run: npm run build:prod
 
-      - name: Checkout current branch
-        run: git checkout $GITHUB_HEAD_REF
-
-      - name: Bump dev version
-        run: lerna version --no-changelog --conventional-commits --conventional-prerelease --preid=dev --yes
-
       - name: Publish to NPM
-        run: lerna publish from-git --canary --yes
+        run: lerna publish --canary --preid=dev --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
