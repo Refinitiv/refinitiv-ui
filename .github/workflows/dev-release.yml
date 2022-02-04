@@ -36,4 +36,9 @@ jobs:
         run: git checkout $GITHUB_HEAD_REF
 
       - name: Bump dev version
-        run: lerna version --conventional-commits --conventional-prerelease --preid=dev --no-git-tag-version --no-push --yes
+        run: lerna version --no-changelog --conventional-commits --conventional-prerelease --preid=dev --yes
+
+      - name: Publish to NPM
+        run: lerna publish from-git --canary --yes
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
