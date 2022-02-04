@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/core",
-  "version": "5.4.0",
+  "version": "5.4.1-dev.0",
   "description": "Element Framework Core",
   "main": "./lib/elf.js",
   "module": "./lib/elf.js",
@@ -58,11 +58,11 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/test-helpers": "^5.1.2",
-    "@refinitiv-ui/utils": "^5.1.1"
+    "@refinitiv-ui/test-helpers": "^5.1.3-dev.0",
+    "@refinitiv-ui/utils": "^5.1.2-dev.0"
   },
   "peerDependencies": {
-    "@refinitiv-ui/utils": "^5.1.1"
+    "@refinitiv-ui/utils": "^5.1.2-dev.0"
   },
   "publishConfig": {
     "access": "public"
