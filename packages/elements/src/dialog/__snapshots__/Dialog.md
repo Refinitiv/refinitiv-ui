@@ -8,14 +8,11 @@
   level="2"
   part="header"
 >
-  <span aria-hidden="true">
-    Dialog
-  </span>
+  Dialog
   <ef-icon
-    aria-label="Close"
+    aria-hidden="true"
     icon="cross"
     part="close"
-    role="button"
     slot="right"
   >
   </ef-icon>
