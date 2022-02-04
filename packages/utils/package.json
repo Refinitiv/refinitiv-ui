@@ -2,11 +2,11 @@
   "name": "@refinitiv-ui/utils",
   "version": "5.1.1",
   "description": "Shared utilities for Element Framework",
-  "main": "lib/utils.js",
-  "module": "lib/utils.js",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
   "exports": {
     ".": {
-      "default": "./lib/utils.js"
+      "default": "./lib/index.js"
     },
     "./lib/accessibility.js": "./lib/accessibility.js",
     "./lib/accessibility/label.js": "./lib/accessibility/label.js",
