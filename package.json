@@ -11,17 +11,20 @@
   },
   "scripts": {
     "lerna": "lerna",
-    "build": "nx run-many --target build --all --parallel",
+    "build": "nx run-many --target build --parallel --all",
+    "build:affected": "nx affected:build --parallel",
     "build:docs": "nx run @refinitiv-ui/docs:build",
-    "build:prod": "nx run-many --target build:prod --all --parallel",
+    "build:prod": "nx run-many --target build:prod --all",
     "start": "node cli start",
     "start:docs": "nx run @refinitiv-ui/docs:start",
     "test": "node cli test",
-    "test:all": "nx run-many --target test --all --parallel 1",
+    "test:affected": "nx affected:test",
+    "test:all": "nx affected:test --all",
     "lint": "node cli lint",
-    "lint:all": "nx run-many --target lint --all --parallel",
+    "lint:affected": "nx affected:lint --parallel",
+    "lint:all": "nx affected:lint --parallel --all",
     "lint-fix": "node cli lint:fix",
-    "lint-fix:all": "nx run-many --target lint:fix --all --parallel"
+    "lint-fix:all": "nx run-many --target lint:fix --parallel --all"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",

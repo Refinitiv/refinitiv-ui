@@ -22,6 +22,12 @@
         "projects": "dependencies"
       }
     ],
+    "build:prod": [
+      {
+        "target": "build:prod",
+        "projects": "dependencies"
+      }
+    ],
     "prepare": [
       {
         "target": "prepare",
@@ -36,6 +42,6 @@
     ]
   },
   "affected": {
-    "defaultBase": "main"
+    "defaultBase": "develop"
   }
 }
