@@ -36,7 +36,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "tsc --sourceMap --declarationMap",
-    "build:prod": "tsc"
+    "build:prod": "tsc",
+    "version": "node ../../scripts/version"
   },
   "dependencies": {
     "@types/d3-color": "^3.0.2",

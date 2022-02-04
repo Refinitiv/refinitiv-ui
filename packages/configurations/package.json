@@ -7,6 +7,9 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/configurations"
   },
+  "scripts": {
+    "version": "node ../../scripts/version"
+  },
   "keywords": [
     "Element Framework",
     "v5",
