@@ -2,6 +2,8 @@ name: Test
 on:
   pull_request:
     branches: [develop]
+env:
+  BEFORE_SHA: ${{ github.event.before }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +25,7 @@ jobs:
 
       - name: Build
         if: steps.setup.outputs.cache-build-hit != 'true'
-        run: npm run build:affected
+        run: npm run build:affected -- --base=$BEFORE_SHA
 
   lint:
     needs: build
@@ -38,7 +40,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Lint
-        run: npm run lint:affected
+        run: npm run lint:affected -- --base=$BEFORE_SHA
 
   chrome:
     needs: lint
@@ -53,7 +55,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Test
-        run: npm run test:affected -- --browsers chrome
+        run: npm run test:affected -- --base=$BEFORE_SHA --browsers chrome
 
   firefox:
     needs: lint
@@ -69,4 +71,4 @@ jobs:
 
       - name: Test
         # TODO: `@refinitiv/core` has test coverage below threshold on Firefox
-        run: npm run test:affected -- --browsers firefox --includeCoverage false
+        run: npm run test:affected -- --base=$BEFORE_SHA --browsers firefox --includeCoverage false
