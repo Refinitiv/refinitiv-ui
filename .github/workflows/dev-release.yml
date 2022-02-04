@@ -33,7 +33,7 @@ jobs:
         run: npm run build:prod
 
       - name: Checkout current branch
-        run: git checkout $GIT_BRANCH
+        run: git checkout $GITHUB_HEAD_REF
 
       - name: Bump dev version
         run: lerna version --conventional-commits --conventional-prerelease --preid=dev --no-git-tag-version --no-push --yes
