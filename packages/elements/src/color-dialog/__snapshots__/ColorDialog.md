@@ -11,14 +11,11 @@
   part="header"
   style="cursor: move;"
 >
-  <span aria-hidden="true">
-    Color Picker
-  </span>
+  Color Picker
   <ef-icon
-    aria-label="Close"
+    aria-hidden="true"
     icon="cross"
     part="close"
-    role="button"
     slot="right"
   >
   </ef-icon>
