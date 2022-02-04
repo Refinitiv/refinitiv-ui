@@ -110,7 +110,6 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   @property({ type: String, reflect: true, attribute: 'aria-multiselectable' })
   public ariaMultiselectable = 'false';
 
-
   /**
    * The data object, used to render the list.
    * @type {ListData}
@@ -354,7 +353,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       this.clearHighlighted();
       this.composer.setItemPropertyValue(item, 'highlighted', true);
       focus && elementToFocus?.focus({ preventScroll: true });
-      this.setAttribute('aria-activedescendant', String(item.value));
+      item.value && this.setAttribute('aria-activedescendant', `${this.renderer.key}-${item.value}`);
       scrollToItem && this.scrollToItem(item);
     }
   }

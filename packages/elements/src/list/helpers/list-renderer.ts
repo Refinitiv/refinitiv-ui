@@ -1,4 +1,5 @@
 import type { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
+import { uuid } from '@refinitiv-ui/utils/lib/uuid.js';
 import type { Item, ItemType, ItemData } from '../../item';
 import '../../item/index.js';
 import { Renderer } from '../renderer.js';
@@ -15,6 +16,12 @@ type Context = {
  * This is the default renderer for lists.
  */
 export class ListRenderer extends Renderer {
+
+  /**
+   * Renderer key prefix, used in combination with item value to give unique id to each item
+   */
+  public key = uuid().split('-')[0];
+
   constructor (context?: unknown) {
     /**
      * Create and return render function
@@ -31,8 +38,8 @@ export class ListRenderer extends Renderer {
 
       el.label = composer.getItemPropertyValue(item, 'label') as string;
       el.subLabel = composer.getItemPropertyValue(item, 'subLabel') as string;
-      el.id = composer.getItemPropertyValue(item, 'value') as string;
       el.value = composer.getItemPropertyValue(item, 'value') as string;
+      el.id = `${this.key}-${el.value}`;
       el.icon = composer.getItemPropertyValue(item, 'icon') as string;
       el.highlighted = composer.getItemPropertyValue(item, 'highlighted') === true;
       el.selected = composer.getItemPropertyValue(item, 'selected') === true;
