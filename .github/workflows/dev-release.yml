@@ -1,7 +1,7 @@
-name: Release
+name: Dev Release
 on:
-  push:
-    branches: [main]
+  pull_request:
+    branches: [develop]
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -32,12 +32,5 @@ jobs:
       - name: Production build
         run: npm run build:prod
 
-      - name: Bump version and create GitHub release
-        run: lerna version --create-release github --conventional-commits --conventional-graduate --yes
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
-      - name: Publish to NPM
-        run: lerna publish from-git --yes
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Bump dev version
+        run: lerna version --conventional-commits --conventional-prerelease --preid=dev --no-git-tag-version --no-push --yes
