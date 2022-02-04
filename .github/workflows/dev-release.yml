@@ -32,5 +32,8 @@ jobs:
       - name: Production build
         run: npm run build:prod
 
+      - name: Checkout current branch
+        run: git checkout $GIT_BRANCH
+
       - name: Bump dev version
-        run: git checkout $GIT_BRANCH && lerna version --conventional-commits --conventional-prerelease --preid=dev --no-git-tag-version --no-push --yes
+        run: lerna version --conventional-commits --conventional-prerelease --preid=dev --no-git-tag-version --no-push --yes
