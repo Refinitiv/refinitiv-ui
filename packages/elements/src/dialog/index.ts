@@ -157,7 +157,7 @@ export class Dialog extends Overlay {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
-    this.setAttribute('aria-modal', 'true');
+    this.setAttribute('aria-modal', String(!this.noInteractionLock));
   }
 
   /**
@@ -215,14 +215,6 @@ export class Dialog extends Overlay {
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
-
-    const ariaLabelledby = this.getAttribute('aria-labelledby');
-    if ((changedProperties.has('header') || changedProperties.has(TranslatePropertyKey)) && !ariaLabelledby) {
-      void this.updateComplete.then(() => {
-        const title = this.headerElement?.querySelector('span');
-        this.setAttribute('aria-label', String(title?.textContent));
-      });
-    }
 
     if (this.isDraggableBehaviourNeedToBeChanged(changedProperties)) {
       this.updateDraggableBehavior();
@@ -367,8 +359,8 @@ export class Dialog extends Overlay {
    */
   protected get headerRegion (): TemplateResult {
     return html`
-      <span aria-hidden="true">${this.header === null ? this.t('HEADER') : this.header}</span>
-      <ef-icon tabindex="0" role="button" aria-label="${this.t('CLOSE')}" part="close" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
+      ${this.header === null ? this.t('HEADER') : this.header}
+      <ef-icon aria-hidden="true" part="close" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
     `;
   }
 
@@ -379,9 +371,9 @@ export class Dialog extends Overlay {
    */
   protected render (): TemplateResult {
     return html`
-        <ef-header drag-handle part="header">${this.headerRegion}</ef-header>
-        <ef-panel part="content" spacing transparent>${this.contentRegion}</ef-panel>
-        <div part="footer">${this.footerRegion}</div>
+      <ef-header drag-handle part="header">${this.headerRegion}</ef-header>
+      <ef-panel part="content" spacing transparent>${this.contentRegion}</ef-panel>
+      <div part="footer">${this.footerRegion}</div>
     `;
   }
 }
