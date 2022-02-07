@@ -8,17 +8,17 @@ import {
   WarningNotice,
   DeprecationNotice
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
 import '../button/index.js';
 import '../button-bar/index.js';
 import '../layout/index.js';
 import '../text-field/index.js';
 
-import '@refinitiv-ui/phrasebook/lib/locale/en/pagination.js';
+import '@refinitiv-ui/phrasebook/locale/en/pagination.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
 
 import type { TextField } from '../text-field';

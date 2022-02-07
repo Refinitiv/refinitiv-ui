@@ -1,4 +1,4 @@
-import type { CollectionComposer } from '@refinitiv-ui/utils/lib/collection';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import type { OverlayMenu } from '../index';
 import type { Item, ItemData } from '../../item';
 
