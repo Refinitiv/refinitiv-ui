@@ -66,7 +66,7 @@ export class Header extends BasicElement {
       <slot name="left">
         <div part="spacer"></div>
       </slot>
-      <div part="label">
+      <div part="label" role="none">
         <slot></slot>
       </div>
       <slot name="right"></slot>

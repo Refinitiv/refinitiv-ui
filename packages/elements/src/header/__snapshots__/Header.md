@@ -7,7 +7,10 @@
   <div part="spacer">
   </div>
 </slot>
-<div part="label">
+<div
+  part="label"
+  role="none"
+>
   <slot>
   </slot>
 </div>
