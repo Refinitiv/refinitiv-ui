@@ -7,13 +7,14 @@
 ```html
 <div
   aria-level="2"
+  part="header"
   role="heading"
 >
   <ef-header
     aria-controls="content"
     aria-expanded="false"
     level="3"
-    part="header"
+    part="header-toggle"
     role="button"
     tabindex="0"
   >
@@ -55,13 +56,14 @@
 ```html
 <div
   aria-level="2"
+  part="header"
   role="heading"
 >
   <ef-header
     aria-controls="content"
     aria-expanded="false"
     level="3"
-    part="header"
+    part="header-toggle"
     role="button"
     tabindex="0"
   >
@@ -103,13 +105,14 @@
 ```html
 <div
   aria-level="2"
+  part="header"
   role="heading"
 >
   <ef-header
     aria-controls="content"
     aria-expanded="false"
     level="3"
-    part="header"
+    part="header-toggle"
     role="button"
     tabindex="0"
   >
@@ -152,13 +155,14 @@
 ```html
 <div
   aria-level="2"
+  part="header"
   role="heading"
 >
   <ef-header
     aria-controls="content"
     aria-expanded="false"
     level="1"
-    part="header"
+    part="header-toggle"
     role="button"
     tabindex="0"
   >
@@ -200,13 +204,14 @@
 ```html
 <div
   aria-level="2"
+  part="header"
   role="heading"
 >
   <ef-header
     aria-controls="content"
     aria-expanded="false"
     level=""
-    part="header"
+    part="header-toggle"
     role="button"
     tabindex="0"
   >

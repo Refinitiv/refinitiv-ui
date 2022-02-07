@@ -61,7 +61,7 @@ describe('collapse/Collapse', () => {
 
     it('Should have default value of property', async () => {
       const el = await fixture('<ef-collapse></ef-collapse>');
-      const header = el.shadowRoot.querySelector('[part=header]');
+      const header = el.shadowRoot.querySelector('[part=header-toggle]');
 
       expect(el.header).to.be.null;
       expect(el.hasAttribute('header')).to.equal(false, 'attribute "header" should not be exists');
@@ -118,7 +118,7 @@ describe('collapse/Collapse', () => {
 
     it('Level property', async () => {
       const el = await fixture('<ef-collapse></ef-collapse>');
-      const header = el.shadowRoot.querySelector('[part=header]');
+      const header = el.shadowRoot.querySelector('[part=header-toggle]');
 
       expect(el.level).to.equal('3');
       expect(header.hasAttribute('level')).to.equal(true, 'attribute "level" should be exists');
@@ -178,7 +178,7 @@ describe('collapse/Collapse', () => {
   describe('Should Handle Click', () => {
     it('Should fire expanded-changed event when tap header to expand', async () => {
       const el = await fixture('<ef-collapse></ef-collapse>');
-      const header = el.shadowRoot.querySelector('[part=header]');
+      const header = el.shadowRoot.querySelector('[part=header-toggle]');
 
       setTimeout(() => header.dispatchEvent(new Event('tap', { bubbles: true })));
       const { detail } = await oneEvent(el, 'expanded-changed');
@@ -199,7 +199,7 @@ describe('collapse/Collapse', () => {
         <ef-collapse>
             <div slot="header-right" class="badge">8</div>
         </ef-collapse>`);
-      const header = el.shadowRoot.querySelector('[part=header]');
+      const header = el.shadowRoot.querySelector('[part=header-toggle]');
       const slot = header.querySelector('slot[name=header-right]');
 
       setTimeout(() => slot.dispatchEvent(new Event('tap', { bubbles: true })));
@@ -229,7 +229,7 @@ describe('collapse/Collapse', () => {
   describe('Cancel expanded-changed event', () => {
     it('Should not change expanded property', async () => {
       const el = await fixture('<ef-collapse expanded></ef-collapse>');
-      const header = el.shadowRoot.querySelector('[part=header]');
+      const header = el.shadowRoot.querySelector('[part=header-toggle]');
       const expanded = el.expanded;
 
       const onExpandedEvent = (e) => e.preventDefault();
