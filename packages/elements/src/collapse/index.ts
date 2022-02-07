@@ -168,8 +168,8 @@ export class Collapse extends BasicElement {
 
   protected render (): TemplateResult {
     return html`
-      <div role="heading" aria-level="${this.ariaLevel ? this.ariaLevel : '2' }">
-        <ef-header part="header" level="${this.level}" @tap=${this.toggle} role="button" tabindex="0" aria-expanded="${this.expanded}" aria-controls="content">
+      <div part="header" role="heading" aria-level="${this.ariaLevel ? this.ariaLevel : '2' }">
+        <ef-header part="header-toggle" level="${this.level}" @tap=${this.toggle} role="button" tabindex="0" aria-expanded="${this.expanded}" aria-controls="content">
           ${this.header}
           <ef-icon icon="right" slot="left" part="toggle" aria-hidden="true"></ef-icon>
           <slot slot="left" name="header-left"></slot>
