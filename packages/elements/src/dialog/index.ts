@@ -13,7 +13,6 @@ import '../button/index.js';
 import { translate, Translate, TranslatePropertyKey } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/lib/locale/en/dialog.js';
 
-
 /**
  * Popup window, designed to contain and show any HTML content.
  * It provides modal and dragging functionality,
@@ -58,6 +57,9 @@ export class Dialog extends Overlay {
     return VERSION;
   }
 
+  /**
+   * Default role of the element
+   */
   protected readonly defaultRole: string | null = 'dialog';
 
   /**
@@ -148,18 +150,6 @@ export class Dialog extends Overlay {
 
   public noCancelOnOutsideClick = true;
 
-
-  /**
-   * Called once after the component is first rendered
-   * @param changedProperties map of changed properties with old values
-   * @returns {void}
-   */
-  protected firstUpdated (changedProperties: PropertyValues): void {
-    super.firstUpdated(changedProperties);
-
-    this.setAttribute('aria-modal', String(!this.noInteractionLock));
-  }
-
   /**
   * @ignore
   */
@@ -205,7 +195,7 @@ export class Dialog extends Overlay {
     const shouldUpdate = super.shouldUpdate(changedProperties);
 
     return shouldUpdate
-      || ((changedProperties.has('draggable') || changedProperties.has('header') || changedProperties.has(TranslatePropertyKey)) && this.opened);
+      || ((changedProperties.has('draggable') || changedProperties.has('header') || changedProperties.has('noInteractionLock') || changedProperties.has(TranslatePropertyKey)) && this.opened);
   }
 
   /**
@@ -215,6 +205,8 @@ export class Dialog extends Overlay {
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
+
+    this.setAttribute('aria-modal', String(!this.noInteractionLock));
 
     if (this.isDraggableBehaviourNeedToBeChanged(changedProperties)) {
       this.updateDraggableBehavior();
