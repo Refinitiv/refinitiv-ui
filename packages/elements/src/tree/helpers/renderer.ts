@@ -1,4 +1,5 @@
 import type { CollectionComposer } from '@refinitiv-ui/utils/lib/collection';
+import { uuid } from '@refinitiv-ui/utils/lib/uuid.js';
 import type { TreeDataItem } from './types';
 import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager.js';
 import { Renderer } from '../../list/renderer.js';
@@ -11,23 +12,23 @@ type RendererScope = {
 };
 
 export class TreeRenderer extends Renderer {
-  constructor (scope?: unknown) {
 
-    let manager: TreeManager<TreeDataItem>;
-    let currentMode: TreeManagerMode;
-    let currentComposer: CollectionComposer<TreeDataItem>;
+  /**
+   * Renderer key prefix, used in combination with item value to give unique id to each item
+   */
+  public key = uuid().split('-')[0];
+
+  constructor (scope?: unknown) {
     super((item: TreeDataItem, composer: CollectionComposer<TreeDataItem>, element = document.createElement('ef-tree-item')): HTMLElement => {
       const el = element as TreeItem;
       const multiple = !!scope && (scope as RendererScope).multiple === true;
       const noRelation = !!scope && (scope as RendererScope).noRelation === true;
       const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
-      if (currentComposer !== composer || currentMode !== mode) {
-        currentMode = mode;
-        currentComposer = composer;
-        manager = new TreeManager(composer, mode);
-      }
+      const manager: TreeManager<TreeDataItem> = new TreeManager(composer, mode);
+
       el.multiple = multiple;
       el.item = item;
+      el.id = item.value ? `${this.key}-${item.value}` : '';
       el.depth = composer.getItemDepth(item);
       el.parent = composer.getItemChildren(item).length > 0;
       el.expanded = manager.isItemExpanded(item);
