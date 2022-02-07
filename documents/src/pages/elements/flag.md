@@ -71,7 +71,7 @@ Flags are displayed in 4:3 aspect ratio. Flag size can be set using `font-size`.
 Preload of flags will be deferred until the first `ef-flag` component created.
 
 ```javascript
-import { preload } from "@refinitiv-ui/elements/lib/flag";
+import { preload } from "@refinitiv-ui/elements/flag";
 
 preload("us");
 preload("au", "nz");
