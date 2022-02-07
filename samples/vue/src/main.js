@@ -11,5 +11,5 @@ const loadTheme = () => {
 
 loadTheme().then((THEME) => {
   createApp(App).mount('#app');
-  document.body.setAttribute("theme", `${THEME}`);
-})
+  document.body.setAttribute('theme', `${THEME}`);
+});

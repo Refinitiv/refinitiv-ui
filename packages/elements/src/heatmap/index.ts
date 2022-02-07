@@ -540,7 +540,7 @@ export class Heatmap extends ResponsiveElement {
   private updateTooltipOverlayPosition (cell: HeatmapCell): void {
     // Compensate x-axis height for overlay when x-axis is at top position
     let marginOverlayTop = 0;
-    if(this.config?.xAxis && this.xAxis?.offsetHeight) {
+    if (this.config?.xAxis && this.xAxis?.offsetHeight) {
       marginOverlayTop = this.config.xAxis.position === 'bottom' ? 0 : this.xAxis?.offsetHeight;
     }
 

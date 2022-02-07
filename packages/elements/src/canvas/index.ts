@@ -99,7 +99,7 @@ export class Canvas extends ResponsiveElement {
    */
   public get ctx (): CanvasRenderingContext2D | null {
     /* istanbul ignore if  */
-    if(!this.canvas) {
+    if (!this.canvas) {
       return null;
     }
     return this.canvas.getContext('2d');
@@ -118,7 +118,7 @@ export class Canvas extends ResponsiveElement {
    * @return {void}
    */
   private loop (): void {
-    if(this.autoloop) {
+    if (this.autoloop) {
       this.frameId = requestAnimationFrame(this.fireFrame.bind(this));
     }
   }
@@ -156,7 +156,7 @@ export class Canvas extends ResponsiveElement {
     this.canvas.height = Math.floor(height * dpr);
     this.canvas.style.width = `${width}px`;
     this.canvas.style.height = `${height}px`;
-    if(this.ctx) {
+    if (this.ctx) {
       this.ctx.scale(dpr, dpr);
     }
   }

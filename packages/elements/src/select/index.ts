@@ -444,7 +444,7 @@ export class Select extends ControlElement implements MultiValue {
    */
   private restrictPopupWidth (): void {
     /* istanbul ignore next */
-    if(this.offsetWidth === 0) {
+    if (this.offsetWidth === 0) {
       // this code might happen only when opened has been set during initialisation
       // or when display is set to none
       this.resizeThrottler.schedule(() => {

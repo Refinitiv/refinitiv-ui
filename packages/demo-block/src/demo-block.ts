@@ -217,7 +217,7 @@ export class DemoBlock extends BasicElement {
   }
 
   private renderHeader (): TemplateResult | null {
-    if(!this.header && !this._tags.length) {
+    if (!this.header && !this._tags.length) {
       return null;
     }
 

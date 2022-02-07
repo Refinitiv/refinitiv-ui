@@ -161,14 +161,14 @@ export class MultiInput extends ControlElement implements MultiValue {
    */
   @property({ type: Number, attribute: false })
   public get selectionStart (): number | null {
-    if(this.search) {
+    if (this.search) {
       return this.search.selectionStart;
     }
     return null;
   }
 
   public set selectionStart (index: SelectionIndex) {
-    if(this.search) {
+    if (this.search) {
       this.search.selectionStart = index;
     }
   }
@@ -179,14 +179,14 @@ export class MultiInput extends ControlElement implements MultiValue {
    */
   @property({ type: Number, attribute: false })
   public get selectionEnd (): number | null {
-    if(this.search) {
+    if (this.search) {
       return this.search.selectionEnd;
     }
     return null;
   }
 
   public set selectionEnd (index: SelectionIndex) {
-    if(this.search) {
+    if (this.search) {
       this.search.selectionEnd = index;
     }
   }
@@ -405,7 +405,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * @returns true if there is maxLength is null and maxLength is more than value.
    */
   private shouldValidateForMaxLength (value: string): boolean {
-    if(this.maxLength) {
+    if (this.maxLength) {
       return value.length <= this.maxLength;
     }
     return true;
@@ -449,7 +449,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    */
   public select (): void {
     if (!this.disabled && !this.readonly) {
-      if(this.search) {
+      if (this.search) {
         this.search.select();
       }
     }
@@ -534,7 +534,7 @@ export class MultiInput extends ControlElement implements MultiValue {
   private onPillClearsHandler (event: Event): void {
     const pill = event.target as Pill;
     const index = pill.getAttribute('index');
-    if (index == null) {
+    if (index === null) {
       return;
     }
 

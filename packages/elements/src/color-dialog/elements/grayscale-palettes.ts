@@ -120,13 +120,13 @@ export class GrayscalePalettes extends Palettes {
    * @return {void}
    */
   protected updated (changedProperties: PropertyValues): void {
-    if(changedProperties.has('value')) {
+    if (changedProperties.has('value')) {
       const value = this.expandHex(this.value);
       const item = GRAYSCALE_ITEMS.find((item: string[]) => item[1] === value);
-      if(this.allowNocolor && this.value === '') {
+      if (this.allowNocolor && this.value === '') {
         this.showSelector(NOCOLOR_POINTS);
       }
-      else if(item) {
+      else if (item) {
         this.showSelector(item[0]);
       }
       else {
@@ -134,8 +134,8 @@ export class GrayscalePalettes extends Palettes {
       }
     }
     // hide selector if value equal '' and allowNocolor has been changed to false
-    if(changedProperties.has('allowNocolor')) {
-      if(!this.allowNocolor && this.value === '') {
+    if (changedProperties.has('allowNocolor')) {
+      if (!this.allowNocolor && this.value === '') {
         this.hideSelector();
       }
     }
@@ -149,7 +149,7 @@ export class GrayscalePalettes extends Palettes {
   protected updateValue (element: SVGAElement): void {
     const color = element.getAttribute('fill');
     const itemId = element.getAttribute('id');
-    if(color) {
+    if (color) {
       this.value = itemId === 'nocolor-item' ? '' : color;
       this.notifyPropertyChange('value', color);
     }

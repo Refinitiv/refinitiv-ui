@@ -85,10 +85,10 @@ export class ColorPalettes extends Palettes {
    * @return {void}
    */
   protected updated (changedProperties: PropertyValues): void {
-    if(changedProperties.has('value')) {
+    if (changedProperties.has('value')) {
       const value = this.expandHex(this.value);
       const item = COLOR_ITEMS.find((item: string[]) => item[1] === value);
-      if(item) {
+      if (item) {
         this.showSelector(item[0]);
       }
       else {

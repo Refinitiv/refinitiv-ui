@@ -140,7 +140,7 @@ export class Rating extends BasicElement {
         this.value = this.valueNumber.toString();
         this.computeRating(this.maxNumber, this.valueNumber);
       }
-      else if(propName === 'max') {
+      else if (propName === 'max') {
         this.max = this.maxNumber.toString();
         this.computeRating(this.maxNumber, this.valueNumber);
       }

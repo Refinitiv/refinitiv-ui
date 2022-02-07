@@ -178,7 +178,7 @@ export class Chart extends BasicElement {
    */
   public connectedCallback (): void {
     super.connectedCallback();
-    if(this.canvas) {
+    if (this.canvas) {
       this.createChart();
     }
   }

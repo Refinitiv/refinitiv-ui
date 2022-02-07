@@ -162,7 +162,7 @@ export class Tab extends ControlElement {
    * @returns Label template
    */
   private get LabelTemplate (): TemplateResult | null {
-    if(!this.label || !this.isSlotHasChildren) {
+    if (!this.label || !this.isSlotHasChildren) {
       return null;
     }
     return html`
@@ -179,7 +179,7 @@ export class Tab extends ControlElement {
    * @returns SubLabel template
    */
   private get SubLabelTemplate (): TemplateResult | null {
-    if(!this.subLabel || !this.isSlotHasChildren) {
+    if (!this.subLabel || !this.isSlotHasChildren) {
       return null;
     }
     return html`

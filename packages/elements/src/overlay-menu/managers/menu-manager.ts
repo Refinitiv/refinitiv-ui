@@ -195,7 +195,7 @@ abstract class OpenedMenusManager {
         return;
       }
 
-      if(!this.closeMenuFor(parentMenu)) {
+      if (!this.closeMenuFor(parentMenu)) {
         return;
       }
     }
