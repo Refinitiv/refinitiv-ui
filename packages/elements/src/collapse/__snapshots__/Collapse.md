@@ -5,39 +5,37 @@
 ####   `Label and DOM structure is correct`
 
 ```html
-<ef-header
+<div
   aria-level="2"
-  level="3"
-  part="header"
   role="heading"
 >
-  <div
+  <ef-header
     aria-controls="content"
     aria-expanded="false"
-    id="header-toggle"
-    part="header-toggle"
+    level="3"
+    part="header"
     role="button"
     tabindex="0"
   >
-  </div>
-  <ef-icon
-    aria-hidden="true"
-    icon="right"
-    part="toggle"
-    slot="left"
-  >
-  </ef-icon>
-  <slot
-    name="header-left"
-    slot="left"
-  >
-  </slot>
-  <slot
-    name="header-right"
-    slot="right"
-  >
-  </slot>
-</ef-header>
+    <ef-icon
+      aria-hidden="true"
+      icon="right"
+      part="toggle"
+      slot="left"
+    >
+    </ef-icon>
+    <slot
+      name="header-left"
+      slot="left"
+    >
+    </slot>
+    <slot
+      name="header-right"
+      slot="right"
+    >
+    </slot>
+  </ef-header>
+</div>
 <div
   aria-labelledby="header-toggle"
   id="content"
@@ -55,39 +53,37 @@
 ####   `Label and DOM structure is correct with spacing`
 
 ```html
-<ef-header
+<div
   aria-level="2"
-  level="3"
-  part="header"
   role="heading"
 >
-  <div
+  <ef-header
     aria-controls="content"
     aria-expanded="false"
-    id="header-toggle"
-    part="header-toggle"
+    level="3"
+    part="header"
     role="button"
     tabindex="0"
   >
-  </div>
-  <ef-icon
-    aria-hidden="true"
-    icon="right"
-    part="toggle"
-    slot="left"
-  >
-  </ef-icon>
-  <slot
-    name="header-left"
-    slot="left"
-  >
-  </slot>
-  <slot
-    name="header-right"
-    slot="right"
-  >
-  </slot>
-</ef-header>
+    <ef-icon
+      aria-hidden="true"
+      icon="right"
+      part="toggle"
+      slot="left"
+    >
+    </ef-icon>
+    <slot
+      name="header-left"
+      slot="left"
+    >
+    </slot>
+    <slot
+      name="header-right"
+      slot="right"
+    >
+    </slot>
+  </ef-header>
+</div>
 <div
   aria-labelledby="header-toggle"
   id="content"
@@ -105,40 +101,38 @@
 ####   `Label and DOM structure is correct with header`
 
 ```html
-<ef-header
+<div
   aria-level="2"
-  level="3"
-  part="header"
   role="heading"
 >
-  <div
+  <ef-header
     aria-controls="content"
     aria-expanded="false"
-    id="header-toggle"
-    part="header-toggle"
+    level="3"
+    part="header"
     role="button"
     tabindex="0"
   >
     Header
-  </div>
-  <ef-icon
-    aria-hidden="true"
-    icon="right"
-    part="toggle"
-    slot="left"
-  >
-  </ef-icon>
-  <slot
-    name="header-left"
-    slot="left"
-  >
-  </slot>
-  <slot
-    name="header-right"
-    slot="right"
-  >
-  </slot>
-</ef-header>
+    <ef-icon
+      aria-hidden="true"
+      icon="right"
+      part="toggle"
+      slot="left"
+    >
+    </ef-icon>
+    <slot
+      name="header-left"
+      slot="left"
+    >
+    </slot>
+    <slot
+      name="header-right"
+      slot="right"
+    >
+    </slot>
+  </ef-header>
+</div>
 <div
   aria-labelledby="header-toggle"
   id="content"
@@ -156,39 +150,37 @@
 ####   `Label and DOM structure is correct with level`
 
 ```html
-<ef-header
+<div
   aria-level="2"
-  level="1"
-  part="header"
   role="heading"
 >
-  <div
+  <ef-header
     aria-controls="content"
     aria-expanded="false"
-    id="header-toggle"
-    part="header-toggle"
+    level="1"
+    part="header"
     role="button"
     tabindex="0"
   >
-  </div>
-  <ef-icon
-    aria-hidden="true"
-    icon="right"
-    part="toggle"
-    slot="left"
-  >
-  </ef-icon>
-  <slot
-    name="header-left"
-    slot="left"
-  >
-  </slot>
-  <slot
-    name="header-right"
-    slot="right"
-  >
-  </slot>
-</ef-header>
+    <ef-icon
+      aria-hidden="true"
+      icon="right"
+      part="toggle"
+      slot="left"
+    >
+    </ef-icon>
+    <slot
+      name="header-left"
+      slot="left"
+    >
+    </slot>
+    <slot
+      name="header-right"
+      slot="right"
+    >
+    </slot>
+  </ef-header>
+</div>
 <div
   aria-labelledby="header-toggle"
   id="content"
@@ -206,39 +198,37 @@
 ####   `Label and DOM structure is correct without level`
 
 ```html
-<ef-header
+<div
   aria-level="2"
-  level=""
-  part="header"
   role="heading"
 >
-  <div
+  <ef-header
     aria-controls="content"
     aria-expanded="false"
-    id="header-toggle"
-    part="header-toggle"
+    level=""
+    part="header"
     role="button"
     tabindex="0"
   >
-  </div>
-  <ef-icon
-    aria-hidden="true"
-    icon="right"
-    part="toggle"
-    slot="left"
-  >
-  </ef-icon>
-  <slot
-    name="header-left"
-    slot="left"
-  >
-  </slot>
-  <slot
-    name="header-right"
-    slot="right"
-  >
-  </slot>
-</ef-header>
+    <ef-icon
+      aria-hidden="true"
+      icon="right"
+      part="toggle"
+      slot="left"
+    >
+    </ef-icon>
+    <slot
+      name="header-left"
+      slot="left"
+    >
+    </slot>
+    <slot
+      name="header-right"
+      slot="right"
+    >
+    </slot>
+  </ef-header>
+</div>
 <div
   aria-labelledby="header-toggle"
   id="content"
