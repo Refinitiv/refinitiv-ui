@@ -248,7 +248,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @returns {void}
    */
   public first (): void {
-    const firstItem = this.itemMap.get(this.tabbableElements[0]);
+    const firstItem = this.itemMap.get(this.tabbableItems[0]);
     this.highlightItem(firstItem, true);
   }
 
@@ -257,7 +257,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @returns {void}
    */
   public last (): void {
-    const lastItem = this.itemMap.get(this.tabbableElements[this.tabbableElements.length - 1]);
+    const lastItem = this.itemMap.get(this.tabbableItems[this.tabbableItems.length - 1]);
     this.highlightItem(lastItem, true);
   }
 
@@ -348,11 +348,8 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    */
   protected highlightItem (item?: T, scrollToItem = false): void {
     if (item) {
-      const elementToFocus = this.elementFromItem(item);
-      const focus = this.activeElement && this.activeElement !== elementToFocus;
       this.clearHighlighted();
       this.composer.setItemPropertyValue(item, 'highlighted', true);
-      focus && elementToFocus?.focus({ preventScroll: true });
       item.value && this.setAttribute('aria-activedescendant', `${this.renderer.key}-${item.value}`);
       scrollToItem && this.scrollToItem(item);
     }
