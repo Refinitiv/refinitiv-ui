@@ -44,7 +44,11 @@ p {
 The field's value can be accessed directly using the `value` property.
 
 ```html
-<ef-email-field id="email-input" value="awesome@tmail.com"></ef-email-field>
+<ef-email-field
+  id="email-input"
+  value="awesome@tmail.com"
+  placeholder="Business email address">
+</ef-email-field>
 ```
 
 ```javascript
@@ -113,7 +117,12 @@ ef-email-field {
 ::
 
 ```html
-<ef-email-field id="email-input" minlength="8" maxlength="14"></ef-email-field>
+<ef-email-field
+  id="email-input"
+  minlength="8"
+  maxlength="14"
+  placeholder="Length between 8 to 14 characters">
+</ef-email-field>
 <p id="error-text"></p>
 ```
 
@@ -156,13 +165,21 @@ ef-email-field {
 }
 ```
 ```html
-<ef-email-field id="email" pattern=".+@mail.com" placeholder="Type email ending with '@mail.com'"></ef-email-field>
+<ef-email-field
+  id="email"
+  pattern=".+@mail.com"
+  placeholder="Type email ending with '@mail.com'">
+</ef-email-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
-<ef-email-field id="email" pattern=".+@mail.com"></ef-email-field>
+<ef-email-field
+  id="email"
+  pattern=".+@mail.com"
+  placeholder="Type email ending with '@mail.com'">
+</ef-email-field>
 <p id="error-text"></p>
 ```
 
@@ -184,7 +201,7 @@ element.addEventListener("error-changed", (e) => {
 An inline icon can be displayed inside the input using `icon`.
 
 ```html
-<ef-email-field icon="individual"></ef-email-field>
+<ef-email-field icon="individual" placeholder="Enter email"></ef-email-field>
 ```
 
 An icon can become actionable by adding the `icon-has-action` attribute to the element, and `ef-email-field` will fire the `icon-click` event when a user clicks on the icon. You can add an event listener to this event to execute your code.
@@ -232,6 +249,7 @@ ef-email-field {
   icon="msgr-adduser"
   pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
   icon-has-action
+  placeholder="Type email and then click the icon ..."
 ></ef-email-field>
 <p id="email-added"></p>
 ```
@@ -250,6 +268,33 @@ element.addEventListener("icon-click", (e) => {
 ## Accessibility
 ::a11y-intro::
 
-The Email Field is assigned `role="textbox"`. States such as `disabled` or `read-only`   are programmatically updated to match the element’s visual state. 
+`ef-email-field` is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state.
+
+### Note for developers
+Email Field manages the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+
+```html
+<ef-email-field placeholder="Enter your email"></ef-email-field>
+```
+```html
+<ef-email-field 
+  aria-label="Enter your email"
+  placeholder="Enter your email">
+</ef-email-field>
+```
+```html
+<label id="email">Enter your email</label>
+<ef-email-field 
+  aria-labelledby="email"
+  placeholder="Enter your email">
+</ef-email-field>
+```
+```html
+<label for="email">Enter your email</label>
+<ef-email-field
+  id="email"
+  placeholder="Enter your email">
+</ef-email-field>
+```
 
 ::a11y-end::

@@ -9,6 +9,8 @@ layout: default
 ::
 ```javascript
 ::number-field::
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
+halo('panel');
 const curr1 = document.getElementById('curr1');
 const cf = document.getElementById('cf');
 const out = document.getElementById('out');
@@ -26,6 +28,7 @@ cf.addEventListener('value-changed', () => {
   margin-top: 8px;
 }
 .label {
+  display: block;
   margin-bottom: 4px;
 }
 ef-number-field {
@@ -35,11 +38,11 @@ ef-number-field {
 ```
 ```html
 <ef-panel spacing>
-  <div>Pound Sterling (£)</div>
+  <label for="curr1" class="label">Pound Sterling (£)</label>
   <ef-number-field value="1000" step="1" min="1" id="curr1"></ef-number-field>
-  <div class="label">Conversion Rate</div>
+  <label for="cf" class="label">Conversion Rate</label>
   <ef-number-field value="38.62" min="0" step="0.01" id="cf"></ef-number-field>
-  <div class="label">Thai Baht (฿)</div>
+  <label for="out" class="label">Thai Baht (฿)</label>
   <ef-number-field readonly value="12000" no-spinner id="out"></ef-number-field>
 </ef-panel>
 ```
@@ -51,14 +54,15 @@ ef-number-field {
 Number field can be used in a similar fashion to the native number input.
 
 ```html
-<ef-number-field value="1000"></ef-number-field>
+<label for="total">Total Items</label>
+<ef-number-field id="total" value="1000"></ef-number-field>
 ```
 
 ### Getting value
 Just like the HTML native input, the number field input value is a `string` which can be accessed via the `value` property.
 
 ```html
-<ef-number-field id="number-input" value="3"></ef-number-field>
+<ef-number-field id="number-input" placehoder="Total items" value="3"></ef-number-field>
 ```
 
 ```javascript
@@ -85,7 +89,10 @@ element.addEventListener('value-changed', (e) => {
 ::
 
 ```html
-<ef-number-field id="event"></ef-number-field>
+<ef-number-field
+  id="event"
+  placeholder="Use spinner or type number to change value.">
+</ef-number-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 
@@ -117,7 +124,7 @@ document.getElementById('mm').value = '-15';
 ::
 
 ```html
-<ef-number-field min="-12" max="16"></ef-number-field>
+<ef-number-field placeholder="Min/Max" min="-12" max="16"></ef-number-field>
 ```
 
 ### Set input step
@@ -133,13 +140,18 @@ The step attribute specifies the interval between valid numbers. For instance, w
 ::
 
 ```html
-<ef-number-field step="2"></ef-number-field>
+<ef-number-field placeholder="Even numbers only" step="2"></ef-number-field>
 ```
 
 Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
 
 ```html
-<ef-number-field id="number-input" value="3" max="2"></ef-number-field>
+<ef-number-field
+  placeholder="Enter number less than 2"
+  id="number-input"
+  value="3"
+  max="2">
+</ef-number-field>
 ```
 
 ```javascript
@@ -166,13 +178,18 @@ element.addEventListener('error-changed', (e) => {
   });
 ```
 ```html
-<ef-number-field id="input" min="0" max="10"></ef-number-field>
+<ef-number-field id="input" placeholder="Enter number between 0 - 10" min="0" max="10"></ef-number-field>
 <p>Error: <code id="error-text"></code></p>
 ```
 ::
 
 ```html
-<ef-number-field id="input" min="0" max="10"></ef-number-field>
+<ef-number-field
+  id="input"
+  placeholder="Enter number between 0 - 10"
+  min="0"
+  max="10">
+</ef-number-field>
 <p>Error: <code id="error-text"></code></p>
 ```
 
@@ -194,6 +211,33 @@ element.addEventListener('error-changed', (e) => {
 ## Accessibility
 ::a11y-intro::
 
-The Number Field is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state. 
+`ef-number-field` is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state. 
+
+### Note for developers
+Number Field manages the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+
+```html
+<ef-number-field placeholder="Total items"></ef-number-field>
+```
+```html
+<ef-number-field 
+  aria-label="Enter total items"
+  placeholder="Total items">
+</ef-number-field>
+```
+```html
+<label id="total">Enter total items</label>
+<ef-number-field 
+  aria-labelledby="total"
+  placeholder="Total items">
+</ef-number-field>
+```
+```html
+<label for="total">Enter total items</label>
+<ef-number-field
+  id="total"
+  placeholder="Total items">
+</ef-number-field>
+```
 
 ::a11y-end::

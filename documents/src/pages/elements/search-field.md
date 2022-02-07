@@ -10,6 +10,8 @@ layout: default
 ::
 ```javascript
 ::search-field::
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
+halo('panel');
 ```
 ```html
 <ef-search-field placeholder="Search keywords ..."></ef-search-field>
@@ -29,7 +31,11 @@ layout: default
 The value can be accessed using the `value` property.
 
 ```html
-<ef-search-field id="search-input" value="keywords"></ef-search-field>
+<ef-search-field
+  id="search-input"
+  value="keywords"
+  placeholder="Search keywords ...">
+</ef-search-field>
 ```
 
 ```javascript
@@ -56,7 +62,7 @@ element.addEventListener("value-changed", (e) => {
 ::
 
 ```html
-<ef-search-field id="input"></ef-search-field>
+<ef-search-field id="input"  placeholder="Search keywords ..."></ef-search-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 
@@ -106,7 +112,12 @@ ef-search-field {
 ::
 
 ```html
-<ef-search-field id="search-input" minlength="2" maxlength="4"></ef-search-field>
+<ef-search-field
+  id="search-input"
+  minlength="2"
+  maxlength="4"
+  placeholder="Between 2 to 4 characters">
+</ef-search-field>
 <p id="error-text"></p>
 ```
 
@@ -157,6 +168,7 @@ ef-search-field {
 ::
 
 ```html
+<label for="search-pattern">Enter uppercase letters and 2-5 characters</label>
 <ef-search-field id="search-pattern" pattern="[A-Z]{2,5}"></ef-search-field>
 <p id="error-text"></p>
 ```
@@ -244,6 +256,33 @@ searchInput.addEventListener("value-changed", (e) => {
 ## Accessibility
 ::a11y-intro::
 
-The Search Field is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state. Dynamic updates such as a validation message are communicated to screen readers through a live region. 
+`ef-search-field` is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state. Dynamic updates such as a validation message are communicated to screen readers through a live region. 
+
+### Note for developers
+Search Field manages the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+
+```html
+<ef-search-field placeholder="Search .."></ef-search-field>
+```
+```html
+<ef-search-field 
+  aria-label="Enter word to search"
+  placeholder="Search ..">
+</ef-search-field>
+```
+```html
+<label id="keyword">Enter word to search</label>
+<ef-search-field 
+  aria-labelledby="keyword"
+  placeholder="Search ..">
+</ef-search-field>
+```
+```html
+<label for="keyword">Enter word to search</label>
+<ef-search-field
+  id="keyword"
+  placeholder="Search ..">
+</ef-search-field>
+```
 
 ::a11y-end::
