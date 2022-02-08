@@ -165,31 +165,31 @@ export class Slider extends ControlElement {
    * @param value Element value
    */
   public set value (value: string) {
-    const oldValue = this._value;
+    const oldValue = this._internalValue;
     value = this.castValue(value);
     if (!this.isValidValue(value)) {
       this.warnInvalidValue(value);
       value = '';
     }
     if (oldValue !== value) {
-      this._value = value;
+      this._internalValue = value;
       if (!this.dragging) {
         // Update internal `valuePrevious` when `value` was programatically set by user.
-        this.valuePrevious = this._value;
+        this.valuePrevious = this._internalValue;
       }
       this.requestUpdate('value', oldValue);
     }
   }
 
   public get value (): string {
-    return this._value;
+    return this._internalValue;
   }
 
   /**
    * Internal value of the element.
    * Controlled by public setter and getter
    */
-  private _value = '';
+  private _internalValue = '';
 
   /**
    * Converts value from string to number for calculations
