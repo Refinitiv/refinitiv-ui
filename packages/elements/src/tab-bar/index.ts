@@ -19,9 +19,8 @@ import '../button/index.js';
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 
 /**
- * @fires value-changed - Fired when the `value` changes.
- *
  * Container for tabs
+ * @fires value-changed - Fired when the `value` changes.
  */
 @customElement('ef-tab-bar', {
   alias: 'coral-tab-bar'
