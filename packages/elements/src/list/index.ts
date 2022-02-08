@@ -350,7 +350,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     if (item) {
       this.clearHighlighted();
       this.composer.setItemPropertyValue(item, 'highlighted', true);
-      item.value && this.setAttribute('aria-activedescendant', `${this.renderer.key}-${item.value}`);
+      (this.tabIndex >= 0 && this.renderer.key && item.value) && this.setAttribute('aria-activedescendant', `${this.renderer.key}-${item.value}`);
       scrollToItem && this.scrollToItem(item);
     }
   }
@@ -499,6 +499,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    */
   protected onBlur (): void {
     this.clearHighlighted();
+    this.removeAttribute('aria-activedescendant');
   }
 
   /**
