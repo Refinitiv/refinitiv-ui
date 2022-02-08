@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, aTimeout } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, aTimeout, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tab-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
@@ -11,7 +11,7 @@ const scrollUpdated = async () => {
   await aTimeout(300);
 };
 
-describe('tab-bar/TabBar', () => {
+describe('tab-bar/Template', () => {
   it('DOM structure is correct', async () => {
     const el = await fixture('<ef-tab-bar></ef-tab-bar>');
     expect(el).shadowDom.to.equalSnapshot();
@@ -124,7 +124,7 @@ describe('tab-bar/TabBar', () => {
       rightScrollBtn.dispatchEvent(new CustomEvent('tap'));
       await scrollUpdated();
 
-      expect(content.scrollLeft).equal(BAR_TRAVEL_DISTANCE);
+      expect(Math.round(content.scrollLeft)).equal(BAR_TRAVEL_DISTANCE);
       expect(getElementStyle(leftScrollBtn, 'display')).equal('flex');
     });
 
@@ -139,19 +139,6 @@ describe('tab-bar/TabBar', () => {
 
       expect(content.scrollLeft).equal(0);
       expect(getElementStyle(leftScrollBtn, 'display')).equal('none');
-    });
-
-    it('Should scroll to the rightmost', async () => {
-      const availableScroll = content.scrollWidth - content.clientWidth;
-      content.scrollLeft = availableScroll - (BAR_TRAVEL_DISTANCE * 1.25);
-      await scrollUpdated(); // wait scroll end
-
-      rightScrollBtn.dispatchEvent(new CustomEvent('tap'));
-      await scrollUpdated();
-
-      expect(content.scrollLeft).equal(availableScroll);
-      expect(getElementStyle(leftScrollBtn, 'display')).equal('flex');
-      expect(getElementStyle(rightScrollBtn, 'display')).equal('none');
     });
 
     it('Should scroll to the leftmost', async () => {
@@ -169,9 +156,29 @@ describe('tab-bar/TabBar', () => {
     it('Should not show scroll button in vertical tab bar', async () => {
       el.querySelector('ef-tab-bar').vertical = true;
       await elementUpdated();
+      leftScrollBtn = el.querySelector('ef-tab-bar').shadowRoot.querySelector('[part=left-btn]');
+      rightScrollBtn = el.querySelector('ef-tab-bar').shadowRoot.querySelector('[part=right-btn]');
+      expect(leftScrollBtn).equal(null);
+      expect(rightScrollBtn).equal(null);
+    });
 
-      expect(getElementStyle(leftScrollBtn, 'display')).equal('none');
+    it('Should adjust scroll button when new tab has been added', async () => {
+      const el = await fixture(`
+        <div style="width: 150px">
+          <ef-tab-bar>
+            <ef-tab>Home</ef-tab>
+            <ef-tab>About</ef-tab>
+          </ef-tab-bar>
+        </div>`
+      );
+      const tabBar = el.querySelector('ef-tab-bar');
+      rightScrollBtn = tabBar.shadowRoot.querySelector('[part=right-btn]');
       expect(getElementStyle(rightScrollBtn, 'display')).equal('none');
+      const newTab = document.createElement('ef-tab');
+      newTab.textContent = "Application";
+      tabBar.appendChild(newTab);
+      await elementUpdated();
+      expect(getElementStyle(rightScrollBtn, 'display')).equal('flex');
     });
   });
 });

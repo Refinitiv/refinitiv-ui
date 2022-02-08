@@ -11,8 +11,8 @@ import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { VERSION } from '../version.js';
-import type { Tab } from '../tab';
 import { tweenAnimate } from './helpers/animate.js';
+import { Tab } from '../tab';
 import type { Button } from '../button';
 import '../button/index.js';
 
@@ -72,6 +72,31 @@ export class TabBar extends ResponsiveElement {
   @property({ type: Boolean, reflect: true })
   public vertical = false;
 
+  /**
+   * Internal value of tab bar.
+   * Controlled by public setter and getter
+   */
+  private _value = '';
+
+  /**
+   * Returns active tab value.
+   * @param value Element value
+   * @default -
+   */
+  @property({ type: String, attribute: false })
+  public set value (value: string) {
+    value = typeof value === 'string' ? value : String(value);
+    const oldValue = this._value;
+    if (value !== oldValue && this.isValidValue(value)) {
+      this._value = value;
+      this.selectValue(value);
+      this.requestUpdate('value', oldValue);
+    }
+  }
+  public get value (): string {
+    return this._value;
+  }
+
   @query('[part="content"')
   private content!: HTMLElement;
 
@@ -99,6 +124,7 @@ export class TabBar extends ResponsiveElement {
         this.toggleScrollButton(this.content.clientWidth);
       }, 66); // equal 15 fps for compatibility
     });
+    this.addEventListener('tap', this.onTap);
   }
 
   /**
@@ -107,15 +133,8 @@ export class TabBar extends ResponsiveElement {
    * @returns {void}
    */
   protected updated (changedProperties: PropertyValues): void {
-    /* istanbul ignore else */
     if (changedProperties.has('level')) {
       this.setLevel();
-    }
-    if (changedProperties.has('vertical')) {
-      // if tab bar changed from horizontal to vertical
-      if (this.vertical) {
-        this.hideScrollButtons();
-      }
     }
     super.updated(changedProperties);
   }
@@ -134,12 +153,137 @@ export class TabBar extends ResponsiveElement {
   }
 
   /**
-   * Hide all scroll buttons
+   * Return true if tab list have matched value
+   * @param value Value to check
+   * @returns true if tab list have matched value
+   */
+  private isValidValue (value: string) {
+    const tabList = this.getFocusableTabs();
+    return tabList.some(tab => this.getTabValue(tab) === value);
+  }
+
+  /**
+   * When the slot changes, set the level, toggle the scroll button, and set the value
    * @returns {void}
    */
-  private hideScrollButtons (): void {
-    this.leftBtn.style.setProperty('display', 'none');
-    this.rightBtn.style.setProperty('display', 'none');
+  private onSlotChange (): void {
+    this.setLevel();
+    const tabList = this.getFocusableTabs();
+    if (tabList.length < 1) {
+      return;
+    }
+    const activeTab = tabList.find(tab => tab.active) || tabList[0];
+
+    if (activeTab) {
+      this.value = this.getTabValue(activeTab);
+    }
+    // wait element size updated
+    setTimeout(() => {
+      this.toggleScrollButton(this.content.clientWidth);
+    });
+  }
+
+  /**
+   * Mark tab as active
+   * @param value value of tab to select
+   * @returns {void}
+   */
+  private selectValue (value: string): void {
+    if (!value) {
+      return;
+    }
+    let hasActiveTab = false;
+    const tabList = this.getTabElements(); // get all tab elements include disabled tab
+    tabList.forEach(tab => {
+      const tabValue = this.getTabValue(tab);
+      // only mark tab as active once
+      if (tabValue === value && !hasActiveTab && !tab.disabled) {
+        tab.active = true;
+        hasActiveTab = true;
+      }
+      else {
+        tab.active = false;
+      }
+    });
+  }
+
+  /**
+   * If the target of the event is a Tab, then set the value of the target to the value of the Tab
+   * @param {Event} event - Event
+   * @returns {void}
+   */
+  private onTap (event: Event): void {
+    if (event.defaultPrevented) {
+      return;
+    }
+    const element = event.target;
+    if (element instanceof Tab) {
+      const tabValue = this.getTabValue(element);
+      if (tabValue !== this.value) {
+        this.value = this.getTabValue(element);
+        this.notifyPropertyChange('value', tabValue);
+      }
+    }
+  }
+
+  /**
+   * Get the value of a tab
+   * @param {Tab} tab - The tab element.
+   * @returns The value of the tab.
+   */
+  private getTabValue (tab: Tab): string {
+    return tab.value || (tab.hasAttribute('value') ? '' : this.getTabLabel(tab));
+  }
+
+  /**
+   * Return the tab's label, or its textContent, or an empty string
+   * @param {Tab} tab - The tab element.
+   * @returns The tab label.
+   */
+  private getTabLabel (tab: Tab): string {
+    return tab.label || tab.textContent || '';
+  }
+
+  /**
+   * Get Tab elements from slot
+   * @returns the array of Tab
+   */
+  private getTabElements () {
+    const tabs = [];
+    for (const child of this.children) {
+      if (child instanceof Tab) {
+        tabs.push(child);
+      }
+    }
+    return tabs;
+  }
+
+  /**
+    * Get focusable tab elements
+    * @returns the array of focusable tab
+    */
+  private getFocusableTabs () {
+    return this.getTabElements().filter(tab => this.isFocusableElement(tab));
+  }
+
+  /**
+   * Returns true if the element is focusable
+   * @param element - The element to check.
+   * @returns A boolean value.
+   */
+  private isFocusableElement (element: Element): boolean {
+    return element instanceof Tab && !element.disabled && !element.readonly;
+  }
+
+  /**
+   * Set tab level attribute accordingly
+   * @returns {void}
+   */
+  private setLevel (): void {
+    const tabList = this.getTabElements();
+    tabList?.forEach((tab: Tab) => {
+      tab.level = this.level;
+    });
   }
 
   /**
@@ -153,42 +297,12 @@ export class TabBar extends ResponsiveElement {
     if (this.vertical) {
       return;
     }
+    const leftBtnStyle = scrollLeft > 0 ? 'flex' : 'none';
+    const rightBtnStyle = scrollWidth - scrollLeft - elementWidth > 1 ? 'flex' : 'none';
+    
 
-    // handle left button
-    if (scrollLeft > 0) {
-      this.leftBtn.style.setProperty('display', 'flex');
-    }
-    else {
-      this.leftBtn.style.setProperty('display', 'none');
-    }
-
-    // handle right button
-    if (Math.floor(scrollWidth - scrollLeft) > Math.round(elementWidth)) {
-      this.rightBtn.style.setProperty('display', 'flex');
-    }
-    else {
-      this.rightBtn.style.setProperty('display', 'none');
-    }
-  }
-
-  /**
-   * Set tab level attribute accordingly
-   * @returns {void}
-   */
-  private setLevel (): void {
-    const tabList: NodeListOf<Tab> = this.querySelectorAll('ef-tab');
-
-    tabList.forEach((tab: Tab) => {
-      tab.level = this.level;
-    });
-  }
-
-  /**
-   * Detects when slot changes
-   * @returns {void}
-   */
-  private onSlotChange (): void {
-    this.setLevel();
+    this.leftBtn.style.setProperty('display', leftBtnStyle);
+    this.rightBtn.style.setProperty('display', rightBtnStyle);
   }
 
   /**
@@ -232,11 +346,11 @@ export class TabBar extends ResponsiveElement {
    */
   protected render (): TemplateResult {
     return html`
-    <ef-button icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>
+    ${!this.vertical ? html`<ef-button icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
       <div part="content">
         <slot @slotchange=${this.onSlotChange}></slot>
       </div>
-    <ef-button icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>
+    ${!this.vertical ? html`<ef-button icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
     `;
   }
 }
