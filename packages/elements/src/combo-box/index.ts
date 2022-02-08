@@ -1230,6 +1230,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     return html`
       <ef-list
         id="internal-list"
+        tabindex="-1"
         @value-changed="${this.onListValueChanged}"
         .data="${this.composer}"
         .multiple="${this.multiple}"
