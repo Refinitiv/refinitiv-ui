@@ -283,9 +283,21 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       // Create comparison strings to check for differences
       const newComparison = newValues.sort().toString();
       const oldComparison = oldValues.sort().toString();
-      // Should we update the selection state?
+      let valueChanged = false;
+
+      // Reset free text value in case setting programmatically
+      if (this.freeText && newComparison === '') {
+        this.freeTextValue = '';
+        valueChanged = true;
+      }
+
+      // Update the selection state when found new value
       if (newComparison !== oldComparison) {
         this.updateComposerValues(newValues);
+        valueChanged = true;
+      }
+
+      if (valueChanged) {
         this.requestUpdate('values', oldValues);
       }
     }
