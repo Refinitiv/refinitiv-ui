@@ -353,7 +353,7 @@ export class Slider extends ControlElement {
       this.updateEventListeners();
     }
     changedProperties.forEach((oldValue, propName) => {
-      if(['value', 'min', 'max', 'from', 'to', 'step', 'minRange'].includes(propName as string)) {
+      if (['value', 'min', 'max', 'from', 'to', 'step', 'minRange'].includes(propName as string)) {
         this.showWarningInvalidProperty(propName as string);
       }
     });
@@ -434,7 +434,7 @@ export class Slider extends ControlElement {
       message = 'value should be less than distance from and to, min and max.';
     }
 
-    if(!isValid) {
+    if (!isValid) {
       new WarningNotice(`${this.localName}: Invalid ${propName} provided, The correct ${propName} ${message}`).show();
     }
   }
@@ -610,7 +610,7 @@ export class Slider extends ControlElement {
     const { value, name } = event.target as NumberField;
     const currentData = name as SliderNameType;
     const perviousData = `${name}Previous` as PreviousSliderNameType;
-    if(value && this[currentData] !== value) {
+    if (value && this[currentData] !== value) {
       this.updateNotifyProperty(currentData, value);
       this[perviousData] = value;
     }
@@ -678,7 +678,7 @@ export class Slider extends ControlElement {
     const previousData = `${name}Previous` as PreviousSliderNameType;
 
     // Dispatch event only when value or from or to changed
-    if(this[previousData] !== this[currentData]) {
+    if (this[previousData] !== this[currentData]) {
       this.notifyPropertyChange(name, this[currentData]);
       this[previousData] = this[currentData];
     }
@@ -691,7 +691,7 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private toggleFocusField (name: string, focusState: boolean): void {
-    if(name) {
+    if (name) {
       this[`${name}Input` as NumberFieldNameType].setAttribute('tabindex', `${focusState ? 1 : 0}`);
     }
   }
@@ -773,7 +773,7 @@ export class Slider extends ControlElement {
       const thumbPos = this.getMousePosition(event);
       const closestStep = this.calculateStep(thumbPos);
       // Can be dragged slider when the value is valid
-      if(closestStep <= 1) {
+      if (closestStep <= 1) {
         const thumbLeft = this.stepUse !== 0 ? closestStep : thumbPos;
         const calStepValue = this.calculateValue(thumbLeft);
         const prettyVal = Number(this.displayValue(calStepValue));
@@ -832,7 +832,7 @@ export class Slider extends ControlElement {
     // calculate step to current point to next point
     const posToFixStep = Math.round(thumbPosition / stepSize) * stepSize;
     if (thumbPosition <= posToFixStep + (stepSize / 2)) {
-      if(posToFixStep <= 1) {
+      if (posToFixStep <= 1) {
         return posToFixStep;
       }
       else {

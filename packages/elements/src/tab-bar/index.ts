@@ -113,7 +113,7 @@ export class TabBar extends ResponsiveElement {
     }
     if (changedProperties.has('vertical')) {
       // if tab bar changed from horizontal to vertical
-      if(this.vertical) {
+      if (this.vertical) {
         this.hideScrollButtons();
       }
     }
@@ -128,7 +128,7 @@ export class TabBar extends ResponsiveElement {
    * @returns {void}
    */
   public resizedCallback (size: ElementSize): void {
-    if(!this.vertical) {
+    if (!this.vertical) {
       this.toggleScrollButton(size.width);
     }
   }
@@ -150,12 +150,12 @@ export class TabBar extends ResponsiveElement {
   private toggleScrollButton (elementWidth: number): void {
     const { scrollLeft, scrollWidth } = this.content;
 
-    if(this.vertical) {
+    if (this.vertical) {
       return;
     }
 
     // handle left button
-    if(scrollLeft > 0) {
+    if (scrollLeft > 0) {
       this.leftBtn.style.setProperty('display', 'flex');
     }
     else {
@@ -163,7 +163,7 @@ export class TabBar extends ResponsiveElement {
     }
 
     // handle right button
-    if(Math.floor(scrollWidth - scrollLeft) > Math.round(elementWidth)) {
+    if (Math.floor(scrollWidth - scrollLeft) > Math.round(elementWidth)) {
       this.rightBtn.style.setProperty('display', 'flex');
     }
     else {
@@ -201,7 +201,7 @@ export class TabBar extends ResponsiveElement {
     let endPosition = scrollLeft - BAR_TRAVEL_DISTANCE;
 
     // If the space available is less than one half lots of our desired distance, just move to the leftest
-    if(availableScrollLeft < BAR_TRAVEL_DISTANCE * 1.5) {
+    if (availableScrollLeft < BAR_TRAVEL_DISTANCE * 1.5) {
       endPosition = 0;
     }
 
@@ -218,7 +218,7 @@ export class TabBar extends ResponsiveElement {
     let endPosition = scrollLeft + BAR_TRAVEL_DISTANCE;
 
     // If the space available is less than one half lots of our desired distance, just move the whole amount
-    if(availableScrollRight < BAR_TRAVEL_DISTANCE * 1.5) {
+    if (availableScrollRight < BAR_TRAVEL_DISTANCE * 1.5) {
       endPosition = scrollLeft + availableScrollRight;
     }
 
