@@ -1359,7 +1359,8 @@ describe('slider/Slider', () => {
         expect(slider.to).to.equal('90');
       });
 
-      it('Event value-changed should fires when value property was programmatically set and drag the slider back to previous value', async () => {
+      // jira ELF-1729
+      it('Event value-changed should fires when value property was set via api and drag the slider back to previous value', async () => {
         expect(el.value).to.equal('0');
         el.value = 10;
         await elementUpdated();
@@ -1371,9 +1372,9 @@ describe('slider/Slider', () => {
           callCountValue += 1;
         });
 
+        // Drag 'value' position 10 to 0
         const dragValuePositionStart = tabSliderPosition(0);
         const dragValuePositionFirst = tabSliderPosition(10);
-        // Drag 'value' position 10 to 0
         // Drag start
         setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragValuePositionFirst, clientY: 0 })));
         await oneEvent(el.slider, 'mousedown');
