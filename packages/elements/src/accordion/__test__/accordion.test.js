@@ -39,8 +39,8 @@ describe('accordion/Accordion', () => {
           </ef-collapse>
         </ef-accordion>`);
       const items = el.querySelectorAll('ef-collapse');
-      const header1 = items[0].shadowRoot.querySelector('[part=header]');
-      const header2 = items[1].shadowRoot.querySelector('[part=header]');
+      const header1 = items[0].shadowRoot.querySelector('[part=header-toggle]');
+      const header2 = items[1].shadowRoot.querySelector('[part=header-toggle]');
 
       setTimeout(() => header1.dispatchEvent(new Event('tap')));
       await oneEvent(header1, 'tap');
@@ -66,8 +66,8 @@ describe('accordion/Accordion', () => {
           </ef-collapse>
         </ef-accordion>`);
       const items = el.querySelectorAll('ef-collapse');
-      const header1 = items[0].shadowRoot.querySelector('[part=header]');
-      const header2 = items[1].shadowRoot.querySelector('[part=header]');
+      const header1 = items[0].shadowRoot.querySelector('[part=header-toggle]');
+      const header2 = items[1].shadowRoot.querySelector('[part=header-toggle]');
 
       setTimeout(() => header1.dispatchEvent(new Event('tap')));
       await oneEvent(header1, 'tap');
@@ -105,7 +105,7 @@ describe('accordion/Accordion', () => {
     `);
     const topLevelCollapses = el.querySelectorAll('ef-collapse.top-level');
     const nestedCollapses = el.querySelectorAll('ef-collapse:not(.top-level)');
-    const nestedHeader2 = nestedCollapses[1].shadowRoot.querySelector('[part=header]');
+    const nestedHeader2 = nestedCollapses[1].shadowRoot.querySelector('[part=header-toggle]');
 
     expect(topLevelCollapses[0].expanded).to.equal(true);
     expect(topLevelCollapses[1].expanded).to.equal(false);
