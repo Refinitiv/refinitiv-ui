@@ -15,6 +15,17 @@ import { VERSION } from '../version.js';
 import '../icon/index.js';
 
 /**
+ * Return the attribute that converted from the property
+ * Prevent empty string that reflected to attribute
+ * @private
+ * @param value value from the property
+ * @returns string converted to attribute
+ */
+const emptyStringToNull = function (value: string): string | null {
+  return value || null;
+};
+
+/**
  * A small button style component
  * which is used to show one or multiple selected item.
  * It is rarely used in the UI but inside other components to visualize multiple item selection item.
@@ -86,6 +97,17 @@ export class Pill extends ControlElement {
   @property({ type: Boolean, reflect: true })
   private pressed = false;
 
+  /**
+   * Aria indicating state of toggle pill
+   * @ignore
+   */
+  @property({ type: String,
+    reflect: true,
+    attribute: 'aria-pressed',
+    converter: { toAttribute: emptyStringToNull } // TODO: Remove after typescript update to allow nullable for ARIAMixin
+  })
+  public ariaPressed = '';
+
   @query('[part=close]') private closeElement?: HTMLElement | null;
 
   protected firstUpdated (changedProperties: PropertyValues): void {
@@ -95,7 +117,42 @@ export class Pill extends ControlElement {
     this.addEventListener('tapstart', this.onStartPress);
     this.addEventListener('tapend', this.onEndPress);
     this.addEventListener('mouseleave', this.onEndPress);
+    this.addEventListener('keydown', this.onKeyDown);
 
+    if (this.clears || this.toggles) {
+      this.setAttribute('role', 'button');
+    }
+
+  }
+
+  /**
+   * Updates the element
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected update (changedProperties: PropertyValues): void {
+    if (changedProperties.has('active') && this.toggles) {
+      this.ariaPressed = String(this.active);
+    }
+
+    super.update(changedProperties);
+  }
+
+  /**
+   * Handles key down event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyDown (event: KeyboardEvent): void {
+    if (this.clears && !this.readonly) {
+      switch (event.key) {
+        case 'Delete':
+          this.dispatchEvent(new CustomEvent('clear'));
+          break;
+        default:
+          return;
+      }
+    }
   }
 
   private get closeTemplate (): TemplateResult | null {

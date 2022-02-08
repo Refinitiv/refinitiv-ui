@@ -34,6 +34,15 @@
     &[pressed], &[pressed]:hover {
       background-color: @pressed-background-color;
     }
+    &[focused="visible"] {
+      border: 1px solid @scheme-color-primary;
+    }
+  }
+
+  &[clears] {
+    &[focused="visible"] {
+      border: 1px solid @scheme-color-primary;
+    }
   }
 
   &:hover, &[active], &[pressed] {
