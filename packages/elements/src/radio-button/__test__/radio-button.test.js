@@ -412,8 +412,8 @@ describe('radio-button/RadioButton', () => {
     });
     it('Should handle checked state of group correctly when it has been removed and appended old element back to DOM', async () => {
       const group = [
-        await fixture('<coral-radio-button name="group" id="btn1" checked>1</coral-radio-button>'),
-        await fixture('<coral-radio-button name="group" id="btn2">2</coral-radio-button>')
+        await fixture('<ef-radio-button name="group" id="btn1" checked>1</ef-radio-button>'),
+        await fixture('<ef-radio-button name="group" id="btn2">2</ef-radio-button>')
       ];
       expect(group[0].checked).to.equal(true);
       expect(group[1].checked).to.equal(false);
@@ -425,7 +425,7 @@ describe('radio-button/RadioButton', () => {
       expect(group[0].id).to.equal('btn2');
       expect(group[0].checked).to.equal(true);
 
-      group.push(await fixture('<coral-radio-button name="group" id="btn1" checked>1</coral-radio-button>'));
+      group.push(await fixture('<ef-radio-button name="group" id="btn1" checked>1</ef-radio-button>'));
       await updateGroup(group);
       expect(group[0].id).to.equal('btn2');
       expect(group[0].checked).to.equal(false);
