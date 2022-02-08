@@ -164,6 +164,7 @@ export class Slider extends ControlElement {
    * Value of the element
    * @param value Element value
    */
+  @property({ type: String })
   public set value (value: string) {
     const oldValue = this._internalValue;
     value = this.castValue(value);
