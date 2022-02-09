@@ -3,7 +3,8 @@ import {
   css,
   TemplateResult,
   CSSResultGroup,
-  ControlElement
+  ControlElement,
+  PropertyValues
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
@@ -37,6 +38,8 @@ export class Tab extends ControlElement {
     return VERSION;
   }
 
+  protected readonly defaultRole = 'tab';
+
   /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
@@ -51,6 +54,13 @@ export class Tab extends ControlElement {
       }
     `;
   }
+
+  /**
+   * Aria indicating current select state
+   * @ignore
+   */
+  @property({ type: String, reflect: true, attribute: 'aria-selected' })
+  public ariaSelected = 'false';
 
   /**
    * Specify icon name to display in tab
@@ -70,11 +80,25 @@ export class Tab extends ControlElement {
   @property({ type: String, attribute: 'sub-label' })
   public subLabel = '';
 
+  private _active = false;
+
   /**
    * Specify tab's active status
+   * @param value active value
+   * @default false
    */
   @property({ type: Boolean, reflect: true })
-  public active = false;
+  public set active (value: boolean) {
+    const oldValue = this._active;
+    if (oldValue !== value) {
+      this._active = value;
+      this.ariaSelected = String(value);
+      void this.requestUpdate('active', oldValue);
+    }
+  }
+  public get active (): boolean {
+    return this._active;
+  }
 
   /**
    * Set tab to clearable
@@ -108,6 +132,17 @@ export class Tab extends ControlElement {
   private isSlotHasContent = true;
 
   /**
+   * Called after the element’s DOM has been updated the first time.
+   * register scroll event on content element to toggle scroll button
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    this.addEventListener('keydown', this.onKeyDown);
+  }
+
+  /**
    * Run on default slot slotchange
    * @param event slotchange
    * @returns {void}
@@ -123,6 +158,20 @@ export class Tab extends ControlElement {
    */
   private getLineClamp (): number {
     return !this.lineClamp ? 0 : this.subLabel ? 1 : this.lineClamp;
+  }
+
+  /**
+   * Handles key down event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyDown (event: KeyboardEvent): void {
+    if (event.defaultPrevented) {
+      return;
+    }
+    if (event.key === 'Delete' && (this.clears || this.clearsOnHover)) {
+      this.dispatchEvent(new CustomEvent('clear'));
+    }
   }
 
   /**

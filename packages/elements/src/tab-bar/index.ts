@@ -35,6 +35,8 @@ export class TabBar extends ResponsiveElement {
     return VERSION;
   }
 
+  protected readonly defaultRole = 'tablist';
+
   /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
@@ -126,6 +128,7 @@ export class TabBar extends ResponsiveElement {
       }, 66); // equal 15 fps for compatibility
     });
     this.addEventListener('tap', this.onTap);
+    this.addEventListener('keydown', this.onKeyDown);
   }
 
   /**
@@ -174,7 +177,7 @@ export class TabBar extends ResponsiveElement {
       return;
     }
     const activeTab = tabList.find(tab => tab.active) || tabList[0];
-
+    
     if (activeTab) {
       this.value = this.getTabValue(activeTab);
     }
@@ -182,6 +185,7 @@ export class TabBar extends ResponsiveElement {
     setTimeout(() => {
       this.toggleScrollButton(this.content.clientWidth);
     });
+    this.manageTabIndex();
   }
 
   /**
@@ -341,17 +345,138 @@ export class TabBar extends ResponsiveElement {
   }
 
   /**
+   * focus and set active to tab
+   * @param tab - The element that was clicked.
+   * @return {void}
+   */
+  private setActiveTab (tab: Tab): void {
+    tab.focus();
+    tab.scrollIntoView({ block: 'nearest' });
+    this.value = this.getTabValue(tab);
+  }
+
+  /**
+   * Navigate to first focusable tab of the tab bar
+   * @returns {void}
+   */
+  private first (): void {
+    const tabList = this.getFocusableTabs();
+    if (tabList.length <= 0) {
+      return;
+    }
+    this.setActiveTab(tabList[0]);
+    this.rovingTabIndex(tabList[0], tabList);
+  }
+
+  /**
+   * Navigate to last focusable tab of the tab bar
+   * @returns {void}
+   */
+  private last (): void {
+    const tabList = this.getFocusableTabs();
+    if (tabList.length <= 0) {
+      return;
+    }
+    const lastTab = tabList[tabList.length - 1];
+    this.setActiveTab(lastTab);
+    this.rovingTabIndex(lastTab, tabList);
+  }
+
+  /**
+   * Navigate to next or previous focusable tab
+   * @param direction up/next; down/previous
+   * @returns {void}
+   */
+  private navigateToSibling (direction: 'next' | 'previous'): void {
+    const tabList = this.getFocusableTabs();
+    if (tabList.length <= 0) {
+      return;
+    }
+
+    const focusedTabIndex = tabList.findIndex(tab => tab === document.activeElement);
+    const nextTab = direction === 'next'
+      ? tabList[focusedTabIndex + 1] || tabList[0]
+      : tabList[focusedTabIndex - 1] || tabList[tabList.length - 1];
+
+    this.setActiveTab(nextTab);
+    this.rovingTabIndex(nextTab, tabList);
+  }
+
+  /**
+   * Handles key down event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyDown (event: KeyboardEvent): void {
+    if (event.defaultPrevented) {
+      return;
+    }
+
+    switch (event.key) {
+      case 'Right':
+      case 'Down':
+      case 'ArrowRight':
+      case 'ArrowDown':
+        this.navigateToSibling('next');
+        break;
+      case 'Left':
+      case 'Up':
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        this.navigateToSibling('previous');
+        break;
+      case 'Home':
+        this.first();
+        break;
+      case 'End':
+        this.last();
+        break;
+      default:
+        return;
+    }
+    event.preventDefault();
+  }
+
+  /**
+   * Sets the tabindex to -1 for all tabs except the currently focused one.
+   * @param target the tab to be focused
+   * @param tabList Array of tabs that contains target
+   * @returns {void}
+   */
+  private rovingTabIndex (target: Tab, tabList: Tab[]): void {
+    tabList.forEach((tab) => {
+      tab.tabIndex = -1;
+    });
+    target.tabIndex = 0;
+  }
+
+  /**
+   * Set tabIndex to all tabs
+   * @returns {void}
+   */
+  private manageTabIndex (): void {
+    const tabList = this.getFocusableTabs();
+    if (tabList && tabList.length > 0) {
+      let focusedTabIndex = tabList.findIndex(tab => tab.active);
+      if (focusedTabIndex === -1) {
+        focusedTabIndex = 0;
+      }
+      this.rovingTabIndex(tabList[focusedTabIndex], tabList);
+    }
+  }
+
+  /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
    * @return Render template
    */
   protected render (): TemplateResult {
     return html`
-    ${!this.vertical ? html`<ef-button icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
+    ${!this.vertical ? html`<ef-button tabIndex="-1" icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
       <div part="content">
         <slot @slotchange=${this.onSlotChange}></slot>
       </div>
-    ${!this.vertical ? html`<ef-button icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
+    ${!this.vertical ? html`<ef-button tabIndex="-1" icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
     `;
   }
 }
