@@ -384,6 +384,34 @@ ef-select {
 ## Accessibility
 ::a11y-intro::
 
-The Select component is assigned `role="listbox"` and can include properties such as `aria-expanded` and `aria-activedescendant`. Select options are assigned `role="option"` and can include properties such as `aria-label` and `aria-selected`. The element’s state programmatically updates to match its visual state.  
+`ef-select` is assigned `role="listbox"` and can include properties such as `aria-expanded` and `aria-activedescendant`. Select options are assigned `role="option"` and can include properties such as `aria-label` and `aria-selected`. The element’s state programmatically updates to match its visual state.  
+
+### Note for developers
+* Select manages the role and aria attributes automatically if you create `ef-select` using `data` property
+* If you create select declaratively by using `ef-item`, assign `role="option"` to each `ef-item`
+
+```html
+<ef-select placeholder="Pick item">
+  <ef-item value="GBP" role="option" selected>GBP (£)</ef-item>
+  <ef-item value="EUR" role="option">EUR (€)</ef-item>
+  <ef-item value="USD" role="option">USD ($)</ef-item>
+</ef-select>
+```
+* If you have header items, assign `role="presentation"` on the items
+
+```html
+<ef-select placeholder="Pick item...">
+  <ef-item role="presentation" type="header">Drinks</ef-item>
+  <ef-item role="option" value="1">Cola</ef-item>
+  <ef-item role="option" selected value="2">Lemonade</ef-item>
+  <ef-item role="option" value="3">Iced Tea</ef-item>
+  <ef-item role="option" value="4">Water</ef-item>
+  <ef-item role="presentation" type="header">Ice Cream</ef-item>
+  <ef-item role="option" value="5">Vanilla</ef-item>
+  <ef-item role="option" value="6">Chocolate</ef-item>
+  <ef-item role="option" value="7">Pistachio</ef-item>
+  <ef-item role="option" value="8">Salted Caramel</ef-item>
+</ef-select>
+```
 
 ::a11y-end::
