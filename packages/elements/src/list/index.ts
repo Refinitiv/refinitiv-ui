@@ -105,12 +105,6 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   public multiple = false;
 
   /**
-   * Aria indicating that list supports multiple selection
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-multiselectable' })
-  public ariaMultiselectable = 'false';
-
-  /**
    * The data object, used to render the list.
    * @type {ListData}
    * @default null
