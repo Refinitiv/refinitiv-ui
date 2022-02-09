@@ -9,8 +9,9 @@ import {
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
 import { VERSION } from '../version.js';
-import '../header/index.js';
 import '../panel/index.js';
 import '../icon/index.js';
 
@@ -48,12 +49,13 @@ export class Collapse extends BasicElement {
       :host {
         display: block;
       }
-      [part="header"] {
-        cursor: default;
+      [part="header"], [part="header-toggle"] {
+        display: flex;
+        flex: 1 1 auto;
+        min-width: 0;
       }
       [part="toggle"] {
-        display: inline-block;
-        margin: 0 5px;
+        flex: none;
       }
       [part="content"]  {
         overflow: hidden;
@@ -68,6 +70,14 @@ export class Collapse extends BasicElement {
         }
       }
     `;
+  }
+
+  /**
+   * Observes attribute change for `attributeChangedCallback`
+   */
+  static get observedAttributes (): string[] {
+    const observed = super.observedAttributes;
+    return ['aria-level'].concat(observed);
   }
 
   /**
@@ -106,6 +116,16 @@ export class Collapse extends BasicElement {
   @query('ef-panel', true)
   private panel!: HTMLElement;
 
+  @state()
+  private headingLevel: string | null = null;
+
+
+  public attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === 'aria-level') {
+      this.headingLevel = newValue;
+    }
+  }
 
   /**
    * Called once after the component is first rendered
@@ -173,16 +193,29 @@ export class Collapse extends BasicElement {
 
   protected render (): TemplateResult {
     return html`
-      <div part="header" role="heading" aria-level="${this.ariaLevel}">
-        <slot name="header-left"></slot>
-        <ef-header part="header-toggle" level="${this.level}" @tap=${this.toggle} role="button" tabindex="0" aria-expanded="${this.expanded}" aria-controls="content">
-          ${this.header}
-          <ef-icon slot="left" icon="right" part="toggle"></ef-icon>
-        </ef-header>
-        <slot name="header-right"></slot>
+      <div part="header-wrapper" level="${this.level}">
+        <slot name="header-left">
+          <div part="spacer"></div>
+        </slot>
+        <div part="header"
+             role="heading"
+             aria-level="${ifDefined(this.headingLevel || undefined)}">
+          <div part="header-toggle"
+               role="button"
+               tabindex="0"
+               aria-expanded="${this.expanded}"
+               aria-controls="content"
+               @tap=${this.toggle}>
+            <ef-icon icon="right" part="toggle"></ef-icon>
+            <span part="header-label">${this.header}</span>
+          </div>
+        </div>
+        <slot name="header-right">
+          <div part="spacer"></div>
+        </slot>
       </div>
       <div id="content" part="content" role="region" aria-labelledby="header-toggle">
-        <ef-panel ?spacing="${this.spacing}" transparent>
+        <ef-panel part="content-data" ?spacing="${this.spacing}" transparent>
           <slot></slot>
         </ef-panel>
       </div>
