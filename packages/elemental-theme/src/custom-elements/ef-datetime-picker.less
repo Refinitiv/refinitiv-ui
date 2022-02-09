@@ -2,7 +2,7 @@
 @import 'element:ef-icon';
 @import 'element:ef-overlay';
 @import 'element:ef-time-picker';
-@import 'element:ef-text-field';
+@import '../shared-styles/input';
 
 @import (reference) 'ef-text-field';
 
@@ -32,36 +32,34 @@
   }
   // #endregion
 
-  [part=calendar] {
+  [part~=calendar] {
     width: @calendar-width;
     padding: 0 calc((@input-width - @calendar-width) /  2);
   }
 
-  [part=time-picker] {
+  [part~=time-picker] {
     margin: 0;
   }
 
-  [part=timepicker-wrapper] {
+  [part~=timepicker-wrapper] {
     // Show separator when there is slotted content.
     box-shadow: inset 0 @separator-width 0 0 @separator-color;
     padding: min(@control-padding);
   }
 
-  &[range] {
-    ef-text-field {
-      text-align: center;
-    }
+  &[range] input {
+    text-align: center;
   }
 
-  [part=input] {
+  [part~=input] {
+    .input-defaults;
+    .input-standard(true);
     color: inherit;
+    background: none;
+    border: none;
   }
 
-  [part='icon'] {
-    color: @control-text-color;
-  }
-
-  [part=input-separator] {
+  [part~=input-separator] {
     line-height: @control-height;
     background: @global-text-color;
     width: 0.4em;

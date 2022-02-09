@@ -6,15 +6,15 @@ import {
   MultiValue,
   PropertyValues,
   CSSResultGroup,
-  TapEvent,
   WarningNotice
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { guard } from '@refinitiv-ui/core/lib/directives/guard.js';
 import { VERSION } from '../version.js';
-import type { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent } from '../events';
+import { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent, TapEvent } from '../events';
 import type {
   DatetimePickerDuplex,
   DatetimePickerFilter
@@ -22,7 +22,6 @@ import type {
 import '../calendar/index.js';
 import '../icon/index.js';
 import '../overlay/index.js';
-import '../text-field/index.js';
 import '../time-picker/index.js';
 import type { Icon } from '../icon';
 import type { Calendar } from '../calendar';
@@ -59,7 +58,6 @@ import {
 
 import { preload } from '../icon/index.js';
 import type { TimePicker } from '../time-picker';
-import type { TextField } from '../text-field';
 import type { Overlay } from '../overlay';
 
 
@@ -126,35 +124,35 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         outline: none;
         cursor: text;
       }
-      [part=input-wrapper] {
+      [part~=input-wrapper] {
         display: flex;
         flex: 1;
       }
-      [part=body] {
+      [part~=body] {
         display: flex;
       }
-      [part=timepicker-wrapper] {
+      [part~=timepicker-wrapper] {
         display: flex;
         justify-content: space-between;
       }
-      [part=timepicker-wrapper]:before,
-      [part=timepicker-wrapper]:after {
+      [part~=timepicker-wrapper]:before,
+      [part~=timepicker-wrapper]:after {
         content: '';
       }
-      [part=input] {
+      [part~=input] {
         flex: 1;
         width: auto;
         height: auto;
         padding: 0;
         margin: 0;
       }
-      [part=calendar-wrapper] {
+      [part~=calendar-wrapper] {
         display: inline-flex;
       }
-      [part=icon] {
+      [part~=button] {
         cursor: pointer;
       }
-      :host([popup-disabled]) [part=icon], :host([readonly]) [part=icon] {
+      :host([popup-disabled]) [part~=button], :host([readonly]) [part~=button] {
         pointer-event: none;
       }
     `;
@@ -165,6 +163,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private timepickerValues: string[] = []; /* used to store time information for timepickers */
   private inputValues: string[] = []; /* used to formatted datetime value for inputs */
   private inputSyncing = true; /* true when inputs and pickers are in sync. False while user types in input */
+  private autoFocus = true; /* Use to control if popup gets autofocus */
 
   private _min = '';
   private minDate = '';
@@ -485,21 +484,23 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   @translate({ mode: 'directive', scope: 'ef-datetime-picker' }) protected t!: TranslateDirective;
 
-  @query('[part=icon]', true) private iconEl!: Icon;
-  @query('[part=list]') private popupEl?: Overlay | null;
+  @query('[part~=button-open]', true) private openButtonEl!: Icon;
+  @query('#overlay') private popupEl?: Overlay | null;
   @query('#timepicker') private timepickerEl?: TimePicker | null;
   @query('#timepicker-to') private timepickerToEl?: TimePicker | null;
   @query('#calendar') private calendarEl?: Calendar | null;
   @query('#calendar-to') private calendarToEl?: Calendar | null;
-  @query('#input') private inputEl?: TextField | null;
-  @query('#input-to') private inputToEl?: TextField | null;
+  @query('#input') private inputEl?: HTMLInputElement | null;
+  @query('#input-to') private inputToEl?: HTMLInputElement | null;
 
   /**
    * Updates the element
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  public willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('opened') && this.opened) {
       this.lazyRendered = true;
     }
@@ -515,8 +516,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     if (this.shouldValidateValue(changedProperties)) {
       this.validateInput();
     }
-
-    super.update(changedProperties);
   }
 
   /**
@@ -526,8 +525,18 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.addEventListener('keydown', this.onKeyDown);
+    // this.addEventListener('keydown', this.onKeyDown);
     this.addEventListener('tap', this.onTap);
+  }
+
+  /**
+   * On updated life-cycle
+   * @param changedProperties changed properties
+   * @returns {void}
+   */
+  protected updated (changedProperties: PropertyValues): void {
+    super.updated(changedProperties);
+    this.autoFocus = true;
   }
 
   /**
@@ -812,8 +821,11 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * Handles key input on datetime picker
    * @param event Key down event object
    * @returns {void}
-   */
   private onKeyDown (event: KeyboardEvent): void {
+    if (event.defaultPrevented) {
+      return;
+    }
+
     switch (event.key) {
       case 'Down':
       case 'ArrowDown':
@@ -821,25 +833,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         break;
       case 'Up':
       case 'ArrowUp':
-        !event.defaultPrevented && this.setOpened(false);
-        break;
-      default:
-        return;
-    }
-
-    event.preventDefault();
-  }
-
-  /**
-   * Handles key input on calendar picker
-   * @param event Key down event object
-   * @returns {void}
-   */
-  private onCalendarKeyDown (event: KeyboardEvent): void {
-    switch (event.key) {
-      case 'Esc':
-      case 'Escape':
-        this.resetViews();
         this.setOpened(false);
         break;
       default:
@@ -848,6 +841,29 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
     event.preventDefault();
   }
+   */
+
+  /**
+   * Handles key input on calendar picker
+   * @param event Key down event object
+   * @returns {void}
+  private onCalendarKeyDown (event: KeyboardEvent): void {
+    if (event.defaultPrevented) {
+      return;
+    }
+    switch (event.key) {
+      case 'Esc':
+      case 'Escape':
+        // this.resetViews();
+        // this.setOpened(false);
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+  }
+   */
 
   /**
    * Handles key input on text field
@@ -855,14 +871,17 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onInputKeyDown (event: KeyboardEvent): void {
+    if (event.defaultPrevented) {
+      return;
+    }
+
     switch (event.key) {
       case 'Esc':
       case 'Escape':
-        !this.opened && this.blur();
         this.setOpened(false);
         break;
       case 'Enter':
-        this.toggleOpened();
+        // this.toggleOpened();
         break;
       default:
         return;
@@ -877,15 +896,20 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onTap (event: TapEvent): void {
+    if (event.defaultPrevented) {
+      return;
+    }
+
     const path = event.composedPath();
     if (this.popupEl && path.includes(this.popupEl)) {
       return; /* popup is managed separately */
     }
 
-    if (path.includes(this.iconEl)) {
+    if (path.includes(this.openButtonEl)) {
       this.toggleOpened();
     }
     else if (!this.inputTriggerDisabled) {
+      this.autoFocus = false;
       this.setOpened(true);
     }
   }
@@ -993,12 +1017,12 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
-   * Run on input value-changed event
-   * @param event value-changed event
+   * Run on input input event
+   * @param event input event
    * @returns {void}
    */
-  private onInputValueChanged (event: ValueChangedEvent): void {
-    const target = event.target as TextField;
+  private onInputValueChanged (event: InputEvent): void {
+    const target = event.target as HTMLInputElement;
     const index = target === this.inputToEl ? 1 : 0; /* 0 - from, single; 1 - to */
     const inputValue = target.value;
     const inputValues = [...this.inputValues];
@@ -1139,6 +1163,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private getTimepickerTemplate (id: 'timepicker' | 'timepicker-to', value = ''): TemplateResult {
     return html`<ef-time-picker
       id="${id}"
+      role="presentation"
       part="time-picker"
       .showSeconds=${this.showSeconds}
       .amPm=${this.amPm}
@@ -1155,6 +1180,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private getCalendarTemplate (id: 'calendar' | 'calendar-to', view = ''): TemplateResult {
     return html`<ef-calendar
       part="calendar"
+      role="presentation"
       id=${id}
       lang=${ifDefined(this.lang || undefined)}
       .fillCells=${!this.isDuplex()}
@@ -1168,7 +1194,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       .values=${this.calendarValues}
       .filter=${this.filter}
       .view=${view}
-      @keydown=${this.onCalendarKeyDown}
       @view-changed=${this.onCalendarViewChanged}
       @value-changed=${this.onCalendarValueChanged}></ef-calendar>`;
   }
@@ -1204,31 +1229,32 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private getInputTemplate (id: 'input' | 'input-to', value = ''): TemplateResult {
     return html`
-      <ef-text-field
+      <input
         id=${id}
         part="input"
-        transparent
+        aria-haspopup="dialog"
+        aria-owns="overlay"
+        type="text"
+        aria-autocomplete="none"
+        placeholder="${ifDefined(this.placeholder ? this.placeholder : undefined)}"
         ?disabled="${this.disabled}"
         ?readonly="${this.readonly || this.inputDisabled}"
         .value=${value}
-        .placeholder="${this.placeholder}"
         @focus=${this.onInputFocus}
         @blur=${this.onInputBlur}
         @keydown=${this.onInputKeyDown}
-        @value-changed=${this.onInputValueChanged}></ef-text-field>
+        @change=${this.onInputValueChanged}>
     `;
   }
 
   /**
    * Template for rendering an icon
    */
-  private get iconTemplate (): TemplateResult {
-    return html`
-      <ef-icon
-        part="icon"
-        icon="calendar"></ef-icon>
-    `;
-  }
+  private static iconTemplate = html`
+    <div part="button button-open" role="button" tabindex="0">
+      <ef-icon part="icon" icon="calendar"></ef-icon>
+    </div>
+  `;
 
   /**
    * Template for inputs
@@ -1252,13 +1278,12 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private get popupTemplate (): TemplateResult | undefined {
     if (this.lazyRendered) {
       return html`<ef-overlay
-        tabindex="0"
+        id="overlay"
+        role="dialog"
+        aria-modal="true"
         part="list"
         with-shadow
-        no-cancel-on-esc-key
-        no-autofocus
         .delegatesFocus=${true}
-        .focusBoundary=${this}
         .positionTarget=${this}
         .position=${POPUP_POSITION}
         ?opened=${this.opened}
@@ -1286,8 +1311,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   protected render (): TemplateResult {
     return html`
-      ${this.inputTemplates}
-      ${this.iconTemplate}
+      ${guard([this._values, this.range, this.disabled, this.readonly, this.inputDisabled, this.placeholder], () => this.inputTemplates)}
+      ${DatetimePicker.iconTemplate}
       ${this.popupTemplate}
     `;
   }
