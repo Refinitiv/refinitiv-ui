@@ -210,7 +210,7 @@ export class TabBar extends ResponsiveElement {
 
   /**
    * If the target of the event is a Tab, then set the value of the target to the value of the Tab
-   * @param {Event} event - Event
+   * @param event - Event
    * @returns {void}
    */
   private onTap (event: Event): void {
@@ -229,7 +229,7 @@ export class TabBar extends ResponsiveElement {
 
   /**
    * Get the value of a tab
-   * @param {Tab} tab - The tab element.
+   * @param tab - The tab element.
    * @returns The value of the tab.
    */
   private getTabValue (tab: Tab): string {
@@ -238,7 +238,7 @@ export class TabBar extends ResponsiveElement {
 
   /**
    * Return the tab's label, or its textContent, or an empty string
-   * @param {Tab} tab - The tab element.
+   * @param tab - The tab element.
    * @returns The tab label.
    */
   private getTabLabel (tab: Tab): string {
@@ -260,20 +260,11 @@ export class TabBar extends ResponsiveElement {
   }
 
   /**
-    * Get focusable tab elements
-    * @returns the array of focusable tab
-    */
-  private getFocusableTabs () {
-    return this.getTabElements().filter(tab => this.isFocusableElement(tab));
-  }
-
-  /**
-   * Returns true if the element is focusable
-   * @param element - The element to check.
-   * @returns A boolean value.
+   * Get focusable tab elements
+   * @returns the array of focusable tab
    */
-  private isFocusableElement (element: Element): boolean {
-    return element instanceof Tab && !element.disabled && !element.readonly;
+  private getFocusableTabs () {
+    return this.getTabElements().filter(tab => !tab.disabled);
   }
 
   /**
@@ -281,7 +272,7 @@ export class TabBar extends ResponsiveElement {
    * @returns {void}
    */
   private setLevel (): void {
-    const tabList = this.getTabElements();
+    const tabList = this.getTabElements(); // get all tab elements include disabled tab
     tabList?.forEach((tab: Tab) => {
       tab.level = this.level;
     });
