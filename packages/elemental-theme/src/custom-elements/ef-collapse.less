@@ -14,14 +14,10 @@
     align-items: stretch;
   }
 
-  [part="spacer"] {
-    flex: none;
-    width: extract(@header-padding, 2);
-  }
-
   [part="header-toggle"] {
-    cursor: pointer;
     .touch-action();
+    cursor: pointer;
+    padding: 0 extract(@header-padding, 2);
     align-items: center;
     outline: none;
   }

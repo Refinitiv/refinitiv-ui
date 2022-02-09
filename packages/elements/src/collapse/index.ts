@@ -191,9 +191,7 @@ export class Collapse extends BasicElement {
   protected render (): TemplateResult {
     return html`
       <div part="header-wrapper" level="${this.level}">
-        <slot name="header-left">
-          <div part="spacer"></div>
-        </slot>
+        <slot name="header-left"></slot>
         <div part="header"
              role="heading"
              aria-level="${ifDefined(this.headingLevel || undefined)}">
@@ -207,9 +205,7 @@ export class Collapse extends BasicElement {
             <span part="header-label">${this.header}</span>
           </div>
         </div>
-        <slot name="header-right">
-          <div part="spacer"></div>
-        </slot>
+        <slot name="header-right"></slot>
       </div>
       <div id="content" part="content" role="region" aria-labelledby="header-toggle">
         <ef-panel part="content-data" ?spacing="${this.spacing}" transparent>
