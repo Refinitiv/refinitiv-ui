@@ -54,9 +54,6 @@ export class Collapse extends BasicElement {
         flex: 1 1 auto;
         min-width: 0;
       }
-      [part="toggle"] {
-        flex: none;
-      }
       [part="content"]  {
         overflow: hidden;
         box-sizing: border-box;
