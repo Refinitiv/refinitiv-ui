@@ -6,10 +6,12 @@
 
 ```html
 <div
-  aria-level="2"
+  aria-level=""
   part="header"
   role="heading"
 >
+  <slot name="header-left">
+  </slot>
   <ef-header
     aria-controls="content"
     aria-expanded="false"
@@ -19,23 +21,14 @@
     tabindex="0"
   >
     <ef-icon
-      aria-hidden="true"
       icon="right"
       part="toggle"
       slot="left"
     >
     </ef-icon>
-    <slot
-      name="header-left"
-      slot="left"
-    >
-    </slot>
-    <slot
-      name="header-right"
-      slot="right"
-    >
-    </slot>
   </ef-header>
+  <slot name="header-right">
+  </slot>
 </div>
 <div
   aria-labelledby="header-toggle"
@@ -55,10 +48,12 @@
 
 ```html
 <div
-  aria-level="2"
+  aria-level=""
   part="header"
   role="heading"
 >
+  <slot name="header-left">
+  </slot>
   <ef-header
     aria-controls="content"
     aria-expanded="false"
@@ -68,23 +63,14 @@
     tabindex="0"
   >
     <ef-icon
-      aria-hidden="true"
       icon="right"
       part="toggle"
       slot="left"
     >
     </ef-icon>
-    <slot
-      name="header-left"
-      slot="left"
-    >
-    </slot>
-    <slot
-      name="header-right"
-      slot="right"
-    >
-    </slot>
   </ef-header>
+  <slot name="header-right">
+  </slot>
 </div>
 <div
   aria-labelledby="header-toggle"
@@ -104,10 +90,12 @@
 
 ```html
 <div
-  aria-level="2"
+  aria-level=""
   part="header"
   role="heading"
 >
+  <slot name="header-left">
+  </slot>
   <ef-header
     aria-controls="content"
     aria-expanded="false"
@@ -118,23 +106,14 @@
   >
     Header
     <ef-icon
-      aria-hidden="true"
       icon="right"
       part="toggle"
       slot="left"
     >
     </ef-icon>
-    <slot
-      name="header-left"
-      slot="left"
-    >
-    </slot>
-    <slot
-      name="header-right"
-      slot="right"
-    >
-    </slot>
   </ef-header>
+  <slot name="header-right">
+  </slot>
 </div>
 <div
   aria-labelledby="header-toggle"
@@ -154,10 +133,12 @@
 
 ```html
 <div
-  aria-level="2"
+  aria-level=""
   part="header"
   role="heading"
 >
+  <slot name="header-left">
+  </slot>
   <ef-header
     aria-controls="content"
     aria-expanded="false"
@@ -167,23 +148,14 @@
     tabindex="0"
   >
     <ef-icon
-      aria-hidden="true"
       icon="right"
       part="toggle"
       slot="left"
     >
     </ef-icon>
-    <slot
-      name="header-left"
-      slot="left"
-    >
-    </slot>
-    <slot
-      name="header-right"
-      slot="right"
-    >
-    </slot>
   </ef-header>
+  <slot name="header-right">
+  </slot>
 </div>
 <div
   aria-labelledby="header-toggle"
@@ -203,10 +175,12 @@
 
 ```html
 <div
-  aria-level="2"
+  aria-level=""
   part="header"
   role="heading"
 >
+  <slot name="header-left">
+  </slot>
   <ef-header
     aria-controls="content"
     aria-expanded="false"
@@ -216,23 +190,14 @@
     tabindex="0"
   >
     <ef-icon
-      aria-hidden="true"
       icon="right"
       part="toggle"
       slot="left"
     >
     </ef-icon>
-    <slot
-      name="header-left"
-      slot="left"
-    >
-    </slot>
-    <slot
-      name="header-right"
-      slot="right"
-    >
-    </slot>
   </ef-header>
+  <slot name="header-right">
+  </slot>
 </div>
 <div
   aria-labelledby="header-toggle"

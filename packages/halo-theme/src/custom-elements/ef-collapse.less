@@ -3,8 +3,74 @@
 :host {
   text-transform: uppercase; // default header text to uppercase
 
+  // use to modify header color when hover and expaned
+  @dark-modifier: 10%;
+  @light-modifier: 3%;
+
   [part="header"] {
-    text-transform: inherit; // this allow users to customise via css
+    background-color: @header-level3-bg-color;
+  }
+
+  [part="header-toggle"] {
+    background-color: transparent;
+    text-transform: inherit;
+  }
+
+  &:hover,
+  &[expanded] {
+    [part="header"] {
+      color: @input-hover-text-color;
+      cursor: pointer;
+      background-color: lighten(@header-level3-bg-color, @dark-modifier);
+      & when (@variant = light) {
+        background-color: darken(@header-level3-bg-color, @light-modifier);
+      }
+    }
+  }
+
+  &[level="1"] {
+    [part="header"] {
+      background-color: @header-level1-bg-color;
+    }
+    &:hover,
+    &[expanded] {
+      [part="header"] {
+        background-color: lighten(@header-level1-bg-color, @dark-modifier);
+        & when (@variant = light) {
+          background-color: darken(@header-level1-bg-color, @light-modifier);
+        }
+      }
+    }
+  }
+
+  &[level="2"] {
+    [part="header"] {
+      background-color: @header-level2-bg-color;
+    }
+    &:hover,
+    &[expanded] {
+      [part="header"] {
+        background-color: lighten(@header-level2-bg-color, @dark-modifier);
+        & when (@variant = light) {
+          background-color: darken(@header-level2-bg-color, @light-modifier);
+        }
+      }
+    }
+  }
+
+  &[level="4"] {
+    [part="header"] {
+      background-color: @header-level4-bg-color;
+    }
+    &:hover,
+    &[expanded] {
+      [part="header"] {
+        background-color: lighten(@header-level4-bg-color, @dark-modifier);
+        & when (@variant = light) {
+          background-color: darken(@header-level4-bg-color, @light-modifier);
+        }
+      }
+    }
   }
 
   [part="content"] {
@@ -14,45 +80,5 @@
   [part="toggle"] {
     margin: 0 4px;
     opacity: 1;
-  }
-
-  [part="header"]:hover,
-  &[expanded] [part="header"] {
-    color: @input-hover-text-color;
-    cursor: pointer;
-
-    // use to modify header color when hover and expaned
-    @dark-modifier: 10%;
-    @light-modifier: 3%;
-
-    // default is header level 3
-    background-color: lighten(@header-level3-bg-color, @dark-modifier);
-    & when (@variant = light) {
-      background-color: darken(@header-level3-bg-color, @light-modifier);
-    }
-
-    // header level 1
-    &[level="1"] {
-      background-color: lighten(@header-level1-bg-color, @dark-modifier);
-      & when (@variant = light) {
-        background-color: darken(@header-level1-bg-color, @light-modifier);
-      }
-    }
-
-    // header level 2
-    &[level="2"] {
-      background-color: lighten(@header-level2-bg-color, @dark-modifier);
-      & when (@variant = light) {
-        background-color: darken(@header-level2-bg-color, @light-modifier);
-      }
-    }
-
-    // header level 3
-    &[level="4"] {
-      background-color: lighten(@header-level4-bg-color, @dark-modifier);
-      & when (@variant = light) {
-        background-color: darken(@header-level4-bg-color, @light-modifier);
-      }
-    }
   }
 }

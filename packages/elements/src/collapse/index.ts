@@ -62,6 +62,11 @@ export class Collapse extends BasicElement {
       [no-animation] {
         animation: none !important;
       }
+      &:not([expanded]) {
+        [part="content"] {
+          visibility: hidden;
+        }
+      }
     `;
   }
 
@@ -168,13 +173,13 @@ export class Collapse extends BasicElement {
 
   protected render (): TemplateResult {
     return html`
-      <div part="header" role="heading" aria-level="${this.ariaLevel ? this.ariaLevel : '2' }">
+      <div part="header" role="heading" aria-level="${this.ariaLevel}">
+        <slot name="header-left"></slot>
         <ef-header part="header-toggle" level="${this.level}" @tap=${this.toggle} role="button" tabindex="0" aria-expanded="${this.expanded}" aria-controls="content">
           ${this.header}
-          <ef-icon icon="right" slot="left" part="toggle" aria-hidden="true"></ef-icon>
-          <slot slot="left" name="header-left"></slot>
-          <slot slot="right" name="header-right"></slot>
+          <ef-icon slot="left" icon="right" part="toggle"></ef-icon>
         </ef-header>
+        <slot name="header-right"></slot>
       </div>
       <div id="content" part="content" role="region" aria-labelledby="header-toggle">
         <ef-panel ?spacing="${this.spacing}" transparent>

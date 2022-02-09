@@ -4,8 +4,12 @@
 @import '../responsive';
 
 :host {
+  [focused="visible"] {
+    outline: 1px solid @color-scheme-primary;
+  }
+
   [part="header-toggle"] {
-    outline: none;
+    flex: 1 1 auto;
   }
 
   [part="toggle"] {
@@ -21,6 +25,8 @@
   }
 
   [part="header"] {
+    display: flex;
+    align-items: center;
     .touch-action();
   }
 
@@ -51,7 +57,6 @@
 
   &:not([expanded]) {
     [part="content"] {
-      visibility: hidden;
       height: 0;
       animation-name: collapse;
     }

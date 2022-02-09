@@ -11,11 +11,11 @@
       }
       .badge {
         border-radius: 100%;
-        height: 21px;
-        width: 21px;
+        height: 19;
+        width: 19px;
         font-size: 12px;
         line-height: 18px;
-        border: 2px solid currentColor;
+        border: 1px solid currentColor;
         box-sizing: border-box;
         display: flex;
         justify-content: center;
@@ -29,7 +29,8 @@
         height: 200%;
       }
       .checkbox {
-        margin-right: 5px;
+        margin: 5px;
+        margin-right: 0px;
       }
     </style>
   </head>
@@ -81,13 +82,42 @@
     </demo-block>
 
     <demo-block header="Use Slot" layout="normal" tags="slot">
-      <ef-checkbox slot="header-left"></ef-checkbox>
       <ef-collapse header="Close above 14D SMA">
+        <div style="
+            display: inline-flex;
+            width: 3px;
+            height: 27px;
+            background-color: #2a9d54;
+        " slot="header-left"></div>
         <ef-checkbox slot="header-left" class="checkbox"></ef-checkbox>
         <div slot="header-right" class="badge">8</div>
         <ef-button slot="header-right" icon="menu" transparent></ef-button>
         <div class="content">Content inside a div with a fixed 100px height</div>
       </ef-collapse>
+      <ef-collapse header="Close below 14D SMA">
+        <div style="
+            display: inline-flex;
+            width: 3px;
+            height: 27px;
+            background-color: #e31414;
+        " slot="header-left"></div>
+        <ef-checkbox slot="header-left" class="checkbox"></ef-checkbox>
+        <div slot="header-right" class="badge">8</div>
+        <ef-button slot="header-right" icon="menu" transparent></ef-button>
+        <div class="content">Content inside a div with a fixed 100px height</div>
+      </ef-collapse>
+      <ef-collapse header="New 52 week high">
+        <div style="
+            display: inline-flex;
+            width: 3px;
+            height: 27px;
+            background-color: #2a9d54;
+        " slot="header-left"></div>
+        <ef-checkbox slot="header-left" class="checkbox"></ef-checkbox>
+        <div slot="header-right" class="badge">8</div>
+        <ef-button slot="header-right" icon="menu" transparent></ef-button>
+        <div class="content">Content inside a div with a fixed 100px height</div>
+      </ef-collapse>            
     </demo-block>
 
     <demo-block header="Prevent Expanding" layout="normal" tags="cancel event">
