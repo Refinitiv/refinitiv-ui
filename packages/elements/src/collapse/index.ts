@@ -116,7 +116,6 @@ export class Collapse extends BasicElement {
   @state()
   private headingLevel: string | null = null;
 
-
   public attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
     super.attributeChangedCallback(name, oldValue, newValue);
     if (name === 'aria-level') {
