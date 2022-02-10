@@ -279,25 +279,19 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     else {
       // Clone value arrays
       const newValues = values.slice(0, this.multiple ? values.length : 1);
-      const oldValues = this.composerValues.slice();
+      const oldValues = this.values.slice();
       // Create comparison strings to check for differences
       const newComparison = newValues.sort().toString();
       const oldComparison = oldValues.sort().toString();
-      let valueChanged = false;
-
-      // Reset free text value in case setting programmatically
-      if (this.freeText && newComparison === '') {
-        this.freeTextValue = '';
-        valueChanged = true;
-      }
 
       // Update the selection state when found new value
       if (newComparison !== oldComparison) {
         this.updateComposerValues(newValues);
-        valueChanged = true;
-      }
 
-      if (valueChanged) {
+        if (this.freeText) {
+          this.freeTextValue = !this.composerValues.length ? newComparison : '';
+        }
+
         this.requestUpdate('values', oldValues);
       }
     }

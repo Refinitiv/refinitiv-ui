@@ -55,8 +55,25 @@ describe('combo-box/Value', () => {
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Rest value on free text mode', async () => {
-      const el = await fixture('<coral-combo-box free-text value="AF" opened lang="en"></coral-combo-box>');
+    it('Free text. Set any value via API', async () => {
+      const el = await fixture('<ef-combo-box free-text value="AF" opened lang="en"></ef-combo-box>');
+      el.data = getData();
+      await openedUpdated(el);
+      expect(el.value).to.equal('AF', 'Value attribute did not reflect to a selected value');
+      el.value = '';
+      expect(el.value).to.equal('', 'Value must be empty string');
+
+      // Set free
+      await makeQueryRequest(el, 'Free text');
+      expect(el.value).to.equal('Free text', 'Value did not change for "Free text"');
+
+      await elementUpdated(el);
+      el.value = 'Any';
+      expect(el.value).to.equal('Any', 'Value must be "Any" string');
+    });
+
+    it('Free text. Rest value via API', async () => {
+      const el = await fixture('<ef-combo-box free-text value="AF" opened lang="en"></ef-combo-box>');
       el.data = getData();
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value attribute did not reflect to a selected value');
