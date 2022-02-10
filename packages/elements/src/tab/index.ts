@@ -105,7 +105,7 @@ export class Tab extends ControlElement {
    * True, if there is slotted content
    */
   @state()
-  private isSlotHasContent = true;
+  private isSlotHasContent = false;
 
   /**
    * Run on default slot slotchange
@@ -114,7 +114,7 @@ export class Tab extends ControlElement {
    */
   private onSlotChange = (event: Event): void => {
     const slot = event.target as HTMLSlotElement;
-    this.isSlotHasContent = !!slot.assignedNodes().length && !isSlotEmpty(slot);
+    this.isSlotHasContent = !!slot.assignedNodes().length && isSlotEmpty(slot);
   };
 
   /**
@@ -154,7 +154,7 @@ export class Tab extends ControlElement {
    * @returns Label template
    */
   private get LabelTemplate (): TemplateResult | null {
-    if (!this.label || !this.isSlotHasContent) {
+    if (!this.label || this.isSlotHasContent) {
       return null;
     }
     return html`
@@ -171,7 +171,7 @@ export class Tab extends ControlElement {
    * @returns SubLabel template
    */
   private get SubLabelTemplate (): TemplateResult | null {
-    if (!this.subLabel || !this.isSlotHasContent) {
+    if (!this.subLabel || this.isSlotHasContent) {
       return null;
     }
     return html`
