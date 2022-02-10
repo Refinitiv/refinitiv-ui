@@ -148,6 +148,17 @@ export class Dialog extends Overlay {
   @query('[part=footer]')
   private footerElement!: HTMLElement;
 
+  /**
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+
+    this.setAttribute('aria-modal', String(!this.noInteractionLock));
+  }
+
   public noCancelOnOutsideClick = true;
 
   /**
@@ -206,7 +217,9 @@ export class Dialog extends Overlay {
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
-    this.setAttribute('aria-modal', String(!this.noInteractionLock));
+    if (changedProperties.has('noInteractionLock')) {
+      this.setAttribute('aria-modal', String(!this.noInteractionLock));
+    }
 
     if (this.isDraggableBehaviourNeedToBeChanged(changedProperties)) {
       this.updateDraggableBehavior();
