@@ -3,10 +3,10 @@ import {
   svg,
   SVGTemplateResult
 } from '@refinitiv-ui/core';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../../version.js';
-import { rgb } from '@refinitiv-ui/utils/lib/color.js';
+import { rgb } from '@refinitiv-ui/utils/color.js';
 import { isHex } from '../helpers/color-helpers.js';
 
 /**

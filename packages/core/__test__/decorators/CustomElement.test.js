@@ -1,7 +1,7 @@
 import { expect, html, nextFrame } from '@refinitiv-ui/test-helpers';
 import { customElement } from '../../lib/decorators/custom-element.js';
 import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry.js';
-import { BasicElement } from '../../lib/elf';
+import { BasicElement } from '../../lib/index.js';
 import { asyncFrames, getErrors, mockCssString, setErrors } from '../helper.js';
 import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError';
 

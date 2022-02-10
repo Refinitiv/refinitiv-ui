@@ -9,17 +9,17 @@ import {
   FocusedPropertyKey,
   StyleMap
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
-import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { VERSION } from '../version.js';
 import '../overlay/index.js';
 import '../item/index.js';
 import '../icon/index.js';
 import { Item } from '../item/index.js';
-import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
-import { TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 import type { Overlay } from '../overlay';
 import type { SelectData, SelectDataItem } from './helpers/types';
 import type { OpenedChangedEvent } from '../events';
