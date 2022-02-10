@@ -81,9 +81,6 @@ describe('tab-bar/value', () => {
       await elementUpdated();
       expect(tabList[1].active).to.equal(true);
     });
-    it('Value of tab bar should not change when set ', async () => {
-
-    });
     it('Value of tab bar should not change when active value of tab changed', async () => {
       expect(el.value).to.equal(tabList[0].label);
       tabList[1].active = true;
@@ -100,6 +97,25 @@ describe('tab-bar/value', () => {
       tabList[3].click(); // tab 4 has same value as tab 1 so it should set active to tab 1 insteads
       expect(tabList[0].active).to.equal(true);
       expect(el.value).to.equal(tabList[0].label);
+    });
+    it('Should be able to prevent tap event', async () => {
+      el.addEventListener('tap', (e) => {
+        e.preventDefault();
+      });
+      await elementUpdated();
+      tabList[1].dispatchEvent(new CustomEvent('tap'));
+      expect(el.value).to.equal('1');
+    });
+    it('Should not allow invalid value', async () => {
+      el.value = '';
+      await elementUpdated();
+      expect(el.value).to.equal('1');
+    });
+    it('Should parse value to string', async () => {
+      el.value = 2;
+      await elementUpdated();
+      expect(tabList[1].active).to.equal(true);
+      expect(el.value).to.equal('2');
     });
   });
   describe('Event', () => {

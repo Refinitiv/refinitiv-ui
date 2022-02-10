@@ -15,7 +15,9 @@ describe('Functions from helpers', () => {
     });
 
     it('Should thrown error if target is not passed', () => {
-      expect(() => tweenAnimate({ startPosition: 0, endPosition: 10 })).throw(TypeError);
+      expect(() => { 
+        tweenAnimate({ startPosition: 0, endPosition: 10 });
+      }).throw(TypeError);
     });
     it('Should scroll an element to the end position', (done) => {
       const startPosition = 0;

@@ -1,7 +1,9 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tab';
 import '@refinitiv-ui/elemental-theme/light/ef-tab';
+
+const keyDelete = keyboardEvent('keydown', { key: 'Delete'});
 
 describe('tab/Tab', () => {
   describe('DOM Structure', () => {

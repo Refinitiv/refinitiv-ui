@@ -183,6 +183,7 @@ export class TabBar extends ResponsiveElement {
     if (activeTab) {
       this.value = this.getTabValue(activeTab);
     }
+    this.manageTabIndex();
   }
 
   /**
@@ -338,7 +339,7 @@ export class TabBar extends ResponsiveElement {
    * @param tab - The element that was clicked.
    * @return {void}
    */
-  private setActiveTab (tab: Tab): void {
+  private focusAndSetActiveTab (tab: Tab): void {
     tab.focus();
     tab.scrollIntoView({ block: 'nearest' });
     this.value = this.getTabValue(tab);
@@ -353,7 +354,7 @@ export class TabBar extends ResponsiveElement {
     if (tabList.length <= 0) {
       return;
     }
-    this.setActiveTab(tabList[0]);
+    this.focusAndSetActiveTab(tabList[0]);
     this.rovingTabIndex(tabList[0], tabList);
   }
 
@@ -367,7 +368,7 @@ export class TabBar extends ResponsiveElement {
       return;
     }
     const lastTab = tabList[tabList.length - 1];
-    this.setActiveTab(lastTab);
+    this.focusAndSetActiveTab(lastTab);
     this.rovingTabIndex(lastTab, tabList);
   }
 
@@ -387,7 +388,7 @@ export class TabBar extends ResponsiveElement {
       ? tabList[focusedTabIndex + 1] || tabList[0]
       : tabList[focusedTabIndex - 1] || tabList[tabList.length - 1];
 
-    this.setActiveTab(nextTab);
+    this.focusAndSetActiveTab(nextTab);
     this.rovingTabIndex(nextTab, tabList);
   }
 
@@ -446,10 +447,7 @@ export class TabBar extends ResponsiveElement {
   private manageTabIndex (): void {
     const tabList = this.getFocusableTabs();
     if (tabList && tabList.length > 0) {
-      let focusedTabIndex = tabList.findIndex(tab => tab.active);
-      if (focusedTabIndex === -1) {
-        focusedTabIndex = 0;
-      }
+      const focusedTabIndex = tabList.findIndex(tab => tab.active);
       this.rovingTabIndex(tabList[focusedTabIndex], tabList);
     }
   }
