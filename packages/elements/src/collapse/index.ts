@@ -194,7 +194,8 @@ export class Collapse extends BasicElement {
         <div part="header"
              role="heading"
              aria-level="${ifDefined(this.headingLevel || undefined)}">
-          <div part="header-toggle"
+          <div id="header-toggle"
+               part="header-toggle"
                role="button"
                tabindex="0"
                aria-expanded="${this.expanded}"
