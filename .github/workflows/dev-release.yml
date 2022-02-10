@@ -33,6 +33,6 @@ jobs:
         run: npm run build:prod
 
       - name: Publish to NPM
-        run: lerna publish 5.0.0-build.${{ github.run_id }}.${{ github.run_attempt }} --no-changelog --no-git-tag-version --no-push
+        run: lerna publish 5.0.0-build.${{ github.run_id }}.${{ github.run_attempt }} --no-changelog --no-git-tag-version --no-push --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
