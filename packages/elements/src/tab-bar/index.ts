@@ -290,7 +290,6 @@ export class TabBar extends ResponsiveElement {
 
     const leftBtnStyle = scrollLeft > 0 ? 'flex' : 'none';
     const rightBtnStyle = scrollWidth - scrollLeft - elementWidth > 1 ? 'flex' : 'none';
-    
 
     this.leftBtn.style.setProperty('display', leftBtnStyle);
     this.rightBtn.style.setProperty('display', rightBtnStyle);
