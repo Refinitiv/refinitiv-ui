@@ -12,8 +12,8 @@ import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { VERSION } from '../version.js';
 import { tweenAnimate } from './helpers/animate.js';
-import { Tab } from '../tab';
-import type { Button } from '../button';
+import { Tab } from '../tab/index.js';
+import type { Button } from '../button/index.js';
 import '../button/index.js';
 
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
@@ -90,7 +90,7 @@ export class TabBar extends ResponsiveElement {
     const oldValue = this._value;
     if (value !== oldValue && this.isValidValue(value)) {
       this._value = value;
-      this.selectValue(value);
+      this.activateTab(value);
       this.requestUpdate('value', oldValue);
     }
   }
@@ -168,20 +168,22 @@ export class TabBar extends ResponsiveElement {
    * @returns {void}
    */
   private onSlotChange (): void {
-    this.setLevel();
-    const tabList = this.getFocusableTabs();
-    if (tabList.length < 1) {
-      return;
-    }
-    const activeTab = tabList.find(tab => tab.active) || tabList[0];
-
-    if (activeTab) {
-      this.value = this.getTabValue(activeTab);
-    }
     // wait element size updated
     setTimeout(() => {
       this.toggleScrollButton(this.content.clientWidth);
     });
+
+    const tabList = this.getFocusableTabs();
+
+    if (tabList.length < 1) {
+      return;
+    }
+    this.setLevel();
+    // get tab value from active tab
+    const activeTab = tabList.find(tab => tab.active) || tabList[0];
+    if (activeTab) {
+      this.value = this.getTabValue(activeTab);
+    }
   }
 
   /**
@@ -189,7 +191,7 @@ export class TabBar extends ResponsiveElement {
    * @param value value of tab to select
    * @returns {void}
    */
-  private selectValue (value: string): void {
+  private activateTab (value: string): void {
     if (!value) {
       return;
     }
@@ -338,11 +340,11 @@ export class TabBar extends ResponsiveElement {
    */
   protected render (): TemplateResult {
     return html`
-    ${!this.vertical ? html`<ef-button icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
-      <div part="content">
-        <slot @slotchange=${this.onSlotChange}></slot>
-      </div>
-    ${!this.vertical ? html`<ef-button icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
+      ${!this.vertical ? html`<ef-button icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
+        <div part="content">
+          <slot @slotchange=${this.onSlotChange}></slot>
+        </div>
+      ${!this.vertical ? html`<ef-button icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
     `;
   }
 }
