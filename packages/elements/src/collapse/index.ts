@@ -8,8 +8,11 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
+import { ref, createRef, Ref } from '@refinitiv-ui/core/lib/directives/ref.js';
 import { VERSION } from '../version.js';
+import type { Panel } from '../panel/index.js';
 import '../header/index.js';
 import '../panel/index.js';
 import '../icon/index.js';
@@ -48,12 +51,22 @@ export class Collapse extends BasicElement {
       :host {
         display: block;
       }
-      [part="header"] {
-        cursor: default;
+      :host(:not([expanded])) [part="content"] {
+        visibility: hidden;
       }
-      [part="toggle"] {
-        display: inline-block;
-        margin: 0 5px;
+      [part~=header] {
+        position: relative;
+        z-index: 0;
+      }
+      [part~=header-toggle]::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
       }
       [part="content"]  {
         overflow: hidden;
@@ -66,10 +79,18 @@ export class Collapse extends BasicElement {
   }
 
   /**
+   * Observes attribute change for `attributeChangedCallback`
+   */
+  static get observedAttributes (): string[] {
+    const observed = super.observedAttributes;
+    return ['aria-level'].concat(observed);
+  }
+
+  /**
    * Set text on the header
    */
   @property({ type: String })
-  public header: string | null = null;
+  public header = '';
 
   /**
    * Use level styling from theme
@@ -92,14 +113,32 @@ export class Collapse extends BasicElement {
   /**
    * An ef-panel wrapper
    */
-  @query('[part="content"]', true)
-  private panelHolder!: HTMLElement;
+  private panelHolderRef: Ref<HTMLElement> = createRef();
 
   /**
    * A panel used to display content
    */
-  @query('ef-panel', true)
-  private panel!: HTMLElement;
+  private panelRef: Ref<Panel> = createRef();
+
+  /**
+   * Used to control aria-level for heading
+   */
+  @state()
+  private headingLevel: string | null = null;
+
+  /**
+   * Run when observed attributes change value
+   * @param name attribute name
+   * @param oldValue old attribute value
+   * @param newValue new attribute value
+   * @returns {void}
+   */
+  public attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === 'aria-level') {
+      this.headingLevel = newValue;
+    }
+  }
 
   /**
    * Called once after the component is first rendered
@@ -108,7 +147,7 @@ export class Collapse extends BasicElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.panelHolder && this.panelHolder.setAttribute('no-animation', '');
+    this.panelHolderRef.value?.setAttribute('no-animation', '');
   }
 
   /**
@@ -136,37 +175,11 @@ export class Collapse extends BasicElement {
   }
 
   /**
-   * Check if target is a header
-   * @param element for checking
-   * @returns {boolean} true if target is ef-header
-   */
-  private static isHeader (element: HTMLElement): boolean {
-    return element.localName === 'ef-header' || element.getAttribute('part') === 'toggle';
-  }
-
-  /**
-   * Handle tap on the item header, will toggle the expanded state
-   * @param event Event object
-   * @returns {void}
-   */
-  private handleTap = (event: Event): void => {
-    const target = event.target as HTMLElement;
-
-    // This is to prevent toggling when elements on slots are tap
-    if (Collapse.isHeader(target)) {
-      this.toggle();
-    }
-  }
-
-  /**
    * Show or Hide the item depending on the expanded state
    * @returns {void}
    */
   private showHide (): void {
-    if (!this.panelHolder) {
-      return;
-    }
-    this.panelHolder.removeAttribute(('no-animation'));
+    this.panelHolderRef.value?.removeAttribute(('no-animation'));
     this.setAnimationTargetHeight(this.getContentHeight());
   }
 
@@ -185,24 +198,33 @@ export class Collapse extends BasicElement {
    * @returns clientHeight of the panel so that the panel holder max-height can be set
    */
   private getContentHeight (): number {
-    return this.panel && this.panel.clientHeight || 0;
+    const panelEl = this.panelRef.value;
+    return panelEl ? panelEl.clientHeight : 0;
   }
 
   /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
-   * @return {TemplateResult}  Render template
+   * @return Render template
    */
   protected render (): TemplateResult {
     return html`
-      <ef-header part="header" level="${this.level}" @tap="${this.handleTap}">
-        <ef-icon icon="right" slot="left" part="toggle"></ef-icon>
-        <slot slot="left" name="header-left"></slot>
-        <slot slot="right" name="header-right"></slot>
-        ${this.header}
+      <ef-header part="header" level="${this.level}">
+        <div part="heading" role="heading" aria-level="${ifDefined(this.headingLevel || undefined)}">
+          <div id="header-toggle"
+               part="header-toggle"
+               role="button"
+               tabindex="0"
+               aria-expanded="${this.expanded}"
+               aria-controls="content"
+               @tap=${this.toggle}>${this.header}</div>
+        </div>
+        <ef-icon icon="right" part="toggle" slot="left" aria-hidde="true"></ef-icon>
+        <slot name="header-left" slot="left"></slot>
+        <slot name="header-right" slot="right"></slot>
       </ef-header>
-      <div part="content">
-        <ef-panel ?spacing="${this.spacing}" transparent>
+      <div ${ref(this.panelHolderRef)} id="content" part="content" role="region" aria-labelledby="header-toggle">
+        <ef-panel ${ref(this.panelRef)} part="content-data" ?spacing="${this.spacing}" transparent>
           <slot></slot>
         </ef-panel>
       </div>
