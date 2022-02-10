@@ -33,6 +33,6 @@ jobs:
         run: npm run build:prod
 
       - name: Publish to NPM
-        run: lerna publish --canary --preid=dev --yes
+        run: lerna publish --canary --preid=dev-${{ github.run_id }} --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
