@@ -11,6 +11,7 @@ import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { VERSION } from '../version.js';
+import { translate, TranslatePromise } from '@refinitiv-ui/translate';
 
 import '../icon/index.js';
 
@@ -52,6 +53,11 @@ export class Pill extends ControlElement {
   static get version (): string {
     return VERSION;
   }
+
+  /**
+   * Element's role attribute for accessibility
+   */
+  protected readonly defaultRole: string | null = 'button';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -108,6 +114,15 @@ export class Pill extends ControlElement {
   })
   public ariaPressed = '';
 
+  /**
+   * Used for translations
+   */
+  @translate({
+    mode: 'promise',
+    scope: 'ef-pill'
+  })
+  private t!: TranslatePromise;
+
   @query('[part=close]') private closeElement?: HTMLElement | null;
 
   protected firstUpdated (changedProperties: PropertyValues): void {
@@ -119,10 +134,6 @@ export class Pill extends ControlElement {
     this.addEventListener('mouseleave', this.onEndPress);
     this.addEventListener('keydown', this.onKeyDown);
 
-    if (this.clears || this.toggles) {
-      this.setAttribute('role', 'button');
-    }
-
   }
 
   /**
@@ -131,11 +142,31 @@ export class Pill extends ControlElement {
    * @returns {void}
    */
   protected update (changedProperties: PropertyValues): void {
-    if (changedProperties.has('active') && this.toggles) {
-      this.ariaPressed = String(this.active);
+    if (changedProperties.has('toggles') || changedProperties.has('active')) {
+      if (this.toggles) {
+        this.ariaPressed = String(this.active);
+      }
+      else {
+        this.removeAttribute('aria-pressed');
+      }
     }
 
     super.update(changedProperties);
+  }
+
+  /**
+   * Perform asynchronous update
+   * @returns {void}
+   */
+  protected async performUpdate (): Promise<void> {
+    if (this.clears) {
+      this.setAttribute('aria-description', await this.t('DELETE_PILL'));
+    }
+    else {
+      this.removeAttribute('aria-description');
+    }
+
+    void super.performUpdate();
   }
 
   /**
@@ -144,14 +175,8 @@ export class Pill extends ControlElement {
    * @returns {void}
    */
   private onKeyDown (event: KeyboardEvent): void {
-    if (this.clears && !this.readonly) {
-      switch (event.key) {
-        case 'Delete':
-          this.dispatchEvent(new CustomEvent('clear'));
-          break;
-        default:
-          return;
-      }
+    if (event.key === 'Delete' && (this.clears && !this.readonly)) {
+      this.dispatchEvent(new CustomEvent('clear'));
     }
   }
 

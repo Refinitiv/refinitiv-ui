@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, html, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/pill';
 import '@refinitiv-ui/elemental-theme/light/ef-pill';
@@ -281,5 +281,37 @@ describe('pill/Pill', () => {
 
       expect(el.pressed).to.equal(false, 'pressed property should stay false');
     });
+  });
+
+  describe('Accessibility', () => {
+    it('should apply aria-pressed when toggle pill is pressed', async () => {
+      const el = await fixture(html`<ef-pill toggles></ef-pill>`);
+
+      setTimeout(() => el.dispatchEvent(new Event('tap')));
+      await oneEvent(el, 'tap');
+      expect(el.ariaPressed).to.equal('true');
+
+      setTimeout(() => el.dispatchEvent(new Event('tap')));
+      await oneEvent(el, 'tap');
+      expect(el.ariaPressed).to.equal('false');
+    });
+    it('aria-pressed should be removed when toggles attribute is removed', async () => {
+      const el = await fixture(html`<ef-pill toggles></ef-pill>`);
+
+      el.toggles = false;
+      await elementUpdated(el);
+
+      expect(el.ariaPressed).to.be.null;
+    });
+    it('should fire clear event when press delete', async () => {
+      const el = await fixture(html`<ef-pill clears></ef-pill>`);
+      const event = keyboardEvent('keydown', { key: 'Delete' });
+
+      setTimeout(() => el.dispatchEvent(event));
+      const ev = await oneEvent(el, 'clear');
+
+      expect(ev.type).to.equal('clear');
+    });
+
   });
 });
