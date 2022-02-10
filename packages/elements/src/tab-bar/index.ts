@@ -20,6 +20,7 @@ const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 
 /**
  * Container for tabs
+ *
  * @fires value-changed - Fired when the `value` changes.
  */
 @customElement('ef-tab-bar', {
@@ -80,7 +81,7 @@ export class TabBar extends ResponsiveElement {
   private _value = '';
 
   /**
-   * Returns active tab value.
+   * Value of tab-bar, derived from value of an active tab.
    * @param value Element value
    * @default -
    */
@@ -154,9 +155,9 @@ export class TabBar extends ResponsiveElement {
   }
 
   /**
-   * Return true if tab list have matched value
+   * Return true if incoming value matches one of the existing tabs
    * @param value Value to check
-   * @returns true if tab list have matched value
+   * @returns true if incoming value matches one of the existing tabs
    */
   private isValidValue (value: string) {
     const tabList = this.getFocusableTabs();
@@ -211,7 +212,7 @@ export class TabBar extends ResponsiveElement {
   }
 
   /**
-   * If the target of the event is a Tab, then set the value of the target to the value of the Tab
+   * Set tab value and fires `tab-changed` event
    * @param event - Event
    * @returns {void}
    */
@@ -251,7 +252,7 @@ export class TabBar extends ResponsiveElement {
    * Get Tab elements from slot
    * @returns the array of Tab
    */
-  private getTabElements () {
+  private getTabElements (): Tab[] {
     const tabs = [];
     for (const child of this.children) {
       if (child instanceof Tab) {
@@ -265,7 +266,7 @@ export class TabBar extends ResponsiveElement {
    * Get focusable tab elements
    * @returns the array of focusable tab
    */
-  private getFocusableTabs () {
+  private getFocusableTabs (): Tab[] {
     return this.getTabElements().filter(tab => !tab.disabled);
   }
 
@@ -286,11 +287,12 @@ export class TabBar extends ResponsiveElement {
    * @returns {void}
    */
   private toggleScrollButton (elementWidth: number): void {
-    const { scrollLeft, scrollWidth } = this.content;
-
     if (this.vertical) {
       return;
     }
+
+    const { scrollLeft, scrollWidth } = this.content;
+
     const leftBtnStyle = scrollLeft > 0 ? 'flex' : 'none';
     const rightBtnStyle = scrollWidth - scrollLeft - elementWidth > 1 ? 'flex' : 'none';
     
