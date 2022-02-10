@@ -32,7 +32,10 @@ jobs:
       - name: Production build
         run: npm run build:prod
 
-      - name: Publish to NPM
-        run: lerna publish --canary --preid=dev-${{ github.run_id }} --yes
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Checkout current branch for versioning
+        run: git checkout ${{ github.head_ref }}
+
+      - name: Bump dev version
+        run: lerna version --conventional-commits --conventional-prerelease --preid=dev-${{ github.run_id }}-${{ github.run_attempt }} --no-git-tag-version --no-push --yes
+
+      
