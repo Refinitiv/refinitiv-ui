@@ -161,24 +161,5 @@ describe('tab-bar/Template', () => {
       expect(leftScrollBtn).equal(null);
       expect(rightScrollBtn).equal(null);
     });
-
-    it('Should adjust scroll button when new tab has been added', async () => {
-      const el = await fixture(`
-        <div style="width: 150px">
-          <ef-tab-bar>
-            <ef-tab>Home</ef-tab>
-            <ef-tab>About</ef-tab>
-          </ef-tab-bar>
-        </div>`
-      );
-      const tabBar = el.querySelector('ef-tab-bar');
-      rightScrollBtn = tabBar.shadowRoot.querySelector('[part=right-btn]');
-      expect(getElementStyle(rightScrollBtn, 'display')).equal('none');
-      const newTab = document.createElement('ef-tab');
-      newTab.textContent = "Application";
-      tabBar.appendChild(newTab);
-      await elementUpdated();
-      expect(getElementStyle(rightScrollBtn, 'display')).equal('flex');
-    });
   });
 });

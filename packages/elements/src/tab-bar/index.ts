@@ -12,14 +12,15 @@ import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { VERSION } from '../version.js';
 import { tweenAnimate } from './helpers/animate.js';
-import { Tab } from '../tab';
-import type { Button } from '../button';
+import { Tab } from '../tab/index.js';
+import type { Button } from '../button/index.js';
 import '../button/index.js';
 
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 
 /**
  * Container for tabs
+ *
  * @fires value-changed - Fired when the `value` changes.
  */
 @customElement('ef-tab-bar', {
@@ -82,7 +83,7 @@ export class TabBar extends ResponsiveElement {
   private _value = '';
 
   /**
-   * Returns active tab value.
+   * Value of tab-bar, derived from value of an active tab.
    * @param value Element value
    * @default -
    */
@@ -92,7 +93,7 @@ export class TabBar extends ResponsiveElement {
     const oldValue = this._value;
     if (value !== oldValue && this.isValidValue(value)) {
       this._value = value;
-      this.selectValue(value);
+      this.activateTab(value);
       this.requestUpdate('value', oldValue);
     }
   }
@@ -157,9 +158,9 @@ export class TabBar extends ResponsiveElement {
   }
 
   /**
-   * Return true if tab list have matched value
+   * Return true if incoming value matches one of the existing tabs
    * @param value Value to check
-   * @returns true if tab list have matched value
+   * @returns true if incoming value matches one of the existing tabs
    */
   private isValidValue (value: string) {
     const tabList = this.getFocusableTabs();
@@ -171,21 +172,17 @@ export class TabBar extends ResponsiveElement {
    * @returns {void}
    */
   private onSlotChange (): void {
-    this.setLevel();
     const tabList = this.getFocusableTabs();
+
     if (tabList.length < 1) {
       return;
     }
+    this.setLevel();
+    // get tab value from active tab
     const activeTab = tabList.find(tab => tab.active) || tabList[0];
-    
     if (activeTab) {
       this.value = this.getTabValue(activeTab);
     }
-    // wait element size updated
-    setTimeout(() => {
-      this.toggleScrollButton(this.content.clientWidth);
-    });
-    this.manageTabIndex();
   }
 
   /**
@@ -193,7 +190,7 @@ export class TabBar extends ResponsiveElement {
    * @param value value of tab to select
    * @returns {void}
    */
-  private selectValue (value: string): void {
+  private activateTab (value: string): void {
     if (!value) {
       return;
     }
@@ -213,8 +210,8 @@ export class TabBar extends ResponsiveElement {
   }
 
   /**
-   * If the target of the event is a Tab, then set the value of the target to the value of the Tab
-   * @param {Event} event - Event
+   * Set tab value and fires `tab-changed` event
+   * @param event - Event
    * @returns {void}
    */
   private onTap (event: Event): void {
@@ -233,7 +230,7 @@ export class TabBar extends ResponsiveElement {
 
   /**
    * Get the value of a tab
-   * @param {Tab} tab - The tab element.
+   * @param tab - The tab element.
    * @returns The value of the tab.
    */
   private getTabValue (tab: Tab): string {
@@ -242,7 +239,7 @@ export class TabBar extends ResponsiveElement {
 
   /**
    * Return the tab's label, or its textContent, or an empty string
-   * @param {Tab} tab - The tab element.
+   * @param tab - The tab element.
    * @returns The tab label.
    */
   private getTabLabel (tab: Tab): string {
@@ -253,7 +250,7 @@ export class TabBar extends ResponsiveElement {
    * Get Tab elements from slot
    * @returns the array of Tab
    */
-  private getTabElements () {
+  private getTabElements (): Tab[] {
     const tabs = [];
     for (const child of this.children) {
       if (child instanceof Tab) {
@@ -264,20 +261,11 @@ export class TabBar extends ResponsiveElement {
   }
 
   /**
-    * Get focusable tab elements
-    * @returns the array of focusable tab
-    */
-  private getFocusableTabs () {
-    return this.getTabElements().filter(tab => this.isFocusableElement(tab));
-  }
-
-  /**
-   * Returns true if the element is focusable
-   * @param element - The element to check.
-   * @returns A boolean value.
+   * Get focusable tab elements
+   * @returns the array of focusable tab
    */
-  private isFocusableElement (element: Element): boolean {
-    return element instanceof Tab && !element.disabled && !element.readonly;
+  private getFocusableTabs (): Tab[] {
+    return this.getTabElements().filter(tab => !tab.disabled);
   }
 
   /**
@@ -285,7 +273,7 @@ export class TabBar extends ResponsiveElement {
    * @returns {void}
    */
   private setLevel (): void {
-    const tabList = this.getTabElements();
+    const tabList = this.getTabElements(); // get all tab elements include disabled tab
     tabList?.forEach((tab: Tab) => {
       tab.level = this.level;
     });
@@ -297,11 +285,12 @@ export class TabBar extends ResponsiveElement {
    * @returns {void}
    */
   private toggleScrollButton (elementWidth: number): void {
-    const { scrollLeft, scrollWidth } = this.content;
-
     if (this.vertical) {
       return;
     }
+
+    const { scrollLeft, scrollWidth } = this.content;
+
     const leftBtnStyle = scrollLeft > 0 ? 'flex' : 'none';
     const rightBtnStyle = scrollWidth - scrollLeft - elementWidth > 1 ? 'flex' : 'none';
     
@@ -472,11 +461,11 @@ export class TabBar extends ResponsiveElement {
    */
   protected render (): TemplateResult {
     return html`
-    ${!this.vertical ? html`<ef-button tabIndex="-1" icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
-      <div part="content">
-        <slot @slotchange=${this.onSlotChange}></slot>
-      </div>
-    ${!this.vertical ? html`<ef-button tabIndex="-1" icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
+      ${!this.vertical ? html`<ef-button tabIndex="-1" icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
+        <div part="content">
+          <slot @slotchange=${this.onSlotChange}></slot>
+        </div>
+      ${!this.vertical ? html`<ef-button tabIndex="-1" icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
     `;
   }
 }
