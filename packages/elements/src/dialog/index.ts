@@ -198,6 +198,21 @@ export class Dialog extends Overlay {
   }
 
   /**
+   * Run when observed attributes change value
+   * @param name attribute name
+   * @param oldValue old attribute value
+   * @param newValue new attribute value
+   * @returns {void}
+   */
+  public attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    if (name === 'no-interaction-lock') {
+      this.setAttribute('aria-modal', String(!this.noInteractionLock));
+    }
+  }
+
+  /**
    * Check if component should be updated
    * @param changedProperties properties changed on shouldUpdate lifecycle callback
    * @returns boolean should component update
@@ -206,7 +221,7 @@ export class Dialog extends Overlay {
     const shouldUpdate = super.shouldUpdate(changedProperties);
 
     return shouldUpdate
-      || ((changedProperties.has('draggable') || changedProperties.has('header') || changedProperties.has('noInteractionLock') || changedProperties.has(TranslatePropertyKey)) && this.opened);
+    || ((changedProperties.has('draggable') || changedProperties.has('header') || changedProperties.has(TranslatePropertyKey)) && this.opened);
   }
 
   /**
@@ -216,10 +231,6 @@ export class Dialog extends Overlay {
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
-
-    if (changedProperties.has('noInteractionLock')) {
-      this.setAttribute('aria-modal', String(!this.noInteractionLock));
-    }
 
     if (this.isDraggableBehaviourNeedToBeChanged(changedProperties)) {
       this.updateDraggableBehavior();
