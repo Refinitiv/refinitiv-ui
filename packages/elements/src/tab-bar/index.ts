@@ -169,11 +169,6 @@ export class TabBar extends ResponsiveElement {
    * @returns {void}
    */
   private onSlotChange (): void {
-    // wait element size updated
-    setTimeout(() => {
-      this.toggleScrollButton(this.content.clientWidth);
-    });
-
     const tabList = this.getFocusableTabs();
 
     if (tabList.length < 1) {
