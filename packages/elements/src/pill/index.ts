@@ -11,7 +11,8 @@ import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { VERSION } from '../version.js';
-import { translate, TranslatePromise } from '@refinitiv-ui/translate';
+import { Translate, translate } from '@refinitiv-ui/translate';
+import '@refinitiv-ui/phrasebook/lib/locale/en/pill.js';
 
 import '../icon/index.js';
 
@@ -118,10 +119,9 @@ export class Pill extends ControlElement {
    * Used for translations
    */
   @translate({
-    mode: 'promise',
     scope: 'ef-pill'
   })
-  private t!: TranslatePromise;
+  protected t!: Translate;
 
   @query('[part=close]') private closeElement?: HTMLElement | null;
 
@@ -155,21 +155,6 @@ export class Pill extends ControlElement {
   }
 
   /**
-   * Perform asynchronous update
-   * @returns {void}
-   */
-  protected async performUpdate (): Promise<void> {
-    if (this.clears) {
-      this.setAttribute('aria-description', await this.t('DELETE_PILL'));
-    }
-    else {
-      this.removeAttribute('aria-description');
-    }
-
-    void super.performUpdate();
-  }
-
-  /**
    * Handles key down event
    * @param event Key down event object
    * @returns {void}
@@ -181,7 +166,7 @@ export class Pill extends ControlElement {
   }
 
   private get closeTemplate (): TemplateResult | null {
-    return this.clears && !this.readonly ? html`<ef-icon part="close" icon="cross" @tap="${this.clear}"></ef-icon>` : null;
+    return this.clears && !this.readonly ? html`<ef-icon aria-label="${this.t('DELETE_PILL')}" part="close" icon="cross" @tap="${this.clear}"></ef-icon>` : null;
   }
 
   /**
