@@ -161,38 +161,6 @@ export class Slider extends ControlElement {
   public minRange = '0';
 
   /**
-   * Value of the element
-   * @param value Element value
-   */
-  @property({ type: String })
-  public set value (value: string) {
-    const oldValue = this._internalValue;
-    value = this.castValue(value);
-    if (!this.isValidValue(value)) {
-      this.warnInvalidValue(value);
-      value = '';
-    }
-    if (oldValue !== value) {
-      this._internalValue = value;
-      if (!this.dragging) {
-        // Update internal `valuePrevious` when `value` was programatically set by user.
-        this.valuePrevious = this._internalValue;
-      }
-      this.requestUpdate('value', oldValue);
-    }
-  }
-
-  public get value (): string {
-    return this._internalValue;
-  }
-
-  /**
-   * Internal value of the element.
-   * Controlled by public setter and getter
-   */
-  private _internalValue = '';
-
-  /**
    * Converts value from string to number for calculations
    * @returns value of input as a number
    */
@@ -948,6 +916,11 @@ export class Slider extends ControlElement {
           this.value = this.max;
         }
       }
+    }
+
+    if (!this.dragging) {
+      // Update internal `valuePrevious` when `value` was programatically set by user.
+      this.valuePrevious = this.value;
     }
   }
 
