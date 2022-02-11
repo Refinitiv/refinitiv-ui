@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [develop]
 jobs:
-  dev release:
+  dev_release:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
