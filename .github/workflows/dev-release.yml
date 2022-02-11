@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [develop]
 jobs:
-  release:
+  dev release:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -33,6 +33,6 @@ jobs:
         run: npm run build:prod
 
       - name: Publish to NPM
-        run: lerna publish --canary --preid=dev --yes
+        run: lerna publish --canary --preid=build.${{ github.run_id }}.${{ github.run_attempt }} --no-changelog --no-git-tag-version --no-push --include-merged-tags --no-private --force-publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
