@@ -50,6 +50,7 @@
     "test:snapshots": "npm run test -- --snapshots",
     "test:watch": "npm run build && npm run test -- --watch",
     "prepublishOnly": "node scripts/release",
+    "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },
   "dependencies": {

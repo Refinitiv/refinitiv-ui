@@ -22,6 +22,7 @@
     "test": "npm run build && karma start ../../karma.config.js --package=translate",
     "test:snapshots": "npm run test -- --snapshots",
     "test:watch": "npm run test -- --watch",
+    "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },
   "dependencies": {

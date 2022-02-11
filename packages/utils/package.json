@@ -37,6 +37,7 @@
     "lint:fix": "eslint . --fix",
     "build": "tsc --sourceMap --declarationMap",
     "build:prod": "tsc",
+    "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },
   "dependencies": {

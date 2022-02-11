@@ -11,6 +11,7 @@
     "directory": "packages/polyfills"
   },
   "scripts": {
+    "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },
   "dependencies": {

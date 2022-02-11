@@ -591,6 +591,7 @@
     "lint:fix": "node cli lint --fix",
     "prepublishOnly": "node scripts/release",
     "api-analyzer": "node ../../scripts/release/api-analyzer.js",
+    "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },
   "dependencies": {
