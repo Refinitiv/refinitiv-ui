@@ -8,6 +8,7 @@
     "directory": "packages/configurations"
   },
   "scripts": {
+    "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },
   "keywords": [

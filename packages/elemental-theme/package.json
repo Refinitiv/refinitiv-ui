@@ -20,6 +20,7 @@
     "build": "npm run build:light && npm run build:dark",
     "build:prod": "npm run build",
     "watch": "watch \"npm run build\" src --wait=10",
+    "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },
   "devDependencies": {

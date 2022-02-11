@@ -18,6 +18,7 @@
     "lint:fix": "eslint . --fix",
     "test": "npm run build && karma start ../../karma.config.js --package=i18n --include-snapshots=false",
     "test:watch": "npm run test -- --watch",
+    "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },
   "author": "Refinitiv",

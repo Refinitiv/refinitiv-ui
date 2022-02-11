@@ -77,6 +77,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "npm run build && mocha __test__/**/*.js --require esm",
+    "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },
   "devDependencies": {
