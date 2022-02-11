@@ -219,8 +219,10 @@ export class Collapse extends BasicElement {
                aria-controls="content"
                @tap=${this.toggle}>${this.header}</div>
         </div>
+        <slot name="header-left" slot="left">
+          <div part="spacer"></div>
+        </slot>
         <ef-icon icon="right" part="toggle" slot="left" aria-hidden="true"></ef-icon>
-        <slot name="header-left" slot="left"></slot>
         <slot name="header-right" slot="right"></slot>
       </ef-header>
       <div ${ref(this.panelHolderRef)} id="content" part="content" role="region" aria-labelledby="header-toggle">

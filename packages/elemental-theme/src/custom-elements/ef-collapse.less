@@ -7,18 +7,25 @@
   [part="toggle"] {
     transition: @global-transition-duration @global-transition-easing;
     opacity: .5;
-    margin-right: 0.5em;
-    margin-left: 0.8em;
+    margin-right: 0.25em;
     flex-shrink: 0;
     pointer-events: none;
+  }
+
+  [part="spacer"] {
+    flex: none;
+    width: extract(@header-padding, 2);
   }
 
   &[expanded] [part="toggle"] {
     transform: rotate(90deg);
   }
 
-  [part~=header][focused="visible"] {
-    background-color: @button-hover-background-color;
+  [part~=header] {
+    padding: 0;
+    &[focused="visible"] {
+      background-color: @button-hover-background-color;
+    }
   }
 
   [part="header-toggle"] {
