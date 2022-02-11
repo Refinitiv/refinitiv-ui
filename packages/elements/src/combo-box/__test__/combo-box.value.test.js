@@ -72,7 +72,7 @@ describe('combo-box/Value', () => {
       expect(el.value).to.equal('Any', 'Value must be "Any" string');
     });
 
-    it('Free text. Rest value via API', async () => {
+    it('Free text. Reset value via API', async () => {
       const el = await fixture('<ef-combo-box free-text value="AF" opened lang="en"></ef-combo-box>');
       el.data = getData();
       await openedUpdated(el);
