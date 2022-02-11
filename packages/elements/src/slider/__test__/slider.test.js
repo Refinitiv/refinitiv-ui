@@ -1394,6 +1394,82 @@ describe('slider/Slider', () => {
         // Check call fire event
         expect(callCountValue).to.equal(1);
       });
+      it('Event from-changed should fires when from property was set via api and drag the slider back to previous value', async () => {
+        el.range = true;
+        await elementUpdated(el);
+        expect(el.from).to.equal('0');
+        expect(el.to).to.equal('100');
+
+        el.from = 10;
+        await elementUpdated();
+        expect(el.from).to.equal('10');
+        
+        let callCountValue = 0;
+        el.addEventListener('from-changed', () => {
+          callCountValue += 1;
+        });
+
+        // Drag 'from' position 10 to 0
+        const dragPositionStart = tabSliderPosition(0);
+        const dragPosition10 = tabSliderPosition(10);
+
+        // Drag start
+        setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition10, clientY: 0 })));
+        await oneEvent(el.slider, 'mousedown');
+        expect(el.dragging).to.be.true;
+        expect(el.from).to.equal(calculateValue(el, dragPosition10).toString());
+
+        // Dragging
+        setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPositionStart, clientY: 0 })));
+        await oneEvent(window, 'mousemove');
+
+        // Darg end
+        setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPositionStart, clientY: 0 })));
+        await oneEvent(window, 'mouseup');
+        expect(el.dragging).to.be.false;
+        expect(el.from).to.equal(calculateValue(el, dragPositionStart).toString());
+
+        // Check call fire event
+        expect(callCountValue).to.equal(1);
+      });
+      it('Event to-changed should fires when to property was set via api and drag the slider back to previous value', async () => {
+        el.range = true;
+        await elementUpdated(el);
+        expect(el.from).to.equal('0');
+        expect(el.to).to.equal('100');
+
+        el.to = 80;
+        await elementUpdated();
+        expect(el.to).to.equal('80');
+        
+        let callCountValue = 0;
+        el.addEventListener('to-changed', () => {
+          callCountValue += 1;
+        });
+
+        // Drag 'to' position 80 to 100
+        const dragPositionEnd = tabSliderPosition(100);
+        const dragPosition80 = tabSliderPosition(80);
+
+        // Drag start
+        setTimeout(() => el.slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition80, clientY: 0 })));
+        await oneEvent(el.slider, 'mousedown');
+        expect(el.dragging).to.be.true;
+        expect(el.to).to.equal(calculateValue(el, dragPosition80).toString());
+
+        // Dragging
+        setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPositionEnd, clientY: 0 })));
+        await oneEvent(window, 'mousemove');
+
+        // Darg end
+        setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPositionEnd, clientY: 0 })));
+        await oneEvent(window, 'mouseup');
+        expect(el.dragging).to.be.false;
+        expect(el.to).to.equal(calculateValue(el, dragPositionEnd).toString());
+
+        // Check call fire event
+        expect(callCountValue).to.equal(1);
+      });
 
     });
   });
