@@ -20,6 +20,7 @@
   </slot>
 </div>
 <ef-icon
+  aria-label="Press delete key to remove pill"
   icon="cross"
   part="close"
 >
