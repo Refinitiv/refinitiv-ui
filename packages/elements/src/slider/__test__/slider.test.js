@@ -1359,7 +1359,6 @@ describe('slider/Slider', () => {
         expect(slider.to).to.equal('90');
       });
 
-      // jira ELF-1729
       it('Event value-changed should fires when value property was set via api and drag the slider back to previous value', async () => {
         expect(el.value).to.equal('0');
         el.value = 10;
@@ -1394,6 +1393,7 @@ describe('slider/Slider', () => {
         // Check call fire event
         expect(callCountValue).to.equal(1);
       });
+
       it('Event from-changed should fires when from property was set via api and drag the slider back to previous value', async () => {
         el.range = true;
         await elementUpdated(el);
@@ -1432,6 +1432,7 @@ describe('slider/Slider', () => {
         // Check call fire event
         expect(callCountValue).to.equal(1);
       });
+
       it('Event to-changed should fires when to property was set via api and drag the slider back to previous value', async () => {
         el.range = true;
         await elementUpdated(el);
