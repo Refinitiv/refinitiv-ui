@@ -977,6 +977,10 @@ export class Slider extends ControlElement {
         }
       }
     }
+
+    if (!this.dragging) {
+      this.fromPrevious = this.from;
+    }
   }
 
   /**
@@ -1062,6 +1066,9 @@ export class Slider extends ControlElement {
           this.to = distanceMax.toString();
         }
       }
+    }
+    if (!this.dragging) {
+      this.toPrevious = this.to;
     }
   }
 
