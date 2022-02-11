@@ -9,25 +9,50 @@
   level="3"
   part="header"
 >
+  <div
+    part="heading"
+    role="heading"
+  >
+    <div
+      aria-controls="content"
+      aria-expanded="false"
+      id="header-toggle"
+      part="header-toggle"
+      role="button"
+      tabindex="0"
+    >
+    </div>
+  </div>
+  <slot
+    name="header-left"
+    slot="left"
+  >
+    <div part="spacer">
+    </div>
+  </slot>
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
   >
   </ef-icon>
   <slot
-    name="header-left"
-    slot="left"
-  >
-  </slot>
-  <slot
     name="header-right"
     slot="right"
   >
   </slot>
 </ef-header>
-<div part="content">
-  <ef-panel transparent="">
+<div
+  aria-labelledby="header-toggle"
+  id="content"
+  part="content"
+  role="region"
+>
+  <ef-panel
+    part="content-data"
+    transparent=""
+  >
     <slot>
     </slot>
   </ef-panel>
@@ -42,25 +67,50 @@
   level="3"
   part="header"
 >
+  <div
+    part="heading"
+    role="heading"
+  >
+    <div
+      aria-controls="content"
+      aria-expanded="false"
+      id="header-toggle"
+      part="header-toggle"
+      role="button"
+      tabindex="0"
+    >
+    </div>
+  </div>
+  <slot
+    name="header-left"
+    slot="left"
+  >
+    <div part="spacer">
+    </div>
+  </slot>
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
   >
   </ef-icon>
   <slot
-    name="header-left"
-    slot="left"
-  >
-  </slot>
-  <slot
     name="header-right"
     slot="right"
   >
   </slot>
 </ef-header>
-<div part="content">
-  <ef-panel transparent="">
+<div
+  aria-labelledby="header-toggle"
+  id="content"
+  part="content"
+  role="region"
+>
+  <ef-panel
+    part="content-data"
+    transparent=""
+  >
     <slot>
     </slot>
   </ef-panel>
@@ -75,26 +125,51 @@
   level="3"
   part="header"
 >
+  <div
+    part="heading"
+    role="heading"
+  >
+    <div
+      aria-controls="content"
+      aria-expanded="false"
+      id="header-toggle"
+      part="header-toggle"
+      role="button"
+      tabindex="0"
+    >
+      Header
+    </div>
+  </div>
+  <slot
+    name="header-left"
+    slot="left"
+  >
+    <div part="spacer">
+    </div>
+  </slot>
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
   >
   </ef-icon>
   <slot
-    name="header-left"
-    slot="left"
-  >
-  </slot>
-  <slot
     name="header-right"
     slot="right"
   >
   </slot>
-  Header
 </ef-header>
-<div part="content">
-  <ef-panel transparent="">
+<div
+  aria-labelledby="header-toggle"
+  id="content"
+  part="content"
+  role="region"
+>
+  <ef-panel
+    part="content-data"
+    transparent=""
+  >
     <slot>
     </slot>
   </ef-panel>
@@ -109,25 +184,50 @@
   level="1"
   part="header"
 >
+  <div
+    part="heading"
+    role="heading"
+  >
+    <div
+      aria-controls="content"
+      aria-expanded="false"
+      id="header-toggle"
+      part="header-toggle"
+      role="button"
+      tabindex="0"
+    >
+    </div>
+  </div>
+  <slot
+    name="header-left"
+    slot="left"
+  >
+    <div part="spacer">
+    </div>
+  </slot>
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
   >
   </ef-icon>
   <slot
-    name="header-left"
-    slot="left"
-  >
-  </slot>
-  <slot
     name="header-right"
     slot="right"
   >
   </slot>
 </ef-header>
-<div part="content">
-  <ef-panel transparent="">
+<div
+  aria-labelledby="header-toggle"
+  id="content"
+  part="content"
+  role="region"
+>
+  <ef-panel
+    part="content-data"
+    transparent=""
+  >
     <slot>
     </slot>
   </ef-panel>
@@ -142,25 +242,50 @@
   level=""
   part="header"
 >
+  <div
+    part="heading"
+    role="heading"
+  >
+    <div
+      aria-controls="content"
+      aria-expanded="false"
+      id="header-toggle"
+      part="header-toggle"
+      role="button"
+      tabindex="0"
+    >
+    </div>
+  </div>
+  <slot
+    name="header-left"
+    slot="left"
+  >
+    <div part="spacer">
+    </div>
+  </slot>
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
   >
   </ef-icon>
   <slot
-    name="header-left"
-    slot="left"
-  >
-  </slot>
-  <slot
     name="header-right"
     slot="right"
   >
   </slot>
 </ef-header>
-<div part="content">
-  <ef-panel transparent="">
+<div
+  aria-labelledby="header-toggle"
+  id="content"
+  part="content"
+  role="region"
+>
+  <ef-panel
+    part="content-data"
+    transparent=""
+  >
     <slot>
     </slot>
   </ef-panel>
