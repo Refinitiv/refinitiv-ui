@@ -10,7 +10,10 @@
   nowrap=""
   part="container"
 >
-  <ef-button-bar part="buttons">
+  <ef-button-bar
+    part="buttons"
+    role="toolbar"
+  >
     <ef-button
       aria-disabled="true"
       disabled=""
@@ -43,7 +46,10 @@
     tabindex="0"
   >
   </ef-text-field>
-  <ef-button-bar part="buttons">
+  <ef-button-bar
+    part="buttons"
+    role="toolbar"
+  >
     <ef-button
       empty=""
       icon="right"

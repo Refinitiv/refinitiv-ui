@@ -8,10 +8,10 @@ import {
   TapEvent
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { VERSION } from '../version.js';
 import { Button } from '../button/index.js';
+import { ref, createRef, Ref } from '@refinitiv-ui/core/lib/directives/ref.js';
 
 /**
  * Used to display multiple buttons to create a list of commands bar.
@@ -28,6 +28,12 @@ export class ButtonBar extends BasicElement {
   static get version (): string {
     return VERSION;
   }
+
+  /**
+   * Element's role attribute for accessibility
+   * `role` should be `radiogroup` when it is managed.
+   */
+  protected defaultRole: 'toolbar' | 'radiogroup' = 'toolbar';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -92,8 +98,7 @@ export class ButtonBar extends BasicElement {
   /**
    * Default slot
    */
-  @query('slot:not([name])')
-  private defaultSlot!: HTMLSlotElement;
+  private defaultSlot: Ref<HTMLSlotElement> = createRef();
 
   /**
    * Called once after the component is first rendered
@@ -103,6 +108,141 @@ export class ButtonBar extends BasicElement {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.onTapHandler);
+    this.addEventListener('keydown', this.onKeyDown);
+    this.manageTabIndex();
+  }
+
+  /**
+   * Handles key down event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyDown (event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'Tab':
+        // To prevent inserting button case, make sure there is only one tabIndex=0 in the buttons
+        this.manageTabIndex();
+        break;
+      case ' ':
+      case 'Spacebar':
+      case 'Enter':
+        this.onTapHandler(event as unknown as TapEvent);
+        break;
+      case 'Right':
+      case 'ArrowRight':
+        // Prevent calling twice if this component is nested
+        !this.isNested() && this.navigateToSibling('next');
+        break;
+      case 'Down':
+      case 'ArrowDown':
+        // Managed works as role radiogroup so `Up` and `Down` key can navigate among radios in the group
+        this.managed && this.navigateToSibling('next');
+        break;
+      case 'Left':
+      case 'ArrowLeft':
+        !this.isNested() && this.navigateToSibling('previous');
+        break;
+      case 'Up':
+      case 'ArrowUp':
+        this.managed && this.navigateToSibling('previous');
+        break;
+      case 'Home':
+        !this.isNested() && this.first();
+        break;
+      case 'End':
+        !this.isNested() && this.last();
+        break;
+      default:
+        return;
+    }
+
+  }
+
+  /**
+   * Navigate to next or previous focusable button
+   * @param direction next | down
+   * @returns {void}
+   */
+  private navigateToSibling (direction: 'next' | 'previous'): void {
+    const buttons = this.getFocusableButtons();
+    if (buttons.length <= 0) {
+      return;
+    }
+
+    const focusedButtonIndex = buttons.findIndex(button => button === document.activeElement);
+
+    const nextButton = direction === 'next'
+      ? buttons[focusedButtonIndex + 1] || buttons[0]
+      : buttons[focusedButtonIndex - 1] || buttons[buttons.length - 1];
+
+    nextButton.focus();
+    this.rovingTabIndex(nextButton, buttons);
+  }
+
+  /**
+   * Navigate to the first focusable button
+   * @returns {void}
+   */
+  private first (): void {
+    const buttons = this.getFocusableButtons();
+    if (buttons.length <= 0) {
+      return;
+    }
+    buttons[0].focus();
+    this.rovingTabIndex(buttons[0], buttons);
+  }
+
+  /**
+   * Navigate to the last focusable button
+   * @returns {void}
+   */
+  private last (): void {
+    const buttons = this.getFocusableButtons();
+    if (buttons.length <= 0) {
+      return;
+    }
+    buttons[buttons.length - 1].focus();
+    this.rovingTabIndex(buttons[buttons.length - 1], buttons);
+  }
+
+  /**
+   * Sets the tabindex to -1 for all buttons except the currently focused one.
+   * @param target the button to be focused
+   * @param buttons Array of Buttons that contains target
+   * @returns {void}
+   */
+  private rovingTabIndex (target: Button, buttons: Button[]): void {
+    buttons.forEach((button) => {
+      button.tabIndex = -1;
+    });
+    target.tabIndex = 0;
+  }
+
+  /**
+   * Set tabIndex to all buttons
+   * @returns {void}
+   */
+  private manageTabIndex (): void {
+    if (this.isNested()) {
+      return;
+    }
+    const buttons = this.getFocusableButtons();
+    if (buttons && buttons.length > 0) {
+      // Set tabindex=0 to previous focused button when new button added If not found set it to first button instead
+      let focusedButtonIndex = buttons.findIndex(button => document.activeElement === button);
+      if (focusedButtonIndex === -1) {
+        focusedButtonIndex = 0;
+      }
+      this.rovingTabIndex(buttons[focusedButtonIndex], buttons);
+    }
+  }
+
+  /**
+   * Check if button bar is nested, a.k.a. has parent button bar
+   * @returns `True` if button bar is nested
+   */
+  private isNested (): boolean {
+    return this.parentElement instanceof ButtonBar;
   }
 
   /**
@@ -115,11 +255,14 @@ export class ButtonBar extends BasicElement {
       return;
     }
 
-    const target = event.target;
+    const target = event.target as Button;
     if (target instanceof Button && target.toggles) {
       event.stopPropagation();
       this.manageButtons(target);
     }
+
+    target.focus();
+    this.rovingTabIndex(target, this.getFocusableButtons());
   }
 
   /**
@@ -145,8 +288,15 @@ export class ButtonBar extends BasicElement {
    * @returns the array of Element of the default slot
    */
   private getElementsOfSlot (): Element[] {
-    return this.defaultSlot.assignedNodes()
-      .filter(node => node instanceof Element) as Element[];
+    return this.defaultSlot.value?.assignedNodes().filter(node => node instanceof Element) as Element[];
+  }
+
+  /**
+   * Return the array of Buttons which focusable
+   * @returns the array of focusable Buttons
+   */
+  private getFocusableButtons (): Button[] {
+    return [...this.querySelectorAll<Button>('ef-button,coral-button')].filter(button => !button.disabled);
   }
 
   /**
@@ -165,6 +315,6 @@ export class ButtonBar extends BasicElement {
    * @return {TemplateResult}  Render template
    */
   protected render (): TemplateResult {
-    return html`<slot></slot>`;
+    return html`<slot ${ref(this.defaultSlot)} ></slot>`;
   }
 }

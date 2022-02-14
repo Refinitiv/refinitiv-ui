@@ -10,7 +10,7 @@ import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { VERSION } from '../../version.js';
 import './tornado-item.js';
-import type { TornadoItem } from'./tornado-item';
+import type { TornadoItem } from './tornado-item';
 
 /**
  * A data visualization that helps to

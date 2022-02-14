@@ -11,15 +11,17 @@ import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { VERSION } from '../version.js';
-import type { Tab } from '../tab';
 import { tweenAnimate } from './helpers/animate.js';
-import type { Button } from '../button';
+import { Tab } from '../tab/index.js';
+import type { Button } from '../button/index.js';
 import '../button/index.js';
 
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 
 /**
  * Container for tabs
+ *
+ * @fires value-changed - Fired when the `value` changes.
  */
 @customElement('ef-tab-bar', {
   alias: 'coral-tab-bar'
@@ -72,6 +74,31 @@ export class TabBar extends ResponsiveElement {
   @property({ type: Boolean, reflect: true })
   public vertical = false;
 
+  /**
+   * Internal value of tab bar.
+   * Controlled by public setter and getter
+   */
+  private _value = '';
+
+  /**
+   * Value of tab-bar, derived from value of an active tab.
+   * @param value Element value
+   * @default -
+   */
+  @property({ type: String, attribute: false })
+  public set value (value: string) {
+    value = typeof value === 'string' ? value : String(value);
+    const oldValue = this._value;
+    if (value !== oldValue && this.isValidValue(value)) {
+      this._value = value;
+      this.activateTab(value);
+      this.requestUpdate('value', oldValue);
+    }
+  }
+  public get value (): string {
+    return this._value;
+  }
+
   @query('[part="content"')
   private content!: HTMLElement;
 
@@ -99,6 +126,7 @@ export class TabBar extends ResponsiveElement {
         this.toggleScrollButton(this.content.clientWidth);
       }, 66); // equal 15 fps for compatibility
     });
+    this.addEventListener('tap', this.onTap);
   }
 
   /**
@@ -107,15 +135,8 @@ export class TabBar extends ResponsiveElement {
    * @returns {void}
    */
   protected updated (changedProperties: PropertyValues): void {
-    /* istanbul ignore else */
     if (changedProperties.has('level')) {
       this.setLevel();
-    }
-    if (changedProperties.has('vertical')) {
-      // if tab bar changed from horizontal to vertical
-      if(this.vertical) {
-        this.hideScrollButtons();
-      }
     }
     super.updated(changedProperties);
   }
@@ -128,18 +149,131 @@ export class TabBar extends ResponsiveElement {
    * @returns {void}
    */
   public resizedCallback (size: ElementSize): void {
-    if(!this.vertical) {
+    if (!this.vertical) {
       this.toggleScrollButton(size.width);
     }
   }
 
   /**
-   * Hide all scroll buttons
+   * Return true if incoming value matches one of the existing tabs
+   * @param value Value to check
+   * @returns true if incoming value matches one of the existing tabs
+   */
+  private isValidValue (value: string): boolean {
+    const tabList = this.getFocusableTabs();
+    return tabList.some(tab => this.getTabValue(tab) === value);
+  }
+
+  /**
+   * When the slot changes, set the level, toggle the scroll button, and set the value
    * @returns {void}
    */
-  private hideScrollButtons (): void {
-    this.leftBtn.style.setProperty('display', 'none');
-    this.rightBtn.style.setProperty('display', 'none');
+  private onSlotChange (): void {
+    const tabList = this.getFocusableTabs();
+
+    if (tabList.length < 1) {
+      return;
+    }
+    this.setLevel();
+    // get tab value from active tab
+    const activeTab = tabList.find(tab => tab.active) || tabList[0];
+    if (activeTab) {
+      this.value = this.getTabValue(activeTab);
+    }
+  }
+
+  /**
+   * Mark tab as active
+   * @param value value of tab to select
+   * @returns {void}
+   */
+  private activateTab (value: string): void {
+    if (!value) {
+      return;
+    }
+    let hasActiveTab = false;
+    const tabList = this.getTabElements(); // get all tab elements include disabled tab
+    tabList.forEach(tab => {
+      const tabValue = this.getTabValue(tab);
+      // only mark tab as active once
+      if (tabValue === value && !hasActiveTab && !tab.disabled) {
+        tab.active = true;
+        hasActiveTab = true;
+      }
+      else {
+        tab.active = false;
+      }
+    });
+  }
+
+  /**
+   * Set tab value and fires `tab-changed` event
+   * @param event - Event
+   * @returns {void}
+   */
+  private onTap (event: Event): void {
+    if (event.defaultPrevented) {
+      return;
+    }
+    const element = event.target;
+    if (element instanceof Tab) {
+      const tabValue = this.getTabValue(element);
+      if (tabValue !== this.value) {
+        this.value = this.getTabValue(element);
+        this.notifyPropertyChange('value', tabValue);
+      }
+    }
+  }
+
+  /**
+   * Get the value of a tab
+   * @param tab - The tab element.
+   * @returns The value of the tab.
+   */
+  private getTabValue (tab: Tab): string {
+    return tab.value || (tab.hasAttribute('value') ? '' : this.getTabLabel(tab));
+  }
+
+  /**
+   * Return the tab's label, or its textContent, or an empty string
+   * @param tab - The tab element.
+   * @returns The tab label.
+   */
+  private getTabLabel (tab: Tab): string {
+    return tab.label || tab.textContent || '';
+  }
+
+  /**
+   * Get Tab elements from slot
+   * @returns the array of Tab
+   */
+  private getTabElements (): Tab[] {
+    const tabs = [];
+    for (const child of this.children) {
+      if (child instanceof Tab) {
+        tabs.push(child);
+      }
+    }
+    return tabs;
+  }
+
+  /**
+   * Get focusable tab elements
+   * @returns the array of focusable tab
+   */
+  private getFocusableTabs (): Tab[] {
+    return this.getTabElements().filter(tab => !tab.disabled);
+  }
+
+  /**
+   * Set tab level attribute accordingly
+   * @returns {void}
+   */
+  private setLevel (): void {
+    const tabList = this.getTabElements(); // get all tab elements include disabled tab
+    tabList?.forEach((tab: Tab) => {
+      tab.level = this.level;
+    });
   }
 
   /**
@@ -148,47 +282,17 @@ export class TabBar extends ResponsiveElement {
    * @returns {void}
    */
   private toggleScrollButton (elementWidth: number): void {
-    const { scrollLeft, scrollWidth } = this.content;
-
-    if(this.vertical) {
+    if (this.vertical) {
       return;
     }
 
-    // handle left button
-    if(scrollLeft > 0) {
-      this.leftBtn.style.setProperty('display', 'flex');
-    }
-    else {
-      this.leftBtn.style.setProperty('display', 'none');
-    }
+    const { scrollLeft, scrollWidth } = this.content;
 
-    // handle right button
-    if(Math.floor(scrollWidth - scrollLeft) > Math.round(elementWidth)) {
-      this.rightBtn.style.setProperty('display', 'flex');
-    }
-    else {
-      this.rightBtn.style.setProperty('display', 'none');
-    }
-  }
+    const leftBtnStyle = scrollLeft > 0 ? 'flex' : 'none';
+    const rightBtnStyle = scrollWidth - scrollLeft - elementWidth > 1 ? 'flex' : 'none';
 
-  /**
-   * Set tab level attribute accordingly
-   * @returns {void}
-   */
-  private setLevel (): void {
-    const tabList: NodeListOf<Tab> = this.querySelectorAll('ef-tab');
-
-    tabList.forEach((tab: Tab) => {
-      tab.level = this.level;
-    });
-  }
-
-  /**
-   * Detects when slot changes
-   * @returns {void}
-   */
-  private onSlotChange (): void {
-    this.setLevel();
+    this.leftBtn.style.setProperty('display', leftBtnStyle);
+    this.rightBtn.style.setProperty('display', rightBtnStyle);
   }
 
   /**
@@ -201,7 +305,7 @@ export class TabBar extends ResponsiveElement {
     let endPosition = scrollLeft - BAR_TRAVEL_DISTANCE;
 
     // If the space available is less than one half lots of our desired distance, just move to the leftest
-    if(availableScrollLeft < BAR_TRAVEL_DISTANCE * 1.5) {
+    if (availableScrollLeft < BAR_TRAVEL_DISTANCE * 1.5) {
       endPosition = 0;
     }
 
@@ -218,7 +322,7 @@ export class TabBar extends ResponsiveElement {
     let endPosition = scrollLeft + BAR_TRAVEL_DISTANCE;
 
     // If the space available is less than one half lots of our desired distance, just move the whole amount
-    if(availableScrollRight < BAR_TRAVEL_DISTANCE * 1.5) {
+    if (availableScrollRight < BAR_TRAVEL_DISTANCE * 1.5) {
       endPosition = scrollLeft + availableScrollRight;
     }
 
@@ -232,11 +336,11 @@ export class TabBar extends ResponsiveElement {
    */
   protected render (): TemplateResult {
     return html`
-    <ef-button icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>
-      <div part="content">
-        <slot @slotchange=${this.onSlotChange}></slot>
-      </div>
-    <ef-button icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>
+      ${!this.vertical ? html`<ef-button icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
+        <div part="content">
+          <slot @slotchange=${this.onSlotChange}></slot>
+        </div>
+      ${!this.vertical ? html`<ef-button icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
     `;
   }
 }
