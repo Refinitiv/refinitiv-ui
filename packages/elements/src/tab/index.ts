@@ -75,7 +75,6 @@ export class Tab extends ControlElement {
 
   /**
    * Specify tab's active status
-   * @param value active value
    */
   @property({ type: Boolean, reflect: true })
   public active = false;
