@@ -56,7 +56,7 @@
     <script>
       document.querySelectorAll('#tabsClears ef-tab').forEach((tab) => {
         tab.addEventListener('clear', (e) => {
-          document.getElementById('clearsLog').textContent = `${e.detail.label} is clear`;
+          document.getElementById('clearsLog').textContent = `${e.target.label} is clear`;
         });
       });
     </script>
@@ -73,7 +73,7 @@
     <script>
       document.querySelectorAll('#tabsHoverClears ef-tab').forEach((tab) => {
         tab.addEventListener('clear', (e) => {
-          document.getElementById('hoverClearsLog').textContent = `${e.detail.label} is clear`;
+          document.getElementById('hoverClearsLog').textContent = `${e.target.label} is clear`;
         });
       });
     </script>
@@ -126,7 +126,7 @@
     <script>
       document.querySelectorAll('#tabNav ef-tab').forEach((tab) => {
         tab.addEventListener('tap', (e) => {
-          document.getElementById('log').textContent = `${e.detail.label} is clicked`;
+          document.getElementById('log').textContent = `${e.target.label} is clicked`;
         });
       });
     </script>
