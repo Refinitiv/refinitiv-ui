@@ -437,6 +437,16 @@ describe('radio-button/RadioButton', () => {
       expect(btn1.checked).to.equal(false);
       expect(btn2.checked).to.equal(true);
     });
+    it('Should have only 1 checked radio and checked the new radio in a group when append a new checked radio ', async () => {
+      const group = [
+        await fixture('<ef-radio-button name="group" id="btn1" checked>1</ef-radio-button>')
+      ];
+      group.push(await fixture('<ef-radio-button name="group" id="btn2" checked>2</ef-radio-button>'));
+      await updateGroup(group);
+
+      const checkedRadio = group.find(element => element.checked);
+      expect(checkedRadio.id).to.equal('btn2');
+    });
   });
 
   describe('Group navigation', () => {
