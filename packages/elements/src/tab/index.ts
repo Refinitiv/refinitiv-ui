@@ -80,25 +80,13 @@ export class Tab extends ControlElement {
   @property({ type: String, attribute: 'sub-label' })
   public subLabel = '';
 
-  private _active = false;
-
   /**
    * Specify tab's active status
    * @param value active value
    * @default false
    */
   @property({ type: Boolean, reflect: true })
-  public set active (value: boolean) {
-    const oldValue = this._active;
-    if (oldValue !== value) {
-      this._active = value;
-      this.ariaSelected = String(value);
-      void this.requestUpdate('active', oldValue);
-    }
-  }
-  public get active (): boolean {
-    return this._active;
-  }
+  public active = false;
 
   /**
    * Set tab to clearable
@@ -133,13 +121,24 @@ export class Tab extends ControlElement {
 
   /**
    * Called after the element’s DOM has been updated the first time.
-   * register scroll event on content element to toggle scroll button
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown);
+  }
+
+  /**
+   * Called when the element’s DOM has been updated and rendered
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected updated (changedProperties: PropertyValues): void {
+    if (changedProperties.has('active')) {
+      this.setAttribute('aria-selected', this.active ? 'true' : 'false');
+    }
+    super.updated(changedProperties);
   }
 
   /**

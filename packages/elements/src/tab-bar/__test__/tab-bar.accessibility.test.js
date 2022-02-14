@@ -64,7 +64,7 @@ describe('tab-bar/accessibility', () => {
     el.dispatchEvent(keyEnd);
     expect(el.value).to.equal('');
   });
-  it('Navigation', async () => {
+  it('Should be able to navigate using Arrows, Home and End key correctly', async () => {
     expect(isActiveAndFocusable(tab1)).to.equal(true);
     tab1.focus();
     el.dispatchEvent(keyArrowRight);

@@ -13,7 +13,7 @@ import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { VERSION } from '../version.js';
 import { tweenAnimate } from './helpers/animate.js';
 import { Tab } from '../tab/index.js';
-import type { Button } from '../button/index.js';
+import type { Button } from '../button';
 import '../button/index.js';
 
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
@@ -334,7 +334,7 @@ export class TabBar extends ResponsiveElement {
   }
 
   /**
-   * focus and set active to tab
+   * Focus and set active to tab
    * @param tab - The element that was clicked.
    * @return {void}
    */
@@ -427,7 +427,7 @@ export class TabBar extends ResponsiveElement {
   }
 
   /**
-   * Sets the tabindex to -1 for all tabs except the currently focused one.
+   * Sets the tabindex to -1 for all tabs except the active tab.
    * @param target the tab to be focused
    * @param tabList Array of tabs that contains target
    * @returns {void}
