@@ -289,6 +289,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         this.updateComposerValues(newValues);
 
         if (this.freeText) {
+          // free text mode is only supported in single selection mode
+          // so if there is no valid selection in the composer, we can assume
+          // the first item can be used as the free text item.
           this.freeTextValue = !this.composerValues.length ? newValues[0] : '';
         }
 
