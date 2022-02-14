@@ -205,8 +205,6 @@ export class Dialog extends Overlay {
    * @returns {void}
    */
   public willUpdate (changedProperties: PropertyValues): void {
-    super.willUpdate(changedProperties);
-
     // `opened` property needs to check changed properties to make sure that `aria-modal` value will be updated correctly when dialog is opened.
     if (changedProperties.has('opened') || changedProperties.has('noInteractionLock')) {
       this.setAttribute('aria-modal', String(!this.noInteractionLock));
