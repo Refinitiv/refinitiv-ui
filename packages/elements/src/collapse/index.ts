@@ -13,9 +13,12 @@ import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/lib/directives/ref.js';
 import { VERSION } from '../version.js';
 import type { Panel } from '../panel/index.js';
+import { preload } from '../icon/index.js';
 import '../header/index.js';
 import '../panel/index.js';
 import '../icon/index.js';
+
+preload('right'); /* preload calendar icons for faster loading */
 
 /**
  * Allows users to hide non-critical information
@@ -51,7 +54,7 @@ export class Collapse extends BasicElement {
       :host {
         display: block;
       }
-      :host(:not([expanded])) [part="content"] {
+      :host(:not([expanded])) [part~=content] {
         visibility: hidden;
       }
       [part~=header] {
@@ -68,7 +71,7 @@ export class Collapse extends BasicElement {
         left: 0;
         z-index: -1;
       }
-      [part="content"]  {
+      [part~=content]  {
         overflow: hidden;
         box-sizing: border-box;
       }
@@ -219,10 +222,8 @@ export class Collapse extends BasicElement {
                aria-controls="content"
                @tap=${this.toggle}>${this.header}</div>
         </div>
-        <slot name="header-left" slot="left">
-          <div part="spacer"></div>
-        </slot>
         <ef-icon icon="right" part="toggle" slot="left" aria-hidden="true"></ef-icon>
+        <slot name="header-left" slot="left"></slot>
         <slot name="header-right" slot="right"></slot>
       </ef-header>
       <div ${ref(this.panelHolderRef)} id="content" part="content" role="region" aria-labelledby="header-toggle">

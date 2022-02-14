@@ -8,13 +8,9 @@
     transition: @global-transition-duration @global-transition-easing;
     opacity: .5;
     margin-right: 0.25em;
+    margin-left: extract(@header-padding, 2);
     flex-shrink: 0;
     pointer-events: none;
-  }
-
-  [part="spacer"] {
-    flex: none;
-    width: extract(@header-padding, 2);
   }
 
   &[expanded] [part="toggle"] {

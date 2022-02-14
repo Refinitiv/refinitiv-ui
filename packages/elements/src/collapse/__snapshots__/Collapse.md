@@ -23,13 +23,6 @@
     >
     </div>
   </div>
-  <slot
-    name="header-left"
-    slot="left"
-  >
-    <div part="spacer">
-    </div>
-  </slot>
   <ef-icon
     aria-hidden="true"
     icon="right"
@@ -37,6 +30,11 @@
     slot="left"
   >
   </ef-icon>
+  <slot
+    name="header-left"
+    slot="left"
+  >
+  </slot>
   <slot
     name="header-right"
     slot="right"
@@ -81,13 +79,6 @@
     >
     </div>
   </div>
-  <slot
-    name="header-left"
-    slot="left"
-  >
-    <div part="spacer">
-    </div>
-  </slot>
   <ef-icon
     aria-hidden="true"
     icon="right"
@@ -95,6 +86,11 @@
     slot="left"
   >
   </ef-icon>
+  <slot
+    name="header-left"
+    slot="left"
+  >
+  </slot>
   <slot
     name="header-right"
     slot="right"
@@ -140,13 +136,6 @@
       Header
     </div>
   </div>
-  <slot
-    name="header-left"
-    slot="left"
-  >
-    <div part="spacer">
-    </div>
-  </slot>
   <ef-icon
     aria-hidden="true"
     icon="right"
@@ -154,6 +143,11 @@
     slot="left"
   >
   </ef-icon>
+  <slot
+    name="header-left"
+    slot="left"
+  >
+  </slot>
   <slot
     name="header-right"
     slot="right"
@@ -198,13 +192,6 @@
     >
     </div>
   </div>
-  <slot
-    name="header-left"
-    slot="left"
-  >
-    <div part="spacer">
-    </div>
-  </slot>
   <ef-icon
     aria-hidden="true"
     icon="right"
@@ -212,6 +199,11 @@
     slot="left"
   >
   </ef-icon>
+  <slot
+    name="header-left"
+    slot="left"
+  >
+  </slot>
   <slot
     name="header-right"
     slot="right"
@@ -256,13 +248,6 @@
     >
     </div>
   </div>
-  <slot
-    name="header-left"
-    slot="left"
-  >
-    <div part="spacer">
-    </div>
-  </slot>
   <ef-icon
     aria-hidden="true"
     icon="right"
@@ -270,6 +255,11 @@
     slot="left"
   >
   </ef-icon>
+  <slot
+    name="header-left"
+    slot="left"
+  >
+  </slot>
   <slot
     name="header-right"
     slot="right"
