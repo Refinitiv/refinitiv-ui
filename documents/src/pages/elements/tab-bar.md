@@ -18,16 +18,12 @@ const tabs = document.querySelectorAll('ef-tab');
 const title = document.getElementById('title');
 for (let i = 0; i < tabs.length; i++) {
   tabs[i].addEventListener('tap', (e) => {
-    for (let x = 0; x < tabs.length; x++) {
-      tabs[x].active = false;
-    }
     if (e.target.label && e.target.label.length > 0) {
       title.textContent = e.target.label;
     }
     else {
       title.textContent = "Settings";
     }
-    e.target.active = true;
   })
 }
 ```
@@ -154,16 +150,9 @@ import 'https://cdn.skypack.dev/@refinitiv-ui/elements/tab?min';
 halo('tab');
 const tabs = document.querySelectorAll('ef-tab');
 
-/* reset all tabs to inactive */
-const resetActive = () => {
-  tabs.forEach((tab) => tab.active = false);
-}
-
 tabs.forEach((tab) => {
   tab.addEventListener('tap', (e) => {
-    resetActive();
     document.getElementById('header').textContent = e.target.label;
-    e.target.active = true;
   });
 });
 ```
@@ -205,70 +194,43 @@ section {
 </div>
 ```
 
-### Switching tab
+### Selecting a default tab
 
-`ef-tab` provides an `active` attribute/property to set the active tab. You can add a `tap` event listener to each `ef-tab` and then add the actions you need to perform -- the `tap` event is similar to the `click` event, but will work for both desktop and touch devices.
+You may wish to set an initial active value. This can be achieved by adding a `active` attribute to the tab you would like to have selected by default.
+
+Only one tab can be selected at a time.
 
 ::
 ```javascript
-::tab-bar::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/tab?min';
-halo('tab');
-const tabs = document.querySelectorAll('ef-tab');
-const event = document.getElementById('event');
-for (let i = 0; i < tabs.length; i++) {
-  tabs[i].addEventListener('tap', (e) => {
-    for (let x = 0; x < tabs.length; x++) {
-      tabs[x].active = false;
-    }
-    if (e.target.label && e.target.label.length > 0) {
-      event.textContent = `${e.target.label} + is clicked`;
-    }
-    else {
-      event.textContent = "Settings is clicked";
-    }
-    e.target.active = true;
-  })
+::select::
+```
+```css
+section {
+  height: 225px;
+  padding: 0 3px;
 }
 ```
 ```html
 <ef-tab-bar>
-  <ef-tab label="Market" active></ef-tab>
+  <ef-tab label="Market"></ef-tab>
   <ef-tab label="Company"></ef-tab>
   <ef-tab label="News"></ef-tab>
-  <ef-tab label="Charting"></ef-tab>
+  <ef-tab label="Charting" active></ef-tab>
   <ef-tab label="Monitors"></ef-tab>
   <ef-tab icon="settings"></ef-tab>
 </ef-tab-bar>
-<pre id="event"></pre>
 ```
 ::
 
 ```html
+...
 <ef-tab-bar>
-  <ef-tab label="Market" active></ef-tab>
+  <ef-tab label="Market"></ef-tab>
   <ef-tab label="Company"></ef-tab>
   <ef-tab label="News"></ef-tab>
-  <ef-tab label="Charting"></ef-tab>
+  <ef-tab label="Charting" active></ef-tab>
   <ef-tab label="Monitors"></ef-tab>
   <ef-tab icon="settings"></ef-tab>
 </ef-tab-bar>
-<pre id="event"></pre>
-```
-
-```javascript
-const tabs = document.querySelectorAll('ef-tab');
-
-/* reset all tabs to inactive */
-const resetActive = () => {
-  tabs.forEach((tab) => tab.active = false);
-}
-
-tabs.forEach((tab) => {
-  tab.addEventListener('tap', (e) => {
-    resetActive();
-    document.getElementById('event').textContent = `${e.target.label} + is clicked`;
-    e.target.active = true;
-  });
-});
+...
 ```

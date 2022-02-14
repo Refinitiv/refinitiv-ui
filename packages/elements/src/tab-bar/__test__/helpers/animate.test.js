@@ -26,7 +26,7 @@ describe('Functions from helpers', () => {
         startPosition,
         endPosition,
         complete: () => {
-          expect(el.scrollLeft).equal(endPosition);
+          expect(Math.round(el.scrollLeft)).equal(endPosition); // scrollLeft can be decimal number on zoom screen
           done();
         }
       });
