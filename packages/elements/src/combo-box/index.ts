@@ -289,7 +289,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         this.updateComposerValues(newValues);
 
         if (this.freeText) {
-          this.freeTextValue = !this.composerValues.length ? newComparison : '';
+          this.freeTextValue = !this.composerValues.length ? newValues[0] : '';
         }
 
         this.requestUpdate('values', oldValues);
