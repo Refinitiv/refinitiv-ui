@@ -698,17 +698,6 @@ export class Overlay extends ResponsiveElement {
   }
 
   /**
-   * Called after the component is first rendered
-   * @param changedProperties Properties which have changed
-   * @return {void}
-   */
-  protected firstUpdated (changedProperties: PropertyValues): void {
-    super.firstUpdated(changedProperties);
-
-    this.setAttribute('aria-modal', String(!this.noInteractionLock));
-  }
-
-  /**
    * Called when the element’s DOM has been updated and rendered
    * @param changedProperties Properties that has changed
    * @returns shouldUpdate
@@ -742,11 +731,6 @@ export class Overlay extends ResponsiveElement {
       if (shouldRefitProperties.find(property => changedProperties.has(property))) {
         this.refit();
       }
-    }
-
-    // aria-modal need be updated every time when noInteractionLock has been changed even the overlay is not opened
-    if (changedProperties.has('noInteractionLock')) {
-      this.setAttribute('aria-modal', String(!this.noInteractionLock));
     }
 
     return shouldUpdate;
