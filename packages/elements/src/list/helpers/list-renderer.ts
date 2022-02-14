@@ -49,8 +49,8 @@ export class ListRenderer extends Renderer {
       el.multiple = !!context && (context as Context).multiple === true;
 
       const itemRole = el.type === 'text' || !el.type ? 'option' : 'presentation';
+      el.tabIndex = -1;
       el.setAttribute('role', itemRole);
-      el.setAttribute('tabindex', '-1');
       tooltip ? el.setAttribute('title', tooltip) : el.removeAttribute('title');
 
       return el;
