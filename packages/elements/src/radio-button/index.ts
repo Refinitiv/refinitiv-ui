@@ -138,11 +138,11 @@ export class RadioButton extends ControlElement {
   }
 
   /**
-   * Invoked whenever the element is update
+   * Invoked whenever the element is updated
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  protected updated (changedProperties: PropertyValues): void {
     if (this.isConnected && this.hasUpdated && changedProperties.has('name')) {
       applyRegistry(this, changedProperties.get('name') as string);
     }
@@ -152,7 +152,7 @@ export class RadioButton extends ControlElement {
       this.manageGroupState();
     }
 
-    super.update(changedProperties);
+    super.updated(changedProperties);
   }
 
   /**
