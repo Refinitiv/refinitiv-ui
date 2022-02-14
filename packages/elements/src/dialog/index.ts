@@ -193,7 +193,6 @@ export class Dialog extends Overlay {
    */
   protected shouldUpdate (changedProperties: PropertyValues): boolean {
     const shouldUpdate = super.shouldUpdate(changedProperties);
-
     return shouldUpdate
       || ((changedProperties.has('draggable') || changedProperties.has('header') || changedProperties.has('noInteractionLock') || changedProperties.has(TranslatePropertyKey)) && this.opened);
   }
@@ -205,7 +204,7 @@ export class Dialog extends Overlay {
    * @returns {void}
    */
   public willUpdate (changedProperties: PropertyValues): void {
-    // `opened` property needs to check changed properties to make sure that `aria-modal` value will be updated correctly when dialog is opened.
+    // dialog only update when it is opened, so also checking `opened` change.
     if (changedProperties.has('opened') || changedProperties.has('noInteractionLock')) {
       this.setAttribute('aria-modal', String(!this.noInteractionLock));
     }
@@ -218,7 +217,6 @@ export class Dialog extends Overlay {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-
     this.setAttribute('aria-modal', String(!this.noInteractionLock));
   }
 
