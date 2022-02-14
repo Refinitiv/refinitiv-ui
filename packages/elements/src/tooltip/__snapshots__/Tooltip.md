@@ -4,6 +4,7 @@
 
 ```html
 <ef-overlay
+  aria-modal="false"
   part="tooltip"
   tabindex="-1"
   transition-style="fade"
