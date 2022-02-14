@@ -158,10 +158,10 @@ describe('tab/Tab', () => {
   describe('Accessibility', () => {
     it('Should apply aria-selected to active tab', async () => {
       const el = await fixture('<ef-tab label="Home"></ef-tab>');
-      expect(el.ariaSelected).to.equal('false');
+      expect(el.getAttribute('aria-selected')).to.equal('false');
       el.active = true;
       await elementUpdated();
-      expect(el.ariaSelected).to.equal('true');
+      expect(el.getAttribute('aria-selected')).to.equal('true');
     });
     it('Should fired clear event when press delete', async () => {
       const el = await fixture('<ef-tab label="Home" clears></ef-tab>');

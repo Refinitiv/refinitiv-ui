@@ -56,13 +56,6 @@ export class Tab extends ControlElement {
   }
 
   /**
-   * Aria indicating current select state
-   * @ignore
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-selected' })
-  public ariaSelected = 'false';
-
-  /**
    * Specify icon name to display in tab
    */
   @property({ type: String })
