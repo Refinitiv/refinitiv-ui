@@ -195,7 +195,33 @@ export class Dialog extends Overlay {
     const shouldUpdate = super.shouldUpdate(changedProperties);
 
     return shouldUpdate
-      || ((changedProperties.has('draggable') || changedProperties.has('header') || changedProperties.has(TranslatePropertyKey)) && this.opened);
+      || ((changedProperties.has('draggable') || changedProperties.has('header') || changedProperties.has('noInteractionLock') || changedProperties.has(TranslatePropertyKey)) && this.opened);
+  }
+
+  /**
+   * Compute property values that depend on other properties
+   * and are used in the rest of the update process.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  public willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    // `opened` property needs to check changed properties to make sure that `aria-modal` value will be updated correctly when dialog is opened.
+    if (changedProperties.has('opened') || changedProperties.has('noInteractionLock')) {
+      this.setAttribute('aria-modal', String(!this.noInteractionLock));
+    }
+  }
+
+  /**
+   * Called after the component is first rendered
+   * @param changedProperties Properties which have changed
+   * @return {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+
+    this.setAttribute('aria-modal', String(!this.noInteractionLock));
   }
 
   /**
