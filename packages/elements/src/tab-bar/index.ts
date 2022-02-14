@@ -162,7 +162,7 @@ export class TabBar extends ResponsiveElement {
    * @param value Value to check
    * @returns true if incoming value matches one of the existing tabs
    */
-  private isValidValue (value: string) {
+  private isValidValue (value: string): boolean {
     const tabList = this.getFocusableTabs();
     return tabList.some(tab => this.getTabValue(tab) === value);
   }
@@ -294,7 +294,6 @@ export class TabBar extends ResponsiveElement {
 
     const leftBtnStyle = scrollLeft > 0 ? 'flex' : 'none';
     const rightBtnStyle = scrollWidth - scrollLeft - elementWidth > 1 ? 'flex' : 'none';
-    
 
     this.leftBtn.style.setProperty('display', leftBtnStyle);
     this.rightBtn.style.setProperty('display', rightBtnStyle);
