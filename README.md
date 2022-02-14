@@ -45,7 +45,7 @@ We welcome and ❤ contribution in all forms: create issues, opening pull reques
 
 ## Create Issues
 Issues are important to make the Element Framework better. If you discover any issues with this project, please feel free to create an Issue.
-Please search though open and closed issues to see if a similar issue already exists. If not, open an issue and try to provide a minimal reproduction if you can.
+Please search through open and closed issues to see if a similar issue already exists. If not, open an issue and try to provide a minimal reproduction if you can.
 
 ## Pull Requests
 In the event you have coding suggestions and you would like to create pull request to this repository, it is required that you read and sign the following:
