@@ -121,15 +121,17 @@ export class Tab extends ControlElement {
   }
 
   /**
-   * Called when the element’s DOM has been updated and rendered
+   * Compute property values that depend on other properties
+   * and are used in the rest of the update process.
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('active')) {
       this.setAttribute('aria-selected', this.active ? 'true' : 'false');
     }
-    super.updated(changedProperties);
   }
 
   /**
