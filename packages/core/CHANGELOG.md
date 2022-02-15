@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.4.1...@refinitiv-ui/core@5.4.2) (2022-02-15)
+
+
+### Bug Fixes
+
+* **core:** fix lit to v2.1.2 as v2.1.3 has issue with SkyPack ([#212](https://github.com/Refinitiv/refinitiv-ui/issues/212)) ([3499c7b](https://github.com/Refinitiv/refinitiv-ui/commit/3499c7b19db5b5c310b5a1bfa4f5aa2d0b856caf))
+
+
+
+
+
 ## [5.4.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@5.4.0...@refinitiv-ui/core@5.4.1) (2022-02-15)
 
 **Note:** Version bump only for package @refinitiv-ui/core
