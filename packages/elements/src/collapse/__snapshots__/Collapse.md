@@ -9,7 +9,22 @@
   level="3"
   part="header"
 >
+  <div
+    part="heading"
+    role="heading"
+  >
+    <div
+      aria-controls="content"
+      aria-expanded="false"
+      id="header-toggle"
+      part="header-toggle"
+      role="button"
+      tabindex="0"
+    >
+    </div>
+  </div>
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
@@ -26,8 +41,16 @@
   >
   </slot>
 </ef-header>
-<div part="content">
-  <ef-panel transparent="">
+<div
+  aria-labelledby="header-toggle"
+  id="content"
+  part="content"
+  role="region"
+>
+  <ef-panel
+    part="content-data"
+    transparent=""
+  >
     <slot>
     </slot>
   </ef-panel>
@@ -42,7 +65,22 @@
   level="3"
   part="header"
 >
+  <div
+    part="heading"
+    role="heading"
+  >
+    <div
+      aria-controls="content"
+      aria-expanded="false"
+      id="header-toggle"
+      part="header-toggle"
+      role="button"
+      tabindex="0"
+    >
+    </div>
+  </div>
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
@@ -59,8 +97,16 @@
   >
   </slot>
 </ef-header>
-<div part="content">
-  <ef-panel transparent="">
+<div
+  aria-labelledby="header-toggle"
+  id="content"
+  part="content"
+  role="region"
+>
+  <ef-panel
+    part="content-data"
+    transparent=""
+  >
     <slot>
     </slot>
   </ef-panel>
@@ -75,7 +121,23 @@
   level="3"
   part="header"
 >
+  <div
+    part="heading"
+    role="heading"
+  >
+    <div
+      aria-controls="content"
+      aria-expanded="false"
+      id="header-toggle"
+      part="header-toggle"
+      role="button"
+      tabindex="0"
+    >
+      Header
+    </div>
+  </div>
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
@@ -91,10 +153,17 @@
     slot="right"
   >
   </slot>
-  Header
 </ef-header>
-<div part="content">
-  <ef-panel transparent="">
+<div
+  aria-labelledby="header-toggle"
+  id="content"
+  part="content"
+  role="region"
+>
+  <ef-panel
+    part="content-data"
+    transparent=""
+  >
     <slot>
     </slot>
   </ef-panel>
@@ -109,7 +178,22 @@
   level="1"
   part="header"
 >
+  <div
+    part="heading"
+    role="heading"
+  >
+    <div
+      aria-controls="content"
+      aria-expanded="false"
+      id="header-toggle"
+      part="header-toggle"
+      role="button"
+      tabindex="0"
+    >
+    </div>
+  </div>
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
@@ -126,8 +210,16 @@
   >
   </slot>
 </ef-header>
-<div part="content">
-  <ef-panel transparent="">
+<div
+  aria-labelledby="header-toggle"
+  id="content"
+  part="content"
+  role="region"
+>
+  <ef-panel
+    part="content-data"
+    transparent=""
+  >
     <slot>
     </slot>
   </ef-panel>
@@ -142,7 +234,22 @@
   level=""
   part="header"
 >
+  <div
+    part="heading"
+    role="heading"
+  >
+    <div
+      aria-controls="content"
+      aria-expanded="false"
+      id="header-toggle"
+      part="header-toggle"
+      role="button"
+      tabindex="0"
+    >
+    </div>
+  </div>
   <ef-icon
+    aria-hidden="true"
     icon="right"
     part="toggle"
     slot="left"
@@ -159,8 +266,16 @@
   >
   </slot>
 </ef-header>
-<div part="content">
-  <ef-panel transparent="">
+<div
+  aria-labelledby="header-toggle"
+  id="content"
+  part="content"
+  role="region"
+>
+  <ef-panel
+    part="content-data"
+    transparent=""
+  >
     <slot>
     </slot>
   </ef-panel>

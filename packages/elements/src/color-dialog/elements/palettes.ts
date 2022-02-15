@@ -53,7 +53,7 @@ export class Palettes extends BasicElement {
    * @return {void}
    */
   protected hideSelector (): void {
-    if(this.colorSelector && this.colorSelectorShadow) {
+    if (this.colorSelector && this.colorSelectorShadow) {
       this.colorSelector.style.display = 'none';
       this.colorSelectorShadow.style.display = 'none';
     }
@@ -65,7 +65,7 @@ export class Palettes extends BasicElement {
    * @param points points of colorSelector
    */
   protected showSelector (points: string): void {
-    if(this.colorSelector && this.colorSelectorShadow) {
+    if (this.colorSelector && this.colorSelectorShadow) {
       this.colorSelector.style.display = '';
       this.colorSelectorShadow.style.display = '';
       this.colorSelectorShadow.setAttribute('points', points);
@@ -125,7 +125,7 @@ export class Palettes extends BasicElement {
    */
   protected updateValue (element: SVGAElement): void {
     const color = element.getAttribute('fill');
-    if(color) {
+    if (color) {
       this.value = color;
       this.notifyPropertyChange('value', color);
     }
