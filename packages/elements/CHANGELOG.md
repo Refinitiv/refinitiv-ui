@@ -17,6 +17,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **button-bar:** improve screen reader support ([#176](https://github.com/Refinitiv/refinitiv-ui/issues/176)) ([f121ea6](https://github.com/Refinitiv/refinitiv-ui/commit/f121ea62fbdc160823dff386ec937b45d0a131e7))
 * **collapse:** accessibility support ([#203](https://github.com/Refinitiv/refinitiv-ui/issues/203)) ([12ae2f7](https://github.com/Refinitiv/refinitiv-ui/commit/12ae2f7fe036d0351e69f5daca4369fae4097917))
 * **collapse:** add accessibility support ([#161](https://github.com/Refinitiv/refinitiv-ui/issues/161)) ([158f031](https://github.com/Refinitiv/refinitiv-ui/commit/158f0317dd4df9ab76e1bd27d4aa02151787c252))
+* **dialog:** improve screen reader support ([#177](https://github.com/Refinitiv/refinitiv-ui/issues/177)) ([8b072fb](https://github.com/Refinitiv/refinitiv-ui/commit/8b072fb38eb232b1741d25b81a0089f27295d61e))
 
 
 ### Reverts
