@@ -3,7 +3,8 @@ import {
   css,
   TemplateResult,
   CSSResultGroup,
-  ControlElement
+  ControlElement,
+  PropertyValues
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
@@ -36,6 +37,8 @@ export class Tab extends ControlElement {
   static get version (): string {
     return VERSION;
   }
+
+  protected readonly defaultRole = 'tab';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -108,6 +111,30 @@ export class Tab extends ControlElement {
   private isSlotHasContent = false;
 
   /**
+   * Called after the element’s DOM has been updated the first time.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    this.addEventListener('keydown', this.onKeyDown);
+  }
+
+  /**
+   * Compute property values that depend on other properties
+   * and are used in the rest of the update process.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('active')) {
+      this.setAttribute('aria-selected', this.active ? 'true' : 'false');
+    }
+  }
+
+  /**
    * Run on default slot slotchange
    * @param event slotchange
    * @returns {void}
@@ -123,6 +150,20 @@ export class Tab extends ControlElement {
    */
   private getLineClamp (): number {
     return !this.lineClamp ? 0 : this.subLabel ? 1 : this.lineClamp;
+  }
+
+  /**
+   * Handles key down event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyDown (event: KeyboardEvent): void {
+    if (event.defaultPrevented) {
+      return;
+    }
+    if (event.key === 'Delete' && (this.clears || this.clearsOnHover)) {
+      this.dispatchEvent(new CustomEvent('clear'));
+    }
   }
 
   /**
