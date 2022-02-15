@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@5.0.7...@refinitiv-ui/theme-compiler@5.0.8) (2022-02-15)
+
+**Note:** Version bump only for package @refinitiv-ui/theme-compiler
+
+
+
+
+
 ## [5.0.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@5.0.6...@refinitiv-ui/theme-compiler@5.0.7) (2022-01-12)
 
 **Note:** Version bump only for package @refinitiv-ui/theme-compiler
