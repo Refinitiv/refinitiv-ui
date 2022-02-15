@@ -917,6 +917,11 @@ export class Slider extends ControlElement {
         }
       }
     }
+
+    if (!this.dragging) {
+      // Update internal `valuePrevious` when `value` was programatically set by user.
+      this.valuePrevious = this.value;
+    }
   }
 
   /**
@@ -944,6 +949,10 @@ export class Slider extends ControlElement {
           this.from = distanceMin.toString();
         }
       }
+    }
+
+    if (!this.dragging) {
+      this.fromPrevious = this.from;
     }
   }
 
@@ -1030,6 +1039,9 @@ export class Slider extends ControlElement {
           this.to = distanceMax.toString();
         }
       }
+    }
+    if (!this.dragging) {
+      this.toPrevious = this.to;
     }
   }
 
