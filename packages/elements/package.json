@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "5.12.1",
+  "version": "5.12.2",
   "description": "Element Framework Elements",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -599,7 +599,7 @@
     "@refinitiv-ui/i18n": "^5.2.6",
     "@refinitiv-ui/phrasebook": "^5.4.1",
     "@refinitiv-ui/solar-theme": "^5.7.0",
-    "@refinitiv-ui/translate": "^5.3.2",
+    "@refinitiv-ui/translate": "^5.3.3",
     "@refinitiv-ui/utils": "^5.1.2",
     "@types/chart.js": "^2.9.31",
     "chart.js": "~2.9.4",
