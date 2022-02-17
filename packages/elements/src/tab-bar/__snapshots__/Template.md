@@ -1,4 +1,4 @@
-# `tab-bar/TabBar`
+# `tab-bar/Template`
 
 #### `DOM structure is correct`
 
@@ -8,7 +8,7 @@
   icon="left"
   part="left-btn"
   role="button"
-  tabindex="0"
+  tabindex="-1"
   textpos="after"
 >
 </ef-button>
@@ -21,7 +21,7 @@
   icon="right"
   part="right-btn"
   role="button"
-  tabindex="0"
+  tabindex="-1"
   textpos="after"
 >
 </ef-button>

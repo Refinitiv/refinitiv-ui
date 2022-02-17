@@ -3,23 +3,25 @@ import {
   css,
   TemplateResult,
   CSSResultGroup,
-  ControlElement
+  ControlElement,
+  PropertyValues
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
+import { isSlotEmpty } from '@refinitiv-ui/utils/lib/is-slot-empty.js';
 import { VERSION } from '../version.js';
 
 import '../icon/index.js';
 import '../label/index.js';
 
-const isAllWhitespaceTextNode = (node: Node): boolean =>
-  node.nodeType === document.TEXT_NODE
-  && !node.textContent?.trim();
-
 /**
  * A building block for individual tab
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
+ *
+ * @attr {string} value - Tab's value
+ * @prop {string} [value=""] - Tab's value
  *
  * @fires clear - Dispatched when click on cross button occurs
  */
@@ -34,6 +36,23 @@ export class Tab extends ControlElement {
    */
   static get version (): string {
     return VERSION;
+  }
+
+  protected readonly defaultRole = 'tab';
+
+  /**
+   * A `CSSResultGroup` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @returns CSS template
+   */
+  static get styles (): CSSResultGroup {
+    return css`
+      :host {
+        display: inline-flex;
+        flex-shrink: 0;
+      }
+    `;
   }
 
   /**
@@ -88,26 +107,41 @@ export class Tab extends ControlElement {
   /**
    * True, if there is slotted content
    */
-  private isSlotHasChildren = true;
+  @state()
+  private isSlotHasContent = false;
 
   /**
-   * @param node that should be checked
-   * @returns whether node can be ignored.
+   * Called after the element’s DOM has been updated the first time.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
    */
-  private isIgnorable (node: Node): boolean {
-    return node.nodeType === document.COMMENT_NODE
-      || isAllWhitespaceTextNode(node);
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    this.addEventListener('keydown', this.onKeyDown);
   }
 
   /**
-   * Checks slotted children nodes and updates component to refresh label and sub-label templates.
+   * Compute property values that depend on other properties
+   * and are used in the rest of the update process.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('active')) {
+      this.setAttribute('aria-selected', this.active ? 'true' : 'false');
+    }
+  }
+
+  /**
+   * Run on default slot slotchange
    * @param event slotchange
    * @returns {void}
    */
-  private checkSlotChildren = (event: Event): void => {
+  private onSlotChange = (event: Event): void => {
     const slot = event.target as HTMLSlotElement;
-    this.isSlotHasChildren = !slot.assignedNodes().filter(node => !this.isIgnorable(node)).length;
-    this.requestUpdate();
+    this.isSlotHasContent = !!slot.assignedNodes().length && isSlotEmpty(slot);
   };
 
   /**
@@ -116,6 +150,20 @@ export class Tab extends ControlElement {
    */
   private getLineClamp (): number {
     return !this.lineClamp ? 0 : this.subLabel ? 1 : this.lineClamp;
+  }
+
+  /**
+   * Handles key down event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyDown (event: KeyboardEvent): void {
+    if (event.defaultPrevented) {
+      return;
+    }
+    if (event.key === 'Delete' && (this.clears || this.clearsOnHover)) {
+      this.dispatchEvent(new CustomEvent('clear'));
+    }
   }
 
   /**
@@ -128,21 +176,6 @@ export class Tab extends ControlElement {
      * Fires when click on cross occurs
      */
     this.dispatchEvent(new CustomEvent('clear'));
-  }
-
-  /**
-   * A `CSSResultGroup` that will be used
-   * to style the host, slotted children
-   * and the internal template of the element.
-   * @returns CSS template
-   */
-  static get styles (): CSSResultGroup {
-    return css`
-      :host {
-        display: inline-flex;
-        flex-shrink: 0;
-      }
-    `;
   }
 
   /**
@@ -162,7 +195,7 @@ export class Tab extends ControlElement {
    * @returns Label template
    */
   private get LabelTemplate (): TemplateResult | null {
-    if (!this.label || !this.isSlotHasChildren) {
+    if (!this.label || this.isSlotHasContent) {
       return null;
     }
     return html`
@@ -179,7 +212,7 @@ export class Tab extends ControlElement {
    * @returns SubLabel template
    */
   private get SubLabelTemplate (): TemplateResult | null {
-    if (!this.subLabel || !this.isSlotHasChildren) {
+    if (!this.subLabel || this.isSlotHasContent) {
       return null;
     }
     return html`
@@ -202,8 +235,7 @@ export class Tab extends ControlElement {
         <div part="label-container">
           ${this.LabelTemplate}
           ${this.SubLabelTemplate}
-          <slot @slotchange="${this.checkSlotChildren}">
-          </slot>
+          <slot @slotchange="${this.onSlotChange}"></slot>
         </div>
       ${this.CloseTemplate}
     `;

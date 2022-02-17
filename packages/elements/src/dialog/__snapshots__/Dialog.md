@@ -10,6 +10,7 @@
 >
   Dialog
   <ef-icon
+    aria-hidden="true"
     icon="cross"
     part="close"
     slot="right"
