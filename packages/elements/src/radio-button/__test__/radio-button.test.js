@@ -447,6 +447,21 @@ describe('radio-button/RadioButton', () => {
       const checkedRadio = group.find(element => element.checked);
       expect(checkedRadio.id).to.equal('btn2');
     });
+    it('Should separate scope between shadow dom and light dom', async () => {
+      const radio = await fixture('<ef-radio-button name="group" id="btn1" checked>1</ef-radio-button>');
+      const container = await fixture('<div></div>');
+      container.attachShadow({ mode: 'open' });
+      const radio2 = document.createElement('ef-radio-button');
+      radio2.setAttribute('name', 'group');
+      radio2.setAttribute('id', 'btn2');
+      radio2.checked = true;
+      container.shadowRoot.appendChild(radio2);
+      await elementUpdated(radio);
+      await elementUpdated(radio2);
+
+      expect(radio.checked).to.equal(true);
+      expect(radio2.checked).to.equal(true);
+    });
   });
 
   describe('Group navigation', () => {

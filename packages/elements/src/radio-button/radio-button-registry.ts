@@ -1,5 +1,6 @@
 // Keeps registration records of radio button group per its name
 import type { RadioButton } from './index';
+import { getElementScope } from '@refinitiv-ui/utils/lib/element.js';
 
 const registry: RadioButton[] = [];
 
@@ -103,7 +104,8 @@ const getRadioGroup = (radio: RadioButton): RadioButton[] => {
   }
 
   const groupName = radio.name;
-  return registry.filter(radio => radio.name === groupName);
+  const rootNode = getElementScope(radio);
+  return registry.filter(radio => ((rootNode === getElementScope(radio)) && (radio.name === groupName)));
 };
 
 export {
