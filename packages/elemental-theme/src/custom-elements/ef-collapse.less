@@ -7,17 +7,30 @@
   [part="toggle"] {
     transition: @global-transition-duration @global-transition-easing;
     opacity: .5;
-    margin-right: 0.5em;
-    margin-left: 0.8em;
+    margin-right: 0.25em;
+    margin-left: extract(@header-padding, 2);
     flex-shrink: 0;
+    pointer-events: none;
   }
 
   &[expanded] [part="toggle"] {
     transform: rotate(90deg);
   }
 
-  [part="header"] {
+  [part~=header] {
+    padding: 0;
+    &[focused="visible"] {
+      background-color: @button-hover-background-color;
+    }
+  }
+
+  [part="header-toggle"] {
     .touch-action();
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    outline: none;
   }
 
   @keyframes expand {
@@ -60,7 +73,10 @@
     animation-name: expand;
   }
 
-  [part="content"] ef-panel:not([spacing]) {
-    padding: var(--panel-padding);
+  [part="content"] ef-panel {
+    overflow: auto;
+    &:not([spacing]) {
+      padding: var(--panel-padding);
+    }
   }
 }
