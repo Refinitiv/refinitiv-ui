@@ -47,6 +47,8 @@ You can create a navigation tab by wrapping `ef-tab` with `ef-tab-bar`.
 
 By default, the first `ef-tab` will be set to active automatically. You can assign `active` attribute to any other `ef-tab` to set the default active tab.
 
+Tab bar will provide left and right navigation buttons if there is not enough space to display all tabs on the screen.
+
 ::
 ```javascript
 ::tab-bar::
@@ -72,18 +74,10 @@ By default, the first `ef-tab` will be set to active automatically. You can assi
 ```
 ::
 
-Tab bar will provide left and right navigation buttons if there is not enough space to display all tabs on the screen.
-
 ```html
 <ef-tab-bar>
   <ef-tab label="Tab 1" value="tab1"></ef-tab>
   <ef-tab label="Tab 2" value="tab2"></ef-tab>
-  <ef-tab label="Tab 3" value="tab3"></ef-tab>
-</ef-tab-bar>
-
-<ef-tab-bar>
-  <ef-tab label="Tab 1" value="tab1"></ef-tab>
-  <ef-tab label="Tab 2" value="tab2" active></ef-tab>
   <ef-tab label="Tab 3" value="tab3"></ef-tab>
 </ef-tab-bar>
 ```
