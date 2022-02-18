@@ -28,6 +28,7 @@ export class TreeRenderer extends Renderer {
 
       el.multiple = multiple;
       el.item = item;
+      el.tabIndex = -1;
       el.id = item.value ? `${this.key}-${item.value}` : '';
       el.depth = composer.getItemDepth(item);
       el.parent = composer.getItemChildren(item).length > 0;

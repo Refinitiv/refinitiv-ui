@@ -24,7 +24,6 @@ const EXPAND_TOGGLE_ATTR = 'expand-toggle';
  *
  * @attr {boolean} [stateless=false] - Disable selections
  * @prop {boolean} [stateless=false] - Disable selections
- *
  */
 @customElement('ef-tree')
 export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
