@@ -156,7 +156,6 @@ export class Item extends ControlElement {
     this.requestUpdate();
   };
 
-
   /**
    * Handles aria-selected or aria-checked when toggle between single and multiple selection mode
    * @returns {void}
@@ -175,10 +174,25 @@ export class Item extends ControlElement {
   }
 
   /**
-   * @override
+   * Control State behaviour will update tabindex based on the property
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  private typeChanged (): void {
+    const noInteraction = this.type === 'header' || this.type === 'divider' || this.disabled;
+    if (noInteraction) {
+      this.disableFocus();
+    }
+    else if (!this.disabled) {
+      this.enableFocus();
+    }
+  }
+
+  /**
+   * Invoked before update() to compute values needed during the update.
+   * @param changedProperties changed properties
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
     if (changedProperties.has('type')) {
       this.typeChanged();
     }
@@ -188,7 +202,6 @@ export class Item extends ControlElement {
     if (changedProperties.has('selected')) {
       this.selectedChanged();
     }
-    super.update(changedProperties);
   }
 
   /**
@@ -245,20 +258,6 @@ export class Item extends ControlElement {
    */
   public get isTruncated (): boolean {
     return !!(this.labelEl && (this.labelEl.offsetWidth < this.labelEl.scrollWidth));
-  }
-
-  /**
-   * Control State behaviour will update tabindex based on the property
-   * @returns {void}
-   */
-  private typeChanged (): void {
-    const noInteraction = this.type === 'header' || this.type === 'divider' || this.disabled;
-    if (noInteraction) {
-      this.disableFocus();
-    }
-    else if (!this.disabled) {
-      this.enableFocus();
-    }
   }
 
   /**
