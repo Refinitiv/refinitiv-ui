@@ -32,7 +32,7 @@ ef-checkbox {
 
 `ef-checkbox` is a form control for selecting one or several options. States of check box can be checked, unchecked, and indeterminate.
 
-### Usage
+## Usage
 Checkbox can be set to the checked state by adding the `checked` attribute. You can also use the attrribute to determine the current state of a checkbox. The indeterminate state can only be set by code, not by user interaction.
 
 ::
@@ -57,7 +57,7 @@ ef-checkbox {
 <ef-checkbox indeterminate>Partially checked</ef-checkbox>
 ```
 
-### Disabled and readonly
+## Disabled and readonly
 `ef-checkbox` can be set to disabled or readonly by using the associated attributes.
 
 ::
@@ -82,7 +82,7 @@ ef-checkbox {
 <ef-checkbox readonly checked>Readonly</ef-checkbox>
 ```
 
-### Handle when check state changed
+## Handle when check state changed
 The `checked-changed` event can be used to recognize when the state of a checkbox has been changed. In code, the event can also check if the state is set to `checked` or `indeterminate` by querying the associated property.
 
 ```javascript
@@ -99,7 +99,7 @@ The Checkbox element is assigned `role="checkbox"` and can have a `checked` stat
 
 The `role="group"` should be used to associate the grouping with the element’s group label. 
 
-### Notes for developers
+## Notes for developers
 
 `ef-checkbox` handles role and aria value but for checkbox group, you need to assign `role="group"` by yourself.
 

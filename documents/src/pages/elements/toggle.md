@@ -53,7 +53,7 @@ ef-toggle {
 
 `ef-toggle` is a form control element that allows users to toggle between two states.
 
-### Usage
+## Usage
 Toggle can switch between two states when the user taps or through setting the attribute/property `checked`.
 
 ```html
@@ -61,7 +61,7 @@ Toggle can switch between two states when the user taps or through setting the a
 <ef-toggle checked></ef-toggle>
 ```
 
-### Inside labels
+## Inside labels
 Set `label` and `checked-label` attributes to display labels inside the toggle in both checked and unchecked state.
 
 ::
@@ -77,7 +77,7 @@ Set `label` and `checked-label` attributes to display labels inside the toggle i
 <ef-toggle label="OFF" checked-label="ON"></ef-toggle>
 ```
 
-### Handle checked state change
+## Handle checked state change
 Toggle dispatches `checked-changed` whenever user interaction changes the `checked` value.
 
 ```javascript

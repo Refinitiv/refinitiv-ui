@@ -24,7 +24,7 @@ layout: default
 
 `ef-loader` is an animated graphical component used to show that an app is performing an action in the background, such as downloading content.
 
-### Usage
+## Usage
 Add `ef-loader` into your document, and the animation will begin. When the loader is no longer needed, hide it with `display: none`.
 
 @> If the loader is only used once, it can be also be removed from the DOM.

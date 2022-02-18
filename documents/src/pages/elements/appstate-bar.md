@@ -46,7 +46,7 @@ ef-appstate-bar {
 
 `ef-appstate-bar` is used to display status or other information at the top of an application. App State Bar comes with pre-defined colors in the theme.
 
-### Usage
+## Usage
 Styles for App State Bar content can be set using the `state` attribute/property. The App State Bar's heading can be set via the `heading` attribute/property.
 
 ```html
@@ -63,7 +63,7 @@ Styles for App State Bar content can be set using the `state` attribute/property
 </ef-appstate-bar>
 ```
 
-### Right slot
+## Right slot
 The App State Bar provides a slot to display content at the right of bar. The slot can contain any kind of content e.g. normal text, links, or icons.
 
 ::

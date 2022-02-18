@@ -14,7 +14,6 @@ type: nav
     - [Button Bar](./elements/button-bar)
     - [Pagination](./elements/pagination)
     - [Pill](./elements/pill)
-    - [Tab](./elements/tab)
     - [Tab Bar](./elements/tab-bar)
     - [Toggle](./elements/toggle)
   + Inputs

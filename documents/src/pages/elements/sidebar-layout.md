@@ -47,7 +47,7 @@ ef-sidebar-layout {
 
 The header slots can be omitted. Also, the component will automatically provide a vertical scrollbar if content is too long.
 
-### Usage
+## Usage
 `ef-sidebar-layout` is a layout, it is up to the developer to slot any contents into it. Typically, `ef-sidebar-layout` should be used together with `ef-header` for header slots, and `ef-panel` for content. Components that are used inside the layout must be imported by the app.
 
 ::
@@ -92,7 +92,7 @@ ef-sidebar-layout {
 </ef-sidebar-layout>
 ```
 
-### Add toolbar commands
+## Add toolbar commands
 Menus on header could be implemented by using slots of `ef-header`.
 
 ::
@@ -143,7 +143,7 @@ ef-sidebar-layout {
 </ef-sidebar-layout>
 ```
 
-### Toggled sidebar
+## Toggled sidebar
 Sidebar can be hidden by adding the `collapsed` attribute. A toggle button to collapse the sidebar can be implemented by code.
 
 ::

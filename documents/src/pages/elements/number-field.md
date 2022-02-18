@@ -50,7 +50,7 @@ ef-number-field {
 
 `ef-number-field` is a form control element for numerical values.
 
-### Usage
+## Usage
 Number field can be used in a similar fashion to the native number input.
 
 ```html
@@ -58,7 +58,7 @@ Number field can be used in a similar fashion to the native number input.
 <ef-number-field id="total" value="1000"></ef-number-field>
 ```
 
-### Getting value
+## Getting value
 Just like the HTML native input, the number field input value is a `string` which can be accessed via the `value` property.
 
 ```html
@@ -105,12 +105,12 @@ element.addEventListener('value-changed', (e) => {
 });
 ```
 
-### Input validation
+## Input validation
 To validate input from users `ef-number-field` provides similar features to a native input. When a user assigns an invalid input to the control, it will automatically apply an error style to alert the user.
 
 @> Validation of user input of `ef-number-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number).
 
-### Set min or max value
+## Set min or max value
 Minimum and maximum values can be set to limit input values when the user interacts. If a value exceeds the min or max set programmatically, the component will change to dipslay an error state.
 
 ::
@@ -127,7 +127,7 @@ document.getElementById('mm').value = '-15';
 <ef-number-field placeholder="Min/Max" min="-12" max="16"></ef-number-field>
 ```
 
-### Set input step
+## Set input step
 The step attribute specifies the interval between valid numbers. For instance, when `step="2"`, valid values Would only be even numbers e.g. 2,4,6,8....
 
 ::
@@ -213,7 +213,7 @@ element.addEventListener('error-changed', (e) => {
 
 `ef-number-field` is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state. 
 
-### Note for developers
+## Note for developers
 Number Field manages the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
 
 ```html

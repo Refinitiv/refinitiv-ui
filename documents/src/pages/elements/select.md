@@ -52,7 +52,7 @@ ef-select {
 ```
 ::
 
-### Usage
+## Usage
 
 `ef-select` expands upon the native `select` element, providing a fully themeable dropdown element.
 
@@ -91,11 +91,11 @@ section {
 </ef-select>
 ```
 
-### Data property interface
+## Data property interface
 
 The `data` property of the `ef-select` use the [SelectData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/select/helpers/types.ts) interface for its data items.
 
-### Categorize into groups
+## Categorize into groups
 
 Groups are also defined using `ef-item`. The only difference is that we add a `type="header"` attribute onto the element.
 
@@ -139,7 +139,7 @@ section {
 </ef-select>
 ```
 
-### Adding a placeholder
+## Adding a placeholder
 
 Once you have your choices and groups defined, you can then add placeholder text to help users understand what the list contains and what their choice is for.
 
@@ -171,7 +171,7 @@ section {
   ...
 ```
 
-### Selecting a default option
+## Selecting a default option
 
 You may wish to set an initial selected value. This can be achieved by adding a `selected` attribute to the option you would like to have selected by default.
 
@@ -209,7 +209,7 @@ section {
 ...
 ```
 
-### Disabling an option
+## Disabling an option
 
 Options can be disabled by adding a `disabled` attribute to the options you wish to disable.
 
@@ -245,7 +245,7 @@ section {
 ...
 ```
 
-### Configuring options using data object
+## Configuring options using data object
 
 Depending on your usage, you may wish to configure `ef-select` using its `data` object.
 
@@ -327,7 +327,7 @@ el.data = [
 ];
 ```
 
-### Restricting list height
+## Restricting list height
 
 The `max-height` of the list can be restricted using the `--list-max-height` property.
 
@@ -365,7 +365,7 @@ ef-select {
 }
 ```
 
-### CSS Variables
+## CSS Variables
 
 The max height and width can be overridden by CSS Variables.
 
@@ -386,7 +386,7 @@ ef-select {
 
 `ef-select` is assigned `role="listbox"` and can include properties such as `aria-expanded` and `aria-activedescendant`. Select options are assigned `role="option"` and can include properties such as `aria-label` and `aria-selected`. The element’s state programmatically updates to match its visual state.  
 
-### Note for developers
+## Note for developers
 * Select manages the role and aria attributes automatically if you create `ef-select` using `data` property
 * If you create select declaratively by using `ef-item`, assign `role="option"` to each `ef-item`
 

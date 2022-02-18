@@ -44,7 +44,7 @@ comboBox.data = [
 
 `ef-combo-box` displays a text input and an associated pop-up element that helps users set a value.
 
-### Usage
+## Usage
 The `ef-combo-box` uses the `data` property that follow [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/combo-box/helpers/types.ts) interface.
 
 
@@ -60,7 +60,7 @@ comboBox.data = [
 
 The `ef-combo-box` uses the [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/combo-box/helpers/types.ts) interface for its data items.
 
-### Getting value on single and multiple mode
+## Getting value on single and multiple mode
 When an item is selected, the item's `value` will set to Combo Box's `value`.
 
 Value can be preset via `selected` field when set data or by programmatically setting the Combo Box `value` property.
@@ -94,7 +94,7 @@ comboBox.values = ['gb', 'th'];
 
 @> By default, Combo Box allow to set value that available in its data set.
 
-### Free text mode
+## Free text mode
 Set `free-text` to allow Combo Box to contain any arbitrary value. This mode is designed to cover a search input with suggestions scenario.
 
 ::
@@ -136,7 +136,7 @@ comboBox.data = [
 <ef-combo-box free-text></ef-combo-box>
 ```
 
-### Filtering
+## Filtering
 Default filtering is applied on the data `label` property. Filtering happens when the user modifies the input text.
 
 The developer may wish to do their own filtering by implementing the `filter` property.
@@ -230,7 +230,7 @@ comboBox.filter = customFilter(comboBox);
 
 @> Regardless of filter configuration Combo Box always treats `type: 'header'` items as group headers, which persist as long as at least one item within the group is visible.
 
-### Asynchronous filtering
+## Asynchronous filtering
 
 The component's built-in filter can only be used with pre-loaded data. However, you can still implement Asynchronous filtering by following these simple steps.
 
@@ -342,7 +342,7 @@ comboBox.addEventListener('query-changed', (event) => {
 ```
 ::
 
-### Custom renderer
+## Custom renderer
 
 Combo Box supports custom rendering by providing a renderer function to the `renderer` property. The renderer receives a data item, Collection Composer and previously mapped item elements (if any), and must return an `HTMLElement`.
 
@@ -511,7 +511,7 @@ else {
 ```
 ::
 
-### CSS Variables
+## CSS Variables
 
 By default the popup width is equivalent to the input box. However, it can be overridden using CSS.
 
@@ -532,7 +532,7 @@ ef-combo-box {
 
 `ef-combo-box` is assigned `role="combobox"` and can include properties such as `aria-autocomplete`, `aria-controls`, `aria-expanded` and `aria-activedescendant`. The expanded List Box is assigned `role="listbox"` while the List Box Item is assigned `role="option"` and can include properties such as `aria-label` and `aria-selected`. The element’s state programmatically updates to match its visual state.  
 
-### Note for developers
+## Note for developers
 Combo Box manages the role and aria attributes automatically but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
 
 ```html

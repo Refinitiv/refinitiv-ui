@@ -19,7 +19,7 @@ layout: default
 
 `ef-pill` is a small button style component which is used to show one or multiple selected items. It is nearly always used to visualize multiple item selections inside UI components.
 
-### Usage
+## Usage
 You can display a pill with text inside.
 
 ```html
@@ -28,7 +28,7 @@ You can display a pill with text inside.
 <ef-pill>Mango</ef-pill>
 ```
 
-### Toggle pills
+## Toggle pills
 Toggle pills are used to switch between two states. To create a toggle pill, add the `toggles` attribute.
 
 ::
@@ -46,7 +46,7 @@ Toggle pills are used to switch between two states. To create a toggle pill, add
 <ef-pill toggles active>Active Toggles</ef-pill>
 ```
 
-### Pill with clear button
+## Pill with clear button
 A pill can display a clear button, or a small cross icon, when the `clears` attribute is added. You can also add an event listener for when the clear button is clicked.
 
 ::

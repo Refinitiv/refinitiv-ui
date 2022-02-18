@@ -25,7 +25,7 @@ layout: default
 
 Use `ef-button` for actions in forms, dialogs, etc. with support for different states and styles.
 
-### Usage
+## Usage
 `ef-button` can be used similarly to `button`. Styling and sizing are managed by the theme but can be customized using CSS.
 
 ::
@@ -57,7 +57,7 @@ Use `ef-button` for actions in forms, dialogs, etc. with support for different s
 <ef-button class="large">Large</ef-button>
 ```
 
-### Change styles and types
+## Change styles and types
  `ef-button` provides various styles to use for different scenarios, for example, call-to-action, disabled, toggles. To use a style, add its attribute to the `ef-button`.
 
 ::
@@ -81,7 +81,7 @@ Use `ef-button` for actions in forms, dialogs, etc. with support for different s
 <ef-button toggles>Toggle button</ef-button>
 ```
 
-### Inline icon
+## Inline icon
 To show an icon inside `ef-button`, use the `icon` attribute. Supported icons depend on the theme and can be seen on the icons page. Text can be configured to display before or after the icon using the `textpos` attribute.
 
 ::
@@ -101,7 +101,7 @@ To show an icon inside `ef-button`, use the `icon` attribute. Supported icons de
 <ef-button icon="tick" textpos="before">Button</ef-button>
 ```
 
-### More contents in button
+## More contents in button
 If the button width needs to be fixed, and content requires more than one line, set `height: auto;` to ensure content displays correctly inside the button.
 ::
 ```javascript
@@ -128,7 +128,7 @@ If the button width needs to be fixed, and content requires more than one line, 
 <ef-button icon="tick" class="lines">Fixed width 180px and more contents in button</ef-button>
 ```
 
-### Switching icon on mouse over
+## Switching icon on mouse over
 `ef-button` can display an icon for mouse hover by using `hover-icon` attribute.
 
 ::
@@ -146,7 +146,7 @@ If the button width needs to be fixed, and content requires more than one line, 
 <ef-button icon="cross" hover-icon="tick"></ef-button>
 ```
 
-### Handling click events on desktop and mobile
+## Handling click events on desktop and mobile
 
 `ef-button` provides events that work on both desktop and mobile. Use `tap` to ensure that the event will work on different platforms.
 
@@ -191,7 +191,7 @@ btn.addEventListener('tap', () => {
 
 `ef-button` has been assigned the role of `button` and can have a `pressed` state. Always try to include a text label for a button - avoid relying solely upon an image or icon to convey the button’s purpose to users. Assistive technology users ascertain the purpose of a button via its accessible name, which gets computed from either its visual label, alternative text, or aria-label properties – so be sure to fill them in accurately. Whenever the button’s visual state changes, the button state programmatically updates to inform assistive technology users of the element’s changed state. 
 
-### Notes for developers
+## Notes for developers
 
 `ef-button` handles role and aria value but when using button without any text label, assigns `aria-label` as the accessible name.
 

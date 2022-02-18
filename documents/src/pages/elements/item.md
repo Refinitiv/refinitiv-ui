@@ -31,7 +31,7 @@ ef-item {
 
 `ef-item` is generally used as a basic building block to compose complex custom elements. Additionally it can be used by applications to create simple menus or navigation panels.
 
-### Usage
+## Usage
 
 Use `ef-item` to create an individual list item. It provides features such as types and icons to simplify building menu controls.
 
@@ -123,7 +123,7 @@ menu.addEventListener('mouseout', (event) => {
 });
 ```
 
-### Using labels
+## Using labels
 
 `ef-item` provides `label` and `sub-label` attributes to set the label property as a simplified instance of the content.
 
@@ -170,7 +170,7 @@ Both `label` and `sub-label` are not displayed if `ef-item` has children.
 </ef-item>
 ```
 
-### Using slots
+## Using slots
 
 Custom content can be added using slots. `ef-item` provides bopth `left` and `right` slots.
 
@@ -236,7 +236,7 @@ ef-item[focused] .notes {
 </ef-item>
 ```
 
-### Advanced usage
+## Advanced usage
 `ef-item` can be used to create menu elements. You should implement your own highlight and selection models.
 
 ::

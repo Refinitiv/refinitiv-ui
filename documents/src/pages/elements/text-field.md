@@ -38,7 +38,7 @@ p {
 
 `ef-text-field` is a form element for text.
 
-### Usage
+## Usage
 
 Text field is used to accept text input from users and has similar behaviors to the native text input.
 
@@ -46,7 +46,7 @@ Text field is used to accept text input from users and has similar behaviors to 
 <ef-text-field placeholder="Type something..."></ef-text-field>
 ```
 
-### Getting value
+## Getting value
 
 The field's value can be accessed using the `value` property.
 
@@ -89,13 +89,13 @@ element.addEventListener("value-changed", (e) => {
 });
 ```
 
-### Input validation
+## Input validation
 
 Validation occurs when constraints are provided and the value changes. If the error state changes, it will dispatch an `error-changed` event along with current error state.
 
 Alternatively, you can check the `error` property to confirm if the input is valid or not.
 
-### Input length
+## Input length
 
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
 
@@ -149,7 +149,7 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-### Validate input using pattern
+## Validate input using pattern
 
 You can use a regular expression to validate the input value by setting it with the `pattern` attribute.
 
@@ -212,7 +212,7 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-### Show icon
+## Show icon
 
 An inline icon can be set to display inside the input using the `icon` attribute.
 
@@ -279,7 +279,7 @@ element.addEventListener("icon-click", (e) => {
 
 `ef-text-field` is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state.
 
-### Note for developers
+## Note for developers
 Text Field manages the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
 
 ```html

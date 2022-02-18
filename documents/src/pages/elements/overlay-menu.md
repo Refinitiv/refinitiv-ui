@@ -70,7 +70,7 @@ section {
 
 `ef-overlay-menu` is an overlay window that supports single-level and multi-level menus. It can be positioned by attaching to other elements, or its vertical and horizontal offset can be adjusted, if needed.
 
-### Usage
+## Usage
 Create `ef-overlay-menu` with `ef-item` elements as menu items. Listen for the `item-trigger` event to identify a clicked item.
 
 As the overlay menu is designed to support several use cases (multi-selection, toggle, etc.), the menu will not close when an item is clicked. To open or close the menu, simply set the `opened` property to true or false, respectively.
@@ -150,7 +150,7 @@ menuController.addEventListener('item-trigger', (e) => {
 @> See Item API document for more detail about `ef-item` properties
 
 
-### Nested menus
+## Nested menus
 
 Menu and sub-menus are bound together using the `for` and `id` attributes of `ef-item` and the sub-menu. The `for` attribute must be equal to the `id` attribute of the related sub-menu in order to bind the menu and submenu together.
 
@@ -231,7 +231,7 @@ section {
 </ef-overlay-menu>
 ```
 
-### Compact menu
+## Compact menu
 If there is not enough space to fit sub-menus, add the `compact` attribute. In this mode, sub-menus will be opened on top of the parent menu.
 
 ::
@@ -291,7 +291,7 @@ section {
 </ef-overlay-menu>
 ```
 
-### Managing position and user interaction
+## Managing position and user interaction
 
 `ef-overlay-menu` inherits properties from `ef-overlay` and thus supports the same positioning strategies.
 
@@ -357,7 +357,7 @@ button.addEventListener('click', () => {
 });
 ```
 
-### Loading from data
+## Loading from data
 
 `ef-overlay-menu` can be populated using the `data` property. `data` fields have the same names as properties in `ef-item`. Use the `items` collection to create sub-menus.
 
@@ -445,11 +445,11 @@ menu.data = [{
 }];
 ```
 
-### Data property interface
+## Data property interface
 
 The `data` property of the `ef-overlay-menu` use the [OverlayMenuData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/overlay-menu/helpers/types.ts) interface for its data items.
 
-### Managing selection
+## Managing selection
 
 `ef-overlay-menu` does not manage the selected state. Instead, the developer decides the selection model by changing the `selected` attribute on menu items. Furthermore, the developer may use the `values` getter and setter to manipulate selected items across a menu and all of its sub-menus.
 
@@ -544,7 +544,7 @@ menuController.addEventListener('item-trigger', (e) => {
 });
 ```
 
-### Overlay transitions
+## Overlay transitions
 
 `ef-overlay-menu` supports a number of built-in transitions. To set the transition, use the `transition-style` attribute.
 
@@ -617,7 +617,7 @@ section {
 </ef-overlay-menu>
 ```
 
-### Position against target
+## Position against target
 Position may contain a single word or a comma separated list to set the priority. Position is not applied if `attachTarget` is not HTML Element. For instance:
 
 - `[bottom-middle, top-middle]`  default position is bottom-middle, if cannot fit position top-middle.

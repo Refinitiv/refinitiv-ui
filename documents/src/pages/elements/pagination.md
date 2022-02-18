@@ -30,7 +30,7 @@ layout: default
 
 `ef-pagination` is used when content is divided into separate pages to display the page numbers and enable navigation between them. The component should be positioned at the bottom right of the content.
 
-### Usage
+## Usage
 You can use pagination with or without knowing a total pages. Total pages can be set by using attribute/property `max`. However, if `max` is not set, users can navigate to until an infinity page.
 
 ```html
@@ -38,7 +38,7 @@ You can use pagination with or without knowing a total pages. Total pages can be
 <ef-pagination max="7"></ef-pagination>
 ```
 
-### Listen event when users changed page
+## Listen event when users changed page
 The pagination component will fire `value-changed` with the value of the new page in `e.detail.value`.
 
 ::

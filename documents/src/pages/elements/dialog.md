@@ -32,7 +32,7 @@ layout: default
 
 `ef-dialog` is a popup window designed to contain and display any HTML content. It provides modal and dragging functionality, and also allows custom footers and control buttons to be included.
 
-### Usage
+## Usage
 
 Dialog can easily be launched by adding the `opened` property. If you want the dialog to open by default, include the `opened` attribute when you embed `ef-dialog`.
 
@@ -80,7 +80,7 @@ The default behavior of `ef-dialog` is to display at the center of the viewport 
 </ef-dialog>
 ```
 
-### Confirmed vs cancelled
+## Confirmed vs cancelled
 
 You may want to detect if the user has closed the dialog by clicking the OK or Cancel button. You can listen to the `opened-changed` event and check the value of the `confirmed` property, which will be set to `true` if the user clicked the OK button to close the dialog.
 
@@ -132,7 +132,7 @@ dlg.addEventListener('opened-changed', () => {
 });
 ```
 
-### Customize footer content
+## Customize footer content
 
 The dialog provides default OK and Cancel buttons. To replace those buttons with your own content, assign content to the `footer` slot.
 
@@ -173,7 +173,7 @@ The dialog provides default OK and Cancel buttons. To replace those buttons with
 </ef-dialog>
 ```
 
-### Customize close behaviors
+## Customize close behaviors
 
 By default, `ef-dialog` will only close when the user clicks the OK or Cancel button, or presses the ESC key. However, you can allow the dialog to close when the user clicks outside of the dialog, or prevent the dialog from closing when the ESC key is pressed.
 

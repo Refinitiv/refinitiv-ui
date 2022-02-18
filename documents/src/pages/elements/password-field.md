@@ -82,14 +82,14 @@ ul {
 
 `ef-password-field` is a form control for passwords with a built-in show/hide toggle functionality.
 
-### Usage
+## Usage
 `ef-password-field` behaves similarly to the native password input. It has password masking that allows users to securely type their passwords into the input.
 
 ```html
 <ef-password-field placeholder="Password ..."></ef-password-field>
 ```
 
-### Getting value
+## Getting value
 The value can be accessed through the `value` property.
 
 ```html
@@ -138,12 +138,12 @@ element.addEventListener("value-changed", (e) => {
 });
 ```
 
-### Input validation
+## Input validation
 Validation occurs when the constraints are provided and the value changes. If the error state changes, it will dispatch an `error-changed` event along with the current error state.
 
 Alternatively, you can access the `error` property to check if the input is valid or not.
 
-### Input length
+## Input length
 The `maxlength` attribute limits the number of characters that can be typed into the input, and the `minlength` attribute sets the minimum of characters. `ef-password-field` will show error styles if a condition is not met.
 
 ::
@@ -198,7 +198,7 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-### Validate input using pattern
+## Validate input using pattern
 You can use a regular expression to validate the input value by setting it to the `pattern` attribute.
 
 ::
@@ -261,7 +261,7 @@ element.addEventListener("error-changed", (e) => {
 
 `ef-password-field` is assigned  `role="textbox"`. States such as `disabled` and `pressed` are updated to match the visual state of the Password Field element and its “Show password” button. The password recommendation can be communicated to screen readers through a live region whenever the context changes.
 
-### Note for developers
+## Note for developers
 Password Field manages the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
 
 ```html

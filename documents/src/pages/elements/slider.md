@@ -26,13 +26,13 @@ ef-slider{
 ```
 ::
 
-### Usage
+## Usage
 Sliders allow users to make selections from a range of values. The component's `min` and `max` values set the range. A default value can be set using the `value` attribute.
 
 ```html
 <ef-slider min="0" max="100" value="60"></ef-slider>
 ```
-### Getting value
+## Getting value
 To get the value of slider, access it using the `value` property.
 
 ```html
@@ -45,7 +45,7 @@ console.log(el.value); // "1"
 
 You can add an event listener to the element for the `value-changed` event. The event will be triggered when users change the value of the slider.
 
-### Range slider
+## Range slider
 Add a `range` attribute to make the slider support `from` and `to` instead of a single value.
 
 ::
@@ -87,7 +87,7 @@ In some use cases, you may need to set a minimum number of values between `from`
 <ef-slider min="0" max="100" from="10" to="50" range min-range="10"></ef-slider>
 ```
 
-### Show input field
+## Show input field
 Input fields can be set to display on the side of slider. They show the current value of the slider and also allow users to set it with their keyboard.
 
 ::
@@ -114,7 +114,7 @@ ef-slider:first-child{
 <ef-slider show-input-field min="0" max="100" from="10" to="50" range></ef-slider>
 ```
 
-### Set steps
+## Set steps
 The `step` attribute specifies the size of each increment or decrement on the slider control. By default, the slider will not show step marks but this can be set using `show-steps`.
 
 ::
@@ -138,7 +138,7 @@ ef-slider{
 <ef-slider min="0" max="100" from="60" to="80" step="20" range show-steps show-input-field></ef-slider>
 ```
 
-### CSS Variables
+## CSS Variables
 Colors of slider are managed by the theme but can be overridden using CSS variables.
 
 ::

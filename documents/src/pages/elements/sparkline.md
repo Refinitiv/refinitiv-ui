@@ -23,7 +23,7 @@ ef-sparkline {
 
 `ef-sparkline` is a small chart component for quickly representing historical data without axes.
 
-### Usage
+## Usage
 To create a sparkline, pass data as an array of numbers using the `data` attribute. The style of the sparkline is managed by the theme, but chart size can be customized using standard CSS.
 
 ::
@@ -52,7 +52,7 @@ ef-sparkline {
 <ef-sparkline data="[-2, -3, 1, 1, 4, 6, -3, 1, 4, 6, 10, 9, 10, 9, 6, 4, 5, 0, 3, 2, 3, -1, -4, 2, 3, 4, 3, 6]"></ef-sparkline>
 ```
 
-### Reference line
+## Reference line
 Sparkline supports adding a reference line. The area above or below the reference line will be filled with different colors. The reference value can be set using the `reference-value` attribute or the `referenceValue` property.
 
 ::
@@ -73,7 +73,7 @@ ef-sparkline {
 ```html
 <ef-sparkline reference-value="0" data="[-2, -3, 1, 1, 4, 6, -3, 1, 4, 6, 10, 9, 10, 9, 6, 4, 5, 0, 3, 2, 3, -1, -4, 2, 3, 4, 3, 6]"></ef-sparkline>
 ```
-### Display previous data
+## Display previous data
 Sparkline can be set to display previous data with an inactive line color. It's common to use previous data for comparison with the current dataset.
 
 When `previous-data` is provided, sparkline will use the value of last point in the dataset as a reference line. It is recommended to not set `reference-value` when previous data is used.
@@ -97,7 +97,7 @@ ef-sparkline {
 <ef-sparkline previous-data="[-3, -2, 1, 0, 4, 2, -2, 4, 4, 6, -1]" data="[-2, -3, 1, 1, 4, 6, -3, 1, 4, 6, 10, 9, 10, 9, 3, 4, 3, 6]"></ef-sparkline>
 ```
 
-### CSS Variables
+## CSS Variables
 Sparkline colors and line width are managed by the theme but can be overridden using CSS variables.
 
 ::

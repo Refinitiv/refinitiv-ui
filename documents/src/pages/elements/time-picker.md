@@ -31,7 +31,7 @@ ef-time-picker:not(last-child) {
 
 This element allows users to input time and can be adjusted to show either a 12 or 24 hour format.
 
-### Usage
+## Usage
 
 A fixed time can be set by configuring attributes/properties.
 
@@ -64,7 +64,7 @@ ef-time-picker:not(last-child) {
 
 *> Valid time formats are `hh:mm` and `hh:mm:ss`. This component does not support milliseconds.
 
-### Setting current time
+## Setting current time
 
 You can set the current time using native `Date` object methods.
 
@@ -112,7 +112,7 @@ utcTimePicker.hours = date.getUTCHours();
 utcTimePicker.minutes = date.getUTCMinutes();
 ```
 
-### Combining time and date
+## Combining time and date
 
 Typically, the time value must be combined with a date object in order to use an API. To do this, use methods on the native `Date` object.
 

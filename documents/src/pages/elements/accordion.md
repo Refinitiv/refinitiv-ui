@@ -30,7 +30,7 @@ layout: default
 
 `ef-accordion` is used to display a group of `ef-collapse` controls. By default, only one item at a time can be expanded, but this behavior can be customized to allow multiple expanded item.
 
-### Usage
+## Usage
 
 Accordions can be created by using `ef-collapse` inside `ef-accordion`.
 
@@ -77,7 +77,7 @@ By default, only one item at a time can be expanded. Adding the `auto-collapse-d
 </ef-accordion>
 ```
 
-### Initial expanding state and content spacing.
+## Initial expanding state and content spacing.
 
 To set an item in the accordion to expand in its initial state, set the `expanded` attribute to `ef-collapse`. If you add the `spacing` attribute to `ef-accordion` then default padding will be applied to the content section of every collapse item.
 
@@ -108,7 +108,7 @@ To set an item in the accordion to expand in its initial state, set the `expande
 </ef-accordion>
 ```
 
-### Using slot
+## Using slot
 
 Other features of `ef-collapse` can still be used e.g. slots.
 

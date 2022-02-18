@@ -19,7 +19,7 @@ layout: default
 
 `ef-collapse` allows users to hide non-critical information or areas of the screen, maximizing the amount of real estate available to their primary content.
 
-### Usage
+## Usage
 The `ef-collapse` can wrap around any html content, be it native html elements such as `div` or custom components.
 
 ```html
@@ -30,7 +30,7 @@ The `ef-collapse` can wrap around any html content, be it native html elements s
 </ef-collapse>
 ```
 
-### Set title
+## Set title
 The title of each section can be set using the `header` attribute.
 
 ::
@@ -54,7 +54,7 @@ The title of each section can be set using the `header` attribute.
 </ef-collapse>
 ```
 
-### Set section level
+## Set section level
 You can set the `level` attribute to visualize hierarchical content. Styling each level is managed by the theme.
 
 ::
@@ -98,7 +98,7 @@ You can set the `level` attribute to visualize hierarchical content. Styling eac
 </ef-collapse>
 ```
 
-### Content spacing
+## Content spacing
 Content can be set to use default padding from the theme by adding the `spacing` attribute.
 
 ::
@@ -122,7 +122,7 @@ Content can be set to use default padding from the theme by adding the `spacing`
 </ef-collapse>
 ```
 
-### Custom header
+## Custom header
 The header can contain simple text or components such as checkbox, button. These components can be added using `slot`.
 
 ::

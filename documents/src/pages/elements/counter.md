@@ -21,7 +21,7 @@ layout: default
 
 `ef-counter` is a badge component which can be used to show a number of selected items.
 
-### Usage
+## Usage
 The number that displays on the counter can be set via the `value` attribute/property. If `value` is unset, negative or not a string number, it will display '0'. Any decimal value will be truncated e.g. '9.9' will be converted to '9'.
 
 ::
@@ -44,7 +44,7 @@ The number that displays on the counter can be set via the `value` attribute/pro
 <ef-counter value="XYZ"></ef-counter>
 <ef-counter value="-10"></ef-counter>
 ```
-### Set maximum value
+## Set maximum value
 Use the `max` attribute/property to limit the value displayed. The counter will display the maximum value with a plus sign suffix `+` when `value` is greater than `max`.
 
 If `max` is unset, negative or not a string number, it will reset to the default and the counter will not apply the max to its value. If `max` is set with a decimal, it will be truncated e.g. '99.9' will be converted to '99'.
@@ -71,7 +71,7 @@ If `max` is unset, negative or not a string number, it will reset to the default
 <ef-counter max="199" value="200"></ef-counter>
 ```
 
-### Compact notation
+## Compact notation
 `ef-counter` supports compact notation to minimize large number formats. Numbers greater than 999 will be formatted as abbreviated numbers.
 
 ::

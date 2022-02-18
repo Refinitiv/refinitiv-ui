@@ -33,14 +33,14 @@ p {
 
 `ef-email-field` is a form control to confidently obtain an email input from users.
 
-### Usage
+## Usage
 `ef-email-field` has similar behaviors to the native email input type.
 
 ```html
 <ef-email-field placeholder="Business email address"></ef-email-field>
 ```
 
-### Getting value
+## Getting value
 The field's value can be accessed directly using the `value` property.
 
 ```html
@@ -80,12 +80,12 @@ element.addEventListener("value-changed", (e) => {
 });
 ```
 
-### Input validation
+## Input validation
 Validation occurs when the constraints are provided and the value changes. If the error state changes, it will dispatch the `error-changed` event along with the current error state.
 
 Alternatively, you can check the `error` property to confirm if the input is valid.
 
-### Input length
+## Input length
 The `maxlength` attribute limits the number of characters that users can type into the input and the `minlength` attribute is used to set the minimum of characters required. `ef-email-field` will show error styles if the condition is not met.
 
 ::
@@ -139,7 +139,7 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-### Validate input using pattern
+## Validate input using pattern
 You can use a regular expression to validate the input value by adding the `pattern` attribute.
 
 ::
@@ -196,7 +196,7 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-### Show icon
+## Show icon
 
 An inline icon can be displayed inside the input using `icon`.
 
@@ -270,7 +270,7 @@ element.addEventListener("icon-click", (e) => {
 
 `ef-email-field` is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state.
 
-### Note for developers
+## Note for developers
 Email Field manages the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
 
 ```html

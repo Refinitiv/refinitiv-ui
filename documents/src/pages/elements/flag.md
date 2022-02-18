@@ -28,7 +28,7 @@ ef-flag {
 
 `ef-flag` provides a collection of country flags.
 
-### Usage
+## Usage
 
 You can set a flag's code via the `flag` attribute to display the flag. Alternatively, instead of using the `flag` attribute, you can manually provide the url of an svg flag using the `src` attribute.
 
@@ -40,7 +40,7 @@ You can set a flag's code via the `flag` attribute to display the flag. Alternat
 <ef-flag src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/pe.svg"></ef-flag>
 ```
 
-### Changing size
+## Changing size
 
 Flags are displayed in 4:3 aspect ratio. Flag size can be set using `font-size`.
 
@@ -64,7 +64,7 @@ Flags are displayed in 4:3 aspect ratio. Flag size can be set using `font-size`.
 <ef-flag class="large" flag="gb"></ef-flag>
 ```
 
-### Preloading
+## Preloading
 
 `ef-flag` has the helper function to preload a set of flags. It could help to load flags faster if you have a known set of flags for use in the app. It accepts both flag name or svg location, either single flag or multiple.
 

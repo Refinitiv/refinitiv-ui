@@ -30,7 +30,7 @@ section {
 
 `ef-datetime-picker` allows the user to select a date or date range, and optionally a time, and display the selection in a specific format.
 
-### Usage
+## Usage
 
 By default, Datetime Picker only allows the user to select the date. Use the `timepicker` attribute to allow the user to select both a date and time.
 
@@ -64,7 +64,7 @@ section {
 datetimePicker.value = '2019-03-20';
 ```
 
-### Setting the date
+## Setting the date
 
 The displayed date is based on `format` and user language. However, `value` must be in `yyyy-MM-dd` format (e.g. "2019-03-20").
 If `timepicker` is on, `value` must be in `yyyy-MM-ddTHH:mm` or `yyyy-MM-ddTHH:mm:ss` format (e.g. "2019-03-20T23:40" or "2019-03-20T23:40:59").
@@ -112,7 +112,7 @@ o>datetimePicker.value = '2019-03-20'; /* if `timepicker` is off */
 o>datetimePicker.value = '2019-03-20T09:00'; /* if `timepicker` is on */
 o>```
 
-### Range select
+## Range select
 
 Use `range` to switch the Datetime Picker to date range selection mode. By default, `range` provides a single calendar that allows users to choose start and end dates.
 
@@ -154,7 +154,7 @@ section {
 datetimePicker.values = ['2019-01-01T12:01', '2019-01-07T14:54'];
 ```
 
-### Custom formats
+## Custom formats
 
 Custom date and time formats can be set using `format` attribute/property. Use `show-seconds` to allow the user to select second. Use `am-pm` to switch time picker into AM/PM time format.
 
@@ -190,7 +190,7 @@ ef-datetime-picker {
 <ef-datetime-picker format="dd, yyyy, MMMM, h:mm a" timepicker am-pm></ef-datetime-picker>
 ```
 
-### Defining min and max values
+## Defining min and max values
 
 You can restrict the available date range by passing in `min` and `max` values.
 
@@ -219,7 +219,7 @@ section {
 <ef-datetime-picker timepicker min="2015-01-01T00:00" max="2022-12-31T23:59"></ef-datetime-picker>
 ```
 
-### Setting locale
+## Setting locale
 Datetime Picker uses system default locale (or US-English if locale is not present). You can change the locale by setting [lang](https://www.w3.org/International/questions/qa-html-language-declarations) attribute either globally on *document* tag or locally.
 
 The first day of the week is defined by the locale. You can override it by setting `first-day-of-week`.
@@ -247,7 +247,7 @@ section {
 <ef-datetime-picker first-day-of-week="3" value="2019-05-21"></ef-datetime-picker>
 ```
 
-### Set content to slots
+## Set content to slots
 Use slots to add additional content into the Datetime Picker.
 
 ::

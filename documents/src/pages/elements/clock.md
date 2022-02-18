@@ -32,7 +32,7 @@ ef-clock:not(last-child) {
 
 Clock component displays a clock with the time in HH:MM:SS format. It can be configured to show any custom time.
 
-### Usage
+## Usage
 The clock is set to display the time as `00:00:00` by default. You can configure the component to show the seconds segment, display it in a 12-hour format or tick the clock.
 
 ::
@@ -65,7 +65,7 @@ ef-clock:not(last-child) {
 <ef-clock am-pm></ef-clock>
 ```
 
-### Custom initial time
+## Custom initial time
 
 You can customize the initial time of `ef-clock` using `value`.
 
@@ -99,7 +99,7 @@ ef-clock:not(last-child) {
 
 @> Valid time formats are `hh:mm` and `hh:mm:ss`. This component does not support milliseconds.
 
-### Offset
+## Offset
 
 You can shift the time displayed by setting the `offset` attribute in seconds. The clock will display the offset time by calculating `value` and `offset` together without affecting the original `value` data.
 
@@ -131,7 +131,7 @@ ef-clock:not(last-child) {
 <ef-clock offset="19800"></ef-clock>
 ```
 
-### Interactive mode
+## Interactive mode
 Set the `interactive` attribute of `ef-clock` to allow users to interact with it. When interactive is set, users can click on clock segments to set the `offset` values.
 
 ::
@@ -166,7 +166,7 @@ ef-clock:not(last-child) {
 <ef-clock interactive></ef-clock>
 ```
 
-### Responsive size
+## Responsive size
 Clock size can be responsive if you set the `font-size` style with viewport units.
 
 ::
@@ -200,7 +200,7 @@ ef-clock {
 <ef-clock style="font-size: 5vw;" am-pm></ef-clock>
 <ef-clock style="font-size: 10vw;" am-pm></ef-clock>
 ```
-### Analogue
+## Analogue
 Set `analogue` attribute will change digital clock to analogue display. When the size of analogue clock is smaller than the break point, It will switch to a simple clock face.
 
 ::

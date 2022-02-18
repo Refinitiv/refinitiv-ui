@@ -76,7 +76,7 @@ ef-interactive-chart {
 
 Interactive Chart is a lightweight chart component that allows you to create different use cases for financial chart. The component uses the [lightweight-charts](https://github.com/tradingview/lightweight-charts) library. You can see a demo of different chart types and the APIs of the lightweight chart library via this [documentation](https://www.tradingview.com/lightweight-charts/).
 
-### Usage
+## Usage
 Chart can be create by passing the configuration and initial dataset using the `config` property. Interactive chart supports the following chart types. The `value` must be a number.
 
 The interactive chart can be draw to various types and each type may need a different dataset.
@@ -160,7 +160,7 @@ chart.config = {
 };
 ```
 
-### Intraday charts
+## Intraday charts
 Interactive chart supports intraday chart using a UNIX timestamp instead of a date string, as mentioned in the [Lightweight Documentation](https://github.com/tradingview/lightweight-charts/blob/b58f2c3e7f539db5baab660bc50842367f5ed4fb/docs/time.md).
 
 Also, be sure to enable `timeVisible` in the configuration. `secondVisible` is optional.
@@ -225,7 +225,7 @@ chart.config = {
 };
 ```
 
-### Multiple charts
+## Multiple charts
 Chart can display multiple series by passing an array to `config.series`. For example, a rebasing chart can be created as poer below.
 
 ::
@@ -342,7 +342,7 @@ chart.config = {
 };
 ```
 
-### Volume chart
+## Volume chart
 To create a chart with volume, add a volume series and set `seriesOptions` as follows.
 
 ::
@@ -443,7 +443,7 @@ chart.config = {
   ]
 };
 ```
-### Seasonality chart
+## Seasonality chart
 A Seasonality chart can be created using multiple series with the same timespan. You can use the APIs to customize the displayed legend, X-Axis label and cross hair vertical label.
 
 ::
@@ -604,7 +604,7 @@ chart.config = {
 ```
 
 
-### Setting chart options
+## Setting chart options
 You can customize chart options either at the **chart level** or **series level**.
 
 To customize options at the chart level, pass the option to `config.options`. Learn more about chart options from the [Lightweight Chart Customization](https://github.com/tradingview/lightweight-charts/tree/b58f2c3e7f539db5baab660bc50842367f5ed4fb/docs).
@@ -802,7 +802,7 @@ ef-interactive-chart {
 ```
 ::
 
-### Y-Axis placement
+## Y-Axis placement
 By default, chart will not display a left-side y-axis and all series will show on the right y-axis of the chart. However, `lightweight-chart` also provides the option to configure placement of a series to the left, right or both.
 
 Customizing chart to show data on the left y-axis.
@@ -1000,7 +1000,7 @@ ef-interactive-chart {
 ```
 ::
 
-### Chart legend
+## Chart legend
 The interactive chart provides a default standard legend which displays price and symbol, if available.
 
 In case you want to preserve the value of `symbol` and show a custom name on the legend, use `symbolName` alongside `symbol`. The chart will use `symbolName` in the legend, instead.
@@ -1073,7 +1073,7 @@ chart.config = {
 ```
 ::
 
-### Custom legend
+## Custom legend
 You can implement your own legend using the `legend` slot.
 
 ```html
@@ -1182,7 +1182,7 @@ chartEl.addEventListener('initialized', (event) => {
 ```
 ::
 
-### Lightweight Charts instance
+## Lightweight Charts instance
 An instance of lightweight chart can be accessed using the `chart` and `seriesList` properties.
 
 ```javascript

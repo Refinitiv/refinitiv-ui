@@ -21,7 +21,7 @@ halo('button');
 
 Tooltip displays information when the user hovers over an item.
 
-### Usage
+## Usage
 Import the `ef-tooltip` component and use the `title` attribute, just like with a standard tooltip.
 
 ::
@@ -55,7 +55,7 @@ Import the `ef-tooltip` component and use the `title` attribute, just like with 
 
 @> `ef-tooltip` overrides the default title attribute behavior of the browser
 
-### Selector
+## Selector
 `ef-tooltip` can be used for advanced use cases, such as specifying a position for tooltips, custom rendering, or displaying a tooltip only when certain conditions are met.
 
 To customize the behavior of `ef-tooltip`, use `selector` to specify the CSS selector for the elemens and `tooltip` to specify the text content of the tooltip.
@@ -86,7 +86,7 @@ halo('button');
 <ef-tooltip selector=".navigation ef-button"></ef-tooltip>
 ```
 
-### Positioning tooltips
+## Positioning tooltips
 By default, the tooltip position is based on the pointer coordinates (`auto`). However, the tooltip can be configured to display `above`, `below`, `left`, or `right` of the element.
 
 ::
@@ -129,7 +129,7 @@ By default, the tooltip position is based on the pointer coordinates (`auto`). H
 <ef-tooltip selector="label[auto]"></ef-tooltip>
 ```
 
-### Tooltip transition styles
+## Tooltip transition styles
 The default tooltip transition is `fade`. To make tooltips display with a different transition style, use the `transition-style` attribute. Note: the transition style should be used rationally with tooltip position.
 
 ::
@@ -186,7 +186,7 @@ The default tooltip transition is `fade`. To make tooltips display with a differ
 <ef-tooltip transition-style="slide-left-down" position="left" selector=".navigation label[slide-left-down]"></ef-tooltip>
 ```
 
-### Custom content
+## Custom content
 
 Custom content can be added to a tooltip instead of just text.
 
@@ -242,7 +242,7 @@ halo('button');
 </ef-tooltip>
 ```
 
-### Custom rendering
+## Custom rendering
 Use custom rendering to display HTML content in a tooltip. The content passed to the renderer function needs to be an HTMLElement object.
 
 *> If `title` attribute is provided; or custom content of tooltip is specified, `renderer` will be ignored.
@@ -362,7 +362,7 @@ tooltip.renderer = (target) => {
 };
 ```
 
-### Conditioning tooltip
+## Conditioning tooltip
 Use custom condition to trigger a tooltip only when a condition is met.
 
 ::
@@ -407,7 +407,7 @@ tooltip.condition = (target, paths) => target === input && isValid(target.value)
 };
 ```
 
-### Default tooltip
+## Default tooltip
 It is recommended to have only one instance of tooltip per page. A default tooltip element is always included when the developer adds `ef-tooltip` to an application.
 
 Use `addTooltipCondition` and `removeTooltipCondition` to reuse the default tooltip:
@@ -427,7 +427,7 @@ addTooltipCondition(condition, render);
 removeTooltipCondition(condition);
 ```
 
-### Overflow tooltip
+## Overflow tooltip
 Overflow tooltip reuses the concept of _Default tooltip_ to display a tooltip when text overflows:
 
 ```css
@@ -447,7 +447,7 @@ const overflowElement = document.querySelector('.overflow');
 registerOverflowTooltip(overflowElement);
 ```
 
-### CSS Variables
+## CSS Variables
 A timer to show or hide a tooltip can be customized using the `--show-delay` and `--hide-delay` CSS variables.
 
 *> setting these variables to small values can cause performance issues.

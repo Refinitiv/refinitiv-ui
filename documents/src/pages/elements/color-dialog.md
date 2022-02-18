@@ -36,7 +36,7 @@ document.getElementById('button').addEventListener('click', () => {
 
 `ef-color-dialog` allows users to select any color. You can set the value as a hex color code (short hex is also supported) or as Red/Green/Blue (0 - 255). Users can choose a color directly from a pallete UI or via input boxes in the dialog.
 
-### Usage
+## Usage
 
 Color dialog can be opened and closed just like any popup window, by setting the attribute/property `opened`.
 
@@ -44,7 +44,7 @@ Color dialog can be opened and closed just like any popup window, by setting the
 <ef-color-dialog opened id="colorDialog"></ef-color-dialog>
 ```
 
-### Preset default value
+## Preset default value
 
 Color Dialog also accepts an initial color value. To set the default value, use the `value` attribute.
 
@@ -79,7 +79,7 @@ document.getElementById('button').addEventListener('click', () => {
 <ef-color-dialog value="#9966ff"></ef-color-dialog>
 ```
 
-### 'No Color' option
+## 'No Color' option
 
 In some circumstances, it might be necessary for the component to allow a user to select "no color." This option can be activated using the `allow-nocolor` property/attribute.  
 

@@ -20,7 +20,7 @@ layout: default
 
 An LED gauge is used to show one or two values in an LED-like horizontal bar visualization. It is suited to display values where users can see and compare information such as industry average values, or 52-week high and 52-week low values.
 
-### Usage
+## Usage
 `ef-led-gauge` shows data in a scale of -100.00 to +100.00, with a mid-point of 0.00. By default, scales are divided equally and represented by 5 different colors -- Negative, Low-negative, Neutral, Low-positive, and Positive.
 
 ::
@@ -59,7 +59,7 @@ For example, to show data of 36.00 where the highest value is 60.00 and the lowe
 <ef-led-gauge top-label="36.00" top-value="-60.00"></ef-led-gauge>
 ```
 
-### Mono color
+## Mono color
 `ef-led-gauge` can be wet to use only one color by adding the attribute `neutral-color`.
 
 ::
@@ -75,7 +75,7 @@ For example, to show data of 36.00 where the highest value is 60.00 and the lowe
 <ef-led-gauge neutral-color top-label="36.00" top-value="-60.00"></ef-led-gauge>
 ```
 
-### Showing range bar
+## Showing range bar
 Range bar mode can be used to show a range bar within the LED gauge. When Range bar mode is used, `ef-led-gauge` will automatically switch to using mono color.
 
 The size of the range bar can be set using the `range` attribute where the values of range need to be normalized to the 100.00 to +100.00 scale.
@@ -95,7 +95,7 @@ To display a text label beneath the range bar, add the `range-label` attribute.
 <ef-led-gauge neutral-color top-label="36.00" top-value="-60.00" range="[-70,-20]"></ef-led-gauge>
 ```
 
-### CSS Variables
+## CSS Variables
 The colors of the LED gauge are managed by the theme but can be overridden using CSS variables.
 
 ::

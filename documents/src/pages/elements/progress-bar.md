@@ -58,7 +58,7 @@ ef-progress-bar {
 
 `ef-progress-bar` is a simple visualization to display a single bar. It accepts a value between 0-100 and uses it as a percentage to fill the bar.
 
-### Set bar length
+## Set bar length
 The length of the bar can be set using the `value` attribute, which can be any decimal number between 0 and 100.
 
 ::
@@ -85,7 +85,7 @@ ef-progress-bar {
 <ef-progress-bar value="25"></ef-progress-bar>
 ```
 
-### Show label
+## Show label
 You can set the `label` attribute to display text at the end of a bar. To prevent a label from going outside of a container, apply the `margin-right` attribute.
 
 ```css
@@ -113,7 +113,7 @@ ef-progress-bar {
 ```
 ::
 
-### Customize height and color
+## Customize height and color
 Bar color and height have default values from the theme, but you can override them using CSS.
 
 ::
@@ -155,7 +155,7 @@ ef-progress-bar {
 <ef-progress-bar value="65" label="Toast"></ef-progress-bar>
 ```
 
-### Label slot
+## Label slot
 The `label` attribute supports only text. You can use slot to include any content e.g. icons or customize your label colour.
 
 You may have to add some CSS to your content, to ensure that it looks nice.

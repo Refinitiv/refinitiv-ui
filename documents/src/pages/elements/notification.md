@@ -26,7 +26,7 @@ createNotification();
 
 The notification bar is used to show informative content when something happens in the application.
 
-### Usage
+## Usage
 `ef-notification` provides an out-of-the-box set of notification methods to use within an application.
 
 These methods work in a similar way to those provided by `window.console`.
@@ -47,7 +47,7 @@ warn('Warning Notification', 5000/* Show for 5 seconds */);
 error('Error Notification', Infinity/* Show until user dismisses */);
 ```
 
-### Inserting HTML
+## Inserting HTML
 
 When using the notification methods provided by the module, you can gain access to the created element using the returned result.
 
@@ -59,7 +59,7 @@ const notification = info('Info Notification');
 notification.innerHTML = 'Hello <strong>World</strong>!';
 ```
 
-### Using a custom background color
+## Using a custom background color
 
 Custom background colors can be set using the `--background-color` variable.
 
@@ -83,7 +83,7 @@ ef-notification {
 }
 ```
 
-### Custom use of notifications
+## Custom use of notifications
 
 This element can be used natively, like any other element. Using notifications this way requires you to manage and position the element correctly within your application.
 
@@ -106,7 +106,7 @@ This element can be used natively, like any other element. Using notifications t
 <ef-notification error>Hello Everyone! 👋</ef-notification>
 ```
 
-### Application Error Notifications
+## Application Error Notifications
 During development, when the application is running on localhost or 127.0.0.1, application errors will be shown as a notification. This is to aid development and highlight any errors that may occur, so that they can be addressed before the application is deployed. These error messages will not be shown when your application is hosted in a non-dev environment.
 
 ## Accessibility

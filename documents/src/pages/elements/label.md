@@ -58,7 +58,7 @@ hr {
 
 `ef-label` is a responsive text container that provides automatic ellipsis and middle truncation. A tooltip is shown if the text does not fit.
 
-### Usage
+## Usage
 
 Wrap the text with `ef-label`. Middle truncation and tooltip are applied automatically.
 
@@ -85,7 +85,7 @@ ef-label {
 </ef-label>
 ```
 
-### Line clamp
+## Line clamp
 
 Use `line-clamp` attribute to handle the maximum number of lines to display.
 

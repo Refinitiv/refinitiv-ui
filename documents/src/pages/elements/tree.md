@@ -51,7 +51,7 @@ tree.data = [{
 
 Displays a nested data structure as a tree menu. Useful for navigating grouped/categorized data.
 
-### Usage
+## Usage
 
 The data of `ef-tree` can be set by passing an array of objects to the element's `data` property.
 
@@ -94,7 +94,7 @@ tree.data = [{
 }]
 ```
 
-### Tree item with icon
+## Tree item with icon
 Icon can be set to show on each node in tree by using icon key in item object. You can pass icon name, url of icon svg file or empty string.
 
 
@@ -193,11 +193,11 @@ tree.data = [
 ];
 ```
 
-### Data property interface
+## Data property interface
 
 The `data ` property that passes through the `ef-tree` uses the [TreeData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/tree/helpers/types.ts) interface for its data items.
 
-### Multiple selection
+## Multiple selection
 
 Tree uses single selection mode by default. Use the `multiple` attribute if you need multiple selections.
 
@@ -248,7 +248,7 @@ tree.data = [
 <ef-tree multiple></ef-tree>
 ```
 
-### Turn off parent/child relationship
+## Turn off parent/child relationship
 
 For multiple selection mode, Tree manages the relationship between parent and child items. Use the `no-relation` attribute to turn this feature off.
 
@@ -299,7 +299,7 @@ tree.data = [
 <ef-tree multiple no-relation></ef-tree>
 ```
 
-### Tree value(s) and events
+## Tree value(s) and events
 
 Use the `value-changed` event to know when the user has changed any selection in Tree. Tree provides `value` and `values` properties for accessing selected item(s).
 

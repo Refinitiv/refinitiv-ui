@@ -20,7 +20,7 @@ layout: default
 
 `ef-card` is a versatile container that can display content inside the card frame.
 
-### Usage
+## Usage
 You can wrap any content with `ef-card`.
 
 Header and footer can be set by using slotted content or by using `header` and `footer` attributes.
@@ -58,7 +58,7 @@ Using `header` and `footer` attributes
 </ef-card>
 ```
 
-### Card menu
+## Card menu
 
 `ef-card` can show a menu by passing the `data` through the property using the `config` property. The schema of `data` is the same as ([Overlay Menu](./elements/overlay-menu))
 
