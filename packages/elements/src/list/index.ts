@@ -628,6 +628,11 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     });
   }
 
+  /**
+   * Invoked when the element is first updated. Implement to perform one time work on the element after update.
+   * @param changeProperties changed properties
+   * @returns {void}
+   */
   protected firstUpdated (changeProperties: PropertyValues): void {
     super.firstUpdated(changeProperties);
 
@@ -639,13 +644,16 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     this.addEventListener('focusout', this.onBlur);
   }
 
-  protected update (changeProperties: PropertyValues): void {
+  /**
+   * Invoked before update() to compute values needed during the update.
+   * @param changeProperties changed properties
+   * @returns {void}
+   */
+  protected willUpdate (changeProperties: PropertyValues): void {
     if (changeProperties.has('multiple')) {
       this.renderTimestamp.clear(); // force render of all items
       this.setAttribute('aria-multiselectable', this.multiple ? 'true' : 'false');
     }
-
-    return super.update(changeProperties);
   }
 
   /**
