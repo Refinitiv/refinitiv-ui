@@ -5,7 +5,8 @@ const translations = {
   CANCEL: 'Cancel',
   OK: 'OK',
   CLOSE: 'Close',
-  APPLY: 'Apply'
+  APPLY: 'Apply',
+  DELETE_BUTTON: 'Press delete key to remove'
 };
 
 Phrasebook.define('en', translations);

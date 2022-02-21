@@ -1,7 +1,8 @@
 import { Phrasebook } from '../../translation.js';
+import sharedTranslation from './shared.js';
 
 const translations = {
-  DELETE_PILL: 'Press delete key to remove pill'
+  ...sharedTranslation
 };
 
 Phrasebook.define('zh', 'ef-pill', translations);
