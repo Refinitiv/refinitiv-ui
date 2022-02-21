@@ -72,7 +72,7 @@ export class TornadoItem extends BasicElement {
    * Display highlight styles onto the item
    */
   @property({ type: Boolean, reflect: true })
-  public highlighted = false
+  public highlighted = false;
 
   /**
    * Primary bar chart's value
