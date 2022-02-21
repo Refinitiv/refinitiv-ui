@@ -55,7 +55,7 @@ import {
 } from './time.js';
 
 type Format = InputTimeFormat | InputDateFormat | InputDateTimeFormat;
-type Unit = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second';
+type Unit = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond';
 
 type Segment = DateTimeSegment | (TimeSegment & {
   year?: number;
@@ -408,6 +408,9 @@ const addUnit = (value: string, amount: number, unit: Unit): string => {
     case 'second':
       date.setUTCSeconds(date.getUTCSeconds() + amount);
       break;
+    case 'millisecond':
+      date.setUTCMilliseconds(date.getUTCMilliseconds() + amount);
+      break;
     // no default
   }
 
@@ -511,6 +514,22 @@ const addSeconds = (value: string, amount: number): string => addUnit(value, amo
 const subSeconds = (value: string, amount: number): string => addSeconds(value, -amount);
 
 /**
+ * Add the specified number of milliseconds to the given date
+ * @param value the date to be changed
+ * @param amount the amount of milliseconds to be added
+ * @returns the new date with the milliseconds added
+ */
+const addMilliseconds = (value: string, amount: number): string => addUnit(value, amount, 'millisecond');
+
+/**
+ * Subtract the specified number of milliseconds to the given date
+ * @param value the date to be changed
+ * @param amount the amount of milliseconds to be subtracted
+ * @returns the new date with the milliseconds subtracted
+ */
+const subMilliseconds = (value: string, amount: number): string => addMilliseconds(value, -amount);
+
+/**
  * Returns `true` or `false` depending on whether the hours are before, or, after noon
  * @param value the time to check
  * @returns Result
@@ -595,5 +614,7 @@ export {
   subMinutes,
   addSeconds,
   subSeconds,
+  addMilliseconds,
+  subMilliseconds,
   isWeekend
 };
