@@ -55,6 +55,7 @@ import {
 } from './time.js';
 
 type Format = InputTimeFormat | InputDateFormat | InputDateTimeFormat;
+type Unit = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second';
 
 type Segment = DateTimeSegment | (TimeSegment & {
   year?: number;
@@ -360,12 +361,13 @@ const isWeekend = (value: string): boolean => {
 };
 
 /**
- * Add the specified number of months to the given date
+ * Add the specified number of units to the given date
  * @param value the date to be changed
- * @param amount the amount of months to be added
- * @returns the new date with the months added
+ * @param amount the amount of units to be added
+ * @param unit the unit
+ * @returns the new date with the units added
  */
-const addMonths = (value: string, amount: number): string => {
+const addUnit = (value: string, amount: number, unit: Unit): string => {
   if (!amount) {
     return value;
   }
@@ -376,20 +378,65 @@ const addMonths = (value: string, amount: number): string => {
     throw throwInvalidValue(value);
   }
 
-  const date = utcParse(value);
-  const dayOfMonth = date.getUTCDate();
-  const endOfDesiredMonth = new Date(date.getTime());
-  endOfDesiredMonth.setUTCMonth(date.getUTCMonth() + amount + 1, 0);
-  const daysInMonth = endOfDesiredMonth.getUTCDate();
+  let date = utcParse(value);
+  switch (unit) {
+    case 'year':
+      date.setUTCFullYear(date.getUTCFullYear() + amount);
+      break;
+    case 'month':
+      const dayOfMonth = date.getUTCDate();
+      const endOfDesiredMonth = new Date(date.getTime());
+      endOfDesiredMonth.setUTCMonth(date.getUTCMonth() + amount + 1, 0);
+      const daysInMonth = endOfDesiredMonth.getUTCDate();
 
-  if (dayOfMonth >= daysInMonth) {
-    return utcFormat(endOfDesiredMonth, format);
+      if (dayOfMonth >= daysInMonth) {
+        date = endOfDesiredMonth;
+      }
+      else {
+        date.setUTCFullYear(endOfDesiredMonth.getUTCFullYear(), endOfDesiredMonth.getUTCMonth(), dayOfMonth);
+      }
+      break;
+    case 'day':
+      date.setUTCDate(date.getUTCDate() + amount);
+      break;
+    case 'hour':
+      date.setUTCHours(date.getUTCHours() + amount);
+      break;
+    case 'minute':
+      date.setUTCMinutes(date.getUTCMinutes() + amount);
+      break;
+    case 'second':
+      date.setUTCSeconds(date.getUTCSeconds() + amount);
+      break;
+    // no default
   }
-  else {
-    date.setUTCFullYear(endOfDesiredMonth.getUTCFullYear(), endOfDesiredMonth.getUTCMonth(), dayOfMonth);
-    return utcFormat(date, format);
-  }
+
+  return utcFormat(date, format);
 };
+
+/**
+ * Add the specified number of years to the given date
+ * @param value the date to be changed
+ * @param amount the amount of years to be added
+ * @returns the new date with the years added
+ */
+const addYears = (value: string, amount: number): string => addUnit(value, amount, 'year');
+
+/**
+ * Subtract the specified number of years to the given date
+ * @param value the date to be changed
+ * @param amount the amount of years to be subtracted
+ * @returns the new date with the years subtracted
+ */
+const subYears = (value: string, amount: number): string => addYears(value, -amount);
+
+/**
+ * Add the specified number of months to the given date
+ * @param value the date to be changed
+ * @param amount the amount of months to be added
+ * @returns the new date with the months added
+ */
+const addMonths = (value: string, amount: number): string => addUnit(value, amount, 'month');
 
 /**
  * Subtract the specified number of months to the given date
@@ -397,9 +444,71 @@ const addMonths = (value: string, amount: number): string => {
  * @param amount the amount of months to be subtracted
  * @returns the new date with the months subtracted
  */
-const subMonths = (value: string, amount: number): string => {
-  return addMonths(value, -amount);
-};
+const subMonths = (value: string, amount: number): string => addMonths(value, -amount);
+
+/**
+ * Add the specified number of days to the given date
+ * @param value the date to be changed
+ * @param amount the amount of days to be added
+ * @returns the new date with the days added
+ */
+const addDays = (value: string, amount: number): string => addUnit(value, amount, 'day');
+
+/**
+ * Subtract the specified number of days to the given date
+ * @param value the date to be changed
+ * @param amount the amount of days to be subtracted
+ * @returns the new date with the days subtracted
+ */
+const subDays = (value: string, amount: number): string => addDays(value, -amount);
+
+/**
+ * Add the specified number of hours to the given date
+ * @param value the date to be changed
+ * @param amount the amount of hours to be added
+ * @returns the new date with the hours added
+ */
+const addHours = (value: string, amount: number): string => addUnit(value, amount, 'hour');
+
+/**
+ * Subtract the specified number of hours to the given date
+ * @param value the date to be changed
+ * @param amount the amount of hours to be subtracted
+ * @returns the new date with the hours subtracted
+ */
+const subHours = (value: string, amount: number): string => addHours(value, -amount);
+
+/**
+ * Add the specified number of minutes to the given date
+ * @param value the date to be changed
+ * @param amount the amount of minutes to be added
+ * @returns the new date with the minutes added
+ */
+const addMinutes = (value: string, amount: number): string => addUnit(value, amount, 'minute');
+
+/**
+ * Subtract the specified number of minutes to the given date
+ * @param value the date to be changed
+ * @param amount the amount of minutes to be subtracted
+ * @returns the new date with the minutes subtracted
+ */
+const subMinutes = (value: string, amount: number): string => addMinutes(value, -amount);
+
+/**
+ * Add the specified number of seconds to the given date
+ * @param value the date to be changed
+ * @param amount the amount of seconds to be added
+ * @returns the new date with the seconds added
+ */
+const addSeconds = (value: string, amount: number): string => addUnit(value, amount, 'second');
+
+/**
+ * Subtract the specified number of seconds to the given date
+ * @param value the date to be changed
+ * @param amount the amount of seconds to be subtracted
+ * @returns the new date with the seconds subtracted
+ */
+const subSeconds = (value: string, amount: number): string => addSeconds(value, -amount);
 
 /**
  * Returns `true` or `false` depending on whether the hours are before, or, after noon
@@ -474,7 +583,17 @@ export {
   isToday,
   isThisMonth,
   isThisYear,
+  addYears,
+  subYears,
   addMonths,
   subMonths,
+  addDays,
+  subDays,
+  addHours,
+  subHours,
+  addMinutes,
+  subMinutes,
+  addSeconds,
+  subSeconds,
   isWeekend
 };
