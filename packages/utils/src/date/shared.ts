@@ -368,12 +368,12 @@ const isWeekend = (value: string): boolean => {
 
 /**
  * Add the specified number of units to the given date
- * @param value the date to be changed
- * @param amount the amount of units to be added
- * @param unit the unit
- * @returns the new date with the units added
+ * @param value The date to be changed
+ * @param unit The unit: `year`, `month`, `day`, `hour`, `minute`, `second` or `millisecond`
+ * @param amount The amount of units to be added, e.g. 1 to increase or -1 to decrease
+ * @returns date The new date
  */
-const addUnit = (value: string, amount: number, unit: Unit): string => {
+const addUnit = (value: string, unit: Unit, amount: number): string => {
   if (!amount) {
     return value;
   }
@@ -429,7 +429,7 @@ const addUnit = (value: string, amount: number, unit: Unit): string => {
  * @param amount the amount of months to be added
  * @returns the new date with the months added
  */
-const addMonths = (value: string, amount: number): string => addUnit(value, amount, 'month');
+const addMonths = (value: string, amount: number): string => addUnit(value, 'month', amount);
 
 /**
  * Subtract the specified number of months to the given date
@@ -497,11 +497,11 @@ const subOffset = (value: string, amount: number): string => addOffset(value, -a
 /**
  * Iterate over the date by specified number of units
  * @param value The date to be changed
- * @param amount the amount of units to be iterated. Set 1 to increase by 1, or -1 to decrease
- * @param unit The unit: `year`|`month`|`day`|`hour`|`minute`|`second`|`millisecond`;
+ * @param unit The unit: `year`, `month`, `day`, `hour`, `minute`, `second` or `millisecond`
+ * @param amount The amount of units to be iterated, e.g. 1 to go up or -1 to go down
  * @returns date The new date
  */
-const iterateUnit = (value: string, amount: number, unit: Unit): string => {
+const iterateUnit = (value: string, unit: Unit, amount: number): string => {
   if (!amount) {
     return value;
   }
