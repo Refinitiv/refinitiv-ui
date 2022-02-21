@@ -41,3 +41,10 @@ jobs:
         run: lerna publish from-git --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Sync to develop branch
+        run: |
+          git checkout develop
+          git merge main --no-edit --no-ff
+          git push
+          git status
