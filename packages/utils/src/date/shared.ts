@@ -12,7 +12,8 @@ import {
   parse as parseDate,
   toSegment as toDateSegment,
   utcFormat as utcFormatDate,
-  utcParse as utcParseDate
+  utcParse as utcParseDate,
+  getDaysInMonth
 } from './date.js';
 
 import {
@@ -47,7 +48,12 @@ import {
 } from './utils.js';
 
 import {
-  HOURS_OF_NOON
+  HOURS_OF_NOON,
+  MONTHS_IN_YEAR,
+  HOURS_IN_DAY,
+  MINUTES_IN_HOUR,
+  SECONDS_IN_MINUTE,
+  MILLISECONDS_IN_SECOND
 } from './timestamps.js';
 
 import {
@@ -418,22 +424,6 @@ const addUnit = (value: string, amount: number, unit: Unit): string => {
 };
 
 /**
- * Add the specified number of years to the given date
- * @param value the date to be changed
- * @param amount the amount of years to be added
- * @returns the new date with the years added
- */
-const addYears = (value: string, amount: number): string => addUnit(value, amount, 'year');
-
-/**
- * Subtract the specified number of years to the given date
- * @param value the date to be changed
- * @param amount the amount of years to be subtracted
- * @returns the new date with the years subtracted
- */
-const subYears = (value: string, amount: number): string => addYears(value, -amount);
-
-/**
  * Add the specified number of months to the given date
  * @param value the date to be changed
  * @param amount the amount of months to be added
@@ -448,86 +438,6 @@ const addMonths = (value: string, amount: number): string => addUnit(value, amou
  * @returns the new date with the months subtracted
  */
 const subMonths = (value: string, amount: number): string => addMonths(value, -amount);
-
-/**
- * Add the specified number of days to the given date
- * @param value the date to be changed
- * @param amount the amount of days to be added
- * @returns the new date with the days added
- */
-const addDays = (value: string, amount: number): string => addUnit(value, amount, 'day');
-
-/**
- * Subtract the specified number of days to the given date
- * @param value the date to be changed
- * @param amount the amount of days to be subtracted
- * @returns the new date with the days subtracted
- */
-const subDays = (value: string, amount: number): string => addDays(value, -amount);
-
-/**
- * Add the specified number of hours to the given date
- * @param value the date to be changed
- * @param amount the amount of hours to be added
- * @returns the new date with the hours added
- */
-const addHours = (value: string, amount: number): string => addUnit(value, amount, 'hour');
-
-/**
- * Subtract the specified number of hours to the given date
- * @param value the date to be changed
- * @param amount the amount of hours to be subtracted
- * @returns the new date with the hours subtracted
- */
-const subHours = (value: string, amount: number): string => addHours(value, -amount);
-
-/**
- * Add the specified number of minutes to the given date
- * @param value the date to be changed
- * @param amount the amount of minutes to be added
- * @returns the new date with the minutes added
- */
-const addMinutes = (value: string, amount: number): string => addUnit(value, amount, 'minute');
-
-/**
- * Subtract the specified number of minutes to the given date
- * @param value the date to be changed
- * @param amount the amount of minutes to be subtracted
- * @returns the new date with the minutes subtracted
- */
-const subMinutes = (value: string, amount: number): string => addMinutes(value, -amount);
-
-/**
- * Add the specified number of seconds to the given date
- * @param value the date to be changed
- * @param amount the amount of seconds to be added
- * @returns the new date with the seconds added
- */
-const addSeconds = (value: string, amount: number): string => addUnit(value, amount, 'second');
-
-/**
- * Subtract the specified number of seconds to the given date
- * @param value the date to be changed
- * @param amount the amount of seconds to be subtracted
- * @returns the new date with the seconds subtracted
- */
-const subSeconds = (value: string, amount: number): string => addSeconds(value, -amount);
-
-/**
- * Add the specified number of milliseconds to the given date
- * @param value the date to be changed
- * @param amount the amount of milliseconds to be added
- * @returns the new date with the milliseconds added
- */
-const addMilliseconds = (value: string, amount: number): string => addUnit(value, amount, 'millisecond');
-
-/**
- * Subtract the specified number of milliseconds to the given date
- * @param value the date to be changed
- * @param amount the amount of milliseconds to be subtracted
- * @returns the new date with the milliseconds subtracted
- */
-const subMilliseconds = (value: string, amount: number): string => addMilliseconds(value, -amount);
 
 /**
  * Returns `true` or `false` depending on whether the hours are before, or, after noon
@@ -584,7 +494,56 @@ const addOffset = (value: string, amount: number): string => isTime(value) ? add
  */
 const subOffset = (value: string, amount: number): string => addOffset(value, -amount);
 
+/**
+ * Iterate over the date by specified number of units
+ * @param value The date to be changed
+ * @param amount the amount of units to be iterated. Set 1 to increase by 1, or -1 to decrease
+ * @param unit The unit: `year`|`month`|`day`|`hour`|`minute`|`second`|`millisecond`;
+ * @returns date The new date
+ */
+const iterateUnit = (value: string, amount: number, unit: Unit): string => {
+  if (!amount) {
+    return value;
+  }
+
+  const format = getFormat(value);
+
+  if (!format) {
+    throw throwInvalidValue(value);
+  }
+
+  const date = utcParse(value);
+  switch (unit) {
+    case 'year':
+      date.setUTCFullYear(date.getUTCFullYear() + amount);
+      break;
+    case 'month':
+      date.setUTCMonth((date.getUTCMonth() + (MONTHS_IN_YEAR + amount) % MONTHS_IN_YEAR) % MONTHS_IN_YEAR);
+      break;
+    case 'day':
+      // Days start from 1
+      const daysInMonth = getDaysInMonth(date.getUTCFullYear(), date.getUTCMonth());
+      date.setUTCDate((date.getUTCDate() - 1 + (daysInMonth + amount) % daysInMonth) % daysInMonth + 1);
+      break;
+    case 'hour':
+      date.setUTCHours((date.getUTCHours() + (HOURS_IN_DAY + amount) % HOURS_IN_DAY) % HOURS_IN_DAY);
+      break;
+    case 'minute':
+      date.setUTCMinutes((date.getUTCMinutes() + (MINUTES_IN_HOUR + amount) % MINUTES_IN_HOUR) % MINUTES_IN_HOUR);
+      break;
+    case 'second':
+      date.setUTCSeconds((date.getUTCSeconds() + (SECONDS_IN_MINUTE + amount) % SECONDS_IN_MINUTE) % SECONDS_IN_MINUTE);
+      break;
+    case 'millisecond':
+      date.setUTCMilliseconds((date.getUTCMilliseconds() + (MILLISECONDS_IN_SECOND + amount) % MILLISECONDS_IN_SECOND) % MILLISECONDS_IN_SECOND);
+      break;
+    // no default
+  }
+  return utcFormat(date, format);
+};
+
 export {
+  Unit,
   isAfter,
   isBefore,
   isAM,
@@ -602,19 +561,9 @@ export {
   isToday,
   isThisMonth,
   isThisYear,
-  addYears,
-  subYears,
   addMonths,
   subMonths,
-  addDays,
-  subDays,
-  addHours,
-  subHours,
-  addMinutes,
-  subMinutes,
-  addSeconds,
-  subSeconds,
-  addMilliseconds,
-  subMilliseconds,
-  isWeekend
+  isWeekend,
+  addUnit,
+  iterateUnit
 };
