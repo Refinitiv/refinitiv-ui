@@ -13,7 +13,7 @@ module.exports = {
 
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 2017
+    "ecmaVersion": 2020
   },
 
   "plugins": [

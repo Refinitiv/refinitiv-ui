@@ -159,10 +159,10 @@ export class NumberField extends FormFieldElement {
   /**
    * Get spinner up element
    */
-   @query('[part=spinner-up]')
-   private spinnerUpEl?: HTMLInputElement;
+  @query('[part=spinner-up]')
+  private spinnerUpEl?: HTMLInputElement;
 
-   /**
+  /**
    * Get spinner down element
    */
   @query('[part=spinner-down]')
