@@ -156,7 +156,7 @@ export class Collapse extends BasicElement {
     if (Collapse.isHeader(target)) {
       this.toggle();
     }
-  }
+  };
 
   /**
    * Show or Hide the item depending on the expanded state
