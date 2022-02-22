@@ -289,11 +289,11 @@ describe('pill/Pill', () => {
 
       setTimeout(() => el.dispatchEvent(new Event('tap')));
       await oneEvent(el, 'tap');
-      expect(el.ariaPressed).to.equal('true');
+      expect(el.getAttribute('aria-pressed')).to.equal('true');
 
       setTimeout(() => el.dispatchEvent(new Event('tap')));
       await oneEvent(el, 'tap');
-      expect(el.ariaPressed).to.equal('false');
+      expect(el.getAttribute('aria-pressed')).to.equal('false');
     });
     it('aria-pressed should be removed when toggles attribute is removed', async () => {
       const el = await fixture(html`<ef-pill toggles></ef-pill>`);
@@ -301,7 +301,7 @@ describe('pill/Pill', () => {
       el.toggles = false;
       await elementUpdated(el);
 
-      expect(el.ariaPressed).to.be.null;
+      expect(el.getAttribute('aria-pressed')).to.be.null;
     });
     it('should fire clear event when press delete', async () => {
       const el = await fixture(html`<ef-pill clears></ef-pill>`);
