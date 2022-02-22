@@ -112,7 +112,7 @@ export class Pill extends ControlElement {
   protected update (changedProperties: PropertyValues): void {
     if (changedProperties.has('toggles') || changedProperties.has('active')) {
       if (this.toggles) {
-        this.ariaPressed = String(this.active);
+        this.setAttribute('aria-pressed', String(this.active));
       }
       else {
         this.removeAttribute('aria-pressed');
