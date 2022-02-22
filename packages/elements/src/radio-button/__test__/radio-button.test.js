@@ -461,19 +461,16 @@ describe('radio-button/RadioButton', () => {
 
       radio2.checked = true;
       await elementUpdated(radio1);
-      await elementUpdated(radio2);
-      await elementUpdated(radioInShadow1);
-      await elementUpdated(radioInShadow2);
       expect(radio1.checked).to.equal(false);
       expect(radio2.checked).to.equal(true);
       expect(radioInShadow1.checked).to.equal(true);
       expect(radioInShadow2.checked).to.equal(false);
     });
-    it('Should separate shadow dom against their wrapper elements', async () => {
-      const radioWrapper = await fixture('<radio-wrapper></radio-wrapper>');
+    it('Should separate shadow dom scope in each element that contain radio-button', async () => {
+      const radioWrapper1 = await fixture('<radio-wrapper></radio-wrapper>');
       const radioWrapper2 = await fixture('<radio-wrapper></radio-wrapper>');
-      const radio1InGroup1 = radioWrapper.shadowRoot.querySelector('#btn1');
-      const radio2InGroup1 = radioWrapper.shadowRoot.querySelector('#btn2');
+      const radio1InGroup1 = radioWrapper1.shadowRoot.querySelector('#btn1');
+      const radio2InGroup1 = radioWrapper1.shadowRoot.querySelector('#btn2');
       const radio1InGroup2 = radioWrapper2.shadowRoot.querySelector('#btn1');
       const radio2InGroup2 = radioWrapper2.shadowRoot.querySelector('#btn2');
       expect(radio1InGroup1.checked).to.equal(true);
@@ -483,9 +480,6 @@ describe('radio-button/RadioButton', () => {
 
       radio2InGroup1.checked = true;
       await elementUpdated(radio1InGroup1);
-      await elementUpdated(radio2InGroup1);
-      await elementUpdated(radio1InGroup2);
-      await elementUpdated(radio2InGroup2);
       expect(radio1InGroup1.checked).to.equal(false);
       expect(radio2InGroup1.checked).to.equal(true);
       expect(radio1InGroup2.checked).to.equal(true);

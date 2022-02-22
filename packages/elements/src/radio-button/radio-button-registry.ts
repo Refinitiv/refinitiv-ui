@@ -94,7 +94,7 @@ const restoreTabIndex = (radioGroup: RadioButton[]): void => {
 };
 
 /**
- * Get the group of same name radio buttons
+ * Get the group of radio buttons that same name and scope
  * @param radio A radio to get a group for
  * @returns collection of radio buttons
  */
@@ -105,7 +105,7 @@ const getRadioGroup = (radio: RadioButton): RadioButton[] => {
 
   const groupName = radio.name;
   const rootNode = getElementScope(radio);
-  return registry.filter(radio => ((rootNode === getElementScope(radio)) && (radio.name === groupName)));
+  return registry.filter(radio => rootNode === getElementScope(radio) && radio.name === groupName);
 };
 
 export {
