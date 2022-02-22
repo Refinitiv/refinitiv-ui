@@ -11,8 +11,6 @@ import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
 import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
 import { VERSION } from '../version.js';
-import { Translate, translate } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/lib/locale/en/pill.js';
 
 import '../icon/index.js';
 
@@ -93,14 +91,6 @@ export class Pill extends ControlElement {
   @property({ type: Boolean, reflect: true })
   private pressed = false;
 
-  /**
-   * Used for translations
-   */
-  @translate({
-    scope: 'ef-pill'
-  })
-  protected t!: Translate;
-
   @query('[part=close]') private closeElement?: HTMLElement | null;
 
   protected firstUpdated (changedProperties: PropertyValues): void {
@@ -144,7 +134,7 @@ export class Pill extends ControlElement {
   }
 
   private get closeTemplate (): TemplateResult | null {
-    return this.clears && !this.readonly ? html`<ef-icon aria-label="${this.t('DELETE_BUTTON')}" part="close" icon="cross" @tap="${this.clear}"></ef-icon>` : null;
+    return this.clears && !this.readonly ? html`<ef-icon part="close" icon="cross" @tap="${this.clear}"></ef-icon>` : null;
   }
 
   /**
