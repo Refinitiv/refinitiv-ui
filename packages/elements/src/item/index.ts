@@ -99,7 +99,7 @@ export class Item extends ControlElement {
    * Indicates that the item is selected
    */
   @property({ type: Boolean, reflect: true })
-  public selected = false
+  public selected = false;
 
   /**
    * Is the item part of a multiple selection
