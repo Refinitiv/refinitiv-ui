@@ -23,7 +23,8 @@ import {
 
 // Support weak formatting, when units may start from 0 or 0 can be skipped
 // so both values are the same: 01/01/2022 and 1/1/2022
-// These expressions are different to one defined for date.js and time.js which are always strict
+// These expressions are different to ones defined for date.js and time.js, which are always strict
+
 // Years, covers full year YYYY
 const YYYY = '(-?\\d+)';
 // Years, covers 2-digit year
@@ -118,7 +119,7 @@ class Locale {
 
     const timezone = this.parts.find(part => part.type === 'timeZoneName' && part.value);
     if (timezone) {
-      throw new Error('Parsing timezones creates ambiguity. Make sure that `timeZoneName` option is not provided');
+      throw new Error('Parsing timezones is ambiguous. Make sure that `timeZoneName` option is not provided');
     }
   }
 

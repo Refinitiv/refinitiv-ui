@@ -518,7 +518,13 @@ const iterateUnit = (value: string, unit: Unit, amount: number): string => {
       date.setUTCFullYear(date.getUTCFullYear() + amount);
       break;
     case 'month':
-      date.setUTCMonth((date.getUTCMonth() + (MONTHS_IN_YEAR + amount) % MONTHS_IN_YEAR) % MONTHS_IN_YEAR);
+      // If there are too many days, switch to max available
+      const nextMonth = (date.getUTCMonth() + (MONTHS_IN_YEAR + amount) % MONTHS_IN_YEAR) % MONTHS_IN_YEAR;
+      const daysInNextMonth = getDaysInMonth(date.getUTCFullYear(), nextMonth);
+      if (date.getUTCDate() > daysInNextMonth) {
+        date.setUTCDate(daysInNextMonth);
+      }
+      date.setUTCMonth(nextMonth);
       break;
     case 'day':
       // Days start from 1
