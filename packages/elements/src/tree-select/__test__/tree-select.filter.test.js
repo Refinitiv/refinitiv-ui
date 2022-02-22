@@ -268,5 +268,13 @@ describe('tree-select/Filter', () => {
       expect(el.treeManager.visibleItems.length).to.equal(selectableCount + 2, 'All items are visible');
     });
 
+    it('Should selection filter on disabled selected items when press Selected button', async () => {
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
+      const data = [{ selected: true, label: '1', value: '1', disabled: true }, { selected: true, label: '2', value: '2', readonly: true }, { label: '3', value: '3' }];
+      el.data = data;
+      el.selectedClickHandler();
+      const selectedData = data.filter(item => item.selected === true);
+      expect(el.treeManager.visibleItems.length).to.equal(selectedData.length, 'Show all selected items including disabled and readonly');
+    });
   });
 });
