@@ -266,7 +266,7 @@ class Tooltip extends BasicElement {
    */
   private reset = (): void => {
     window.clearTimeout(this.timerTimeout);
-  }
+  };
 
   /**
    * Check whether an element matches by condition
@@ -408,7 +408,7 @@ class Tooltip extends BasicElement {
    */
   private resetTooltip = (): void => {
     this.hideTooltip();
-  }
+  };
 
   /**
    * Run when mouse is moving over the document
@@ -418,7 +418,7 @@ class Tooltip extends BasicElement {
    */
   private onMouseMove = (event: MouseEvent, paths: EventTarget[]): void => {
     this.showTooltip(paths, event.clientX, event.clientY);
-  }
+  };
 
   /**
    * Try to show the tooltip if it matches the target
@@ -509,7 +509,7 @@ class Tooltip extends BasicElement {
   private onClick = (): void => {
     this.clicked = true;
     this.hideTooltip();
-  }
+  };
 
   /**
    * Run when document mouse out event happens
@@ -522,7 +522,7 @@ class Tooltip extends BasicElement {
     if (Tooltip.isIframe(relatedTarget as HTMLElement)) {
       this.resetTooltip();
     }
-  }
+  };
 
   /**
    * Get popup position based on tooltip position
