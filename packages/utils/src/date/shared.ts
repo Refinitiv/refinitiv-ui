@@ -543,6 +543,7 @@ const iterateUnit = (value: string, unit: Unit, amount: number): string => {
 };
 
 export {
+  Format,
   Unit,
   isAfter,
   isBefore,

@@ -1,4 +1,5 @@
 export const HOURS_OF_NOON = 12;
+export const YEARS_IN_CENTURY = 100;
 export const MONTHS_IN_YEAR = 12;
 export const HOURS_IN_DAY = 24;
 export const MINUTES_IN_HOUR = 60;
