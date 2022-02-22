@@ -100,7 +100,7 @@ export class Clock extends ResponsiveElement {
   private onTick = (): void => {
     this.sessionTicks = Math.floor((performance.now() - this.tickTimestamp) / 1000);
     this.notifyPropertyChange('value', this.value);
-  }
+  };
 
   /**
    * Current time in seconds
