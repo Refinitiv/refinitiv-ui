@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES2020",
     "module": "ES2015",
     "moduleResolution": "node",
-    "lib": ["ES2020", "DOM", "DOM.Iterable", "ES2020.Intl", "ESNext.Intl"],
+    "lib": ["ES2020", "DOM", "DOM.Iterable", "ES2020.Intl", "ES2021.Intl", "ESNext.Intl"],
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "strict": true,

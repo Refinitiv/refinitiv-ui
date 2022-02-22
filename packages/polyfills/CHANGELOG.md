@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/polyfills@5.2.0...@refinitiv-ui/polyfills@5.2.1) (2022-02-17)
+
+
+### Bug Fixes
+
+* **translate:** fix lit to v.2.1.2 as v2.1.3 has issue with SkyPack ([78dbad8](https://github.com/Refinitiv/refinitiv-ui/commit/78dbad875d87c9d8c47333f323834e4ea70bbd9d))
+
+
+
+
+
 # [5.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/polyfills@5.1.0...@refinitiv-ui/polyfills@5.2.0) (2022-01-12)
 
 
