@@ -347,7 +347,7 @@ class Locale {
 
   /**
    * Try to format localised date string into ISO date/time/datetime string
-   * Throw an error is value is invalid
+   * Throw an error if value is invalid
    * @param value Localised date
    * @param [referenceDate=0] Reference UTC date or time to resolve ambiguous strings.
    * @returns ISO date/time/datetime string
@@ -471,7 +471,7 @@ class Locale {
 
   /**
    * Try to format ISO date/time/datetime string into localised string
-   * Throw an error is value is invalid
+   * Throw an error if value is invalid
    * @param value ISO string date/time/datetime
    * @returns localised string
    */
@@ -482,7 +482,7 @@ class Locale {
 
   /**
    * Try to format localised string into datetime format parts
-   * Throw an error is value is invalid
+   * Throw an error if value is invalid
    * @param value localised string
    * @returns parts
    */
@@ -493,7 +493,7 @@ class Locale {
 
   /**
    * Try to format ISO date/time/datetime string into datetime format parts
-   * Throw an error is value is invalid
+   * Throw an error if value is invalid
    * @param value ISO string date/time/datetime
    * @returns parts
    */
