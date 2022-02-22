@@ -5,7 +5,7 @@ import {
   Format as TimeFormat
 } from './time.js';
 import {
-  Format as DateTimeFormat, isValid
+  Format as DateTimeFormat
 } from './datetime.js';
 import {
   throwInvalidValue
