@@ -207,19 +207,19 @@ export class ColorDialog extends Dialog {
    * A rgb color input for red spectrum
    */
   @query('#redInput')
-  private redInputEl?: NumberField
+  private redInputEl?: NumberField;
 
   /**
    * A rgb color input for green spectrum
    */
   @query('#greenInput')
-  private greenInputEl?: NumberField
+  private greenInputEl?: NumberField;
 
   /**
    * A rgb color input for blue spectrum
    */
   @query('#blueInput')
-  private blueInputEl?: NumberField
+  private blueInputEl?: NumberField;
 
   /**
    * Check if component should be updated

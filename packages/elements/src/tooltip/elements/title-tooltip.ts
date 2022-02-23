@@ -11,7 +11,7 @@ Object.defineProperty(HTMLElement.prototype, 'title', {
     }
     return this.getAttribute('tooltip');
   },
-  set: function (this: HTMLElement, value) {
+  set: function (this: HTMLElement, value: string) {
     this.setAttribute('title', '');
     this.setAttribute('tooltip', value);
   }
