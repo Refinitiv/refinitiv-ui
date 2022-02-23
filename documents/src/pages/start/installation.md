@@ -14,7 +14,7 @@ It aims to create a consistent approach to building, reusing and sharing UI comp
 
 EF elements are built with web components which is a standard web technology that can be utilized across all browsers and can be used with any JavaScript frameworks.
 
-### Installation
+## Installation
 EF elements are published as one package. You are also require to install theme package as it will provide essential native styles for typography, theme css variables, etc.
 
 ```bash
@@ -59,10 +59,10 @@ Now, you can use the elements in your app.
 </ef-panel>
 ```
 
-### Font licensing
+## Font licensing
 ::proximanovawarning::
 
-### Build your first app
+## Build your first app
 Start building your first application using EF with your favourite frameworks: [Angular](/integrations/angular), [React](/integrations/react), [Vue](/integrations/vue) or without using framework, [Vanilla](/integrations/javascript).
 
 
