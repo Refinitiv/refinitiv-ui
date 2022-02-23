@@ -96,7 +96,7 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
   }
 });
 ```
-## Data property interface
+### Data property interface
 
 Autosuggest natively processes data using the [Suggestion](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/autosuggest/helpers/types.ts) type. For data not applying the `ef-item` model, see [Integrate custom suggestion data](./elements/autosuggest#integrate-with-custom-suggestion-data).
 
@@ -154,7 +154,7 @@ ef-text-field {
 ```
 ::
 
-## Grouping results
+### Grouping results
 
 Autosuggest understands the Item object model, allowing the display of non-selectable headers and dividers. To show a `header` or `divider`, specify the type in suggestion items.
 
@@ -264,7 +264,7 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
 });
 ```
 
-## Pagination
+### Pagination
 When there are many `suggestions` items, it is recommended to use pagination. The implementation of this is down to the app developer. A typical approach could be to show best matches or recent items.
 
 To implement pagination in autosuggest, set the `moreResults` property to `true` when there are additional results to show. This property will display a **Get more results** button at the bottom of the autosuggest UI. Set the property to `false` when showing the last page.
@@ -356,7 +356,7 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
 });
 ```
 
-## Asynchronous autosuggestion
+### Asynchronous autosuggestion
 Most data is filtered on the server and the results are sent asynchronously to the client. To implement this in autosuggest, requests and responses can be managed using `suggestions-fetch-requested`.
 
 Optionally, the `debounce-rate` attribute can reduce the number of server calls, and the `loading` property can show an animation while waiting for data from the server.
@@ -444,7 +444,7 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
 });
 ```
 
-## Header and footer
+### Header and footer
 Header and/or footer can be added to autosuggest by using slots.
 
 ::
@@ -516,7 +516,7 @@ ef-text-field {
 </ef-autosuggest>
 ```
 
-## Trigger request on focus
+### Trigger request on focus
 Use the `request-on-focus` attribute to request suggestions when the input is focused.
 
 ::
@@ -573,7 +573,7 @@ ef-text-field {
 <ef-autosuggest request-on-focus></ef-autosuggest>
 ```
 
-## Popup position
+### Popup position
 By default, the autosuggest popup is positioned below the attached element. You can change its position by setting the `positionTarget` property. Call `refit()` if `positionTarget` has been called after `ef-autosuggest` has been instantiated.
 
 For further position customization, `ef-autosuggest` supports attributes and properties of `ef-overlay`.
@@ -647,7 +647,7 @@ autoSuggest.positionTarget = document.getElementById('custom-popup-position');
 ## Advanced usage
 You can customize many aspects of autosuggest to provide a truly unique solution.
 
-## Custom renderer
+### Custom renderer
 Use the `renderer` property to assign a function to override default rendering. The function will be called when each suggestion item is rendered and must return an HTML element.
 
 ``` javascript
@@ -817,7 +817,7 @@ autoSuggest.addEventListener('item-highlight', (event) => {
 });
 ```
 
-## Integrate with custom suggestion data
+### Integrate with custom suggestion data
 While autosuggest natively understands the Item object model, it is data agnostic, and can render suggestions with your data object schema. For example, if your suggestion data uses `value` instead of `label`, you can do mapping in the `renderer` function and implement `item-select` events and a `highlightable` method.
 
 ::
@@ -915,7 +915,7 @@ autoSuggest.addEventListener('item-select', (event) => {
 autoSuggest.highlightable = (suggestion) => suggestion.readonly !== true;
 ```
 
-## Use custom input
+### Use custom input
 Autosuggest can be attached to any input component. In fact, it can be attached to any HTML element as long as a constructing query object procedure is provided.
 
 For example, to use Multi Input instead of a standard Input: add event listeners to Multi Input in `add-attach-target-events` and use the `remove-attach-target-events` event to remove the listeners.
@@ -1093,7 +1093,7 @@ section {
 ```
 ::
 
-## Complex query
+### Complex query
 In addition to string-based queries, autosuggest `query` also supports objects, meaning far more complex and powerful queries can be made. The following example uses a `query` object based on two input fields.
 
 ::
@@ -1199,7 +1199,7 @@ ef-text-field, ef-select {
 ```
 ::
 
-## HTML Renderer
+### HTML Renderer
 In modern frameworks, it may be more practical to render suggestions directly to `ef-autosuggest`, rather than using the `renderer` function. You can achieve more consistent code and better performance, thanks to Virtual DOM.
 
 Set the `html-renderer` attribute if you intend to populate suggestions directly.
@@ -1277,7 +1277,7 @@ You can use them through class name, `Autosuggest.<HELPER_METHOD_NAME>()` or the
 
 <hr>
 
-## EscapeRegExp (text)
+### EscapeRegExp (text)
 Remove forbidden characters from the given string.
 
 **<small>Parameters:</small>**
@@ -1290,7 +1290,7 @@ Remove forbidden characters from the given string.
 String with forbidden characters removed.
 <hr>
 
-## QueryWordSelect (text, query, pattern (optional))
+### QueryWordSelect (text, query, pattern (optional))
 Replace all matched query words with an HTML string.
 
 **<small>Parameters:</small>**
@@ -1305,7 +1305,7 @@ Replace all matched query words with an HTML string.
 String with matching text processed by `pattern`
 <hr>
 
-## ItemRenderer (suggestion, query)
+### ItemRenderer (suggestion, query)
 Construct the `ef-item` element from the suggestion object using one-to-one mapping.
 
 **<small>Parameters:</small>**

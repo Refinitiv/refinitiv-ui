@@ -18,7 +18,7 @@ Install Angular CLI.
 npm install -g @angular/cli
 ```
 
-### Initialize your project
+## Initialize your project
 Create new Angular application using the `ng new` command.
 
 ```sh
@@ -31,7 +31,7 @@ Once your app has been created you should be able to serve your application.
 npm start
 ```
 
-### Using web components in Angular
+## Using web components in Angular
 First off we need to import the `CUSTOM_ELEMENTS_SCHEMA` from `@angular/core` and inject it into the `schemas` property of our AppModule definition. This property will allow non-Angular elements named with dash case like custom elements to be used in Angular's template.
 
 Make the following changes to `./src/app/app.module.ts`.
@@ -59,7 +59,7 @@ Make the following changes to `./src/app/app.module.ts`.
  export class AppModule { }
 ```
 
-### Install EF elements
+## Install EF elements
 EF elements need their class definition and theme to be installed before they can be used.
 
 Install elements and themes.
@@ -105,7 +105,7 @@ import '@refinitiv-ui/elements/password-field/themes/halo/dark';
 
 At this stage EF elements should be ready to use!. You can use them like any other native HTML elements.
 
-### Create a login page
+## Create a login page
 
 We need to use `ngDefaultControl` directive so Angular's Forms can be used with custom elements such as `ef-text-field`.
 
@@ -237,7 +237,7 @@ Serve your application.
 npm start
 ```
 
-### Using EF with Angular's form
+## Using EF with Angular's form
 
 Using third-party form control elements with Angular's forms API requires [ControlValueAccessor](https://angular.io/api/forms/ControlValueAccessor) which acts as a bridge that synchronizes the data between one and another. `ControlValueAccessor` already covers all the standard native `input` tags, but not for custom tags like EF components.
 
@@ -278,7 +278,7 @@ export class NumberFieldValueAccessor implements ControlValueAccessor {
   }
 ```
 
-### Additional type definition
+## Additional type definition
 
 Some EF elements supports i18N features. It uses [FormatJS](https://formatjs.io/) library and some of thier modules are using features that available in new Javascript version. If you see any errors related to @formatjs during project compilation, you may need to add `esnext.intl` into `lib` section in `tsconfig.json` file.
 

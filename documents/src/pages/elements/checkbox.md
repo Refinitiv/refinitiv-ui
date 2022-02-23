@@ -99,7 +99,7 @@ The Checkbox element is assigned `role="checkbox"` and can have a `checked` stat
 
 The `role="group"` should be used to associate the grouping with the element’s group label. 
 
-## Notes for developers
+### Notes for developers
 
 `ef-checkbox` handles role and aria value but for checkbox group, you need to assign `role="group"` by yourself.
 

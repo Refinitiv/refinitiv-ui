@@ -184,7 +184,7 @@ By default, items will be wrapped to a new row if there is not enough space to f
 ## Item attributes
 Defining the behavior of items is important for creating a responsive layout in an application.
 
-## `basis` attribute
+### Basis
 The `basis` attribute is used as a rough guide for the container to set the size of items. You can define a basis value in percentages (e.g. 50%) or pixels (e.g. 150px).
 
 This property does not place an exact size on the element - instead it is more of a ratio among each of the children. For example, the sample layout below will try to keep each item size 1:2:1.
@@ -236,7 +236,7 @@ Whenever the size of the container cannot accommodate all items in the same row,
 </ef-layout>
 ```
 
-## Size
+### Size
 The `size` attribute is used when you want an item with a fixed size. This attribute is mostly used when applications need to fix the size of a layout. For example, the demo below shows two sidebars, each fixed at 150px. The middle item will then fill the rest of the available space.
 
 ::
@@ -274,7 +274,7 @@ The `size` attribute is used when you want an item with a fixed size. This attri
 </ef-layout>
 ```
 
-## Break points
+### Break points
 A break point is when the container has been resized to a certain width or height and the items in the application rearrange to accommodate the new size.
 
 You could use `min-width` to control a break point when an application should wrap items to a new row. In a flexible layout, items will try to fill up all available space. If an item cannot shrink to be smaller than the `min-width` the container will try to wrap the item (unless the `nowrap` attribute is set).

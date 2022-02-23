@@ -86,7 +86,7 @@ radioButtonGroup.addEventListener('checked-changed', (e) => {
 The Radio Button element is assigned `role="radio"` and can include a `checked` state. Assistive technology users ascertain the purpose that a radio button serves through its accessible name, which is computed from the visual label or aria-label property. The radio state programmatically updates to match its visual state. 
 
 The `role="radiogroup"` or `role="group"` should be used to associate the element’s grouping with its group label. 
-## Notes for developers
+### Notes for developers
 
 `ef-radio-button` handles role and aria value but for radio group, you need to assign `role="radiogroup"` by yourself.
 

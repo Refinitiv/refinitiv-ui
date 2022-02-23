@@ -261,7 +261,7 @@ element.addEventListener("error-changed", (e) => {
 
 `ef-password-field` is assigned  `role="textbox"`. States such as `disabled` and `pressed` are updated to match the visual state of the Password Field element and its “Show password” button. The password recommendation can be communicated to screen readers through a live region whenever the context changes.
 
-## Note for developers
+### Notes for developers
 Password Field manages the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
 
 ```html

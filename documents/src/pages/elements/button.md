@@ -191,7 +191,7 @@ btn.addEventListener('tap', () => {
 
 `ef-button` has been assigned the role of `button` and can have a `pressed` state. Always try to include a text label for a button - avoid relying solely upon an image or icon to convey the button’s purpose to users. Assistive technology users ascertain the purpose of a button via its accessible name, which gets computed from either its visual label, alternative text, or aria-label properties – so be sure to fill them in accurately. Whenever the button’s visual state changes, the button state programmatically updates to inform assistive technology users of the element’s changed state. 
 
-## Notes for developers
+### Notes for developers
 
 `ef-button` handles role and aria value but when using button without any text label, assigns `aria-label` as the accessible name.
 
