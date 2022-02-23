@@ -101,7 +101,6 @@ export class Pill extends ControlElement {
     this.addEventListener('tapend', this.onEndPress);
     this.addEventListener('mouseleave', this.onEndPress);
     this.addEventListener('keydown', this.onKeyDown);
-
   }
 
   /**
@@ -128,13 +127,13 @@ export class Pill extends ControlElement {
    * @returns {void}
    */
   private onKeyDown (event: KeyboardEvent): void {
-    if (event.key === 'Delete' && (this.clears && !this.readonly)) {
+    if ((event.key === 'Delete' || event.key === 'Del') && (this.clears && !this.readonly)) {
       this.dispatchEvent(new CustomEvent('clear'));
     }
   }
 
   private get closeTemplate (): TemplateResult | null {
-    return this.clears && !this.readonly ? html`<ef-icon part="close" icon="cross" @tap="${this.clear}"></ef-icon>` : null;
+    return this.clears && !this.readonly ? html`<ef-icon part="close" icon="cross" aria-hidden="true" @tap="${this.clear}"></ef-icon>` : null;
   }
 
   /**
@@ -144,7 +143,7 @@ export class Pill extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-      <div part="content">
+      <div part="content" role="none">
         <slot>...</slot>
       </div>
       ${this.closeTemplate}

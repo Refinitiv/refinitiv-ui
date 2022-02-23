@@ -37,7 +37,7 @@
   }
 
   &[focused="visible"] {
-    border: 1px solid @scheme-color-primary;
+    &:extend(:host[focused="visible"] all);
   }
 
   &:hover, &[active], &[pressed] {
