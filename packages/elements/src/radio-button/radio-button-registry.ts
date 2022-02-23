@@ -94,7 +94,7 @@ const restoreTabIndex = (radioGroup: RadioButton[]): void => {
 };
 
 /**
- * Get the group of radio buttons that same name and scope
+ * Get a group of radio buttons that has the same name and scope
  * @param radio A radio to get a group for
  * @returns collection of radio buttons
  */

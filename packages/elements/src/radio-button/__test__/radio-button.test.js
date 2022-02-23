@@ -448,7 +448,7 @@ describe('radio-button/RadioButton', () => {
       const checkedRadio = group.find(element => element.checked);
       expect(checkedRadio.id).to.equal('btn2');
     });
-    it('Should separate scope between shadow dom and light dom', async () => {
+    it('Should separate scope between shadow DOM and light DOM', async () => {
       const radio1 = await fixture('<ef-radio-button name="group" id="btn1" checked>1</ef-radio-button>');
       const radio2 = await fixture('<ef-radio-button name="group" id="btn2">2</ef-radio-button>');
       const radioWrapper = await fixture('<radio-wrapper></radio-wrapper>');
@@ -466,7 +466,7 @@ describe('radio-button/RadioButton', () => {
       expect(radioInShadow1.checked).to.equal(true);
       expect(radioInShadow2.checked).to.equal(false);
     });
-    it('Should separate shadow dom scope in each element that contain radio-button', async () => {
+    it('Should separate shadow DOM scope in each element that contain radio-button', async () => {
       const radioWrapper1 = await fixture('<radio-wrapper></radio-wrapper>');
       const radioWrapper2 = await fixture('<radio-wrapper></radio-wrapper>');
       const radio1InGroup1 = radioWrapper1.shadowRoot.querySelector('#btn1');
