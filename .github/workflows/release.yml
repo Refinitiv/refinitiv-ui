@@ -42,7 +42,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Sync to develop branch
+      - name: Sync published changes to develop branch
         run: |
           git checkout develop
           git merge main --no-edit --no-ff
