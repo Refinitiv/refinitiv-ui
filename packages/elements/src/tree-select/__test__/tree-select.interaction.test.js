@@ -67,19 +67,25 @@ describe('tree-select/Interaction', () => {
       expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
       expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
       expect(el.treeManager.visibleItems.length).to.equal(flatData.length, 'Data list should remain the same');
+      const savedComposerValues = el.composerValues;
+      expect(doValuesMatch(savedValues, savedComposerValues)).to.equal(true, 'Values and ComposerValues should be same');
+      expect(savedValues.length).to.equal(savedComposerValues.length, 'Values and ComposerValues should be same');
     });
 
     it('Cancels a selection - nested', async () => {
       const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       const expectedSelection = [];
-      changeItemSelection(el, flatSelection);
+      changeItemSelection(el, nestedSelection);
       el.cancel();
       await elementUpdated(el);
       const savedValues = el.values;
       expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
       expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
       expect(el.opened).to.equal(false, 'Cancel should close the list');
+      const savedComposerValues = el.composerValues;
+      expect(doValuesMatch(savedValues, savedComposerValues)).to.equal(true, 'Values and ComposerValues should be same');
+      expect(savedValues.length).to.equal(savedComposerValues.length, 'Values and ComposerValues should be same');
     });
 
     it('Persist a selection, make changes and cancel - flat', async () => {
