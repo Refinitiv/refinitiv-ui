@@ -14,7 +14,7 @@ import {
   utcFormat,
   utcParse,
   getFormat,
-  Format,
+  Format
 } from './shared.js';
 import {
   HOURS_IN_DAY,
