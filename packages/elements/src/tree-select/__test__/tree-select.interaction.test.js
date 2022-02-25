@@ -49,6 +49,7 @@ describe('tree-select/Interaction', () => {
       expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
     });
 
+    // Todo: Should have another test case simulating real user interaction, not by api.
     it('Cancels a selection - flat', async () => {
       const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
       // ensure events are fired
