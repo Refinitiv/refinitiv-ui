@@ -55,6 +55,7 @@ describe('tree-select/Interaction', () => {
       el.data = flatData;
       const expectedSelection = [];
       changeItemSelection(el, flatSelection);
+      await aTimeout(200); // make sure all processes are finished
       checkMemo(el, {
         expandable: 0,
         expanded: 0,
@@ -62,6 +63,7 @@ describe('tree-select/Interaction', () => {
         selected: flatSelection.length
       });
       el.cancel();
+      await elementUpdated(el);
       const savedValues = el.values;
       expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
       expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
@@ -76,6 +78,7 @@ describe('tree-select/Interaction', () => {
       el.data = nestedData;
       const expectedSelection = [];
       changeItemSelection(el, nestedSelection);
+      await aTimeout(200); // make sure all processes are finished
       el.cancel();
       await elementUpdated(el);
       const savedValues = el.values;
