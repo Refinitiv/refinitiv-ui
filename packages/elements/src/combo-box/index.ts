@@ -279,13 +279,22 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     else {
       // Clone value arrays
       const newValues = values.slice(0, this.multiple ? values.length : 1);
-      const oldValues = this.composerValues.slice();
+      const oldValues = this.values.slice();
       // Create comparison strings to check for differences
       const newComparison = newValues.sort().toString();
       const oldComparison = oldValues.sort().toString();
-      // Should we update the selection state?
+
+      // Update the selection state when found new value
       if (newComparison !== oldComparison) {
         this.updateComposerValues(newValues);
+
+        if (this.freeText) {
+          // free text mode is only supported in single selection mode
+          // so if there is no valid selection in the composer, we can assume
+          // the first item can be used as the free text item.
+          this.freeTextValue = !this.composerValues.length ? newValues[0] : '';
+        }
+
         this.requestUpdate('values', oldValues);
       }
     }

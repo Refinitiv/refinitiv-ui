@@ -33,27 +33,27 @@ export class Counter extends BasicElement {
   /**
    * Internal value of the element.
    */
-   private _value = '';
+  private _value = '';
 
-   /**
+  /**
    * Internal max of the element.
    */
-   private _max = '';
+  private _max = '';
 
-   /**
+  /**
    * The value of counter as string number
    * @param value counter value
    * @default -
    */
   @property({ type: String })
-   public set value (value: string) {
-     value = this.validateValue(value, 'value');
-     const oldValue = this._value;
-     if (oldValue !== value) {
-       this._value = value;
-       this.requestUpdate('value', oldValue);
-     }
-   }
+  public set value (value: string) {
+    value = this.validateValue(value, 'value');
+    const oldValue = this._value;
+    if (oldValue !== value) {
+      this._value = value;
+      this.requestUpdate('value', oldValue);
+    }
+  }
   /**
   * The value of counter as string number
   * @returns {string} counter value

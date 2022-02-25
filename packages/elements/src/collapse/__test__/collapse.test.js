@@ -9,42 +9,27 @@ describe('collapse/Collapse', () => {
   describe('Should Have Correct DOM', () => {
     it('Label and DOM structure is correct', async () => {
       const el = await fixture('<ef-collapse></ef-collapse>');
-
-      expect(el).shadowDom.to.equalSnapshot({
-        ignoreAttributes: ['class']
-      });
+      expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Label and DOM structure is correct with spacing', async () => {
       const el = await fixture('<ef-collapse spasing></ef-collapse>');
-
-      expect(el).shadowDom.to.equalSnapshot({
-        ignoreAttributes: ['class']
-      });
+      expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Label and DOM structure is correct with header', async () => {
       const el = await fixture('<ef-collapse header="Header"></ef-collapse>');
-
-      expect(el).shadowDom.to.equalSnapshot({
-        ignoreAttributes: ['class']
-      });
+      expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Label and DOM structure is correct with level', async () => {
       const el = await fixture('<ef-collapse level="1"></ef-collapse>');
-
-      expect(el).shadowDom.to.equalSnapshot({
-        ignoreAttributes: ['class']
-      });
+      expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Label and DOM structure is correct without level', async () => {
       const el = await fixture('<ef-collapse level></ef-collapse>');
-
-      expect(el).shadowDom.to.equalSnapshot({
-        ignoreAttributes: ['class']
-      });
+      expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
@@ -63,7 +48,7 @@ describe('collapse/Collapse', () => {
       const el = await fixture('<ef-collapse></ef-collapse>');
       const header = el.shadowRoot.querySelector('[part=header]');
 
-      expect(el.header).to.be.null;
+      expect(el.header).to.be.equal('');
       expect(el.hasAttribute('header')).to.equal(false, 'attribute "header" should not be exists');
       expect(el.getAttribute('header')).to.equal(null, 'attribute "header" should equal null');
       expect(el.level).to.equal('3');
@@ -100,7 +85,7 @@ describe('collapse/Collapse', () => {
     it('Header property', async () => {
       const el = await fixture('<ef-collapse></ef-collapse>');
 
-      expect(el.header).to.be.null;
+      expect(el.header).to.be.equal('');
       expect(el.hasAttribute('header')).to.equal(false, 'attribute "header" should not be exists');
       expect(el.getAttribute('header')).to.equal(null, 'attribute "header" should equal null');
 
@@ -109,9 +94,9 @@ describe('collapse/Collapse', () => {
       expect(el.hasAttribute('header')).to.equal(true, 'attribute "header" should be exists');
       expect(el.getAttribute('header')).to.equal('Header', 'attribute "header" should equal "Header"');
 
-      el.header = null;
+      el.header = '';
       await elementUpdated(el);
-      expect(el.header).to.be.null;
+      expect(el.header).to.be.equal('');
       expect(el.hasAttribute('header')).to.equal(true, 'property "header" should not reflected');
       expect(el.getAttribute('header')).to.equal('Header', 'property "header" should not reflected');
     });
@@ -156,6 +141,20 @@ describe('collapse/Collapse', () => {
     });
   });
 
+  it('aria-level is reflected', async () => {
+    const el = await fixture('<ef-collapse aria-level="4"></ef-collapse>');
+    const heading = el.shadowRoot.querySelector('[part=heading]');
+    expect(heading.getAttribute('aria-level')).to.equal('4', 'aria-level should reflected');
+
+    el.setAttribute('aria-level', '3');
+    await elementUpdated(el);
+    expect(heading.getAttribute('aria-level')).to.equal('3', 'aria-level should change with parent');
+
+    el.removeAttribute('aria-level');
+    await elementUpdated(el);
+    expect(heading.getAttribute('aria-level')).to.equal(null, 'aria-level can be removed');
+  });
+
   describe('Should Have Correct Content Height', () => {
     it('Should collapse by default', async () => {
       const el = await fixture('<ef-collapse></ef-collapse>');
@@ -178,18 +177,9 @@ describe('collapse/Collapse', () => {
   describe('Should Handle Click', () => {
     it('Should fire expanded-changed event when tap header to expand', async () => {
       const el = await fixture('<ef-collapse></ef-collapse>');
-      const header = el.shadowRoot.querySelector('[part=header]');
+      const header = el.shadowRoot.querySelector('[part=header-toggle]');
 
       setTimeout(() => header.dispatchEvent(new Event('tap', { bubbles: true })));
-      const { detail } = await oneEvent(el, 'expanded-changed');
-      expect(detail.value).to.equal(true);
-    });
-
-    it('Should fire expanded-changed event when tap toggle to expand', async () => {
-      const el = await fixture('<ef-collapse></ef-collapse>');
-      const toggle = el.shadowRoot.querySelector('[part=toggle]');
-
-      setTimeout(() => toggle.dispatchEvent(new Event('tap', { bubbles: true })));
       const { detail } = await oneEvent(el, 'expanded-changed');
       expect(detail.value).to.equal(true);
     });
@@ -229,7 +219,7 @@ describe('collapse/Collapse', () => {
   describe('Cancel expanded-changed event', () => {
     it('Should not change expanded property', async () => {
       const el = await fixture('<ef-collapse expanded></ef-collapse>');
-      const header = el.shadowRoot.querySelector('[part=header]');
+      const header = el.shadowRoot.querySelector('[part=header-toggle]');
       const expanded = el.expanded;
 
       const onExpandedEvent = (e) => e.preventDefault();
