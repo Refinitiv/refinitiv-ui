@@ -13,12 +13,14 @@ import {
 import {
   utcFormat,
   utcParse,
-  Format
+  getFormat,
+  Format,
 } from './shared.js';
 import {
-  HOURS_OF_NOON,
   HOURS_IN_DAY,
-  YEARS_IN_CENTURY
+  YEARS_IN_CENTURY,
+  DAYS_IN_WEEK,
+  MONTHS_IN_YEAR
 } from './timestamps.js';
 
 // Support weak formatting, when units may start from 0 or 0 can be skipped
@@ -26,7 +28,7 @@ import {
 // These expressions are different to ones defined for date.js and time.js, which are always strict
 
 // Years, covers full year YYYY
-const YYYY = '(-?\\d+)';
+const YYYY = '(\\d{1,4})';
 // Years, covers 2-digit year
 const YY = '(\\d{2})';
 // Numeric months: 1, 01, 12
@@ -57,6 +59,11 @@ const SSS = '(\\d{3})';
 const TwoDigit = '2-digit';
 const Numeric = 'numeric';
 
+type FormattedNames = {
+  value: number;
+  name: string;
+}
+
 // Fractional seconds are not supported in TypeScript Intl as of 2021
 type DateTimeFormatPartTypes = Intl.DateTimeFormatPartTypes | 'fractionalSecond';
 interface DateTimeFormatPart {
@@ -71,7 +78,6 @@ interface DateTimeFormatPart {
  */
 const regExpEscape = (str: string) => str.replace(/([^\w\s])/g, '\\$1').replace(/\s/g, '\\s');
 
-
 class Locale {
   /**
    * Construct Locale object from options
@@ -80,13 +86,18 @@ class Locale {
    * @returns Locale object
    */
   public static fromOptions (options: Intl.DateTimeFormatOptions, locales?: string | string[]): Locale {
-    const format = new Intl.DateTimeFormat(locales, options);
+    const format = new Intl.DateTimeFormat(locales, {
+      ...options,
+      calendar: 'gregory', // Force Gregorian calendar
+      numberingSystem: 'latn', // Force Latin numbering system
+      timeZoneName: undefined, // Timezones are not supported
+      timeZone: 'UTC' // must be provided as all calculations are done in UTC
+    });
     return new Locale(format);
   }
 
   public readonly formatter;
   public readonly options;
-  public readonly parts: DateTimeFormatPart[];
 
   private readonly hourCycle;
   private readonly fractionalSecondDigits;
@@ -98,7 +109,6 @@ class Locale {
   constructor (formatter: Intl.DateTimeFormat) {
     this.formatter = formatter;
     this.options = formatter.resolvedOptions();
-    this.parts = formatter.formatToParts(Date.UTC(2018, 0, 1));
 
     const options = this.options;
 
@@ -117,9 +127,8 @@ class Locale {
       throw new Error('Only Latin symbols supported. Specify calendar option for numbering symbols, e.g. "ar-u-nu-latn"');
     }
 
-    const timezone = this.parts.find(part => part.type === 'timeZoneName' && part.value);
-    if (timezone) {
-      throw new Error('Parsing timezones is ambiguous. Make sure that `timeZoneName` option is not provided');
+    if (options.timeZone !== 'UTC') {
+      throw new Error('Only UTC timezone supported. Specify `timeZone: \'UTC\'` in formatter options.');
     }
   }
 
@@ -127,16 +136,17 @@ class Locale {
    * Get months names for the specified formatter
    * @returns names Month names
    */
-  private formatMonthNames (): string[] {
-    if (this.options.month === undefined) {
-      throw new Error('Cannot get month names: format does not include month');
-    }
-    const monthsNames: string[] = [];
-    for (let month = 0; month <= 11; month += 1) {
-      const date = Date.UTC(2018, month, 1); // January - February
-      const part = this.formatter.formatToParts(date).find(part => part.type === 'month');
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      monthsNames.push(part!.value); // must be provided
+  private formatMonthNames (): FormattedNames[] {
+    const monthsNames: FormattedNames[] = [];
+    for (let value = 0; value < MONTHS_IN_YEAR; value += 1) {
+      const date = Date.UTC(2018, value, 1); // January - February
+      const monthPart = this.formatter.formatToParts(date).find(part => part.type === 'month');
+      if (monthPart) {
+        monthsNames.push({
+          value,
+          name: monthPart.value.toLowerCase()
+        });
+      }
     }
     return monthsNames;
   }
@@ -145,16 +155,17 @@ class Locale {
    * Get weekday names for the specified formatter
    * @returns names Weekday names
    */
-  private formatWeekdayNames (): string[] {
-    if (this.options.weekday === undefined) {
-      throw new Error('Cannot get weekday names: format does not include weekday');
-    }
-    const weekdayNames: string[] = [];
-    for (let day = 1; day <= 7; day += 1) {
-      const date = Date.UTC(2018, 0, day); // Monday - Sunday
-      const part = this.formatter.formatToParts(date).find(part => part.type === 'weekday');
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      weekdayNames.push(part!.value); // must be provided
+  private formatWeekdayNames (): FormattedNames[] {
+    const weekdayNames: FormattedNames[] = [];
+    for (let value = 0; value < DAYS_IN_WEEK; value += 1) {
+      const date = Date.UTC(2018, 0, value); // Sunday - Saturday
+      const weekdayPart = this.formatter.formatToParts(date).find(part => part.type === 'weekday');
+      if (weekdayPart) {
+        weekdayNames.push({
+          value,
+          name: weekdayPart.value.toLowerCase()
+        });
+      }
     }
     return weekdayNames;
   }
@@ -163,16 +174,21 @@ class Locale {
    * Get period names for the specified formatter
    * @returns names Period names
    */
-  private formatPeriodNames (): string[] {
-    if (!this.options.hour12) {
-      throw new Error('Cannot get period names. The format is not 12 hour format');
-    }
-    const periodNames: string[] = [];
-    for (let i = 0; i <= 1; i += 1) {
-      const date = Date.UTC(2018, 0, 1, 5 + i * 12); // cover both, h11 & h12. So take the period 6AM - 6PM
-      const part = this.formatter.formatToParts(date).find(part => part.type === 'dayPeriod');
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      periodNames.push(part!.value); // must be provided
+  private formatPeriodNames (): FormattedNames[] {
+    const periodNames: FormattedNames[] = [];
+    for (let i = 0; i < HOURS_IN_DAY; i += 1) {
+      // The period is unknown as it can be different per locale, e.g. for en-GB:
+      // AM, PM, 'at night', 'in the morning', 'noon', 'in the afternoon', 'in the evening'
+      const date = Date.UTC(2018, 0, 1, i);
+      const parts = this.formatter.formatToParts(date);
+      const dayPeriodPart = parts.find(part => part.type === 'dayPeriod');
+      const hourPart = parts.find(part => part.type === 'hour');
+      if (hourPart && dayPeriodPart) {
+        periodNames.push({
+          value: Number(hourPart.value),
+          name: dayPeriodPart.value.toLowerCase()
+        });
+      }
     }
     return periodNames;
   }
@@ -181,13 +197,18 @@ class Locale {
    * Get period names for the specified formatter
    * @returns names Period names
    */
-  private formatEraNames (): string[] {
-    const eraNames: string[] = [];
+  private formatEraNames (): FormattedNames[] {
+    const eraNames: FormattedNames[] = [];
     const dates = [utcParse('-0001-01-01').getTime(), Date.UTC(2018, 0, 1)];
     for (let i = 0; i <= 1; i += 1) {
-      const part = this.formatter.formatToParts(dates[i]).find(part => part.type === 'era');
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      eraNames.push(part!.value); // must be provided
+      const era = dates[i];
+      const part = this.formatter.formatToParts(era).find(part => part.type === 'era');
+      if (part) {
+        eraNames.push({
+          value: era,
+          name: part.value.toLowerCase()
+        });
+      }
     }
     return eraNames;
   }
@@ -197,8 +218,9 @@ class Locale {
    * @param list A list with items
    * @returns escaped list
    */
-  private escapeList (list: string[]): string {
-    return `(${list.map(item => regExpEscape(item)).join('|')})`;
+  private escapeList (list: FormattedNames[]): string {
+    // There might be duplicates, which are not required in RegExp
+    return `(${[...new Set(list.map(item => item.name))].map(item => regExpEscape(item)).join('|')})`;
   }
 
   private _regExp: RegExp | null = null;
@@ -247,19 +269,80 @@ class Locale {
           str += this.escapeList(this.periodNames);
           break;
         case 'literal':
-          str += this.escapeList([part.value]);
+          str += `(${regExpEscape(part.value.toLowerCase())})`;
           break;
         case 'era':
           str += this.escapeList(this.eraNames);
           break;
-        default:
-          // Keep it in case the new format comes along
-          throw new Error(`Unsupported format: ${part.type}`);
+        case 'timeZoneName':
+          throw new Error('Parsing timezones is ambiguous. Make sure that `timeZoneName` option is not provided');
+          break;
+        // no default
       }
     }
 
-    this._regExp = new RegExp(`^${str}$`);
+    this._regExp = new RegExp(`^${str}$`, 'i');
     return this._regExp;
+  }
+
+  private _monthNames: FormattedNames[] | null = null;
+  /**
+   * Get month names
+   */
+  private get monthNames (): FormattedNames[] {
+    if (this._monthNames) {
+      return this._monthNames;
+    }
+    this._monthNames = this.formatMonthNames();
+    return this._monthNames;
+  }
+
+  private _weekdayNames: FormattedNames[] | null = null;
+  /**
+   * Get weekday names
+   */
+  private get weekdayNames (): FormattedNames[] {
+    if (this._weekdayNames) {
+      return this._weekdayNames;
+    }
+    this._weekdayNames = this.formatWeekdayNames();
+    return this._weekdayNames;
+  }
+
+  private _periodNames: FormattedNames[] | null = null;
+  /**
+   * Get period names
+   */
+  private get periodNames (): FormattedNames[] {
+    if (this._periodNames) {
+      return this._periodNames;
+    }
+    this._periodNames = this.formatPeriodNames();
+    return this._periodNames;
+  }
+
+  private _eraNames: FormattedNames[] | null = null;
+  /**
+   * Get era names
+   */
+  private get eraNames (): FormattedNames[] {
+    if (this._eraNames) {
+      return this._eraNames;
+    }
+    this._eraNames = this.formatEraNames();
+    return this._eraNames;
+  }
+
+  private _parts: DateTimeFormatPart[] | null = null;
+  /**
+   * Get parts for formatter
+   */
+  private get parts (): DateTimeFormatPart[] {
+    if (this._parts) {
+      return this._parts;
+    }
+    this._parts = this.formatter.formatToParts(Date.UTC(2018, 0, 1));
+    return this._parts;
   }
 
   private _resolvedFormat: Format | null = null;
@@ -297,63 +380,15 @@ class Locale {
     return this._resolvedFormat;
   }
 
-  private _monthNames: string[] | null = null;
   /**
-   * Get month names
-   */
-  public get monthNames (): string[] {
-    if (this._monthNames) {
-      return this._monthNames;
-    }
-    this._monthNames = this.formatMonthNames();
-    return this._monthNames;
-  }
-
-  private _weekdayNames: string[] | null = null;
-  /**
-   * Get weekday names
-   */
-  public get weekdayNames (): string[] {
-    if (this._weekdayNames) {
-      return this._weekdayNames;
-    }
-    this._weekdayNames = this.formatWeekdayNames();
-    return this._weekdayNames;
-  }
-
-  private _periodNames: string[] | null = null;
-  /**
-   * Get period names
-   */
-  public get periodNames (): string[] {
-    if (this._periodNames) {
-      return this._periodNames;
-    }
-    this._periodNames = this.formatPeriodNames();
-    return this._periodNames;
-  }
-
-  private _eraNames: string[] | null = null;
-  /**
-   * Get era names
-   */
-  public get eraNames (): string[] {
-    if (this._eraNames) {
-      return this._eraNames;
-    }
-    this._eraNames = this.formatEraNames();
-    return this._eraNames;
-  }
-
-  /**
-   * Try to format localised date string into ISO date/time/datetime string
+   * Try to parse localised date string into ISO date/time/datetime string
    * Throw an error if value is invalid
    * @param value Localised date
    * @param [referenceDate=0] Reference UTC date or time to resolve ambiguous strings.
    * @returns ISO date/time/datetime string
    */
-  public format (value: string, referenceDate: number | Date = 0): string {
-    referenceDate = new Date(referenceDate);
+  public parse (value: string, referenceDate: string | number | Date = 0): string {
+    referenceDate = typeof referenceDate === 'string' ? utcParse(referenceDate) : new Date(referenceDate);
 
     value = value.trim(); // weak formatting
     const regExp = this.regExp;
@@ -375,12 +410,14 @@ class Locale {
     let seconds = referenceDate.getUTCSeconds();
     let milliseconds = referenceDate.getUTCMilliseconds();
 
-    let period = -1;
+    let weekDay = '';
+    let referenceDay = NaN;
+    let dayPeriod = '';
     let era = -1;
 
     for (let i = 0; i < parts.length; i += 1) {
       const part = parts[i];
-      const match = matches[i + 1]; // regexp 0 is full string
+      const match = matches[i + 1].toLowerCase(); // regexp 0 is full string
       switch (part.type) {
         case 'year':
           year = Number(match);
@@ -390,11 +427,17 @@ class Locale {
             month = Number(match) - 1; // month is 0 based
           }
           else {
-            month = this.monthNames.indexOf(match);
+            const monthItem = this.monthNames.find(item => item.name === match);
+            if (monthItem) {
+              month = monthItem.value;
+            }
           }
           break;
         case 'day':
-          day = Number(match);
+          referenceDay = Number(match);
+          break;
+        case 'weekday':
+          weekDay = match;
           break;
         case 'hour':
           hours = Number(match);
@@ -409,10 +452,10 @@ class Locale {
           milliseconds = Number(match);
           break;
         case 'dayPeriod':
-          period = this.periodNames.indexOf(match);
+          dayPeriod = match;
           break;
         case 'era':
-          era = this.eraNames.indexOf(match);
+          era = this.eraNames.findIndex(item => item.name === match);
           break;
         // no default
       }
@@ -430,35 +473,51 @@ class Locale {
     }
 
     // Adjust hour cycles to h23 format
-    switch (this.hourCycle) {
-      case 'h24':
-        // midnight at 24:00 (h24) = 00:00 (h23)
-        hours = hours === HOURS_IN_DAY ? 0 : hours;
-        break;
-      case 'h12':
-        // midnight starting at 12:00 am.
-        // 12:00am (h12) = 00:00 (h23)
-        // 11:00am (h12) = 11:00 (h23)
-        // 12:00pm (h12) = 12:00 (h23)
-        // 01:00pm (h12) = 13:00 (h23)
-        // 11:00pm (h12) = 23:00 (h23)
-        hours = period === 0 && hours === HOURS_OF_NOON ? 0
-          : period === 1 && hours < HOURS_OF_NOON ? hours += HOURS_OF_NOON : hours;
-        break;
-      case 'h11':
-        // midnight starting at 00:00 am.
-        // 00:00am (h11) = 00:00 (h23)
-        // 11:00am (h11) = 11:00 (h23)
-        // 00:00pm (h11) = 12:00 (h23)
-        // 01:00pm (h11) = 13:00 (h23)
-        // 11:00pm (h11) = 23:00 (h23)
-        hours = period === 1 ? hours += HOURS_OF_NOON : hours;
-        break;
-      // no default
+    if (options.hour12) {
+      // Minutes needs to be taken into account, e.g.:
+      // 12:00 - noon; 11:59 - in the morning; 12:01 - in the afternoon
+      // const matchHours = this.periodNames.findIndex(period => period.name === dayPeriod && period.value === hours);
+      // hours = matchHours > HOURS_OF_NOON ? hours += HOURS_OF_NOON : hours;
+      hours = this.periodNames.findIndex(period => period.name === dayPeriod && period.value === hours);
+      if (hours === -1) {
+        throwInvalidValue(value);
+      }
+    }
+    else if (this.hourCycle === 'h24') {
+      // midnight at 24:00 (h24) = 00:00 (h23)
+      hours = hours === HOURS_IN_DAY ? 0 : hours;
     }
 
-    // the result is always minimum required format to calculate the date
-    return utcFormat({
+    // Resolve false positives,
+    if (!weekDay && !isNaN(referenceDay)) {
+      // day provided, weekday is not
+      day = referenceDay;
+    }
+    else if (weekDay && isNaN(referenceDay)) {
+      // Ambiguous format, so pick the first available day
+      // that match the weekday, year and month
+      referenceDay = 1;
+      let utcWeekDay = utcParse({ year, month, day: referenceDay }).getUTCDay();
+      for (let i = 0; i < DAYS_IN_WEEK; i += 1) {
+        if (this.weekdayNames.find(item => item.name === weekDay && item.value === utcWeekDay)) {
+          break;
+        }
+        utcWeekDay += 1;
+        referenceDay += 1;
+      }
+    }
+    else if (weekDay && !isNaN(referenceDay)) {
+      day = referenceDay;
+      // both provided, make sure that these values match
+      // there might be more than 1 match (e.g. T can mean Tuesday or Thursday)
+      const utcWeekDay = utcParse({ year, month, day }).getUTCDay();
+      if (!this.weekdayNames.some(item => item.name === weekDay && item.value === utcWeekDay)) {
+        throwInvalidValue(value);
+      }
+    }
+
+    const format = this.isoFormat;
+    const date = utcFormat({
       year,
       month,
       day,
@@ -466,56 +525,14 @@ class Locale {
       minutes,
       seconds,
       milliseconds
-    }, this.isoFormat);
-  }
+    }, format);
 
-  /**
-   * Try to format ISO date/time/datetime string into localised string
-   * Throw an error if value is invalid
-   * @param value ISO string date/time/datetime
-   * @returns localised string
-   */
-  public formatIso (value: string): string {
-    const date = utcParse(value);
-    return this.formatter.format(date);
-  }
-
-  /**
-   * Try to format localised string into datetime format parts
-   * Throw an error if value is invalid
-   * @param value localised string
-   * @returns parts
-   */
-  public formatToParts (value: string): Intl.DateTimeFormatPart[] {
-    const isoDate = this.format(value);
-    return this.formatToPartsIso(isoDate);
-  }
-
-  /**
-   * Try to format ISO date/time/datetime string into datetime format parts
-   * Throw an error if value is invalid
-   * @param value ISO string date/time/datetime
-   * @returns parts
-   */
-  public formatToPartsIso (value: string): Intl.DateTimeFormatPart[] {
-    const date = utcParse(value);
-    return this.formatter.formatToParts(date);
-  }
-
-  /**
-   * Check if passed value is valid
-   * @param value Value to check
-   * @returns true if value is valid
-   */
-  public isValid (value: string): boolean {
-    try {
-      this.format(value);
-    }
-    catch (error) {
-      return false;
+    // Check for leap years and number of days per month
+    if (!getFormat(date)) {
+      throwInvalidValue(value);
     }
 
-    return true;
+    return date;
   }
 }
 
