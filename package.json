@@ -24,7 +24,8 @@
     "lint:affected": "nx affected:lint --parallel",
     "lint:all": "nx affected:lint --parallel --all",
     "lint-fix": "node cli lint:fix",
-    "lint-fix:all": "nx run-many --target lint:fix --parallel --all"
+    "lint-fix:all": "nx run-many --target lint:fix --parallel --all",
+    "reset": "nx reset"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
