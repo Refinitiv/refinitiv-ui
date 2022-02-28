@@ -436,7 +436,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
           this.memo.expanded += 1;
         }
       }
-      else if (this.treeManager.isItemCheckable(item)) {
+      else if (!this.composer.isItemLocked(item)) {
         this.memo.selectable += 1;
         if (this.getItemPropertyValue(item, 'selected') === true) {
           this.memo.selected += 1;
