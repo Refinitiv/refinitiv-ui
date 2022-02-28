@@ -36,6 +36,10 @@
     }
   }
 
+  &[focused="visible"] {
+    &:extend(:host[focused="visible"] all);
+  }
+
   &:hover, &[active], &[pressed] {
     color: @global-text-selection-color;
 
@@ -52,21 +56,11 @@
   }
 
   [part=close] {
-    .touch-action();
-    cursor: pointer;
+    &:extend(:host [part=close] all);
     color: @pill-default-close-color;
-    display: flex;
-    position: relative;
-    margin-left: 4px;
     min-width: @cross-size;
-    width: @cross-size;
-    height: @cross-size;
-    box-sizing: border-box;
     opacity: 0.4;
-
-    &:active {
-      border: 1px solid transparent;
-    }
+    background-color: initial;
   }
 
   .mobile-specific({
