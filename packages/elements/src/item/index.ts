@@ -199,7 +199,7 @@ export class Item extends ControlElement {
     if (changedProperties.has('multiple')) {
       this.multipleChanged();
     }
-    if (changedProperties.has('selected')) {
+    else if (changedProperties.has('selected')) {
       this.selectedChanged();
     }
   }
