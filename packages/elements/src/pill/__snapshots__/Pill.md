@@ -3,7 +3,10 @@
 #### `Should have correct default Shadow DOM structure`
 
 ```html
-<div part="content">
+<div
+  part="content"
+  role="none"
+>
   <slot>
     ...
   </slot>
@@ -14,12 +17,16 @@
 #### `Should have correct "clears" Shadow DOM structure`
 
 ```html
-<div part="content">
+<div
+  part="content"
+  role="none"
+>
   <slot>
     ...
   </slot>
 </div>
 <ef-icon
+  aria-hidden="true"
   icon="cross"
   part="close"
 >
