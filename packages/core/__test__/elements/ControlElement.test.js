@@ -129,9 +129,6 @@ describe('TestControlElement', () => {
         expect(el.hasAttribute('readonly')).to.equal(true, 'attribute "readonly" should be exists');
         expect(el.getAttribute('readonly')).to.equal('', 'attribute "readonly" should equal ""');
 
-        expect(el.hasAttribute('aria-readonly')).to.equal(true, 'attribute "aria-readonly" should be present');
-        expect(el.getAttribute('aria-readonly')).to.equal('true', '"aria-readonly" should be true');
-
         el.readonly = false;
         await elementUpdated(el);
 
@@ -145,9 +142,6 @@ describe('TestControlElement', () => {
         expect(el.getAttribute('readonly')).to.equal('', 'attribute "readonly" should equal empty string');
         expect(el.hasAttribute('readonly')).to.equal(true, 'attribute "readonly" should be present');
 
-
-        expect(el.hasAttribute('aria-readonly')).to.equal(true, 'attribute "aria-readonly" should be present');
-        expect(el.getAttribute('aria-readonly')).to.equal('true', '"aria-readonly" should be true');
       });
     });
 
