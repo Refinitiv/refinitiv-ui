@@ -7,7 +7,6 @@
 ```html
 <ef-number-field
   aria-label="0 hours"
-  aria-readonly="true"
   id="hours"
   max="23"
   min="0"
@@ -22,7 +21,6 @@
 </span>
 <ef-number-field
   aria-label="0 minutes"
-  aria-readonly="true"
   id="minutes"
   max="59"
   min="0"
@@ -37,7 +35,6 @@
 </span>
 <ef-number-field
   aria-label="0 seconds"
-  aria-readonly="true"
   id="seconds"
   max="59"
   min="0"
