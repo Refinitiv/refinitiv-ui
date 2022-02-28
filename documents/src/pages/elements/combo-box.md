@@ -349,7 +349,7 @@ Combo Box supports custom rendering by providing a renderer function to the `ren
 The preferred approach is to extend the `ComboBoxRenderer` that comes with Combo Box. The default renderer uses [Item](./elements/item) elements, and supports highlighted, selected, disabled, hidden and readonly states.
 
 ```javascript
-import { ComboBoxRenderer } from 'ef-combo-box';
+import { ComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
 
 // Create a re-useable renderer that shows Flags next to the country
 class FlagRender extends ComboBoxRenderer {
