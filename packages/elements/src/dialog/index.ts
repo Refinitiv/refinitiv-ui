@@ -58,6 +58,11 @@ export class Dialog extends Overlay {
   }
 
   /**
+   * Default role of the element
+   */
+  protected readonly defaultRole: string | null = 'dialog';
+
+  /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
@@ -188,9 +193,31 @@ export class Dialog extends Overlay {
    */
   protected shouldUpdate (changedProperties: PropertyValues): boolean {
     const shouldUpdate = super.shouldUpdate(changedProperties);
-
     return shouldUpdate
-      || ((changedProperties.has('draggable') || changedProperties.has('header') || changedProperties.has(TranslatePropertyKey)) && this.opened);
+      || ((changedProperties.has('draggable') || changedProperties.has('header') || changedProperties.has('noInteractionLock') || changedProperties.has(TranslatePropertyKey)) && this.opened);
+  }
+
+  /**
+   * Compute property values that depend on other properties
+   * and are used in the rest of the update process.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  public willUpdate (changedProperties: PropertyValues): void {
+    // dialog only update when it is opened, so also checking `opened` change.
+    if (changedProperties.has('opened') || changedProperties.has('noInteractionLock')) {
+      this.setAttribute('aria-modal', String(!this.noInteractionLock));
+    }
+  }
+
+  /**
+   * Called after the component is first rendered
+   * @param changedProperties Properties which have changed
+   * @return {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    this.setAttribute('aria-modal', String(!this.noInteractionLock));
   }
 
   /**
@@ -345,7 +372,7 @@ export class Dialog extends Overlay {
   protected get headerRegion (): TemplateResult {
     return html`
       ${this.header === null ? this.t('HEADER') : this.header}
-      <ef-icon part="close" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
+      <ef-icon aria-hidden="true" part="close" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
     `;
   }
 
@@ -356,9 +383,9 @@ export class Dialog extends Overlay {
    */
   protected render (): TemplateResult {
     return html`
-        <ef-header drag-handle part="header">${this.headerRegion}</ef-header>
-        <ef-panel part="content" spacing transparent>${this.contentRegion}</ef-panel>
-        <div part="footer">${this.footerRegion}</div>
+      <ef-header drag-handle part="header">${this.headerRegion}</ef-header>
+      <ef-panel part="content" spacing transparent>${this.contentRegion}</ef-panel>
+      <div part="footer">${this.footerRegion}</div>
     `;
   }
 }

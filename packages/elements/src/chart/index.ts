@@ -321,7 +321,7 @@ export class Chart extends BasicElement {
         datasetIndex: i
       };
     });
-  }
+  };
 
   /**
    * Merges all the different layers of the config.

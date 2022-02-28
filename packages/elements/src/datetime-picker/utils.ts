@@ -18,7 +18,7 @@ class DateTimeSegment {
   static fromString = (value: string): DateTimeSegment => {
     const valueSplit = value.split('T');
     return new DateTimeSegment(valueSplit[0], valueSplit[1]);
-  }
+  };
 
   /**
    * Create DateTimeSegment from another DateTimeSegment
@@ -27,7 +27,7 @@ class DateTimeSegment {
    */
   static fromDateTimeSegment = (segment: DateTimeSegment): DateTimeSegment => {
     return new DateTimeSegment(segment.dateSegment, segment.timeSegment);
-  }
+  };
 
   /**
    * Create new date time segment

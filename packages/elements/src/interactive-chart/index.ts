@@ -484,7 +484,7 @@ export class InteractiveChart extends ResponsiveElement {
       colorParse.opacity = Number(opacity);
     }
     return colorParse;
-  }
+  };
 
   /**
    * Convert color to string
@@ -732,7 +732,7 @@ export class InteractiveChart extends ResponsiveElement {
       return;
     }
     this.createRowLegend(this.rowLegend, param);
-  }
+  };
 
   /**
    * Create legend element
@@ -1130,7 +1130,7 @@ export class InteractiveChart extends ResponsiveElement {
       // update legend only when chart already created
       this.updateLegendWithLatestData();
     }
-  }
+  };
 
   /**
    *  Update Legend with latest data on update data in series
@@ -1163,7 +1163,7 @@ export class InteractiveChart extends ResponsiveElement {
     if (this.timeScale !== null) {
       this.timeScale.scrollToRealTime();
     }
-  }
+  };
 
   /**
    * Get as CSS variable and tries to convert it into a usable number

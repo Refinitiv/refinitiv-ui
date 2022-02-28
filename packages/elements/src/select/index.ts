@@ -298,7 +298,7 @@ export class Select extends ControlElement implements MultiValue {
   }
 
   @query('#menu')
-  private menuEl?: Overlay
+  private menuEl?: Overlay;
 
   /**
    * Called when connected to DOM
@@ -435,7 +435,7 @@ export class Select extends ControlElement implements MultiValue {
     if (hasLightDomMutations) {
       this.requestUpdate();
     }
-  }
+  };
 
   /**
    * Popup has to use max width if --list-max-width specified
@@ -584,7 +584,7 @@ export class Select extends ControlElement implements MultiValue {
    */
   private onPopupScroll = ({ target }: Event): void => {
     this.popupScrollTop = (target as Overlay).scrollTop;
-  }
+  };
 
   /**
    * Run when tap event happens on render root

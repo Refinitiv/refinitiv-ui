@@ -621,7 +621,7 @@ export class TimePicker extends ControlElement {
    */
   private onKeydown = (event: Event): void => {
     this.manageControlKeys(event as KeyboardEvent);
-  }
+  };
 
   /**
    * Handle valid control keys and execute their corresponding commands

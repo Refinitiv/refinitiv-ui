@@ -804,7 +804,7 @@ export class Overlay extends ResponsiveElement {
       });
     }
 
-    const enablingFocusManagement = (opening && !this.noFocusManagement) || (opened && changedProperties.get('noFocusManagement'));
+    const enablingFocusManagement = (opening && !this.noFocusManagement) || (opened && !!changedProperties.get('noFocusManagement'));
     const disablingFocusManagement = opened && changedProperties.get('noFocusManagement') === false;
     if (enablingFocusManagement) {
       focusableRegister(this);
@@ -818,7 +818,7 @@ export class Overlay extends ResponsiveElement {
     }
 
     const enablingBackdrop = (opening && this.withBackdrop) || (opened && changedProperties.get('withBackdrop') === false);
-    const disablingBackdrop = opened && changedProperties.get('withBackdrop');
+    const disablingBackdrop = opened && !!changedProperties.get('withBackdrop');
     if (enablingBackdrop) {
       backdropRegister(this);
     }

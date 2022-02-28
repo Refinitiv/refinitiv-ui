@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.4.2...@refinitiv-ui/elemental-theme@5.5.0) (2022-02-15)
+
+
+### Features
+
+* **collapse:** accessibility support ([#203](https://github.com/Refinitiv/refinitiv-ui/issues/203)) ([12ae2f7](https://github.com/Refinitiv/refinitiv-ui/commit/12ae2f7fe036d0351e69f5daca4369fae4097917))
+* **collapse:** add accessibility support ([#161](https://github.com/Refinitiv/refinitiv-ui/issues/161)) ([158f031](https://github.com/Refinitiv/refinitiv-ui/commit/158f0317dd4df9ab76e1bd27d4aa02151787c252))
+
+
+### Reverts
+
+* Revert "feat(collapse): add accessibility support (#161)" (#179) ([9a0ad70](https://github.com/Refinitiv/refinitiv-ui/commit/9a0ad709d71c243fe68dbc38318a04745ea5b23b)), closes [#161](https://github.com/Refinitiv/refinitiv-ui/issues/161) [#179](https://github.com/Refinitiv/refinitiv-ui/issues/179)
+
+
+
+
+
 ## [5.4.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@5.4.1...@refinitiv-ui/elemental-theme@5.4.2) (2022-01-12)
 
 **Note:** Version bump only for package @refinitiv-ui/elemental-theme

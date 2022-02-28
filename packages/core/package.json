@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/core",
-  "version": "5.4.0",
+  "version": "5.4.2",
   "description": "Element Framework Core",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@refinitiv-ui/test-helpers": "^5.1.2",
-    "@refinitiv-ui/utils": "^5.1.1"
+    "@refinitiv-ui/utils": "^5.1.2"
   },
   "peerDependencies": {
     "@refinitiv-ui/utils": "^5.1.1"

@@ -104,6 +104,7 @@ export class ViewportManager {
     // Kept here for compatibility with old apps
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const zoom = parseFloat(window.getComputedStyle(document.body).zoom);
     const screenHeight = screenRect.height / zoom;
     const screenWidth = screenRect.width / zoom;

@@ -143,13 +143,34 @@ export class TextField extends FormFieldElement {
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
-    if (this.inputValue !== this.value) {
-      this.inputValue = this.value;
+    if (this.shouldSyncInputValue(changedProperties)) {
+      this.syncInputValue(changedProperties);
     }
 
     if (this.shouldValidateInput(changedProperties)) {
       this.validateInput();
     }
+  }
+
+  /**
+   * Check if input value should be synchronised with component value
+   * @param changedProperties Properties that has changed
+   * @returns True if input should be synchronised
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected shouldSyncInputValue (changedProperties: PropertyValues): boolean {
+    return this.inputValue !== this.value;
+  }
+
+  /**
+   * Synchronise input value with value.
+   * Override the method if value and input value are not the same
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected syncInputValue (changedProperties: PropertyValues): void {
+    this.inputValue = this.value;
   }
 
   /**

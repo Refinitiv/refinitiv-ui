@@ -86,7 +86,7 @@ export class AppstateBar extends BasicElement {
      * @event clear
      */
     this.dispatchEvent(new CustomEvent('clear'));
-  }
+  };
 
   /**
    * A `TemplateResult` that will be used
