@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [develop]
 env:
-  BASE_SHA: ${{ github.base_ref }}
+  BASE_SHA: $GITHUB_SHA~1
 jobs:
   build:
     runs-on: ubuntu-latest
