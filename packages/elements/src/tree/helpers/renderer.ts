@@ -16,20 +16,30 @@ export class TreeRenderer extends Renderer {
   /**
    * Renderer key prefix, used in combination with item value to give unique id to each item
    */
-  public key = uuid().split('-')[0];
+  public key: string;
 
   constructor (scope?: unknown) {
+
+    let manager: TreeManager<TreeDataItem>;
+    let currentMode: TreeManagerMode;
+    let currentComposer: CollectionComposer<TreeDataItem>;
+
     super((item: TreeDataItem, composer: CollectionComposer<TreeDataItem>, element = document.createElement('ef-tree-item')): HTMLElement => {
       const el = element as TreeItem;
       const multiple = !!scope && (scope as RendererScope).multiple === true;
       const noRelation = !!scope && (scope as RendererScope).noRelation === true;
       const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
-      const manager: TreeManager<TreeDataItem> = new TreeManager(composer, mode);
+
+      if (currentComposer !== composer || currentMode !== mode) {
+        currentMode = mode;
+        currentComposer = composer;
+        manager = new TreeManager(composer, mode);
+      }
 
       el.multiple = multiple;
       el.item = item;
       el.tabIndex = -1;
-      el.id = item.value ? `${this.key}-${item.value}` : '';
+      item.value && (el.id = `${this.key}-${item.value}`);
       el.depth = composer.getItemDepth(item);
       el.parent = composer.getItemChildren(item).length > 0;
       el.expanded = manager.isItemExpanded(item);
@@ -42,5 +52,9 @@ export class TreeRenderer extends Renderer {
 
       return el;
     });
+
+    // TODO: move this to initialise property once TypeScript version is 4.6
+    // https://devblogs.microsoft.com/typescript/announcing-typescript-4-6-rc/#code-before-super
+    this.key = uuid().split('-')[0];
   }
 }

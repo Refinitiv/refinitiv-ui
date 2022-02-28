@@ -20,7 +20,7 @@ export class ListRenderer extends Renderer {
   /**
    * Renderer key prefix, used in combination with item value to give unique id to each item
    */
-  public key = uuid().split('-')[0];
+  public key: string = uuid().split('-')[0];
 
   constructor (context?: unknown) {
     /**
