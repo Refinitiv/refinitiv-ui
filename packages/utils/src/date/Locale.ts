@@ -96,7 +96,14 @@ class Locale {
     return new Locale(format);
   }
 
+  /**
+   * Locale `Intl.DateTimeFormat` object
+   */
   public readonly formatter;
+
+  /**
+   * Locale `formatter` resolved options
+   */
   public readonly options;
 
   private readonly hourCycle;
