@@ -402,8 +402,16 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns {void}
    */
   protected cancelSelection (): void {
-    // values setter updates the collection composer if required
-    this.values = this._values;
+    const oldValues = this.values.slice();
+    const newValues = this.composerValues;
+
+    const oldComparison = oldValues.sort().toString();
+    const newComparison = newValues.sort().toString();
+
+    if (oldComparison !== newComparison) {
+      // revert selected item by updating the collection composer
+      this.updateComposerValues(this._values);
+    }
   }
 
   /**
