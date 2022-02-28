@@ -1,6 +1,7 @@
 import { fixture, expect, elementUpdated, oneEvent, keyboardEvent, isIE } from '@refinitiv-ui/test-helpers';
 import '@refinitiv-ui/elements/radio-button';
 import '@refinitiv-ui/elemental-theme/light/ef-radio-button';
+import './radio-wrapper-mockup.js';
 
 const createEnterKeyboardEvent = () => keyboardEvent('keydown', { key: 'Enter' });
 const createSpacebarKeyboardEvent = () => keyboardEvent('keydown', { key: isIE() ? 'Spacebar' : ' ' });
@@ -446,6 +447,43 @@ describe('radio-button/RadioButton', () => {
 
       const checkedRadio = group.find(element => element.checked);
       expect(checkedRadio.id).to.equal('btn2');
+    });
+    it('Should separate scope between shadow DOM and light DOM', async () => {
+      const radio1 = await fixture('<ef-radio-button name="group" id="btn1" checked>1</ef-radio-button>');
+      const radio2 = await fixture('<ef-radio-button name="group" id="btn2">2</ef-radio-button>');
+      const radioWrapper = await fixture('<radio-wrapper></radio-wrapper>');
+      const radioInShadow1 = radioWrapper.shadowRoot.querySelector('#btn1');
+      const radioInShadow2 = radioWrapper.shadowRoot.querySelector('#btn2');
+      expect(radio1.checked).to.equal(true);
+      expect(radio2.checked).to.equal(false);
+      expect(radioInShadow1.checked).to.equal(true);
+      expect(radioInShadow2.checked).to.equal(false);
+
+      radio2.checked = true;
+      await elementUpdated(radio1);
+      expect(radio1.checked).to.equal(false);
+      expect(radio2.checked).to.equal(true);
+      expect(radioInShadow1.checked).to.equal(true);
+      expect(radioInShadow2.checked).to.equal(false);
+    });
+    it('Should separate shadow DOM scope in each element that contain radio-button', async () => {
+      const radioWrapper1 = await fixture('<radio-wrapper></radio-wrapper>');
+      const radioWrapper2 = await fixture('<radio-wrapper></radio-wrapper>');
+      const radio1InGroup1 = radioWrapper1.shadowRoot.querySelector('#btn1');
+      const radio2InGroup1 = radioWrapper1.shadowRoot.querySelector('#btn2');
+      const radio1InGroup2 = radioWrapper2.shadowRoot.querySelector('#btn1');
+      const radio2InGroup2 = radioWrapper2.shadowRoot.querySelector('#btn2');
+      expect(radio1InGroup1.checked).to.equal(true);
+      expect(radio2InGroup1.checked).to.equal(false);
+      expect(radio1InGroup2.checked).to.equal(true);
+      expect(radio2InGroup2.checked).to.equal(false);
+
+      radio2InGroup1.checked = true;
+      await elementUpdated(radio1InGroup1);
+      expect(radio1InGroup1.checked).to.equal(false);
+      expect(radio2InGroup1.checked).to.equal(true);
+      expect(radio1InGroup2.checked).to.equal(true);
+      expect(radio2InGroup2.checked).to.equal(false);
     });
   });
 
