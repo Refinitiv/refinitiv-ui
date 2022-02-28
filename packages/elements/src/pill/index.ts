@@ -43,6 +43,11 @@ export class Pill extends ControlElement {
   }
 
   /**
+   * Element's role attribute for accessibility
+   */
+  protected readonly defaultRole: string | null = 'button';
+
+  /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
@@ -95,11 +100,40 @@ export class Pill extends ControlElement {
     this.addEventListener('tapstart', this.onStartPress);
     this.addEventListener('tapend', this.onEndPress);
     this.addEventListener('mouseleave', this.onEndPress);
+    this.addEventListener('keydown', this.onKeyDown);
+  }
 
+  /**
+   * Updates the element
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected update (changedProperties: PropertyValues): void {
+    if (changedProperties.has('toggles') || changedProperties.has('active')) {
+      if (this.toggles) {
+        this.setAttribute('aria-pressed', String(this.active));
+      }
+      else {
+        this.removeAttribute('aria-pressed');
+      }
+    }
+
+    super.update(changedProperties);
+  }
+
+  /**
+   * Handles key down event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyDown (event: KeyboardEvent): void {
+    if ((event.key === 'Delete' || event.key === 'Del') && (this.clears && !this.readonly)) {
+      this.dispatchEvent(new CustomEvent('clear'));
+    }
   }
 
   private get closeTemplate (): TemplateResult | null {
-    return this.clears && !this.readonly ? html`<ef-icon part="close" icon="cross" @tap="${this.clear}"></ef-icon>` : null;
+    return this.clears && !this.readonly ? html`<ef-icon part="close" icon="cross" aria-hidden="true" @tap="${this.clear}"></ef-icon>` : null;
   }
 
   /**
@@ -109,7 +143,7 @@ export class Pill extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-      <div part="content">
+      <div part="content" role="none">
         <slot>...</slot>
       </div>
       ${this.closeTemplate}
