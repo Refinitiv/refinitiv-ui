@@ -20,7 +20,8 @@ import {
   HOURS_IN_DAY,
   YEARS_IN_CENTURY,
   DAYS_IN_WEEK,
-  MONTHS_IN_YEAR
+  MONTHS_IN_YEAR,
+  HOURS_OF_NOON
 } from './timestamps.js';
 
 // Support weak formatting, when units may start from 0 or 0 can be skipped
@@ -395,7 +396,10 @@ class Locale {
    * @returns ISO date/time/datetime string
    */
   public parse (value: string, referenceDate: string | number | Date = 0): string {
-    referenceDate = typeof referenceDate === 'string' ? utcParse(referenceDate) : new Date(referenceDate);
+    const refDate = typeof referenceDate === 'string' ? utcParse(referenceDate) : new Date(referenceDate);
+
+    // format reference date to exclude excessive information
+    referenceDate = utcParse(utcFormat(refDate, this.isoFormat));
 
     value = value.trim(); // weak formatting
     const regExp = this.regExp;
@@ -483,9 +487,14 @@ class Locale {
     if (options.hour12) {
       // Minutes needs to be taken into account, e.g.:
       // 12:00 - noon; 11:59 - in the morning; 12:01 - in the afternoon
-      // const matchHours = this.periodNames.findIndex(period => period.name === dayPeriod && period.value === hours);
-      // hours = matchHours > HOURS_OF_NOON ? hours += HOURS_OF_NOON : hours;
-      hours = this.periodNames.findIndex(period => period.name === dayPeriod && period.value === hours);
+      hours = this.periodNames.findIndex((period, index) => {
+        let periodName = period.name;
+        // Noon is a special case, when hours=12, seconds=0, minutes=0
+        if (index === HOURS_OF_NOON && (minutes !== 0 || seconds !== 0)) {
+          periodName = this.periodNames[index + 1].name;
+        }
+        return periodName === dayPeriod && period.value === hours;
+      });
       if (hours === -1) {
         throwInvalidValue(value);
       }
@@ -523,7 +532,6 @@ class Locale {
       }
     }
 
-    const format = this.isoFormat;
     const date = utcFormat({
       year,
       month,
@@ -532,7 +540,7 @@ class Locale {
       minutes,
       seconds,
       milliseconds
-    }, format);
+    }, this.isoFormat);
 
     // Check for leap years and number of days per month
     if (!getFormat(date)) {
