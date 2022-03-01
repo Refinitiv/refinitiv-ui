@@ -226,7 +226,7 @@ buttonBar.addEventListener('tap', (e) => {
 ## Accessibility
 ::a11y-intro::
 
-Button Bar serves as a container for Button components. The button bar itself is assigned with `toolbar` role whilst its buttons have `button` role. Always try to include a text label for a button bar and buttons.
+Button Bar serves as a container for Button components. The button bar itself is assigned with `toolbar` role whilst its buttons have `button` role. Always try to include a text label, or `aria-label` for a button bar and buttons.
 
 Note that a Button Bar should not be used in place of a Tab Bar, which is for selecting and displaying panels – maintaining this distinction will help accessible users understand the purpose of the component.
 
