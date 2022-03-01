@@ -474,9 +474,9 @@ class Locale {
       year = referenceYear - referenceYear % YEARS_IN_CENTURY + year;
     }
 
-    // Era, just flip to negative if BC
+    // Era, just flip to negative if BC. Add 1 year, because year 0 = 1 BC
     if (era === 0) {
-      year *= -1;
+      year = year * -1 + 1;
     }
 
     // Adjust hour cycles to h23 format
