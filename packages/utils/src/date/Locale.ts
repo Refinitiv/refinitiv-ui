@@ -471,7 +471,7 @@ class Locale {
     // 2 digit year is ambiguous. Resolve from reference date
     if (options.year === TwoDigit) {
       const referenceYear = referenceDate.getUTCFullYear();
-      year = referenceYear - referenceYear & YEARS_IN_CENTURY + year;
+      year = referenceYear - referenceYear % YEARS_IN_CENTURY + year;
     }
 
     // Era, just flip to negative if BC
