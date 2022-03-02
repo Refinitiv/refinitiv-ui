@@ -24,7 +24,10 @@ import {
   TooltipPositionMap
 } from './helpers/types.js';
 import { tooltipRenderer } from './helpers/renderer.js';
-import { register as registerOverflowTooltip } from './helpers/overflow-tooltip.js';
+import {
+  register as registerOverflowTooltip,
+  deregister as deregisterOverflowTooltip
+} from './helpers/overflow-tooltip.js';
 
 const TooltipPositionMap: TooltipPositionMap = {
   'auto': ['bottom-start', 'top-start'],
@@ -565,6 +568,7 @@ export * from './elements/tooltip-element.js';
 
 export {
   registerOverflowTooltip,
+  deregisterOverflowTooltip,
   Tooltip,
   TooltipCondition,
   TooltipRenderer,
