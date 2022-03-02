@@ -131,7 +131,7 @@ export class TextField extends FormFieldElement {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     if (this.inputElement) {
-      registerOverflowTooltip(this.inputElement, () => this.value);
+      registerOverflowTooltip(this, () => this.inputValue, this.inputElement);
     }
   }
 
