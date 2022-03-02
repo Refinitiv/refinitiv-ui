@@ -9,7 +9,8 @@ on:
         default: canary
 
 jobs:
-  release:
+  install-build-publish:
+    environment: canary
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -34,7 +35,6 @@ jobs:
         run: npm run build:prod
 
       - name: Publish to NPM
-        environment: canary
         run: lerna publish --canary --preid=build.${{ github.run_id }}.${{ github.run_attempt }} --exact --no-changelog --no-git-tag-version --no-push --include-merged-tags --no-private --force-publish --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
