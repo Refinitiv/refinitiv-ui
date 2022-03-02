@@ -3,10 +3,6 @@ name: Manual Release
 on:
   workflow_dispatch:
     inputs:
-      ref:
-        required: true
-        type: string
-        default: 'develop'
       environment:
         required: true
         type: environment
@@ -22,7 +18,6 @@ jobs:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           # Pulls all commits (needed for Lerna)
           fetch-depth: 0
-          ref: ${{ inputs.ref }}
           token: ${{ secrets.GH_TOKEN }}
 
       - name: Setup Node.js
