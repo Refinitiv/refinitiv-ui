@@ -611,7 +611,7 @@ export class DatetimeField extends TextField {
   protected override get decorateInputMap (): TemplateMap {
     return {
       ...super.decorateInputMap,
-      placeholder: this.focused ? this.toInputValue(this.startDate) : this.placeholder,
+      placeholder: this.focused && !this.inputValue ? this.toInputValue(this.startDate) : this.placeholder || undefined,
       '@keydown': this.onInputKeyDown
     };
   }
