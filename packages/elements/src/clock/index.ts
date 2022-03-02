@@ -9,11 +9,11 @@ import {
   ResponsiveElement,
   ElementSize
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
-import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
-import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
 
 import {
@@ -24,7 +24,7 @@ import {
   TimeFormat,
   format,
   padNumber
-} from '@refinitiv-ui/utils/lib/date.js';
+} from '@refinitiv-ui/utils/date.js';
 
 import {
   HOURS_IN_DAY,

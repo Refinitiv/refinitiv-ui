@@ -6,9 +6,9 @@ import {
   TemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { unsafeHTML } from '@refinitiv-ui/core/lib/directives/unsafe-html.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
 import { VERSION } from '../version.js';
 import { FlagLoader } from './utils/FlagLoader.js';
 

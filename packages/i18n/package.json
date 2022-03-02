@@ -17,20 +17,25 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "npm run build && karma start ../../karma.config.js --package=i18n --include-snapshots=false",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "prepack": "npm run version",
+    "version": "node ../../scripts/version"
   },
   "author": "Refinitiv",
   "license": "Apache-2.0",
   "dependencies": {
     "@formatjs/icu-messageformat-parser": "^2.0.15",
     "@formatjs/intl-utils": "^3.8.4",
-    "@refinitiv-ui/phrasebook": "^5.4.1",
     "intl-format-cache": "^4.3.1",
     "intl-messageformat": "^9.10.0",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
+    "@refinitiv-ui/phrasebook": "^5.4.1",
     "@refinitiv-ui/test-helpers": "^5.1.2"
+  },
+  "peerDependencies": {
+    "@refinitiv-ui/phrasebook": "^5.4.1"
   },
   "publishConfig": {
     "access": "public"

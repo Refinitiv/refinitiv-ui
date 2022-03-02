@@ -1,7 +1,7 @@
 import type { Tooltip } from '../index.js';
 import type { DocumentCallbacks } from '../helpers/types';
-import { TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
-import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
+import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
+import { isIE } from '@refinitiv-ui/utils/browser.js';
 
 /**
  * Tooltip manager is here to avoid setting multiple

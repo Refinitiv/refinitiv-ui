@@ -15,7 +15,9 @@
     "test": "npm run build && karma start ../../karma.config.js --package=demo-block",
     "test:snapshots": "npm run test -- --snapshots",
     "test:watch": "npm run test -- --watch",
-    "prepublishOnly": "node scripts/release"
+    "prepublishOnly": "node scripts/release",
+    "prepack": "npm run version",
+    "version": "node ../../scripts/version"
   },
   "repository": {
     "type": "git",
@@ -25,14 +27,17 @@
   "author": "Refinitiv",
   "license": "Apache-2.0",
   "dependencies": {
-    "@refinitiv-ui/core": "^5.4.2",
     "@refinitiv-ui/elemental-theme": "^5.5.0",
     "@refinitiv-ui/halo-theme": "^5.5.0",
     "@refinitiv-ui/solar-theme": "^5.7.0",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
+    "@refinitiv-ui/core": "^5.4.2",
     "@refinitiv-ui/test-helpers": "^5.1.2"
+  },
+  "peerDependencies": {
+    "@refinitiv-ui/core": "^5.4.0"
   },
   "publishConfig": {
     "access": "public"
