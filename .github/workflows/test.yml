@@ -25,7 +25,7 @@ jobs:
 
       - name: Build
         if: steps.setup.outputs.cache-build-hit != 'true'
-        run: npm run reset && npm run build:affected -- --base=$BASE_SHA
+        run: npm run build:affected -- --base=$BASE_SHA
 
   lint:
     needs: build
