@@ -1,4 +1,4 @@
-import type { DataItem } from '@refinitiv-ui/utils/lib/collection';
+import type { DataItem } from '@refinitiv-ui/utils/collection.js';
 import type { ItemData } from '../../item';
 
 /**

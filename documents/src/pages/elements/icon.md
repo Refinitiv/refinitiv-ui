@@ -70,7 +70,7 @@ The size and color of an icon can be changed using standard CSS styling.
 Preloading icons will be deferred until the first `ef-icon` component is created.
 
 ```javascript
-import { preload } from '@refinitiv-ui/elements/lib/icon';
+import { preload } from '@refinitiv-ui/elements/icon';
 
 // preload function supports both icon name or svg location, either single icon or multiple.
 preload('eye');

@@ -21,17 +21,23 @@
     "start": "npm run build && concurrently \"npm run build:watch\" \"web-dev-server --config ../../server.config.js --app-index __demo__\"",
     "test": "npm run build && karma start ../../karma.config.js --package=translate",
     "test:snapshots": "npm run test -- --snapshots",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "prepack": "npm run version",
+    "version": "node ../../scripts/version"
   },
   "dependencies": {
-    "@refinitiv-ui/i18n": "^5.2.6",
-    "@refinitiv-ui/phrasebook": "^5.4.1",
     "lit": "2.1.2",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
     "@refinitiv-ui/core": "^5.4.2",
+    "@refinitiv-ui/i18n": "^5.2.6",
+    "@refinitiv-ui/phrasebook": "^5.4.1",
     "@refinitiv-ui/test-helpers": "^5.1.2"
+  },
+  "peerDependencies": {
+    "@refinitiv-ui/i18n": "^5.2.6",
+    "@refinitiv-ui/phrasebook": "^5.4.1"
   },
   "publishConfig": {
     "access": "public"

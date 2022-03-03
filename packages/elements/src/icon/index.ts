@@ -7,9 +7,9 @@ import {
   SVGTemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { unsafeSVG } from '@refinitiv-ui/core/lib/directives/unsafe-svg.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';

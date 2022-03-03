@@ -1,4 +1,4 @@
-import { AfterRenderTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { AfterRenderTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { TapEvent } from '@refinitiv-ui/core';
 import type { Item } from '../../item';
 import { OverlayMenu } from '../index.js';

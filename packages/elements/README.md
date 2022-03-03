@@ -29,10 +29,10 @@ Finally, import both elements that you want to use and its themes into your appl
 import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
 
 // import element and its Halo dark theme
-import '@refinitiv-ui/elements/lib/button';
-import '@refinitiv-ui/elements/lib/panel';
-import '@refinitiv-ui/elements/lib/button/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/panel/themes/halo/dark';
+import '@refinitiv-ui/elements/button';
+import '@refinitiv-ui/elements/panel';
+import '@refinitiv-ui/elements/button/themes/halo/dark';
+import '@refinitiv-ui/elements/panel/themes/halo/dark';
 ```
 
 Now, you can use the elements in your app.

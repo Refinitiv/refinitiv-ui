@@ -29,16 +29,16 @@ The Halo theme contains **dark** and **light** variants. Let's make one entry po
 // theme.dark.js
 
 import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
-import '@refinitiv-ui/elements/lib/panel/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/header/themes/halo/dark';
+import '@refinitiv-ui/elements/panel/themes/halo/dark';
+import '@refinitiv-ui/elements/header/themes/halo/dark';
 ```
 
 ```javascript
 // theme.light.js
 
 import '@refinitiv-ui/halo-theme/light/imports/native-elements';
-import '@refinitiv-ui/elements/lib/panel/themes/halo/light';
-import '@refinitiv-ui/elements/lib/header/themes/halo/light';
+import '@refinitiv-ui/elements/panel/themes/halo/light';
+import '@refinitiv-ui/elements/header/themes/halo/light';
 ```
 
 ### 3. Create theme loader
@@ -57,11 +57,11 @@ export function loadTheme() {
 
 ### 4. Add theme loader
 
-Your application can add an event listenter to the `theme` attribute and call `onThemeChanges()` whenever the value is changed.
+Your application can add an event listener to the `theme` attribute and call `onThemeChanges()` whenever the value is changed.
 
 ```javascript
-import '@refinitiv-ui/elements/lib/panel';
-import '@refinitiv-ui/elements/lib/header';
+import '@refinitiv-ui/elements/panel';
+import '@refinitiv-ui/elements/header';
 
 import { loadTheme } from './theme-loader';
 

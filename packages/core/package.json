@@ -2,36 +2,41 @@
   "name": "@refinitiv-ui/core",
   "version": "5.4.2",
   "description": "Element Framework Core",
-  "main": "./lib/elf.js",
-  "module": "./lib/elf.js",
-  "types": "./lib/elf.d.ts",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*.js": ["lib/*.d.ts"]
+    }
+  },
   "exports": {
     ".": {
-      "default": "./lib/elf.js"
+      "default": "./lib/index.js"
     },
-    "./lib/directives/async-append.js": "./lib/directives/async-append.js",
-    "./lib/directives/async-replace.js": "./lib/directives/async-replace.js",
-    "./lib/directives/cache.js": "./lib/directives/cache.js",
-    "./lib/directives/class-map.js": "./lib/directives/class-map.js",
-    "./lib/directives/guard.js": "./lib/directives/guard.js",
-    "./lib/directives/if-defined.js": "./lib/directives/if-defined.js",
-    "./lib/directives/live.js": "./lib/directives/live.js",
-    "./lib/directives/ref.js": "./lib/directives/ref.js",
-    "./lib/directives/repeat.js": "./lib/directives/repeat.js",
-    "./lib/directives/style-map.js": "./lib/directives/style-map.js",
-    "./lib/directives/template-content.js": "./lib/directives/template-content.js",
-    "./lib/directives/template-map.js": "./lib/directives/template-map.js",
-    "./lib/directives/unsafe-html.js": "./lib/directives/unsafe-html.js",
-    "./lib/directives/unsafe-svg.js": "./lib/directives/unsafe-svg.js",
-    "./lib/directives/until.js": "./lib/directives/until.js",
-    "./lib/decorators/custom-element.js": "./lib/decorators/custom-element.js",
-    "./lib/decorators/event-options.js": "./lib/decorators/event-options.js",
-    "./lib/decorators/property.js": "./lib/decorators/property.js",
-    "./lib/decorators/query.js": "./lib/decorators/query.js",
-    "./lib/decorators/query-all.js": "./lib/decorators/query-all.js",
-    "./lib/decorators/query-assigned-nodes.js": "./lib/decorators/query-assigned-nodes.js",
-    "./lib/decorators/query-async.js": "./lib/decorators/query-async.js",
-    "./lib/decorators/state.js": "./lib/decorators/state.js"
+    "./directives/async-append.js": "./lib/directives/async-append.js",
+    "./directives/async-replace.js": "./lib/directives/async-replace.js",
+    "./directives/cache.js": "./lib/directives/cache.js",
+    "./directives/class-map.js": "./lib/directives/class-map.js",
+    "./directives/guard.js": "./lib/directives/guard.js",
+    "./directives/if-defined.js": "./lib/directives/if-defined.js",
+    "./directives/live.js": "./lib/directives/live.js",
+    "./directives/ref.js": "./lib/directives/ref.js",
+    "./directives/repeat.js": "./lib/directives/repeat.js",
+    "./directives/style-map.js": "./lib/directives/style-map.js",
+    "./directives/template-content.js": "./lib/directives/template-content.js",
+    "./directives/template-map.js": "./lib/directives/template-map.js",
+    "./directives/unsafe-html.js": "./lib/directives/unsafe-html.js",
+    "./directives/unsafe-svg.js": "./lib/directives/unsafe-svg.js",
+    "./directives/until.js": "./lib/directives/until.js",
+    "./decorators/custom-element.js": "./lib/decorators/custom-element.js",
+    "./decorators/event-options.js": "./lib/decorators/event-options.js",
+    "./decorators/property.js": "./lib/decorators/property.js",
+    "./decorators/query.js": "./lib/decorators/query.js",
+    "./decorators/query-all.js": "./lib/decorators/query-all.js",
+    "./decorators/query-assigned-nodes.js": "./lib/decorators/query-assigned-nodes.js",
+    "./decorators/query-async.js": "./lib/decorators/query-async.js",
+    "./decorators/state.js": "./lib/decorators/state.js"
   },
   "repository": {
     "type": "git",
@@ -49,16 +54,21 @@
     "test": "npm run build && karma start ../../karma.config.js --package=core",
     "test:snapshots": "npm run test -- --snapshots",
     "test:watch": "npm run build && npm run test -- --watch",
-    "prepublishOnly": "node scripts/release"
+    "prepublishOnly": "node scripts/release",
+    "prepack": "npm run version",
+    "version": "node ../../scripts/version"
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.3.1",
-    "@refinitiv-ui/utils": "^5.1.2",
     "lit": "2.1.2",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/test-helpers": "^5.1.2"
+    "@refinitiv-ui/test-helpers": "^5.1.2",
+    "@refinitiv-ui/utils": "^5.1.2"
+  },
+  "peerDependencies": {
+    "@refinitiv-ui/utils": "^5.1.1"
   },
   "publishConfig": {
     "access": "public"
