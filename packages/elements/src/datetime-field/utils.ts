@@ -1,8 +1,4 @@
-import {
-  DateTimeFormatPartTypes,
-  DateTimeFormatPart,
-  InputSelection
-} from './types';
+import { DateTimeFormatPart, DateTimeFormatPartTypes, InputSelection } from './types';
 import { Direction } from './constants.js';
 
 const IterablePartTypes: DateTimeFormatPartTypes[] = ['year', 'day', 'month', 'hour', 'minute', 'second', 'weekday', 'dayPeriod', 'fractionalSecond'];
@@ -39,11 +35,18 @@ export const getSelectedPartIndex = (selection: InputSelection, parts: DateTimeF
  */
 export const getNextSelectedPartIndex = (selection: InputSelection, parts: DateTimeFormatPart[], inputValue: string, direction: Direction = Direction.Up): number => {
   let selectedIndex: number;
-  if (selection.selectionEnd === 0) {
+  const { selectionEnd, selectionStart } = selection;
+  if (selectionStart === 0 && selectionEnd === inputValue.length) {
+    // Full text selected
+    selectedIndex = direction === Direction.Up ? -1 : parts.length;
+  }
+  else if (selectionEnd === 0) {
+    // Cursor at the start of the text
     selectedIndex = -1;
     direction = Direction.Up;
   }
-  else if (selection.selectionEnd === inputValue.length && selection.selectionEnd === selection.selectionStart) {
+  else if (selectionEnd === inputValue.length && selectionEnd === selectionStart) {
+    // cursor at the end of the text
     selectedIndex = parts.length;
     direction = Direction.Down;
   }
