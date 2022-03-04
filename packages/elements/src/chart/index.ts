@@ -1,3 +1,6 @@
+/* eslint @typescript-eslint/no-unsafe-call: 0 */
+/* eslint @typescript-eslint/no-unsafe-member-access: 0 */
+
 import {
   BasicElement,
   html,
@@ -43,6 +46,7 @@ window.Chart.pluginService.register(doughnutCenterPlugin);
 
 const CSS_COLOR_PREFIX = '--chart-color-';
 const CHART_TYPE_OPAQUE = ['line', 'bubble', 'radar', 'polarArea'];
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const DEFAULT_CHART_CONFIG = window.Chart.defaults;
 const ELF_CHART_CONFIG = {
   polarArea: {
