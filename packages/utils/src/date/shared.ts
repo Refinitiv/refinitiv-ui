@@ -572,5 +572,6 @@ export {
   subMonths,
   isWeekend,
   addUnit,
-  iterateUnit
+  iterateUnit,
+  toSegment
 };
