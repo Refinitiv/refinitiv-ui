@@ -15,7 +15,7 @@ It aims to create a consistent approach to building, reusing and sharing UI comp
 EF elements are built with web components which is a standard web technology that can be utilized across all browsers and can be used with any JavaScript frameworks.
 
 ### Installation
-EF elements are published as one package. You are also require to install theme package as it will provide essential native styles for typography, theme css variables, etc.
+EF elements are published as one package. You are also require installing theme package as it will provide essential native styles for typography, theme css variables, etc.
 
 ```bash
 npm install @refinitiv-ui/elements
@@ -26,21 +26,13 @@ Start using an element by importing the element and its theme in your app.
 
 ```javascript
 // import elements
-import '@refinitiv-ui/elements/lib/button';
-import '@refinitiv-ui/elements/lib/panel';
+import '@refinitiv-ui/elements/button';
+import '@refinitiv-ui/elements/panel';
 // import native styles for typography, css variables, etc.
 import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
 // import element's Halo dark theme
-import '@refinitiv-ui/elements/lib/button/themes/halo/dark';
-import '@refinitiv-ui/elements/lib/panel/themes/halo/dark';
-```
-
-If you're using any modern bundlers e.g. Webpack 5, you can import module by using a shorter path.
-
-```javascript
-import '@refinitiv-ui/elements/button';
-import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
 import '@refinitiv-ui/elements/button/themes/halo/dark';
+import '@refinitiv-ui/elements/panel/themes/halo/dark';
 ```
 
 Now, you can use the elements in your app.
@@ -57,6 +49,29 @@ Now, you can use the elements in your app.
   <h2>Hello EF!</h2>
   <ef-button cta>OK</ef-button>
 </ef-panel>
+```
+
+### Legacy Bundlers
+Many legacy bundlers, like Webpack 4, do not support [package exports](https://webpack.js.org/guides/package-exports/). Therefore, the developer needs to resolve paths manually.
+
+For WebPack 4 this can be done providing `alias` in `webpack.config.js`:
+
+```javascript
+const path = require('path');
+
+// Ensure the correct directory for `@refinitiv-ui` package
+const modulePath = path.resolve(process.cwd(), 'node_modules');
+
+module.exports = {
+  /// ...
+  resolve: {
+    alias: {
+      '@refinitiv-ui/elements': path.resolve(modulePath, '@refinitiv-ui/elements/lib'),
+      '@refinitiv-ui/core': path.resolve(modulePath, '@refinitiv-ui/core/lib'),
+      '@refinitiv-ui/utils': path.resolve(modulePath, '@refinitiv-ui/utils/lib')
+    }
+  }
+}
 ```
 
 ### Font licensing

@@ -1,9 +1,16 @@
-name: Release
+name: Manual Release
+
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        type: environment
+        default: canary
+
 jobs:
-  release:
+  install-build-publish:
+    environment: canary
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -21,23 +28,13 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
 
-      - name: Configure Git User
-        run: |
-          git config --global user.email "RefinitivUIDev@refinitiv.com"
-          git config --global user.name "refinitiv-ui-dev"
-
-      - name: Dependencies Installation
+      - name: Install Dependencies
         run: npm ci --ignore-scripts --audit=false --fund=false
 
-      - name: Production build
+      - name: Build Packages
         run: npm run build:prod
 
-      - name: Bump version and create GitHub release
-        run: lerna version --create-release github --conventional-commits --conventional-graduate --yes
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
       - name: Publish to NPM
-        run: lerna publish from-git --yes
+        run: lerna publish --canary --preid=build.${{ github.run_id }}.${{ github.run_attempt }} --exact --no-changelog --no-git-tag-version --no-push --include-merged-tags --no-private --force-publish --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

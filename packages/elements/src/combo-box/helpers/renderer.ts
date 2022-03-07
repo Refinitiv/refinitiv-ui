@@ -1,4 +1,4 @@
-import type { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 import { ListRenderer } from '../../list/index.js';
 import { Renderer } from '../../list/renderer.js';

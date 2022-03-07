@@ -2,10 +2,10 @@ import {
   PropertyValues,
   TapEvent
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
-import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 import { List } from '../../list/index.js';
 import { TreeRenderer } from '../helpers/renderer.js';

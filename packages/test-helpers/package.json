@@ -19,7 +19,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "npm run build && karma start ../../karma.config.js --package=test-helpers --include-snapshots=false",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "prepack": "npm run version",
+    "version": "node ../../scripts/version"
   },
   "publishConfig": {
     "access": "public"

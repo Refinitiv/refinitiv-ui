@@ -10,6 +10,10 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/polyfills"
   },
+  "scripts": {
+    "prepack": "npm run version",
+    "version": "node ../../scripts/version"
+  },
   "dependencies": {
     "@webcomponents/custom-elements": "^1.4.1",
     "@webcomponents/shadycss": "^1.10.0",

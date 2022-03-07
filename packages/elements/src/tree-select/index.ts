@@ -4,15 +4,15 @@ import {
   CSSResultGroup,
   css
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
-import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
-import { repeat } from '@refinitiv-ui/core/lib/directives/repeat.js';
-import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
+import { repeat } from '@refinitiv-ui/core/directives/repeat.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
-import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
-import { TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 
 import '../icon/index.js';
 import '../text-field/index.js';
@@ -29,7 +29,7 @@ import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tre
 import type { TreeSelectData, TreeSelectDataItem } from './helpers/types';
 import type { Pill } from '../pill';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/lib/locale/en/tree-select.js';
+import '@refinitiv-ui/phrasebook/locale/en/tree-select.js';
 
 export { TreeSelectRenderer };
 export type { TreeSelectFilter, TreeSelectDataItem, TreeSelectData };

@@ -1,5 +1,5 @@
-import type { CollectionComposer } from '@refinitiv-ui/utils/lib/collection';
-import { uuid } from '@refinitiv-ui/utils/lib/uuid.js';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import type { TreeDataItem } from './types';
 import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager.js';
 import { Renderer } from '../../list/renderer.js';

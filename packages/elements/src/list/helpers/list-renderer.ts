@@ -1,5 +1,5 @@
-import type { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
-import { uuid } from '@refinitiv-ui/utils/lib/uuid.js';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import type { Item, ItemType, ItemData } from '../../item';
 import '../../item/index.js';
 import { Renderer } from '../renderer.js';

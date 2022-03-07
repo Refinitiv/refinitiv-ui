@@ -7,11 +7,11 @@ import {
   PropertyValues,
   TapEvent
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
 import { Button } from '../button/index.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/lib/directives/ref.js';
 
 /**
  * Used to display multiple buttons to create a list of commands bar.
