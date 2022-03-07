@@ -2,27 +2,32 @@
   "name": "@refinitiv-ui/utils",
   "version": "5.1.2",
   "description": "Shared utilities for Element Framework",
-  "main": "lib/utils.js",
-  "module": "lib/utils.js",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "typesVersions": {
+    "*": {
+      "*.js": ["lib/*.d.ts"]
+    }
+  },
   "exports": {
     ".": {
-      "default": "./lib/utils.js"
+      "default": "./lib/index.js"
     },
-    "./lib/accessibility.js": "./lib/accessibility.js",
-    "./lib/accessibility/label.js": "./lib/accessibility/label.js",
-    "./lib/accessibility/description.js": "./lib/accessibility/description.js",
-    "./lib/accessibility/required.js": "./lib/accessibility/required.js",
-    "./lib/async.js": "./lib/async.js",
-    "./lib/browser.js": "./lib/browser.js",
-    "./lib/collection.js": "./lib/collection.js",
-    "./lib/color.js": "./lib/color.js",
-    "./lib/date.js": "./lib/date.js",
-    "./lib/element.js": "./lib/element.js",
-    "./lib/event.js": "./lib/event.js",
-    "./lib/is-slot-empty.js": "./lib/is-slot-empty.js",
-    "./lib/loader.js": "./lib/loader.js",
-    "./lib/navigation.js": "./lib/navigation.js",
-    "./lib/uuid.js": "./lib/uuid.js"
+    "./accessibility.js": "./lib/accessibility.js",
+    "./accessibility/label.js": "./lib/accessibility/label.js",
+    "./accessibility/description.js": "./lib/accessibility/description.js",
+    "./accessibility/required.js": "./lib/accessibility/required.js",
+    "./async.js": "./lib/async.js",
+    "./browser.js": "./lib/browser.js",
+    "./collection.js": "./lib/collection.js",
+    "./color.js": "./lib/color.js",
+    "./date.js": "./lib/date.js",
+    "./element.js": "./lib/element.js",
+    "./event.js": "./lib/event.js",
+    "./is-slot-empty.js": "./lib/is-slot-empty.js",
+    "./loader.js": "./lib/loader.js",
+    "./navigation.js": "./lib/navigation.js",
+    "./uuid.js": "./lib/uuid.js"
   },
   "types": "lib/utils.d.ts",
   "repository": {
@@ -36,7 +41,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "tsc --sourceMap --declarationMap",
-    "build:prod": "tsc"
+    "build:prod": "tsc",
+    "prepack": "npm run version",
+    "version": "node ../../scripts/version"
   },
   "dependencies": {
     "@types/d3-color": "^3.0.2",

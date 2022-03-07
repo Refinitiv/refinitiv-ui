@@ -19,7 +19,9 @@
     "build:light": "theme-compiler light --variant=light",
     "build": "npm run build:dark && npm run build:light",
     "build:prod": "npm run build",
-    "watch": "watch \"npm run build\" src --wait=10"
+    "watch": "watch \"npm run build\" src --wait=10",
+    "prepack": "npm run version",
+    "version": "node ../../scripts/version"
   },
   "dependencies": {
     "@refinitiv-ui/elemental-theme": "^5.5.0"

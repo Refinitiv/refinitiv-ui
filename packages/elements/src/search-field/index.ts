@@ -2,13 +2,13 @@ import {
   html,
   TemplateResult
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
-import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
+import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import '../icon/index.js';
 import { TextField } from '../text-field/index.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/lib/locale/en/search-field.js';
+import '@refinitiv-ui/phrasebook/locale/en/search-field.js';
 
 /**
  * Form control to get a search input from users.

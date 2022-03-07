@@ -32,7 +32,7 @@ The notification bar is used to show informative content when something happens 
 These methods work in a similar way to those provided by `window.console`.
 
 ```javascript
-import { info, confirm, warn, error } from '@refinitiv-ui/notification/lib/helpers';
+import { info, confirm, warn, error } from '@refinitiv-ui/notification/helpers';
 
 // Show an info notification
 info('Info Notification');
