@@ -6,12 +6,12 @@ import {
   CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
-import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { VERSION } from '../version.js';
-import { isSlotEmpty } from '@refinitiv-ui/utils/lib/is-slot-empty.js';
+import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
 import type { Button } from '../button';
 import type { OverlayMenu, OverlayMenuData } from '../overlay-menu';
 import type { CardConfig } from './helpers/types';

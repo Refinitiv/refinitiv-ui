@@ -57,12 +57,12 @@ The simplest way is to include translations in a bundle, for instance:
 // # translations.js
 
 // ef-tree-select, Japanese and German locales
-import '@refinitiv-ui/phrasebook/lib/locale/ja/tree-select';
-import '@refinitiv-ui/phrasebook/lib/locale/de/tree-select';
+import '@refinitiv-ui/phrasebook/locale/ja/tree-select';
+import '@refinitiv-ui/phrasebook/locale/de/tree-select';
 
 // ef-pagination, Simplified and Traditional Chinese locales
-import '@refinitiv-ui/phrasebook/lib/locale/zh/pagination';
-import '@refinitiv-ui/phrasebook/lib/locale/zh-hant/pagination';
+import '@refinitiv-ui/phrasebook/locale/zh/pagination';
+import '@refinitiv-ui/phrasebook/locale/zh-hant/pagination';
 ```
 
 Including translations in such a way will increase the bundle size, but has the benefit that translations are available immediately on application load.
@@ -83,7 +83,7 @@ App.Settings.Language.read(value => {
   const locale = supportedLocales(['ja', 'de'], [value])[0];
   if (locale) {
     // use dynamic import. Element will update itself once locale is loaded
-    import(`@refinitiv-ui/phrasebook/lib/locale/${locale}/pagination`);
+    import(`@refinitiv-ui/phrasebook/locale/${locale}/pagination`);
   }
 });
 ```

@@ -1,6 +1,6 @@
 import { expect, fixture, oneEvent, html } from '@refinitiv-ui/test-helpers';
 import { ResponsiveElement } from '../../lib/elements/ResponsiveElement';
-import { css } from '../../lib/elf';
+import { css } from '../../lib/index.js';
 import { customElement } from '../../lib/decorators/custom-element';
 import { asyncFrames } from '../helper';
 
