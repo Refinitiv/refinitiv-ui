@@ -1,10 +1,13 @@
 import {
   PropertyValues,
   FocusedPropertyKey,
-  WarningNotice
+  WarningNotice,
+  TemplateResult,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
 import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
 import { AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
 import {
@@ -35,6 +38,7 @@ import {
   selectPart
 } from './utils.js';
 import { VERSION } from '../version.js';
+import '@refinitiv-ui/phrasebook/lib/locale/en/datetime-field.js';
 
 @customElement('ef-datetime-field')
 export class DatetimeField extends TextField {
@@ -169,6 +173,12 @@ export class DatetimeField extends TextField {
   }
 
   /**
+   * Currently selected part
+   */
+  @state()
+  protected partLabel = '';
+
+  /**
    * Transform Date object to date string
    * @param value Date
    * @returns dateSting
@@ -226,6 +236,10 @@ export class DatetimeField extends TextField {
 
     if (this.shouldUpdateLocale(changedProperties)) {
       this._locale = null; // Locale is updated on next call via getter
+    }
+
+    if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
+      this.partLabel = '';
     }
   }
 
@@ -448,6 +462,7 @@ export class DatetimeField extends TextField {
    */
   protected selectPart (index = 0, parts: DateTimeFormatPart[]): void {
     const { selectionStart, selectionEnd } = selectPart(index, parts);
+    this.partLabel = parts[index] ? parts[index].type : '';
     this.setSelectionRange(selectionStart, selectionEnd);
   }
 
@@ -459,6 +474,7 @@ export class DatetimeField extends TextField {
    */
   protected onNavigation (key: NavigationKeys, event: KeyboardEvent): void {
     this.selectPartFrame.cancel();
+    this.partLabel = '';
 
     // Invalid value
     if (this.inputValue && !this.value) {
@@ -556,6 +572,7 @@ export class DatetimeField extends TextField {
     // Nobody likes to see a red border
     this.resetError();
     this.selectPartFrame.cancel(); // ensure no pending selection
+    this.partLabel = '';
 
     const inputValue = this.inputElement?.value || '';
     const parsedValue = this.toValue(inputValue);
@@ -614,5 +631,36 @@ export class DatetimeField extends TextField {
       placeholder: this.focused && !this.inputValue ? this.toInputValue(this.startDate) : this.placeholder || undefined,
       '@keydown': this.onInputKeyDown
     };
+  }
+
+  /**
+   * Used to announce part and value statuses
+   */
+  protected get screenReaderTemplate (): TemplateResult | null {
+    if (!this.focused) {
+      return null;
+    }
+    return html`
+      ${this.partLabel && this.value ? html`<div
+        aria-label="${this.t(`PICK_${this.partLabel.toUpperCase()}`)}"
+        aria-live="polite"
+        role="status"></div>` : undefined}
+      <div
+        aria-label="${this.value ? this.t('VALUE', { value: this.toInputValue(this.value) }) : this.t('NO_VALUE')}"
+        aria-live="polite"
+        role="status"></div>
+    `;
+  }
+
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return Render template
+   */
+  protected render (): TemplateResult {
+    return html`
+      ${super.render()}
+      ${this.screenReaderTemplate}
+    `;
   }
 }
