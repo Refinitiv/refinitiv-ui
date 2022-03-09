@@ -1,5 +1,5 @@
 import {
-  BasicElement,
+  ControlElement,
   html,
   css,
   PropertyValues,
@@ -35,7 +35,7 @@ const totalItemsDeprecation = new DeprecationNotice('Property `totalItems ` is d
 @customElement('ef-pagination', {
   alias: 'emerald-pagination'
 })
-export class Pagination extends BasicElement {
+export class Pagination extends ControlElement {
 
   /**
    * Element version number
@@ -45,17 +45,17 @@ export class Pagination extends BasicElement {
     return VERSION;
   }
 
-  /**
-   * Current page internal current page value
-   */
-  private _value = '';
+  protected defaultRole: string | null = 'navigation';
+
+  public tabIndex = 0;
+
 
   /**
    * Internal current page
    * @returns current page
    */
   private get internalValue (): number {
-    let value = parseInt(this._value, 10) || 0;
+    let value = parseInt(this.value, 10) || 0;
 
     if (value <= 0) {
       value = 1;
@@ -64,12 +64,8 @@ export class Pagination extends BasicElement {
     return value;
   }
 
-  /**
-   * Current page
-   */
-  @property({ type: String })
   public get value (): string {
-    return this._value;
+    return super.value;
   }
 
   /**
@@ -77,16 +73,25 @@ export class Pagination extends BasicElement {
    * @param value current page
    */
   public set value (value: string) {
+
     let newValue = value;
     if (!newValue || !this.validatePage(newValue, true, 'value')) {
       newValue = '';
     }
 
-    const oldValue = this._value;
-    if (oldValue !== newValue) {
-      this._value = newValue.toString();
-    }
-    this.requestUpdate('value', oldValue);
+    console.log(this.value, newValue);
+
+    super.value = newValue.toString();
+  }
+
+  /**
+   * Check if passed value is a valid value
+   * @override
+   * @param value Value to check
+   * @returns {boolean} false if value is invalid
+   */
+  protected isValidValue (value: string): boolean {
+    return this.validatePage(value, true, 'value');
   }
 
   /**
@@ -153,7 +158,7 @@ export class Pagination extends BasicElement {
   @property({ type: String })
   public get page (): string {
     pageDeprecation.once();
-    return this._value;
+    return this.value;
   }
 
   /**
@@ -169,9 +174,9 @@ export class Pagination extends BasicElement {
       newValue = '';
     }
 
-    const oldValue = this._value;
+    const oldValue = this.value;
     if (oldValue !== newValue) {
-      this._value = newValue.toString();
+      this.value = newValue.toString();
     }
     this.requestUpdate('page', oldValue);
   }
@@ -320,8 +325,12 @@ export class Pagination extends BasicElement {
       return this.internalValue.toString();
     }
     else {
-      return (this.infinitePaginate ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax })) as string;
+      return this.pageText;
     }
+  }
+
+  protected get pageText (): string {
+    return (this.infinitePaginate ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax })) as string;
   }
 
   /**
@@ -356,6 +365,13 @@ export class Pagination extends BasicElement {
    */
   protected get useLastButton (): boolean {
     return this.useNextButton && !this.infinitePaginate;
+  }
+
+  /**
+   * @override
+   */
+  protected firstUpdated (): void {
+    this.input.addEventListener('keydown', this.onKeyDown.bind(this));
   }
 
   /**
@@ -574,6 +590,51 @@ export class Pagination extends BasicElement {
     this.notifyValueChange();
   }
 
+  protected hasNextPage (page: number): boolean {
+    return page < this.internalMax;
+  }
+
+  protected hasPreviousPage (page: number): boolean {
+    return page > 1;
+  }
+
+  protected hasLastPage (): boolean {
+    return !this.infinitePaginate;
+  }
+
+  /**
+   * Handles key down event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyDown (event: KeyboardEvent): void {
+    if (event.defaultPrevented) {
+      return;
+    }
+
+    const newInputValue = Number(this.input.value);
+
+    switch (event.key) {
+      case 'Up':
+      case 'ArrowUp':
+        this.hasNextPage(newInputValue) && (this.input.value = String(newInputValue + 1));
+        break;
+      case 'Down':
+      case 'ArrowDown':
+        this.hasPreviousPage(newInputValue) && (this.input.value = String(newInputValue - 1));
+        break;
+      case 'Home':
+        this.input.value = '1';
+        break;
+      case 'End':
+        this.hasLastPage() && (this.input.value = this.internalMax.toString());
+        break;
+      default:
+        return;
+    }
+    event.preventDefault();
+  }
+
   /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
@@ -596,19 +657,22 @@ export class Pagination extends BasicElement {
   protected render (): TemplateResult {
     return html`
       <ef-layout part="container" flex nowrap>
-        <ef-button-bar part="buttons">
+        <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="first" icon="skip-to-start" @tap="${this.onFirstTap}" .disabled=${!this.useFirstButton}></ef-button>
           <ef-button id="previous" icon="left" @tap="${this.onPreviousTap}" .disabled=${!this.usePreviousButton}></ef-button>
         </ef-button-bar>
         <ef-text-field
+          role="group"
+          .aria-label="${this.pageText}"
           id="input"
           part="input"
           @focused-changed=${this.onInputFocusedChanged}
           @keydown=${this.onInputKeyDown}
           .value=${this.inputText}
           .disabled=${this.disabled}
-          no-spinner></ef-text-field>
-        <ef-button-bar part="buttons">
+          tabindex="1">
+        </ef-text-field>
+        <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="next" icon="right" @tap="${this.onNextTap}" .disabled=${!this.useNextButton}></ef-button>
           <ef-button id="last" icon="skip-to-end" @tap="${this.onLastTap}" .disabled=${!this.useLastButton}></ef-button>
         </ef-button-bar>
