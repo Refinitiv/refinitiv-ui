@@ -354,8 +354,14 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    */
   protected get tabbableItems (): HTMLElement[] {
     return Array.from(this.children).filter((el): el is HTMLElement => {
-      const role = (el as HTMLElement).getAttribute('role');
-      return (role === 'option' || role === 'treeitem') && (el as HTMLElement).getAttribute('disabled') === null;
+      if (el instanceof HTMLElement) {
+        const role = el.getAttribute('role');
+        const isEnabled = !el.hasAttribute('disabled');
+        const isOption = role ? ['option', 'treeitem'].includes(role) : false;
+
+        return isOption && isEnabled;
+      }
+      return false;
     });
   }
 
