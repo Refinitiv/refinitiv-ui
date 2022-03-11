@@ -11,7 +11,7 @@
     </slot>
   </div>
   <ef-icon
-    aria-label="Close"
+    aria-description="Close"
     icon="cross"
     part="clear"
     role="button"
