@@ -167,7 +167,7 @@ export class Notification extends BasicElement {
     </style>
     <div part="container">
       <div part="content"><slot>${this.message}</slot></div>
-      <ef-icon part="clear" icon="cross" role="button" aria-label="${this.t('CLOSE')}" @click="${this.onClearClick.bind(this)}"></ef-icon>
+      <ef-icon part="clear" icon="cross" role="button" aria-description="${this.t('CLOSE')}" @click="${this.onClearClick.bind(this)}"></ef-icon>
     </div>
     `;
   }
