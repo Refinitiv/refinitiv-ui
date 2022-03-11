@@ -74,25 +74,65 @@ export class DatetimeField extends TextField {
   @property({ type: String, reflect: true })
   public max: string | null = null;
 
+  private _timepicker = false;
   /**
    * Toggle to display the time picker
+   * @param timepicker true to set timepicker mode
+   * @default false
    */
   @property({ type: Boolean, reflect: true })
-  public timepicker = false;
+  public set timepicker (timepicker: boolean) {
+    const oldTimepicker = this._timepicker;
+    if (timepicker !== oldTimepicker) {
+      this._timepicker = timepicker;
+      this._locale = null;
+      this.requestUpdate('timepicker', oldTimepicker);
+    }
+  }
+  public get timepicker (): boolean {
+    return this._timepicker;
+  }
 
+  private _showSeconds = false;
   /**
    * Flag to show seconds time segment in display.
    * Seconds are automatically shown when `hh:mm:ss` time format is provided as a value.
+   * @param showSeconds true to show seconds
+   * @default false
    */
   @property({ type: Boolean, attribute: 'show-seconds', reflect: true })
-  public showSeconds = false;
+  public set showSeconds (showSeconds: boolean) {
+    const oldShowSeconds = this._showSeconds;
+    if (oldShowSeconds !== showSeconds) {
+      this._showSeconds = showSeconds;
+      this._locale = null;
+      this.requestUpdate('showSeconds', oldShowSeconds);
+    }
+  }
+  public get showSeconds (): boolean {
+    return this._showSeconds;
+  }
 
+  private _amPm = false;
   /**
-   * Toggles 12hr time display
+   * Overrides 12hr time display format
+   * @param amPm true to show 12hr time format
+   * @default false
    */
   @property({ type: Boolean, attribute: 'am-pm', reflect: true })
-  public amPm = false;
+  public set amPm (amPm: boolean) {
+    const oldAmPm = this._amPm;
+    if (oldAmPm !== amPm) {
+      this._amPm = amPm;
+      this._locale = null;
+      this.requestUpdate('amPm', oldAmPm);
+    }
+  }
+  public get amPm (): boolean {
+    return this._amPm;
+  }
 
+  private _formatOptions: Intl.DateTimeFormatOptions | null = null;
   /**
    * Set the datetime format options based on
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
@@ -102,7 +142,17 @@ export class DatetimeField extends TextField {
    * @default - null
    */
   @property({ attribute: false })
-  public formatOptions: Intl.DateTimeFormatOptions | null = null;
+  public set formatOptions (formatOptions: Intl.DateTimeFormatOptions | null) {
+    const oldFormatOptions = this._formatOptions;
+    if (oldFormatOptions !== formatOptions) {
+      this._formatOptions = formatOptions;
+      this._locale = null;
+      this.requestUpdate('formatOptions', oldFormatOptions);
+    }
+  }
+  public get formatOptions (): Intl.DateTimeFormatOptions | null {
+    return this._formatOptions;
+  }
 
   /**
    * Used for translations
@@ -234,7 +284,7 @@ export class DatetimeField extends TextField {
   public willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
-    if (this.shouldUpdateLocale(changedProperties)) {
+    if (changedProperties.has(TranslatePropertyKey)) {
       this._locale = null; // Locale is updated on next call via getter
     }
 
@@ -252,21 +302,12 @@ export class DatetimeField extends TextField {
     // Note: changing any of these properties override the input value
     // On blur, if the value is correct makes ure strict format is used
     return changedProperties.has('interimValueState')
-      || this.shouldUpdateLocale(changedProperties)
-      || (changedProperties.has(FocusedPropertyKey) && this.value !== '' && !this.focused);
-  }
-
-  /**
-   * Check if locale needs to be updated
-   * @param changedProperties Properties that has changed
-   * @returns True if locale should be updated
-   */
-  protected shouldUpdateLocale (changedProperties: PropertyValues): boolean {
-    return changedProperties.has(TranslatePropertyKey)
+      || changedProperties.has(TranslatePropertyKey)
       || changedProperties.has('formatOptions')
       || changedProperties.has('timepicker')
       || changedProperties.has('showSeconds')
-      || changedProperties.has('amPm');
+      || changedProperties.has('amPm')
+      || (changedProperties.has(FocusedPropertyKey) && this.value !== '' && !this.focused);
   }
 
   /**
@@ -418,13 +459,14 @@ export class DatetimeField extends TextField {
    * @returns true if input is valid
    */
   public checkValidity (): boolean {
-    // Public method should work if inputElement is not yet defined
-    const value = this.inputElement && this.inputValue ? this.toValue(this.inputValue) : this.value;
+    const inputValue = this.inputValue;
 
     // Invalid input value
-    if (this.inputValue && !value) {
+    if (inputValue && !this.toValue(inputValue)) {
       return false;
     }
+
+    const value = this.value;
 
     // No support for required
     if (value === '') {
@@ -432,12 +474,12 @@ export class DatetimeField extends TextField {
     }
 
     // Value before min
-    if (this.min && value !== this.min && isAfter(value, this.min)) {
+    if (this.min && value !== this.min && isBefore(value, this.min)) {
       return false;
     }
 
     // Value after max
-    if (this.max && value !== this.max && isBefore(value, this.max)) {
+    if (this.max && value !== this.max && isAfter(value, this.max)) {
       return false;
     }
 
