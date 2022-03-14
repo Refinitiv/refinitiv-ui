@@ -89,16 +89,6 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Check if passed value is a valid value
-   * @override
-   * @param value Value to check
-   * @returns {boolean} false if value is invalid
-   */
-  protected isValidValue (value: string): boolean {
-    return this.validatePage(value, true, 'value');
-  }
-
-  /**
    * Max page
    */
   protected _max = '';
@@ -374,13 +364,6 @@ export class Pagination extends BasicElement {
   /**
    * @override
    */
-  protected firstUpdated (): void {
-    this.input.addEventListener('keydown', this.onKeyDown.bind(this));
-  }
-
-  /**
-   * @override
-   */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
     if (this.inputFocused && changedProperties.has('inputFocused')) {
@@ -404,48 +387,6 @@ export class Pagination extends BasicElement {
         new WarningNotice(`${this.localName} : The specified value "${value}" of ${propName} property is not valid, The value must be integer and greater than 0.`).show();
       }
       return false;
-    }
-  }
-
-  /**
-   * Handles action when Enter and Tab key is press onto the input
-   * @param event Keyboard event
-   * @returns {void}
-   */
-  private onInputKeyDown (event: KeyboardEvent): void {
-    const isEnter = event.key === 'Enter' || event.keyCode === 13;
-    const isTab = event.key === 'Tab' || event.keyCode === 9;
-
-    if (isEnter || isTab) {
-      this.updatePageInput();
-
-      if (isEnter) {
-        this.input.blur();
-        event.preventDefault();
-
-        /**
-         * Issue only in firefox
-         * cannot blur() or focus() to this.input so create a temp to this.input loses focus
-         */
-        const temp = document.createElement('input');
-        this.shadowRoot?.appendChild(temp);
-        temp.focus();
-        this.input.blur();
-        this.shadowRoot?.removeChild(temp);
-      }
-    }
-  }
-
-  /**
-   * Handles action when input focused change
-   * @param event focus change event
-   * @returns {void}
-   */
-  private onInputFocusedChanged (): void {
-    this.inputFocused = document.activeElement === this;
-
-    if (!this.inputFocused) {
-      this.updatePageInput();
     }
   }
 
@@ -513,6 +454,27 @@ export class Pagination extends BasicElement {
         this.notifyValueChange();
       }
     }
+  }
+
+  /**
+   * Update input value
+   *
+   * @param value input value
+   * @param direction update from old value
+   * @returns void
+   */
+  protected updateInputValue (value = 1, direction: 'increment' | 'decrement' | null = null): void {
+
+    let newValue = value;
+
+    // Update base on old value
+    if (direction) {
+      const changeValue = direction === 'increment' ? value : -Math.abs(value);
+      newValue = Number(this.input.value) + changeValue;
+    }
+
+    this.input.value = String(newValue);
+    this.input.setAttribute('aria-valuenow', this.input.value);
   }
 
   /**
@@ -619,6 +581,19 @@ export class Pagination extends BasicElement {
   }
 
   /**
+   * Handles action when input focused change
+   * @param event focus change event
+   * @returns {void}
+   */
+  private onFocusedChanged (): void {
+    this.inputFocused = document.activeElement === this;
+
+    if (!this.inputFocused) {
+      this.updatePageInput();
+    }
+  }
+
+  /**
    * Handles key down event
    * @param event Key down event object
    * @returns {void}
@@ -631,6 +606,13 @@ export class Pagination extends BasicElement {
     const newInputValue = Number(this.input.value);
 
     switch (event.key) {
+      case 'Enter':
+        this.updatePageInput();
+        this.input.blur();
+        break;
+      case 'Tab':
+        this.updatePageInput();
+        break;
       case 'Up':
       case 'ArrowUp':
         this.hasNextPage(newInputValue) && this.updateInputValue(1, 'increment');
@@ -648,40 +630,10 @@ export class Pagination extends BasicElement {
       default:
         return;
     }
-    event.preventDefault();
-  }
 
-  /**
-   * Handles key press event
-   * @param event Key down event object
-   * @returns {void}
-   */
-  private onInputKeyUp (): void {
-    if (!isNaN(Number(this.input.value))) {
-      this.input.setAttribute('aria-valuenow', this.input.value);
-      return;
+    if (event.key !== 'Tab') {
+      // event.preventDefault();
     }
-  }
-
-  /**
-   * Update input value
-   *
-   * @param value input value
-   * @param direction update from old value
-   * @returns void
-   */
-  protected updateInputValue (value = 1, direction: 'increment' | 'decrement' | null = null): void {
-
-    let newValue = value;
-
-    // Update base on old value
-    if (direction) {
-      const changeValue = direction === 'increment' ? value : -Math.abs(value);
-      newValue = Number(this.input.value) + changeValue;
-    }
-
-    this.input.value = String(newValue);
-    this.input.setAttribute('aria-valuenow', this.input.value);
   }
 
   /**
@@ -722,15 +674,15 @@ export class Pagination extends BasicElement {
           id="input"
           part="input"
           role="spinbutton"
+          tabindex="1"
           aria-labelledby="status"
-          @focus=${this.onInputFocusedChanged}
-          @blur=${this.onInputFocusedChanged}
-          @keypress=${this.onKeyPress}
-          @keydown=${this.onInputKeyDown}
-          @keyup=${this.onInputKeyUp}
           .value=${this.inputText}
           .disabled=${this.disabled}
-          tabindex="1" />
+          @focus=${this.onFocusedChanged}
+          @blur=${this.onFocusedChanged}
+          @keypress=${this.onKeyPress}
+          @keydown=${this.onKeyDown}
+        />
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="next" icon="right" @tap="${this.onNextTap}" .disabled=${!this.useNextButton}></ef-button>
           <ef-button id="last" icon="skip-to-end" @tap="${this.onLastTap}" .disabled=${!this.useLastButton}></ef-button>
