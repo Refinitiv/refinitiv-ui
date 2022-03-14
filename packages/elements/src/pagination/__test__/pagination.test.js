@@ -684,6 +684,35 @@ describe('pagination/Pagination', () => {
     });
   });
 
+  describe('Accessibility', () => {
+    let el;
+    let inputPart;
+    let firstButton;
+    let previousButton;
+    let nextButton;
+    let lastButton;
+
+    beforeEach(async () => {
+      el = await fixture('<ef-pagination max="7" lang="en-gb"></ef-pagination>');
+      inputPart = el.shadowRoot.querySelector('[part=input]');
+      firstButton = el.shadowRoot.querySelector('#first');
+      previousButton = el.shadowRoot.querySelector('#previous');
+      nextButton = el.shadowRoot.querySelector('#next');
+      lastButton = el.shadowRoot.querySelector('#last');
+    });
+
+    it('Should access text input', async () => {
+      expect(inputPart).to.be.accessible();
+    });
+
+    it('Should not access all buttons', async () => {
+      expect(firstButton).not.to.be.accessible();
+      expect(previousButton).not.to.be.accessible();
+      expect(nextButton).not.to.be.accessible();
+      expect(lastButton).not.to.be.accessible();
+    });
+  });
+
   describe('Public Methods', () => {
     let el;
 
