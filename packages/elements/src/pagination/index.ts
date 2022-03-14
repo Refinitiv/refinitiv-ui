@@ -1,5 +1,5 @@
 import {
-  ControlElement,
+  BasicElement,
   html,
   css,
   PropertyValues,
@@ -21,9 +21,6 @@ import '../text-field/index.js';
 import '@refinitiv-ui/phrasebook/locale/en/pagination.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
 
-import type { TextField } from '../text-field';
-import type { FocusedChangedEvent } from '../events';
-
 const pageDeprecation = new DeprecationNotice('Property `page` is deprecated, use `value` instead.');
 const pageSizeDeprecation = new DeprecationNotice('Property `pageSize ` is deprecated, use `max` instead.');
 const totalItemsDeprecation = new DeprecationNotice('Property `totalItems ` is deprecated, use `max` instead.');
@@ -35,7 +32,7 @@ const totalItemsDeprecation = new DeprecationNotice('Property `totalItems ` is d
 @customElement('ef-pagination', {
   alias: 'emerald-pagination'
 })
-export class Pagination extends ControlElement {
+export class Pagination extends BasicElement {
 
   /**
    * Element version number
@@ -45,6 +42,11 @@ export class Pagination extends ControlElement {
     return VERSION;
   }
 
+  /**
+   * Current page internal current page value
+   */
+  private _value = '';
+
   protected defaultRole: string | null = 'navigation';
 
   /**
@@ -52,7 +54,7 @@ export class Pagination extends ControlElement {
    * @returns current page
    */
   private get internalValue (): number {
-    let value = parseInt(this.value, 10) || 0;
+    let value = parseInt(this._value, 10) || 0;
 
     if (value <= 0) {
       value = 1;
@@ -61,8 +63,12 @@ export class Pagination extends ControlElement {
     return value;
   }
 
+  /**
+   * Current page
+   */
+  @property({ type: String })
   public get value (): string {
-    return super.value;
+    return this._value;
   }
 
   /**
@@ -70,12 +76,16 @@ export class Pagination extends ControlElement {
    * @param value current page
    */
   public set value (value: string) {
-
     let newValue = value;
     if (!newValue || !this.validatePage(newValue, true, 'value')) {
       newValue = '';
     }
-    super.value = newValue.toString();
+
+    const oldValue = this._value;
+    if (oldValue !== newValue) {
+      this._value = newValue.toString();
+    }
+    this.requestUpdate('value', oldValue);
   }
 
   /**
@@ -152,7 +162,7 @@ export class Pagination extends ControlElement {
   @property({ type: String })
   public get page (): string {
     pageDeprecation.once();
-    return this.value;
+    return this._value;
   }
 
   /**
@@ -168,9 +178,9 @@ export class Pagination extends ControlElement {
       newValue = '';
     }
 
-    const oldValue = this.value;
+    const oldValue = this._value;
     if (oldValue !== newValue) {
-      this.value = newValue.toString();
+      this._value = newValue.toString();
     }
     this.requestUpdate('page', oldValue);
   }
@@ -302,7 +312,7 @@ export class Pagination extends ControlElement {
    * Getter for text field as input part
    */
   @query('#input')
-  private input!: TextField;
+  private input!: HTMLInputElement;
 
   /**
    * Used for translations
