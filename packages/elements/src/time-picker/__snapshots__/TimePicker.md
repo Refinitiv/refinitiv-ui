@@ -49,8 +49,10 @@
   aria-label="Selected time is: 00:00:00"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
+
 ```
 
 ####   `DOM structure: disabled`
@@ -106,8 +108,10 @@
   aria-label="Selected time is: 00:00:00"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
+
 ```
 
 ####   `DOM structure: value, no seconds`
@@ -141,8 +145,10 @@
   aria-label="Selected time is: 08:16"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
+
 ```
 
 ####   `DOM structure: value, with seconds`
@@ -189,8 +195,10 @@
   aria-label="Selected time is: 08:16:32"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
+
 ```
 
 ####   `DOM structure: value, am/pm no seconds`
@@ -250,8 +258,10 @@
   aria-label="Selected time is: 1:30 PM"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
+
 ```
 
 ####   `DOM structure: role=none`

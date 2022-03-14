@@ -9,6 +9,7 @@
   aria-label="Selected date is Thursday, 21 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -674,6 +675,7 @@
   aria-label="Selected date is Thursday, 21 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -978,6 +980,7 @@
   aria-label="Selected date is Thursday, 21 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -1280,6 +1283,7 @@
   aria-label="Selected date is Thursday, 21 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -1947,6 +1951,7 @@
   aria-label="Selected date is Friday, 21 April 12"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -2612,6 +2617,7 @@
   aria-label="Selected date is Friday, 21 April 12"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -2916,6 +2922,7 @@
   aria-label="Selected date is Friday, 21 April 12"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -3220,6 +3227,7 @@
   aria-label="Selected date is Friday, 1 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -3885,6 +3893,7 @@
   aria-label="Selected date is Saturday, 30 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -4552,6 +4561,7 @@
   aria-label="Selected date is Saturday, 1 April 12"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -5217,6 +5227,7 @@
   aria-label="Selected date is Sunday, 30 April 12"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
