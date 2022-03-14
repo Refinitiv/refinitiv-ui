@@ -632,7 +632,7 @@ export class Pagination extends BasicElement {
     }
 
     if (event.key !== 'Tab') {
-      // event.preventDefault();
+      event.preventDefault();
     }
   }
 
