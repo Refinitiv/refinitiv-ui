@@ -314,16 +314,19 @@ export class Pagination extends BasicElement {
    * Getter for display text in the input
    * @returns input text
    */
-  protected get inputText (): string {
+  protected get inputValue (): string {
     if (this.inputFocused) {
       return this.internalValue.toString();
     }
     else {
-      return this.pageText;
+      return this.inputTextFormat;
     }
   }
 
-  protected get pageText (): string {
+  /**
+   * Get page text format in various translation
+   */
+  protected get inputTextFormat (): string {
     return (this.infinitePaginate ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax })) as string;
   }
 
@@ -664,7 +667,7 @@ export class Pagination extends BasicElement {
    */
   protected render (): TemplateResult {
     return html`
-      <span id="status" part="status" role="status" aria-live="polite">${this.pageText}</span>
+      <span id="status" part="status" role="status" aria-live="polite">${this.inputTextFormat}</span>
       <ef-layout part="container" flex nowrap>
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="first" icon="skip-to-start" @tap="${this.onFirstTap}" .disabled=${!this.useFirstButton}></ef-button>
@@ -676,7 +679,7 @@ export class Pagination extends BasicElement {
           role="spinbutton"
           tabindex="1"
           aria-labelledby="status"
-          .value=${this.inputText}
+          .value=${this.inputValue}
           .disabled=${this.disabled}
           @focus=${this.onFocusedChanged}
           @blur=${this.onFocusedChanged}
