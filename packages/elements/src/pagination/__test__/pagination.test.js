@@ -189,17 +189,6 @@ describe('pagination/Pagination', () => {
       lastButton = el.shadowRoot.querySelector('#last');
     });
 
-    it('Should blur the input when Enter key is pressed in text-field', async () => {
-      await triggerFocusFor(inputPart);
-      await elementFocused(el);
-      expect(document.activeElement).to.equal(el);
-
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
-      await elementUpdated(el);
-
-      expect(document.activeElement).to.not.equal(el, 'It should blur the element');
-    });
-
     it('Should transform the selected text input value when focus/blur', async () => {
       expect(inputPart.value).to.equal('Page 1 of 7', 'Incorrect transform text input');
 
@@ -478,6 +467,92 @@ describe('pagination/Pagination', () => {
       await elementUpdated(el);
       expect(el.value).to.equal(el.max);
     });
+  });
+
+  describe('Keyboard Navigation', () => {
+    let el;
+    let inputPart;
+
+    beforeEach(async () => {
+      el = await fixture('<ef-pagination max="7" lang="en-gb"></ef-pagination>');
+      inputPart = el.shadowRoot.querySelector('[part=input]');
+    });
+
+    it('Should increase the input number when Arrow Up key is pressed in text-field', async () => {
+      await triggerFocusFor(inputPart);
+      expect(el.value).to.equal('');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      expect(inputPart.value).to.equal('2');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Up' }));
+      expect(inputPart.value).to.equal('3');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+
+      expect(el.value).to.equal('3');
+    });
+
+    it('Should decrease the input number when Arrow Down key is pressed in text-field', async () => {
+      el.value = '7';
+      await elementUpdated(el);
+      expect(el.value).to.equal('7');
+
+      await triggerFocusFor(inputPart);
+      await elementUpdated(el);
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      expect(inputPart.value).to.equal('6');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Down' }));
+      expect(inputPart.value).to.equal('5');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+
+      expect(el.value).to.equal('5');
+    });
+
+    it('Should update the input number to the first page when Home key is pressed in text-field', async () => {
+      el.value = '7';
+      await elementUpdated(el);
+      expect(el.value).to.equal('7');
+
+      await triggerFocusFor(inputPart);
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Home' }));
+      expect(inputPart.value).to.equal('1');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+
+      expect(el.value).to.equal('1');
+    });
+
+    it('Should update the input number to the last page when End key is pressed in text-field', async () => {
+      await elementUpdated(el);
+      expect(el.value).to.equal('');
+
+      await triggerFocusFor(inputPart);
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'End' }));
+      expect(inputPart.value).to.equal('7');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+
+      expect(el.value).to.equal('7');
+    });
+
+    it('Should blur the input when Enter key is pressed in text-field', async () => {
+      await triggerFocusFor(inputPart);
+      await elementFocused(el);
+      expect(document.activeElement).to.equal(el);
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+
+      expect(document.activeElement).to.not.equal(el, 'It should blur the element');
+    });
+
   });
 
   describe('Events', () => {
