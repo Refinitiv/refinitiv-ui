@@ -47,9 +47,6 @@ export class Pagination extends ControlElement {
 
   protected defaultRole: string | null = 'navigation';
 
-  public tabIndex = 0;
-
-
   /**
    * Internal current page
    * @returns current page
@@ -78,9 +75,6 @@ export class Pagination extends ControlElement {
     if (!newValue || !this.validatePage(newValue, true, 'value')) {
       newValue = '';
     }
-
-    console.log(this.value, newValue);
-
     super.value = newValue.toString();
   }
 
@@ -437,8 +431,8 @@ export class Pagination extends ControlElement {
    * @param event focus change event
    * @returns {void}
    */
-  private onInputFocusedChanged (event: FocusedChangedEvent): void {
-    this.inputFocused = event.detail.value;
+  private onInputFocusedChanged (): void {
+    this.inputFocused = document.activeElement === this;
 
     if (!this.inputFocused) {
       this.updatePageInput();
@@ -603,6 +597,18 @@ export class Pagination extends ControlElement {
   }
 
   /**
+   * Handles key press event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyPress (event: KeyboardEvent): void {
+    // Allow input number only
+    if (!(/\d/).test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
+  /**
    * Handles key down event
    * @param event Key down event object
    * @returns {void}
@@ -617,22 +623,55 @@ export class Pagination extends ControlElement {
     switch (event.key) {
       case 'Up':
       case 'ArrowUp':
-        this.hasNextPage(newInputValue) && (this.input.value = String(newInputValue + 1));
+        this.hasNextPage(newInputValue) && this.updateInputValue(1, 'increment');
         break;
       case 'Down':
       case 'ArrowDown':
-        this.hasPreviousPage(newInputValue) && (this.input.value = String(newInputValue - 1));
+        this.hasPreviousPage(newInputValue) && this.updateInputValue(1, 'decrement');
         break;
       case 'Home':
-        this.input.value = '1';
+        this.updateInputValue(1);
         break;
       case 'End':
-        this.hasLastPage() && (this.input.value = this.internalMax.toString());
+        this.hasLastPage() && this.updateInputValue(this.internalMax);
         break;
       default:
         return;
     }
     event.preventDefault();
+  }
+
+  /**
+   * Handles key press event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onInputKeyUp (): void {
+    if (!isNaN(Number(this.input.value))) {
+      this.input.setAttribute('aria-valuenow', this.input.value);
+      return;
+    }
+  }
+
+  /**
+   * Update input value
+   *
+   * @param value input value
+   * @param direction update from old value
+   * @returns void
+   */
+  protected updateInputValue (value = 1, direction: 'increment' | 'decrement' | null = null): void {
+
+    let newValue = value;
+
+    // Update base on old value
+    if (direction) {
+      const changeValue = direction === 'increment' ? value : -Math.abs(value);
+      newValue = Number(this.input.value) + changeValue;
+    }
+
+    this.input.value = String(newValue);
+    this.input.setAttribute('aria-valuenow', this.input.value);
   }
 
   /**
@@ -646,6 +685,13 @@ export class Pagination extends ControlElement {
       :host {
         display: inline-block;
       }
+
+      [part=status] {
+        width: 0px;
+        height: 0px;
+        overflow: hidden;
+        position: absolute;
+      }
     `;
   }
 
@@ -656,22 +702,25 @@ export class Pagination extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
+      <span id="status" part="status" role="status" aria-live="polite">${this.pageText}</span>
       <ef-layout part="container" flex nowrap>
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="first" icon="skip-to-start" @tap="${this.onFirstTap}" .disabled=${!this.useFirstButton}></ef-button>
           <ef-button id="previous" icon="left" @tap="${this.onPreviousTap}" .disabled=${!this.usePreviousButton}></ef-button>
         </ef-button-bar>
-        <ef-text-field
-          role="group"
-          .aria-label="${this.pageText}"
+        <input
           id="input"
           part="input"
-          @focused-changed=${this.onInputFocusedChanged}
+          role="spinbutton"
+          aria-labelledby="status"
+          @focus=${this.onInputFocusedChanged}
+          @blur=${this.onInputFocusedChanged}
+          @keypress=${this.onKeyPress}
           @keydown=${this.onInputKeyDown}
+          @keyup=${this.onInputKeyUp}
           .value=${this.inputText}
           .disabled=${this.disabled}
-          tabindex="1">
-        </ef-text-field>
+          tabindex="1" />
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="next" icon="right" @tap="${this.onNextTap}" .disabled=${!this.useNextButton}></ef-button>
           <ef-button id="last" icon="skip-to-end" @tap="${this.onLastTap}" .disabled=${!this.useLastButton}></ef-button>
