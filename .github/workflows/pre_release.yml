@@ -39,7 +39,7 @@ jobs:
 
       - name: Publish to NPM (modified packages)
         if: ${{ github.event.inputs.version != 'premajor' }}
-        run: lerna publish ${{ github.event.inputs.version }} --preid next --dist-tag next --force-publish --include-merged-tags --no-private --no-changelog --create-release github
+        run: lerna publish ${{ github.event.inputs.version }} --preid next --dist-tag next --include-merged-tags --no-private --no-changelog --create-release github
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
