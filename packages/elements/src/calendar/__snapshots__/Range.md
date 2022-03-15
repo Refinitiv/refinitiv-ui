@@ -9,6 +9,7 @@
   aria-label="Selected range is from Friday, 1 April 2005 to Friday, 1 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -676,6 +677,7 @@
   aria-label="Selected range is from Friday, 1 April 2005 to Friday, 1 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -982,6 +984,7 @@
   aria-label="Selected range is from Friday, 1 April 2005 to Friday, 1 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -1286,6 +1289,7 @@
   aria-label="Selected range is from Tuesday, 1 March 2005 to Wednesday, 1 April 2009"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -1980,6 +1984,7 @@
   aria-label="Selected range is from Tuesday, 1 March 2005 to Wednesday, 1 April 2009"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -2296,6 +2301,7 @@
   aria-label="Selected range is from Tuesday, 1 March 2005 to Wednesday, 1 April 2009"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -2604,6 +2610,7 @@
   aria-label="Selected range is from Tuesday, 4 April 12 to Friday, 21 April 12"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -3288,6 +3295,7 @@
   aria-label="Selected range is from Tuesday, 4 April 12 to Friday, 21 April 12"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -3594,6 +3602,7 @@
   aria-label="Selected range is from Tuesday, 4 April 12 to Friday, 21 April 12"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -3900,6 +3909,7 @@
   aria-label="Selected range is from Wednesday, 6 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -4565,6 +4575,7 @@
   aria-label="Selected range is from Wednesday, 6 April 2005 to Sunday, 10 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -5236,6 +5247,7 @@
   aria-label="Selected range is from Wednesday, 13 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -5901,6 +5913,7 @@
   aria-label="Selected range is from Tuesday, 12 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -6566,6 +6579,7 @@
   aria-label="Selected range is from Tuesday, 12 April 2005"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">

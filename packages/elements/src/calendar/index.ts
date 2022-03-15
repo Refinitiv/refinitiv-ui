@@ -1454,6 +1454,7 @@ export class Calendar extends ControlElement implements MultiValue {
     }
     return html`<div
       part="aria-selection"
+      role="status"
       aria-live="polite"
       aria-label="${this.value
         ? this.range
