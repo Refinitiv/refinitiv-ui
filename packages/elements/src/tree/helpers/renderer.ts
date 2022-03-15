@@ -1,8 +1,8 @@
 import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
-import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import type { TreeDataItem } from './types';
 import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager.js';
 import { Renderer } from '../../list/renderer.js';
+import { createKey, getItemKey } from '../../list/helpers/key.js';
 import '../elements/tree-item.js';
 import type { TreeItem } from '../elements/tree-item';
 
@@ -16,7 +16,7 @@ export class TreeRenderer extends Renderer {
   /**
    * Renderer key prefix, used in combination with item value to give unique id to each item
    */
-  public key: string;
+  public key: string = createKey();
 
   constructor (scope?: unknown) {
 
@@ -39,7 +39,7 @@ export class TreeRenderer extends Renderer {
       el.multiple = multiple;
       el.item = item;
       el.tabIndex = -1;
-      item.value && (el.id = `${this.key}-${item.value}`);
+      item.value && (el.id = getItemKey(this.key, item.value));
       el.depth = composer.getItemDepth(item);
       el.parent = composer.getItemChildren(item).length > 0;
       el.expanded = manager.isItemExpanded(item);
@@ -52,9 +52,5 @@ export class TreeRenderer extends Renderer {
 
       return el;
     });
-
-    // TODO: move this to initialise property once TypeScript version is 4.6
-    // https://devblogs.microsoft.com/typescript/announcing-typescript-4-6-rc/#code-before-super
-    this.key = uuid().split('-')[0];
   }
 }

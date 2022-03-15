@@ -68,6 +68,7 @@
       const renderer = new TreeRenderer(custom);
       const knownElements = new WeakSet();
 
+      custom.renderer.key = renderer.key; // used in aria-activedescendant to indicate current highlight item
       custom.renderer = function (item, composer, element) {
 
         // Use default renderer to create/recycle element
