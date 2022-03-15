@@ -9,6 +9,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -666,6 +667,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -1337,6 +1339,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -2010,6 +2013,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -2674,6 +2678,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -3345,6 +3350,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -4020,6 +4026,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -4670,6 +4677,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -5341,6 +5349,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -6014,6 +6023,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -6678,6 +6688,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -7349,6 +7360,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -8024,6 +8036,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -8327,6 +8340,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -8630,6 +8644,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -8935,6 +8950,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -9238,6 +9254,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -9541,6 +9558,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -9848,6 +9866,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -10151,6 +10170,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -10454,6 +10474,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -10759,6 +10780,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -11062,6 +11084,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -11365,6 +11388,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -11672,6 +11696,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -11971,6 +11996,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -12270,6 +12296,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -12571,6 +12598,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -12870,6 +12898,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -13169,6 +13198,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -13472,6 +13502,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -13771,6 +13802,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -14070,6 +14102,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -14371,6 +14404,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -14670,6 +14704,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -14969,6 +15004,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -15272,6 +15308,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -15936,6 +15973,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -16235,6 +16273,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -16899,6 +16938,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -17202,6 +17242,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -17870,6 +17911,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -18169,6 +18211,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -18472,6 +18515,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -18777,6 +18821,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -19082,6 +19127,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -19389,6 +19435,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -20055,6 +20102,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -20723,6 +20771,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -21387,6 +21436,7 @@
   aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
