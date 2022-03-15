@@ -1,8 +1,9 @@
 import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import type { TreeDataItem } from './types';
 import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager.js';
 import { Renderer } from '../../list/renderer.js';
-import { createKey, getItemKey } from '../../list/helpers/key.js';
+import { getItemKey } from '../../list/helpers/key.js';
 import '../elements/tree-item.js';
 import type { TreeItem } from '../elements/tree-item';
 
@@ -16,7 +17,7 @@ export class TreeRenderer extends Renderer {
   /**
    * Renderer key prefix, used in combination with item value to give unique id to each item
    */
-  public key: string = createKey();
+  public key: string = uuid();
 
   constructor (scope?: unknown) {
 

@@ -1,7 +1,8 @@
 import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import type { Item, ItemType, ItemData } from '../../item';
 import '../../item/index.js';
-import { createKey, getItemKey } from './key.js';
+import { getItemKey } from './key.js';
 import { Renderer } from '../renderer.js';
 
 /**
@@ -19,7 +20,7 @@ export class ListRenderer extends Renderer {
   /**
    * Renderer key prefix, used in combination with item value to give unique id to each item
    */
-  public key: string = createKey();
+  public key: string = uuid();
 
   constructor (context?: unknown) {
     /**
