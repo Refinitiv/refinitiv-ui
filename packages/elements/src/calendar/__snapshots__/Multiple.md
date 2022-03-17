@@ -9,6 +9,7 @@
   aria-label="Selected 3 dates, Thursday, 21 April 2005 and others"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -675,6 +676,7 @@
   aria-label="Selected 3 dates, Thursday, 21 April 2005 and others"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -979,6 +981,7 @@
   aria-label="Selected 3 dates, Thursday, 21 April 2005 and others"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
@@ -1282,6 +1285,7 @@
   aria-label="Selected none. Choose dates"
   aria-live="polite"
   part="aria-selection"
+  role="status"
 >
 </div>
 <div part="navigation">
