@@ -27,6 +27,7 @@ const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
 
 export type { HeatmapCell, HeatmapXAxis, HeatmapYAxis, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback, HeatmapCustomisableProperties } from './helpers/types';
 
+
 /**
  * A graphical representation of data where the individual
  * values contained in a matrix are represented as colors
