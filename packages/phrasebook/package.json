@@ -29,6 +29,7 @@
     "./locale/de/shared.js": "./lib/locale/de/shared.js",
     "./locale/de/time-picker.js": "./lib/locale/de/time-picker.js",
     "./locale/de/tree-select.js": "./lib/locale/de/tree-select.js",
+    "./locale/de/notification.js": "./lib/locale/de/notification.js",
     "./locale/en/calendar.js": "./lib/locale/en/calendar.js",
     "./locale/en/color-dialog.js": "./lib/locale/en/color-dialog.js",
     "./locale/en/combo-box.js": "./lib/locale/en/combo-box.js",
@@ -39,6 +40,7 @@
     "./locale/en/shared.js": "./lib/locale/en/shared.js",
     "./locale/en/time-picker.js": "./lib/locale/en/time-picker.js",
     "./locale/en/tree-select.js": "./lib/locale/en/tree-select.js",
+    "./locale/en/notification.js": "./lib/locale/en/notification.js",
     "./locale/ja/calendar.js": "./lib/locale/ja/calendar.js",
     "./locale/ja/color-dialog.js": "./lib/locale/ja/color-dialog.js",
     "./locale/ja/combo-box.js": "./lib/locale/ja/combo-box.js",
@@ -49,6 +51,7 @@
     "./locale/ja/shared.js": "./lib/locale/ja/shared.js",
     "./locale/ja/time-picker.js": "./lib/locale/ja/time-picker.js",
     "./locale/ja/tree-select.js": "./lib/locale/ja/tree-select.js",
+    "./locale/ja/notification.js": "./lib/locale/ja/notification.js",
     "./locale/zh/calendar.js": "./lib/locale/zh/calendar.js",
     "./locale/zh/color-dialog.js": "./lib/locale/zh/color-dialog.js",
     "./locale/zh/combo-box.js": "./lib/locale/zh/combo-box.js",
@@ -59,6 +62,7 @@
     "./locale/zh/shared.js": "./lib/locale/zh/shared.js",
     "./locale/zh/time-picker.js": "./lib/locale/zh/time-picker.js",
     "./locale/zh/tree-select.js": "./lib/locale/zh/tree-select.js",
+    "./locale/zh/notification.js": "./lib/locale/zh/notification.js",
     "./locale/zh-hant/calendar.js": "./lib/locale/zh-hant/calendar.js",
     "./locale/zh-hant/color-dialog.js": "./lib/locale/zh-hant/color-dialog.js",
     "./locale/zh-hant/combo-box.js": "./lib/locale/zh-hant/combo-box.js",
@@ -68,7 +72,8 @@
     "./locale/zh-hant/search-field.js": "./lib/locale/zh-hant/search-field.js",
     "./locale/zh-hant/shared.js": "./lib/locale/zh-hant/shared.js",
     "./locale/zh-hant/time-picker.js": "./lib/locale/zh-hant/time-picker.js",
-    "./locale/zh-hant/tree-select.js": "./lib/locale/zh-hant/tree-select.js"
+    "./locale/zh-hant/tree-select.js": "./lib/locale/zh-hant/tree-select.js",
+    "./locale/zh-hant/notification.js": "./lib/locale/zh-hant/notification.js"
   },
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",

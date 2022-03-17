@@ -1,0 +1,25 @@
+name: Development Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    environment: development
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Gather resources and build
+        uses: ./.github/actions/checkout-install-and-build
+
+      - name: Publish to NPM
+        run: lerna publish 0.0.0-dev.${{ github.run_id }}.${{ github.run_attempt }} --dist-tag dev --force-publish --exact --include-merged-tags --no-private --no-changelog --no-git-tag-version --no-push --yes
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

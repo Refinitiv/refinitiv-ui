@@ -458,11 +458,11 @@ export class TabBar extends ResponsiveElement {
    */
   protected render (): TemplateResult {
     return html`
-      ${!this.vertical ? html`<ef-button tabIndex="-1" icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
+      ${!this.vertical ? html`<ef-button tabIndex="-1" aria-hidden="true" icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
         <div part="content">
           <slot @slotchange=${this.onSlotChange}></slot>
         </div>
-      ${!this.vertical ? html`<ef-button tabIndex="-1" icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
+      ${!this.vertical ? html`<ef-button tabIndex="-1" aria-hidden="true" icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
     `;
   }
 }

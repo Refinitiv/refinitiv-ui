@@ -974,6 +974,7 @@ export class TimePicker extends ControlElement {
 
     return html`<div
       part="aria-selection"
+      role="status"
       aria-live="polite"
       aria-label="${this.t('SELECTED', {
         value: value ? parse(value) : null,
