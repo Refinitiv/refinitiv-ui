@@ -367,8 +367,28 @@ export class Pagination extends BasicElement {
   /**
    * @override
    */
+  protected update (changedProperties: PropertyValues): void {
+    super.update(changedProperties);
+    if (changedProperties.has('max')) {
+      if (!this.infinitePaginate) {
+        this.input.setAttribute('aria-valuemax', this.max);
+      }
+      else {
+        this.input.removeAttribute('aria-valuemax');
+      }
+    }
+  }
+
+  /**
+   * @override
+   */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
+
+    if (changedProperties.has('value')) {
+      this.input.setAttribute('aria-valuenow', this.internalValue.toString());
+    }
+
     if (this.inputFocused && changedProperties.has('inputFocused')) {
       void this.selectInput();
     }
@@ -677,8 +697,8 @@ export class Pagination extends BasicElement {
           id="input"
           part="input"
           role="spinbutton"
-          tabindex="1"
           aria-labelledby="status"
+          aria-valuemin="1"
           .value=${this.inputValue}
           .disabled=${this.disabled}
           @focus=${this.onFocusedChanged}

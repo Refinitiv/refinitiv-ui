@@ -693,7 +693,7 @@ describe('pagination/Pagination', () => {
     let lastButton;
 
     beforeEach(async () => {
-      el = await fixture('<ef-pagination max="7" lang="en-gb"></ef-pagination>');
+      el = await fixture('<ef-pagination value="5" max="7" lang="en-gb"></ef-pagination>');
       inputPart = el.shadowRoot.querySelector('[part=input]');
       firstButton = el.shadowRoot.querySelector('#first');
       previousButton = el.shadowRoot.querySelector('#previous');
@@ -702,14 +702,51 @@ describe('pagination/Pagination', () => {
     });
 
     it('Should access text input', async () => {
-      expect(inputPart).to.be.accessible();
+      await expect(el).to.be.accessible({
+        ignoredRules: [
+          'label', // Already has `aria-labelledby`
+          'aria-hidden-focus' // Issue: buttons in ef-button-bar not respect the tabindex of the host
+        ],
+      });
     });
 
     it('Should not access all buttons', async () => {
-      expect(firstButton).not.to.be.accessible();
-      expect(previousButton).not.to.be.accessible();
-      expect(nextButton).not.to.be.accessible();
-      expect(lastButton).not.to.be.accessible();
+      el.shadowRoot.querySelectorAll('[part=buttons]').forEach(buttons => {
+        expect(buttons.getAttribute('aria-hidden')).to.be.equal('true');
+      });
+    });
+
+    it('Should set `aria-valuenow` attribute correctly on initialize', async () => {
+      expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('5');
+    });
+
+    it('Should update `aria-valuenow` attribute correctly when input value changed', async () => {
+      await triggerFocusFor(inputPart);
+
+      expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('5');
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('6');
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('7');
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Home' }));
+      expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('1');
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'End' }));
+      expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('7');
+    });
+
+    it('Should update `aria-valuemax` attribute correctly when max page chaged', async () => {
+      expect(inputPart.getAttribute('aria-valuemax')).to.be.equal('7');
+      el.setAttribute('max', '3');
+      await elementUpdated(el);
+      expect(inputPart.getAttribute('aria-valuemax')).to.be.equal('3');
+
+      el.max = '10';
+      await elementUpdated(el);
+      expect(inputPart.getAttribute('aria-valuemax')).to.be.equal('10');
+
+      el.max = '';
+      await elementUpdated(el);
+      expect(inputPart.getAttribute('aria-valuemax')).to.be.null;
     });
   });
 
