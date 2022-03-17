@@ -51,10 +51,10 @@
   </ef-button-bar>
   <input
     aria-labelledby="status"
+    aria-valuemin="1"
     id="input"
     part="input"
     role="spinbutton"
-    tabindex="1"
   >
   <ef-button-bar
     aria-hidden="true"
