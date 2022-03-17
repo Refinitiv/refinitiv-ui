@@ -701,7 +701,7 @@ describe('pagination/Pagination', () => {
       lastButton = el.shadowRoot.querySelector('#last');
     });
 
-    it('Should access text input', async () => {
+    it('Should pass common rules for accessibility', async () => {
       await expect(el).to.be.accessible({
         ignoredRules: [
           'label', // Already has `aria-labelledby`
