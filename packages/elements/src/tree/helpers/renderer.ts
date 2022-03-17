@@ -3,7 +3,7 @@ import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import type { TreeDataItem } from './types';
 import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager.js';
 import { Renderer } from '../../list/renderer.js';
-import { getItemKey } from '../../list/helpers/key.js';
+import { getItemId } from '../../list/helpers/id.js';
 import '../elements/tree-item.js';
 import type { TreeItem } from '../elements/tree-item';
 
@@ -40,7 +40,7 @@ export class TreeRenderer extends Renderer {
       el.multiple = multiple;
       el.item = item;
       el.tabIndex = -1;
-      item.value && (el.id = getItemKey(this.key, item.value));
+      el.id = getItemId(this.key, item.value);
       el.depth = composer.getItemDepth(item);
       el.parent = composer.getItemChildren(item).length > 0;
       el.expanded = manager.isItemExpanded(item);

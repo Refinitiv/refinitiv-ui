@@ -1,10 +1,10 @@
 /**
- * Combines prefix and a string to give unique item key
+ * Combines prefix and a string to give unique item id used by aria-activedescendant
  * @param prefix a unique randomly generated string
  * @param value a string of valid item value
- * @returns unique item key
+ * @returns a unique item id
  */
-const getItemKey = (prefix: string, value: string): string => {
+const getItemId = (prefix: string, value: string | undefined): string => {
   const SEPARATOR = '-';
 
   if (!prefix || !value) {
@@ -14,4 +14,4 @@ const getItemKey = (prefix: string, value: string): string => {
   return `${prefix}${SEPARATOR}${value}`;
 };
 
-export { getItemKey };
+export { getItemId };

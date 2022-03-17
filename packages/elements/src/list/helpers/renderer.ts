@@ -2,7 +2,7 @@ import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import type { Item, ItemType, ItemData } from '../../item';
 import '../../item/index.js';
-import { getItemKey } from './key.js';
+import { getItemId } from './id.js';
 import { Renderer } from '../renderer.js';
 
 /**
@@ -39,7 +39,7 @@ export class ListRenderer extends Renderer {
       el.label = composer.getItemPropertyValue(item, 'label') as string;
       el.subLabel = composer.getItemPropertyValue(item, 'subLabel') as string;
       el.value = composer.getItemPropertyValue(item, 'value') as string;
-      item.value && (el.id = getItemKey(this.key, el.value));
+      el.id = getItemId(this.key, el.value);
       el.icon = composer.getItemPropertyValue(item, 'icon') as string;
       el.highlighted = composer.getItemPropertyValue(item, 'highlighted') === true;
       el.selected = composer.getItemPropertyValue(item, 'selected') === true;

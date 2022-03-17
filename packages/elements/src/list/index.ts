@@ -14,7 +14,7 @@ import { VERSION } from '../version.js';
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 import type { ItemData } from '../item';
 import type { ListData } from './helpers/types';
-import { getItemKey } from './helpers/key.js';
+import { getItemId } from './helpers/id.js';
 import { ListRenderer } from './helpers/renderer.js';
 import '../item/index.js';
 
@@ -345,8 +345,8 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     if (item) {
       this.clearHighlighted();
       this.composer.setItemPropertyValue(item, 'highlighted', true);
-      const activeKey = item.value && getItemKey(this.renderer.key, item.value);
-      this.tabIndex >= 0 && activeKey && this.setAttribute('aria-activedescendant', activeKey);
+      const id = getItemId(this.renderer.key, item.value);
+      this.tabIndex >= 0 && id && this.setAttribute('aria-activedescendant', id);
       scrollToItem && this.scrollToItem(item);
     }
   }
