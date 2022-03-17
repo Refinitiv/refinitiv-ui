@@ -1,7 +1,7 @@
 name: Test
 on:
   pull_request:
-    branches: [develop]
+    branches: [v5]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +23,7 @@ jobs:
 
       - name: Build
         if: steps.setup.outputs.cache-build-hit != 'true'
-        run: lerna run build --include-dependencies --since origin/develop...HEAD
+        run: lerna run build --include-dependencies --since origin/v5...HEAD
 
   lint:
     needs: build
@@ -38,7 +38,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Lint
-        run: lerna run lint --include-dependents --since origin/develop...HEAD
+        run: lerna run lint --include-dependents --since origin/v5...HEAD
 
   chrome:
     needs: lint
@@ -53,7 +53,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Test
-        run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers chrome
+        run: lerna run test --include-dependents --since origin/v5...HEAD -- -- --browsers chrome
 
   firefox:
     needs: lint
@@ -69,4 +69,4 @@ jobs:
 
       - name: Test
         # TODO: `@refinitiv/core` has test coverage below threshold on Firefox
-        run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers firefox --includeCoverage false
+        run: lerna run test --include-dependents --since origin/v5...HEAD -- -- --browsers firefox --includeCoverage false
