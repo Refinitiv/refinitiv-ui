@@ -3,7 +3,7 @@ import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import type { TreeDataItem } from './types';
 import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager.js';
 import { Renderer } from '../../list/renderer.js';
-import { getItemId } from '../../list/helpers/id.js';
+import { getItemId } from '../../list/helpers/item-id.js';
 import '../elements/tree-item.js';
 import type { TreeItem } from '../elements/tree-item';
 

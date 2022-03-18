@@ -14,7 +14,7 @@ import { VERSION } from '../version.js';
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 import type { ItemData } from '../item';
 import type { ListData } from './helpers/types';
-import { getItemId } from './helpers/id.js';
+import { getItemId } from './helpers/item-id.js';
 import { ListRenderer } from './helpers/renderer.js';
 import '../item/index.js';
 

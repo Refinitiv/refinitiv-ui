@@ -2,7 +2,7 @@ import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import type { Item, ItemType, ItemData } from '../../item';
 import '../../item/index.js';
-import { getItemId } from './id.js';
+import { getItemId } from './item-id.js';
 import { Renderer } from '../renderer.js';
 
 /**

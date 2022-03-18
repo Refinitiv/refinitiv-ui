@@ -5,13 +5,11 @@
  * @returns a unique item id
  */
 const getItemId = (prefix: string, value: string | undefined): string => {
-  const SEPARATOR = '-';
-
   if (!prefix || !value) {
     return '';
   }
 
-  return `${prefix}${SEPARATOR}${value}`;
+  return `${prefix}-${value}`;
 };
 
 export { getItemId };
