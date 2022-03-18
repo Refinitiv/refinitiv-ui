@@ -5,24 +5,14 @@
 ####   `DOM structure is correct`
 
 ```html
-<span
-  aria-live="polite"
-  id="status"
-  part="status"
-  role="status"
->
-  Page 1
-</span>
 <ef-layout
   flex=""
   nowrap=""
   part="container"
 >
   <ef-button-bar
-    aria-hidden="true"
     part="buttons"
     role="toolbar"
-    tabindex="-1"
   >
     <ef-button
       aria-disabled="true"
@@ -49,18 +39,16 @@
     >
     </ef-button>
   </ef-button-bar>
-  <input
-    aria-labelledby="status"
-    aria-valuemin="1"
+  <ef-text-field
     id="input"
+    no-spinner=""
     part="input"
-    role="spinbutton"
+    tabindex="0"
   >
+  </ef-text-field>
   <ef-button-bar
-    aria-hidden="true"
     part="buttons"
     role="toolbar"
-    tabindex="-1"
   >
     <ef-button
       empty=""
