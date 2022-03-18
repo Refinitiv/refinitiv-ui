@@ -311,7 +311,7 @@ export class Pagination extends BasicElement {
   protected t!: Translate;
 
   /**
-   * Getter for display text in the input
+   * Getter for display page number or text depends on focusing the input
    * @returns input text
    */
   protected get inputValue (): string {
@@ -369,6 +369,11 @@ export class Pagination extends BasicElement {
    */
   protected update (changedProperties: PropertyValues): void {
     super.update(changedProperties);
+
+    if (changedProperties.has('value')) {
+      this.input.setAttribute('aria-valuenow', this.internalValue.toString());
+    }
+
     if (changedProperties.has('max')) {
       if (!this.infinitePaginate) {
         this.input.setAttribute('aria-valuemax', this.max);
@@ -384,10 +389,6 @@ export class Pagination extends BasicElement {
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
-
-    if (changedProperties.has('value')) {
-      this.input.setAttribute('aria-valuenow', this.internalValue.toString());
-    }
 
     if (this.inputFocused && changedProperties.has('inputFocused')) {
       void this.selectInput();
@@ -579,14 +580,28 @@ export class Pagination extends BasicElement {
     this.notifyValueChange();
   }
 
+  /**
+   * Check pagination has a next page
+   * @param page current page number
+   * @returns true if pagination has a next page
+   */
   protected hasNextPage (page: number): boolean {
     return page < this.internalMax;
   }
 
+  /**
+   * Check pagination has a previous page
+   * @param page current page number
+   * @returns true if pagination has a previous page
+   */
   protected hasPreviousPage (page: number): boolean {
     return page > 1;
   }
 
+  /**
+   * Check pagination has a last page
+   * @returns true if pagination has a last page
+   */
   protected hasLastPage (): boolean {
     return !this.infinitePaginate;
   }
