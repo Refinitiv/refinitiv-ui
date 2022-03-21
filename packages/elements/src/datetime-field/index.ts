@@ -5,11 +5,11 @@ import {
   TemplateResult,
   html
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
-import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
-import { AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
+import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 import {
   utcParse,
   utcFormat,
@@ -18,7 +18,7 @@ import {
   isAfter,
   iterateUnit,
   Locale
-} from '@refinitiv-ui/utils/lib/date.js';
+} from '@refinitiv-ui/utils/date.js';
 import {
   translate,
   getLocale,
@@ -38,7 +38,7 @@ import {
   selectPart
 } from './utils.js';
 import { VERSION } from '../version.js';
-import '@refinitiv-ui/phrasebook/lib/locale/en/datetime-field.js';
+import '@refinitiv-ui/phrasebook/locale/en/datetime-field.js';
 
 @customElement('ef-datetime-field')
 export class DatetimeField extends TextField {
