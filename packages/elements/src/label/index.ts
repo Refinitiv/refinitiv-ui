@@ -178,8 +178,9 @@ export class Label extends BasicElement {
    * @param [mutation=false] is the request from a mutation event?
    * @returns {void}
    */
+  // mutation is reserved for future used
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected recalculate (mutation = false): void {
-    mutation; // keeping here for future use
     const oldValue = this.text;
     const raw = this.textContent || '';
     this.chunks = raw.split(_).map(chunk => chunk.trim()).filter(chunk => chunk);
