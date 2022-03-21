@@ -7,12 +7,12 @@ import {
   TemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
-import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
-import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import type { Pill } from '../pill';
 import type { TextField } from '../text-field';
 import type { MultiInputData, MultiInputDataItem, MultiInputEvents, SelectionIndex } from './helpers/types';

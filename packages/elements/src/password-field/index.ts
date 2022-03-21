@@ -3,13 +3,13 @@ import {
   PropertyValues,
   TemplateResult
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
-import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
+import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { preload } from '../icon/index.js';
 import { TextField } from '../text-field/index.js';
 import '../icon/index.js';
-import '@refinitiv-ui/phrasebook/lib/locale/en/password-field.js';
+import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
 
 let isEyeOffPreloadRequested = false;

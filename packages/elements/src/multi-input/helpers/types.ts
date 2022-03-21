@@ -1,4 +1,4 @@
-import type { CollectionItem } from '@refinitiv-ui/utils/lib/collection.js';
+import type { CollectionItem } from '@refinitiv-ui/utils/collection.js';
 
 export type SelectionIndex = number | null;
 

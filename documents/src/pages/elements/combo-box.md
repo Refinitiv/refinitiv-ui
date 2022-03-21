@@ -92,7 +92,7 @@ comboBox.data = [
 comboBox.values = ['gb', 'th'];
 ```
 
-@> By default, Combo Box allow to set value that available in its data set.
+@> By default, Combo Box allows setting value that available in its data set.
 
 ### Free text mode
 Set `free-text` to allow Combo Box to contain any arbitrary value. This mode is designed to cover a search input with suggestions scenario.
@@ -346,13 +346,13 @@ comboBox.addEventListener('query-changed', (event) => {
 
 Combo Box supports custom rendering by providing a renderer function to the `renderer` property. The renderer receives a data item, Collection Composer and previously mapped item elements (if any), and must return an `HTMLElement`.
 
-The preferred approach is to extend the `DefaultRender` that comes with Combo Box. The default renderer uses [Item](./elements/item) elements, and supports highlighted, selected, disabled, hidden and readonly states.
+The preferred approach is to extend the `ComboBoxRenderer` that comes with Combo Box. The default renderer uses [Item](./elements/item) elements, and supports highlighted, selected, disabled, hidden and readonly states.
 
 ```javascript
-import { DefaultRenderer } from '../lib/ef-combo-box';
+import { ComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
 
 // Create a re-useable renderer that shows Flags next to the country
-class FlagRender extends DefaultRenderer {
+class FlagRender extends ComboBoxRenderer {
   constructor (comboBox) {
     // Keep the reference to the default renderer
     const defaultRenderer = super(comboBox);
@@ -513,7 +513,7 @@ else {
 
 ### CSS Variables
 
-By default the popup width is equivalent to the input box. However, it can be overridden using CSS.
+By default, the popup width is equivalent to the input box. However, it can be overridden using CSS.
 
 ```css
 ef-combo-box {

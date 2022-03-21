@@ -8,15 +8,15 @@ import {
   MultiValue,
   WarningNotice
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
-import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
-import { cache } from '@refinitiv-ui/core/lib/directives/cache.js';
-import { guard } from '@refinitiv-ui/core/lib/directives/guard.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/lib/directives/ref.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
+import { cache } from '@refinitiv-ui/core/directives/cache.js';
+import { guard } from '@refinitiv-ui/core/directives/guard.js';
+import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
-import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
+import { isIE } from '@refinitiv-ui/utils/browser.js';
 import {
   DateSegment,
   DateFormat,
@@ -37,7 +37,7 @@ import {
   isSameYear,
   toDateSegment,
   parse
-} from '@refinitiv-ui/utils/lib/date.js';
+} from '@refinitiv-ui/utils/date.js';
 import {
   NavigationGrid,
   CellIndex,
@@ -47,7 +47,7 @@ import {
   down,
   first,
   last
-} from '@refinitiv-ui/utils/lib/navigation.js';
+} from '@refinitiv-ui/utils/navigation.js';
 import {
   monthInfo,
   weekdaysNames,
@@ -85,7 +85,7 @@ import type { TapEvent } from '../events';
 import type { Button } from '../button';
 import './locales.js';
 import '../button/index.js';
-import '@refinitiv-ui/phrasebook/lib/locale/en/calendar.js';
+import '@refinitiv-ui/phrasebook/locale/en/calendar.js';
 
 export {
   CalendarFilter
@@ -1454,6 +1454,7 @@ export class Calendar extends ControlElement implements MultiValue {
     }
     return html`<div
       part="aria-selection"
+      role="status"
       aria-live="polite"
       aria-label="${this.value
         ? this.range

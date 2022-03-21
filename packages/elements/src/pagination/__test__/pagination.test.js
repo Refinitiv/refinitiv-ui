@@ -189,17 +189,6 @@ describe('pagination/Pagination', () => {
       lastButton = el.shadowRoot.querySelector('#last');
     });
 
-    it('Should blur the input when Enter key is pressed in text-field', async () => {
-      await triggerFocusFor(inputPart);
-      await elementFocused(el);
-      expect(document.activeElement).to.equal(el);
-
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
-      await elementUpdated(el);
-
-      expect(document.activeElement).to.not.equal(el, 'It should blur the element');
-    });
-
     it('Should transform the selected text input value when focus/blur', async () => {
       expect(inputPart.value).to.equal('Page 1 of 7', 'Incorrect transform text input');
 
@@ -480,6 +469,92 @@ describe('pagination/Pagination', () => {
     });
   });
 
+  describe('Keyboard Navigation', () => {
+    let el;
+    let inputPart;
+
+    beforeEach(async () => {
+      el = await fixture('<ef-pagination max="7" lang="en-gb"></ef-pagination>');
+      inputPart = el.shadowRoot.querySelector('[part=input]');
+    });
+
+    it('Should increase the input number when Arrow Up key is pressed in text-field', async () => {
+      await triggerFocusFor(inputPart);
+      expect(el.value).to.equal('');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      expect(inputPart.value).to.equal('2');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Up' }));
+      expect(inputPart.value).to.equal('3');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+
+      expect(el.value).to.equal('3');
+    });
+
+    it('Should decrease the input number when Arrow Down key is pressed in text-field', async () => {
+      el.value = '7';
+      await elementUpdated(el);
+      expect(el.value).to.equal('7');
+
+      await triggerFocusFor(inputPart);
+      await elementUpdated(el);
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      expect(inputPart.value).to.equal('6');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Down' }));
+      expect(inputPart.value).to.equal('5');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+
+      expect(el.value).to.equal('5');
+    });
+
+    it('Should update the input number to the first page when Home key is pressed in text-field', async () => {
+      el.value = '7';
+      await elementUpdated(el);
+      expect(el.value).to.equal('7');
+
+      await triggerFocusFor(inputPart);
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Home' }));
+      expect(inputPart.value).to.equal('1');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+
+      expect(el.value).to.equal('1');
+    });
+
+    it('Should update the input number to the last page when End key is pressed in text-field', async () => {
+      await elementUpdated(el);
+      expect(el.value).to.equal('');
+
+      await triggerFocusFor(inputPart);
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'End' }));
+      expect(inputPart.value).to.equal('7');
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+
+      expect(el.value).to.equal('7');
+    });
+
+    it('Should blur the input when Enter key is pressed in text-field', async () => {
+      await triggerFocusFor(inputPart);
+      await elementFocused(el);
+      expect(document.activeElement).to.equal(el);
+
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+
+      expect(document.activeElement).to.not.equal(el, 'It should blur the element');
+    });
+
+  });
+
   describe('Events', () => {
     let el;
     let firstButton;
@@ -606,6 +681,72 @@ describe('pagination/Pagination', () => {
       const { detail } = await oneEvent(el, 'value-changed');
       expect(el.value).to.equal('3');
       expect(detail.value).to.equal('3');
+    });
+  });
+
+  describe('Accessibility', () => {
+    let el;
+    let inputPart;
+    let firstButton;
+    let previousButton;
+    let nextButton;
+    let lastButton;
+
+    beforeEach(async () => {
+      el = await fixture('<ef-pagination value="5" max="7" lang="en-gb"></ef-pagination>');
+      inputPart = el.shadowRoot.querySelector('[part=input]');
+      firstButton = el.shadowRoot.querySelector('#first');
+      previousButton = el.shadowRoot.querySelector('#previous');
+      nextButton = el.shadowRoot.querySelector('#next');
+      lastButton = el.shadowRoot.querySelector('#last');
+    });
+
+    it('Should pass common rules for accessibility', async () => {
+      await expect(el).to.be.accessible({
+        ignoredRules: [
+          'label', // Already has `aria-labelledby`
+          'aria-hidden-focus' // Issue: buttons in ef-button-bar not respect the tabindex of the host
+        ],
+      });
+    });
+
+    it('Should not access all buttons', async () => {
+      el.shadowRoot.querySelectorAll('[part=buttons]').forEach(buttons => {
+        expect(buttons.getAttribute('aria-hidden')).to.be.equal('true');
+      });
+    });
+
+    it('Should set `aria-valuenow` attribute correctly on initialize', async () => {
+      expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('5');
+    });
+
+    it('Should update `aria-valuenow` attribute correctly when input value changed', async () => {
+      await triggerFocusFor(inputPart);
+
+      expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('5');
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('6');
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('7');
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Home' }));
+      expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('1');
+      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'End' }));
+      expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('7');
+    });
+
+    it('Should update `aria-valuemax` attribute correctly when max page chaged', async () => {
+      expect(inputPart.getAttribute('aria-valuemax')).to.be.equal('7');
+      el.setAttribute('max', '3');
+      await elementUpdated(el);
+      expect(inputPart.getAttribute('aria-valuemax')).to.be.equal('3');
+
+      el.max = '10';
+      await elementUpdated(el);
+      expect(inputPart.getAttribute('aria-valuemax')).to.be.equal('10');
+
+      el.max = '';
+      await elementUpdated(el);
+      expect(inputPart.getAttribute('aria-valuemax')).to.be.null;
     });
   });
 

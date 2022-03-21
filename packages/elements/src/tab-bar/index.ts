@@ -7,9 +7,9 @@ import {
   ResponsiveElement,
   ElementSize
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
 import { tweenAnimate } from './helpers/animate.js';
 import { Tab } from '../tab/index.js';
@@ -458,11 +458,11 @@ export class TabBar extends ResponsiveElement {
    */
   protected render (): TemplateResult {
     return html`
-      ${!this.vertical ? html`<ef-button tabIndex="-1" icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
+      ${!this.vertical ? html`<ef-button tabIndex="-1" aria-hidden="true" icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
         <div part="content">
           <slot @slotchange=${this.onSlotChange}></slot>
         </div>
-      ${!this.vertical ? html`<ef-button tabIndex="-1" icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
+      ${!this.vertical ? html`<ef-button tabIndex="-1" aria-hidden="true" icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
     `;
   }
 }

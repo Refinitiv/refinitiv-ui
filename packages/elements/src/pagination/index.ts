@@ -8,21 +8,18 @@ import {
   WarningNotice,
   DeprecationNotice
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
 import '../button/index.js';
 import '../button-bar/index.js';
 import '../layout/index.js';
 import '../text-field/index.js';
 
-import '@refinitiv-ui/phrasebook/lib/locale/en/pagination.js';
+import '@refinitiv-ui/phrasebook/locale/en/pagination.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
-
-import type { TextField } from '../text-field';
-import type { FocusedChangedEvent } from '../events';
 
 const pageDeprecation = new DeprecationNotice('Property `page` is deprecated, use `value` instead.');
 const pageSizeDeprecation = new DeprecationNotice('Property `pageSize ` is deprecated, use `max` instead.');
@@ -49,6 +46,8 @@ export class Pagination extends BasicElement {
    * Current page internal current page value
    */
   private _value = '';
+
+  protected defaultRole: string | null = 'navigation';
 
   /**
    * Internal current page
@@ -303,7 +302,7 @@ export class Pagination extends BasicElement {
    * Getter for text field as input part
    */
   @query('#input')
-  private input!: TextField;
+  private input!: HTMLInputElement;
 
   /**
    * Used for translations
@@ -312,16 +311,23 @@ export class Pagination extends BasicElement {
   protected t!: Translate;
 
   /**
-   * Getter for display text in the input
+   * Getter for display page number or text depends on focusing the input
    * @returns input text
    */
-  protected get inputText (): string {
+  protected get inputValue (): string {
     if (this.inputFocused) {
       return this.internalValue.toString();
     }
     else {
-      return (this.infinitePaginate ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax })) as string;
+      return this.inputTextFormat;
     }
+  }
+
+  /**
+   * Get page text format in various translation
+   */
+  protected get inputTextFormat (): string {
+    return (this.infinitePaginate ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax })) as string;
   }
 
   /**
@@ -361,8 +367,29 @@ export class Pagination extends BasicElement {
   /**
    * @override
    */
+  protected update (changedProperties: PropertyValues): void {
+    super.update(changedProperties);
+
+    if (changedProperties.has('value')) {
+      this.input.setAttribute('aria-valuenow', this.internalValue.toString());
+    }
+
+    if (changedProperties.has('max')) {
+      if (!this.infinitePaginate) {
+        this.input.setAttribute('aria-valuemax', this.max);
+      }
+      else {
+        this.input.removeAttribute('aria-valuemax');
+      }
+    }
+  }
+
+  /**
+   * @override
+   */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
+
     if (this.inputFocused && changedProperties.has('inputFocused')) {
       void this.selectInput();
     }
@@ -384,48 +411,6 @@ export class Pagination extends BasicElement {
         new WarningNotice(`${this.localName} : The specified value "${value}" of ${propName} property is not valid, The value must be integer and greater than 0.`).show();
       }
       return false;
-    }
-  }
-
-  /**
-   * Handles action when Enter and Tab key is press onto the input
-   * @param event Keyboard event
-   * @returns {void}
-   */
-  private onInputKeyDown (event: KeyboardEvent): void {
-    const isEnter = event.key === 'Enter' || event.keyCode === 13;
-    const isTab = event.key === 'Tab' || event.keyCode === 9;
-
-    if (isEnter || isTab) {
-      this.updatePageInput();
-
-      if (isEnter) {
-        this.input.blur();
-        event.preventDefault();
-
-        /**
-         * Issue only in firefox
-         * cannot blur() or focus() to this.input so create a temp to this.input loses focus
-         */
-        const temp = document.createElement('input');
-        this.shadowRoot?.appendChild(temp);
-        temp.focus();
-        this.input.blur();
-        this.shadowRoot?.removeChild(temp);
-      }
-    }
-  }
-
-  /**
-   * Handles action when input focused change
-   * @param event focus change event
-   * @returns {void}
-   */
-  private onInputFocusedChanged (event: FocusedChangedEvent): void {
-    this.inputFocused = event.detail.value;
-
-    if (!this.inputFocused) {
-      this.updatePageInput();
     }
   }
 
@@ -493,6 +478,27 @@ export class Pagination extends BasicElement {
         this.notifyValueChange();
       }
     }
+  }
+
+  /**
+   * Update input value
+   *
+   * @param value input value
+   * @param direction update from old value
+   * @returns void
+   */
+  protected updateInputValue (value = 1, direction: 'increment' | 'decrement' | null = null): void {
+
+    let newValue = value;
+
+    // Update base on old value
+    if (direction) {
+      const changeValue = direction === 'increment' ? value : -Math.abs(value);
+      newValue = Number(this.input.value) + changeValue;
+    }
+
+    this.input.value = String(newValue);
+    this.input.setAttribute('aria-valuenow', this.input.value);
   }
 
   /**
@@ -575,6 +581,100 @@ export class Pagination extends BasicElement {
   }
 
   /**
+   * Check pagination has a next page
+   * @param page current page number
+   * @returns true if pagination has a next page
+   */
+  protected hasNextPage (page: number): boolean {
+    return page < this.internalMax;
+  }
+
+  /**
+   * Check pagination has a previous page
+   * @param page current page number
+   * @returns true if pagination has a previous page
+   */
+  protected hasPreviousPage (page: number): boolean {
+    return page > 1;
+  }
+
+  /**
+   * Check pagination has a last page
+   * @returns true if pagination has a last page
+   */
+  protected hasLastPage (): boolean {
+    return !this.infinitePaginate;
+  }
+
+  /**
+   * Handles key press event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyPress (event: KeyboardEvent): void {
+    // Allow input number only
+    if (!(/\d/).test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
+  /**
+   * Handles action when input focused change
+   * @param event focus change event
+   * @returns {void}
+   */
+  private onFocusedChanged (): void {
+    this.inputFocused = document.activeElement === this;
+
+    if (!this.inputFocused) {
+      this.updatePageInput();
+    }
+  }
+
+  /**
+   * Handles key down event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyDown (event: KeyboardEvent): void {
+    if (event.defaultPrevented) {
+      return;
+    }
+
+    const newInputValue = Number(this.input.value);
+
+    switch (event.key) {
+      case 'Enter':
+        this.updatePageInput();
+        this.input.blur();
+        break;
+      case 'Tab':
+        this.updatePageInput();
+        break;
+      case 'Up':
+      case 'ArrowUp':
+        this.hasNextPage(newInputValue) && this.updateInputValue(1, 'increment');
+        break;
+      case 'Down':
+      case 'ArrowDown':
+        this.hasPreviousPage(newInputValue) && this.updateInputValue(1, 'decrement');
+        break;
+      case 'Home':
+        this.updateInputValue(1);
+        break;
+      case 'End':
+        this.hasLastPage() && this.updateInputValue(this.internalMax);
+        break;
+      default:
+        return;
+    }
+
+    if (event.key !== 'Tab') {
+      event.preventDefault();
+    }
+  }
+
+  /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
@@ -584,6 +684,13 @@ export class Pagination extends BasicElement {
     return css`
       :host {
         display: inline-block;
+      }
+
+      [part=status] {
+        width: 0px;
+        height: 0px;
+        overflow: hidden;
+        position: absolute;
       }
     `;
   }
@@ -595,20 +702,26 @@ export class Pagination extends BasicElement {
    */
   protected render (): TemplateResult {
     return html`
+      <span id="status" part="status" role="status" aria-live="polite">${this.inputTextFormat}</span>
       <ef-layout part="container" flex nowrap>
-        <ef-button-bar part="buttons">
+        <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="first" icon="skip-to-start" @tap="${this.onFirstTap}" .disabled=${!this.useFirstButton}></ef-button>
           <ef-button id="previous" icon="left" @tap="${this.onPreviousTap}" .disabled=${!this.usePreviousButton}></ef-button>
         </ef-button-bar>
-        <ef-text-field
+        <input
           id="input"
           part="input"
-          @focused-changed=${this.onInputFocusedChanged}
-          @keydown=${this.onInputKeyDown}
-          .value=${this.inputText}
+          role="spinbutton"
+          aria-labelledby="status"
+          aria-valuemin="1"
+          .value=${this.inputValue}
           .disabled=${this.disabled}
-          no-spinner></ef-text-field>
-        <ef-button-bar part="buttons">
+          @focus=${this.onFocusedChanged}
+          @blur=${this.onFocusedChanged}
+          @keypress=${this.onKeyPress}
+          @keydown=${this.onKeyDown}
+        />
+        <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="next" icon="right" @tap="${this.onNextTap}" .disabled=${!this.useNextButton}></ef-button>
           <ef-button id="last" icon="skip-to-end" @tap="${this.onLastTap}" .disabled=${!this.useLastButton}></ef-button>
         </ef-button-bar>

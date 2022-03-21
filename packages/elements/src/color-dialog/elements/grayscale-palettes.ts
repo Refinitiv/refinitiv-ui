@@ -7,8 +7,8 @@ import {
   svg,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
 import { Palettes } from './palettes.js';
 import { GRAYSCALE_ITEMS, NOCOLOR_POINTS } from '../helpers/color-helpers.js';

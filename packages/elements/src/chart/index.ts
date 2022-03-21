@@ -1,3 +1,6 @@
+/* eslint @typescript-eslint/no-unsafe-call: 0 */
+/* eslint @typescript-eslint/no-unsafe-member-access: 0 */
+
 import {
   BasicElement,
   html,
@@ -6,11 +9,11 @@ import {
   TemplateResult,
   CSSResultGroup
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
-import { color as parseColor } from '@refinitiv-ui/utils/lib/color.js';
+import { color as parseColor } from '@refinitiv-ui/utils/color.js';
 import 'chart.js/dist/Chart.bundle.min.js';
 
 import {
@@ -43,6 +46,7 @@ window.Chart.pluginService.register(doughnutCenterPlugin);
 
 const CSS_COLOR_PREFIX = '--chart-color-';
 const CHART_TYPE_OPAQUE = ['line', 'bubble', 'radar', 'polarArea'];
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const DEFAULT_CHART_CONFIG = window.Chart.defaults;
 const ELF_CHART_CONFIG = {
   polarArea: {

@@ -6,12 +6,12 @@ import {
   CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
-import { guard } from '@refinitiv-ui/core/lib/directives/guard.js';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
+import { guard } from '@refinitiv-ui/core/directives/guard.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { ValueChangedEvent, FocusedChangedEvent } from '../events';
 import { VERSION } from '../version.js';
 import {
@@ -28,15 +28,15 @@ import {
   addOffset,
   padNumber,
   parse
-} from '@refinitiv-ui/utils/lib/date.js';
-import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
+} from '@refinitiv-ui/utils/date.js';
+import { isIE } from '@refinitiv-ui/utils/browser.js';
 import '../number-field/index.js';
 import type { NumberField } from '../number-field';
 import {
   translate,
   TranslateDirective
 } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/lib/locale/en/time-picker.js';
+import '@refinitiv-ui/phrasebook/locale/en/time-picker.js';
 
 
 enum Segment {
@@ -974,6 +974,7 @@ export class TimePicker extends ControlElement {
 
     return html`<div
       part="aria-selection"
+      role="status"
       aria-live="polite"
       aria-label="${this.t('SELECTED', {
         value: value ? parse(value) : null,

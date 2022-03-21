@@ -12,6 +12,10 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/theme-compiler"
   },
+  "scripts": {
+    "prepack": "npm run version",
+    "version": "node ../../scripts/version"
+  },
   "dependencies": {
     "autoprefixer": "^10.4.2",
     "chalk": "^4.1.1",

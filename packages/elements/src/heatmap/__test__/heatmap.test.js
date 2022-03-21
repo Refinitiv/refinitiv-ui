@@ -19,6 +19,7 @@ const CONFIG = {
 
 const canvasUpdated = async () => {
   await nextFrame();
+  await nextFrame();
   await nextFrame(); // IE11 needs second animation frame, otherwise resize observer is not run.
 };
 
@@ -117,22 +118,16 @@ describe('heatmap/Heatmap', () => {
     });
 
     it('Should not render any axes', async () => {
-      el.confg = { data: [[{ value: 1, header: 'ABC' }, { value: 0.5, header: 'DEF' }]] };
-
+      el.config = { data: [[{ value: 1, header: 'ABC' }, { value: 0.5, header: 'DEF' }]] };
       await elementUpdated(el);
 
       const crossBox = el.shadowRoot.querySelector('[part=cross-box]');
-      const crossBoxHeight = window.getComputedStyle(crossBox).height.replace(removeUnit, '');
-
       const xAxis = el.shadowRoot.querySelector('[part=x-axis]');
-      const xAxisHeight = window.getComputedStyle(xAxis).height.replace(removeUnit, '');
-
       const yAxis = el.shadowRoot.querySelector('[part=y-axis]');
-      const yAxisHeight = window.getComputedStyle(yAxis).height.replace(removeUnit, '');
 
-      expect(xAxisHeight).to.equal('0');
-      expect(yAxisHeight).to.equal('0');
-      expect(crossBoxHeight).to.equal('0');
+      expect(crossBox).to.equal(null);
+      expect(xAxis).to.equal(null);
+      expect(yAxis).to.equal(null);
     });
 
     it('Should render x-axis', async () => {

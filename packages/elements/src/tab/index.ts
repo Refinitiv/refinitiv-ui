@@ -6,10 +6,10 @@ import {
   ControlElement,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
-import { isSlotEmpty } from '@refinitiv-ui/utils/lib/is-slot-empty.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
+import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
 import { VERSION } from '../version.js';
 
 import '../icon/index.js';

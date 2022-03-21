@@ -6,9 +6,11 @@ import {
   CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { translate, Translate } from '@refinitiv-ui/translate';
 import { VERSION } from '../../version.js';
+import '@refinitiv-ui/phrasebook/locale/en/notification.js';
 
 import '../../icon/index.js';
 
@@ -31,6 +33,11 @@ export class Notification extends BasicElement {
   static get version (): string {
     return VERSION;
   }
+
+  /**
+   * Default role of the element
+   */
+  protected readonly defaultRole: string | null = 'alert';
 
   /**
    * The message to show in the notification.
@@ -61,6 +68,12 @@ export class Notification extends BasicElement {
    */
   @property({ type: Boolean, reflect: true })
   public collapsed = false;
+
+  /**
+   * Used for translations
+   */
+  @translate()
+  protected t!: Translate;
 
   /**
    * On first updated lifecycle
@@ -154,7 +167,7 @@ export class Notification extends BasicElement {
     </style>
     <div part="container">
       <div part="content"><slot>${this.message}</slot></div>
-      <ef-icon part="clear" icon="cross" @click="${this.onClearClick.bind(this)}"></ef-icon>
+      <ef-icon part="clear" icon="cross" role="button" aria-description="${this.t('CLOSE')}" @click="${this.onClearClick.bind(this)}"></ef-icon>
     </div>
     `;
   }
