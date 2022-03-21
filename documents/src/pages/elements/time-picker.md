@@ -173,6 +173,9 @@ calendar.addEventListener("value-changed", () => {
 ## Accessibility
 ::a11y-intro::
 
-The Time Picker is assigned `role="textbox"`. The hours and minutes inputs have independent labels hidden for assistive technologies. The input fields that form the Time Picker control are programmatically grouped and associated with their group label. States such as `disabled` or `read-only` are programmatically updated to match the visual state. 
+The hours and minutes inputs have independent labels hidden for assistive technologies. The input fields that form the Time Picker control are programmatically grouped and associated with their group label. States such as `disabled` or `read-only` are programmatically updated to match the visual state. 
+
+### Notes for developers
+Time Picker manages the role and states.
 
 ::a11y-end::

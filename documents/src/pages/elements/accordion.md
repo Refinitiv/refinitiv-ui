@@ -183,8 +183,20 @@ ef-collapse > ef-checkbox {
 ## Accessibility
 ::a11y-intro::
 
-The Accordion component is assigned heading level 3 and the `role="button"` and can include properties such `aria-controls`. States such as `disabled` or `expanded` are programmatically updated to match the element’s visual state. 
+`ef-accordion` is an element to manage expanding and collapsing state of `ef-collapse`. The element itself doesn't require specific aria attributes but it should be able to manage keyboard navigation to navigate between collapse items and also expand / collapse action.
 
-The slots feature uses a combination of the Button and Checkbox components.  
+### Notes for developers
+
+`ef-accordion` has provided necessary keyboard navigation. However, you need to set an appropriate `aria-level` attribute to the `ef-collapse` elements, depends on your page structure. Typically, on the page, it should reserve `aria-level="1"` for main page's heading (h1) so you may want to set `aria-level` from `aria-level="2"` onward.
+
+```html
+<ef-accordion spacing>
+  <ef-collapse header="SpaceX Dragon" aria-level="2">
+    The Earth was small, light blue, and so touchingly alone, our home that must be defended like a holy relic. The Earth was absolutely round. I believe I never knew what the word round meant until I saw Earth from space.
+  </ef-collapse>
+  <ef-collapse expanded header="Falcon 9" aria-level="2">
+    We want to explore. We're curious people. Look back over history, people have put their lives at stake to go out and explore ... We believe in what we're doing. Now it's time to go.
+  </ef-collapse>
+```
 
 ::a11y-end::
