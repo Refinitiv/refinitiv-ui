@@ -8,6 +8,7 @@
 <ef-tree
   aria-multiselectable="false"
   role="tree"
+  tabindex="0"
 >
 </ef-tree>
 

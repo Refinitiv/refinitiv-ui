@@ -44,6 +44,7 @@
     aria-multiselectable="false"
     id="internal-list"
     role="listbox"
+    tabindex="-1"
   >
     <ef-item
       aria-selected="false"
@@ -57,14 +58,14 @@
       highlighted=""
       id="AX"
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
       id="AL"
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
   </ef-list>
@@ -112,6 +113,7 @@
     aria-multiselectable="false"
     id="internal-list"
     role="listbox"
+    tabindex="-1"
   >
     <ef-item
       aria-selected="false"
@@ -125,7 +127,7 @@
       highlighted=""
       id="AX"
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
   </ef-list>
