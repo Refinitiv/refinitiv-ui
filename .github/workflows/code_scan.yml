@@ -2,7 +2,7 @@ name: "Code Scan"
 on:
   push:
     branches:
-      - develop
+      - v6
 jobs:
   sonarcloud:
     name: SonarCloud
