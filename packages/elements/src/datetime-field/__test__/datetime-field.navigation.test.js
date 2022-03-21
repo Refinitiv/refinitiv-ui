@@ -6,7 +6,7 @@ import {
   arrowUp,
   arrowDown
 } from './utils';
-import { DateTimeFormat, utcFormat } from '@refinitiv-ui/utils/lib/date.js';
+import { DateTimeFormat, utcFormat } from '@refinitiv-ui/utils/date.js';
 
 // import element and theme
 import '@refinitiv-ui/elements/datetime-field';
