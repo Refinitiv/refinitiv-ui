@@ -398,6 +398,18 @@ menu.addEventListener('tap', (event) => {
 ## Accessibility
 ::a11y-intro::
 
-The Item component is assigned different roles depending upon the control it is used for. It can have accessible roles such as `role="link"`, `role="button"`, or `role="checkbox"`. Always try to include a text label for an item - avoid relying solely upon an image or icon to convey the item’s purpose to users. The item state programmatically updates to match the element’s visual state whenever the visual state changes. 
+`ef-item` is low-level element that typically, it is used to compose for creating other element such as `ef-list`, `ef-tree`. Hence, `ef-item` will not be assigned with any roles by default but only provide `aria-selected` attribute which will reflect current selected state of itself.
+
+For example, if you don't want to use `ef-list` and want to create a list element, you can assign your parent element with `role="listbox"` and each `ef-item` with `role="option"`.
+
+```html
+<div role="listbox">
+  <ef-item role="option">Item A</ef-item>
+  <ef-item role="option">Item B</ef-item>
+  <ef-item role="option">Item C</ef-item>
+</div>
+```
+
+
 
 ::a11y-end::
