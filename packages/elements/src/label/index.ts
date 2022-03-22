@@ -175,10 +175,9 @@ export class Label extends BasicElement {
 
   /**
    * Handles any modifications to the internal HTML
-   * @param [mutation=false] is the request from a mutation event?
+   * @param [mutation=false] is the request from a mutation event ? ( reserved for future used )
    * @returns {void}
    */
-  // mutation is reserved for future used
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected recalculate (mutation = false): void {
     const oldValue = this.text;
