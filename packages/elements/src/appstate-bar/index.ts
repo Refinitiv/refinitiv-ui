@@ -10,6 +10,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
+import '@refinitiv-ui/phrasebook/locale/en/appstate-bar.js';
 import '../icon/index.js';
 
 /**
