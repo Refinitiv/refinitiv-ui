@@ -1,8 +1,5 @@
 name: "Code Scan"
-on:
-  push:
-    branches:
-      - v6
+on: [pull_request]
 jobs:
   sonarcloud:
     name: SonarCloud
