@@ -1,4 +1,5 @@
 @import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-pagination';
+@import '../shared-styles/input';
 
 :host {
   --first-icon: previous;
@@ -10,5 +11,9 @@
     height: @pagination-input-height;
     width: 150px;
     margin: @pagination-input-margin;
+
+    &:focus {
+      .input-focus;
+    }
   }
 }

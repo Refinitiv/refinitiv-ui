@@ -1,7 +1,7 @@
 @import 'element:ef-button';
-@import 'element:ef-text-field';
 @import 'element:ef-button-bar';
 @import 'element:ef-layout';
+@import '../shared-styles/input';
 @import '../responsive';
 
 :host {
@@ -11,12 +11,25 @@
   }
 
   [part=input] {
+    .input-defaults;
+    .input-standard(true);
+    .input-webkit-normaliser;
+    .touch-action();
     width: 180px;
     min-width: 40px;
     text-align: center;
+
+    &:hover {
+      border-color: @input-hover-border-color;
+      color: @input-hover-text-color;
+    }
+
+    &:focus {
+      .input-focus;
+    }
   }
 
-  [part=input], [part=button] {
+  [part=button] {
     .touch-action();
   }
 }
