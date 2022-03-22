@@ -69,7 +69,6 @@
       const knownElements = new WeakSet();
 
       custom.renderer = function (item, composer, element) {
-
         // Use default renderer to create/recycle element
         element = renderer(item, composer, element);
 
@@ -116,6 +115,7 @@
         }
         return element;
       };
+      custom.renderer.key = renderer.key; // used in aria-activedescendant to indicate current highlight item
     </script>
 
     <demo-block header="Default" layout="normal" tags="default">
