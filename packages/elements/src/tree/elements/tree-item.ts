@@ -217,13 +217,11 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   }
 
   /**
-   * Invoked whenever the element is updated
-   * @param changedProperties Map of changed properties with old values
+   * Invoked before update() to compute values needed during the update.
+   * @param changedProperties changed properties
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
-    super.update(changedProperties);
-
+  protected willUpdate (changedProperties: PropertyValues): void {
     if (changedProperties.has('checkedState')) {
       this.checkedChanged();
     }
