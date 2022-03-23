@@ -33,9 +33,9 @@ try {
   const elementName = isElement ? argv.package : undefined;
 
   // For workspace package real name is required
-  const package = fs.readFileSync(path.resolve(PACKAGES_ROOT, workspace, 'package.json'));
+  const packageJson = fs.readFileSync(path.resolve(PACKAGES_ROOT, workspace, 'package.json'));
 
-  const packageName = JSON.parse(package).name;
+  const packageName = JSON.parse(packageJson).name;
 
   const command = ['npm', 'run', argv.reflect, `--workspace=${packageName}`];
   elementName && command.push(elementName);
