@@ -380,6 +380,15 @@ export class Pagination extends BasicElement {
   }
 
   /**
+   * Select text in input when update element complete
+   * @returns returns a promise void
+   */
+  private async selectInput (): Promise<void> {
+    await this.updateComplete;
+    this.input.select();
+  }
+
+  /**
    * Validate page value which returns true when value is valid
    * @param value value
    * @param warning show warning message when value is invalid
@@ -399,20 +408,21 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Update page by using value from the input
+   * Set page to the pagination
+   * @param value page number
    * @returns {void}
    */
-  private updatePageInput (): void {
+  private setPage (value: string): void {
     // Prevent update page to the same value
-    if (this.value === this.input.value) {
+    if (this.value === value) {
       return;
     }
 
     const oldValue = this.value;
-    let newValue = parseInt(this.input.value, 10);
+    let newValue = parseInt(value, 10);
 
     // Reset input and boundary value into supported range.
-    if (this.validatePage(this.input.value)) {
+    if (this.validatePage(value)) {
       if (newValue > this.internalMax) {
         newValue = this.internalMax;
       }
@@ -426,15 +436,6 @@ export class Pagination extends BasicElement {
     if (this.value !== oldValue) {
       this.notifyValueChange();
     }
-  }
-
-  /**
-   * Select text in input when update element complete
-   * @returns returns a promise void
-   */
-  private async selectInput (): Promise<void> {
-    await this.updateComplete;
-    this.input.select();
   }
 
   /**
@@ -599,7 +600,7 @@ export class Pagination extends BasicElement {
   private onFocusedChanged (event: FocusEvent): void {
     this.inputFocused = event.type === 'focus' && event.target === this.input;
     if (!this.inputFocused) {
-      this.updatePageInput();
+      this.setPage(this.input.value);
     }
   }
 
@@ -618,7 +619,7 @@ export class Pagination extends BasicElement {
     switch (event.key) {
       case 'Enter':
       case 'Tab':
-        this.updatePageInput();
+        this.setPage(this.input.value);
         break;
       case 'Up':
       case 'ArrowUp':
