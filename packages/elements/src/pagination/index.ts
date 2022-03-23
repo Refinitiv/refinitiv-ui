@@ -465,7 +465,8 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Update input value
+   * Update input value,
+   * but the value does not apply to the element until `Enter` key is pressed or `Blur` event is fired
    *
    * @param value input value
    * @param direction update from old value
@@ -591,18 +592,6 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Handles key press event
-   * @param event Key down event object
-   * @returns {void}
-   */
-  private onKeyPress (event: KeyboardEvent): void {
-    // Allow input number only
-    if (!(/\d/).test(event.key)) {
-      event.preventDefault();
-    }
-  }
-
-  /**
    * Handles action when input focused change
    * @param event focus change event
    * @returns {void}
@@ -620,27 +609,24 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private onKeyDown (event: KeyboardEvent): void {
+
     if (event.defaultPrevented) {
       return;
     }
 
-    const newInputValue = Number(this.input.value);
-
+    // Handle keyboard shortcuts
     switch (event.key) {
       case 'Enter':
-        this.updatePageInput();
-        this.input.blur();
-        break;
       case 'Tab':
         this.updatePageInput();
         break;
       case 'Up':
       case 'ArrowUp':
-        this.hasNextPage(newInputValue) && this.updateInputValue(1, Direction.increment);
+        this.hasNextPage(Number(this.input.value)) && this.updateInputValue(1, Direction.increment);
         break;
       case 'Down':
       case 'ArrowDown':
-        this.hasPreviousPage(newInputValue) && this.updateInputValue(1, Direction.decrement);
+        this.hasPreviousPage(Number(this.input.value)) && this.updateInputValue(1, Direction.decrement);
         break;
       case 'Home':
         this.updateInputValue(1);
@@ -649,12 +635,18 @@ export class Pagination extends BasicElement {
         this.hasLastPage() && this.updateInputValue(this.internalMax);
         break;
       default:
-        return;
     }
 
-    if (event.key !== 'Tab') {
-      event.preventDefault();
+    /**
+     * Allow input keys (navigation, submit, number).
+     * Do not prevent default for `Tab` key, it should focus on next tabindex as the same native behaviour.
+     */
+    const allowKeys = ['ArrowLeft', 'ArrowRight', 'Backspace', 'Tab'];
+    if ((/\d/).test(event.key) || allowKeys.includes(event.key)) {
+      return;
     }
+
+    event.preventDefault();
   }
 
   /**
@@ -703,7 +695,6 @@ export class Pagination extends BasicElement {
           .disabled=${this.disabled}
           @focus=${this.onFocusedChanged}
           @blur=${this.onFocusedChanged}
-          @keypress=${this.onKeyPress}
           @keydown=${this.onKeyDown}
         />
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
