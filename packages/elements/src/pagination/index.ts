@@ -53,8 +53,6 @@ export class Pagination extends BasicElement {
    */
   private _value = '';
 
-  protected defaultRole: string | null = 'navigation';
-
   /**
    * Internal current page
    * @returns current page
