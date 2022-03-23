@@ -48,7 +48,7 @@ export class NotificationTray extends ResponsiveElement {
    * @returns true if tray is ready to show
    */
   private get canShow (): boolean {
-    return this.queue.length >= 0 && this.showing.length < this.max;
+    return this.showing.length < this.max;
   }
 
   /**
