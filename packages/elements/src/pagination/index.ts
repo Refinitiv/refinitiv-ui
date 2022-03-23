@@ -12,6 +12,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
 import '../button/index.js';
 import '../button-bar/index.js';
@@ -372,26 +373,6 @@ export class Pagination extends BasicElement {
   /**
    * @override
    */
-  protected update (changedProperties: PropertyValues): void {
-    super.update(changedProperties);
-
-    if (changedProperties.has('value')) {
-      this.input.setAttribute('aria-valuenow', this.internalValue.toString());
-    }
-
-    if (changedProperties.has('max')) {
-      if (!this.infinitePaginate) {
-        this.input.setAttribute('aria-valuemax', this.max);
-      }
-      else {
-        this.input.removeAttribute('aria-valuemax');
-      }
-    }
-  }
-
-  /**
-   * @override
-   */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
@@ -717,7 +698,9 @@ export class Pagination extends BasicElement {
           part="input"
           role="spinbutton"
           aria-labelledby="status"
+          aria-valuenow=${this.internalValue}
           aria-valuemin="1"
+          aria-valuemax=${ifDefined(this.max || undefined)}
           .value=${this.inputValue}
           .disabled=${this.disabled}
           @focus=${this.onFocusedChanged}

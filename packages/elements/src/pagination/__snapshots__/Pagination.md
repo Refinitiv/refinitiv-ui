@@ -52,6 +52,7 @@
   <input
     aria-labelledby="status"
     aria-valuemin="1"
+    aria-valuenow="1"
     id="input"
     part="input"
     role="spinbutton"
