@@ -26,10 +26,7 @@ const elementFocused = async (el) => {
 };
 
 const elementBlurred = async (el) => {
-  setTimeout(() => {
-    el.focus(); // Firefox need focus before blur
-    el.blur();
-  });
+  setTimeout(() => el.blur());
   await oneEvent(el, 'blur');
   await elementUpdated(el);
   await aTimeout(50);
@@ -529,7 +526,6 @@ describe('pagination/Pagination', () => {
     });
 
     it('Should update the input number to the last page when End key is pressed in text-field', async () => {
-      await elementUpdated(el);
       expect(el.value).to.equal('');
 
       await triggerFocusFor(inputPart);
@@ -541,18 +537,6 @@ describe('pagination/Pagination', () => {
 
       expect(el.value).to.equal('7');
     });
-
-    it('Should blur the input when Enter key is pressed in text-field', async () => {
-      await triggerFocusFor(inputPart);
-      await elementFocused(el);
-      expect(document.activeElement).to.equal(el);
-
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
-      await elementUpdated(el);
-
-      expect(document.activeElement).to.not.equal(el, 'It should blur the element');
-    });
-
   });
 
   describe('Events', () => {
