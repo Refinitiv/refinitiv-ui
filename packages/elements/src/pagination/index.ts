@@ -21,6 +21,11 @@ import '../text-field/index.js';
 import '@refinitiv-ui/phrasebook/locale/en/pagination.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
 
+export enum Direction {
+  increment = 'increment',
+  decrement = 'decrement'
+}
+
 const pageDeprecation = new DeprecationNotice('Property `page` is deprecated, use `value` instead.');
 const pageSizeDeprecation = new DeprecationNotice('Property `pageSize ` is deprecated, use `max` instead.');
 const totalItemsDeprecation = new DeprecationNotice('Property `totalItems ` is deprecated, use `max` instead.');
@@ -459,7 +464,7 @@ export class Pagination extends BasicElement {
    * @param event whether the event page-changed should fire
    * @returns {void}
    */
-  private updatePage (direction: 'increment' | 'decrement', event = false): void {
+  private updatePage (direction: Direction, event = false): void {
 
     /**
      * Handle in case the value of max property is greater than value of value/page property,
@@ -470,10 +475,10 @@ export class Pagination extends BasicElement {
       page = this.internalMax + 1;
     }
 
-    const limit = direction === 'increment' ? page >= this.internalMax : page <= 1;
+    const limit = direction === Direction.increment ? page >= this.internalMax : page <= 1;
 
     if (!limit) {
-      this.value = direction === 'increment' ? (page + 1).toString() : (page - 1).toString();
+      this.value = direction === Direction.increment ? (page + 1).toString() : (page - 1).toString();
       if (event) {
         this.notifyValueChange();
       }
@@ -487,13 +492,13 @@ export class Pagination extends BasicElement {
    * @param direction update from old value
    * @returns void
    */
-  protected updateInputValue (value = 1, direction: 'increment' | 'decrement' | null = null): void {
+  protected updateInputValue (value = 1, direction: Direction | null = null): void {
 
     let newValue = value;
 
     // Update base on old value
     if (direction) {
-      const changeValue = direction === 'increment' ? value : -Math.abs(value);
+      const changeValue = direction === Direction.increment ? value : -Math.abs(value);
       newValue = Number(this.input.value) + changeValue;
     }
 
@@ -515,7 +520,7 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   public next (): void {
-    this.updatePage('increment');
+    this.updatePage(Direction.increment);
   }
 
   /**
@@ -523,7 +528,7 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private onNextTap (): void {
-    this.updatePage('increment', true);
+    this.updatePage(Direction.increment, true);
   }
 
   /**
@@ -531,7 +536,7 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   public previous (): void {
-    this.updatePage('decrement');
+    this.updatePage(Direction.decrement);
   }
 
   /**
@@ -539,7 +544,7 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private onPreviousTap (): void {
-    this.updatePage('decrement', true);
+    this.updatePage(Direction.decrement, true);
   }
 
   /**
@@ -652,11 +657,11 @@ export class Pagination extends BasicElement {
         break;
       case 'Up':
       case 'ArrowUp':
-        this.hasNextPage(newInputValue) && this.updateInputValue(1, 'increment');
+        this.hasNextPage(newInputValue) && this.updateInputValue(1, Direction.increment);
         break;
       case 'Down':
       case 'ArrowDown':
-        this.hasPreviousPage(newInputValue) && this.updateInputValue(1, 'decrement');
+        this.hasPreviousPage(newInputValue) && this.updateInputValue(1, Direction.decrement);
         break;
       case 'Home':
         this.updateInputValue(1);
