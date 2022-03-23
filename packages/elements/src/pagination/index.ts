@@ -21,6 +21,7 @@ import '../text-field/index.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/pagination.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
+import type { TranslateDirectiveResult } from '@refinitiv-ui/translate';
 
 export enum Direction {
   increment = 'increment',
@@ -316,22 +317,21 @@ export class Pagination extends BasicElement {
 
   /**
    * Getter for display page number or text depends on focusing the input
-   * @returns input text
+   * @returns string page number value or translate directive result
    */
-  protected get inputValue (): string {
-    if (this.inputFocused) {
-      return this.internalValue.toString();
-    }
-    else {
-      return this.inputTextFormat;
-    }
+  protected get inputValue (): string | TranslateDirectiveResult {
+    return this.inputFocused ? this.internalValue.toString() : this.inputTextFormat;
   }
 
   /**
    * Get page text format in various translation
+   * @returns translate directive result
    */
-  protected get inputTextFormat (): string {
-    return (this.infinitePaginate ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax })) as string;
+  protected get inputTextFormat (): TranslateDirectiveResult {
+    if (!this.infinitePaginate) {
+      return this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax });
+    }
+    return this.t('PAGE', { page: this.internalValue });
   }
 
   /**
