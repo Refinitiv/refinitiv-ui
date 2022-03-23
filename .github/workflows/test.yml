@@ -1,7 +1,5 @@
 name: Test
-on:
-  pull_request:
-    branches: [v6]
+on: [pull_request] # Triggers on any branch
 env:
   BASE_SHA: ${{ github.event.pull_request.base.sha }}
 jobs:

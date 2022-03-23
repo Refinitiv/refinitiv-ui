@@ -16,6 +16,10 @@
     outline: none;
   }
 
+  &[focused=visible] {
+    outline: 1px solid @scheme-color-primary;
+  }
+
   &[readonly] [part=list-item] {
     cursor: default;
   }

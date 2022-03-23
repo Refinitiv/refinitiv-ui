@@ -6,6 +6,7 @@
 <ef-list
   aria-multiselectable="false"
   role="listbox"
+  tabindex="0"
 >
 </ef-list>
 
@@ -23,6 +24,7 @@
 <ef-list
   aria-multiselectable="false"
   role="listbox"
+  tabindex="0"
 >
 </ef-list>
 
@@ -40,6 +42,7 @@
 <ef-list
   aria-multiselectable="false"
   role="listbox"
+  tabindex="0"
 >
 </ef-list>
 
@@ -57,6 +60,7 @@
 <ef-list
   aria-multiselectable="false"
   role="listbox"
+  tabindex="0"
 >
 </ef-list>
 

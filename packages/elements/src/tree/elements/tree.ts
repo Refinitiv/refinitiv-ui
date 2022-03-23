@@ -24,7 +24,6 @@ const EXPAND_TOGGLE_ATTR = 'expand-toggle';
  *
  * @attr {boolean} [stateless=false] - Disable selections
  * @prop {boolean} [stateless=false] - Disable selections
- *
  */
 @customElement('ef-tree')
 export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
@@ -268,15 +267,16 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * @override
    */
-  protected update (changedProperties: PropertyValues): void {
-    if (changedProperties.has('noRelation') || changedProperties.has('multiple')) {
+  protected willUpdate (changeProperties: PropertyValues): void {
+    super.willUpdate(changeProperties);
+
+    if (changeProperties.has('noRelation') || changeProperties.has('multiple')) {
       this.manager.setMode(this.mode);
     }
 
-    if (changedProperties.has('query') || changedProperties.has('data')) {
+    if (changeProperties.has('query') || changeProperties.has('data')) {
       this.filterItems();
     }
-    super.update(changedProperties);
   }
 
   /**
