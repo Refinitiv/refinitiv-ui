@@ -346,6 +346,21 @@ section {
 ## Accessibility
 ::a11y-intro::
 
-Datetime Picker serves as a container for the Date Picker and Time Picker components, so it does not itself receive keyboard focus.
+`ef-datetime-picker` provides input field for users to entering date string value or date with time value. Users can open popup with calendar element and use keyboard navigation to select the date from UI.
+
+### Notes for developers
+`ef-datetime-picker` is assigned with role and implemented keyboard navigation. However, you must ensure that the element has associated label by using`aria-label` or `aria-labelledby`.
+
+```html
+<ef-datetime-picker
+  aria-label="Enter departure date">
+</ef-datetime-picker>
+```
+```html
+<label id="departure">Enter departure date</label>
+<ef-datetime-picker 
+  aria-labelledby="departure">
+</ef-datetime-picker>
+```
 
 ::a11y-end::
