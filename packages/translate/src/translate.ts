@@ -32,7 +32,8 @@ type DecoratorOptions = {
   mode?: 'directive' | 'promise';
 };
 type TranslateFunction = (prototype: BasicElement, name: PropertyKey) => void;
-type TranslateDirective = (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => DirectiveResult<typeof AsyncTranslateDirective>;
+type TranslateDirectiveResult = DirectiveResult<typeof AsyncTranslateDirective>;
+type TranslateDirective = (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => TranslateDirectiveResult
 type TranslatePromise = (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => Promise<string>;
 type Translate = TranslateDirective | TranslatePromise;
 
@@ -195,5 +196,6 @@ export {
   getLocale,
   Translate,
   TranslatePromise,
-  TranslateDirective
+  TranslateDirective,
+  TranslateDirectiveResult
 };
