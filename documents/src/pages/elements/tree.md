@@ -317,6 +317,6 @@ tree.addEventListener('value-changed', (e) => {
 ## Accessibility
 ::a11y-intro::
 
-The Tree component is assigned `role="tree"` and can include properties such as `aria-multiselectable`, `aria-label`, or `aria-labelledby`. Since the Tree component serves as a container for the Tree Select component, it does not itself receive keyboard focus. Each node of the Tree Select is assigned `role="treeitem"` and can include properties such as `aria-selected`. 
+Tree element is assigned `role="tree"` and can include properties such as `aria-multiselectable`, `aria-label`, or `aria-labelledby`. It receives focus once at host and it is navigable through items using arrow keys. Each item is assigned `role="treeitem"` and can include properties such as `aria-selected` or `aria-checked` in `multiple` mode. 
 
 ::a11y-end::
