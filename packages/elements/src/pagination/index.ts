@@ -618,7 +618,6 @@ export class Pagination extends BasicElement {
     // Handle keyboard shortcuts
     switch (event.key) {
       case 'Enter':
-      case 'Tab':
         this.setPage(this.input.value);
         break;
       case 'Up':

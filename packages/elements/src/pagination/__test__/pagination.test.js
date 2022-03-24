@@ -347,16 +347,6 @@ describe('pagination/Pagination', () => {
       expect(el.value).to.equal('3');
     });
 
-    it('Should be able to change page number by typing a number and press tab key into the input', async () => {
-      await triggerFocusFor(inputPart);
-      await elementFocused(el);
-
-      inputPart.value = '5';
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Tab' }));
-      await elementUpdated(el);
-      expect(el.value).to.equal('5');
-    });
-
     it('Should be able to change page number by typing a number and blur the input', async () => {
       await triggerFocusFor(inputPart);
       await elementFocused(el);
