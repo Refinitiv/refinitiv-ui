@@ -641,7 +641,7 @@ export class Pagination extends BasicElement {
      * Allow input keys (navigation, submit, number).
      * Do not prevent default for `Tab` key, it should focus on next tabindex as the same native behaviour.
      */
-    const allowKeys = ['ArrowLeft', 'ArrowRight', 'Backspace', 'Tab'];
+    const allowKeys = ['ArrowLeft', 'Left', 'ArrowRight', 'Right', 'Backspace', 'Tab'];
     if ((/\d/).test(event.key) || allowKeys.includes(event.key)) {
       return;
     }
@@ -696,6 +696,7 @@ export class Pagination extends BasicElement {
           @focus=${this.onFocusedChanged}
           @blur=${this.onFocusedChanged}
           @keydown=${this.onKeyDown}
+          onPaste="return false"
         />
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="next" icon="right" @tap="${this.onNextTap}" .disabled=${!this.useNextButton}></ef-button>
