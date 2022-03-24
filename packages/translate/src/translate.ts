@@ -33,7 +33,7 @@ type DecoratorOptions = {
 };
 type TranslateFunction = (prototype: BasicElement, name: PropertyKey) => void;
 type TranslateDirectiveResult = DirectiveResult<typeof AsyncTranslateDirective>;
-type TranslateDirective = (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => TranslateDirectiveResult
+type TranslateDirective = (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => TranslateDirectiveResult;
 type TranslatePromise = (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => Promise<string>;
 type Translate = TranslateDirective | TranslatePromise;
 
