@@ -193,7 +193,7 @@ btn.addEventListener('tap', () => {
 
 ### Notes for developers
 
-`ef-button` handles role and aria value but when using button without any text label, assigns `aria-label` as the accessible name.
+`ef-button` handles role and aria value but when using button without any text label, assign `aria-label` as the accessible name.
 
 ```html
 <ef-button icon="bookmark" aria-label="bookmark this item"></ef-button>
