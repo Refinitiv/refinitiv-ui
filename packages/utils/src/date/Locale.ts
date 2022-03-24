@@ -125,6 +125,10 @@ class Locale {
    * @param formatter Date time format
    */
   constructor (formatter: Intl.DateTimeFormat) {
+    if (!(formatter instanceof Intl.DateTimeFormat)) {
+      throw new Error('Invalid constructor parameters provided. formatter should be an instance of Intl.DateTimeFormat');
+    }
+
     this.formatter = formatter;
     this.options = formatter.resolvedOptions();
 
