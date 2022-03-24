@@ -54,7 +54,6 @@
     aria-valuemin="1"
     aria-valuenow="1"
     id="input"
-    onpaste="return false"
     part="input"
     role="spinbutton"
   >

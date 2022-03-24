@@ -371,6 +371,15 @@ export class Pagination extends BasicElement {
   /**
    * @override
    */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    // Prevent copy/paste to the text input
+    this.input.addEventListener('paste', () => false);
+  }
+
+  /**
+   * @override
+   */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
@@ -696,7 +705,6 @@ export class Pagination extends BasicElement {
           @focus=${this.onFocusedChanged}
           @blur=${this.onFocusedChanged}
           @keydown=${this.onKeyDown}
-          onpaste="return false"
         />
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="next" icon="right" @tap="${this.onNextTap}" .disabled=${!this.useNextButton}></ef-button>
