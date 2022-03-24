@@ -95,7 +95,7 @@ checkbox.addEventListener('checked-changed', (e) => {
 ## Accessibility
 ::a11y-intro::
 
-The Checkbox element is assigned `role="checkbox"` and can have a `checked` state. Assistive technology users ascertain the purpose that a checkbox serves through its accessible name, which is computed from the element’s visual label or `aria-label` property. The element’s state programmatically updates to match its visual state. 
+The Checkbox element is assigned `role="checkbox"` and can have a `checked` state. Assistive technology users ascertain the purpose that a checkbox serves through its accessible name, which is computed from the element’s visual label or `aria-label` and `aria-labelledby` atrribute. The element’s state programmatically updates to match its visual state. 
 
 The `role="group"` should be used to associate the grouping with the element’s group label. 
 
