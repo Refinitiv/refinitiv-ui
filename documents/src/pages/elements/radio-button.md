@@ -88,7 +88,7 @@ The Radio Button element is assigned `role="radio"` and can include a `checked` 
 The `role="radiogroup"` or `role="group"` should be used to associate the element’s grouping with its group label. 
 ### Notes for developers
 
-`ef-radio-button` handles role and aria value but for radio group, you need to assign `role="radiogroup"` by yourself.
+`ef-radio-button` handles `role` and `aria-checked` attributes but for radio group, you need to assign `role="radiogroup"` by yourself.
 
 ```html
 <div role="radiogroup" aria-labelledby="header">
