@@ -131,7 +131,7 @@ const OUTPUT_FILENAME = 'custom-elements';
 
 // Validate if data from analyzer is match to element's tag name
 const isValidAPI = (data, element) => {
-  jsonObj = JSON.parse(data);
+  const jsonObj = JSON.parse(data);
   return (jsonObj.tags.length && jsonObj.tags[0].name === `${ELEMENT_PREFIX}-${element}`);
 };
 
@@ -151,7 +151,7 @@ const analyze = (file, type) => {
     result.componentDefinitions.forEach(definition => {
       const { declaration } = definition;
       const propCollection = {};
-      
+
       if(!declaration || declaration && !declaration.members) {
         error(`Element Analyzer Error: declaration property is missing.`);
         return;
@@ -198,12 +198,12 @@ const analyze = (file, type) => {
     const rawJson = wca.transformAnalyzerResult('json', meta.results, meta.program);
     const jsonObj = JSON.parse(rawJson);
     const methods = getMethods(jsonObj, meta);
-  
+
     // Extract method details from meta data and added to jsonObj
     if (jsonObj.tags && jsonObj.tags.length > 0 && methods.length > 0) {
       jsonObj.tags[0].methods = methods;
     }
-  
+
     output = JSON.stringify(jsonObj, null, 2);
   } else {
     output = wca.transformAnalyzerResult('markdown', meta.results, meta.program);
@@ -217,7 +217,7 @@ const analyze = (file, type) => {
  */
 const handler = async () => {
   // Looking for `index.ts` in each element source folder
-  const globUrl = `${PACKAGE_ROOT}/${ELEMENT_SRC}/*/${INPUT_FILENAME}`; 
+  const globUrl = `${PACKAGE_ROOT}/${ELEMENT_SRC}/*/${INPUT_FILENAME}`;
   // A glob pattern is always in POSIX format.
   const entries = await fg([globUrl.replace(/\\/g, '/')], { unique: true });
 
