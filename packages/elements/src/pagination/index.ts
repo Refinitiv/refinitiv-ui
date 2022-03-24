@@ -696,7 +696,7 @@ export class Pagination extends BasicElement {
           @focus=${this.onFocusedChanged}
           @blur=${this.onFocusedChanged}
           @keydown=${this.onKeyDown}
-          onPaste="return false"
+          onpaste="return false"
         />
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="next" icon="right" @tap="${this.onNextTap}" .disabled=${!this.useNextButton}></ef-button>
