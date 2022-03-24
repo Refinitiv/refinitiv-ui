@@ -344,7 +344,7 @@ export class Pagination extends BasicElement {
    * State for checking the first page button is available
    */
   protected get useFirstButton (): boolean {
-    return !this.disabled && this.internalValue >= 2;
+    return !this.disabled && this.hasPreviousPage(this.internalValue);
   }
 
   /**
@@ -358,7 +358,7 @@ export class Pagination extends BasicElement {
    * State for checking the next page button is available
    */
   protected get useNextButton (): boolean {
-    return !this.disabled && this.internalValue < this.internalMax;
+    return !this.disabled && this.hasNextPage(this.internalValue);
   }
 
   /**
@@ -455,22 +455,28 @@ export class Pagination extends BasicElement {
    */
   private updatePage (direction: Direction, event = false): void {
 
-    /**
-     * Handle in case the value of max property is greater than value of value/page property,
-     * which it might happen by using developer API.
-     */
+    // Get current page
     let page = this.internalValue;
-    if (page > this.internalMax) {
-      page = this.internalMax + 1;
+    let newPage: number;
+
+    // Check the direction
+    if (direction === Direction.increment) {
+      newPage = this.hasNextPage(page) ? page + 1 : page;
+    }
+    else {
+      /**
+       * Handle in case the page value is greater than max, so the decrement must reset page to the max page.
+       * which it might happen by using developer API.
+       */
+      page = page > this.internalMax ? this.internalMax + 1 : page;
+
+      newPage = this.hasPreviousPage(page) ? page - 1 : page;
     }
 
-    const limit = direction === Direction.increment ? page >= this.internalMax : page <= 1;
-
-    if (!limit) {
-      this.value = direction === Direction.increment ? (page + 1).toString() : (page - 1).toString();
-      if (event) {
-        this.notifyValueChange();
-      }
+    // Update page and fire event
+    if (newPage !== page) {
+      this.value = String(newPage);
+      event && this.notifyValueChange();
     }
   }
 
