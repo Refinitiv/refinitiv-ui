@@ -11,8 +11,8 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
+import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
 import '../button/index.js';
 import '../button-bar/index.js';
@@ -303,10 +303,17 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Getter for text field as input part
+   * Reference input element
    */
-  @query('#input')
-  private input!: HTMLInputElement;
+  protected inputRef: Ref<HTMLInputElement> = createRef();
+
+  /**
+   * Getter for input element
+   */
+  protected get input (): HTMLInputElement {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return this.inputRef.value!;
+  }
 
   /**
    * Used for translations
@@ -713,6 +720,7 @@ export class Pagination extends BasicElement {
           @focus=${this.onFocusedChanged}
           @blur=${this.onFocusedChanged}
           @keydown=${this.onKeyDown}
+          ${ref(this.inputRef)}
         />
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="next" icon="right" @tap="${this.onNextTap}" .disabled=${!this.useNextButton}></ef-button>
