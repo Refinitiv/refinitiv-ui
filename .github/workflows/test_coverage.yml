@@ -1,0 +1,35 @@
+name: "Test Coverage"
+on:
+  push:
+    branches: [v6]
+
+jobs:
+  sonarcloud:
+    name: TestCoverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+
+      - name: Install Dependencies
+        if: steps.setup.outputs.cache-dependencies-hit != 'true'
+        run: npm ci --ignore-scripts --audit=false --fund=false
+
+      - name: Reset NX # temporary
+        run: npm run reset
+
+      - name: Build
+        if: steps.setup.outputs.cache-build-hit != 'true'
+        run: npm run build
+
+      - name: Test
+        run: npm run test:all
+        
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
