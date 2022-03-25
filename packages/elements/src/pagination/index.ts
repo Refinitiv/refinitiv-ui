@@ -701,7 +701,9 @@ export class Pagination extends BasicElement {
    */
   protected render (): TemplateResult {
     return html`
-      <span id="status" part="status" role="status" aria-live="polite">${this.inputTextFormat}</span>
+      <span id="status" part="status" role="status" aria-live="polite">
+        <label for="input">${this.inputTextFormat}</label>
+      </span>
       <ef-layout part="container" flex nowrap>
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="first" icon="skip-to-start" @tap="${this.onFirstTap}" .disabled=${!this.useFirstButton}></ef-button>
@@ -711,7 +713,6 @@ export class Pagination extends BasicElement {
           id="input"
           part="input"
           role="spinbutton"
-          aria-labelledby="status"
           aria-valuenow=${this.internalValue}
           aria-valuemin="1"
           aria-valuemax=${ifDefined(this.max || undefined)}
