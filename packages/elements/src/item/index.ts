@@ -95,33 +95,11 @@ export class Item extends ControlElement {
   @property({ type: String, reflect: true })
   public icon: string | null = null;
 
-
-  private _selected = false;
-
   /**
    * Indicates that the item is selected
-   * @param value selected value
-   * @default false
    */
   @property({ type: Boolean, reflect: true })
-  public set selected (value: boolean) {
-    const oldValue = this._selected;
-    if (oldValue !== value) {
-      this._selected = value;
-      this.ariaSelected = String(value);
-      void this.requestUpdate('selected', oldValue);
-    }
-  }
-  public get selected (): boolean {
-    return this._selected;
-  }
-
-  /**
-   * Aria indicating current select state
-   * @ignore
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-selected' })
-  public ariaSelected = 'false';
+  public selected = false;
 
   /**
    * Is the item part of a multiple selection
@@ -179,14 +157,51 @@ export class Item extends ControlElement {
   };
 
   /**
-   * @override
+   * Handles aria-selected or aria-checked when toggle between single and multiple selection mode
+   * @returns {void}
+   **/
+  private multipleChanged (): void {
+    this.removeAttribute(this.multiple ? 'aria-selected' : 'aria-checked');
+    this.selectedChanged();
+  }
+
+  /**
+   * Handles aria when selected state changes
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  private selectedChanged (): void {
+    this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', String(this.selected));
+  }
+
+  /**
+   * Control State behaviour will update tabindex based on the property
+   * @returns {void}
+   */
+  private typeChanged (): void {
+    const noInteraction = this.type === 'header' || this.type === 'divider' || this.disabled;
+    if (noInteraction) {
+      this.disableFocus();
+    }
+    else if (!this.disabled) {
+      this.enableFocus();
+    }
+  }
+
+  /**
+   * Invoked before update() to compute values needed during the update.
+   * @param changedProperties changed properties
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
     if (changedProperties.has('type')) {
       this.typeChanged();
     }
-    super.update(changedProperties);
+    if (changedProperties.has('multiple')) {
+      this.multipleChanged();
+    }
+    else if (changedProperties.has('selected')) {
+      this.selectedChanged();
+    }
   }
 
   /**
@@ -243,20 +258,6 @@ export class Item extends ControlElement {
    */
   public get isTruncated (): boolean {
     return !!(this.labelEl && (this.labelEl.offsetWidth < this.labelEl.scrollWidth));
-  }
-
-  /**
-   * Control State behaviour will update tabindex based on the property
-   * @returns {void}
-   */
-  private typeChanged (): void {
-    const noInteraction = this.type === 'header' || this.type === 'divider' || this.disabled;
-    if (noInteraction) {
-      this.disableFocus();
-    }
-    else if (!this.disabled) {
-      this.enableFocus();
-    }
   }
 
   /**
