@@ -384,7 +384,7 @@ ef-select {
 ## Accessibility
 ::a11y-intro::
 
-`ef-select` is assigned `role="listbox"` and can include properties such as `aria-expanded` and `aria-activedescendant`. Select options are assigned `role="option"` and can include properties such as `aria-label` and `aria-selected`. The element’s state programmatically updates to match its visual state.  
+`ef-select` is assigned `role="button"` and also attribute `aria-expanded`. Select options are assigned `role="option"` and can include attributes such as `aria-label` and `aria-selected`. The element’s state programmatically updates to match its visual state.  
 
 ### Notes for developers
 * Select manages the role and aria attributes automatically if you create `ef-select` using `data` property
