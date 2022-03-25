@@ -615,7 +615,7 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private onFocusedChanged (event: FocusEvent): void {
-    this.inputFocused = event.type === 'focus' && event.target === this.input;
+    this.inputFocused = event.type === 'focus';
     if (!this.inputFocused) {
       this.setPage(this.input.value);
     }
