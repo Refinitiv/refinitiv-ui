@@ -20,10 +20,9 @@ import '../layout/index.js';
 import '../text-field/index.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/pagination.js';
-import { translate, Translate } from '@refinitiv-ui/translate';
-import type { TranslateDirectiveResult } from '@refinitiv-ui/translate';
+import { translate, Translate, TranslateDirectiveResult } from '@refinitiv-ui/translate';
 
-export enum Direction {
+enum Direction {
   increment = 'increment',
   decrement = 'decrement'
 }
@@ -373,8 +372,13 @@ export class Pagination extends BasicElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    // Prevent copy/paste to the text input
-    this.input.addEventListener('paste', () => false);
+    // Prevent copy/paste no to the text input
+    this.input.addEventListener('paste', (event: ClipboardEvent) => {
+      const paste = event.clipboardData?.getData('text');
+      if (paste && !this.validatePage(paste)) {
+        event.preventDefault();
+      }
+    });
   }
 
   /**
@@ -450,10 +454,10 @@ export class Pagination extends BasicElement {
   /**
    * Updates page value depending on direction
    * @param direction page value direction
-   * @param event whether the event page-changed should fire
+   * @param withEvent whether the event page-changed should fire
    * @returns {void}
    */
-  private updatePage (direction: Direction, event = false): void {
+  private updatePage (direction: Direction, withEvent = false): void {
 
     // Get current page
     let page = this.internalValue;
@@ -476,14 +480,12 @@ export class Pagination extends BasicElement {
     // Update page and fire event
     if (newPage !== page) {
       this.value = String(newPage);
-      event && this.notifyValueChange();
+      withEvent && this.notifyValueChange();
     }
   }
 
   /**
-   * Update input value,
-   * but the value does not apply to the element until `Enter` key is pressed or `Blur` event is fired
-   *
+   * Update input value. Do not update pagination actual value until Enter key is pressed or blur event is fired
    * @param value input value
    * @param direction update from old value
    * @returns void
