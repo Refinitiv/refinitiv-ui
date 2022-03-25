@@ -277,7 +277,7 @@ element.addEventListener("icon-click", (e) => {
 ## Accessibility
 ::a11y-intro::
 
-`ef-text-field` is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state.
+`ef-text-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state.
 
 ### Notes for developers
 Text Field manages the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
