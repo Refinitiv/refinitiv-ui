@@ -9,6 +9,8 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
+import { translate, Translate } from '@refinitiv-ui/translate';
+import '@refinitiv-ui/phrasebook/locale/en/appstate-bar.js';
 import '../icon/index.js';
 
 /**
@@ -57,6 +59,12 @@ export class AppstateBar extends BasicElement {
   public state: 'info' | 'highlight' | null = null;
 
   /**
+   * Used for translations
+   */
+  @translate()
+  protected t!: Translate;
+  
+  /**
    * Invoked whenever the element is updated
    * @param {PropertyValues} changedProperties Map of changed properties with old values
    * @returns {void}
@@ -98,7 +106,7 @@ export class AppstateBar extends BasicElement {
       <div part="heading">${this.heading}</div>
       <div part="message"><slot></slot></div>
       <div part="right"><slot name="right"></slot></div>
-      <ef-icon part="close"  @tap="${this.clear}" icon="cross"></ef-icon>
+      <ef-icon role="button" part="close"  @tap="${this.clear}" icon="cross" aria-label="${this.t('CLOSE')}"></ef-icon>
     `;
   }
 }
