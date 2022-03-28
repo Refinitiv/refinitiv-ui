@@ -309,10 +309,10 @@ export class Pagination extends BasicElement {
 
   /**
    * Getter for input element
+   * @returns input element
    */
-  protected get inputElement (): HTMLInputElement {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return this.inputRef.value!;
+  protected get inputElement (): HTMLInputElement | null {
+    return this.inputRef.value || null;
   }
 
   /**
@@ -391,7 +391,7 @@ export class Pagination extends BasicElement {
    */
   private async selectInput (): Promise<void> {
     await this.updateComplete;
-    this.inputElement.select();
+    this.inputElement?.select();
   }
 
   /**
@@ -484,6 +484,10 @@ export class Pagination extends BasicElement {
    * @returns void
    */
   protected updateInputValue (value = 1, direction: Direction | null = null): void {
+
+    if (!this.inputElement) {
+      return;
+    }
 
     let newValue = value;
 
@@ -608,6 +612,10 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private onFocusedChanged (event: FocusEvent): void {
+    if (!this.inputElement) {
+      return;
+    }
+
     this.inputFocused = event.type === 'focus';
     if (!this.inputFocused) {
       this.setPage(this.inputElement.value);
@@ -620,6 +628,9 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   protected onInputInput (): void {
+    if (!this.inputElement) {
+      return;
+    }
     const currentInput = this.inputElement.value;
     const inputValue = this.inputElement.value.replace(/[^\d]/g, ''); // stripe invalid charactors
 
@@ -646,17 +657,17 @@ export class Pagination extends BasicElement {
     // Handle keyboard shortcuts
     switch (event.key) {
       case 'Enter':
-        this.setPage(this.inputElement.value);
+        this.inputElement && this.setPage(this.inputElement.value);
         event.preventDefault();
         break;
       case 'Up':
       case 'ArrowUp':
-        this.hasNextPage(Number(this.inputElement.value)) && this.updateInputValue(1, Direction.increment);
+        this.inputElement && this.hasNextPage(Number(this.inputElement.value || 1)) && this.updateInputValue(1, Direction.increment);
         event.preventDefault();
         break;
       case 'Down':
       case 'ArrowDown':
-        this.hasPreviousPage(Number(this.inputElement.value)) && this.updateInputValue(1, Direction.decrement);
+        this.inputElement && this.hasPreviousPage(Number(this.inputElement.value || 1)) && this.updateInputValue(1, Direction.decrement);
         event.preventDefault();
         break;
       case 'Home':
