@@ -168,8 +168,6 @@ ef-collapse > ef-checkbox {
 
 The slots feature uses a combination of the Button and Checkbox components.  
 
-### Notes for developers
-
 `ef-collapse` has provided role and keyboard navigation. However, you need to set an appropriate `aria-level` attribute to the element, depends on your page structure. Typically, on the page, it should reserve `aria-level="1"` for main page's heading (h1) so you may want to set `aria-level` from `aria-level="2"` onward.
 
 ```html

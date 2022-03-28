@@ -175,7 +175,6 @@ calendar.addEventListener("value-changed", () => {
 
 The hours and minutes inputs have independent labels hidden for assistive technologies. The input fields that form the Time Picker control are programmatically grouped and associated with their group label. States such as `disabled` or `read-only` are programmatically updated to match the visual state. 
 
-### Notes for developers
-Time Picker manages the role and states.
+`ef-time-picker` has already managed the role and states.
 
 ::a11y-end::

@@ -196,8 +196,6 @@ To prevent the dialog from closing on ESC key press, add the `no-cancel-on-esc-k
 
 `ef-dialog` is assigned `role="dialog"`. Focus is automatically directed to the dialog when it appears. When the dialog is active, focus is restricted to the dialog and returned to the triggering button when dismissed. 
 
-### Notes for developers
-
 `ef-dialog` has provided the role and implemented keyboard navigation. You should apply accessibility on the dialog content following standard guidelines e.g. providing `aria-label` for form controls, setting correct `tabindex`.
 
 ::a11y-end::

@@ -87,10 +87,3 @@ Default padding is managed by the theme and can be set to `ef-panel` using the `
     href="https://en.wikipedia.org/wiki/New_Normal_(business)">Wikipedia</a></p>
 </ef-panel>
 ```
-
-## Accessibility
-::a11y-intro::
-
-The Panel component does not have a role assigned when used in isolation. The component is assigned the `role="tabpanel"`, when used alongside the Tab Bar and Tab components.
-
-::a11y-end::

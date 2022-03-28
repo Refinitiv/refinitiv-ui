@@ -331,7 +331,6 @@ When users changed the active tab, Tab Bar will fire `value-changed` event with 
 
 `ef-tab-bar` is assigned the `role="tablist"`. Since the Tab Bar serves as a container for Tab elements, it does not itself receive keyboard focus. As a best practice to accommodate accessible users, try to minimize the number of tabs that they need to navigate within a Tab Bar. Note that the Tab Bar should not be used in place of the Button Bar, which is intended to group buttons that allow users to take actions – maintaining this distinction will help accessible users understand the purpose of the component.
 
-### Notes for developers
 `ef-tab-bar` provides role and keyboard navigation for users to navigate within the tab bar. You should provide `aria-label` on `ef-tab-bar` and `ef-tab` for users to understand purpose of the tab via assistive technology.
 
 In case that you use `ef-tab-bar` with clears feature, you could assign more descriptive text in `aria-label` of `ef-tab-bar` or assign `aria-description` to each `ef-tab`, thus, users are aware that the tab is able to delete via Delete key.

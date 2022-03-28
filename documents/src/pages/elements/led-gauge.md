@@ -126,10 +126,3 @@ ef-led-gauge {
 | --center-right-segment-color | Bars color of center right segment                        |
 | --right-segment-color        | Bars color of most right segment                          |
 
-
-## Accessibility
-::a11y-intro::
-
-The LED Gauge component has key data points implemented as Tooltip. The container and axes labels are hidden from assistive technologies. Access to a data table is provided as a textual alternative for accessible users. 
-
-::a11y-end::

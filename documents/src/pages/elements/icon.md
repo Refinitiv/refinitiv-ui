@@ -87,7 +87,14 @@ preload(
 ## Accessibility
 ::a11y-intro::
 
-The Flag component is assigned `role="image"`. Assistive technology users ascertain the purpose of the Flag via its accessible name.
+`ef-icon` delegates focus into its internal svg which has native `role="image"`. Assistive technology users ascertain the purpose of the icon via its accessible name.
+
+Typically, icon may not be tabbable or focusable. However, if it's required, you can set `tabindex` and use `aria-label` or `title` to add its accessible name.
+
+```html
+<ef-icon icon="pdf" tabindex="0" aria-label="PDF Icon"></ef-icon>
+<ef-icon icon="pdf" tabindex="0" title="PDF Icon"></ef-icon>
+```
 
 ::a11y-end::
 

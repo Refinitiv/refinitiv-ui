@@ -189,9 +189,3 @@ ef-swing-gauge[custom-color] {
 | --center-line-color   | Color of center line                                 |
 | --center-line-opacity | Opacity/Transparency of center line                  |
 
-## Accessibility
-::a11y-intro::
-
-The Swing Gauge component has key data points implemented as Tooltip. The container and axes labels are hidden from assistive technologies. Access to a data table is provided as a textual alternative for accessible users. Animation includes functionality to pause, stop or hide animated content.
-
-::a11y-end::

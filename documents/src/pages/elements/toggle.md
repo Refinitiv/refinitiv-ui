@@ -89,9 +89,8 @@ toggle.addEventListener('checked-changed', (e) => {
 ## Accessibility
 ::a11y-intro::
 
-The Toggle element is assigned `role="switch"` and can include the `aria-checked` state. States such as `disabled` and `checked` are programmatically updated to match the element’s visual state. It is best to include a label that visually impaired users can see with the element, making the Toggle more perceivable. 
+`ef-toggle` is assigned `role="switch"` and can include the `aria-checked` state. States such as `disabled` and `checked` are programmatically updated to match the element’s visual state. It is best to include a label that visually impaired users can see with the element, making the Toggle more perceivable. 
 
-### Notes for developers
 `ef-toggle` manages the role and states but you must ensure that the element has associated label by using`aria-label` or `aria-labelledby`.
 
 ```html

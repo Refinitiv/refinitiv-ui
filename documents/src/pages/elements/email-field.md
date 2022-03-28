@@ -270,8 +270,7 @@ element.addEventListener("icon-click", (e) => {
 
 `ef-email-field` is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state.
 
-### Notes for developers
-Email Field manages the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+`ef-email-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
 
 ```html
 <ef-email-field placeholder="Enter your email"></ef-email-field>

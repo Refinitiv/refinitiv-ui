@@ -213,8 +213,7 @@ element.addEventListener('error-changed', (e) => {
 
 `ef-number-field` is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state. 
 
-### Notes for developers
-Number Field manages the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+`ef-number-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
 
 ```html
 <ef-number-field placeholder="Total items"></ef-number-field>

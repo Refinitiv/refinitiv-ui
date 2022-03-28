@@ -185,8 +185,6 @@ ef-collapse > ef-checkbox {
 
 `ef-accordion` is an element to manage expanding and collapsing state of `ef-collapse`. The element itself doesn't require specific aria attributes but it should be able to manage keyboard navigation to navigate between collapse items and also expand / collapse action.
 
-### Notes for developers
-
 `ef-accordion` has provided necessary keyboard navigation. However, you need to set an appropriate `aria-level` attribute to the `ef-collapse` elements, depends on your page structure. Typically, on the page, it should reserve `aria-level="1"` for main page's heading (h1) so you may want to set `aria-level` from `aria-level="2"` onward.
 
 ```html
