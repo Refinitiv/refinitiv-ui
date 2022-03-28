@@ -153,6 +153,22 @@ describe('pagination/Pagination', () => {
     });
   })
 
+  describe('Backwards compatibility', () => {
+    it('Calculates total page correctly', async () => {
+      const el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
+      expect(el.page).to.equal(el.value);
+      expect(el.pageSize).to.equal('5');
+      expect(el.totalItems).to.equal('32');
+
+      el.pageSize = '4';
+      el.totalItems = '9';
+      await elementUpdated(el);
+      expect(el.page).to.equal(el.value);
+      expect(el.pageSize).to.equal('4');
+      expect(el.totalItems).to.equal('9');
+    });
+  });
+
   describe('Focus', () => {
     let el;
     let inputPart;
@@ -599,7 +615,7 @@ describe('pagination/Pagination', () => {
 
     it('Should not fire value-changed event when page is changed through attribute', async () => {
       let eventFired;
-      setTimeout(() => el.setAttribute('value', '2'));
+      setTimeout(() => el.setAttribute('page', '2'));
 
       try {
         await waitUntil(async () => await oneEvent(el, 'value-changed'), 'Event does not fire', { timeout: 0 });
