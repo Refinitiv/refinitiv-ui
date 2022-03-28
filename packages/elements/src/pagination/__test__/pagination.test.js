@@ -678,7 +678,6 @@ describe('pagination/Pagination', () => {
     it('Should pass common rules for accessibility', async () => {
       await expect(el).to.be.accessible({
         ignoredRules: [
-          'label', // Already has `aria-labelledby`
           'aria-hidden-focus' // Issue: buttons in ef-button-bar not respect the tabindex of the host
         ],
       });
