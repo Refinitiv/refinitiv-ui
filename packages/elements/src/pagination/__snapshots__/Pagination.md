@@ -11,7 +11,9 @@
   part="status"
   role="status"
 >
-  Page 1
+  <label for="input">
+    Page 1
+  </label>
 </span>
 <ef-layout
   flex=""
@@ -50,7 +52,6 @@
     </ef-button>
   </ef-button-bar>
   <input
-    aria-labelledby="status"
     aria-valuemin="1"
     aria-valuenow="1"
     id="input"

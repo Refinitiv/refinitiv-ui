@@ -377,20 +377,6 @@ export class Pagination extends BasicElement {
   /**
    * @override
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
-    super.firstUpdated(changedProperties);
-    // Prevent copy/paste no to the text input
-    this.input.addEventListener('paste', (event: ClipboardEvent) => {
-      const paste = event.clipboardData?.getData('text');
-      if (paste && !this.validatePage(paste)) {
-        event.preventDefault();
-      }
-    });
-  }
-
-  /**
-   * @override
-   */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
@@ -629,6 +615,24 @@ export class Pagination extends BasicElement {
   }
 
   /**
+   * Runs on input element `input` event
+   * @param event `input` event
+   * @returns {void}
+   */
+  protected onInputInput (): void {
+    const currentInput = this.input.value;
+    const inputValue = this.input.value.replace(/[^\d]/g, ''); // stripe invalid charactors
+
+    // Page value cannot start with `0`, reset it if found.
+    if (inputValue.startsWith('0')) {
+      this.input.value = '';
+    }
+    else if (currentInput !== inputValue) { // update if found new value
+      this.input.value = inputValue;
+    }
+  }
+
+  /**
    * Handles key down event
    * @param event Key down event object
    * @returns {void}
@@ -720,6 +724,7 @@ export class Pagination extends BasicElement {
           .disabled=${this.disabled}
           @focus=${this.onFocusedChanged}
           @blur=${this.onFocusedChanged}
+          @input=${this.onInputInput}
           @keydown=${this.onKeyDown}
           ${ref(this.inputRef)}
         />
