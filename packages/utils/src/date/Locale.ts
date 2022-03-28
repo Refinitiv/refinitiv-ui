@@ -253,7 +253,7 @@ class Locale {
    */
   private get regExp (): RegExp {
     if (this._regExp) {
-      this._regExp.lastIndex = 0; // 0 index?
+      this._regExp.lastIndex = 0;
       return this._regExp;
     }
     const parts = this.parts;
