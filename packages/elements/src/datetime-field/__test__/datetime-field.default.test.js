@@ -1,4 +1,4 @@
-import {fixture, expect } from '@refinitiv-ui/test-helpers';
+import { fixture, expect } from '@refinitiv-ui/test-helpers';
 import { focusInput, arrowRight } from './utils';
 
 // import element and theme

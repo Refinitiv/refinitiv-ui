@@ -40,6 +40,45 @@ import {
 import { VERSION } from '../version.js';
 import '@refinitiv-ui/phrasebook/locale/en/datetime-field.js';
 
+/**
+ * A form control element for datetime input.
+ *
+ * @fires value-changed - Dispatched when value changes
+ * @fires error-changed - Dispatched when error state changes
+ * @fires icon-click - Dispatched when icon is clicked
+ *
+ * @attr {boolean} disabled - Set disabled state
+ * @prop {boolean} [disabled=false] - Set disabled state
+ *
+ * @attr {boolean} error - Set error state
+ * @prop {boolean} [error=false] - Set error state
+ *
+ * @attr {string} icon - Specify icon to display in input. Value can be icon name
+ * @prop {string | null} [icon=null] - Specify icon to display in input. Value can be icon name
+ *
+ * @attr {boolean} icon-has-action - Specify when icon need to be clickable
+ * @prop {boolean} [iconHasAction=false] - Specify when icon need to be clickable
+ *
+ * @attr {number} maxlength - Set character max limit
+ * @prop {number | null} [maxLength=null] - Set character max limit
+ *
+ * @attr {number} minlength - Set character min limit
+ * @prop {number | null} [minLength=null] - Set character min limit
+ *
+ * @prop {string} [pattern=""] - Set regular expression for input validation
+ *
+ * @attr {string} placeholder - Set placeholder text
+ * @prop {string} [placeholder=""] - Set placeholder text
+ *
+ * @attr {boolean} readonly - Set readonly state
+ * @prop {boolean} [readonly=false] - Set readonly state
+ *
+ * @attr {boolean} transparent - Disables all other states and border/background styles.
+ * @prop {boolean} [transparent=false] - Disables all other states and border/background styles.
+ *
+ * @attr {boolean} warning - Set warning state
+ * @prop {boolean} [warning=false] - Set warning state
+ */
 @customElement('ef-datetime-field')
 export class DatetimeField extends TextField {
   /**
@@ -49,8 +88,6 @@ export class DatetimeField extends TextField {
   static get version (): string {
     return VERSION;
   }
-
-  protected readonly defaultTabIndex = null;
 
   /**
    * Delay selecting a part to ensure
@@ -300,7 +337,7 @@ export class DatetimeField extends TextField {
    */
   protected override shouldSyncInputValue (changedProperties: PropertyValues): boolean {
     // Note: changing any of these properties override the input value
-    // On blur, if the value is correct makes ure strict format is used
+    // On blur, if the value is correct makes sure strict format is used
     return changedProperties.has('interimValueState')
       || changedProperties.has(TranslatePropertyKey)
       || changedProperties.has('formatOptions')
@@ -316,9 +353,9 @@ export class DatetimeField extends TextField {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected override syncInputValue (changedProperties: PropertyValues): void;
   protected syncInputValue (): void;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected syncInputValue (changedProperties?: PropertyValues): void {
     this.interimValueState = false;
     const inputValue = this.toInputValue(this.value);
@@ -347,10 +384,9 @@ export class DatetimeField extends TextField {
   }
 
   /**
-   * Overwrite validation method for value
-   *
+   * Override validation method for value
    * @param value value
-   * @returns {boolean} result
+   * @returns value validity
    */
   protected override isValidValue (value: string): boolean {
     if (value === '') {
@@ -366,7 +402,7 @@ export class DatetimeField extends TextField {
    * @returns {void}
    */
   protected override warnInvalidValue (value: string): void {
-    new WarningNotice(`The specified value "${value}" does not conform to the required format. The format is '${this.locale.isoFormat}'.`).show();
+    new WarningNotice(`${this.localName}: the specified value "${value}" does not conform to the required format. The format is '${this.locale.isoFormat}'.`).show();
   }
 
   /**
@@ -664,13 +700,11 @@ export class DatetimeField extends TextField {
 
   /**
    * Decorate `<input>` element with common properties.
-   * Override placeholder
    * @returns template map
    */
   protected override get decorateInputMap (): TemplateMap {
     return {
       ...super.decorateInputMap,
-      placeholder: this.focused && !this.inputValue ? this.toInputValue(this.startDate) : this.placeholder || undefined,
       '@keydown': this.onInputKeyDown
     };
   }
