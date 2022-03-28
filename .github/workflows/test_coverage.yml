@@ -1,4 +1,4 @@
-name: "Test Coverage"
+name: "Test Coverage" # To be able to access test coverage of the repository on SonarCloud
 on:
   push:
     branches: [v6]
