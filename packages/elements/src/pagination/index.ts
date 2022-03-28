@@ -310,7 +310,7 @@ export class Pagination extends BasicElement {
   /**
    * Getter for input element
    */
-  protected get input (): HTMLInputElement {
+  protected get inputElement (): HTMLInputElement {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return this.inputRef.value!;
   }
@@ -391,7 +391,7 @@ export class Pagination extends BasicElement {
    */
   private async selectInput (): Promise<void> {
     await this.updateComplete;
-    this.input.select();
+    this.inputElement.select();
   }
 
   /**
@@ -490,11 +490,11 @@ export class Pagination extends BasicElement {
     // Update base on old value
     if (direction) {
       const changeValue = direction === Direction.increment ? value : -Math.abs(value);
-      newValue = Number(this.input.value) + changeValue;
+      newValue = Number(this.inputElement.value) + changeValue;
     }
 
-    this.input.value = String(newValue);
-    this.input.setAttribute('aria-valuenow', this.input.value);
+    this.inputElement.value = String(newValue);
+    this.inputElement.setAttribute('aria-valuenow', this.inputElement.value);
   }
 
   /**
@@ -610,7 +610,7 @@ export class Pagination extends BasicElement {
   private onFocusedChanged (event: FocusEvent): void {
     this.inputFocused = event.type === 'focus';
     if (!this.inputFocused) {
-      this.setPage(this.input.value);
+      this.setPage(this.inputElement.value);
     }
   }
 
@@ -620,15 +620,15 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   protected onInputInput (): void {
-    const currentInput = this.input.value;
-    const inputValue = this.input.value.replace(/[^\d]/g, ''); // stripe invalid charactors
+    const currentInput = this.inputElement.value;
+    const inputValue = this.inputElement.value.replace(/[^\d]/g, ''); // stripe invalid charactors
 
     // Page value cannot start with `0`, reset it if found.
     if (inputValue.startsWith('0')) {
-      this.input.value = '';
+      this.inputElement.value = inputValue.substring(1);
     }
     else if (currentInput !== inputValue) { // update if found new value
-      this.input.value = inputValue;
+      this.inputElement.value = inputValue;
     }
   }
 
@@ -646,35 +646,29 @@ export class Pagination extends BasicElement {
     // Handle keyboard shortcuts
     switch (event.key) {
       case 'Enter':
-        this.setPage(this.input.value);
+        this.setPage(this.inputElement.value);
+        event.preventDefault();
         break;
       case 'Up':
       case 'ArrowUp':
-        this.hasNextPage(Number(this.input.value)) && this.updateInputValue(1, Direction.increment);
+        this.hasNextPage(Number(this.inputElement.value)) && this.updateInputValue(1, Direction.increment);
+        event.preventDefault();
         break;
       case 'Down':
       case 'ArrowDown':
-        this.hasPreviousPage(Number(this.input.value)) && this.updateInputValue(1, Direction.decrement);
+        this.hasPreviousPage(Number(this.inputElement.value)) && this.updateInputValue(1, Direction.decrement);
+        event.preventDefault();
         break;
       case 'Home':
         this.updateInputValue(1);
+        event.preventDefault();
         break;
       case 'End':
         this.hasLastPage() && this.updateInputValue(this.internalMax);
+        event.preventDefault();
         break;
       default:
     }
-
-    /**
-     * Allow input keys (navigation, submit, number).
-     * Do not prevent default for `Tab` key, it should focus on next tabindex as the same native behaviour.
-     */
-    const allowKeys = ['ArrowLeft', 'Left', 'ArrowRight', 'Right', 'Backspace', 'Tab'];
-    if ((/\d/).test(event.key) || allowKeys.includes(event.key)) {
-      return;
-    }
-
-    event.preventDefault();
   }
 
   /**
