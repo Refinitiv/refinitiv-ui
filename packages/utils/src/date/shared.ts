@@ -44,7 +44,8 @@ import {
 
 import {
   throwInvalidFormat,
-  throwInvalidValue
+  throwInvalidValue,
+  throwInvalidUnit
 } from './utils.js';
 
 import {
@@ -378,9 +379,9 @@ const addUnit = (value: string, unit: Unit, amount: number): string => {
     return value;
   }
 
-  const format = getFormat(value);
+  const valueFormat = getFormat(value);
 
-  if (!format) {
+  if (!valueFormat) {
     throw throwInvalidValue(value);
   }
 
@@ -417,10 +418,11 @@ const addUnit = (value: string, unit: Unit, amount: number): string => {
     case 'millisecond':
       date.setUTCMilliseconds(date.getUTCMilliseconds() + amount);
       break;
-    // no default
+    default:
+      throw throwInvalidUnit(unit);
   }
 
-  return utcFormat(date, format);
+  return utcFormat(date, valueFormat);
 };
 
 /**
@@ -468,14 +470,15 @@ const addDateTimeOffset = (value: string, amount: number): string => {
   if (!amount) {
     return value;
   }
-  const format = getFormat(value);
-  if (!format) {
+
+  const valueFormat = getFormat(value);
+  if (!valueFormat) {
     throw throwInvalidValue(value);
   }
   const date = utcParse(value);
   const offsetDate = new Date(date.getTime() + amount);
 
-  return utcFormat(offsetDate, format);
+  return utcFormat(offsetDate, valueFormat);
 };
 
 /**
@@ -495,7 +498,7 @@ const addOffset = (value: string, amount: number): string => isTime(value) ? add
 const subOffset = (value: string, amount: number): string => addOffset(value, -amount);
 
 /**
- * Iterate over the date by specified number of units
+ * Cycles through the unit by a specified amount, not affecting any other part of the date
  * @param value The date to be changed
  * @param unit The unit: `year`, `month`, `day`, `hour`, `minute`, `second` or `millisecond`
  * @param amount The amount of units to be iterated, e.g. 1 to go up or -1 to go down
@@ -506,9 +509,9 @@ const iterateUnit = (value: string, unit: Unit, amount: number): string => {
     return value;
   }
 
-  const format = getFormat(value);
+  const valueFormat = getFormat(value);
 
-  if (!format) {
+  if (!valueFormat) {
     throw throwInvalidValue(value);
   }
 
@@ -543,9 +546,10 @@ const iterateUnit = (value: string, unit: Unit, amount: number): string => {
     case 'millisecond':
       date.setUTCMilliseconds((date.getUTCMilliseconds() + (MILLISECONDS_IN_SECOND + amount) % MILLISECONDS_IN_SECOND) % MILLISECONDS_IN_SECOND);
       break;
-    // no default
+    default:
+      throw throwInvalidUnit(unit);
   }
-  return utcFormat(date, format);
+  return utcFormat(date, valueFormat);
 };
 
 export {
@@ -572,5 +576,6 @@ export {
   subMonths,
   isWeekend,
   addUnit,
-  iterateUnit
+  iterateUnit,
+  toSegment
 };

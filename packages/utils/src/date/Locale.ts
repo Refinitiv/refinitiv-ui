@@ -79,6 +79,16 @@ interface DateTimeFormatPart {
  */
 const regExpEscape = (str: string) => str.replace(/([^\w\s])/g, '\\$1').replace(/\s/g, '\\s');
 
+/**
+ * Escape list with literals to be used with RegExp
+ * @param list A list with items
+ * @returns escaped list
+ */
+const escapeList = (list: FormattedNames[]): string => {
+  // There might be duplicates, which are not required in RegExp
+  return `(${[...new Set(list.map(item => item.name))].map(item => regExpEscape(item)).join('|')})`;
+};
+
 class Locale {
   /**
    * Construct Locale object from options
@@ -115,13 +125,16 @@ class Locale {
    * @param formatter Date time format
    */
   constructor (formatter: Intl.DateTimeFormat) {
+    if (!(formatter instanceof Intl.DateTimeFormat)) {
+      throw new Error('Invalid constructor parameters provided. formatter should be an instance of Intl.DateTimeFormat');
+    }
+
     this.formatter = formatter;
     this.options = formatter.resolvedOptions();
 
     const options = this.options;
 
-    // Hour cycle is not supported in older browsers. Therefore keep the default
-    this.hourCycle = options.hourCycle ? options.hourCycle : options.hour12 ? 'h12' : 'h23';
+    this.hourCycle = this.resolveHourCycle(options);
 
     // FractionalSecondDigits is not supported in older browsers. Therefore keep the default
     this.fractionalSecondDigits = options.fractionalSecondDigits ? options.fractionalSecondDigits : 0;
@@ -138,6 +151,19 @@ class Locale {
     if (options.timeZone !== 'UTC') {
       throw new Error('Only UTC timezone supported. Specify `timeZone: \'UTC\'` in formatter options.');
     }
+  }
+
+  /**
+   * Hour cycle is not supported in older browsers. Therefore keep the default
+   * @param options Format options
+   * @return hourCycle
+   */
+  private resolveHourCycle (options: Intl.ResolvedDateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions['hourCycle'] {
+    if (options.hourCycle) {
+      return options.hourCycle;
+    }
+
+    return options.hour12 ? 'h12' : 'h23';
   }
 
   /**
@@ -209,26 +235,16 @@ class Locale {
     const eraNames: FormattedNames[] = [];
     const dates = [utcParse('-0001-01-01').getTime(), Date.UTC(2018, 0, 1)];
     for (let i = 0; i <= 1; i += 1) {
-      const era = dates[i];
-      const part = this.formatter.formatToParts(era).find(part => part.type === 'era');
-      if (part) {
+      const value = dates[i];
+      const era = this.formatter.formatToParts(value).find(part => part.type === 'era');
+      if (era) {
         eraNames.push({
-          value: era,
-          name: part.value.toLowerCase()
+          value,
+          name: era.value.toLowerCase()
         });
       }
     }
     return eraNames;
-  }
-
-  /**
-   * Escape list with literals to be used with RegExp
-   * @param list A list with items
-   * @returns escaped list
-   */
-  private escapeList (list: FormattedNames[]): string {
-    // There might be duplicates, which are not required in RegExp
-    return `(${[...new Set(list.map(item => item.name))].map(item => regExpEscape(item)).join('|')})`;
   }
 
   private _regExp: RegExp | null = null;
@@ -237,60 +253,123 @@ class Locale {
    */
   private get regExp (): RegExp {
     if (this._regExp) {
+      this._regExp.lastIndex = 0;
       return this._regExp;
     }
-    const options = this.options;
     const parts = this.parts;
 
     let str = '';
 
-    for (let i = 0; i < parts.length; i += 1) {
-      const part = parts[i];
+    for (const part of parts) {
       switch (part.type) {
         case 'year':
-          str += options.year === TwoDigit ? YY : YYYY;
+          str += this.yearRegExp;
           break;
         case 'month':
-          str += options.month === TwoDigit || options.month === Numeric ? MM : this.escapeList(this.monthNames);
+          str += this.monthRegExp;
           break;
         case 'day':
-          str += DD;
+          str += this.dayRegExp;
           break;
         case 'hour':
-          const hourCycle = this.hourCycle;
-          str += hourCycle === 'h23' ? H23 : hourCycle === 'h12' ? H12 : hourCycle === 'h11' ? H11 : H24;
+          str += this.hourRegExp;
           break;
         case 'minute':
-          str += mm;
+          str += this.minuteRegExp;
           break;
         case 'second':
-          str += ss;
+          str += this.secondRegExp;
           break;
         case 'fractionalSecond':
-          const ms = this.fractionalSecondDigits;
-          str += ms === 1 ? S : ms === 2 ? SS : SSS;
+          str += this.fractionalSecondRegExp;
           break;
         case 'weekday':
-          str += this.escapeList(this.weekdayNames);
+          str += this.weekdayRegExp;
           break;
         case 'dayPeriod':
-          str += this.escapeList(this.periodNames);
+          str += this.dayPeriodRegExp;
           break;
         case 'literal':
-          str += `(${regExpEscape(part.value.toLowerCase())})`;
+          str += this.getLiteralRegExp(part.value);
           break;
         case 'era':
-          str += this.escapeList(this.eraNames);
+          str += this.eraRegExp;
           break;
         case 'timeZoneName':
           throw new Error('Parsing timezones is ambiguous. Make sure that `timeZoneName` option is not provided');
-          break;
-        // no default
+        default:
+          throw new Error('Unknown format provided');
       }
     }
 
     this._regExp = new RegExp(`^${str}$`, 'i');
     return this._regExp;
+  }
+
+  private get yearRegExp (): string {
+    return this.options.year === TwoDigit ? YY : YYYY;
+  }
+
+  private get monthRegExp (): string {
+    const options = this.options;
+    if (options.month === TwoDigit || options.month === Numeric) {
+      return MM;
+    }
+    return escapeList(this.monthNames);
+  }
+
+  private get dayRegExp (): string {
+    return DD;
+  }
+
+  private get hourRegExp (): string {
+    switch (this.hourCycle) {
+      case 'h12':
+        return H12;
+      case 'h11':
+        return H11;
+      case 'h24':
+        return H24;
+      case 'h23':
+      default:
+        return H23;
+    }
+  }
+
+  private get minuteRegExp (): string {
+    return mm;
+  }
+
+  private get secondRegExp (): string {
+    return ss;
+  }
+
+  private get fractionalSecondRegExp (): string {
+    const ms = this.fractionalSecondDigits;
+    if (ms === 1) {
+      return S;
+    }
+    else if (ms === 2) {
+      return SS;
+    }
+
+    return SSS;
+  }
+
+  private get weekdayRegExp (): string {
+    return escapeList(this.weekdayNames);
+  }
+
+  private get dayPeriodRegExp (): string {
+    return escapeList(this.periodNames);
+  }
+
+  private getLiteralRegExp (literal: string): string {
+    return `(${regExpEscape(literal.toLowerCase())})`;
+  }
+
+  private get eraRegExp (): string {
+    return escapeList(this.eraNames);
   }
 
   private _monthNames: FormattedNames[] | null = null;
@@ -404,7 +483,6 @@ class Locale {
     value = value.trim(); // weak formatting
     const regExp = this.regExp;
 
-    regExp.lastIndex = 0; // 0 index?
     const matches = regExp.exec(value);
 
     if (!value || matches === null) {
@@ -542,7 +620,7 @@ class Locale {
       milliseconds
     }, this.isoFormat);
 
-    // Check for leap years and number of days per month
+    // Make sure the generated date is valid.
     if (!getFormat(date)) {
       throwInvalidValue(value);
     }
