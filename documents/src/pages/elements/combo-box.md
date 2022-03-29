@@ -530,7 +530,7 @@ ef-combo-box {
 ## Accessibility
 ::a11y-intro::
 
-`ef-combo-box` is assigned `role="combobox"` and can include properties such as `aria-autocomplete`, `aria-controls`, `aria-expanded` and `aria-activedescendant`. The expanded List Box is assigned `role="listbox"` while the List Box Item is assigned `role="option"` and can include properties such as `aria-label` and `aria-selected`. The element’s state programmatically updates to match its visual state.  
+`ef-combo-box` is assigned `role="combobox"` and can include properties such as `aria-autocomplete`, `aria-controls`, `aria-expanded` and `aria-activedescendant`. The expanded list box is assigned `role="listbox"` while its items are assigned `role="option"` and `aria-selected` which depends on item's selection state.
 
 Combo Box manages the role and aria attributes automatically but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
 
