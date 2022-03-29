@@ -384,7 +384,7 @@ ef-select {
 ## Accessibility
 ::a11y-intro::
 
-`ef-select` is assigned `role="button"` and also attribute `aria-expanded`. Select options are assigned `role="option"` and can include attributes such as `aria-label` and `aria-selected`. The element’s state programmatically updates to match its visual state.  
+`ef-select` is assigned `role="button"` and also attribute `aria-expanded`. Select options are assigned `role="option"` and `aria-selected` which depends on item's selection state.
 
 * `ef-select` manages the role and aria attributes automatically if you create `ef-select` using `data` property
 * If you create select declaratively by using `ef-item`, assign `role="option"` to each `ef-item`
