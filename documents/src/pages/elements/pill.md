@@ -83,7 +83,7 @@ In some scenarios, pills are used for presenting a short text without any users 
 <ef-pill role="none" aria-label="Ninja Tag">Ninja</ef-pill>
 ```
 
-* When pill is a removable pill, with `clears` attribute, users can trigger clears button by pressing a delete key. You can use `aria-label` to provide users for more detail.
+* When pill is a removable pill, with `clears` attribute, users can trigger clears button by pressing a **Delete** key. You can use `aria-label` to provide users for more detail.
 
 ```html
 <h3 tabindex="0" aria-label="List of tags. You can press delete key to delete each tag">List of tags</h3>
