@@ -48,3 +48,4 @@ export { padNumber } from './date/utils.js';
 
 export * from './date/timestamps.js';
 export * from './date/shared.js';
+export { Locale } from './date/Locale.js';
