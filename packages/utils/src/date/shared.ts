@@ -12,7 +12,8 @@ import {
   parse as parseDate,
   toSegment as toDateSegment,
   utcFormat as utcFormatDate,
-  utcParse as utcParseDate
+  utcParse as utcParseDate,
+  getDaysInMonth
 } from './date.js';
 
 import {
@@ -43,11 +44,17 @@ import {
 
 import {
   throwInvalidFormat,
-  throwInvalidValue
+  throwInvalidValue,
+  throwInvalidUnit
 } from './utils.js';
 
 import {
-  HOURS_OF_NOON
+  HOURS_OF_NOON,
+  MONTHS_IN_YEAR,
+  HOURS_IN_DAY,
+  MINUTES_IN_HOUR,
+  SECONDS_IN_MINUTE,
+  MILLISECONDS_IN_SECOND
 } from './timestamps.js';
 
 import {
@@ -55,6 +62,7 @@ import {
 } from './time.js';
 
 type Format = InputTimeFormat | InputDateFormat | InputDateTimeFormat;
+type Unit = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond';
 
 type Segment = DateTimeSegment | (TimeSegment & {
   year?: number;
@@ -360,36 +368,70 @@ const isWeekend = (value: string): boolean => {
 };
 
 /**
+ * Add the specified number of units to the given date
+ * @param value The date to be changed
+ * @param unit The unit: `year`, `month`, `day`, `hour`, `minute`, `second` or `millisecond`
+ * @param amount The amount of units to be added, e.g. 1 to increase or -1 to decrease
+ * @returns date The new date
+ */
+const addUnit = (value: string, unit: Unit, amount: number): string => {
+  if (!amount) {
+    return value;
+  }
+
+  const valueFormat = getFormat(value);
+
+  if (!valueFormat) {
+    throw throwInvalidValue(value);
+  }
+
+  let date = utcParse(value);
+  switch (unit) {
+    case 'year':
+      date.setUTCFullYear(date.getUTCFullYear() + amount);
+      break;
+    case 'month':
+      const dayOfMonth = date.getUTCDate();
+      const endOfDesiredMonth = new Date(date.getTime());
+      endOfDesiredMonth.setUTCMonth(date.getUTCMonth() + amount + 1, 0);
+      const daysInMonth = endOfDesiredMonth.getUTCDate();
+
+      if (dayOfMonth >= daysInMonth) {
+        date = endOfDesiredMonth;
+      }
+      else {
+        date.setUTCFullYear(endOfDesiredMonth.getUTCFullYear(), endOfDesiredMonth.getUTCMonth(), dayOfMonth);
+      }
+      break;
+    case 'day':
+      date.setUTCDate(date.getUTCDate() + amount);
+      break;
+    case 'hour':
+      date.setUTCHours(date.getUTCHours() + amount);
+      break;
+    case 'minute':
+      date.setUTCMinutes(date.getUTCMinutes() + amount);
+      break;
+    case 'second':
+      date.setUTCSeconds(date.getUTCSeconds() + amount);
+      break;
+    case 'millisecond':
+      date.setUTCMilliseconds(date.getUTCMilliseconds() + amount);
+      break;
+    default:
+      throw throwInvalidUnit(unit);
+  }
+
+  return utcFormat(date, valueFormat);
+};
+
+/**
  * Add the specified number of months to the given date
  * @param value the date to be changed
  * @param amount the amount of months to be added
  * @returns the new date with the months added
  */
-const addMonths = (value: string, amount: number): string => {
-  if (!amount) {
-    return value;
-  }
-
-  const format = getFormat(value);
-
-  if (!format) {
-    throw throwInvalidValue(value);
-  }
-
-  const date = utcParse(value);
-  const dayOfMonth = date.getUTCDate();
-  const endOfDesiredMonth = new Date(date.getTime());
-  endOfDesiredMonth.setUTCMonth(date.getUTCMonth() + amount + 1, 0);
-  const daysInMonth = endOfDesiredMonth.getUTCDate();
-
-  if (dayOfMonth >= daysInMonth) {
-    return utcFormat(endOfDesiredMonth, format);
-  }
-  else {
-    date.setUTCFullYear(endOfDesiredMonth.getUTCFullYear(), endOfDesiredMonth.getUTCMonth(), dayOfMonth);
-    return utcFormat(date, format);
-  }
-};
+const addMonths = (value: string, amount: number): string => addUnit(value, 'month', amount);
 
 /**
  * Subtract the specified number of months to the given date
@@ -397,9 +439,7 @@ const addMonths = (value: string, amount: number): string => {
  * @param amount the amount of months to be subtracted
  * @returns the new date with the months subtracted
  */
-const subMonths = (value: string, amount: number): string => {
-  return addMonths(value, -amount);
-};
+const subMonths = (value: string, amount: number): string => addMonths(value, -amount);
 
 /**
  * Returns `true` or `false` depending on whether the hours are before, or, after noon
@@ -430,14 +470,15 @@ const addDateTimeOffset = (value: string, amount: number): string => {
   if (!amount) {
     return value;
   }
-  const format = getFormat(value);
-  if (!format) {
+
+  const valueFormat = getFormat(value);
+  if (!valueFormat) {
     throw throwInvalidValue(value);
   }
   const date = utcParse(value);
   const offsetDate = new Date(date.getTime() + amount);
 
-  return utcFormat(offsetDate, format);
+  return utcFormat(offsetDate, valueFormat);
 };
 
 /**
@@ -456,7 +497,64 @@ const addOffset = (value: string, amount: number): string => isTime(value) ? add
  */
 const subOffset = (value: string, amount: number): string => addOffset(value, -amount);
 
+/**
+ * Cycles through the unit by a specified amount, not affecting any other part of the date
+ * @param value The date to be changed
+ * @param unit The unit: `year`, `month`, `day`, `hour`, `minute`, `second` or `millisecond`
+ * @param amount The amount of units to be iterated, e.g. 1 to go up or -1 to go down
+ * @returns date The new date
+ */
+const iterateUnit = (value: string, unit: Unit, amount: number): string => {
+  if (!amount) {
+    return value;
+  }
+
+  const valueFormat = getFormat(value);
+
+  if (!valueFormat) {
+    throw throwInvalidValue(value);
+  }
+
+  const date = utcParse(value);
+  switch (unit) {
+    case 'year':
+      date.setUTCFullYear(date.getUTCFullYear() + amount);
+      break;
+    case 'month':
+      // If there are too many days, switch to max available
+      const nextMonth = (date.getUTCMonth() + (MONTHS_IN_YEAR + amount) % MONTHS_IN_YEAR) % MONTHS_IN_YEAR;
+      const daysInNextMonth = getDaysInMonth(date.getUTCFullYear(), nextMonth);
+      if (date.getUTCDate() > daysInNextMonth) {
+        date.setUTCDate(daysInNextMonth);
+      }
+      date.setUTCMonth(nextMonth);
+      break;
+    case 'day':
+      // Days start from 1
+      const daysInMonth = getDaysInMonth(date.getUTCFullYear(), date.getUTCMonth());
+      date.setUTCDate((date.getUTCDate() - 1 + (daysInMonth + amount) % daysInMonth) % daysInMonth + 1);
+      break;
+    case 'hour':
+      date.setUTCHours((date.getUTCHours() + (HOURS_IN_DAY + amount) % HOURS_IN_DAY) % HOURS_IN_DAY);
+      break;
+    case 'minute':
+      date.setUTCMinutes((date.getUTCMinutes() + (MINUTES_IN_HOUR + amount) % MINUTES_IN_HOUR) % MINUTES_IN_HOUR);
+      break;
+    case 'second':
+      date.setUTCSeconds((date.getUTCSeconds() + (SECONDS_IN_MINUTE + amount) % SECONDS_IN_MINUTE) % SECONDS_IN_MINUTE);
+      break;
+    case 'millisecond':
+      date.setUTCMilliseconds((date.getUTCMilliseconds() + (MILLISECONDS_IN_SECOND + amount) % MILLISECONDS_IN_SECOND) % MILLISECONDS_IN_SECOND);
+      break;
+    default:
+      throw throwInvalidUnit(unit);
+  }
+  return utcFormat(date, valueFormat);
+};
+
 export {
+  Format,
+  Unit,
   isAfter,
   isBefore,
   isAM,
@@ -476,5 +574,8 @@ export {
   isThisYear,
   addMonths,
   subMonths,
-  isWeekend
+  isWeekend,
+  addUnit,
+  iterateUnit,
+  toSegment
 };
