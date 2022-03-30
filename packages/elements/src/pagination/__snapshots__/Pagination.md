@@ -5,12 +5,6 @@
 ####   `DOM structure is correct`
 
 ```html
-<label
-  for="input"
-  part="label"
->
-  Page 1
-</label>
 <ef-layout
   flex=""
   nowrap=""
@@ -47,6 +41,12 @@
     >
     </ef-button>
   </ef-button-bar>
+  <label
+    for="input"
+    part="label"
+  >
+    Page 1
+  </label>
   <input
     aria-valuemin="1"
     aria-valuenow="1"

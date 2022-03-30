@@ -347,11 +347,6 @@ export class Pagination extends BasicElement {
   private inputFocused = false;
 
   /**
-   * State for check the input submit
-   */
-  private inputSubmitted = false;
-
-  /**
    * State for checking the first page button is available
    */
   protected get useFirstButton (): boolean {
@@ -623,7 +618,6 @@ export class Pagination extends BasicElement {
 
     this.inputFocused = event.type === 'focus';
     if (!this.inputFocused) {
-      this.inputSubmitted = false; // reset submiting state
       this.setPage(this.inputElement.value);
     }
   }
@@ -664,7 +658,6 @@ export class Pagination extends BasicElement {
     switch (event.key) {
       case 'Enter':
         this.inputElement && this.setPage(this.inputElement.value);
-        this.inputSubmitted = true;
         event.preventDefault();
         break;
       case 'Up':
@@ -705,7 +698,7 @@ export class Pagination extends BasicElement {
         display: inline-block;
       }
 
-      [part=status], [part=label] {
+      [part=label] {
         width: 0px;
         height: 0px;
         overflow: hidden;
@@ -715,41 +708,18 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Render status or label template for support A11Y on all browsers.
-   * It need to toggle the templates when focusing or submitting a value
-   * to prevent screen reader repeat pronouncing the current page from both template.
-   * @returns Render template
-   */
-  protected renderLabelStatus (): TemplateResult {
-
-    /**
-     * The status element will be presented and pronounce the current page,
-     * when user submit a page number.
-     */
-    if (this.inputSubmitted) {
-      return html`<span part="status" role="status" aria-live="polite">${this.inputTextFormat}</span>`;
-    }
-
-    /**
-     * To make screen reader pronounce a dynamic label value automatically, when focus the input.
-     * It need to use native label element which works on all browsers.
-     */
-    return html`<label part="label" for="input">${this.inputTextFormat}</label>`;
-  }
-
-  /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
    * @return Render template
    */
   protected render (): TemplateResult {
     return html`
-      ${this.renderLabelStatus()}
       <ef-layout part="container" flex nowrap>
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="first" icon="skip-to-start" @tap="${this.onFirstTap}" .disabled=${!this.useFirstButton}></ef-button>
           <ef-button id="previous" icon="left" @tap="${this.onPreviousTap}" .disabled=${!this.usePreviousButton}></ef-button>
         </ef-button-bar>
+        <label part="label" for="input">${this.inputTextFormat}</label>
         <input
           id="input"
           part="input"
