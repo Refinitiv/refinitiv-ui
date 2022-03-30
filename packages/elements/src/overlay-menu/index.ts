@@ -945,8 +945,7 @@ export class OverlayMenu extends Overlay {
     this.onMenuReHighlight();
 
     const children = this.children;
-    for (let i = 0; i < children.length; i += 1) {
-      const item = children[i];
+    for (const item of children) {
       if (!(item instanceof Item)) {
         return;
       }
