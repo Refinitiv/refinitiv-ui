@@ -35,7 +35,6 @@
 </ef-item>
 <ef-item
   aria-disabled="true"
-  aria-hidden="true"
   aria-selected="false"
   disabled=""
   role="menuitem"
@@ -91,9 +90,9 @@
 </ef-item>
 <ef-item
   aria-disabled="true"
-  aria-hidden="true"
   aria-selected="false"
   disabled=""
+  role="menuitem"
   style="pointer-events: none;"
   tabindex="-1"
   value="disabled"
