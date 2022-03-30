@@ -954,7 +954,7 @@ export class OverlayMenu extends Overlay {
       if (item.type === 'header') {
         item.setAttribute('role', 'presentation');
       }
-      else if (item.type === 'divider' || item.disabled) {
+      else if (item.type === 'divider') {
         item.setAttribute('aria-hidden', 'true');
       }
       else if (item.for) {
@@ -1059,7 +1059,6 @@ export class OverlayMenu extends Overlay {
       role="menuitem"
       aria-haspopup=${ifDefined(forMenu ? true : undefined)}
       aria-expanded=${ifDefined(forMenu ? false : undefined)}
-      aria-hidden=${ifDefined(disabled ? true : undefined)}
       title=${ifDefined(tooltip || undefined)}
       ?disabled=${disabled}
       ?selected=${selected}
