@@ -2,7 +2,8 @@ import { DateTimeFormatPart, DateTimeFormatPartTypes, InputSelection } from './t
 import { Direction } from './constants.js';
 
 const IterablePartTypes: DateTimeFormatPartTypes[] = ['year', 'day', 'month', 'hour', 'minute', 'second', 'weekday', 'dayPeriod', 'fractionalSecond'];
-export const isAllowedPart = (part: DateTimeFormatPart): boolean => IterablePartTypes.includes(part.type);
+
+const isAllowedPart = (part: DateTimeFormatPart): boolean => IterablePartTypes.includes(part.type);
 
 /**
  * Get a part index based on the selection

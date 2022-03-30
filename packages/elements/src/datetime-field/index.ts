@@ -132,8 +132,7 @@ export class DatetimeField extends TextField {
 
   private _showSeconds = false;
   /**
-   * Flag to show seconds time segment in display.
-   * Seconds are automatically shown when `hh:mm:ss` time format is provided as a value.
+   * Toggle to display the seconds
    * @param showSeconds true to show seconds
    * @default false
    */
@@ -300,7 +299,7 @@ export class DatetimeField extends TextField {
   }
 
   /**
-   * Get the start date for when the value is not set
+   * Get today's date noon as the start date when the value is not set
    */
   protected get startDate (): string {
     // Noon in UTC
