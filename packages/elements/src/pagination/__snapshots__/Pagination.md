@@ -5,16 +5,12 @@
 ####   `DOM structure is correct`
 
 ```html
-<span
-  aria-live="polite"
-  id="status"
-  part="status"
-  role="status"
+<label
+  for="input"
+  part="label"
 >
-  <label for="input">
-    Page 1
-  </label>
-</span>
+  Page 1
+</label>
 <ef-layout
   flex=""
   nowrap=""
