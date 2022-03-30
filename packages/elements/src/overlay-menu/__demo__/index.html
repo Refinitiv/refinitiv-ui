@@ -37,7 +37,7 @@
         <ef-item icon="cross" value="Two" style="display: none">Two</ef-item>
         <ef-item type="divider"></ef-item>
         <ef-item icon="directory" value="Three">Three</ef-item>
-        <ef-item icon="dislike-empty" value="Four" for="menu1-four">
+        <ef-item icon="dislike-empty" for="menu1-four">
           Four Long Long Long Long
         </ef-item>
         <ef-item disabled value="Five">Five</ef-item>
@@ -48,10 +48,10 @@
 
       <ef-overlay-menu id="menu1-four" transition-style="slide">
         <ef-item type="header">Nested Block</ef-item>
-        <ef-item value="Four Zero" for="menu1-four-zero">Four.Zero</ef-item>
+        <ef-item for="menu1-four-zero">Four.Zero</ef-item>
         <ef-item icon="flame" value="Four One">Four.One</ef-item>
         <ef-item value="Four Two">Four.Two</ef-item>
-        <ef-item value="Four Three" for="menu1-four-three">Four.Three</ef-item>
+        <ef-item for="menu1-four-three">Four.Three</ef-item>
       </ef-overlay-menu>
 
       <ef-overlay-menu id="menu1-four-zero" transition-style="slide">
@@ -69,7 +69,7 @@
       <ef-overlay-menu id="menu1-six" transition-style="slide">
         <ef-item value="Six One">Six.One</ef-item>
         <ef-item value="Six Two">Six.Two</ef-item>
-        <ef-item value="Six Three" for="menu1-six-three">Six.Three</ef-item>
+        <ef-item for="menu1-six-three">Six.Three</ef-item>
       </ef-overlay-menu>
 
       <ef-overlay-menu id="menu1-six-three" transition-style="slide">
@@ -95,8 +95,10 @@
           });
 
           menuController.addEventListener('item-trigger', ({ detail: { value } }) => {
-            button.innerText = value;
-            menu.opened = false;
+            if (value) {
+              button.innerText = value;
+              menu.opened = false;
+            }
           });
         })();
       </script>
@@ -111,7 +113,7 @@
       <ef-overlay-menu id="menu-tab1" transition-style="slide" aria-labelledby="tab1">
         <ef-item value="Tab 1 One">Tab 1 One</ef-item>
         <ef-item value="Tab 1 Two">Tab 1 Two</ef-item>
-        <ef-item value="Tab 1 Three" for="menu-tab1-1">Tab 1 Three</ef-item>
+        <ef-item for="menu-tab1-1">Tab 1 Three</ef-item>
       </ef-overlay-menu>
       <ef-overlay-menu id="menu-tab1-1" transition-style="slide">
         <ef-item value="Tab 1 Three - One">Tab 1 Three - One</ef-item>
@@ -120,7 +122,7 @@
       </ef-overlay-menu>
       <ef-overlay-menu id="menu-tab2" transition-style="slide" aria-labelledby="tab2">
         <ef-item value="Tab 2 One">Tab 2 One</ef-item>
-        <ef-item value="Tab 2 Two" for="menu-tab2-1">Tab 2 Two</ef-item>
+        <ef-item for="menu-tab2-1">Tab 2 Two</ef-item>
         <ef-item value="Tab 2 Three">Tab 2 Three</ef-item>
       </ef-overlay-menu>
       <ef-overlay-menu id="menu-tab2-1" transition-style="slide">
@@ -129,7 +131,7 @@
         <ef-item value="Tab 2 Two - Three">Tab 2 Two - Three</ef-item>
       </ef-overlay-menu>
       <ef-overlay-menu id="menu-tab3" transition-style="slide" aria-labelledby="tab3">
-        <ef-item value="Tab 3 One" for="menu-tab3-1">Tab 3 One</ef-item>
+        <ef-item for="menu-tab3-1">Tab 3 One</ef-item>
         <ef-item value="Tab 3 Two">Tab 3 Two</ef-item>
         <ef-item value="Tab 3 Three">Tab 3 Three</ef-item>
       </ef-overlay-menu>
@@ -208,11 +210,13 @@
               menu = item.parentElement;
               menuIdx = menus.indexOf(menu);
             }
-
+            if (!value) {
+              return;
+            }
             if (buttons[menuIdx]) {
               buttons[menuIdx].innerText = value;
             }
-
+            
             menus.forEach(menu => {
               menu.opened = false;
             });
