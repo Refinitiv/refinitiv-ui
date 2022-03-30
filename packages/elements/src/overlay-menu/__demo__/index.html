@@ -309,7 +309,7 @@
               menu.querySelector('ef-item[value=remove]').disabled = true;
               menu.querySelector('ef-item[value=load]').disabled = false;
               [...menu.children].forEach(item => {
-                if (item.getAttribute('persistent') == null) {
+                if (item.getAttribute('persistent') === null) {
                   menu.removeChild(item);
                   if (item.menu) {
                     item.menu.parentElement.removeChild(item.menu);
