@@ -697,13 +697,6 @@ export class Pagination extends BasicElement {
       :host {
         display: inline-block;
       }
-
-      [part=label] {
-        width: 0px;
-        height: 0px;
-        overflow: hidden;
-        position: absolute;
-      }
     `;
   }
 
