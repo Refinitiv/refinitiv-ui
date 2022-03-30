@@ -946,30 +946,28 @@ export class OverlayMenu extends Overlay {
 
     const children = this.children;
     for (const item of children) {
-      if (!(item instanceof Item)) {
-        return;
-      }
-
-      if (item.type === 'header') {
-        item.setAttribute('role', 'presentation');
-      }
-      else if (item.type === 'divider') {
-        item.setAttribute('aria-hidden', 'true');
-      }
-      else if (item.for) {
-        if (!item.id) {
-          item.setAttribute('id', uuid());
+      if (item instanceof Item) {
+        if (item.type === 'header') {
+          item.setAttribute('role', 'presentation');
         }
-        const menu = document.getElementById(item.for);
-        if (menu) {
-          menu.setAttribute('aria-labelledby', item.id);
+        else if (item.type === 'divider') {
+          item.setAttribute('aria-hidden', 'true');
         }
-        item.setAttribute('role', 'menuitem');
-        item.setAttribute('aria-haspopup', 'true');
-        item.setAttribute('aria-expanded', 'false');
-      }
-      else {
-        item.setAttribute('role', 'menuitem');
+        else if (item.for) {
+          if (!item.id) {
+            item.setAttribute('id', uuid());
+          }
+          const menu = document.getElementById(item.for);
+          if (menu) {
+            menu.setAttribute('aria-labelledby', item.id);
+          }
+          item.setAttribute('role', 'menuitem');
+          item.setAttribute('aria-haspopup', 'true');
+          item.setAttribute('aria-expanded', 'false');
+        }
+        else {
+          item.setAttribute('role', 'menuitem');
+        }
       }
     }
   }

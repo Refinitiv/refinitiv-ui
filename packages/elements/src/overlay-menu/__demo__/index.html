@@ -23,14 +23,15 @@
           }
           menu.positionTarget = button;
           menu.opened = true;
+          button.setAttribute('aria-expanded', 'true');
         });
       };
     </script>
 
     <demo-block header="Standard Menu" layout="normal" tags="default, nested, transition">
-      <ef-button id="button1" aria-haspopup="true">Standard Menu</ef-button>
+      <ef-button id="button1" aria-haspopup="menu" aria-controls="menu1" aria-expanded="false">Standard Menu</ef-button>
 
-      <ef-overlay-menu id="menu1" transition-style="slide">
+      <ef-overlay-menu id="menu1" transition-style="slide" aria-labelledby="button1">
         <ef-item type="header">Block One</ef-item>
         <ef-item icon="copy" value="One">One Long Long Long</ef-item>
         <ef-item icon="cross" value="Two" style="display: none">Two</ef-item>
@@ -89,6 +90,10 @@
 
           openMenuForButton(menu, button);
 
+          menu.addEventListener('opened-changed', (event) => {
+            button.setAttribute('aria-expanded', 'false');
+          });
+
           menuController.addEventListener('item-trigger', ({ detail: { value } }) => {
             button.innerText = value;
             menu.opened = false;
@@ -99,11 +104,11 @@
 
     <demo-block header="Tab Bar Menu" layout="normal" tags="tab">
       <ef-button-bar role="menubar">
-        <ef-button id="tab1" icon="down" aria-haspopup="true">Tab 1</ef-button>
-        <ef-button id="tab2" icon="down" aria-haspopup="true">Tab 2</ef-button>
-        <ef-button id="tab3" icon="down" aria-haspopup="true">Tab 3</ef-button>
+        <ef-button id="tab1" icon="down" aria-haspopup="true" aria-controls="menu-tab1" aria-expanded="false">Tab 1</ef-button>
+        <ef-button id="tab2" icon="down" aria-haspopup="true" aria-controls="menu-tab2" aria-expanded="false">Tab 2</ef-button>
+        <ef-button id="tab3" icon="down" aria-haspopup="true" aria-controls="menu-tab3" aria-expanded="false">Tab 3</ef-button>
       </ef-button-bar>
-      <ef-overlay-menu id="menu-tab1" transition-style="slide">
+      <ef-overlay-menu id="menu-tab1" transition-style="slide" aria-labelledby="tab1">
         <ef-item value="Tab 1 One">Tab 1 One</ef-item>
         <ef-item value="Tab 1 Two">Tab 1 Two</ef-item>
         <ef-item value="Tab 1 Three" for="menu-tab1-1">Tab 1 Three</ef-item>
@@ -113,7 +118,7 @@
         <ef-item value="Tab 1 Three - Two">Tab 1 Three - Two</ef-item>
         <ef-item value="Tab 1 Three - Three">Tab 1 Three - Three</ef-item>
       </ef-overlay-menu>
-      <ef-overlay-menu id="menu-tab2" transition-style="slide">
+      <ef-overlay-menu id="menu-tab2" transition-style="slide" aria-labelledby="tab2">
         <ef-item value="Tab 2 One">Tab 2 One</ef-item>
         <ef-item value="Tab 2 Two" for="menu-tab2-1">Tab 2 Two</ef-item>
         <ef-item value="Tab 2 Three">Tab 2 Three</ef-item>
@@ -123,7 +128,7 @@
         <ef-item value="Tab 2 Two - Two">Tab 2 Two - Two</ef-item>
         <ef-item value="Tab 2 Two - Three">Tab 2 Two - Three</ef-item>
       </ef-overlay-menu>
-      <ef-overlay-menu id="menu-tab3" transition-style="slide">
+      <ef-overlay-menu id="menu-tab3" transition-style="slide" aria-labelledby="tab3">
         <ef-item value="Tab 3 One" for="menu-tab3-1">Tab 3 One</ef-item>
         <ef-item value="Tab 3 Two">Tab 3 Two</ef-item>
         <ef-item value="Tab 3 Three">Tab 3 Three</ef-item>
@@ -154,6 +159,7 @@
             menu.positionTarget = button;
             menu.addEventListener('opened-changed', ({ detail: { value } }) => {
               button.cta = value;
+              button.setAttribute('aria-expanded', 'false');
             });
             const triggerOpen = (event) => {
               if (menu.fullyOpened || menu.transitioning) {
@@ -171,6 +177,7 @@
               if (!menus.some(menu => menu.opened)) {
                 return;
               }
+              button.setAttribute('aria-expanded', 'true');
               triggerOpen();
             });
 
@@ -219,8 +226,8 @@
     </demo-block>
 
     <demo-block header="Interactive Menu" layout="normal" tags="interactive">
-      <ef-button id="button2" aria-haspopup="true">Interactive Menu</ef-button>
-      <ef-overlay-menu id="menu2">
+      <ef-button id="button2" aria-haspopup="true" aria-controls="menu2" aria-expanded="false">Interactive Menu</ef-button>
+      <ef-overlay-menu id="menu2" aria-labelledby="button2">
         <input type="text" id="menu2-search" persistent style="width: 100%;">
         <ef-item value="load" icon="download" persistent>Load Menu Content</ef-item>
         <ef-item value="remove" icon="cross" disabled persistent>Remove Menu Content</ef-item>
@@ -325,8 +332,8 @@
     </demo-block>
 
     <demo-block header="Selection Menu" layout="normal" tags="selection" id="selection-demo">
-      <ef-button id="button3" aria-haspopup="true">Selection Menu</ef-button>
-      <ef-overlay-menu id="menu3" with-backdrop>
+      <ef-button id="button3" aria-haspopup="true" aria-controls="menu3" aria-expanded="false">Selection Menu</ef-button>
+      <ef-overlay-menu id="menu3" with-backdrop aria-labelledby="button3">
         <ef-item value="option1" label="Option 1"></ef-item>
         <ef-item value="option2" label="Option 2" selected></ef-item>
         <ef-item value="option3" label="Option 3"></ef-item>
@@ -362,6 +369,10 @@
             return descendants;
           };
 
+          menu.addEventListener('opened-changed', (event) => {
+            button.setAttribute('aria-expanded', 'false');
+          });
+
           menuController.addEventListener('item-trigger', ({ target }) => {
             const selectedPath = getItemDescendants(target);
             menu.values = selectedPath.map(item => item.value);
@@ -371,8 +382,8 @@
     </demo-block>
 
     <demo-block header="From Data" layout="normal" tags="default,data">
-      <ef-button id="button4" aria-haspopup="true">From Data</ef-button>
-      <ef-overlay-menu id="menu4" with-backdrop></ef-overlay-menu>
+      <ef-button id="button4" aria-haspopup="true" aria-controls="menu4" aria-expanded="false">From Data</ef-button>
+      <ef-overlay-menu id="menu4" with-backdrop aria-labelledby="button4"></ef-overlay-menu>
       <script>
         (function () {
           const button = document.getElementById('button4');
@@ -405,13 +416,16 @@
             menu.values = values;
             return;
           });
+          menu.addEventListener('opened-changed', (event) => {
+            button.setAttribute('aria-expanded', 'false');
+          });
         })();
       </script>
     </demo-block>
 
     <demo-block header="From Collection Composer" layout="normal" tags="collection composer">
-      <ef-button id="button5" aria-haspopup="true">From Collection Composer</ef-button>
-      <ef-overlay-menu id="menu5" with-backdrop></ef-overlay-menu>
+      <ef-button id="button5" aria-haspopup="true" aria-controls="menu5" aria-expanded="false">From Collection Composer</ef-button>
+      <ef-overlay-menu id="menu5" with-backdrop aria-labelledby="button5"></ef-overlay-menu>
       <script type="module">
         import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
@@ -423,6 +437,10 @@
           menu.data = composer;
 
           openMenuForButton(menu, button);
+
+          menu.addEventListener('opened-changed', (event) => {
+            button.setAttribute('aria-expanded', 'false');
+          });
 
           menuController.addEventListener('item-trigger', ({ detail: { value } }) => {
             composer.queryItemsByPropertyValue('selected', true, Infinity).map(item => {
@@ -441,8 +459,8 @@
     </demo-block>
 
     <demo-block header="Compact Menu" layout="normal" tags="compact">
-      <ef-button id="button7" aria-haspopup="true">Compact Menu</ef-button>
-      <ef-overlay-menu id="menu7" compact>
+      <ef-button id="button7" aria-haspopup="true" aria-controls="menu7" aria-expanded="false">Compact Menu</ef-button>
+      <ef-overlay-menu id="menu7" compact aria-labelledby="button7">
         <ef-item type="header">Block One</ef-item>
         <ef-item icon="copy" value="One">One</ef-item>
         <ef-item icon="cross" value="Two" style="display: none">Two</ef-item>
@@ -497,6 +515,10 @@
           const menu = document.getElementById('menu7');
 
           openMenuForButton(menu, button);
+
+          menu.addEventListener('opened-changed', (event) => {
+            button.setAttribute('aria-expanded', 'false');
+          });
         })();
       </script>
     </demo-block>
