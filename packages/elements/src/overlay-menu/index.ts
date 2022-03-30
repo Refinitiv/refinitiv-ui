@@ -25,6 +25,13 @@ import { OpenedMenusManager } from './managers/menu-manager.js';
 
 export type { OverlayMenuData };
 
+enum Navigation {
+  FIRST = 'First',
+  LAST = 'Last',
+  NEXT = 'Next',
+  PREVIOUS = 'Previous',
+}
+
 /**
  * Overlay that supports single-level and multi-level menus
  * @fires item-trigger - Dispatched when user clicks on item
@@ -82,6 +89,11 @@ export class OverlayMenu extends Overlay {
   static get version (): string {
     return VERSION;
   }
+
+  /**
+   * Default role of the element
+   */
+  protected readonly defaultRole: string | null = 'menu';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -383,6 +395,10 @@ export class OverlayMenu extends Overlay {
       else {
         this.closing();
       }
+      const parentMenuItem = OpenedMenusManager.getParentMenuItem(this);
+      if (parentMenuItem) {
+        parentMenuItem.setAttribute('aria-expanded', this.opened ? 'true' : 'false');
+      }
     }
 
     if (changedProperties.has('data')) {
@@ -566,6 +582,7 @@ export class OverlayMenu extends Overlay {
       if (dataItem.items && dataItem.items.length) {
         const dataId = `${dataItem.value || index}-${depth}`;
         const menu = findMenuByDataItem(dataItem) || findMenuByDataId(dataId) || this.toOverlayMenu();
+        menu.setAttribute('aria-label', String(dataItem.label));
         menu.parentDataItem = dataItem;
         menu.data = this.composer;
         const menuId = menu.id;
@@ -679,11 +696,11 @@ export class OverlayMenu extends Overlay {
     switch (event.key) {
       case 'Down':
       case 'ArrowDown':
-        this.focusElement(1, true);
+        this.focusElement(Navigation.NEXT, true);
         break;
       case 'Up':
       case 'ArrowUp':
-        this.focusElement(-1, true);
+        this.focusElement(Navigation.PREVIOUS, true);
         break;
       case 'Left':
       case 'ArrowLeft':
@@ -694,7 +711,13 @@ export class OverlayMenu extends Overlay {
         this.onArrowRight();
         break;
       case 'Tab':
-        this.focusElement(event.shiftKey ? -1 : 1, true);
+        this.focusElement(event.shiftKey ? Navigation.PREVIOUS : Navigation.NEXT, true);
+        break;
+      case 'Home':
+        this.focusElement(Navigation.FIRST);
+        break;
+      case 'End':
+        this.focusElement(Navigation.LAST);
         break;
       default:
         return;
@@ -774,26 +797,36 @@ export class OverlayMenu extends Overlay {
 
   /**
    * Highlight next or previous highlightable element if present
-   * @param direction -1 - up/next; 1 - down/previous
+   * @param direction previous, next, first or last focusable element
    * @param [circular=false] Set to true to have circular navigation over items
    * @return {void}
    */
-  private focusElement (direction: number, circular = false): void {
+  private focusElement (direction: Navigation, circular = false): void {
     const menuHighlightedItem = this.menuHighlightedItem;
     const children = this.items;
 
     const idx = menuHighlightedItem ? children.indexOf(menuHighlightedItem) : -1;
-
     let focusElement;
-    if (direction === 1) {
-      focusElement = idx === -1 ? children[0] : children[idx + 1];
-    }
-    else {
-      focusElement = idx === -1 ? children[children.length - 1] : children[idx - 1];
-    }
 
+    switch (direction) {
+      case Navigation.PREVIOUS:
+        focusElement = idx === -1 ? children[children.length - 1] : children[idx - 1];
+        break;
+      case Navigation.NEXT:
+        focusElement = idx === -1 ? children[0] : children[idx + 1];
+        break;
+      case Navigation.FIRST:
+        focusElement = children[children.length - 1];
+        break;
+      case Navigation.LAST:
+        focusElement = children[0];
+        break;
+      default:
+        break;
+    }
+    
     if (circular && !focusElement) {
-      focusElement = direction === 1 ? children[0] : children[children.length - 1];
+      focusElement = direction === Navigation.NEXT ? children[0] : children[children.length - 1];
     }
 
     if (focusElement) {
@@ -910,6 +943,36 @@ export class OverlayMenu extends Overlay {
     // closes opened child menu if any
     // OpenedMenusManager.toggleNestedMenuFor(this);
     this.onMenuReHighlight();
+
+    const children = this.children;
+    for (let i = 0; i < children.length; i += 1) {
+      const item = children[i];
+      if (!(item instanceof Item)) {
+        return;
+      }
+
+      if (item.type === 'header') {
+        item.setAttribute('role', 'presentation');
+      }
+      else if (item.type === 'divider' || item.disabled) {
+        item.setAttribute('aria-hidden', 'true');
+      }
+      else if (item.for) {
+        if (!item.id) {
+          item.setAttribute('id', uuid());
+        }
+        const menu = document.getElementById(item.for);
+        if (menu) {
+          menu.setAttribute('aria-labelledby', item.id);
+        }
+        item.setAttribute('role', 'menuitem');
+        item.setAttribute('aria-haspopup', 'true');
+        item.setAttribute('aria-expanded', 'false');
+      }
+      else {
+        item.setAttribute('role', 'menuitem');
+      }
+    }
   }
 
   /**
@@ -967,7 +1030,7 @@ export class OverlayMenu extends Overlay {
     const type = composer.getItemPropertyValue(item, 'type');
 
     if (type === 'divider') {
-      return html`<ef-item type="divider"></ef-item>`;
+      return html`<ef-item type="divider" aria-hidden="true"></ef-item>`;
     }
 
     const tooltip = composer.getItemPropertyValue(item, 'tooltip');
@@ -976,6 +1039,7 @@ export class OverlayMenu extends Overlay {
 
     if (type === 'header') {
       return html`<ef-item
+        role="presentation"
         type="header"
         title=${ifDefined(tooltip || undefined)}
         .label=${label}
@@ -992,6 +1056,10 @@ export class OverlayMenu extends Overlay {
 
     // type text
     return html`<ef-item
+      role="menuitem"
+      aria-haspopup=${ifDefined(forMenu ? true : undefined)}
+      aria-expanded=${ifDefined(forMenu ? false : undefined)}
+      aria-hidden=${ifDefined(disabled ? true : undefined)}
       title=${ifDefined(tooltip || undefined)}
       ?disabled=${disabled}
       ?selected=${selected}

@@ -28,16 +28,16 @@
     </script>
 
     <demo-block header="Standard Menu" layout="normal" tags="default, nested, transition">
-      <ef-button id="button1">Standard Menu</ef-button>
+      <ef-button id="button1" aria-haspopup="true">Standard Menu</ef-button>
 
       <ef-overlay-menu id="menu1" transition-style="slide">
         <ef-item type="header">Block One</ef-item>
-        <ef-item icon="copy" value="One">One Long Long Long Long Long Long Long Long Long Long Long</ef-item>
+        <ef-item icon="copy" value="One">One Long Long Long</ef-item>
         <ef-item icon="cross" value="Two" style="display: none">Two</ef-item>
         <ef-item type="divider"></ef-item>
         <ef-item icon="directory" value="Three">Three</ef-item>
         <ef-item icon="dislike-empty" value="Four" for="menu1-four">
-          Four Long Long Long Long Long Long Long Long Long Long Long
+          Four Long Long Long Long
         </ef-item>
         <ef-item disabled value="Five">Five</ef-item>
         <ef-item type="divider"></ef-item>
@@ -98,10 +98,10 @@
     </demo-block>
 
     <demo-block header="Tab Bar Menu" layout="normal" tags="tab">
-      <ef-button-bar>
-        <ef-button id="tab1" icon="down">Tab 1</ef-button>
-        <ef-button id="tab2" icon="down">Tab 2</ef-button>
-        <ef-button id="tab3" icon="down">Tab 3</ef-button>
+      <ef-button-bar role="menubar">
+        <ef-button id="tab1" icon="down" aria-haspopup="true">Tab 1</ef-button>
+        <ef-button id="tab2" icon="down" aria-haspopup="true">Tab 2</ef-button>
+        <ef-button id="tab3" icon="down" aria-haspopup="true">Tab 3</ef-button>
       </ef-button-bar>
       <ef-overlay-menu id="menu-tab1" transition-style="slide">
         <ef-item value="Tab 1 One">Tab 1 One</ef-item>
@@ -219,7 +219,7 @@
     </demo-block>
 
     <demo-block header="Interactive Menu" layout="normal" tags="interactive">
-      <ef-button id="button2">Interactive Menu</ef-button>
+      <ef-button id="button2" aria-haspopup="true">Interactive Menu</ef-button>
       <ef-overlay-menu id="menu2">
         <input type="text" id="menu2-search" persistent style="width: 100%;">
         <ef-item value="load" icon="download" persistent>Load Menu Content</ef-item>
@@ -325,7 +325,7 @@
     </demo-block>
 
     <demo-block header="Selection Menu" layout="normal" tags="selection" id="selection-demo">
-      <ef-button id="button3">Selection Menu</ef-button>
+      <ef-button id="button3" aria-haspopup="true">Selection Menu</ef-button>
       <ef-overlay-menu id="menu3" with-backdrop>
         <ef-item value="option1" label="Option 1"></ef-item>
         <ef-item value="option2" label="Option 2" selected></ef-item>
@@ -371,7 +371,7 @@
     </demo-block>
 
     <demo-block header="From Data" layout="normal" tags="default,data">
-      <ef-button id="button4">From Data</ef-button>
+      <ef-button id="button4" aria-haspopup="true">From Data</ef-button>
       <ef-overlay-menu id="menu4" with-backdrop></ef-overlay-menu>
       <script>
         (function () {
@@ -410,7 +410,7 @@
     </demo-block>
 
     <demo-block header="From Collection Composer" layout="normal" tags="collection composer">
-      <ef-button id="button5">From Collection Composer</ef-button>
+      <ef-button id="button5" aria-haspopup="true">From Collection Composer</ef-button>
       <ef-overlay-menu id="menu5" with-backdrop></ef-overlay-menu>
       <script type="module">
         import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
@@ -441,7 +441,7 @@
     </demo-block>
 
     <demo-block header="Compact Menu" layout="normal" tags="compact">
-      <ef-button id="button7">Compact Menu</ef-button>
+      <ef-button id="button7" aria-haspopup="true">Compact Menu</ef-button>
       <ef-overlay-menu id="menu7" compact>
         <ef-item type="header">Block One</ef-item>
         <ef-item icon="copy" value="One">One</ef-item>
