@@ -116,6 +116,6 @@ The App State Bar provides a slot to display content at the right of bar. The sl
 ## Accessibility
 ::a11y-intro::
 
-The Appstate Bar component is a live region and is assigned `role="status"`.
+`ef-appstate-bar` doesn't have any assigned role. It shouldn't be focusable as itself isn't a control element. Accessibility users can use arrow key to walk through content on Appstate Bar if needed.
 
 ::a11y-end::
