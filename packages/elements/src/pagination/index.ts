@@ -5,13 +5,13 @@ import {
   PropertyValues,
   TemplateResult,
   CSSResultGroup,
-  WarningNotice,
-  DeprecationNotice
+  WarningNotice
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
+import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
 import '../button/index.js';
 import '../button-bar/index.js';
@@ -19,11 +19,12 @@ import '../layout/index.js';
 import '../text-field/index.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/pagination.js';
-import { translate, Translate } from '@refinitiv-ui/translate';
+import { translate, Translate, TranslateDirectiveResult } from '@refinitiv-ui/translate';
 
-const pageDeprecation = new DeprecationNotice('Property `page` is deprecated, use `value` instead.');
-const pageSizeDeprecation = new DeprecationNotice('Property `pageSize ` is deprecated, use `max` instead.');
-const totalItemsDeprecation = new DeprecationNotice('Property `totalItems ` is deprecated, use `max` instead.');
+enum Direction {
+  increment = 'increment',
+  decrement = 'decrement'
+}
 
 /**
  * Used to control and navigate through multiple pages
@@ -46,8 +47,6 @@ export class Pagination extends BasicElement {
    * Current page internal current page value
    */
   private _value = '';
-
-  protected defaultRole: string | null = 'navigation';
 
   /**
    * Internal current page
@@ -99,22 +98,12 @@ export class Pagination extends BasicElement {
    */
   private get internalMax (): number {
     const max = parseInt(this._max, 10) || 0;
-    const pageSize = this.internalPageSize;
-    const totalItems = this.internalTotalitems;
 
-    if (!max && !totalItems) {
+    if (!max) {
       return Infinity;
     }
-    else if (max >= 1) {
-      return max;
-    }
 
-    if (pageSize > 0) {
-      const totalPage = Math.ceil(totalItems / pageSize);
-      return totalPage >= 1 ? totalPage : 1;
-    }
-
-    return 1;
+    return max >= 1 ? max : 1;
   }
 
   /**
@@ -144,147 +133,6 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Current page
-   * @returns current page
-   * @deprecated
-   * @ignore
-   */
-  @property({ type: String })
-  public get page (): string {
-    pageDeprecation.once();
-    return this._value;
-  }
-
-  /**
-   * Set current page
-   * @param value - Set current page
-   * @deprecated
-   * @ignore
-   */
-  public set page (value: string) {
-    pageDeprecation.show();
-    let newValue = value;
-    if (!newValue || !this.validatePage(value, true, 'page')) {
-      newValue = '';
-    }
-
-    const oldValue = this._value;
-    if (oldValue !== newValue) {
-      this._value = newValue.toString();
-    }
-    this.requestUpdate('page', oldValue);
-  }
-
-  /**
-   * Number of item per page
-   * @returns number of items per page
-   * @deprecated
-   * @ignore
-   */
-  @property({ type: String, attribute: 'page-size' })
-  public get pageSize (): string {
-    pageSizeDeprecation.once();
-    return this._pageSize;
-  }
-
-  /**
-   * Set number of item per page
-   * @param value - number of item per page
-   * @deprecated
-   * @ignore
-   */
-  public set pageSize (value: string) {
-    pageSizeDeprecation.show();
-    let newValue = value;
-    if (!newValue || !this.validatePage(value, true, 'page-size')) {
-      newValue = '';
-    }
-
-    // Validate to show warning only, need to keep developer value.
-    // Check page still is in supported range if page-size changed
-    const newTotalPage = Math.ceil(this.internalTotalitems / (parseInt(newValue, 10) || 1)) || 1;
-    if (this.internalValue > newTotalPage) {
-      new WarningNotice(`${this.localName} : The specified value "${newValue}" of page-size caused the value of page property is out of supported range.`).show();
-    }
-
-    const oldValue = this._pageSize;
-    if (oldValue !== newValue) {
-      this._pageSize = newValue;
-    }
-    this.requestUpdate('pageSize', oldValue);
-  }
-
-  /**
-   * Number of item per page internal value
-   * @deprecated
-   */
-  private _pageSize = '';
-
-  /**
-   * Internal page size
-   * @deprecated
-   * @returns page size
-   */
-  private get internalPageSize (): number {
-    return parseInt(this._pageSize, 10);
-  }
-
-  /**
-   * Total items internal value
-   * @deprecated
-   */
-  private _totalItems = '';
-
-  /**
-   * Internal total items
-   * @returns total items
-   * @deprecated
-   */
-  private get internalTotalitems (): number {
-    const totalItems = parseInt(this._totalItems, 10) || 0;
-    return totalItems >= 1 ? totalItems : 0;
-  }
-
-  /**
-   * Total items
-   * @returns total items
-   * @deprecated
-   * @ignore
-   */
-  @property({ type: String, attribute: 'total-items' })
-  public get totalItems (): string {
-    totalItemsDeprecation.once();
-    return this._totalItems;
-  }
-
-  /**
-   * Set total items
-   * @param value total items
-   * @deprecated
-   * @ignore
-   */
-  public set totalItems (value: string) {
-    totalItemsDeprecation.show();
-    let newValue = value;
-    if (!newValue || !this.validatePage(value, true, 'total-items')) {
-      newValue = '';
-    }
-
-    // Validate to show warning only, need to keep developer value.
-    // Check page still is in supported range if total-item changed
-    const newTotalPage = Math.ceil((parseInt(newValue, 10) || 1) / this.internalPageSize) || 1;
-    if (this.internalValue > newTotalPage) {
-      new WarningNotice(`${this.localName} : The specified value "${newValue}" of total-items caused the value of page property is out of supported range.`).show();
-    }
-
-    const oldValue = this._totalItems;
-    if (oldValue !== newValue) {
-      this._totalItems = newValue;
-    }
-    this.requestUpdate('totalItems', oldValue);
-  }
-
-  /**
    * Set state to disable
    */
   @property({ type: Boolean, reflect: true })
@@ -299,10 +147,17 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Getter for text field as input part
+   * Reference input element
    */
-  @query('#input')
-  private input!: HTMLInputElement;
+  protected inputRef: Ref<HTMLInputElement> = createRef();
+
+  /**
+   * Getter for input element
+   * @returns input element
+   */
+  protected get inputElement (): HTMLInputElement | null {
+    return this.inputRef.value || null;
+  }
 
   /**
    * Used for translations
@@ -312,22 +167,21 @@ export class Pagination extends BasicElement {
 
   /**
    * Getter for display page number or text depends on focusing the input
-   * @returns input text
+   * @returns string page number value or translate directive result
    */
-  protected get inputValue (): string {
-    if (this.inputFocused) {
-      return this.internalValue.toString();
-    }
-    else {
-      return this.inputTextFormat;
-    }
+  protected get inputValue (): string | TranslateDirectiveResult {
+    return this.inputFocused ? this.internalValue.toString() : this.inputTextFormat;
   }
 
   /**
    * Get page text format in various translation
+   * @returns translate directive result
    */
-  protected get inputTextFormat (): string {
-    return (this.infinitePaginate ? this.t('PAGE', { page: this.internalValue }) : this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax })) as string;
+  protected get inputTextFormat (): TranslateDirectiveResult {
+    if (!this.infinitePaginate) {
+      return this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax });
+    }
+    return this.t('PAGE', { page: this.internalValue });
   }
 
   /**
@@ -340,7 +194,7 @@ export class Pagination extends BasicElement {
    * State for checking the first page button is available
    */
   protected get useFirstButton (): boolean {
-    return !this.disabled && this.internalValue >= 2;
+    return !this.disabled && this.hasPreviousPage(this.internalValue);
   }
 
   /**
@@ -354,7 +208,7 @@ export class Pagination extends BasicElement {
    * State for checking the next page button is available
    */
   protected get useNextButton (): boolean {
-    return !this.disabled && this.internalValue < this.internalMax;
+    return !this.disabled && this.hasNextPage(this.internalValue);
   }
 
   /**
@@ -367,32 +221,21 @@ export class Pagination extends BasicElement {
   /**
    * @override
    */
-  protected update (changedProperties: PropertyValues): void {
-    super.update(changedProperties);
-
-    if (changedProperties.has('value')) {
-      this.input.setAttribute('aria-valuenow', this.internalValue.toString());
-    }
-
-    if (changedProperties.has('max')) {
-      if (!this.infinitePaginate) {
-        this.input.setAttribute('aria-valuemax', this.max);
-      }
-      else {
-        this.input.removeAttribute('aria-valuemax');
-      }
-    }
-  }
-
-  /**
-   * @override
-   */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (this.inputFocused && changedProperties.has('inputFocused')) {
       void this.selectInput();
     }
+  }
+
+  /**
+   * Select text in input when update element complete
+   * @returns returns a promise void
+   */
+  private async selectInput (): Promise<void> {
+    await this.updateComplete;
+    this.inputElement?.select();
   }
 
   /**
@@ -415,20 +258,21 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Update page by using value from the input
+   * Set page to the pagination
+   * @param value page number
    * @returns {void}
    */
-  private updatePageInput (): void {
+  private setPage (value: string): void {
     // Prevent update page to the same value
-    if (this.value === this.input.value) {
+    if (this.value === value) {
       return;
     }
 
     const oldValue = this.value;
-    let newValue = parseInt(this.input.value, 10);
+    let newValue = parseInt(value, 10);
 
     // Reset input and boundary value into supported range.
-    if (this.validatePage(this.input.value)) {
+    if (this.validatePage(value)) {
       if (newValue > this.internalMax) {
         newValue = this.internalMax;
       }
@@ -445,60 +289,60 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Select text in input when update element complete
-   * @returns returns a promise void
-   */
-  private async selectInput (): Promise<void> {
-    await this.updateComplete;
-    this.input.select();
-  }
-
-  /**
    * Updates page value depending on direction
    * @param direction page value direction
-   * @param event whether the event page-changed should fire
+   * @param withEvent whether the event page-changed should fire
    * @returns {void}
    */
-  private updatePage (direction: 'increment' | 'decrement', event = false): void {
+  private updatePage (direction: Direction, withEvent = false): void {
 
-    /**
-     * Handle in case the value of max property is greater than value of value/page property,
-     * which it might happen by using developer API.
-     */
+    // Get current page
     let page = this.internalValue;
-    if (page > this.internalMax) {
-      page = this.internalMax + 1;
+    let newPage: number;
+
+    // Check the direction
+    if (direction === Direction.increment) {
+      newPage = this.hasNextPage(page) ? page + 1 : page;
+    }
+    else {
+      /**
+       * Handle in case the page value is greater than max, so the decrement must reset page to the max page.
+       * which it might happen by using developer API.
+       */
+      page = page > this.internalMax ? this.internalMax + 1 : page;
+
+      newPage = this.hasPreviousPage(page) ? page - 1 : page;
     }
 
-    const limit = direction === 'increment' ? page >= this.internalMax : page <= 1;
-
-    if (!limit) {
-      this.value = direction === 'increment' ? (page + 1).toString() : (page - 1).toString();
-      if (event) {
-        this.notifyValueChange();
-      }
+    // Update page and fire event
+    if (newPage !== page) {
+      this.value = String(newPage);
+      withEvent && this.notifyValueChange();
     }
   }
 
   /**
-   * Update input value
-   *
+   * Update input value. Do not update pagination actual value until Enter key is pressed or blur event is fired
    * @param value input value
    * @param direction update from old value
    * @returns void
    */
-  protected updateInputValue (value = 1, direction: 'increment' | 'decrement' | null = null): void {
+  protected updateInputValue (value = 1, direction: Direction | null = null): void {
+
+    if (!this.inputElement) {
+      return;
+    }
 
     let newValue = value;
 
     // Update base on old value
     if (direction) {
-      const changeValue = direction === 'increment' ? value : -Math.abs(value);
-      newValue = Number(this.input.value) + changeValue;
+      const changeValue = direction === Direction.increment ? value : -Math.abs(value);
+      newValue = Number(this.inputElement.value) + changeValue;
     }
 
-    this.input.value = String(newValue);
-    this.input.setAttribute('aria-valuenow', this.input.value);
+    this.inputElement.value = String(newValue);
+    this.inputElement.setAttribute('aria-valuenow', this.inputElement.value);
   }
 
   /**
@@ -507,7 +351,6 @@ export class Pagination extends BasicElement {
    */
   private notifyValueChange ():void {
     this.notifyPropertyChange('value', this.value);
-    this.notifyPropertyChange('page', this.value); // deprecated. support backwards compatibility.
   }
 
   /**
@@ -515,7 +358,7 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   public next (): void {
-    this.updatePage('increment');
+    this.updatePage(Direction.increment);
   }
 
   /**
@@ -523,7 +366,7 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private onNextTap (): void {
-    this.updatePage('increment', true);
+    this.updatePage(Direction.increment, true);
   }
 
   /**
@@ -531,7 +374,7 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   public previous (): void {
-    this.updatePage('decrement');
+    this.updatePage(Direction.decrement);
   }
 
   /**
@@ -539,7 +382,7 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private onPreviousTap (): void {
-    this.updatePage('decrement', true);
+    this.updatePage(Direction.decrement, true);
   }
 
   /**
@@ -607,27 +450,39 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Handles key press event
-   * @param event Key down event object
-   * @returns {void}
-   */
-  private onKeyPress (event: KeyboardEvent): void {
-    // Allow input number only
-    if (!(/\d/).test(event.key)) {
-      event.preventDefault();
-    }
-  }
-
-  /**
    * Handles action when input focused change
    * @param event focus change event
    * @returns {void}
    */
-  private onFocusedChanged (): void {
-    this.inputFocused = document.activeElement === this;
+  private onFocusedChanged (event: FocusEvent): void {
+    if (!this.inputElement) {
+      return;
+    }
 
+    this.inputFocused = event.type === 'focus';
     if (!this.inputFocused) {
-      this.updatePageInput();
+      this.setPage(this.inputElement.value);
+    }
+  }
+
+  /**
+   * Runs on input element `input` event
+   * @param event `input` event
+   * @returns {void}
+   */
+  protected onInputInput (): void {
+    if (!this.inputElement) {
+      return;
+    }
+    const currentInput = this.inputElement.value;
+    const inputValue = this.inputElement.value.replace(/[^\d]/g, ''); // stripe invalid charactors
+
+    // Page value cannot start with `0`, reset it if found.
+    if (inputValue.startsWith('0')) {
+      this.inputElement.value = inputValue.substring(1);
+    }
+    else if (currentInput !== inputValue) { // update if found new value
+      this.inputElement.value = inputValue;
     }
   }
 
@@ -637,40 +492,40 @@ export class Pagination extends BasicElement {
    * @returns {void}
    */
   private onKeyDown (event: KeyboardEvent): void {
+
     if (event.defaultPrevented) {
       return;
     }
 
-    const newInputValue = Number(this.input.value);
-
+    // Handle keyboard shortcuts
     switch (event.key) {
       case 'Enter':
-        this.updatePageInput();
-        this.input.blur();
-        break;
-      case 'Tab':
-        this.updatePageInput();
+        this.inputElement && this.setPage(this.inputElement.value);
+        event.preventDefault();
         break;
       case 'Up':
       case 'ArrowUp':
-        this.hasNextPage(newInputValue) && this.updateInputValue(1, 'increment');
+        this.inputElement && this.hasNextPage(Number(this.inputElement.value || 1)) && this.updateInputValue(1, Direction.increment);
+        this.inputElement?.select();
+        event.preventDefault();
         break;
       case 'Down':
       case 'ArrowDown':
-        this.hasPreviousPage(newInputValue) && this.updateInputValue(1, 'decrement');
+        this.inputElement && this.hasPreviousPage(Number(this.inputElement.value || 1)) && this.updateInputValue(1, Direction.decrement);
+        this.inputElement?.select();
+        event.preventDefault();
         break;
       case 'Home':
         this.updateInputValue(1);
+        this.inputElement?.select();
+        event.preventDefault();
         break;
       case 'End':
         this.hasLastPage() && this.updateInputValue(this.internalMax);
+        this.inputElement?.select();
+        event.preventDefault();
         break;
-      default:
-        return;
-    }
-
-    if (event.key !== 'Tab') {
-      event.preventDefault();
+      default: // No default
     }
   }
 
@@ -685,13 +540,6 @@ export class Pagination extends BasicElement {
       :host {
         display: inline-block;
       }
-
-      [part=status] {
-        width: 0px;
-        height: 0px;
-        overflow: hidden;
-        position: absolute;
-      }
     `;
   }
 
@@ -702,24 +550,26 @@ export class Pagination extends BasicElement {
    */
   protected render (): TemplateResult {
     return html`
-      <span id="status" part="status" role="status" aria-live="polite">${this.inputTextFormat}</span>
       <ef-layout part="container" flex nowrap>
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="first" icon="skip-to-start" @tap="${this.onFirstTap}" .disabled=${!this.useFirstButton}></ef-button>
           <ef-button id="previous" icon="left" @tap="${this.onPreviousTap}" .disabled=${!this.usePreviousButton}></ef-button>
         </ef-button-bar>
+        <label part="label" for="input">${this.inputTextFormat}</label>
         <input
           id="input"
           part="input"
           role="spinbutton"
-          aria-labelledby="status"
+          aria-valuenow=${this.internalValue}
           aria-valuemin="1"
+          aria-valuemax=${ifDefined(this.max || undefined)}
           .value=${this.inputValue}
           .disabled=${this.disabled}
           @focus=${this.onFocusedChanged}
           @blur=${this.onFocusedChanged}
-          @keypress=${this.onKeyPress}
+          @input=${this.onInputInput}
           @keydown=${this.onKeyDown}
+          ${ref(this.inputRef)}
         />
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
           <ef-button id="next" icon="right" @tap="${this.onNextTap}" .disabled=${!this.useNextButton}></ef-button>
