@@ -2,12 +2,17 @@
 @import 'element:ef-button-bar';
 @import 'element:ef-layout';
 @import '../shared-styles/input';
+@import '../shared-styles/aria';
 @import '../responsive';
 
 :host {
   [part=container] {
     align-items: center;
     justify-content: flex-end;
+  }
+
+  [part=label] {
+    .aria-invisible();
   }
 
   [part=input] {
