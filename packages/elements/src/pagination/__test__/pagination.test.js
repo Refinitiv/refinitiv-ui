@@ -26,10 +26,7 @@ const elementFocused = async (el) => {
 };
 
 const elementBlurred = async (el) => {
-  setTimeout(() => {
-    el.focus(); // Firefox need focus before blur
-    el.blur();
-  });
+  setTimeout(() => el.blur());
   await oneEvent(el, 'blur');
   await elementUpdated(el);
   await aTimeout(50);
@@ -155,22 +152,6 @@ describe('pagination/Pagination', () => {
       expect(el.max).to.equal(newMax);
     });
   })
-
-  describe('Backwards compatibility', () => {
-    it('Calculates total page correctly', async () => {
-      const el = await fixture('<ef-pagination page-size="5" total-items="32" lang="en-gb"></ef-pagination>');
-      expect(el.page).to.equal(el.value);
-      expect(el.pageSize).to.equal('5');
-      expect(el.totalItems).to.equal('32');
-
-      el.pageSize = '4';
-      el.totalItems = '9';
-      await elementUpdated(el);
-      expect(el.page).to.equal(el.value);
-      expect(el.pageSize).to.equal('4');
-      expect(el.totalItems).to.equal('9');
-    });
-  });
 
   describe('Focus', () => {
     let el;
@@ -350,16 +331,6 @@ describe('pagination/Pagination', () => {
       expect(el.value).to.equal('3');
     });
 
-    it('Should be able to change page number by typing a number and press tab key into the input', async () => {
-      await triggerFocusFor(inputPart);
-      await elementFocused(el);
-
-      inputPart.value = '5';
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Tab' }));
-      await elementUpdated(el);
-      expect(el.value).to.equal('5');
-    });
-
     it('Should be able to change page number by typing a number and blur the input', async () => {
       await triggerFocusFor(inputPart);
       await elementFocused(el);
@@ -529,7 +500,6 @@ describe('pagination/Pagination', () => {
     });
 
     it('Should update the input number to the last page when End key is pressed in text-field', async () => {
-      await elementUpdated(el);
       expect(el.value).to.equal('');
 
       await triggerFocusFor(inputPart);
@@ -541,18 +511,6 @@ describe('pagination/Pagination', () => {
 
       expect(el.value).to.equal('7');
     });
-
-    it('Should blur the input when Enter key is pressed in text-field', async () => {
-      await triggerFocusFor(inputPart);
-      await elementFocused(el);
-      expect(document.activeElement).to.equal(el);
-
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
-      await elementUpdated(el);
-
-      expect(document.activeElement).to.not.equal(el, 'It should blur the element');
-    });
-
   });
 
   describe('Events', () => {
@@ -641,7 +599,7 @@ describe('pagination/Pagination', () => {
 
     it('Should not fire value-changed event when page is changed through attribute', async () => {
       let eventFired;
-      setTimeout(() => el.setAttribute('page', '2'));
+      setTimeout(() => el.setAttribute('value', '2'));
 
       try {
         await waitUntil(async () => await oneEvent(el, 'value-changed'), 'Event does not fire', { timeout: 0 });
@@ -704,7 +662,6 @@ describe('pagination/Pagination', () => {
     it('Should pass common rules for accessibility', async () => {
       await expect(el).to.be.accessible({
         ignoredRules: [
-          'label', // Already has `aria-labelledby`
           'aria-hidden-focus' // Issue: buttons in ef-button-bar not respect the tabindex of the host
         ],
       });
