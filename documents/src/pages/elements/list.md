@@ -132,6 +132,8 @@ el.renderer = (item, composer, element) => {
 ## Accessibility
 ::a11y-intro::
 
-The List component is assigned `role="listbox"` and can include properties such as `aria-labelledby`, `aria-activedescendant` and `aria-multiselectable`. The data items are assigned the `role="option"` and can include properties such as `aria-selected` in single mode or `aria-checked` in `multiple` mode and `aria-disabled`. The element’s properties programmatically update to match its visual state. It receives focus once at host and it is navigable through items using `Up` and `Down` arrow keys.
+`ef-list` is assigned `role="listbox"` and can include properties such as `aria-labelledby`, `aria-activedescendant` and `aria-multiselectable`. The data items are assigned the `role="option"` and can include properties such as `aria-selected` in single mode or `aria-checked` in `multiple` mode and `aria-disabled`. The element’s properties programmatically update to match its visual state. It receives focus once at host and it is navigable through items using `Up` and `Down` arrow keys.
+
+`ef-list` has already provided role and aria attributes for itself and items in the list. It also has implemented keyboard navigation following accessibility guideline.
 
 ::a11y-end::
