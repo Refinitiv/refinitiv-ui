@@ -215,7 +215,9 @@ export class ButtonBar extends BasicElement {
     buttons.forEach((button) => {
       button.tabIndex = -1;
     });
-    target.tabIndex = 0;
+    if (this.getAttribute('aria-hidden') === null && this.getAttribute('hidden') === null) {
+      target.tabIndex = 0;
+    }
   }
 
   /**

@@ -332,6 +332,34 @@ describe('button-bar/ButtonBar', () => {
       expect(addedButton.getAttribute('tabIndex')).to.equal('-1');
       expect(btn1.getAttribute('tabIndex')).to.equal('0', 'Current focusing button should still be focusable');
     });
+    it('Should set tabIndex=-1 to all buttons when the element has hidden', async () => {
+      el = await fixture(`<ef-button-bar hidden>
+        <ef-button-bar managed role="radiogroup" id="bar">
+          <ef-button id="btn1" toggles role="radio" active>1</ef-button>
+          <ef-button id="btn2" toggles role="radio">2</ef-button>
+        </ef-button-bar>
+        <ef-button id="btn3" toggles active>3</ef-button>
+        <ef-button id="btn4" disabled>4</ef-button>
+      </ef-button-bar>`);
+      const group = el.getFocusableButtons();
+      group.forEach((button) => {
+        expect(button.getAttribute('tabIndex')).to.equal('-1');
+      });
+    });
+    it('Should set tabIndex=-1 to all buttons when the element has aria-hidden', async () => {
+      el = await fixture(`<ef-button-bar aria-hidden>
+        <ef-button-bar managed role="radiogroup" id="bar">
+          <ef-button id="btn1" toggles role="radio" active>1</ef-button>
+          <ef-button id="btn2" toggles role="radio">2</ef-button>
+        </ef-button-bar>
+        <ef-button id="btn3" toggles active>3</ef-button>
+        <ef-button id="btn4" disabled>4</ef-button>
+      </ef-button-bar>`);
+      const group = el.getFocusableButtons();
+      group.forEach((button) => {
+        expect(button.getAttribute('tabIndex')).to.equal('-1');
+      });
+    });
   });
 });
 
