@@ -5,8 +5,7 @@ import {
   PropertyValues,
   TemplateResult,
   CSSResultGroup,
-  WarningNotice,
-  DeprecationNotice
+  WarningNotice
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -26,10 +25,6 @@ enum Direction {
   increment = 'increment',
   decrement = 'decrement'
 }
-
-const pageDeprecation = new DeprecationNotice('Property `page` is deprecated, use `value` instead.');
-const pageSizeDeprecation = new DeprecationNotice('Property `pageSize ` is deprecated, use `max` instead.');
-const totalItemsDeprecation = new DeprecationNotice('Property `totalItems ` is deprecated, use `max` instead.');
 
 /**
  * Used to control and navigate through multiple pages
@@ -103,22 +98,12 @@ export class Pagination extends BasicElement {
    */
   private get internalMax (): number {
     const max = parseInt(this._max, 10) || 0;
-    const pageSize = this.internalPageSize;
-    const totalItems = this.internalTotalitems;
 
-    if (!max && !totalItems) {
+    if (!max) {
       return Infinity;
     }
-    else if (max >= 1) {
-      return max;
-    }
 
-    if (pageSize > 0) {
-      const totalPage = Math.ceil(totalItems / pageSize);
-      return totalPage >= 1 ? totalPage : 1;
-    }
-
-    return 1;
+    return max >= 1 ? max : 1;
   }
 
   /**
@@ -145,147 +130,6 @@ export class Pagination extends BasicElement {
       this._max = newValue.toString();
     }
     this.requestUpdate('max', oldValue);
-  }
-
-  /**
-   * Current page
-   * @returns current page
-   * @deprecated
-   * @ignore
-   */
-  @property({ type: String })
-  public get page (): string {
-    pageDeprecation.once();
-    return this._value;
-  }
-
-  /**
-   * Set current page
-   * @param value - Set current page
-   * @deprecated
-   * @ignore
-   */
-  public set page (value: string) {
-    pageDeprecation.show();
-    let newValue = value;
-    if (!newValue || !this.validatePage(value, true, 'page')) {
-      newValue = '';
-    }
-
-    const oldValue = this._value;
-    if (oldValue !== newValue) {
-      this._value = newValue.toString();
-    }
-    this.requestUpdate('page', oldValue);
-  }
-
-  /**
-   * Number of item per page
-   * @returns number of items per page
-   * @deprecated
-   * @ignore
-   */
-  @property({ type: String, attribute: 'page-size' })
-  public get pageSize (): string {
-    pageSizeDeprecation.once();
-    return this._pageSize;
-  }
-
-  /**
-   * Set number of item per page
-   * @param value - number of item per page
-   * @deprecated
-   * @ignore
-   */
-  public set pageSize (value: string) {
-    pageSizeDeprecation.show();
-    let newValue = value;
-    if (!newValue || !this.validatePage(value, true, 'page-size')) {
-      newValue = '';
-    }
-
-    // Validate to show warning only, need to keep developer value.
-    // Check page still is in supported range if page-size changed
-    const newTotalPage = Math.ceil(this.internalTotalitems / (parseInt(newValue, 10) || 1)) || 1;
-    if (this.internalValue > newTotalPage) {
-      new WarningNotice(`${this.localName} : The specified value "${newValue}" of page-size caused the value of page property is out of supported range.`).show();
-    }
-
-    const oldValue = this._pageSize;
-    if (oldValue !== newValue) {
-      this._pageSize = newValue;
-    }
-    this.requestUpdate('pageSize', oldValue);
-  }
-
-  /**
-   * Number of item per page internal value
-   * @deprecated
-   */
-  private _pageSize = '';
-
-  /**
-   * Internal page size
-   * @deprecated
-   * @returns page size
-   */
-  private get internalPageSize (): number {
-    return parseInt(this._pageSize, 10);
-  }
-
-  /**
-   * Total items internal value
-   * @deprecated
-   */
-  private _totalItems = '';
-
-  /**
-   * Internal total items
-   * @returns total items
-   * @deprecated
-   */
-  private get internalTotalitems (): number {
-    const totalItems = parseInt(this._totalItems, 10) || 0;
-    return totalItems >= 1 ? totalItems : 0;
-  }
-
-  /**
-   * Total items
-   * @returns total items
-   * @deprecated
-   * @ignore
-   */
-  @property({ type: String, attribute: 'total-items' })
-  public get totalItems (): string {
-    totalItemsDeprecation.once();
-    return this._totalItems;
-  }
-
-  /**
-   * Set total items
-   * @param value total items
-   * @deprecated
-   * @ignore
-   */
-  public set totalItems (value: string) {
-    totalItemsDeprecation.show();
-    let newValue = value;
-    if (!newValue || !this.validatePage(value, true, 'total-items')) {
-      newValue = '';
-    }
-
-    // Validate to show warning only, need to keep developer value.
-    // Check page still is in supported range if total-item changed
-    const newTotalPage = Math.ceil((parseInt(newValue, 10) || 1) / this.internalPageSize) || 1;
-    if (this.internalValue > newTotalPage) {
-      new WarningNotice(`${this.localName} : The specified value "${newValue}" of total-items caused the value of page property is out of supported range.`).show();
-    }
-
-    const oldValue = this._totalItems;
-    if (oldValue !== newValue) {
-      this._totalItems = newValue;
-    }
-    this.requestUpdate('totalItems', oldValue);
   }
 
   /**
@@ -507,7 +351,6 @@ export class Pagination extends BasicElement {
    */
   private notifyValueChange ():void {
     this.notifyPropertyChange('value', this.value);
-    this.notifyPropertyChange('page', this.value); // deprecated. support backwards compatibility.
   }
 
   /**
