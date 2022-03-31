@@ -390,14 +390,14 @@ export class OverlayMenu extends Overlay {
   protected update (changedProperties: PropertyValues): void {
     if (changedProperties.has('opened')) {
       if (this.opened) {
+        const parentMenuItem = OpenedMenusManager.getParentMenuItem(this);
+        if (parentMenuItem) {
+          parentMenuItem.setAttribute('aria-expanded', 'true');
+        }
         this.opening();
       }
       else {
         this.closing();
-      }
-      const parentMenuItem = OpenedMenusManager.getParentMenuItem(this);
-      if (parentMenuItem) {
-        parentMenuItem.setAttribute('aria-expanded', this.opened ? 'true' : 'false');
       }
     }
 
