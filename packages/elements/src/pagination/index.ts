@@ -682,7 +682,7 @@ export class Pagination extends BasicElement {
         this.inputElement?.select();
         event.preventDefault();
         break;
-      default:
+      default: // No default
     }
   }
 
