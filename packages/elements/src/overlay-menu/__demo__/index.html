@@ -97,6 +97,7 @@
           menuController.addEventListener('item-trigger', ({ detail: { value } }) => {
             if (value) {
               button.innerText = value;
+              button.setAttribute('aria-expanded', 'false');
               menu.opened = false;
             }
           });
@@ -215,6 +216,7 @@
             }
             if (buttons[menuIdx]) {
               buttons[menuIdx].innerText = value;
+              buttons[menuIdx].setAttribute('aria-expanded', 'false');
             }
             
             menus.forEach(menu => {
