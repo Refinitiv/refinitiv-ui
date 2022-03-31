@@ -20,17 +20,11 @@ import '../item/index.js';
 import { Item, ItemData } from '../item/index.js';
 import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay/index.js';
 import { applyLock } from '../overlay/managers/interaction-lock-manager.js';
+import { Navigation } from './helpers/types';
 import type { OverlayMenuData } from './helpers/types';
 import { OpenedMenusManager } from './managers/menu-manager.js';
 
 export type { OverlayMenuData };
-
-enum Navigation {
-  FIRST = 'First',
-  LAST = 'Last',
-  NEXT = 'Next',
-  PREVIOUS = 'Previous',
-}
 
 /**
  * Overlay that supports single-level and multi-level menus
@@ -816,10 +810,10 @@ export class OverlayMenu extends Overlay {
         focusElement = idx === -1 ? children[0] : children[idx + 1];
         break;
       case Navigation.FIRST:
-        focusElement = children[children.length - 1];
+        focusElement = children[0];
         break;
       case Navigation.LAST:
-        focusElement = children[0];
+        focusElement = children[children.length - 1];
         break;
       default:
         break;
