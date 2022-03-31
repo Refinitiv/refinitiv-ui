@@ -436,7 +436,9 @@ export class TabBar extends ResponsiveElement {
     tabList.forEach((tab) => {
       tab.tabIndex = -1;
     });
-    target.tabIndex = 0;
+    if (this.getAttribute('aria-hidden') === null && this.getAttribute('hidden') === null) {
+      target.tabIndex = 0;
+    }
   }
 
   /**

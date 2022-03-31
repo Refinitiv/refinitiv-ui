@@ -107,4 +107,28 @@ describe('tab-bar/accessibility', () => {
     expect(isActiveAndFocusable(tab3)).to.equal(false);
     expect(el.value).to.equal(tab1.value);
   });
+  it('Should set tabIndex=-1 to all tabs when the element has hidden', async () => {
+    el = await fixture(`
+      <ef-tab-bar hidden>
+        <ef-tab>1</ef-tab>
+        <ef-tab>2</ef-tab>
+      </ef-tab-bar>
+    `);
+    tabList = el.querySelectorAll('ef-tab');
+    tabList.forEach((tab) => {
+      expect(tab.getAttribute('tabIndex')).to.equal('-1');
+    });
+  });
+  it('Should set tabIndex=-1 to all tabs when the element has aria-hidden', async () => {
+    el = await fixture(`
+      <ef-tab-bar aria-hidden>
+        <ef-tab>1</ef-tab>
+        <ef-tab>2</ef-tab>
+      </ef-tab-bar>
+    `);
+    tabList = el.querySelectorAll('ef-tab');
+    tabList.forEach((tab) => {
+      expect(tab.getAttribute('tabIndex')).to.equal('-1');
+    });
+  });
 });
