@@ -5,14 +5,6 @@
 ####   `DOM structure is correct`
 
 ```html
-<span
-  aria-live="polite"
-  id="status"
-  part="status"
-  role="status"
->
-  Page 1
-</span>
 <ef-layout
   flex=""
   nowrap=""
@@ -49,9 +41,15 @@
     >
     </ef-button>
   </ef-button-bar>
+  <label
+    for="input"
+    part="label"
+  >
+    Page 1
+  </label>
   <input
-    aria-labelledby="status"
     aria-valuemin="1"
+    aria-valuenow="1"
     id="input"
     part="input"
     role="spinbutton"
