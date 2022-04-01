@@ -20,8 +20,7 @@ import '../item/index.js';
 import { Item, ItemData } from '../item/index.js';
 import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay/index.js';
 import { applyLock } from '../overlay/managers/interaction-lock-manager.js';
-import { Navigation } from './helpers/types';
-import type { OverlayMenuData } from './helpers/types';
+import { OverlayMenuData, Navigation } from './helpers/types';
 import { OpenedMenusManager } from './managers/menu-manager.js';
 
 export type { OverlayMenuData };
@@ -816,7 +815,7 @@ export class OverlayMenu extends Overlay {
         focusElement = children[children.length - 1];
         break;
       default:
-        break;
+        return;
     }
     
     if (circular && !focusElement) {
