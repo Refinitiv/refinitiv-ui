@@ -376,11 +376,13 @@ export class OverlayMenu extends Overlay {
   }
 
   /**
-   * Reflects property values to attributes and calls render to render DOM via lit-html.
+   * Compute property values that depend on other properties
+   * and are used in the rest of the update process.
    * @param changedProperties Properties which have changed
    * @return {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
     if (changedProperties.has('opened')) {
       if (this.opened) {
         const parentMenuItem = OpenedMenusManager.getParentMenuItem(this);
@@ -401,8 +403,6 @@ export class OverlayMenu extends Overlay {
     if (changedProperties.has('opened') && this.opened) {
       this.lazyRendered = true;
     }
-
-    super.update(changedProperties);
   }
 
   /**
@@ -936,33 +936,6 @@ export class OverlayMenu extends Overlay {
     // closes opened child menu if any
     // OpenedMenusManager.toggleNestedMenuFor(this);
     this.onMenuReHighlight();
-
-    const children = this.children;
-    for (const item of children) {
-      if (item instanceof Item) {
-        if (item.type === 'header') {
-          item.setAttribute('role', 'presentation');
-        }
-        else if (item.type === 'divider') {
-          item.setAttribute('aria-hidden', 'true');
-        }
-        else if (item.for) {
-          if (!item.id) {
-            item.setAttribute('id', uuid());
-          }
-          const menu = document.getElementById(item.for);
-          if (menu) {
-            menu.setAttribute('aria-labelledby', item.id);
-          }
-          item.setAttribute('role', 'menuitem');
-          item.setAttribute('aria-haspopup', 'true');
-          item.setAttribute('aria-expanded', 'false');
-        }
-        else {
-          item.setAttribute('role', 'menuitem');
-        }
-      }
-    }
   }
 
   /**
