@@ -167,7 +167,7 @@ describe('button/Button', () => {
         await oneEvent(el, 'tap');
         expect(el.active).to.equal(true);
       });
-  
+
       it('the element should set the active property to false if the element with toggles and active attributes are taped', async () => {
         const el = await fixture(html`<ef-button toggles active role="radio" icon="icon.png" hover-icon="hover-icon.png"></ef-button>`);
         setTimeout(() => el.dispatchEvent(new Event('tap')));
@@ -238,7 +238,7 @@ describe('button/Button', () => {
         expect(el).to.be.accessible({
           ignoredRules: ['aria-allowed-attr', 'color-contrast']
         });
-        await expect(el.ariaPressed).to.equal('false');
+        await expect(el.getAttribute('aria-pressed')).to.equal('false');
       });
 
       it('when button is pressed', async () => {
@@ -246,7 +246,7 @@ describe('button/Button', () => {
         expect(el).to.be.accessible({
           ignoredRules: ['aria-allowed-attr', 'color-contrast']
         });
-        await expect(el.ariaPressed).to.equal('true');
+        await expect(el.getAttribute('aria-pressed')).to.equal('true');
       });
     });
 
