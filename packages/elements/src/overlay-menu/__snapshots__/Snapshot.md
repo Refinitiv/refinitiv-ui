@@ -57,7 +57,6 @@
 ```html
 <ef-item
   aria-selected="false"
-  role="presentation"
   style="pointer-events: none;"
   tabindex="-1"
   type="header"
@@ -66,7 +65,6 @@
 </ef-item>
 <ef-item
   aria-selected="false"
-  role="menuitem"
   tabindex="0"
   value="one"
 >
@@ -74,14 +72,12 @@
 </ef-item>
 <ef-item
   aria-selected="false"
-  role="menuitem"
   tabindex="0"
   value="two"
 >
   Item Two
 </ef-item>
 <ef-item
-  aria-hidden="true"
   aria-selected="false"
   style="pointer-events: none;"
   tabindex="-1"
@@ -92,7 +88,6 @@
   aria-disabled="true"
   aria-selected="false"
   disabled=""
-  role="menuitem"
   style="pointer-events: none;"
   tabindex="-1"
   value="disabled"
@@ -102,7 +97,6 @@
 <ef-item
   aria-selected="false"
   readonly=""
-  role="menuitem"
   tabindex="0"
   value="readonly"
 >
@@ -110,7 +104,6 @@
 </ef-item>
 <ef-item
   aria-selected="false"
-  role="menuitem"
   style="display: none"
   tabindex="0"
   value="hidden"
