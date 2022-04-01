@@ -12,17 +12,6 @@ import { registerOverflowTooltip } from '../tooltip/index.js';
 import '../icon/index.js';
 
 /**
- * Return the attribute that converted from the property
- * Prevent empty string that reflected to attribute
- * @private
- * @param value value from the property
- * @returns string converted to attribute
- */
-const emptyStringToNull = function (value: string): string | null {
-  return value || null;
-};
-
-/**
  * Use button for actions in forms, dialogs,
  * and more with support for different states and styles.
  * @attr {boolean} disabled - Set state to disabled
@@ -98,40 +87,17 @@ export class Button extends ControlElement {
   private labelElement!: HTMLSpanElement;
 
   /**
-   * Aria indicating state of toggle button
-   * @ignore
-   */
-  @property({ type: String,
-    reflect: true,
-    attribute: 'aria-pressed',
-    converter: { toAttribute: emptyStringToNull } // TODO: Remove after typescript update to allow nullable for ARIAMixin
-  })
-  public ariaPressed = '';
-
-  /**
-   * Aria indicating state of toggle button.
-   * Used when role is radio.
-   * @ignore
-   */
-  @property({ type: String,
-    reflect: true,
-    attribute: 'aria-checked',
-    converter: { toAttribute: emptyStringToNull } // TODO: Remove after typescript update to allow nullable for ARIAMixin
-  })
-  public ariaChecked = '';
-
-  /**
-   * Updates the element
+   * Called before update() to compute values needed during the update.
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  protected willUpdate (changedProperties: PropertyValues): void {
     if (changedProperties.has('active') && this.toggles || changedProperties.has('toggles') && this.toggles) {
       if (this.getAttribute('role') === 'radio') {
-        this.ariaChecked = String(this.active);
+        this.setAttribute('aria-checked', String(this.active));
       }
       else {
-        this.ariaPressed = String(this.active);
+        this.setAttribute('aria-pressed', String(this.active));
       }
     }
 
