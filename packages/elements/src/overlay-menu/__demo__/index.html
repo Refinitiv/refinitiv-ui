@@ -23,62 +23,63 @@
           }
           menu.positionTarget = button;
           menu.opened = true;
+          button.setAttribute('aria-expanded', 'true');
         });
       };
     </script>
 
     <demo-block header="Standard Menu" layout="normal" tags="default, nested, transition">
-      <ef-button id="button1">Standard Menu</ef-button>
+      <ef-button id="button1" aria-haspopup="menu" aria-controls="menu1" aria-expanded="false">Standard Menu</ef-button>
 
-      <ef-overlay-menu id="menu1" transition-style="slide">
-        <ef-item type="header">Block One</ef-item>
-        <ef-item icon="copy" value="One">One Long Long Long Long Long Long Long Long Long Long Long</ef-item>
-        <ef-item icon="cross" value="Two" style="display: none">Two</ef-item>
-        <ef-item type="divider"></ef-item>
-        <ef-item icon="directory" value="Three">Three</ef-item>
-        <ef-item icon="dislike-empty" value="Four" for="menu1-four">
-          Four Long Long Long Long Long Long Long Long Long Long Long
+      <ef-overlay-menu id="menu1" transition-style="slide" aria-labelledby="button1">
+        <ef-item role="presentation" type="header">Block One</ef-item>
+        <ef-item role="menuitem" icon="copy" value="One">One Long Long Long</ef-item>
+        <ef-item aria-hidden="true" icon="cross" value="Two" style="display: none">Two</ef-item>
+        <ef-item aria-hidden="true" type="divider"></ef-item>
+        <ef-item role="menuitem" icon="directory" value="Three">Three</ef-item>
+        <ef-item id="item-for-four" role="menuitem" aria-haspopup="true" aria-expanded="false" icon="dislike-empty" for="menu1-four">
+          Four Long Long Long Long
         </ef-item>
         <ef-item disabled value="Five">Five</ef-item>
-        <ef-item type="divider"></ef-item>
-        <ef-item value="Six" for="menu1-six">Six</ef-item>
-        <ef-item value="Seven" for="menu1-seven" disabled>Seven</ef-item>
+        <ef-item aria-hidden="true" type="divider"></ef-item>
+        <ef-item id="item-for-six" role="menuitem" aria-haspopup="true" aria-expanded="false" value="Six" for="menu1-six">Six</ef-item>
+        <ef-item id="item-for-seven" role="menuitem" value="Seven" for="menu1-seven" disabled>Seven</ef-item>
       </ef-overlay-menu>
 
-      <ef-overlay-menu id="menu1-four" transition-style="slide">
-        <ef-item type="header">Nested Block</ef-item>
-        <ef-item value="Four Zero" for="menu1-four-zero">Four.Zero</ef-item>
-        <ef-item icon="flame" value="Four One">Four.One</ef-item>
-        <ef-item value="Four Two">Four.Two</ef-item>
-        <ef-item value="Four Three" for="menu1-four-three">Four.Three</ef-item>
+      <ef-overlay-menu id="menu1-four" transition-style="slide" aria-labelledby="item-for-four">
+        <ef-item role="presentation" type="header">Nested Block</ef-item>
+        <ef-item id="item-for-four-zero" role="menuitem" aria-haspopup="true" aria-expanded="false" for="menu1-four-zero">Four.Zero</ef-item>
+        <ef-item role="menuitem" icon="flame" value="Four One">Four.One</ef-item>
+        <ef-item role="menuitem" value="Four Two">Four.Two</ef-item>
+        <ef-item id="item-for-four-three" role="menuitem" aria-haspopup="true" aria-expanded="false" for="menu1-four-three">Four.Three</ef-item>
       </ef-overlay-menu>
 
-      <ef-overlay-menu id="menu1-four-zero" transition-style="slide">
-        <ef-item value="Four Zero One">Four.Zero.One</ef-item>
-        <ef-item value="Four Zero Two">Four.Zero.Two</ef-item>
-        <ef-item value="Four Zero Three">Four.Zero.Three</ef-item>
+      <ef-overlay-menu id="menu1-four-zero" transition-style="slide" aria-labelledby="item-for-four-zero">
+        <ef-item role="menuitem" value="Four Zero One">Four.Zero.One</ef-item>
+        <ef-item role="menuitem" value="Four Zero Two">Four.Zero.Two</ef-item>
+        <ef-item role="menuitem" value="Four Zero Three">Four.Zero.Three</ef-item>
       </ef-overlay-menu>
 
-      <ef-overlay-menu id="menu1-four-three" transition-style="slide">
-        <ef-item value="Four Three One">Four.Three.One</ef-item>
-        <ef-item value="Four Three Two">Four.Three.Two</ef-item>
-        <ef-item value="Four Three Three">Four.Three.Three</ef-item>
+      <ef-overlay-menu id="menu1-four-three" transition-style="slide" aria-labelledby="item-for-four-three">
+        <ef-item role="menuitem" value="Four Three One">Four.Three.One</ef-item>
+        <ef-item role="menuitem" value="Four Three Two">Four.Three.Two</ef-item>
+        <ef-item role="menuitem" value="Four Three Three">Four.Three.Three</ef-item>
       </ef-overlay-menu>
 
-      <ef-overlay-menu id="menu1-six" transition-style="slide">
-        <ef-item value="Six One">Six.One</ef-item>
-        <ef-item value="Six Two">Six.Two</ef-item>
-        <ef-item value="Six Three" for="menu1-six-three">Six.Three</ef-item>
+      <ef-overlay-menu id="menu1-six" transition-style="slide" aria-labelledby="item-for-six">
+        <ef-item role="menuitem" value="Six One">Six.One</ef-item>
+        <ef-item role="menuitem" value="Six Two">Six.Two</ef-item>
+        <ef-item id="item-for-six-three" role="menuitem" aria-haspopup="true" aria-expanded="false" for="menu1-six-three">Six.Three</ef-item>
       </ef-overlay-menu>
 
-      <ef-overlay-menu id="menu1-six-three" transition-style="slide">
-        <ef-item value="Six Three One">Six.Three.One</ef-item>
-        <ef-item value="Six Three Two">Six.Three.Two</ef-item>
-        <ef-item value="Six Three Three">Six.Three.Three</ef-item>
+      <ef-overlay-menu id="menu1-six-three" transition-style="slide" aria-labelledby="item-for-six-three">
+        <ef-item role="menuitem" value="Six Three One">Six.Three.One</ef-item>
+        <ef-item role="menuitem" value="Six Three Two">Six.Three.Two</ef-item>
+        <ef-item role="menuitem" value="Six Three Three">Six.Three.Three</ef-item>
       </ef-overlay-menu>
 
-      <ef-overlay-menu id="menu1-seven">
-        <ef-item value="Seven One">Seven.One</ef-item>
+      <ef-overlay-menu id="menu1-seven" aria-labelledby="item-for-seven">
+        <ef-item role="menuitem" value="Seven One">Seven.One</ef-item>
       </ef-overlay-menu>
 
       <script>
@@ -89,49 +90,56 @@
 
           openMenuForButton(menu, button);
 
+          menu.addEventListener('opened-changed', (event) => {
+            button.setAttribute('aria-expanded', 'false');
+          });
+
           menuController.addEventListener('item-trigger', ({ detail: { value } }) => {
-            button.innerText = value;
-            menu.opened = false;
+            if (value) {
+              button.innerText = value;
+              button.setAttribute('aria-expanded', 'false');
+              menu.opened = false;
+            }
           });
         })();
       </script>
     </demo-block>
 
     <demo-block header="Tab Bar Menu" layout="normal" tags="tab">
-      <ef-button-bar>
-        <ef-button id="tab1" icon="down">Tab 1</ef-button>
-        <ef-button id="tab2" icon="down">Tab 2</ef-button>
-        <ef-button id="tab3" icon="down">Tab 3</ef-button>
+      <ef-button-bar role="menubar">
+        <ef-button id="tab1" icon="down" aria-haspopup="true" aria-controls="menu-tab1" aria-expanded="false">Tab 1</ef-button>
+        <ef-button id="tab2" icon="down" aria-haspopup="true" aria-controls="menu-tab2" aria-expanded="false">Tab 2</ef-button>
+        <ef-button id="tab3" icon="down" aria-haspopup="true" aria-controls="menu-tab3" aria-expanded="false">Tab 3</ef-button>
       </ef-button-bar>
-      <ef-overlay-menu id="menu-tab1" transition-style="slide">
-        <ef-item value="Tab 1 One">Tab 1 One</ef-item>
-        <ef-item value="Tab 1 Two">Tab 1 Two</ef-item>
-        <ef-item value="Tab 1 Three" for="menu-tab1-1">Tab 1 Three</ef-item>
+      <ef-overlay-menu id="menu-tab1" transition-style="slide" aria-labelledby="tab1">
+        <ef-item role="menuitem" value="Tab 1 One">Tab 1 One</ef-item>
+        <ef-item role="menuitem" value="Tab 1 Two">Tab 1 Two</ef-item>
+        <ef-item id="item-for-tab1" role="menuitem" aria-haspopup="true" aria-expanded="false" for="menu-tab1-1">Tab 1 Three</ef-item>
       </ef-overlay-menu>
-      <ef-overlay-menu id="menu-tab1-1" transition-style="slide">
-        <ef-item value="Tab 1 Three - One">Tab 1 Three - One</ef-item>
-        <ef-item value="Tab 1 Three - Two">Tab 1 Three - Two</ef-item>
-        <ef-item value="Tab 1 Three - Three">Tab 1 Three - Three</ef-item>
+      <ef-overlay-menu id="menu-tab1-1" transition-style="slide" aria-labelledby="item-for-tab1">
+        <ef-item role="menuitem" value="Tab 1 Three - One">Tab 1 Three - One</ef-item>
+        <ef-item role="menuitem" value="Tab 1 Three - Two">Tab 1 Three - Two</ef-item>
+        <ef-item role="menuitem" value="Tab 1 Three - Three">Tab 1 Three - Three</ef-item>
       </ef-overlay-menu>
-      <ef-overlay-menu id="menu-tab2" transition-style="slide">
-        <ef-item value="Tab 2 One">Tab 2 One</ef-item>
-        <ef-item value="Tab 2 Two" for="menu-tab2-1">Tab 2 Two</ef-item>
-        <ef-item value="Tab 2 Three">Tab 2 Three</ef-item>
+      <ef-overlay-menu id="menu-tab2" transition-style="slide" aria-labelledby="tab2">
+        <ef-item role="menuitem" value="Tab 2 One">Tab 2 One</ef-item>
+        <ef-item id="item-for-tab2" role="menuitem" aria-haspopup="true" aria-expanded="false" for="menu-tab2-1">Tab 2 Two</ef-item>
+        <ef-item role="menuitem" value="Tab 2 Three">Tab 2 Three</ef-item>
       </ef-overlay-menu>
-      <ef-overlay-menu id="menu-tab2-1" transition-style="slide">
-        <ef-item value="Tab 2 Two - One">Tab 2 Two - One</ef-item>
-        <ef-item value="Tab 2 Two - Two">Tab 2 Two - Two</ef-item>
-        <ef-item value="Tab 2 Two - Three">Tab 2 Two - Three</ef-item>
+      <ef-overlay-menu id="menu-tab2-1" transition-style="slide" aria-labelledby="item-for-tab2">
+        <ef-item role="menuitem" value="Tab 2 Two - One">Tab 2 Two - One</ef-item>
+        <ef-item role="menuitem" value="Tab 2 Two - Two">Tab 2 Two - Two</ef-item>
+        <ef-item role="menuitem" value="Tab 2 Two - Three">Tab 2 Two - Three</ef-item>
       </ef-overlay-menu>
-      <ef-overlay-menu id="menu-tab3" transition-style="slide">
-        <ef-item value="Tab 3 One" for="menu-tab3-1">Tab 3 One</ef-item>
-        <ef-item value="Tab 3 Two">Tab 3 Two</ef-item>
-        <ef-item value="Tab 3 Three">Tab 3 Three</ef-item>
+      <ef-overlay-menu id="menu-tab3" transition-style="slide" aria-labelledby="tab3">
+        <ef-item id="item-for-tab3" role="menuitem" aria-haspopup="true" aria-expanded="false" for="menu-tab3-1">Tab 3 One</ef-item>
+        <ef-item role="menuitem" value="Tab 3 Two">Tab 3 Two</ef-item>
+        <ef-item role="menuitem" value="Tab 3 Three">Tab 3 Three</ef-item>
       </ef-overlay-menu>
-      <ef-overlay-menu id="menu-tab3-1" transition-style="slide">
-        <ef-item value="Tab 3 One - One">Tab 3 One - One</ef-item>
-        <ef-item value="Tab 3 One - Two">Tab 3 One - Two</ef-item>
-        <ef-item value="Tab 3 One - Three">Tab 3 One - Three</ef-item>
+      <ef-overlay-menu id="menu-tab3-1" transition-style="slide" aria-labelledby="item-for-tab3">
+        <ef-item role="menuitem" value="Tab 3 One - One">Tab 3 One - One</ef-item>
+        <ef-item role="menuitem" value="Tab 3 One - Two">Tab 3 One - Two</ef-item>
+        <ef-item role="menuitem" value="Tab 3 One - Three">Tab 3 One - Three</ef-item>
       </ef-overlay-menu>
       <script>
         (function () {
@@ -154,6 +162,7 @@
             menu.positionTarget = button;
             menu.addEventListener('opened-changed', ({ detail: { value } }) => {
               button.cta = value;
+              button.setAttribute('aria-expanded', 'false');
             });
             const triggerOpen = (event) => {
               if (menu.fullyOpened || menu.transitioning) {
@@ -171,6 +180,7 @@
               if (!menus.some(menu => menu.opened)) {
                 return;
               }
+              button.setAttribute('aria-expanded', 'true');
               triggerOpen();
             });
 
@@ -201,11 +211,14 @@
               menu = item.parentElement;
               menuIdx = menus.indexOf(menu);
             }
-
+            if (!value) {
+              return;
+            }
             if (buttons[menuIdx]) {
               buttons[menuIdx].innerText = value;
+              buttons[menuIdx].setAttribute('aria-expanded', 'false');
             }
-
+            
             menus.forEach(menu => {
               menu.opened = false;
             });
@@ -219,8 +232,8 @@
     </demo-block>
 
     <demo-block header="Interactive Menu" layout="normal" tags="interactive">
-      <ef-button id="button2">Interactive Menu</ef-button>
-      <ef-overlay-menu id="menu2">
+      <ef-button id="button2" aria-haspopup="true" aria-controls="menu2" aria-expanded="false">Interactive Menu</ef-button>
+      <ef-overlay-menu id="menu2" aria-labelledby="button2">
         <input type="text" id="menu2-search" persistent style="width: 100%;">
         <ef-item value="load" icon="download" persistent>Load Menu Content</ef-item>
         <ef-item value="remove" icon="cross" disabled persistent>Remove Menu Content</ef-item>
@@ -309,7 +322,7 @@
               menu.querySelector('ef-item[value=remove]').disabled = true;
               menu.querySelector('ef-item[value=load]').disabled = false;
               [...menu.children].forEach(item => {
-                if (item.getAttribute('persistent') == null) {
+                if (item.getAttribute('persistent') === null) {
                   menu.removeChild(item);
                   if (item.menu) {
                     item.menu.parentElement.removeChild(item.menu);
@@ -325,21 +338,21 @@
     </demo-block>
 
     <demo-block header="Selection Menu" layout="normal" tags="selection" id="selection-demo">
-      <ef-button id="button3">Selection Menu</ef-button>
-      <ef-overlay-menu id="menu3" with-backdrop>
-        <ef-item value="option1" label="Option 1"></ef-item>
-        <ef-item value="option2" label="Option 2" selected></ef-item>
-        <ef-item value="option3" label="Option 3"></ef-item>
-        <ef-item value="option4" label="Option 4" for="menu4-option-4"></ef-item>
+      <ef-button id="button3" aria-haspopup="true" aria-controls="menu3" aria-expanded="false">Selection Menu</ef-button>
+      <ef-overlay-menu id="menu3" with-backdrop aria-labelledby="button3">
+        <ef-item role="menuitem" value="option1" label="Option 1"></ef-item>
+        <ef-item role="menuitem" value="option2" label="Option 2" selected></ef-item>
+        <ef-item role="menuitem" value="option3" label="Option 3"></ef-item>
+        <ef-item id="item-for-option4" role="menuitem" aria-haspopup="true" aria-expanded="false" value="option4" label="Option 4" for="menu4-option-4"></ef-item>
       </ef-overlay-menu>
-      <ef-overlay-menu id="menu4-option-4">
-        <ef-item value="option41" label="Option 4.1">Four.One</ef-item>
-        <ef-item value="option42" label="Option 4.2" for="menu4-option-4-option-2"></ef-item>
-        <ef-item value="option43" label="Option 4.3">Four.Three</ef-item>
+      <ef-overlay-menu id="menu4-option-4" aria-labelledby="item-for-option4">
+        <ef-item role="menuitem" value="option41" label="Option 4.1">Four.One</ef-item>
+        <ef-item id="item-for-option42" role="menuitem" aria-haspopup="true" aria-expanded="false" value="option42" label="Option 4.2" for="menu4-option-4-option-2"></ef-item>
+        <ef-item role="menuitem" value="option43" label="Option 4.3">Four.Three</ef-item>
       </ef-overlay-menu>
-      <ef-overlay-menu id="menu4-option-4-option-2">
-        <ef-item value="option421" label="Option 4.2.1">Four.Two.One</ef-item>
-        <ef-item value="option422" label="Option 4.2.2">Four.Two.two</ef-item>
+      <ef-overlay-menu id="menu4-option-4-option-2" aria-labelledby="item-for-option42">
+        <ef-item role="menuitem" value="option421" label="Option 4.2.1">Four.Two.One</ef-item>
+        <ef-item role="menuitem" value="option422" label="Option 4.2.2">Four.Two.two</ef-item>
       </ef-overlay-menu>
 
       <script>
@@ -362,6 +375,10 @@
             return descendants;
           };
 
+          menu.addEventListener('opened-changed', (event) => {
+            button.setAttribute('aria-expanded', 'false');
+          });
+
           menuController.addEventListener('item-trigger', ({ target }) => {
             const selectedPath = getItemDescendants(target);
             menu.values = selectedPath.map(item => item.value);
@@ -371,8 +388,8 @@
     </demo-block>
 
     <demo-block header="From Data" layout="normal" tags="default,data">
-      <ef-button id="button4">From Data</ef-button>
-      <ef-overlay-menu id="menu4" with-backdrop></ef-overlay-menu>
+      <ef-button id="button4" aria-haspopup="true" aria-controls="menu4" aria-expanded="false">From Data</ef-button>
+      <ef-overlay-menu id="menu4" with-backdrop aria-labelledby="button4"></ef-overlay-menu>
       <script>
         (function () {
           const button = document.getElementById('button4');
@@ -405,13 +422,16 @@
             menu.values = values;
             return;
           });
+          menu.addEventListener('opened-changed', (event) => {
+            button.setAttribute('aria-expanded', 'false');
+          });
         })();
       </script>
     </demo-block>
 
     <demo-block header="From Collection Composer" layout="normal" tags="collection composer">
-      <ef-button id="button5">From Collection Composer</ef-button>
-      <ef-overlay-menu id="menu5" with-backdrop></ef-overlay-menu>
+      <ef-button id="button5" aria-haspopup="true" aria-controls="menu5" aria-expanded="false">From Collection Composer</ef-button>
+      <ef-overlay-menu id="menu5" with-backdrop aria-labelledby="button5"></ef-overlay-menu>
       <script type="module">
         import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
@@ -423,6 +443,10 @@
           menu.data = composer;
 
           openMenuForButton(menu, button);
+
+          menu.addEventListener('opened-changed', (event) => {
+            button.setAttribute('aria-expanded', 'false');
+          });
 
           menuController.addEventListener('item-trigger', ({ detail: { value } }) => {
             composer.queryItemsByPropertyValue('selected', true, Infinity).map(item => {
@@ -441,54 +465,54 @@
     </demo-block>
 
     <demo-block header="Compact Menu" layout="normal" tags="compact">
-      <ef-button id="button7">Compact Menu</ef-button>
-      <ef-overlay-menu id="menu7" compact>
-        <ef-item type="header">Block One</ef-item>
-        <ef-item icon="copy" value="One">One</ef-item>
-        <ef-item icon="cross" value="Two" style="display: none">Two</ef-item>
-        <ef-item type="divider"></ef-item>
-        <ef-item icon="directory" value="Three">Three</ef-item>
-        <ef-item icon="dislike-empty" value="Four" for="menu7-four">Four</ef-item>
-        <ef-item disabled value="Five">Five</ef-item>
-        <ef-item type="divider"></ef-item>
-        <ef-item value="Six" for="menu7-six">Six</ef-item>
-        <ef-item value="Seven" for="menu7-seven" disabled>Seven</ef-item>
+      <ef-button id="button7" aria-haspopup="true" aria-controls="menu7" aria-expanded="false">Compact Menu</ef-button>
+      <ef-overlay-menu id="menu7" compact aria-labelledby="button7">
+        <ef-item role="presentation" type="header">Block One</ef-item>
+        <ef-item role="menuitem" icon="copy" value="One">One</ef-item>
+        <ef-item aria-hidden="true" role="menuitem" icon="cross" value="Two" style="display: none">Two</ef-item>
+        <ef-item aria-hidden="true" type="divider"></ef-item>
+        <ef-item role="menuitem" icon="directory" value="Three">Three</ef-item>
+        <ef-item id="item-menu74" role="menuitem" aria-haspopup="true" aria-expanded="false" icon="dislike-empty" value="Four" for="menu7-four">Four</ef-item>
+        <ef-item role="menuitem" disabled value="Five">Five</ef-item>
+        <ef-item aria-hidden="true" type="divider"></ef-item>
+        <ef-item id="item-menu76" role="menuitem" aria-haspopup="true" aria-expanded="false" value="Six" for="menu7-six">Six</ef-item>
+        <ef-item id="item-menu77" role="menuitem" aria-haspopup="true" aria-expanded="false" value="Seven" for="menu7-seven" disabled>Seven</ef-item>
       </ef-overlay-menu>
 
-      <ef-overlay-menu id="menu7-four" compact>
-        <ef-item type="header">Nested Block</ef-item>
-        <ef-item value="Four Zero" for="menu7-four-zero">Four.Zero</ef-item>
-        <ef-item icon="flame" value="Four One">Four.One</ef-item>
-        <ef-item value="Four Two">Four.Two</ef-item>
-        <ef-item value="Four Three" for="menu7-four-three">Four.Three</ef-item>
+      <ef-overlay-menu id="menu7-four" compact aria-labelledby="item-menu74">
+        <ef-item role="presentation" type="header">Nested Block</ef-item>
+        <ef-item id="item-menu740" role="menuitem" aria-haspopup="true" aria-expanded="false" value="Four Zero" for="menu7-four-zero">Four.Zero</ef-item>
+        <ef-item role="menuitem" icon="flame" value="Four One">Four.One</ef-item>
+        <ef-item role="menuitem" value="Four Two">Four.Two</ef-item>
+        <ef-item id="item-menu730" role="menuitem" aria-haspopup="true" aria-expanded="false" value="Four Three" for="menu7-four-three">Four.Three</ef-item>
       </ef-overlay-menu>
 
-      <ef-overlay-menu id="menu7-four-zero" compact>
-        <ef-item value="Four Zero One">Four.Zero.One</ef-item>
-        <ef-item value="Four Zero Two">Four.Zero.Two</ef-item>
-        <ef-item value="Four Zero Three">Four.Zero.Three</ef-item>
+      <ef-overlay-menu id="menu7-four-zero" compact aria-labelledby="item-menu740">
+        <ef-item role="menuitem" value="Four Zero One">Four.Zero.One</ef-item>
+        <ef-item role="menuitem" value="Four Zero Two">Four.Zero.Two</ef-item>
+        <ef-item role="menuitem" value="Four Zero Three">Four.Zero.Three</ef-item>
       </ef-overlay-menu>
 
-      <ef-overlay-menu id="menu7-four-three" compact>
-        <ef-item value="Four Three One">Four.Three.One</ef-item>
-        <ef-item value="Four Three Two">Four.Three.Two</ef-item>
-        <ef-item value="Four Three Three">Four.Three.Three</ef-item>
+      <ef-overlay-menu id="menu7-four-three" compact aria-labelledby="item-menu730">
+        <ef-item role="menuitem" value="Four Three One">Four.Three.One</ef-item>
+        <ef-item role="menuitem" value="Four Three Two">Four.Three.Two</ef-item>
+        <ef-item role="menuitem" value="Four Three Three">Four.Three.Three</ef-item>
       </ef-overlay-menu>
 
-      <ef-overlay-menu id="menu7-six" compact>
-          <ef-item value="Six One">Six.One</ef-item>
-          <ef-item value="Six Two">Six.Two</ef-item>
-          <ef-item value="Six Three" for="menu7-six-three">Six.Three</ef-item>
+      <ef-overlay-menu id="menu7-six" compact aria-labelledby="item-menu76">
+          <ef-item role="menuitem" value="Six One">Six.One</ef-item>
+          <ef-item role="menuitem" value="Six Two">Six.Two</ef-item>
+          <ef-item id="item-menu763" role="menuitem" aria-haspopup="true" aria-expanded="false" value="Six Three" for="menu7-six-three">Six.Three</ef-item>
       </ef-overlay-menu>
 
-      <ef-overlay-menu id="menu7-six-three" compact>
-        <ef-item value="Six Three One">Six.Three.One</ef-item>
-        <ef-item value="Six Three Two">Six.Three.Two</ef-item>
-        <ef-item value="Six Three Three">Six.Three.Three</ef-item>
+      <ef-overlay-menu id="menu7-six-three" compact aria-labelledby="item-menu763">
+        <ef-item role="menuitem" value="Six Three One">Six.Three.One</ef-item>
+        <ef-item role="menuitem" value="Six Three Two">Six.Three.Two</ef-item>
+        <ef-item role="menuitem" value="Six Three Three">Six.Three.Three</ef-item>
       </ef-overlay-menu>
 
-      <ef-overlay-menu id="menu7-seven" compact>
-        <ef-item value="Seven One">Seven.One</ef-item>
+      <ef-overlay-menu id="menu7-seven" compact aria-labelledby="item-menu77">
+        <ef-item role="menuitem" value="Seven One">Seven.One</ef-item>
       </ef-overlay-menu>
 
       <script>
@@ -497,6 +521,10 @@
           const menu = document.getElementById('menu7');
 
           openMenuForButton(menu, button);
+
+          menu.addEventListener('opened-changed', (event) => {
+            button.setAttribute('aria-expanded', 'false');
+          });
         })();
       </script>
     </demo-block>
