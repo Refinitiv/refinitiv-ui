@@ -65,7 +65,7 @@
       icon="right"
       id="next"
       role="button"
-      tabindex="0"
+      tabindex="-1"
       textpos="after"
     >
     </ef-button>
