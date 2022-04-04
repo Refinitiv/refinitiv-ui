@@ -11,6 +11,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
+import { getElementScope } from '@refinitiv-ui/utils/element.js';
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 import type { ItemData } from '../item';
 import type { ListData } from './helpers/types';
@@ -455,6 +456,12 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     const el = this.findItemElementFromTarget(event.target);
     const item = el && this.itemFromElement(el);
     if (item) {
+
+      const root = getElementScope(this) ? getElementScope(this) : false;
+      if (event.target !== this && (root as Document).activeElement !== this) {
+        this.focus();
+      }
+
       this.clearHighlighted();
       if (this.selectItem(item)) {
         this.highlightItem(item);
