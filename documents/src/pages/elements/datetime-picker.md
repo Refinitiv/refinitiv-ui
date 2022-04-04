@@ -348,7 +348,7 @@ section {
 
 `ef-datetime-picker` provides input field for users to entering date string value or date with time value. Users can open popup with calendar element and use keyboard navigation to select the date from UI.
 
-`ef-datetime-picker` is assigned with role and implemented keyboard navigation. However, you must ensure that the element has associated label by using`aria-label` or `aria-labelledby`.
+`ef-datetime-picker` is implemented keyboard navigation for users to navigate on UI. You must ensure that the element has associated label by using `aria-label` or `aria-labelledby`.
 
 ```html
 <ef-datetime-picker
