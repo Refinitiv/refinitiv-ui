@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "5.12.2",
+  "version": "6.0.0-next.0",
   "description": "Element Framework Elements",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -15,7 +15,9 @@
   },
   "typesVersions": {
     "*": {
-      "*.js": ["lib/*.d.ts"]
+      "*.js": [
+        "lib/*.d.ts"
+      ]
     }
   },
   "exports": {
@@ -98,6 +100,11 @@
     "./counter/themes/halo/light": "./lib/counter/themes/halo/light/index.js",
     "./counter/themes/solar/charcoal": "./lib/counter/themes/solar/charcoal/index.js",
     "./counter/themes/solar/pearl": "./lib/counter/themes/solar/pearl/index.js",
+    "./datetime-field": "./lib/datetime-field/index.js",
+    "./datetime-field/themes/halo/dark": "./lib/datetime-field/themes/halo/dark/index.js",
+    "./datetime-field/themes/halo/light": "./lib/datetime-field/themes/halo/light/index.js",
+    "./datetime-field/themes/solar/charcoal": "./lib/datetime-field/themes/solar/charcoal/index.js",
+    "./datetime-field/themes/solar/pearl": "./lib/datetime-field/themes/solar/pearl/index.js",
     "./datetime-picker": "./lib/datetime-picker/index.js",
     "./datetime-picker/themes/halo/dark": "./lib/datetime-picker/themes/halo/dark/index.js",
     "./datetime-picker/themes/halo/light": "./lib/datetime-picker/themes/halo/light/index.js",
@@ -320,8 +327,8 @@
   },
   "dependencies": {
     "@refinitiv-ui/browser-sparkline": "1.1.7",
-    "@refinitiv-ui/halo-theme": "^5.5.0",
-    "@refinitiv-ui/solar-theme": "^5.7.0",
+    "@refinitiv-ui/halo-theme": "^6.0.0-next.0",
+    "@refinitiv-ui/solar-theme": "^6.0.0-next.0",
     "@types/chart.js": "^2.9.31",
     "chart.js": "~2.9.4",
     "d3-interpolate": "^3.0.1",
@@ -330,21 +337,21 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/demo-block": "^5.1.9",
-    "@refinitiv-ui/test-helpers": "^5.1.2",
-    "@types/d3-interpolate": "^3.0.1",
-    "@refinitiv-ui/core": "^5.4.2",
-    "@refinitiv-ui/i18n": "^5.2.6",
-    "@refinitiv-ui/phrasebook": "^5.4.1",
-    "@refinitiv-ui/translate": "^5.3.3",
-    "@refinitiv-ui/utils": "^5.1.2"
+    "@refinitiv-ui/core": "^6.0.0-next.0",
+    "@refinitiv-ui/demo-block": "^6.0.0-next.0",
+    "@refinitiv-ui/i18n": "^6.0.0-next.0",
+    "@refinitiv-ui/phrasebook": "^6.0.0-next.0",
+    "@refinitiv-ui/test-helpers": "^6.0.0-next.0",
+    "@refinitiv-ui/translate": "^6.0.0-next.0",
+    "@refinitiv-ui/utils": "^6.0.0-next.0",
+    "@types/d3-interpolate": "^3.0.1"
   },
   "peerDependencies": {
-    "@refinitiv-ui/core": "^5.4.2",
-    "@refinitiv-ui/i18n": "^5.2.6",
-    "@refinitiv-ui/phrasebook": "^5.4.1",
-    "@refinitiv-ui/translate": "^5.3.3",
-    "@refinitiv-ui/utils": "^5.1.2"
+    "@refinitiv-ui/core": "^6.0.0-next.0",
+    "@refinitiv-ui/i18n": "^6.0.0-next.0",
+    "@refinitiv-ui/phrasebook": "^6.0.0-next.0",
+    "@refinitiv-ui/translate": "^6.0.0-next.0",
+    "@refinitiv-ui/utils": "^6.0.0-next.0"
   },
   "publishConfig": {
     "access": "public"
