@@ -330,6 +330,20 @@ describe('overlay-menu/Interaction', () => {
         items = [...el.querySelectorAll('ef-item[highlighted]')];
         expect(items.length).to.equal(1);
       });
+
+      it('Navigates with Home and End', async () => {
+        const el = await fixture(nestedMarkup);
+        let menus = el.querySelectorAll('ef-overlay-menu');
+        menus[0].opened = true;
+        await openedUpdated(el);
+        triggerKeyEvent(menus[0], 'End');
+        await elementUpdated(el);
+        const firstMenuItems = menus[0].items;
+        expect(el.querySelector('ef-item[highlighted]').label).to.equal(firstMenuItems[firstMenuItems.length - 1].label);
+        triggerKeyEvent(menus[0], 'Home');
+        await elementUpdated(el);
+        expect(el.querySelector('ef-item[highlighted]').label).to.equal(firstMenuItems[0].label);
+      });
     });
   });
 });

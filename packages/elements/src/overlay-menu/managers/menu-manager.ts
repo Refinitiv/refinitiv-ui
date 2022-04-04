@@ -82,6 +82,7 @@ abstract class OpenedMenusManager {
       } = childMenu;
 
       if (this.setOpened(menu, false)) {
+        childMenu.item.setAttribute('aria-expanded', 'false');
         if (this._closeMenuFor(menu)) {
           this.crossMenu.delete(parent);
           return true;
