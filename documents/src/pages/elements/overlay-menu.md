@@ -655,7 +655,21 @@ The Overlay Menu’s trigger element is assigned `role="button"` and has propert
 * Button that trigger overlay menu should be assigned `aria-controls` with id of `ef-overlay-menu`
 * Button that trigger overlay menu should be assigned `aria-expanded="true"` when `ef-overlay-menu` is opened and `aria-expanded="false"` when it's closed
 * You can use `aria-labelledby` or `aria-label` to set accessible name for `ef-overlay-menu`
-* If you want hide divider item from screen reader, assign `aria-hidden="true"` to the item
+
+```html
+<ef-button
+  id="button1"
+  aria-haspopup="true"
+  aria-controls="menu1"
+  aria-expanded="false">
+  Menu Sample
+</ef-button>
+
+<ef-overlay-menu id="menu1" aria-labelledby="button1">
+</ef-overlay-menu>
+```
+
+If you create `ef-overlay-menu` by using `data`, the menu and its items will be assigned with aria attributes correctly following ARIA guideline. However, if you create `ef-overlay-menu` declaratively using light DOM, you will need to follow additional guidelines below.
 
 ```html
 <ef-button
