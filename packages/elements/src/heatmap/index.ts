@@ -20,7 +20,7 @@ import '../tooltip/index.js';
 import { Track } from './helpers/track.js';
 import { blend, brighten, darken, isLight, interpolate } from './helpers/color.js';
 import type { HeatmapCell, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
-import { getResponsiveFontSize, getMaximumTextWidth, getMaximumLabelTextWidth, MIN_FONT_SIZE } from './helpers/text.js';
+import { getResponsiveFontSize, getMaximumTextWidth, MIN_FONT_SIZE } from './helpers/text.js';
 
 const MAX_CELL_WIDTH_RATIO = 0.85;
 const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
@@ -1182,7 +1182,8 @@ export class Heatmap extends ResponsiveElement {
       element.className = 'y-axis-item';
 
       const span = document.createElement('span');
-      span.textContent = getMaximumLabelTextWidth(labels);
+      // Choose the longest label
+      span.textContent = labels.reduce((previousLabel, currentLabel) => previousLabel.length > currentLabel.length ? previousLabel : currentLabel);
 
       element.appendChild(span);
       element.style.margin = `${cellMargin}px`;
