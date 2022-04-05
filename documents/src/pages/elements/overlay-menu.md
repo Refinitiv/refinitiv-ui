@@ -649,4 +649,58 @@ The first part defines *position*. The optional second part defines *align*. For
 
 The Overlay Menu’s trigger element is assigned `role="button"` and has properties such as `aria-haspopup` and `aria-expanded`. The expanded menu has the `role="menu"` and the selectable items have `role="menuitem"`. Sub-menus can have properties such as `aria-haspopup` and `aria-expanded` to indicate to accessible users the presence of next-level menus. 
 
+`ef-overlay-menu` has assigned with role and implemented keyboard navigation. However, you will need to assign some attributes following [ARIA menu button practices](https://www.w3.org/TR/wai-aria-practices/examples/menu-button/menu-button-links.html#rps_label).
+
+* Button that trigger overlay menu should be assigned `aria-haspopup="true"`
+* Button that trigger overlay menu should be assigned `aria-controls` with id of `ef-overlay-menu`
+* Button that trigger overlay menu should be assigned `aria-expanded="true"` when `ef-overlay-menu` is opened and `aria-expanded="false"` when it's closed
+* You can use `aria-labelledby` or `aria-label` to set accessible name for `ef-overlay-menu`
+* If you want hide divider item from screen reader, assign `aria-hidden="true"` to the item
+
+```html
+<ef-button
+  id="button1"
+  aria-haspopup="true"
+  aria-controls="menu1"
+  aria-expanded="false">
+  Menu Sample
+</ef-button>
+
+<ef-overlay-menu id="menu1" aria-labelledby="button1">
+  <ef-item type="header">Section Header</ef-item>
+  <ef-item role="menuitem" icon="copy" value="copy">Copy</ef-item>
+  <ef-item aria-hidden="true" type="divider"></ef-item>
+  <ef-item role="menuitem" icon="directory" value="directory">Directory</ef-item>
+</ef-overlay-menu>
+```
+
+If sub menu has nested options, you need to set `aria-haspopup="true"` to the menu and set value to `aria-expanded` when the sub menu is opened or closed. The nested menu should be assigned `aria-labelledby` with id of its parent menu so the screen reader can read accessible name correctly.
+
+```html
+<ef-button
+  id="button1"
+  aria-haspopup="true"
+  aria-controls="menu1"
+  aria-expanded="false">
+  Menu Sample
+</ef-button>
+
+<ef-overlay-menu id="menu1" aria-labelledby="button1">
+  <ef-item role="menuitem" value="cmd1">Command 1</ef-item>
+  <ef-item
+    id="cmd2"
+    role="menuitem"
+    aria-haspopup="true"
+    aria-expanded="false"
+    for="cmd2-sub-menu">
+    Command 2
+  </ef-item>
+</ef-overlay-menu>
+
+<ef-overlay-menu id="cmd2-sub-menu" aria-labelledby="cmd2">
+  <ef-item role="menuitem" value="cmd2_1">Command 2.1</ef-item>
+  <ef-item role="menuitem" value="cmd2_2">Command 2.2</ef-item>
+</ef-overlay-menu>
+```
+
 ::a11y-end::
