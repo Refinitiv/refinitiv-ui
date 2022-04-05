@@ -1182,6 +1182,7 @@ export class Heatmap extends ResponsiveElement {
       element.className = 'y-axis-item';
 
       const span = document.createElement('span');
+      // Choose the longest label
       span.textContent = labels.reduce((previousLabel, currentLabel) => previousLabel.length > currentLabel.length ? previousLabel : currentLabel);
 
       element.appendChild(span);
