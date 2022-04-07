@@ -98,6 +98,7 @@
   <ef-overlay-menu
     part="menu-popup"
     position="bottom-end"
+    role="menu"
     tabindex="-1"
     with-shadow=""
   >
