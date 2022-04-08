@@ -233,17 +233,17 @@ describe('button/Button', () => {
       expect(el).not.to.be.accessible();
     });
 
-    it('', async () => {
-      const el = await fixture(`<ef-button aria-label="Tick Icon" icon="tick"></ef-button>`);
-      expect(el).to.be.accessible({
-        ignoredRules: ['aria-allowed-attr']
-      });
-    });
-
-    it('', async () => {
+    it('should pass a11y requirement when text content is provided', async () => {
       const el = await fixture(`<ef-button>TEST</ef-button>`);
       expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr', 'color-contrast']
+      });
+    });
+
+    it('should pass a11y requirement when aria-label is provided instead of text content', async () => {
+      const el = await fixture(`<ef-button aria-label="Tick Icon" icon="tick"></ef-button>`);
+      expect(el).to.be.accessible({
+        ignoredRules: ['aria-allowed-attr']
       });
     });
 
