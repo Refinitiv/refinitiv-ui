@@ -227,7 +227,7 @@ describe('button/Button', () => {
     });
   });
 
-  describe('Accessiblity', () => {
+  describe('Accessibility', () => {
     it('should not be accessible without label', async () => {
       const el = await fixture(`<ef-button></ef-button>`);
       expect(el).not.to.be.accessible();
