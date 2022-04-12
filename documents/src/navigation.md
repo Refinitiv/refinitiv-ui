@@ -3,12 +3,13 @@ type: nav
  -->
 
 + Getting Started
-  - [Installation](./start/installation)
+  * [Introduction](./)
+  - [Quick Start](./quick-start)
   - [Theming](./start/theming)
   - [Browser Support](./start/browser-support)
   - [Language Support](./start/languages)
 
-- Core Elements
+- Components
   + Actions
     - [Button](./elements/button)
     - [Button Bar](./elements/button-bar)
@@ -72,7 +73,7 @@ type: nav
     - [Icon](./elements/icon)
     - [Flag](./elements/flag)
 
-- Build an App
+- Using Components
   + Framework Integration
     - [Vanilla](./integrations/javascript)
     - [Angular](./integrations/angular)
@@ -86,6 +87,47 @@ type: nav
     - [Overview](./accessibility/overview)
   - [Internationalization (i18n)](./intl/internationalization)
   - [Theme Switching](./guides/theme-switching)
+
+- Building Components
+  * [Introduction](./creating-custom-elements)
+  * [Element types](./element-types)
+  * [Naming conventions](./naming-conventions)
+  * [Events](./events)
+  * [Reporting issues](./reporting-issues)
+  * [Localisation](./localisation)
+  * [Breaking changes](./breaking-changes)
+  * [Polyfilling](./polyfilling)
+  * [Perfect element checklist](./perfect-checklist)
+
+  - Utilities
+    * [State management](./utils/state-management)
+    * [Navigation Grid](./utils/navigation-grid)
+    * [Async tasks](./utils/async-tasks)
+    * [Date/Time](./utils/date-time)
+    * [Color](./utils/color)
+
+  - Theming
+    * [Component styles](./intro)
+    * [Part syntax](./theming/css-parts)
+    * [Origin theme](./intro)
+    * [Theme extension](./intro)
+    * [Compiling a theme](./intro)
+    * [CSS custom properties](./intro)
+
+  - Accessibility
+    * [Aria](./intro)
+    * [Focus & Navigation](./intro)
+
+  - Testing
+    * [Linting](./intro)
+    * [Unit tests](./intro)
+    * [Snapshot tests](./intro)
+
+  - Tools
+    * [Starter Templates](./tools/starter-templates)
+    * [Theme Compiler](./tools/theme-compiler)
+
+  * [Troubleshooting](./intro)
 
 - More Resources
   - [Data Collection Composer](./resources/collection-composer)

@@ -2,25 +2,26 @@
 type: page
 title: Element Framework v5
 description: Welcome to Element Framework
-location: ./start/installation
+location: ./quick-start
 layout: default
 -->
 
-# What is EF?
+# Quick Start
 
-Element Framework (EF) is reusable UI components which is part of [Refinitiv Workspace](https://www.refinitiv.com/en/products/refinitiv-workspace)'s SDK family. EF provides a collection of UI elements that includes theming capability with the Refinitiv's design system.
-
-It aims to create a consistent approach to building, reusing and sharing UI components in a modular way to reduce duplication of effort and increase efficiency.
-
-EF elements are built with web components which is a standard web technology that can be utilized across all browsers and can be used with any JavaScript frameworks.
+Using a build tool, like [Vite](https://vitejs.dev) or [Parcel](https://parceljs.org/) is recommended to get started quickly. These allow you to quickly prototype and serve your application with minimal to no configuration.
 
 ## Installation
-EF elements are published as one package. You are also require to install theme package as it will provide essential native styles for typography, theme css variables, etc.
+
+Components are published as a single package and provide all foundational building blocks required to build an application. Themes must be installed in order to initialize the components.
 
 ```bash
 npm install @refinitiv-ui/elements
 npm install @refinitiv-ui/halo-theme
 ```
+
+@> Halo is the official theme for Refinitiv products.
+
+## Usage
 
 Start using an element by importing the element and its theme in your app.
 
@@ -37,21 +38,14 @@ import '@refinitiv-ui/elements/panel/themes/halo/dark';
 
 Now, you can use the elements in your app.
 
-```css
-.content {
-  width:100%;
-  height: 500px;
-}
-```
-
 ```html
-<ef-panel class="content" spacing>
+<ef-panel spacing>
   <h2>Hello EF!</h2>
   <ef-button cta>OK</ef-button>
 </ef-panel>
 ```
 
-### Legacy Bundlers
+## Legacy Bundlers
 Many legacy bundlers, like Webpack 4, do not support [package exports](https://webpack.js.org/guides/package-exports/). Therefore, the developer needs to resolve paths manually.
 
 For WebPack 4 this can be done providing `alias` in `webpack.config.js`:
@@ -74,7 +68,7 @@ module.exports = {
 }
 ```
 
-### Font licensing
+## Font licensing
 ::proximanovawarning::
 
 ## Build your first app
