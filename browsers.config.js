@@ -4,7 +4,7 @@ const isWin = osType === 'Windows_NT';
 const isDarwin = osType === 'Darwin'; /* macOS, iOS, iPadOS */
 
 const defaultBrowsers = ['chrome', 'firefox'];
-const availableBrowsers = ['chrome', 'firefox', 'opera'];
+const availableBrowsers = ['chrome', 'firefox', 'opera', 'browserstack'];
 
 // do not perform browser check as it is slow and never required
 

@@ -70,6 +70,7 @@ const plugins = [
   require.resolve('karma-source-map-support'),
   require.resolve('karma-chrome-launcher'),
   require.resolve('karma-firefox-launcher'),
+  require.resolve('karma-browserstack-launcher'),
   require.resolve('karma-ie-launcher'),
 
   // fallback: resolve any karma- plugins
@@ -85,8 +86,11 @@ const baseConfig = {
   basePath: ROOT, // must be in the root in order for node_modules to be resolved correctly
   concurrency: 1, // Set the value to `1`, When Karma has a problem to connect a test browser on Windows.
   // IE 11 must add extra time to loading all scripts for testing concurrently.
-  browserNoActivityTimeout: 60000 * 2,
-  browserDisconnectTimeout: 60000 * 2,
+  captureTimeout: 3e5,
+  browserDisconnectTolerance: 0,
+  browserDisconnectTimeout: 3e5,
+  browserSocketTimeout: 1.2e5,
+  browserNoActivityTimeout: 3e5,
   files,
   esm: {
     coverage: argv.includeCoverage,
@@ -123,12 +127,15 @@ const baseConfig = {
   preprocessors,
   reporters,
   mochaReporter: {
-    showDiff: true
+    showDiff: true,
+    output: 'minimal'
   },
   restartOnFileChange: false,
   client: {
+    captureConsole: false,
     mocha: {
-      reporter: 'html'
+      reporter: 'html',
+      timeout: 3000, // Some test case run more than 2000ms on BrowserStack
     }
   },
   colors: true
@@ -195,6 +202,77 @@ if (argv.includeCoverage) {
   };
   reporters.push('coverage-istanbul');
   plugins.push(require.resolve('karma-coverage-istanbul-reporter'));
+}
+
+// Create BrowserStack config when browsers CLI `browsers` param has `browserstack`
+if (argv.browsers.includes('browserstack') && !argv.watch) {
+
+  // Remove `browserstack` browser which come from `argv.browsers` because it is the flag variable using for enable BrowserStack testing only.
+  baseConfig.browsers = baseConfig.browsers.filter((browser) => browser !== 'browserstack');
+
+  /**
+   * Create a custom launcher config for BrowserStack
+   * @param {string} name custom launcher name
+   * @param {string} os OS name
+   * @param {string} osVersion OS version
+   * @param {string} browser Browser for run test
+   * @param {string} browserVersion Browser version
+   * @returns Karma BrowserStack lancher config
+   */
+  const BrowserStackBrowser = function (name, os, osVersion = 'latest', browser, browserVersion = 'latest') {
+    return {
+      [name]: { base: 'BrowserStack', os: os, os_version: osVersion, browser: browser, browser_version: browserVersion }
+    }
+  };
+
+  /**
+   * Create a custom launcher config for BrowserStack mobile device
+   * @param {string} name custom launcher name
+   * @param {string} os OS name
+   * @param {string} osVersion OS version for run test
+   * @param {string} device mobile device name
+   * @returns Karma BrowserStack lancher config
+   */
+  const BrowserStackDevice = function (name, os, osVersion = 'latest', device) {
+    return {
+      [name]: { base: 'BrowserStack', os: os, os_version: osVersion, device: device, real_mobile: 'true'}
+    };
+  };
+
+  // Setting BowserStack config
+  baseConfig.browserStack = {
+    username: process.env.BROWSERSTACK_USERNAME,
+    accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
+    build: process.env.BROWSERSTACK_BUILD,
+    project: 'Element Framework',
+    name: packageName,
+    timeout: 1000,
+    retryLimit: 3
+  };
+  reporters.push('BrowserStack');
+
+  // Add BrowserStack launchers to config
+  baseConfig.customLaunchers = {
+    ...baseConfig.customLaunchers,
+    ...BrowserStackBrowser('bs_chrome', 'Windows', '11', 'Chrome'),
+    ...BrowserStackBrowser('bs_firefox', 'Windows', '11', 'Firefox'),
+    // ...BrowserStackBrowser('bs_chrome_previous', 'Windows', '10', 'Chrome', 'latest-1'),
+    // ...BrowserStackBrowser('bs_firefox_previous', 'Windows', '10', 'Firefox', 'latest-1'),
+    // ...BrowserStackBrowser('bs_safari', 'OS X', 'Monterey', 'Safari'),
+    // ...BrowserStackDevice('bs_iphone13', 'ios', '15', 'iPhone 13'),
+    // ...BrowserStackDevice('bs_google_pixel6', 'android', '12.0', 'Google Pixel 6')
+  };
+
+  // Add BrowserStack browsers to config
+  baseConfig.browsers = baseConfig.browsers.concat([
+    'bs_chrome',
+    'bs_firefox',
+    // 'bs_chrome_previous',
+    // 'bs_firefox_previous',
+    // 'bs_safari',
+    // 'bs_iphone13',
+    // 'bs_google_pixel6',
+  ]);
 }
 
 module.exports = async function (config) {

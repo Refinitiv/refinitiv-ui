@@ -34,6 +34,9 @@
     "@formatjs/intl-locale": "^2.4.41",
     "@formatjs/intl-numberformat": "^7.2.6",
     "@formatjs/intl-pluralrules": "^4.1.6",
+    "@nrwl/cli": "latest",
+    "@nrwl/tao": "latest",
+    "@nrwl/workspace": "latest",
     "@open-wc/karma-esm": "^4.0.0",
     "@web/dev-server": "^0.1.17",
     "@web/dev-server-legacy": "^0.1.7",
@@ -44,6 +47,7 @@
     "fast-glob": "^3.2.5",
     "husky": "^4.3.8",
     "karma": "^6.3.4",
+    "karma-browserstack-launcher": "^1.6.0",
     "karma-chrome-launcher": "^3.1.0",
     "karma-coverage-istanbul-reporter": "^3.0.3",
     "karma-edge-launcher": "^0.4.2",
@@ -62,9 +66,6 @@
     "typescript": "^4.6.2",
     "watch": "^1.0.2",
     "web-component-analyzer": "^1.1.6",
-    "yargs": "^17.0.1",
-    "@nrwl/workspace": "latest",
-    "@nrwl/cli": "latest",
-    "@nrwl/tao": "latest"
+    "yargs": "^17.0.1"
   }
 }
