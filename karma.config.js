@@ -256,6 +256,7 @@ if (argv.browsers.includes('browserstack') && !argv.watch) {
     ...baseConfig.customLaunchers,
     ...BrowserStackBrowser('bs_chrome', 'Windows', '11', 'Chrome'),
     ...BrowserStackBrowser('bs_firefox', 'Windows', '11', 'Firefox'),
+    ...BrowserStackBrowser('bs_edge', 'Windows', '11', 'Edge'),
     // ...BrowserStackBrowser('bs_chrome_previous', 'Windows', '10', 'Chrome', 'latest-1'),
     // ...BrowserStackBrowser('bs_firefox_previous', 'Windows', '10', 'Firefox', 'latest-1'),
     // ...BrowserStackBrowser('bs_safari', 'OS X', 'Monterey', 'Safari'),
@@ -267,6 +268,7 @@ if (argv.browsers.includes('browserstack') && !argv.watch) {
   baseConfig.browsers = baseConfig.browsers.concat([
     'bs_chrome',
     'bs_firefox',
+    'bs_edge',
     // 'bs_chrome_previous',
     // 'bs_firefox_previous',
     // 'bs_safari',
