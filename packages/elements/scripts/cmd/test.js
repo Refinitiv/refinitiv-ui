@@ -38,6 +38,13 @@ exports.builder = yargs => {
       choices: browsersConfig.availableBrowsers,
       description: 'Specific browser(s) to run units test'
     })
+    .option('output', {
+      type: 'string',
+      alias: 'o',
+      default: 'full',
+      choices: ['full', 'minimal'],
+      description: 'Print output to the console'
+    })
     .completion('completion', () => elements);
 };
 exports.handler = (argv) => {
@@ -59,6 +66,7 @@ exports.handler = (argv) => {
     watch && command.push('--watch');
     snapshots && command.push('--snapshots');
     browsers && command.push(`-b ${browsers}`);
+    command.push(`--output ${argv.output}`);
 
     execSync(command.join(' '), {
       stdio: 'inherit',

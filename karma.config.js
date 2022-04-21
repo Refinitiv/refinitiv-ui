@@ -39,6 +39,13 @@ const argv = yargs(hideBin(process.argv))
     choices: browsersConfig.availableBrowsers,
     description: 'Specific browser(s) to run units test'
   })
+  .option('output', {
+    type: 'string',
+    alias: 'o',
+    default: 'full',
+    choices: ['full', 'minimal'],
+    description: 'Print output to the console'
+  })
   .argv
 
 const packageName = argv.package || path.basename(process.cwd()); // if no package provided, try to guess
@@ -85,7 +92,7 @@ const baseConfig = {
   singleRun: !argv.watch,
   basePath: ROOT, // must be in the root in order for node_modules to be resolved correctly
   concurrency: 1, // Set the value to `1`, When Karma has a problem to connect a test browser on Windows.
-  // IE 11 must add extra time to loading all scripts for testing concurrently.
+  // IE 11 require extra time to loading all scripts when testing concurrently.
   captureTimeout: 3e5,
   browserDisconnectTolerance: 0,
   browserDisconnectTimeout: 3e5,
@@ -128,11 +135,11 @@ const baseConfig = {
   reporters,
   mochaReporter: {
     showDiff: true,
-    output: 'minimal'
+    output: argv.output
   },
   restartOnFileChange: false,
   client: {
-    captureConsole: false,
+    captureConsole: argv.output === 'minimal' ? false : true,
     mocha: {
       reporter: 'html',
       timeout: 3000, // Some test case run more than 2000ms on BrowserStack
