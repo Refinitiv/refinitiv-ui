@@ -55,7 +55,7 @@ class TwoFactorField extends FormFieldElement {
 
 ### Responsive Element
 
-The responsive element is designed to be used for more complex UI pieces, or, widgets, where the element must react to changes of its bounding dimensions - think data visualisations, charts and responsive widgets.
+The responsive element is designed to be used for more complex UI pieces, or widgets, where the element must react to changes to its bounding dimensions - think data visualisations, charts and responsive widgets.
 
 !> Due to the overheads of observing and reacting to dimensional changes, you should only use this element type for creating higher-level elements, where only a few would be rendered at a time.
 
@@ -85,7 +85,7 @@ These are configured by passing attributes to the element and are comparable to 
 <efx-element disabled value="1">Hello world</efx-element>
 ```
 
-If enabled, other elements can be slotted in as children to either be rendered, or, provide additional configuration.
+If configured, other elements can be slotted in as children to either be rendered, or, provide additional configuration.
 
 ```html
 <efx-element>
@@ -112,7 +112,7 @@ const data: DataItem[] = [
 dataElement.data = data;
 ```
 
-The `data` property must support being passed a data collection array, or, an instance of a [CollectionComposer](#). Passing an instance of a collection composer allows for the element state to be controlled externally by other elements. This is useful when the element is used inside of another component's shadow root.
+The `data` property must support being passed a data collection array and an instance of a [CollectionComposer](#). Passing an instance of a collection composer allows for the element state to be controlled externally by other elements. This is useful when the element is used inside of another component's shadow root.
 
 ### Config Elements
 

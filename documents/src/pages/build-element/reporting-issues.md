@@ -4,7 +4,7 @@ location: ./reporting-issues
 type: page
 -->
 
-::status-todo::
+::status-working::
 
 # Reporting Issues
 
@@ -28,7 +28,8 @@ An example is when trying to set at non-numeric value to the number field.
 ```
 ```js
 import 'https://cdn.skypack.dev/@refinitiv-ui/elements/number-field';
-import(`https://cdn.skypack.dev/@refinitiv-ui/elements/number-field/themes/halo/${document.documentElement.getAttribute('prefers-color-scheme')}`);
+import { halo } from '/theme-loader.js';
+halo('number-field');
 ```
 ::
 

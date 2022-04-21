@@ -27,4 +27,6 @@ Get up to speed quickly, by reading through the short tutorial.
 
 ## Element Templates
 
-Element Framework provides starter templates for creating different types of elements.
+EF provides starter templates for creating different types of elements.
+
+!> Coming soon!

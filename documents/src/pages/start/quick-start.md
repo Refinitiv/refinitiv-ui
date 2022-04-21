@@ -12,33 +12,33 @@ Using a build tool, like [Vite](https://vitejs.dev) or [Parcel](https://parceljs
 
 ## Installation
 
-Components are published as a single package and provide all foundational building blocks required to build an application. Themes must be installed in order to initialize the components.
+Components are published as a single package and provide all foundational building blocks required to build an application.
 
 ```bash
 npm install @refinitiv-ui/elements
+```
+
+Halo is the official theme for Refinitiv products. It's provided to correctly initialize your application with correct styling and typography.
+
+```bash
 npm install @refinitiv-ui/halo-theme
 ```
 
-@> Halo is the official theme for Refinitiv products.
-
 ## Usage
 
-Start using an element by importing the element and its theme in your app.
-
-```javascript
-// import elements
-import '@refinitiv-ui/elements/button';
-import '@refinitiv-ui/elements/panel';
-// import native styles for typography, css variables, etc.
-import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
-// import element's Halo dark theme
-import '@refinitiv-ui/elements/button/themes/halo/dark';
-import '@refinitiv-ui/elements/panel/themes/halo/dark';
-```
-
-Now, you can use the elements in your app.
+Start using components by importing their definitions and themes in your HTML file. Using `script[type=module]` allows us to import EF modules.
 
 ```html
+<script type="module">
+  // import elements
+  import '@refinitiv-ui/elements/button';
+  import '@refinitiv-ui/elements/panel';
+  // import styles for typography, body and other native inbuilt elements.
+  import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
+  // import element themes
+  import '@refinitiv-ui/elements/button/themes/halo/dark';
+  import '@refinitiv-ui/elements/panel/themes/halo/dark';
+</script>
 <ef-panel spacing>
   <h2>Hello EF!</h2>
   <ef-button cta>OK</ef-button>
@@ -46,9 +46,9 @@ Now, you can use the elements in your app.
 ```
 
 ## Legacy Bundlers
-Many legacy bundlers, like Webpack 4, do not support [package exports](https://webpack.js.org/guides/package-exports/). Therefore, the developer needs to resolve paths manually.
+Many legacy bundlers, like Webpack 4, do not support [package exports](https://webpack.js.org/guides/package-exports/). Therefore, paths will need to be resolved manually.
 
-For WebPack 4 this can be done providing `alias` in `webpack.config.js`:
+For WebPack 4 this can be achieved by providing `alias` in `webpack.config.js`:
 
 ```javascript
 const path = require('path');
@@ -69,6 +69,7 @@ module.exports = {
 ```
 
 ## Font licensing
+
 ::proximanovawarning::
 
 ## Build your first app

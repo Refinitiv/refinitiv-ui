@@ -8,7 +8,7 @@ layout: default
 # Browser Support
 EF elements are built as web components and are natively supported in Chrome, Firefox, Chromium Edge and Safari (including iOS). For browsers without native support, a small polyfill can be applied with little performance overhead.
 
-CSS styles of elements are prefixed to work across browsers. The elements are published with ES2015 syntax which is already supported in all modern browsers. You will need to transpile element code to ES5 only if you need to support IE11.
+CSS styles of elements are prefixed to work across browsers. The elements are published with ES2015 syntax which is already supported in all modern browsers. You will need to transpile to ES5, only if you need to support IE11.
 
 <table>
 <tbody><tr>
@@ -31,7 +31,7 @@ CSS styles of elements are prefixed to work across browsers. The elements are pu
 <small>* Requires polyfills</small>
 
 ## IE Support
-In order for EF elements to work on Internet Explorer 11 or browsers that do not support web components natively, a few polyfills are required. EF provides minimal set of polyfills.
+In order for EF elements to work on Internet Explorer 11 or browsers that do not support web components natively, a few polyfills are required. EF provides a minimal set of polyfills.
 
 Install polyfills that are curated by EF.
 

@@ -20,7 +20,7 @@ o> ![utils version](https://img.shields.io/npm/v/@refinitiv-ui/utils/%npm_dist_t
 
 Element Framework (EF) provides components and tooling, aligned with Refinitiv's design system, to help developers build applications faster and more efficiently.
 
-Components are built using technology native to the browser, allowing them to be lightweight and work with any web framework you choose.
+Components are built using technology native to the browser, allowing them to be lightweight and work with any web framework.
 
 ## Design System
 
@@ -39,17 +39,15 @@ Themes are designed to be extended, allowing styling changes to fit branding and
 
 @> Our next generation of custom theming is in development and will allow on-the-fly changes to component styles. This aligns with the removal of IE support later this year.
 
-::proximanovawarning::
-
 ## Contribute
 
 We greatly welcome contributions. You can help make the framework better by improving documentation, samples and projects.
 
-All source code and documentation is housed in our [monorepo](#).
+All source code and documentation is housed in our [monorepo](https://github.com/Refinitiv/refinitiv-ui).
 
 ## Feedback
 
-If you have and feedback, or just want to get in touch. [Please contact us](#).
+If you have and feedback, or just want to get in touch. [Please contact us](mailto:RefinitivUIDev@refinitiv.com).
 
 ---
 
