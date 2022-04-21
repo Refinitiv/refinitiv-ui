@@ -73,7 +73,7 @@ jobs:
 
       - name: Test
         # use `-b` instead of `--browsers` to prevent the CLI params conflict in some packages which have a command to call karma CLI directly.
-        run: npm run test:affected -- --base=$BASE_SHA -b browserstack
+        run: npm run test:affected -- --base=$BASE_SHA -b browserstack --output minimal
 
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master

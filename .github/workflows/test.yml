@@ -56,7 +56,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Test
-        run: npm run test:affected -- --base=$BASE_SHA --browsers chrome
+        run: npm run test:affected -- --base=$BASE_SHA --browsers chrome --output minimal
 
   firefox:
     needs: lint
@@ -72,4 +72,4 @@ jobs:
 
       - name: Test
         # TODO: `@refinitiv/core` has test coverage below threshold on Firefox
-        run: npm run test:affected -- --base=$BASE_SHA --browsers firefox --includeCoverage false
+        run: npm run test:affected -- --base=$BASE_SHA --browsers firefox --includeCoverage false --output minimal
