@@ -17,7 +17,38 @@ if (isDarwin) {
   availableBrowsers.push('safari');
 }
 
+ /**
+   * Create a custom launcher config for BrowserStack
+   * @param {string} name custom launcher name
+   * @param {string} os OS name
+   * @param {string} osVersion OS version
+   * @param {string} browser Browser for run test
+   * @param {string} browserVersion Browser version
+   * @returns Karma BrowserStack lancher config
+   */
+  const BrowserStackBrowser = function (name, os, osVersion, browser, browserVersion) {
+    return {
+      [name]: { base: 'BrowserStack', os: os, os_version: osVersion, browser: browser, browser_version: browserVersion }
+    }
+  };
+
+  /**
+   * Create a custom launcher config for BrowserStack mobile device
+   * @param {string} name custom launcher name
+   * @param {string} os OS name
+   * @param {string} osVersion OS version for run test
+   * @param {string} device mobile device name
+   * @returns Karma BrowserStack lancher config
+   */
+  const BrowserStackDevice = function (name, os, osVersion, device) {
+    return {
+      [name]: { base: 'BrowserStack', os: os, os_version: osVersion, device: device, real_mobile: 'true'}
+    };
+  };
+
 module.exports = {
   defaultBrowsers,
-  availableBrowsers
+  availableBrowsers,
+  BrowserStackBrowser,
+  BrowserStackDevice
 };

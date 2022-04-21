@@ -4,7 +4,7 @@ const { ROOT, PACKAGES } = require('./scripts/helpers');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 const { injectLitPolyfill } = require('./scripts/karma/plugins/inject-lit-polyfill')
-const browsersConfig = require('./browsers.config');
+const { defaultBrowsers, availableBrowsers, BrowserStackBrowser } = require('./browsers.config');
 
 const argv = yargs(hideBin(process.argv))
   .option('include-snapshots', {
@@ -35,8 +35,8 @@ const argv = yargs(hideBin(process.argv))
   .option('browsers', {
     type: 'array',
     alias: 'b',
-    default: browsersConfig.defaultBrowsers,
-    choices: browsersConfig.availableBrowsers,
+    default: defaultBrowsers,
+    choices: availableBrowsers,
     description: 'Specific browser(s) to run units test'
   })
   .option('output', {
@@ -217,34 +217,6 @@ if (argv.browsers.includes('browserstack') && !argv.watch) {
   // Remove `browserstack` browser which come from `argv.browsers` because it is the flag variable using for enable BrowserStack testing only.
   baseConfig.browsers = baseConfig.browsers.filter((browser) => browser !== 'browserstack');
 
-  /**
-   * Create a custom launcher config for BrowserStack
-   * @param {string} name custom launcher name
-   * @param {string} os OS name
-   * @param {string} osVersion OS version
-   * @param {string} browser Browser for run test
-   * @param {string} browserVersion Browser version
-   * @returns Karma BrowserStack lancher config
-   */
-  const BrowserStackBrowser = function (name, os, osVersion = 'latest', browser, browserVersion = 'latest') {
-    return {
-      [name]: { base: 'BrowserStack', os: os, os_version: osVersion, browser: browser, browser_version: browserVersion }
-    }
-  };
-
-  /**
-   * Create a custom launcher config for BrowserStack mobile device
-   * @param {string} name custom launcher name
-   * @param {string} os OS name
-   * @param {string} osVersion OS version for run test
-   * @param {string} device mobile device name
-   * @returns Karma BrowserStack lancher config
-   */
-  const BrowserStackDevice = function (name, os, osVersion = 'latest', device) {
-    return {
-      [name]: { base: 'BrowserStack', os: os, os_version: osVersion, device: device, real_mobile: 'true'}
-    };
-  };
 
   // Setting BowserStack config
   baseConfig.browserStack = {
@@ -261,9 +233,9 @@ if (argv.browsers.includes('browserstack') && !argv.watch) {
   // Add BrowserStack launchers to config
   baseConfig.customLaunchers = {
     ...baseConfig.customLaunchers,
-    ...BrowserStackBrowser('bs_chrome', 'Windows', '11', 'Chrome'),
-    ...BrowserStackBrowser('bs_firefox', 'Windows', '11', 'Firefox'),
-    ...BrowserStackBrowser('bs_edge', 'Windows', '11', 'Edge'),
+    ...BrowserStackBrowser('bs_chrome', 'Windows', '11', 'Chrome', 'latest'),
+    ...BrowserStackBrowser('bs_firefox', 'Windows', '11', 'Firefox', 'latest'),
+    ...BrowserStackBrowser('bs_edge', 'Windows', '11', 'Edge', 'latest'),
     // ...BrowserStackBrowser('bs_chrome_previous', 'Windows', '10', 'Chrome', 'latest-1'),
     // ...BrowserStackBrowser('bs_firefox_previous', 'Windows', '10', 'Firefox', 'latest-1'),
     // ...BrowserStackBrowser('bs_safari', 'OS X', 'Monterey', 'Safari'),
