@@ -1,11 +1,11 @@
 <!--
 title: Tutorial - Creating an element
-location: ./tutorial
+location: ./tutorials/element
 type: page
 layout: default
 -->
 
-::status-todo::
+::status-working::
 
 # Element Tutorial
 
@@ -98,12 +98,24 @@ For more information on composing templates, see [Lit](https://lit.dev/docs/comp
 
 ### Reactive Properties
 
+::todo::
+
 ### Styles & Theming
+
+::todo::
 
 ### Lifecycle
 
+::todo::
+
 ## Creating a Control Element
+
+::todo::
 
 ### Handling Focus
 
+::todo::
+
 ### Keyboard Navigation
+
+::todo::

@@ -5,11 +5,11 @@ type: page
 layout: default
 -->
 
-::status-working::
+::status-complete::
 
 # Async Tasks
 
-Lit Element is asynchronous by default and batches changes before rendering them to the DOM. This utility is used as an additional layer to schedule code execution at a specific point in time.
+[Lit](https://lit.dev), the underlying web component library, is asynchronous by default and batches changes before rendering them to the DOM. This utility is used as an additional layer to schedule code execution at a specific point in time.
 
 ## Task Runners
 
@@ -65,7 +65,8 @@ run();
 
 ### After Render Task
 
-::todo::
+After Render task runners schedule code to be executed after a frame has been rendered.
+
 
 ```typescript
 import { AfterRenderTaskRunner } from '@refinitiv-ui/utils';
@@ -73,7 +74,7 @@ import { AfterRenderTaskRunner } from '@refinitiv-ui/utils';
 const taskRunner = new AfterRenderTaskRunner();
 
 function run () {
-  requestAnimationFrame(() => setTimeout(() => console.log('Second')));
+  requestAnimationFrame(() => console.log('Second'));
   taskRunner.schedule(() => console.log('Third'));
   console.log('First')
 }
@@ -83,8 +84,8 @@ run();
 run();
 // First
 // Second
-// Third
 // Second
+// Third
 ```
 
 ### Timeout Task

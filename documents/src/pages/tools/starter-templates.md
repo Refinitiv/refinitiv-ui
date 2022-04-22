@@ -26,3 +26,5 @@ npm start
 *> Avoid using a name that is prefixed with `ef-`, such as `ef-element`. The `ef-` prefix is a reserved keyword used for [foundational elements](./elements/foundational). The `efx-` prefix is preferred when creating a community element.
 
 ## Project Structure
+
+::todo::

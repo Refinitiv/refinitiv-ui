@@ -1,11 +1,12 @@
 <!--
 type: page
-title: Theming
-location: ./start/theming
+title: Styling
+location: ./start/styling
 layout: default
 -->
 
-# Theming
+# Applying Styles
+
 Applications in Refinitiv Workspace should use the Halo Design System theme to be fully compliant with branding guidelines. EF elements require their themes to be loaded in order to initialize successfully.
 
 ## Halo Theme
@@ -21,6 +22,6 @@ import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
 
 This package also includes some native element styles such as heading, a (links), table, etc.
 
-o> Native element styles are _prepended_ to a document's head section. This allows application styles to provide overrides if required.
+o> Native element styles are **prepended** to a document's head section. This allows application styles to provide overrides if required.
 
 ::footer::

@@ -1,7 +1,7 @@
 <!--
 type: page
 title: Angular
-location: ./integrations/angular
+location: ./tutorials/angular
 layout: default
 -->
 

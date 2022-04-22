@@ -1,7 +1,7 @@
 <!--
 type: page
 title: Vue
-location: ./integrations/vue
+location: ./tutorials/vue
 layout: default
 -->
 

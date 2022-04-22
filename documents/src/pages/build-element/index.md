@@ -5,7 +5,7 @@ type: page
 layout: default
 -->
 
-::status-working::
+::status-complete::
 
 # Creating Custom Elements
 
@@ -23,10 +23,8 @@ Get started instantly with the Element Framework playground.
 
 Get up to speed quickly, by reading through the short tutorial.
 
-<a href="./tutorial" style="display:inline-block;padding:4px 12px;background:blue;color:white">Start Now</a>
+<a href="./tutorials/element" style="display:inline-block;padding:4px 12px;background:blue;color:white">Start Now</a>
 
 ## Element Templates
 
-EF provides starter templates for creating different types of elements.
-
-!> Coming soon!
+@> Coming soon!

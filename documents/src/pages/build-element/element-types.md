@@ -5,7 +5,7 @@ type: page
 layout: default
 -->
 
-::status-working::
+::status-complete::
 
 # Element Types
 
@@ -116,7 +116,9 @@ The `data` property must support being passed a data collection array and an ins
 
 ### Config Elements
 
-These are configured by passing a config object to the element's `config` property.
+These are configured by passing a config object to the element's `config` property. This allows for complex and detailed configuration objects to be passed and used in order to render and manipulate the element.
+
+As desirable as this option may sound, it's actually best to avoid this style of configuration and instead try to support setting features and data by using attributes, child elements and the `data` property. Reusable components should be simple and easy to understand and use - they're HTML elements after all.
 
 ```html
 <efx-config-element></efx-config-element>
@@ -138,4 +140,4 @@ configElement.config = {
 };
 ```
 
-*> Do not use `data` property on the element and in the configuration object. This can lead to confusion and should be avoided.
+x> Do not use `data` property on the element and in the configuration object. This can lead to confusion and should be avoided.

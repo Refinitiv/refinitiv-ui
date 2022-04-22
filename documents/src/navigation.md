@@ -5,7 +5,7 @@ type: nav
 + Getting Started
   * [Introduction](./)
   - [Quick Start](./quick-start)
-  - [Theming](./start/theming)
+  - [Styling](./start/styling)
   - [Browser Support](./start/browser-support)
   - [Language Support](./start/languages)
 
@@ -75,10 +75,10 @@ type: nav
 
 - Using Components
   + Framework Integration
-    - [Vanilla](./integrations/javascript)
-    - [Angular](./integrations/angular)
-    - [React](./integrations/react)
-    - [Vue](./integrations/vue)
+    - [Vanilla](./tutorials/vanilla-js)
+    - [Angular](./tutorials/angular)
+    - [React](./tutorials/react)
+    - [Vue](./tutorials/vue)
   - Styles
     - [Typography](./styles/typography)
     - [Styling Components](./styles/styling-components)
@@ -90,44 +90,44 @@ type: nav
 
 - Building Components
   * [Introduction](./creating-custom-elements)
+  * [Tutorial](./tutorials/element)
   * [Element types](./element-types)
   * [Naming conventions](./naming-conventions)
+  * [State management](./utils/state-management)
   * [Events](./events)
+  * [Localisation*](./localisation)
   * [Reporting issues](./reporting-issues)
-  * [Localisation](./localisation)
-  * [Breaking changes](./breaking-changes)
-  * [Polyfilling](./polyfilling)
-  * [Perfect element checklist](./perfect-checklist)
+  * [Breaking changes*](./breaking-changes)
+  * [Polyfilling*](./polyfilling)
 
   - Utilities
-    * [State management](./utils/state-management)
-    * [Navigation Grid](./utils/navigation-grid)
+    * [Accessibility*](./utils/accessibility)
     * [Async tasks](./utils/async-tasks)
-    * [Date/Time](./utils/date-time)
-    * [Color](./utils/color)
-
-  - Theming
-    * [Component styles](./intro)
-    * [Part syntax](./theming/css-parts)
-    * [Origin theme](./intro)
-    * [Theme extension](./intro)
-    * [Compiling a theme](./intro)
-    * [CSS custom properties](./intro)
+    * [Color*](./utils/color)
+    * [Data Management](./utils/data-management)
+    * [Date/Time*](./utils/date-time)
+    * [Navigation Grid*](./utils/navigation-grid)
 
   - Accessibility
-    * [Aria](./intro)
-    * [Focus & Navigation](./intro)
+    * [Aria*](./aria)
+    * [Focus & Navigation*](./focus-and-navigation)
 
   - Testing
-    * [Linting](./intro)
-    * [Unit tests](./intro)
-    * [Snapshot tests](./intro)
+    * [Code Style*](./testing/lint)
+    * [DOM Snapshots*](./testing/snapshot)
+    * [Unit tests*](./testing/unit)
 
   - Tools
-    * [Starter Templates](./tools/starter-templates)
-    * [Theme Compiler](./tools/theme-compiler)
+    * [Starter Templates*](./tools/starter-templates)
+    * [Theme Compiler*](./tools/theme-compiler)
 
-  * [Troubleshooting](./intro)
+  * [Troubleshooting*](./troubleshooting)
 
-- More Resources
-  - [Data Collection Composer](./resources/collection-composer)
+# Keeping this here for reference
+# - Theming
+#   * [Component styles*](./theming/styles)
+#   * [Part syntax()](./theming/css-parts)
+#   * [Origin theme*](./theming/origin)
+#   * [Theme extension*](./theming/theme-extension)
+#   * [Compiling a theme*](./theimg/compilation)
+#   * [CSS custom properties*](./theming/css-vars)

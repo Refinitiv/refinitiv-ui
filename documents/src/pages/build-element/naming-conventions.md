@@ -8,16 +8,16 @@ type: page
 
 # Naming Conventions
 
-Naming conventions are important to keep consistency across elements.
+Naming conventions are important to keep consistency across components.
 
 ## Names
 
-Element names should use the correct prefix and avoid clashing with other elements.
+Element names should use the correct prefix and avoid clashing with other components.
 
 | Prefix | Description                                        |
 | ------ | -------------------------------------------------- |
-| `ef-`  | Reserved for foundational elements.                |
-| `efx-` | Preferred prefix for all community-build elements. |
+| `ef-`  | Reserved for foundational components.                |
+| `efx-` | Preferred prefix for all community-build components. |
 
 !> Try to keep element names to a maximum of three parts e.g. `efx-my-element`. It's acceptable to increase to four parts for packaged child elements e.g. `efx-my-element-option`.
 

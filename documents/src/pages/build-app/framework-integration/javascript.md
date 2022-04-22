@@ -1,7 +1,7 @@
 <!--
 type: page
 title: Vanilla JavaScript
-location: ./integrations/javascript
+location: ./tutorials/vanilla-js
 layout: default
 -->
 

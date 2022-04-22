@@ -1,7 +1,7 @@
 <!--
 type: page
 title: React
-location: ./integrations/react
+location: ./tutorials/react
 layout: default
 -->
 
