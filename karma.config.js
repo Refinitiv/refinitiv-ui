@@ -39,6 +39,13 @@ const argv = yargs(hideBin(process.argv))
     choices: availableBrowsers,
     description: 'Specific browser(s) to run units test'
   })
+  .option('browserstack', {
+    type: 'array',
+    alias: 'bs',
+    default: [],
+    choices: ['all', 'chrome', 'firefox', 'edge'],
+    description: 'Run units test on BrowserStack and specific browser(s)'
+  })
   .option('output', {
     type: 'string',
     alias: 'o',
@@ -212,11 +219,7 @@ if (argv.includeCoverage) {
 }
 
 // Create BrowserStack config when browsers CLI `browsers` param has `browserstack`
-if (argv.browsers.includes('browserstack') && !argv.watch) {
-
-  // Remove `browserstack` browser which come from `argv.browsers` because it is the flag variable using for enable BrowserStack testing only.
-  baseConfig.browsers = baseConfig.browsers.filter((browser) => browser !== 'browserstack');
-
+if (argv.browserstack.length && !argv.watch) {
 
   // Setting BowserStack config
   baseConfig.browserStack = {
@@ -230,30 +233,29 @@ if (argv.browsers.includes('browserstack') && !argv.watch) {
   };
   reporters.push('BrowserStack');
 
+  const isTestBSChrome = argv.browserstack.includes('chrome') || argv.browserstack.includes('all');
+  const isTestBSFirefox = argv.browserstack.includes('firefox') || argv.browserstack.includes('all');
+  const isTestBSEdge = argv.browserstack.includes('edge') || argv.browserstack.includes('all');
+
   // Add BrowserStack launchers to config
+  baseConfig.concurrency = Infinity; // It must be Infinity and the config in the task runner (NX or Lerna) must not run in parallel.
   baseConfig.customLaunchers = {
     ...baseConfig.customLaunchers,
-    ...BrowserStackBrowser('bs_chrome', 'Windows', '11', 'Chrome', 'latest'),
-    ...BrowserStackBrowser('bs_firefox', 'Windows', '11', 'Firefox', 'latest'),
-    ...BrowserStackBrowser('bs_edge', 'Windows', '11', 'Edge', 'latest'),
+    ...isTestBSChrome ? BrowserStackBrowser('bs_chrome', 'Windows', '11', 'Chrome', 'latest') : {},
+    ...isTestBSFirefox ? BrowserStackBrowser('bs_firefox', 'Windows', '11', 'Firefox', 'latest'): {},
+    ...isTestBSEdge ? BrowserStackBrowser('bs_edge', 'Windows', '11', 'Edge', 'latest'): {},
+    // ...BrowserStackBrowser('bs_safari', 'OS X', 'Monterey', 'Safari', 'latest'),
     // ...BrowserStackBrowser('bs_chrome_previous', 'Windows', '10', 'Chrome', 'latest-1'),
     // ...BrowserStackBrowser('bs_firefox_previous', 'Windows', '10', 'Firefox', 'latest-1'),
-    // ...BrowserStackBrowser('bs_safari', 'OS X', 'Monterey', 'Safari'),
     // ...BrowserStackDevice('bs_iphone13', 'ios', '15', 'iPhone 13'),
     // ...BrowserStackDevice('bs_google_pixel6', 'android', '12.0', 'Google Pixel 6')
   };
 
   // Add BrowserStack browsers to config
-  baseConfig.browsers = baseConfig.browsers.concat([
-    'bs_chrome',
-    'bs_firefox',
-    'bs_edge',
-    // 'bs_chrome_previous',
-    // 'bs_firefox_previous',
-    // 'bs_safari',
-    // 'bs_iphone13',
-    // 'bs_google_pixel6',
-  ]);
+  baseConfig.browsers = []; // Clear default browsers and test on BrowserStack only
+  isTestBSChrome && baseConfig.browsers.push('bs_chrome')
+  isTestBSFirefox && baseConfig.browsers.push('bs_firefox')
+  isTestBSEdge && baseConfig.browsers.push('bs_edge')
 }
 
 module.exports = async function (config) {

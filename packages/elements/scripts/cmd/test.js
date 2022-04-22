@@ -38,6 +38,13 @@ exports.builder = yargs => {
       choices: browsersConfig.availableBrowsers,
       description: 'Specific browser(s) to run units test'
     })
+    .option('browserstack', {
+      type: 'array',
+      alias: 'bs',
+      default: [],
+      choices: ['all', 'chrome', 'firefox', 'edge'],
+      description: 'Run units test on BrowserStack and specific browser(s)'
+    })
     .option('output', {
       type: 'string',
       alias: 'o',
@@ -52,6 +59,7 @@ exports.handler = (argv) => {
   const watch = !!argv.watch;
   const snapshots = !!argv.snapshots;
   const browsers = argv.browsers.join(' ');
+  const browserstack = argv.browserstack.join(' ');
 
   info(watch ? `Start Karma Server: ${ element }` : `Test: ${ element }`);
 
@@ -65,7 +73,8 @@ exports.handler = (argv) => {
     const command = ['karma', 'start', 'karma.config.js', `--package=${PACKAGE_NAME}`];
     watch && command.push('--watch');
     snapshots && command.push('--snapshots');
-    browsers && command.push(`-b ${browsers}`);
+    browserstack && command.push(`--browserstack ${browserstack}`);
+    !browserstack && browsers && command.push(`-b ${browsers}`);
     command.push(`--output ${argv.output}`);
 
     execSync(command.join(' '), {
