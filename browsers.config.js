@@ -6,6 +6,9 @@ const isDarwin = osType === 'Darwin'; /* macOS, iOS, iPadOS */
 const defaultBrowsers = ['chrome', 'firefox'];
 const availableBrowsers = ['chrome', 'firefox', 'opera'];
 
+// BrowserStack browsers
+const availableBSBrowsers = ['all', 'chrome', 'firefox', 'edge', 'chrome_previous', 'firefox_previous', 'edge_previous'];
+
 // do not perform browser check as it is slow and never required
 
 if (isWin) {
@@ -26,7 +29,7 @@ if (isDarwin) {
    * @param {string} browserVersion Browser version
    * @returns Karma BrowserStack lancher config
    */
-  const BrowserStackBrowser = function (name, os, osVersion, browser, browserVersion) {
+  const BSBrowser = function (name, os, osVersion, browser, browserVersion) {
     return {
       [name]: { base: 'BrowserStack', os: os, os_version: osVersion, browser: browser, browser_version: browserVersion }
     }
@@ -40,7 +43,7 @@ if (isDarwin) {
    * @param {string} device mobile device name
    * @returns Karma BrowserStack lancher config
    */
-  const BrowserStackDevice = function (name, os, osVersion, device) {
+  const BSDevice = function (name, os, osVersion, device) {
     return {
       [name]: { base: 'BrowserStack', os: os, os_version: osVersion, device: device, real_mobile: 'true'}
     };
@@ -49,6 +52,7 @@ if (isDarwin) {
 module.exports = {
   defaultBrowsers,
   availableBrowsers,
-  BrowserStackBrowser,
-  BrowserStackDevice
+  availableBSBrowsers,
+  BSBrowser,
+  BSDevice
 };

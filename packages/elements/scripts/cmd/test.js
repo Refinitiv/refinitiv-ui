@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 const { execSync } = require('child_process');
-const browsersConfig = require('../../browsers.config');
+const {
+  defaultBrowsers,
+  availableBrowsers,
+  availableBSBrowsers
+} = require('../../browsers.config');
 
 const {
   getElements,
@@ -34,15 +38,15 @@ exports.builder = yargs => {
     .option('browsers', {
       alias: 'b',
       type: 'array',
-      default: browsersConfig.defaultBrowsers,
-      choices: browsersConfig.availableBrowsers,
+      default: defaultBrowsers,
+      choices: availableBrowsers,
       description: 'Specific browser(s) to run units test'
     })
     .option('browserstack', {
       type: 'array',
       alias: 'bs',
       default: [],
-      choices: ['all', 'chrome', 'firefox', 'edge'],
+      choices: availableBSBrowsers,
       description: 'Run units test on BrowserStack and specific browser(s)'
     })
     .option('output', {
@@ -69,7 +73,6 @@ exports.handler = (argv) => {
 
   try {
     execSync('node cli build --sourceMap --declarationMap');
-
     const command = ['karma', 'start', 'karma.config.js', `--package=${PACKAGE_NAME}`];
     watch && command.push('--watch');
     snapshots && command.push('--snapshots');
