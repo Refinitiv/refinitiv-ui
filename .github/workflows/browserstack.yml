@@ -1,0 +1,57 @@
+name: BrowserStack
+on:
+  schedule:
+    - cron: '0 0 * * *'
+env:
+  BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+  BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+  BROWSERSTACK_BUILD: "Refinitiv-UI - Nightly ${{ github.run_number }}"
+jobs:
+  nightly-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'BrowserStack Env Setup' # Invokes the setup-env action
+        uses: browserstack/github-actions/setup-env@master
+        with:
+          username: ${{ secrets.BROWSERSTACK_USERNAME }}
+          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+
+      - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
+        uses: browserstack/github-actions/setup-local@master
+        with:
+          local-testing: start
+          local-identifier: random
+
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+        id: setup
+
+      - name: Install Dependencies
+        if: steps.setup.outputs.cache-dependencies-hit != 'true'
+        run: npm ci --ignore-scripts --audit=false --fund=false
+
+      - name: Reset NX # temporary
+        run: npm run reset
+
+      - name: Build
+        if: steps.setup.outputs.cache-build-hit != 'true'
+        run: npm run build
+
+      - name: Lint
+        run: npm run lint:all
+
+      - name: Test
+        # Disable NX parallel task because it makes the testing on BrowserStack fail
+        run: npm run test:all -- --parallel=1 --browserstack all --output minimal
+
+      - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
+        uses: browserstack/github-actions/setup-local@master
+        with:
+          local-testing: stop
