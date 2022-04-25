@@ -556,6 +556,6 @@ Combo Box manages the role and aria attributes automatically but you must ensure
   id="countryList"
   placeholder="Select Country">
 </ef-combo-box>
-
+```
 
 ::a11y-end::
