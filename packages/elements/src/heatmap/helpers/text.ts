@@ -94,23 +94,4 @@ const getMaximumTextWidth = (ctx: CanvasRenderingContext2D, cells: HeatmapCell[]
   return maxTextWidth;
 };
 
-/**
- * Calculate max length text for render Axis size
- * @param labels array string text for calculate
- * @returns max length text
- */
-const getMaximumLabelTextWidth = (labels: string[]): string => {
-  let maxLengthText = '';
-
-  for (let i = 0; i < labels.length; i++) {
-    if (maxLengthText.length >= labels[i].length) {
-      maxLengthText = maxLengthText;
-    }
-    else {
-      maxLengthText = labels[i];
-    }
-  }
-  return maxLengthText;
-};
-
-export { getResponsiveFontSize, getMaximumTextWidth, getMaximumLabelTextWidth, MIN_FONT_SIZE, MAX_FONT_SIZE };
+export { getResponsiveFontSize, getMaximumTextWidth, MIN_FONT_SIZE, MAX_FONT_SIZE };

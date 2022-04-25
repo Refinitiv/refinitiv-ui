@@ -30,7 +30,7 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button">Choose Item</ef-button>
+  <ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
 </section>
 <ef-overlay-menu id="menu" opened>
   <ef-item type="header">Regions</ef-item>
@@ -106,7 +106,7 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button">Choose Item</ef-button>
+  <ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
 </section>
 <ef-overlay-menu id="menu">
   <ef-item type="header">EMEA</ef-item>
@@ -118,7 +118,7 @@ section {
 ::
 
 ```html
-<ef-button cta id="button">Choose Item</ef-button>
+<ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
 <ef-overlay-menu id="menu">
   <ef-item type="header">EMEA</ef-item>
   <ef-item value="Spain">Spain</ef-item>
@@ -177,7 +177,7 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button">Nested menus</ef-button>
+  <ef-button cta id="button" aria-haspopup="true">Nested menus</ef-button>
 </section>
 <ef-overlay-menu id="menu">
   <ef-item type="header">Regions</ef-item>
@@ -257,7 +257,7 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button">Compact menu</ef-button>
+  <ef-button cta id="button" aria-haspopup="true">Compact menu</ef-button>
 </section>
 <ef-overlay-menu id="menu" compact>
   <ef-item type="header">Regions</ef-item>
@@ -327,7 +327,7 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button">Choose Item</ef-button>
+  <ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
 </section>
 <ef-overlay-menu id="menu" with-backdrop no-cancel-on-outside-click>
   <ef-item type="header">EMEA</ef-item>
@@ -339,7 +339,7 @@ section {
 ::
 
 ```html
-<ef-button cta id="button">Choose Item</ef-button>
+<ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
 <ef-overlay-menu id="menu" with-backdrop no-cancel-on-outside-click>...</ef-overlay-menu>
 ```
 
@@ -409,7 +409,7 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button">Choose Item</ef-button>
+  <ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
 </section>
 <ef-overlay-menu id="menu"></ef-overlay-menu>
 ```
@@ -496,7 +496,7 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button">Choose Item</ef-button>
+  <ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
 </section>
 <ef-overlay-menu id="menu">
   <ef-item type="header">Regions</ef-item>
@@ -571,7 +571,7 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button">With Transitions</ef-button>
+  <ef-button cta id="button" aria-haspopup="true">With Transitions</ef-button>
 </section>
 <ef-overlay-menu id="menu" transition-style="slide">
   <ef-item type="header">Regions</ef-item>

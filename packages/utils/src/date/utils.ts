@@ -30,8 +30,18 @@ const throwInvalidValue = (value: string): void => {
   throw new Error(`Invalid value provided: \'${value}\'`);
 };
 
+/**
+ * Throw invalid unit error
+ * @param unit Invalid unit
+ * @returns {void}
+ */
+const throwInvalidUnit = (unit: string): void => {
+  throw new Error(`Invalid unit provided: \'${unit}\'`);
+};
+
 export {
   padNumber,
   throwInvalidFormat,
-  throwInvalidValue
+  throwInvalidValue,
+  throwInvalidUnit
 };

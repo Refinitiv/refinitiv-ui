@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/polyfills",
-  "version": "5.2.1",
+  "version": "6.0.0-next.0",
   "description": "Verified polyfills for the Element Framework",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -21,7 +21,7 @@
     "@webcomponents/template": "^1.4.2",
     "@webcomponents/webcomponents-platform": "^1.0.0",
     "core-js": "^3.14.0",
-    "lit": "2.1.2",
+    "lit": "2.2.2",
     "shady-css-scoped-element": "0.0.2"
   },
   "publishConfig": {

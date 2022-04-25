@@ -101,7 +101,6 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
         flex-basis: auto;
         display: flex;
         flex-direction: column;
-        overflow: hidden;
         outline: none;
       }
 
@@ -211,12 +210,6 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    */
   @property({ type: Function, attribute: false })
   public renderer = new TreeSelectRenderer(this);
-
-  /**
-   * Internal reference to selection area element
-   */
-  @query('[part=selection-area]')
-  protected selectionAreaEl?: Overlay;
 
   /**
    * Internal reference to popup element
@@ -731,7 +724,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     // 1) search field
     // 2) tree selection
     // 3) popup panel
-    if (this.shadowRoot?.activeElement === this.selectionAreaEl && this.listEl) {
+    if (this.shadowRoot?.activeElement === this.listEl && this.listEl) {
       // Focus within selection area. Propagate all events
       this.reTargetEvent(event, this.listEl);
     }
@@ -789,7 +782,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     // as otherwise focus logic may contradict with other components
     // and the focus is not moved
     void this.updateComplete.then(() => {
-      this.selectionAreaEl?.focus();
+      this.listEl?.focus();
     });
   }
 
@@ -957,28 +950,29 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     if (this.lazyRendered) {
       return html`
       <ef-overlay
-        part="list"
-        style=${styleMap(this.popupDynamicStyles)}
-        @opened="${this.onPopupOpened}"
-        @closed="${this.onPopupClosed}"
-        .focusBoundary="${this}"
-        .opened="${this.opened}"
-        .positionTarget="${this}"
-        .position="${POPUP_POSITION}"
-        .delegatesFocus=${true}
-        no-cancel-on-outside-click
-        tabindex="0"
-        with-shadow
-        no-overlap
-        no-autofocus>
+          role="dialog"
+          aria-modal="true"
+          part="list"
+          style=${styleMap(this.popupDynamicStyles)}
+          @opened="${this.onPopupOpened}"
+          @closed="${this.onPopupClosed}"
+          .focusBoundary="${this}"
+          .opened="${this.opened}"
+          .positionTarget="${this}"
+          .position="${POPUP_POSITION}"
+          .delegatesFocus=${true}
+          no-cancel-on-outside-click
+          tabindex="0"
+          with-shadow
+          no-overlap
+          no-autofocus
+        >
         <div part="section">
           ${this.filtersTemplate}
           ${this.treeControlsTemplate}
-          <div part="selection-area" tabindex="-1">
+          <div part="selection-area">
             <ef-tree
               id="internal-list"
-              @focusin="${this.shiftFocus}"
-              tabindex="-1"
               part="tree"
               .noRelation=${this.noRelation}
               .renderer=${this.renderer}
