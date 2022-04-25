@@ -488,11 +488,3 @@ overlay.positionTarget = input;
 overlay.focusBoundary = customElement;
 ```
 
-## Accessibility
-::a11y-intro::
-
-The Overlay component is assigned `role="dialog"` and has property of `aria-labelledby`, `aria-describedby` and `aria-modal`.
-
-Focus is automatically directed to the modal dialog when it appears. When the component is active, focus is restricted to the dialog and returned to the triggering button when dismissed. 
-
-::a11y-end::

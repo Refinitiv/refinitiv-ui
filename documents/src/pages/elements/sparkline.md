@@ -127,10 +127,3 @@ ef-sparkline[custom-line-color] {
 | --lower-line-color     | Color of line that is lower than the reference value                 |
 | --fill-color-style     | Color style of higher and lower area. (e.g. gradient, solid or none) |
 
-
-## Accessibility
-::a11y-intro::
-
-The Sparkline component has container and axes labels hidden from assistive technologies. Access to a data table is provided as a textual alternative for accessible users.
-
-::a11y-end::

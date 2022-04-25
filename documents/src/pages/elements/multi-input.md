@@ -181,9 +181,3 @@ el.addEventListener('item-removed', (e) => {
 ## Text Field value changed
 When users type or change the value in the text field, the `value-changed` event will be triggered. The value of the text field is accessed using `value` in the event object.
 
-## Accessibility
-::a11y-intro::
-
-The Multi Input is assigned `role="textbox"`. Entered options are assigned `role="button"`, with an accessible name such as “remove [option]”. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state.
-
-::a11y-end::

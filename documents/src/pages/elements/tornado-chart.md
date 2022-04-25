@@ -236,10 +236,3 @@ ef-tornado-item.highlight-color {
 | --responsive-width | Override the theme's breakpoint value to show vertical chart style, e.g. 400 |
 | --primary-color    | Custom primary bar color                                                     |
 | --secondary-color  | Custom secondary bar color                                                   |
-
-## Accessibility
-::a11y-intro::
-
-The Tornado Chart component has key data points implemented as Tooltip. The container and axes labels are hidden from assistive technologies. Access to a data table is provided as a textual alternative for accessible users. Animation includes functionality to pause, stop or hide animated content.
-
-::a11y-end::

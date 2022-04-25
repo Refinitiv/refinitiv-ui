@@ -256,10 +256,9 @@ searchInput.addEventListener("value-changed", (e) => {
 ## Accessibility
 ::a11y-intro::
 
-`ef-search-field` is assigned `role="textbox"`. States such as `disabled` or `read-only` are programmatically updated to match the element’s visual state. Dynamic updates such as a validation message are communicated to screen readers through a live region. 
+`ef-search-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state. Dynamic updates such as a validation message are communicated to screen readers through a live region. 
 
-### Notes for developers
-Search Field manages the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+`ef-search-field` has managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
 
 ```html
 <ef-search-field placeholder="Search .."></ef-search-field>

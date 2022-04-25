@@ -114,8 +114,6 @@ During development, when the application is running on localhost or 127.0.0.1, a
 
 `ef-notification` has a live region and is assigned `role="alert"` and use `aria-live` to announce notification message.
 
-### Notes for developers
-
 Screen reader technology will only read notification message only after page is loaded. If you need the notification to be announced when application starts, you have to set text content to the notification element after page is loaded or use notification tray to popup the notification after the page is loaded.
 
 Notification should not disappear too quickly. The duration of the notification should be appropriate for the length of the message.

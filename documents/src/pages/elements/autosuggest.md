@@ -1356,10 +1356,3 @@ Additional information when the user selects a suggestion item. `item-select` ev
 | navigation | The user pressed <kbd>Up</kbd> or <kbd>Down</kbd>.                    | Update input value.                                                       |
 | reset      | The user pressed <kbd>Escape</kbd>.                                   | Reset input value if set using **navigation** and close auto suggest.     |
 | clear      | The user pressed <kbd>Escape</kbd> when auto suggest popup is closed. | Clear the input value.                                                    |
-
-## Accessibility
-::a11y-intro::
-
-Autosuggest is assigned `role="combobox"` and can include the `aria-expanded`, `aria-controls`, `aria-autocomplete` and `aria-activedescendant` properties. The Combobox and Listbox are associated with one another, and the expanded Listbox is assigned role="listbox" while list items are assigned `role="option"`. States such as `expanded` and `activedescendent` are programmatically updated to match the element’s visual state.
-
-::a11y-end::

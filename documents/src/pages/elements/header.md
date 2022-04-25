@@ -124,7 +124,6 @@ As a best practice to accommodate accessible users, apply a logical nesting of H
 *	Ideally, there should only be one main heading on each page
 *	Header level 2 to 6 can be used to structure the remaining content on the page
 
-### Notes for developers
 As `ef-header` can be used for multiple proposed, developers can decide to set attribute `role` and assign suitable `aria-level` at an application level. 
 
 ```html

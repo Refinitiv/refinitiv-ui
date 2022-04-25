@@ -85,6 +85,19 @@ pagination.addEventListener('value-changed', (e) => console.log(e.detail.value))
 ## Accessibility
 ::a11y-intro::
 
-Pagination is comprised of a set of interrelated elements, including Text Field and Button. The component is built in such a way that screen readers will announce the current page whenever an update is made. Be sure to set the component to the “disabled” state at times that it cannot be interacted with. 
+Pagination is comprised of a set of interrelated elements, including input field for page number and buttons. It is built in such a way that screen readers will announce the current page whenever an update is made.
+
+`ef-pagination` doesn't have any assigned role. However, it's focusable by default and the focus will be delegated to the middle input. Users can use arrow up and down key to change value. Once users committed the new value by pressing enter key or tabbing to new control, the screen reader should announce a full sentence e.g. `Page 3 of 4'.
+
+You should assign `aria-label` or `aria-labelledby` attribute to `ef-pagination` with accessible name.
+
+```html
+<ef-pagination max="10" aria-label="Page Navigation"></ef-pagination>
+```
+
+```html
+<div id="pagingLabel">Select Page</div>
+<ef-pagination max="10" aria-labelledby="pagingLabel"></ef-pagination>
+```
 
 ::a11y-end::

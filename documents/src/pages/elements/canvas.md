@@ -140,9 +140,3 @@ To use the animation loop, just set the `autoloop` attribute and listen to the `
   canvas.addEventListener('frame', draw);
 ```
 
-## Accessibility
-::a11y-intro::
-
-The Canvas component has a neutral role. Canvas includes functionality to pause, stop or hide animated content. 
-
-::a11y-end::

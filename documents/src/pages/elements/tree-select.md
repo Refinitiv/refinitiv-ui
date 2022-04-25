@@ -313,6 +313,17 @@ ef-select {
 ## Accessibility
 ::a11y-intro::
 
-The Tree Select is assigned `role="tree"` and can include properties such as `aria-multiselectable`, `aria-label` or `aria-labelledby`. Each node of the Tree Select is assigned `role="treeitem"` and can include properties such as `aria-selected`. States for `aria-selected` can be set to `true`, `false` or `none`.
+Tree select is assigned `role="combo-box"` and it support similar aria attributes as Combo box such as `aria-multiselectable`, `aria-label` or `aria-labelledby`. It has a modal which has `role="dialog"` and it contains Tree, its filter and controls. When opened, focus is managed within the dialog itself.
+
+`ef-tree-select` has already managed role and keyboard navigation but you should set accessible name to the element by using `aria-label` or `aria-labelledby`.
+
+```html
+<ef-tree-select aria-label="Choose countries"></ef-tree-select>
+```
+
+```html
+<label id="country_list">Choose Countries</label>
+<ef-tree-select aria-labelledby="country_list"></ef-tree-select>
+```
 
 ::a11y-end::

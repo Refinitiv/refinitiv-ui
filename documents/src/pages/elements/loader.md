@@ -47,10 +47,3 @@ Add `ef-loader` into your document, and the animation will begin. When the loade
 ```html
 <ef-loader></ef-loader>
 ```
-
-## Accessibility
-::a11y-intro::
-
-The Loader component is a live region and has the property `aria-busy`.
-
-::a11y-end::
