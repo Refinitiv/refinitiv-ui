@@ -8,7 +8,7 @@
 <div part="slider-wrapper">
   <div part="slider">
     <div
-      id="trackWrapper"
+      id="track"
       part="track-wrapper"
     >
       <div
@@ -31,7 +31,6 @@
       </div>
     </div>
     <div
-      id="thumbContainer"
       name="value"
       part="thumb-container"
       style="left:0%;"

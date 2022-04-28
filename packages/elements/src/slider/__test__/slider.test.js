@@ -135,23 +135,23 @@ describe('slider/Slider', () => {
       });
     });
     describe('Test step Attribute', () => {
-      it('stepUse should be equal to step when set step with valid value', async () => {
+      it('stepRange should be equal to step when set step with valid value', async () => {
         el.step = 10;
         await elementUpdated(el);
         expect(el.step).to.equal('10');
-        expect(el.stepUse).to.equal(10);
+        expect(el.stepRange).to.equal(10);
       });
-      it('stepUse should be positive when set step with negative number', async () => {
+      it('stepRange should be positive when set step with negative number', async () => {
         el.step = -5;
         await elementUpdated(el);
         expect(el.step).to.equal('-5');
-        expect(el.stepUse).to.equal(5);
+        expect(el.stepRange).to.equal(5);
       });
-      it('If step more than max, stepUse should be set to max', async () => {
+      it('If step more than max, stepRange should be set to max', async () => {
         el.step = 10000;
         await elementUpdated(el);
         expect(el.step).to.equal('10000');
-        expect(el.stepUse.toString()).to.equal(el.max);
+        expect(el.stepRange.toString()).to.equal(el.max);
         expect(el.step).to.satisfy((num) => {
           return num > parseInt(el.max, 10);
         });
@@ -160,7 +160,7 @@ describe('slider/Slider', () => {
         el.step = -10000;
         await elementUpdated(el);
         expect(el.step).to.equal('-10000');
-        expect(el.stepUse.toString()).to.equal(el.max);
+        expect(el.stepRange.toString()).to.equal(el.max);
         expect(el.step).to.satisfy((num) => {
           return num < el.min;
         });
@@ -172,7 +172,7 @@ describe('slider/Slider', () => {
         expect(el.min).to.equal('0');
         expect(el.max).to.equal('100');
         expect(el.value).to.equal('0');
-        expect(el.decimalPlaces).to.equal(2);
+        expect(el.decimalPlace).to.equal(2);
       });
     });
     describe('Test min Attribute', () => {
@@ -426,13 +426,13 @@ describe('slider/Slider', () => {
         el.step = '-5.5';
         await elementUpdated(el);
         expect(el.step).to.equal('-5.5');
-        expect(el.stepUse).to.equal(5.5);
+        expect(el.stepRange).to.equal(5.5);
       });
       it('Set decimal number value', async () => {
         el.step = '5.5';
         await elementUpdated(el);
         expect(el.step).to.equal('5.5');
-        expect(el.stepUse).to.equal(5.5);
+        expect(el.stepRange).to.equal(5.5);
       });
     });
     describe('Test Using Invalid Type step, min, max', () => {
@@ -1365,7 +1365,7 @@ describe('slider/Slider', () => {
         await elementUpdated();
         expect(el.value).to.equal('10');
 
-        
+
         let callCountValue = 0;
         el.addEventListener('value-changed', () => {
           callCountValue += 1;
@@ -1403,7 +1403,7 @@ describe('slider/Slider', () => {
         el.from = 10;
         await elementUpdated();
         expect(el.from).to.equal('10');
-        
+
         let callCountValue = 0;
         el.addEventListener('from-changed', () => {
           callCountValue += 1;
@@ -1442,7 +1442,7 @@ describe('slider/Slider', () => {
         el.to = 80;
         await elementUpdated();
         expect(el.to).to.equal('80');
-        
+
         let callCountValue = 0;
         el.addEventListener('to-changed', () => {
           callCountValue += 1;
