@@ -464,3 +464,26 @@ A timer to show or hide a tooltip can be customized using the `--show-delay` and
 | --show-delay       | Time to show tooltip when mouse hovers, in milliseconds |
 | --hide-delay       | Time to hide tooltip when mouse leaves, in milliseconds |
 
+
+## Accessibility
+::a11y-intro::
+`ef-tooltip` is assigned `role=tooltip` . Meanwhile, tooltip isn't suitable to accessibility due to screen readers doesn't accessible supportively for native title attribute. Because a tooltip appearance  isn't understandable for deaf person.
+
+To get close to right approach, there are native attributes such as `aria-label`, `aria-labelledby`,  `aria-description`, and `aria-describedby` . Those attributes have a similar goal to complement and describe the content. 
+
+> Note: Beware to use the attributes, all elements isn't support  with those attributes. Read more at [Short note on aria-label, aria-labelledby, and aria-describedby - TPGi](https://www.tpgi.com/short-note-on-aria-label-aria-labelledby-and-aria-describedby/)
+
+```html
+<a href="./" aria-labelledby="logo-label"> 
+	<img src="https://ui.refinitiv.com/refinitiv-blue.bbcfcc58.png">
+</a>
+<div id="logo-label" role="tooltip" style="visibility: hidden;">Refinitiv logo</div>
+```
+
+```html
+<label for="input">Question: Do aria-description and aria-describedby have a same purpose?</label>
+<ef-text-field id="input" aria-describedby="more-info"></ef-text-field>
+<p role="tooltip" id="more-info" style="visibility: hidden;">Enter to answer a question.</p>
+```
+
+::a11y-end::
