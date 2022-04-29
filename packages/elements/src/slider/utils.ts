@@ -3,7 +3,7 @@
   * @param event event mouse or touch
   * @returns {void}
   */
-const preventDefault = function (event: Event): Event {
+const preventDefault = (event: Event): Event => {
   event.preventDefault();
   event.stopPropagation();
   return event;
