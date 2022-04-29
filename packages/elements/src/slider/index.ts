@@ -11,6 +11,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { VERSION } from '../version.js';
 import '../number-field/index.js';
@@ -130,7 +131,7 @@ export class Slider extends ControlElement {
   /**
    * An array of slider thumbs
    */
-  private thumbs: Array<HTMLDivElement> = [];
+  private thumbs: HTMLDivElement[] = [];
 
   /**
    * Whether if the thumb is being drag
@@ -331,16 +332,14 @@ export class Slider extends ControlElement {
   }
 
   /**
-   * Getter for slider part.
+   * Slider element reference
    */
-  @query('[part="slider"]')
-  private slider!: HTMLElement;
+  private sliderRef: Ref<HTMLDivElement> = createRef();
 
   /**
-   * Slider's track
+   * Slider's track reference
    */
-  @query('#track')
-  private track!: HTMLElement;
+  private trackRef: Ref<HTMLDivElement> = createRef();
 
   /**
    * Number field for slider value
@@ -566,12 +565,12 @@ export class Slider extends ControlElement {
    */
   private prepareSliderTrack (): void {
     if (this.disabled || this.readonly) {
-      this.slider.removeEventListener('mousedown', this.onDragStart);
-      this.slider.removeEventListener('touchstart', this.onDragStart);
+      this.sliderRef.value?.removeEventListener('mousedown', this.onDragStart);
+      this.sliderRef.value?.removeEventListener('touchstart', this.onDragStart);
     }
     else {
-      this.slider.addEventListener('mousedown', this.onDragStart, { passive: true });
-      this.slider.addEventListener('touchstart', this.onDragStart, { passive: true });
+      this.sliderRef.value?.addEventListener('mousedown', this.onDragStart, { passive: true });
+      this.sliderRef.value?.addEventListener('touchstart', this.onDragStart, { passive: true });
     }
   }
 
@@ -738,15 +737,18 @@ export class Slider extends ControlElement {
    * @returns mouse position by percentage
    */
   private getMousePosition (event: TouchEvent | MouseEvent): number {
-    const sliderRect = this.track.getBoundingClientRect();
+    const sliderRect = this.trackRef.value?.getBoundingClientRect();
+
+    if (!sliderRect) {
+      return 1;
+    }
+
     // check drag desktop or mobile
     const pageX = (event as TouchEvent).changedTouches ? (event as TouchEvent).changedTouches[0].pageX : (event as MouseEvent).pageX;
     const positionSize = pageX - sliderRect.left;
+
     if (positionSize <= sliderRect.width) {
-      return Math.min(
-        Math.max((pageX - sliderRect.left) / sliderRect.width, 0),
-        1
-      );
+      return Math.min(Math.max((pageX - sliderRect.left) / sliderRect.width, 0), 1);
     }
     else {
       return 1;
@@ -1143,10 +1145,10 @@ export class Slider extends ControlElement {
       : { width: `${this.calculatePercentage(Number(this.value))}%` };
 
     return html`
-      <div part="track-wrapper" id="track">
-        <div part="track-fill" id="trackFill" style=${styleMap(trackFillStyle)}></div>
-        <div part="step-container" id="stepContainer" style=${styleMap(stepContainerStyle)}>
-          <div part="step" id="steps" style=${styleMap(stepsStyle)}></div>
+      <div part="track-wrapper" ${ref(this.trackRef)}>
+        <div part="track-fill" style=${styleMap(trackFillStyle)}></div>
+        <div part="step-container" style=${styleMap(stepContainerStyle)}>
+          <div part="step" style=${styleMap(stepsStyle)}></div>
         </div>
       </div>
     `;
@@ -1164,9 +1166,9 @@ export class Slider extends ControlElement {
     return html`
       <div part="thumb-container" name=${name} style=${styleMap(thumbStyle)}>
         <div part="pin">
-          <span id="pinMarker" part="pin-value-marker">${value}</span>
+          <span part="pin-value-marker">${value}</span>
         </div>
-        <div part="thumb" draggable="true" id="thumb"></div>
+        <div part="thumb" draggable="true"></div>
       </div>
     `;
   }
@@ -1218,7 +1220,7 @@ export class Slider extends ControlElement {
     return html`
       ${this.range && this.isShowInputField ? this.renderNumberField(this.from, 'from') : null}
       <div part="slider-wrapper">
-        <div part="slider">
+        <div part="slider" ${ref(this.sliderRef)}>
           ${this.renderTrack(this.range)}
           ${this.range ? this.renderThumbRange(this.fromNumber, this.toNumber) : this.renderThumb(this.valueNumber, this.calculatePercentage(Number(this.value)), 'value')}
         </div>
