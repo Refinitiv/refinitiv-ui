@@ -47,7 +47,7 @@ All source code and documentation is housed in our [monorepo](https://github.com
 
 ## Feedback
 
-If you have and feedback, or just want to get in touch. [Please contact us](mailto:RefinitivUIDev@refinitiv.com).
+If you have and feedback, or just want to get in touch. [Please contact us](mailto:ef-support@lseg.com).
 
 ---
 
