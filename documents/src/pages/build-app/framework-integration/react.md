@@ -13,7 +13,7 @@ layout: default
 
 @>This guideline uses create-react-app, React v17.0.2
 
-## Initialize your project
+## Initialise your project
 
 To create a new app, you may choose one of the following methods:
 

@@ -18,7 +18,7 @@ Install Angular CLI.
 npm install -g @angular/cli
 ```
 
-## Initialize your project
+## Initialise your project
 Create new Angular application using the `ng new` command.
 
 ```sh

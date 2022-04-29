@@ -22,7 +22,7 @@ mkdir project-demo
 cd project-demo
 ```
 
-Use `npm init` command to initialize the project. It will create `package.json` file which contains application information and its dependencies.
+Use `npm init` command to initialise the project. It will create `package.json` file which contains application information and its dependencies.
 
 ```sh
 npm init

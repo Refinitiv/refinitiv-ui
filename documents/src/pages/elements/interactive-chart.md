@@ -1086,7 +1086,7 @@ You can implement your own legend using the `legend` slot.
 const el = document.getElementById('line');
 const legend = document.getElementById('chart-legend');
 
-el.addEventListener('initialized', (e) => {
+el.addEventListener('initialised', (e) => {
   const chart = e.target.chart; // lightweight chart instance
   const seriesList = e.target.seriesList;
   const data = e.target.config.series[0].data;
@@ -1132,7 +1132,7 @@ chartEl.config = {
   ]
 };
 
-chartEl.addEventListener('initialized', (event) => {
+chartEl.addEventListener('initialised', (event) => {
   const chart = event.target.chart;
   const seriesList = event.target.seriesList;
   const legend = document.getElementById('custom-legend');

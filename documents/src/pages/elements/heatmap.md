@@ -52,7 +52,7 @@ ef-heatmap {
 `ef-heatmap` is a graphical representation of data where the individual values contained in a matrix are represented as colors.
 
 ## Usage
-To initialize the heatmap, pass a configuration object to the `config` property. Heatmap uses `mid-point` and a cell's `value` to determine the colors of cells.
+To initialise the heatmap, pass a configuration object to the `config` property. Heatmap uses `mid-point` and a cell's `value` to determine the colors of cells.
 
 The default values of min, mid and max points are -1, 0 and 1, respectively.
 

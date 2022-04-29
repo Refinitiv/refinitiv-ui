@@ -18,7 +18,7 @@ Components are published as a single package and provide all foundational buildi
 npm install @refinitiv-ui/elements
 ```
 
-Halo is the official theme for Refinitiv products. It's provided to correctly initialize your application with correct styling and typography.
+Halo is the official theme for Refinitiv products. It's provided to correctly initialise your application with correct styling and typography.
 
 ```bash
 npm install @refinitiv-ui/halo-theme
@@ -45,35 +45,12 @@ Start using components by importing their definitions and themes in your HTML fi
 </ef-panel>
 ```
 
-## Legacy Bundlers
-Many legacy bundlers, like Webpack 4, do not support [package exports](https://webpack.js.org/guides/package-exports/). Therefore, paths will need to be resolved manually.
-
-For WebPack 4 this can be achieved by providing `alias` in `webpack.config.js`:
-
-```javascript
-const path = require('path');
-
-// Ensure the correct directory for `@refinitiv-ui` package
-const modulePath = path.resolve(process.cwd(), 'node_modules');
-
-module.exports = {
-  /// ...
-  resolve: {
-    alias: {
-      '@refinitiv-ui/elements': path.resolve(modulePath, '@refinitiv-ui/elements/lib'),
-      '@refinitiv-ui/core': path.resolve(modulePath, '@refinitiv-ui/core/lib'),
-      '@refinitiv-ui/utils': path.resolve(modulePath, '@refinitiv-ui/utils/lib')
-    }
-  }
-}
-```
-
 ## Font licensing
 
 ::proximanovawarning::
 
 ## Build your first app
-Start building your first application using EF with your favourite frameworks: [Angular](/integrations/angular), [React](/integrations/react), [Vue](/integrations/vue) or without using framework, [Vanilla](/integrations/javascript).
+Start building your first application using EF with your favourite frameworks: [Angular](./tutorials/angular), [React](./tutorials/react), [Vue](./tutorials/vue) or without using framework, [Vanilla](./tutorials/vanilla-js).
 
 
 ::footer::

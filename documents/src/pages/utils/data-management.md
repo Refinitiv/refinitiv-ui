@@ -92,7 +92,7 @@ const data: MyData[] = [{
   type: 'video/mp4'
 }];
 
-// Initialize composer, using the data array
+// Initialise composer, using the data array
 const composer = new CollectionComposer(data);
 
 // Use composer to return useful data

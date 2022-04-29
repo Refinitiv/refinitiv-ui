@@ -297,7 +297,7 @@ To create a doughnut with a center label, define the `plugins.centerLabel` prope
 
 - `plugins.centerLabel.defaultText` is the default center text.
 - `plugins.centerLabel.onRenderLabel` is a callback function to define the center text when hovering and clicking on each segment.
-- `plugins.centerLabel.selected` selects a chart item when chart is initialized. You can set `index` and `datasetIndex` to use in the selection.
+- `plugins.centerLabel.selected` selects a chart item when chart is initialised. You can set `index` and `datasetIndex` to use in the selection.
 
 ::
 ```javascript
