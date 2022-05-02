@@ -467,7 +467,7 @@ A timer to show or hide a tooltip can be customized using the `--show-delay` and
 
 ## Accessibility
 ::a11y-intro::
-`ef-tooltip` is assigned `role=tooltip` . Meanwhile, tooltip isn't suitable to accessibility due to screen readers doesn't accessible supportively for native title attribute. Because a tooltip appearance  isn't understandable for deaf person.
+`ef-tooltip` is assigned to `role=tooltip`. Due to tooltip's nature, there are better approaches to describe or elaborate hidden content than using tooltip such as `aria-label`, `aria-labelledby`,  `aria-description`, and `aria-describedby`.
 
 To get close to right approach, there are native attributes such as `aria-label`, `aria-labelledby`,  `aria-description`, and `aria-describedby` . Those attributes have a similar goal to complement and describe the content. 
 
