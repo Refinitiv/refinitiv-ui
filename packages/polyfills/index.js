@@ -1,4 +1,3 @@
-import 'core-js/es/global-this.js';
 import 'core-js/es/promise';
 import 'core-js/es/symbol';
 import 'core-js/es/array';
