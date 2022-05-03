@@ -34,7 +34,7 @@ export abstract class NativeStyleRegistry {
     if (ShadyCSS) {
       // Register style tag with ShadyCSS
       // to support CSS variables in legacy browsers
-      ShadyCSS?.CustomStyleInterface?.addCustomStyle(style);
+      ShadyCSS.CustomStyleInterface.addCustomStyle(style);
     }
   }
   /**
