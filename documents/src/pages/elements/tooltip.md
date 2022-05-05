@@ -470,7 +470,7 @@ A timer to show or hide a tooltip can be customized using the `--show-delay` and
 `ef-tooltip` is assigned to `role=tooltip`. Due to tooltip's nature, there are better approaches to describe or elaborate hidden content than using tooltip such as `aria-label`, `aria-labelledby`,  `aria-description`, and `aria-describedby`.
 
 
-> Note: Not all elements support these attributes. Read more at [Short note on aria-label, aria-labelledby, and aria-describedby - TPGi](https://www.tpgi.com/short-note-on-aria-label-aria-labelledby-and-aria-describedby/)
+> Note: Not all elements support these attributes. Read more at [w3.org/TR/using-aria/#label-support](https://www.w3.org/TR/using-aria/#label-support), [tpgi.com](https://www.tpgi.com/short-note-on-aria-label-aria-labelledby-and-aria-describedby/)
 
 ```html
 <a href="./" aria-labelledby="logo-label"> 
