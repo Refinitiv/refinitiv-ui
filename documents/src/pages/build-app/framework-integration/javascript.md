@@ -356,7 +356,8 @@ module.exports = {
         path.resolve(__dirname, 'node_modules/@lit'),
         path.resolve(__dirname, 'node_modules/lit-element'),
         path.resolve(__dirname, 'node_modules/lit-html'),
-        path.resolve(__dirname, 'node_modules/d3-color')
+        path.resolve(__dirname, 'node_modules/d3-color'),
+        path.resolve(__dirname, 'node_modules/lightweight-charts')
       ]
     }]
   }
@@ -499,7 +500,8 @@ module.exports = {
         path.resolve(__dirname, 'node_modules/@lit'),
         path.resolve(__dirname, 'node_modules/lit-element'),
         path.resolve(__dirname, 'node_modules/lit-html'),
-        path.resolve(__dirname, 'node_modules/d3-color')
+        path.resolve(__dirname, 'node_modules/d3-color'),
+        path.resolve(__dirname, 'node_modules/lightweight-charts')
       ],
       use: {
         loader: "babel-loader",
