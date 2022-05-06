@@ -711,9 +711,22 @@ export class Autosuggest extends Overlay {
       return null;
     }
 
+    query = query ? query.toString() : query;
+    const htmlString: TemplateResult[] = [];
+    const pattern = /({0\})/g;
+    let previousIndex = 0;
+    let matches;
+    while ((matches = pattern.exec(moreSearchText)) !== null) {
+      const match = matches[0];
+      const text = moreSearchText.substring(previousIndex, pattern.lastIndex - match.length);
+      htmlString.push(html`${text}<mark>${query}</mark>`);
+      previousIndex = pattern.lastIndex;
+    }
+    htmlString.push(html`${moreSearchText.substring(previousIndex)}`);
+
     return html`
       <span part="more-results-text">
-        ${unsafeHTML(moreSearchText.replace(/{0\}/g, `<mark>${query ? query.toString() : ''}</mark>`))}
+        ${htmlString}
       </span>
       <span part="more-results-keys" slot="right"><kbd>SHIFT</kbd> + <kbd>ENTER</kbd></span>
     `;
