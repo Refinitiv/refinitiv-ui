@@ -1,30 +1,63 @@
-# Requirements for Legacy Browsers
+# Supporting Legacy Browsers
+Element Framework (EF) is built on top of Lit framework and published as the new JavaScript standards (ES2020). The features are supported by latest versions of all modern browsers and in latest version of most popular tools such as Rollup, Webpack, Babel, and Terser.
 
-Element Framework (EF) is built on top of Lit framework and is utilising the latest JavaScript standards. The features are supported by latest versions of all modern browsers (including Chrome, Edge, Safari, and Firefox) and most popular tools (such as Rollup, Webpack, Babel, and Terser).
+For older version of browsers or legacy browsers such as IE11, it is required to compile code to ES5 and include polyfills. Lit has provided a good [documentation](https://lit.dev/docs/tools/requirements) for better understanding of the topic.
 
-@> You can read [Lit Requirements](https://lit.dev/docs/tools/requirements) for better understanding of the topic.
+Following guidelines are not completed instructions to make your application supports in legacy browsers but focuses on essential information that related to EF.
 
-## Web Components
+The most important things to use EF in legacy browsers are :-
 
-When developing an application using EF, either your target browsers need to support _WebComponents_ natively, or your tools need to handle them.
+* Polyfills for Web Components
+* Compiling JavaScript to ES5 syntax and polyfills for ES2020
+* Polyfills for i18N features in EF
 
-EF provides polyfills to help developers quickly adopt _WebComponents_ in legacy browsers:
+## Polyfills for Web Components
+EF components are Web Components and old browsers does not support _Web Components_ natively. Thus, polyfills is required and EF curates necessary polyfills as `@refinitiv-ui/polyfills`.
+
+Install polyfills for Web Components.
 
 ```bash
 npm install @refinitiv-ui/polyfills
 ```
 
-!> You must ensure that the polyfills are loaded before any EF elements.
+Import this module in your app. You must ensure that the polyfills are imported or loaded before any EF components.
 
 ```js
 import '@refinitiv-ui/polyfills';
 ```
 
-## Modern JavaScript
+## Compiling JavaScript to ES5 syntax and polyfills for ES2020
+EF components are published as ES2020. Old browsers may not understand this new syntax or does not support some features of ES2020. Babel is popular tools to compile JavaScript to ES5 syntax and we recommend core-js to polyfills missing features of ES2020.
 
-Old browsers do not support many modern JavaScript features.
+Install Babel and core-js.
 
-[@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) allows to use the latest JavaScript without needing to micromanage which syntax transforms are needed by your target environment(s).
+```bash
+npm install @babel/core @babel/preset-env core-js --save-dev
+```
+
+Configures Babel to compile EF modules and its dependencies that not published as ES5 to be ES5 syntax.
+
+- @refinitiv-ui
+- @webcomponents
+- @lit
+- lit
+- lit-element
+- lit-html
+- d3-color
+- lightweight-charts
+
+>The new versions of other dependencies might be published as ES2019/ES2020 in the future. Includes them if it is the case.
+
+
+Uses [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) to manage syntax transform and handle polyfills using core-js.
+
+Create or edit `.browserslistrc` at your app root directory to include browsers that you need to support. This file is used by Babel. See more about [browserslist](https://github.com/browserslist/browserslist).
+
+For instance, if your app need to support IE11, you need to add this line in `.browserslistrc`.
+
+```text
+IE >= 11
+```
 
 This is the minimum configuration for `@babel/preset-env`:
 
@@ -38,23 +71,7 @@ This is the minimum configuration for `@babel/preset-env`:
 }
 ```
 
-### Manual `core-js` configuration
-
-If you do not use `@babel/preset-env` you need to include `core-js` polyfills into the code yourself:
-
-```javascript
-import 'core-js/es/global-this';
-import 'core-js/es/promise';
-import 'core-js/es/symbol';
-import 'core-js/es/array';
-import 'core-js/es/map';
-import 'core-js/es/number';
-import 'core-js/es/string';
-import 'core-js/es/math';
-import 'core-js/es/object';
-```
-
-Your `babel` configuration would need to include [@babel/plugin-transform-runtime](https://babeljs.io/docs/en/babel-plugin-transform-runtime) plugin as well:
+EF components is required `regenerator-runtime/runtime` so your `babel` configuration would need to include [@babel/plugin-transform-runtime](https://babeljs.io/docs/en/babel-plugin-transform-runtime) plugin.
 
 ```json
 {
@@ -62,15 +79,16 @@ Your `babel` configuration would need to include [@babel/plugin-transform-runtim
 }
 ```
 
-## Localisation (Intl)
+## Polyfills for i18N features in EF
+Some EF components uses [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) features in JavaScript. These features may not be available in old browsers so polyfills are required.
 
-Legacy browsers lack some features in the `Intl` object. You can choose how to address this, but the simplest way is to install these polyfills:
+As these polyfills could make size of your app significantly bigger and so it will impact on performance, we recommend to include only ones that are required.
 
-```shell
+```sh
 npm install @formatjs/intl-getcanonicallocales @formatjs/intl-locale @formatjs/intl-numberformat @formatjs/intl-pluralrules @formatjs/intl-datetimeformat
 ```
 
-and import them into your app:
+Import them into your app.
 
 ```javascript
 // Import polyfills required by specific element
@@ -88,42 +106,23 @@ import '@formatjs/intl-datetimeformat/locale-data/en';
 
 There are additional polyfills available for more advanced translation messages. You can get additional information on [formatjs.io](https://formatjs.io/docs/polyfills).
 
-## Compiling to ES5
+## Configuration examples for some bundlers
+### Webpack 5
+`Webpack` uses [babel-loader](https://www.npmjs.com/package/babel-loader) to transpile JavaScript.
 
-Ensure that `IE11` is listed in the [supported browsers](https://github.com/browserslist/browserslist), for instance in `.browserslistrc`:
+Install babel-loader and other necessary dependencies.
+
+```bash
+npm install babel-loader @babel/core @babel/preset-env core-js --save-dev
+```
+
+Create or edit `.browserslistrc` at your app root directory to include browsers that you need to support.  For example, add this line if you need to support IE11.
 
 ```text
 IE >= 11
 ```
 
-Install [Babel Compiler](https://babeljs.io/docs/en/) packages:
-
-```bash
-npm install @babel/core @babel/preset-env --save-dev
-```
-
-Unlike some packages, EF is published as a set of ES modules using modern ES2020 JavaScript. When you build your application for legacy browsers you must explicitly include the ES2020 packages. At least the following list must be transpiled:
-
-- @refinitiv-ui
-- @webcomponents
-- @lit
-- lit
-- lit-element
-- lit-html
-- d3-color
-- lightweight-charts
-
-@> The new versions of dependant packages might be published as ES2020 and *must* be included as well.
-
-### Webpack 5
-
-`Webpack` uses [babel-loader](https://www.npmjs.com/package/babel-loader) to transpile JavaScript:
-
-```bash
-npm install babel-loader
-```
-
-Your `Webpack` need to include this configuration to compile into ES5:
+Include this configuration to webpack configuration in your application.
 
 ```javascript
 module.exports = {
