@@ -17,8 +17,8 @@ const textFromElementIds = (rootNode: Document | DocumentFragment, ids: string):
     if (element) {
       // Get text from aria-label if available
       if (element.hasAttribute('aria-label')) {
-        labels.push(element.getAttribute('aria-label'));
-        break;
+        labels.push(element.getAttribute('aria-label') || '');
+        continue;
       }
 
       labels.push(element.textContent || '');
