@@ -403,14 +403,15 @@ export class ColorDialog extends Dialog {
           <ef-color-palettes
             .value=${this.valueModel.value}
             @value-changed=${this.onColorChanged}
-            part="color-palettes">
+            part="color-palettes"
+            aria-hidden="true">
           </ef-color-palettes>
           <ef-grayscale-palettes
             .value=${this.valueModel.value}
             @value-changed=${this.onColorChanged}
             ?allow-nocolor=${this.allowNocolor}
             part="grayscale-palettes"
-            >
+            aria-hidden="true">
           </ef-grayscale-palettes>
         </div>
         <div part="inputs-container">
@@ -420,7 +421,8 @@ export class ColorDialog extends Dialog {
               backgroundColor: this.valueModel.value || undefined
             })}
             ?no-color=${!this.valueModel.value}></div>
-          <div>${this.t('RED')}&nbsp;:
+          <div>
+            <label for="redInput">${this.t('RED')}&nbsp;:</label>
             <ef-number-field
               .value=${this.valueModel.red}
               @value-changed=${this.onRGBChanged}
@@ -431,7 +433,8 @@ export class ColorDialog extends Dialog {
               id="redInput"
             ></ef-number-field>
           </div>
-          <div>${this.t('GREEN')}&nbsp;:
+          <div>
+            <label for="greenInput">${this.t('GREEN')}&nbsp;:</label>
             <ef-number-field
               .value=${this.valueModel.green}
               @value-changed=${this.onRGBChanged}
@@ -442,7 +445,8 @@ export class ColorDialog extends Dialog {
               id="greenInput"
             ></ef-number-field>
           </div>
-          <div>${this.t('BLUE')}&nbsp;:
+          <div>
+            <label for="blueInput">${this.t('BLUE')}&nbsp;:</label>
             <ef-number-field
               .value=${this.valueModel.blue}
               @value-changed=${this.onRGBChanged}
@@ -453,7 +457,8 @@ export class ColorDialog extends Dialog {
               id="blueInput"
             ></ef-number-field>
           </div>
-          <div>#&nbsp;:
+          <div>
+            <label for="hexInput" aria-label="Hex">#&nbsp;:</label>
             <ef-text-field
               .value=${this.valueModel.hex}
               @value-changed=${this.onHexChanged}
