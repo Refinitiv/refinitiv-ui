@@ -27,17 +27,7 @@ const label = (element: HTMLElement): string | null => {
 
   if (element.id) {
     const labelForElement = rootNode.querySelector(`label[for="${element.id}"]`);
-
-    if (labelForElement instanceof HTMLLabelElement) {
-      // Use text from aria-label fist if available
-      if (labelForElement.hasAttribute('aria-label')) {
-        return labelForElement.getAttribute('aria-label') || '';
-      }
-
-      return labelForElement.textContent || '';
-    }
-
-    return null;
+    return labelForElement instanceof HTMLLabelElement ? (labelForElement.textContent || '') : null;
   }
 
   return null;
