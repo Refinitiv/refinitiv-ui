@@ -458,14 +458,13 @@ export class ColorDialog extends Dialog {
             ></ef-number-field>
           </div>
           <div>
-            <label id="hexLabel" aria-label="Hex" for="hexInput">#&nbsp;:</label>
+            <label id="hexLabel" aria-label="Hex">#&nbsp;:</label>
             <ef-text-field
-              aria-label="Hex"
+              aria-labelledby="hexLabel"
               .value=${this.valueModel.hex}
               @value-changed=${this.onHexChanged}
               pattern="^([0-9a-fA-F]{3}){1,2}$"
               part="color-input"
-              id="hexInput"
               maxlength="6">
             </ef-text-field>
           </div>
