@@ -15,12 +15,6 @@ const textFromElementIds = (rootNode: Document | DocumentFragment, ids: string):
   for (let i = 0; i < elementIds.length; i += 1) {
     const element = rootNode.getElementById(elementIds[i]);
     if (element) {
-      // Get text from aria-label if available
-      if (element.hasAttribute('aria-label')) {
-        labels.push(element.getAttribute('aria-label'));
-        break;
-      }
-
       labels.push(element.textContent || '');
     }
   }
