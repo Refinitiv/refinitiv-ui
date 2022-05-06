@@ -87,13 +87,12 @@
       <div>
         <label
           aria-label="Hex"
-          for="hexInput"
           id="hexLabel"
         >
           # :
         </label>
         <ef-text-field
-          aria-label="Hex"
+          aria-labelledby="hexLabel"
           id="hexInput"
           maxlength="6"
           part="color-input"
