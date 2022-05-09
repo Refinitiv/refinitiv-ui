@@ -468,12 +468,12 @@ A timer to show or hide a tooltip can be customized using the `--show-delay` and
 ## Accessibility
 ::a11y-intro::
 
-According to [Title Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) it is recommended to avoid using tooltips, which implementation is not consistent across screen readers, the use is problematic for touch-only devices and for people who use keyboard navigation. 
+According to [Title Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) it is recommended to _avoid_ using tooltips. Its implementation is not consistent across screen readers, as well as the use is problematic for touch-only devices and for people who use keyboard navigation. 
 
 Instead of using tooltips and hiding important information, the developer should try to provide clear labels and sufficient body text.
 
-If it is required to provide additional information for users with disabilities or impairments, consider to use `aria-label` or `aria-labelledby` instead.
+If it is required to provide additional information for users with disabilities or impairments, consider using `aria-label` or `aria-labelledby` instead.
 
-If the use of tooltips is unavoidable, please reference the [documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role) on implementation details.
+If the use of tooltips is unavoidable, please reference the [documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role) for implementation details.
 
 ::a11y-end::
