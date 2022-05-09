@@ -57,6 +57,10 @@ Old browsers do not support many features of ES2020. `core-js` is a standard lib
 While you can manually include core-js polyfills, we recommend to use [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) to automatically inject required polyfills based on your code and supported environments.
 
 ```bash
+npm install core-js
+```
+
+```bash
 npm install @babel/preset-env --save-dev
 ```
 
@@ -104,6 +108,10 @@ There are additional polyfills available for more advanced translation messages.
 `Webpack` uses [babel-loader](https://www.npmjs.com/package/babel-loader) to transpile JavaScript.
 
 Install babel-loader and other necessary dependencies.
+
+```bash
+npm install core-js
+```
 
 ```bash
 npm install babel-loader @babel/core @babel/preset-env --save-dev
