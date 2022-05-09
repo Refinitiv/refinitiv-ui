@@ -33,7 +33,7 @@
     </div>
   </div>
 </div>
-<ef-tooltip>
+<ef-tooltip role="tooltip">
 </ef-tooltip>
 
 ```
