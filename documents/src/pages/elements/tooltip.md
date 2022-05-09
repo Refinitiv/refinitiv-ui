@@ -467,22 +467,13 @@ A timer to show or hide a tooltip can be customized using the `--show-delay` and
 
 ## Accessibility
 ::a11y-intro::
-`ef-tooltip` is assigned to `role=tooltip`. Due to tooltip's nature, there are better approaches to describe or elaborate hidden content than using tooltip such as `aria-label`, `aria-labelledby`,  `aria-description`, and `aria-describedby`.
 
+According to [Title Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) it is recommended to avoid using tooltips, which implementation is not consistent across screen readers, the use is problematic for touch-only devices and for people who use keyboard navigation. 
 
-> Note: Not all elements support these attributes. Read more at [w3.org/TR/using-aria/#label-support](https://www.w3.org/TR/using-aria/#label-support), [tpgi.com](https://www.tpgi.com/short-note-on-aria-label-aria-labelledby-and-aria-describedby/)
+Instead of using tooltips and hiding important information, the developer should try to provide clear labels and sufficient body text.
 
-```html
-<a href="./" aria-labelledby="logo-label"> 
-	<img src="https://ui.refinitiv.com/refinitiv-blue.bbcfcc58.png">
-</a>
-<div id="logo-label" role="tooltip" style="visibility: hidden;">Refinitiv logo</div>
-```
+If it is required to provide additional information for users with disabilities or impairments, consider to use `aria-label` or `aria-labelledby` instead.
 
-```html
-<label for="input">Question: Do aria-description and aria-describedby have a same purpose?</label>
-<ef-text-field id="input" aria-describedby="more-info"></ef-text-field>
-<p role="tooltip" id="more-info" style="visibility: hidden;">Enter to answer a question.</p>
-```
+If the use of tooltips is unavoidable, please reference the [documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role) on implementation details.
 
 ::a11y-end::
