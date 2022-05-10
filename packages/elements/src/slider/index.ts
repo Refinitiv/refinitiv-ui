@@ -17,7 +17,7 @@ import { VERSION } from '../version.js';
 import '../number-field/index.js';
 import type { NumberField } from '../number-field';
 
-import { SliderDataName, SliderPreviousDataName, NumberFieldName } from './constants.js';
+import { SliderDataName, SliderPreviousDataName, NumberFieldName, Direction } from './constants.js';
 import { clamp, preventDefault, validateNumber, isDecimalNumber, countDecimalPlace } from './utils.js';
 
 /**
@@ -325,7 +325,7 @@ export class Slider extends ControlElement {
 
   /**
    * Return hide/show input field state
-   * @returns {boolean} true if showInputField value is exist
+   * @returns true if showInputField value is exist
    */
   private get isShowInputField (): boolean {
     return this.showInputField !== null && this.showInputField !== undefined;
@@ -373,6 +373,10 @@ export class Slider extends ControlElement {
      * @ignore
     */
     this.onDragEnd = this.onDragEnd.bind(this);
+    /**
+     * @ignore
+    */
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   /**
@@ -556,6 +560,8 @@ export class Slider extends ControlElement {
       thumb.addEventListener('drag', preventDefault);
       thumb.addEventListener('dragstart', preventDefault);
       thumb.addEventListener('dragend', preventDefault);
+
+      thumb.addEventListener('keydown', this.onKeyDown);
     });
   }
 
@@ -571,6 +577,49 @@ export class Slider extends ControlElement {
     else {
       this.sliderRef.value?.addEventListener('mousedown', this.onDragStart, { passive: true });
       this.sliderRef.value?.addEventListener('touchstart', this.onDragStart, { passive: true });
+    }
+  }
+
+  /**
+   * Handles key down event on thumbs
+   * @param event Keyboard event
+   * @returns {void}
+   */
+  private onKeyDown (event: KeyboardEvent): void {
+    if (this.readonly || this.minNumber === this.maxNumber) {
+      return;
+    }
+
+    switch (event.key) {
+      case 'ArrowDown':
+      case 'Down':
+      case 'ArrowLeft':
+      case 'Left':
+        this.onApplyStep(Direction.Down);
+        break;
+      case 'ArrowUp':
+      case 'Up':
+      case 'ArrowRight':
+      case 'Right':
+        this.onApplyStep(Direction.Up);
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    this.dispatchDataChangedEvent();
+  }
+
+  protected onApplyStep (direction: Direction): void {
+    const thumbPosition = (this.valueNumber - this.minNumber) / (this.maxNumber - this.minNumber);
+    const step = this.calculatePercentage(this.minNumber + this.stepRange) / 100;
+
+    if (direction === Direction.Up) {
+      this.value = this.displayValue(this.calculateValue(this.calculateStep(thumbPosition + step)));
+    }
+    else {
+      this.value = this.displayValue(this.calculateValue(this.calculateStep(thumbPosition - step)));
     }
   }
 
@@ -593,11 +642,11 @@ export class Slider extends ControlElement {
   }
 
   /**
-   * Input number event blur and notify property
-   * @param event event blur input number field
+   * On number-field blur
+   * @param event focus event
    * @returns {void}
    */
-  private onBlur (event: FocusEvent): void {
+  private onNumberFieldBlur (event: FocusEvent): void {
     if (this.readonly) {
       return;
     }
@@ -616,11 +665,11 @@ export class Slider extends ControlElement {
   }
 
   /**
-   * Input number event keydown y
-   * @param event event keydown
+   * On number-field keydown
+   * @param event keyboard event
    * @returns {void}
    */
-  private onKeydown (event: KeyboardEvent): void {
+  private onNumberFieldKeydown (event: KeyboardEvent): void {
     if (this.readonly || this.disabled) {
       return;
     }
@@ -821,24 +870,24 @@ export class Slider extends ControlElement {
 
   /**
    * Calculate the nearest step interval
-   * @param thumbPosition thumb position dragging on slider
-   * @returns position step on slider
+   * @param thumbPosition current thumb position
+   * @returns nearest availabel slider step
    */
   private calculateStep (thumbPosition: number): number {
     const stepSize = this.calculatePercentage(this.minNumber + this.stepRange) / 100;
     // calculate step to current point to next point
-    const posToFixStep = Math.round(thumbPosition / stepSize) * stepSize;
+    const nearestStep = Math.round(thumbPosition / stepSize) * stepSize;
 
-    if (thumbPosition <= posToFixStep + (stepSize / 2)) {
-      if (posToFixStep <= 1) {
-        return posToFixStep;
+    if (thumbPosition <= nearestStep + (stepSize / 2)) {
+      if (nearestStep <= 1) {
+        return nearestStep;
       }
       else {
-        return posToFixStep - stepSize;
+        return nearestStep - stepSize;
       }
     }
     else {
-      return posToFixStep + stepSize;
+      return nearestStep + stepSize;
     }
   }
 
@@ -925,7 +974,7 @@ export class Slider extends ControlElement {
    */
   private onValueChange (): void {
     if (this.readonly) {
-      const valuePercent = this.calculatePercentage(Number(this.value)) / 100;
+      const valuePercent = this.calculatePercentage(this.valueNumber) / 100;
       const closestStep = this.calculateStep(valuePercent);
       const thumbLeft = this.stepRange !== 0 ? closestStep : valuePercent;
       const calStepValue = this.calculateValue(thumbLeft);
@@ -933,7 +982,7 @@ export class Slider extends ControlElement {
       this.value = this.displayValue(calStepValue);
     }
     else {
-      const valueSanitize = Number(validateNumber(Number(this.value), 0));
+      const valueSanitize = Number(validateNumber(this.valueNumber, 0));
       if (this.isValueInBoundary(valueSanitize, '')) {
         this.value = this.displayValue(valueSanitize);
       }
@@ -1164,7 +1213,7 @@ export class Slider extends ControlElement {
   private renderThumb (value: number, percentageValue: number, name: string): TemplateResult {
     const thumbStyle = { left: `${percentageValue}%` };
     return html`
-      <div part="thumb-container" name=${name} style=${styleMap(thumbStyle)}>
+      <div role="slider" aria-valuemin="${this.min}" aria-valuemax="${this.max}" aria-valuenow="${this.value}" part="thumb-container" tabindex="0" name=${name} style=${styleMap(thumbStyle)}>
         <div part="pin">
           <span part="pin-value-marker">${value}</span>
         </div>
@@ -1197,8 +1246,8 @@ export class Slider extends ControlElement {
   private renderNumberField (value: string, name: string): TemplateResult {
     return html`
       <ef-number-field
-        @blur=${this.onBlur}
-        @keydown=${this.onKeydown}
+        @blur=${this.onNumberFieldBlur}
+        @keydown=${this.onNumberFieldKeydown}
         part="input"
         name="${name}"
         no-spinner
