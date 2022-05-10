@@ -1,7 +1,7 @@
 <!--
 type: page
 title: Vue
-location: ./integrations/vue
+location: ./tutorials/vue
 layout: default
 -->
 
@@ -19,7 +19,7 @@ Install Vue CLI.
 npm install -g @vue/cli
 ```
 
-## Initialize your project
+## Initialise your project
 
 Create your new Vue application using the `vue create` command.
 

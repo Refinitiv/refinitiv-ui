@@ -65,7 +65,7 @@ right.addEventListener('resize', (event) => {
 
 `ef-layout` is a layout element designed to handle core layouts for Element Framework components and applications.
 
-### Usage
+## Usage
 
 By default, `ef-layout` is like any other block element, very much like a `div`. Therefore, additional attributes and child elements must be used in order to create layouts.
 
@@ -77,7 +77,7 @@ By default, `ef-layout` is like any other block element, very much like a `div`.
 </ef-layout>
 ```
 
-### Horizontal Alignment
+## Horizontal Alignment
 Items can be arranged horizontally by specifying the `flex` attribute on a container.
 
 ::
@@ -111,7 +111,7 @@ Items can be arranged horizontally by specifying the `flex` attribute on a conta
 </ef-layout>
 ```
 
-### Vertical Alignment
+## Vertical Alignment
 Items can be arranged vertically by specifying both the `flex` and `container` attributes on the container.
 
 ::
@@ -144,7 +144,7 @@ Items can be arranged vertically by specifying both the `flex` and `container` a
 </ef-layout>
 ```
 
-### No Wrap
+## No Wrap
 
 By default, items will be wrapped to a new row if there is not enough space to fit them. However, you can prevent items from wrapping by specifying the `nowrap` attribute on the container.
 
@@ -181,10 +181,10 @@ By default, items will be wrapped to a new row if there is not enough space to f
 </ef-layout>
 ```
 
-### Item attributes
+## Item attributes
 Defining the behavior of items is important for creating a responsive layout in an application.
 
-### `basis` attribute
+### Basis
 The `basis` attribute is used as a rough guide for the container to set the size of items. You can define a basis value in percentages (e.g. 50%) or pixels (e.g. 150px).
 
 This property does not place an exact size on the element - instead it is more of a ratio among each of the children. For example, the sample layout below will try to keep each item size 1:2:1.
@@ -327,7 +327,7 @@ In this example, the LEFT and RIGHT items will be laid up 1:3. Watch as the RIGH
 </ef-layout>
 ```
 
-### Debug
+## Debug
 
 The `debug` attribute makes ef-layout display a thin border. This is useful to visualize the current structure of your layout on the screen.
 
@@ -374,7 +374,7 @@ The `debug` attribute makes ef-layout display a thin border. This is useful to v
 </ef-layout>
 ```
 
-### Scrollable
+## Scrollable
 The `scrollable` attribute can be specified on the container. This makes the container show a scrollbar when there is not enough space to display all items.
 
 ::

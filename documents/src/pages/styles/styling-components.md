@@ -22,7 +22,7 @@ While component's internal styles are protected, applications can override any s
 }
 ```
 
-### CSS Variables
+## CSS Variables
 Some EF elements provide [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) which allows application to modify its internal styles without hacking into Shadow DOM. CSS Variables are also used to style canvas components. Available CSS variables are in API document of each component.
 
 ```html

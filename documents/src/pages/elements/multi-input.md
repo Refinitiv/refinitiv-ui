@@ -54,7 +54,7 @@ catEl.data = cats;
 
 `ef-multi-input` is an input field control that displays multiple items of data as an individual pill. Users can add new pills by using the keyboard, or remove any pills from the control.
 
-### Usage
+## Usage
 
 `ef-multi-input` can be created and the `data` property used to set an initial list of pills.
 
@@ -70,12 +70,12 @@ el.data = fruits;
 
 By default, users are allowed to type any value in a text field and it will be created as a new pill when users press the enter key. You can disable the text field input using the `pills-only` attribute or set `pillsOnly` using the API property.
 
-### Data property interface
+## Data property interface
 
 The `data` is an array of the object use the [MultiInputData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/multi-input/helpers/types.ts) interface for its data items.
 
 The `data` property is only used for initializing `ef-multi-input`. It's immutable and used for keeping a reference to a source array of objects. The value of `data` won't be changed when using the add or remove pills API.
-### Getting values
+## Getting values
 
 The value of the input text field can be accessed using `value`. To get a list of pills in the input, use the `values` property - it will return an array of the `value` properties of every pill.
 
@@ -114,7 +114,7 @@ const el = document.getElementById('multiInput');
 console.log(el.values); // array of value of each pills
 ```
 
-### Add new items
+## Add new items
 You can add new items to `ef-multi-input` using an API. To add a new pill, use the `add` method by passing [MultiDataItem](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/multi-input/helpers/types.ts) as a parameter.
 
 ```html
@@ -153,7 +153,7 @@ el.addEventListener('item-added', (e) => {
 });
 ```
 
-### Remove Items
+## Remove Items
 Items in `ef-multi-input` can be removed using an API. You can remove only the last item, remove an item by the index of the pill, or remove all items that match a given value. See the API section below for more details.
 
 You can listen to the `item-removed` event, which is fired when users remove any item using their keyboard, or by clicking the clear icon on a pill. In the event object, you can access `item` for the object of the item removed and `items` for an array of items currently shown in the control.
@@ -178,5 +178,6 @@ el.addEventListener('item-removed', (e) => {
 ```
 ::
 
-### Text Field value changed
+## Text Field value changed
 When users type or change the value in the text field, the `value-changed` event will be triggered. The value of the text field is accessed using `value` in the event object.
+

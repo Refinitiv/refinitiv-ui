@@ -70,7 +70,7 @@ setTimeout(() => { el.opened = true; }, 1000);
 
 Tree Select provides an interface for displaying, navigating and selecting items from a nested data structure.
 
-### Usage
+## Usage
 Tree Select is designed to work with multiple items and as such has a commit model. A selection is made using the interface and then committed, or cancelled. The result of the committed selection can be accessed using the `values` property. This is an array of selected item values.
 
 ::
@@ -134,7 +134,7 @@ el.data = [{
 
 The `data` property of the `ef-tree-select` uses the [TreeSelectData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/tree-select/helpers/types.ts) interface for its data items.
 
-### Show pills
+## Show pills
 Optionally, Tree Select can display selected items as pills by adding the `show-pills` attribute. Items can also be de-selected by removing the pill.
 
 ::
@@ -205,14 +205,14 @@ setTimeout(() => { el.opened = true; }, 1000);
 
 *> If the number of selected items is likely to be large, pills may not be a good choice for display or performance.
 
-### Filtering
+## Filtering
 Tree select has built in text filtering and selection editing.
 
 By clicking the `Selected` button, Tree Select allows the items to be filtered by selected state, and that subset to be operated on in isolation from the main item list.
 
 For custom filtering, Tree Select provides an identical interface as Combo Box. You provide a predicate function that tests an item. Please consult the [Combo Box docs](./elements/combo-box) for details on how to construct a compatible filter.
 
-### UI Controls
+## UI Controls
 Tree Select has several controls.
 
 ::
@@ -294,7 +294,7 @@ This control will save the current selection, and result of the firing of the `v
 
 This control will abort any current selection changes and go back to the tree state when first opened.
 
-### CSS Variables
+## CSS Variables
 
 The theme manages the size of popup panel, but can be overridden by using CSS variables.
 
@@ -309,3 +309,21 @@ ef-select {
 | ------------------ | ---------------------------- |
 | --list-max-width   | Max width of popup panel     |
 | --list-max-height  | Max height of selection tree |
+
+## Accessibility
+::a11y-intro::
+
+Tree select is assigned `role="combo-box"` and it support similar aria attributes as Combo box such as `aria-multiselectable`, `aria-label` or `aria-labelledby`. It has a modal which has `role="dialog"` and it contains Tree, its filter and controls. When opened, focus is managed within the dialog itself.
+
+`ef-tree-select` has already managed role and keyboard navigation but you should set accessible name to the element by using `aria-label` or `aria-labelledby`.
+
+```html
+<ef-tree-select aria-label="Choose countries"></ef-tree-select>
+```
+
+```html
+<label id="country_list">Choose Countries</label>
+<ef-tree-select aria-labelledby="country_list"></ef-tree-select>
+```
+
+::a11y-end::

@@ -24,7 +24,7 @@ ef-rating {
 
 `ef-rating` is a star visualization component that is typically used for ranking.
 
-### Usage
+## Usage
 By default, `ef-rating` is displayed with no stars selected. Setting `value` selects/highlights stars.
 
 ::
@@ -49,7 +49,7 @@ ef-rating {
 <ef-rating value="3.5"></ef-rating>
 ```
 
-### Customize number of stars and size
+## Customize number of stars and size
 The maximum number of stars can be overridden by setting `max`.
 
 ::
@@ -90,7 +90,7 @@ The size of the stars can be changed using standard CSS styles.
 <ef-rating id="custom" value="2.5"></ef-rating>
 ```
 
-### Interactive rating
+## Interactive rating
 By default users cannot change the value of `ef-rating`. Specifying `interactive` makes it possible for users to change the value.
 
 ::

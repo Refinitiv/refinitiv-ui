@@ -169,8 +169,8 @@ export class DemoBlock extends BasicElement {
       }
 
       [part=tag] {
-        background: #0080f0;
-        color: #fff;
+        background: #b4b4b4;
+        color: #000;
         height: 20px;
         font-size: 11px;
         line-height: 20px;
