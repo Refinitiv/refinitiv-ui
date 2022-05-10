@@ -20,7 +20,7 @@ layout: default
 
 `ef-radio-button` is a form control for selecting one option from many options within the same group.
 
-### Usage
+## Usage
 `ef-radio-button` is a simple radio button that similar to the type radio of native input.
 
 ```html
@@ -29,7 +29,7 @@ layout: default
 <ef-radio-button>Noodle</ef-radio-button>
 ```
 
-### Grouping radio buttons
+## Grouping radio buttons
 More than one `ef-radio-button` can be grouped by setting the same value to the `name` attribute. Once an item in a group is checked, the user cannot uncheck a radio group unless the value is set through a property or attribute.
 
 ::
@@ -49,7 +49,7 @@ More than one `ef-radio-button` can be grouped by setting the same value to the 
 <ef-radio-button name="dairy">Soya</ef-radio-button>
 ```
 
-### Disabled and readonly
+## Disabled and readonly
 `ef-radio-button` can be set to be disabled or readonly using the `disabled` or `readonly` attributes.
 
 ::
@@ -69,7 +69,7 @@ More than one `ef-radio-button` can be grouped by setting the same value to the 
 <ef-radio-button readonly>Readonly</ef-radio-button>
 ```
 
-### Handle check value changed
+## Handle check value changed
 `checked-changed` is the **only** event fired by `ef-radio-button`. It is dispatched whenever the state has been changed by user interaction, such as a click, tap or keyboard event.
 
 ```javascript
@@ -79,3 +79,22 @@ radioButtonGroup.addEventListener('checked-changed', (e) => {
   }
 }, true);
 ```
+
+## Accessibility
+::a11y-intro::
+
+`ef-radio-button` is assigned `role="radio"` and can include a `checked` state. Assistive technology users ascertain the purpose that a radio button serves through its accessible name, which is computed from the visual label or `aria-label` attribute. The radio state programmatically updates to match its visual state. 
+
+The `role="radiogroup"` or `role="group"` should be used to associate the element’s grouping with its group label. 
+
+`ef-radio-button` handles `role` and `aria-checked` attributes but for radio group, you need to assign `role="radiogroup"` by yourself.
+
+```html
+<div role="radiogroup" aria-labelledby="header">
+  <h6 id="header">Pizza Crust</h6>
+  <ef-radio-button name="crust" checked>Regular Crust</ef-radio-button>
+  <ef-radio-button name="crust">Thin Crust</ef-radio-button>
+</div>
+```
+
+::a11y-end::

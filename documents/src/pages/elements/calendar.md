@@ -24,7 +24,7 @@ ef-calendar {
 
 The Calendar control allows switching days, months and years.
 
-### Usage
+## Usage
 
 The initial value of the calendar can be set using the value property. Value must be provided in `yyyy-MM-dd` format, for instance: `"2020-04-21"`.
 Custom content can be added using the [footer slot](./elements/calendar#adding-footer-content)
@@ -33,7 +33,7 @@ Custom content can be added using the [footer slot](./elements/calendar#adding-f
 <ef-calendar value="2020-04-21"></ef-calendar>
 ```
 
-### Defining the view
+## Defining the view
 
 By default, the calendar will show the current month.
 This can be customized using `view` and it must be in `yyyy-dd` format, e.g. `"2020-04"`.
@@ -57,7 +57,7 @@ ef-calendar {
 <ef-calendar view="2020-04"></ef-calendar>
 ```
 
-### Defining min and max values
+## Defining min and max values
 
 You can restrict the available date range by passing in min and max values.
 
@@ -81,7 +81,7 @@ ef-calendar {
 <ef-calendar max="2100-12-25" view="2100-12"></ef-calendar>
 ```
 
-### Multiple select
+## Multiple select
 
 You can switch the calendar to multiple select mode by setting `multiple`.
 
@@ -105,7 +105,7 @@ ef-calendar {
 <ef-calendar multiple values="2020-04-01,2020-04-11,2020-04-21"></ef-calendar>
 ```
 
-### Range select
+## Range select
 
 You can switch the calendar to range select mode by setting `range`. You cannot have multiple ranges.
 
@@ -129,7 +129,7 @@ ef-calendar {
 <ef-calendar range values="2020-04-01,2020-04-21"></ef-calendar>
 ```
 
-### Filtering dates
+## Filtering dates
 
 `ef-calendar` has two internal filtering options. One for enabling weekdays only and another for only enabling weekends.
 
@@ -165,7 +165,7 @@ ef-calendar {
 customFilterEl.filter = value => new Date(value).getDate() % 2;
 ```
 
-### Setting locale
+## Setting locale
 By default, the calendar uses system default locale (or US English if undefined). You can change the locale by setting the [lang](https://www.w3.org/International/questions/qa-html-language-declarations) attribute either globally or locally.
 
 The first day of the week is defined by the locale. You can override this by setting `first-day-of-week`.
@@ -190,7 +190,7 @@ ef-calendar {
 <ef-calendar first-day-of-week="3" value="2019-05-21"></ef-calendar>
 ```
 
-### Adding footer content
+## Adding footer content
 
 The calendar supports adding footer content. This can be used to give information about the date entry, or to provide additional controls like 'reset'.
 
@@ -230,3 +230,12 @@ div {
   </div>
 </ef-calendar>
 ```
+
+## Accessibility
+::a11y-intro::
+
+`ef-calendar` is assigned parameters in line with table or grid semantics. The date selection is assigned `role="button"` and can include an `aria-label` to describe the context of each date. For example, an unselected date may be announced by screen readers as “12th November 2021” and a selected date may be announced as “Start date, Today, 12th November 2021.”. The selected date and today’s date have visual cues, such as bold or underlined text (in addition to colour changes), which allow visually impaired users to more readily identify them. 
+
+`ef-calendar` has already managed aria attributes and keyboard navigation.
+
+::a11y-end::

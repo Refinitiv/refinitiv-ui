@@ -10,6 +10,8 @@ layout: default
 ::
 ```javascript
 ::text-field::
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
+halo('panel');
 ```
 ```css
 ef-panel {
@@ -36,7 +38,7 @@ p {
 
 `ef-text-field` is a form element for text.
 
-### Usage
+## Usage
 
 Text field is used to accept text input from users and has similar behaviors to the native text input.
 
@@ -44,7 +46,7 @@ Text field is used to accept text input from users and has similar behaviors to 
 <ef-text-field placeholder="Type something..."></ef-text-field>
 ```
 
-### Getting value
+## Getting value
 
 The field's value can be accessed using the `value` property.
 
@@ -75,7 +77,7 @@ element.addEventListener("value-changed", (e) => {
 ::
 
 ```html
-<ef-text-field id="input"></ef-text-field>
+<ef-text-field id="input" placeholder="Type something here .."></ef-text-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 
@@ -87,13 +89,13 @@ element.addEventListener("value-changed", (e) => {
 });
 ```
 
-### Input validation
+## Input validation
 
 Validation occurs when constraints are provided and the value changes. If the error state changes, it will dispatch an `error-changed` event along with current error state.
 
 Alternatively, you can check the `error` property to confirm if the input is valid or not.
 
-### Input length
+## Input length
 
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
 
@@ -126,7 +128,11 @@ ef-text-field {
 ::
 
 ```html
-<ef-text-field minlength="5" maxlength="8"></ef-text-field>
+<ef-text-field
+  minlength="5"
+  maxlength="8"
+  placeholder="Between 5 to 8 characters">
+</ef-text-field>
 <p id="error-text"></p>
 ```
 
@@ -143,7 +149,7 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-### Validate input using pattern
+## Validate input using pattern
 
 You can use a regular expression to validate the input value by setting it with the `pattern` attribute.
 
@@ -168,16 +174,28 @@ element.addEventListener("error-changed", (e) => {
 ef-text-field {
   width: 275px;
 }
+label {
+  display: block;
+}
 ```
 ```html
-<div>Nickname</div>
-<ef-text-field id="nickname" pattern="[a-z]{4,8}" placeholder="Must be lowercase letters and 4-8 characters"></ef-text-field>
+<label for="nickname">Nickname</label>
+<ef-text-field
+  id="nickname"
+  pattern="[a-z]{4,8}"
+  placeholder="Must be lowercase letters and 4-8 characters">
+</ef-text-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
-Nickname: <ef-text-field id="nickname" pattern="[a-z]{4,8}"></ef-text-field>
+<label for="nickname">Nickname:</label>
+<ef-text-field
+  id="nickname"
+  pattern="[a-z]{4,8}"
+  placeholder="Must be lowercase letters and 4-8 characters">
+</ef-text-field>
 <p id="error-text"></p>
 ```
 
@@ -194,7 +212,7 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-### Show icon
+## Show icon
 
 An inline icon can be set to display inside the input using the `icon` attribute.
 
@@ -255,3 +273,36 @@ element.addEventListener("icon-click", (e) => {
     element.icon = "tick";
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+`ef-text-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state.
+
+`ef-text-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+
+```html
+<ef-text-field placeholder="Enter your full name"></ef-text-field>
+```
+```html
+<ef-text-field 
+  aria-label="Enter your full name"
+  placeholder="Enter your full name">
+</ef-text-field>
+```
+```html
+<label id="name">Enter your full name</label>
+<ef-text-field 
+  aria-labelledby="name"
+  placeholder="Enter your full name">
+</ef-text-field>
+```
+```html
+<label for="name">Enter your full name</label>
+<ef-text-field
+  id="name"
+  placeholder="Enter your full name">
+</ef-text-field>
+```
+
+::a11y-end::

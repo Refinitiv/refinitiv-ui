@@ -70,7 +70,7 @@ ef-canvas {
 ```
 ::
 
-### Usage
+## Usage
 
 `ef-canvas` works like the normal `HTML5 Canvas` element. To use it, you must first get its context.
 
@@ -92,7 +92,7 @@ const draw = () => {
 canvas.addEventListener('resize', draw);
 ```
 
-### Styling
+## Styling
 
 `ef-canvas` starts out like any other block element, in that it fills its container width and has a default height of `0px`. In order to be able to see anything, we must set its size. To do this, we just use CSS.
 
@@ -105,7 +105,7 @@ ef-canvas {
 }
 ```
 
-### Animation loop
+## Animation loop
 
 `ef-canvas` provides an automatic animation loop. This loop can either be enabled constantly or only when the canvas needs to be modified/animated.
 
@@ -139,3 +139,4 @@ To use the animation loop, just set the `autoloop` attribute and listen to the `
   // Draw on every animation frame
   canvas.addEventListener('frame', draw);
 ```
+

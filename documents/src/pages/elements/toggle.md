@@ -53,7 +53,7 @@ ef-toggle {
 
 `ef-toggle` is a form control element that allows users to toggle between two states.
 
-### Usage
+## Usage
 Toggle can switch between two states when the user taps or through setting the attribute/property `checked`.
 
 ```html
@@ -61,7 +61,7 @@ Toggle can switch between two states when the user taps or through setting the a
 <ef-toggle checked></ef-toggle>
 ```
 
-### Inside labels
+## Inside labels
 Set `label` and `checked-label` attributes to display labels inside the toggle in both checked and unchecked state.
 
 ::
@@ -77,7 +77,7 @@ Set `label` and `checked-label` attributes to display labels inside the toggle i
 <ef-toggle label="OFF" checked-label="ON"></ef-toggle>
 ```
 
-### Handle checked state change
+## Handle checked state change
 Toggle dispatches `checked-changed` whenever user interaction changes the `checked` value.
 
 ```javascript
@@ -85,3 +85,24 @@ toggle.addEventListener('checked-changed', (e) => {
   // console.log(e.target.checked)
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+`ef-toggle` is assigned `role="switch"` and can include the `aria-checked` state. States such as `disabled` and `checked` are programmatically updated to match the element’s visual state. It is best to include a label that visually impaired users can see with the element, making the Toggle more perceivable. 
+
+`ef-toggle` manages the role and states but you must ensure that the element has associated label by using`aria-label` or `aria-labelledby`.
+
+```html
+<ef-toggle
+  aria-label="Aeroplane Mode">
+</ef-toggle>
+```
+```html
+<label id="aeroplaneMode">Aeroplane Mode</label>
+<ef-toggle
+  aria-labelledby="aeroplaneMode">
+</ef-toggle>
+```
+
+::a11y-end::
