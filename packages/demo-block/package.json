@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/demo-block",
-  "version": "6.0.0-next.0",
+  "version": "6.0.0-next.1",
   "description": "Demo page handler for Element Framework elements",
   "main": "./lib/demo-block.js",
   "module": "./lib/demo-block.js",
@@ -33,11 +33,11 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/core": "^6.0.0-next.0",
+    "@refinitiv-ui/core": "^6.0.0-next.1",
     "@refinitiv-ui/test-helpers": "^6.0.0-next.0"
   },
   "peerDependencies": {
-    "@refinitiv-ui/core": "^6.0.0-next.0"
+    "@refinitiv-ui/core": "^6.0.0-next.1"
   },
   "publishConfig": {
     "access": "public"
