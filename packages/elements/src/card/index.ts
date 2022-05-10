@@ -89,10 +89,6 @@ export class Card extends BasicElement {
    * Menu data for creating overlay-menu
    */
   @state()
-  /**
-   * Menu data for creating emerald-popup-menu
-   */
-  @state()
   private menuData?: OverlayMenuData;
 
   /**
