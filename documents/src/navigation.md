@@ -88,41 +88,6 @@ type: nav
   - [Internationalization (i18n)](./intl/internationalization)
   - [Theme Switching](./guides/theme-switching)
 
-- Building Components
-  * [Introduction](./creating-custom-elements)
-  * [Tutorial](./tutorials/element)
-  * [Element types](./element-types)
-  * [Naming conventions](./naming-conventions)
-  * [State management](./utils/state-management)
-  * [Events](./events)
-  * [Localisation*](./localisation)
-  * [Reporting issues](./reporting-issues)
-  * [Breaking changes*](./breaking-changes)
-  * [Polyfilling*](./polyfilling)
-
-  - Utilities
-    * [Accessibility*](./utils/accessibility)
-    * [Async tasks](./utils/async-tasks)
-    * [Color*](./utils/color)
-    * [Data Management](./utils/data-management)
-    * [Date/Time*](./utils/date-time)
-    * [Navigation Grid*](./utils/navigation-grid)
-
-  - Accessibility
-    * [Aria*](./aria)
-    * [Focus & Navigation*](./focus-and-navigation)
-
-  - Testing
-    * [Code Style*](./testing/lint)
-    * [DOM Snapshots*](./testing/snapshot)
-    * [Unit tests*](./testing/unit)
-
-  - Tools
-    * [Starter Templates*](./tools/starter-templates)
-    * [Theme Compiler*](./tools/theme-compiler)
-
-  * [Troubleshooting*](./troubleshooting)
-
 # Keeping this here for reference
 # - Theming
 #   * [Component styles*](./theming/styles)
