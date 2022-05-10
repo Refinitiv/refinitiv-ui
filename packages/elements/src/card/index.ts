@@ -42,31 +42,6 @@ export class Card extends BasicElement {
     return VERSION;
   }
 
-  /**
-   * A `CSSResultGroup` that will be used
-   * to style the host, slotted children
-   * and the internal template of the element.
-   * @returns CSS template
-   */
-  static get styles (): CSSResultGroup {
-    return css`
-      :host {
-        display: flex;
-        flex-flow: column nowrap;
-      }
-      [part~=header] {
-        display: flex;
-      }
-      [part~=header-body] {
-        flex: 1;
-        min-width: 0px;
-      }
-      [part~=footer]:not([part~="has-content"]), [part~=header]:not([part~="has-content"]) {
-        display: none;
-      }
-    `;
-  }
-
   private _config: CardConfig = {};
 
   /**
@@ -206,6 +181,31 @@ export class Card extends BasicElement {
     super.firstUpdated(changedProperties);
 
     this.addEventListener('item-trigger', this.closeMenu); // Here to cover nested menus
+  }
+
+  /**
+   * A `CSSResultGroup` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @returns CSS template
+   */
+  static get styles (): CSSResultGroup {
+    return css`
+      :host {
+        display: flex;
+        flex-flow: column nowrap;
+      }
+      [part~=header] {
+        display: flex;
+      }
+      [part~=header-body] {
+        flex: 1;
+        min-width: 0px;
+      }
+      [part~=footer]:not([part~="has-content"]), [part~=header]:not([part~="has-content"]) {
+        display: none;
+      }
+    `;
   }
 
   /**
