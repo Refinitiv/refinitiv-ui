@@ -119,3 +119,9 @@ export class PasswordField extends TextField {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-password-field': PasswordField;
+  }
+}

@@ -241,3 +241,9 @@ export class Tab extends ControlElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-tab': Tab;
+  }
+}

@@ -215,3 +215,9 @@ export class Button extends ControlElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-button': Button;
+  }
+}

@@ -563,6 +563,12 @@ class Tooltip extends BasicElement {
   }
 }
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-tooltip': Tooltip;
+  }
+}
+
 export * from './elements/tooltip-element.js';
 
 export {

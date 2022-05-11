@@ -144,3 +144,9 @@ export class SidebarLayout extends BasicElement {
     }
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-sidebar-layout': SidebarLayout;
+  }
+}

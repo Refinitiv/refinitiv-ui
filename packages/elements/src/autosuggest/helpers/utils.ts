@@ -63,7 +63,7 @@ export const updateElementContent = (el: Item, query: string, label: string, val
  * @returns item
  */
 export const itemRenderer: AutosuggestRenderer = (suggestion: AutosuggestItem, query: AutosuggestQuery | null): HTMLElement => {
-  const el = document.createElement('ef-item') as Item;
+  const el = document.createElement('ef-item');
 
   if (typeof suggestion === 'object') {
     const {
