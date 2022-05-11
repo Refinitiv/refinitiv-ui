@@ -86,6 +86,9 @@
     </slot>
   </div>
   <ef-button
+    aria-controls="menu-popup"
+    aria-haspopup="true"
+    aria-label="menu"
     empty=""
     icon="more-vertical"
     part="menu-button"
@@ -96,6 +99,7 @@
   >
   </ef-button>
   <ef-overlay-menu
+    id="menu-popup"
     part="menu-popup"
     position="bottom-end"
     role="menu"

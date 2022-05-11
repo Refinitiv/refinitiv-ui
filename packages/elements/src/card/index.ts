@@ -8,13 +8,16 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { VERSION } from '../version.js';
 import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
+import { translate, Translate } from '@refinitiv-ui/translate';
 import type { Button } from '../button';
 import type { OverlayMenu, OverlayMenuData } from '../overlay-menu';
 import type { CardConfig } from './helpers/types';
+import type { OpenedChangedEvent } from '../events';
 import '../label/index.js';
 import '../button/index.js';
 import '../overlay-menu/index.js';
@@ -86,6 +89,12 @@ export class Card extends BasicElement {
   private openMenuElement?: Button;
 
   /**
+   * Used for translations
+   */
+  @translate()
+  protected t!: Translate;
+
+  /**
    * Menu data for creating overlay-menu
    */
   @state()
@@ -104,12 +113,19 @@ export class Card extends BasicElement {
   private footerHasContent = false;
 
   /**
+   * Used to control aria-level for heading
+   */
+  @state()
+  private headingLevel: string | null = null;
+
+  /**
    * Open menu
    * @returns {void}
    */
   private openMenu (): void {
     if (this.menuElement && !(this.menuElement.fullyOpened || this.menuElement.transitioning)) {
       this.menuElement.opened = true;
+      this.openMenuElement?.setAttribute('aria-expanded', 'true');
     }
   }
 
@@ -118,8 +134,9 @@ export class Card extends BasicElement {
    * @returns {void}
    */
   private closeMenu (): void {
-    if (this.menuElement) {
+    if (this.menuElement && this.menuElement.opened) {
       this.menuElement.opened = false;
+      this.openMenuElement?.setAttribute('aria-expanded', 'false');
     }
   }
 
@@ -142,6 +159,15 @@ export class Card extends BasicElement {
   }
 
   /**
+   * Run on overlay menu open changed
+   * @param event overlay menu opened changed event
+   * @returns {void}
+   */
+  private onMenuOpenChanged (event: OpenedChangedEvent): void {
+    this.openMenuElement?.setAttribute('aria-expanded', String(event.detail.value));
+  }
+
+  /**
    * True if card has header
    */
   private get withHeader (): boolean {
@@ -153,6 +179,27 @@ export class Card extends BasicElement {
    */
   private get withFooter (): boolean {
     return this.footerHasContent || !!this.footer;
+  }
+
+  /**
+   * Observes attribute change for `attributeChangedCallback`
+   */
+  static get observedAttributes (): string[] {
+    return ['aria-level'].concat(super.observedAttributes);
+  }
+
+  /**
+   * Run when observed attributes change value
+   * @param name attribute name
+   * @param oldValue old attribute value
+   * @param newValue new attribute value
+   * @returns {void}
+   */
+  public attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === 'aria-level') {
+      this.headingLevel = newValue;
+    }
   }
 
   /**
@@ -211,15 +258,20 @@ export class Card extends BasicElement {
   protected get menuTemplate (): TemplateResult {
     return html`${this.menuData ? html`
       <ef-button
-        @tap="${this.openMenu}"
         part="menu-button"
         icon="more-vertical"
         transparent
+        aria-label=${this.t('menu')}
+        aria-haspopup="true"
+        aria-controls="menu-popup"
+        @tap=${this.openMenu}
       ></ef-button>
       <ef-overlay-menu
+        id="menu-popup"
         part="menu-popup"
         .data=${this.menuData}
-        position="bottom-end"></ef-overlay-menu>` : undefined }
+        position="bottom-end"
+        @opened-changed=${this.onMenuOpenChanged}></ef-overlay-menu>` : undefined }
     `;
   }
 
@@ -229,7 +281,10 @@ export class Card extends BasicElement {
    */
   protected get headerTemplate (): TemplateResult {
     return html`
-      <div part="header${this.withHeader ? ' has-content' : ''}">
+      <div part="header${this.withHeader ? ' has-content' : ''}"
+        role="${ifDefined(this.headingLevel ? 'heading' : undefined)}"
+        aria-level="${ifDefined(this.headingLevel || undefined)}"
+      >
         <div part="header-body">
           <slot name="header" @slotchange="${this.onHeaderSlotChange}"></slot>
           ${!this.headerHasContent && this.header ? html`<ef-label line-clamp="3" part="header-text">${this.header}</ef-label>` : null}
