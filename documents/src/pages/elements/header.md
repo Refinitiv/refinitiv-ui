@@ -20,7 +20,7 @@ layout: default
 
 Header is used to identify and separate different sections of a page. Headers help to organize the page content into a sensible hierarchy and improve the user experience.
 
-### Usage
+## Usage
 
 Content in `ef-header` will be displayed as a title.
 
@@ -28,7 +28,7 @@ Content in `ef-header` will be displayed as a title.
 <ef-header>Header Title</ef-header>
 ```
 
-### Levels
+## Levels
 
 A level can be set in `ef-header` to improve data hierarchy. Styling of levels is managed by the theme.
 
@@ -49,7 +49,7 @@ A level can be set in `ef-header` to improve data hierarchy. Styling of levels i
 <ef-header level="3">Header Level 3</ef-header>
 ```
 
-### Including links in headers
+## Including links in headers
 You can create a header with linking by using an HTML link tag inside the header content.
 
 ::
@@ -70,7 +70,7 @@ You can create a header with linking by using an HTML link tag inside the header
 ```
 
 
-### Slotting content
+## Slotting content
 You can include a component in a header by assigning the component to a slot.
 
 ::
@@ -109,3 +109,27 @@ halo('checkbox');
   <ef-checkbox slot="right" checked>Option</ef-checkbox>
 </ef-header>
 ```
+
+
+## Accessibility
+::a11y-intro::
+
+Organizing web pages by headings helps users get a sense of the page’s organization and structure. You could use `ef-header` together with HTML heading (h1-h6) on your page.
+
+`ef-header` should be assigned `role="heading"` and include the property `aria-level` to create semantic heading. 
+
+As a best practice to accommodate accessible users, apply a logical nesting of Header levels.
+
+*	The main heading of page should use h1 or `ef-header` with `aria-level="1"`.
+*	Ideally, there should only be one main heading on each page
+*	Header level 2 to 6 can be used to structure the remaining content on the page
+
+As `ef-header` can be used for multiple proposed, developers can decide to set attribute `role` and assign suitable `aria-level` at an application level. 
+
+```html
+<h1>Understanding The Different Types of Cryptocurrency</h1>
+<ef-header level="1" role="heading" aria-level="2">Different Types of Crypto</ef-header>
+<p></p>
+```
+
+::a11y-end::

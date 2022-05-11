@@ -1,7 +1,7 @@
 <!--
 type: page
 title: React
-location: ./integrations/react
+location: ./tutorials/react
 layout: default
 -->
 
@@ -13,7 +13,7 @@ layout: default
 
 @>This guideline uses create-react-app, React v17.0.2
 
-## Initialize your project
+## Initialise your project
 
 To create a new app, you may choose one of the following methods:
 
@@ -140,9 +140,7 @@ function Panel() {
 }
 ```
 
-### Attributes
-
-#### Boolean
+### Boolean Attributes
 
 Boolean attributes such as `disabled`, `readonly`, `checked` are set by the presence of the attribute itself, not the value. To represent a `false` value in JSX, set the attribute's value to `undefined` or `null` or simply remove the attribute. This behavior is the same as [HTML specifications](https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes).
 
@@ -163,7 +161,7 @@ The following will omit `disabled` attribute and **enable** `ef-text-field`.
 <ef-text-field disabled={undefined}></ef-text-field>
 ```
 
-#### Array and Object
+### Array and Object
 
 React only allows **primitive data** to be passed through attributes. For `Array` and `Object`, you can either pass data through element's property or use `JSON.stringify()` to parse the data before passing to attribute.
 

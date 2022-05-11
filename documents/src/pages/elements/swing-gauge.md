@@ -39,7 +39,7 @@ ef-swing-gauge {
 
 `ef-swing-gauge` is a data visualization element used to display the percentage comparison of two values.
 
-### Usage
+## Usage
 Values can be set to the gauge using the `primary-value` and `secondary-value` attributes. The percentage values shown in the gauge will be calculated by comparing `primary-value` and `secondary-value`. To show labels in the gauge, set the text to the  `primary-label` and `secondary-label` attributes.
 
 ::
@@ -70,7 +70,7 @@ ef-swing-gauge {
 </ef-swing-gauge>
 ```
 
-### Legend
+## Legend
 To show any legends in the gauge you can set the text to `primary-legend` and `secondary-legend` attributes. Legends will show on top of the gauge.
 
 ::
@@ -100,7 +100,7 @@ To show any legends in the gauge you can set the text to `primary-legend` and `s
 </ef-swing-gauge>
 ```
 
-### Sizing
+## Sizing
 Swing Gauge has default size but you can customize `width` or `height` by using CSS.
 
 ::
@@ -131,7 +131,7 @@ ef-swing-gauge {
 }
 ```
 
-### Customize value format
+## Customize value format
 The value that shows on Swing Gauge can be custom via the `valueFormatter` property. The first parameter will be the percentage that calculates by the input value. The second parameter will be the raw value of your input.
 
 ::
@@ -152,7 +152,7 @@ el.valueFormatter = (value, rawValue) => value.toFixed(0) + '%';
 };
 ```
 
-### CSS Variables
+## CSS Variables
 Colors and center line of Swing Gauge are managed by theme but can be overridden by using CSS variables.
 
 ::
@@ -188,3 +188,4 @@ ef-swing-gauge[custom-color] {
 | --center-line         | Style of center line (solid, dotted, dashed or none) |
 | --center-line-color   | Color of center line                                 |
 | --center-line-opacity | Opacity/Transparency of center line                  |
+
