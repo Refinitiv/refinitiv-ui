@@ -608,37 +608,42 @@ export class Slider extends ControlElement {
     }
 
     event.preventDefault();
-    this.dispatchDataChangedEvent();
-  }
-
-  protected onApplyStep (direction: Direction): void {
-    const thumbPosition = (this.valueNumber - this.minNumber) / (this.maxNumber - this.minNumber);
-    const step = this.calculatePercentage(this.minNumber + this.stepRange) / 100;
-
-    if (direction === Direction.Up) {
-      this.value = this.displayValue(this.calculateValue(this.calculateStep(thumbPosition + step)));
-    }
-    else {
-      this.value = this.displayValue(this.calculateValue(this.calculateStep(thumbPosition - step)));
-    }
   }
 
   /**
-   * Calculate percentage from value, min and max
-   * @param value value to be calculated
-   * @returns percentage
+   * Increase or decrease value depending on direction
+   * And fires value change event
+   * @param direction Up or Down
+   * @returns {void}
+   */
+  private onApplyStep (direction: Direction): void {
+    const currentThumbValue = (this.valueNumber - this.minNumber) / (this.maxNumber - this.minNumber);
+    const step = this.calculatePercentage(this.minNumber + this.stepRange) / 100;
+
+    const possibleValue = direction === Direction.Up ? currentThumbValue + step : currentThumbValue - step;
+    const nearestPossibleValue = this.getNearestPossibleValue(possibleValue);
+    const thumbValue = this.calculateValue(nearestPossibleValue);
+
+    this.value = this.displayValue(thumbValue);
+    this.dispatchDataChangedEvent();
+  }
+
+  /**
+   * Get percentage value from decimal fraction number
+   * @param value decimal fraction value
+   * @returns percentage as a fraction of 100
    */
   private calculatePercentage (value: number): number {
     const percentage = Math.abs((((value || 0) - this.minNumber) / (this.maxNumber - this.minNumber)) * 100);
+
     if (percentage > 100) {
       return 100;
     }
     else if (percentage < 0) {
       return 0;
     }
-    else {
-      return percentage;
-    }
+
+    return percentage;
   }
 
   /**
@@ -669,7 +674,7 @@ export class Slider extends ControlElement {
    * @param event keyboard event
    * @returns {void}
    */
-  private onNumberFieldKeydown (event: KeyboardEvent): void {
+  private onNumberFieldKeyDown (event: KeyboardEvent): void {
     if (this.readonly || this.disabled) {
       return;
     }
@@ -815,7 +820,7 @@ export class Slider extends ControlElement {
     }
 
     const thumbPosition = this.getMousePosition(event);
-    const nearestStep = this.calculateStep(thumbPosition);
+    const nearestStep = this.getNearestPossibleValue(thumbPosition);
 
     if (nearestStep > 1) {
       return;
@@ -869,13 +874,12 @@ export class Slider extends ControlElement {
   }
 
   /**
-   * Calculate the nearest step interval
-   * @param thumbPosition current thumb position
-   * @returns nearest availabel slider step
+   * Calculate the nearest possible step value depending on step interval
+   * @param thumbPosition current thumb position in fraction
+   * @returns nearest available slider step in fraction
    */
-  private calculateStep (thumbPosition: number): number {
+  private getNearestPossibleValue (thumbPosition: number): number {
     const stepSize = this.calculatePercentage(this.minNumber + this.stepRange) / 100;
-    // calculate step to current point to next point
     const nearestStep = Math.round(thumbPosition / stepSize) * stepSize;
 
     if (thumbPosition <= nearestStep + (stepSize / 2)) {
@@ -974,9 +978,9 @@ export class Slider extends ControlElement {
    */
   private onValueChange (): void {
     if (this.readonly) {
-      const valuePercent = this.calculatePercentage(this.valueNumber) / 100;
-      const closestStep = this.calculateStep(valuePercent);
-      const thumbLeft = this.stepRange !== 0 ? closestStep : valuePercent;
+      const value = this.calculatePercentage(this.valueNumber) / 100;
+      const nearestPossibleValue = this.getNearestPossibleValue(value);
+      const thumbLeft = this.stepRange !== 0 ? nearestPossibleValue : value;
       const calStepValue = this.calculateValue(thumbLeft);
 
       this.value = this.displayValue(calStepValue);
@@ -1247,7 +1251,7 @@ export class Slider extends ControlElement {
     return html`
       <ef-number-field
         @blur=${this.onNumberFieldBlur}
-        @keydown=${this.onNumberFieldKeydown}
+        @keydown=${this.onNumberFieldKeyDown}
         part="input"
         name="${name}"
         no-spinner
