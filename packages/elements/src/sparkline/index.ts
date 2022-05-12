@@ -217,3 +217,9 @@ export class Sparkline extends ResponsiveElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-sparkline': Sparkline;
+  }
+}

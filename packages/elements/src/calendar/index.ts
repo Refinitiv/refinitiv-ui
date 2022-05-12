@@ -1480,3 +1480,9 @@ export class Calendar extends ControlElement implements MultiValue {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-calendar': Calendar;
+  }
+}

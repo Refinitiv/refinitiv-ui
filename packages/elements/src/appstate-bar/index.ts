@@ -63,7 +63,7 @@ export class AppstateBar extends BasicElement {
    */
   @translate()
   protected t!: Translate;
-  
+
   /**
    * Invoked whenever the element is updated
    * @param {PropertyValues} changedProperties Map of changed properties with old values
@@ -108,5 +108,11 @@ export class AppstateBar extends BasicElement {
       <div part="right"><slot name="right"></slot></div>
       <ef-icon role="button" part="close"  @tap="${this.clear}" icon="cross" aria-label="${this.t('CLOSE')}"></ef-icon>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-appstate-bar': AppstateBar;
   }
 }

@@ -1292,3 +1292,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-datetime-picker': DatetimePicker;
+  }
+}

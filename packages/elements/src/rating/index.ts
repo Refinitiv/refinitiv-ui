@@ -173,3 +173,9 @@ export class Rating extends BasicElement {
     </div>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-rating': Rating;
+  }
+}

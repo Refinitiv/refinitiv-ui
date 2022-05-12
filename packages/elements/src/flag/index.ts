@@ -183,3 +183,8 @@ export class Flag extends BasicElement {
   }
 }
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-flag': Flag;
+  }
+}

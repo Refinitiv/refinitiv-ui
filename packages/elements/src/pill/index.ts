@@ -204,3 +204,9 @@ export class Pill extends ControlElement {
     this.dispatchEvent(new CustomEvent('clear'));
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-pill': Pill;
+  }
+}

@@ -842,3 +842,9 @@ export class NumberField extends FormFieldElement {
       ${this.noSpinner ? null : this.renderSpinner()}`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-number-field': NumberField;
+  }
+}

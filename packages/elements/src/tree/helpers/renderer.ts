@@ -5,7 +5,6 @@ import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-man
 import { Renderer } from '../../list/renderer.js';
 import { getItemId } from '../../list/helpers/item-id.js';
 import '../elements/tree-item.js';
-import type { TreeItem } from '../elements/tree-item';
 
 type RendererScope = {
   multiple?: boolean;
@@ -26,7 +25,6 @@ export class TreeRenderer extends Renderer {
     let currentComposer: CollectionComposer<TreeDataItem>;
 
     super((item: TreeDataItem, composer: CollectionComposer<TreeDataItem>, element = document.createElement('ef-tree-item')): HTMLElement => {
-      const el = element as TreeItem;
       const multiple = !!scope && (scope as RendererScope).multiple === true;
       const noRelation = !!scope && (scope as RendererScope).noRelation === true;
       const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
@@ -37,21 +35,21 @@ export class TreeRenderer extends Renderer {
         manager = new TreeManager(composer, mode);
       }
 
-      el.multiple = multiple;
-      el.item = item;
-      el.tabIndex = -1;
-      el.id = getItemId(this.key, item.value);
-      el.depth = composer.getItemDepth(item);
-      el.parent = composer.getItemChildren(item).length > 0;
-      el.expanded = manager.isItemExpanded(item);
-      el.checkedState = !multiple && el.parent ? CheckedState.UNCHECKED : manager.getItemCheckedState(item);
-      el.icon = composer.getItemPropertyValue(item, 'icon') as string;
-      el.label = composer.getItemPropertyValue(item, 'label') as string;
-      el.disabled = composer.getItemPropertyValue(item, 'disabled') === true;
-      el.readonly = composer.getItemPropertyValue(item, 'readonly') === true;
-      el.highlighted = composer.getItemPropertyValue(item, 'highlighted') === true;
+      element.multiple = multiple;
+      element.item = item;
+      element.tabIndex = -1;
+      element.id = getItemId(this.key, item.value);
+      element.depth = composer.getItemDepth(item);
+      element.parent = composer.getItemChildren(item).length > 0;
+      element.expanded = manager.isItemExpanded(item);
+      element.checkedState = !multiple && element.parent ? CheckedState.UNCHECKED : manager.getItemCheckedState(item);
+      element.icon = composer.getItemPropertyValue(item, 'icon') as string;
+      element.label = composer.getItemPropertyValue(item, 'label') as string;
+      element.disabled = composer.getItemPropertyValue(item, 'disabled') === true;
+      element.readonly = composer.getItemPropertyValue(item, 'readonly') === true;
+      element.highlighted = composer.getItemPropertyValue(item, 'highlighted') === true;
 
-      return el;
+      return element;
     });
   }
 }

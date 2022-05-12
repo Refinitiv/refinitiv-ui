@@ -73,3 +73,9 @@ export class Header extends BasicElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-header': Header;
+  }
+}

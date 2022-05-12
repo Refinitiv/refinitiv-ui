@@ -56,3 +56,9 @@ export class OverlayViewport extends ResponsiveElement {
     return OverlayViewport.Template;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-overlay-viewport': OverlayViewport;
+  }
+}

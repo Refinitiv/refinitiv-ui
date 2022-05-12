@@ -188,3 +188,8 @@ export class Icon extends BasicElement {
   }
 }
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-icon': Icon;
+  }
+}
