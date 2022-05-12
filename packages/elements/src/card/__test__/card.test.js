@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/card';
@@ -75,6 +75,47 @@ describe('card/Card', () => {
 
       await oneEvent(el, 'item-trigger');
       expect(menu.opened).to.equal(false, 'Menu should close when item is selected');
+    });
+  });
+
+  describe('Accessibility', () => {
+    let el;
+    let headerPart;
+    let menuButtonPart;
+
+    beforeEach(async () => {
+      el = await fixture('<ef-card>Card</ef-card>');
+      headerPart = el.shadowRoot.querySelector('[part=header]');
+      el.config = {
+        menu: {
+          data: menuData
+        }
+      };
+      await elementUpdated(el);
+      menuButtonPart = el.shadowRoot.querySelector('[part=menu-button]');
+    });
+
+    it('Should pass common rules for accessibility', async () => {
+      await expect(el).to.be.accessible();
+    });
+
+    it('Should have heading level when setting aria-level attribute to the element', async () => {
+      el.setAttribute('header', 'News');
+      el.setAttribute('aria-level', '3');
+      await elementUpdated(el);
+      await expect(headerPart.getAttribute('aria-level')).to.equal('3');
+
+      el.setAttribute('aria-level', '5');
+      await elementUpdated(el);
+      await expect(headerPart.getAttribute('aria-level')).to.equal('5');
+    });
+
+    it('Should toggle aria-expanded attribute value on menu button correctly when popup open and close', async () => {
+      await expect(menuButtonPart.getAttribute('aria-expanded')).to.equal('false');
+
+      setTimeout(() => menuButtonPart.dispatchEvent(new Event('tap')));
+      await oneEvent(menuButtonPart, 'tap');
+      await expect(menuButtonPart.getAttribute('aria-expanded')).to.equal('true');
     });
   });
 });
