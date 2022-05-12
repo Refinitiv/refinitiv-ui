@@ -264,6 +264,7 @@ export class Card extends BasicElement {
         aria-label=${this.t('menu')}
         aria-haspopup="true"
         aria-controls="menu-popup"
+        aria-expanded="false"
         @tap=${this.openMenu}
       ></ef-button>
       <ef-overlay-menu
