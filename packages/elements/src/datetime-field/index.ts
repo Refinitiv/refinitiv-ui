@@ -739,3 +739,9 @@ export class DatetimeField extends TextField {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-datetime-field': DatetimeField;
+  }
+}

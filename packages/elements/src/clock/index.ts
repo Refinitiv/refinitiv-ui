@@ -650,3 +650,9 @@ export class Clock extends ResponsiveElement {
     return this.analogue ? this.analogueClockTemplate : this.digitalClockTemplate;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-clock': Clock;
+  }
+}

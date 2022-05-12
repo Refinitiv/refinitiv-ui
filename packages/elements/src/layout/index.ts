@@ -203,3 +203,9 @@ export class Layout extends ResponsiveElement {
     return html`<slot></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-layout': Layout;
+  }
+}

@@ -260,3 +260,9 @@ export class Label extends BasicElement {
     return template;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-label': Label;
+  }
+}

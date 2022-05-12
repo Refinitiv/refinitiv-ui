@@ -111,3 +111,9 @@ export class ColorPalettes extends Palettes {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-color-palettes': ColorPalettes;
+  }
+}
