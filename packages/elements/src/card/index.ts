@@ -137,6 +137,7 @@ export class Card extends BasicElement {
     if (this.menuElement && this.menuElement.opened) {
       this.menuElement.opened = false;
       this.openMenuElement?.setAttribute('aria-expanded', 'false');
+      this.openMenuElement?.focus(); // Need refocus on button because A11Y JAWS lost focus from the element
     }
   }
 
