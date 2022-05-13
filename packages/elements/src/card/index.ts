@@ -126,6 +126,12 @@ export class Card extends BasicElement {
   private menuData?: OverlayMenuData;
 
   /**
+   * Menu open state
+   */
+  @state()
+  private menuOpened = false;
+
+  /**
    * True if header has slotted content
    */
   @state()
@@ -150,7 +156,7 @@ export class Card extends BasicElement {
   private openMenu (): void {
     if (this.menuElement && !(this.menuElement.fullyOpened || this.menuElement.transitioning)) {
       this.menuElement.opened = true;
-      this.openMenuElement?.setAttribute('aria-expanded', 'true');
+      this.menuOpened = true;
     }
   }
 
@@ -161,7 +167,7 @@ export class Card extends BasicElement {
   private closeMenu (): void {
     if (this.menuElement && this.menuElement.opened) {
       this.menuElement.opened = false;
-      this.openMenuElement?.setAttribute('aria-expanded', 'false');
+      this.menuOpened = false;
       this.openMenuElement?.focus(); // Need refocus on button because A11Y JAWS lost focus from the element
     }
   }
@@ -190,7 +196,7 @@ export class Card extends BasicElement {
    * @returns {void}
    */
   private onMenuOpenChanged (event: OpenedChangedEvent): void {
-    this.openMenuElement?.setAttribute('aria-expanded', String(event.detail.value));
+    this.menuOpened = event.detail.value;
   }
 
   /**
@@ -265,7 +271,7 @@ export class Card extends BasicElement {
         aria-label=${this.t('menu')}
         aria-haspopup="true"
         aria-controls="menu-popup"
-        aria-expanded="false"
+        aria-expanded=${this.menuOpened}
         @tap=${this.openMenu}
       ></ef-button>
       <ef-overlay-menu
