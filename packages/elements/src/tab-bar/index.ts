@@ -466,3 +466,9 @@ export class TabBar extends ResponsiveElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-tab-bar': TabBar;
+  }
+}

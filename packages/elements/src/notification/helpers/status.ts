@@ -72,7 +72,7 @@ const prepareTray = (): void => {
 const notify = (options: TaskOptions): Notification => {
   prepareTray();
 
-  const el = document.createElement('ef-notification') as Notification;
+  const el = document.createElement('ef-notification');
   el.message = options.message;
   el.confirm = options.type === NotificationType.CONFIRM;
   el.warning = options.type === NotificationType.WARN;

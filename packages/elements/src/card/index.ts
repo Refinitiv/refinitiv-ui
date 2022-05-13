@@ -300,3 +300,9 @@ export class Card extends BasicElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-card': Card;
+  }
+}

@@ -299,3 +299,9 @@ export class TextField extends FormFieldElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-text-field': TextField;
+  }
+}

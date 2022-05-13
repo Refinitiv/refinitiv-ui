@@ -172,3 +172,9 @@ export class Notification extends BasicElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-notification': Notification;
+  }
+}

@@ -579,3 +579,9 @@ export class Chart extends BasicElement {
       </ef-layout>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-chart': Chart;
+  }
+}

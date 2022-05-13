@@ -85,3 +85,9 @@ export class EmailField extends TextField {
       || super.shouldValidateInput(changedProperties);
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-email-field': EmailField;
+  }
+}

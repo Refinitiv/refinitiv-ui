@@ -156,3 +156,9 @@ export class Toggle extends ControlElement {
     <div part="toggle">${this.checked && this.checkedLabel ? this.checkedLabel : this.label}</div>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-toggle': Toggle;
+  }
+}
