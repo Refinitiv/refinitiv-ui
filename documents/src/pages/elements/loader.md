@@ -51,12 +51,12 @@ Add `ef-loader` into your document, and the animation will begin. When the loade
 ## Accessibility
 ::a11y-intro::
 
-`ef-loader` is assigned `role="progressbar"` and can include `aria-label` with `aria-live` to announce loading and loaded states.
+`ef-loader` is assigned `role="progressbar"` and can include `aria-label` with `aria-live` to announce loading state.
 
-`aria-live` triggers screen readers when a loader with `aria-live` is added or removed from the DOM. In contrast, when you unhide a hidden loader with CSS, neither elements nor text are added or removed from the DOM, so the element's aria-live property doesn’t come into play.
+To describe the loading progress of the loader you can set `aria-valuenow` or `aria-valuetext` following [ARIA progressbar practices](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role).
 
 ```html
-<ef-loader aria-label="loading" aria-live="assertive"></ef-button>
+<ef-loader aria-label="loading" aria-live="assertive" aria-valuenow="20"></ef-button>
 ```
 
 ::a11y-end::
