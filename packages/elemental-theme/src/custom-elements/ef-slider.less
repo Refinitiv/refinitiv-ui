@@ -33,6 +33,11 @@
 	}
 
 	[part=thumb-container] {
+    &:focus [part=thumb]{
+      outline: 1px solid @scheme-color-primary;
+      outline-offset: 2px;
+    }
+
 		@slider-thumb-container-size : unit((@slider-thumb-size + 2), px);
 		width: @slider-thumb-container-size;
 		height: 100%;
@@ -121,7 +126,7 @@
 	[part=input][name=value] {
 		margin-left: @input-field-margin;
 	}
-	
+
 	[part=input][name=from] {
 		margin-right: @input-field-margin;
 	}
