@@ -39,22 +39,23 @@ const countDecimalPlace = (value: string | number): number => {
 };
 
 /**
- * Check if the value is a valid number and convert to string
+ * Check if the value is a valid number
  * If not, return fallback value instead
  * @param value value for checking
  * @param fallbackValue fallback value when value is not number;
  * @returns string of valid number
  */
-const validateNumber = (value: number, fallbackValue: number | string): string => {
+const validateNumber = (value: number, fallbackValue: number): number => {
   let newValue;
 
   if (!isNaN(value) && !isNaN(Number(value)) && typeof value === 'number') {
-    newValue = value.toString();
+    newValue = value;
   }
   else {
     newValue = fallbackValue;
   }
-  return newValue.toString();
+
+  return Number(newValue);
 };
 
 export { clamp, preventDefault, validateNumber, isDecimalNumber, countDecimalPlace };
