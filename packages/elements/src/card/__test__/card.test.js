@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
 
 // Translations polyfills
 import '@formatjs/intl-locale/polyfill.iife';
