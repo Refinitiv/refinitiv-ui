@@ -85,6 +85,7 @@ export class Slider extends ControlElement {
         pointer-events: none;
       }
       [part=thumb-container]{
+        outline: none;
         position: absolute;
         top: 0;
         width: 100%;
@@ -557,11 +558,10 @@ export class Slider extends ControlElement {
     this.activeThumb = this.thumbs[0];
 
     this.thumbs.forEach((thumb: HTMLDivElement) => {
+      thumb.addEventListener('keydown', this.onKeyDown);
       thumb.addEventListener('drag', preventDefault);
       thumb.addEventListener('dragstart', preventDefault);
       thumb.addEventListener('dragend', preventDefault);
-
-      thumb.addEventListener('keydown', this.onKeyDown);
     });
   }
 
@@ -617,14 +617,15 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private onApplyStep (direction: Direction): void {
-    const currentThumbValue = (this.valueNumber - this.minNumber) / (this.maxNumber - this.minNumber);
-    const step = this.calculatePercentage(this.minNumber + this.stepRange) / 100;
+    const currentPercentageValue = (this.valueNumber - this.minNumber) / (this.maxNumber - this.minNumber);
+    const percentageStep = this.calculatePercentage(this.minNumber + this.stepRange) / 100;
 
-    const possibleValue = direction === Direction.Up ? currentThumbValue + step : currentThumbValue - step;
-    const nearestPossibleValue = this.getNearestPossibleValue(possibleValue);
-    const thumbValue = this.calculateValue(nearestPossibleValue);
+    const percentageValue = direction === Direction.Up ? currentPercentageValue + percentageStep : currentPercentageValue - percentageStep;
+    const nearestPossibleValue = this.getNearestPossibleValue(percentageValue);
 
-    this.value = this.displayValue(thumbValue);
+    const value = this.getValueFromPercentage(nearestPossibleValue);
+
+    this.value = this.format(value);
     this.dispatchDataChangedEvent();
   }
 
@@ -692,10 +693,10 @@ export class Slider extends ControlElement {
    */
   private updateNotifyProperty (name: SliderDataName, value: string): void {
     let shouldUpdate = false;
-    const validatedValue = Number(validateNumber(Number(value), 0));
+    const validatedValue = validateNumber(Number(value), 0);
 
-    if (name === 'to') {
-      shouldUpdate = this.isValueInBoundary(validatedValue, 'to');
+    if (name === SliderDataName.to) {
+      shouldUpdate = this.isValueInBoundary(validatedValue, SliderDataName.to);
     }
     else {
       shouldUpdate = this.isValueInBoundary(validatedValue, '');
@@ -728,18 +729,6 @@ export class Slider extends ControlElement {
   }
 
   /**
-   * Set focus to input from state
-   * @param name number field's name
-   * @param focusState state of focus
-   * @returns {void}
-   */
-  private toggleFocusField (name: string, focusState: boolean): void {
-    if (name) {
-      this[`${name}Input` as NumberFieldName].setAttribute('tabindex', `${focusState ? 1 : 0}`);
-    }
-  }
-
-  /**
    * Start dragging event on slider
    * @param event event dragstart
    * @returns {void}
@@ -760,20 +749,18 @@ export class Slider extends ControlElement {
       else if (distanceFrom > distanceTo) {
         this.activeThumb = this.thumbs[1];
       }
-      this.thumbs.forEach((el: HTMLElement) => {
-        el.style.zIndex = '5';
+
+      this.thumbs.forEach((thumb: HTMLElement) => {
+        thumb.style.zIndex = '5';
       });
       this.activeThumb.style.zIndex = '10';
-
-      // Set focus to input when drag.
-      if (this.isShowInputField) {
-        this.toggleFocusField(this.activeThumb.getAttribute('name') || '', true);
-      }
     }
     else {
       this.activeThumb = this.thumbs[0];
     }
 
+    // Shifts focus to active thumb
+    this.activeThumb.focus();
     this.onDrag(event);
 
     if ((event as TouchEvent).changedTouches) {
@@ -820,26 +807,25 @@ export class Slider extends ControlElement {
     }
 
     const thumbPosition = this.getMousePosition(event);
-    const nearestStep = this.getNearestPossibleValue(thumbPosition);
+    const nearestValue = this.getNearestPossibleValue(thumbPosition);
 
-    if (nearestStep > 1) {
+    if (nearestValue > 1) {
       return;
     }
 
-    const thumbLeft = this.stepRange !== 0 ? nearestStep : thumbPosition;
-    const computedStepValue = this.calculateValue(thumbLeft);
-    const displayedValue = Number(this.displayValue(computedStepValue));
+    const newThumbPosition = this.stepRange !== 0 ? nearestValue : thumbPosition;
+    const displayedValue = this.format(this.getValueFromPercentage(newThumbPosition));
 
     if (this.range) {
       if (this.activeThumb === this.thumbs[1]) {
-        this.to = this.validateTo(displayedValue).toString();
+        this.to = this.validateTo(Number(displayedValue)).toString();
       }
       else {
-        this.from = this.validateFrom(displayedValue).toString();
+        this.from = this.validateFrom(Number(displayedValue)).toString();
       }
     }
     else {
-      this.value = displayedValue.toString();
+      this.value = displayedValue;
     }
   }
 
@@ -880,27 +866,27 @@ export class Slider extends ControlElement {
    */
   private getNearestPossibleValue (thumbPosition: number): number {
     const stepSize = this.calculatePercentage(this.minNumber + this.stepRange) / 100;
-    const nearestStep = Math.round(thumbPosition / stepSize) * stepSize;
+    const nearestValue = Math.round(thumbPosition / stepSize) * stepSize;
 
-    if (thumbPosition <= nearestStep + (stepSize / 2)) {
-      if (nearestStep <= 1) {
-        return nearestStep;
+    if (thumbPosition <= nearestValue + (stepSize / 2)) {
+      if (nearestValue <= 1) {
+        return nearestValue;
       }
       else {
-        return nearestStep - stepSize;
+        return nearestValue - stepSize;
       }
     }
     else {
-      return nearestStep + stepSize;
+      return nearestValue + stepSize;
     }
   }
 
   /**
-   * Calculate value by percentage
+   * Get slider value from percentage value
    * @param percentage percentage to be calculated
    * @returns calculated value
    */
-  private calculateValue (percentage: number): number {
+  private getValueFromPercentage (percentage: number): number {
     const value = this.minNumber + percentage * (this.maxNumber - this.minNumber);
     // if value is outside boundary, set to boundary
     if (value >= this.maxNumber) {
@@ -919,7 +905,7 @@ export class Slider extends ControlElement {
    * @param value value before use display
    * @returns formatted value
    */
-  private displayValue (value: number): string {
+  private format (value: number): string {
     if (isDecimalNumber(value)) {
       const valueDecimalCount = countDecimalPlace(value);
       // return value decimal by a boundary of max decimal
@@ -943,7 +929,6 @@ export class Slider extends ControlElement {
   private onDragEnd (event: MouseEvent | TouchEvent): void {
     if (this.dragging) {
       this.dragging = false;
-
       const touchEvent: TouchEvent = event as TouchEvent;
       if (touchEvent.changedTouches) {
         this.removeEventListener('touchmove', this.onDrag);
@@ -964,11 +949,6 @@ export class Slider extends ControlElement {
       }
 
       this.dispatchDataChangedEvent();
-
-      // Reset tabIndex of input that's being drag.
-      if (this.isShowInputField) {
-        this.toggleFocusField(this.activeThumb.getAttribute('name') || '', false);
-      }
     }
   }
 
@@ -978,17 +958,16 @@ export class Slider extends ControlElement {
    */
   private onValueChange (): void {
     if (this.readonly) {
-      const value = this.calculatePercentage(this.valueNumber) / 100;
-      const nearestPossibleValue = this.getNearestPossibleValue(value);
-      const thumbLeft = this.stepRange !== 0 ? nearestPossibleValue : value;
-      const calStepValue = this.calculateValue(thumbLeft);
+      const percentageValue = this.calculatePercentage(this.valueNumber) / 100;
+      const nearestPossibleValue = this.getNearestPossibleValue(percentageValue);
+      const correctedValue = this.getValueFromPercentage(this.stepRange === 0 ? percentageValue : nearestPossibleValue);
 
-      this.value = this.displayValue(calStepValue);
+      this.value = this.format(correctedValue);
     }
     else {
-      const valueSanitize = Number(validateNumber(this.valueNumber, 0));
+      const valueSanitize = validateNumber(this.valueNumber, 0);
       if (this.isValueInBoundary(valueSanitize, '')) {
-        this.value = this.displayValue(valueSanitize);
+        this.value = this.format(valueSanitize);
       }
       else {
         // if value is outside boundary, set to boundary
@@ -1012,16 +991,17 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private onFromValueChange (): void {
-    const valueFrom = Number(validateNumber(this.fromNumber, 0));
-    if (this.isValueInBoundary(valueFrom, 'from')) {
-      this.from = this.displayValue(this.fromNumber);
+    const valueFrom = validateNumber(this.fromNumber, 0);
+
+    if (this.isValueInBoundary(valueFrom, SliderDataName.from)) {
+      this.from = this.format(this.fromNumber);
     }
     else {
       // if value is outside boundary, set to boundary
       if (valueFrom < this.minNumber) {
         this.from = this.min;
       }
-      if (valueFrom > this.toNumber) {
+      else if (valueFrom > this.toNumber) {
         this.from = this.to;
       }
 
@@ -1049,7 +1029,7 @@ export class Slider extends ControlElement {
     if (this.minNumber < this.maxNumber) {
       // Check if value is in range
       if (this.range) {
-        if (valueFor === 'to') {
+        if (valueFor === SliderDataName.to) {
           if (value < (this.fromNumber + this.minRangeNumber) || value > this.maxNumber) {
             return false;
           }
@@ -1075,16 +1055,17 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private onToValueChange (): void {
-    const valueTo = Number(validateNumber(this.toNumber, 0));
-    if (this.isValueInBoundary(valueTo, 'to')) {
-      this.to = this.displayValue(valueTo);
+    const valueTo = validateNumber(this.toNumber, 0);
+
+    if (this.isValueInBoundary(valueTo, SliderDataName.to)) {
+      this.to = this.format(valueTo);
     }
     else {
       // if value is outside boundary, set to boundary
       if (valueTo < this.fromNumber) {
         this.to = this.from;
       }
-      if (valueTo > this.maxNumber) {
+      else if (valueTo > this.maxNumber) {
         this.to = this.max;
       }
 
@@ -1106,7 +1087,7 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private onStepChange (): void {
-    this.step = validateNumber(this.stepNumber, 1);
+    this.step = validateNumber(this.stepNumber, 1).toString();
   }
 
   /**
@@ -1114,7 +1095,7 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private onMinRangeChange (): void {
-    const valueMinRange = Math.abs(Number(validateNumber(this.minRangeNumber, 0)));
+    const valueMinRange = Math.abs(validateNumber(this.minRangeNumber, 0));
     const maximumRangeMinMax = Math.abs(this.maxNumber - this.minNumber);
     const maximumRangeFromTo = Math.abs(this.toNumber - this.fromNumber);
 
@@ -1140,7 +1121,7 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private onMinChange (oldValue: string): void {
-    this.min = validateNumber(this.minNumber, 0);
+    this.min = validateNumber(this.minNumber, 0).toString();
 
     if (this.minNumber > this.maxNumber) {
       this.min = this.max;
@@ -1164,7 +1145,7 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private onMaxChange (oldValue: string): void {
-    this.max = validateNumber(this.maxNumber, 100);
+    this.max = validateNumber(this.maxNumber, 100).toString();
 
     if (this.maxNumber < this.minNumber) {
       this.max = this.min;
@@ -1215,9 +1196,15 @@ export class Slider extends ControlElement {
    * @returns Track template
    */
   private renderThumb (value: number, percentageValue: number, name: string): TemplateResult {
+    const valueNow = this.range ? name === SliderDataName.from ? this.from : this.to : this.value;
+    const valueMin = this.range ? name === SliderDataName.from ? this.min : this.fromNumber + this.minRangeNumber : this.min;
+    const valueMax = this.range ? name === SliderDataName.from ? this.toNumber - this.minRangeNumber : this.max : this.max;
+
     const thumbStyle = { left: `${percentageValue}%` };
     return html`
-      <div role="slider" aria-valuemin="${this.min}" aria-valuemax="${this.max}" aria-valuenow="${this.value}" part="thumb-container" tabindex="0" name=${name} style=${styleMap(thumbStyle)}>
+      <!-- TODO -->
+      <!-- tabIndex="10" is to provide priority over number-field which comes before the slider track. So focus delegates from host correctly. -->
+      <div role="slider" aria-valuemin=${valueMin} aria-valuemax=${valueMax} aria-valuenow=${valueNow} part="thumb-container" tabindex="10" name=${name} style=${styleMap(thumbStyle)}>
         <div part="pin">
           <span part="pin-value-marker">${value}</span>
         </div>
@@ -1236,8 +1223,8 @@ export class Slider extends ControlElement {
     const fromPercentageValue: number = this.calculatePercentage(from);
     const toPercentageValue: number = this.calculatePercentage(to);
     return html`
-      ${this.renderThumb(from, fromPercentageValue, 'from')}
-      ${this.renderThumb(to, toPercentageValue, 'to')}
+      ${this.renderThumb(from, fromPercentageValue, SliderDataName.from)}
+      ${this.renderThumb(to, toPercentageValue, SliderDataName.to)}
     `;
   }
 
@@ -1271,15 +1258,15 @@ export class Slider extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-      ${this.range && this.isShowInputField ? this.renderNumberField(this.from, 'from') : null}
+      ${this.range && this.isShowInputField ? this.renderNumberField(this.from, SliderDataName.from) : null}
       <div part="slider-wrapper">
         <div part="slider" ${ref(this.sliderRef)}>
           ${this.renderTrack(this.range)}
           ${this.range ? this.renderThumbRange(this.fromNumber, this.toNumber) : this.renderThumb(this.valueNumber, this.calculatePercentage(Number(this.value)), 'value')}
         </div>
       </div>
-      ${this.range && this.isShowInputField ? this.renderNumberField(this.to, 'to') : null}
-      ${!this.range && this.isShowInputField ? this.renderNumberField(this.value, 'value') : null}
+      ${this.range && this.isShowInputField ? this.renderNumberField(this.to, SliderDataName.to) : null}
+      ${!this.range && this.isShowInputField ? this.renderNumberField(this.value, SliderDataName.value) : null}
     `;
   }
 }
