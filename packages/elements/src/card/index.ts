@@ -8,7 +8,6 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { VERSION } from '../version.js';
@@ -144,12 +143,6 @@ export class Card extends BasicElement {
   private footerHasContent = false;
 
   /**
-   * Used to control aria-level for heading
-   */
-  @state()
-  private headingLevel: string | null = null;
-
-  /**
    * Open menu
    * @returns {void}
    */
@@ -217,27 +210,6 @@ export class Card extends BasicElement {
   }
 
   /**
-   * Observes attribute change for `attributeChangedCallback`
-   */
-  static get observedAttributes (): string[] {
-    return ['aria-level'].concat(super.observedAttributes);
-  }
-
-  /**
-   * Run when observed attributes change value
-   * @param name attribute name
-   * @param oldValue old attribute value
-   * @param newValue new attribute value
-   * @returns {void}
-   */
-  public attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
-    super.attributeChangedCallback(name, oldValue, newValue);
-    if (name === 'aria-level') {
-      this.headingLevel = newValue;
-    }
-  }
-
-  /**
    * Called after render life-cycle finished
    * @param changedProperties Properties which have changed
    * @return {void}
@@ -292,10 +264,7 @@ export class Card extends BasicElement {
    */
   protected get headerTemplate (): TemplateResult {
     return html`
-      <div part="header${this.withHeader ? ' has-content' : ''}"
-        role="${ifDefined(this.headingLevel ? 'heading' : undefined)}"
-        aria-level="${ifDefined(this.headingLevel || undefined)}"
-      >
+      <div part="header${this.withHeader ? ' has-content' : ''}">
         <div part="header-body">
           <slot name="header" @slotchange="${this.onHeaderSlotChange}"></slot>
           ${!this.headerHasContent && this.header ? html`<ef-label line-clamp="3" part="header-text">${this.header}</ef-label>` : null}
