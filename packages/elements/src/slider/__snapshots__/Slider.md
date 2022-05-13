@@ -30,7 +30,7 @@
       part="thumb-container"
       role="slider"
       style="left:0%;"
-      tabindex="0"
+      tabindex="10"
     >
       <div part="pin">
         <span part="pin-value-marker">
