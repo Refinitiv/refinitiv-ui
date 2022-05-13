@@ -243,7 +243,7 @@ export class Card extends BasicElement {
         part="menu-button"
         icon="more-vertical"
         transparent
-        aria-label=${this.t('menu')}
+        aria-label=${this.t('OPEN_MENU')}
         aria-haspopup="true"
         aria-controls="menu-popup"
         aria-expanded=${this.menuOpened}
