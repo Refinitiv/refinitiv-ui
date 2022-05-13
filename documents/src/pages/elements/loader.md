@@ -56,7 +56,7 @@ Add `ef-loader` into your document, and the animation will begin. When the loade
 To describe the loading progress of the loader you can set `aria-valuenow` or `aria-valuetext` following [ARIA progressbar practices](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role).
 
 ```html
-<ef-loader aria-label="loading" aria-live="assertive" aria-valuenow="20"></ef-button>
+<ef-loader aria-label="loading" aria-live="assertive" aria-valuenow="20"></ef-loader>
 ```
 
 ::a11y-end::
