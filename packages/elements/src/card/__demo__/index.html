@@ -14,6 +14,12 @@
       import '@refinitiv-ui/elements/interactive-chart';
 
       import '@refinitiv-ui/demo-block';
+
+      // Translations
+      import '@refinitiv-ui/phrasebook/locale/de/card.js';
+      import '@refinitiv-ui/phrasebook/locale/ja/card.js';
+      import '@refinitiv-ui/phrasebook/locale/zh/card.js';
+      import '@refinitiv-ui/phrasebook/locale/zh-hant/card.js';
     </script>
     <style>
       .photo-content {
@@ -274,7 +280,7 @@
 
         chart.config = chartConfig;
         cardChart.addEventListener('item-trigger', (e) => {
-          if(e.detail.value === 'percentage') {
+          if (e.detail.value === 'percentage') {
             chartConfig = {
               series: chartConfig.series,
               options: {

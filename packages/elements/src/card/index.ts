@@ -12,7 +12,6 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { VERSION } from '../version.js';
 import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
-import { translate, Translate } from '@refinitiv-ui/translate';
 import type { Button } from '../button';
 import type { OverlayMenu, OverlayMenuData } from '../overlay-menu';
 import type { CardConfig } from './helpers/types';
@@ -20,6 +19,9 @@ import type { OpenedChangedEvent } from '../events';
 import '../label/index.js';
 import '../button/index.js';
 import '../overlay-menu/index.js';
+
+import '@refinitiv-ui/phrasebook/locale/en/card.js';
+import { translate, Translate } from '@refinitiv-ui/translate';
 
 export type { CardConfig };
 

@@ -89,7 +89,7 @@
     aria-controls="menu-popup"
     aria-expanded="false"
     aria-haspopup="true"
-    aria-label="menu"
+    aria-label="Open Menu"
     empty=""
     icon="more-vertical"
     part="menu-button"
