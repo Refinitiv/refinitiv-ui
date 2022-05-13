@@ -160,10 +160,9 @@ export class Card extends BasicElement {
    * @returns {void}
    */
   private closeMenu (): void {
-    if (this.menuElement && this.menuElement.opened) {
+    if (this.menuElement?.opened) {
       this.menuElement.opened = false;
       this.menuOpened = false;
-      this.openMenuElement?.focus(); // Need refocus on button because A11Y JAWS lost focus from the element
     }
   }
 
@@ -192,9 +191,6 @@ export class Card extends BasicElement {
    */
   private onMenuOpenChanged (event: OpenedChangedEvent): void {
     this.menuOpened = event.detail.value;
-    if (!this.menuOpened) {
-      this.openMenuElement?.focus(); // Need refocus on button because A11Y JAWS lost focus from the element
-    }
   }
 
   /**
