@@ -296,3 +296,9 @@ export class RadioButton extends ControlElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-radio-button': RadioButton;
+  }
+}

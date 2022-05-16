@@ -252,3 +252,9 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-tree-item': TreeItem;
+  }
+}

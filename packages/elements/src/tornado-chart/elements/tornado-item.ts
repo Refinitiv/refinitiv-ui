@@ -218,3 +218,9 @@ export class TornadoItem extends BasicElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-tornado-item': TornadoItem;
+  }
+}

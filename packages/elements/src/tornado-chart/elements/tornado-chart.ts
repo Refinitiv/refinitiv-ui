@@ -129,3 +129,9 @@ export class TornadoChart extends ResponsiveElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-tornado-chart': TornadoChart;
+  }
+}

@@ -579,3 +579,9 @@ export class Pagination extends BasicElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-pagination': Pagination;
+  }
+}

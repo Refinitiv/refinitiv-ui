@@ -1704,3 +1704,9 @@ export class Overlay extends ResponsiveElement {
     return Overlay.Template;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-overlay': Overlay;
+  }
+}

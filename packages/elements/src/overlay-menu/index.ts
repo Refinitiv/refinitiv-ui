@@ -817,7 +817,7 @@ export class OverlayMenu extends Overlay {
       default:
         return;
     }
-    
+
     if (circular && !focusElement) {
       focusElement = direction === Navigation.NEXT ? children[0] : children[children.length - 1];
     }
@@ -975,7 +975,7 @@ export class OverlayMenu extends Overlay {
    * @return menu element
    */
   private toOverlayMenu (): OverlayMenu {
-    const menu = document.createElement('ef-overlay-menu') as OverlayMenu;
+    const menu = document.createElement('ef-overlay-menu');
     menu.transitionStyle = this.transitionStyle;
     menu.noCancelOnOutsideClick = true;
     menu.compact = this.compact;
@@ -1077,5 +1077,11 @@ export class OverlayMenu extends Overlay {
       ${this.compactBackItem()}
       ${this.withData ? this.fromDataItems : html`<slot @slotchange=${this.onSlotChange}></slot>`}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-overlay-menu': OverlayMenu;
   }
 }

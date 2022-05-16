@@ -52,7 +52,7 @@ export class ViewportManager {
    * @returns created overlay-viewport
    */
   private createViewport (insertBefore: Node | null): OverlayViewport {
-    const viewport = document.createElement('ef-overlay-viewport') as OverlayViewport;
+    const viewport = document.createElement('ef-overlay-viewport');
     insertBefore?.parentNode?.insertBefore(viewport, insertBefore);
     return viewport;
   }

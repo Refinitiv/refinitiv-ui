@@ -62,6 +62,10 @@ export class Loader extends BasicElement {
       <div part="wrapper">${dots}</div>
     `;
   }
+}
 
-
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-loader': Loader;
+  }
 }
