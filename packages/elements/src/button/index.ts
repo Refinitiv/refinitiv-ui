@@ -92,6 +92,8 @@ export class Button extends ControlElement {
    * @returns {void}
    */
   protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('active') && this.toggles || changedProperties.has('toggles') && this.toggles) {
       if (this.getAttribute('role') === 'radio') {
         this.setAttribute('aria-checked', String(this.active));
@@ -100,8 +102,6 @@ export class Button extends ControlElement {
         this.setAttribute('aria-pressed', String(this.active));
       }
     }
-
-    super.update(changedProperties);
   }
 
   /**
