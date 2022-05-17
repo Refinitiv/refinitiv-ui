@@ -168,7 +168,7 @@ export class FocusManager {
 
   public register (overlay: Overlay): void {
     if (!this.registry.size) {
-      this.restoreFocusElement = document.activeElement as HTMLElement; /* store this only once, as overlay order may change */
+      this.restoreFocusElement = this.getActiveElement(); /* store this only once, as overlay order may change */
       document.addEventListener('keydown', this.onDocumentKeyDown, { capture: true });
     }
 
