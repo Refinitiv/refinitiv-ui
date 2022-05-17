@@ -32,12 +32,12 @@
     	}
 	}
 
-	[part=thumb-container] {
-    &:focus [part=thumb]{
-      outline: 1px solid @scheme-color-primary;
-      outline-offset: 2px;
-    }
+  &[focused=visible] [part=thumb]{
+    outline: 1px solid @scheme-color-primary;
+    outline-offset: 2px;
+  }
 
+	[part=thumb-container] {
 		@slider-thumb-container-size : unit((@slider-thumb-size + 2), px);
 		width: @slider-thumb-container-size;
 		height: 100%;
