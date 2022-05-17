@@ -402,7 +402,7 @@ export class Slider extends ControlElement {
     super.willUpdate(changedProperties);
 
     if ((changedProperties.has('disabled') && changedProperties.get('disabled') !== undefined)
-    || (changedProperties.has('readonly') && changedProperties.get('readonly') !== undefined)
+      || (changedProperties.has('readonly') && changedProperties.get('readonly') !== undefined)
     ) {
       this.prepareSliderTrack();
     }
@@ -648,6 +648,26 @@ export class Slider extends ControlElement {
   }
 
   /**
+   * Adds active attribute used in styling
+   * @param event focus event
+   * @returns {void}
+   */
+  private onThumbFocus (event: FocusEvent): void {
+    const thumb = event.target as HTMLDivElement;
+    thumb.setAttribute('active', '');
+  }
+
+  /**
+   * Removes active attribute used in styling
+   * @param event focus event
+   * @returns {void}
+   */
+  private onThumbBlur (event: FocusEvent): void {
+    const thumb = event.target as HTMLDivElement;
+    thumb.removeAttribute('active');
+  }
+
+  /**
    * On number-field blur
    * @param event focus event
    * @returns {void}
@@ -774,6 +794,7 @@ export class Slider extends ControlElement {
   }
 
   /**
+   * Get mouse position in percentage value
    * @param event event mousemove and touchmove
    * @returns mouse position by percentage
    */
@@ -1201,9 +1222,21 @@ export class Slider extends ControlElement {
     const valueMax = this.range ? name === SliderDataName.from ? this.toNumber - this.minRangeNumber : this.max : this.max;
 
     const thumbStyle = { left: `${percentageValue}%` };
+
     return html`
-      <!-- Set tabIndex="1" to provide priority over number-field which comes before the slider track. So focus delegates from host in correct order. -->
-      <div role="slider" aria-valuemin=${valueMin} aria-valuemax=${valueMax} aria-valuenow=${valueNow} part="thumb-container" tabindex="1" name=${name} style=${styleMap(thumbStyle)}>
+      <div
+        @focus=${this.onThumbFocus}
+        @blur=${this.onThumbBlur}
+        name="${name}"
+        role="slider"
+        aria-label="${name}"
+        tabindex="1"
+        aria-valuemin=${valueMin}
+        aria-valuemax=${valueMax}
+        aria-valuenow=${valueNow}
+        part="thumb-container"
+        style=${styleMap(thumbStyle)}
+      >
         <div part="pin">
           <span part="pin-value-marker">${value}</span>
         </div>
@@ -1241,12 +1274,12 @@ export class Slider extends ControlElement {
         part="input"
         name="${name}"
         no-spinner
+        aria-label="${name} input"
         .value="${value}"
         min="${this.min}"
         max="${this.max}"
         step="${this.step}"
-        ?disabled="${this.disabled}"
-        ?readonly="${this.readonly || this.showInputField === 'readonly' }"
+        ?readonly="${this.readonly || this.showInputField === 'readonly'}"
       ></ef-number-field>
     `;
   }
