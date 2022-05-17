@@ -691,3 +691,9 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     return html`<slot></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-list': List;
+  }
+}

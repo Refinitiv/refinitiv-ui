@@ -477,3 +477,9 @@ export class LedGauge extends BasicElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-led-gauge': LedGauge;
+  }
+}
