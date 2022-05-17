@@ -51,7 +51,10 @@
 <div part="loader">
   <div part="backdrop">
   </div>
-  <ef-loader size="medium">
+  <ef-loader
+    role="progressbar"
+    size="medium"
+  >
   </ef-loader>
 </div>
 

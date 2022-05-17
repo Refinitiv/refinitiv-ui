@@ -25,6 +25,8 @@ export class Loader extends BasicElement {
     return VERSION;
   }
 
+  protected readonly defaultRole: string | null = 'progressbar';
+
   /**
    * Collection of template part names,
    * used to create and theme different loader styles
