@@ -1202,9 +1202,8 @@ export class Slider extends ControlElement {
 
     const thumbStyle = { left: `${percentageValue}%` };
     return html`
-      <!-- TODO -->
-      <!-- tabIndex="10" is to provide priority over number-field which comes before the slider track. So focus delegates from host correctly. -->
-      <div role="slider" aria-valuemin=${valueMin} aria-valuemax=${valueMax} aria-valuenow=${valueNow} part="thumb-container" tabindex="10" name=${name} style=${styleMap(thumbStyle)}>
+      <!-- Set tabIndex="1" to provide priority over number-field which comes before the slider track. So focus delegates from host in correct order. -->
+      <div role="slider" aria-valuemin=${valueMin} aria-valuemax=${valueMax} aria-valuenow=${valueNow} part="thumb-container" tabindex="1" name=${name} style=${styleMap(thumbStyle)}>
         <div part="pin">
           <span part="pin-value-marker">${value}</span>
         </div>
