@@ -62,6 +62,8 @@ export class Clock extends ResponsiveElement {
     return VERSION;
   }
 
+  protected readonly defaultRole: string | null = 'group';
+
   /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
@@ -129,6 +131,12 @@ export class Clock extends ResponsiveElement {
    */
   @state()
   private tickTimestamp = 0;
+
+  /**
+   * Current active state for interactive
+   */
+  @state()
+  private active = 'hours';
 
   /**
    * Get time value in format `hh:mm:ss`
@@ -449,6 +457,12 @@ export class Clock extends ResponsiveElement {
    * @returns {void}
    */
   private onTapStart (event: TapEvent): void {
+    if (event.target === this.hoursPart) {
+      this.changeActiveSegment('hours');
+    }
+    if (event.target === this.minutesPart) {
+      this.changeActiveSegment('minutes');
+    }
     if (event.target instanceof HTMLElement && event.target.dataset.key) {
       this.shift(event.target.dataset.key as UpOrDown, this.getShiftAmountFromTarget(event.target));
     }
@@ -461,14 +475,25 @@ export class Clock extends ResponsiveElement {
   * @returns {void}
   */
   private manageControlKeys (event: KeyboardEvent): void {
+    // Ignore special keys
+    if (event.shiftKey || event.ctrlKey || event.altKey || event.metaKey) {
+      return;
+    }
+
     switch (event.key) {
       case 'Up': // IE
       case 'ArrowUp':
-        this.handleUpKey(event);
+        this.handleUpKey();
         break;
       case 'Down': // IE
       case 'ArrowDown':
-        this.handleDownKey(event);
+        this.handleDownKey();
+        break;
+      case 'Left': // IE
+      case 'ArrowLeft':
+      case 'Right': // IE
+      case 'ArrowRight':
+        this.handleLeftRightKey();
         break;
       default:
         return;
@@ -482,8 +507,10 @@ export class Clock extends ResponsiveElement {
   * @param event Event Object
   * @returns {void}
   */
-  private handleUpKey (event: KeyboardEvent): void {
-    this.shift(UP, this.getShiftAmountFromTarget(event.target));
+  private handleUpKey (): void {
+    const selection = this.renderRoot.querySelector(`[part~=${this.active}]`);
+    this.shift(UP, this.getShiftAmountFromTarget(selection));
+    this.updateAriaValueText();
   }
 
   /**
@@ -491,19 +518,57 @@ export class Clock extends ResponsiveElement {
   * @param event Event Object
   * @returns {void}
   */
-  private handleDownKey (event: KeyboardEvent): void {
-    this.shift(DOWN, this.getShiftAmountFromTarget(event.target));
+  private handleDownKey (): void {
+    const selection = this.renderRoot.querySelector(`[part~=${this.active}]`);
+    this.shift(DOWN, this.getShiftAmountFromTarget(selection));
+    this.updateAriaValueText();
+  }
+
+  /**
+  * Handles Left key press
+  * @param event Event Object
+  * @returns {void}
+  */
+  private handleLeftRightKey (): void {
+    const segment = this.active === 'hours' ? 'minutes' : 'hours';
+    this.changeActiveSegment(segment);
+  }
+
+  /**
+  * Updates active attribute for increment and decrement button
+  * by new segment
+  * @param segment new active segment
+  * @returns {void}
+  */
+  private changeActiveSegment (segment: string) {
+    this.renderRoot.querySelectorAll('[active]')?.forEach((el) => el.removeAttribute('active'));
+    this.active = segment;
+    this.renderRoot.querySelector(`[part~="${this.active}"]`)?.querySelector('[part="increment-button"]')?.setAttribute('active', '');
+    this.renderRoot.querySelector(`[part~="${this.active}"]`)?.querySelector('[part="decrement-button"]')?.setAttribute('active', '');
+  }
+
+  /**
+  * Updates aria-value-text to have the same value as screen
+  * @returns {void}
+  */
+  private updateAriaValueText () {
+    const value = `Time: ${padNumber(this.displayHours, 2)}:${padNumber(this.displayMinutes, 2)}${this.showSeconds ? ':' + padNumber(this.displaySeconds, 2) : ''}${this.amPm ? ' ' + this.displayAmPm : ''}`;
+    this.ariaValueText = value;
   }
 
   /**
   * Template for increment and decrement button
   * if interactive mode is enabled.
+  * @param segment active segment
   * @returns {TemplateResult} template result
   */
-  private generateButtonsTemplate (): TemplateResult {
+  private generateButtonsTemplate (segment: string): TemplateResult {
+    const isFocused = segment === this.active;
     return html`
-      <div part="increment-button" role="button" data-key="${UP}"></div>
-      <div part="decrement-button" role="button" data-key="${DOWN}"></div>
+      <div part="increment-button" role="button" data-key="${UP}" aria-hidden="true"
+      active="${ifDefined(isFocused ? '' : undefined)}"></div>
+      <div part="decrement-button" role="button" data-key="${DOWN}" aria-hidden="true"
+      active="${ifDefined(isFocused ? '' : undefined)}"></div>
     `;
   }
 
@@ -516,9 +581,9 @@ export class Clock extends ResponsiveElement {
   */
   private generateSegmentTemplate (name: string, value: number): TemplateResult {
     return html`
-      <div part="segment ${name}${ifDefined(this.isSegmentShifted(name) ? ' shifted' : '')}" tabindex="${ifDefined(this.interactive ? '0' : undefined)}">
+      <div part="segment ${name}${ifDefined(this.isSegmentShifted(name) ? ' shifted' : '')}">
         ${padNumber(value, 2)}
-        ${this.interactive ? this.generateButtonsTemplate() : undefined}
+        ${this.interactive ? this.generateButtonsTemplate(name) : undefined}
       </div>
     `;
   }
@@ -528,7 +593,7 @@ export class Clock extends ResponsiveElement {
   */
   private get dividerTemplate (): TemplateResult {
     return html`
-      <div part="segment divider">:</div>
+      <div part="segment divider" aria-hidden="true">:</div>
     `;
   }
 
@@ -601,8 +666,25 @@ export class Clock extends ResponsiveElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.renderRoot.addEventListener('keydown', (event) => this.onKeydown(event as KeyboardEvent));
+    this.addEventListener('keydown', (event) => this.onKeydown(event));
     this.renderRoot.addEventListener('tapstart', (event) => this.onTapStart(event as TapEvent));
+  }
+
+  protected update (changedProperties: PropertyValues): void {
+    super.update(changedProperties);
+
+    if (changedProperties.has('interactive')) {
+      if (this.interactive) {
+        this.tabIndex = 0;
+        this.setAttribute('role', 'spinbutton');
+        this.updateAriaValueText();
+      }
+      else {
+        this.tabIndex = -1;
+        this.setAttribute('role', 'group');
+        this.ariaValueText = null;
+      }
+    }
   }
 
   /**

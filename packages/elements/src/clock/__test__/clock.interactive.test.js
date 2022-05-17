@@ -65,7 +65,7 @@ describe('clock/Interactive', () => {
     });
     it('Increases hour when arrow Up is pressed', async () => {
       await onTapstart(hoursSegment, el);
-      createKeyboardEvent(hoursSegment, InputKey.arrowUp);
+      createKeyboardEvent(el, InputKey.arrowUp);
       await elementUpdated(el);
 
       expect(el.offset, 'offset should be 3600').to.be.equal(3600);
@@ -73,7 +73,7 @@ describe('clock/Interactive', () => {
     });
     it('Decreases hour when arrow Down is pressed', async () => {
       await onTapstart(hoursSegment, el);
-      createKeyboardEvent(hoursSegment, InputKey.arrowDown);
+      createKeyboardEvent(el, InputKey.arrowDown);
       await elementUpdated(el);
 
       expect(el.offset, 'offset should be 82800').to.be.equal(82800);
@@ -99,7 +99,7 @@ describe('clock/Interactive', () => {
     });
     it('Increases minute when arrow Up is pressed', async () => {
       await onTapstart(minutesSegment, el);
-      createKeyboardEvent(minutesSegment, InputKey.arrowUp);
+      createKeyboardEvent(el, InputKey.arrowUp);
       await elementUpdated(el);
 
       expect(el.offset, 'offset should be 60').to.be.equal(60);
@@ -107,7 +107,7 @@ describe('clock/Interactive', () => {
     });
     it('Decreases minute when arrow Down is pressed', async () => {
       await onTapstart(minutesSegment, el);
-      createKeyboardEvent(minutesSegment, InputKey.arrowDown);
+      createKeyboardEvent(el, InputKey.arrowDown);
       await elementUpdated(el);
 
       expect(el.offset, 'offset should be 86340').to.be.equal(86340);

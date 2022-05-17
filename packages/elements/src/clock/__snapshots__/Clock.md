@@ -8,7 +8,10 @@
 <div part="segment hours">
   00
 </div>
-<div part="segment divider">
+<div
+  aria-hidden="true"
+  part="segment divider"
+>
   :
 </div>
 <div part="segment minutes">
@@ -25,7 +28,10 @@
     <div part="segment hours">
       00
     </div>
-    <div part="segment divider">
+    <div
+      aria-hidden="true"
+      part="segment divider"
+    >
       :
     </div>
     <div part="segment minutes">

@@ -74,10 +74,11 @@
     }
   }
 
-  [part~='hours']:focus, [part~='minutes']:focus, [part~='seconds']:focus {
-    color: @scheme-color-primary;
-
-    [part='increment-button'], [part='decrement-button'] {
+  &:focus {
+    [part~='hours'], [part~='minutes'], [part~='seconds'] {
+      color: @scheme-color-primary;
+    }
+    [active]{
       display: block;
     }
   }
