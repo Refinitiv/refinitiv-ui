@@ -617,8 +617,8 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private onApplyStep (direction: Direction): void {
-    const currentPercentageValue = (this.valueNumber - this.minNumber) / (this.maxNumber - this.minNumber);
-    const percentageStep = this.calculatePercentage(this.minNumber + this.stepRange) / 100;
+    const currentPercentageValue = this.calculatePercentage(this.valueNumber, 1);
+    const percentageStep = this.calculatePercentage(this.minNumber + this.stepRange, 1);
 
     const percentageValue = direction === Direction.Up ? currentPercentageValue + percentageStep : currentPercentageValue - percentageStep;
     const nearestPossibleValue = this.getNearestPossibleValue(percentageValue);
@@ -632,13 +632,14 @@ export class Slider extends ControlElement {
   /**
    * Get percentage value from decimal fraction number
    * @param value decimal fraction value
+   * @param multiplier defaults to 100
    * @returns percentage as a fraction of 100
    */
-  private calculatePercentage (value: number): number {
-    const percentage = Math.abs((((value || 0) - this.minNumber) / (this.maxNumber - this.minNumber)) * 100);
+  private calculatePercentage (value: number, multiplier = 100): number {
+    const percentage = Math.abs((((value || 0) - this.minNumber) / (this.maxNumber - this.minNumber)) * multiplier);
 
-    if (percentage > 100) {
-      return 100;
+    if (percentage > multiplier) {
+      return multiplier;
     }
     else if (percentage < 0) {
       return 0;
@@ -886,7 +887,7 @@ export class Slider extends ControlElement {
    * @returns nearest available slider step in fraction
    */
   private getNearestPossibleValue (thumbPosition: number): number {
-    const stepSize = this.calculatePercentage(this.minNumber + this.stepRange) / 100;
+    const stepSize = this.calculatePercentage(this.minNumber + this.stepRange, 1);
     const nearestValue = Math.round(thumbPosition / stepSize) * stepSize;
 
     if (thumbPosition <= nearestValue + (stepSize / 2)) {
@@ -979,7 +980,7 @@ export class Slider extends ControlElement {
    */
   private onValueChange (): void {
     if (this.readonly) {
-      const percentageValue = this.calculatePercentage(this.valueNumber) / 100;
+      const percentageValue = this.calculatePercentage(this.valueNumber, 1);
       const nearestPossibleValue = this.getNearestPossibleValue(percentageValue);
       const correctedValue = this.getValueFromPercentage(this.stepRange === 0 ? percentageValue : nearestPossibleValue);
 
