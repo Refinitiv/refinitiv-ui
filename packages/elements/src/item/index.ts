@@ -284,3 +284,9 @@ export class Item extends ControlElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-item': Item;
+  }
+}

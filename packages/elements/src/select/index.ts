@@ -1077,3 +1077,9 @@ export class Select extends ControlElement implements MultiValue {
     ${this.editTemplate}`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-select': Select;
+  }
+}

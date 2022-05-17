@@ -144,3 +144,9 @@ export class Accordion extends Collapse {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-accordion': Accordion;
+  }
+}

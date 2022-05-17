@@ -1,4 +1,3 @@
-import type { OverlayBackdrop } from '../elements/overlay-backdrop';
 import type { Overlay } from '../elements/overlay';
 import { OverlayLayer, getOverlayLayers } from './zindex-manager.js';
 
@@ -10,7 +9,7 @@ import '../elements/overlay-backdrop.js';
  */
 export class BackdropManager {
   private registry: Set<Overlay> = new Set();
-  private backdropElement = document.createElement('ef-overlay-backdrop') as OverlayBackdrop;
+  private backdropElement = document.createElement('ef-overlay-backdrop');
 
   private get overlays (): OverlayLayer[] {
     return getOverlayLayers().filter(({ overlay }) => this.registry.has(overlay));

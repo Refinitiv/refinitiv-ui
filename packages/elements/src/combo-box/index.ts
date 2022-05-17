@@ -1330,3 +1330,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-combo-box': ComboBox;
+  }
+}

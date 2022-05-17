@@ -209,3 +209,9 @@ export class Checkbox extends ControlElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-checkbox': Checkbox;
+  }
+}

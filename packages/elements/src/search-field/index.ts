@@ -91,3 +91,9 @@ export class SearchField extends TextField {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-search-field': SearchField;
+  }
+}
