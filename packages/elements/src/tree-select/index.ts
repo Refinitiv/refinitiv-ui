@@ -987,3 +987,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     }
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-tree-select': TreeSelect;
+  }
+}

@@ -166,3 +166,9 @@ export class Counter extends BasicElement {
     return html`<span part="number">${this.formatValue(this.value)}</span>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-counter': Counter;
+  }
+}

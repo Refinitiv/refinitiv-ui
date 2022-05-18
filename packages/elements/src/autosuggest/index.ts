@@ -9,7 +9,6 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
 import { VERSION } from '../version.js';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import type {
@@ -1450,5 +1449,11 @@ export class Autosuggest extends Overlay {
     if (headerHeight + footerHeight + contentHeight > dialogHeight) {
       this.restrictContentMaxHeight(dialogHeight - footerHeight - headerHeight);
     }
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-autosuggest': Autosuggest;
   }
 }

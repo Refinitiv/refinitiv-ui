@@ -28,7 +28,7 @@ layout: default
 
 `ef-tornado-chart` visually represents differences or similarities between values. It provides options to add a chart header, add a footer or highlight items.
 
-### Usage
+## Usage
 `ef-tornado-chart` is a collection of bars defined by `ef-tornado-item`. Each item comprises a primary bar and a secondary bar.
 
 `ef-tornado-item` supports the attributes below.
@@ -66,7 +66,7 @@ layout: default
 </ef-tornado-chart>
 ```
 
-### Highlighted items
+## Highlighted items
 You can add the `highlighted` attribute to `ef-tornado-item` or set `highlighted` property to `true` to apply the highlighted style.
 
 ```html
@@ -79,7 +79,7 @@ You can add the `highlighted` attribute to `ef-tornado-item` or set `highlighted
 >Global Average</ef-tornado-item>
 ```
 
-### Header and footer
+## Header and footer
 
 Any HTML content can be added to the header and footer section of the chart using the `header` and `footer` slot, respectively.
 
@@ -158,7 +158,7 @@ Any HTML content can be added to the header and footer section of the chart usin
 </ef-tornado-chart>
 ```
 
-### Responsiveness
+## Responsiveness
 
 Tornado chart has a default breakpoint value, specified in the theme file, to reflow the layout to a vertical style when it is too small. You can override the value by using css variable, `--responsive-width`.
 
@@ -193,7 +193,7 @@ ef-tornado-chart {
 
 
 
-### CSS Variables
+## CSS Variables
 
 Colors of the chart can be customized using CSS variables; `--primary-color` for primary bars and `--secondary-color` for secondary bars.
 

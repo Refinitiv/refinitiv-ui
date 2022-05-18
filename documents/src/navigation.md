@@ -3,18 +3,18 @@ type: nav
  -->
 
 + Getting Started
-  - [Installation](./start/installation)
-  - [Theming](./start/theming)
+  * [Introduction](./)
+  - [Quick Start](./quick-start)
+  - [Styling](./start/styling)
   - [Browser Support](./start/browser-support)
   - [Language Support](./start/languages)
 
-- Core Elements
+- Components
   + Actions
     - [Button](./elements/button)
     - [Button Bar](./elements/button-bar)
     - [Pagination](./elements/pagination)
     - [Pill](./elements/pill)
-    - [Tab](./elements/tab)
     - [Tab Bar](./elements/tab-bar)
     - [Toggle](./elements/toggle)
   + Inputs
@@ -73,12 +73,12 @@ type: nav
     - [Icon](./elements/icon)
     - [Flag](./elements/flag)
 
-- Build an App
+- Using Components
   + Framework Integration
-    - [Vanilla](./integrations/javascript)
-    - [Angular](./integrations/angular)
-    - [React](./integrations/react)
-    - [Vue](./integrations/vue)
+    - [Vanilla](./tutorials/vanilla-js)
+    - [Angular](./tutorials/angular)
+    - [React](./tutorials/react)
+    - [Vue](./tutorials/vue)
   - Styles
     - [Typography](./styles/typography)
     - [Styling Components](./styles/styling-components)
@@ -88,5 +88,11 @@ type: nav
   - [Internationalization (i18n)](./intl/internationalization)
   - [Theme Switching](./guides/theme-switching)
 
-- More Resources
-  - [Data Collection Composer](./resources/collection-composer)
+# Keeping this here for reference
+# - Theming
+#   * [Component styles*](./theming/styles)
+#   * [Part syntax()](./theming/css-parts)
+#   * [Origin theme*](./theming/origin)
+#   * [Theme extension*](./theming/theme-extension)
+#   * [Compiling a theme*](./theimg/compilation)
+#   * [CSS custom properties*](./theming/css-vars)

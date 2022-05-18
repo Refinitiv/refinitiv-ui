@@ -1230,3 +1230,9 @@ export class Slider extends ControlElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-slider': Slider;
+  }
+}

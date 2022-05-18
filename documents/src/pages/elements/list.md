@@ -35,7 +35,7 @@ ef-list {
 
 Renders a collection of data items and provides single and multiple selection modes.
 
-### Usage
+## Usage
 
 The easiest way to populate the list is to pass an array of data items to `data` property. Items must adhere to the [DataItem](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/utils/src/collection/data-item.ts) interface.
 
@@ -50,12 +50,12 @@ const data = [
 el.data = data;
 ```
 
-### Data property interface
+## Data property interface
 
 The `data` property of the `ef-list` use the [ListData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/list/helpers/types.ts) interface for its data items.
 
 
-### Using a composer to set and manage data
+## Using a composer to set and manage data
 
 Setting data using a [CollectionComposer](./resources/collection-composer) can be useful when data needs to be managed externally.
 
@@ -74,11 +74,11 @@ const composer = new CollectionComposer(data);
 el.data = composer;
 ```
 
-### Default renderer
+## Default renderer
 
 By default, the list renders items using [Item](./elements/item) and therefore can be controlled by passing data of type `ItemData`.
 
-### Extending the default renderer
+## Extending the default renderer
 
 Extending the default renderer is the easiest way to display custom content, while retaining all of the default selection states and item types.
 
@@ -97,7 +97,7 @@ el.renderer = (item, composer, element) => {
 };
 ```
 
-### Creating a fully custom renderer
+## Creating a fully custom renderer
 
 Creating a fully custom renderer gives you ultimate flexibility, however, you will have to manually handle all of the different item states.
 
@@ -128,3 +128,12 @@ el.renderer = (item, composer, element) => {
 
 };
 ```
+
+## Accessibility
+::a11y-intro::
+
+`ef-list` is assigned `role="listbox"` and can include properties such as `aria-labelledby`, `aria-activedescendant` and `aria-multiselectable`. The data items are assigned the `role="option"` and can include properties such as `aria-selected` in single mode or `aria-checked` in `multiple` mode and `aria-disabled`. The element’s properties programmatically update to match its visual state. It receives focus once at host and it is navigable through items using `Up` and `Down` arrow keys.
+
+`ef-list` has already provided role and aria attributes for itself and items in the list. It also has implemented keyboard navigation following accessibility guideline.
+
+::a11y-end::

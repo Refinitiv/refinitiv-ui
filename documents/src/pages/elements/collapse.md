@@ -19,7 +19,7 @@ layout: default
 
 `ef-collapse` allows users to hide non-critical information or areas of the screen, maximizing the amount of real estate available to their primary content.
 
-### Usage
+## Usage
 The `ef-collapse` can wrap around any html content, be it native html elements such as `div` or custom components.
 
 ```html
@@ -30,7 +30,7 @@ The `ef-collapse` can wrap around any html content, be it native html elements s
 </ef-collapse>
 ```
 
-### Set title
+## Set title
 The title of each section can be set using the `header` attribute.
 
 ::
@@ -54,7 +54,7 @@ The title of each section can be set using the `header` attribute.
 </ef-collapse>
 ```
 
-### Set section level
+## Set section level
 You can set the `level` attribute to visualize hierarchical content. Styling each level is managed by the theme.
 
 ::
@@ -98,7 +98,7 @@ You can set the `level` attribute to visualize hierarchical content. Styling eac
 </ef-collapse>
 ```
 
-### Content spacing
+## Content spacing
 Content can be set to use default padding from the theme by adding the `spacing` attribute.
 
 ::
@@ -122,7 +122,7 @@ Content can be set to use default padding from the theme by adding the `spacing`
 </ef-collapse>
 ```
 
-### Custom header
+## Custom header
 The header can contain simple text or components such as checkbox, button. These components can be added using `slot`.
 
 ::
@@ -160,3 +160,20 @@ ef-collapse > ef-checkbox {
   </div>
 </ef-collapse>
 ```
+
+## Accessibility
+::a11y-intro::
+
+`ef-collapse` is assigned the `role="button"` and can include the property `aria-expanded`. It aims to toggling between expanding and collapse its content. `aria-level` attribute should be used to define the hierarchical level elements within their hierarchical structures. Levels increase with depth. The value for aria-level is an integer greater than or equal to 1.
+
+The slots feature uses a combination of the Button and Checkbox components.  
+
+`ef-collapse` has provided role and keyboard navigation. However, you need to set an appropriate `aria-level` attribute to the element, depends on your page structure. Typically, on the page, it should reserve `aria-level="1"` for main page's heading (h1) so you may want to set `aria-level` from `aria-level="2"` onward.
+
+```html
+<ef-collapse header="SpaceX Dragon" aria=level="2">
+  The Earth was small, light blue, and so touchingly alone, our home that must be defended like a holy relic. The Earth was absolutely round. I believe I never knew what the word round meant until I saw Earth from space.
+</ef-collapse>
+```
+
+::a11y-end::

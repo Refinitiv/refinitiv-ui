@@ -648,3 +648,9 @@ export class MultiInput extends ControlElement implements MultiValue {
     return !!(item.value && item.label);
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-multi-input': MultiInput;
+  }
+}

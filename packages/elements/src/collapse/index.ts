@@ -234,3 +234,9 @@ export class Collapse extends BasicElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-collapse': Collapse;
+  }
+}

@@ -389,3 +389,9 @@ export class Dialog extends Overlay {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-dialog': Dialog;
+  }
+}

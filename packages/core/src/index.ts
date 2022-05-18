@@ -2,7 +2,8 @@ export {
   html,
   svg,
   css,
-  unsafeCSS
+  unsafeCSS,
+  render
 } from 'lit';
 
 export type {
@@ -56,6 +57,7 @@ export type { StyleInfo } from './interfaces/StyleInfo';
  */
 export { FocusableHelper } from './utils/focusableHelper.js';
 export { matches } from './utils/matches.js';
+export { isBasicElement } from './utils/helpers.js';
 
 /**
  * Export focused key.

@@ -14,6 +14,12 @@
       import '@refinitiv-ui/elements/interactive-chart';
 
       import '@refinitiv-ui/demo-block';
+
+      // Translations
+      import '@refinitiv-ui/phrasebook/locale/de/card.js';
+      import '@refinitiv-ui/phrasebook/locale/ja/card.js';
+      import '@refinitiv-ui/phrasebook/locale/zh/card.js';
+      import '@refinitiv-ui/phrasebook/locale/zh-hant/card.js';
     </script>
     <style>
       .photo-content {
@@ -77,15 +83,15 @@
 
     <demo-block header="Default" layout="normal" tags="default">
       <ef-card>
-        <span>An empty card with no header and footer</span>
+        An empty card with no header and footer
       </ef-card>
     </demo-block>
 
     <demo-block header="Header and Footer Slot" layout="normal" tags="slot,header,footer">
       <ef-card>
-        <span slot="header">Header Slot</span>
+        <span slot="header"><h5>Header Slot</h5></span>
         <span slot="footer">Footer Slot</span>
-        Content
+        <p>Content</p>
       </ef-card>
     </demo-block>
 
@@ -95,7 +101,7 @@
           <div class="draggable"></div>
           Draggable Header
         </div>
-        Content
+        <p>Content</p>
       </ef-card>
       <script>
         const draggableCard = document.getElementById('draggable-card');
@@ -109,7 +115,7 @@
 
     <demo-block header="Header and Footer" layout="normal" tags="header,footer">
       <ef-card header="Header" footer="Footer Info">
-        <span>MOSCOW, May 14 (Reuters) - Russia's largest oil producer Rosneft on Friday reported first-quarter net income of 149 billion roubles ($2 billion), buoyed by a recovery in oil prices, after a $2.1 billion loss a year earlier.</span>
+        <h3>MOSCOW, May 14 (Reuters) - Russia's largest oil producer Rosneft on Friday reported first-quarter net income of 149 billion roubles ($2 billion), buoyed by a recovery in oil prices, after a $2.1 billion loss a year earlier.</h3>
       </ef-card>
     </demo-block>
 
@@ -154,7 +160,7 @@
     <demo-block header="Fixed height" layout="normal" tags="fixed height">
       <ef-card id="fixed-height">
         <div class="photo-content">
-          <img class="photo" src="https://picsum.photos/id/1025/200/150" width="200" height="150">
+          <img class="photo" src="https://picsum.photos/id/1025/200/150" width="200" height="150" alt="Demo image">
         </div>
         <span class="description">EW YORK/LONDON, May 14 (Reuters) - U.S. stocks extended their recovery on Friday as investors set aside inflation worries and bought shares hammered by the week's volatility, with the shift back into riskier assets dragging on the dollar.EW YORK/LONDON, May 14 (Reuters) - U.S. stocks extended their recovery on Friday as investors set aside inflation worries and bought shares hammered by the week's volatility, with the shift back into riskier assets dragging on the dollar.</span>
       </ef-card>
@@ -163,7 +169,7 @@
     <demo-block header="Fix min-height" layout="normal" tags="header,footer,fixed min-height">
       <ef-card id="fixed-min-height" header="Bitcoin’s star backers, dip buyers help cryptos recover" footer="May 20, 2021 5:27 PM +07">
         <div class="photo-content">
-          <img class="photo" src="https://picsum.photos/id/1025/200/150" width="200" height="150">
+          <img class="photo" src="https://picsum.photos/id/1025/200/150" width="200" height="150" alt="Demo image">
         </div>
         <span class="description">
             Bitcoin regained some lost ground to trade near $40,000 on Thursday, a day aftera brutal selloff on concerns over tighter regulation in China and unease over the extent of leveraged positions in the cryptocurrency world.
@@ -177,16 +183,16 @@
     <demo-block header="Flex layout" layout="normal" tags="flex">
       <div id="flex" >
         <ef-card footer="May 14 (Reuters)">
-          <img class="photo" src="https://picsum.photos/id/1025/150/150" width="150" height="150">
+          <img class="photo" src="https://picsum.photos/id/1025/150/150" width="150" height="150" alt="Demo image">
         </ef-card>
         <ef-card footer="May 14 (Reuters)">
-          <img class="photo" src="https://picsum.photos/id/1025/150/150" width="150" height="150">
+          <img class="photo" src="https://picsum.photos/id/1025/150/150" width="150" height="150" alt="Demo image">
         </ef-card>
         <ef-card footer="May 14 (Reuters)">
-          <img class="photo" src="https://picsum.photos/id/1025/150/150" width="150" height="150">
+          <img class="photo" src="https://picsum.photos/id/1025/150/150" width="150" height="150" alt="Demo image">
         </ef-card>
         <ef-card footer="May 14 (Reuters)">
-          <img class="photo" src="https://picsum.photos/id/1025/150/150" width="150" height="150">
+          <img class="photo" src="https://picsum.photos/id/1025/150/150" width="150" height="150" alt="Demo image">
         </ef-card>
       </div>
     </demo-block>
@@ -274,7 +280,7 @@
 
         chart.config = chartConfig;
         cardChart.addEventListener('item-trigger', (e) => {
-          if(e.detail.value === 'percentage') {
+          if (e.detail.value === 'percentage') {
             chartConfig = {
               series: chartConfig.series,
               options: {

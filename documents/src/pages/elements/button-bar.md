@@ -56,7 +56,7 @@ div {
 
 `ef-button-bar` is used to display multiple buttons to create a list of commands bar.
 
-### Usage
+## Usage
 Button Bar can be created by using `ef-button` as content inside `ef-button-bar`. You can use it to create a button with an additional menu on the side, or to create different styles of toolbar control.
 
 The Button Bar control aims to provide a simple array of buttons. You can use it together with Overlay Menu to create a dropdown menu.
@@ -80,7 +80,7 @@ The Button Bar control aims to provide a simple array of buttons. You can use it
 </ef-button-bar>
 ```
 
-### Creating multiple buttons toolbar
+## Creating multiple buttons toolbar
 You can use Button Bar to create a simple toolbar.
 
 ::
@@ -112,7 +112,7 @@ You can use Button Bar to create a simple toolbar.
 </ef-button-bar>
 ```
 
-### Toggle buttons
+## Toggle buttons
 Buttons can be set to a toggled mode by using the `toggles` attribute. Each button can be toggled independently.
 
 ::
@@ -163,7 +163,7 @@ If only one button can be active at a time, add the `managed` attribute to `ef-b
 </ef-button-bar>
 ```
 
-### Mixing different styles
+## Mixing different styles
 `ef-button-bar` supports more complex use cases, such as including managed buttons along with other types.
 
 ::
@@ -207,7 +207,7 @@ If only one button can be active at a time, add the `managed` attribute to `ef-b
 </ef-button-bar>
 ```
 
-### Handle users click event
+## Handle users click event
 To listen to the tap event on the button, add the `tap` event listener to an individual `ef-button` or `ef-button-bar`.
 
 ```html
@@ -222,3 +222,22 @@ buttonBar.addEventListener('tap', (e) => {
   console.log(e.target.getAttribute('id'));
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+`ef-button-bar` serves as a container for Button components. The button bar itself is assigned with `toolbar` role whilst its buttons have `button` role. Always try to include a text label, or `aria-label` for a button bar and buttons.
+
+Note that a Button Bar should not be used in place of a Tab Bar, which is for selecting and displaying panels – maintaining this distinction will help accessible users understand the purpose of the component.
+
+`ef-button-bar` provides `toolbar` role by default and manages keyboard navigation as per accessibility guideline. However, if you use Button Bar with `managed` mode, you need to override its role to `radiogroup` and all buttons to be assigned with `radio` role.
+
+```html
+<ef-button-bar aria-label="text alignment toolbar" managed role="radiogroup">
+  <ef-button toggles role="radio" aria-label="text-left" icon="text-left"></ef-button>
+  <ef-button toggles role="radio" aria-label="text-center" icon="text-center"></ef-button>
+  <ef-button toggles role="radio" aria-label="text-right" icon="text-right"></ef-button>
+</ef-button-bar>
+```
+
+::a11y-end::
