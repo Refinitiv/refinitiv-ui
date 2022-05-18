@@ -586,7 +586,7 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private onKeyDown (event: KeyboardEvent): void {
-    if (this.readonly || this.minNumber === this.maxNumber) {
+    if (this.readonly || this.minNumber >= this.maxNumber) {
       return;
     }
 
@@ -640,9 +640,6 @@ export class Slider extends ControlElement {
 
     if (percentage > multiplier) {
       return multiplier;
-    }
-    else if (percentage < 0) {
-      return 0;
     }
 
     return percentage;
