@@ -234,3 +234,12 @@ ef-clock {
 <ef-clock analogue tick show-seconds am-pm></ef-clock>
 ```
 
+
+## Accessibility
+::a11y-intro::
+
+`ef-clock` is a set of number segments that contain hours, minutes, seconds, and time convention periods. It assigned `role="group"` and can include `aria-label` to describe the context of time.
+
+When interactive mode is on, `ef-clock` becomes focusable and assigns `role="spinbutton"`. It's automatically active at hours segment. Use Left or Right arrow key to switch the active segment between hours and minutes. To change the value use Up or Down arrow key, and then the current value will be updated at `aria-valuetext`.
+
+::a11y-end::
