@@ -618,8 +618,8 @@ export class Slider extends ControlElement {
    */
   private onApplyStep (direction: Direction): void {
     // Get current thumb position and step in percentage format
-    const thumbPosition = this.calculatePercentage(this.valueNumber, 1);
-    const step = this.calculatePercentage(this.minNumber + this.stepRange, 1);
+    const thumbPosition = this.calculatePosition(this.valueNumber, 1);
+    const step = this.calculatePosition(this.minNumber + this.stepRange, 1);
 
     const possibleValue = direction === Direction.Up ? thumbPosition + step : thumbPosition - step;
     const nearestPossibleValue = this.getNearestPossibleValue(possibleValue);
@@ -631,12 +631,12 @@ export class Slider extends ControlElement {
   }
 
   /**
-   * Get percentage value from decimal fraction number
+   * Calculate thumb position based on value and multiplier
    * @param value decimal fraction value
    * @param multiplier defaults to 100
    * @returns percentage as a fraction of 100
    */
-  private calculatePercentage (value: number, multiplier = 100): number {
+  private calculatePosition (value: number, multiplier = 100): number {
     const percentage = Math.abs(((value - this.minNumber) / (this.maxNumber - this.minNumber)) * multiplier);
 
     if (percentage > multiplier) {
@@ -885,7 +885,7 @@ export class Slider extends ControlElement {
    * @returns nearest available slider step in fraction
    */
   private getNearestPossibleValue (thumbPosition: number): number {
-    const stepSize = this.calculatePercentage(this.minNumber + this.stepRange, 1);
+    const stepSize = this.calculatePosition(this.minNumber + this.stepRange, 1);
     const nearestValue = Math.round(thumbPosition / stepSize) * stepSize;
 
     if (thumbPosition <= nearestValue + (stepSize / 2)) {
@@ -978,7 +978,7 @@ export class Slider extends ControlElement {
    */
   private onValueChange (): void {
     if (this.readonly) {
-      const thumbPosition = this.calculatePercentage(this.valueNumber, 1);
+      const thumbPosition = this.calculatePosition(this.valueNumber, 1);
       const nearestPossibleValue = this.getNearestPossibleValue(thumbPosition);
 
       const value = this.getValueFromPercentage(this.stepRange === 0 ? thumbPosition : nearestPossibleValue);
@@ -1183,14 +1183,14 @@ export class Slider extends ControlElement {
    * @returns Track template
    */
   private renderTrack (range: boolean): TemplateResult {
-    const stepContainerSize: number = this.calculatePercentage(this.minNumber + this.stepNumber);
+    const stepContainerSize: number = this.calculatePosition(this.minNumber + this.stepNumber);
     const translateX = (stepContainerSize / 2);
     const stepsStyle = { transform: `translateX(${translateX}%)`, backgroundSize: `${stepContainerSize}% 100%` };
     const stepContainerStyle = { transform: `translateX(-${translateX}%)` };
 
     const trackFillStyle: StyleMap = range
-      ? { width: `${this.calculatePercentage(this.toNumber) - this.calculatePercentage(this.fromNumber)}%`, left: `${this.calculatePercentage(this.fromNumber)}%` }
-      : { width: `${this.calculatePercentage(Number(this.value))}%` };
+      ? { width: `${this.calculatePosition(this.toNumber) - this.calculatePosition(this.fromNumber)}%`, left: `${this.calculatePosition(this.fromNumber)}%` }
+      : { width: `${this.calculatePosition(Number(this.value))}%` };
 
     return html`
       <div part="track-wrapper" ${ref(this.trackRef)}>
@@ -1246,8 +1246,8 @@ export class Slider extends ControlElement {
    */
   private renderThumbRange (from: number, to: number): TemplateResult {
     return html`
-      ${this.renderThumb(from, this.calculatePercentage(from), SliderDataName.from)}
-      ${this.renderThumb(to, this.calculatePercentage(to), SliderDataName.to)}
+      ${this.renderThumb(from, this.calculatePosition(from), SliderDataName.from)}
+      ${this.renderThumb(to, this.calculatePosition(to), SliderDataName.to)}
     `;
   }
 
@@ -1285,7 +1285,7 @@ export class Slider extends ControlElement {
       <div part="slider-wrapper">
         <div part="slider" ${ref(this.sliderRef)}>
           ${this.renderTrack(this.range)}
-          ${this.range ? this.renderThumbRange(this.fromNumber, this.toNumber) : this.renderThumb(this.valueNumber, this.calculatePercentage(Number(this.value)), 'value')}
+          ${this.range ? this.renderThumbRange(this.fromNumber, this.toNumber) : this.renderThumb(this.valueNumber, this.calculatePosition(Number(this.value)), 'value')}
         </div>
       </div>
       ${this.range && this.isShowInputField ? this.renderNumberField(this.to, SliderDataName.to) : null}
