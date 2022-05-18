@@ -73,3 +73,9 @@ export class Panel extends BasicElement {
     return html`<slot></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-panel': Panel;
+  }
+}

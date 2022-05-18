@@ -1303,3 +1303,9 @@ export class Heatmap extends ResponsiveElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-heatmap': Heatmap;
+  }
+}

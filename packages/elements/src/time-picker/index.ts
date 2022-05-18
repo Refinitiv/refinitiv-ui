@@ -1008,3 +1008,9 @@ export class TimePicker extends ControlElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-time-picker': TimePicker;
+  }
+}

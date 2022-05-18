@@ -445,3 +445,9 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
       ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-tree': Tree;
+  }
+}

@@ -905,3 +905,8 @@ export class SwingGauge extends ResponsiveElement {
   }
 }
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-swing-gauge': SwingGauge;
+  }
+}
