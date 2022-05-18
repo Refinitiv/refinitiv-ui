@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, keyboardEvent, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/clock';
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
@@ -18,11 +18,23 @@ describe('clock/Interactive', () => {
     }
 
     const InputKey = {
+      arrowLeft: {
+        ieKey: 'Left',
+        key: 'ArrowLeft',
+        which: 37,
+        keyCode: 37
+      },
       arrowUp: {
         ieKey: 'Up',
         key: 'ArrowUp',
         which: 38,
         keyCode: 38
+      },
+      arrowRight: {
+        ieKey: 'Right',
+        key: 'ArrowRight',
+        which: 39,
+        keyCode: 39
       },
       arrowDown: {
         ieKey: 'Down',
@@ -137,6 +149,58 @@ describe('clock/Interactive', () => {
 
       expect(offsetChangedCount, 'offset-changed count should be 1').to.be.equal(1);
       expect(offsetEvent.detail.value, '  should be 60').to.be.equal(60);
+    });
+    
+    describe('Accessibility', () => {
+      it('Should have role="spinbutton" and focusable', async () => {
+        expect(el.getAttribute('role')).to.be.equal('spinbutton');
+        expect(el.getAttribute('tabindex')).to.be.equal('0');
+      });
+      it('Should update aria-valuetext after arrow Up on increase hour', async () => {
+        await onTapstart(hoursSegment, el);
+        createKeyboardEvent(el, InputKey.arrowUp);
+        await elementUpdated(el);
+  
+        expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 01:00');
+      });
+      it('Should update aria-valuetext after arrow Down on decrease hour', async () => {
+        await onTapstart(hoursSegment, el);
+        createKeyboardEvent(el, InputKey.arrowDown);
+        await elementUpdated(el);
+  
+        expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 23:00');
+      });
+      it('Should update aria-valuetext after arrow Up on increase minute', async () => {
+        await onTapstart(minutesSegment, el);
+        createKeyboardEvent(el, InputKey.arrowUp);
+        await elementUpdated(el);
+  
+        expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 00:01');
+      });
+      it('Switch activeSegment when arrow Left or arrow Right', async () => {
+        const hoursIncrementBtn = hoursSegment.querySelector('[part=increment-button]');
+        const hoursDecrementBtn = hoursSegment.querySelector('[part=decrement-button]');
+        const minuteIncrementBtn = minutesSegment.querySelector('[part=increment-button]');
+        const minuteDecrementBtn = minutesSegment.querySelector('[part=decrement-button]');
+        await onTapstart(hoursSegment, el);
+        createKeyboardEvent(el, InputKey.arrowRight);
+        await elementUpdated(el);
+  
+        expect(el.activeSegment).to.be.equal('minutes');
+        expect(hoursIncrementBtn.getAttribute('active')).to.be.equal(null);
+        expect(hoursDecrementBtn.getAttribute('active')).to.be.equal(null);
+        expect(minuteIncrementBtn.getAttribute('active')).to.be.equal('');
+        expect(minuteDecrementBtn.getAttribute('active')).to.be.equal('');
+
+        createKeyboardEvent(el, InputKey.arrowLeft);
+        await elementUpdated(el);
+  
+        expect(el.activeSegment).to.be.equal('hours');
+        expect(hoursIncrementBtn.getAttribute('active')).to.be.equal('');
+        expect(hoursDecrementBtn.getAttribute('active')).to.be.equal('');
+        expect(minuteIncrementBtn.getAttribute('active')).to.be.equal(null);
+        expect(minuteDecrementBtn.getAttribute('active')).to.be.equal(null);
+      });
     });
   });
 });

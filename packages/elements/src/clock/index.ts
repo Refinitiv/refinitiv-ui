@@ -39,10 +39,15 @@ import {
   deRegister
 } from './utils/TickManager.js';
 
-const UP = 'Up';
-const DOWN = 'Down';
 const SMALL_SIZE = 130; // Break point for small size clock face.
-type UpOrDown = typeof UP | typeof DOWN;
+enum Direction {
+  UP = 'Up',
+  DOWN = 'Down'
+}
+enum Segment {
+  HOURS = 'hours',
+  MINUTES = 'minutes'
+}
 
 /**
  * Display hours, minutes and seconds as clock interface
@@ -136,7 +141,7 @@ export class Clock extends ResponsiveElement {
    * Current active state for interactive
    */
   @state()
-  private active = 'hours';
+  private activeSegment = Segment.HOURS;
 
   /**
    * Get time value in format `hh:mm:ss`
@@ -395,8 +400,8 @@ export class Clock extends ResponsiveElement {
    * @param amount value to shift
    * @returns {void}
    */
-  private shift (direction: UpOrDown, amount: number): void {
-    this.offset = (SECONDS_IN_DAY + this.offset + amount * (direction === UP ? 1 : -1)) % SECONDS_IN_DAY;
+  private shift (direction: Direction, amount: number): void {
+    this.offset = (SECONDS_IN_DAY + this.offset + amount * (direction === Direction.UP ? 1 : -1)) % SECONDS_IN_DAY;
     this.notifyPropertyChange('offset', this.offset);
   }
 
@@ -458,13 +463,13 @@ export class Clock extends ResponsiveElement {
    */
   private onTapStart (event: TapEvent): void {
     if (event.target === this.hoursPart) {
-      this.changeActiveSegment('hours');
+      this.activeSegment = Segment.HOURS;
     }
     if (event.target === this.minutesPart) {
-      this.changeActiveSegment('minutes');
+      this.activeSegment = Segment.MINUTES;
     }
     if (event.target instanceof HTMLElement && event.target.dataset.key) {
-      this.shift(event.target.dataset.key as UpOrDown, this.getShiftAmountFromTarget(event.target));
+      this.shift(event.target.dataset.key as Direction, this.getShiftAmountFromTarget(event.target));
     }
   }
 
@@ -508,9 +513,8 @@ export class Clock extends ResponsiveElement {
   * @returns {void}
   */
   private handleUpKey (): void {
-    const selection = this.renderRoot.querySelector(`[part~=${this.active}]`);
-    this.shift(UP, this.getShiftAmountFromTarget(selection));
-    this.updateAriaValueText();
+    const selection = this.renderRoot.querySelector(`[part~=${this.activeSegment}]`);
+    this.shift(Direction.UP, this.getShiftAmountFromTarget(selection));
   }
 
   /**
@@ -519,9 +523,8 @@ export class Clock extends ResponsiveElement {
   * @returns {void}
   */
   private handleDownKey (): void {
-    const selection = this.renderRoot.querySelector(`[part~=${this.active}]`);
-    this.shift(DOWN, this.getShiftAmountFromTarget(selection));
-    this.updateAriaValueText();
+    const selection = this.renderRoot.querySelector(`[part~=${this.activeSegment}]`);
+    this.shift(Direction.DOWN, this.getShiftAmountFromTarget(selection));
   }
 
   /**
@@ -530,30 +533,17 @@ export class Clock extends ResponsiveElement {
   * @returns {void}
   */
   private handleLeftRightKey (): void {
-    const segment = this.active === 'hours' ? 'minutes' : 'hours';
-    this.changeActiveSegment(segment);
-  }
-
-  /**
-  * Updates active attribute for increment and decrement button
-  * by new segment
-  * @param segment new active segment
-  * @returns {void}
-  */
-  private changeActiveSegment (segment: string) {
-    this.renderRoot.querySelectorAll('[active]')?.forEach((el) => el.removeAttribute('active'));
-    this.active = segment;
-    this.renderRoot.querySelector(`[part~="${this.active}"]`)?.querySelector('[part="increment-button"]')?.setAttribute('active', '');
-    this.renderRoot.querySelector(`[part~="${this.active}"]`)?.querySelector('[part="decrement-button"]')?.setAttribute('active', '');
+    this.activeSegment = this.activeSegment === Segment.HOURS ? Segment.MINUTES : Segment.HOURS;
   }
 
   /**
   * Updates aria-value-text to have the same value as screen
   * @returns {void}
   */
-  private updateAriaValueText () {
+  private updateAriaValue () {
     const value = `Time: ${padNumber(this.displayHours, 2)}:${padNumber(this.displayMinutes, 2)}${this.showSeconds ? ':' + padNumber(this.displaySeconds, 2) : ''}${this.amPm ? ' ' + this.displayAmPm : ''}`;
-    this.ariaValueText = value;
+    this.setAttribute('aria-valuenow', this.currentTime.toString());
+    this.setAttribute('aria-valuetext', value);
   }
 
   /**
@@ -563,11 +553,11 @@ export class Clock extends ResponsiveElement {
   * @returns {TemplateResult} template result
   */
   private generateButtonsTemplate (segment: string): TemplateResult {
-    const isFocused = segment === this.active;
+    const isFocused = segment === this.activeSegment;
     return html`
-      <div part="increment-button" role="button" data-key="${UP}" aria-hidden="true"
+      <div part="increment-button" role="button" data-key="${Direction.UP}" aria-hidden="true"
       active="${ifDefined(isFocused ? '' : undefined)}"></div>
-      <div part="decrement-button" role="button" data-key="${DOWN}" aria-hidden="true"
+      <div part="decrement-button" role="button" data-key="${Direction.DOWN}" aria-hidden="true"
       active="${ifDefined(isFocused ? '' : undefined)}"></div>
     `;
   }
@@ -677,13 +667,17 @@ export class Clock extends ResponsiveElement {
       if (this.interactive) {
         this.tabIndex = 0;
         this.setAttribute('role', 'spinbutton');
-        this.updateAriaValueText();
+        this.updateAriaValue();
       }
       else {
         this.tabIndex = -1;
         this.setAttribute('role', 'group');
-        this.ariaValueText = null;
+        this.removeAttribute('aria-valuenow');
+        this.removeAttribute('aria-valuetext');
       }
+    }
+    if (this.interactive && (changedProperties.has('offset') || changedProperties.has('value'))) {
+      this.updateAriaValue();
     }
   }
 

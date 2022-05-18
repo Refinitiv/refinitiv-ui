@@ -111,5 +111,14 @@ describe('clock/Clock', () => {
       expect(valueEvent.detail.value, 'event\'s value should be 00:00:01').to.be.equal('00:00:01');
     });
   });
+
+  describe('Tick', () => {
+    beforeEach(async () => {
+      el = await fixture('<ef-clock></ef-clock>');
+    });
+    it('Should have default role="group"', async function () {
+      expect(el.getAttribute('role')).to.be.equal('group');
+    });
+  });
 });
 
