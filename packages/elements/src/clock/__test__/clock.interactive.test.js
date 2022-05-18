@@ -131,7 +131,7 @@ describe('clock/Interactive', () => {
       el.addEventListener('offset-changed', offsetSpy);
 
       await onTapstart(hoursSegment, el);
-      setTimeout(() => createKeyboardEvent(hoursSegment, InputKey.arrowUp));
+      setTimeout(() => createKeyboardEvent(el, InputKey.arrowUp));
       const offsetEvent = await oneEvent(el, 'offset-changed');
 
       expect(offsetChangedCount, 'offset-changed count should be 1').to.be.equal(1);
@@ -144,7 +144,7 @@ describe('clock/Interactive', () => {
       el.addEventListener('offset-changed', offsetSpy);
 
       await onTapstart(minutesSegment, el);
-      setTimeout(() => createKeyboardEvent(minutesSegment, InputKey.arrowUp));
+      setTimeout(() => createKeyboardEvent(el, InputKey.arrowUp));
       const offsetEvent = await oneEvent(el, 'offset-changed');
 
       expect(offsetChangedCount, 'offset-changed count should be 1').to.be.equal(1);
