@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "6.0.0-next.1",
+  "version": "6.0.0-next.2",
   "description": "Element Framework Elements",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -337,21 +337,21 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/core": "^6.0.0-next.1",
-    "@refinitiv-ui/demo-block": "^6.0.0-next.1",
-    "@refinitiv-ui/i18n": "^6.0.0-next.0",
-    "@refinitiv-ui/phrasebook": "^6.0.0-next.0",
+    "@refinitiv-ui/core": "^6.0.0-next.2",
+    "@refinitiv-ui/demo-block": "^6.0.0-next.2",
+    "@refinitiv-ui/i18n": "^6.0.0-next.1",
+    "@refinitiv-ui/phrasebook": "^6.0.0-next.1",
     "@refinitiv-ui/test-helpers": "^6.0.0-next.0",
-    "@refinitiv-ui/translate": "^6.0.0-next.1",
-    "@refinitiv-ui/utils": "^6.0.0-next.0",
+    "@refinitiv-ui/translate": "^6.0.0-next.2",
+    "@refinitiv-ui/utils": "^6.0.0-next.1",
     "@types/d3-interpolate": "^3.0.1"
   },
   "peerDependencies": {
-    "@refinitiv-ui/core": "^6.0.0-next.1",
-    "@refinitiv-ui/i18n": "^6.0.0-next.0",
-    "@refinitiv-ui/phrasebook": "^6.0.0-next.0",
-    "@refinitiv-ui/translate": "^6.0.0-next.1",
-    "@refinitiv-ui/utils": "^6.0.0-next.0"
+    "@refinitiv-ui/core": "^6.0.0-next.2",
+    "@refinitiv-ui/i18n": "^6.0.0-next.1",
+    "@refinitiv-ui/phrasebook": "^6.0.0-next.1",
+    "@refinitiv-ui/translate": "^6.0.0-next.2",
+    "@refinitiv-ui/utils": "^6.0.0-next.1"
   },
   "publishConfig": {
     "access": "public"
