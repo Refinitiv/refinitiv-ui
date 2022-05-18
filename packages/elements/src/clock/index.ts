@@ -15,6 +15,7 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
+import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 
 import {
   MILLISECONDS_IN_SECOND,
@@ -273,6 +274,16 @@ export class Clock extends ResponsiveElement {
   private secondsPart!: HTMLDivElement;
 
   /**
+   * A reference for active up button
+   */
+  private upButtonRef: Ref<HTMLElement> = createRef();
+
+  /**
+   * A reference for active down button
+   */
+  private downButtonRef: Ref<HTMLElement> = createRef();
+
+  /**
   * Size of the clock.
   */
   @property({ type: String, attribute: 'size', reflect: true })
@@ -468,8 +479,11 @@ export class Clock extends ResponsiveElement {
     if (event.target === this.minutesPart) {
       this.activeSegment = Segment.MINUTES;
     }
-    if (event.target instanceof HTMLElement && event.target.dataset.key) {
-      this.shift(event.target.dataset.key as Direction, this.getShiftAmountFromTarget(event.target));
+    if (event.target === this.upButtonRef.value) {
+      this.shift(Direction.UP, this.getShiftAmountFromTarget(event.target));
+    }
+    if (event.target === this.downButtonRef.value) {
+      this.shift(Direction.DOWN, this.getShiftAmountFromTarget(event.target));
     }
   }
 
@@ -555,9 +569,11 @@ export class Clock extends ResponsiveElement {
   private generateButtonsTemplate (segment: string): TemplateResult {
     const isFocused = segment === this.activeSegment;
     return html`
-      <div part="increment-button" role="button" data-key="${Direction.UP}" aria-hidden="true"
+      <div part="increment-button" role="button" aria-hidden="true"
+      ${isFocused ? ref(this.upButtonRef) : undefined}
       active="${ifDefined(isFocused ? '' : undefined)}"></div>
-      <div part="decrement-button" role="button" data-key="${Direction.DOWN}" aria-hidden="true"
+      <div part="decrement-button" role="button" aria-hidden="true"
+      ${isFocused ? ref(this.downButtonRef) : undefined}
       active="${ifDefined(isFocused ? '' : undefined)}"></div>
     `;
   }
@@ -570,8 +586,9 @@ export class Clock extends ResponsiveElement {
   * @returns {TemplateResult} template
   */
   private generateSegmentTemplate (name: string, value: number): TemplateResult {
+    const isFocused = this.interactive && (name === this.activeSegment);
     return html`
-      <div part="segment ${name}${ifDefined(this.isSegmentShifted(name) ? ' shifted' : '')}">
+      <div part="segment ${name}${ifDefined(this.isSegmentShifted(name) ? ' shifted' : '')}" active="${ifDefined(isFocused ? '' : undefined)}">
         ${padNumber(value, 2)}
         ${this.interactive ? this.generateButtonsTemplate(name) : undefined}
       </div>
