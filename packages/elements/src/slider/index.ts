@@ -612,16 +612,17 @@ export class Slider extends ControlElement {
 
   /**
    * Increase or decrease value depending on direction
-   * And fires value change event
+   * Then fires value change event
    * @param direction Up or Down
    * @returns {void}
    */
   private onApplyStep (direction: Direction): void {
-    const currentPercentageValue = this.calculatePercentage(this.valueNumber, 1);
-    const percentageStep = this.calculatePercentage(this.minNumber + this.stepRange, 1);
+    // Get current thumb position and step in percentage format
+    const thumbPosition = this.calculatePercentage(this.valueNumber, 1);
+    const step = this.calculatePercentage(this.minNumber + this.stepRange, 1);
 
-    const percentageValue = direction === Direction.Up ? currentPercentageValue + percentageStep : currentPercentageValue - percentageStep;
-    const nearestPossibleValue = this.getNearestPossibleValue(percentageValue);
+    const possibleValue = direction === Direction.Up ? thumbPosition + step : thumbPosition - step;
+    const nearestPossibleValue = this.getNearestPossibleValue(possibleValue);
 
     const value = this.getValueFromPercentage(nearestPossibleValue);
 
