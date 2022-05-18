@@ -636,7 +636,7 @@ export class Slider extends ControlElement {
    * @returns percentage as a fraction of 100
    */
   private calculatePercentage (value: number, multiplier = 100): number {
-    const percentage = Math.abs((((value || 0) - this.minNumber) / (this.maxNumber - this.minNumber)) * multiplier);
+    const percentage = Math.abs(((value - this.minNumber) / (this.maxNumber - this.minNumber)) * multiplier);
 
     if (percentage > multiplier) {
       return multiplier;
