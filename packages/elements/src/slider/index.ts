@@ -1265,7 +1265,6 @@ export class Slider extends ControlElement {
         part="input"
         name="${name}"
         no-spinner
-        aria-label="${name} input"
         .value="${value}"
         min="${this.min}"
         max="${this.max}"
