@@ -978,10 +978,10 @@ export class Slider extends ControlElement {
    */
   private onValueChange (): void {
     if (this.readonly) {
-      const percentageValue = this.calculatePercentage(this.valueNumber, 1);
-      const nearestPossibleValue = this.getNearestPossibleValue(percentageValue);
+      const thumbPosition = this.calculatePercentage(this.valueNumber, 1);
+      const nearestPossibleValue = this.getNearestPossibleValue(thumbPosition);
 
-      const value = this.getValueFromPercentage(this.stepRange === 0 ? percentageValue : nearestPossibleValue);
+      const value = this.getValueFromPercentage(this.stepRange === 0 ? thumbPosition : nearestPossibleValue);
       this.value = this.format(value);
     }
     else {
@@ -1211,16 +1211,16 @@ export class Slider extends ControlElement {
   /**
    * Implement `render` Thumb template.
    * @param value thumb value in track
-   * @param percentageValue thumb position in track
+   * @param thumbPosition thumb position in track
    * @param name name of active thumb
    * @returns Track template
    */
-  private renderThumb (value: number, percentageValue: number, name: string): TemplateResult {
+  private renderThumb (value: number, thumbPosition: number, name: string): TemplateResult {
     const valueNow = this.range ? name === SliderDataName.from ? this.from : this.to : this.value;
     const valueMin = this.range ? name === SliderDataName.from ? this.min : this.fromNumber + this.minRangeNumber : this.min;
     const valueMax = this.range ? name === SliderDataName.from ? this.toNumber - this.minRangeNumber : this.max : this.max;
 
-    const thumbStyle = { left: `${percentageValue}%` };
+    const thumbStyle = { left: `${thumbPosition}%` };
 
     return html`
       <div
@@ -1251,11 +1251,9 @@ export class Slider extends ControlElement {
    * @returns Thumb has range template
    */
   private renderThumbRange (from: number, to: number): TemplateResult {
-    const fromPercentageValue: number = this.calculatePercentage(from);
-    const toPercentageValue: number = this.calculatePercentage(to);
     return html`
-      ${this.renderThumb(from, fromPercentageValue, SliderDataName.from)}
-      ${this.renderThumb(to, toPercentageValue, SliderDataName.to)}
+      ${this.renderThumb(from, this.calculatePercentage(from), SliderDataName.from)}
+      ${this.renderThumb(to, this.calculatePercentage(to), SliderDataName.to)}
     `;
   }
 
