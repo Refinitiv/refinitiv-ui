@@ -89,7 +89,7 @@ export class Slider extends ControlElement {
         position: absolute;
         top: 0;
         width: 100%;
-        z-index: 5;
+        z-index: 3;
       }
       [part=thumb]{
         position: absolute;
@@ -769,10 +769,11 @@ export class Slider extends ControlElement {
         this.activeThumb = this.thumbs[1];
       }
 
+      // Reset z-index of the other thumb and set activeThumb to the top
       this.thumbs.forEach((thumb: HTMLElement) => {
-        thumb.style.zIndex = '5';
+        thumb.style.zIndex = '3';
       });
-      this.activeThumb.style.zIndex = '10';
+      this.activeThumb.style.zIndex = '4';
     }
     else {
       this.activeThumb = this.thumbs[0];
