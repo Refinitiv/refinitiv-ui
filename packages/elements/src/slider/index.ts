@@ -980,9 +980,9 @@ export class Slider extends ControlElement {
     if (this.readonly) {
       const percentageValue = this.calculatePercentage(this.valueNumber, 1);
       const nearestPossibleValue = this.getNearestPossibleValue(percentageValue);
-      const correctedValue = this.getValueFromPercentage(this.stepRange === 0 ? percentageValue : nearestPossibleValue);
 
-      this.value = this.format(correctedValue);
+      const value = this.getValueFromPercentage(this.stepRange === 0 ? percentageValue : nearestPossibleValue);
+      this.value = this.format(value);
     }
     else {
       const valueSanitize = validateNumber(this.valueNumber, 0);
@@ -1278,6 +1278,7 @@ export class Slider extends ControlElement {
         min="${this.min}"
         max="${this.max}"
         step="${this.step}"
+        ?disabled="${this.disabled}"
         ?readonly="${this.readonly || this.showInputField === 'readonly'}"
       ></ef-number-field>
     `;
