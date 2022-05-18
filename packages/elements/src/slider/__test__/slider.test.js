@@ -7,6 +7,8 @@ import {
 import '@refinitiv-ui/elements/slider';
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
 
+const getTrackElement = (el) => el.shadowRoot.querySelector('[part=track-wrapper]');
+
 describe('slider/Slider', () => {
   let el;
 
@@ -160,14 +162,14 @@ describe('slider/Slider', () => {
     it('Show steps can be set via attribute and property', async () => {
       el.showSteps = true;
       await elementUpdated(el);
-      let showSteps = el.shadowRoot.querySelector('[part=track-wrapper]');
-      let showStepsSize = getComputedStyle(showSteps, '::after').height;
+      const showSteps = getTrackElement(el);
+      const showStepsSize = getComputedStyle(showSteps, '::after').height;
       expect(showStepsSize).to.not.equal('auto');
     });
     it('Show steps is not set by default', () => {
       el.showSteps = false;
-      let showSteps = el.shadowRoot.querySelector('[part=track-wrapper]');
-      let showStepsSize = getComputedStyle(showSteps, '::after').height;
+      const showSteps = getTrackElement(el);
+      const showStepsSize = getComputedStyle(showSteps, '::after').height;
       expect(showStepsSize).to.equal('auto');
     });
   });
