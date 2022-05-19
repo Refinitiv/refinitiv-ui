@@ -11,6 +11,9 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { queryAll } from '@refinitiv-ui/core/decorators/query-all.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { VERSION } from '../version.js';
@@ -123,16 +126,6 @@ export class Slider extends ControlElement {
       }
     `;
   }
-
-  /**
-   * Current active slider thumb
-   */
-  private activeThumb!: HTMLDivElement;
-
-  /**
-   * An array of slider thumbs
-   */
-  private thumbs: HTMLDivElement[] = [];
 
   /**
    * Whether if the thumb is being drag
@@ -360,6 +353,24 @@ export class Slider extends ControlElement {
   @query('ef-number-field[name=to]')
   private toInput!: NumberField;
 
+  /**
+   * Array of slider thumbs
+   */
+  @queryAll('[part~=thumb-container]')
+  private thumbs!: HTMLDivElement[];
+
+  /**
+   * Current focused thumb
+   */
+  @state()
+  private activeThumb!: HTMLDivElement | null;
+
+  /**
+   * Thumb that involves data changes
+   */
+  @state()
+  private changedThumb!: HTMLDivElement | null;
+
   constructor () {
     super();
     /**
@@ -509,7 +520,6 @@ export class Slider extends ControlElement {
   private prepareValues (): void {
     if (this.minNumber !== this.maxNumber) {
       if (this.range) {
-        this.activeThumb = this.thumbs[1];
         if (this.minRangeNumber) {
           const distanceFromTo = Math.abs(this.toNumber - this.fromNumber);
           const clampValueFrom = this.toNumber - this.minRangeNumber;
@@ -550,13 +560,6 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private prepareThumbs (): void {
-    this.thumbs = [];
-
-    const thumbs = this.shadowRoot?.querySelectorAll<HTMLDivElement>('[part~=thumb-container]') || [];
-
-    this.thumbs = this.range ? Array.from(thumbs) : [thumbs[0]];
-    this.activeThumb = this.thumbs[0];
-
     this.thumbs.forEach((thumb: HTMLDivElement) => {
       thumb.addEventListener('keydown', this.onKeyDown);
       thumb.addEventListener('drag', preventDefault);
@@ -652,8 +655,7 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private onThumbFocus (event: FocusEvent): void {
-    const thumb = event.target as HTMLDivElement;
-    thumb.setAttribute('active', '');
+    this.activeThumb = event.target as HTMLDivElement;
   }
 
   /**
@@ -661,9 +663,8 @@ export class Slider extends ControlElement {
    * @param event focus event
    * @returns {void}
    */
-  private onThumbBlur (event: FocusEvent): void {
-    const thumb = event.target as HTMLDivElement;
-    thumb.removeAttribute('active');
+  private onThumbBlur (): void {
+    this.activeThumb = null;
   }
 
   /**
@@ -735,7 +736,7 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private dispatchDataChangedEvent (): void {
-    const name = this.activeThumb.getAttribute('name') || '';
+    const name = this.changedThumb?.getAttribute('name') || '';
     const currentData = name as SliderDataName;
     const previousData = `${name}Previous` as SliderPreviousDataName;
 
@@ -762,24 +763,17 @@ export class Slider extends ControlElement {
       const distanceTo = Math.abs(mousePosition - this.toNumber);
 
       if (distanceFrom < distanceTo) {
-        this.activeThumb = this.thumbs[0];
+        this.changedThumb = this.thumbs[0];
       }
       else if (distanceFrom > distanceTo) {
-        this.activeThumb = this.thumbs[1];
+        this.changedThumb = this.thumbs[1];
       }
-
-      // Reset z-index of the other thumb and set activeThumb to the top
-      this.thumbs.forEach((thumb: HTMLElement) => {
-        thumb.style.zIndex = '3';
-      });
-      this.activeThumb.style.zIndex = '4';
+      // When from === to, use latest value of changedThumb and z-index will determine thumb on top
     }
     else {
-      this.activeThumb = this.thumbs[0];
+      this.changedThumb = this.thumbs[0];
     }
 
-    // Shifts focus to active thumb
-    this.activeThumb.focus();
     this.onDrag(event);
 
     if ((event as TouchEvent).changedTouches) {
@@ -837,11 +831,11 @@ export class Slider extends ControlElement {
     const displayedValue = this.format(this.getValueFromPercentage(newThumbPosition));
 
     if (this.range) {
-      if (this.activeThumb === this.thumbs[1]) {
-        this.to = this.validateTo(Number(displayedValue)).toString();
+      if (this.changedThumb === this.thumbs[0]) {
+        this.from = this.validateFrom(Number(displayedValue)).toString();
       }
       else {
-        this.from = this.validateFrom(Number(displayedValue)).toString();
+        this.to = this.validateTo(Number(displayedValue)).toString();
       }
     }
     else {
@@ -1210,16 +1204,20 @@ export class Slider extends ControlElement {
    * @returns Track template
    */
   private renderThumb (value: number, thumbPosition: number, name: string): TemplateResult {
+    const isActive = this.activeThumb?.getAttribute('name') === name;
+    const isChanged = this.changedThumb?.getAttribute('name') === name;
+
     const valueNow = this.range ? name === SliderDataName.from ? this.from : this.to : this.value;
     const valueMin = this.range ? name === SliderDataName.from ? this.min : this.fromNumber + this.minRangeNumber : this.min;
     const valueMax = this.range ? name === SliderDataName.from ? this.toNumber - this.minRangeNumber : this.max : this.max;
 
-    const thumbStyle = { left: `${thumbPosition}%` };
+    const thumbStyle = { left: `${thumbPosition}%`, zIndex: this.range ? isChanged ? '4' : '3' : null };
 
     return html`
       <div
         @focus=${this.onThumbFocus}
         @blur=${this.onThumbBlur}
+        active=${ifDefined(isActive || undefined)}
         name="${name}"
         role="slider"
         aria-label="${name}"
