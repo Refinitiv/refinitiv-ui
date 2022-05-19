@@ -363,13 +363,13 @@ export class Slider extends ControlElement {
    * Current focused thumb
    */
   @state()
-  private activeThumb!: HTMLDivElement | null;
+  private activeThumb: HTMLDivElement | null = null;
 
   /**
    * Thumb that involves data changes
    */
   @state()
-  private changedThumb!: HTMLDivElement | null;
+  private changedThumb: HTMLDivElement | null = null;
 
   constructor () {
     super();
@@ -632,7 +632,7 @@ export class Slider extends ControlElement {
     const possibleValue = direction === Direction.Up ? thumbPosition + step : thumbPosition - step;
     const nearestPossibleValue = this.getNearestPossibleValue(possibleValue);
 
-    const value = this.getValueFromPercentage(nearestPossibleValue);
+    const value = this.getValueFromPosition(nearestPossibleValue);
 
     this.value = this.format(value);
     this.dispatchDataChangedEvent();
@@ -642,16 +642,16 @@ export class Slider extends ControlElement {
    * Calculate thumb position based on value and multiplier
    * @param value decimal fraction value
    * @param multiplier defaults to 100
-   * @returns percentage as a fraction of 100
+   * @returns thumb position as a fraction of 100
    */
   private calculatePosition (value: number, multiplier = 100): number {
-    const percentage = Math.abs(((value - this.minNumber) / (this.maxNumber - this.minNumber)) * multiplier);
+    const position = Math.abs(((value - this.minNumber) / (this.maxNumber - this.minNumber)) * multiplier);
 
-    if (percentage > multiplier) {
+    if (position > multiplier) {
       return multiplier;
     }
 
-    return percentage;
+    return position;
   }
 
   /**
@@ -762,10 +762,10 @@ export class Slider extends ControlElement {
     this.classList.add('grabbable');
 
     if (this.range) {
-      const percentage = this.getMousePosition(event);
-      const mousePosition = ((this.maxNumber - this.minNumber) * percentage) + this.minNumber;
-      const distanceFrom = Math.abs(mousePosition - this.fromNumber);
-      const distanceTo = Math.abs(mousePosition - this.toNumber);
+      const mousePosition = this.getMousePosition(event);
+      const relativeMousePosition = ((this.maxNumber - this.minNumber) * mousePosition) + this.minNumber;
+      const distanceFrom = Math.abs(relativeMousePosition - this.fromNumber);
+      const distanceTo = Math.abs(relativeMousePosition - this.toNumber);
 
       if (distanceFrom < distanceTo) {
         this.changedThumb = this.thumbs[0];
@@ -833,7 +833,7 @@ export class Slider extends ControlElement {
     }
 
     const newThumbPosition = this.stepRange !== 0 ? nearestValue : thumbPosition;
-    const displayedValue = this.format(this.getValueFromPercentage(newThumbPosition));
+    const displayedValue = this.format(this.getValueFromPosition(newThumbPosition));
 
     if (this.range) {
       if (this.changedThumb === this.thumbs[0]) {
@@ -901,12 +901,12 @@ export class Slider extends ControlElement {
   }
 
   /**
-   * Get slider value from percentage value
-   * @param percentage percentage to be calculated
+   * Get slider value from thumb position
+   * @param position thumb position
    * @returns calculated value
    */
-  private getValueFromPercentage (percentage: number): number {
-    const value = this.minNumber + percentage * (this.maxNumber - this.minNumber);
+  private getValueFromPosition (position: number): number {
+    const value = this.minNumber + position * (this.maxNumber - this.minNumber);
     // if value is outside boundary, set to boundary
     if (value >= this.maxNumber) {
       return this.maxNumber;
@@ -980,7 +980,7 @@ export class Slider extends ControlElement {
       const thumbPosition = this.calculatePosition(this.valueNumber, 1);
       const nearestPossibleValue = this.getNearestPossibleValue(thumbPosition);
 
-      const value = this.getValueFromPercentage(this.stepRange === 0 ? thumbPosition : nearestPossibleValue);
+      const value = this.getValueFromPosition(this.stepRange === 0 ? thumbPosition : nearestPossibleValue);
       this.value = this.format(value);
     }
     else if (this.isValueInBoundary(this.valueNumber, '')) {
