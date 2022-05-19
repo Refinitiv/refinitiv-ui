@@ -556,7 +556,7 @@ export class Clock extends ResponsiveElement {
   */
   private updateAriaValue () {
     const value = `Time: ${padNumber(this.displayHours, 2)}:${padNumber(this.displayMinutes, 2)}${this.showSeconds ? ':' + padNumber(this.displaySeconds, 2) : ''}${this.amPm ? ' ' + this.displayAmPm : ''}`;
-    this.setAttribute('aria-valuenow', this.currentTime.toString());
+    this.setAttribute('aria-valuenow', this.displayTime.toString());
     this.setAttribute('aria-valuetext', value);
   }
 

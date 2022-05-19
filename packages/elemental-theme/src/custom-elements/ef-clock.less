@@ -11,6 +11,7 @@
 :host {
   font-size: 2.5em;
   user-select: none;
+  outline: none;
 
   [part~='segment'] {
     padding: 0.15em 0;
@@ -20,7 +21,6 @@
 
   [part~='hours'], [part~='minutes'], [part~='seconds'] {
     position: relative;
-    outline: none;
 
     &[part~='shifted'] {
       color: @scheme-color-primary;

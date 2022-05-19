@@ -162,6 +162,7 @@ describe('clock/Interactive', () => {
         await elementUpdated(el);
   
         expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 01:00');
+        expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
       });
       it('Should update aria-valuetext after arrow Down on decrease hour', async () => {
         await onTapstart(hoursSegment, el);
@@ -169,6 +170,7 @@ describe('clock/Interactive', () => {
         await elementUpdated(el);
   
         expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 23:00');
+        expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
       });
       it('Should update aria-valuetext after arrow Up on increase minute', async () => {
         await onTapstart(minutesSegment, el);
@@ -176,6 +178,15 @@ describe('clock/Interactive', () => {
         await elementUpdated(el);
   
         expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 00:01');
+        expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
+      });
+      it('Should update aria-valuetext after arrow Down on decrease minute', async () => {
+        await onTapstart(minutesSegment, el);
+        createKeyboardEvent(el, InputKey.arrowUp);
+        await elementUpdated(el);
+  
+        expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 00:01');
+        expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
       });
       it('Switch activeSegment when arrow Left or arrow Right', async () => {
         const hoursIncrementBtn = hoursSegment.querySelector('[part=increment-button]');
