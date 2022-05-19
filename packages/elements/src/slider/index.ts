@@ -593,6 +593,11 @@ export class Slider extends ControlElement {
       return;
     }
 
+    // Ignore special keys
+    if (event.shiftKey || event.ctrlKey || event.altKey || event.metaKey) {
+      return;
+    }
+
     switch (event.key) {
       case 'ArrowDown':
       case 'Down':
