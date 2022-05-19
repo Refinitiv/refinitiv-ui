@@ -52,7 +52,7 @@
       color: @tab-level3-active-text-color;
       background-color: @global-background-color;
 
-      [part=close-container] {
+      &[clears-on-hover] [part=close-container] {
         background: @global-background-color;
         box-shadow: @tab-clears-box-shadow @global-background-color;
       }
@@ -64,6 +64,9 @@
       border-color: @tab-active-background-color;
     }
 
+    &:hover {
+      border-color: @tab-hover-background-color;
+    }
     &:active {
       border-color: @tab-active-pressed-background-color;
     }
