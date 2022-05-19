@@ -555,7 +555,10 @@ export class Clock extends ResponsiveElement {
   * @returns {void}
   */
   private updateAriaValue () {
-    const value = `Time: ${padNumber(this.displayHours, 2)}:${padNumber(this.displayMinutes, 2)}${this.showSeconds ? ':' + padNumber(this.displaySeconds, 2) : ''}${this.amPm ? ' ' + this.displayAmPm : ''}`;
+    const value = `Time: ${padNumber(this.displayHours, 2)}`
+      + `:${padNumber(this.displayMinutes, 2)}`
+      + `${this.showSeconds ? ':' + padNumber(this.displaySeconds, 2) : ''}`
+      + `${this.amPm ? ' ' + this.displayAmPm : ''}`;
     this.setAttribute('aria-valuenow', this.displayTime.toString());
     this.setAttribute('aria-valuetext', value);
   }
@@ -677,8 +680,13 @@ export class Clock extends ResponsiveElement {
     this.renderRoot.addEventListener('tapstart', (event) => this.onTapStart(event as TapEvent));
   }
 
-  protected update (changedProperties: PropertyValues): void {
-    super.update(changedProperties);
+  /**
+   * Called before update() to compute values needed during the update.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
 
     if (changedProperties.has('interactive')) {
       if (this.interactive) {
