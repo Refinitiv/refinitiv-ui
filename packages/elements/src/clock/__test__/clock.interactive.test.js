@@ -20,27 +20,19 @@ describe('clock/Interactive', () => {
     const InputKey = {
       arrowLeft: {
         ieKey: 'Left',
-        key: 'ArrowLeft',
-        which: 37,
-        keyCode: 37
+        key: 'ArrowLeft'
       },
       arrowUp: {
         ieKey: 'Up',
-        key: 'ArrowUp',
-        which: 38,
-        keyCode: 38
+        key: 'ArrowUp'
       },
       arrowRight: {
         ieKey: 'Right',
-        key: 'ArrowRight',
-        which: 39,
-        keyCode: 39
+        key: 'ArrowRight'
       },
       arrowDown: {
         ieKey: 'Down',
-        key: 'ArrowDown',
-        which: 40,
-        keyCode: 40
+        key: 'ArrowDown'
       }
     };
 

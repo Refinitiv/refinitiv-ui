@@ -112,12 +112,10 @@ describe('clock/Clock', () => {
     });
   });
 
-  describe('Tick', () => {
-    beforeEach(async () => {
+  describe('Accessibility', () => {
+    it('Should have role="group" by default', async function () {
       el = await fixture('<ef-clock></ef-clock>');
-    });
-    it('Should have default role="group"', async function () {
-      expect(el.getAttribute('role')).to.be.equal('group');
+      expect(el.getAttribute('role')).to.be.equal(null);
     });
   });
 });
