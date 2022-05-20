@@ -299,7 +299,7 @@ export class Clock extends ResponsiveElement {
   private secondsPart!: HTMLDivElement;
 
   /**
-   * A reference for active up button
+   * A reference for up button
    */
   private upButtonRef: Ref<HTMLElement> = createRef();
 
