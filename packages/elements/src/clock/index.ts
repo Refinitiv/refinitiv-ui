@@ -74,8 +74,6 @@ export class Clock extends ResponsiveElement {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'spinbutton';
-
   /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
@@ -269,7 +267,14 @@ export class Clock extends ResponsiveElement {
    */
   @property({ type: Boolean })
   public set interactive (interactive: boolean) {
-    this.tabIndex = interactive ? 0 : -1;
+    if (interactive) {
+      this.tabIndex = 0;
+      this.setAttribute('role', 'spinbutton');
+    }
+    else {
+      this.tabIndex = -1;
+      this.removeAttribute('role');
+    }
   }
   public get interactive (): boolean {
     return this.tabIndex >= 0;
@@ -494,7 +499,9 @@ export class Clock extends ResponsiveElement {
    * @returns {void}
    */
   private onKeydown (event: KeyboardEvent): void {
-    this.manageControlKeys(event);
+    if (this.interactive) {
+      this.manageControlKeys(event);
+    }
   }
 
   /**
@@ -504,6 +511,11 @@ export class Clock extends ResponsiveElement {
    * @returns {void}
    */
   private onTapStart (event: TapEvent): void {
+    // do nothing if not interactive
+    if (!this.interactive) {
+      return;
+    }
+
     if (event.target === this.hoursPart) {
       this.activeSegment = Segment.HOURS;
     }
@@ -593,12 +605,12 @@ export class Clock extends ResponsiveElement {
   private generateButtonsTemplate (segment: Segment): TemplateResult {
     const isActive = this.focused && segment === this.activeSegment;
     return html`
-      <div ${ref(this.upButtonRef)}
+      <div ${isActive ? ref(this.upButtonRef) : undefined}
            part="increment-button"
            role="button"
            aria-hidden="true"
            ?active=${isActive}></div>
-      <div ${ref(this.downButtonRef)}
+      <div ${isActive ? ref(this.downButtonRef) : undefined}
            part="decrement-button"
            role="button"
            aria-hidden="true"
