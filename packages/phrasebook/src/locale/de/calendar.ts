@@ -10,7 +10,7 @@ const translations = {
   YEAR_SELECTOR: 'Click to select year',
   DATE_SELECTOR: 'Click to select date',
   CELL_LABEL: '{view, select, year {{value, date, ::yyyy}} month {{value, date, ::MMMM-yyyy}} other {{value, date, full}}}',
-  SELECTED: 'Selected: {view, select, year {{value, date, ::yyyy}} month {{value, date, ::MMMM-yyyy}} other {{value, date, full}}}',
+  SELECTED: 'Ausgewählt: {view, select, year {{value, date, ::yyyy}} month {{value, date, ::MMMM-yyyy}} other {{value, date, full}}}',
   NOW: '{view, select, year {Current year, {value, date, ::yyyy}} month {Current month, {value, date, ::MMMM-yyyy}} other {Today, {value, date, full}}}',
   SELECTED_NOW: 'Ausgewählt: {view, select, year {current year, {value, date, ::yyyy}} month {current month, {value, date, ::MMMM-yyyy}} other {today, {value, date, full}}}',
   SELECTED_DATE: 'Selected {count, plural, =1 {date is {value, date, full}} other {# dates, {value, date, full} and others}}',
