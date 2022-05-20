@@ -1,7 +1,7 @@
 import { Phrasebook } from '../../translation.js';
 
 const translations = {
-  OPEN_MENU: 'Open Menu'
+  OPEN_MENU: 'Menü öffnen'
 };
 
 Phrasebook.define('de', 'ef-card', translations);
