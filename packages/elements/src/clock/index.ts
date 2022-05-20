@@ -725,13 +725,13 @@ export class Clock extends ResponsiveElement {
   protected willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
-    if (!this.hasUpdated
+    if (this.interactive && (!this.hasUpdated
       || changedProperties.has('sessionTicks')
       || changedProperties.has('offset')
       || changedProperties.has('value')
       || changedProperties.has('showSeconds')
       || changedProperties.has('amPm')
-      || changedProperties.has(TranslatePropertyKey)) {
+      || changedProperties.has(TranslatePropertyKey))) {
       void this.updateAriaValue();
     }
   }
