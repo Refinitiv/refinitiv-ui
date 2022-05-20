@@ -589,7 +589,7 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private onKeyDown (event: KeyboardEvent): void {
-    if (this.readonly || this.minNumber >= this.maxNumber) {
+    if (this.readonly || event.defaultPrevented || this.minNumber >= this.maxNumber) {
       return;
     }
 
