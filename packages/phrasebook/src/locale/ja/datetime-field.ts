@@ -1,17 +1,17 @@
 import { Phrasebook } from '../../translation.js';
 
 const translations = {
-  PICK_YEAR: 'Pick Year',
+  PICK_YEAR: '年を選択',
   PICK_MONTH: 'Pick Month',
-  PICK_DAY: 'Pick Day',
-  PICK_HOUR: 'Pick Hours',
-  PICK_MINUTE: 'Pick Minutes',
-  PICK_SECOND: 'Pick Seconds',
-  PICK_WEEKDAY: 'Pick Weekday',
-  PICK_FRACTIONALSECOND: 'Pick Milliseconds',
-  PICK_DAYPERIOD: 'Pick Day Period',
-  VALUE: 'Current value is {value}',
-  NO_VALUE: 'No value'
+  PICK_DAY: '日を選択',
+  PICK_HOUR: '時間を選択',
+  PICK_MINUTE: '分を選択',
+  PICK_SECOND: '秒を選択',
+  PICK_WEEKDAY: '週を選択',
+  PICK_FRACTIONALSECOND: 'ミリ秒を選択',
+  PICK_DAYPERIOD: '時刻区分を選択',
+  VALUE: '現在の値は{value}です',
+  NO_VALUE: '値がありません'
 };
 
 Phrasebook.define('ja', 'ef-datetime-field', translations);

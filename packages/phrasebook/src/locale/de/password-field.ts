@@ -1,8 +1,8 @@
 import { Phrasebook } from '../../translation.js';
 
 const translations = {
-  SHOW_PASSWORD: 'Show password',
-  HIDE_PASSWORD: 'Hide password'
+  SHOW_PASSWORD: 'Kennwort anzeigen',
+  HIDE_PASSWORD: 'Kennwort ausblenden'
 };
 
 Phrasebook.define('de', 'ef-password-field', translations);
