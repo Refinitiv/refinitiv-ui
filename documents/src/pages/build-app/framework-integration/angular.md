@@ -278,16 +278,4 @@ export class NumberFieldValueAccessor implements ControlValueAccessor {
   }
 ```
 
-## Additional type definition
-
-Some EF elements supports i18N features. It uses [FormatJS](https://formatjs.io/) library and some of thier modules are using features that available in new Javascript version. If you see any errors related to @formatjs during project compilation, you may need to add `esnext.intl` into `lib` section in `tsconfig.json` file.
-
-```diff
-"lib": [
-  "es2018",
-+ "esnext.intl"
-  "dom"
-]
-```
-
 ::footer::
