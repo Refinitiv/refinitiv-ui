@@ -413,7 +413,7 @@ export class Clock extends ResponsiveElement {
    * @returns Result
    */
   private get isAM (): boolean {
-    return isAM(this.displayValue);
+    return this.displayHours24 < HOURS_OF_NOON;
   }
 
   /**
