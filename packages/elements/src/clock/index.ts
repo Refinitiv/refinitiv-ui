@@ -143,7 +143,7 @@ export class Clock extends ResponsiveElement {
   private tickTimestamp = 0;
 
   /**
-   * Current active state for interactive
+   * Current active segment for interactive mode
    */
   @state()
   private activeSegment = Segment.HOURS;
@@ -304,7 +304,7 @@ export class Clock extends ResponsiveElement {
   private upButtonRef: Ref<HTMLElement> = createRef();
 
   /**
-   * A reference for active down button
+   * A reference for down button
    */
   private downButtonRef: Ref<HTMLElement> = createRef();
 
@@ -511,7 +511,6 @@ export class Clock extends ResponsiveElement {
    * @returns {void}
    */
   private onTapStart (event: TapEvent): void {
-    // do nothing if not interactive
     if (!this.interactive) {
       return;
     }
@@ -583,7 +582,7 @@ export class Clock extends ResponsiveElement {
   }
 
   /**
-  * Updates aria-value-text to have the same value as screen
+  * Set aria-valuenow to display value and aria-valuetext to translated format
   * @returns {void}
   */
   private async updateAriaValue () {
