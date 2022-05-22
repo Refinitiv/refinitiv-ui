@@ -30,7 +30,6 @@ import {
   SECONDS_IN_MINUTE,
   SECONDS_IN_DAY,
   SECONDS_IN_HOUR,
-  isAM,
   parse
 } from '@refinitiv-ui/utils/date.js';
 
@@ -598,22 +597,18 @@ export class Clock extends ResponsiveElement {
   /**
   * Template for increment and decrement button
   * if interactive mode is enabled.
-  * @param segment active segment
   * @returns {TemplateResult} template result
   */
-  private generateButtonsTemplate (segment: Segment): TemplateResult {
-    const isActive = this.focused && segment === this.activeSegment;
+  private generateButtonsTemplate (): TemplateResult {
     return html`
-      <div ${isActive ? ref(this.upButtonRef) : undefined}
+      <div ${ref(this.upButtonRef)}
            part="increment-button"
-           role="button"
            aria-hidden="true"
-           ?active=${isActive}></div>
-      <div ${isActive ? ref(this.downButtonRef) : undefined}
+           active></div>
+      <div ${ref(this.downButtonRef)}
            part="decrement-button"
-           role="button"
            aria-hidden="true"
-           ?active=${isActive}></div>
+           active></div>
     `;
   }
 
@@ -624,12 +619,12 @@ export class Clock extends ResponsiveElement {
   * @returns {TemplateResult} template
   */
   private generateSegmentTemplate (segment: Segment, value: number): TemplateResult {
-    const isActive = this.interactive && this.focused && (segment === this.activeSegment);
+    const isActive = this.interactive && (segment === this.activeSegment);
     return html`
       <div part="segment ${segment}${this.isSegmentShifted(segment) ? ' shifted' : ''}"
            ?active=${isActive}>
         ${padNumber(value, 2)}
-        ${this.interactive ? this.generateButtonsTemplate(segment) : undefined}
+        ${isActive ? this.generateButtonsTemplate() : undefined}
       </div>
     `;
   }

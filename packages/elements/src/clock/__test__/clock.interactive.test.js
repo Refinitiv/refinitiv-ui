@@ -84,18 +84,18 @@ describe('clock/Interactive', () => {
       expect(el.displayHours, 'hours should be 23').to.be.equal(23);
     });
     it('Increases minute when increase button is clicked', async () => {
-      const incrementBtn = minutesSegment.querySelector('[part=increment-button]');
-
       await onTapstart(minutesSegment, el);
+      
+      const incrementBtn = minutesSegment.querySelector('[part=increment-button]');
       await onTapstart(incrementBtn, el);
 
       expect(el.offset, 'offset should be 60').to.be.equal(60);
       expect(el.displayMinutes, 'minutes should be 1').to.be.equal(1);
     });
     it('Decreases minute when decrease button is clicked', async () => {
-      const decrementBtn = minutesSegment.querySelector('[part=decrement-button]');
-
       await onTapstart(minutesSegment, el);
+      
+      const decrementBtn = minutesSegment.querySelector('[part=decrement-button]');
       await onTapstart(decrementBtn, el);
 
       expect(el.offset, 'offset should be 86340').to.be.equal(86340);
@@ -152,6 +152,7 @@ describe('clock/Interactive', () => {
         await onTapstart(hoursSegment, el);
         createKeyboardEvent(el, InputKey.arrowUp);
         await elementUpdated(el);
+        await nextFrame();
   
         expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 01:00');
         expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
@@ -160,6 +161,7 @@ describe('clock/Interactive', () => {
         await onTapstart(hoursSegment, el);
         createKeyboardEvent(el, InputKey.arrowDown);
         await elementUpdated(el);
+        await nextFrame();
   
         expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 23:00');
         expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
@@ -168,6 +170,7 @@ describe('clock/Interactive', () => {
         await onTapstart(minutesSegment, el);
         createKeyboardEvent(el, InputKey.arrowUp);
         await elementUpdated(el);
+        await nextFrame();
   
         expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 00:01');
         expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
@@ -176,33 +179,42 @@ describe('clock/Interactive', () => {
         await onTapstart(minutesSegment, el);
         createKeyboardEvent(el, InputKey.arrowUp);
         await elementUpdated(el);
+        await nextFrame();
   
         expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 00:01');
         expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
       });
-      it('Switch activeSegment when arrow Left or arrow Right', async () => {
+      it('Switch activeSegment to hours when arrow Right', async () => {
+        await onTapstart(hoursSegment, el);
+        createKeyboardEvent(el, InputKey.arrowRight);
+        await elementUpdated(el);
+
         const hoursIncrementBtn = hoursSegment.querySelector('[part=increment-button]');
         const hoursDecrementBtn = hoursSegment.querySelector('[part=decrement-button]');
         const minuteIncrementBtn = minutesSegment.querySelector('[part=increment-button]');
         const minuteDecrementBtn = minutesSegment.querySelector('[part=decrement-button]');
-        await onTapstart(hoursSegment, el);
-        createKeyboardEvent(el, InputKey.arrowRight);
-        await elementUpdated(el);
-  
+
         expect(el.activeSegment).to.be.equal('minutes');
-        expect(hoursIncrementBtn.getAttribute('active')).to.be.equal(null);
-        expect(hoursDecrementBtn.getAttribute('active')).to.be.equal(null);
+        expect(hoursIncrementBtn).to.be.equal(null);
+        expect(hoursDecrementBtn).to.be.equal(null);
         expect(minuteIncrementBtn.getAttribute('active')).to.be.equal('');
         expect(minuteDecrementBtn.getAttribute('active')).to.be.equal('');
-
+      });
+      it('Switch activeSegment to minutes when arrow Left', async () => {
+        await onTapstart(hoursSegment, el);
         createKeyboardEvent(el, InputKey.arrowLeft);
         await elementUpdated(el);
   
+        const hoursIncrementBtn = hoursSegment.querySelector('[part=increment-button]');
+        const hoursDecrementBtn = hoursSegment.querySelector('[part=decrement-button]');
+        const minuteIncrementBtn = minutesSegment.querySelector('[part=increment-button]');
+        const minuteDecrementBtn = minutesSegment.querySelector('[part=decrement-button]');
+
         expect(el.activeSegment).to.be.equal('hours');
         expect(hoursIncrementBtn.getAttribute('active')).to.be.equal('');
         expect(hoursDecrementBtn.getAttribute('active')).to.be.equal('');
-        expect(minuteIncrementBtn.getAttribute('active')).to.be.equal(null);
-        expect(minuteDecrementBtn.getAttribute('active')).to.be.equal(null);
+        expect(minuteIncrementBtn).to.be.equal(null);
+        expect(minuteDecrementBtn).to.be.equal(null);
       });
     });
   });
