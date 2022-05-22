@@ -258,25 +258,33 @@ export class Clock extends ResponsiveElement {
   @property({ type: Boolean, reflect: true })
   public analogue = false;
 
+  private _interactive = false;
+
   /**
    * Enable interactive mode. Allowing the user to offset the value.
    * Set tabIndex >= 0 to make the clock interactive
    * Set/remove tabIndex to move clock to non interactive mode
-   * @param interactive Set interactive mode
+   * @param value Set interactive mode
    */
   @property({ type: Boolean })
-  public set interactive (interactive: boolean) {
-    if (interactive) {
-      this.tabIndex = 0;
-      this.setAttribute('role', 'spinbutton');
-    }
-    else {
-      this.tabIndex = -1;
-      this.removeAttribute('role');
+  public set interactive (value: boolean) {
+    const newValue = !!value;
+    const oldValue = this.tick;
+    if (oldValue !== newValue) {
+      this._interactive = newValue;
+      if (this._interactive) {
+        this.tabIndex = 0;
+        this.setAttribute('role', 'spinbutton');
+      }
+      else {
+        this.tabIndex = -1;
+        this.removeAttribute('role');
+      }
+      this.requestUpdate('tick', oldValue);
     }
   }
   public get interactive (): boolean {
-    return this.tabIndex >= 0;
+    return this._interactive;
   }
 
   /**
