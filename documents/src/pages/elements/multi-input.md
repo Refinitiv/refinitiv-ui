@@ -115,7 +115,7 @@ The event can be cancelled so you can add custom logic to prevent some items fro
 ```javascript
 el.addEventListener('item-added', (event) => {
   if (event.detail.item.value === 'Mango') {
-    event.preventDefault(); // Prevent  Mango to be added to the list
+    event.preventDefault(); // Prevent Mango from adding to the list
   } else {
     // Anything else can be added
   }
