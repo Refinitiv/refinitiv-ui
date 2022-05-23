@@ -269,7 +269,7 @@ export class Clock extends ResponsiveElement {
   @property({ type: Boolean })
   public set interactive (value: boolean) {
     const newValue = !!value;
-    const oldValue = this.tick;
+    const oldValue = this.interactive;
     if (oldValue !== newValue) {
       this._interactive = newValue;
       if (this._interactive) {
@@ -280,7 +280,7 @@ export class Clock extends ResponsiveElement {
         this.tabIndex = -1;
         this.removeAttribute('role');
       }
-      this.requestUpdate('tick', oldValue);
+      this.requestUpdate('interactive', oldValue);
     }
   }
   public get interactive (): boolean {
