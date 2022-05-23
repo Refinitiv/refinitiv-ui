@@ -106,7 +106,7 @@ For example, if a user types `Mango` and presses the enter key in `ef-multi-inpu
 ```javascript
 el.addEventListener('item-added', (event) => {
   console.log(event.detail.item) // Mango object.
-  console.log(event.detail.items) // Array of item in control before mango is added.
+  console.log(event.detail.items) // Array of items in control before mango is added.
 });
 ```
 
