@@ -352,8 +352,8 @@ The preferred approach is to extend the `ComboBoxRenderer` that comes with Combo
 import { ComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
 
 // import flag to use in custom renderer
-import '@refintiiv-ui/elements/flag'
-import '@refintiiv-ui/elements/flag/themes/halo/dark'
+import '@refinitiv-ui/elements/flag'
+import '@refinitiv-ui/elements/flag/themes/halo/dark'
 
 // Keep the reference to the default renderer
 const defaultRenderer = new ComboBoxRenderer(comboBox);
