@@ -248,15 +248,16 @@ if (argv.browserstack.length && !argv.watch) {
     ...isTest('chrome') ? BSBrowser('bs_chrome', 'Windows', '11', 'Chrome', 'latest') : {},
     ...isTest('firefox') ? BSBrowser('bs_firefox', 'Windows', '11', 'Firefox', 'latest'): {},
     ...isTest('edge') ? BSBrowser('bs_edge', 'Windows', '11', 'Edge', 'latest'): {},
+    // ...isTest('safari') ? ...BSBrowser('bs_safari', 'OS X', 'Monterey', 'Safari', 'latest'): {},
 
     // Previous version
     ...isTest('chrome_previous') ? BSBrowser('bs_chrome_previous', 'Windows', '11', 'Chrome', 'latest-1'): {},
     ...isTest('firefox_previous') ? BSBrowser('bs_firefox_previous', 'Windows', '11', 'Firefox', 'latest-1'): {},
     ...isTest('edge_previous') ? BSBrowser('bs_edge_previous', 'Windows', '11', 'Edge', 'latest-1'): {},
 
-    // ...BSBrowser('bs_safari', 'OS X', 'Monterey', 'Safari', 'latest'),
-    // ...BSDevice('bs_iphone13', 'ios', '15', 'iPhone 13'),
-    // ...BSDevice('bs_google_pixel6', 'android', '12.0', 'Google Pixel 6')
+    // Mobile
+    // ...isTest('iphone_13') ? ...BSDevice('bs_iphone13', 'ios', '15', 'iPhone 13'): {},
+    // ...isTest('pixel_6') ? ...BSDevice('bs_google_pixel6', 'android', '12.0', 'Google Pixel 6'): {}
   };
 
   // Add BrowserStack browsers to config
