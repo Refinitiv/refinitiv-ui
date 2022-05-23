@@ -351,45 +351,44 @@ The preferred approach is to extend the `ComboBoxRenderer` that comes with Combo
 ```javascript
 import { ComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
 
+// import flag to use in custom renderer
+import '@refintiiv-ui/elements/flag'
+import '@refintiiv-ui/elements/flag/themes/halo/dark'
+
+// Keep the reference to the default renderer
+const defaultRenderer = new ComboBoxRenderer(comboBox);
+// store reference to flag for easy access.
+// Use WeakMap to not care about memory leaks
+const flagMap = new WeakMap();
+
 // Create a re-useable renderer that shows Flags next to the country
-class FlagRender extends ComboBoxRenderer {
-  constructor (comboBox) {
-    // Keep the reference to the default renderer
-    const defaultRenderer = super(comboBox);
-    // store reference to flag for easy access.
-    // Use WeakMap to not care about memory leaks
-    const flagMap = new WeakMap();
+comboBox.renderer = (item, composer, element) => {
+    element = defaultRenderer(item, composer, element);
+    const type = composer.getItemPropertyValue(item, 'type');
+    let flagElement = flagMap.get(element);
+    if (!flagElement && (!type || type === 'text')) {
+      // Text items
+      flagElement = document.createElement('ef-flag');
+      flagElement.slot = 'left';
+      element.appendChild(flagElement);
+      flagMap.set(element, flagElement);
+    }
+    else if (flagElement && type && type !== 'text') {
+      // Header items, which should not have a flag
+      // Make sure that flag element is removed
+      flagElement.parentNode.removeChild(flagElement);
+      flagMap.remove(element, flagElement);
+      flagElement = null;
+    }
 
-    // Return the closure
-    return (item, composer, element) => {
-      element = defaultRenderer(item, composer, element);
-      const type = composer.getItemPropertyValue(item, 'type');
-      let flagElement = flagMap.get(element);
-      if (!flagElement && (!type || type === 'text')) {
-        // Text items
-        flagElement = document.createElement('ef-flag');
-        flagElement.slot = 'left'; // use ef-item slotted content
-        element.appendChild(flagElement);
-        flagMap.set(element, flagElement);
-      }
-      else if (flagElement && type && type !== 'text') {
-        // Header items, which should not have a flag
-        // Make sure that flag element is removed
-        flagElement.parentNode.removeChild(flagElement);
-        flagElement.remove(element, flagElement);
-        flagElement = null;
-      }
+    // Make sure that you can re-use the same element with new data item
+    if (flagElement) {
+      flagElement.flag = composer.getItemPropertyValue(item, 'value');
+    }
 
-      // Make sure that you can re-use the same element with new data item
-      if (flagElement) {
-        flagElement.flag = composer.getItemPropertyValue(item, 'value');
-      }
+    return element;
+  };
 
-      return element;
-    };
-  }
-}
-comboBox.renderer = new FlagRender(comboBox);
 ```
 
 As an alternative you can provide your own renderer. If you go that route, you must ensure that, at a minimum, the highlighted, selected and hidden states are covered.
@@ -433,6 +432,10 @@ comboBox.renderer = (item, composer, element) => {
 ::
 ```javascript
 ::combo-box::
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements/flag?min';
+halo('flag');
+import { ComboBoxRenderer } from "https://cdn.skypack.dev/@refinitiv-ui/elements/combo-box?min";
+
 const comboBox = document.querySelector('ef-combo-box');
 comboBox.data = [
   { label: 'EMEA', type: 'header' },
@@ -452,16 +455,11 @@ comboBox.data = [
   { label: 'Argentina', value: 'ar' }
 ];
 
-const createFlagRender = (context) => {
-  // Keep the reference to the default renderer
-  const defaultRenderer = context.renderer;
+const defaultRenderer = new ComboBoxRenderer(comboBox);
 
-  // store reference to flag for easy access.
-  // Use WeakMap to not care about memory leaks
-  const flagMap = new WeakMap();
+const flagMap = new WeakMap();
 
-  // Return the closure
-  return (item, composer, element) => {
+comboBox.renderer = (item, composer, element) => {
     element = defaultRenderer(item, composer, element);
     const type = composer.getItemPropertyValue(item, 'type');
     let flagElement = flagMap.get(element);
@@ -470,6 +468,7 @@ const createFlagRender = (context) => {
       flagElement = document.createElement('ef-flag');
       flagElement.slot = 'left';
       element.appendChild(flagElement);
+      
       flagMap.set(element, flagElement);
     }
     else if (flagElement && type && type !== 'text') {
@@ -487,16 +486,6 @@ const createFlagRender = (context) => {
 
     return element;
   };
-};
-
-const setRenderer = () => comboBox.renderer = createFlagRender(comboBox);
-
-if (customElements.get('ef-combo-box')) {
-  setRenderer();
-}
-else {
-  customElements.whenDefined('ef-combo-box').then(setRenderer);
-}
 ```
 ```css
 .wrapper {
