@@ -175,7 +175,7 @@ describe('clock/Interactive', () => {
         expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 00:01');
         expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
       });
-      it('Should update aria-valuetext after arrow Down on decrease minute', async () => {
+      it('Should update aria-valuetext when Arrow Down is pressed on minute segment', async () => {
         await onTapstart(minutesSegment, el);
         createKeyboardEvent(el, InputKey.arrowUp);
         await elementUpdated(el);
