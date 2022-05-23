@@ -346,7 +346,7 @@ comboBox.addEventListener('query-changed', (event) => {
 
 Combo Box supports custom rendering by providing a renderer function to the `renderer` property. The renderer receives a data item, Collection Composer and previously mapped item elements (if any), and must return an `HTMLElement`.
 
-The preferred approach is to extend the `ComboBoxRenderer` that comes with Combo Box. The default renderer uses [Item](./elements/item) elements, and supports highlighted, selected, disabled, hidden and readonly states.
+The preferred approach is to create new renderer reference to the `ComboBoxRenderer` that comes with Combo Box. The default renderer uses [Item](./elements/item) elements, and supports highlighted, selected, disabled, hidden and readonly states.
 
 ```javascript
 import { ComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
