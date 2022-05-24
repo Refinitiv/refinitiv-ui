@@ -231,10 +231,9 @@ export class Clock extends ResponsiveElement {
     return this._tick;
   }
   public set tick (value: boolean) {
-    const newValue = value;
     const oldValue = this.tick;
-    if (oldValue !== newValue) {
-      this._tick = newValue;
+    if (oldValue !== value) {
+      this._tick = value;
       this.synchronise();
       this.configureTickManager();
       this.requestUpdate('tick', oldValue);
@@ -269,10 +268,9 @@ export class Clock extends ResponsiveElement {
    */
   @property({ type: Boolean })
   public set interactive (value: boolean) {
-    const newValue = value;
     const oldValue = this.interactive;
-    if (oldValue !== newValue) {
-      this._interactive = newValue;
+    if (oldValue !== value) {
+      this._interactive = value;
       if (this._interactive) {
         this.tabIndex = 0;
         this.setAttribute('role', 'spinbutton');
