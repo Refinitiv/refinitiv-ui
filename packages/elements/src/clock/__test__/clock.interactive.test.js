@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent, keyboardEvent, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, keyboardEvent, nextFrame, isIE } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/clock';
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
@@ -41,6 +41,9 @@ describe('clock/Interactive', () => {
     };
 
     const createKeyboardEvent = (elem, keyOption) => {
+      if (isIE()) {
+        keyOption.key = keyOption.ieKey
+      }
       keyOption = Object.assign({ bubbles: true }, keyOption);
       elem.dispatchEvent(keyboardEvent('keydown', keyOption));
       elem.dispatchEvent(keyboardEvent('keypress', keyOption));
