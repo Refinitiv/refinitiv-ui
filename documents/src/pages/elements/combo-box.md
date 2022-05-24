@@ -357,8 +357,7 @@ import '@refinitiv-ui/elements/flag/themes/halo/dark'
 
 // Keep the reference to the default renderer
 const defaultRenderer = new ComboBoxRenderer(comboBox);
-// store reference to flag for easy access.
-// Use WeakMap to not care about memory leaks
+// Keep track flag elements after creating to avoid memory leak and re-render the same flag
 const flagMap = new WeakMap();
 
 // Create a re-useable renderer that shows Flags next to the country
@@ -391,44 +390,6 @@ comboBox.renderer = (item, composer, element) => {
 
 ```
 
-As an alternative you can provide your own renderer. If you go that route, you must ensure that, at a minimum, the highlighted, selected and hidden states are covered.
-
-```javascript
-comboBox.renderer = (item, composer, element) => {
-  // Make sure to re-use the same element for increased performance
-  if (!element) {
-    element = document.createElement('div');
-    element.style.setProperty('margin', '5px 10px');
-    element.style.setProperty('padding', '5px 0');
-  }
-
-  // All item properties are read using the Collection Composer
-  const type = composer.getItemPropertyValue(item, 'type');
-  const label = composer.getItemPropertyValue(item, 'label');
-  const selected = composer.getItemPropertyValue(item, 'selected') === true;
-  const highlighted = composer.getItemPropertyValue(item, 'highlighted') === true;
-  const hidden = composer.getItemPropertyValue(item, 'hidden') === true;
-
-  // Style the element accordingly
-  element.style.setProperty('display', hidden ? 'none': 'block');
-  element.textContent = label;
-
-  let colour = 'grey';
-  if (type === 'header') {
-    colour = 'red';
-  }
-  else if (highlighted) {
-    colour = 'green';
-  }
-  else if (selected) {
-    colour = 'blue';
-  }
-
-  element.style.setProperty('color', colour);
-
-  return element;
-};
-```
 ::
 ```javascript
 ::combo-box::
