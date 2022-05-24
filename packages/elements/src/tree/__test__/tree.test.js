@@ -11,7 +11,7 @@ import {
 // import element and theme
 import '@refinitiv-ui/elements/tree';
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
-import { multiLevelData } from './mock_data/multi-level';
+import { multiLevelData, multiLevelInvalidData } from './mock_data/multi-level';
 
 const keyArrowUp = keyboardEvent('keydown', { key: 'Up' });
 const keyArrowDown = keyboardEvent('keydown', { key: 'Down' });
@@ -396,6 +396,17 @@ describe('tree/Tree', () => {
       await elementUpdated(el);
       expect(el.value).to.equal('1.1');
       expect(el.values).to.deep.equal(['1.1', '1.2']);
+    });
+
+    it('Render correct checked states when data is invalid', async () => {
+      const el = await fixture('<ef-tree multiple></ef-tree>');
+      el.data = multiLevelInvalidData;
+      await elementUpdated(el);
+      expect(el.querySelectorAll('[selected]').length).to.equal(6);
+      el.uncheckAll();
+      await elementUpdated(el);
+      await nextFrame();
+      expect(el.querySelectorAll('[selected]').length).to.equal(0);
     });
   });
 
