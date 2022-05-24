@@ -13,9 +13,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import '@refinitiv-ui/phrasebook/locale/en/clock.js';
 
 import {
@@ -307,16 +305,6 @@ export class Clock extends ResponsiveElement {
   private secondsPart!: HTMLDivElement;
 
   /**
-   * A reference for up button
-   */
-  private upButtonRef: Ref<HTMLElement> = createRef();
-
-  /**
-   * A reference for down button
-   */
-  private downButtonRef: Ref<HTMLElement> = createRef();
-
-  /**
   * Size of the clock.
   */
   @property({ type: String, attribute: 'size', reflect: true })
@@ -526,13 +514,15 @@ export class Clock extends ResponsiveElement {
     if (event.target === this.hoursPart) {
       this.activeSegment = Segment.HOURS;
     }
-    if (event.target === this.minutesPart) {
+    else if (event.target === this.minutesPart) {
       this.activeSegment = Segment.MINUTES;
     }
-    if (event.target === this.upButtonRef.value) {
+
+    const buttonTarget = event.target as HTMLDivElement;
+    if (buttonTarget.getAttribute('name') === Direction.UP) {
       this.shift(Direction.UP, this.getShiftAmountFromSegment(this.activeSegment));
     }
-    if (event.target === this.downButtonRef.value) {
+    else if (buttonTarget.getAttribute('name') === Direction.DOWN) {
       this.shift(Direction.DOWN, this.getShiftAmountFromSegment(this.activeSegment));
     }
   }
@@ -615,15 +605,17 @@ export class Clock extends ResponsiveElement {
       <div part="segment ${segment}${this.isSegmentShifted(segment) ? ' shifted' : ''}"
            ?active=${isActive}>
         ${padNumber(value, 2)}
-        <div ${isActive ? ref(this.upButtonRef) : undefined}
+        <div
           part="increment-button"
           aria-hidden="true"
-          active=${ifDefined(isActive || undefined)}></div>
-        <div ${isActive ? ref(this.downButtonRef) : undefined}
+          name=${Direction.UP}
+          ?active=${isActive}></div>
+        <div
           part="decrement-button"
           aria-hidden="true"
-          active=${ifDefined(isActive || undefined)}></div>
-      </div>
+          name=${Direction.DOWN}
+          ?active=${isActive}></div>
+        </div>
     `;
   }
   /**
