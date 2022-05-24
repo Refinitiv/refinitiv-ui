@@ -78,20 +78,13 @@ export class Toggle extends ControlElement {
     const oldValue = this._checked;
     if (oldValue !== value) {
       this._checked = value;
-      this.ariaChecked = String(value);
-      void this.requestUpdate('checked', oldValue);
+      this.setAttribute('aria-checked', String(value));
+      this.requestUpdate('checked', oldValue);
     }
   }
   public get checked (): boolean {
     return this._checked;
   }
-
-  /**
-   * Aria indicating current state of toggle
-   * @ignore
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-checked' })
-  public ariaChecked = String(this.checked);
 
   /**
    * A `CSSResultGroup` that will be used

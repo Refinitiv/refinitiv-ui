@@ -89,8 +89,8 @@ export class Checkbox extends ControlElement {
         this.indeterminate = false;
       }
 
-      this.ariaChecked = String(value);
-      void this.requestUpdate('checked', oldValue);
+      this.requestUpdate('checked', oldValue);
+      this.setAttribute('aria-checked', String(value));
     }
   }
   public get checked (): boolean {
@@ -114,20 +114,13 @@ export class Checkbox extends ControlElement {
         this.checked = false;
       }
 
-      this.ariaChecked = value ? 'mixed' : String(this.checked);
-      void this.requestUpdate('indeterminate', oldValue);
+      this.setAttribute('aria-checked', value ? 'mixed' : String(this.checked));
+      this.requestUpdate('indeterminate', oldValue);
     }
   }
   public get indeterminate (): boolean {
     return this._indeterminate;
   }
-
-  /**
-   * Indicates current state of checkbox
-   * @ignore
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-checked' })
-  public ariaChecked = String(this.checked);
 
   /**
    * Getter for label

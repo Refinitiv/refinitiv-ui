@@ -97,20 +97,13 @@ export class RadioButton extends ControlElement {
     if (oldValue !== value) {
       this._checked = value;
 
-      this.ariaChecked = String(value);
-      void this.requestUpdate('checked', oldValue);
+      this.setAttribute('aria-checked', String(value));
+      this.requestUpdate('checked', oldValue);
     }
   }
   public get checked (): boolean {
     return this._checked;
   }
-
-  /**
-   * Aria indicating checked state
-   * @ignore
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-checked' })
-  public ariaChecked = String(this.checked);
 
   /**
    * Getter for label
