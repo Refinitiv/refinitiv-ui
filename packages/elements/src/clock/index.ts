@@ -13,6 +13,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import '@refinitiv-ui/phrasebook/locale/en/clock.js';
@@ -230,7 +231,7 @@ export class Clock extends ResponsiveElement {
     return this._tick;
   }
   public set tick (value: boolean) {
-    const newValue = !!value;
+    const newValue = value;
     const oldValue = this.tick;
     if (oldValue !== newValue) {
       this._tick = newValue;
@@ -268,7 +269,7 @@ export class Clock extends ResponsiveElement {
    */
   @property({ type: Boolean })
   public set interactive (value: boolean) {
-    const newValue = !!value;
+    const newValue = value;
     const oldValue = this.interactive;
     if (oldValue !== newValue) {
       this._interactive = newValue;
@@ -603,24 +604,6 @@ export class Clock extends ResponsiveElement {
   }
 
   /**
-  * Template for increment and decrement button
-  * if interactive mode is enabled.
-  * @returns {TemplateResult} template result
-  */
-  private generateButtonsTemplate (): TemplateResult {
-    return html`
-      <div ${ref(this.upButtonRef)}
-           part="increment-button"
-           aria-hidden="true"
-           active></div>
-      <div ${ref(this.downButtonRef)}
-           part="decrement-button"
-           aria-hidden="true"
-           active></div>
-    `;
-  }
-
-  /**
   * Get template of segment
   * @param segment segment
   * @param value segment's value
@@ -632,7 +615,14 @@ export class Clock extends ResponsiveElement {
       <div part="segment ${segment}${this.isSegmentShifted(segment) ? ' shifted' : ''}"
            ?active=${isActive}>
         ${padNumber(value, 2)}
-        ${isActive ? this.generateButtonsTemplate() : undefined}
+        <div ${isActive ? ref(this.upButtonRef) : undefined}
+          part="increment-button"
+          aria-hidden="true"
+          active=${ifDefined(isActive || undefined)}></div>
+        <div ${isActive ? ref(this.downButtonRef) : undefined}
+          part="decrement-button"
+          aria-hidden="true"
+          active=${ifDefined(isActive || undefined)}></div>
       </div>
     `;
   }

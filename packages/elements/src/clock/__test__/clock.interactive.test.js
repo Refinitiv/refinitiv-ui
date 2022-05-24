@@ -47,23 +47,18 @@ describe('clock/Interactive', () => {
       elem.dispatchEvent(keyboardEvent('keyup', keyOption));
     };
 
-    const updateBtnSelector = () => {
-      incrementBtnInHours = hoursSegment.querySelector('[part=increment-button]');
-      decrementBtnInHours = hoursSegment.querySelector('[part=decrement-button]');
-      incrementBtnInMinutes = minutesSegment.querySelector('[part=increment-button]');
-      decrementBtnInMinutes = minutesSegment.querySelector('[part=decrement-button]');
-    }
-
     beforeEach(async () => {
       el = await fixture('<ef-clock interactive></ef-clock>');
       hoursSegment = el.shadowRoot.querySelector('[part~=hours]');
       minutesSegment = el.shadowRoot.querySelector('[part~=minutes]');
-      updateBtnSelector();
+      incrementBtnInHours = hoursSegment.querySelector('[part=increment-button]');
+      decrementBtnInHours = hoursSegment.querySelector('[part=decrement-button]');
+      incrementBtnInMinutes = minutesSegment.querySelector('[part=increment-button]');
+      decrementBtnInMinutes = minutesSegment.querySelector('[part=decrement-button]');
     });
 
     it('Increases hour when increase button is clicked', async () => {
       await onTapstart(hoursSegment, el);
-      updateBtnSelector();
       await onTapstart(incrementBtnInHours, el);
 
       expect(el.offset, 'offset should be 3600').to.be.equal(3600);
@@ -71,7 +66,6 @@ describe('clock/Interactive', () => {
     });
     it('Decreases hour when decrease button is clicked', async () => {
       await onTapstart(hoursSegment, el);
-      updateBtnSelector();
       await onTapstart(decrementBtnInHours, el);
 
       expect(el.offset, 'offset should be 82800').to.be.equal(82800);
@@ -95,7 +89,6 @@ describe('clock/Interactive', () => {
     });
     it('Increases minute when increase button is clicked', async () => {
       await onTapstart(minutesSegment, el);
-      updateBtnSelector();
       await onTapstart(incrementBtnInMinutes, el);
 
       expect(el.offset, 'offset should be 60').to.be.equal(60);
@@ -103,7 +96,6 @@ describe('clock/Interactive', () => {
     });
     it('Decreases minute when decrease button is clicked', async () => {
       await onTapstart(minutesSegment, el);
-      updateBtnSelector();
       await onTapstart(decrementBtnInMinutes, el);
 
       expect(el.offset, 'offset should be 86340').to.be.equal(86340);
@@ -192,29 +184,35 @@ describe('clock/Interactive', () => {
         expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 00:01');
         expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
       });
-      it('Switches segment to hours when Arrow Right is pressed', async () => {
+      it('Switches active segment to hours when Arrow Right is pressed', async () => {
         await onTapstart(hoursSegment, el);
         createKeyboardEvent(el, InputKey.ArrowRight);
         await elementUpdated(el);
-        updateBtnSelector();
 
         expect(el.activeSegment).to.be.equal('minutes');
-        expect(incrementBtnInHours).to.be.equal(null);
-        expect(decrementBtnInHours).to.be.equal(null);
-        expect(incrementBtnInMinutes.getAttribute('active')).to.be.equal('');
-        expect(decrementBtnInMinutes.getAttribute('active')).to.be.equal('');
       });
-      it('Switches segment to minutes when Arrow Left is pressed', async () => {
+      it('Switches active segment to minutes when Arrow Left is pressed', async () => {
         await onTapstart(hoursSegment, el);
         createKeyboardEvent(el, InputKey.ArrowLeft);
         await elementUpdated(el);
-        updateBtnSelector();
 
         expect(el.activeSegment).to.be.equal('hours');
-        expect(incrementBtnInHours.getAttribute('active')).to.be.equal('');
-        expect(decrementBtnInHours.getAttribute('active')).to.be.equal('');
-        expect(incrementBtnInMinutes).to.be.equal(null);
-        expect(decrementBtnInMinutes).to.be.equal(null);
+      });
+      it('Should have active attribute for each buttons in hours segment when hours is activeSegment', async () => {
+        await onTapstart(hoursSegment, el);
+
+        expect(incrementBtnInHours.getAttribute('active')).to.be.equal('true');
+        expect(decrementBtnInHours.getAttribute('active')).to.be.equal('true');
+        expect(incrementBtnInMinutes.getAttribute('active')).to.be.equal(null);
+        expect(decrementBtnInMinutes.getAttribute('active')).to.be.equal(null);
+      });
+      it('Should have active attribute for each buttons in minutes segment when minutes is activeSegment', async () => {
+        await onTapstart(minutesSegment, el);
+
+        expect(incrementBtnInHours.getAttribute('active')).to.be.equal(null);
+        expect(decrementBtnInHours.getAttribute('active')).to.be.equal(null);
+        expect(incrementBtnInMinutes.getAttribute('active')).to.be.equal('true');
+        expect(decrementBtnInMinutes.getAttribute('active')).to.be.equal('true');
       });
     });
   });
