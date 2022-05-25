@@ -201,22 +201,6 @@ describe('clock/Interactive', () => {
 
         expect(el.activeSegment).to.be.equal('hours');
       });
-      it('Should have active attribute for each buttons in hours segment when hours is activeSegment', async () => {
-        await onTapstart(hoursSegment, el);
-
-        expect(incrementBtnInHours.getAttribute('active')).to.be.equal('true');
-        expect(decrementBtnInHours.getAttribute('active')).to.be.equal('true');
-        expect(incrementBtnInMinutes.getAttribute('active')).to.be.equal(null);
-        expect(decrementBtnInMinutes.getAttribute('active')).to.be.equal(null);
-      });
-      it('Should have active attribute for each buttons in minutes segment when minutes is activeSegment', async () => {
-        await onTapstart(minutesSegment, el);
-
-        expect(incrementBtnInHours.getAttribute('active')).to.be.equal(null);
-        expect(decrementBtnInHours.getAttribute('active')).to.be.equal(null);
-        expect(incrementBtnInMinutes.getAttribute('active')).to.be.equal('true');
-        expect(decrementBtnInMinutes.getAttribute('active')).to.be.equal('true');
-      });
     });
   });
 });

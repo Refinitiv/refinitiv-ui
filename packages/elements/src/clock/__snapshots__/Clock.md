@@ -9,11 +9,13 @@
   00
   <div
     aria-hidden="true"
+    name="Up"
     part="increment-button"
   >
   </div>
   <div
     aria-hidden="true"
+    name="Down"
     part="decrement-button"
   >
   </div>
@@ -28,11 +30,13 @@
   00
   <div
     aria-hidden="true"
+    name="Up"
     part="increment-button"
   >
   </div>
   <div
     aria-hidden="true"
+    name="Down"
     part="decrement-button"
   >
   </div>
@@ -49,11 +53,13 @@
       00
       <div
         aria-hidden="true"
+        name="Up"
         part="increment-button"
       >
       </div>
       <div
         aria-hidden="true"
+        name="Down"
         part="decrement-button"
       >
       </div>
@@ -68,11 +74,13 @@
       00
       <div
         aria-hidden="true"
+        name="Up"
         part="increment-button"
       >
       </div>
       <div
         aria-hidden="true"
+        name="Down"
         part="decrement-button"
       >
       </div>
