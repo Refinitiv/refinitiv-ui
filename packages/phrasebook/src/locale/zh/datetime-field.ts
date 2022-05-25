@@ -1,17 +1,17 @@
 import { Phrasebook } from '../../translation.js';
 
 const translations = {
-  PICK_YEAR: 'Pick Year',
-  PICK_MONTH: 'Pick Month',
-  PICK_DAY: 'Pick Day',
-  PICK_HOUR: 'Pick Hours',
-  PICK_MINUTE: 'Pick Minutes',
-  PICK_SECOND: 'Pick Seconds',
-  PICK_WEEKDAY: 'Pick Weekday',
-  PICK_FRACTIONALSECOND: 'Pick Milliseconds',
-  PICK_DAYPERIOD: 'Pick Day Period',
-  VALUE: 'Current value is {value}',
-  NO_VALUE: 'No value'
+  PICK_YEAR: '选择年',
+  PICK_MONTH: '选择月',
+  PICK_DAY: '选择日',
+  PICK_HOUR: '选择小时',
+  PICK_MINUTE: '选择分钟',
+  PICK_SECOND: '选择秒钟',
+  PICK_WEEKDAY: '选择工作日',
+  PICK_FRACTIONALSECOND: '选择毫秒',
+  PICK_DAYPERIOD: '选择日期间',
+  VALUE: '当前值是 {value}',
+  NO_VALUE: '没有值'
 };
 
 Phrasebook.define('zh', 'ef-datetime-field', translations);

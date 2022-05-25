@@ -1,7 +1,7 @@
 import { Phrasebook } from '../../translation.js';
 
 const translations = {
-  OPEN_MENU: 'Open Menu'
+  OPEN_MENU: '打開選單'
 };
 
 Phrasebook.define('zh-Hant', 'ef-card', translations);
