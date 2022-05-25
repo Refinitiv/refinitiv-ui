@@ -78,7 +78,7 @@ jobs:
       - name: Test
         # Disable NX parallel task because it makes the testing on BrowserStack fail.
         # Prevent NX caching because it must run all testing, even though the code has not chaged.
-        run: npm run test:all -- --parallel=1 --skip-nx-cache --browserstack "chrome firefox edge" --output minimal
+        run: npm run test:all -- --parallel=1 --skip-nx-cache --browserstack all --output minimal
 
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master
