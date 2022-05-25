@@ -6,7 +6,47 @@ env:
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Refinitiv-UI ${{ github.run_number }}"
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+        id: setup
+
+      - name: Install Dependencies
+        if: steps.setup.outputs.cache-dependencies-hit != 'true'
+        run: npm ci --ignore-scripts --audit=false --fund=false
+
+      - name: Reset NX # temporary
+        run: npm run reset
+
+      - name: Build
+        if: steps.setup.outputs.cache-build-hit != 'true'
+        run: npm run build:affected -- --base=$BASE_SHA
+
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+
+      - name: Lint
+        run: npm run lint:affected -- --base=$BASE_SHA
   test:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: 'BrowserStack Env Setup' # Invokes the setup-env action
@@ -31,20 +71,6 @@ jobs:
       - name: Setup resources and environment
         uses: ./.github/actions/setup
         id: setup
-
-      - name: Install Dependencies
-        if: steps.setup.outputs.cache-dependencies-hit != 'true'
-        run: npm ci --ignore-scripts --audit=false --fund=false
-
-      - name: Reset NX # temporary
-        run: npm run reset
-
-      - name: Build
-        if: steps.setup.outputs.cache-build-hit != 'true'
-        run: npm run build:affected -- --base=$BASE_SHA
-
-      - name: Lint
-        run: npm run lint:affected -- --base=$BASE_SHA
 
       - name: Test
         # Disable NX parallel task because it makes the testing on BrowserStack fail
