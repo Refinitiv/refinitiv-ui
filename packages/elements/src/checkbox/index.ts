@@ -89,8 +89,8 @@ export class Checkbox extends ControlElement {
         this.indeterminate = false;
       }
 
-      this.requestUpdate('checked', oldValue);
       this.setAttribute('aria-checked', String(value));
+      this.requestUpdate('checked', oldValue);
     }
   }
   public get checked (): boolean {
