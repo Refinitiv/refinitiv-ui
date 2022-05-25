@@ -81,17 +81,17 @@ export const multiLevelInvalidData = [
     'items': [{
       'value': 'l23',
       'label': 'Level 2-3',
-      'selected': false,
+      'selected': true,
       'expanded': true,
       'items': [{
         'value': 'l34',
         'label': 'Level 3-4',
-        'selected': true,
+        'selected': false,
         'expanded': true,
       },{
         'value': 'l35',
         'label': 'Level 3-5',
-        'selected': true,
+        'selected': false,
         'expanded': true,
       }]
     },{

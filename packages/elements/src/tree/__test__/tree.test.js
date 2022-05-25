@@ -398,15 +398,26 @@ describe('tree/Tree', () => {
       expect(el.values).to.deep.equal(['1.1', '1.2']);
     });
 
+    it('Render correct un-checked states when data is invalid', async () => {
+      const el = await fixture('<ef-tree multiple></ef-tree>');
+      el.data = multiLevelInvalidData;
+      await elementUpdated(el);
+      expect(el.querySelectorAll('[selected]').length).to.equal(3);
+      el.uncheckAll();
+      await elementUpdated(el);
+      await nextFrame();
+      expect(el.querySelectorAll('[selected]').length).to.equal(0, 'All item is unchecked');
+    });
+    
     it('Render correct checked states when data is invalid', async () => {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = multiLevelInvalidData;
       await elementUpdated(el);
-      expect(el.querySelectorAll('[selected]').length).to.equal(6);
-      el.uncheckAll();
+      expect(el.querySelectorAll('[selected]').length).to.equal(3);
+      el.checkAll();
       await elementUpdated(el);
       await nextFrame();
-      expect(el.querySelectorAll('[selected]').length).to.equal(0);
+      expect(el.querySelectorAll('[selected]').length).to.equal(6, 'All item is checked');
     });
   });
 

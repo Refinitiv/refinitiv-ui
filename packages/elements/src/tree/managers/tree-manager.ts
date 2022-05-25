@@ -388,7 +388,7 @@ export class TreeManager<T extends TreeDataItem> {
       this.composer.setItemPropertyValue(item, 'selected', true);
       if (manageRelationships) {
         this.forceUpdateOnPath(item);
-        this.getItemDescendants(item).forEach(descendant => this._checkItem(descendant, false));
+        this.getItemDescendants(item).forEach(descendant => this._checkItem(descendant, this.isItemParent(descendant)));
       }
       return true;
     }
