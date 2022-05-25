@@ -260,8 +260,8 @@ export class Clock extends ResponsiveElement {
 
   /**
    * Enable interactive mode. Allowing the user to offset the value.
-   * Set tabIndex >= 0 to make the clock interactive
-   * Set/remove tabIndex to move clock to non interactive mode
+   * When interactive mode, clock will be focusable and role=spinbutton.
+   * When non interactive mode, clock is unable to focus and has no role.
    * @param value Set interactive mode
    */
   @property({ type: Boolean })
