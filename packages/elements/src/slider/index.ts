@@ -366,7 +366,7 @@ export class Slider extends ControlElement {
   private activeThumb: HTMLDivElement | null = null;
 
   /**
-   * Thumb that involves data changes
+   * Thumb that may involves data changes
    */
   @state()
   private changedThumb: HTMLDivElement | null = null;
@@ -598,18 +598,27 @@ export class Slider extends ControlElement {
       return;
     }
 
+    this.changedThumb = event.target as HTMLDivElement;
+    const thumbName = this.changedThumb.getAttribute('name') as SliderDataName;
+
     switch (event.key) {
       case 'ArrowDown':
       case 'Down':
       case 'ArrowLeft':
       case 'Left':
-        this.onApplyStep(Direction.Down);
+        this.onApplyStep(Direction.Down, thumbName);
         break;
       case 'ArrowUp':
       case 'Up':
       case 'ArrowRight':
       case 'Right':
-        this.onApplyStep(Direction.Up);
+        this.onApplyStep(Direction.Up, thumbName);
+        break;
+      case 'Home':
+        this.onApplyMax(thumbName);
+        break;
+      case 'End':
+        this.onApplyMin(thumbName);
         break;
       default:
         return;
@@ -619,22 +628,64 @@ export class Slider extends ControlElement {
   }
 
   /**
+   * Set thumb to minimum value possible
+   * @param data type of data to change
+   * @returns {void}
+   */
+  private onApplyMin (data: SliderDataName): void {
+    let position;
+    if (data === SliderDataName.from || data === SliderDataName.value) {
+      position = this.calculatePosition(this.minNumber, 1);
+    }
+    else {
+      position = this.calculatePosition(this.fromNumber + this.minRangeNumber, 1);
+    }
+
+    const possibleValue = this.getNearestPossibleValue(position);
+    const value = this.getValueFromPosition(possibleValue);
+
+    this.persistChangedData(value);
+    this.dispatchDataChangedEvent();
+  }
+
+  /**
+   * Set thumb to maximum value possible
+   * @param data type of data to change
+   * @returns {void}
+   */
+  private onApplyMax (data: SliderDataName): void {
+    let position;
+    if (data === SliderDataName.to || data === SliderDataName.value) {
+      position = this.calculatePosition(this.maxNumber, 1);
+    }
+    else {
+      position = this.calculatePosition(this.toNumber - this.minRangeNumber, 1);
+    }
+
+    const possibleValue = this.getNearestPossibleValue(position);
+    const value = this.getValueFromPosition(possibleValue);
+
+    this.persistChangedData(value);
+    this.dispatchDataChangedEvent();
+  }
+
+  /**
    * Increase or decrease value depending on direction
    * Then fires value change event
    * @param direction Up or Down
+   * @param data type of data to change
    * @returns {void}
    */
-  private onApplyStep (direction: Direction): void {
+  private onApplyStep (direction: Direction, data: SliderDataName): void {
     // Get current thumb position and step in percentage format
-    const thumbPosition = this.calculatePosition(this.valueNumber, 1);
+    const thumbPosition = this.calculatePosition(this[`${data}Number`], 1);
     const step = this.calculatePosition(this.minNumber + this.stepRange, 1);
 
     const possibleValue = direction === Direction.Up ? thumbPosition + step : thumbPosition - step;
     const nearestPossibleValue = this.getNearestPossibleValue(possibleValue);
-
     const value = this.getValueFromPosition(nearestPossibleValue);
 
-    this.value = this.format(value);
+    this.persistChangedData(value);
     this.dispatchDataChangedEvent();
   }
 
@@ -833,18 +884,43 @@ export class Slider extends ControlElement {
     }
 
     const newThumbPosition = this.stepRange !== 0 ? nearestValue : thumbPosition;
-    const displayedValue = this.format(this.getValueFromPosition(newThumbPosition));
+    const value = this.getValueFromPosition(newThumbPosition);
 
+    this.persistChangedData(value);
+  }
+
+  /**
+   * Saves changed data into correct field
+   * @param value value of changed data
+   * @returns {void}
+   */
+  private persistChangedData (value: number): void {
+    const newValue = this.format(value).toString();
     if (this.range) {
       if (this.changedThumb === this.thumbs[0]) {
-        this.from = this.validateFrom(Number(displayedValue)).toString();
+        this.from = this.validateRange(newValue, SliderDataName.from);
       }
       else {
-        this.to = this.validateTo(Number(displayedValue)).toString();
+        this.to = this.validateRange(newValue, SliderDataName.to);
       }
     }
     else {
-      this.value = displayedValue;
+      this.value = newValue;
+    }
+  }
+
+  /**
+   * Validate from or to value and re-asssign
+   * @param value from or to value
+   * @param type from or to
+   * @returns validated from or to
+   */
+  private validateRange (value: string, type: SliderDataName): string {
+    if (type === SliderDataName.from) {
+      return this.validateFrom(Number(value)).toString();
+    }
+    else {
+      return this.validateTo(Number(value)).toString();
     }
   }
 
@@ -895,9 +971,8 @@ export class Slider extends ControlElement {
         return nearestValue - stepSize;
       }
     }
-    else {
-      return nearestValue + stepSize;
-    }
+
+    return nearestValue + stepSize;
   }
 
   /**
