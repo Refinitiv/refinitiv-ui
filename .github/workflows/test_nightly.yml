@@ -1,4 +1,4 @@
-name: BrowserStack
+name: Test Nightly
 on:
   schedule:
     - cron: '0 0 * * *'
