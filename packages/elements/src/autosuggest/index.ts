@@ -9,6 +9,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import type {
@@ -149,7 +150,6 @@ export class Autosuggest extends Overlay {
 
   /**
    * An HTML Element or CSS selector
-   * @type {AutosuggestTargetElement | string | null}
    */
   @property({ type: String })
   public attach: AutosuggestTargetElement | string | null = null;
@@ -181,7 +181,6 @@ export class Autosuggest extends Overlay {
 
   /**
    * An object that represents a query from attach target
-   * @type {AutosuggestQuery | null}
    */
   @property({ type: Object, attribute: false })
   public query: AutosuggestQuery | null = null;
@@ -197,23 +196,20 @@ export class Autosuggest extends Overlay {
   /**
    * A renderer applied to suggestion.
    * By default a render maps data to item attributes
-   * @type {AutosuggestRenderer}
    */
-  @property({ type: Function, attribute: false })
+  @property({ attribute: false })
   public renderer: AutosuggestRenderer = itemRenderer;
 
   /**
    * A function that is applied to every suggestion during the render process
    * to say whether the item can be highlighted and selected. Only items that return true are considered.
    * By default the function checks for `item` `highlightable` property.
-   * @type {AutosuggestHighlightable}
    */
-  @property({ type: Function, attribute: false })
+  @property({ attribute: false })
   public highlightable: AutosuggestHighlightable = itemHighlightable;
 
   /**
    * A list of suggestion items
-   * @type {AutosuggestItem[]}
    */
   @property({ type: Array, attribute: false })
   public suggestions: AutosuggestItem[] = [];
@@ -229,17 +225,10 @@ export class Autosuggest extends Overlay {
   @query('#moreResults')
   protected moreResultsItem?: HTMLElement | null;
 
-  @query('#contentSlot')
-  private contentSlot?: HTMLSlotElement | null;
-
-  @query('[part="content"]')
-  private contentElement?: HTMLElement | null;
-
-  @query('[part="header"]')
-  private headerElement?: HTMLElement | null;
-
-  @query('[part="footer"]')
-  private footerElement?: HTMLElement | null;
+  private contentSlotRef: Ref<HTMLSlotElement> = createRef();
+  private contentElementRef: Ref<HTMLElement> = createRef();
+  private headerElementRef: Ref<HTMLElement> = createRef();
+  private footerElementRef: Ref<HTMLElement> = createRef();
 
   // used to map render elements with data
   private suggestionMap = new Map<HTMLElement, AutosuggestItem>();
@@ -342,6 +331,14 @@ export class Autosuggest extends Overlay {
     * @ignore
     */
     this.attachEventsRemoveAction = this.attachEventsRemoveAction.bind(this);
+    /**
+     * @ignore
+     */
+    this.onItemMousedown = this.onItemMousedown.bind(this);
+    /**
+     * @ignore
+     */
+    this.onOutsideClick = this.onOutsideClick.bind(this);
   }
 
   public disconnectedCallback (): void {
@@ -400,20 +397,29 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
   public onInputKeyDown (event: KeyboardEvent): void {
-    if (event.key === 'Up' || event.key === 'ArrowUp') {
-      this.onUpKey();
-    }
-    else if (event.key === 'Down' || event.key === 'ArrowDown') {
-      this.onDownKey();
-    }
-    else if (event.key === 'Esc' || event.key === 'Escape') {
-      this.onEscKey();
-    }
-    else if (event.key === 'Enter' || event.key === 'Return') {
-      this.onEnterKey(event);
-    }
-    else {
+    if (event.defaultPrevented) {
       return;
+    }
+
+    switch (event.key) {
+      case 'ArrowUp':
+      case 'Up':
+        this.onUpKey();
+        break;
+      case 'ArrowDown':
+      case 'Down':
+        this.onDownKey();
+        break;
+      case 'Escape':
+      case 'Esc':
+        this.onEscKey();
+        break;
+      case 'Return':
+      case 'Enter':
+        this.onEnterKey(event);
+        break;
+      default:
+        return;
     }
 
     event.preventDefault();
@@ -428,55 +434,6 @@ export class Autosuggest extends Overlay {
   public resizedCallback (size: ElementSize): void {
     super.resizedCallback(size);
     this.calculateContentMaxHeight(size);
-  }
-
-  /**
-   * @returns template of loader if currently query loading
-   */
-  protected get loaderTemplate (): TemplateResult | null {
-    if (!this.loading) {
-      return null;
-    }
-    return html`
-      <div part="loader">
-        <div part="backdrop"></div>
-        <ef-loader size="medium"></ef-loader>
-      </div>
-    `;
-  }
-
-  /**
-   * @returns template of moreResults
-   */
-  protected get moreResultsTemplate (): TemplateResult | null {
-    if (!this.moreResults) {
-      return null;
-    }
-
-    return html`
-      <ef-item id="moreResults" part="more-results">${this.highlightText(this.moreResults, this.moreSearchText, this.query)}</ef-item>
-    `;
-  }
-
-  /**
-   * A `TemplateResult` that will be used
-   * to render the updated internal template.
-   * @return Render template
-   */
-  protected render (): TemplateResult {
-    return html`
-        <div part="header">
-          <slot id="headerSlot" name="header"></slot>
-        </div>
-        <div id="content" part="content" @mousemove="${this.onItemMouseMove}" @mouseleave="${this.onItemMouseLeave}" @tap="${this.onItemMouseClick}">
-          <slot id="contentSlot" @slotchange="${this.onSlotChange}"></slot>
-          ${this.moreResultsTemplate}
-        </div>
-        <div part="footer">
-          <slot id="footerSlot" name="footer"></slot>
-        </div>
-        ${this.loaderTemplate}
-    `;
   }
 
   /**
@@ -529,7 +486,8 @@ export class Autosuggest extends Overlay {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected onSlotChange (event: Event): void {
-    const nodes = (this.contentSlot && this.contentSlot.assignedNodes()) || [];
+    const contentSlot = this.contentSlotRef.value;
+    const nodes = (contentSlot && contentSlot.assignedNodes()) || [];
     this.setOpened(this.attachTargetFocused && this.hasContent);
 
     // make a brave assumption that suggestions are populated as well
@@ -974,7 +932,10 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
   protected onItemMouseClick (event: MouseEvent): void {
-    this.selectItem(this.getTarget(event) as HTMLElement, 'click');
+    const target = this.getTarget(event);
+    if (target) {
+      this.selectItem(target, 'click');
+    }
   }
 
   /**
@@ -983,7 +944,12 @@ export class Autosuggest extends Overlay {
    * @returns true if some of changedProperties modified
    */
   private shouldAutosuggestUpdate (changedProperties: PropertyValues): boolean {
-    return changedProperties.has('attach') || changedProperties.has('suggestions') || changedProperties.has('moreResults') || changedProperties.has('loading') || changedProperties.has('debounceRate');
+    return changedProperties.has('attach')
+      || changedProperties.has('suggestions')
+      || changedProperties.has('moreResults')
+      || changedProperties.has('moreSearchText')
+      || changedProperties.has('loading')
+      || changedProperties.has('debounceRate');
   }
 
   /**
@@ -991,26 +957,32 @@ export class Autosuggest extends Overlay {
    * @param  event object
    * @returns {void}
    */
-  private onOutsideClick = (event: Event): void => {
+  private onOutsideClick (event: Event): void {
     const path = event.composedPath();
 
     // outside click
     if (!path.includes(this) && this.attachTarget && !path.includes(this.attachTarget)) {
       this.setOpened(false);
     }
-  };
+  }
 
   private changedCallbacks (changedProperties: PropertyValues): void {
     if (changedProperties.has('attach')) {
-      this.attachChangeRunner.schedule(this.attachChangeFrameCallback);
+      this.attachChangeRunner.schedule(() => {
+        this.attachChangeFrameCallback();
+      });
     }
 
     if (changedProperties.has('moreResults')) {
-      this.moreResultsRunner.schedule(this.moreResultsFrameCallback);
+      this.moreResultsRunner.schedule(() => {
+        this.moreResultsFrameCallback();
+      });
     }
 
     if (changedProperties.has('loading')) {
-      this.loadingRunner.schedule(this.loadingFrameCallback);
+      this.loadingRunner.schedule(() => {
+        this.loadingFrameCallback();
+      });
     }
 
     if (changedProperties.has('opened')) {
@@ -1041,16 +1013,17 @@ export class Autosuggest extends Overlay {
   }
 
   /**
-   * fire event and reinit listeners if attach was changed
+   * fire event and re-init listeners if attach was changed
    * @returns {void}
    */
-  private attachChangeFrameCallback = (): void => {
+  private attachChangeFrameCallback (): void {
     this.dispatchAttachEventsRemoveAction();
 
     const attachTarget = (typeof this.attach === 'string' ? document.querySelector(this.attach) : this.attach) as AutosuggestTargetElement;
 
     if (attachTarget && attachTarget.nodeType === document.ELEMENT_NODE) {
       this.attachTarget = attachTarget;
+      this.focusBoundary = attachTarget;
       if (!this.positionTarget) {
         this.positionTarget = attachTarget; // in most cases attachTarget and positionTarget must be the same
       }
@@ -1064,7 +1037,7 @@ export class Autosuggest extends Overlay {
         cancelable: true
       }), this.attachEventsAddAction);
     }
-  };
+  }
 
   /**
    * Dispatch attach events remove action event
@@ -1082,6 +1055,7 @@ export class Autosuggest extends Overlay {
       }), this.attachEventsRemoveAction);
 
       this.attachTarget = null;
+      this.focusBoundary = null;
     }
   }
 
@@ -1089,9 +1063,9 @@ export class Autosuggest extends Overlay {
    * set opened state due to status of focus and content
    * @returns {void}
    */
-  private moreResultsFrameCallback = (): void => {
+  private moreResultsFrameCallback (): void {
     this.setOpened(this.attachTargetFocused && this.hasContent);
-  };
+  }
 
   /**
    * Run when suggestions get changed
@@ -1099,9 +1073,12 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
   private suggestionsChange (): void {
-    this.contentSlot && this.contentSlot.assignedNodes().forEach(this.removeChildNode);
+    const contentSlot = this.contentSlotRef.value;
+    contentSlot && contentSlot.assignedNodes().forEach((node) => {
+      node.parentNode && node.parentNode.removeChild(node);
+    });
 
-    this.appendChild(this.suggestions.reduce(this.generateSuggestionsFragment, document.createDocumentFragment()));
+    this.appendChild(this.suggestions.reduce((fragment: DocumentFragment, suggestion) => this.generateSuggestionsFragment(fragment, suggestion), document.createDocumentFragment()));
   }
 
   /**
@@ -1117,7 +1094,7 @@ export class Autosuggest extends Overlay {
     /**
      * @event item-select
      * Fired when an item gets selected
-     * @param {AutosuggestMethodType} method Select method
+     * @param method Select method
      * @param {HTMLElement} target Selection target
      * @param {*} [suggestion] Selected suggestion or null
      * @param {*} [query] Saved query object or null
@@ -1241,7 +1218,8 @@ export class Autosuggest extends Overlay {
     }
 
     // Space characters (e.g. space, tab, EOL) don't count as having content
-    const nodes = this.contentSlot && this.contentSlot.assignedNodes() || [];
+    const contentSlot = this.contentSlotRef.value;
+    const nodes = contentSlot && contentSlot.assignedNodes() || [];
     return nodes.some(({ nodeType, textContent }) => nodeType === Node.ELEMENT_NODE || (textContent && textContent.search(/\S/) >= 0)); // If node is element always return true
   }
 
@@ -1335,14 +1313,14 @@ export class Autosuggest extends Overlay {
    * initialize opened state depends on focus and content
    * @returns {void}
    */
-  private loadingFrameCallback = (): void => {
+  private loadingFrameCallback (): void {
     if (this.loading && !this.opened && this.attachTargetFocused) {
       this.setOpened(true);
     }
     else if (!this.loading && this.opened && !this.hasContent) {
       this.setOpened(false);
     }
-  };
+  }
 
   /**
    * @returns {void}
@@ -1359,16 +1337,12 @@ export class Autosuggest extends Overlay {
     }
   }
 
-  private removeChildNode = (el: Node): void => {
-    el.parentNode && el.parentNode.removeChild(el);
-  };
-
-  private generateSuggestionsFragment = (fragment: DocumentFragment, suggestion: AutosuggestItem): DocumentFragment => {
+  private generateSuggestionsFragment (fragment: DocumentFragment, suggestion: AutosuggestItem): DocumentFragment {
     const el = this.renderer(suggestion, this.preservedQueryValue);
     fragment.appendChild(el);
 
     return fragment;
-  };
+  }
 
   /**
    * Set the width
@@ -1390,7 +1364,7 @@ export class Autosuggest extends Overlay {
    * @param event Mouse down event
    * @returns {void}
    */
-  private onItemMousedown = (event: Event): void => {
+  private onItemMousedown (event: Event): void {
     // do not loose focus from input when click happens on the popup
     // note, in IE when scrolling the focus is lost regardless, so
     // do hacking here and with on blur
@@ -1404,7 +1378,63 @@ export class Autosuggest extends Overlay {
 
     event.stopPropagation();
     event.preventDefault();
-  };
+  }
+
+  /**
+   * @returns template of loader if currently query loading
+   */
+  protected get loaderTemplate (): TemplateResult | null {
+    if (!this.loading) {
+      return null;
+    }
+    return html`
+      <div part="loader">
+        <div part="backdrop"></div>
+        <ef-loade></ef-loader>
+      </div>
+    `;
+  }
+
+  /**
+   * @returns template of moreResults
+   */
+  protected get moreResultsTemplate (): TemplateResult | null {
+    if (!this.moreResults) {
+      return null;
+    }
+
+    return html`
+      <ef-item id="moreResults" part="more-results">${this.highlightText(this.moreResults, this.moreSearchText, this.query)}</ef-item>
+    `;
+  }
+
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return Render template
+   */
+  protected render (): TemplateResult {
+    return html`
+        <div ${ref(this.headerElementRef)}
+             part="header">
+          <slot id="headerSlot" name="header"></slot>
+        </div>
+        <div ${ref(this.contentElementRef)}
+             part="content"
+             @mousemove="${this.onItemMouseMove}"
+             @mouseleave="${this.onItemMouseLeave}"
+             @tap="${this.onItemMouseClick}">
+          <slot ${ref(this.contentSlotRef)}
+                @slotchange="${this.onSlotChange}"></slot>
+          ${this.moreResultsTemplate}
+        </div>
+        <div ${ref(this.footerElementRef)}
+             part="footer">
+          <slot id="footerSlot" name="footer"></slot>
+        </div>
+        ${this.loaderTemplate}
+    `;
+  }
 
   /**
    * IE11 only: Restrict maximum height of content element
@@ -1414,15 +1444,17 @@ export class Autosuggest extends Overlay {
 
   /* istanbul ignore next */
   private restrictContentMaxHeight (maxHeight?: number): void {
-    if (!isIE) {
+    const contentElement = this.contentElementRef.value;
+
+    if (!isIE || !contentElement) {
       return;
     }
 
     if (maxHeight) {
-      this.contentElement && this.contentElement.style.setProperty('max-height', `${maxHeight}px`);
+      contentElement.style.setProperty('max-height', `${maxHeight}px`);
     }
     else {
-      this.contentElement && this.contentElement.style.removeProperty('max-height');
+      contentElement.style.removeProperty('max-height');
     }
   }
 
@@ -1437,9 +1469,13 @@ export class Autosuggest extends Overlay {
       return;
     }
 
-    const headerRect = this.headerElement?.getBoundingClientRect();
-    const footerRect = this.footerElement?.getBoundingClientRect();
-    const contentRect = this.contentElement?.getBoundingClientRect();
+    const headerElement = this.headerElementRef.value;
+    const footerElement = this.footerElementRef.value;
+    const contentElement = this.contentElementRef.value;
+
+    const headerRect = headerElement?.getBoundingClientRect();
+    const footerRect = footerElement?.getBoundingClientRect();
+    const contentRect = contentElement?.getBoundingClientRect();
 
     const dialogHeight = size.height;
     const headerHeight = headerRect ? headerRect.height : 0;
