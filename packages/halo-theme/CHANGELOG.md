@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.5.0...@refinitiv-ui/halo-theme@5.5.1) (2022-05-26)
+
+
+### Bug Fixes
+
+* **calendar:** disabled dates incorrect styles ([#330](https://github.com/Refinitiv/refinitiv-ui/issues/330)) ([7d837e5](https://github.com/Refinitiv/refinitiv-ui/commit/7d837e543f7276cda330ce2c9efb1cf06896832d))
+
+
+
+
+
 # [5.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.4.3...@refinitiv-ui/halo-theme@5.5.0) (2022-02-15)
 
 
