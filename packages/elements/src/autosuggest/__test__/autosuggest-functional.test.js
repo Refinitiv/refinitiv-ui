@@ -435,7 +435,7 @@ describe('autosuggest/Functional', () => {
 
       expect(event.detail.reason).to.equal('value-changed', 'value-changed is not fired');
       expect(finishTime - callTime).to.greaterThan(autoSuggest.debounceRate, 'time less then debounceRate');
-      expect(finishTime - callTime).to.lessThan(autoSuggest.debounceRate + 80, 'time to call must greater than debounceRate');
+      expect(finishTime - callTime).to.lessThan(autoSuggest.debounceRate + 100, 'time to call much greater than debounceRate');
     }, 4000);
 
     it('the highlightable property returns true', async () => {
