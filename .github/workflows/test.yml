@@ -74,7 +74,7 @@ jobs:
 
       - name: Test
         # Disable NX parallel task because it makes the testing on BrowserStack fail
-        run: npm run test:affected -- --base=$BASE_SHA --parallel=1 --browserstack all --output minimal
+        run: npm run test:affected -- --base=$BASE_SHA --parallel=2 --browserstack all --output minimal
 
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master
