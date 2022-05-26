@@ -1336,8 +1336,14 @@ export class Slider extends ControlElement {
    * @returns {TemplateResult}  number field template
    */
   private renderNumberField (value: string, name: string): TemplateResult {
+    /**
+     * Hiding number-field from screen reader and tabbing sequence because it's redundant,
+     * and complicate the accessibility implementation.
+     */
     return html`
       <ef-number-field
+        tabindex="-1"
+        aria-hidden="true"
         @blur=${this.onNumberFieldBlur}
         @keydown=${this.onNumberFieldKeyDown}
         part="input"
