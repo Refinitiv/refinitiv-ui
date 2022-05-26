@@ -13,8 +13,8 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
+import '@refinitiv-ui/phrasebook/locale/en/clock.js';
 
 import {
   MILLISECONDS_IN_SECOND,
@@ -23,26 +23,36 @@ import {
   toTimeSegment,
   TimeFormat,
   format,
-  padNumber
+  padNumber,
+  HOURS_IN_DAY,
+  MINUTES_IN_HOUR,
+  SECONDS_IN_MINUTE,
+  SECONDS_IN_DAY,
+  SECONDS_IN_HOUR,
+  parse
 } from '@refinitiv-ui/utils/date.js';
 
 import {
-  HOURS_IN_DAY,
-  MINUTES_IN_HOUR,
-  SECONDS_IN_DAY,
-  SECONDS_IN_HOUR,
-  SECONDS_IN_MINUTE
-} from './utils/timestamps.js';
+  translate,
+  TranslatePromise,
+  TranslatePropertyKey
+} from '@refinitiv-ui/translate';
 
 import {
   register,
   deRegister
 } from './utils/TickManager.js';
 
-const UP = 'Up';
-const DOWN = 'Down';
 const SMALL_SIZE = 130; // Break point for small size clock face.
-type UpOrDown = typeof UP | typeof DOWN;
+enum Direction {
+  UP = 'Up',
+  DOWN = 'Down'
+}
+enum Segment {
+  HOURS = 'hours',
+  MINUTES = 'minutes',
+  SECOND = 'seconds'
+}
 
 /**
  * Display hours, minutes and seconds as clock interface
@@ -131,6 +141,18 @@ export class Clock extends ResponsiveElement {
   private tickTimestamp = 0;
 
   /**
+   * Current active segment for interactive mode
+   */
+  @state()
+  private activeSegment = Segment.HOURS;
+
+  /**
+   * Clock internal translation strings
+   */
+  @translate({ mode: 'promise', scope: 'ef-clock' })
+  protected tPromise!: TranslatePromise;
+
+  /**
    * Get time value in format `hh:mm:ss`
    * @default 00:00:00
    * @returns value
@@ -207,10 +229,9 @@ export class Clock extends ResponsiveElement {
     return this._tick;
   }
   public set tick (value: boolean) {
-    const newValue = !!value;
     const oldValue = this.tick;
-    if (oldValue !== newValue) {
-      this._tick = newValue;
+    if (oldValue !== value) {
+      this._tick = value;
       this.synchronise();
       this.configureTickManager();
       this.requestUpdate('tick', oldValue);
@@ -220,26 +241,48 @@ export class Clock extends ResponsiveElement {
   /**
    * Display the digital clock in 12hr format.
    */
-  @property({ type: Boolean, attribute: 'am-pm' })
+  @property({ type: Boolean, attribute: 'am-pm', reflect: true })
   public amPm = false;
 
   /**
    * Display the seconds segment.
    */
-  @property({ type: Boolean, attribute: 'show-seconds' })
+  @property({ type: Boolean, attribute: 'show-seconds', reflect: true })
   public showSeconds = false;
-
-  /**
-   * Enabled interactive mode. Allowing the user to offset the value.
-   */
-  @property({ type: Boolean })
-  public interactive = false;
 
   /**
   * Display clock in analogue style.
   */
   @property({ type: Boolean, reflect: true })
   public analogue = false;
+
+  private _interactive = false;
+
+  /**
+   * Enable interactive mode. Allowing the user to offset the value.
+   * When interactive mode, clock will be focusable and role=spinbutton.
+   * When non interactive mode, clock is unable to focus and has no role.
+   * @param value Set interactive mode
+   */
+  @property({ type: Boolean })
+  public set interactive (value: boolean) {
+    const oldValue = this.interactive;
+    if (oldValue !== value) {
+      this._interactive = value;
+      if (this._interactive) {
+        this.tabIndex = 0;
+        this.setAttribute('role', 'spinbutton');
+      }
+      else {
+        this.tabIndex = -1;
+        this.removeAttribute('role');
+      }
+      this.requestUpdate('interactive', oldValue);
+    }
+  }
+  public get interactive (): boolean {
+    return this._interactive;
+  }
 
   /**
    * Getter for hours part.
@@ -263,7 +306,7 @@ export class Clock extends ResponsiveElement {
   * Size of the clock.
   */
   @property({ type: String, attribute: 'size', reflect: true })
-  private size:null | 'small' = null;
+  private size: null | 'small' = null;
 
   /**
    * Get the display time in seconds.
@@ -339,6 +382,19 @@ export class Clock extends ResponsiveElement {
   }
 
   /**
+   * Get display value
+   * @returns display value
+   */
+  private get displayValue (): string {
+    return format({
+      hours: this.displayHours,
+      minutes: this.displayMinutes,
+      seconds: this.displaySeconds,
+      milliseconds: 0
+    }, TimeFormat.HHmmss);
+  }
+
+  /**
    * Get display AM or PM depending on time
    * @returns `AM` or `PM`
    */
@@ -387,45 +443,43 @@ export class Clock extends ResponsiveElement {
    * @param amount value to shift
    * @returns {void}
    */
-  private shift (direction: UpOrDown, amount: number): void {
-    this.offset = (SECONDS_IN_DAY + this.offset + amount * (direction === UP ? 1 : -1)) % SECONDS_IN_DAY;
+  private shift (direction: Direction, amount: number): void {
+    this.offset = (SECONDS_IN_DAY + this.offset + amount * (direction === Direction.UP ? 1 : -1)) % SECONDS_IN_DAY;
     this.notifyPropertyChange('offset', this.offset);
   }
 
   /**
-   * Returns any shift amount assigned to a target.
-   * @param target target of an event.
+   * Returns any shift amount assigned to a segment.
+   * @param segment Segment.
    * @returns {void}
    */
-  private getShiftAmountFromTarget (target: EventTarget | null): number {
-    if (target === this.hoursPart) {
+  private getShiftAmountFromSegment (segment: Segment): number {
+    if (segment === Segment.HOURS) {
       return SECONDS_IN_HOUR;
     }
-    if (target === this.minutesPart) {
+    if (segment === Segment.MINUTES) {
       return SECONDS_IN_MINUTE;
     }
-    if (target === this.secondsPart) {
+    if (segment === Segment.SECOND) {
       return 1;
     }
-    if (target instanceof HTMLElement && target.parentElement) {
-      return this.getShiftAmountFromTarget(target.parentElement);
-    }
+
     return 0;
   }
 
   /**
   * Returns `true` or `false` depends on the offset value's effect on giving segment
   *
-  * @param segment segment's name
+  * @param segment segment
   * @returns Result
   */
-  private isSegmentShifted (segment: string): boolean {
+  private isSegmentShifted (segment: Segment): boolean {
     switch (segment) {
-      case 'hours':
+      case Segment.HOURS:
         return this.hours !== this.displayHours24;
-      case 'minutes':
+      case Segment.MINUTES:
         return this.minutes !== this.displayMinutes;
-      case 'seconds':
+      case Segment.SECOND:
         return this.seconds !== this.displaySeconds;
       default:
         return false;
@@ -439,7 +493,9 @@ export class Clock extends ResponsiveElement {
    * @returns {void}
    */
   private onKeydown (event: KeyboardEvent): void {
-    this.manageControlKeys(event);
+    if (this.interactive) {
+      this.manageControlKeys(event);
+    }
   }
 
   /**
@@ -449,8 +505,23 @@ export class Clock extends ResponsiveElement {
    * @returns {void}
    */
   private onTapStart (event: TapEvent): void {
-    if (event.target instanceof HTMLElement && event.target.dataset.key) {
-      this.shift(event.target.dataset.key as UpOrDown, this.getShiftAmountFromTarget(event.target));
+    if (!this.interactive) {
+      return;
+    }
+
+    if (event.target === this.hoursPart) {
+      this.activeSegment = Segment.HOURS;
+    }
+    else if (event.target === this.minutesPart) {
+      this.activeSegment = Segment.MINUTES;
+    }
+
+    const buttonTarget = event.target as HTMLDivElement;
+    if (buttonTarget.getAttribute('name') === Direction.UP) {
+      this.shift(Direction.UP, this.getShiftAmountFromSegment(this.activeSegment));
+    }
+    else if (buttonTarget.getAttribute('name') === Direction.DOWN) {
+      this.shift(Direction.DOWN, this.getShiftAmountFromSegment(this.activeSegment));
     }
   }
 
@@ -461,14 +532,27 @@ export class Clock extends ResponsiveElement {
   * @returns {void}
   */
   private manageControlKeys (event: KeyboardEvent): void {
+    // Ignore special keys
+    if (event.shiftKey || event.ctrlKey || event.altKey || event.metaKey) {
+      return;
+    }
+
     switch (event.key) {
       case 'Up': // IE
       case 'ArrowUp':
-        this.handleUpKey(event);
+        this.handleUpKey();
         break;
       case 'Down': // IE
       case 'ArrowDown':
-        this.handleDownKey(event);
+        this.handleDownKey();
+        break;
+      case 'Left': // IE
+      case 'ArrowLeft':
+        this.activeSegment = Segment.HOURS;
+        break;
+      case 'Right': // IE
+      case 'ArrowRight':
+        this.activeSegment = Segment.MINUTES;
         break;
       default:
         return;
@@ -479,47 +563,57 @@ export class Clock extends ResponsiveElement {
 
   /**
   * Handles UP key press
-  * @param event Event Object
   * @returns {void}
   */
-  private handleUpKey (event: KeyboardEvent): void {
-    this.shift(UP, this.getShiftAmountFromTarget(event.target));
+  private handleUpKey (): void {
+    this.shift(Direction.UP, this.getShiftAmountFromSegment(this.activeSegment));
   }
 
   /**
   * Handle DOWN key press
-  * @param event Event Object
   * @returns {void}
   */
-  private handleDownKey (event: KeyboardEvent): void {
-    this.shift(DOWN, this.getShiftAmountFromTarget(event.target));
+  private handleDownKey (): void {
+    this.shift(Direction.DOWN, this.getShiftAmountFromSegment(this.activeSegment));
   }
 
   /**
-  * Template for increment and decrement button
-  * if interactive mode is enabled.
-  * @returns {TemplateResult} template result
+  * Set aria-valuenow to display value and aria-valuetext to translated format
+  * @returns {void}
   */
-  private generateButtonsTemplate (): TemplateResult {
-    return html`
-      <div part="increment-button" role="button" data-key="${UP}"></div>
-      <div part="decrement-button" role="button" data-key="${DOWN}"></div>
-    `;
+  private async updateAriaValue () {
+    const value = await this.tPromise('TIME', {
+      value: parse(this.displayValue),
+      amPm: this.amPm,
+      showSeconds: this.showSeconds
+    });
+    this.setAttribute('aria-valuenow', `${this.displayTime}`);
+    this.setAttribute('aria-valuetext', value);
   }
 
   /**
   * Get template of segment
-  * @param name segment's name
+  * @param segment segment
   * @param value segment's value
-  * @param shiftAmount amount to shift
   * @returns {TemplateResult} template
   */
-  private generateSegmentTemplate (name: string, value: number): TemplateResult {
+  private generateSegmentTemplate (segment: Segment, value: number): TemplateResult {
+    const isActive = this.interactive && (segment === this.activeSegment);
     return html`
-      <div part="segment ${name}${ifDefined(this.isSegmentShifted(name) ? ' shifted' : '')}" tabindex="${ifDefined(this.interactive ? '0' : undefined)}">
+      <div part="segment ${segment}${this.isSegmentShifted(segment) ? ' shifted' : ''}"
+           ?active=${isActive}>
         ${padNumber(value, 2)}
-        ${this.interactive ? this.generateButtonsTemplate() : undefined}
-      </div>
+        <div
+          part="increment-button"
+          aria-hidden="true"
+          name=${Direction.UP}
+          ?active=${isActive}></div>
+        <div
+          part="decrement-button"
+          aria-hidden="true"
+          name=${Direction.DOWN}
+          ?active=${isActive}></div>
+        </div>
     `;
   }
   /**
@@ -528,7 +622,7 @@ export class Clock extends ResponsiveElement {
   */
   private get dividerTemplate (): TemplateResult {
     return html`
-      <div part="segment divider">:</div>
+      <div part="segment divider" aria-hidden="true">:</div>
     `;
   }
 
@@ -547,7 +641,7 @@ export class Clock extends ResponsiveElement {
   * @returns {TemplateResult} template
   */
   private get hoursSegmentTemplate (): TemplateResult {
-    return this.generateSegmentTemplate('hours', this.displayHours);
+    return this.generateSegmentTemplate(Segment.HOURS, this.displayHours);
   }
 
   /**
@@ -555,7 +649,7 @@ export class Clock extends ResponsiveElement {
   * @returns {TemplateResult} template
   */
   private get minutesSegmentTemplate (): TemplateResult {
-    return this.generateSegmentTemplate('minutes', this.displayMinutes);
+    return this.generateSegmentTemplate(Segment.MINUTES, this.displayMinutes);
   }
 
   /**
@@ -563,7 +657,7 @@ export class Clock extends ResponsiveElement {
   * @returns {TemplateResult} template
   */
   private get secondsSegmentTemplate (): TemplateResult {
-    return this.generateSegmentTemplate('seconds', this.displaySeconds);
+    return this.generateSegmentTemplate(Segment.SECOND, this.displaySeconds);
   }
 
   /**
@@ -601,8 +695,27 @@ export class Clock extends ResponsiveElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.renderRoot.addEventListener('keydown', (event) => this.onKeydown(event as KeyboardEvent));
+    this.addEventListener('keydown', (event) => this.onKeydown(event));
     this.renderRoot.addEventListener('tapstart', (event) => this.onTapStart(event as TapEvent));
+  }
+
+  /**
+   * Called before update() to compute values needed during the update.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (this.interactive && (!this.hasUpdated
+      || changedProperties.has('sessionTicks')
+      || changedProperties.has('offset')
+      || changedProperties.has('value')
+      || changedProperties.has('showSeconds')
+      || changedProperties.has('amPm')
+      || changedProperties.has(TranslatePropertyKey))) {
+      void this.updateAriaValue();
+    }
   }
 
   /**
