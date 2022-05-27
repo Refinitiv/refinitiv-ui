@@ -246,7 +246,7 @@ if (argv.browserstack.length && !argv.watch) {
 
   // Add BrowserStack launchers to config
   const isTest = (browser) => argv.browserstack.includes(browser) || argv.browserstack.includes('all');
-  baseConfig.concurrency = 2; // Set concurrency and the config in the task runner (NX or Lerna) must not run in parallel.
+  baseConfig.concurrency = Infinity; // Set concurrency and the config in the task runner (NX or Lerna) must not run in parallel.
   baseConfig.customLaunchers = {
     ...baseConfig.customLaunchers,
 
