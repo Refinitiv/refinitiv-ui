@@ -72,9 +72,13 @@ jobs:
         uses: ./.github/actions/setup
         id: setup
 
-      - name: Test
+      - name: Test browsers latest versions
         # Disable NX parallel task because it makes the testing on BrowserStack fail
-        run: npm run test:affected -- --base=$BASE_SHA --parallel=1 --browserstack all --output minimal
+        run: npm run test:affected -- --base=$BASE_SHA --parallel=1 --browserstack 'chrome firefox edge' --output minimal
+
+      - name: Test browsers previous one versions
+        # Disable NX parallel task because it makes the testing on BrowserStack fail
+        run: npm run test:affected -- --base=$BASE_SHA --parallel=1 --skip-nx-cache --browserstack 'chrome_previous firefox_previous edge_previous' --output minimal
 
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master
