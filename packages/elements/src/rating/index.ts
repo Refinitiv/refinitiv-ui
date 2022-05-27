@@ -8,7 +8,6 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { queryAll } from '@refinitiv-ui/core/decorators/query-all.js';
 import { repeat } from '@refinitiv-ui/core/directives/repeat.js';
 import { VERSION } from '../version.js';
 interface ItemType {
@@ -32,8 +31,24 @@ export class Rating extends BasicElement {
     return VERSION;
   }
 
+  /**
+   * A `CSSResultGroup` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @returns CSS template
+   */
+  static get styles (): CSSResultGroup {
+    return css`
+      :host {
+        display: inline-block;
+      }
+    `;
+  }
+
   private items: ItemType[] = [];
   private valuePrevious = 0;
+
+  private interactiveMinValue = 1; // min value of interactive mode
 
   /**
    * Make it possible to interact with rating control and change the value
@@ -53,11 +68,6 @@ export class Rating extends BasicElement {
     */
   @property({ type: String, reflect: true })
   public value = '0';
-
-  /**
-   * Get stars element of container
-   */
-  @queryAll('[part~="icon"]') private stars!: NodeList;
 
   /**
    * Converts value from string to number for calculations
@@ -87,6 +97,56 @@ export class Rating extends BasicElement {
   }
 
   /**
+   * Called before update() to compute values needed during the update.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('interactive')) {
+      this.interactiveChanged();
+    }
+    if (this.interactive) {
+      if (changedProperties.has('value')) {
+        this.setAttribute('aria-valuenow', this.value);
+      }
+      if (changedProperties.has('max')) {
+        this.setAttribute('aria-valuemax', this.max);
+      }
+    }
+  }
+
+  /**
+   * Invoked when the element is first updated
+   * @param changedProperties changed properties
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    this.addEventListener('keydown', this.onKeyDown);
+  }
+
+  /**
+   * Invoked whenever the element properties are updated
+   * @param changedProperties changed properties
+   * @returns {void}
+   */
+  protected updated (changedProperties: PropertyValues): void {
+    super.updated(changedProperties);
+    changedProperties.forEach((_, propName) => {
+      if (propName === 'value') {
+        this.value = this.valueNumber.toString();
+        this.computeRating(this.maxNumber, this.valueNumber);
+      }
+      else if (propName === 'max') {
+        this.max = this.maxNumber.toString();
+        this.computeRating(this.maxNumber, this.valueNumber);
+      }
+    });
+  }
+
+  /**
    * Compute rating based on max number of stars and value.
    * Note: to speed up the component, hover state is implemented using CSS only.
    * CSS3 specification does not allow to select items preceding the hover, but allows to select the following items.
@@ -111,6 +171,103 @@ export class Rating extends BasicElement {
   }
 
   /**
+   * Handles interactive and aria attribute changes
+   * @returns {void}
+   */
+  private interactiveChanged (): void {
+    if (this.interactive) {
+      this.setAttribute('role', 'slider');
+      this.setAttribute('aria-valuemin', `${this.interactiveMinValue}`);
+      this.setAttribute('aria-valuenow', this.value);
+      this.setAttribute('aria-valuemax', this.max);
+      this.tabIndex = 0;
+    }
+    else {
+      this.removeAttribute('role');
+      this.removeAttribute('aria-valuemin');
+      this.removeAttribute('aria-valuenow');
+      this.removeAttribute('aria-valuemax');
+      this.removeAttribute('tabindex');
+    }
+  }
+
+  /**
+   * Handles key input
+   * @param event Key down event object
+   * @returns {void}
+   */
+  protected onKeyDown (event: KeyboardEvent): void {
+    if (event.defaultPrevented || !this.interactive) {
+      return;
+    }
+
+    // Ignore special keys
+    if (event.shiftKey || event.ctrlKey || event.altKey || event.metaKey) {
+      return;
+    }
+
+    switch (event.key) {
+      case 'Right':
+      case 'Up':
+      case 'ArrowRight':
+      case 'ArrowUp':
+        this.stepUp();
+        break;
+      case 'Left':
+      case 'Down':
+      case 'ArrowLeft':
+      case 'ArrowDown':
+        this.stepDown();
+        break;
+      case 'Home':
+        this.updateValue(this.interactiveMinValue);
+        break;
+      case 'End':
+        this.updateValue(this.max);
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+  }
+
+  /**
+   * Update value and fired value-changed event
+   * @param value value to updated
+   * @returns {void}
+   */
+  private updateValue (value: number | string): void {
+    value = value.toString();
+    if (this.value !== value) {
+      this.value = value;
+      this.notifyPropertyChange('value', this.value);
+    }
+  }
+
+  /**
+   * Increases the value of rating by 1
+   * @returns {void}
+   */
+  private stepUp (): void {
+    if (this.valueNumber + 1 > this.maxNumber) {
+      return;
+    }
+    this.updateValue(Math.floor(this.valueNumber) + 1);
+  }
+
+  /**
+   * Decrease the value of rating by 1
+   * @returns {void}
+   */
+  private stepDown (): void {
+    if (this.valueNumber - 1 < this.interactiveMinValue) {
+      return;
+    }
+    this.updateValue(Math.floor(this.valueNumber) - 1);
+  }
+
+  /**
    * Process click event to set the new value
    * @param {number} index index of star
    * @returns {void}
@@ -126,39 +283,6 @@ export class Rating extends BasicElement {
       // Dispatch Event when value change
       this.notifyPropertyChange('value', this.value);
     }
-  }
-
-  /**
-   * Invoked whenever the element properties are updated
-   * @param changedProperties changed properties
-   * @returns {void}
-   */
-  protected updated (changedProperties: PropertyValues): void {
-    super.updated(changedProperties);
-    changedProperties.forEach((oldValue, propName) => {
-      if (propName === 'value') {
-        this.value = this.valueNumber.toString();
-        this.computeRating(this.maxNumber, this.valueNumber);
-      }
-      else if (propName === 'max') {
-        this.max = this.maxNumber.toString();
-        this.computeRating(this.maxNumber, this.valueNumber);
-      }
-    });
-  }
-
-  /**
-   * A `CSSResultGroup` that will be used
-   * to style the host, slotted children
-   * and the internal template of the element.
-   * @returns CSS template
-   */
-  static get styles (): CSSResultGroup {
-    return css`
-      :host {
-        display: inline-block;
-      }
-    `;
   }
 
   /**
