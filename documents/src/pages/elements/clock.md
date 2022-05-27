@@ -234,3 +234,18 @@ ef-clock {
 <ef-clock analogue tick show-seconds am-pm></ef-clock>
 ```
 
+
+## Accessibility
+::a11y-intro::
+
+`ef-clock` is a set of number segments that contain hours, minutes, seconds, and time convention periods. Typically, it does not assign any roles as it's not an actionable component.
+
+However, in the interactive mode, clock will be assigned `role="spinbutton"`. Users can use arrow keys to navigate between each segment or update value in the segment. Current value of the clock will be updated to `aria-valuetext`. You can assign `aria-label` to `ef-clock` to give the component an assistive name for screen reader.
+
+If you need non-interactive clock to be focusable, you can set `tabindex="0"` and assigning `role="group"` with `aria-label` value.
+
+```html
+<ef-clock tabindex="0" role="group" aria-label="Current time in GMT+7"></ef-clock>
+```
+
+::a11y-end::

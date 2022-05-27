@@ -111,5 +111,12 @@ describe('clock/Clock', () => {
       expect(valueEvent.detail.value, 'event\'s value should be 00:00:01').to.be.equal('00:00:01');
     });
   });
+
+  describe('Accessibility', () => {
+    it('Should have role="group" by default', async function () {
+      el = await fixture('<ef-clock></ef-clock>');
+      expect(el.getAttribute('role')).to.be.equal(null);
+    });
+  });
 });
 
