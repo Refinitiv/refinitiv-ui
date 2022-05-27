@@ -12,6 +12,7 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
+import { TapEvent } from '../events';
 import type {
   AutosuggestTargetElement,
   AutosuggestHighlightable,
@@ -37,7 +38,15 @@ export type {
   AutosuggestQuery,
   AutosuggestRenderer,
   AutosuggestReason,
-  AutosuggestItem
+  AutosuggestItem,
+  ItemHighlightEvent,
+  AddAttachTargetEventsEvent,
+  RemoveAttachTargetEventsEvent,
+  ItemSelectEvent,
+  SuggestionsFetchRequestedEvent,
+  SuggestionsClearRequestedEvent,
+  SuggestionsQueryEvent,
+  SuggestionsChangedEvent
 } from './helpers/types';
 export { queryWordSelect, itemRenderer, escapeRegExp, itemHighlightable, updateElementContent } from './helpers/utils.js';
 
@@ -75,6 +84,8 @@ export class Autosuggest extends Overlay {
   static get version (): string {
     return VERSION;
   }
+
+  protected readonly defaultRole: string | null = 'listbox';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -283,6 +294,10 @@ export class Autosuggest extends Overlay {
     * @ignore
     */
     this.withShadow = false;
+    /**
+     * @ignore
+     */
+    this.noFocusManagement = true;
     /**
     * @ignore
     */
@@ -545,10 +560,13 @@ export class Autosuggest extends Overlay {
 
     if (target) {
       target.highlighted = true;
+      // Required for aria-activedescendant to work correctly
+      target.setAttribute('aria-selected', 'true');
     }
 
     if (oldTarget) {
       oldTarget.highlighted = false;
+      oldTarget.setAttribute('aria-selected', 'false');
     }
   }
 
@@ -957,7 +975,7 @@ export class Autosuggest extends Overlay {
    * @param  event object
    * @returns {void}
    */
-  private onOutsideClick (event: Event): void {
+  private onOutsideClick (event: TapEvent): void {
     const path = event.composedPath();
 
     // outside click

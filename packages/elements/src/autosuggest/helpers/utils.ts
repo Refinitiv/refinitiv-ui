@@ -1,3 +1,4 @@
+import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import type { Item } from '../../item';
 import type { AutosuggestHighlightable, AutosuggestQuery, AutosuggestRenderer, Suggestion, AutosuggestItem } from './types';
 
@@ -63,37 +64,45 @@ export const updateElementContent = (el: Item, query: string, label: string, val
  * @returns item
  */
 export const itemRenderer: AutosuggestRenderer = (suggestion: AutosuggestItem, query: AutosuggestQuery | null): HTMLElement => {
-  const el = document.createElement('ef-item');
-
-  if (typeof suggestion === 'object') {
-    const {
-      type,
-      label,
-      title,
-      icon,
-      disabled,
-      value
-    } = (suggestion as Suggestion);
-
-    el.type = type || null;
-    el.disabled = !!disabled;
-    el.icon = icon || null;
-    el.value = value || label || '';
-
-    if (title) {
-      el.title = title;
-    }
-
-    updateElementContent(el, query as string || '', label || '', el.value);
-  }
-  else {
+  if (typeof suggestion !== 'object') {
     const value = suggestion as string || '';
 
-    el.label = value;
-    el.value = value;
-
-    updateElementContent(el, query as string || '', value, value);
+    suggestion = {
+      label: value,
+      value
+    };
   }
+
+  const {
+    type,
+    label,
+    title,
+    icon,
+    disabled,
+    value,
+    id
+  } = (suggestion as Suggestion);
+
+  const el = document.createElement('ef-item');
+  const isTextType = !type || type === 'text';
+  const elId = id || (isTextType ? uuid() : '');
+
+  if (elId) {
+    el.id = elId;
+  }
+
+  el.tabIndex = -1;
+  el.setAttribute('role', isTextType ? 'option' : 'presentation');
+  el.type = type || null;
+  el.disabled = !!disabled;
+  el.icon = icon || null;
+  el.value = value || label || '';
+
+  if (title) {
+    el.title = title;
+  }
+
+  updateElementContent(el, query as string || '', label || '', el.value);
 
   return el;
 };

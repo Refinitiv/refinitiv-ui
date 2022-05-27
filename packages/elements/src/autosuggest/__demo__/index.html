@@ -652,5 +652,45 @@
         })();
       </script>
     </demo-block>
+    <demo-block layout="normal" header="Accessibility" tags="accessibility">
+      <label for="accessibility-input">Select Employee</label>
+      <input id="accessibility-input"
+             type="search"
+             aria-controls="accessibility-suggest"
+             aria-expanded="false"
+             aria-autocomplete="both"
+             aria-haspopup="listbox">
+      <ef-autosuggest id="accessibility-suggest"
+                      style="min-width: 300px"
+                      attach="#accessibility-input"></ef-autosuggest>
+      <script>
+        (function () {
+          const autoSuggest = document.getElementById('accessibility-suggest');
+          const input = document.getElementById('accessibility-input');
+          autoSuggest.addEventListener('suggestions-fetch-requested', ({ target, detail: { query } }) => {
+            window.filterData(query).then(({ data }) => {
+              target.suggestions = data;
+            });
+          });
+          autoSuggest.addEventListener('opened-changed', (event) => {
+            const opened = event.detail.value;
+            input.setAttribute('aria-expanded', `${opened}`);
+            if (!opened) {
+              input.removeAttribute('aria-activedescendant');
+            }
+          });
+          autoSuggest.addEventListener('item-select', (event) => {
+            const target = event.detail.target;
+            if (target) {
+              input.setAttribute('aria-activedescendant', target.id);
+            }
+            else {
+              // On ESC
+              input.removeAttribute('aria-activedescendant');
+            }
+          });
+        })();
+      </script>
+    </demo-block>
   </body>
 </html>
