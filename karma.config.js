@@ -112,7 +112,7 @@ const baseConfig = {
   concurrency: 2, // Set the value to `1`, When Karma has a problem to connect a test browser on Windows.
   // IE 11 require extra time to loading all scripts when testing concurrently.
   captureTimeout: 3e5,
-  browserDisconnectTolerance: 0,
+  browserDisconnectTolerance: 3,
   browserDisconnectTimeout: 3e5,
   browserSocketTimeout: 1.2e5,
   browserNoActivityTimeout: 3e5,
