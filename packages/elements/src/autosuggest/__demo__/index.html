@@ -655,11 +655,12 @@
     <demo-block layout="normal" header="Accessibility" tags="accessibility">
       <label for="accessibility-input">Select Employee</label>
       <input id="accessibility-input"
-             type="search"
+             role="combobox"
              aria-controls="accessibility-suggest"
              aria-expanded="false"
              aria-autocomplete="both"
-             aria-haspopup="listbox">
+             aria-haspopup="listbox"
+             aria-activedescendant>
       <ef-autosuggest id="accessibility-suggest"
                       style="min-width: 300px"
                       attach="#accessibility-input"></ef-autosuggest>
@@ -675,19 +676,12 @@
           autoSuggest.addEventListener('opened-changed', (event) => {
             const opened = event.detail.value;
             input.setAttribute('aria-expanded', `${opened}`);
-            if (!opened) {
-              input.removeAttribute('aria-activedescendant');
-            }
+            input.setAttribute('aria-activedescendant');
           });
           autoSuggest.addEventListener('item-select', (event) => {
             const target = event.detail.target;
-            if (target) {
-              input.setAttribute('aria-activedescendant', target.id);
-            }
-            else {
-              // On ESC
-              input.removeAttribute('aria-activedescendant');
-            }
+            const targetId = target ? (target.id || '') : '';
+            input.setAttribute('aria-activedescendant', targetId);
           });
         })();
       </script>
