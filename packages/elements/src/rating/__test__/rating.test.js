@@ -17,9 +17,10 @@ describe('rating/Rating', () => {
 
   it('Contains the correct structure', async () => {
     expect(el.getAttribute('max')).to.be.null;
-    expect(el.getAttribute('value')).to.equal('0');
     expect(el.getAttribute('interactive')).to.be.null;
-    expect(el.stars.length).to.equal(5);
+    expect(el.value).to.equal('0');
+    const stars = el.shadowRoot.querySelectorAll('[part~="icon"]');
+    expect(stars.length).to.equal(5);
   });
 
   it('Max is changed', async () => {
@@ -124,6 +125,12 @@ describe('rating/Rating', () => {
     el.max = null;
     await elementUpdated(el);
     expect(el.max).to.equal('5');
+  });
+
+  describe('accessibility', () => {
+    it('', async () => {
+      
+    });
   });
 });
 
