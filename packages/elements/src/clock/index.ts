@@ -728,7 +728,7 @@ export class Clock extends ResponsiveElement {
       void this.updateAriaValue(true);
     }
 
-    if (changedProperties.has('sessionTicks')) {
+    if (this.interactive && changedProperties.has('sessionTicks')) {
       // Avoid announce every second that could interrupt the screen reader when the user takes an action.
       if (this.isDisplayMinutesChange) {
         void this.updateAriaValue(true);
