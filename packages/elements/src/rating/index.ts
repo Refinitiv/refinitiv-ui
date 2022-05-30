@@ -63,7 +63,7 @@ export class Rating extends BasicElement {
    */
   @property({ type: String })
   public set max (max: string) {
-    const newMax = max && this.isValidValue(max) ? `${Math.round(Number(max))}` : '5';
+    const newMax = max && this.isValidValue(max) ? Math.round(Number(max)).toString() : '5';
     const oldMax = this._max;
     if (oldMax !== newMax) {
       this._max = newMax;
@@ -96,7 +96,7 @@ export class Rating extends BasicElement {
     */
   @property({ type: String })
   public set value (value: string) {
-    const newValue = this.isValidValue(value) ? `${Number(value)}` : '0';
+    const newValue = this.isValidValue(value) ? Number(value).toString() : '0';
     const oldValue = this._value;
     if (oldValue !== newValue) {
       this._value = newValue;
@@ -126,13 +126,11 @@ export class Rating extends BasicElement {
     if (changedProperties.has('interactive')) {
       this.interactiveChanged();
     }
-    if (changedProperties.has('value')) {
-      if (this.interactive) {
+    if (this.interactive) {
+      if (changedProperties.has('value')) {
         this.setAttribute('aria-valuenow', this.value);
       }
-    }
-    if (changedProperties.has('max')) {
-      if (this.interactive) {
+      if (changedProperties.has('max')) {
         this.setAttribute('aria-valuemax', this.max);
       }
     }
@@ -145,7 +143,7 @@ export class Rating extends BasicElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.addEventListener('keydown', this.onKeyDown);
+    this.addEventListener('keydown', this.onKeyDown.bind(this));
   }
 
   /**
@@ -155,7 +153,7 @@ export class Rating extends BasicElement {
   private interactiveChanged (): void {
     if (this.interactive) {
       this.setAttribute('role', 'slider');
-      this.setAttribute('aria-valuemin', `${this.MIN_VALUE}`);
+      this.setAttribute('aria-valuemin', this.MIN_VALUE.toString());
       this.setAttribute('aria-valuenow', this.value);
       this.setAttribute('aria-valuemax', this.max);
       this.setAttribute('tabindex', '0');
@@ -198,10 +196,10 @@ export class Rating extends BasicElement {
         this.stepDown();
         break;
       case 'Home':
-        this.updateValue(this.MIN_VALUE);
+        this.stepDown(this.MIN_VALUE);
         break;
       case 'End':
-        this.updateValue(this.maxNumber);
+        this.stepUp(this.maxNumber);
         break;
       default:
         return;
@@ -215,10 +213,9 @@ export class Rating extends BasicElement {
    * @param value value to updated
    * @returns {void}
    */
-  private updateValue (value: number): void {
-    const newValue = value.toString();
-    if (this.value !== newValue) {
-      this.value = newValue;
+  private updateValue (value: string): void {
+    if (this.value !== value) {
+      this.value = value;
       this.notifyPropertyChange('value', this.value);
     }
   }
@@ -235,25 +232,31 @@ export class Rating extends BasicElement {
   }
 
   /**
-   * Increases the value of rating by half or 1 but not exceed max value
+   * Increases the value of rating by half or 1 if not specific amount but not exceed max value
+   * @param value step up value to specific number (optional)
    * @returns {void}
    */
-  private stepUp (): void {
-    const newValue = clamp(Math.floor(this.valueNumber + 1), this.MIN_VALUE, this.maxNumber);
-    this.updateValue(newValue);
-  }
-
-  /**
-   * Decrease the value of rating by half or 1 but not exceed min value
-   * @returns {void}
-   */
-  private stepDown (): void {
-    if (this.valueNumber > 0 && this.valueNumber < this.MIN_VALUE) {
+  private stepUp (value?: number): void {
+    if (this.valueNumber > this.maxNumber) {
       return;
     }
 
-    const newValue = clamp(Math.round(this.valueNumber - 1), this.MIN_VALUE, this.maxNumber - 1);
-    this.updateValue(newValue);
+    const newValue = value || clamp(Math.floor(this.valueNumber + 1), this.MIN_VALUE, this.maxNumber);
+    this.updateValue(newValue.toString());
+  }
+
+  /**
+   * Decrease the value of rating by half or 1 if not specific amount but not exceed min value
+   * @param value step down value to specific number (optional)
+   * @returns {void}
+   */
+  private stepDown (value?: number): void {
+    if (this.valueNumber < this.MIN_VALUE) {
+      return;
+    }
+
+    const newValue = value || clamp(Math.round(this.valueNumber - 1), this.MIN_VALUE, this.maxNumber - 1);
+    this.updateValue(newValue.toString());
   }
 
   /**
