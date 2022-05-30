@@ -585,7 +585,8 @@ export class Clock extends ResponsiveElement {
     const value = await this.tPromise('TIME', {
       value: parse(this.displayValue),
       amPm: this.amPm,
-      showSeconds: this.showSeconds
+      // Avoid every second announcement that could interrupt the screen reader when the user takes an action.
+      showSeconds: (this.interactive && this.tick) ? false : this.showSeconds
     });
     this.setAttribute('aria-valuenow', `${this.displayTime}`);
     this.setAttribute('aria-valuetext', value);
