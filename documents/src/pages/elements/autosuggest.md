@@ -1333,8 +1333,7 @@ Item element
        aria-controls="autosuggest"
        aria-expanded="false"
        aria-autocomplete="both"
-       aria-haspopup="listbox"
-       aria-activedescendant>
+       aria-haspopup="listbox">
 
 <ef-autosuggest id="autosuggest" attach="#input"></ef-autosuggest>
 ```
@@ -1347,14 +1346,14 @@ const autoSuggest = document.getElementById('autosuggest');
 autoSuggest.addEventListener('opened-changed', (event) => {
   const opened = event.detail.value;
   inputElement.setAttribute('aria-expanded', `${opened}`);
-  input.setAttribute('aria-activedescendant');
+  inputElement.removeAttribute('aria-activedescendant');
 });
 
 // Set `aria-activedescendant` based on selected item
 autoSuggest.addEventListener('item-select', (event) => {
   const target = event.detail.target;
   const targetId = target ? (target.id || '') : '';
-  input.setAttribute('aria-activedescendant', targetId);
+  inputElement.setAttribute('aria-activedescendant', targetId);
 });
 ```
 

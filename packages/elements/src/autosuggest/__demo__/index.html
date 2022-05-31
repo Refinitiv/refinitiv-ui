@@ -659,15 +659,14 @@
              aria-controls="accessibility-suggest"
              aria-expanded="false"
              aria-autocomplete="both"
-             aria-haspopup="listbox"
-             aria-activedescendant>
+             aria-haspopup="listbox">
       <ef-autosuggest id="accessibility-suggest"
                       style="min-width: 300px"
                       attach="#accessibility-input"></ef-autosuggest>
       <script>
         (function () {
           const autoSuggest = document.getElementById('accessibility-suggest');
-          const input = document.getElementById('accessibility-input');
+          const inputElement = document.getElementById('accessibility-input');
           autoSuggest.addEventListener('suggestions-fetch-requested', ({ target, detail: { query } }) => {
             window.filterData(query).then(({ data }) => {
               target.suggestions = data;
@@ -675,13 +674,13 @@
           });
           autoSuggest.addEventListener('opened-changed', (event) => {
             const opened = event.detail.value;
-            input.setAttribute('aria-expanded', `${opened}`);
-            input.setAttribute('aria-activedescendant');
+            inputElement.setAttribute('aria-expanded', `${opened}`);
+            inputElement.removeAttribute('aria-activedescendant');
           });
           autoSuggest.addEventListener('item-select', (event) => {
             const target = event.detail.target;
             const targetId = target ? (target.id || '') : '';
-            input.setAttribute('aria-activedescendant', targetId);
+            inputElement.setAttribute('aria-activedescendant', targetId);
           });
         })();
       </script>
