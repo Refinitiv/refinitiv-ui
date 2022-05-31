@@ -226,11 +226,11 @@ buttonBar.addEventListener('tap', (e) => {
 ## Accessibility
 ::a11y-intro::
 
-`ef-button-bar` serves as a container for Button components. The button bar itself is assigned with `toolbar` role whilst its buttons have `button` role. Always try to include a text label, or `aria-label` for a button bar and buttons.
+`ef-button-bar` serves as a container for Button components. The button bar itself is assigned with `toolbar` role whilst its buttons have `button` role. Always try to include a text label or `aria-label` for a button bar and buttons.
 
-Note that a Button Bar should not be used in place of a Tab Bar, which is for selecting and displaying panels – maintaining this distinction will help accessible users understand the purpose of the component.
+Note that a Button Bar should not be used in place of a Tab Bar, which is for selecting and displaying panels. Maintaining this distinction will help accessible users understand the purpose of the component.
 
-`ef-button-bar` provides `toolbar` role by default and manages keyboard navigation as per accessibility guideline. However, if you use Button Bar with `managed` mode, you need to override its role to `radiogroup` and all buttons to be assigned with `radio` role.
+`ef-button-bar` provides `toolbar` role by default and manages keyboard navigation as per accessibility guidelines. However, if you use Button Bar with `managed` mode, you need to override its role to `radiogroup` and all buttons need to be assigned with `radio` role.
 
 ```html
 <ef-button-bar aria-label="text alignment toolbar" managed role="radiogroup">
