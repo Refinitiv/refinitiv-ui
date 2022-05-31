@@ -5,7 +5,7 @@ on:
 env:
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-  BROWSERSTACK_BUILD: "Refinitiv-UI - Nightly ${{ github.run_number }}"
+  BROWSERSTACK_BUILD: "Nightly Test #${{ github.run_number }}"
 jobs:
   build:
     runs-on: ubuntu-latest
