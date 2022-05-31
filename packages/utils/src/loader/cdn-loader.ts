@@ -16,10 +16,27 @@ export class CdnLoader {
     for (const el of elements) {
       // Type of SVGGraphicsElement?
       if (el instanceof SVGElement && 'getBBox' in el) {
+        this.stripUnsafeAttributes(el);
         this.stripUnsafeNodes(...(el as SVGElement).childNodes);
       }
       else {
         el.parentNode?.removeChild(el);
+      }
+    }
+  }
+
+  /**
+   * Strips any event attributes which could be used to
+   * maliciously hijack the application.
+   * @param element Element to check
+   * @returns {void}
+   */
+  private stripUnsafeAttributes (element: SVGElement): void {
+    const attributes = element.getAttributeNames();
+    for (const attribute of attributes) {
+      // Remove event attributes e.g., `onclick`
+      if (attribute.startsWith('on')) {
+        element.removeAttribute(attribute);
       }
     }
   }
