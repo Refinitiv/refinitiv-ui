@@ -67,6 +67,9 @@ export class Rating extends BasicElement {
     const oldMax = this._max;
     if (oldMax !== newMax) {
       this._max = newMax;
+      if (this.interactive) {
+        this.setAttribute('aria-valuemax', newMax);
+      }
       this.requestUpdate('max', oldMax);
     }
   }
@@ -100,6 +103,9 @@ export class Rating extends BasicElement {
     const oldValue = this._value;
     if (oldValue !== newValue) {
       this._value = newValue;
+      if (this.interactive) {
+        this.setAttribute('aria-valuenow', newValue);
+      }
       this.requestUpdate('value', oldValue);
     }
   }
@@ -125,14 +131,6 @@ export class Rating extends BasicElement {
 
     if (changedProperties.has('interactive')) {
       this.interactiveChanged();
-    }
-    if (this.interactive) {
-      if (changedProperties.has('value')) {
-        this.setAttribute('aria-valuenow', this.value);
-      }
-      if (changedProperties.has('max')) {
-        this.setAttribute('aria-valuemax', this.max);
-      }
     }
   }
 
