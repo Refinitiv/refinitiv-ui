@@ -87,7 +87,7 @@ pagination.addEventListener('value-changed', (e) => console.log(e.detail.value))
 
 Pagination is comprised of a set of interrelated elements, including input field for page number and buttons. It is built in such a way that screen readers will announce the current page whenever an update is made.
 
-`ef-pagination` doesn't have any assigned role. However, it's focusable by default and the focus will be delegated to the middle input. Users can use arrow up and down key to change value. Once users committed the new value by pressing enter key or tabbing to new control, the screen reader should announce a full sentence e.g. `Page 3 of 4'.
+`ef-pagination` doesn't have any assigned role. However, it's focusable by default and the focus will be delegated to the middle input. Users can use arrow up and down key to change value. Once users commit the new value by pressing the enter key or tabbing to new control, the screen reader should announce a full sentence e.g. `Page 3 of 4'.
 
 You should assign `aria-label` or `aria-labelledby` attribute to `ef-pagination` with accessible name.
 
