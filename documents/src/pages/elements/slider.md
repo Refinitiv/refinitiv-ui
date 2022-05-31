@@ -180,8 +180,17 @@ ef-slider {
 ::
 
 | CSS Variables Name  | Description                                  |
-| ------------------- | ---------------------------------------------|
+| ------------------- | -------------------------------------------- |
 | --track-color       | Slider track color                           |
 | --thumb-color       | Color of slider thumb and filled track color |
 | --step-color        | Slider step color                            |
 | --input-field-width | Set input field width                        |
+
+## Accessibility
+::a11y-intro::
+
+`ef-slider` is an interactive element similar to `<input type="range">`. It has `role="slider"`. Each slider thumb is focusable and its value can be updated by using `Arrow keys`, `Home` and `End`.
+
+Like the other control elements, it supports `disabled` or `readonly` to match the element’s visual state.
+
+::a11y-end::
