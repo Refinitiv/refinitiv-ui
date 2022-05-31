@@ -551,7 +551,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param recyclableElements Child elements available for reuse
    * @returns List item element
    */
-  private createListItem (item: T, recyclableElements: HTMLElement[]): Element {
+  protected createListItem (item: T, recyclableElements: HTMLElement[]): Element {
     const cachedElement = this.elementFromItem(item);
     const previousTimestamp = this.renderTimestamp.get(item) || NaN;
     if (cachedElement && previousTimestamp > this.composer.getItemTimestamp(item)) {

@@ -1,6 +1,7 @@
 import {
   PropertyValues,
-  TapEvent
+  TapEvent,
+  WarningNotice
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -14,6 +15,7 @@ import type { TreeData, TreeDataItem, TreeFilter } from '../helpers/types';
 import { TreeManager, TreeManagerMode } from '../managers/tree-manager.js';
 
 const EXPAND_TOGGLE_ATTR = 'expand-toggle';
+let warningNotice: WarningNotice;
 
 /**
  * Displays a tree structure
@@ -279,6 +281,20 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
     }
   }
 
+  /**
+   * @override
+   */
+  protected override createListItem (item: T, recyclableElements: HTMLElement[]): Element {
+    const freshElement = super.createListItem(item, recyclableElements);
+    
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (warningNotice === undefined && this.mode === TreeManagerMode.RELATIONAL && (freshElement as any).parent && item.selected !== undefined) {
+      warningNotice = new WarningNotice(`${this.localName} : Node '${item.value || ''}' shouldn't have selected field. It should be removed from data object. In relational-mode tree, selected field of any parent nodes should not be set.`);
+      warningNotice.once();
+    }
+    return freshElement;
+  }
+  
   /**
    * Filter the internal items by query changes items' hidden state
    * @returns {void}
