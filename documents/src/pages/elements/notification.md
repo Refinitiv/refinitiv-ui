@@ -112,12 +112,12 @@ During development, when the application is running on localhost or 127.0.0.1, a
 ## Accessibility
 ::a11y-intro::
 
-`ef-notification` has a live region and is assigned `role="alert"` and use `aria-live` to announce notification message.
+`ef-notification` has a live region and is assigned `role="alert"` and uses `aria-live` to announce notification messages.
 
-Screen reader technology will only read notification message only after page is loaded. If you need the notification to be announced when application starts, you have to set text content to the notification element after page is loaded or use notification tray to popup the notification after the page is loaded.
+Screen reader technology will read notification messages only after the page is loaded. If you need the notification to be announced when your application starts, you have to set text content to the notification element after the page is loaded or use notification tray to popup the notification after the page is loaded.
 
-Notification should not disappear too quickly. The duration of the notification should be appropriate for the length of the message.
+Notifications should not disappear too quickly. The duration of the notification should be appropriate for the length of the message.
 
-For any error or critical notifications, it shouldn't disappear automatically. The notification should stay on the page until users dismiss it by themselves.
+For any error or critical notifications, it shouldn't disappear automatically. The notification should stay on the page until the user dismisses it themselves.
 
 ::a11y-end::
