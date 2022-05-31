@@ -1,6 +1,6 @@
 import { elementUpdated, expect, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
 // import element and theme
-import { itemHighlightable, itemRenderer } from '../../../lib/autosuggest/helpers/utils.js';
+import { itemHighlightable, renderer } from '../../../lib/autosuggest/index.js';
 import { Autosuggest } from '@refinitiv-ui/elements/autosuggest';
 import '@refinitiv-ui/elements/text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-autosuggest';
@@ -191,11 +191,11 @@ describe('autosuggest/Autosuggest', () => {
         autoSuggest.setAttribute('renderer', 'some-super-text');
 
         expect(autoSuggest.getAttribute('renderer')).to.equal('some-super-text');
-        expect(autoSuggest.renderer).to.be.equal(itemRenderer, 'Attribute should not reflect value to property');
+        expect(autoSuggest.renderer).to.be.equal(renderer, 'Attribute should not reflect value to property');
       });
 
       it('Test renderer property and reflecting to attribute', async () => {
-        expect(autoSuggest.renderer).to.equal(itemRenderer, 'By default renderer property should be equal itemRenderer');
+        expect(autoSuggest.renderer).to.equal(renderer, 'By default renderer property should be equal renderer');
         const superRenderer = () => {
         };
         autoSuggest.renderer = superRenderer;

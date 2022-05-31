@@ -25,7 +25,8 @@ import type {
   AutosuggestHighlightItemEvent,
   AutosuggestQueryAction
 } from './helpers/types';
-import { escapeRegExp, itemHighlightable, itemRenderer, queryWordSelect } from './helpers/utils.js';
+import { escapeRegExp, itemHighlightable, queryWordSelect } from './helpers/utils.js';
+import { renderer } from './helpers/renderer.js';
 import { isIE, isMobile } from '@refinitiv-ui/utils/browser.js';
 import { Overlay } from '../overlay/index.js';
 import '../loader/index.js';
@@ -48,7 +49,14 @@ export type {
   SuggestionsQueryEvent,
   SuggestionsChangedEvent
 } from './helpers/types';
-export { queryWordSelect, itemRenderer, escapeRegExp, itemHighlightable, updateElementContent } from './helpers/utils.js';
+export { updateElementContent } from './helpers/utils.js';
+export {
+  itemHighlightable,
+  escapeRegExp,
+  queryWordSelect,
+  renderer,
+  renderer as itemRenderer // compatibility
+};
 
 /**
  * Shows suggestions based on users' query.
@@ -133,7 +141,7 @@ export class Autosuggest extends Overlay {
    * @returns item
    */
   public static ItemRenderer (suggestion: AutosuggestItem, query: AutosuggestQuery | null): HTMLElement {
-    return itemRenderer(suggestion, query);
+    return renderer(suggestion, query);
   }
 
   /**
@@ -209,7 +217,7 @@ export class Autosuggest extends Overlay {
    * By default a render maps data to item attributes
    */
   @property({ attribute: false })
-  public renderer: AutosuggestRenderer = itemRenderer;
+  public renderer: AutosuggestRenderer = renderer;
 
   /**
    * A function that is applied to every suggestion during the render process
