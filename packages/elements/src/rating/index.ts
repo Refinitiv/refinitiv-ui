@@ -287,8 +287,8 @@ export class Rating extends BasicElement {
     const stars = [];
     for (let index = 0; index < this.maxNumber; index += 1) {
       const reverseIndex = this.valueNumber - (this.maxNumber - index) + 1;
-      const v = reverseIndex > 0 ? Math.min(1, reverseIndex) : 0;
-      const selected = v >= 0.75 ? 'full' : v >= 0.25 ? 'half' : false;
+      const starValue = reverseIndex > 0 ? Math.min(1, reverseIndex) : 0;
+      const selected = starValue >= 0.75 ? 'full' : starValue >= 0.25 ? 'half' : false;
       const className = selected ? `icon icon-${selected}` : 'icon';
       stars.push(html`<div part="${className}" @tap="${(): void => this.handleTap(index)}"></div>`);
     }
