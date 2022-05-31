@@ -256,33 +256,11 @@ export class Clock extends ResponsiveElement {
   @property({ type: Boolean, reflect: true })
   public analogue = false;
 
-  private _interactive = false;
-
   /**
    * Enable interactive mode. Allowing the user to offset the value.
-   * When interactive mode, clock will be focusable and role=spinbutton.
-   * When non interactive mode, clock is unable to focus and has no role.
-   * @param value Set interactive mode
    */
   @property({ type: Boolean })
-  public set interactive (value: boolean) {
-    const oldValue = this.interactive;
-    if (oldValue !== value) {
-      this._interactive = value;
-      if (this._interactive) {
-        this.tabIndex = 0;
-        this.setAttribute('role', 'spinbutton');
-      }
-      else {
-        this.tabIndex = -1;
-        this.removeAttribute('role');
-      }
-      this.requestUpdate('interactive', oldValue);
-    }
-  }
-  public get interactive (): boolean {
-    return this._interactive;
-  }
+  public interactive = false;
 
   /**
    * Getter for hours part.
@@ -712,6 +690,26 @@ export class Clock extends ResponsiveElement {
   }
 
   /**
+   * Handles interactive by changing role, tabindex, and aria attribute changes
+   * When interactive mode, clock will be focusable, role=spinbutton, and update aria attributes.
+   * When non interactive mode, clock is unable to focus, no role, and remove related aria attributes.
+   * @returns {void}
+   */
+  private interactiveChanged (): void {
+    if (this.interactive) {
+      this.setAttribute('role', 'spinbutton');
+      this.setAttribute('tabindex', '0');
+      void this.updateAriaValue();
+    }
+    else {
+      this.removeAttribute('role');
+      this.removeAttribute('tabindex');
+      this.removeAttribute('aria-valuenow');
+      this.removeAttribute('aria-valuetext');
+    }
+  }
+
+  /**
    * Called before update() to compute values needed during the update.
    * @param changedProperties Properties that has changed
    * @returns {void}
@@ -719,18 +717,24 @@ export class Clock extends ResponsiveElement {
   protected willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
-    if (this.interactive && (!this.hasUpdated
-      || changedProperties.has('offset')
-      || changedProperties.has('value')
-      || changedProperties.has('showSeconds')
-      || changedProperties.has('amPm')
-      || changedProperties.has(TranslatePropertyKey))) {
-      void this.updateAriaValue();
+    if (changedProperties.has('interactive')) {
+      this.interactiveChanged();
     }
 
-    // Avoid announce every second that could interrupt the screen reader when the user takes an action.
-    if (this.interactive && changedProperties.has('sessionTicks')) {
-      void this.updateAriaValue(this.isDisplayMinutesChange);
+    if (this.interactive) {
+      if (!this.hasUpdated
+        || changedProperties.has('offset')
+        || changedProperties.has('value')
+        || changedProperties.has('showSeconds')
+        || changedProperties.has('amPm')
+        || changedProperties.has(TranslatePropertyKey)) {
+        void this.updateAriaValue();
+      }
+
+      // Avoid announce every second that could interrupt the screen reader when the user takes an action.
+      if (changedProperties.has('sessionTicks')) {
+        void this.updateAriaValue(this.isDisplayMinutesChange);
+      }
     }
   }
 

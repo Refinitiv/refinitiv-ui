@@ -150,6 +150,16 @@ describe('clock/Interactive', () => {
       it('Should have role="spinbutton" and focusable', async () => {
         expect(el.getAttribute('role')).to.be.equal('spinbutton');
         expect(el.getAttribute('tabindex')).to.be.equal('0');
+        expect(el.getAttribute('aria-valuenow')).to.be.equal(`${el.displayTime}`);
+        expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 00:00');
+      });
+      it('Should remove attributes when interactive attribute has been change', async () => {
+        el.interactive = false;
+        await elementUpdated(el);
+        expect(el.getAttribute('role')).to.be.equal(null);
+        expect(el.getAttribute('tabindex')).to.be.equal(null);
+        expect(el.getAttribute('aria-valuenow')).to.be.equal(null);
+        expect(el.getAttribute('aria-valuetext')).to.be.equal(null);
       });
       it('Should increase hour value and update aria-valuetext when Arrow Up is pressed on hour segment', async () => {
         await onTapstart(hoursSegment, el);
