@@ -728,8 +728,8 @@ export class Clock extends ResponsiveElement {
       void this.updateAriaValue();
     }
 
+    // Avoid announce every second that could interrupt the screen reader when the user takes an action.
     if (this.interactive && changedProperties.has('sessionTicks')) {
-      // Avoid announce every second that could interrupt the screen reader when the user takes an action.
       void this.updateAriaValue(this.isDisplayMinutesChange);
     }
   }
