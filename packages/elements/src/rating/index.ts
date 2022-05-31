@@ -89,11 +89,11 @@ export class Rating extends BasicElement {
   private _value = '0';
 
   /**
-    * Set number of selected stars. Value can be any number between 0 and `max`.
-    * Decimal values are calculated to empty star (0 - .25); half-star (.25 - .75) and full star (.75 - 1)
-    * @param value Element value
-    * @default '0'
-    */
+   * Set number of selected stars. Value can be any number between 0 and `max`.
+   * Decimal values are calculated to empty star (0 - .25); half-star (.25 - .75) and full star (.75 - 1)
+   * @param value Element value
+   * @default '0'
+   */
   @property({ type: String })
   public set value (value: string) {
     const newValue = this.isValidValue(value) ? Number(value).toString() : '0';
@@ -213,7 +213,7 @@ export class Rating extends BasicElement {
    * @param value value to updated
    * @returns {void}
    */
-  private updateValue (value: string): void {
+  private notifyValueChange (value: string): void {
     if (this.value !== value) {
       this.value = value;
       this.notifyPropertyChange('value', this.value);
@@ -242,7 +242,7 @@ export class Rating extends BasicElement {
     }
 
     const newValue = value || clamp(Math.floor(this.valueNumber + 1), this.MIN_VALUE, this.maxNumber);
-    this.updateValue(newValue.toString());
+    this.notifyValueChange(newValue.toString());
   }
 
   /**
@@ -256,7 +256,7 @@ export class Rating extends BasicElement {
     }
 
     const newValue = value || clamp(Math.round(this.valueNumber - 1), this.MIN_VALUE, this.maxNumber - 1);
-    this.updateValue(newValue.toString());
+    this.notifyValueChange(newValue.toString());
   }
 
   /**
@@ -283,14 +283,14 @@ export class Rating extends BasicElement {
    * Therefore `flex: reverse` style is applied and the items are constructed in the reverse mode to mimic the correct behaviour.
    * @returns stars template
    */
-  private get StarsTemplate (): TemplateResult[] {
+  private get starsTemplate (): TemplateResult[] {
     const stars = [];
-    for (let i = 0; i < this.maxNumber; i += 1) {
-      const reverseIdx = this.valueNumber - (this.maxNumber - i) + 1;
-      const v = reverseIdx > 0 ? Math.min(1, reverseIdx) : 0;
+    for (let index = 0; index < this.maxNumber; index += 1) {
+      const reverseIndex = this.valueNumber - (this.maxNumber - index) + 1;
+      const v = reverseIndex > 0 ? Math.min(1, reverseIndex) : 0;
       const selected = v >= 0.75 ? 'full' : v >= 0.25 ? 'half' : false;
       const className = selected ? `icon icon-${selected}` : 'icon';
-      stars.push(html`<div part="${className}" @tap="${(): void => this.handleTap(i)}"></div>`);
+      stars.push(html`<div part="${className}" @tap="${(): void => this.handleTap(index)}"></div>`);
     }
     return stars;
   }
@@ -303,7 +303,7 @@ export class Rating extends BasicElement {
   protected render (): TemplateResult {
     return html`
       <div part="container">
-        ${this.StarsTemplate}
+        ${this.starsTemplate}
       </div>`;
   }
 }
