@@ -590,7 +590,7 @@ export class Clock extends ResponsiveElement {
   * @param updateAriaValueText condition to update aria-valueText
   * @returns {void}
   */
-  private async updateAriaValue (updateAriaValueText: boolean) {
+  private async updateAriaValue (updateAriaValueText = true) {
     this.setAttribute('aria-valuenow', `${this.displayTime}`);
     
     if (updateAriaValueText) {
@@ -725,17 +725,12 @@ export class Clock extends ResponsiveElement {
       || changedProperties.has('showSeconds')
       || changedProperties.has('amPm')
       || changedProperties.has(TranslatePropertyKey))) {
-      void this.updateAriaValue(true);
+      void this.updateAriaValue();
     }
 
     if (this.interactive && changedProperties.has('sessionTicks')) {
       // Avoid announce every second that could interrupt the screen reader when the user takes an action.
-      if (this.isDisplayMinutesChange) {
-        void this.updateAriaValue(true);
-      }
-      else {
-        void this.updateAriaValue(false);
-      }
+      void this.updateAriaValue(this.isDisplayMinutesChange);
     }
   }
 
