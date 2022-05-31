@@ -615,10 +615,10 @@ export class Slider extends ControlElement {
         this.onApplyStep(Direction.Up, thumbName);
         break;
       case 'Home':
-        this.onApplyMax(thumbName);
+        this.onApplyMin(thumbName);
         break;
       case 'End':
-        this.onApplyMin(thumbName);
+        this.onApplyMax(thumbName);
         break;
       default:
         return;

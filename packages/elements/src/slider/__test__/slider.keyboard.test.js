@@ -140,31 +140,31 @@ describe('slider/Keyboard', () => {
       toThumb.dispatchEvent(ArrowUpEvent);
       expect(el.to).to.be.equal((to + step).toString());
     });
-    it('Should set value to maximum value possible when Home is pressed on to thumb', () => {
+    it('Should set value to minimum value possible when Home is pressed on to thumb', () => {
       toThumb.dispatchEvent(HomeEvent);
-      expect(el.to).to.be.equal((max).toString());
-    });
-    it('Should set value to minimum value possible when End is pressed on to thumb', () => {
-      toThumb.dispatchEvent(EndEvent);
       expect(el.to).to.be.equal((from).toString());
     });
-    it('Should set value to minimum value with min-range into account when End is pressed on to thumb', () => {
-      el.minRange = 5;
+    it('Should set value to maximum value possible when End is pressed on to thumb', () => {
       toThumb.dispatchEvent(EndEvent);
+      expect(el.to).to.be.equal((max).toString());
+    });
+    it('Should set value to minimum value with min-range into account when Home is pressed on to thumb', () => {
+      el.minRange = 5;
+      toThumb.dispatchEvent(HomeEvent);
       expect(el.to).to.be.equal((from + el.minRange).toString());
     });
-    it('Should set value to maximum value possible when Home is pressed on from thumb', () => {
+    it('Should set value to minimum value possible when Home is pressed on from thumb', () => {
       fromThumb.dispatchEvent(HomeEvent);
+      expect(el.from).to.be.equal((min).toString());
+    });
+    it('Should set value to maximum value possible when End is pressed on from thumb', () => {
+      fromThumb.dispatchEvent(EndEvent);
       expect(el.from).to.be.equal((to).toString());
     });
-    it('Should set value to maximum value with min-range into account when Home is pressed on from thumb', () => {
+    it('Should set value to maximum value with min-range into account when End is pressed on from thumb', () => {
       el.minRange = 5;
-      fromThumb.dispatchEvent(HomeEvent);
-      expect(el.from).to.be.equal((to - el.minRange).toString());
-    });
-    it('Should set value to minimum value possible when End is pressed on from thumb', () => {
       fromThumb.dispatchEvent(EndEvent);
-      expect(el.from).to.be.equal((min).toString());
+      expect(el.from).to.be.equal((to - el.minRange).toString());
     });
   })
 });
