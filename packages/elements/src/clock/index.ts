@@ -696,7 +696,7 @@ export class Clock extends ResponsiveElement {
   private interactiveChanged (): void {
     if (this.interactive) {
       this.setAttribute('role', 'spinbutton');
-      this.setAttribute('tabindex', '0');
+      this.setAttribute('tabindex', this.getAttribute('tabindex') || '0');
       void this.updateAriaValue();
     }
     else {
