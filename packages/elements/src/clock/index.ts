@@ -690,9 +690,7 @@ export class Clock extends ResponsiveElement {
   }
 
   /**
-   * Handles interactive by changing role, tabindex, and aria attribute changes
-   * When interactive mode, clock will be focusable, role=spinbutton, and update aria attributes.
-   * When non interactive mode, clock is unable to focus, no role, and remove related aria attributes.
+   * Handles interactive by update role, tabindex, and aria attribute
    * @returns {void}
    */
   private interactiveChanged (): void {

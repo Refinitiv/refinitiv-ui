@@ -147,7 +147,7 @@ describe('clock/Interactive', () => {
     });
     
     describe('Accessibility', () => {
-      it('Should have role="spinbutton" and focusable', async () => {
+      it('Should have role="spinbutton", be focusable, and aria attributes', async () => {
         expect(el.getAttribute('role')).to.be.equal('spinbutton');
         expect(el.getAttribute('tabindex')).to.be.equal('0');
         expect(el.getAttribute('aria-valuenow')).to.be.equal(`${el.displayTime}`);
