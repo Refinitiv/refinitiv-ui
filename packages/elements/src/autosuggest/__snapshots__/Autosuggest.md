@@ -17,7 +17,8 @@
     aria-selected="false"
     id="moreResults"
     part="more-results"
-    tabindex="0"
+    role="option"
+    tabindex="-1"
   >
     <span part="more-results-text">
       More results for
@@ -48,8 +49,12 @@
 <div part="loader">
   <div part="backdrop">
   </div>
-  <ef-loade>
-  </ef-loade>
+  <ef-loader
+    aria-label="Loading suggestion items"
+    aria-live="assertive"
+    role="progressbar"
+  >
+  </ef-loader>
 </div>
 
 ```

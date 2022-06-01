@@ -10,8 +10,15 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
+import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
 import { VERSION } from '../version.js';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
+import { isIE, isMobile } from '@refinitiv-ui/utils/browser.js';
+import {
+  translate,
+  TranslateDirective,
+  TranslatePropertyKey
+} from '@refinitiv-ui/translate';
 import { TapEvent } from '../events';
 import type {
   AutosuggestTargetElement,
@@ -27,10 +34,10 @@ import type {
 } from './helpers/types';
 import { escapeRegExp, itemHighlightable, queryWordSelect } from './helpers/utils.js';
 import { renderer } from './helpers/renderer.js';
-import { isIE, isMobile } from '@refinitiv-ui/utils/browser.js';
 import { Overlay } from '../overlay/index.js';
 import '../loader/index.js';
 import '../item/index.js';
+import '@refinitiv-ui/phrasebook/locale/en/autosuggest.js';
 
 export type {
   AutosuggestTargetElement,
@@ -165,8 +172,6 @@ export class Autosuggest extends Overlay {
 
   public static readonly defaultDebounceRate = 100;
 
-  public static readonly defaultMoreSearchText = 'More results for {0}';
-
   /**
    * An HTML Element or CSS selector
    */
@@ -190,7 +195,7 @@ export class Autosuggest extends Overlay {
    * @default More results for {0}
    */
   @property({ type: String, attribute: 'more-search-text' })
-  public moreSearchText = Autosuggest.defaultMoreSearchText;
+  public moreSearchText = '';
 
   /**
    * If set to true show loading mask
@@ -240,6 +245,12 @@ export class Autosuggest extends Overlay {
    */
   @property({ type: Boolean, attribute: 'html-renderer' })
   public htmlRenderer = false;
+
+  /**
+   * Autosuggest internal translation strings
+   */
+  @translate({ scope: 'ef-autosuggest' })
+  protected t!: TranslateDirective;
 
   @query('#moreResults')
   protected moreResultsItem?: HTMLElement | null;
@@ -334,10 +345,6 @@ export class Autosuggest extends Overlay {
     * @ignore
     */
     this.itemHighlightAction = this.itemHighlightAction.bind(this);
-    /**
-    * @ignore
-    */
-    this.highlightText = this.highlightText.bind(this);
     /**
     * @ignore
     */
@@ -682,35 +689,32 @@ export class Autosuggest extends Overlay {
     }
   }
 
+  // Used to escape unsafe string character
+  // TODO: think of a nicer way to do this
+  private xmlSerializer: XMLSerializer | null = null;
   /**
    * Calculate more search text inner html
-   * @param moreResults True if has more results
-   * @param moreSearchText More search text template
-   * @param query A query
    * @returns innerHTML
    */
-  protected highlightText (moreResults: boolean, moreSearchText: string, query: AutosuggestQuery | null): TemplateResult | null {
-    if (!moreResults) {
+  protected get moreResultsTextTemplate (): TemplateResult | null {
+    if (!this.moreResults) {
       return null;
     }
 
-    query = query ? query.toString() : query;
-    const htmlString: TemplateResult[] = [];
-    const pattern = /({0\})/g;
-    let previousIndex = 0;
-    let matches;
-    while ((matches = pattern.exec(moreSearchText)) !== null) {
-      const match = matches[0];
-      const text = moreSearchText.substring(previousIndex, pattern.lastIndex - match.length);
-      htmlString.push(html`${text}<mark>${query}</mark>`);
-      previousIndex = pattern.lastIndex;
+    if (!this.xmlSerializer) {
+      this.xmlSerializer = new XMLSerializer();
     }
-    htmlString.push(html`${moreSearchText.substring(previousIndex)}`);
+
+    const query = this.xmlSerializer.serializeToString(document.createTextNode(this.query ? this.query.toString() : ''));
 
     return html`
-      <span part="more-results-text">
-        ${htmlString}
-      </span>
+      <span part="more-results-text">${this.moreSearchText
+      ? unsafeHTML(this.moreSearchText.replace(/{0\}/g, `<mark>${query}</mark>`))
+      : this.t('MORE_RESULTS', {
+        query,
+        mark: (chunks: string) => `<mark>${chunks}</mark>`
+      })
+    }</span>
       <span part="more-results-keys" slot="right"><kbd>SHIFT</kbd> + <kbd>ENTER</kbd></span>
     `;
   }
@@ -975,7 +979,8 @@ export class Autosuggest extends Overlay {
       || changedProperties.has('moreResults')
       || changedProperties.has('moreSearchText')
       || changedProperties.has('loading')
-      || changedProperties.has('debounceRate');
+      || changedProperties.has('debounceRate')
+      || changedProperties.has(TranslatePropertyKey);
   }
 
   /**
@@ -1416,7 +1421,7 @@ export class Autosuggest extends Overlay {
     return html`
       <div part="loader">
         <div part="backdrop"></div>
-        <ef-loade></ef-loader>
+        <ef-loader aria-label="${this.t('LOADING')}" aria-live="assertive"></ef-loader>
       </div>
     `;
   }
@@ -1430,7 +1435,10 @@ export class Autosuggest extends Overlay {
     }
 
     return html`
-      <ef-item id="moreResults" part="more-results">${this.highlightText(this.moreResults, this.moreSearchText, this.query)}</ef-item>
+      <ef-item tabIndex="-1"
+               role="option"
+               id="moreResults"
+               part="more-results">${this.moreResultsTextTemplate}</ef-item>
     `;
   }
 

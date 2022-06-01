@@ -104,7 +104,6 @@ describe('autosuggest/Autosuggest', () => {
       });
 
       it('Test moreSearchText property and reflecting to attribute', async () => {
-        expect(autoSuggest.moreSearchText).to.equal(Autosuggest.defaultMoreSearchText, 'By default moreSearchText property should be defaultValue');
         autoSuggest.moreSearchText = 'some-super-text';
 
         await elementUpdated(autoSuggest);
