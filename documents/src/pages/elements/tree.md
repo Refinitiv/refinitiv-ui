@@ -107,7 +107,6 @@ basicTree.data = [
   {
     label: 'Request 5 Rank 1: custom leage table',
     icon: 'list',
-    selected: true,
     expanded: true,
     items: [{
         label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
@@ -129,7 +128,6 @@ multipleTree.data = [
   {
     label: 'Request 5 Rank 1: custom leage table',
     icon: 'list',
-    selected: true,
     expanded: true,
     items: [{
       label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
@@ -173,7 +171,6 @@ tree.data = [
   {
     label: 'Request 5 Rank 1: custom leage table',
     icon: 'list',
-    selected: true,
     expanded: true,
     items: [{
       label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
