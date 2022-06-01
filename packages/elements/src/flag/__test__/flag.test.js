@@ -225,7 +225,7 @@ describe('flag/Flag', () => {
       expect(checkRequestedUrl(server.requests, uniqueInvalidFlagSrc)).to.equal(true, 'should try to request invalid flag');
       expect(preloadedFlags[0].length > 0).to.equal(true, 'Should successfully preload flag by name with CDN prefix');
       expect(preloadedFlags[1].length > 0).to.equal(true, 'Should successfully preload flags with src');
-      expect(preloadedFlags[2].length === 0).to.equal(true, 'Should not preload invalid flag');
+      expect(preloadedFlags[2], 'Should not preload invalid flag').to.be.undefined;
       el.setAttribute('flag', firstUniqueFlag);
       await elementUpdated(el);
 
