@@ -895,13 +895,13 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private persistChangedData (value: number): void {
-    const newValue = this.format(value).toString();
+    const newValue = this.format(value);
     if (this.range) {
       if (this.changedThumb === this.thumbs[0]) {
-        this.from = this.validateRange(newValue, SliderDataName.from);
+        this.from = this.validateFrom(Number(newValue)).toString();
       }
       else {
-        this.to = this.validateRange(newValue, SliderDataName.to);
+        this.to = this.validateTo(Number(newValue)).toString();
       }
     }
     else {
@@ -910,24 +910,9 @@ export class Slider extends ControlElement {
   }
 
   /**
-   * Validate from or to value and re-asssign
-   * @param value from or to value
-   * @param type from or to
-   * @returns validated from or to
-   */
-  private validateRange (value: string, type: SliderDataName): string {
-    if (type === SliderDataName.from) {
-      return this.validateFrom(Number(value)).toString();
-    }
-    else {
-      return this.validateTo(Number(value)).toString();
-    }
-  }
-
-  /**
-   * Handle 'from' value on drag out of boundary.
-   * @param value value from change
-   * @returns validated from value.
+   * Validate and return FROM value within available range
+   * @param value from value
+   * @returns validated from value
    */
   private validateFrom (value: number): number {
     const valueFrom = value + this.minRangeNumber;
@@ -940,8 +925,8 @@ export class Slider extends ControlElement {
   }
 
   /**
-   * Handle 'To' value on drag out of boundary.
-   * @param value value to change
+   * Validate and return TO value within available range
+   * @param value to value
    * @returns validated to value.
    */
   private validateTo (value: number): number {
