@@ -1,4 +1,4 @@
-import { Deferred } from './deferred';
+import { Deferred } from './deferred.js';
 
 /**
  * Caches and provides any load results, Loaded either by name from CDN or directly by URL.

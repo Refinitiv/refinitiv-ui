@@ -1,4 +1,4 @@
-import { CDNLoader } from './cdn-loader';
+import { CDNLoader } from './cdn-loader.js';
 
 /**
  * Checks a string to see if it's a valid URL
