@@ -1,4 +1,7 @@
+import { LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
+
+const cache = new LocalCache('svg-loader');
 
 /**
  * Checks a string to see if it's a valid URL
@@ -99,7 +102,13 @@ export class SVGLoader extends CDNLoader {
       return;
     }
     const src = await this.getSrc(name);
-    const response = await this.load(src);
-    return extractSafeSVG(response)?.outerHTML;
+    const cacheItem = cache.get(src);
+    if (cacheItem === null) {
+      const response = await this.load(src);
+      const svgBody = extractSafeSVG(response)?.outerHTML;
+      svgBody && cache.set(src, svgBody);
+      return svgBody;
+    }
+    return cacheItem;
   }
 }
