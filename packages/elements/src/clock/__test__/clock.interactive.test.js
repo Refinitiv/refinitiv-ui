@@ -157,7 +157,6 @@ describe('clock/Interactive', () => {
         el.interactive = false;
         await elementUpdated(el);
         expect(el.getAttribute('role')).to.be.equal(null);
-        expect(el.getAttribute('tabindex')).to.be.equal(null);
         expect(el.getAttribute('aria-valuenow')).to.be.equal(null);
         expect(el.getAttribute('aria-valuetext')).to.be.equal(null);
       });

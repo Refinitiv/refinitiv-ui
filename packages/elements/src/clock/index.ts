@@ -702,7 +702,6 @@ export class Clock extends ResponsiveElement {
     }
     else {
       this.removeAttribute('role');
-      this.removeAttribute('tabindex');
       this.removeAttribute('aria-valuenow');
       this.removeAttribute('aria-valuetext');
     }
