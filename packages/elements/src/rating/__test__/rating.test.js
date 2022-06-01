@@ -121,19 +121,19 @@ describe('rating/Rating', () => {
 
     el.max = 'abcd';
     await elementUpdated(el);
-    expect(el.max).to.equal('5');
+    expect(el.max).to.equal(el.MAX_VALUE);
 
     el.max = undefined;
     await elementUpdated(el);
-    expect(el.max).to.equal('5');
+    expect(el.max).to.equal(el.MAX_VALUE);
 
     el.max = null;
     await elementUpdated(el);
-    expect(el.max).to.equal('5');
+    expect(el.max).to.equal(el.MAX_VALUE);
 
     el.value = NaN;
     await elementUpdated(el);
-    expect(el.max).to.equal('5');
+    expect(el.max).to.equal(el.MAX_VALUE);
   });
 
   describe('Keyboard Events', () => {
@@ -323,14 +323,13 @@ describe('rating/Rating', () => {
       expect(el.getAttribute('role')).to.equal('slider');
       expect(el.getAttribute('tabindex')).to.equal('0');
       expect(el.getAttribute('aria-valuemin')).to.equal('1');
-      expect(el.getAttribute('aria-valuemax')).to.equal('5');
+      expect(el.getAttribute('aria-valuemax')).to.equal(el.MAX_VALUE);
       expect(el.getAttribute('aria-valuenow')).to.equal('0');
     });
     it('Should remove attributes when interactive attribute has been changed', async () => {
       el.interactive = false;
       await elementUpdated(el);
       expect(el.getAttribute('role')).to.equal(null);
-      expect(el.getAttribute('tabindex')).to.equal(null);
       expect(el.getAttribute('aria-valuemin')).to.equal(null);
       expect(el.getAttribute('aria-valuemax')).to.equal(null);
       expect(el.getAttribute('aria-valuenow')).to.equal(null);
@@ -343,7 +342,7 @@ describe('rating/Rating', () => {
       expect(el.getAttribute('aria-valuenow')).to.equal('2');
     });
     it('Should update aria-valuemax when max value updated', async () => {
-      expect(el.getAttribute('aria-valuemax')).to.equal('5');
+      expect(el.getAttribute('aria-valuemax')).to.equal(el.MAX_VALUE);
   
       valueUpdated('10', el, 'max');
       await nextFrame();

@@ -148,11 +148,4 @@ customRating.addEventListener('value-changed', (event) =>  {
 
 However, in the interactive mode, rating will be assigned `role="slider"`. Users can use arrow keys to update value. Current value of the rating will be updated to `aria-valuenow`. You can assign `aria-label` and `aria-valuetext` to `ef-rating` to give the component an assistive name for screen reader.
 
-If you need non-interactive rating to be focusable, you can set `tabindex="0"` and assigning `aria-label` value.
-
-```html
-<ef-rating tabindex="0" aria-label="Rating"></ef-rating>
-```
-
 ::a11y-end::
-

@@ -42,6 +42,8 @@ export class Rating extends BasicElement {
     `;
   }
 
+  private MAX_VALUE = '5'; // default max value
+
   private MIN_VALUE = 1; // min value of interactive mode
 
   /**
@@ -54,7 +56,7 @@ export class Rating extends BasicElement {
    * Internal max value of rating.
    * Controlled by public setter and getter
    */
-  private _max = '5';
+  private _max = this.MAX_VALUE;
 
   /**
    * Set number of total stars
@@ -63,7 +65,7 @@ export class Rating extends BasicElement {
    */
   @property({ type: String })
   public set max (max: string) {
-    const newMax = max && this.isValidValue(max) ? Math.round(Number(max)).toString() : '5';
+    const newMax = max && this.isValidValue(max) ? Math.round(Number(max)).toString() : this.MAX_VALUE;
     const oldMax = this._max;
     if (oldMax !== newMax) {
       this._max = newMax;
@@ -154,14 +156,13 @@ export class Rating extends BasicElement {
       this.setAttribute('aria-valuemin', this.MIN_VALUE.toString());
       this.setAttribute('aria-valuenow', this.value);
       this.setAttribute('aria-valuemax', this.max);
-      this.setAttribute('tabindex', '0');
+      this.setAttribute('tabindex', this.getAttribute('tabindex') || '0');
     }
     else {
       this.removeAttribute('role');
       this.removeAttribute('aria-valuemin');
       this.removeAttribute('aria-valuenow');
       this.removeAttribute('aria-valuemax');
-      this.removeAttribute('tabindex');
     }
   }
 
