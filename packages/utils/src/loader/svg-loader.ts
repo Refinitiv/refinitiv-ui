@@ -71,7 +71,7 @@ const extractSafeSVG = (response: XMLHttpRequest | undefined): SVGElement | null
 };
 
 /**
- * Caches and provides icon SVGs, Loaded either by name from CDN or directly by URL.
+ * Caches and provides SVGs, loaded either by name from CDN or directly by URL.
  * Uses singleton pattern
  */
 export class SVGLoader extends CDNLoader {
