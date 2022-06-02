@@ -159,7 +159,9 @@ export class Rating extends BasicElement {
       this.setAttribute('tabindex', this.getAttribute('tabindex') || '0');
     }
     else {
-      this.removeAttribute('role');
+      if (this.getAttribute('role') === 'slider') {
+        this.removeAttribute('role');
+      }
       this.removeAttribute('aria-valuemin');
       this.removeAttribute('aria-valuenow');
       this.removeAttribute('aria-valuemax');
