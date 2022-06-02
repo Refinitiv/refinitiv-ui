@@ -12,11 +12,6 @@ const {
 } = require('./browsers.config');
 
 const argv = yargs(hideBin(process.argv))
-  .option('port', {
-    type: 'string',
-    default: '9876',
-    description: 'The port where the web server will be listening'
-  })
   .option('include-snapshots', {
     type: 'boolean',
     default: true,
@@ -105,11 +100,10 @@ const plugins = [
 const reporters = ['mocha'];
 
 const baseConfig = {
-  port: argv.port,
   autoWatch: argv.watch,
   singleRun: !argv.watch,
   basePath: ROOT, // must be in the root in order for node_modules to be resolved correctly
-  concurrency: 2, // Set the value to `1`, When Karma has a problem to connect a test browser on Windows.
+  concurrency: 1, // Set the value to `1`, When Karma has a problem to connect a test browser on Windows.
   // IE 11 require extra time to loading all scripts when testing concurrently.
   captureTimeout: 3e5,
   browserDisconnectTolerance: 3,

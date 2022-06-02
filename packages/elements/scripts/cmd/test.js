@@ -56,11 +56,6 @@ exports.builder = yargs => {
       choices: ['full', 'minimal'],
       description: 'Print output to the console'
     })
-    .option('port', {
-      type: 'string',
-      default: '9876',
-      description: 'The port where the web server will be listening'
-    })
     .completion('completion', () => elements);
 };
 exports.handler = (argv) => {
@@ -84,7 +79,6 @@ exports.handler = (argv) => {
     browserstack && command.push(`--browserstack ${browserstack}`);
     !browserstack && browsers && command.push(`-b ${browsers}`);
     command.push(`--output ${argv.output}`);
-    command.push(`--port ${argv.port}`);
 
     execSync(command.join(' '), {
       stdio: 'inherit',
