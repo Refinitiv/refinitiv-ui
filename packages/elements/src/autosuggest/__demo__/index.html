@@ -232,8 +232,7 @@
                 if (query === target.query) { // ensure that the data we set is the same as query
                   autoSuggest.loading = false;
                   suggestions = suggestions.concat(data);
-                  // target.moreResults = hasMoreData;
-                  target.moreResults = true;
+                  target.moreResults = hasMoreData;
                   target.suggestions = grouped ? window.groupData(suggestions) : suggestions;
                 }
 
