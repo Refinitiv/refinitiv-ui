@@ -695,14 +695,14 @@ export class Clock extends ResponsiveElement {
    */
   private interactiveChanged (): void {
     if (this.interactive) {
-      const tabIndex = (this.tabIndex >= 0) ? this.tabIndex.toString() : '0';
       this.setAttribute('role', 'spinbutton');
-      this.setAttribute('tabindex', tabIndex);
+      this.setAttribute('tabindex', this.getAttribute('tabindex') || '0');
       void this.updateAriaValue();
     }
     else {
-      this.removeAttribute('role');
-      this.removeAttribute('tabindex');
+      if (this.getAttribute('role') === 'spinbutton') {
+        this.removeAttribute('role');
+      }
       this.removeAttribute('aria-valuenow');
       this.removeAttribute('aria-valuetext');
     }
