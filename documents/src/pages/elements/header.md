@@ -120,11 +120,11 @@ Organizing web pages by headings helps users get a sense of the page’s organiz
 
 As a best practice to accommodate accessible users, apply a logical nesting of Header levels.
 
-*	The main heading of page should use h1 or `ef-header` with `aria-level="1"`.
+*	The main heading of your page should use h1 or `ef-header` with `aria-level="1"`.
 *	Ideally, there should only be one main heading on each page
 *	Header level 2 to 6 can be used to structure the remaining content on the page
 
-As `ef-header` can be used for multiple proposed, developers can decide to set attribute `role` and assign suitable `aria-level` at an application level. 
+As `ef-header` can be used for multiple purposes, developers can decide to set attribute `role` and assign suitable `aria-level` at an application level. 
 
 ```html
 <h1>Understanding The Different Types of Cryptocurrency</h1>

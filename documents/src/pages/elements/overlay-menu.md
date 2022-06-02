@@ -651,9 +651,9 @@ The Overlay Menu’s trigger element is assigned `role="button"` and has propert
 
 `ef-overlay-menu` has assigned with role and implemented keyboard navigation. However, you will need to assign some attributes following [ARIA menu button practices](https://www.w3.org/TR/wai-aria-practices/examples/menu-button/menu-button-links.html#rps_label).
 
-* Button that trigger overlay menu should be assigned `aria-haspopup="true"`
-* Button that trigger overlay menu should be assigned `aria-controls` with id of `ef-overlay-menu`
-* Button that trigger overlay menu should be assigned `aria-expanded="true"` when `ef-overlay-menu` is opened and `aria-expanded="false"` when it's closed
+* Button that triggers overlay menu should be assigned `aria-haspopup="true"`
+* Button that triggers overlay menu should be assigned `aria-controls` with id of `ef-overlay-menu`
+* Button that triggers overlay menu should be assigned `aria-expanded="true"` when `ef-overlay-menu` is opened and `aria-expanded="false"` when it's closed
 * You can use `aria-labelledby` or `aria-label` to set accessible name for `ef-overlay-menu`
 
 ```html
@@ -669,7 +669,7 @@ The Overlay Menu’s trigger element is assigned `role="button"` and has propert
 </ef-overlay-menu>
 ```
 
-If you create `ef-overlay-menu` by using `data`, the menu and its items will be assigned with aria attributes correctly following ARIA guideline. However, if you create `ef-overlay-menu` declaratively using light DOM, you will need to follow additional guidelines below.
+If you create `ef-overlay-menu` by using `data`, the menu and its items will be assigned with aria attributes correctly following ARIA guidelines. However, if you create `ef-overlay-menu` declaratively using light DOM, you will need to follow additional guidelines below.
 
 ```html
 <ef-button
