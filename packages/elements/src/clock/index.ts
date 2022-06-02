@@ -700,7 +700,9 @@ export class Clock extends ResponsiveElement {
       void this.updateAriaValue();
     }
     else {
-      this.removeAttribute('role');
+      if (this.getAttribute('role') === 'spinbutton') {
+        this.removeAttribute('role');
+      }
       this.removeAttribute('aria-valuenow');
       this.removeAttribute('aria-valuetext');
     }
