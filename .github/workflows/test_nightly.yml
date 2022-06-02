@@ -5,7 +5,7 @@ on:
 env:
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-  BROWSERSTACK_BUILD: "Nightly Test #${{ github.run_number }}"
+  BROWSERSTACK_BUILD: "Nightly Test ${{ github.run_number }}"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,8 +29,8 @@ jobs:
         run: npm run reset
 
       - name: Build
-        if: steps.setup.outputs.cache-build-hit != 'true'
-        run: npm run build
+        # Prevent NX caching it should always build
+        run: npm run build -- --skip-nx-cache
 
   lint:
     needs: build
@@ -76,9 +76,8 @@ jobs:
         id: setup
 
       - name: Test
-        # Disable NX parallel task because it makes the testing on BrowserStack fail.
         # Prevent NX caching because it must run all testing, even though the code has not chaged.
-        run: npm run test:all -- --parallel=1 --skip-nx-cache --browserstack all --output minimal
+        run: npm run test:all -- --parallel=3 --skip-nx-cache --browserstack 'all' --output minimal
 
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master

@@ -231,16 +231,28 @@ if (argv.browserstack.length && !argv.watch) {
     username: process.env.BROWSERSTACK_USERNAME,
     accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
     build: process.env.BROWSERSTACK_BUILD,
-    project: 'Element Framework',
+    project: process.env.BROWSERSTACK_PROJECT_NAME || 'Refinitiv UI',
     name: packageName,
     timeout: 1000,
-    retryLimit: 3
+    retryLimit: 0
   };
+
+  /**
+   * Reusing only one local tunnel,
+   * The two config `startTunnel` and `localIdentifier` are required
+   * to prevent `karma-browserstack-launcher` create multiple tunnel and test will failed
+   * when using `NX` run `Karma` paralleling.
+   */
+  if (process.env.BROWSERSTACK_LOCAL_IDENTIFIER) {
+    baseConfig.browserStack.startTunnel = false;
+    baseConfig.browserStack.localIdentifier = process.env.BROWSERSTACK_LOCAL_IDENTIFIER;
+  }
+
   reporters.push('BrowserStack');
 
   // Add BrowserStack launchers to config
   const isTest = (browser) => argv.browserstack.includes(browser) || argv.browserstack.includes('all');
-  baseConfig.concurrency = 2; // Set concurrency and the config in the task runner (NX or Lerna) must not run in parallel.
+  baseConfig.concurrency = 3; // Set concurrency and the config in the task runner (NX or Lerna) must not run in parallel.
   baseConfig.customLaunchers = {
     ...baseConfig.customLaunchers,
 
