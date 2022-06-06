@@ -83,7 +83,7 @@ export class LocalCache {
    * Caches a value against a key to use until expired
    * @param key Cache key
    * @param value Data to store in cache
-   * @param [expires=604800] Cache expiry in seconds. Defaults to 5 days.
+   * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
    * @returns {void}
    */
   set (key: string, value: string, expires = 432000): void {
