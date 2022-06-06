@@ -11,11 +11,12 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { queryAll } from '@refinitiv-ui/core/decorators/query-all.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
+import { translate, TranslateDirective } from '@refinitiv-ui/translate';
+import '@refinitiv-ui/phrasebook/locale/en/slider.js';
 import { VERSION } from '../version.js';
 import '../number-field/index.js';
 import type { NumberField } from '../number-field';
@@ -197,6 +198,12 @@ export class Slider extends ControlElement {
    */
   @property({ type: String, attribute: 'min-range' })
   public minRange = '0';
+
+  /**
+   * Slider internal translation strings
+   */
+  @translate({ scope: 'ef-slider' })
+  protected t!: TranslateDirective;
 
   /**
    * Converts value from string to number for calculations
@@ -1316,7 +1323,7 @@ export class Slider extends ControlElement {
         active=${ifDefined(isActive || undefined)}
         name="${name}"
         role="slider"
-        aria-label="${name}"
+        aria-label="${this.t(name.toUpperCase())}"
         tabindex="1"
         aria-valuemin=${valueMin}
         aria-valuemax=${valueMax}
