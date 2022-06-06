@@ -7,8 +7,10 @@ const { injectLitPolyfill } = require('./scripts/karma/plugins/inject-lit-polyfi
 const {
   defaultBrowsers,
   availableBrowsers,
+  supportedBSBrowsers,
   availableBSBrowsers,
-  BSBrowser
+  BSBrowser,
+  BSDevice
 } = require('./browsers.config');
 
 const argv = yargs(hideBin(process.argv))
@@ -227,6 +229,7 @@ if (argv.includeCoverage) {
 if (argv.browserstack.length && !argv.watch) {
 
   // Setting BowserStack config
+  baseConfig.concurrency = 3;
   baseConfig.browserStack = {
     username: process.env.BROWSERSTACK_USERNAME,
     accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
@@ -251,37 +254,46 @@ if (argv.browserstack.length && !argv.watch) {
   reporters.push('BrowserStack');
 
   // Add BrowserStack launchers to config
-  const isTest = (browser) => argv.browserstack.includes(browser) || argv.browserstack.includes('all');
-  baseConfig.concurrency = 3; // Set concurrency and the config in the task runner (NX or Lerna) must not run in parallel.
-  baseConfig.customLaunchers = {
-    ...baseConfig.customLaunchers,
+  const hasTest = (browser) => {
+    if (argv.browserstack.includes(browser)) {
+      return true;
+    }
 
+    // In supported browsers
+    if (argv.browserstack.includes('supported') && supportedBSBrowsers.includes(browser)) {
+      return true;
+    }
+
+    return false;
+  }
+  const browserStackLaunchers = {
     // Latest version
-    ...isTest('chrome') ? BSBrowser('bs_chrome', 'Windows', '11', 'Chrome', 'latest') : {},
-    ...isTest('firefox') ? BSBrowser('bs_firefox', 'Windows', '11', 'Firefox', 'latest'): {},
-    ...isTest('edge') ? BSBrowser('bs_edge', 'Windows', '11', 'Edge', 'latest'): {},
-    // ...isTest('safari') ? ...BSBrowser('bs_safari', 'OS X', 'Monterey', 'Safari', 'latest'): {},
+    ...hasTest('chrome') ? BSBrowser('bs_chrome', 'Windows', '11', 'chrome', 'latest') : {},
+    ...hasTest('firefox') ? BSBrowser('bs_firefox', 'Windows', '11', 'firefox', 'latest') : {},
+    ...hasTest('edge') ? BSBrowser('bs_edge', 'Windows', '11', 'edge', 'latest') : {},
+    ...hasTest('safari') ? BSBrowser('bs_safari', 'OS X', 'Monterey', 'safari', 'latest') : {},
 
     // Previous version
-    ...isTest('chrome_previous') ? BSBrowser('bs_chrome_previous', 'Windows', '11', 'Chrome', 'latest-1'): {},
-    ...isTest('firefox_previous') ? BSBrowser('bs_firefox_previous', 'Windows', '11', 'Firefox', 'latest-1'): {},
-    ...isTest('edge_previous') ? BSBrowser('bs_edge_previous', 'Windows', '11', 'Edge', 'latest-1'): {},
+    ...hasTest('chrome_previous') ? BSBrowser('bs_chrome_previous', 'Windows', '11', 'chrome', 'latest-1'): {},
+    ...hasTest('firefox_previous') ? BSBrowser('bs_firefox_previous', 'Windows', '11', 'firefox', 'latest-1'): {},
+    ...hasTest('edge_previous') ? BSBrowser('bs_edge_previous', 'Windows', '11', 'edge', 'latest-1'): {},
+    ...hasTest('safari_previous') ? BSBrowser('bs_safari_previous', 'OS X', 'Big Sur', 'safari', 'latest'): {},
 
     // Mobile
-    // ...isTest('iphone_13') ? ...BSDevice('bs_iphone13', 'ios', '15', 'iPhone 13'): {},
-    // ...isTest('pixel_6') ? ...BSDevice('bs_google_pixel6', 'android', '12.0', 'Google Pixel 6'): {}
+    ...hasTest('ios') ? BSDevice('bs_ios', 'ios', '15', 'iPhone 13') : {},
+    ...hasTest('android') ? BSDevice('bs_android', 'android', '12.0', 'Google Pixel 6') : {}
+  };
+
+  baseConfig.customLaunchers = {
+    ...baseConfig.customLaunchers,
+    ...browserStackLaunchers
   };
 
   // Add BrowserStack browsers to config
-  baseConfig.browsers = []; // Clear default browsers and test on BrowserStack only
-  isTest('chrome') && baseConfig.browsers.push('bs_chrome');
-  isTest('firefox') && baseConfig.browsers.push('bs_firefox');
-  isTest('edge') && baseConfig.browsers.push('bs_edge');
-
-  // Add previous version
-  isTest('chrome_previous') && baseConfig.browsers.push('bs_chrome_previous');
-  isTest('firefox_previous') && baseConfig.browsers.push('bs_firefox_previous');
-  isTest('edge_previous') && baseConfig.browsers.push('bs_edge_previous');
+  baseConfig.browsers = []; // Clear default local browsers and test on BrowserStack only
+  for (const key in browserStackLaunchers) {
+    baseConfig.browsers.push(key);
+  }
 }
 
 module.exports = async function (config) {

@@ -3,11 +3,19 @@ const osType = require('os').type();
 const isWin = osType === 'Windows_NT';
 const isDarwin = osType === 'Darwin'; /* macOS, iOS, iPadOS */
 
+// Local browsers
 const defaultBrowsers = ['chrome', 'firefox'];
 const availableBrowsers = ['chrome', 'firefox', 'opera'];
 
 // BrowserStack browsers
-const availableBSBrowsers = ['all', 'chrome', 'firefox', 'edge', 'chrome_previous', 'firefox_previous', 'edge_previous'];
+const supportedBSBrowsers = [
+  'chrome', 'firefox', 'edge',
+  'chrome_previous', 'firefox_previous', 'edge_previous'
+];
+const availableBSBrowsers = [
+  'supported', 'chrome', 'firefox', 'edge', 'safari', 'ios', 'android',
+  'chrome_previous', 'firefox_previous', 'edge_previous', 'safari_previous'
+];
 
 // do not perform browser check as it is slow and never required
 
@@ -52,6 +60,7 @@ if (isDarwin) {
 module.exports = {
   defaultBrowsers,
   availableBrowsers,
+  supportedBSBrowsers,
   availableBSBrowsers,
   BSBrowser,
   BSDevice
