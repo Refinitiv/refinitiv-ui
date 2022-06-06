@@ -1319,6 +1319,47 @@ Construct the `ef-item` element from the suggestion object using one-to-one mapp
 Item element
 <hr>
 
+## Accessibility
+::a11y-intro::
+
+`ef-autosuggest` popup is used in conjunction with the input field. It is developer responsibility to correctly decorate and link both elements.
+
+`ef-autosuggest` has a role of `listbox`. The default renderer manages the state of autosuggest items. The example below illustrates a typical scenario:
+
+```html
+<label for="input">Type 'e'</label>
+<input id="input"
+       role="combobox"
+       aria-controls="autosuggest"
+       aria-expanded="false"
+       aria-autocomplete="both"
+       aria-haspopup="listbox">
+
+<ef-autosuggest id="autosuggest" attach="#input"></ef-autosuggest>
+```
+
+```javascript
+const inputElement = document.getElementById('input');
+const autoSuggest = document.getElementById('autosuggest');
+
+// Set `aria-expanded` based on autosuggest `opened` state
+autoSuggest.addEventListener('opened-changed', (event) => {
+  const opened = event.detail.value;
+  inputElement.setAttribute('aria-expanded', `${opened}`);
+  inputElement.removeAttribute('aria-activedescendant');
+});
+
+// Set `aria-activedescendant` based on selected item
+autoSuggest.addEventListener('item-select', (event) => {
+  const target = event.detail.target;
+  const targetId = target ? (target.id || '') : '';
+  inputElement.setAttribute('aria-activedescendant', targetId);
+});
+```
+
+More sophisticated scenarios might require different implementation. Please reference the [documentation](https://www.w3.org/WAI/ARIA/apg/example-index/combobox/combobox-autocomplete-list.html) for more details.
+
+::a11y-end::
 
 ## Glossary
 
