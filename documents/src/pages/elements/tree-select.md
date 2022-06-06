@@ -144,12 +144,10 @@ const el = document.querySelector("ef-tree-select");
 el.data = [{
   'value': 'AFR',
   'label': 'Africa',
-  'selected': false,
   'expanded': true,
   'items': [{
     'value': 'DZA',
     'label': 'Algeria',
-    'selected': false,
     'expanded': true,
     'items': [{
       'value': 'ADR',
@@ -222,11 +220,9 @@ const el = document.querySelector("ef-tree-select");
 el.data = [{
   'value': 'AFR',
   'label': 'Africa',
-  'selected': false,
   'items': [{
     'value': 'DZA',
     'label': 'Algeria',
-    'selected': false,
     'items': [{
       'value': 'ADR',
       'label': 'Adrar',

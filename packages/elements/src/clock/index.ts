@@ -256,33 +256,11 @@ export class Clock extends ResponsiveElement {
   @property({ type: Boolean, reflect: true })
   public analogue = false;
 
-  private _interactive = false;
-
   /**
    * Enable interactive mode. Allowing the user to offset the value.
-   * When interactive mode, clock will be focusable and role=spinbutton.
-   * When non interactive mode, clock is unable to focus and has no role.
-   * @param value Set interactive mode
    */
   @property({ type: Boolean })
-  public set interactive (value: boolean) {
-    const oldValue = this.interactive;
-    if (oldValue !== value) {
-      this._interactive = value;
-      if (this._interactive) {
-        this.tabIndex = 0;
-        this.setAttribute('role', 'spinbutton');
-      }
-      else {
-        this.tabIndex = -1;
-        this.removeAttribute('role');
-      }
-      this.requestUpdate('interactive', oldValue);
-    }
-  }
-  public get interactive (): boolean {
-    return this._interactive;
-  }
+  public interactive = false;
 
   /**
    * Getter for hours part.
@@ -408,6 +386,14 @@ export class Clock extends ResponsiveElement {
    */
   private get isAM (): boolean {
     return this.displayHours24 < HOURS_OF_NOON;
+  }
+
+  /**
+   * Returns `true` if display minutes has changed
+   * @returns Result
+   */
+  private get isDisplayMinutesChange (): boolean {
+    return this.displayTime % SECONDS_IN_MINUTE === 0;
   }
 
   /**
@@ -579,16 +565,20 @@ export class Clock extends ResponsiveElement {
 
   /**
   * Set aria-valuenow to display value and aria-valuetext to translated format
+  * @param updateAriaValueText condition to update aria-valueText
   * @returns {void}
   */
-  private async updateAriaValue () {
-    const value = await this.tPromise('TIME', {
-      value: parse(this.displayValue),
-      amPm: this.amPm,
-      showSeconds: this.showSeconds
-    });
+  private async updateAriaValue (updateAriaValueText = true) {
     this.setAttribute('aria-valuenow', `${this.displayTime}`);
-    this.setAttribute('aria-valuetext', value);
+    
+    if (updateAriaValueText) {
+      const value = await this.tPromise('TIME', {
+        value: parse(this.displayValue),
+        amPm: this.amPm,
+        showSeconds: this.showSeconds
+      });
+      this.setAttribute('aria-valuetext', value);
+    }
   }
 
   /**
@@ -700,6 +690,25 @@ export class Clock extends ResponsiveElement {
   }
 
   /**
+   * Handles interactive by update role, tabindex, and aria attribute
+   * @returns {void}
+   */
+  private interactiveChanged (): void {
+    if (this.interactive) {
+      this.setAttribute('role', 'spinbutton');
+      this.setAttribute('tabindex', this.getAttribute('tabindex') || '0');
+      void this.updateAriaValue();
+    }
+    else {
+      if (this.getAttribute('role') === 'spinbutton') {
+        this.removeAttribute('role');
+      }
+      this.removeAttribute('aria-valuenow');
+      this.removeAttribute('aria-valuetext');
+    }
+  }
+
+  /**
    * Called before update() to compute values needed during the update.
    * @param changedProperties Properties that has changed
    * @returns {void}
@@ -707,14 +716,24 @@ export class Clock extends ResponsiveElement {
   protected willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
-    if (this.interactive && (!this.hasUpdated
-      || changedProperties.has('sessionTicks')
-      || changedProperties.has('offset')
-      || changedProperties.has('value')
-      || changedProperties.has('showSeconds')
-      || changedProperties.has('amPm')
-      || changedProperties.has(TranslatePropertyKey))) {
-      void this.updateAriaValue();
+    if (changedProperties.has('interactive')) {
+      this.interactiveChanged();
+    }
+
+    if (this.interactive) {
+      if (!this.hasUpdated
+        || changedProperties.has('offset')
+        || changedProperties.has('value')
+        || changedProperties.has('showSeconds')
+        || changedProperties.has('amPm')
+        || changedProperties.has(TranslatePropertyKey)) {
+        void this.updateAriaValue();
+      }
+
+      // Avoid announce every second that could interrupt the screen reader when the user takes an action.
+      if (changedProperties.has('sessionTicks')) {
+        void this.updateAriaValue(this.isDisplayMinutesChange);
+      }
     }
   }
 
