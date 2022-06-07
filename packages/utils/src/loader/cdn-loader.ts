@@ -1,26 +1,46 @@
+import { Deferred } from './deferred.js';
+
 /**
  * Caches and provides any load results, Loaded either by name from CDN or directly by URL.
  */
-export class CdnLoader {
+export class CDNLoader {
 
+  private _isPrefixSet = false;
+
+  /**
+   * Internal response cache
+   */
   private responseCache = new Map<string, Promise<XMLHttpRequest>>();
 
   /**
-   * Strips any unsafe nodes from the response.
-   * Prevents any external attacks from malicious scripts
-   * and other hijack methods. Only keeps SVGGraphicsElements.
-   * @param elements COllection of nodes
+   * CDN prefix to prepend to src
+   */
+  private cdnPrefix = new Deferred<string>();
+
+  /**
+   * @returns {boolean} clarify whether prefix has been set or not.
+   */
+  public get isPrefixSet (): boolean {
+    return this._isPrefixSet;
+  }
+
+  /**
+   * @returns promise, which will be resolved with CDN prefix, once set.
+   */
+  public getCdnPrefix (): Promise<string> {
+    return this.cdnPrefix.promise;
+  }
+
+  /**
+   * Sets CDN prefix to load source.
+   * Resolves deferred promise with CDN prefix and sets src used to check whether prefix is already set or not.
+   * @param prefix - CDN prefix.
    * @returns {void}
    */
-  protected stripUnsafeNodes (...elements: Node[]): void {
-    for (const el of elements) {
-      // Type of SVGGraphicsElement?
-      if (el instanceof SVGElement && 'getBBox' in el) {
-        this.stripUnsafeNodes(...(el as SVGElement).childNodes);
-      }
-      else {
-        el.parentNode?.removeChild(el);
-      }
+  public setCdnPrefix (prefix: string): void {
+    if (prefix) {
+      this.cdnPrefix.resolve(prefix);
+      this._isPrefixSet = true;
     }
   }
 
