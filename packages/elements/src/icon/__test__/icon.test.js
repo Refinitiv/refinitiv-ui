@@ -236,7 +236,7 @@ describe('icon/Icon', () => {
       expect(checkRequestedUrl(server.requests, uniqueInvalidIconSrc)).to.equal(true, 'should try to request invalid icon');
       expect(preloadedIcons[0].length > 0).to.equal(true, 'Should successfully preload icon by name with CDN prefix');
       expect(preloadedIcons[1].length > 0).to.equal(true, 'Should successfully preload icons with src');
-      expect(preloadedIcons[2].length === 0).to.equal(true, 'Should not preload invalid icon');
+      expect(preloadedIcons[2], 'Should not preload invalid icon').to.be.undefined;
       el.setAttribute('icon', firstUniqueIcon);
       await elementUpdated(el);
 
