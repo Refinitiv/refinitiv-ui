@@ -1,8 +1,6 @@
 # `slider/Slider`
 
-## `Test Default Structure`
-
-####   `DOM structure is correct`
+#### `DOM structure is correct`
 
 ```html
 <div part="slider-wrapper">
@@ -25,9 +23,15 @@
       </div>
     </div>
     <div
+      aria-label="Value"
+      aria-valuemax="100"
+      aria-valuemin="0"
+      aria-valuenow="0"
       name="value"
       part="thumb-container"
+      role="slider"
       style="left:0%;"
+      tabindex="1"
     >
       <div part="pin">
         <span part="pin-value-marker">
