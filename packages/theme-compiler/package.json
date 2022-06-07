@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/theme-compiler",
-  "version": "5.0.8",
+  "version": "6.0.0",
   "description": "Compiles Element Framework themes into usable JavaScript",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -11,6 +11,10 @@
     "type": "git",
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/theme-compiler"
+  },
+  "scripts": {
+    "prepack": "npm run version",
+    "version": "node ../../scripts/version"
   },
   "dependencies": {
     "autoprefixer": "^10.4.2",

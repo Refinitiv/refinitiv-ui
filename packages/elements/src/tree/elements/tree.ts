@@ -2,10 +2,10 @@ import {
   PropertyValues,
   TapEvent
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
-import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 import { List } from '../../list/index.js';
 import { TreeRenderer } from '../helpers/renderer.js';
@@ -24,7 +24,6 @@ const EXPAND_TOGGLE_ATTR = 'expand-toggle';
  *
  * @attr {boolean} [stateless=false] - Disable selections
  * @prop {boolean} [stateless=false] - Disable selections
- *
  */
 @customElement('ef-tree')
 export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
@@ -268,15 +267,16 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * @override
    */
-  protected update (changedProperties: PropertyValues): void {
-    if (changedProperties.has('noRelation') || changedProperties.has('multiple')) {
+  protected willUpdate (changeProperties: PropertyValues): void {
+    super.willUpdate(changeProperties);
+
+    if (changeProperties.has('noRelation') || changeProperties.has('multiple')) {
       this.manager.setMode(this.mode);
     }
 
-    if (changedProperties.has('query') || changedProperties.has('data')) {
+    if (changeProperties.has('query') || changeProperties.has('data')) {
       this.filterItems();
     }
-    super.update(changedProperties);
   }
 
   /**
@@ -443,5 +443,11 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   protected get mode (): TreeManagerMode {
     return !this.multiple || !this.noRelation
       ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-tree': Tree;
   }
 }

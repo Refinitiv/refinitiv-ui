@@ -1,0 +1,50 @@
+name: Prerelease
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version type to bump
+        required: true
+        type: choice
+        options:
+        - prerelease
+        - prepatch
+        - preminor
+        - premajor
+        default: prerelease
+
+jobs:
+  publish:
+    environment: development
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Configure Git User
+        run: |
+          git config --global user.email "RefinitivUIDev@refinitiv.com"
+          git config --global user.name "refinitiv-ui-dev"
+
+      - name: Gather resources and build
+        uses: ./.github/actions/checkout-install-and-build
+
+      - name: Publish to NPM (all packages)
+        if: ${{ github.event.inputs.version == 'premajor' }}
+        run: lerna publish ${{ github.event.inputs.version }} --preid next --dist-tag next --force-publish --include-merged-tags --no-private --no-changelog --yes
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to NPM (modified packages)
+        if: ${{ github.event.inputs.version != 'premajor' }}
+        run: lerna publish ${{ github.event.inputs.version }} --preid next --dist-tag next --include-merged-tags --no-private --no-changelog --yes
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

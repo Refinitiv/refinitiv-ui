@@ -6,18 +6,22 @@ import {
   CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
-import { state } from '@refinitiv-ui/core/lib/decorators/state.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { VERSION } from '../version.js';
-import { isSlotEmpty } from '@refinitiv-ui/utils/lib/is-slot-empty.js';
+import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
 import type { Button } from '../button';
 import type { OverlayMenu, OverlayMenuData } from '../overlay-menu';
 import type { CardConfig } from './helpers/types';
+import type { OpenedChangedEvent } from '../events';
 import '../label/index.js';
 import '../button/index.js';
 import '../overlay-menu/index.js';
+
+import '@refinitiv-ui/phrasebook/locale/en/card.js';
+import { translate, Translate } from '@refinitiv-ui/translate';
 
 export type { CardConfig };
 
@@ -111,14 +115,22 @@ export class Card extends BasicElement {
   private openMenuElement?: Button;
 
   /**
+   * Used for translations
+   */
+  @translate()
+  protected t!: Translate;
+
+  /**
    * Menu data for creating overlay-menu
    */
   @state()
+  private menuData?: OverlayMenuData;
+
   /**
-   * Menu data for creating emerald-popup-menu
+   * Menu open state
    */
   @state()
-  private menuData?: OverlayMenuData;
+  private menuOpened = false;
 
   /**
    * True if header has slotted content
@@ -139,6 +151,7 @@ export class Card extends BasicElement {
   private openMenu (): void {
     if (this.menuElement && !(this.menuElement.fullyOpened || this.menuElement.transitioning)) {
       this.menuElement.opened = true;
+      this.menuOpened = true;
     }
   }
 
@@ -147,8 +160,9 @@ export class Card extends BasicElement {
    * @returns {void}
    */
   private closeMenu (): void {
-    if (this.menuElement) {
+    if (this.menuElement?.opened) {
       this.menuElement.opened = false;
+      this.menuOpened = false;
     }
   }
 
@@ -168,6 +182,15 @@ export class Card extends BasicElement {
    */
   private onFooterSlotChange (event: Event): void {
     this.footerHasContent = isSlotEmpty(event.target as HTMLSlotElement);
+  }
+
+  /**
+   * Run on overlay menu open changed
+   * @param event overlay menu opened changed event
+   * @returns {void}
+   */
+  private onMenuOpenChanged (event: OpenedChangedEvent): void {
+    this.menuOpened = event.detail.value;
   }
 
   /**
@@ -215,15 +238,21 @@ export class Card extends BasicElement {
   protected get menuTemplate (): TemplateResult {
     return html`${this.menuData ? html`
       <ef-button
-        @tap="${this.openMenu}"
         part="menu-button"
         icon="more-vertical"
         transparent
+        aria-label=${this.t('OPEN_MENU')}
+        aria-haspopup="true"
+        aria-controls="menu-popup"
+        aria-expanded=${this.menuOpened}
+        @tap=${this.openMenu}
       ></ef-button>
       <ef-overlay-menu
+        id="menu-popup"
         part="menu-popup"
         .data=${this.menuData}
-        position="bottom-end"></ef-overlay-menu>` : undefined }
+        position="bottom-end"
+        @opened-changed=${this.onMenuOpenChanged}></ef-overlay-menu>` : undefined }
     `;
   }
 
@@ -269,5 +298,11 @@ export class Card extends BasicElement {
       <div part="body"><slot></slot></div>
       ${this.footerTemplate}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-card': Card;
   }
 }

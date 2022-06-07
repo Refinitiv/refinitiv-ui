@@ -5,10 +5,10 @@ import {
   TemplateResult,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
-import { TimeoutTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import type { Notification } from './notification';
 import type { Task, TaskOptions } from '../helpers/types';
 
@@ -48,7 +48,7 @@ export class NotificationTray extends ResponsiveElement {
    * @returns true if tray is ready to show
    */
   private get canShow (): boolean {
-    return this.queue.length >= 0 && this.showing.length < this.max;
+    return this.showing.length < this.max;
   }
 
   /**
@@ -177,5 +177,11 @@ export class NotificationTray extends ResponsiveElement {
    */
   protected render (): TemplateResult {
     return html`<slot></slot>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-notification-tray': NotificationTray;
   }
 }

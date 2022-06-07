@@ -4,8 +4,8 @@ import {
   ControlElement,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
 import '../../icon/index.js';
 import { preload } from '../../icon/index.js';
@@ -217,13 +217,11 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   }
 
   /**
-   * Invoked whenever the element is updated
-   * @param changedProperties Map of changed properties with old values
+   * Invoked before update() to compute values needed during the update.
+   * @param changedProperties changed properties
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
-    super.update(changedProperties);
-
+  protected willUpdate (changedProperties: PropertyValues): void {
     if (changedProperties.has('checkedState')) {
       this.checkedChanged();
     }
@@ -252,5 +250,11 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
         <slot>${this.label}</slot>
       </div>
   `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-tree-item': TreeItem;
   }
 }

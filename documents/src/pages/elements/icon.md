@@ -28,7 +28,7 @@ ef-icon {
 
 Icons are provided as part of a theme. Icons also support pointing to urls of svg files. The size and coloring of icons can be changed using standard CSS.
 
-### Usage
+## Usage
 You can set an icon's name using the `ef-icon` attribute. Alternatively, you can set the url of an svg icon file using the `src` attribute.
 
 ```html
@@ -41,7 +41,7 @@ You can set an icon's name using the `ef-icon` attribute. Alternatively, you can
 ```
 
 
-### Changing size and color
+## Changing size and color
 The size and color of an icon can be changed using standard CSS styling.
 
 ```css
@@ -64,13 +64,13 @@ The size and color of an icon can be changed using standard CSS styling.
 <ef-icon class="large" icon="flag-2"></ef-icon>
 ```
 
-### Icon preloading
+## Icon preloading
 `ef-icon` has a helper function to preload a set of icons. Icons can be loaded faster if you have a known set of icons for use in the app.
 
 Preloading icons will be deferred until the first `ef-icon` component is created.
 
 ```javascript
-import { preload } from '@refinitiv-ui/elements/lib/icon';
+import { preload } from '@refinitiv-ui/elements/icon';
 
 // preload function supports both icon name or svg location, either single icon or multiple.
 preload('eye');
@@ -84,7 +84,21 @@ preload(
 );
 ```
 
-### Icon list
+## Accessibility
+::a11y-intro::
+
+`ef-icon` delegates focus into its internal svg which has native `role="image"`. Assistive technology users ascertain the purpose of the icon via its accessible name.
+
+Typically, icon may not be tabbable or focusable. However, if it's required, you can set `tabindex` and use `aria-label` or `title` to add its accessible name.
+
+```html
+<ef-icon icon="pdf" tabindex="0" aria-label="PDF Icon"></ef-icon>
+<ef-icon icon="pdf" tabindex="0" title="PDF Icon"></ef-icon>
+```
+
+::a11y-end::
+
+## Icon list
 
 Below is a list of available icons in the Halo theme. You can use them with the `ef-icon` or with elements that provide the `icon` attribute/property e.g. `ef-button`.
 

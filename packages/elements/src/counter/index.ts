@@ -6,8 +6,8 @@ import {
   TemplateResult,
   CSSResultGroup
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
 import {
   truncateDecimal,
@@ -164,5 +164,11 @@ export class Counter extends BasicElement {
    */
   protected render (): TemplateResult {
     return html`<span part="number">${this.formatValue(this.value)}</span>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-counter': Counter;
   }
 }

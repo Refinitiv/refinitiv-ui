@@ -1,5 +1,5 @@
 import { BasicElement, html, PropertyValues, TemplateResult } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { VERSION } from '../version.js';
 
 /**
@@ -24,6 +24,8 @@ export class Loader extends BasicElement {
   static get version (): string {
     return VERSION;
   }
+
+  protected readonly defaultRole: string | null = 'progressbar';
 
   /**
    * Collection of template part names,
@@ -60,6 +62,10 @@ export class Loader extends BasicElement {
       <div part="wrapper">${dots}</div>
     `;
   }
+}
 
-
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-loader': Loader;
+  }
 }

@@ -11,17 +11,21 @@
   },
   "scripts": {
     "lerna": "lerna",
-    "build": "lerna run build",
-    "build:docs": "lerna run --scope @refinitiv-ui/docs build --stream",
-    "build:prod": "lerna run build:prod",
+    "build": "nx run-many --target build --parallel --all",
+    "build:affected": "nx affected:build --parallel",
+    "build:docs": "nx run @refinitiv-ui/docs:build",
+    "build:prod": "nx run-many --target build:prod --all",
     "start": "node cli start",
-    "start:docs": "lerna run --scope @refinitiv-ui/docs start --stream",
+    "start:docs": "nx run @refinitiv-ui/docs:start",
     "test": "node cli test",
-    "test:all": "lerna run test",
+    "test:affected": "nx affected:test",
+    "test:all": "nx affected:test --all",
     "lint": "node cli lint",
-    "lint:all": "lerna run lint",
+    "lint:affected": "nx affected:lint --parallel",
+    "lint:all": "nx affected:lint --parallel --all",
     "lint-fix": "node cli lint:fix",
-    "lint-fix:all": "lerna run lint:fix"
+    "lint-fix:all": "nx run-many --target lint:fix --parallel --all",
+    "reset": "nx reset"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
@@ -30,6 +34,9 @@
     "@formatjs/intl-locale": "^2.4.41",
     "@formatjs/intl-numberformat": "^7.2.6",
     "@formatjs/intl-pluralrules": "^4.1.6",
+    "@nrwl/cli": "latest",
+    "@nrwl/tao": "latest",
+    "@nrwl/workspace": "latest",
     "@open-wc/karma-esm": "^4.0.0",
     "@web/dev-server": "^0.1.17",
     "@web/dev-server-legacy": "^0.1.7",
@@ -55,9 +62,9 @@
     "micromatch": "^4.0.4",
     "request": "^2.88.2",
     "sinon": "^9.2.4",
-    "typescript": "^4.4.3",
+    "typescript": "~4.6.4",
     "watch": "^1.0.2",
-    "web-component-analyzer": "^1.1.6",
+    "web-component-analyzer": "2.0.0-next.4",
     "yargs": "^17.0.1"
   }
 }

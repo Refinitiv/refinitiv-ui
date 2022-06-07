@@ -1,7 +1,7 @@
 import type { Overlay } from '../elements/overlay';
-import { AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { getOverlays } from './zindex-manager.js';
-import { FocusableHelper } from '@refinitiv-ui/core';
+import { isBasicElement, FocusableHelper } from '@refinitiv-ui/core';
 
 type ActiveTabbableNodes = {
   nodes: HTMLElement[];
@@ -103,7 +103,15 @@ export class FocusManager {
   }
 
   private getReTargetFocusNode (nodes: HTMLElement[]): HTMLElement | null {
-    const activeElement = this.getActiveElement();
+    let activeElement = this.getActiveElement();
+
+    // This code fixes a bug when focus is going outside the overlay
+    // when Shift+Tab is used and element delegates focus.
+    // Once native delegatesFocus is implemented this code can be safely removed
+    if (isBasicElement(activeElement) && activeElement.delegatesFocus) {
+      activeElement = activeElement.tabbableElements[0] || activeElement;
+    }
+
     if (!activeElement || activeElement === nodes[nodes.length - 1] || !this.isFocusBoundaryDescendant(activeElement)) {
       return nodes[0];
     }
@@ -168,7 +176,7 @@ export class FocusManager {
 
   public register (overlay: Overlay): void {
     if (!this.registry.size) {
-      this.restoreFocusElement = document.activeElement as HTMLElement; /* store this only once, as overlay order may change */
+      this.restoreFocusElement = this.getActiveElement(); /* store this only once, as overlay order may change */
       document.addEventListener('keydown', this.onDocumentKeyDown, { capture: true });
     }
 

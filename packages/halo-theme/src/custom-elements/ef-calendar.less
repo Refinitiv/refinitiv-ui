@@ -83,6 +83,10 @@
     &:not(:active) [part~=selection]:hover {
       border-color: @calendar-cell-hover-background-color;
     }
+    &[today][selected] [part~=selection]:hover,
+    &:not([today]):not([range]):not(:active) [part~=selection]:hover {
+      background:  @calendar-cell-hover-background-color;
+    }
 
     &:not([selected]):not([range]):not([today]) {
       [part~=selection]:hover {

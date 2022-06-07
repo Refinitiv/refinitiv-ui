@@ -1,9 +1,9 @@
 import { PropertyValues } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 import '../icon/index.js';
 import { TextField } from '../text-field/index.js';
-import { TemplateMap } from '@refinitiv-ui/core/lib/directives/template-map.js';
+import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 
 /**
  * A form control element for email.
@@ -83,5 +83,11 @@ export class EmailField extends TextField {
     return changedProperties.has('value')
       || changedProperties.has('multiple')
       || super.shouldValidateInput(changedProperties);
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-email-field': EmailField;
   }
 }

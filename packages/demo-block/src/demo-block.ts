@@ -7,8 +7,8 @@ import {
   CSSResultGroup,
   StyleInfo
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 
 const Themes = [
   'elemental-theme/light',
@@ -169,8 +169,8 @@ export class DemoBlock extends BasicElement {
       }
 
       [part=tag] {
-        background: #0080f0;
-        color: #fff;
+        background: #b4b4b4;
+        color: #000;
         height: 20px;
         font-size: 11px;
         line-height: 20px;

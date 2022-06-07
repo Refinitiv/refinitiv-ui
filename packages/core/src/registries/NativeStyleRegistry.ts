@@ -30,9 +30,12 @@ export abstract class NativeStyleRegistry {
     style.setAttribute('scope', name);
     style.textContent = css;
     childRef ? head.insertBefore(style, childRef) : head.appendChild(style);
-    // Register style tag with ShadyCSS
-    // to support CSS variables in legacy browsers
-    ShadyCSS?.CustomStyleInterface?.addCustomStyle(style);
+
+    if (ShadyCSS) {
+      // Register style tag with ShadyCSS
+      // to support CSS variables in legacy browsers
+      ShadyCSS.CustomStyleInterface.addCustomStyle(style);
+    }
   }
   /**
    * Gets any native style that has already been defined.

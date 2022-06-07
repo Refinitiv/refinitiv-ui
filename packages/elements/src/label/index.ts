@@ -6,11 +6,11 @@ import {
   CSSResultGroup,
   StyleMap
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { VERSION } from '../version.js';
-import { isIE } from '@refinitiv-ui/utils/lib/browser.js';
+import { isIE } from '@refinitiv-ui/utils/browser.js';
 import { addTooltipCondition, removeTooltipCondition } from '../tooltip/index.js';
 
 /**
@@ -175,11 +175,11 @@ export class Label extends BasicElement {
 
   /**
    * Handles any modifications to the internal HTML
-   * @param [mutation=false] is the request from a mutation event?
+   * @param [mutation=false] is the request from a mutation event ? ( reserved for future used )
    * @returns {void}
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected recalculate (mutation = false): void {
-    mutation; // keeping here for future use
     const oldValue = this.text;
     const raw = this.textContent || '';
     this.chunks = raw.split(_).map(chunk => chunk.trim()).filter(chunk => chunk);
@@ -258,5 +258,11 @@ export class Label extends BasicElement {
     }
 
     return template;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-label': Label;
   }
 }

@@ -9,6 +9,8 @@ layout: default
 ::
 ```javascript
 ::password-field::
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
+halo('panel');
 const pw = document.getElementById('pw');
 const confirmedPw = document.getElementById('confirmedPw');
 const passwordMatchError = document.getElementById('password-error');
@@ -43,7 +45,8 @@ ef-panel {
 ef-password-field{
   width: 250px;
 }
-p {
+label {
+  display: block;
   margin: 4px 0;
 }
 ul {
@@ -64,10 +67,10 @@ ul {
   </ul>
 </ef-panel>
 
-<p>Password</p>
+<label for="pw">Password</label>
 <ef-password-field id="pw" pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"></ef-password-field>
 <br/>
-<p>Confirm password</p>
+<label for="confirmedPw">Confirm password</label>
 <ef-password-field id="confirmedPw" pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"></ef-password-field>
 
 <ul id="error-list">
@@ -79,18 +82,18 @@ ul {
 
 `ef-password-field` is a form control for passwords with a built-in show/hide toggle functionality.
 
-### Usage
+## Usage
 `ef-password-field` behaves similarly to the native password input. It has password masking that allows users to securely type their passwords into the input.
 
 ```html
 <ef-password-field placeholder="Password ..."></ef-password-field>
 ```
 
-### Getting value
+## Getting value
 The value can be accessed through the `value` property.
 
 ```html
-<ef-password-field id="password-input"></ef-password-field>
+<ef-password-field id="password-input" placeholder="Password ..."></ef-password-field>
 ```
 
 ```javascript
@@ -116,13 +119,13 @@ ef-password-filed {
 }
 ```
 ```html
-<ef-password-field id="password-input" placeholder="Type something here .."></ef-password-field>
+<ef-password-field id="password-input" placeholder="Password ..."></ef-password-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 ::
 
 ```html
-<ef-password-field id="password-input"></ef-password-field>
+<ef-password-field id="password-input" placeholder="Password ..."></ef-password-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 
@@ -135,12 +138,12 @@ element.addEventListener("value-changed", (e) => {
 });
 ```
 
-### Input validation
+## Input validation
 Validation occurs when the constraints are provided and the value changes. If the error state changes, it will dispatch an `error-changed` event along with the current error state.
 
 Alternatively, you can access the `error` property to check if the input is valid or not.
 
-### Input length
+## Input length
 The `maxlength` attribute limits the number of characters that can be typed into the input, and the `minlength` attribute sets the minimum of characters. `ef-password-field` will show error styles if a condition is not met.
 
 ::
@@ -172,7 +175,12 @@ ef-password-field {
 ::
 
 ```html
-<ef-password-field id="passwordInput" minlength="8" maxlength="16"></ef-password-field>
+<ef-password-field 
+  id="passwordInput"
+  minlength="8"
+  maxlength="16"
+  placeholder="Between 8 to 16 characters">
+</ef-password-field>
 <p id="error-text"></p>
 ```
 
@@ -190,7 +198,7 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-### Validate input using pattern
+## Validate input using pattern
 You can use a regular expression to validate the input value by setting it to the `pattern` attribute.
 
 ::
@@ -221,13 +229,17 @@ ef-password-field {
   <li>At least one number.</li>
   <li>At least one special character.</li>
 </ul>
-<ef-password-field id="password" pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"></ef-password-field>
+<ef-password-field id="password" pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$" placeholder="Password .."></ef-password-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
-<ef-password-field id="password" pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"></ef-password-field>
+<ef-password-field
+  id="password"
+  pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"
+  placeholder="Password ..">
+</ef-password-field>
 <p id="error-text"></p>
 ```
 
@@ -243,3 +255,36 @@ element.addEventListener("error-changed", (e) => {
   }
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+`ef-password-field` is assigned  `role="textbox"`. States such as `disabled` and `pressed` are updated to match the visual state of the Password Field element and its “Show password” button. The password recommendation can be communicated to screen readers through a live region whenever the context changes.
+
+`ef-password-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+
+```html
+<ef-password-field placeholder="Enter your password"></ef-password-field>
+```
+```html
+<ef-password-field 
+  aria-label="Enter your password"
+  placeholder="Enter your password">
+</ef-password-field>
+```
+```html
+<label id="password">Enter your password</label>
+<ef-password-field 
+  aria-labelledby="password"
+  placeholder="Enter your password">
+</ef-password-field>
+```
+```html
+<label for="password">Enter your password</label>
+<ef-password-field
+  id="password"
+  placeholder="Enter your password">
+</ef-password-field>
+```
+
+::a11y-end::

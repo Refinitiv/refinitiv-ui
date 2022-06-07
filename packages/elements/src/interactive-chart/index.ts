@@ -8,11 +8,11 @@ import {
   ElementSize,
   DeprecationNotice
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
-import { color as parseColor, RGBColor, HSLColor } from '@refinitiv-ui/utils/lib/color.js';
+import { color as parseColor, RGBColor, HSLColor } from '@refinitiv-ui/utils/color.js';
 import {
   createChart as chart,
   IChartApi,
@@ -831,8 +831,13 @@ export class InteractiveChart extends ResponsiveElement {
    * @returns {void}
    */
   protected renderTextLegend (chartType: string, rowLegendElem: RowLegend, value: SeriesDataItem | number | string, priceColor: string, index: number): void {
+    // No need to render if disable legend
+    if (this.disabledLegend) {
+      return;
+    }
+
     if (chartType === 'bar' || chartType === 'candlestick') {
-      if (!this.hasDataPoint && this.isNodeListElement(rowLegendElem)) {
+      if (!this.hasDataPoint && rowLegendElem instanceof NodeList) {
         const spanElem = rowLegendElem[index].querySelectorAll('span.price,span.ohlc');
         spanElem.forEach(span => rowLegendElem[index].removeChild(span));
         const span = document.createElement('span');
@@ -850,24 +855,6 @@ export class InteractiveChart extends ResponsiveElement {
   }
 
   /**
-  * Check `node` inside row legend and case type to HTMLElement
-  * @param rowLegend Legend element
-  * @returns true if not have `node` inside row legend
-  */
-  private isHTMLElement (rowLegend: RowLegend): rowLegend is HTMLElement {
-    return (rowLegend as NodeListOf<Element>).length === undefined;
-  }
-
-  /**
-  * Check `node` inside row legend and case type to NodeListOf<Element>
-  * @param rowLegend Legend element
-  * @returns true if have `node` inside row legend
-  */
-  private isNodeListElement (rowLegend: RowLegend): rowLegend is NodeListOf<Element> {
-    return (rowLegend as NodeListOf<Element>) !== undefined;
-  }
-
-  /**
    * Create span OHLC in row legend used by several series types such as bars or candlesticks
    * @param rowLegend Legend element
    * @param rowData Value of series
@@ -875,7 +862,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @returns {void}
    */
   private createSpanOHLC (rowLegend: RowLegend, rowData: BarData, priceColor: string): void {
-    if (this.isHTMLElement(rowLegend)) {
+    if (rowLegend instanceof HTMLElement) {
       rowLegend.setAttribute('data-color', priceColor);
       this.createSpan(rowLegend, 'O', rowData.open, 'H', rowData.high, 'L', rowData.low, 'C', rowData.close);
     }
@@ -901,11 +888,11 @@ export class InteractiveChart extends ResponsiveElement {
       } as BarData;
     }
     // Create text price after chart has rendered
-    if (this.isHTMLElement(rowLegend)) {
+    if (rowLegend instanceof HTMLElement) {
       this.createSpanOHLC(rowLegend, rowData, priceColor);
     }
     // Handle update text price when mouse crosshairMove in chart
-    else if (this.isNodeListElement(rowLegend)) {
+    else if (rowLegend instanceof NodeList) {
       const rowSpanLength = rowLegend[index].children.length;
       let countElmPrice = 0;
       for (let spanIndex = 0; spanIndex < rowSpanLength; spanIndex++) {
@@ -955,12 +942,12 @@ export class InteractiveChart extends ResponsiveElement {
     const formattedPrice = !!formatter && price !== NO_DATA_POINT ? formatter(price) : price;
 
     // Create text price after chart has rendered
-    if (this.isHTMLElement(rowLegend)) {
+    if (rowLegend instanceof HTMLElement) {
       rowLegend.setAttribute('data-color', priceColor);
       this.createSpan(rowLegend, formattedPrice);
     }
     // Handle update text price when mouse crosshairMove in chart
-    else if (this.isNodeListElement(rowLegend)) {
+    else if (rowLegend instanceof NodeList) {
       const symbolElem = rowLegend[index].children[0];
       const spanIndex = symbolElem.getAttribute('class')?.indexOf('symbol') === 0 ? 1 : 0;
       const rowLegendElem = rowLegend[index];
@@ -1231,5 +1218,11 @@ export class InteractiveChart extends ResponsiveElement {
       </div>
       <div part="chart"></div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-interactive-chart': InteractiveChart;
   }
 }

@@ -7,12 +7,39 @@
 ```html
 <div part="segment hours">
   00
+  <div
+    aria-hidden="true"
+    name="Up"
+    part="increment-button"
+  >
+  </div>
+  <div
+    aria-hidden="true"
+    name="Down"
+    part="decrement-button"
+  >
+  </div>
 </div>
-<div part="segment divider">
+<div
+  aria-hidden="true"
+  part="segment divider"
+>
   :
 </div>
 <div part="segment minutes">
   00
+  <div
+    aria-hidden="true"
+    name="Up"
+    part="increment-button"
+  >
+  </div>
+  <div
+    aria-hidden="true"
+    name="Down"
+    part="decrement-button"
+  >
+  </div>
 </div>
 
 ```
@@ -24,12 +51,39 @@
   <div part="digital">
     <div part="segment hours">
       00
+      <div
+        aria-hidden="true"
+        name="Up"
+        part="increment-button"
+      >
+      </div>
+      <div
+        aria-hidden="true"
+        name="Down"
+        part="decrement-button"
+      >
+      </div>
     </div>
-    <div part="segment divider">
+    <div
+      aria-hidden="true"
+      part="segment divider"
+    >
       :
     </div>
     <div part="segment minutes">
       00
+      <div
+        aria-hidden="true"
+        name="Up"
+        part="increment-button"
+      >
+      </div>
+      <div
+        aria-hidden="true"
+        name="Down"
+        part="decrement-button"
+      >
+      </div>
     </div>
   </div>
   <div

@@ -7,20 +7,20 @@ import {
   TapEvent,
   WarningNotice
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { ifDefined } from '@refinitiv-ui/core/lib/directives/if-defined.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
-import { AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
-import { CollectionComposer } from '@refinitiv-ui/utils/lib/collection.js';
-import { uuid } from '@refinitiv-ui/utils/lib/uuid.js';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { uuid } from '@refinitiv-ui/utils/uuid.js';
 
 import '../icon/index.js';
 import '../item/index.js';
 import { Item, ItemData } from '../item/index.js';
 import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay/index.js';
 import { applyLock } from '../overlay/managers/interaction-lock-manager.js';
-import type { OverlayMenuData } from './helpers/types';
+import { OverlayMenuData, Navigation } from './helpers/types';
 import { OpenedMenusManager } from './managers/menu-manager.js';
 
 export type { OverlayMenuData };
@@ -82,6 +82,11 @@ export class OverlayMenu extends Overlay {
   static get version (): string {
     return VERSION;
   }
+
+  /**
+   * Default role of the element
+   */
+  protected readonly defaultRole: string | null = 'menu';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -371,13 +376,19 @@ export class OverlayMenu extends Overlay {
   }
 
   /**
-   * Reflects property values to attributes and calls render to render DOM via lit-html.
+   * Compute property values that depend on other properties
+   * and are used in the rest of the update process.
    * @param changedProperties Properties which have changed
    * @return {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
     if (changedProperties.has('opened')) {
       if (this.opened) {
+        const parentMenuItem = OpenedMenusManager.getParentMenuItem(this);
+        if (parentMenuItem) {
+          parentMenuItem.setAttribute('aria-expanded', 'true');
+        }
         this.opening();
       }
       else {
@@ -392,8 +403,6 @@ export class OverlayMenu extends Overlay {
     if (changedProperties.has('opened') && this.opened) {
       this.lazyRendered = true;
     }
-
-    super.update(changedProperties);
   }
 
   /**
@@ -566,6 +575,7 @@ export class OverlayMenu extends Overlay {
       if (dataItem.items && dataItem.items.length) {
         const dataId = `${dataItem.value || index}-${depth}`;
         const menu = findMenuByDataItem(dataItem) || findMenuByDataId(dataId) || this.toOverlayMenu();
+        menu.setAttribute('aria-label', String(dataItem.label));
         menu.parentDataItem = dataItem;
         menu.data = this.composer;
         const menuId = menu.id;
@@ -679,11 +689,11 @@ export class OverlayMenu extends Overlay {
     switch (event.key) {
       case 'Down':
       case 'ArrowDown':
-        this.focusElement(1, true);
+        this.focusElement(Navigation.NEXT, true);
         break;
       case 'Up':
       case 'ArrowUp':
-        this.focusElement(-1, true);
+        this.focusElement(Navigation.PREVIOUS, true);
         break;
       case 'Left':
       case 'ArrowLeft':
@@ -694,7 +704,13 @@ export class OverlayMenu extends Overlay {
         this.onArrowRight();
         break;
       case 'Tab':
-        this.focusElement(event.shiftKey ? -1 : 1, true);
+        this.focusElement(event.shiftKey ? Navigation.PREVIOUS : Navigation.NEXT, true);
+        break;
+      case 'Home':
+        this.focusElement(Navigation.FIRST);
+        break;
+      case 'End':
+        this.focusElement(Navigation.LAST);
         break;
       default:
         return;
@@ -774,26 +790,36 @@ export class OverlayMenu extends Overlay {
 
   /**
    * Highlight next or previous highlightable element if present
-   * @param direction -1 - up/next; 1 - down/previous
+   * @param direction previous, next, first or last focusable element
    * @param [circular=false] Set to true to have circular navigation over items
    * @return {void}
    */
-  private focusElement (direction: number, circular = false): void {
+  private focusElement (direction: Navigation, circular = false): void {
     const menuHighlightedItem = this.menuHighlightedItem;
     const children = this.items;
 
     const idx = menuHighlightedItem ? children.indexOf(menuHighlightedItem) : -1;
-
     let focusElement;
-    if (direction === 1) {
-      focusElement = idx === -1 ? children[0] : children[idx + 1];
-    }
-    else {
-      focusElement = idx === -1 ? children[children.length - 1] : children[idx - 1];
+
+    switch (direction) {
+      case Navigation.PREVIOUS:
+        focusElement = idx === -1 ? children[children.length - 1] : children[idx - 1];
+        break;
+      case Navigation.NEXT:
+        focusElement = idx === -1 ? children[0] : children[idx + 1];
+        break;
+      case Navigation.FIRST:
+        focusElement = children[0];
+        break;
+      case Navigation.LAST:
+        focusElement = children[children.length - 1];
+        break;
+      default:
+        return;
     }
 
     if (circular && !focusElement) {
-      focusElement = direction === 1 ? children[0] : children[children.length - 1];
+      focusElement = direction === Navigation.NEXT ? children[0] : children[children.length - 1];
     }
 
     if (focusElement) {
@@ -949,7 +975,7 @@ export class OverlayMenu extends Overlay {
    * @return menu element
    */
   private toOverlayMenu (): OverlayMenu {
-    const menu = document.createElement('ef-overlay-menu') as OverlayMenu;
+    const menu = document.createElement('ef-overlay-menu');
     menu.transitionStyle = this.transitionStyle;
     menu.noCancelOnOutsideClick = true;
     menu.compact = this.compact;
@@ -967,7 +993,7 @@ export class OverlayMenu extends Overlay {
     const type = composer.getItemPropertyValue(item, 'type');
 
     if (type === 'divider') {
-      return html`<ef-item type="divider"></ef-item>`;
+      return html`<ef-item type="divider" aria-hidden="true"></ef-item>`;
     }
 
     const tooltip = composer.getItemPropertyValue(item, 'tooltip');
@@ -976,6 +1002,7 @@ export class OverlayMenu extends Overlay {
 
     if (type === 'header') {
       return html`<ef-item
+        role="presentation"
         type="header"
         title=${ifDefined(tooltip || undefined)}
         .label=${label}
@@ -992,6 +1019,9 @@ export class OverlayMenu extends Overlay {
 
     // type text
     return html`<ef-item
+      role="menuitem"
+      aria-haspopup=${ifDefined(forMenu ? true : undefined)}
+      aria-expanded=${ifDefined(forMenu ? false : undefined)}
       title=${ifDefined(tooltip || undefined)}
       ?disabled=${disabled}
       ?selected=${selected}
@@ -1047,5 +1077,11 @@ export class OverlayMenu extends Overlay {
       ${this.compactBackItem()}
       ${this.withData ? this.fromDataItems : html`<slot @slotchange=${this.onSlotChange}></slot>`}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-overlay-menu': OverlayMenu;
   }
 }

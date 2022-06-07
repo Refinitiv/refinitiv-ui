@@ -25,7 +25,7 @@
           detail.count += 1;
           const disabled = detail.count === 3;
           const readonly = detail.count === 4;
-          const selected = detail.count === 5;
+          const selected = depth < 3 ? undefined : detail.count === 5;
           const hidden = i % 10 === 9;
           const data = {
             label: depth < 2 ? `Group ${depth + 1}.${i + 1}` : `Item number ${i + 1}${readonly ? ' (readonly)' : ''}`,
@@ -69,7 +69,6 @@
       const knownElements = new WeakSet();
 
       custom.renderer = function (item, composer, element) {
-
         // Use default renderer to create/recycle element
         element = renderer(item, composer, element);
 
@@ -116,6 +115,7 @@
         }
         return element;
       };
+      custom.renderer.key = renderer.key; // used in aria-activedescendant to indicate current highlight item
     </script>
 
     <demo-block header="Default" layout="normal" tags="default">

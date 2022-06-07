@@ -6,11 +6,11 @@ import {
   PropertyValues,
   WarningNotice
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
-import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
-import { rgb } from '@refinitiv-ui/utils/lib/color.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
+import { rgb } from '@refinitiv-ui/utils/color.js';
 import { VERSION } from '../version.js';
 import type { NumberField } from '../number-field';
 import type { TextField } from '../text-field';
@@ -24,7 +24,7 @@ import { Dialog } from '../dialog/index.js';
 import './elements/color-palettes.js';
 import './elements/grayscale-palettes.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/lib/locale/en/color-dialog.js';
+import '@refinitiv-ui/phrasebook/locale/en/color-dialog.js';
 
 /**
  * Displays a colour picker dialog,
@@ -403,14 +403,15 @@ export class ColorDialog extends Dialog {
           <ef-color-palettes
             .value=${this.valueModel.value}
             @value-changed=${this.onColorChanged}
-            part="color-palettes">
+            part="color-palettes"
+            aria-hidden="true">
           </ef-color-palettes>
           <ef-grayscale-palettes
             .value=${this.valueModel.value}
             @value-changed=${this.onColorChanged}
             ?allow-nocolor=${this.allowNocolor}
             part="grayscale-palettes"
-            >
+            aria-hidden="true">
           </ef-grayscale-palettes>
         </div>
         <div part="inputs-container">
@@ -420,7 +421,8 @@ export class ColorDialog extends Dialog {
               backgroundColor: this.valueModel.value || undefined
             })}
             ?no-color=${!this.valueModel.value}></div>
-          <div>${this.t('RED')}&nbsp;:
+          <div>
+            <label for="redInput">${this.t('RED')}&nbsp;:</label>
             <ef-number-field
               .value=${this.valueModel.red}
               @value-changed=${this.onRGBChanged}
@@ -431,7 +433,8 @@ export class ColorDialog extends Dialog {
               id="redInput"
             ></ef-number-field>
           </div>
-          <div>${this.t('GREEN')}&nbsp;:
+          <div>
+            <label for="greenInput">${this.t('GREEN')}&nbsp;:</label>
             <ef-number-field
               .value=${this.valueModel.green}
               @value-changed=${this.onRGBChanged}
@@ -442,7 +445,8 @@ export class ColorDialog extends Dialog {
               id="greenInput"
             ></ef-number-field>
           </div>
-          <div>${this.t('BLUE')}&nbsp;:
+          <div>
+            <label for="blueInput">${this.t('BLUE')}&nbsp;:</label>
             <ef-number-field
               .value=${this.valueModel.blue}
               @value-changed=${this.onRGBChanged}
@@ -453,7 +457,8 @@ export class ColorDialog extends Dialog {
               id="blueInput"
             ></ef-number-field>
           </div>
-          <div>#&nbsp;:
+          <div>
+            <label for="hexInput" aria-label="Hex">#&nbsp;:</label>
             <ef-text-field
               .value=${this.valueModel.hex}
               @value-changed=${this.onHexChanged}
@@ -490,5 +495,11 @@ export class ColorDialog extends Dialog {
         @tap=${this.onCloseDialog}
         part="button">${this.t('CLOSE')}</ef-button>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-color-dialog': ColorDialog;
   }
 }

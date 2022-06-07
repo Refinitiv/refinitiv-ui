@@ -6,9 +6,9 @@ import {
   PropertyValues,
   TemplateResult
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { query } from '@refinitiv-ui/core/lib/decorators/query.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
 import type { ItemType } from './helpers/types';
 import '../icon/index.js';
@@ -95,33 +95,11 @@ export class Item extends ControlElement {
   @property({ type: String, reflect: true })
   public icon: string | null = null;
 
-
-  private _selected = false;
-
   /**
    * Indicates that the item is selected
-   * @param value selected value
-   * @default false
    */
   @property({ type: Boolean, reflect: true })
-  public set selected (value: boolean) {
-    const oldValue = this._selected;
-    if (oldValue !== value) {
-      this._selected = value;
-      this.ariaSelected = String(value);
-      void this.requestUpdate('selected', oldValue);
-    }
-  }
-  public get selected (): boolean {
-    return this._selected;
-  }
-
-  /**
-   * Aria indicating current select state
-   * @ignore
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-selected' })
-  public ariaSelected = 'false';
+  public selected = false;
 
   /**
    * Is the item part of a multiple selection
@@ -179,14 +157,51 @@ export class Item extends ControlElement {
   };
 
   /**
-   * @override
+   * Handles aria-selected or aria-checked when toggle between single and multiple selection mode
+   * @returns {void}
+   **/
+  private multipleChanged (): void {
+    this.removeAttribute(this.multiple ? 'aria-selected' : 'aria-checked');
+    this.selectedChanged();
+  }
+
+  /**
+   * Handles aria when selected state changes
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  private selectedChanged (): void {
+    this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', String(this.selected));
+  }
+
+  /**
+   * Control State behaviour will update tabindex based on the property
+   * @returns {void}
+   */
+  private typeChanged (): void {
+    const noInteraction = this.type === 'header' || this.type === 'divider' || this.disabled;
+    if (noInteraction) {
+      this.disableFocus();
+    }
+    else if (!this.disabled) {
+      this.enableFocus();
+    }
+  }
+
+  /**
+   * Invoked before update() to compute values needed during the update.
+   * @param changedProperties changed properties
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
     if (changedProperties.has('type')) {
       this.typeChanged();
     }
-    super.update(changedProperties);
+    if (changedProperties.has('multiple')) {
+      this.multipleChanged();
+    }
+    else if (changedProperties.has('selected')) {
+      this.selectedChanged();
+    }
   }
 
   /**
@@ -246,20 +261,6 @@ export class Item extends ControlElement {
   }
 
   /**
-   * Control State behaviour will update tabindex based on the property
-   * @returns {void}
-   */
-  private typeChanged (): void {
-    const noInteraction = this.type === 'header' || this.type === 'divider' || this.disabled;
-    if (noInteraction) {
-      this.disableFocus();
-    }
-    else if (!this.disabled) {
-      this.enableFocus();
-    }
-  }
-
-  /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
    * @returns Render template
@@ -281,5 +282,11 @@ export class Item extends ControlElement {
         ${this.forTemplate}
       </div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-item': Item;
   }
 }

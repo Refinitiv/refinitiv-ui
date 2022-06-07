@@ -33,18 +33,22 @@ p {
 
 `ef-email-field` is a form control to confidently obtain an email input from users.
 
-### Usage
+## Usage
 `ef-email-field` has similar behaviors to the native email input type.
 
 ```html
 <ef-email-field placeholder="Business email address"></ef-email-field>
 ```
 
-### Getting value
+## Getting value
 The field's value can be accessed directly using the `value` property.
 
 ```html
-<ef-email-field id="email-input" value="awesome@tmail.com"></ef-email-field>
+<ef-email-field
+  id="email-input"
+  value="awesome@tmail.com"
+  placeholder="Business email address">
+</ef-email-field>
 ```
 
 ```javascript
@@ -76,12 +80,12 @@ element.addEventListener("value-changed", (e) => {
 });
 ```
 
-### Input validation
+## Input validation
 Validation occurs when the constraints are provided and the value changes. If the error state changes, it will dispatch the `error-changed` event along with the current error state.
 
 Alternatively, you can check the `error` property to confirm if the input is valid.
 
-### Input length
+## Input length
 The `maxlength` attribute limits the number of characters that users can type into the input and the `minlength` attribute is used to set the minimum of characters required. `ef-email-field` will show error styles if the condition is not met.
 
 ::
@@ -113,7 +117,12 @@ ef-email-field {
 ::
 
 ```html
-<ef-email-field id="email-input" minlength="8" maxlength="14"></ef-email-field>
+<ef-email-field
+  id="email-input"
+  minlength="8"
+  maxlength="14"
+  placeholder="Length between 8 to 14 characters">
+</ef-email-field>
 <p id="error-text"></p>
 ```
 
@@ -130,7 +139,7 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-### Validate input using pattern
+## Validate input using pattern
 You can use a regular expression to validate the input value by adding the `pattern` attribute.
 
 ::
@@ -156,13 +165,21 @@ ef-email-field {
 }
 ```
 ```html
-<ef-email-field id="email" pattern=".+@mail.com" placeholder="Type email ending with '@mail.com'"></ef-email-field>
+<ef-email-field
+  id="email"
+  pattern=".+@mail.com"
+  placeholder="Type email ending with '@mail.com'">
+</ef-email-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
-<ef-email-field id="email" pattern=".+@mail.com"></ef-email-field>
+<ef-email-field
+  id="email"
+  pattern=".+@mail.com"
+  placeholder="Type email ending with '@mail.com'">
+</ef-email-field>
 <p id="error-text"></p>
 ```
 
@@ -179,12 +196,12 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-### Show icon
+## Show icon
 
 An inline icon can be displayed inside the input using `icon`.
 
 ```html
-<ef-email-field icon="individual"></ef-email-field>
+<ef-email-field icon="individual" placeholder="Enter email"></ef-email-field>
 ```
 
 An icon can become actionable by adding the `icon-has-action` attribute to the element, and `ef-email-field` will fire the `icon-click` event when a user clicks on the icon. You can add an event listener to this event to execute your code.
@@ -232,6 +249,7 @@ ef-email-field {
   icon="msgr-adduser"
   pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
   icon-has-action
+  placeholder="Type email and then click the icon ..."
 ></ef-email-field>
 <p id="email-added"></p>
 ```
@@ -246,3 +264,36 @@ element.addEventListener("icon-click", (e) => {
   }
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+`ef-email-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state.
+
+`ef-email-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+
+```html
+<ef-email-field placeholder="Enter your email"></ef-email-field>
+```
+```html
+<ef-email-field 
+  aria-label="Enter your email"
+  placeholder="Enter your email">
+</ef-email-field>
+```
+```html
+<label id="email">Enter your email</label>
+<ef-email-field 
+  aria-labelledby="email"
+  placeholder="Enter your email">
+</ef-email-field>
+```
+```html
+<label for="email">Enter your email</label>
+<ef-email-field
+  id="email"
+  placeholder="Enter your email">
+</ef-email-field>
+```
+
+::a11y-end::

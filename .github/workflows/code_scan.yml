@@ -1,8 +1,5 @@
 name: "Code Scan"
-on:
-  push:
-    branches:
-      - develop
+on: [pull_request] # Triggers on any branch
 jobs:
   sonarcloud:
     name: SonarCloud

@@ -11,8 +11,10 @@
   part="container"
 >
   <ef-button-bar
+    aria-hidden="true"
     part="buttons"
     role="toolbar"
+    tabindex="-1"
   >
     <ef-button
       aria-disabled="true"
@@ -39,16 +41,24 @@
     >
     </ef-button>
   </ef-button-bar>
-  <ef-text-field
-    id="input"
-    no-spinner=""
-    part="input"
-    tabindex="0"
+  <label
+    for="input"
+    part="label"
   >
-  </ef-text-field>
+    Page 1
+  </label>
+  <input
+    aria-valuemin="1"
+    aria-valuenow="1"
+    id="input"
+    part="input"
+    role="spinbutton"
+  >
   <ef-button-bar
+    aria-hidden="true"
     part="buttons"
     role="toolbar"
+    tabindex="-1"
   >
     <ef-button
       empty=""

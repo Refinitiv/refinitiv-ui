@@ -1,7 +1,7 @@
 name: Test
-on:
-  pull_request:
-    branches: [develop]
+on: [pull_request] # Triggers on any branch
+env:
+  BASE_SHA: ${{ github.event.pull_request.base.sha }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,9 +21,12 @@ jobs:
         if: steps.setup.outputs.cache-dependencies-hit != 'true'
         run: npm ci --ignore-scripts --audit=false --fund=false
 
+      - name: Reset NX # temporary
+        run: npm run reset
+
       - name: Build
         if: steps.setup.outputs.cache-build-hit != 'true'
-        run: lerna run build --include-dependencies --since origin/develop...HEAD
+        run: npm run build:affected -- --base=$BASE_SHA
 
   lint:
     needs: build
@@ -38,7 +41,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Lint
-        run: lerna run lint --include-dependents --since origin/develop...HEAD
+        run: npm run lint:affected -- --base=$BASE_SHA
 
   chrome:
     needs: lint
@@ -53,7 +56,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Test
-        run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers chrome
+        run: npm run test:affected -- --base=$BASE_SHA --browsers chrome
 
   firefox:
     needs: lint
@@ -69,4 +72,4 @@ jobs:
 
       - name: Test
         # TODO: `@refinitiv/core` has test coverage below threshold on Firefox
-        run: lerna run test --include-dependents --since origin/develop...HEAD -- -- --browsers firefox --includeCoverage false
+        run: npm run test:affected -- --base=$BASE_SHA --browsers firefox --includeCoverage false

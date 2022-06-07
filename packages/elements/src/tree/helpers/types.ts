@@ -1,4 +1,4 @@
-import type { CollectionComposer, DataItem } from '@refinitiv-ui/utils/lib/collection';
+import type { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 
 export type TreeData<T extends TreeDataItem = TreeDataItem> = T[] | CollectionComposer<T> | null;
 

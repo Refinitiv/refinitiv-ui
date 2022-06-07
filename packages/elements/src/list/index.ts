@@ -8,13 +8,14 @@ import {
   TemplateResult,
   WarningNotice
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
-import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/lib/collection.js';
+import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 import type { ItemData } from '../item';
 import type { ListData } from './helpers/types';
-import { ListRenderer } from './helpers/list-renderer.js';
+import { getItemId } from './helpers/item-id.js';
+import { ListRenderer } from './helpers/renderer.js';
 import '../item/index.js';
 
 export type { ListData };
@@ -80,11 +81,6 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   protected composer = new CollectionComposer<T>([]);
 
   /**
-   * Use default `tabindex` so that items are priority focus targets
-   */
-  protected readonly defaultTabIndex = null;
-
-  /**
    * Element focus delegation.
    * Set to `false` and relies on native focusing.
    */
@@ -102,12 +98,6 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    */
   @property({ type: Boolean })
   public stateless = false;
-
-  /**
-   * Aria indicating that list supports multiple selection
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-multiselectable' })
-  public ariaMultiselectable = 'false';
 
   /**
    * Allow multiple selections
@@ -253,7 +243,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @returns {void}
    */
   public first (): void {
-    const firstItem = this.itemMap.get(this.tabbableElements[0]);
+    const firstItem = this.itemMap.get(this.tabbableItems[0]);
     this.highlightItem(firstItem, true);
   }
 
@@ -262,7 +252,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @returns {void}
    */
   public last (): void {
-    const lastItem = this.itemMap.get(this.tabbableElements[this.tabbableElements.length - 1]);
+    const lastItem = this.itemMap.get(this.tabbableItems[this.tabbableItems.length - 1]);
     this.highlightItem(lastItem, true);
   }
 
@@ -341,7 +331,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    */
   protected clearHighlighted (): void {
     this.queryItemsByPropertyValue('highlighted', true)
-    .forEach(item => this.composer.setItemPropertyValue(item, 'highlighted', false));
+      .forEach(item => this.composer.setItemPropertyValue(item, 'highlighted', false));
   }
 
   /**
@@ -353,22 +343,28 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    */
   protected highlightItem (item?: T, scrollToItem = false): void {
     if (item) {
-      const elementToFocus = this.elementFromItem(item);
-      const focus = this.activeElement && this.activeElement !== elementToFocus;
       this.clearHighlighted();
       this.composer.setItemPropertyValue(item, 'highlighted', true);
-      focus && elementToFocus?.focus({ preventScroll: true });
+      const id = getItemId(this.renderer.key, item.value);
+      this.tabIndex >= 0 && id && this.setAttribute('aria-activedescendant', id);
       scrollToItem && this.scrollToItem(item);
     }
   }
-
 
   /**
    * Gets the available tabbable elements
    */
   protected get tabbableItems (): HTMLElement[] {
-    return Array.from(this.children)
-    .filter((el): el is HTMLElement => (el as HTMLElement).tabIndex >= 0);
+    return Array.from(this.children).filter((el): el is HTMLElement => {
+      if (el instanceof HTMLElement) {
+        const role = el.getAttribute('role');
+        const isEnabled = !el.hasAttribute('disabled');
+        const isOption = role ? ['option', 'treeitem'].includes(role) : false;
+
+        return isOption && isEnabled;
+      }
+      return false;
+    });
   }
 
   /**
@@ -507,6 +503,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    */
   protected onBlur (): void {
     this.clearHighlighted();
+    this.removeAttribute('aria-activedescendant');
   }
 
   /**
@@ -639,8 +636,14 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     });
   }
 
+  /**
+   * Invoked when the element is first updated. Implement to perform one time work on the element after update.
+   * @param changeProperties changed properties
+   * @returns {void}
+   */
   protected firstUpdated (changeProperties: PropertyValues): void {
     super.firstUpdated(changeProperties);
+
     this.addEventListener('keydown', this.onKeyDown);
     this.addEventListener('tap', this.onTap);
     this.addEventListener('mousemove', this.onMouse);
@@ -649,17 +652,14 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     this.addEventListener('focusout', this.onBlur);
   }
 
-  protected update (changeProperties: PropertyValues): void {
+  /**
+   * Invoked before update() to compute values needed during the update.
+   * @param changeProperties changed properties
+   * @returns {void}
+   */
+  protected willUpdate (changeProperties: PropertyValues): void {
     if (changeProperties.has('multiple')) {
       this.renderTimestamp.clear(); // force render of all items
-    }
-    return super.update(changeProperties);
-  }
-
-  protected updated (changedProperties: PropertyValues): void {
-    super.updated(changedProperties);
-
-    if (changedProperties.has('multiple')) {
       this.setAttribute('aria-multiselectable', this.multiple ? 'true' : 'false');
     }
   }
@@ -689,5 +689,11 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   protected render (): TemplateResult {
     this.renderLightDOM();
     return html`<slot></slot>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-list': List;
   }
 }

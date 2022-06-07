@@ -44,6 +44,7 @@
     aria-multiselectable="false"
     id="internal-list"
     role="listbox"
+    tabindex="-1"
   >
     <ef-item
       aria-selected="false"
@@ -58,21 +59,21 @@
       id="AF"
       role="option"
       selected=""
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
       id="AX"
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
       id="AL"
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
   </ef-list>
@@ -120,6 +121,7 @@
     aria-multiselectable="false"
     id="internal-list"
     role="listbox"
+    tabindex="-1"
   >
     <ef-item
       aria-selected="false"
@@ -132,14 +134,14 @@
       aria-selected="false"
       id="AF"
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
       id="AX"
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
     <ef-item
@@ -148,7 +150,7 @@
       id="AL"
       role="option"
       selected=""
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
   </ef-list>
@@ -196,6 +198,7 @@
     aria-multiselectable="false"
     id="internal-list"
     role="listbox"
+    tabindex="-1"
   >
     <ef-item
       aria-selected="false"
@@ -209,21 +212,21 @@
       highlighted=""
       id="AF"
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
       id="AX"
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
     <ef-item
       aria-selected="false"
       id="AL"
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
   </ef-list>
@@ -279,9 +282,10 @@
     aria-multiselectable="true"
     id="internal-list"
     role="listbox"
+    tabindex="-1"
   >
     <ef-item
-      aria-selected="false"
+      aria-checked="false"
       multiple=""
       role="presentation"
       tabindex="-1"
@@ -289,30 +293,30 @@
     >
     </ef-item>
     <ef-item
-      aria-selected="true"
+      aria-checked="true"
       highlighted=""
       id="AF"
       multiple=""
       role="option"
       selected=""
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
     <ef-item
-      aria-selected="false"
+      aria-checked="false"
       id="AX"
       multiple=""
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
     <ef-item
-      aria-selected="true"
+      aria-checked="true"
       id="AL"
       multiple=""
       role="option"
       selected=""
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
   </ef-list>
@@ -360,9 +364,10 @@
     aria-multiselectable="true"
     id="internal-list"
     role="listbox"
+    tabindex="-1"
   >
     <ef-item
-      aria-selected="false"
+      aria-checked="false"
       multiple=""
       role="presentation"
       tabindex="-1"
@@ -370,29 +375,29 @@
     >
     </ef-item>
     <ef-item
-      aria-selected="false"
+      aria-checked="false"
       id="AF"
       multiple=""
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
     <ef-item
-      aria-selected="true"
+      aria-checked="true"
       highlighted=""
       id="AX"
       multiple=""
       role="option"
       selected=""
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
     <ef-item
-      aria-selected="false"
+      aria-checked="false"
       id="AL"
       multiple=""
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
   </ef-list>
@@ -440,9 +445,10 @@
     aria-multiselectable="true"
     id="internal-list"
     role="listbox"
+    tabindex="-1"
   >
     <ef-item
-      aria-selected="false"
+      aria-checked="false"
       multiple=""
       role="presentation"
       tabindex="-1"
@@ -450,28 +456,28 @@
     >
     </ef-item>
     <ef-item
-      aria-selected="false"
+      aria-checked="false"
       highlighted=""
       id="AF"
       multiple=""
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
     <ef-item
-      aria-selected="false"
+      aria-checked="false"
       id="AX"
       multiple=""
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
     <ef-item
-      aria-selected="false"
+      aria-checked="false"
       id="AL"
       multiple=""
       role="option"
-      tabindex="0"
+      tabindex="-1"
     >
     </ef-item>
   </ef-list>

@@ -27,9 +27,15 @@
 >
   <div part="content-section">
     <div part="palettes-container">
-      <ef-color-palettes part="color-palettes">
+      <ef-color-palettes
+        aria-hidden="true"
+        part="color-palettes"
+      >
       </ef-color-palettes>
-      <ef-grayscale-palettes part="grayscale-palettes">
+      <ef-grayscale-palettes
+        aria-hidden="true"
+        part="grayscale-palettes"
+      >
       </ef-grayscale-palettes>
     </div>
     <div part="inputs-container">
@@ -40,7 +46,9 @@
       >
       </div>
       <div>
-        R :
+        <label for="redInput">
+          R :
+        </label>
         <ef-number-field
           id="redInput"
           max="255"
@@ -51,7 +59,9 @@
         </ef-number-field>
       </div>
       <div>
-        G :
+        <label for="greenInput">
+          G :
+        </label>
         <ef-number-field
           id="greenInput"
           max="255"
@@ -62,7 +72,9 @@
         </ef-number-field>
       </div>
       <div>
-        B :
+        <label for="blueInput">
+          B :
+        </label>
         <ef-number-field
           id="blueInput"
           max="255"
@@ -73,7 +85,12 @@
         </ef-number-field>
       </div>
       <div>
-        # :
+        <label
+          aria-label="Hex"
+          for="hexInput"
+        >
+          # :
+        </label>
         <ef-text-field
           id="hexInput"
           maxlength="6"

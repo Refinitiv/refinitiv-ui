@@ -1,5 +1,5 @@
 import type { Overlay } from '../elements/overlay';
-import { AfterRenderTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { AfterRenderTaskRunner } from '@refinitiv-ui/utils/async.js';
 
 export const ZIndex = 103; /* initial z-index to match Polymer. 102 is used for backdrop */
 

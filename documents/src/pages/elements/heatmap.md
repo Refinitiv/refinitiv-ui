@@ -51,8 +51,8 @@ ef-heatmap {
 
 `ef-heatmap` is a graphical representation of data where the individual values contained in a matrix are represented as colors.
 
-### Usage
-To initialize the heatmap, pass a configuration object to the `config` property. Heatmap uses `mid-point` and a cell's `value` to determine the colors of cells.
+## Usage
+To initialise the heatmap, pass a configuration object to the `config` property. Heatmap uses `mid-point` and a cell's `value` to determine the colors of cells.
 
 The default values of min, mid and max points are -1, 0 and 1, respectively.
 
@@ -69,14 +69,14 @@ el.config = {
 };
 ```
 
-### Config
+## Config
 | Properties | Type         | Required | Description                                                          |
 | ---------- | ------------ | :------: | -------------------------------------------------------------------- |
 | data       | `Cell`[ ][ ] |    ✓     | rows[columns[[< Cell >](./elements/heatmap#cells-configuration)]]    |
 | yAxis      | `YAxis`      |    ✗     | Configuration for [Y-Axis](./elements/heatmap#y-axiss-configuration) |
 | xAxis      | `XAxis`      |    ✗     | Configuration for [X-Axis](./elements/heatmap#x-axiss-configuration) |
 
-### Min, max and mid data point
+## Min, max and mid data point
 You can configure min, mid and max points to match your data format using the `min-point`, `mid-point` and `max-point` attributes.
 
 The example below shows how to configure the heatmap when data is ranged between 250 and 800 and the mid point is 600.
@@ -117,10 +117,10 @@ ef-heatmap {
 ></ef-heatmap>
 ```
 
-### Cell appearances
+## Cell appearances
 A Heatmap cell's appearance derives from data in `config`. However, a certain degree of customization and features addition is allowed for each individual cell.
 
-### Cell header
+## Cell header
 Besides a cell's label, there is also a cell header property which is **bolder** and always positioned on top of the label.
 
 ::
@@ -176,7 +176,7 @@ el.config = {
 };
 ```
 
-### Cell color blending
+## Cell color blending
 Color blending mode mixes the max and min colors with the canvas's background color, resulting in more natural, gradient-like cell colors.
 
 ::
@@ -222,7 +222,7 @@ const el = document.querySelector("ef-heatmap");
 el.renderCallback = (cell) => { foregroundColor: "#f0f0f0" };
 ```
 
-### Custom cell rendering
+## Custom cell rendering
 
 Heatmap accepts a custom rendering function via the `renderCallback` property to override `label`, `backgroundColor` and `foregroundColor` for each cell.
 
@@ -296,7 +296,7 @@ el.renderCallback = (cell) => {
 };
 ```
 
-### Cell's configuration
+## Cell's configuration
 
 | Properties      | Type                                   | Description             |
 | --------------- | -------------------------------------- | ----------------------- |
@@ -306,7 +306,7 @@ el.renderCallback = (cell) => {
 | foregroundColor | `string` of valid color (`hex`, `rgb`) | Cell's label color      |
 | backgroundColor | `string` of valid color (`hex`, `rgb`) | Cell's background color |
 
-### Axes position
+## Axes position
 
 Each axis has 2 different positioning options. X-axis can be at `top` or `bottom` and Y-axis can be at `left` or `right`.
 
@@ -365,14 +365,14 @@ el.config = {
 };
 ```
 
-### Y-Axis's configuration
+## Y-Axis's configuration
 
 | Properties | Type              | Description                                |
 | ---------- | ----------------- | ------------------------------------------ |
 | labels     | `string`[ ]       | Y-axis labels                              |
 | position   | `left` or `right` | Y-axis orientation relative to the heatmap |
 
-### X-Axis's configuration
+## X-Axis's configuration
 
 | Properties  | Type              | Description                                |
 | ----------- | ----------------- | ------------------------------------------ |
@@ -380,7 +380,7 @@ el.config = {
 | shortLabels | `string`[ ]       | X-axis short labels for smaller screens    |
 | position    | `top` or `bottom` | X-axis orientation relative to the heatmap |
 
-### Using tooltip
+## Using tooltip
 
 To render a tooltip on cell hover, pass a tooltip render function that returns HTML elements using the `tooltipCallback` property.
 
@@ -444,7 +444,7 @@ el.tooltipCallback = (cell) => {
 el.config = {...};
 ```
 
-### Handling click events
+## Handling click events
 `ef-heatmap` provides an API to allow user to get cell's information form a native mouse events such as `click`, `dblclick`, `contextmenu`, etc. Calling `getCellDataAtEvent` and passing an `event` to the method will return a data of interactive cell.
 
 ::
@@ -566,7 +566,7 @@ menu.addEventListener('item-trigger', (event) => {
 el.config = {...};
 ```
 
-### CSS variables
+## CSS variables
 
 The spaceing around cell and cell color can be customized using CSS variables.
 
@@ -604,3 +604,4 @@ ef-heatmap {
 | --spacing           | Margin around a cell in pixels |
 | --above-point-color | Color at the maximum point     |
 | --below-point-color | Color at the minimum point     |
+

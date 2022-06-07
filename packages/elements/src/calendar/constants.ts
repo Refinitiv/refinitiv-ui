@@ -1,4 +1,4 @@
-import { uuid } from '@refinitiv-ui/utils/lib/uuid.js';
+import { uuid } from '@refinitiv-ui/utils/uuid.js';
 
 export enum RenderView {
   DAY = 'day',

@@ -6,9 +6,9 @@ import {
   BasicElement,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
-import { styleMap } from '@refinitiv-ui/core/lib/directives/style-map.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { VERSION } from '../version.js';
 
 /**
@@ -161,5 +161,11 @@ export class ProgressBar extends BasicElement {
       </span>
     </div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-progress-bar': ProgressBar;
   }
 }

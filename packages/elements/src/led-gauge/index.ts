@@ -6,8 +6,8 @@ import {
   CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/lib/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/lib/decorators/property.js';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
 
 import '../canvas/index.js';
@@ -475,5 +475,11 @@ export class LedGauge extends BasicElement {
         ${this.createLabelTemplate(this.range, this.rangeLabel, 'range')}
       </section>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-led-gauge': LedGauge;
   }
 }

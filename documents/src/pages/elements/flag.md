@@ -28,7 +28,7 @@ ef-flag {
 
 `ef-flag` provides a collection of country flags.
 
-### Usage
+## Usage
 
 You can set a flag's code via the `flag` attribute to display the flag. Alternatively, instead of using the `flag` attribute, you can manually provide the url of an svg flag using the `src` attribute.
 
@@ -40,7 +40,7 @@ You can set a flag's code via the `flag` attribute to display the flag. Alternat
 <ef-flag src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/pe.svg"></ef-flag>
 ```
 
-### Changing size
+## Changing size
 
 Flags are displayed in 4:3 aspect ratio. Flag size can be set using `font-size`.
 
@@ -64,14 +64,14 @@ Flags are displayed in 4:3 aspect ratio. Flag size can be set using `font-size`.
 <ef-flag class="large" flag="gb"></ef-flag>
 ```
 
-### Preloading
+## Preloading
 
 `ef-flag` has the helper function to preload a set of flags. It could help to load flags faster if you have a known set of flags for use in the app. It accepts both flag name or svg location, either single flag or multiple.
 
 Preload of flags will be deferred until the first `ef-flag` component created.
 
 ```javascript
-import { preload } from "@refinitiv-ui/elements/lib/flag";
+import { preload } from "@refinitiv-ui/elements/flag";
 
 preload("us");
 preload("au", "nz");
@@ -82,7 +82,22 @@ preload(
 ```
 
 
-### Flag list
+## Accessibility
+::a11y-intro::
+
+`ef-flag` delegates focus into its internal svg which has native `role="image"`. Assistive technology users ascertain the purpose of the icon via its accessible name.
+
+Typically, flag may not be tabbable or focusable. However, if it's required, you can set `tabindex` and use `aria-label` or `title` to add its accessible name.
+
+```html
+<ef-icon flag="nz" tabindex="0" aria-label="New Zealand Flag"></ef-icon>
+<ef-icon flag="nz" tabindex="0" title="New Zealand Flag"></ef-icon>
+```
+
+::a11y-end::
+
+
+## Flag list
 
 Below is a list of available flags in the Halo theme. You can use them with the `ef-flag`.
 

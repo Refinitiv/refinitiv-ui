@@ -1,4 +1,3 @@
-import type { Tooltip } from '../index';
 import type { TooltipCondition, TooltipRenderer } from '../helpers/types';
 
 const defaultTooltipMap = new Map<TooltipCondition, TooltipRenderer>();
@@ -46,7 +45,7 @@ const renderer: TooltipRenderer = (target) => {
  * The default tooltip, which is used to replicate `title` attribute
  * and to show tooltips for EF elements
  */
-const tooltipElement = document.createElement('ef-tooltip') as Tooltip;
+const tooltipElement = document.createElement('ef-tooltip');
 tooltipElement.setAttribute('ref', 'title-override');
 tooltipElement.condition = condition;
 tooltipElement.renderer = renderer;

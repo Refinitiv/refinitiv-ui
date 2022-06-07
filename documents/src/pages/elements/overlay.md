@@ -48,7 +48,7 @@ section {
 
 `ef-overlay` is a base modal container for components. It helps create dialogs, tooltips, menus and other elements that should appear on top of the main application window. It is highly configurable, including positioning, attaching to elements, transition styles, backdrops and much more.
 
-### Usage
+## Usage
 
 * [Position against window](./elements/overlay#position-against-window)
 * [Attach to target](./elements/overlay#attach-to-target)
@@ -56,7 +56,7 @@ section {
 * [Position strategy](./elements/overlay#position-strategy)
 * [Customize behavior](./elements/overlay#customize-behavior)
 
-### Advanced usage
+## Advanced usage
 * [Advanced attributes](./elements/overlay#advanced-attributes)
 * [Control focus behavior](./elements/overlay#control-focus-behavior)
 * [Control focus behavior](./elements/overlay#control-focus-behavior)
@@ -65,7 +65,7 @@ section {
 
 <br>
 
-### Using overlay
+## Using overlay
 
 `ef-overlay` is typically initiated by a user action. The overlay can be opened by setting the `opened` property. Remove the property to close the overlay. In addition, the user can close the overlay by clicking outside overlay area or by pressing the ESC key.
 
@@ -78,7 +78,7 @@ const overlay = document.getElementById('overlay');
 overlay.opened = true;
 ```
 
-### Position against window
+## Position against window
 By default `ef-overlay` appears at the centre of the window. You can set `position-target` to change that behavior.
 
 | Position Target    | Description                                                            |
@@ -166,7 +166,7 @@ section {
 <ef-overlay position-target="top right" x="20" y="40"></ef-overlay>
 ```
 
-### Attach to target
+## Attach to target
 
 Overlay can be attached to an element by setting the `positionTarget` property to an `HTMLElment` object.
 
@@ -215,7 +215,7 @@ const overlay = document.getElementById('overlay');
 overlay.positionTarget = target;
 ```
 
-### Position against target
+## Position against target
 
 Position strategies are set using the `position` property. `ef-overlay` picks the best strategy to show maximum content without overlapping the target element. If none of the position strategies can be used, the overlay may overlap the target element or restrict the overlay size.
 
@@ -223,7 +223,7 @@ Position strategies are set using the `position` property. `ef-overlay` picks th
 overlay.position = ['bottom-end', 'bottom-start', 'right-end', 'center-middle'];
 ```
 
-### Position strategy
+## Position strategy
 The first part defines *position*. The optional second part defines *align*. For instance: `bottom`, `top-start`, `right-middle`.
 
 | Position | Description                                       |
@@ -316,7 +316,7 @@ Use `offset` to add pixel offset from the target element.
 <ef-overlay offset="4"></ef-overlay>
 ```
 
-### Customize behavior
+## Customize behavior
 Behavior of overlay is customized easily by using attributes, e.g. `with-shadow`, `full-screen`, `with-backdrop`, etc.
 You can use `transition-style` to add a transition.
 
@@ -397,10 +397,10 @@ section {
 
 <br>
 
-### Advanced Usage
+## Advanced Usage
 
 ---
-### Applying exotic CSS properties
+## Applying exotic CSS properties
 
 `ef-overlay` calculates `x` and `y` coordinates based on screen dimension and position target (if any). An overlay using `position: fixed` is removed from the normal document flow and is positioned relative to the initial containing block established by the viewport. The positioning algorithm assumes that overlay, viewport and positionTarget are located within the same coordinate system.
 
@@ -423,7 +423,7 @@ Below is a brief summary of supported use cases.
 | ✗ | transform:perspective | No Support | - |
 | ✗ | perspective | No Support | - |
 
-### Advanced attributes
+## Advanced attributes
 
 To create a modal overlay, use the `no-cancel-on-outside-click`, `no-cancel-on-esc-key`, and `with-backdrop` attributes together.
 
@@ -452,7 +452,7 @@ overlay.interactiveElements = [
 ];
 ```
 
-### Control focus behavior
+## Control focus behavior
 
 `ef-overlay` controls the tabbing and focus behavior. When the overlay is opened, only elements inside the overlay can be tabbed through. In addition, the overlay puts the focus on itself when opened.
 
@@ -487,3 +487,4 @@ const overlay = document.getElementById('overlay');
 overlay.positionTarget = input;
 overlay.focusBoundary = customElement;
 ```
+

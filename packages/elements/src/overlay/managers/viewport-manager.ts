@@ -1,4 +1,4 @@
-import { AnimationTaskRunner } from '@refinitiv-ui/utils/lib/async.js';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 import type { OverlayViewport } from '../elements/overlay-viewport';
 import type { ViewAreaInfo } from '../helpers/types';
 import type { Overlay } from '../elements/overlay';
@@ -52,7 +52,7 @@ export class ViewportManager {
    * @returns created overlay-viewport
    */
   private createViewport (insertBefore: Node | null): OverlayViewport {
-    const viewport = document.createElement('ef-overlay-viewport') as OverlayViewport;
+    const viewport = document.createElement('ef-overlay-viewport');
     insertBefore?.parentNode?.insertBefore(viewport, insertBefore);
     return viewport;
   }

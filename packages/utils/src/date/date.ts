@@ -82,7 +82,7 @@ const formatDate = (value: Segment | Date, format: InputFormat, isUTC: boolean):
   const segment: Segment = value instanceof Date ? toSegment(value, isUTC) : value;
   switch (format) {
     case Format.yyyy:
-      return `${padYear(segment.year)}}`;
+      return `${padYear(segment.year)}`;
     case Format.yyyyMM:
       return `${padYear(segment.year)}-${padMonth(segment.month)}`;
     case Format.yyyyMMdd:

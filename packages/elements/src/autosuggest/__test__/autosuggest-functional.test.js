@@ -664,6 +664,21 @@ describe('autosuggest/Functional', () => {
       expect(revealedEvent.detail.reason).to.equal('suggestions-revealed');
     });
 
+    it('render moreSearchText as a text', async function () {
+      const autoSuggest = await createFixture('default');
+      const text = '<div>xss</div>';
+      autoSuggest.moreResults = true;
+      autoSuggest.query = text;
+      await elementUpdated(autoSuggest);
+      const moreResultsText = autoSuggest.shadowRoot.querySelector('[part=more-results] [part=more-results-text] mark');
+      expect(moreResultsText.innerText.trim()).to.equal(text);
+      autoSuggest.moreSearchText = 'Results are {0} and {0}';
+      await elementUpdated(autoSuggest);
+      const moreResultsTexts = autoSuggest.shadowRoot.querySelectorAll('[part=more-results] [part=more-results-text] mark');
+      expect(moreResultsTexts[0].innerText.trim()).to.equal(text);
+      expect(moreResultsTexts[1].innerText.trim()).to.equal(text);
+    });
+
     it('moreResults using shift + enter', async function () {
       if (isIE()) {
         this.skip();
