@@ -23,7 +23,7 @@
       </div>
     </div>
     <div
-      aria-label="value"
+      aria-label="Value"
       aria-valuemax="100"
       aria-valuemin="0"
       aria-valuenow="0"
