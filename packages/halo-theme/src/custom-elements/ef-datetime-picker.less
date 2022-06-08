@@ -29,9 +29,30 @@
   }
 
   &[warning] {
-    [part=icon] {
-      color: @scheme-color-warning;
-    }
+    border-color: @control-warning-color;
+  }
+
+  &[error] {
+    border-color: @control-error-color;
+  }
+
+  &[warning]:hover:not([readonly]):not([focused]) {
+    border-color: @control-hover-warning-color;
+  }
+
+  &[warning][disabled],
+  &[warning][readonly]:not([focused]) {
+    border-color: fade(@control-hover-warning-color, 50%);
+  }
+
+  &[error]:hover:not([readonly]):not([focused])  {
+    border-color: @control-hover-error-color;
+  }
+
+  &[error][disabled],
+  &[error][warning][disabled],
+  &[error][readonly]:not([focused]) {
+    border-color: fade(@control-hover-error-color, 50%);
   }
 
   &[disabled] {
@@ -42,21 +63,13 @@
 
   &[focused],
   &[focused][error][warning],
-  &:not([disabled]):hover {
+  &:not([disabled]):not([error]):not([warning]):hover {
     [part=icon] {
       color: @scheme-color-secondary;
 
       & when (@variant = light) {
         color: @scheme-color-primary;
       }
-    }
-  }
-
-  &:not([disabled]):not([focused])[warning]:hover {
-    border-color: @control-hover-warning-color;
-
-    [part=icon] {
-      color: @control-hover-warning-color;
     }
   }
 
