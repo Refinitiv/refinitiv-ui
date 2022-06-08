@@ -48,6 +48,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish Docs
-        uses: wei/curl@v1
-        with:
-          args: -X POST "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/${{ secrets.CF_DEPLOY_HOOKS_ID }}"
+        run: curl -X POST "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/${{ secrets.CF_DEPLOY_HOOKS_ID }}"
