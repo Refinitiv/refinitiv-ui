@@ -3,19 +3,19 @@ import { fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 export const createFixture = (fixtureType = 'default') => {
   switch (fixtureType) {
     case 'default':
-      return fixture('<ef-autosuggest></ef-autosuggest>');
+      return fixture('<ef-autosuggest lang="en"></ef-autosuggest>');
     case 'request-on-focus':
-      return fixture('<ef-autosuggest debounce-rate="0" request-on-focus attach="#input-element"></ef-autosuggest>');
+      return fixture('<ef-autosuggest lang="en" debounce-rate="0" request-on-focus attach="#input-element"></ef-autosuggest>');
     case 'snapshot':
-      return fixture('<ef-autosuggest loading attach="#input-element" more-results></ef-autosuggest>');
+      return fixture('<ef-autosuggest lang="en" loading attach="#input-element" more-results></ef-autosuggest>');
     case 'reason':
-      return fixture('<ef-autosuggest request-on-focus attach="#input-element" debounce-rate="0"></ef-autosuggest>');
+      return fixture('<ef-autosuggest lang="en" request-on-focus attach="#input-element" debounce-rate="0"></ef-autosuggest>');
     case 'navigation':
-      return fixture('<ef-autosuggest attach="#input-element" debounce-rate="0"></ef-autosuggest>');
+      return fixture('<ef-autosuggest lang="en" attach="#input-element" debounce-rate="0"></ef-autosuggest>');
     case 'custom-renderer':
-      return fixture('<ef-autosuggest attach="#input-element" debounce-rate="0"></ef-autosuggest>');
+      return fixture('<ef-autosuggest lang="en" attach="#input-element" debounce-rate="0"></ef-autosuggest>');
     case 'html-renderer':
-      return fixture('<ef-autosuggest attach="#input-element" debounce-rate="0" html-renderer></ef-autosuggest>');
+      return fixture('<ef-autosuggest lang="en" attach="#input-element" debounce-rate="0" html-renderer></ef-autosuggest>');
     default:
       throw new Error('unknown fixture');
   }
