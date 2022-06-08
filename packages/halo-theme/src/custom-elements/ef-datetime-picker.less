@@ -28,6 +28,12 @@
     }
   }
 
+  &[warning] {
+    [part=icon] {
+      color: @scheme-color-warning;
+    }
+  }
+
   &[disabled] {
     [part=icon] {
       color: @input-disabled-text-color
@@ -43,6 +49,14 @@
       & when (@variant = light) {
         color: @scheme-color-primary;
       }
+    }
+  }
+
+  &:not([disabled]):not([focused])[warning]:hover {
+    border-color: @control-hover-warning-color;
+
+    [part=icon] {
+      color: @control-hover-warning-color;
     }
   }
 
