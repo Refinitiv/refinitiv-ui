@@ -164,11 +164,11 @@ ef-collapse > ef-checkbox {
 ## Accessibility
 ::a11y-intro::
 
-`ef-collapse` is assigned the `role="button"` and can include the property `aria-expanded`. It aims to toggling between expanding and collapse its content. `aria-level` attribute should be used to define the hierarchical level elements within their hierarchical structures. Levels increase with depth. The value for aria-level is an integer greater than or equal to 1.
+`ef-collapse` is assigned the `role="button"` and can include the property `aria-expanded`. It toggles between expanding and collapsing its content. `aria-level` attribute should be used to define the hierarchical level elements within their hierarchical structures. Levels increase with depth. The value for aria-level is an integer greater than or equal to 1.
 
 The slots feature uses a combination of the Button and Checkbox components.  
 
-`ef-collapse` has provided role and keyboard navigation. However, you need to set an appropriate `aria-level` attribute to the element, depends on your page structure. Typically, on the page, it should reserve `aria-level="1"` for main page's heading (h1) so you may want to set `aria-level` from `aria-level="2"` onward.
+`ef-collapse` has provided role and keyboard navigation. However, you need to set an appropriate `aria-level` attribute to the element, depending on your page structure. Typically, on the page, it should reserve `aria-level="1"` for main page's heading (h1) so you may want to set `aria-level` from `aria-level="2"` onwards.
 
 ```html
 <ef-collapse header="SpaceX Dragon" aria=level="2">

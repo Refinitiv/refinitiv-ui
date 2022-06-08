@@ -18,6 +18,10 @@
   </head>
   <body>
     <script type="module">
+      // Translations polyfills
+      import '@formatjs/intl-locale/polyfill.iife';
+      import '@formatjs/intl-getcanonicallocales/polyfill.iife';
+
       import '@refinitiv-ui/elements/autosuggest';
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/elements/text-field';
@@ -104,7 +108,7 @@
       })();
     </script>
 
-    <demo-block layout="normal" header="Default" tags="Default, Paging, Grouped, Async">
+    <demo-block layout="normal" header="Default" tags="Default, Paging, Grouped, Async, Accessibility">
       <p>Auto suggest is designed to work with <code>text-field</code> to render <code>item</code> as
         suggestions.
         Provide <code>attach</code> CSS selector and define how the suggestions are populated. The suggestion data
@@ -115,7 +119,13 @@
         Start typing to see the result.</p>
       <div style="display: flex;">
         <div style="margin-right: 15px;">
-          <ef-text-field id="default-input" placeholder="Start typing..."></ef-text-field>
+          <label for="default-input">Start typing...</label>
+          <input id="default-input"
+                 role="combobox"
+                 aria-controls="default-autosuggest"
+                 aria-expanded="false"
+                 aria-autocomplete="both"
+                 aria-haspopup="listbox">
         </div>
         <div style="display: flex;">
           <div class="container">
@@ -172,6 +182,7 @@
             let suggestions;
 
             autoSuggest = document.createElement('ef-autosuggest');
+            autoSuggest.id = 'default-autosuggest';
             autoSuggest.attach = '#default-input';
             autoSuggest.debounceRate = debounce;
             autoSuggest.requestOnFocus = requestOnFocus;
@@ -186,6 +197,18 @@
               footerTemplate.innerHTML = '<div style="font-style: italic; margin: 5px; text-align: right;" slot="footer">Written with ❤</div>';
               autoSuggest.appendChild(footerTemplate.content);
             }
+
+            autoSuggest.addEventListener('opened-changed', (event) => {
+              const opened = event.detail.value;
+              input.setAttribute('aria-expanded', `${opened}`);
+              input.removeAttribute('aria-activedescendant');
+            });
+
+            autoSuggest.addEventListener('item-select', (event) => {
+              const target = event.detail.target;
+              const targetId = target ? (target.id || '') : '';
+              input.setAttribute('aria-activedescendant', targetId);
+            });
 
             autoSuggest.addEventListener('suggestions-fetch-requested', ({ target, detail: { query, reason } }) => {
               if (reason === 'more-results') {
@@ -231,6 +254,7 @@
           defaultPagedEl.addEventListener('checked-changed', renderAutoSuggest);
           defaultMaskedEl.addEventListener('checked-changed', renderAutoSuggest);
         })();
+
       </script>
     </demo-block>
 
@@ -443,7 +467,7 @@
       </div>
       <ef-autosuggest id="compound-input-a" attach="#compound-input"></ef-autosuggest>
       <script type="module">
-        import { itemRenderer } from './../../../lib/autosuggest/helpers/utils';
+        import { renderer } from './../../../lib/autosuggest';
 
         (function () {
           const group = document.getElementById('compound-input-group');
@@ -456,7 +480,7 @@
           });
 
           autoSuggest.renderer = (suggestion, query) => {
-            return itemRenderer(suggestion, query.value);
+            return renderer(suggestion, query.value);
           };
 
           autoSuggest.addEventListener('item-select', (ev) => {

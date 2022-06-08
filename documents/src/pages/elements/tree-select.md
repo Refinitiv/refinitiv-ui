@@ -144,12 +144,10 @@ const el = document.querySelector("ef-tree-select");
 el.data = [{
   'value': 'AFR',
   'label': 'Africa',
-  'selected': false,
   'expanded': true,
   'items': [{
     'value': 'DZA',
     'label': 'Algeria',
-    'selected': false,
     'expanded': true,
     'items': [{
       'value': 'ADR',
@@ -222,11 +220,9 @@ const el = document.querySelector("ef-tree-select");
 el.data = [{
   'value': 'AFR',
   'label': 'Africa',
-  'selected': false,
   'items': [{
     'value': 'DZA',
     'label': 'Algeria',
-    'selected': false,
     'items': [{
       'value': 'ADR',
       'label': 'Adrar',
@@ -313,7 +309,7 @@ ef-select {
 ## Accessibility
 ::a11y-intro::
 
-Tree select is assigned `role="combo-box"` and it support similar aria attributes as Combo box such as `aria-multiselectable`, `aria-label` or `aria-labelledby`. It has a modal which has `role="dialog"` and it contains Tree, its filter and controls. When opened, focus is managed within the dialog itself.
+Tree select is assigned `role="combo-box"` and it supports similar aria attributes as Combo box such as `aria-multiselectable`, `aria-label` or `aria-labelledby`. It has a modal which has `role="dialog"` and it contains Tree, its filter and controls. When opened, focus is managed within the dialog itself.
 
 `ef-tree-select` has already managed role and keyboard navigation but you should set accessible name to the element by using `aria-label` or `aria-labelledby`.
 

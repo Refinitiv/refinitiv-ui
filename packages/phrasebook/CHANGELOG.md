@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.0.0-next.2...@refinitiv-ui/phrasebook@6.0.0) (2022-06-07)
+
+
+### Features
+
+* **clock:** improve clock accessibility ([#308](https://github.com/Refinitiv/refinitiv-ui/issues/308)) ([c0a9bb0](https://github.com/Refinitiv/refinitiv-ui/commit/c0a9bb04c212b6aa4dbce495bec4faebd9080eaf)), closes [#311](https://github.com/Refinitiv/refinitiv-ui/issues/311)
+* **slider:** add localised label for slider thumb ([#351](https://github.com/Refinitiv/refinitiv-ui/issues/351)) ([ba9cc8d](https://github.com/Refinitiv/refinitiv-ui/commit/ba9cc8d563444dba35a082a3898dc4e8f9235074))
+
+
+
+
+
 ## [5.4.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@5.4.0...@refinitiv-ui/phrasebook@5.4.1) (2022-01-12)
 
 **Note:** Version bump only for package @refinitiv-ui/phrasebook

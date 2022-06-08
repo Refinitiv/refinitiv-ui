@@ -398,7 +398,7 @@ menu.addEventListener('tap', (event) => {
 ## Accessibility
 ::a11y-intro::
 
-`ef-item` is low-level element that typically, it is used to compose for creating other element such as `ef-list`, `ef-tree`. Hence, `ef-item` will not be assigned with any roles by default but only provide `aria-selected` and `aria-checked` attributes which will reflect current selected state of itself.
+`ef-item` is a low-level element that's typically used to create other elements such as `ef-list`and `ef-tree`. Hence, `ef-item` will not be assigned any roles by default but only provide `aria-selected` and `aria-checked` attributes which will reflect its current selected state.
 
 For example, if you don't want to use `ef-list` and want to create a list element, you can assign your parent element with `role="listbox"` and each `ef-item` with `role="option"`.
 

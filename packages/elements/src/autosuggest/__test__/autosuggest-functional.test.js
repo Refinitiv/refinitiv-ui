@@ -665,7 +665,7 @@ describe('autosuggest/Functional', () => {
     });
 
     it('render moreSearchText as a text', async function () {
-      const autoSuggest = await createFixture('navigation');
+      const autoSuggest = await createFixture('default');
       const text = '<div>xss</div>';
       autoSuggest.moreResults = true;
       autoSuggest.query = text;
@@ -673,8 +673,6 @@ describe('autosuggest/Functional', () => {
       const moreResultsText = autoSuggest.shadowRoot.querySelector('[part=more-results] [part=more-results-text] mark');
       expect(moreResultsText.innerText.trim()).to.equal(text);
       autoSuggest.moreSearchText = 'Results are {0} and {0}';
-      autoSuggest.opened = false;
-      autoSuggest.opened = true; // forced re-render
       await elementUpdated(autoSuggest);
       const moreResultsTexts = autoSuggest.shadowRoot.querySelectorAll('[part=more-results] [part=more-results-text] mark');
       expect(moreResultsTexts[0].innerText.trim()).to.equal(text);
