@@ -28,11 +28,11 @@
     }
   }
 
-  &[warning] {
+  &[warning]:not([focused]) {
     border-color: @control-warning-color;
   }
 
-  &[error] {
+  &[error]:not([focused]) {
     border-color: @control-error-color;
   }
 
@@ -50,7 +50,6 @@
   }
 
   &[error][disabled],
-  &[error][warning][disabled],
   &[error][readonly]:not([focused]) {
     border-color: fade(@control-hover-error-color, 50%);
   }
