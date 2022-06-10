@@ -423,7 +423,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     };
     this.queryItems((item, composer): boolean => {
       const hasChildren = composer.getItemChildren(item);
-      if (hasChildren.length) {
+      if (hasChildren.length && this.mode === TreeManagerMode.RELATIONAL) {
         this.memo.expandable += 1;
         if (this.treeManager.isItemExpanded(item) && this.treeManager.isItemCheckable(item)) {
           this.memo.expanded += 1;
@@ -605,8 +605,11 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       }).slice();
 
       // do not expand EMS if there is no filter applied
-      if (this.query || this.editSelectionItems.size) {
+      if (this.query) {
         this.addItemDescendantsToRender(items);
+        this.addExpandedAncestorsToRender(items);
+      }
+      else if (this.selectionFilterState) {
         this.addExpandedAncestorsToRender(items);
       }
 

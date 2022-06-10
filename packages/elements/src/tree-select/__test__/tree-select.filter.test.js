@@ -12,6 +12,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
 import { flatData, flatSelection } from './mock_data/flat';
 import { nestedData, nestedSelection, selectableCount } from './mock_data/nested';
 import { multiLevelData } from './mock_data/multi-level';
+import { noRelationData } from './mock_data/noRelation';
 import { changeItemSelection, openedUpdated } from './utils';
 
 /*
@@ -197,6 +198,21 @@ describe('tree-select/Filter', () => {
       el.treeManager.uncheckItem(nestedSelection[5]);
       // no change in the list
       expect(el.treeManager.visibleItems.length).to.equal(nestedSelection.length + 2, 'Item unchecked in state is visible');
+    });    
+    
+    it('Should not show unselected items in when selection filter applied on no-relation mode', async () => {
+      const el = await fixture('<ef-tree-select opened no-relation></ef-tree-select>');
+      el.data = noRelationData;
+      el.selectedClickHandler();
+      expect(el.treeManager.visibleItems.length).to.equal(el.treeManager.checkedItems.length);
+    });
+
+    it('Should has correct selected amount when checked parent item on no-relation mode', async () => {
+      const el = await fixture('<ef-tree-select opened no-relation></ef-tree-select>');
+      el.data = noRelationData;
+      el.treeManager.uncheckItem(noRelationData[0].items[0]); // unselected all items excepts the parent
+      el.updateMemo();
+      expect(el.memo.selected).to.equal(el.treeManager.checkedItems.length);
     });
 
     it('Removes selection filter', async () => {
