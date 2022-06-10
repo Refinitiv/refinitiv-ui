@@ -1,9 +1,9 @@
 import { Phrasebook } from '../../translation.js';
 
 const translations = {
-  FROM: 'From',
-  TO: 'To',
-  VALUE: 'Value'
+  FROM: '開始',
+  TO: '終了',
+  VALUE: '値'
 };
 
 Phrasebook.define('ja', 'ef-slider', translations);
