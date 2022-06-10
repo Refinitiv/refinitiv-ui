@@ -253,19 +253,23 @@ if (argv.browserstack.length && !argv.watch) {
 
   reporters.push('BrowserStack');
 
-  // Add BrowserStack launchers to config
+  /**
+   *  Check the command has set a browser name for run testing
+   * @param {string} browser browser name
+   * @returns {boolean}
+   */
   const hasTest = (browser) => {
-    if (argv.browserstack.includes(browser)) {
-      return true;
+    let result = false;
+
+    if (argv.browserstack.includes(browser) // match browser name
+      || (argv.browserstack.includes('supported') && supportedBSBrowsers.includes(browser))) { // Or in the supported browsers
+      result = true;
     }
 
-    // In supported browsers
-    if (argv.browserstack.includes('supported') && supportedBSBrowsers.includes(browser)) {
-      return true;
-    }
-
-    return false;
+    return result;
   }
+
+  // Add BrowserStack launchers to config
   const browserStackLaunchers = {
     // Latest version
     ...hasTest('chrome') ? BSBrowser('bs_chrome', 'Windows', '11', 'chrome', 'latest') : {},
