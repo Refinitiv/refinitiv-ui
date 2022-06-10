@@ -1,9 +1,9 @@
 import { Phrasebook } from '../../translation.js';
 
 const translations = {
-  FROM: 'From',
-  TO: 'To',
-  VALUE: 'Value'
+  FROM: '从',
+  TO: '至',
+  VALUE: '值'
 };
 
 Phrasebook.define('zh', 'ef-slider', translations);
