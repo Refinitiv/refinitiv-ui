@@ -200,14 +200,14 @@ describe('tree-select/Filter', () => {
       expect(el.treeManager.visibleItems.length).to.equal(nestedSelection.length + 2, 'Item unchecked in state is visible');
     });    
     
-    it('Should not show unselected items in when selection filter applied on no-relation mode', async () => {
+    it('Should not show unselected items when clicking on selected button in no-relation mode', async () => {
       const el = await fixture('<ef-tree-select opened no-relation></ef-tree-select>');
       el.data = noRelationData;
       el.selectedClickHandler();
       expect(el.treeManager.visibleItems.length).to.equal(el.treeManager.checkedItems.length);
     });
 
-    it('Should has correct selected amount when checked parent item on no-relation mode', async () => {
+    it('Should has correct selected amount when checking on parent item in no-relation mode', async () => {
       const el = await fixture('<ef-tree-select opened no-relation></ef-tree-select>');
       el.data = noRelationData;
       el.treeManager.uncheckItem(noRelationData[0].items[0]); // unselected all items excepts the parent
