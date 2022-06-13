@@ -422,14 +422,18 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       selectable: 0
     };
     this.queryItems((item, composer): boolean => {
-      const hasChildren = composer.getItemChildren(item);
-      if (hasChildren.length && this.mode === TreeManagerMode.RELATIONAL) {
+      const hasChildren = composer.getItemChildren(item).length;
+      if (hasChildren) {
         this.memo.expandable += 1;
         if (this.treeManager.isItemExpanded(item) && this.treeManager.isItemCheckable(item)) {
           this.memo.expanded += 1;
         }
       }
-      else if (!this.composer.isItemLocked(item)) {
+      // Parent item can be count as selected item in no-relation mode
+      if (!hasChildren || this.mode === TreeManagerMode.INDEPENDENT) {
+        if (this.composer.isItemLocked(item)) {
+          return false;
+        }
         this.memo.selectable += 1;
         if (this.getItemPropertyValue(item, 'selected') === true) {
           this.memo.selected += 1;

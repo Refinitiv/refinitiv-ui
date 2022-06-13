@@ -212,6 +212,7 @@ describe('tree-select/Filter', () => {
       el.data = noRelationData;
       el.treeManager.uncheckItem(noRelationData[0].items[0]); // unselected all items excepts the parent
       el.updateMemo();
+      expect(el.memo.expandable).to.equal(el.treeManager.parentItems.length);
       expect(el.memo.selected).to.equal(el.treeManager.checkedItems.length);
     });
 
