@@ -234,7 +234,7 @@ const plugins: Chart.PluginServiceRegistrationOptions = {
     const items = chart.getDatasetMeta(datasetIndex).data[selectedIndex];
     chart.selected = items ? [items] : [];
   },
-  afterDraw: function (chart: DoughnutChart & Selectable): void {
+  afterDatasetsDraw: function (chart: DoughnutChart & Selectable): void {
     if (getPluginConfig(chart)) {
       // Draw active element
       // Note: use logic from chart.js - chart.js/src/elements/element.arc.js :draw()
