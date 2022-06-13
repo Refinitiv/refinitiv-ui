@@ -274,7 +274,9 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
       this.manager.setMode(this.mode);
     }
 
-    if (changeProperties.has('query') || changeProperties.has('data')) {
+    if (changeProperties.has('query') || changeProperties.has('data')
+        || (this.query && changeProperties.has('multiple')) // This code is here to filter items when selection mode is change
+    ) {
       this.filterItems();
     }
   }
@@ -298,7 +300,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
           this.manager.includeItem(item);
         }
         else {
-          this.manager.excludeItem(item);
+          this.manager.excludeItem(item, this.multiple);
         }
 
         return result;

@@ -239,11 +239,12 @@ export class TreeManager<T extends TreeDataItem> {
   /**
    * Excludes an item as part of the tree.
    * @param item Item to exclude
+   * @param lock Item lock
    * @returns `True` if the item is newly excluded
    */
-  public excludeItem (item: T): boolean {
+  public excludeItem (item: T, lock = true): boolean {
     this.hideItem(item);
-    return this.composer.lockItem(item);
+    return lock ? this.composer.lockItem(item) : this.composer.unlockItem(item);
   }
 
   /**
