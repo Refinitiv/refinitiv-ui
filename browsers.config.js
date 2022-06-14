@@ -8,6 +8,7 @@ const defaultBrowsers = ['chrome', 'firefox'];
 const availableBrowsers = ['chrome', 'firefox', 'opera'];
 
 // BrowserStack browsers
+const defaultBSBrowsers = ['chrome', 'firefox', 'edge'];
 const supportedBSBrowsers = [
   'chrome', 'firefox', 'edge',
   'chrome_previous', 'firefox_previous', 'edge_previous'
@@ -60,6 +61,7 @@ if (isDarwin) {
 module.exports = {
   defaultBrowsers,
   availableBrowsers,
+  defaultBSBrowsers,
   supportedBSBrowsers,
   availableBSBrowsers,
   BSBrowser,

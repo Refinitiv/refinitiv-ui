@@ -7,6 +7,7 @@ const { injectLitPolyfill } = require('./scripts/karma/plugins/inject-lit-polyfi
 const {
   defaultBrowsers,
   availableBrowsers,
+  defaultBSBrowsers,
   supportedBSBrowsers,
   availableBSBrowsers,
   BSBrowser,
@@ -49,7 +50,7 @@ const argv = yargs(hideBin(process.argv))
   .option('browserstack', {
     type: 'array',
     alias: 'bs',
-    default: [],
+    default: defaultBSBrowsers,
     choices: availableBSBrowsers,
     description: 'Run units test on BrowserStack and specific browser(s)'
   })

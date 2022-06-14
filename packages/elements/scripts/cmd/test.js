@@ -3,6 +3,7 @@ const { execSync } = require('child_process');
 const {
   defaultBrowsers,
   availableBrowsers,
+  defaultBSBrowsers,
   availableBSBrowsers
 } = require('../../browsers.config');
 
@@ -45,7 +46,7 @@ exports.builder = yargs => {
     .option('browserstack', {
       type: 'array',
       alias: 'bs',
-      default: [],
+      default: defaultBSBrowsers,
       choices: availableBSBrowsers,
       description: 'Run units test on BrowserStack and specific browser(s)'
     })
