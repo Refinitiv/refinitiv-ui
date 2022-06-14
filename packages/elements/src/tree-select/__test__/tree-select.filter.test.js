@@ -207,7 +207,7 @@ describe('tree-select/Filter', () => {
       expect(el.treeManager.visibleItems.length).to.equal(el.treeManager.checkedItems.length);
     });
 
-    it('Should has correct selected amount when checking on parent item in no-relation mode', async () => {
+    it('Should have correct selected amount when checking on parent item in no-relation mode', async () => {
       const el = await fixture('<ef-tree-select opened no-relation></ef-tree-select>');
       el.data = noRelationData;
       el.treeManager.uncheckItem(noRelationData[0].items[0]); // unselected all items excepts the parent
