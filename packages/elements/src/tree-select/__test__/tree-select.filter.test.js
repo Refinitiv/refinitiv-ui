@@ -12,7 +12,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
 import { flatData, flatSelection } from './mock_data/flat';
 import { nestedData, nestedSelection, selectableCount } from './mock_data/nested';
 import { multiLevelData } from './mock_data/multi-level';
-import { noRelationData } from './mock_data/noRelation';
+import { noRelationData } from './mock_data/no-relation';
 import { changeItemSelection, openedUpdated } from './utils';
 
 /*
@@ -198,8 +198,8 @@ describe('tree-select/Filter', () => {
       el.treeManager.uncheckItem(nestedSelection[5]);
       // no change in the list
       expect(el.treeManager.visibleItems.length).to.equal(nestedSelection.length + 2, 'Item unchecked in state is visible');
-    });    
-    
+    });
+
     it('Should not show unselected items when clicking on selected button in no-relation mode', async () => {
       const el = await fixture('<ef-tree-select opened no-relation></ef-tree-select>');
       el.data = noRelationData;
