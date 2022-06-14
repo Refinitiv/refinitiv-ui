@@ -26,7 +26,8 @@ import {
 import { tooltipRenderer } from './helpers/renderer.js';
 import {
   register as registerOverflowTooltip,
-  deregister as deregisterOverflowTooltip
+  deregister as deregisterOverflowTooltip,
+  retarget as retargetOverflowTooltip
 } from './helpers/overflow-tooltip.js';
 
 const TooltipPositionMap: TooltipPositionMap = {
@@ -577,6 +578,7 @@ export * from './elements/tooltip-element.js';
 export {
   registerOverflowTooltip,
   deregisterOverflowTooltip,
+  retargetOverflowTooltip,
   Tooltip,
   TooltipCondition,
   TooltipRenderer,

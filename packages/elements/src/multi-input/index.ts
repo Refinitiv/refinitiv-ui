@@ -9,10 +9,11 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { registerOverflowTooltip, retargetOverflowTooltip } from '../tooltip/index.js';
 import type { Pill } from '../pill';
 import type { TextField } from '../text-field';
 import type { MultiInputData, MultiInputDataItem, MultiInputEvents, SelectionIndex } from './helpers/types';
@@ -161,15 +162,15 @@ export class MultiInput extends ControlElement implements MultiValue {
    */
   @property({ type: Number, attribute: false })
   public get selectionStart (): number | null {
-    if (this.search) {
-      return this.search.selectionStart;
+    if (this.searchRef.value) {
+      return this.searchRef.value.selectionStart;
     }
     return null;
   }
 
   public set selectionStart (index: SelectionIndex) {
-    if (this.search) {
-      this.search.selectionStart = index;
+    if (this.searchRef.value) {
+      this.searchRef.value.selectionStart = index;
     }
   }
 
@@ -179,15 +180,15 @@ export class MultiInput extends ControlElement implements MultiValue {
    */
   @property({ type: Number, attribute: false })
   public get selectionEnd (): number | null {
-    if (this.search) {
-      return this.search.selectionEnd;
+    if (this.searchRef.value) {
+      return this.searchRef.value.selectionEnd;
     }
     return null;
   }
 
   public set selectionEnd (index: SelectionIndex) {
-    if (this.search) {
-      this.search.selectionEnd = index;
+    if (this.searchRef.value) {
+      this.searchRef.value.selectionEnd = index;
     }
   }
 
@@ -218,16 +219,9 @@ export class MultiInput extends ControlElement implements MultiValue {
   private _data: MultiInputData | null = null;
 
   /**
-   * the component of the list in rendered template
-   */
-  @query('[part="list"]')
-  private list!: HTMLElement;
-
-  /**
    * the component of the search in rendered template
    */
-  @query('[part="search"]')
-  private search?: TextField | null;
+  private searchRef: Ref<TextField> = createRef();
 
   private composer: CollectionComposer<MultiInputDataItem> = new CollectionComposer([]);
 
@@ -422,6 +416,10 @@ export class MultiInput extends ControlElement implements MultiValue {
     if (this.shouldValidateInput(changedProperties)) {
       this.validateInput(this.value);
     }
+
+    if (this.searchRef.value) {
+      retargetOverflowTooltip(this, this.searchRef.value);
+    }
   }
 
   /**
@@ -440,7 +438,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * @returns {void}
    */
   public setSelectionRange (startSelection: number, endSelection: number): void {
-    this.search?.setSelectionRange(startSelection, endSelection);
+    this.searchRef.value?.setSelectionRange(startSelection, endSelection);
   }
 
   /**
@@ -449,8 +447,8 @@ export class MultiInput extends ControlElement implements MultiValue {
    */
   public select (): void {
     if (!this.disabled && !this.readonly) {
-      if (this.search) {
-        this.search.select();
+      if (this.searchRef.value) {
+        this.searchRef.value.select();
       }
     }
   }
@@ -478,6 +476,7 @@ export class MultiInput extends ControlElement implements MultiValue {
     }
     return html`
         <ef-text-field
+          ${ref(this.searchRef)}
           tabindex="1"
           part="search"
           transparent

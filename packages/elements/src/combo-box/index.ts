@@ -20,6 +20,8 @@ import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { VERSION } from '../version.js';
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 import { ItemData } from '../item';
 import { ComboBoxData, ComboBoxFilter } from './helpers/types';
 import type { List } from '../list/index.js';
@@ -636,6 +638,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown);
     this.addEventListener('tapstart', this.onTapStart);
+
+    registerOverflowTooltip(this,
+      () => this.inputValue,
+      () => this.inputElement ? isElementOverflown(this.inputElement) : false);
   }
 
   /**
