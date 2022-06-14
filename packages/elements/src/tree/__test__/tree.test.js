@@ -326,7 +326,15 @@ describe('tree/Tree', () => {
   });
 
   describe('Multiple Selection Mode', () => {
-
+    it('Should have checkbox when multiple mode is set', async () => {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = deepNestedData;
+      el.multiple = true;
+      await elementUpdated(el);
+      const isCheckboxExist = !!el.querySelector('ef-tree-item').shadowRoot.querySelector('ef-checkbox')
+      expect(isCheckboxExist).to.equal(true);
+    });
+    
     it('Shows correct checked states', async () => {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = deepNestedData;
