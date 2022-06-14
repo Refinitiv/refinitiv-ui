@@ -127,8 +127,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
       .readonly="${this.readonly}"
       .indeterminate="${this.indeterminate}"
       .checked="${this.checked}"
-      style="pointer-events:none">
-    </ef-checkbox>
+      style="pointer-events:none"></ef-checkbox>
     `;
   }
 
