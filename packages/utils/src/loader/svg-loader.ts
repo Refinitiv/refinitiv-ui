@@ -63,8 +63,19 @@ const isValidResponse = (response: XMLHttpRequest | undefined): response is XMLH
  */
 const extractSafeSVG = (response: XMLHttpRequest | undefined): SVGElement | null => {
   if (isValidResponse(response) && response.responseXML) {
-    const svgDocument = response.responseXML.cloneNode(true) as Document;
-    const svg = svgDocument.firstElementChild;
+    const svgDocument = response.responseXML;
+    /**
+     * Getting the first node of response that is an element,
+     * just in case when firstChild isn't SVG.
+     * ( XMLDOM `cloneNode()` and `firstElementChild` are not supported in IE11 )
+     */
+    let svg;
+    for (let index = 0; index < svgDocument.childNodes.length; index++) {
+      if (svgDocument.childNodes[index].nodeType === Node.ELEMENT_NODE) {
+        svg = svgDocument.childNodes[index];
+      }
+    }
+
     if (svg instanceof SVGElement) {
       stripUnsafeNodes(svg);
       return svg;
@@ -78,6 +89,10 @@ const extractSafeSVG = (response: XMLHttpRequest | undefined): SVGElement | null
  * Uses singleton pattern
  */
 export class SVGLoader extends CDNLoader {
+  /**
+   * Used to serialise SVG to string in order to cache
+   */
+  private xmlSerializer: XMLSerializer = new XMLSerializer();
 
   /**
    * Creates complete source using CDN prefix and src.
@@ -105,7 +120,8 @@ export class SVGLoader extends CDNLoader {
     const cacheItem = cache.get(src);
     if (cacheItem === null) {
       const response = await this.load(src);
-      const svgBody = extractSafeSVG(response)?.outerHTML;
+      const svgNode = extractSafeSVG(response)?.cloneNode(true);
+      const svgBody = svgNode ? this.xmlSerializer.serializeToString(svgNode) : undefined;
       svgBody && cache.set(src, svgBody);
       return svgBody;
     }

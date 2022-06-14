@@ -30,8 +30,8 @@ const save = (key: string, cache: CacheMap): void => {
  */
 const restore = (key: string): CacheMap => {
   let cache: CacheMap;
-  const data = localStorage.getItem(key) || '[]';
   try {
+    const data = localStorage.getItem(key) || '[]';
     cache = new Map(JSON.parse(data) as []);
   }
   catch (e) {
