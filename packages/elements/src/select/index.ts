@@ -377,10 +377,6 @@ export class Select extends ControlElement implements MultiValue {
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
-    if (this.labelRef.value) {
-      // registerOverflowTooltip(this, undefined, this.labelRef.value);
-    }
-
     // we must wait while all elements in the tree are updated before starting the mutation observer
     void this.updateComplete.then(() => {
       // Start watching for any child mutations

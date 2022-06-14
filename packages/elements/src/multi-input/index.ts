@@ -13,7 +13,7 @@ import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
-import { registerOverflowTooltip, retargetOverflowTooltip } from '../tooltip/index.js';
+import { retargetOverflowTooltip } from '../tooltip/index.js';
 import type { Pill } from '../pill';
 import type { TextField } from '../text-field';
 import type { MultiInputData, MultiInputDataItem, MultiInputEvents, SelectionIndex } from './helpers/types';
