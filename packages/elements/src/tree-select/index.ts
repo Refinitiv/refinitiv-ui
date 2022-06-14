@@ -608,12 +608,12 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
         return result;
       }).slice();
 
-      // do not expand EMS if there is no filter applied
-      if (this.query) {
-        this.addItemDescendantsToRender(items);
+      if (this.selectionFilterState) {
         this.addExpandedAncestorsToRender(items);
       }
-      else if (this.selectionFilterState) {
+      // do not expand EMS if there is no filter applied
+      else if (this.query) {
+        this.addItemDescendantsToRender(items);
         this.addExpandedAncestorsToRender(items);
       }
 
