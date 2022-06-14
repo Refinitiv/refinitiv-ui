@@ -490,7 +490,7 @@ describe('tree/Tree', () => {
       descendants.forEach(item => expect(el.manager.isItemHidden(item)).to.equal(false, 'Descendants of matched items must be included'));
     });
 
-    it('Text filter applied, single selection', async () => {
+    it('Should be able to select value after filter is applied', async () => {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = flatData;
       await elementUpdated(el);
