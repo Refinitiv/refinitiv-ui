@@ -608,11 +608,14 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
         return result;
       }).slice();
 
+      /**
+       * In the selection filter mode, all checked items already in the `items` variable
+       * no need to add descendant items.
+       */
       if (this.selectionFilterState) {
         this.addExpandedAncestorsToRender(items);
       }
-      // do not expand EMS if there is no filter applied
-      else if (this.query) {
+      else if (this.query) { // do not expand EMS if there is no filter applied
         this.addItemDescendantsToRender(items);
         this.addExpandedAncestorsToRender(items);
       }
