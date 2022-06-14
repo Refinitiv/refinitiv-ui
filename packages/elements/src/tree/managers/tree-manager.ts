@@ -239,7 +239,7 @@ export class TreeManager<T extends TreeDataItem> {
   /**
    * Excludes an item as part of the tree.
    * @param item Item to exclude
-   * @param lock Item lock
+   * @param lock Option to lock or unlock when exclude
    * @returns `True` if the item is newly excluded
    */
   public excludeItem (item: T, lock = true): boolean {
