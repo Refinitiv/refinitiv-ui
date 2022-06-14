@@ -9,8 +9,7 @@ const availableBrowsers = ['chrome', 'firefox', 'opera'];
 
 // BrowserStack browsers
 const supportedBSBrowsers = [
-  'chrome', 'firefox', 'edge',
-  'chrome_previous', 'firefox_previous', 'edge_previous'
+  'chrome', 'firefox', 'edge'
 ];
 const availableBSBrowsers = [
   'supported', 'chrome', 'firefox', 'edge', 'safari', 'ios', 'android',
