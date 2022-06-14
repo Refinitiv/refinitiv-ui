@@ -1,7 +1,7 @@
 name: Nightly Test
 on:
   schedule:
-    - cron: '0,30 * * * *'
+    - cron: '17 * * * *'
 env:
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
