@@ -15,7 +15,10 @@ const supportedBSBrowsers = [
 ];
 const availableBSBrowsers = [
   'supported', 'chrome', 'firefox', 'edge', 'safari', 'ios', 'android',
-  'chrome_previous', 'firefox_previous', 'edge_previous', 'safari_previous'
+  'chrome_previous', 'firefox_previous', 'edge_previous', 'safari_previous',
+
+  // Must have this option to support the in case CLI option value is empty (default is `true`)
+  'true'
 ];
 
 // do not perform browser check as it is slow and never required

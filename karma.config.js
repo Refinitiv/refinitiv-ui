@@ -227,7 +227,10 @@ if (argv.includeCoverage) {
 }
 
 // Create BrowserStack config when browsers CLI `browsers` param has `browserstack`
-if (argv.browserstack.length && !argv.watch) {
+let bsOption = argv.browserstack;
+if (bsOption && !argv.watch) {
+  // Convert default CLI boolean option `true` to default browsers array
+  bsOption = bsOption.length === 1 && bsOption[0] === 'true' ? defaultBSBrowsers : bsOption;
 
   // Setting BowserStack config
   baseConfig.concurrency = 3;
@@ -262,8 +265,8 @@ if (argv.browserstack.length && !argv.watch) {
   const hasTest = (browser) => {
     let result = false;
 
-    if (argv.browserstack.includes(browser) // match browser name
-      || (argv.browserstack.includes('supported') && supportedBSBrowsers.includes(browser))) { // Or in the supported browsers
+    if (bsOption.includes(browser) // match browser name
+      || (bsOption.includes('supported') && supportedBSBrowsers.includes(browser))) { // Or in the supported browsers
       result = true;
     }
 

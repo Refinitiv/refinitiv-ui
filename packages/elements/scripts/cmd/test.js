@@ -64,7 +64,11 @@ exports.handler = (argv) => {
   const watch = !!argv.watch;
   const snapshots = !!argv.snapshots;
   const browsers = argv.browsers.join(' ');
-  const browserstack = argv.browserstack.join(' ');
+
+  let bsOption = argv.browserstack;
+  // Convert default CLI boolean option `true` to default browsers array
+  bsOption = bsOption.length === 1 && bsOption[0] === 'true' ? defaultBSBrowsers : bsOption;
+  const browserstack = bsOption.join(' ');
 
   info(watch ? `Start Karma Server: ${ element }` : `Test: ${ element }`);
 
