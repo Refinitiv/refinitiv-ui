@@ -490,6 +490,49 @@ describe('tree/Tree', () => {
       descendants.forEach(item => expect(el.manager.isItemHidden(item)).to.equal(false, 'Descendants of matched items must be included'));
     });
 
+    it('Should be able to select value after filter is applied', async () => {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = flatData;
+      await elementUpdated(el);
+  
+      el.children[0].click();
+      await elementUpdated(el);
+  
+      el.query = 'Item 4';
+      await elementUpdated(el);
+  
+      el.children[0].click();
+      await elementUpdated(el);
+  
+      expect(el.value).to.equal('4', 'selected item in single mode should be change');
+    });
+  
+    it('Text filter applied, check/uncheck item switch between single selection and multiple selection mode', async () => {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = flatData;
+      await elementUpdated(el);
+  
+      el.children[0].click();
+      await elementUpdated(el);
+  
+      el.query = 'Item 4';
+      await elementUpdated(el);
+  
+      el.multiple = true
+      await elementUpdated(el);
+  
+      el.uncheckAll();
+      await elementUpdated(el);
+      expect(el.value).to.equal('1', 'hidden selected item in multiple mode shouldn\'t unchecked');
+  
+      el.multiple = false
+      await elementUpdated(el);
+  
+      el.children[0].click();
+      await elementUpdated(el);
+      expect(el.value).to.equal('4', 'selected item in single mode should be change');
+  
+    });
   });
 });
 
