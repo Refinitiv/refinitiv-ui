@@ -66,6 +66,7 @@ describe('button/Button', () => {
     it('should set empty to true if set innerHTML to empty', async () => {
       const el = await fixture(html`<ef-button>Button</ef-button>`);
       el.innerHTML = '';
+      await elementUpdated(el);
       expect(el.empty).to.equal(true);
     });
   });
