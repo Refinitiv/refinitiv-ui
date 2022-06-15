@@ -93,6 +93,8 @@
             <ef-checkbox id="weekendsOnly">Weekends Only</ef-checkbox>
             <ef-checkbox id="readonly">Readonly</ef-checkbox>
             <ef-checkbox id="disabled">Disabled</ef-checkbox>
+            <ef-checkbox id="warning">Warning</ef-checkbox>
+            <ef-checkbox id="error">Error</ef-checkbox>
           </p>
           <p>
             <ef-checkbox id="inputTriggerDisabled">Input Trigger Disabled</ef-checkbox>
@@ -121,6 +123,7 @@
             duplex: dateTimePicker.duplex,
             timepicker: dateTimePicker.timepicker,
             amPm: dateTimePicker.amPm,
+            warning: dateTimePicker.warning,
             error: dateTimePicker.error,
             showSeconds: dateTimePicker.showSeconds,
             lang: dateTimePicker.lang,
@@ -291,6 +294,12 @@
         });
         document.getElementById('disabled').addEventListener('checked-changed', ({ detail: { value } }) => {
           dateTimePicker.disabled = value || undefined;
+        });
+        document.getElementById('warning').addEventListener('checked-changed', ({ detail: { value } }) => {
+          dateTimePicker.warning = value || undefined;
+        });
+        document.getElementById('error').addEventListener('checked-changed', ({ detail: { value } }) => {
+          dateTimePicker.error = value || undefined;
         });
         document.getElementById('readonly').addEventListener('checked-changed', ({ detail: { value } }) => {
           dateTimePicker.readonly = value || undefined;

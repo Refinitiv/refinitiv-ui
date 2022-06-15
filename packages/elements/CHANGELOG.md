@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.0-next.3...@refinitiv-ui/elements@6.0.0) (2022-06-07)
+
+
+### Bug Fixes
+
+* **clock:** a11y, tick, show-seconds should not pronounce all the time ([#339](https://github.com/Refinitiv/refinitiv-ui/issues/339)) ([b4e51ac](https://github.com/Refinitiv/refinitiv-ui/commit/b4e51ac1a4b181d99ff37cc30980fd4fc55dd426))
+* **clock:** sync interactiveChange code with rating ([#346](https://github.com/Refinitiv/refinitiv-ui/issues/346)) ([6837206](https://github.com/Refinitiv/refinitiv-ui/commit/6837206d9a32a4d05a18fef262e4277e8630c568))
+* **utils:** improve svg security ([#342](https://github.com/Refinitiv/refinitiv-ui/issues/342)) ([ef53c5c](https://github.com/Refinitiv/refinitiv-ui/commit/ef53c5c8918548a0c2aa67a1934ba0823698a9e8))
+
+
+### Features
+
+* **clock:** improve clock accessibility ([#308](https://github.com/Refinitiv/refinitiv-ui/issues/308)) ([c0a9bb0](https://github.com/Refinitiv/refinitiv-ui/commit/c0a9bb04c212b6aa4dbce495bec4faebd9080eaf)), closes [#311](https://github.com/Refinitiv/refinitiv-ui/issues/311)
+* **rating:** add accessibility support ([2a1b7e4](https://github.com/Refinitiv/refinitiv-ui/commit/2a1b7e47199de3c1cca73b0a86150da07612c347))
+* **slider:** add arrow key navigation support and aria attributes ([#299](https://github.com/Refinitiv/refinitiv-ui/issues/299)) ([056a45b](https://github.com/Refinitiv/refinitiv-ui/commit/056a45b56911ed0f7634ea1b4abe38c6392144d4)), closes [#332](https://github.com/Refinitiv/refinitiv-ui/issues/332) [#341](https://github.com/Refinitiv/refinitiv-ui/issues/341)
+* **slider:** add localised label for slider thumb ([#351](https://github.com/Refinitiv/refinitiv-ui/issues/351)) ([ba9cc8d](https://github.com/Refinitiv/refinitiv-ui/commit/ba9cc8d563444dba35a082a3898dc4e8f9235074))
+
+
+
+
+
 ## [5.12.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@5.12.1...@refinitiv-ui/elements@5.12.2) (2022-02-17)
 
 **Note:** Version bump only for package @refinitiv-ui/elements

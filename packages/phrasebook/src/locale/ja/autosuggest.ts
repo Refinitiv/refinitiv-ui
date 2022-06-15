@@ -1,8 +1,8 @@
 import { Phrasebook } from '../../translation.js';
 
 const translations = {
-  LOADING: 'Loading suggestion items',
-  MORE_RESULTS: 'More results for <mark>{ query }</mark>'
+  LOADING: '候補を読み込んでいます',
+  MORE_RESULTS: '<mark>{ query }</mark> のその他の検索結果'
 };
 
 Phrasebook.define('ja', 'ef-autosuggest', translations);
