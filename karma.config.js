@@ -240,7 +240,7 @@ if (bsOption && !argv.watch) {
     build: process.env.BROWSERSTACK_BUILD,
     project: process.env.BROWSERSTACK_PROJECT_NAME || 'Refinitiv UI',
     name: packageName,
-    timeout: 1000,
+    timeout: 1800,
     retryLimit: 0
   };
 
