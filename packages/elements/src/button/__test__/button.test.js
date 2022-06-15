@@ -62,6 +62,12 @@ describe('button/Button', () => {
       const el = await fixture(html`<ef-button>Button</ef-button>`);
       expect(el.empty).to.equal(false);
     });
+
+    it('should set empty to true if set innerHTML to empty', async () => {
+      const el = await fixture(html`<ef-button>Button</ef-button>`);
+      el.innerHTML = '';
+      expect(el.empty).to.equal(true);
+    });
   });
 
   describe('Toggles Property', () => {
