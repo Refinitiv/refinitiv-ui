@@ -12,11 +12,11 @@ const defaultBSBrowsers = ['chrome', 'firefox', 'edge'];
 const previousBSBrowser = ['chrome_previous', 'firefox_previous', 'edge_previous'];
 const supportedBSBrowsers = [...defaultBSBrowsers, ...previousBSBrowser];
 const availableBSBrowsers = [
-  ...supportedBSBrowsers, 'supported',
+  'default', // alias default browsers
+  'supported', // alias supported browsers
+  ...supportedBSBrowsers,
   'safari', 'safari_previous',
-  'ios', 'android',
-  // Must have this option to support the in case CLI option value is empty (default is `true`)
-  'true'
+  'ios', 'android'
 ];
 
 // do not perform browser check as it is slow and never required
