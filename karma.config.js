@@ -232,7 +232,7 @@ if (bsOption && !argv.watch) {
   // Convert default CLI boolean option `true` to default browsers array
   bsOption = bsOption.length === 1 && bsOption[0] === 'true' ? defaultBSBrowsers : bsOption;
 
-  // Setting BowserStack config
+  // Setting BrowserStack config
   baseConfig.concurrency = 3;
   baseConfig.browserStack = {
     username: process.env.BROWSERSTACK_USERNAME,

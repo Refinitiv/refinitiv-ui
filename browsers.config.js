@@ -9,14 +9,12 @@ const availableBrowsers = ['chrome', 'firefox', 'opera'];
 
 // BrowserStack browsers
 const defaultBSBrowsers = ['chrome', 'firefox', 'edge'];
-const supportedBSBrowsers = [
-  'chrome', 'firefox', 'edge',
-  'chrome_previous', 'firefox_previous', 'edge_previous'
-];
+const previousBSBrowser = ['chrome_previous', 'firefox_previous', 'edge_previous'];
+const supportedBSBrowsers = [...defaultBSBrowsers, ...previousBSBrowser];
 const availableBSBrowsers = [
-  'supported', 'chrome', 'firefox', 'edge', 'safari', 'ios', 'android',
-  'chrome_previous', 'firefox_previous', 'edge_previous', 'safari_previous',
-
+  ...supportedBSBrowsers, 'supported',
+  'safari', 'safari_previous',
+  'ios', 'android',
   // Must have this option to support the in case CLI option value is empty (default is `true`)
   'true'
 ];
@@ -32,34 +30,34 @@ if (isDarwin) {
   availableBrowsers.push('safari');
 }
 
- /**
-   * Create a custom launcher config for BrowserStack
-   * @param {string} name custom launcher name
-   * @param {string} os OS name
-   * @param {string} osVersion OS version
-   * @param {string} browser Browser for run test
-   * @param {string} browserVersion Browser version
-   * @returns Karma BrowserStack lancher config
-   */
-  const BSBrowser = function (name, os, osVersion, browser, browserVersion) {
-    return {
-      [name]: { base: 'BrowserStack', os: os, os_version: osVersion, browser: browser, browser_version: browserVersion }
-    }
-  };
+/**
+ * Create a custom launcher config for BrowserStack
+ * @param {string} name custom launcher name
+ * @param {string} os OS name
+ * @param {string} osVersion OS version
+ * @param {string} browser Browser for run test
+ * @param {string} browserVersion Browser version
+ * @returns Karma BrowserStack launcher config
+ */
+const BSBrowser = function (name, os, osVersion, browser, browserVersion) {
+  return {
+    [name]: { base: 'BrowserStack', os: os, os_version: osVersion, browser: browser, browser_version: browserVersion }
+  }
+};
 
-  /**
-   * Create a custom launcher config for BrowserStack mobile device
-   * @param {string} name custom launcher name
-   * @param {string} os OS name
-   * @param {string} osVersion OS version for run test
-   * @param {string} device mobile device name
-   * @returns Karma BrowserStack lancher config
-   */
-  const BSDevice = function (name, os, osVersion, device) {
-    return {
-      [name]: { base: 'BrowserStack', os: os, os_version: osVersion, device: device, real_mobile: 'true'}
-    };
+/**
+ * Create a custom launcher config for BrowserStack mobile device
+ * @param {string} name custom launcher name
+ * @param {string} os OS name
+ * @param {string} osVersion OS version for run test
+ * @param {string} device mobile device name
+ * @returns Karma BrowserStack launcher config
+ */
+const BSDevice = function (name, os, osVersion, device) {
+  return {
+    [name]: { base: 'BrowserStack', os: os, os_version: osVersion, device: device, real_mobile: 'true'}
   };
+};
 
 module.exports = {
   defaultBrowsers,
