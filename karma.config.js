@@ -10,8 +10,7 @@ const {
   defaultBSBrowsers,
   supportedBSBrowsers,
   availableBSBrowsers,
-  BSBrowser,
-  BSDevice
+  BSLaunchersConfig
 } = require('./browsers.config');
 
 const argv = yargs(hideBin(process.argv))
@@ -254,41 +253,24 @@ if (bsOption && !argv.watch) {
 
   reporters.push('BrowserStack');
 
-  /**
-   *  Check the command has set a browser name for run testing
-   * @param {string} browser browser name
-   * @returns {boolean}
-   */
-  const hasTest = (browser) => {
-    let result = false;
-
-    if (bsOption.includes(browser) // match browser name
-      || (bsOption.includes('default') && defaultBSBrowsers.includes(browser)) // match default browsers
-      || (bsOption.includes('supported') && supportedBSBrowsers.includes(browser))) { // match supported browsers
-      result = true;
-    }
-
-    return result;
-  }
+  const browserStackLaunchers = {} 
 
   // Add BrowserStack launchers to config
-  const browserStackLaunchers = {
-    // Latest version
-    ...hasTest('chrome') ? BSBrowser('bs_chrome', 'Windows', '11', 'chrome', 'latest') : {},
-    ...hasTest('firefox') ? BSBrowser('bs_firefox', 'Windows', '11', 'firefox', 'latest') : {},
-    ...hasTest('edge') ? BSBrowser('bs_edge', 'Windows', '11', 'edge', 'latest') : {},
-    ...hasTest('safari') ? BSBrowser('bs_safari', 'OS X', 'Monterey', 'safari', 'latest') : {},
-
-    // Previous version
-    ...hasTest('chrome_previous') ? BSBrowser('bs_chrome_previous', 'Windows', '11', 'chrome', 'latest-1'): {},
-    ...hasTest('firefox_previous') ? BSBrowser('bs_firefox_previous', 'Windows', '11', 'firefox', 'latest-1'): {},
-    ...hasTest('edge_previous') ? BSBrowser('bs_edge_previous', 'Windows', '11', 'edge', 'latest-1'): {},
-    ...hasTest('safari_previous') ? BSBrowser('bs_safari_previous', 'OS X', 'Big Sur', 'safari', 'latest'): {},
-
-    // Mobile
-    ...hasTest('ios') ? BSDevice('bs_ios', 'ios', '15', 'iPhone 13') : {},
-    ...hasTest('android') ? BSDevice('bs_android', 'android', '12.0', 'Google Pixel 6') : {}
-  };
+  bsOption.forEach((option) => {
+    if(option === 'default') {
+      defaultBSBrowsers.forEach(defaultBS => {
+        browserStackLaunchers[defaultBS] = BSLaunchersConfig[defaultBS];
+      });
+    }
+    else if(option === 'supported') {
+      supportedBSBrowsers.forEach(supportedBS => {
+        browserStackLaunchers[supportedBS] = BSLaunchersConfig[supportedBS];
+      });
+    }
+    else {
+      browserStackLaunchers[option] = BSLaunchersConfig[option];
+    }
+  });
 
   baseConfig.customLaunchers = {
     ...baseConfig.customLaunchers,
