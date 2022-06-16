@@ -54,23 +54,7 @@ const deregister = (target: HTMLElement): void => {
   registry.delete(target);
 };
 
-/**
- * Retarget overflow tooltip from old target to new target
- * @param target Target element
- * @param oldTarget Old target element
- * @returns {void}
- */
-const retarget = (target: HTMLElement, oldTarget: HTMLElement): void => {
-  const renderer = registry.get(oldTarget);
-  const condition = overflowConditionRegistry.get(oldTarget);
-  if (renderer && condition) {
-    deregister(oldTarget);
-    register(target, renderer, condition);
-  }
-};
-
 export {
   register,
-  deregister,
-  retarget
+  deregister
 };
