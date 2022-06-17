@@ -236,7 +236,7 @@ if (argv.browserstack && !argv.watch) {
     build: process.env.BROWSERSTACK_BUILD,
     project: process.env.BROWSERSTACK_PROJECT_NAME || 'Refinitiv UI',
     name: packageName,
-    timeout: 1800,
+    timeout: 600,
     retryLimit: 0
   };
   reporters.push('BrowserStack');

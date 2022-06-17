@@ -6,17 +6,20 @@ env:
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Test Coverage ${{ github.run_number }}"
-
 jobs:
-  sonarcloud:
-    name: TestCoverage
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Check out repository code
+        uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+
       - name: Setup resources and environment
         uses: ./.github/actions/setup
+        id: setup
 
       - name: Install Dependencies
         if: steps.setup.outputs.cache-dependencies-hit != 'true'
@@ -26,9 +29,13 @@ jobs:
         run: npm run reset
 
       - name: Build
-        if: steps.setup.outputs.cache-build-hit != 'true'
+        # Prevent NX caching it should always build
         run: npm run build
 
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: 'BrowserStack Env Setup' # Invokes the setup-env action
         uses: browserstack/github-actions/setup-env@master
         with:
@@ -41,6 +48,17 @@ jobs:
           local-testing: start
           local-identifier: random
 
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+        id: setup
+
       - name: Test
         run: npm run test:all -- --parallel=3 --browserstack 'default' --output minimal
 
@@ -48,6 +66,23 @@ jobs:
         uses: browserstack/github-actions/setup-local@master
         with:
           local-testing: stop
+
+
+  sonarcloud:
+    needs: test
+    name: TestCoverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+        id: setup
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
