@@ -10,7 +10,7 @@ const {
   defaultBSBrowsers,
   supportedBSBrowsers,
   availableBSBrowsers,
-  BSLaunchersConfig
+  BSConfig
 } = require('./browsers.config');
 
 const argv = yargs(hideBin(process.argv))
@@ -239,6 +239,7 @@ if (bsOption && !argv.watch) {
     timeout: 1800,
     retryLimit: 0
   };
+  reporters.push('BrowserStack');
 
   /**
    * Reusing only one local tunnel,
@@ -251,31 +252,26 @@ if (bsOption && !argv.watch) {
     baseConfig.browserStack.localIdentifier = process.env.BROWSERSTACK_LOCAL_IDENTIFIER;
   }
 
-  reporters.push('BrowserStack');
-
-  const browserStackLaunchers = {} 
-
   // Add BrowserStack launchers to config
+  const browserStackLaunchers = {};
   bsOption.forEach((option) => {
     if(option === 'default') {
       defaultBSBrowsers.forEach(defaultBS => {
-        browserStackLaunchers[defaultBS] = BSLaunchersConfig[defaultBS];
+        browserStackLaunchers[defaultBS] = BSConfig[defaultBS];
       });
     }
     else if(option === 'supported') {
       supportedBSBrowsers.forEach(supportedBS => {
-        browserStackLaunchers[supportedBS] = BSLaunchersConfig[supportedBS];
+        browserStackLaunchers[supportedBS] = BSConfig[supportedBS];
       });
     }
     else {
-      browserStackLaunchers[option] = BSLaunchersConfig[option];
+      browserStackLaunchers[option] = BSConfig[option];
     }
   });
 
-  baseConfig.customLaunchers = {
-    ...baseConfig.customLaunchers,
-    ...browserStackLaunchers
-  };
+  // Replace all local launchers
+  baseConfig.customLaunchers = browserStackLaunchers;
 
   // Add BrowserStack browsers to config
   baseConfig.browsers = []; // Clear default local browsers and test on BrowserStack only

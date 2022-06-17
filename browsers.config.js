@@ -30,38 +30,30 @@ if (isDarwin) {
   availableBrowsers.push('safari');
 }
 
-const defaultWindowLauncher = {
-  base: 'BrowserStack',
-  os: 'Windows',
-  os_version: '11',
-}
+// BrowserStack Base Config
+const defaultBSConfig = { base: 'BrowserStack' };
+const defaultBSDevice = { ...defaultBSConfig, real_mobile: 'true'};
+const defaultWindows = { ...defaultBSConfig, os: 'Windows', os_version: '11' };
+const defaultOSX = { ...defaultBSConfig, os: 'OS X', os_version: 'Monterey' };
 
-const defaultOSLauncher = {
-  base: 'BrowserStack',
-  os: 'OS X',
-  os_version: 'Monterey',
-}
+// BrowserStack Browsers Config
+let BSConfig = {
+  // Latest versions
+  chrome: { ...defaultWindows, browser: 'chrome', browser_version: 'latest' },
+  firefox: { ...defaultWindows, browser: 'firefox', browser_version: 'latest' },
+  edge:   { ...defaultWindows, browser: 'edge',   browser_version: 'latest' },
+  safari: { ...defaultOSX,     browser: 'safari' },
 
-const BSLaunchersConfig = {
-  chrome: defaultWindowLauncher,
-  firefox: defaultWindowLauncher,
-  edge: defaultWindowLauncher,
-  safari: defaultOSLauncher,
-  chrome_previous: { ...defaultWindowLauncher, browser_version: 'latest-1' },
-  firefox_previous: { ...defaultWindowLauncher, browser_version: 'latest-1' },
-  edge_previous: { ...defaultWindowLauncher, browser_version: 'latest-1' },
-  safari_previous: { ...defaultOSLauncher, os_version: 'Big Sur' },
-  ios: {
-    device : 'iPhone 13',
-    os_version : '15.0',
-    real_mobile: 'true'
-  },
-  android: {
-    device : 'Google Pixel 6',
-    os_version : '12.0',
-    real_mobile: 'true'
-  },
-}
+  // Previous versions
+  chrome_previous: { ...defaultWindows, browser: 'chrome', browser_version: 'latest-1' },
+  firefox_previous: { ...defaultWindows, browser: 'firefox', browser_version: 'latest-1' },
+  edge_previous:   { ...defaultWindows, browser: 'edge',   browser_version: 'latest-1' },
+  safari_previous: { ...defaultOSX,     browser: 'safari', os_version: 'Big Sur' },
+
+  // Mobile Devices
+  ios:     { ...defaultBSDevice, device : 'iPhone 13',      os: 'ios',     os_version : '15.0' },
+  android: { ...defaultBSDevice, device : 'Google Pixel 6', os: 'android', os_version : '12.0' }
+};
 
 module.exports = {
   defaultBrowsers,
@@ -69,5 +61,5 @@ module.exports = {
   defaultBSBrowsers,
   supportedBSBrowsers,
   availableBSBrowsers,
-  BSLaunchersConfig
+  BSConfig
 };
