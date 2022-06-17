@@ -3,7 +3,6 @@ const { execSync } = require('child_process');
 const {
   defaultBrowsers,
   availableBrowsers,
-  defaultBSBrowsers,
   availableBSBrowsers
 } = require('../../browsers.config');
 
@@ -46,10 +45,10 @@ exports.builder = yargs => {
     .option('browserstack', {
       type: 'array',
       alias: 'bs',
-      default: defaultBSBrowsers,
       choices: availableBSBrowsers,
       description: 'Run units test on BrowserStack and specific browser(s)'
     })
+    .requiresArg('browserstack')
     .option('output', {
       type: 'string',
       alias: 'o',
@@ -64,7 +63,7 @@ exports.handler = (argv) => {
   const watch = !!argv.watch;
   const snapshots = !!argv.snapshots;
   const browsers = argv.browsers.join(' ');
-  const browserstack = argv.browserstack.join(' ');
+  const browserstack = argv.browserstack ? argv.browserstack.join(' ') : null;
 
   info(watch ? `Start Karma Server: ${ element }` : `Test: ${ element }`);
 

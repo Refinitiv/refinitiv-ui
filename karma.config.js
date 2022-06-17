@@ -49,10 +49,10 @@ const argv = yargs(hideBin(process.argv))
   .option('browserstack', {
     type: 'array',
     alias: 'bs',
-    default: defaultBSBrowsers,
     choices: availableBSBrowsers,
     description: 'Run units test on BrowserStack and specific browser(s)'
   })
+  .requiresArg('browserstack')
   .option('output', {
     type: 'string',
     alias: 'o',
@@ -226,8 +226,8 @@ if (argv.includeCoverage) {
 }
 
 // Create BrowserStack config when browsers CLI `browsers` param has `browserstack`
-const bsOption = argv.browserstack;
-if (bsOption && !argv.watch) {
+if (argv.browserstack && !argv.watch) {
+  const bsOption = argv.browserstack;
   // Setting BrowserStack config
   baseConfig.concurrency = 3;
   baseConfig.browserStack = {
