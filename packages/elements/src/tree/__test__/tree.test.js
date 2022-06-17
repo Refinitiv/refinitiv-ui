@@ -504,10 +504,10 @@ describe('tree/Tree', () => {
       el.children[0].click();
       await elementUpdated(el);
   
-      expect(el.value).to.equal('4', 'selected item in single mode should be change');
+      expect(el.value).to.equal('4', 'Value should be update when selecting a new item on filter applied.');
     });
-  
-    it('Text filter applied, check/uncheck item switch between single selection and multiple selection mode', async () => {
+    
+    it('Text filter applied, check/uncheck item and switch between single and multiple selection mode', async () => {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = flatData;
       await elementUpdated(el);
@@ -530,7 +530,7 @@ describe('tree/Tree', () => {
   
       el.children[0].click();
       await elementUpdated(el);
-      expect(el.value).to.equal('4', 'selected item in single mode should be change');
+      expect(el.value).to.equal('4', 'Value should be update when selecting a new item on filter applied.');
   
     });
   });
