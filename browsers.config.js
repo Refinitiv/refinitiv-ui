@@ -12,8 +12,8 @@ const defaultBSBrowsers = ['chrome', 'firefox', 'edge'];
 const previousBSBrowser = ['chrome_previous', 'firefox_previous', 'edge_previous'];
 const supportedBSBrowsers = [...defaultBSBrowsers, ...previousBSBrowser];
 const availableBSBrowsers = [
-  'default', // alias default browsers
-  'supported', // alias supported browsers
+  'default', // default browsers alias
+  'supported', // supported browsers alias
   ...supportedBSBrowsers,
   'safari', 'safari_previous',
   'ios', 'android'
@@ -30,33 +30,29 @@ if (isDarwin) {
   availableBrowsers.push('safari');
 }
 
-/**
- * Create a custom launcher config for BrowserStack
- * @param {string} name custom launcher name
- * @param {string} os OS name
- * @param {string} osVersion OS version
- * @param {string} browser Browser for run test
- * @param {string} browserVersion Browser version
- * @returns Karma BrowserStack launcher config
- */
-const BSBrowser = function (name, os, osVersion, browser, browserVersion) {
-  return {
-    [name]: { base: 'BrowserStack', os: os, os_version: osVersion, browser: browser, browser_version: browserVersion }
-  }
-};
+// BrowserStack Base Config
+const defaultBSConfig = { base: 'BrowserStack' };
+const defaultBSDevice = { ...defaultBSConfig, real_mobile: 'true'};
+const defaultWindows = { ...defaultBSConfig, os: 'Windows', os_version: '11' };
+const defaultOSX = { ...defaultBSConfig, os: 'OS X', os_version: 'Monterey' };
 
-/**
- * Create a custom launcher config for BrowserStack mobile device
- * @param {string} name custom launcher name
- * @param {string} os OS name
- * @param {string} osVersion OS version for run test
- * @param {string} device mobile device name
- * @returns Karma BrowserStack launcher config
- */
-const BSDevice = function (name, os, osVersion, device) {
-  return {
-    [name]: { base: 'BrowserStack', os: os, os_version: osVersion, device: device, real_mobile: 'true'}
-  };
+// BrowserStack Browsers Config
+let BSConfig = {
+  // Latest versions
+  chrome: { ...defaultWindows, browser: 'chrome', browser_version: 'latest' },
+  firefox: { ...defaultWindows, browser: 'firefox', browser_version: 'latest' },
+  edge:   { ...defaultWindows, browser: 'edge',   browser_version: 'latest' },
+  safari: { ...defaultOSX,     browser: 'safari' },
+
+  // Previous versions
+  chrome_previous: { ...defaultWindows, browser: 'chrome', browser_version: 'latest-1' },
+  firefox_previous: { ...defaultWindows, browser: 'firefox', browser_version: 'latest-1' },
+  edge_previous:   { ...defaultWindows, browser: 'edge',   browser_version: 'latest-1' },
+  safari_previous: { ...defaultOSX,     browser: 'safari', os_version: 'Big Sur' },
+
+  // Mobile Devices
+  ios:     { ...defaultBSDevice, device : 'iPhone 13',      os: 'ios',     os_version : '15.0' },
+  android: { ...defaultBSDevice, device : 'Google Pixel 6', os: 'android', os_version : '12.0' }
 };
 
 module.exports = {
@@ -65,6 +61,5 @@ module.exports = {
   defaultBSBrowsers,
   supportedBSBrowsers,
   availableBSBrowsers,
-  BSBrowser,
-  BSDevice
+  BSConfig
 };
