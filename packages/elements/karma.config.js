@@ -55,7 +55,6 @@ module.exports = async function (config) {
     if (ELEMENT === 'all') {
       elementsConfig.captureTimeout = 6e5;
       elementsConfig.browserDisconnectTimeout = 6e5;
-      elementsConfig.browserStack.timeout = 1800; // Maximum
     }
   }
 
