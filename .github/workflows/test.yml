@@ -4,7 +4,7 @@ env:
   BASE_SHA: ${{ github.event.pull_request.base.sha }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-  BROWSERSTACK_BUILD: "Test #${{ github.run_number }}"
+  BROWSERSTACK_BUILD: "Test ${{ github.run_number }}"
 jobs:
   build:
     runs-on: ubuntu-latest

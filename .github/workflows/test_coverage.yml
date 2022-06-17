@@ -2,6 +2,10 @@ name: "Test Coverage" # To be able to access test coverage of the repository on 
 on:
   push:
     branches: [v6]
+env:
+  BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+  BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+  BROWSERSTACK_BUILD: "Test Coverage ${{ github.run_number }}"
 
 jobs:
   sonarcloud:
@@ -25,9 +29,26 @@ jobs:
         if: steps.setup.outputs.cache-build-hit != 'true'
         run: npm run build
 
+      - name: 'BrowserStack Env Setup' # Invokes the setup-env action
+        uses: browserstack/github-actions/setup-env@master
+        with:
+          username: ${{ secrets.BROWSERSTACK_USERNAME }}
+          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+
+      - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
+        uses: browserstack/github-actions/setup-local@master
+        with:
+          local-testing: start
+          local-identifier: random
+
       - name: Test
-        run: npm run test:all
-        
+        run: npm run test:all -- --parallel=3 --browserstack 'default' --output minimal
+
+      - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
+        uses: browserstack/github-actions/setup-local@master
+        with:
+          local-testing: stop
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
