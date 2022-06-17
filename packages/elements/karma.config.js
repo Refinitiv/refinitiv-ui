@@ -53,8 +53,8 @@ module.exports = async function (config) {
 
     // Increase time for test all element to prevent CI performance drop cause test failed.
     if (ELEMENT === 'all') {
-      elementsConfig.captureTimeout = 6e5,
-      elementsConfig.browserDisconnectTimeout = 6e5,
+      elementsConfig.captureTimeout = 6e5;
+      elementsConfig.browserDisconnectTimeout = 6e5;
       elementsConfig.browserStack.timeout = 1800; // Maximum
     }
   }
