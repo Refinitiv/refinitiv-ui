@@ -1,10 +1,11 @@
-name: Test
-on: [pull_request] # Triggers on any branch
+name: Nightly Test
+on:
+  schedule:
+    - cron: '0 0 * * *'
 env:
-  BASE_SHA: ${{ github.event.pull_request.base.sha }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-  BROWSERSTACK_BUILD: "Test #${{ github.run_number }}"
+  BROWSERSTACK_BUILD: "Nightly Test ${{ github.run_number }}"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,8 +29,8 @@ jobs:
         run: npm run reset
 
       - name: Build
-        if: steps.setup.outputs.cache-build-hit != 'true'
-        run: npm run build:affected -- --base=$BASE_SHA
+        # Prevent NX caching it should always build
+        run: npm run build -- --skip-nx-cache
 
   lint:
     needs: build
@@ -44,8 +45,10 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Lint
-        run: npm run lint:affected -- --base=$BASE_SHA
-  test:
+        # Prevent NX caching because it must run all linting, even though the code has not chaged.
+        run: npm run lint:all -- --skip-nx-cache
+
+  nightly-test:
     needs: lint
     runs-on: ubuntu-latest
     steps:
@@ -73,7 +76,8 @@ jobs:
         id: setup
 
       - name: Test
-        run: npm run test:affected -- --base=$BASE_SHA --parallel=3 --browserstack 'default' --output minimal
+        # Prevent NX caching because it must run all testing, even though the code has not chaged.
+        run: npm run test:all -- --parallel=3 --skip-nx-cache --browserstack 'supported' --output minimal
 
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master
