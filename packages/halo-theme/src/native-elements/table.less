@@ -1,7 +1,10 @@
 @import '@refinitiv-ui/elemental-theme/src/native-elements/table';
 
 th {
-  font-weight: 500; // semi-bold
-  background-color: @header-background-color;
+  font-weight: @grid-header-font-weight;
   border: @grid-border;
+}
+
+th:hover {
+  background-color: @grid-header-hover-background-color;
 }
