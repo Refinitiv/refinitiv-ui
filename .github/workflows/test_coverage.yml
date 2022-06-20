@@ -57,7 +57,7 @@ jobs:
         id: setup
 
       - name: Test
-        run: npm run test:all -- --parallel=3 --browserstack 'default' --output minimal
+        run: npm run test:all -- --parallel=3 --browserstack 'chrome' --output minimal
 
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master
