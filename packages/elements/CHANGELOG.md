@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.0...@refinitiv-ui/elements@6.0.1) (2022-06-20)
+
+
+### Bug Fixes
+
+* **chart:** render selected segment after tooltip has rendered so it won't cut off the tooltip ([#359](https://github.com/Refinitiv/refinitiv-ui/issues/359)) ([62e37d5](https://github.com/Refinitiv/refinitiv-ui/commit/62e37d50618f5ec4750d189e150ae8a076d8eca4))
+* **datetime-picker:** change warning and error border style to make it consistent with textfield ([#356](https://github.com/Refinitiv/refinitiv-ui/issues/356)) ([51638bd](https://github.com/Refinitiv/refinitiv-ui/commit/51638bd4d5e9306deb538725726fb085d55fd425))
+* incorrect TypeScript type delcaration path ([#370](https://github.com/Refinitiv/refinitiv-ui/issues/370)) ([4b40823](https://github.com/Refinitiv/refinitiv-ui/commit/4b4082316233ce5b6e4b6e8dd38e10ddedd532f7))
+* **tree-select:** show unselected item on selection filter ([#358](https://github.com/Refinitiv/refinitiv-ui/issues/358)) ([ea88b3c](https://github.com/Refinitiv/refinitiv-ui/commit/ea88b3c1389ef7887af890206bdd29695ce49787))
+* **tree:** incorrect padding size of tree item when use multiple mode ([#362](https://github.com/Refinitiv/refinitiv-ui/issues/362)) ([1f5d6aa](https://github.com/Refinitiv/refinitiv-ui/commit/1f5d6aa71fd9e155202203e18134934fa93c920c))
+* **tree:** tree query selection issues ([#364](https://github.com/Refinitiv/refinitiv-ui/issues/364)) ([cf1c072](https://github.com/Refinitiv/refinitiv-ui/commit/cf1c07234be0ec0984cb109a9fed9cf58db22c44))
+
+
+
+
+
 # [6.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.0-next.3...@refinitiv-ui/elements@6.0.0) (2022-06-07)
 
 
