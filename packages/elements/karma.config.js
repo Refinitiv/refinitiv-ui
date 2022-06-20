@@ -50,6 +50,12 @@ module.exports = async function (config) {
   // Set element name to BrowserStack if available
   if (elementsConfig.browserStack) {
     elementsConfig.browserStack.name = ELEMENT === 'all' ? 'elements' : ELEMENT;
+
+    // Increase time for test all element to prevent CI performance drop cause test failed.
+    if (ELEMENT === 'all') {
+      elementsConfig.captureTimeout = 6e5;
+      elementsConfig.browserDisconnectTimeout = 6e5;
+    }
   }
 
   config.set(elementsConfig);

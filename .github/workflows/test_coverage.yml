@@ -6,17 +6,18 @@ env:
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Test Coverage ${{ github.run_number }}"
-
 jobs:
-  sonarcloud:
-    name: TestCoverage
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Check out repository code
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
       - name: Setup resources and environment
         uses: ./.github/actions/setup
+        id: setup
 
       - name: Install Dependencies
         if: steps.setup.outputs.cache-dependencies-hit != 'true'
@@ -29,6 +30,11 @@ jobs:
         if: steps.setup.outputs.cache-build-hit != 'true'
         run: npm run build
 
+  sonarcloud:
+    needs: build
+    name: TestCoverage
+    runs-on: ubuntu-latest
+    steps:
       - name: 'BrowserStack Env Setup' # Invokes the setup-env action
         uses: browserstack/github-actions/setup-env@master
         with:
@@ -41,8 +47,17 @@ jobs:
           local-testing: start
           local-identifier: random
 
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+        id: setup
+
       - name: Test
-        run: npm run test:all -- --parallel=3 --browserstack 'default' --output minimal
+        run: npm run test:all -- --parallel=3 --browserstack 'chrome' --output minimal
 
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master
