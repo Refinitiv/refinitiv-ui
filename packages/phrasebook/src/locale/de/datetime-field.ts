@@ -1,17 +1,17 @@
 import { Phrasebook } from '../../translation.js';
 
 const translations = {
-  PICK_YEAR: 'Pick Year',
-  PICK_MONTH: 'Pick Month',
-  PICK_DAY: 'Pick Day',
-  PICK_HOUR: 'Pick Hours',
-  PICK_MINUTE: 'Pick Minutes',
-  PICK_SECOND: 'Pick Seconds',
-  PICK_WEEKDAY: 'Pick Weekday',
-  PICK_FRACTIONALSECOND: 'Pick Milliseconds',
-  PICK_DAYPERIOD: 'Pick Day Period',
-  VALUE: 'Current value is {value}',
-  NO_VALUE: 'No value'
+  PICK_YEAR: 'Jahr auswählen',
+  PICK_MONTH: 'Monat auswählen',
+  PICK_DAY: 'Tag auswählen',
+  PICK_HOUR: 'Stunden auswählen',
+  PICK_MINUTE: 'Minuten auswählen',
+  PICK_SECOND: 'Sekunden auswählen',
+  PICK_WEEKDAY: 'Wochentag auswählen',
+  PICK_FRACTIONALSECOND: 'Millisekunden auswählen',
+  PICK_DAYPERIOD: 'Tageszeitraum auswählen',
+  VALUE: 'Aktueller Wert ist {value}',
+  NO_VALUE: 'Kein Wert'
 };
 
 Phrasebook.define('de', 'ef-datetime-field', translations);

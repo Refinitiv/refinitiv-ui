@@ -44,7 +44,7 @@ comboBox.data = [
 
 `ef-combo-box` displays a text input and an associated pop-up element that helps users set a value.
 
-### Usage
+## Usage
 The `ef-combo-box` uses the `data` property that follow [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/combo-box/helpers/types.ts) interface.
 
 
@@ -60,7 +60,7 @@ comboBox.data = [
 
 The `ef-combo-box` uses the [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/combo-box/helpers/types.ts) interface for its data items.
 
-### Getting value on single and multiple mode
+## Getting value on single and multiple mode
 When an item is selected, the item's `value` will set to Combo Box's `value`.
 
 Value can be preset via `selected` field when set data or by programmatically setting the Combo Box `value` property.
@@ -94,7 +94,7 @@ comboBox.values = ['gb', 'th'];
 
 @> By default, Combo Box allows setting value that available in its data set.
 
-### Free text mode
+## Free text mode
 Set `free-text` to allow Combo Box to contain any arbitrary value. This mode is designed to cover a search input with suggestions scenario.
 
 ::
@@ -136,7 +136,7 @@ comboBox.data = [
 <ef-combo-box free-text></ef-combo-box>
 ```
 
-### Filtering
+## Filtering
 Default filtering is applied on the data `label` property. Filtering happens when the user modifies the input text.
 
 The developer may wish to do their own filtering by implementing the `filter` property.
@@ -230,7 +230,7 @@ comboBox.filter = customFilter(comboBox);
 
 @> Regardless of filter configuration Combo Box always treats `type: 'header'` items as group headers, which persist as long as at least one item within the group is visible.
 
-### Asynchronous filtering
+## Asynchronous filtering
 
 The component's built-in filter can only be used with pre-loaded data. However, you can still implement Asynchronous filtering by following these simple steps.
 
@@ -342,126 +342,26 @@ comboBox.addEventListener('query-changed', (event) => {
 ```
 ::
 
-### Custom renderer
+## Custom renderer
 
 Combo Box supports custom rendering by providing a renderer function to the `renderer` property. The renderer receives a data item, Collection Composer and previously mapped item elements (if any), and must return an `HTMLElement`.
 
-The preferred approach is to extend the `ComboBoxRenderer` that comes with Combo Box. The default renderer uses [Item](./elements/item) elements, and supports highlighted, selected, disabled, hidden and readonly states.
+The preferred approach is to create new renderer reference to the `ComboBoxRenderer` that comes with Combo Box. The default renderer uses [Item](./elements/item) elements, and supports highlighted, selected, disabled, hidden and readonly states.
 
 ```javascript
 import { ComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
 
+// import flag to use in custom renderer
+import '@refinitiv-ui/elements/flag'
+import '@refinitiv-ui/elements/flag/themes/halo/dark'
+
+// Keep the reference to the default renderer
+const defaultRenderer = new ComboBoxRenderer(comboBox);
+// Keep track flag elements after creating to avoid memory leak and re-render the same flag
+const flagMap = new WeakMap();
+
 // Create a re-useable renderer that shows Flags next to the country
-class FlagRender extends ComboBoxRenderer {
-  constructor (comboBox) {
-    // Keep the reference to the default renderer
-    const defaultRenderer = super(comboBox);
-    // store reference to flag for easy access.
-    // Use WeakMap to not care about memory leaks
-    const flagMap = new WeakMap();
-
-    // Return the closure
-    return (item, composer, element) => {
-      element = defaultRenderer(item, composer, element);
-      const type = composer.getItemPropertyValue(item, 'type');
-      let flagElement = flagMap.get(element);
-      if (!flagElement && (!type || type === 'text')) {
-        // Text items
-        flagElement = document.createElement('ef-flag');
-        flagElement.slot = 'left'; // use ef-item slotted content
-        element.appendChild(flagElement);
-        flagMap.set(element, flagElement);
-      }
-      else if (flagElement && type && type !== 'text') {
-        // Header items, which should not have a flag
-        // Make sure that flag element is removed
-        flagElement.parentNode.removeChild(flagElement);
-        flagElement.remove(element, flagElement);
-        flagElement = null;
-      }
-
-      // Make sure that you can re-use the same element with new data item
-      if (flagElement) {
-        flagElement.flag = composer.getItemPropertyValue(item, 'value');
-      }
-
-      return element;
-    };
-  }
-}
-comboBox.renderer = new FlagRender(comboBox);
-```
-
-As an alternative you can provide your own renderer. If you go that route, you must ensure that, at a minimum, the highlighted, selected and hidden states are covered.
-
-```javascript
 comboBox.renderer = (item, composer, element) => {
-  // Make sure to re-use the same element for increased performance
-  if (!element) {
-    element = document.createElement('div');
-    element.style.setProperty('margin', '5px 10px');
-    element.style.setProperty('padding', '5px 0');
-  }
-
-  // All item properties are read using the Collection Composer
-  const type = composer.getItemPropertyValue(item, 'type');
-  const label = composer.getItemPropertyValue(item, 'label');
-  const selected = composer.getItemPropertyValue(item, 'selected') === true;
-  const highlighted = composer.getItemPropertyValue(item, 'highlighted') === true;
-  const hidden = composer.getItemPropertyValue(item, 'hidden') === true;
-
-  // Style the element accordingly
-  element.style.setProperty('display', hidden ? 'none': 'block');
-  element.textContent = label;
-
-  let colour = 'grey';
-  if (type === 'header') {
-    colour = 'red';
-  }
-  else if (highlighted) {
-    colour = 'green';
-  }
-  else if (selected) {
-    colour = 'blue';
-  }
-
-  element.style.setProperty('color', colour);
-
-  return element;
-};
-```
-::
-```javascript
-::combo-box::
-const comboBox = document.querySelector('ef-combo-box');
-comboBox.data = [
-  { label: 'EMEA', type: 'header' },
-  { label: 'France', value: 'fr' },
-  { label: 'Russian Federation', value: 'ru' },
-  { label: 'Spain', value: 'es' },
-  { label: 'United Kingdom', value: 'gb', selected: true },
-  { label: 'APAC', type: 'header' },
-  { label: 'China', value: 'ch' },
-  { label: 'Australia', value: 'au' },
-  { label: 'India', value: 'in' },
-  { label: 'Thailand', value: 'th' },
-  { label: 'AMERS', type: 'header' },
-  { label: 'Canada', value: 'ca' },
-  { label: 'United States', value: 'us' },
-  { label: 'Brazil', value: 'br' },
-  { label: 'Argentina', value: 'ar' }
-];
-
-const createFlagRender = (context) => {
-  // Keep the reference to the default renderer
-  const defaultRenderer = context.renderer;
-
-  // store reference to flag for easy access.
-  // Use WeakMap to not care about memory leaks
-  const flagMap = new WeakMap();
-
-  // Return the closure
-  return (item, composer, element) => {
     element = defaultRenderer(item, composer, element);
     const type = composer.getItemPropertyValue(item, 'type');
     let flagElement = flagMap.get(element);
@@ -487,16 +387,66 @@ const createFlagRender = (context) => {
 
     return element;
   };
-};
 
-const setRenderer = () => comboBox.renderer = createFlagRender(comboBox);
+```
 
-if (customElements.get('ef-combo-box')) {
-  setRenderer();
-}
-else {
-  customElements.whenDefined('ef-combo-box').then(setRenderer);
-}
+::
+```javascript
+::combo-box::
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements/flag?min';
+halo('flag');
+import { ComboBoxRenderer } from "https://cdn.skypack.dev/@refinitiv-ui/elements/combo-box?min";
+
+const comboBox = document.querySelector('ef-combo-box');
+comboBox.data = [
+  { label: 'EMEA', type: 'header' },
+  { label: 'France', value: 'fr' },
+  { label: 'Russian Federation', value: 'ru' },
+  { label: 'Spain', value: 'es' },
+  { label: 'United Kingdom', value: 'gb', selected: true },
+  { label: 'APAC', type: 'header' },
+  { label: 'China', value: 'ch' },
+  { label: 'Australia', value: 'au' },
+  { label: 'India', value: 'in' },
+  { label: 'Thailand', value: 'th' },
+  { label: 'AMERS', type: 'header' },
+  { label: 'Canada', value: 'ca' },
+  { label: 'United States', value: 'us' },
+  { label: 'Brazil', value: 'br' },
+  { label: 'Argentina', value: 'ar' }
+];
+
+const defaultRenderer = new ComboBoxRenderer(comboBox);
+
+const flagMap = new WeakMap();
+
+comboBox.renderer = (item, composer, element) => {
+    element = defaultRenderer(item, composer, element);
+    const type = composer.getItemPropertyValue(item, 'type');
+    let flagElement = flagMap.get(element);
+    if (!flagElement && (!type || type === 'text')) {
+      // Text items
+      flagElement = document.createElement('ef-flag');
+      flagElement.slot = 'left';
+      element.appendChild(flagElement);
+      
+      flagMap.set(element, flagElement);
+    }
+    else if (flagElement && type && type !== 'text') {
+      // Header items, which should not have a flag
+      // Make sure that flag element is removed
+      flagElement.parentNode.removeChild(flagElement);
+      flagMap.remove(element, flagElement);
+      flagElement = null;
+    }
+
+    // Make sure that you can re-use the same element with new data item
+    if (flagElement) {
+      flagElement.flag = composer.getItemPropertyValue(item, 'value');
+    }
+
+    return element;
+  };
 ```
 ```css
 .wrapper {
@@ -511,7 +461,7 @@ else {
 ```
 ::
 
-### CSS Variables
+## CSS Variables
 
 By default, the popup width is equivalent to the input box. However, it can be overridden using CSS.
 
@@ -526,3 +476,36 @@ ef-combo-box {
 | ----------------- | ------------------------ |
 | --list-max-width  | Max width of popup list  |
 | --list-max-height | Max height of popup list |
+
+## Accessibility
+::a11y-intro::
+
+`ef-combo-box` is assigned `role="combobox"` and can include properties such as `aria-autocomplete`, `aria-controls`, `aria-expanded` and `aria-activedescendant`. The expanded list box is assigned `role="listbox"` while its items are assigned `role="option"` and `aria-selected` which depends on item's selection state.
+
+Combo Box manages the role and aria attributes automatically but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+
+```html
+<ef-combo-box placeholder="Select Country"></ef-combo-box>
+```
+```html
+<ef-combo-box 
+  aria-label="Select Country"
+  placeholder="Select Country">
+</ef-combo-box>
+```
+```html
+<label id="countryList">Select Country</label>
+<ef-combo-box 
+  aria-labelledby="countryList"
+  placeholder="Select Country">
+</ef-combo-box>
+```
+```html
+<label for="countryList">Select Country</label>
+<ef-combo-box
+  id="countryList"
+  placeholder="Select Country">
+</ef-combo-box>
+```
+
+::a11y-end::

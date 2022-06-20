@@ -59,6 +59,8 @@ class Tooltip extends BasicElement {
   private timerTimeout?: number;
   private contentNodes?: (Node)[];
 
+  protected readonly defaultRole: string | null = 'tooltip';
+
   /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
@@ -558,6 +560,12 @@ class Tooltip extends BasicElement {
    */
   private get opened (): boolean {
     return this._opened;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-tooltip': Tooltip;
   }
 }
 

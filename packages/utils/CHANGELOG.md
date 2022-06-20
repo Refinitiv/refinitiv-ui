@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.0.0-next.1...@refinitiv-ui/utils@6.0.0) (2022-06-07)
+
+
+### Bug Fixes
+
+* **utils:** improve svg security ([#342](https://github.com/Refinitiv/refinitiv-ui/issues/342)) ([ef53c5c](https://github.com/Refinitiv/refinitiv-ui/commit/ef53c5c8918548a0c2aa67a1934ba0823698a9e8))
+
+
+### Features
+
+* **clock:** improve clock accessibility ([#308](https://github.com/Refinitiv/refinitiv-ui/issues/308)) ([c0a9bb0](https://github.com/Refinitiv/refinitiv-ui/commit/c0a9bb04c212b6aa4dbce495bec4faebd9080eaf)), closes [#311](https://github.com/Refinitiv/refinitiv-ui/issues/311)
+
+
+
+
+
 ## [5.1.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@5.1.1...@refinitiv-ui/utils@5.1.2) (2022-02-15)
 
 **Note:** Version bump only for package @refinitiv-ui/utils

@@ -100,7 +100,7 @@ ef-chart {
 
 The styling of `ef-chart` is inherited from the theme, but you can customize styling at the individual chart level.
 
-### Usage
+## Usage
 A chart can be created by passing a configuration to the `config` attribute. The configuration object is identical to the chartjs configuration.
 
 ::
@@ -190,7 +190,7 @@ line.config = {
 };
 ```
 
-### Update chart data or configurations
+## Update chart data or configurations
 To update chart datasets or configurations, you can modify the value in the `config` property and then call `updateChart()`.
 
 However, you do not have to call `updateChart()` if you set a new `config` object for the chart.
@@ -283,7 +283,7 @@ line.updateChart({
 });
 ```
 
-### Chartjs instance
+## Chartjs instance
 A chart instance of chartjs or canvas can be accessed using the `chart` property of `ef-chart`.
 
 ```javascript
@@ -292,12 +292,12 @@ console.log(line.chart); // instance of chartjs
 console.log(line.chart.canvas); // canvas of instance of chartjs
 ```
 
-### Doughnut with center label
+## Doughnut with center label
 To create a doughnut with a center label, define the `plugins.centerLabel` property in `options`.
 
 - `plugins.centerLabel.defaultText` is the default center text.
 - `plugins.centerLabel.onRenderLabel` is a callback function to define the center text when hovering and clicking on each segment.
-- `plugins.centerLabel.selected` selects a chart item when chart is initialized. You can set `index` and `datasetIndex` to use in the selection.
+- `plugins.centerLabel.selected` selects a chart item when chart is initialised. You can set `index` and `datasetIndex` to use in the selection.
 
 ::
 ```javascript
@@ -449,7 +449,7 @@ doughnut.config = {
 };
 ```
 
-### CSS variables
+## CSS variables
 For doughnut chart, colors and font size of the center label can be customized using CSS variables.
 
 ```css
@@ -466,7 +466,7 @@ ef-chart {
 | --doughnut-center-font-size        | Custom font size percentage of center label |
 
 
-### Chart types
+## Chart types
 You can create various chart types as per chartjs configurations. Samples are on [this page](http://www.chartjs.org/samples/latest/).
 
 ::
@@ -1201,3 +1201,4 @@ ef-chart {
 <ef-chart id="radar"></ef-chart>
 ```
 ::
+

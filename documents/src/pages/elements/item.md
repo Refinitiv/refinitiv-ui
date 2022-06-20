@@ -31,7 +31,7 @@ ef-item {
 
 `ef-item` is generally used as a basic building block to compose complex custom elements. Additionally it can be used by applications to create simple menus or navigation panels.
 
-### Usage
+## Usage
 
 Use `ef-item` to create an individual list item. It provides features such as types and icons to simplify building menu controls.
 
@@ -123,7 +123,7 @@ menu.addEventListener('mouseout', (event) => {
 });
 ```
 
-### Using labels
+## Using labels
 
 `ef-item` provides `label` and `sub-label` attributes to set the label property as a simplified instance of the content.
 
@@ -170,7 +170,7 @@ Both `label` and `sub-label` are not displayed if `ef-item` has children.
 </ef-item>
 ```
 
-### Using slots
+## Using slots
 
 Custom content can be added using slots. `ef-item` provides bopth `left` and `right` slots.
 
@@ -236,7 +236,7 @@ ef-item[focused] .notes {
 </ef-item>
 ```
 
-### Advanced usage
+## Advanced usage
 `ef-item` can be used to create menu elements. You should implement your own highlight and selection models.
 
 ::
@@ -394,3 +394,22 @@ menu.addEventListener('tap', (event) => {
   // Implement selection model
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+`ef-item` is a low-level element that's typically used to create other elements such as `ef-list`and `ef-tree`. Hence, `ef-item` will not be assigned any roles by default but only provide `aria-selected` and `aria-checked` attributes which will reflect its current selected state.
+
+For example, if you don't want to use `ef-list` and want to create a list element, you can assign your parent element with `role="listbox"` and each `ef-item` with `role="option"`.
+
+```html
+<div role="listbox">
+  <ef-item role="option">Item A</ef-item>
+  <ef-item role="option">Item B</ef-item>
+  <ef-item role="option">Item C</ef-item>
+</div>
+```
+
+
+
+::a11y-end::

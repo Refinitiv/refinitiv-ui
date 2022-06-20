@@ -8,9 +8,9 @@ layout: default
 
 # Languages
 
-EF uses the global `lang` attribute to determine the font-family for different languages and to show localized messages in elements. Supporting languages are English, Deutsch, Japanese, Traditional Chinese and Simplified Chinese.
+EF uses the global `lang` attribute to determine the font-family for different languages and to show localised messages in elements. Supporting languages are English, Deutsch, Japanese, Traditional Chinese and Simplified Chinese.
 
-For more information about internationalization and how is it applied in different contexts see [Internationalization](/i18n/app-developers).
+For more information about internationalization and how is it applied in different contexts see [Internationalization](/intl/internationalization).
 
 ```html
 <html lang="ja-JP">

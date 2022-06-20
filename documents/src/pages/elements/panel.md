@@ -20,7 +20,7 @@ layout: default
 
 `ef-panel` is a container for components. It provides a standard background color and padding, depending on the theme.
 
-### Creating a panel
+## Creating a panel
 `ef-panel` can be used as a generic container for housing any components.
 
 ```html
@@ -33,7 +33,7 @@ layout: default
 </ef-panel>
 ```
 
-### Add spacing
+## Add spacing
 Default padding is managed by the theme and can be set to `ef-panel` using the `spacing` attribute.
 
 ::
@@ -48,7 +48,7 @@ Default padding is managed by the theme and can be set to `ef-panel` using the `
 ```
 ::
 
-### Customizing panel style
+## Customizing panel style
 `ef-panel` can be styled similarly to `div`. For example, background color and other styles can be changed using a CSS class.
 
 ::

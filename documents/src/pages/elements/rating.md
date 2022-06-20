@@ -24,7 +24,7 @@ ef-rating {
 
 `ef-rating` is a star visualization component that is typically used for ranking.
 
-### Usage
+## Usage
 By default, `ef-rating` is displayed with no stars selected. Setting `value` selects/highlights stars.
 
 ::
@@ -49,7 +49,7 @@ ef-rating {
 <ef-rating value="3.5"></ef-rating>
 ```
 
-### Customize number of stars and size
+## Customize number of stars and size
 The maximum number of stars can be overridden by setting `max`.
 
 ::
@@ -90,7 +90,7 @@ The size of the stars can be changed using standard CSS styles.
 <ef-rating id="custom" value="2.5"></ef-rating>
 ```
 
-### Interactive rating
+## Interactive rating
 By default users cannot change the value of `ef-rating`. Specifying `interactive` makes it possible for users to change the value.
 
 ::
@@ -140,3 +140,12 @@ customRating.addEventListener('value-changed', (event) =>  {
   document.getElementById('result').textContent = 'You have selected: ' + event.detail.value;
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+`ef-rating` does not assign any roles as it's not an actionable component.
+
+However, in the interactive mode, rating will be assigned `role="slider"`. Users can use arrow keys to update value. Current value of the rating will be updated to `aria-valuenow`. You can assign `aria-label` and `aria-valuetext` to `ef-rating` to give the component an assistive name for screen reader.
+
+::a11y-end::

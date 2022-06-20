@@ -132,11 +132,22 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
     // Single selection - check item
     if (this.manager.checkItem(item)) {
       this.manager.checkedItems.forEach(checkedItem => {
-        checkedItem !== item && this.manager.uncheckItem(checkedItem);
+        checkedItem !== item && this.forceUncheckItem(checkedItem);
       });
       return true;
     }
     return false;
+  }
+
+  /**
+   * Force uncheck item when item is locked
+   * @param item Original data item
+   * @returns {void}
+   */
+  protected forceUncheckItem (item: T): void {
+    const result = this.composer.unlockItem(item);
+    this.manager.uncheckItem(item);
+    result && this.composer.lockItem(item);
   }
 
   /**
@@ -443,5 +454,11 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   protected get mode (): TreeManagerMode {
     return !this.multiple || !this.noRelation
       ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-tree': Tree;
   }
 }

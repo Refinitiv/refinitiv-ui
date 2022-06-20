@@ -1,29 +1,21 @@
 # `slider/Slider`
 
-## `Test Default Structure`
-
-####   `DOM structure is correct`
+#### `DOM structure is correct`
 
 ```html
 <div part="slider-wrapper">
   <div part="slider">
-    <div
-      id="trackWrapper"
-      part="track-wrapper"
-    >
+    <div part="track-wrapper">
       <div
-        id="trackFill"
         part="track-fill"
         style="width:0%;"
       >
       </div>
       <div
-        id="stepContainer"
         part="step-container"
         style="transform:translateX(-0.5%);"
       >
         <div
-          id="steps"
           part="step"
           style="transform:translateX(0.5%);background-size:1% 100%;"
         >
@@ -31,22 +23,23 @@
       </div>
     </div>
     <div
-      id="thumbContainer"
+      aria-label="Value"
+      aria-valuemax="100"
+      aria-valuemin="0"
+      aria-valuenow="0"
       name="value"
       part="thumb-container"
+      role="slider"
       style="left:0%;"
+      tabindex="1"
     >
       <div part="pin">
-        <span
-          id="pinMarker"
-          part="pin-value-marker"
-        >
+        <span part="pin-value-marker">
           0
         </span>
       </div>
       <div
         draggable="true"
-        id="thumb"
         part="thumb"
       >
       </div>

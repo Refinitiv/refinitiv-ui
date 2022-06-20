@@ -179,3 +179,9 @@ export class NotificationTray extends ResponsiveElement {
     return html`<slot></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-notification-tray': NotificationTray;
+  }
+}

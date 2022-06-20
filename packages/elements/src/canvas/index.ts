@@ -197,3 +197,9 @@ export class Canvas extends ResponsiveElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-canvas': Canvas;
+  }
+}

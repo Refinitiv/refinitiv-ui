@@ -52,7 +52,7 @@ ef-select {
 ```
 ::
 
-### Usage
+## Usage
 
 `ef-select` expands upon the native `select` element, providing a fully themeable dropdown element.
 
@@ -91,11 +91,11 @@ section {
 </ef-select>
 ```
 
-### Data property interface
+## Data property interface
 
 The `data` property of the `ef-select` use the [SelectData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/select/helpers/types.ts) interface for its data items.
 
-### Categorize into groups
+## Categorize into groups
 
 Groups are also defined using `ef-item`. The only difference is that we add a `type="header"` attribute onto the element.
 
@@ -139,7 +139,7 @@ section {
 </ef-select>
 ```
 
-### Adding a placeholder
+## Adding a placeholder
 
 Once you have your choices and groups defined, you can then add placeholder text to help users understand what the list contains and what their choice is for.
 
@@ -171,7 +171,7 @@ section {
   ...
 ```
 
-### Selecting a default option
+## Selecting a default option
 
 You may wish to set an initial selected value. This can be achieved by adding a `selected` attribute to the option you would like to have selected by default.
 
@@ -209,7 +209,7 @@ section {
 ...
 ```
 
-### Disabling an option
+## Disabling an option
 
 Options can be disabled by adding a `disabled` attribute to the options you wish to disable.
 
@@ -245,7 +245,7 @@ section {
 ...
 ```
 
-### Configuring options using data object
+## Configuring options using data object
 
 Depending on your usage, you may wish to configure `ef-select` using its `data` object.
 
@@ -327,7 +327,7 @@ el.data = [
 ];
 ```
 
-### Restricting list height
+## Restricting list height
 
 The `max-height` of the list can be restricted using the `--list-max-height` property.
 
@@ -365,7 +365,7 @@ ef-select {
 }
 ```
 
-### CSS Variables
+## CSS Variables
 
 The max height and width can be overridden by CSS Variables.
 
@@ -380,3 +380,37 @@ ef-select {
 | ------------------ | ------------------------------------ |
 | --list-max-height  | Maximum height of the drop-down list |
 | --list-max-width   | Maximum width of the drop-down list  |
+
+## Accessibility
+::a11y-intro::
+
+`ef-select` is assigned `role="button"` and also attribute `aria-expanded`. Select options are assigned `role="option"` and `aria-selected` which depends on item's selection state.
+
+* `ef-select` manages the role and aria attributes automatically if you create `ef-select` using `data` property
+* If you create select declaratively by using `ef-item`, assign `role="option"` to selectable `ef-item`.
+
+```html
+<ef-select placeholder="Pick item">
+  <ef-item value="GBP" role="option" selected>GBP (£)</ef-item>
+  <ef-item value="EUR" role="option">EUR (€)</ef-item>
+  <ef-item value="USD" role="option">USD ($)</ef-item>
+</ef-select>
+```
+* If you have header items, assign `role="presentation"` on the items
+
+```html
+<ef-select placeholder="Pick item...">
+  <ef-item role="presentation" type="header">Drinks</ef-item>
+  <ef-item role="option" value="1">Cola</ef-item>
+  <ef-item role="option" selected value="2">Lemonade</ef-item>
+  <ef-item role="option" value="3">Iced Tea</ef-item>
+  <ef-item role="option" value="4">Water</ef-item>
+  <ef-item role="presentation" type="header">Ice Cream</ef-item>
+  <ef-item role="option" value="5">Vanilla</ef-item>
+  <ef-item role="option" value="6">Chocolate</ef-item>
+  <ef-item role="option" value="7">Pistachio</ef-item>
+  <ef-item role="option" value="8">Salted Caramel</ef-item>
+</ef-select>
+```
+
+::a11y-end::

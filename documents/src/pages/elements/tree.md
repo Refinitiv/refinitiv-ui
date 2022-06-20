@@ -51,7 +51,7 @@ tree.data = [{
 
 Displays a nested data structure as a tree menu. Useful for navigating grouped/categorized data.
 
-### Usage
+## Usage
 
 The data of `ef-tree` can be set by passing an array of objects to the element's `data` property.
 
@@ -94,7 +94,7 @@ tree.data = [{
 }]
 ```
 
-### Tree item with icon
+## Tree item with icon
 Icon can be set to show on each node in tree by using icon key in item object. You can pass icon name, url of icon svg file or empty string.
 
 
@@ -107,7 +107,6 @@ basicTree.data = [
   {
     label: 'Request 5 Rank 1: custom leage table',
     icon: 'list',
-    selected: true,
     expanded: true,
     items: [{
         label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
@@ -129,7 +128,6 @@ multipleTree.data = [
   {
     label: 'Request 5 Rank 1: custom leage table',
     icon: 'list',
-    selected: true,
     expanded: true,
     items: [{
       label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
@@ -173,7 +171,6 @@ tree.data = [
   {
     label: 'Request 5 Rank 1: custom leage table',
     icon: 'list',
-    selected: true,
     expanded: true,
     items: [{
       label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
@@ -193,11 +190,11 @@ tree.data = [
 ];
 ```
 
-### Data property interface
+## Data property interface
 
 The `data ` property that passes through the `ef-tree` uses the [TreeData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/tree/helpers/types.ts) interface for its data items.
 
-### Multiple selection
+## Multiple selection
 
 Tree uses single selection mode by default. Use the `multiple` attribute if you need multiple selections.
 
@@ -248,7 +245,7 @@ tree.data = [
 <ef-tree multiple></ef-tree>
 ```
 
-### Turn off parent/child relationship
+## Turn off parent/child relationship
 
 For multiple selection mode, Tree manages the relationship between parent and child items. Use the `no-relation` attribute to turn this feature off.
 
@@ -299,7 +296,7 @@ tree.data = [
 <ef-tree multiple no-relation></ef-tree>
 ```
 
-### Tree value(s) and events
+## Tree value(s) and events
 
 Use the `value-changed` event to know when the user has changed any selection in Tree. Tree provides `value` and `values` properties for accessing selected item(s).
 
@@ -313,3 +310,12 @@ tree.addEventListener('value-changed', (e) => {
   console.log(tree.values); // access selected items
 });
 ```
+
+## Accessibility
+::a11y-intro::
+
+`ef-tree` is assigned `role="tree"` and can include properties such as `aria-multiselectable`, `aria-label`, or `aria-labelledby`. It receives focus once at host and it is navigable through items using `Up` and `Down` arrow keys and expandable or collapsable using `Left` and `Right`. Each item is assigned `role="treeitem"` and can include properties such as `aria-selected` or `aria-checked` in `multiple` mode. 
+
+`ef-tree` has already provided role and aria attributes for itself and items in the list. It also has implemented keyboard navigation following accessibility guidelines.
+
+::a11y-end::
