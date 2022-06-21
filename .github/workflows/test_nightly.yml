@@ -1,11 +1,11 @@
-name: "Test Coverage" # To be able to access test coverage of the repository on SonarCloud
+name: Nightly Test
 on:
-  push:
-    branches: [v6]
+  schedule:
+    - cron: '0 0 * * *'
 env:
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-  BROWSERSTACK_BUILD: "Test Coverage ${{ github.run_number }}"
+  BROWSERSTACK_BUILD: "Nightly Test ${{ github.run_number }}"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,7 +13,9 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
 
       - name: Setup resources and environment
         uses: ./.github/actions/setup
@@ -27,12 +29,27 @@ jobs:
         run: npm run reset
 
       - name: Build
-        if: steps.setup.outputs.cache-build-hit != 'true'
-        run: npm run build
+        # Prevent NX caching it should always build
+        run: npm run build -- --skip-nx-cache
 
-  sonarcloud:
+  lint:
     needs: build
-    name: TestCoverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+
+      - name: Lint
+        # Prevent NX caching because it must run all linting, even though the code has not chaged.
+        run: npm run lint:all -- --skip-nx-cache
+
+  nightly-test:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: 'BrowserStack Env Setup' # Invokes the setup-env action
@@ -50,6 +67,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
           fetch-depth: 0
 
       - name: Setup resources and environment
@@ -57,15 +76,10 @@ jobs:
         id: setup
 
       - name: Test
-        run: npm run test:all -- --parallel=3 --browserstack 'chrome' --output minimal
+        # Prevent NX caching because it must run all testing, even though the code has not chaged.
+        run: npm run test:all -- --parallel=3 --skip-nx-cache --browserstack 'supported' --output minimal
 
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master
         with:
           local-testing: stop
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

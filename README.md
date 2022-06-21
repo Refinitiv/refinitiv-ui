@@ -1,7 +1,8 @@
 # Element Framework (EF)
 
 [![Testing](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test.yml/badge.svg?branch=v6)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test.yml?query=branch%3Av6+)
-[![Release](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/release.yml/badge.svg?branch=v6)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/release.yml?query=branch%3Av6+)
+[![Nightly Test](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test_nightly.yml/badge.svg?event=schedule)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test_nightly.yml)
+[![Production Release](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/prod_release.yml/badge.svg?branch=v6)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/prod_release.yml)
 
 Element Framework is Refinitiv design system components that provides components and tooling with Refinitiv's design system to help product teams work faster and more efficiently.
 
@@ -132,22 +133,23 @@ npm run lint:all
 
 #### Options for unit test and linting command
 
-| Option                | Description                                                                                                                                                                                                                                                      |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--browsers` or `-b`  | You can specific browser(s) to run the unit test. List of available browsers are following: `chrome`, `firefox` and `ie` <br>You can check the list of available browsers by add option `--help`.  <br>Usage: `npm run test button -- --browsers chrome firefox` |
-| `--watch` or `-w`     | Run test and watch file change. <br>Usage: `npm run test button -- --watch`                                                                                                                                                                                      |
-| `--snapshots` or `-s` | Update and prune snapshots (`--browsers` must be chrome). <br>Usage:`npm run test button -- --snapshots --browsers chrome`                                                                                                                                       |
-| `--fix`  or `-f`      | Run linting and fix the issues that can lead to bugs or inconsistencies with code health and style. <br>Usage:`npm run test button --fix`                                                                                                                        |
+| Option                    | Description                                                                                                                                                                                                                                                      |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--browsers` or `-b`      | You can specific browser(s) to run the unit test. List of available browsers are following: `chrome`, `firefox` and `ie` <br>You can check the list of available browsers by add option `--help`.  <br>Usage: `npm run test button -- --browsers chrome firefox` |
+| `--browserstack` or `-bs` | You can run test on BrowserStack with specific browser(s). List of available browsers are following: `chrome`, `firefox`, `edge_previous`, and aliases `default`, `supported`, and etc. <br>This command option required BrowserStack API Key you must setting the three environment variables `BROWSERSTACK_USERNAME`, `BROWSERSTACK_ACCESS_KEY`, and `BROWSERSTACK_BUILD`. You can create API key from [here](https://www.browserstack.com/accounts/settings) <br>Usage: `npm run test button -- --browserstack chrome firefox_previous`
+| `--watch` or `-w`         | Run test and watch file change. <br>Usage: `npm run test button -- --watch`                                                                                                                                                                                      |
+| `--snapshots` or `-s`     | Update and prune snapshots (`--browsers` must be chrome). <br>Usage:`npm run test button -- --snapshots --browsers chrome`                                                                                                                                       |
+| `--fix`  or `-f`           | Run linting and fix the issues that can lead to bugs or inconsistencies with code health and style. <br>Usage:`npm run test button --fix`                                                                                                                        |
 
 ### Commit prefixes
 
 Commit prefixes must be written in a correct pattern when committing code into EF repositories. It will be used to determine running version when release the package and for generating changelogs.
 
-| Prefix                             | Incremental Version | Usage                                                                                                                                                             |
+| Prefix                              | Incremental Version | Usage                                                                                                                                                             |
 | ---------------------------------- | :-----------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `BREAKING CHANGE(<package-name>):` |        MAJOR        | Changes that breaking existing public API.<br/>**BREAKING CHANGE(coral-button): cta attribute has been removed**                                                  |
 | `feat(<package-name>):`            |        MINOR        | A new feature.<br/>**feat(coral-button): element sings a song every Sunday**                                                                                      |
-| `fix(<package-name>):`             |        PATCH        | A bug fix.<br/>**fix(coral-button): auto-play issue (#39)**                                                                                                       |
+| `fix(<package-name>):`              |        PATCH        | A bug fix.<br/>**fix(coral-button): auto-play issue (#39)**                                                                                                       |
 | `style(<package-name>):`           |        PATCH        | Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).<br/>**style(coral-button): removed trailing white space** |
 | `docs(<package-name>):`            |        PATCH        | Documentation only changes.<br/>**docs(coral-button): included complex sample to README**                                                                         |
 | `refactor(<package-name>):`        |        PATCH        | A code change that neither fixes a bug nor adds a feature.<br/>**refactor(coral-button): changed song picker algorithm**                                          |

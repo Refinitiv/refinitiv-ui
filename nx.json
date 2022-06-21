@@ -42,6 +42,6 @@
     ]
   },
   "affected": {
-    "defaultBase": "develop"
+    "defaultBase": "v6"
   }
 }
