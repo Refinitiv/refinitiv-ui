@@ -20,6 +20,7 @@ import '../icon/index.js';
 import { Item } from '../item/index.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
+import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import type { Overlay } from '../overlay';
 import type { SelectData, SelectDataItem } from './helpers/types';
@@ -365,8 +366,9 @@ export class Select extends ControlElement implements MultiValue {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown); /* keydown when select is closed */
-
-    registerOverflowTooltip(this, () => this.labelRef.value ? this.labelRef.value.textContent || '' : '');
+    registerOverflowTooltip(this,
+      () => this.labelText,
+      () => this.labelRef.value ? isElementOverflown(this.labelRef.value) : false);
   }
 
   /**
@@ -969,6 +971,14 @@ export class Select extends ControlElement implements MultiValue {
   }
 
   /**
+   * Get text for labels
+   * @returns Label
+   */
+  private get labelText (): string {
+    return this.multiple ? this.labels.join(LABEL_SEPARATOR) : this.label;
+  }
+
+  /**
    * Calculating whether the placeholder should be hidden
    * @returns result
    */
@@ -1014,7 +1024,7 @@ export class Select extends ControlElement implements MultiValue {
    * Template for label
    */
   private get labelTemplate (): TemplateResult {
-    return html`<div part="label" ${ref(this.labelRef)}>${this.multiple ? this.labels.join(LABEL_SEPARATOR) : this.label}</div>`;
+    return html`<div part="label" ${ref(this.labelRef)}>${this.labelText}</div>`;
   }
 
   /**

@@ -19,7 +19,7 @@ const getElementScope = (element: Element): Document | DocumentFragment | null =
  * @param target Target element
  * @returns true If target has overflow
  */
-const isElementOverflown = (target: HTMLElement): boolean => (target.scrollWidth - target.offsetWidth) > 1 || (target.scrollHeight - target.offsetHeight) > 1;
+const isElementOverflown = (target: HTMLElement): boolean => (target.scrollWidth - target.offsetWidth) >= 1 || (target.scrollHeight - target.offsetHeight) >= 1;
 
 export {
   getElementScope,
