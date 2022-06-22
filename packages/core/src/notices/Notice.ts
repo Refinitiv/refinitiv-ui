@@ -22,15 +22,28 @@ export class Notice {
    * The message to be used for the
    * warning notice.
    */
-  protected message: string;
+  protected value: string;
+
+  /**
+   * Support URL for more information
+   */
+  protected supportURL: string | undefined;
+
+  /**
+   * Full message combines type, message and supportURL
+   */
+  protected get message (): string {
+    return generateMessage(this.type, this.message, this.supportURL);
+  }
 
   /**
    * Create a warning notice to show in the console.
-   * @param message Warning message to show in the console
+   * @param value Warning message to show in the console
    * @param supportURL Support URL to show additional information
    */
-  constructor (message: string, supportURL?: string) {
-    this.message = generateMessage(this.type, message, supportURL);
+  constructor (value: string, supportURL?: string) {
+    this.value = value;
+    this.supportURL = supportURL;
   }
 
   /**
