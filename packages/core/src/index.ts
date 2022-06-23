@@ -43,14 +43,14 @@ export { DeprecationNotice } from './notices/DeprecationNotice.js';
  * Export events
  */
 export { TapEvent } from './events/TapEvent.js';
-export type { FocusedChangedEvent } from './types/events';
+export type { FocusedChangedEvent } from './types/events.js';
 
 /**
  * Export common interfaces
  */
-export type { MultiValue } from './interfaces/MultiValue';
-export type { StyleMap } from './interfaces/StyleMap';
-export type { StyleInfo } from './interfaces/StyleInfo';
+export type { MultiValue } from './interfaces/MultiValue.js';
+export type { StyleMap } from './interfaces/StyleMap.js';
+export type { StyleInfo } from './interfaces/StyleInfo.js';
 
 /**
  * Export useful utils

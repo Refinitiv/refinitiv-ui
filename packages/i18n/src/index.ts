@@ -5,7 +5,7 @@ export type {
   UnicodeExtensions,
   MessageFormats,
   MessageOptions
-} from './types';
+} from './types.js';
 
 export {
   LangObserverCallback,

@@ -1,4 +1,4 @@
-import type { HeatmapCell } from './types';
+import type { HeatmapCell } from './types.js';
 
 const MIN_FONT_SIZE = 10;
 const MAX_FONT_SIZE = 16;

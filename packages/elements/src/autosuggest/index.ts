@@ -19,7 +19,7 @@ import {
   TranslateDirective,
   TranslatePropertyKey
 } from '@refinitiv-ui/translate';
-import { TapEvent } from '../events';
+import { TapEvent } from '../events.js';
 import type {
   AutosuggestTargetElement,
   AutosuggestHighlightable,
@@ -55,7 +55,7 @@ export type {
   SuggestionsClearRequestedEvent,
   SuggestionsQueryEvent,
   SuggestionsChangedEvent
-} from './helpers/types';
+} from './helpers/types.js';
 export { updateElementContent } from './helpers/utils.js';
 export {
   itemHighlightable,

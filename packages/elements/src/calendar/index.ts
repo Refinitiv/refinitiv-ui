@@ -80,7 +80,7 @@ import {
   DateButtonElement,
   NavigationDirection,
   WeekdayName
-} from './types';
+} from './types.js';
 import type { TapEvent } from '../events';
 import type { Button } from '../button';
 import './locales.js';

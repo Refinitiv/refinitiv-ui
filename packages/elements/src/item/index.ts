@@ -14,7 +14,7 @@ import type { ItemType } from './helpers/types';
 import '../icon/index.js';
 import '../checkbox/index.js';
 
-export * from './helpers/types';
+export * from './helpers/types.js';
 
 const isAllWhitespaceTextNode = (node: Node): boolean =>
   node.nodeType === document.TEXT_NODE

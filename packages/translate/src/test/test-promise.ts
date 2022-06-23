@@ -13,10 +13,10 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import {
   translate,
   TranslatePromise
-} from '../translate';
+} from '../translate.js';
 
-import './test-nested-translate';
-import './phrasebook';
+import './test-nested-translate.js';
+import './phrasebook.js';
 
 @customElement('test-promise', { theme: false })
 export class TestPromise extends BasicElement {

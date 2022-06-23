@@ -1,4 +1,4 @@
-import { DateTimeFormatPart, DateTimeFormatPartTypes, InputSelection } from './types';
+import { DateTimeFormatPart, DateTimeFormatPartTypes, InputSelection } from './types.js';
 import { Direction } from './constants.js';
 
 const IterablePartTypes: DateTimeFormatPartTypes[] = ['year', 'day', 'month', 'hour', 'minute', 'second', 'weekday', 'dayPeriod', 'fractionalSecond'];

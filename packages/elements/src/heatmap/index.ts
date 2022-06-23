@@ -25,7 +25,7 @@ import { getResponsiveFontSize, getMaximumTextWidth, MIN_FONT_SIZE } from './hel
 const MAX_CELL_WIDTH_RATIO = 0.85;
 const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
 
-export type { HeatmapCell, HeatmapXAxis, HeatmapYAxis, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback, HeatmapCustomisableProperties } from './helpers/types';
+export type { HeatmapCell, HeatmapXAxis, HeatmapYAxis, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback, HeatmapCustomisableProperties } from './helpers/types.js';
 
 /**
  * A graphical representation of data where the individual

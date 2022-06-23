@@ -22,8 +22,8 @@ import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js'
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
-import { ItemData } from '../item';
-import { ComboBoxData, ComboBoxFilter } from './helpers/types';
+import { ItemData } from '../item/index.js';
+import { ComboBoxData, ComboBoxFilter } from './helpers/types.js';
 import type { List } from '../list/index.js';
 import { ComboBoxRenderer } from './helpers/renderer.js';
 import { defaultFilter } from './helpers/filter.js';

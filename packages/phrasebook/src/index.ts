@@ -1,6 +1,6 @@
 export type {
   Translations
-} from './types';
+} from './types.js';
 
 export {
   Phrasebook,

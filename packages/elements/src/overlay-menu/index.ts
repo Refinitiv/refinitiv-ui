@@ -20,7 +20,7 @@ import '../item/index.js';
 import { Item, ItemData } from '../item/index.js';
 import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay/index.js';
 import { applyLock } from '../overlay/managers/interaction-lock-manager.js';
-import { OverlayMenuData, Navigation } from './helpers/types';
+import { OverlayMenuData, Navigation } from './helpers/types.js';
 import { OpenedMenusManager } from './managers/menu-manager.js';
 
 export type { OverlayMenuData };

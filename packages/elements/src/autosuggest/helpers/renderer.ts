@@ -1,6 +1,6 @@
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import { updateElementContent } from './utils.js';
-import { AutosuggestQuery, AutosuggestRenderer, Suggestion, AutosuggestItem } from './types';
+import { AutosuggestQuery, AutosuggestRenderer, Suggestion, AutosuggestItem } from './types.js';
 
 /**
  * Build item element from data object

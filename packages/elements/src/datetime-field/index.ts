@@ -30,7 +30,7 @@ import {
   NavigationKeys,
   DateTimeFormatPart,
   InputSelection
-} from './types';
+} from './types.js';
 import { TextField } from '../text-field/index.js';
 import {
   getSelectedPartIndex,
