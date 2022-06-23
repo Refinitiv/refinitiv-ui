@@ -9,8 +9,11 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
+import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
+import type { Icon } from '../icon';
 
 import '../icon/index.js';
 
@@ -91,7 +94,15 @@ export class Pill extends ControlElement {
   @property({ type: Boolean, reflect: true })
   private pressed = false;
 
-  @query('[part=close]') private closeElement?: HTMLElement | null;
+  /**
+   * Reference to the close icon
+   */
+  private closeIconRef: Ref<Icon> = createRef();
+
+  /**
+   * Reference to the label element
+   */
+  private labelRef: Ref<HTMLDivElement> = createRef();
 
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
@@ -101,14 +112,19 @@ export class Pill extends ControlElement {
     this.addEventListener('tapend', this.onEndPress);
     this.addEventListener('mouseleave', this.onEndPress);
     this.addEventListener('keydown', this.onKeyDown);
+
+    registerOverflowTooltip(this, undefined, () => this.labelRef.value ? isElementOverflown(this.labelRef.value) : false);
   }
 
   /**
-   * Updates the element
+   * Compute property values that depend on other properties
+   * and are used in the rest of the update process.
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('toggles') || changedProperties.has('active')) {
       if (this.toggles) {
         this.setAttribute('aria-pressed', String(this.active));
@@ -117,8 +133,6 @@ export class Pill extends ControlElement {
         this.removeAttribute('aria-pressed');
       }
     }
-
-    super.update(changedProperties);
   }
 
   /**
@@ -133,7 +147,12 @@ export class Pill extends ControlElement {
   }
 
   private get closeTemplate (): TemplateResult | null {
-    return this.clears && !this.readonly ? html`<ef-icon part="close" icon="cross" aria-hidden="true" @tap="${this.clear}"></ef-icon>` : null;
+    return this.clears && !this.readonly ? html`<ef-icon
+      ${ref(this.closeIconRef)}
+      part="close"
+      icon="cross"
+      aria-hidden="true"
+      @tap="${this.clear}"></ef-icon>` : null;
   }
 
   /**
@@ -143,7 +162,7 @@ export class Pill extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-      <div part="content" role="none">
+      <div ${ref(this.labelRef)} part="content" role="none">
         <slot>...</slot>
       </div>
       ${this.closeTemplate}
@@ -166,9 +185,9 @@ export class Pill extends ControlElement {
    * @returns true if element property pressed could be set
    */
   private couldBePressed (event: Event): boolean {
-    const element = this.closeElement;
+    const closeIconEl = this.closeIconRef.value;
 
-    return !this.readonly && (!element || !event.composedPath().includes(element));
+    return !this.readonly && (!closeIconEl || !event.composedPath().includes(closeIconEl));
   }
 
   /**

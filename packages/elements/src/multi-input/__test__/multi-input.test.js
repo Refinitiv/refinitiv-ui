@@ -5,6 +5,11 @@ import '@refinitiv-ui/elemental-theme/light/ef-multi-input';
 
 import { getData, getNewItem } from './values.mock';
 
+/**
+ * Get private search element property
+ */
+export const getSearchEl = select => select.searchRef.value;
+
 const createBackspaceEvent = () => {
   const event = document.createEvent('Events');
   event.initEvent('keydown', true, true);
@@ -619,8 +624,8 @@ describe('multi-input/MultiInput', () => {
       const selectionStart = 3;
       el.selectionStart = selectionStart;
       await elementUpdated(el);
-      expect(el.search.selectionStart).to.equal(selectionStart);
-      expect(el.search.selectionStart).to.equal(el.selectionStart);
+      expect(getSearchEl(el).selectionStart).to.equal(selectionStart);
+      expect(getSearchEl(el).selectionStart).to.equal(el.selectionStart);
     });
 
     it('Applies selectionEnd', async function () {
@@ -632,8 +637,8 @@ describe('multi-input/MultiInput', () => {
       const selectionEnd = 5;
       el.selectionEnd = selectionEnd;
       await elementUpdated(el);
-      expect(el.search.selectionEnd).to.equal(selectionEnd);
-      expect(el.search.selectionEnd).to.equal(el.selectionEnd);
+      expect(getSearchEl(el).selectionEnd).to.equal(selectionEnd);
+      expect(getSearchEl(el).selectionEnd).to.equal(el.selectionEnd);
     });
 
     it('Applies selectionStart and selectionEnd', async function () {
@@ -647,10 +652,10 @@ describe('multi-input/MultiInput', () => {
       el.selectionStart = selectionStart;
       el.selectionEnd = selectionEnd;
       await elementUpdated(el);
-      expect(el.search.selectionStart).to.equal(selectionStart);
-      expect(el.search.selectionStart).to.equal(el.selectionStart);
-      expect(el.search.selectionEnd).to.equal(selectionEnd);
-      expect(el.search.selectionEnd).to.equal(el.selectionEnd);
+      expect(getSearchEl(el).selectionStart).to.equal(selectionStart);
+      expect(getSearchEl(el).selectionStart).to.equal(el.selectionStart);
+      expect(getSearchEl(el).selectionEnd).to.equal(selectionEnd);
+      expect(getSearchEl(el).selectionEnd).to.equal(el.selectionEnd);
     });
 
     it('Applies selection range using API', async function () {
@@ -663,8 +668,8 @@ describe('multi-input/MultiInput', () => {
       const selectionEnd = 4;
       el.setSelectionRange(selectionStart, selectionEnd);
       await elementUpdated(el);
-      expect(el.search.selectionStart).to.equal(el.selectionStart);
-      expect(el.search.selectionEnd).to.equal(el.selectionEnd);
+      expect(getSearchEl(el).selectionStart).to.equal(el.selectionStart);
+      expect(getSearchEl(el).selectionEnd).to.equal(el.selectionEnd);
     });
 
     it('test select method select all content of text-field', async function () {
@@ -675,8 +680,8 @@ describe('multi-input/MultiInput', () => {
       el.focus();
       el.select();
       await elementUpdated(el);
-      expect(el.search.selectionStart).to.equal(el.selectionStart);
-      expect(el.search.selectionEnd).to.equal(el.selectionEnd);
+      expect(getSearchEl(el).selectionStart).to.equal(el.selectionStart);
+      expect(getSearchEl(el).selectionEnd).to.equal(el.selectionEnd);
     });
   });
 
