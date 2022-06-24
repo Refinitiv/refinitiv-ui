@@ -35,7 +35,7 @@ const getClosestAccordion = (element: Element | null): Accordion | null => {
  * @returns is current accordion has child accordion that wraps checked element
  */
 const isDirectAccordionChild = (element: Element, accordion: Accordion): boolean => {
-  return getClosestAccordion(element) === accordion;
+  return element.localName === 'ef-collapse' && getClosestAccordion(element) === accordion;
 };
 
 /**
