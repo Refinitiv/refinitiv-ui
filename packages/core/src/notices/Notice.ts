@@ -14,36 +14,19 @@ export class Notice {
   public shown = false;
 
   /**
-   * Type of notice
-   */
-  protected type = 'Information';
-
-  /**
    * The message to be used for the
    * warning notice.
    */
-  protected value: string;
-
-  /**
-   * Support URL for more information
-   */
-  protected supportURL: string | undefined;
-
-  /**
-   * Full message combines type, message and supportURL
-   */
-  protected get message (): string {
-    return generateMessage(this.type, this.message, this.supportURL);
-  }
+  protected message: string;
 
   /**
    * Create a warning notice to show in the console.
-   * @param value Warning message to show in the console
+   * @param message Warning message to show in the console
    * @param supportURL Support URL to show additional information
+   * @param type Type of Notice to show at top of message
    */
-  constructor (value: string, supportURL?: string) {
-    this.value = value;
-    this.supportURL = supportURL;
+  constructor (message: string, supportURL?: string, type = 'Information') {
+    this.message = generateMessage(type, message, supportURL);
   }
 
   /**

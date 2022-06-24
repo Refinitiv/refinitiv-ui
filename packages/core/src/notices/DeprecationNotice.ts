@@ -5,5 +5,7 @@ import { WarningNotice } from './WarningNotice.js';
  * Used to show deprecation warnings in the console.
  */
 export class DeprecationNotice extends WarningNotice {
-  protected type = 'Deprecation';
+  constructor (message: string, supportURL?: string) {
+    super(message, supportURL, 'Deprecation');
+  }
 }

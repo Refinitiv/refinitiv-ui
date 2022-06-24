@@ -6,7 +6,9 @@ import { Notice } from './Notice.js';
  */
 export class WarningNotice extends Notice {
 
-  protected type = 'Warning';
+  constructor (message: string, supportURL?: string, type = 'Warning') {
+    super(message, supportURL, type);
+  }
 
   public show (): void {
     /* eslint-disable-next-line no-console */
