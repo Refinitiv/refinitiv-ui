@@ -1,3 +1,11 @@
+import type {
+  TranslateOptions,
+  TranslateMessage,
+  TranslateParams,
+  UnicodeExtensions,
+  MessageFormats,
+  MessageOptions
+} from './types';
 export type {
   TranslateOptions,
   TranslateMessage,
@@ -5,7 +13,7 @@ export type {
   UnicodeExtensions,
   MessageFormats,
   MessageOptions
-} from './types.js';
+};
 
 export {
   LangObserverCallback,

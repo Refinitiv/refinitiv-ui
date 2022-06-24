@@ -1,5 +1,5 @@
 import type { Item } from '../../item';
-import { AutosuggestHighlightable, AutosuggestItem } from './types.js';
+import type { AutosuggestHighlightable, AutosuggestItem } from './types';
 
 /**
  * Check whether item can be highlighted

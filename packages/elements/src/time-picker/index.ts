@@ -12,7 +12,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { ValueChangedEvent, FocusedChangedEvent } from '../events.js';
+import type { ValueChangedEvent, FocusedChangedEvent } from '../events';
 import { VERSION } from '../version.js';
 import {
   isValidTime,

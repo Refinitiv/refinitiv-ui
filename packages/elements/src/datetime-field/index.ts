@@ -26,11 +26,11 @@ import {
   TranslatePropertyKey
 } from '@refinitiv-ui/translate';
 import { Direction } from './constants.js';
-import {
+import type {
   NavigationKeys,
   DateTimeFormatPart,
   InputSelection
-} from './types.js';
+} from './types';
 import { TextField } from '../text-field/index.js';
 import {
   getSelectedPartIndex,

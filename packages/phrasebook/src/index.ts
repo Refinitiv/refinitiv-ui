@@ -1,6 +1,9 @@
+import type {
+  Translations
+} from './types';
 export type {
   Translations
-} from './types.js';
+};
 
 export {
   Phrasebook,

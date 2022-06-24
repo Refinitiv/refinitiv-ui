@@ -19,13 +19,13 @@ import '../tooltip/index.js';
 
 import { Track } from './helpers/track.js';
 import { blend, brighten, darken, isLight, interpolate } from './helpers/color.js';
-import type { HeatmapCell, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
 import { getResponsiveFontSize, getMaximumTextWidth, MIN_FONT_SIZE } from './helpers/text.js';
 
 const MAX_CELL_WIDTH_RATIO = 0.85;
 const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
 
-export type { HeatmapCell, HeatmapXAxis, HeatmapYAxis, HeatmapConfig, HeatmapTooltipCallback, HeatmapRenderCallback, HeatmapCustomisableProperties } from './helpers/types.js';
+import type { HeatmapXAxis, HeatmapCell, HeatmapConfig, HeatmapYAxis, HeatmapCustomisableProperties, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
+export type { HeatmapXAxis, HeatmapCell, HeatmapConfig, HeatmapYAxis, HeatmapCustomisableProperties, HeatmapTooltipCallback, HeatmapRenderCallback };
 
 /**
  * A graphical representation of data where the individual
