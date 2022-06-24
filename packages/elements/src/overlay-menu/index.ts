@@ -21,7 +21,8 @@ import { Item, ItemData } from '../item/index.js';
 import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay/index.js';
 import { applyLock } from '../overlay/managers/interaction-lock-manager.js';
 import { OpenedMenusManager } from './managers/menu-manager.js';
-import type { OverlayMenuData, Navigation } from './helpers/types';
+import { Navigation } from './helpers/constants.js';
+import type { OverlayMenuData } from './helpers/types';
 
 export type { OverlayMenuData };
 
