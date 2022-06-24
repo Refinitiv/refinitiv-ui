@@ -9,7 +9,7 @@
 :host {
   @multiple: (7 * 4); // safe number day cols (7) and month cols (4)
   @calendar-width: (floor((@input-width / @multiple)) * @multiple); // safe width for perfect rendering
-
+  line-height: @control-height;
   // #region - Extend from ef-text-field
   &:extend(:host);
   &:hover {
