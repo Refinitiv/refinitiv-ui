@@ -18,8 +18,8 @@ import { Collapse } from '../collapse/index.js';
  */
 const getClosestAccordion = (element: Element | null): Accordion | null => {
   while (element) {
-    if (element.localName === 'ef-accordion') {
-      return element as Accordion;
+    if (element instanceof Accordion) {
+      return element;
     }
     else {
       element = element.parentElement;
@@ -35,7 +35,7 @@ const getClosestAccordion = (element: Element | null): Accordion | null => {
  * @returns is current accordion has child accordion that wraps checked element
  */
 const isDirectAccordionChild = (element: Element, accordion: Accordion): boolean => {
-  return element.localName === 'ef-collapse' && getClosestAccordion(element) === accordion;
+  return element instanceof Collapse && getClosestAccordion(element) === accordion;
 };
 
 /**
