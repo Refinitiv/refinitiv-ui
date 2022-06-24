@@ -8,8 +8,8 @@ const defaultBrowsers = ['chrome', 'firefox'];
 const availableBrowsers = ['chrome', 'firefox', 'opera'];
 
 // BrowserStack browsers
-const defaultBSBrowsers = ['chrome', 'firefox', 'edge'];
-const previousBSBrowser = ['chrome_previous', 'firefox_previous', 'edge_previous'];
+const defaultBSBrowsers = ['chrome', 'firefox', 'edge', 'safari'];
+const previousBSBrowser = ['chrome_previous', 'firefox_previous', 'edge_previous', 'safari_previous'];
 const supportedBSBrowsers = [...defaultBSBrowsers, ...previousBSBrowser];
 const availableBSBrowsers = [
   'default', // default browsers alias
