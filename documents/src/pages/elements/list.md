@@ -85,13 +85,13 @@ Extending the default renderer is the easiest way to display custom content, whi
 !> Renders are currently being upgraded and should only be used for testing purposes.
 
 ```javascript
-import { List, DefaultRenderer } from '@refinitiv-ui/elements/list';
+import { ListRenderer } from '@refinitiv-ui/elements/list';
 
 const el = document.querySelector('ef-list');
 const defaultRenderer = new DefaultRenderer(el);
 
 el.renderer = (item, composer, element) => {
-  const el = defaultRenderer.apply(this, arguments);
+  const el = defaultRenderer(item, composer, element);
   // do something extra
   return el;
 };
