@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, html, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, html, oneEvent, keyboardEvent, nextFrame } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/pill';
 import '@refinitiv-ui/elemental-theme/light/ef-pill';
@@ -185,7 +185,7 @@ describe('pill/Pill', () => {
 
       setTimeout(() => el.dispatchEvent(new Event('tap')));
       await oneEvent(el, 'tap');
-
+      await nextFrame();
       expect(el.active).to.equal(true);
       expect(el.hasAttribute('active')).to.equal(true);
     });
@@ -195,7 +195,7 @@ describe('pill/Pill', () => {
 
       setTimeout(() => el.dispatchEvent(new Event('tap')));
       await oneEvent(el, 'tap');
-
+      await nextFrame();
       expect(el.active).to.equal(false);
       expect(el.hasAttribute('active')).to.equal(false);
     });
@@ -296,12 +296,12 @@ describe('pill/Pill', () => {
 
       setTimeout(() => el.dispatchEvent(new Event('tap')));
       await oneEvent(el, 'tap');
-
+      await nextFrame();
       expect(el.getAttribute('aria-pressed')).to.equal('true');
 
       setTimeout(() => el.dispatchEvent(new Event('tap')));
       await oneEvent(el, 'tap');
-
+      await nextFrame();
       expect(el.getAttribute('aria-pressed')).to.equal('false');
     });
 
