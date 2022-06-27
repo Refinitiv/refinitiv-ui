@@ -67,24 +67,11 @@ export class Toggle extends ControlElement {
   })
   public label = '';
 
-  private _checked = false;
   /**
    * Value of toggle
-   * @param value new checked value
-   * @default false
    */
   @property({ type: Boolean, reflect: true })
-  public set checked (value: boolean) {
-    const oldValue = this._checked;
-    if (oldValue !== value) {
-      this._checked = value;
-      this.setAttribute('aria-checked', String(value));
-      this.requestUpdate('checked', oldValue);
-    }
-  }
-  public get checked (): boolean {
-    return this._checked;
-  }
+  public checked = false;
 
   /**
    * A `CSSResultGroup` that will be used
@@ -98,6 +85,19 @@ export class Toggle extends ControlElement {
         display: inline-block;
       }
     `;
+  }
+
+  /**
+   * Called before update() to compute values needed during the update.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('checked')) {
+      this.setAttribute('aria-checked', String(this.checked));
+    }
   }
 
   /**
