@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/notification';
@@ -23,6 +23,7 @@ describe('notification/Notification', () => {
         const message = 'Hello';
         expect(el.setAttribute('message', message));
         await elementUpdated();
+        await nextFrame();
         expect(el.message).to.equal(message);
         expect(el.shadowRoot.querySelector('[part=content]').innerText).to.equal(message);
       });
