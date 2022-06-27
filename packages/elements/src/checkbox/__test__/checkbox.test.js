@@ -37,10 +37,12 @@ describe('checkbox/Checkbox', () => {
     it('should pass a11y test with slotted label', async () => {
       const el = await fixture(unchecked);
       expect(el).to.be.accessible();
+      expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
     });
     it('should pass a11y test when in checked state', async () => {
       const el = await fixture(checked);
       expect(el).to.be.accessible();
+      expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
     });
     it('should pass a11y test when in indeterminate state and has aria-checked="mixed"', async () => {
       const el = await fixture(indeterminate);

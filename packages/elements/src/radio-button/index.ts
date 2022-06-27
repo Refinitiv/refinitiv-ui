@@ -83,27 +83,11 @@ export class RadioButton extends ControlElement {
     `;
   }
 
-  private _checked = false;
-
   /**
    * Radio button checked state
-   * @param value checked state
-   * @default false
-   * @returns {void}
    */
   @property({ type: Boolean, reflect: true })
-  public set checked (value: boolean) {
-    const oldValue = this._checked;
-    if (oldValue !== value) {
-      this._checked = value;
-
-      this.setAttribute('aria-checked', String(value));
-      this.requestUpdate('checked', oldValue);
-    }
-  }
-  public get checked (): boolean {
-    return this._checked;
-  }
+  public checked = false;
 
   /**
    * Getter for label
@@ -128,6 +112,19 @@ export class RadioButton extends ControlElement {
   public disconnectedCallback (): void {
     removeFromRegistry(this);
     super.disconnectedCallback();
+  }
+
+  /**
+   * Called before update() to compute values needed during the update.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('checked')) {
+      this.setAttribute('aria-checked', String(this.checked));
+    }
   }
 
   /**
