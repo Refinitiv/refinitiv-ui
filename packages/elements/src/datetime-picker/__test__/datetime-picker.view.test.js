@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
 import { typeText, calendarClickNext, formatToView, addMonths } from './utils';
 
 // import element and theme
@@ -111,6 +111,7 @@ describe('datetime-picker/View', () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" view="2020-04" duplex opened></ef-datetime-picker>');
       const calendarFrom = el.calendarEl;
       const calendarTo = el.calendarToEl;
+      await nextFrame();
       calendarClickNext(calendarFrom);
       await elementUpdated();
       expect(calendarFrom.view).to.equal('2020-05', 'Calendar from is not in sync');

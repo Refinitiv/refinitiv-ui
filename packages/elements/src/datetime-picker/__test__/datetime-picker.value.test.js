@@ -68,6 +68,7 @@ describe('datetime-picker/Value', () => {
     it('It should be possible to select value by clicking on calendar', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened view="2020-04"></ef-datetime-picker>');
       const calendarEl = el.calendarEl;
+      await nextFrame();
       const cell = calendarEl.shadowRoot.querySelectorAll('div[tabindex]')[2]; // 2020-04-01
       cell.click();
       await elementUpdated(el);
