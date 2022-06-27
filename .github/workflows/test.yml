@@ -59,7 +59,7 @@ jobs:
         id: setup
 
       - name: Test
-        run: npm run test:all -- --parallel=1 --browserstack 'safari' --output minimal
+        run: npm run test:all -- --parallel=1 --browserstack 'safari' --includeCoverage false --output minimal
 
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master
