@@ -188,7 +188,7 @@ describe('elements/FormFieldElement/SelectionTest', () => {
   it('Applies `selectionDirection`', async () => {
     const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
     const inputElement = formFieldEl.inputElement;
-    const selectionDirection = 'backward';
+    const selectionDirection = 'forward';
     formFieldEl.selectionDirection = selectionDirection;
     expect(formFieldEl.selectionDirection).to.equal(selectionDirection);
     await elementUpdated(formFieldEl);
