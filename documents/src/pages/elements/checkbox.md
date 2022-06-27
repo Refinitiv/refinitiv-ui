@@ -99,7 +99,7 @@ checkbox.addEventListener('checked-changed', (e) => {
 
 The `role="group"` should be used to associate the grouping with the element’s group label. 
 
-`ef-checkbox` handles role and aria value but for checkbox group, you need to assign `role="group"` by yourself.
+`ef-checkbox` handles role and aria value but for checkbox group, you need to assign `role="group"` yourself.
 
 ```html
 <div role="group" aria-labelledby="header">

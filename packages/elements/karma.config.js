@@ -3,7 +3,6 @@ const path = require('path');
 const karmaConfig = require('../../karma.config');
 const { extractConfig } = require('../../scripts/karma');
 const { ELEMENTS_ROOT, MONOREPO_ELEMENTS, BUILD_FOLDER_NAME, checkElement } = require('./scripts/helpers');
-
 const ELEMENT = process.env.ELEMENT;
 const testAll = ELEMENT === 'all' || ELEMENT === undefined;
 
@@ -47,6 +46,17 @@ module.exports = async function (config) {
 
     return path.join(basePath, MONOREPO_ELEMENTS, 'src', element, '__snapshots__', `${suite}.md`);
   };
+
+  // Set element name to BrowserStack if available
+  if (elementsConfig.browserStack) {
+    elementsConfig.browserStack.name = ELEMENT === 'all' ? 'elements' : ELEMENT;
+
+    // Increase time for test all element to prevent CI performance drop cause test failed.
+    if (ELEMENT === 'all') {
+      elementsConfig.captureTimeout = 6e5;
+      elementsConfig.browserDisconnectTimeout = 6e5;
+    }
+  }
 
   config.set(elementsConfig);
 };

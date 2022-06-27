@@ -51,3 +51,8 @@ export const getOptions = (selected = [], disabled = [], readonly = []) => {
   });
   return options.join('');
 };
+
+/**
+ * Get private menu element property
+ */
+export const getMenuEl = select => select.menuRef.value;

@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@5.1.0...@refinitiv-ui/docs@6.0.1) (2022-06-20)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+# [5.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@5.0.3...@refinitiv-ui/docs@5.1.0) (2022-06-07)
+
+
+### Bug Fixes
+
+* **polyfills:** add missing polyfills for IE11 ([#283](https://github.com/Refinitiv/refinitiv-ui/issues/283)) ([b6b8072](https://github.com/Refinitiv/refinitiv-ui/commit/b6b8072d90375100a7c8ae1ee5c25fefafb351eb))
+
+
+### Features
+
+* **clock:** improve clock accessibility ([#308](https://github.com/Refinitiv/refinitiv-ui/issues/308)) ([c0a9bb0](https://github.com/Refinitiv/refinitiv-ui/commit/c0a9bb04c212b6aa4dbce495bec4faebd9080eaf)), closes [#311](https://github.com/Refinitiv/refinitiv-ui/issues/311)
+* **loader:** improve loader accessibility ([#303](https://github.com/Refinitiv/refinitiv-ui/issues/303)) ([f529fba](https://github.com/Refinitiv/refinitiv-ui/commit/f529fba2546be77ccaaa224f5dadc80d2f808d47))
+* **overlay-menu:** accessibility improvement ([ef9aa89](https://github.com/Refinitiv/refinitiv-ui/commit/ef9aa89018eedc3ee64b6a0a82ec90af57368f5e))
+* **rating:** add accessibility support ([2a1b7e4](https://github.com/Refinitiv/refinitiv-ui/commit/2a1b7e47199de3c1cca73b0a86150da07612c347))
+* **slider:** add arrow key navigation support and aria attributes ([#299](https://github.com/Refinitiv/refinitiv-ui/issues/299)) ([056a45b](https://github.com/Refinitiv/refinitiv-ui/commit/056a45b56911ed0f7634ea1b4abe38c6392144d4)), closes [#332](https://github.com/Refinitiv/refinitiv-ui/issues/332) [#341](https://github.com/Refinitiv/refinitiv-ui/issues/341)
+* support community elements by using peer dependencies ([#201](https://github.com/Refinitiv/refinitiv-ui/issues/201)) ([dd6d4e9](https://github.com/Refinitiv/refinitiv-ui/commit/dd6d4e917b4cdb7e6b783d8cd777ece1b0ff5f35))
+
+
+
+
+
 ## [5.0.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@5.0.3...@refinitiv-ui/docs@5.0.4) (2022-02-17)
 
 **Note:** Version bump only for package @refinitiv-ui/docs

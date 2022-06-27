@@ -240,7 +240,7 @@ Create a new project and install webpack.
 ```sh
 mkdir webpack-sample
 cd webpack-sample
-np init
+npm init
 npm i @refinitiv-ui/elements @refinitiv-ui/halo-theme
 npm i -D webpack webpack-cli webpack-dev-server
 ```
@@ -383,7 +383,7 @@ Create a new project and install webpack.
 ```sh
 mkdir webpack-sample
 cd webpack-sample
-np init
+npm init
 npm i @refinitiv-ui/elements @refinitiv-ui/halo-theme
 npm i -D webpack@4 webpack-cli webpack-dev-server @babel/core @babel/plugin-transform-runtime @babel/preset-env babel-loader
 ```

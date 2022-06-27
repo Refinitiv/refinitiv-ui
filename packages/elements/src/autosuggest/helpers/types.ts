@@ -2,7 +2,7 @@ import type { ItemType } from '../../item';
 
 export type AutosuggestSelectItemEvent = CustomEvent<{ query: string, suggestion: Suggestion }>;
 
-export type AutosuggestHighlightItem = { highlighted: boolean };
+export type AutosuggestHighlightItem = HTMLElement & { highlighted: boolean };
 
 export type AutosuggestHighlightItemEvent = CustomEvent<{ target: AutosuggestHighlightItem, oldTarget: AutosuggestHighlightItem }>;
 
@@ -45,6 +45,10 @@ export interface Suggestion {
    * Sort data item into the group.
    */
   group?: string;
+  /**
+   * Suggestion unique id.
+   */
+  id?: string;
 }
 
 export type AutosuggestItem = Suggestion | string | unknown;
@@ -60,3 +64,108 @@ export type AutosuggestMethodType = 'click' | 'enter' | 'clear' | 'reset' | 'nav
 export type AutosuggestRenderer = (suggestion: AutosuggestItem, query: AutosuggestQuery | null) => HTMLElement;
 
 export type AutosuggestHighlightable = (suggestion: AutosuggestItem, target: HTMLElement) => boolean;
+
+// EVENTS
+/**
+ * @event item-highlight
+ * Fired when an item gets highlighted or highlight is removed
+ */
+export type ItemHighlightEvent = CustomEvent<{
+  /**
+   * New highlight target
+   */
+  target: AutosuggestTargetElement | null;
+  /**
+   * New suggestion
+   */
+  suggestion: AutosuggestItem | null;
+  /**
+   * Old highlight target
+   */
+  oldTarget: AutosuggestTargetElement | null;
+  /**
+   * Old suggestion
+   */
+  oldSuggestion: AutosuggestItem | null;
+}>;
+
+/**
+ * @event add-attach-target-events
+ * Fired when attach has been set.
+ * Add attach target listeners
+ */
+export type AddAttachTargetEventsEvent = CustomEvent;
+
+/**
+ * @event remove-attach-target-events
+ * Fired when attach has been removed.
+ * Remove attach target listeners
+ */
+export type RemoveAttachTargetEventsEvent = CustomEvent;
+
+/**
+ * @event item-select
+ * Fired when an item gets selected
+ */
+export type ItemSelectEvent = CustomEvent<{
+  /**
+   * Select method
+   */
+  method: AutosuggestMethodType;
+  /**
+   * Selection target
+   */
+  target: AutosuggestTargetElement;
+  /**
+   * Selected suggestion
+   */
+  suggestion: AutosuggestItem | null;
+  /**
+   * Saved query object
+   */
+  query: AutosuggestQuery | null
+}>;
+
+/**
+ * @event suggestions-fetch-requested
+ * Fired when auto suggest requests the data
+ */
+export type SuggestionsFetchRequestedEvent = CustomEvent<{
+  /**
+   * Input query
+   */
+  query: AutosuggestQuery | null;
+  /**
+   * The reason to fetch data
+   */
+  reason: AutosuggestReason;
+}>;
+
+/**
+ * @event suggestions-clear-requested
+ * Fired when auto suggest requests to clear the data.
+ * If used in reactive application, prevent default and set suggestions to []
+ */
+export type SuggestionsClearRequestedEvent = CustomEvent;
+
+/**
+ * @event suggestions-query
+ * Fired when input value has changed and the query must be set.
+ */
+export type SuggestionsQueryEvent = CustomEvent<{
+  /**
+   * The reason to request query
+   */
+  reason: AutosuggestReason;
+}>;
+
+/**
+ * @event suggestions-changed
+ * Fired when suggestions changed
+ */
+export type SuggestionsChangedEvent = CustomEvent<{
+  /**
+   * Suggestion Items
+   */
+  value: AutosuggestItem[];
+}>;
