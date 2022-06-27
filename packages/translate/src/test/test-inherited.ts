@@ -7,9 +7,9 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 import {
   translate,
   TranslateDirective
-} from '../translate';
+} from '../translate.js';
 
-import { TestTranslate } from './test-translate';
+import { TestTranslate } from './test-translate.js';
 
 @customElement('test-inherited', { theme: false })
 export class TestInherited extends TestTranslate {

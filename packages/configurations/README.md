@@ -25,7 +25,7 @@ You can override/use your own files to meet project requirements.
 
 ## TypeScript support
 
-Below configurations are used with TypeScript (Element Framework v5).
+Below configurations are used with TypeScript (Element Framework v6).
 
 ### .eslintrc
 

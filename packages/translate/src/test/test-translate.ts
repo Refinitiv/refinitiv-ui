@@ -15,10 +15,10 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import {
   translate,
   TranslateDirective
-} from '../translate';
+} from '../translate.js';
 
-import './test-nested-translate';
-import './phrasebook';
+import './test-nested-translate.js';
+import './phrasebook.js';
 
 const date = new Date(2020, 6, 21, 23, 59, 50); /* just a random date */
 

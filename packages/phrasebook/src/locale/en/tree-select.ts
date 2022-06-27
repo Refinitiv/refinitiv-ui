@@ -1,7 +1,7 @@
 // Component docs https://elf.int.refinitiv.com/elements/tree-select.html
 import { Phrasebook } from '../../translation.js';
 import './shared.js';
-import comboboxTranslations from './combo-box';
+import comboboxTranslations from './combo-box.js';
 
 const translations = {
   ...comboboxTranslations,
