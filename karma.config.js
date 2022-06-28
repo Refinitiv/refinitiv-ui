@@ -229,7 +229,7 @@ if (argv.includeCoverage) {
 if (argv.browserstack && !argv.watch) {
   const bsOption = argv.browserstack;
   // Setting BrowserStack config
-  baseConfig.concurrency = 3;
+  baseConfig.concurrency = 1;
   baseConfig.browserStack = {
     username: process.env.BROWSERSTACK_USERNAME,
     accessKey: process.env.BROWSERSTACK_ACCESS_KEY,

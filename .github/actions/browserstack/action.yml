@@ -1,4 +1,4 @@
-name: 'Setup BrowserStack'
+name: 'Run BrowserStack Test'
 description: 'Setup BrowserStack'
 inputs:
   username:
@@ -7,6 +7,13 @@ inputs:
   access-key:
     description: 'BrowserStack access key'
     required: true
+  browsers:
+    description: 'List of browser name'
+    required: true
+  parallel:
+    description: 'Run test packages parallel'
+    required: false
+    default: 1
 runs:
   using: "composite"
   steps:
@@ -25,6 +32,15 @@ runs:
     - name: Setup resources and environment
       uses: ./.github/actions/setup
       id: setup
+
+    - name: Test
+      shell: bash
+      run: npm run test:all -- --parallel=${{ inputs.parallel }} --browserstack '${{ inputs.browsers }}' --includeCoverage false --output minimal
+
+    - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
+      uses: browserstack/github-actions/setup-local@master
+      with:
+        local-testing: stop
 
 
 
