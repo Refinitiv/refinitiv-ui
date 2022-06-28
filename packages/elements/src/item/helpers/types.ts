@@ -1,6 +1,6 @@
 import type { DataItem } from '@refinitiv-ui/utils/collection.js';
 
-export type ItemType = 'text' | 'header' | 'divider';
+type ItemType = 'text' | 'header' | 'divider';
 
 interface CommonItem extends DataItem {
   /**
@@ -27,7 +27,7 @@ interface CommonLabelItem extends CommonItem {
 /**
  * Maps to a text/generic type ef-item
  */
-export interface ItemText extends CommonLabelItem {
+interface ItemText extends CommonLabelItem {
   type?: 'text';
   /**
    * Value of the item
@@ -46,18 +46,20 @@ export interface ItemText extends CommonLabelItem {
 /**
  * Maps to `ef-item[type=header]`
  */
-export interface ItemHeader extends CommonLabelItem {
+interface ItemHeader extends CommonLabelItem {
   type: 'header';
 }
 
 /**
  * Maps to `ef-item[type=divider]`
  */
-export interface ItemDivider extends CommonItem {
+interface ItemDivider extends CommonItem {
   type: 'divider';
 }
 
 /**
  * Used to construct a collection of items
  */
-export type ItemData = ItemText | ItemHeader | ItemDivider;
+type ItemData = ItemText | ItemHeader | ItemDivider;
+
+export type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData };
