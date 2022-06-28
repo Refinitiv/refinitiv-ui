@@ -1,3 +1,5 @@
+import { MESSAGE_TYPE } from './constants.js';
+
 const generateMessage = (type: string, message: string, supportURL?: string): string =>
   `${type} notice:\n${!supportURL ? message : `${message}\n\n${supportURL}\n`}`;
 
@@ -25,7 +27,7 @@ export class Notice {
    * @param supportURL Support URL to show additional information
    * @param type Type of Notice to show at top of message
    */
-  constructor (message: string, supportURL?: string, type = 'Information') {
+  constructor (message: string, supportURL?: string, type = MESSAGE_TYPE.NOTICE) {
     this.message = generateMessage(type, message, supportURL);
   }
 
