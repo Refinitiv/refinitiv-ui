@@ -46,3 +46,19 @@ jobs:
           username: ${{ env.BROWSERSTACK_USERNAME }}
           access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
           browsers: 'chrome'
+
+  firefox:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup BrowserStack
+        uses: ./.github/actions/browserstack
+        with:
+          username: ${{ env.BROWSERSTACK_USERNAME }}
+          access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
+          browsers: 'firefox'
