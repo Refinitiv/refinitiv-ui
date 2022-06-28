@@ -16,52 +16,55 @@ jobs:
           # Pulls all commits (needed for Lerna)
           fetch-depth: 0
 
-      - name: Setup resources and environment
-        uses: ./.github/actions/setup
-        id: setup
+      - name: Setup BrowserStack Test
+        uses: ./.github/actions/browserstack
 
-      - name: Install Dependencies
-        if: steps.setup.outputs.cache-dependencies-hit != 'true'
-        run: npm ci --ignore-scripts --audit=false --fund=false
+      # - name: Setup resources and environment
+      #   uses: ./.github/actions/setup
+      #   id: setup
 
-      - name: Reset NX # temporary
-        run: npm run reset
+      # - name: Install Dependencies
+      #   if: steps.setup.outputs.cache-dependencies-hit != 'true'
+      #   run: npm ci --ignore-scripts --audit=false --fund=false
 
-      - name: Build
-        if: steps.setup.outputs.cache-build-hit != 'true'
-        run: npm run build
+      # - name: Reset NX # temporary
+      #   run: npm run reset
 
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'BrowserStack Env Setup' # Invokes the setup-env action
-        uses: browserstack/github-actions/setup-env@master
-        with:
-          username: ${{ secrets.BROWSERSTACK_USERNAME }}
-          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+      # - name: Build
+      #   if: steps.setup.outputs.cache-build-hit != 'true'
+      #   run: npm run build
 
-      - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
-        uses: browserstack/github-actions/setup-local@master
-        with:
-          local-testing: start
-          local-identifier: random
+  # test:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: 'BrowserStack Env Setup' # Invokes the setup-env action
+  #       uses: browserstack/github-actions/setup-env@master
+  #       with:
+  #         username: $BROWSERSTACK_USERNAME
+  #         access-key: $BROWSERSTACK_ACCESS_KEY
 
-      - name: Check out repository code
-        uses: actions/checkout@v2
-        with:
-          # Number of commits to fetch. 0 indicates all history for all branches and tags.
-          # Pulls all commits (needed for Lerna)
-          fetch-depth: 0
+  #     - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
+  #       uses: browserstack/github-actions/setup-local@master
+  #       with:
+  #         local-testing: start
+  #         local-identifier: random
 
-      - name: Setup resources and environment
-        uses: ./.github/actions/setup
-        id: setup
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v2
+  #       with:
+  #         # Number of commits to fetch. 0 indicates all history for all branches and tags.
+  #         # Pulls all commits (needed for Lerna)
+  #         fetch-depth: 0
 
-      - name: Test
-        run: npm run test:all -- --parallel=1 --browserstack 'safari' --includeCoverage false --output minimal
+  #     - name: Setup resources and environment
+  #       uses: ./.github/actions/setup
+  #       id: setup
 
-      - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
-        uses: browserstack/github-actions/setup-local@master
-        with:
-          local-testing: stop
+  #     - name: Test
+  #       run: npm run test:all -- --parallel=3 --browserstack 'safari' --includeCoverage false --output minimal
+
+  #     - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
+  #       uses: browserstack/github-actions/setup-local@master
+  #       with:
+  #         local-testing: stop

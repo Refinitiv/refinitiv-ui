@@ -1,0 +1,11 @@
+name: 'Setup BrowserStack Environment and Resources'
+description: 'Setup BrowserStack environment, resources'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup resources and environment
+      uses: ./.github/actions/setup
+      id: setup
+
+
