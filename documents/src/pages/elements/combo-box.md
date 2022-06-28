@@ -356,13 +356,13 @@ import '@refinitiv-ui/elements/flag'
 import '@refinitiv-ui/elements/flag/themes/halo/dark'
 
 // Keep the reference to the default renderer
-const defaultRenderer = new ComboBoxRenderer(comboBox);
+const itemRenderer = new ComboBoxRenderer(comboBox);
 // Keep track flag elements after creating to avoid memory leak and re-render the same flag
 const flagMap = new WeakMap();
 
 // Create a re-useable renderer that shows Flags next to the country
 comboBox.renderer = (item, composer, element) => {
-    element = defaultRenderer(item, composer, element);
+    element = itemRenderer(item, composer, element);
     const type = composer.getItemPropertyValue(item, 'type');
     let flagElement = flagMap.get(element);
     if (!flagElement && (!type || type === 'text')) {
@@ -416,12 +416,12 @@ comboBox.data = [
   { label: 'Argentina', value: 'ar' }
 ];
 
-const defaultRenderer = new ComboBoxRenderer(comboBox);
+const itemRenderer = new ComboBoxRenderer(comboBox);
 
 const flagMap = new WeakMap();
 
 comboBox.renderer = (item, composer, element) => {
-    element = defaultRenderer(item, composer, element);
+    element = itemRenderer(item, composer, element);
     const type = composer.getItemPropertyValue(item, 'type');
     let flagElement = flagMap.get(element);
     if (!flagElement && (!type || type === 'text')) {

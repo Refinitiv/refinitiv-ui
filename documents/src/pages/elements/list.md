@@ -88,10 +88,10 @@ Extending the default renderer is the easiest way to display custom content, whi
 import { ListRenderer } from '@refinitiv-ui/elements/list';
 
 const el = document.querySelector('ef-list');
-const defaultRenderer = new DefaultRenderer(el);
+const itemRenderer = new ListRenderer(el);
 
 el.renderer = (item, composer, element) => {
-  const el = defaultRenderer(item, composer, element);
+  const el = itemRenderer(item, composer, element);
   // do something extra
   return el;
 };
