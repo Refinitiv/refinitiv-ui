@@ -1,0 +1,13 @@
+name: 'Stop BrowserStack'
+description: 'Stop BrowserStack'
+
+runs:
+  using: "composite"
+  steps:
+    - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
+      uses: browserstack/github-actions/setup-local@master
+      with:
+        local-testing: stop
+
+
+

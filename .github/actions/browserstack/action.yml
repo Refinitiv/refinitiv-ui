@@ -1,11 +1,30 @@
-name: 'Setup BrowserStack Environment and Resources'
-description: 'Setup BrowserStack environment, resources'
-
+name: 'Setup BrowserStack'
+description: 'Setup BrowserStack'
+inputs:
+  username:
+    description: 'BrowserStack username'
+    required: true
+  access-key:
+    description: 'BrowserStack access key'
+    required: true
 runs:
   using: "composite"
   steps:
+    - name: 'BrowserStack Env Setup' # Invokes the setup-env action
+      uses: browserstack/github-actions/setup-env@master
+      with:
+        username: ${{ inputs.username }}
+        access-key: ${{ inputs.access-key }}
+
+    - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
+      uses: browserstack/github-actions/setup-local@master
+      with:
+        local-testing: start
+        local-identifier: random
+
     - name: Setup resources and environment
       uses: ./.github/actions/setup
       id: setup
+
 
 

@@ -6,50 +6,9 @@ env:
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Test ${{ github.run_number }}"
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-        with:
-          # Number of commits to fetch. 0 indicates all history for all branches and tags.
-          # Pulls all commits (needed for Lerna)
-          fetch-depth: 0
-
-      - name: Setup BrowserStack Test
-        uses: ./.github/actions/browserstack
-
-      # - name: Setup resources and environment
-      #   uses: ./.github/actions/setup
-      #   id: setup
-
-      # - name: Install Dependencies
-      #   if: steps.setup.outputs.cache-dependencies-hit != 'true'
-      #   run: npm ci --ignore-scripts --audit=false --fund=false
-
-      # - name: Reset NX # temporary
-      #   run: npm run reset
-
-      # - name: Build
-      #   if: steps.setup.outputs.cache-build-hit != 'true'
-      #   run: npm run build
-
-  # test:
-  #   needs: build
+  # build:
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - name: 'BrowserStack Env Setup' # Invokes the setup-env action
-  #       uses: browserstack/github-actions/setup-env@master
-  #       with:
-  #         username: $BROWSERSTACK_USERNAME
-  #         access-key: $BROWSERSTACK_ACCESS_KEY
-
-  #     - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
-  #       uses: browserstack/github-actions/setup-local@master
-  #       with:
-  #         local-testing: start
-  #         local-identifier: random
-
   #     - name: Check out repository code
   #       uses: actions/checkout@v2
   #       with:
@@ -61,10 +20,29 @@ jobs:
   #       uses: ./.github/actions/setup
   #       id: setup
 
-  #     - name: Test
-  #       run: npm run test:all -- --parallel=3 --browserstack 'safari' --includeCoverage false --output minimal
+  #     - name: Install Dependencies
+  #       if: steps.setup.outputs.cache-dependencies-hit != 'true'
+  #       run: npm ci --ignore-scripts --audit=false --fund=false
 
-  #     - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
-  #       uses: browserstack/github-actions/setup-local@master
-  #       with:
-  #         local-testing: stop
+  #     - name: Reset NX # temporary
+  #       run: npm run reset
+
+  #     - name: Build
+  #       if: steps.setup.outputs.cache-build-hit != 'true'
+  #       run: npm run build
+
+  test:
+    # needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup BrowserStack
+        uses: ./.github/actions/browserstack
+        with:
+          username: ${{ env.BROWSERSTACK_USERNAME }}
+          access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
+
+      - name: Test
+        run: npm run test:all -- --parallel=3 --browserstack 'safari' --includeCoverage false --output minimal
+
+      - name: Setup BrowserStack
+        uses: ./.github/actions/browserstack/stop.yml
