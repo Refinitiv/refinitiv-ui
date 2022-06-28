@@ -13,12 +13,10 @@ layout: default
 let el;
 const createNotification = () => {
   el = document.createElement('ef-notification');
-  el.innerText = 'Notifcation received at ' + new Date().toLocaleTimeString();
+  el.innerText = 'Notification received at ' + new Date().toLocaleTimeString();
   el.addEventListener('dismiss', createNotification, { once: true });
   document.body.appendChild(el);
-  el.updateStyles({
-    '--background-color': 'hsl(' + Math.random() * 360 + ', 50%, 50%)'
-  });
+  el.style.setProperty('--background-color', 'hsl(' + Math.random() * 360 + ', 50%, 50%)');
 };
 createNotification();
 ```
@@ -32,7 +30,7 @@ The notification bar is used to show informative content when something happens 
 These methods work in a similar way to those provided by `window.console`.
 
 ```javascript
-import { info, confirm, warn, error } from '@refinitiv-ui/notification/helpers';
+import { info, confirm, warn, error } from '@refinitiv-ui/elements/notification';
 
 // Show an info notification
 info('Info Notification');
@@ -52,7 +50,7 @@ error('Error Notification', Infinity/* Show until user dismisses */);
 When using the notification methods provided by the module, you can gain access to the created element using the returned result.
 
 ```javascript
-import { info } from '@refinitiv-ui/notification';
+import { info } from '@refinitiv-ui/elements/notification';
 
 const notification = info('Info Notification');
 
