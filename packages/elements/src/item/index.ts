@@ -10,11 +10,11 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
-import type { ItemType } from './helpers/types';
 import '../icon/index.js';
 import '../checkbox/index.js';
 
-export * from './helpers/types';
+import type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData } from './helpers/types';
+export type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData };
 
 const isAllWhitespaceTextNode = (node: Node): boolean =>
   node.nodeType === document.TEXT_NODE
