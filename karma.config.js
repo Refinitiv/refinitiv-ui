@@ -4,7 +4,14 @@ const { ROOT, PACKAGES } = require('./scripts/helpers');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 const { injectLitPolyfill } = require('./scripts/karma/plugins/inject-lit-polyfill')
-const browsersConfig = require('./browsers.config');
+const {
+  defaultBrowsers,
+  availableBrowsers,
+  defaultBSBrowsers,
+  supportedBSBrowsers,
+  availableBSBrowsers,
+  BSConfig
+} = require('./browsers.config');
 
 const argv = yargs(hideBin(process.argv))
   .option('include-snapshots', {
@@ -35,9 +42,23 @@ const argv = yargs(hideBin(process.argv))
   .option('browsers', {
     type: 'array',
     alias: 'b',
-    default: browsersConfig.defaultBrowsers,
-    choices: browsersConfig.availableBrowsers,
+    default: defaultBrowsers,
+    choices: availableBrowsers,
     description: 'Specific browser(s) to run units test'
+  })
+  .option('browserstack', {
+    type: 'array',
+    alias: 'bs',
+    choices: availableBSBrowsers,
+    description: 'Run units test on BrowserStack and specific browser(s)'
+  })
+  .requiresArg('browserstack')
+  .option('output', {
+    type: 'string',
+    alias: 'o',
+    default: 'full',
+    choices: ['full', 'minimal'],
+    description: 'Print output to the console'
   })
   .argv
 
@@ -70,6 +91,7 @@ const plugins = [
   require.resolve('karma-source-map-support'),
   require.resolve('karma-chrome-launcher'),
   require.resolve('karma-firefox-launcher'),
+  require.resolve('karma-browserstack-launcher'),
   require.resolve('karma-ie-launcher'),
 
   // fallback: resolve any karma- plugins
@@ -84,9 +106,12 @@ const baseConfig = {
   singleRun: !argv.watch,
   basePath: ROOT, // must be in the root in order for node_modules to be resolved correctly
   concurrency: 1, // Set the value to `1`, When Karma has a problem to connect a test browser on Windows.
-  // IE 11 must add extra time to loading all scripts for testing concurrently.
-  browserNoActivityTimeout: 60000 * 2,
-  browserDisconnectTimeout: 60000 * 2,
+  // IE 11 require extra time to loading all scripts when testing concurrently.
+  captureTimeout: 3e5,
+  browserDisconnectTolerance: 3,
+  browserDisconnectTimeout: 3e5,
+  browserSocketTimeout: 1.2e5,
+  browserNoActivityTimeout: 3e5,
   files,
   esm: {
     coverage: argv.includeCoverage,
@@ -123,12 +148,15 @@ const baseConfig = {
   preprocessors,
   reporters,
   mochaReporter: {
-    showDiff: true
+    showDiff: true,
+    output: argv.output
   },
   restartOnFileChange: false,
   client: {
+    captureConsole: argv.output === 'minimal' ? false : true,
     mocha: {
-      reporter: 'html'
+      reporter: 'html',
+      timeout: 3000, // Some test case run more than 2000ms on BrowserStack
     }
   },
   colors: true
@@ -195,6 +223,61 @@ if (argv.includeCoverage) {
   };
   reporters.push('coverage-istanbul');
   plugins.push(require.resolve('karma-coverage-istanbul-reporter'));
+}
+
+// Create BrowserStack config when browsers CLI `browsers` param has `browserstack`
+if (argv.browserstack && !argv.watch) {
+  const bsOption = argv.browserstack;
+  // Setting BrowserStack config
+  baseConfig.concurrency = 3;
+  baseConfig.browserStack = {
+    username: process.env.BROWSERSTACK_USERNAME,
+    accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
+    build: process.env.BROWSERSTACK_BUILD,
+    project: process.env.BROWSERSTACK_PROJECT_NAME || 'Refinitiv UI',
+    name: packageName,
+    timeout: 1800, // Maximum
+    retryLimit: 0
+  };
+  reporters.push('BrowserStack');
+
+  /**
+   * Reusing only one local tunnel,
+   * The two config `startTunnel` and `localIdentifier` are required
+   * to prevent `karma-browserstack-launcher` create multiple tunnel and test will failed
+   * when using `NX` run `Karma` paralleling.
+   */
+  if (process.env.BROWSERSTACK_LOCAL_IDENTIFIER) {
+    baseConfig.browserStack.startTunnel = false;
+    baseConfig.browserStack.localIdentifier = process.env.BROWSERSTACK_LOCAL_IDENTIFIER;
+  }
+
+  // Add BrowserStack launchers to config
+  const browserStackLaunchers = {};
+  bsOption.forEach((option) => {
+    if(option === 'default') {
+      defaultBSBrowsers.forEach(defaultBS => {
+        browserStackLaunchers[defaultBS] = BSConfig[defaultBS];
+      });
+    }
+    else if(option === 'supported') {
+      supportedBSBrowsers.forEach(supportedBS => {
+        browserStackLaunchers[supportedBS] = BSConfig[supportedBS];
+      });
+    }
+    else {
+      browserStackLaunchers[option] = BSConfig[option];
+    }
+  });
+
+  // Replace all local launchers
+  baseConfig.customLaunchers = browserStackLaunchers;
+
+  // Add BrowserStack browsers to config
+  baseConfig.browsers = []; // Clear default local browsers and test on BrowserStack only
+  for (const key in browserStackLaunchers) {
+    baseConfig.browsers.push(key);
+  }
 }
 
 module.exports = async function (config) {

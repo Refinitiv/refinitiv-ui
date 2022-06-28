@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 const { execSync } = require('child_process');
-const browsersConfig = require('../../browsers.config');
+const {
+  defaultBrowsers,
+  availableBrowsers,
+  availableBSBrowsers
+} = require('../../browsers.config');
 
 const {
   getElements,
@@ -34,9 +38,23 @@ exports.builder = yargs => {
     .option('browsers', {
       alias: 'b',
       type: 'array',
-      default: browsersConfig.defaultBrowsers,
-      choices: browsersConfig.availableBrowsers,
+      default: defaultBrowsers,
+      choices: availableBrowsers,
       description: 'Specific browser(s) to run units test'
+    })
+    .option('browserstack', {
+      type: 'array',
+      alias: 'bs',
+      choices: availableBSBrowsers,
+      description: 'Run units test on BrowserStack and specific browser(s)'
+    })
+    .requiresArg('browserstack')
+    .option('output', {
+      type: 'string',
+      alias: 'o',
+      default: 'full',
+      choices: ['full', 'minimal'],
+      description: 'Print output to the console'
     })
     .completion('completion', () => elements);
 };
@@ -45,6 +63,7 @@ exports.handler = (argv) => {
   const watch = !!argv.watch;
   const snapshots = !!argv.snapshots;
   const browsers = argv.browsers.join(' ');
+  const browserstack = argv.browserstack ? argv.browserstack.join(' ') : null;
 
   info(watch ? `Start Karma Server: ${ element }` : `Test: ${ element }`);
 
@@ -54,11 +73,12 @@ exports.handler = (argv) => {
 
   try {
     execSync('node cli build --sourceMap --declarationMap');
-
     const command = ['karma', 'start', 'karma.config.js', `--package=${PACKAGE_NAME}`];
     watch && command.push('--watch');
     snapshots && command.push('--snapshots');
-    browsers && command.push(`-b ${browsers}`);
+    browserstack && command.push(`--browserstack ${browserstack}`);
+    !browserstack && browsers && command.push(`-b ${browsers}`);
+    command.push(`--output ${argv.output}`);
 
     execSync(command.join(' '), {
       stdio: 'inherit',

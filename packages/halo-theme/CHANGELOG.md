@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.0.0...@refinitiv-ui/halo-theme@6.1.0) (2022-06-20)
+
+
+### Bug Fixes
+
+* **calendar:** disabled dates incorrect styles ([#335](https://github.com/Refinitiv/refinitiv-ui/issues/335)) ([cce57a0](https://github.com/Refinitiv/refinitiv-ui/commit/cce57a00e374b0b528b5ea1212ec996c3e41be0b))
+* **datetime-picker:** change warning and error border style to make it consistent with textfield ([#356](https://github.com/Refinitiv/refinitiv-ui/issues/356)) ([51638bd](https://github.com/Refinitiv/refinitiv-ui/commit/51638bd4d5e9306deb538725726fb085d55fd425))
+
+
+### Features
+
+* **halo-theme:** sync color due to Grid style updated ([#360](https://github.com/Refinitiv/refinitiv-ui/issues/360)) ([209cb71](https://github.com/Refinitiv/refinitiv-ui/commit/209cb71762b94ba31c50ea49984e8cd99b08c88c))
+
+
+
+
+
+# [6.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.0.0-next.1...@refinitiv-ui/halo-theme@6.0.0) (2022-06-07)
+
+**Note:** Version bump only for package @refinitiv-ui/halo-theme
+
+
+
+
+
 # [5.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@5.4.3...@refinitiv-ui/halo-theme@5.5.0) (2022-02-15)
 
 

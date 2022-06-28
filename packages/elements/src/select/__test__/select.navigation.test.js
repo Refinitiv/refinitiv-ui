@@ -1,8 +1,8 @@
 import { fixture, expect, elementUpdated, aTimeout, nextFrame, isIE, keyboardEvent as fireKeyBoardEvent } from '@refinitiv-ui/test-helpers';
-import { getOptions, openedUpdated, getData } from './utils';
+import { getOptions, openedUpdated, getData, getMenuEl } from './utils';
 
 const keyBoardEvent = async (el, key, options = {}) => {
-  el.menuEl.dispatchEvent(fireKeyBoardEvent('keydown', Object.assign({ key }, options)));
+  getMenuEl(el).dispatchEvent(fireKeyBoardEvent('keydown', Object.assign({ key }, options)));
   await elementUpdated(el);
   await nextFrame();
   await nextFrame(); // need this for IE11 to ensure focus is set
@@ -64,7 +64,7 @@ describe('select/Navigation', () => {
       el.data = getData();
       el.value = 'AL';
       await openedUpdated(el);
-      expect(el.menuEl.querySelector('[highlighted]').value).to.equal('AL', 'Selected value should be highlighted by default');
+      expect(getMenuEl(el).querySelector('[highlighted]').value).to.equal('AL', 'Selected value should be highlighted by default');
     });
     it('Options: Up key', async () => {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
@@ -73,7 +73,7 @@ describe('select/Navigation', () => {
     it('Data: Up key', async () => {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
-      await iterate(el, el.menuEl, ['Up', 'Up', 'Up', 'Up', 'ArrowUp'], [4, 2, 1, 4, 2]);
+      await iterate(el, getMenuEl(el), ['Up', 'Up', 'Up', 'Up', 'ArrowUp'], [4, 2, 1, 4, 2]);
     });
     it('Options: Down key', async () => {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
@@ -82,7 +82,7 @@ describe('select/Navigation', () => {
     it('Data: Down key', async () => {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
-      await iterate(el, el.menuEl, ['Down', 'Down', 'Down', 'Down', 'ArrowDown'], [1, 2, 4, 1, 2]);
+      await iterate(el, getMenuEl(el), ['Down', 'Down', 'Down', 'Down', 'ArrowDown'], [1, 2, 4, 1, 2]);
     });
     it('Options: Tab key', async () => {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
@@ -91,7 +91,7 @@ describe('select/Navigation', () => {
     it('Data: Tab key', async () => {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
-      await iterate(el, el.menuEl, ['Tab', 'Tab', 'Tab', 'Tab'], [1, 2, 4, 1]);
+      await iterate(el, getMenuEl(el), ['Tab', 'Tab', 'Tab', 'Tab'], [1, 2, 4, 1]);
     });
     it('Options: Shift+Tab key', async () => {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
@@ -102,7 +102,7 @@ describe('select/Navigation', () => {
     it('Data: Shift+Tab key', async () => {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
-      await iterate(el, el.menuEl, ['Tab', 'Tab', 'Tab', 'Tab'], [4, 2, 1, 4], {
+      await iterate(el, getMenuEl(el), ['Tab', 'Tab', 'Tab', 'Tab'], [4, 2, 1, 4], {
         shiftKey: true
       });
     });
@@ -113,7 +113,7 @@ describe('select/Navigation', () => {
     it('Data: Home key', async () => {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
-      await iterate(el, el.menuEl, ['Tab', 'Tab', 'Home'], [1, 2, 1]);
+      await iterate(el, getMenuEl(el), ['Tab', 'Tab', 'Home'], [1, 2, 1]);
     });
     it('Options: End key', async () => {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
@@ -122,7 +122,7 @@ describe('select/Navigation', () => {
     it('Data: End key', async () => {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
-      await iterate(el, el.menuEl, ['End'], [4]);
+      await iterate(el, getMenuEl(el), ['End'], [4]);
     });
   });
 
@@ -134,7 +134,7 @@ describe('select/Navigation', () => {
     it('Date: Mouse move event highlights the item', async () => {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
-      await emulateMouseMove(el, el.menuEl);
+      await emulateMouseMove(el, getMenuEl(el));
     });
   });
 
@@ -176,7 +176,7 @@ describe('select/Navigation', () => {
     it('Date: quick search highlights the item', async () => {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
-      await emulateQuickSearch(el, el.menuEl);
+      await emulateQuickSearch(el, getMenuEl(el));
     });
   });
 });

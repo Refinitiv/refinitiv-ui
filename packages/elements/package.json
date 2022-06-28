@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "6.0.0-next.3",
+  "version": "6.0.1",
   "description": "Element Framework Elements",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -15,8 +15,9 @@
   },
   "typesVersions": {
     "*": {
-      "*.js": [
-        "lib/*.d.ts"
+      "*": [
+        "lib/*/index.d.ts",
+        "lib/index.d.ts"
       ]
     }
   },
@@ -327,8 +328,8 @@
   },
   "dependencies": {
     "@refinitiv-ui/browser-sparkline": "1.1.7",
-    "@refinitiv-ui/halo-theme": "^6.0.0-next.1",
-    "@refinitiv-ui/solar-theme": "^6.0.0-next.0",
+    "@refinitiv-ui/halo-theme": "^6.1.0",
+    "@refinitiv-ui/solar-theme": "^6.0.1",
     "@types/chart.js": "^2.9.31",
     "chart.js": "~2.9.4",
     "d3-interpolate": "^3.0.1",
@@ -337,21 +338,21 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/core": "^6.0.0-next.2",
-    "@refinitiv-ui/demo-block": "^6.0.0-next.3",
-    "@refinitiv-ui/i18n": "^6.0.0-next.2",
-    "@refinitiv-ui/phrasebook": "^6.0.0-next.2",
-    "@refinitiv-ui/test-helpers": "^6.0.0-next.0",
-    "@refinitiv-ui/translate": "^6.0.0-next.3",
-    "@refinitiv-ui/utils": "^6.0.0-next.1",
+    "@refinitiv-ui/core": "^6.0.1",
+    "@refinitiv-ui/demo-block": "^6.0.1",
+    "@refinitiv-ui/i18n": "^6.0.1",
+    "@refinitiv-ui/phrasebook": "^6.1.0",
+    "@refinitiv-ui/test-helpers": "^6.0.1",
+    "@refinitiv-ui/translate": "^6.0.1",
+    "@refinitiv-ui/utils": "^6.0.1",
     "@types/d3-interpolate": "^3.0.1"
   },
   "peerDependencies": {
-    "@refinitiv-ui/core": "^6.0.0-next.2",
-    "@refinitiv-ui/i18n": "^6.0.0-next.2",
-    "@refinitiv-ui/phrasebook": "^6.0.0-next.2",
-    "@refinitiv-ui/translate": "^6.0.0-next.3",
-    "@refinitiv-ui/utils": "^6.0.0-next.1"
+    "@refinitiv-ui/core": "^6.0.1",
+    "@refinitiv-ui/i18n": "^6.0.1",
+    "@refinitiv-ui/phrasebook": "^6.1.0",
+    "@refinitiv-ui/translate": "^6.0.1",
+    "@refinitiv-ui/utils": "^6.0.1"
   },
   "publishConfig": {
     "access": "public"

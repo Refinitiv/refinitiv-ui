@@ -11,8 +11,8 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
+import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
 import '../overlay/index.js';
 import '../item/index.js';
@@ -20,6 +20,8 @@ import '../icon/index.js';
 import { Item } from '../item/index.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
+import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
 import type { Overlay } from '../overlay';
 import type { SelectData, SelectDataItem } from './helpers/types';
 import type { OpenedChangedEvent } from '../events';
@@ -297,8 +299,15 @@ export class Select extends ControlElement implements MultiValue {
     return this.selectedSlotItems.map(item => this.getItemValue(item));
   }
 
-  @query('#menu')
-  private menuEl?: Overlay;
+  /**
+   * Reference to the menu element
+   */
+  private menuRef: Ref<Overlay> = createRef();
+
+  /**
+   * Reference to the label element
+   */
+  private labelRef: Ref<HTMLDivElement> = createRef();
 
   /**
    * Called when connected to DOM
@@ -357,6 +366,9 @@ export class Select extends ControlElement implements MultiValue {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown); /* keydown when select is closed */
+    registerOverflowTooltip(this,
+      () => this.labelText,
+      () => this.labelRef.value ? isElementOverflown(this.labelRef.value) : false);
   }
 
   /**
@@ -605,7 +617,10 @@ export class Select extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onPopupMouseMove (event: MouseEvent): void {
-    this.menuEl?.focus();
+    if (this.menuRef.value) {
+      this.menuRef.value.focus();
+    }
+
     const item = this.findSelectableElement(event);
     if (item) {
       this.setItemHighlight(item);
@@ -800,7 +815,7 @@ export class Select extends ControlElement implements MultiValue {
    * @returns A list of selectable HTML elements
    */
   private getSelectableElements (): Item[] {
-    const root = this.hasDataItems() ? this.menuEl : this;
+    const root = this.hasDataItems() ? this.menuRef.value : this;
 
     /* istanbul ignore next */
     if (!root) {
@@ -956,6 +971,14 @@ export class Select extends ControlElement implements MultiValue {
   }
 
   /**
+   * Get text for labels
+   * @returns Label
+   */
+  private get labelText (): string {
+    return this.multiple ? this.labels.join(LABEL_SEPARATOR) : this.label;
+  }
+
+  /**
    * Calculating whether the placeholder should be hidden
    * @returns result
    */
@@ -1001,7 +1024,7 @@ export class Select extends ControlElement implements MultiValue {
    * Template for label
    */
   private get labelTemplate (): TemplateResult {
-    return html`<div part="label">${this.multiple ? this.labels.join(LABEL_SEPARATOR) : this.label}</div>`;
+    return html`<div part="label" ${ref(this.labelRef)}>${this.labelText}</div>`;
   }
 
   /**
@@ -1036,6 +1059,7 @@ export class Select extends ControlElement implements MultiValue {
   private get popupTemplate (): TemplateResult | undefined {
     if (this.lazyRendered) {
       return html`<ef-overlay
+        ${ref(this.menuRef)}
         tabindex="-1"
         id="menu"
         part="list"
