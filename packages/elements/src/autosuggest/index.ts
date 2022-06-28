@@ -19,7 +19,7 @@ import {
   TranslateDirective,
   TranslatePropertyKey
 } from '@refinitiv-ui/translate';
-import { TapEvent } from '../events';
+import type { TapEvent } from '../events';
 import type {
   AutosuggestTargetElement,
   AutosuggestHighlightable,
@@ -39,6 +39,17 @@ import '../loader/index.js';
 import '../item/index.js';
 import '@refinitiv-ui/phrasebook/locale/en/autosuggest.js';
 
+import type {
+  ItemHighlightEvent,
+  AddAttachTargetEventsEvent,
+  RemoveAttachTargetEventsEvent,
+  ItemSelectEvent,
+  SuggestionsFetchRequestedEvent,
+  SuggestionsClearRequestedEvent,
+  SuggestionsQueryEvent,
+  SuggestionsChangedEvent
+} from './helpers/types';
+
 export type {
   AutosuggestTargetElement,
   AutosuggestHighlightable,
@@ -55,7 +66,8 @@ export type {
   SuggestionsClearRequestedEvent,
   SuggestionsQueryEvent,
   SuggestionsChangedEvent
-} from './helpers/types';
+};
+
 export { updateElementContent } from './helpers/utils.js';
 export {
   itemHighlightable,
