@@ -413,7 +413,7 @@ It is recommended to have only one instance of tooltip per page. A default toolt
 Use `addTooltipCondition` and `removeTooltipCondition` to reuse the default tooltip:
 
 ```javascript
-import { addTooltipCondition, removeTooltipCondition } from '@refinitiv-ui/tooltip';
+import { addTooltipCondition, removeTooltipCondition } from '@refinitiv-ui/elements/tooltip';
 
 // Show tooltip for elements that have "ref" attribute
 const condition = target => target.hasAttribute('ref');
@@ -442,7 +442,7 @@ Overflow tooltip reuses the concept of _Default tooltip_ to display a tooltip wh
 <div class="overflow">Very long text with overflow</div>
 ```
 ```javascript
-import { registerOverflowTooltip } from '@refinitiv-ui/tooltip';
+import { registerOverflowTooltip } from '@refinitiv-ui/elements/tooltip';
 const overflowElement = document.querySelector('.overflow');
 registerOverflowTooltip(overflowElement);
 ```
