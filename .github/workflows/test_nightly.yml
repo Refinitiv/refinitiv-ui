@@ -1,7 +1,8 @@
 name: Nightly Test
-on:
-  schedule:
-    - cron: '0 0 * * *'
+# on:
+#   schedule:
+#     - cron: '0 0 * * *'
+on: [push] # Triggers on any branch
 env:
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
@@ -48,7 +49,7 @@ jobs:
         # Prevent NX caching because it must run all linting, even though the code has not chaged.
         run: npm run lint:all -- --skip-nx-cache
 
-  nightly-test:
+  chrome:
     needs: lint
     runs-on: ubuntu-latest
     steps:
@@ -60,7 +61,44 @@ jobs:
       - name: Test
         uses: ./.github/actions/browserstack
         with:
-          browsers: 'supported'
+          browsers: 'chrome chrome_previous'
           mode: 'all'
-          username: ${{ env.BROWSERSTACK_USERNAME }}
-          access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
+          username: $BROWSERSTACK_USERNAME
+          access-key: $BROWSERSTACK_ACCESS_KEY
+
+  firefox:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        uses: ./.github/actions/browserstack
+        with:
+          browsers: 'firefox firefox_previous'
+          mode: 'all'
+          coverage: 'false'
+          username: $BROWSERSTACK_USERNAME
+          access-key: $BROWSERSTACK_ACCESS_KEY
+
+  safari:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        uses: ./.github/actions/browserstack
+        with:
+          browsers: 'safari safari_previous'
+          mode: 'all'
+          coverage: 'false'
+          base: $BASE_SHA
+          username: $BROWSERSTACK_USERNAME
+          access-key: $BROWSERSTACK_ACCESS_KEY
