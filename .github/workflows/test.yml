@@ -1,7 +1,8 @@
 name: Test
 on: [push] # Triggers on any branch
 env:
-  BASE_SHA: ${{ github.event.pull_request.base.sha }}
+  # BASE_SHA: ${{ github.event.pull_request.base.sha }}
+  BASE_SHA: 'ba97f656eb265eef6432baf7e4ecca1018bfc397'
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Test ${{ github.run_number }}"
@@ -29,9 +30,9 @@ jobs:
 
       - name: Build
         if: steps.setup.outputs.cache-build-hit != 'true'
-        run: npm run build
+        run: npm run build:affected -- --base=$BASE_SHA
 
-  chrome:
+  lint:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -40,15 +41,31 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup BrowserStack
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+
+      - name: Lint
+        run: npm run lint:affected -- --base=$BASE_SHA
+
+  chrome:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Test
         uses: ./.github/actions/browserstack
         with:
           browsers: 'chrome'
-          username: ${{ env.BROWSERSTACK_USERNAME }}
-          access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
+          base: $BASE_SHA
+          username: $BROWSERSTACK_USERNAME
+          access-key: $BROWSERSTACK_ACCESS_KEY
 
   firefox:
-    needs: build
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -56,16 +73,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup BrowserStack
+      - name: Test
         uses: ./.github/actions/browserstack
         with:
           browsers: 'firefox'
           coverage: 'false'
-          username: ${{ env.BROWSERSTACK_USERNAME }}
-          access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
+          base: $BASE_SHA
+          username: $BROWSERSTACK_USERNAME
+          access-key: $BROWSERSTACK_ACCESS_KEY
 
   safari:
-    needs: build
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -77,5 +95,7 @@ jobs:
         uses: ./.github/actions/browserstack
         with:
           browsers: 'safari'
-          username: ${{ env.BROWSERSTACK_USERNAME }}
-          access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
+          coverage: 'false'
+          base: $BASE_SHA
+          username: $BROWSERSTACK_USERNAME
+          access-key: $BROWSERSTACK_ACCESS_KEY

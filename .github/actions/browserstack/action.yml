@@ -7,6 +7,10 @@ inputs:
   access-key:
     description: 'BrowserStack access key'
     required: true
+  mode:
+    description: 'Test mode'
+    required: false
+    default: 'affected' # affected|all
   browsers:
     description: 'List of browser name'
     required: true
@@ -14,10 +18,9 @@ inputs:
     description: 'Include test covertage'
     required: false
     default: 'true'
-  parallel:
-    description: 'Run test packages parallel'
+  base:
+    description: 'Base sha for test affected mode'
     required: false
-    default: 1
 runs:
   using: "composite"
   steps:
@@ -37,10 +40,17 @@ runs:
       uses: ./.github/actions/setup
       id: setup
 
-    - name: Test
+    - name: Test All
+      if: ${{ inputs.mode == 'all' }}
       shell: bash
-      run: npm run test elements -- --browserstack '${{ inputs.browsers }}' --includeCoverage ${{ inputs.coverage }} --output minimal
-      # run: npm run test:all -- --parallel=${{ inputs.parallel }} --browserstack '${{ inputs.browsers }}' --includeCoverage ${{ inputs.coverage }} --output minimal
+      # Prevent NX caching because it must run all testing, even though the code has not chaged.
+      run: npm run test:all -- --parallel=3 --skip-nx-cache --browserstack 'supported' --includeCoverage ${{ inputs.coverage }} --output minimal
+
+    - name: Test Affected
+      if: ${{ inputs.mode == 'affected' }}
+      shell: bash
+      # Parallel need to be 1 because Safari not stable when run parallel more than 1
+      run: npm run test:affected -- --base=${{ inputs.base }} --parallel=1 --browserstack '${{ inputs.browsers }}' --includeCoverage ${{ inputs.coverage }} --output minimal
 
     - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
       uses: browserstack/github-actions/setup-local@master
