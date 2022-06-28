@@ -18,6 +18,10 @@ inputs:
     description: 'Include test covertage'
     required: false
     default: 'true'
+  parallel:
+    description: 'Run parallel testing limit'
+    required: false
+    default: 1
   base:
     description: 'Base sha for test affected mode'
     required: false
@@ -44,13 +48,13 @@ runs:
       if: ${{ inputs.mode == 'all' }}
       shell: bash
       # Prevent NX caching because it must run all testing, even though the code has not chaged.
-      run: npm run test:all -- --parallel=3 --skip-nx-cache --browserstack '${{ inputs.browsers }}' --includeCoverage ${{ inputs.coverage }} --output minimal
+      run: npm run test:all -- --parallel=${{ inputs.parallel }} --skip-nx-cache --browserstack '${{ inputs.browsers }}' --includeCoverage ${{ inputs.coverage }} --output minimal
 
     - name: Test Affected
       if: ${{ inputs.mode == 'affected' }}
       shell: bash
       # Parallel need to be 1 because Safari not stable when run parallel more than 1
-      run: npm run test:affected -- --base=${{ inputs.base }} --parallel=1 --browserstack '${{ inputs.browsers }}' --includeCoverage ${{ inputs.coverage }} --output minimal
+      run: npm run test:affected -- --base=${{ inputs.base }} --parallel=${{ inputs.parallel }} --browserstack '${{ inputs.browsers }}' --includeCoverage ${{ inputs.coverage }} --output minimal
 
     - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
       uses: browserstack/github-actions/setup-local@master

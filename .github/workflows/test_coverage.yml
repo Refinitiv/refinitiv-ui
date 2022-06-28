@@ -45,6 +45,7 @@ jobs:
         with:
           browsers: 'chrome'
           mode: 'all'
+          parallel: 3
           username: ${{ env.BROWSERSTACK_USERNAME }}
           access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
 

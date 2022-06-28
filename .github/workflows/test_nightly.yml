@@ -63,11 +63,12 @@ jobs:
         with:
           browsers: 'chrome chrome_previous'
           mode: 'all'
+          parallel: 3
           username: $BROWSERSTACK_USERNAME
           access-key: $BROWSERSTACK_ACCESS_KEY
 
   firefox:
-    needs: lint
+    needs: chrome
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -81,11 +82,12 @@ jobs:
           browsers: 'firefox firefox_previous'
           mode: 'all'
           coverage: 'false'
+          parallel: 3
           username: $BROWSERSTACK_USERNAME
           access-key: $BROWSERSTACK_ACCESS_KEY
 
   safari:
-    needs: lint
+    needs: firefox
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -100,5 +102,6 @@ jobs:
           mode: 'all'
           coverage: 'false'
           base: $BASE_SHA
+          parallel: 1
           username: $BROWSERSTACK_USERNAME
           access-key: $BROWSERSTACK_ACCESS_KEY
