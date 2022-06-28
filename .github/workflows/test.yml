@@ -1,8 +1,7 @@
 name: Test
-on: [push] # Triggers on any branch
+on: [pull_request] # Triggers on any branch
 env:
-  # BASE_SHA: ${{ github.event.pull_request.base.sha }}
-  BASE_SHA: 'ba97f656eb265eef6432baf7e4ecca1018bfc397'
+  BASE_SHA: ${{ github.event.pull_request.base.sha }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Test ${{ github.run_number }}"

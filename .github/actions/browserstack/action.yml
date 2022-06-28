@@ -44,7 +44,7 @@ runs:
       if: ${{ inputs.mode == 'all' }}
       shell: bash
       # Prevent NX caching because it must run all testing, even though the code has not chaged.
-      run: npm run test:all -- --parallel=3 --skip-nx-cache --browserstack 'supported' --includeCoverage ${{ inputs.coverage }} --output minimal
+      run: npm run test:all -- --parallel=3 --skip-nx-cache --browserstack '${{ inputs.browsers }}' --includeCoverage ${{ inputs.coverage }} --output minimal
 
     - name: Test Affected
       if: ${{ inputs.mode == 'affected' }}
