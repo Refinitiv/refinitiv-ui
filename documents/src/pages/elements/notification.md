@@ -16,9 +16,7 @@ const createNotification = () => {
   el.innerText = 'Notification received at ' + new Date().toLocaleTimeString();
   el.addEventListener('dismiss', createNotification, { once: true });
   document.body.appendChild(el);
-  el.updateStyles({
-    '--background-color': 'hsl(' + Math.random() * 360 + ', 50%, 50%)'
-  });
+  el.style.setProperty('--background-color', 'hsl(' + Math.random() * 360 + ', 50%, 50%)');
 };
 createNotification();
 ```
