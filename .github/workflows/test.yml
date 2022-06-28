@@ -43,9 +43,9 @@ jobs:
       - name: Setup BrowserStack
         uses: ./.github/actions/browserstack
         with:
+          browsers: 'chrome'
           username: ${{ env.BROWSERSTACK_USERNAME }}
           access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
-          browsers: 'chrome'
 
   firefox:
     needs: build
@@ -59,9 +59,10 @@ jobs:
       - name: Setup BrowserStack
         uses: ./.github/actions/browserstack
         with:
+          browsers: 'firefox'
+          coverage: 'false'
           username: ${{ env.BROWSERSTACK_USERNAME }}
           access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
-          browsers: 'firefox'
 
   safari:
     needs: build
@@ -72,11 +73,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup BrowserStack
+      - name: Test
         uses: ./.github/actions/browserstack
         with:
+          browsers: 'safari'
           username: ${{ env.BROWSERSTACK_USERNAME }}
           access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
-          browsers: 'safari'
-
-

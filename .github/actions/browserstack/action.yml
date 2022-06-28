@@ -10,6 +10,10 @@ inputs:
   browsers:
     description: 'List of browser name'
     required: true
+  coverage:
+    description: 'Include test covertage'
+    required: false
+    default: 'true'
   parallel:
     description: 'Run test packages parallel'
     required: false
@@ -35,7 +39,8 @@ runs:
 
     - name: Test
       shell: bash
-      run: npm run test:all -- --parallel=${{ inputs.parallel }} --browserstack '${{ inputs.browsers }}' --includeCoverage false --output minimal
+      run: npm run test elements -- --browserstack '${{ inputs.browsers }}' --includeCoverage ${{ inputs.coverage }} --output minimal
+      # run: npm run test:all -- --parallel=${{ inputs.parallel }} --browserstack '${{ inputs.browsers }}' --includeCoverage ${{ inputs.coverage }} --output minimal
 
     - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
       uses: browserstack/github-actions/setup-local@master
