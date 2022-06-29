@@ -25,7 +25,8 @@
     "lint:all": "nx affected:lint --parallel --all",
     "lint-fix": "node cli lint:fix",
     "lint-fix:all": "nx run-many --target lint:fix --parallel --all",
-    "reset": "nx reset"
+    "reset": "nx reset",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.2",
