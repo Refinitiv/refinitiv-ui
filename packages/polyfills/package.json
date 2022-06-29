@@ -20,7 +20,7 @@
     "@webcomponents/shadydom": "^1.7.3",
     "@webcomponents/template": "^1.4.2",
     "@webcomponents/webcomponents-platform": "^1.0.0",
-    "lit": "^2.2.6",
+    "lit": "^2.2.7",
     "shady-css-scoped-element": "0.0.2"
   },
   "publishConfig": {

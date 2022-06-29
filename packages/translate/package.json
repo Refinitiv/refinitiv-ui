@@ -26,7 +26,7 @@
     "version": "node ../../scripts/version"
   },
   "dependencies": {
-    "lit": "^2.2.6",
+    "lit": "^2.2.7",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
