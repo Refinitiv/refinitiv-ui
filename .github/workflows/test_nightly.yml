@@ -33,61 +33,61 @@ jobs:
         # Prevent NX caching it should always build
         run: npm run build -- --skip-nx-cache
 
-  lint:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+  # lint:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
 
-      - name: Setup resources and environment
-        uses: ./.github/actions/setup
+  #     - name: Setup resources and environment
+  #       uses: ./.github/actions/setup
 
-      - name: Lint
-        # Prevent NX caching because it must run all linting, even though the code has not chaged.
-        run: npm run lint:all -- --skip-nx-cache
+  #     - name: Lint
+  #       # Prevent NX caching because it must run all linting, even though the code has not chaged.
+  #       run: npm run lint:all -- --skip-nx-cache
 
-  chrome:
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+  # chrome:
+  #   needs: lint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
 
-      - name: Test
-        uses: ./.github/actions/browserstack
-        with:
-          browsers: 'chrome chrome_previous'
-          mode: 'all'
-          parallel: 1
-          username: $BROWSERSTACK_USERNAME
-          access-key: $BROWSERSTACK_ACCESS_KEY
+  #     - name: Test
+  #       uses: ./.github/actions/browserstack
+  #       with:
+  #         browsers: 'chrome chrome_previous'
+  #         mode: 'all'
+  #         parallel: 1
+  #         username: $BROWSERSTACK_USERNAME
+  #         access-key: $BROWSERSTACK_ACCESS_KEY
 
-  firefox:
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+  # firefox:
+  #   needs: lint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
 
-      - name: Test
-        uses: ./.github/actions/browserstack
-        with:
-          browsers: 'firefox firefox_previous'
-          mode: 'all'
-          coverage: 'false'
-          parallel: 1
-          username: $BROWSERSTACK_USERNAME
-          access-key: $BROWSERSTACK_ACCESS_KEY
+  #     - name: Test
+  #       uses: ./.github/actions/browserstack
+  #       with:
+  #         browsers: 'firefox firefox_previous'
+  #         mode: 'all'
+  #         coverage: 'false'
+  #         parallel: 1
+  #         username: $BROWSERSTACK_USERNAME
+  #         access-key: $BROWSERSTACK_ACCESS_KEY
 
   safari:
-    needs: lint
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -118,20 +118,20 @@ jobs:
           access-key: $BROWSERSTACK_ACCESS_KEY
           setup: 'false'
 
-  edge:
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+  # edge:
+  #   needs: lint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
 
-      - name: Test
-        uses: ./.github/actions/browserstack
-        with:
-          browsers: 'edge edge_previous'
-          mode: 'all'
-          parallel: 1
-          username: $BROWSERSTACK_USERNAME
-          access-key: $BROWSERSTACK_ACCESS_KEY
+  #     - name: Test
+  #       uses: ./.github/actions/browserstack
+  #       with:
+  #         browsers: 'edge edge_previous'
+  #         mode: 'all'
+  #         parallel: 1
+  #         username: $BROWSERSTACK_USERNAME
+  #         access-key: $BROWSERSTACK_ACCESS_KEY
