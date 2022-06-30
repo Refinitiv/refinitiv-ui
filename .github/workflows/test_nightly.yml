@@ -98,25 +98,24 @@ jobs:
       - name: Test
         uses: ./.github/actions/browserstack
         with:
-          browsers: 'safari'
+          browsers: 'safari safari_previous'
           mode: 'all'
           coverage: 'false'
           parallel: 1
           username: $BROWSERSTACK_USERNAME
           access-key: $BROWSERSTACK_ACCESS_KEY
-          clear: 'false'
 
       # Safari need to seprate test for each version to avoid unstable connection
-      - name: Test previous version
-        uses: ./.github/actions/browserstack
-        with:
-          browsers: 'safari_previous'
-          mode: 'all'
-          coverage: 'false'
-          parallel: 1
-          username: $BROWSERSTACK_USERNAME
-          access-key: $BROWSERSTACK_ACCESS_KEY
-          setup: 'false'
+      # - name: Test previous version
+      #   uses: ./.github/actions/browserstack
+      #   with:
+      #     browsers: 'safari_previous'
+      #     mode: 'all'
+      #     coverage: 'false'
+      #     parallel: 1
+      #     username: $BROWSERSTACK_USERNAME
+      #     access-key: $BROWSERSTACK_ACCESS_KEY
+      #     setup: 'false'
 
   # edge:
   #   needs: lint
