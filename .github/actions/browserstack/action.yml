@@ -7,6 +7,14 @@ inputs:
   access-key:
     description: 'BrowserStack access key'
     required: true
+  setup:
+    description: 'Setup BrowserStack Environment and Tunnel'
+    required: false
+    default: 'true'
+  clear:
+    description: 'Clear BrowserStack Tunnel'
+    required: false
+    default: 'true'
   mode:
     description: 'Test mode'
     required: false
@@ -29,18 +37,21 @@ runs:
   using: "composite"
   steps:
     - name: 'BrowserStack Env Setup' # Invokes the setup-env action
+      if: ${{ inputs.setup == 'true' }}
       uses: browserstack/github-actions/setup-env@master
       with:
         username: ${{ inputs.username }}
         access-key: ${{ inputs.access-key }}
 
     - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
+      if: ${{ inputs.setup == 'true' }}
       uses: browserstack/github-actions/setup-local@master
       with:
         local-testing: start
         local-identifier: random
 
     - name: Setup resources and environment
+      if: ${{ inputs.setup }}
       uses: ./.github/actions/setup
       id: setup
 
@@ -57,6 +68,7 @@ runs:
       run: npm run test:affected -- --base=${{ inputs.base }} --parallel=${{ inputs.parallel }} --browserstack '${{ inputs.browsers }}' --includeCoverage ${{ inputs.coverage }} --output minimal
 
     - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
+      if: ${{ inputs.clear == 'true' }}
       uses: browserstack/github-actions/setup-local@master
       with:
         local-testing: stop
