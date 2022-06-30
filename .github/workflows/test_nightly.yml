@@ -63,12 +63,12 @@ jobs:
         with:
           browsers: 'chrome chrome_previous'
           mode: 'all'
-          parallel: 3
+          parallel: 1
           username: $BROWSERSTACK_USERNAME
           access-key: $BROWSERSTACK_ACCESS_KEY
 
   firefox:
-    needs: chrome
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -82,12 +82,12 @@ jobs:
           browsers: 'firefox firefox_previous'
           mode: 'all'
           coverage: 'false'
-          parallel: 3
+          parallel: 1
           username: $BROWSERSTACK_USERNAME
           access-key: $BROWSERSTACK_ACCESS_KEY
 
   safari:
-    needs: firefox
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -101,7 +101,24 @@ jobs:
           browsers: 'safari safari_previous'
           mode: 'all'
           coverage: 'false'
-          base: $BASE_SHA
+          parallel: 1
+          username: $BROWSERSTACK_USERNAME
+          access-key: $BROWSERSTACK_ACCESS_KEY
+
+  edge:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        uses: ./.github/actions/browserstack
+        with:
+          browsers: 'edge edge_previous'
+          mode: 'all'
           parallel: 1
           username: $BROWSERSTACK_USERNAME
           access-key: $BROWSERSTACK_ACCESS_KEY
