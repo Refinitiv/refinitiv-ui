@@ -1,4 +1,4 @@
-export type {
+import type {
   TranslateOptions,
   TranslateMessage,
   TranslateParams,
@@ -6,6 +6,14 @@ export type {
   MessageFormats,
   MessageOptions
 } from './types';
+export type {
+  TranslateOptions,
+  TranslateMessage,
+  TranslateParams,
+  UnicodeExtensions,
+  MessageFormats,
+  MessageOptions
+};
 
 export {
   LangObserverCallback,

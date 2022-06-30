@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.0.0...@refinitiv-ui/elemental-theme@6.0.1) (2022-06-20)
+
+
+### Bug Fixes
+
+* **autosuggest:** add default min-width to autosuggest when loading ([#348](https://github.com/Refinitiv/refinitiv-ui/issues/348)) ([0bbffb2](https://github.com/Refinitiv/refinitiv-ui/commit/0bbffb23b5dcd56f377803f00c2ef95f3bb88b0d))
+
+
+
+
+
 # [6.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.0.0-next.0...@refinitiv-ui/elemental-theme@6.0.0) (2022-06-07)
 
 

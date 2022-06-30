@@ -20,9 +20,8 @@ import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { VERSION } from '../version.js';
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
-import { ItemData } from '../item';
-import { ComboBoxData, ComboBoxFilter } from './helpers/types';
-import type { List } from '../list/index.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 import { ComboBoxRenderer } from './helpers/renderer.js';
 import { defaultFilter } from './helpers/filter.js';
 import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
@@ -30,6 +29,11 @@ import '../icon/index.js';
 import '../overlay/index.js';
 import '../list/index.js';
 import '../counter/index.js';
+
+import type { ItemData } from '../item';
+import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
+import type { List } from '../list';
+
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/locale/en/combo-box.js';
 
@@ -636,6 +640,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown);
     this.addEventListener('tapstart', this.onTapStart);
+
+    registerOverflowTooltip(this,
+      () => this.inputValue,
+      () => this.inputElement ? isElementOverflown(this.inputElement) : false);
   }
 
   /**

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.0.0...@refinitiv-ui/utils@6.0.1) (2022-06-20)
+
+
+### Bug Fixes
+
+* TypeScript type declaration path ([#371](https://github.com/Refinitiv/refinitiv-ui/issues/371)) ([03a5fed](https://github.com/Refinitiv/refinitiv-ui/commit/03a5fed7c6b93f0c3fe8604634026ade34cc6329))
+
+
+
+
+
 # [6.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.0.0-next.1...@refinitiv-ui/utils@6.0.0) (2022-06-07)
 
 

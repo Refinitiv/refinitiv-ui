@@ -26,7 +26,7 @@ import {
   TranslatePropertyKey
 } from '@refinitiv-ui/translate';
 import { Direction } from './constants.js';
-import {
+import type {
   NavigationKeys,
   DateTimeFormatPart,
   InputSelection

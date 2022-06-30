@@ -7,3 +7,4 @@ lib/
 !**/*.html
 !test/*.js
 **/*.d.ts
+samples/
