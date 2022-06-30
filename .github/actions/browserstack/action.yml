@@ -7,14 +7,6 @@ inputs:
   access-key:
     description: 'BrowserStack access key'
     required: true
-  setup:
-    description: 'Setup BrowserStack Environment and Tunnel'
-    required: false
-    default: 'true'
-  clear:
-    description: 'Clear BrowserStack Tunnel'
-    required: false
-    default: 'true'
   mode:
     description: 'Test mode'
     required: false
@@ -29,6 +21,7 @@ inputs:
   parallel:
     description: 'Run parallel testing limit'
     required: false
+    # Default value 3 is OK for every browsers except Safari need to be one to make it stable
     default: 1
   base:
     description: 'Base sha for test affected mode'
@@ -37,21 +30,18 @@ runs:
   using: "composite"
   steps:
     - name: 'BrowserStack Env Setup' # Invokes the setup-env action
-      if: ${{ inputs.setup == 'true' }}
       uses: browserstack/github-actions/setup-env@master
       with:
         username: ${{ inputs.username }}
         access-key: ${{ inputs.access-key }}
 
     - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
-      if: ${{ inputs.setup == 'true' }}
       uses: browserstack/github-actions/setup-local@master
       with:
         local-testing: start
         local-identifier: random
 
     - name: Setup resources and environment
-      if: ${{ inputs.setup }}
       uses: ./.github/actions/setup
       id: setup
 
@@ -59,16 +49,15 @@ runs:
       if: ${{ inputs.mode == 'all' }}
       shell: bash
       # Prevent NX caching because it must run all testing, even though the code has not chaged.
-      run: npm run test:all -- --parallel=${{ inputs.parallel }} --skip-nx-cache --browserstack '${{ inputs.browsers }}' --includeCoverage ${{ inputs.coverage }} --output minimal
+      run: npm run test:all -- --parallel=${{ inputs.parallel }} --skip-nx-cache --browserstack="'${{ inputs.browsers }}'" --includeCoverage ${{ inputs.coverage }} --output minimal
 
     - name: Test Affected
       if: ${{ inputs.mode == 'affected' }}
       shell: bash
       # Parallel need to be 1 because Safari not stable when run parallel more than 1
-      run: npm run test:affected -- --base=${{ inputs.base }} --parallel=${{ inputs.parallel }} --browserstack '${{ inputs.browsers }}' --includeCoverage ${{ inputs.coverage }} --output minimal
+      run: npm run test:affected -- --base=${{ inputs.base }} --parallel=${{ inputs.parallel }} --browserstack="'${{ inputs.browsers }}'" --includeCoverage ${{ inputs.coverage }} --output minimal
 
     - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
-      if: ${{ inputs.clear == 'true' }}
       uses: browserstack/github-actions/setup-local@master
       with:
         local-testing: stop
