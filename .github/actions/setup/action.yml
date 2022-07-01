@@ -36,5 +36,5 @@ runs:
           packages/*/lib
           packages/*-theme/**/*.js
           packages/*-theme/**/*.css
-        key: ${{ runner.os }}-build-add-safari-automate-test
-        restore-keys: ${{ runner.os }}-build-add-safari-automate-test
+        key: ${{ runner.os }}-build-${{ github.sha }}
+        restore-keys: ${{ runner.os }}-build-${{ github.sha }}
