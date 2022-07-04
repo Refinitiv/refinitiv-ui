@@ -455,16 +455,19 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   protected onTap (event: TapEvent): void {
     const el = this.findItemElementFromTarget(event.target);
     const item = el && this.itemFromElement(el);
+
     if (item) {
+      this.clearHighlighted();
+
+      this.highlightItem(item);
+      event.preventDefault();
 
       const root = getElementScope(this) ? getElementScope(this) : false;
       if (event.target !== this && (root as Document).activeElement !== this) {
         this.focus();
       }
 
-      this.clearHighlighted();
       if (this.selectItem(item)) {
-        this.highlightItem(item);
         this.fireSelectionUpdate();
       }
     }
@@ -652,7 +655,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     super.firstUpdated(changeProperties);
 
     this.addEventListener('keydown', this.onKeyDown);
-    this.addEventListener('tap', this.onTap);
+    this.addEventListener('tapstart', this.onTap);
     this.addEventListener('mousemove', this.onMouse);
     this.addEventListener('mouseleave', this.clearHighlighted);
     this.addEventListener('focusin', this.onFocus);
