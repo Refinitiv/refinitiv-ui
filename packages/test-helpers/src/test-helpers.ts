@@ -63,7 +63,7 @@ export const keyboardEvent = (type: string, init: KeyboardEventInit = {}): Keybo
  * @returns {boolean} true if this is Safari
  */
 export const isSafari = (version = undefined): boolean => {
-  const safari = !(/Chrome/).test(navigator.userAgent) && (/Safari/).test(navigator.vendor);
+  const safari = !(/Chrome/).test(navigator.userAgent) && (/Apple Computer/).test(navigator.vendor);
   if (version) {
     return safari && !!navigator.userAgent.indexOf(`Version\/${String(version)}`);
   }
