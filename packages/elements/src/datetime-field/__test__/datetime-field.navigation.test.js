@@ -69,7 +69,7 @@ const startDate = () => {
 const isSafari = (version = undefined) => {
   const safari = !(/Chrome/).test(navigator.userAgent) && (/Apple Computer/).test(navigator.vendor);
   if (version) {
-    return safari && !!navigator.userAgent.indexOf(`Version\/${String(version)}`);
+    return safari && (navigator.userAgent.indexOf(`Version\/${String(version)}`) > -1);
   }
   return safari;
 };
