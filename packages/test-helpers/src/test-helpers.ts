@@ -57,15 +57,3 @@ export const keyboardEvent = (type: string, init: KeyboardEventInit = {}): Keybo
   return event;
 };
 
-/**
- * Indicates if this is Safari.
- * @param {(string|undefined)} version Specify version to detect. Not required.
- * @returns {boolean} true if this is Safari
- */
-export const isSafari = (version = undefined): boolean => {
-  const safari = !(/Chrome/).test(navigator.userAgent) && (/Apple Computer/).test(navigator.vendor);
-  if (version) {
-    return safari && !!navigator.userAgent.indexOf(`Version\/${String(version)}`);
-  }
-  return safari;
-};

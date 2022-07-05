@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, nextFrame, isSafari } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 import {
   focusInput,
   arrowRight,
@@ -64,6 +64,15 @@ const startDate = () => {
   date.setUTCHours(12);
   return utcFormat(date, DateTimeFormat.yyyMMddTHHmmssSSS);
 }
+
+// Indicates if this is Safari. Put version parameter to specific version.
+const isSafari = (version = undefined) => {
+  const safari = !(/Chrome/).test(navigator.userAgent) && (/Apple Computer/).test(navigator.vendor);
+  if (version) {
+    return safari && !!navigator.userAgent.indexOf(`Version\/${String(version)}`);
+  }
+  return safari;
+};
 
 describe('datetime-field/Navigation', () => {
   describe('Part Selection', () => {
