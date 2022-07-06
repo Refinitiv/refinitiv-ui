@@ -58,10 +58,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Need this step for support feature toggle BrowserStack on/off
+      - name: Setup extra browser versions to testing
+        if: ${{ inputs.browserstack == 'true' }}
+        run: echo "CHROME_BROWSERS=chrome_previous >> $GITHUB_ENV
+
       - name: Test
         uses: ./.github/actions/browser
         with:
-          browsers: 'chrome chrome_previous'
+          browsers: 'chrome ${{ env.CHROME_BROWSERS }}'
           mode: 'all'
           browserstack: $BROWSERSTACK
           username: $BROWSERSTACK_USERNAME
@@ -76,10 +81,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Need this step for support feature toggle BrowserStack on/off
+      - name: Setup extra browser versions to testing
+        if: ${{ inputs.browserstack == 'true' }}
+        run: echo "FIREFOX_BROWSERS=firefox_previous >> $GITHUB_ENV
+
       - name: Test
         uses: ./.github/actions/browser
         with:
-          browsers: 'firefox firefox_previous'
+          browsers: 'firefox ${{ env.FIREFOX_BROWSERS }}'
           mode: 'all'
           coverage: 'false'
           browserstack: $BROWSERSTACK
