@@ -33,41 +33,52 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: 'BrowserStack Env Setup' # Invokes the setup-env action
-      if: ${{ inputs.browserstack == 'true' }}
-      uses: browserstack/github-actions/setup-env@master
-      with:
-        username: ${{ inputs.username }}
-        access-key: ${{ inputs.access-key }}
+    # - name: 'BrowserStack Env Setup' # Invokes the setup-env action
+    #   if: ${{ inputs.browserstack == 'true' }}
+    #   uses: browserstack/github-actions/setup-env@master
+    #   with:
+    #     username: ${{ inputs.username }}
+    #     access-key: ${{ inputs.access-key }}
 
-    - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
-      if: ${{ inputs.browserstack == 'true' }}
-      uses: browserstack/github-actions/setup-local@master
-      with:
-        local-testing: start
-        local-identifier: random
+    # - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
+    #   if: ${{ inputs.browserstack == 'true' }}
+    #   uses: browserstack/github-actions/setup-local@master
+    #   with:
+    #     local-testing: start
+    #     local-identifier: random
 
     - name: Setup resources and environment
       uses: ./.github/actions/setup
       id: setup
 
-    - name: Test All
-      if: ${{ inputs.mode == 'all' }}
-      shell: bash
-      # Prevent NX caching because it must run all testing, even though the code has not chaged.
-      run: npm run test:all -- --parallel=${{ inputs.parallel }} --skip-nx-cache --browserstack="'${{ inputs.browsers }}'" --includeCoverage ${{ inputs.coverage }} --output minimal
+    - name: Create browsers command line option
+      shell:
+      run: |
+        echo "From Secret Setting: ${{ inputs.browserstack }}"
+        [[ "${{ inputs.browserstack }}" == "true" ]] && export BROWSER="browserstack" || export BROWSER="browsers"
+        echo "BROWSER is: $BROWSER"
+        echo "BROWSER_OPTION='--$BROWSER=\"${{ inputs.browsers }}\"'" >> $GITHUB_ENV
+        echo "Use Option: "
+        echo "${{ env.BROWSER_OPTION }}"
+        echo "DONE"
 
-    - name: Test Affected
-      if: ${{ inputs.mode == 'affected' }}
-      shell: bash
-      # Parallel need to be 1 because Safari not stable when run parallel more than 1
-      run: npm run test:affected -- --base=${{ inputs.base }} --parallel=${{ inputs.parallel }} --browserstack="'${{ inputs.browsers }}'" --includeCoverage ${{ inputs.coverage }} --output minimal
+    # - name: Test All
+    #   if: ${{ inputs.mode == 'all' }}
+    #   shell: bash
+    #   # Prevent NX caching because it must run all testing, even though the code has not chaged.
+    #   run: npm run test:all -- --parallel=${{ inputs.parallel }} --skip-nx-cache ${{ env.BROWSER_OPTION }} --includeCoverage ${{ inputs.coverage }} --output minimal
 
-    - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
-      if: ${{ inputs.browserstack == 'true' }}
-      uses: browserstack/github-actions/setup-local@master
-      with:
-        local-testing: stop
+    # - name: Test Affected
+    #   if: ${{ inputs.mode == 'affected' }}
+    #   shell: bash
+    #   # Parallel need to be 1 because Safari not stable when run parallel more than 1
+    #   run: npm run test:affected -- --base=${{ inputs.base }} --parallel=${{ inputs.parallel }} ${{ env.BROWSER_OPTION }} --includeCoverage ${{ inputs.coverage }} --output minimal
+
+    # - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
+    #   if: ${{ inputs.browserstack == 'true' }}
+    #   uses: browserstack/github-actions/setup-local@master
+    #   with:
+    #     local-testing: stop
 
 
 
