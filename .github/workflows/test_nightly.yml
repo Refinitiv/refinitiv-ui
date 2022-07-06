@@ -49,7 +49,7 @@ jobs:
         # Prevent NX caching because it must run all linting, even though the code has not chaged.
         run: npm run lint:all -- --skip-nx-cache
 
-  chrome:
+  test:
     needs: lint
     runs-on: ubuntu-latest
     steps:
@@ -59,82 +59,106 @@ jobs:
           fetch-depth: 0
 
       # Need this step for support feature toggle BrowserStack on/off
-      - name: Setup extra browser versions to testing
-        if: ${{ inputs.browserstack == 'true' }}
-        run: echo "CHROME_BROWSERS=chrome_previous >> $GITHUB_ENV
+      - name: Setup browser versions to testing
+        run: |
+          [[ "${{ env.BROWSERSTACK }}" == "true" ]] && export BROWSERS="chrome chrome_previous firefox firefox_previous edge edge_previous" || export BROWSERS="default"
+          echo "BROWSERS=\"$BROWSERS\"" >> $GITHUB_ENV
 
       - name: Test
         uses: ./.github/actions/browser
         with:
-          browsers: 'chrome ${{ env.CHROME_BROWSERS }}'
+          browsers: '${{ env.BROWSERS }}'
           mode: 'all'
           browserstack: $BROWSERSTACK
           username: $BROWSERSTACK_USERNAME
           access-key: $BROWSERSTACK_ACCESS_KEY
 
-  firefox:
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+  # chrome:
+  #   needs: lint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
 
-      # Need this step for support feature toggle BrowserStack on/off
-      - name: Setup extra browser versions to testing
-        if: ${{ inputs.browserstack == 'true' }}
-        run: echo "FIREFOX_BROWSERS=firefox_previous >> $GITHUB_ENV
+  #     # Need this step for support feature toggle BrowserStack on/off
+  #     - name: Setup extra browser versions to testing
+  #       if: ${{ env.browserstack == 'true' }}
+  #       run: echo "CHROME_BROWSERS=chrome_previous >> $GITHUB_ENV
 
-      - name: Test
-        uses: ./.github/actions/browser
-        with:
-          browsers: 'firefox ${{ env.FIREFOX_BROWSERS }}'
-          mode: 'all'
-          coverage: 'false'
-          browserstack: $BROWSERSTACK
-          username: $BROWSERSTACK_USERNAME
-          access-key: $BROWSERSTACK_ACCESS_KEY
+  #     - name: Test
+  #       uses: ./.github/actions/browser
+  #       with:
+  #         browsers: 'chrome ${{ env.CHROME_BROWSERS }}'
+  #         mode: 'all'
+  #         browserstack: $BROWSERSTACK
+  #         username: $BROWSERSTACK_USERNAME
+  #         access-key: $BROWSERSTACK_ACCESS_KEY
 
-  # Test Safari on BrowserStack only
-  safari:
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        if: ${{ env.BROWSERSTACK == 'true' }}
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+  # firefox:
+  #   needs: lint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
 
-      - name: Test
-        if: ${{ env.BROWSERSTACK == 'true' }}
-        uses: ./.github/actions/browser
-        with:
-          browsers: 'safari safari_previous'
-          mode: 'all'
-          coverage: 'false'
-          browserstack: $BROWSERSTACK
-          username: $BROWSERSTACK_USERNAME
-          access-key: $BROWSERSTACK_ACCESS_KEY
+  #     # Need this step for support feature toggle BrowserStack on/off
+  #     - name: Setup extra browser versions to testing
+  #       if: ${{ env.browserstack == 'true' }}
+  #       run: echo "FIREFOX_BROWSERS=firefox_previous >> $GITHUB_ENV
 
-  # Test Edge on BrowserStack only
-  edge:
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        if: ${{ env.BROWSERSTACK == 'true' }}
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+  #     - name: Test
+  #       uses: ./.github/actions/browser
+  #       with:
+  #         browsers: 'firefox ${{ env.FIREFOX_BROWSERS }}'
+  #         mode: 'all'
+  #         coverage: 'false'
+  #         browserstack: $BROWSERSTACK
+  #         username: $BROWSERSTACK_USERNAME
+  #         access-key: $BROWSERSTACK_ACCESS_KEY
 
-      - name: Test
-        if: ${{ env.BROWSERSTACK == 'true' }}
-        uses: ./.github/actions/browser
-        with:
-          browsers: 'edge edge_previous'
-          mode: 'all'
-          browserstack: $BROWSERSTACK
-          username: $BROWSERSTACK_USERNAME
-          access-key: $BROWSERSTACK_ACCESS_KEY
+  # # Test Safari on BrowserStack only
+  # safari:
+  #   needs: lint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       if: ${{ env.BROWSERSTACK == 'true' }}
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+
+  #     - name: Test
+  #       if: ${{ env.BROWSERSTACK == 'true' }}
+  #       uses: ./.github/actions/browser
+  #       with:
+  #         browsers: 'safari safari_previous'
+  #         mode: 'all'
+  #         coverage: 'false'
+  #         browserstack: $BROWSERSTACK
+  #         username: $BROWSERSTACK_USERNAME
+  #         access-key: $BROWSERSTACK_ACCESS_KEY
+
+  # # Test Edge on BrowserStack only
+  # edge:
+  #   needs: lint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       if: ${{ env.BROWSERSTACK == 'true' }}
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+
+  #     - name: Test
+  #       if: ${{ env.BROWSERSTACK == 'true' }}
+  #       uses: ./.github/actions/browser
+  #       with:
+  #         browsers: 'edge edge_previous'
+  #         mode: 'all'
+  #         browserstack: $BROWSERSTACK
+  #         username: $BROWSERSTACK_USERNAME
+  #         access-key: $BROWSERSTACK_ACCESS_KEY
