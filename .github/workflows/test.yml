@@ -1,5 +1,5 @@
 name: Test
-on: [push] # Triggers on any branch
+on: [pull_request] # Triggers on any branch
 env:
   BASE_SHA: '09f91fafdef57fa26722ccf0e19f586833405cbb'
   BROWSERSTACK: ${{ secrets.BROWSERSTACK }}
