@@ -57,8 +57,17 @@ runs:
         echo "From Secret Setting: ${{ inputs.browserstack }}"
         [[ "${{ inputs.browserstack }}" == "true" ]] && export BROWSER="browserstack" || export BROWSER="browsers"
         echo "BROWSER is: $BROWSER"
+        echo "export BROWSER_OPTION=\"--$BROWSER=\"${{ inputs.browsers }}\"\""
+        export BROWSER_OPTION="--$BROWSER=\"${{ inputs.browsers }}\""
         echo "BROWSER_OPTION='--$BROWSER=\"${{ inputs.browsers }}\"'" >> $GITHUB_ENV
-        echo "Use Option: "
+        echo "Use Option on Local: "
+        echo "$BROWSER_OPTION"
+        echo "Use Option on GitHub: "
+        echo "${{ env.BROWSER_OPTION }}"
+
+    - name: Create browsers command line option
+      shell:
+      run: |
         echo "${{ env.BROWSER_OPTION }}"
         echo "DONE"
 
