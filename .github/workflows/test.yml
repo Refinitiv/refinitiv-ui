@@ -85,16 +85,17 @@ jobs:
           access-key: $BROWSERSTACK_ACCESS_KEY
 
   safari:
-    if: ${{ inputs.browserstack == 'true' }} # Test Safari on BrowserStack only
     needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
+        if: ${{ env.BROWSERSTACK == 'true' }} # Test Safari on BrowserStack only
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
       - name: Test
+        if: ${{ env.BROWSERSTACK == 'true' }} # Test Safari on BrowserStack only
         uses: ./.github/actions/browser
         with:
           browsers: 'safari'
