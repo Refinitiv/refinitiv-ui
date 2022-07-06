@@ -61,7 +61,7 @@ jobs:
       # Need this step for support feature toggle BrowserStack on/off
       - name: Setup browser versions to testing
         run: |
-          [[ "${{ env.BROWSERSTACK }}" == "true" ]] && export BROWSERS="chrome chrome_previous firefox firefox_previous edge edge_previous" || export BROWSERS="default"
+          [[ "${{ env.BROWSERSTACK }}" == "true" ]] && export BROWSERS="supported" || export BROWSERS="default"
           echo "BROWSERS=\"$BROWSERS\"" >> $GITHUB_ENV
 
       - name: Test
