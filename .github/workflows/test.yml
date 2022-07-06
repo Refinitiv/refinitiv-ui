@@ -66,42 +66,42 @@ jobs:
   #         username: $BROWSERSTACK_USERNAME
   #         access-key: $BROWSERSTACK_ACCESS_KEY
 
-  firefox:
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Test
-        uses: ./.github/actions/browser
-        with:
-          browsers: 'firefox'
-          coverage: 'false'
-          base: $BASE_SHA
-          browserstack: $BROWSERSTACK
-          username: $BROWSERSTACK_USERNAME
-          access-key: $BROWSERSTACK_ACCESS_KEY
-
-  # safari:
+  # firefox:
   #   needs: lint
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Check out repository code
-  #       if: ${{ env.BROWSERSTACK == 'true' }} # Test Safari on BrowserStack only
   #       uses: actions/checkout@v2
   #       with:
   #         fetch-depth: 0
 
   #     - name: Test
-  #       if: ${{ env.BROWSERSTACK == 'true' }} # Test Safari on BrowserStack only
   #       uses: ./.github/actions/browser
   #       with:
-  #         browsers: 'safari'
+  #         browsers: 'firefox'
   #         coverage: 'false'
   #         base: $BASE_SHA
   #         browserstack: $BROWSERSTACK
   #         username: $BROWSERSTACK_USERNAME
   #         access-key: $BROWSERSTACK_ACCESS_KEY
+
+  safari:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        if: ${{ env.BROWSERSTACK == 'true' }} # Test Safari on BrowserStack only
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        if: ${{ env.BROWSERSTACK == 'true' }} # Test Safari on BrowserStack only
+        uses: ./.github/actions/browser
+        with:
+          browsers: 'safari'
+          coverage: 'false'
+          base: $BASE_SHA
+          browserstack: $BROWSERSTACK
+          username: $BROWSERSTACK_USERNAME
+          access-key: $BROWSERSTACK_ACCESS_KEY
