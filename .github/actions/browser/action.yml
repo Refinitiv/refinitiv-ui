@@ -53,35 +53,23 @@ runs:
 
     - name: Create browsers command line option
       shell:
+      # Toggle browsers and browserstack options and save to GitHub environment variable
       run: |
-        echo "From Secret Setting: ${{ inputs.browserstack }}"
         [[ "${{ inputs.browserstack }}" == "true" ]] && export BROWSER="browserstack" || export BROWSER="browsers"
-        echo "BROWSER is: $BROWSER"
-        echo "export BROWSER_OPTION=\"--$BROWSER=\"${{ inputs.browsers }}\"\""
-        export BROWSER_OPTION="--$BROWSER=\"${{ inputs.browsers }}\""
-        echo "BROWSER_OPTION=\"--$BROWSER='${{ inputs.browsers }}'\"" >> $GITHUB_ENV
-        echo "Use Option on Local: "
-        echo "$BROWSER_OPTION"
-        echo "Use Option on GitHub: "
-        echo "${{ env.BROWSER_OPTION }}"
-
-    - name: Create browsers command line option
-      shell:
-      run: |
-        echo "${{ env.BROWSER_OPTION }}"
-        npm run test button -- --parallel=${{ inputs.parallel }} ${{ env.BROWSER_OPTION }} --includeCoverage ${{ inputs.coverage }} --output minimal
+        echo "BROWSERS_OPTION=\"--$BROWSER='${{ inputs.browsers }}'\"" >> $GITHUB_ENV
 
     # - name: Test All
     #   if: ${{ inputs.mode == 'all' }}
     #   shell: bash
     #   # Prevent NX caching because it must run all testing, even though the code has not chaged.
-    #   run: npm run test:all -- --parallel=${{ inputs.parallel }} --skip-nx-cache ${{ env.BROWSER_OPTION }} --includeCoverage ${{ inputs.coverage }} --output minimal
+    #   run: npm run test:all -- --parallel=${{ inputs.parallel }} --skip-nx-cache ${{ env.BROWSERS_OPTION }} --includeCoverage ${{ inputs.coverage }} --output minimal
 
-    # - name: Test Affected
-    #   if: ${{ inputs.mode == 'affected' }}
-    #   shell: bash
-    #   # Parallel need to be 1 because Safari not stable when run parallel more than 1
-    #   run: npm run test:affected -- --base=${{ inputs.base }} --parallel=${{ inputs.parallel }} ${{ env.BROWSER_OPTION }} --includeCoverage ${{ inputs.coverage }} --output minimal
+    - name: Test
+      shell: bash
+      run: |
+        [[ "${{ inputs.mode }}" == "affected" ]] && export OPTIONS="--base=${{ inputs.base }}"
+        [[ "${{ inputs.mode }}" == "all" ]] && export OPTIONS="--skip-nx-cache"
+        npm run test:${{ inputs.mode }} -- $OPTIONS --parallel=${{ inputs.parallel }} ${{ env.BROWSERS_OPTION }} --includeCoverage ${{ inputs.coverage }} --output minimal
 
     # - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
     #   if: ${{ inputs.browserstack == 'true' }}
