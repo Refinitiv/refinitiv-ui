@@ -76,8 +76,8 @@ const isSafari = (version = undefined) => {
 
 describe('datetime-field/Navigation', () => {
   describe('Part Selection', () => {
-    it('Should be possible to navigate right', async () => {
-      if (isSafari('14')) { // Safari 14 shows different time than others. 
+    it('Should be possible to navigate right', async function () {
+      if (isSafari('14')) { // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl();
@@ -104,8 +104,8 @@ describe('datetime-field/Navigation', () => {
       await arrowRight(el);
       expect(selection(el)).to.be.equal(Selection.Period, '#2 Period should be selected');
     });
-    it('Should be possible to navigate left', async () => {
-      if (isSafari('14')) { // Safari 14 shows different time than others. 
+    it('Should be possible to navigate left', async function () {
+      if (isSafari('14')) { // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl();
@@ -182,8 +182,8 @@ describe('datetime-field/Navigation', () => {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease minutes');
     });
-    it('Should be possible to change seconds', async () => {
-      if (isSafari('14')) { // Safari 14 shows different time than others. 
+    it('Should be possible to change seconds', async function () {
+      if (isSafari('14')) { // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl(0);
@@ -201,8 +201,8 @@ describe('datetime-field/Navigation', () => {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease milliseconds');
     });
-    it('Should be possible to change period', async () => {
-      if (isSafari('14')) { // Safari 14 shows different time than others. 
+    it('Should be possible to change period', async function () {
+      if (isSafari('14')) { // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl(0);
