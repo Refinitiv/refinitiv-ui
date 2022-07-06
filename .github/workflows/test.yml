@@ -48,42 +48,42 @@ jobs:
       - name: Lint
         run: npm run lint:affected -- --base=$BASE_SHA
 
-  # chrome:
-  #   needs: lint
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Check out repository code
-  #       uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: 0
+  chrome:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-  #     - name: Test
-  #       uses: ./.github/actions/browser
-  #       with:
-  #         browsers: 'chrome'
-  #         base: $BASE_SHA
-  #         browserstack: $BROWSERSTACK
-  #         username: $BROWSERSTACK_USERNAME
-  #         access-key: $BROWSERSTACK_ACCESS_KEY
+      - name: Test
+        uses: ./.github/actions/browser
+        with:
+          browsers: 'chrome'
+          base: $BASE_SHA
+          browserstack: $BROWSERSTACK
+          username: $BROWSERSTACK_USERNAME
+          access-key: $BROWSERSTACK_ACCESS_KEY
 
-  # firefox:
-  #   needs: lint
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Check out repository code
-  #       uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: 0
+  firefox:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-  #     - name: Test
-  #       uses: ./.github/actions/browser
-  #       with:
-  #         browsers: 'firefox'
-  #         coverage: 'false'
-  #         base: $BASE_SHA
-  #         browserstack: $BROWSERSTACK
-  #         username: $BROWSERSTACK_USERNAME
-  #         access-key: $BROWSERSTACK_ACCESS_KEY
+      - name: Test
+        uses: ./.github/actions/browser
+        with:
+          browsers: 'firefox'
+          coverage: 'false'
+          base: $BASE_SHA
+          browserstack: $BROWSERSTACK
+          username: $BROWSERSTACK_USERNAME
+          access-key: $BROWSERSTACK_ACCESS_KEY
 
   safari:
     needs: lint
