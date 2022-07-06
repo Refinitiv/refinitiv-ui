@@ -1,19 +1,13 @@
-name: 'Run BrowserStack Test'
-description: 'Setup BrowserStack'
+name: 'Run Test On Browser'
+description: 'Setup Browser and Run Test'
 inputs:
-  username:
-    description: 'BrowserStack username'
-    required: true
-  access-key:
-    description: 'BrowserStack access key'
+  browsers:
+    description: 'List of browser name'
     required: true
   mode:
     description: 'Test mode'
     required: false
     default: 'affected' # affected|all
-  browsers:
-    description: 'List of browser name'
-    required: true
   coverage:
     description: 'Include test covertage'
     required: false
@@ -26,16 +20,28 @@ inputs:
   base:
     description: 'Base sha for test affected mode'
     required: false
+  browserstack:
+    description: 'Run test on BrowserStack'
+    required: false
+    default: 'false'
+  username:
+    description: 'BrowserStack username'
+    required: false
+  access-key:
+    description: 'BrowserStack access key'
+    required: false
 runs:
   using: "composite"
   steps:
     - name: 'BrowserStack Env Setup' # Invokes the setup-env action
+      if: ${{ inputs.browserstack == 'true' }}
       uses: browserstack/github-actions/setup-env@master
       with:
         username: ${{ inputs.username }}
         access-key: ${{ inputs.access-key }}
 
     - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
+      if: ${{ inputs.browserstack == 'true' }}
       uses: browserstack/github-actions/setup-local@master
       with:
         local-testing: start
@@ -58,6 +64,7 @@ runs:
       run: npm run test:affected -- --base=${{ inputs.base }} --parallel=${{ inputs.parallel }} --browserstack="'${{ inputs.browsers }}'" --includeCoverage ${{ inputs.coverage }} --output minimal
 
     - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
+      if: ${{ inputs.browserstack == 'true' }}
       uses: browserstack/github-actions/setup-local@master
       with:
         local-testing: stop

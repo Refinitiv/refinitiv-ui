@@ -3,6 +3,7 @@ on:
   push:
     branches: [v6]
 env:
+  BROWSERSTACK ${{ secrets.BROWSERSTACK }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Test Coverage ${{ github.run_number }}"
@@ -41,11 +42,12 @@ jobs:
           fetch-depth: 0
 
       - name: Test
-        uses: ./.github/actions/browserstack
+        uses: ./.github/actions/browser
         with:
           browsers: 'chrome'
           mode: 'all'
           parallel: 3
+          browserstack: ${{ env.BROWSERSTACK }}
           username: ${{ env.BROWSERSTACK_USERNAME }}
           access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
 
