@@ -59,7 +59,7 @@ runs:
         echo "BROWSER is: $BROWSER"
         echo "export BROWSER_OPTION=\"--$BROWSER=\"${{ inputs.browsers }}\"\""
         export BROWSER_OPTION="--$BROWSER=\"${{ inputs.browsers }}\""
-        echo "BROWSER_OPTION='--$BROWSER=\"${{ inputs.browsers }}\"'" >> $GITHUB_ENV
+        echo "BROWSER_OPTION=\"--$BROWSER='${{ inputs.browsers }}'\"" >> $GITHUB_ENV
         echo "Use Option on Local: "
         echo "$BROWSER_OPTION"
         echo "Use Option on GitHub: "
@@ -69,7 +69,7 @@ runs:
       shell:
       run: |
         echo "${{ env.BROWSER_OPTION }}"
-        echo "DONE"
+        npm run test button -- --parallel=${{ inputs.parallel }} ${{ env.BROWSER_OPTION }} --includeCoverage ${{ inputs.coverage }} --output minimal
 
     # - name: Test All
     #   if: ${{ inputs.mode == 'all' }}
