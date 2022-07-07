@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/docs",
-  "version": "5.0.4",
+  "version": "6.0.1",
   "private": true,
   "description": "Element Framework Documentation",
   "engines": {
@@ -28,11 +28,11 @@
   "devDependencies": {
     "chalk": "^4.1.2",
     "concurrently": "^6.4.0",
-    "pandora-book": "file:tools/pandora-book-3.0.0-dev.tgz",
+    "pandora-book": "file:tools/pandora-book-3.0.0-66.tgz",
     "serve": "^13.0.2"
   },
   "dependencies": {
-    "@refinitiv-ui/elements": "next",
+    "@refinitiv-ui/elements": "^6.0.1",
     "fast-glob": "^3.2.7",
     "fs-extra": "^10.0.0"
   }

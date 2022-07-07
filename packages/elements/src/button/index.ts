@@ -9,6 +9,7 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
+import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 import '../icon/index.js';
 
 /**
@@ -92,6 +93,8 @@ export class Button extends ControlElement {
    * @returns {void}
    */
   protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
     if (changedProperties.has('active') && this.toggles || changedProperties.has('toggles') && this.toggles) {
       if (this.getAttribute('role') === 'radio') {
         this.setAttribute('aria-checked', String(this.active));
@@ -100,8 +103,6 @@ export class Button extends ControlElement {
         this.setAttribute('aria-pressed', String(this.active));
       }
     }
-
-    super.update(changedProperties);
   }
 
   /**
@@ -117,7 +118,7 @@ export class Button extends ControlElement {
     this.addEventListener('tapend', this.unsetPressed);
 
     this.emptyComputed();
-    registerOverflowTooltip(this.labelElement, () => this.textContent);
+    registerOverflowTooltip(this, undefined, () => isElementOverflown(this.labelElement));
   }
 
   /**
@@ -213,5 +214,11 @@ export class Button extends ControlElement {
         <slot @slotchange="${this.onDefaultSlotChangeHandler}"></slot>
       </span>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-button': Button;
   }
 }

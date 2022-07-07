@@ -318,3 +318,9 @@ export class ButtonBar extends BasicElement {
     return html`<slot ${ref(this.defaultSlot)} ></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-button-bar': ButtonBar;
+  }
+}

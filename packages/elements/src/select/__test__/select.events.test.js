@@ -1,5 +1,5 @@
 import { fixture, expect, elementUpdated, nextFrame, keyboardEvent, triggerFocusFor, isIE } from '@refinitiv-ui/test-helpers';
-import { getOptions, openedUpdated, getData } from './utils';
+import { getOptions, openedUpdated, getData, getMenuEl } from './utils';
 
 import '@refinitiv-ui/elements/select';
 import '@refinitiv-ui/elemental-theme/light/ef-select';
@@ -173,7 +173,7 @@ describe('select/Events', () => {
         el.opened = true;
         await openedUpdated(el);
         const key = closeEvents[i];
-        el.menuEl.dispatchEvent(keyboardEvent('keydown', { key }));
+        getMenuEl(el).dispatchEvent(keyboardEvent('keydown', { key }));
         await openedUpdated(el);
         expect(counter).to.equal(i + 1, `opened-changed should fire for "${key}"`);
         expect(opened).to.equal(false, `opened-changed did not pass correct value for "${key}"`);
@@ -247,7 +247,7 @@ describe('select/Events', () => {
         el.setItemHighlight(options[1]); // AF
         await nextFrame();
         const key = valueChangedEvents[i];
-        el.menuEl.dispatchEvent(keyboardEvent('keydown', { key }));
+        getMenuEl(el).dispatchEvent(keyboardEvent('keydown', { key }));
         await openedUpdated(el);
         expect(counter).to.equal(i + 1, `value-changed should fire when item selected for "${key}"`);
         expect(changedValue).to.equal('AF', `value-changed detail: value should pass the selected value for "${key}"`);

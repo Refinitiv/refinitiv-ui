@@ -149,6 +149,6 @@ Compact notation also work with the `max` attribute.
 ## Accessibility
 ::a11y-intro::
 
-`ef-counter` can be read by screen reader in a similar way as a generic text HTML element. It doesn't meant to be an actionable element so, generally, it shouldn't be focusable and not necessary to be assigned with any roles.
+`ef-counter` can be read by screen readers in a similar way to a generic text HTML element. It isn't meant to be an actionable element so, generally, it shouldn't be focusable and it's not necessary for it to be assigned any roles.
 
 ::a11y-end::

@@ -1,3 +1,8 @@
+enum Direction {
+  Up = 1,
+  Down = -1
+}
+
 enum SliderDataName {
   value = 'value',
   from = 'from',
@@ -15,4 +20,4 @@ enum NumberFieldName {
   toInput = 'toInput',
 }
 
-export { SliderDataName, SliderPreviousDataName, NumberFieldName };
+export { Direction, SliderDataName, SliderPreviousDataName, NumberFieldName };

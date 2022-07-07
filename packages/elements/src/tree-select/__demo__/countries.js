@@ -8,7 +8,6 @@ const treeCollection = [
       {
         'value': 'DZA',
         'label': 'Algeria',
-        'selected': false,
         'items': [{
           'value': 'ADR',
           'label': 'Adrar',
@@ -73,7 +72,6 @@ const treeCollection = [
         'value': 'IMG',
         'label': 'Hvalueden Land',
         'tooltip': 'The Hvalueden land',
-        'selected': false,
         'items': [
           {
             'value': 'HID1',
@@ -448,7 +446,6 @@ const treeCollection = [
   {
     'value': 'EUR',
     'label': 'Europe',
-    'selected': false,
     'items': [
       {
         'value': 'ALA',
@@ -773,7 +770,6 @@ const treeCollection = [
   {
     'value': 'ASA',
     'label': 'Asia',
-    'selected': false,
     'items': [
       {
         'value': 'AFG',
@@ -1080,7 +1076,6 @@ const treeCollection = [
   {
     'value': 'AME',
     'label': 'Americas',
-    'selected': false,
     'items': [
       {
         'value': 'AIA',
@@ -1429,7 +1424,6 @@ const treeCollection = [
   {
     'value': 'OCE',
     'label': 'Oceania',
-    'selected': false,
     'items': [
       {
         'value': 'ASM',

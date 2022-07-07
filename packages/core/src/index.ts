@@ -2,7 +2,8 @@ export {
   html,
   svg,
   css,
-  unsafeCSS
+  unsafeCSS,
+  render
 } from 'lit';
 
 export type {
@@ -42,20 +43,25 @@ export { DeprecationNotice } from './notices/DeprecationNotice.js';
  * Export events
  */
 export { TapEvent } from './events/TapEvent.js';
-export type { FocusedChangedEvent } from './types/events';
+import type { FocusedChangedEvent } from './types/events';
+export type { FocusedChangedEvent };
 
 /**
  * Export common interfaces
  */
-export type { MultiValue } from './interfaces/MultiValue';
-export type { StyleMap } from './interfaces/StyleMap';
-export type { StyleInfo } from './interfaces/StyleInfo';
+import type { MultiValue } from './interfaces/MultiValue';
+export type { MultiValue };
+import type { StyleMap } from './interfaces/StyleMap';
+export type { StyleMap };
+import type { StyleInfo } from './interfaces/StyleInfo';
+export type { StyleInfo };
 
 /**
  * Export useful utils
  */
 export { FocusableHelper } from './utils/focusableHelper.js';
 export { matches } from './utils/matches.js';
+export { isBasicElement } from './utils/helpers.js';
 
 /**
  * Export focused key.

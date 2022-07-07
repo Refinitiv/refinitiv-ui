@@ -25,12 +25,11 @@ Finally, import both elements that you want to use and its themes into your appl
 <br>
 
 ```javascript
-// import native styles for typography, css variables, etc.
-import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
-
 // import element and its Halo dark theme
 import '@refinitiv-ui/elements/button';
 import '@refinitiv-ui/elements/panel';
+// import native styles for typography, css variables, etc.
+import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
 import '@refinitiv-ui/elements/button/themes/halo/dark';
 import '@refinitiv-ui/elements/panel/themes/halo/dark';
 ```
@@ -51,20 +50,9 @@ Now, you can use the elements in your app.
 </ef-panel>
 ```
 
-## Command Overview
-
-| Command | Target | Description | Example |
-| --- |:--- | --- | --- |
-| npm start | `<element>` | Build and serve an element. | npm start button |
-| npm run test  | `<element>` &#124; `all` | Run unit tests. | npm run test button |
-| npm run test:watch  | `<element>` | Run test server. | npm run test:watch button |
-| npm run test:snapshots  | `<element>` &#124; `all` | Update and prune snapshots.  | npm run test:watch button |
-| npm run lint  | `<element>` &#124; `all` | Run linting tools.  | npm run lint button |
-| npm run lint:fix  | `<element>` &#124; `all` | Fix linting errors. | npm run lint:fix button |
-
 # Documentation
 
-See list of elements, demo and more tutorial by visiting [EF Documentation](https://cdn.ppe.refinitiv.com/public/apps/elf-docs/book/en/index.html).
+See list of elements, demo and more tutorial by visiting [EF Documentation](https://ui.refinitiv.com/).
 
 # License
 Apache License 2.0. However, Halo theme shall only be used within Refinitiv products or services due to license of the font "Proxima Nova Fin".

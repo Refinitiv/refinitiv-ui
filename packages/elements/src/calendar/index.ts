@@ -71,7 +71,7 @@ import {
   YEAR_VIEW,
   MONTH_VIEW
 } from './constants.js';
-import {
+import type {
   Cell,
   Row,
   Comparator,
@@ -1478,5 +1478,11 @@ export class Calendar extends ControlElement implements MultiValue {
            @tap=${this.onTableTap}>${this.viewRender}</div>
       <div part="footer"><slot name="footer"></slot></div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-calendar': Calendar;
   }
 }

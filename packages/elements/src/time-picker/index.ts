@@ -12,7 +12,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { ValueChangedEvent, FocusedChangedEvent } from '../events';
+import type { ValueChangedEvent, FocusedChangedEvent } from '../events';
 import { VERSION } from '../version.js';
 import {
   isValidTime,
@@ -1006,5 +1006,11 @@ export class TimePicker extends ControlElement {
       ${guard([this.isMobile], () => this.nativeInputForMobile)}
       ${guard([this.value, this.lang, this.showSeconds, this.amPm, this.announceValues], () => this.selectionTemplate)}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-time-picker': TimePicker;
   }
 }

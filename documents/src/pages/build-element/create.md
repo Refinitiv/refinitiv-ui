@@ -12,9 +12,9 @@ type: page
 
 ## System Requirements
 
-- LTS version of NodeJS installed\
+<!-- - LTS version of NodeJS installed\
 ![Node LTS version](https://img.shields.io/node/v/@refinitiv-ui/create-element?logo=nodejs&style=for-the-badge)
-- Recent version of
+- Recent version of -->
 
 ## Element Lifecycle
 

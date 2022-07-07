@@ -1,7 +1,7 @@
 import { Phrasebook } from '../../translation.js';
 
 const translations = {
-  SEARCH: 'Search'
+  SEARCH: '搜尋'
 };
 
 Phrasebook.define('zh-Hant', 'ef-search-field', translations);

@@ -30,7 +30,7 @@ export class ListRenderer extends Renderer {
       /**
        * Element to render
        */
-      const el = (element || document.createElement('ef-item')) as Item;
+      const el = (element as Item || document.createElement('ef-item'));
       /**
        * Tooltip value to be used, if any.
        */

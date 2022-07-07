@@ -1,8 +1,8 @@
 import { Phrasebook } from '../../translation.js';
 
 const translations = {
-  SHOW_PASSWORD: 'Show password',
-  HIDE_PASSWORD: 'Hide password'
+  SHOW_PASSWORD: '显示密码',
+  HIDE_PASSWORD: '隐藏密码'
 };
 
 Phrasebook.define('zh', 'ef-password-field', translations);

@@ -497,3 +497,9 @@ export class ColorDialog extends Dialog {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-color-dialog': ColorDialog;
+  }
+}

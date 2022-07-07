@@ -71,3 +71,9 @@ export class OverlayBackdrop extends BasicElement {
     return OverlayBackdrop.Template;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-overlay-backdrop': OverlayBackdrop;
+  }
+}

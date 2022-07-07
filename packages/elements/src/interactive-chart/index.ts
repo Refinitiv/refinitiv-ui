@@ -1220,3 +1220,9 @@ export class InteractiveChart extends ResponsiveElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-interactive-chart': InteractiveChart;
+  }
+}

@@ -20,8 +20,9 @@ import '../item/index.js';
 import { Item, ItemData } from '../item/index.js';
 import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay/index.js';
 import { applyLock } from '../overlay/managers/interaction-lock-manager.js';
-import { OverlayMenuData, Navigation } from './helpers/types';
 import { OpenedMenusManager } from './managers/menu-manager.js';
+import { Navigation } from './helpers/constants.js';
+import type { OverlayMenuData } from './helpers/types';
 
 export type { OverlayMenuData };
 
@@ -817,7 +818,7 @@ export class OverlayMenu extends Overlay {
       default:
         return;
     }
-    
+
     if (circular && !focusElement) {
       focusElement = direction === Navigation.NEXT ? children[0] : children[children.length - 1];
     }
@@ -975,7 +976,7 @@ export class OverlayMenu extends Overlay {
    * @return menu element
    */
   private toOverlayMenu (): OverlayMenu {
-    const menu = document.createElement('ef-overlay-menu') as OverlayMenu;
+    const menu = document.createElement('ef-overlay-menu');
     menu.transitionStyle = this.transitionStyle;
     menu.noCancelOnOutsideClick = true;
     menu.compact = this.compact;
@@ -1077,5 +1078,11 @@ export class OverlayMenu extends Overlay {
       ${this.compactBackItem()}
       ${this.withData ? this.fromDataItems : html`<slot @slotchange=${this.onSlotChange}></slot>`}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-overlay-menu': OverlayMenu;
   }
 }

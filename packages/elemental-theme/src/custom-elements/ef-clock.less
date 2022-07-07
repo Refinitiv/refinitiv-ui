@@ -11,6 +11,7 @@
 :host {
   font-size: 2.5em;
   user-select: none;
+  outline: none;
 
   [part~='segment'] {
     padding: 0.15em 0;
@@ -20,7 +21,6 @@
 
   [part~='hours'], [part~='minutes'], [part~='seconds'] {
     position: relative;
-    outline: none;
 
     &[part~='shifted'] {
       color: @scheme-color-primary;
@@ -34,7 +34,7 @@
   }
 
   [part='increment-button'], [part='decrement-button'] {
-    left: 0px;
+    left: 0;
     width: 100%;
     height: 50%;
     position: absolute;
@@ -54,30 +54,31 @@
     }
 
     &[part='increment-button'] {
-      top: 0px;
+      top: 0;
 
       &::after {
-        top: 0px;
+        top: 0;
         border-width: 0 0.167em 0.178em 0.167em;
         border-color: transparent transparent @scheme-color-primary transparent;
       }
     }
 
     &[part='decrement-button'] {
-      bottom: 0px;
+      bottom: 0;
 
       &::after {
-        bottom: 0px;
+        bottom: 0;
         border-width: 0.178em 0.167em 0 0.167em;
         border-color: @scheme-color-primary transparent transparent transparent;
       }
     }
   }
 
-  [part~='hours']:focus, [part~='minutes']:focus, [part~='seconds']:focus {
-    color: @scheme-color-primary;
-
-    [part='increment-button'], [part='decrement-button'] {
+  &:focus {
+    [part~='hours'][active], [part~='minutes'][active], [part~='seconds'][active] {
+      color: @scheme-color-primary;
+    }
+    [active] {
       display: block;
     }
   }
@@ -174,7 +175,7 @@
           margin-top: 23%;
         }
       }
-      
+
       [part~='am-pm'] {
         padding-left: 0;
         display: flex;

@@ -163,3 +163,9 @@ export class ProgressBar extends BasicElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-progress-bar': ProgressBar;
+  }
+}

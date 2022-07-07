@@ -422,14 +422,18 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       selectable: 0
     };
     this.queryItems((item, composer): boolean => {
-      const hasChildren = composer.getItemChildren(item);
-      if (hasChildren.length) {
+      const hasChildren = composer.getItemChildren(item).length;
+      if (hasChildren) {
         this.memo.expandable += 1;
         if (this.treeManager.isItemExpanded(item) && this.treeManager.isItemCheckable(item)) {
           this.memo.expanded += 1;
         }
       }
-      else if (!this.composer.isItemLocked(item)) {
+      // Parent item can be count as selected item in no-relation mode
+      if (!hasChildren || this.mode === TreeManagerMode.INDEPENDENT) {
+        if (this.composer.isItemLocked(item)) {
+          return false;
+        }
         this.memo.selectable += 1;
         if (this.getItemPropertyValue(item, 'selected') === true) {
           this.memo.selected += 1;
@@ -604,8 +608,14 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
         return result;
       }).slice();
 
-      // do not expand EMS if there is no filter applied
-      if (this.query || this.editSelectionItems.size) {
+      /**
+       * In the selection filter mode, all checked items already in the `items` variable
+       * no need to add descendant items.
+       */
+      if (this.selectionFilterState) {
+        this.addExpandedAncestorsToRender(items);
+      }
+      else if (this.query) { // do not expand EMS if there is no filter applied
         this.addItemDescendantsToRender(items);
         this.addExpandedAncestorsToRender(items);
       }
@@ -985,5 +995,11 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       </ef-overlay>
       `;
     }
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-tree-select': TreeSelect;
   }
 }

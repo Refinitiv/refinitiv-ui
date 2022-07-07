@@ -1,5 +1,5 @@
 import { fixture, expect, elementUpdated, isIE } from '@refinitiv-ui/test-helpers';
-import { getData, getOptions, openedUpdated, snapshotIgnore } from './utils';
+import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils';
 
 import '@refinitiv-ui/elements/select';
 import '@refinitiv-ui/elemental-theme/light/ef-select';
@@ -29,12 +29,12 @@ describe('select/Template', () => {
       el.opened = true;
       await openedUpdated(el);
       expect(el.hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected');
-      expect(el.menuEl.hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected on popup');
+      expect(getMenuEl(el).hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected on popup');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.opened = false;
       await elementUpdated(el);
       expect(el.hasAttribute('opened')).to.equal(false, 'opened attribute is not reflected');
-      expect(el.menuEl.hasAttribute('opened')).to.equal(false, 'opened attribute is not reflected on popup');
+      expect(getMenuEl(el).hasAttribute('opened')).to.equal(false, 'opened attribute is not reflected on popup');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
@@ -46,12 +46,12 @@ describe('select/Template', () => {
       el.opened = true;
       await openedUpdated(el);
       expect(el.hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected');
-      expect(el.menuEl.hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected on popup');
+      expect(getMenuEl(el).hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected on popup');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.opened = false;
       await elementUpdated(el);
       expect(el.hasAttribute('opened')).to.equal(false, 'opened attribute is not reflected');
-      expect(el.menuEl.hasAttribute('opened')).to.equal(false, 'opened attribute is not reflected on popup');
+      expect(getMenuEl(el).hasAttribute('opened')).to.equal(false, 'opened attribute is not reflected on popup');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
@@ -78,7 +78,7 @@ describe('select/Template', () => {
 
       const el = await fixture(`<ef-select style="--list-max-width: 50px;" opened>${getOptions()}</ef-select>`);
       await openedUpdated(el);
-      const styles = window.getComputedStyle(el.menuEl);
+      const styles = window.getComputedStyle(getMenuEl(el));
       expect(styles.maxWidth).to.equal('50px', 'CSS Variable is not passed');
       expect(styles.minWidth).to.equal('0px', 'min width is not reset');
     });

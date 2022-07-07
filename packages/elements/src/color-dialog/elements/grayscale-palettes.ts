@@ -172,3 +172,8 @@ export class GrayscalePalettes extends Palettes {
   }
 }
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-grayscale-palettes': GrayscalePalettes;
+  }
+}

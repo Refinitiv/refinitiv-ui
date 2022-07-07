@@ -7,7 +7,7 @@ layout: default
 -->
 
 =[ef_major_version]: 6
-=[npm_dist_tag]: next
+=[npm_dist_tag]: latest
 # Introduction
 
 o> This is the documentation for **Element Framework v%ef_major_version%**.\
@@ -47,7 +47,7 @@ All source code and documentation is housed in our [monorepo](https://github.com
 
 ## Feedback
 
-If you have and feedback, or just want to get in touch. [Please contact us](mailto:ef-support@lseg.com).
+If you have any feedback, or just want to get in touch. [Please contact us](mailto:ef-support@lseg.com).
 
 ---
 

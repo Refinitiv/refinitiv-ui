@@ -26,7 +26,7 @@ import {
   TranslatePropertyKey
 } from '@refinitiv-ui/translate';
 import { Direction } from './constants.js';
-import {
+import type {
   NavigationKeys,
   DateTimeFormatPart,
   InputSelection
@@ -737,5 +737,11 @@ export class DatetimeField extends TextField {
       ${super.render()}
       ${this.screenReaderTemplate}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-datetime-field': DatetimeField;
   }
 }
