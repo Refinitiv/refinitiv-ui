@@ -63,6 +63,12 @@ jobs:
           [[ "${{ env.USE_BROWSERSTACK }}" == "true" ]] && export BROWSERS='chrome firefox safari' || export BROWSERS='chrome firefox'
           echo "BROWSERS=$BROWSERS" >> $GITHUB_ENV
 
+      - name: Check ENV
+        run: |
+          echo "BROWSE: ${{ env.BROWSERS }}"
+          echo "USE: $USE_BROWSERSTACK"
+
+
       - name: Test
         uses: ./.github/actions/browser
         with:
