@@ -1,7 +1,7 @@
 name: Nightly Test
-on: [push]
-  # schedule:
-  #   - cron: '0 0 * * *'
+on:
+  schedule:
+    - cron: '0 0 * * *'
 env:
   BROWSERSTACK: ${{ secrets.BROWSERSTACK }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
@@ -49,7 +49,7 @@ jobs:
         # Prevent NX caching because it must run all linting, even though the code has not chaged.
         run: npm run lint:all -- --skip-nx-cache
 
-  test:
+  nightly-test:
     needs: lint
     runs-on: ubuntu-latest
     steps:
