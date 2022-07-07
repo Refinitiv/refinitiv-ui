@@ -54,8 +54,8 @@ runs:
     - name: Setup browsers or browserstack command line option
       shell:
       run: |
-        [[ "${{ inputs.browserstack }}" == "true" ]] && export BROWSER="browserstack" || export BROWSER="browsers"
-        echo "BROWSERS_OPTION=--$BROWSER '${{ inputs.browsers }}'" >> $GITHUB_ENV
+        [[ "${{ inputs.browserstack }}" == "true" ]] && export BROWSER=browserstack || export BROWSER=browsers
+        echo "BROWSERS_OPTION=--$BROWSER=\"${{ inputs.browsers }}\"" >> $GITHUB_ENV
 
     - name: Test
       shell: bash
@@ -70,6 +70,3 @@ runs:
       uses: browserstack/github-actions/setup-local@master
       with:
         local-testing: stop
-
-
-
