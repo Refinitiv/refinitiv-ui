@@ -65,6 +65,7 @@ runs:
       shell:
       run: |
         [[ "${{ inputs.browserstack }}" == "false" && "${{ inputs.browsers }}" == "default" ]] && echo "BROWSERS_OPTION=" >> $GITHUB_ENV
+        echo "Updated"
 
     - name: Test
       shell: bash
