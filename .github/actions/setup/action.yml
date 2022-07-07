@@ -36,5 +36,5 @@ runs:
           packages/*/lib
           packages/*-theme/**/*.js
           packages/*-theme/**/*.css
-        key: ${{ runner.os }}-build-toggle-browserstack
-        restore-keys: ${{ runner.os }}-build-toggle-browserstack
+        key: ${{ runner.os }}-build-${{ github.sha }}
+        restore-keys: ${{ runner.os }}-build-${{ github.sha }}
