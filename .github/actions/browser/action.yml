@@ -1,9 +1,12 @@
 name: 'Run Test On Browser'
 description: 'Setup Browser and Run Test'
 inputs:
+  # Support one browser per action for now, because some packages has build script before test
+  # which nx cannot send params to karma test after build
   browsers:
-    description: 'List of browser name'
-    required: true
+    description: 'Browser name'
+    required: false
+    default: 'default'
   mode:
     description: 'Test mode'
     required: false
@@ -55,7 +58,13 @@ runs:
       shell:
       run: |
         [[ "${{ inputs.browserstack }}" == "true" ]] && export BROWSER=browserstack || export BROWSER=browsers
-        echo "BROWSERS_OPTION=\"--$BROWSER=${{ inputs.browsers }}\"" >> $GITHUB_ENV
+        echo "BROWSERS_OPTION=--$BROWSER='${{ inputs.browsers }}'" >> $GITHUB_ENV
+
+    # Workaround fix NX cannot send param to Karma CLI in some packages
+    - name: Update browsers option
+      shell:
+      run: |
+        [[ "${{ inputs.browserstack }}" == "false" && "${{ inputs.browsers }}" == "default" ]] && echo "BROWSERS_OPTION=" >> $GITHUB_ENV
 
     - name: Test
       shell: bash
