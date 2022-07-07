@@ -327,7 +327,7 @@
     "version": "node ../../scripts/version"
   },
   "dependencies": {
-    "@refinitiv-ui/browser-sparkline": "1.1.7",
+    "@refinitiv-ui/browser-sparkline": "1.1.8",
     "@refinitiv-ui/halo-theme": "^6.1.0",
     "@refinitiv-ui/solar-theme": "^6.0.1",
     "@types/chart.js": "^2.9.31",

@@ -1,4 +1,5 @@
 import { Notice } from './Notice.js';
+import { MESSAGE_TYPE } from './constants.js';
 
 /**
  * **Warning Notice**\
@@ -6,7 +7,9 @@ import { Notice } from './Notice.js';
  */
 export class WarningNotice extends Notice {
 
-  protected type = 'Warning';
+  constructor (message: string, supportURL?: string, type = MESSAGE_TYPE.WARNING) {
+    super(message, supportURL, type);
+  }
 
   public show (): void {
     /* eslint-disable-next-line no-console */

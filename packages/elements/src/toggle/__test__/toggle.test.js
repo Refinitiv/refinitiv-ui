@@ -43,14 +43,14 @@ describe('toggle/Toggle', () => {
     });
     it('Should pass a11y test when in unchecked state', async () => {
       expect(el).to.be.accessible();
-      await expect(el.ariaChecked).to.equal(String(el.checked));
+      expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
     });
     it('Should pass a11y test when in checked state', async () => {
       el.checked = true;
 
       await elementUpdated(el);
       expect(el).to.be.accessible();
-      await expect(el.ariaChecked).to.equal(String(el.checked));
+      expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
     });
     it('Should pass a11y test when disabled', async () => {
       el.disabled = true;

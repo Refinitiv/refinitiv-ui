@@ -6,7 +6,7 @@ It is used in conjunction with `@refinitiv-ui/phrasebook` and `@refinitiv-ui/i18
 
 ## Usage
 
-`@refinitiv-ui/translate` is designed for Element Framework v5 and Lit Element.
+`@refinitiv-ui/translate` is designed for Element Framework v6 and Lit Element.
 
 ```cli
 npm install @refinitiv-ui/translate
@@ -31,7 +31,7 @@ import {
 } from '@refinitiv-ui/translate';
 
 // import default English language
-import '@refinitiv-ui/phrasebook/locale/en/my-translate-element';
+import '@refinitiv-ui/phrasebook/locale/en/my-translate-element.js';
 
 @customElement('my-translate-element')
 export class MyTranslateElement extends BasicElement {

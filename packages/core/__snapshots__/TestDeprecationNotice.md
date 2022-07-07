@@ -1,9 +1,9 @@
-# `TestWarningNotice`
+# `TestDeprecationNotice`
 
 #### `Test generate simple message`
 
 ```html
-Warning notice:
+Deprecation notice:
 test
 
 ```
@@ -11,7 +11,7 @@ test
 #### `Test generate message with url`
 
 ```html
-Warning notice:
+Deprecation notice:
 test
 
 url
