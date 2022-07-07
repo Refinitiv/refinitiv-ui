@@ -3,7 +3,7 @@ on:
   schedule:
     - cron: '0 0 * * *'
 env:
-  BROWSERSTACK: ${{ secrets.BROWSERSTACK }}
+  USE_BROWSERSTACK: ${{ secrets.USE_BROWSERSTACK }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Nightly Test ${{ github.run_number }}"
@@ -61,7 +61,7 @@ jobs:
       # Need this step for support feature toggle testing on BrowserStack on/off
       - name: Setup browser versions to testing
         run: |
-          [[ "${{ env.BROWSERSTACK }}" == "true" ]] && export BROWSERS="supported" || export BROWSERS="default"
+          [[ "${{ env.USE_BROWSERSTACK }}" == "true" ]] && export BROWSERS="supported" || export BROWSERS="default"
           echo "BROWSERS=\"$BROWSERS\"" >> $GITHUB_ENV
 
       - name: Test
@@ -69,6 +69,6 @@ jobs:
         with:
           browsers: '${{ env.BROWSERS }}'
           mode: 'all'
-          browserstack: $BROWSERSTACK
+          browserstack: $USE_BROWSERSTACK
           username: $BROWSERSTACK_USERNAME
           access-key: $BROWSERSTACK_ACCESS_KEY
