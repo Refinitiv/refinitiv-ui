@@ -58,7 +58,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Need this step for support feature toggle BrowserStack on/off
+      # Need this step for support feature toggle testing on BrowserStack on/off
       - name: Setup browser versions to testing
         run: |
           [[ "${{ env.BROWSERSTACK }}" == "true" ]] && export BROWSERS="supported" || export BROWSERS="default"
@@ -72,93 +72,3 @@ jobs:
           browserstack: $BROWSERSTACK
           username: $BROWSERSTACK_USERNAME
           access-key: $BROWSERSTACK_ACCESS_KEY
-
-  # chrome:
-  #   needs: lint
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Check out repository code
-  #       uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: 0
-
-  #     # Need this step for support feature toggle BrowserStack on/off
-  #     - name: Setup extra browser versions to testing
-  #       if: ${{ env.browserstack == 'true' }}
-  #       run: echo "CHROME_BROWSERS=chrome_previous >> $GITHUB_ENV
-
-  #     - name: Test
-  #       uses: ./.github/actions/browser
-  #       with:
-  #         browsers: 'chrome ${{ env.CHROME_BROWSERS }}'
-  #         mode: 'all'
-  #         browserstack: $BROWSERSTACK
-  #         username: $BROWSERSTACK_USERNAME
-  #         access-key: $BROWSERSTACK_ACCESS_KEY
-
-  # firefox:
-  #   needs: lint
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Check out repository code
-  #       uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: 0
-
-  #     # Need this step for support feature toggle BrowserStack on/off
-  #     - name: Setup extra browser versions to testing
-  #       if: ${{ env.browserstack == 'true' }}
-  #       run: echo "FIREFOX_BROWSERS=firefox_previous >> $GITHUB_ENV
-
-  #     - name: Test
-  #       uses: ./.github/actions/browser
-  #       with:
-  #         browsers: 'firefox ${{ env.FIREFOX_BROWSERS }}'
-  #         mode: 'all'
-  #         coverage: 'false'
-  #         browserstack: $BROWSERSTACK
-  #         username: $BROWSERSTACK_USERNAME
-  #         access-key: $BROWSERSTACK_ACCESS_KEY
-
-  # # Test Safari on BrowserStack only
-  # safari:
-  #   needs: lint
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Check out repository code
-  #       if: ${{ env.BROWSERSTACK == 'true' }}
-  #       uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: 0
-
-  #     - name: Test
-  #       if: ${{ env.BROWSERSTACK == 'true' }}
-  #       uses: ./.github/actions/browser
-  #       with:
-  #         browsers: 'safari safari_previous'
-  #         mode: 'all'
-  #         coverage: 'false'
-  #         browserstack: $BROWSERSTACK
-  #         username: $BROWSERSTACK_USERNAME
-  #         access-key: $BROWSERSTACK_ACCESS_KEY
-
-  # # Test Edge on BrowserStack only
-  # edge:
-  #   needs: lint
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Check out repository code
-  #       if: ${{ env.BROWSERSTACK == 'true' }}
-  #       uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: 0
-
-  #     - name: Test
-  #       if: ${{ env.BROWSERSTACK == 'true' }}
-  #       uses: ./.github/actions/browser
-  #       with:
-  #         browsers: 'edge edge_previous'
-  #         mode: 'all'
-  #         browserstack: $BROWSERSTACK
-  #         username: $BROWSERSTACK_USERNAME
-  #         access-key: $BROWSERSTACK_ACCESS_KEY
