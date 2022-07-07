@@ -55,7 +55,7 @@ runs:
       shell:
       run: |
         [[ "${{ inputs.browserstack }}" == "true" ]] && export BROWSER="browserstack" || export BROWSER="browsers"
-        echo "BROWSERS_OPTION=\"--$BROWSER='${{ inputs.browsers }}'\"" >> $GITHUB_ENV
+        echo "BROWSERS_OPTION=--$BROWSER='${{ inputs.browsers }}'" >> $GITHUB_ENV
 
     - name: Test
       shell: bash
