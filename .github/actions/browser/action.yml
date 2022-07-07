@@ -51,11 +51,21 @@ runs:
       uses: ./.github/actions/setup
       id: setup
 
-    - name: Setup browsers or browserstack command line option
+    - name: Setup BrowserStack command line option
+      if: ${{ inputs.browserstack == 'true' }}
       shell:
       run: |
-        [[ "${{ inputs.browserstack }}" == "true" ]] && export BROWSER=browserstack || export BROWSER=browsers
-        echo "BROWSERS_OPTION=--$BROWSER=\"${{ inputs.browsers }}\"" >> $GITHUB_ENV
+        echo "Run Test on BrowserStack"
+        echo "BROWSERS_OPTION=\"--browserstack '${{ inputs.browsers }}'\"" >> $GITHUB_ENV
+        echo $BROWSERS_OPTION
+
+    - name: Setup Browser command line option
+      if: ${{ inputs.browserstack == 'false' }}
+      shell:
+      run: |
+        echo "Run Test on GitHub Action"
+        echo "BROWSERS_OPTION=\"--browsers '${{ inputs.browsers }}'\"" >> $GITHUB_ENV
+        echo $BROWSERS_OPTION
 
     - name: Test
       shell: bash
