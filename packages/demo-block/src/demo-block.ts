@@ -111,7 +111,7 @@ themeLabel.style.textTransform = 'uppercase';
 themeLabel.innerHTML = removePrefixName(currentTheme);
 
 const versionTag = document.createElement('span');
-versionTag.innerHTML = 'V5';
+versionTag.innerHTML = 'V6';
 versionTag.style.marginLeft = '8px';
 versionTag.style.color = '#334BFF';
 themeLabel.appendChild(versionTag);

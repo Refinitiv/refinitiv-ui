@@ -72,68 +72,46 @@ export class Checkbox extends ControlElement {
     `;
   }
 
-  private _checked = false;
   /**
    * Value of checkbox
-   * @param value new checked value
-   * @default false
    */
   @property({ type: Boolean, reflect: true })
-  public set checked (value: boolean) {
-    const oldValue = this._checked;
-    if (oldValue !== value) {
-      this._checked = value;
+  public checked = false;
 
-      // remove indeterminate if change state to checked
-      if (this._checked) {
-        this.indeterminate = false;
-      }
-
-      this.ariaChecked = String(value);
-      void this.requestUpdate('checked', oldValue);
-    }
-  }
-  public get checked (): boolean {
-    return this._checked;
-  }
-
-  private _indeterminate = false;
   /**
    * Set state to indeterminate
-   * @param value new indeterminate value
-   * @default false
    */
   @property({ type: Boolean, reflect: true })
-  public set indeterminate (value: boolean) {
-    const oldValue = this._indeterminate;
-    if (oldValue !== value) {
-      this._indeterminate = value;
-
-      // remove checked if change state to indeterminate
-      if (value) {
-        this.checked = false;
-      }
-
-      this.ariaChecked = value ? 'mixed' : String(this.checked);
-      void this.requestUpdate('indeterminate', oldValue);
-    }
-  }
-  public get indeterminate (): boolean {
-    return this._indeterminate;
-  }
-
-  /**
-   * Indicates current state of checkbox
-   * @ignore
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-checked' })
-  public ariaChecked = String(this.checked);
+  public indeterminate = false;
 
   /**
    * Getter for label
    */
   @query('[part=label]', true)
   private labelEl!: HTMLElement;
+
+  /**
+   * Called before update() to compute values needed during the update.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('checked')) {
+      if (this.checked) {
+        this.indeterminate = false;
+      }
+      this.setAttribute('aria-checked', String(this.checked));
+    }
+
+    if (changedProperties.has('indeterminate')) {
+      if (this.indeterminate) {
+        this.checked = false;
+      }
+      this.setAttribute('aria-checked', this.indeterminate ? 'mixed' : String(this.checked));
+    }
+  }
 
   /**
    * Called once after the component is first rendered

@@ -49,17 +49,17 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     steps:
-      - name: 'BrowserStack Env Setup' # Invokes the setup-env action
-        uses: browserstack/github-actions/setup-env@master
-        with:
-          username: ${{ secrets.BROWSERSTACK_USERNAME }}
-          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+      # - name: 'BrowserStack Env Setup' # Invokes the setup-env action
+      #   uses: browserstack/github-actions/setup-env@master
+      #   with:
+      #     username: ${{ secrets.BROWSERSTACK_USERNAME }}
+      #     access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
-      - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
-        uses: browserstack/github-actions/setup-local@master
-        with:
-          local-testing: start
-          local-identifier: random
+      # - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
+      #   uses: browserstack/github-actions/setup-local@master
+      #   with:
+      #     local-testing: start
+      #     local-identifier: random
 
       - name: Check out repository code
         uses: actions/checkout@v2
@@ -73,9 +73,9 @@ jobs:
         id: setup
 
       - name: Test
-        run: npm run test:affected -- --base=$BASE_SHA --parallel=3 --browserstack 'default' --output minimal
+        run: npm run test:affected -- --base=$BASE_SHA --parallel=3 --output minimal
 
-      - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
-        uses: browserstack/github-actions/setup-local@master
-        with:
-          local-testing: stop
+      # - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
+      #   uses: browserstack/github-actions/setup-local@master
+      #   with:
+      #     local-testing: stop

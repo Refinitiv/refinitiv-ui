@@ -1,7 +1,7 @@
 import { expect } from '@refinitiv-ui/test-helpers';
 import { DeprecationNotice } from '../../lib/notices/DeprecationNotice';
 
-describe('TestWarningNotice', () => {
+describe('TestDeprecationNotice', () => {
   let originFunc;
   let shownMessage = '';
   let callCount = 0;
