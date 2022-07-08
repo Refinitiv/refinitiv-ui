@@ -62,7 +62,6 @@ jobs:
         with:
           browsers: 'default'
           base: $BASE_SHA
-          parallel: 3
           browserstack: $USE_BROWSERSTACK
           username: $BROWSERSTACK_USERNAME
           access-key: $BROWSERSTACK_ACCESS_KEY
