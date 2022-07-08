@@ -57,7 +57,7 @@ export class TabBar extends BasicElement {
         justify-content: flex-end;
       }
       :host [part=content] {
-        flex: initial;
+        flex-grow: 0;
       }
     `;
   }
