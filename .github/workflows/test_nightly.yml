@@ -1,7 +1,7 @@
 name: Nightly Test
-on: [push]
-  # schedule:
-  #   - cron: '0 0 * * *'
+on:
+  schedule:
+    - cron: '0 0 * * *'
 env:
   USE_BROWSERSTACK: ${{ secrets.USE_BROWSERSTACK }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
