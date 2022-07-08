@@ -36,5 +36,5 @@ runs:
           packages/*/lib
           packages/*-theme/**/*.js
           packages/*-theme/**/*.css
-        key: ${{ runner.os }}-build-2d0dcc19567f26528fdf58aff20d9fc617400408
-        restore-keys: ${{ runner.os }}-build-2d0dcc19567f26528fdf58aff20d9fc617400408
+        key: ${{ runner.os }}-build-${{ github.sha }}
+        restore-keys: ${{ runner.os }}-build-${{ github.sha }}
