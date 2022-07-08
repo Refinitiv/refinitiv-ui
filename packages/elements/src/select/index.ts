@@ -1008,7 +1008,7 @@ export class Select extends ControlElement implements MultiValue {
       part="item"
       .value=${item.value}
       .label=${item.label}
-      .title=${item.title || ''}
+      title=${item.title}
       ?selected=${this.composer.getItemPropertyValue(item, 'selected') as boolean}
       ?disabled=${item.disabled}
     ></ef-item>`;
