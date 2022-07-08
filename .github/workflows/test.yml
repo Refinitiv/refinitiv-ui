@@ -49,7 +49,7 @@ jobs:
         run: npm run lint:affected -- --base=$BASE_SHA
 
   test:
-    needs: build
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code

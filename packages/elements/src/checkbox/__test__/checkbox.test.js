@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent, keyboardEvent, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, keyboardEvent, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/checkbox';
 import '@refinitiv-ui/elemental-theme/light/ef-checkbox';
@@ -206,6 +206,7 @@ describe('checkbox/Checkbox', () => {
         const onChecked = () => el.dispatchEvent(new Event('tap'));
         setTimeout(onChecked);
         const e = await oneEvent(el, 'checked-changed');
+        await nextFrame();
         expect(e.target.checked).to.equal(true);
         expect(e.target.indeterminate).to.equal(false);
       });
