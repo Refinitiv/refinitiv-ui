@@ -205,7 +205,6 @@
 
 ```html
 <ef-number-field
-  aria-label="1 hour"
   id="hours"
   max="12"
   min="1"
@@ -218,7 +217,6 @@
 <span part="divider">
 </span>
 <ef-number-field
-  aria-label="30 minutes"
   id="minutes"
   max="59"
   min="0"
@@ -230,14 +228,12 @@
 </ef-number-field>
 <div
   aria-activedescendant="toggle-pm"
-  aria-label="Toggle Time Period"
   id="toggle"
   part="toggle"
   role="listbox"
   tabindex="0"
 >
   <div
-    aria-label="Before Midday"
     id="toggle-am"
     part="toggle-item"
     role="option"
@@ -246,7 +242,6 @@
   </div>
   <div
     active=""
-    aria-label="After Midday"
     id="toggle-pm"
     part="toggle-item"
     role="option"
@@ -255,7 +250,6 @@
   </div>
 </div>
 <div
-  aria-label="Selected time is: 1:30 PM"
   aria-live="polite"
   part="aria-selection"
   role="status"
