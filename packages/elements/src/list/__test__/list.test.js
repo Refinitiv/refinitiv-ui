@@ -41,7 +41,7 @@ const data = [{
 
 
 const iterateKeyboardEvent = async (el, scope, keys = [], highlighted = []) => {
-  const children = scope.querySelectorAll('ef-item'); // 0, 1, 2, 3, 4 can be selected
+  const children = scope.querySelectorAll('ef-list-item'); // 0, 1, 2, 3, 4 can be selected
   for (let i = 0; i < keys.length; i += 1) {
     const key = keys[i];
     el.dispatchEvent(keyboardEvent('keydown', { key: key }));
@@ -218,9 +218,9 @@ describe('list/List', () => {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     await elementUpdated(el);
-    el.querySelector('ef-item').click();
+    el.querySelector('ef-list-item').click();
     await elementUpdated(el);
-    el.querySelector('ef-item').appendChild(document.createElement('div')).click();
+    el.querySelector('ef-list-item').appendChild(document.createElement('div')).click();
   });
 
   it('Should update the component when composer data changes', async () => {
@@ -252,7 +252,7 @@ describe('list/List', () => {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     await elementUpdated(el);
-    el.querySelector('ef-item').dispatchEvent(new Event('mousemove', { bubbles: true }));
+    el.querySelector('ef-list-item').dispatchEvent(new Event('mousemove', { bubbles: true }));
   });
 
   it('Supports programmatic navigation', async () => {
