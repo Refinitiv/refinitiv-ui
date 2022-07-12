@@ -504,7 +504,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Mark combobox with loading flag
    * Used in conjunction with data promise
    */
-  @property({ type: String, reflect: true })
+  @property({ type: Boolean, reflect: true })
   protected loading = false;
 
   /**
@@ -1247,7 +1247,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     return html`
       <ef-list
         id="internal-list"
-        tabindex="-1"
+        tabindex=""
         @value-changed="${this.onListValueChanged}"
         .data="${this.composer}"
         .multiple="${this.multiple}"
