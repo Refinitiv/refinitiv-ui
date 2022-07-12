@@ -266,10 +266,12 @@ export class Item extends ControlElement {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-     protected firstUpdated (changedProperties: PropertyValues): void {
-      super.firstUpdated(changedProperties);  
-      if (this.labelEl) registerOverflowTooltip(this.labelEl, () => this.textContent, () => this.isTruncated);
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    if (this.labelEl) {
+      registerOverflowTooltip(this.labelEl, () => this.textContent, () => this.isTruncated);
     }
+  }
 
   /**
    * A `TemplateResult` that will be used
