@@ -12,6 +12,7 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
 import '../icon/index.js';
 import '../checkbox/index.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
 
 import type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData } from './helpers/types';
 export type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData };
@@ -259,6 +260,16 @@ export class Item extends ControlElement {
   public get isTruncated (): boolean {
     return !!(this.labelEl && (this.labelEl.offsetWidth < this.labelEl.scrollWidth));
   }
+
+  /**
+   * Called after the component is first rendered
+   * @param changedProperties Properties which have changed
+   * @returns {void}
+   */
+     protected firstUpdated (changedProperties: PropertyValues): void {
+      super.firstUpdated(changedProperties);  
+      if (this.labelEl) registerOverflowTooltip(this.labelEl, () => this.textContent, () => this.isTruncated);
+    }
 
   /**
    * A `TemplateResult` that will be used
