@@ -39,14 +39,13 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-item
+  <ef-list-item
     aria-disabled="true"
     aria-selected="false"
     disabled=""
-    tabindex="-1"
   >
     No results found.
-  </ef-item>
+  </ef-list-item>
 </ef-overlay>
 
 ```
