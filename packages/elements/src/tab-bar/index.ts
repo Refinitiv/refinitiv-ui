@@ -205,9 +205,11 @@ export class TabBar extends BasicElement {
       if (tabValue === value && !hasActiveTab && !tab.disabled) {
         tab.active = true;
         hasActiveTab = true;
+        tab.tabIndex = 0;
       }
       else {
         tab.active = false;
+        tab.tabIndex = -1;
       }
     });
   }

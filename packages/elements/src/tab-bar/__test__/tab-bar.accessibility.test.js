@@ -1,4 +1,4 @@
-import { fixture, expect, keyboardEvent, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, keyboardEvent, isIE, elementUpdated } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tab-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
@@ -106,5 +106,18 @@ describe('tab-bar/accessibility', () => {
     expect(isActiveAndFocusable(tab1)).to.equal(true);
     expect(isActiveAndFocusable(tab3)).to.equal(false);
     expect(el.value).to.equal(tab1.value);
+  });
+  it('Should re-assign tabIndex of all tabs when tapping on a tab', async () => {
+    tab2.dispatchEvent(new CustomEvent('tap', { bubbles: true }));
+    expect(tab1.tabIndex).to.equal(-1);
+    expect(tab2.tabIndex).to.equal(0);
+    expect(tab3.tabIndex).to.equal(-1);
+  });
+  it('Should re-assign tabIndex of all tabs when assign a new value to tab-bar', async () => {
+    el.value = '3';
+    await elementUpdated(el);
+    expect(tab1.tabIndex).to.equal(-1);
+    expect(tab2.tabIndex).to.equal(-1);
+    expect(tab3.tabIndex).to.equal(0);
   });
 });
