@@ -36,7 +36,7 @@ addUnit(date, 'month', 5); // => '2023-02-21T09:21'
 
 The utility works with the following selection of `ISO8601` date string formats (called as format tokens).
 
-**date**
+#### date
 
 | Format | Examples |
 | --- | --- |
@@ -44,7 +44,7 @@ The utility works with the following selection of `ISO8601` date string formats 
 | `yyyy-MM` | `2020-06` &#124; `0030-04` &#124; `-0002-12` |
 | `yyyy` | `2020` &#124; `0030` &#124; `-0002` |
 
-**time**
+#### time
 
 | Format | Examples |
 | --- | --- |
@@ -52,7 +52,7 @@ The utility works with the following selection of `ISO8601` date string formats 
 | `HH:mm:ss` | `00:00:00` &#124; `23:59:59` |
 | `HH:mm:ss.SSS` | `00:00:00.000` &#124; `23:59:59.000` |
 
-**datetime**
+#### datetime
 
 | Format | Examples |
 | --- | --- |
@@ -74,26 +74,26 @@ import { addMonths } from '@refinitiv-ui/utils/date.js';
 addMonths('2022-09-30T00:00:00', 5); // => 2023-02-28T00:00:00
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 addMonths(value, amount);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value to be changed |
 | amount | Number | the amount of full months to be added |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | String | the new value with the months added |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -109,26 +109,26 @@ import { addOffset } from '@refinitiv-ui/utils/date.js';
 addOffset('2022-09-30T00:00:00', 1000); // => 2022-09-30T00:00:01
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 addOffset(value, amount);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the date string to be changed |
 | amount | Number | the number of milliseconds to add |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | String | the new value with the milliseconds added |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -147,13 +147,13 @@ addUnit('2022-09-30T00:00:00', 'year', 1); // => 2023-09-30T00:00:00
 addUnit('2022-09-30T00:00:00', 'day', -5); // => 2022-09-25T00:00:00
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 addUnit(value, unit, amount);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -161,13 +161,13 @@ addUnit(value, unit, amount);
 | unit | Unit | the unit to operate with |
 | amount | Number | the amount of units to be added, positive number to increase, negative to decrease |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | String | the new value with units added |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -190,26 +190,26 @@ format({
 }, TimeFormat.HHmmssSSS); // => 20:59:48.123
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 format(value, [format = yyyy-MM-dd'T'HH:mm]);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | Date &#124; Segment | the original date or segment |
 | format <br> _(optional)_ | String | format token |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | String | the formatted date or segment |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -230,20 +230,20 @@ getDaysInMonth(2022, 1); // => 28
 getDaysInMonth(2020, 1); // => 29
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 getDaysInMonth(year, month);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | year | Number | the year to check |
 | month | Number | the month to check |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
@@ -262,19 +262,19 @@ getFormat('00:00:00.000'); // => HH:mm:ss.SSS
 getFormat('Invalid Date'); // => null
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 getFormat(value);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the date value |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
@@ -290,26 +290,26 @@ isAfter('2022-09-30', '1988-02-17'); // => true
 isAfter('11:00', '14:00'); // => false
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isAfter(value, compare);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value that should be after the other one to return true |
 | compare | String | the value to compare with |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Boolean | the value is after the compare |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -326,25 +326,25 @@ isAM('2022-09-30T13:00'); // => false
 isAM('09:00'); // => true
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isAM(value);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value to check |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Boolean | the value is before the noon |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -361,26 +361,26 @@ isBefore('2022-09-30', '1988-02-17'); // => false
 isBefore('11:00', '14:00'); // => true
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isBefore(value, compare);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value that should be before the other one to return true |
 | compare | String | the value to compare with |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Boolean | the value is before the compare |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -397,25 +397,25 @@ isPM('2022-09-30T13:00'); // => true
 isPM('09:00'); // => false
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isPM(value);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value to check |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Boolean | the value is noon or after the noon |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -432,26 +432,26 @@ isSameDay('2022-09-30T12:00', '2022-09-30T19:17'); // => true
 isSameDay('2022-09-13', '2022-09-30'); // => false
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isSameDay(value, compare);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the first date to check |
 | compare | String | the second date to check |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Boolean | the dates are in the same day |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -468,26 +468,26 @@ isSameMonth('2022-09-17', '2022-09-30'); // => true
 isSameMonth('2022-09-13', '2022-11-30'); // => false
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isSameMonth(value, compare);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the first date to check |
 | compare | String | the second date to check |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Boolean | the dates are in the same month |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -504,26 +504,26 @@ isSameYear('2022-09-13', '2022-11-30'); // => true
 isSameYear('2022-09-13', '2024-11-30'); // => false
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isSameYear(value, compare);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the first date to check |
 | compare | String | the second date to check |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Boolean | the dates are in the same year |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -539,25 +539,25 @@ import { isThisMonth } from '@refinitiv-ui/utils/date.js';
 isThisMonth('2022-09-17');
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isThisMonth(value);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value to check |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Boolean | the value month is current month |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -573,25 +573,25 @@ import { isThisYear } from '@refinitiv-ui/utils/date.js';
 isThisYear('2022-09-17');
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isThisYear(value);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value to check |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Boolean | the value year is current year |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -607,25 +607,25 @@ import { isToday } from '@refinitiv-ui/utils/date.js';
 isToday('2022-09-17');
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isToday(value);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value to check |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Boolean | the value is today |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -644,20 +644,20 @@ isValidDate('2022-09-17T12:00'); // => false
 isValidDate('2022-09-17', DateFormat.yyyyMM); // => false
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isValidDate(value, [format]);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value to check |
 | format <br> _(optional)_ | String | one of date formats or try to guess |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
@@ -676,20 +676,20 @@ isValidDateTime('2022-09-17'); // => false
 isValidDateTime('2022-09-17T12:00:45', DateTimeFormat.yyyMMddTHHmmssSSS); // => false
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isValidDateTime(value, [format]);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value to check |
 | format <br> _(optional)_ | String | one of datetime formats or try to guess |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
@@ -708,20 +708,20 @@ isValidTime('2022-09-17T12:00'); // => false
 isValidTime('12:00', TimeFormat.HHmmss); // => false
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isValidTime(value, [format]);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value to check |
 | format <br> _(optional)_ | String | one of time formats or try to guess |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
@@ -737,25 +737,25 @@ import { isWeekend } from '@refinitiv-ui/utils/date.js';
 isWeekend('2022-09-17');
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 isWeekend(value);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value to check |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Boolean | the value is weekend |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -778,13 +778,13 @@ iterateUnit('2022-03-31', 'month', -1); // => 2022-02-28
 iterateUnit('14:15', 'hour', 12); // => 02:15
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 iterateUnit(value, unit, amount);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -792,13 +792,13 @@ iterateUnit(value, unit, amount);
 | unit | Unit | the unit to operate with |
 | amount | Number | the amount of units to be iterated, positive number to increase, negative to decrease |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | String | the new value with units iterated |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -822,25 +822,25 @@ parse({
 }); // => Date, e.g. Fri Sep 30 2022 00:00:00 GMT+0100 (BST)
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 parse(value);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | Date &#124; Segment | the value to parse |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Date | a `Date` object for value |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -856,26 +856,26 @@ import { subMonths } from '@refinitiv-ui/utils/date.js';
 subMonths('2022-09-30T00:00:00', 5); // => 2022-05-30T00:00:00
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 subMonths(value, amount);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value to be changed |
 | amount | Number | the amount of full months to be subtracted |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | String | the new value with the months subtracted |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -891,26 +891,26 @@ import { subOffset } from '@refinitiv-ui/utils/date.js';
 subOffset('2022-09-30T00:00:59', 1000); // => 2022-09-30T00:00:58
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 subOffset(value, amount);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the value to be changed |
 | amount | Number | the number of milliseconds to subtract |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | String | the new value with the milliseconds subtracted |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -929,20 +929,20 @@ toDateSegment(new Date(2022, 8, 3), true); // => in BST timezone: { year: 2022, 
 toDateSegment(new Date(2022, 8, 3), false); // => in BST timezone: { year: 2022, month: 8, day: 3 }
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 toDateSegment(value, [isUTC = false]);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String &#124; Date | the string value or `Date` |
 | isUTC <br> _(optional)_ | Boolean | parse `Date` in _Local_ or _UTC_ timezone |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
@@ -960,20 +960,20 @@ toDateTimeSegment(new Date(2022, 8, 3), true); // => in BST timezone: { year: 20
 toDateTimeSegment(new Date(2022, 8, 3), false); // => in BST timezone: { year: 2022, month: 8, day: 3, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 }
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 toDateTimeSegment(value, [isUTC = false]);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String &#124; Date | the string value or `Date` |
 | isUTC <br> _(optional)_ | Boolean | parse `Date` in _Local_ or _UTC_ timezone |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
@@ -993,26 +993,26 @@ toSegment(new Date(2022, 8, 3), true); // => in BST timezone: { year: 2022, mont
 toSegment(new Date(2022, 8, 3), false); // => in BST timezone: { year: 2022, month: 8, day: 3, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 }
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 toSegment(value, [isUTC = false]);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String &#124; Date | the string value or `Date` |
 | isUTC <br> _(optional)_ | Boolean | parse `Date` in _Local_ or _UTC_ timezone |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Segment | a `Segment` object for value |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -1030,20 +1030,20 @@ toTimeSegment(new Date(2022, 8, 3), true); // => in BST timezone: { year: 2022, 
 toTimeSegment(new Date(2022, 8, 3), false); // => in BST timezone: { year: 2022, month: 8, day: 3, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 }
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 toTimeSegment(value, [isUTC = false]);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String &#124; Date | the string value or `Date` |
 | isUTC <br> _(optional)_ | Boolean | parse `Date` in _Local_ or _UTC_ timezone |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
@@ -1086,25 +1086,25 @@ The developer must ensure that these defaults are passed to `Locale` configurati
 }
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 new Locale(formatter)
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | formatter | Intl.DateTimeFormat | `Intl.DateTimeFormat` object |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Locale | the `Locale` object |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -1126,26 +1126,26 @@ const locale = Locale.fromOptions({ dateStyle: 'short', timeStyle: 'short' }, 'e
 locale.parse('21/04/1988, 09:21'); // => '1988-04-21T09:21'
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 Locale.fromOptions(options, [locales])
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | options | Intl.DateTimeFormatOptions | `Intl.DateTimeFormatOptions` object |
 | locales <br> _(optional)_ | String &#124; String[]  | the BCP47 language tag for the locale actually used. Does support Unicode extensions. |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | Locale | the `Locale` object |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
@@ -1163,7 +1163,7 @@ Locale.fromOptions({ dateStyle: 'short' }, 'en-GB').isoFormat; // => yyyy-MM-dd
 Locale.fromOptions({ timeStyle: 'short' }, 'en-GB').isoFormat; // => HH:mm
 ```
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
@@ -1179,7 +1179,7 @@ import { Locale } from '@refinitiv-ui/utils/date.js';
 Locale.fromOptions({ dateStyle: 'short', timeStyle: 'short' }, 'en-GB').formatter; // => Intl.DateTimeFormat object
 ```
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
@@ -1195,7 +1195,7 @@ import { Locale } from '@refinitiv-ui/utils/date.js';
 Locale.fromOptions({ dateStyle: 'short', timeStyle: 'short' }, 'en-GB').options; // => Intl.DateTimeFormatOptions object
 ```
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
@@ -1212,26 +1212,26 @@ Locale.fromOptions({ year: 'numeric', month: 'short', day: 'numeric' }, 'ru').pa
 Locale.fromOptions({ month: 'short', day: 'numeric' }, 'en-GB').parse('21 Apr', '1988-01-01') // => '1988-04-21'
 ```
 
-**Syntax**
+#### Syntax
 
 ```text
 parse(value, [referenceDate = 0])
 ```
 
-**Arguments**
+#### Arguments
 
 | Name | Type | Description |
 | --- | --- | --- |
 | value | String | the localised value to be parsed |
 | referenceDate <br> _(optional)_ | String &#124; Number &#124; Date | the reference date to resolve incomplete value |
 
-**Returns**
+#### Returns
 
 | Type | Description |
 | --- | --- |
 | String | _date_, _time_ or _datetime_ value |
 
-**Exceptions**
+#### Exceptions
 
 | Description |
 | --- |
