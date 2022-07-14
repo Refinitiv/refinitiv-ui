@@ -1242,12 +1242,13 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
   /**
    * Returns a list template
+   * TODO: Remove empty `tabindex`. We need better flexibility on removing tabindex value from ControlElement
    */
   protected get listTemplate (): TemplateResult {
     return html`
       <ef-list
         id="internal-list"
-        tabindex=""
+        tabindex
         @value-changed="${this.onListValueChanged}"
         .data="${this.composer}"
         .multiple="${this.multiple}"
@@ -1262,7 +1263,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   protected get noItemsTemplate (): TemplateResult | undefined {
     if (!this.freeText) {
-      return html`<ef-item disabled>${this.t('NO_OPTIONS')}</ef-item>`;
+      return html`<ef-list-item disabled>${this.t('NO_OPTIONS')}</ef-list-item>`;
     }
   }
 
