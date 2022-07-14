@@ -36,6 +36,8 @@ addUnit(date, 'month', 5); // => '2023-02-21T09:21'
 
 The utility works with the following selection of `ISO8601` date string formats (called as format tokens).
 
+The developer can use any _date_, _time_ or _datetime_ format tokens. The output value has the same format as the input value.
+
 #### date
 
 | Format | Examples |
@@ -59,8 +61,6 @@ The utility works with the following selection of `ISO8601` date string formats 
 | `yyyy-MM-dd'T'HH:mm` | `1988-04-21T00:00` &#124; `0030-04-30T23:59` &#124; `-0002-12-31T13:32` |
 | `yyyy-MM-dd'T'HH:mm:ss` | `1988-04-21T00:00:00` &#124; `0030-04-30T23:59:59` &#124; `-0002-12-31T13:32:30` |
 | `yyyy-MM-dd'T'HH:mm:ss.SSS` | `1988-04-21T00:00:00.000` &#124; `0030-04-30T23:59:59.999` &#124; `-0002-12-31T13:32:30.378` |
-
-The developer can use any _date_, _time_ or _datetime_ format tokens. The output value has the same format as the input value.
 
 ## Common Helpers
 
