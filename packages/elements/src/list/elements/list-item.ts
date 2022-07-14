@@ -2,7 +2,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { Item } from '../../item/index.js';
 
 /**
- * Extending to provide ability to override tabIndex
+ * Extending from Item Class to provide ability to override tabIndex
  */
 @customElement('ef-list-item')
 export class ListItem extends Item {
