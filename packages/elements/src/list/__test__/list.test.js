@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, keyboardEvent, nextFrame, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, keyboardEvent, nextFrame, oneEvent, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/list';
@@ -279,5 +279,21 @@ describe('list/List', () => {
     el.data.setItemPropertyValue(data[1], 'hidden', false);
     await elementUpdated(el);
   });
+
+  it('Should have focus state remain at host when tapping in an item', async () => {
+    const el = await fixture('<ef-list></ef-list>');
+    el.data = data;
+    await elementUpdated(el);
+
+    const firstElement = el.firstElementChild;
+
+    await triggerFocusFor(el);
+
+    setTimeout(() => firstElement.dispatchEvent(new Event('tap')));
+    await oneEvent(firstElement, 'tap');
+    await elementUpdated(el);
+
+    expect(document.activeElement).to.be.equal(el);
+  })
 });
 
