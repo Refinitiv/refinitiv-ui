@@ -7,19 +7,7 @@ const isDarwin = osType === 'Darwin'; /* macOS, iOS, iPadOS */
 const defaultBrowsers = ['chrome', 'firefox'];
 const availableBrowsers = ['chrome', 'firefox', 'opera'];
 
-// BrowserStack browsers
-const defaultBSBrowsers = ['chrome', 'firefox', 'safari'];
-const previousBSBrowser = ['chrome_previous', 'firefox_previous', 'safari_previous'];
-const supportedBSBrowsers = [...defaultBSBrowsers, ...previousBSBrowser, 'edge', 'edge_previous'];
-const availableBSBrowsers = [
-  'default', // default browsers alias
-  'supported', // supported browsers alias
-  ...supportedBSBrowsers,
-  'ios', 'android'
-];
-
 // do not perform browser check as it is slow and never required
-
 if (isWin) {
   availableBrowsers.push('ie');
 }
@@ -29,14 +17,33 @@ if (isDarwin) {
   availableBrowsers.push('safari');
 }
 
+// BrowserStack browsers
+const BrowserStack = {
+  defaultBrowsers: ['chrome', 'firefox', 'safari'],
+  supportedBrowsers: [
+    'chrome', 'firefox', 'safari', 'edge',
+    'chrome_previous', 'firefox_previous', 'safari_previous', 'edge_previous'
+  ],
+  availableBrowsers: [
+    'default', // default browsers alias
+    'supported', // supported browsers alias
+    'ios',
+    'android'
+  ]
+};
+// Copy supported browsers to available browsers
+BrowserStack.availableBrowsers = [
+  ...BrowserStack.supportedBrowsers,
+  ...BrowserStack.availableBrowsers,
+];
+
 // BrowserStack Base Config
-const defaultBSConfig = { base: 'BrowserStack' };
-const defaultBSDevice = { ...defaultBSConfig, real_mobile: 'true'};
-const defaultWindows = { ...defaultBSConfig, os: 'Windows', os_version: '11' };
-const defaultOSX = { ...defaultBSConfig, os: 'OS X', os_version: 'Monterey' };
+const defaultDevice = { base: 'BrowserStack', real_mobile: 'true'};
+const defaultWindows = { base: 'BrowserStack', os: 'Windows', os_version: '11' };
+const defaultOSX = { base: 'BrowserStack', os: 'OS X', os_version: 'Monterey' };
 
 // BrowserStack Browsers Config
-let BSConfig = {
+BrowserStack.config = {
   // Latest versions
   chrome: { ...defaultWindows, browser: 'chrome', browser_version: 'latest' },
   firefox: { ...defaultWindows, browser: 'firefox', browser_version: 'latest' },
@@ -50,15 +57,12 @@ let BSConfig = {
   safari_previous: { ...defaultOSX,     browser: 'safari', os_version: 'Big Sur' },
 
   // Mobile Devices
-  ios:     { ...defaultBSDevice, device : 'iPhone 13',      os: 'ios',     os_version : '15.0' },
-  android: { ...defaultBSDevice, device : 'Google Pixel 6', os: 'android', os_version : '12.0' }
+  ios:     { ...defaultDevice, device : 'iPhone 13',      os: 'ios',     os_version : '15.0' },
+  android: { ...defaultDevice, device : 'Google Pixel 6', os: 'android', os_version : '12.0' }
 };
 
 module.exports = {
   defaultBrowsers,
   availableBrowsers,
-  defaultBSBrowsers,
-  supportedBSBrowsers,
-  availableBSBrowsers,
-  BSConfig
+  BrowserStack
 };
