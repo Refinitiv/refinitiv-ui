@@ -65,7 +65,7 @@ jobs:
           echo "BROWSERS=\"$BROWSERS\"" >> $GITHUB_ENV
 
       - name: Test
-        uses: ./.github/actions/browser
+        uses: ./.github/actions/run-test
         with:
           browsers: ${{ env.BROWSERS }}
           mode: 'all'

@@ -1,4 +1,4 @@
-name: 'Run Test On Browser'
+name: 'Run Test'
 description: 'Setup Browser and Run Test'
 inputs:
   # Support one browser per action for now, because some packages has build script before test
