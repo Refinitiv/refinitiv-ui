@@ -4,24 +4,24 @@ inputs:
   # Support one browser per action for now, because some packages has build script before test
   # which nx cannot send params to karma test after build
   browsers:
-    description: 'Browser name'
+    description: 'Target browser(s)'
     required: false
     default: 'default'
   mode:
-    description: 'Test mode'
+    description: 'Run test in all packages or only affected packages'
     required: false
     default: 'affected' # affected|all
   coverage:
-    description: 'Include test covertage'
+    description: 'Include test coverage'
     required: false
     default: 'true'
   parallel:
-    description: 'Run parallel testing limit'
+    description: 'Number of test to run concurrently'
     required: false
     # Default value 3 is OK for every browsers except Safari need to be one to make it stable
     default: 1
   base:
-    description: 'Base sha for test affected mode'
+    description: 'Base SHA for test affected mode'
     required: false
   browserstack:
     description: 'Run test on BrowserStack'
@@ -69,7 +69,7 @@ runs:
 
     - name: Test
       shell: bash
-      # Prevent NX caching for mode `all` because it must run all testing, even though the code has not chaged.
+      # Prevent NX caching for mode `all` because it must run all testing, even though the code has not changed.
       run: |
         [[ "${{ inputs.mode }}" == "affected" ]] && export OPTIONS="--base=${{ inputs.base }}"
         [[ "${{ inputs.mode }}" == "all" ]] && export OPTIONS="--skip-nx-cache"
