@@ -11,3 +11,10 @@ export class ListItem extends Item {
    */
   protected readonly defaultTabIndex: number | null = null;
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ef-list-item': ListItem;
+  }
+}
+
