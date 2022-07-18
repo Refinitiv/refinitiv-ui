@@ -22,7 +22,7 @@ describe('notification/Notification', () => {
       it('Should show message and message attribute is correct', async () => {
         const message = 'Hello';
         expect(el.setAttribute('message', message));
-        await elementUpdated();
+        await elementUpdated(el);
         await nextFrame();
         expect(el.message).to.equal(message);
         expect(el.shadowRoot.querySelector('[part=content]').innerText).to.equal(message);
