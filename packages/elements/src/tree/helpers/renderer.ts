@@ -4,7 +4,6 @@ import type { TreeDataItem } from './types';
 import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager.js';
 import { Renderer } from '../../list/renderer.js';
 import { getItemId } from '../../list/helpers/item-id.js';
-import type { TreeItem } from '../elements/tree-item.js';
 
 type RendererScope = {
   multiple?: boolean;
@@ -24,7 +23,7 @@ export class TreeRenderer extends Renderer {
     let currentMode: TreeManagerMode;
     let currentComposer: CollectionComposer<TreeDataItem>;
 
-    super((item: TreeDataItem, composer: CollectionComposer<TreeDataItem>, element: TreeItem = document.createElement('ef-tree-item')): HTMLElement => {
+    super((item: TreeDataItem, composer: CollectionComposer<TreeDataItem>, element = document.createElement('ef-tree-item')): HTMLElement => {
       const multiple = !!scope && (scope as RendererScope).multiple === true;
       const noRelation = !!scope && (scope as RendererScope).noRelation === true;
       const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
