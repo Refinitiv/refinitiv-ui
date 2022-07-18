@@ -7,10 +7,7 @@ const { injectLitPolyfill } = require('./scripts/karma/plugins/inject-lit-polyfi
 const {
   defaultBrowsers,
   availableBrowsers,
-  defaultBSBrowsers,
-  supportedBSBrowsers,
-  availableBSBrowsers,
-  BSConfig
+  BrowserStack
 } = require('./browsers.config');
 
 const argv = yargs(hideBin(process.argv))
@@ -49,7 +46,7 @@ const argv = yargs(hideBin(process.argv))
   .option('browserstack', {
     type: 'array',
     alias: 'bs',
-    choices: availableBSBrowsers,
+    choices: BrowserStack.availableBrowsers,
     description: 'Run units test on BrowserStack and specific browser(s)'
   })
   .requiresArg('browserstack')
@@ -256,17 +253,17 @@ if (argv.browserstack && !argv.watch) {
   const browserStackLaunchers = {};
   bsOption.forEach((option) => {
     if(option === 'default') {
-      defaultBSBrowsers.forEach(defaultBS => {
-        browserStackLaunchers[defaultBS] = BSConfig[defaultBS];
+      BrowserStack.defaultBrowsers.forEach(defaultBS => {
+        browserStackLaunchers[defaultBS] = BrowserStack.config[defaultBS];
       });
     }
     else if(option === 'supported') {
-      supportedBSBrowsers.forEach(supportedBS => {
-        browserStackLaunchers[supportedBS] = BSConfig[supportedBS];
+      BrowserStack.supportedBrowsers.forEach(supportedBS => {
+        browserStackLaunchers[supportedBS] = BrowserStack.config[supportedBS];
       });
     }
     else {
-      browserStackLaunchers[option] = BSConfig[option];
+      browserStackLaunchers[option] = BrowserStack.config[option];
     }
   });
 
