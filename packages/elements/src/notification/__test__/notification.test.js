@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/notification';
@@ -21,8 +21,10 @@ describe('notification/Notification', () => {
 
       it('Should show message and message attribute is correct', async () => {
         const message = 'Hello';
-        expect(el.setAttribute('message', message));
-        await elementUpdated();
+        el.setAttribute('message', message)
+        await elementUpdated(el);
+        await nextFrame();
+        await nextFrame(); // Safari needed double extra frames
         expect(el.message).to.equal(message);
         expect(el.shadowRoot.querySelector('[part=content]').innerText).to.equal(message);
       });
