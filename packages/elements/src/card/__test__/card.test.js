@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
 
 // Translations polyfills
 import '@formatjs/intl-locale/polyfill.iife';
@@ -110,7 +110,7 @@ describe('card/Card', () => {
 
       setTimeout(() => menuButtonPart.dispatchEvent(new Event('tap')));
       await oneEvent(menuButtonPart, 'tap');
-      await nextFrame(); // Safari required extra frame
+      await elementUpdated(el); // Safari required
       await expect(menuButtonPart.getAttribute('aria-expanded')).to.equal('true');
     });
   });
