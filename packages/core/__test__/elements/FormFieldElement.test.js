@@ -188,7 +188,7 @@ describe('elements/FormFieldElement/SelectionTest', () => {
   it('Applies `selectionDirection`', async () => {
     const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
     const inputElement = formFieldEl.inputElement;
-    const selectionDirection = 'forward';
+    const selectionDirection = 'forward'; // Need to be set to forward for now, Safari Bug: https://jira.refinitiv.com/browse/ELF-1939
     formFieldEl.selectionDirection = selectionDirection;
     expect(formFieldEl.selectionDirection).to.equal(selectionDirection);
     await elementUpdated(formFieldEl);

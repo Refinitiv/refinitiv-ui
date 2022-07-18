@@ -21,9 +21,10 @@ describe('notification/Notification', () => {
 
       it('Should show message and message attribute is correct', async () => {
         const message = 'Hello';
-        expect(el.setAttribute('message', message));
+        el.setAttribute('message', message)
         await elementUpdated(el);
         await nextFrame();
+        await nextFrame(); // Safari needed double extra frames
         expect(el.message).to.equal(message);
         expect(el.shadowRoot.querySelector('[part=content]').innerText).to.equal(message);
       });

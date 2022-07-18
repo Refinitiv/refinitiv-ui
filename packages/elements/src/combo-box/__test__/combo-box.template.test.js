@@ -43,11 +43,11 @@ describe('combo-box/Template', () => {
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.data = getData().reverse();
       await elementUpdated(el);
-      await nextFrame();
+      await nextFrame(); // Safari required extra frame
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.data = [];
       await elementUpdated(el);
-      await nextFrame();
+      await nextFrame(); // Safari required extra frame
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
