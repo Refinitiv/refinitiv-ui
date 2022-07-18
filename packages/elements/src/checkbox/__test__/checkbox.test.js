@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent, keyboardEvent, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, keyboardEvent, isIE } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/checkbox';
 import '@refinitiv-ui/elemental-theme/light/ef-checkbox';
