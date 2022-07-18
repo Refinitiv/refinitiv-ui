@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 import { getData, openedUpdated, snapshotIgnore } from './utils';
 
 import '@refinitiv-ui/elements/combo-box';
@@ -15,11 +15,13 @@ describe('combo-box/Selected', () => {
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.data = getData([3]);
       await elementUpdated(el);
+      await nextFrame(); // Safari required extra frame
       expect(el.value).to.equal('AL', 'Value is not reflected from selected');
       expect(el.inputElement.value).to.equal('Albania', 'Input is not reflected for AL');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.data = getData();
       await elementUpdated(el);
+      await nextFrame(); // Safari required extra frame
       expect(el.value).to.equal('', 'Value is not reset to empty string');
       expect(el.inputElement.value).to.equal('', 'Input is not reflected for ""');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
@@ -33,11 +35,13 @@ describe('combo-box/Selected', () => {
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.data = getData([2]);
       await elementUpdated(el);
+      await nextFrame(); // Safari required extra frame
       expect(String(el.values)).to.equal('AX', 'Values are not reflected from selected');
       expect(el.inputElement.value).to.equal('Aland Islands', 'Input is not reflected for AX');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.data = getData();
       await elementUpdated(el);
+      await nextFrame(); // Safari required extra frame
       expect(String(el.values)).to.equal('', 'Values are not reset to empty string');
       expect(el.inputElement.value).to.equal('', 'Input is not reflected for ""');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
