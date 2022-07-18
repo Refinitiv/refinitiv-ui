@@ -225,7 +225,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * @param changedProperties changed properties
    * @returns {void}
    */
-  willUpdate (changedProperties: PropertyValues): void {
+  protected willUpdate (changedProperties: PropertyValues): void {
     if (changedProperties.has('checkedState')) {
       this.checkedChanged();
     }
