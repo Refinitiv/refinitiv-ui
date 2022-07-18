@@ -286,12 +286,9 @@ describe('list/List', () => {
     await elementUpdated(el);
 
     const firstElement = el.firstElementChild;
-
     await triggerFocusFor(el);
 
-    setTimeout(() => firstElement.dispatchEvent(new Event('tap')));
-    await oneEvent(firstElement, 'tap');
-    await elementUpdated(el);
+    firstElement.click();
 
     expect(document.activeElement).to.be.equal(el);
   })
