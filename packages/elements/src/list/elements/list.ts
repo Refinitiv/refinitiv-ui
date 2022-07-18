@@ -305,7 +305,14 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     const children = this.tabbableItems;
     if (children.length > 1) {
       let index = children.indexOf(element) + direction;
-      index = index < 0 ? children.length - 1 : index === children.length ? 0 : index;
+
+      if (index < 0) {
+        index = children.length - 1;
+      }
+      else if (index >= children.length) {
+        index = 0;
+      }
+
       return children[index];
     }
   }
@@ -319,7 +326,15 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     const highlightItem = this.queryItemsByPropertyValue('highlighted', true)[0];
     const nextElement = this.getNextFocusableItem(direction) || this.getNextFocusableItem(direction, this.elementFromItem(highlightItem));
     const backupElement = this.tabbableItems[0];
-    return nextElement ? this.itemFromElement(nextElement) : backupElement ? this.itemFromElement(backupElement) : undefined;
+
+    if (nextElement) {
+      return this.itemFromElement(nextElement);
+    }
+    else if (backupElement) {
+      return this.itemFromElement(backupElement);
+    }
+
+    return undefined;
   }
 
   /**
@@ -356,10 +371,10 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Gets the available tabbable elements
    */
   protected get tabbableItems (): HTMLElement[] {
-    return Array.from(this.children).filter((el): el is HTMLElement => {
-      if (el instanceof HTMLElement) {
-        const role = el.getAttribute('role');
-        const isEnabled = !el.hasAttribute('disabled');
+    return Array.from(this.children).filter((item): item is HTMLElement => {
+      if (item instanceof HTMLElement) {
+        const role = item.getAttribute('role');
+        const isEnabled = !item.hasAttribute('disabled');
         const isOption = role ? ['option', 'treeitem'].includes(role) : false;
 
         return isOption && isEnabled;
@@ -372,10 +387,10 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Returns the current focused element
    */
   protected get activeElement (): HTMLElement | null {
-    const el = (this.getRootNode() as ShadowRoot | HTMLDocument).activeElement as HTMLElement | null;
-    const itemEl = this.findItemElementFromTarget(el);
-    if (itemEl && this.tabbableItems.includes(itemEl)) {
-      return itemEl;
+    const element = (this.getRootNode() as ShadowRoot | Document).activeElement as HTMLElement | null;
+    const item = this.findItemElementFromTarget(element);
+    if (item && this.tabbableItems.includes(item)) {
+      return item;
     }
     return null;
   }
@@ -393,8 +408,8 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @returns {void}
    */
   protected triggerActiveItem (): void {
-    const el = this.activeElement || this.highlightElement;
-    const item = el && this.itemFromElement(el);
+    const element = this.activeElement || this.highlightElement;
+    const item = element && this.itemFromElement(element);
     item && this.selectItem(item) && this.fireSelectionUpdate();
   }
 
@@ -461,8 +476,8 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @returns {void}
    */
   protected onTap (event: TapEvent): void {
-    const el = this.findItemElementFromTarget(event.target);
-    const item = el && this.itemFromElement(el);
+    const element = this.findItemElementFromTarget(event.target);
+    const item = element && this.itemFromElement(element);
 
     if (item) {
       this.highlightItem(item);
@@ -480,9 +495,9 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @returns {void}
    */
   protected onMouse (event: Event): void {
-    const el = this.findItemElementFromTarget(event.target);
-    const item = el ? this.itemFromElement(el) : null;
-    if (item && el !== this.highlightElement) {
+    const element = this.findItemElementFromTarget(event.target);
+    const item = element ? this.itemFromElement(element) : null;
+    if (item && element !== this.highlightElement) {
       if (this.activeElement) {
         // prevent shifting focus to other items
         // on mouse move and just fallback to host
@@ -509,14 +524,14 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @returns Found element, if available
    */
   protected findItemElementFromTarget (target: EventTarget | HTMLElement | null): HTMLElement | null {
-    let el = target as HTMLElement | null;
-    while (el) {
-      if (this.itemMap.has(el)) {
+    let element = target as HTMLElement | null;
+    while (element) {
+      if (this.itemMap.has(element)) {
         break; // known rendered item
       }
-      el = el.parentElement;
+      element = element.parentElement;
     }
-    return el;
+    return element;
   }
 
   /**
