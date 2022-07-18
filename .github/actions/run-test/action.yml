@@ -36,7 +36,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: 'BrowserStack Env Setup' # Invokes the setup-env action
+    - name: 'BrowserStack Environment Setup' # Invokes the setup-env action
       if: ${{ inputs.browserstack == 'true' }}
       uses: browserstack/github-actions/setup-env@master
       with:
