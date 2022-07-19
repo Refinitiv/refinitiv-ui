@@ -298,7 +298,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param element Starting element
    * @returns Next logical element to focus
    */
-  protected getNextFocusableItem (direction: Direction, element = this.activeElement): HTMLElement | undefined {
+  protected getNextFocusableItem (direction: Direction, element?: HTMLElement): HTMLElement | undefined {
     if (!element) {
       return;
     }
@@ -386,21 +386,9 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Returns the current focused element
    */
-  protected get activeElement (): HTMLElement | null {
-    const element = (this.getRootNode() as ShadowRoot | Document).activeElement as HTMLElement | null;
-    const item = this.findItemElementFromTarget(element);
-    if (item && this.tabbableItems.includes(item)) {
-      return item;
-    }
-    return null;
-  }
-
-  /**
-   * Returns the current focused element
-   */
   protected get highlightElement (): HTMLElement | null {
     const item = this.queryItemsByPropertyValue('highlighted', true)[0];
-    return item ? this.elementFromItem(item) || null : null;
+    return this.elementFromItem(item) || null;
   }
 
   /**
@@ -408,7 +396,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @returns {void}
    */
   protected triggerActiveItem (): void {
-    const element = this.activeElement || this.highlightElement;
+    const element = this.highlightElement;
     const item = element && this.itemFromElement(element);
     item && this.selectItem(item) && this.fireSelectionUpdate();
   }
@@ -500,11 +488,6 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
     const element = this.findItemElementFromTarget(event.target);
     const item = element ? this.itemFromElement(element) : null;
     if (item && element !== this.highlightElement) {
-      if (this.activeElement) {
-        // prevent shifting focus to other items
-        // on mouse move and just fallback to host
-        this.activeElement.focus({ preventScroll: true });
-      }
       this.highlightItem(item);
     }
   }
