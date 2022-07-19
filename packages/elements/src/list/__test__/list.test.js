@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, keyboardEvent, nextFrame, oneEvent, triggerFocusFor } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, keyboardEvent, nextFrame, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/list';
