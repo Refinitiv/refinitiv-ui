@@ -5,7 +5,7 @@ import {
   CSSResultGroup,
   PropertyValues,
   ResizeEvent,
-  ControlElement
+  BasicElement
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -27,7 +27,7 @@ const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 @customElement('ef-tab-bar', {
   alias: 'coral-tab-bar'
 })
-export class TabBar extends ControlElement {
+export class TabBar extends BasicElement {
 
   /**
    * Element version number
@@ -167,6 +167,18 @@ export class TabBar extends ControlElement {
   protected isValidValue (value: string): boolean {
     const tabList = this.getFocusableTabs();
     return tabList.some(tab => this.getTabValue(tab) === value);
+  }
+
+  /**
+   * On *user-interaction* set the value and notify.
+   * @param value New value
+   * @returns {void}
+   */
+  protected setValueAndNotify (value: string): void {
+    if (this.value !== value) {
+      this.value = value;
+      this.notifyPropertyChange('value', value);
+    }
   }
 
   /**
