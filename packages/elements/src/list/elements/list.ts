@@ -263,12 +263,12 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
 
   /**
    * Proxy for querying the composer by property and value
-   * @param property Property name
+   * @param name Property name
    * @param value Property value
    * @returns Collection of queried items
    */
-  protected queryItemsByPropertyValue<K extends keyof T> (property: K, value: T[K]): readonly T[] {
-    return this.composer.queryItemsByPropertyValue(property, value);
+  protected queryItemsByPropertyValue<K extends keyof T> (name: K, value: T[K]): readonly T[] {
+    return this.composer.queryItemsByPropertyValue(name, value);
   }
 
   /**
