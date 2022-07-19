@@ -145,7 +145,6 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   public get value (): string {
     return this.values[0] || '';
   }
-
   public set value (value: string) {
     const oldValue = this.value;
     if (value !== oldValue || this.values.length > 1) {
