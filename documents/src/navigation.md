@@ -104,7 +104,7 @@ type: nav
     * [Async tasks](./utils/async-tasks)
     * [Color*](./utils/color)
     * [Data Management](./utils/data-management)
-    * [Date/Time*](./utils/date-time)
+    * [Date/Time](./utils/date-time)
     * [Navigation Grid*](./utils/navigation-grid)
 
   - Accessibility
