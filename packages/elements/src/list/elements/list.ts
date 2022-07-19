@@ -425,7 +425,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       const maxPosition = this.scrollTop + this.clientHeight - element.offsetHeight;
       const position = element.offsetTop;
 
-      let scrollPosition = 0;
+      let scrollPosition;
       if (position > maxPosition) {
         scrollPosition = element.offsetTop - this.clientHeight + element.offsetHeight;
       }
@@ -433,7 +433,9 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
         scrollPosition = element.offsetTop;
       }
 
-      this.scrollTop = scrollPosition;
+      if (scrollPosition) {
+        this.scrollTop = scrollPosition;
+      }
     }
   }
 
