@@ -486,7 +486,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    */
   protected onMouse (event: Event): void {
     const element = this.findItemElementFromTarget(event.target);
-    const item = element ? this.itemFromElement(element) : null;
+    const item = element && this.itemFromElement(element);
     if (item && element !== this.highlightElement) {
       this.highlightItem(item);
     }
