@@ -178,9 +178,13 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       // Clone value arrays
       const newValue = values.slice();
       const oldValue = this.values.slice();
+
+      newValue.sort();
+      oldValue.sort();
+
       // Create comparison strings to check for differences
-      const newComparison = newValue.sort().toString();
-      const oldComparison = oldValue.sort().toString();
+      const newComparison = newValue.toString();
+      const oldComparison = oldValue.toString();
       // Should we update the selection state?
       if (newComparison !== oldComparison) {
         this.clearSelection();

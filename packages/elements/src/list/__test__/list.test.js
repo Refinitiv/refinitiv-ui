@@ -4,6 +4,8 @@ import { fixture, expect, elementUpdated, keyboardEvent, nextFrame, triggerFocus
 import '@refinitiv-ui/elements/list';
 import '@refinitiv-ui/elemental-theme/light/ef-list';
 
+import { getItemId } from '../../../lib/list/helpers/item-id.js';
+
 import { CollectionComposer } from '@refinitiv-ui/utils';
 
 const data = [{
@@ -189,6 +191,21 @@ describe('list/List', () => {
       await iterateKeyboardEvent(el, el,  ['Down', 'Down', 'x'], [0, 1, 1]);
     });
   });
+
+  describe('Item id', () => {
+    it('Should combine prefix and value', () => {
+      const prefix = 'prefix';
+      const value = 'value';
+      const id = getItemId(prefix, value);
+      expect(id).to.equal(`${prefix}-${value}`);
+    })
+    it('Should return empty string when either parameter is invalid', () => {
+      const prefix = 'prefix';
+      const value = '';
+      const id = getItemId(prefix, value);
+      expect(id).to.equal('');
+    })
+  })
 
   it('Supports setting value via property', async () => {
     const el = await fixture('<ef-list></ef-list>');
