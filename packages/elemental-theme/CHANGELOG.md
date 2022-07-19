@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.0.1...@refinitiv-ui/elemental-theme@6.0.2) (2022-07-19)
+
+
+### Bug Fixes
+
+* **datetime-picker:** inputs misalignment ([#373](https://github.com/Refinitiv/refinitiv-ui/issues/373)) ([337679b](https://github.com/Refinitiv/refinitiv-ui/commit/337679bfdd8b28f2d60fccbaac8f03c029c30b76))
+* **list:** item should not receive focus when click ([#272](https://github.com/Refinitiv/refinitiv-ui/issues/272)) ([e2293e3](https://github.com/Refinitiv/refinitiv-ui/commit/e2293e37126a446d5c1d16be1e5eb503425534f3))
+* **tab-bar:** resize callback is not fired when a new tab has been added ([#389](https://github.com/Refinitiv/refinitiv-ui/issues/389)) ([13408e1](https://github.com/Refinitiv/refinitiv-ui/commit/13408e15302a19cd614fdd5f1b4af9be5f1881bd))
+
+
+
+
+
 ## [6.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.0.0...@refinitiv-ui/elemental-theme@6.0.1) (2022-06-20)
 
 
