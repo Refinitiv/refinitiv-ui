@@ -34,6 +34,11 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
     return VERSION;
   }
 
+  /**
+   * Tree-item should not be focusable
+   */
+  protected readonly defaultTabIndex: number | null = null;
+
   protected readonly defaultRole: string | null = 'treeitem';
 
   /**
