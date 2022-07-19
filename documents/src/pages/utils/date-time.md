@@ -9,13 +9,13 @@ layout: default
 
 # Date & Time
 
-The utility provides the comprehensive set of tools to manipulate with date/time/datetime strings. It overcomes the problems with JavaScript `Date` implementation, such as:
+The utility provides a comprehensive set of tools to manipulate _date_, _time_ and _datetime_ strings. It overcomes the problems with JavaScript's `Date` implementation, such as:
 
-- string to date parsing is error-prone and can be different in browsers
+- String to date parsing is error-prone and can be different in browsers
 - Date object is mutable
-- daylight saving behavior is unpredictable
-- computation APIs are unwieldy or unavailable
-- defining and parsing dates in _UTC_, _Local_ or _Developer Defined_ timezones is error-prone
+- Daylight saving behavior is unpredictable
+- Computation APIs are unwieldy or unavailable
+- Defining and parsing dates in _UTC_, _Local_ or _Developer Defined_ timezones is error-prone
 
 The utility comes with the ability to parse localised dates and has over 40 functions for date manipulation.
 
@@ -34,7 +34,7 @@ addUnit(date, 'month', 5); // => '2023-02-21T09:21'
 
 ## Format Tokens
 
-The utility works with the following selection of `ISO8601` date string formats (called as format tokens).
+The utility works with the following selection of `ISO8601` date string formats (format tokens).
 
 The developer can use any _date_, _time_ or _datetime_ format tokens. The output value has the same format as the input value.
 
@@ -84,14 +84,14 @@ addMonths(value, amount);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to be changed |
-| amount | Number | the amount of full months to be added |
+| value | String | The value to be changed |
+| amount | Number | The amount of full months to be added |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| String | the new value with the months added |
+| String | The new value with the months added |
 
 #### Exceptions
 
@@ -119,14 +119,14 @@ addOffset(value, amount);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the date string to be changed |
-| amount | Number | the number of milliseconds to add |
+| value | String | The date string to be changed |
+| amount | Number | The number of milliseconds to add |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| String | the new value with the milliseconds added |
+| String | The new value with the milliseconds added |
 
 #### Exceptions
 
@@ -157,15 +157,15 @@ addUnit(value, unit, amount);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to be changed |
-| unit | Unit | the unit to operate with |
-| amount | Number | the amount of units to be added, positive number to increase, negative to decrease |
+| value | String | The value to be changed |
+| unit | Unit | The unit to operate with |
+| amount | Number | The amount of units to be added, positive number to increase, negative to decrease |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| String | the new value with units added |
+| String | The new value with units added |
 
 #### Exceptions
 
@@ -200,14 +200,14 @@ format(value, [format = yyyy-MM-dd'T'HH:mm]);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | Date &#124; Segment | the original date or segment |
-| format <br> _(optional)_ | String | format token |
+| value | Date &#124; Segment | The original date or segment |
+| format <br> _(optional)_ | String | Format token |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| String | the formatted date or segment |
+| String | The formatted date or segment |
 
 #### Exceptions
 
@@ -240,14 +240,14 @@ getDaysInMonth(year, month);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| year | Number | the year to check |
-| month | Number | the month to check |
+| year | Number | The year to check |
+| month | Number | The month to check |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Number | the number of days in month |
+| Number | The number of days in month |
 
 ### getFormat
 
@@ -272,13 +272,13 @@ getFormat(value);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the date value |
+| value | String | The date value |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| String &#124; `null` | the format token |
+| String &#124; `null` | The format token |
 
 ### isAfter
 Is the first date after the second one?
@@ -300,14 +300,14 @@ isAfter(value, compare);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value that should be after the other one to return true |
-| compare | String | the value to compare with |
+| value | String | The value that should be after the other one to return true |
+| compare | String | The value to compare with |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the value is after the compare |
+| Boolean | The value is after the compare |
 
 #### Exceptions
 
@@ -336,13 +336,13 @@ isAM(value);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to check |
+| value | String | The value to check |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the value is before the noon |
+| Boolean | The value is before the noon |
 
 #### Exceptions
 
@@ -371,14 +371,14 @@ isBefore(value, compare);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value that should be before the other one to return true |
-| compare | String | the value to compare with |
+| value | String | The value that should be before the other one to return true |
+| compare | String | The value to compare with |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the value is before the compare |
+| Boolean | The value is before the compare |
 
 #### Exceptions
 
@@ -407,13 +407,13 @@ isPM(value);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to check |
+| value | String | The value to check |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the value is noon or after the noon |
+| Boolean | The value is noon or after the noon |
 
 #### Exceptions
 
@@ -442,14 +442,14 @@ isSameDay(value, compare);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the first date to check |
-| compare | String | the second date to check |
+| value | String | The first date to check |
+| compare | String | The second date to check |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the dates are in the same day |
+| Boolean | The dates are in the same day |
 
 #### Exceptions
 
@@ -478,14 +478,14 @@ isSameMonth(value, compare);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the first date to check |
-| compare | String | the second date to check |
+| value | String | The first date to check |
+| compare | String | The second date to check |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the dates are in the same month |
+| Boolean | The dates are in the same month |
 
 #### Exceptions
 
@@ -514,14 +514,14 @@ isSameYear(value, compare);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the first date to check |
-| compare | String | the second date to check |
+| value | String | The first date to check |
+| compare | String | The second date to check |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the dates are in the same year |
+| Boolean | The dates are in the same year |
 
 #### Exceptions
 
@@ -549,13 +549,13 @@ isThisMonth(value);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to check |
+| value | String | The value to check |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the value month is current month |
+| Boolean | The value month is current month |
 
 #### Exceptions
 
@@ -583,13 +583,13 @@ isThisYear(value);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to check |
+| value | String | The value to check |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the value year is current year |
+| Boolean | The value year is current year |
 
 #### Exceptions
 
@@ -617,13 +617,13 @@ isToday(value);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to check |
+| value | String | The value to check |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the value is today |
+| Boolean | The value is today |
 
 #### Exceptions
 
@@ -654,14 +654,14 @@ isValidDate(value, [format]);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to check |
-| format <br> _(optional)_ | String | one of date formats or try to guess |
+| value | String | The value to check |
+| format <br> _(optional)_ | String | Format token. If not provided checks against _date_ token |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the value is valid date |
+| Boolean | The value is valid _date_ |
 
 ### isValidDateTime
 
@@ -686,14 +686,14 @@ isValidDateTime(value, [format]);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to check |
-| format <br> _(optional)_ | String | one of datetime formats or try to guess |
+| value | String | The value to check |
+| format <br> _(optional)_ | String | Format token. If not provided checks against _datetime_ token |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the value is valid datetime |
+| Boolean | The value is valid _datetime_ |
 
 ### isValidTime
 
@@ -718,14 +718,14 @@ isValidTime(value, [format]);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to check |
-| format <br> _(optional)_ | String | one of time formats or try to guess |
+| value | String | The value to check |
+| format <br> _(optional)_ | String | Format token. If not provided checks against _time_ token |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the value is valid time |
+| Boolean | The value is valid _time_ |
 
 ### isWeekend
 
@@ -747,13 +747,13 @@ isWeekend(value);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to check |
+| value | String | The value to check |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Boolean | the value is weekend |
+| Boolean | The value falls on weekend |
 
 #### Exceptions
 
@@ -788,15 +788,15 @@ iterateUnit(value, unit, amount);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to be changed |
-| unit | Unit | the unit to operate with |
-| amount | Number | the amount of units to be iterated, positive number to increase, negative to decrease |
+| value | String | The value to be changed |
+| unit | Unit | The unit to operate with |
+| amount | Number | The amount of units to be iterated, positive number to increase, negative to decrease |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| String | the new value with units iterated |
+| String | The new value with units iterated |
 
 #### Exceptions
 
@@ -832,13 +832,13 @@ parse(value);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | Date &#124; Segment | the value to parse |
+| value | Date &#124; Segment | The value to parse |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Date | a `Date` object for value |
+| Date | A `Date` object for value |
 
 #### Exceptions
 
@@ -866,14 +866,14 @@ subMonths(value, amount);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to be changed |
-| amount | Number | the amount of full months to be subtracted |
+| value | String | The value to be changed |
+| amount | Number | The amount of full months to be subtracted |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| String | the new value with the months subtracted |
+| String | The new value with the months subtracted |
 
 #### Exceptions
 
@@ -901,14 +901,14 @@ subOffset(value, amount);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the value to be changed |
-| amount | Number | the number of milliseconds to subtract |
+| value | String | The value to be changed |
+| amount | Number | The number of milliseconds to subtract |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| String | the new value with the milliseconds subtracted |
+| String | The new value with the milliseconds subtracted |
 
 #### Exceptions
 
@@ -939,14 +939,14 @@ toDateSegment(value, [isUTC = false]);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String &#124; Date | the string value or `Date` |
-| isUTC <br> _(optional)_ | Boolean | parse `Date` in _Local_ or _UTC_ timezone |
+| value | String &#124; Date | The string value or `Date` |
+| isUTC <br> _(optional)_ | Boolean | Parse `Date` in _Local_ or _UTC_ timezone |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| DateSegment | a `DateSegment` object for value |
+| DateSegment | A `DateSegment` object for value |
 
 ### toDateTimeSegment
 
@@ -970,14 +970,14 @@ toDateTimeSegment(value, [isUTC = false]);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String &#124; Date | the string value or `Date` |
-| isUTC <br> _(optional)_ | Boolean | parse `Date` in _Local_ or _UTC_ timezone |
+| value | String &#124; Date | The string value or `Date` |
+| isUTC <br> _(optional)_ | Boolean | Parse `Date` in _Local_ or _UTC_ timezone |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| DateTimeSegment | a `DateTimeSegment` object for value |
+| DateTimeSegment | A `DateTimeSegment` object for value |
 
 ### toSegment
 
@@ -1003,14 +1003,14 @@ toSegment(value, [isUTC = false]);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String &#124; Date | the string value or `Date` |
-| isUTC <br> _(optional)_ | Boolean | parse `Date` in _Local_ or _UTC_ timezone |
+| value | String &#124; Date | The string value or `Date` |
+| isUTC <br> _(optional)_ | Boolean | Parse `Date` in _Local_ or _UTC_ timezone |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Segment | a `Segment` object for value |
+| Segment | A `Segment` object for value |
 
 #### Exceptions
 
@@ -1040,14 +1040,14 @@ toTimeSegment(value, [isUTC = false]);
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String &#124; Date | the string value or `Date` |
-| isUTC <br> _(optional)_ | Boolean | parse `Date` in _Local_ or _UTC_ timezone |
+| value | String &#124; Date | The string value or `Date` |
+| isUTC <br> _(optional)_ | Boolean | Parse `Date` in _Local_ or _UTC_ timezone |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| TimeSegment | a `TimeSegment` object for value |
+| TimeSegment | A `TimeSegment` object for value |
 
 ### utcFormat
 
@@ -1102,7 +1102,7 @@ new Locale(formatter)
 
 | Type | Description |
 | --- | --- |
-| Locale | the `Locale` object |
+| Locale | The `Locale` object |
 
 #### Exceptions
 
@@ -1137,13 +1137,13 @@ Locale.fromOptions(options, [locales])
 | Name | Type | Description |
 | --- | --- | --- |
 | options | Intl.DateTimeFormatOptions | `Intl.DateTimeFormatOptions` object |
-| locales <br> _(optional)_ | String &#124; String[]  | the BCP47 language tag for the locale actually used. Does support Unicode extensions. |
+| locales <br> _(optional)_ | String &#124; String[]  | The BCP47 language tag for the locale actually used. Does support Unicode extensions. |
 
 #### Returns
 
 | Type | Description |
 | --- | --- |
-| Locale | the `Locale` object |
+| Locale | The `Locale` object |
 
 #### Exceptions
 
@@ -1167,7 +1167,7 @@ Locale.fromOptions({ timeStyle: 'short' }, 'en-GB').isoFormat; // => HH:mm
 
 | Type | Description |
 | --- | --- |
-| String | format token |
+| String | Format token |
 
 ### formatter
 
@@ -1183,7 +1183,7 @@ Locale.fromOptions({ dateStyle: 'short', timeStyle: 'short' }, 'en-GB').formatte
 
 | Type | Description |
 | --- | --- |
-| Intl.DateTimeFormat | the associated `Intl.DateTimeFormat` object |
+| Intl.DateTimeFormat | The associated `Intl.DateTimeFormat` object |
 
 ### options
 
@@ -1199,7 +1199,7 @@ Locale.fromOptions({ dateStyle: 'short', timeStyle: 'short' }, 'en-GB').options;
 
 | Type | Description |
 | --- | --- |
-| Intl.DateTimeFormatOptions | the associated `Intl.DateTimeFormatOptions` object |
+| Intl.DateTimeFormatOptions | The associated `Intl.DateTimeFormatOptions` object |
 
 ### parse
 
@@ -1222,8 +1222,8 @@ parse(value, [referenceDate = 0])
 
 | Name | Type | Description |
 | --- | --- | --- |
-| value | String | the localised value to be parsed |
-| referenceDate <br> _(optional)_ | String &#124; Number &#124; Date | the reference date to resolve incomplete value |
+| value | String | The localised value to be parsed |
+| referenceDate <br> _(optional)_ | String &#124; Number &#124; Date | The reference date to resolve incomplete value |
 
 #### Returns
 
@@ -1243,19 +1243,19 @@ The list of useful datetime timestamps.
 
 | Name | Description |
 | --- | --- |
-| DAYS_IN_WEEK | the number of days in week |
-| HOURS_IN_DAY | the number of hours in day |
-| HOURS_OF_NOON | the number of hours in noon |
-| MILLISECONDS_IN_DAY | the number of milliseconds in day |
-| MILLISECONDS_IN_HOUR | the number of milliseconds in hour |
-| MILLISECONDS_IN_MINUTE | the number of milliseconds in minute |
-| MILLISECONDS_IN_SECOND | the number of milliseconds in second |
-| MINUTES_IN_HOUR | the number of minutes in hour |
-| MONTHS_IN_YEAR | the number of months in year |
-| SECONDS_IN_DAY | the number of seconds in day |
-| SECONDS_IN_HOUR | the number of seconds in hour |
-| SECONDS_IN_MINUTE | the number of seconds in minute |
-| YEARS_IN_CENTURY | the number of years in century |
+| DAYS_IN_WEEK | The number of days in week |
+| HOURS_IN_DAY | The number of hours in day |
+| HOURS_OF_NOON | The number of hours in noon |
+| MILLISECONDS_IN_DAY | The number of milliseconds in day |
+| MILLISECONDS_IN_HOUR | The number of milliseconds in hour |
+| MILLISECONDS_IN_MINUTE | The number of milliseconds in minute |
+| MILLISECONDS_IN_SECOND | The number of milliseconds in second |
+| MINUTES_IN_HOUR | The number of minutes in hour |
+| MONTHS_IN_YEAR | The number of months in year |
+| SECONDS_IN_DAY | The number of seconds in day |
+| SECONDS_IN_HOUR | The number of seconds in hour |
+| SECONDS_IN_MINUTE | The number of seconds in minute |
+| YEARS_IN_CENTURY | The number of years in century |
 
 ## Types
 
@@ -1263,12 +1263,12 @@ The list of _TypeScript_ types.
 
 | Name | Description | Value |
 | --- | --- | --- |
-| DateFormat | date format token | <ul><li>`DateFormat.yyyy` = `yyyy`</li><li>`DateFormat.yyyyMM` = `yyyy-MM`</li><li>`DateFormat.yyyyMMdd` = `yyyy-MM-dd`</li></ul> |
-| DateSegment | date object made of year, month and day | `{ year: number; month: number; day: number; }` |
-| DateTimeFormat | datetime format token | <ul><li>`DateTimeFormat.yyyMMddTHHmm` = `yyyy-MM-ddTHH:mm`</li><li>`DateTimeFormat.yyyMMdd'T'HHmmss` = `yyyy-MM-dd'T'HH:mm:ss`</li><li>`DateTimeFormat.yyyMMddTHHmmssSSS` = `yyyy-MM-dd'T'HH:mm:ss.SSS`</li></ul> |
-| DateTimeSegment | datetime object made of year, month, day, hours, minutes, seconds and milliseconds | `{ year: number; month: number; day: number; hours: number; minutes: number; seconds: number; milliseconds: number; }` |
-| Format | combination of `DateFormat`, `DateTimeFormat` or `TimeFormat` |  |
-| Segment | combination of `DateSegment`, `DateTimeSegment` or `TimeSegment` |  |
-| TimeFormat | time format token | <ul><li>`TimeFormat.HHmm` = `HH:mm`</li><li>`TimeFormat.HHmmss` = `HH:mm:ss`</li><li>`TimeFormat.HHmmssSSS` = `HH:mm:ss.SSS`</li></ul> |
-| TimeSegment | time object made of hours, minutes, seconds and milliseconds | `{ hours: number; minutes: number; seconds: number; milliseconds: number; }` |
-| Unit | used in unit calculations | `year` &#124; `month` &#124; `day` &#124; `hour` &#124; `minute` &#124; `second` &#124; `millisecond` |
+| DateFormat | _date_ format token | <ul><li>`DateFormat.yyyy` = `yyyy`</li><li>`DateFormat.yyyyMM` = `yyyy-MM`</li><li>`DateFormat.yyyyMMdd` = `yyyy-MM-dd`</li></ul> |
+| DateSegment | Date object made of year, month and day | `{ year: number; month: number; day: number; }` |
+| DateTimeFormat | _datetime_ format token | <ul><li>`DateTimeFormat.yyyMMddTHHmm` = `yyyy-MM-ddTHH:mm`</li><li>`DateTimeFormat.yyyMMdd'T'HHmmss` = `yyyy-MM-dd'T'HH:mm:ss`</li><li>`DateTimeFormat.yyyMMddTHHmmssSSS` = `yyyy-MM-dd'T'HH:mm:ss.SSS`</li></ul> |
+| DateTimeSegment | Datetime object made of year, month, day, hours, minutes, seconds and milliseconds | `{ year: number; month: number; day: number; hours: number; minutes: number; seconds: number; milliseconds: number; }` |
+| Format | Combination of `DateFormat`, `DateTimeFormat` or `TimeFormat` |  |
+| Segment | Combination of `DateSegment`, `DateTimeSegment` or `TimeSegment` |  |
+| TimeFormat | _time_ format token | <ul><li>`TimeFormat.HHmm` = `HH:mm`</li><li>`TimeFormat.HHmmss` = `HH:mm:ss`</li><li>`TimeFormat.HHmmssSSS` = `HH:mm:ss.SSS`</li></ul> |
+| TimeSegment | Time object made of hours, minutes, seconds and milliseconds | `{ hours: number; minutes: number; seconds: number; milliseconds: number; }` |
+| Unit | Used in unit calculations | `year` &#124; `month` &#124; `day` &#124; `hour` &#124; `minute` &#124; `second` &#124; `millisecond` |
