@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
 import { getData, openedUpdated, snapshotIgnore } from './utils';
 
 import '@refinitiv-ui/elements/combo-box';
@@ -43,9 +43,11 @@ describe('combo-box/Template', () => {
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.data = getData().reverse();
       await elementUpdated(el);
+      await nextFrame(); // Safari required extra frame
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.data = [];
       await elementUpdated(el);
+      await nextFrame(); // Safari required extra frame
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 

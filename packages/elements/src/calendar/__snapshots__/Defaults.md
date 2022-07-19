@@ -4602,7 +4602,7 @@
     tabindex="0"
     textpos="before"
   >
-    апрель 2005 г.
+    April 2005
   </ef-button>
   <ef-button
     aria-label="Next month"
@@ -4625,73 +4625,73 @@
     role="row"
   >
     <div
-      abbr="понедельник"
+      abbr="Montag"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        П
+        M
       </div>
     </div>
     <div
-      abbr="вторник"
+      abbr="Dienstag"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        В
+        D
       </div>
     </div>
     <div
-      abbr="среда"
+      abbr="Mittwoch"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        С
+        M
       </div>
     </div>
     <div
-      abbr="четверг"
+      abbr="Donnerstag"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        Ч
+        D
       </div>
     </div>
     <div
-      abbr="пятница"
+      abbr="Freitag"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        П
+        F
       </div>
     </div>
     <div
-      abbr="суббота"
+      abbr="Samstag"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        С
+        S
       </div>
     </div>
     <div
-      abbr="воскресенье"
+      abbr="Sonntag"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        В
+        S
       </div>
     </div>
   </div>
