@@ -1,7 +1,6 @@
 import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import type { Item, ItemType, ItemData } from '../../item';
-import '../../item/index.js';
 import { getItemId } from './item-id.js';
 import { Renderer } from '../renderer.js';
 
@@ -30,7 +29,7 @@ export class ListRenderer extends Renderer {
       /**
        * Element to render
        */
-      const el = (element as Item || document.createElement('ef-item'));
+      const el = (element as Item || document.createElement('ef-list-item'));
       /**
        * Tooltip value to be used, if any.
        */
@@ -49,7 +48,6 @@ export class ListRenderer extends Renderer {
       el.multiple = !!context && (context as Context).multiple === true;
 
       const itemRole = el.type === 'text' || !el.type ? 'option' : 'presentation';
-      el.tabIndex = -1;
       el.setAttribute('role', itemRole);
       tooltip ? el.setAttribute('title', tooltip) : el.removeAttribute('title');
 

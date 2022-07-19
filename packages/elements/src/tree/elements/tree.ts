@@ -12,6 +12,7 @@ import { TreeRenderer } from '../helpers/renderer.js';
 import { defaultFilter } from '../helpers/filter.js';
 import type { TreeData, TreeDataItem, TreeFilter } from '../helpers/types';
 import { TreeManager, TreeManagerMode } from '../managers/tree-manager.js';
+import './tree-item.js';
 
 const EXPAND_TOGGLE_ATTR = 'expand-toggle';
 
