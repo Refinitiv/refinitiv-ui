@@ -105,7 +105,7 @@ type: nav
     * [Color*](./utils/color)
     * [Data Management](./utils/data-management)
     * [Date/Time](./utils/date-time)
-    * [Navigation Grid*](./utils/navigation-grid)
+    * [Navigation Grid](./utils/navigation-grid)
 
   - Accessibility
     * [Aria*](./aria)
