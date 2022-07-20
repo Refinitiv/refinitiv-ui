@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, keyboardEvent, triggerFocusFor, oneEvent, nextFrame, aTimeout, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, keyboardEvent, nextFrame, isIE } from '@refinitiv-ui/test-helpers';
 import { getData, openedUpdated, makeQueryRequest, onFocusEl } from './utils';
 
 import '@refinitiv-ui/elements/combo-box';
@@ -112,7 +112,7 @@ describe('combo-box/Interaction', () => {
       el.data = getData();
       await elementUpdated(el);
       await makeQueryRequest(el, 'Afghanistan');
-      const afItem = el.listEl.querySelectorAll('ef-item')[1]; // AF, Afghanistan
+      const afItem = el.listEl.querySelectorAll('ef-list-item')[1]; // AF, Afghanistan
       await dispatchCustomEvent(afItem, 'tap');
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Tapping on the list did not select the value');
@@ -130,8 +130,8 @@ describe('combo-box/Interaction', () => {
       el.data = getData();
       await elementUpdated(el);
       await makeQueryRequest(el, 'Al');
-      const axItem = el.listEl.querySelectorAll('ef-item')[1]; // AX, Aland Islands
-      const alItem = el.listEl.querySelectorAll('ef-item')[2]; // AL, Albania
+      const axItem = el.listEl.querySelectorAll('ef-list-item')[1]; // AX, Aland Islands
+      const alItem = el.listEl.querySelectorAll('ef-list-item')[2]; // AL, Albania
       await dispatchCustomEvent(axItem, 'tap');
       await dispatchCustomEvent(alItem, 'tap');
       await openedUpdated(el);
@@ -150,7 +150,7 @@ describe('combo-box/Interaction', () => {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
-      const afItem = el.listEl.querySelectorAll('ef-item')[1]; // AF, Afghanistan
+      const afItem = el.listEl.querySelectorAll('ef-list-item')[1]; // AF, Afghanistan
       dispatchCustomEvent(afItem, 'mousemove');
       await elementUpdated(afItem);
       const event = keyboardEvent('keydown', {
@@ -181,7 +181,7 @@ describe('combo-box/Interaction', () => {
       el.data = getData();
       await elementUpdated(el);
       await onFocusEl(el);
-      const afItem = el.listEl.querySelector('ef-item[highlighted]'); // AF, Afghanistan
+      const afItem = el.listEl.querySelector('ef-list-item[highlighted]'); // AF, Afghanistan
       expect(afItem.value).to.equal('AF', 'The first non header item should be highlighted');
     });
     it('Down key should highlight next item', async function () {
@@ -199,7 +199,7 @@ describe('combo-box/Interaction', () => {
       });
       el.dispatchEvent(event);
       await nextFrame();
-      const axItem = el.listEl.querySelector('ef-item[highlighted]'); // AX, Aland Islands
+      const axItem = el.listEl.querySelector('ef-list-item[highlighted]'); // AX, Aland Islands
       expect(axItem.value).to.equal('AX', 'Wrong item is selected');
     });
     it('Up key should highlight previous item', async function () {
@@ -217,7 +217,7 @@ describe('combo-box/Interaction', () => {
       });
       el.dispatchEvent(event);
       await nextFrame();
-      const axItem = el.listEl.querySelector('ef-item[highlighted]'); // AL, Albania
+      const axItem = el.listEl.querySelector('ef-list-item[highlighted]'); // AL, Albania
       expect(axItem.value).to.equal('AL', 'Wrong item is selected');
     });
   });
