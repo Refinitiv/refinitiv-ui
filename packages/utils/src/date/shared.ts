@@ -113,6 +113,12 @@ const isDateTime = (value: string | Segment): boolean => {
     && value.minutes !== undefined;
 };
 
+/**
+ * Parse value into segment
+ * @param value A valid Date or Segment
+ * @param isUTC Local or UTC
+ * @returns segment Date segment
+ */
 const toSegment = (value: string | Date, isUTC = false): Segment => {
   if (value instanceof Date) {
     return toDateTimeSegment(value, isUTC);

@@ -326,6 +326,7 @@ document.querySelectorAll('ef-tab').forEach((tab) => {
 
 ## Handling active tab changed
 When users changed the active tab, Tab Bar will fire `value-changed` event with value of the new active tab in `detail.value`. If there is no assigned `value` to the tab, it will use `label` as a `value`.
+
 ## Accessibility
 ::a11y-intro::
 
