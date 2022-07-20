@@ -1,4 +1,5 @@
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 // import element and theme
 import '@refinitiv-ui/elements/item';
 import '@refinitiv-ui/elemental-theme/light/ef-item';
@@ -137,7 +138,7 @@ describe('item/Item', () => {
       await elementUpdated(el);
       await nextFrame();
 
-      expect(el.isTruncated, 'Should truncate text').to.equal(true);
+      expect(isElementOverflown(el.labelEl), 'Should truncate text').to.equal(true);
     });
 
     it('Should not truncate text', async () => {
@@ -146,7 +147,7 @@ describe('item/Item', () => {
       await elementUpdated(el);
       await nextFrame();
 
-      expect(el.isTruncated, 'Should not truncate text').to.equal(false);
+      expect(isElementOverflown(el.labelEl), 'Should not truncate text').to.equal(false);
     });
   });
 

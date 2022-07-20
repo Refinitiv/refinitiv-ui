@@ -12,6 +12,8 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
 import '../icon/index.js';
 import '../checkbox/index.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 
 import type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData } from './helpers/types';
 export type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData };
@@ -188,6 +190,16 @@ export class Item extends ControlElement {
   }
 
   /**
+   * Called after the component is first rendered
+   * @param changedProperties Properties which have changed
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    registerOverflowTooltip(this, () => this.textContent, () => this.labelEl ? isElementOverflown(this.labelEl) : false);
+  }
+
+  /**
    * Invoked before update() to compute values needed during the update.
    * @param changedProperties changed properties
    * @returns {void}
@@ -249,15 +261,6 @@ export class Item extends ControlElement {
    */
   public get highlightable (): boolean {
     return !this.disabled && this.type !== 'header' && this.type !== 'divider';
-  }
-
-  /**
-   * Getter returning if the label is truncated
-   * @prop {boolean} isTruncated
-   * @returns whether element is truncated or not
-   */
-  public get isTruncated (): boolean {
-    return !!(this.labelEl && (this.labelEl.offsetWidth < this.labelEl.scrollWidth));
   }
 
   /**
