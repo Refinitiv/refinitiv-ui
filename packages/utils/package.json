@@ -44,6 +44,7 @@
     "lint:fix": "eslint . --fix",
     "build": "tsc --sourceMap --declarationMap",
     "build:prod": "tsc",
+    "build:watch": "npm run build -- --watch --preserveWatchOutput",
     "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },

@@ -1,83 +1,52 @@
 import { TimeoutTaskRunner } from '../async.js';
 import { CacheMap } from './cache-map.js';
+import { CacheLocalStorage } from './cache-localStorage';
+import { CacheIndexedDBCache } from './cache-indexeddb';
+
+
+// caches
 
 /**
- * Log of known top-level cache keys
- */
-const keys = new Set<string>();
-
-/**
- * Saves cache database in local storage
- * @param key Cache ley
- * @param cache Cache database
- * @returns {void}
- */
-const save = (key: string, cache: CacheMap): void => {
-  try {
-    localStorage.setItem(key, JSON.stringify([...cache]));
-  }
-  catch (e) {
-    const error = e as null | string | Error;
-    const msg = typeof error === 'string' ? error : error ? error.message : 'unknown error';
-    throw new Error(`Unable to store cache '${key}'.\n${msg}`);
-  }
-};
-
-/**
- * Restores cache database from local storage
- * @param key Cache key
- * @returns Cache database
- */
-const restore = (key: string): CacheMap => {
-  let cache: CacheMap;
-  try {
-    const data = localStorage.getItem(key) || '[]';
-    cache = new Map(JSON.parse(data) as []);
-  }
-  catch (e) {
-    cache = new Map();
-  }
-  return cache;
-};
-
-/**
- * Stores data in local storage for use across multiple sessions.
+ * Stores data in a local cache that can be specified to be stored in localstorage or indexedDB.
  */
 
 export class LocalCache {
 
-  constructor (key: string) {
-    if (!key || typeof key !== 'string') {
-      throw new Error('Invalid cache key. Key must be a string and have a length.');
-    }
-    if (keys.has(key)) {
-      throw new RangeError(`Cache key '${key}' has already been used.`);
-    }
-    keys.add(key);
-    this.key = `ef-local-cache-${key}`;
-    this.cache = restore(this.key);
+  constructor () {
+    // this.storage = storage;
+    // void this.restore();
   }
 
+  // use (storage: CacheStorage): void {
+  // this.storage = storage1;
+  // this.cache = caches.get(storage1)
+  // if(!caches.get(storage1)) caches.set(storage1)
+  // }
+
   /**
-   * Cache key used for local storage instance
-   */
-  private key!: string;
+  * Storage to store data
+  */
+  public storage!: CacheIndexedDBCache;
 
   /**
    * Internal cache object
    */
-  private cache: CacheMap;
+  private cache: CacheMap | null | undefined;
+
+  async use (storage: CacheIndexedDBCache) {
+    this.storage = storage;
+    return await this.restore();
+  }
 
   /**
-   * Task runner used to schedule save
-   */
-  private taskRunner = new TimeoutTaskRunner(1000);
-
-  /**
-   * Reusable task for saving database to local storage
+   * Restore all data from storage to cache databases
    * @returns {void}
    */
-  private saveTask = () => save(this.key, this.cache);
+  async restore (): Promise<void> {
+    this.cache = await this.storage.restoreItems(this.storage.storeName);
+    // eslint-disable-next-line no-console
+    console.log('after async restore', this.cache.get('https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/tick.svg'));
+  }
 
   /**
    * Caches a value against a key to use until expired
@@ -88,12 +57,13 @@ export class LocalCache {
    */
   set (key: string, value: string, expires = 432000): void {
     const modified = Date.now();
-    this.cache.set(key, {
+    const data = {
       value,
       modified,
       expires: modified + expires * 1000
-    });
-    this.taskRunner.schedule(this.saveTask);
+    };
+    this.cache?.set(key, data);
+    this.storage.set(this.storage.storeName, key, data);
   }
 
   /**
@@ -102,7 +72,7 @@ export class LocalCache {
    * @returns String data or `null` if nothing is cached
    */
   get (key: string): string | null {
-    const item = this.cache.get(key);
+    const item = this.cache?.get(key);
     if (item && item.expires > Date.now()) {
       return item.value;
     }

@@ -1,7 +1,11 @@
-import { LocalCache } from '../cache.js';
+import { CacheLocalStorage, CacheIndexedDBCache, LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
-const cache = new LocalCache('svg-loader');
+const dbName = 'test-icon-cache';
+// const cache = new CacheLocalStorage('svg-loader');
+const indexeddb = new CacheIndexedDBCache({ dbName: dbName, version: 1, storeName: dbName as never });
+const cache = new LocalCache();
+
 
 /**
  * Checks a string to see if it's a valid URL
@@ -89,6 +93,8 @@ const extractSafeSVG = (response: XMLHttpRequest | undefined): SVGElement | null
  * Uses singleton pattern
  */
 export class SVGLoader extends CDNLoader {
+
+  private firsttime = true;
   /**
    * Used to serialise SVG to string in order to cache
    */
@@ -117,10 +123,31 @@ export class SVGLoader extends CDNLoader {
       return;
     }
     const src = await this.getSrc(name);
+
+    // if (this.firsttime) {
+    //   this.firsttime = false;
+    //   await cache.restore();
+    // }
+    if (!cache.storage) {
+      // eslint-disable-next-line no-debugger
+      debugger;
+      await cache.use(indexeddb);
+      // eslint-disable-next-line no-console
+      console.log('cache', cache);
+    }
+
     const cacheItem = cache.get(src);
     if (cacheItem === null) {
       const response = await this.load(src);
       const svgNode = extractSafeSVG(response)?.cloneNode(true);
+      if (src === 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/tick.svg') {
+        // eslint-disable-next-line no-console
+        console.log('response', response);
+      }
+      if (src === 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/frame.svg') {
+        // eslint-disable-next-line no-console
+        console.log('response', response);
+      }
       const svgBody = svgNode ? this.xmlSerializer.serializeToString(svgNode) : undefined;
       svgBody && cache.set(src, svgBody);
       return svgBody;
