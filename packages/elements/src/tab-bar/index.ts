@@ -84,7 +84,7 @@ export class TabBar extends BasicElement {
    * Internal value of tab bar.
    * Controlled by public setter and getter
    */
-  private oldValue = '';
+  private _value = '';
 
   /**
    * Value of tab-bar, derived from value of an active tab.
@@ -94,15 +94,15 @@ export class TabBar extends BasicElement {
   @property({ type: String, attribute: false })
   public set value (value: string) {
     value = typeof value === 'string' ? value : String(value);
-    const oldValue = this.oldValue;
+    const oldValue = this._value;
     if (value !== oldValue && this.isValidValue(value)) {
-      this.oldValue = value;
+      this._value = value;
       this.activateTab(value);
       this.requestUpdate('value', oldValue);
     }
   }
   public get value (): string {
-    return this.oldValue;
+    return this._value;
   }
 
   @query('[part="content"')
