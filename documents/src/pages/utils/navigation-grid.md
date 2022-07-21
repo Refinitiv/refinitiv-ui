@@ -33,6 +33,185 @@ cell = right(grid, cell); // => [2, 0], third column and first row
 cell = down(grid, cell); // => [2, 1], third column and second row
 ```
 
+A common use case for the utility is to provide navigation over the HTML table.
+
+::
+```css
+.table {
+  display: table;
+  border-spacing: 1px;
+}
+
+.row {
+  display: table-row;
+}
+
+.cell {
+  font-size: 16px;
+  display: table-cell;
+  width: 3em;
+  height: 3em;
+  text-align: center;
+  vertical-align: middle;
+  outline: none;
+  background-color: #A01C2B;
+  cursor: pointer;
+}
+
+.cell[tabindex] {
+  background-color: #227542;
+}
+
+.cell:focus {
+  background-color: #334BFF;
+}
+```
+```html
+<div id="grid" class="table">
+  <div class="row">
+    <div class="cell" tabindex="0">1</div>
+    <div class="cell">0</div>
+    <div class="cell" tabindex="0">1</div>
+    <div class="cell">0</div>
+  </div>
+  <div class="row">
+    <div class="cell" tabindex="0">1</div>
+    <div class="cell" tabindex="0">1</div>
+    <div class="cell" tabindex="0">1</div>
+    <div class="cell" tabindex="0">1</div>
+  </div>
+  <div class="row">
+    <div class="cell" tabindex="0">1</div>
+    <div class="cell" tabindex="0">1</div>
+    <div class="cell">0</div>
+    <div class="cell" tabindex="0">1</div>
+  </div>
+  <div class="row">
+    <div class="cell">0</div>
+    <div class="cell" tabindex="0">1</div>
+    <div class="cell" tabindex="0">1</div>
+    <div class="cell" tabindex="0">1</div>
+  </div>
+</div>
+```
+```javascript
+import { halo } from '/theme-loader.js';
+import { first, last, left, right, up, down } from '@refinitiv-ui/utils/navigation.js';
+halo();
+
+const gridElement = document.getElementById('grid');
+
+/**
+ * Get a list of HTML elements in a grid form
+ * @return {[HTMLElement[]]} a collection of HTML elements grouped in rows
+ */
+const getGridHTML = () => {
+  const grid = [];
+  for (let i = 0; i < gridElement.children.length; i += 1) {
+    const row = [];
+    const rowElement = gridElement.children[i];
+    for (let e = 0; e < rowElement.children.length; e += 1) {
+      row.push(rowElement.children[e]);
+    }
+    grid.push(row);
+  }
+  return grid;
+};
+
+/**
+ * Get grid matrix
+ * @return {(number)[][]} Grid matrix
+ */
+const getGridMatrix = () => getGridHTML().map(row => row.map(cell => cell.tabIndex >= 0 ? 1 : 0));
+
+/**
+ * Get active cell index
+ * @return {null|[number, number]} Cell index
+ */
+const getActiveCell = () => {
+  const gridHTML = getGridHTML();
+
+  for (let rowIdx = 0; rowIdx < gridHTML.length; rowIdx += 1) {
+    const columnIdx = gridHTML[rowIdx].findIndex(cellElement => document.activeElement === cellElement);
+    if (columnIdx !== -1) {
+      return [columnIdx, rowIdx];
+    }
+  }
+  return null;
+};
+
+/**
+ * Focus on active cell
+ * @param {null|[number, number]} index Cell index
+ */
+const setActiveCell = (index) => {
+  if (!index) {
+    return;
+  }
+  const row = getGridHTML()[index[1]];
+  if (!row) {
+    return;
+  }
+
+  const cellElement = row.find((cellElement, columnIdx) => index[0] === columnIdx);
+  cellElement && cellElement.focus();
+};
+
+/**
+ * Navigate to the cell based on provided key
+ * @param {'ArrowUp'|'ArrowDown'|'ArrowLeft'|'ArrowRight'|'Home'|'End'} key The direction key
+ */
+const onNavigate = (key) => {
+  let activeCell = getActiveCell();
+  const matrix = getGridMatrix();
+
+  if (!activeCell) {
+    setActiveCell(first(matrix));
+    return;
+  }
+
+  switch (key) {
+    case 'ArrowUp':
+      activeCell = up(matrix, activeCell);
+      break;
+    case 'ArrowDown':
+      activeCell = down(matrix, activeCell);
+      break;
+    case 'ArrowLeft':
+      activeCell = left(matrix, activeCell);
+      break;
+    case 'ArrowRight':
+      activeCell = right(matrix, activeCell);
+      break;
+    case 'Home':
+      activeCell = first(matrix);
+      break;
+    case 'End':
+      activeCell = last(matrix);
+      break;
+    // no default
+  }
+
+  setActiveCell(activeCell);
+};
+
+gridElement.addEventListener('keydown', event => {
+  switch (event.key) {
+    case 'ArrowUp':
+    case 'ArrowDown':
+    case 'ArrowLeft':
+    case 'ArrowRight':
+    case 'Home':
+    case 'End':
+      onNavigate(event.key);
+      event.preventDefault();
+      break;
+    // no default
+  }
+});
+```
+::
+
 ## Common Helpers
 
 ### down
