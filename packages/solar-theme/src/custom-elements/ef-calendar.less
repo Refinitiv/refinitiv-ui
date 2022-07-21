@@ -44,7 +44,7 @@
       box-shadow: 0 1px 0 0 @separator-color;
     }
 
-    &:not(:first-of-type) [part~=cell] [part~=selection] {
+    &:not(:first-of-type) [part~=cell] [part~=cell-content] {
       top: 1px;
     }
   }
@@ -60,27 +60,27 @@
 
     &[today] {
       color: @calendar-cell-today-text-color;
-      [part~="selection"] {
+      [part~="cell-content"] {
         background: @calendar-cell-today-background-color;
       }
     }
 
-    &:not([selected]):not([range]):not([disabled])[idle] [part~="selection"] {
+    &:not([selected]):not([range]):not([disabled])[idle] [part~="cell-content"] {
       opacity: 0.6;
     }
 
-    &:not([selected]):not([range]) [part~=selection] {
+    &:not([selected]):not([range]) [part~=cell-content] {
       &:focus, &:hover {
         background: @calendar-cell-focused-background-color;
         color: @calendar-cell-hover-text-color;
       }
     }
 
-    &:not([selected]):not([range]) [part~=selection]:focus {
+    &:not([selected]):not([range]) [part~=cell-content]:focus {
       outline: @button-border-width @button-focused-border-style @button-focused-border-color;
     }
 
-    &[range] [part~=selection] {
+    &[range] [part~=cell-content] {
       background: fade(@scheme-color-primary, 20%);
     }
 
@@ -90,12 +90,12 @@
 
     &[selected] {
       color: @calendar-selected-text-color;
-      [part~=selection] {
+      [part~=cell-content] {
         background: @scheme-color-primary;
       }
     }
 
-    &:not(:first-of-type) [part~=selection] {
+    &:not(:first-of-type) [part~=cell-content] {
       left: 1px;
     }
   }
@@ -107,7 +107,7 @@
     font-weight: bold;
   }
 
-  [part~=selection] {
+  [part~=cell-content] {
     outline: none;
     top: 0;
     bottom: 0;

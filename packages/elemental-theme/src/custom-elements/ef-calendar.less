@@ -71,43 +71,43 @@
       opacity: 0.6;
     }
 
-    &:not([selected]):not([range]) [part~=selection] {
+    &:not([selected]):not([range]) [part~=cell-content] {
       &:focus, &:hover {
         background: fade(@scheme-color-tertiary, 10%);
       }
     }
 
-    &[range] [part~=selection] {
+    &[range] [part~=cell-content] {
       background: @highlight-color;
       border-radius: 0;
       right: 0;
       left: 0;
     }
 
-    &[range][last-date] [part~=selection] {
+    &[range][last-date] [part~=cell-content] {
       background: linear-gradient(to right, @highlight-color 70%, @fade-out-color 100%);
     }
 
-    &[range][first-date] [part~=selection] {
+    &[range][first-date] [part~=cell-content] {
       background: linear-gradient(to left, @highlight-color 70%, @fade-out-color 100%);
     }
 
     &[selected] {
       color: @scheme-color-complementary;
-      [part~=selection] {
+      [part~=cell-content] {
         background: fade(@scheme-color-complementary, 15%);
         border: 2px solid fade(@scheme-color-complementary, 25%);
       }
     }
 
     &[range-from], &[range-to] {
-      [part~=selection] {
+      [part~=cell-content] {
         background: fade(@scheme-color-complementary, 5%);
       }
     }
 
     &[range-from], &[range-to] {
-      [part~=selection]::after {
+      [part~=cell-content]::after {
         content: '';
         position: absolute;
         right: 0;
@@ -119,7 +119,7 @@
     }
 
     &[range-from] {
-      [part~=selection] {
+      [part~=cell-content] {
         &::after {
           right: -3px;
           border-top-left-radius: @border-radius;
@@ -129,7 +129,7 @@
     }
 
     &[range-to] {
-      [part~=selection]::after {
+      [part~=cell-content]::after {
         left: -3px;
         border-top-right-radius: @border-radius;
         border-bottom-right-radius: @border-radius;
@@ -142,7 +142,7 @@
     color: @scheme-color-primary;
   }
 
-  [part~=selection] {
+  [part~=cell-content] {
     outline: none;
     top: 1px;
     bottom: 1px;
