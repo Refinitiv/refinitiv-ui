@@ -44,30 +44,27 @@
     aria-multiselectable="false"
     id="internal-list"
     role="listbox"
-    tabindex="-1"
+    tabindex=""
   >
-    <ef-item
+    <ef-list-item
       aria-selected="false"
       role="presentation"
-      tabindex="-1"
       type="header"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       highlighted=""
       id="AX"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       id="AL"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
+    </ef-list-item>
   </ef-list>
 </ef-overlay>
 
@@ -113,23 +110,21 @@
     aria-multiselectable="false"
     id="internal-list"
     role="listbox"
-    tabindex="-1"
+    tabindex=""
   >
-    <ef-item
+    <ef-list-item
       aria-selected="false"
       role="presentation"
-      tabindex="-1"
       type="header"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       highlighted=""
       id="AX"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
+    </ef-list-item>
   </ef-list>
 </ef-overlay>
 

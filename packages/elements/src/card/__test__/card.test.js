@@ -110,6 +110,7 @@ describe('card/Card', () => {
 
       setTimeout(() => menuButtonPart.dispatchEvent(new Event('tap')));
       await oneEvent(menuButtonPart, 'tap');
+      await elementUpdated(el); // Safari required
       await expect(menuButtonPart.getAttribute('aria-expanded')).to.equal('true');
     });
   });

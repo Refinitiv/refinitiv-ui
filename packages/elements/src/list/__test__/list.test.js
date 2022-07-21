@@ -1,8 +1,10 @@
-import { fixture, expect, elementUpdated, keyboardEvent, nextFrame, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, keyboardEvent, nextFrame, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/list';
 import '@refinitiv-ui/elemental-theme/light/ef-list';
+
+import { getItemId } from '../../../lib/list/helpers/item-id.js';
 
 import { CollectionComposer } from '@refinitiv-ui/utils';
 
@@ -41,7 +43,7 @@ const data = [{
 
 
 const iterateKeyboardEvent = async (el, scope, keys = [], highlighted = []) => {
-  const children = scope.querySelectorAll('ef-item'); // 0, 1, 2, 3, 4 can be selected
+  const children = scope.querySelectorAll('ef-list-item'); // 0, 1, 2, 3, 4 can be selected
   for (let i = 0; i < keys.length; i += 1) {
     const key = keys[i];
     el.dispatchEvent(keyboardEvent('keydown', { key: key }));
@@ -132,6 +134,13 @@ describe('list/List', () => {
       await iterateKeyboardEvent(el, el, ['Down', 'Down', 'ArrowDown'], [0, 1, 2]);
     });
 
+    it('Keypress Down should loop back to the first item', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = data;
+      await elementUpdated(el);
+      await iterateKeyboardEvent(el, el, ['Down', 'Down', 'Down', 'Down', 'Down', 'Down'], [0, 1, 2, 3, 4, 0]);
+    });
+
     it('Keypress Home event', async () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
@@ -183,6 +192,21 @@ describe('list/List', () => {
     });
   });
 
+  describe('Item id', () => {
+    it('Should combine prefix and value', () => {
+      const prefix = 'prefix';
+      const value = 'value';
+      const id = getItemId(prefix, value);
+      expect(id).to.equal(`${prefix}-${value}`);
+    })
+    it('Should return empty string when either parameter is invalid', () => {
+      const prefix = 'prefix';
+      const value = '';
+      const id = getItemId(prefix, value);
+      expect(id).to.equal('');
+    })
+  })
+
   it('Supports setting value via property', async () => {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
@@ -191,12 +215,28 @@ describe('list/List', () => {
     expect(el.queryItemsByPropertyValue('selected', true)[0]).to.equal(data[0]);
   });
 
+  it('Should always have first values array as value', async () => {
+    const el = await fixture('<ef-list></ef-list>');
+    el.data = data;
+    el.values = ['hi', 'bye'];
+    await elementUpdated(el);
+    expect(el.value).to.equal(data[0].value);
+  });
+
   it('Supports setting values via property', async () => {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     el.values = ['hi'];
     await elementUpdated(el);
     expect(el.queryItemsByPropertyValue('selected', true)[0]).to.equal(data[0]);
+  });
+
+  it('Should reset values to empty array when values set are not array', async () => {
+    const el = await fixture('<ef-list></ef-list>');
+    el.data = data;
+    el.values = 'hi';
+    await elementUpdated(el);
+    expect(JSON.stringify(el.values)).to.equal(JSON.stringify([]));
   });
 
   it('Supports setting values via property (multiple)', async () => {
@@ -218,9 +258,9 @@ describe('list/List', () => {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     await elementUpdated(el);
-    el.querySelector('ef-item').click();
+    el.querySelector('ef-list-item').click();
     await elementUpdated(el);
-    el.querySelector('ef-item').appendChild(document.createElement('div')).click();
+    el.querySelector('ef-list-item').appendChild(document.createElement('div')).click();
   });
 
   it('Should update the component when composer data changes', async () => {
@@ -248,11 +288,28 @@ describe('list/List', () => {
     el.scrollToItem(data[0]);
   });
 
+  it('Supports selecting an item', async () => {
+    const el = await fixture('<ef-list></ef-list>');
+    el.data = data;
+    await elementUpdated(el);
+    el.selectItem(data[2]);
+    expect(el.value).to.be.equal(data[2].value);
+  });
+
+  it('Supports selecting items in multiple mode', async () => {
+    const el = await fixture('<ef-list multiple></ef-list>');
+    el.data = data;
+    await elementUpdated(el);
+    el.selectItem(data[2]);
+    el.selectItem(data[3]);
+    expect(JSON.stringify(el.values)).to.be.equal(JSON.stringify([data[2].value, data[3].value, data[4].value]));
+  });
+
   it('Highlights on mousemove', async () => {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     await elementUpdated(el);
-    el.querySelector('ef-item').dispatchEvent(new Event('mousemove', { bubbles: true }));
+    el.querySelector('ef-list-item').dispatchEvent(new Event('mousemove', { bubbles: true }));
   });
 
   it('Supports programmatic navigation', async () => {
@@ -279,5 +336,18 @@ describe('list/List', () => {
     el.data.setItemPropertyValue(data[1], 'hidden', false);
     await elementUpdated(el);
   });
+
+  it('Should have focus state remain at host when tapping in an item', async () => {
+    const el = await fixture('<ef-list></ef-list>');
+    el.data = data;
+    await elementUpdated(el);
+
+    const firstElement = el.firstElementChild;
+    await triggerFocusFor(el);
+
+    firstElement.click();
+
+    expect(document.activeElement).to.be.equal(el);
+  })
 });
 

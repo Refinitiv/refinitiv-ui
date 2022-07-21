@@ -206,6 +206,7 @@ describe('checkbox/Checkbox', () => {
         const onChecked = () => el.dispatchEvent(new Event('tap'));
         setTimeout(onChecked);
         const e = await oneEvent(el, 'checked-changed');
+        await elementUpdated(el);
         expect(e.target.checked).to.equal(true);
         expect(e.target.indeterminate).to.equal(false);
       });
