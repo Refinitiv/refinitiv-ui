@@ -96,7 +96,7 @@ A common use case for the utility is to provide navigation over the HTML table.
 ```
 ```javascript
 import { halo } from '/theme-loader.js';
-import { first, last, left, right, up, down } from '@refinitiv-ui/utils/navigation.js';
+import { first, last, left, right, up, down } from 'https://cdn.skypack.dev/@refinitiv-ui/utils/navigation.js?min';
 halo();
 
 const gridElement = document.getElementById('grid');
