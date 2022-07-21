@@ -80,12 +80,6 @@
               <ef-item value="th">TH</ef-item>
               <ef-item value="zh-cn">ZH-CN</ef-item>
             </ef-select>
-            <ef-select id="format" placeholder="Date format">
-              <ef-item value="">Default Format</ef-item>
-              <ef-item>do MMMM yyyy</ef-item>
-              <ef-item>d MMMM yyyy</ef-item>
-              <ef-item value="'Year:' yyyy; 'Month:' MMMM; 'Date:' d">Year: yyyy; Month: MMMM; Date: d</ef-item>
-            </ef-select>
             <ef-text-field id="placeholder" placeholder="Set placeholder"></ef-text-field>
           </p>
           <p>
@@ -128,7 +122,6 @@
             showSeconds: dateTimePicker.showSeconds,
             lang: dateTimePicker.lang,
             placeholder: dateTimePicker.placeholder,
-            format: dateTimePicker.format,
             monthsDesc: dateTimePicker.monthsDesc,
             yearsDesc: dateTimePicker.yearsDesc,
             weekdaysOnly: dateTimePicker.weekdaysOnly,
@@ -237,10 +230,6 @@
         document.getElementById('lang').addEventListener('value-changed', ({ detail: { value } }) => {
           // resetValue();
           dateTimePicker.lang = value ? value : '';
-        });
-        document.getElementById('format').addEventListener('value-changed', ({ detail: { value } }) => {
-          resetValue();
-          dateTimePicker.format = value ? value : '';
         });
         document.getElementById('placeholder').addEventListener('value-changed', ({ detail: { value } }) => {
           resetValue();
