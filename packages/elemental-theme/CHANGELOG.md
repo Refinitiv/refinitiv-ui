@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.0.2...@refinitiv-ui/elemental-theme@6.0.3) (2022-07-20)
+
+
+### Bug Fixes
+
+* **tree:** extend `list` style without importing `ef-list-item` ([#401](https://github.com/Refinitiv/refinitiv-ui/issues/401)) ([65cc6d3](https://github.com/Refinitiv/refinitiv-ui/commit/65cc6d3016869b346f342b43fe4a7ffee7c4b761))
+
+
+
+
+
 ## [6.0.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.0.1...@refinitiv-ui/elemental-theme@6.0.2) (2022-07-19)
 
 
