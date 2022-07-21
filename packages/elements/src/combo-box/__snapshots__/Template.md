@@ -154,37 +154,33 @@
     aria-multiselectable="false"
     id="internal-list"
     role="listbox"
-    tabindex="-1"
+    tabindex=""
   >
-    <ef-item
+    <ef-list-item
       aria-selected="false"
       role="presentation"
-      tabindex="-1"
       type="header"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       highlighted=""
       id="AF"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       id="AX"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       id="AL"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
+    </ef-list-item>
   </ef-list>
 </ef-overlay>
 
@@ -225,37 +221,33 @@
     aria-multiselectable="false"
     id="internal-list"
     role="listbox"
-    tabindex="-1"
+    tabindex=""
   >
-    <ef-item
+    <ef-list-item
       aria-selected="false"
       role="presentation"
-      tabindex="-1"
       type="header"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       highlighted=""
       id="AF"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       id="AX"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       id="AL"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
+    </ef-list-item>
   </ef-list>
 </ef-overlay>
 
@@ -303,37 +295,33 @@
     aria-multiselectable="false"
     id="internal-list"
     role="listbox"
-    tabindex="-1"
+    tabindex=""
   >
-    <ef-item
+    <ef-list-item
       aria-selected="false"
       role="presentation"
-      tabindex="-1"
       type="header"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       highlighted=""
       id="AF"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       id="AX"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       id="AL"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
+    </ef-list-item>
   </ef-list>
 </ef-overlay>
 
@@ -379,37 +367,33 @@
     aria-multiselectable="false"
     id="internal-list"
     role="listbox"
-    tabindex="-1"
+    tabindex=""
   >
-    <ef-item
+    <ef-list-item
       aria-selected="false"
       highlighted=""
       id="AL"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       id="AX"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       id="AF"
       role="option"
-      tabindex="-1"
     >
-    </ef-item>
-    <ef-item
+    </ef-list-item>
+    <ef-list-item
       aria-selected="false"
       role="presentation"
-      tabindex="-1"
       type="header"
     >
-    </ef-item>
+    </ef-list-item>
   </ef-list>
 </ef-overlay>
 
@@ -451,14 +435,13 @@
   tabindex="-1"
   with-shadow=""
 >
-  <ef-item
+  <ef-list-item
     aria-disabled="true"
     aria-selected="false"
     disabled=""
-    tabindex="-1"
   >
     No results found.
-  </ef-item>
+  </ef-list-item>
 </ef-overlay>
 
 ```
