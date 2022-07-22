@@ -1,5 +1,6 @@
+import { CacheStorage } from './CacheStorage.js';
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
-import { CacheItem } from './cache-item';
+import { CacheItem, DBValue, DBValueMap } from './cache-item';
 
 interface DBInfo {
   dbName: string;
@@ -7,42 +8,36 @@ interface DBInfo {
   storeName: never;
 }
 
-type IconDBValueMap = Map<string, IconDBValue>;
-interface IconDBValue {
-  value: string;
-  key: string;
-  expires: number;
-  modified: number;
-}
 interface IconDB extends DBSchema {
   [key: string]: {
     key: string;
-    value: IconDBValue;
+    value: DBValue;
   }
 }
 
 
 /**
- * a
+ * Stores data in indexedDB for use across multiple sessions.
  */
-export class CacheIndexedDBStorage {
+export class CacheIndexedDBStorage implements CacheStorage {
+
   /**
-   * a
+   * A connection to a indexedDB database, use for open transaction or idb api
    */
   private db: IDBPDatabase<IconDB> | undefined;
 
   /**
-   * a
+   * Database name
    */
   public dbName: string;
 
   /**
-   * a
+   * Database Version.
    */
   private version: number;
 
   /**
-   * a
+   * Store name
    */
   public storeName: never;
 
@@ -53,52 +48,67 @@ export class CacheIndexedDBStorage {
     this.storeName = storeName;
   }
 
+  /**
+   * Open connection to indexedDB.
+   * @returns {void}
+   */
   private async open (): Promise<void> {
     this.db = await openDB<IconDB>(this.dbName, this.version, {
-      upgrade: (db) => {
+      upgrade: (db) => { // Call when no database or found new version
         db.createObjectStore(this.storeName as unknown as never);
       }
     });
   }
 
   /**
-   * R
+   * Returns all value in this storage
    * @param store Store name
    * @returns {void}
    */
-  async restoreItems (store: string): Promise<IconDBValueMap> {
+  async restoreItems (): Promise<DBValueMap> {
     await this.open();
-    const items = await this.db?.getAll(store as unknown as never) || [];
-    const cacheItems = new Map();
+    const items = await this.db?.getAll(this.storeName) || [];
+    const cacheItems = new Map<string, DBValue>();
     for (const item of items) {
       cacheItems.set(item.key, item);
     }
-    console.log(cacheItems);
-
     return cacheItems;
   }
 
   /**
-   * C
-   * @param store a
+   * Set a value against a key to this storage
    * @param key a
    * @param value a
    * @returns {void}
    */
-  set (store: string, key: string, value: CacheItem): void {
+  setItem (key: string, value: CacheItem): void {
     const item = { ...value, key };
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    void this.db?.put(store as unknown as never, item, key);
+    void this.db?.put(this.storeName, item, key);
   }
 
   /**
-   * R
-   * @param store a
-   * @param key a
-   * @returns S
+   * Returns the value in this storage that matched by the key.
+   * @param key Row key
+   * @returns {DBValue | null} value in the row
    */
-  async get (store: string, key: string): Promise<IconDBValue | null> {
-    return await this.db?.get(store as unknown as never, key) || null;
+  async getItem (key: string): Promise<DBValue | null> {
+    return await this.db?.get(this.storeName, key) || null;
   }
 
+  /**
+   * Remove a value against a key to this storage
+   * @param key Row key
+   * @returns {void}
+   */
+  removeItem (key: string): void {
+    void this.db?.delete(this.storeName, key);
+  }
+
+  /**
+   * Clear all values in this storage
+   * @returns {void}
+   */
+  clear (): void {
+    void this.db?.clear(this.storeName);
+  }
 }

@@ -6,3 +6,15 @@ export interface CacheItem {
   expires: number;
   modified: number;
 }
+
+/**
+ * Value in each row
+ */
+export interface DBValue extends CacheItem {
+  key: string
+}
+
+/**
+ * All value in store into Map
+ */
+export type DBValueMap = Map<string, DBValue>;

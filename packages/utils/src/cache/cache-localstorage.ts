@@ -1,5 +1,6 @@
 import { TimeoutTaskRunner } from '../async.js';
 import { CacheMap } from './cache-map.js';
+import { CacheStorage } from './CacheStorage';
 
 /**
  * Log of known top-level cache keys
@@ -44,7 +45,7 @@ const restore = (key: string): CacheMap => {
  * Stores data in local storage for use across multiple sessions.
  */
 
-export class CacheLocalStorage {
+export class CacheLocalStorage implements CacheStorage {
 
   constructor (key: string) {
     if (!key || typeof key !== 'string') {
@@ -56,6 +57,11 @@ export class CacheLocalStorage {
     keys.add(key);
     this.key = `ef-local-cache-${key}`;
     this.cache = restore(this.key);
+  }
+
+  restoreItems (): CacheMap {
+    // TODO:
+    return new Map() as CacheMap;
   }
 
   /**
@@ -86,7 +92,7 @@ export class CacheLocalStorage {
    * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
    * @returns {void}
    */
-  set (key: string, value: string, expires = 432000): void {
+  setItem (key: string, value: string, expires = 432000): void {
     const modified = Date.now();
     this.cache.set(key, {
       value,
@@ -101,12 +107,20 @@ export class CacheLocalStorage {
    * @param key Cache key
    * @returns String data or `null` if nothing is cached
    */
-  get (key: string): string | null {
+  getItem (key: string): string | null {
     const item = this.cache.get(key);
     if (item && item.expires > Date.now()) {
       return item.value;
     }
     return null;
+  }
+
+  removeItem (key: string): void {
+    // TODO:
+  }
+
+  clear (): void {
+    // TODO:
   }
 
 }

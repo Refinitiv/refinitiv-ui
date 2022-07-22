@@ -1,19 +1,14 @@
-import { TimeoutTaskRunner } from '../async.js';
 import { CacheMap } from './cache-map.js';
-import { CacheLocalStorage } from './cache-localStorage';
+import { CacheStorage } from './CacheStorage.js';
 import { CacheIndexedDBStorage } from './cache-indexeddb';
-
-// caches
+import { CacheLocalStorage } from './cache-localstorage.js';
 
 /**
  * Stores data in a local cache that can be specified to be stored in localstorage or indexedDB.
  */
-
-const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
-
 export class LocalCache {
 
-  constructor (storage?: CacheIndexedDBStorage) {
+  constructor (storage?: CacheStorage) {
     if (storage) {
       this.use(storage);
     }
@@ -26,17 +21,21 @@ export class LocalCache {
   /**
   * Storage to store data
   */
-  public storage!: CacheIndexedDBStorage;
+  public storage!: CacheStorage;
 
   /**
    * Internal cache object
    */
   private cache: CacheMap | null | undefined;
 
-  use (storage: CacheIndexedDBStorage) {
+  protected use (storage: CacheStorage) {
     this.storage = storage;
-
-    // await delay(3000);
+    if (this.storage instanceof CacheLocalStorage) {
+      this.storage = storage as CacheLocalStorage;
+    }
+    if (this.storage instanceof CacheIndexedDBStorage) {
+      this.storage = storage as CacheIndexedDBStorage;
+    }
     this.ready = this.restore();
   }
 
@@ -45,12 +44,14 @@ export class LocalCache {
    * @returns {boolean} restore result
    */
   async restore (): Promise<boolean> {
-    // await delay(5000);
-    // console.log('Delay 5 seconds');
-
-    this.cache = await this.storage.restoreItems(this.storage.storeName);
-    // eslint-disable-next-line no-console
-    console.log('restored');
+    if (this.storage instanceof CacheLocalStorage) {
+      this.cache = this.storage.restoreItems();
+    }
+    if (this.storage instanceof CacheIndexedDBStorage) {
+      // TODO: any better type guard?
+      this.cache = await (this.storage).restoreItems();
+    }
+    
     this.restored = true;
     return true;
   }
@@ -70,7 +71,8 @@ export class LocalCache {
       expires: modified + expires * 1000
     };
     this.cache?.set(key, data);
-    this.storage.set(this.storage.storeName, key, data);
+    // TODO: any better type guard?
+    (this.storage as CacheIndexedDBStorage).setItem(key, data);
   }
 
   /**
@@ -86,4 +88,25 @@ export class LocalCache {
     return null;
   }
 
+  /**
+   * Remove cache data value based on provided key
+   * @param key Cache key
+   * @returns {void}
+   */
+  remove (key: string): void {
+    this.cache?.delete(key);
+    // TODO: any better type guard?
+    (this.storage as CacheIndexedDBStorage).removeItem(key);
+  }
+
+  /**
+   * Clear all memory cache
+   * @param key Cache key
+   * @returns String data or `null` if nothing is cached
+   */
+  clear (): void {
+    this.cache?.clear();
+    // TODO: any better type guard?
+    (this.storage as CacheIndexedDBStorage).clear();
+  }
 }
