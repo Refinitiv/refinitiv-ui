@@ -1359,7 +1359,8 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns template result
    */
   private renderCell (cell: Cell): TemplateResult {
-    const isSelectable = cell.value !== undefined && !cell.disabled;
+    const isSelection = cell.value !== undefined;
+    const isSelectable = isSelection && !cell.disabled;
 
     return html`<div
       role="gridcell"
@@ -1382,7 +1383,7 @@ export class Calendar extends ControlElement implements MultiValue {
                value: parse(cell.value!),
                view: this.renderView
              }) : undefined)}"
-             part="cell-content${isSelectable ? ' selection' : ''}"
+             part="cell-content${isSelection ? ' selection' : ''}"
              .value=${cell.value}
              .index=${cell.index}>${cell.text}</div>
     </div>`;
