@@ -4,8 +4,8 @@ import {
   TemplateResult,
   CSSResultGroup,
   PropertyValues,
-  BasicElement,
-  ResizeEvent
+  ResizeEvent,
+  BasicElement
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -164,9 +164,21 @@ export class TabBar extends BasicElement {
    * @param value Value to check
    * @returns true if incoming value matches one of the existing tabs
    */
-  private isValidValue (value: string): boolean {
+  protected isValidValue (value: string): boolean {
     const tabList = this.getFocusableTabs();
     return tabList.some(tab => this.getTabValue(tab) === value);
+  }
+
+  /**
+   * On *user-interaction* set the value and notify.
+   * @param value New value
+   * @returns {void}
+   */
+  protected setValueAndNotify (value: string): void {
+    if (this.value !== value) {
+      this.value = value;
+      this.notifyPropertyChange('value', value);
+    }
   }
 
   /**
@@ -224,10 +236,7 @@ export class TabBar extends BasicElement {
     const element = event.target;
     if (element instanceof Tab) {
       const tabValue = this.getTabValue(element);
-      if (tabValue !== this.value) {
-        this.value = this.getTabValue(element);
-        this.notifyPropertyChange('value', tabValue);
-      }
+      this.setValueAndNotify(tabValue);
     }
   }
 
@@ -343,7 +352,8 @@ export class TabBar extends BasicElement {
   private focusAndSetActiveTab (tab: Tab): void {
     tab.focus();
     tab.scrollIntoView({ block: 'nearest' });
-    this.value = this.getTabValue(tab);
+    const tabValue = this.getTabValue(tab);
+    this.setValueAndNotify(tabValue);
   }
 
   /**
