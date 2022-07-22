@@ -1383,7 +1383,7 @@ export class Calendar extends ControlElement implements MultiValue {
                value: parse(cell.value!),
                view: this.renderView
              }) : undefined)}"
-             part="cell-content${isSelectable ? ' selection-selectable' : ''}${isSelection ? ' selection' : ''}"
+             part="cell-content${isSelection ? ' selection' : ''}${isSelectable ? ' selection-selectable' : ''}"
              .value=${cell.value}
              .index=${cell.index}>${cell.text}</div>
     </div>`;
