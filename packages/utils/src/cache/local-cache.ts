@@ -1,8 +1,7 @@
 import { TimeoutTaskRunner } from '../async.js';
 import { CacheMap } from './cache-map.js';
 import { CacheLocalStorage } from './cache-localStorage';
-import { CacheIndexedDBCache } from './cache-indexeddb';
-
+import { CacheIndexedDBStorage } from './cache-indexeddb';
 
 // caches
 
@@ -10,42 +9,50 @@ import { CacheIndexedDBCache } from './cache-indexeddb';
  * Stores data in a local cache that can be specified to be stored in localstorage or indexedDB.
  */
 
+const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+
 export class LocalCache {
 
-  constructor () {
-    // this.storage = storage;
-    // void this.restore();
+  constructor (storage?: CacheIndexedDBStorage) {
+    if (storage) {
+      this.use(storage);
+    }
   }
 
-  // use (storage: CacheStorage): void {
-  // this.storage = storage1;
-  // this.cache = caches.get(storage1)
-  // if(!caches.get(storage1)) caches.set(storage1)
-  // }
+  public ready: Promise<boolean> | null = null;
+
+  public restored = false;
 
   /**
   * Storage to store data
   */
-  public storage!: CacheIndexedDBCache;
+  public storage!: CacheIndexedDBStorage;
 
   /**
    * Internal cache object
    */
   private cache: CacheMap | null | undefined;
 
-  async use (storage: CacheIndexedDBCache) {
+  use (storage: CacheIndexedDBStorage) {
     this.storage = storage;
-    return await this.restore();
+
+    // await delay(3000);
+    this.ready = this.restore();
   }
 
   /**
    * Restore all data from storage to cache databases
-   * @returns {void}
+   * @returns {boolean} restore result
    */
-  async restore (): Promise<void> {
+  async restore (): Promise<boolean> {
+    // await delay(5000);
+    // console.log('Delay 5 seconds');
+
     this.cache = await this.storage.restoreItems(this.storage.storeName);
     // eslint-disable-next-line no-console
-    console.log('after async restore', this.cache.get('https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/tick.svg'));
+    console.log('restored');
+    this.restored = true;
+    return true;
   }
 
   /**

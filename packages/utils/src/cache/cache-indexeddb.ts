@@ -25,7 +25,7 @@ interface IconDB extends DBSchema {
 /**
  * a
  */
-export class CacheIndexedDBCache {
+export class CacheIndexedDBStorage {
   /**
    * a
    */
@@ -71,8 +71,10 @@ export class CacheIndexedDBCache {
     const items = await this.db?.getAll(store as unknown as never) || [];
     const cacheItems = new Map();
     for (const item of items) {
-      cacheItems.set(item.key, item.value);
+      cacheItems.set(item.key, item);
     }
+    console.log(cacheItems);
+
     return cacheItems;
   }
 

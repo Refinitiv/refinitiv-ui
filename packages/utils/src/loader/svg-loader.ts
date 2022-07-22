@@ -1,11 +1,11 @@
-import { CacheLocalStorage, CacheIndexedDBCache, LocalCache } from '../cache.js';
+import { CacheLocalStorage, CacheIndexedDBStorage, LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
 const dbName = 'test-icon-cache';
 // const cache = new CacheLocalStorage('svg-loader');
-const indexeddb = new CacheIndexedDBCache({ dbName: dbName, version: 1, storeName: dbName as never });
-const cache = new LocalCache();
-
+const IndexedDBStorage = new CacheIndexedDBStorage({ dbName: dbName, version: 1, storeName: dbName as never });
+const cache = new LocalCache(IndexedDBStorage);
+// cache.use(IndexedDBStorage);
 
 /**
  * Checks a string to see if it's a valid URL
@@ -122,36 +122,32 @@ export class SVGLoader extends CDNLoader {
     if (!name) {
       return;
     }
+    await cache.ready;
+
     const src = await this.getSrc(name);
 
-    // if (this.firsttime) {
-    //   this.firsttime = false;
-    //   await cache.restore();
-    // }
-    if (!cache.storage) {
-      // eslint-disable-next-line no-debugger
-      debugger;
-      await cache.use(indexeddb);
-      // eslint-disable-next-line no-console
-      console.log('cache', cache);
-    }
+    console.log(`%cIcon: %s`, 'color:blue', name);
+    console.log('Ready: ', cache.ready);
+    console.log('Time: %s', new Date().getTime());
 
     const cacheItem = cache.get(src);
     if (cacheItem === null) {
+      console.log('No cache');
+      console.count('Total No Cache');
+      console.log(`%cCache: No`, 'color:red');
       const response = await this.load(src);
       const svgNode = extractSafeSVG(response)?.cloneNode(true);
-      if (src === 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/tick.svg') {
-        // eslint-disable-next-line no-console
-        console.log('response', response);
-      }
-      if (src === 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/frame.svg') {
-        // eslint-disable-next-line no-console
-        console.log('response', response);
-      }
       const svgBody = svgNode ? this.xmlSerializer.serializeToString(svgNode) : undefined;
       svgBody && cache.set(src, svgBody);
+      console.log('%c==========================================', 'color:orange');
       return svgBody;
     }
+    else {
+      console.log(`%cCache: Yes`, 'color:green');
+      console.log('%c==========================================', 'color:orange');
+      console.count('Total Cache');
+    }
+
     return cacheItem;
   }
 }
