@@ -45,10 +45,9 @@ export class LocalCache {
    */
   async restore (): Promise<boolean> {
     if (this.storage instanceof CacheLocalStorage) {
-      this.cache = this.storage.restoreItems();
+      this.cache = this.storage.restoreItems() as CacheMap;
     }
     if (this.storage instanceof CacheIndexedDBStorage) {
-      // TODO: any better type guard?
       this.cache = await (this.storage).restoreItems();
     }
     

@@ -1,21 +1,15 @@
 import { TimeoutTaskRunner } from '../async.js';
-import { CacheMap } from './cache-map.js';
 import { CacheStorage } from './CacheStorage';
 
 /**
- * Log of known top-level cache keys
- */
-const keys = new Set<string>();
-
-/**
  * Saves cache database in local storage
- * @param key Cache ley
- * @param cache Cache database
+ * @param key Key ley
+ * @param value Data to store
  * @returns {void}
  */
-const save = (key: string, cache: CacheMap): void => {
+const save = (key: string, value: unknown): void => {
   try {
-    localStorage.setItem(key, JSON.stringify([...cache]));
+    localStorage.setItem(key, JSON.stringify(value));
   }
   catch (e) {
     const error = e as null | string | Error;
@@ -24,82 +18,46 @@ const save = (key: string, cache: CacheMap): void => {
   }
 };
 
-/**
- * Restores cache database from local storage
- * @param key Cache key
- * @returns Cache database
- */
-const restore = (key: string): CacheMap => {
-  let cache: CacheMap;
+const get = (key: string):unknown | null => {
   try {
-    const data = localStorage.getItem(key) || '[]';
-    cache = new Map(JSON.parse(data) as []);
+    return JSON.parse(localStorage.getItem(key) || '') as unknown;
   }
   catch (e) {
-    cache = new Map();
+    return null;
   }
-  return cache;
 };
+
 
 /**
  * Stores data in local storage for use across multiple sessions.
  */
-
 export class CacheLocalStorage implements CacheStorage {
-
-  constructor (key: string) {
-    if (!key || typeof key !== 'string') {
-      throw new Error('Invalid cache key. Key must be a string and have a length.');
-    }
-    if (keys.has(key)) {
-      throw new RangeError(`Cache key '${key}' has already been used.`);
-    }
-    keys.add(key);
-    this.key = `ef-local-cache-${key}`;
-    this.cache = restore(this.key);
-  }
-
-  restoreItems (): CacheMap {
-    // TODO:
-    return new Map() as CacheMap;
-  }
-
-  /**
-   * Cache key used for local storage instance
-   */
-  private key!: string;
-
-  /**
-   * Internal cache object
-   */
-  private cache: CacheMap;
-
   /**
    * Task runner used to schedule save
    */
   private taskRunner = new TimeoutTaskRunner(1000);
 
   /**
-   * Reusable task for saving database to local storage
+   * Returns all values in localStorage
    * @returns {void}
    */
-  private saveTask = () => save(this.key, this.cache);
+  restoreItems (): Map<string, unknown> {
+    const items = new Map<string, unknown>();
+    const keys = Object.keys(localStorage);
+    for (let i = 0; i < keys.length; i++) {
+      items.set(keys[i], get(String(keys[i])));
+    }
+    return items;
+  }
 
   /**
    * Caches a value against a key to use until expired
    * @param key Cache key
    * @param value Data to store in cache
-   * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
    * @returns {void}
    */
-  setItem (key: string, value: string, expires = 432000): void {
-    const modified = Date.now();
-    this.cache.set(key, {
-      value,
-      modified,
-      expires: modified + expires * 1000
-    });
-    this.taskRunner.schedule(this.saveTask);
+  setItem (key: string, value: unknown): void {
+    this.taskRunner.schedule(() => save(key, value));
   }
 
   /**
@@ -107,20 +65,24 @@ export class CacheLocalStorage implements CacheStorage {
    * @param key Cache key
    * @returns String data or `null` if nothing is cached
    */
-  getItem (key: string): string | null {
-    const item = this.cache.get(key);
-    if (item && item.expires > Date.now()) {
-      return item.value;
-    }
-    return null;
+  getItem (key: string): unknown | null {
+    return get(key);
   }
 
+  /**
+   * Remove a value against a key in this storage
+   * @param key Cache key to remove
+   * @returns {void}
+   */
   removeItem (key: string): void {
-    // TODO:
+    localStorage.removeItem(key);
   }
 
+  /**
+   * Clear all data in localStorage
+   * @returns {void}
+   */
   clear (): void {
-    // TODO:
+    localStorage.clear();
   }
-
 }

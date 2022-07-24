@@ -67,10 +67,11 @@ export class CacheIndexedDBStorage implements CacheStorage {
    */
   async restoreItems (): Promise<DBValueMap> {
     await this.open();
-    const items = await this.db?.getAll(this.storeName) || [];
     const cacheItems = new Map<string, DBValue>();
-    for (const item of items) {
-      cacheItems.set(item.key, item);
+    let cursor = await this.db?.transaction(this.storeName, 'readonly').store.openCursor();
+    while (cursor) {
+      cacheItems.set(cursor.key, cursor.value);
+      cursor = await cursor.continue();
     }
     return cacheItems;
   }
