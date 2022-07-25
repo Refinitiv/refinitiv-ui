@@ -196,11 +196,11 @@ export class DatetimeField extends TextField {
   @translate({ mode: 'directive', scope: 'ef-datetime-field' })
   protected t!: TranslateDirective;
 
+  private _locale: Locale | null = null;
   /**
    * Format, which is based on locale
    */
-  private _locale: Locale | null = null;
-  protected get locale (): Locale {
+  public get locale (): Locale {
     if (!this._locale) {
       this._locale = this.resolveLocale();
     }

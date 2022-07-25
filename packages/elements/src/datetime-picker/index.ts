@@ -8,7 +8,7 @@ import {
   CSSResultGroup,
   TapEvent,
   WarningNotice,
-  DeprecationNotice
+  FocusedPropertyKey
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -29,32 +29,32 @@ import type { Icon } from '../icon';
 import type { Calendar } from '../calendar';
 import {
   translate,
-  TranslateDirective,
-  getLocale,
-  TranslatePropertyKey
+  TranslateDirective
 } from '@refinitiv-ui/translate';
 import {
   addMonths,
   subMonths,
   isAfter,
   isBefore,
-  isValidDate,
-  getFormat,
-  DateFormat,
-  parse,
   format,
-  Locale
+  toSegment,
+  Locale,
+  DateFormat
 } from '@refinitiv-ui/utils/date.js';
 
 import {
-  DateTimeSegment,
+  getCurrentSegment,
   formatToView,
-  getCurrentTime
+  formatToDate,
+  formatToTime,
+  hasTimePicker,
+  hasSeconds,
+  hasDatePicker,
+  hasAmPm
 } from './utils.js';
 
 import { preload } from '../icon/index.js';
 import type { TimePicker } from '../time-picker';
-import type { TextField } from '../text-field';
 import type { Overlay } from '../overlay';
 import type { DatetimeField } from '../datetime-field';
 
@@ -148,60 +148,22 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   private lazyRendered = false; /* speed up rendering by not populating popup window on first load */
-  private calendarValues: string[] = []; /* used to store date information for calendars */
-  private timepickerValues: string[] = []; /* used to store time information for timepickers */
-  private inputValues: string[] = []; /* used to formatted datetime value for inputs */
-  private inputSyncing = true; /* true when inputs and pickers are in sync. False while user types in input */
 
-  private _min = '';
-  private minDate = '';
   /**
-   * Set minimum date
-   * @param min date
-   * @default -
+   * Set minimum date.
+   * This value must follow the `format` and be less
+   * than or equal to the value of the `max` attribute
    */
-  @property({ type: String })
-  public set min (min: string) {
-    if (!this.isValidValue(min)) {
-      this.warnInvalidValue(min);
-      min = '';
-    }
+  @property({ type: String, reflect: true })
+  public min: string | null = null;
 
-    const oldMin = this.min;
-    if (oldMin !== min) {
-      this._min = min;
-      this.minDate = min ? format(parse(min), DateFormat.yyyyMMdd) : '';
-      this.requestUpdate('min', oldMin);
-    }
-  }
-  public get min (): string {
-    return this._min;
-  }
-
-  private _max = '';
-  private maxDate = '';
   /**
-   * Set maximum date
-   * @param max date
-   * @default -
+   * Set maximum date.
+   * This value must follow the `format` and be greater
+   * than or equal to the value of the `min` attribute
    */
-  @property({ type: String })
-  public set max (max: string) {
-    if (!this.isValidValue(max)) {
-      this.warnInvalidValue(max);
-      max = '';
-    }
-
-    const oldMax = this.max;
-    if (oldMax !== max) {
-      this._max = max;
-      this.maxDate = max ? format(parse(max), DateFormat.yyyyMMdd) : '';
-      this.requestUpdate('max', oldMax);
-    }
-  }
-  public get max (): string {
-    return this._max;
-  }
+  @property({ type: String, reflect: true })
+  public max: string | null = null;
 
   /**
    * Only enable weekdays
@@ -228,7 +190,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param firstDayOfWeek The first day of the week
    */
   @property({ type: Number, attribute: 'first-day-of-week' })
-  public firstDayOfWeek?: number;
+  public firstDayOfWeek: number | null = null;
 
   /**
    * Set to switch to range select mode
@@ -266,7 +228,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   private _values: string[] = []; /* list of values as passed by the user */
-  private _segments: DateTimeSegment[] = []; /* filtered and processed list of values */
   /**
    * Set multiple selected values
    * @param values Values to set
@@ -284,12 +245,11 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const oldValues = this._values;
     if (String(oldValues) !== String(values)) {
       this._values = values;
-      this.valuesToSegments();
-      this.requestUpdate('_values', oldValues); /* segments are populated in update */
+      this.requestUpdate('values', oldValues);
     }
   }
   public get values (): string[] {
-    return this._segments.map(segment => segment.value);
+    return this._values;
   }
 
   /**
@@ -305,23 +265,11 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   @property({ type: Boolean, attribute: 'show-seconds', reflect: true })
   public showSeconds = false;
 
-  private _placeholder = '';
   /**
-   * Placeholder to display when no value is set
-   * @param placeholder Placeholder
-   * @default -
+   * Set placeholder text
    */
   @property({ type: String })
-  public set placeholder (placeholder: string) {
-    const oldPlaceholder = this._placeholder;
-    if (oldPlaceholder !== placeholder) {
-      this._placeholder = placeholder;
-      this.requestUpdate('placeholder', oldPlaceholder);
-    }
-  }
-  public get placeholder (): string {
-    return this._placeholder;
-  }
+  public placeholder = '';
 
   /**
    * Toggles the opened state of the list
@@ -361,24 +309,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   public popupDisabled = false;
 
   /**
-   * Set the datetime format
-   * Based on dane-fns datetime formats
-   * @ignore
-   * @param format Date format
-  */
-  @property({ type: String })
-  public set format (format: string) {
-    new DeprecationNotice('`format` attribute and property are deprecated. Use `formatOptions` property instead.').show();
-  }
-  /**
-   * @ignore
-   */
-  public get format (): string {
-    return '';
-  }
-
-  private _formatOptions: Intl.DateTimeFormatOptions | null = null;
-  /**
    * Set the datetime format options based on
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
    * `formatOptions` overrides `timepicker` and `showSeconds` properties.
@@ -386,18 +316,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param formatOptions Format options
    * @default - null
    */
-  @property({ attribute: false })
-  public set formatOptions (formatOptions: Intl.DateTimeFormatOptions | null) {
-    const oldFormatOptions = this._formatOptions;
-    if (oldFormatOptions !== formatOptions) {
-      this._formatOptions = formatOptions;
-      this._locale = null;
-      this.requestUpdate('formatOptions', oldFormatOptions);
-    }
-  }
-  public get formatOptions (): Intl.DateTimeFormatOptions | null {
-    return this._formatOptions;
-  }
+  @property({ attribute: false, type: Object })
+  public formatOptions: Intl.DateTimeFormatOptions | null = null;
 
   /**
    * Toggle to display the time picker
@@ -437,7 +357,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   @property({ attribute: false })
   public set views (views: string[]) {
     const oldViews = this._views;
-    views = this.filterAndWarnInvalidViews(views);
     if (oldViews.toString() !== views.toString()) {
       this._views = views;
       this.requestUpdate('views', oldViews);
@@ -448,60 +367,42 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       return this._views;
     }
 
-    const now = new Date();
-    const from = this.values[0];
+    const now = format(new Date(), DateFormat.yyyyMM);
+    const from = formatToView(this.values[0]);
 
     if (!this.isDuplex()) {
-      return [formatToView(from || now)];
+      return [from || now];
     }
 
-    const to = this.values[1];
+    const to = formatToView(this.values[1]);
 
     // default duplex mode
-    if (this.isDuplexConsecutive() || !from || !to || formatToView(from) === formatToView(to) || isBefore(to, from)) {
-      return this.composeViews(formatToView(from || to || now), !from && to ? 1 : 0, []);
+    if (this.isDuplexConsecutive() || !from || !to || from === to || isBefore(to, from)) {
+      return this.composeViews(from || to || now, !from && to ? 1 : 0, []);
     }
 
     // duplex split if as from and to
-    return [formatToView(from), formatToView(to)];
+    return [from, to];
   }
 
   /**
-   * Format, which is based on locale
+   * Returns true if an input element contains valid data.
+   * @returns true if input is valid
    */
-  private _locale: Locale | null = null;
-  protected get locale (): Locale {
-    if (!this._locale) {
-      this._locale = this.resolveLocale();
-    }
-    return this._locale;
+  public checkValidity (): boolean {
+    return (this.inputEl ? this.inputEl.checkValidity() : true)
+      && (this.inputToEl ? this.inputToEl.checkValidity() : true)
+      && this.isFromBeforeTo();
   }
 
   /**
-   * Resolve locale based on element parameters
-   * @returns locale Resolved locale
+   * Validate input. Mark as error if input is invalid
+   * @returns false if there is an error
    */
-  protected resolveLocale (): Locale {
-    const hasTimePicker = this.hasTimePicker;
-    // TODO: Do not use dateStyle and timeStyle as these are supported only in modern browsers
-    return Locale.fromOptions(this.formatOptions || {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: hasTimePicker ? 'numeric' : undefined,
-      minute: hasTimePicker ? 'numeric' : undefined,
-      second: this.showSeconds ? 'numeric' : undefined,
-      hour12: this.amPm ? true : undefined // force am-pm if provided, otherwise rely on locale
-    }, `${getLocale(this)}`);
-  }
-
-  /**
-   * Validates the input, marking the element as invalid if its value does not meet the validation criteria.
-   * @returns {void}
-   */
-  public validateInput (): void {
-    const hasError = !this.isFromBeforeTo();
-    this.setErrorAndNotify(hasError);
+  public reportValidity (): boolean {
+    const hasError = !this.checkValidity();
+    this.notifyErrorChange(hasError);
+    return !hasError;
   }
 
   /**
@@ -519,29 +420,36 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   @query('#input-to') private inputToEl?: DatetimeField | null;
 
   /**
-   * Updates the element
-   * @param changedProperties Properties that has changed
-   * @returns {void}
+   * @ignore
+   * TODO: needs more elegant solution
+   * Format, which is based on locale
    */
-  protected update (changedProperties: PropertyValues): void {
-    if (changedProperties.has('opened') && this.opened) {
-      this.lazyRendered = true;
-    }
-    // make sure to close popup for disabled
-    if (this.opened && !this.canOpenPopup) {
-      this.opened = false; /* this cannot be nor stopped nor listened */
-    }
+  public get locale (): Locale {
+    return this.inputEl ? this.inputEl.locale : Locale.fromOptions({});
+  }
 
-    if (changedProperties.has('_values') || changedProperties.has(TranslatePropertyKey)) {
-      this.syncInputValues();
-    }
+  /**
+   * Returns true if the datetime field has timepicker
+   * @returns hasTimePicker
+   */
+  protected get hasTimePicker (): boolean {
+    return hasTimePicker(this.locale.options);
+  }
 
-    // re-validation
-    if (changedProperties.has('_values') && changedProperties.get('_values') !== undefined) {
-      this.validateInput();
-    }
+  protected get hasSeconds (): boolean {
+    return hasSeconds(this.locale.options);
+  }
 
-    super.update(changedProperties);
+  /**
+   * Returns true if the datetime field has timepicker
+   * @returns hasTimePicker
+   */
+  protected get hasDatePicker (): boolean {
+    return hasDatePicker(this.locale.options);
+  }
+
+  protected get hasAmPm (): boolean {
+    return hasAmPm(this.locale.options);
   }
 
   /**
@@ -552,109 +460,73 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown);
-    this.addEventListener('tap', this.onTap);
   }
 
   /**
-   * Overwrite validation method for value
-   *
-   * @param value value
-   * @returns {boolean} result
+   * Updates the element
+   * @param changedProperties Properties that has changed
+   * @returns {void}
    */
-  protected isValidValue (value: string): boolean {
-    if (value === '') {
-      return true;
+  public willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('opened') && this.opened) {
+      this.lazyRendered = true;
     }
-    // value format depends on locale.
-    return getFormat(value) === this.locale.isoFormat;
+    // make sure to close popup for disabled
+    if (this.opened && !this.canOpenPopup) {
+      this.opened = false; /* this cannot be nor stopped nor listened */
+    }
+
+    if (this.shouldValidateInput(changedProperties)) {
+      this.validateInput();
+    }
   }
 
   /**
-   * Returns true if the datetime field has timepicker
-   * @returns hasTimePicker
+   * Check if input should be re-validated
+   * @param changedProperties Properties that has changed
+   * @returns True if input should be re-validated
    */
-  protected get hasTimePicker (): boolean {
-    // need to check for attribute to resolve the value correctly until the first lifecycle is run
-    return this.timepicker || this.hasAttribute('timepicker') || this.hasAmPm || this.hasSeconds;
+  protected shouldValidateInput (changedProperties: PropertyValues): boolean {
+    // TODO: this needs refactoring with all other fields to support common validation patterns
+    return (changedProperties.has(FocusedPropertyKey) && !this.focused);
   }
 
   /**
-   * Returns true if the datetime field has seconds
-   * @returns hasSeconds
-   */
-  protected get hasSeconds (): boolean {
-    return this.showSeconds || this.hasAttribute('show-seconds');
-  }
-  
-  /**
-   * Returns true if the datetime field has am-pm
-   * @returns hasAmPm
-   */
-  protected get hasAmPm (): boolean {
-    return this.amPm || this.hasAttribute('am-pm');
-  }
-
-  /**
-   * Used to show a warning when the value does not pass the validation
-   * @param value that is invalid
+   * Validate input according `pattern`, `minLength` and `maxLength` properties
+   * change state of `error` property according pattern validation
    * @returns {void}
    */
-  protected warnInvalidValue (value: string): void {
-    new WarningNotice(`${this.localName}: the specified value "${value}" does not conform to the required format. The format is '${this.locale.isoFormat}'.`).show();
+  protected validateInput (): void {
+    this.reportValidity();
   }
 
   /**
-   * Show invalid view message
-   * @param value Invalid value
+   * Reset error state on input
    * @returns {void}
    */
-  protected warnInvalidView (value: string): void {
-    new WarningNotice(`The specified value "${value}" does not conform to the required format. The format is "yyyy-MM".`).show();
+  protected resetError (): void {
+    if (this.error && this.checkValidity()) {
+      this.reportValidity();
+    }
   }
 
   /**
-   * Convert value string array to date segments
-   * Warn invalid value if passed value does not confirm a segment
-   * @returns {void}
+   * Check if `from` is before or the same as `to`
+   * @returns true if `from` is before or the same as `to`
    */
-  private valuesToSegments (): void {
-    const newSegments = this.filterAndWarnInvalidValues(this._values).map(value => DateTimeSegment.fromString(value));
-    this._segments = newSegments;
-    this.interimSegments = newSegments;
-  }
+  protected isFromBeforeTo (): boolean {
+    if (this.range) {
+      const from = this.values[0];
+      const to = this.values[1];
 
-  /**
-   * A helper method to make sure that only valid values are passed
-   * Warn if passed value is invalid
-   * @param values Values to check
-   * @returns Filtered collection of values
-   */
-  private filterAndWarnInvalidValues (values: string[]): string[] {
-    return values.map(value => {
-      if (this.isValidValue(value)) {
-        return value;
-      }
-
-      this.warnInvalidValue(value);
-      return '';
-    });
-  }
-
-  /**
-   * A helper method to make sure that only valid views are passed
-   * Warn if passed view is invalid
-   * @param views Views to check
-   * @returns Filtered collection of values
-   */
-  private filterAndWarnInvalidViews (views: string[]): string[] {
-    for (let i = 0; i < views.length; i += 1) {
-      const view = views[i];
-      if (!isValidDate(view, DateFormat.yyyyMM)) {
-        this.warnInvalidView(view);
-        return []; /* if at least one view is invalid, do not care about the rest to avoid empty views */
+      if (from && to && from !== to) {
+        return isBefore(from, to);
       }
     }
-    return views;
+
+    return true;
   }
 
   /**
@@ -682,34 +554,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
-   * Stop syncing input values and picker values
-   * @returns {void}
-   */
-  private disableInputSync (): void {
-    this.inputSyncing = false;
-  }
-
-  /**
-   * Start syncing input values and picker values
-   * @returns {void}
-   */
-  private enableInputSync (): void {
-    this.inputSyncing = true;
-  }
-
-  /**
-   * Synchronise input values and values
-   * @return {void}
-   */
-  private syncInputValues (): void {
-    if (!this.inputSyncing) {
-      return;
-    }
-    // input values cannot be populated off interim segments as require a valid date
-    this.inputValues = this._segments.map(segment => segment.value);
-  }
-
-  /**
    * Construct view collection
    * @param view The view that has changed
    * @param index View index (0 - single, or from); (1 - to)
@@ -725,10 +569,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
     if (this.isDuplexConsecutive()) {
       if (index === 0) { /* from */
-        return [view, formatToView(addMonths(view, 1))];
+        return [view, addMonths(view, 1)];
       }
       else { /* to */
-        return [formatToView(subMonths(view, 1)), view];
+        return [subMonths(view, 1), view];
       }
     }
 
@@ -739,7 +583,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         after = view;
       }
 
-      return [view, formatToView(after)];
+      return [view, after];
     }
 
     if (index === 1) { /* to. from must be before or the same */
@@ -748,58 +592,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         before = view;
       }
 
-      return [formatToView(before), view];
+      return [before, view];
     }
 
     return [];
-  }
-
-  private _interimSegments: DateTimeSegment[] = [];
-  /**
-   * An interim collection of segments to push values when all parts are populated
-   * and validated
-   * @param segments Segments
-   */
-  private set interimSegments (segments: DateTimeSegment[]) {
-    const interimSegments = segments.map(segment => DateTimeSegment.fromDateTimeSegment(segment));
-    this._interimSegments = interimSegments;
-    // cannot populate calendar if from is after to, it looks broken
-    this.calendarValues = this.isFromBeforeTo() ? interimSegments.map(segment => segment.dateSegment) : [];
-    this.timepickerValues = interimSegments.map(segment => segment.timeSegment);
-  }
-  /**
-   * Get interim segments. These are free to modify
-   * @returns interim segments
-   */
-  private get interimSegments (): DateTimeSegment[] {
-    return this._interimSegments;
-  }
-
-  /**
-   * Submit interim segments to values.
-   * Notify value-changed event.
-   * @returns true if values have changed. False otherwise
-   */
-  private submitInterimSegments (): boolean {
-    const oldSegments = this._segments;
-    const newSegments = this.interimSegments;
-
-    // compare if different
-    if (oldSegments.toString() === newSegments.toString()) {
-      return false;
-    }
-
-    const newValues = newSegments.map(segment => segment.value);
-
-    // validate
-    for (let i = 0; i < newValues.length; i += 1) { /* need this step in case timepicker is not populated */
-      if (!this.isValidValue(newValues[i])) {
-        return false;
-      }
-    }
-
-    this.notifyValuesChange(newValues);
-    return true;
   }
 
   /**
@@ -807,7 +603,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param hasError true if the element has an error
    * @returns {void}
    */
-  protected setErrorAndNotify (hasError: boolean): void {
+  protected notifyErrorChange (hasError: boolean): void {
     if (this.error !== hasError) {
       this.error = hasError;
       this.notifyPropertyChange('error', this.error);
@@ -847,17 +643,17 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     switch (event.key) {
       case 'Down':
       case 'ArrowDown':
-        this.setOpened(true);
+        // this.setOpened(true);
         break;
       case 'Up':
       case 'ArrowUp':
-        !event.defaultPrevented && this.setOpened(false);
+        // !event.defaultPrevented && this.setOpened(false);
         break;
       default:
         return;
     }
 
-    event.preventDefault();
+    // event.preventDefault();
   }
 
   /**
@@ -865,7 +661,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event Key down event object
    * @returns {void}
    */
-  private onCalendarKeyDown (event: KeyboardEvent): void {
+  private onPopupKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
       case 'Esc':
       case 'Escape':
@@ -880,44 +676,12 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
-   * Handles key input on text field
-   * @param event Key down event object
-   * @returns {void}
-   */
-  private onInputKeyDown (event: KeyboardEvent): void {
-    switch (event.key) {
-      case 'Esc':
-      case 'Escape':
-        !this.opened && this.blur();
-        this.setOpened(false);
-        break;
-      case 'Enter':
-        this.toggleOpened();
-        break;
-      default:
-        return;
-    }
-
-    event.preventDefault();
-  }
-
-  /**
-   * Run on tap event
+   * Run on icon tap event
    * @param event Tap event
    * @returns {void}
    */
-  private onTap (event: TapEvent): void {
-    const path = event.composedPath();
-    if (this.popupEl && path.includes(this.popupEl)) {
-      return; /* popup is managed separately */
-    }
-
-    if (path.includes(this.iconEl)) {
-      this.toggleOpened();
-    }
-    else if (!this.inputTriggerDisabled) {
-      this.setOpened(true);
-    }
+  private onIconTap (event: TapEvent): void {
+    this.setOpened(true);
   }
 
   /**
@@ -948,18 +712,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private onCalendarValueChanged (event: ValueChangedEvent): void {
     const values = (event.target as Calendar).values;
-    this.interimSegments = values.map((value, index) => {
-      const segment = this.interimSegments[index] || new DateTimeSegment();
-      segment.dateSegment = value;
+    this.synchroniseCalendarValues(values);
 
-      if (this.timepicker && !segment.timeSegment) {
-        segment.timeSegment = getCurrentTime(this.showSeconds); /* populate time, as otherwise time picker looks broken */
-      }
-
-      return segment;
-    });
-
-    this.submitInterimSegments();
 
     // in duplex mode, avoid jumping on views
     // Therefore if any of values have changed, save the current view
@@ -983,10 +737,18 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private onTimePickerValueChanged (event: ValueChangedEvent): void {
     const target = event.target as TimePicker;
     const index = target === this.timepickerToEl ? 1 : 0; /* 0 - from, single; 1 - to */
-    const segment = this.interimSegments[index] || new DateTimeSegment();
-    segment.timeSegment = target.value;
-    this.interimSegments[index] = segment;
-    this.submitInterimSegments();
+    const values = [...this._values];
+    values[index] = target.value;
+    this.synchroniseCalendarValues(values);
+  }
+
+  private synchroniseCalendarValues (values: string[]): void {
+    const segments = values.map(value => value ? toSegment(value) : null);
+    const oldSegments = this._values.map(value => value ? toSegment(value) : null);
+    const newValues = segments.map((segment, idx) => segment ? format(Object.assign(getCurrentSegment(), oldSegments[idx] || {}, segment), this.locale.isoFormat) : '');
+
+    this.notifyValuesChange(newValues);
+    this.resetError();
   }
 
   /**
@@ -996,23 +758,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private onInputErrorChanged (event: ErrorChangedEvent): void {
     const hasError = event.detail.value;
-    this.setErrorAndNotify(hasError);
-  }
-
-  /**
-   * Run on input focus
-   * @returns {void}
-   */
-  private onInputFocus (): void {
-    this.disableInputSync();
-  }
-
-  /**
-   * Run on input blur
-   * @returns {void}
-   */
-  private onInputBlur (): void {
-    this.enableInputSync();
+    this.notifyErrorChange(hasError);
   }
 
   /**
@@ -1021,40 +767,18 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onInputValueChanged (event: ValueChangedEvent): void {
-    const target = event.target as TextField;
+    const target = event.target as DatetimeField;
     const index = target === this.inputToEl ? 1 : 0; /* 0 - from, single; 1 - to */
-    const segment = this.interimSegments[index] || new DateTimeSegment();
-    this.resetViews();
-    segment.dateSegment = target.value;
-    this.interimSegments[index] = segment;
-    this.submitInterimSegments();
-  }
+    const newValues = [...this._values];
+    newValues[index] = target.value;
 
-  /**
-   * Check if `from` is before or the same as `to`
-   * @returns true if `from` is before or the same as `to`
-   */
-  private isFromBeforeTo (): boolean {
-    if (this.range) {
-      const from = this.values[0];
-      const to = this.values[1];
-
-      if (from && to) {
-        if (parse(from).getTime() > parse(to).getTime()) {
-          return false;
-        }
-      }
+    // Set values silently, because the input already has the value
+    if (this._values.toString() !== newValues.toString()) {
+      this._values = newValues;
+      this.notifyPropertyChange('value', this.value);
     }
 
-    return true;
-  }
-
-  /**
-   * Toggles the opened state of the list
-   * @returns {void}
-   */
-  private toggleOpened (): void {
-    this.setOpened(!this.opened);
+    this.resetError();
   }
 
   /**
@@ -1097,9 +821,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     return html`<ef-time-picker
       id="${id}"
       part="time-picker"
-      .showSeconds=${this.showSeconds}
-      .amPm=${this.amPm}
-      .value=${value}
+      .showSeconds=${this.hasSeconds}
+      .amPm=${this.hasAmPm}
+      .value=${formatToTime(value)}
       @value-changed=${this.onTimePickerValueChanged}></ef-time-picker>`;
   }
 
@@ -1117,15 +841,14 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       .fillCells=${!this.isDuplex()}
       .range=${this.range}
       .multiple=${this.multiple}
-      .min=${this.minDate}
-      .max=${this.maxDate}
+      .min=${ifDefined(formatToDate(this.min) || undefined)}
+      .max=${ifDefined(formatToDate(this.max) || undefined)}
       .weekdaysOnly=${this.weekdaysOnly}
       .weekendsOnly=${this.weekendsOnly}
-      .firstDayOfWeek=${ifDefined(this.firstDayOfWeek)}
-      .values=${this.calendarValues}
+      .firstDayOfWeek=${ifDefined(this.firstDayOfWeek === null ? undefined : this.firstDayOfWeek)}
+      .values=${this.values.map(value => formatToDate(value))}
       .filter=${this.filter}
       .view=${view}
-      @keydown=${this.onCalendarKeyDown}
       @view-changed=${this.onCalendarViewChanged}
       @value-changed=${this.onCalendarValueChanged}></ef-calendar>`;
   }
@@ -1145,11 +868,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private get timepickersTemplate (): TemplateResult {
     // TODO: how can we add support timepicker with multiple?
-    const values = this.timepickerValues;
     return html`
-      ${this.getTimepickerTemplate('timepicker', values[0])}
+      ${this.getTimepickerTemplate('timepicker', this.values[0])}
       ${this.range ? html`<div part="input-separator"></div>` : undefined}
-      ${this.range ? this.getTimepickerTemplate('timepicker-to', values[1]) : undefined}
+      ${this.range ? this.getTimepickerTemplate('timepicker-to', this.values[1]) : undefined}
     `;
   }
 
@@ -1165,8 +887,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         part="input"
         transparent
         id=${id}
-        min=${this.min}
-        max=${this.max}
+        min=${ifDefined(this.min || undefined)}
+        max=${ifDefined(this.max || undefined)}
         lang=${ifDefined(this.lang || undefined)}
         ?am-pm=${this.amPm}
         ?show-seconds=${this.showSeconds}
@@ -1176,9 +898,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         .value=${value}
         .placeholder=${this.placeholder}
         .formatOptions=${this.formatOptions}
-        @focus=${this.onInputFocus}
-        @keydown=${this.onInputKeyDown}
-        @blur=${this.onInputBlur}
         @value-changed=${this.onInputValueChanged}
         @error-changed=${this.onInputErrorChanged}></ef-datetime-field>`;
   }
@@ -1188,7 +907,16 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private get iconTemplate (): TemplateResult {
     return html`
-      <ef-icon part="icon" icon="calendar" tabindex="0"></ef-icon>
+      <ef-icon
+        part="icon"
+        icon="calendar"
+        role="button"
+        tabindex="0"
+        aria-label="${this.opened ? true || this.t('TODO') : true || this.t('TODO')}"
+        ?readonly="${this.readonly}"
+        ?disabled="${this.disabled || this.popupDisabled}"
+        @tap="${this.onIconTap}"
+      ></ef-icon>
     `;
   }
 
@@ -1197,13 +925,11 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns inputTemplate
    */
   private get inputTemplates (): TemplateResult {
-    const values = this.inputValues;
-
     return html`
       <div part="input-wrapper">
-        ${this.getInputTemplate('input', values[0])}
+        ${this.getInputTemplate('input', this.values[0] || '')}
         ${this.range ? html`<div part="input-separator"></div>` : undefined}
-        ${this.range ? this.getInputTemplate('input-to', values[1]) : undefined}
+        ${this.range ? this.getInputTemplate('input-to', this.values[1] || '') : undefined}
       </div>
     `;
   }
@@ -1214,25 +940,21 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private get popupTemplate (): TemplateResult | undefined {
     if (this.lazyRendered) {
       return html`<ef-overlay
-        tabindex="0"
         part="list"
         with-shadow
         no-cancel-on-esc-key
-        no-autofocus
         .delegatesFocus=${true}
-        .focusBoundary=${this}
         .positionTarget=${this}
         .position=${POPUP_POSITION}
         ?opened=${this.opened}
-        @opened-changed=${this.onPopupOpenedChanged}>
+        @opened-changed=${this.onPopupOpenedChanged}
+        @keydown=${this.onPopupKeyDown}>
           <div><slot name="header"></div>
           <div part="body">
             <div><slot name="left"></div>
             <div part="selectors-wrapper">
-              <div part="calendar-wrapper">
-                ${this.calendarsTemplate}
-              </div>
-              ${this.timepicker ? html`<div part="timepicker-wrapper">${this.timepickersTemplate}</div>` : undefined}
+              ${this.hasDatePicker ? html`<div part="calendar-wrapper">${this.calendarsTemplate}</div>` : undefined}
+              ${this.hasTimePicker ? html`<div part="timepicker-wrapper">${this.timepickersTemplate}</div>` : undefined}
             </div>
             <div><slot name="right"></div>
           </div>

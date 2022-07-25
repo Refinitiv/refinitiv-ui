@@ -40,7 +40,8 @@
             <textarea id="console" readonly style="width: 500px; height: 350px; font-size: 10rem;"></textarea>
           </p>
           <p>
-            <textarea id="events" style="width: 500px; height: 100px; font-size: 10rem;"></textarea>
+            <textarea id="events" readonly style="width: 500px; height: 100px; font-size: 10rem;"></textarea>
+            <button id="clear-events">Clear Events</button>
           </p>
           <p>
             <ef-datetime-picker id="date-value" placeholder="Set Value"></ef-datetime-picker>
@@ -81,6 +82,14 @@
               <ef-item value="zh-cn">ZH-CN</ef-item>
             </ef-select>
             <ef-text-field id="placeholder" placeholder="Set placeholder"></ef-text-field>
+          </p>
+          <p>
+            <ef-select id="format-options" placeholder="Set format options">
+              <ef-item value="">Default</ef-item>
+              <ef-item value="full">Full</ef-item>
+              <ef-item value="short">Short</ef-item>
+              <ef-item value="time">Time Only</ef-item>
+            </ef-select>
           </p>
           <p>
             <ef-checkbox id="weekdaysOnly">Weekdays Only</ef-checkbox>
@@ -128,7 +137,9 @@
             weekendsOnly: dateTimePicker.weekendsOnly,
             inputTriggerDisabled: dateTimePicker.inputTriggerDisabled,
             inputDisabled: dateTimePicker.inputDisabled,
-            popupDisabled: dateTimePicker.popupDisabled
+            popupDisabled: dateTimePicker.popupDisabled,
+            isoFormat: dateTimePicker.locale ? dateTimePicker.locale.isoFormat : '',
+            formatOptions: dateTimePicker.locale ? dateTimePicker.locale.options : {}
           };
 
           consoleEl.value = JSON.stringify(data, undefined, 4);
@@ -145,6 +156,7 @@
           dateFrom.value = '';
           dateTo.value = '';
           dateTimePicker.value = '';
+          dateTimePicker.formatOptions = null;
           dateValue.view = '';
           dateFrom.view = '';
           dateTo.view = '';
@@ -228,8 +240,43 @@
           setShowSeconds(value);
         });
         document.getElementById('lang').addEventListener('value-changed', ({ detail: { value } }) => {
-          // resetValue();
           dateTimePicker.lang = value ? value : '';
+        });
+        document.getElementById('format-options').addEventListener('value-changed', ({ detail: { value } }) => {
+          let formatOptions = null;
+          switch (value) {
+            case 'full':
+              formatOptions = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true,
+                dayPeriod: 'long'
+              };
+              break;
+            case 'short':
+              formatOptions = {
+                year: '2-digit',
+                month: '2-digit',
+                day: '2-digit',
+                hour: 'numeric',
+                minute: 'numeric'
+              };
+              break;
+            case 'time':
+              formatOptions = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+              };
+              break;
+            // no default
+          }
+          dateTimePicker.value = '';
+          dateTimePicker.formatOptions = formatOptions;
         });
         document.getElementById('placeholder').addEventListener('value-changed', ({ detail: { value } }) => {
           resetValue();
@@ -312,6 +359,10 @@
         dateTimePicker.addEventListener('opened-changed', onEvent);
         dateTimePicker.addEventListener('value-changed', onEvent);
         dateTimePicker.addEventListener('view-changed', onEvent);
+        document.getElementById('clear-events').addEventListener('click', () => {
+          eventLog.length = 0;
+          document.getElementById('events').value = eventLog.join('\n');
+        });
       </script>
     </demo-block>
 
