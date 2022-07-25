@@ -267,7 +267,6 @@ describe('tree/Tree', () => {
       event = await oneEvent(el, 'expanded-changed');
       expect(event.detail.value, 'Group should be expanded').to.be.true;
       expect(event.detail.item, 'Item should be the same as the original').to.equal(nestedData[0]);
-      el.dispatchEvent(keyArrowDown);
       setTimeout(() => el.dispatchEvent(keyArrowLeft));
       event = await oneEvent(el, 'expanded-changed');
       expect(event.detail.value, 'Group should be collapsed').to.be.false;
@@ -490,6 +489,49 @@ describe('tree/Tree', () => {
       descendants.forEach(item => expect(el.manager.isItemHidden(item)).to.equal(false, 'Descendants of matched items must be included'));
     });
 
+    it('Should be able to select value after filter is applied', async () => {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = flatData;
+      await elementUpdated(el);
+
+      el.children[0].click();
+      await elementUpdated(el);
+
+      el.query = 'Item 4';
+      await elementUpdated(el);
+
+      el.children[0].click();
+      await elementUpdated(el);
+
+      expect(el.value).to.equal('4', 'Value should be update when selecting a new item on filter applied.');
+    });
+
+    it('Text filter applied, check/uncheck item and switch between single and multiple selection mode', async () => {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = flatData;
+      await elementUpdated(el);
+
+      el.children[0].click();
+      await elementUpdated(el);
+
+      el.query = 'Item 4';
+      await elementUpdated(el);
+
+      el.multiple = true
+      await elementUpdated(el);
+
+      el.uncheckAll();
+      await elementUpdated(el);
+      expect(el.value).to.equal('1', 'hidden selected item in multiple mode shouldn\'t unchecked');
+
+      el.multiple = false
+      await elementUpdated(el);
+
+      el.children[0].click();
+      await elementUpdated(el);
+      expect(el.value).to.equal('4', 'Value should be update when selecting a new item on filter applied.');
+
+    });
   });
 });
 

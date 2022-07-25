@@ -31,7 +31,7 @@ describe('calendar/Defaults', () => {
       const now = new Date();
       const todayCells = el.shadowRoot.querySelectorAll('div[today]');
       expect(todayCells.length, 'Incorrect view or only one cell should be set to today').to.equal(1);
-      expect(todayCells[0].textContent.trim(), 'Invalid cell is set to today').to.equal(now.getUTCDate().toString());
+      expect(todayCells[0].textContent.trim(), 'Invalid cell is set to today').to.equal(now.getDate().toString());
     });
     it('fill-cells should fill empty cells', async () => {
       const el = await fixture('<ef-calendar view="2005-04" fill-cells lang="en-GB"></ef-calendar>');
@@ -70,8 +70,8 @@ describe('calendar/Defaults', () => {
 
   describe('Locales', () => {
     it('Set dynamic locales', async () => {
-      const el = await fixture('<ef-calendar view="2005-04" lang="ru"></ef-calendar>');
-      expect(el.lang, 'lang is not propagated').to.equal('ru');
+      const el = await fixture('<ef-calendar view="2005-04" lang="de"></ef-calendar>');
+      expect(el.lang, 'lang is not propagated').to.equal('de');
       expect(el, 'Russian locale is incorrect').shadowDom.to.equalSnapshot();
       el.lang = 'th';
       await nextFrame();

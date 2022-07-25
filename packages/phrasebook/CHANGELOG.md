@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.1.0...@refinitiv-ui/phrasebook@6.1.1) (2022-07-19)
+
+**Note:** Version bump only for package @refinitiv-ui/phrasebook
+
+
+
+
+
+# [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.0.0...@refinitiv-ui/phrasebook@6.1.0) (2022-06-20)
+
+
+### Features
+
+* add non-english aria messages for autosuggest and slider ([#357](https://github.com/Refinitiv/refinitiv-ui/issues/357)) ([c7ea8cb](https://github.com/Refinitiv/refinitiv-ui/commit/c7ea8cb5de1d7b6ad468b93ffddfbf15559873ba))
+
+
+
+
+
 # [6.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.0.0-next.2...@refinitiv-ui/phrasebook@6.0.0) (2022-06-07)
 
 

@@ -2,17 +2,23 @@ name: "Test Coverage" # To be able to access test coverage of the repository on 
 on:
   push:
     branches: [v6]
-
+env:
+  USE_BROWSERSTACK: ${{ secrets.USE_BROWSERSTACK }}
+  BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+  BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+  BROWSERSTACK_BUILD: "Test Coverage ${{ github.run_number }}"
 jobs:
-  sonarcloud:
-    name: TestCoverage
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Check out repository code
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
       - name: Setup resources and environment
         uses: ./.github/actions/setup
+        id: setup
 
       - name: Install Dependencies
         if: steps.setup.outputs.cache-dependencies-hit != 'true'
@@ -25,9 +31,34 @@ jobs:
         if: steps.setup.outputs.cache-build-hit != 'true'
         run: npm run build
 
+  sonarcloud:
+    needs: build
+    name: TestCoverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Need this step for support feature toggle testing on BrowserStack on/off
+      - name: Setup browser versions to testing
+        run: |
+          [[ "${{ env.USE_BROWSERSTACK }}" == "true" ]] && export BROWSERS="chrome" || export BROWSERS="default"
+          [[ "${{ env.USE_BROWSERSTACK }}" == "true" ]] && export PARALLEL=3 || export PARALLEL=1
+          echo "BROWSERS=\"$BROWSERS\"" >> $GITHUB_ENV
+          echo "PARALLEL=\"$PARALLEL\"" >> $GITHUB_ENV
+
       - name: Test
-        run: npm run test:all
-        
+        uses: ./.github/actions/run-test
+        with:
+          browsers: ${{ env.BROWSERS }}
+          mode: 'all'
+          parallel: ${{ env.PARALLEL }}
+          browserstack: ${{ env.USE_BROWSERSTACK }}
+          username: ${{ env.BROWSERSTACK_USERNAME }}
+          access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

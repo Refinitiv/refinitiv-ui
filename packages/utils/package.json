@@ -1,9 +1,10 @@
 {
   "name": "@refinitiv-ui/utils",
-  "version": "6.0.0",
+  "version": "6.0.2",
   "description": "Shared utilities for Element Framework",
   "main": "lib/index.js",
   "module": "lib/index.js",
+  "types": "lib/index.d.ts",
   "typesVersions": {
     "*": {
       "*.js": [
@@ -31,7 +32,6 @@
     "./navigation.js": "./lib/navigation.js",
     "./uuid.js": "./lib/uuid.js"
   },
-  "types": "lib/utils.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",

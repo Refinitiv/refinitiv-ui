@@ -1,0 +1,74 @@
+name: Nightly Test
+on:
+  schedule:
+    - cron: '0 0 * * *'
+env:
+  USE_BROWSERSTACK: ${{ secrets.USE_BROWSERSTACK }}
+  BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+  BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+  BROWSERSTACK_BUILD: "Nightly Test ${{ github.run_number }}"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+        id: setup
+
+      - name: Install Dependencies
+        if: steps.setup.outputs.cache-dependencies-hit != 'true'
+        run: npm ci --ignore-scripts --audit=false --fund=false
+
+      - name: Reset NX # temporary
+        run: npm run reset
+
+      - name: Build
+        # Prevent NX caching it should always build
+        run: npm run build -- --skip-nx-cache
+
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+
+      - name: Lint
+        # Prevent NX caching because it must run all linting, even though the code has not chaged.
+        run: npm run lint:all -- --skip-nx-cache
+
+  nightly-test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Need this step for support feature toggle testing on BrowserStack on/off
+      - name: Setup browser versions to testing
+        run: |
+          [[ "${{ env.USE_BROWSERSTACK }}" == "true" ]] && export BROWSERS="supported" || export BROWSERS="default"
+          echo "BROWSERS=\"$BROWSERS\"" >> $GITHUB_ENV
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: ${{ env.BROWSERS }}
+          mode: 'all'
+          browserstack: $USE_BROWSERSTACK
+          username: $BROWSERSTACK_USERNAME
+          access-key: $BROWSERSTACK_ACCESS_KEY

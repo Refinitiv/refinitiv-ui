@@ -1,5 +1,5 @@
 import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-import { getData, getOptions, openedUpdated, snapshotIgnore } from './utils';
+import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils';
 
 import '@refinitiv-ui/elements/select';
 import '@refinitiv-ui/elemental-theme/light/ef-select';
@@ -39,17 +39,17 @@ describe('select/Value', () => {
       el.data = getData();
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value getter does not get correct value');
-      expect(el.menuEl.querySelector('ef-item[selected]').value).to.equal('AF', 'Item is not selected from value');
+      expect(getMenuEl(el).querySelector('ef-item[selected]').value).to.equal('AF', 'Item is not selected from value');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.value = 'AL';
       await elementUpdated(el);
       expect(el.value).to.equal('AL', 'Value is not reflected from selected attribute');
-      expect(el.menuEl.querySelector('ef-item[selected]').value).to.equal('AL', 'Item is not selected from value');
+      expect(getMenuEl(el).querySelector('ef-item[selected]').value).to.equal('AL', 'Item is not selected from value');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.value = '';
       await elementUpdated(el);
       expect(el.value).to.equal('', 'Value is not reflected from selected attribute');
-      expect(el.menuEl.querySelector('ef-item[selected]')).to.equal(null, 'Selected item is not reset');
+      expect(getMenuEl(el).querySelector('ef-item[selected]')).to.equal(null, 'Selected item is not reset');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
   });

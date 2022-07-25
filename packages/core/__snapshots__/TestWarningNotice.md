@@ -3,7 +3,7 @@
 #### `Test generate simple message`
 
 ```html
-Information notice:
+Warning notice:
 test
 
 ```
@@ -11,7 +11,7 @@ test
 #### `Test generate message with url`
 
 ```html
-Information notice:
+Warning notice:
 test
 
 url

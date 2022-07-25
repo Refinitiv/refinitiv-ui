@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.0.2...@refinitiv-ui/solar-theme@6.0.3) (2022-07-20)
+
+**Note:** Version bump only for package @refinitiv-ui/solar-theme
+
+
+
+
+
+## [6.0.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.0.1...@refinitiv-ui/solar-theme@6.0.2) (2022-07-19)
+
+
+### Bug Fixes
+
+* **list:** item should not receive focus when click ([#272](https://github.com/Refinitiv/refinitiv-ui/issues/272)) ([e2293e3](https://github.com/Refinitiv/refinitiv-ui/commit/e2293e37126a446d5c1d16be1e5eb503425534f3))
+
+
+
+
+
+## [6.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.0.0...@refinitiv-ui/solar-theme@6.0.1) (2022-06-20)
+
+
+### Bug Fixes
+
+* **calendar:** disabled dates incorrect styles ([#335](https://github.com/Refinitiv/refinitiv-ui/issues/335)) ([cce57a0](https://github.com/Refinitiv/refinitiv-ui/commit/cce57a00e374b0b528b5ea1212ec996c3e41be0b))
+
+
+
+
+
 # [6.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.0.0-next.0...@refinitiv-ui/solar-theme@6.0.0) (2022-06-07)
 
 **Note:** Version bump only for package @refinitiv-ui/solar-theme

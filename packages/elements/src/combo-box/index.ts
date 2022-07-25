@@ -20,9 +20,8 @@ import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { VERSION } from '../version.js';
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
-import { ItemData } from '../item';
-import { ComboBoxData, ComboBoxFilter } from './helpers/types';
-import type { List } from '../list/index.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 import { ComboBoxRenderer } from './helpers/renderer.js';
 import { defaultFilter } from './helpers/filter.js';
 import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
@@ -30,6 +29,11 @@ import '../icon/index.js';
 import '../overlay/index.js';
 import '../list/index.js';
 import '../counter/index.js';
+
+import type { ItemData } from '../item';
+import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
+import type { List } from '../list';
+
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/locale/en/combo-box.js';
 
@@ -500,7 +504,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Mark combobox with loading flag
    * Used in conjunction with data promise
    */
-  @property({ type: String, reflect: true })
+  @property({ type: Boolean, reflect: true })
   protected loading = false;
 
   /**
@@ -636,6 +640,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown);
     this.addEventListener('tapstart', this.onTapStart);
+
+    registerOverflowTooltip(this,
+      () => this.inputValue,
+      () => this.inputElement ? isElementOverflown(this.inputElement) : false);
   }
 
   /**
@@ -1234,12 +1242,13 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
   /**
    * Returns a list template
+   * TODO: Remove empty `tabindex`. We need better flexibility on removing tabindex value from ControlElement
    */
   protected get listTemplate (): TemplateResult {
     return html`
       <ef-list
         id="internal-list"
-        tabindex="-1"
+        tabindex
         @value-changed="${this.onListValueChanged}"
         .data="${this.composer}"
         .multiple="${this.multiple}"
@@ -1254,7 +1263,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   protected get noItemsTemplate (): TemplateResult | undefined {
     if (!this.freeText) {
-      return html`<ef-item disabled>${this.t('NO_OPTIONS')}</ef-item>`;
+      return html`<ef-list-item disabled>${this.t('NO_OPTIONS')}</ef-list-item>`;
     }
   }
 

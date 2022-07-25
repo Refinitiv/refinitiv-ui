@@ -12,6 +12,7 @@ import { TreeRenderer } from '../helpers/renderer.js';
 import { defaultFilter } from '../helpers/filter.js';
 import type { TreeData, TreeDataItem, TreeFilter } from '../helpers/types';
 import { TreeManager, TreeManagerMode } from '../managers/tree-manager.js';
+import './tree-item.js';
 
 const EXPAND_TOGGLE_ATTR = 'expand-toggle';
 
@@ -132,11 +133,22 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
     // Single selection - check item
     if (this.manager.checkItem(item)) {
       this.manager.checkedItems.forEach(checkedItem => {
-        checkedItem !== item && this.manager.uncheckItem(checkedItem);
+        checkedItem !== item && this.forceUncheckItem(checkedItem);
       });
       return true;
     }
     return false;
+  }
+
+  /**
+   * Force uncheck item when item is locked
+   * @param item Original data item
+   * @returns {void}
+   */
+  protected forceUncheckItem (item: T): void {
+    const result = this.composer.unlockItem(item);
+    this.manager.uncheckItem(item);
+    result && this.composer.lockItem(item);
   }
 
   /**

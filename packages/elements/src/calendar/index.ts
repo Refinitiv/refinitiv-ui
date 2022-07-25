@@ -71,7 +71,7 @@ import {
   YEAR_VIEW,
   MONTH_VIEW
 } from './constants.js';
-import {
+import type {
   Cell,
   Row,
   Comparator,

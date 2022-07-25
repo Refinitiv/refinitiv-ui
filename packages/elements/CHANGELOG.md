@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.2...@refinitiv-ui/elements@6.0.3) (2022-07-20)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
+## [6.0.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.1...@refinitiv-ui/elements@6.0.2) (2022-07-19)
+
+
+### Bug Fixes
+
+* **accordion:** The element should interact only with its direct children ([#378](https://github.com/Refinitiv/refinitiv-ui/issues/378)) ([f8e11d3](https://github.com/Refinitiv/refinitiv-ui/commit/f8e11d391839cb1e53aad3ec2682a089766851ff))
+* **list:** item should not receive focus when click ([#272](https://github.com/Refinitiv/refinitiv-ui/issues/272)) ([e2293e3](https://github.com/Refinitiv/refinitiv-ui/commit/e2293e37126a446d5c1d16be1e5eb503425534f3))
+* **tab-bar:** resize callback is not fired when a new tab has been added ([#389](https://github.com/Refinitiv/refinitiv-ui/issues/389)) ([13408e1](https://github.com/Refinitiv/refinitiv-ui/commit/13408e15302a19cd614fdd5f1b4af9be5f1881bd))
+* use `setAttribute` instead of `AriaMixins`  for aria attributes ([#327](https://github.com/Refinitiv/refinitiv-ui/issues/327)) ([09f91fa](https://github.com/Refinitiv/refinitiv-ui/commit/09f91fafdef57fa26722ccf0e19f586833405cbb))
+
+
+
+
+
+## [6.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.0...@refinitiv-ui/elements@6.0.1) (2022-06-20)
+
+
+### Bug Fixes
+
+* **chart:** render selected segment after tooltip has rendered so it won't cut off the tooltip ([#359](https://github.com/Refinitiv/refinitiv-ui/issues/359)) ([62e37d5](https://github.com/Refinitiv/refinitiv-ui/commit/62e37d50618f5ec4750d189e150ae8a076d8eca4))
+* **datetime-picker:** change warning and error border style to make it consistent with textfield ([#356](https://github.com/Refinitiv/refinitiv-ui/issues/356)) ([51638bd](https://github.com/Refinitiv/refinitiv-ui/commit/51638bd4d5e9306deb538725726fb085d55fd425))
+* incorrect TypeScript type delcaration path ([#370](https://github.com/Refinitiv/refinitiv-ui/issues/370)) ([4b40823](https://github.com/Refinitiv/refinitiv-ui/commit/4b4082316233ce5b6e4b6e8dd38e10ddedd532f7))
+* **tree-select:** show unselected item on selection filter ([#358](https://github.com/Refinitiv/refinitiv-ui/issues/358)) ([ea88b3c](https://github.com/Refinitiv/refinitiv-ui/commit/ea88b3c1389ef7887af890206bdd29695ce49787))
+* **tree:** incorrect padding size of tree item when use multiple mode ([#362](https://github.com/Refinitiv/refinitiv-ui/issues/362)) ([1f5d6aa](https://github.com/Refinitiv/refinitiv-ui/commit/1f5d6aa71fd9e155202203e18134934fa93c920c))
+* **tree:** tree query selection issues ([#364](https://github.com/Refinitiv/refinitiv-ui/issues/364)) ([cf1c072](https://github.com/Refinitiv/refinitiv-ui/commit/cf1c07234be0ec0984cb109a9fed9cf58db22c44))
+
+
+
+
+
 # [6.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.0-next.3...@refinitiv-ui/elements@6.0.0) (2022-06-07)
 
 

@@ -36,6 +36,4 @@ ef-led-gauge[red-blue-scale] {
 }
 ```
 
-*>For Single Page Applications, the `<shady-css-scoped>` tag must be placed at the root of the application i.e. `index.html`.
-
 ::footer::

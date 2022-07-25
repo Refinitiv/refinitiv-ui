@@ -6,6 +6,7 @@ on:
       force:
         description: Force publish all packages?
         type: boolean
+        default: false
 
 jobs:
   publish:
@@ -31,14 +32,14 @@ jobs:
         uses: ./.github/actions/checkout-install-and-build
 
       - name: Bump all package versions and create GitHub release
-        if: ${{ github.event.inputs.force }}
-        run: lerna version --create-release github --conventional-commits --conventional-graduate --force-publish --yes
+        if: ${{ inputs.force }}
+        run: lerna version --create-release github --conventional-commits --force-publish --yes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Bump modified package versions and create GitHub release
-        if: ${{ !github.event.inputs.force }}
-        run: lerna version --create-release github --conventional-commits --conventional-graduate --yes
+        if: ${{ !inputs.force }}
+        run: lerna version --create-release github --conventional-commits --yes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 

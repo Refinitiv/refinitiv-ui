@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, aTimeout, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, aTimeout } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tab-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
@@ -14,7 +14,7 @@ const scrollUpdated = async () => {
 describe('tab-bar/Template', () => {
   it('DOM structure is correct', async () => {
     const el = await fixture('<ef-tab-bar></ef-tab-bar>');
-    expect(el).shadowDom.to.equalSnapshot();
+    expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['style'] });
   });
 
   describe('level', () => {
@@ -160,6 +160,22 @@ describe('tab-bar/Template', () => {
       rightScrollBtn = el.querySelector('ef-tab-bar').shadowRoot.querySelector('[part=right-btn]');
       expect(leftScrollBtn).equal(null);
       expect(rightScrollBtn).equal(null);
+    });
+
+    it('Should show scroll button correctly when a new tab has been added', async () => {
+      el = await fixture(`
+        <ef-tab-bar style="width: 150px;">
+          <ef-tab>Home</ef-tab>
+          <ef-tab>About</ef-tab>
+        </ef-tab-bar>
+      `);
+      rightScrollBtn = el.shadowRoot.querySelector('[part=right-btn]');
+      expect(getElementStyle(rightScrollBtn, 'display')).equal('none');
+      const newTab = document.createElement('ef-tab');
+      newTab.label = "Application";
+      el.appendChild(newTab);
+      await elementUpdated();
+      expect(getElementStyle(rightScrollBtn, 'display')).equal('flex');
     });
   });
 });
