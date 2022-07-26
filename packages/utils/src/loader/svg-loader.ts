@@ -2,7 +2,7 @@ import { CacheIndexedDBStorage, LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
 const dbName = 'test-icon-cache';
-const IndexedDBStorage = new CacheIndexedDBStorage({ dbName: dbName, version: 1, storeName: dbName as never });
+const IndexedDBStorage = new CacheIndexedDBStorage({ dbName: dbName, version: 1, storeName: dbName });
 const cache = new LocalCache(IndexedDBStorage);
 
 /**

@@ -1,3 +1,26 @@
+/**
+ * Cache storage item
+ */
+export interface CacheItem {
+  value: string;
+  expires: number;
+  modified: number;
+}
+
+/**
+ * Cache database/map
+ */
+export type CacheMap = Map<string, CacheItem>;
+
+/**
+ * Config for CacheIndexedDBStorage class
+ */
+export interface CacheIndexedDBStorageConfig {
+  dbName: string;
+  version: number;
+  storeName: string;
+}
+
 export interface CacheStorage {
   /**
    * Returns all values in this storage
@@ -23,3 +46,4 @@ export interface CacheStorage {
    */
   clear(): Promise<void>;
 }
+

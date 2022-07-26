@@ -1,5 +1,4 @@
-import { CacheMap } from './cache-map.js';
-import { CacheStorage } from './cache-storage.js';
+import type { CacheMap, CacheStorage } from './types';
 
 /**
  * Stores data in a local cache that can be specified to be stored in localstorage or indexedDB.

@@ -1,5 +1,5 @@
 import { TimeoutTaskRunner } from '../async.js';
-import { CacheStorage } from './cache-storage.js';
+import type { CacheItem, CacheStorage } from './types';
 
 /**
  * Saves cache database in local storage
@@ -7,7 +7,7 @@ import { CacheStorage } from './cache-storage.js';
  * @param value Data to store
  * @returns {void}
  */
-const save = (key: string, value: unknown): void => {
+const save = (key: string, value: CacheItem): void => {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   }
@@ -23,9 +23,9 @@ const save = (key: string, value: unknown): void => {
  * @param key key to retrieve value
  * @returns {unknown | null} data from the key
  */
-const retrieve = (key: string):unknown | null => {
+const retrieve = (key: string):CacheItem | null => {
   try {
-    return JSON.parse(localStorage.getItem(key) || '') as unknown;
+    return JSON.parse(localStorage.getItem(key) || '') as CacheItem;
   }
   catch (e) {
     return null;
@@ -61,7 +61,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @param value Data to store in cache
    * @returns {void}
    */
-  async setItem (key: string, value: unknown): Promise<void> {
+  async setItem (key: string, value: CacheItem): Promise<void> {
     return Promise.resolve(this.taskRunner.schedule(() => save(key, value)));
   }
 
@@ -70,7 +70,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @param key Cache key
    * @returns String data or `null` if nothing is cached
    */
-  async getItem (key: string): Promise<unknown | null> {
+  async getItem (key: string): Promise<CacheItem | null> {
     return Promise.resolve(retrieve(key));
   }
 

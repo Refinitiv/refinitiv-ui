@@ -1,20 +1,12 @@
-import { CacheStorage } from './cache-storage.js';
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
-import { CacheItem, DBValue, DBValueMap } from './cache-item.js';
+import type { CacheStorage, CacheItem, CacheMap, CacheIndexedDBStorageConfig } from './types';
 
-interface DBInfo {
-  dbName: string;
-  version: number;
-  storeName: never;
-}
-
-interface IconDB extends DBSchema {
+interface IndexedDBDatabase extends DBSchema {
   [key: string]: {
     key: string;
-    value: DBValue;
+    value: CacheItem;
   }
 }
-
 
 /**
  * Stores data in indexedDB for use across multiple sessions.
@@ -24,7 +16,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
   /**
    * A connection to a indexedDB database, use for open transaction or idb api
    */
-  private db: IDBPDatabase<IconDB> | undefined;
+  public db: IDBPDatabase<IndexedDBDatabase> | undefined;
 
   /**
    * Database name
@@ -34,18 +26,26 @@ export class CacheIndexedDBStorage implements CacheStorage {
   /**
    * Database Version.
    */
-  private version: number;
+  public version: number;
 
   /**
    * Store name
    */
   public storeName: never;
 
-  constructor (info: DBInfo) {
+  constructor (info: CacheIndexedDBStorageConfig) {
     const { dbName, version, storeName } = info;
     this.dbName = dbName;
     this.version = version;
-    this.storeName = storeName;
+    this.storeName = storeName as never;
+  }
+
+  /**
+   * Returns Error message when unable to connect indexedDB
+   * @returns Error message
+   */
+  private get failConnectMessage (): Error {
+    return new Error(`Unable to connect to indexedDB.\n Name:'${this.dbName}'.\nVersion: ${this.version}\Store: ${String(this.storeName)}`);
   }
 
   /**
@@ -53,9 +53,18 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns {void}
    */
   private async open (): Promise<void> {
-    this.db = await openDB<IconDB>(this.dbName, this.version, {
+    this.db = await openDB<IndexedDBDatabase>(this.dbName, this.version, {
       upgrade: (db) => { // Call when no database or found new version
-        db.createObjectStore(this.storeName as unknown as never);
+        db.createObjectStore(this.storeName);
+      },
+      blocked: () => {
+        throw this.failConnectMessage;
+      },
+      blocking: () => {
+        throw this.failConnectMessage;
+      },
+      terminated: () => {
+        throw this.failConnectMessage;
       }
     });
   }
@@ -65,9 +74,9 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @param store Store name
    * @returns {void}
    */
-  async restoreItems (): Promise<DBValueMap> {
+  async restoreItems (): Promise<CacheMap> {
     await this.open();
-    const cacheItems = new Map<string, DBValue>();
+    const cacheItems = new Map() as CacheMap;
     let cursor = await this.db?.transaction(this.storeName, 'readonly').store.openCursor();
     while (cursor) {
       cacheItems.set(cursor.key, cursor.value);
@@ -90,9 +99,9 @@ export class CacheIndexedDBStorage implements CacheStorage {
   /**
    * Returns the value in this storage that matched by the key.
    * @param key Row key
-   * @returns {DBValue | null} value in the row
+   * @returns {CacheItem | null} value in the row
    */
-  async getItem (key: string): Promise<DBValue | null> {
+  async getItem (key: string): Promise<CacheItem | null> {
     return await this.db?.get(this.storeName, key) || null;
   }
 
