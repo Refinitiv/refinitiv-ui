@@ -8,7 +8,7 @@ import {
 } from '@refinitiv-ui/utils/date.js';
 
 /**
- * Get current datetime segment
+ * Get current datetime segment at midday Local time
  * @returns segment Date time segment
  */
 const getCurrentSegment = (): DateTimeSegment => {
@@ -45,13 +45,33 @@ const formatToTime = (value?: string | null, includeSeconds = false): string => 
  */
 const formatToView = (value?: string | null): string => value ? format(toSegment(value), DateFormat.yyyyMM) : '';
 
-const hasTimePicker = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.hour;
+/**
+ * Check if options have second information
+ * @param options Intl DateTime format options
+ * @return hasSeconds true if options have second or millisecond
+ */
+const hasSeconds = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.second || !!options.fractionalSecondDigits;
 
-const hasSeconds = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.second;
+/**
+ * Check if options have timepicker information
+ * @param options Intl DateTime format options
+ * @return hasSeconds true if options have hour, minute, second or millisecond
+ */
+const hasTimePicker = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.hour || !!options.minute || hasTimePicker(options);
 
+/**
+ * Check if options use 12h format
+ * @param options Intl DateTime format options
+ * @return hasSeconds true if options use 12h format
+ */
 const hasAmPm = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.hour12;
 
-const hasDatePicker = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.year;
+/**
+ * Check if options have date information
+ * @param options Intl DateTime format options
+ * @return hasSeconds true if options have year, month, day or weekday
+ */
+const hasDatePicker = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.year || !!options.month || !!options.day || !!options.weekday;
 
 export {
   getCurrentSegment,
