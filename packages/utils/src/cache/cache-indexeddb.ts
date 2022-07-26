@@ -1,6 +1,6 @@
-import { CacheStorage } from './CacheStorage.js';
+import { CacheStorage } from './cache-storage.js';
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
-import { CacheItem, DBValue, DBValueMap } from './cache-item';
+import { CacheItem, DBValue, DBValueMap } from './cache-item.js';
 
 interface DBInfo {
   dbName: string;
@@ -82,7 +82,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @param value a
    * @returns {void}
    */
-  setItem (key: string, value: CacheItem): void {
+  async setItem (key: string, value: CacheItem): Promise<void> {
     const item = { ...value, key };
     void this.db?.put(this.storeName, item, key);
   }
@@ -101,7 +101,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @param key Row key
    * @returns {void}
    */
-  removeItem (key: string): void {
+  async removeItem (key: string): Promise<void> {
     void this.db?.delete(this.storeName, key);
   }
 
@@ -109,7 +109,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * Clear all values in this storage
    * @returns {void}
    */
-  clear (): void {
+  async clear (): Promise<void> {
     void this.db?.clear(this.storeName);
   }
 }

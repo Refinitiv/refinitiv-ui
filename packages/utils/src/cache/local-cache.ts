@@ -1,7 +1,5 @@
 import { CacheMap } from './cache-map.js';
-import { CacheStorage } from './CacheStorage.js';
-import { CacheIndexedDBStorage } from './cache-indexeddb';
-import { CacheLocalStorage } from './cache-localstorage.js';
+import { CacheStorage } from './cache-storage.js';
 
 /**
  * Stores data in a local cache that can be specified to be stored in localstorage or indexedDB.
@@ -29,13 +27,7 @@ export class LocalCache {
   private cache: CacheMap | null | undefined;
 
   protected use (storage: CacheStorage) {
-    this.storage = storage;
-    if (this.storage instanceof CacheLocalStorage) {
-      this.storage = storage as CacheLocalStorage;
-    }
-    if (this.storage instanceof CacheIndexedDBStorage) {
-      this.storage = storage as CacheIndexedDBStorage;
-    }
+    this.storage = storage
     this.ready = this.restore();
   }
 
@@ -44,13 +36,7 @@ export class LocalCache {
    * @returns {boolean} restore result
    */
   async restore (): Promise<boolean> {
-    if (this.storage instanceof CacheLocalStorage) {
-      this.cache = this.storage.restoreItems() as CacheMap;
-    }
-    if (this.storage instanceof CacheIndexedDBStorage) {
-      this.cache = await (this.storage).restoreItems();
-    }
-    
+    this.cache = await this.storage.restoreItems() as CacheMap;
     this.restored = true;
     return true;
   }
@@ -62,7 +48,7 @@ export class LocalCache {
    * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
    * @returns {void}
    */
-  set (key: string, value: string, expires = 432000): void {
+  async set (key: string, value: string, expires = 432000): Promise<void> {
     const modified = Date.now();
     const data = {
       value,
@@ -70,8 +56,7 @@ export class LocalCache {
       expires: modified + expires * 1000
     };
     this.cache?.set(key, data);
-    // TODO: any better type guard?
-    (this.storage as CacheIndexedDBStorage).setItem(key, data);
+    this.storage.setItem(key, data);
   }
 
   /**
@@ -79,7 +64,8 @@ export class LocalCache {
    * @param key Cache key
    * @returns String data or `null` if nothing is cached
    */
-  get (key: string): string | null {
+  async get (key: string): Promise<string | null> {
+    await this.ready;
     const item = this.cache?.get(key);
     if (item && item.expires > Date.now()) {
       return item.value;
@@ -92,20 +78,17 @@ export class LocalCache {
    * @param key Cache key
    * @returns {void}
    */
-  remove (key: string): void {
+  async remove (key: string): Promise<void> {
     this.cache?.delete(key);
-    // TODO: any better type guard?
-    (this.storage as CacheIndexedDBStorage).removeItem(key);
+    this.storage.removeItem(key);
   }
 
   /**
    * Clear all memory cache
-   * @param key Cache key
    * @returns String data or `null` if nothing is cached
    */
-  clear (): void {
+  async clear (): Promise<void> {
     this.cache?.clear();
-    // TODO: any better type guard?
-    (this.storage as CacheIndexedDBStorage).clear();
+    this.storage.clear();
   }
 }

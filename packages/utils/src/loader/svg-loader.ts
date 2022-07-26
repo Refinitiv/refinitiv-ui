@@ -122,7 +122,8 @@ export class SVGLoader extends CDNLoader {
 
     const src = await this.getSrc(name);
 
-    const cacheItem = cache.get(src);
+    const cacheItem = await cache.get(src);
+    console.log('svg-loader cacheItem', cacheItem);
     if (cacheItem === null) {
       const response = await this.load(src);
       const svgNode = extractSafeSVG(response)?.cloneNode(true);

@@ -1,5 +1,5 @@
 import { TimeoutTaskRunner } from '../async.js';
-import { CacheStorage } from './CacheStorage';
+import { CacheStorage } from './cache-storage';
 
 /**
  * Saves cache database in local storage
@@ -41,7 +41,7 @@ export class CacheLocalStorage implements CacheStorage {
    * Returns all values in localStorage
    * @returns {void}
    */
-  restoreItems (): Map<string, unknown> {
+  async restoreItems (): Promise<Map<string, unknown>> {
     const items = new Map<string, unknown>();
     const keys = Object.keys(localStorage);
     for (let i = 0; i < keys.length; i++) {
@@ -56,7 +56,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @param value Data to store in cache
    * @returns {void}
    */
-  setItem (key: string, value: unknown): void {
+  async setItem (key: string, value: unknown): Promise<void> {
     this.taskRunner.schedule(() => save(key, value));
   }
 
@@ -65,7 +65,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @param key Cache key
    * @returns String data or `null` if nothing is cached
    */
-  getItem (key: string): unknown | null {
+  async getItem (key: string): Promise<unknown | null> {
     return get(key);
   }
 
@@ -74,7 +74,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @param key Cache key to remove
    * @returns {void}
    */
-  removeItem (key: string): void {
+  async removeItem (key: string): Promise<void> {
     localStorage.removeItem(key);
   }
 
@@ -82,7 +82,7 @@ export class CacheLocalStorage implements CacheStorage {
    * Clear all data in localStorage
    * @returns {void}
    */
-  clear (): void {
+  async clear (): Promise<void> {
     localStorage.clear();
   }
 }
