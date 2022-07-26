@@ -1,9 +1,9 @@
 import { TimeoutTaskRunner } from '../async.js';
-import { CacheStorage } from './cache-storage';
+import { CacheStorage } from './cache-storage.js';
 
 /**
  * Saves cache database in local storage
- * @param key Key ley
+ * @param key key to save value
  * @param value Data to store
  * @returns {void}
  */
@@ -18,7 +18,12 @@ const save = (key: string, value: unknown): void => {
   }
 };
 
-const get = (key: string):unknown | null => {
+/**
+ * Restores cache database from local storage
+ * @param key key to retrieve value
+ * @returns {unknown | null} data from the key
+ */
+const retrieve = (key: string):unknown | null => {
   try {
     return JSON.parse(localStorage.getItem(key) || '') as unknown;
   }
@@ -45,9 +50,9 @@ export class CacheLocalStorage implements CacheStorage {
     const items = new Map<string, unknown>();
     const keys = Object.keys(localStorage);
     for (let i = 0; i < keys.length; i++) {
-      items.set(keys[i], get(String(keys[i])));
+      items.set(keys[i], retrieve(String(keys[i])));
     }
-    return items;
+    return Promise.resolve(items);
   }
 
   /**
@@ -57,7 +62,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @returns {void}
    */
   async setItem (key: string, value: unknown): Promise<void> {
-    this.taskRunner.schedule(() => save(key, value));
+    return Promise.resolve(this.taskRunner.schedule(() => save(key, value)));
   }
 
   /**
@@ -66,7 +71,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @returns String data or `null` if nothing is cached
    */
   async getItem (key: string): Promise<unknown | null> {
-    return get(key);
+    return Promise.resolve(retrieve(key));
   }
 
   /**
@@ -75,7 +80,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @returns {void}
    */
   async removeItem (key: string): Promise<void> {
-    localStorage.removeItem(key);
+    return Promise.resolve(localStorage.removeItem(key));
   }
 
   /**
@@ -83,6 +88,6 @@ export class CacheLocalStorage implements CacheStorage {
    * @returns {void}
    */
   async clear (): Promise<void> {
-    localStorage.clear();
+    return Promise.resolve(localStorage.clear());
   }
 }

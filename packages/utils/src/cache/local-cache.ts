@@ -27,7 +27,7 @@ export class LocalCache {
   private cache: CacheMap | null | undefined;
 
   protected use (storage: CacheStorage) {
-    this.storage = storage
+    this.storage = storage;
     this.ready = this.restore();
   }
 
@@ -56,7 +56,7 @@ export class LocalCache {
       expires: modified + expires * 1000
     };
     this.cache?.set(key, data);
-    this.storage.setItem(key, data);
+    await this.storage.setItem(key, data);
   }
 
   /**
@@ -68,9 +68,9 @@ export class LocalCache {
     await this.ready;
     const item = this.cache?.get(key);
     if (item && item.expires > Date.now()) {
-      return item.value;
+      return Promise.resolve(item.value);
     }
-    return null;
+    return Promise.resolve(null);
   }
 
   /**
@@ -80,7 +80,7 @@ export class LocalCache {
    */
   async remove (key: string): Promise<void> {
     this.cache?.delete(key);
-    this.storage.removeItem(key);
+    await this.storage.removeItem(key);
   }
 
   /**
@@ -89,6 +89,6 @@ export class LocalCache {
    */
   async clear (): Promise<void> {
     this.cache?.clear();
-    this.storage.clear();
+    await this.storage.clear();
   }
 }

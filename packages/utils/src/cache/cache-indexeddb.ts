@@ -84,7 +84,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    */
   async setItem (key: string, value: CacheItem): Promise<void> {
     const item = { ...value, key };
-    void this.db?.put(this.storeName, item, key);
+    await this.db?.put(this.storeName, item, key);
   }
 
   /**
@@ -102,7 +102,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns {void}
    */
   async removeItem (key: string): Promise<void> {
-    void this.db?.delete(this.storeName, key);
+    await this.db?.delete(this.storeName, key);
   }
 
   /**
@@ -110,6 +110,6 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns {void}
    */
   async clear (): Promise<void> {
-    void this.db?.clear(this.storeName);
+    await this.db?.clear(this.storeName);
   }
 }
