@@ -48,28 +48,28 @@ const formatToView = (value?: string | null): string => value ? format(toSegment
 /**
  * Check if options have second information
  * @param options Intl DateTime format options
- * @return hasSeconds true if options have second or millisecond
+ * @returns hasSeconds true if options have second or millisecond
  */
 const hasSeconds = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.second || !!options.fractionalSecondDigits;
 
 /**
  * Check if options have timepicker information
  * @param options Intl DateTime format options
- * @return hasSeconds true if options have hour, minute, second or millisecond
+ * @returns hasTimePicker true if options have hour, minute, second or millisecond
  */
-const hasTimePicker = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.hour || !!options.minute || hasTimePicker(options);
+const hasTimePicker = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.hour || !!options.minute || hasSeconds(options);
 
 /**
  * Check if options use 12h format
  * @param options Intl DateTime format options
- * @return hasSeconds true if options use 12h format
+ * @returns hasAmPm true if options use 12h format
  */
 const hasAmPm = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.hour12;
 
 /**
  * Check if options have date information
  * @param options Intl DateTime format options
- * @return hasSeconds true if options have year, month, day or weekday
+ * @returns hasDatePicker true if options have year, month, day or weekday
  */
 const hasDatePicker = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.year || !!options.month || !!options.day || !!options.weekday;
 
