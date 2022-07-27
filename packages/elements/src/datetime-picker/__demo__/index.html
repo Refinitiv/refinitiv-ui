@@ -89,6 +89,8 @@
               <ef-item value="full">Full</ef-item>
               <ef-item value="short">Short</ef-item>
               <ef-item value="time">Time Only</ef-item>
+              <ef-item value="month-day">Month and Day</ef-item>
+              <ef-item value="year-month">Year and Month</ef-item>
             </ef-select>
           </p>
           <p>
@@ -100,7 +102,6 @@
             <ef-checkbox id="error">Error</ef-checkbox>
           </p>
           <p>
-            <ef-checkbox id="inputTriggerDisabled">Input Trigger Disabled</ef-checkbox>
             <ef-checkbox id="inputDisabled">Input Disabled</ef-checkbox>
             <ef-checkbox id="popupDisabled">Popup Disabled</ef-checkbox>
           </p>
@@ -135,11 +136,8 @@
             yearsDesc: dateTimePicker.yearsDesc,
             weekdaysOnly: dateTimePicker.weekdaysOnly,
             weekendsOnly: dateTimePicker.weekendsOnly,
-            inputTriggerDisabled: dateTimePicker.inputTriggerDisabled,
             inputDisabled: dateTimePicker.inputDisabled,
-            popupDisabled: dateTimePicker.popupDisabled,
-            isoFormat: dateTimePicker.locale ? dateTimePicker.locale.isoFormat : '',
-            formatOptions: dateTimePicker.locale ? dateTimePicker.locale.options : {}
+            popupDisabled: dateTimePicker.popupDisabled
           };
 
           consoleEl.value = JSON.stringify(data, undefined, 4);
@@ -156,7 +154,6 @@
           dateFrom.value = '';
           dateTo.value = '';
           dateTimePicker.value = '';
-          dateTimePicker.formatOptions = null;
           dateValue.view = '';
           dateFrom.view = '';
           dateTo.view = '';
@@ -230,13 +227,42 @@
           dateTo.showSeconds = value;
         };
 
+        const resetFormatOptions = () => {
+          document.getElementById('format-options').value = '';
+          dateValue.formatOptions = null;
+          dateFrom.formatOptions = null;
+          dateTo.formatOptions = null;
+          dateTimePicker.formatOptions = null;
+        };
+
+        const resetFormatAttributes = () => {
+          document.getElementById('timepicker').checked = false;
+          document.getElementById('am-pm').checked = false;
+          document.getElementById('show-seconds').checked = false;
+          dateValue.timepicker = false;
+          dateFrom.timepicker = false;
+          dateTo.timepicker = false;
+          dateTimePicker.timepicker = false;
+          dateValue.showSeconds = false;
+          dateFrom.showSeconds = false;
+          dateTo.showSeconds = false;
+          dateTimePicker.showSeconds = false;
+          dateValue.amPm = false;
+          dateFrom.amPm = false;
+          dateTo.amPm = false;
+          dateTimePicker.amPm = false;
+        };
+
         document.getElementById('timepicker').addEventListener('checked-changed', ({ detail: { value } }) => {
+          resetFormatOptions();
           setTimePicker(value);
         });
         document.getElementById('am-pm').addEventListener('checked-changed', ({ detail: { value } }) => {
+          resetFormatOptions();
           setAmPm(value);
         });
         document.getElementById('show-seconds').addEventListener('checked-changed', ({ detail: { value } }) => {
+          resetFormatOptions();
           setShowSeconds(value);
         });
         document.getElementById('lang').addEventListener('value-changed', ({ detail: { value } }) => {
@@ -273,9 +299,26 @@
                 second: '2-digit'
               };
               break;
+            case 'month-day':
+              formatOptions = {
+                month: 'long',
+                day: 'numeric'
+              };
+              break;
+            case 'year-month':
+              formatOptions = {
+                year: 'numeric',
+                month: 'long'
+              };
+              break;
             // no default
           }
-          dateTimePicker.value = '';
+          resetValue();
+          resetFormatAttributes();
+
+          dateValue.formatOptions = formatOptions;
+          dateFrom.formatOptions = formatOptions;
+          dateTo.formatOptions = formatOptions;
           dateTimePicker.formatOptions = formatOptions;
         });
         document.getElementById('placeholder').addEventListener('value-changed', ({ detail: { value } }) => {
@@ -324,9 +367,6 @@
           dateValue.weekendsOnly = value;
           dateFrom.weekendsOnly = value;
           dateTo.weekendsOnly = value;
-        });
-        document.getElementById('inputTriggerDisabled').addEventListener('checked-changed', ({ detail: { value } }) => {
-          dateTimePicker.inputTriggerDisabled = value || undefined;
         });
         document.getElementById('disabled').addEventListener('checked-changed', ({ detail: { value } }) => {
           dateTimePicker.disabled = value || undefined;
