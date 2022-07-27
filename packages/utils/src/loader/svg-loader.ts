@@ -118,7 +118,6 @@ export class SVGLoader extends CDNLoader {
     if (!name) {
       return;
     }
-    await cache.ready;
 
     const src = await this.getSrc(name);
 

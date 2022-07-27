@@ -13,8 +13,6 @@ export class LocalCache {
 
   public ready: Promise<boolean> | null = null;
 
-  public restored = false;
-
   /**
   * Storage to store data
   */
@@ -36,7 +34,6 @@ export class LocalCache {
    */
   async restore (): Promise<boolean> {
     this.cache = await this.storage.restoreItems() as CacheMap;
-    this.restored = true;
     return true;
   }
 
@@ -48,6 +45,7 @@ export class LocalCache {
    * @returns {void}
    */
   async set (key: string, value: string, expires = 432000): Promise<void> {
+    await this.ready;
     const modified = Date.now();
     const data = {
       value,
@@ -65,6 +63,7 @@ export class LocalCache {
    */
   async get (key: string): Promise<string | null> {
     await this.ready;
+
     const item = this.cache?.get(key);
     if (item && item.expires > Date.now()) {
       return Promise.resolve(item.value);
@@ -78,6 +77,7 @@ export class LocalCache {
    * @returns {void}
    */
   async remove (key: string): Promise<void> {
+    await this.ready;
     this.cache?.delete(key);
     await this.storage.removeItem(key);
   }
@@ -87,6 +87,7 @@ export class LocalCache {
    * @returns String data or `null` if nothing is cached
    */
   async clear (): Promise<void> {
+    await this.ready;
     this.cache?.clear();
     await this.storage.clear();
   }
