@@ -26,7 +26,7 @@ export interface CacheStorage {
    * Returns all values in this storage
    */
   restoreItems(): Promise<unknown>;
-  
+
   /**
    * Set a value against a key
    */

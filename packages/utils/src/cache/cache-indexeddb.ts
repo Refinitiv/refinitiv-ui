@@ -53,6 +53,9 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns {void}
    */
   private async open (): Promise<void> {
+    if (this.db) {
+      return;
+    }
     this.db = await openDB<IndexedDBDatabase>(this.dbName, this.version, {
       upgrade: (db) => { // Call when no database or found new version
         db.createObjectStore(this.storeName);
@@ -75,7 +78,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns {void}
    */
   async restoreItems (): Promise<CacheMap> {
-    await this.open();
+    !this.db && await this.open();
     const cacheItems = new Map() as CacheMap;
     let cursor = await this.db?.transaction(this.storeName, 'readonly').store.openCursor();
     while (cursor) {
@@ -92,6 +95,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns {void}
    */
   async setItem (key: string, value: CacheItem): Promise<void> {
+    !this.db && await this.open();
     const item = { ...value, key };
     await this.db?.put(this.storeName, item, key);
   }
@@ -102,6 +106,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns {CacheItem | null} value in the row
    */
   async getItem (key: string): Promise<CacheItem | null> {
+    !this.db && await this.open();
     return await this.db?.get(this.storeName, key) || null;
   }
 
@@ -111,6 +116,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns {void}
    */
   async removeItem (key: string): Promise<void> {
+    !this.db && await this.open();
     await this.db?.delete(this.storeName, key);
   }
 
@@ -119,6 +125,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns {void}
    */
   async clear (): Promise<void> {
+    !this.db && await this.open();
     await this.db?.clear(this.storeName);
   }
 }

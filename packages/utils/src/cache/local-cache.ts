@@ -5,17 +5,14 @@ import type { CacheMap, CacheStorage } from './types';
  */
 export class LocalCache {
 
-  constructor (storage?: CacheStorage) {
-    if (storage) {
-      this.use(storage);
-    }
-  }
-
+  /**
+   * Cache ready to use
+   */
   public ready: Promise<boolean> | null = null;
 
   /**
-  * Storage to store data
-  */
+   * Storage to store data
+   */
   public storage!: CacheStorage;
 
   /**
@@ -23,7 +20,16 @@ export class LocalCache {
    */
   private cache: CacheMap | null | undefined;
 
-  protected use (storage: CacheStorage) {
+  constructor (storage: CacheStorage) {
+    this.use(storage);
+  }
+
+  /**
+   * Set storage to the local cache
+   * @param storage cache storage
+   * @returns {void}
+   */
+  protected use (storage: CacheStorage): void {
     this.storage = storage;
     this.ready = this.restore();
   }
@@ -84,7 +90,7 @@ export class LocalCache {
 
   /**
    * Clear all memory cache
-   * @returns String data or `null` if nothing is cached
+   * @returns {void}
    */
   async clear (): Promise<void> {
     await this.ready;
