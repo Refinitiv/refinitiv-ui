@@ -1,7 +1,9 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, keyboardEvent, isIE, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tab-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
+
+const keyArrowRight = keyboardEvent('keydown', { key: isIE() ? 'Right' : 'ArrowRight' });
 
 describe('tab-bar/value', () => {
   let el;
@@ -119,8 +121,10 @@ describe('tab-bar/value', () => {
     });
   });
   describe('Event', () => {
-    it('Should fired value-changed event on tapping', async () => {
-      const el = await fixture(`
+    let tabList;
+  
+    beforeEach(async () => {
+      el = await fixture(`
         <ef-tab-bar value="1">
           <ef-tab label="1"></ef-tab>
           <ef-tab>2</ef-tab>
@@ -128,15 +132,42 @@ describe('tab-bar/value', () => {
           <ef-tab value="1">1</ef-tab>
         </ef-tab-bar>
       `);
+      tabList = el.querySelectorAll('ef-tab');
+    });
+
+    it('Should not fired value-changed event when value programmatically set', async () => {
       let isFired = false;
       el.addEventListener('value-changed', () => {
         isFired = true;
       });
-      const tabList = el.querySelectorAll('ef-tab');
+      el.value = '2';
+      expect(isFired).to.equal(false);
+    });
+    it('Should fired value-changed event on tapping', async () => {
+      let isFired = false;
+      el.addEventListener('value-changed', () => {
+        isFired = true;
+      });
+
       tabList[3].click();
       expect(isFired).to.equal(false);
       tabList[1].click();
       expect(isFired).to.equal(true);
     });
+    it('Should fired value-changed event when pressing an arrow key', async () => {
+      let event;
+      tabList[0].focus();
+
+      setTimeout(() => {
+        el.dispatchEvent(keyArrowRight);
+      });
+      event = await oneEvent(el, 'value-changed');
+      expect(event.detail.value).to.equal('2');
+      setTimeout(() => {
+        el.dispatchEvent(keyArrowRight);
+      });
+      event = await oneEvent(el, 'value-changed');
+      expect(event.detail.value).to.equal('1');
+    })
   });
 });
