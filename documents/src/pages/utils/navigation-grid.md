@@ -50,9 +50,12 @@ import { ifDefined } from 'https://cdn.skypack.dev/@refinitiv-ui/core/directives
 import { first, last, left, right, up, down } from 'https://cdn.skypack.dev/@refinitiv-ui/utils/navigation.js?min';
 halo();
 
-// Number of rows and columns to generate
+// Number of rows and columns to generate random sample matrix
 const Rows = 4;
 const Columns = 4;
+const Matrix = Array.from(Array(Rows)).map(
+  () => Array.from(Array(Columns)).map(
+    () => Math.round(Math.random())));
 
 /**
  * Navigation Grid Test Example
@@ -75,9 +78,9 @@ class NavigationGrid extends BasicElement {
     :host {
       display: contents;
       font-size: 16px;
-      --active-cell-background-color: var(--color-scheme-positive, green);
-      --inactive-cell-background-color: var(--color-scheme-negative, red);
-      --focus-cell-background-color: var(--color-scheme-primary, blue);
+      --active-cell-background-color: var(--color-scheme-positive);
+      --inactive-cell-background-color: var(--color-scheme-negative);
+      --focus-cell-background-color: var(--color-scheme-primary);
     }
     [part~=table] {
       display: table;
@@ -106,11 +109,7 @@ class NavigationGrid extends BasicElement {
 
   constructor() {
     super();
-
-    // Generate random matrix
-    this.matrix = Array.from(Array(Rows)).map(
-      () => Array.from(Array(Columns)).map(
-        () => Math.round(Math.random())));
+    this.matrix = Matrix;
   }
 
   /**
@@ -132,7 +131,7 @@ class NavigationGrid extends BasicElement {
     // document.activeElement.shadowRoot.activeElement
     const gridHTML = this.gridHTML;
     for (let rowIdx = 0; rowIdx < gridHTML.length; rowIdx += 1) {
-      const columnIdx = gridHTML[rowIdx].findIndex(cellElement => activeElement === cellElement);
+      const columnIdx = gridHTML[rowIdx].indexOf(activeElement);
       if (columnIdx !== -1) {
         return [columnIdx, rowIdx];
       }
@@ -152,7 +151,7 @@ class NavigationGrid extends BasicElement {
     if (!row) {
       return;
     }
-    const cellElement = row.find((cellElement, columnIdx) => index[0] === columnIdx);
+    const cellElement = row[index[0]];
     cellElement && cellElement.focus();
   }
 
@@ -216,7 +215,7 @@ class NavigationGrid extends BasicElement {
    * @param {0 | 1} active 0 if inactive cell, 1 if active
    * @returns {TemplateResult} Cell template
    */
-  getCell (active) {
+  getCellTemplate (active) {
     return html`<div part="cell${active ? ' active' : ''}"
                      tabindex="${ifDefined(active ? 0 : undefined)}">${active ? 1 : 0}</div>`;
   }
@@ -226,8 +225,8 @@ class NavigationGrid extends BasicElement {
    * @param {(0 | 1)[]} row A list of 0 and 1 indicating a row of active cells
    * @returns {TemplateResult} Row template
    */
-  getRow (row) {
-    return html`<div part="row">${row.map(cell => this.getCell(cell))}</div>`;
+  getRowTemplate (row) {
+    return html`<div part="row">${row.map(cell => this.getCellTemplate(cell))}</div>`;
   }
 
   /**
@@ -237,7 +236,7 @@ class NavigationGrid extends BasicElement {
    */
   render () {
     return html`<div part="table"
-                     @keydown="${this.onKeyDown}">${this.matrix.map(row => this.getRow(row))}</div>`;
+                     @keydown="${this.onKeyDown}">${this.matrix.map(row => this.getRowTemplate(row))}</div>`;
   }
 }
 customElement('efx-navigation-grid', { theme: false })(NavigationGrid);
