@@ -30,7 +30,7 @@ ef-flag {
 
 ## Usage
 
-You can set a flag's code via the `flag` attribute to display the flag. Alternatively, instead of using the `flag` attribute, you can manually provide the url of an svg flag using the `src` attribute.
+You can set a flag's code via the `flag` attribute to display the flag. Alternatively, you can set the url of an svg file or relative path to your svg file using the `src` attribute.
 
 ```html
 <ef-flag flag="br"></ef-flag>
@@ -107,17 +107,18 @@ Below is a list of available flags in the Halo theme. You can use them with the 
   width: 96px;
   text-align: center;
   margin: 7px;
-  border: solid 1px #aaa;
+  outline: solid 1px #dddfe4;
   padding-top: 20px;
 }
 .item:hover {
-  transition: background-color 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-  background-color: #dddfe4;
+  outline: 1px solid #aaa;
 }
+ .item:hover .flag-name {
+    border-top: solid 1px #aaa;
+  }
 .flag-name {
   font-size: 13px;
-  border-top: solid 1px #aaa;
-  margin-bottom: 5px;
+  border-top: solid 1px #dddfe4;
   font-weight: 500;
 }
 .flag-fullname {
