@@ -5,8 +5,8 @@ location: ./elements/grid
 layout: default
 -->
 
-!> Plugins are components that built with Element Framework by **Developer Community**. This component is built and maintained by dedicate team who is specialised on Grid.
-!> Contact [Grid Support](mailto:grid-support@lseg.com) for helps and supports.
+@> Plugins are components that built with Element Framework by **Developer Community**. This component is built and maintained by dedicate team who is specialised on Grid.
+@> Contact [Grid Support](mailto:grid-support@lseg.com) for helps and supports.
 
 # Grid
 
@@ -25,14 +25,11 @@ The element is required theme to instantiate itself in the app. Refinitiv's desi
 npm install @refinitiv-ui/halo-theme
 ```
 
-
 ## Documentation
 See list of APIs, demo and more usage guide by visiting [EFX Grid document](https://refinitiv.github.io/efx-grid)
 
 ## Usage
 Import EFX Grid and its themes into your application. To follow Refinitiv design system, it is required styles of some native elements e.g. typography.
-
-@>The font "Proxima Nova Fin" shall only be used within Refinitiv products or services. The copyright owner must approve any use of such font outside of Refinitiv products or services, which may be subject to a fee. Please see https://www.fontspring.com/lic/fontspring/webfont#license_text
 
 ```javascript
 // import element and its Halo dark theme
