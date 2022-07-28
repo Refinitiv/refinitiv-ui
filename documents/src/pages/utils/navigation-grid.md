@@ -35,180 +35,211 @@ cell = down(grid, cell); // => [2, 1], third column and second row
 
 A common use case for the utility is to provide navigation over the HTML table.
 
+Click on the table and use _Arrow_, _Home_ and _End_ keys to select cells.
+
 ::
-```css
-.table {
-  display: table;
-  border-spacing: 1px;
-}
-
-.row {
-  display: table-row;
-}
-
-.cell {
-  font-size: 16px;
-  display: table-cell;
-  width: 3em;
-  height: 3em;
-  text-align: center;
-  vertical-align: middle;
-  outline: none;
-  background-color: #A01C2B;
-  cursor: pointer;
-}
-
-.cell[tabindex] {
-  background-color: #227542;
-}
-
-.cell:focus {
-  background-color: #334BFF;
-}
-```
 ```html
-<div id="grid" class="table">
-  <div class="row">
-    <div class="cell" tabindex="0">1</div>
-    <div class="cell">0</div>
-    <div class="cell" tabindex="0">1</div>
-    <div class="cell">0</div>
-  </div>
-  <div class="row">
-    <div class="cell" tabindex="0">1</div>
-    <div class="cell" tabindex="0">1</div>
-    <div class="cell" tabindex="0">1</div>
-    <div class="cell" tabindex="0">1</div>
-  </div>
-  <div class="row">
-    <div class="cell" tabindex="0">1</div>
-    <div class="cell" tabindex="0">1</div>
-    <div class="cell">0</div>
-    <div class="cell" tabindex="0">1</div>
-  </div>
-  <div class="row">
-    <div class="cell">0</div>
-    <div class="cell" tabindex="0">1</div>
-    <div class="cell" tabindex="0">1</div>
-    <div class="cell" tabindex="0">1</div>
-  </div>
-</div>
+<efx-navigation-grid></efx-navigation-grid>
 ```
 ```javascript
 import { halo } from '/theme-loader.js';
+import { BasicElement, html, css } from 'https://cdn.skypack.dev/@refinitiv-ui/core?min';
+import { customElement } from 'https://cdn.skypack.dev/@refinitiv-ui/core/decorators/custom-element.js?min';
+import { ifDefined } from 'https://cdn.skypack.dev/@refinitiv-ui/core/directives/if-defined.js?min';
 import { first, last, left, right, up, down } from 'https://cdn.skypack.dev/@refinitiv-ui/utils/navigation.js?min';
 halo();
 
-const gridElement = document.getElementById('grid');
+// Number of rows and columns to generate
+const Rows = 4;
+const Columns = 4;
 
 /**
- * Get a list of HTML elements in a grid form
- * @return {[HTMLElement[]]} a collection of HTML elements grouped in rows
+ * Navigation Grid Test Example
  */
-const getGridHTML = () => {
-  const grid = [];
-  for (let i = 0; i < gridElement.children.length; i += 1) {
-    const row = [];
-    const rowElement = gridElement.children[i];
-    for (let e = 0; e < rowElement.children.length; e += 1) {
-      row.push(rowElement.children[e]);
+class NavigationGrid extends BasicElement {
+  static properties = {
+    matrix: {
+      type: Array,
+      attribute: false
     }
-    grid.push(row);
+  };
+
+  /**
+   * A `CSSResultGroup` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @return {CSSResultGroup} CSS template
+   */
+  static styles = css`
+    :host {
+      display: contents;
+      font-size: 16px;
+      --active-cell-background-color: #227542;
+      --inactive-cell-background-color: #A01C2B;
+      -focus-cell-background-color: #334BFF;
+    }
+    :host::part(table) {
+      display: table;
+      border-spacing: 1px;
+    }
+    :host::part(row) {
+      display: table-row;
+    }
+    :host::part(cell) {
+      display: table-cell;
+      width: 3em;
+      height: 3em;
+      text-align: center;
+      vertical-align: middle;
+      outline: none;
+      background-color: var(--inactive-cell-background-color);
+    }
+    :host::part(active) {
+      cursor: pointer;
+      background-color: var(--active-cell-background-color);
+    }
+    :host::part(active):focus {
+      background-color: var(--focus-cell-background-color);
+    }
+  `;
+
+  constructor() {
+    super();
+
+    // Generate random matrix
+    this.matrix = Array.from(Array(Rows)).map(
+      () => Array.from(Array(Columns)).map(
+        () => Math.round(Math.random())));
   }
-  return grid;
-};
 
-/**
- * Get grid matrix
- * @return {(number)[][]} Grid matrix
- */
-const getGridMatrix = () => getGridHTML().map(row => row.map(cell => cell.tabIndex >= 0 ? 1 : 0));
+  /**
+   * Get HTML grid
+   * @returns {HTMLElement[][]} HTML grid
+   */
+  get gridHTML () {
+    const rows = Array.from(this.renderRoot.querySelectorAll('[part~=row]'));
+    return rows.map(row => Array.from(row.querySelectorAll('[part~=cell]')))
+  }
 
-/**
- * Get active cell index
- * @return {null|[number, number]} Cell index
- */
-const getActiveCell = () => {
-  const gridHTML = getGridHTML();
+  /**
+   * Get active cell index
+   * @return {null|[number, number]} Cell index
+   */
+  get activeCell () {
+    const activeElement = this.shadowRoot.activeElement;
 
-  for (let rowIdx = 0; rowIdx < gridHTML.length; rowIdx += 1) {
-    const columnIdx = gridHTML[rowIdx].findIndex(cellElement => document.activeElement === cellElement);
-    if (columnIdx !== -1) {
-      return [columnIdx, rowIdx];
+    // document.activeElement.shadowRoot.activeElement
+    const gridHTML = this.gridHTML;
+    for (let rowIdx = 0; rowIdx < gridHTML.length; rowIdx += 1) {
+      const columnIdx = gridHTML[rowIdx].findIndex(cellElement => activeElement === cellElement);
+      if (columnIdx !== -1) {
+        return [columnIdx, rowIdx];
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Focus on active cell
+   * @param {null|[number, number]} index Cell index
+   */
+  set activeCell (index) {
+    if (!index) {
+      return;
+    }
+    const row = this.gridHTML[index[1]];
+    if (!row) {
+      return;
+    }
+    const cellElement = row.find((cellElement, columnIdx) => index[0] === columnIdx);
+    cellElement && cellElement.focus();
+  }
+
+  /**
+   * Navigate to the cell based on provided key
+   * @param {'ArrowUp'|'ArrowDown'|'ArrowLeft'|'ArrowRight'|'Home'|'End'} key The direction key
+   * @returns {void}
+   */
+  onNavigate (key) {
+    let activeCell = this.activeCell;
+    if (!activeCell) {
+      this.activeCell = first(this.matrix);
+      return;
+    }
+    switch (key) {
+      case 'ArrowUp':
+        activeCell = up(this.matrix, activeCell);
+        break;
+      case 'ArrowDown':
+        activeCell = down(this.matrix, activeCell);
+        break;
+      case 'ArrowLeft':
+        activeCell = left(this.matrix, activeCell);
+        break;
+      case 'ArrowRight':
+        activeCell = right(this.matrix, activeCell);
+        break;
+      case 'Home':
+        activeCell = first(this.matrix);
+        break;
+      case 'End':
+        activeCell = last(this.matrix);
+        break;
+      // no default
+    }
+    this.activeCell = activeCell;
+  }
+
+  /**
+   * Run on keydown to bind Arrow keys
+   * @param {KeyboardEvent} event Keyboard Event
+   * @returns {void}
+   */
+  onKeyDown (event) {
+    switch (event.key) {
+      case 'ArrowUp':
+      case 'ArrowDown':
+      case 'ArrowLeft':
+      case 'ArrowRight':
+      case 'Home':
+      case 'End':
+        this.onNavigate(event.key);
+        event.preventDefault();
+        break;
+      // no default
     }
   }
-  return null;
-};
 
-/**
- * Focus on active cell
- * @param {null|[number, number]} index Cell index
- */
-const setActiveCell = (index) => {
-  if (!index) {
-    return;
-  }
-  const row = getGridHTML()[index[1]];
-  if (!row) {
-    return;
+  /**
+   * Get cell template
+   * @param {0 | 1} active 0 if inactive cell, 1 if active
+   * @returns {TemplateResult} Cell template
+   */
+  getCell (active) {
+    return html`<div part="cell${active ? ' active' : ''}"
+                     tabindex="${ifDefined(active ? 0 : undefined)}">${active ? 1 : 0}</div>`;
   }
 
-  const cellElement = row.find((cellElement, columnIdx) => index[0] === columnIdx);
-  cellElement && cellElement.focus();
-};
-
-/**
- * Navigate to the cell based on provided key
- * @param {'ArrowUp'|'ArrowDown'|'ArrowLeft'|'ArrowRight'|'Home'|'End'} key The direction key
- */
-const onNavigate = (key) => {
-  let activeCell = getActiveCell();
-  const matrix = getGridMatrix();
-
-  if (!activeCell) {
-    setActiveCell(first(matrix));
-    return;
+  /**
+   * Get row template
+   * @param {(0 | 1)[]} row A list of 0 and 1 indicating a row of active cells
+   * @returns {TemplateResult} Row template
+   */
+  getRow (row) {
+    return html`<div part="row">${row.map(cell => this.getCell(cell))}</div>`;
   }
 
-  switch (key) {
-    case 'ArrowUp':
-      activeCell = up(matrix, activeCell);
-      break;
-    case 'ArrowDown':
-      activeCell = down(matrix, activeCell);
-      break;
-    case 'ArrowLeft':
-      activeCell = left(matrix, activeCell);
-      break;
-    case 'ArrowRight':
-      activeCell = right(matrix, activeCell);
-      break;
-    case 'Home':
-      activeCell = first(matrix);
-      break;
-    case 'End':
-      activeCell = last(matrix);
-      break;
-    // no default
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @returns {TemplateResult} Render template
+   */
+  render () {
+    return html`<div part="table"
+                     @keydown="${this.onKeyDown}">${this.matrix.map(row => this.getRow(row))}</div>`;
   }
-
-  setActiveCell(activeCell);
-};
-
-gridElement.addEventListener('keydown', event => {
-  switch (event.key) {
-    case 'ArrowUp':
-    case 'ArrowDown':
-    case 'ArrowLeft':
-    case 'ArrowRight':
-    case 'Home':
-    case 'End':
-      onNavigate(event.key);
-      event.preventDefault();
-      break;
-    // no default
-  }
-});
+}
+customElement('efx-navigation-grid', { theme: false })(NavigationGrid);
 ```
 ::
 
