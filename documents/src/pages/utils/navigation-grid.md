@@ -41,6 +41,8 @@ Click on the table and use _Arrow_, _Home_ and _End_ keys to select cells.
 ```html
 <efx-navigation-grid></efx-navigation-grid>
 ```
+```css
+```
 ```javascript
 import { halo } from '/theme-loader.js';
 import { BasicElement, html, css } from 'https://cdn.skypack.dev/@refinitiv-ui/core?min';
@@ -68,15 +70,15 @@ class NavigationGrid extends BasicElement {
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
    * and the internal template of the element.
-   * @return {CSSResultGroup} CSS template
+   * @returns {CSSResultGroup} CSS template
    */
   static styles = css`
     :host {
       display: contents;
       font-size: 16px;
-      --active-cell-background-color: #227542;
-      --inactive-cell-background-color: #A01C2B;
-      -focus-cell-background-color: #334BFF;
+      --active-cell-background-color: var(--color-scheme-positive, green);
+      --inactive-cell-background-color: var(--color-scheme-negative, red);
+      --focus-cell-background-color: var(--color-scheme-primary, blue);
     }
     :host::part(table) {
       display: table;
@@ -123,7 +125,7 @@ class NavigationGrid extends BasicElement {
 
   /**
    * Get active cell index
-   * @return {null|[number, number]} Cell index
+   * @returns {null|[number, number]} Cell index
    */
   get activeCell () {
     const activeElement = this.shadowRoot.activeElement;
@@ -242,6 +244,7 @@ class NavigationGrid extends BasicElement {
 customElement('efx-navigation-grid', { theme: false })(NavigationGrid);
 ```
 ::
+
 
 ## Common Helpers
 
