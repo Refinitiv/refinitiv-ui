@@ -39,7 +39,9 @@ import {
   format,
   toSegment,
   Locale,
-  DateFormat
+  DateFormat,
+  getFormat,
+  utcParse
 } from '@refinitiv-ui/utils/date.js';
 
 import {
@@ -57,6 +59,7 @@ import { preload } from '../icon/index.js';
 import type { TimePicker } from '../time-picker';
 import type { DatetimeField } from '../datetime-field';
 import { resolvedLocale } from '../datetime-field/resolvedLocale.js';
+import '@refinitiv-ui/phrasebook/locale/en/datetime-picker.js';
 
 preload('calendar', 'down', 'left', 'right'); /* preload calendar icons for faster loading */
 
@@ -275,7 +278,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   })
   public set values (values: string[]) {
     const oldValues = this._values;
-    this._values = values;
+    this._values = this.filterAndWarnInvalidValues(values);
     this.requestUpdate('values', oldValues);
   }
   public get values (): string[] {
@@ -530,6 +533,40 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
+   * A helper method to make sure that only valid values are passed
+   * Warn if passed value is invalid
+   * @param values Values to check
+   * @returns Filtered collection of values
+   */
+  private filterAndWarnInvalidValues (values: string[]): string[] {
+    return values.map(value => {
+      if (this.isValidValue(value)) {
+        return value;
+      }
+      this.warnInvalidValue(value);
+      return '';
+    });
+  }
+
+  /**
+   * Show invalid value message
+   * @param value Invalid value
+   * @returns {void}
+   */
+  protected override warnInvalidValue (value: string): void {
+    new WarningNotice(`The specified value "${value}" does not conform to the required format. The format is ${resolvedLocale(this).isoFormat}.`).once();
+  }
+
+  /**
+   * Check if passed value is valid
+   * @param value Value
+   * @returns valid Validity
+   */
+  protected isValidValue (value: string): boolean {
+    return value === '' ? true : getFormat(value) === resolvedLocale(this).isoFormat;
+  }
+
+  /**
    * Return true if calendar is in duplex mode
    * @returns duplex
    */
@@ -661,7 +698,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param event Tap event
    * @returns {void}
    */
-  private onIconTap (event: TapEvent): void {
+  private onButtonTap (event: TapEvent): void {
     this.setOpened(true);
   }
 
@@ -880,18 +917,35 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
-   * Template for rendering an icon
+   * Template for rendering a button
    */
-  private get iconTemplate (): TemplateResult {
+  private get buttonTemplate (): TemplateResult {
+    const formatter = resolvedLocale(this).formatter;
+    const values = this.values;
+    const from = values[0] ? formatter.format(utcParse(values[0])) : '';
+    const to = values[1] ? formatter.format(utcParse(values[1])) : '';
+    const hasValue = !!from || !!to;
+
     return html`
-      <div role="${ifDefined(this.popupDisabled ? undefined : 'button')}"
-           part="button"
-           tabindex="${ifDefined(this.popupDisabled ? undefined : 0)}"
-           aria-label="${this.opened ? true || this.t('TODO') : true || this.t('TODO')}"
-           ?readonly="${this.readonly}"
-           @tap="${this.onIconTap}">
+      <button part="button"
+              aria-haspopup="dialog"
+              aria-label="${this.t(`${
+                hasValue ? 'CHANGE' : 'CHOOSE'
+              }${
+                this.hasDatePicker ? '_DATE' : ''
+              }${
+                this.hasTimePicker ? '_TIME' : ''
+              }${
+                this.range ? '_RANGE' : ''
+              }`, {
+                from,
+                to
+              })}"
+              ?readonly="${this.readonly}"
+              ?disabled="${this.popupDisabled}"
+              @tap="${this.onButtonTap}">
         <ef-icon part="icon" icon="calendar"></ef-icon>
-      </div>
+      </button>
     `;
   }
 
@@ -915,9 +969,19 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   */
   private get popupTemplate (): TemplateResult | undefined {
     if (this.lazyRendered) {
+      const hasTime = this.hasTimePicker;
+      const hasDate = this.hasDatePicker;
+
       return html`<ef-overlay
         role="dialog"
         aria-modal="true"
+        aria-label="${this.t(`CHOOSE${
+          hasDate ? '_DATE' : ''
+        }${
+          hasTime ? '_TIME' : ''
+        }${
+          this.range ? '_RANGE' : ''
+        }`)}"
         part="list"
         with-shadow
         no-cancel-on-esc-key
@@ -931,8 +995,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
           <div part="body">
             <div><slot name="left"></div>
             <div part="selectors-wrapper">
-              ${this.hasDatePicker ? html`<div part="calendar-wrapper">${this.calendarsTemplate}</div>` : undefined}
-              ${this.hasTimePicker ? html`<div part="timepicker-wrapper">${this.timepickersTemplate}</div>` : undefined}
+              ${hasDate ? html`<div part="calendar-wrapper">${this.calendarsTemplate}</div>` : undefined}
+              ${hasTime ? html`<div part="timepicker-wrapper">${this.timepickersTemplate}</div>` : undefined}
             </div>
             <div><slot name="right"></div>
           </div>
@@ -949,7 +1013,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   protected render (): TemplateResult {
     return html`
       ${this.inputTemplates}
-      ${this.iconTemplate}
+      ${this.buttonTemplate}
       ${this.popupTemplate}
     `;
   }
