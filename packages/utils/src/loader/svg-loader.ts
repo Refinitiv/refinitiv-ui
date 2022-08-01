@@ -1,9 +1,12 @@
-import { CacheIndexedDBStorage, LocalCache } from '../cache.js';
+import { CacheIndexedDBStorage, CacheLocalStorage, LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
-const dbName = 'test-icon-cache';
-const IndexedDBStorage = new CacheIndexedDBStorage({ dbName: dbName, version: 1, storeName: dbName });
-const cache = new LocalCache(IndexedDBStorage);
+// Storages
+const Storage = new CacheIndexedDBStorage({ dbName: 'ef', version: 1, storeName: 'svg-loader' });
+// const Storage = new CacheLocalStorage('ef-svg-loader');
+
+// Set to cache
+const cache = new LocalCache(Storage);
 
 /**
  * Checks a string to see if it's a valid URL
@@ -126,6 +129,8 @@ export class SVGLoader extends CDNLoader {
       const response = await this.load(src);
       const svgNode = extractSafeSVG(response)?.cloneNode(true);
       const svgBody = svgNode ? this.xmlSerializer.serializeToString(svgNode) : undefined;
+      // console.log(svgBody);
+
       svgBody && cache.set(src, svgBody);
       return svgBody;
     }
