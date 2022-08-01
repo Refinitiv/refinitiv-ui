@@ -1,93 +1,103 @@
-import { TimeoutTaskRunner } from '../async.js';
-import type { CacheItem, CacheStorage } from './types';
+import type { CacheItem, CacheMap, CacheStorage } from './types';
 
 /**
- * Saves cache database in local storage
- * @param key key to save value
- * @param value Data to store
- * @returns {void}
- */
-const save = (key: string, value: CacheItem): void => {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-  }
-  catch (e) {
-    const error = e as null | string | Error;
-    const msg = typeof error === 'string' ? error : error ? error.message : 'unknown error';
-    throw new Error(`Unable to store cache '${key}'.\n${msg}`);
-  }
-};
-
-/**
- * Restores cache database from local storage
- * @param key key to retrieve value
- * @returns {unknown | null} data from the key
- */
-const retrieve = (key: string):CacheItem | null => {
-  try {
-    return JSON.parse(localStorage.getItem(key) || '') as CacheItem;
-  }
-  catch (e) {
-    return null;
-  }
-};
-
-
-/**
- * Stores data in local storage for use across multiple sessions.
+ * Stores data in `localStorage` for use across multiple sessions.
  */
 export class CacheLocalStorage implements CacheStorage {
-  /**
-   * Task runner used to schedule save
-   */
-  private taskRunner = new TimeoutTaskRunner(1000);
 
   /**
-   * Returns all values in localStorage
-   * @returns {void}
+   * Prefix for all keys
    */
-  async restoreItems (): Promise<Map<string, unknown>> {
-    const items = new Map<string, unknown>();
+  protected prefixKey = 'local-cache';
+
+  /**
+   * Constructor
+   * @param prefixKey prefix key for all item
+   */
+  constructor (prefixKey?: string) {
+    if (prefixKey) {
+      this.prefixKey = prefixKey;
+    }
+  }
+
+  /**
+   * Set a item against a key to this storage
+   * @param key Cache key
+   * @param value Data to store in cache
+   * @returns Promise void
+   */
+  public async setItem (key: string, value: CacheItem): Promise<void> {
+    const itemKey = [this.prefixKey, key].join('-');
+    return Promise.resolve(localStorage.setItem(itemKey, JSON.stringify(value)));
+  }
+
+  /**
+   * Returns a item in this storage that matched by the key.
+   * @param key Cache key
+   * @returns Promise string data or `null` if nothing is cached
+   */
+  public async getItem (key: string): Promise<CacheItem | null> {
+    const itemKey = [this.prefixKey, key].join('-');
+    return Promise.resolve(this.retrieve(itemKey));
+  }
+
+  /**
+   * Remove a item against a key to this storage
+   * @param key Cache key to remove
+   * @returns Promise void
+   */
+  public async removeItem (key: string): Promise<void> {
+    const itemKey = [this.prefixKey, key].join('-');
+    return Promise.resolve(localStorage.removeItem(itemKey));
+  }
+
+  /**
+   * Clear all items in localStorage
+   * @returns Promise void
+   */
+  public async clear (): Promise<void> {
+    const prefixKey = this.prefixKey !== '' ? this.prefixKey + '-' : '';
     const keys = Object.keys(localStorage);
+
+    keys.filter(key => key.startsWith(prefixKey))
+      .forEach(key => {
+        localStorage.removeItem(key);
+      });
+
+    return Promise.resolve();
+  }
+
+  /**
+   * Returns all items in localStorage
+   * @returns Promise CacheMap items
+   */
+  public async restoreItems (): Promise<CacheMap> {
+    const prefixKey = this.prefixKey !== '' ? this.prefixKey + '-' : '';
+    const regex = new RegExp(`^${prefixKey}`);
+
+    const items = new Map() as CacheMap;
+    const keys = Object.keys(localStorage).filter(key => key.startsWith(prefixKey));
+
     for (let i = 0; i < keys.length; i++) {
-      items.set(keys[i], retrieve(String(keys[i])));
+      const item = this.retrieve(keys[i]);
+      if (item) {
+        items.set(keys[i].replace(regex, ''), item);
+      }
     }
     return Promise.resolve(items);
   }
 
   /**
-   * Caches a value against a key to use until expired
-   * @param key Cache key
-   * @param value Data to store in cache
-   * @returns {void}
+   * Retrieve cache item from localStorage
+   * @param key key to retrieve value
+   * @returns data from the key
    */
-  async setItem (key: string, value: CacheItem): Promise<void> {
-    return Promise.resolve(this.taskRunner.schedule(() => save(key, value)));
-  }
-
-  /**
-   * Returns cache data value based on provided key
-   * @param key Cache key
-   * @returns String data or `null` if nothing is cached
-   */
-  async getItem (key: string): Promise<CacheItem | null> {
-    return Promise.resolve(retrieve(key));
-  }
-
-  /**
-   * Remove a value against a key in this storage
-   * @param key Cache key to remove
-   * @returns {void}
-   */
-  async removeItem (key: string): Promise<void> {
-    return Promise.resolve(localStorage.removeItem(key));
-  }
-
-  /**
-   * Clear all data in localStorage
-   * @returns {void}
-   */
-  async clear (): Promise<void> {
-    return Promise.resolve(localStorage.clear());
+  private retrieve (key: string): CacheItem | null {
+    try {
+      return JSON.parse(localStorage.getItem(key) || '') as CacheItem;
+    }
+    catch (e) {
+      return null;
+    }
   }
 }
