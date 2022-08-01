@@ -1,5 +1,11 @@
-import { openDB, DBSchema, IDBPDatabase } from 'idb';
-import type { CacheStorage, CacheItem, CacheMap, CacheIndexedDBStorageConfig } from './types';
+import { openDB } from 'idb';
+import type { DBSchema, IDBPDatabase } from 'idb';
+import type {
+  CacheStorage,
+  CacheItem,
+  CacheMap,
+  CacheIndexedDBStorageConfig
+} from './types';
 
 interface IndexedDBDatabase extends DBSchema {
   [key: string]: {
@@ -33,6 +39,10 @@ export class CacheIndexedDBStorage implements CacheStorage {
    */
   public storeName: never;
 
+  /**
+   * Constructor
+   * @param info Storage config
+   */
   constructor (info: CacheIndexedDBStorageConfig) {
     const { dbName, version, storeName } = info;
     this.dbName = dbName;
@@ -41,11 +51,60 @@ export class CacheIndexedDBStorage implements CacheStorage {
   }
 
   /**
-   * Returns Error message when unable to connect indexedDB
-   * @returns Error message
+   * Set a item against a key to this storage
+   * @param key item key
+   * @param value item value
+   * @returns {void}
    */
-  private get failConnectMessage (): Error {
-    return new Error(`Unable to connect to indexedDB.\n Name:'${this.dbName}'.\nVersion: ${this.version}\Store: ${String(this.storeName)}`);
+  public async setItem (key: string, value: CacheItem): Promise<void> {
+    !this.db && await this.open();
+    const item = { ...value, key };
+    await this.db?.put(this.storeName, item, key);
+  }
+
+  /**
+   * Returns a item in this storage that matched by the key.
+   * @param key item key
+   * @returns cache item or null
+   */
+  public async getItem (key: string): Promise<CacheItem | null> {
+    !this.db && await this.open();
+    return await this.db?.get(this.storeName, key) || null;
+  }
+
+  /**
+   * Remove a item against a key to this storage
+   * @param key item key
+   * @returns {void}
+   */
+  public async removeItem (key: string): Promise<void> {
+    !this.db && await this.open();
+    await this.db?.delete(this.storeName, key);
+  }
+
+  /**
+   * Clear all item in this storage
+   * @returns {void}
+   */
+  public async clear (): Promise<void> {
+    !this.db && await this.open();
+    await this.db?.clear(this.storeName);
+  }
+
+  /**
+   * Returns all items in this storage
+   * @param store Store name
+   * @returns items map
+   */
+  public async restoreItems (): Promise<CacheMap> {
+    !this.db && await this.open();
+    const cacheItems = new Map() as CacheMap;
+    let cursor = await this.db?.transaction(this.storeName, 'readonly').store.openCursor();
+    while (cursor) {
+      cacheItems.set(cursor.key, cursor.value);
+      cursor = await cursor.continue();
+    }
+    return cacheItems;
   }
 
   /**
@@ -56,6 +115,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
     if (this.db) {
       return;
     }
+
     this.db = await openDB<IndexedDBDatabase>(this.dbName, this.version, {
       upgrade: (db) => { // Call when no database or found new version
         db.createObjectStore(this.storeName);
@@ -73,59 +133,10 @@ export class CacheIndexedDBStorage implements CacheStorage {
   }
 
   /**
-   * Returns all value in this storage
-   * @param store Store name
-   * @returns {void}
+   * Returns Error message when unable to connect indexedDB
+   * @returns Error message
    */
-  async restoreItems (): Promise<CacheMap> {
-    !this.db && await this.open();
-    const cacheItems = new Map() as CacheMap;
-    let cursor = await this.db?.transaction(this.storeName, 'readonly').store.openCursor();
-    while (cursor) {
-      cacheItems.set(cursor.key, cursor.value);
-      cursor = await cursor.continue();
-    }
-    return cacheItems;
-  }
-
-  /**
-   * Set a value against a key to this storage
-   * @param key a
-   * @param value a
-   * @returns {void}
-   */
-  async setItem (key: string, value: CacheItem): Promise<void> {
-    !this.db && await this.open();
-    const item = { ...value, key };
-    await this.db?.put(this.storeName, item, key);
-  }
-
-  /**
-   * Returns the value in this storage that matched by the key.
-   * @param key Row key
-   * @returns {CacheItem | null} value in the row
-   */
-  async getItem (key: string): Promise<CacheItem | null> {
-    !this.db && await this.open();
-    return await this.db?.get(this.storeName, key) || null;
-  }
-
-  /**
-   * Remove a value against a key to this storage
-   * @param key Row key
-   * @returns {void}
-   */
-  async removeItem (key: string): Promise<void> {
-    !this.db && await this.open();
-    await this.db?.delete(this.storeName, key);
-  }
-
-  /**
-   * Clear all values in this storage
-   * @returns {void}
-   */
-  async clear (): Promise<void> {
-    !this.db && await this.open();
-    await this.db?.clear(this.storeName);
+  private get failConnectMessage (): Error {
+    return new Error(`Unable to connect to indexedDB.\n Name:'${this.dbName}'.\nVersion: ${this.version}\Store: ${String(this.storeName)}`);
   }
 }
