@@ -59,7 +59,7 @@ describe('calendar/Value', () => {
     });
     it('Disabled cell should not have a selectable part', async () => {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB" weekends-only fill-cells></ef-calendar>');
-      const cell = el.renderRoot.querySelector('[part="cell day"] > [part~=cell-content]'); // get disabled cell
+      const cell = el.renderRoot.querySelector('[part="cell day"] > [part~=cell-content]'); // disabled cell
       expect(cell.getAttribute('part').includes('selectable')).to.equal(false, 'part "selectable" should not be exists');
     });
   });
