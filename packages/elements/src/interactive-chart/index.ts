@@ -56,7 +56,6 @@ export type {
 
 const NOT_AVAILABLE_DATA = 'N/A';
 const NO_DATA_POINT = '--';
-const HIDE_DATA_POINT = '';
 
 /**
  * A charting component that allows you to create several use cases of financial chart.
@@ -801,7 +800,7 @@ export class InteractiveChart extends ResponsiveElement {
         }
         // when there's no data point in the series object.
         else if (!eventMove?.seriesPrices.get(this.seriesList[idx]) && eventMove?.time) {
-          value = symbol ? NO_DATA_POINT : HIDE_DATA_POINT;
+          value = NO_DATA_POINT;
           this.isCrosshairVisible = true;
           this.hasDataPoint = false;
         }
@@ -902,7 +901,7 @@ export class InteractiveChart extends ResponsiveElement {
         /**
          * Create a new span OHLC after displaying (--) or (N/A)
          */
-        if (spanElem.textContent === NOT_AVAILABLE_DATA || spanElem.textContent === NO_DATA_POINT || spanElem.textContent === HIDE_DATA_POINT) {
+        if (spanElem.textContent === NOT_AVAILABLE_DATA || spanElem.textContent === NO_DATA_POINT) {
           rowLegend[index].removeChild(spanElem);
           this.createSpanOHLC(rowLegend[index] as HTMLElement, rowData, priceColor);
         }
@@ -940,7 +939,7 @@ export class InteractiveChart extends ResponsiveElement {
   private createTextPrice (rowLegend: RowLegend, price: number | string, priceColor: string, index: number): void {
     const formatter = this.internalConfig.series[index].legendPriceFormatter;
     // Formats legend only when formatter and data point are provided
-    const formattedPrice = !!formatter && price !== NO_DATA_POINT && price !== HIDE_DATA_POINT ? formatter(price) : price;
+    const formattedPrice = !!formatter && price !== NO_DATA_POINT ? formatter(price) : price;
 
     // Create text price after chart has rendered
     if (rowLegend instanceof HTMLElement) {
