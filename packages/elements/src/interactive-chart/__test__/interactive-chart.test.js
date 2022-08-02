@@ -638,6 +638,18 @@ describe('interactive-chart/InteractiveChart', () => {
 
     });
 
+    it('When show disabled legend in chart series', async () => {
+      const config = line;
+      config.series[0].disabledLegend = true;
+      el.config = line;
+      await nextFrame();
+      await elementUpdated();
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
+      expect(el.shadowRoot.querySelector('[part=legend]').textContent).to.be.empty;
+
+    });
+
     it('Legend is not horizontal by default', async () => {
       el.config = line;
       await nextFrame();
