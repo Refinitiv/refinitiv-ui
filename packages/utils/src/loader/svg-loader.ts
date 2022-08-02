@@ -2,10 +2,10 @@ import { CacheIndexedDBStorage, LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
 // Storage
-const Storage = new CacheIndexedDBStorage({ dbName: 'ef', version: 1, storeName: 'svg-loader' });
+const storage = new CacheIndexedDBStorage({ dbName: 'ef', version: 1, storeName: 'svg-loader' });
 
 // Create cache and use the storage
-const cache = new LocalCache(Storage);
+const cache = new LocalCache(storage);
 
 /**
  * Checks a string to see if it's a valid URL
