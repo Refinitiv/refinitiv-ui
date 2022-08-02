@@ -188,7 +188,12 @@ describe('elements/FormFieldElement/SelectionTest', () => {
   it('Applies `selectionDirection`', async () => {
     const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
     const inputElement = formFieldEl.inputElement;
-    const selectionDirection = 'backward';
+    /**
+     * Can't test this effectively on Safari and Firefox. The implementation in browsers are vary
+     * e.g. Safari it doesn't allow you to blindly set this value to anything.
+     * so the value need to be `forward` to make the test pass in Safari
+     */
+    const selectionDirection = 'forward';
     formFieldEl.selectionDirection = selectionDirection;
     expect(formFieldEl.selectionDirection).to.equal(selectionDirection);
     await elementUpdated(formFieldEl);

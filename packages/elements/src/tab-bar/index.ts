@@ -4,8 +4,8 @@ import {
   TemplateResult,
   CSSResultGroup,
   PropertyValues,
-  ResponsiveElement,
-  ElementSize
+  ResizeEvent,
+  BasicElement
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -15,6 +15,7 @@ import { tweenAnimate } from './helpers/animate.js';
 import { Tab } from '../tab/index.js';
 import type { Button } from '../button';
 import '../button/index.js';
+import '../layout/index.js';
 
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 
@@ -26,7 +27,7 @@ const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 @customElement('ef-tab-bar', {
   alias: 'coral-tab-bar'
 })
-export class TabBar extends ResponsiveElement {
+export class TabBar extends BasicElement {
 
   /**
    * Element version number
@@ -54,6 +55,9 @@ export class TabBar extends ResponsiveElement {
       }
       :host([alignment=right]) {
         justify-content: flex-end;
+      }
+      :host [part=content] {
+        flex-grow: 0;
       }
     `;
   }
@@ -145,15 +149,13 @@ export class TabBar extends ResponsiveElement {
   }
 
   /**
-   * private method but can't override
-   * access modifiers in typescript.
-   * @ignore
-   * @param size element dimensions
+   * Handles content's container resize
+   * @param event Resize event
    * @returns {void}
    */
-  public resizedCallback (size: ElementSize): void {
+  private handleResize (event: ResizeEvent): void {
     if (!this.vertical) {
-      this.toggleScrollButton(size.width);
+      this.toggleScrollButton(event.detail.width);
     }
   }
 
@@ -162,9 +164,21 @@ export class TabBar extends ResponsiveElement {
    * @param value Value to check
    * @returns true if incoming value matches one of the existing tabs
    */
-  private isValidValue (value: string): boolean {
+  protected isValidValue (value: string): boolean {
     const tabList = this.getFocusableTabs();
     return tabList.some(tab => this.getTabValue(tab) === value);
+  }
+
+  /**
+   * On *user-interaction* set the value and notify.
+   * @param value New value
+   * @returns {void}
+   */
+  protected setValueAndNotify (value: string): void {
+    if (this.value !== value) {
+      this.value = value;
+      this.notifyPropertyChange('value', value);
+    }
   }
 
   /**
@@ -222,10 +236,7 @@ export class TabBar extends ResponsiveElement {
     const element = event.target;
     if (element instanceof Tab) {
       const tabValue = this.getTabValue(element);
-      if (tabValue !== this.value) {
-        this.value = this.getTabValue(element);
-        this.notifyPropertyChange('value', tabValue);
-      }
+      this.setValueAndNotify(tabValue);
     }
   }
 
@@ -341,7 +352,8 @@ export class TabBar extends ResponsiveElement {
   private focusAndSetActiveTab (tab: Tab): void {
     tab.focus();
     tab.scrollIntoView({ block: 'nearest' });
-    this.value = this.getTabValue(tab);
+    const tabValue = this.getTabValue(tab);
+    this.setValueAndNotify(tabValue);
   }
 
   /**
@@ -459,9 +471,9 @@ export class TabBar extends ResponsiveElement {
   protected render (): TemplateResult {
     return html`
       ${!this.vertical ? html`<ef-button tabIndex="-1" aria-hidden="true" icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
-        <div part="content">
+        <ef-layout part="content" @resize=${this.handleResize}>
           <slot @slotchange=${this.onSlotChange}></slot>
-        </div>
+        </ef-layout>
       ${!this.vertical ? html`<ef-button tabIndex="-1" aria-hidden="true" icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
     `;
   }

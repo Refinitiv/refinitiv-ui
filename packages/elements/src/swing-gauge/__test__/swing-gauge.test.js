@@ -208,14 +208,14 @@ describe('SapphireSwingGaugeTest', () => {
     });
 
     it('Should resize label font size', async () => {
-      await aTimeout(50);
+      await aTimeout(100);
 
       const fontSize = Number(el.labelStyle.fontSize.replace('px', ''));
 
       el.primaryLabel = 'So long primary label and more and more and more';
       el.style.width = '20%';
-      
-      await elementUpdated();
+
+      await elementUpdated(el);
 
       const newFontSize = Number(el.labelStyle.fontSize.replace('px', ''));
       expect(newFontSize).to.lessThan(fontSize);
@@ -231,9 +231,9 @@ describe('SapphireSwingGaugeTest', () => {
       el.primaryValue = 67;
       el.secondaryValue = 33;
       el.valueFormatter = (value, rawValue) => `$${value}% (${rawValue})`;
-  
+
       el.style.width = '20%';
-      
+
       await elementUpdated();
 
       const newFontSize = Number(el.valueStyle.fontSize.replace('px', ''));

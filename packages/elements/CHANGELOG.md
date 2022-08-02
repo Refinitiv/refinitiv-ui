@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.3...@refinitiv-ui/elements@6.0.4) (2022-08-02)
+
+
+### Bug Fixes
+
+* **calendar:** day cell selected style not work with disabled state ([#410](https://github.com/Refinitiv/refinitiv-ui/issues/410)) ([1d9c931](https://github.com/Refinitiv/refinitiv-ui/commit/1d9c931b4d625b93c6fd60b780060ff2f03d9fc9))
+* **interactive-chart:** show dash text when legend hided ([#402](https://github.com/Refinitiv/refinitiv-ui/issues/402)) ([93631ca](https://github.com/Refinitiv/refinitiv-ui/commit/93631cac4db0623f05c333b53f67728ace953039))
+* **tab-bar:** notify value change event on pressing an arrow key ([#398](https://github.com/Refinitiv/refinitiv-ui/issues/398)) ([e55d152](https://github.com/Refinitiv/refinitiv-ui/commit/e55d152491b97c8763dc628ef7d1c013e4c3f01a))
+
+
+
+
+
+## [6.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.2...@refinitiv-ui/elements@6.0.3) (2022-07-20)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
+## [6.0.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.1...@refinitiv-ui/elements@6.0.2) (2022-07-19)
+
+
+### Bug Fixes
+
+* **accordion:** The element should interact only with its direct children ([#378](https://github.com/Refinitiv/refinitiv-ui/issues/378)) ([f8e11d3](https://github.com/Refinitiv/refinitiv-ui/commit/f8e11d391839cb1e53aad3ec2682a089766851ff))
+* **list:** item should not receive focus when click ([#272](https://github.com/Refinitiv/refinitiv-ui/issues/272)) ([e2293e3](https://github.com/Refinitiv/refinitiv-ui/commit/e2293e37126a446d5c1d16be1e5eb503425534f3))
+* **tab-bar:** resize callback is not fired when a new tab has been added ([#389](https://github.com/Refinitiv/refinitiv-ui/issues/389)) ([13408e1](https://github.com/Refinitiv/refinitiv-ui/commit/13408e15302a19cd614fdd5f1b4af9be5f1881bd))
+* use `setAttribute` instead of `AriaMixins`  for aria attributes ([#327](https://github.com/Refinitiv/refinitiv-ui/issues/327)) ([09f91fa](https://github.com/Refinitiv/refinitiv-ui/commit/09f91fafdef57fa26722ccf0e19f586833405cbb))
+
+
+
+
+
 ## [6.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.0...@refinitiv-ui/elements@6.0.1) (2022-06-20)
 
 

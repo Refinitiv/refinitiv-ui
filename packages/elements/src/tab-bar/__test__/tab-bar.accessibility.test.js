@@ -1,4 +1,4 @@
-import { fixture, expect, keyboardEvent, isIE, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, keyboardEvent, isIE } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tab-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';

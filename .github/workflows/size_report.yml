@@ -1,0 +1,19 @@
+name: Bundle size report
+
+on:
+  pull_request:
+    branches: [v6]
+
+jobs:
+  size-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - uses: preactjs/compressed-size-action@v2
+        with:
+         build-script: "build:prod"
+         pattern: "{**/lib/**/*.js,**/*-theme/**/*.{js,css}}"

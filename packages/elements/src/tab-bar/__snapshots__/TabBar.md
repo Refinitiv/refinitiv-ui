@@ -1,4 +1,4 @@
-# `tab-bar/Template`
+# `tab-bar/TabBar`
 
 #### `DOM structure is correct`
 
@@ -13,10 +13,10 @@
   textpos="after"
 >
 </ef-button>
-<div part="content">
+<ef-layout part="content">
   <slot>
   </slot>
-</div>
+</ef-layout>
 <ef-button
   aria-hidden="true"
   empty=""
