@@ -1022,6 +1022,21 @@ line.config = {
 };
 ```
 
+In case you want to hide the `price` and `symbol`, use `disabledLegend`. The chart will hide the `price` and `symbol` either.
+
+```javascript
+line.config = {
+  series: [
+    {
+      symbol: 'APPL.O',
+      disabledLegend: true,
+      type: 'line',
+      data: [...]
+    }
+  ]
+};
+```
+
 By default, chart will display a raw value that passes from the data object in the legend. If you want to override the default formatting of the price, you can set your own formatter function to `legendPriceFormatter` in a series configuration object to override price format on the legend.
 
 For example, here's how you can format price to show three decimal places on the legend.
