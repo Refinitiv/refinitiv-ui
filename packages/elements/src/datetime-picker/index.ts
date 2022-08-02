@@ -256,7 +256,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   @property({ type: String })
   public set value (value: string) {
-    this.values = value ? [value] : [];
+    this.values = value === '' ? [] : [value];
   }
   public get value (): string {
     return this.values[0] || '';
@@ -563,7 +563,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns valid Validity
    */
   protected isValidValue (value: string): boolean {
-    return value === '' ? true : getFormat(value) === resolvedLocale(this).isoFormat;
+    return value === '' ? true : typeof value === 'string' && getFormat(value) === resolvedLocale(this).isoFormat;
   }
 
   /**
@@ -770,7 +770,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const newValues = segments.map((segment, idx) => segment ? format(Object.assign(getCurrentSegment(), oldSegments[idx] || {}, segment), resolvedLocale(this).isoFormat) : '');
 
     this.notifyValuesChange(newValues);
-    // this.syncInputValues();
 
     await this.updateComplete;
     this.resetError();
