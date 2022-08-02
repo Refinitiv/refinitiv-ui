@@ -1,5 +1,5 @@
 import { Locale } from '@refinitiv-ui/utils/date.js';
-import { getLocale } from '@refinitiv-ui/translate';
+import { getLocale as getLang } from '@refinitiv-ui/translate';
 
 const LocaleMap = new WeakMap<LocaleDateElement, {
   resolvedLocale: Locale,
@@ -73,25 +73,33 @@ const resolveLocaleFromElement = (lang: string, formatOptions: Intl.DateTimeForm
 };
 
 /**
- * Resolve locale based on element parameters
+ * Get Locale object from LocaleMap cache
  * @param element Locale Date element
- * @returns locale Resolved Locale object
+ * @returns locale Resolved Locale object or null
  */
-const resolvedLocale = (element: LocaleDateElement): Locale => {
+const getLocale = (element: LocaleDateElement): Locale | null => {
   const localeMap = LocaleMap.get(element);
   if (localeMap) {
-
     const { resolvedLocale, locale, formatOptions, amPm, showSeconds, timepicker, lang } = localeMap;
     // calculate Diff with cache to check if the object has changed
-    if ((locale && locale === element.locale) || (!locale && !element.locale && lang === getLocale(element) && (
+    if ((locale && locale === element.locale) || (!locale && !element.locale && lang === getLang(element) && (
       (formatOptions && formatOptions === element.formatOptions)
-          || (!formatOptions && !element.formatOptions && timepicker === hasTimepicker(element) && amPm === hasAmPm(element) && showSeconds === hasSeconds(element))
+      || (!formatOptions && !element.formatOptions && timepicker === hasTimepicker(element) && amPm === hasAmPm(element) && showSeconds === hasSeconds(element))
     ))) {
       return resolvedLocale;
     }
   }
 
-  const lang = getLocale(element);
+  return null;
+};
+
+/**
+ * Set Locale object in LocaleMap cache
+ * @param element Locale Date element
+ * @returns locale Resolved Locale object
+ */
+const setLocale = (element: LocaleDateElement): Locale => {
+  const lang = getLang(element);
   const formatOptions = element.formatOptions;
   const timepicker = hasTimepicker(element);
   const showSeconds = hasSeconds(element);
@@ -111,6 +119,13 @@ const resolvedLocale = (element: LocaleDateElement): Locale => {
 
   return resolvedLocale;
 };
+
+/**
+ * Resolve locale based on element parameters
+ * @param element Locale Date element
+ * @returns locale Resolved Locale object
+ */
+const resolvedLocale = (element: LocaleDateElement): Locale => getLocale(element) || setLocale(element);
 
 export {
   LocaleDateElement,

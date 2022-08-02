@@ -39,8 +39,7 @@ import {
   toSegment,
   Locale,
   DateFormat,
-  getFormat,
-  utcParse
+  getFormat
 } from '@refinitiv-ui/utils/date.js';
 
 import {
@@ -697,7 +696,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onCalendarViewChanged (event: ViewChangedEvent): void {
-    const index = event.target === this.calendarToRef.value ? 1 : 0; /* 0 - from, single; 1 - to */
+    // 0 - from, single; 1 - to
+    const index = event.target === this.calendarToRef.value ? 1 : 0;
     const view = event.detail.value;
     this.notifyViewsChange(this.composeViews(view, index));
   }
@@ -731,7 +731,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private onTimePickerValueChanged (event: ValueChangedEvent): void {
     const target = event.target as TimePicker;
-    const index = target === this.timepickerToRef.value ? 1 : 0; /* 0 - from, single; 1 - to */
+    // 0 - from, single; 1 - to
+    const index = target === this.timepickerToRef.value ? 1 : 0;
     const values = [...this.values];
     values[index] = target.value;
     void this.synchroniseCalendarValues(values);
@@ -771,7 +772,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private onInputValueChanged (event: ValueChangedEvent): void {
     const target = event.target as DatetimeField;
-    const index = target === this.inputToRef.value ? 1 : 0; /* 0 - from, single; 1 - to */
+    // 0 - from, single; 1 - to
+    const index = target === this.inputToRef.value ? 1 : 0;
     const newValues = [...this.values];
     newValues[index] = target.value;
 
