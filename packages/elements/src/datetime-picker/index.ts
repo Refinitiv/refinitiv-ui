@@ -155,7 +155,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         cursor: pointer;
       }
       :host([popup-disabled]) [part=icon], :host([readonly]) [part=icon] {
-        pointer-event: none;
+        pointer-events: none;
       }
     `;
   }
@@ -473,6 +473,12 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns {void}
    */
   public validateInput (): void {
+    // No need to validate empty string value
+    if (this.inputValues.every(value => value === '')) {
+      this.error = false;
+      return;
+    }
+
     const hasError = this.hasError();
     if (this.error !== hasError) {
       this.error = hasError;
@@ -1055,6 +1061,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       const minTime = this.min ? parse(this.min).getTime() : -Infinity;
       const maxTime = this.max ? parse(this.max).getTime() : Infinity;
       for (let i = 0; i < this.values.length; i += 1) {
+        if (!this.values[i]) {
+          return false;
+        }
         const valueTime = parse(this.values[i]).getTime();
         if (minTime > valueTime || maxTime < valueTime) {
           return false;
