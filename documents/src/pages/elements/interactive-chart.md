@@ -1022,14 +1022,14 @@ line.config = {
 };
 ```
 
-In case you want to hide the `price` and `symbol`, use `disabledLegend`. The chart will hide the `price` and `symbol` either.
+Use `legendVisible` to hide a legend of any series.
 
 ```javascript
 line.config = {
   series: [
     {
       symbol: 'APPL.O',
-      disabledLegend: true,
+      legendVisible: false,
       type: 'line',
       data: [...]
     }
