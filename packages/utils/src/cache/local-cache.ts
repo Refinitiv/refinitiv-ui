@@ -8,17 +8,17 @@ export class LocalCache {
   /**
    * Cache ready to use
    */
-  public ready: Promise<boolean> | null = null;
+  protected ready: Promise<boolean> | null = null;
 
   /**
    * Storage to store data
    */
-  public storage!: CacheStorage;
+  protected storage!: CacheStorage;
 
   /**
    * Internal cache object
    */
-  private cache: CacheMap | null | undefined;
+  protected cache: CacheMap | null | undefined;
 
   constructor (storage: CacheStorage) {
     this.use(storage);
@@ -36,9 +36,9 @@ export class LocalCache {
 
   /**
    * Restore all data from storage to cache databases
-   * @returns {boolean} restore result
+   * @returns Promise boolean
    */
-  async restore (): Promise<boolean> {
+  public async restore (): Promise<boolean> {
     this.cache = await this.storage.restoreItems() as CacheMap;
     return true;
   }
@@ -48,9 +48,9 @@ export class LocalCache {
    * @param key Cache key
    * @param value Data to store in cache
    * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
-   * @returns {void}
+   * @returns Promise void
    */
-  async set (key: string, value: string, expires = 432000): Promise<void> {
+  public async set (key: string, value: string, expires = 432000): Promise<void> {
     await this.ready;
     const modified = Date.now();
     const data = {
@@ -65,9 +65,9 @@ export class LocalCache {
   /**
    * Returns cache data value based on provided key
    * @param key Cache key
-   * @returns String data or `null` if nothing is cached
+   * @returns Promise string data or `null` if nothing is cached
    */
-  async get (key: string): Promise<string | null> {
+  public async get (key: string): Promise<string | null> {
     await this.ready;
 
     const item = this.cache?.get(key);
@@ -80,9 +80,9 @@ export class LocalCache {
   /**
    * Remove cache data value based on provided key
    * @param key Cache key
-   * @returns {void}
+   * @returns Promise void
    */
-  async remove (key: string): Promise<void> {
+  public async remove (key: string): Promise<void> {
     await this.ready;
     this.cache?.delete(key);
     await this.storage.removeItem(key);
@@ -90,9 +90,9 @@ export class LocalCache {
 
   /**
    * Clear all memory cache
-   * @returns {void}
+   * @returns Promise void
    */
-  async clear (): Promise<void> {
+  public async clear (): Promise<void> {
     await this.ready;
     this.cache?.clear();
     await this.storage.clear();
