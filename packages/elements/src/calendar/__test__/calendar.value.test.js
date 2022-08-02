@@ -57,11 +57,6 @@ describe('calendar/Value', () => {
       expect(el.value, 'value is not reflected to property').to.equal('-000011-04-21');
       expect(el.values.join(','), 'values is not reflected to value').to.equal('-000011-04-21');
     });
-    it('Disabled cell should not have a selectable part', async () => {
-      const el = await fixture('<ef-calendar view="2005-04" lang="en-GB" weekends-only fill-cells></ef-calendar>');
-      const cell = el.renderRoot.querySelector('[part="cell day"] > [part~=cell-content]'); // disabled cell
-      expect(cell.getAttribute('part').includes('selectable')).to.equal(false, 'part "selectable" should not be exists');
-    });
   });
 
   describe('Navigation Value', () => {
