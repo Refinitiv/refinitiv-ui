@@ -638,16 +638,26 @@ describe('interactive-chart/InteractiveChart', () => {
 
     });
 
-    it('When show disabled legend in chart series', async () => {
+    it('When hide legend in chart series', async () => {
       const config = line;
-      config.series[0].disabledLegend = true;
-      el.config = line;
+      config.series[0].legendVisible = false;
+      el.config = config;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.shadowRoot.querySelector('[part=legend]').textContent).to.be.empty;
+    });
 
+    it('When hide some legend in chart series', async () => {
+      const config = multiLine;
+      config.series[0].legendVisible = false;
+      el.config = config;
+      await nextFrame();
+      await elementUpdated();
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
+      expect(el.shadowRoot.querySelectorAll('[part=legend] > .row:not(:empty)').length).to.equal(multiLine.series.length - 1);
     });
 
     it('Legend is not horizontal by default', async () => {
