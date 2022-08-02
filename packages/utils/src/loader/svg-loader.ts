@@ -1,11 +1,10 @@
-import { CacheIndexedDBStorage, CacheLocalStorage, LocalCache } from '../cache.js';
+import { CacheIndexedDBStorage, LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
-// Storages
+// Storage
 const Storage = new CacheIndexedDBStorage({ dbName: 'ef', version: 1, storeName: 'svg-loader' });
-// const Storage = new CacheLocalStorage('ef-svg-loader');
 
-// Set to cache
+// Create cache and use the storage
 const cache = new LocalCache(Storage);
 
 /**
