@@ -553,23 +553,17 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns Filtered collection of views
    */
   private filterInvalidViews (views: string[]): string[] {
-    const filtered = [];
-
     // views must match in duplex mode
     if (views.length !== (this.isDuplex() ? 2 : 1)) {
       return [];
     }
 
-    for (let i = 0; i < views.length && filtered.length <= 2; i += 1) {
-      const view = views[0];
-      // cannot have empty or invalid views
-      if (typeof view !== 'string' || !view || getFormat(view) !== DateFormat.yyyyMM) {
-        return [];
-      }
-      filtered.push(view);
+    // cannot have empty or invalid views
+    if (views.findIndex(view => typeof view !== 'string' || view === '' || getFormat(view) !== DateFormat.yyyyMM) !== -1) {
+      return [];
     }
 
-    return filtered;
+    return views;
   }
 
   /**
