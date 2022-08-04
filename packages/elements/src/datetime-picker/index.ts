@@ -6,7 +6,6 @@ import {
   MultiValue,
   PropertyValues,
   CSSResultGroup,
-  TapEvent,
   WarningNotice,
   FocusedPropertyKey
 } from '@refinitiv-ui/core';
@@ -40,8 +39,7 @@ import {
   toSegment,
   Locale,
   DateFormat,
-  getFormat,
-  utcParse
+  getFormat
 } from '@refinitiv-ui/utils/date.js';
 
 import {
@@ -256,7 +254,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   @property({ type: String })
   public set value (value: string) {
-    this.values = value ? [value] : [];
+    this.values = value === '' ? [] : [value];
   }
   public get value (): string {
     return this.values[0] || '';
@@ -563,7 +561,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns valid Validity
    */
   protected isValidValue (value: string): boolean {
-    return value === '' ? true : getFormat(value) === resolvedLocale(this).isoFormat;
+    return value === '' ? true : typeof value === 'string' && getFormat(value) === resolvedLocale(this).isoFormat;
   }
 
   /**
@@ -675,30 +673,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
-   * Handles key input on calendar picker
-   * @param event Key down event object
-   * @returns {void}
-   */
-  private onPopupKeyDown (event: KeyboardEvent): void {
-    switch (event.key) {
-      case 'Esc':
-      case 'Escape':
-        this.resetViews();
-        this.setOpened(false);
-        break;
-      default:
-        return;
-    }
-
-    event.preventDefault();
-  }
-
-  /**
    * Run on icon tap event
-   * @param event Tap event
    * @returns {void}
    */
-  private onButtonTap (event: TapEvent): void {
+  private onButtonTap (): void {
     this.setOpened(true);
   }
 
@@ -718,7 +696,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onCalendarViewChanged (event: ViewChangedEvent): void {
-    const index = event.target === this.calendarToRef.value ? 1 : 0; /* 0 - from, single; 1 - to */
+    // 0 - from, single; 1 - to
+    const index = event.target === this.calendarToRef.value ? 1 : 0;
     const view = event.detail.value;
     this.notifyViewsChange(this.composeViews(view, index));
   }
@@ -752,7 +731,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private onTimePickerValueChanged (event: ValueChangedEvent): void {
     const target = event.target as TimePicker;
-    const index = target === this.timepickerToRef.value ? 1 : 0; /* 0 - from, single; 1 - to */
+    // 0 - from, single; 1 - to
+    const index = target === this.timepickerToRef.value ? 1 : 0;
     const values = [...this.values];
     values[index] = target.value;
     void this.synchroniseCalendarValues(values);
@@ -770,7 +750,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const newValues = segments.map((segment, idx) => segment ? format(Object.assign(getCurrentSegment(), oldSegments[idx] || {}, segment), resolvedLocale(this).isoFormat) : '');
 
     this.notifyValuesChange(newValues);
-    // this.syncInputValues();
 
     await this.updateComplete;
     this.resetError();
@@ -793,7 +772,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private onInputValueChanged (event: ValueChangedEvent): void {
     const target = event.target as DatetimeField;
-    const index = target === this.inputToRef.value ? 1 : 0; /* 0 - from, single; 1 - to */
+    // 0 - from, single; 1 - to
+    const index = target === this.inputToRef.value ? 1 : 0;
     const newValues = [...this.values];
     newValues[index] = target.value;
 
@@ -819,6 +799,11 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     }
 
     if (this.opened !== opened && this.notifyPropertyChange('opened', opened, true)) {
+      if (!opened) {
+        // Reset view when calendar closes.
+        // On re-open it should re-focus on current dates
+        this.resetViews();
+      }
       this.opened = opened;
     }
   }
@@ -903,6 +888,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     return html`
       <ef-datetime-field
         ${ref(isTo ? this.inputToRef : this.inputRef)}
+        aria-label="${ifDefined(this.range ? this.t(isTo ? 'VALUE_TO' : 'VALUE_FROM') : undefined)}"
         part="input"
         transparent
         min=${ifDefined(this.min || undefined)}
@@ -920,27 +906,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * Template for rendering a button
    */
   private get buttonTemplate (): TemplateResult {
-    const formatter = resolvedLocale(this).formatter;
-    const values = this.values;
-    const from = values[0] ? formatter.format(utcParse(values[0])) : '';
-    const to = values[1] ? formatter.format(utcParse(values[1])) : '';
-    const hasValue = !!from || !!to;
-
     return html`
       <button part="button"
               aria-haspopup="dialog"
-              aria-label="${this.t(`${
-                hasValue ? 'CHANGE' : 'CHOOSE'
-              }${
-                this.hasDatePicker ? '_DATE' : ''
-              }${
-                this.hasTimePicker ? '_TIME' : ''
-              }${
-                this.range ? '_RANGE' : ''
-              }`, {
-                from,
-                to
-              })}"
+              aria-label="${this.t('OPEN_CALENDAR')}"
               ?readonly="${this.readonly}"
               ?disabled="${this.popupDisabled}"
               @tap="${this.onButtonTap}">
@@ -984,13 +953,12 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         }`)}"
         part="list"
         with-shadow
-        no-cancel-on-esc-key
         .delegatesFocus=${true}
         .positionTarget=${this}
+        lock-position-target
         .position=${POPUP_POSITION}
         ?opened=${this.opened}
         @opened-changed=${this.onPopupOpenedChanged}
-        @keydown=${this.onPopupKeyDown}>
           <div><slot name="header"></div>
           <div part="body">
             <div><slot name="left"></div>
