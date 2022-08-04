@@ -555,23 +555,17 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns Filtered collection of views
    */
   private filterInvalidViews (views: string[]): string[] {
-    const filtered = [];
-
     // views must match in duplex mode
     if (views.length !== (this.isDuplex() ? 2 : 1)) {
       return [];
     }
 
-    for (let i = 0; i < views.length && filtered.length <= 2; i += 1) {
-      const view = views[0];
-      // cannot have empty or invalid views
-      if (typeof view !== 'string' || !view || getFormat(view) !== DateFormat.yyyyMM) {
-        return [];
-      }
-      filtered.push(view);
+    // cannot have empty or invalid views
+    if (views.findIndex(view => typeof view !== 'string' || view === '' || getFormat(view) !== DateFormat.yyyyMM) !== -1) {
+      return [];
     }
 
-    return filtered;
+    return views;
   }
 
   /**
@@ -853,9 +847,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     return html`<ef-time-picker
       ${ref(isTo ? this.timepickerToRef : this.timepickerRef)}
       part="time-picker"
-      .showSeconds=${this.hasSeconds}
       .amPm=${this.hasAmPm}
-      .value=${formatToTime(isTo ? (this.values[1] || '') : (this.values[0] || ''))}
+      .value=${formatToTime(isTo ? (this.values[1] || '') : (this.values[0] || ''), this.hasSeconds)}
       @value-changed=${this.onTimePickerValueChanged}></ef-time-picker>`;
   }
 
@@ -981,9 +974,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         }`)}"
         part="list"
         with-shadow
+        lock-position-target
         .delegatesFocus=${true}
         .positionTarget=${this}
-        lock-position-target
         .position=${POPUP_POSITION}
         ?opened=${this.opened}
         @opened-changed=${this.onPopupOpenedChanged}>
