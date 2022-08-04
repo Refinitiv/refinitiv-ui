@@ -1,4 +1,4 @@
-# `datetime-picker/DOMStructure`
+# `datetime-picker/DatetimePicker`
 
 ## `DOM Structure`
 
@@ -6,19 +6,24 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
-    id="input"
+  <ef-datetime-field
     part="input"
     tabindex="0"
     transparent=""
   >
-  </ef-text-field>
+  </ef-datetime-field>
 </div>
-<ef-icon
-  icon="calendar"
-  part="icon"
+<button
+  aria-haspopup="dialog"
+  aria-label="Open calendar"
+  part="button"
 >
-</ef-icon>
+  <ef-icon
+    icon="calendar"
+    part="icon"
+  >
+  </ef-icon>
+</button>
 
 ```
 
@@ -26,28 +31,35 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
-    id="input"
+  <ef-datetime-field
     part="input"
     tabindex="0"
     transparent=""
   >
-  </ef-text-field>
+  </ef-datetime-field>
 </div>
-<ef-icon
-  icon="calendar"
-  part="icon"
+<button
+  aria-haspopup="dialog"
+  aria-label="Open calendar"
+  part="button"
 >
-</ef-icon>
+  <ef-icon
+    icon="calendar"
+    part="icon"
+  >
+  </ef-icon>
+</button>
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
-  no-autofocus=""
-  no-cancel-on-esc-key=""
+  aria-label="Choose date"
+  aria-modal="true"
+  lock-position-target=""
   opened=""
   part="list"
-  tabindex="0"
+  role="dialog"
+  style="z-index: 103; pointer-events: auto;"
+  tabindex="-1"
   with-shadow=""
 >
   <div>
@@ -62,7 +74,6 @@
     <div part="selectors-wrapper">
       <div part="calendar-wrapper">
         <ef-calendar
-          id="calendar"
           lang="en-gb"
           part="calendar"
           role="group"
@@ -88,37 +99,45 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
-    id="input"
+  <ef-datetime-field
+    aria-label="From"
     part="input"
     tabindex="0"
     transparent=""
   >
-  </ef-text-field>
+  </ef-datetime-field>
   <div part="input-separator">
   </div>
-  <ef-text-field
-    id="input-to"
+  <ef-datetime-field
+    aria-label="To"
     part="input"
     tabindex="0"
     transparent=""
   >
-  </ef-text-field>
+  </ef-datetime-field>
 </div>
-<ef-icon
-  icon="calendar"
-  part="icon"
+<button
+  aria-haspopup="dialog"
+  aria-label="Open calendar"
+  part="button"
 >
-</ef-icon>
+  <ef-icon
+    icon="calendar"
+    part="icon"
+  >
+  </ef-icon>
+</button>
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
-  no-autofocus=""
-  no-cancel-on-esc-key=""
+  aria-label="Choose date range"
+  aria-modal="true"
+  lock-position-target=""
   opened=""
   part="list"
-  tabindex="0"
+  role="dialog"
+  style="z-index: 103; pointer-events: auto;"
+  tabindex="-1"
   with-shadow=""
 >
   <div>
@@ -133,7 +152,6 @@
     <div part="selectors-wrapper">
       <div part="calendar-wrapper">
         <ef-calendar
-          id="calendar"
           lang="en-gb"
           part="calendar"
           range=""
@@ -160,28 +178,35 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
-    id="input"
+  <ef-datetime-field
     part="input"
     tabindex="0"
     transparent=""
   >
-  </ef-text-field>
+  </ef-datetime-field>
 </div>
-<ef-icon
-  icon="calendar"
-  part="icon"
+<button
+  aria-haspopup="dialog"
+  aria-label="Open calendar"
+  part="button"
 >
-</ef-icon>
+  <ef-icon
+    icon="calendar"
+    part="icon"
+  >
+  </ef-icon>
+</button>
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
-  no-autofocus=""
-  no-cancel-on-esc-key=""
+  aria-label="Choose date"
+  aria-modal="true"
+  lock-position-target=""
   opened=""
   part="list"
-  tabindex="0"
+  role="dialog"
+  style="z-index: 103; pointer-events: auto;"
+  tabindex="-1"
   with-shadow=""
 >
   <div>
@@ -196,7 +221,6 @@
     <div part="selectors-wrapper">
       <div part="calendar-wrapper">
         <ef-calendar
-          id="calendar"
           lang="en-gb"
           part="calendar"
           role="group"
@@ -204,7 +228,6 @@
         >
         </ef-calendar>
         <ef-calendar
-          id="calendar-to"
           lang="en-gb"
           part="calendar"
           role="group"
@@ -230,28 +253,35 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
-    id="input"
+  <ef-datetime-field
     part="input"
     tabindex="0"
     transparent=""
   >
-  </ef-text-field>
+  </ef-datetime-field>
 </div>
-<ef-icon
-  icon="calendar"
-  part="icon"
+<button
+  aria-haspopup="dialog"
+  aria-label="Open calendar"
+  part="button"
 >
-</ef-icon>
+  <ef-icon
+    icon="calendar"
+    part="icon"
+  >
+  </ef-icon>
+</button>
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
-  no-autofocus=""
-  no-cancel-on-esc-key=""
+  aria-label="Choose date and time"
+  aria-modal="true"
+  lock-position-target=""
   opened=""
   part="list"
-  tabindex="0"
+  role="dialog"
+  style="z-index: 103; pointer-events: auto;"
+  tabindex="-1"
   with-shadow=""
 >
   <div>
@@ -266,7 +296,6 @@
     <div part="selectors-wrapper">
       <div part="calendar-wrapper">
         <ef-calendar
-          id="calendar"
           lang="en-gb"
           part="calendar"
           role="group"
@@ -276,7 +305,6 @@
       </div>
       <div part="timepicker-wrapper">
         <ef-time-picker
-          id="timepicker"
           part="time-picker"
           role="group"
           tabindex="0"
@@ -301,28 +329,35 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
-    id="input"
+  <ef-datetime-field
     part="input"
     tabindex="0"
     transparent=""
   >
-  </ef-text-field>
+  </ef-datetime-field>
 </div>
-<ef-icon
-  icon="calendar"
-  part="icon"
+<button
+  aria-haspopup="dialog"
+  aria-label="Open calendar"
+  part="button"
 >
-</ef-icon>
+  <ef-icon
+    icon="calendar"
+    part="icon"
+  >
+  </ef-icon>
+</button>
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
-  no-autofocus=""
-  no-cancel-on-esc-key=""
+  aria-label="Choose date and time"
+  aria-modal="true"
+  lock-position-target=""
   opened=""
   part="list"
-  tabindex="0"
+  role="dialog"
+  style="z-index: 103; pointer-events: auto;"
+  tabindex="-1"
   with-shadow=""
 >
   <div>
@@ -337,7 +372,6 @@
     <div part="selectors-wrapper">
       <div part="calendar-wrapper">
         <ef-calendar
-          id="calendar"
           lang="en-gb"
           part="calendar"
           role="group"
@@ -347,7 +381,6 @@
       </div>
       <div part="timepicker-wrapper">
         <ef-time-picker
-          id="timepicker"
           part="time-picker"
           role="group"
           tabindex="0"
@@ -372,37 +405,45 @@
 
 ```html
 <div part="input-wrapper">
-  <ef-text-field
-    id="input"
+  <ef-datetime-field
+    aria-label="From"
     part="input"
     tabindex="0"
     transparent=""
   >
-  </ef-text-field>
+  </ef-datetime-field>
   <div part="input-separator">
   </div>
-  <ef-text-field
-    id="input-to"
+  <ef-datetime-field
+    aria-label="To"
     part="input"
     tabindex="0"
     transparent=""
   >
-  </ef-text-field>
+  </ef-datetime-field>
 </div>
-<ef-icon
-  icon="calendar"
-  part="icon"
+<button
+  aria-haspopup="dialog"
+  aria-label="Open calendar"
+  part="button"
 >
-</ef-icon>
+  <ef-icon
+    icon="calendar"
+    part="icon"
+  >
+  </ef-icon>
+</button>
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
-  no-autofocus=""
-  no-cancel-on-esc-key=""
+  aria-label="Choose date and time range"
+  aria-modal="true"
+  lock-position-target=""
   opened=""
   part="list"
-  tabindex="0"
+  role="dialog"
+  style="z-index: 103; pointer-events: auto;"
+  tabindex="-1"
   with-shadow=""
 >
   <div>
@@ -417,7 +458,6 @@
     <div part="selectors-wrapper">
       <div part="calendar-wrapper">
         <ef-calendar
-          id="calendar"
           lang="en-gb"
           part="calendar"
           range=""
@@ -428,7 +468,6 @@
       </div>
       <div part="timepicker-wrapper">
         <ef-time-picker
-          id="timepicker"
           part="time-picker"
           role="group"
           tabindex="0"
@@ -437,7 +476,6 @@
         <div part="input-separator">
         </div>
         <ef-time-picker
-          id="timepicker-to"
           part="time-picker"
           role="group"
           tabindex="0"

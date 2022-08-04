@@ -1,6 +1,13 @@
 import { elementUpdated, keyboardEvent } from '@refinitiv-ui/test-helpers';
 import { format, parse, DateFormat, DateTimeFormat, addMonths as utilsAddMonths } from '@refinitiv-ui/utils';
 
+const buttonElement = (el) => el.shadowRoot.querySelector('[part="button"]');
+const inputElement = (el) => el.inputRef.value; // Access private property
+const inputToElement = (el) => el.inputToRef.value // Access private property
+const calendarElement = (el) => el.calendarRef.value // Access private property
+const calendarToElement = (el) => el.calendarToRef.value // Access private property
+const timePickerElement = (el) => el.timepickerRef.value // Access private property
+
 export const fireKeydownEvent = (element, key, shiftKey = false) => {
   const event = keyboardEvent('keydown', { key, shiftKey });
   element.dispatchEvent(event);
@@ -28,6 +35,11 @@ export const calendarClickNext = async (calendarEl) => {
   await elementUpdated(calendarEl);
 };
 
-export const snapshotIgnore = {
-  ignoreAttributes: ['style', 'class']
-};
+export {
+  buttonElement,
+  inputElement,
+  inputToElement,
+  calendarElement,
+  calendarToElement,
+  timePickerElement
+}

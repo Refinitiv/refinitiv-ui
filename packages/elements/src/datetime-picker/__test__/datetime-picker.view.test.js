@@ -1,5 +1,5 @@
 import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-import { typeText, calendarClickNext, formatToView, addMonths } from './utils';
+import { typeText, calendarClickNext, formatToView, addMonths, inputElement, inputToElement, calendarElement, calendarToElement } from './utils';
 
 // import element and theme
 import '@refinitiv-ui/elements/datetime-picker';
@@ -39,40 +39,34 @@ describe('datetime-picker/View', () => {
     });
     it('View changes when typing the value', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb"></ef-datetime-picker>');
-      const input = el.inputEl;
-      typeText(input, '21-Apr-2020');
+      typeText(inputElement(el), '2020-04-21');
       await elementUpdated(el);
       expect(el.view).to.be.equal('2020-04', 'View did not change when typing text');
     });
     it('View reset to today when clearing the value', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" value="2020-04-21"></ef-datetime-picker>');
-      const input = el.inputEl;
-      typeText(input, '');
+      typeText(inputElement(el), '');
       await elementUpdated(el);
       expect(el.view).to.be.equal(formatToView(now), 'View should reset to now when value clears');
     });
     it('Duplex view changes when typing the value', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" duplex></ef-datetime-picker>');
-      const input = el.inputEl;
-      typeText(input, '21-Apr-2020');
+      typeText(inputElement(el), '2020-04-21');
       await elementUpdated(el);
       expect(el.views[0]).to.be.equal('2020-04', 'Duplex: view from did not change when typing text');
       expect(el.views[1]).to.be.equal('2020-05', 'Duplex: view to did not change when typing text');
     });
     it('Duplex split view changes when typing the value', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" duplex="split"></ef-datetime-picker>');
-      const input = el.inputEl;
-      typeText(input, '21-Apr-2020');
+      typeText(inputElement(el), '2020-04-21');
       await elementUpdated(el);
       expect(el.views[0]).to.be.equal('2020-04', 'Duplex split: view from did not change when typing text');
       expect(el.views[1]).to.be.equal('2020-05', 'Duplex split: view to did not change when typing text');
     });
     it('Duplex split range view changes when typing the value', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" duplex="split" range></ef-datetime-picker>');
-      const inputFrom = el.inputEl;
-      const inputTo = el.inputToEl;
-      typeText(inputFrom, '21-Jan-2020');
-      typeText(inputTo, '21-Apr-2020');
+      typeText(inputElement(el), '2020-01-21');
+      typeText(inputToElement(el), '2020-04-21');
       await elementUpdated(el);
       expect(el.views[0]).to.be.equal('2020-01', 'Duplex split range: view from did not change when typing text');
       expect(el.views[1]).to.be.equal('2020-04', 'Duplex split range: view to did not change when typing text');
@@ -87,10 +81,8 @@ describe('datetime-picker/View', () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" range duplex="split" opened></ef-datetime-picker>');
       el.views = ['2020-01', '2020-04'];
       await elementUpdated(el);
-      const calendarFrom = el.calendarEl;
-      const calendarTo = el.calendarToEl;
-      expect(calendarFrom.view).to.be.equal('2020-01', 'From view is not propagated to calendar');
-      expect(calendarTo.view).to.be.equal('2020-04', 'To view is not propagated to calendar');
+      expect(calendarElement(el).view).to.be.equal('2020-01', 'From view is not propagated to calendar');
+      expect(calendarToElement(el).view).to.be.equal('2020-04', 'To view is not propagated to calendar');
     });
     it('Passing empty string should reset views to default', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" range duplex="split" views="2020-01,2020-04"></ef-datetime-picker>');
@@ -101,7 +93,7 @@ describe('datetime-picker/View', () => {
     });
     it('Changing view in calendar should be reflected in datetime-picker and should fire view-changed event', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" view="2020-04" opened></ef-datetime-picker>');
-      setTimeout(() => calendarClickNext(el.calendarEl));
+      setTimeout(() => calendarClickNext(calendarElement(el)));
       const { detail: { value } } = await oneEvent(el, 'view-changed');
       await elementUpdated();
       expect(value).to.be.equal('2020-05', 'view-changed event does not contain valid value');
@@ -109,8 +101,8 @@ describe('datetime-picker/View', () => {
     });
     it('In duplex mode calendar view should be in sync', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" view="2020-04" duplex opened></ef-datetime-picker>');
-      const calendarFrom = el.calendarEl;
-      const calendarTo = el.calendarToEl;
+      const calendarFrom = calendarElement(el);
+      const calendarTo = calendarToElement(el);
       await elementUpdated(calendarFrom);
       await elementUpdated(calendarTo);
       calendarClickNext(calendarFrom);
@@ -128,8 +120,8 @@ describe('datetime-picker/View', () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" duplex="split" opened></ef-datetime-picker>');
       el.views = ['2020-04', '2020-05'];
       await elementUpdated(el);
-      const calendarFrom = el.calendarEl;
-      const calendarTo = el.calendarToEl;
+      const calendarFrom = calendarElement(el);
+      const calendarTo = calendarToElement(el);
       calendarClickNext(calendarFrom);
       await elementUpdated(el);
       expect(calendarFrom.view).to.equal('2020-05', 'Calendar from is not in sync');
