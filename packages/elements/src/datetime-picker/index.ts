@@ -353,7 +353,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   @property({ attribute: false })
   public set views (views: string[]) {
     const oldViews = this._views;
-    if (oldViews.toString() !== views.toString()) {
+    views = this.filterInvalidViews(views);
+    if (String(oldViews) !== String(views)) {
       this._views = views;
       this.requestUpdate('views', oldViews);
     }
@@ -546,6 +547,31 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       this.warnInvalidValue(value);
       return '';
     });
+  }
+
+  /**
+   * A helper method to make sure that only valid views are passed
+   * @param views Views to check
+   * @returns Filtered collection of views
+   */
+  private filterInvalidViews (views: string[]): string[] {
+    const filtered = [];
+
+    // views must match in duplex mode
+    if (views.length !== (this.isDuplex() ? 2 : 1)) {
+      return [];
+    }
+
+    for (let i = 0; i < views.length && filtered.length <= 2; i += 1) {
+      const view = views[0];
+      // cannot have empty or invalid views
+      if (typeof view !== 'string' || !view || getFormat(view) !== DateFormat.yyyyMM) {
+        return [];
+      }
+      filtered.push(view);
+    }
+
+    return filtered;
   }
 
   /**
@@ -897,9 +923,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         max=${ifDefined(this.max || undefined)}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly || this.inputDisabled}
+        .locale=${resolvedLocale(this)}
         .value=${live(isTo ? (this.values[1] || '') : (this.values[0] || ''))}
         .placeholder=${this.placeholder}
-        .locale=${resolvedLocale(this)}
         @value-changed=${this.onInputValueChanged}
         @error-changed=${this.onInputErrorChanged}></ef-datetime-field>`;
   }
