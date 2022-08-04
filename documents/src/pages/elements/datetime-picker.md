@@ -68,8 +68,6 @@ datetimePicker.value = '2019-03-20';
 
 the displayed date is formatted based on the locale of the user's browser, but the parsed value is always formatted according to ISO8601, described in [Format of a valid date string](https://developer.mozilla.org/en-US/docs/Web/HTML/Date_and_time_formats)
 
-@> The displayed date format will differ from the actual value — the displayed date is formatted based on the locale of the user's browser, but the parsed value is always formatted yyyy-mm-dd.
-
 ## Range select
 
 Use `range` to switch the Datetime Picker to date range selection mode. By default, `range` provides a single calendar that allows users to choose start and end dates.
