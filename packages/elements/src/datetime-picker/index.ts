@@ -960,7 +960,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         lock-position-target
         .position=${POPUP_POSITION}
         ?opened=${this.opened}
-        @opened-changed=${this.onPopupOpenedChanged}
+        @opened-changed=${this.onPopupOpenedChanged}>
           <div><slot name="header"></div>
           <div part="body">
             <div><slot name="left"></div>
