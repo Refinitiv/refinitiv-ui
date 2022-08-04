@@ -184,9 +184,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
   /**
    * Set the datetime format options based on
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
+   * [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat](Intl.DatetimeFormat)
    * `formatOptions` overrides `timepicker` and `showSeconds` properties.
    * Note: time-zone is not supported
+   * @type {Intl.DateTimeFormatOptions | null}
    */
   @property({ attribute: false })
   public formatOptions: Intl.DateTimeFormatOptions | null = null;
@@ -194,6 +195,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
    * Set the Locale object.
    * `Locale` overrides `formatOptions`, `timepicker` and `showSeconds` properties.
+   * @type {Locale | null}
    */
   @property({ attribute: false })
   public locale: Locale | null = null;
