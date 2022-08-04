@@ -116,27 +116,42 @@ export class CacheIndexedDBStorage implements CacheStorage {
       return;
     }
 
+    const databases = await window.indexedDB.databases();
+    const found = databases.find(database => database.name === this.dbName);
+    if (found && this.version < (found.version || 0)) {
+      throw this.failConnectMessage(`Your version (${this.version}) is less than the existing version (${String(found.version)}).`);
+    }
     this.db = await openDB<IndexedDBDatabase>(this.dbName, this.version, {
-      upgrade: (db) => { // Call when no database or found new version
-        db.createObjectStore(this.storeName);
+      upgrade: (database) => {
+        if (database.objectStoreNames.contains(this.storeName)) {
+          database.deleteObjectStore(this.storeName);
+        }
+        database.createObjectStore(this.storeName);
       },
       blocked: () => {
-        throw this.failConnectMessage;
+        throw this.failConnectMessage(`blocked event called. The connection is blocked by other connection or your version (${this.version}) isn't matched.`);
       },
       blocking: () => {
-        throw this.failConnectMessage;
+        // eslint-disable-next-line no-console
+        console.warn(`versionchange event called. The version of this ${this.dbName} database has changed.`);
       },
       terminated: () => {
-        throw this.failConnectMessage;
+        throw this.failConnectMessage('close event called. The connection is unexpectedly closed.');
       }
     });
+
+    if (!this.db.objectStoreNames.contains(this.storeName)) { // must disconnect if the store doesn't contain
+      this.db.close();
+      throw this.failConnectMessage(`${String(this.storeName)} store doesn\'t exist in indexedDB. Please upgrade or delete the ${this.dbName} database.`);
+    }
   }
 
   /**
    * Returns Error message when unable to connect indexedDB
+   * @param message {String}
    * @returns Error message
    */
-  private get failConnectMessage (): Error {
-    return new Error(`Unable to connect to indexedDB.\n Name:'${this.dbName}'.\nVersion: ${this.version}\Store: ${String(this.storeName)}`);
+  private failConnectMessage (message: string): Error {
+    return new Error(`Unable to connect to indexedDB.\nDatabase name:'${this.dbName}'.\nDatabase Version: ${this.version}\nStore name: ${String(this.storeName)}\n ${message}`);
   }
 }

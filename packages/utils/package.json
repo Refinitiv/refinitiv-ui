@@ -22,6 +22,7 @@
     "./accessibility/required.js": "./lib/accessibility/required.js",
     "./async.js": "./lib/async.js",
     "./browser.js": "./lib/browser.js",
+    "./cache.js": "./lib/cache.js",
     "./collection.js": "./lib/collection.js",
     "./color.js": "./lib/color.js",
     "./date.js": "./lib/date.js",
