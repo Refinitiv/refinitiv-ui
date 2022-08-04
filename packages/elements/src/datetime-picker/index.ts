@@ -851,9 +851,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     return html`<ef-time-picker
       ${ref(isTo ? this.timepickerToRef : this.timepickerRef)}
       part="time-picker"
-      .showSeconds=${this.hasSeconds}
       .amPm=${this.hasAmPm}
-      .value=${formatToTime(isTo ? (this.values[1] || '') : (this.values[0] || ''))}
+      .value=${formatToTime(isTo ? (this.values[1] || '') : (this.values[0] || ''), this.hasSeconds)}
       @value-changed=${this.onTimePickerValueChanged}></ef-time-picker>`;
   }
 
@@ -979,12 +978,12 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         }`)}"
         part="list"
         with-shadow
+        lock-position-target
         .delegatesFocus=${true}
         .positionTarget=${this}
-        lock-position-target
         .position=${POPUP_POSITION}
         ?opened=${this.opened}
-        @opened-changed=${this.onPopupOpenedChanged}
+        @opened-changed=${this.onPopupOpenedChanged}>
           <div><slot name="header"></div>
           <div part="body">
             <div><slot name="left"></div>
