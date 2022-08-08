@@ -14,6 +14,8 @@ interface IndexedDBDatabase extends DBSchema {
   }
 }
 
+const isFirefox = () => (/firefox/i).test(navigator.userAgent);
+
 /**
  * Stores data in indexedDB for use across multiple sessions.
  */
@@ -116,10 +118,12 @@ export class CacheIndexedDBStorage implements CacheStorage {
       return;
     }
 
-    const databases = await window.indexedDB.databases();
-    const found = databases.find(database => database.name === this.dbName);
-    if (found && this.version < (found.version || 0)) {
-      throw this.failConnectMessage(`Your version (${this.version}) is less than the existing version (${String(found.version)}).`);
+    if (!isFirefox()) {
+      const databases = await window.indexedDB.databases();
+      const found = databases.find(database => database.name === this.dbName);
+      if (found && this.version < (found.version || 0)) {
+        throw this.errorMessage(`Your version (${this.version}) is less than the existing version (${String(found.version)}).`);
+      }
     }
     this.db = await openDB<IndexedDBDatabase>(this.dbName, this.version, {
       upgrade: (database) => {
@@ -129,20 +133,20 @@ export class CacheIndexedDBStorage implements CacheStorage {
         database.createObjectStore(this.storeName);
       },
       blocked: () => {
-        throw this.failConnectMessage(`blocked event called. The connection is blocked by other connection or your version (${this.version}) isn't matched.`);
+        throw this.errorMessage(`blocked event called. The connection is blocked by other connection or your version (${this.version}) isn't matched.`);
       },
       blocking: () => {
         // eslint-disable-next-line no-console
         console.warn(`versionchange event called. The version of this ${this.dbName} database has changed.`);
       },
       terminated: () => {
-        throw this.failConnectMessage('close event called. The connection is unexpectedly closed.');
+        throw this.errorMessage('close event called. The connection is unexpectedly closed.');
       }
     });
 
     if (!this.db.objectStoreNames.contains(this.storeName)) { // must disconnect if the store doesn't contain
       this.db.close();
-      throw this.failConnectMessage(`${String(this.storeName)} store doesn\'t exist in indexedDB. Please upgrade or delete the ${this.dbName} database.`);
+      throw this.errorMessage(`${String(this.storeName)} store doesn\'t exist in indexedDB. Please upgrade or delete the ${this.dbName} database.`);
     }
   }
 
@@ -151,7 +155,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @param message {String}
    * @returns Error message
    */
-  private failConnectMessage (message: string): Error {
+  private errorMessage (message: string): Error {
     return new Error(`Unable to connect to indexedDB.\nDatabase name:'${this.dbName}'.\nDatabase Version: ${this.version}\nStore name: ${String(this.storeName)}\n ${message}`);
   }
 }
