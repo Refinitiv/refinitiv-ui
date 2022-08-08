@@ -475,4 +475,4 @@ The list of _TypeScript_ types.
 | --- | --- | --- |
 | CellIndex | Cell index as `[Column Index, Row Index]`. _index_ is 0-based. | `[number, number]` |
 | NavigationGrid | A list of `NavigationRow` | `NavigationRow[]` |
-| NavigationRow | A list of _0_ and _1_. _0_ is an inactive cell, but _1_ is active. | `(0 &#124; 1)[]` |
+| NavigationRow | A list of _0_ and _1_. _0_ is an inactive cell, but _1_ is active. | `(0 | 1)[]` |
