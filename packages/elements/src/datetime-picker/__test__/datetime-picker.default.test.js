@@ -61,6 +61,8 @@ describe('datetime-picker/DatetimePicker', () => {
       expect(el.readonly).to.be.equal(false);
       expect(el.disabled).to.be.equal(false);
       expect(el.placeholder).to.be.equal('');
+      expect(el.locale).to.be.equal(null);
+      expect(el.formatOptions).to.be.equal(null);
     });
   });
   describe('Placeholder Test', () => {
