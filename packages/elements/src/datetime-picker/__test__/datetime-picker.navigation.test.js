@@ -4,7 +4,7 @@ import {
   elementUpdated,
   oneEvent
 } from '@refinitiv-ui/test-helpers';
-import { fireKeydownEvent, buttonElement, calendarElement, inputElement } from './utils';
+import { fireKeydownEvent, buttonElement } from './utils';
 
 // import element and theme
 import '@refinitiv-ui/elements/datetime-picker';

@@ -1,5 +1,6 @@
 import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
 import { calendarElement, calendarToElement, inputElement, inputToElement, timePickerElement, typeText } from './utils';
+import { Locale } from '@refinitiv-ui/utils/date.js';
 
 // import element and theme
 import '@refinitiv-ui/elements/datetime-picker';
@@ -49,21 +50,17 @@ describe('datetime-picker/Value', () => {
     it('It should be possible to select value in range duplex mode', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened range duplex></ef-datetime-picker>');
       el.views = ['2020-04', '2020-05'];
-      await elementUpdated(el);
-      await nextFrame(el);
       await nextFrame(el);
 
       const calendarEl = calendarElement(el);
       const fromCell = calendarEl.shadowRoot.querySelectorAll('div[tabindex]')[0]; // 2020-04-01
       fromCell.click();
       await elementUpdated(el);
-      await nextFrame(el);
 
       const calendarToEl = calendarToElement(el);
       const toCell = calendarToEl.shadowRoot.querySelectorAll('div[tabindex]')[0]; // 2020-05-01
       toCell.click();
       await elementUpdated(el);
-      await nextFrame(el);
 
       expect(el.values[0]).to.be.equal('2020-04-01', 'Value from has not been updated');
       expect(el.values[1]).to.be.equal('2020-05-01', 'Value to has not been update');
@@ -82,6 +79,27 @@ describe('datetime-picker/Value', () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened timepicker show-seconds value="2020-04-21T13:14:15"></ef-datetime-picker>');
       typeText(timePickerElement(el), '16:17:18');
       expect(el.value).to.equal('2020-04-21T16:17:18');
+    });
+    it('It should be possible to change formatOptions value', async () => {
+      const el = await fixture('<ef-datetime-picker lang="en-gb" opened timepicker show-seconds value="2020-04-21T13:14:15"></ef-datetime-picker>');
+      expect(timePickerElement(el)).to.be.exist;
+      el.formatOptions = {
+        month: 'long',
+        day: 'numeric'
+      }
+      await elementUpdated(el);
+      expect(timePickerElement(el)).to.not.exist;
+    });
+    it('It should be possible to change locale value', async () => {
+      const el = await fixture('<ef-datetime-picker lang="en-gb" opened timepicker show-seconds value="2020-04-21T13:14:15"></ef-datetime-picker>');
+      expect(timePickerElement(el)).to.be.exist;
+      el.locale = Locale.fromOptions({
+        month: 'long',
+        day: 'numeric'
+      }, 'en-us');
+      await elementUpdated(el);
+      expect(inputElement(el).inputValue).to.equal('April 21', 'locale is not override lang value');
+      expect(timePickerElement(el)).to.not.exist;
     });
   });
 });
