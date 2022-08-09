@@ -35,6 +35,32 @@ describe('datetime-picker/DatetimePicker', () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" view="2020-04" timepicker range opened></ef-datetime-picker>');
       expect(el).shadowDom.to.equalSnapshot();
     });
+    it('DOM structure is correct when date-only formatOptions', async () => {
+      const el = await fixture('<ef-datetime-picker lang="en-gb" view="2020-04" timepicker opened></ef-datetime-picker>');
+      el.formatOptions = {
+        day: 'numeric'
+      };
+      expect(el).shadowDom.to.equalSnapshot();
+    });
+    it('DOM structure is correct when time-only formatOptions', async () => {
+      const el = await fixture('<ef-datetime-picker lang="en-gb" view="2020-04" opened></ef-datetime-picker>');
+      el.formatOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      };
+      expect(el).shadowDom.to.equalSnapshot();
+    });
+    it('DOM structure is correct when date-time formatOptions', async () => {
+      const el = await fixture('<ef-datetime-picker lang="en-gb" view="2020-04" opened></ef-datetime-picker>');
+      el.formatOptions = {
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      };
+      expect(el).shadowDom.to.equalSnapshot();
+    });
   });
   describe('Defaults', () => {
     it('Check default properties', async () => {
