@@ -66,7 +66,51 @@ datetimePicker.value = '2019-03-20';
 
 ## Setting the date
 
-the displayed date is formatted based on the locale of the user's browser, but the parsed value is always formatted according to ISO8601, described in [Format of a valid date string](https://developer.mozilla.org/en-US/docs/Web/HTML/Date_and_time_formats)
+The displayed date is based on `format` and user language. However, `value` must be in `yyyy-MM-dd` format (e.g. "2019-03-20").
+If `timepicker` is on, `value` must be in `yyyy-MM-ddTHH:mm` or `yyyy-MM-ddTHH:mm:ss` format (e.g. "2019-03-20T23:40" or "2019-03-20T23:40:59").
+
+x>Wrong
+x>```html
+x><!-- Value must be in "yyyy-MM-dd" format. `format` is only for displayed date -->
+x><ef-datetime-picker format="dd-MM-yyyy" value="03-20-2019" opened></ef-datetime-picker>
+x>
+x><!-- If `timepicker` is not set you must not pass time information -->
+x><ef-datetime-picker value="2019-03-20T23:40"></ef-datetime-picker>
+x>
+x><!-- If `timepicker` is set you must pass time information -->
+x><ef-datetime-picker timepicker value="2019-03-20"></ef-datetime-picker>
+x>
+x><!-- `value`, `min` and `max` must always follow the same format -->
+x><ef-datetime-picker timepicker value="2019-03-20T09:00" min="2019-03-20"></ef-datetime-picker>
+x>
+x><!-- The value must not contain any time-zone information -->
+x><ef-datetime-picker timepicker value="2019-03-20T23:40:34Z"></ef-datetime-picker>
+x>```
+
+o>Correct
+o>```html
+o><ef-datetime-picker value="2019-03-20"></ef-datetime-picker>
+o><ef-datetime-picker timepicker value="2019-03-20T23:40"></ef-datetime-picker>
+o><ef-datetime-picker value="2019-03-20"></ef-datetime-picker>
+o><ef-datetime-picker timepicker value="2019-03-20T09:00" min="2019-03-20T00:00"></ef-datetime-picker>
+o><ef-datetime-picker timepicker value="2019-03-20T23:40:34"></ef-datetime-picker>
+o>```
+
+x>Wrong
+x>```javascript
+x>// Date object is an invalid input
+x>datetimePicker.value = new Date(2019, 02, 20);
+x>// `toLocaleString()` is based on current locale and might not give correct results in different regions
+x>datetimePicker.value = new Date(2019, 02, 20).toLocaleString();
+x>// `toISOString()` contains time-zone information and cannot be used
+x>datetimePicker.value = new Date(2019, 02, 20).toISOString();
+x>```
+
+o>Correct
+o>```javascript
+o>datetimePicker.value = '2019-03-20'; /* if `timepicker` is off */
+o>datetimePicker.value = '2019-03-20T09:00'; /* if `timepicker` is on */
+o>```
 
 ## Range select
 
@@ -112,23 +156,13 @@ datetimePicker.values = ['2019-01-01T12:01', '2019-01-07T14:54'];
 
 ## Custom formats
 
-Custom date and time formats can be set using `formatOptions` property. 
+Custom date and time formats can be set using `format` attribute/property. Use `show-seconds` to allow the user to select second. Use `am-pm` to switch time picker into AM/PM time format.
 
-@> Format options based on [Intl.DateTimeFormat]( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).
+@> Format is based on [date-fns](https://date-fns.org/docs/format).
 
 ::
 ```javascript
 ::datetime-picker::
-document.querySelector('#full').formatOptions = {
-  weekday: 'long',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  hour: 'numeric',
-  minute: 'numeric',
-  hour12: true,
-  dayPeriod: 'long'
-}
 ```
 ```css
 section {
@@ -141,26 +175,19 @@ ef-datetime-picker {
 ```
 ```html
 <section>
-  <ef-datetime-picker id="full" opened></ef-datetime-picker>
+  <ef-datetime-picker format="do MMMM yyyy" opened></ef-datetime-picker>
+  <ef-datetime-picker format="yyyy-MM-dd HH:mm:ss" timepicker show-seconds></ef-datetime-picker>
+  <ef-datetime-picker format="d MMMM yyyy"></ef-datetime-picker>
+  <ef-datetime-picker format="dd, yyyy, MMMM, h:mm a" timepicker am-pm></ef-datetime-picker>
 </section>
 ```
 ::
 
 ```html
-<ef-datetime-picker id="full" opened></ef-datetime-picker>
-```
-
-```javascript
-document.querySelector('#full').formatOptions = {
-  weekday: 'long',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  hour: 'numeric',
-  minute: 'numeric',
-  hour12: true,
-  dayPeriod: 'long'
-}
+<ef-datetime-picker format="do MMMM yyyy"></ef-datetime-picker>
+<ef-datetime-picker format="yyyy-MM-dd HH:mm:ss" timepicker show-seconds></ef-datetime-picker>
+<ef-datetime-picker format="d MMMM yyyy"></ef-datetime-picker>
+<ef-datetime-picker format="dd, yyyy, MMMM, h:mm a" timepicker am-pm></ef-datetime-picker>
 ```
 
 ## Defining min and max values
