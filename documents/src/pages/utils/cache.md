@@ -84,7 +84,7 @@ const dbStorage = new CacheIndexedDBStorage({ dbName, version, storeName });
 
 | Type | Description |
 | --- | --- |
-| CacheLocalStorage | A class wraps indexeddb |
+| CacheIndexedDBStorage | A class wraps indexeddb |
 
 ## LocalCache APIs
 
