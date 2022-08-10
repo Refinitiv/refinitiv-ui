@@ -89,7 +89,7 @@ type: nav
   - [Theme Switching](./guides/theme-switching)
 - Building Components
   - Utilities
-  * [Cache*](./utils/cache)
+  * [Cache](./utils/cache)
 # Keeping this here for reference
 # - Theming
 #   * [Component styles*](./theming/styles)
