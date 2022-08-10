@@ -1062,7 +1062,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       const maxTime = this.max ? parse(this.max).getTime() : Infinity;
       for (let i = 0; i < this.values.length; i += 1) {
         if (!this.values[i]) {
-          return false;
+          continue;
         }
         const valueTime = parse(this.values[i]).getTime();
         if (minTime > valueTime || maxTime < valueTime) {
