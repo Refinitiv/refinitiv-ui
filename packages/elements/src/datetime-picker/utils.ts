@@ -45,41 +45,9 @@ const formatToTime = (value?: string | null, includeSeconds = false): string => 
  */
 const formatToView = (value?: string | null): string => value ? format(toSegment(value), DateFormat.yyyyMM) : '';
 
-/**
- * Check if options have second information
- * @param options Intl DateTime format options
- * @returns hasSeconds true if options have second or millisecond
- */
-const hasSeconds = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.second || !!options.fractionalSecondDigits;
-
-/**
- * Check if options have timepicker information
- * @param options Intl DateTime format options
- * @returns hasTimePicker true if options have hour, minute, second or millisecond
- */
-const hasTimePicker = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.hour || !!options.minute || hasSeconds(options);
-
-/**
- * Check if options use 12h format
- * @param options Intl DateTime format options
- * @returns hasAmPm true if options use 12h format
- */
-const hasAmPm = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.hour12;
-
-/**
- * Check if options have date information
- * @param options Intl DateTime format options
- * @returns hasDatePicker true if options have year, month, day or weekday
- */
-const hasDatePicker = (options: Intl.ResolvedDateTimeFormatOptions): boolean => !!options.year || !!options.month || !!options.day || !!options.weekday;
-
 export {
   getCurrentSegment,
   formatToDate,
   formatToTime,
-  formatToView,
-  hasTimePicker,
-  hasSeconds,
-  hasDatePicker,
-  hasAmPm
+  formatToView
 };

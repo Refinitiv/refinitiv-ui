@@ -46,11 +46,7 @@ import {
   getCurrentSegment,
   formatToView,
   formatToDate,
-  formatToTime,
-  hasTimePicker,
-  hasSeconds,
-  hasDatePicker,
-  hasAmPm
+  formatToTime
 } from './utils.js';
 
 import { preload } from '../icon/index.js';
@@ -146,7 +142,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     `;
   }
 
-  private lazyRendered = false; /* speed up rendering by not populating popup window on first load */
+  // speed up rendering by not populating popup window on first load
+  private lazyRendered = false;
 
   /**
    * Set minimum date.
@@ -222,7 +219,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
    * Set the first day of the week.
    * 0 - for Sunday, 6 - for Saturday
-   * @param firstDayOfWeek The first day of the week
    */
   @property({ type: Number, attribute: 'first-day-of-week' })
   public firstDayOfWeek: number | null = null;
@@ -252,6 +248,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
    * Current date time value
    * @param value Calendar value
+   * @type {string}
    * @default -
    */
   @property({ type: String })
@@ -415,37 +412,44 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private inputToRef: Ref<DatetimeField> = createRef();
 
   /**
+   * Get resolved locale for current element
+   */
+  protected get resolvedLocale (): Locale {
+    return resolvedLocale(this);
+  }
+
+  /**
    * Returns true if Locale has time picker
    */
   protected get hasTimePicker (): boolean {
-    return hasTimePicker(resolvedLocale(this).options);
+    return this.resolvedLocale.hasTimePicker;
   }
 
   /**
    * Returns true if Locale has seconds
    */
   protected get hasSeconds (): boolean {
-    return hasSeconds(resolvedLocale(this).options);
+    return this.resolvedLocale.hasSeconds;
   }
 
   /**
    * Returns true if Locale has date picker
    */
   protected get hasDatePicker (): boolean {
-    return hasDatePicker(resolvedLocale(this).options);
+    return this.resolvedLocale.hasDatePicker;
   }
 
   /**
    * Returns true if Locale has 12h time format
    */
   protected get hasAmPm (): boolean {
-    return hasAmPm(resolvedLocale(this).options);
+    return this.resolvedLocale.hasAmPm;
   }
 
   /**
    * Called after render life-cycle finished
    * @param changedProperties Properties which have changed
-   * @return {void}
+   * @returns {void}
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
@@ -477,9 +481,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     if (changedProperties.has('opened') && this.opened) {
       this.lazyRendered = true;
     }
+
     // make sure to close popup for disabled
     if (this.opened && !this.canOpenPopup) {
-      this.opened = false; /* this cannot be nor stopped nor listened */
+      this.opened = false;
     }
 
     if (this.shouldValidateInput(changedProperties)) {
@@ -574,7 +579,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns {void}
    */
   protected override warnInvalidValue (value: string): void {
-    new WarningNotice(`The specified value "${value}" does not conform to the required format. The format is ${resolvedLocale(this).isoFormat}.`).once();
+    new WarningNotice(`The specified value "${value}" does not conform to the required format. The format is ${this.resolvedLocale.isoFormat}.`).once();
   }
 
   /**
@@ -583,7 +588,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns valid Validity
    */
   protected isValidValue (value: string): boolean {
-    return value === '' ? true : typeof value === 'string' && getFormat(value) === resolvedLocale(this).isoFormat;
+    return value === '' ? true : typeof value === 'string' && getFormat(value) === this.resolvedLocale.isoFormat;
   }
 
   /**
@@ -769,7 +774,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private async synchroniseCalendarValues (values: string[]): Promise<void> {
     const segments = values.map(value => value ? toSegment(value) : null);
     const oldSegments = this.values.map(value => value ? toSegment(value) : null);
-    const newValues = segments.map((segment, idx) => segment ? format(Object.assign(getCurrentSegment(), oldSegments[idx] || {}, segment), resolvedLocale(this).isoFormat) : '');
+    const newValues = segments.map((segment, idx) => segment ? format(Object.assign(getCurrentSegment(), oldSegments[idx] || {}, segment), this.resolvedLocale.isoFormat) : '');
 
     this.notifyValuesChange(newValues);
 
@@ -916,7 +921,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         max=${ifDefined(this.max || undefined)}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly || this.inputDisabled}
-        .locale=${resolvedLocale(this)}
+        .locale=${this.resolvedLocale}
         .value=${live(isTo ? (this.values[1] || '') : (this.values[0] || ''))}
         .placeholder=${this.placeholder}
         @value-changed=${this.onInputValueChanged}

@@ -209,12 +209,19 @@ export class DatetimeField extends TextField {
   protected partLabel = '';
 
   /**
+   * Get resolved locale for current element
+   */
+  protected get resolvedLocale (): Locale {
+    return resolvedLocale(this);
+  }
+
+  /**
    * Transform Date object to date string
    * @param value Date
    * @returns dateSting
    */
   protected dateToString (value: Date): string {
-    return isNaN(value.getTime()) ? '' : utcFormat(value, resolvedLocale(this).isoFormat);
+    return isNaN(value.getTime()) ? '' : utcFormat(value, this.resolvedLocale.isoFormat);
   }
 
   /**
@@ -308,7 +315,7 @@ export class DatetimeField extends TextField {
       return true;
     }
     // value format depends on locale.
-    return getFormat(value) === resolvedLocale(this).isoFormat;
+    return getFormat(value) === this.resolvedLocale.isoFormat;
   }
 
   /**
@@ -317,14 +324,14 @@ export class DatetimeField extends TextField {
    * @returns {void}
    */
   protected override warnInvalidValue (value: string): void {
-    new WarningNotice(`${this.localName}: the specified value "${value}" does not conform to the required format. The format is '${resolvedLocale(this).isoFormat}'.`).show();
+    new WarningNotice(`${this.localName}: the specified value "${value}" does not conform to the required format. The format is '${this.resolvedLocale.isoFormat}'.`).show();
   }
 
   /**
    * Get Intl.DateTimeFormat object from locale
    */
   protected get formatter (): Intl.DateTimeFormat {
-    return resolvedLocale(this).formatter;
+    return this.resolvedLocale.formatter;
   }
 
   /**
@@ -355,7 +362,7 @@ export class DatetimeField extends TextField {
   protected toValue (inputValue: string): string {
     let value = '';
     try {
-      value = inputValue ? resolvedLocale(this).parse(inputValue, this.value || this.startDate) : '';
+      value = inputValue ? this.resolvedLocale.parse(inputValue, this.value || this.startDate) : '';
     }
     catch (error) {
       // do nothing
