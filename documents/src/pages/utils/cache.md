@@ -118,12 +118,6 @@ cache.set(key, value, expires);
 | value | unknown | Data to store in cache |
 | expires | Number | Cache expiry in seconds. Defaults to 5 days. |
 
-#### Returns
-
-| Type | Description |
-| --- | --- |
-| String | The new value with the months added |
-
 ### get
 Returns cache data value based on provided key
 
