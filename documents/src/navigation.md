@@ -87,7 +87,9 @@ type: nav
     - [Overview](./accessibility/overview)
   - [Internationalization (i18n)](./intl/internationalization)
   - [Theme Switching](./guides/theme-switching)
-
+- Building Components
+  - Utilities
+  * [Cache*](./utils/cache)
 # Keeping this here for reference
 # - Theming
 #   * [Component styles*](./theming/styles)
