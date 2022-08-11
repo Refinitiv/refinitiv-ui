@@ -17,7 +17,6 @@ import { live } from '@refinitiv-ui/core/directives/live.js';
 import { VERSION } from '../version.js';
 import type { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent, ErrorChangedEvent } from '../events';
 import type {
-  DatetimePickerDuplex,
   DatetimePickerFilter
 } from './types';
 import '../calendar/index.js';
@@ -58,8 +57,7 @@ import '@refinitiv-ui/phrasebook/locale/en/datetime-picker.js';
 preload('calendar', 'down', 'left', 'right'); /* preload calendar icons for faster loading */
 
 export type {
-  DatetimePickerFilter,
-  DatetimePickerDuplex
+  DatetimePickerFilter
 };
 
 const POPUP_POSITION = ['bottom-start', 'top-start', 'bottom-end', 'top-end', 'bottom-middle', 'top-middle'];
@@ -320,10 +318,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
   /**
    * Display two calendar pickers.
-   * @type {"" | "consecutive" | "split"}
    */
-  @property({ type: String, reflect: true })
-  public duplex: DatetimePickerDuplex | null = null;
+  @property({ type: Boolean, reflect: true })
+  public duplex = false;
 
   /**
    * Set the current calendar view.
@@ -364,18 +361,17 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const now = format(new Date(), DateFormat.yyyyMM);
     const from = formatToView(this.values[0]);
 
-    if (!this.isDuplex()) {
+    if (!this.duplex) {
       return [from || now];
     }
 
     const to = formatToView(this.values[1]);
 
     // default duplex mode
-    if (this.isDuplexConsecutive() || !from || !to || from === to || isBefore(to, from)) {
+    if (!from || !to || from === to || isBefore(to, from)) {
       return this.composeViews(from || to || now, !from && to ? 1 : 0, []);
     }
 
-    // duplex split if as from and to
     return [from, to];
   }
 
@@ -561,7 +557,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private filterInvalidViews (views: string[]): string[] {
     // views must match in duplex mode
-    if (views.length !== (this.isDuplex() ? 2 : 1)) {
+    if (views.length !== (this.duplex ? 2 : 1)) {
       return [];
     }
 
@@ -592,30 +588,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
-   * Return true if calendar is in duplex mode
-   * @returns duplex
-   */
-  private isDuplex (): boolean {
-    return this.isDuplexSplit() || this.isDuplexConsecutive();
-  }
-
-  /**
-   * Return true if calendar is in duplex split mode
-   * @returns duplex split
-   */
-  private isDuplexSplit (): boolean {
-    return this.duplex === 'split';
-  }
-
-  /**
-   * Return true if calendar is in duplex consecutive mode
-   * @returns duplex consecutive
-   */
-  private isDuplexConsecutive (): boolean {
-    return this.duplex === '' || this.duplex === 'consecutive';
-  }
-
-  /**
    * Construct view collection
    * @param view The view that has changed
    * @param index View index (0 - single, or from); (1 - to)
@@ -625,20 +597,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private composeViews (view: string, index: number, views = this.views): string[] {
     view = formatToView(view);
 
-    if (!this.isDuplex()) {
+    if (!this.duplex) {
       return [view];
     }
 
-    if (this.isDuplexConsecutive()) {
-      if (index === 0) { /* from */
-        return [view, addMonths(view, 1)];
-      }
-      else { /* to */
-        return [subMonths(view, 1), view];
-      }
-    }
-
-    // duplex split
     if (index === 0) { /* from. to must be after or the same */
       let after = views[1] || addMonths(view, 1);
       if (isBefore(after, view)) {
@@ -740,13 +702,13 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
     // in duplex mode, avoid jumping on views
     // Therefore if any of values have changed, save the current view
-    if (this.isDuplex() && this.calendarRef.value && this.calendarToRef.value) {
+    if (this.duplex && this.calendarRef.value && this.calendarToRef.value) {
       this.notifyViewsChange([this.calendarRef.value.view, this.calendarToRef.value.view]);
     }
 
     // Close popup if there is no time picker
     const newValues = this.values;
-    if (!this.timepicker && newValues[0] && (this.range ? newValues[1] : true)) {
+    if (!this.timepicker && newValues[0] && (!this.range || newValues[1])) {
       this.setOpened(false);
     }
   }
@@ -867,7 +829,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       ${ref(isTo ? this.calendarToRef : this.calendarRef)}
       part="calendar"
       lang=${ifDefined(this.lang || undefined)}
-      .fillCells=${!this.isDuplex()}
+      .fillCells=${!this.duplex}
       .range=${this.range}
       .multiple=${this.multiple}
       .min=${ifDefined(formatToDate(this.min) || undefined)}
@@ -888,7 +850,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private get calendarsTemplate (): TemplateResult {
     return html`
       ${this.getCalendarTemplate()}
-      ${this.isDuplex() ? this.getCalendarTemplate(true) : undefined}
+      ${this.duplex ? this.getCalendarTemplate(true) : undefined}
     `;
   }
 
