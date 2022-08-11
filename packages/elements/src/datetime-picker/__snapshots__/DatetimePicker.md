@@ -58,7 +58,6 @@
   opened=""
   part="list"
   role="dialog"
-  style="z-index: 103; pointer-events: auto;"
   tabindex="-1"
   with-shadow=""
 >
@@ -136,7 +135,6 @@
   opened=""
   part="list"
   role="dialog"
-  style="z-index: 103; pointer-events: auto;"
   tabindex="-1"
   with-shadow=""
 >
@@ -205,7 +203,6 @@
   opened=""
   part="list"
   role="dialog"
-  style="z-index: 103; pointer-events: auto;"
   tabindex="-1"
   with-shadow=""
 >
@@ -280,7 +277,6 @@
   opened=""
   part="list"
   role="dialog"
-  style="z-index: 103; pointer-events: auto;"
   tabindex="-1"
   with-shadow=""
 >
@@ -356,7 +352,6 @@
   opened=""
   part="list"
   role="dialog"
-  style="z-index: 103; pointer-events: auto;"
   tabindex="-1"
   with-shadow=""
 >
@@ -442,7 +437,6 @@
   opened=""
   part="list"
   role="dialog"
-  style="z-index: 103; pointer-events: auto;"
   tabindex="-1"
   with-shadow=""
 >
@@ -527,7 +521,6 @@
   opened=""
   part="list"
   role="dialog"
-  style="z-index: 103; pointer-events: auto;"
   tabindex="-1"
   with-shadow=""
 >
@@ -603,7 +596,6 @@
   opened=""
   part="list"
   role="dialog"
-  style="z-index: 103; pointer-events: auto;"
   tabindex="-1"
   with-shadow=""
 >
@@ -671,7 +663,6 @@
   opened=""
   part="list"
   role="dialog"
-  style="z-index: 103; pointer-events: auto;"
   tabindex="-1"
   with-shadow=""
 >

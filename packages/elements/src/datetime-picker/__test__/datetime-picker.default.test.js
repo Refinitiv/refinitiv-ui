@@ -83,7 +83,7 @@ describe('datetime-picker/DatetimePicker', () => {
       expect(el.inputDisabled).to.be.equal(false);
       expect(el.popupDisabled).to.be.equal(false);
       expect(el.timepicker).to.be.equal(false);
-      expect(el.duplex).to.be.equal(null);
+      expect(el.duplex).to.be.equal(false);
       expect(el.readonly).to.be.equal(false);
       expect(el.disabled).to.be.equal(false);
       expect(el.placeholder).to.be.equal('');
