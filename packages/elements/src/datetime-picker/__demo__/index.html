@@ -145,6 +145,12 @@
 
         setConsole();
 
+        const eventLog = [];
+        const clearEventLog = () => {
+          eventLog.length = 0;
+          document.getElementById('events').value = eventLog.join('\n');
+        };
+
         const resetValue = () => {
           dateValue.value = '';
           dateFrom.value = '';
@@ -153,6 +159,7 @@
           dateValue.view = '';
           dateFrom.view = '';
           dateTo.view = '';
+          clearEventLog();
         };
 
         const setRange = (value) => {
@@ -379,7 +386,6 @@
           dateTimePicker.popupDisabled = value || undefined;
         });
 
-        const eventLog = [];
         const onEvent = (event) => {
           eventLog.unshift(`${event.type}: ${JSON.stringify(event.detail)}`);
           if (eventLog.length > 50) {
@@ -391,10 +397,7 @@
         dateTimePicker.addEventListener('opened-changed', onEvent);
         dateTimePicker.addEventListener('value-changed', onEvent);
         dateTimePicker.addEventListener('view-changed', onEvent);
-        document.getElementById('clear-events').addEventListener('click', () => {
-          eventLog.length = 0;
-          document.getElementById('events').value = eventLog.join('\n');
-        });
+        document.getElementById('clear-events').addEventListener('click', clearEventLog);
       </script>
     </demo-block>
 

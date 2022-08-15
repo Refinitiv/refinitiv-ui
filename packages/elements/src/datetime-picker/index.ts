@@ -368,7 +368,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const to = formatToView(this.values[1]);
 
     // default duplex mode
-    if (!from || !to || from === to || isBefore(to, from)) {
+    if (!from || !to || isBefore(to, from)) {
       return this.composeViews(from || to || now, !from && to ? 1 : 0, []);
     }
 
@@ -697,7 +697,19 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onCalendarValueChanged (event: ValueChangedEvent): void {
-    const values = (event.target as Calendar).values;
+    const target = event.target as Calendar;
+    let values;
+
+    if (this.range && this.duplex) {
+      // 0 - from, single; 1 - to
+      const index = event.target === this.calendarToRef.value ? 1 : 0;
+      values = [...this.values];
+      values[index] = target.value;
+    }
+    else {
+      values = target.values;
+    }
+
     void this.synchroniseCalendarValues(values);
 
     // in duplex mode, avoid jumping on views
@@ -815,7 +827,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       ${ref(isTo ? this.timepickerToRef : this.timepickerRef)}
       part="time-picker"
       .amPm=${this.hasAmPm}
-      .value=${formatToTime(isTo ? (this.values[1] || '') : (this.values[0] || ''), this.hasSeconds)}
+      .value=${formatToTime(isTo ? this.values[1] : this.values[0], this.hasSeconds)}
       @value-changed=${this.onTimePickerValueChanged}></ef-time-picker>`;
   }
 
@@ -825,19 +837,23 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns template result
    */
   private getCalendarTemplate (isTo = false): TemplateResult {
+    const values = this.range && this.duplex
+      ? [formatToDate(isTo ? this.values[1] : this.values[0])]
+      : this.values.map(value => formatToDate(value));
+
     return html`<ef-calendar
       ${ref(isTo ? this.calendarToRef : this.calendarRef)}
       part="calendar"
       lang=${ifDefined(this.lang || undefined)}
       .fillCells=${!this.duplex}
-      .range=${this.range}
+      .range=${this.duplex ? false : this.range}
       .multiple=${this.multiple}
       .min=${ifDefined(formatToDate(this.min) || undefined)}
       .max=${ifDefined(formatToDate(this.max) || undefined)}
       .weekdaysOnly=${this.weekdaysOnly}
       .weekendsOnly=${this.weekendsOnly}
       .firstDayOfWeek=${ifDefined(this.firstDayOfWeek === null ? undefined : this.firstDayOfWeek)}
-      .values=${this.values.map(value => formatToDate(value))}
+      .values=${values}
       .filter=${this.filter}
       .view=${isTo ? (this.views[1] || '') : (this.views[0] || '')}
       @view-changed=${this.onCalendarViewChanged}
