@@ -28,6 +28,26 @@ describe('datetime-picker/Value', () => {
       expect(el.min).to.be.equal('', 'Invalid min should reset min');
       expect(el.max).to.be.equal('', 'Invalid max should reset max');
     });
+
+    it('It must not error when user input empty string value', async () => {
+      const el = await fixture('<ef-datetime-picker lang="en-gb" min="2022-04-01" max="2022-04-30"></ef-datetime-picker>');
+      el.value = '2022-05-15';
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(true);
+      typeText(el.inputEl, '');
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(false, 'input empty string must not make element error');
+
+      // Test range mode
+      el.range = true;
+      el.values = ['2022-03-15', '2022-04-23'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(true);
+      typeText(el.inputEl, '');
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(false, 'input empty string must not make element error in range mode');
+    });
+
     it('Typing invalid value in input should mark datetime picker as invalid and error-changed event is fired', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
       setTimeout(() => typeText(el.inputEl, 'Invalid Value'));

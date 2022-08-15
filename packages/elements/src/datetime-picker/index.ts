@@ -155,7 +155,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         cursor: pointer;
       }
       :host([popup-disabled]) [part=icon], :host([readonly]) [part=icon] {
-        pointer-event: none;
+        pointer-events: none;
       }
     `;
   }
@@ -1052,12 +1052,17 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private isValueWithinMinMax (): boolean {
     if (this.min || this.max) {
-      const minTime = this.min ? parse(this.min).getTime() : -Infinity;
-      const maxTime = this.max ? parse(this.max).getTime() : Infinity;
       for (let i = 0; i < this.values.length; i += 1) {
-        const valueTime = parse(this.values[i]).getTime();
-        if (minTime > valueTime || maxTime < valueTime) {
-          return false;
+        const value = this.values[i];
+        if (value) {
+          // Value before min
+          if (this.min && value !== this.min && isBefore(value, this.min)) {
+            return false;
+          }
+          // Value after max
+          if (this.max && value !== this.max && isAfter(value, this.max)) {
+            return false;
+          }
         }
       }
     }
