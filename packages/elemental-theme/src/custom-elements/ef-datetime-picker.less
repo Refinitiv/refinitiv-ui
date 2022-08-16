@@ -47,6 +47,10 @@
     background: none;
     color: inherit;
     font-size: inherit;
+
+    &:focus {
+      outline: @input-border-width @control-border-style @input-focused-border-color;
+    }
   }
 
   [part=calendar] {
@@ -82,3 +86,4 @@
     height: 1px;
   }
 }
+

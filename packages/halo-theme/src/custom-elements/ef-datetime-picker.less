@@ -26,6 +26,9 @@
     & when (@variant = light) {
       color: @control-border-color;
     }
+    &:focus {
+      outline-width: 2px;
+    }
   }
 
   &[warning]:not([focused]) {
