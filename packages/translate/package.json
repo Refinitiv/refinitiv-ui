@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/translate",
-  "version": "6.0.3",
+  "version": "6.0.4",
   "description": "i18n implementation for Element Framework components",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -30,7 +30,7 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/core": "^6.0.3",
+    "@refinitiv-ui/core": "^6.0.4",
     "@refinitiv-ui/i18n": "^6.0.3",
     "@refinitiv-ui/phrasebook": "^6.1.2",
     "@refinitiv-ui/test-helpers": "^6.0.3"
