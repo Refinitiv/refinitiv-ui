@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.0.4...@refinitiv-ui/docs@6.1.0) (2022-08-16)
+
+
+### Features
+
+* **interactive-chart:** add disabledLegend option to hide data legend ([#421](https://github.com/Refinitiv/refinitiv-ui/issues/421)) ([32a6d7b](https://github.com/Refinitiv/refinitiv-ui/commit/32a6d7b1889597a7ae804edbb08fc95fc5c5a04e))
+
+
+
+
+
 ## [6.0.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.0.3...@refinitiv-ui/docs@6.0.4) (2022-08-02)
 
 **Note:** Version bump only for package @refinitiv-ui/docs

@@ -131,13 +131,13 @@ export class FocusManager {
 
   private isFocusBoundaryDescendant (element: HTMLElement): boolean {
     const focusBoundaryElements = this.focusBoundaryElements;
-    let node = element.parentNode;
+    let node = element.assignedSlot || element.parentNode;
     while (node) {
       if ((node instanceof HTMLElement || node instanceof ShadowRoot) && focusBoundaryElements.includes(node)) {
         return true;
       }
       // parenNode is not defined if the node is inside document fragment. Use host instead
-      node = node.nodeType === Node.DOCUMENT_FRAGMENT_NODE ? (node as ShadowRoot).host : node.parentNode;
+      node = node.nodeType === Node.DOCUMENT_FRAGMENT_NODE ? (node as ShadowRoot).host : ((node as Element).assignedSlot || node.parentNode);
     }
 
     return false;

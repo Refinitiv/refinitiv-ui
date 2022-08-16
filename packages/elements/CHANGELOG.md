@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.4...@refinitiv-ui/elements@6.1.0) (2022-08-16)
+
+
+### Bug Fixes
+
+* **datetime-picker:** parse invalid value to date object ([#422](https://github.com/Refinitiv/refinitiv-ui/issues/422)) ([dd86b73](https://github.com/Refinitiv/refinitiv-ui/commit/dd86b73fecd03518d2dae78174b91b0ef50fc913))
+* **overlay:** Tab does not work with slotted elements ([16f4b60](https://github.com/Refinitiv/refinitiv-ui/commit/16f4b60e9b840d3b7d225f3d61f15e017dc17855))
+* **radio-button:** check-changed is not fired on arrow keys ([77d7407](https://github.com/Refinitiv/refinitiv-ui/commit/77d7407883ba77e7b07bdaa8483fc49d35c76c14))
+
+
+### Features
+
+* **interactive-chart:** add disabledLegend option to hide data legend ([#421](https://github.com/Refinitiv/refinitiv-ui/issues/421)) ([32a6d7b](https://github.com/Refinitiv/refinitiv-ui/commit/32a6d7b1889597a7ae804edbb08fc95fc5c5a04e))
+
+
+
+
+
 ## [6.0.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.3...@refinitiv-ui/elements@6.0.4) (2022-08-02)
 
 
