@@ -1,25 +1,27 @@
 import { Locale } from '@refinitiv-ui/utils/date.js';
 import { getLocale as getLang } from '@refinitiv-ui/translate';
 
-const LocaleMap = new WeakMap<LocaleDateElement, {
+type LocaleMapOptions = {
   resolvedLocale: Locale,
-  lang: string;
-  locale: Locale | null,
-  formatOptions: Intl.DateTimeFormatOptions | null;
-  amPm: boolean;
-  showSeconds: boolean;
-  timepicker: boolean;
-}>();
+  locale?: Locale,
+  lang?: string;
+  formatOptions?: Intl.DateTimeFormatOptions;
+  amPm?: boolean;
+  showSeconds?: boolean;
+  timepicker?: boolean;
+};
+
+const LocaleMap = new WeakMap<LocaleDateElement, LocaleMapOptions>();
 
 /**
  * Used for date elements to construct Locale object
  */
 type LocaleDateElement = HTMLElement & {
-  formatOptions: Intl.DateTimeFormatOptions | null;
-  amPm: boolean;
-  showSeconds: boolean;
-  timepicker: boolean;
-  locale: Locale | null;
+  formatOptions?: Intl.DateTimeFormatOptions | null;
+  amPm?: boolean;
+  showSeconds?: boolean;
+  timepicker?: boolean;
+  locale?: Locale | null;
 };
 
 /**
@@ -51,26 +53,32 @@ const hasTimepicker = (element: LocaleDateElement): boolean => {
 };
 
 /**
- * Resolve locale based on element parameters
+ * Resolve locale based on locale properties
  * @param lang Resolved language (locale)
- * @param formatOptions Format options
  * @param timepicker Has time info
  * @param amPm Has amPm info
  * @param showSeconds Has seconds info
+ * @param options Override options if resolved from element
  * @returns locale Resolved locale
  */
-const resolveLocaleFromElement = (lang: string, formatOptions: Intl.DateTimeFormatOptions | null, timepicker: boolean, amPm: boolean, showSeconds: boolean): Locale => {
+const localeFromProperties = (lang: string, timepicker: boolean, amPm: boolean, showSeconds: boolean, options: Intl.DateTimeFormatOptions): Locale => {
   // TODO: Do not use dateStyle and timeStyle as these are supported only in modern browsers
-  return Locale.fromOptions(formatOptions || {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
+  return Locale.fromOptions({
     hour: timepicker ? 'numeric' : undefined,
     minute: timepicker ? 'numeric' : undefined,
     second: showSeconds ? 'numeric' : undefined,
-    hour12: amPm ? true : undefined // force am-pm if provided, otherwise rely on locale
+    hour12: amPm ? true : undefined, // force am-pm if provided, otherwise rely on locale
+    ...options
   }, lang);
 };
+
+/**
+ * Resolve locale based on format options
+ * @param lang Resolved language (locale)
+ * @param formatOptions Format options
+ * @returns locale Resolved locale
+ */
+const localeFromOptions = (lang: string, formatOptions: Intl.DateTimeFormatOptions): Locale => Locale.fromOptions(formatOptions, lang);
 
 /**
  * Get Locale object from LocaleMap cache
@@ -82,50 +90,88 @@ const getLocale = (element: LocaleDateElement): Locale | null => {
   if (localeMap) {
     const { resolvedLocale, locale, formatOptions, amPm, showSeconds, timepicker, lang } = localeMap;
     // calculate Diff with cache to check if the object has changed
-    if ((locale && locale === element.locale) || (!locale && !element.locale && lang === getLang(element) && (
-      (formatOptions && formatOptions === element.formatOptions)
-      || (!formatOptions && !element.formatOptions && timepicker === hasTimepicker(element) && amPm === hasAmPm(element) && showSeconds === hasSeconds(element))
-    ))) {
-      return resolvedLocale;
+    // Locale includes all required information for localisation
+    // and takes priority of other properties
+    if (locale || element.locale) {
+      return locale === element.locale ? resolvedLocale : null;
     }
+
+    // Lang has changed
+    if (lang !== getLang(element)) {
+      return null;
+    }
+
+    if (formatOptions || element.formatOptions) {
+      // formatOptions take priority over properties
+      return formatOptions === element.formatOptions ? resolvedLocale : null;
+    }
+
+    return timepicker === hasTimepicker(element) && amPm === hasAmPm(element) && showSeconds === hasSeconds(element) ? resolvedLocale : null;
   }
 
   return null;
 };
 
 /**
+ * Populate LocaleMap cache
+ * @param element Locale Date element
+ * @param options Locale Map options
+ * @returns locale Locale object
+ */
+const setLocaleMap = (element: LocaleDateElement, options: LocaleMapOptions): Locale => {
+  LocaleMap.set(element, options);
+  return options.resolvedLocale;
+};
+
+/**
  * Set Locale object in LocaleMap cache
  * @param element Locale Date element
+ * @param options Override options if resolved from element
  * @returns locale Resolved Locale object
  */
-const setLocale = (element: LocaleDateElement): Locale => {
+const setLocale = (element: LocaleDateElement, options: Intl.DateTimeFormatOptions): Locale => {
+  if (element.locale) {
+    const resolvedLocale = element.locale;
+    return setLocaleMap(element, {
+      resolvedLocale,
+      locale: resolvedLocale
+    });
+  }
+
   const lang = getLang(element);
   const formatOptions = element.formatOptions;
+  if (formatOptions) {
+    return setLocaleMap(element, {
+      resolvedLocale: localeFromOptions(lang, formatOptions),
+      lang,
+      formatOptions
+    });
+  }
+
   const timepicker = hasTimepicker(element);
   const showSeconds = hasSeconds(element);
   const amPm = hasAmPm(element);
-  const locale = element.locale;
-  const resolvedLocale = locale || resolveLocaleFromElement(lang, formatOptions, timepicker, amPm, showSeconds);
 
-  LocaleMap.set(element, {
-    resolvedLocale,
-    locale,
-    formatOptions,
+  return setLocaleMap(element, {
+    resolvedLocale: localeFromProperties(lang, timepicker, amPm, showSeconds, options),
+    lang,
     amPm,
     timepicker,
-    showSeconds,
-    lang
+    showSeconds
   });
-
-  return resolvedLocale;
 };
 
 /**
  * Resolve locale based on element parameters
  * @param element Locale Date element
+ * @param [options] Override options if resolved from element
  * @returns locale Resolved Locale object
  */
-const resolvedLocale = (element: LocaleDateElement): Locale => getLocale(element) || setLocale(element);
+const resolvedLocale = (element: LocaleDateElement, options: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric'
+}): Locale => getLocale(element) || setLocale(element, options);
 
 export {
   LocaleDateElement,

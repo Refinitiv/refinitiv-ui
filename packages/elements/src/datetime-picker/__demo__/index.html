@@ -50,14 +50,10 @@
           </p>
           <p>
             <ef-checkbox id="range" title="Switch calendar to range mode">Range</ef-checkbox>
+            <ef-checkbox id="duplex" title="Switch calendar to duplex mode">Duplex</ef-checkbox>
           </p>
           <p>
             <ef-button id="reset-view">Reset View</ef-button>
-          </p>
-          <p>
-            <ef-radio-button name="duplex" value="single" title="Switch calendar to single mode" checked>Single</ef-radio-button>
-            <ef-radio-button name="duplex" value="duplex" title="Switch calendar to duplex mode">Duplex</ef-radio-button>
-            <ef-radio-button name="duplex" value="duplex-split" title="Switch calendar to split mode">Duplex Split</ef-radio-button>
           </p>
           <p>
             <ef-checkbox id="timepicker" title="Turn on timepicker">Timepicker</ef-checkbox>
@@ -149,6 +145,12 @@
 
         setConsole();
 
+        const eventLog = [];
+        const clearEventLog = () => {
+          eventLog.length = 0;
+          document.getElementById('events').value = eventLog.join('\n');
+        };
+
         const resetValue = () => {
           dateValue.value = '';
           dateFrom.value = '';
@@ -157,6 +159,7 @@
           dateValue.view = '';
           dateFrom.view = '';
           dateTo.view = '';
+          clearEventLog();
         };
 
         const setRange = (value) => {
@@ -181,13 +184,9 @@
         document.getElementById('range').addEventListener('checked-changed', ({ detail: { value } }) => {
           setRange(value);
         });
-        document.querySelectorAll('ef-radio-button[name=duplex]').forEach((ch, i) => {
-          ch.addEventListener('checked-changed', ({ detail: { value } }) => {
-            if (value) {
-              dateTimePicker.view = undefined;
-              dateTimePicker.duplex = i === 0 ? undefined : i === 1 ? '' : 'split';
-            }
-          });
+
+        document.getElementById('duplex').addEventListener('checked-changed', ({ detail: { value } }) => {
+          dateTimePicker.duplex = value;
         });
 
         const setTimePicker = (value) => {
@@ -387,7 +386,6 @@
           dateTimePicker.popupDisabled = value || undefined;
         });
 
-        const eventLog = [];
         const onEvent = (event) => {
           eventLog.unshift(`${event.type}: ${JSON.stringify(event.detail)}`);
           if (eventLog.length > 50) {
@@ -399,10 +397,7 @@
         dateTimePicker.addEventListener('opened-changed', onEvent);
         dateTimePicker.addEventListener('value-changed', onEvent);
         dateTimePicker.addEventListener('view-changed', onEvent);
-        document.getElementById('clear-events').addEventListener('click', () => {
-          eventLog.length = 0;
-          document.getElementById('events').value = eventLog.join('\n');
-        });
+        document.getElementById('clear-events').addEventListener('click', clearEventLog);
       </script>
     </demo-block>
 
@@ -437,7 +432,7 @@
         }
       </style>
 
-      <ef-datetime-picker id="default-range" range duplex="split" timepicker>
+      <ef-datetime-picker id="default-range" range duplex timepicker>
         <div slot="left" class="range-nav-bar">
           <ef-button id="default-range-today">Today</ef-button>
           <ef-button id="default-range-1-week">1 Week</ef-button>

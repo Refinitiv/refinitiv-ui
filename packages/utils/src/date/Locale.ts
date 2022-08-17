@@ -468,6 +468,38 @@ class Locale {
   }
 
   /**
+   * Check if options have date information
+   * @returns hasDatePicker true if options have year, month, day or weekday
+   */
+  public get hasDatePicker (): boolean {
+    return !!this.options.year || !!this.options.month || !!this.options.day || !!this.options.weekday;
+  }
+
+  /**
+   * Check if options have timepicker information
+   * @returns hasTimePicker true if options have hour, minute, second or millisecond
+   */
+  public get hasTimePicker (): boolean {
+    return !!this.options.hour || !!this.options.minute || this.hasSeconds;
+  }
+
+  /**
+   * Check if options have second information
+   * @returns hasSeconds true if options have second or millisecond
+   */
+  public get hasSeconds (): boolean {
+    return !!this.options.second || !!this.options.fractionalSecondDigits;
+  }
+
+  /**
+   * Check if options use 12h format
+   * @returns hasAmPm true if options use 12h format
+   */
+  public get hasAmPm (): boolean {
+    return !!this.options.hour12;
+  }
+
+  /**
    * Try to parse localised date string into ISO date/time/datetime string
    * Throw an error if value is invalid
    * @param value Localised date

@@ -17,7 +17,6 @@ import { live } from '@refinitiv-ui/core/directives/live.js';
 import { VERSION } from '../version.js';
 import type { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent, ErrorChangedEvent } from '../events';
 import type {
-  DatetimePickerDuplex,
   DatetimePickerFilter
 } from './types';
 import '../calendar/index.js';
@@ -31,8 +30,6 @@ import {
   TranslateDirective
 } from '@refinitiv-ui/translate';
 import {
-  addMonths,
-  subMonths,
   isAfter,
   isBefore,
   format,
@@ -46,11 +43,7 @@ import {
   getCurrentSegment,
   formatToView,
   formatToDate,
-  formatToTime,
-  hasTimePicker,
-  hasSeconds,
-  hasDatePicker,
-  hasAmPm
+  formatToTime
 } from './utils.js';
 
 import { preload } from '../icon/index.js';
@@ -62,8 +55,7 @@ import '@refinitiv-ui/phrasebook/locale/en/datetime-picker.js';
 preload('calendar', 'down', 'left', 'right'); /* preload calendar icons for faster loading */
 
 export type {
-  DatetimePickerFilter,
-  DatetimePickerDuplex
+  DatetimePickerFilter
 };
 
 const POPUP_POSITION = ['bottom-start', 'top-start', 'bottom-end', 'top-end', 'bottom-middle', 'top-middle'];
@@ -146,7 +138,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     `;
   }
 
-  private lazyRendered = false; /* speed up rendering by not populating popup window on first load */
+  // speed up rendering by not populating popup window on first load
+  private lazyRendered = false;
 
   /**
    * Set minimum date.
@@ -184,9 +177,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
   /**
    * Set the datetime format options based on
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
+   * [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat](Intl.DatetimeFormat)
    * `formatOptions` overrides `timepicker` and `showSeconds` properties.
    * Note: time-zone is not supported
+   * @type {Intl.DateTimeFormatOptions | null}
    */
   @property({ attribute: false })
   public formatOptions: Intl.DateTimeFormatOptions | null = null;
@@ -194,6 +188,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
    * Set the Locale object.
    * `Locale` overrides `formatOptions`, `timepicker` and `showSeconds` properties.
+   * @type {Locale | null}
    */
   @property({ attribute: false })
   public locale: Locale | null = null;
@@ -220,7 +215,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
    * Set the first day of the week.
    * 0 - for Sunday, 6 - for Saturday
-   * @param firstDayOfWeek The first day of the week
    */
   @property({ type: Number, attribute: 'first-day-of-week' })
   public firstDayOfWeek: number | null = null;
@@ -250,6 +244,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
    * Current date time value
    * @param value Calendar value
+   * @type {string}
    * @default -
    */
   @property({ type: String })
@@ -321,10 +316,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
   /**
    * Display two calendar pickers.
-   * @type {"" | "consecutive" | "split"}
    */
-  @property({ type: String, reflect: true })
-  public duplex: DatetimePickerDuplex | null = null;
+  @property({ type: Boolean, reflect: true })
+  public duplex = false;
 
   /**
    * Set the current calendar view.
@@ -365,18 +359,17 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const now = format(new Date(), DateFormat.yyyyMM);
     const from = formatToView(this.values[0]);
 
-    if (!this.isDuplex()) {
+    if (!this.duplex) {
       return [from || now];
     }
 
     const to = formatToView(this.values[1]);
 
     // default duplex mode
-    if (this.isDuplexConsecutive() || !from || !to || from === to || isBefore(to, from)) {
+    if (!from || !to || isBefore(to, from)) {
       return this.composeViews(from || to || now, !from && to ? 1 : 0, []);
     }
 
-    // duplex split if as from and to
     return [from, to];
   }
 
@@ -413,37 +406,44 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private inputToRef: Ref<DatetimeField> = createRef();
 
   /**
+   * Get resolved locale for current element
+   */
+  protected get resolvedLocale (): Locale {
+    return resolvedLocale(this);
+  }
+
+  /**
    * Returns true if Locale has time picker
    */
   protected get hasTimePicker (): boolean {
-    return hasTimePicker(resolvedLocale(this).options);
+    return this.resolvedLocale.hasTimePicker;
   }
 
   /**
    * Returns true if Locale has seconds
    */
   protected get hasSeconds (): boolean {
-    return hasSeconds(resolvedLocale(this).options);
+    return this.resolvedLocale.hasSeconds;
   }
 
   /**
    * Returns true if Locale has date picker
    */
   protected get hasDatePicker (): boolean {
-    return hasDatePicker(resolvedLocale(this).options);
+    return this.resolvedLocale.hasDatePicker;
   }
 
   /**
    * Returns true if Locale has 12h time format
    */
   protected get hasAmPm (): boolean {
-    return hasAmPm(resolvedLocale(this).options);
+    return this.resolvedLocale.hasAmPm;
   }
 
   /**
    * Called after render life-cycle finished
    * @param changedProperties Properties which have changed
-   * @return {void}
+   * @returns {void}
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
@@ -475,9 +475,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     if (changedProperties.has('opened') && this.opened) {
       this.lazyRendered = true;
     }
+
     // make sure to close popup for disabled
     if (this.opened && !this.canOpenPopup) {
-      this.opened = false; /* this cannot be nor stopped nor listened */
+      this.opened = false;
     }
 
     if (this.shouldValidateInput(changedProperties)) {
@@ -554,7 +555,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private filterInvalidViews (views: string[]): string[] {
     // views must match in duplex mode
-    if (views.length !== (this.isDuplex() ? 2 : 1)) {
+    if (views.length !== (this.duplex ? 2 : 1)) {
       return [];
     }
 
@@ -572,7 +573,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns {void}
    */
   protected override warnInvalidValue (value: string): void {
-    new WarningNotice(`The specified value "${value}" does not conform to the required format. The format is ${resolvedLocale(this).isoFormat}.`).once();
+    new WarningNotice(`The specified value "${value}" does not conform to the required format. The format is ${this.resolvedLocale.isoFormat}.`).once();
   }
 
   /**
@@ -581,31 +582,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns valid Validity
    */
   protected isValidValue (value: string): boolean {
-    return value === '' ? true : typeof value === 'string' && getFormat(value) === resolvedLocale(this).isoFormat;
-  }
-
-  /**
-   * Return true if calendar is in duplex mode
-   * @returns duplex
-   */
-  private isDuplex (): boolean {
-    return this.isDuplexSplit() || this.isDuplexConsecutive();
-  }
-
-  /**
-   * Return true if calendar is in duplex split mode
-   * @returns duplex split
-   */
-  private isDuplexSplit (): boolean {
-    return this.duplex === 'split';
-  }
-
-  /**
-   * Return true if calendar is in duplex consecutive mode
-   * @returns duplex consecutive
-   */
-  private isDuplexConsecutive (): boolean {
-    return this.duplex === '' || this.duplex === 'consecutive';
+    return value === '' ? true : typeof value === 'string' && getFormat(value) === this.resolvedLocale.isoFormat;
   }
 
   /**
@@ -618,22 +595,12 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private composeViews (view: string, index: number, views = this.views): string[] {
     view = formatToView(view);
 
-    if (!this.isDuplex()) {
+    if (!this.duplex) {
       return [view];
     }
 
-    if (this.isDuplexConsecutive()) {
-      if (index === 0) { /* from */
-        return [view, addMonths(view, 1)];
-      }
-      else { /* to */
-        return [subMonths(view, 1), view];
-      }
-    }
-
-    // duplex split
     if (index === 0) { /* from. to must be after or the same */
-      let after = views[1] || addMonths(view, 1);
+      let after = views[1] || view;
       if (isBefore(after, view)) {
         after = view;
       }
@@ -642,7 +609,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     }
 
     if (index === 1) { /* to. from must be before or the same */
-      let before = views[0] || subMonths(view, 1);
+      let before = views[0] || view;
       if (isAfter(before, view)) {
         before = view;
       }
@@ -728,18 +695,24 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onCalendarValueChanged (event: ValueChangedEvent): void {
-    const values = (event.target as Calendar).values;
-    void this.synchroniseCalendarValues(values);
+    const target = event.target as Calendar;
+    let values;
 
-    // in duplex mode, avoid jumping on views
-    // Therefore if any of values have changed, save the current view
-    if (this.isDuplex() && this.calendarRef.value && this.calendarToRef.value) {
-      this.notifyViewsChange([this.calendarRef.value.view, this.calendarToRef.value.view]);
+    if (this.range && this.duplex) {
+      // 0 - from, single; 1 - to
+      const index = event.target === this.calendarToRef.value ? 1 : 0;
+      values = [...this.values];
+      values[index] = target.value;
     }
+    else {
+      values = target.values;
+    }
+
+    void this.synchroniseCalendarValues(values);
 
     // Close popup if there is no time picker
     const newValues = this.values;
-    if (!this.timepicker && newValues[0] && (this.range ? newValues[1] : true)) {
+    if (!this.timepicker && newValues[0] && (!this.range || newValues[1])) {
       this.setOpened(false);
     }
   }
@@ -767,7 +740,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private async synchroniseCalendarValues (values: string[]): Promise<void> {
     const segments = values.map(value => value ? toSegment(value) : null);
     const oldSegments = this.values.map(value => value ? toSegment(value) : null);
-    const newValues = segments.map((segment, idx) => segment ? format(Object.assign(getCurrentSegment(), oldSegments[idx] || {}, segment), resolvedLocale(this).isoFormat) : '');
+    const newValues = segments.map((segment, idx) => segment ? format(Object.assign(getCurrentSegment(), oldSegments[idx] || {}, segment), this.resolvedLocale.isoFormat) : '');
 
     this.notifyValuesChange(newValues);
 
@@ -846,7 +819,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       ${ref(isTo ? this.timepickerToRef : this.timepickerRef)}
       part="time-picker"
       .amPm=${this.hasAmPm}
-      .value=${formatToTime(isTo ? (this.values[1] || '') : (this.values[0] || ''), this.hasSeconds)}
+      .value=${formatToTime(isTo ? this.values[1] : this.values[0], this.hasSeconds)}
       @value-changed=${this.onTimePickerValueChanged}></ef-time-picker>`;
   }
 
@@ -856,19 +829,23 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns template result
    */
   private getCalendarTemplate (isTo = false): TemplateResult {
+    const values = this.range && this.duplex
+      ? [formatToDate(isTo ? this.values[1] : this.values[0])]
+      : this.values.map(value => formatToDate(value));
+
     return html`<ef-calendar
       ${ref(isTo ? this.calendarToRef : this.calendarRef)}
       part="calendar"
       lang=${ifDefined(this.lang || undefined)}
-      .fillCells=${!this.isDuplex()}
-      .range=${this.range}
+      .fillCells=${!this.duplex}
+      .range=${this.duplex ? false : this.range}
       .multiple=${this.multiple}
       .min=${ifDefined(formatToDate(this.min) || undefined)}
       .max=${ifDefined(formatToDate(this.max) || undefined)}
       .weekdaysOnly=${this.weekdaysOnly}
       .weekendsOnly=${this.weekendsOnly}
       .firstDayOfWeek=${ifDefined(this.firstDayOfWeek === null ? undefined : this.firstDayOfWeek)}
-      .values=${this.values.map(value => formatToDate(value))}
+      .values=${values}
       .filter=${this.filter}
       .view=${isTo ? (this.views[1] || '') : (this.views[0] || '')}
       @view-changed=${this.onCalendarViewChanged}
@@ -881,7 +858,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private get calendarsTemplate (): TemplateResult {
     return html`
       ${this.getCalendarTemplate()}
-      ${this.isDuplex() ? this.getCalendarTemplate(true) : undefined}
+      ${this.duplex ? this.getCalendarTemplate(true) : undefined}
     `;
   }
 
@@ -914,7 +891,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         max=${ifDefined(this.max || undefined)}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly || this.inputDisabled}
-        .locale=${resolvedLocale(this)}
+        .locale=${this.resolvedLocale}
         .value=${live(isTo ? (this.values[1] || '') : (this.values[0] || ''))}
         .placeholder=${this.placeholder}
         @value-changed=${this.onInputValueChanged}
