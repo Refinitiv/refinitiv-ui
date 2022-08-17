@@ -133,6 +133,9 @@ export class Item extends ControlElement {
   @query('#label')
   private labelEl?: HTMLElement;
 
+  @query('[part=sub-label]')
+  private subLabelEl?: HTMLElement;
+
   /**
    * True, if there is no slotted content
    */
@@ -196,7 +199,7 @@ export class Item extends ControlElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    registerOverflowTooltip(this, () => this.textContent, () => this.labelEl ? isElementOverflown(this.labelEl) : false);
+    registerOverflowTooltip(this, this.getItemContent, this.isItemOverflown);
   }
 
   /**
@@ -214,6 +217,44 @@ export class Item extends ControlElement {
     else if (changedProperties.has('selected')) {
       this.selectedChanged();
     }
+  }
+
+
+  /**
+   * Get Item content
+   * @returns return item content from slot or label and sub-label
+   */
+  private getItemContent (): string | null {
+    if (this.isSlotEmpty) {
+      let text = '';
+      if (this.label && this.isItemElementOverflown(this.labelEl)) {
+        text += this.label;
+      }
+      if (this.subLabel && this.isItemElementOverflown(this.subLabelEl)) {
+        text += this.subLabel;
+      }
+      return text;
+    }
+    else {
+      return this.textContent;
+    }
+  }
+
+  /**
+   * Get element overflown
+   * @param element Target element
+   * @returns {boolean} Return true if element is overflown.
+   */
+  private isItemElementOverflown (element?: HTMLElement): boolean {
+    return element ? isElementOverflown(element) : false;
+  }
+
+  /**
+   * Get item overflown
+   * @returns {boolean} Return true if an item is overflown.
+   */
+  private isItemOverflown (): boolean {
+    return this.isItemElementOverflown(this.labelEl) || this.isItemElementOverflown(this.subLabelEl);
   }
 
   /**
