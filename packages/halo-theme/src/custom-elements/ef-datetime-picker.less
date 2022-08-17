@@ -23,11 +23,51 @@
 
   [part=button] {
     color: inherit;
+    outline: none;
+    border-left: @input-border;
+    border-left-color: inherit;
+
     & when (@variant = light) {
       color: @control-border-color;
     }
-    &:focus-visible {
-      outline-width: 2px;
+
+    &:hover, &:focus {
+      border-left-color: @input-focused-border-color;
+      color: @button-hover-text-color;
+      background: @button-hover-background-color;
+    
+      &::after { // draws faux border on control
+        content: '';
+        display: block;
+        position: absolute;
+        border-color: transparent;
+        top: -@input-border-width;
+        right: -@input-border-width;
+        bottom: -@input-border-width;
+        left: -@input-border-width;
+        border: @input-border;
+        border-color: @input-focused-border-color;
+        pointer-events: none;
+      }
+    }
+  }
+
+  &[disabled] {
+    border-color: @input-disabled-border-color;
+    color: @input-disabled-text-color;
+  }
+
+  &[disabled], &[popup-disabled] {
+    [part=button] {
+      color: @input-disabled-text-color;
+    }
+  }
+
+  &[readonly]:not([focused]) {
+    border-color: @input-disabled-border-color;
+
+    [part=button] {
+      color: @input-disabled-text-color;
     }
   }
 
@@ -57,26 +97,16 @@
     border-color: fade(@control-hover-error-color, 50%);
   }
 
-  &[disabled], &[popup-disabled] {
-    [part=button] {
-      color: @input-disabled-text-color
-    }
-  }
-
   &[focused],
-  &[focused][error][warning],
-  &:not([disabled]):not([popup-disabled]):not([error]):not([warning]):hover {
-    [part=button] {
+  &:not([readonly]):not([popup-disabled]):not([error]):not([warning]):hover {
+    color: @input-hover-text-color;
+
+    [part=button]:not(:hover):not(:focus) {
       color: @scheme-color-secondary;
 
       & when (@variant = light) {
         color: @scheme-color-primary;
       }
     }
-  }
-
-  &:not([readonly]):not([error]):not([warning]):not([focused]):hover {
-    border-color: @input-hover-border-color;
-    color: @input-hover-text-color;
   }
 }
