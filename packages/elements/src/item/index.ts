@@ -199,7 +199,7 @@ export class Item extends ControlElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    registerOverflowTooltip(this, this.getItemContent, this.isItemOverflown);
+    registerOverflowTooltip(this, () => this.getItemContent(), () => this.isItemOverflown());
   }
 
   /**
