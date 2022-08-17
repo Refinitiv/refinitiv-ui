@@ -1,71 +1,22 @@
-import type { CacheMap, CacheStorage } from './types';
-
-const errorMessage = (storage: CacheStorage) => `API is fail. Unable to use the ${storage.constructor.name} storage`;
+import type { CacheItem, CacheStorage, LocalCacheConfig } from './types';
+import { CacheIndexedDBStorage } from './cache-indexeddb.js';
+import { CacheLocalStorage } from './cache-localstorage.js';
 
 /**
  * Stores data in a local cache that can be specified to be stored in localstorage or indexedDB.
  */
 export class LocalCache {
-
-  /**
-   * Cache ready to use
-   */
-  protected ready: Promise<boolean> | null = null;
-
   /**
    * Storage to store data
    */
   protected storage!: CacheStorage;
 
-  /**
-   * Internal cache object
-   */
-  protected cache: CacheMap | null | undefined;
-
-  constructor (storage: CacheStorage) {
-    this.use(storage);
-  }
-
-  /**
-   * Set storage to the local cache
-   * @param storage cache storage
-   * @returns {void}
-   */
-  protected use (storage: CacheStorage): void {
-    this.storage = storage;
-    this.ready = this.restore();
-  }
-
-  /**
-   * Restore all data from storage to cache databases
-   * @returns Promise boolean
-   */
-  public async restore (): Promise<boolean> {
-    try {
-      this.cache = await this.storage.restoreItems() as CacheMap;
-      return true;
+  constructor (name: string, config: LocalCacheConfig) {
+    if (config.storage.toLowerCase() === 'indexeddb') {
+      this.storage = new CacheIndexedDBStorage(name);
     }
-    catch (e) { // Keep it work. Even if can't connect to storage
-      this.cache = new Map();
-      // eslint-disable-next-line no-console
-      console.error(e);
-      return false;
-    }
-  }
-
-  /**
-   * Wrapper to use the storage api to handle error if the storage isn't ready
-   * @param callback callback if storage is ready
-   * @param errorMessage message if storage isn't ready
-   * @returns Promise void
-   */
-  private async usingStorageAPI (callback: () => Promise<void>, errorMessage?: string):Promise<void> {
-    if (await this.ready) {
-      await callback();
-    }
-    else {
-      // eslint-disable-next-line no-console
-      console.warn(errorMessage);
+    if (config.storage.toLowerCase() === 'localstorage') {
+      this.storage = new CacheLocalStorage(name);
     }
   }
 
@@ -83,8 +34,7 @@ export class LocalCache {
       modified,
       expires: modified + expires * 1000
     };
-    this.cache?.set(key, data);
-    await this.usingStorageAPI(async () => await this.storage.setItem(key, data), errorMessage(this.storage));
+    await this.storage.setItem(key, data);
   }
 
   /**
@@ -92,10 +42,8 @@ export class LocalCache {
    * @param key Cache key
    * @returns Promise string data or `null` if nothing is cached
    */
-  public async get (key: string): Promise<string | null> {
-    await this.ready;
-
-    const item = this.cache?.get(key);
+  public async get (key: string): Promise<unknown | null> {
+    const item = await this.storage.getItem(key) as CacheItem;
     if (item && item.expires > Date.now()) {
       return Promise.resolve(item.value);
     }
@@ -108,8 +56,7 @@ export class LocalCache {
    * @returns Promise void
    */
   public async remove (key: string): Promise<void> {
-    this.cache?.delete(key);
-    await this.usingStorageAPI(async () => await this.storage.removeItem(key), errorMessage(this.storage));
+    await this.storage.removeItem(key);
   }
 
   /**
@@ -117,7 +64,6 @@ export class LocalCache {
    * @returns Promise void
    */
   public async clear (): Promise<void> {
-    this.cache?.clear();
-    await this.usingStorageAPI(async () => await this.storage.clear(), errorMessage(this.storage));
+    await this.storage.clear();
   }
 }

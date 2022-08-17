@@ -1,4 +1,5 @@
 import type { CacheItem, CacheMap, CacheStorage } from './types';
+import { prefix } from './constant.js';
 
 /**
  * Stores data in `localStorage` for use across multiple sessions.
@@ -8,15 +9,34 @@ export class CacheLocalStorage implements CacheStorage {
   /**
    * Prefix for all keys
    */
-  protected prefixKey = 'local-cache';
+  protected prefixKey = '';
+
+  /**
+   * Internal cache object
+   */
+  protected cache: CacheMap | null | undefined;
 
   /**
    * Constructor
-   * @param prefixKey prefix key for all item
+   * @param name prefix key for all item
    */
-  constructor (prefixKey?: string) {
-    if (prefixKey) {
-      this.prefixKey = prefixKey;
+  constructor (name?: string) {
+    this.prefixKey = prefix + (name || '');
+    void this.getReady();
+  }
+
+  /**
+   * Prepare memory cache variable and restore all data from databases storage
+   * @returns Promise boolean
+   */
+  private async getReady (): Promise<void> {
+    try {
+      this.cache = await this.restoreItems();
+    }
+    catch (e) { // Keep it work. Even if can't connect to storage
+      this.cache = new Map();
+      // eslint-disable-next-line no-console
+      console.error(e);
     }
   }
 
@@ -28,6 +48,7 @@ export class CacheLocalStorage implements CacheStorage {
    */
   public async setItem (key: string, value: CacheItem): Promise<void> {
     const itemKey = [this.prefixKey, key].join('-');
+    this.cache?.set(itemKey, value);
     return Promise.resolve(localStorage.setItem(itemKey, JSON.stringify(value)));
   }
 
@@ -38,7 +59,7 @@ export class CacheLocalStorage implements CacheStorage {
    */
   public async getItem (key: string): Promise<CacheItem | null> {
     const itemKey = [this.prefixKey, key].join('-');
-    return Promise.resolve(this.retrieve(itemKey));
+    return Promise.resolve(this.cache?.get(itemKey) || null);
   }
 
   /**
@@ -72,16 +93,13 @@ export class CacheLocalStorage implements CacheStorage {
    * @returns Promise CacheMap items
    */
   public async restoreItems (): Promise<CacheMap> {
-    const prefixKey = this.prefixKey !== '' ? this.prefixKey + '-' : '';
-    const regex = new RegExp(`^${prefixKey}`);
-
     const items = new Map() as CacheMap;
-    const keys = Object.keys(localStorage).filter(key => key.startsWith(prefixKey));
+    const keys = Object.keys(localStorage).filter(key => key.startsWith(this.prefixKey));
 
     for (let i = 0; i < keys.length; i++) {
       const item = this.retrieve(keys[i]);
       if (item) {
-        items.set(keys[i].replace(regex, ''), item);
+        items.set(keys[i], item);
       }
     }
     return Promise.resolve(items);

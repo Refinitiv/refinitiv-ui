@@ -52,6 +52,7 @@
   "dependencies": {
     "@types/d3-color": "^3.0.2",
     "d3-color": "^3.0.1",
+    "idb": "^7.0.2",
     "tslib": "^2.3.1"
   },
   "publishConfig": {

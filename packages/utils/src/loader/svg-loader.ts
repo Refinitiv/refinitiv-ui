@@ -1,11 +1,8 @@
-import { CacheIndexedDBStorage, LocalCache } from '../cache.js';
+import { LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
-// Storage
-const storage = new CacheIndexedDBStorage({ dbName: 'ef', version: 1, storeName: 'svg-loader' });
-
-// Create cache and use the storage
-const cache = new LocalCache(storage);
+// Create cache and select the storage
+const cache = new LocalCache('svg-loader', { storage: 'localstorage' });
 
 /**
  * Checks a string to see if it's a valid URL
@@ -123,7 +120,7 @@ export class SVGLoader extends CDNLoader {
 
     const src = await this.getSrc(name);
 
-    const cacheItem = await cache.get(src);
+    const cacheItem = await cache.get(src) as string;
     if (cacheItem === null) {
       const response = await this.load(src);
       const svgNode = extractSafeSVG(response)?.cloneNode(true);

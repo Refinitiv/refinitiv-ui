@@ -12,15 +12,6 @@ export interface CacheItem {
  */
 export type CacheMap = Map<string, CacheItem>;
 
-/**
- * Config for CacheIndexedDBStorage class
- */
-export interface CacheIndexedDBStorageConfig {
-  dbName: string;
-  version: number;
-  storeName: string;
-}
-
 export interface CacheStorage {
   /**
    * Returns all values in this storage
@@ -47,3 +38,6 @@ export interface CacheStorage {
   clear(): Promise<void>;
 }
 
+export type LocalCacheConfig = {
+  storage: string;
+};

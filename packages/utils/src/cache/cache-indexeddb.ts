@@ -3,9 +3,9 @@ import type { DBSchema, IDBPDatabase } from 'idb';
 import type {
   CacheStorage,
   CacheItem,
-  CacheMap,
-  CacheIndexedDBStorageConfig
+  CacheMap
 } from './types';
+import { prefix } from './constant.js';
 
 interface IndexedDBDatabase extends DBSchema {
   [key: string]: {
@@ -14,42 +14,42 @@ interface IndexedDBDatabase extends DBSchema {
   }
 }
 
-const isFirefox = () => (/firefox/i).test(navigator.userAgent);
-
 /**
  * Stores data in indexedDB for use across multiple sessions.
  */
 export class CacheIndexedDBStorage implements CacheStorage {
+  /**
+   * Prefix for all keys, database name, and store name
+   */
+  protected prefixKey = '';
 
   /**
    * A connection to a indexedDB database, use for open transaction or idb api
    */
-  public db: IDBPDatabase<IndexedDBDatabase> | undefined;
-
-  /**
-   * Database name
-   */
-  public dbName: string;
+  private db: IDBPDatabase<IndexedDBDatabase> | undefined;
 
   /**
    * Database Version.
    */
-  public version: number;
+  private version = 1;
 
   /**
-   * Store name
+   * Internal cache object
    */
-  public storeName: never;
+  protected cache: CacheMap | null | undefined;
+
+  /**
+   * Cache ready to use
+   */
+  protected ready: Promise<boolean> | null = null;
 
   /**
    * Constructor
-   * @param info Storage config
+   * @param name for database name and store name
    */
-  constructor (info: CacheIndexedDBStorageConfig) {
-    const { dbName, version, storeName } = info;
-    this.dbName = dbName;
-    this.version = version;
-    this.storeName = storeName as never;
+  constructor (name: string) {
+    this.prefixKey = prefix + (name || '');
+    void this.open();
   }
 
   /**
@@ -59,9 +59,10 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns {void}
    */
   public async setItem (key: string, value: CacheItem): Promise<void> {
-    !this.db && await this.open();
+    await this.ready;
     const item = { ...value, key };
-    await this.db?.put(this.storeName, item, key);
+    this.cache?.set(key, item);
+    await this.db?.put(this.prefixKey as never, item, key);
   }
 
   /**
@@ -70,8 +71,8 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns cache item or null
    */
   public async getItem (key: string): Promise<CacheItem | null> {
-    !this.db && await this.open();
-    return await this.db?.get(this.storeName, key) || null;
+    await this.ready;
+    return this.cache?.get(key) || null;
   }
 
   /**
@@ -80,8 +81,9 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns {void}
    */
   public async removeItem (key: string): Promise<void> {
-    !this.db && await this.open();
-    await this.db?.delete(this.storeName, key);
+    await this.ready;
+    this.cache?.delete(key);
+    await this.db?.delete(this.prefixKey as never, key);
   }
 
   /**
@@ -89,8 +91,9 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns {void}
    */
   public async clear (): Promise<void> {
-    !this.db && await this.open();
-    await this.db?.clear(this.storeName);
+    await this.ready;
+    this.cache?.clear();
+    await this.db?.clear(this.prefixKey as never);
   }
 
   /**
@@ -99,9 +102,8 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns items map
    */
   public async restoreItems (): Promise<CacheMap> {
-    !this.db && await this.open();
     const cacheItems = new Map() as CacheMap;
-    let cursor = await this.db?.transaction(this.storeName, 'readonly').store.openCursor();
+    let cursor = await this.db?.transaction(this.prefixKey as never, 'readonly').store.openCursor();
     while (cursor) {
       cacheItems.set(cursor.key, cursor.value);
       cursor = await cursor.continue();
@@ -118,35 +120,41 @@ export class CacheIndexedDBStorage implements CacheStorage {
       return;
     }
 
-    if (!isFirefox()) {
-      const databases = await window.indexedDB.databases();
-      const found = databases.find(database => database.name === this.dbName);
-      if (found && this.version < (found.version || 0)) {
-        throw this.errorMessage(`Your version (${this.version}) is less than the existing version (${String(found.version)}).`);
-      }
-    }
-    this.db = await openDB<IndexedDBDatabase>(this.dbName, this.version, {
+    this.db = await openDB<IndexedDBDatabase>(this.prefixKey, this.version, {
       upgrade: (database) => {
-        if (database.objectStoreNames.contains(this.storeName)) {
-          database.deleteObjectStore(this.storeName);
+        if (database.objectStoreNames.contains(this.prefixKey as never)) {
+          database.deleteObjectStore(this.prefixKey as never);
         }
-        database.createObjectStore(this.storeName);
+        database.createObjectStore(this.prefixKey as never);
       },
       blocked: () => {
         throw this.errorMessage(`blocked event called. The connection is blocked by other connection or your version (${this.version}) isn't matched.`);
       },
       blocking: () => {
         // eslint-disable-next-line no-console
-        console.warn(`versionchange event called. The version of this ${this.dbName} database has changed.`);
+        console.warn(`versionchange event called. The version of this ${this.prefixKey} database has changed.`);
       },
       terminated: () => {
         throw this.errorMessage('close event called. The connection is unexpectedly closed.');
       }
     });
 
-    if (!this.db.objectStoreNames.contains(this.storeName)) { // must disconnect if the store doesn't contain
-      this.db.close();
-      throw this.errorMessage(`${String(this.storeName)} store doesn\'t exist in indexedDB. Please upgrade or delete the ${this.dbName} database.`);
+    this.ready = this.getReady();
+  }
+
+
+  /**
+   * Prepare memory cache variable and restore all data from databases storage
+   * @returns Promise boolean
+   */
+  private async getReady (): Promise<boolean> {
+    try {
+      this.cache = await this.restoreItems();
+      return true;
+    }
+    catch (e) { // Keep it work. Even if can't connect to storage
+      this.cache = new Map();
+      return false;
     }
   }
 
@@ -156,6 +164,6 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @returns Error message
    */
   private errorMessage (message: string): Error {
-    return new Error(`Unable to connect to indexedDB.\nDatabase name:'${this.dbName}'.\nDatabase Version: ${this.version}\nStore name: ${String(this.storeName)}\n ${message}`);
+    return new Error(`Unable to connect to indexedDB.\nDatabase name:'${this.prefixKey}'.\nDatabase Version: ${this.version}\nStore name: ${this.prefixKey}\n ${message}`);
   }
 }
