@@ -72,6 +72,8 @@ type: nav
   + Icons & Flags
     - [Icon](./elements/icon)
     - [Flag](./elements/flag)
+  + Plugins
+    - [Grid](./elements/grid)
 
 - Using Components
   + Framework Integration

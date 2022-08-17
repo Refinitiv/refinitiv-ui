@@ -180,7 +180,7 @@ export class Calendar extends ControlElement implements MultiValue {
       [part~=cell-content]:not([tabindex]) {
         pointer-events: none;
       }
-      [part~=selection] {
+      [part~=selectable] {
         cursor: pointer;
       }
     `;
@@ -436,7 +436,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns button HTML date button element or null
    */
   private getDateButtonByIndex (index: CellIndex): DateButtonElement | undefined {
-    const elements = Array.from(this.renderRoot.querySelectorAll('[part~=cell] > [part~=selection]'));
+    const elements = Array.from(this.renderRoot.querySelectorAll('[part~=cell] > [part~=selectable]'));
     return elements.find((element): element is DateButtonElement => this.isDateButton(element) && String(element.index) === String(index));
   }
 
@@ -445,7 +445,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns button HTML date button element or null
    */
   private get activeDateButton (): DateButtonElement | null {
-    return this.renderRoot.querySelector('[part~=cell][active] > [part~=selection]');
+    return this.renderRoot.querySelector('[part~=cell][active] > [part~=selectable]');
   }
 
   /**
@@ -1359,7 +1359,8 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns template result
    */
   private renderCell (cell: Cell): TemplateResult {
-    const isSelectable = cell.value !== undefined && !cell.disabled;
+    const isSelection = cell.value !== undefined;
+    const isSelectable = isSelection && !cell.disabled;
 
     return html`<div
       role="gridcell"
@@ -1382,7 +1383,7 @@ export class Calendar extends ControlElement implements MultiValue {
                value: parse(cell.value!),
                view: this.renderView
              }) : undefined)}"
-             part="cell-content${isSelectable ? ' selection' : ''}"
+             part="cell-content${isSelection ? ' selection' : ''}${isSelectable ? ' selectable' : ''}"
              .value=${cell.value}
              .index=${cell.index}>${cell.text}</div>
     </div>`;
