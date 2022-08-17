@@ -710,12 +710,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
     void this.synchroniseCalendarValues(values);
 
-    // in duplex mode, avoid jumping on views
-    // Therefore if any of values have changed, save the current view
-    if (this.duplex && this.calendarRef.value && this.calendarToRef.value) {
-      this.notifyViewsChange([this.calendarRef.value.view, this.calendarToRef.value.view]);
-    }
-
     // Close popup if there is no time picker
     const newValues = this.values;
     if (!this.timepicker && newValues[0] && (!this.range || newValues[1])) {
