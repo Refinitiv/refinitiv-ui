@@ -1,5 +1,7 @@
-import type { CacheItem, CacheMap, CacheStorage } from './types';
-import { prefix } from './constant.js';
+import type { CacheMap } from './types';
+import type { CacheItem } from './interfaces/CacheItem';
+import type { CacheStorage } from './interfaces/CacheStorage';
+import { PREFIX } from './constants.js';
 
 /**
  * Stores data in `localStorage` for use across multiple sessions.
@@ -8,6 +10,7 @@ export class CacheLocalStorage implements CacheStorage {
 
   /**
    * Prefix for all keys
+   * to avoid key to clash with the workspace
    */
   protected prefixKey = '';
 
@@ -20,8 +23,8 @@ export class CacheLocalStorage implements CacheStorage {
    * Constructor
    * @param name prefix key for all item
    */
-  constructor (name?: string) {
-    this.prefixKey = prefix + (name || '');
+  constructor (name: string) {
+    this.prefixKey = PREFIX + (name || '');
     void this.getReady();
   }
 
@@ -96,7 +99,7 @@ export class CacheLocalStorage implements CacheStorage {
     const items = new Map() as CacheMap;
     const keys = Object.keys(localStorage).filter(key => key.startsWith(this.prefixKey));
 
-    for (let i = 0; i < keys.length; i++) {
+    for (let i = 0; i < keys.length; i += 1) {
       const item = this.retrieve(keys[i]);
       if (item) {
         items.set(keys[i], item);

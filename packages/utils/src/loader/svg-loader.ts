@@ -2,7 +2,7 @@ import { LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
 // Create cache and select the storage
-const cache = new LocalCache('svg-loader', { storage: 'localstorage' });
+const cache = new LocalCache('svg-loader', { storage: 'indexeddb' });
 
 /**
  * Checks a string to see if it's a valid URL
@@ -70,13 +70,7 @@ const extractSafeSVG = (response: XMLHttpRequest | undefined): SVGElement | null
      * just in case when firstChild isn't SVG.
      * ( XMLDOM `cloneNode()` and `firstElementChild` are not supported in IE11 )
      */
-    let svg;
-    for (let index = 0; index < svgDocument.childNodes.length; index++) {
-      if (svgDocument.childNodes[index].nodeType === Node.ELEMENT_NODE) {
-        svg = svgDocument.childNodes[index];
-      }
-    }
-
+    const svg = svgDocument.children[svgDocument.children.length - 1];
     if (svg instanceof SVGElement) {
       stripUnsafeNodes(svg);
       return svg;
@@ -125,8 +119,6 @@ export class SVGLoader extends CDNLoader {
       const response = await this.load(src);
       const svgNode = extractSafeSVG(response)?.cloneNode(true);
       const svgBody = svgNode ? this.xmlSerializer.serializeToString(svgNode) : undefined;
-      // console.log(svgBody);
-
       svgBody && cache.set(src, svgBody);
       return svgBody;
     }

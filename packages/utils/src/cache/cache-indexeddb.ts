@@ -1,11 +1,9 @@
 import { openDB } from 'idb';
 import type { DBSchema, IDBPDatabase } from 'idb';
-import type {
-  CacheStorage,
-  CacheItem,
-  CacheMap
-} from './types';
-import { prefix } from './constant.js';
+import type { CacheMap } from './types';
+import type { CacheItem } from './interfaces/CacheItem';
+import type { CacheStorage } from './interfaces/CacheStorage';
+import { PREFIX } from './constants.js';
 
 interface IndexedDBDatabase extends DBSchema {
   [key: string]: {
@@ -19,7 +17,8 @@ interface IndexedDBDatabase extends DBSchema {
  */
 export class CacheIndexedDBStorage implements CacheStorage {
   /**
-   * Prefix for all keys, database name, and store name
+   * Prefix for database name, and store name
+   * to avoid database to clash with the workspace
    */
   protected prefixKey = '';
 
@@ -48,7 +47,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @param name for database name and store name
    */
   constructor (name: string) {
-    this.prefixKey = prefix + (name || '');
+    this.prefixKey = PREFIX + (name || '');
     void this.open();
   }
 

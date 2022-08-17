@@ -1,4 +1,7 @@
 export { CacheLocalStorage } from './cache/cache-localstorage.js';
 export { CacheIndexedDBStorage } from './cache/cache-indexeddb.js';
-export { CacheItem, CacheMap, CacheStorage, LocalCacheConfig } from './cache/types.js';
-export { LocalCache } from './cache/local-cache.js';
+export { CacheMap } from './cache/types.js';
+export { LocalCache, LocalCacheConfig } from './cache/local-cache.js';
+
+export { CacheStorage } from './cache/interfaces/CacheStorage.js';
+export { CacheItem } from './cache/interfaces/CacheItem.js';

@@ -1,6 +1,11 @@
-import type { CacheItem, CacheStorage, LocalCacheConfig } from './types';
+import type { CacheItem } from './interfaces/CacheItem';
+import type { CacheStorage } from './interfaces/CacheStorage';
 import { CacheIndexedDBStorage } from './cache-indexeddb.js';
 import { CacheLocalStorage } from './cache-localstorage.js';
+
+export type LocalCacheConfig = {
+  storage: ('localstorage' | 'indexeddb');
+};
 
 /**
  * Stores data in a local cache that can be specified to be stored in localstorage or indexedDB.
