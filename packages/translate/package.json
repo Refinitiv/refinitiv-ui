@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/translate",
-  "version": "6.0.1",
+  "version": "6.0.4",
   "description": "i18n implementation for Element Framework components",
   "author": "Refinitiv",
   "license": "Apache-2.0",
@@ -26,18 +26,18 @@
     "version": "node ../../scripts/version"
   },
   "dependencies": {
-    "lit": "2.2.2",
+    "lit": "^2.2.7",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/core": "^6.0.1",
-    "@refinitiv-ui/i18n": "^6.0.1",
-    "@refinitiv-ui/phrasebook": "^6.1.0",
-    "@refinitiv-ui/test-helpers": "^6.0.1"
+    "@refinitiv-ui/core": "^6.0.4",
+    "@refinitiv-ui/i18n": "^6.0.3",
+    "@refinitiv-ui/phrasebook": "^6.1.2",
+    "@refinitiv-ui/test-helpers": "^6.0.3"
   },
   "peerDependencies": {
-    "@refinitiv-ui/i18n": "^6.0.1",
-    "@refinitiv-ui/phrasebook": "^6.1.0"
+    "@refinitiv-ui/i18n": "^6.0.3",
+    "@refinitiv-ui/phrasebook": "^6.1.2"
   },
   "publishConfig": {
     "access": "public"

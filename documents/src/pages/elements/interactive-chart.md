@@ -467,7 +467,6 @@ const months = {
 }
 const chart = document.getElementById('seasonality');
 chart.config = {
-  lastValueVisible: false,
   options: {
     timeScale: {
       tickMarkFormatter: (time, tickMarkType, locale) => {
@@ -486,8 +485,11 @@ chart.config = {
     {
       symbol: '2011-2020',
       symbolName: 'Avg. 2011-2020',
-      lastValueVisible: false,
       type: 'line',
+      seriesOptions: {
+        priceLineVisible: false,
+        lastValueVisible: false
+      },
       data: [
         { time: '2020-01-11', value: 20.31 },
         { time: '2020-02-12', value: 30.27 },
@@ -549,7 +551,6 @@ const months = {
 }
 const chart = document.getElementById('seasonality');
 chart.config = {
-  lastValueVisible: false,
   options: {
     timeScale: {
       tickMarkFormatter: (time, tickMarkType, locale) => {
@@ -568,8 +569,11 @@ chart.config = {
     {
       symbol: '2011-2020',
       symbolName: 'Avg. 2011-2020',
-      lastValueVisible: false,
       type: 'line',
+      seriesOptions: {
+        priceLineVisible: false,
+        lastValueVisible: false
+      },
       data: [
         { time: '2020-01-11', value: 20.31 },
         { time: '2020-02-12', value: 30.27 },
@@ -1011,6 +1015,21 @@ line.config = {
     {
       symbol: 'APPL.O',
       symbolName: 'Price',
+      type: 'line',
+      data: [...]
+    }
+  ]
+};
+```
+
+Use `legendVisible` to hide a legend of any series.
+
+```javascript
+line.config = {
+  series: [
+    {
+      symbol: 'APPL.O',
+      legendVisible: false,
       type: 'line',
       data: [...]
     }

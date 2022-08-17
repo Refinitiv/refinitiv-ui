@@ -4,7 +4,6 @@ import type { TreeDataItem } from './types';
 import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager.js';
 import { Renderer } from '../../list/renderer.js';
 import { getItemId } from '../../list/helpers/item-id.js';
-import '../elements/tree-item.js';
 
 type RendererScope = {
   multiple?: boolean;
@@ -37,7 +36,6 @@ export class TreeRenderer extends Renderer {
 
       element.multiple = multiple;
       element.item = item;
-      element.tabIndex = -1;
       element.id = getItemId(this.key, item.value);
       element.depth = composer.getItemDepth(item);
       element.parent = composer.getItemChildren(item).length > 0;

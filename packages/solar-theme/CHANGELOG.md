@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.0.3...@refinitiv-ui/solar-theme@6.0.4) (2022-08-02)
+
+**Note:** Version bump only for package @refinitiv-ui/solar-theme
+
+
+
+
+
+## [6.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.0.2...@refinitiv-ui/solar-theme@6.0.3) (2022-07-20)
+
+**Note:** Version bump only for package @refinitiv-ui/solar-theme
+
+
+
+
+
+## [6.0.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.0.1...@refinitiv-ui/solar-theme@6.0.2) (2022-07-19)
+
+
+### Bug Fixes
+
+* **list:** item should not receive focus when click ([#272](https://github.com/Refinitiv/refinitiv-ui/issues/272)) ([e2293e3](https://github.com/Refinitiv/refinitiv-ui/commit/e2293e37126a446d5c1d16be1e5eb503425534f3))
+
+
+
+
+
 ## [6.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.0.0...@refinitiv-ui/solar-theme@6.0.1) (2022-06-20)
 
 

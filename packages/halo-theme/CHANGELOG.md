@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.1.2...@refinitiv-ui/halo-theme@6.1.3) (2022-08-02)
+
+
+### Bug Fixes
+
+* **calendar:** day cell selected style not work with disabled state ([#410](https://github.com/Refinitiv/refinitiv-ui/issues/410)) ([1d9c931](https://github.com/Refinitiv/refinitiv-ui/commit/1d9c931b4d625b93c6fd60b780060ff2f03d9fc9))
+
+
+
+
+
+## [6.1.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.1.1...@refinitiv-ui/halo-theme@6.1.2) (2022-07-20)
+
+**Note:** Version bump only for package @refinitiv-ui/halo-theme
+
+
+
+
+
+## [6.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.1.0...@refinitiv-ui/halo-theme@6.1.1) (2022-07-19)
+
+
+### Bug Fixes
+
+* change Halo theme font-weight 600 from bold to semibold ([#377](https://github.com/Refinitiv/refinitiv-ui/issues/377)) ([485221e](https://github.com/Refinitiv/refinitiv-ui/commit/485221e067f54bc8307fdc5662a7f1294a44edaf))
+* **list:** item should not receive focus when click ([#272](https://github.com/Refinitiv/refinitiv-ui/issues/272)) ([e2293e3](https://github.com/Refinitiv/refinitiv-ui/commit/e2293e37126a446d5c1d16be1e5eb503425534f3))
+
+
+
+
+
 # [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.0.0...@refinitiv-ui/halo-theme@6.1.0) (2022-06-20)
 
 
