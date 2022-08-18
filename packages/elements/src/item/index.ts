@@ -224,19 +224,19 @@ export class Item extends ControlElement {
    * Get Item content
    * @returns return item content from slot or label and sub-label
    */
-  private getItemContent (): string | null {
+  private getItemContent (): string {
     if (this.isSlotEmpty) {
       let text = '';
-      if (this.label && this.isItemElementOverflown(this.labelEl)) {
+      if (this.label) {
         text += this.label;
       }
-      if (this.subLabel && this.isItemElementOverflown(this.subLabelEl)) {
-        text += this.subLabel;
+      if (this.subLabel) {
+        text += ` (${this.subLabel})`;
       }
       return text;
     }
     else {
-      return this.textContent;
+      return this.textContent || '';
     }
   }
 
