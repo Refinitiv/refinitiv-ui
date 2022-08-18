@@ -1,8 +1,32 @@
-import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, nextFrame, aTimeout } from '@refinitiv-ui/test-helpers';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 // import element and theme
 import '@refinitiv-ui/elements/item';
 import '@refinitiv-ui/elemental-theme/light/ef-item';
+
+const ShowDelay = 300;
+const HideDelay = 150;
+const TransitionTime = 500; // opacity
+
+// there is show delay and animation. Take care of all of that
+const mouseMove = async (config = {}) => {
+  const {
+    target = document,
+    showDelay = ShowDelay,
+    hideDelay = HideDelay,
+    transitionTime = TransitionTime
+  } = config;
+  const event = new MouseEvent('mousemove', {
+    target,
+    bubbles: true,
+    cancelable: true,
+    view: document.defaultView
+  });
+  await nextFrame();
+  target.dispatchEvent(event);
+  await aTimeout((config.target ? showDelay : hideDelay) + transitionTime + 5); /* 5 for general mousemove delay */
+  await nextFrame();
+};
 
 const createFixture = (type = '') => {
   switch (type) {
@@ -18,6 +42,10 @@ const createFixture = (type = '') => {
       return fixture('<ef-item label="tiger">Test Not Highlightable</ef-item>');
     case 'is_truncated':
       return fixture('<div style="width: 100px; overflow: hidden;"><ef-item>Super vary long string that need to be truncated by parent</ef-item></div>');
+    case 'is_truncated_label':
+      return fixture('<div style="width: 100px; overflow: hidden;"><ef-item label="Super vary long string that need to be truncated by parent"></ef-item></div>');
+    case 'is_truncated_subLabel':
+      return fixture('<div style="width: 100px; overflow: hidden;"><ef-item sub-label="Super vary long string that need to be truncated by parent"></ef-item></div>');
     case 'with_icon':
       return fixture('<ef-item icon="tick">With settings icon</ef-item>');
     case 'with_empty_icon':
@@ -134,20 +162,48 @@ describe('item/Item', () => {
     it('Should truncate text', async () => {
       const div = await createFixture('is_truncated');
       const el = div.querySelector('ef-item');
-
+      const tooltip = el.ownerDocument.querySelector('ef-tooltip[ref=title-override]');
       await elementUpdated(el);
       await nextFrame();
+      await mouseMove({
+        target: el,
+      });
+      expect(tooltip.opened, 'Tooltip should he shown').to.equal(true);
+    });
 
-      expect(isElementOverflown(el.labelEl), 'Should truncate text').to.equal(true);
+    it('Should truncate label', async () => {
+      const div = await createFixture('is_truncated_label');
+      const el = div.querySelector('ef-item');
+      const tooltip = el.ownerDocument.querySelector('ef-tooltip[ref=title-override]');
+      await elementUpdated(el);
+      await nextFrame();
+      await mouseMove({
+        target: el,
+      });
+      expect(tooltip.opened, 'Tooltip should he shown').to.equal(true);
+    });
+
+    it('Should truncate subLabel', async () => {
+      const div = await createFixture('is_truncated_subLabel');
+      const el = div.querySelector('ef-item');
+      const tooltip = el.ownerDocument.querySelector('ef-tooltip[ref=title-override]');
+      await elementUpdated(el);
+      await nextFrame();
+      await mouseMove({
+        target: el,
+      });
+      expect(tooltip.opened, 'Tooltip should he shown').to.equal(true);
     });
 
     it('Should not truncate text', async () => {
       const el = await createFixture();
-
+      const tooltip = el.ownerDocument.querySelector('ef-tooltip[ref=title-override]');
       await elementUpdated(el);
       await nextFrame();
-
-      expect(isElementOverflown(el.labelEl), 'Should not truncate text').to.equal(false);
+      await mouseMove({
+        target: el,
+      });
+      expect(tooltip.opened, 'Tooltip is not opened').to.equal(false);
     });
   });
 
