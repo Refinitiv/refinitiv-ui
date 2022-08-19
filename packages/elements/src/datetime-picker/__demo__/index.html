@@ -432,7 +432,7 @@
         }
       </style>
 
-      <ef-datetime-picker id="default-range" range duplex timepicker>
+      <ef-datetime-picker id="default-range" range timepicker>
         <div slot="left" class="range-nav-bar">
           <ef-button id="default-range-today">Today</ef-button>
           <ef-button id="default-range-1-week">1 Week</ef-button>
@@ -441,33 +441,34 @@
         </div>
       </ef-datetime-picker>
       <script type="module">
-        import { format, DateTimeFormat } from '@refinitiv-ui/utils/date.js';
+        import { format, parse, addUnit, DateTimeFormat } from '@refinitiv-ui/utils/date.js';
 
         (function () {
-          const toValues = (from, to) => [format(from, DateTimeFormat.yyyMMddTHHmm), format(to, DateTimeFormat.yyyMMddTHHmm)];
+          const toValue = (date) => format(date, DateTimeFormat.yyyMMddTHHmmss);
+          const today = () => toValue(new Date());
 
           const rangePicker = document.getElementById('default-range');
           document.getElementById('default-range-today').addEventListener('tap', () => {
-            const to = new Date().setSeconds(0, 0);
-            const from = new Date(to).setHours(0, 0, 0, 0);
-            rangePicker.values = toValues(new Date(from), new Date(to));
+            const to = today();
+            const startOfToday = parse(to);
+            startOfToday.setHours(0, 0);
+            const from = toValue(startOfToday);
+            rangePicker.values = [from, to];
           });
           document.getElementById('default-range-1-week').addEventListener('tap', () => {
-            const to = new Date().setSeconds(0, 0);
-            const from = new Date(to) - 7 * 24 * 60 * 60 * 1000;
-            rangePicker.values = toValues(new Date(from), new Date(to));
+            const to = today();
+            const from = addUnit(to, 'day', -7);
+            rangePicker.values = [from, to];
           });
           document.getElementById('default-range-1-month').addEventListener('tap', () => {
-            const now = new Date();
-            const to = now.setSeconds(0, 0);
-            const from = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate(), now.getHours(), now.getMinutes());
-            rangePicker.values = toValues(from, new Date(to));
+            const to = today();
+            const from = addUnit(to, 'month', -1);
+            rangePicker.values = [from, to];
           });
           document.getElementById('default-range-3-month').addEventListener('tap', () => {
-            const now = new Date();
-            const to = now.setSeconds(0, 0);
-            const from = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate(), now.getHours(), now.getMinutes());
-            rangePicker.values = toValues(from, new Date(to));
+            const to = today();
+            const from = addUnit(to, 'month', -3);
+            rangePicker.values = [from, to];
           });
         })();
       </script>
