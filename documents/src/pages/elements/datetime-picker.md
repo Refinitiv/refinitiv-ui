@@ -54,6 +54,9 @@ Range value is set and got using `values`.
 ```
 
 ::
+```javascript
+::datetime-picker::
+```
 ```css
 section {
   height: 315px;
