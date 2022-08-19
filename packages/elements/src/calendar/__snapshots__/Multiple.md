@@ -164,7 +164,7 @@
     >
       <div
         aria-label="Friday, 1 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -178,7 +178,7 @@
     >
       <div
         aria-label="Saturday, 2 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -192,7 +192,7 @@
     >
       <div
         aria-label="Sunday, 3 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -211,7 +211,7 @@
     >
       <div
         aria-label="Monday, 4 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -225,7 +225,7 @@
     >
       <div
         aria-label="Tuesday, 5 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -239,7 +239,7 @@
     >
       <div
         aria-label="Wednesday, 6 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -253,7 +253,7 @@
     >
       <div
         aria-label="Thursday, 7 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -267,7 +267,7 @@
     >
       <div
         aria-label="Friday, 8 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -281,7 +281,7 @@
     >
       <div
         aria-label="Saturday, 9 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -295,7 +295,7 @@
     >
       <div
         aria-label="Sunday, 10 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -314,7 +314,7 @@
     >
       <div
         aria-label="Monday, 11 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -328,7 +328,7 @@
     >
       <div
         aria-label="Tuesday, 12 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -342,7 +342,7 @@
     >
       <div
         aria-label="Wednesday, 13 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -356,7 +356,7 @@
     >
       <div
         aria-label="Thursday, 14 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -370,7 +370,7 @@
     >
       <div
         aria-label="Friday, 15 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -384,7 +384,7 @@
     >
       <div
         aria-label="Saturday, 16 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -398,7 +398,7 @@
     >
       <div
         aria-label="Sunday, 17 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -417,7 +417,7 @@
     >
       <div
         aria-label="Monday, 18 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -431,7 +431,7 @@
     >
       <div
         aria-label="Tuesday, 19 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -445,7 +445,7 @@
     >
       <div
         aria-label="Wednesday, 20 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -461,7 +461,7 @@
     >
       <div
         aria-label="Selected: Thursday, 21 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="0"
       >
@@ -475,7 +475,7 @@
     >
       <div
         aria-label="Friday, 22 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -489,7 +489,7 @@
     >
       <div
         aria-label="Saturday, 23 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -504,7 +504,7 @@
     >
       <div
         aria-label="Selected: Sunday, 24 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -523,7 +523,7 @@
     >
       <div
         aria-label="Monday, 25 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -537,7 +537,7 @@
     >
       <div
         aria-label="Tuesday, 26 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -551,7 +551,7 @@
     >
       <div
         aria-label="Wednesday, 27 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -565,7 +565,7 @@
     >
       <div
         aria-label="Thursday, 28 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -579,7 +579,7 @@
     >
       <div
         aria-label="Friday, 29 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -594,7 +594,7 @@
     >
       <div
         aria-label="Saturday, 30 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -729,7 +729,7 @@
     >
       <div
         aria-label="November 2004"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -744,7 +744,7 @@
     >
       <div
         aria-label="December 2004"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -758,7 +758,7 @@
     >
       <div
         aria-label="January 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -772,7 +772,7 @@
     >
       <div
         aria-label="February 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -791,7 +791,7 @@
     >
       <div
         aria-label="March 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -807,7 +807,7 @@
     >
       <div
         aria-label="Selected: April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="0"
       >
@@ -821,7 +821,7 @@
     >
       <div
         aria-label="May 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -835,7 +835,7 @@
     >
       <div
         aria-label="June 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -854,7 +854,7 @@
     >
       <div
         aria-label="July 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -868,7 +868,7 @@
     >
       <div
         aria-label="August 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -882,7 +882,7 @@
     >
       <div
         aria-label="September 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -896,7 +896,7 @@
     >
       <div
         aria-label="October 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -915,7 +915,7 @@
     >
       <div
         aria-label="November 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -929,7 +929,7 @@
     >
       <div
         aria-label="December 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -944,7 +944,7 @@
     >
       <div
         aria-label="January 2006"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -960,7 +960,7 @@
     >
       <div
         aria-label="February 2006"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1033,7 +1033,7 @@
     >
       <div
         aria-label="2000"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1047,7 +1047,7 @@
     >
       <div
         aria-label="2001"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1061,7 +1061,7 @@
     >
       <div
         aria-label="2002"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1075,7 +1075,7 @@
     >
       <div
         aria-label="2003"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1094,7 +1094,7 @@
     >
       <div
         aria-label="2004"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1110,7 +1110,7 @@
     >
       <div
         aria-label="Selected: 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="0"
       >
@@ -1124,7 +1124,7 @@
     >
       <div
         aria-label="2006"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1138,7 +1138,7 @@
     >
       <div
         aria-label="2007"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1157,7 +1157,7 @@
     >
       <div
         aria-label="2008"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1172,7 +1172,7 @@
     >
       <div
         aria-label="Selected: 2009"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1186,7 +1186,7 @@
     >
       <div
         aria-label="2010"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1200,7 +1200,7 @@
     >
       <div
         aria-label="2011"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1219,7 +1219,7 @@
     >
       <div
         aria-label="2012"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1233,7 +1233,7 @@
     >
       <div
         aria-label="2013"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1247,7 +1247,7 @@
     >
       <div
         aria-label="2014"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1262,7 +1262,7 @@
     >
       <div
         aria-label="2015"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1441,7 +1441,7 @@
     >
       <div
         aria-label="Friday, 1 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="0"
       >
@@ -1455,7 +1455,7 @@
     >
       <div
         aria-label="Saturday, 2 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1469,7 +1469,7 @@
     >
       <div
         aria-label="Sunday, 3 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1488,7 +1488,7 @@
     >
       <div
         aria-label="Monday, 4 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1502,7 +1502,7 @@
     >
       <div
         aria-label="Tuesday, 5 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1516,7 +1516,7 @@
     >
       <div
         aria-label="Wednesday, 6 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1530,7 +1530,7 @@
     >
       <div
         aria-label="Thursday, 7 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1544,7 +1544,7 @@
     >
       <div
         aria-label="Friday, 8 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1558,7 +1558,7 @@
     >
       <div
         aria-label="Saturday, 9 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1572,7 +1572,7 @@
     >
       <div
         aria-label="Sunday, 10 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1591,7 +1591,7 @@
     >
       <div
         aria-label="Monday, 11 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1605,7 +1605,7 @@
     >
       <div
         aria-label="Tuesday, 12 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1619,7 +1619,7 @@
     >
       <div
         aria-label="Wednesday, 13 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1633,7 +1633,7 @@
     >
       <div
         aria-label="Thursday, 14 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1647,7 +1647,7 @@
     >
       <div
         aria-label="Friday, 15 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1661,7 +1661,7 @@
     >
       <div
         aria-label="Saturday, 16 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1675,7 +1675,7 @@
     >
       <div
         aria-label="Sunday, 17 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1694,7 +1694,7 @@
     >
       <div
         aria-label="Monday, 18 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1708,7 +1708,7 @@
     >
       <div
         aria-label="Tuesday, 19 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1722,7 +1722,7 @@
     >
       <div
         aria-label="Wednesday, 20 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1736,7 +1736,7 @@
     >
       <div
         aria-label="Thursday, 21 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1750,7 +1750,7 @@
     >
       <div
         aria-label="Friday, 22 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1764,7 +1764,7 @@
     >
       <div
         aria-label="Saturday, 23 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1778,7 +1778,7 @@
     >
       <div
         aria-label="Sunday, 24 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1797,7 +1797,7 @@
     >
       <div
         aria-label="Monday, 25 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1811,7 +1811,7 @@
     >
       <div
         aria-label="Tuesday, 26 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1825,7 +1825,7 @@
     >
       <div
         aria-label="Wednesday, 27 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1839,7 +1839,7 @@
     >
       <div
         aria-label="Thursday, 28 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1853,7 +1853,7 @@
     >
       <div
         aria-label="Friday, 29 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
@@ -1868,7 +1868,7 @@
     >
       <div
         aria-label="Saturday, 30 April 2005"
-        part="cell-content selection"
+        part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >

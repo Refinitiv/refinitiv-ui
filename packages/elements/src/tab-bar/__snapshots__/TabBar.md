@@ -1,4 +1,4 @@
-# `tab-bar/Template`
+# `tab-bar/TabBar`
 
 #### `DOM structure is correct`
 

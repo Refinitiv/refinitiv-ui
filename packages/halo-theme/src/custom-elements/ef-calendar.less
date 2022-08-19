@@ -97,7 +97,7 @@
         border-color: @calendar-cell-hover-background-color;
       }
 
-      &:active [part~=selection] {
+      &:not([disabled]):active [part~=selection] {
         color: @calendar-cell-hover-text-color;
         background-color: @calendar-cell-press-background-color;
       }
@@ -108,7 +108,7 @@
         border-color: @calendar-cell-hover-background-color;
       }
 
-      &:active [part~=selection] {
+      &:not([disabled]):active [part~=selection] {
         color: @calendar-cell-hover-text-color;
         background-color: @calendar-cell-press-background-color;
       }
