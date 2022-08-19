@@ -21,7 +21,7 @@
     padding: 0 3px 4px 3px;
   }
 
-  [part=icon] {
+  [part=button] {
     color: inherit;
     & when (@variant = light) {
       color: @control-border-color;
@@ -54,16 +54,16 @@
     border-color: fade(@control-hover-error-color, 50%);
   }
 
-  &[disabled] {
-    [part=icon] {
+  &[disabled], &[popup-disabled] {
+    [part=button] {
       color: @input-disabled-text-color
     }
   }
 
   &[focused],
   &[focused][error][warning],
-  &:not([disabled]):not([error]):not([warning]):hover {
-    [part=icon] {
+  &:not([disabled]):not([popup-disabled]):not([error]):not([warning]):hover {
+    [part=button] {
       color: @scheme-color-secondary;
 
       & when (@variant = light) {
