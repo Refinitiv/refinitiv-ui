@@ -29,7 +29,7 @@ ef-icon {
 Icons are provided as part of a theme. Icons also support pointing to urls of svg files. The size and coloring of icons can be changed using standard CSS.
 
 ## Usage
-You can set an icon's name using the `ef-icon` attribute. Alternatively, you can set the url of an svg icon file using the `src` attribute.
+You can set an icon's name using the `ef-icon` attribute. Alternatively, you can set the url of an svg file or relative path to your svg file using the `src` attribute.
 
 ```html
 <ef-icon icon="tick"></ef-icon>
@@ -105,22 +105,23 @@ Below is a list of available icons in the Halo theme. You can use them with the 
 ::
 ```css
 .item {
-  width: 52px;
+  width: 58px;
   text-align: center;
   padding: 7px;
 }
 .item:hover {
-  transition: background-color 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-  background-color: #dddfe4;
+  outline: 1px solid #dddfe4;
 }
 .icon-name {
   padding-top: 5px;
   font-size: 14px;
+  overflow-wrap: break-word;
 }
 #content {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  margin: 2px;
 }
 .no-content {
   justify-content: center;

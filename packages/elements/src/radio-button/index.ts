@@ -264,9 +264,9 @@ export class RadioButton extends ControlElement {
       element = direction === 'next' ? group[0] : group[group.length - 1];
     }
 
-    if (!element.readonly) {
-      this.checked = false;
+    if (!element.readonly && element !== this && !element.checked) {
       element.checked = true;
+      element.notifyPropertyChange('checked', element.checked);
     }
 
     element.focus();

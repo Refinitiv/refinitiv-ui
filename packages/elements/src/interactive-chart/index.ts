@@ -761,12 +761,12 @@ export class InteractiveChart extends ResponsiveElement {
       const chartType = this.internalConfig.series[idx].type;
       const dataSet = this.internalConfig.series[idx].data || [];
       const symbol = (this.internalConfig.series[idx].symbolName || this.internalConfig.series[idx].symbol) || '';
+      const isLegendVisible = this.internalConfig.series[idx].legendVisible !== false;
       // Create row legend element
       if (!rowLegend) {
         rowLegendElem = document.createElement('div');
         rowLegendElem.setAttribute('class', 'row');
-        this.createTextSymbol(rowLegendElem, symbol);
-
+        isLegendVisible && this.createTextSymbol(rowLegendElem, symbol);
         if (dataSet.length) {
           this.hasDataPoint = true;
           const lastData = dataSet[dataSet.length - 1];
@@ -831,8 +831,9 @@ export class InteractiveChart extends ResponsiveElement {
    * @returns {void}
    */
   protected renderTextLegend (chartType: string, rowLegendElem: RowLegend, value: SeriesDataItem | number | string, priceColor: string, index: number): void {
+    const isLegendVisible = this.internalConfig.series[index].legendVisible !== false;
     // No need to render if disable legend
-    if (this.disabledLegend) {
+    if (this.disabledLegend || !isLegendVisible) {
       return;
     }
 
