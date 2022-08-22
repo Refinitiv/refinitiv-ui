@@ -48,9 +48,9 @@ const stripUnsafeNodes = (...elements: Node[]): void => {
  * @param response Request response to test
  * @returns Is valid SVG
  */
-const isValidResponse = (response: XMLHttpRequest | undefined): response is XMLHttpRequest => {
-  return !!response && response.status === 200
-  && response.getResponseHeader('content-type') === 'image/svg+xml';
+const isValidResponse = (response: Response | undefined): response is Response => {
+  const isSVG = !!response?.headers.get('content-type')?.startsWith('image/svg+xml');
+  return !!response && response.status === 200 && isSVG;
 };
 
 /**
@@ -58,9 +58,10 @@ const isValidResponse = (response: XMLHttpRequest | undefined): response is XMLH
  * @param response Response to extract SVG from
  * @returns SVG result or null
  */
-const extractSafeSVG = (response: XMLHttpRequest | undefined): SVGElement | null => {
-  if (isValidResponse(response) && response.responseXML) {
-    const svgDocument = response.responseXML.cloneNode(true) as Document;
+const extractSafeSVG = async (response: Response | undefined): Promise<SVGElement | null> => {
+  if (isValidResponse(response)) {
+    const responseText = await response.clone().text();
+    const svgDocument = new window.DOMParser().parseFromString(responseText, 'image/svg+xml');
     const svg = svgDocument.firstElementChild;
     if (svg instanceof SVGElement) {
       stripUnsafeNodes(svg);
@@ -100,6 +101,7 @@ export class SVGLoader extends CDNLoader {
     }
     const src = await this.getSrc(name);
     const response = await this.load(src);
-    return extractSafeSVG(response)?.outerHTML;
+    const svg = await extractSafeSVG(response);
+    return svg?.outerHTML;
   }
 }
