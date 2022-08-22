@@ -97,16 +97,10 @@
     border-color: fade(@control-hover-error-color, 50%);
   }
 
-  &[disabled], &[popup-disabled] {
-    [part=button] {
-      color: @input-disabled-text-color
-    }
-  }
-
   &[focused],
   &[focused][error][warning],
   &:not([disabled]):not([popup-disabled]):not([error]):not([warning]):hover {
-    [part=button] {
+    [part=button]:not(:hover):not(:focus) {
       color: @scheme-color-secondary;
 
       & when (@variant = light) {
