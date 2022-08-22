@@ -30,8 +30,6 @@ import {
   TranslateDirective
 } from '@refinitiv-ui/translate';
 import {
-  addMonths,
-  subMonths,
   isAfter,
   isBefore,
   format,
@@ -602,7 +600,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     }
 
     if (index === 0) { /* from. to must be after or the same */
-      let after = views[1] || addMonths(view, 1);
+      let after = views[1] || view;
       if (isBefore(after, view)) {
         after = view;
       }
@@ -611,7 +609,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     }
 
     if (index === 1) { /* to. from must be before or the same */
-      let before = views[0] || subMonths(view, 1);
+      let before = views[0] || view;
       if (isAfter(before, view)) {
         before = view;
       }
@@ -711,12 +709,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     }
 
     void this.synchroniseCalendarValues(values);
-
-    // in duplex mode, avoid jumping on views
-    // Therefore if any of values have changed, save the current view
-    if (this.duplex && this.calendarRef.value && this.calendarToRef.value) {
-      this.notifyViewsChange([this.calendarRef.value.view, this.calendarToRef.value.view]);
-    }
 
     // Close popup if there is no time picker
     const newValues = this.values;

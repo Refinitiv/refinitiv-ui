@@ -1,5 +1,5 @@
 import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-import { typeText, calendarClickNext, formatToView, addMonths, inputElement, inputToElement, calendarElement, calendarToElement } from './utils';
+import { typeText, calendarClickNext, formatToView, inputElement, inputToElement, calendarElement, calendarToElement } from './utils';
 
 // import element and theme
 import '@refinitiv-ui/elements/datetime-picker';
@@ -16,7 +16,7 @@ describe('datetime-picker/View', () => {
     it('Check default view duplex', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" duplex></ef-datetime-picker>');
       expect(el.views[0]).to.be.equal(formatToView(now), 'Default view duplex from should be set to this month');
-      expect(el.views[1]).to.be.equal(formatToView(addMonths(now, 1)), 'Default view duplex to should be set to next month');
+      expect(el.views[1]).to.be.equal(formatToView(now), 'Default view duplex to should be set to this month');
     });
     it('Check view when value set', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" value="2020-04-21"></ef-datetime-picker>');
@@ -44,7 +44,7 @@ describe('datetime-picker/View', () => {
       typeText(inputElement(el), '2020-04-21');
       await elementUpdated(el);
       expect(el.views[0]).to.be.equal('2020-04', 'Duplex: view from did not change when typing text');
-      expect(el.views[1]).to.be.equal('2020-05', 'Duplex: view to did not change when typing text');
+      expect(el.views[1]).to.be.equal('2020-04', 'Duplex: view to did not change when typing text');
     });
     it('Duplex range view changes when typing the value', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" duplex range></ef-datetime-picker>');
@@ -72,7 +72,7 @@ describe('datetime-picker/View', () => {
       el.view = '';
       await elementUpdated(el);
       expect(el.views[0]).to.be.equal(formatToView(now), 'View from is not reset');
-      expect(el.views[1]).to.be.equal(formatToView(addMonths(now, 1)), 'View to is not reset');
+      expect(el.views[1]).to.be.equal(formatToView(now), 'View to is not reset');
     });
     it('Changing view in calendar should be reflected in datetime-picker and should fire view-changed event', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" view="2020-04" opened></ef-datetime-picker>');

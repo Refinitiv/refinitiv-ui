@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.1.2...@refinitiv-ui/halo-theme@6.1.3) (2022-08-02)
+
+
+### Bug Fixes
+
+* **calendar:** day cell selected style not work with disabled state ([#410](https://github.com/Refinitiv/refinitiv-ui/issues/410)) ([1d9c931](https://github.com/Refinitiv/refinitiv-ui/commit/1d9c931b4d625b93c6fd60b780060ff2f03d9fc9))
+
+
+
+
+
 ## [6.1.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.1.1...@refinitiv-ui/halo-theme@6.1.2) (2022-07-20)
 
 **Note:** Version bump only for package @refinitiv-ui/halo-theme
