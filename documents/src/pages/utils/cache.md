@@ -10,24 +10,18 @@ layout: default
 # Local cache
 
 The utility provides an alternative way to store data locally in browser.
-LocalCache is high level class that wraps the selected storage to be asynchronous api.
-The second is storage class. Store data on the user's machine. The storages has a list of support as below:
-<!-- TODO: Storage classes should now be internal, so they don't need to be documented. -->
+LocalCache is high level class that wraps the selected storage to be asynchronous api. The class requires a string as a name of the cache. And storage options can be set as config. The storages has a list of support as below:
 
-- localstorage
-- indexeddb
+- localstorage : key-value storage, string is only supported value type, but 5MB limit at one site
+- indexeddb : low-level storage, not limited to type string, store size up to 2GB
 
-<!-- TODO: We should mention suitable use cases for each storage option. -->
-
-LocalCache can select only one storage to use. Here is a common use.
+LocalCache defines localstorage by default. Here is a common use.
 
 ```typescript
 import { LocalCache } from '@refinitiv-ui/utils/cache.js';
 // Create cache and use the storage
 const cache = new LocalCache(
-  // TODO: Should actually document this as just the name of the cache. A user should have to worry about any prefixes.
-  // prefix key for localstorage or database name for indexeddb
-  'my-cache',
+  'my-cache', // name of the cache
   { storage: 'indexeddb' } // config with storage type
 );
 // Example using an api
