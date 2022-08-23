@@ -155,7 +155,7 @@ Additionally, Jest doesn't support package exports feature in package.json yet â
 ```js
   transformIgnorePatterns: ["node_modules/(?!@refinitiv-ui)/"],
   moduleNameMapper: {
-    "@refinitiv-ui/elements/((?!lib).*)$": "<rootDir>/node_modules/@refinitiv-ui/elements/lib/$1"
+    "@refinitiv-ui/((?!.*-theme).*?)/(.*)": "<rootDir>/node_modules/@refinitiv-ui/$1/lib/$2"
   }
 ```
 

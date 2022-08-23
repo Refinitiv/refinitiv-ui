@@ -11,13 +11,11 @@ layout: default
 
 # React Guide
 
-@>This guideline uses create-react-app, React v17.0.2
+@>This guideline uses create-react-app, React v18.2.0
 
 ## Initialise your project
 
-To create a new app, you may choose one of the following methods:
-
-### npx
+Create new React application using the create-react-app command.
 
 ```sh
 npx create-react-app my-app
@@ -119,12 +117,13 @@ And in `src/App.css`
 Finally, starting your app and it should automatically open `http://localhost:3000/` on your default browser.
 
 ```sh
-yarn start
+npm start
 ```
 
 ## Using web components in React
+React did not fully support Web Components yet. Here are the known issues.
 
-Web components can be used in React just like any other HTML elements. However, there are a few differences to note.
+@> These issues are already fixed in React's experimental version you can try this yourself with a [live demo](https://codesandbox.io/s/tabbar-router-experimental-dq0npp?file=/src/App.js) and can [track a progress of it](https://custom-elements-everywhere.com/#react).
 
 ### class vs className
 
@@ -213,6 +212,52 @@ function App() {
 }
 ```
 
+## React wrapper
+While React can render Web Components, It cannot easily pass React props to custom element properties or event listeners as mentioned above.
+The best solution is to write a component that behaves as a wrapper for your Web component. 
+
+While waiting for React to fully support Web Components. We recommended the package that created by Lit team called [@lit-labs/react](https://github.com/lit/lit/tree/main/packages/labs/react#lit-labsreact) to create a wrapper component.
+
+*> This package is part of [Lit Labs](https://lit.dev/docs/libraries/labs/) that isn't quite ready for production and It's subject to breaking changes.
+
+### How to use
+
+From inside your project folder, run:
+
+```sh
+npm install @lit-labs/react
+```
+
+Import React, a refinitv-ui element class, and createComponent.
+
+```jsx
+import React from 'react';
+import { createComponent } from '@lit-labs/react';
+import { TextField } from '@refinitiv-ui/elements/text-field';
+
+export const MyTextField = createComponent(
+  React,
+  'ef-text-field',
+  TextField,
+  {
+    onerror: 'error-changed',
+    onchange: 'value-changed',
+  }
+);
+```
+
+After defining the React component, you can use it just as you would any other React component.
+
+```jsx
+const [value, setValue] = useState('Default Value');
+<MyTextField
+  className="text-input"
+  value={value}
+  disabled={isDisabled}
+  onchange={(event) => {console.log(event.detail.value)}}
+/>
+```
+
 ## Testing With Jest
 
 If you use [Create React App](https://create-react-app.dev/), Jest is already included out of the boxÂ with useful defaults.
@@ -227,7 +272,7 @@ Additionally, Jest doesn't support package exports feature in package.json yet â
   "jest": {
     "transformIgnorePatterns": ["node_modules/(?!@refinitiv-ui)/"],
     "moduleNameMapper": {
-      "@refinitiv-ui/elements/((?!lib).*)$": "<rootDir>/node_modules/@refinitiv-ui/elements/lib/$1"
+      "@refinitiv-ui/((?!.*-theme).*?)/(.*)": "<rootDir>/node_modules/@refinitiv-ui/$1/lib/$2"
     }
   }
 ```
