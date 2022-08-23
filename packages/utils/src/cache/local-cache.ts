@@ -4,7 +4,7 @@ import { CacheIndexedDBStorage } from './cache-indexeddb.js';
 import { CacheLocalStorage } from './cache-localstorage.js';
 
 export type LocalCacheConfig = {
-  storage: ('localstorage' | 'indexeddb');
+  storage: 'localstorage' | 'indexeddb';
 };
 
 /**
@@ -16,12 +16,24 @@ export class LocalCache {
    */
   protected storage!: CacheStorage;
 
-  constructor (name: string, config: LocalCacheConfig) {
-    if (config.storage.toLowerCase() === 'indexeddb') {
-      this.storage = new CacheIndexedDBStorage(name);
+  constructor (name: string, config?: LocalCacheConfig) {
+    if (typeof name !== 'string') {
+      throw new TypeError('Expected name to be of type string');
     }
-    if (config.storage.toLowerCase() === 'localstorage') {
-      this.storage = new CacheLocalStorage(name);
+    if (name.length === 0) {
+      throw new RangeError('Expected name to have a length');
+    }
+    const options = Object.assign({}, config);
+    switch (options.storage) {
+      case 'indexeddb':
+        this.storage = new CacheIndexedDBStorage(name);
+        break;
+      case 'localstorage':
+      case undefined:
+        this.storage = new CacheLocalStorage(name);
+        break;
+      default:
+        throw new TypeError('Unknown storage type');
     }
   }
 

@@ -34,7 +34,7 @@ export class CacheLocalStorage implements CacheStorage {
    */
   private async getReady (): Promise<void> {
     try {
-      this.cache = await this.restoreItems();
+      await this.restore();
     }
     catch (e) { // Keep it work. Even if can't connect to storage
       this.cache = new Map();
@@ -92,10 +92,10 @@ export class CacheLocalStorage implements CacheStorage {
   }
 
   /**
-   * Returns all items in localStorage
+   * Restore all values into memory cache
    * @returns Promise CacheMap items
    */
-  public async restoreItems (): Promise<CacheMap> {
+  public async restore (): Promise<void> {
     const items = new Map() as CacheMap;
     const keys = Object.keys(localStorage).filter(key => key.startsWith(this.prefixKey));
 
@@ -105,7 +105,8 @@ export class CacheLocalStorage implements CacheStorage {
         items.set(keys[i], item);
       }
     }
-    return Promise.resolve(items);
+    this.cache = items;
+    return Promise.resolve();
   }
 
   /**

@@ -1,8 +1,4 @@
-/**
- * static prefix our cache version
+/*
+ * Default cache storage name prefix
  */
-const PREFIX = 'ef-cache-';
-
-export {
-  PREFIX
-};
+export const PREFIX = 'ef';

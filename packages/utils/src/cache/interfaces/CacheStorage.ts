@@ -4,14 +4,15 @@
 export interface CacheStorage {
 
   /**
-   * Returns all values in this storage
+   * Restore all values into memory cache
    */
-  restoreItems(): Promise<unknown>;
+  restore(): Promise<void>;
 
   /**
    * Set a value against a key
    */
   setItem(key: string, value: unknown): Promise<void>;
+
   /**
    * Returns the value in this storage that matched by the key.
    */

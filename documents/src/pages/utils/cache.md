@@ -8,11 +8,16 @@ layout: default
 ::status-complete::
 
 # Local cache
-The utility provides provides an alternative way to store data on your local machine.
-There are 2 main classes that collaborate: wrapper and storage. LocalCache is high level class that wraps the selected storage to be asynchronous api.
+
+The utility provides an alternative way to store data locally in browser.
+LocalCache is high level class that wraps the selected storage to be asynchronous api.
 The second is storage class. Store data on the user's machine. The storages has a list of support as below:
+<!-- TODO: Storage classes should now be internal, so they don't need to be documented. -->
+
 - localstorage
 - indexeddb
+
+<!-- TODO: We should mention suitable use cases for each storage option. -->
 
 LocalCache can select only one storage to use. Here is a common use.
 
@@ -20,6 +25,7 @@ LocalCache can select only one storage to use. Here is a common use.
 import { LocalCache } from '@refinitiv-ui/utils/cache.js';
 // Create cache and use the storage
 const cache = new LocalCache(
+  // TODO: Should actually document this as just the name of the cache. A user should have to worry about any prefixes.
   // prefix key for localstorage or database name for indexeddb
   'my-cache',
   { storage: 'indexeddb' } // config with storage type
@@ -32,6 +38,7 @@ const item = await cache.get(key);
 ## LocalCache APIs
 
 ### set
+
 Caches a value against a key to use until expired
 
 ```typescript
@@ -40,7 +47,7 @@ const key = 'my-item-01';
 const value = { label: '01', value: 1};
 // Create cache and use the storage
 const cache = new LocalCache('my-cache', { storage: 'indexeddb' });
-// store 'my-item-01': { label: '01', value: 1} to LocalCache. Default cache expiry is 5 days
+// store 'my-item-01': { label: '01', value: 1} to `indexeddb`.
 await cache.set(key, value);
 ```
 
@@ -59,6 +66,7 @@ cache.set(key, value, expires);
 | expires | Number | Cache expiry in seconds. Defaults to 5 days. |
 
 ### get
+
 Returns cache data value based on provided key
 
 ```typescript
@@ -90,6 +98,7 @@ cache.get(key);
 | String \| null | string data or `null` if the key isn't cached |
 
 ### remove
+
 Remove cache data value based on provided key
 
 ```typescript
@@ -98,7 +107,6 @@ const key = 'my-item-01';
 // Create cache and use the storage
 const cache = new LocalCache('my-cache', { storage: 'indexeddb' });
 
-// remove specific item follow by the key 'my-item-01'
 await cache.remove(key);
 ```
 
@@ -115,7 +123,8 @@ cache.remove(key);
 | key | String | Cache key |
 
 ### clear
-Remove related items in the storage
+
+Clears all items from cache
 
 ```typescript
 import { LocalCache } from '@refinitiv-ui/utils/cache.js';
