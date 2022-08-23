@@ -1,7 +1,7 @@
-import type { CacheMap } from './types';
-import type { CacheItem } from './interfaces/CacheItem';
-import type { CacheStorage } from './interfaces/CacheStorage';
-import { PREFIX } from './constants.js';
+import type { CacheMap } from '../types';
+import type { CacheItem } from '../interfaces/CacheItem';
+import type { CacheStorage } from '../interfaces/CacheStorage';
+import { PREFIX } from '../constants.js';
 
 /**
  * Stores data in `localStorage` for use across multiple sessions.
@@ -49,7 +49,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @param value Data to store in cache
    * @returns Promise void
    */
-  public async setItem (key: string, value: CacheItem): Promise<void> {
+  public async set (key: string, value: CacheItem): Promise<void> {
     const itemKey = [this.prefixKey, key].join('-');
     this.cache?.set(itemKey, value);
     return Promise.resolve(localStorage.setItem(itemKey, JSON.stringify(value)));
@@ -60,7 +60,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @param key Cache key
    * @returns Promise string data or `null` if nothing is cached
    */
-  public async getItem (key: string): Promise<CacheItem | null> {
+  public async get (key: string): Promise<CacheItem | null> {
     const itemKey = [this.prefixKey, key].join('-');
     return Promise.resolve(this.cache?.get(itemKey) || null);
   }
@@ -70,7 +70,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @param key Cache key to remove
    * @returns Promise void
    */
-  public async removeItem (key: string): Promise<void> {
+  public async remove (key: string): Promise<void> {
     const itemKey = [this.prefixKey, key].join('-');
     return Promise.resolve(localStorage.removeItem(itemKey));
   }
@@ -93,10 +93,10 @@ export class CacheLocalStorage implements CacheStorage {
 
   /**
    * Restore all values into memory cache
-   * @returns Promise CacheMap items
+   * @returns Promise void
    */
   public async restore (): Promise<void> {
-    const items = new Map() as CacheMap;
+    const items = new Map<string, CacheItem>();
     const keys = Object.keys(localStorage).filter(key => key.startsWith(this.prefixKey));
 
     for (let i = 0; i < keys.length; i += 1) {

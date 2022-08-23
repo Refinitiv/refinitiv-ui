@@ -1,7 +1,7 @@
 import type { CacheItem } from './interfaces/CacheItem';
 import type { CacheStorage } from './interfaces/CacheStorage';
-import { CacheIndexedDBStorage } from './cache-indexeddb.js';
-import { CacheLocalStorage } from './cache-localstorage.js';
+import { CacheIndexedDBStorage } from './storages/indexeddb.js';
+import { CacheLocalStorage } from './storages/localstorage.js';
 
 export type LocalCacheConfig = {
   storage: 'localstorage' | 'indexeddb';
@@ -51,7 +51,7 @@ export class LocalCache {
       modified,
       expires: modified + expires * 1000
     };
-    await this.storage.setItem(key, data);
+    await this.storage.set(key, data);
   }
 
   /**
@@ -59,8 +59,8 @@ export class LocalCache {
    * @param key Cache key
    * @returns Promise string data or `null` if nothing is cached
    */
-  public async get (key: string): Promise<unknown | null> {
-    const item = await this.storage.getItem(key) as CacheItem;
+  public async get (key: string): Promise<string | null> {
+    const item = await this.storage.get(key) as CacheItem;
     if (item && item.expires > Date.now()) {
       return Promise.resolve(item.value);
     }
@@ -73,7 +73,7 @@ export class LocalCache {
    * @returns Promise void
    */
   public async remove (key: string): Promise<void> {
-    await this.storage.removeItem(key);
+    await this.storage.remove(key);
   }
 
   /**

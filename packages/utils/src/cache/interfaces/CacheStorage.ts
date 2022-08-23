@@ -11,17 +11,17 @@ export interface CacheStorage {
   /**
    * Set a value against a key
    */
-  setItem(key: string, value: unknown): Promise<void>;
+  set(key: string, value: unknown): Promise<void>;
 
   /**
    * Returns the value in this storage that matched by the key.
    */
-  getItem(key: string): Promise<unknown | null>;
+  get(key: string): Promise<unknown | null>;
 
   /**
    * Remove a value against a key
    */
-  removeItem(key: string): Promise<void>;
+  remove(key: string): Promise<void>;
 
   /**
    * Clear all values in this storage

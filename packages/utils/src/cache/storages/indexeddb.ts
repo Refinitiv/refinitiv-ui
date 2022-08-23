@@ -1,9 +1,9 @@
 import { openDB } from 'idb';
 import type { DBSchema, IDBPDatabase } from 'idb';
-import type { CacheMap } from './types';
-import type { CacheItem } from './interfaces/CacheItem';
-import type { CacheStorage } from './interfaces/CacheStorage';
-import { PREFIX } from './constants.js';
+import type { CacheMap } from '../types';
+import type { CacheItem } from '../interfaces/CacheItem';
+import type { CacheStorage } from '../interfaces/CacheStorage';
+import { PREFIX } from '../constants.js';
 
 interface IndexedDBDatabase extends DBSchema {
   [key: string]: {
@@ -68,7 +68,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @param value item value
    * @returns {void}
    */
-  public async setItem (key: string, value: CacheItem): Promise<void> {
+  public async set (key: string, value: CacheItem): Promise<void> {
     await this.ready;
     const item = { ...value, key };
     this.cache?.set(key, item);
@@ -80,7 +80,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @param key item key
    * @returns cache item or null
    */
-  public async getItem (key: string): Promise<CacheItem | null> {
+  public async get (key: string): Promise<CacheItem | null> {
     await this.ready;
     return this.cache?.get(key) || null;
   }
@@ -90,7 +90,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @param key item key
    * @returns {void}
    */
-  public async removeItem (key: string): Promise<void> {
+  public async remove (key: string): Promise<void> {
     await this.ready;
     this.cache?.delete(key);
     await this.db?.delete(this.dbName as never, key);
@@ -109,8 +109,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
 
   /**
    * Restore all values into memory cache
-   * @param store Store name
-   * @returns items map
+   * @returns Promise void
    */
   public async restore (): Promise<void> {
     const cacheItems = new Map() as CacheMap;
