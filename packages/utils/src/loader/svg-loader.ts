@@ -50,7 +50,7 @@ const stripUnsafeNodes = (...elements: Node[]): void => {
  */
 const isValidResponse = (response: Response | undefined): response is Response => {
   const isSVG = !!response?.headers.get('content-type')?.startsWith('image/svg+xml');
-  return !!response && response.status === 200 && isSVG;
+  return !!response && response.ok && response.status === 200 && isSVG;
 };
 
 /**
@@ -60,7 +60,7 @@ const isValidResponse = (response: Response | undefined): response is Response =
  */
 const extractSafeSVG = async (response: Response | undefined): Promise<SVGElement | null> => {
   if (isValidResponse(response)) {
-    const responseText = await response.clone().text();
+    const responseText = await response.text();
     const svgDocument = new window.DOMParser().parseFromString(responseText, 'image/svg+xml');
     const svg = svgDocument.firstElementChild;
     if (svg instanceof SVGElement) {

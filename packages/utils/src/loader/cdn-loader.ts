@@ -76,13 +76,7 @@ export class CDNLoader {
    * @returns Response objects after to interact servers.
    */
   private async fetchRequest (href: string): Promise<Response> {
-    return fetch(href).then(async response => {
-      // check for error response
-      if (!response.ok) {
-        return Promise.reject(response);
-      }
-      return response;
-    }).catch(errorResponse => {
+    return fetch(href).catch(errorResponse => {
       throw errorResponse;
     });
   }

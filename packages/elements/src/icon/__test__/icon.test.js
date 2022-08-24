@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { elementUpdated, expect, isIE } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/icon';
 import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
@@ -13,11 +13,21 @@ import {
   generateUniqueName,
   iconName,
   tickSvg,
-  checkRequestedUrl
+  checkRequestedUrl,
+  createFakeResponse,
+  responseConfigSuccess,
+  responseConfigError
 } from './helpers/helpers';
 
 describe('icon/Icon', () => {
+  beforeEach(() => {
+    sinon.stub(window, 'fetch');
+  });
+  afterEach(() => {
+    window.fetch.restore();  //remove stub
+  });
   describe('Should Have Correct DOM Structure', () => {
+
     it('without icon or src attributes', async () => {
       const el = await createAndWaitForLoad('<ef-icon></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
@@ -25,33 +35,24 @@ describe('icon/Icon', () => {
     });
 
     it('with valid icon attribute', async () => {
-      const server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, tickSvg]);
+      createFakeResponse(tickSvg, responseConfigSuccess);
       const el = await createAndWaitForLoad(`<ef-icon icon="${iconName}"></ef-icon>`);
       const svg = el.shadowRoot.querySelector('svg');
       expect(svg).to.not.equal(null, 'SVG element should exist for valid icon attribute');
-      // Unable to make snapshots of SVGs because of semantic-dom-dif: https://open-wc.org/testing/semantic-dom-diff.html
-      // Avoiding this check on IE because it adds custom attributes which cant be ignored with `ignoreAttributes`
-      if (!isIE) {
-        expect(svg.outerHTML).to.equal(tickSvg, 'Should render SVG, from the server response');
-      }
+      expect(svg.outerHTML).to.equal(tickSvg, 'Should render SVG, from the server response');
     });
 
     it('with valid src attribute', async () => {
-      const server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, tickSvg]);
+      createFakeResponse(tickSvg, responseConfigSuccess);
       const el = await createAndWaitForLoad('<ef-icon src="https://mock.cdn.com/icons/ticks.svg"></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');
-      if (!isIE) {
-        expect(svg.outerHTML).to.equal(tickSvg, 'Should render SVG, from the server response');
-      }
+      expect(svg.outerHTML).to.equal(tickSvg, 'Should render SVG, from the server response');
     });
 
     it('with invalid icon attribute', async () => {
-      const server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([404, {}, '']);
+      createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ef-icon icon="invalid"></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
 
@@ -59,8 +60,7 @@ describe('icon/Icon', () => {
     });
 
     it('with invalid src attribute', async () => {
-      const server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([404, {}, '']);
+      createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ef-icon src="https://mock.cdn.com/icons/invalid.svg"></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
 
@@ -68,8 +68,7 @@ describe('icon/Icon', () => {
     });
 
     it('with empty icon attribute', async () => {
-      const server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([404, {}, '']);
+      createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ef-icon icon=""></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
 
@@ -77,8 +76,7 @@ describe('icon/Icon', () => {
     });
 
     it('with empty src attribute', async () => {
-      const server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([404, {}, '']);
+      createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ef-icon src=""></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
 
@@ -86,8 +84,7 @@ describe('icon/Icon', () => {
     });
 
     it('with unsafe nodes in response', async () => {
-      const server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, '<script></script>']);
+      createFakeResponse('<script></script>', responseConfigSuccess);
       const el = await createAndWaitForLoad('<ef-icon icon="malicious"></ef-icon>');
       const script = el.shadowRoot.querySelector('script');
 
@@ -97,8 +94,7 @@ describe('icon/Icon', () => {
 
   describe('Should Have Correct Properties', () => {
     it('icon', async () => {
-      const server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, tickSvg]);
+      createFakeResponse(tickSvg, responseConfigSuccess);
       const el = await createAndWaitForLoad('<ef-icon></ef-icon>');
 
       expect(el.hasAttribute('icon')).to.equal(false, 'Icon should not have the icon attribute by default');
@@ -134,8 +130,7 @@ describe('icon/Icon', () => {
     });
 
     it('src', async () => {
-      const server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, tickSvg]);
+      createFakeResponse(tickSvg, responseConfigSuccess);
       const el = await createAndWaitForLoad('<ef-icon></ef-icon>');
       const srcValue = createMockSrc(iconName);
 
@@ -165,8 +160,7 @@ describe('icon/Icon', () => {
 
   describe('Functional Tests', () => {
     it('should set the src property based on the icon and CDN prefix', async () => {
-      const server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, tickSvg]);
+      createFakeResponse(tickSvg, responseConfigSuccess);
       const el = await createAndWaitForLoad(`<ef-icon icon="${iconName}"></ef-icon>`);
       const CDNPrefix = el.getComputedVariable('--cdn-prefix');
 
@@ -182,8 +176,7 @@ describe('icon/Icon', () => {
     });
 
     it('should make a correct server request based on cdn prefix and the icon if icon is specified', async () => {
-      const server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, tickSvg]);
+      createFakeResponse(tickSvg, responseConfigSuccess);
       const uniqueIconName = generateUniqueName(iconName); // to avoid caching
       const el = await createAndWaitForLoad(`<ef-icon icon="${uniqueIconName}"></ef-icon>`);
       const CDNPrefix = el.getComputedVariable('--cdn-prefix');
@@ -196,11 +189,9 @@ describe('icon/Icon', () => {
     });
 
     it('should make a correct server request based on src', async () => {
-      const server = sinon.createFakeServer({ respondImmediately: true });
       const uniqueIconName = generateUniqueName(iconName); // to avoid caching
       const uniqueSrc = createMockSrc(uniqueIconName);
-      server.respondWith('GET', uniqueSrc, [200, { 'Content-Type': 'image/svg+xml' }, tickSvg]);
-
+      createFakeResponse(tickSvg, responseConfigSuccess);
       await createAndWaitForLoad(`<ef-icon src="${uniqueSrc}"></ef-icon>`);
       expect(server.requests.length).to.equal(1, 'Should make one request');
       expect(server.requests[0].url).to.equal(uniqueSrc, `requested URL should be ${uniqueSrc}`);
