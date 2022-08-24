@@ -1,7 +1,17 @@
 import type { CacheMap } from '../types';
 import type { CacheItem } from '../interfaces/CacheItem';
 import type { CacheStorage } from '../interfaces/CacheStorage';
-import { PREFIX } from '../constants.js';
+import { StoragePrefix } from '../constants.js';
+
+/**
+ * Returns a string used for the key
+ * @param prefix prefix from default
+ * @param cacheKey user input key
+ * @returns string key for item
+ */
+const getItemKey = (prefix: string, cacheKey: string): string => {
+  return `${prefix}${cacheKey}`;
+};
 
 /**
  * Stores data in `localStorage` for use across multiple sessions.
@@ -12,7 +22,7 @@ export class CacheLocalStorage implements CacheStorage {
    * Prefix for all keys
    * to avoid key to clash with the workspace
    */
-  protected prefixKey = '';
+  protected dbName = '';
 
   /**
    * Internal cache object
@@ -24,7 +34,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @param name prefix key for all item
    */
   constructor (name: string) {
-    this.prefixKey = PREFIX + (name || '');
+    this.dbName = StoragePrefix.PREFIX + (name || '');
     void this.getReady();
   }
 
@@ -50,7 +60,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @returns Promise void
    */
   public async set (key: string, value: CacheItem): Promise<void> {
-    const itemKey = [this.prefixKey, key].join('-');
+    const itemKey = getItemKey(this.dbName, key);
     this.cache?.set(itemKey, value);
     return Promise.resolve(localStorage.setItem(itemKey, JSON.stringify(value)));
   }
@@ -61,7 +71,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @returns Promise string data or `null` if nothing is cached
    */
   public async get (key: string): Promise<CacheItem | null> {
-    const itemKey = [this.prefixKey, key].join('-');
+    const itemKey = getItemKey(this.dbName, key);
     return Promise.resolve(this.cache?.get(itemKey) || null);
   }
 
@@ -71,7 +81,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @returns Promise void
    */
   public async remove (key: string): Promise<void> {
-    const itemKey = [this.prefixKey, key].join('-');
+    const itemKey = getItemKey(this.dbName, key);
     return Promise.resolve(localStorage.removeItem(itemKey));
   }
 
@@ -80,10 +90,9 @@ export class CacheLocalStorage implements CacheStorage {
    * @returns Promise void
    */
   public async clear (): Promise<void> {
-    const prefixKey = this.prefixKey !== '' ? this.prefixKey + '-' : '';
     const keys = Object.keys(localStorage);
 
-    keys.filter(key => key.startsWith(prefixKey))
+    keys.filter(key => key.startsWith(this.dbName))
       .forEach(key => {
         localStorage.removeItem(key);
       });
@@ -97,7 +106,7 @@ export class CacheLocalStorage implements CacheStorage {
    */
   public async restore (): Promise<void> {
     const items = new Map<string, CacheItem>();
-    const keys = Object.keys(localStorage).filter(key => key.startsWith(this.prefixKey));
+    const keys = Object.keys(localStorage).filter(key => key.startsWith(this.dbName));
 
     for (let i = 0; i < keys.length; i += 1) {
       const item = this.retrieve(keys[i]);

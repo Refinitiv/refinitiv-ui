@@ -1,4 +1,6 @@
 /*
  * Default cache storage name prefix
  */
-export const PREFIX = 'ef';
+export enum StoragePrefix {
+  PREFIX = 'ef'
+}

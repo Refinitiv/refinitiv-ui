@@ -100,7 +100,7 @@ import { LocalCache } from '@refinitiv-ui/utils/cache.js';
 const key = 'my-item-01';
 // Create cache and use the storage
 const cache = new LocalCache('my-cache', { storage: 'indexeddb' });
-
+// remove specific item follow by the key 'my-item-01'
 await cache.remove(key);
 ```
 
@@ -124,7 +124,7 @@ Clears all items from cache
 import { LocalCache } from '@refinitiv-ui/utils/cache.js';
 // Create cache and use the storage
 const cache = new LocalCache('my-cache', { storage: 'indexeddb' });
-// remove specific item follow by the key 'my-item-01'
+// remove all items in the cache
 await cache.clear();
 ```
 

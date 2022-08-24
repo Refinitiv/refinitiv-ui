@@ -3,14 +3,19 @@ import type { DBSchema, IDBPDatabase } from 'idb';
 import type { CacheMap } from '../types';
 import type { CacheItem } from '../interfaces/CacheItem';
 import type { CacheStorage } from '../interfaces/CacheStorage';
-import { PREFIX } from '../constants.js';
+import { StoragePrefix } from '../constants.js';
 
 interface IndexedDBDatabase extends DBSchema {
-  [key: string]: {
+  [key: StoreName]: {
     key: string;
     value: CacheItem;
   }
 }
+
+/**
+ * Literal type for dynamic store name casting to idb
+ */
+type StoreName = `${StoragePrefix.PREFIX}${string}`;
 
 /**
  * Returns Error message when unable to connect indexedDB
@@ -31,7 +36,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * Prefix for database name, and store name
    * to avoid database to clash with other storages.
    */
-  protected dbName = 'dbName';
+  protected dbName: StoreName;
 
   /**
    * A connection to a indexedDB database, use for open transaction or idb api
@@ -58,7 +63,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @param name for database name and store name
    */
   constructor (name: string) {
-    this.dbName = PREFIX + (name || '');
+    this.dbName = `${StoragePrefix.PREFIX}${(name || '')}`;
     void this.open();
   }
 
@@ -72,7 +77,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
     await this.ready;
     const item = { ...value, key };
     this.cache?.set(key, item);
-    await this.db?.put(this.dbName as never, item, key);
+    await this.db?.put(this.dbName, item, key);
   }
 
   /**
@@ -93,18 +98,17 @@ export class CacheIndexedDBStorage implements CacheStorage {
   public async remove (key: string): Promise<void> {
     await this.ready;
     this.cache?.delete(key);
-    await this.db?.delete(this.dbName as never, key);
+    await this.db?.delete(this.dbName, key);
   }
 
   /**
-   * Clear all item in this storage
+   * Clear all items in this storage
    * @returns {void}
    */
   public async clear (): Promise<void> {
     await this.ready;
     this.cache?.clear();
-    // TODO: Interesting choice of casting key to never here. Is there better ways to do this, from looking at idb dts they do offer some types.
-    await this.db?.clear(this.dbName as never);
+    await this.db?.clear(this.dbName);
   }
 
   /**
@@ -113,7 +117,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    */
   public async restore (): Promise<void> {
     const cacheItems = new Map() as CacheMap;
-    let cursor = await this.db?.transaction(this.dbName as never, 'readonly').store.openCursor();
+    let cursor = await this.db?.transaction(this.dbName, 'readonly').store.openCursor();
     while (cursor) {
       cacheItems.set(cursor.key, cursor.value);
       cursor = await cursor.continue();
@@ -132,17 +136,17 @@ export class CacheIndexedDBStorage implements CacheStorage {
 
     this.db = await openDB<IndexedDBDatabase>(this.dbName, this.version, {
       upgrade: (database) => {
-        if (database.objectStoreNames.contains(this.dbName as never)) {
-          database.deleteObjectStore(this.dbName as never);
+        if (database.objectStoreNames.contains(this.dbName)) {
+          database.deleteObjectStore(this.dbName);
         }
-        database.createObjectStore(this.dbName as never);
+        database.createObjectStore(this.dbName);
       },
       blocked: () => {
         throw errorMessage(`blocked event called. The connection is blocked by other connection or your version (${this.version}) isn't matched.`, this.dbName);
       },
       blocking: () => {
         // eslint-disable-next-line no-console
-        console.warn(`versionchange event called. The version of this ${this.dbName} database has changed.`);
+        console.warn(`versionchange event called. The version of this ${String(this.dbName)} database has changed.`);
       },
       terminated: () => {
         throw errorMessage('close event called. The connection is unexpectedly closed.', this.dbName);
