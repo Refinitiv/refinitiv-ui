@@ -1,7 +1,7 @@
 import type { CacheItem } from './interfaces/CacheItem';
 import type { CacheStorage } from './interfaces/CacheStorage';
-import { CacheIndexedDBStorage } from './storages/indexeddb.js';
-import { CacheLocalStorage } from './storages/localstorage.js';
+import { IndexedDBStorage } from './storages/indexeddb.js';
+import { LocalStorage } from './storages/localstorage.js';
 
 export type LocalCacheConfig = {
   storage: 'localstorage' | 'indexeddb';
@@ -26,11 +26,11 @@ export class LocalCache {
     const options = Object.assign({}, config);
     switch (options.storage) {
       case 'indexeddb':
-        this.storage = new CacheIndexedDBStorage(name);
+        this.storage = new IndexedDBStorage(name);
         break;
       case 'localstorage':
       case undefined:
-        this.storage = new CacheLocalStorage(name);
+        this.storage = new LocalStorage(name);
         break;
       default:
         throw new TypeError('Unknown storage type');

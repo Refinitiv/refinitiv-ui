@@ -4,6 +4,7 @@ import type { CacheMap } from '../types';
 import type { CacheItem } from '../interfaces/CacheItem';
 import type { CacheStorage } from '../interfaces/CacheStorage';
 import { StoragePrefix } from '../constants.js';
+import { getItemKey } from '../helpers.js';
 
 interface IndexedDBDatabase extends DBSchema {
   [key: StoreName]: {
@@ -15,7 +16,7 @@ interface IndexedDBDatabase extends DBSchema {
 /**
  * Literal type for dynamic store name casting to idb
  */
-type StoreName = `${StoragePrefix.PREFIX}${string}`;
+type StoreName = `[${StoragePrefix.DEFAULT}][${string}]`;
 
 /**
  * Returns Error message when unable to connect indexedDB
@@ -31,9 +32,9 @@ const errorMessage = (message: string, dbName: string): Error => {
 /**
  * Stores data in indexedDB for use across multiple sessions.
  */
-export class CacheIndexedDBStorage implements CacheStorage {
+export class IndexedDBStorage implements CacheStorage {
   /**
-   * Prefix for database name, and store name
+   * Prefix for database name, store name, and key of all items
    * to avoid database to clash with other storages.
    */
   protected dbName: StoreName;
@@ -63,7 +64,7 @@ export class CacheIndexedDBStorage implements CacheStorage {
    * @param name for database name and store name
    */
   constructor (name: string) {
-    this.dbName = `${StoragePrefix.PREFIX}${(name || '')}`;
+    this.dbName = `[${StoragePrefix.DEFAULT}][${name}]`;
     void this.open();
   }
 
@@ -75,9 +76,10 @@ export class CacheIndexedDBStorage implements CacheStorage {
    */
   public async set (key: string, value: CacheItem): Promise<void> {
     await this.ready;
-    const item = { ...value, key };
-    this.cache?.set(key, item);
-    await this.db?.put(this.dbName, item, key);
+    const itemKey = getItemKey(this.dbName, key);
+    const item = { ...value, itemKey };
+    this.cache?.set(itemKey, item);
+    await this.db?.put(this.dbName, item, itemKey);
   }
 
   /**
@@ -87,7 +89,8 @@ export class CacheIndexedDBStorage implements CacheStorage {
    */
   public async get (key: string): Promise<CacheItem | null> {
     await this.ready;
-    return this.cache?.get(key) || null;
+    const itemKey = getItemKey(this.dbName, key);
+    return this.cache?.get(itemKey) || null;
   }
 
   /**
@@ -97,8 +100,9 @@ export class CacheIndexedDBStorage implements CacheStorage {
    */
   public async remove (key: string): Promise<void> {
     await this.ready;
-    this.cache?.delete(key);
-    await this.db?.delete(this.dbName, key);
+    const itemKey = getItemKey(this.dbName, key);
+    this.cache?.delete(itemKey);
+    await this.db?.delete(this.dbName, itemKey);
   }
 
   /**

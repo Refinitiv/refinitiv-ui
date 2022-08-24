@@ -2,25 +2,16 @@ import type { CacheMap } from '../types';
 import type { CacheItem } from '../interfaces/CacheItem';
 import type { CacheStorage } from '../interfaces/CacheStorage';
 import { StoragePrefix } from '../constants.js';
-
-/**
- * Returns a string used for the key
- * @param prefix prefix from default
- * @param cacheKey user input key
- * @returns string key for item
- */
-const getItemKey = (prefix: string, cacheKey: string): string => {
-  return `${prefix}${cacheKey}`;
-};
+import { getItemKey } from '../helpers.js';
 
 /**
  * Stores data in `localStorage` for use across multiple sessions.
  */
-export class CacheLocalStorage implements CacheStorage {
+export class LocalStorage implements CacheStorage {
 
   /**
-   * Prefix for all keys
-   * to avoid key to clash with the workspace
+   * Database for this class. Prefix for key of all items.
+   * to avoid key to clash with other.
    */
   protected dbName = '';
 
@@ -34,7 +25,7 @@ export class CacheLocalStorage implements CacheStorage {
    * @param name prefix key for all item
    */
   constructor (name: string) {
-    this.dbName = StoragePrefix.PREFIX + (name || '');
+    this.dbName = `[${StoragePrefix.DEFAULT}][${name}]`;
     void this.getReady();
   }
 
