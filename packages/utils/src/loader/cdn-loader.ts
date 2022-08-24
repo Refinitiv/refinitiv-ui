@@ -51,34 +51,23 @@ export class CDNLoader {
    */
   private async loadContent (href: string): Promise<Response> {
     try {
-      const response = await this.fetchRequest(href);
-      return response;
+      return await fetch(href);
     }
     catch (e) {
       // Failed response...
       this.responseCache.delete(href);
-      if (e instanceof Response) {
-        return Promise.resolve({
-          status: e.status || 0,
-          statusText: e.statusText || 'Failed to make request'
-        } as Response);
+      let errorMessage = '';
+      if (e instanceof Error) {
+        errorMessage = e.message;
+      }
+      else if (e instanceof Response) {
+        errorMessage = e.statusText;
       }
       return Promise.resolve({
         status: 0,
-        statusText: 'Failed to make request'
+        statusText: errorMessage
       } as Response);
     }
-  }
-
-  /**
-   * Load by fetch api
-   * @param href The source or location
-   * @returns Response objects after to interact servers.
-   */
-  private async fetchRequest (href: string): Promise<Response> {
-    return fetch(href).catch(errorResponse => {
-      throw errorResponse;
-    });
   }
 
   /**
