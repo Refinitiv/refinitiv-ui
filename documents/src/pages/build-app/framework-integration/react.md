@@ -15,12 +15,11 @@ layout: default
 
 ## Using web components in React
 
-Current version of React does not fully support Web Components. You have to pass the properties and events in a special ways,
-the best solution is to write a React Component that behaves as a wrapper for your Web Component.
+Web components is framework agnostic and it should work with any frameworks in similar fashion as native HTML elements. However, currently, React has not yet fully supported Web components. You are required to create React Component as a wrapper for your Web Component to pass properties and handle custom events.
 
-@>Experimental version of react is fully support Web Components you can try this yourself with a [live demo](https://codesandbox.io/s/tabbar-router-experimental-dq0npp?file=/src/App.js). To follow the status of it check out [custom-elements-everywhere.com](https://custom-elements-everywhere.com/#react).
+@>Experimental version of react is fully support Web Components you can try this yourself with [our live demo](https://codesandbox.io/s/tabbar-router-experimental-dq0npp?file=/src/App.js). To follow the status of it, check out [custom-elements-everywhere.com](https://custom-elements-everywhere.com/#react).
 
-To overcome these shortcomings in our example, we will show how we can create thin React wrapper components around our Web Components. 
+To overcome these shortcomings, in this tutorial, we will show how you can create thin React wrapper components around EF components.
 
 ### Create a wrapper component
 
@@ -30,11 +29,11 @@ To create React application we will use [Create React App](https://create-react-
 npx create-react-app my-app
 ```
 
-It will create a directory called `my-app` inside the current folder. Inside that directory, it will generate the initial project structure and install the required dependencies.
+At current directory, it will create a new folder called `my-app`. Inside the folder, it will be provided with the initial React project structure and install required dependencies.
 
 <br>
 
-Then installs elements and themes.
+Now, you can install EF components and themes.
 
 ```sh
 npm install @refinitiv-ui/elements @refinitiv-ui/halo-theme
@@ -53,8 +52,8 @@ import '@refinitiv-ui/elements/panel/themes/halo/dark';
 
 <br>
 
-In our React application, we will need to create a React Select component to wrap our existing `ef-select` component.
-We need to map the Web Component properties and events to our React version of the component with the `useLayoutEffect` hook (or `componentDidMount` in class component).
+In our React application, we will need to create React `Select` component that wrap `ef-select` component.
+We need to map `ef-select` properties and events to our `Select` component with the `useLayoutEffect` hook (or `componentDidMount` in class component).
 
 ```jsx
 import React from 'react';
@@ -83,7 +82,7 @@ function Select ({ className, value, onChange, data }) {
 export default Select;
 ```
 
-One common confusion is that Web Components use `class` instead of `className`.
+One of common confusion when using Web components in React is you need to use `class` instead of `className`.
 
 ```html
 <ef-select class="my-select"></ef-select>
@@ -91,7 +90,7 @@ One common confusion is that Web Components use `class` instead of `className`.
 
 <br>
 
-Add our Select component to `src/App.js`
+Now import `Select` component to `src/App.js`.
 
 ```jsx
 import React, { useState } from 'react';
@@ -122,7 +121,7 @@ function App() {
 export default App;
 ```
 
-And in `src/App.css`
+You can style the component in `src/App.css`.
 
 ```css
 .my-select {
@@ -151,7 +150,7 @@ From inside your project folder, run:
 npm install @lit-labs/react
 ```
 
-Import React, a refinitv-ui element class, and createComponent.
+Import React, utility wrapper and EF Select element class. Then you can use `createComponent` to create React wrapper of the element.
 
 ```jsx
 import React from 'react';
