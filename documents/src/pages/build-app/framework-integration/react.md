@@ -13,7 +13,7 @@ layout: default
 
 @>This guideline uses create-react-app, React v18.2.0
 
-## Using Web Components in React
+## Using web components in React
 
 Current version of React does not fully support Web Components. You have to pass the properties and events in a special ways,
 the best solution is to write a React Component that behaves as a wrapper for your Web Component.
