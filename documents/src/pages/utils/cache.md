@@ -12,8 +12,8 @@ layout: default
 The utility provides an alternative way to store data locally in browser.
 LocalCache is high level class that wraps the selected storage to be asynchronous api. The class requires a string as a name of the cache. And storage options can be set as config. The storages has a list of support as below:
 
-- localstorage : key-value storage, string is only supported value type, but 5MB limit at one site
-- indexeddb : low-level storage, not limited to type string, store size up to 2GB
+- localstorage : simple and fast, but 5MB limit at one site
+- indexeddb : low-level storage, store size up to 2GB
 
 LocalCache defines localstorage by default. Here is a common use.
 
