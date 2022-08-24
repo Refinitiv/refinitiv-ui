@@ -60,7 +60,8 @@ const isValidResponse = (response: Response | undefined): response is Response =
  */
 const extractSafeSVG = async (response: Response | undefined): Promise<SVGElement | null> => {
   if (isValidResponse(response)) {
-    const responseText = await response.text();
+    // clone to support preload to prevent locked response
+    const responseText = await response.clone().text();
     const svgDocument = new window.DOMParser().parseFromString(responseText, 'image/svg+xml');
     const svg = svgDocument.firstElementChild;
     if (svg instanceof SVGElement) {
