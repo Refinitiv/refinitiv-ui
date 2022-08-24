@@ -13,9 +13,18 @@ layout: default
 
 @>This guideline uses create-react-app, React v18.2.0
 
-## Initialise your project
+## Using Web Components in React
 
-Create new React application using the create-react-app command.
+Current version of React does not fully support Web Components. You have to pass the properties and events in a special ways,
+the best solution is to write a React Component that behaves as a wrapper for your Web Component.
+
+@>Experimental version of react is fully support Web Components you can try this yourself with a [live demo](https://codesandbox.io/s/tabbar-router-experimental-dq0npp?file=/src/App.js). To follow the status of it check out [custom-elements-everywhere.com](https://custom-elements-everywhere.com/#react).
+
+To overcome these shortcomings in our example, we will show how we can create thin React wrapper components around our Web Components. 
+
+### Create a wrapper component
+
+To create React application we will use [Create React App](https://create-react-app.dev/) CLI tool. Run the following command.
 
 ```sh
 npx create-react-app my-app
@@ -23,73 +32,89 @@ npx create-react-app my-app
 
 It will create a directory called `my-app` inside the current folder. Inside that directory, it will generate the initial project structure and install the required dependencies.
 
-Serve your app to check if the project is created correctly.
+<br>
+
+Then installs elements and themes.
 
 ```sh
-cd my-app
-npm start
-```
-
-## Install EF elements and themes
-
-Installs elements and themes.
-
-```sh
-npm install @refinitiv-ui/elements
-npm install @refinitiv-ui/halo-theme
+npm install @refinitiv-ui/elements @refinitiv-ui/halo-theme
 ```
 
 Import elements that you want to use and theme in `src/index.js`. You can also import EF components and themes anywhere in react components but for the simplicity we'll import all at once.
 
 ```javascript
-import '@refinitiv-ui/elements/loader';
-import '@refinitiv-ui/elements/button';
+import '@refinitiv-ui/elements/select';
 import '@refinitiv-ui/elements/panel';
-import '@refinitiv-ui/elements/text-field';
-import '@refinitiv-ui/elements/password-field';
 
 import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
-import '@refinitiv-ui/elements/loader/themes/halo/dark';
-import '@refinitiv-ui/elements/button/themes/halo/dark';
+import '@refinitiv-ui/elements/select/themes/halo/dark';
 import '@refinitiv-ui/elements/panel/themes/halo/dark';
-import '@refinitiv-ui/elements/text-field/themes/halo/dark';
-import '@refinitiv-ui/elements/password-field/themes/halo/dark';
 ```
 
-Use EF elements to create a simple login page. Replace the content in `src/App.js` with the following code.
+<br>
 
-```javascript
+In our React application, we will need to create a React Select component to wrap our existing `ef-select` component.
+We need to map the Web Component properties and events to our React version of the component with the `useLayoutEffect` hook (or `componentDidMount` in class component).
+
+```jsx
+import React from 'react';
+
+function Select ({ className, value, onChange, data }) {
+  const selectRef = React.useRef(); // grab a DOM reference to our `ef-select` 
+
+  React.useLayoutEffect(() => {
+    const { current } = ref;
+
+    const handleChange = (event) => {
+      onChange(event.detail.value);
+    }
+
+    current.data = data;
+    current.value = value;
+    current.addEventListener('value-changed', handleChange);
+
+    return () => current.removeEventListener('value-changed', handleChange);
+
+  }, [selectRef, onChange, data, value]);
+
+  return <ef-select ref={selectRef} class={className} value={value}></ef-select>
+}
+
+export default Select;
+```
+
+One common confusion is that Web Components use `class` instead of `className`.
+
+```html
+<ef-select class="my-select"></ef-select>
+```
+
+<br>
+
+Add our Select component to `src/App.js`
+
+```jsx
 import React, { useState } from 'react';
+import Select from './Select';
 import './App.css';
 
 function App() {
-  const [title, setTitle] = useState('Hello!');
-  const [loading, setLoading] = useState(false);
+  const [value, setValue] = useState('');
 
-  function login() {
-    setLoading(true);
+  const data = [{ label: 'Tea', value: 'tea' }, { label: 'Beer', value: 'beer' }];
 
-    setTimeout(() => {
-      setTitle('Done!');
-      setLoading(false);
-    }, 2000);
+  const handleChange = (value) => {
+    setValue(value);
+  }
+
+  const handleClickReset = () => {
+    setValue('');
   }
 
   return (
-    <ef-panel id="login-page" spacing>
-      {loading ? (
-        <ef-loader></ef-loader>
-      ) : (
-        <>
-          <h1>{title}</h1>
-          <ef-text-field placeholder='Username'></ef-text-field>
-          <ef-password-field placeholder='Password'></ef-password-field>
-          <div id="button-group">
-            <ef-button onClick={login}>Login</ef-button>
-            <ef-button>Cancel</ef-button>
-          </div>
-        </>
-      )}
+    <ef-panel spacing>
+      <Select className='my-select' onChange={handleChange} data={data} value={value} />
+      <button onClick={handleClickReset}>Reset</button>
     </ef-panel>
   );
 }
@@ -100,17 +125,9 @@ export default App;
 And in `src/App.css`
 
 ```css
-#login-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 450px;
-  height: 200px;
-  margin: 40px auto;
-}
-
-#button-group {
-  margin: 10px 0;
+.my-select {
+  width: 200px;
+  margin-right: 10px;
 }
 ```
 
@@ -120,107 +137,13 @@ Finally, starting your app and it should automatically open `http://localhost:30
 npm start
 ```
 
-## Using web components in React
-React did not fully support Web Components yet. Here are the known issues.
+### Using utility wrapper
 
-@> These issues are already fixed in React's experimental version you can try this yourself with a [live demo](https://codesandbox.io/s/tabbar-router-experimental-dq0npp?file=/src/App.js) and can [track a progress of it](https://custom-elements-everywhere.com/#react).
+The previous section has shown you how to wire Web Components into React Components yourself. However, this process could be automated with a wrapper that takes care about formatting objects and arrays to JSON and registering functions as event listeners.
 
-### class vs className
-
-Web component uses `class` attribute instead of `className`.
-
-```jsx
-function Panel() {
-  return (
-    <ef-panel class="container">
-      ...
-    </ef-panel>
-  );
-}
-```
-
-### Boolean Attributes
-
-Boolean attributes such as `disabled`, `readonly`, `checked` are set by the presence of the attribute itself, not the value. To represent a `false` value in JSX, set the attribute's value to `undefined` or `null` or simply remove the attribute. This behavior is the same as [HTML specifications](https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes).
-
-Regardless of the value, the following code will **disable** the `ef-text-field`.
-
-```jsx
-<ef-text-field disabled></ef-text-field>
-<ef-text-field disabled="true"></ef-text-field>
-<ef-text-field disabled="false"></ef-text-field>
-<ef-text-field disabled={true}></ef-text-field>
-<ef-text-field disabled={false}></ef-text-field>
-```
-
-The following will omit `disabled` attribute and **enable** `ef-text-field`.
-
-```jsx
-<ef-text-field></ef-text-field>
-<ef-text-field disabled={undefined}></ef-text-field>
-```
-
-### Array and Object
-
-React only allows **primitive data** to be passed through attributes. For `Array` and `Object`, you can either pass data through element's property or use `JSON.stringify()` to parse the data before passing to attribute.
-
-```jsx
-<ef-sparkline data={JSON.stringify([-2, -3, 4])}></ef-sparkline>
-```
-
-or
-
-```jsx
-function SparklineChart() {
-  const chartRef = React.useRef();
-  React.useLayoutEffect(() => {
-    if (chartRef.current) {
-      chartRef.current.data = [-2, -3, 4];
-    }
-  }, [chartRef]);
-  return <ef-sparkline ref={chartRef}></ef-sparkline>;
-}
-```
-
-### Events
-
-Use `ref` to access and store DOM element, then add an event-listener inside `useLayoutEffect` which fires synchronously after the DOM mutation (or `componentDidMount` in class component). Finally, don't forget to unsubscribe from event-listener when component unmounts.
-
-```jsx
-function App() {
-  const textFieldRef = React.useRef();
-  const [value, setValue] = React.useState('');
-
-  React.useLayoutEffect(() => {
-    const handleChange = (event) => {
-      setValue(event.detail.value);
-    };
-
-    const { current } = textFieldRef;
-
-    if (current) {
-      current.addEventListener('value-changed', handleChange);
-    }
-
-    return () => current.removeEventListener('value-changed', handleChange); // unsubscribe
-  }, [textFieldRef]);
-
-  return (
-    <ef-text-field ref={textFieldRef}></ef-text-field>
-    <p>Value: {value}</p>
-  );
-}
-```
-
-## React wrapper
-While React can render Web Components, It cannot easily pass React props to custom element properties or event listeners as mentioned above.
-The best solution is to write a component that behaves as a wrapper for your Web component. 
-
-While waiting for React to fully support Web Components. We recommended the package that created by Lit team called [@lit-labs/react](https://github.com/lit/lit/tree/main/packages/labs/react#lit-labsreact) to create a wrapper component.
+We recommended the package that created by Lit team called [@lit-labs/react](https://github.com/lit/lit/tree/main/packages/labs/react#lit-labsreact).
 
 *> This package is part of [Lit Labs](https://lit.dev/docs/libraries/labs/) that isn't quite ready for production and It's subject to breaking changes.
-
-### How to use
 
 From inside your project folder, run:
 
@@ -233,14 +156,13 @@ Import React, a refinitv-ui element class, and createComponent.
 ```jsx
 import React from 'react';
 import { createComponent } from '@lit-labs/react';
-import { TextField } from '@refinitiv-ui/elements/text-field';
+import { Select as EfSelect } from '@refinitiv-ui/elements/select';
 
-export const MyTextField = createComponent(
+export const Select = createComponent(
   React,
-  'ef-text-field',
-  TextField,
+  'ef-select',
+  EfSelect,
   {
-    onerror: 'error-changed',
     onchange: 'value-changed',
   }
 );
@@ -249,20 +171,25 @@ export const MyTextField = createComponent(
 After defining the React component, you can use it just as you would any other React component.
 
 ```jsx
-const [value, setValue] = useState('Default Value');
-<MyTextField
-  className="text-input"
-  value={value}
-  disabled={isDisabled}
-  onchange={(event) => {console.log(event.detail.value)}}
-/>
+const [value, setValue] = useState('');
+const data = [{ label: 'Tea', value: 'tea' }, { label: 'Beer', value: 'beer' }];
+
+return (
+  <div>
+    <Select
+      className="my-select"
+      data={data}
+      value={value}
+      onchange={(event) => { setValue(event.detail.value) }}
+    />
+    ...
+  </div>
+)
 ```
 
 ## Testing With Jest
 
 If you use [Create React App](https://create-react-app.dev/), Jest is already included out of the box with useful defaults.
-
-### Jest configuration
 
 By default, Jest doesn't transform dependencies inside `/node_modules` folder, it will not understand the code and resulting in syntax error. You need to use `transformIgnorePatterns` to allow transpiling EF modules, and other modules if requires [see more](https://jestjs.io/docs/configuration#transformignorepatterns-arraystring).
 
