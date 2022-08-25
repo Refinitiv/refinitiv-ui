@@ -10,7 +10,7 @@ import { getItemKey } from '../helpers.js';
 export class LocalStorage implements CacheStorage {
 
   /**
-   * Database for this class. Prefix for key of all items.
+   * Database name.
    */
   protected dbName = '';
 
