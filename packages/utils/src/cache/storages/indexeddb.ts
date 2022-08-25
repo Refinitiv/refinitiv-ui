@@ -6,6 +6,8 @@ import type { CacheStorage } from '../interfaces/CacheStorage';
 import { StoragePrefix } from '../constants.js';
 import { getItemKey } from '../helpers.js';
 
+type DbName = `[${StoragePrefix.DEFAULT}][${string}]`;
+
 interface IndexedDBDatabase extends DBSchema {
   [key: DbName]: {
     key: string;
@@ -13,10 +15,6 @@ interface IndexedDBDatabase extends DBSchema {
   }
 }
 
-/**
- * Literal type for dynamic store name casting to idb
- */
-type DbName = `[${StoragePrefix.DEFAULT}][${string}]`;
 
 /**
  * Returns Error message when unable to connect indexedDB
