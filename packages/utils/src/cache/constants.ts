@@ -1,6 +1,6 @@
 /*
  * Default cache storage name prefix
  */
-export enum StoragePrefix {
+export enum DatabasePrefix {
   DEFAULT = 'ef'
 }
