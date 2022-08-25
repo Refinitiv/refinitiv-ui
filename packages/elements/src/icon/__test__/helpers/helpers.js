@@ -1,6 +1,6 @@
 import { fixture, nextFrame, aTimeout } from "@refinitiv-ui/test-helpers";
 
-export const tickSvg = '<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path stroke="#000" d="M14 4l-8.25 8.25L2 8.5" fill="none" fill-rule="evenodd"></path></svg>';
+export const tickSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path stroke="#000" d="M14 4l-8.25 8.25L2 8.5" fill="none" fill-rule="evenodd"></path></svg>';
 export const iconName = 'tick';
 let iconId = 0;
 
