@@ -52,3 +52,10 @@ export const responseConfigError = {
   status: 404,
   headers: {}
 };
+
+export const isEqualSvg = (svg, otherSvg) => {
+  const parser = new DOMParser();
+  const svgNode = parser.parseFromString(svg, 'image/svg+xml');
+  const otherSvgNode = parser.parseFromString(otherSvg, 'image/svg+xml');
+  return svgNode.isEqualNode(otherSvgNode);
+};
