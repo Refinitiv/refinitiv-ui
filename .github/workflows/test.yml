@@ -34,6 +34,7 @@ jobs:
         run: npm run build:affected -- --base=$BASE_SHA
 
   test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
