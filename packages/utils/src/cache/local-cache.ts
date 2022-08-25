@@ -8,7 +8,7 @@ export type LocalCacheConfig = {
 };
 
 /**
- * Cache utility that simplifies, unifies and enhances native browser storage. 
+ * Cache utility that simplifies, unifies and enhances native browser storage.
  */
 export class LocalCache {
   /**
@@ -42,7 +42,7 @@ export class LocalCache {
    * @param key Cache key
    * @param value Data to store in cache
    * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
-   * @returns Promise void
+   * @returns {void}
    */
   public async set (key: string, value: string, expires = 432000): Promise<void> {
     const modified = Date.now();
@@ -70,7 +70,7 @@ export class LocalCache {
   /**
    * Remove cache data value based on provided key
    * @param key Cache key
-   * @returns Promise void
+   * @returns {void}
    */
   public async remove (key: string): Promise<void> {
     await this.storage.remove(key);
@@ -78,7 +78,7 @@ export class LocalCache {
 
   /**
    * Clear all memory cache
-   * @returns Promise void
+   * @returns {void}
    */
   public async clear (): Promise<void> {
     await this.storage.clear();

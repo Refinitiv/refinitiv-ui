@@ -7,7 +7,7 @@ import { StoragePrefix } from '../constants.js';
 import { getItemKey } from '../helpers.js';
 
 interface IndexedDBDatabase extends DBSchema {
-  [key: StoreName]: {
+  [key: DbName]: {
     key: string;
     value: CacheItem;
   }
@@ -16,7 +16,7 @@ interface IndexedDBDatabase extends DBSchema {
 /**
  * Literal type for dynamic store name casting to idb
  */
-type StoreName = `[${StoragePrefix.DEFAULT}][${string}]`;
+type DbName = `[${StoragePrefix.DEFAULT}][${string}]`;
 
 /**
  * Returns Error message when unable to connect indexedDB
@@ -36,7 +36,7 @@ export class IndexedDBStorage implements CacheStorage {
   /**
    * Database name.
    */
-  protected dbName: StoreName;
+  protected dbName: DbName;
 
   /**
    * IDB's database instance
@@ -116,16 +116,16 @@ export class IndexedDBStorage implements CacheStorage {
 
   /**
    * Restores all values into memory cache
-   * @returns Promise void
+   * @returns {void}
    */
   public async restore (): Promise<void> {
-    const cacheItems = new Map() as CacheMap;
+    const cache: CacheMap = new Map();
     let cursor = await this.db?.transaction(this.dbName, 'readonly').store.openCursor();
     while (cursor) {
-      cacheItems.set(cursor.key, cursor.value);
+      cache.set(cursor.key, cursor.value);
       cursor = await cursor.continue();
     }
-    this.cache = cacheItems;
+    this.cache = cache;
   }
 
   /**
