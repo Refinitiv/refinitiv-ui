@@ -233,7 +233,7 @@ export class Item extends ControlElement {
         text += this.label;
       }
       if (this.subLabel) {
-        text += ` (${this.subLabel})`;
+        text += text ? ` (${this.subLabel})` : this.subLabel;
       }
       return text;
     }
