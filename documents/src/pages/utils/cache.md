@@ -13,8 +13,10 @@ LocalCache utility provides an alternative way to store data locally in browser.
 
 LocalCache is a high level asynchronous class that wraps the selected storage type. It requires cache database name and storage type in configuration object. There are 2 supported types of storages depending on your use case.
 
-- `localstorage` : simple and fast, but 5MB limit at one site
-- `indexeddb` : low-level storage, store size up to 2GB
+- `localstorage` : default storage option, fastest storage, but 5MB limit at one domain.
+- `indexeddb` : store size up to 2GB.
+
+Here is a common use.
 
 ```typescript
 import { LocalCache } from '@refinitiv-ui/utils/cache.js';

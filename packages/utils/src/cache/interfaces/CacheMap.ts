@@ -1,4 +1,4 @@
-import type { CacheItem } from './interfaces/CacheItem';
+import type { CacheItem } from './CacheItem';
 /**
  * Cache database/map
  */

@@ -1,10 +1,9 @@
 import { openDB } from 'idb';
 import type { DBSchema, IDBPDatabase } from 'idb';
-import type { CacheMap } from '../types';
+import type { CacheMap } from '../interfaces/CacheMap';
 import type { CacheItem } from '../interfaces/CacheItem';
 import type { CacheStorage } from '../interfaces/CacheStorage';
 import { StoragePrefix } from '../constants.js';
-import { getItemKey } from '../helpers.js';
 
 type DbName = `[${StoragePrefix.DEFAULT}][${string}]`;
 
@@ -18,13 +17,12 @@ interface IndexedDBDatabase extends DBSchema {
 
 /**
  * Returns Error message when unable to connect indexedDB
- * Database and Store are same name. Version is 1. So don't try to log a real database config.
  * @param message error message
  * @param dbName database name
  * @returns Error message
  */
 const errorMessage = (message: string, dbName: string): Error => {
-  return new Error(`Unable to connect to indexedDB.\nAttempt connect database is name: ${dbName}. version: 1. store: ${dbName}\n ${message}`);
+  return new Error(`Unable to connect to indexedDB.\nAttempt connect database is name: ${dbName}. store: ${dbName}\n ${message}`);
 };
 
 /**
@@ -73,10 +71,9 @@ export class IndexedDBStorage implements CacheStorage {
    */
   public async set (key: string, value: CacheItem): Promise<void> {
     await this.ready;
-    const itemKey = getItemKey(this.dbName, key);
-    const item = { ...value, itemKey };
-    this.cache?.set(itemKey, item);
-    await this.db?.put(this.dbName, item, itemKey);
+    const item = { ...value, key };
+    this.cache?.set(key, item);
+    await this.db?.put(this.dbName, item, key);
   }
 
   /**
@@ -86,8 +83,7 @@ export class IndexedDBStorage implements CacheStorage {
    */
   public async get (key: string): Promise<CacheItem | null> {
     await this.ready;
-    const itemKey = getItemKey(this.dbName, key);
-    return this.cache?.get(itemKey) || null;
+    return this.cache?.get(key) || null;
   }
 
   /**
@@ -97,9 +93,8 @@ export class IndexedDBStorage implements CacheStorage {
    */
   public async remove (key: string): Promise<void> {
     await this.ready;
-    const itemKey = getItemKey(this.dbName, key);
-    this.cache?.delete(itemKey);
-    await this.db?.delete(this.dbName, itemKey);
+    this.cache?.delete(key);
+    await this.db?.delete(this.dbName, key);
   }
 
   /**

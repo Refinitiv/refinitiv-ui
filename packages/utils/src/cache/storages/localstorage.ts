@@ -1,8 +1,15 @@
-import type { CacheMap } from '../types';
+import type { CacheMap } from '../interfaces/CacheMap';
 import type { CacheItem } from '../interfaces/CacheItem';
 import type { CacheStorage } from '../interfaces/CacheStorage';
 import { StoragePrefix } from '../constants.js';
-import { getItemKey } from '../helpers.js';
+
+/**
+ * Returns a string used for the key
+ * @param prefix prefix from default
+ * @param cacheKey user input key
+ * @returns string key for item
+ */
+const getItemKey = (prefix: string, cacheKey: string): string => `${prefix}[${cacheKey}]`;
 
 /**
  * Stores data in `localStorage` for use across multiple sessions.
@@ -52,6 +59,7 @@ export class LocalStorage implements CacheStorage {
   public async set (key: string, value: CacheItem): Promise<void> {
     const itemKey = getItemKey(this.dbName, key);
     this.cache?.set(itemKey, value);
+    // TODO: try catch for stringify
     return Promise.resolve(localStorage.setItem(itemKey, JSON.stringify(value)));
   }
 

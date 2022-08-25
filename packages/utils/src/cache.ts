@@ -1,4 +1,4 @@
-export { CacheMap } from './cache/types.js';
+export { CacheMap } from './cache/interfaces/CacheMap.js';
 export { LocalCache, LocalCacheConfig } from './cache/local-cache.js';
 
 export { CacheStorage } from './cache/interfaces/CacheStorage.js';
