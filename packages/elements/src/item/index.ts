@@ -8,13 +8,12 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
 import '../icon/index.js';
 import '../checkbox/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
-
+import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData } from './helpers/types';
 export type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData };
 
@@ -128,13 +127,15 @@ export class Item extends ControlElement {
   public for: string | null = null;
 
   /**
-   * Cache label element
+   * Reference to the label element
    */
-  @query('#label')
-  private labelEl?: HTMLElement;
 
-  @query('[part=sub-label]')
-  private subLabelEl?: HTMLElement;
+  private labelRef: Ref<HTMLDivElement> = createRef();
+
+  /**
+   * Reference to the subLabel element
+   */
+  private subLabelRef: Ref<HTMLDivElement> = createRef();
 
   /**
    * True, if there is no slotted content
@@ -225,6 +226,7 @@ export class Item extends ControlElement {
    * @returns return item content from slot or label and sub-label
    */
   private getItemContent (): string {
+    
     if (this.isSlotEmpty) {
       let text = '';
       if (this.label) {
@@ -236,14 +238,14 @@ export class Item extends ControlElement {
       return text;
     }
     else {
-      return this.textContent || '';
+      return this.slotContent;
     }
   }
 
   /**
    * Get element overflown
    * @param element Target element
-   * @returns {boolean} Return true if element is overflown.
+   * @returns return true if element is overflown.
    */
   private isItemElementOverflown (element?: HTMLElement): boolean {
     return element ? isElementOverflown(element) : false;
@@ -251,10 +253,10 @@ export class Item extends ControlElement {
 
   /**
    * Get item overflown
-   * @returns {boolean} Return true if an item is overflown.
+   * @returns return true if an item is overflown.
    */
   private isItemOverflown (): boolean {
-    return this.isItemElementOverflown(this.labelEl) || this.isItemElementOverflown(this.subLabelEl);
+    return this.isItemElementOverflown(this.labelRef.value) || this.isItemElementOverflown(this.subLabelRef.value);
   }
 
   /**
@@ -268,7 +270,7 @@ export class Item extends ControlElement {
    * Get subLabel template if it is defined and no slot content present
    */
   private get subLabelTemplate (): TemplateResult | undefined {
-    return this.subLabel && this.isSlotEmpty ? html`<div part="sub-label">${this.subLabel}</div>` : undefined;
+    return this.subLabel && this.isSlotEmpty ? html`<div part="sub-label" ${ref(this.subLabelRef)}>${this.subLabel}</div>` : undefined;
   }
 
   /**
@@ -276,6 +278,14 @@ export class Item extends ControlElement {
    */
   private get labelTemplate (): TemplateResult | undefined {
     return this.label && this.isSlotEmpty ? html`${this.label}` : undefined;
+  }
+
+  /**
+   * Get label template if it is defined and no slot content present
+   */
+  private get slotContent (): string {
+    const slot = this.labelRef.value?.querySelector('[part=center] slot') as HTMLSlotElement;
+    return slot.assignedNodes().map(e => e.textContent).join(' ').trim();
   }
 
   /**
@@ -316,7 +326,7 @@ export class Item extends ControlElement {
         ${this.multipleTemplate}
         <slot name="left"></slot>
       </div>
-      <div part="center" id="label">
+      <div part="center" id="label" ${ref(this.labelRef)}>
         ${this.labelTemplate}
         <slot @slotchange="${this.checkSlotChildren}"></slot>
         ${this.subLabelTemplate}

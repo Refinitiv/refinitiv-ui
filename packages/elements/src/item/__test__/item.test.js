@@ -159,51 +159,27 @@ describe('item/Item', () => {
       expect(el.highlightable).to.equal(false);
     });
 
-    it('Should truncate text', async () => {
+    it('Should truncate item text', async () => {
       const div = await createFixture('is_truncated');
       const el = div.querySelector('ef-item');
-      const tooltip = el.ownerDocument.querySelector('ef-tooltip[ref=title-override]');
-      await elementUpdated(el);
-      await nextFrame();
-      await mouseMove({
-        target: el,
-      });
-      expect(tooltip.opened, 'Tooltip should he shown').to.equal(true);
+      expect(el.isItemOverflown(), 'Should truncate text').to.equal(true);
     });
 
     it('Should truncate label', async () => {
       const div = await createFixture('is_truncated_label');
       const el = div.querySelector('ef-item');
-      const tooltip = el.ownerDocument.querySelector('ef-tooltip[ref=title-override]');
-      await elementUpdated(el);
-      await nextFrame();
-      await mouseMove({
-        target: el,
-      });
-      expect(tooltip.opened, 'Tooltip should he shown').to.equal(true);
+      expect(el.isItemOverflown(), 'Should truncate text').to.equal(true);
     });
 
     it('Should truncate subLabel', async () => {
       const div = await createFixture('is_truncated_subLabel');
       const el = div.querySelector('ef-item');
-      const tooltip = el.ownerDocument.querySelector('ef-tooltip[ref=title-override]');
-      await elementUpdated(el);
-      await nextFrame();
-      await mouseMove({
-        target: el,
-      });
-      expect(tooltip.opened, 'Tooltip should he shown').to.equal(true);
+      expect(el.isItemOverflown(), 'Should truncate text').to.equal(true);
     });
 
-    it('Should not truncate text', async () => {
+    it('Should not truncate item text', async () => {
       const el = await createFixture();
-      const tooltip = el.ownerDocument.querySelector('ef-tooltip[ref=title-override]');
-      await elementUpdated(el);
-      await nextFrame();
-      await mouseMove({
-        target: el,
-      });
-      expect(tooltip.opened, 'Tooltip is not opened').to.equal(false);
+      expect(el.isItemOverflown(), 'Should not truncate text').to.equal(false);
     });
   });
 
