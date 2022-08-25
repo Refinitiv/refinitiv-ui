@@ -8,7 +8,7 @@ export type LocalCacheConfig = {
 };
 
 /**
- * Stores data in a local cache that can be specified to be stored in localstorage or indexedDB.
+ * Cache utility that simplifies, unifies and enhances native browser storage. 
  */
 export class LocalCache {
   /**
