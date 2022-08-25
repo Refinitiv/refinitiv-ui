@@ -3,7 +3,7 @@ on:
   schedule:
     - cron: '0 0 * * *'
 env:
-  USE_BROWSERSTACK: ${{ secrets.USE_BROWSERSTACK }}
+  USE_BROWSERSTACK: "true"
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Nightly Test ${{ github.run_number }}"
