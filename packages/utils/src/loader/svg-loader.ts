@@ -1,7 +1,6 @@
 import { LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
-// Create cache and select the storage
 const cache = new LocalCache('svg-loader', { storage: 'indexeddb' });
 
 /**
