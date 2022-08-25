@@ -95,7 +95,7 @@ export class LocalStorage implements CacheStorage {
    * @returns Promise void
    */
   public async restore (): Promise<void> {
-    const items = new Map<string, CacheItem>();
+   const cache: CacheMap = new Map();
     const keys = Object.keys(localStorage).filter(key => key.startsWith(this.dbName));
 
     for (let i = 0; i < keys.length; i += 1) {
