@@ -59,8 +59,15 @@ export class LocalStorage implements CacheStorage {
   public async set (key: string, value: CacheItem): Promise<void> {
     const itemKey = getItemKey(this.dbName, key);
     this.cache?.set(itemKey, value);
-    // TODO: try catch for stringify
-    return Promise.resolve(localStorage.setItem(itemKey, JSON.stringify(value)));
+
+    try {
+      localStorage.setItem(itemKey, JSON.stringify(value));
+    }
+    catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(`Improper value. Couldn't store at key: ${itemKey}.`, e);
+    }
+    return Promise.resolve();
   }
 
   /**
