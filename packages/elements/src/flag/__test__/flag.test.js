@@ -13,7 +13,8 @@ import {
   checkRequestedUrl,
   createFakeResponse,
   responseConfigSuccess,
-  responseConfigError
+  responseConfigError,
+  isEqualSvg
 } from './helpers/helpers';
 import sinon from 'sinon';
 
@@ -37,7 +38,7 @@ describe('flag/Flag', () => {
       const el = await createAndWaitForLoad(`<ef-flag flag="${flagName}"></ef-flag>`);
       const svg = el.shadowRoot.querySelector('svg');
       expect(svg).to.not.equal(null, 'SVG element should exist for valid flag attribute');
-      expect(svg.outerHTML).to.equal(gbSvg, 'Should render SVG, from the server response');
+      expect(isEqualSvg(svg.outerHTML, gbSvg)).to.equal(true, 'Should render SVG, from the server response');
     });
 
     it('with valid src attribute', async () => {
@@ -46,7 +47,7 @@ describe('flag/Flag', () => {
       const svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');
-      expect(svg.outerHTML).to.equal(gbSvg, 'Should render SVG, from the server response');
+      expect(isEqualSvg(svg.outerHTML, gbSvg)).to.equal(true, 'Should render SVG, from the server response');
     });
 
     it('with invalid flag attribute', async () => {

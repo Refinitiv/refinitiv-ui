@@ -49,8 +49,8 @@ const stripUnsafeNodes = (...elements: Node[]): void => {
  * @returns Is valid SVG
  */
 const isValidResponse = (response: Response | undefined): response is Response => {
-  const isSVG = !!response?.headers.get('content-type')?.startsWith('image/svg+xml');
-  return !!response && response.ok && response.status === 200 && isSVG;
+  const isSVG = Boolean(response?.headers.get('content-type')?.startsWith('image/svg+xml'));
+  return Boolean(response) && Boolean(response?.ok) && response?.status === 200 && isSVG;
 };
 
 /**
