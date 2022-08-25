@@ -1,7 +1,7 @@
 import type { CacheMap } from '../interfaces/CacheMap';
 import type { CacheItem } from '../interfaces/CacheItem';
 import type { CacheStorage } from '../interfaces/CacheStorage';
-import { StoragePrefix } from '../constants.js';
+import { DatabasePrefix } from '../constants.js';
 
 /**
  * Returns a string used for the key
@@ -31,7 +31,7 @@ export class LocalStorage implements CacheStorage {
    * @param name prefix key for all item
    */
   constructor (name: string) {
-    this.dbName = `[${StoragePrefix.DEFAULT}][${name}]`;
+    this.dbName = `[${DatabasePrefix.DEFAULT}][${name}]`;
     void this.getReady();
   }
 

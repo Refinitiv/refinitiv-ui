@@ -3,9 +3,9 @@ import type { DBSchema, IDBPDatabase } from 'idb';
 import type { CacheMap } from '../interfaces/CacheMap';
 import type { CacheItem } from '../interfaces/CacheItem';
 import type { CacheStorage } from '../interfaces/CacheStorage';
-import { StoragePrefix } from '../constants.js';
+import { DatabasePrefix } from '../constants.js';
 
-type DbName = `[${StoragePrefix.DEFAULT}][${string}]`;
+type DbName = `[${DatabasePrefix.DEFAULT}][${string}]`;
 
 interface IndexedDBDatabase extends DBSchema {
   [key: DbName]: {
@@ -59,7 +59,7 @@ export class IndexedDBStorage implements CacheStorage {
    * @param name database name
    */
   constructor (name: string) {
-    this.dbName = `[${StoragePrefix.DEFAULT}][${name}]`;
+    this.dbName = `[${DatabasePrefix.DEFAULT}][${name}]`;
     void this.open();
   }
 
