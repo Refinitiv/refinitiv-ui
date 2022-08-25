@@ -35,8 +35,11 @@ describe('icon/Icon', () => {
 
     it('with valid icon attribute', async () => {
       createFakeResponse(tickSvg, responseConfigSuccess);
+      console.log('tickSvg', tickSvg);
       const el = await createAndWaitForLoad(`<ef-icon icon="${iconName}"></ef-icon>`);
       const svg = el.shadowRoot.querySelector('svg');
+      console.log('svg', svg);
+      console.log('svg.outerHTML', svg.outerHTML);
       expect(svg).to.not.equal(null, 'SVG element should exist for valid icon attribute');
       expect(svg.outerHTML).to.equal(tickSvg, 'Should render SVG, from the server response');
     });
