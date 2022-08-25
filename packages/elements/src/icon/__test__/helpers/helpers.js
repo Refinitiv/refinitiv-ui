@@ -13,7 +13,7 @@ export const createAndWaitForLoad = async template => {
 
 export const checkRequestedUrl = (requests, url) =>{
     for (let i = 0; i < requests.length; i++) {
-      if(requests[i].url === url){
+      if(requests[i][0] === url){
         return true;
       }
     }
