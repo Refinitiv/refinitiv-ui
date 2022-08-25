@@ -47,7 +47,7 @@ export class LocalStorage implements CacheStorage {
    * Set a item against a key to this storage
    * @param key Cache key
    * @param value Data to store in cache
-   * @returns Promise void
+   * @returns {void}
    */
   public async set (key: string, value: CacheItem): Promise<void> {
     const itemKey = getItemKey(this.dbName, key);
@@ -56,9 +56,9 @@ export class LocalStorage implements CacheStorage {
   }
 
   /**
-   * Returns a item in this storage that matched by the key.
+   * Returns an item from cache database using provided key
    * @param key Cache key
-   * @returns Promise string data or `null` if nothing is cached
+   * @returns CacheItem or `null` if nothing is cached
    */
   public async get (key: string): Promise<CacheItem | null> {
     const itemKey = getItemKey(this.dbName, key);
@@ -66,9 +66,9 @@ export class LocalStorage implements CacheStorage {
   }
 
   /**
-   * Remove a item against a key to this storage
+   * Removes an item from cache database using provided key
    * @param key Cache key to remove
-   * @returns Promise void
+   * @returns {void}
    */
   public async remove (key: string): Promise<void> {
     const itemKey = getItemKey(this.dbName, key);
@@ -76,8 +76,8 @@ export class LocalStorage implements CacheStorage {
   }
 
   /**
-   * Clear all items in localStorage
-   * @returns Promise void
+   * Clears all items in localStorage
+   * @returns {void}
    */
   public async clear (): Promise<void> {
     const keys = Object.keys(localStorage);
@@ -91,25 +91,25 @@ export class LocalStorage implements CacheStorage {
   }
 
   /**
-   * Restore all values into memory cache
-   * @returns Promise void
+   * Restores all values into memory cache
+   * @returns {void}
    */
   public async restore (): Promise<void> {
-   const cache: CacheMap = new Map();
+    const cache: CacheMap = new Map();
     const keys = Object.keys(localStorage).filter(key => key.startsWith(this.dbName));
 
     for (let i = 0; i < keys.length; i += 1) {
       const item = this.retrieve(keys[i]);
       if (item) {
-        items.set(keys[i], item);
+        cache.set(keys[i], item);
       }
     }
-    this.cache = items;
+    this.cache = cache;
     return Promise.resolve();
   }
 
   /**
-   * Retrieve cache item from localStorage
+   * Retrieves cache item from localStorage
    * @param key key to retrieve value
    * @returns data from the key
    */

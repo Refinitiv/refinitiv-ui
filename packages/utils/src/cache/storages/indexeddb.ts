@@ -34,18 +34,17 @@ const errorMessage = (message: string, dbName: string): Error => {
  */
 export class IndexedDBStorage implements CacheStorage {
   /**
-   * Prefix for database name, store name, and key of all items
-   * to avoid database to clash with other storages.
+   * Database name.
    */
   protected dbName: StoreName;
 
   /**
-   * A connection to a indexedDB database, use for open transaction or idb api
+   * IDB's database instance
    */
   private db: IDBPDatabase<IndexedDBDatabase> | undefined;
 
   /**
-   * Database Version.
+   * Database version
    */
   private version = 1;
 
@@ -55,13 +54,13 @@ export class IndexedDBStorage implements CacheStorage {
   protected cache: CacheMap | null | undefined;
 
   /**
-   * Cache ready to use
+   * Flag to check if cache database is ready to use
    */
   protected ready: Promise<boolean> | null = null;
 
   /**
    * Constructor
-   * @param name for database name and store name
+   * @param name database name
    */
   constructor (name: string) {
     this.dbName = `[${StoragePrefix.DEFAULT}][${name}]`;
@@ -69,7 +68,7 @@ export class IndexedDBStorage implements CacheStorage {
   }
 
   /**
-   * Set a item against a key to this storage
+   * Set item against a key
    * @param key item key
    * @param value item value
    * @returns {void}
@@ -83,9 +82,9 @@ export class IndexedDBStorage implements CacheStorage {
   }
 
   /**
-   * Returns a item in this storage that matched by the key.
+   * Returns an item from cache database using provided key
    * @param key item key
-   * @returns cache item or null
+   * @returns CacheItem or `null` if nothing is cached
    */
   public async get (key: string): Promise<CacheItem | null> {
     await this.ready;
@@ -94,7 +93,7 @@ export class IndexedDBStorage implements CacheStorage {
   }
 
   /**
-   * Remove a item against a key to this storage
+   * Removes an item from cache database using provided key
    * @param key item key
    * @returns {void}
    */
@@ -106,7 +105,7 @@ export class IndexedDBStorage implements CacheStorage {
   }
 
   /**
-   * Clear all items in this storage
+   * Clears all items in this storage
    * @returns {void}
    */
   public async clear (): Promise<void> {
@@ -116,7 +115,7 @@ export class IndexedDBStorage implements CacheStorage {
   }
 
   /**
-   * Restore all values into memory cache
+   * Restores all values into memory cache
    * @returns Promise void
    */
   public async restore (): Promise<void> {
