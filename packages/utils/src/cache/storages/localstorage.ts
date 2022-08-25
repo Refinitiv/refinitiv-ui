@@ -11,7 +11,6 @@ export class LocalStorage implements CacheStorage {
 
   /**
    * Database for this class. Prefix for key of all items.
-   * to avoid key to clash with other.
    */
   protected dbName = '';
 
