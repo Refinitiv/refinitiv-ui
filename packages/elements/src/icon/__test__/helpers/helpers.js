@@ -5,19 +5,19 @@ export const iconName = 'tick';
 let iconId = 0;
 
 export const createAndWaitForLoad = async template => {
-    const el = await fixture(template);
-    await aTimeout(50);
-    await nextFrame();
-    return el;
+  const el = await fixture(template);
+  await aTimeout(50);
+  await nextFrame();
+  return el;
 };
 
 export const checkRequestedUrl = (requests, url) =>{
-    for (let i = 0; i < requests.length; i++) {
-      if(requests[i][0] === url){
-        return true;
-      }
+  for (let i = 0; i < requests.length; i++) {
+    if(requests[i][0] === url){
+      return true;
     }
-    return false;
+  }
+  return false;
 }
 
 export const generateUniqueName = name => `${name}_${iconId+=1}`;

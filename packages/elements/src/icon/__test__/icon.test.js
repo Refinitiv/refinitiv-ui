@@ -1,11 +1,8 @@
-import sinon from 'sinon';
 import { elementUpdated, expect } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/icon';
 import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
 import { preload } from '@refinitiv-ui/elements/icon';
-
-// ignore changes in test.js
 
 import {
   createAndWaitForLoad,
@@ -18,6 +15,7 @@ import {
   responseConfigSuccess,
   responseConfigError
 } from './helpers/helpers';
+import sinon from 'sinon';
 
 describe('icon/Icon', () => {
   let fetch;
@@ -214,21 +212,22 @@ describe('icon/Icon', () => {
       const secondUniqueIconSrc = createMockSrc(secondUniqueIcon);
       const uniqueInvalidIconSrc = `${CDNPrefix}${uniqueInvalidIcon}.svg`;
 
-      createFakeResponse(tickSvg, responseConfigSuccess);
-      createFakeResponse(tickSvg, responseConfigSuccess);
-      createFakeResponse('', responseConfigError);
-
-      const preloadedIcons = await Promise.all(
-        preload(firstUniqueIcon, secondUniqueIconSrc, uniqueInvalidIcon)
+      createFakeResponse(tickSvg, responseConfigSuccess);      
+      let preloadedIcons = await Promise.all(
+        preload(firstUniqueIcon, secondUniqueIconSrc)
       );
+      createFakeResponse('', responseConfigError);
+      preloadedIcons = [...preloadedIcons, ...await Promise.all(
+        preload(uniqueInvalidIcon)
+      )];
 
       expect(fetch.callCount).to.equal(3, 'Server requests for all preloaded icons should be made');
       expect(checkRequestedUrl(fetch.args, firstUniqueIconSrc)).to.equal(true, 'should request icons by name with CDN prefix');
       expect(checkRequestedUrl(fetch.args, secondUniqueIconSrc)).to.equal(true, 'should request icons with src');
       expect(checkRequestedUrl(fetch.args, uniqueInvalidIconSrc)).to.equal(true, 'should try to request invalid icon');
-      // expect(preloadedIcons[0].length > 0).to.equal(true, 'Should successfully preload icon by name with CDN prefix');
-      // expect(preloadedIcons[1].length > 0).to.equal(true, 'Should successfully preload icons with src');
-      // expect(preloadedIcons[2], 'Should not preload invalid icon').to.be.undefined;
+      expect(preloadedIcons[0].length > 0).to.equal(true, 'Should successfully preload icon by name with CDN prefix');
+      expect(preloadedIcons[1].length > 0).to.equal(true, 'Should successfully preload icons with src');
+      expect(preloadedIcons[2], 'Should not preload invalid icon').to.be.undefined;
       el.setAttribute('icon', firstUniqueIcon);
       await elementUpdated(el);
 
