@@ -138,6 +138,11 @@ export class Item extends ControlElement {
   private subLabelRef: Ref<HTMLDivElement> = createRef();
 
   /**
+   * Reference to the subLabel element
+   */
+  private slotRef: Ref<HTMLDivElement> = createRef();
+
+  /**
    * True, if there is no slotted content
    */
   private isSlotEmpty = true;
@@ -281,10 +286,10 @@ export class Item extends ControlElement {
   }
 
   /**
-   * Get label template if it is defined and no slot content present
+   * Get slot content
    */
   private get slotContent (): string {
-    const slot = this.labelRef.value?.querySelector('[part=center] slot') as HTMLSlotElement;
+    const slot = this.slotRef.value as unknown as HTMLSlotElement;
     return slot.assignedNodes().map(e => e.textContent).join(' ').trim();
   }
 
@@ -326,9 +331,9 @@ export class Item extends ControlElement {
         ${this.multipleTemplate}
         <slot name="left"></slot>
       </div>
-      <div part="center" id="label" ${ref(this.labelRef)}>
+      <div part="center" ${ref(this.labelRef)}>
         ${this.labelTemplate}
-        <slot @slotchange="${this.checkSlotChildren}"></slot>
+        <slot ${ref(this.slotRef)} @slotchange="${this.checkSlotChildren}"></slot>
         ${this.subLabelTemplate}
       </div>
       <div part="right">
