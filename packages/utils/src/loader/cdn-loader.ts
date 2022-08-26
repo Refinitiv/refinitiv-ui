@@ -54,7 +54,7 @@ export class CDNLoader {
       return await fetch(href);
     }
     catch (e) {
-      // Failed response...
+      // Failed response. Prevent the item attached in cache.
       this.responseCache.delete(href);
       let errorMessage = '';
       if (e instanceof Error) {

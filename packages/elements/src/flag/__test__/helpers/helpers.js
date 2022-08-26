@@ -30,11 +30,11 @@ export const createFakeResponse = (body, config = responseConfigSuccess) => {
     ok,
     status,
     headers,
-    clone: () => {
+    clone: () => ({
       text: async () => {
         return await Promise.resolve(body);
       }
-    }
+    })
   });
   window.fetch.returns(Promise.resolve(response));
 }

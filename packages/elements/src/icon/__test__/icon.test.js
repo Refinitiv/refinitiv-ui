@@ -38,6 +38,8 @@ describe('icon/Icon', () => {
       createFakeResponse(tickSvg, responseConfigSuccess);
       const el = await createAndWaitForLoad(`<ef-icon icon="${iconName}"></ef-icon>`);
       const svg = el.shadowRoot.querySelector('svg');
+      const CDNPrefix = el.getComputedVariable('--cdn-prefix');
+      expect(el.src).to.equal(`${CDNPrefix}${iconName}.svg`);
       expect(svg).to.not.equal(null, 'SVG element should exist for valid icon attribute');
       expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
     });
@@ -55,7 +57,8 @@ describe('icon/Icon', () => {
       createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ef-icon icon="invalid"></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
-
+      const CDNPrefix = el.getComputedVariable('--cdn-prefix');
+      expect(el.src).to.equal(`${CDNPrefix}${iconName}.svg`);
       expect(svg).to.equal(null, 'SVG element should not exist for invalid icon attribute');
     });
 
@@ -71,7 +74,8 @@ describe('icon/Icon', () => {
       createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ef-icon icon=""></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
-
+      const CDNPrefix = el.getComputedVariable('--cdn-prefix');
+      expect(el.src).to.equal(`${CDNPrefix}${iconName}.svg`);
       expect(svg).to.equal(null, 'SVG element should not exist for empty icon attribute');
     });
 
@@ -185,7 +189,7 @@ describe('icon/Icon', () => {
       const expectedSrc = `${CDNPrefix}${uniqueIconName}.svg`;
 
       expect(fetch.callCount).to.equal(1, 'Should make one request');
-      expect(fetch.args[0][0]).to.equal(expectedSrc, `requested URL should be ${expectedSrc} for the icon ${uniqueIconName}`);
+      expect(checkRequestedUrl(fetch.args, expectedSrc)).to.equal(true, `requested URL should be ${expectedSrc} for the icon ${uniqueIconName}`);
     });
 
     it('should make a correct server request based on src', async () => {
@@ -195,7 +199,7 @@ describe('icon/Icon', () => {
       await createAndWaitForLoad(`<ef-icon src="${uniqueSrc}"></ef-icon>`);
 
       expect(fetch.callCount).to.equal(1, 'Should make one request');
-      expect(fetch.args[0][0]).to.equal(uniqueSrc, `requested URL should be ${uniqueSrc}`);
+      expect(checkRequestedUrl(fetch.args, uniqueSrc)).to.equal(true, `requested URL should be ${uniqueSrc}`);
     });
 
     it('should preload icons', async () => {
