@@ -1,4 +1,7 @@
+import { LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
+
+const cache = new LocalCache('svg-loader', { storage: 'indexeddb' });
 
 /**
  * Checks a string to see if it's a valid URL
@@ -63,7 +66,7 @@ const extractSafeSVG = async (response: Response | undefined): Promise<SVGElemen
     // clone to support preload to prevent locked response
     const responseText = await response.clone().text();
     const svgDocument = new window.DOMParser().parseFromString(responseText, 'image/svg+xml');
-    const svg = svgDocument.firstElementChild;
+    const svg = svgDocument.children[svgDocument.children.length - 1];
     if (svg instanceof SVGElement) {
       stripUnsafeNodes(svg);
       return svg;
@@ -77,6 +80,10 @@ const extractSafeSVG = async (response: Response | undefined): Promise<SVGElemen
  * Uses singleton pattern
  */
 export class SVGLoader extends CDNLoader {
+  /**
+   * Used to serialise SVG to string in order to cache
+   */
+  private xmlSerializer: XMLSerializer = new XMLSerializer();
 
   /**
    * Creates complete source using CDN prefix and src.
@@ -100,9 +107,18 @@ export class SVGLoader extends CDNLoader {
     if (!name) {
       return;
     }
+
     const src = await this.getSrc(name);
-    const response = await this.load(src);
-    const svg = await extractSafeSVG(response);
-    return svg?.outerHTML;
+
+    const cacheItem = await cache.get(src);
+    if (cacheItem === null) {
+      const response = await this.load(src);
+      const svg = await extractSafeSVG(response);
+      const svgBody = svg?.outerHTML;
+      svgBody && cache.set(src, svgBody);
+      return svgBody;
+    }
+
+    return cacheItem;
   }
 }
