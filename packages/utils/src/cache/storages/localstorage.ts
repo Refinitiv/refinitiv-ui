@@ -28,7 +28,7 @@ export class LocalStorage implements CacheStorage {
 
   /**
    * Constructor
-   * @param name prefix key for all item
+   * @param name name of the storage
    */
   constructor (name: string) {
     this.dbName = `[${DatabasePrefix.DEFAULT}][${name}]`;

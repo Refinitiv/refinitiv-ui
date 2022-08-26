@@ -5,10 +5,10 @@ import type { CacheItem } from '../interfaces/CacheItem';
 import type { CacheStorage } from '../interfaces/CacheStorage';
 import { DatabasePrefix } from '../constants.js';
 
-type DbName = `[${DatabasePrefix.DEFAULT}][${string}]`;
+type DBName = `[${DatabasePrefix.DEFAULT}][${string}]`;
 
 interface IndexedDBDatabase extends DBSchema {
-  [key: DbName]: {
+  [key: DBName]: {
     key: string;
     value: CacheItem;
   }
@@ -32,7 +32,7 @@ export class IndexedDBStorage implements CacheStorage {
   /**
    * Database name.
    */
-  protected dbName: DbName;
+  protected dbName: DBName;
 
   /**
    * IDB's database instance
@@ -42,7 +42,7 @@ export class IndexedDBStorage implements CacheStorage {
   /**
    * Database version
    */
-  private version = 1;
+  private readonly version = 1;
 
   /**
    * Internal cache object
