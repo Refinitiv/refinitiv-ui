@@ -65,7 +65,7 @@ export class LocalStorage implements CacheStorage {
     }
     catch (e) {
       // eslint-disable-next-line no-console
-      console.error(`Improper value. Couldn't store at key: ${itemKey}.`, e);
+      console.error(`Couldn't store at key: ${itemKey}.`, e);
     }
     return Promise.resolve();
   }
