@@ -1,32 +1,7 @@
-import { elementUpdated, expect, fixture, nextFrame, aTimeout } from '@refinitiv-ui/test-helpers';
-import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/item';
 import '@refinitiv-ui/elemental-theme/light/ef-item';
-
-const ShowDelay = 300;
-const HideDelay = 150;
-const TransitionTime = 500; // opacity
-
-// there is show delay and animation. Take care of all of that
-const mouseMove = async (config = {}) => {
-  const {
-    target = document,
-    showDelay = ShowDelay,
-    hideDelay = HideDelay,
-    transitionTime = TransitionTime
-  } = config;
-  const event = new MouseEvent('mousemove', {
-    target,
-    bubbles: true,
-    cancelable: true,
-    view: document.defaultView
-  });
-  await nextFrame();
-  target.dispatchEvent(event);
-  await aTimeout((config.target ? showDelay : hideDelay) + transitionTime + 5); /* 5 for general mousemove delay */
-  await nextFrame();
-};
 
 const createFixture = (type = '') => {
   switch (type) {
