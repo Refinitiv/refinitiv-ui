@@ -275,14 +275,14 @@ export class Item extends ControlElement {
    * Get subLabel template if it is defined and no slot content present
    */
   private get subLabelTemplate (): TemplateResult | undefined {
-    return this.subLabel && this.isSlotEmpty ? html`<div part="sub-label" ${ref(this.subLabelRef)}>${this.subLabel}</div>` : undefined;
+    return html`<div part="sub-label" ${ref(this.subLabelRef)}>${this.subLabel}</div>`;
   }
 
   /**
    * Get label template if it is defined and no slot content present
    */
   private get labelTemplate (): TemplateResult | undefined {
-    return this.label && this.isSlotEmpty ? html`${this.label}` : undefined;
+    return html`${this.label}`;
   }
 
   /**
@@ -332,9 +332,9 @@ export class Item extends ControlElement {
         <slot name="left"></slot>
       </div>
       <div part="center" ${ref(this.labelRef)}>
-        ${this.labelTemplate}
+        ${this.label && this.isSlotEmpty ? this.labelTemplate : undefined}
         <slot ${ref(this.slotRef)} @slotchange="${this.checkSlotChildren}"></slot>
-        ${this.subLabelTemplate}
+        ${this.subLabel && this.isSlotEmpty ? this.subLabelTemplate : undefined}
       </div>
       <div part="right">
         <slot name="right"></slot>
