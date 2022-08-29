@@ -8,7 +8,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **halo-theme:** sync color due to Grid style updated ([23e6f40](https://github.com/Refinitiv/refinitiv-ui/commit/23e6f405722458b0ee261e088be4781c7ded6e9d))
+* **grid:** sync color due to Grid style updated ([23e6f40](https://github.com/Refinitiv/refinitiv-ui/commit/23e6f405722458b0ee261e088be4781c7ded6e9d))
 * **list-item:** incorrect style on halo theme ([#432](https://github.com/Refinitiv/refinitiv-ui/issues/432)) ([3d8a7dc](https://github.com/Refinitiv/refinitiv-ui/commit/3d8a7dc890e54c6a4dec1e2acf8b0097db9a53e2))
 
 
