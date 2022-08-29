@@ -173,9 +173,9 @@ describe('flag/Flag', () => {
 
       expect(CDNPrefix, 'CDN prefix should exist to create the src based on the flag').to.exist;
       const expectedSrc = `${CDNPrefix}${uniqueFlagName}.svg`;
-
+      
       expect(fetch.callCount).to.equal(1, 'Should make one request');
-      expect(fetch.args[0][0]).to.equal(expectedSrc, `requested URL should be ${expectedSrc} for the flag ${uniqueFlagName}`);
+      expect(checkRequestedUrl(fetch.args, expectedSrc)).to.equal(true, `requested URL should be ${expectedSrc} for the flag ${uniqueFlagName}`);
     });
 
     it('should make a correct server request based on src', async () => {
@@ -185,7 +185,7 @@ describe('flag/Flag', () => {
 
       await createAndWaitForLoad(`<ef-flag src="${uniqueSrc}"></ef-flag>`);
       expect(fetch.callCount).to.equal(1, 'Should make one request');
-      expect(fetch.args[0][0]).to.equal(uniqueSrc, `requested URL should be ${uniqueSrc}`);
+      expect(checkRequestedUrl(fetch.args, uniqueSrc)).to.equal(true, `requested URL should be ${uniqueSrc}`);
     });
 
     it('should preload flags', async () => {

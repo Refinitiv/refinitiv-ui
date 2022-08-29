@@ -57,8 +57,6 @@ describe('icon/Icon', () => {
       createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ef-icon icon="invalid"></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
-      const CDNPrefix = el.getComputedVariable('--cdn-prefix');
-      expect(el.src).to.equal(`${CDNPrefix}${iconName}.svg`);
       expect(svg).to.equal(null, 'SVG element should not exist for invalid icon attribute');
     });
 
@@ -74,8 +72,6 @@ describe('icon/Icon', () => {
       createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ef-icon icon=""></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
-      const CDNPrefix = el.getComputedVariable('--cdn-prefix');
-      expect(el.src).to.equal(`${CDNPrefix}${iconName}.svg`);
       expect(svg).to.equal(null, 'SVG element should not exist for empty icon attribute');
     });
 
