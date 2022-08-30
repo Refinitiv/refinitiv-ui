@@ -7,7 +7,7 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../../version.js';
 import { rgb } from '@refinitiv-ui/utils/color.js';
-import { isHex } from '../helpers/color-helpers.js';
+import { isHex } from '@refinitiv-ui/utils/color.js';
 
 /**
  * Element base class usually used

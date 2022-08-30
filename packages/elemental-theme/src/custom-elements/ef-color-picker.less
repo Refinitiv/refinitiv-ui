@@ -1,0 +1,33 @@
+
+@import 'element:ef-color-dialog';
+@import '../responsive';
+
+:host {
+  @color-picker-size: @button-height;
+  @color-picker-border: @control-border-color;
+  @color-picker-focused-border-color: @scheme-color-primary;
+
+  outline: none;
+  box-sizing: border-box;
+  height: @color-picker-size;
+  min-width: @color-picker-size;
+  border: 1px solid @color-picker-border;
+
+  &[disabled], &[readonly] {
+    border-color: @input-disabled-border-color;
+  }
+
+  [part="color-item"] {
+    cursor: pointer;
+    height: 100%;
+  }
+
+  &[disabled] [part="color-item"],
+  &[readonly] [part="color-item"] {
+    pointer-events: none;
+  }
+
+  &[focused=visible] {
+    border-color: @color-picker-focused-border-color;
+  }
+}
