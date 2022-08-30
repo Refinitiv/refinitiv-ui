@@ -12,7 +12,7 @@ describe('color-picker/ColorPicker', () => {
     });
     it('DOM structure is correct when opened', async () => {
       const el = await fixture('<ef-color-picker value="#001EFF" opened></ef-color-picker>');
-      expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class'] });
+      expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class', 'style'] });
     });
   });
 
