@@ -227,7 +227,7 @@ export class ColorPicker extends ControlElement {
       ?opened=${this.opened}
       ?allow-nocolor=${this.allowNocolor}
       @opened-changed=${this.onColorDialogOpenedChanged}
-      @value-changed=${this.onColorDialogValueChanged}></-color-dialog>`;
+      @value-changed=${this.onColorDialogValueChanged}></ef-color-dialog>`;
     }
   }
 
