@@ -138,9 +138,9 @@ export class Item extends ControlElement {
   private subLabelRef: Ref<HTMLDivElement> = createRef();
 
   /**
-   * Reference to the subLabel element
+   * Reference to the slot element
    */
-  private slotRef: Ref<HTMLDivElement> = createRef();
+  private slotRef: Ref<HTMLSlotElement> = createRef();
 
   /**
    * True, if there is no slotted content
