@@ -224,6 +224,7 @@ export class ColorPicker extends ControlElement {
       .focusBoundary=${this}
       .positionTarget=${this}
       .position=${DIALOG_POSITION}
+      .withBackdrop=${false}
       ?opened=${this.opened}
       ?allow-nocolor=${this.allowNocolor}
       @opened-changed=${this.onColorDialogOpenedChanged}

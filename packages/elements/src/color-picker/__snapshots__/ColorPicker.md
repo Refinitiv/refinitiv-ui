@@ -16,15 +16,10 @@
 ####   `DOM structure is correct when opened`
 
 ```html
-<div
-  part="color-item"
-  style="background-color:#001EFF;"
->
+<div part="color-item">
 </div>
 <ef-overlay-viewport>
 </ef-overlay-viewport>
-<ef-overlay-backdrop style="z-index: 103;">
-</ef-overlay-backdrop>
 <ef-color-dialog
   aria-modal="true"
   draggable=""
@@ -32,7 +27,6 @@
   opened=""
   part="dialog"
   role="dialog"
-  style="z-index: 103; pointer-events: auto;"
   tabindex="-1"
   with-shadow=""
 >
