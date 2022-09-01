@@ -151,16 +151,16 @@ export class Dialog extends Overlay {
   public noCancelOnOutsideClick = true;
 
   /**
-  * @ignore
-  * Hiding from document to avoid property overridden
-  */
+   * @ignore
+   * Hiding from document to avoid property overridden
+   */
   @property({ type: Boolean, attribute: false })
   public withBackdrop = true;
 
   /**
-  * @ignore
-  * Hiding from document to avoid property overridden
-  */
+   * @ignore
+   * Hiding from document to avoid property overridden
+   */
   @property({ type: Boolean, reflect: true, attribute: 'with-shadow' })
   public withShadow = true;
 
