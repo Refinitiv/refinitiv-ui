@@ -129,7 +129,6 @@ export class Item extends ControlElement {
   /**
    * Reference to the label element
    */
-
   private labelRef: Ref<HTMLDivElement> = createRef();
 
   /**
