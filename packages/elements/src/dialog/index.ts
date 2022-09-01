@@ -152,12 +152,14 @@ export class Dialog extends Overlay {
 
   /**
   * @ignore
+  * Hiding from document to avoid property overridden
   */
   @property({ type: Boolean, attribute: false })
   public withBackdrop = true;
 
   /**
   * @ignore
+  * Hiding from document to avoid property overridden
   */
   @property({ type: Boolean, reflect: true, attribute: 'with-shadow' })
   public withShadow = true;
