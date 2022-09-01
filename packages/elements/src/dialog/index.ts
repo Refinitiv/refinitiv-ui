@@ -159,7 +159,7 @@ export class Dialog extends Overlay {
   /**
   * @ignore
   */
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean, reflect: true, attribute: 'with-shadow' })
   public withShadow = true;
 
   public disconnectedCallback (): void {
