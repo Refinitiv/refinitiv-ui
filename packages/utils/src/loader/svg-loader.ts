@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
@@ -110,12 +111,19 @@ export class SVGLoader extends CDNLoader {
 
     const src = await this.getSrc(name);
 
+    // Get date from cache first
     const cacheItem = await cache.get(src);
     if (cacheItem === null) {
       const response = await this.load(src);
       const svg = await extractSafeSVG(response);
       const svgBody = svg?.outerHTML;
       svgBody && cache.set(src, svgBody);
+
+      // No need to wait cache written before send message to improve performance
+      if (svgBody) {
+        cache.notify(src, svgBody);
+      }
+
       return svgBody;
     }
 
