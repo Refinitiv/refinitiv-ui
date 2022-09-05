@@ -1,5 +1,4 @@
-import { rgb } from '@refinitiv-ui/utils/color.js';
-import { isHex } from './color-helpers.js';
+import { rgb, isHex } from '@refinitiv-ui/utils/color.js';
 
 const rgbNumberToString = (value: number): string => isNaN(value) ? '' : `${value}`; // replace NaN with empty string
 
