@@ -162,6 +162,8 @@ export class InteractiveChart extends ResponsiveElement {
 
   private hasDataPoint = false;
 
+  private DEFAULT_LEGEND_LEFT_POSITION = 15;
+
   /**
    * @returns return config of property component
    */
@@ -247,11 +249,11 @@ export class InteractiveChart extends ResponsiveElement {
 
   /**
   * Legend value observer
-  * @param value Legend value
+  * @param disabledLegend Legend value
   * @returns {void}
   */
-  private onLegendChange (value: boolean): void {
-    if (!value) {
+  private onLegendChange (disabledLegend: boolean): void {
+    if (!disabledLegend) {
       this.createLegend();
     }
     else {
@@ -342,9 +344,7 @@ export class InteractiveChart extends ResponsiveElement {
       this.mergeConfig(config);
       this.applyChartOptionSize(width, height);
 
-      if (!this.disabledLegend) {
-        this.createLegend();
-      }
+      this.onLegendChange(this.disabledLegend);
 
       if (this.legendStyle === 'horizontal') {
         this.legendContainer.classList.add(this.legendStyle);
@@ -394,6 +394,7 @@ export class InteractiveChart extends ResponsiveElement {
       this.legendContainer.textContent = '';
       this.chart.unsubscribeCrosshairMove(this.handleCrosshairMoved);
       this.legendInitialized = false;
+      this.chart.timeScale().unsubscribeSizeChange(this.onTimeScaleSizeChange);
     }
   }
 
@@ -410,7 +411,6 @@ export class InteractiveChart extends ResponsiveElement {
     this.applyTheme(config);
     this.applyLegendTextColor();
     this.applyStylesBranding();
-    this.applyStyleLegend();
   }
 
   /**
@@ -671,22 +671,6 @@ export class InteractiveChart extends ResponsiveElement {
     }
   }
 
-  /**
-   * Get position config for set position legend
-   * @returns {void}
-   */
-  private applyStyleLegend (): void {
-    if (this.chart) {
-      // Get position config for set position legend
-      const position = this.getPriceScalePosition();
-      if (position === 'left' || position === 'two-price') {
-        this.legendContainer.className = 'yaxis-left';
-      }
-      else {
-        this.legendContainer.className = 'yaxis-right';
-      }
-    }
-  }
 
   /**
    * Get position config for set position logo trading view on chart
@@ -734,6 +718,25 @@ export class InteractiveChart extends ResponsiveElement {
     this.createRowLegend(this.rowLegend, param);
   };
 
+  protected onTimeScaleSizeChange = (): void => {
+    this.handleLegendLeftPosition();
+  };
+
+  /**
+   * Handle left position of legend
+   * @returns {void}
+   */
+  protected handleLegendLeftPosition (): void {
+    const position = this.getPriceScalePosition();
+    if (position === 'left' || position === 'two-price') {
+      const leftPriceScaleWidth = this.chart?.priceScale('left').width() || 0;
+      this.legendContainer.style.left = `${leftPriceScaleWidth + this.DEFAULT_LEGEND_LEFT_POSITION}px`;
+    }
+    else {
+      this.legendContainer.style.left = '15px';
+    }
+  }
+
   /**
    * Create legend element
    * @returns {void}
@@ -745,6 +748,8 @@ export class InteractiveChart extends ResponsiveElement {
         this.rowLegend = this.shadowRoot.querySelectorAll('.row');
       }
       this.chart.subscribeCrosshairMove(this.handleCrosshairMoved);
+      // Legend relates to value of each series that relate to priceScale. But the axis is no event for now. So use x-axis instead.
+      this.chart.timeScale().subscribeSizeChange(this.onTimeScaleSizeChange);
       this.legendInitialized = true;
     }
   }
