@@ -86,6 +86,7 @@ export class InteractiveChart extends ResponsiveElement {
     LARGE_DASHED: 3,
     SPARSE_DOTTED: 4
   };
+  private DEFAULT_LEGEND_LEFT_POSITION = 15;
 
   private _legendStyle?: LegendStyle;
 
@@ -162,7 +163,6 @@ export class InteractiveChart extends ResponsiveElement {
 
   private hasDataPoint = false;
 
-  private DEFAULT_LEGEND_LEFT_POSITION = 15;
 
   /**
    * @returns return config of property component
@@ -718,7 +718,11 @@ export class InteractiveChart extends ResponsiveElement {
     this.createRowLegend(this.rowLegend, param);
   };
 
-  protected onTimeScaleSizeChange = (): void => {
+  /**
+   * Callback uses for sizeChange event
+   * @returns {void}
+   */
+  private onTimeScaleSizeChange = (): void => {
     this.handleLegendLeftPosition();
   };
 
@@ -726,7 +730,7 @@ export class InteractiveChart extends ResponsiveElement {
    * Handle left position of legend
    * @returns {void}
    */
-  protected handleLegendLeftPosition (): void {
+  private handleLegendLeftPosition (): void {
     const position = this.getPriceScalePosition();
     if (position === 'left' || position === 'two-price') {
       const leftPriceScaleWidth = this.chart?.priceScale('left').width() || 0;
