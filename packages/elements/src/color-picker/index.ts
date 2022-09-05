@@ -45,6 +45,8 @@ export class ColorPicker extends ControlElement {
     return VERSION;
   }
 
+  protected readonly defaultRole: string | null = 'button';
+
   /**
    * Set the color dialog to activate no-color option
    */
@@ -111,6 +113,16 @@ export class ColorPicker extends ControlElement {
    */
   private get canOpenPopup (): boolean {
     return !(this.disabled || this.readonly);
+  }
+
+  /**
+   * Called when connected to DOM
+   * @returns {void}
+   */
+  public connectedCallback (): void {
+    super.connectedCallback();
+    // Indicating that this color picker has a dialog
+    this.setAttribute('aria-haspopup', 'dialog');
   }
 
   /**
@@ -212,6 +224,18 @@ export class ColorPicker extends ControlElement {
   }
 
   /**
+   * A template used to notify currently selected value for screen readers
+   * @returns template result
+   */
+  private get selectionTemplate (): TemplateResult {
+    return html`<div
+    part="aria-selection"
+    role="status"
+    aria-live="polite"
+    aria-label="${this.value}"></div>`;
+  }
+
+  /**
    * Color dialog template
    */
   private get dialogTemplate (): TemplateResult | undefined {
@@ -246,6 +270,7 @@ export class ColorPicker extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
+      ${this.selectionTemplate}
       ${this.colorItemTemplate}
       ${this.dialogTemplate}
       `;
