@@ -9,10 +9,7 @@
   <slot name="left">
   </slot>
 </div>
-<div
-  id="label"
-  part="center"
->
+<div part="center">
   <slot>
   </slot>
 </div>
@@ -35,10 +32,7 @@
   <slot name="left">
   </slot>
 </div>
-<div
-  id="label"
-  part="center"
->
+<div part="center">
   <slot>
   </slot>
 </div>
@@ -61,10 +55,7 @@
   <slot name="left">
   </slot>
 </div>
-<div
-  id="label"
-  part="center"
->
+<div part="center">
   <slot>
   </slot>
 </div>
@@ -82,10 +73,7 @@
   <slot name="left">
   </slot>
 </div>
-<div
-  id="label"
-  part="center"
->
+<div part="center">
   tiger
   <slot>
   </slot>
@@ -107,10 +95,7 @@
   <slot name="left">
   </slot>
 </div>
-<div
-  id="label"
-  part="center"
->
+<div part="center">
   tiger
   <slot>
   </slot>
@@ -132,10 +117,7 @@
   <slot name="left">
   </slot>
 </div>
-<div
-  id="label"
-  part="center"
->
+<div part="center">
   <slot>
   </slot>
 </div>
@@ -153,10 +135,7 @@
   <slot name="left">
   </slot>
 </div>
-<div
-  id="label"
-  part="center"
->
+<div part="center">
   <slot>
   </slot>
   <div part="sub-label">
@@ -177,10 +156,7 @@
   <slot name="left">
   </slot>
 </div>
-<div
-  id="label"
-  part="center"
->
+<div part="center">
   tiger
   <slot>
   </slot>
@@ -225,10 +201,7 @@
   <slot name="left">
   </slot>
 </div>
-<div
-  id="label"
-  part="center"
->
+<div part="center">
   <slot>
   </slot>
 </div>
@@ -255,10 +228,7 @@
   <slot name="left">
   </slot>
 </div>
-<div
-  id="label"
-  part="center"
->
+<div part="center">
   <slot>
   </slot>
 </div>
@@ -282,10 +252,7 @@
   <slot name="left">
   </slot>
 </div>
-<div
-  id="label"
-  part="center"
->
+<div part="center">
   <slot>
   </slot>
 </div>
@@ -301,10 +268,7 @@
   <slot name="left">
   </slot>
 </div>
-<div
-  id="label"
-  part="center"
->
+<div part="center">
   <slot>
   </slot>
 </div>
