@@ -288,8 +288,8 @@ export class Item extends ControlElement {
    * Get slot content
    */
   private get slotContent (): string {
-    const slot = this.slotRef.value as HTMLSlotElement;
-    return slot.assignedNodes().map(e => e.textContent).join(' ').trim();
+    const nodes = this.slotRef.value?.assignedNodes() || [];
+    return nodes.map(node => node.textContent).join(' ').trim();
   }
 
   /**
