@@ -731,14 +731,8 @@ export class InteractiveChart extends ResponsiveElement {
    * @returns {void}
    */
   private handleLegendLeftPosition (): void {
-    const position = this.getPriceScalePosition();
-    if (position === 'left' || position === 'two-price') {
-      const leftPriceScaleWidth = this.chart?.priceScale('left').width() || 0;
-      this.legendContainer.style.left = `${leftPriceScaleWidth + this.DEFAULT_LEGEND_LEFT_POSITION}px`;
-    }
-    else {
-      this.legendContainer.style.left = '15px';
-    }
+    const leftPriceScaleWidth = this.chart?.priceScale('left').width() || 0;
+    this.legendContainer.style.left = `${leftPriceScaleWidth + this.DEFAULT_LEGEND_LEFT_POSITION}px`;
   }
 
   /**

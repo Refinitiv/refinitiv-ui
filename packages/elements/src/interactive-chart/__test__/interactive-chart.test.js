@@ -887,5 +887,17 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(legendStyle.position).to.equal('absolute');
       expect(legendLeftPosition).to.greaterThan(el.DEFAULT_LEGEND_LEFT_POSITION);
     });
+    it('Should has fixed left position in legend when the chart set y axis at right edge', async () => {
+      el.config = line;
+      await elementUpdated();
+      await nextFrame();
+
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
+      const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
+      const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
+      expect(legendStyle.position).to.equal('absolute');
+      expect(legendLeftPosition).to.be(el.DEFAULT_LEGEND_LEFT_POSITION);
+    });
   });
 });
