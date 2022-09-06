@@ -745,7 +745,10 @@ export class InteractiveChart extends ResponsiveElement {
         this.rowLegend = this.shadowRoot.querySelectorAll('.row');
       }
       this.chart.subscribeCrosshairMove(this.handleCrosshairMoved);
-      // Legend relates to value of each series that relate to priceScale. But the axis is no event for now. So use x-axis instead.
+      /* Add a subscription to resizing time scale (x-axis). The event triggers after the chart rendered.
+       * So that we can know the priceScale (y-axis) width.
+       * Legend relates to priceScale directly. But the axis doesn't have event for now. So use x-axis instead.
+       */
       this.chart.timeScale().subscribeSizeChange(this.onTimeScaleSizeChange);
       this.legendInitialized = true;
     }
