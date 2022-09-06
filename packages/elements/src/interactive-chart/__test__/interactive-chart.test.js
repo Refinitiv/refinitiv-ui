@@ -831,6 +831,45 @@ describe('interactive-chart/InteractiveChart', () => {
     expect(legendText[3].innerText.indexOf('$')).to.equal(0); // close
   });
 
+  it('Should has dynamic left position in legend when the chart set y axis at left', async () => {
+    el.config = linePositionLeft;
+    await elementUpdated();
+    await nextFrame();
+
+    expect(el.chart).to.not.be.undefined;
+    expect(el.chart).to.not.be.null;
+    const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'));
+    const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
+    expect(legendStyle.position).to.equal('absolute');
+    expect(legendLeftPosition).to.greaterThan(el.DEFAULT_LEGEND_LEFT_POSITION);
+  });
+
+  it('Should has dynamic left position in legend when the chart set y axis at both edge', async () => {
+    el.config = twoPriceScales;
+    await elementUpdated();
+    await nextFrame();
+
+    expect(el.chart).to.not.be.undefined;
+    expect(el.chart).to.not.be.null;
+    const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
+    const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
+    expect(legendStyle.position).to.equal('absolute');
+    expect(legendLeftPosition).to.greaterThan(el.DEFAULT_LEGEND_LEFT_POSITION);
+  });
+
+  it('Should has fixed left position in legend when the chart set y axis at right edge', async () => {
+    el.config = line;
+    await elementUpdated();
+    await nextFrame();
+
+    expect(el.chart).to.not.be.undefined;
+    expect(el.chart).to.not.be.null;
+    const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
+    const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
+    expect(legendStyle.position).to.equal('absolute');
+    expect(legendLeftPosition).to.equal(el.DEFAULT_LEGEND_LEFT_POSITION);
+  });
+
   describe('Test deprecated attribute', () => {
     it('Switch attribute legendstyle horizontal to vertical, it should display vertical style', async () => {
       el = await fixture('<ef-interactive-chart legendstyle="horizontal"></ef-interactive-chart>');
@@ -861,43 +900,6 @@ describe('interactive-chart/InteractiveChart', () => {
       await nextFrame();
       await elementUpdated();
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
-    });
-
-    it('Should has dynamic left position in legend when the chart set y axis at left', async () => {
-      el.config = linePositionLeft;
-      await elementUpdated();
-      await nextFrame();
-
-      expect(el.chart).to.not.be.undefined;
-      expect(el.chart).to.not.be.null;
-      const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'));
-      const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
-      expect(legendStyle.position).to.equal('absolute');
-      expect(legendLeftPosition).to.greaterThan(el.DEFAULT_LEGEND_LEFT_POSITION);
-    });
-    it('Should has dynamic left position in legend when the chart set y axis at both edge', async () => {
-      el.config = twoPriceScales;
-      await elementUpdated();
-      await nextFrame();
-
-      expect(el.chart).to.not.be.undefined;
-      expect(el.chart).to.not.be.null;
-      const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
-      const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
-      expect(legendStyle.position).to.equal('absolute');
-      expect(legendLeftPosition).to.greaterThan(el.DEFAULT_LEGEND_LEFT_POSITION);
-    });
-    it('Should has fixed left position in legend when the chart set y axis at right edge', async () => {
-      el.config = line;
-      await elementUpdated();
-      await nextFrame();
-
-      expect(el.chart).to.not.be.undefined;
-      expect(el.chart).to.not.be.null;
-      const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
-      const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
-      expect(legendStyle.position).to.equal('absolute');
-      expect(legendLeftPosition).to.be(el.DEFAULT_LEGEND_LEFT_POSITION);
     });
   });
 });
