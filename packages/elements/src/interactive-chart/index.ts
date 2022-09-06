@@ -163,7 +163,6 @@ export class InteractiveChart extends ResponsiveElement {
 
   private hasDataPoint = false;
 
-
   /**
    * @returns return config of property component
    */
