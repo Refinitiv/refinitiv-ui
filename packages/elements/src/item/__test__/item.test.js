@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/item';
 import '@refinitiv-ui/elemental-theme/light/ef-item';
@@ -17,6 +17,10 @@ const createFixture = (type = '') => {
       return fixture('<ef-item label="tiger">Test Not Highlightable</ef-item>');
     case 'is_truncated':
       return fixture('<div style="width: 100px; overflow: hidden;"><ef-item>Super vary long string that need to be truncated by parent</ef-item></div>');
+    case 'is_truncated_label':
+      return fixture('<div style="width: 100px; overflow: hidden;"><ef-item label="Super vary long string that need to be truncated by parent"></ef-item></div>');
+    case 'is_truncated_subLabel':
+      return fixture('<div style="width: 100px; overflow: hidden;"><ef-item sub-label="Super vary long string that need to be truncated by parent"></ef-item></div>');
     case 'with_icon':
       return fixture('<ef-item icon="tick">With settings icon</ef-item>');
     case 'with_empty_icon':
@@ -130,23 +134,27 @@ describe('item/Item', () => {
       expect(el.highlightable).to.equal(false);
     });
 
-    it('Should truncate text', async () => {
+    it('Should truncate item text', async () => {
       const div = await createFixture('is_truncated');
       const el = div.querySelector('ef-item');
-
-      await elementUpdated(el);
-      await nextFrame();
-
-      expect(el.isTruncated, 'Should truncate text').to.equal(true);
+      expect(el.isItemOverflown(), 'Should truncate text').to.equal(true);
     });
 
-    it('Should not truncate text', async () => {
+    it('Should truncate label', async () => {
+      const div = await createFixture('is_truncated_label');
+      const el = div.querySelector('ef-item');
+      expect(el.isItemOverflown(), 'Should truncate text').to.equal(true);
+    });
+
+    it('Should truncate subLabel', async () => {
+      const div = await createFixture('is_truncated_subLabel');
+      const el = div.querySelector('ef-item');
+      expect(el.isItemOverflown(), 'Should truncate text').to.equal(true);
+    });
+
+    it('Should not truncate item text', async () => {
       const el = await createFixture();
-
-      await elementUpdated(el);
-      await nextFrame();
-
-      expect(el.isTruncated, 'Should not truncate text').to.equal(false);
+      expect(el.isItemOverflown(), 'Should not truncate text').to.equal(false);
     });
   });
 
