@@ -1,7 +1,7 @@
 import { fixture, fixtureSync, expect, elementUpdated, oneEvent, nextFrame, aTimeout } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
-import '@refinitiv-ui/elements/interactive-chart';
+import { InteractiveChart } from '@refinitiv-ui/elements/interactive-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-interactive-chart.js';
 let line = {
   series: [
@@ -841,7 +841,7 @@ describe('interactive-chart/InteractiveChart', () => {
     const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'));
     const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
     expect(legendStyle.position).to.equal('absolute');
-    expect(legendLeftPosition).to.greaterThan(el.DEFAULT_LEGEND_LEFT_POSITION);
+    expect(legendLeftPosition).to.greaterThan(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
   });
 
   it('Should has dynamic left position in legend when the chart set y axis at both edge', async () => {
@@ -854,7 +854,7 @@ describe('interactive-chart/InteractiveChart', () => {
     const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
     const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
     expect(legendStyle.position).to.equal('absolute');
-    expect(legendLeftPosition).to.greaterThan(el.DEFAULT_LEGEND_LEFT_POSITION);
+    expect(legendLeftPosition).to.greaterThan(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
   });
 
   it('Should has fixed left position in legend when the chart set y axis at right edge', async () => {
@@ -867,7 +867,7 @@ describe('interactive-chart/InteractiveChart', () => {
     const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
     const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
     expect(legendStyle.position).to.equal('absolute');
-    expect(legendLeftPosition).to.equal(el.DEFAULT_LEGEND_LEFT_POSITION);
+    expect(legendLeftPosition).to.equal(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
   });
 
   describe('Test deprecated attribute', () => {

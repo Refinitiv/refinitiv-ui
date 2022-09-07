@@ -86,7 +86,7 @@ export class InteractiveChart extends ResponsiveElement {
     LARGE_DASHED: 3,
     SPARSE_DOTTED: 4
   };
-  private DEFAULT_LEGEND_LEFT_POSITION = 15;
+  private static readonly DEFAULT_LEGEND_LEFT_POSITION = 15;
 
   private _legendStyle?: LegendStyle;
 
@@ -211,11 +211,11 @@ export class InteractiveChart extends ResponsiveElement {
     }
 
     if (changedProperties.has('disabledLegend')) {
-      this.onLegendChange(this.disabledLegend);
+      this.onLegendChange();
     }
 
     if (changedProperties.has('disabledJumpButton')) {
-      this.onJumpButtonChange(this.disabledJumpButton);
+      this.onJumpButtonChange();
     }
 
     if (changedProperties.has('deprecatedLegendStyle') || changedProperties.has('legend-style')) {
@@ -248,11 +248,10 @@ export class InteractiveChart extends ResponsiveElement {
 
   /**
   * Legend value observer
-  * @param disabledLegend Legend value
   * @returns {void}
   */
-  private onLegendChange (disabledLegend: boolean): void {
-    if (!disabledLegend) {
+  private onLegendChange (): void {
+    if (!this.disabledLegend) {
       this.createLegend();
     }
     else {
@@ -280,11 +279,10 @@ export class InteractiveChart extends ResponsiveElement {
 
   /**
   * Jump last value observer
-  * @param value jump last value
   * @returns {void}
   */
-  private onJumpButtonChange (value: boolean): void {
-    if (!value) {
+  private onJumpButtonChange (): void {
+    if (!this.disabledJumpButton) {
       this.createJumpButton(this.width, this.height);
     }
     else {
@@ -343,7 +341,9 @@ export class InteractiveChart extends ResponsiveElement {
       this.mergeConfig(config);
       this.applyChartOptionSize(width, height);
 
-      this.onLegendChange(this.disabledLegend);
+      if (!this.disabledLegend) {
+        this.createLegend();
+      }
 
       if (this.legendStyle === 'horizontal') {
         this.legendContainer.classList.add(this.legendStyle);
@@ -730,8 +730,10 @@ export class InteractiveChart extends ResponsiveElement {
    * @returns {void}
    */
   private handleLegendLeftPosition (): void {
-    const leftPriceScaleWidth = this.chart?.priceScale('left').width() || 0;
-    this.legendContainer.style.left = `${leftPriceScaleWidth + this.DEFAULT_LEGEND_LEFT_POSITION}px`;
+    const leftPriceScaleWidth = this.chart?.priceScale('left')?.width() || 0;
+    if (this.legendContainer) {
+      this.legendContainer.style.left = `${leftPriceScaleWidth + InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION}px`;
+    }
   }
 
   /**
@@ -1200,6 +1202,11 @@ export class InteractiveChart extends ResponsiveElement {
         position: relative;
         height: 300px;
         z-index: 0;
+      }
+
+      [part=legend] {
+        position: absolute;
+        z-index: 1000;
       }
     `;
   }
