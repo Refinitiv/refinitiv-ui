@@ -227,7 +227,10 @@ export class ColorPicker extends ControlElement {
    * A template used to notify currently selected value for screen readers
    * @returns template result
    */
-  private get selectionTemplate (): TemplateResult {
+  private get selectionTemplate (): TemplateResult | null {
+    if (!this.focused) {
+      return null;
+    }
     return html`<div
     part="aria-selection"
     role="status"
