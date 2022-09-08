@@ -339,7 +339,7 @@
     "chart.js": "~2.9.4",
     "d3-interpolate": "^3.0.1",
     "date-fns": "^2.22.1",
-    "lightweight-charts": "^3.3.0",
+    "lightweight-charts": "^3.8.0",
     "tslib": "^2.3.1"
   },
   "devDependencies": {

@@ -31,10 +31,7 @@
     --scale-times-border-color: fade(@grid-border-color, 50%);
 
     [part=legend] {
-        position: absolute;
-        left: 15px;
         top: 15px;
-        z-index: 1000;
         color: var(--text-color);
         font-size: 90%;
         .row {
@@ -45,12 +42,6 @@
         }
         .ohlc {
             margin-right: 2px;
-        }
-        &.yaxis-left{
-            left: 70px;
-        }
-        &.yaxis-right{
-            left: 15px;
         }
         &.horizontal {
             display: flex;
