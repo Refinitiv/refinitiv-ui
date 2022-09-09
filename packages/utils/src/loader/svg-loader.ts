@@ -129,7 +129,7 @@ export class SVGLoader extends CDNLoader {
     // TODO: Test Compare two solution to notify
     // before: Notify when data is ready (no wait cache written)
     // after: Notify when cache is ready
-    const customNotify = 'after';
+    const customNotify = 'before';
 
     void cache.set(src, data, undefined, customNotify).then(() => {
       console.log(`${window.name} %c Icon Cached %c ${iconName}`, 'background: blue; color: white', '');
