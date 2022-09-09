@@ -2,8 +2,7 @@
 import { LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
-const cache = new LocalCache('svg-loader', { storage: 'indexeddb' });
-
+const cache = new LocalCache('svg-loader', { storage: 'indexeddb', distribution: true });
 /**
  * Checks a string to see if it's a valid URL
  * @param str String to test
@@ -82,11 +81,6 @@ const extractSafeSVG = async (response: Response | undefined): Promise<SVGElemen
  */
 export class SVGLoader extends CDNLoader {
   /**
-   * Used to serialise SVG to string in order to cache
-   */
-  private xmlSerializer: XMLSerializer = new XMLSerializer();
-
-  /**
    * Creates complete source using CDN prefix and src.
    * Waits for CDN prefix to be set.
    * @param name - resource path for download
@@ -110,23 +104,37 @@ export class SVGLoader extends CDNLoader {
     }
 
     const src = await this.getSrc(name);
+    const iconName: string = src.split('/').pop() || '';
 
     // Get date from cache first
     const cacheItem = await cache.get(src);
-    if (cacheItem === null) {
-      const response = await this.load(src);
-      const svg = await extractSafeSVG(response);
-      const svgBody = svg?.outerHTML;
-      svgBody && cache.set(src, svgBody);
-
-      // No need to wait cache written before send message to improve performance
-      if (svgBody) {
-        cache.notify(src, svgBody);
-      }
-
-      return svgBody;
+    if (cacheItem) {
+      return cacheItem;
     }
 
-    return cacheItem;
+    // Get data from CDN and store to cache
+    const data = new Promise<string>((resolve) => {
+      void this.load(src)
+        .then(response => extractSafeSVG(response))
+        .then((svg) => {
+          if (svg?.outerHTML) {
+            console.log(`${window.name} %c Start writing to cache icon %c ${iconName}`, 'background: blue; color: white', '');
+          }
+          resolve(svg?.outerHTML || '');
+        });
+    });
+
+
+
+    // TODO: Test Compare two solution to notify
+    // before: Notify when data is ready (no wait cache written)
+    // after: Notify when cache is ready
+    const customNotify = 'after';
+
+    void cache.set(src, data, undefined, customNotify).then(() => {
+      console.log(`${window.name} %c Icon Cached %c ${iconName}`, 'background: blue; color: white', '');
+    });
+
+    return data;
   }
 }

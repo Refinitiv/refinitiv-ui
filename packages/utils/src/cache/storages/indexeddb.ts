@@ -83,6 +83,9 @@ export class IndexedDBStorage implements CacheStorage {
    */
   public async get (key: string): Promise<CacheItem | null> {
     await this.ready;
+    // if (key.includes('3d')) {
+    //   console.log(window.name, '3d db is ready?', this.ready, this.cache);
+    // }
     return this.cache?.get(key) || null;
   }
 
@@ -125,31 +128,34 @@ export class IndexedDBStorage implements CacheStorage {
    * Open connection to indexedDB.
    * @returns {void}
    */
-  private async open (): Promise<void> {
+  private open (): void {
     if (this.db) {
       return;
     }
 
-    this.db = await openDB<IndexedDBDatabase>(this.dbName, this.version, {
-      upgrade: (database) => {
-        if (database.objectStoreNames.contains(this.dbName)) {
-          database.deleteObjectStore(this.dbName);
+    this.ready = new Promise<boolean>((resolve) => {
+      void openDB<IndexedDBDatabase>(this.dbName, this.version, {
+        upgrade: (database) => {
+          if (database.objectStoreNames.contains(this.dbName)) {
+            database.deleteObjectStore(this.dbName);
+          }
+          database.createObjectStore(this.dbName);
+        },
+        blocked: () => {
+          throw errorMessage(`blocked event called. The connection is blocked by other connection or your version (${this.version}) isn't matched.`, this.dbName);
+        },
+        blocking: () => {
+          // eslint-disable-next-line no-console
+          console.warn(`versionchange event called. The version of this ${String(this.dbName)} database has changed.`);
+        },
+        terminated: () => {
+          throw errorMessage('close event called. The connection is unexpectedly closed.', this.dbName);
         }
-        database.createObjectStore(this.dbName);
-      },
-      blocked: () => {
-        throw errorMessage(`blocked event called. The connection is blocked by other connection or your version (${this.version}) isn't matched.`, this.dbName);
-      },
-      blocking: () => {
-        // eslint-disable-next-line no-console
-        console.warn(`versionchange event called. The version of this ${String(this.dbName)} database has changed.`);
-      },
-      terminated: () => {
-        throw errorMessage('close event called. The connection is unexpectedly closed.', this.dbName);
-      }
+      }).then((db) => {
+        this.db = db;
+        void this.getReady().then(() => resolve(true));
+      });
     });
-
-    this.ready = this.getReady();
   }
 
   /**
@@ -159,6 +165,7 @@ export class IndexedDBStorage implements CacheStorage {
   private async getReady (): Promise<boolean> {
     try {
       await this.restore();
+      // console.log(window.name, '3d ready', Date.now().toString());
       return true;
     }
     catch (e) { // Keep it work. Even if can't connect to storage
