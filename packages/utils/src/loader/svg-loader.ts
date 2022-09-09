@@ -113,14 +113,14 @@ export class SVGLoader extends CDNLoader {
     }
 
     // Get data from CDN and store to cache
-    const data = new Promise<string>((resolve) => {
+    const data = new Promise<string | undefined>((resolve) => {
       void this.load(src)
         .then(response => extractSafeSVG(response))
         .then((svg) => {
           if (svg?.outerHTML) {
             console.log(`${window.name} %c Start writing to cache icon %c ${iconName}`, 'background: blue; color: white', '');
           }
-          resolve(svg?.outerHTML || '');
+          resolve(svg?.outerHTML);
         });
     });
 

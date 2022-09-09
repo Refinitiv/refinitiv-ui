@@ -57,7 +57,7 @@ export class LocalCache {
    * @param notification notify new cache message via BroadCast Channel API
    * @returns {void}
    */
-  public async set (key: string, value: string | Promise<string>, expires = 432000, notification: 'before' | 'after' = 'before'): Promise<void> {
+  public async set (key: string, value: string | Promise<string | undefined>, expires = 432000, notification: 'before' | 'after' = 'before'): Promise<void> {
 
     let cacheValue: string;
     if (value instanceof Promise) {
