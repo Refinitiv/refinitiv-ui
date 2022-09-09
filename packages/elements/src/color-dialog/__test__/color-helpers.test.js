@@ -1,4 +1,4 @@
-import { isHex } from '../../../lib/color-dialog/helpers/color-helpers.js';
+import { isHex } from '@refinitiv-ui/utils/color.js';
 import { expect } from '@refinitiv-ui/test-helpers';
 
 describe('color-dialog/Helpers', () => {
