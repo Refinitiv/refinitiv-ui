@@ -1,0 +1,7 @@
+{
+  "extends": "@refinitiv-ui/configurations/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./lib",
+    "rootDir": "./src"
+  }
+}
