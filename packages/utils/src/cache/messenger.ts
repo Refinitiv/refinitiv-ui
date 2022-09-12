@@ -100,7 +100,7 @@ export class CacheMessenger {
           console.timeEnd(`${window.name} Completed`);
           this.destroy();
         }
-      }, 1000);
+      }, 3000);
     };
     console.log(`${window.name} %c Listened %c ${Date.now().toString()}`, 'background: purple; color: white', '');
 
