@@ -1,16 +1,15 @@
 /* eslint-disable no-console */
-type LocalCacheMessage = {
+type Message = {
   id: number;
   key: string;
   value: string;
 }
 
-type LocalCacheRequests = {
+type MessageType = 'post' | 'received';
+
+type Requests = {
   [key: string]: 'true'
 }
-
-type LocalCacheMessageType = 'post' | 'received';
-
 
 enum StorageType {
   Requests='requests',
@@ -22,8 +21,6 @@ enum StorageType {
 type StorageNames = {
   [name in StorageType]: string
 };
-
-
 
 const CHANNEL_PREFIX = 'ef';
 
@@ -44,6 +41,9 @@ export class CacheMessenger {
    */
   private broadcastChannel: BroadcastChannel;
 
+  /**
+   * Names for manage all states temporary
+   */
   private storageNames: StorageNames;
 
   constructor (name: string) {
@@ -60,11 +60,11 @@ export class CacheMessenger {
     this.listen();
   }
 
-  private get requests (): LocalCacheRequests {
-    return (JSON.parse(localStorage.getItem(this.storageNames.requests) as string) || {}) as LocalCacheRequests;
+  private get requests (): Requests {
+    return (JSON.parse(localStorage.getItem(this.storageNames.requests) as string) || {}) as Requests;
   }
 
-  private set requests (requests: LocalCacheRequests) {
+  private set requests (requests: Requests) {
     localStorage.setItem(this.storageNames.requests, JSON.stringify(requests));
   }
 
@@ -73,7 +73,7 @@ export class CacheMessenger {
    * @returns {void}
    */
   private listen (): void {
-    this.broadcastChannel.onmessage = (event: MessageEvent<LocalCacheMessage>) => {
+    this.broadcastChannel.onmessage = (event: MessageEvent<Message>) => {
       const { data: { id: messageId, key, value } } = event;
 
       // Cache all messsages in case this message faster than value registered to waiting list
@@ -107,9 +107,9 @@ export class CacheMessenger {
   }
 
   /**
-   * Clean up by resets all request states
-   * if found unload event which means the current states is not correct
-   * because user interupt the cache messaging while requesting
+   * Clean up by resets all requesting states
+   * if found unload event that makes the current states is not correct
+   * in case users interupt a browser by refresh page
    * @returns {void}
    */
   private clean (): void {
@@ -123,10 +123,8 @@ export class CacheMessenger {
     });
 
     if (localStorage.getItem(this.storageNames.unloaded) === 'true') {
-      this.destroy();
       localStorage.removeItem(this.storageNames.unloaded);
-      localStorage.setItem(this.storageNames.messagePost, '0');
-      localStorage.setItem(this.storageNames.messageReceived, '0');
+      this.destroy();
     }
   }
 
@@ -142,30 +140,20 @@ export class CacheMessenger {
     this.waiting.clear();
   }
 
-
-  private increaseMessageCount (type: LocalCacheMessageType) {
-    let key = '';
-    if (type === 'post') {
-      key = this.storageNames.messagePost;
-    }
-    else if (type === 'received') {
-      key = this.storageNames.messageReceived;
-    }
-
-    const messageCount = localStorage.getItem(key) || 0;
+  /**
+   * Increase message count
+   * @param type message type
+   * @returns {void}
+   */
+  private increaseMessageCount (type: MessageType): void {
+    const key = type === 'post' ? 'messagePost' : 'messageReceived';
+    const messageCount = localStorage.getItem(this.storageNames[key]) || 0;
     localStorage.setItem(key, (Number(messageCount) + 1).toString());
   }
 
-  private getMessageCount (type: LocalCacheMessageType) {
-    let key = '';
-    if (type === 'post') {
-      key = this.storageNames.messagePost;
-    }
-    else if (type === 'received') {
-      key = this.storageNames.messageReceived;
-    }
-
-    return Number(localStorage.getItem(key) || 0);
+  private getMessageCount (type: MessageType) {
+    const key = type === 'post' ? 'messagePost' : 'messageReceived';
+    return Number(localStorage.getItem(this.storageNames[key])) || 0;
   }
 
   /**

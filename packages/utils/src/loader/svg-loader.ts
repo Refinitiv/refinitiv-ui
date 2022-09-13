@@ -1,8 +1,14 @@
 /* eslint-disable no-console */
-import { LocalCache } from '../cache.js';
+import { LocalCache, DistributedCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
-const cache = new LocalCache('svg-loader', { storage: 'indexeddb', distribution: true });
+// const cache = new LocalCache('svg-loader', { storage: 'indexeddb' });
+
+// TODO: Test Compare two solution to notify
+// ! before: Notify when data is ready (no wait cache written)
+// ! after: Notify when cache is ready
+const cache = new DistributedCache('svg-loader', { storage: 'indexeddb', notification: 'before' });
+
 /**
  * Checks a string to see if it's a valid URL
  * @param str String to test
@@ -124,14 +130,7 @@ export class SVGLoader extends CDNLoader {
         });
     });
 
-
-
-    // TODO: Test Compare two solution to notify
-    // before: Notify when data is ready (no wait cache written)
-    // after: Notify when cache is ready
-    const customNotify = 'before';
-
-    void cache.set(src, data, undefined, customNotify).then(() => {
+    void cache.set(src, data).then(() => {
       console.log(`${window.name} %c Icon Cached %c ${iconName}`, 'background: blue; color: white', '');
     });
 
