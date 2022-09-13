@@ -34,7 +34,7 @@ layout: default
 
 ## Usage
 
-Dialog can easily be launched by adding the `opened` property. If you want the dialog to open by default, include the `opened` attribute when you embed `ef-dialog`.
+Dialog can easily be launched by setting the `opened` boolean property. If you want the dialog to open by default, include the `opened` attribute to `ef-dialog`.
 
 ```html
 <ef-dialog id="dlg1" header="System Permissions">
@@ -47,7 +47,7 @@ const dlg = document.getElementById('dlg1');
 dlg.opened = true;
 ```
 
-The default behavior of `ef-dialog` is to display at the center of the viewport and to not be draggable. You can enable dragging by adding the `draggable` attribute or using the property setting.
+The default behaviour of `ef-dialog` is to display at the center of the viewport and to not be draggable. You can enable dragging by adding the `draggable` attribute or using the property setting.
 
 ::
 ```javascript
@@ -82,57 +82,9 @@ The default behavior of `ef-dialog` is to display at the center of the viewport 
 
 ## Confirmed vs cancelled
 
-You may want to detect if the user has closed the dialog by clicking the OK or Cancel button. You can listen to the `opened-changed` event and check the value of the `confirmed` property, which will be set to `true` if the user clicked the OK button to close the dialog.
+You may want to detect if the user has closed the dialog by clicking the OK or Cancel button. You can listen to `confirm` event and `cancel` event.
 
-::
-```javascript
-::dialog::
-const dlg = document.getElementById('d1');
-dlg.addEventListener('opened-changed', () => {
-  document.getElementById('close-result').innerHTML = dlg.confirmed ? 'User clicked OK' : 'User clicked Cancel';
-});
-```
-```css
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 300px;
-}
-```
-```html
-<ef-dialog id="d1" header="System Permissions" draggable opened>
-  <p>Grant geolocation permissions?</p>
-  <p>This will allow the application to see your real-time location at any point in time.</p>
-</ef-dialog>
-<div class="container">
-  <ef-button onclick="document.getElementById('d1').opened = true;">Open Dialog</ef-button>
-  <p id="close-result"><p>
-</div>
-```
-::
-
-```html
-<ef-dialog id="d1" header="System Permissions">
-  <p>Grant geolocation permissions?</p>
-  <p>This will allow the application to see your real-time location at any point in time.</p>
-</ef-dialog>
-```
-```javascript
-const dlg = document.getElementById('d1');
-dlg.addEventListener('opened-changed', () => {
-  if (dlg.confirmed) {
-    // user clicked OK button
-  }
-  else {
-    // user clicked Cancel button
-  }
-});
-```
-
-## Customize footer content
+## Customise footer content
 
 The dialog provides default OK and Cancel buttons. To replace those buttons with your own content, assign content to the `footer` slot.
 
@@ -173,7 +125,7 @@ The dialog provides default OK and Cancel buttons. To replace those buttons with
 </ef-dialog>
 ```
 
-## Customize close behaviors
+## Customise close behaviours
 
 By default, `ef-dialog` will only close when the user clicks the OK or Cancel button, or presses the ESC key. However, you can allow the dialog to close when the user clicks outside of the dialog, or prevent the dialog from closing when the ESC key is pressed.
 
