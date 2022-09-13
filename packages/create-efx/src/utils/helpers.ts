@@ -3,17 +3,7 @@ import path from 'path';
 
 const PROJECT_PREFIX = 'efx-';
 
-/**
- * Remove backslash
- * @param targetDir - target directory name
- * @returns trimmed directory name 
- */
-const formatTargetDir = (targetDir: string) => {
-  if (!targetDir) {
-    return '';
-  }
-  return targetDir.trim().replace(/\/+$/g, '');
-};
+const getProjectName = (targetDir: string | undefined) => targetDir ? path.basename(path.resolve(targetDir)) : '';
 
 const formatProjectName = (projectName: string): string => {
   if (!projectName) {
@@ -56,6 +46,8 @@ const validateProjectName = (name: string) => {
   return error;
 };
 
+const isDirExist = (dir: string) => fs.existsSync(dir) && !isEmptyDir(dir);
+
 const isEmptyDir = (path: string) => {
   const files = fs.readdirSync(path);
   return files.length === 0 || (files.length === 1 && files[0] === '.git');
@@ -74,10 +66,10 @@ const emptyDir = (dir: string) => {
 };
 
 export {
-  formatTargetDir,
   formatProjectName,
   validateProjectName,
   isEmptyDir,
-  emptyDir
+  emptyDir,
+  isDirExist,
+  getProjectName
 };
-

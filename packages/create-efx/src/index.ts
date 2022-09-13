@@ -4,27 +4,30 @@ import path from 'path';
 import chalk from 'chalk';
 import minimist from 'minimist';
 import prompts from 'prompts';
-import { emptyDir, isEmptyDir, validateProjectName, formatProjectName } from './utils/helpers';
 import renameAll from './utils/renamer';
+import { emptyDir, formatProjectName, getProjectName, isDirExist, validateProjectName } from './utils/helpers';
 
 // Avoids autoconversion to number of the project name by defining that the args
 // non associated with an option ( _ ) needs to be parsed as a string.
 const argv = minimist(process.argv.slice(2), { string: ['_'] });
-const cwd = process.cwd();
 
 const init = async () => {
   let targetDir = argv._[0];
-  let result;
+  let promptResults;
 
-  const projectName = targetDir ? path.basename(path.resolve(targetDir)) : '';
+  const projectName = getProjectName(targetDir);
   const error = validateProjectName(projectName);
-  const isExist = (dir: string) => fs.existsSync(dir) && !isEmptyDir(dir);
+
+  if(error) {
+    chalk.red(error);
+  }
 
   try {
-    result = await prompts(
+    promptResults = await prompts(
       [
         {
-          type: isExist(targetDir) || !error ? null : 'text',
+          // only show this question when user input invalid name or directory is exist.
+          type: isDirExist(targetDir) || !error ? null : 'text',
           name: 'projectName',
           message: chalk.reset('Project name:'),
           initial: targetDir,
@@ -32,18 +35,17 @@ const init = async () => {
             targetDir = value;
           },
           validate: (name) => {
-            const basename = path.basename(path.resolve(name));
-            const error = validateProjectName(basename);
-            if(!name || error && !isExist(name)) {
+            const error = validateProjectName(getProjectName(name));
+            if(!name || error && !isDirExist(name)) {
               return error;
             }
             return true;
           }
         },
         {
-            type: isExist(targetDir) ? 'confirm' : null,
+            type: isDirExist(targetDir) ? 'confirm' : null,
             name: 'overwrite',
-            message: () => `Target directory "${targetDir}" is not empty. Remove existing files and continue?`
+            message: () => `Target directory "${chalk.cyan(targetDir)}" is not empty. Remove existing files and continue?`
         },
         {
           type: (_, { overwrite }) => {
@@ -67,20 +69,22 @@ const init = async () => {
     return;
   }
 
-  const finalDes = path.resolve(targetDir);
-  const newDes = path.join(path.dirname(finalDes), formatProjectName(path.basename(finalDes)));
+  const root = path.resolve(targetDir);
 
-  if(result.overwrite) {
-    // emptyDir(finalDes);
-    console.log('will overwrite !!');
+  if (promptResults.overwrite) {
+    emptyDir(root);
   }
   else {
-   fs.mkdirSync(newDes, { recursive: true });
+    fs.mkdirSync(root, { recursive: true });
   }
 
-  console.log(`\nScaffolding project in ${newDes}`);
-  // await fsExtra.copy('./src/template', newDes);
-  // await renameAll(newDes, 'efx-element')
+  console.log(`\nScaffolding project in ${chalk.cyan(root)}`);
+  await fsExtra.copy('./src/template', root);
+
+  const newPath = path.join(path.dirname(root), formatProjectName(path.basename(root)));
+  await renameAll(root, newPath, 'efx-element');
+
+  console.log(chalk.green('New project created. Getting the element ready ...'));
 };
 
 init().catch((error) => {
