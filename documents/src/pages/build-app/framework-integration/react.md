@@ -19,11 +19,61 @@ Web components is framework agnostic and it should work with any frameworks in s
 
 @>Experimental version of react is fully support Web Components you can try this yourself with [our live demo](https://codesandbox.io/s/tabbar-router-experimental-dq0npp?file=/src/App.js). To follow the status of it, check out [custom-elements-everywhere.com](https://custom-elements-everywhere.com/#react).
 
-To overcome these shortcomings, in this tutorial, we will show how you can create thin React wrapper components around EF components.
+In this tutorial, we will show how to create thin React wrapper components around EF components by using two different approaches. The first approach is to use a utility wrapper tool, it is a straightforward. The second approach is to create the wrapper by yourself.
+
+### Using utility wrapper
+
+To wire Web Components into React Components, this process could be automated with a wrapper that takes care about formatting objects and arrays to JSON and registering functions as event listeners.
+
+We recommended the package that created by Lit team called [@lit-labs/react](https://github.com/lit/lit/tree/main/packages/labs/react#lit-labsreact).
+
+From inside your project folder, run:
+
+```sh
+npm install @lit-labs/react
+```
+
+Import React, utility wrapper and EF Select element class. Then you can use `createComponent` to create React wrapper of the element.
+
+```jsx
+import React from 'react';
+import { createComponent } from '@lit-labs/react';
+import { Select as EfSelect } from '@refinitiv-ui/elements/select';
+
+export const Select = createComponent(
+  React,
+  'ef-select',
+  EfSelect,
+  {
+    onchange: 'value-changed',
+  }
+);
+```
+
+After defining the React component, you can use it just as you would any other React component.
+
+```jsx
+const [value, setValue] = useState('');
+const data = [{ label: 'Tea', value: 'tea' }, { label: 'Beer', value: 'beer' }];
+
+return (
+  <div>
+    <Select
+      className="my-select"
+      data={data}
+      value={value}
+      onchange={(event) => { setValue(event.detail.value) }}
+    />
+    ...
+  </div>
+)
+```
 
 ### Create a wrapper component
 
-To create React application we will use [Create React App](https://create-react-app.dev/) CLI tool. Run the following command.
+This section will show you how to create a wrapper component by yourself.
+
+Firstly, to create React application we will use [Create React App](https://create-react-app.dev/) CLI tool. Run the following command.
 
 ```sh
 npx create-react-app my-app
@@ -134,56 +184,6 @@ Finally, starting your app and it should automatically open `http://localhost:30
 
 ```sh
 npm start
-```
-
-### Using utility wrapper
-
-The previous section has shown you how to wire Web Components into React Components yourself. However, this process could be automated with a wrapper that takes care about formatting objects and arrays to JSON and registering functions as event listeners.
-
-We recommended the package that created by Lit team called [@lit-labs/react](https://github.com/lit/lit/tree/main/packages/labs/react#lit-labsreact).
-
-*> This package is part of [Lit Labs](https://lit.dev/docs/libraries/labs/) that isn't quite ready for production and It's subject to breaking changes.
-
-From inside your project folder, run:
-
-```sh
-npm install @lit-labs/react
-```
-
-Import React, utility wrapper and EF Select element class. Then you can use `createComponent` to create React wrapper of the element.
-
-```jsx
-import React from 'react';
-import { createComponent } from '@lit-labs/react';
-import { Select as EfSelect } from '@refinitiv-ui/elements/select';
-
-export const Select = createComponent(
-  React,
-  'ef-select',
-  EfSelect,
-  {
-    onchange: 'value-changed',
-  }
-);
-```
-
-After defining the React component, you can use it just as you would any other React component.
-
-```jsx
-const [value, setValue] = useState('');
-const data = [{ label: 'Tea', value: 'tea' }, { label: 'Beer', value: 'beer' }];
-
-return (
-  <div>
-    <Select
-      className="my-select"
-      data={data}
-      value={value}
-      onchange={(event) => { setValue(event.detail.value) }}
-    />
-    ...
-  </div>
-)
 ```
 
 ## Testing With Jest

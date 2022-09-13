@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.1.0...@refinitiv-ui/elements@6.1.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **combo-box:** incorrect popup logic in some scenarios ([159eb53](https://github.com/Refinitiv/refinitiv-ui/commit/159eb53c7bec583c59de4dfac2542e67c840b2fc))
+
+
+
+
+
 # [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.4...@refinitiv-ui/elements@6.1.0) (2022-08-16)
 
 
