@@ -259,7 +259,10 @@ if (argv.browserstack && !argv.watch) {
     }
     else if(option === 'supported') {
       BrowserStack.supportedBrowsers.forEach(supportedBS => {
-        browserStackLaunchers[supportedBS] = BrowserStack.config[supportedBS];
+        // Disable testing on Safari, we have to check all test cases are passed before enabling it again
+        if (!supportedBS.includes('safari')) {
+          browserStackLaunchers[supportedBS] = BrowserStack.config[supportedBS];
+        }
       });
     }
     else {
