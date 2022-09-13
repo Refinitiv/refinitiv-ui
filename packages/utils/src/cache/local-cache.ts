@@ -1,7 +1,7 @@
-import { CacheCore } from './cache-core.js';
-export type { CacheConfig as LocalCacheConfig } from './cache-core.js';
+import { CoreCache } from './core-cache.js';
+export type { CacheConfig as LocalCacheConfig } from './core-cache.js';
 
 /**
  * Cache utility that simplifies, unifies and enhances native browser storage.
  */
-export class LocalCache extends CacheCore {}
+export class LocalCache extends CoreCache {}

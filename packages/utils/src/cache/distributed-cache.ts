@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 console.time(`${window.name} Completed`);
-import { CacheCore } from './cache-core.js';
+import { CoreCache } from './core-cache.js';
 import { CacheMessenger } from './messenger.js';
-import type { CacheConfig } from './cache-core.js';
+import type { CacheConfig } from './core-cache.js';
 import type { CacheItem } from './interfaces/CacheItem';
 
 export interface DistributedCacheConfig extends CacheConfig {
@@ -13,10 +13,18 @@ export interface DistributedCacheConfig extends CacheConfig {
 /**
  * Distribute cache across browsers windows, tabs, and iframes to reducing network requests
  */
-export class DistributedCache extends CacheCore {
+export class DistributedCache extends CoreCache {
 
-  protected messenger?: CacheMessenger;
+  /**
+   * Cache messenger for distribute cache
+   */
+  protected messenger: CacheMessenger;
 
+  /**
+   * Constructor
+   * @param name cache name
+   * @param config cache configuration
+   */
   constructor (name: string, config?: DistributedCacheConfig) {
     super(name, config);
     this.messenger = new CacheMessenger(name);
@@ -31,10 +39,9 @@ export class DistributedCache extends CacheCore {
    * @returns {void}
    */
   public async set (key: string, value: string | Promise<string | undefined>, expires = 432000, notification: 'before' | 'after' = 'before'): Promise<void> {
-
     let cacheValue: string;
     if (value instanceof Promise) {
-      this.messenger?.addRequest(key);
+      this.messenger.addRequest(key);
       cacheValue = await value.then(item => item || '');
     }
     else {
@@ -49,13 +56,13 @@ export class DistributedCache extends CacheCore {
     };
 
     if (notification === 'before') {
-      this.messenger?.notify(key, cacheValue);
+      this.messenger.notify(key, cacheValue);
     }
 
     await this.storage.set(key, data);
 
     if (notification === 'after') {
-      this.messenger?.notify(key, cacheValue);
+      this.messenger.notify(key, cacheValue);
     }
   }
 
@@ -68,12 +75,7 @@ export class DistributedCache extends CacheCore {
     const iconName: string = key.split('/').pop() || '';
     const item = await this.storage.get(key) as CacheItem;
 
-    // if (key.includes('3d')) {
-    //   console.log('3d data', item, iconName, key);
-    // }
-
     if (item && item.expires > Date.now()) {
-      // console.log(window.name, 'use cache', iconName, item.value);
       return item.value;
     }
 
@@ -91,11 +93,10 @@ export class DistributedCache extends CacheCore {
       return this.messenger.getMessage(key);
     }
     else {
-      const messenger = this.messenger;
       return new Promise<string | null>(resolve => {
         // Add to waiting list
         console.log(`${window.name} %c Wait %c ${iconName} ${Date.now().toString()}`, 'background: orange; color: white', '');
-        messenger.wait(key, resolve);
+        this.messenger.wait(key, resolve);
       });
     }
   }

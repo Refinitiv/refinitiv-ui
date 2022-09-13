@@ -10,7 +10,7 @@ export interface CacheConfig {
 /**
  * Cache utility that simplifies, unifies and enhances native browser storage.
  */
-export abstract class CacheCore {
+export abstract class CoreCache {
   /**
    * Storage to store data
    */

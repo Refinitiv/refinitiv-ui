@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
-import { LocalCache, DistributedCache } from '../cache.js';
+import { DistributedCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
-
-// const cache = new LocalCache('svg-loader', { storage: 'indexeddb' });
 
 // TODO: Test Compare two solution to notify
 // ! before: Notify when data is ready (no wait cache written)

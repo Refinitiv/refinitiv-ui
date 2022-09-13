@@ -24,6 +24,9 @@ type StorageNames = {
 
 const CHANNEL_PREFIX = 'ef';
 
+/**
+ * Cache messenger manage post/receive to others cache messenger
+ */
 export class CacheMessenger {
 
   /**
@@ -60,10 +63,17 @@ export class CacheMessenger {
     this.listen();
   }
 
+  /**
+   * Get resource request list
+   */
   private get requests (): Requests {
     return (JSON.parse(localStorage.getItem(this.storageNames.requests) as string) || {}) as Requests;
   }
 
+  /**
+   * Set resource request list
+   * @param requests request list
+   */
   private set requests (requests: Requests) {
     localStorage.setItem(this.storageNames.requests, JSON.stringify(requests));
   }
@@ -113,7 +123,6 @@ export class CacheMessenger {
    * @returns {void}
    */
   private clean (): void {
-
     window.addEventListener('beforeunload', (event) => {
       event.preventDefault();
       if (localStorage.getItem(this.storageNames.requests) !== null) {
@@ -129,7 +138,7 @@ export class CacheMessenger {
   }
 
   /**
-   * Destroy all state
+   * Destroy all temporary states
    * @returns {void}
    */
   private destroy (): void {
@@ -169,14 +178,29 @@ export class CacheMessenger {
     }
   }
 
+  /**
+   * Check key is already started request
+   * @param key resource name
+   * @returns true if resource has stated request
+   */
   public hasRequest (key: string): boolean {
     return Boolean(this.requests[key]);
   }
 
+  /**
+   * Get message from cache
+   * @param key resource name
+   * @returns cache message
+   */
   public getMessage (key: string): string {
     return this.messages.get(key) as string;
   }
 
+  /**
+   * Check resource is in message cache
+   * @param key resource name
+   * @returns true if resource is in message cache
+   */
   public hasMessage (key: string): boolean {
     return this.messages.has(key);
   }
