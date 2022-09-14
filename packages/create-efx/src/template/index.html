@@ -7,14 +7,18 @@
   </head>
   <body>
     <script type="module">
-      import './src/efx-element';
-      // import './themeLoader.js';
+      import './src/efx-element.ts';
+
+      // Dynamic import theme files from search params of the URL
+      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      const url = new URL(window.location);
+      const theme = url.searchParams.get('theme') || 'halo';
+      let variant = url.searchParams.get('variant') || 'light';
+
       // import styles for typography, body and other native inbuilt elements.
-      const a = 'dark';
-      import (`../node_modules/@refinitiv-ui/halo-theme/${a}/imports/native-elements`);
-      // import '../themes/halo-theme/dark.js';
+      import (`./node_modules/@refinitiv-ui/${theme}-theme/${variant}/imports/native-elements`);
+      import (`./themes/${theme}-theme/${variant}.js`);
     </script>
-    <!-- <script type="module" src="../src/themeLoader.js"></script> -->
 
     <style>
       body {

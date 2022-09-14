@@ -1,4 +1,5 @@
-// some description link to web-test-runner
+// The test runner can be configured with a configuration file (web-test-runner.config.js).
+// https://modern-web.dev/docs/test-runner/overview/
 import { fixture, expect } from '@refinitiv-ui/test-helpers';
 
 // import element and theme

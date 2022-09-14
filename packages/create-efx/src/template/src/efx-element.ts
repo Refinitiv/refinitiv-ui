@@ -7,7 +7,7 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-// import litLogo from './assets/lit.svg';
+import litLogo from './assets/lit.svg';
 
 // eslint-disable-next-line import/extensions
 import '@refinitiv-ui/elements/panel';
@@ -67,7 +67,7 @@ export class EfxElement extends BasicElement {
     return html`
     <ef-panel part="container">
       <a href="https://lit.dev" target="_blank">
-        <img part="logo" class="logo lit" alt="Lit logo" />
+        <img src="${litLogo}" part="logo" class="logo lit" alt="Lit logo" />
       </a>
       <slot></slot>
       <ef-button part="button" @tap="${this.onTap}">

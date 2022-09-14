@@ -7,6 +7,8 @@ import prompts from 'prompts';
 import renameAll from './utils/renamer';
 import { emptyDir, formatProjectName, getProjectName, isDirExist, validateProjectName } from './utils/helpers';
 
+const TEMPLATE_NAME = 'efx-element';
+
 // Avoids autoconversion to number of the project name by defining that the args
 // non associated with an option ( _ ) needs to be parsed as a string.
 const argv = minimist(process.argv.slice(2), { string: ['_'] });
@@ -18,8 +20,8 @@ const init = async () => {
   const projectName = getProjectName(targetDir);
   const error = validateProjectName(projectName);
 
-  if(error) {
-    chalk.red(error);
+  if (error) {
+    console.log(chalk.red(error));
   }
 
   try {
@@ -43,7 +45,7 @@ const init = async () => {
           }
         },
         {
-            type: isDirExist(targetDir) ? 'confirm' : null,
+            type: !error && isDirExist(targetDir) ? 'confirm' : null,
             name: 'overwrite',
             message: () => `Target directory "${chalk.cyan(targetDir)}" is not empty. Remove existing files and continue?`
         },
@@ -81,10 +83,17 @@ const init = async () => {
   console.log(`\nScaffolding project in ${chalk.cyan(root)}`);
   await fsExtra.copy('./src/template', root);
 
-  const newPath = path.join(path.dirname(root), formatProjectName(path.basename(root)));
-  await renameAll(root, newPath, 'efx-element');
+  const newName = formatProjectName(path.basename(root));
+  await renameAll(root, newName, TEMPLATE_NAME);
 
-  console.log(chalk.green('New project created. Getting the element ready ...'));
+  const cwd = process.cwd();
+  console.log(`\nDone. Now run:\n`);
+
+  if (root !== cwd) {
+    console.log(`  cd ${path.relative(cwd, root)}`);
+  }
+  console.log(`  npm install`);
+  console.log(`  npm start`);
 };
 
 init().catch((error) => {

@@ -5,17 +5,27 @@ import fs from 'fs-extra';
 import fg from 'fast-glob';
 import replacer from './replacer';
 
-const getCamelCaseFromDashSeparated = function (text: string) {
-  const modTxt = text.replace(/-([a-z])/g, g => {
+/**
+ * Converts string with kebab case to camel case.
+ * @param string the string to convert.
+ * @return the camel cased string.
+ */
+const toCamelCase = (string: string) => {
+  const modTxt = string.replace(/-([a-z])/g, g => {
     return g[1].toUpperCase();
   });
   return (modTxt[0].toUpperCase() + modTxt.slice(1));
 };
 
-const renameFiles = async function (folderPath: string, elementPath: string, seedName: string) {
+/**
+ * Rename all filenames to the new name
+ * @param root current directory
+ * @param newName name to replace
+ * @param templateName template name to be replaced
+ */
+const renameFiles = async function (root: string, newName: string, templateName: string) {
   // Rename element files to new name
-  const newName = path.basename(elementPath);
-  const entries = await fg([`**/${seedName}.*`],{ cwd: folderPath, objectMode: true });
+  const entries = await fg([`**/${templateName}.*`],{ cwd: root, objectMode: true });
 
   if(!entries || !entries.length) {
     throw new Error('Element files are not found for rename');
@@ -28,7 +38,7 @@ const renameFiles = async function (folderPath: string, elementPath: string, see
         if (entry.name.includes('.test')){
           fileExt = '.test' + fileExt;
         }
-        const oldFilename = path.join(folderPath, entry.path);
+        const oldFilename = path.join(root, entry.path);
         const newFilename = oldFilename.replace(entry.name, `${newName}${fileExt}`);
         await fs.rename(oldFilename, newFilename);
       })
@@ -40,11 +50,11 @@ const renameFiles = async function (folderPath: string, elementPath: string, see
 
   // Remove .template extension from files
   const suffix = '.template';
-  const suffixEntries = await fg([`.*${suffix}`],{ cwd: folderPath, objectMode: true });
+  const suffixEntries = await fg([`.*${suffix}`],{ cwd: root, objectMode: true });
   const removeSuffix = new Promise<void>((resolve, reject) => {
     try {
       suffixEntries.forEach(async (suffixEntry: { path: any; }) => {
-        const oldFilename = path.join(folderPath, suffixEntry.path);
+        const oldFilename = path.join(root, suffixEntry.path);
         const newFilename = oldFilename.substring(0, oldFilename.indexOf(suffix));
         await fs.rename(oldFilename, newFilename);
       })
@@ -57,22 +67,33 @@ const renameFiles = async function (folderPath: string, elementPath: string, see
   return Promise.all([renameElementFile, removeSuffix])
 }
 
-const renameElements = async function (folderPath: string, elementPath: string, seedName: string) {
-  const newName = path.basename(elementPath);
-
-  const camelCasedSeedName = getCamelCaseFromDashSeparated(seedName);
-  const camelCasedName = getCamelCaseFromDashSeparated(newName);
+/**
+ * Rename all template name text in element file
+ * @param root current directory
+ * @param newName name to replace
+ * @param templateName template name to be replaced
+ * @return Promise
+ */
+const renameElements = async function (root: string, newName: string, templateName: string) {
+  const camelCasedTemplateName = toCamelCase(templateName);
+  const camelCasedName = toCamelCase(newName);
 
   await replacer.groupReplace(
-    [seedName, camelCasedSeedName],
+    [templateName, camelCasedTemplateName],
     [newName, camelCasedName],
-    folderPath
+    root
   );
 }
 
-const renameAll = async function (folderPath: string, elementPath: string, seedName: string) {
-  await renameFiles(folderPath, elementPath, seedName);
-  await renameElements(folderPath, elementPath, seedName);
+/**
+ * Renames all filenames and text that contains templateName to the new name
+ * @param root current directory
+ * @param newName name to replace
+ * @param templateName template name to be replaced
+ */
+const renameAll = async function (root: string, newName: string, templateName: string) {
+  await renameFiles(root, newName, templateName);
+  await renameElements(root, newName, templateName);
 };
 
 export default renameAll;

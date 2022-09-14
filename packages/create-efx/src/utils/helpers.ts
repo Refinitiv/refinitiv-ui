@@ -3,8 +3,19 @@ import path from 'path';
 
 const PROJECT_PREFIX = 'efx-';
 
-const getProjectName = (targetDir: string | undefined) => targetDir ? path.basename(path.resolve(targetDir)) : '';
+/**
+ * Get basename of target directory
+ * @param targetDir target directory
+ * @return basename
+ */
+const getProjectName = (targetDir: string | undefined) => 
+  targetDir ? path.basename(path.resolve(targetDir)) : '';
 
+/**
+ * Add prefix to project name
+ * @param projectName project name to format
+ * @return formatted project name
+ */
 const formatProjectName = (projectName: string): string => {
   if (!projectName) {
     return PROJECT_PREFIX;
@@ -12,6 +23,11 @@ const formatProjectName = (projectName: string): string => {
   return projectName.startsWith(PROJECT_PREFIX) ? projectName : `${PROJECT_PREFIX}${projectName}`;
 };
 
+/**
+ * Validate the project name
+ * @param name name to validate
+ * @return error message if the name is invalid
+ */
 const validateProjectName = (name: string) => {
   let error = '';
 
@@ -46,13 +62,27 @@ const validateProjectName = (name: string) => {
   return error;
 };
 
-const isDirExist = (dir: string) => fs.existsSync(dir) && !isEmptyDir(dir);
-
-const isEmptyDir = (path: string) => {
-  const files = fs.readdirSync(path);
+/**
+ * Check if the directory is empty
+ * @param dir directory to check
+ * @return true if directory is empty
+ */
+ const isEmptyDir = (dir: string) => {
+  const files = fs.readdirSync(dir);
   return files.length === 0 || (files.length === 1 && files[0] === '.git');
 };
 
+/**
+ * Check if the directory is already exist
+ * @param dir directory to check
+ * @return true if directory is already exist
+ */
+const isDirExist = (dir: string) => fs.existsSync(dir) && !isEmptyDir(dir);
+
+/**
+ * Remove all the files in directory
+ * @param dir directory to empty
+ */
 const emptyDir = (dir: string) => {
   if (!fs.existsSync(dir)) {
     return;
@@ -66,10 +96,9 @@ const emptyDir = (dir: string) => {
 };
 
 export {
+  getProjectName,
   formatProjectName,
   validateProjectName,
-  isEmptyDir,
   emptyDir,
   isDirExist,
-  getProjectName
 };
