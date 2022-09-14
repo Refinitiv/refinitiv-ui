@@ -2,7 +2,7 @@
 @import 'element:ef-icon';
 @import 'element:ef-overlay';
 @import 'element:ef-time-picker';
-@import 'element:ef-text-field';
+@import 'element:ef-datetime-field';
 
 @import (reference) 'ef-text-field';
 
@@ -32,6 +32,23 @@
   }
   // #endregion
 
+  padding: 0;
+
+  [part~=button] {
+    height: 100%;
+    width: @button-height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: none;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font-size: inherit;
+  }
+
   [part=calendar] {
     width: @calendar-width;
     padding: 0 calc((@input-width - @calendar-width) /  2);
@@ -48,17 +65,13 @@
   }
 
   &[range] {
-    ef-text-field {
+    ef-datetime-field {
       text-align: center;
     }
   }
 
   [part=input] {
     color: inherit;
-  }
-
-  [part='icon'] {
-    color: @control-text-color;
   }
 
   [part=input-separator] {

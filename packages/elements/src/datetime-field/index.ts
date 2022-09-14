@@ -21,7 +21,6 @@ import {
 } from '@refinitiv-ui/utils/date.js';
 import {
   translate,
-  getLocale,
   TranslateDirective,
   TranslatePropertyKey
 } from '@refinitiv-ui/translate';
@@ -31,6 +30,7 @@ import type {
   DateTimeFormatPart,
   InputSelection
 } from './types';
+import { resolvedLocale } from './resolvedLocale.js';
 import { TextField } from '../text-field/index.js';
 import {
   getSelectedPartIndex,
@@ -111,101 +111,45 @@ export class DatetimeField extends TextField {
   @property({ type: String, reflect: true })
   public max: string | null = null;
 
-  private _timepicker = false;
   /**
    * Toggle to display the time picker
-   * @param timepicker true to set timepicker mode
-   * @default false
    */
   @property({ type: Boolean, reflect: true })
-  public set timepicker (timepicker: boolean) {
-    const oldTimepicker = this._timepicker;
-    if (timepicker !== oldTimepicker) {
-      this._timepicker = timepicker;
-      this._locale = null;
-      this.requestUpdate('timepicker', oldTimepicker);
-    }
-  }
-  public get timepicker (): boolean {
-    return this._timepicker;
-  }
+  public timepicker = false;
 
-  private _showSeconds = false;
   /**
    * Toggle to display the seconds
-   * @param showSeconds true to show seconds
-   * @default false
    */
   @property({ type: Boolean, attribute: 'show-seconds', reflect: true })
-  public set showSeconds (showSeconds: boolean) {
-    const oldShowSeconds = this._showSeconds;
-    if (oldShowSeconds !== showSeconds) {
-      this._showSeconds = showSeconds;
-      this._locale = null;
-      this.requestUpdate('showSeconds', oldShowSeconds);
-    }
-  }
-  public get showSeconds (): boolean {
-    return this._showSeconds;
-  }
+  public showSeconds = false;
 
-  private _amPm = false;
   /**
    * Overrides 12hr time display format
-   * @param amPm true to show 12hr time format
-   * @default false
    */
   @property({ type: Boolean, attribute: 'am-pm', reflect: true })
-  public set amPm (amPm: boolean) {
-    const oldAmPm = this._amPm;
-    if (oldAmPm !== amPm) {
-      this._amPm = amPm;
-      this._locale = null;
-      this.requestUpdate('amPm', oldAmPm);
-    }
-  }
-  public get amPm (): boolean {
-    return this._amPm;
-  }
+  public amPm = false;
 
-  private _formatOptions: Intl.DateTimeFormatOptions | null = null;
   /**
    * Set the datetime format options based on
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
    * `formatOptions` overrides `timepicker` and `showSeconds` properties.
    * Note: time-zone is not supported
-   * @param formatOptions Format options
-   * @default - null
    */
   @property({ attribute: false })
-  public set formatOptions (formatOptions: Intl.DateTimeFormatOptions | null) {
-    const oldFormatOptions = this._formatOptions;
-    if (oldFormatOptions !== formatOptions) {
-      this._formatOptions = formatOptions;
-      this._locale = null;
-      this.requestUpdate('formatOptions', oldFormatOptions);
-    }
-  }
-  public get formatOptions (): Intl.DateTimeFormatOptions | null {
-    return this._formatOptions;
-  }
+  public formatOptions: Intl.DateTimeFormatOptions | null = null;
+
+  /**
+   * Set the Locale object.
+   * `Locale` overrides `formatOptions`, `timepicker` and `showSeconds` properties.
+   */
+  @property({ attribute: false })
+  public locale: Locale | null = null;
 
   /**
    * Used for translations
    */
   @translate({ mode: 'directive', scope: 'ef-datetime-field' })
   protected t!: TranslateDirective;
-
-  /**
-   * Format, which is based on locale
-   */
-  private _locale: Locale | null = null;
-  protected get locale (): Locale {
-    if (!this._locale) {
-      this._locale = this.resolveLocale();
-    }
-    return this._locale;
-  }
 
   private interimValueState = false; // make sure that internal input field value is updated only on external value change
   /**
@@ -265,37 +209,19 @@ export class DatetimeField extends TextField {
   protected partLabel = '';
 
   /**
+   * Get resolved locale for current element
+   */
+  protected get resolvedLocale (): Locale {
+    return resolvedLocale(this);
+  }
+
+  /**
    * Transform Date object to date string
    * @param value Date
    * @returns dateSting
    */
   protected dateToString (value: Date): string {
-    return isNaN(value.getTime()) ? '' : utcFormat(value, this.locale.isoFormat);
-  }
-
-  /**
-   * Returns true if the datetime field has timepicker
-   * @returns hasTimePicker
-   */
-  protected get hasTimePicker (): boolean {
-    // need to check for attribute to resolve the value correctly until the first lifecycle is run
-    return this.timepicker || this.hasAttribute('timepicker') || this.hasAmPm || this.hasSeconds;
-  }
-
-  /**
-   * Returns true if the datetime field has seconds
-   * @returns hasSeconds
-   */
-  protected get hasSeconds (): boolean {
-    return this.showSeconds || this.hasAttribute('show-seconds');
-  }
-
-  /**
-   * Returns true if the datetime field has am-pm
-   * @returns hasAmPm
-   */
-  protected get hasAmPm (): boolean {
-    return this.amPm || this.hasAttribute('am-pm');
+    return isNaN(value.getTime()) ? '' : utcFormat(value, this.resolvedLocale.isoFormat);
   }
 
   /**
@@ -320,10 +246,6 @@ export class DatetimeField extends TextField {
   public willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has(TranslatePropertyKey)) {
-      this._locale = null; // Locale is updated on next call via getter
-    }
-
     if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
       this.partLabel = '';
     }
@@ -343,6 +265,7 @@ export class DatetimeField extends TextField {
       || changedProperties.has('timepicker')
       || changedProperties.has('showSeconds')
       || changedProperties.has('amPm')
+      || changedProperties.has('locale')
       || (changedProperties.has(FocusedPropertyKey) && this.value !== '' && !this.focused);
   }
 
@@ -392,7 +315,7 @@ export class DatetimeField extends TextField {
       return true;
     }
     // value format depends on locale.
-    return getFormat(value) === this.locale.isoFormat;
+    return getFormat(value) === this.resolvedLocale.isoFormat;
   }
 
   /**
@@ -401,33 +324,14 @@ export class DatetimeField extends TextField {
    * @returns {void}
    */
   protected override warnInvalidValue (value: string): void {
-    new WarningNotice(`${this.localName}: the specified value "${value}" does not conform to the required format. The format is '${this.locale.isoFormat}'.`).show();
-  }
-
-  /**
-   * Resolve locale based on element parameters
-   * @returns locale Resolved locale
-   */
-  protected resolveLocale (): Locale {
-    const hasTimePicker = this.hasTimePicker;
-
-    // TODO: Do not use dateStyle and timeStyle as these are supported only in modern browsers
-    return Locale.fromOptions(this.formatOptions || {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: hasTimePicker ? 'numeric' : undefined,
-      minute: hasTimePicker ? 'numeric' : undefined,
-      second: this.hasSeconds ? 'numeric' : undefined,
-      hour12: this.hasAmPm ? true : undefined // force am-pm if provided, otherwise rely on locale
-    }, `${getLocale(this)}`);
+    new WarningNotice(`${this.localName}: the specified value "${value}" does not conform to the required format. The format is '${this.resolvedLocale.isoFormat}'.`).show();
   }
 
   /**
    * Get Intl.DateTimeFormat object from locale
    */
   protected get formatter (): Intl.DateTimeFormat {
-    return this.locale.formatter;
+    return this.resolvedLocale.formatter;
   }
 
   /**
@@ -458,7 +362,7 @@ export class DatetimeField extends TextField {
   protected toValue (inputValue: string): string {
     let value = '';
     try {
-      value = inputValue ? this.locale.parse(inputValue, this.value || this.startDate) : '';
+      value = inputValue ? this.resolvedLocale.parse(inputValue, this.value || this.startDate) : '';
     }
     catch (error) {
       // do nothing
