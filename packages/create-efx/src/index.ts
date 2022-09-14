@@ -18,7 +18,7 @@ const init = async () => {
   let promptResults;
 
   const projectName = getProjectName(targetDir);
-  const error = validateProjectName(projectName);
+  let error = validateProjectName(projectName);
 
   if (error) {
     console.log(chalk.red(error));
@@ -28,8 +28,8 @@ const init = async () => {
     promptResults = await prompts(
       [
         {
-          // only show this question when user input invalid name or directory is exist.
-          type: isDirExist(targetDir) || !error ? null : 'text',
+          // only show this question when user input invalid name.
+          type: !error ? null : 'text',
           name: 'projectName',
           message: chalk.reset('Project name:'),
           initial: targetDir,
@@ -37,15 +37,15 @@ const init = async () => {
             targetDir = value;
           },
           validate: (name) => {
-            const error = validateProjectName(getProjectName(name));
-            if(!name || error && !isDirExist(name)) {
+            error = validateProjectName(getProjectName(name));
+            if(!name || error) {
               return error;
             }
             return true;
           }
         },
         {
-            type: !error && isDirExist(targetDir) ? 'confirm' : null,
+            type: () => !error && isDirExist(targetDir) ? 'confirm' : null,
             name: 'overwrite',
             message: () => `Target directory "${chalk.cyan(targetDir)}" is not empty. Remove existing files and continue?`
         },
