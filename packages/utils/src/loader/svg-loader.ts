@@ -122,14 +122,14 @@ export class SVGLoader extends CDNLoader {
         .then(response => extractSafeSVG(response))
         .then((svg) => {
           if (svg?.outerHTML) {
-            console.log(`${window.name} %c Start writing to cache icon %c ${iconName}`, 'background: blue; color: white', '');
+            console.log(`${window.name} %c Start writing to cache icon %c ${iconName}`, 'background: red; color: white', '');
           }
           resolve(svg?.outerHTML);
         });
     });
 
     void cache.set(src, data).then(() => {
-      console.log(`${window.name} %c Icon Cached %c ${iconName}`, 'background: blue; color: white', '');
+      console.log(`${window.name} %c Icon Cached %c ${iconName}`, 'background: red; color: white', '');
     });
 
     return data;

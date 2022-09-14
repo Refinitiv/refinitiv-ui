@@ -225,7 +225,7 @@ export class CacheMessenger {
     // Use Broadcast Channel send message
     const messageId = this.getMessageCount('post') + 1;
     this.broadcastChannel.postMessage({ id: messageId, key, value });
-    console.log(`${window.name} %c Post message %c id: ${messageId} ${key.split('/').pop() || ''}`, 'background: blue; color: white', '');
+    console.log(`${window.name} %c Post message %c id: ${messageId} ${key.split('/').pop() || ''}`, 'background: yellow; color: black', '');
     this.increaseMessageCount('post');
   }
 }

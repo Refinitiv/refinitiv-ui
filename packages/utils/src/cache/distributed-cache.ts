@@ -85,7 +85,7 @@ export class DistributedCache extends CoreCache {
       return null;
     }
     else if (this.messenger.hasMessage(key)) {
-      console.log(`${window.name} %c Get from Messages Cache %c ${iconName}`, 'background: pink; color: white', '');
+      console.log(`${window.name} %c Get from Messages Cache %c ${iconName}`, 'background: fuchsia; color: white', '');
       /**
        * Check data in messageCached before add to wating list
        * to prevent the case send message before init the listener
