@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.0.4...@refinitiv-ui/utils@6.1.0) (2022-09-14)
+
+
+### Features
+
+* **color-picker:** add color picker ([#444](https://github.com/Refinitiv/refinitiv-ui/issues/444)) ([3718003](https://github.com/Refinitiv/refinitiv-ui/commit/37180039a77d908acd731c89067ecfce3f23955f))
+
+
+
+
+
 ## [6.0.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.0.3...@refinitiv-ui/utils@6.0.4) (2022-08-29)
 
 **Note:** Version bump only for package @refinitiv-ui/utils
