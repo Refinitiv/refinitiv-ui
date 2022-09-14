@@ -1,15 +1,15 @@
 import { Phrasebook } from '../../translation.js';
 
 const translations = {
-  CHOOSE_DATE: 'Choose date',
-  CHOOSE_DATE_TIME: 'Choose date and time',
-  CHOOSE_TIME: 'Choose time',
-  CHOOSE_DATE_RANGE: 'Choose date range',
-  CHOOSE_DATE_TIME_RANGE: 'Choose date and time range',
-  CHOOSE_TIME_RANGE: 'Choose time range',
-  VALUE_FROM: 'From',
-  VALUE_TO: 'To',
-  OPEN_CALENDAR: 'Open calendar'
+  CHOOSE_DATE: '日付を選択',
+  CHOOSE_DATE_TIME: '日付と時刻を選択',
+  CHOOSE_TIME: '時刻を選択',
+  CHOOSE_DATE_RANGE: '日付範囲を選択',
+  CHOOSE_DATE_TIME_RANGE: '日付と時刻の範囲を選択',
+  CHOOSE_TIME_RANGE: '時刻の範囲を選択',
+  VALUE_FROM: '開始',
+  VALUE_TO: '終了',
+  OPEN_CALENDAR: 'カレンダーを開く'
 };
 
 Phrasebook.define('ja', 'ef-datetime-picker', translations);
