@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.1.1...@refinitiv-ui/elements@6.2.0) (2022-09-14)
+
+
+### Bug Fixes
+
+* **color-picker:** update snapshot and remove backdrop ([#447](https://github.com/Refinitiv/refinitiv-ui/issues/447)) ([d6c086c](https://github.com/Refinitiv/refinitiv-ui/commit/d6c086c4ab405d8183258c72bc566f4bb640a635))
+* **dialog:** change withBackdrop and withShadow to proprerty ([#445](https://github.com/Refinitiv/refinitiv-ui/issues/445)) ([2740f00](https://github.com/Refinitiv/refinitiv-ui/commit/2740f008b5163a396dd244570a93064bf0c8d844))
+* **interactive-chart:** fix left position on legend ([#449](https://github.com/Refinitiv/refinitiv-ui/issues/449)) ([ede4f93](https://github.com/Refinitiv/refinitiv-ui/commit/ede4f93776671f9261675a3a0d5bd32a62c317d5))
+
+
+### Features
+
+* **color-picker:** add color picker ([#444](https://github.com/Refinitiv/refinitiv-ui/issues/444)) ([3718003](https://github.com/Refinitiv/refinitiv-ui/commit/37180039a77d908acd731c89067ecfce3f23955f))
+* **item:** show tooltip when text ellipsis ([#394](https://github.com/Refinitiv/refinitiv-ui/issues/394)) ([8943eb6](https://github.com/Refinitiv/refinitiv-ui/commit/8943eb625bfd54a6014f6815940eacd924d67ab4))
+
+
+
+
+
 ## [6.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.1.0...@refinitiv-ui/elements@6.1.1) (2022-08-29)
 
 
