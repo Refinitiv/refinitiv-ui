@@ -8,7 +8,7 @@ const PROJECT_PREFIX = 'efx-';
  * @param targetDir target directory
  * @return basename
  */
-const getProjectName = (targetDir: string | undefined) => 
+const getProjectName = (targetDir: string | undefined) =>
   targetDir ? path.basename(path.resolve(targetDir)) : '';
 
 /**
@@ -59,7 +59,7 @@ const validateProjectName = (name: string) => {
     error = 'Project name should not contain consecutive non-alpha characters.';
   }
 
-  else if (!(/^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/.test(name))) {
+  else if (!((/^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/).test(name))) {
     error = 'Invalid project name.';
   }
 
@@ -71,7 +71,7 @@ const validateProjectName = (name: string) => {
  * @param dir directory to check
  * @return true if directory is empty
  */
- const isEmptyDir = (dir: string) => {
+const isEmptyDir = (dir: string) => {
   const files = fs.readdirSync(dir);
   return files.length === 0 || (files.length === 1 && files[0] === '.git');
 };
@@ -86,6 +86,7 @@ const isDirExist = (dir: string) => fs.existsSync(dir) && !isEmptyDir(dir);
 /**
  * Remove all the files in directory
  * @param dir directory to empty
+ * @return {void}
  */
 const emptyDir = (dir: string) => {
   if (!fs.existsSync(dir)) {
@@ -104,5 +105,5 @@ export {
   formatProjectName,
   validateProjectName,
   emptyDir,
-  isDirExist,
+  isDirExist
 };

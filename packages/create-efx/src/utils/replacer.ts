@@ -25,13 +25,10 @@ const singleReplace = async (filePath: string, oldNames: string[], newNames: str
       newNames.forEach((newName, index) => {
         newData = newData.replace(new RegExp(oldNames[index], 'g'), newName);
       });
+      // eslint-disable-next-line prefer-const
       result = Promise.resolve(newData);
 
-      if(!result) {
-        return;
-      }
-
-      result.then(out => {
+      void result.then(out => {
         fs.writeFile(currentFile, out, 'utf8', err => {
           if (err) {
             reject(err);
@@ -61,7 +58,7 @@ const groupReplace = async (oldNames: string[], newNames: string[], cwd: string)
       files.forEach(function (file) {
         promises.push(singleReplace(file, oldNames, newNames, cwd));
       });
-      Promise.all(promises).then(function (res) {
+      void Promise.all(promises).then(function (res) {
         resolve(res);
       });
     }
@@ -79,4 +76,4 @@ const groupReplace = async (oldNames: string[], newNames: string[], cwd: string)
 export default {
   groupReplace,
   singleReplace
-}
+};
