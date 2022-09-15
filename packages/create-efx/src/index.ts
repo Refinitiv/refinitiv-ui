@@ -4,14 +4,15 @@ import path from 'path';
 import chalk from 'chalk';
 import minimist from 'minimist';
 import prompts from 'prompts';
-import renameAll from './utils/renamer';
-import { emptyDir, formatProjectName, getProjectName, isDirExist, validateProjectName } from './utils/helpers';
+import renameAll from './utils/renamer.js';
+import { emptyDir, formatProjectName, getProjectName, isDirExist, validateProjectName } from './utils/helpers.js';
 
 const TEMPLATE_NAME = 'efx-element';
 
 // Avoids autoconversion to number of the project name by defining that the args
 // non associated with an option ( _ ) needs to be parsed as a string.
 const argv = minimist(process.argv.slice(2), { string: ['_'] });
+const cwd = process.cwd();
 
 const init = async () => {
   let targetDir = argv._[0];
@@ -34,30 +35,30 @@ const init = async () => {
           message: chalk.reset('Project name:'),
           initial: targetDir,
           onState: ({ value }) => {
-            targetDir = value;
+            targetDir = value as string;
           },
-          validate: (name) => {
+          validate: (name: string) => {
             error = validateProjectName(getProjectName(name));
-            if(!name || error) {
+            if (!name || error) {
               return error;
             }
             return true;
           }
         },
         {
-            type: () => !error && isDirExist(targetDir) ? 'confirm' : null,
-            name: 'overwrite',
-            message: () => `Target directory "${chalk.cyan(targetDir)}" is not empty. Remove existing files and continue?`
+          type: () => !error && isDirExist(targetDir) ? 'confirm' : null,
+          name: 'overwrite',
+          message: () => `Target directory "${chalk.cyan(targetDir)}" is not empty. Remove existing files and continue?`
         },
         {
           type: (_, { overwrite }) => {
             if (overwrite === false) {
-              throw new Error(chalk.red('✖') + ' Operation cancelled')
+              throw new Error(chalk.red('✖') + ' Operation cancelled');
             }
-            return null
+            return null;
           },
           name: 'overwriteChecker'
-        },
+        }
       ],
       {
         onCancel: () => {
@@ -79,21 +80,20 @@ const init = async () => {
   else {
     fs.mkdirSync(root, { recursive: true });
   }
-
+  
   console.log(`\nScaffolding project in ${chalk.cyan(root)}`);
-  await fsExtra.copy('./src/template', root);
+  await fsExtra.copy(path.join(__dirname, '../src/template'), root);
 
   const newName = formatProjectName(path.basename(root));
   await renameAll(root, newName, TEMPLATE_NAME);
 
-  const cwd = process.cwd();
-  console.log(`\nDone. Now run:\n`);
+  console.log('\nDone. Now run:\n');
 
   if (root !== cwd) {
     console.log(`  cd ${path.relative(cwd, root)}`);
   }
-  console.log(`  npm install`);
-  console.log(`  npm start`);
+  console.log('  npm install');
+  console.log('  npm start');
 };
 
 init().catch((error) => {
