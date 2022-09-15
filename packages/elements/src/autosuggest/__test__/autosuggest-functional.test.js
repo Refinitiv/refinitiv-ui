@@ -786,7 +786,7 @@ describe('autosuggest/Functional', () => {
       expect(document.activeElement).to.equal(input);
     });
 
-    it('Item should display as item.label when item is disabled', async function () {
+    it('Item should use item.label when it is disabled', async function () {
       if (isIE()) {
         this.skip();
       }
