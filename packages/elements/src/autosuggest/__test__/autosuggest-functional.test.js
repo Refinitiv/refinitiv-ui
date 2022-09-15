@@ -813,7 +813,7 @@ describe('autosuggest/Functional', () => {
       expect(autoSuggest.querySelector('ef-item').disabled).to.equal(modifiedData[0].disabled);
     });
 
-    it('Item should display as item.value when item is disabled and has no label', async function () {
+    it('Item should use item.value as display text when it is disabled and has no label', async function () {
       if (isIE()) {
         this.skip();
       }
