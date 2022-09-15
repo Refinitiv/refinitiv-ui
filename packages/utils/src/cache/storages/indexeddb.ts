@@ -66,7 +66,7 @@ export class IndexedDBStorage implements CacheStorage {
   /**
    * Set item against a key
    * @param key item key
-   * @param value item value
+   * @param value item key
    * @returns {void}
    */
   public async set (key: string, value: CacheItem): Promise<void> {
@@ -74,6 +74,28 @@ export class IndexedDBStorage implements CacheStorage {
     const item = { ...value, key };
     this.cache?.set(key, item);
     await this.db?.put(this.dbName, item, key);
+  }
+
+  /**
+   * Set item to active cache without writting to storage
+   * @param key item key
+   * @param value item key
+   * @returns {void}
+   */
+  public async setActive (key: string, value: CacheItem): Promise<void> {
+    await this.ready;
+    const item = { ...value, key };
+    this.cache?.set(key, item);
+  }
+
+  /**
+   * Check active cache has item
+   * @param key item key
+   * @returns true if found item in active cache
+   */
+  public async hasActive (key: string): Promise<boolean> {
+    await this.ready;
+    return this.cache?.has(key) || false;
   }
 
   /**

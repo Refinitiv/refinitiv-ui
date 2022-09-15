@@ -1,11 +1,13 @@
 /* eslint-disable no-console */
-type Message = {
+export type Message = {
   id: number;
   key: string;
   value: string;
 }
 
 type MessageType = 'post' | 'received';
+
+export type OnMessageCallback = (message: Message) => Promise<void>;
 
 type Requests = {
   [key: string]: 'true'
@@ -30,14 +32,9 @@ const CHANNEL_PREFIX = 'ef';
 export class CacheMessenger {
 
   /**
-   * Messages cache
-   */
-  private messages = new Map();
-
-  /**
    * List of promise needed be resolved by messaging
    */
-  private waiting = new Map();
+  private waiting = new Map<string, CallableFunction>();
 
   /**
    * Channel to send message
@@ -48,6 +45,8 @@ export class CacheMessenger {
    * Names for manage all states temporary
    */
   private storageNames: StorageNames;
+
+  public onMessage: OnMessageCallback | undefined = undefined;
 
   constructor (name: string) {
     const messengerName = `[${CHANNEL_PREFIX}][${name}]`;
@@ -84,16 +83,19 @@ export class CacheMessenger {
    */
   private listen (): void {
     this.broadcastChannel.onmessage = (event: MessageEvent<Message>) => {
-      const { data: { id: messageId, key, value } } = event;
 
-      // Cache all messsages in case this message faster than value registered to waiting list
-      if (!this.messages.has(key)) {
-        this.messages.set(key, value);
+      // Run callback function
+      if (this.onMessage instanceof Function) {
+        void this.onMessage(event.data);
       }
 
+      const { data: { id: messageId, key, value } } = event;
+
       if (this.waiting.has(event.data.key)) {
-        const resolve = this.waiting.get(key) as CallableFunction;
-        resolve(value);
+        const resolve = this.waiting.get(key);
+        if (resolve) {
+          resolve(value);
+        }
         console.log(`${window.name} %c Receive message %c icon ${key.split('/').pop() || ''} MessageID: ${messageId}`, 'background: green; color: white', '');
       }
 
@@ -145,7 +147,6 @@ export class CacheMessenger {
     localStorage.removeItem(this.storageNames.requests);
     localStorage.removeItem(this.storageNames.messagePost);
     localStorage.removeItem(this.storageNames.messageReceived);
-    this.messages.clear();
     this.waiting.clear();
   }
 
@@ -188,24 +189,6 @@ export class CacheMessenger {
   }
 
   /**
-   * Get message from cache
-   * @param key resource name
-   * @returns cache message
-   */
-  public getMessage (key: string): string {
-    return this.messages.get(key) as string;
-  }
-
-  /**
-   * Check resource is in message cache
-   * @param key resource name
-   * @returns true if resource is in message cache
-   */
-  public hasMessage (key: string): boolean {
-    return this.messages.has(key);
-  }
-
-  /**
    * Add item to waiting list
    * @param key item key
    * @param value callback function
@@ -222,7 +205,6 @@ export class CacheMessenger {
    * @returns {void}
    */
   public notify (key: string, value: string): void {
-    // Use Broadcast Channel send message
     const messageId = this.getMessageCount('post') + 1;
     this.broadcastChannel.postMessage({ id: messageId, key, value });
     console.log(`${window.name} %c Post message %c id: ${messageId} ${key.split('/').pop() || ''}`, 'background: yellow; color: black', '');

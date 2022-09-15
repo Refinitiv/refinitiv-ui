@@ -28,6 +28,16 @@ export class DistributedCache extends CoreCache {
   constructor (name: string, config?: DistributedCacheConfig) {
     super(name, config);
     this.messenger = new CacheMessenger(name);
+    this.messenger.onMessage = async (message) => {
+      const { key, value } = message;
+      /**
+       * Synchronize the item to active cache in storage by using data in the received message,
+       * while the item writing to the browser storage by the sender
+       */
+      if (!await this.storage.hasActive(key)) {
+        void this.setActiveCache(key, value);
+      }
+    };
   }
 
   /**
@@ -67,6 +77,24 @@ export class DistributedCache extends CoreCache {
   }
 
   /**
+   * Caches a value to active cache without writing to storage
+   * @param key Cache key
+   * @param value Data to store in cache
+   * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
+   * @returns {void}
+   */
+  public async setActiveCache (key: string, value: string | Promise<string | undefined>, expires = 432000): Promise<void> {
+    const modified = Date.now();
+    const data = {
+      value: value,
+      modified: Date.now(),
+      expires: modified + expires * 1000
+    };
+
+    await this.storage.setActive(key, data);
+  }
+
+  /**
    * Returns cache data value based on provided key
    * @param key Cache key
    * @returns Promise string data or `null` if nothing is cached
@@ -83,14 +111,6 @@ export class DistributedCache extends CoreCache {
     if (!this.messenger || !this.messenger.hasRequest(key)) {
       console.log(`${window.name} %c Request %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
       return null;
-    }
-    else if (this.messenger.hasMessage(key)) {
-      console.log(`${window.name} %c Get from Messages Cache %c ${iconName}`, 'background: fuchsia; color: white', '');
-      /**
-       * Check data in messageCached before add to wating list
-       * to prevent the case send message before init the listener
-       */
-      return this.messenger.getMessage(key);
     }
     else {
       return new Promise<string | null>(resolve => {

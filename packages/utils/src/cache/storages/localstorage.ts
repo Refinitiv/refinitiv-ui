@@ -71,6 +71,27 @@ export class LocalStorage implements CacheStorage {
   }
 
   /**
+   * Set item to active cache without writting to storage
+   * @param key item key
+   * @param value item key
+   * @returns {void}
+   */
+  public async setActive (key: string, value: CacheItem): Promise<void> {
+    const item = { ...value, key };
+    this.cache?.set(key, item);
+    return Promise.resolve();
+  }
+
+  /**
+   * Check active cache has item
+   * @param key item key
+   * @returns true if found item in active cache
+   */
+  public async hasActive (key: string): Promise<boolean> {
+    return Promise.resolve(this.cache?.has(key) || false);
+  }
+
+  /**
    * Returns an item from cache database using provided key
    * @param key Cache key
    * @returns CacheItem or `null` if nothing is cached

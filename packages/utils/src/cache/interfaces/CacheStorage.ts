@@ -19,6 +19,16 @@ export interface CacheStorage {
   get(key: string): Promise<unknown | null>;
 
   /**
+   * Set a value to active cache
+   */
+  setActive(key: string, value: unknown): Promise<void>;
+
+  /**
+   * Check a value is in active cache
+   */
+  hasActive(key: string): Promise<boolean>;
+
+  /**
    * Remove a value against a key
    */
   remove(key: string): Promise<void>;
