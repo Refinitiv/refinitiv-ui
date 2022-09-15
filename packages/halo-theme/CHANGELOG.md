@@ -3,12 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.1.4...@refinitiv-ui/halo-theme@6.2.0) (2022-09-14)
+
+
+### Features
+
+* **color-picker:** add color picker ([#444](https://github.com/Refinitiv/refinitiv-ui/issues/444)) ([3718003](https://github.com/Refinitiv/refinitiv-ui/commit/37180039a77d908acd731c89067ecfce3f23955f))
+
+
+
+
+
 ## [6.1.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.1.3...@refinitiv-ui/halo-theme@6.1.4) (2022-08-29)
 
 
 ### Bug Fixes
 
-* **halo-theme:** sync color due to Grid style updated ([23e6f40](https://github.com/Refinitiv/refinitiv-ui/commit/23e6f405722458b0ee261e088be4781c7ded6e9d))
+* **grid:** sync color due to Grid style updated ([23e6f40](https://github.com/Refinitiv/refinitiv-ui/commit/23e6f405722458b0ee261e088be4781c7ded6e9d))
 * **list-item:** incorrect style on halo theme ([#432](https://github.com/Refinitiv/refinitiv-ui/issues/432)) ([3d8a7dc](https://github.com/Refinitiv/refinitiv-ui/commit/3d8a7dc890e54c6a4dec1e2acf8b0097db9a53e2))
 
 
