@@ -81,19 +81,19 @@ const init = async () => {
     fs.mkdirSync(root, { recursive: true });
   }
   
-  console.log(`\nScaffolding project in ${chalk.cyan(root)}`);
+  console.log(`\nScaffolding project in ${chalk.cyan(root)} ...`);
   await fsExtra.copy(path.join(__dirname, '../src/template'), root);
 
   const newName = formatProjectName(path.basename(root));
   await renameAll(root, newName, TEMPLATE_NAME);
 
-  console.log('\nDone. Now run:\n');
+  console.log(`\n${chalk.green('Done.')} Now run:\n`);
 
   if (root !== cwd) {
-    console.log(`  cd ${path.relative(cwd, root)}`);
+    console.log(`${chalk.cyan('cd')} ${path.relative(cwd, root)}`);
   }
-  console.log('  npm install');
-  console.log('  npm start');
+  console.log(chalk.cyan('npm install'));
+  console.log(chalk.cyan('npm start\n'));
 };
 
 init().catch((error) => {

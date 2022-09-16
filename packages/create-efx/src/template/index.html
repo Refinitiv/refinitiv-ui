@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -16,7 +15,7 @@
       let variant = url.searchParams.get('variant') || 'light';
 
       // import styles for typography, body and other native inbuilt elements.
-      import (`./node_modules/@refinitiv-ui/${theme}-theme/${variant}/imports/native-elements`);
+      import (`./node_modules/@refinitiv-ui/${theme}-theme/${variant}/imports/native-elements.js`);
       import (`./themes/${theme}-theme/${variant}.js`);
     </script>
 

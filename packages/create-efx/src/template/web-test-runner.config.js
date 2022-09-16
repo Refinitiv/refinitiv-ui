@@ -1,4 +1,3 @@
-import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
 export default {
@@ -8,5 +7,4 @@ export default {
     playwrightLauncher({ product: 'firefox' }),
     playwrightLauncher({ product: 'webkit' }),
   ],
-  plugins: [esbuildPlugin({ loaders: { '.ts': 'ts', '.svg': 'dataurl' } })],
 };

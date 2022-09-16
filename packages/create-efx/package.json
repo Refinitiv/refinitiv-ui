@@ -12,7 +12,6 @@
     "node": ">=8.1"
   },
   "scripts": {
-    "start": "nodemon ./lib/index.js",
     "build": "tsc",
     "build:watch": "tsc --watch"
   },
@@ -23,7 +22,6 @@
     "chalk": "^4.1.2",
     "fs-extra": "^10.1.0",
     "minimist": "^1.2.6",
-    "nodemon": "^2.0.19",
     "prompts": "^2.4.2",
     "ts-node": "^10.9.1",
     "yargs": "^17.5.1"
