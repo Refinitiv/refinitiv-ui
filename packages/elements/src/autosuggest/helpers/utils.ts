@@ -52,6 +52,6 @@ export const updateElementContent = (el: Item, query: string, label: string, val
     el.innerHTML = queryWordSelect(label, query);
   }
   else {
-    el.label = `${value}`;
+    el.label = label || `${value}`;
   }
 };

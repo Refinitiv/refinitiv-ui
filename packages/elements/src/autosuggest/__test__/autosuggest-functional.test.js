@@ -785,5 +785,61 @@ describe('autosuggest/Functional', () => {
 
       expect(document.activeElement).to.equal(input);
     });
+
+    it('Item should use item.label when it is disabled', async function () {
+      if (isIE()) {
+        this.skip();
+      }
+      const input = await createInputElement();
+      const autoSuggest = await createFixture('navigation');
+      const suggestLabel = 'Cornelius';
+
+      const modifiedData = [...data];
+      modifiedData[0].disabled = true;
+
+      autoSuggest.suggestions = modifiedData;
+      await elementUpdated(autoSuggest);
+
+      await focusAction(input);
+      input.value = suggestLabel;
+      await inputAction(input);
+
+      setTimeout(() => pressKey(input, 'Enter'));
+
+      await oneEvent(autoSuggest, 'opened-changed');
+      expect(autoSuggest.opened).to.equal(true);
+
+      expect(autoSuggest.querySelector('ef-item').label).to.equal(modifiedData[0].label);
+      expect(autoSuggest.querySelector('ef-item').disabled).to.equal(modifiedData[0].disabled);
+    });
+
+    it('Item should use item.value as display text when it is disabled and has no label', async function () {
+      if (isIE()) {
+        this.skip();
+      }
+      const input = await createInputElement();
+      const autoSuggest = await createFixture('navigation');
+      const suggestLabel = 'Cornelius';
+
+      const modifiedData = [...data];
+      modifiedData[0].disabled = true;
+      modifiedData[0].label = undefined;
+      modifiedData[0].value = 'Cornelius';
+
+      autoSuggest.suggestions = modifiedData;
+      await elementUpdated(autoSuggest);
+
+      await focusAction(input);
+      input.value = suggestLabel;
+      await inputAction(input);
+
+      setTimeout(() => pressKey(input, 'Enter'));
+
+      await oneEvent(autoSuggest, 'opened-changed');
+      expect(autoSuggest.opened).to.equal(true);
+
+      expect(autoSuggest.querySelector('ef-item').label).to.equal(modifiedData[0].value);
+      expect(autoSuggest.querySelector('ef-item').disabled).to.equal(modifiedData[0].disabled);
+    });
   });
 });
