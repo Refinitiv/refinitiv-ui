@@ -1,22 +1,50 @@
 import fs from 'fs';
 import fsExtra from 'fs-extra';
+import * as child from 'child_process';
 import path from 'path';
 import chalk from 'chalk';
-import minimist from 'minimist';
+import minimist, { ParsedArgs } from 'minimist';
 import prompts from 'prompts';
 import renameAll from './utils/renamer.js';
 import { emptyDir, formatProjectName, getProjectName, isDirExist, validateProjectName } from './utils/helpers.js';
+
+interface argvCommands extends ParsedArgs{
+  h?: boolean;
+  help?: boolean;
+  v?: boolean;
+  version?: boolean;
+}
 
 const TEMPLATE_NAME = 'efx-element';
 
 // Avoids autoconversion to number of the project name by defining that the args
 // non associated with an option ( _ ) needs to be parsed as a string.
-const argv = minimist(process.argv.slice(2), { string: ['_'] });
+const argv: argvCommands = minimist(process.argv.slice(2), { string: ['_'] });
 const cwd = process.cwd();
+
+const cmd = {
+  h: argv.h,
+  help: argv.help,
+  v: argv.v,
+  version: argv.version
+};
 
 const init = async () => {
   let targetDir = argv._[0];
   let promptResults;
+
+  if (cmd.h || cmd.help) {
+    console.log('\nUsage: create-efx [options] [name]');
+    console.log('\nOptions:');
+    console.log('\n-h, --help           print create-efx command line options');
+    console.log('\n-v, --version        print create-efx version\n');
+    return;
+  }
+
+  if (cmd.version || cmd.version) {
+    child.execSync('npm pkg get version', { stdio: 'inherit' });
+    return;
+  }
 
   const projectName = getProjectName(targetDir);
   let error = validateProjectName(projectName);
