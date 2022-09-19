@@ -7,7 +7,7 @@ export type Message = {
 
 type MessageType = 'post' | 'received';
 
-export type OnMessageCallback = (message: Message) => Promise<void>;
+export type OnMessageCallback = (message: Message) => void;
 
 type Requests = {
   [key: string]: 'true'
@@ -86,7 +86,7 @@ export class CacheMessenger {
 
       // Run callback function
       if (this.onMessage instanceof Function) {
-        void this.onMessage(event.data);
+        this.onMessage(event.data);
       }
 
       const { data: { id: messageId, key, value } } = event;
@@ -96,7 +96,7 @@ export class CacheMessenger {
         if (resolve) {
           resolve(value);
         }
-        console.log(`${window.name} %c Receive message %c icon ${key.split('/').pop() || ''} MessageID: ${messageId}`, 'background: green; color: white', '');
+        console.log(`${window.name} %c Received message %c icon ${key.split('/').pop() || ''} MessageID: ${messageId} ${Date.now()}`, 'background: green; color: white', '');
       }
 
       // Check the last message
@@ -114,7 +114,7 @@ export class CacheMessenger {
         }
       }, 3000);
     };
-    console.log(`${window.name} %c Listened %c ${Date.now().toString()}`, 'background: purple; color: white', '');
+    console.log(`${window.name} %c Listened in Messenger %c ${Date.now().toString()}`, 'background: purple; color: white', '');
 
   }
 

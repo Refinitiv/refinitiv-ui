@@ -6,7 +6,7 @@ export interface CacheStorage {
   /**
    * Restore all values into memory cache
    */
-  restore(): Promise<void>;
+  restore(force?: boolean): Promise<void>;
 
   /**
    * Set a value against a key
@@ -21,12 +21,12 @@ export interface CacheStorage {
   /**
    * Set a value to active cache
    */
-  setActive(key: string, value: unknown): Promise<void>;
+  setActive(key: string, value: unknown): void;
 
   /**
    * Check a value is in active cache
    */
-  hasActive(key: string): Promise<boolean>;
+  hasActive(key: string): boolean;
 
   /**
    * Remove a value against a key

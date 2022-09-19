@@ -47,7 +47,7 @@ export class IndexedDBStorage implements CacheStorage {
   /**
    * Internal cache object
    */
-  protected cache: CacheMap | null | undefined;
+  protected cache: CacheMap = new Map();
 
   /**
    * Flag to check if cache database is ready to use
@@ -82,8 +82,7 @@ export class IndexedDBStorage implements CacheStorage {
    * @param value item key
    * @returns {void}
    */
-  public async setActive (key: string, value: CacheItem): Promise<void> {
-    await this.ready;
+  public setActive (key: string, value: CacheItem): void {
     const item = { ...value, key };
     this.cache?.set(key, item);
   }
@@ -93,8 +92,7 @@ export class IndexedDBStorage implements CacheStorage {
    * @param key item key
    * @returns true if found item in active cache
    */
-  public async hasActive (key: string): Promise<boolean> {
-    await this.ready;
+  public hasActive (key: string): boolean {
     return this.cache?.has(key) || false;
   }
 
@@ -134,16 +132,22 @@ export class IndexedDBStorage implements CacheStorage {
 
   /**
    * Restores all values into memory cache
+   * @param force overwrite item in active cache
    * @returns {void}
    */
-  public async restore (): Promise<void> {
-    const cache: CacheMap = new Map();
+  public async restore (force = false): Promise<void> {
+
     let cursor = await this.db?.transaction(this.dbName, 'readonly').store.openCursor();
     while (cursor) {
-      cache.set(cursor.key, cursor.value);
+      /**
+       * Need to merge restored items to exists active caches to prevent replace all
+       */
+      const active = this.hasActive(cursor.key);
+      if (!active || active && force) {
+        this.cache.set(cursor.key, cursor.value);
+      }
       cursor = await cursor.continue();
     }
-    this.cache = cache;
   }
 
   /**

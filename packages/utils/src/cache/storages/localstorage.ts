@@ -24,7 +24,7 @@ export class LocalStorage implements CacheStorage {
   /**
    * Internal cache object
    */
-  protected cache: CacheMap | null | undefined;
+  protected cache: CacheMap = new Map();
 
   /**
    * Constructor
@@ -76,10 +76,9 @@ export class LocalStorage implements CacheStorage {
    * @param value item key
    * @returns {void}
    */
-  public async setActive (key: string, value: CacheItem): Promise<void> {
+  public setActive (key: string, value: CacheItem): void {
     const item = { ...value, key };
     this.cache?.set(key, item);
-    return Promise.resolve();
   }
 
   /**
@@ -87,8 +86,8 @@ export class LocalStorage implements CacheStorage {
    * @param key item key
    * @returns true if found item in active cache
    */
-  public async hasActive (key: string): Promise<boolean> {
-    return Promise.resolve(this.cache?.has(key) || false);
+  public hasActive (key: string): boolean {
+    return this.cache?.has(key) || false;
   }
 
   /**
@@ -128,19 +127,24 @@ export class LocalStorage implements CacheStorage {
 
   /**
    * Restores all values into memory cache
+   * @param force overwrite item in active cache
    * @returns {void}
    */
-  public async restore (): Promise<void> {
-    const cache: CacheMap = new Map();
+  public async restore (force = false): Promise<void> {
     const keys = Object.keys(localStorage).filter(key => key.startsWith(this.dbName));
 
     for (let i = 0; i < keys.length; i += 1) {
       const item = this.retrieve(keys[i]);
       if (item) {
-        cache.set(keys[i], item);
+        /**
+         * Need to merge restored items to exists active caches to prevent replace all
+         */
+        const active = this.hasActive(keys[i]);
+        if (!active || active && force) {
+          this.cache.set(keys[i], item);
+        }
       }
     }
-    this.cache = cache;
     return Promise.resolve();
   }
 

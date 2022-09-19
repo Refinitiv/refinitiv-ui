@@ -28,14 +28,15 @@ export class DistributedCache extends CoreCache {
   constructor (name: string, config?: DistributedCacheConfig) {
     super(name, config);
     this.messenger = new CacheMessenger(name);
-    this.messenger.onMessage = async (message) => {
+    this.messenger.onMessage = (message) => {
       const { key, value } = message;
       /**
        * Synchronize the item to active cache in storage by using data in the received message,
        * while the item writing to the browser storage by the sender
        */
-      if (!await this.storage.hasActive(key)) {
-        void this.setActiveCache(key, value);
+      if (!this.storage.hasActive(key)) {
+        console.log(`${window.name} %c Sync cache %c with received message %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: magenta; color: white', '', '');
+        this.setActiveCache(key, value);
       }
     };
   }
@@ -83,7 +84,7 @@ export class DistributedCache extends CoreCache {
    * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
    * @returns {void}
    */
-  public async setActiveCache (key: string, value: string | Promise<string | undefined>, expires = 432000): Promise<void> {
+  public setActiveCache (key: string, value: string | Promise<string | undefined>, expires = 432000): void {
     const modified = Date.now();
     const data = {
       value: value,
@@ -91,7 +92,7 @@ export class DistributedCache extends CoreCache {
       expires: modified + expires * 1000
     };
 
-    await this.storage.setActive(key, data);
+    this.storage.setActive(key, data);
   }
 
   /**
@@ -108,7 +109,7 @@ export class DistributedCache extends CoreCache {
     }
 
     // Check src is already requested
-    if (!this.messenger || !this.messenger.hasRequest(key)) {
+    if (!this.messenger.hasRequest(key)) {
       console.log(`${window.name} %c Request %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
       return null;
     }
