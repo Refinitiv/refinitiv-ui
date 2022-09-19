@@ -21,6 +21,11 @@ export class DistributedCache extends CoreCache {
   protected messenger: CacheMessenger;
 
   /**
+   * Notify before/after writting to storage
+   */
+  protected notification: 'before' | 'after' = 'before';
+
+  /**
    * Constructor
    * @param name cache name
    * @param config cache configuration
@@ -39,6 +44,10 @@ export class DistributedCache extends CoreCache {
         this.setActiveCache(key, value);
       }
     };
+
+    if (config?.notification) {
+      this.notification = config.notification;
+    }
   }
 
   /**
@@ -49,7 +58,7 @@ export class DistributedCache extends CoreCache {
    * @param notification notify new cache message via BroadCast Channel API
    * @returns {void}
    */
-  public async set (key: string, value: string | Promise<string | undefined>, expires = 432000, notification: 'before' | 'after' = 'before'): Promise<void> {
+  public async set (key: string, value: string | Promise<string | undefined>, expires = 432000): Promise<void> {
     let cacheValue: string;
     if (value instanceof Promise) {
       this.messenger.addRequest(key);
@@ -66,13 +75,13 @@ export class DistributedCache extends CoreCache {
       expires: modified + expires * 1000
     };
 
-    if (notification === 'before') {
+    if (this.notification === 'before') {
       this.messenger.notify(key, cacheValue);
     }
 
     await this.storage.set(key, data);
 
-    if (notification === 'after') {
+    if (this.notification === 'after') {
       this.messenger.notify(key, cacheValue);
     }
   }
