@@ -50,4 +50,4 @@ export {
   PACKAGE_ROOT,
   getElementTagName,
   getElementList
-}
+};

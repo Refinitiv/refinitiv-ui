@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
+import path from 'path';
 import chalk from 'chalk';
 import { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList } from './utils.js';
 
@@ -46,7 +46,7 @@ const handler = async () => {
     // Assuming all JavaScript files will be compiled with TypeScript declaration
     const typeDeclaration = file.replace('.js', '.d.ts');
 
-    if (!fs.existsSync(typeDeclaration)){
+    if (!fs.existsSync(typeDeclaration)) {
       return;
     }
 
@@ -96,7 +96,8 @@ const handler = async () => {
 try {
   console.log('Generating JSX Type declarations...');
   handler();
-} catch (error) {
+}
+catch (error) {
   console.log(chalk.red(`jsx.d.ts Generator Error: ${error}`));
 }
 
