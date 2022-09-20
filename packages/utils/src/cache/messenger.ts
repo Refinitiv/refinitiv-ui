@@ -207,7 +207,7 @@ export class CacheMessenger {
   public notify (key: string, value: string): void {
     const messageId = this.getMessageCount('post') + 1;
     this.broadcastChannel.postMessage({ id: messageId, key, value });
-    console.log(`${window.name} %c Post message %c id: ${messageId} ${key.split('/').pop() || ''}`, 'background: yellow; color: black', '');
+    console.log(`${window.name} %c Post message %c id: ${messageId} ${key.split('/').pop() || ''} ${Date.now()}`, 'background: yellow; color: black', '');
     this.increaseMessageCount('post');
   }
 }
