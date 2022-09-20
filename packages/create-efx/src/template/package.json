@@ -10,7 +10,7 @@
   "author": "Refinitiv",
   "license": "Apache-2.0",
   "scripts": {
-    "start": "vite --open",
+    "start": "vite --open --base=/demo/",
     "build": "npm run build:themes && tsc --sourceMap --declarationMap",
     "build:themes": "npm run build:theme-halo",
     "build:theme-halo": "cd themes/halo-theme && theme-compiler light --variant light && theme-compiler dark --variant dark",
@@ -33,6 +33,7 @@
     "@refinitiv-ui/solar-theme": "^6.0.5",
     "@refinitiv-ui/test-helpers": "^6.0.4",
     "@refinitiv-ui/theme-compiler": "^6.0.4",
+    "@web/dev-server-esbuild": "^0.3.2",
     "@web/test-runner": "^0.14.0",
     "@web/test-runner-playwright": "^0.8.10",
     "fast-glob": "^3.2.12",

@@ -12,7 +12,14 @@
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
-      let variant = url.searchParams.get('variant') || 'light';
+      const variant = url.searchParams.get('variant') || 'light';
+
+      // setup default search params on URL
+      if (!window.location.search) {
+        url.searchParams.set('theme', theme);
+        url.searchParams.append('variant', variant);
+        window.location.search = url.searchParams.toString();
+      }
 
       // import styles for typography, body and other native inbuilt elements.
       import (`./node_modules/@refinitiv-ui/${theme}-theme/${variant}/imports/native-elements.js`);
