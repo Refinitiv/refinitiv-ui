@@ -1,6 +1,5 @@
 import fs from 'fs';
 import fsExtra from 'fs-extra';
-import * as child from 'child_process';
 import path from 'path';
 import chalk from 'chalk';
 import minimist, { ParsedArgs } from 'minimist';
@@ -8,18 +7,24 @@ import prompts from 'prompts';
 import renameAll from './utils/renamer.js';
 import { emptyDir, formatProjectName, getProjectName, isDirExist, validateProjectName } from './utils/helpers.js';
 
-interface argvCommands extends ParsedArgs{
+interface ArgvCommands extends ParsedArgs{
   h?: boolean;
   help?: boolean;
   v?: boolean;
   version?: boolean;
 }
 
+interface PackageJSONModule {
+  default: {
+    version: string
+  }
+}
+
 const TEMPLATE_NAME = 'efx-element';
 
 // Avoids auto conversion to number of the project name by defining that the args
 // non associated with an option ( _ ) needs to be parsed as a string.
-const argv: argvCommands = minimist(process.argv.slice(2), { string: ['_'] });
+const argv: ArgvCommands = minimist(process.argv.slice(2), { string: ['_'] });
 const cwd = process.cwd();
 
 const cmd = {
@@ -42,7 +47,10 @@ const init = async () => {
   }
 
   if (cmd.v || cmd.version) {
-    child.execSync('npm pkg get version', { stdio: 'inherit' });
+    const packageJSONPath = path.join(__dirname, '../package.json');
+    await import(packageJSONPath).then((module: PackageJSONModule) => {
+      console.log('v' + module.default.version);
+    });
     return;
   }
 
