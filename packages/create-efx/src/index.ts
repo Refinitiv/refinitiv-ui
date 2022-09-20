@@ -17,7 +17,7 @@ interface argvCommands extends ParsedArgs{
 
 const TEMPLATE_NAME = 'efx-element';
 
-// Avoids autoconversion to number of the project name by defining that the args
+// Avoids auto conversion to number of the project name by defining that the args
 // non associated with an option ( _ ) needs to be parsed as a string.
 const argv: argvCommands = minimist(process.argv.slice(2), { string: ['_'] });
 const cwd = process.cwd();
@@ -41,7 +41,7 @@ const init = async () => {
     return;
   }
 
-  if (cmd.version || cmd.version) {
+  if (cmd.v || cmd.version) {
     child.execSync('npm pkg get version', { stdio: 'inherit' });
     return;
   }
