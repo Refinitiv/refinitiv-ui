@@ -63,6 +63,10 @@ const validateProjectName = (name: string) => {
     error = 'Project name should not contain consecutive non-alpha characters.';
   }
 
+  else if (!(/^[a-zA-Z]/).test(name)) {
+    error = 'Project name should staring with characters.';
+  }
+
   else if (!(/[a-zA-Z]$/).test(name)) {
     error = 'Project name should ending with characters.';
   }
