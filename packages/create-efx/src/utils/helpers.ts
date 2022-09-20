@@ -39,6 +39,10 @@ const validateProjectName = (name: string) => {
     error = 'Project name must not contain uppercase ASCII characters.';
   }
 
+  else if (name.startsWith('-')) {
+    error = 'Project name should not start with a hyphen.';
+  }
+
   else if (name.endsWith('-')) {
     error = 'Project name should not end with a hyphen.';
   }
@@ -57,6 +61,10 @@ const validateProjectName = (name: string) => {
   
   else if ((/[^a-z\d]{2}/i).test(name)) {
     error = 'Project name should not contain consecutive non-alpha characters.';
+  }
+
+  else if (!(/[a-zA-Z]$/).test(name)) {
+    error = 'Project name should ending with characters.';
   }
 
   else if (!((/^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/).test(name))) {
