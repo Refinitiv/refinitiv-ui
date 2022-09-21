@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable no-console */
-export class Loggger {
+export class Logger {
 
   public static showLog = true;
 
   public static log (...args: any[]) {
-    if (!Loggger.showLog) {
+    if (!Logger.showLog) {
       return;
     }
 
@@ -13,7 +13,7 @@ export class Loggger {
   }
 
   public static time (...args: any[]) {
-    if (!Loggger.showLog) {
+    if (!Logger.showLog) {
       return;
     }
 
@@ -21,7 +21,7 @@ export class Loggger {
   }
 
   public static timeEnd (...args: any[]) {
-    if (!Loggger.showLog) {
+    if (!Logger.showLog) {
       return;
     }
 

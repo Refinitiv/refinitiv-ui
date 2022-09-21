@@ -1,4 +1,4 @@
-import { Loggger } from './helpers.js';
+import { Logger } from './helpers.js';
 
 export type Message = {
   id: number;
@@ -108,7 +108,7 @@ export class CacheMessenger {
         if (resolve) {
           resolve(value);
         }
-        Loggger.log(`${window.name} %c Received message %c icon ${key.split('/').pop() || ''} MessageID: ${messageId} ${Date.now()}`, 'background: green; color: white', '');
+        Logger.log(`${window.name} %c Received message %c icon ${key.split('/').pop() || ''} MessageID: ${messageId} ${Date.now()}`, 'background: green; color: white', '');
       }
 
       // Check the last message
@@ -125,13 +125,13 @@ export class CacheMessenger {
          */
         const postMessage = this.getMessageCount('post');
         if (messageId >= postMessage) {
-          Loggger.timeEnd(`${window.name} Completed`);
-          Loggger.log(`${window.name} Real completed time must remove 3000ms for delay`);
+          Logger.timeEnd(`${window.name} Completed`);
+          Logger.log(`${window.name} Real completed time must remove 3000ms for delay`);
           this.destroy();
         }
       }, 3000);
     };
-    Loggger.log(`${window.name} %c Listened in Messenger %c ${Date.now().toString()}`, 'background: purple; color: white', '');
+    Logger.log(`${window.name} %c Listened in Messenger %c ${Date.now().toString()}`, 'background: purple; color: white', '');
 
   }
 
@@ -226,7 +226,7 @@ export class CacheMessenger {
   public notify (key: string, value: string): void {
     const messageId = this.getMessageCount('post') + 1;
     this.broadcastChannel.postMessage({ id: messageId, key, value });
-    Loggger.log(`${window.name} %c Post message %c id: ${messageId} ${key.split('/').pop() || ''} ${Date.now()}`, 'background: yellow; color: black', '');
+    Logger.log(`${window.name} %c Post message %c id: ${messageId} ${key.split('/').pop() || ''} ${Date.now()}`, 'background: yellow; color: black', '');
     this.increaseMessageCount('post');
   }
 }

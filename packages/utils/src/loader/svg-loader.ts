@@ -1,4 +1,4 @@
-import { Loggger } from '../cache/helpers.js';
+import { Logger } from '../cache/helpers.js';
 import { DistributedCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
@@ -122,14 +122,14 @@ export class SVGLoader extends CDNLoader {
         .then(response => extractSafeSVG(response))
         .then((svg) => {
           if (svg?.outerHTML) {
-            Loggger.log(`${window.name} %c Start writing to cache %c ${iconName} ${Date.now()}`, 'background: red; color: white', '');
+            Logger.log(`${window.name} %c Start writing to cache %c ${iconName} ${Date.now()}`, 'background: red; color: white', '');
           }
           resolve(svg?.outerHTML);
         });
     });
 
     void cache.set(src, data).then(() => {
-      Loggger.log(`${window.name} %c Icon Cached %c ${iconName} ${Date.now()}`, 'background: red; color: white', '');
+      Logger.log(`${window.name} %c Icon Cached %c ${iconName} ${Date.now()}`, 'background: red; color: white', '');
     });
 
     return data;
