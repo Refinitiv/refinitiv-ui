@@ -5,8 +5,8 @@ import '@refinitiv-ui/elements/color-dialog';
 import '@refinitiv-ui/elemental-theme/light/ef-color-dialog';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
-import { rgb } from '@refinitiv-ui/utils';
-import { COLOR_ITEMS, removeHashSign } from '../../../lib/color-dialog/helpers/color-helpers';
+import { rgb, removeHashSign } from '@refinitiv-ui/utils/color.js';
+import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers';
 
 describe('color-dialog/ColorDialog', () => {
   describe('Default Color Dialog', () => {

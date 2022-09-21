@@ -11,7 +11,7 @@ const scrollUpdated = async () => {
   await aTimeout(300);
 };
 
-describe('tab-bar/Template', () => {
+describe('tab-bar/TabBar', () => {
   it('DOM structure is correct', async () => {
     const el = await fixture('<ef-tab-bar></ef-tab-bar>');
     expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['style'] });

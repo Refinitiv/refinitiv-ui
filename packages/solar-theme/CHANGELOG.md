@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.0.5...@refinitiv-ui/solar-theme@6.1.0) (2022-09-14)
+
+
+### Features
+
+* **color-picker:** add color picker ([#444](https://github.com/Refinitiv/refinitiv-ui/issues/444)) ([3718003](https://github.com/Refinitiv/refinitiv-ui/commit/37180039a77d908acd731c89067ecfce3f23955f))
+
+
+
+
+
+## [6.0.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.0.4...@refinitiv-ui/solar-theme@6.0.5) (2022-08-29)
+
+
+### Bug Fixes
+
+* **list-item:** incorrect style on halo theme ([#432](https://github.com/Refinitiv/refinitiv-ui/issues/432)) ([3d8a7dc](https://github.com/Refinitiv/refinitiv-ui/commit/3d8a7dc890e54c6a4dec1e2acf8b0097db9a53e2))
+
+
+
+
+
+## [6.0.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.0.3...@refinitiv-ui/solar-theme@6.0.4) (2022-08-02)
+
+**Note:** Version bump only for package @refinitiv-ui/solar-theme
+
+
+
+
+
 ## [6.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.0.2...@refinitiv-ui/solar-theme@6.0.3) (2022-07-20)
 
 **Note:** Version bump only for package @refinitiv-ui/solar-theme

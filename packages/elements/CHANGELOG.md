@@ -3,6 +3,67 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.1.1...@refinitiv-ui/elements@6.2.0) (2022-09-14)
+
+
+### Bug Fixes
+
+* **color-picker:** update snapshot and remove backdrop ([#447](https://github.com/Refinitiv/refinitiv-ui/issues/447)) ([d6c086c](https://github.com/Refinitiv/refinitiv-ui/commit/d6c086c4ab405d8183258c72bc566f4bb640a635))
+* **dialog:** change withBackdrop and withShadow to proprerty ([#445](https://github.com/Refinitiv/refinitiv-ui/issues/445)) ([2740f00](https://github.com/Refinitiv/refinitiv-ui/commit/2740f008b5163a396dd244570a93064bf0c8d844))
+* **interactive-chart:** fix left position on legend ([#449](https://github.com/Refinitiv/refinitiv-ui/issues/449)) ([ede4f93](https://github.com/Refinitiv/refinitiv-ui/commit/ede4f93776671f9261675a3a0d5bd32a62c317d5))
+
+
+### Features
+
+* **color-picker:** add color picker ([#444](https://github.com/Refinitiv/refinitiv-ui/issues/444)) ([3718003](https://github.com/Refinitiv/refinitiv-ui/commit/37180039a77d908acd731c89067ecfce3f23955f))
+* **item:** show tooltip when text ellipsis ([#394](https://github.com/Refinitiv/refinitiv-ui/issues/394)) ([8943eb6](https://github.com/Refinitiv/refinitiv-ui/commit/8943eb625bfd54a6014f6815940eacd924d67ab4))
+
+
+
+
+
+## [6.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.1.0...@refinitiv-ui/elements@6.1.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **combo-box:** incorrect popup logic in some scenarios ([159eb53](https://github.com/Refinitiv/refinitiv-ui/commit/159eb53c7bec583c59de4dfac2542e67c840b2fc))
+
+
+
+
+
+# [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.4...@refinitiv-ui/elements@6.1.0) (2022-08-16)
+
+
+### Bug Fixes
+
+* **datetime-picker:** parse invalid value to date object ([#422](https://github.com/Refinitiv/refinitiv-ui/issues/422)) ([dd86b73](https://github.com/Refinitiv/refinitiv-ui/commit/dd86b73fecd03518d2dae78174b91b0ef50fc913))
+* **overlay:** Tab does not work with slotted elements ([16f4b60](https://github.com/Refinitiv/refinitiv-ui/commit/16f4b60e9b840d3b7d225f3d61f15e017dc17855))
+* **radio-button:** check-changed is not fired on arrow keys ([77d7407](https://github.com/Refinitiv/refinitiv-ui/commit/77d7407883ba77e7b07bdaa8483fc49d35c76c14))
+
+
+### Features
+
+* **interactive-chart:** add disabledLegend option to hide data legend ([#421](https://github.com/Refinitiv/refinitiv-ui/issues/421)) ([32a6d7b](https://github.com/Refinitiv/refinitiv-ui/commit/32a6d7b1889597a7ae804edbb08fc95fc5c5a04e))
+
+
+
+
+
+## [6.0.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.3...@refinitiv-ui/elements@6.0.4) (2022-08-02)
+
+
+### Bug Fixes
+
+* **calendar:** day cell selected style not work with disabled state ([#410](https://github.com/Refinitiv/refinitiv-ui/issues/410)) ([1d9c931](https://github.com/Refinitiv/refinitiv-ui/commit/1d9c931b4d625b93c6fd60b780060ff2f03d9fc9))
+* **interactive-chart:** show dash text when legend hided ([#402](https://github.com/Refinitiv/refinitiv-ui/issues/402)) ([93631ca](https://github.com/Refinitiv/refinitiv-ui/commit/93631cac4db0623f05c333b53f67728ace953039))
+* **tab-bar:** notify value change event on pressing an arrow key ([#398](https://github.com/Refinitiv/refinitiv-ui/issues/398)) ([e55d152](https://github.com/Refinitiv/refinitiv-ui/commit/e55d152491b97c8763dc628ef7d1c013e4c3f01a))
+
+
+
+
+
 ## [6.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.2...@refinitiv-ui/elements@6.0.3) (2022-07-20)
 
 **Note:** Version bump only for package @refinitiv-ui/elements

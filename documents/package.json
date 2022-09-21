@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/docs",
-  "version": "6.0.3",
+  "version": "6.2.0",
   "private": true,
   "description": "Element Framework Documentation",
   "engines": {
@@ -10,7 +10,7 @@
   "scripts": {
     "start:dev": "concurrently \"pandora src dist --watch\" \"serve dist -s\"",
     "start": "serve dist -s",
-    "copy:resources": "cp -r resources dist/resources && cp src/theme-loader.js dist/theme-loader.js",
+    "copy:resources": "cp src/_redirects dist/_redirects && cp -r resources dist/resources && cp src/theme-loader.js dist/theme-loader.js",
     "build:api": "lerna run --scope @refinitiv-ui/elements api-analyzer --stream && node ./scripts/element.injector.js",
     "build": "rm -rf build && npm run build:api && pandora build dist --clean && npm run copy:resources"
   },
@@ -32,7 +32,7 @@
     "serve": "^13.0.2"
   },
   "dependencies": {
-    "@refinitiv-ui/elements": "^6.0.3",
+    "@refinitiv-ui/elements": "^6.2.0",
     "fast-glob": "^3.2.7",
     "fs-extra": "^10.0.0"
   }

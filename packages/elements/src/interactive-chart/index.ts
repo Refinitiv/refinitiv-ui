@@ -86,6 +86,7 @@ export class InteractiveChart extends ResponsiveElement {
     LARGE_DASHED: 3,
     SPARSE_DOTTED: 4
   };
+  private static readonly DEFAULT_LEGEND_LEFT_POSITION = 15;
 
   private _legendStyle?: LegendStyle;
 
@@ -210,11 +211,11 @@ export class InteractiveChart extends ResponsiveElement {
     }
 
     if (changedProperties.has('disabledLegend')) {
-      this.onLegendChange(this.disabledLegend);
+      this.onLegendChange();
     }
 
     if (changedProperties.has('disabledJumpButton')) {
-      this.onJumpButtonChange(this.disabledJumpButton);
+      this.onJumpButtonChange();
     }
 
     if (changedProperties.has('deprecatedLegendStyle') || changedProperties.has('legend-style')) {
@@ -247,11 +248,10 @@ export class InteractiveChart extends ResponsiveElement {
 
   /**
   * Legend value observer
-  * @param value Legend value
   * @returns {void}
   */
-  private onLegendChange (value: boolean): void {
-    if (!value) {
+  private onLegendChange (): void {
+    if (!this.disabledLegend) {
       this.createLegend();
     }
     else {
@@ -279,11 +279,10 @@ export class InteractiveChart extends ResponsiveElement {
 
   /**
   * Jump last value observer
-  * @param value jump last value
   * @returns {void}
   */
-  private onJumpButtonChange (value: boolean): void {
-    if (!value) {
+  private onJumpButtonChange (): void {
+    if (!this.disabledJumpButton) {
       this.createJumpButton(this.width, this.height);
     }
     else {
@@ -394,6 +393,7 @@ export class InteractiveChart extends ResponsiveElement {
       this.legendContainer.textContent = '';
       this.chart.unsubscribeCrosshairMove(this.handleCrosshairMoved);
       this.legendInitialized = false;
+      this.chart.timeScale().unsubscribeSizeChange(this.onTimeScaleSizeChange);
     }
   }
 
@@ -410,7 +410,6 @@ export class InteractiveChart extends ResponsiveElement {
     this.applyTheme(config);
     this.applyLegendTextColor();
     this.applyStylesBranding();
-    this.applyStyleLegend();
   }
 
   /**
@@ -671,22 +670,6 @@ export class InteractiveChart extends ResponsiveElement {
     }
   }
 
-  /**
-   * Get position config for set position legend
-   * @returns {void}
-   */
-  private applyStyleLegend (): void {
-    if (this.chart) {
-      // Get position config for set position legend
-      const position = this.getPriceScalePosition();
-      if (position === 'left' || position === 'two-price') {
-        this.legendContainer.className = 'yaxis-left';
-      }
-      else {
-        this.legendContainer.className = 'yaxis-right';
-      }
-    }
-  }
 
   /**
    * Get position config for set position logo trading view on chart
@@ -735,6 +718,25 @@ export class InteractiveChart extends ResponsiveElement {
   };
 
   /**
+   * Callback uses for sizeChange event
+   * @returns {void}
+   */
+  private onTimeScaleSizeChange = (): void => {
+    this.handleLegendLeftPosition();
+  };
+
+  /**
+   * Handle left position of legend
+   * @returns {void}
+   */
+  private handleLegendLeftPosition (): void {
+    const leftPriceScaleWidth = this.chart?.priceScale('left')?.width() || 0;
+    if (this.legendContainer) {
+      this.legendContainer.style.left = `${leftPriceScaleWidth + InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION}px`;
+    }
+  }
+
+  /**
    * Create legend element
    * @returns {void}
    */
@@ -745,6 +747,11 @@ export class InteractiveChart extends ResponsiveElement {
         this.rowLegend = this.shadowRoot.querySelectorAll('.row');
       }
       this.chart.subscribeCrosshairMove(this.handleCrosshairMoved);
+      /* Add a subscription to resizing time scale (x-axis). The event triggers after the chart rendered.
+       * So that we can know the priceScale (y-axis) width.
+       * Legend relates to priceScale directly. But the axis doesn't have event for now. So use x-axis instead.
+       */
+      this.chart.timeScale().subscribeSizeChange(this.onTimeScaleSizeChange);
       this.legendInitialized = true;
     }
   }
@@ -761,12 +768,12 @@ export class InteractiveChart extends ResponsiveElement {
       const chartType = this.internalConfig.series[idx].type;
       const dataSet = this.internalConfig.series[idx].data || [];
       const symbol = (this.internalConfig.series[idx].symbolName || this.internalConfig.series[idx].symbol) || '';
+      const isLegendVisible = this.internalConfig.series[idx].legendVisible !== false;
       // Create row legend element
       if (!rowLegend) {
         rowLegendElem = document.createElement('div');
         rowLegendElem.setAttribute('class', 'row');
-        this.createTextSymbol(rowLegendElem, symbol);
-
+        isLegendVisible && this.createTextSymbol(rowLegendElem, symbol);
         if (dataSet.length) {
           this.hasDataPoint = true;
           const lastData = dataSet[dataSet.length - 1];
@@ -831,8 +838,9 @@ export class InteractiveChart extends ResponsiveElement {
    * @returns {void}
    */
   protected renderTextLegend (chartType: string, rowLegendElem: RowLegend, value: SeriesDataItem | number | string, priceColor: string, index: number): void {
+    const isLegendVisible = this.internalConfig.series[index].legendVisible !== false;
     // No need to render if disable legend
-    if (this.disabledLegend) {
+    if (this.disabledLegend || !isLegendVisible) {
       return;
     }
 
@@ -1194,6 +1202,11 @@ export class InteractiveChart extends ResponsiveElement {
         position: relative;
         height: 300px;
         z-index: 0;
+      }
+
+      [part=legend] {
+        position: absolute;
+        z-index: 1000;
       }
     `;
   }

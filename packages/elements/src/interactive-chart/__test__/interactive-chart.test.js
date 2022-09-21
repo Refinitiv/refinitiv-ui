@@ -1,7 +1,7 @@
 import { fixture, fixtureSync, expect, elementUpdated, oneEvent, nextFrame, aTimeout } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
-import '@refinitiv-ui/elements/interactive-chart';
+import { InteractiveChart } from '@refinitiv-ui/elements/interactive-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-interactive-chart.js';
 let line = {
   series: [
@@ -638,6 +638,28 @@ describe('interactive-chart/InteractiveChart', () => {
 
     });
 
+    it('When hide legend in chart series', async () => {
+      const config = line;
+      config.series[0].legendVisible = false;
+      el.config = config;
+      await nextFrame();
+      await elementUpdated();
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
+      expect(el.shadowRoot.querySelector('[part=legend]').textContent).to.be.empty;
+    });
+
+    it('When hide some legend in chart series', async () => {
+      const config = multiLine;
+      config.series[0].legendVisible = false;
+      el.config = config;
+      await nextFrame();
+      await elementUpdated();
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
+      expect(el.shadowRoot.querySelectorAll('[part=legend] > .row:not(:empty)').length).to.equal(multiLine.series.length - 1);
+    });
+
     it('Legend is not horizontal by default', async () => {
       el.config = line;
       await nextFrame();
@@ -647,30 +669,28 @@ describe('interactive-chart/InteractiveChart', () => {
 
     });
 
-    it('Set via attribute horizontal legend to vertical', async () => {
-
+    it('Legend should have horizontal style class when set legend-style="horizontal" via attribute', async () => {
       el = await fixture('<ef-interactive-chart legend-style="horizontal"></ef-interactive-chart>');
-
       el.config = line;
       await elementUpdated();
+      await nextFrame();
 
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
-
-      el.legendStyle = 'horizontal';
-      await nextFrame();
+      expect(el.shadowRoot.querySelector('[part=legend]').className).to.include('horizontal');
+    });
+    it('Legend should not have horizontal style class when set legend-style="vertical" via attribute', async () => {
+      el = await fixture('<ef-interactive-chart legend-style="vertical"></ef-interactive-chart>');
+      el.config = line;
       await elementUpdated();
-      expect(el.shadowRoot.querySelector('[part=legend]').className).to.include('yaxis-right');
-
-      el.legendStyle = 'vertical';
       await nextFrame();
-      await elementUpdated();
 
-      expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('yaxis-left');
-
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
+      expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
     });
 
-    it('Switch horizontal legend to vertical', async () => {
+    it('LegendStyle should able to switch between horizontal and vertical', async () => {
       el.config = line;
       await nextFrame();
       await elementUpdated();
@@ -681,14 +701,13 @@ describe('interactive-chart/InteractiveChart', () => {
       el.legendStyle = 'horizontal';
       await nextFrame();
       await elementUpdated();
-      expect(el.shadowRoot.querySelector('[part=legend]').className).to.include('yaxis-right');
+      expect(el.shadowRoot.querySelector('[part=legend]').className).to.include('horizontal');
 
       el.legendStyle = 'vertical';
       await nextFrame();
       await elementUpdated();
 
-      expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('yaxis-left');
-
+      expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
     });
 
     it('When toggle jump button in chart', async () => {
@@ -810,6 +829,45 @@ describe('interactive-chart/InteractiveChart', () => {
     expect(legendText[1].innerText.indexOf('$')).to.equal(0); // high
     expect(legendText[2].innerText.indexOf('$')).to.equal(0); // low
     expect(legendText[3].innerText.indexOf('$')).to.equal(0); // close
+  });
+
+  it('Should has dynamic left position in legend when the chart set y axis at left', async () => {
+    el.config = linePositionLeft;
+    await elementUpdated();
+    await nextFrame();
+
+    expect(el.chart).to.not.be.undefined;
+    expect(el.chart).to.not.be.null;
+    const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'));
+    const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
+    expect(legendStyle.position).to.equal('absolute');
+    expect(legendLeftPosition).to.greaterThan(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
+  });
+
+  it('Should has dynamic left position in legend when the chart set y axis at both edge', async () => {
+    el.config = twoPriceScales;
+    await elementUpdated();
+    await nextFrame();
+
+    expect(el.chart).to.not.be.undefined;
+    expect(el.chart).to.not.be.null;
+    const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
+    const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
+    expect(legendStyle.position).to.equal('absolute');
+    expect(legendLeftPosition).to.greaterThan(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
+  });
+
+  it('Should has fixed left position in legend when the chart set y axis at right edge', async () => {
+    el.config = line;
+    await elementUpdated();
+    await nextFrame();
+
+    expect(el.chart).to.not.be.undefined;
+    expect(el.chart).to.not.be.null;
+    const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
+    const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
+    expect(legendStyle.position).to.equal('absolute');
+    expect(legendLeftPosition).to.equal(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
   });
 
   describe('Test deprecated attribute', () => {
