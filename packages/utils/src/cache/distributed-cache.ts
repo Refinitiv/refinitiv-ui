@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-console.time(`${window.name} Completed`);
+import { Loggger } from './helpers.js';
+Loggger.time(`${window.name} Completed`);
 import { CoreCache } from './core-cache.js';
 import { CacheMessenger } from './messenger.js';
 import type { CacheConfig } from './core-cache.js';
@@ -40,7 +41,7 @@ export class DistributedCache extends CoreCache {
        * while the item writing to the browser storage by the sender
        */
       if (!this.storage.hasActive(key)) {
-        console.log(`${window.name} %c Sync cache %c with received message %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: magenta; color: white', '', '');
+        Loggger.log(`${window.name} %c Sync cache %c with received message %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: magenta; color: white', '', '');
         this.setActiveCache(key, value);
       }
     };
@@ -119,13 +120,13 @@ export class DistributedCache extends CoreCache {
 
     // Check src is already requested
     if (!this.messenger.hasRequest(key)) {
-      console.log(`${window.name} %c Request %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
+      Loggger.log(`${window.name} %c Request %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
       return null;
     }
     else {
       return new Promise<string | null>(resolve => {
         // Add to waiting list
-        console.log(`${window.name} %c Wait %c ${iconName} ${Date.now().toString()}`, 'background: orange; color: white', '');
+        Loggger.log(`${window.name} %c Wait %c ${iconName} ${Date.now().toString()}`, 'background: orange; color: white', '');
         this.messenger.wait(key, resolve);
       });
     }
