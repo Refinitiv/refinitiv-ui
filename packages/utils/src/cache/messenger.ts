@@ -32,6 +32,11 @@ const CHANNEL_PREFIX = 'ef';
 export class CacheMessenger {
 
   /**
+   * Requests cached from localStorage
+   */
+  private requests: Requests = {};
+
+  /**
    * List of promise needed be resolved by messaging
    */
   private waiting = new Map<string, CallableFunction>();
@@ -46,6 +51,9 @@ export class CacheMessenger {
    */
   private storageNames: StorageNames;
 
+  /**
+   * Messaging callback
+   */
   public onMessage: OnMessageCallback | undefined = undefined;
 
   constructor (name: string) {
@@ -65,15 +73,18 @@ export class CacheMessenger {
   /**
    * Get resource request list
    */
-  private get requests (): Requests {
-    return (JSON.parse(localStorage.getItem(this.storageNames.requests) as string) || {}) as Requests;
+  private get requestsStorage (): Requests {
+    const requests = (JSON.parse(localStorage.getItem(this.storageNames.requests) as string) || {}) as Requests;
+    // Synchronize requests state from localStorage to local variable for performance improvement
+    Object.assign(this.requests, requests);
+    return this.requests;
   }
 
   /**
    * Set resource request list
    * @param requests request list
    */
-  private set requests (requests: Requests) {
+  private set requestsStorage (requests: Requests) {
     localStorage.setItem(this.storageNames.requests, JSON.stringify(requests));
   }
 
@@ -147,6 +158,7 @@ export class CacheMessenger {
     localStorage.removeItem(this.storageNames.requests);
     localStorage.removeItem(this.storageNames.messagePost);
     localStorage.removeItem(this.storageNames.messageReceived);
+    this.requests = {};
     this.waiting.clear();
   }
 
@@ -158,7 +170,7 @@ export class CacheMessenger {
   private increaseMessageCount (type: MessageType): void {
     const key = type === 'post' ? 'messagePost' : 'messageReceived';
     const messageCount = localStorage.getItem(this.storageNames[key]) || 0;
-    localStorage.setItem(key, (Number(messageCount) + 1).toString());
+    localStorage.setItem(this.storageNames[key], (Number(messageCount) + 1).toString());
   }
 
   private getMessageCount (type: MessageType) {
@@ -172,10 +184,11 @@ export class CacheMessenger {
    * @return {void}
    */
   public addRequest (key: string): void {
-    const requests = this.requests;
+    const requests = this.requestsStorage;
     if (!requests[key]) {
       requests[key] = 'true';
-      this.requests = requests;
+      this.requests[key] = 'true';
+      this.requestsStorage = requests;
     }
   }
 
@@ -185,7 +198,7 @@ export class CacheMessenger {
    * @returns true if resource has stated request
    */
   public hasRequest (key: string): boolean {
-    return Boolean(this.requests[key]);
+    return this.requests[key] ? true : Boolean(this.requestsStorage[key]);
   }
 
   /**
