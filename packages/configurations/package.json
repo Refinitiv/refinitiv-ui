@@ -22,12 +22,12 @@
   "author": "Refinitiv",
   "license": "Apache-2.0",
   "peerDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.29.0",
-    "@typescript-eslint/parser": "^5.29.0",
+    "@typescript-eslint/eslint-plugin": "^5.37.0",
+    "@typescript-eslint/parser": "^5.37.0",
     "eslint": "^8.18.0",
     "eslint-plugin-html": "^6.2.0",
     "eslint-plugin-import": "^2.26.0",
-    "typescript": "~4.6.4"
+    "typescript": "^4.8.3"
   },
   "publishConfig": {
     "access": "public"
