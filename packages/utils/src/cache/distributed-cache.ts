@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Logger } from './helpers.js';
 Logger.time(`${window.name} Completed`);
 import { CoreCache } from './core-cache.js';
@@ -7,7 +6,6 @@ import type { CacheConfig } from './core-cache.js';
 import type { CacheItem } from './interfaces/CacheItem';
 
 export interface DistributedCacheConfig extends CacheConfig {
-  // ! Test Compare two solution to notify before or after write to cache that affect to performance
   notification?: 'before' | 'after'
 }
 
@@ -118,14 +116,14 @@ export class DistributedCache extends CoreCache {
       return item.value;
     }
 
-    // Check src is already requested
+    // Check key is already started a request
     if (!this.messenger.hasRequest(key)) {
       Logger.log(`${window.name} %c Request %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
       return null;
     }
     else {
+      // Add to waiting list by create promise waiting for resolve
       return new Promise<string | null>(resolve => {
-        // Add to waiting list
         Logger.log(`${window.name} %c Wait %c ${iconName} ${Date.now().toString()}`, 'background: orange; color: white', '');
         this.messenger.wait(key, resolve);
       });
