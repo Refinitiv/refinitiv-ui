@@ -5,8 +5,7 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "@typescript-eslint/no-namespace": 0,
-    "import/extensions": ["error", "always"]
+    "@typescript-eslint/no-namespace": 0
   },
   "ignorePatterns": [
     "packages/**/lib",
