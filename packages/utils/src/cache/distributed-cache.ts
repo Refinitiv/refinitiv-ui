@@ -80,6 +80,24 @@ export class DistributedCache extends CoreCache {
     };
 
     this.messenger = new CacheMessenger(name);
+    this.handleUnload();
+    this.listen();
+  }
+
+  /**
+   * Initialize listening events from messages and storage
+   * @returns {void}
+   */
+  private listen (): void {
+    // Listen storage event to clear everythings if remove requests state
+    addEventListener('storage', ({ key, newValue }) => {
+      if (key === this.storageNames.requests && newValue === null) {
+        this.clean();
+        Logger.timeEnd(`${window.name} Completed`);
+        Logger.log(`${window.name} Real completed time must remove 3000ms for delay`);
+      }
+    });
+
     this.messenger.onMessage = ({ key, value, id }) => {
       /**
        * Synchronize the item to active cache in storage by using data in the received message,
@@ -99,25 +117,17 @@ export class DistributedCache extends CoreCache {
         Logger.log(`${window.name} %c Received message %c icon ${key.split('/').pop() || ''} MessageID: ${id} ${Date.now()}`, 'background: green; color: white', '');
       }
 
-
       /**
        * Detect the `last message` by using a gap between message,
        * If no new message post within the time limit It will clear all states.
        * Need to find the way to check latest message better than this
        */
       setTimeout(() => {
-        /**
-         * The `postMessage` can be `0` when other messenger run following code in the same time
-         */
-        if (id >= this.messenger.getTotalPost()) {
+        if (!this.messenger.hasMoreMessage(id)) {
           this.clean();
-          Logger.timeEnd(`${window.name} Completed`);
-          Logger.log(`${window.name} Real completed time must remove 3000ms for delay`);
         }
       }, 3000);
     };
-
-    this.handleUnload();
   }
 
   /**

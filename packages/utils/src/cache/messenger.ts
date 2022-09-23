@@ -46,14 +46,6 @@ export class CacheMessenger {
   public onMessage: OnMessageCallback | undefined = undefined;
 
   /**
-   * Get total post of all messengers
-   * @returns number of total post
-   */
-  public getTotalPost (): number {
-    return this.totalPost;
-  }
-
-  /**
    * Constructor
    * @param name messenger name
    */
@@ -118,5 +110,14 @@ export class CacheMessenger {
     this.totalPost = this.increaseTotalPost();
     this.broadcastChannel.postMessage({ id: this.totalPost, key, value });
     Logger.log(`${window.name} %c Post message %c id: ${ this.totalPost } ${key.split('/').pop() || ''} ${Date.now()}`, 'background: yellow; color: black', '');
+  }
+
+  /**
+   * Check has more message incoming
+   * @param messageId message id for check
+   * @returns true if has more message
+   */
+  public hasMoreMessage (messageId: number): boolean {
+    return messageId < this.totalPost;
   }
 }
