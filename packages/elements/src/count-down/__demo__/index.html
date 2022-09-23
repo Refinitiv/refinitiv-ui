@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Count Down</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/count-down';
+      import '@refinitiv-ui/demo-block';
+    </script>
+    <demo-block header="Count down example with event">
+      <ef-count-down value="10000" tick id="count-down-instance"></ef-count-down>
+      <code id="code-block">No event yet...</code>
+      <script>
+        const countDown = document.querySelector('#count-down-instance');
+        if (countDown) {
+          countDown.addEventListener('complete', (e) => {
+            document
+              .querySelector('#code-block')
+              .textContent = 'complete event fired';
+          });
+        }
+      </script>
+    </demo-block>
+    <demo-block header="Count down with different units of time" layout="normal">
+      <ef-count-down value="60000"></ef-count-down>
+      <ef-count-down value="90000"></ef-count-down>
+      <ef-count-down value="3600000"></ef-count-down>
+      <ef-count-down value="86400000"></ef-count-down>
+      <ef-count-down value="604800000"></ef-count-down>
+    </demo-block>
+  </demo-block>
+</body>
+</html>
