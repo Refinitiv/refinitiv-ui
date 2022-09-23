@@ -1,12 +1,24 @@
 import { Logger } from './helpers.js';
-Logger.time(`${window.name} Completed`);
 import { CoreCache } from './core-cache.js';
 import { CacheMessenger } from './messenger.js';
 import type { CacheConfig } from './core-cache.js';
 import type { CacheItem } from './interfaces/CacheItem';
 
-export interface DistributedCacheConfig extends CacheConfig {
-  notification?: 'before' | 'after'
+Logger.time(`${window.name} Completed`);
+
+enum StorageType {
+  Requests='requests',
+  Unloaded='unloaded'
+}
+
+type StorageNames = {
+  [name in StorageType]: string
+};
+
+const CHANNEL_PREFIX = 'ef';
+
+type Requests = {
+  [key: string]: 'true'
 }
 
 /**
@@ -15,37 +27,119 @@ export interface DistributedCacheConfig extends CacheConfig {
 export class DistributedCache extends CoreCache {
 
   /**
+   * Requests cached from localStorage
+   */
+  protected requests: Requests = {};
+
+  /**
+   * List of promise needed be resolved by messaging
+   */
+  protected waiting = new Map<string, CallableFunction>();
+
+  /**
    * Cache messenger for distribute cache
    */
   protected messenger: CacheMessenger;
 
   /**
-   * Notify before/after writting to storage
+   * Names for manage all states temporary
    */
-  protected notification: 'before' | 'after' = 'before';
+  protected storageNames: StorageNames;
+
+  /**
+   * Get resource request list, sync the new requests to cache
+   */
+  protected get requestsState (): Requests {
+    const requests = (JSON.parse(localStorage.getItem(this.storageNames.requests) as string) || {}) as Requests;
+    // Synchronize new requests state to local variable for performance improvement
+    Object.assign(this.requests, requests);
+    return this.requests;
+  }
+
+  /**
+   * Set resource request list
+   * @param requests request list
+   */
+  protected set requestsState (requests: Requests) {
+    localStorage.setItem(this.storageNames.requests, JSON.stringify(requests));
+  }
 
   /**
    * Constructor
    * @param name cache name
    * @param config cache configuration
    */
-  constructor (name: string, config?: DistributedCacheConfig) {
+  constructor (name: string, config?: CacheConfig) {
     super(name, config);
+
+    const messengerName = `[${CHANNEL_PREFIX}][${name}]`;
+
+    this.storageNames = {
+      requests: `${messengerName}[requests]`,
+      unloaded: `${messengerName}[unloaded]`
+    };
+
     this.messenger = new CacheMessenger(name);
-    this.messenger.onMessage = (message) => {
-      const { key, value } = message;
+    this.messenger.onMessage = ({ key, value, id }) => {
       /**
        * Synchronize the item to active cache in storage by using data in the received message,
        * while the item writing to the browser storage by the sender
        */
       if (!this.storage.hasActive(key)) {
         Logger.log(`${window.name} %c Sync cache %c with received message %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: magenta; color: white', '', '');
-        this.setActiveCache(key, value);
+        this.syncActive(key, value);
       }
+
+      // Match a message with a waiting request and resolve it
+      if (this.waiting.has(key)) {
+        const resolve = this.waiting.get(key);
+        if (resolve) {
+          resolve(value);
+        }
+        Logger.log(`${window.name} %c Received message %c icon ${key.split('/').pop() || ''} MessageID: ${id} ${Date.now()}`, 'background: green; color: white', '');
+      }
+
+
+      /**
+       * Detect the `last message` by using a gap between message,
+       * If no new message post within the time limit It will clear all states.
+       * Need to find the way to check latest message better than this
+       */
+      setTimeout(() => {
+        /**
+         * The `postMessage` can be `0` when other messenger run following code in the same time
+         */
+        if (id >= this.messenger.getTotalPost()) {
+          this.clean();
+          Logger.timeEnd(`${window.name} Completed`);
+          Logger.log(`${window.name} Real completed time must remove 3000ms for delay`);
+        }
+      }, 3000);
     };
 
-    if (config?.notification) {
-      this.notification = config.notification;
+    this.handleUnload();
+  }
+
+  /**
+   * Clean up by resetting all requesting states,
+   * if found unload event that makes the current states is not correct
+   * in case users interupt a browser by refresh page
+   * @returns {void}
+   */
+  private handleUnload (): void {
+    // Listen this event to detect user try to refresh page
+    window.addEventListener('beforeunload', (event) => {
+      event.preventDefault();
+      if (localStorage.getItem(this.storageNames.requests) !== null) {
+        localStorage.setItem(this.storageNames.unloaded, 'true');
+      }
+      return true;
+    });
+
+    // After user refresh (unload), all state should be cleaned by delete state from previous round
+    if (localStorage.getItem(this.storageNames.unloaded) === 'true') {
+      localStorage.removeItem(this.storageNames.unloaded);
+      this.clean();
     }
   }
 
@@ -54,13 +148,12 @@ export class DistributedCache extends CoreCache {
    * @param key Cache key
    * @param value Data to store in cache
    * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
-   * @param notification notify new cache message via BroadCast Channel API
    * @returns {void}
    */
   public async set (key: string, value: string | Promise<string | undefined>, expires = 432000): Promise<void> {
     let cacheValue: string;
     if (value instanceof Promise) {
-      this.messenger.addRequest(key);
+      this.addRequest(key);
       cacheValue = await value.then(item => item || '');
     }
     else {
@@ -74,33 +167,8 @@ export class DistributedCache extends CoreCache {
       expires: modified + expires * 1000
     };
 
-    if (this.notification === 'before') {
-      this.messenger.notify(key, cacheValue);
-    }
-
+    this.messenger.notify(key, cacheValue);
     await this.storage.set(key, data);
-
-    if (this.notification === 'after') {
-      this.messenger.notify(key, cacheValue);
-    }
-  }
-
-  /**
-   * Caches a value to active cache without writing to storage
-   * @param key Cache key
-   * @param value Data to store in cache
-   * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
-   * @returns {void}
-   */
-  public setActiveCache (key: string, value: string | Promise<string | undefined>, expires = 432000): void {
-    const modified = Date.now();
-    const data = {
-      value: value,
-      modified: Date.now(),
-      expires: modified + expires * 1000
-    };
-
-    this.storage.setActive(key, data);
   }
 
   /**
@@ -117,7 +185,7 @@ export class DistributedCache extends CoreCache {
     }
 
     // Check key is already started a request
-    if (!this.messenger.hasRequest(key)) {
+    if (!this.hasRequest(key)) {
       Logger.log(`${window.name} %c Request %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
       return null;
     }
@@ -125,8 +193,71 @@ export class DistributedCache extends CoreCache {
       // Add to waiting list by create promise waiting for resolve
       return new Promise<string | null>(resolve => {
         Logger.log(`${window.name} %c Wait %c ${iconName} ${Date.now().toString()}`, 'background: orange; color: white', '');
-        this.messenger.wait(key, resolve);
+        this.wait(key, resolve);
       });
     }
+  }
+
+  /**
+   * Caches a value to active cache without writing to storage
+   * @param key Cache key
+   * @param value Data to store in cache
+   * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
+   * @returns {void}
+   */
+  protected syncActive (key: string, value: string, expires = 432000): void {
+    const modified = Date.now();
+    const data = {
+      value: value,
+      modified: Date.now(),
+      expires: modified + expires * 1000
+    };
+
+    this.storage.setActive(key, data);
+  }
+
+  /**
+   * Add the started request to the state that is used in checking a duplicated request across other messengers
+   * @param key item key
+   * @return {void}
+   */
+  protected addRequest (key: string): void {
+    const requests = this.requestsState;
+    if (!requests[key]) {
+      requests[key] = 'true';
+      this.requests[key] = 'true';
+      this.requestsState = requests;
+    }
+  }
+
+  /**
+   * Check key is already started request across messengers
+   * @param key resource name
+   * @returns true if resource has started request
+   */
+  protected hasRequest (key: string): boolean {
+    return this.requests[key] ? true : Boolean(this.requestsState[key]);
+  }
+
+  /**
+   * Add an item to the waiting list
+   * @param key item key
+   * @param value callback function
+   * @returns {void}
+   */
+  protected wait (key: string, value: CallableFunction): void {
+    this.waiting.set(key, value);
+  }
+
+
+  /**
+   * Clean up all temporary states
+   * @returns {void}
+   */
+  private clean (): void {
+    localStorage.removeItem(this.storageNames.requests);
+    this.requests = {};
+    this.waiting.clear();
+    this.messenger.clean();
   }
 }

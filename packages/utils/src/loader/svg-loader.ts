@@ -2,10 +2,7 @@ import { Logger } from '../cache/helpers.js';
 import { DistributedCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
-// TODO: Test Compare two solution to notify
-// ! before: Notify when data is ready (no wait cache written)
-// ! after: Notify when cache is ready
-const cache = new DistributedCache('svg-loader', { storage: 'indexeddb', notification: 'before' });
+const cache = new DistributedCache('svg-loader', { storage: 'indexeddb' });
 
 /**
  * Checks a string to see if it's a valid URL
