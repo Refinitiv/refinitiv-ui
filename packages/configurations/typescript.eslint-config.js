@@ -15,6 +15,7 @@ module.exports = {
         extraFileExtensions: ['.html'],
       },
       rules: {
+        'import/extensions': ['error', 'always'],
         '@typescript-eslint/unbound-method': 0,
         'valid-jsdoc': [
           2,
