@@ -1,3 +1,4 @@
+import { MESSENGER_PREFIX } from './constants.js';
 import { Logger } from './helpers.js';
 
 export type Message = {
@@ -17,8 +18,6 @@ enum StorageType {
 type StorageNames = {
   [name in StorageType]: string
 };
-
-const CHANNEL_PREFIX = 'ef';
 
 /**
  * Cache messenger manage post/receive to others cache messenger
@@ -50,7 +49,7 @@ export class CacheMessenger {
    * @param name messenger name
    */
   constructor (name: string) {
-    const messengerName = `[${CHANNEL_PREFIX}][${name}]`;
+    const messengerName = `[${MESSENGER_PREFIX}][${name}]`;
     this.broadcastChannel = new BroadcastChannel(messengerName);
     this.storageNames = {
       messagePosts: `${messengerName}[message-posts]`

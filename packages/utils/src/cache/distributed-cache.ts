@@ -4,8 +4,10 @@ import { CacheMessenger } from './messenger.js';
 import type { CacheConfig } from './core-cache.js';
 import type { CacheItem } from './interfaces/CacheItem';
 import { TimeoutTaskRunner } from '../async.js';
+import { CACHE_PREFIX, MESSENGER_NO_MESSAGE_DELAY } from './constants.js';
 
-Logger.time(`${window.name} Completed`);
+const logger = new Logger();
+logger.timeStart();
 
 enum StorageType {
   Requests='requests',
@@ -15,8 +17,6 @@ enum StorageType {
 type StorageNames = {
   [name in StorageType]: string
 };
-
-const CHANNEL_PREFIX = 'ef';
 
 type Requests = {
   [key: string]: 'true'
@@ -45,7 +45,7 @@ export class DistributedCache extends CoreCache {
   /**
    * Timer to check message is the last
    */
-  protected noMessageTimeout = new TimeoutTaskRunner(3000);
+  protected noMessageTimeout = new TimeoutTaskRunner(MESSENGER_NO_MESSAGE_DELAY);
 
   /**
    * Names for manage all states temporary
@@ -78,11 +78,11 @@ export class DistributedCache extends CoreCache {
   constructor (name: string, config?: CacheConfig) {
     super(name, config);
 
-    const messengerName = `[${CHANNEL_PREFIX}][${name}]`;
+    const cacheName = `[${CACHE_PREFIX}][${name}]`;
 
     this.storageNames = {
-      requests: `${messengerName}[requests]`,
-      unloaded: `${messengerName}[unloaded]`
+      requests: `${cacheName}[requests]`,
+      unloaded: `${cacheName}[unloaded]`
     };
 
     this.messenger = new CacheMessenger(name);
@@ -99,6 +99,8 @@ export class DistributedCache extends CoreCache {
     addEventListener('storage', ({ key, newValue }) => {
       if (key === this.storageNames.requests && newValue === null) {
         this.clean();
+        logger.timeEnd(`${window.name}`);
+        Logger.log(`${window.name} Real completed time must remove 3000ms for delay`);
       }
     });
 
@@ -133,6 +135,7 @@ export class DistributedCache extends CoreCache {
       this.noMessageTimeout.schedule(() => {
         if (!this.messenger.hasMoreMessage(id)) {
           this.clean();
+          logger.timeEnd(`${window.name}`);
         }
       });
     };
