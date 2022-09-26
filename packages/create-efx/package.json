@@ -1,6 +1,6 @@
 {
   "name": "create-efx",
-  "version": "6.0.0-alpha.0",
+  "version": "6.0.0",
   "description": "Initializer to create new EFX element",
   "main": "lib/index",
   "bin": {
@@ -21,10 +21,10 @@
     "build:watch": "tsc --watch"
   },
   "devDependencies": {
+    "@types/chalk": "^2.2.0",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.7.16",
     "@types/prompts": "^2.0.14",
-    "@types/chalk": "^2.2.0",
     "chalk": "^4.1.2",
     "fs-extra": "^10.1.0",
     "minimist": "^1.2.6",
