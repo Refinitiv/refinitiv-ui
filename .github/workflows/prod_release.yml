@@ -33,13 +33,13 @@ jobs:
 
       - name: Bump all package versions and create GitHub release
         if: ${{ inputs.force }}
-        run: lerna version --create-release github --conventional-commits --conventional-graduate --force-publish --yes
+        run: lerna version --create-release github --conventional-commits --force-publish --yes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Bump modified package versions and create GitHub release
         if: ${{ !inputs.force }}
-        run: lerna version --create-release github --conventional-commits --conventional-graduate --yes
+        run: lerna version --create-release github --conventional-commits --yes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
