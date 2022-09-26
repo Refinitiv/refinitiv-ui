@@ -7,7 +7,7 @@ import { TimeoutTaskRunner } from '../async.js';
 import { CACHE_PREFIX, MESSENGER_NO_MESSAGE_DELAY } from './constants.js';
 
 const logger = new Logger();
-logger.timeStart();
+logger.timeStart(window.name);
 
 enum StorageType {
   Requests='requests',
@@ -99,7 +99,7 @@ export class DistributedCache extends CoreCache {
     addEventListener('storage', ({ key, newValue }) => {
       if (key === this.storageNames.requests && newValue === null) {
         this.clean();
-        logger.timeEnd(`${window.name}`);
+        logger.timeEnd(window.name);
         Logger.log(`${window.name} Real completed time must remove 3000ms for delay`);
       }
     });
@@ -135,7 +135,7 @@ export class DistributedCache extends CoreCache {
       this.noMessageTimeout.schedule(() => {
         if (!this.messenger.hasMoreMessage(id)) {
           this.clean();
-          logger.timeEnd(`${window.name}`);
+          logger.timeEnd(window.name);
         }
       });
     };
