@@ -18,7 +18,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "build:watch": "tsc --watch"
+    "build:watch": "tsc --watch",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
