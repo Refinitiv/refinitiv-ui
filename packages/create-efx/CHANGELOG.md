@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.2](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@6.0.1...create-efx@6.0.2) (2022-09-26)
+
+
+### Bug Fixes
+
+* **create-efx:** add tslib as dependencies ([#466](https://github.com/Refinitiv/refinitiv-ui/issues/466)) ([993d4e9](https://github.com/Refinitiv/refinitiv-ui/commit/993d4e91d702f0e355b404b491abfeee79fbfa3f))
+
+
+
+
+
 ## [6.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@6.0.0...create-efx@6.0.1) (2022-09-26)
 
 
