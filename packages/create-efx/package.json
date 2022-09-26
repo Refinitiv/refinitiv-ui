@@ -21,6 +21,9 @@
     "build:watch": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
+  "dependencies": {
+    "tslib": "^2.4.0"
+  },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/fs-extra": "^9.0.13",
