@@ -6,6 +6,11 @@
   "bin": {
     "create-efx": "bin/create-efx"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Refinitiv/refinitiv-ui.git",
+    "directory": "packages/create-efx"
+  },
   "author": "Refinitiv",
   "license": "Apache-2.0",
   "engines": {
@@ -24,5 +29,8 @@
     "fs-extra": "^10.1.0",
     "minimist": "^1.2.6",
     "prompts": "^2.4.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

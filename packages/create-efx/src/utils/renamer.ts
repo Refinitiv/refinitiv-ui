@@ -53,7 +53,7 @@ const renameFiles = async function (root: string, newName: string, templateName:
 
   // Remove .template extension from files
   const suffix = '.template';
-  const suffixEntries = await fg([`.*${suffix}`], { cwd: root, objectMode: true });
+  const suffixEntries = await fg([`.*${suffix}`, `*${suffix}`], { cwd: root, objectMode: true });
   const removeSuffix = new Promise<void>((resolve, reject) => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
