@@ -3,6 +3,7 @@ import { CoreCache } from './core-cache.js';
 import { CacheMessenger } from './messenger.js';
 import type { CacheConfig } from './core-cache.js';
 import type { CacheItem } from './interfaces/CacheItem';
+import { TimeoutTaskRunner } from '../async.js';
 
 Logger.time(`${window.name} Completed`);
 
@@ -40,6 +41,11 @@ export class DistributedCache extends CoreCache {
    * Cache messenger for distribute cache
    */
   protected messenger: CacheMessenger;
+
+  /**
+   * Timer to check message is the last
+   */
+  protected noMessageTimeout = new TimeoutTaskRunner(3000);
 
   /**
    * Names for manage all states temporary
@@ -93,12 +99,13 @@ export class DistributedCache extends CoreCache {
     addEventListener('storage', ({ key, newValue }) => {
       if (key === this.storageNames.requests && newValue === null) {
         this.clean();
-        Logger.timeEnd(`${window.name} Completed`);
-        Logger.log(`${window.name} Real completed time must remove 3000ms for delay`);
       }
     });
 
     this.messenger.onMessage = ({ key, value, id }) => {
+      // Cancel no new message timeout
+      this.noMessageTimeout.cancel();
+
       /**
        * Synchronize the item to active cache in storage by using data in the received message,
        * while the item writing to the browser storage by the sender
@@ -122,11 +129,12 @@ export class DistributedCache extends CoreCache {
        * If no new message post within the time limit It will clear all states.
        * Need to find the way to check latest message better than this
        */
-      setTimeout(() => {
+
+      this.noMessageTimeout.schedule(() => {
         if (!this.messenger.hasMoreMessage(id)) {
           this.clean();
         }
-      }, 3000);
+      });
     };
   }
 
@@ -191,6 +199,7 @@ export class DistributedCache extends CoreCache {
     const item = await this.storage.get(key) as CacheItem;
 
     if (item && item.expires > Date.now()) {
+      Logger.log(`${window.name} %c Found Cache %c ${iconName} ${Date.now()}`, 'background: lightgreen; color: white', '');
       return item.value;
     }
 
@@ -200,9 +209,9 @@ export class DistributedCache extends CoreCache {
       return null;
     }
     else {
+      Logger.log(`${window.name} %c Wait %c ${iconName} ${Date.now().toString()}`, 'background: orange; color: white', '');
       // Add to waiting list by create promise waiting for resolve
       return new Promise<string | null>(resolve => {
-        Logger.log(`${window.name} %c Wait %c ${iconName} ${Date.now().toString()}`, 'background: orange; color: white', '');
         this.wait(key, resolve);
       });
     }
