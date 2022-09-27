@@ -20,9 +20,11 @@
     "test": "wtr --node-resolve",
     "test:watch": "wtr --node-resolve --watch",
     "test:snapshots": "wtr --node-resolve --update-snapshots",
-    "generate:jsx": "node ./scripts/jsx/jsxdts-generator.js"
+    "generate:jsx": "node ./scripts/jsx/jsxdts-generator.js",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "tslib": "^2.4.0",
     "@refinitiv-ui/core": "^6.0.5",
     "@refinitiv-ui/elements": "^6.1.1"
   },
