@@ -11,6 +11,6 @@
   },
   "exclude": [
     "lib",
-    "src/template"
+    "template"
   ]
 }
