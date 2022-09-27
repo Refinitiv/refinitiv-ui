@@ -57,12 +57,14 @@ const renameFiles = async function (root: string, newName: string, templateName:
   const removeSuffix = new Promise<void>((resolve, reject) => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      suffixEntries.forEach(async (suffixEntry: { path: string; }) => {
+      suffixEntries.forEach(async (suffixEntry: { path: string; }, index) => {
         const oldFilename = path.join(root, suffixEntry.path);
         const newFilename = oldFilename.substring(0, oldFilename.indexOf(suffix));
         await fs.rename(oldFilename, newFilename);
+        if (index === suffixEntries.length - 1) {
+          resolve();
+        }
       });
-      resolve();
     }
     catch (err) {
       reject(err);

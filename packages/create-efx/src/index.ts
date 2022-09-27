@@ -118,7 +118,7 @@ const init = async () => {
   }
   
   console.log(`\nScaffolding project in ${chalk.cyan(root)} ...`);
-  await fsExtra.copy(path.join(__dirname, '../src/template'), root);
+  await fsExtra.copy(path.join(__dirname, '../template'), root);
 
   const newName = formatProjectName(path.basename(root));
   await renameAll(root, newName, TEMPLATE_NAME);
