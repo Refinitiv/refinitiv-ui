@@ -1,6 +1,9 @@
 name: "Test Coverage" # To be able to access test coverage of the repository on SonarCloud
-
-on: [push, pull_request]
+on:
+  pull_request:
+    branches: [v6]
+  push:
+    branches: [v6]
 env:
   USE_BROWSERSTACK: ${{ secrets.USE_BROWSERSTACK }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
