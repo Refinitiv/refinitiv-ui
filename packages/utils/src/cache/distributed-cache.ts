@@ -57,8 +57,11 @@ export class DistributedCache extends CoreCache {
    */
   protected get requestsState (): Requests {
     const requests = (JSON.parse(localStorage.getItem(this.storageNames.requests) as string) || {}) as Requests;
+
     // Synchronize new requests state to local variable for performance improvement
-    Object.assign(this.requests, requests);
+    if (Object.keys(requests).length > Object.keys(this.requests).length) {
+      Object.assign(this.requests, requests);
+    }
     return this.requests;
   }
 
@@ -100,7 +103,6 @@ export class DistributedCache extends CoreCache {
       if (key === this.storageNames.requests && newValue === null) {
         this.clean();
         logger.timeEnd(window.name);
-        Logger.log(`${window.name} Real completed time must remove 3000ms for delay`);
       }
     });
 
@@ -258,7 +260,7 @@ export class DistributedCache extends CoreCache {
    * @returns true if resource has started request
    */
   protected hasRequest (key: string): boolean {
-    return this.requests[key] ? true : Boolean(this.requestsState[key]);
+    return key in this.requests ? true : key in this.requestsState;
   }
 
   /**
