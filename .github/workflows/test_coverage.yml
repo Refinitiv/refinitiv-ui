@@ -1,7 +1,5 @@
 name: "Test Coverage" # To be able to access test coverage of the repository on SonarCloud
 on:
-  pull_request:
-    branches: [v6]
   push:
     branches: [v6]
 env:
