@@ -48,7 +48,7 @@ const init = async () => {
 
   if (cmd.v || cmd.version) {
     const packageJSONPath = path.join(__dirname, '../package.json');
-    await import(packageJSONPath).then((module: PackageJSONModule) => {
+    void import(packageJSONPath).then((module: PackageJSONModule) => {
       console.log('v' + module.default.version);
     });
     return;
