@@ -1,6 +1,6 @@
 {
   "name": "create-efx",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "Initializer to create new EFX element",
   "main": "lib/index",
   "bin": {
@@ -22,12 +22,12 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "tslib": "^2.4.0",
     "chalk": "^4.1.2",
+    "fast-glob": "^3.2.5",
     "fs-extra": "^10.1.0",
     "minimist": "^1.2.6",
     "prompts": "^2.4.2",
-    "fast-glob": "^3.2.5"
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
