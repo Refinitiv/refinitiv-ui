@@ -30,7 +30,6 @@
   "devDependencies": {
     "@refinitiv-ui/configurations": "^6.0.4",
     "@refinitiv-ui/halo-theme": "^6.1.4",
-    "@refinitiv-ui/solar-theme": "^6.0.5",
     "@refinitiv-ui/test-helpers": "^6.0.4",
     "@refinitiv-ui/theme-compiler": "^6.0.4",
     "@web/dev-server-esbuild": "^0.3.2",
