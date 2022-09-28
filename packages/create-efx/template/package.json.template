@@ -24,8 +24,7 @@
     "prepublishOnly": "npm run build && npm run generate:jsx"
   },
   "dependencies": {
-    "tslib": "^2.4.0",
-    "@refinitiv-ui/elements": "^6.1.1"
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
     "@refinitiv-ui/configurations": "^6.0.4",
@@ -40,6 +39,7 @@
     "vite": "^3.1.0"
   },
   "peerDependencies": {
-    "@refinitiv-ui/core": "^6.0.7"
+    "@refinitiv-ui/core": "^6.0.7",
+    "@refinitiv-ui/elements": "^6.1.1"
   }
 }
