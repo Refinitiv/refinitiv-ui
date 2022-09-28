@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.5](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@6.0.4...create-efx@6.0.5) (2022-09-28)
+
+
+### Bug Fixes
+
+* **create-efx:** move template dependencies to peer dependencies ([#474](https://github.com/Refinitiv/refinitiv-ui/issues/474)) ([d8a0482](https://github.com/Refinitiv/refinitiv-ui/commit/d8a04824ce44361dce2e6dae09a40ecb89286276))
+
+
+### Reverts
+
+* Revert "Move dependencies to peerDependencies and remove unused package from devDependencies (#472)" (#473) ([3eabcc7](https://github.com/Refinitiv/refinitiv-ui/commit/3eabcc7a7fb9814350da19c6e35b2db55a7bd30e)), closes [#472](https://github.com/Refinitiv/refinitiv-ui/issues/472) [#473](https://github.com/Refinitiv/refinitiv-ui/issues/473)
+
+
+
+
+
 ## [6.0.4](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@6.0.3...create-efx@6.0.4) (2022-09-27)
 
 
