@@ -1,6 +1,6 @@
 # Element Framework (EF)
 
-[![Testing](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test.yml/badge.svg?branch=v6)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test_coverage.yml?query=branch%3Av6+)
+[![Test](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test_coverage.yml/badge.svg)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test_coverage.yml)
 [![Nightly Test](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test_nightly.yml/badge.svg?event=schedule)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test_nightly.yml)
 [![Production Release](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/prod_release.yml/badge.svg?branch=v6)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/prod_release.yml)
 
