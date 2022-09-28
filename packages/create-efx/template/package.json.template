@@ -1,0 +1,45 @@
+{
+  "name": "efx-element",
+  "version": "0.0.0",
+  "description": "Template for building elements",
+  "main": "./lib/efx-element.js",
+  "module": "./lib/efx-element.js",
+  "types": "./lib/efx-element.d.ts",
+  "type": "module",
+  "repository": "",
+  "author": "Refinitiv",
+  "license": "Apache-2.0",
+  "scripts": {
+    "start": "vite --open --base=/demo/",
+    "build": "npm run build:themes && tsc --sourceMap --declarationMap",
+    "build:themes": "npm run build:theme-halo",
+    "build:theme-halo": "cd themes/halo-theme && theme-compiler light --variant light && theme-compiler dark --variant dark",
+    "prepare": "npm run build:themes",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "test": "wtr --node-resolve",
+    "test:watch": "wtr --node-resolve --watch",
+    "test:snapshots": "wtr --node-resolve --update-snapshots",
+    "generate:jsx": "node ./scripts/jsx/jsxdts-generator.js",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "tslib": "^2.4.0",
+    "@refinitiv-ui/core": "^6.0.5",
+    "@refinitiv-ui/elements": "^6.1.1"
+  },
+  "devDependencies": {
+    "@refinitiv-ui/configurations": "^6.0.4",
+    "@refinitiv-ui/demo-block": "^6.0.6",
+    "@refinitiv-ui/halo-theme": "^6.1.4",
+    "@refinitiv-ui/solar-theme": "^6.0.5",
+    "@refinitiv-ui/test-helpers": "^6.0.4",
+    "@refinitiv-ui/theme-compiler": "^6.0.4",
+    "@web/dev-server-esbuild": "^0.3.2",
+    "@web/test-runner": "^0.14.0",
+    "@web/test-runner-playwright": "^0.8.10",
+    "fast-glob": "^3.2.12",
+    "typescript": "^4.8.3",
+    "vite": "^3.1.0"
+  }
+}

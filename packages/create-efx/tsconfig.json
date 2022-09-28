@@ -1,0 +1,16 @@
+{
+  "extends": "@refinitiv-ui/configurations/tsconfig.json",
+  "compilerOptions": {
+    "target": "ES6",
+    "outDir": "./lib",
+    "module": "commonjs",
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+  },
+  "exclude": [
+    "lib",
+    "template"
+  ]
+}
