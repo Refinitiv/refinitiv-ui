@@ -65,3 +65,19 @@ jobs:
           browserstack: $USE_BROWSERSTACK
           username: $BROWSERSTACK_USERNAME
           access-key: $BROWSERSTACK_ACCESS_KEY
+
+  sonarcloud:
+    needs: test
+    name: TestCoverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
