@@ -90,6 +90,17 @@ describe('dialog/Dialog', () => {
       await oneEvent(el, 'cancel');
       expect(el.opened).to.equal(false);
     });
+
+    it('Should not close the dialog if set prevent default to the cancel event', async () => {
+      const el = await fixture('<ef-dialog></ef-dialog>');
+      el.opened = true;
+      el.noCancelOnOutsideClick = false;
+      await elementUpdated(el);
+      el.addEventListener('cancel', event => event.preventDefault());
+      setTimeout(() => document.dispatchEvent(new CustomEvent('tapstart')));
+      await oneEvent(el, 'cancel');
+      expect(el.opened).to.equal(true);
+    });
   });
 
   describe('Draggable Element Behavior', () => {
