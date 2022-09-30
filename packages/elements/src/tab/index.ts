@@ -10,6 +10,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
+import { triggerResize } from '@refinitiv-ui/core';
 import { VERSION } from '../version.js';
 
 import '../icon/index.js';
@@ -131,6 +132,11 @@ export class Tab extends ControlElement {
 
     if (changedProperties.has('active')) {
       this.setAttribute('aria-selected', this.active ? 'true' : 'false');
+    }
+
+    if (changedProperties.has('label')) {
+      // ensures that tab-bar fire resizeCallback when label changes
+      triggerResize();
     }
   }
 
