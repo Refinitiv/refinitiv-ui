@@ -66,16 +66,6 @@ jobs:
           username: $BROWSERSTACK_USERNAME
           access-key: $BROWSERSTACK_ACCESS_KEY
 
-  sonarcloud:
-    needs: test
-    name: TestCoverage
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
