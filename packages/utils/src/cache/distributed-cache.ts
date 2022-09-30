@@ -1,4 +1,5 @@
 import { Logger } from './helpers.js';
+import { Mutex } from 'async-mutex';
 import { CoreCache } from './core-cache.js';
 import { CacheMessenger } from './messenger.js';
 import type { CacheConfig } from './core-cache.js';
@@ -8,6 +9,11 @@ import { CACHE_PREFIX, MESSENGER_NO_MESSAGE_DELAY } from './constants.js';
 
 const logger = new Logger();
 logger.timeStart(window.name);
+
+/**
+ * Mutual exclusion, prevent getting requests state concurrently from multi tabs/windows
+ */
+const mutex = new Mutex();
 
 enum StorageType {
   Requests='requests',
@@ -176,7 +182,6 @@ export class DistributedCache extends CoreCache {
   public async set (key: string, value: string | Promise<string | undefined>, expires = 432000): Promise<void> {
     let cacheValue: string;
     if (value instanceof Promise) {
-      this.addRequest(key);
       cacheValue = await value.then(item => item || '');
     }
     else {
@@ -208,17 +213,25 @@ export class DistributedCache extends CoreCache {
       return item.value;
     }
 
-    // Check key is already started a request
-    if (!this.hasRequest(key)) {
-      Logger.log(`${window.name} %c Request %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
-      return null;
-    }
-    else {
+    // Check key is already started a request by using mutex to prevent race condition in multi-threads
+    const newRequest = await mutex.runExclusive(() => {
+      if (!this.hasRequest(key)) {
+        this.addRequest(key);
+        Logger.log(`${window.name} %c Request %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
+        return true;
+      }
+      return false;
+    });
+
+    if (newRequest === false) {
       Logger.log(`${window.name} %c Wait %c ${iconName} ${Date.now().toString()}`, 'background: orange; color: white', '');
       // Add to waiting list by create promise waiting for resolve
       return new Promise<string | null>(resolve => {
         this.wait(key, resolve);
       });
+    }
+    else {
+      return null;
     }
   }
 
