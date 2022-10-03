@@ -148,6 +148,8 @@ export class Tab extends ControlElement {
   private onSlotChange = (event: Event): void => {
     const slot = event.target as HTMLSlotElement;
     this.isSlotHasContent = !!slot.assignedNodes().length && isSlotEmpty(slot);
+    // ensures that tab-bar fire resizeCallback when slot changes
+    triggerResize();
   };
 
   /**
