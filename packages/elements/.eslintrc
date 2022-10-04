@@ -3,6 +3,7 @@
     "project": "./tsconfig.json"
   },
   "ignorePatterns": [
+    "cli.js",
     "./**/__demo__",
     "./**/__test__/**",
     "./**/__snapshots__/**"

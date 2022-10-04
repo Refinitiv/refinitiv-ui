@@ -3,12 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.1.0...@refinitiv-ui/utils@6.1.1) (2022-09-26)
+
+**Note:** Version bump only for package @refinitiv-ui/utils
+
+
+
+
+
 # [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.0.4...@refinitiv-ui/utils@6.1.0) (2022-09-14)
 
 
 ### Features
 
-* **color-picker:** add color picker ([#444](https://github.com/Refinitiv/refinitiv-ui/issues/444)) ([3718003](https://github.com/Refinitiv/refinitiv-ui/commit/37180039a77d908acd731c89067ecfce3f23955f))
+Add `isHex()` and `removeHashSign()` color utility ([#444](https://github.com/Refinitiv/refinitiv-ui/issues/444)) ([3718003](https://github.com/Refinitiv/refinitiv-ui/commit/37180039a77d908acd731c89067ecfce3f23955f))
 
 
 

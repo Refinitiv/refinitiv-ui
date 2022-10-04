@@ -1,0 +1,9 @@
+{
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "no-console": "off",
+    "import/extensions": "off"
+  }
+}

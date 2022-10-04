@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.0...@refinitiv-ui/elements@6.2.1) (2022-09-26)
+
+
+### Bug Fixes
+
+* **autosuggest:** fix invalid label when disabled suggestion item ([#451](https://github.com/Refinitiv/refinitiv-ui/issues/451)) ([1944007](https://github.com/Refinitiv/refinitiv-ui/commit/194400774dece311856bc9bd0f80a17362a9466e))
+* **configurations:** move import extension eslint rule to local env ([#459](https://github.com/Refinitiv/refinitiv-ui/issues/459)) ([f8a9e1a](https://github.com/Refinitiv/refinitiv-ui/commit/f8a9e1a710901028da57e314ff5a879dab5d9e73))
+
+
+
+
+
 # [6.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.1.1...@refinitiv-ui/elements@6.2.0) (2022-09-14)
 
 
