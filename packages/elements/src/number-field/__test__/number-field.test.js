@@ -851,5 +851,42 @@ describe('number-field/NumberField', () => {
 
       expect(el.value).to.equal('1.5');
     });
+
+    describe('Step="any"', () => {
+      it('Factor should be 1 when step up', async () => {
+        el.setAttribute('step', 'any');
+        el.setAttribute('value', '-1.86');
+        await elementUpdated();
+
+        setTimeout(() => dispatchTapEvent(spinnerUpEl));
+        await oneEvent(spinnerUpEl, 'tap');
+        expect(el.value).to.equal('-0.86', 'Value should be increase by 1 and decimal value should keep stay');
+
+        setTimeout(() => dispatchTapEvent(spinnerUpEl));
+        await oneEvent(spinnerUpEl, 'tap');
+        expect(el.value).to.equal('0.14', 'Value should be increase by 1 and decimal value should keep stay');
+
+        setTimeout(() => dispatchTapEvent(spinnerUpEl));
+        await oneEvent(spinnerUpEl, 'tap');
+        expect(el.value).to.equal('1.14', 'Value should be increase by 1 and decimal value should keep stay');
+      });
+      it('Factor should be 1 when step down', async () => {
+        el.setAttribute('step', 'any');
+        el.setAttribute('value', '1.86');
+        await elementUpdated();
+
+        setTimeout(() => dispatchTapEvent(spinnerDownEl));
+        await oneEvent(spinnerDownEl, 'tap');
+        expect(el.value).to.equal('0.86', 'Value should be decrease by 1 and decimal value should keep stay');
+        
+        setTimeout(() => dispatchTapEvent(spinnerDownEl));
+        await oneEvent(spinnerDownEl, 'tap');
+        expect(el.value).to.equal('-0.14', 'Value should be decrease by 1 and decimal value should keep stay');
+        
+        setTimeout(() => dispatchTapEvent(spinnerDownEl));
+        await oneEvent(spinnerDownEl, 'tap');
+        expect(el.value).to.equal('-1.14', 'Value should be decrease by 1 and decimal value should keep stay');
+      });
+    });
   });
 });

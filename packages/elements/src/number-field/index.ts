@@ -540,6 +540,9 @@ export class NumberField extends FormFieldElement {
    * @returns true if value is integral
    */
   private isValueIntegralMultipleOfStep (value: number): boolean {
+    if (this.step === ANY_STEP) {
+      return true;
+    }
     const decimals = Math.max(this.getDecimalPlace(value), this.stepDecimals);
     const division = (this.stepBase - value) / this.getAllowedValueStep();
     const number = decimals ? this.toFixedNumber(division, decimals) : division;
@@ -621,7 +624,7 @@ export class NumberField extends FormFieldElement {
     // step-up or step-down
     if (this.isValueIntegralMultipleOfStep(value)) {
       const delta = allowedValueStep * stepIncrement * direction;
-      value += delta;
+      value = this.toFixedNumber(value + delta, Math.max(this.getDecimalPlace(value), this.getDecimalPlace(delta)));
     }
     else {
       value = this.findNearestSteppedValue(valueBeforeStepping, stepBase, allowedValueStep, direction);
@@ -647,7 +650,12 @@ export class NumberField extends FormFieldElement {
       return;
     }
 
-    this.inputValue = `${this.toFixedNumber(value)}`;
+    if (this.step === ANY_STEP) {
+      this.inputValue = String(value);
+    }
+    else {
+      this.inputValue = `${this.toFixedNumber(value)}`;
+    }
   }
 
   /**
