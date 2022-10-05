@@ -208,6 +208,15 @@ element.addEventListener('error-changed', (e) => {
 });
 ```
 
+Another option of step, you can specify as 'any' value to be independent from the step range. For instance, when set `step="any"` and set `value=1.12`, Stepping values would be 1.12, 2.12, 3.12, 4.12 accordingly.
+
+```html
+<ef-number-field
+  placeholder="Enter any decimal number"
+  step="any">
+</ef-number-field>
+```
+
 ## Accessibility
 ::a11y-intro::
 
