@@ -657,13 +657,6 @@ export class NumberField extends FormFieldElement {
     }
 
     this.inputValue = String(value);
-
-    // if (this.step === ANY_STEP) {
-    //   this.inputValue = String(value);
-    // }
-    // else {
-    //   this.inputValue = `${this.toFixedNumber(value)}`;
-    // }
   }
 
   /**
