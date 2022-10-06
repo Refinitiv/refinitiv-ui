@@ -630,10 +630,16 @@ export class NumberField extends FormFieldElement {
       value = this.findNearestSteppedValue(valueBeforeStepping, stepBase, allowedValueStep, direction);
     }
 
+    // Follow by native at special case of step any.
+    // When min set as decimal number, value won't be decreased to min
+    if (value < min && this.step === ANY_STEP && this.getDecimalPlace(this.stringToNumber(this.min)) > 0) {
+      value = valueBeforeStepping;
+    }
+
     // If the element has a minimum, and value is less than that minimum,
     // then set value to the smallest value that, when subtracted from the step base,
     // is an integral multiple of the allowed value step, and that is more than or equal to minimum.
-    if (value < min) {
+    else if (value < min) {
       value = this.findNearestSteppedValue(min + allowedValueStep, stepBase, allowedValueStep, Direction.Down);
     }
 
@@ -650,12 +656,14 @@ export class NumberField extends FormFieldElement {
       return;
     }
 
-    if (this.step === ANY_STEP) {
-      this.inputValue = String(value);
-    }
-    else {
-      this.inputValue = `${this.toFixedNumber(value)}`;
-    }
+    this.inputValue = String(value);
+
+    // if (this.step === ANY_STEP) {
+    //   this.inputValue = String(value);
+    // }
+    // else {
+    //   this.inputValue = `${this.toFixedNumber(value)}`;
+    // }
   }
 
   /**
