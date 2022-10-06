@@ -9,8 +9,12 @@
     "import/extensions": ["error", "always"]
   },
   "ignorePatterns": [
-    "packages/**/lib",
-    "packages/**/scripts",
+    "cli.js",
+    "**/lib",
+    "__demo__",
+    "__snapshots__",
+    "scripts",
+    "samples",
     "*.config.js",
     "__test__",
     "*.md"
