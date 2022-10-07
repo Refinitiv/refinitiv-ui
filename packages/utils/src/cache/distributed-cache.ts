@@ -3,7 +3,6 @@ import { Mutex } from 'async-mutex';
 import { CoreCache } from './core-cache.js';
 import { CacheMessenger } from './messenger.js';
 import type { CacheConfig } from './core-cache.js';
-import type { CacheItem } from './interfaces/CacheItem';
 import { TimeoutTaskRunner } from '../async.js';
 import { CACHE_PREFIX, MESSENGER_NO_MESSAGE_DELAY } from './constants.js';
 
@@ -206,7 +205,7 @@ export class DistributedCache extends CoreCache {
    */
   public async get (key: string): Promise<string | null> {
     const iconName: string = key.split('/').pop() || '';
-    const item = await this.storage.get(key) as CacheItem;
+    const item = await this.storage.get(key);
 
     if (item && item.expires > Date.now()) {
       Logger.log(`${window.name} %c Found Cache %c ${iconName} ${Date.now()}`, 'background: lightgreen; color: white', '');

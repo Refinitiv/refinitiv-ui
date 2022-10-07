@@ -1,6 +1,5 @@
 import { IndexedDBStorage } from './storages/indexeddb.js';
 import { LocalStorage } from './storages/localstorage.js';
-import type { CacheItem } from './interfaces/CacheItem';
 import type { CacheStorage } from './interfaces/CacheStorage';
 
 export interface CacheConfig {
@@ -72,7 +71,7 @@ export abstract class CoreCache {
    * @returns Promise string data or `null` if nothing is cached
    */
   public async get (key: string): Promise<string | null> {
-    const item = await this.storage.get(key) as CacheItem;
+    const item = await this.storage.get(key);
     if (item && item.expires > Date.now()) {
       return item.value;
     }

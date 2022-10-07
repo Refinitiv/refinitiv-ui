@@ -1,7 +1,9 @@
+import type { CacheItem } from './CacheItem.js';
+
 /**
  * Structure for any local storage
  */
-export interface CacheStorage {
+export interface CacheStorage<T = CacheItem> {
 
   /**
    * Restore all values into memory cache
@@ -11,17 +13,17 @@ export interface CacheStorage {
   /**
    * Set a value against a key
    */
-  set(key: string, value: unknown): Promise<void>;
+  set(key: string, value: T): Promise<void>;
 
   /**
    * Returns the value in this storage that matched by the key.
    */
-  get(key: string): Promise<unknown | null>;
+  get(key: string): Promise<T | null>;
 
   /**
    * Set a value to active cache
    */
-  setActive(key: string, value: unknown): void;
+  setActive(key: string, value: T): void;
 
   /**
    * Check a value is in active cache

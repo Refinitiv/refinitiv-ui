@@ -1,16 +1,15 @@
 import { openDB } from 'idb';
 import type { DBSchema, IDBPDatabase } from 'idb';
-import type { CacheMap } from '../interfaces/CacheMap';
 import type { CacheItem } from '../interfaces/CacheItem';
 import type { CacheStorage } from '../interfaces/CacheStorage';
 import { DatabasePrefix } from '../constants.js';
 
 type DBName = `[${DatabasePrefix.DEFAULT}][${string}]`;
 
-interface IndexedDBDatabase extends DBSchema {
+interface IndexedDBDatabase<T> extends DBSchema {
   [key: DBName]: {
     key: string;
-    value: CacheItem;
+    value: T;
   }
 }
 
@@ -28,7 +27,7 @@ const errorMessage = (message: string, dbName: string): Error => {
 /**
  * Stores data in indexedDB for use across multiple sessions.
  */
-export class IndexedDBStorage implements CacheStorage {
+export class IndexedDBStorage<T = CacheItem> implements CacheStorage<T> {
   /**
    * Database name.
    */
@@ -37,7 +36,7 @@ export class IndexedDBStorage implements CacheStorage {
   /**
    * IDB's database instance
    */
-  private db: IDBPDatabase<IndexedDBDatabase> | undefined;
+  private db: IDBPDatabase<IndexedDBDatabase<T>> | undefined;
 
   /**
    * Database version
@@ -47,7 +46,7 @@ export class IndexedDBStorage implements CacheStorage {
   /**
    * Internal cache object
    */
-  protected cache: CacheMap = new Map();
+  protected cache = new Map<string, T>();
 
   /**
    * Flag to check if cache database is ready to use
@@ -69,7 +68,7 @@ export class IndexedDBStorage implements CacheStorage {
    * @param value item key
    * @returns {void}
    */
-  public async set (key: string, value: CacheItem): Promise<void> {
+  public async set (key: string, value: T): Promise<void> {
     await this.ready;
     const item = { ...value, key };
     this.cache?.set(key, item);
@@ -82,7 +81,7 @@ export class IndexedDBStorage implements CacheStorage {
    * @param value item key
    * @returns {void}
    */
-  public setActive (key: string, value: CacheItem): void {
+  public setActive (key: string, value: T): void {
     const item = { ...value, key };
     this.cache?.set(key, item);
   }
@@ -101,7 +100,7 @@ export class IndexedDBStorage implements CacheStorage {
    * @param key item key
    * @returns CacheItem or `null` if nothing is cached
    */
-  public async get (key: string): Promise<CacheItem | null> {
+  public async get (key: string): Promise<T | null> {
     await this.ready;
     // if (key.includes('3d')) {
     //   console.log(window.name, '3d db is ready?', this.ready, this.cache);
@@ -160,7 +159,7 @@ export class IndexedDBStorage implements CacheStorage {
     }
 
     this.ready = new Promise<boolean>((resolve) => {
-      void openDB<IndexedDBDatabase>(this.dbName, this.version, {
+      void openDB<IndexedDBDatabase<T>>(this.dbName, this.version, {
         upgrade: (database) => {
           if (database.objectStoreNames.contains(this.dbName)) {
             database.deleteObjectStore(this.dbName);
