@@ -102,9 +102,6 @@ export class IndexedDBStorage<T = CacheItem> implements CacheStorage<T> {
    */
   public async get (key: string): Promise<T | null> {
     await this.ready;
-    // if (key.includes('3d')) {
-    //   console.log(window.name, '3d db is ready?', this.ready, this.cache);
-    // }
     return this.cache?.get(key) || null;
   }
 
@@ -190,7 +187,6 @@ export class IndexedDBStorage<T = CacheItem> implements CacheStorage<T> {
   private async getReady (): Promise<boolean> {
     try {
       await this.restore();
-      // console.log(window.name, '3d ready', Date.now().toString());
       return true;
     }
     catch (e) { // Keep it work. Even if can't connect to storage
