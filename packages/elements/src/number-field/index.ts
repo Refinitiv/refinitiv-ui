@@ -540,6 +540,9 @@ export class NumberField extends FormFieldElement {
    * @returns true if value is integral
    */
   private isValueIntegralMultipleOfStep (value: number): boolean {
+    if (this.step === ANY_STEP) {
+      return true;
+    }
     const decimals = Math.max(this.getDecimalPlace(value), this.stepDecimals);
     const division = (this.stepBase - value) / this.getAllowedValueStep();
     const number = decimals ? this.toFixedNumber(division, decimals) : division;
@@ -621,23 +624,27 @@ export class NumberField extends FormFieldElement {
     // step-up or step-down
     if (this.isValueIntegralMultipleOfStep(value)) {
       const delta = allowedValueStep * stepIncrement * direction;
-      value += delta;
+      value = this.toFixedNumber(value + delta, Math.max(this.getDecimalPlace(value), this.getDecimalPlace(delta)));
     }
     else {
       value = this.findNearestSteppedValue(valueBeforeStepping, stepBase, allowedValueStep, direction);
     }
 
+    // Follow native number field with step "any".
+    // When set min as a decimal number, value should't be decreased to min
+    if (value < min && this.step === ANY_STEP && this.getDecimalPlace(this.stringToNumber(this.min)) > 0) {
+      value = valueBeforeStepping;
+    }
     // If the element has a minimum, and value is less than that minimum,
     // then set value to the smallest value that, when subtracted from the step base,
     // is an integral multiple of the allowed value step, and that is more than or equal to minimum.
-    if (value < min) {
+    else if (value < min) {
       value = this.findNearestSteppedValue(min + allowedValueStep, stepBase, allowedValueStep, Direction.Down);
     }
-
     // If the element has a maximum, and value is greater than that maximum,
     // then set value to the largest value that, when subtracted from the step base,
     // is an integral multiple of the allowed value step, and that is less than or equal to maximum.
-    if (value > max) {
+    else if (value > max) {
       value = this.findNearestSteppedValue(max - allowedValueStep, stepBase, allowedValueStep, Direction.Up);
     }
 
@@ -647,7 +654,7 @@ export class NumberField extends FormFieldElement {
       return;
     }
 
-    this.inputValue = `${this.toFixedNumber(value)}`;
+    this.inputValue = String(value);
   }
 
   /**
