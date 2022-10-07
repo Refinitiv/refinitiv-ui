@@ -128,7 +128,7 @@ document.getElementById('mm').value = '-15';
 ```
 
 ## Set input step
-The step attribute specifies the interval between valid numbers. For instance, when `step="2"`, valid values Would only be even numbers e.g. 2,4,6,8... Alternatively, specify the step `any'. This means any value is allowed.
+The step attribute specifies the interval between valid numbers. For instance, when `step="2"`, valid values Would only be even numbers e.g. 2,4,6,8... Alternatively, specify the step `any`. This means any value is allowed.
 
 ::
 ```javascript
