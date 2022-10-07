@@ -630,23 +630,21 @@ export class NumberField extends FormFieldElement {
       value = this.findNearestSteppedValue(valueBeforeStepping, stepBase, allowedValueStep, direction);
     }
 
-    // Follow by native at special case of step any.
-    // When min set as decimal number, value won't be decreased to min
+    // Follow native number field with step "any".
+    // When set min as a decimal number, value should't be decreased to min
     if (value < min && this.step === ANY_STEP && this.getDecimalPlace(this.stringToNumber(this.min)) > 0) {
       value = valueBeforeStepping;
     }
-
     // If the element has a minimum, and value is less than that minimum,
     // then set value to the smallest value that, when subtracted from the step base,
     // is an integral multiple of the allowed value step, and that is more than or equal to minimum.
     else if (value < min) {
       value = this.findNearestSteppedValue(min + allowedValueStep, stepBase, allowedValueStep, Direction.Down);
     }
-
     // If the element has a maximum, and value is greater than that maximum,
     // then set value to the largest value that, when subtracted from the step base,
     // is an integral multiple of the allowed value step, and that is less than or equal to maximum.
-    if (value > max) {
+    else if (value > max) {
       value = this.findNearestSteppedValue(max - allowedValueStep, stepBase, allowedValueStep, Direction.Up);
     }
 
