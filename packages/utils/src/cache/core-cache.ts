@@ -49,7 +49,7 @@ export abstract class CoreCache {
 
     let cacheValue: string;
     if (value instanceof Promise) {
-      cacheValue = await value.then(item => item || '');
+      cacheValue = await value;
     }
     else {
       cacheValue = value;

@@ -14,13 +14,9 @@ logger.timeStart(window.name);
  */
 const mutex = new Mutex();
 
-enum StorageType {
-  Requests='requests',
-  Unloaded='unloaded'
-}
-
 type StorageNames = {
-  [name in StorageType]: string
+  requests: string
+  unloaded: string
 };
 
 type Requests = {
@@ -61,12 +57,18 @@ export class DistributedCache extends CoreCache {
    * Get resource request list, sync the new requests to cache
    */
   protected get requestsState (): Requests {
-    const requests = (JSON.parse(localStorage.getItem(this.storageNames.requests) as string) || {}) as Requests;
+    const state = localStorage.getItem(this.storageNames.requests);
+    if (!state) {
+      return {};
+    }
+
+    const requests = (JSON.parse(state) || {}) as Requests;
 
     // Synchronize new requests state to local variable for performance improvement
     if (Object.keys(requests).length > Object.keys(this.requests).length) {
       Object.assign(this.requests, requests);
     }
+
     return this.requests;
   }
 
@@ -178,24 +180,30 @@ export class DistributedCache extends CoreCache {
    * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
    * @returns {void}
    */
-  public async set (key: string, value: string | Promise<string | undefined>, expires = 432000): Promise<void> {
+  public override async set (key: string, value: string | Promise<string>, expires = 432000): Promise<void> {
     let cacheValue: string;
     if (value instanceof Promise) {
-      cacheValue = await value.then(item => item || '');
+      cacheValue = await value;
     }
     else {
       cacheValue = value;
     }
 
-    const modified = Date.now();
-    const data = {
-      value: cacheValue,
-      modified,
-      expires: modified + expires * 1000
-    };
+    if (cacheValue) {
+      const modified = Date.now();
+      const data = {
+        value: cacheValue,
+        modified,
+        expires: modified + expires * 1000
+      };
 
-    this.messenger.notify(key, cacheValue);
-    await this.storage.set(key, data);
+      this.messenger.notify(key, cacheValue);
+      void this.storage.set(key, data);
+    }
+    else {
+      // eslint-disable-next-line no-console
+      console.warn(`Cannot set empty value to cache for key ${key}`);
+    }
   }
 
   /**
@@ -203,7 +211,7 @@ export class DistributedCache extends CoreCache {
    * @param key Cache key
    * @returns Promise string data or `null` if nothing is cached
    */
-  public async get (key: string): Promise<string | null> {
+  public override async get (key: string): Promise<string | null> {
     const iconName: string = key.split('/').pop() || '';
     const item = await this.storage.get(key);
 

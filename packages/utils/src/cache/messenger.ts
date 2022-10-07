@@ -8,16 +8,9 @@ export type Message = {
 }
 
 export type OnMessageCallback = (message: Message) => void;
-
 export type OnCompleteCallback = () => void;
 
-enum StorageType {
-  MessagePosts='messagePosts',
-}
-
-type StorageNames = {
-  [name in StorageType]: string
-};
+type StorageNames = { messagePosts: string };
 
 /**
  * Cache messenger manage post/receive to others cache messenger
@@ -100,7 +93,7 @@ export class CacheMessenger {
   }
 
   /**
-   * Distribute cache
+   * Distribute message
    * @param key item key
    * @param value data to send via message
    * @returns {void}
