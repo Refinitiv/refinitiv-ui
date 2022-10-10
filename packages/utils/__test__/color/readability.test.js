@@ -48,10 +48,6 @@ describe('Accessibility color', () => {
       expect(colorString('#bfbfbf')).to.equal('White with 25% Black');
       expect(colorString('#404040')).to.equal('Black with 25% White', 'sort main color when mixed percentage > 50');
     }); 
-    it('Should have gray scale', async () => {
-      expect(colorString('#bfbfbf')).to.equal('White with 25% Black');
-      expect(colorString('#404040')).to.equal('Black with 25% White', 'sort main color when mixed percentage > 50');
-    }); 
   });
 
   describe('Color localized', () => {
