@@ -13,13 +13,13 @@ type NColWB = {
 
 type NColLocalized = {
   name: string | undefined,
-  colorTone: string,
-  colorName: string,
-  colorMixPercent: number,
-  colorMixName: string
+  tone: string,
+  main: string,
+  percent: number,
+  mixed: string
 }
 
-class AccessibilityColor {
+class ReadabilityColor {
   private color;
   private ncolwb: NColWB;
 
@@ -90,13 +90,13 @@ class AccessibilityColor {
    */
   private get colorToneLocalized (): string {
     const lightness = this.color.toHsl().l;
-    if (lightness >= 75) {
+    if (lightness >= 80) {
       return 'VERY_LIGHT';
     }
-    else if (lightness >= 60) {
+    else if (lightness >= 65) {
       return 'LIGHT';
     }
-    else if (lightness <= 25) {
+    else if (lightness <= 10) {
       return 'VERY_DARK';
     }
     else if (lightness <= 40) {
@@ -184,7 +184,7 @@ class AccessibilityColor {
    * Convert color to color string description
    * @returns color description
    */
-  public get description (): string {
+  public toString (): string {
     const name = this.color.toName();
     if (name) {
       return name[0].toUpperCase() + name.slice(1);
@@ -208,14 +208,14 @@ class AccessibilityColor {
     const [colorName, colorMixName, colorMixPercent] = this.getColorAdmixture();
     return {
       name,
-      colorTone: !this.isGreyScale ? this.colorToneLocalized : '',
-      colorName: colorName.toUpperCase(),
-      colorMixPercent,
-      colorMixName: colorMixName.toUpperCase()
+      tone: !this.isGreyScale ? this.colorToneLocalized : '',
+      main: colorName.toUpperCase(),
+      mixed: colorMixName.toUpperCase(),
+      percent: colorMixPercent
     };
   }
 }
 
 export {
-  AccessibilityColor
+  ReadabilityColor
 };
