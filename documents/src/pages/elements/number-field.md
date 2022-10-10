@@ -128,7 +128,7 @@ document.getElementById('mm').value = '-15';
 ```
 
 ## Set input step
-The step attribute specifies the interval between valid numbers. For instance, when `step="2"`, valid values Would only be even numbers e.g. 2,4,6,8....
+The step attribute specifies the interval between valid numbers. For instance, when `step="2"`, valid values would only be even numbers e.g. 2,4,6,8... Alternatively, specify the `step="any"` to allow any value. 
 
 ::
 ```javascript
@@ -136,6 +136,8 @@ The step attribute specifies the interval between valid numbers. For instance, w
 ```
 ```html
 <ef-number-field placeholder="Even numbers only" step="2"></ef-number-field>
+
+<ef-number-field placeholder="Step any allow any number" step="any"></ef-number-field>
 ```
 ::
 
