@@ -123,7 +123,7 @@ export class DistributedCache extends CoreCache {
        */
       if (!this.storage.hasActive(key)) {
         Logger.log(`${window.name} %c Sync cache %c with received message %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: magenta; color: white', '', '');
-        this.syncActive(key, value);
+        this.syncActiveCache(key, value);
       }
 
       // Match a message with a waiting request and resolve it
@@ -243,13 +243,13 @@ export class DistributedCache extends CoreCache {
   }
 
   /**
-   * Caches a value to active cache without writing to storage
+   * Caches a value to memory cache without writing to storage
    * @param key Cache key
    * @param value Data to store in cache
    * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
    * @returns {void}
    */
-  protected syncActive (key: string, value: string, expires = 432000): void {
+  protected syncActiveCache (key: string, value: string, expires = 432000): void {
     const modified = Date.now();
     const data = {
       value: value,

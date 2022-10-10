@@ -21,12 +21,12 @@ export interface CacheStorage<T = CacheItem> {
   get(key: string): Promise<T | null>;
 
   /**
-   * Set a value to active cache
+   * Set a value to memory cache
    */
   setActive(key: string, value: T): void;
 
   /**
-   * Check a value is in active cache
+   * Check a value is in memory cache
    */
   hasActive(key: string): boolean;
 
