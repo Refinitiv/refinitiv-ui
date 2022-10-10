@@ -4,7 +4,7 @@ import { CoreCache } from './core-cache.js';
 import { CacheMessenger } from './messenger.js';
 import type { CacheConfig } from './core-cache.js';
 import { TimeoutTaskRunner } from '../async.js';
-import { CACHE_PREFIX, MESSENGER_NO_MESSAGE_DELAY } from './constants.js';
+import { CACHE_PREFIX, MESSENGER_LAST_MESSAGE_INTERVAL } from './constants.js';
 
 const logger = new Logger();
 logger.timeStart(window.name);
@@ -46,7 +46,7 @@ export class DistributedCache extends CoreCache {
   /**
    * Timer to check message is the last
    */
-  protected noMessageTimeout = new TimeoutTaskRunner(MESSENGER_NO_MESSAGE_DELAY);
+  protected lastMessageTimeout = new TimeoutTaskRunner(MESSENGER_LAST_MESSAGE_INTERVAL);
 
   /**
    * Names for manage all states temporary
@@ -115,7 +115,7 @@ export class DistributedCache extends CoreCache {
 
     this.messenger.onMessage = ({ key, value, id }) => {
       // Cancel no new message timeout
-      this.noMessageTimeout.cancel();
+      this.lastMessageTimeout.cancel();
 
       /**
        * Synchronize the item to active cache in storage by using data in the received message,
@@ -141,7 +141,7 @@ export class DistributedCache extends CoreCache {
        * Need to find the way to check latest message better than this
        */
 
-      this.noMessageTimeout.schedule(() => {
+      this.lastMessageTimeout.schedule(() => {
         if (!this.messenger.hasMoreMessage(id)) {
           this.clean();
           logger.timeEnd(window.name);

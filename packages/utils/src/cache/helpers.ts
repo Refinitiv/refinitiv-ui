@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 
-import { MESSENGER_NO_MESSAGE_DELAY } from './constants.js';
+import { MESSENGER_LAST_MESSAGE_INTERVAL } from './constants.js';
 
 type LoggerTime = {
   startAt: number
@@ -43,7 +43,7 @@ export class Logger {
     if (timer.startAt !== 0) {
       timer.endAt = performance.now();
       console.log(`${window.name} End Time: `, timer.endAt);
-      console.log(`${message} Time: Complete End:  ${(timer.endAt - timer.startAt) - MESSENGER_NO_MESSAGE_DELAY}`);
+      console.log(`${message} Time: Complete End:  ${(timer.endAt - timer.startAt) - MESSENGER_LAST_MESSAGE_INTERVAL}`);
     }
 
     // Clear
