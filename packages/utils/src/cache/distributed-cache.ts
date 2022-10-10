@@ -180,8 +180,8 @@ export class DistributedCache extends CoreCache {
    * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
    * @returns {void}
    */
-  public override async set (key: string, value: string | Promise<string>, expires = 432000): Promise<void> {
-    let cacheValue: string;
+  public override async set (key: string, value: string | Promise<string | undefined>, expires = 432000): Promise<void> {
+    let cacheValue: string | undefined;
     if (value instanceof Promise) {
       cacheValue = await value;
     }
