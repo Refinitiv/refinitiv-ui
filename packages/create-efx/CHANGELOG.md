@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.6](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@6.0.5...create-efx@6.0.6) (2022-10-10)
+
+
+### Bug Fixes
+
+* **create-efx:** efx change theme import path and fix tsconfig error with vite latest version ([#484](https://github.com/Refinitiv/refinitiv-ui/issues/484)) ([bdbb24f](https://github.com/Refinitiv/refinitiv-ui/commit/bdbb24ff1470cf8761e7c2c8e76a19b290c11987))
+* **create-efx:** fix sonarcloud warning ([#489](https://github.com/Refinitiv/refinitiv-ui/issues/489)) ([a56043c](https://github.com/Refinitiv/refinitiv-ui/commit/a56043c32651cd582719ce99d9be1f8896564778))
+
+
+
+
+
 ## [6.0.5](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@6.0.4...create-efx@6.0.5) (2022-09-28)
 
 

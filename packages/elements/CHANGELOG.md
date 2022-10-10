@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.1...@refinitiv-ui/elements@6.2.2) (2022-10-10)
+
+
+### Bug Fixes
+
+* **dialog:** the cancel event does not fire ([ce55aac](https://github.com/Refinitiv/refinitiv-ui/commit/ce55aaca5d070ad1be2de68b66ac77d683b06acf))
+* **number-field:** fix step=any to support integer and decimal number ([#485](https://github.com/Refinitiv/refinitiv-ui/issues/485)) ([13bbb34](https://github.com/Refinitiv/refinitiv-ui/commit/13bbb34b3ed9f870acc66169cea8103e480eea6a))
+* **tab:** trigger resize observer when label changes to make tab bar show scroll button correctly ([#480](https://github.com/Refinitiv/refinitiv-ui/issues/480)) ([93e384b](https://github.com/Refinitiv/refinitiv-ui/commit/93e384b845f87f0f3e074d4672065e7305a85c26))
+
+
+
+
+
 ## [6.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.0...@refinitiv-ui/elements@6.2.1) (2022-09-26)
 
 
