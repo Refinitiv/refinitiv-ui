@@ -13,8 +13,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [6.0.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.0.7...@refinitiv-ui/demo-block@6.0.8) (2022-09-26)
 
-* Update all formatjs dependencies to support typescript 4.8 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
-* Upgrade typescript to 4.8.3 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
+* Update all formatjs dependencies to support typescript 4.8 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
+* Upgrade typescript to 4.8.3 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
 
 **Note:** Version bump only for package @refinitiv-ui/demo-block
 
