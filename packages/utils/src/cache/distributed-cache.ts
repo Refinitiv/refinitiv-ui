@@ -14,8 +14,8 @@ logger.timeStart(window.name);
 const mutex = new Mutex();
 
 type StorageNames = {
-  requests: string
-  unloaded: string
+  requests: `${string}[requests]`,
+  unloaded: `${string}[unloaded]`
 };
 
 type Requests = {

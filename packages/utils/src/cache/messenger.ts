@@ -10,7 +10,9 @@ export type Message = {
 export type OnMessageCallback = (message: Message) => void;
 export type OnCompleteCallback = () => void;
 
-type StorageNames = { messagePosts: string };
+type StorageNames = {
+  messagePosts: `${string}[message-posts]`
+};
 
 /**
  * Cache messenger manage post/receive to others cache messenger
