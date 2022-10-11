@@ -162,7 +162,6 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * selected item values
    * @type {string[]}
    * @default []
-   * @readonly
    */
   @property({ type: Array, attribute: false })
   public get values (): string[] {
