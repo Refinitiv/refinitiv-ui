@@ -396,6 +396,20 @@ describe('tree/Tree', () => {
       expect(el.value).to.equal('1.1');
       expect(el.values).to.deep.equal(['1.1', '1.2']);
     });
+
+    it('Update the parent selected state correctly', async () => {
+      const el = await fixture('<ef-tree multiple></ef-tree>');
+      el.data = nestedData;
+      await elementUpdated(el);
+      const item = el.children[0];
+      expect(item.checkedState).to.equal(-1); // Indeterminate
+      el.values = [];
+      await elementUpdated(el);
+      expect(item.checkedState).to.equal(0); // Unchecked
+      el.values = ['1.1'];
+      await elementUpdated(el);
+      expect(item.checkedState).to.equal(-1); // Indeterminate
+    });
   });
 
   describe('Filter Tests', () => {

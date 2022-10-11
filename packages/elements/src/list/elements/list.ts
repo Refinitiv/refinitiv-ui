@@ -26,7 +26,7 @@ enum Direction {
   DOWN = 1
 }
 
-const valueFormatWarning = new WarningNotice('The specified \'values\' format does not conform to the required format.');
+export const valueFormatWarning = new WarningNotice('The specified \'values\' format does not conform to the required format.');
 
 /**
  * Provides listing and immutable selection
