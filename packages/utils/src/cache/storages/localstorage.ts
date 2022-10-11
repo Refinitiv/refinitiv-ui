@@ -1,6 +1,6 @@
+import { DatabasePrefix } from '../constants.js';
 import type { CacheItem } from '../interfaces/CacheItem';
 import type { CacheStorage } from '../interfaces/CacheStorage';
-import { DatabasePrefix } from '../constants.js';
 
 /**
  * Returns a string used for the key

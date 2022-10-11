@@ -1,8 +1,7 @@
 import { Logger } from './helpers.js';
 import { Mutex } from 'async-mutex';
-import { CoreCache } from './core-cache.js';
+import { CoreCache, type CacheConfig } from './core-cache.js';
 import { CacheMessenger } from './messenger.js';
-import type { CacheConfig } from './core-cache.js';
 import { TimeoutTaskRunner } from '../async.js';
 import { CACHE_PREFIX, MESSENGER_LAST_MESSAGE_INTERVAL } from './constants.js';
 

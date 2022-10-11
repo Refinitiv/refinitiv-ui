@@ -1,8 +1,7 @@
-import { openDB } from 'idb';
-import type { DBSchema, IDBPDatabase } from 'idb';
+import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
+import { DatabasePrefix } from '../constants.js';
 import type { CacheItem } from '../interfaces/CacheItem';
 import type { CacheStorage } from '../interfaces/CacheStorage';
-import { DatabasePrefix } from '../constants.js';
 
 type DBName = `[${DatabasePrefix.DEFAULT}][${string}]`;
 
