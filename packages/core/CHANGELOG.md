@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.0.7...@refinitiv-ui/core@6.0.8) (2022-10-10)
+
+
+### Bug Fixes
+
+* **tab:** trigger resize observer when label changes to make tab bar show scroll button correctly ([#480](https://github.com/Refinitiv/refinitiv-ui/issues/480)) ([93e384b](https://github.com/Refinitiv/refinitiv-ui/commit/93e384b845f87f0f3e074d4672065e7305a85c26))
+
+
+
+
+
 ## [6.0.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.0.6...@refinitiv-ui/core@6.0.7) (2022-09-26)
 
 **Note:** Version bump only for package @refinitiv-ui/core
