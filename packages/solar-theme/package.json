@@ -19,7 +19,7 @@
     "build:pearl": "theme-compiler pearl --variant=pearl",
     "build": "npm run build:charcoal && npm run build:pearl",
     "build:prod": "npm run build",
-    "watch": "watch \"npm run build\" src --wait=10",
+    "watch": "chokidar '**/*.less' --command \"npm run build\" --debounce=5000",
     "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },
