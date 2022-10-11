@@ -6,7 +6,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## [6.2.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.2.1...@refinitiv-ui/docs@6.2.2) (2022-10-10)
 
 
-Note: Version bump only for package @refinitiv-ui/docs
+**Note:** Version bump only for package @refinitiv-ui/docs
 
 
 
