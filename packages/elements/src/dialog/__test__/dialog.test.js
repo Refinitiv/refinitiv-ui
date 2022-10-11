@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/dialog';
 import { MAIN_MOUSE_BUTTON } from '../../../lib/dialog/draggable-element.js';
@@ -69,6 +69,37 @@ describe('dialog/Dialog', () => {
       });
       await oneEvent(el, 'cancel');
       expect(el.opened).to.equal(false);
+    });
+
+    it('Should fire cancel event on press esc key', async () => {
+      const el = await fixture('<ef-dialog></ef-dialog>');
+      el.opened = true;
+      await elementUpdated(el);
+      const keyUpEvent = keyboardEvent('keydown', { key: 'Esc' });
+      setTimeout(() => el.dispatchEvent(keyUpEvent));
+      await oneEvent(el, 'cancel');
+      expect(el.opened).to.equal(false);
+    });
+
+    it('Should fire cancel event on tap the backdrop if enabled canceling on outside click', async () => {
+      const el = await fixture('<ef-dialog></ef-dialog>');
+      el.opened = true;
+      el.noCancelOnOutsideClick = false;
+      await elementUpdated(el);
+      setTimeout(() => document.dispatchEvent(new CustomEvent('tapstart')));
+      await oneEvent(el, 'cancel');
+      expect(el.opened).to.equal(false);
+    });
+
+    it('Should not close the dialog if set prevent default to the cancel event', async () => {
+      const el = await fixture('<ef-dialog></ef-dialog>');
+      el.opened = true;
+      el.noCancelOnOutsideClick = false;
+      await elementUpdated(el);
+      el.addEventListener('cancel', event => event.preventDefault());
+      setTimeout(() => document.dispatchEvent(new CustomEvent('tapstart')));
+      await oneEvent(el, 'cancel');
+      expect(el.opened).to.equal(true);
     });
   });
 

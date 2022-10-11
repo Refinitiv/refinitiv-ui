@@ -131,5 +131,25 @@
       </ef-tab-bar>
       <br>
     </demo-block>
+
+    <demo-block header="Dynamic Rendering" layout="normal" tags="dynamicRendering">
+      <ef-tab-bar>
+        <ef-tab id="dynamic">tab 1</ef-tab>
+        <ef-tab id="dynamic">tab 2</ef-tab>
+        <ef-tab id="dynamic">tab 3</ef-tab>
+        <ef-tab id="dynamic">tab 4</ef-tab>
+        <ef-tab id="dynamic">tab 5</ef-tab>
+        <ef-tab id="dynamic">tab 6</ef-tab>
+      </ef-tab-bar>
+      <br>
+    </demo-block>
+    <script>
+      setTimeout(() => {
+        const tabs = document.querySelectorAll('#dynamic');
+        tabs.forEach((tab) => {
+          tab.textContent = 'some long label';
+        });
+      }, 5000);
+    </script>
   </body>
 </html>
