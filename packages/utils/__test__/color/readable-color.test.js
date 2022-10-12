@@ -15,12 +15,10 @@ describe('Readable color', () => {
       expect(ReadableColor('#ff01ff').main).to.equal('MAGENTA');
     }); 
     it('Should have mixed color', async () => {
-      // Red with 10% Yellow
       expect(ReadableColor('#ff1900').main).to.equal('RED');
       expect(ReadableColor('#ff1900').mixed).to.equal('YELLOW');
       expect(ReadableColor('#ff1900').percent).to.equal(10);
       
-      // Yellow with 10% Red
       expect(ReadableColor('#ffe500').main).to.equal('YELLOW');
       expect(ReadableColor('#ffe500').mixed).to.equal('RED');
       expect(ReadableColor('#ffe500').percent).to.equal(10);

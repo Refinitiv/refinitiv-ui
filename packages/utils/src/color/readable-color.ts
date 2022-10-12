@@ -24,7 +24,7 @@ type ReadableColor = {
  * @param color colord object
  * @returns color tone
  */
-const colorTone = (color: Colord): string => {
+const getColorTone = (color: Colord): string => {
   const lightness = color.toHsl().l;
   if (lightness >= 80) {
     return 'VERY_LIGHT';
@@ -49,18 +49,18 @@ const colorTone = (color: Colord): string => {
 const getMixColorName = (ncolCode: string): [string, string] => {
   switch (ncolCode) {
     case 'Y':
-      return ['Yellow', 'Green'];
+      return ['YELLOW', 'GREEN'];
     case 'G':
-      return ['Green', 'Cyan'];
+      return ['GREEN', 'CYAN'];
     case 'C':
-      return ['Cyan', 'Blue'];
+      return ['CYAN', 'BLUE'];
     case 'B':
-      return ['Blue', 'Magenta'];
+      return ['BLUE', 'MAGENTA'];
     case 'M':
-      return ['Magenta', 'Red'];
+      return ['MAGENTA', 'RED'];
     case 'R':
     default:
-      return ['Red', 'Yellow'];
+      return ['RED', 'YELLOW'];
   }
 };
 
@@ -129,7 +129,7 @@ const isGreyScale = (ncolwb: NColWB): boolean => {
  */
 const getColorAdmixture = (ncolwb: NColWB): [string, string, number] => {
   if (isGreyScale(ncolwb)) {
-    return sortMixColor('Black', 'White', ncolwb.w);
+    return sortMixColor('BLACK', 'WHITE', ncolwb.w);
   }
   const ncolCode = ncolwb.ncol[0];
   const percent = parseInt(ncolwb.ncol.slice(1), 10);
@@ -163,9 +163,9 @@ const ReadableColor = (rawColor: string): ReadableColor => {
 
   return {
     name,
-    tone: !isGreyScale(ncolwb) ? colorTone(color) : '',
-    main: main.toUpperCase(),
-    mixed: mixed.toUpperCase(),
+    tone: !isGreyScale(ncolwb) ? getColorTone(color) : '',
+    main,
+    mixed,
     percent
   };
 };
