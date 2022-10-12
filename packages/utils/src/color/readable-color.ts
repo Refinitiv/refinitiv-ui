@@ -11,7 +11,7 @@ type NColWB = {
   b: number;
 }
 
-type ReadableColor = {
+type ReadableColorType = {
   name: string | undefined,
   tone: string,
   main: string,
@@ -155,7 +155,7 @@ const getNColWB = (color: Colord): NColWB => {
  * @param rawColor raw string color
  * @returns color readable object
  */
-const ReadableColor = (rawColor: string): ReadableColor => {
+const ReadableColor = (rawColor: string): ReadableColorType => {
   const color = colord(rawColor);
   const ncolwb = getNColWB(color);
   const name = color.toName();
