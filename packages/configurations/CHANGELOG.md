@@ -5,17 +5,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [6.0.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/configurations@6.0.4...@refinitiv-ui/configurations@6.0.5) (2022-09-26)
 
+* Update all formatjs dependencies to support typescript 4.8 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
+* Upgrade typescript to 4.8.3 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
 
 ### Bug Fixes
 
 * **configurations:** move import extension eslint rule to local env ([#459](https://github.com/Refinitiv/refinitiv-ui/issues/459)) ([f8a9e1a](https://github.com/Refinitiv/refinitiv-ui/commit/f8a9e1a710901028da57e314ff5a879dab5d9e73))
-* **configurations:** move import extension rule to local env ([#457](https://github.com/Refinitiv/refinitiv-ui/issues/457)) ([77997a3](https://github.com/Refinitiv/refinitiv-ui/commit/77997a3b5dc7f94c117d452f15f957d5ef49b970))
-
-
-### Reverts
-
-* "fix(configurations): move import extension rule to local env ([#457](https://github.com/Refinitiv/refinitiv-ui/issues/457))" ([#458](https://github.com/Refinitiv/refinitiv-ui/issues/458)) ([a85018c](https://github.com/Refinitiv/refinitiv-ui/commit/a85018ccd7f5287ef36489bb998dffbafa01db1d))
-
 
 
 
