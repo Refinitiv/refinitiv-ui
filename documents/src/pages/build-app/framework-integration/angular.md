@@ -86,23 +86,6 @@ import '@refinitiv-ui/elements/text-field/themes/halo/dark';
 import '@refinitiv-ui/elements/password-field/themes/halo/dark';
 ```
 
-If you're using Angular 13++ or using Webpack 5, you can import module by using a shorter path.
-
-```javascript
-import '@refinitiv-ui/elements/loader';
-import '@refinitiv-ui/elements/button';
-import '@refinitiv-ui/elements/panel';
-import '@refinitiv-ui/elements/text-field';
-import '@refinitiv-ui/elements/password-field';
-
-import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
-import '@refinitiv-ui/elements/loader/themes/halo/dark';
-import '@refinitiv-ui/elements/button/themes/halo/dark';
-import '@refinitiv-ui/elements/panel/themes/halo/dark';
-import '@refinitiv-ui/elements/text-field/themes/halo/dark';
-import '@refinitiv-ui/elements/password-field/themes/halo/dark';
-```
-
 At this stage EF elements should be ready to use!. You can use them like any other native HTML elements.
 
 ## Create a login page
