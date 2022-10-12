@@ -24,7 +24,7 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/demo-block"
   },
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "dependencies": {
     "@refinitiv-ui/elemental-theme": "^6.1.0",

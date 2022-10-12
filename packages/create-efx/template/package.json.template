@@ -7,7 +7,7 @@
   "types": "./lib/efx-element.d.ts",
   "type": "module",
   "repository": "",
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "engines": {
     "npm": "^7.0.0"

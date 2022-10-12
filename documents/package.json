@@ -23,7 +23,7 @@
     "Element Framework",
     "EF"
   ],
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "devDependencies": {
     "chalk": "^4.1.2",
