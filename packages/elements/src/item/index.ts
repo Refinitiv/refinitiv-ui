@@ -8,11 +8,12 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
 import '../icon/index.js';
 import '../checkbox/index.js';
-
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
+import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData } from './helpers/types';
 export type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData };
 
@@ -126,10 +127,19 @@ export class Item extends ControlElement {
   public for: string | null = null;
 
   /**
-   * Cache label element
+   * Reference to the label element
    */
-  @query('#label')
-  private labelEl?: HTMLElement;
+  private labelRef: Ref<HTMLDivElement> = createRef();
+
+  /**
+   * Reference to the subLabel element
+   */
+  private subLabelRef: Ref<HTMLDivElement> = createRef();
+
+  /**
+   * Reference to the slot element
+   */
+  private slotRef: Ref<HTMLSlotElement> = createRef();
 
   /**
    * True, if there is no slotted content
@@ -188,6 +198,16 @@ export class Item extends ControlElement {
   }
 
   /**
+   * Called after the component is first rendered
+   * @param changedProperties Properties which have changed
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    registerOverflowTooltip(this, () => this.getItemContent(), () => this.isItemOverflown());
+  }
+
+  /**
    * Invoked before update() to compute values needed during the update.
    * @param changedProperties changed properties
    * @returns {void}
@@ -204,6 +224,45 @@ export class Item extends ControlElement {
     }
   }
 
+
+  /**
+   * Get Item content
+   * @returns return item content from slot or label and sub-label
+   */
+  private getItemContent (): string {
+    
+    if (this.isSlotEmpty) {
+      let text = '';
+      if (this.label) {
+        text += this.label;
+      }
+      if (this.subLabel) {
+        text += text ? ` (${this.subLabel})` : this.subLabel;
+      }
+      return text;
+    }
+    else {
+      return this.slotContent;
+    }
+  }
+
+  /**
+   * Get element overflown
+   * @param element Target element
+   * @returns return true if element is overflown.
+   */
+  private isItemElementOverflown (element?: HTMLElement): boolean {
+    return element ? isElementOverflown(element) : false;
+  }
+
+  /**
+   * Get item overflown
+   * @returns return true if an item is overflown.
+   */
+  private isItemOverflown (): boolean {
+    return this.isItemElementOverflown(this.labelRef.value) || this.isItemElementOverflown(this.subLabelRef.value);
+  }
+
   /**
    * Get icon template if icon attribute is defined
    */
@@ -215,14 +274,22 @@ export class Item extends ControlElement {
    * Get subLabel template if it is defined and no slot content present
    */
   private get subLabelTemplate (): TemplateResult | undefined {
-    return this.subLabel && this.isSlotEmpty ? html`<div part="sub-label">${this.subLabel}</div>` : undefined;
+    return html`<div part="sub-label" ${ref(this.subLabelRef)}>${this.subLabel}</div>`;
   }
 
   /**
    * Get label template if it is defined and no slot content present
    */
   private get labelTemplate (): TemplateResult | undefined {
-    return this.label && this.isSlotEmpty ? html`${this.label}` : undefined;
+    return html`${this.label}`;
+  }
+
+  /**
+   * Get slot content
+   */
+  private get slotContent (): string {
+    const nodes = this.slotRef.value?.assignedNodes() || [];
+    return nodes.map(node => node.textContent).join(' ').trim();
   }
 
   /**
@@ -252,15 +319,6 @@ export class Item extends ControlElement {
   }
 
   /**
-   * Getter returning if the label is truncated
-   * @prop {boolean} isTruncated
-   * @returns whether element is truncated or not
-   */
-  public get isTruncated (): boolean {
-    return !!(this.labelEl && (this.labelEl.offsetWidth < this.labelEl.scrollWidth));
-  }
-
-  /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
    * @returns Render template
@@ -272,10 +330,10 @@ export class Item extends ControlElement {
         ${this.multipleTemplate}
         <slot name="left"></slot>
       </div>
-      <div part="center" id="label">
-        ${this.labelTemplate}
-        <slot @slotchange="${this.checkSlotChildren}"></slot>
-        ${this.subLabelTemplate}
+      <div part="center" ${ref(this.labelRef)}>
+        ${this.label && this.isSlotEmpty ? this.labelTemplate : undefined}
+        <slot ${ref(this.slotRef)} @slotchange="${this.checkSlotChildren}"></slot>
+        ${this.subLabel && this.isSlotEmpty ? this.subLabelTemplate : undefined}
       </div>
       <div part="right">
         <slot name="right"></slot>

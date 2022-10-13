@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>efx-element</title>
+  </head>
+  <body>
+    <script type="module">
+      import './src/efx-element.ts';
+
+      // Dynamic import theme files from search params of the URL
+      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      const url = new URL(window.location);
+      const theme = url.searchParams.get('theme') || 'halo';
+      const variant = url.searchParams.get('variant') || 'light';
+
+      // setup default search params on URL
+      if (!window.location.search) {
+        url.searchParams.set('theme', theme);
+        url.searchParams.append('variant', variant);
+        window.location.search = url.searchParams.toString();
+      }
+
+      // import styles for typography, body and other native inbuilt elements.
+      import (`./node_modules/@refinitiv-ui/${theme}-theme/${variant}/imports/native-elements.js`);
+      import (`./themes/${theme}/${variant}.js`);
+    </script>
+
+    <style>
+      body {
+        height: 100%;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+    </style>
+
+    <div class="container">
+      <efx-element>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tempus augue sed pulvinar semper. Proin volutpat nisi in accumsan rutrum. Vivamus sagittis dolor vitae magna posuere pretium. Suspendisse sit amet mauris interdum, iaculis erat et, eleifend diam. Aliquam quis vulputate est, non ullamcorper ex. Quisque hendrerit sapien ut mauris pharetra, non feugiat est fermentum. Aenean pretium, nulla sed mollis blandit, lectus arcu commodo turpis, a auctor augue ex a augue. Cras id justo mattis, pulvinar felis vitae, viverra ipsum. Pellentesque tincidunt varius libero, id rutrum lacus mattis vitae. Quisque tempus dolor at ipsum maximus, ac tempor sem ultrices. Donec venenatis ornare odio, eu auctor sapien eleifend non.
+        </p>
+      </efx-element>
+    </div>
+  </body>
+</html>

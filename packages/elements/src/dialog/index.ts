@@ -148,16 +148,28 @@ export class Dialog extends Overlay {
   @query('[part=footer]')
   private footerElement!: HTMLElement;
 
+  /**
+   * Flag to say whether the dialog has been confirmed and closed.
+   */
+  protected confirmed = false;
+
+  /**
+   * Close dialog when user clicked outside the dialog
+   */
   public noCancelOnOutsideClick = true;
 
   /**
-  * @ignore
-  */
+   * @ignore
+   * Hiding from document to avoid property overridden
+   */
+  @property({ type: Boolean, attribute: false })
   public withBackdrop = true;
 
   /**
-  * @ignore
-  */
+   * @ignore
+   * Hiding from document to avoid property overridden
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'with-shadow' })
   public withShadow = true;
 
   public disconnectedCallback (): void {
@@ -292,9 +304,8 @@ export class Dialog extends Overlay {
    * @returns {void}
    */
   protected defaultConfirm (): void {
-    if (this.fireCancelOrConfirmEvent(true)) {
-      this.setOpened(false);
-    }
+    this.confirmed = true;
+    this.setOpened(false);
   }
 
   /**
@@ -302,9 +313,26 @@ export class Dialog extends Overlay {
    * @returns {void}
    */
   protected defaultCancel (): void {
-    if (this.fireCancelOrConfirmEvent(false)) {
-      this.setOpened(false);
+    this.confirmed = false;
+    this.setOpened(false);
+  }
+
+  /**
+   * Make sure that confirm/cancel events are fired appropriately
+   * All internal opened set events can be stoppable externally
+   * Use this instead of setting opened directly
+   * @param opened True if opened
+   * @returns {void}
+   */
+  protected override setOpened (opened: boolean): void {
+    if (!opened) {
+      // if default is prevented, do not proceed to closed
+      if (!this.fireCancelOrConfirmEvent(this.confirmed)) {
+        return;
+      }
     }
+
+    super.setOpened(opened);
   }
 
   /**

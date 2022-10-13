@@ -1,0 +1,44 @@
+## miscellaneous
+/demo/
+/__snapshots__/
+/coverage/
+.editorconfig
+.eslintignore
+.eslintrc
+.vite-config.js
+web-test-runner.config.js
+tsconfig.json
+.gitlab/
+.gitlab-ci.yml
+*.lock
+*.log
+test/
+
+## editors
+/.idea
+/.vscode
+
+## system files
+.DS_Store
+._.DS_Store
+
+## npm
+/node_modules/
+/npm-debug.log
+*.lock
+*.log
+
+## testing
+/coverage/
+test/reports/
+
+## temp folders
+/.tmp/
+
+# build
+/_site/
+/dist/
+
+# source
+/src/
+/scripts/

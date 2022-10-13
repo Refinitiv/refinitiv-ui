@@ -969,7 +969,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       this.notifyPropertyChange('value', inputText);
     }
 
-    this.setOpened(true);
+    // The popup can only be opened if input element has focus
+    if (this.shadowRoot && this.shadowRoot.activeElement === this.inputElement) {
+      this.setOpened(true);
+    }
   }
 
   /**
