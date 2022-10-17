@@ -432,17 +432,10 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
     }
     else {
       // Clone value arrays
-      const newValue = values.slice();
-      const oldValue = this.values.slice();
+      const newValue = [...values].sort().toString();
+      const oldValue = [...this.values].sort().toString();
 
-      newValue.sort();
-      oldValue.sort();
-
-      // Create comparison strings to check for differences
-      const newComparison = newValue.toString();
-      const oldComparison = oldValue.toString();
-
-      if (newComparison !== oldComparison) {
+      if (newValue !== oldValue) {
         this.manager.uncheckAllItems();
         values.some((value) => {
           this.queryItemsByPropertyValue('value', value).forEach((item) => {
@@ -450,7 +443,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
           });
           return !this.multiple; // Only set the fist value if multiple is not enabled
         });
-        this.requestUpdate('values', oldValue);
+        this.requestUpdate('values', this.values);
       }
     }
   }
