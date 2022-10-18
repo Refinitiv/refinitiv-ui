@@ -28,7 +28,11 @@ const BrowserStack = {
     'default', // default browsers alias
     'supported', // supported browsers alias
     'ios',
-    'android'
+    'android',
+    'samsung',
+    'ios_previous',
+    'android_previous',
+    'samsung_previous'
   ]
 };
 // Copy supported browsers to available browsers
@@ -57,8 +61,14 @@ BrowserStack.config = {
   safari_previous: { ...defaultOSX,     browser: 'safari', os_version: 'Big Sur' },
 
   // Mobile Devices
-  ios:     { ...defaultDevice, device : 'iPhone 13',      os: 'ios',     os_version : '15.0' },
-  android: { ...defaultDevice, device : 'Google Pixel 6', os: 'android', os_version : '12.0' }
+  ios:     { ...defaultDevice, browser: 'iphone',  device : 'iPhone 14',          os: 'ios',     os_version : '16' },
+  android: { ...defaultDevice, browser: 'android', device : 'Google Pixel 6',     os: 'android', os_version : '12.0' },
+  samsung: { ...defaultDevice, browser: 'samsung', device : 'Samsung Galaxy S22', os: 'android', os_version : '12.0' },
+
+  // Mobile Devices Previous versions
+  ios_previous:     { ...defaultDevice, browser: 'iphone',  device : 'iPhone 13',          os: 'ios',     os_version : '15' },
+  android_previous: { ...defaultDevice, browser: 'android', device : 'Google Pixel 5',     os: 'android', os_version : '11.0' },
+  samsung_previous: { ...defaultDevice, browser: 'samsung', device : 'Samsung Galaxy S21', os: 'android', os_version : '11.0' }
 };
 
 module.exports = {
