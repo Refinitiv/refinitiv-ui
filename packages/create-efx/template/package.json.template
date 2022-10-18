@@ -9,6 +9,9 @@
   "repository": "",
   "author": "Refinitiv",
   "license": "Apache-2.0",
+  "engines": {
+    "npm": "^7.0.0"
+  },
   "scripts": {
     "start": "vite --open --base=/demo/",
     "build": "npm run build:themes && tsc --sourceMap --declarationMap",
