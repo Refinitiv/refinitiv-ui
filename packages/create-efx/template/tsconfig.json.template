@@ -1,0 +1,9 @@
+{
+  "extends": "@refinitiv-ui/configurations/tsconfig.json",
+  "compilerOptions": {
+    "types": ["vite/client"],
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "useDefineForClassFields": false
+  }
+}

@@ -62,6 +62,7 @@ export type { StyleInfo };
 export { FocusableHelper } from './utils/focusableHelper.js';
 export { matches } from './utils/matches.js';
 export { isBasicElement } from './utils/helpers.js';
+export { triggerResize } from './utils/resizeHelper.js';
 
 /**
  * Export focused key.

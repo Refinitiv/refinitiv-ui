@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/i18n@6.0.5...@refinitiv-ui/i18n@6.0.6) (2022-09-26)
+
+* Update all formatjs dependencies to support typescript 4.8 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
+* Upgrade typescript to 4.8.3 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
+
+**Note:** Version bump only for package @refinitiv-ui/i18n
+
+
+
+
+
+## [6.0.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/i18n@6.0.4...@refinitiv-ui/i18n@6.0.5) (2022-09-14)
+
+**Note:** Version bump only for package @refinitiv-ui/i18n
+
+
+
+
+
+## [6.0.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/i18n@6.0.3...@refinitiv-ui/i18n@6.0.4) (2022-08-29)
+
+**Note:** Version bump only for package @refinitiv-ui/i18n
+
+
+
+
+
 ## [6.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/i18n@6.0.2...@refinitiv-ui/i18n@6.0.3) (2022-08-02)
 
 **Note:** Version bump only for package @refinitiv-ui/i18n

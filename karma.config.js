@@ -99,6 +99,12 @@ const plugins = [
 const reporters = ['mocha'];
 
 const baseConfig = {
+  /**
+   * Need to set `listenAddress` and `hostname` to prevent the `node-fetch` bug on `Node 17 and 18`
+   * @link https://github.com/node-fetch/node-fetch/issues/1624
+   */
+  listenAddress: 'localhost',
+  hostname: 'localhost',
   autoWatch: argv.watch,
   singleRun: !argv.watch,
   basePath: ROOT, // must be in the root in order for node_modules to be resolved correctly
@@ -259,7 +265,10 @@ if (argv.browserstack && !argv.watch) {
     }
     else if(option === 'supported') {
       BrowserStack.supportedBrowsers.forEach(supportedBS => {
-        browserStackLaunchers[supportedBS] = BrowserStack.config[supportedBS];
+        // Disable testing on Safari, we have to check all test cases are passed before enabling it again
+        if (!supportedBS.includes('safari')) {
+          browserStackLaunchers[supportedBS] = BrowserStack.config[supportedBS];
+        }
       });
     }
     else {

@@ -3,6 +3,64 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.1...@refinitiv-ui/elements@6.2.2) (2022-10-10)
+
+
+### Bug Fixes
+
+* **dialog:** the cancel event does not fire ([ce55aac](https://github.com/Refinitiv/refinitiv-ui/commit/ce55aaca5d070ad1be2de68b66ac77d683b06acf))
+* **number-field:** fix step=any to support integer and decimal number ([#485](https://github.com/Refinitiv/refinitiv-ui/issues/485)) ([13bbb34](https://github.com/Refinitiv/refinitiv-ui/commit/13bbb34b3ed9f870acc66169cea8103e480eea6a))
+* **tab:** trigger resize observer when label changes to make tab bar show scroll button correctly ([#480](https://github.com/Refinitiv/refinitiv-ui/issues/480)) ([93e384b](https://github.com/Refinitiv/refinitiv-ui/commit/93e384b845f87f0f3e074d4672065e7305a85c26))
+
+
+
+
+
+## [6.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.0...@refinitiv-ui/elements@6.2.1) (2022-09-26)
+
+* Update all formatjs dependencies to support typescript 4.8 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
+* Upgrade typescript to 4.8.3 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
+
+
+### Bug Fixes
+
+* **autosuggest:** fix invalid label when disabled suggestion item ([#451](https://github.com/Refinitiv/refinitiv-ui/issues/451)) ([1944007](https://github.com/Refinitiv/refinitiv-ui/commit/194400774dece311856bc9bd0f80a17362a9466e))
+* **configurations:** move import extension eslint rule to local env ([#459](https://github.com/Refinitiv/refinitiv-ui/issues/459)) ([f8a9e1a](https://github.com/Refinitiv/refinitiv-ui/commit/f8a9e1a710901028da57e314ff5a879dab5d9e73))
+
+
+
+
+
+# [6.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.1.1...@refinitiv-ui/elements@6.2.0) (2022-09-14)
+
+
+### Bug Fixes
+
+* **color-picker:** update snapshot and remove backdrop ([#447](https://github.com/Refinitiv/refinitiv-ui/issues/447)) ([d6c086c](https://github.com/Refinitiv/refinitiv-ui/commit/d6c086c4ab405d8183258c72bc566f4bb640a635))
+* **dialog:** change withBackdrop and withShadow to proprerty ([#445](https://github.com/Refinitiv/refinitiv-ui/issues/445)) ([2740f00](https://github.com/Refinitiv/refinitiv-ui/commit/2740f008b5163a396dd244570a93064bf0c8d844))
+* **interactive-chart:** fix left position on legend ([#449](https://github.com/Refinitiv/refinitiv-ui/issues/449)) ([ede4f93](https://github.com/Refinitiv/refinitiv-ui/commit/ede4f93776671f9261675a3a0d5bd32a62c317d5))
+
+
+### Features
+
+* **color-picker:** add color picker ([#444](https://github.com/Refinitiv/refinitiv-ui/issues/444)) ([3718003](https://github.com/Refinitiv/refinitiv-ui/commit/37180039a77d908acd731c89067ecfce3f23955f))
+* **item:** show tooltip when text ellipsis ([#394](https://github.com/Refinitiv/refinitiv-ui/issues/394)) ([8943eb6](https://github.com/Refinitiv/refinitiv-ui/commit/8943eb625bfd54a6014f6815940eacd924d67ab4))
+
+
+
+
+
+## [6.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.1.0...@refinitiv-ui/elements@6.1.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **combo-box:** incorrect popup logic in some scenarios ([159eb53](https://github.com/Refinitiv/refinitiv-ui/commit/159eb53c7bec583c59de4dfac2542e67c840b2fc))
+
+
+
+
+
 # [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.0.4...@refinitiv-ui/elements@6.1.0) (2022-08-16)
 
 

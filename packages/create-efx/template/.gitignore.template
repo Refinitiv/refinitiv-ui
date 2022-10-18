@@ -1,0 +1,26 @@
+## editors
+/.idea
+/.vscode
+
+## system files
+.DS_Store
+._.DS_Store
+
+## npm
+/node_modules/
+/npm-debug.log
+*.lock
+*.log
+
+## testing
+/coverage/
+test/reports/
+
+## temp folders
+/.tmp/
+
+# build
+/_site/
+/dist/
+/lib/
+/themes/*/*/*
