@@ -1,4 +1,4 @@
-import { expect, fixture } from '@refinitiv-ui/test-helpers';
+import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 // Translations polyfills
 import '@formatjs/intl-locale/polyfill.iife';
@@ -38,6 +38,7 @@ describe('tree-select/TreeSelect', () => {
       el.data = flatData;
       changeItemSelection(el, flatSelection);
       await openedUpdated(el);
+      await nextFrame();
       expect(el.shadowRoot.querySelector('[part=pills]') === null).to.equal(false, 'Pills is present');
     });
 

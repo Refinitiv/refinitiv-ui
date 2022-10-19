@@ -69,8 +69,11 @@ export class TornadoChart extends ResponsiveElement {
    * @returns {void}
    */
   private setItemAlignment (responsive: boolean): void {
-    this.querySelectorAll('ef-tornado-item').forEach((item: Element) => {
-      (item as TornadoItem).vertical = responsive;
+    // Need setTimeout to prevent ResizeObserver loop limit exceeded issue
+    setTimeout(() => {
+      this.querySelectorAll('ef-tornado-item').forEach((item: Element) => {
+        (item as TornadoItem).vertical = responsive;
+      });
     });
   }
 

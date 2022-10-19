@@ -5,6 +5,7 @@ export const openedUpdated = async (element) => {
 
   await nextFrame();
   await nextFrame();
+  await nextFrame();
 };
 export const fireKeydownEvent = (element, key, shiftKey = false) => {
   let event;

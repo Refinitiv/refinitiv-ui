@@ -26,6 +26,7 @@ describe('clock/Clock', () => {
       el.style.width = '129px';
       await elementUpdated(el);
       await nextFrame();
+      await nextFrame();
 
       expect(el).shadowDom.to.equalSnapshot();
     });

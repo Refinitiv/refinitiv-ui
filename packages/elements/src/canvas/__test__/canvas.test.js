@@ -1,4 +1,4 @@
-import { fixture, assert, expect, nextFrame, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { fixture, assert, expect, nextFrame, elementUpdated, aTimeout } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/canvas';
@@ -46,6 +46,7 @@ describe('canvas/Canvas', () => {
       value: null
     });
     await nextFrame();
+    await nextFrame();
     expect(el.canvas.width).equal(Math.floor(el.width * dpr));
     expect(el.canvas.height).equal(Math.floor(el.height * dpr));
   });
@@ -55,6 +56,7 @@ describe('canvas/Canvas', () => {
     Object.defineProperty(window, 'devicePixelRatio', {
       value: 3
     });
+    await nextFrame();
     await nextFrame();
     expect(el.canvas.width).equal(Math.floor(el.width * devicePixelRatio));
     expect(el.canvas.height).equal(Math.floor(el.height * devicePixelRatio));
@@ -70,7 +72,7 @@ describe('canvas/Canvas', () => {
 
   it('Handles fractional pixelation', async () => {
     el.style.width = '300.5px';
-    await elementUpdated();
+    await elementUpdated(el);
     const listener = function () {
       el.removeEventListener('resize', listener);
       expect(el.style.width, 'ef-canvas\'s width should be fractional').equal('300.5px');
