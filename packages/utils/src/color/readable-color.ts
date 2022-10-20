@@ -10,13 +10,15 @@ type NColWB = {
   w: number;
   b: number;
 }
-
-type ReadableColorType = {
-  name: string | undefined,
-  tone: string,
+type ColorAdmixtureType = {
   main: string,
   percent: number,
   mixed: string
+}
+
+export type ReadableColorType = ColorAdmixtureType & {
+  name: string | undefined,
+  tone: string,
 }
 
 /**
@@ -42,11 +44,11 @@ const getColorTone = (color: Colord): string => {
 };
 
 /**
- * Returns color name and mix color name from ncol code
+ * Returns main color name and mix color name from ncol code
  * @param ncolCode natural color code
- * @returns color name and mix color name
+ * @returns main color name and mix color name
  */
-const getMixColorName = (ncolCode: string): [string, string] => {
+const getColorAdmixtureNames = (ncolCode: string): [string, string] => {
   switch (ncolCode) {
     case 'Y':
       return ['YELLOW', 'GREEN'];
@@ -104,19 +106,19 @@ const sortMixColor = (
   color1: string,
   color2: string,
   percent: number
-): [string, string, number] => {
+): ColorAdmixtureType => {
   if (percent > 50) {
-    return [color2, color1, 100 - percent];
+    return { main: color2, mixed: color1, percent: 100 - percent };
   }
   else {
-    return [color1, color2, percent];
+    return { main: color1, mixed: color2, percent };
   }
 };
 
 /**
- * Returns `true` or `false` if sum of whiteness and blackness is equal 100
+ * Returns `true` if sum of whiteness and blackness is equal 100
  * @param ncolwb natural color with whiteness and blackness
- * @returns Result
+ * @returns `true` if sum of whiteness and blackness is equal 100
  */
 const isGreyScale = (ncolwb: NColWB): boolean => {
   return ncolwb.w + ncolwb.b === 100;
@@ -127,19 +129,19 @@ const isGreyScale = (ncolwb: NColWB): boolean => {
  * @param ncolwb natural color with whiteness and blackness
  * @returns main color and mix color and mixPercent
  */
-const getColorAdmixture = (ncolwb: NColWB): [string, string, number] => {
+const getColorAdmixture = (ncolwb: NColWB): ColorAdmixtureType => {
   if (isGreyScale(ncolwb)) {
     return sortMixColor('BLACK', 'WHITE', ncolwb.w);
   }
   const ncolCode = ncolwb.ncol[0];
   const percent = parseInt(ncolwb.ncol.slice(1), 10);
-  const [main, mixed] = getMixColorName(ncolCode);
+  const [color1, color2] = getColorAdmixtureNames(ncolCode);
   
-  return sortMixColor(main, mixed, percent);
+  return sortMixColor(color1, color2, percent);
 };
 
 /**
- * Returns get ncol code with whiteness and blackness
+ * Returns ncol code with whiteness and blackness
  * @param color colord object
  * @returns ncol code whiteness and blackness
  */
@@ -151,25 +153,17 @@ const getNColWB = (color: Colord): NColWB => {
 };
 
 /**
- * Convert color to readble object
+ * Convert color to ReadableColor object
  * @param rawColor raw string color
- * @returns color readable object
+ * @returns ReadableColor object
  */
-const readableColor = (rawColor: string): ReadableColorType => {
+export const readableColor = (rawColor: string): ReadableColorType => {
   const color = colord(rawColor);
   const ncolwb = getNColWB(color);
   const name = color.toName();
-  const [main, mixed, percent] = getColorAdmixture(ncolwb);
-
   return {
     name,
     tone: !isGreyScale(ncolwb) ? getColorTone(color) : '',
-    main,
-    mixed,
-    percent
+    ...getColorAdmixture(ncolwb)
   };
-};
-
-export {
-  readableColor
 };
