@@ -134,7 +134,6 @@ async function setupDevServer(karmaConfig, esmConfig, watch, babelConfig, karmaE
     hostname: karmaConfig.hostname,
     rootDir: karmaConfig.basePath,
     nodeResolve: esmConfig.nodeResolve,
-    polyfillsLoader: esmConfig.polyfillsLoader,
     dedupeModules: esmConfig.dedupe,
     compatibility: esmConfig.compatibility,
     // option used to be called `moduleDirectories`
