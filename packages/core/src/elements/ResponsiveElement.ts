@@ -31,7 +31,6 @@ export type ResizeEvent = CustomEvent<{
  * @returns {void}
  */
 const triggerResize = (entry: ResizeObserverEntry): void => {
-// console.log(entry.target);
 
   const { inlineSize: width, blockSize: height } = entry.borderBoxSize[0];
   const event = new CustomEvent('resize', {

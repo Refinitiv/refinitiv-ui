@@ -1,4 +1,4 @@
-import { fixture, expect, oneEvent, elementUpdated, nextFrame, aTimeout } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tornado-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-tornado-chart.js';
@@ -64,7 +64,7 @@ describe('tornado-chart/TornadoChart', () => {
       await nextFrame();
 
       const items = element.querySelectorAll('ef-tornado-item');
-      items.forEach(async (item) => {
+      items.forEach((item) => {
         expect(item.hasAttribute('vertical')).to.equal(true);
       });
     });
