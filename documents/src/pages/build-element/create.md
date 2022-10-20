@@ -30,7 +30,6 @@ type: page
 
 ### Handling Focus
 
-### Polyfilling
 
 - Elements packaged alongside the main element should be named following their parent
   e.g. `efx-xxx` and `efx-xxx-yyy`.
@@ -40,7 +39,6 @@ type: page
 - Element types
 - Utils
 - Data/Config elements
-- Polyfilling
 - Testing
 - Starter template
 - Typescript versions
