@@ -1,4 +1,4 @@
-import { fixture, assert, expect, nextFrame, elementUpdated, aTimeout } from '@refinitiv-ui/test-helpers';
+import { fixture, assert, expect, nextFrame, elementUpdated } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/canvas';
