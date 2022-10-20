@@ -107,12 +107,6 @@ export class Palettes extends BasicElement {
    */
   protected onTouchmove (event: TouchEvent): void {
     const touchOffsets = event.changedTouches[0];
-
-    // TODO: it is a bug of TypeScript@4.4 remove ts-ignore once it is fixed
-    // https://github.com/microsoft/TypeScript/issues/45047
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const realTarget = this.shadowRoot?.elementFromPoint(touchOffsets.clientX, touchOffsets.clientY) as SVGAElement;
     this.updateValue(realTarget);
   }
