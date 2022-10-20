@@ -16,6 +16,14 @@ import { readabilityColor } from '@refinitiv-ui/utils/color.js';
 readableColor('#2a9d8f'); // {name: undefined, tone: 'DARK', main: 'CYAN', mixed: 'GREEN', percent: 12}
 readableColor('#f0f8ff'); // {name: 'aliceblue', tone: 'VERY_LIGHT', main: 'CYAN', mixed: 'BLUE', percent: 47}
 ```
+Returns Attributes:
+| Name    | Description | Type |
+| ----    | ----------- | ---- |
+| name    | css color name            |  string \| undefined    |
+| tone    | color brightness level           |  string    |
+| main    | main color of color admixture            |  string    |
+| mixed   | mixed color of color admixture   |  string    |
+| percent | mixed color percentage             |  number    |
 
 ## Async Tasks
 
