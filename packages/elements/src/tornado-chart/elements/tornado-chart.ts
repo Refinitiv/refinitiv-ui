@@ -7,6 +7,7 @@ import {
   ElementSize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
 import './tornado-item.js';
@@ -54,6 +55,11 @@ export class TornadoChart extends ResponsiveElement {
   private legendAlignment = false;
 
   /**
+   * Resize throttler to prevent resize observer loop
+   */
+  private resizedThrottler = new AnimationTaskRunner();
+
+  /**
    * Set chart's legend alignment
    * @param responsive true if items needs to be responsive
    * @returns {void}
@@ -69,11 +75,7 @@ export class TornadoChart extends ResponsiveElement {
    * @returns {void}
    */
   private setItemAlignment (responsive: boolean): void {
-    /**
-     * Need setTimeout to prevent ResizeObserver loop limit exceeded issue
-     * @link https://github.com/WICG/resize-observer/issues/38#issuecomment-422126006
-     */
-    setTimeout(() => {
+    this.resizedThrottler.schedule(() => {
       this.querySelectorAll('ef-tornado-item').forEach((item: Element) => {
         (item as TornadoItem).vertical = responsive;
       });
