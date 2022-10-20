@@ -69,7 +69,10 @@ export class TornadoChart extends ResponsiveElement {
    * @returns {void}
    */
   private setItemAlignment (responsive: boolean): void {
-    // Need setTimeout to prevent ResizeObserver loop limit exceeded issue
+    /**
+     * Need setTimeout to prevent ResizeObserver loop limit exceeded issue
+     * @link https://github.com/WICG/resize-observer/issues/38#issuecomment-422126006
+     */
     setTimeout(() => {
       this.querySelectorAll('ef-tornado-item').forEach((item: Element) => {
         (item as TornadoItem).vertical = responsive;
