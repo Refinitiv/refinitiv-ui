@@ -835,11 +835,13 @@ describe('interactive-chart/InteractiveChart', () => {
     el.config = linePositionLeft;
     await elementUpdated();
     await nextFrame();
-
+    await nextFrame();
     expect(el.chart).to.not.be.undefined;
     expect(el.chart).to.not.be.null;
+
+    await nextFrame();
     const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'));
-    const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
+    const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')));
     expect(legendStyle.position).to.equal('absolute');
     expect(legendLeftPosition).to.greaterThan(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
   });
@@ -848,9 +850,11 @@ describe('interactive-chart/InteractiveChart', () => {
     el.config = twoPriceScales;
     await elementUpdated();
     await nextFrame();
-
+    await nextFrame();
     expect(el.chart).to.not.be.undefined;
     expect(el.chart).to.not.be.null;
+
+    await nextFrame();
     const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
     const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
     expect(legendStyle.position).to.equal('absolute');
@@ -861,9 +865,11 @@ describe('interactive-chart/InteractiveChart', () => {
     el.config = line;
     await elementUpdated();
     await nextFrame();
-
+    await nextFrame();
     expect(el.chart).to.not.be.undefined;
     expect(el.chart).to.not.be.null;
+
+    await nextFrame();
     const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
     const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
     expect(legendStyle.position).to.equal('absolute');
@@ -873,32 +879,34 @@ describe('interactive-chart/InteractiveChart', () => {
   describe('Test deprecated attribute', () => {
     it('Switch attribute legendstyle horizontal to vertical, it should display vertical style', async () => {
       el = await fixture('<ef-interactive-chart legendstyle="horizontal"></ef-interactive-chart>');
-  
+
       el.config = line;
       await elementUpdated();
+      await nextFrame();
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
-      
+
       el.setAttribute('legendstyle','vertical');
-      
-      await nextFrame();
+
       await elementUpdated();
+      await nextFrame();
       expect(el.getAttribute('legend-style')).to.null;
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
     });
     it('Set legend-style to vertical when legendstyle horizontal, it should display vertical style', async () => {
       el = await fixture('<ef-interactive-chart legendstyle="horizontal"></ef-interactive-chart>');
-  
+
       el.config = line;
       await elementUpdated();
+      await nextFrame();
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.getAttribute('legendstyle')).to.equal('horizontal');
-      
+
       el.setAttribute('legend-style','vertical');
-      
-      await nextFrame();
+
       await elementUpdated();
+      await nextFrame();
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
     });
   });
