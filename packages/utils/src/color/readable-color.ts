@@ -96,13 +96,13 @@ const hueToNcol = (hue: number): string => {
 };
 
 /**
- * Sort the main color and mixed color of color1 and color2 from mixed percent
+ * Define the main color and mixed color of color1 and color2 from mixed percent
  * @param color1 string color
  * @param color2 string color
  * @param percent color1 and color2 mixed percentage
- * @returns sort of main color and mixed color and mixed percent
+ * @returns define of main color and mixed color and mixed percent
  */
-const sortMixColor = (color1: string, color2: string, percent: number): ColorAdmixture => {
+const defineMainAndMixedColor = (color1: string, color2: string, percent: number): ColorAdmixture => {
   if (percent > 50) {
     return { main: color2, mixed: color1, percent: 100 - percent };
   }
@@ -125,13 +125,13 @@ const isGreyScale = (ncolwb: NColWB): boolean => {
  */
 const getColorAdmixture = (ncolwb: NColWB): ColorAdmixture => {
   if (isGreyScale(ncolwb)) {
-    return sortMixColor('BLACK', 'WHITE', ncolwb.w);
+    return defineMainAndMixedColor('BLACK', 'WHITE', ncolwb.w);
   }
   const ncolCode = ncolwb.ncol[0];
   const percent = parseInt(ncolwb.ncol.slice(1), 10);
   const [color1, color2] = getColorAdmixtureNames(ncolCode);
   
-  return sortMixColor(color1, color2, percent);
+  return defineMainAndMixedColor(color1, color2, percent);
 };
 
 /**

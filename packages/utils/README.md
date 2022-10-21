@@ -9,7 +9,7 @@ This package exposes modules for colors and asynchronous tasks.
 Re-exports all functionalities from [d3-color](https://www.npmjs.com/package/d3-color).
 
 ### readableColor
-Get object describes color based on [Natural Color](https://www.w3schools.com/colors/colors_ncol.asp)
+Describe color based on [Natural Color System](https://www.w3schools.com/colors/colors_ncol.asp)
 
 Example:
 
