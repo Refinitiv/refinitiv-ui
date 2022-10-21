@@ -13,7 +13,7 @@ const {
   PACKAGE_NAME
 } = require('../helpers');
 
-const elements = ['all', ...getElements()];
+const elements = ['all', 'utils', ...getElements()];
 exports.command = 'test [element]';
 exports.desc = 'Test package';
 exports.builder = yargs => {
