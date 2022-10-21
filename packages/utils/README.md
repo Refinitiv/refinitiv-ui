@@ -20,11 +20,11 @@ readableColor('#2a9d8f'); // { name: undefined, tone: 'DARK', main: 'CYAN', mixe
 readableColor('#f0f8ff'); // { name: 'aliceblue', tone: 'VERY_LIGHT', main: 'CYAN', mixed: 'BLUE', percent: 47 }
 ```
 
-#### Propertys:
+#### Properties:
 
-| Propertys |      Type   |            Description         |
+| Property  |      Type   |            Description         |
 | ----      | ----------- | ------------------------------ |
-| name      |   string \| undefined | css color name       |  
+| name      |   string \| undefined | css color name       |
 | tone      |   string    | color brightness level         |
 | main      |   string    | main color of color admixture  |
 | mixed     |   string    | mixed color of color admixture |
