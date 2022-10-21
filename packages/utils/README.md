@@ -22,13 +22,13 @@ readableColor('#f0f8ff'); // { name: 'aliceblue', tone: 'VERY_LIGHT', main: 'CYA
 
 #### Propertys:
 
-| Property    | Description | Type |
-| ----    | ----------- | ---- |
-| name    | css color name            |  string \| undefined    |
-| tone    | color brightness level           |  string    |
-| main    | main color of color admixture            |  string    |
-| mixed   | mixed color of color admixture   |  string    |
-| percent | mixed color percentage             |  number    |
+| Propertys |      Type   |            Description         |
+| ----      | ----------- | ------------------------------ |
+| name      |   string \| undefined | css color name       |  
+| tone      |   string    | color brightness level         |
+| main      |   string    | main color of color admixture  |
+| mixed     |   string    | mixed color of color admixture |
+| percent   |   number    | mixed color percentage         |
 
 ## Async Tasks
 
