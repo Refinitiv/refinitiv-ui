@@ -4,14 +4,14 @@ import { readableColor } from '@refinitiv-ui/utils/color.js';
 describe('Readable color', () => {
 
   it('Should return black when color is undefined or invalid', async () => {
-    expect(readableColor()).to.eql({
+    expect(readableColor()).to.deep.equal({
       "main": "BLACK",
       "mixed": "WHITE",
       "name": "black",
       "percent": 0,
       "tone": ""
     });
-    expect(readableColor('hello')).to.eql({
+    expect(readableColor('hello')).to.deep.equal({
       "main": "BLACK",
       "mixed": "WHITE",
       "name": "black",
@@ -36,14 +36,14 @@ describe('Readable color', () => {
     expect(readableColor('#ffffff').main).to.equal('WHITE');
   }); 
   it('Should support mixed color', async () => {
-    expect(readableColor('#ff1900')).to.eql({
+    expect(readableColor('#ff1900')).to.deep.equal({
       "main": "RED",
       "mixed": "YELLOW",
       "name": undefined,
       "percent": 10,
       "tone": ""
     });
-    expect(readableColor('#ffe500')).to.eql({
+    expect(readableColor('#ffe500')).to.deep.equal({
       "main": "YELLOW",
       "mixed": "RED",
       "name": undefined,
@@ -52,14 +52,14 @@ describe('Readable color', () => {
     });
   }); 
   it('Should support gray scale', async () => {
-    expect(readableColor('#bfbfbf')).to.eql({
+    expect(readableColor('#bfbfbf')).to.deep.equal({
       "main": "WHITE",
       "mixed": "BLACK",
       "name": undefined,
       "percent": 25,
       "tone": ""
     });
-    expect(readableColor('#404040')).to.eql({
+    expect(readableColor('#404040')).to.deep.equal({
       "main": "BLACK",
       "mixed": "WHITE",
       "name": undefined,
@@ -74,7 +74,7 @@ describe('Readable color', () => {
     expect(readableColor('#330000').tone).to.equal('VERY_DARK');
   }); 
   it('Should support color mixed and tones', async () => {
-    expect(readableColor('#2a9d8f')).to.eql({
+    expect(readableColor('#2a9d8f')).to.deep.equal({
       "main": "CYAN",
       "mixed": "GREEN",
       "name": undefined,
