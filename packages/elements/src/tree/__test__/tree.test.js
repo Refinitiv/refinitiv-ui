@@ -410,6 +410,15 @@ describe('tree/Tree', () => {
       await elementUpdated(el);
       expect(item.checkedState).to.equal(-1); // Indeterminate
     });
+
+    it('Should set values to empty array when set invalid values', async () => {
+      const el = await fixture('<ef-tree multiple></ef-tree>');
+      el.data = nestedData;
+      await elementUpdated(el);
+      el.values = '1.1';
+      await elementUpdated(el);
+      expect(el.values).to.deep.equal([]);
+    });
   });
 
   describe('Filter Tests', () => {
