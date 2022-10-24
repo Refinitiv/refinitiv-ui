@@ -7,8 +7,13 @@ const autoprefixer = require('postcss')().use(require('autoprefixer'));
 const clean = new (require('clean-css'))({ returnPromise: true, level: '2' });
 const path = require('path');
 
-const wrap = (name, style) => `elf.${name.indexOf('-') > 0 ? 'custom'
-: 'native'}Styles.define('${name}', '${style.replace(/'/g, '\\\'')}');\n`;
+const wrap = (name, style, isEvent) => {
+  if(isEvent) {
+    return `dispatchEvent(new CustomEvent('ef.${name.indexOf('-') > 0 ? 'custom'
+    : 'native'}Styles.define', { detail: { name: '${name}', styles: '${style.replace(/'/g, '\\\'')}' }}));\n`;
+  }
+  return `elf.${name.indexOf('-') > 0 ? 'custom' : 'native'}Styles.define('${name}', '${style.replace(/'/g, '\\\'')}');\n`;
+}
 
 const cleanCSS = css => autoprefixer.process(css, { from: false })
 .then(o => clean.minify(o.css)).then(o => o.styles);
@@ -41,13 +46,13 @@ const generateLessOptions = (entrypoint, filename, variables) => ({
   ]
 });
 
-const generateJsInfo = (name, css, dependencies) => {
+const generateJsInfo = (name, css, dependencies, variables) => {
   let importString = 'import \'./imports/native-elements.js\';\n';
   importString += dependencies.filter(name => name.indexOf('-') !== -1)
   .map(dep => `import './${dep}.js';`).join('\n') + '\n';
   return {
     importString,
-    injectorString: wrap(name, css.replace(/([^\\])\\([^\\])/g, '$1\\\\$2'))
+    injectorString: wrap(name, css.replace(/([^\\])\\([^\\])/g, '$1\\\\$2'), variables.styles === 'event')
   };
 };
 
@@ -59,13 +64,13 @@ const getElementNameFromLess = (filename) => {
   return path.basename(filename).replace(/\.less$/, '');
 };
 
-const generateOutput = (filename, output) => {
+const generateOutput = (filename, output, variables) => {
   return cleanCSS(output.css).then(wrapHostSelectors).then(css => {
     let name = path.basename(filename).replace(/\.less$/, '');
     let dependencies = output.imports
     .filter(filename => prefix.test(filename))
     .map(filename => filename.replace(dependencyPattern, ''));
-    let styleInfo = generateJsInfo(name, css, dependencies);
+    let styleInfo = generateJsInfo(name, css, dependencies, variables);
     return {
       name,
       dependencies,
