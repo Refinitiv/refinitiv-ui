@@ -74,10 +74,19 @@ import { CustomStyleRegistry } from './registries/CustomStyleRegistry.js';
 import { NativeStyleRegistry } from './registries/NativeStyleRegistry.js';
 import { global } from './utils/global.js';
 
-global.elf = global.Elf = global.ELF = {
-  customStyles: CustomStyleRegistry,
-  nativeStyles: NativeStyleRegistry,
-  version: 'PUBLISH_VERSION'
-};
+interface EfStylesDefine extends CustomEvent {
+  detail: {
+    name: string,
+    styles: string
+  }
+}
 
-Object.freeze(global.elf);
+global.addEventListener('ef.customStyles.define', (event) => {
+  const { name, styles } = (event as EfStylesDefine).detail;
+  CustomStyleRegistry.define(name, styles);
+});
+
+global.addEventListener('ef.nativeStyles.define', (event) => {
+  const { name, styles } = (event as EfStylesDefine).detail;
+  NativeStyleRegistry.define(name, styles);
+});
