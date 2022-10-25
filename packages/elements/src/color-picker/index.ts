@@ -158,6 +158,7 @@ export class ColorPicker extends ControlElement {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.onTap);
     this.addEventListener('keydown', this.onKeyDown);
+    void this.updateColorAriaLabel();
   }
 
   /**
@@ -256,7 +257,7 @@ export class ColorPicker extends ControlElement {
    * @returns template result
    */
   private get selectionTemplate (): TemplateResult | null {
-    if (!this.focused || !this.value) {
+    if (!this.value) {
       return null;
     }
     return html`<div
@@ -285,10 +286,10 @@ export class ColorPicker extends ControlElement {
       this.colorTPromise('WITH', { number: percent }),
       this.colorTPromise(mixed)]);
     if (percent) {
-      this._colorAriaLabel = `${toneT} ${mainT} ${percentT} ${mixedT}`;
+      this._colorAriaLabel = `${toneT} ${mainT} ${percentT} ${mixedT}`.trim();
     }
     else {
-      this._colorAriaLabel = `${toneT} ${mainT}`;
+      this._colorAriaLabel = `${toneT} ${mainT}`.trim();
     }
   }
 

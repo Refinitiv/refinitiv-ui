@@ -55,8 +55,8 @@
         defaultColorPicker.addEventListener('value-changed', event => {
           const value = event.detail.value;
           hexInputDefault.value = value;
-          console.log(readableColor(value));
           defaultColorOutput.value += 'Value Change : ' + value + '\n';
+          defaultColorOutput.value += 'Readable Color : ' + JSON.stringify(readableColor(value)) + '\n';
         });
       </script>
     </demo-block>
