@@ -17,6 +17,8 @@ Install Angular CLI.
 ```sh
 npm install -g @angular/cli
 ```
+## Running demo project  
+Provided a playground integrated with Angular and here is a [link](https://codesandbox.io/s/angular-sample-14-mt9y1h).
 
 ## Initialise your project
 Create new Angular application using the `ng new` command.
