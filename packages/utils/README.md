@@ -8,6 +8,28 @@ This package exposes modules for colors and asynchronous tasks.
 
 Re-exports all functionalities from [d3-color](https://www.npmjs.com/package/d3-color).
 
+### readableColor
+Describe color based on [Natural Color System](https://www.w3schools.com/colors/colors_ncol.asp)
+
+Example:
+
+```javascript
+import { readableColor } from '@refinitiv-ui/utils/color.js';
+
+readableColor('#2a9d8f'); // { name: undefined, tone: 'DARK', main: 'CYAN', mixed: 'GREEN', percent: 12 }
+readableColor('#f0f8ff'); // { name: 'aliceblue', tone: 'VERY_LIGHT', main: 'CYAN', mixed: 'BLUE', percent: 47 }
+```
+
+#### Properties:
+
+| Property  |      Type   |            Description         |
+| ----      | ----------- | ------------------------------ |
+| name      |   string \| undefined | css color name       |
+| tone      |   string    | color brightness level         |
+| main      |   string    | main color of color admixture  |
+| mixed     |   string    | mixed color of color admixture |
+| percent   |   number    | mixed color percentage         |
+
 ## Async Tasks
 
 Async tasks include **timeout**, **micro**, **animation** and **afterRender**.
