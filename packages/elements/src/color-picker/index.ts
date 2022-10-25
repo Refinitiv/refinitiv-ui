@@ -11,14 +11,23 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import type { OpenedChangedEvent, ValueChangedEvent } from '../events';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
 import { isHex } from '@refinitiv-ui/utils/color.js';
+import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import '../color-dialog/index.js';
 import type { ColorDialog } from '../color-dialog/index.js';
 import '@refinitiv-ui/phrasebook/locale/en/color-picker.js';
+import { readableColor } from '@refinitiv-ui/utils/color.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
+
+import {
+  translate,
+  TranslatePromise,
+  TranslatePropertyKey
+} from '@refinitiv-ui/translate';
+
 
 const DIALOG_POSITION = ['right-start', 'right-end', 'right-middle', 'left-start', 'left-end', 'left-middle'];
 
@@ -48,6 +57,12 @@ export class ColorPicker extends ControlElement {
   protected readonly defaultRole: string | null = 'button';
 
   /**
+   * Color Description for aria-label
+   */
+  @state()
+  private _colorAriaLabel = '';
+
+  /**
    * Set the color dialog to activate no-color option
    */
   @property({ type: Boolean, attribute: 'allow-nocolor' })
@@ -59,6 +74,12 @@ export class ColorPicker extends ControlElement {
    */
   @property({ type: String })
   public lang = '';
+
+  /**
+   * Color picker internal translation strings
+   */
+  @translate({ mode: 'promise', scope: 'ef-color-picker' })
+  protected colorTPromise!: TranslatePromise;
 
   /**
    * A `CSSResult` that will be used
@@ -80,6 +101,11 @@ export class ColorPicker extends ControlElement {
     `;
   }
 
+  /**
+   * Reference to the color dialog
+   */
+  private dialogRef: Ref<ColorDialog> = createRef();
+
   private lazyRendered = false; /* speed up rendering by not populating color dialog on first load */
 
   /**
@@ -87,8 +113,6 @@ export class ColorPicker extends ControlElement {
    */
   @property({ type: Boolean, reflect: true })
   public opened = false;
-
-  @query('[part=dialog]') private dialogEl?: ColorDialog | null;
 
   /**
    * Check if value is valid HEX value (including #)
@@ -142,6 +166,9 @@ export class ColorPicker extends ControlElement {
    * @returns {void}
    */
   protected update (changedProperties: PropertyValues): void {
+    if (changedProperties.has(TranslatePropertyKey)) {
+      void this.updateColorAriaLabel();
+    }
     if (changedProperties.has('opened') && this.opened) {
       this.lazyRendered = true;
     }
@@ -160,7 +187,7 @@ export class ColorPicker extends ControlElement {
    */
   private onTap (event: TapEvent): void {
     const path = event.composedPath();
-    if ((this.dialogEl && path.includes(this.dialogEl)) || event.defaultPrevented) {
+    if ((this.dialogRef.value && path.includes(this.dialogRef.value)) || event.defaultPrevented) {
       return; /* dialog is managed separately */
     }
     this.setOpened(!this.opened);
@@ -209,6 +236,7 @@ export class ColorPicker extends ControlElement {
   private onColorDialogValueChanged (event: ValueChangedEvent): void {
     const value = event.detail.value;
     this.value = value;
+    void this.updateColorAriaLabel();
     this.setAttribute('value', this.value);
     this.notifyPropertyChange('value', this.value);
     this.setOpened(false);
@@ -228,14 +256,40 @@ export class ColorPicker extends ControlElement {
    * @returns template result
    */
   private get selectionTemplate (): TemplateResult | null {
-    if (!this.focused) {
+    if (!this.focused || !this.value) {
       return null;
     }
     return html`<div
     part="aria-selection"
     role="status"
     aria-live="polite"
-    aria-label="${this.value}"></div>`;
+    aria-label="${this._colorAriaLabel}"></div>`;
+  }
+
+  /**
+   * Helper method, used to set the color description.
+   * @returns {void}
+   */
+  private async updateColorAriaLabel (): Promise<void> {
+    const { name, tone, main, percent, mixed } = readableColor(this.value);
+    if (name) {
+      this._colorAriaLabel = name;
+      return;
+    }
+    const [
+      toneT,
+      mainT,
+      percentT,
+      mixedT] = await Promise.all([this.colorTPromise(tone),
+      this.colorTPromise(main),
+      this.colorTPromise('WITH', { number: percent }),
+      this.colorTPromise(mixed)]);
+    if (percent) {
+      this._colorAriaLabel = `${toneT} ${mainT} ${percentT} ${mixedT}`;
+    }
+    else {
+      this._colorAriaLabel = `${toneT} ${mainT}`;
+    }
   }
 
   /**
@@ -245,7 +299,7 @@ export class ColorPicker extends ControlElement {
     if (this.lazyRendered) {
       return html`<ef-color-dialog
       offset="4"
-      part="dialog"
+      ${ref(this.dialogRef)}
       .lang=${ifDefined(this.lang || undefined)}
       .value=${this.value}
       .focusBoundary=${this}

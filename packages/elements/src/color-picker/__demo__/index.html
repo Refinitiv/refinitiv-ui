@@ -42,7 +42,9 @@
         <p> Output: </p>
         <textarea readonly id="defaultColorOutput"></textarea>
       </div>
-      <script>
+      <script type="module">
+        import { readableColor } from '@refinitiv-ui/utils/color.js';
+
         // Default Color Picker
         const defaultColorPicker = document.getElementById('defaultColorPicker');
         const hexInputDefault = document.getElementById('hexInputDefault');
@@ -53,6 +55,7 @@
         defaultColorPicker.addEventListener('value-changed', event => {
           const value = event.detail.value;
           hexInputDefault.value = value;
+          console.log(readableColor(value));
           defaultColorOutput.value += 'Value Change : ' + value + '\n';
         });
       </script>
