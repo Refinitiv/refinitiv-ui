@@ -14,12 +14,11 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
-import { isHex } from '@refinitiv-ui/utils/color.js';
+import { isHex, readableColor } from '@refinitiv-ui/utils/color.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import '../color-dialog/index.js';
 import type { ColorDialog } from '../color-dialog/index.js';
 import '@refinitiv-ui/phrasebook/locale/en/color-picker.js';
-import { readableColor } from '@refinitiv-ui/utils/color.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 
 import {
