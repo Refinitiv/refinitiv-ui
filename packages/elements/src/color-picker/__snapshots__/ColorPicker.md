@@ -25,7 +25,6 @@
   draggable=""
   offset="4"
   opened=""
-  part="dialog"
   role="dialog"
   tabindex="-1"
   with-shadow=""
