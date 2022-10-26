@@ -18,7 +18,7 @@ runs:
         node-version: 16.x
 
     - name: Setup caching dependencies
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       id: cache-npm
       with:
         path: |
@@ -29,7 +29,7 @@ runs:
         restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
     - name: Setup caching build
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       id: cache-build
       with:
         path: |

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.1.1...@refinitiv-ui/utils@6.2.0) (2022-10-26)
+
+
+### Features
+
+* **utils:** add util color `readableColor` ([#487](https://github.com/Refinitiv/refinitiv-ui/issues/487)) ([42b3ea2](https://github.com/Refinitiv/refinitiv-ui/commit/42b3ea26c2e810cf285ccaab56fd0e5e4d3fdc23))
+
+
+
+
+
 ## [6.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.1.0...@refinitiv-ui/utils@6.1.1) (2022-09-26)
 
 

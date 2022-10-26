@@ -10,7 +10,7 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/test-helpers"
   },
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",
