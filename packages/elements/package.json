@@ -2,7 +2,7 @@
   "name": "@refinitiv-ui/elements",
   "version": "6.3.0",
   "description": "Element Framework Elements",
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "module": "./lib/index.js",

@@ -21,7 +21,7 @@
     "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "dependencies": {
     "@formatjs/icu-messageformat-parser": "^2.1.7",

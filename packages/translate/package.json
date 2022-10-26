@@ -2,7 +2,7 @@
   "name": "@refinitiv-ui/translate",
   "version": "6.0.9",
   "description": "i18n implementation for Element Framework components",
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "main": "./lib/translate.js",
   "module": "./lib/translate.js",

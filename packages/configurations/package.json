@@ -19,7 +19,7 @@
     "tsconfig",
     "eslintconfig"
   ],
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.37.0",
