@@ -13,6 +13,7 @@
       import { preload } from '@refinitiv-ui/elements/icon';
 
       const generateIcons = async () => {
+
         const response = await fetch('https://cdn.refinitiv.com/public/libs/elf/info.json');
         const info = await response.json();
         const icons = info.halo.icon.map(iconInfo => iconInfo.name);

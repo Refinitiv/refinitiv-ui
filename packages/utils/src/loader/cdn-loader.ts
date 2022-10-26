@@ -10,7 +10,7 @@ export class CDNLoader {
   /**
    * Internal response cache
    */
-  private responseCache = new Map<string, Promise<XMLHttpRequest>>();
+  private responseCache = new Map<string, Promise<Response>>();
 
   /**
    * CDN prefix to prepend to src
@@ -49,40 +49,25 @@ export class CDNLoader {
    * @param href The location of the SVG to load
    * @returns Promise of the SVG body
    */
-  private async loadContent (href: string): Promise<XMLHttpRequest> {
+  private async loadContent (href: string): Promise<Response> {
     try {
-      const response = await this.xmlRequest(href);
-      return response;
+      return await fetch(href);
     }
     catch (e) {
-      // Failed response...
+      // Failed response. Prevent the item attached in cache.
       this.responseCache.delete(href);
+      let errorMessage = '';
+      if (e instanceof Error) {
+        errorMessage = e.message;
+      }
+      else if (e instanceof Response) {
+        errorMessage = e.statusText;
+      }
       return Promise.resolve({
-        status: 0, response: 'Failed to make request', responseText: 'Failed to make request'
-      } as XMLHttpRequest);
+        status: 0,
+        statusText: errorMessage
+      } as Response);
     }
-  }
-
-  /**
-   * Load and support on IE
-   * @param href The source or location
-   * @returns XMLHttpRequest objects after to interact servers.
-   */
-  private async xmlRequest (href: string): Promise<XMLHttpRequest> {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', href);
-      xhr.onload = (): void => {
-        if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 400) {
-          resolve(xhr);
-        }
-        else {
-          reject(xhr);
-        }
-      };
-      xhr.onerror = (): void => reject(xhr);
-      xhr.send();
-    });
   }
 
   /**
@@ -90,7 +75,7 @@ export class CDNLoader {
    * @param src name or Source location.
    * @returns Promise which will be resolved with response body
    */
-  public async load (src: string): Promise<XMLHttpRequest | undefined> {
+  public async load (src: string): Promise<Response | undefined> {
     if (src) {
       if (!this.responseCache.has(src)) {
         this.responseCache.set(src, this.loadContent(src));

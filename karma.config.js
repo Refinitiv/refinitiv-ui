@@ -3,7 +3,6 @@ const path = require('path');
 const { ROOT, PACKAGES } = require('./scripts/helpers');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
-const { injectLitPolyfill } = require('./scripts/karma/plugins/inject-lit-polyfill')
 const {
   defaultBrowsers,
   availableBrowsers,
@@ -142,9 +141,6 @@ const baseConfig = {
     karmaExclude: [
       '**/__snapshots__/**'
     ],
-    plugins: [
-      injectLitPolyfill()
-    ]
   },
   plugins,
   frameworks,

@@ -1,10 +1,4 @@
-import { expect, fixture } from '@refinitiv-ui/test-helpers';
-
-// Translations polyfills
-import '@formatjs/intl-locale/polyfill.iife';
-import '@formatjs/intl-getcanonicallocales/polyfill.iife';
-import '@formatjs/intl-pluralrules/polyfill.iife';
-import '@formatjs/intl-pluralrules/locale-data/en';
+import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/tree-select';
@@ -38,6 +32,7 @@ describe('tree-select/TreeSelect', () => {
       el.data = flatData;
       changeItemSelection(el, flatSelection);
       await openedUpdated(el);
+      await nextFrame();
       expect(el.shadowRoot.querySelector('[part=pills]') === null).to.equal(false, 'Pills is present');
     });
 

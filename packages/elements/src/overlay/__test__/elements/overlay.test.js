@@ -31,6 +31,7 @@ describe('overlay/elements/Overlay', () => {
 
         await nextFrame();
         await nextFrame();
+        await nextFrame();
 
         expect(overlay.fullyOpened).to.equal(true, 'Overlay should be fully opened');
       });
@@ -89,10 +90,10 @@ describe('overlay/elements/Overlay', () => {
         const screenWidth = document.documentElement.clientWidth;
         const screenHeight = document.documentElement.clientHeight;
 
-        expect(rect.top).to.equal(0);
-        expect(rect.right).to.equal(screenWidth);
-        expect(rect.bottom).to.equal(screenHeight);
-        expect(rect.left).to.equal(0);
+        expect(Math.floor(rect.top)).to.equal(0);
+        expect(Math.floor(rect.right)).to.equal(screenWidth);
+        expect(Math.floor(rect.bottom)).to.equal(screenHeight);
+        expect(Math.floor(rect.left)).to.equal(0);
       });
 
       it('Test refit method with closed window', async () => {
