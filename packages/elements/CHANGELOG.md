@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.2...@refinitiv-ui/elements@6.3.0) (2022-10-26)
+
+
+### Bug Fixes
+
+* **tree:** update parent item in values setter ([#496](https://github.com/Refinitiv/refinitiv-ui/issues/496)) ([0409fd4](https://github.com/Refinitiv/refinitiv-ui/commit/0409fd485deb74d311c06d4169dc64795e288ae8))
+
+
+### Features
+
+* **utils:** add util color `readableColor` ([#487](https://github.com/Refinitiv/refinitiv-ui/issues/487)) ([42b3ea2](https://github.com/Refinitiv/refinitiv-ui/commit/42b3ea26c2e810cf285ccaab56fd0e5e4d3fdc23))
+
+
+
+
+
 ## [6.2.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.1...@refinitiv-ui/elements@6.2.2) (2022-10-10)
 
 
@@ -18,15 +34,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [6.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.0...@refinitiv-ui/elements@6.2.1) (2022-09-26)
 
-* Update all formatjs dependencies to support typescript 4.8 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
-* Upgrade typescript to 4.8.3 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
-
 
 ### Bug Fixes
 
 * **autosuggest:** fix invalid label when disabled suggestion item ([#451](https://github.com/Refinitiv/refinitiv-ui/issues/451)) ([1944007](https://github.com/Refinitiv/refinitiv-ui/commit/194400774dece311856bc9bd0f80a17362a9466e))
 * **configurations:** move import extension eslint rule to local env ([#459](https://github.com/Refinitiv/refinitiv-ui/issues/459)) ([f8a9e1a](https://github.com/Refinitiv/refinitiv-ui/commit/f8a9e1a710901028da57e314ff5a879dab5d9e73))
 
+
+**Note:**
+
+* Update all formatjs dependencies to support typescript 4.8 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
+* Upgrade typescript to 4.8.3 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
 
 
 
