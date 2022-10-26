@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.7](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@6.0.6...create-efx@6.0.7) (2022-10-26)
+
+
+### Bug Fixes
+
+* add minimum npm version (v7) to package.json ([#500](https://github.com/Refinitiv/refinitiv-ui/issues/500)) ([2996851](https://github.com/Refinitiv/refinitiv-ui/commit/2996851e0cd84274fbf284e9763298ce894b6a94))
+
+
+
+
+
 ## [6.0.6](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@6.0.5...create-efx@6.0.6) (2022-10-10)
 
 

@@ -3,13 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.2.2...@refinitiv-ui/docs@6.2.3) (2022-10-26)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
 ## [6.2.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.2.1...@refinitiv-ui/docs@6.2.2) (2022-10-10)
 
 
-### Bug Fixes
-
-* **number-field:** fix step=any to support integer and decimal number ([#485](https://github.com/Refinitiv/refinitiv-ui/issues/485)) ([13bbb34](https://github.com/Refinitiv/refinitiv-ui/commit/13bbb34b3ed9f870acc66169cea8103e480eea6a))
-
+**Note:** Version bump only for package @refinitiv-ui/docs
 
 
 

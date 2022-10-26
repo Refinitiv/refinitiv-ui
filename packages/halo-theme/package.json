@@ -2,7 +2,7 @@
   "name": "@refinitiv-ui/halo-theme",
   "version": "6.2.0",
   "description": "Official theme for Refinitiv products",
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "SEE LICENSE IN LICENSE",
   "main": "index.less",
   "repository": {

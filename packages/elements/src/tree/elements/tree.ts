@@ -7,7 +7,7 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
-import { List } from '../../list/index.js';
+import { List, valueFormatWarning } from '../../list/index.js';
 import { TreeRenderer } from '../helpers/renderer.js';
 import { defaultFilter } from '../helpers/filter.js';
 import type { TreeData, TreeDataItem, TreeFilter } from '../helpers/types';
@@ -425,8 +425,27 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
       return this.composer.getItemPropertyValue(item, 'value') as string || '';
     });
   }
-  public set values (value: string[]) {
-    super.values = value;
+  public set values (values: string[]) {
+    if (!Array.isArray(values)) {
+      valueFormatWarning.show();
+      this.values = [];
+    }
+    else {
+      // Clone value arrays
+      const newValue = [...values].sort().toString();
+      const oldValue = [...this.values].sort().toString();
+
+      if (newValue !== oldValue) {
+        this.manager.uncheckAllItems();
+        values.some((value) => {
+          this.queryItemsByPropertyValue('value', value).forEach((item) => {
+            this.manager.checkItem(item);
+          });
+          return !this.multiple; // Only set the fist value if multiple is not enabled
+        });
+        this.requestUpdate('values', this.values);
+      }
+    }
   }
 
   /**
