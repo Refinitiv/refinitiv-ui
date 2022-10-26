@@ -10,6 +10,12 @@ layout: default
 </div>
 
 # Angular Guide
+
+## Try online demo
+A playground project that uses Element Framework with Angular. Here is a [link](https://codesandbox.io/s/angular-sample-14-mt9y1h).
+
+## Initialise your project
+
 @>This guideline uses Angular's seed project and Angular CLI 13.1.2.
 
 Install Angular CLI.
@@ -18,7 +24,6 @@ Install Angular CLI.
 npm install -g @angular/cli
 ```
 
-## Initialise your project
 Create new Angular application using the `ng new` command.
 
 ```sh
