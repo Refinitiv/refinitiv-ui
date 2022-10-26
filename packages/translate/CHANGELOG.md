@@ -3,10 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [6.0.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.6...@refinitiv-ui/translate@6.0.7) (2022-09-26)
+## [6.0.9](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.8...@refinitiv-ui/translate@6.0.9) (2022-10-26)
 
 **Note:** Version bump only for package @refinitiv-ui/translate
 
+
+
+
+
+## [6.0.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.7...@refinitiv-ui/translate@6.0.8) (2022-10-10)
+
+**Note:** Version bump only for package @refinitiv-ui/translate
+
+
+
+
+
+## [6.0.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.6...@refinitiv-ui/translate@6.0.7) (2022-09-26)
+
+
+**Note:** Version bump only for package @refinitiv-ui/translate
+
+* Update all formatjs dependencies to support typescript 4.8 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
+* Upgrade typescript to 4.8.3 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
 
 
 

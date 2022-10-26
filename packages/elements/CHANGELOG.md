@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.2...@refinitiv-ui/elements@6.3.0) (2022-10-26)
+
+
+### Bug Fixes
+
+* **tree:** update parent item in values setter ([#496](https://github.com/Refinitiv/refinitiv-ui/issues/496)) ([0409fd4](https://github.com/Refinitiv/refinitiv-ui/commit/0409fd485deb74d311c06d4169dc64795e288ae8))
+
+
+### Features
+
+* **utils:** add util color `readableColor` ([#487](https://github.com/Refinitiv/refinitiv-ui/issues/487)) ([42b3ea2](https://github.com/Refinitiv/refinitiv-ui/commit/42b3ea26c2e810cf285ccaab56fd0e5e4d3fdc23))
+
+
+
+
+
+## [6.2.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.1...@refinitiv-ui/elements@6.2.2) (2022-10-10)
+
+
+### Bug Fixes
+
+* **dialog:** the cancel event does not fire ([ce55aac](https://github.com/Refinitiv/refinitiv-ui/commit/ce55aaca5d070ad1be2de68b66ac77d683b06acf))
+* **number-field:** fix step=any to support integer and decimal number ([#485](https://github.com/Refinitiv/refinitiv-ui/issues/485)) ([13bbb34](https://github.com/Refinitiv/refinitiv-ui/commit/13bbb34b3ed9f870acc66169cea8103e480eea6a))
+* **tab:** trigger resize observer when label changes to make tab bar show scroll button correctly ([#480](https://github.com/Refinitiv/refinitiv-ui/issues/480)) ([93e384b](https://github.com/Refinitiv/refinitiv-ui/commit/93e384b845f87f0f3e074d4672065e7305a85c26))
+
+
+
+
+
 ## [6.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.0...@refinitiv-ui/elements@6.2.1) (2022-09-26)
 
 
@@ -11,6 +40,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **autosuggest:** fix invalid label when disabled suggestion item ([#451](https://github.com/Refinitiv/refinitiv-ui/issues/451)) ([1944007](https://github.com/Refinitiv/refinitiv-ui/commit/194400774dece311856bc9bd0f80a17362a9466e))
 * **configurations:** move import extension eslint rule to local env ([#459](https://github.com/Refinitiv/refinitiv-ui/issues/459)) ([f8a9e1a](https://github.com/Refinitiv/refinitiv-ui/commit/f8a9e1a710901028da57e314ff5a879dab5d9e73))
 
+
+**Note:**
+
+* Update all formatjs dependencies to support typescript 4.8 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
+* Upgrade typescript to 4.8.3 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
 
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/core",
-  "version": "6.0.7",
+  "version": "6.0.9",
   "description": "Element Framework Core",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -45,7 +45,7 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/core"
   },
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",
@@ -67,10 +67,10 @@
   },
   "devDependencies": {
     "@refinitiv-ui/test-helpers": "^6.0.4",
-    "@refinitiv-ui/utils": "^6.1.1"
+    "@refinitiv-ui/utils": "^6.2.0"
   },
   "peerDependencies": {
-    "@refinitiv-ui/utils": "^6.1.1"
+    "@refinitiv-ui/utils": "^6.2.0"
   },
   "publishConfig": {
     "access": "public"

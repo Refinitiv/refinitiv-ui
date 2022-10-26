@@ -10,6 +10,12 @@ layout: default
 </div>
 
 # Angular Guide
+
+## Try online demo
+A playground project that uses Element Framework with Angular. Here is a [link](https://codesandbox.io/s/angular-sample-14-mt9y1h).
+
+## Initialise your project
+
 @>This guideline uses Angular's seed project and Angular CLI 13.1.2.
 
 Install Angular CLI.
@@ -18,7 +24,6 @@ Install Angular CLI.
 npm install -g @angular/cli
 ```
 
-## Initialise your project
 Create new Angular application using the `ng new` command.
 
 ```sh
@@ -85,23 +90,7 @@ import '@refinitiv-ui/elements/panel/themes/halo/dark';
 import '@refinitiv-ui/elements/text-field/themes/halo/dark';
 import '@refinitiv-ui/elements/password-field/themes/halo/dark';
 ```
-
-If you're using Angular 13++ or using Webpack 5, you can import module by using a shorter path.
-
-```javascript
-import '@refinitiv-ui/elements/loader';
-import '@refinitiv-ui/elements/button';
-import '@refinitiv-ui/elements/panel';
-import '@refinitiv-ui/elements/text-field';
-import '@refinitiv-ui/elements/password-field';
-
-import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
-import '@refinitiv-ui/elements/loader/themes/halo/dark';
-import '@refinitiv-ui/elements/button/themes/halo/dark';
-import '@refinitiv-ui/elements/panel/themes/halo/dark';
-import '@refinitiv-ui/elements/text-field/themes/halo/dark';
-import '@refinitiv-ui/elements/password-field/themes/halo/dark';
-```
+If you're using webpack 4, you can set path aliases in `webpack.config.js` similar to [Vanilla](./tutorials/vanilla-js#webpack-4).
 
 At this stage EF elements should be ready to use!. You can use them like any other native HTML elements.
 
