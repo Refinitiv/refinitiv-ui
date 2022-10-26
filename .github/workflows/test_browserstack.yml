@@ -1,0 +1,177 @@
+name: Test BrowserStack
+
+on:
+  workflow_dispatch:
+    inputs:
+      browsers:
+        description: 'Browsers'
+        required: true
+        type: choice
+        options:
+        # Alias browser groups
+        - default
+        - supported
+        # Desktop browsers
+        - chrome
+        - firefox
+        - safari
+        - edge
+        # Mobile browsers
+        - ios
+        - android
+        - samsung
+        # Previous version
+        - chrome_previous
+        - firefox_previous
+        - safari_previous
+        - edge_previous
+        - ios_previous
+        - android_previous
+        - samsung_previous
+      target:
+        description: 'Packages/Elements'
+        required: true
+        type: choice
+        options:
+        # Packages
+        - all
+        - core
+        - demo-block
+        - elements
+        - i18n
+        - phrasebook
+        - test-helpers
+        - translate
+       # Elements
+        - accordion
+        - appstate-bar
+        - autosuggest
+        - button
+        - button-bar
+        - calendar
+        - canvas
+        - card
+        - chart
+        - checkbox
+        - clock
+        - collapse
+        - color-dialog
+        - color-picker
+        - combo-box
+        - counter
+        - datetime-field
+        - datetime-picker
+        - dialog
+        - email-field
+        - flag
+        - header
+        - heatmap
+        - icon
+        - interactive-chart
+        - item
+        - label
+        - layout
+        - led-gauge
+        - list
+        - loader
+        - multi-input
+        - notification
+        - number-field
+        - overlay
+        - overlay-menu
+        - pagination
+        - panel
+        - password-field
+        - pill
+        - progress-bar
+        - radio-button
+        - rating
+        - search-field
+        - select
+        - sidebar-layout
+        - slider
+        - sparkline
+        - swing-gauge
+        - tab
+        - tab-bar
+        - text-field
+        - time-picker
+        - toggle
+        - tooltip
+        - tornado-chart
+        - tree
+        - tree-select
+
+env:
+  TARGET: ${{ inputs.target }}
+  BROWSERS: ${{ inputs.browsers }}
+  BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+  BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+  BROWSERSTACK_BUILD: "Test BrowserStack ${{ github.run_number }}"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Test Input
+        shell: bash
+        run: |
+          echo "TARGET1: $TARGET"
+          echo "TARGET2: ${{ env.TARGET }}"
+
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+        id: setup
+
+      - name: Install Dependencies
+        if: steps.setup.outputs.cache-dependencies-hit != 'true'
+        run: npm ci --ignore-scripts --audit=false --fund=false
+
+      - name: Reset NX # temporary
+        run: npm run reset
+
+      - name: Build
+        if: steps.setup.outputs.cache-build-hit != 'true'
+        run: npm run build
+
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+
+      - name: Lint
+        run: npm run lint:affected -- --base=$BASE_SHA
+
+  test:
+    needs: lint
+    name: "Test ${{ github.event.inputs.target }} / ${{ github.event.inputs.browsers }} browser"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: "Test on BrowserStack"
+        uses: ./.github/actions/run-test
+        with:
+          browsers: ${{ env.BROWSERS }}
+          target: ${{ env.TARGET }}
+          mode: 'all'
+          browserstack: 'true'
+          username: ${{ env.BROWSERSTACK_USERNAME }}
+          access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
+          parallel: 3

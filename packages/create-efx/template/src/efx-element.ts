@@ -64,9 +64,11 @@ export class EfxElement extends BasicElement {
   protected render (): TemplateResult {
     return html`
     <ef-panel part="container">
-      <a href="https://lit.dev" target="_blank">
-        <img src="https://lit.dev/images/logo.svg" part="logo" class="logo lit" alt="Lit logo" />
-      </a>
+      <div part="logo-container">
+        <a href="https://lit.dev" target="_blank">
+          <img src="https://lit.dev/images/logo.svg" part="logo" class="logo lit" alt="Lit logo" />
+        </a>
+      </div>
       <slot></slot>
       <ef-button part="button" @tap="${this.onTap}">
         count is ${this.count}
