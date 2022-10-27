@@ -2,7 +2,7 @@
   "name": "@refinitiv-ui/polyfills",
   "version": "6.0.5",
   "description": "Verified polyfills for the Element Framework",
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "main": "index.js",
   "repository": {
