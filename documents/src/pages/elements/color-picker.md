@@ -11,18 +11,16 @@ layout: default
 ::color-picker::
 ```
 ```css
-<style>
-  section {
-    display:flex;
-    justify-content: left;
-    align-items: baseline;
-    height: 380px;
-    padding: 4px;
-  }
-  ef-color-picker {
-    margin-right: 2px;
-  }
-</style>
+section {
+  display:flex;
+  justify-content: left;
+  align-items: baseline;
+  height: 380px;
+  padding: 4px;
+}
+ef-color-picker {
+  margin-right: 2px;
+}
 ```
 ```html
 <section>
