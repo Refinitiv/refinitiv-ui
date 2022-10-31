@@ -76,7 +76,7 @@ type: nav
     - [Grid](./elements/grid)
 
 - Using Components
-  - [Bundling Tool](./guides/bundling-tool)
+  - [Bundling Configuration](./guides/bundling-configuration)
   + Framework Integration
     - [Angular](./tutorials/angular)
     - [React](./tutorials/react)
