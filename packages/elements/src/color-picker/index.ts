@@ -166,7 +166,7 @@ export class ColorPicker extends ControlElement {
    * @returns {void}
    */
   protected update (changedProperties: PropertyValues): void {
-    if (changedProperties.has(TranslatePropertyKey)) {
+    if (changedProperties.has(TranslatePropertyKey) || changedProperties.has('value')) {
       void this.updateColorAriaLabel();
     }
     if (changedProperties.has('opened') && this.opened) {
@@ -236,7 +236,6 @@ export class ColorPicker extends ControlElement {
   private onColorDialogValueChanged (event: ValueChangedEvent): void {
     const value = event.detail.value;
     this.value = value;
-    void this.updateColorAriaLabel();
     this.setAttribute('value', this.value);
     this.notifyPropertyChange('value', this.value);
     this.setOpened(false);
@@ -281,7 +280,7 @@ export class ColorPicker extends ControlElement {
       this.colorTPromise('WITH', { number: percent }),
       this.colorTPromise(mixed)]);
     const [toneT, mainT, percentT, mixedT] = translate;
-    const formatTone = toneT ? `[${toneT}] ` : '';
+    const formatTone = toneT ? `${toneT}. ` : '';
     if (percent) {
       this._colorAriaLabel = `${formatTone}${mainT} ${percentT} ${mixedT}`;
     }

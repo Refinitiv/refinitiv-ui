@@ -30,6 +30,13 @@ describe('color-picker/ColorPicker', () => {
       const el = await fixture('<ef-color-picker value="#001EFF"></ef-color-picker>');
       expect(el.value).to.equal('#001EFF');
     });
+    it('Should update aria-label when change value color', async () => {
+      const el = await fixture('<ef-color-picker value="#0000FF"></ef-color-picker>');
+      expect(el._colorAriaLabel).to.equal('blue');
+      el.value = '#ff0000';
+      await elementUpdated(el);
+      expect(el._colorAriaLabel).to.equal('red');
+    });
     it('Should reset to default value when value is invalid', async () => {
       const el = await fixture('<ef-color-picker value="hello"></ef-color-picker>');
       expect(el.value).to.equal('');
@@ -66,7 +73,6 @@ describe('color-picker/ColorPicker', () => {
       const el = await fixture('<ef-color-picker></ef-color-picker>');
       el.opened = true;
       await elementUpdated(el);
-      const dialogRef = el.dialogRef.value;
       expect(getDialogEl(el).hasAttribute('allow-nocolor')).to.be.equal(false);
     });
     it('Should pass allow-nocolor property to color dialog', async () => {
