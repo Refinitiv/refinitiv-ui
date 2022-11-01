@@ -5,8 +5,8 @@ type: page
 layout: default
 -->
 
-::status-todo::
+
 
 # Theme Compiler
 
-::todo::
+@> Coming soon!

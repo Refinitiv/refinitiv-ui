@@ -5,9 +5,9 @@ type: page
 layout: default
 -->
 
-::status-todo::
+
 
 # Color
 
-::todo::
+@> Coming soon!
 

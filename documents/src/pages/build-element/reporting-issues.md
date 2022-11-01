@@ -4,8 +4,6 @@ location: ./reporting-issues
 type: page
 -->
 
-::status-working::
-
 # Reporting Issues
 
 When creating elements it's best to keep things simple and try to reduce any errors that may occur.
@@ -37,6 +35,6 @@ Element Framework provides modules for
 
 ## Errors
 
-::todo::
+@> Coming soon!
 
 ...

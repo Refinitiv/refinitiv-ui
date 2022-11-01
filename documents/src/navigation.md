@@ -96,39 +96,39 @@ type: nav
   * [Naming conventions](./naming-conventions)
   * [State management](./utils/state-management)
   * [Events](./events)
-  * [Localisation*](./localisation)
+  * [Localisation](./localisation)
   * [Reporting issues](./reporting-issues)
-  * [Breaking changes*](./breaking-changes)
-  * [Polyfilling*](./polyfilling)
+  * [Breaking changes](./breaking-changes)
+  * [Polyfilling](./polyfilling)
 
   - Utilities
-    * [Accessibility*](./utils/accessibility)
+    * [Accessibility](./utils/accessibility)
     * [Async tasks](./utils/async-tasks)
-    * [Color*](./utils/color)
+    * [Color](./utils/color)
     * [Data Management](./utils/data-management)
     * [Date/Time](./utils/date-time)
     * [Navigation Grid](./utils/navigation-grid)
 
   - Accessibility
-    * [Aria*](./aria)
+    * [Aria](./aria)
     * [Focus & Navigation*](./focus-and-navigation)
 
   - Testing
-    * [Code Style*](./testing/lint)
-    * [DOM Snapshots*](./testing/snapshot)
-    * [Unit tests*](./testing/unit)
+    * [Code Style](./testing/lint)
+    * [DOM Snapshots](./testing/snapshot)
+    * [Unit tests](./testing/unit)
 
   - Tools
-    * [Starter Templates*](./tools/starter-templates)
-    * [Theme Compiler*](./tools/theme-compiler)
+    * [Starter Templates](./tools/starter-templates)
+    * [Theme Compiler](./tools/theme-compiler)
 
-  * [Troubleshooting*](./troubleshooting)
+  * [Troubleshooting](./troubleshooting)
 
 # Keeping this here for reference
 # - Theming
-#   * [Component styles*](./theming/styles)
+#   * [Component styles](./theming/styles)
 #   * [Part syntax()](./theming/css-parts)
-#   * [Origin theme*](./theming/origin)
-#   * [Theme extension*](./theming/theme-extension)
-#   * [Compiling a theme*](./theimg/compilation)
-#   * [CSS custom properties*](./theming/css-vars)
+#   * [Origin theme](./theming/origin)
+#   * [Theme extension](./theming/theme-extension)
+#   * [Compiling a theme](./theimg/compilation)
+#   * [CSS custom properties](./theming/css-vars)

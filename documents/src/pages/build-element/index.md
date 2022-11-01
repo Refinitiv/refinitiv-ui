@@ -5,8 +5,6 @@ type: page
 layout: default
 -->
 
-::status-complete::
-
 # Creating Custom Elements
 
 This page provides a conceptual overview of how to create and publish new elements to extend Element Framework.

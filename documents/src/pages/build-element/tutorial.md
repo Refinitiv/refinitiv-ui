@@ -5,7 +5,7 @@ type: page
 layout: default
 -->
 
-::status-working::
+
 
 # Element Tutorial
 
@@ -98,24 +98,24 @@ For more information on composing templates, see [Lit](https://lit.dev/docs/comp
 
 ### Reactive Properties
 
-::todo::
+@> Coming soon!
 
 ### Styles & Theming
 
-::todo::
+@> Coming soon!
 
 ### Lifecycle
 
-::todo::
+@> Coming soon!
 
 ## Creating a Control Element
 
-::todo::
+@> Coming soon!
 
 ### Handling Focus
 
-::todo::
+@> Coming soon!
 
 ### Keyboard Navigation
 
-::todo::
+@> Coming soon!

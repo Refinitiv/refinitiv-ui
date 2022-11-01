@@ -4,8 +4,8 @@ location: ./testing/lint
 type: page
 -->
 
-::status-todo::
+
 
 # Code Style Testing
 
-::todo::
+@> Coming soon!

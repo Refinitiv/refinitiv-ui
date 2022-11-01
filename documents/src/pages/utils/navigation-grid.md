@@ -5,7 +5,7 @@ type: page
 layout: default
 -->
 
-::status-complete::
+
 
 # Navigation Grid
 

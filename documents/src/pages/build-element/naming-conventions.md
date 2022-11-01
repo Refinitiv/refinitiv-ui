@@ -4,7 +4,7 @@ location: ./naming-conventions
 type: page
 -->
 
-::status-complete::
+
 
 # Naming Conventions
 

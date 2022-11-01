@@ -4,8 +4,6 @@ location: ./create
 type: page
 -->
 
-::status-todo::
-
 # Create an Element
 
 ## Using the starter template
