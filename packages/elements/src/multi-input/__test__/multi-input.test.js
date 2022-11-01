@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, html, nextFrame, oneEvent, isIE } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, html, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/multi-input';
 import '@refinitiv-ui/elemental-theme/light/ef-multi-input';
@@ -616,9 +616,6 @@ describe('multi-input/MultiInput', () => {
   describe('Selection Range', () => {
 
     it('Applies selectionStart', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const el = await fixture('<ef-multi-input value="1234567890abcd"></ef-multi-input>');
       el.focus();
       const selectionStart = 3;
@@ -629,9 +626,6 @@ describe('multi-input/MultiInput', () => {
     });
 
     it('Applies selectionEnd', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const el = await fixture('<ef-multi-input value="1234567890abcd"></ef-multi-input>');
       el.focus();
       const selectionEnd = 5;
@@ -642,9 +636,6 @@ describe('multi-input/MultiInput', () => {
     });
 
     it('Applies selectionStart and selectionEnd', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const el = await fixture('<ef-multi-input value="1234567890abcd"></ef-multi-input>');
       el.focus();
       const selectionStart = 2;
@@ -659,9 +650,6 @@ describe('multi-input/MultiInput', () => {
     });
 
     it('Applies selection range using API', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const el = await fixture('<ef-multi-input value="1234567890abcd"></ef-multi-input>');
       el.focus();
       const selectionStart = 4;
@@ -673,9 +661,6 @@ describe('multi-input/MultiInput', () => {
     });
 
     it('test select method select all content of text-field', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const el = await fixture('<ef-multi-input value="1234567890abcd"></ef-multi-input>');
       el.focus();
       el.select();

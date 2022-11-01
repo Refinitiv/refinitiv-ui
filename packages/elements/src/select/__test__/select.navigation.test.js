@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, aTimeout, nextFrame, isIE, keyboardEvent as fireKeyBoardEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, aTimeout, nextFrame, keyboardEvent as fireKeyBoardEvent } from '@refinitiv-ui/test-helpers';
 import { getOptions, openedUpdated, getData, getMenuEl } from './utils';
 
 const keyBoardEvent = async (el, key, options = {}) => {
@@ -16,10 +16,7 @@ const iterate = async (el, scope, keys = [], highlighted = [], options = {}) => 
     const key = keys[i];
     await keyBoardEvent(el, key, options);
     expect(scope.querySelector('[highlighted]') === children[highlighted[i]]).to.equal(true, `Incorrect item highlighted for nr.${i} ${key}`);
-
-    if (!isIE()) { /* this does not work on CI in IE11 */
-      expect(scope.querySelector('[focused]') === children[highlighted[i]]).to.equal(true, `Incorrect item focused for nr.${i} ${key}`);
-    }
+    expect(scope.querySelector('[focused]') === children[highlighted[i]]).to.equal(true, `Incorrect item focused for nr.${i} ${key}`);
   }
 };
 

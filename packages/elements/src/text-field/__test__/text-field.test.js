@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, isIE, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';

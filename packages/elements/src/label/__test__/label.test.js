@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, isIE, nextFrame, aTimeout, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame, aTimeout, oneEvent } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/label';
@@ -15,17 +15,11 @@ describe('label/Label', () => {
   let el, left, right;
   describe('DOM structure is correct', () => {
     it('Should default to use the truncate template', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       el = await fixture(`<ef-label style="width: 50px">${LONG_LABEL}</ef-label>`);
       await nextFrame();
       expect(el).shadowDom.to.equalSnapshot();
     });
     it('Should switch to line clamp template if line-clamp is set', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       el = await fixture(`<ef-label style="width: 50px" line-clamp="1">${LONG_LABEL}</ef-label>`);
       await nextFrame();
       expect(el).shadowDom.to.equalSnapshot();

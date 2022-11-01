@@ -1,4 +1,4 @@
-import { fixture, expect, isIE, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 import '../lib/test/test-translate';
 
 import {
@@ -65,11 +65,6 @@ describe('Elf Translate Element Lang Test', () => {
   });
 
   it('Check plurals', async function () {
-    // IE does not support plurals without polyfills
-    if (isIE()) {
-      this.skip();
-    }
-
     const el = await fixture('<test-translate lang="en-GB" with-plurals></test-translate>');
     const ruEl = await fixture('<test-translate lang="ru" with-plurals></test-translate>');
 
@@ -83,10 +78,6 @@ describe('Elf Translate Element Lang Test', () => {
   });
 
   it('Check currency', async function () {
-    // IE11 returns different currency encoding. Check IE11 separately in a different test.
-    if (isIE()) {
-      this.skip();
-    }
     const elGB = await fixture('<test-translate lang="en-GB"></test-translate>');
     const elUS = await fixture('<test-translate lang="en-US"></test-translate>');
     const elRU = await fixture('<test-translate lang="ru"></test-translate>');
@@ -97,10 +88,6 @@ describe('Elf Translate Element Lang Test', () => {
   });
 
   it('Check numbers', async function () {
-    // IE11 returns different number encoding. Check IE11 separately in a different test.
-    if (isIE()) {
-      this.skip();
-    }
     const elGB = await fixture('<test-translate lang="en-GB"></test-translate>');
     const elUS = await fixture('<test-translate lang="en-US"></test-translate>');
     const elRU = await fixture('<test-translate lang="ru"></test-translate>');
@@ -111,10 +98,6 @@ describe('Elf Translate Element Lang Test', () => {
   });
 
   it('Check dates', async function () {
-    // IE11 does not support timezones. Check IE11 separately in a different test.
-    if (isIE()) {
-      this.skip();
-    }
     const elGB = await fixture('<test-translate lang="en-GB"></test-translate>');
     const elUS = await fixture('<test-translate lang="en-US"></test-translate>');
     const elRU = await fixture('<test-translate lang="ru"></test-translate>');
@@ -125,50 +108,4 @@ describe('Elf Translate Element Lang Test', () => {
       .to.equal('Date: Дата: вторник, 21 июля 2020 г., 23:59:50', 'ru: date');
   });
 
-  it('IE11: Check numbers', async function () {
-    // IE11 returns different number encoding. Check other browsers separately in a different test.
-    if (!isIE()) {
-      this.skip();
-    }
-    const elGB = await fixture('<test-translate lang="en-GB"></test-translate>');
-    const elUS = await fixture('<test-translate lang="en-US"></test-translate>');
-    const elRU = await fixture('<test-translate lang="ru"></test-translate>');
-
-    expect(elGB.numberEl.innerText).to.equal('Long number: 1,000,000', 'en-GB: number');
-    expect(elUS.numberEl.innerText).to.equal('Long number: 1,000,000', 'en-US: number');
-    expect(elRU.numberEl.innerText).to.equal('Long number: 1 000 000', 'ru: number');
-  });
-
-  it('IE11: Check currency', async function () {
-    // IE11 returns different currency encoding. Check other browsers separately in a different test.
-    if (!isIE()) {
-      this.skip();
-    }
-    const elGB = await fixture('<test-translate lang="en-GB"></test-translate>');
-    const elUS = await fixture('<test-translate lang="en-US"></test-translate>');
-    const elRU = await fixture('<test-translate lang="ru"></test-translate>');
-
-    expect(elGB.currencyEl.innerText).to.equal('Currency: the total is £1,000,000.00.', 'en-GB: currency');
-    expect(elUS.currencyEl.innerText).to.equal('Currency: the total is $1,000,000.00.', 'en-US: currency');
-    expect(elRU.currencyEl.innerText).to.equal('Currency: всего 1 000 000,00 ₽.', 'ru: currency');
-  });
-
-  it('IE11: Check dates', async function () {
-    // IE11 does not support timezones. Check other browsers separately in a different test.
-    if (!isIE()) {
-      this.skip();
-    }
-    const elGB = await fixture('<test-translate lang="en-GB"></test-translate>');
-    const elUS = await fixture('<test-translate lang="en-US"></test-translate>');
-    const elRU = await fixture('<test-translate lang="ru"></test-translate>');
-
-    expect(elGB.dateEl.innerText).to.equal('Date: The date is: ‎Tuesday‎, ‎21‎ ‎July‎ ‎2020, ‎23‎:‎59‎:‎50', 'en-GB: date');
-    expect(elUS.dateEl.innerText).to.equal('Date: The date is: ‎Tuesday‎, ‎July‎ ‎21‎, ‎2020, ‎11‎:‎59‎:‎50‎ ‎PM', 'en-US: date');
-    expect(elRU.dateEl.innerText).to.equal('Date: Дата: ‎вторник‎, ‎21‎ ‎июля‎ ‎2020‎ г., ‎23‎:‎59‎:‎50', 'ru: date');
-  });
-
-  it('IE11: Check Plurals', async function () {
-    // IE11 does not support plurals without polyfills. polyfills are managed by format.js
-    this.skip();
-  });
 });

@@ -1,13 +1,13 @@
-import { fixture, expect, html, oneEvent, keyboardEvent, isIE, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, html, oneEvent, keyboardEvent, elementUpdated } from '@refinitiv-ui/test-helpers';
 
 import { Button } from '@refinitiv-ui/elements/button';
 import { ButtonBar } from '@refinitiv-ui/elements/button-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-button-bar';
 
-const keyArrowLeft = keyboardEvent('keydown', { key: isIE() ? 'Left' : 'ArrowLeft'});
-const keyArrowRight = keyboardEvent('keydown', { key: isIE() ? 'Right' : 'ArrowRight' });
-const keyArrowDown = keyboardEvent('keydown', { key: isIE() ? 'Down' : 'ArrowDown' });
-const keyArrowUp = keyboardEvent('keydown', { key: isIE() ? 'Up' : 'ArrowUp'});
+const keyArrowLeft = keyboardEvent('keydown', { key: 'ArrowLeft'});
+const keyArrowRight = keyboardEvent('keydown', { key: 'ArrowRight' });
+const keyArrowDown = keyboardEvent('keydown', { key: 'ArrowDown' });
+const keyArrowUp = keyboardEvent('keydown', { key: 'ArrowUp'});
 const keyHome = keyboardEvent('keydown', { key: 'Home'});
 const keyEnd = keyboardEvent('keydown', { key: 'End'});
 const keyTab = keyboardEvent('keydown', { key: 'Tab'});
@@ -269,7 +269,7 @@ describe('button-bar/ButtonBar', () => {
       });
     });
     it('Should set tabIndex=0 to next button and loop inside managed button-bar when navigate down', async () => {
-      setTimeout(() => bar.dispatchEvent(keyArrowDown)); 
+      setTimeout(() => bar.dispatchEvent(keyArrowDown));
       const event1 = await oneEvent(bar, 'keydown');
       expect(event1.key).to.equal('ArrowDown');
       expect(document.activeElement).to.equal(btn2);
@@ -283,7 +283,7 @@ describe('button-bar/ButtonBar', () => {
       expect(btn1.getAttribute('tabIndex')).to.equal('0');
     });
     it('Should set tabIndex=0 to previous button and loop inside managed button-bar when navigate up', async () => {
-      setTimeout(() => bar.dispatchEvent(keyArrowUp)); 
+      setTimeout(() => bar.dispatchEvent(keyArrowUp));
       const event1 = await oneEvent(bar, 'keydown');
       expect(event1.key).to.equal('ArrowUp');
       expect(document.activeElement).to.equal(btn2);
@@ -297,7 +297,7 @@ describe('button-bar/ButtonBar', () => {
       expect(btn1.getAttribute('tabIndex')).to.equal('0');
     });
     it('Should set tabIndex=0 to last button when keydown End', async () => {
-      setTimeout(() => el.dispatchEvent(keyEnd)); 
+      setTimeout(() => el.dispatchEvent(keyEnd));
       const event1 = await oneEvent(el, 'keydown');
       expect(event1.key).to.equal('End');
       expect(document.activeElement).to.equal(btn3);
@@ -307,7 +307,7 @@ describe('button-bar/ButtonBar', () => {
     });
     it('Should set tabIndex=0 to first button when keydown Home', async () => {
       btn3.focus();
-      setTimeout(() => el.dispatchEvent(keyHome)); 
+      setTimeout(() => el.dispatchEvent(keyHome));
       const event1 = await oneEvent(el, 'keydown');
       expect(event1.key).to.equal('Home');
       expect(document.activeElement).to.equal(btn1);

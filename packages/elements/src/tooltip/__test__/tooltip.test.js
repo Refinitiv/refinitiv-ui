@@ -1,4 +1,4 @@
-import { fixture, expect, nextFrame, elementUpdated, aTimeout, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, nextFrame, elementUpdated, aTimeout } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/tooltip';
@@ -221,10 +221,6 @@ describe('tooltip/Tooltip', () => {
   }).timeout(MouseMoveDelay * 2);
 
   it('Show/hide delay work as expected', async function () {
-    if (isIE()) { /* CSS Variables do not work in IE11 without a polyfill. Skip */
-      this.skip();
-    }
-
     const el = await fixture(`
       <div tooltip="Show hide delay">
         <ef-tooltip style="--show-delay: 0; --hide-delay: 0;" id="hideShowTooltip" selector="div[tooltip='Show hide delay']"></ef-tooltip>

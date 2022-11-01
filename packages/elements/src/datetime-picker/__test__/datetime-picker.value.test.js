@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent, triggerFocusFor, nextFrame, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, triggerFocusFor, nextFrame } from '@refinitiv-ui/test-helpers';
 import { typeText } from './utils';
 
 // import element and theme
@@ -71,9 +71,6 @@ describe('datetime-picker/Value', () => {
       expect(el.error).to.be.equal(true);
     });
     it('While typing the value calendar input should not randomly update value', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       // this test becomes invalid if date-fns ever supports strict formatting
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
       const input = el.inputEl;

@@ -1,4 +1,4 @@
-import { fixture, expect, oneEvent, elementUpdated, nextFrame, isIE, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, oneEvent, elementUpdated, keyboardEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/number-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
@@ -197,26 +197,20 @@ describe('number-field/NumberField', () => {
       expect(el.value).to.equal('');
     });
     it('Should not increase the value when it is disabled', async () => {
-      // IE11 cannot fire tap event
-      if (!isIE()) {
-        el.setAttribute('disabled', true);
-        await elementUpdated();
+      el.setAttribute('disabled', true);
+      await elementUpdated();
 
-        setTimeout(() => dispatchTapEvent(spinnerUpEl));
-        await oneEvent(spinnerUpEl, 'tap');
-        expect(el.value).to.equal('');
-      }
+      setTimeout(() => dispatchTapEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tap');
+      expect(el.value).to.equal('');
     });
     it('Should not decrease the value when it is disabled', async () => {
-      // IE11 cannot fire tap event
-      if (!isIE()) {
-        el.setAttribute('disabled', true);
-        await elementUpdated();
+      el.setAttribute('disabled', true);
+      await elementUpdated();
 
-        setTimeout(() => dispatchTapEvent(spinnerDownEl));
-        await oneEvent(spinnerDownEl, 'tap');
-        expect(el.value).to.equal('');
-      }
+      setTimeout(() => dispatchTapEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tap');
+      expect(el.value).to.equal('');
     });
     it('Should increase the value by 0.01', async () => {
       el.setAttribute('step', '0.01');
@@ -878,11 +872,11 @@ describe('number-field/NumberField', () => {
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
         expect(el.value).to.equal('0.86', 'Value should be decrease by 1 and decimal value should keep stay');
-        
+
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
         expect(el.value).to.equal('-0.14', 'Value should be decrease by 1 and decimal value should keep stay');
-        
+
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
         expect(el.value).to.equal('-1.14', 'Value should be decrease by 1 and decimal value should keep stay');

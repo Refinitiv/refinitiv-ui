@@ -2,7 +2,6 @@ import {
   fixture,
   expect,
   elementUpdated,
-  isIE,
   nextFrame,
   keyboardEvent,
   oneEvent
@@ -240,7 +239,6 @@ describe('tree/Tree', () => {
       expect(el.children).to.have.lengthOf(4, 'Collapsing group should leave only 4 children left');
       expandToggle.click();
       await elementUpdated(el);
-      isIE() && await nextFrame();
       expect(el.children).to.have.lengthOf(6, 'Expanding the group should show all 6 children again');
     });
 
@@ -287,7 +285,6 @@ describe('tree/Tree', () => {
       expect(el.children).to.have.lengthOf(4, 'Collapsing all should hide 2 leaving 4 children');
       el.expandAll();
       await elementUpdated(el);
-      isIE() && await nextFrame();
       expect(el.children).to.have.lengthOf(6, 'Expanding all should show all 6 children again');
     });
 
@@ -332,18 +329,15 @@ describe('tree/Tree', () => {
       await elementUpdated(el);
       el.expandAll();
       await elementUpdated(el);
-      isIE() && await nextFrame();
       const item = el.children[3];
       const itemChild = el.children[4];
       expect(item.label).to.equal('Item 1.3');
       expect(item.checkedState).to.equal(1); // Checked
       item.click();
       await elementUpdated(el);
-      isIE() && await nextFrame();
       expect(item.checkedState).to.equal(0); // Unchecked
       itemChild.click();
       await elementUpdated(el);
-      isIE() && await nextFrame();
       expect(item.checkedState).to.equal(-1); // Indeterminate
     });
 

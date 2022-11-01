@@ -1,4 +1,4 @@
-import { elementUpdated, expect, isIE, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import {
   blurAction,
@@ -16,7 +16,7 @@ describe('autosuggest/Functional', () => {
 
     it('Attach target event are set and public functions fired and removed', async function () {
       // blur() method is not work well on firefox at all, while focus not work well on CI for IE11
-      if (isIE() || isFirefox()) {
+      if (isFirefox()) {
         this.skip();
       }
       const input = await createInputElement();
@@ -134,10 +134,6 @@ describe('autosuggest/Functional', () => {
     }, 4000);
 
     it('Test suggestions-query and suggestions-fetch-requested', async function () {
-      if (isIE()) {
-        this.skip();
-      }
-
       const input = await createInputElement();
       const autoSuggest = await createFixture('reason');
 
@@ -224,9 +220,6 @@ describe('autosuggest/Functional', () => {
     }, 4000);
 
     it('Test opened, suggestions-clear-requested, item-select and item-highlight', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const input = await createInputElement();
       const autoSuggest = await createFixture('navigation');
 
@@ -268,16 +261,9 @@ describe('autosuggest/Functional', () => {
       await nextFrame();
       await nextFrame();
 
-      if (isIE()) {
-        return;
-      }
-
       [highlightedEvent, selectedEvent] = await Promise.all([oneEvent(autoSuggest, 'item-highlight'), oneEvent(autoSuggest, 'item-select')]);
 
       await (async () => {
-        if (isIE()) {
-          return;
-        }
         const { detail: { target, suggestion, oldTarget, oldSuggestion } } = highlightedEvent;
 
         expect(target, 'ArrowDown: incorrect highlighted element').to.equal(autoSuggest.children[0]);
@@ -288,9 +274,6 @@ describe('autosuggest/Functional', () => {
       })();
 
       await (async () => {
-        if (isIE()) {
-          return;
-        }
         const { detail: { method, target, suggestion, query } } = selectedEvent;
 
         expect(method, 'ArrowDown: incorrect method').to.equal('navigation');
@@ -355,18 +338,12 @@ describe('autosuggest/Functional', () => {
 
       await nextFrame();
 
-      if (isIE()) {
-        return;
-      }
       expect(highlightCount, 'highlightable was not called for every suggestion').to.equal(data.length);
       expect(renderCount, 'renderer was not called for every suggestion').to.equal(data.length);
       expect(autoSuggest.children.length, 'The number of items is wrong').to.equal(data.length);
     }, 4000);
 
     it('check suggest open on input with same query', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const input = await createInputElement();
       const autoSuggest = await createFixture('request-on-focus');
       autoSuggest.moreResults = true;
@@ -393,9 +370,6 @@ describe('autosuggest/Functional', () => {
     }, 4000);
 
     it('check debounce rate is applied', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const input = await createInputElement();
       const autoSuggest = await createFixture('request-on-focus');
       autoSuggest.moreResults = true;
@@ -459,9 +433,6 @@ describe('autosuggest/Functional', () => {
     });
 
     it('the highlightable property returns false', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const input = await createInputElement();
       const autoSuggest = await createFixture('navigation');
       autoSuggest.requestOnFocus = true;
@@ -537,7 +508,7 @@ describe('autosuggest/Functional', () => {
 
     it('input blur native method', async function () {
       // blur() method is not work well on firefox at all, while focus not work well on CI for IE11
-      if (isIE() || isFirefox()) {
+      if (isFirefox()) {
         this.skip();
       }
       const input = await createInputElement();
@@ -630,9 +601,6 @@ describe('autosuggest/Functional', () => {
     });
 
     it('press arrow down key in the text field', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const input = await createInputElement();
       const autoSuggest = await createFixture('navigation');
       const suggestLabel = 'Cornelius';
@@ -680,9 +648,6 @@ describe('autosuggest/Functional', () => {
     });
 
     it('moreResults using shift + enter', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const input = await createInputElement();
       const autoSuggest = await createFixture('navigation');
       autoSuggest.moreResults = true;
@@ -714,9 +679,6 @@ describe('autosuggest/Functional', () => {
     });
 
     it('moreResults using enter', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const input = await createInputElement();
       const autoSuggest = await createFixture('navigation');
       autoSuggest.moreResults = true;
@@ -750,9 +712,6 @@ describe('autosuggest/Functional', () => {
     });
 
     it('check onItemMousedown', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const input = await createInputElement();
       const autoSuggest = await createFixture('navigation');
       autoSuggest.moreResults = true;
@@ -787,9 +746,6 @@ describe('autosuggest/Functional', () => {
     });
 
     it('Item should use item.label when it is disabled', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const input = await createInputElement();
       const autoSuggest = await createFixture('navigation');
       const suggestLabel = 'Cornelius';
@@ -814,9 +770,6 @@ describe('autosuggest/Functional', () => {
     });
 
     it('Item should use item.value as display text when it is disabled and has no label', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const input = await createInputElement();
       const autoSuggest = await createFixture('navigation');
       const suggestLabel = 'Cornelius';

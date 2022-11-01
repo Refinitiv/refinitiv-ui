@@ -1,4 +1,4 @@
-import { fixture, isIE, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/chart';
@@ -21,22 +21,18 @@ describe('chart/Chart', () => {
     });
 
     it('DOM structure is correct', async () => {
-      if(!isIE()) {
-        await chartRendered(el);
-        expect(el).shadowDom.to.equalSnapshot({
-          ignoreAttributes: ['width', 'height', 'style']
-        });
-      }
+      await chartRendered(el);
+      expect(el).shadowDom.to.equalSnapshot({
+        ignoreAttributes: ['width', 'height', 'style']
+      });
     });
 
     it('DOM structure of chart with config is correct', async () => {
-      if(!isIE()) {
-        el.config = config.line;
-        await chartRendered(el);
-        expect(el).shadowDom.to.equalSnapshot({
-          ignoreAttributes: ['width', 'height', 'style']
-        });
-      }
+      el.config = config.line;
+      await chartRendered(el);
+      expect(el).shadowDom.to.equalSnapshot({
+        ignoreAttributes: ['width', 'height', 'style']
+      });
     });
 
     it('Should support line chart', async () => {

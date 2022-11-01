@@ -1,12 +1,12 @@
-import { fixture, expect, elementUpdated, oneEvent, keyboardEvent, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
 import '@refinitiv-ui/elements/radio-button';
 import '@refinitiv-ui/elemental-theme/light/ef-radio-button';
 import './radio-wrapper-mockup.js';
 
 const createEnterKeyboardEvent = () => keyboardEvent('keydown', { key: 'Enter' });
-const createSpacebarKeyboardEvent = () => keyboardEvent('keydown', { key: isIE() ? 'Spacebar' : ' ' });
-const keyArrowLeft = () => keyboardEvent('keydown', { key: isIE() ? 'Left' : 'ArrowLeft'});
-const keyArrowRight = () => keyboardEvent('keydown', { key: isIE() ? 'Right' : 'ArrowRight'});
+const createSpacebarKeyboardEvent = () => keyboardEvent('keydown', { key: ' ' });
+const keyArrowLeft = () => keyboardEvent('keydown', { key: 'ArrowLeft'});
+const keyArrowRight = () => keyboardEvent('keydown', { key: 'ArrowRight'});
 
 const updateGroup = async (group) => {
   for (let i = 0; i < group.length; i += 1) {

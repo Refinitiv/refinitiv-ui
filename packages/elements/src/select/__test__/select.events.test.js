@@ -1,12 +1,8 @@
-import { fixture, expect, elementUpdated, nextFrame, keyboardEvent, triggerFocusFor, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame, keyboardEvent, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 import { getOptions, openedUpdated, getData, getMenuEl } from './utils';
 
 import '@refinitiv-ui/elements/select';
 import '@refinitiv-ui/elemental-theme/light/ef-select';
-
-// Some tests run locally, but fail on CI
-// set this flag to false to run all tests locally in IE
-const skipCITest = isIE() && true;
 
 describe('select/Events', () => {
   describe('opened-changed event is fired only on internal actions', () => {
@@ -27,10 +23,6 @@ describe('select/Events', () => {
     });
 
     it('opened-changed is fired when trigger is pressed', async function () {
-      if (skipCITest) {
-        this.skip();
-      }
-
       const el = await fixture(`<ef-select>${getOptions()}</ef-select>`);
       await triggerFocusFor(el);
       const trigger = el.shadowRoot.querySelector('#trigger');

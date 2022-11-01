@@ -1,12 +1,12 @@
-import { fixture, expect, keyboardEvent, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, keyboardEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tab-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
 
-const keyArrowLeft = keyboardEvent('keydown', { key: isIE() ? 'Left' : 'ArrowLeft'});
-const keyArrowRight = keyboardEvent('keydown', { key: isIE() ? 'Right' : 'ArrowRight' });
-const keyArrowDown = keyboardEvent('keydown', { key: isIE() ? 'Down' : 'ArrowDown' });
-const keyArrowUp = keyboardEvent('keydown', { key: isIE() ? 'Up' : 'ArrowUp'});
+const keyArrowLeft = keyboardEvent('keydown', { key: 'ArrowLeft'});
+const keyArrowRight = keyboardEvent('keydown', { key: 'ArrowRight' });
+const keyArrowDown = keyboardEvent('keydown', { key: 'ArrowDown' });
+const keyArrowUp = keyboardEvent('keydown', { key: 'ArrowUp'});
 const keyHome = keyboardEvent('keydown', { key: 'Home'});
 const keyEnd = keyboardEvent('keydown', { key: 'End'});
 

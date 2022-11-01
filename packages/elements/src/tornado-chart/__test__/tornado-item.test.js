@@ -1,4 +1,4 @@
-import { isIE, fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tornado-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-tornado-chart.js';
@@ -15,30 +15,19 @@ describe('tornado-chart/TornadoChartItem', () => {
 
       it('DOM structure is correct', async () => {
         const el = await fixture('<ef-tornado-item></ef-tornado-item>');
-
-        if(isIE()) {
-          expect(el).shadowDom.to.equalSnapshot(IGNORE);
-        }
-        else {
-          expect(el).shadowDom.to.equalSnapshot({
-            ignoreAttributes: [{
-              tags: ['ef-layout'], attributes: ['style']
-            }]
-          });
-        }
+        expect(el).shadowDom.to.equalSnapshot({
+          ignoreAttributes: [{
+            tags: ['ef-layout'], attributes: ['style']
+          }]
+        });
       });
       it('DOM structure with vertical property is correct', async () => {
         const el = await fixture('<ef-tornado-item vertical></ef-tornado-item>');
-        if(isIE()) {
-          expect(el).shadowDom.to.equalSnapshot(IGNORE);
-        }
-        else {
-          expect(el).shadowDom.to.equalSnapshot({
-            ignoreAttributes: [{
-              tags: ['ef-layout'], attributes: ['style']
-            }]
-          });
-        }
+        expect(el).shadowDom.to.equalSnapshot({
+          ignoreAttributes: [{
+            tags: ['ef-layout'], attributes: ['style']
+          }]
+        });
       });
       it('DOM structure with values and labels is correct', async () => {
         const el = await fixture(`
@@ -50,16 +39,11 @@ describe('tornado-chart/TornadoChartItem', () => {
       >
         Finland
       </ef-tornado-item>`);
-        if(isIE()) {
-          expect(el).shadowDom.to.equalSnapshot(IGNORE);
-        }
-        else {
-          expect(el).shadowDom.to.equalSnapshot({
-            ignoreAttributes: [{
-              tags: ['ef-layout'], attributes: ['style']
-            }]
-          });
-        }
+        expect(el).shadowDom.to.equalSnapshot({
+          ignoreAttributes: [{
+            tags: ['ef-layout'], attributes: ['style']
+          }]
+        });
       });
       it('DOM structure with values, labels and highlighted state is correct', async () => {
         const el = await fixture(`
@@ -72,16 +56,11 @@ describe('tornado-chart/TornadoChartItem', () => {
       >
         Finland
       </ef-tornado-item>`);
-        if(isIE()) {
-          expect(el).shadowDom.to.equalSnapshot(IGNORE);
-        }
-        else {
-          expect(el).shadowDom.to.equalSnapshot({
-            ignoreAttributes: [{
-              tags: ['ef-layout'], attributes: ['style']
-            }]
-          });
-        }
+        expect(el).shadowDom.to.equalSnapshot({
+          ignoreAttributes: [{
+            tags: ['ef-layout'], attributes: ['style']
+          }]
+        });
       });
     });
 

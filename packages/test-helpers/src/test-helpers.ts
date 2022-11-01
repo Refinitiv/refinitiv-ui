@@ -1,6 +1,3 @@
-/* istanbul ignore file */
-import { isIE } from '@open-wc/testing';
-
 export {
   html,
   unsafeStatic,
@@ -10,7 +7,6 @@ export {
   triggerBlurFor,
   triggerFocusFor,
   oneEvent,
-  isIE,
   defineCE,
   aTimeout,
   waitUntil,
@@ -38,21 +34,5 @@ export interface CustomKeyboardEvent extends CustomEvent {
  * @returns {KeyboardEvent|CustomKeyboardEvent} keyboard event
  */
 export const keyboardEvent = (type: string, init: KeyboardEventInit = {}): KeyboardEvent|CustomKeyboardEvent => {
-  if (!isIE()) {
-    return new KeyboardEvent(type, init);
-  }
-
-  const event = new CustomEvent(type, {
-    detail: 0,
-    bubbles: true,
-    cancelable: true,
-    composed: true
-  }) as CustomKeyboardEvent;
-  event.key = init.key || '';
-  event.shiftKey = init.shiftKey || false;
-  event.altKey = init.altKey || false;
-  event.ctrlKey = init.ctrlKey || false;
-  event.metaKey = init.metaKey || false;
-
-  return event;
+  return new KeyboardEvent(type, init);
 };

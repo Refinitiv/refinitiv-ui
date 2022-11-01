@@ -4,10 +4,6 @@ import { getData, openedUpdated, makeQueryRequest, onFocusEl } from './utils';
 import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 
-// Some tests run locally, but fail on CI
-// set this flag to false to run all tests locally in IE
-// const skipCITest = isIE() && true;
-
 const dispatchCustomEvent = async (el, eventName) => {
   el.dispatchEvent(new CustomEvent(eventName, {
     bubbles: true,
@@ -36,10 +32,6 @@ describe('combo-box/Interaction', () => {
     });
 
     it('Tapping on toggles button should toggle popup', async function () {
-      // if (skipCITest) {
-      //   // This test work locally in IE11, but breaks on CI
-      //   this.skip();
-      // }
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
