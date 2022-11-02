@@ -275,17 +275,17 @@ export class ColorPicker extends ControlElement {
       this._colorAriaLabel = name;
       return;
     }
-    const translate = await Promise.all([this.colorTPromise(tone),
+    const translate = await Promise.all([
       this.colorTPromise(main),
       this.colorTPromise('WITH', { number: percent }),
       this.colorTPromise(mixed)]);
-    const [toneT, mainT, percentT, mixedT] = translate;
-    const formatTone = toneT ? `${toneT}. ` : '';
+    const [mainT, percentT, mixedT] = translate;
+    const toneT = tone ? `${await this.colorTPromise(tone)}. ` : '';
     if (percent) {
-      this._colorAriaLabel = `${formatTone}${mainT} ${percentT} ${mixedT}`;
+      this._colorAriaLabel = `${toneT}${mainT} ${percentT} ${mixedT}`;
     }
     else {
-      this._colorAriaLabel = `${formatTone}${mainT}`;
+      this._colorAriaLabel = `${toneT}${mainT}`;
     }
   }
 
