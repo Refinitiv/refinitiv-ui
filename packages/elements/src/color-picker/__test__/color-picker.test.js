@@ -32,10 +32,10 @@ describe('color-picker/ColorPicker', () => {
     });
     it('Should update aria-label when change value color', async () => {
       const el = await fixture('<ef-color-picker value="#0000FF"></ef-color-picker>');
-      expect(el._colorAriaLabel).to.equal('blue');
+      expect(el.colorAriaLabel).to.equal('blue');
       el.value = '#ff0000';
       await elementUpdated(el);
-      expect(el._colorAriaLabel).to.equal('red');
+      expect(el.colorAriaLabel).to.equal('red');
     });
     it('Should reset to default value when value is invalid', async () => {
       const el = await fixture('<ef-color-picker value="hello"></ef-color-picker>');
