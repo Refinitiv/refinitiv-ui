@@ -1,5 +1,5 @@
 <!-- 
-title: Element Framework Extra
+title: Element Framework Extensions
 location: ./creating-custom-elements
 type: page
 layout: default
@@ -9,7 +9,7 @@ layout: default
 
 This page provides a conceptual overview of how to create and publish new elements to extend Element Framework.
 
-If you find that you need to use the same UI logic in more than one application, you may have a candidate for a new element. An example might be a button that opens your camera feed.
+If you find that you need to use the same UI logic in more than one application, you may have a candidate for a new element.
 
 ## Playground
 
@@ -23,6 +23,8 @@ Get up to speed quickly, by reading through the short tutorial.
 
 <a href="./tutorials/element" style="display:inline-block;padding:4px 12px;background:blue;color:white">Start Now</a>
 
-## Element Templates
+## Starter Template
 
-@> Coming soon!
+Instantly create a project for your component. It comes with completed project structure and tools for linting, testing, demo page.
+
+<a href="./tools/starter-templates" style="display:inline-block;padding:4px 12px;background:blue;color:white">Start Now</a>

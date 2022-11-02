@@ -79,26 +79,6 @@ Then at the root directory of the project, create `index.html` with following co
         document.querySelector("h1").textContent = "Done!";
       });
     </script>
-    <style>
-      .panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 400px;
-        height: 300px;
-        margin: 10em auto;
-      }
-      .input {
-        margin-top: 8px;
-      }
-      .btn-container {
-        display: flex;
-        margin: 12px 0;
-      }
-      .btn-container ef-button {
-        margin: 0 8px;
-      }
-    </style>
   </body>
 </html>
 ```
@@ -187,26 +167,6 @@ Then at the root directory of the project, create `index.html` with following co
         document.querySelector("h1").textContent = "Done!";
       });
     </script>
-    <style>
-      .panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 400px;
-        height: 300px;
-        margin: 10em auto;
-      }
-      .input {
-        margin-top: 8px;
-      }
-      .btn-container {
-        display: flex;
-        margin: 12px 0;
-      }
-      .btn-container ef-button {
-        margin: 0 8px;
-      }
-    </style>
   </body>
 </html>
 ```
@@ -330,26 +290,6 @@ Then at the root directory of the project, create `index.html` with following co
         document.querySelector("h1").textContent = "Done!";
       });
     </script>
-    <style>
-      .panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 400px;
-        height: 300px;
-        margin: 10em auto;
-      }
-      .input {
-        margin-top: 8px;
-      }
-      .btn-container {
-        display: flex;
-        margin: 12px 0;
-      }
-      .btn-container ef-button {
-        margin: 0 8px;
-      }
-    </style>
   </body>
 </html>
 ```
