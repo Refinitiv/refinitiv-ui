@@ -1,4 +1,4 @@
-import { elementUpdated, nextFrame, keyboardEvent as createKeyboardEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 import { RenderView } from '../../../lib/calendar/constants.js';
 
 export const getDateCells = (calendarEl) => calendarEl.renderRoot.querySelectorAll('[part~=cell] > [part~=selection][tabindex]');
@@ -36,7 +36,7 @@ export const clickPrev = async (el) => {
 };
 
 export const keyboardEvent = async (el, key, type = 'keydown') => {
-  const event = createKeyboardEvent(type, {
+  const event = new KeyboardEvent(type, {
     key,
     detail: 0,
     bubbles: true,

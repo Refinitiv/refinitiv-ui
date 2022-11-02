@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent, keyboardEvent, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/clock';
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
@@ -23,28 +23,24 @@ describe('clock/Interactive', () => {
 
     const InputKey = {
       ArrowLeft: {
-        ieKey: 'Left',
         key: 'ArrowLeft'
       },
       ArrowUp: {
-        ieKey: 'Up',
         key: 'ArrowUp'
       },
       ArrowRight: {
-        ieKey: 'Right',
         key: 'ArrowRight'
       },
       ArrowDown: {
-        ieKey: 'Down',
         key: 'ArrowDown'
       }
     };
 
     const createKeyboardEvent = (elem, keyOption) => {
       keyOption = Object.assign({ bubbles: true }, keyOption);
-      elem.dispatchEvent(keyboardEvent('keydown', keyOption));
-      elem.dispatchEvent(keyboardEvent('keypress', keyOption));
-      elem.dispatchEvent(keyboardEvent('keyup', keyOption));
+      elem.dispatchEvent(new KeyboardEvent('keydown', keyOption));
+      elem.dispatchEvent(new KeyboardEvent('keypress', keyOption));
+      elem.dispatchEvent(new KeyboardEvent('keyup', keyOption));
     };
 
     beforeEach(async () => {

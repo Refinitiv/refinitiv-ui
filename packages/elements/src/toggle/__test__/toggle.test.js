@@ -332,25 +332,3 @@ const createKeyboardEvent = (key) => {
     which: key
   });
 };
-const createIEKeyboardEvent = (key) => {
-  const event = document.createEvent('KeyboardEvent');
-  Object.defineProperty(event, 'which', {
-    get: () => key
-  });
-  Object.defineProperty(event, 'keyCode', {
-    get: () => key
-  });
-  event.initKeyboardEvent(
-    'keydown',
-    true, // canBubbleArg,
-    true, // cancelableArg,
-    null, // viewArg,  Specifies UIEvent.view. This value may be null.
-    false, // ctrlKeyArg,
-    false, // altKeyArg,
-    false, // shiftKeyArg,
-    false, // metaKeyArg,
-    key, // keyCodeArg,
-    0
-  );
-  return event;
-};

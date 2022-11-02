@@ -1,8 +1,8 @@
-import { elementUpdated, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated } from '@refinitiv-ui/test-helpers';
 import { format, parse, DateFormat, DateTimeFormat, addMonths as utilsAddMonths } from '@refinitiv-ui/utils';
 
 export const fireKeydownEvent = (element, key, shiftKey = false) => {
-  const event = keyboardEvent('keydown', { key, shiftKey });
+  const event = new KeyboardEvent('keydown', { key, shiftKey });
   element.dispatchEvent(event);
 };
 

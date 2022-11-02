@@ -47,7 +47,7 @@ describe('Elf Translate Element Lang Test', () => {
     expect(el.defaultEl.innerText).to.equal('Региональные настройки: ru');
     el.lang = 'en';
     await elementUpdated(el);
-    await nextFrame(el); // need for IE11
+    await nextFrame(el);
     expect(el.defaultEl.innerText).to.equal('This is en locale');
   });
 

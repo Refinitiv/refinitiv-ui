@@ -1,4 +1,4 @@
-import { fixture, expect, oneEvent, elementUpdated, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, oneEvent, elementUpdated } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/number-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
@@ -305,26 +305,26 @@ describe('number-field/NumberField', () => {
   describe('Keyboard Events', () => {
     it('ArrowUp should increase value', async () => {
       const el = await fixture('<ef-number-field value="2"></ef-number-field>');
-      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(el.value).to.be.equal('3');
     });
     it('ArrowDown should decrease value', async () => {
       const el = await fixture('<ef-number-field value="2"></ef-number-field>');
-      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(el.value).to.be.equal('1');
     });
     it('ArrowUp/Down should do nothing when disabled', async () => {
       const el = await fixture('<ef-number-field value="2" disabled></ef-number-field>');
-      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(el.value).to.be.equal('2');
-      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(el.value).to.be.equal('2');
     });
     it('ArrowUp/Down should do nothing when readonly', async () => {
       const el = await fixture('<ef-number-field value="2" readonly></ef-number-field>');
-      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(el.value).to.be.equal('2');
-      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(el.value).to.be.equal('2');
     });
   });

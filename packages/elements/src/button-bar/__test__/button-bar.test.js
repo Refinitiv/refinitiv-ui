@@ -1,16 +1,16 @@
-import { fixture, expect, html, oneEvent, keyboardEvent, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, html, oneEvent, elementUpdated } from '@refinitiv-ui/test-helpers';
 
 import { Button } from '@refinitiv-ui/elements/button';
 import { ButtonBar } from '@refinitiv-ui/elements/button-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-button-bar';
 
-const keyArrowLeft = keyboardEvent('keydown', { key: 'ArrowLeft'});
-const keyArrowRight = keyboardEvent('keydown', { key: 'ArrowRight' });
-const keyArrowDown = keyboardEvent('keydown', { key: 'ArrowDown' });
-const keyArrowUp = keyboardEvent('keydown', { key: 'ArrowUp'});
-const keyHome = keyboardEvent('keydown', { key: 'Home'});
-const keyEnd = keyboardEvent('keydown', { key: 'End'});
-const keyTab = keyboardEvent('keydown', { key: 'Tab'});
+const keyArrowLeft = new KeyboardEvent('keydown', { key: 'ArrowLeft'});
+const keyArrowRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+const keyArrowDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+const keyArrowUp = new KeyboardEvent('keydown', { key: 'ArrowUp'});
+const keyHome = new KeyboardEvent('keydown', { key: 'Home'});
+const keyEnd = new KeyboardEvent('keydown', { key: 'End'});
+const keyTab = new KeyboardEvent('keydown', { key: 'Tab'});
 
 describe('button-bar/ButtonBar', () => {
   it('should be created', async () => {

@@ -15,7 +15,7 @@ describe('autosuggest/Functional', () => {
   describe('Functionality', async () => {
 
     it('Attach target event are set and public functions fired and removed', async function () {
-      // blur() method is not work well on firefox at all, while focus not work well on CI for IE11
+      // blur() method is not work well on firefox at all
       if (isFirefox()) {
         this.skip();
       }
@@ -507,7 +507,7 @@ describe('autosuggest/Functional', () => {
     });
 
     it('input blur native method', async function () {
-      // blur() method is not work well on firefox at all, while focus not work well on CI for IE11
+      // blur() method is not work well on firefox at all
       if (isFirefox()) {
         this.skip();
       }

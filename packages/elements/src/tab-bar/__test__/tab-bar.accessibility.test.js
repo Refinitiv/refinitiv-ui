@@ -1,14 +1,14 @@
-import { fixture, expect, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tab-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
 
-const keyArrowLeft = keyboardEvent('keydown', { key: 'ArrowLeft'});
-const keyArrowRight = keyboardEvent('keydown', { key: 'ArrowRight' });
-const keyArrowDown = keyboardEvent('keydown', { key: 'ArrowDown' });
-const keyArrowUp = keyboardEvent('keydown', { key: 'ArrowUp'});
-const keyHome = keyboardEvent('keydown', { key: 'Home'});
-const keyEnd = keyboardEvent('keydown', { key: 'End'});
+const keyArrowLeft = new KeyboardEvent('keydown', { key: 'ArrowLeft'});
+const keyArrowRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+const keyArrowDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+const keyArrowUp = new KeyboardEvent('keydown', { key: 'ArrowUp'});
+const keyHome = new KeyboardEvent('keydown', { key: 'Home'});
+const keyEnd = new KeyboardEvent('keydown', { key: 'End'});
 
 const isActiveAndFocusable = (element) => {
   return element.active && element.tabIndex === 0;

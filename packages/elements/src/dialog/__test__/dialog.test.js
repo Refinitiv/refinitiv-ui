@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/dialog';
 import { MAIN_MOUSE_BUTTON } from '../../../lib/dialog/draggable-element.js';
@@ -75,7 +75,7 @@ describe('dialog/Dialog', () => {
       const el = await fixture('<ef-dialog></ef-dialog>');
       el.opened = true;
       await elementUpdated(el);
-      const keyUpEvent = keyboardEvent('keydown', { key: 'Esc' });
+      const keyUpEvent = new KeyboardEvent('keydown', { key: 'Esc' });
       setTimeout(() => el.dispatchEvent(keyUpEvent));
       await oneEvent(el, 'cancel');
       expect(el.opened).to.equal(false);

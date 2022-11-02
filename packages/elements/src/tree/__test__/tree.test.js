@@ -1,22 +1,15 @@
-import {
-  fixture,
-  expect,
-  elementUpdated,
-  nextFrame,
-  keyboardEvent,
-  oneEvent
-} from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/tree';
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import { multiLevelData } from './mock_data/multi-level';
 
-const keyArrowUp = keyboardEvent('keydown', { key: 'Up' });
-const keyArrowDown = keyboardEvent('keydown', { key: 'Down' });
-const keyArrowLeft = keyboardEvent('keydown', { key: 'Left' });
-const keyArrowRight = keyboardEvent('keydown', { key: 'Right' });
-const keyEnter = keyboardEvent('keydown', { key: 'Enter' });
+const keyArrowUp = new KeyboardEvent('keydown', { key: 'Up' });
+const keyArrowDown = new KeyboardEvent('keydown', { key: 'Down' });
+const keyArrowLeft = new KeyboardEvent('keydown', { key: 'Left' });
+const keyArrowRight = new KeyboardEvent('keydown', { key: 'Right' });
+const keyEnter = new KeyboardEvent('keydown', { key: 'Enter' });
 
 const flatData = [{
   icon: 'info',

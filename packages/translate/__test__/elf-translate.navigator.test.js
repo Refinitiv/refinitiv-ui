@@ -20,7 +20,7 @@ describe('Elf Translate Navigator Test', () => {
 
     el.lang = 'en-GB';
     await elementUpdated(el);
-    await nextFrame(el); // need for IE11
+    await nextFrame(el);
     expect(el.defaultEl.innerText).to.equal('This is en locale', 'Element locale should take priority over document locale');
   });
 });

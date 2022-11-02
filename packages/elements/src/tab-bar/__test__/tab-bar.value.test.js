@@ -1,9 +1,9 @@
-import { fixture, expect, elementUpdated, keyboardEvent, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tab-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
 
-const keyArrowRight = keyboardEvent('keydown', { key: 'ArrowRight' });
+const keyArrowRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
 
 describe('tab-bar/value', () => {
   let el;

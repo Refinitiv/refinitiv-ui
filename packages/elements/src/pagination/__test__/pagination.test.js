@@ -4,7 +4,6 @@ import {
   elementUpdated,
   oneEvent,
   triggerFocusFor,
-  keyboardEvent,
   aTimeout,
   waitUntil,
   nextFrame
@@ -320,7 +319,7 @@ describe('pagination/Pagination', () => {
       await elementFocused(el);
 
       inputPart.value = '3';
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
       expect(el.value).to.equal('3');
     });
@@ -344,7 +343,7 @@ describe('pagination/Pagination', () => {
       await elementFocused(el);
 
       inputPart.value = 'Hello';
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
       expect(el.value).to.equal(value);
     });
@@ -357,7 +356,7 @@ describe('pagination/Pagination', () => {
       await triggerFocusFor(inputPart);
       await elementFocused(el);
       inputPart.value = '-5';
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
       expect(el.value).to.equal('1');
 
@@ -367,7 +366,7 @@ describe('pagination/Pagination', () => {
       await triggerFocusFor(inputPart);
       await elementFocused(el);
       inputPart.value = '0';
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
       expect(el.value).to.equal('1');
     });
@@ -376,7 +375,7 @@ describe('pagination/Pagination', () => {
       await triggerFocusFor(inputPart);
       await elementFocused(el);
       inputPart.value = '100';
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
       expect(el.value).to.equal(el.max);
     });
@@ -447,13 +446,13 @@ describe('pagination/Pagination', () => {
       await triggerFocusFor(inputPart);
       expect(el.value).to.equal('');
 
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(inputPart.value).to.equal('2');
 
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Up' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Up' }));
       expect(inputPart.value).to.equal('3');
 
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
 
       expect(el.value).to.equal('3');
@@ -466,13 +465,13 @@ describe('pagination/Pagination', () => {
 
       await triggerFocusFor(inputPart);
       await elementUpdated(el);
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(inputPart.value).to.equal('6');
 
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Down' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Down' }));
       expect(inputPart.value).to.equal('5');
 
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
 
       expect(el.value).to.equal('5');
@@ -484,10 +483,10 @@ describe('pagination/Pagination', () => {
       expect(el.value).to.equal('7');
 
       await triggerFocusFor(inputPart);
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Home' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home' }));
       expect(inputPart.value).to.equal('1');
 
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
 
       expect(el.value).to.equal('1');
@@ -497,10 +496,10 @@ describe('pagination/Pagination', () => {
       expect(el.value).to.equal('');
 
       await triggerFocusFor(inputPart);
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'End' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
       expect(inputPart.value).to.equal('7');
 
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
 
       expect(el.value).to.equal('7');
@@ -628,7 +627,7 @@ describe('pagination/Pagination', () => {
 
       setTimeout(() => { inputPart.value = '3' });
       await elementUpdated(el);
-      setTimeout(() => inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' })));
+      setTimeout(() => inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' })));
 
       const { detail } = await oneEvent(el, 'value-changed');
       expect(el.value).to.equal('3');
@@ -675,13 +674,13 @@ describe('pagination/Pagination', () => {
       await triggerFocusFor(inputPart);
 
       expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('5');
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('6');
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('7');
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Home' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home' }));
       expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('1');
-      inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'End' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
       expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('7');
     });
 

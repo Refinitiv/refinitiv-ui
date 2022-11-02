@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, nextFrame, keyboardEvent, triggerFocusFor } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 import { getOptions, openedUpdated, getData, getMenuEl } from './utils';
 
 import '@refinitiv-ui/elements/select';
@@ -111,7 +111,7 @@ describe('select/Events', () => {
         opened = value;
       });
 
-      el.dispatchEvent(keyboardEvent('keydown', { key: 'A' })); /* random key, do nothing */
+      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'A' })); /* random key, do nothing */
       await openedUpdated(el);
       expect(counter).to.equal(0, 'opened-changed should not fire for A key');
 
@@ -119,7 +119,7 @@ describe('select/Events', () => {
 
       for (let i = 0; i < openEvents.length; i += 1) {
         const key = openEvents[i];
-        el.dispatchEvent(keyboardEvent('keydown', { key }));
+        el.dispatchEvent(new KeyboardEvent('keydown', { key }));
         await openedUpdated(el);
         expect(counter).to.equal(i + 1, `opened-changed should fire for "${key}"`);
         expect(opened).to.equal(true, `opened-changed did not pass correct value for "${key}"`);
@@ -143,7 +143,7 @@ describe('select/Events', () => {
         el.opened = true;
         await openedUpdated(el);
         const key = closeEvents[i];
-        document.dispatchEvent(keyboardEvent('keydown', { key }));
+        document.dispatchEvent(new KeyboardEvent('keydown', { key }));
         await openedUpdated(el);
         expect(counter).to.equal(i + 1, `opened-changed should fire for "${key}"`);
         expect(opened).to.equal(false, `opened-changed did not pass correct value for "${key}"`);
@@ -165,7 +165,7 @@ describe('select/Events', () => {
         el.opened = true;
         await openedUpdated(el);
         const key = closeEvents[i];
-        getMenuEl(el).dispatchEvent(keyboardEvent('keydown', { key }));
+        getMenuEl(el).dispatchEvent(new KeyboardEvent('keydown', { key }));
         await openedUpdated(el);
         expect(counter).to.equal(i + 1, `opened-changed should fire for "${key}"`);
         expect(opened).to.equal(false, `opened-changed did not pass correct value for "${key}"`);
@@ -239,7 +239,7 @@ describe('select/Events', () => {
         el.setItemHighlight(options[1]); // AF
         await nextFrame();
         const key = valueChangedEvents[i];
-        getMenuEl(el).dispatchEvent(keyboardEvent('keydown', { key }));
+        getMenuEl(el).dispatchEvent(new KeyboardEvent('keydown', { key }));
         await openedUpdated(el);
         expect(counter).to.equal(i + 1, `value-changed should fire when item selected for "${key}"`);
         expect(changedValue).to.equal('AF', `value-changed detail: value should pass the selected value for "${key}"`);
