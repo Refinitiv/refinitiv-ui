@@ -11,6 +11,10 @@ inputs:
     description: 'Run test in all packages or only affected packages'
     required: false
     default: 'affected' # affected|all
+  target:
+    description: 'Run test on the package/element'
+    required: false
+    default: ''
   coverage:
     description: 'Include test coverage'
     required: false
@@ -68,12 +72,19 @@ runs:
         echo "Updated"
 
     - name: Test
+      if: ${{ inputs.target == '' || inputs.target == 'all' }}
       shell: bash
       # Prevent NX caching for mode `all` because it must run all testing, even though the code has not changed.
       run: |
         [[ "${{ inputs.mode }}" == "affected" ]] && export OPTIONS="--base=${{ inputs.base }}"
         [[ "${{ inputs.mode }}" == "all" ]] && export OPTIONS="--skip-nx-cache"
         npm run test:${{ inputs.mode }} -- $OPTIONS --parallel=${{ inputs.parallel }} ${{ env.BROWSERS_OPTION }} --includeCoverage ${{ inputs.coverage }} --output minimal
+
+    - name: Test Package or Element
+      if: ${{ inputs.target != '' }}
+      shell: bash
+      run: |
+        npm run test ${{ inputs.target }} -- ${{ env.BROWSERS_OPTION }} --includeCoverage ${{ inputs.coverage }}
 
     - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
       if: ${{ inputs.browserstack == 'true' }}
