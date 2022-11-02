@@ -6,13 +6,6 @@
 
 ```html
 <div
-  aria-label=""
-  aria-live="polite"
-  part="aria-selection"
-  role="status"
->
-</div>
-<div
   part="color-item"
   style="background-color:#001EFF;"
 >
@@ -23,13 +16,6 @@
 ####   `DOM structure is correct when opened`
 
 ```html
-<div
-  aria-label=""
-  aria-live="polite"
-  part="aria-selection"
-  role="status"
->
-</div>
 <div part="color-item">
 </div>
 <ef-overlay-viewport>
@@ -39,6 +25,7 @@
   draggable=""
   offset="4"
   opened=""
+  part="dialog"
   role="dialog"
   tabindex="-1"
   with-shadow=""
