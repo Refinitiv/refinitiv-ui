@@ -22,6 +22,7 @@ type: nav
     - [Calendar](./elements/calendar)
     - [Checkbox](./elements/checkbox)
     - [Color Dialog](./elements/color-dialog)
+    - [Color Picker](./elements/color-picker)
     - [Combo Box](./elements/combo-box)
     - [Counter](./elements/counter)
     - [Datetime Picker](./elements/datetime-picker)
