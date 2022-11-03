@@ -6,11 +6,9 @@ describe('Elf Translate Navigator Test', () => {
     // make sure lang is not set from previous tests
     document.documentElement.removeAttribute('lang');
 
-    let el;
-
     // Force navigator language
     Object.defineProperty(navigator, 'language', { value: 'ru' });
-    el = await fixture('<test-translate></test-translate>');
+    const el = await fixture('<test-translate></test-translate>');
     expect(el.defaultEl.innerText).to.equal('Региональные настройки: ru', 'Navigator locale is not taken into account');
 
     document.documentElement.lang = 'en-US';
