@@ -22,6 +22,7 @@ type: nav
     - [Calendar](./elements/calendar)
     - [Checkbox](./elements/checkbox)
     - [Color Dialog](./elements/color-dialog)
+    - [Color Picker](./elements/color-picker)
     - [Combo Box](./elements/combo-box)
     - [Counter](./elements/counter)
     - [Datetime Picker](./elements/datetime-picker)
@@ -76,8 +77,8 @@ type: nav
     - [Grid](./elements/grid)
 
 - Using Components
+  - [Bundling Configuration](./guides/bundling-configuration)
   + Framework Integration
-    - [Vanilla](./tutorials/vanilla-js)
     - [Angular](./tutorials/angular)
     - [React](./tutorials/react)
     - [Vue](./tutorials/vue)

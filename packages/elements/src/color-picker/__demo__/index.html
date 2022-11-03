@@ -39,7 +39,7 @@
         Default Hex Value (Optional): <input id="hexInputDefault" class="hex-input" value=""> 
       </div>
       <div>
-        <p> Output: </p>
+        <p> Output: <span id="readbleColor"></span></p>
         <textarea readonly id="defaultColorOutput"></textarea>
       </div>
       <script>
@@ -47,6 +47,7 @@
         const defaultColorPicker = document.getElementById('defaultColorPicker');
         const hexInputDefault = document.getElementById('hexInputDefault');
         const defaultColorOutput = document.getElementById('defaultColorOutput');
+        const readbleColor = document.getElementById('readbleColor');
         hexInputDefault.addEventListener('change', event => {
           defaultColorPicker.setAttribute('value', hexInputDefault.value);
         });
@@ -54,6 +55,7 @@
           const value = event.detail.value;
           hexInputDefault.value = value;
           defaultColorOutput.value += 'Value Change : ' + value + '\n';
+          setTimeout(() => readbleColor.textContent = value ? defaultColorPicker._colorAriaLabel : '', 0);
         });
       </script>
     </demo-block>
