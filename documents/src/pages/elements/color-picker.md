@@ -52,3 +52,25 @@ Color picker will set attribute/property `value` to `""` when users select no-co
 ```html
 <ef-color-picker allow-nocolor></ef-color-picker>
 ```
+
+## Accessibility
+::a11y-intro::
+
+`ef-color-picker` is assigned `role="button"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state.
+Users can open the dialog with color dialog element and use keyboard navigation to select the color from the color dialog.
+
+`ef-color-picker` has implemented keyboard navigation for users to navigate on the UI. You must ensure that the element has associated label by using `aria-label` or `aria-labelledby`.
+
+```html
+<ef-color-picker
+  aria-label="Pick a color">
+</ef-color-picker>
+```
+```html
+<label id="label">Pick a color</label>
+<ef-color-picker 
+  aria-labelledby="label">
+</ef-color-picker>
+```
+
+::a11y-end::
