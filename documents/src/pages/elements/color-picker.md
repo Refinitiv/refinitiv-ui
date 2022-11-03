@@ -63,13 +63,13 @@ Users can open the dialog with color dialog element and use keyboard navigation 
 
 ```html
 <ef-color-picker
-  aria-label="Pick a color">
+  aria-description="Pick a color">
 </ef-color-picker>
 ```
 ```html
 <label id="label">Pick a color</label>
 <ef-color-picker 
-  aria-labelledby="label">
+  aria-describedby="label">
 </ef-color-picker>
 ```
 
