@@ -75,7 +75,7 @@ const parse = (entrypoint, variables) => {
     // Detect correct elemName and append theme information as css variable in less file for use in telemetry
     lessInput = (elemName === 'html') ? stampThemeInfo(lessInput): lessInput;
     
-    let options = helpers.generateLessOptions(entrypoint, filename);
+    let options = helpers.generateLessOptions(entrypoint, filename, variables);
     let promise = less.render(lessInput, options)
     .then(output => helpers.generateOutput(filename, output, variables));
     tempCollection.push(promise);
