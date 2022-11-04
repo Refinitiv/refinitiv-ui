@@ -15,8 +15,8 @@
     "!.*"
   ],
   "scripts": {
-    "build:light": "theme-compiler light --variant=light --styles=event",
-    "build:dark": "theme-compiler dark --variant=dark --styles=event",
+    "build:light": "theme-compiler light --variant=light --registration=event",
+    "build:dark": "theme-compiler dark --variant=dark --registration=event",
     "build": "npm run build:light && npm run build:dark",
     "build:prod": "npm run build",
     "watch": "watch \"npm run build\" src --wait=10",
