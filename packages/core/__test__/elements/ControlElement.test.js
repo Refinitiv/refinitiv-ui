@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, html, oneEvent, triggerFocusFor, isIE } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, html, oneEvent, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 import { ControlElement } from '../../lib/elements/ControlElement';
 import { customElement } from '../../lib/decorators/custom-element';
 import { elementUpdatedWithAsyncFrames, isChrome, asyncFrames } from '../helper';
@@ -652,9 +652,6 @@ describe('TestControlElement', () => {
       });
 
       it('Test element delegate focus', async function () {
-        if (isIE()) {
-          this.skip();
-        }
         const el = await fixture('<control-element-test></control-element-test>');
         await triggerFocusFor(el);
         expect(el.shadowRoot.activeElement).to.equal(el.shadowRoot.querySelector('#first-element'));

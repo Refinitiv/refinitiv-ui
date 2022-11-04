@@ -1,12 +1,8 @@
-import { fixture, expect, elementUpdated, keyboardEvent, nextFrame, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 import { getData, openedUpdated, makeQueryRequest, onFocusEl } from './utils';
 
 import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
-
-// Some tests run locally, but fail on CI
-// set this flag to false to run all tests locally in IE
-const skipCITest = isIE() && true;
 
 const dispatchCustomEvent = async (el, eventName) => {
   el.dispatchEvent(new CustomEvent(eventName, {
@@ -18,10 +14,6 @@ const dispatchCustomEvent = async (el, eventName) => {
 describe('combo-box/Interaction', () => {
   describe('Can Open Popup By Different Means', () => {
     it('Tapping on combo-box should open popup', async function () {
-      if (skipCITest) {
-        // This test work locally in IE11, but breaks on CI
-        this.skip();
-      }
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
       await dispatchCustomEvent(el, 'tapstart');
@@ -36,10 +28,6 @@ describe('combo-box/Interaction', () => {
     });
 
     it('Tapping on toggles button should toggle popup', async function () {
-      if (skipCITest) {
-        // This test work locally in IE11, but breaks on CI
-        this.skip();
-      }
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -68,7 +56,7 @@ describe('combo-box/Interaction', () => {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
-      const event = keyboardEvent('keydown', {
+      const event = new KeyboardEvent('keydown', {
         key: 'ArrowDown'
       });
       el.dispatchEvent(event);
@@ -80,7 +68,7 @@ describe('combo-box/Interaction', () => {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
-      const event = keyboardEvent('keydown', {
+      const event = new KeyboardEvent('keydown', {
         key: 'Enter'
       });
       el.dispatchEvent(event);
@@ -92,7 +80,7 @@ describe('combo-box/Interaction', () => {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
-      const event = keyboardEvent('keydown', {
+      const event = new KeyboardEvent('keydown', {
         key: 'ArrowUp'
       });
       el.dispatchEvent(event);
@@ -103,11 +91,6 @@ describe('combo-box/Interaction', () => {
 
   describe('Can Select Value In The List', () => {
     it('On tap should select value in the list', async function () {
-      if (skipCITest) {
-        // This test work locally in IE11, but breaks on CI
-        this.skip();
-      }
-
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -121,11 +104,6 @@ describe('combo-box/Interaction', () => {
       expect(el.inputElement.value).to.equal('Afghanistan', 'Tapping on the list did not set the value of input');
     });
     it('Multiple: on tap should select value in the list', async function () {
-      if (skipCITest) {
-        // This test work locally in IE11, but breaks on CI
-        this.skip();
-      }
-
       const el = await fixture('<ef-combo-box opened multiple lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -142,18 +120,13 @@ describe('combo-box/Interaction', () => {
       expect(el.shadowRoot.querySelector("[part='selection-badge']").value).to.equal('2', 'Multiple: counter on the combo-box did not show correct value');
     });
     it('Enter should select a value in the list', async function () {
-      if (skipCITest) {
-        // This test work locally in IE11, but breaks on CI
-        this.skip();
-      }
-
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
       const afItem = el.listEl.querySelectorAll('ef-list-item')[1]; // AF, Afghanistan
       dispatchCustomEvent(afItem, 'mousemove');
       await elementUpdated(afItem);
-      const event = keyboardEvent('keydown', {
+      const event = new KeyboardEvent('keydown', {
         key: 'Enter'
       });
       el.dispatchEvent(event);
@@ -172,11 +145,6 @@ describe('combo-box/Interaction', () => {
 
   describe('Navigation Keys Work As Expected', () => {
     it('Once the list is open the first item should be highlighted', async function () {
-      if (skipCITest) {
-        // This test work locally in IE11, but breaks on CI
-        this.skip();
-      }
-
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -185,16 +153,11 @@ describe('combo-box/Interaction', () => {
       expect(afItem.value).to.equal('AF', 'The first non header item should be highlighted');
     });
     it('Down key should highlight next item', async function () {
-      if (skipCITest) {
-        // This test work locally in IE11, but breaks on CI
-        this.skip();
-      }
-
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
       await onFocusEl(el);
-      const event = keyboardEvent('keydown', {
+      const event = new KeyboardEvent('keydown', {
         key: 'ArrowDown'
       });
       el.dispatchEvent(event);
@@ -203,16 +166,11 @@ describe('combo-box/Interaction', () => {
       expect(axItem.value).to.equal('AX', 'Wrong item is selected');
     });
     it('Up key should highlight previous item', async function () {
-      if (skipCITest) {
-        // This test work locally in IE11, but breaks on CI
-        this.skip();
-      }
-
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
       await onFocusEl(el);
-      const event = keyboardEvent('keydown', {
+      const event = new KeyboardEvent('keydown', {
         key: 'ArrowUp'
       });
       el.dispatchEvent(event);

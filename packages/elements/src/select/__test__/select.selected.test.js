@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 import { getData, getOptions, openedUpdated, snapshotIgnore } from './utils';
 
 import '@refinitiv-ui/elements/select';
@@ -18,7 +18,6 @@ describe('select/Selection', () => {
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.querySelector('ef-item[value=AL]').selected = false;
       await elementUpdated(el);
-      await nextFrame(); // IE11 needs it for unknown reason
       expect(el.value).to.equal('', 'Value is not reset to empty string');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });

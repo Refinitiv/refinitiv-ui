@@ -1,4 +1,4 @@
-import { elementUpdated, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 
 
 /**
@@ -25,22 +25,9 @@ const triggerMouseMove = (el) => {
 };
 
 const triggerKeyEvent = (el, key, type = 'keydown') => {
-  let event;
-  if (isIE()) {
-    event = new CustomEvent(type, {
-      detail: 0,
-      bubbles: true,
-      cancelable: true,
-      composed: true
-    });
-
-    event.key = key || '';
-  }
-  else {
-    event = new KeyboardEvent(type, {
+  const event = new KeyboardEvent(type, {
       key: key
     });
-  }
   el.dispatchEvent(event);
 };
 

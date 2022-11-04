@@ -4,8 +4,7 @@ import {
   elementUpdated,
   oneEvent,
   triggerFocusFor,
-  triggerBlurFor,
-  keyboardEvent
+  triggerBlurFor
 } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
@@ -20,103 +19,86 @@ describe('time-picker/TimePicker', () => {
 
   const InputKey = {
     arrowLeft: {
-      ieKey: 'Left',
       key: 'ArrowLeft',
       which: 37,
       keyCode: 37
     },
     arrowUp: {
-      ieKey: 'Up',
       key: 'ArrowUp',
       which: 38,
       keyCode: 38
     },
     arrowRight: {
-      ieKey: 'Right',
       key: 'ArrowRight',
       which: 39,
       keyCode: 39
     },
     arrowDown: {
-      ieKey: 'Down',
       key: 'ArrowDown',
       which: 40,
       keyCode: 40
     },
     tab: {
-      ieKey: 'Tab',
       key: 'Tab',
       which: 9,
       keyCode: 9
     },
     enter: {
-      ieKey: 'Enter',
       key: 'Enter',
       which: 13,
       keyCode: 13
     },
     num0: {
-      ieKey: '0',
       key: '0',
       which: 48,
       keyCode: 48
     },
     num1: {
-      ieKey: '1',
       key: '1',
       which: 49,
       keyCode: 49
     },
     num2: {
-      ieKey: '2',
       key: '2',
       which: 50,
       keyCode: 50
     },
     num3: {
-      ieKey: '3',
       key: '3',
       which: 51,
       keyCode: 51
     },
     num4: {
-      ieKey: '4',
       key: '4',
       which: 52,
       keyCode: 52
     },
     num5: {
-      ieKey: '5',
       key: '5',
       which: 53,
       keyCode: 53
     },
     num6: {
-      ieKey: '6',
       key: '6',
       which: 54,
       keyCode: 54
     },
     num7: {
-      ieKey: '7',
       key: '7',
       which: 55,
       keyCode: 55
     },
     num8: {
-      ieKey: '8',
       key: '8',
       which: 56,
       keyCode: 56
     },
     num9: {
-      ieKey: '9',
       key: '9',
       which: 57,
       keyCode: 57
     },
     charA: {
-      ieKey: 'a',
       key: 'a',
       which: 65,
       keyCode: 65
@@ -124,9 +106,9 @@ describe('time-picker/TimePicker', () => {
   };
 
   const createKeyboardEvent = (elem, keyOption) => {
-    elem.dispatchEvent(keyboardEvent('keydown', keyOption));
-    elem.dispatchEvent(keyboardEvent('keypress', keyOption));
-    elem.dispatchEvent(keyboardEvent('keyup', keyOption));
+    elem.dispatchEvent(new KeyboardEvent('keydown', keyOption));
+    elem.dispatchEvent(new KeyboardEvent('keypress', keyOption));
+    elem.dispatchEvent(new KeyboardEvent('keyup', keyOption));
   };
 
   const timePickerDefaults = '<ef-time-picker></ef-time-picker>';
@@ -342,10 +324,10 @@ describe('time-picker/TimePicker', () => {
     it('Should able to toggle am/pm', async () => {
       const el = await fixture(timePickerAMPM);
       const toggleEl = el.renderRoot.querySelector('#toggle');
-      toggleEl.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      toggleEl.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
       expect(el.value).to.equal('01:30');
-      toggleEl.dispatchEvent(keyboardEvent('keydown', { key: ' ' }));
+      toggleEl.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
       await elementUpdated(el);
       expect(el.value).to.equal('13:30');
     });

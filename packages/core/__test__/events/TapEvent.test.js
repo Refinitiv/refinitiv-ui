@@ -1,4 +1,4 @@
-import { expect, fixture, html, nextFrame, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { expect, fixture, html, nextFrame } from '@refinitiv-ui/test-helpers';
 import { TapEvent } from '../../lib/events/TapEvent';
 import { isChrome } from '../helper.js';
 
@@ -235,9 +235,9 @@ describe('TestTapEvent', async () => {
 
     it('Should support tap event on role=button when Enter is pressed', async function () {
       const el = await fixture(html`<div role="button">Fake Button</div>`);
-      const keyDownEvent = keyboardEvent('keydown', { key: 'Enter' });
+      const keyDownEvent = new KeyboardEvent('keydown', { key: 'Enter' });
       el.dispatchEvent(keyDownEvent);
-      const keyUpEvent = keyboardEvent('keyup', { key: 'Enter' });
+      const keyUpEvent = new KeyboardEvent('keyup', { key: 'Enter' });
       el.dispatchEvent(keyUpEvent);
       expect(tapEvent).to.exist;
       expect(tapEvent.target).to.equal(el);
@@ -246,9 +246,9 @@ describe('TestTapEvent', async () => {
 
     it('Should support tap event on role=button when Spacebar is pressed', async function () {
       const el = await fixture(html`<div role="button">Fake Button</div>`);
-      const keyDownEvent = keyboardEvent('keydown', { key: ' ' });
+      const keyDownEvent = new KeyboardEvent('keydown', { key: ' ' });
       el.dispatchEvent(keyDownEvent);
-      const keyUpEvent = keyboardEvent('keyup', { key: ' ' });
+      const keyUpEvent = new KeyboardEvent('keyup', { key: ' ' });
       el.dispatchEvent(keyUpEvent);
       expect(tapEvent).to.exist;
       expect(tapEvent.target).to.equal(el);
@@ -257,15 +257,15 @@ describe('TestTapEvent', async () => {
 
     it('Should not fire tap event twice on native button with role=button when Enter is pressed', async function () {
       const el = await fixture(html`<button role="button">Native Button</button>`);
-      const keyDownEvent = keyboardEvent('keydown', { key: 'Enter' });
+      const keyDownEvent = new KeyboardEvent('keydown', { key: 'Enter' });
       el.dispatchEvent(keyDownEvent);
       expect(tapCount).to.equal(0, 'tap event should not be fired');
     });
 
     it('Should support tap event on role=button when `space` is pressed', async function () {
       const el = await fixture('<div role="button">Fake Button</div>');
-      const keydownEvent = keyboardEvent('keydown', { key: ' ' });
-      const keyupEvent = keyboardEvent('keyup', { key: ' ' });
+      const keydownEvent = new KeyboardEvent('keydown', { key: ' ' });
+      const keyupEvent = new KeyboardEvent('keyup', { key: ' ' });
       el.dispatchEvent(keydownEvent);
       el.dispatchEvent(keyupEvent);
       expect(tapEvent).to.exist;
@@ -276,8 +276,8 @@ describe('TestTapEvent', async () => {
     it('Should not run tap event on role=button when `space` is pressed and target has changed', async function () {
       const target1 = await fixture('<div role="button">Target 1</div>');
       const target2 = await fixture('<div role="button">Target 2</div>');
-      const keydownEvent = keyboardEvent('keydown', { key: ' ' });
-      const keyupEvent = keyboardEvent('keyup', { key: ' ' });
+      const keydownEvent = new KeyboardEvent('keydown', { key: ' ' });
+      const keyupEvent = new KeyboardEvent('keyup', { key: ' ' });
       target1.dispatchEvent(keydownEvent);
       target2.dispatchEvent(keyupEvent);
       expect(tapCount).to.equal(0, 'tap event should not be fired on different target');
@@ -285,7 +285,7 @@ describe('TestTapEvent', async () => {
 
     it('Should not fire tap event when role=button is not set', async function () {
       const el = await fixture('<div>Not a Fake Button</div>');
-      const event = keyboardEvent('keydown', {
+      const event = new KeyboardEvent('keydown', {
         key: 'Enter'
       });
       el.dispatchEvent(event);
