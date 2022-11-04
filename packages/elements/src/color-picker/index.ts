@@ -59,7 +59,7 @@ export class ColorPicker extends ControlElement {
    * Color Description for aria-label
    */
   @state()
-  private _colorAriaLabel = '';
+  private colorAriaLabel = '';
 
   /**
    * Set the color dialog to activate no-color option
@@ -262,7 +262,7 @@ export class ColorPicker extends ControlElement {
     part="aria-selection"
     role="status"
     aria-live="polite"
-    aria-label="${this._colorAriaLabel}"></div>`;
+    aria-label="${this.colorAriaLabel}"></div>`;
   }
 
   /**
@@ -272,7 +272,7 @@ export class ColorPicker extends ControlElement {
   private async updateColorAriaLabel (): Promise<void> {
     const { name, tone, main, percent, mixed } = readableColor(this.value);
     if (name) {
-      this._colorAriaLabel = name;
+      this.colorAriaLabel = name;
       return;
     }
     const translate = await Promise.all([
@@ -282,10 +282,10 @@ export class ColorPicker extends ControlElement {
     const [mainT, percentT, mixedT] = translate;
     const toneT = tone ? `${await this.colorTPromise(tone)}. ` : '';
     if (percent) {
-      this._colorAriaLabel = `${toneT}${mainT} ${percentT} ${mixedT}`;
+      this.colorAriaLabel = `${toneT}${mainT} ${percentT} ${mixedT}`;
     }
     else {
-      this._colorAriaLabel = `${toneT}${mainT}`;
+      this.colorAriaLabel = `${toneT}${mainT}`;
     }
   }
 
