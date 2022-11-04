@@ -56,7 +56,7 @@
           hexInputDefault.value = value;
           defaultColorOutput.value += 'Value Change : ' + value + '\n';
           setTimeout(() => {
-            readbleColor.textContent = value ? defaultColorPicker.shadowRoot.querySelector('[part=aria-selection]').getAttribute('aria-label') : '';
+            readbleColor.textContent = value ? defaultColorPicker.colorAriaLabel : '';
           }, 0);
         });
       </script>
