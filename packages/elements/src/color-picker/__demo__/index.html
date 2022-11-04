@@ -55,7 +55,9 @@
           const value = event.detail.value;
           hexInputDefault.value = value;
           defaultColorOutput.value += 'Value Change : ' + value + '\n';
-          setTimeout(() => readbleColor.textContent = value ? defaultColorPicker._colorAriaLabel : '', 0);
+          setTimeout(() => {
+            readbleColor.textContent = value ? defaultColorPicker.colorAriaLabel : '';
+          }, 0);
         });
       </script>
     </demo-block>
