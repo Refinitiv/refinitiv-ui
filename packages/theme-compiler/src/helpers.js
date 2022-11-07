@@ -15,11 +15,10 @@ const path = require('path');
  * @returns {string} injector code
  */
 const wrap = (name, style, isEvent) => {
+  const eventName = name.indexOf('-') > 0 ? 'custom' : 'native';
   if(isEvent) {
-    return `dispatchEvent(new CustomEvent('ef.${name.indexOf('-') > 0 ? 'custom'
-    : 'native'}Styles.define', { detail: { name: '${name}', styles: '${style.replace(/'/g, '\\\'')}' }}));\n`;
+    return `dispatchEvent(new CustomEvent('ef.${eventName}Styles.define', { detail: { name: '${name}', styles: '${style.replace(/'/g, '\\\'')}' }}));\n`;
   }
-  const eventName = name.indexOf('-') > 0 ? 'custom' : 'native'
   return `elf.${eventName}Styles.define('${name}', '${style.replace(/'/g, '\\\'')}');\n`;
 }
 
