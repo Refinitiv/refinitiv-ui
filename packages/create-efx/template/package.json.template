@@ -16,7 +16,7 @@
     "start": "vite --open --base=/demo/",
     "build": "npm run build:themes && tsc --sourceMap --declarationMap",
     "build:themes": "npm run build:theme-halo",
-    "build:theme-halo": "cd themes/halo && theme-compiler light --variant light && theme-compiler dark --variant dark",
+    "build:theme-halo": "cd themes/halo && theme-compiler light --variant light --registration=event && theme-compiler dark --variant dark --registration=event",
     "prepare": "npm run build:themes",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
