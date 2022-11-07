@@ -4,19 +4,19 @@ import './shared.js';
 import './color-dialog.js';
 
 const translations = {
-  VERY_LIGHT: 'Very light',
-  LIGHT: 'Light',
-  VERY_DARK: 'Very dark',
-  DARK: 'Dark',
-  BLACK: 'Black',
-  WHITE: 'White',
-  WITH: 'With {number}%',
-  YELLOW: 'Yellow',
-  GREEN: 'Green',
+  VERY_LIGHT: 'Sehr hell',
+  LIGHT: 'Hell',
+  VERY_DARK: 'Sehr dunkel',
+  DARK: 'Dunkel',
+  BLACK: 'Schwarz',
+  WHITE: 'Weiß',
+  WITH: 'Mit {number}%',
+  YELLOW: 'Gelb',
+  GREEN: 'Grün',
   CYAN: 'Cyan',
-  BLUE: 'Blue',
+  BLUE: 'Blau',
   MAGENTA: 'Magenta',
-  RED: 'Red'
+  RED: 'Rot'
 };
 
 Phrasebook.define('de', 'ef-color-picker', translations);
