@@ -4,19 +4,19 @@ import './shared.js';
 import './color-dialog.js';
 
 const translations = {
-  VERY_LIGHT: 'Very light',
-  LIGHT: 'Light',
-  VERY_DARK: 'Very dark',
-  DARK: 'Dark',
-  BLACK: 'Black',
-  WHITE: 'White',
-  WITH: 'With {number}%',
-  YELLOW: 'Yellow',
-  GREEN: 'Green',
-  CYAN: 'Cyan',
-  BLUE: 'Blue',
-  MAGENTA: 'Magenta',
-  RED: 'Red'
+  VERY_LIGHT: '非常に薄い',
+  LIGHT: '薄い',
+  VERY_DARK: '非常に濃い',
+  DARK: '濃い',
+  BLACK: '黒',
+  WHITE: '白',
+  WITH: '、{number}%',
+  YELLOW: '黄色',
+  GREEN: '緑',
+  CYAN: '水色',
+  BLUE: '青',
+  MAGENTA: '赤紫',
+  RED: '赤'
 };
 
 Phrasebook.define('ja', 'ef-color-picker', translations);
