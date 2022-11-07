@@ -59,6 +59,5 @@ Color picker will set attribute/property `value` to `""` when users select no-co
 `ef-color-picker` is assigned `role="button"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state. Users can open the dialog with color dialog element and use keyboard navigation to select the color from the color dialog.
 
 `ef-color-picker` has implemented by using [readableColor](https://github.com/Refinitiv/refinitiv-ui/tree/v6/packages/utils#color-helper) util as `aria-label` to describe a color.
-```
 
 ::a11y-end::
