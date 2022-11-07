@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 export {
   html,
   svg,
@@ -74,19 +77,12 @@ import { CustomStyleRegistry } from './registries/CustomStyleRegistry.js';
 import { NativeStyleRegistry } from './registries/NativeStyleRegistry.js';
 import { global } from './utils/global.js';
 
-interface EfStylesDefine extends CustomEvent {
-  detail: {
-    name: string,
-    styles: string
-  }
-}
-
 global.addEventListener('ef.customStyles.define', (event) => {
-  const { name, styles } = (event as EfStylesDefine).detail;
+  const { name, styles } = (event as CustomEvent).detail;
   CustomStyleRegistry.define(name, styles);
 });
 
 global.addEventListener('ef.nativeStyles.define', (event) => {
-  const { name, styles } = (event as EfStylesDefine).detail;
+  const { name, styles } = (event as CustomEvent).detail;
   NativeStyleRegistry.define(name, styles);
 });
