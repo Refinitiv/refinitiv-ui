@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.1.0...@refinitiv-ui/solar-theme@6.2.0) (2022-11-07)
+
+
+### Features
+
+* remove elf global and replace with eventListener ([#511](https://github.com/Refinitiv/refinitiv-ui/issues/511)) ([d94c087](https://github.com/Refinitiv/refinitiv-ui/commit/d94c0875ea048c86f94ce35c6b2929f796252fff))
+
+
+
+
+
 # [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.0.5...@refinitiv-ui/solar-theme@6.1.0) (2022-09-14)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@6.0.7...create-efx@6.1.0) (2022-11-07)
+
+
+### Features
+
+* remove elf global and replace with eventListener ([#511](https://github.com/Refinitiv/refinitiv-ui/issues/511)) ([d94c087](https://github.com/Refinitiv/refinitiv-ui/commit/d94c0875ea048c86f94ce35c6b2929f796252fff))
+
+
+
+
+
 ## [6.0.7](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@6.0.6...create-efx@6.0.7) (2022-10-26)
 
 
