@@ -82,7 +82,6 @@ export class TextField extends FormFieldElement {
       }
       :host([icon]) [part=icon]{
         display: flex;
-        outline: none;
       }
       :host([transparent]) {
         background: none !important;
