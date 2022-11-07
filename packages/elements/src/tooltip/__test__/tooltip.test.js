@@ -1,4 +1,4 @@
-import { fixture, expect, nextFrame, elementUpdated, aTimeout, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, nextFrame, elementUpdated, aTimeout } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/tooltip';
@@ -36,7 +36,6 @@ const mouseMove = async (config = {}) => {
   await nextFrame();
   target.dispatchEvent(event);
   await aTimeout((config.target ? showDelay : hideDelay) + transitionTime + 5); /* 5 for general mousemove delay */
-  await elementUpdated(tooltip); /* all these lines ensure that IE finished rendering */
   await nextFrame();
 };
 
@@ -221,10 +220,6 @@ describe('tooltip/Tooltip', () => {
   }).timeout(MouseMoveDelay * 2);
 
   it('Show/hide delay work as expected', async function () {
-    if (isIE()) { /* CSS Variables do not work in IE11 without a polyfill. Skip */
-      this.skip();
-    }
-
     const el = await fixture(`
       <div tooltip="Show hide delay">
         <ef-tooltip style="--show-delay: 0; --hide-delay: 0;" id="hideShowTooltip" selector="div[tooltip='Show hide delay']"></ef-tooltip>
@@ -281,7 +276,7 @@ describe('tooltip/Tooltip', () => {
   }).timeout(MouseMoveDelay * 1);
 
   it('Check event to close the tooltip', async () => {
-    const el = await fixture('<div title="Click" a>Click</div>');
+    const el = await fixture('<div title="Click">Click</div>');
     const tooltip = el.ownerDocument.querySelector('ef-tooltip[ref=title-override]');
     const iframe = document.createElement('iframe');
 
@@ -308,7 +303,7 @@ describe('tooltip/Tooltip', () => {
         });
       }
       else {
-        event = new CustomEvent(eventType); // Wheel event and KeyBoard event are not supported in IE11
+        event = new CustomEvent(eventType);
       }
 
       document.dispatchEvent(event);

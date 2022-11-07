@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/toggle';
@@ -250,7 +250,7 @@ describe('toggle/Toggle', () => {
   describe('Enter keypress', () => {
     let enterEvent;
     beforeEach(() => {
-      enterEvent = isIE() ? createIEKeyboardEvent(13) : createKeyboardEvent(13);
+      enterEvent = createKeyboardEvent(13);
     });
 
     describe('Checked value & event', () => {
@@ -289,7 +289,7 @@ describe('toggle/Toggle', () => {
   describe('Spacebar keypress', () => {
     let spacebarEvent;
     beforeEach(() => {
-      spacebarEvent = isIE() ? createIEKeyboardEvent(32) : createKeyboardEvent(32);
+      spacebarEvent = createKeyboardEvent(32);
     });
 
     describe('Checked value & event', () => {
@@ -331,26 +331,4 @@ const createKeyboardEvent = (key) => {
     keyCode: key,
     which: key
   });
-};
-const createIEKeyboardEvent = (key) => {
-  const event = document.createEvent('KeyboardEvent');
-  Object.defineProperty(event, 'which', {
-    get: () => key
-  });
-  Object.defineProperty(event, 'keyCode', {
-    get: () => key
-  });
-  event.initKeyboardEvent(
-    'keydown',
-    true, // canBubbleArg,
-    true, // cancelableArg,
-    null, // viewArg,  Specifies UIEvent.view. This value may be null.
-    false, // ctrlKeyArg,
-    false, // altKeyArg,
-    false, // shiftKeyArg,
-    false, // metaKeyArg,
-    key, // keyCodeArg,
-    0
-  );
-  return event;
 };

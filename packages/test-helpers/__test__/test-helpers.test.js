@@ -1,4 +1,4 @@
-import { fixture, expect, keyboardEvent, oneEvent } from '../lib/test-helpers';
+import { fixture, expect, oneEvent } from '../lib/test-helpers';
 
 describe('TestHelpersTest', () => {
 
@@ -13,14 +13,14 @@ describe('TestHelpersTest', () => {
     it('Create KeyboardEvent correctly', async () => {
       const type = 'keydown';
       const key = 'Space';
-      setTimeout(() => el.dispatchEvent(keyboardEvent(type, { key: key })));
+      setTimeout(() => el.dispatchEvent(new KeyboardEvent(type, { key: key })));
       const event = await oneEvent(el, type);
       expect(event.key).to.equal(key, 'keyboard event property "key" should be set to "Space"');
     });
 
     it('KeyboardEvent has default properties', async () => {
       const type = 'keydown';
-      setTimeout(() => el.dispatchEvent(keyboardEvent(type)));
+      setTimeout(() => el.dispatchEvent(new KeyboardEvent(type)));
       const event = await oneEvent(el, type);
       expect(event.key).to.equal('', 'keyboard event property "key" the default value should be set to ""');
       expect(event.shiftKey).to.equal(false, 'keyboard event property "shiftKey" the default value should be set to false');
@@ -38,7 +38,7 @@ describe('TestHelpersTest', () => {
         ctrlKey: true,
         metaKey: false
       };
-      setTimeout(() => el.dispatchEvent(keyboardEvent(type, initValues)));
+      setTimeout(() => el.dispatchEvent(new KeyboardEvent(type, initValues)));
       const event = await oneEvent(el, type);
       expect(event.key).to.equal(initValues.key, 'keyboard event property "key" should be set to "C"');
       expect(event.shiftKey).to.equal(initValues.shiftKey, 'keyboard event property "shiftKey" should be set to true');

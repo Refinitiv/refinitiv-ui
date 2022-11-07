@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, keyboardEvent, nextFrame, triggerFocusFor } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/list';
@@ -46,7 +46,7 @@ const iterateKeyboardEvent = async (el, scope, keys = [], highlighted = []) => {
   const children = scope.querySelectorAll('ef-list-item'); // 0, 1, 2, 3, 4 can be selected
   for (let i = 0; i < keys.length; i += 1) {
     const key = keys[i];
-    el.dispatchEvent(keyboardEvent('keydown', { key: key }));
+    el.dispatchEvent(new KeyboardEvent('keydown', { key: key }));
     await elementUpdated(el);
     await nextFrame();
     await nextFrame();

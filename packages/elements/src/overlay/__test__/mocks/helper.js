@@ -1,29 +1,14 @@
-import { elementUpdated, fixture, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 export const openedUpdated = async (element) => {
   await elementUpdated(element);
 
   await nextFrame();
   await nextFrame();
+  await nextFrame();
 };
 export const fireKeydownEvent = (element, key, shiftKey = false) => {
-  let event;
-
-  if (isIE()) {
-    event = document.createEvent('Event');
-
-    event.initEvent('keydown', true, true);
-
-    event.view = document.defaultView;
-    event.altKey = false;
-    event.ctrlKey = false;
-    event.shiftKey = shiftKey;
-    event.metaKey = false;
-    event.key = key;
-  }
-  else {
-    event = new KeyboardEvent('keydown', { key, shiftKey });
-  }
+  let event = new KeyboardEvent('keydown', { key, shiftKey });
   element.dispatchEvent(event);
 };
 export const targetWidthBiggerThanPanelWidth = 'targetWidthBiggerThanPanelWidth';

@@ -15,7 +15,7 @@ describe('datetime-picker/DOMStructure', () => {
     it('DOM structure is correct when opened', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" view="2020-04" opened></ef-datetime-picker>');
       await nextFrame();
-      await nextFrame(); /* second frame required for IE11 as popup opened might not fit into one frame */
+      await nextFrame();
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
     it('DOM structure is correct when range', async () => {

@@ -18,7 +18,7 @@ const getPosition = (el) => {
 
   return {
     top: top === 0,
-    bottom: bottom - screenHeight < 1, /* this is to cover fractional pixels in IE */
+    bottom: bottom - screenHeight < 1, /* this is to cover fractional pixels */
     left: left === 0,
     right: right - screenWidth < 1,
     centreH: left - screenWidth / 2 - width / 2 < 1,

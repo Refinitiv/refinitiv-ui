@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, isIE } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 import { BasicElement } from '../../lib/elements/BasicElement.js';
 import { customElement } from '../../lib/decorators/custom-element.js';
 import { asyncFrames } from '../helper.js';
@@ -86,10 +86,6 @@ describe('TestBasicElement', () => {
       });
 
       it('Should have correct property and attribute "autofocus"', async function () {
-        if (isIE()) {
-          this.skip();
-        }
-
         const el = await fixture('<control-element-test autofocus></control-element-test>');
         await elementUpdated(el);
 
@@ -211,10 +207,6 @@ describe('TestBasicElement', () => {
       });
 
       it('Test updateVariable method', async function () {
-        if (isIE()) {
-          this.skip();
-        }
-
         element.checkUpdateVariable('--fake-variable', 'super-fake-value');
 
         await elementUpdated(element);
@@ -230,10 +222,6 @@ describe('TestBasicElement', () => {
       });
 
       it('Test remove property by setting empty value', async function () {
-        if (isIE()) {
-          this.skip();
-        }
-
         element.checkUpdateVariable('--fake-variable', 'super-fake-value');
         await elementUpdated(element);
 
@@ -245,10 +233,6 @@ describe('TestBasicElement', () => {
       });
 
       it('Test updateVariable method with wrong name', async function () {
-        if (isIE()) {
-          this.skip();
-        }
-
         element.checkUpdateVariable('fake-variable', 'fake-value');
 
         await elementUpdated(element);

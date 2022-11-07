@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, isIE, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
@@ -156,7 +156,7 @@ describe('text-field/TextField', () => {
         clickCount += 1;
       });
 
-      icon.dispatchEvent(keyboardEvent('keydown', { key: 'Tab' }));
+      icon.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
 
       expect(clickCount).to.equal(0, 'Icon-click event should not be fired');
     });

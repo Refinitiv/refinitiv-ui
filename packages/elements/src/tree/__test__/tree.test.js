@@ -1,23 +1,15 @@
-import {
-  fixture,
-  expect,
-  elementUpdated,
-  isIE,
-  nextFrame,
-  keyboardEvent,
-  oneEvent
-} from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/tree';
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import { multiLevelData } from './mock_data/multi-level';
 
-const keyArrowUp = keyboardEvent('keydown', { key: 'Up' });
-const keyArrowDown = keyboardEvent('keydown', { key: 'Down' });
-const keyArrowLeft = keyboardEvent('keydown', { key: 'Left' });
-const keyArrowRight = keyboardEvent('keydown', { key: 'Right' });
-const keyEnter = keyboardEvent('keydown', { key: 'Enter' });
+const keyArrowUp = new KeyboardEvent('keydown', { key: 'Up' });
+const keyArrowDown = new KeyboardEvent('keydown', { key: 'Down' });
+const keyArrowLeft = new KeyboardEvent('keydown', { key: 'Left' });
+const keyArrowRight = new KeyboardEvent('keydown', { key: 'Right' });
+const keyEnter = new KeyboardEvent('keydown', { key: 'Enter' });
 
 const flatData = [{
   icon: 'info',
@@ -240,7 +232,6 @@ describe('tree/Tree', () => {
       expect(el.children).to.have.lengthOf(4, 'Collapsing group should leave only 4 children left');
       expandToggle.click();
       await elementUpdated(el);
-      isIE() && await nextFrame();
       expect(el.children).to.have.lengthOf(6, 'Expanding the group should show all 6 children again');
     });
 
@@ -287,7 +278,6 @@ describe('tree/Tree', () => {
       expect(el.children).to.have.lengthOf(4, 'Collapsing all should hide 2 leaving 4 children');
       el.expandAll();
       await elementUpdated(el);
-      isIE() && await nextFrame();
       expect(el.children).to.have.lengthOf(6, 'Expanding all should show all 6 children again');
     });
 
@@ -332,18 +322,15 @@ describe('tree/Tree', () => {
       await elementUpdated(el);
       el.expandAll();
       await elementUpdated(el);
-      isIE() && await nextFrame();
       const item = el.children[3];
       const itemChild = el.children[4];
       expect(item.label).to.equal('Item 1.3');
       expect(item.checkedState).to.equal(1); // Checked
       item.click();
       await elementUpdated(el);
-      isIE() && await nextFrame();
       expect(item.checkedState).to.equal(0); // Unchecked
       itemChild.click();
       await elementUpdated(el);
-      isIE() && await nextFrame();
       expect(item.checkedState).to.equal(-1); // Indeterminate
     });
 
@@ -395,6 +382,29 @@ describe('tree/Tree', () => {
       await elementUpdated(el);
       expect(el.value).to.equal('1.1');
       expect(el.values).to.deep.equal(['1.1', '1.2']);
+    });
+
+    it('Update the parent selected state correctly', async () => {
+      const el = await fixture('<ef-tree multiple></ef-tree>');
+      el.data = nestedData;
+      await elementUpdated(el);
+      const item = el.children[0];
+      expect(item.checkedState).to.equal(-1); // Indeterminate
+      el.values = [];
+      await elementUpdated(el);
+      expect(item.checkedState).to.equal(0); // Unchecked
+      el.values = ['1.1'];
+      await elementUpdated(el);
+      expect(item.checkedState).to.equal(-1); // Indeterminate
+    });
+
+    it('Should set values to empty array when set invalid values', async () => {
+      const el = await fixture('<ef-tree multiple></ef-tree>');
+      el.data = nestedData;
+      await elementUpdated(el);
+      el.values = '1.1';
+      await elementUpdated(el);
+      expect(el.values).to.deep.equal([]);
     });
   });
 

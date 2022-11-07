@@ -4,7 +4,7 @@ import { fixture, expect } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '../src/efx-element.ts';
-import '../themes/halo-theme/dark';
+import '../themes/halo/dark';
 
 describe('EfxElementTest', () => {
   it('Label and DOM structure is correct', async () => {

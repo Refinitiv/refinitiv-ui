@@ -20,7 +20,6 @@ const CONFIG = {
 const canvasUpdated = async () => {
   await nextFrame();
   await nextFrame();
-  await nextFrame(); // IE11 needs second animation frame, otherwise resize observer is not run.
 };
 
 
