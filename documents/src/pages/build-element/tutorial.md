@@ -61,7 +61,7 @@ import {
 
 @customElement('efx-todo', { theme: false })
 export class TodoElement extends BasicElement {
-  protected render () {
+  protected render (): TemplateResult {
     return html`<p>Hello!<p>`;
   }
 }
@@ -75,16 +75,16 @@ You can compose templates by splitting the template into sections and compose th
 
 ```ts
 export class TodoElement extends BasicElement {
-  protected get headerTemplate () {
+  protected get headerTemplate (): TemplateResult {
     return html`<header>Tutorial</header>`;
   }
-  protected get contentTemplate () {
+  protected get contentTemplate (): TemplateResult {
     return html`<main>Hello!</main>`;
   }
-  protected get footerTemplate () {
+  protected get footerTemplate (): TemplateResult {
     return html`<footer><a href="/help">Get help</a></footer>`;
   }
-  protected render () {
+  protected render (): TemplateResult {
     return html`
       ${this.headerTemplate}
       ${this.contentTemplate}
