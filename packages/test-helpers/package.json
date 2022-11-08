@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/test-helpers",
-  "version": "6.0.4",
+  "version": "6.0.6",
   "description": "Helper methods for writing tests in EF elements",
   "main": "./lib/test-helpers.js",
   "module": "./lib/test-helpers.js",
@@ -10,7 +10,7 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/test-helpers"
   },
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",
