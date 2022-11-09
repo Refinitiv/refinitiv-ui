@@ -437,6 +437,12 @@ export class TreeManager<T extends TreeDataItem> {
    * @returns {void}
    */
   public uncheckAllItems (): void {
-    this.editableItems.forEach(item => this.uncheckItem(item));
+    this.items.forEach(item => {
+      if (this.canUncheckItem(item)) {
+        this.composer.setItemPropertyValue(item, 'selected', false);
+      }
+    });
+    // Force update of all visible parent items, making sure any indeterminate states are remove.
+    this.parentItems.forEach(item => this.updateItem(item));
   }
 }
