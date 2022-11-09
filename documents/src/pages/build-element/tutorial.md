@@ -56,7 +56,8 @@ To add a template to your element, add a `render()` method.
 import {
   html,
   BasicElement,
-  customElement
+  customElement,
+  TemplateResult
 } from '@refinitiv-ui/elements';
 
 @customElement('efx-todo', { theme: false })
