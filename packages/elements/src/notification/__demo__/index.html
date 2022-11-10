@@ -7,17 +7,15 @@
     <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
   </head>
   <body>
-    <shady-css-scoped>
-      <style type="text/css">
-        #noti1 {
-          --bar-height: 50px;
-          margin-bottom: 2px;
-        }
-        #noti2 {
-          --bar-height: 30px;
-        }
-      </style>
-    </shady-css-scoped>
+    <style type="text/css">
+      #noti1 {
+        --bar-height: 50px;
+        margin-bottom: 2px;
+      }
+      #noti2 {
+        --bar-height: 30px;
+      }
+    </style>
     <demo-block layout="normal" header="Standard Notifications" tags="info, confirm, error, warn">
       <ef-notification message="This is a standard notification."></ef-notification>
       <ef-notification confirm message="This is a confirmation notification."></ef-notification>

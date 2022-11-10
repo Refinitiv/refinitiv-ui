@@ -71,11 +71,6 @@ export class AppstateBar extends BasicElement {
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
-
-    // Call this.updateStyles() to update css variables
-    if (changedProperties.has('state')) {
-      this.updateStyles();
-    }
   }
 
   /**
