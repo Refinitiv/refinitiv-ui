@@ -438,7 +438,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @returns {void}
    */
   public uncheckAllItems (): void {
-    // uncheck items from top levels when manage relationships to avoid redundant call to force re-render item
+    // uncheck items from top levels when manage relationships to avoid redundant re-renders
     const items = this.manageRelationships ? this.composer.queryItems(() => true, 0) : this.checkedItems;
     items.forEach(item => this.uncheckItem(item));
   }
