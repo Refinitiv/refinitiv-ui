@@ -408,36 +408,6 @@ describe('tree/Tree', () => {
       expect(itemChild.checkedState).to.equal(0);
     });
 
-    it('Can uncheck all item with disabled parent', async () => {
-      const el = await fixture('<ef-tree multiple></ef-tree>');
-      el.data = [
-        {
-          label: 'Item 1',
-          value: '1',
-          disabled: true,
-          expanded: true,
-          items: [
-            {
-              label: 'Item 1.1',
-              value: '1.1'
-            },
-            {
-              label: 'Item 1.2',
-              value: '1.2'
-            }
-          ]
-        }
-      ];
-      await elementUpdated(el);
-      const item = el.children[0];
-      const itemChild = el.children[1];
-      itemChild.click();
-      await elementUpdated(el);
-      el.uncheckAll();
-      await elementUpdated(el);
-      expect(item.checkedState).to.equal(0);
-    })
-
     it('Can set values programmatically', async () => {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = nestedData;
