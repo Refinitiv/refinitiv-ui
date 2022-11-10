@@ -22,15 +22,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 # [6.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.3.0...@refinitiv-ui/elements@6.4.0) (2022-11-07)
 
 
-### Bug Fixes
-
-* **button:** change button and icon transparent outline style ([#515](https://github.com/Refinitiv/refinitiv-ui/issues/515)) ([4ba091c](https://github.com/Refinitiv/refinitiv-ui/commit/4ba091c2c11da06ce1218908a3ddb3cc18d9b412))
-
-
-### Features
-
-* **color-picker:** add accessibility ([#448](https://github.com/Refinitiv/refinitiv-ui/issues/448)) ([ced3b20](https://github.com/Refinitiv/refinitiv-ui/commit/ced3b208ab817975923a2feeba1f6488d30f046a))
-
+**Note:** Version bump only for package @refinitiv-ui/elements
 
 
 
