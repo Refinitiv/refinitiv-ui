@@ -165,9 +165,8 @@ export class TodoElement extends BasicElement {
   protected willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
-    /* changedProperties.has('property') is to identify the property has been changed.
+    /* has method is to identify the property has been changed.
      * this[property] is current value.
-     * changedProperties.get('property') is previous value.
      */
     if (changedProperties.has('data') && this.data.length > 0) {
       // do something
