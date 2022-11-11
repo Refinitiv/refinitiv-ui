@@ -1,6 +1,6 @@
 {
   "name": "create-efx",
-  "version": "6.0.6",
+  "version": "6.1.1",
   "description": "Initializer to create new EFX element",
   "main": "lib/index",
   "bin": {
@@ -11,7 +11,7 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/create-efx"
   },
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=8.1"

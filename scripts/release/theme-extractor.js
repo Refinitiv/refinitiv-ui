@@ -169,7 +169,7 @@ const handler = async () => {
         // Reads theme entrypoint content
         const sourceContent = fs.readFileSync(possibleThemeEntrypoint).toString();
         const componentThemeDefinition = sourceContent.substring(
-          sourceContent.indexOf('elf.customStyles.define')
+          sourceContent.indexOf(`dispatchEvent(new CustomEvent('ef.customStyles.define'`)
         );
 
         // Skip if the file already contain the same component definition

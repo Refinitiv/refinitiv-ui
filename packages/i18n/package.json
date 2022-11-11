@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/i18n",
-  "version": "6.0.6",
+  "version": "6.0.9",
   "description": "i18n support for Web Components",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -21,7 +21,7 @@
     "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "dependencies": {
     "@formatjs/icu-messageformat-parser": "^2.1.7",
@@ -31,11 +31,11 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/phrasebook": "^6.2.0",
-    "@refinitiv-ui/test-helpers": "^6.0.4"
+    "@refinitiv-ui/phrasebook": "^6.3.1",
+    "@refinitiv-ui/test-helpers": "^6.0.6"
   },
   "peerDependencies": {
-    "@refinitiv-ui/phrasebook": "^6.2.0"
+    "@refinitiv-ui/phrasebook": "^6.3.1"
   },
   "publishConfig": {
     "access": "public"

@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/utils",
-  "version": "6.1.1",
+  "version": "6.2.2",
   "description": "Shared utilities for Element Framework",
   "main": "lib/index.js",
   "module": "lib/index.js",
@@ -37,7 +37,7 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/utils"
   },
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "scripts": {
     "lint": "eslint .",
@@ -45,10 +45,12 @@
     "build": "tsc --sourceMap --declarationMap",
     "build:prod": "tsc",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version"
+    "version": "node ../../scripts/version",
+    "test": "npm run build && karma start ../../karma.config.js --package=utils"
   },
   "dependencies": {
     "@types/d3-color": "^3.0.2",
+    "colord": "^2.9.3",
     "d3-color": "^3.0.1",
     "tslib": "^2.3.1"
   },

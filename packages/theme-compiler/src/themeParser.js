@@ -50,7 +50,7 @@ const parse = (entrypoint, variables) => {
     let options = helpers.generateLessOptions(entrypoint, entrypoint, variables);
     return fs.readFile(entrypoint, 'utf8').then(lessInput => {
       return less.render(lessInput, options).then(() => {
-        helpers.getElementFiles().forEach(filename => renderElement(filename, lessInput));
+        helpers.getElementFiles().forEach(filename => renderElement(filename, lessInput, variables));
         return Promise.all(tempCollection)
         .then(resolvedCollection => {
           let result = sortCollection(resolvedCollection);
@@ -65,9 +65,10 @@ const parse = (entrypoint, variables) => {
    *
    * @param {String} filename Source of the element styles
    * @param {String} lessInput Less input from the entrypoint
+   * @param {Object} variables Variables to modify in the less input
    * @returns {Promise} Promise
    */
-  const renderElement = (filename, lessInput) => {
+  const renderElement = (filename, lessInput, variables) => {
     // Obtain elementName
     const elemName = helpers.getElementNameFromLess(filename);
 
@@ -76,7 +77,7 @@ const parse = (entrypoint, variables) => {
     
     let options = helpers.generateLessOptions(entrypoint, filename, variables);
     let promise = less.render(lessInput, options)
-    .then(output => helpers.generateOutput(filename, output));
+    .then(output => helpers.generateOutput(filename, output, variables));
     tempCollection.push(promise);
     return promise;
   };
