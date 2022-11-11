@@ -13,7 +13,7 @@ When you are using a framework to build apps, you may not necessary to create ne
 
 However, if you want to craft components that agnostic to application frameworks, either in order to share them with other projects or give you flexibility to be able to change your application framework, you may follow our guideline to extend the components from EF base classes.
 
-EF base classes are extended from [Lit](https://lit.dev/), there are more advantage to create components from our base class rather than Lit directly as it will derive extra advantages that are implemented in EF Core module such as mobile tap events, localisation, accessibility, etc.
+EF base classes are extended from [Lit](https://lit.dev/). To create components from EF base class rather than Lit directly provides few advantages which have been implemented inside EF core module such as mobile tap events, localisation, accessibility, etc.
 
 @> Element Framework is using TypeScript and Lit. We strongly recommend reading through [Lit Documentation](https://lit.dev/docs/) to understand a concept of Web Components as well as features of Lit.
 
