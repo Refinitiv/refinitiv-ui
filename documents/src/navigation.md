@@ -111,7 +111,7 @@ type: nav
 
   - Accessibility
     * [Aria](./aria)
-    * [Focus & Navigation*](./focus-and-navigation)
+    * [Focus & Navigation](./focus-and-navigation)
 
   - Testing
     * [Code Style](./testing/lint)
