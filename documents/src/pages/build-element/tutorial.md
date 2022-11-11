@@ -5,7 +5,7 @@ type: page
 layout: default
 -->
 
-
+::status-working::
 
 # Element Tutorial
 
@@ -98,15 +98,85 @@ For more information on composing templates, see [Lit](https://lit.dev/docs/comp
 
 ### Reactive Properties
 
-@> Coming soon!
+Reactive properties are properties that, when changed, can trigger an update cycle and re-calling rendering the component. Use `@property` decorator with type and options to define the property.
 
-### Styles & Theming
+```ts
+export class TodoElement extends BasicElement {
+  @property({ type: String })
+  name: String;
+}
+```
 
-@> Coming soon!
+Usually reactive property define as public by default. To define internal property that can trigger reactive update cycle use `@state` decorator. In Typescript, these should assign `private` or `protected` to define the type is scoped in the component.
+
+```ts
+export class TodoElement extends BasicElement {
+  @state({ type: Array })
+  protected data: String[] = [];
+}
+```
+
+For more information on reactive properties, see [Lit](https://lit.dev/docs/components/properties/).
+
+### Attributes
+
+While properties usage works on Javascript, attributes configure the element in HTML. Whether property or attribute trigger update cycle. By default, attribute is observed to reactive property. The observed attribute name informs on lowercase.
+
+```ts
+export class TodoElement extends BasicElement {
+  // Observed attribute will be called footer-link 
+  @property({ attribute: 'header-link' })
+  headerLink = 'https://lit.dev/docs/components/properties/';
+
+  // Set false to disable observed attribute 
+  @property({ attribute: false })
+  footerLink = 'https://lit.dev/docs/components/properties/#attributes';
+}
+```
+
+### Styles
+
+Defining styles are automatically scoped on Shadow root. All the styles can apply only in the element and use `:host` selector to style the element itself.
+
+```ts
+export class TodoElement extends BasicElement {
+  static get styles (): CSSResult {
+    return css`
+      :host {
+        display: inline-block;
+      }
+      header, footer {
+        background-color: blue;
+      }
+    `;
+  }
+}
+```
+
+For more information on attributes, see [Lit](https://lit.dev/docs/components/styles/).
 
 ### Lifecycle
 
-@> Coming soon!
+Reactive update cycle is triggered when the properties has changed. The life cycle provided many hooks can categorize into Pre-Update, Update, and Post-Update. Example usage in update hook, it provides a Map of changed properties named `changedProperties`. It can use to check and compare between the previous values and the current property values.
+
+```ts
+export class TodoElement extends BasicElement {
+  // willUpdate triggers during update
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    /* changedProperties.has('property') is to identify the property has been changed.
+     * this[property] is current value.
+     * changedProperties.get('property') is previous value.
+     */
+    if (changedProperties.has('data') && this.data.length > 0) {
+      // do something
+    }
+  }
+}
+```
+
+For more information on life cycle, see [Lit](https://lit.dev/docs/components/lifecycle).
 
 ## Creating a Control Element
 
