@@ -119,7 +119,7 @@ For more information on reactive properties, see [Lit](https://lit.dev/docs/comp
 
 ### Attributes
 
-While properties usage works on Javascript, attributes configure the element in HTML. Whether the property or the attribute has changed, it will trigger update cycle. By default, the attribute observed to reactive property and stated in lowercase.
+While properties usage works on Javascript, attributes configure the element in HTML. Whether the property or the attribute has changed, it will trigger update cycle. By default, the attribute observed to reactive property and labeled in lowercase.
 
 ```ts
 export class TodoElement extends BasicElement {
@@ -156,7 +156,7 @@ For more information on attributes, see [Lit](https://lit.dev/docs/components/st
 
 ### Lifecycle
 
-The reactive update cycle is triggered when the properties have changed. The life cycle provided many hooks that can categorize into Pre-Update, Update, and Post-Update. Example usage in update hook provides a map of changed properties named `changedProperties`. It can use to check and compare the previous and the current property values.
+The reactive update cycle is triggered when the properties have changed. The life cycle provided many hooks that can categorize into Pre-Update, Update, and Post-Update. Example usage in update hook provides a map of changed properties named `changedProperties`. It can use to know which property has been changed.
 
 ```ts
 export class TodoElement extends BasicElement {
