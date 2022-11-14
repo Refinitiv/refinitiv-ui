@@ -98,7 +98,7 @@ For more information on composing templates, see [Lit](https://lit.dev/docs/comp
 
 ### Reactive Properties
 
-Reactive properties are properties that, when changed, can trigger an update cycle and re-calling rendering the component. Use `@property` decorator with type and options to define the property.
+Reactive properties can trigger an update cycle and re-render the component when it changes. Use `@property` decorator with type and options to define the property.
 
 ```ts
 export class TodoElement extends BasicElement {
