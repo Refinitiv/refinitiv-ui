@@ -85,10 +85,6 @@ export class Notification extends BasicElement {
     this.addEventListener('animationend', this.onAnimationEnd);
   }
 
-  protected update (changedProperties: PropertyValues): void {
-    super.update(changedProperties);
-  }
-
   /**
    * Dismisses the notification, firing a `dismiss` event and collapsing the notification.
    * @returns {void}
