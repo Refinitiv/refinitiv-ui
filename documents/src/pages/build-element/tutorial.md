@@ -156,7 +156,7 @@ For more information on attributes, see [Lit](https://lit.dev/docs/components/st
 
 ### Lifecycle
 
-Reactive update cycle is triggered when the properties has changed. The life cycle provided many hooks can categorize into Pre-Update, Update, and Post-Update. Example usage in update hook, it provides a Map of changed properties named `changedProperties`. It can use to check and compare between the previous values and the current property values.
+The reactive update cycle is triggered when the properties have changed. The life cycle provided many hooks that can categorize into Pre-Update, Update, and Post-Update. Example usage in update hook provides a map of changed properties named `changedProperties`. It can use to check and compare the previous and the current property values.
 
 ```ts
 export class TodoElement extends BasicElement {
