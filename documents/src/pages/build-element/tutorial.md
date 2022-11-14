@@ -119,7 +119,7 @@ For more information on reactive properties, see [Lit](https://lit.dev/docs/comp
 
 ### Attributes
 
-While properties usage works on Javascript, attributes configure the element in HTML. Whether property or attribute trigger update cycle. By default, attribute is observed to reactive property. The observed attribute name informs on lowercase.
+While properties usage works on Javascript, attributes configure the element in HTML. Whether the property or the attribute has changed, it will trigger update cycle. By default, the attribute observed to reactive property and stated in lowercase.
 
 ```ts
 export class TodoElement extends BasicElement {
