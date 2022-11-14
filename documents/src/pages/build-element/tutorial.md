@@ -106,7 +106,7 @@ export class TodoElement extends BasicElement {
 }
 ```
 
-Usually reactive property define as public by default. To define internal property that can trigger reactive update cycle use `@state` decorator. In Typescript, these should assign `private` or `protected` to define the type is scoped in the component.
+Usually, reactive property defines as public by default. In Typescript, these should assign `private` or `protected` to specify the type scoped in the component. To define an internal property that can trigger reactive update cycle use `@state` decorator.
 
 ```ts
 export class TodoElement extends BasicElement {
