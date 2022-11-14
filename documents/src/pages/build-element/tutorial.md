@@ -5,7 +5,6 @@ type: page
 layout: default
 -->
 
-::status-working::
 
 # Element Tutorial
 
