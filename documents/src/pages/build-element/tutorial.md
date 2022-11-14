@@ -123,7 +123,7 @@ While properties usage works on Javascript, attributes configure the element in 
 
 ```ts
 export class TodoElement extends BasicElement {
-  // Observed attribute will be called footer-link 
+  // Observed attribute will be called header-link 
   @property({ attribute: 'header-link' })
   headerLink = 'https://lit.dev/docs/components/properties/';
 
