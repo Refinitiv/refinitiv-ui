@@ -14,9 +14,9 @@ The utility provides a convenient way to navigate over a grid matrix.
 The grid contains of rows with cells that can be active (`1`) or inactive (`0`). A cell is referenced by _column index_ and _row index_, e.g. `[0, 0]` for first column and first row; `[2, 3]` for third column and fourth row.
 
 ```typescript
-import { first, right, down } from '@refinitiv-ui/utils/navigation.js';
+import { NavigationGrid, CellIndex, first, right, down } from '@refinitiv-ui/utils/navigation.js';
 
-const grid = [
+const grid: NavigationGrid = [
   [1, 0, 1, 0],
   [1, 1, 1, 1],
   [1, 1, 0, 1],
@@ -24,13 +24,13 @@ const grid = [
 ];
 
 // Get the first cell
-let cell = first(grid); // => [0, 0], first column and first row
+let cell = first(grid) as CellIndex; // => [0, 0], first column and first row
 
 // Get an active cell on the right of the first cell
-cell = right(grid, cell); // => [2, 0], third column and first row
+right(grid, cell); // => [2, 0], third column and first row
 
 // Get the cell below the third column and first row
-cell = down(grid, cell); // => [2, 1], third column and second row
+down(grid, cell); // => [0, 1], first column and second row
 ```
 
 A common use case for the utility is to provide navigation over the HTML table.
@@ -250,9 +250,9 @@ customElement('efx-navigation-grid', { theme: false })(NavigationGrid);
 Navigate _down_ from the cell to find the closest active cell on the following rows.
 
 ```typescript
-import { down } from '@refinitiv-ui/utils/navigation.js';
+import { NavigationGrid, down } from '@refinitiv-ui/utils/navigation.js';
 
-const grid = [
+const grid: NavigationGrid = [
   [1, 0, 1, 0],
   [1, 1, 1, 1],
   [1, 1, 0, 1],
@@ -288,9 +288,9 @@ down(grid, cell);
 Get the first active cell.
 
 ```typescript
-import { first } from '@refinitiv-ui/utils/navigation.js';
+import { NavigationGrid, first } from '@refinitiv-ui/utils/navigation.js';
 
-const grid = [
+const grid: NavigationGrid = [
   [1, 0, 1, 0],
   [1, 1, 1, 1],
   [1, 1, 0, 1],
@@ -323,9 +323,9 @@ first(grid);
 Get the last active cell.
 
 ```typescript
-import { last } from '@refinitiv-ui/utils/navigation.js';
+import { NavigationGrid, last } from '@refinitiv-ui/utils/navigation.js';
 
-const grid = [
+const grid: NavigationGrid = [
   [1, 0, 1, 0],
   [1, 1, 1, 1],
   [1, 1, 0, 1],
@@ -358,9 +358,9 @@ last(grid);
 Navigate _left_ from the cell. If there is no active cell on the _left_, then iterate over preceding rows to find one.
 
 ```typescript
-import { left } from '@refinitiv-ui/utils/navigation.js';
+import { NavigationGrid, left } from '@refinitiv-ui/utils/navigation.js';
 
-const grid = [
+const grid: NavigationGrid = [
   [1, 0, 1, 0],
   [1, 1, 1, 1],
   [1, 1, 0, 1],
@@ -396,9 +396,9 @@ left(grid, cell);
 Navigate _right_ from the cell. If there is no active cell on the _right_, then iterate over following rows to find one.
 
 ```typescript
-import { right } from '@refinitiv-ui/utils/navigation.js';
+import { NavigationGrid, right } from '@refinitiv-ui/utils/navigation.js';
 
-const grid = [
+const grid: NavigationGrid = [
   [1, 0, 1, 0],
   [1, 1, 1, 1],
   [1, 1, 0, 1],
@@ -434,9 +434,9 @@ right(grid, cell);
 Navigate _up_ from the cell to find the closest active cell on the preceding rows.
 
 ```typescript
-import { up } from '@refinitiv-ui/utils/navigation.js';
+import { NavigationGrid, up } from '@refinitiv-ui/utils/navigation.js';
 
-const grid = [
+const grid: NavigationGrid = [
   [1, 0, 1, 0],
   [1, 1, 1, 1],
   [1, 1, 0, 1],

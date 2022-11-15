@@ -21,7 +21,7 @@ class MyElement extends BasicElement {
   constructor () {
     this.addEventListener('tap', this.incrementTaps.bind(this));
   }
-  protected incrementTaps () {
+  protected incrementTaps (): void {
     this.taps += 1;
   }
 }
