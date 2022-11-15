@@ -32,7 +32,8 @@ class MyLogo extends BasicElement {
 The control element is used mainly for elements that require user interaction and need to be included in keyboard navigation sequences. A good example of a control element is a button.
 
 - Makes the item reachable via key navigation
-- Adds `value` property support
+- Support getter and setter `value` property 
+- Support state `disabled` and `readonly` 
 
 ```typescript
 class CameraButton extends ControlElement {
@@ -42,14 +43,18 @@ class CameraButton extends ControlElement {
 
 ### Form Field Element
 
-The form field element class is used for input fields. This abstract class contains additional logic for managing accessibility features and should be used when creating new form field elements.
+The form field element class is used for `input fields`. This abstract class extended from Control Element contains additional logic for managing accessibility features and should be used when creating new form field elements.
 
 - Adds support for aria tags to be used for accessibility
 - Makes the item reachable via key navigation
+- Support state validation `error` and `warning`    
 
 ```typescript
 class TwoFactorField extends FormFieldElement {
   ...
+  protected onInputChange (event: InputEvent): void {
+    console.log(event.target.value);
+  }
 }
 ```
 
@@ -65,7 +70,7 @@ The responsive element is designed to be used for more complex UI pieces, or wid
 ```typescript
 class AppBar extends ResponsiveElement {
   ...
-  resizedCallback (size): void {
+  public resizedCallback (size): void {
     console.log(size.width, size.height);
   }
 }
