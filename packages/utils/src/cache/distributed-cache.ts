@@ -108,11 +108,10 @@ export class DistributedCache extends CoreCache {
     addEventListener('storage', ({ key, newValue }) => {
       if (key === this.storageNames.requests && newValue === null) {
         this.clean();
-        logger.timeEnd(window.name);
       }
     });
 
-    this.messenger.onMessage = ({ key, value, id }) => {
+    this.messenger.onMessage = ({ key, value }) => {
       // Cancel no new message timeout
       this.lastMessageTimeout.cancel();
 
@@ -131,21 +130,14 @@ export class DistributedCache extends CoreCache {
         if (resolve) {
           resolve(value);
         }
-        Logger.log(`${window.name} %c Received message %c icon ${key.split('/').pop() || ''} MessageID: ${id} ${Date.now()}`, 'background: green; color: white', '');
+        Logger.log(`${window.name} %c Received message %c icon ${key.split('/').pop() || ''} ${Date.now()}`, 'background: green; color: white', '');
       }
 
       /**
        * Detect the `last message` by using a gap between message,
-       * If no new message post within the time limit It will clear all states.
-       * Need to find the way to check latest message better than this
+       * If no new message post within the time limit
        */
-
-      this.lastMessageTimeout.schedule(() => {
-        if (!this.messenger.hasMoreMessage(id)) {
-          this.clean();
-          logger.timeEnd(window.name);
-        }
-      });
+      this.lastMessageTimeout.schedule(() => logger.timeEnd(window.name));
     };
   }
 
@@ -197,7 +189,10 @@ export class DistributedCache extends CoreCache {
       };
 
       this.messenger.notify(key, cacheValue);
-      void this.storage.set(key, data);
+      void this.storage.set(key, data).then(() => {
+        // Clean up temporary requested state
+        this.cleanItem(key);
+      });
     }
     else {
       // eslint-disable-next-line no-console
@@ -301,6 +296,20 @@ export class DistributedCache extends CoreCache {
     localStorage.removeItem(this.storageNames.requests);
     this.requests = {};
     this.waiting.clear();
-    this.messenger.clean();
+  }
+
+  /**
+   * Clean up one item from temporary states
+   * @param key item key
+   * @returns {void}
+   */
+  private cleanItem (key: string): void {
+    localStorage.removeItem(this.storageNames.requests);
+    const requests = this.requestsState;
+    delete requests[key];
+    this.requestsState = requests;
+
+    delete this.requests[key];
+    this.waiting.delete(key);
   }
 }

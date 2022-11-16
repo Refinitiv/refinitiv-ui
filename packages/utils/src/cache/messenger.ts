@@ -10,10 +10,6 @@ export type Message = {
 export type OnMessageCallback = (message: Message) => void;
 export type OnCompleteCallback = () => void;
 
-type StorageNames = {
-  messagePosts: `${string}[message-posts]`
-};
-
 /**
  * Cache messenger manage post/receive to others cache messenger
  */
@@ -23,16 +19,6 @@ export class CacheMessenger {
    * Channel to send message
    */
   protected broadcastChannel: BroadcastChannel;
-
-  /**
-   * Total messages post state, shared across others messenger
-   */
-  protected totalPost = 0;
-
-  /**
-   * Names for manage all states temporary
-   */
-  private storageNames: StorageNames;
 
   /**
    * Messaging callback
@@ -46,9 +32,6 @@ export class CacheMessenger {
   constructor (name: string) {
     const messengerName = `[${MESSENGER_PREFIX}][${name}]`;
     this.broadcastChannel = new BroadcastChannel(messengerName);
-    this.storageNames = {
-      messagePosts: `${messengerName}[message-posts]`
-    };
     this.listen();
   }
 
@@ -57,13 +40,6 @@ export class CacheMessenger {
    * @returns {void}
    */
   private listen (): void {
-    // Listen storage event for update total message posts to property
-    addEventListener('storage', ({ key, newValue }) => {
-      if (key === this.storageNames.messagePosts && Number(newValue) > this.totalPost) {
-        this.totalPost = Number(newValue);
-      }
-    });
-
     // Listen message from others messenger
     this.broadcastChannel.onmessage = (event: MessageEvent<Message>) => {
       // Run callback function
@@ -75,43 +51,13 @@ export class CacheMessenger {
   }
 
   /**
-   * Clean up all temporary states
-   * @returns {void}
-   */
-  public clean (): void {
-    localStorage.removeItem(this.storageNames.messagePosts);
-    this.totalPost = 0;
-  }
-
-  /**
-   * Increase total message posts
-   * @returns {void}
-   */
-  private increaseTotalPost (): number {
-    let messageCount = localStorage.getItem(this.storageNames.messagePosts) || 0;
-    messageCount = Number(messageCount) + 1;
-    localStorage.setItem(this.storageNames.messagePosts, messageCount.toString());
-    return messageCount;
-  }
-
-  /**
    * Distribute message
    * @param key item key
    * @param value data to send via message
    * @returns {void}
    */
   public notify (key: string, value: string): void {
-    this.totalPost = this.increaseTotalPost();
-    this.broadcastChannel.postMessage({ id: this.totalPost, key, value });
-    Logger.log(`${window.name} %c Post message %c id: ${ this.totalPost } ${key.split('/').pop() || ''} ${Date.now()}`, 'background: yellow; color: black', '');
-  }
-
-  /**
-   * Check has more message incoming
-   * @param messageId message id for check
-   * @returns true if has more message
-   */
-  public hasMoreMessage (messageId: number): boolean {
-    return messageId < this.totalPost;
+    this.broadcastChannel.postMessage({ key, value });
+    Logger.log(`${window.name} %c Post message %c key: ${key.split('/').pop() || ''} ${Date.now()}`, 'background: yellow; color: black', '');
   }
 }
