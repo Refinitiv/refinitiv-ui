@@ -1,10 +1,13 @@
-import { Logger } from './helpers.js';
 import { Mutex } from 'async-mutex';
-import { LocalCache, type LocalCacheConfig } from './local-cache.js';
+import { LocalStorage } from './storages/localstorage.js';
+import { IndexedDBStorage } from './storages/indexeddb.js';
 import { CacheMessenger } from './messenger.js';
-import { TimeoutTaskRunner } from '../async.js';
 import { CACHE_PREFIX, MESSENGER_LAST_MESSAGE_INTERVAL } from './constants.js';
+import type { CacheStorage } from './interfaces/CacheStorage';
 
+// TODO: This imports use for debugging and benchmarking, remove it when this class implement completed
+import { Logger } from './helpers.js';
+import { TimeoutTaskRunner } from '../async.js';
 const logger = new Logger();
 logger.timeStart(window.name);
 
@@ -12,6 +15,10 @@ logger.timeStart(window.name);
  * Mutual exclusion, prevent getting requests state concurrently from multi tabs/windows
  */
 const mutex = new Mutex();
+
+export interface DistributedCacheConfig {
+  storage: 'localstorage' | 'indexeddb';
+}
 
 type StorageNames = {
   requests: `${string}[requests]`,
@@ -25,7 +32,12 @@ type Requests = {
 /**
  * Distribute cache across browsers windows, tabs, and iframes to reducing network requests
  */
-export class DistributedCache extends LocalCache {
+export class DistributedCache {
+
+  /**
+   * Storage to store data
+   */
+  protected storage!: CacheStorage;
 
   /**
    * Requests cached from localStorage
@@ -84,8 +96,27 @@ export class DistributedCache extends LocalCache {
    * @param name cache name
    * @param config cache configuration
    */
-  constructor (name: string, config?: LocalCacheConfig) {
-    super(name, config as LocalCacheConfig);
+  constructor (name: string, config?: DistributedCacheConfig) {
+
+    if (typeof name !== 'string') {
+      throw new TypeError('Expected name to be of type string');
+    }
+    if (name.length === 0) {
+      throw new RangeError('Expected name to have a length');
+    }
+
+    switch (config?.storage) {
+      case 'indexeddb':
+        this.storage = new IndexedDBStorage(name);
+        break;
+      case 'localstorage':
+      case null:
+      case undefined:
+        this.storage = new LocalStorage(name);
+        break;
+      default:
+        throw new TypeError('Unknown storage type');
+    }
 
     const cacheName = `[${CACHE_PREFIX}][${name}]`;
 
@@ -171,7 +202,7 @@ export class DistributedCache extends LocalCache {
    * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
    * @returns {void}
    */
-  public override async set (key: string, value: string | Promise<string | undefined>, expires = 432000): Promise<void> {
+  public async set (key: string, value: string | Promise<string | undefined>, expires = 432000): Promise<void> {
     let cacheValue: string | undefined;
     if (value instanceof Promise) {
       cacheValue = await value;
@@ -205,7 +236,7 @@ export class DistributedCache extends LocalCache {
    * @param key Cache key
    * @returns Promise string data or `null` if nothing is cached
    */
-  public override async get (key: string): Promise<string | null> {
+  public async get (key: string): Promise<string | null> {
     const iconName: string = key.split('/').pop() || '';
     const item = await this.storage.get(key);
 
@@ -311,5 +342,22 @@ export class DistributedCache extends LocalCache {
 
     delete this.requests[key];
     this.waiting.delete(key);
+  }
+
+  /**
+   * Remove cache data value based on provided key
+   * @param key Cache key
+   * @returns {void}
+   */
+  public async remove (key: string): Promise<void> {
+    await this.storage.remove(key);
+  }
+
+  /**
+   * Clear all memory cache
+   * @returns {void}
+   */
+  public async clear (): Promise<void> {
+    await this.storage.clear();
   }
 }
