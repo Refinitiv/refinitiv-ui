@@ -1,4 +1,3 @@
-export { CacheConfig } from './cache/core-cache.js';
 export { DistributedCache } from './cache/distributed-cache.js';
 export { LocalCache, LocalCacheConfig } from './cache/local-cache.js';
 

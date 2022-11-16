@@ -1,6 +1,6 @@
 import { Logger } from './helpers.js';
 import { Mutex } from 'async-mutex';
-import { CoreCache, type CacheConfig } from './core-cache.js';
+import { LocalCache, type LocalCacheConfig } from './local-cache.js';
 import { CacheMessenger } from './messenger.js';
 import { TimeoutTaskRunner } from '../async.js';
 import { CACHE_PREFIX, MESSENGER_LAST_MESSAGE_INTERVAL } from './constants.js';
@@ -25,7 +25,7 @@ type Requests = {
 /**
  * Distribute cache across browsers windows, tabs, and iframes to reducing network requests
  */
-export class DistributedCache extends CoreCache {
+export class DistributedCache extends LocalCache {
 
   /**
    * Requests cached from localStorage
@@ -84,8 +84,8 @@ export class DistributedCache extends CoreCache {
    * @param name cache name
    * @param config cache configuration
    */
-  constructor (name: string, config?: CacheConfig) {
-    super(name, config);
+  constructor (name: string, config?: LocalCacheConfig) {
+    super(name, config as LocalCacheConfig);
 
     const cacheName = `[${CACHE_PREFIX}][${name}]`;
 
