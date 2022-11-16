@@ -11,7 +11,7 @@ layout: default
 
 When building your custom element, there are a couple things you need to consider. Firstly, you need to choose which base element class to extend, as this defines how the element should function in an application. Secondly, you need to choose how the element should be configured. Mostly this is done via attributes and slotted content, however, some elements will need data, or, complex configuration objects to be passed.
 
-## Abstract Types
+## Base Element Types
 
 There are 4 base element types to choose from when building a custom element. Your choice of which type to extend depends on the element you are creating.
 
