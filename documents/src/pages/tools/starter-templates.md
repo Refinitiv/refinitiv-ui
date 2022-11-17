@@ -97,7 +97,7 @@ As part of starter template, some commands have been provided to facilitate deve
 | prepare          | Run `build:themes` to ensure that element's theme is the latest before publishing.          |
 | lint             | Run linting by using [eslint](https://eslint.org/).                                         |
 | lint:fix         | Run linting and automatic fix all fixable errors.                                           |
-| test             | Use web-test-runner with [playwright](https://modern-web.dev/docs/test-runner/browser-launchers/overview/#playwright) to test on Chrome, Firefox and Safari.              |
+| test             | Use [web-test-runner](https://modern-web.dev/docs/test-runner/overview/) with [playwright](https://modern-web.dev/docs/test-runner/browser-launchers/overview/#playwright) to test on Chrome, Firefox and Safari.              |
 | test:watch       | Run unit test with debugging.                                                               |
 | test:snapshots   | Generate element's DOM snapshots for snapshots testing.                                     |
 | generate:jsx     | Generate JSX for this element for React.                                                    |
