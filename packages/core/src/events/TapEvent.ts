@@ -1,5 +1,4 @@
 import { global } from '../utils/global.js';
-import { matches } from '../utils/matches.js';
 
 const isIE = (/Trident/g).test(navigator.userAgent);
 
@@ -82,8 +81,9 @@ const isButtonEnterOrSpace = (event: MouseEvent | PointerEvent): boolean => {
  * @returns true if target has button behaviour
  */
 const isButtonBehaviour = (target: EventTarget | null): boolean => target instanceof HTMLElement
-  && matches(target, '[role=button]')
-  && !matches(target, 'button,a,input[type=button],input[type=submit]'); /* Matches is split because IE11 does not support `:not(input[type=button])` selector; */
+  && target.matches('[role=button]')
+  && !target.matches('button,a,input[type=button],input[type=submit]');
+
 
 /**
  * Check if `enter` key is pressed

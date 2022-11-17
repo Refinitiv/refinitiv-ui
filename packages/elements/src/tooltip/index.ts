@@ -4,8 +4,7 @@ import {
   css,
   TemplateResult,
   CSSResultGroup,
-  PropertyValues,
-  matches
+  PropertyValues
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -286,7 +285,7 @@ class Tooltip extends BasicElement {
     }
 
     if (this.selector) {
-      return matches(element, this.selector);
+      return element.matches(this.selector);
     }
 
     return false;

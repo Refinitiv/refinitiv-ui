@@ -3,8 +3,7 @@ import {
   html,
   css,
   TemplateResult,
-  CSSResultGroup,
-  PropertyValues
+  CSSResultGroup
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -63,20 +62,6 @@ export class AppstateBar extends BasicElement {
    */
   @translate()
   protected t!: Translate;
-
-  /**
-   * Invoked whenever the element is updated
-   * @param {PropertyValues} changedProperties Map of changed properties with old values
-   * @returns {void}
-   */
-  protected updated (changedProperties: PropertyValues): void {
-    super.updated(changedProperties);
-
-    // Call this.updateStyles() to update css variables
-    if (changedProperties.has('state')) {
-      this.updateStyles();
-    }
-  }
 
   /**
    * Hide the element when clear button is clicked
