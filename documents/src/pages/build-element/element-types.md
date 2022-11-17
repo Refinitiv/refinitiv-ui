@@ -76,21 +76,21 @@ class AppBar extends ResponsiveElement {
 }
 ```
 
-## Configuration Types
+## Element Configuration Strategies
 
-There are three main configuration types to choose from. Standard, Data and Configured. Simplistic elements, like buttons, are considered standard and follow standard configuration principals.
+When design a component API, there are three main configuration strategies to choose from. Standard, Data and Configured. Simplistic elements, like buttons, are considered standard and follow standard configuration principals.
 
 Data driven elements like lists, trees and grids tend to follow data configuration, except for when detailed configuration is required.
 
-### Standard Elements
+### Standard
 
-These are configured by passing attributes to the element and are comparable to native HTML Elements in the browser.
+Elements are configured by passing attributes to the element. This approach is simple and comparable to native HTML Elements in the browser.
 
 ```html
 <efx-element disabled value="1">Hello world</efx-element>
 ```
 
-If configured, other elements can be slotted in as children to either be rendered, or, provide additional configuration.
+Another slightly different approach, other elements can be slotted in as children to either be rendered, or, provide additional configurations.
 
 ```html
 <efx-element>
@@ -100,9 +100,9 @@ If configured, other elements can be slotted in as children to either be rendere
 </efx-element>
 ```
 
-### Data Elements
+### Data
 
-These are configured by passing a list of flat, or, nested data to the element's `data` property. Items must implement the [DataItem](#) interface and state must be managed by a [CollectionComposer](#) internally.
+Elements are configured by passing a list of flat, or, nested data to the element's `data` property. Items must implement the [DataItem](#) interface and state must be managed by a [CollectionComposer](#) internally.
 
 ```html
 <efx-data-element></efx-data-element>
@@ -119,11 +119,11 @@ dataElement.data = data;
 
 The `data` property must support being passed a data collection array and an instance of a [CollectionComposer](#). Passing an instance of a collection composer allows for the element state to be controlled externally by other elements. This is useful when the element is used inside of another component's shadow root.
 
-### Config Elements
+### Configured
 
-These are configured by passing a config object to the element's `config` property. This allows for complex and detailed configuration objects to be passed and used in order to render and manipulate the element.
+Elements are configured by passing a config object to the element's `config` property. This allows for complex and detailed configuration objects to be passed and used in order to render and manipulate the element.
 
-As desirable as this option may sound, it's actually best to avoid this style of configuration and instead try to support setting features and data by using attributes, child elements and the `data` property. Reusable components should be simple and easy to understand and use - they're HTML elements after all.
+As desirable as this option may sound, it's actually best to avoid this approach and instead, try to consider using attributes, child elements and the `data` property. Reusable components should be simple and easy to understand and use - they're HTML elements after all.
 
 ```html
 <efx-config-element></efx-config-element>
@@ -145,4 +145,4 @@ configElement.config = {
 };
 ```
 
-x> Do not use `data` property on the element and in the configuration object. This can lead to confusion and should be avoided.
+x> Do not design the element to have both `data` property and `config` property. Also, avoid to have data in the configuration object. This can lead to confusion.
