@@ -119,7 +119,7 @@ export class SVGLoader extends CDNLoader {
         .then(response => extractSafeSVG(response))
         .then((svg) => {
           if (svg?.outerHTML) {
-            Logger.log(`${window.name} %c Start writing to cache %c ${iconName} ${Date.now()}`, 'background: red; color: white', '');
+            Logger.log(`${window.name} %c Icon loaded %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
           }
           resolve(svg?.outerHTML);
         });

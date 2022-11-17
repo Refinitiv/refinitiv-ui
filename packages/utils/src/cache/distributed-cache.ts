@@ -65,33 +65,6 @@ export class DistributedCache {
   protected storageNames: StorageNames;
 
   /**
-   * Get resource request list, sync the new requests to cache
-   */
-  protected get requestsState (): Requests {
-    const state = localStorage.getItem(this.storageNames.requests);
-    if (!state) {
-      return {};
-    }
-
-    const requests = (JSON.parse(state) || {}) as Requests;
-
-    // Synchronize new requests state to local variable for performance improvement
-    if (Object.keys(requests).length > Object.keys(this.requests).length) {
-      Object.assign(this.requests, requests);
-    }
-
-    return this.requests;
-  }
-
-  /**
-   * Set resource request list
-   * @param requests request list
-   */
-  protected set requestsState (requests: Requests) {
-    localStorage.setItem(this.storageNames.requests, JSON.stringify(requests));
-  }
-
-  /**
    * Constructor
    * @param name cache name
    * @param config cache configuration
@@ -138,7 +111,7 @@ export class DistributedCache {
     // Listen storage event to clear everythings if remove requests state
     addEventListener('storage', ({ key, newValue }) => {
       if (key === this.storageNames.requests && newValue === null) {
-        this.clean();
+        // this.clean(); // ! incorrect it create loop of cleaning
       }
     });
 
@@ -220,6 +193,7 @@ export class DistributedCache {
       };
 
       this.messenger.notify(key, cacheValue);
+      Logger.log(`${window.name} %c Start writing to cache %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: red; color: white', '');
       void this.storage.set(key, data).then(() => {
         // Clean up temporary requested state
         this.cleanItem(key);
@@ -245,15 +219,13 @@ export class DistributedCache {
       return item.value;
     }
 
-    // Check key is already started a request by using mutex to prevent race condition in multi-threads
-    const newRequest = await mutex.runExclusive(() => {
-      if (!this.hasRequest(key)) {
-        this.addRequest(key);
-        Logger.log(`${window.name} %c Request %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
-        return true;
-      }
-      return false;
-    });
+    // Check item requesting state
+    let newRequest = false;
+    if (!this.hasRequest(key)) {
+      this.addRequest(key);
+      Logger.log(`${window.name} %c Request %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
+      newRequest = true;
+    }
 
     if (newRequest === false) {
       Logger.log(`${window.name} %c Wait %c ${iconName} ${Date.now().toString()}`, 'background: orange; color: white', '');
@@ -291,12 +263,9 @@ export class DistributedCache {
    * @return {void}
    */
   protected addRequest (key: string): void {
-    const requests = this.requestsState;
-    if (!requests[key]) {
-      requests[key] = 'true';
-      this.requests[key] = 'true';
-      this.requestsState = requests;
-    }
+    this.requests[key] = 'true';
+    localStorage.setItem(key, 'true');
+    Logger.log(`${window.name} %c add request %c ${key.split('/').pop() || ''} ${Date.now().toString()}`, 'background: orange; color: white', '');
   }
 
   /**
@@ -305,7 +274,21 @@ export class DistributedCache {
    * @returns true if resource has started request
    */
   protected hasRequest (key: string): boolean {
-    return key in this.requests ? true : key in this.requestsState;
+    let result = false;
+
+    // Checking from caching states first, if not found then check on localStorage
+    if (key in this.requests) {
+      result = true;
+    }
+    else {
+      result = localStorage.getItem(key) === 'true';
+      if (result) {
+        this.requests[key] = 'true'; // cache a request state for reduce checking on localStorage
+      }
+    }
+    Logger.log(`${window.name} %c has request ${result ? 'true' : 'false'} %c ${key.split('/').pop() || ''} ${Date.now().toString()}`, 'background: orange; color: white', '');
+    return result;
+
   }
 
   /**
@@ -336,10 +319,7 @@ export class DistributedCache {
    */
   private cleanItem (key: string): void {
     localStorage.removeItem(this.storageNames.requests);
-    const requests = this.requestsState;
-    delete requests[key];
-    this.requestsState = requests;
-
+    localStorage.removeItem(key);
     delete this.requests[key];
     this.waiting.delete(key);
   }
