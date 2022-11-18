@@ -1,17 +1,90 @@
 <!-- 
-title: State management
-location: ./utils/state-management
+title: Configuration and State
+location: ./utils/configuration-and-state
 type: page
 layout: default
 -->
 
 
 
-# State management
+# Configuration and State
+When building your custom element, you need to choose how the element should be configured and manage the state. Mostly this is done via attributes and slotted content, however, some elements will need data, or, complex configuration objects to be passed.
 
+
+## Element Configuration Strategies
+
+When design a component API, there are three main configuration strategies to choose from. Standard, Data and Configured. Simplistic elements, like buttons, are considered standard and follow standard configuration principals.
+
+Data driven elements like lists, trees and grids tend to follow data configuration, except for when detailed configuration is required.
+
+### Standard
+
+Elements are configured by passing attributes to the element. This approach is simple and comparable to native HTML Elements in the browser.
+
+```html
+<efx-element disabled value="1">Hello world</efx-element>
+```
+
+Another slightly different approach, other elements can be slotted in as children to either be rendered, or, provide additional configurations.
+
+```html
+<efx-element>
+  <efx-element-option value="1" selected>Option 1</efx-element-option>
+  <efx-element-option value="2">Option 2</efx-element-option>
+  <efx-element-option value="3">Option 3</efx-element-option>
+</efx-element>
+```
+
+### Data
+
+Elements are configured by passing a list of flat, or, nested data to the element's `data` property. Items must implement the [DataItem](#) interface and state must be managed by a [CollectionComposer](#) internally.
+
+```html
+<efx-element></efx-element>
+```
+
+```typescript
+const data: DataItem[] = [
+  { value: '1' }
+  { value: '2' }
+  { value: '3' }
+];
+efxElement.data = data;
+```
+
+The `data` property must support being passed a data collection array and an instance of a [CollectionComposer](#). Passing an instance of a collection composer allows for the element state to be controlled externally by other elements. This is useful when the element is used inside of another component's shadow root.
+
+### Configured
+
+Elements are configured by passing a config object to the element's `config` property. This allows for complex and detailed configuration objects to be passed and used in order to render and manipulate the element.
+
+As desirable as this option may sound, it's actually best to avoid this approach and instead, try to consider using attributes, child elements and the `data` property. Reusable components should be simple and easy to understand and use - they're HTML elements after all.
+
+```html
+<efx-element></efx-element>
+```
+
+```typescript
+efxElement.config = {
+  columns: [
+    {
+      label: 'ID',
+      key: true
+    },
+    {
+      label: 'Name',
+      sort: true
+    }
+  ],
+  data: [...]
+};
+```
+
+x> Do not design the element to have both `data` property and `config` property. Also, avoid to have data in the configuration object. This can lead to confusion.
+
+## State management
 How state is managed, depends on the element type being built. Below are examples of how state should be managed across these different types.
-
-## Basic Elements
+### Using Properties
 
 Basic elements are comparable to native inbuilt elements in the browser. Managing state in this case is as simple as storing data as properties.
 
@@ -27,7 +100,7 @@ class MyElement extends BasicElement {
 }
 ```
 
-## Data Elements
+### Using Collection Composer
 
 Data elements can still manage state like basic elements, however, this is only for simple levels of configuration. These elements also accept array-like data to be passed as a data source, which means the element has a reference to the original data object and must manage state a bit differently.
 
@@ -84,7 +157,7 @@ class MyElement<T extends DataItem> extends ControlElement {
 }
 ```
 
-## Config Elements
+### Using Config Property 
 
 Similar to Data Elements, elements which consume a configuration object must also be careful not to manipulate the original configuration object being passed.
 

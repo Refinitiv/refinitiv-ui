@@ -92,9 +92,9 @@ type: nav
 - Building Components
   * [Introduction](./creating-custom-elements)
   * [Tutorial](./tutorials/element)
-  * [Element types](./element-types)
   * [Naming conventions](./naming-conventions)
-  * [State management](./utils/state-management)
+  * [Element types](./element-types)
+  * [Configuration and State](./utils/configuration-and-state)
   * [Events](./events)
   * [Localisation](./localisation)
   * [Reporting issues](./reporting-issues)
