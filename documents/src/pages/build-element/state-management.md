@@ -83,7 +83,9 @@ efxElement.config = {
 x> Do not design the element to have both `data` property and `config` property. Also, avoid to have data in the configuration object. This can lead to confusion.
 
 ## State management
-How state is managed, depends on the element type being built. Below are examples of how state should be managed across these different types.
+
+State management is property management handled under [Lit's update cycle](https://lit.dev/docs/components/lifecycle/#reactive-update-cycle). It can use other utilities to serve different purposes depends on the element type being built. Below are examples of how state should be managed across these different types.
+
 ### Using Properties
 
 Basic elements are comparable to native inbuilt elements in the browser. Managing state in this case is as simple as storing data as properties.
