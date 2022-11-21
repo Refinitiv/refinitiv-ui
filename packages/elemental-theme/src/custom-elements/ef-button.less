@@ -64,6 +64,10 @@
       color: @button-toggle-active-background-color;
       .states(transparent, @button-toggle-active-background-color);
     }
+
+    &[focused=visible] {
+      outline: @input-border-width @input-border-style @input-focused-border-color;
+    }
   }
 
   // Shift the icon to the right

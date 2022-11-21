@@ -59,7 +59,6 @@ import '@refinitiv-ui/elements/panel/themes/halo/dark';
 import '@refinitiv-ui/elements/text-field/themes/halo/dark';
 import '@refinitiv-ui/elements/password-field/themes/halo/dark';
 ```
-If you're using webpack 4, you can set path aliases in `webpack.config.js` similar to [Vanilla](./tutorials/vanilla-js#webpack-4).
 
 Components can be used like any other native `HTMLElement`. Try replacing content in `src/App.vue` with the code below.
 

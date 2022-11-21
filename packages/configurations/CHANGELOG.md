@@ -3,15 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/configurations@6.0.7...@refinitiv-ui/configurations@6.0.8) (2022-11-07)
+
+**Note:** Version bump only for package @refinitiv-ui/configurations
+
+
+
+
+
+## [6.0.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/configurations@6.0.6...@refinitiv-ui/configurations@6.0.7) (2022-11-07)
+
+**Note:** Version bump only for package @refinitiv-ui/configurations
+
+
+
+
+
+## [6.0.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/configurations@6.0.5...@refinitiv-ui/configurations@6.0.6) (2022-10-26)
+
+**Note:** Version bump only for package @refinitiv-ui/configurations
+
+
+
+
+
 ## [6.0.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/configurations@6.0.4...@refinitiv-ui/configurations@6.0.5) (2022-09-26)
 
-* Update all formatjs dependencies to support typescript 4.8 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
-* Upgrade typescript to 4.8.3 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
 
 ### Bug Fixes
 
 * **configurations:** move import extension eslint rule to local env ([#459](https://github.com/Refinitiv/refinitiv-ui/issues/459)) ([f8a9e1a](https://github.com/Refinitiv/refinitiv-ui/commit/f8a9e1a710901028da57e314ff5a879dab5d9e73))
 
+**Note:**
+
+* Update all formatjs dependencies to support typescript 4.8 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
+* Upgrade typescript to 4.8.3 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
 
 
 
