@@ -92,7 +92,6 @@ type: nav
 - Building Components
   * [Introduction](./creating-custom-elements)
   * [Tutorial](./tutorials/element)
-  * [Naming conventions](./naming-conventions)
   * [Element types](./element-types)
   * [Configuration and State](./utils/configuration-and-state)
   * [Events](./events)
@@ -100,6 +99,7 @@ type: nav
   * [Reporting issues](./reporting-issues)
   * [Breaking changes](./breaking-changes)
   * [Polyfilling](./polyfilling)
+  * [Naming conventions](./naming-conventions)
 
   - Utilities
     * [Accessibility](./utils/accessibility)
