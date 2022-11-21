@@ -92,14 +92,14 @@ type: nav
 - Building Components
   * [Introduction](./creating-custom-elements)
   * [Tutorial](./tutorials/element)
-  * [Element types](./element-types)
-  * [Configurations and States](./utils/configurations-and-states)
+  * [Element Types](./element-types)
+  * [Configuration and States](./utils/configuration-and-states)
   * [Events](./events)
   * [Localisation](./localisation)
-  * [Reporting issues](./reporting-issues)
-  * [Breaking changes](./breaking-changes)
+  * [Reporting Issues](./reporting-issues)
+  * [Breaking Changes](./breaking-changes)
   * [Polyfilling](./polyfilling)
-  * [Naming conventions](./naming-conventions)
+  * [Naming Conventions](./naming-conventions)
 
   - Utilities
     * [Accessibility](./utils/accessibility)

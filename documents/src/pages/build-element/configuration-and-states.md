@@ -1,16 +1,16 @@
 <!-- 
 title: Configurations and States
-location: ./utils/configurations-and-states
+location: ./utils/configuration-and-states
 type: page
 layout: default
 -->
 
 
 
-# Configurations and States
+# Configuration and States
 When building your custom element, you need to choose how the element should be configured and managed the state. A different approach of configuration would require to implement state management differently.
 
-## Element configurations
+## Element configuration
 
 When designing a component, it would require to design how developers could configure your component. There are three main configuration strategies to choose from. Standard, Data and Configured. Simplistic elements, like buttons, are considered standard and follow standard configuration principals.
 
