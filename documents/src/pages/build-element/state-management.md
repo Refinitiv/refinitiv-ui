@@ -1,25 +1,24 @@
 <!-- 
-title: Configuration and State
-location: ./utils/configuration-and-state
+title: Configurations and States
+location: ./utils/configurations-and-states
 type: page
 layout: default
 -->
 
 
 
-# Configuration and State
-When building your custom element, you need to choose how the element should be configured and manage the state. Mostly this is done via attributes and slotted content, however, some elements will need data, or, complex configuration objects to be passed.
+# Configurations and States
+When building your custom element, you need to choose how the element should be configured and managed the state. A different approach of configuration would require to implement state management differently.
 
+## Element configurations
 
-## Element Configuration Strategies
-
-When design a component API, there are three main configuration strategies to choose from. Standard, Data and Configured. Simplistic elements, like buttons, are considered standard and follow standard configuration principals.
+When designing a component, it would require to design how developers could configure your component. There are three main configuration strategies to choose from. Standard, Data and Configured. Simplistic elements, like buttons, are considered standard and follow standard configuration principals.
 
 Data driven elements like lists, trees and grids tend to follow data configuration, except for when detailed configuration is required.
 
 ### Standard
 
-Elements are configured by passing attributes to the element. This approach is simple and comparable to native HTML Elements in the browser.
+Elements are configured by passing attributes to the element or using value of a default slot. This approach is simple and comparable to native HTML Elements in the browser.
 
 ```html
 <efx-element disabled value="1">Hello world</efx-element>
@@ -82,9 +81,11 @@ efxElement.config = {
 
 x> Do not design the element to have both `data` property and `config` property. Also, avoid to have data in the configuration object. This can lead to confusion.
 
-## State management
+## Element state management
 
-State management is property management handled under [Lit's update cycle](https://lit.dev/docs/components/lifecycle/#reactive-update-cycle). It can use other utilities to serve different purposes depends on the element type being built. Below are examples of how state should be managed across these different types.
+This section shows examples of how you can manage element's properties or manipulate an internal data structure of your element. It can use other utilities to serve different purposes depends on the element type being built.
+
+In some complex elements, you may need to use more than one approach. For example, Tree, the element could use `value` property to store a value of selected item but it could also use Collection Composer to manage state of each individual tree item.
 
 ### Using Properties
 
