@@ -1,6 +1,6 @@
 <!-- 
 title: Configurations and States
-location: ./utils/configuration-and-states
+location: ./configuration-and-states
 type: page
 layout: default
 -->
