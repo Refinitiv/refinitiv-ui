@@ -12,7 +12,7 @@ layout: default
 # Angular Guide
 
 ## Try online demo
-A playground project that uses Element Framework with Angular. Here is a [link](https://codesandbox.io/s/angular-sample-14-mt9y1h).
+A playground project that uses Element Framework with Angular. Here is a [link](https://codesandbox.io/s/angular-forms-project-mt9y1h).
 
 ## Initialise your project
 

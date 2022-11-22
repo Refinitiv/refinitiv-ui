@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.5.0...@refinitiv-ui/elements@6.5.1) (2022-11-21)
+
+
+### Bug Fixes
+
+* **tree:** uncheckAllItems method not update checked state of parent node ([#526](https://github.com/Refinitiv/refinitiv-ui/issues/526)) ([a36e837](https://github.com/Refinitiv/refinitiv-ui/commit/a36e837bdeeb1fe62e54ec040678490b9e68a134))
+
+
+
+
+
 # [6.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.3.0...@refinitiv-ui/elements@6.5.0) (2022-11-07)
 
 
