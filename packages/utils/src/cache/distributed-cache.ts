@@ -1,4 +1,3 @@
-import { Mutex } from 'async-mutex';
 import { LocalStorage } from './storages/localstorage.js';
 import { IndexedDBStorage } from './storages/indexeddb.js';
 import { CacheMessenger } from './messenger.js';
@@ -11,11 +10,6 @@ import { TimeoutTaskRunner } from '../async.js';
 import { uuid } from '../uuid.js';
 const logger = new Logger();
 logger.timeStart(window.name);
-
-/**
- * Mutual exclusion, prevent getting requests state concurrently from multi tabs/windows
- */
-const mutex = new Mutex();
 
 export interface DistributedCacheConfig {
   storage: 'localstorage' | 'indexeddb';

@@ -52,7 +52,6 @@
   },
   "dependencies": {
     "@types/d3-color": "^3.0.2",
-    "async-mutex": "^0.4.0",
     "colord": "^2.9.3",
     "d3-color": "^3.0.1",
     "idb": "^7.0.2",
