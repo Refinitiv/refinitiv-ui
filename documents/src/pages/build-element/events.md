@@ -31,7 +31,7 @@ There are many inconsistencies with focusing across different browsers. Polyfill
 
 This event is here to align all browsers, providing a reliable event to use for any focus/blur logic.
 
-| Event           | Replaces            |
+| Event           | Native Counterparts |
 | --------------- | ------------------- |
 | focused-changed | `focus` and `blur`. |
 
