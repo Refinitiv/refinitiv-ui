@@ -371,6 +371,50 @@ describe('tree/Tree', () => {
       expect(el.values).to.deep.equal(['1.1', '1.2', '4']);
     });
 
+    it('Uncheck all items correctly with deep nested data', async () => {
+      const el = await fixture('<ef-tree multiple></ef-tree>');
+      el.data = deepNestedData;
+      await elementUpdated(el);
+      el.uncheckAll();
+      el.expandAll();
+      await elementUpdated(el);
+      const item = el.children[3];
+      const itemChild = el.children[4];
+      itemChild.click();
+      await elementUpdated(el);
+      el.uncheckAll();
+      await elementUpdated(el);
+      expect(item.checkedState).to.equal(0);
+      el.uncheckAll();
+      await elementUpdated(el);
+      el.values = ['1.3.1.1'];
+      await elementUpdated(el);
+      el.uncheckAll();
+      await elementUpdated(el);
+      expect(item.checkedState).to.equal(0);
+      expect(itemChild.checkedState).to.equal(0);
+    });
+
+    it('check/uncheck all items correctly in no-relation with deep nested data', async () => {
+      const el = await fixture('<ef-tree multiple no-relation></ef-tree>');
+      el.data = deepNestedData;
+      await elementUpdated(el);
+      el.uncheckAll();
+      el.expandAll();
+      await elementUpdated(el);
+      const item = el.children[3];
+      const itemChild = el.children[4];
+      itemChild.click();
+      await elementUpdated(el);
+      el.uncheckAll();
+      await elementUpdated(el);
+      expect(item.checkedState).to.equal(0);
+      el.checkAll();
+      await elementUpdated(el);
+      expect(item.checkedState).to.equal(1);
+      expect(itemChild.checkedState).to.equal(1);
+    });
+
     it('Can set values programmatically', async () => {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = nestedData;
