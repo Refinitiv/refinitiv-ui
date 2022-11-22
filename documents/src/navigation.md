@@ -92,18 +92,18 @@ type: nav
 - Building Components
   * [Introduction](./creating-custom-elements)
   * [Tutorial](./tutorials/element)
-  * [Element types](./element-types)
-  * [Naming conventions](./naming-conventions)
-  * [State management](./utils/state-management)
+  * [Element Types](./element-types)
+  * [Configuration and States](./configuration-and-states)
   * [Events](./events)
   * [Localisation](./localisation)
-  * [Reporting issues](./reporting-issues)
-  * [Breaking changes](./breaking-changes)
+  * [Reporting Issues](./reporting-issues)
+  * [Breaking Changes](./breaking-changes)
   * [Polyfilling](./polyfilling)
+  * [Naming Conventions](./naming-conventions)
 
   - Utilities
     * [Accessibility](./utils/accessibility)
-    * [Async tasks](./utils/async-tasks)
+    * [Async Tasks](./utils/async-tasks)
     * [Color](./utils/color)
     * [Data Management](./utils/data-management)
     * [Date/Time](./utils/date-time)
@@ -116,7 +116,7 @@ type: nav
   - Testing
     * [Code Style](./testing/lint)
     * [DOM Snapshots](./testing/snapshot)
-    * [Unit tests](./testing/unit)
+    * [Unit Tests](./testing/unit)
 
   - Tools
     * [Starter Templates](./tools/starter-templates)
