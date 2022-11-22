@@ -18,7 +18,7 @@ export class CacheMessenger {
   /**
    * Channel to send message
    */
-  protected broadcastChannel: BroadcastChannel;
+  protected broadcastChannel?: BroadcastChannel;
 
   /**
    * Messaging callback
@@ -26,20 +26,25 @@ export class CacheMessenger {
   public onMessage: OnMessageCallback | undefined = undefined;
 
   /**
+   * Channel name for broadcasting
+   */
+  protected channel = '';
+
+  /**
    * Constructor
    * @param name messenger name
    */
   constructor (name: string) {
-    const messengerName = `[${MESSENGER_PREFIX}][${name}]`;
-    this.broadcastChannel = new BroadcastChannel(messengerName);
-    this.listen();
+    this.channel = `[${MESSENGER_PREFIX}][${name}]`;
+    this.open();
   }
 
   /**
-   * Initialize listening events from messages and storage
+   * Open connection and listening to events from messages and storage
    * @returns {void}
    */
-  private listen (): void {
+  public open (): void {
+    this.broadcastChannel = new BroadcastChannel(this.channel);
     // Listen message from others messenger
     this.broadcastChannel.onmessage = (event: MessageEvent<Message>) => {
       // Run callback function
@@ -47,7 +52,17 @@ export class CacheMessenger {
         this.onMessage(event.data);
       }
     };
-    Logger.log(`${window.name} %c Listened in Messenger %c ${Date.now().toString()}`, 'background: purple; color: white', '');
+    Logger.log(`${window.name} %c Listen Messenger %c ${Date.now().toString()}`, 'background: purple; color: white', '');
+  }
+
+  /**
+   * Close listening
+   * @returns {void}
+   */
+  public close (): void {
+    this.broadcastChannel?.close();
+    this.broadcastChannel = undefined;
+    Logger.log(`${window.name} %c Closed Messenger %c ${Date.now().toString()}`, 'background: purple; color: white', '');
   }
 
   /**
@@ -57,7 +72,16 @@ export class CacheMessenger {
    * @returns {void}
    */
   public notify (key: string, value: string): void {
-    this.broadcastChannel.postMessage({ key, value });
-    Logger.log(`${window.name} %c Post message %c key: ${key.split('/').pop() || ''} ${Date.now()}`, 'background: yellow; color: black', '');
+    if (!this.broadcastChannel) {
+      this.open();
+    }
+
+    if (this.broadcastChannel) {
+      this.broadcastChannel.postMessage({ key, value });
+      Logger.log(`${window.name} %c Post message %c key: ${key.split('/').pop() || ''} ${Date.now()}`, 'background: yellow; color: black', '');
+    }
+    else {
+      throw new Error('Cache Messenger: BroadcastChannel not found');
+    }
   }
 }

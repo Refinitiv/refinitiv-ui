@@ -8,6 +8,7 @@ import type { CacheStorage } from './interfaces/CacheStorage';
 // TODO: This imports use for debugging and benchmarking, remove it when this class implement completed
 import { Logger } from './helpers.js';
 import { TimeoutTaskRunner } from '../async.js';
+import { uuid } from '../uuid.js';
 const logger = new Logger();
 logger.timeStart(window.name);
 
@@ -26,7 +27,7 @@ type StorageNames = {
 };
 
 type Requests = {
-  [key: string]: 'true'
+  [key: string]: string
 }
 
 /**
@@ -110,12 +111,40 @@ export class DistributedCache {
   private listen (): void {
     // Listen storage event to clear everythings if remove requests state
     addEventListener('storage', ({ key, newValue }) => {
+      // Leader election vote
+      if (!key?.startsWith('leader-') && newValue) {
+        const leaderItem = localStorage.getItem(`leader-${key || ''}`);
+        if (!leaderItem) { // save vote only one time
+          Logger.log(`${window.name} listen and post ${key || ''}`, newValue);
+
+          localStorage.setItem(`leader-${key || ''}`, newValue); // save voted item state
+          this.messenger.notify(`leader-${key || ''}`, newValue); // notify
+        }
+      }
+
       if (key === this.storageNames.requests && newValue === null) {
         // this.clean(); // ! incorrect it create loop of cleaning
       }
     });
 
     this.messenger.onMessage = ({ key, value }) => {
+      // Leader action
+      if (key?.startsWith('leader-')) {
+        const itemKey = key.replace('leader-', '');
+        if (value && this.requests[itemKey] === value) {
+          Logger.log(`${window.name} Leader ${key.split('/').pop() || ''} ${value}`);
+          const resolve = this.waiting.get(itemKey);
+          if (resolve) {
+            Logger.log(`${window.name} %c Leader: Request icon %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: blue; color: white', '');
+            resolve(null); // load svg if return null
+          }
+          else {
+            Logger.log(`${window.name} not found to ${key.split('/').pop() || ''} resolve`, this.waiting.has(key));
+          }
+        }
+        return;
+      }
+
       // Cancel no new message timeout
       this.lastMessageTimeout.cancel();
 
@@ -133,6 +162,15 @@ export class DistributedCache {
         const resolve = this.waiting.get(key);
         if (resolve) {
           resolve(value);
+
+          // Clean request state and waiting list
+          delete this.requests[key];
+          this.waiting.delete(key);
+
+          // Close messenger when no more waiting item
+          if (!this.waiting.size && !Object.keys(this.requests).length) {
+            this.messenger.close();
+          }
         }
         Logger.log(`${window.name} %c Received message %c icon ${key.split('/').pop() || ''} ${Date.now()}`, 'background: green; color: white', '');
       }
@@ -220,23 +258,15 @@ export class DistributedCache {
     }
 
     // Check item requesting state
-    let newRequest = false;
     if (!this.hasRequest(key)) {
       this.addRequest(key);
-      Logger.log(`${window.name} %c Request %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
-      newRequest = true;
     }
 
-    if (newRequest === false) {
-      Logger.log(`${window.name} %c Wait %c ${iconName} ${Date.now().toString()}`, 'background: orange; color: white', '');
-      // Add to waiting list by create promise waiting for resolve
-      return new Promise<string | null>(resolve => {
-        this.wait(key, resolve);
-      });
-    }
-    else {
-      return null;
-    }
+    Logger.log(`${window.name} %c Wait %c ${iconName} ${Date.now().toString()}`, 'background: orange; color: white', '');
+    // Add to waiting list by create promise waiting for resolve
+    return new Promise<string | null>(resolve => {
+      this.wait(key, resolve);
+    });
   }
 
   /**
@@ -263,8 +293,10 @@ export class DistributedCache {
    * @return {void}
    */
   protected addRequest (key: string): void {
-    this.requests[key] = 'true';
-    localStorage.setItem(key, 'true');
+    const id = uuid();
+    Logger.log(`${window.name} %c Leader: Candidate %c ${key?.split('/').pop() || ''} uuid: ${id} ${Date.now()}`, 'background: blue; color: white', '');
+    this.requests[key] = id;
+    localStorage.setItem(key, id);
     Logger.log(`${window.name} %c add request %c ${key.split('/').pop() || ''} ${Date.now().toString()}`, 'background: orange; color: white', '');
   }
 
@@ -281,9 +313,9 @@ export class DistributedCache {
       result = true;
     }
     else {
-      result = localStorage.getItem(key) === 'true';
+      result = localStorage.getItem(key) !== null;
       if (result) {
-        this.requests[key] = 'true'; // cache a request state for reduce checking on localStorage
+        this.requests[key] = uuid(); // cache a request state for reduce checking on localStorage
       }
     }
     Logger.log(`${window.name} %c has request ${result ? 'true' : 'false'} %c ${key.split('/').pop() || ''} ${Date.now().toString()}`, 'background: orange; color: white', '');
@@ -322,6 +354,10 @@ export class DistributedCache {
     localStorage.removeItem(key);
     delete this.requests[key];
     this.waiting.delete(key);
+
+    if (!this.waiting.size && !Object.keys(this.requests).length) {
+      this.messenger.close();
+    }
   }
 
   /**
