@@ -41,9 +41,7 @@ const DIALOG_POSITION = ['right-start', 'right-end', 'right-middle', 'left-start
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-color-picker', {
-  alias: 'emerald-color-picker'
-})
+@customElement('ef-color-picker')
 export class ColorPicker extends ControlElement {
   /**
    * Element version number

@@ -30,9 +30,7 @@ enum Direction {
  * Used to control and navigate through multiple pages
  * @fires value-changed - Fired when the `value` property is changed
  */
-@customElement('ef-pagination', {
-  alias: 'emerald-pagination'
-})
+@customElement('ef-pagination')
 export class Pagination extends BasicElement {
 
   /**

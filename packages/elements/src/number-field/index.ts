@@ -53,9 +53,7 @@ enum Direction {
  * @attr {string} value - Input's value
  * @prop {string} [value=""] - Input's value
  */
-@customElement('ef-number-field', {
-  alias: 'coral-number-field'
-})
+@customElement('ef-number-field')
 export class NumberField extends FormFieldElement {
 
   /**

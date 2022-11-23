@@ -40,9 +40,7 @@ import { clamp, preventDefault, isDecimalNumber, countDecimalPlace } from './uti
  * @fires from-changed - Fired when the `from` changes.
  * @fires to-changed - Fired when the `to` changes.
  */
-@customElement('ef-slider', {
-  alias: 'coral-slider'
-})
+@customElement('ef-slider')
 export class Slider extends ControlElement {
 
   /**

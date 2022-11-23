@@ -105,9 +105,7 @@ export {
  *
  * @slot footer - Adds slotted content into the footer of the calendar control
  */
-@customElement('ef-calendar', {
-  alias: 'coral-calendar'
-})
+@customElement('ef-calendar')
 export class Calendar extends ControlElement implements MultiValue {
   /**
    * Element version number

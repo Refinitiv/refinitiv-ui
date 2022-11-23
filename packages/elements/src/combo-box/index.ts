@@ -70,9 +70,7 @@ const freeTextMultipleWarning = new WarningNotice('"free-text" mode is not compa
  * @fires query-changed - Dispatched when query changes
  * @fires opened-changed - Dispatched when opened state changes
  */
-@customElement('ef-combo-box', {
-  alias: 'coral-combo-box'
-})
+@customElement('ef-combo-box')
 export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
   /**
