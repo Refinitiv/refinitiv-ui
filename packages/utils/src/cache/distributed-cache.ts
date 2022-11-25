@@ -1,13 +1,13 @@
 import { LocalStorage } from './storages/localstorage.js';
 import { IndexedDBStorage } from './storages/indexeddb.js';
-import { CacheMessenger } from './messenger.js';
+import { CacheMessenger, type Message } from './messenger.js';
 import { CACHE_PREFIX, MESSENGER_LAST_MESSAGE_INTERVAL } from './constants.js';
 import type { CacheStorage } from './interfaces/CacheStorage';
+import { uuid } from '../uuid.js';
 
 // TODO: This imports use for debugging and benchmarking, remove it when this class implement completed
 import { Logger } from './helpers.js';
 import { TimeoutTaskRunner } from '../async.js';
-import { uuid } from '../uuid.js';
 const logger = new Logger();
 logger.timeStart(window.name);
 
@@ -19,6 +19,11 @@ type StorageNames = {
   requests: `${string}[requests]`,
   unloaded: `${string}[unloaded]`
 };
+
+type RequestItem = {
+  id: string;
+  leader?: string;
+}
 
 type Requests = {
   [key: string]: string
@@ -105,76 +110,91 @@ export class DistributedCache {
   private listen (): void {
     // Listen storage event to clear everythings if remove requests state
     addEventListener('storage', ({ key, newValue }) => {
-      // Leader election vote
-      if (!key?.startsWith('leader-') && newValue) {
-        const leaderItem = localStorage.getItem(`leader-${key || ''}`);
-        if (!leaderItem) { // save vote only one time
-          Logger.log(`${window.name} listen and post ${key || ''}`, newValue);
+      // Leader election, use only first vote(event) for setting leader
+      if (key?.startsWith(this.storageNames.requests) && newValue) {
 
-          localStorage.setItem(`leader-${key || ''}`, newValue); // save voted item state
-          this.messenger.notify(`leader-${key || ''}`, newValue); // notify
+        const request = JSON.parse(localStorage.getItem(key) || '') as RequestItem;
+        // Set a new leader if does not exists
+        if (!request.leader) {
+          const itemKey = key.replace(`${this.storageNames.requests}-`, '');
+
+          // Save Leader
+          request.leader = 'true';
+          localStorage.setItem(key, JSON.stringify(request));
+
+          // Notify to leader
+          this.messenger.notify(`leader-${itemKey}`, request.id);
         }
-      }
-
-      if (key === this.storageNames.requests && newValue === null) {
-        // this.clean(); // ! incorrect it create loop of cleaning
       }
     });
 
-    this.messenger.onMessage = ({ key, value }) => {
-      // Leader action
-      if (key?.startsWith('leader-')) {
-        const itemKey = key.replace('leader-', '');
-        if (value && this.requests[itemKey] === value) {
-          Logger.log(`${window.name} Leader ${key.split('/').pop() || ''} ${value}`);
-          const resolve = this.waiting.get(itemKey);
-          if (resolve) {
-            Logger.log(`${window.name} %c Leader: Request icon %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: blue; color: white', '');
-            resolve(null); // load svg if return null
-          }
-          else {
-            Logger.log(`${window.name} not found to ${key.split('/').pop() || ''} resolve`, this.waiting.has(key));
-          }
-        }
-        return;
-      }
+    this.messenger.onMessage = (message) => {
 
       // Cancel no new message timeout
       this.lastMessageTimeout.cancel();
 
-      /**
-       * Synchronize the item to active cache in storage by using data in the received message,
-       * while the item writing to the browser storage by the sender
-       */
-      if (!this.storage.hasActive(key)) {
-        Logger.log(`${window.name} %c Sync cache %c with received message %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: magenta; color: white', '', '');
-        this.syncActiveCache(key, value);
+      const { key, value } = message;
+      if (key?.startsWith('leader-')) {
+        this.handleLeaderMessage(message);
+        return;
       }
-
-      // Match a message with a waiting request and resolve it
-      if (this.waiting.has(key)) {
-        const resolve = this.waiting.get(key);
-        if (resolve) {
-          resolve(value);
-
-          // Clean request state and waiting list
-          delete this.requests[key];
-          this.waiting.delete(key);
-
-          // Close messenger when no more waiting item
-          if (!this.waiting.size && !Object.keys(this.requests).length) {
-            this.messenger.close();
-          }
+      else {
+        /**
+         * Synchronize the item to active cache in storage by using data in the received message,
+         * while the item writing to the browser storage by the sender
+         */
+        if (!this.storage.hasActive(key)) {
+          Logger.log(`${window.name} %c Sync cache %c with received message %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: magenta; color: white', '', '');
+          this.syncActiveCache(key, value);
         }
-        Logger.log(`${window.name} %c Received message %c icon ${key.split('/').pop() || ''} ${Date.now()}`, 'background: green; color: white', '');
+
+        this.handleFollowerMessage(message);
       }
 
-      /**
-       * Detect the `last message` by using a gap between message,
-       * If no new message post within the time limit
-       */
+      // Show end time
       this.lastMessageTimeout.schedule(() => logger.timeEnd(window.name));
     };
+  }
+
+  /**
+   * Leader Action: load svg icon when receive a matched message
+   * @param message messenger message
+   * @returns {void}
+   */
+  private handleLeaderMessage ({ key, value }: Message): void {
+    const itemKey = key.replace('leader-', '');
+    // Check the request is belong to leader
+    if (value && this.requests[itemKey] === value) {
+      Logger.log(`${window.name} Leader ${key.split('/').pop() || ''} ${value}`);
+      const resolve = this.waiting.get(itemKey);
+      if (resolve) {
+        Logger.log(`${window.name} %c Leader: Request icon %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: blue; color: white', '');
+        resolve(null); // load svg if return null
+      }
+      else {
+        Logger.log(`${window.name} not found to ${key.split('/').pop() || ''} resolve`, this.waiting.has(key));
+      }
+    }
+  }
+
+  private handleFollowerMessage ({ key, value }: Message): void {
+    // Follower Action: Match a message with a waiting request and resolve it
+    if (this.waiting.has(key)) {
+      const resolve = this.waiting.get(key);
+      if (resolve) {
+        resolve(value);
+
+        // Clean request state and waiting list
+        delete this.requests[key];
+        this.waiting.delete(key);
+
+        // Close messenger when no more waiting item
+        if (!this.waiting.size && !Object.keys(this.requests).length) {
+          this.messenger.close();
+        }
+      }
+      Logger.log(`${window.name} %c Received message %c icon ${key.split('/').pop() || ''} ${Date.now()}`, 'background: green; color: white', '');
+    }
   }
 
   /**
@@ -290,8 +310,7 @@ export class DistributedCache {
     const id = uuid();
     Logger.log(`${window.name} %c Leader: Candidate %c ${key?.split('/').pop() || ''} uuid: ${id} ${Date.now()}`, 'background: blue; color: white', '');
     this.requests[key] = id;
-    localStorage.setItem(key, id);
-    Logger.log(`${window.name} %c add request %c ${key.split('/').pop() || ''} ${Date.now().toString()}`, 'background: orange; color: white', '');
+    localStorage.setItem(`${this.storageNames.requests}-${key}`, JSON.stringify({ id: id }));
   }
 
   /**
@@ -307,14 +326,12 @@ export class DistributedCache {
       result = true;
     }
     else {
-      result = localStorage.getItem(key) !== null;
+      result = localStorage.getItem(`${this.storageNames.requests}-${key}`) !== null;
       if (result) {
-        this.requests[key] = uuid(); // cache a request state for reduce checking on localStorage
+        this.requests[key] = 'waiting'; // cache a request state for reduce checking on localStorage
       }
     }
-    Logger.log(`${window.name} %c has request ${result ? 'true' : 'false'} %c ${key.split('/').pop() || ''} ${Date.now().toString()}`, 'background: orange; color: white', '');
     return result;
-
   }
 
   /**
@@ -344,8 +361,8 @@ export class DistributedCache {
    * @returns {void}
    */
   private cleanItem (key: string): void {
-    localStorage.removeItem(this.storageNames.requests);
-    localStorage.removeItem(key);
+    // localStorage.removeItem(this.storageNames.requests);
+    localStorage.removeItem(`${this.storageNames.requests}-${key}`);
     delete this.requests[key];
     this.waiting.delete(key);
 
