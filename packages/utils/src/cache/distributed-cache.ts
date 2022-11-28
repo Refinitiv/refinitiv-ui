@@ -65,6 +65,11 @@ export class DistributedCache {
   protected storageNames: StorageNames;
 
   /**
+   * Request coodinator is exist to working with
+   */
+  protected coordinator = false;
+
+  /**
    * Constructor
    * @param name cache name
    * @param config cache configuration
@@ -98,9 +103,13 @@ export class DistributedCache {
       unloaded: `${cacheName}[unloaded]`
     };
 
+    // Create messenger and add event listener
     this.messenger = new CacheMessenger(name);
     this.handleUnload();
     this.listen();
+
+    // Check coodinators exist
+    this.messenger.notify('coordinator', 'true');
   }
 
   /**
@@ -132,6 +141,14 @@ export class DistributedCache {
 
       // Cancel no new message timeout
       this.lastMessageTimeout.cancel();
+
+      // Set coordinator if found response message
+      if (!this.coordinator && message.key === 'coordinator') {
+        this.coordinator = true;
+        this.messenger.notify('coordinator', 'true'); // notify back to sender
+        Logger.log(`${window.name} %c Coordinator %c  ${message.value}`, 'background: blue; color: white', '');
+        return;
+      }
 
       const { key, value } = message;
       if (key?.startsWith('leader-')) {
@@ -187,11 +204,6 @@ export class DistributedCache {
         // Clean request state and waiting list
         delete this.requests[key];
         this.waiting.delete(key);
-
-        // Close messenger when no more waiting item
-        if (!this.waiting.size && !Object.keys(this.requests).length) {
-          this.messenger.close();
-        }
       }
       Logger.log(`${window.name} %c Received message %c icon ${key.split('/').pop() || ''} ${Date.now()}`, 'background: green; color: white', '');
     }
@@ -272,7 +284,10 @@ export class DistributedCache {
     }
 
     // Check item requesting state
-    if (!this.hasRequest(key)) {
+    if (!this.coordinator) {
+      return null; // itself as leader
+    }
+    else if (!this.hasRequest(key)) {
       this.addRequest(key);
     }
 
@@ -361,14 +376,9 @@ export class DistributedCache {
    * @returns {void}
    */
   private cleanItem (key: string): void {
-    // localStorage.removeItem(this.storageNames.requests);
     localStorage.removeItem(`${this.storageNames.requests}-${key}`);
     delete this.requests[key];
     this.waiting.delete(key);
-
-    if (!this.waiting.size && !Object.keys(this.requests).length) {
-      this.messenger.close();
-    }
   }
 
   /**
