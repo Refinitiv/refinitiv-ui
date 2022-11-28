@@ -8,51 +8,49 @@
       import '@refinitiv-ui/elements/swing-gauge';
       import '@refinitiv-ui/demo-block';
     </script>
-    <shady-css-scoped>
-      <style type="text/css">
+    <style type="text/css">
 
-        ef-swing-gauge {
-          width: 100%;
-        }
+      ef-swing-gauge {
+        width: 100%;
+      }
 
-        ef-swing-gauge[small] {
-          width: 40%;
-          height: 60%;
-        }
+      ef-swing-gauge[small] {
+        width: 40%;
+        height: 60%;
+      }
 
-        ef-swing-gauge[medium] {
-          width: 60%;
-          height: 90%;
-        }
+      ef-swing-gauge[medium] {
+        width: 60%;
+        height: 90%;
+      }
 
-        .resize {
-          display: flex;
-          flex-flow: row nowrap;
-          align-items: flex-end;
-          height: 200px;
-        }
+      .resize {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-end;
+        height: 200px;
+      }
 
-        ef-swing-gauge[custom-color] {
-          --primary-color: #FF5000;
-          --secondary-color: #00C389;
-          --border-color: #000000;
-          --center-line-color: #000000;
-          --center-line-opacity: 1;
-        }
+      ef-swing-gauge[custom-color] {
+        --primary-color: #FF5000;
+        --secondary-color: #00C389;
+        --border-color: #000000;
+        --center-line-color: #000000;
+        --center-line-opacity: 1;
+      }
 
-        ef-swing-gauge[centerline-dotted] {
-          --center-line: dotted;
-        }
+      ef-swing-gauge[centerline-dotted] {
+        --center-line: dotted;
+      }
 
-        ef-swing-gauge[centerline-dashed] {
-          --center-line: dashed;
-        }
+      ef-swing-gauge[centerline-dashed] {
+        --center-line: dashed;
+      }
 
-        ef-swing-gauge[centerline-none] {
-          --center-line: none;
-        }
-      </style>
-    </shady-css-scoped>
+      ef-swing-gauge[centerline-none] {
+        --center-line: none;
+      }
+    </style>
   </head>
   <body>
       <!-- DEFAULT -->

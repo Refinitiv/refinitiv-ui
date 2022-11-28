@@ -4,8 +4,7 @@ import {
   html,
   css,
   TemplateResult,
-  CSSResultGroup,
-  StyleInfo
+  CSSResultGroup
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -18,15 +17,6 @@ const Themes = [
   'solar-theme/pearl',
   'solar-theme/charcoal'
 ];
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-declare namespace ShadyCSS {
-  const nativeCss: boolean;
-  function styleDocument(styles: StyleInfo): void;
-}
-
-/* istanbul ignore next */
-const useShadyCSS = (): boolean => 'ShadyCSS' in window && !ShadyCSS.nativeCss;
 
 const getCurrentTheme = (): string => {
   return sessionStorage.getItem('elf-demo-theme') || Themes[0];
@@ -64,9 +54,6 @@ themeLoader.onload = (): void => {
   bgStyle.textContent = `body { background-color: transparent !important; --demo-block-background: ${bgColor}; visibility: visible; }`;
   document.head.appendChild(bgStyle);
 
-  if (useShadyCSS()) {
-    ShadyCSS.styleDocument({ '--demo-block-background': bgColor });
-  }
 };
 
 // Next Theme

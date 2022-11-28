@@ -85,15 +85,6 @@ export class Notification extends BasicElement {
     this.addEventListener('animationend', this.onAnimationEnd);
   }
 
-  protected update (changedProperties: PropertyValues): void {
-    super.update(changedProperties);
-
-    // Fix bg doesn't work on IE 11
-    if (changedProperties.has('confirm') || changedProperties.has('warning') || changedProperties.has('error')) {
-      this.updateStyles();
-    }
-  }
-
   /**
    * Dismisses the notification, firing a `dismiss` event and collapsing the notification.
    * @returns {void}

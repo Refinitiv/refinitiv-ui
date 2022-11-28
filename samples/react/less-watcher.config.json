@@ -1,7 +1,0 @@
-{
-  "watchFolder": "src/styles",
-  "outputFolder": "src/styles/lib",
-  "sourceMap": false,
-  "runOnce": false,
-  "enableJs": true
-}

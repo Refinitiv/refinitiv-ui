@@ -19,24 +19,21 @@
     import '@refinitiv-ui/elements/sparkline';
     import '@refinitiv-ui/demo-block';
   </script>
-  <shady-css-scoped>
-    <style>
-       demo-block {
-      max-width: none !important;
-      width: 100% !important;
+  <style>
+     demo-block {
+    max-width: none !important;
+    width: 100% !important;
+  }
+    #custom-colors,
+    #custom-colors-blend {
+      --above-point-color: #3399ff;
+      --below-point-color: #ff3399;
     }
-      #custom-colors,
-      #custom-colors-blend {
-        --above-point-color: #3399ff;
-        --below-point-color: #ff3399;
-      }
 
-      ef-heatmap {
-          height: 35px;
-      }
-    </style>
-  </shady-css-scoped>
-
+    ef-heatmap {
+        height: 35px;
+    }
+  </style>
   <h3>EF Heatmap - Colors</h3>
   <code>
     <a href="./index.html"><button>Basics</button></a>

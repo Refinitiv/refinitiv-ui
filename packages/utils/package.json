@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/utils",
-  "version": "6.2.0",
+  "version": "6.2.2",
   "description": "Shared utilities for Element Framework",
   "main": "lib/index.js",
   "module": "lib/index.js",
@@ -38,7 +38,7 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/utils"
   },
-  "author": "Refinitiv",
+  "author": "LSEG",
   "license": "Apache-2.0",
   "scripts": {
     "lint": "eslint .",

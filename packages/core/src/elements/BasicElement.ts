@@ -1,10 +1,8 @@
-import type { StyleInfo } from '../interfaces/StyleInfo';
 import type { CSSValue } from '../types/base';
 import { LitElement, unsafeCSS, CSSResultArray } from 'lit';
 import { property } from '../decorators/property.js';
 import { ElementRegistry } from '../registries/ElementRegistry.js';
 import { FocusRegistry } from '../registries/FocusRegistry.js';
-import { ShadyCSS } from '../utils/shadyStyles.js';
 import { FocusableHelper } from '../utils/focusableHelper.js';
 import { BasicElementSymbol } from '../utils/helpers.js';
 
@@ -13,28 +11,6 @@ const CSS_VARIABLE_REPLACE_REGEXP = /['"]([^'"]+?)['"]/g;
 const NOTIFY_REGEXP = /([a-zA-Z])(?=[A-Z])/g;
 
 const toChangedEvent = (name: string): string => `${name.replace(NOTIFY_REGEXP, '$1-').toLowerCase()}-changed`;
-
-/**
- * Gets a computed style value from any HTML element
- * @param el Element to get computed styles from
- * @param key CSS property key, used to get the value
- * @returns CSS style property value
- */
-const getComputedStyleValue = (el: HTMLElement, key: string): string => {
-  if (ShadyCSS) {
-    try {
-      /**
-       * There's a bug in ShadyCSS. Which means this can fail,
-       * if called on an element too early :(
-       */
-      return ShadyCSS.getComputedStyleValue(el, key);
-    }
-    catch (e) {
-      return '';
-    }
-  }
-  return getComputedStyle(el).getPropertyValue(key);
-};
 
 /**
  * Basic element base class.
@@ -127,7 +103,7 @@ export abstract class BasicElement extends LitElement {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const option = options.length ? options.shift()! : '';
     if (CSS_VARIABLE_REGEXP.test(option)) {
-      const val = getComputedStyleValue(this, option)
+      const val = getComputedStyle(this).getPropertyValue(option)
       .trim().replace(CSS_VARIABLE_REPLACE_REGEXP, '$1');
       return val ? val : this.getComputedVariable(...options);
     }
@@ -142,26 +118,12 @@ export abstract class BasicElement extends LitElement {
    */
   protected updateVariable (key: string, value: CSSValue | null | undefined): void {
     if (CSS_VARIABLE_REGEXP.test(key)) {
-      if (ShadyCSS) {
-        ShadyCSS.styleSubtree(this, { [key]: value });
-      }
-      else if (value === null || value === undefined) {
+      if (value === null || value === undefined) {
         this.style.removeProperty(key);
       }
       else {
         this.style.setProperty(key, value);
       }
-    }
-  }
-
-  /**
-   * Update styles when using ShadyCSS scoping and custom property shim
-   * @param props properties for apply to the document
-   * @returns {void}
-   */
-  protected updateStyles (props?: StyleInfo): void {
-    if (ShadyCSS) {
-      ShadyCSS.styleDocument(props);
     }
   }
 
