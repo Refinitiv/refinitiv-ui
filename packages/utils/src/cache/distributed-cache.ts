@@ -16,7 +16,7 @@ export interface DistributedCacheConfig {
 }
 
 type StorageNames = {
-  requests: `${string}[requests]`,
+  request: `${string}[request]`,
   unloaded: `${string}[unloaded]`
 };
 
@@ -99,7 +99,7 @@ export class DistributedCache {
     const cacheName = `[${CACHE_PREFIX}][${name}]`;
 
     this.storageNames = {
-      requests: `${cacheName}[requests]`,
+      request: `${cacheName}[request]`,
       unloaded: `${cacheName}[unloaded]`
     };
 
@@ -120,12 +120,12 @@ export class DistributedCache {
     // Listen storage event to clear everythings if remove requests state
     addEventListener('storage', ({ key, newValue }) => {
       // Leader election, use only first vote(event) for setting leader
-      if (key?.startsWith(this.storageNames.requests) && newValue) {
+      if (key?.startsWith(this.storageNames.request) && newValue) {
 
         const request = JSON.parse(localStorage.getItem(key) || '') as RequestItem;
         // Set a new leader if does not exists
         if (!request.leader) {
-          const itemKey = key.replace(`${this.storageNames.requests}-`, '');
+          const itemKey = key.replace(`${this.storageNames.request}-`, '');
 
           // Save Leader
           request.leader = 'true';
@@ -219,7 +219,7 @@ export class DistributedCache {
     // Listen this event to detect user try to refresh page
     window.addEventListener('beforeunload', (event) => {
       event.preventDefault();
-      if (localStorage.getItem(this.storageNames.requests) !== null) {
+      if (localStorage.getItem(this.storageNames.request) !== null) {
         localStorage.setItem(this.storageNames.unloaded, 'true');
       }
       return true;
@@ -325,7 +325,7 @@ export class DistributedCache {
     const id = uuid();
     Logger.log(`${window.name} %c Leader: Candidate %c ${key?.split('/').pop() || ''} uuid: ${id} ${Date.now()}`, 'background: blue; color: white', '');
     this.requests[key] = id;
-    localStorage.setItem(`${this.storageNames.requests}-${key}`, JSON.stringify({ id: id }));
+    localStorage.setItem(`${this.storageNames.request}-${key}`, JSON.stringify({ id: id }));
   }
 
   /**
@@ -341,7 +341,7 @@ export class DistributedCache {
       result = true;
     }
     else {
-      result = localStorage.getItem(`${this.storageNames.requests}-${key}`) !== null;
+      result = localStorage.getItem(`${this.storageNames.request}-${key}`) !== null;
       if (result) {
         this.requests[key] = 'waiting'; // cache a request state for reduce checking on localStorage
       }
@@ -365,7 +365,7 @@ export class DistributedCache {
    * @returns {void}
    */
   private clean (): void {
-    localStorage.removeItem(this.storageNames.requests);
+    localStorage.removeItem(this.storageNames.request);
     this.requests = {};
     this.waiting.clear();
   }
@@ -376,7 +376,7 @@ export class DistributedCache {
    * @returns {void}
    */
   private cleanItem (key: string): void {
-    localStorage.removeItem(`${this.storageNames.requests}-${key}`);
+    localStorage.removeItem(`${this.storageNames.request}-${key}`);
     delete this.requests[key];
     this.waiting.delete(key);
   }
