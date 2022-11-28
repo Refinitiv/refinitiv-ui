@@ -93,7 +93,7 @@ type: nav
   * [Introduction](./creating-custom-elements)
   * [Tutorial](./tutorials/element)
   * [Element Types](./element-types)
-  * [Configuration and States](./configuration-and-states)
+  * [Configuration & States](./configuration-and-states)
   * [Events](./events)
   * [Localisation](./localisation)
   * [Reporting Issues](./reporting-issues)

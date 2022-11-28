@@ -186,7 +186,7 @@ Finally, starting your app and it should automatically open `http://localhost:30
 npm start
 ```
 
-## Testing With Jest
+## Testing with Jest
 
 If you use [Create React App](https://create-react-app.dev/), Jest is already included out of the box with useful defaults.
 
