@@ -1,20 +1,15 @@
-import { Mutex } from 'async-mutex';
 import { LocalStorage } from './storages/localstorage.js';
 import { IndexedDBStorage } from './storages/indexeddb.js';
-import { CacheMessenger } from './messenger.js';
+import { CacheMessenger, type Message } from './messenger.js';
 import { CACHE_PREFIX, MESSENGER_LAST_MESSAGE_INTERVAL } from './constants.js';
 import type { CacheStorage } from './interfaces/CacheStorage';
+import { uuid } from '../uuid.js';
 
 // TODO: This imports use for debugging and benchmarking, remove it when this class implement completed
 import { Logger } from './helpers.js';
 import { TimeoutTaskRunner } from '../async.js';
 const logger = new Logger();
 logger.timeStart(window.name);
-
-/**
- * Mutual exclusion, prevent getting requests state concurrently from multi tabs/windows
- */
-const mutex = new Mutex();
 
 export interface DistributedCacheConfig {
   storage: 'localstorage' | 'indexeddb';
@@ -25,8 +20,13 @@ type StorageNames = {
   unloaded: `${string}[unloaded]`
 };
 
+type RequestItem = {
+  id: string;
+  leader?: string;
+}
+
 type Requests = {
-  [key: string]: 'true'
+  [key: string]: string
 }
 
 /**
@@ -65,31 +65,9 @@ export class DistributedCache {
   protected storageNames: StorageNames;
 
   /**
-   * Get resource request list, sync the new requests to cache
+   * Request coodinator is exist to working with
    */
-  protected get requestsState (): Requests {
-    const state = localStorage.getItem(this.storageNames.requests);
-    if (!state) {
-      return {};
-    }
-
-    const requests = (JSON.parse(state) || {}) as Requests;
-
-    // Synchronize new requests state to local variable for performance improvement
-    if (Object.keys(requests).length > Object.keys(this.requests).length) {
-      Object.assign(this.requests, requests);
-    }
-
-    return this.requests;
-  }
-
-  /**
-   * Set resource request list
-   * @param requests request list
-   */
-  protected set requestsState (requests: Requests) {
-    localStorage.setItem(this.storageNames.requests, JSON.stringify(requests));
-  }
+  protected coordinator = false;
 
   /**
    * Constructor
@@ -125,9 +103,13 @@ export class DistributedCache {
       unloaded: `${cacheName}[unloaded]`
     };
 
+    // Create messenger and add event listener
     this.messenger = new CacheMessenger(name);
     this.handleUnload();
     this.listen();
+
+    // Check coodinators exist
+    this.messenger.notify('coordinator', 'true');
   }
 
   /**
@@ -137,39 +119,94 @@ export class DistributedCache {
   private listen (): void {
     // Listen storage event to clear everythings if remove requests state
     addEventListener('storage', ({ key, newValue }) => {
-      if (key === this.storageNames.requests && newValue === null) {
-        this.clean();
+      // Leader election, use only first vote(event) for setting leader
+      if (key?.startsWith(this.storageNames.requests) && newValue) {
+
+        const request = JSON.parse(localStorage.getItem(key) || '') as RequestItem;
+        // Set a new leader if does not exists
+        if (!request.leader) {
+          const itemKey = key.replace(`${this.storageNames.requests}-`, '');
+
+          // Save Leader
+          request.leader = 'true';
+          localStorage.setItem(key, JSON.stringify(request));
+
+          // Notify to leader
+          this.messenger.notify(`leader-${itemKey}`, request.id);
+        }
       }
     });
 
-    this.messenger.onMessage = ({ key, value }) => {
+    this.messenger.onMessage = (message) => {
+
       // Cancel no new message timeout
       this.lastMessageTimeout.cancel();
 
-      /**
-       * Synchronize the item to active cache in storage by using data in the received message,
-       * while the item writing to the browser storage by the sender
-       */
-      if (!this.storage.hasActive(key)) {
-        Logger.log(`${window.name} %c Sync cache %c with received message %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: magenta; color: white', '', '');
-        this.syncActiveCache(key, value);
+      // Set coordinator if found response message
+      if (!this.coordinator && message.key === 'coordinator') {
+        this.coordinator = true;
+        this.messenger.notify('coordinator', 'true'); // notify back to sender
+        Logger.log(`${window.name} %c Coordinator %c  ${message.value}`, 'background: blue; color: white', '');
+        return;
       }
 
-      // Match a message with a waiting request and resolve it
-      if (this.waiting.has(key)) {
-        const resolve = this.waiting.get(key);
-        if (resolve) {
-          resolve(value);
+      const { key, value } = message;
+      if (key?.startsWith('leader-')) {
+        this.handleLeaderMessage(message);
+        return;
+      }
+      else {
+        /**
+         * Synchronize the item to active cache in storage by using data in the received message,
+         * while the item writing to the browser storage by the sender
+         */
+        if (!this.storage.hasActive(key)) {
+          Logger.log(`${window.name} %c Sync cache %c with received message %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: magenta; color: white', '', '');
+          this.syncActiveCache(key, value);
         }
-        Logger.log(`${window.name} %c Received message %c icon ${key.split('/').pop() || ''} ${Date.now()}`, 'background: green; color: white', '');
+
+        this.handleFollowerMessage(message);
       }
 
-      /**
-       * Detect the `last message` by using a gap between message,
-       * If no new message post within the time limit
-       */
+      // Show end time
       this.lastMessageTimeout.schedule(() => logger.timeEnd(window.name));
     };
+  }
+
+  /**
+   * Leader Action: load svg icon when receive a matched message
+   * @param message messenger message
+   * @returns {void}
+   */
+  private handleLeaderMessage ({ key, value }: Message): void {
+    const itemKey = key.replace('leader-', '');
+    // Check the request is belong to leader
+    if (value && this.requests[itemKey] === value) {
+      Logger.log(`${window.name} Leader ${key.split('/').pop() || ''} ${value}`);
+      const resolve = this.waiting.get(itemKey);
+      if (resolve) {
+        Logger.log(`${window.name} %c Leader: Request icon %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: blue; color: white', '');
+        resolve(null); // load svg if return null
+      }
+      else {
+        Logger.log(`${window.name} not found to ${key.split('/').pop() || ''} resolve`, this.waiting.has(key));
+      }
+    }
+  }
+
+  private handleFollowerMessage ({ key, value }: Message): void {
+    // Follower Action: Match a message with a waiting request and resolve it
+    if (this.waiting.has(key)) {
+      const resolve = this.waiting.get(key);
+      if (resolve) {
+        resolve(value);
+
+        // Clean request state and waiting list
+        delete this.requests[key];
+        this.waiting.delete(key);
+      }
+      Logger.log(`${window.name} %c Received message %c icon ${key.split('/').pop() || ''} ${Date.now()}`, 'background: green; color: white', '');
+    }
   }
 
   /**
@@ -220,6 +257,7 @@ export class DistributedCache {
       };
 
       this.messenger.notify(key, cacheValue);
+      Logger.log(`${window.name} %c Start writing to cache %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: red; color: white', '');
       void this.storage.set(key, data).then(() => {
         // Clean up temporary requested state
         this.cleanItem(key);
@@ -245,26 +283,19 @@ export class DistributedCache {
       return item.value;
     }
 
-    // Check key is already started a request by using mutex to prevent race condition in multi-threads
-    const newRequest = await mutex.runExclusive(() => {
-      if (!this.hasRequest(key)) {
-        this.addRequest(key);
-        Logger.log(`${window.name} %c Request %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
-        return true;
-      }
-      return false;
-    });
+    // Check item requesting state
+    if (!this.coordinator) {
+      return null; // itself as leader
+    }
+    else if (!this.hasRequest(key)) {
+      this.addRequest(key);
+    }
 
-    if (newRequest === false) {
-      Logger.log(`${window.name} %c Wait %c ${iconName} ${Date.now().toString()}`, 'background: orange; color: white', '');
-      // Add to waiting list by create promise waiting for resolve
-      return new Promise<string | null>(resolve => {
-        this.wait(key, resolve);
-      });
-    }
-    else {
-      return null;
-    }
+    Logger.log(`${window.name} %c Wait %c ${iconName} ${Date.now().toString()}`, 'background: orange; color: white', '');
+    // Add to waiting list by create promise waiting for resolve
+    return new Promise<string | null>(resolve => {
+      this.wait(key, resolve);
+    });
   }
 
   /**
@@ -291,12 +322,10 @@ export class DistributedCache {
    * @return {void}
    */
   protected addRequest (key: string): void {
-    const requests = this.requestsState;
-    if (!requests[key]) {
-      requests[key] = 'true';
-      this.requests[key] = 'true';
-      this.requestsState = requests;
-    }
+    const id = uuid();
+    Logger.log(`${window.name} %c Leader: Candidate %c ${key?.split('/').pop() || ''} uuid: ${id} ${Date.now()}`, 'background: blue; color: white', '');
+    this.requests[key] = id;
+    localStorage.setItem(`${this.storageNames.requests}-${key}`, JSON.stringify({ id: id }));
   }
 
   /**
@@ -305,7 +334,19 @@ export class DistributedCache {
    * @returns true if resource has started request
    */
   protected hasRequest (key: string): boolean {
-    return key in this.requests ? true : key in this.requestsState;
+    let result = false;
+
+    // Checking from caching states first, if not found then check on localStorage
+    if (key in this.requests) {
+      result = true;
+    }
+    else {
+      result = localStorage.getItem(`${this.storageNames.requests}-${key}`) !== null;
+      if (result) {
+        this.requests[key] = 'waiting'; // cache a request state for reduce checking on localStorage
+      }
+    }
+    return result;
   }
 
   /**
@@ -335,11 +376,7 @@ export class DistributedCache {
    * @returns {void}
    */
   private cleanItem (key: string): void {
-    localStorage.removeItem(this.storageNames.requests);
-    const requests = this.requestsState;
-    delete requests[key];
-    this.requestsState = requests;
-
+    localStorage.removeItem(`${this.storageNames.requests}-${key}`);
     delete this.requests[key];
     this.waiting.delete(key);
   }
