@@ -7,7 +7,7 @@ layout: default
 
 
 
-# Configuration and States
+# Configuration & States
 When building your custom element, you need to choose how the element should be configured and managed the state. A different approach of configuration would require to implement state management differently.
 
 ## Element configuration
