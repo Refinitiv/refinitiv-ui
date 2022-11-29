@@ -15,9 +15,7 @@ import { clamp } from './utils.js';
  * Star visualisation component that is generally used for ranking
  * @fires value-changed - Fired when the `value` changes.
  */
-@customElement('ef-rating', {
-  alias: 'sapphire-rating'
-})
+@customElement('ef-rating')
 export class Rating extends BasicElement {
 
   /**

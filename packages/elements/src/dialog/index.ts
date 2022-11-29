@@ -44,9 +44,7 @@ import '@refinitiv-ui/phrasebook/locale/en/dialog.js';
  *
  * @slot footer - Hide default OK and Cancel button and replace dialog's footer with your custom content.
  */
-@customElement('ef-dialog', {
-  alias: 'coral-dialog'
-})
+@customElement('ef-dialog')
 export class Dialog extends Overlay {
 
   /**

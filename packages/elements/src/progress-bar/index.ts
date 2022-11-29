@@ -16,9 +16,7 @@ import { VERSION } from '../version.js';
  * showing a simple percentage bar.
  * @slot label - Overrides the label property and places custom content. Useful for modifying the color, or, adding icons.
  */
-@customElement('ef-progress-bar', {
-  alias: 'sapphire-bar'
-})
+@customElement('ef-progress-bar')
 export class ProgressBar extends BasicElement {
 
   /**
