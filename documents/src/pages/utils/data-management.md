@@ -27,7 +27,7 @@ interface CollectionItem {
 
 ## Data Item
 
-This interface extends the Collection Item and adds basic properties for [Data Elements](./element-types#data-elements). This is the common interface to extend for elements with `data` properties.
+This interface extends the Collection Item and adds basic properties for Data Elements. This is the common interface to extend for elements with `data` properties.
 
 ``` ts
 interface DataItem extends CollectionItem {
