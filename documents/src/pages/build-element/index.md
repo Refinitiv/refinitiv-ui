@@ -27,7 +27,7 @@ A playground showing a simple element that created from Element Framework.
 
 Get started to create your first component by reading through the short tutorial.
 
-<a href="./tutorials/element" style="display:inline-block;padding:4px 12px;background:blue;color:white">Start Now</a>
+<a href="./custom-components/tutorial" style="display:inline-block;padding:4px 12px;background:blue;color:white">Start Now</a>
 
 ## Starter Template
 
