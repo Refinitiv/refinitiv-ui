@@ -51,7 +51,7 @@ const data: DataItem[] = [
 efxElement.data = data;
 ```
 
-The `data` property must support being passed a data collection array and an instance of a [CollectionComposer](#). Passing an instance of a collection composer allows for the element state to be controlled externally by other elements. This is useful when the element is used inside of another component's shadow root.
+The `data` property must support being passed a data collection array and an instance of a [CollectionComposer](./custom-components/utils/data-management#collection-composer). Passing an instance of a collection composer allows for the element state to be controlled externally by other elements. This is useful when the element is used inside of another component's shadow root.
 
 ### Configured
 
