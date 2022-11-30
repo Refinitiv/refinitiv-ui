@@ -91,7 +91,7 @@ type: nav
   - [Theme Switching](./guides/theme-switching)
 - Building Components
   * [Introduction](./custom-components/creating-custom-elements)
-  * [Tutorial](./custom-components/tutorials/element)
+  * [Tutorial](./custom-components/tutorial)
   * [Element Types](./custom-components/element-types)
   * [Configuration & States](./custom-components/configuration-and-states)
   * [Events](./custom-components/events)

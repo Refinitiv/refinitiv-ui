@@ -1,6 +1,6 @@
 <!--
 title: Tutorial - Creating an element
-location: ./custom-components/tutorials/element
+location: ./custom-components/tutorial
 type: page
 layout: default
 -->
@@ -19,7 +19,7 @@ In this tutorial we'll look to build a todo list, called `efx-todo`.
 
 ### Defining an element
 
-To define an element, we first need to create a class which extends from one of the [base element classes](./element-types).
+To define an element, we first need to create a class which extends from one of the [base element classes](./custom-components/element-types).
 
 We use the `customElement` decorator to register the element in the document, setting theme to false for now.
 
