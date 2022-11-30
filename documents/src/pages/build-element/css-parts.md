@@ -1,6 +1,6 @@
 <!-- 
 title: CSS Parts
-location: ./theming/css-parts
+location: ./custom-components/theming/css-parts
 type: page
 layout: default
 -->

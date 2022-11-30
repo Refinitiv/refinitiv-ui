@@ -1,7 +1,7 @@
 <!--
 type: page
 title: Data Management
-location: ./utils/data-management
+location: ./custom-components/utils/data-management
 layout: default
 -->
 

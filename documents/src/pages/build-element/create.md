@@ -1,6 +1,6 @@
 <!--
 title: Create an element
-location: ./create
+location: ./custom-components/create
 type: page
 -->
 

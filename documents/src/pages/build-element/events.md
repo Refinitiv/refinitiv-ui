@@ -1,6 +1,6 @@
 <!--
 title: Events
-location: ./events
+location: ./custom-components/events
 type: page
 layout: default
 -->

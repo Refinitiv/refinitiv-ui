@@ -77,10 +77,9 @@ type: nav
 
 - Using Components
   - [Bundling Configuration](./guides/bundling-configuration)
-  + Framework Integration
-    - [Angular](./tutorials/angular)
-    - [React](./tutorials/react)
-    - [Vue](./tutorials/vue)
+  - [Angular](./tutorials/angular)
+  - [React](./tutorials/react)
+  - [Vue](./tutorials/vue)
   - Styles
     - [Typography](./styles/typography)
     - [Styling Components](./styles/styling-components)
@@ -90,39 +89,39 @@ type: nav
   - [Internationalization (i18n)](./intl/internationalization)
   - [Theme Switching](./guides/theme-switching)
 - Building Components
-  * [Introduction](./creating-custom-elements)
-  * [Tutorial](./tutorials/element)
-  * [Element Types](./element-types)
-  * [Configuration & States](./configuration-and-states)
-  * [Events](./events)
-  * [Localisation](./localisation)
-  * [Reporting Issues](./reporting-issues)
-  * [Breaking Changes](./breaking-changes)
-  * [Polyfilling](./polyfilling)
-  * [Naming Conventions](./naming-conventions)
+  * [Introduction](./custom-components/creating-custom-elements)
+  * [Tutorial](./custom-components/tutorials/element)
+  * [Element Types](./custom-components/element-types)
+  * [Configuration & States](./custom-components/configuration-and-states)
+  * [Events](./custom-components/events)
+  * [Localisation](./custom-components/localisation)
+  * [Notice Messages](./custom-components/notice-messages)
+  * [Breaking Changes](./custom-components/breaking-changes)
+  * [Polyfilling](./custom-components/polyfilling)
+  * [Naming Conventions](./custom-components/naming-conventions)
 
   - Utilities
-    * [Accessibility](./utils/accessibility)
-    * [Async Tasks](./utils/async-tasks)
-    * [Color](./utils/color)
-    * [Data Management](./utils/data-management)
-    * [Date/Time](./utils/date-time)
-    * [Navigation Grid](./utils/navigation-grid)
+    * [Accessibility](./custom-components/utils/accessibility)
+    * [Async Tasks](./custom-components/utils/async-tasks)
+    * [Color](./custom-components/utils/color)
+    * [Data Management](./custom-components/utils/data-management)
+    * [Date/Time](./custom-components/utils/date-time)
+    * [Navigation Grid](./custom-components/utils/navigation-grid)
 
   - Accessibility
-    * [Aria](./aria)
-    * [Focus & Navigation](./focus-and-navigation)
+    * [Aria](./custom-components/aria)
+    * [Focus & Navigation](./custom-components/focus-and-navigation)
 
   - Testing
-    * [Code Style](./testing/lint)
-    * [DOM Snapshots](./testing/snapshot)
-    * [Unit Tests](./testing/unit)
+    * [Code Style](./custom-components/testing/lint)
+    * [DOM Snapshots](./custom-components/testing/snapshot)
+    * [Unit Tests](./custom-components/testing/unit)
 
   - Tools
-    * [Starter Templates](./tools/starter-templates)
-    * [Theme Compiler](./tools/theme-compiler)
+    * [Starter Templates](./custom-components/tools/starter-templates)
+    * [Theme Compiler](./custom-components/tools/theme-compiler)
 
-  * [Troubleshooting](./troubleshooting)
+#  * [Troubleshooting](./troubleshooting)
 
 # Keeping this here for reference
 # - Theming

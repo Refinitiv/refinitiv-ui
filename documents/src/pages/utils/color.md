@@ -1,6 +1,6 @@
 <!-- 
 title: Color Utility
-location: ./utils/color
+location: ./custom-components/utils/color
 type: page
 layout: default
 -->

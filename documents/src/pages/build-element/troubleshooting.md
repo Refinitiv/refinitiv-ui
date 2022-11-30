@@ -1,6 +1,6 @@
 <!--
 title: Troubleshooting
-location: ./troubleshooting
+location: ./custom-components/troubleshooting
 type: page
 -->
 

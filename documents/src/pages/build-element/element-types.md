@@ -1,6 +1,6 @@
 <!-- 
 title: Element Types
-location: ./element-types
+location: ./custom-components/element-types
 type: page
 layout: default
 -->

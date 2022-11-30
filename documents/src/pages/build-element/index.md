@@ -1,6 +1,6 @@
 <!-- 
 title: Element Framework Extensions
-location: ./creating-custom-elements
+location: ./custom-components/creating-custom-elements
 type: page
 layout: default
 -->

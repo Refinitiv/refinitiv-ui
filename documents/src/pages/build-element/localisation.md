@@ -1,6 +1,6 @@
 <!--
 title: Localisation
-location: ./localisation
+location: ./custom-components/localisation
 type: page
 -->
 

@@ -1,6 +1,6 @@
 <!--
 title: ARIA
-location: ./aria
+location: ./custom-components/aria
 type: page
 -->
 

@@ -1,6 +1,6 @@
 <!--
 title: Handling breaking changes
-location: ./breaking-changes
+location: ./custom-components/breaking-changes
 type: page
 -->
 

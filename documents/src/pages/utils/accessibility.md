@@ -1,6 +1,6 @@
 <!-- 
 title: Accessibility Utility
-location: ./utils/accessibility
+location: ./custom-components/utils/accessibility
 type: page
 layout: default
 -->

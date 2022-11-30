@@ -1,6 +1,6 @@
 <!--
 title: Tutorial - Creating an element
-location: ./tutorials/element
+location: ./custom-components/tutorials/element
 type: page
 layout: default
 -->

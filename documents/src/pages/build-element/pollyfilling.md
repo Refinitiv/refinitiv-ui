@@ -1,6 +1,6 @@
 <!--
 title: Polyfilling
-location: ./polyfilling
+location: ./custom-components/polyfilling
 type: page
 -->
 

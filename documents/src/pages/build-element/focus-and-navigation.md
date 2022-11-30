@@ -1,6 +1,6 @@
 <!--
 title: Focus & Navigation
-location: ./focus-and-navigation
+location: ./custom-components/focus-and-navigation
 type: page
 -->
 

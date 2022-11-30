@@ -1,6 +1,6 @@
 <!--
 title: Unit Testing
-location: ./testing/unit
+location: ./custom-components/testing/unit
 type: page
 -->
 

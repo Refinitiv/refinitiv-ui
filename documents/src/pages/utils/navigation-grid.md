@@ -1,6 +1,6 @@
 <!-- 
 title: Navigation Grid
-location: ./utils/navigation-grid
+location: ./custom-components/utils/navigation-grid
 type: page
 layout: default
 -->

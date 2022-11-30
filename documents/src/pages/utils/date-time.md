@@ -1,6 +1,6 @@
 <!-- 
 title: Date & Time
-location: ./utils/date-time
+location: ./custom-components/utils/date-time
 type: page
 layout: default
 -->

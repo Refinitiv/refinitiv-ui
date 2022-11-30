@@ -1,6 +1,6 @@
 <!-- 
 title: Starter Templates
-location: ./tools/starter-templates
+location: ./custom-components/tools/starter-templates
 type: page
 layout: default
 -->
