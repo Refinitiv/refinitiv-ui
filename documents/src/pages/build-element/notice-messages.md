@@ -11,7 +11,7 @@ When creating elements, it's best to keep things simple and try to reduce any er
 
 o> **Tip**:\
 Try to implement flexibility into your element by handling invalid input in a way that least disrupts a user.
-Also think about how developers could, unintentionally, pass invalid configuration to your element and how this should be handled.
+Also think about how developers could unintentionally pass invalid configuration to your element and how this should be handled.
 
 
 
