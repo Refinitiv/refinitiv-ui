@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.5.0...@refinitiv-ui/elements@6.5.1) (2022-11-21)
+
+
+### Bug Fixes
+
+* **tree:** uncheckAllItems method not update checked state of parent node ([#526](https://github.com/Refinitiv/refinitiv-ui/issues/526)) ([a36e837](https://github.com/Refinitiv/refinitiv-ui/commit/a36e837bdeeb1fe62e54ec040678490b9e68a134))
+
+
+
+
+
+# [6.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.3.0...@refinitiv-ui/elements@6.5.0) (2022-11-07)
+
+
+### Bug Fixes
+
+* **button:** change button and icon transparent outline style ([#515](https://github.com/Refinitiv/refinitiv-ui/issues/515)) ([4ba091c](https://github.com/Refinitiv/refinitiv-ui/commit/4ba091c2c11da06ce1218908a3ddb3cc18d9b412))
+
+
+### Features
+
+* **color-picker:** add accessibility ([#448](https://github.com/Refinitiv/refinitiv-ui/issues/448)) ([ced3b20](https://github.com/Refinitiv/refinitiv-ui/commit/ced3b208ab817975923a2feeba1f6488d30f046a))
+
+
+
+
+
+# [6.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.3.0...@refinitiv-ui/elements@6.4.0) (2022-11-07)
+
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
 # [6.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.2...@refinitiv-ui/elements@6.3.0) (2022-10-26)
 
 

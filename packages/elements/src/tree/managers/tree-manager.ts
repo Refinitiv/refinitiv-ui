@@ -410,6 +410,7 @@ export class TreeManager<T extends TreeDataItem> {
         this.forceUpdateOnPath(item);
         this.getItemDescendants(item).forEach(descendant => this._uncheckItem(descendant, false));
       }
+      this.updateItem(item);
       return true;
     }
     return false;
@@ -437,6 +438,8 @@ export class TreeManager<T extends TreeDataItem> {
    * @returns {void}
    */
   public uncheckAllItems (): void {
-    this.editableItems.forEach(item => this.uncheckItem(item));
+    // uncheck items from top levels when manage relationships to avoid redundant re-renders
+    const items = this.manageRelationships ? this.composer.queryItems(() => true, 0) : this.checkedItems;
+    items.forEach(item => this.uncheckItem(item));
   }
 }

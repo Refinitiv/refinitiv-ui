@@ -11,7 +11,8 @@ layout: default
 
 # Vue Guide
 
-@>This guideline uses Vue 3 and Vue CLI v4.5.13
+## Try online demo
+A playground project that uses Element Framework with Vue. Here is a [link](https://codesandbox.io/s/vue-forms-project-usch2o).
 
 Install Vue CLI.
 
@@ -20,6 +21,8 @@ npm install -g @vue/cli
 ```
 
 ## Initialise your project
+
+@>This guideline uses Vue 3 and Vue CLI v4.5.13
 
 Create your new Vue application using the `vue create` command.
 

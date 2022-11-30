@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.0.9...@refinitiv-ui/core@6.2.0) (2022-11-07)
+
+
+### Features
+
+* remove elf global and replace with eventListener ([#511](https://github.com/Refinitiv/refinitiv-ui/issues/511)) ([d94c087](https://github.com/Refinitiv/refinitiv-ui/commit/d94c0875ea048c86f94ce35c6b2929f796252fff))
+
+
+
+
+
+# [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.0.9...@refinitiv-ui/core@6.1.0) (2022-11-07)
+
+
+### Features
+
+* remove elf global and replace with eventListener ([#511](https://github.com/Refinitiv/refinitiv-ui/issues/511)) ([d94c087](https://github.com/Refinitiv/refinitiv-ui/commit/d94c0875ea048c86f94ce35c6b2929f796252fff))
+
+
+
+
+
 ## [6.0.9](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.0.8...@refinitiv-ui/core@6.0.9) (2022-10-26)
 
 **Note:** Version bump only for package @refinitiv-ui/core

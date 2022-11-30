@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/utils",
-  "version": "6.2.0",
+  "version": "6.2.2",
   "description": "Shared utilities for Element Framework",
   "main": "lib/index.js",
   "module": "lib/index.js",
