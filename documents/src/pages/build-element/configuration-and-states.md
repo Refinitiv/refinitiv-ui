@@ -107,7 +107,7 @@ class MyElement extends BasicElement {
 
 Data elements can still manage state like basic elements, however, this is only for simple levels of configuration. These elements also accept array-like data to be passed as a data source, which means the element has a reference to the original data object and must manage state a bit differently.
 
-The framework provides a [Collection Composer](./utils/data-management) utility for handling and manipulating these potentially large datasets.
+The framework provides a [Collection Composer](./custom-components/utils/data-management#collection-composer) utility for handling and manipulating these potentially large datasets.
 
 Below is a basic implementation
 
