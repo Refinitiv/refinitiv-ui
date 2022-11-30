@@ -7,7 +7,7 @@ layout: default
 
 # Notice Messages
 
-When creating elements it's best to keep things simple and try to reduce any errors that may occur. However, your elements should feedback to developers via console log when necessary.
+When creating elements, it's best to keep things simple and try to reduce any errors that may occur. However, your elements should feedback to developers via console log when necessary.
 
 o> **Tip**:\
 Try to implement flexibility into your element by handling invalid input in a way that least disrupts a user.
