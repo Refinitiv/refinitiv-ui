@@ -1,6 +1,6 @@
 <!--
 title: Reporting errors and warnings
-location: ./custom-components/noticing-message
+location: ./custom-components/notice-messages
 type: page
 layout: default
 -->
