@@ -13,7 +13,7 @@ Events allow developers to know what has been changed on a component, either by 
 
 ## Built-In Events
 
-Built-In events are events that comes with EF base class. There are two types of the events to use. These help with compatibility across multiple browsers and devices, and should be used instead of their native counterparts.
+Built-In events are events that comes with EF base class. There are two types of the events to use. These help with compatibility across multiple browsers and devices. It should be used instead of their native counterparts.
 
 ### Tap Event
 
