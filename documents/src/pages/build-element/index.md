@@ -33,4 +33,4 @@ Get started to create your first component by reading through the short tutorial
 
 Instantly create your component project. Starter template comes with completed project structure and tooling for linting, testing, demo page.
 
-<a href="./tools/starter-templates" style="display:inline-block;padding:4px 12px;background:blue;color:white">Start Now</a>
+<a href="./custom-components/tools/starter-templates" style="display:inline-block;padding:4px 12px;background:blue;color:white">Start Now</a>
