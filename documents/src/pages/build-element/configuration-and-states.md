@@ -36,7 +36,7 @@ Another slightly different approach, other elements can be slotted in as childre
 
 ### Data
 
-Elements are configured by passing a list of flat, or, nested data to the element's `data` property. Items must implement the [DataItem](#) interface and state must be managed by a [CollectionComposer](#) internally.
+Elements are configured by passing a list of flat, or, nested data to the element's `data` property. Items must implement the [DataItem](./custom-components/utils/data-management#data-item) interface and state must be managed by a [CollectionComposer](./custom-components/utils/data-management#collection-composer) internally.
 
 ```html
 <efx-element></efx-element>
