@@ -88,7 +88,7 @@ App.Settings.Language.read(value => {
 });
 ```
 
-### From The Server
+### URL Import
 
 You can store translations as JSON on the app server or CDN. In this case you may want to extract JSON content to upload to the server.
 

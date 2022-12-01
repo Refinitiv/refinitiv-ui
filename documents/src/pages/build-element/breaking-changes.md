@@ -1,11 +1,11 @@
 <!--
 title: Handling breaking changes
-location: ./breaking-changes
+location: ./custom-components/breaking-changes
 type: page
 -->
 
-::status-todo::
+
 
 # Handling Breaking Changes
 
-::todo::
+@> Coming soon!
