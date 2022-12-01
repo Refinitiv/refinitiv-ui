@@ -8,7 +8,6 @@ import { elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
 export const openedUpdated = async (el) => {
   await elementUpdated(el);
   await nextFrame();
-  await nextFrame(); // IE11 needs a second iframe, otherwise resize observer is not run;
 };
 
 /**

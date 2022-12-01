@@ -28,7 +28,6 @@ Element Framework is using monorepo. This repository has elements, supporting mo
 * `packages/halo-theme` - LSEG Workspace design system theme
 * `packages/i18n` - Wrappers and APIs of formatjs
 * `packages/phrasebook` - All messages (english and non-english) that use within elements
-* `packages/polyfills` - Curated polyfills for browsers that are not support web component natively
 * `packages/solar-theme` - Legacy theme
 * `packages/test-helpers` - Helpers function for unit testing of each elements
 * `packages/theme-compiler` - LESS compiler for generating theme package

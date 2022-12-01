@@ -1,4 +1,4 @@
-import { fixture, expect, nextFrame, elementUpdated, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, nextFrame, elementUpdated } from '@refinitiv-ui/test-helpers';
 import '../lib/test/test-translate';
 
 describe('Elf Translate Navigator Test', () => {
@@ -6,18 +6,10 @@ describe('Elf Translate Navigator Test', () => {
     // make sure lang is not set from previous tests
     document.documentElement.removeAttribute('lang');
 
-    let el;
-
-    // IE does not support forcing of navigator language
-    if (isIE()) {
-      el = await fixture('<test-translate></test-translate>');
-    }
-    else {
-      // Force navigator language
-      Object.defineProperty(navigator, 'language', { value: 'ru' });
-      el = await fixture('<test-translate></test-translate>');
-      expect(el.defaultEl.innerText).to.equal('Региональные настройки: ru', 'Navigator locale is not taken into account');
-    }
+    // Force navigator language
+    Object.defineProperty(navigator, 'language', { value: 'ru' });
+    const el = await fixture('<test-translate></test-translate>');
+    expect(el.defaultEl.innerText).to.equal('Региональные настройки: ru', 'Navigator locale is not taken into account');
 
     document.documentElement.lang = 'en-US';
     await nextFrame(el);
@@ -26,7 +18,7 @@ describe('Elf Translate Navigator Test', () => {
 
     el.lang = 'en-GB';
     await elementUpdated(el);
-    await nextFrame(el); // need for IE11
+    await nextFrame(el);
     expect(el.defaultEl.innerText).to.equal('This is en locale', 'Element locale should take priority over document locale');
   });
 });

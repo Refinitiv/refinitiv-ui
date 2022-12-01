@@ -21,9 +21,7 @@ import '../../icon/index.js';
  * @fires dismiss - Dispatched when notification is dismissed
  *
  */
-@customElement('ef-notification', {
-  alias: 'amber-notification'
-})
+@customElement('ef-notification')
 export class Notification extends BasicElement {
 
   /**
@@ -83,15 +81,6 @@ export class Notification extends BasicElement {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('animationend', this.onAnimationEnd);
-  }
-
-  protected update (changedProperties: PropertyValues): void {
-    super.update(changedProperties);
-
-    // Fix bg doesn't work on IE 11
-    if (changedProperties.has('confirm') || changedProperties.has('warning') || changedProperties.has('error')) {
-      this.updateStyles();
-    }
   }
 
   /**

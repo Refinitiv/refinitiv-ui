@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils';
 
 import '@refinitiv-ui/elements/select';
@@ -72,10 +72,6 @@ describe('select/Template', () => {
     });
 
     it('--list-max-width recalculates popup width', async function () {
-      if (isIE()) { /* CSS Variables do not work in IE11 without a polyfill. Skip */
-        this.skip();
-      }
-
       const el = await fixture(`<ef-select style="--list-max-width: 50px;" opened>${getOptions()}</ef-select>`);
       await openedUpdated(el);
       const styles = window.getComputedStyle(getMenuEl(el));

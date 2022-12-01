@@ -59,9 +59,7 @@ enum Segment {
  * @fires value-changed - Fired when the value property changes while ticking.
  * @fires offset-changed - Fired when the the user offsets the clock in `interactive` mode.
  */
-@customElement('ef-clock', {
-  alias: 'sapphire-clock'
-})
+@customElement('ef-clock')
 export class Clock extends ResponsiveElement {
 
   /**

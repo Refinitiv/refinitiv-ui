@@ -14,32 +14,28 @@
     import '@refinitiv-ui/elements/sparkline';
     import '@refinitiv-ui/demo-block';
   </script>
+  <style>
+    /* demo-block {
+      max-width: none !important;
+      width: 100% !important;
+    } */
 
-  <shady-css-scoped>
-    <style>
-      /* demo-block {
-        max-width: none !important;
-        width: 100% !important;
-      } */
+    #spacing {
+      --spacing: 12px;
+    }
 
-      #spacing {
-        --spacing: 12px;
-      }
+    ef-heatmap {
+      height: 400px;
+    }
 
-      ef-heatmap {
-        height: 400px;
-      }
+    #normal {
+      height: inherit;
+    }
 
-      #normal {
-        height: inherit;
-      }
-
-      #large {
-        height: 1900px;
-      }
-    </style>
-  </shady-css-scoped>
-
+    #large {
+      height: 1900px;
+    }
+  </style>
   <h3>EF Heatmap</h3>
   <code>
     <a href="./index.html"><button>Basics</button></a>

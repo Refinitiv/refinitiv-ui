@@ -1,9 +1,9 @@
-import { fixture, expect, elementUpdated, keyboardEvent, isIE, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tab-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
 
-const keyArrowRight = keyboardEvent('keydown', { key: isIE() ? 'Right' : 'ArrowRight' });
+const keyArrowRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
 
 describe('tab-bar/value', () => {
   let el;
@@ -66,7 +66,7 @@ describe('tab-bar/value', () => {
   });
   describe('set active tab', () => {
     let tabList;
-  
+
     beforeEach(async () => {
       el = await fixture(`
         <ef-tab-bar value="1">
@@ -122,7 +122,7 @@ describe('tab-bar/value', () => {
   });
   describe('Event', () => {
     let tabList;
-  
+
     beforeEach(async () => {
       el = await fixture(`
         <ef-tab-bar value="1">

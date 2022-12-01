@@ -5,7 +5,7 @@ import '@refinitiv-ui/elements/panel';
 import '@refinitiv-ui/elemental-theme/light/ef-panel';
 
 /*
-* In FireFox and IE doesn't seem to support shorthand css e.g. 'padding'
+* In FireFox doesn't seem to support shorthand css e.g. 'padding'
 * Need this function to check all padding size
 * @returns {Boolean} hasPadding
 */

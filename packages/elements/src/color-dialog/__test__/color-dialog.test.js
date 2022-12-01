@@ -1,11 +1,11 @@
-import { fixture, expect, elementUpdated, oneEvent, isIE } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/color-dialog';
 import '@refinitiv-ui/elemental-theme/light/ef-color-dialog';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
-import { rgb, removeHashSign } from '@refinitiv-ui/utils/color.js';
+import { removeHashSign, rgb } from '@refinitiv-ui/utils/color.js';
 import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers';
 
 describe('color-dialog/ColorDialog', () => {
@@ -267,6 +267,7 @@ describe('color-dialog/ColorDialog', () => {
     let previewColor;
     let confirmBtn;
 
+
     beforeEach(async () => {
       allowNoColorDialog = await fixture('<ef-color-dialog opened allow-nocolor></ef-color-dialog>');
       grayscalePalettes = allowNoColorDialog.shadowRoot.querySelector('ef-grayscale-palettes');
@@ -281,27 +282,10 @@ describe('color-dialog/ColorDialog', () => {
       confirmBtn = allowNoColorDialog.shadowRoot.getElementById('confirmButton');
     });
     it('should render no color option', async () => {
-      let item = noColorItem;
-      if(isIE()) {
-        for(let i = 0; i < SVGAElement.childNodes.length; i++) {
-          if(SVGAElement.childNodes[i].nodeName === 'polygon') {
-            item = SVGAElement.childNodes[i];
-            return;
-          }
-        }
-      }
-      expect(item).not.to.be.null;
+      expect(noColorItem).not.to.be.null;
     });
     it('should update value correctly when tapping on no color item', async () => {
       let item = noColorItem;
-      if(isIE()) {
-        for(let i = 0; i < SVGAElement.childNodes.length; i++) {
-          if(SVGAElement.childNodes[i].nodeName === 'polygon') {
-            item = SVGAElement.childNodes[i];
-            return;
-          }
-        }
-      }
       allowNoColorDialog.value = '#ffffff';
       await elementUpdated();
       expect(allowNoColorDialog.value).to.equal('#ffffff');
@@ -311,16 +295,7 @@ describe('color-dialog/ColorDialog', () => {
       expect(allowNoColorDialog.value).to.equal('');
     });
     it('should update other value correctly when tapping on no color item', async () => {
-      let item = noColorItem;
-      if(isIE()) {
-        for(let i = 0; i < SVGAElement.childNodes.length; i++) {
-          if(SVGAElement.childNodes[i].nodeName === 'polygon') {
-            item = SVGAElement.childNodes[i];
-            return;
-          }
-        }
-      }
-      item.dispatchEvent(new Event('tap'));
+      noColorItem.dispatchEvent(new Event('tap'));
       await elementUpdated();
       expect(redInput.value).to.equal('');
       expect(blueInput.value).to.equal('');

@@ -14,9 +14,7 @@ import { VERSION } from '../version.js';
  * Layout component for creating responsive applications and components
  * @fires resize - Fired when the element's size changes.
  */
-@customElement('ef-layout', {
-  alias: 'quartz-layout'
-})
+@customElement('ef-layout')
 export class Layout extends ResponsiveElement {
 
   /**

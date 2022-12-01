@@ -1,11 +1,5 @@
 import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
 
-// Translations polyfills
-import '@formatjs/intl-locale/polyfill.iife';
-import '@formatjs/intl-getcanonicallocales/polyfill.iife';
-import '@formatjs/intl-pluralrules/polyfill.iife';
-import '@formatjs/intl-pluralrules/locale-data/en';
-
 // Import element and theme
 import '@refinitiv-ui/elements/card';
 import '@refinitiv-ui/elemental-theme/light/ef-card';

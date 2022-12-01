@@ -16,32 +16,28 @@
     import '@refinitiv-ui/elements/sparkline';
     import '@refinitiv-ui/demo-block';
   </script>
+  <style>
+    demo-block {
+      max-width: none !important;
+      width: 100% !important;
+    }
 
-  <shady-css-scoped>
-    <style>
-      demo-block {
-        max-width: none !important;
-        width: 100% !important;
-      }
+    #spacing {
+      --spacing: 12px;
+    }
 
-      #spacing {
-        --spacing: 12px;
-      }
+    ef-heatmap {
+      height: 400px;
+    }
 
-      ef-heatmap {
-        height: 400px;
-      }
+    #normal {
+      height: inherit;
+    }
 
-      #normal {
-        height: inherit;
-      }
-
-      #large {
-        height: 1900px;
-      }
-    </style>
-  </shady-css-scoped>
-
+    #large {
+      height: 1900px;
+    }
+  </style>
   <h3>Sapphire Heatmap</h3>
   <code>
     <a href="./index.html"><button>Basics</button></a>
@@ -51,7 +47,7 @@
   </code>
 
   <demo-block layout="normal" header="Click" tags="event, click">
-    <ef-heatmap id="click-test"></ef-heatmap>    
+    <ef-heatmap id="click-test"></ef-heatmap>
   </demo-block>
 
   <demo-block layout="normal" header="Double Click" tags="event, dblclick">
@@ -64,14 +60,14 @@
       <ef-item value="menu1">Menu 1</ef-item>
       <ef-item value="menu2" disabled>Menu 2</ef-item>
       <ef-item type="divider"></ef-item>
-      <ef-item value="show-cell" >Show Cell Data</ef-item>      
+      <ef-item value="show-cell" >Show Cell Data</ef-item>
     </ef-overlay-menu>
   </demo-block>
 
   <ef-dialog id="dlg" header="Heatmap Cell"></ef-dialog>
-  
 
-  <script>    
+
+  <script>
     const isIE = (/Trident/g).test(navigator.userAgent);
 
     var generateData = function (r, c, minPoint = -1, maxPoint = 1) {

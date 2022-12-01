@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, html, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/pill';
 import '@refinitiv-ui/elemental-theme/light/ef-pill';
@@ -316,7 +316,7 @@ describe('pill/Pill', () => {
 
     it('should fire clear event when press delete', async () => {
       const el = await fixture(html`<ef-pill clears></ef-pill>`);
-      const event = keyboardEvent('keydown', { key: 'Delete' });
+      const event = new KeyboardEvent('keydown', { key: 'Delete' });
 
       setTimeout(() => el.dispatchEvent(event));
       const ev = await oneEvent(el, 'clear');

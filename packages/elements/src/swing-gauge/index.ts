@@ -52,9 +52,7 @@ const MAX_LEGEND_LINE = 2;
 /**
  * Data visualisation showing the percentage between two values
  */
-@customElement('ef-swing-gauge', {
-  alias: 'sapphire-swing-gauge'
-})
+@customElement('ef-swing-gauge')
 export class SwingGauge extends ResponsiveElement {
   /**
    * Element version number

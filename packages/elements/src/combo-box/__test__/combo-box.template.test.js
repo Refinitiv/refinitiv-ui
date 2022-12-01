@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 import { getData, openedUpdated, snapshotIgnore } from './utils';
 
 import '@refinitiv-ui/elements/combo-box';
@@ -52,10 +52,6 @@ describe('combo-box/Template', () => {
     });
 
     it('--list-max-width recalculates popup width', async function () {
-      if (isIE()) { /* CSS Variables do not work in IE11 without a polyfill. Skip */
-        this.skip();
-      }
-
       const el = await fixture('<ef-combo-box style="--list-max-width: 50px;" opened></ef-combo-box>');
       el.data = getData();
       await openedUpdated(el);

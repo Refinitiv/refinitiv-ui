@@ -37,9 +37,7 @@ const browserType = isIE ? 'legacy' : 'modern';
 /**
  * Displays a text with alternative truncation
  */
-@customElement('ef-label', {
-  alias: 'quartz-label'
-})
+@customElement('ef-label')
 export class Label extends BasicElement {
 
   /**

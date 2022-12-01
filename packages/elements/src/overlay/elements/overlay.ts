@@ -101,9 +101,7 @@ const shouldRefitProperties: string[] = ['position', 'x', 'y', 'positionTarget',
  * @fires refit - Dispatched when refit algorithm finishes calculations
  * @fires opened-changed - Dispatched when when open attribute changes internally. Prevent default to stop opening/closing pipeline
  */
-@customElement('ef-overlay', {
-  alias: 'coral-popup-panel'
-})
+@customElement('ef-overlay')
 export class Overlay extends ResponsiveElement {
 
   /**

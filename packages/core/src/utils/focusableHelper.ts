@@ -1,6 +1,5 @@
 import type { BasicElement } from '../elements/BasicElement';
 import { isBasicElement } from './helpers.js';
-import { matches } from './matches.js';
 
 type DelegatedList = {
   element: BasicElement;
@@ -219,11 +218,11 @@ export abstract class FocusableHelper {
     // http://allyjs.io/data-tables/focusable.html
 
     // Elements that cannot be focused if they have [disabled] attribute.
-    if (matches(element, 'input, select, textarea, button, object')) {
-      return matches(element, ':not([disabled])');
+    if (element.matches('input, select, textarea, button, object')) {
+      return element.matches(':not([disabled])');
     }
     // Elements that can be focused even if they have [disabled] attribute.
-    return matches(element, 'a[href], area[href], iframe, [tabindex], [contentEditable]');
+    return element.matches('a[href], area[href], iframe, [tabindex], [contentEditable]');
   }
 
   /**

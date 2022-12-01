@@ -46,9 +46,7 @@ const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === und
  * @attr {string} value - Input's value
  * @prop {string} [value=""] - Input's value
  */
-@customElement('ef-text-field', {
-  alias: 'coral-text-field'
-})
+@customElement('ef-text-field')
 export class TextField extends FormFieldElement {
 
   /**

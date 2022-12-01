@@ -48,10 +48,11 @@ describe('clock/Analogue', () => {
 
     it('Shows small size clock when width is less than 130px', async () => {
       expect(el.shadowRoot.querySelector('[part="digital"]'), 'digital clock should display inside a default analog clock').not.to.be.null;
-      
+
       // make size smaller than defined break point
       el.style.width = '129px';
       await elementUpdated(el);
+      await nextFrame();
       await nextFrame();
 
       expect(el.shadowRoot.querySelector('[part="digital"]'), 'digital clock should not display inside small clock').to.be.null;
@@ -63,18 +64,18 @@ describe('clock/Analogue', () => {
       el.style.width = '129px';
       await elementUpdated(el);
       await nextFrame();
-      
+
       // test default behavior
       expect(el.hasAttribute('am-pm')).to.be.equal(false);
       expect(el.amPm).to.be.equal(false);
       expect(el.shadowRoot.querySelector('[part="segment am-pm"]')).to.be.null;
-      
+
       // test when it has am-pm attribute
       el = await fixture('<ef-clock analogue am-pm></ef-clock>');
       el.style.width = '129px';
       await elementUpdated(el);
       await nextFrame();
-      
+
       expect(el.amPm, 'amPm property should be true if am-pm attribute is set').to.be.equal(true);
       expect(el.shadowRoot.querySelector('[part="segment am-pm"]'), 'AM/PM should display on clock').not.to.be.null;
 
@@ -92,7 +93,7 @@ describe('clock/Analogue', () => {
       await nextFrame();
 
       expect(el.hasAttribute('size'), 'size attribute should not show if not analog').to.be.equal(false);
-      
+
       el.style.width = '129px';
       await elementUpdated(el);
       await nextFrame();

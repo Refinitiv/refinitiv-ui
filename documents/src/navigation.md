@@ -98,7 +98,6 @@ type: nav
   * [Localisation](./custom-components/localisation)
   * [Notice Messages](./custom-components/notice-messages)
   * [Breaking Changes](./custom-components/breaking-changes)
-  * [Polyfilling](./custom-components/polyfilling)
   * [Naming Conventions](./custom-components/naming-conventions)
 
   - Utilities

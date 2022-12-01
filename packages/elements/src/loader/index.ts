@@ -12,9 +12,7 @@ let cachedParts: readonly string[];
  *  used to show that an app is performing an action
  *  in the background such as downloading content.
  */
-@customElement('ef-loader', {
-  alias: 'amber-loader'
-})
+@customElement('ef-loader')
 export class Loader extends BasicElement {
 
   /**

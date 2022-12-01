@@ -63,7 +63,6 @@ export type { StyleInfo };
  * Export useful utils
  */
 export { FocusableHelper } from './utils/focusableHelper.js';
-export { matches } from './utils/matches.js';
 export { isBasicElement } from './utils/helpers.js';
 export { triggerResize } from './utils/resizeHelper.js';
 

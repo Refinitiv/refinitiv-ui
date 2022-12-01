@@ -4,8 +4,7 @@ import {
   css,
   TemplateResult,
   CSSResultGroup,
-  PropertyValues,
-  matches
+  PropertyValues
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -41,9 +40,7 @@ const TooltipPositionMap: TooltipPositionMap = {
  * Tooltip displays extra information when the
  * user hovers the pointer over an item.
  */
-@customElement('ef-tooltip', {
-  alias: 'coral-tooltip'
-})
+@customElement('ef-tooltip')
 class Tooltip extends BasicElement {
 
   /**
@@ -286,7 +283,7 @@ class Tooltip extends BasicElement {
     }
 
     if (this.selector) {
-      return matches(element, this.selector);
+      return element.matches(this.selector);
     }
 
     return false;
