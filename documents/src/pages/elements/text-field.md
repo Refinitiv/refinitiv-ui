@@ -43,7 +43,7 @@ p {
 Text field is used to accept text input from users and has similar behaviors to the native text input.
 
 ```html
-<ef-text-field placeholder="Type something..."></ef-text-field>
+<ef-text-field placeholder="full name as shown on your passport"></ef-text-field>
 ```
 
 ## Getting value
@@ -51,11 +51,12 @@ Text field is used to accept text input from users and has similar behaviors to 
 The field's value can be accessed using the `value` property.
 
 ```html
-<ef-text-field id="text-input" value="Hello World"></ef-text-field>
+<label for="full-name">full name</label>
+<ef-text-field id="full-name" value="Sarah Connor"></ef-text-field>
 ```
 ```javascript
-const textInput = document.getElementById("text-input");
-console.log(textInput.value); // "Hello World"
+const textInput = document.getElementById("full-name");
+console.log(textInput.value); // "Sarah Connor"
 ```
 
 You can also listen for the `value-changed` event, which triggers when user interactions change the value.
@@ -63,7 +64,7 @@ You can also listen for the `value-changed` event, which triggers when user inte
 ::
 ```javascript
 ::text-field::
-const element = document.getElementById("input");
+const element = document.getElementById("full-name");
 const valueChangedText = document.getElementById('value-text');
 
 element.addEventListener("value-changed", (e) => {
@@ -71,18 +72,20 @@ element.addEventListener("value-changed", (e) => {
 });
 ```
 ```html
-<ef-text-field id="input" placeholder="Type something here .."></ef-text-field>
+<label for="full-name">full name</label>
+<ef-text-field id="full-name" placeholder="full name as shown on your passport"></ef-text-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 ::
 
 ```html
-<ef-text-field id="input" placeholder="Type something here .."></ef-text-field>
+<label for="full-name">full name</label>
+<ef-text-field id="full-name" placeholder="full name as shown on your passport"></ef-text-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 
 ```javascript
-const element = document.getElementById("input");
+const element = document.getElementById("full-name");
 
 element.addEventListener("value-changed", (e) => {
   console.log(e.detail.value);
@@ -105,17 +108,17 @@ The `maxlength` attribute limits the number of characters that users can type in
 ```javascript
 ::text-field::
 const element = document.getElementById("username");
-const errorP = document.getElementById("errorText");
+const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
     if (e.detail.value) {
-      errorP.innerHTML = "Value length must be between 5-8 characters";
+      errorChangedText.innerHTML = "Value length must be between 5-8 characters";
     } else {
-      errorP.innerHTML = "";
+      errorChangedText.innerHTML = "";
     }
 });
 ```
 ```css
-#errorText {
+#error-text {
   color:#d94255;
 }
 ef-text-field {
@@ -124,25 +127,25 @@ ef-text-field {
 ```
 ```html
 <label for="username">username</label>
-<ef-text-field id="username" aria-describedby="errorText" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
-<p id="errorText"></p>
+<ef-text-field id="username" aria-describedby="error-text" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
+<p id="error-text"></p>
 ```
 ::
 
 ```html
 <label for="username">username</label>
-<ef-text-field id="username" aria-describedby="errorText" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
-<p id="errorText"></p>
+<ef-text-field id="username" aria-describedby="error-text" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
+<p id="error-text"></p>
 ```
 
 ```javascript
 const element = document.getElementById("username");
-const errorP = document.getElementById("errorText");
+const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
     if (e.detail.value) {
-      errorP.innerHTML = "Value length must be between 5-8 characters";
+      errorChangedText.innerHTML = "Value length must be between 5-8 characters";
     } else {
-      errorP.innerHTML = "";
+      errorChangedText.innerHTML = "";
     }
 });
 ```
