@@ -26,12 +26,12 @@ p {
 ```
 ```html
 <ef-panel spacing>
-  <p>First name</p>
-  <ef-text-field placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
+  <label for="first-name">First Name</label>
+  <ef-text-field id="first-name" placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
   <br/>
   <br/>
-  <p>Last name</p>
-  <ef-text-field placeholder="Must be letters and at least 5 characters" pattern="[a-zA-Z]{5,}"></ef-text-field>
+  <label for="last-name">Last Name</label>
+  <ef-text-field id="last-name" placeholder="Must be letters and at least 5 characters" pattern="[a-zA-Z]{5,}"></ef-text-field>
 </ef-panel>
 ```
 ::
@@ -43,7 +43,8 @@ p {
 Text field is used to accept text input from users and has similar behaviors to the native text input.
 
 ```html
-<ef-text-field placeholder="full name as shown on your passport"></ef-text-field>
+<label for="full-name">Full Name</label>
+<ef-text-field id="full-name" placeholder="full name as shown on your passport"></ef-text-field>
 ```
 
 ## Getting value
@@ -51,7 +52,7 @@ Text field is used to accept text input from users and has similar behaviors to 
 The field's value can be accessed using the `value` property.
 
 ```html
-<label for="full-name">full name</label>
+<label for="full-name">Full Name</label>
 <ef-text-field id="full-name" value="Sarah Connor"></ef-text-field>
 ```
 ```javascript
@@ -72,14 +73,14 @@ element.addEventListener("value-changed", (e) => {
 });
 ```
 ```html
-<label for="full-name">full name</label>
+<label for="full-name">Full Name</label>
 <ef-text-field id="full-name" placeholder="full name as shown on your passport"></ef-text-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 ::
 
 ```html
-<label for="full-name">full name</label>
+<label for="full-name">full Name</label>
 <ef-text-field id="full-name" placeholder="full name as shown on your passport"></ef-text-field>
 <p>Value: <code id="value-text"></code></p>
 ```
@@ -126,14 +127,14 @@ ef-text-field {
 }
 ```
 ```html
-<label for="username">username</label>
+<label for="username">Username</label>
 <ef-text-field id="username" aria-describedby="error-text" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
-<label for="username">username</label>
+<label for="username">Username</label>
 <ef-text-field id="username" aria-describedby="error-text" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
 <p id="error-text"></p>
 ```
@@ -183,6 +184,7 @@ label {
 <label for="nickname">Nickname</label>
 <ef-text-field
   id="nickname"
+  aria-describedby="error-text"
   pattern="[a-z]{4,8}"
   placeholder="Must be lowercase letters and 4-8 characters">
 </ef-text-field>
@@ -194,6 +196,7 @@ label {
 <label for="nickname">Nickname:</label>
 <ef-text-field
   id="nickname"
+  aria-describedby="error-text"
   pattern="[a-z]{4,8}"
   placeholder="Must be lowercase letters and 4-8 characters">
 </ef-text-field>
@@ -227,12 +230,14 @@ ef-text-field {
 }
 ```
 ```html
-<ef-text-field icon="email" placeholder="We appreciate your feedback!"></ef-text-field>
+<label for="feedback">Feedback</label>
+<ef-text-field id="feedback" icon="email" placeholder="We appreciate your feedback!"></ef-text-field>
 ```
 ::
 
 ```html
-<ef-text-field icon="email"></ef-text-field>
+<label for="feedback">Feedback</label>
+<ef-text-field id="feedback" icon="email"></ef-text-field>
 ```
 
 The icon can become actionable by adding the `icon-has-action` attribute to the element, so that `ef-text-field` will fire the `icon-click` event when users click on the icon. You can add an event listener to this event to execute your code.
@@ -253,11 +258,13 @@ ef-text-field {
 }
 ```
 ```html
+<label for="feedback">Feedback</label>
 <ef-text-field id="feedback" placeholder="Type your feedback and click the icon" icon="email" icon-has-action></ef-text-field>
 ```
 ::
 
 ```html
+<label for="feedback">Feedback</label>
 <ef-text-field
   id="feedback"
   placeholder="Type your feedback and click the icon"
@@ -278,13 +285,11 @@ element.addEventListener("icon-click", (e) => {
 ## Accessibility
 ::a11y-intro::
 
-<!-- **TODO: add ria-describedby for error**
-<ef-text-field id="username" aria-describedby="errorText" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
-<p id="errorText"></p> -->
-
 `ef-text-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state.
 
-`ef-text-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+`ef-text-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`. 
+
+If there is an element displaying error of `ef-text-field`, `aria-describedby` should be added to the text field.
 
 ```html
 <ef-text-field placeholder="Enter your full name"></ef-text-field>
@@ -296,18 +301,29 @@ element.addEventListener("icon-click", (e) => {
 </ef-text-field>
 ```
 ```html
-<label id="name">Enter your full name</label>
+<label id="name">Full Name</label>
 <ef-text-field 
   aria-labelledby="name"
   placeholder="Enter your full name">
 </ef-text-field>
 ```
 ```html
-<label for="name">Enter your full name</label>
+<label for="name">Full Name</label>
 <ef-text-field
   id="name"
   placeholder="Enter your full name">
 </ef-text-field>
+```
+
+```html
+<label for="first-name">First Name</label>
+<ef-text-field
+  id="first-name"
+  aria-describedby="error-text"
+  pattern="[a-zA-Z]{3,}"
+  placeholder="Enter your first name. ust be letters and at least 3 characters">
+</ef-text-field>
+<p id="error-text"></p> 
 ```
 
 ::a11y-end::
