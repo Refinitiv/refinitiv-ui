@@ -69,7 +69,7 @@ const element = document.getElementById("full-name");
 const valueChangedText = document.getElementById('value-text');
 
 element.addEventListener("value-changed", (e) => {
-  valueChangedText.innerHTML = e.detail.value;
+  valueChangedText.textContent = e.detail.value;
 });
 ```
 ```html
@@ -112,9 +112,9 @@ const element = document.getElementById("username");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
     if (e.detail.value) {
-      errorChangedText.innerHTML = "Value length must be between 5-8 characters";
+      errorChangedText.textContent = "Value length must be between 5-8 characters";
     } else {
-      errorChangedText.innerHTML = "";
+      errorChangedText.textContent = "";
     }
 });
 ```
@@ -144,9 +144,9 @@ const element = document.getElementById("username");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
     if (e.detail.value) {
-      errorChangedText.innerHTML = "Value length must be between 5-8 characters";
+      errorChangedText.textContent = "Value length must be between 5-8 characters";
     } else {
-      errorChangedText.innerHTML = "";
+      errorChangedText.textContent = "";
     }
 });
 ```
@@ -162,10 +162,10 @@ const element = document.getElementById("nickname");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
   if (e.detail.value) {
-    errorChangedText.innerHTML = "Nickname must be lowercase letters and 4-8 characters.";
+    errorChangedText.textContent = "Nickname must be lowercase letters and 4-8 characters.";
   }
   else {
-    errorChangedText.innerHTML = "";
+    errorChangedText.textContent = "";
   }
 });
 ```
@@ -208,10 +208,10 @@ const element = document.getElementById("nickname");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
   if (e.detail.value) {
-    errorChangedText.innerHTML = "Nickname must be lowercase letters and 4-8 characters.";
+    errorChangedText.textContent = "Nickname must be lowercase letters and 4-8 characters.";
   }
   else {
-    errorChangedText.innerHTML = "";
+    errorChangedText.textContent = "";
   }
 });
 ```
@@ -321,7 +321,7 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
   id="first-name"
   aria-describedby="error-text"
   pattern="[a-zA-Z]{3,}"
-  placeholder="Enter your first name. ust be letters and at least 3 characters">
+  placeholder="Enter your first name. It must be letters and at least 3 characters">
 </ef-text-field>
 <p id="error-text"></p> 
 ```
