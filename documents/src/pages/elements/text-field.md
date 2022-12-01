@@ -95,6 +95,8 @@ Validation occurs when constraints are provided and the value changes. If the er
 
 Alternatively, you can check the `error` property to confirm if the input is valid or not.
 
+Check the example in [Input length](/elements/text-field#input-length) below for more detail.
+
 ## Input length
 
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
