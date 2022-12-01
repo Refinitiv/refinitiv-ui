@@ -104,19 +104,18 @@ The `maxlength` attribute limits the number of characters that users can type in
 ::
 ```javascript
 ::text-field::
-const element = document.getElementById("textInput");
-const errorChangedText = document.getElementById("error-text");
+const element = document.getElementById("username");
+const errorP = document.getElementById("errorText");
 element.addEventListener("error-changed", (e) => {
     if (e.detail.value) {
-      errorChangedText.innerHTML = "Value length must be between 5 -8 characters";
-    }
-    else {
-      errorChangedText.innerHTML = "";
+      errorP.innerHTML = "Value length must be between 5-8 characters";
+    } else {
+      errorP.innerHTML = "";
     }
 });
 ```
 ```css
-#error-text {
+#errorText {
   color:#d94255;
 }
 ef-text-field {
@@ -124,30 +123,27 @@ ef-text-field {
 }
 ```
 ```html
-<ef-text-field id="textInput" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
-<p id="error-text"></p>
+<label for="username">username</label>
+<ef-text-field id="username" aria-describedby="errorText" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
+<p id="errorText"></p>
 ```
 ::
 
 ```html
-<ef-text-field
-  minlength="5"
-  maxlength="8"
-  placeholder="Between 5 to 8 characters">
-</ef-text-field>
-<p id="error-text"></p>
+<label for="username">username</label>
+<ef-text-field id="username" aria-describedby="errorText" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
+<p id="errorText"></p>
 ```
 
 ```javascript
-const element = document.getElementById("textInput");
-const errorChangedText = document.getElementById("error-text");
+const element = document.getElementById("username");
+const errorP = document.getElementById("errorText");
 element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.innerHTML = "Value length must be between 5 -8 characters.";
-  }
-  else {
-    errorChangedText.innerHTML = "";
-  }
+    if (e.detail.value) {
+      errorP.innerHTML = "Value length must be between 5-8 characters";
+    } else {
+      errorP.innerHTML = "";
+    }
 });
 ```
 
@@ -278,6 +274,10 @@ element.addEventListener("icon-click", (e) => {
 
 ## Accessibility
 ::a11y-intro::
+
+<!-- **TODO: add ria-describedby for error**
+<ef-text-field id="username" aria-describedby="errorText" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
+<p id="errorText"></p> -->
 
 `ef-text-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state.
 
