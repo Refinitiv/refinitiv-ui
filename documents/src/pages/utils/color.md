@@ -1,13 +1,13 @@
 <!-- 
 title: Color Utility
-location: ./utils/color
+location: ./custom-components/utils/color
 type: page
 layout: default
 -->
 
-::status-todo::
+
 
 # Color
 
-::todo::
+@> Coming soon!
 

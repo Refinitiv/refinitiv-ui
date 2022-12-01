@@ -1,11 +1,11 @@
 <!--
 title: Localisation
-location: ./localisation
+location: ./custom-components/localisation
 type: page
 -->
 
-::status-todo::
+
 
 # Localisation
 
-::todo::
+@> Coming soon!

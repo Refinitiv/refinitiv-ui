@@ -1,11 +1,11 @@
 <!--
 title: ARIA
-location: ./aria
+location: ./custom-components/aria
 type: page
 -->
 
-::status-todo::
+
 
 # ARIA
 
-::todo::
+@> Coming soon!

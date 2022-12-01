@@ -90,7 +90,6 @@ import '@refinitiv-ui/elements/panel/themes/halo/dark';
 import '@refinitiv-ui/elements/text-field/themes/halo/dark';
 import '@refinitiv-ui/elements/password-field/themes/halo/dark';
 ```
-If you're using webpack 4, you can set path aliases in `webpack.config.js` similar to [Vanilla](./tutorials/vanilla-js#webpack-4).
 
 At this stage EF elements should be ready to use!. You can use them like any other native HTML elements.
 
@@ -265,6 +264,18 @@ export class NumberFieldValueAccessor implements ControlValueAccessor {
   listenForValueChange ({ value }) {
     this.value = value;
   }
+```
+
+## Additional type definition
+
+Some EF elements supports i18N features. It uses [FormatJS](https://formatjs.io/) library and some of thier modules are using features that available in new Javascript version. If you see any errors related to @formatjs during project compilation, you may need to add `esnext.intl` into `lib` section in `tsconfig.json` file.
+
+```diff
+"lib": [
+  "es2018",
++ "esnext.intl"
+  "dom"
+]
 ```
 
 ::footer::

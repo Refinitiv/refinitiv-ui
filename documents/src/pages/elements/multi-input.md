@@ -71,6 +71,7 @@ el.data = fruits;
 By default, users are allowed to type any value in a text field and it will be created as a new pill when users press the enter key. You can disable the text field input using the `pills-only` attribute or set `pillsOnly` property to be true.
 
 `data` is an array of [MultiInputData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/multi-input/helpers/types.ts) interface. It is only used for initializing `ef-multi-input`. It's immutable and used for keeping a reference to a source array of objects. The value of `data` won't be changed when using the add or remove pills API.
+
 ## Getting values
 
 The value of the input text field can be accessed using `value`. To get a list of pills in the input, use the `values` property - it will return an array of the `value` properties of every pill.
@@ -129,4 +130,3 @@ You can listen to the `item-removed` event, which is fired when users remove any
 
 ## Text Field value changed
 When users type or change the value in the text field, the `value-changed` event will be triggered. The value of the text field is accessed using `value` in the event object.
-

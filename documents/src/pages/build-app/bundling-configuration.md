@@ -1,6 +1,6 @@
 <!--
 type: page
-title: Vanilla JavaScript
+title: Bundling Configuration
 location: ./guides/bundling-configuration
 layout: default
 -->
@@ -79,26 +79,6 @@ Then at the root directory of the project, create `index.html` with following co
         document.querySelector("h1").textContent = "Done!";
       });
     </script>
-    <style>
-      .panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 400px;
-        height: 300px;
-        margin: 10em auto;
-      }
-      .input {
-        margin-top: 8px;
-      }
-      .btn-container {
-        display: flex;
-        margin: 12px 0;
-      }
-      .btn-container ef-button {
-        margin: 0 8px;
-      }
-    </style>
   </body>
 </html>
 ```
@@ -115,7 +95,7 @@ Add scripts to `package.json`.
 
 Run `npm start` to start development server and run your app. Use `npm build` to build production package.
 
-## WebPack 5
+## Webpack 5
 [webpack](https://webpack.js.org/) is a static module bundler which helps to resolve modules import path, process and pack them into production-ready files. While `webpack-dev-server` will serves a webpack app and updates the browser on changes.
 
 Create a new project and install webpack.
@@ -187,26 +167,6 @@ Then at the root directory of the project, create `index.html` with following co
         document.querySelector("h1").textContent = "Done!";
       });
     </script>
-    <style>
-      .panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 400px;
-        height: 300px;
-        margin: 10em auto;
-      }
-      .input {
-        margin-top: 8px;
-      }
-      .btn-container {
-        display: flex;
-        margin: 12px 0;
-      }
-      .btn-container ef-button {
-        margin: 0 8px;
-      }
-    </style>
   </body>
 </html>
 ```
@@ -258,7 +218,7 @@ Add scripts to `package.json`.
 
 Finally, run `npm run build` and then `npm start`.
 
-## WebPack 4
+## Webpack 4
 Legacy [webpack](https://webpack.js.org/) do not support package exports. Therefore, paths will need to be resolved manually by using `alias`. Additionally, it is required more configuration to use Babel to transform new ES syntax and include runtime code generator.
 
 Create a new project and install webpack.
@@ -330,26 +290,6 @@ Then at the root directory of the project, create `index.html` with following co
         document.querySelector("h1").textContent = "Done!";
       });
     </script>
-    <style>
-      .panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 400px;
-        height: 300px;
-        margin: 10em auto;
-      }
-      .input {
-        margin-top: 8px;
-      }
-      .btn-container {
-        display: flex;
-        margin: 12px 0;
-      }
-      .btn-container ef-button {
-        margin: 0 8px;
-      }
-    </style>
   </body>
 </html>
 ```

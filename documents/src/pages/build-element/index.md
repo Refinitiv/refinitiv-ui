@@ -1,30 +1,36 @@
 <!-- 
-title: Element Framework Extra
-location: ./creating-custom-elements
+title: Element Framework Extensions
+location: ./custom-components/creating-custom-elements
 type: page
 layout: default
 -->
 
-::status-complete::
-
 # Creating Custom Elements
 
-This page provides a conceptual overview of how to create and publish new elements to extend Element Framework.
+Element Framework does not only provide a collection of UI components but also allow you to extend the components from EF base classes.
 
-If you find that you need to use the same UI logic in more than one application, you may have a candidate for a new element. An example might be a button that opens your camera feed.
+When you are using a framework to build apps, you may not necessary to create new components from EF base class but use EF components to compose components that specific to your framework, for example, Angular components, React components, or Vue components.
+
+However, if you want to craft components that agnostic to application frameworks, either in order to share them with other projects or give you flexibility to be able to change your application framework, you may follow our guideline to extend the components from EF base classes.
+
+EF base classes are extended from [Lit](https://lit.dev/). To create components from EF base class rather than Lit directly provides few advantages which have been implemented inside EF core module such as mobile tap events, localisation, accessibility, etc.
+
+@> Element Framework is using TypeScript and Lit. We strongly recommend reading through [Lit Documentation](https://lit.dev/docs/) to understand a concept of Web Components as well as features of Lit.
 
 ## Playground
 
-Get started instantly with the Element Framework playground.
+A playground showing a simple element that created from Element Framework.
 
-<a target="_blank" href="https://codesandbox.io/s/basic-element-s2i9x?file=/src/efx-element.ts" style="display:inline-block;padding:4px 12px;background:blue;color:white">Start Now</a>
+<a target="_blank" href="https://codesandbox.io/s/counter-element-nwogim?file=/elements/efx-counter.ts" style="display:inline-block;padding:4px 12px;background:blue;color:white">Start Now</a>
 
-## QuickStart Tutorial
+## Quickstart Tutorial
 
-Get up to speed quickly, by reading through the short tutorial.
+Get started to create your first component by reading through the short tutorial.
 
-<a href="./tutorials/element" style="display:inline-block;padding:4px 12px;background:blue;color:white">Start Now</a>
+<a href="./custom-components/tutorial" style="display:inline-block;padding:4px 12px;background:blue;color:white">Start Now</a>
 
-## Element Templates
+## Starter Template
 
-@> Coming soon!
+Instantly create your component project. Starter template comes with completed project structure and tooling for linting, testing, demo page.
+
+<a href="./custom-components/tools/starter-templates" style="display:inline-block;padding:4px 12px;background:blue;color:white">Start Now</a>
