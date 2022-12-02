@@ -292,9 +292,6 @@ element.addEventListener("icon-click", (e) => {
 If there is an element displaying error of `ef-text-field`, `aria-describedby` should be added to the text field.
 
 ```html
-<ef-text-field placeholder="Enter your full name"></ef-text-field>
-```
-```html
 <ef-text-field 
   aria-label="Enter your full name"
   placeholder="Enter your full name">
@@ -314,7 +311,6 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
   placeholder="Enter your full name">
 </ef-text-field>
 ```
-
 ```html
 <label for="first-name">First Name</label>
 <ef-text-field
