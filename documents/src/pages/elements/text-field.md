@@ -120,11 +120,11 @@ The `maxlength` attribute limits the number of characters that users can type in
 const element = document.getElementById("username");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
-    if (e.detail.value) {
-      errorChangedText.textContent = "Value length must be between 5-8 characters";
-    } else {
-      errorChangedText.textContent = "";
-    }
+  if (e.detail.value) {
+    errorChangedText.textContent = "Value length must be between 5-8 characters";
+  } else {
+    errorChangedText.textContent = "";
+  }
 });
 ```
 
@@ -155,11 +155,11 @@ ef-text-field {
 const element = document.getElementById("username");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
-    if (e.detail.value) {
-      errorChangedText.textContent = "Value length must be between 5-8 characters";
-    } else {
-      errorChangedText.textContent = "";
-    }
+  if (e.detail.value) {
+    errorChangedText.textContent = "Value length must be between 5-8 characters";
+  } else {
+    errorChangedText.textContent = "";
+  }
 });
 ```
 
@@ -300,9 +300,9 @@ ef-text-field {
 ```javascript
 const element = document.getElementById("feedback");
 element.addEventListener("icon-click", (e) => {
-    element.value = ""
-    element.placeholder = "Feedback sent. Thanks!";
-    element.icon = "tick";
+  element.value = ""
+  element.placeholder = "Feedback sent. Thanks!";
+  element.icon = "tick";
 });
 ```
 
