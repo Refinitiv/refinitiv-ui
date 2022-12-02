@@ -8,11 +8,13 @@ layout: default
 # Text Field
 
 ::
+
 ```javascript
 ::text-field::
 import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
 halo('panel');
 ```
+
 ```css
 ef-panel {
   max-width: 450px;
@@ -24,6 +26,7 @@ p {
   margin-bottom: 4px;
 }
 ```
+
 ```html
 <ef-panel spacing>
   <label for="first-name">First Name</label>
@@ -34,6 +37,7 @@ p {
   <ef-text-field id="last-name" placeholder="Must be letters and at least 5 characters" pattern="[a-zA-Z]{5,}"></ef-text-field>
 </ef-panel>
 ```
+
 ::
 
 `ef-text-field` is a form element for text.
@@ -55,6 +59,7 @@ The field's value can be accessed using the `value` property.
 <label for="full-name">Full Name</label>
 <ef-text-field id="full-name" value="Sarah Connor"></ef-text-field>
 ```
+
 ```javascript
 const textInput = document.getElementById("full-name");
 console.log(textInput.value); // "Sarah Connor"
@@ -63,6 +68,7 @@ console.log(textInput.value); // "Sarah Connor"
 You can also listen for the `value-changed` event, which triggers when user interactions change the value.
 
 ::
+
 ```javascript
 ::text-field::
 const element = document.getElementById("full-name");
@@ -72,11 +78,13 @@ element.addEventListener("value-changed", (e) => {
   valueChangedText.textContent = e.detail.value;
 });
 ```
+
 ```html
 <label for="full-name">Full Name</label>
 <ef-text-field id="full-name" placeholder="full name as shown on your passport"></ef-text-field>
 <p>Value: <code id="value-text"></code></p>
 ```
+
 ::
 
 ```html
@@ -106,6 +114,7 @@ Check the example in [Input length](/elements/text-field#input-length) below for
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
 
 ::
+
 ```javascript
 ::text-field::
 const element = document.getElementById("username");
@@ -118,6 +127,7 @@ element.addEventListener("error-changed", (e) => {
     }
 });
 ```
+
 ```css
 #error-text {
   color:#d94255;
@@ -126,11 +136,13 @@ ef-text-field {
   width: 200px;
 }
 ```
+
 ```html
 <label for="username">Username</label>
 <ef-text-field id="username" aria-describedby="error-text" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
 <p id="error-text"></p>
 ```
+
 ::
 
 ```html
@@ -156,6 +168,7 @@ element.addEventListener("error-changed", (e) => {
 You can use a regular expression to validate the input value by setting it with the `pattern` attribute.
 
 ::
+
 ```javascript
 ::text-field::
 const element = document.getElementById("nickname");
@@ -169,6 +182,7 @@ element.addEventListener("error-changed", (e) => {
   }
 });
 ```
+
 ```css
 #error-text {
   color:#d94255;
@@ -180,6 +194,7 @@ label {
   display: block;
 }
 ```
+
 ```html
 <label for="nickname">Nickname</label>
 <ef-text-field
@@ -190,6 +205,7 @@ label {
 </ef-text-field>
 <p id="error-text"></p>
 ```
+
 ::
 
 ```html
@@ -221,18 +237,22 @@ element.addEventListener("error-changed", (e) => {
 An inline icon can be set to display inside the input using the `icon` attribute.
 
 ::
+
 ```javascript
 ::text-field::
 ```
+
 ```css
 ef-text-field {
   width: 200px;
 }
 ```
+
 ```html
 <label for="feedback">Feedback</label>
 <ef-text-field id="feedback" icon="email" placeholder="We appreciate your feedback!"></ef-text-field>
 ```
+
 ::
 
 ```html
@@ -243,6 +263,7 @@ ef-text-field {
 The icon can become actionable by adding the `icon-has-action` attribute to the element, so that `ef-text-field` will fire the `icon-click` event when users click on the icon. You can add an event listener to this event to execute your code.
 
 ::
+
 ```javascript
 ::text-field::
 const element = document.getElementById("feedback");
@@ -252,15 +273,18 @@ element.addEventListener("icon-click", (e) => {
   element.icon = "tick";
 });
 ```
+
 ```css
 ef-text-field {
   width: 250px;
 }
 ```
+
 ```html
 <label for="feedback">Feedback</label>
 <ef-text-field id="feedback" placeholder="Type your feedback and click the icon" icon="email" icon-has-action></ef-text-field>
 ```
+
 ::
 
 ```html
@@ -283,11 +307,12 @@ element.addEventListener("icon-click", (e) => {
 ```
 
 ## Accessibility
+
 ::a11y-intro::
 
 `ef-text-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state.
 
-`ef-text-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`. 
+`ef-text-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`.
 
 If there is an element displaying error of `ef-text-field`, `aria-describedby` should be added to the text field.
 
@@ -297,6 +322,7 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
   placeholder="Enter your full name">
 </ef-text-field>
 ```
+
 ```html
 <label id="name">Full Name</label>
 <ef-text-field 
@@ -304,6 +330,7 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
   placeholder="Enter your full name">
 </ef-text-field>
 ```
+
 ```html
 <label for="name">Full Name</label>
 <ef-text-field
@@ -311,6 +338,7 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
   placeholder="Enter your full name">
 </ef-text-field>
 ```
+
 ```html
 <label for="first-name">First Name</label>
 <ef-text-field
