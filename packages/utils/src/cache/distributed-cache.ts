@@ -17,13 +17,9 @@ export interface DistributedCacheConfig {
 
 type StorageNames = {
   request: `${string}[request]`,
+  leader: `${string}[leader]`,
   unloaded: `${string}[unloaded]`
 };
-
-type RequestItem = {
-  id: string;
-  leader?: string;
-}
 
 type Requests = {
   [key: string]: string
@@ -100,6 +96,7 @@ export class DistributedCache {
 
     this.storageNames = {
       request: `${cacheName}[request]`,
+      leader: `${cacheName}[leader]`,
       unloaded: `${cacheName}[unloaded]`
     };
 
@@ -122,17 +119,15 @@ export class DistributedCache {
       // Leader election, use only first vote(event) for setting leader
       if (key?.startsWith(this.storageNames.request) && newValue) {
 
-        const request = JSON.parse(localStorage.getItem(key) || '') as RequestItem;
+        const itemKey = key.replace(`${this.storageNames.request}-`, '');
         // Set a new leader if does not exists
-        if (!request.leader) {
-          const itemKey = key.replace(`${this.storageNames.request}-`, '');
+        if (!localStorage.getItem(`${this.storageNames.leader}-${itemKey}`)) {
 
           // Save Leader
-          request.leader = 'true';
-          localStorage.setItem(key, JSON.stringify(request));
+          localStorage.setItem(`${this.storageNames.leader}-${itemKey}`, newValue);
 
           // Notify to leader
-          this.messenger.notify(`leader-${itemKey}`, request.id);
+          this.messenger.notify(`leader-${itemKey}`, newValue);
         }
       }
     });
@@ -325,7 +320,7 @@ export class DistributedCache {
     const id = uuid();
     Logger.log(`${window.name} %c Leader: Candidate %c ${key?.split('/').pop() || ''} uuid: ${id} ${Date.now()}`, 'background: blue; color: white', '');
     this.requests[key] = id;
-    localStorage.setItem(`${this.storageNames.request}-${key}`, JSON.stringify({ id: id }));
+    localStorage.setItem(`${this.storageNames.request}-${key}`, id);
   }
 
   /**
