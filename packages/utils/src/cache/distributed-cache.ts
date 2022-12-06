@@ -372,6 +372,7 @@ export class DistributedCache {
    */
   private cleanItem (key: string): void {
     localStorage.removeItem(`${this.storageNames.request}-${key}`);
+    localStorage.removeItem(`${this.storageNames.leader}-${key}`);
     delete this.requests[key];
     this.waiting.delete(key);
   }
