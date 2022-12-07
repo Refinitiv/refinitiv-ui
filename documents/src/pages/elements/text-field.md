@@ -48,7 +48,7 @@ Text field is used to accept text input from users and has similar behaviors to 
 
 ```html
 <label for="full-name">Full Name</label>
-<ef-text-field id="full-name" placeholder="full name as shown on your passport"></ef-text-field>
+<ef-text-field id="full-name" placeholder="Your name as shown on your passport"></ef-text-field>
 ```
 
 ## Getting value
@@ -81,7 +81,7 @@ element.addEventListener("value-changed", (e) => {
 
 ```html
 <label for="full-name">Full Name</label>
-<ef-text-field id="full-name" placeholder="full name as shown on your passport"></ef-text-field>
+<ef-text-field id="full-name" placeholder="Your name as shown on your passport"></ef-text-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 
@@ -89,7 +89,7 @@ element.addEventListener("value-changed", (e) => {
 
 ```html
 <label for="full-name">full Name</label>
-<ef-text-field id="full-name" placeholder="full name as shown on your passport"></ef-text-field>
+<ef-text-field id="full-name" placeholder="Your name as shown on your passport"></ef-text-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 
@@ -175,7 +175,7 @@ const element = document.getElementById("nickname");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
   if (e.detail.value) {
-    errorChangedText.textContent = "Nickname must be lowercase letters and 4-8 characters.";
+    errorChangedText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
   }
   else {
     errorChangedText.textContent = "";
@@ -201,7 +201,7 @@ label {
   id="nickname"
   aria-describedby="error-text"
   pattern="[a-z]{4,8}"
-  placeholder="Must be lowercase letters and 4-8 characters">
+  placeholder="Must be lowercase letters between 4-8 characters">
 </ef-text-field>
 <p id="error-text"></p>
 ```
@@ -214,7 +214,7 @@ label {
   id="nickname"
   aria-describedby="error-text"
   pattern="[a-z]{4,8}"
-  placeholder="Must be lowercase letters and 4-8 characters">
+  placeholder="Must be lowercase letters between 4-8 characters">
 </ef-text-field>
 <p id="error-text"></p>
 ```
@@ -224,7 +224,7 @@ const element = document.getElementById("nickname");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
   if (e.detail.value) {
-    errorChangedText.textContent = "Nickname must be lowercase letters and 4-8 characters.";
+    errorChangedText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
   }
   else {
     errorChangedText.textContent = "";
@@ -318,8 +318,8 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
 
 ```html
 <ef-text-field 
-  aria-label="Enter your full name"
-  placeholder="Enter your full name">
+  aria-label="Full name"
+  placeholder="Your name as shown on your passport">
 </ef-text-field>
 ```
 
@@ -327,7 +327,7 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
 <label id="name">Full Name</label>
 <ef-text-field 
   aria-labelledby="name"
-  placeholder="Enter your full name">
+  placeholder="Your name as shown on your passport">
 </ef-text-field>
 ```
 
@@ -335,7 +335,7 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
 <label for="name">Full Name</label>
 <ef-text-field
   id="name"
-  placeholder="Enter your full name">
+  placeholder="Your name as shown on your passport">
 </ef-text-field>
 ```
 
@@ -345,7 +345,7 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
   id="first-name"
   aria-describedby="error-text"
   pattern="[a-zA-Z]{3,}"
-  placeholder="Enter your first name. It must be letters and at least 3 characters">
+  placeholder="Must be letters at least 3 characters">
 </ef-text-field>
 <p id="error-text"></p> 
 ```
