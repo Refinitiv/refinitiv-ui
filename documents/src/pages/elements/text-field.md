@@ -19,7 +19,7 @@ halo('panel');
 ef-panel {
   max-width: 450px;
 }
-ef-text-field{
+ef-text-field {
   width: 250px;
 }
 p {
@@ -77,6 +77,12 @@ const valueChangedText = document.getElementById('value-text');
 element.addEventListener("value-changed", (e) => {
   valueChangedText.textContent = e.detail.value;
 });
+```
+
+```css
+ef-text-field {
+  width: 250px;
+}
 ```
 
 ```html
@@ -188,7 +194,7 @@ element.addEventListener("error-changed", (e) => {
   color:#d94255;
 }
 ef-text-field {
-  width: 275px;
+  width: 300px;
 }
 label {
   display: block;
