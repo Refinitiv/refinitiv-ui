@@ -1,10 +1,8 @@
 <!--
 title: Create an element
-location: ./create
+location: ./custom-components/create
 type: page
 -->
-
-::status-todo::
 
 # Create an Element
 
