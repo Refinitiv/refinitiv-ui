@@ -37,7 +37,7 @@ Once your application has been created and configured using the command line pro
 npm run serve
 ```
 
-## Install ELF elements and themes
+## Install EF elements and themes
 
 Install EF elements and themes.
 

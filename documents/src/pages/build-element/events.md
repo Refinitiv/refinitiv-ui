@@ -1,29 +1,29 @@
 <!--
 title: Events
-location: ./events
+location: ./custom-components/events
 type: page
 layout: default
 -->
 
-::status-complete::
+
 
 # Events
 
-Events allow developers to know what has been changed, either by a user, or asynchronously.
+Events allow developers to know what has been changed on a component, either by a user, or asynchronously.
 
-## Inbuilt Events
+## Built-In Events
 
-There are two types of inbuilt events to use. These help with compatibility across multiple browsers and devices, and should be used instead of their native counterparts.
+Built-In events are events that comes with EF base class. There are two types of the events to use. These help with compatibility across multiple browsers and devices. It should be used instead of their native counterparts.
 
 ### Tap Event
 
 The tap event enables consistent functionality across both touch and pointer devices. This event should be used instead of any equivalent pointer or touch events.
 
-| Event | Replaces |
-| ----- | -------- |
-| tap | `click` and removes any delay on touch devices. |
-| tapstart | `touchstart` and `mousedown`. |
-| tapend | `touchend` and `mouseup`. |
+| Event    | Native Counterparts                             |
+| -------- | ----------------------------------------------- |
+| tap      | `click` and removes any delay on touch devices. |
+| tapstart | `touchstart` and `mousedown`.                   |
+| tapend   | `touchend` and `mouseup`.                       |
 
 ### Focus Event
 
@@ -31,8 +31,8 @@ There are many inconsistencies with focusing across different browsers. Polyfill
 
 This event is here to align all browsers, providing a reliable event to use for any focus/blur logic.
 
-| Event | Replaces |
-| ----- | -------- |
+| Event           | Native Counterparts |
+| --------------- | ------------------- |
 | focused-changed | `focus` and `blur`. |
 
 ## Custom Events
