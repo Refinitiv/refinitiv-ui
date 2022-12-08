@@ -65,7 +65,7 @@ const textInput = document.getElementById("full-name");
 console.log(textInput.value); // "Sarah Connor"
 ```
 
-You can also listen for the `value-changed` event, which triggers when user interactions change the value.
+You can also listen for the `value-changed` event, which triggers when user interactions change the value. Note that, this example shows how developers can access the field's value, not considering design point of view.
 
 ::
 
