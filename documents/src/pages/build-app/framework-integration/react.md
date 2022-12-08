@@ -11,9 +11,12 @@ layout: default
 
 # React Guide
 
-@>This guideline uses create-react-app, React v18.2.0
+## Try online demo
+A playground project that uses Element Framework with React. Here is a [link](https://codesandbox.io/s/react-forms-project-mb3nbz).
 
 ## Using web components in React
+
+@>This guideline uses create-react-app, React v18.2.0
 
 Web components is framework agnostic and it should work with any frameworks in similar fashion as native HTML elements. However, currently, React has not yet fully supported Web components. You are required to create React Component as a wrapper for your Web Component to pass properties and handle custom events.
 
@@ -186,7 +189,7 @@ Finally, starting your app and it should automatically open `http://localhost:30
 npm start
 ```
 
-## Testing With Jest
+## Testing with Jest
 
 If you use [Create React App](https://create-react-app.dev/), Jest is already included out of the box with useful defaults.
 

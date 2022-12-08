@@ -1,11 +1,11 @@
 <!-- 
 title: Async Tasks
-location: ./utils/async-tasks
+location: ./custom-components/utils/async-tasks
 type: page
 layout: default
 -->
 
-::status-complete::
+
 
 # Async Tasks
 
@@ -24,7 +24,7 @@ import { MicroTaskRunner } from '@refinitiv-ui/utils';
 
 const taskRunner = new MicroTaskRunner();
 
-function run () {
+function run (): void {
   queueMicroTask(() => console.log('Second'))
   taskRunner.schedule(() => console.log('Third'));
   console.log('First');
@@ -48,7 +48,7 @@ import { AnimationTaskRunner } from '@refinitiv-ui/utils';
 
 const taskRunner = new AnimationTaskRunner();
 
-function run () {
+function run (): void {
   requestAnimationFrame(() => console.log('Second'));
   taskRunner.schedule(() => console.log('Third'));
   console.log('First');
@@ -73,7 +73,7 @@ import { AfterRenderTaskRunner } from '@refinitiv-ui/utils';
 
 const taskRunner = new AfterRenderTaskRunner();
 
-function run () {
+function run (): void {
   requestAnimationFrame(() => console.log('Second'));
   taskRunner.schedule(() => console.log('Third'));
   console.log('First')
@@ -97,7 +97,7 @@ import { TimeoutTaskRunner } from '@refinitiv-ui/utils';
 
 const taskRunner = new TimeoutTaskRunner(100);
 
-function run () {
+function run (): void {
   setTimeout(() => console.log('Second'), 100);
   taskRunner.schedule(() => console.log('Third'));
   console.log('First')

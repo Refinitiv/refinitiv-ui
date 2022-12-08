@@ -15,7 +15,6 @@ const curr1 = document.getElementById('curr1');
 const cf = document.getElementById('cf');
 const out = document.getElementById('out');
 
-out.value = (curr1.value * cf.value).toFixed(2);
 curr1.addEventListener('value-changed', () => {
   out.value = (curr1.value * cf.value).toFixed(2);
 });
@@ -43,7 +42,7 @@ ef-number-field {
   <label for="cf" class="label">Conversion Rate</label>
   <ef-number-field value="38.62" min="0" step="0.01" id="cf"></ef-number-field>
   <label for="out" class="label">Thai Baht (฿)</label>
-  <ef-number-field readonly value="12000" no-spinner id="out"></ef-number-field>
+  <ef-number-field readonly value="38620.00" no-spinner id="out"></ef-number-field>
 </ef-panel>
 ```
 ::
