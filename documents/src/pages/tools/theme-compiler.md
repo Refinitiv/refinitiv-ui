@@ -1,12 +1,12 @@
 <!-- 
 title: Theme Compiler
-location: ./tools/theme-compiler
+location: ./custom-components/tools/theme-compiler
 type: page
 layout: default
 -->
 
-::status-todo::
+
 
 # Theme Compiler
 
-::todo::
+@> Coming soon!

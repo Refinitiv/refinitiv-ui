@@ -1,11 +1,11 @@
 <!--
 title: Troubleshooting
-location: ./troubleshooting
+location: ./custom-components/troubleshooting
 type: page
 -->
 
-::status-todo::
+
 
 # Troubleshooting
 
-::todo::
+@> Coming soon!

@@ -8,11 +8,10 @@ const generateMessage = (name: string): string =>
 
 Potential causes:
 1. You are trying to load a multiple variants of a theme
-2. You have loaded multiple themes in your application bundle
-3. Duplication of styles occur in async module imports`;
+2. You have loaded multiple or duplicate themes in your application bundle`;
 
 export class DuplicateStyleError extends GenericError {
   constructor (name: string) {
-    super(generateMessage(name), 'https://elf.int.refinitiv.com/error/duplicate-styles');
+    super(generateMessage(name), 'https://ui.refinitiv.com/kb/duplicate-styles');
   }
 }

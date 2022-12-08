@@ -1,11 +1,11 @@
 <!--
 title: Snapshot Testing
-location: ./testing/snapshot
+location: ./custom-components/testing/snapshot
 type: page
 -->
 
-::status-todo::
+
 
 # Snapshot Testing
 
-::todo::
+@> Coming soon!

@@ -1,11 +1,11 @@
 <!--
 title: Code Style Testing
-location: ./testing/lint
+location: ./custom-components/testing/lint
 type: page
 -->
 
-::status-todo::
+
 
 # Code Style Testing
 
-::todo::
+@> Coming soon!
