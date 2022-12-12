@@ -13,6 +13,10 @@
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/elements"
   },
+  "engines": {
+    "node": ">=16.11.0",
+    "npm": ">=8.0.0"
+  },
   "typesVersions": {
     "*": {
       "*": [
