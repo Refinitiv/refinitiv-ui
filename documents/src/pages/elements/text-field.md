@@ -115,7 +115,7 @@ Validation occurs when constraints are provided and the value changes. If the er
 
 Alternatively, you can check the `error` property to confirm if the input is valid or not.
 
-Check the example in [Input length](/elements/text-field#input-length) below for more detail.
+See the [Input Length](/elements/text-field#input-length) example for more detail.
 
 ## Input length
 
