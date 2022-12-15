@@ -94,8 +94,8 @@ export {
 /**
  * Standard calendar element
  *
- * @fires value-changed - Fired when the `value` changes.
- * @fires view-changed - Fired when the `view` changes.
+ * @fires value-changed - Fired when the user commits a value change. The event is not triggered if the value is changed programmatically.
+ * @fires view-changed - Fired when the user changes a view of calendar. The event is not triggered if the `view` property is changed programmatically.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
