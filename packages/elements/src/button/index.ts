@@ -17,7 +17,7 @@ import '../icon/index.js';
  * and more with support for different states and styles.
  * @attr {boolean} disabled - Set state to disabled
  * @prop {boolean} [disabled=false] - Set state to disabled
- * @fires active-changed - Dispatched on changing `active` property state by taping on button when property `toggles` is true.
+ * @fires active-changed - Dispatched on changing `active` property state by taping on button when property `toggles` is true. It will not be fired if `active` state is changed programmatically.
  */
 @customElement('ef-button', {
   alias: 'coral-button'
