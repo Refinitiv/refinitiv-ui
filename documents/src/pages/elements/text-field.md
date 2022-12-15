@@ -320,7 +320,9 @@ element.addEventListener("icon-click", (e) => {
 
 `ef-text-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state.
 
-`ef-text-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`.
+`ef-text-field` has already managed the role and states but you must ensure that the element has associated label by using `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`.
+
+`placeholder` attributes should not be used as a label. Use `placeholder` for supporting information only.
 
 If there is an element displaying error of `ef-text-field`, `aria-describedby` should be added to the text field.
 
@@ -348,14 +350,14 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
 ```
 
 ```html
-<label for="first-name">First Name</label>
+<label for="name">Full Name</label>
 <ef-text-field
-  id="first-name"
+  id="name"
   aria-describedby="error-text"
   pattern="[a-zA-Z]{3,}"
-  placeholder="Must be letters at least 3 characters">
+  placeholder="Your name as shown on your passport">
 </ef-text-field>
-<p id="error-text"></p> 
+<p id="error-text">Must be letters at least 3 characters</p> 
 ```
 
 ::a11y-end::
