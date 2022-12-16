@@ -113,7 +113,7 @@ const textInput = document.getElementById("full-name");
 console.log(textInput.value); // "Sarah Connor"
 ```
 
-This example shows how developers can access the field's value. From a design point of view, the returned value could appear anywhere on the page.
+~~This example shows how developers can access the field's value. From a design point of view, the returned value could appear anywhere on the page.~~
 
 You can also listen for the `value-changed` event. This event triggers when user interactions change the value.
 
