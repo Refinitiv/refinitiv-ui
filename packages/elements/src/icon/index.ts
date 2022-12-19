@@ -23,9 +23,7 @@ const EmptyTemplate = svg``;
  */
 const iconTemplateCache = new Map<string, Promise<SVGTemplateResult>>();
 
-@customElement('ef-icon', {
-  alias: 'coral-icon'
-})
+@customElement('ef-icon')
 export class Icon extends BasicElement {
 
   /**

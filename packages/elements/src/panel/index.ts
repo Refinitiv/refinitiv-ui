@@ -13,9 +13,7 @@ import { VERSION } from '../version.js';
  * A container for components.
  * It provides a standard background color and padding, depends on theme.
  */
-@customElement('ef-panel', {
-  alias: 'coral-panel'
-})
+@customElement('ef-panel')
 export class Panel extends BasicElement {
 
   /**

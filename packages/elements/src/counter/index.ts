@@ -18,9 +18,7 @@ import {
  * Counter is an item count badge,
  * support maximun display number and notation of large numbers.
  */
-@customElement('ef-counter', {
-  alias: 'coral-counter'
-})
+@customElement('ef-counter')
 export class Counter extends BasicElement {
   /**
    * Element version number

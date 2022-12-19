@@ -31,9 +31,7 @@ export type { HeatmapXAxis, HeatmapCell, HeatmapConfig, HeatmapYAxis, HeatmapCus
  * A graphical representation of data where the individual
  * values contained in a matrix are represented as colors
  */
-@customElement('ef-heatmap', {
-  alias: 'sapphire-heatmap'
-})
+@customElement('ef-heatmap')
 export class Heatmap extends ResponsiveElement {
 
   /**
