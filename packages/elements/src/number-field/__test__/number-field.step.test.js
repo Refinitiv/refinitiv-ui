@@ -79,6 +79,14 @@ describe('number-field/Step', () => {
       const el = await fixture('<ef-number-field step="0.3"></ef-number-field>');
       await expectValues(el, [-0.3, -0.6, -0.9, -1.2, -1.5], DOWN);
     });
+    it('step = 0.0000001, Step Up', async () => {
+      const el = await fixture('<ef-number-field step="0.0000001"></ef-number-field>');
+      await expectValues(el, [0.0000001, 0.0000002, 0.0000003], UP);
+    });
+    it('step = 0.0000001, Step Down', async () => {
+      const el = await fixture('<ef-number-field step="0.0000001"></ef-number-field>');
+      await expectValues(el, [-0.0000001, -0.0000002, -0.0000003], DOWN);
+    });
     it('step = 0.3, value (property) = 0.5, Step Up', async () => {
       const el = await fixture('<ef-number-field step="0.3"></ef-number-field>');
       el.value = '0.5';
