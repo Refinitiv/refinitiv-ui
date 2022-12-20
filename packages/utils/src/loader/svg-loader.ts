@@ -1,4 +1,3 @@
-import { Logger } from '../cache/helpers.js';
 import { DistributedCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
@@ -103,12 +102,7 @@ export class SVGLoader extends CDNLoader {
     return new Promise((resolve) => {
       void this.load(src)
         .then(response => extractSafeSVG(response))
-        .then((svg) => {
-          if (svg?.outerHTML) {
-            Logger.log(`${window.name} %c Icon loaded %c ${src.split('/').pop() || ''} ${Date.now()}`, 'background: blue; color: white', '');
-          }
-          resolve(svg?.outerHTML);
-        });
+        .then((svg) => resolve(svg?.outerHTML));
     });
   }
 
@@ -129,10 +123,8 @@ export class SVGLoader extends CDNLoader {
     }
     // Get loader promise
     const data = this.loader(src);
-    Logger.log(`[Caching] ${window.name} %c Icon Caching %c ${src.split('/').pop() || ''} ${Date.now()}`, 'background: red; color: white', '');
     // Set data to cache
     await cache.set(src, data);
-    
     return data;
   }
 }

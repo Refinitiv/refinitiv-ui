@@ -1,5 +1,4 @@
 import { MESSENGER_PREFIX } from './constants.js';
-import { Logger } from './helpers.js';
 
 export type Message = {
   key: string;
@@ -51,7 +50,6 @@ export class CacheMessenger {
         this.onMessage(event.data);
       }
     };
-    Logger.log(`${window.name} %c Listen Messenger %c ${Date.now().toString()}`, 'background: purple; color: white', '');
   }
 
   /**
@@ -61,7 +59,6 @@ export class CacheMessenger {
   public close (): void {
     this.broadcastChannel?.close();
     this.broadcastChannel = undefined;
-    Logger.log(`${window.name} %c Closed Messenger %c ${Date.now().toString()}`, 'background: purple; color: white', '');
   }
 
   /**
@@ -74,10 +71,8 @@ export class CacheMessenger {
     if (!this.broadcastChannel) {
       this.open();
     }
-
     if (this.broadcastChannel) {
       this.broadcastChannel.postMessage({ key, value });
-      Logger.log(`${window.name} %c Post message %c key: ${key.split('/').pop() || ''} ${Date.now()}`, 'background: yellow; color: black', '');
     }
     else {
       throw new Error('Cache Messenger: BroadcastChannel not found');

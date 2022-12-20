@@ -4,13 +4,6 @@ import { CacheMessenger, type Message } from './messenger.js';
 import { CACHE_PREFIX, MESSENGER_LAST_MESSAGE_INTERVAL } from './constants.js';
 import type { CacheStorage } from './interfaces/CacheStorage';
 import { uuid } from '../uuid.js';
-
-// TODO: This imports use for debugging and benchmarking, remove it when this class implement completed
-import { Logger } from './helpers.js';
-import { TimeoutTaskRunner } from '../async.js';
-const logger = new Logger();
-logger.timeStart(window.name);
-
 export interface DistributedCacheConfig {
   storage: 'localstorage' | 'indexeddb';
 }
@@ -49,11 +42,6 @@ export class DistributedCache {
    * Cache messenger for distribute cache
    */
   protected messenger: CacheMessenger;
-
-  /**
-   * Timer to check message is the last
-   */
-  protected lastMessageTimeout = new TimeoutTaskRunner(MESSENGER_LAST_MESSAGE_INTERVAL);
 
   /**
    * Names for manage all states temporary
@@ -127,8 +115,6 @@ export class DistributedCache {
     };
     // Listen to messenger message
     this.messenger.onMessage = (message) => {
-      // Reset log timeout
-      this.lastMessageTimeout.cancel();
       const { key, value } = message;
       // Set coordinator to true if found the response message
       if (!this.coordinator && key === 'coordinator') {
@@ -136,7 +122,6 @@ export class DistributedCache {
         this.coordinator = true;
         // Resonance across messengers
         this.messenger.notify('coordinator', 'true');
-        Logger.log(`${window.name} %c Coordinator %c  ${value}`, 'background: blue; color: white', '');
         return;
       }
       // Handle leader message
@@ -147,13 +132,10 @@ export class DistributedCache {
       else {
         // Set value to active cache
         if (!this.storage.hasActive(key)) {
-          Logger.log(`${window.name} %c Sync cache %c with received message %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: magenta; color: white', '', '');
           this.setActiveCache(key, value);
         }
         this.handleFollowerMessage(message);
       }
-      // Show end time
-      this.lastMessageTimeout.schedule(() => logger.timeEnd(window.name));
     };
   }
 
@@ -166,15 +148,10 @@ export class DistributedCache {
     const itemKey = key.replace(`${this.stateNames.leader}-`, '');
     // Check the request is belong to itself
     if (value && this.requests[itemKey] === value) {
-      Logger.log(`${window.name} Leader ${key.split('/').pop() || ''} ${value}`);
       const resolve = this.waiting.get(itemKey);
       if (resolve) {
-        Logger.log(`${window.name} %c Leader: Request icon %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: blue; color: white', '');
         // Resolve null to load as a leader
         resolve(null);
-      }
-      else {
-        Logger.log(`${window.name} not found to ${key.split('/').pop() || ''} resolve`, this.waiting.has(key));
       }
     }
   }
@@ -194,7 +171,6 @@ export class DistributedCache {
         delete this.requests[key];
         this.waiting.delete(key);
       }
-      Logger.log(`[Received] ${window.name} %c Received message %c icon ${key.split('/').pop() || ''} ${Date.now()}`, 'background: green; color: white', '');
     }
   }
 
@@ -239,7 +215,6 @@ export class DistributedCache {
       };
       // Notify data to follower
       this.messenger.notify(key, cacheValue);
-      Logger.log(`${window.name} %c Start writing to cache %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: red; color: white', '');
       // Set data to cache
       await this.storage.set(key, data);
       // Clean up temporary state
@@ -259,7 +234,6 @@ export class DistributedCache {
   public async get (key: string): Promise<string | null> {
     const item = await this.storage.get(key);
     if (item && item.expires > Date.now()) {
-      Logger.log(`${window.name} %c Found Cache %c ${key.split('/').pop() || ''} ${Date.now()}`, 'background: lightgreen; color: white', '');
       return item.value;
     }
     // Return null to load it self when do not have coordinator
@@ -270,7 +244,6 @@ export class DistributedCache {
     else if (!this.hasRequest(key)) {
       this.addRequest(key);
     }
-    Logger.log(`[Wait] ${window.name} %c Wait %c ${key.split('/').pop() || ''} ${Date.now().toString()}`, 'background: orange; color: white', '');
     // Return promise and wait to resolve in waiting list
     return new Promise<string | null>(resolve => this.addWaiting(key, resolve));
   }
@@ -300,7 +273,6 @@ export class DistributedCache {
    */
   protected addRequest (key: string): void {
     const id = uuid();
-    Logger.log(`${window.name} %c Leader: Candidate %c ${key?.split('/').pop() || ''} uuid: ${id} ${Date.now()}`, 'background: blue; color: white', '');
     this.requests[key] = id;
     localStorage.setItem(`${this.stateNames.request}-${key}`, id);
   }
