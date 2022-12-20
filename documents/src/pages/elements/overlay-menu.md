@@ -10,7 +10,7 @@ layout: default
 ::
 ```javascript
 ::overlay-menu::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
@@ -78,7 +78,7 @@ As the overlay menu is designed to support several use cases (multi-selection, t
 ::
 ```javascript
 ::overlay-menu::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
@@ -157,7 +157,7 @@ Menu and sub-menus are bound together using the `for` and `id` attributes of `ef
 ::
 ```javascript
 ::overlay-menu::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
@@ -237,7 +237,7 @@ If there is not enough space to fit sub-menus, add the `compact` attribute. In t
 ::
 ```javascript
 ::overlay-menu::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
@@ -300,7 +300,7 @@ The developer may specify `with-backdrop` together with `no-cancel-on-outside-cl
 ::
 ```javascript
 ::overlay-menu::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
@@ -366,7 +366,7 @@ Alternatively, you can set `data` using a [CollectionComposer](./resources/colle
 ::
 ```javascript
 ::overlay-menu::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
@@ -456,7 +456,7 @@ The `data` property of the `ef-overlay-menu` use the [OverlayMenuData](https://g
 ::
 ```javascript
 ::overlay-menu::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
@@ -551,7 +551,7 @@ menuController.addEventListener('item-trigger', (e) => {
 ::
 ```javascript
 ::overlay-menu::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');

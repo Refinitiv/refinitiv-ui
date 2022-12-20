@@ -10,7 +10,7 @@ layout: default
 ::
 ```javascript
 ::color-dialog::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 document.getElementById('button').addEventListener('click', () => {
   let dlg = document.getElementById('d1');
@@ -51,7 +51,7 @@ Color Dialog also accepts an initial color value. To set the default value, use 
 ::
 ```javascript
 ::color-dialog::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 document.getElementById('button').addEventListener('click', () => {
   let dlg = document.getElementById('d1');
@@ -88,7 +88,7 @@ When users select "no color" from the UI, the color dialog sets the attribute/pr
 ::
 ```javascript
 ::color-dialog::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 document.getElementById('button').addEventListener('click', () => {
   let dlg = document.getElementById('d1');

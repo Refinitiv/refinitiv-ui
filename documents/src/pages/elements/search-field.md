@@ -10,7 +10,7 @@ layout: default
 ::
 ```javascript
 ::search-field::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/panel?min';
 halo('panel');
 ```
 ```html

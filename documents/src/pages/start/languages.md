@@ -35,7 +35,7 @@ body {
 ```javascript
 import { halo } from '/theme-loader.js';
 halo('panel');
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/panel?min';
 
 document.documentElement.setAttribute('lang', 'zh-CN');
 ```
@@ -65,7 +65,7 @@ body {
 ```javascript
 import { halo } from '/theme-loader.js';
 halo('panel');
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/panel?min';
 
 document.documentElement.setAttribute('lang', 'zh-CN');
 ```
