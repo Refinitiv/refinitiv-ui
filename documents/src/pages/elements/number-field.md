@@ -9,7 +9,7 @@ layout: default
 ::
 ```javascript
 ::number-field::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/panel?min';
 halo('panel');
 const curr1 = document.getElementById('curr1');
 const cf = document.getElementById('cf');
