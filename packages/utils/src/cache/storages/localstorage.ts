@@ -131,19 +131,18 @@ export class LocalStorage<T = CacheItem> implements CacheStorage<T> {
    */
   public async restore (force = false): Promise<void> {
     const keys = Object.keys(localStorage).filter(key => key.startsWith(this.dbName));
-
-    for (let i = 0; i < keys.length; i += 1) {
-      const item = this.retrieve(keys[i]);
+    keys.forEach(key => {
+      const item = this.retrieve(key);
       if (item) {
         /**
          * Need to merge restored items to exists active caches to prevent replace all
          */
-        const active = this.hasActive(keys[i]);
+        const active = this.hasActive(key);
         if (!active || active && force) {
-          this.cache.set(keys[i], item);
+          this.cache.set(key, item);
         }
       }
-    }
+    });
     return Promise.resolve();
   }
 
