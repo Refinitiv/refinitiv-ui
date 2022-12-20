@@ -108,17 +108,16 @@ export class DistributedCache {
         if (!localStorage.getItem(leaderKey)) {
           // Save Leader
           localStorage.setItem(leaderKey, newValue);
-          // Notify to leader
+          // Notify election results to leader
           this.messenger.notify(`${this.stateNames.leader}-${itemKey}`, newValue);
         }
       }
     };
-    // Listen to messenger message
+    // Listen messenger message
     this.messenger.onMessage = (message) => {
       const { key, value } = message;
-      // Set coordinator to true if found the response message
+      // Set coordinator true when found the response message
       if (!this.coordinator && key === 'coordinator') {
-        // Coordinator value will prove another instance existence
         this.coordinator = true;
         // Resonance across messengers
         this.messenger.notify('coordinator', 'true');
@@ -130,7 +129,7 @@ export class DistributedCache {
         return;
       }
       else {
-        // Set value to active cache
+        // Set message value to active cache
         if (!this.storage.hasActive(key)) {
           this.setActiveCache(key, value);
         }
