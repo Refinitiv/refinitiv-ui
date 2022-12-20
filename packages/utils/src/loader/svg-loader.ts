@@ -95,6 +95,24 @@ export class SVGLoader extends CDNLoader {
   }
 
   /**
+   * Tries to load an SVG icon from CDN
+   * @param src name or Source location.
+   * @returns Promise which will be resolved with SVG
+   */
+  public async loader (src: string): Promise<string | undefined> {
+    return new Promise((resolve) => {
+      void this.load(src)
+        .then(response => extractSafeSVG(response))
+        .then((svg) => {
+          if (svg?.outerHTML) {
+            Logger.log(`${window.name} %c Icon loaded %c ${src.split('/').pop() || ''} ${Date.now()}`, 'background: blue; color: white', '');
+          }
+          resolve(svg?.outerHTML);
+        });
+    });
+  }
+
+  /**
    * Loads icon and returns the body of the SVG
    * @param name Name of SVG to load
    * @returns SVG body of the response
@@ -103,32 +121,18 @@ export class SVGLoader extends CDNLoader {
     if (!name) {
       return;
     }
-
     const src = await this.getSrc(name);
-    const iconName: string = src.split('/').pop() || '';
-
-    // Get date from cache first
+    // Get data from cache
     const cacheItem = await cache.get(src);
     if (cacheItem) {
       return cacheItem;
     }
-
-    // Get data from CDN and store to cache
-    const data = new Promise<string | undefined>((resolve) => {
-      void this.load(src)
-        .then(response => extractSafeSVG(response))
-        .then((svg) => {
-          if (svg?.outerHTML) {
-            Logger.log(`${window.name} %c Icon loaded %c ${iconName} ${Date.now()}`, 'background: blue; color: white', '');
-          }
-          resolve(svg?.outerHTML);
-        });
-    });
-
-    void cache.set(src, data).then(() => {
-      Logger.log(`${window.name} %c Icon Cached %c ${iconName} ${Date.now()}`, 'background: red; color: white', '');
-    });
-
+    // Get loader promise
+    const data = this.loader(src);
+    Logger.log(`[Caching] ${window.name} %c Icon Caching %c ${src.split('/').pop() || ''} ${Date.now()}`, 'background: red; color: white', '');
+    // Set data to cache
+    await cache.set(src, data);
+    
     return data;
   }
 }

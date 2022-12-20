@@ -2,7 +2,6 @@ import { MESSENGER_PREFIX } from './constants.js';
 import { Logger } from './helpers.js';
 
 export type Message = {
-  id: number;
   key: string;
   value: string;
 }

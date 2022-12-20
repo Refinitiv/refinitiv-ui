@@ -9,9 +9,9 @@ type LoggerTime = {
 }
 export class Logger {
 
-  public static showLog = true;
+  public static showLog = false;
 
-  public static showTime = true;
+  public static showTime = false;
 
   private timers: Record<string, LoggerTime> = {};
 
