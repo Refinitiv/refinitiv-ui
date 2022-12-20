@@ -31,6 +31,10 @@ type Requests = {
 export class DistributedCache {
 
   /**
+   * Cache name
+   */
+  protected cacheName!: string;
+  /**
    * Storage to store data
    */
   protected storage!: CacheStorage;
@@ -92,12 +96,12 @@ export class DistributedCache {
         throw new TypeError('Unknown storage type');
     }
 
-    const cacheName = `[${CACHE_PREFIX}][${name}]`;
+    this.cacheName = `[${CACHE_PREFIX}][${name}]`;
 
     this.storageNames = {
-      request: `${cacheName}[request]`,
-      leader: `${cacheName}[leader]`,
-      unloaded: `${cacheName}[unloaded]`
+      request: `${this.cacheName}[request]`,
+      leader: `${this.cacheName}[leader]`,
+      unloaded: `${this.cacheName}[unloaded]`
     };
 
     // Create messenger and add event listener
@@ -214,7 +218,7 @@ export class DistributedCache {
     // Listen this event to detect user try to refresh page
     window.addEventListener('beforeunload', (event) => {
       event.preventDefault();
-      if (localStorage.getItem(this.storageNames.request) !== null) {
+      if (Object.keys(localStorage).filter(key => key.startsWith(this.cacheName)).length !== 0) {
         localStorage.setItem(this.storageNames.unloaded, 'true');
       }
       return true;
@@ -360,7 +364,9 @@ export class DistributedCache {
    * @returns {void}
    */
   private clean (): void {
-    localStorage.removeItem(this.storageNames.request);
+    Object.keys(localStorage).filter(key => key.startsWith(this.cacheName)).forEach(key => {
+      localStorage.removeItem(key);
+    });
     this.requests = {};
     this.waiting.clear();
   }
