@@ -9,7 +9,7 @@ layout: default
 
 ## Getting Started
 
-Use the following command to create a new element template to work with. If you're new to creating elements, it's best to start with the [tutorial](./tutorials/element).
+Use the following command to create a new element template to work with. If you're new to creating elements, it's best to start with the [tutorial](./custom-components/tutorial).
 
 ```bash
 npx create-efx efx-element

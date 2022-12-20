@@ -19,7 +19,7 @@
     "start:docs": "nx run @refinitiv-ui/docs:start",
     "test": "node cli test",
     "test:affected": "nx affected:test",
-    "test:all": "nx affected:test --parallel=1 --all",
+    "test:all": "nx affected:test --all",
     "lint": "node cli lint",
     "lint:affected": "nx affected:lint --parallel",
     "lint:all": "nx affected:lint --parallel --all",
