@@ -26,9 +26,7 @@ import '../label/index.js';
  *
  * @fires clear - Dispatched when click on cross button occurs
  */
-@customElement('ef-tab', {
-  alias: 'coral-tab'
-})
+@customElement('ef-tab')
 export class Tab extends ControlElement {
 
   /**

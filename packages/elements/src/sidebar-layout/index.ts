@@ -23,9 +23,7 @@ import '../layout/index.js';
  * @slot main-header - Main header.
  * @slot main-content - Content of main section.
  */
-@customElement('ef-sidebar-layout', {
-  alias: 'carbon-sidebar-layout'
-})
+@customElement('ef-sidebar-layout')
 export class SidebarLayout extends BasicElement {
 
   /**

@@ -32,9 +32,7 @@ import '../icon/index.js';
  *
  * @fires clear - Dispatched when click on cross button occurs
  */
-@customElement('ef-pill', {
-  alias: 'coral-pill'
-})
+@customElement('ef-pill')
 export class Pill extends ControlElement {
 
   /**

@@ -1,10 +1,10 @@
 <!--
 title: Naming conventions
-location: ./naming-conventions
+location: ./custom-components/naming-conventions
 type: page
 -->
 
-::status-complete::
+
 
 # Naming Conventions
 

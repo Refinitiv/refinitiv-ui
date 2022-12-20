@@ -40,9 +40,7 @@ const TooltipPositionMap: TooltipPositionMap = {
  * Tooltip displays extra information when the
  * user hovers the pointer over an item.
  */
-@customElement('ef-tooltip', {
-  alias: 'coral-tooltip'
-})
+@customElement('ef-tooltip')
 class Tooltip extends BasicElement {
 
   /**

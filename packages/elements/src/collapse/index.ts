@@ -30,9 +30,7 @@ preload('right'); /* preload calendar icons for faster loading */
  * @slot header-left - Slot to add custom contents to the left side of header e.g. ef-icon, ef-checkbox
  * @slot header-right - Slot to add custom contents to the right side of header e.g. ef-icon, ef-checkbox
  */
-@customElement('ef-collapse', {
-  alias: 'coral-collapse'
-})
+@customElement('ef-collapse')
 export class Collapse extends BasicElement {
 
   /**

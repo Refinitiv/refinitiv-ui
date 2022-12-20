@@ -8,10 +8,6 @@ interface ElementOptions {
    * Set to `false` to use internally defined styles only.
    */
   theme?: boolean;
-  /**
-   * Alternative element name.
-   */
-  alias?: string;
 }
 
 const defaultOptions: ElementOptions = {
@@ -32,9 +28,7 @@ type DecoratorFunction = (target: ElementConstructor) => void;
 export const customElement = function (name: string, options: ElementOptions = defaultOptions): DecoratorFunction {
   options = { ...defaultOptions, ...options };
   return (target: ElementConstructor): void => {
-    ElementRegistry.define(name, target, {
-      alias: options.alias
-    });
+    ElementRegistry.define(name, target);
 
     if (options.theme === false) {
       CustomStyleRegistry.define(name, '');

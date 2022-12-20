@@ -12,7 +12,7 @@ Applications in Refinitiv Workspace should use the Halo Design System theme to b
 ## Halo Theme
 The Halo Design System theme is provided with two variants; light and dark. An application can use only one variant while the app is running. See [Theme Switching](/guides/theme-switching) to learn how to toggle between light and dark themes in your application.
 
-### Native Styles
+### Native styles
 
 The application is required to import native styles so that the correct typography and Element Frameworks global CSS variables are applied in an application.
 
