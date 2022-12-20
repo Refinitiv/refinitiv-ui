@@ -1,7 +1,7 @@
 import { LocalStorage } from './storages/localstorage.js';
 import { IndexedDBStorage } from './storages/indexeddb.js';
 import { CacheMessenger, type Message } from './messenger.js';
-import { CACHE_PREFIX, MESSENGER_LAST_MESSAGE_INTERVAL } from './constants.js';
+import { CACHE_PREFIX } from './constants.js';
 import type { CacheStorage } from './interfaces/CacheStorage';
 import { uuid } from '../uuid.js';
 export interface DistributedCacheConfig {
