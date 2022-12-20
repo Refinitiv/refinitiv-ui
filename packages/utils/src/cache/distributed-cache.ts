@@ -126,7 +126,6 @@ export class DistributedCache {
       // Handle leader message
       if (key?.startsWith(this.stateNames.leader)) {
         this.handleLeaderMessage(message);
-        return;
       }
       else {
         // Set message value to active cache
