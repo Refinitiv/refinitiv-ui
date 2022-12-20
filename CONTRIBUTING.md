@@ -71,8 +71,11 @@ Run the unit test in specific element or package:
 npm run test button -- <options>
 ```
 Run the unit test on all packages:
+
+> add options `--parallel=1` to prevent port crash on local
+
 ```bash
-npm run test:all
+npm run test:all --parallel=1
 ```
 Run linting tools in specific a element or package:
 

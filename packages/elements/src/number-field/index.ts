@@ -238,7 +238,7 @@ export class NumberField extends FormFieldElement {
     if (Math.floor(value) === value || isNaN(value) || !isFinite(value)) {
       return 0;
     }
-    return value.toString().split('.')[1].length || 0;
+    return new Intl.NumberFormat('en', { minimumSignificantDigits: 1 }).format(value).split('.')[1].length || 0;
   }
 
   /**
