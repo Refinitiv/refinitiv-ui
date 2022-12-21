@@ -45,11 +45,11 @@ const POPUP_POSITION = ['bottom-start', 'top-start'];
  * @attr {string} placeholder - Set placeholder text
  * @prop {string} [placeholder=""] - Set placeholder text
  * @prop {TreeSelectData[]} [data=[]] - Data object to be used for creating tree
- * @fires confirm - Fired when selection is confirmed
- * @fires cancel - Fired when selection is cancelled
- * @fires query-changed - Fired when query in input box changed
- * @fires value-changed - Fired when value of control changed
- * @fires opened-changed - Fires when opened state changes
+ * @fires confirm - Fired when user closed a popup with confirmation of new selection.
+ * @fires cancel - Fired when user closed a popup by cancelling the new selection.
+ * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed by programmatically.
+ * @fires query-changed - Fired when the user changed value in the input to change a query word. The event is not triggered if `query` property is changed by programmatically.
+ * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed by programmatically.
  */
 @customElement('ef-tree-select', {
   alias: 'emerald-multi-select'

@@ -16,7 +16,7 @@ import '../icon/index.js';
 
 /**
  * Form control for selecting one or several options
- * @fires checked-changed - Fired when the user checked or unchecked the checkbox. The event is not fired if the `checked` property is changed programmatically.
+ * @fires checked-changed - Fired when the user checked or unchecked the checkbox. The event is not fired if the `checked` property is changed by programmatically.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state

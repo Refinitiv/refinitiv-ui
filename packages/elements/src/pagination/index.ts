@@ -28,7 +28,7 @@ enum Direction {
 
 /**
  * Used to control and navigate through multiple pages
- * @fires value-changed - Fired when the `value` property is changed
+ * @fires value-changed - Fired when user interacts with the control to change pages and so the `value` property changed. The event is not triggered if `value` is changed by programmatically.
  */
 @customElement('ef-pagination', {
   alias: 'emerald-pagination'

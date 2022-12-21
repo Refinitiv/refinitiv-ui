@@ -8,9 +8,9 @@ import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 /**
  * A form control element for email.
  *
- * @fires value-changed - Dispatched when value changes
- * @fires error-changed - Dispatched when error state changes
- * @fires icon-click - Dispatched when icon is clicked
+ * @fires value-changed - Fired when user commits a value change. The event is not triggered if `value` property is changed by programmatically.
+ * @fires error-changed - Fired when user inputs invalid value. The event is not triggered if `error` property is changed by programmatically.
+ * @fires icon-click - Fired when user tapped on icon that added into control's slot.
  *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state

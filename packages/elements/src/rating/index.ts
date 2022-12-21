@@ -13,7 +13,7 @@ import { clamp } from './utils.js';
 
 /**
  * Star visualisation component that is generally used for ranking
- * @fires value-changed - Fired when the `value` changes.
+ * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed by programmatically.
  */
 @customElement('ef-rating', {
   alias: 'sapphire-rating'

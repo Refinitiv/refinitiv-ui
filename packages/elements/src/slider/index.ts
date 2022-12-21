@@ -36,9 +36,9 @@ import { clamp, preventDefault, isDecimalNumber, countDecimalPlace } from './uti
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
- * @fires value-changed - Fired when the `value` changes.
- * @fires from-changed - Fired when the `from` changes.
- * @fires to-changed - Fired when the `to` changes.
+ * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed by programmatically.
+ * @fires from-changed - Fired when the user changed from's value. The event is not triggered if `from` property is changed by programmatically.
+ * @fires to-changed - Fired when the user changed to's value. The event is not triggered if `to` property is changed by programmatically.
  */
 @customElement('ef-slider', {
   alias: 'coral-slider'

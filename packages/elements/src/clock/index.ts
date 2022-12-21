@@ -56,8 +56,8 @@ enum Segment {
 
 /**
  * Display hours, minutes and seconds as clock interface
- * @fires value-changed - Fired when the value property changes while ticking.
- * @fires offset-changed - Fired when the the user offsets the clock in `interactive` mode.
+ * @fires value-changed - Fired when `value` property changes while ticking.
+ * @fires offset-changed - Fired when user offsets the clock in `interactive` mode. The event is not triggered if `offset` property is changed by programmatically.
  */
 @customElement('ef-clock', {
   alias: 'sapphire-clock'

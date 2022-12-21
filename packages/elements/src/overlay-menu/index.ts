@@ -28,8 +28,8 @@ export type { OverlayMenuData };
 
 /**
  * Overlay that supports single-level and multi-level menus
- * @fires item-trigger - Dispatched when user clicks on item
- * @fires opened-changed - Dispatched when when opened attribute changes internally. Prevent default to stop opening/closing pipeline
+ * @fires item-trigger - Fired when user tapped on item.
+ * @fires opened-changed - Fired when the user changed open state of the overlay e.g. when users press escape or use close button to close the overlay. The event is not triggered if `opened` property is changed by programmatically.
  *
  * @attr {boolean} opened - True if the menu is currently displayed
  * @prop {boolean} [opened=false] - True if the menu is currently displayed

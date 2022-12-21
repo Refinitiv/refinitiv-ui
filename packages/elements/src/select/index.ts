@@ -61,8 +61,8 @@ enum Navigation {
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
- * @fires value-changed - Fired when the value property changes.
- * @fires opened-changed - Fired when the opened property changes.
+ * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed by programmatically.
+ * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed by programmatically.
  */
 @customElement('ef-select', {
   alias: 'coral-select'

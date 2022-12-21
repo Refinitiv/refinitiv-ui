@@ -83,10 +83,10 @@ const INPUT_FORMAT = {
 /**
  * Control to pick date and time
  *
- * @fires opened-changed - Dispatched when when opened attribute changes internally
- * @fires value-changed - Dispatched when value changes
- * @fires error-changed - Dispatched when error state changes
- * @fires view-changed - Dispatched when internal view changes
+ * @fires opened-changed - Fired when user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
+ * @fires value-changed - Fired when user commits a value change. The event is not triggered if `value` property is changed by programmatically.
+ * @fires error-changed - Fired when user inputs invalid value. The event is not triggered if `error` property is changed by programmatically.
+ * @fires view-changed - Fired when user changed view in calendar e.g. change to next month view.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
