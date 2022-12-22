@@ -38,7 +38,7 @@ import '@refinitiv-ui/phrasebook/locale/en/dialog.js';
  * @attr {string | undefined} position-target - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
  * @prop {string | undefined} positionTarget - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
  *
- * @fires opened-changed - Fired when the user changed open state of the dialog e.g. when users press escape or use close button to close the dialog. The event is not triggered if `opened` property is changed by programmatically.
+ * @fires opened-changed - Fired when the user changes open state of the dialog e.g. when the user presses escape key or uses close button to close the dialog. The event is not triggered if `opened` property is changed programmatically.
  * @fires confirm - Fired when dialog is closed by user clicked a default OK button. Prevent default to stop default action
  * @fires cancel - Fired when dialog is closed by user clicked a default Cancel button, clicked outside to close dialog or press ESC to close the dialog. Prevent default to stop default action
  *
