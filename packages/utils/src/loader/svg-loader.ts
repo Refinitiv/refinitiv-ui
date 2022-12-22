@@ -1,7 +1,7 @@
-import { LocalCache } from '../cache.js';
+import { DistributedCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
 
-const cache = new LocalCache('svg-loader', { storage: 'indexeddb' });
+const cache = new DistributedCache('svg-loader', { storage: 'indexeddb' });
 
 /**
  * Checks a string to see if it's a valid URL
@@ -81,11 +81,6 @@ const extractSafeSVG = async (response: Response | undefined): Promise<SVGElemen
  */
 export class SVGLoader extends CDNLoader {
   /**
-   * Used to serialise SVG to string in order to cache
-   */
-  private xmlSerializer: XMLSerializer = new XMLSerializer();
-
-  /**
    * Creates complete source using CDN prefix and src.
    * Waits for CDN prefix to be set.
    * @param name - resource path for download
@@ -99,6 +94,17 @@ export class SVGLoader extends CDNLoader {
   }
 
   /**
+   * Tries to load an SVG icon from CDN
+   * @param src name or Source location.
+   * @returns Promise which will be resolved with SVG
+   */
+  public async loader (src: string): Promise<string | undefined> {
+    const response = await this.load(src);
+    const svg = await extractSafeSVG(response);
+    return svg?.outerHTML;
+  }
+
+  /**
    * Loads icon and returns the body of the SVG
    * @param name Name of SVG to load
    * @returns SVG body of the response
@@ -107,18 +113,16 @@ export class SVGLoader extends CDNLoader {
     if (!name) {
       return;
     }
-
     const src = await this.getSrc(name);
-
+    // Get data from cache
     const cacheItem = await cache.get(src);
-    if (cacheItem === null) {
-      const response = await this.load(src);
-      const svg = await extractSafeSVG(response);
-      const svgBody = svg?.outerHTML;
-      svgBody && cache.set(src, svgBody);
-      return svgBody;
+    if (cacheItem) {
+      return cacheItem;
     }
-
-    return cacheItem;
+    // Get loader promise
+    const data = this.loader(src);
+    // Set data to cache
+    await cache.set(src, data);
+    return data;
   }
 }

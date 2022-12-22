@@ -1,7 +1,6 @@
-import type { CacheMap } from '../interfaces/CacheMap';
+import { DatabasePrefix } from '../constants.js';
 import type { CacheItem } from '../interfaces/CacheItem';
 import type { CacheStorage } from '../interfaces/CacheStorage';
-import { DatabasePrefix } from '../constants.js';
 
 /**
  * Returns a string used for the key
@@ -14,7 +13,7 @@ const getItemKey = (prefix: string, cacheKey: string): string => `${prefix}[${ca
 /**
  * Stores data in `localStorage` for use across multiple sessions.
  */
-export class LocalStorage implements CacheStorage {
+export class LocalStorage<T = CacheItem> implements CacheStorage<T> {
 
   /**
    * Database name.
@@ -24,7 +23,7 @@ export class LocalStorage implements CacheStorage {
   /**
    * Internal cache object
    */
-  protected cache: CacheMap | null | undefined;
+  protected cache = new Map<string, T>();
 
   /**
    * Constructor
@@ -56,7 +55,7 @@ export class LocalStorage implements CacheStorage {
    * @param value Data to store in cache
    * @returns {void}
    */
-  public async set (key: string, value: CacheItem): Promise<void> {
+  public async set (key: string, value: T): Promise<void> {
     const itemKey = getItemKey(this.dbName, key);
     this.cache?.set(itemKey, value);
 
@@ -71,11 +70,31 @@ export class LocalStorage implements CacheStorage {
   }
 
   /**
+   * Set item to active cache without writting to storage
+   * @param key item key
+   * @param value item key
+   * @returns {void}
+   */
+  public setActive (key: string, value: T): void {
+    const item = { ...value, key };
+    this.cache?.set(key, item);
+  }
+
+  /**
+   * Check active cache has item
+   * @param key item key
+   * @returns true if found item in active cache
+   */
+  public hasActive (key: string): boolean {
+    return this.cache?.has(key) || false;
+  }
+
+  /**
    * Returns an item from cache database using provided key
    * @param key Cache key
    * @returns CacheItem or `null` if nothing is cached
    */
-  public async get (key: string): Promise<CacheItem | null> {
+  public async get (key: string): Promise<T | null> {
     const itemKey = getItemKey(this.dbName, key);
     return Promise.resolve(this.cache?.get(itemKey) || null);
   }
@@ -107,19 +126,23 @@ export class LocalStorage implements CacheStorage {
 
   /**
    * Restores all values into memory cache
+   * @param force overwrite item in active cache
    * @returns {void}
    */
-  public async restore (): Promise<void> {
-    const cache: CacheMap = new Map();
+  public async restore (force = false): Promise<void> {
     const keys = Object.keys(localStorage).filter(key => key.startsWith(this.dbName));
-
-    for (let i = 0; i < keys.length; i += 1) {
-      const item = this.retrieve(keys[i]);
+    keys.forEach(key => {
+      const item = this.retrieve(key);
       if (item) {
-        cache.set(keys[i], item);
+        /**
+         * Need to merge restored items to exists active caches to prevent replace all
+         */
+        const active = this.hasActive(key);
+        if (!active || active && force) {
+          this.cache.set(key, item);
+        }
       }
-    }
-    this.cache = cache;
+    });
     return Promise.resolve();
   }
 
@@ -128,9 +151,9 @@ export class LocalStorage implements CacheStorage {
    * @param key key to retrieve value
    * @returns data from the key
    */
-  private retrieve (key: string): CacheItem | null {
+  private retrieve (key: string): T | null {
     try {
-      return JSON.parse(localStorage.getItem(key) || '') as CacheItem;
+      return JSON.parse(localStorage.getItem(key) || '') as T;
     }
     catch (e) {
       return null;
