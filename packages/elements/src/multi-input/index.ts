@@ -26,11 +26,11 @@ const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === und
 /**
  * An input control component to display a selection of pills
  *
- * @fires value-changed - Fired when the user added new pill or removed pill. The event is not triggered if `value` property is changed by programmatically.
- * @fires error-changed - Fired when user causes error at the control. The event is not triggered if `error` property is changed by programmatically.
- * @fires item-added - Fired when the user added new pill. The event is not triggered if the new item is added by programmatically.
- * @fires item-removed - Fired when the user removed pill. The event is not triggered if the item is removed by programmatically.
- * @fires item-error - Fired when item that attempt to add is invalid.
+ * @fires value-changed - Fired when the user adds new pill or removes pill. The event is not triggered if `value` property is changed programmatically.
+ * @fires error-changed - Fired when the user causes error at the control. The event is not triggered if `error` property is changed programmatically.
+ * @fires item-added - Fired when the user adds new pill. The event is not triggered if the new item is added programmatically.
+ * @fires item-removed - Fired when the user removes pill. The event is not triggered if the item is removed programmatically.
+ * @fires item-error - Fired when item attempting to add is invalid.
  *
  * @prop {boolean} [readonly=false] - Hides text field and clear icon from all pills
  * @attr {boolean} readonly - Hides text field and clear icon from all pills
