@@ -20,8 +20,8 @@ const EXPAND_TOGGLE_ATTR = 'expand-toggle';
  * Displays a tree structure
  * to be used for menus and group selections
  *
- * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed by programmatically.
- * @fires expanded-changed - Fired when the user expanded or collapsed item. The event is not triggered if `expanded` property is changed by programmatically.
+ * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
+ * @fires expanded-changed - Fired when the user expands or collapses item. The event is not triggered if `expanded` property is changed programmatically.
  *
  * @attr {boolean} [stateless=false] - Disable selections
  * @prop {boolean} [stateless=false] - Disable selections
