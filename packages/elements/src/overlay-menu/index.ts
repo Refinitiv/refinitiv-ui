@@ -28,8 +28,8 @@ export type { OverlayMenuData };
 
 /**
  * Overlay that supports single-level and multi-level menus
- * @fires item-trigger - Fired when user tapped on item.
- * @fires opened-changed - Fired when the user changed open state of the overlay e.g. when users press escape or use close button to close the overlay. The event is not triggered if `opened` property is changed by programmatically.
+ * @fires item-trigger - Fired when the user taps on item.
+ * @fires opened-changed - Fired when the user changes open state of the overlay e.g. when the user presses escape key or uses close button to close the overlay. The event is not triggered if `opened` property is changed programmatically.
  *
  * @attr {boolean} opened - True if the menu is currently displayed
  * @prop {boolean} [opened=false] - True if the menu is currently displayed
