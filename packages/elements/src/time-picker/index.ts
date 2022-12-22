@@ -60,7 +60,7 @@ const Placeholder = {
 
 /**
  * Control the time input
- * @event value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed by programmatically.
+ * @event value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
