@@ -18,7 +18,7 @@ import '../../icon/index.js';
  * Used to show informative content when something happens in the application
  *
  * @fires collapsed - Fired when notification is collapsed.
- * @fires dismiss - Fired when the user tapped close button to dismiss notification. The event is not triggered if the dismiss is done by programmatically.
+ * @fires dismiss - Fired when the user taps close button to dismiss notification. The event is not triggered if dismiss is done programmatically.
  *
  */
 @customElement('ef-notification', {
