@@ -99,7 +99,7 @@ const shouldRefitProperties: string[] = ['position', 'x', 'y', 'positionTarget',
  * @fires closed - Fired when overlay becomes invisible and close animation finished
  * @fires opened - Fired when overlay becomes visible and the open animation finished
  * @fires refit - Fired when refit algorithm finishes calculations
- * @fires opened-changed - Fired when the user changed open state of overlay e.g. when users press escape or use close button to close the overlay. The event is not triggered if `opened` property is changed by programmatically.
+ * @fires opened-changed - Fired when the user changes open state of overlay e.g. when the user presses escape key or uses close button to close the overlay. The event is not triggered if `opened` property is changed programmatically.
  */
 @customElement('ef-overlay', {
   alias: 'coral-popup-panel'
