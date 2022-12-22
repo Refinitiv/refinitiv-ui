@@ -99,11 +99,9 @@ export class SVGLoader extends CDNLoader {
    * @returns Promise which will be resolved with SVG
    */
   public async loader (src: string): Promise<string | undefined> {
-    return new Promise((resolve) => {
-      void this.load(src)
-        .then(response => extractSafeSVG(response))
-        .then((svg) => resolve(svg?.outerHTML));
-    });
+    const response = await this.load(src);
+    const svg = extractSafeSVG(response);
+    return svg?.outerHTML;
   }
 
   /**
