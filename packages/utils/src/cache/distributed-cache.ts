@@ -99,7 +99,7 @@ export class DistributedCache {
    */
   private listen (): void {
     // Listen storage event for leader election
-    window.onstorage = ({ key, newValue }) => {
+    window.addEventListener('storage', ({ key, newValue }) => {
       // Handle request event
       if (key?.startsWith(this.stateNames.request) && newValue) {
         const itemKey = key.replace(`${this.stateNames.request}-`, '');
@@ -112,7 +112,7 @@ export class DistributedCache {
           this.messenger.notify(`${this.stateNames.leader}-${itemKey}`, newValue);
         }
       }
-    };
+    });
     // Listen messenger message
     this.messenger.onMessage = (message) => {
       const { key, value } = message;
