@@ -30,7 +30,7 @@ import '../icon/index.js';
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
- * @fires clear - Fired when user tapped on cross button.
+ * @fires clear - Fired when the user taps on clear button.
  */
 @customElement('ef-pill', {
   alias: 'coral-pill'
