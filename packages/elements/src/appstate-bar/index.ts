@@ -17,7 +17,7 @@ import '../icon/index.js';
  * Used to display at the top of application to provide a status or information.
  * @slot right - Place custom content on the right of bar.
  *
- * @fires clear - Fired when user tapped clear button.
+ * @fires clear - Fired when the user taps clear button.
  */
 @customElement('ef-appstate-bar', {
   alias: 'amber-appstate-bar'
