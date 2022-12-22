@@ -25,7 +25,7 @@ preload('right'); /* preload calendar icons for faster loading */
  * or areas of the screen, maximizing the amount of real estate
  * for their primary displays.
  *
- * @fires expanded-changed - Fired when the user expanded or collapsed the control. The event is not triggered if `expanded` property is changed by programmatically.
+ * @fires expanded-changed - Fired when the user expanded or collapsed the control. The event is not triggered if `expanded` property is changed programmatically.
  *
  * @slot header-left - Slot to add custom contents to the left side of header e.g. ef-icon, ef-checkbox
  * @slot header-right - Slot to add custom contents to the right side of header e.g. ef-icon, ef-checkbox
