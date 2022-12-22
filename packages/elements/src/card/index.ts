@@ -28,7 +28,7 @@ export type { CardConfig };
 /**
  * A card frame component.
  *
- * @fires item-trigger - Fired when user selects card menu.
+ * @fires item-trigger - Fired when the user selects card menu.
  *
  * @slot header - Adds slotted content into the header of the card.
  * @slot footer - Adds slotted content into the footer of the card.
