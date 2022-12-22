@@ -21,9 +21,9 @@ const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === und
 /**
  * Form control element for text.
  *
- * @fires value-changed - Fired when user commits a value change. The event is not triggered if `value` property is changed by programmatically.
- * @fires error-changed - Fired when user inputs invalid value. The event is not triggered if `error` property is changed by programmatically.
- * @fires icon-click - Fired when user tapped on icon that added into control's slot.
+ * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
+ * @fires error-changed - Fired when the user inputs an invalid value. The event is not triggered if `error` property is changed programmatically.
+ * @fires icon-click - Fired when the user taps on icon added into control's slot.
  *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
