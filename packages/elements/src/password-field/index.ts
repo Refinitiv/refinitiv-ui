@@ -19,7 +19,6 @@ let isEyeOffPreloadRequested = false;
  *
  * @fires value-changed - Fired when user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires error-changed - Fired when user inputs an invalid value. The event is not triggered if `error` property is changed programmatically.
- * @fires icon-click - Fired when user taps on icon added into control's slot.
  *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
