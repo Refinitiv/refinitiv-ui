@@ -5,7 +5,8 @@ import {
   TemplateResult,
   CSSResultGroup,
   PropertyValues,
-  ElementSize
+  ElementSize,
+  triggerResize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -768,14 +769,7 @@ export class Overlay extends ResponsiveElement {
       this.redrawThrottler.schedule(() => this.updateVariable('--redraw', `${Date.now()}`));
     }
 
-    /*
-    https://github.com/juggle/resize-observer/issues/42
-
-    This event ensures that ResizeObserver picks up resize events
-    when overlay is deeply nested inside shadow root.
-    TODO: remove this workaround once ResizeObserver handles shadow root scenario
-    */
-    window.dispatchEvent(new Event('animationiteration'));
+    triggerResize();
   }
 
   /**

@@ -8,7 +8,8 @@ import {
   TemplateResult,
   WarningNotice,
   FocusedPropertyKey,
-  StyleMap
+  StyleMap,
+  triggerResize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -623,7 +624,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     // If data is set asynchronously while popup is opened
     // list might not trigger popup update
     if (changedProperties.has('data') && this.opened) {
-      this.forcePopupLayout();
+      triggerResize();
     }
 
     super.update(changedProperties);
@@ -847,7 +848,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       });
     }
 
-    this.forcePopupLayout();
+    triggerResize();
   }
 
   /**
@@ -891,18 +892,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     }
 
     return canHighlight;
-  }
-
-  /**
-   * https://github.com/juggle/resize-observer/issues/42
-   *
-   * This event ensures that ResizeObserver picks up resize events
-   * when popup is deeply nested inside shadow root.
-   * TODO: remove this workaround once ResizeObserver handles shadow root scenario
-   * @returns {void}
-  */
-  protected forcePopupLayout (): void {
-    window.dispatchEvent(new Event('animationiteration'));
   }
 
   /**
