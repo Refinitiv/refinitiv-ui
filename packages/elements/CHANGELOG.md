@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.5.2...@refinitiv-ui/elements@6.5.3) (2022-12-19)
+
+
+### Bug Fixes
+
+* **number-field:** fix step error when becomes 6 decimal points ([#550](https://github.com/Refinitiv/refinitiv-ui/issues/550)) ([bf4079c](https://github.com/Refinitiv/refinitiv-ui/commit/bf4079cecb5fdf4deb88513b0629509fc97f1596))
+* **tree:** export class TreeManager ([#552](https://github.com/Refinitiv/refinitiv-ui/issues/552)) ([ca2cc94](https://github.com/Refinitiv/refinitiv-ui/commit/ca2cc948c1eae13e3cf89f8db16df01fe627a965))
+
+
+
+
+
 ## [6.5.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.5.1...@refinitiv-ui/elements@6.5.2) (2022-12-01)
 
 **Note:** Version bump only for package @refinitiv-ui/elements

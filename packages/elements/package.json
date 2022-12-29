@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "6.5.2",
+  "version": "6.5.3",
   "description": "Element Framework Elements",
   "author": "LSEG",
   "license": "Apache-2.0",
@@ -12,6 +12,10 @@
     "type": "git",
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
     "directory": "packages/elements"
+  },
+  "engines": {
+    "node": ">=16.11.0",
+    "npm": ">=8.0.0"
   },
   "typesVersions": {
     "*": {
