@@ -2,7 +2,8 @@ import {
   html,
   TemplateResult,
   CSSResultGroup,
-  css
+  css,
+  triggerResize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -624,7 +625,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       // unlike CCB, we do not close EMS when there is no matches for filter
     }
 
-    this.forcePopupLayout();
+    triggerResize();
   }
 
   /**
