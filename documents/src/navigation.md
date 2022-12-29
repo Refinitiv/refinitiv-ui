@@ -22,6 +22,7 @@ type: nav
     - [Calendar](./elements/calendar)
     - [Checkbox](./elements/checkbox)
     - [Color Dialog](./elements/color-dialog)
+    - [Color Picker](./elements/color-picker)
     - [Combo Box](./elements/combo-box)
     - [Counter](./elements/counter)
     - [Datetime Picker](./elements/datetime-picker)
@@ -76,11 +77,10 @@ type: nav
     - [Grid](./elements/grid)
 
 - Using Components
-  + Framework Integration
-    - [Vanilla](./tutorials/vanilla-js)
-    - [Angular](./tutorials/angular)
-    - [React](./tutorials/react)
-    - [Vue](./tutorials/vue)
+  - [Bundling Configuration](./guides/bundling-configuration)
+  - [Angular](./tutorials/angular)
+  - [React](./tutorials/react)
+  - [Vue](./tutorials/vue)
   - Styles
     - [Typography](./styles/typography)
     - [Styling Components](./styles/styling-components)
@@ -89,12 +89,46 @@ type: nav
     - [Overview](./accessibility/overview)
   - [Internationalization (i18n)](./intl/internationalization)
   - [Theme Switching](./guides/theme-switching)
+- Building Components
+  * [Introduction](./custom-components/creating-custom-elements)
+  * [Tutorial](./custom-components/tutorial)
+  * [Element Types](./custom-components/element-types)
+  * [Configuration & States](./custom-components/configuration-and-states)
+  * [Events](./custom-components/events)
+  * [Localisation](./custom-components/localisation)
+  * [Notice Messages](./custom-components/notice-messages)
+  * [Breaking Changes](./custom-components/breaking-changes)
+  * [Polyfilling](./custom-components/polyfilling)
+  * [Naming Conventions](./custom-components/naming-conventions)
+
+  - Utilities
+    * [Accessibility](./custom-components/utils/accessibility)
+    * [Async Tasks](./custom-components/utils/async-tasks)
+    * [Color](./custom-components/utils/color)
+    * [Data Management](./custom-components/utils/data-management)
+    * [Date/Time](./custom-components/utils/date-time)
+    * [Navigation Grid](./custom-components/utils/navigation-grid)
+
+  - Accessibility
+    * [Aria](./custom-components/aria)
+    * [Focus & Navigation](./custom-components/focus-and-navigation)
+
+  - Testing
+    * [Code Style](./custom-components/testing/lint)
+    * [DOM Snapshots](./custom-components/testing/snapshot)
+    * [Unit Tests](./custom-components/testing/unit)
+
+  - Tools
+    * [Starter Templates](./custom-components/tools/starter-templates)
+    * [Theme Compiler](./custom-components/tools/theme-compiler)
+
+#  * [Troubleshooting](./troubleshooting)
 
 # Keeping this here for reference
 # - Theming
-#   * [Component styles*](./theming/styles)
+#   * [Component styles](./theming/styles)
 #   * [Part syntax()](./theming/css-parts)
-#   * [Origin theme*](./theming/origin)
-#   * [Theme extension*](./theming/theme-extension)
-#   * [Compiling a theme*](./theimg/compilation)
-#   * [CSS custom properties*](./theming/css-vars)
+#   * [Origin theme](./theming/origin)
+#   * [Theme extension](./theming/theme-extension)
+#   * [Compiling a theme](./theimg/compilation)
+#   * [CSS custom properties](./theming/css-vars)

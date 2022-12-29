@@ -36,14 +36,19 @@ An LED gauge is used to show one or two values in an LED-like horizontal bar vis
 <ef-led-gauge top-label="0.00" top-value="0.00"></ef-led-gauge>
 ```
 
-To use `ef-led-gauge`, data has to be normalized to a -100.00 to +100.00 scale.
+To use `ef-led-gauge`, data has to be normalised to a -100.00 to +100.00 scale.
 
-For example, to show data of 36.00 where the highest value is 60.00 and the lowest value is 90.00, the data needs to be normalized and set to `ef-led-gauge` as below.
+@> **Mathematical formula for normalising value to [−100, 100] range**
+@> ```console
+@> Normalised value = ((min−value)x200)/(min−max))−100
+@> ```
+
+For example, to show data of 36.00 where the highest value is 90.00 and the lowest value is -60.00, the data needs to be normalized and set to `ef-led-gauge` as below.
 
 | Raw value | LED gauge value |
 | --------- | --------------- |
-| 60.00     | -100.00         |
-| 36.00     | -60.00          |
+| -60.00    | -100.00         |
+| 36.00     | 28.00           |
 | 90.00     | +100.00         |
 
 ::
@@ -51,12 +56,12 @@ For example, to show data of 36.00 where the highest value is 60.00 and the lowe
 ::led-gauge::
 ```
 ```html
-<ef-led-gauge top-label="36.00" top-value="-60.00"></ef-led-gauge>
+<ef-led-gauge top-label="36.00" top-value="28.00"></ef-led-gauge>
 ```
 ::
 
 ```html
-<ef-led-gauge top-label="36.00" top-value="-60.00"></ef-led-gauge>
+<ef-led-gauge top-label="36.00" top-value="28.00"></ef-led-gauge>
 ```
 
 ## Mono color

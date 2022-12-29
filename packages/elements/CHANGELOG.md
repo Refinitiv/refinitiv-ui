@@ -3,6 +3,61 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.5.2...@refinitiv-ui/elements@6.5.3) (2022-12-19)
+
+
+### Bug Fixes
+
+* **number-field:** fix step error when becomes 6 decimal points ([#550](https://github.com/Refinitiv/refinitiv-ui/issues/550)) ([bf4079c](https://github.com/Refinitiv/refinitiv-ui/commit/bf4079cecb5fdf4deb88513b0629509fc97f1596))
+* **tree:** export class TreeManager ([#552](https://github.com/Refinitiv/refinitiv-ui/issues/552)) ([ca2cc94](https://github.com/Refinitiv/refinitiv-ui/commit/ca2cc948c1eae13e3cf89f8db16df01fe627a965))
+
+
+
+
+
+## [6.5.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.5.1...@refinitiv-ui/elements@6.5.2) (2022-12-01)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
+## [6.5.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.5.0...@refinitiv-ui/elements@6.5.1) (2022-11-21)
+
+
+### Bug Fixes
+
+* **tree:** uncheckAllItems method not update checked state of parent node ([#526](https://github.com/Refinitiv/refinitiv-ui/issues/526)) ([a36e837](https://github.com/Refinitiv/refinitiv-ui/commit/a36e837bdeeb1fe62e54ec040678490b9e68a134))
+
+
+
+
+
+# [6.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.3.0...@refinitiv-ui/elements@6.5.0) (2022-11-07)
+
+
+### Bug Fixes
+
+* **button:** change button and icon transparent outline style ([#515](https://github.com/Refinitiv/refinitiv-ui/issues/515)) ([4ba091c](https://github.com/Refinitiv/refinitiv-ui/commit/4ba091c2c11da06ce1218908a3ddb3cc18d9b412))
+
+
+### Features
+
+* **color-picker:** add accessibility ([#448](https://github.com/Refinitiv/refinitiv-ui/issues/448)) ([ced3b20](https://github.com/Refinitiv/refinitiv-ui/commit/ced3b208ab817975923a2feeba1f6488d30f046a))
+
+
+
+
+
+# [6.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.3.0...@refinitiv-ui/elements@6.4.0) (2022-11-07)
+
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
 # [6.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.2...@refinitiv-ui/elements@6.3.0) (2022-10-26)
 
 
@@ -34,15 +89,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [6.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.2.0...@refinitiv-ui/elements@6.2.1) (2022-09-26)
 
-* Update all formatjs dependencies to support typescript 4.8 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
-* Upgrade typescript to 4.8.3 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
-
 
 ### Bug Fixes
 
 * **autosuggest:** fix invalid label when disabled suggestion item ([#451](https://github.com/Refinitiv/refinitiv-ui/issues/451)) ([1944007](https://github.com/Refinitiv/refinitiv-ui/commit/194400774dece311856bc9bd0f80a17362a9466e))
 * **configurations:** move import extension eslint rule to local env ([#459](https://github.com/Refinitiv/refinitiv-ui/issues/459)) ([f8a9e1a](https://github.com/Refinitiv/refinitiv-ui/commit/f8a9e1a710901028da57e314ff5a879dab5d9e73))
 
+
+**Note:**
+
+* Update all formatjs dependencies to support typescript 4.8 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
+* Upgrade typescript to 4.8.3 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
 
 
 

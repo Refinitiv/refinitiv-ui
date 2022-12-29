@@ -1,11 +1,10 @@
 <!--
 title: Tutorial - Creating an element
-location: ./tutorials/element
+location: ./custom-components/tutorial
 type: page
 layout: default
 -->
 
-::status-working::
 
 # Element Tutorial
 
@@ -20,7 +19,7 @@ In this tutorial we'll look to build a todo list, called `efx-todo`.
 
 ### Defining an element
 
-To define an element, we first need to create a class which extends from one of the [base element classes](./element-types).
+To define an element, we first need to create a class which extends from one of the [base element classes](./custom-components/element-types).
 
 We use the `customElement` decorator to register the element in the document, setting theme to false for now.
 
@@ -56,12 +55,13 @@ To add a template to your element, add a `render()` method.
 import {
   html,
   BasicElement,
-  customElement
+  customElement,
+  TemplateResult
 } from '@refinitiv-ui/elements';
 
 @customElement('efx-todo', { theme: false })
 export class TodoElement extends BasicElement {
-  protected render () {
+  protected render (): TemplateResult {
     return html`<p>Hello!<p>`;
   }
 }
@@ -75,16 +75,16 @@ You can compose templates by splitting the template into sections and compose th
 
 ```ts
 export class TodoElement extends BasicElement {
-  protected get headerTemplate () {
+  protected get headerTemplate (): TemplateResult {
     return html`<header>Tutorial</header>`;
   }
-  protected get contentTemplate () {
+  protected get contentTemplate (): TemplateResult {
     return html`<main>Hello!</main>`;
   }
-  protected get footerTemplate () {
+  protected get footerTemplate (): TemplateResult {
     return html`<footer><a href="/help">Get help</a></footer>`;
   }
-  protected render () {
+  protected render (): TemplateResult {
     return html`
       ${this.headerTemplate}
       ${this.contentTemplate}
@@ -98,24 +98,93 @@ For more information on composing templates, see [Lit](https://lit.dev/docs/comp
 
 ### Reactive Properties
 
-::todo::
+Reactive properties can trigger an update cycle and re-render the component when it changes. Use `@property` decorator with type and options to define the property.
 
-### Styles & Theming
+```ts
+export class TodoElement extends BasicElement {
+  @property({ type: String })
+  name: String;
+}
+```
 
-::todo::
+Usually, reactive property defines as public by default. In Typescript, these should assign `private` or `protected` to specify the type scoped in the component. To define an internal property that can trigger reactive update cycle use `@state` decorator.
+
+```ts
+export class TodoElement extends BasicElement {
+  @state({ type: Array })
+  protected data: String[] = [];
+}
+```
+
+For more information on reactive properties, see [Lit](https://lit.dev/docs/components/properties/).
+
+### Attributes
+
+While properties usage works on Javascript, attributes configure the element in HTML. Whether the property or the attribute has changed, it will trigger update cycle. By default, the attribute observed to reactive property and labeled in lowercase.
+
+```ts
+export class TodoElement extends BasicElement {
+  // Observed attribute will be called header-link 
+  @property({ attribute: 'header-link' })
+  headerLink = 'https://lit.dev/docs/components/properties/';
+
+  // Set false to disable observed attribute 
+  @property({ attribute: false })
+  footerLink = 'https://lit.dev/docs/components/properties/#attributes';
+}
+```
+
+### Styles
+
+Defining styles are automatically scoped on Shadow root. All the styles can apply only in the element and use `:host` selector to style the element itself.
+
+```ts
+export class TodoElement extends BasicElement {
+  static get styles (): CSSResult {
+    return css`
+      :host {
+        display: inline-block;
+      }
+      header, footer {
+        background-color: blue;
+      }
+    `;
+  }
+}
+```
+
+For more information on attributes, see [Lit](https://lit.dev/docs/components/styles/).
 
 ### Lifecycle
 
-::todo::
+The reactive update cycle is triggered when the properties have changed. The life cycle provided many hooks that can categorize into Pre-Update, Update, and Post-Update. Example usage in update hook provides a map of changed properties named `changedProperties`. It can use to know which property has been changed.
+
+```ts
+export class TodoElement extends BasicElement {
+  // willUpdate triggers during update
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    /* has method used to identify whether the property has changed or not.
+     * this[property] is current value.
+     */
+    if (changedProperties.has('data') && this.data.length > 0) {
+      // do something
+    }
+  }
+}
+```
+
+For more information on life cycle, see [Lit](https://lit.dev/docs/components/lifecycle).
 
 ## Creating a Control Element
 
-::todo::
+@> Coming soon!
 
 ### Handling Focus
 
-::todo::
+@> Coming soon!
 
 ### Keyboard Navigation
 
-::todo::
+@> Coming soon!

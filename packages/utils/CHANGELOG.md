@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.2.2...@refinitiv-ui/utils@6.2.3) (2022-12-01)
+
+**Note:** Version bump only for package @refinitiv-ui/utils
+
+
+
+
+
+## [6.2.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.2.1...@refinitiv-ui/utils@6.2.2) (2022-11-07)
+
+**Note:** Version bump only for package @refinitiv-ui/utils
+
+
+
+
+
+## [6.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.2.0...@refinitiv-ui/utils@6.2.1) (2022-11-07)
+
+**Note:** Version bump only for package @refinitiv-ui/utils
+
+
+
+
+
 # [6.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.1.1...@refinitiv-ui/utils@6.2.0) (2022-10-26)
 
 
@@ -16,11 +40,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [6.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.1.0...@refinitiv-ui/utils@6.1.1) (2022-09-26)
 
-* Update all formatjs dependencies to support typescript 4.8 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
-* Upgrade typescript to 4.8.3 ([#459](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
 
 **Note:** Version bump only for package @refinitiv-ui/utils
 
+* Update all formatjs dependencies to support typescript 4.8 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
+* Upgrade typescript to 4.8.3 ([#454](https://github.com/Refinitiv/refinitiv-ui/pull/454)) ([5337b97](https://github.com/Refinitiv/refinitiv-ui/commit/5337b97dc6958f84b36bdbffdea6dfbbc5203596))
 
 
 

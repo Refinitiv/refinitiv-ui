@@ -11,7 +11,8 @@ layout: default
 
 # Vue Guide
 
-@>This guideline uses Vue 3 and Vue CLI v4.5.13
+## Try online demo
+A playground project that uses Element Framework with Vue. Here is a [link](https://codesandbox.io/s/vue-forms-project-usch2o).
 
 Install Vue CLI.
 
@@ -20,6 +21,8 @@ npm install -g @vue/cli
 ```
 
 ## Initialise your project
+
+@>This guideline uses Vue 3 and Vue CLI v4.5.13
 
 Create your new Vue application using the `vue create` command.
 
@@ -34,7 +37,7 @@ Once your application has been created and configured using the command line pro
 npm run serve
 ```
 
-## Install ELF elements and themes
+## Install EF elements and themes
 
 Install EF elements and themes.
 
@@ -59,7 +62,6 @@ import '@refinitiv-ui/elements/panel/themes/halo/dark';
 import '@refinitiv-ui/elements/text-field/themes/halo/dark';
 import '@refinitiv-ui/elements/password-field/themes/halo/dark';
 ```
-If you're using webpack 4, you can set path aliases in `webpack.config.js` similar to [Vanilla](./tutorials/vanilla-js#webpack-4).
 
 Components can be used like any other native `HTMLElement`. Try replacing content in `src/App.vue` with the code below.
 

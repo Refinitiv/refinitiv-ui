@@ -1,6 +1,6 @@
 {
   "name": "create-efx",
-  "version": "6.0.7",
+  "version": "6.1.1",
   "description": "Initializer to create new EFX element",
   "main": "lib/index",
   "bin": {
@@ -32,7 +32,7 @@
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/fs-extra": "^9.0.13",
-    "@types/node": "^18.7.16",
+    "@types/node": "^18.11.17",
     "@types/prompts": "^2.0.14"
   },
   "publishConfig": {

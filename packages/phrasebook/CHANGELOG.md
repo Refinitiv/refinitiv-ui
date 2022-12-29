@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.3.0...@refinitiv-ui/phrasebook@6.3.1) (2022-11-07)
+
+**Note:** Version bump only for package @refinitiv-ui/phrasebook
+
+
+
+
+
+# [6.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.2.0...@refinitiv-ui/phrasebook@6.3.0) (2022-11-07)
+
+
+### Features
+
+* **color-picker:** add accessibility ([#448](https://github.com/Refinitiv/refinitiv-ui/issues/448)) ([ced3b20](https://github.com/Refinitiv/refinitiv-ui/commit/ced3b208ab817975923a2feeba1f6488d30f046a))
+* **color-picker:** add color-picker translation ([#517](https://github.com/Refinitiv/refinitiv-ui/issues/517)) ([d0d83a9](https://github.com/Refinitiv/refinitiv-ui/commit/d0d83a9f57a65cf8904f3555d87f0fbd32085a07))
+
+
+
+
+
 # [6.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.1.3...@refinitiv-ui/phrasebook@6.2.0) (2022-09-14)
 
 
