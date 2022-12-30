@@ -15,9 +15,7 @@ import { VERSION } from '../version.js';
  * it works similarly to the normal HTML5 Canvas element.
  * @fires frame - dispatched when next Frame event occurs when autoloop is set to true
  */
-@customElement('ef-canvas', {
-  alias: 'sapphire-canvas'
-})
+@customElement('ef-canvas')
 export class Canvas extends ResponsiveElement {
   /**
    * Element version number

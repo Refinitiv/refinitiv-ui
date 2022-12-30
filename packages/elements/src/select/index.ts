@@ -64,9 +64,7 @@ enum Navigation {
  * @fires value-changed - Fired when the value property changes.
  * @fires opened-changed - Fired when the opened property changes.
  */
-@customElement('ef-select', {
-  alias: 'coral-select'
-})
+@customElement('ef-select')
 export class Select extends ControlElement implements MultiValue {
 
   /**

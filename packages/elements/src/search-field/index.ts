@@ -49,9 +49,7 @@ import '@refinitiv-ui/phrasebook/locale/en/search-field.js';
  * @attr {string} value - Input's value
  * @prop {string} [value=""] - Input's value
  */
-@customElement('ef-search-field', {
-  alias: 'coral-search-field'
-})
+@customElement('ef-search-field')
 export class SearchField extends TextField {
   /**
    * Used for translations

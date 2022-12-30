@@ -19,9 +19,7 @@ import '../icon/index.js';
  * @prop {boolean} [disabled=false] - Set state to disabled
  * @fires active-changed - Dispatched on changing `active` property state by taping on button when property `toggles` is true.
  */
-@customElement('ef-button', {
-  alias: 'coral-button'
-})
+@customElement('ef-button')
 export class Button extends ControlElement {
   /**
    * Element version number

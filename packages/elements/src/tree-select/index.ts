@@ -52,9 +52,7 @@ const POPUP_POSITION = ['bottom-start', 'top-start'];
  * @fires value-changed - Fired when value of control changed
  * @fires opened-changed - Fires when opened state changes
  */
-@customElement('ef-tree-select', {
-  alias: 'emerald-multi-select'
-})
+@customElement('ef-tree-select')
 export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
   /**
