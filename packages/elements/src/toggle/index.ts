@@ -32,9 +32,7 @@ const emptyStringToNull = function (value: string): string | null {
  *
  * @fires checked-changed - Fired when the `checked` property changes.
  */
-@customElement('ef-toggle', {
-  alias: 'coral-toggle'
-})
+@customElement('ef-toggle')
 export class Toggle extends ControlElement {
   /**
    * Element version number

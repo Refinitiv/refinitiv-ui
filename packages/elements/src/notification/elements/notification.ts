@@ -21,9 +21,7 @@ import '../../icon/index.js';
  * @fires dismiss - Dispatched when notification is dismissed
  *
  */
-@customElement('ef-notification', {
-  alias: 'amber-notification'
-})
+@customElement('ef-notification')
 export class Notification extends BasicElement {
 
   /**

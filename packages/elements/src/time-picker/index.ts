@@ -68,9 +68,7 @@ const Placeholder = {
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-time-picker', {
-  alias: 'coral-time-picker'
-})
+@customElement('ef-time-picker')
 export class TimePicker extends ControlElement {
 
   /**

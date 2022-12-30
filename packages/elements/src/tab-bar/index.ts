@@ -24,9 +24,7 @@ const BAR_TRAVEL_DISTANCE = 150; // scroll distance
  *
  * @fires value-changed - Fired when the `value` changes.
  */
-@customElement('ef-tab-bar', {
-  alias: 'coral-tab-bar'
-})
+@customElement('ef-tab-bar')
 export class TabBar extends BasicElement {
 
   /**
