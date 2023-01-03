@@ -15,9 +15,9 @@ import '../icon/index.js';
 
 /**
  * Used to display at the top of application to provide a status or information.
- * @slot right - place custom content on the right of bar.
+ * @slot right - Place custom content on the right of bar.
  *
- * @fires clear - fired when clear button is clicked
+ * @fires clear - Fired when the user taps clear button.
  */
 @customElement('ef-appstate-bar')
 export class AppstateBar extends BasicElement {
@@ -85,12 +85,6 @@ export class AppstateBar extends BasicElement {
   private clear = (event: Event): void => {
     event.stopPropagation();
     this.style.display = 'none';
-    /**
-     * Clear Event
-     * Fired when clear button is clicked
-     *
-     * @event clear
-     */
     this.dispatchEvent(new CustomEvent('clear'));
   };
 

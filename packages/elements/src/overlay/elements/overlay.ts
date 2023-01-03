@@ -97,10 +97,10 @@ const shouldRefitProperties: string[] = ['position', 'x', 'y', 'positionTarget',
 
 /**
  * Element to help building modals, dialogs and other overlay content
- * @fires closed - Dispatched when overlay becomes invisible and close animation finishes
- * @fires opened - Dispatched when the overlay becomes visible and the open animation finishes
- * @fires refit - Dispatched when refit algorithm finishes calculations
- * @fires opened-changed - Dispatched when when open attribute changes internally. Prevent default to stop opening/closing pipeline
+ * @fires closed - Fired when overlay becomes invisible and close animation finished
+ * @fires opened - Fired when overlay becomes visible and the open animation finished
+ * @fires refit - Fired when refit algorithm finishes calculations
+ * @fires opened-changed - Fired when the user changes open state of overlay e.g. when the user presses escape key or uses close button to close the overlay. The event is not triggered if `opened` property is changed programmatically.
  */
 @customElement('ef-overlay')
 export class Overlay extends ResponsiveElement {

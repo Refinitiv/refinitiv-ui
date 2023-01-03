@@ -30,7 +30,7 @@ export const valueFormatWarning = new WarningNotice('The specified \'values\' fo
 
 /**
  * Provides listing and immutable selection
- * @fires value-changed - Dispatched when value changes
+ * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  */
 @customElement('ef-list')
 export class List<T extends DataItem = ItemData> extends ControlElement {
