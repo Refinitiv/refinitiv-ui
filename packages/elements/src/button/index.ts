@@ -19,9 +19,7 @@ import '../icon/index.js';
  * @prop {boolean} [disabled=false] - Set state to disabled
  * @fires active-changed - Fired when `active` property changed by user taps on toggled button. It will not be triggered if `active` state is changed programmatically.
  */
-@customElement('ef-button', {
-  alias: 'coral-button'
-})
+@customElement('ef-button')
 export class Button extends ControlElement {
   /**
    * Element version number

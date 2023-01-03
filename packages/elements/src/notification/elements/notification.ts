@@ -21,9 +21,7 @@ import '../../icon/index.js';
  * @fires dismiss - Fired when the user taps close button to dismiss notification. The event is not triggered if dismiss is done programmatically.
  *
  */
-@customElement('ef-notification', {
-  alias: 'amber-notification'
-})
+@customElement('ef-notification')
 export class Notification extends BasicElement {
 
   /**

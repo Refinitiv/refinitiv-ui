@@ -40,9 +40,7 @@ import { clamp, preventDefault, isDecimalNumber, countDecimalPlace } from './uti
  * @fires from-changed - Fired when the user changes from's value. The event is not triggered if `from` property is changed programmatically.
  * @fires to-changed - Fired when the user changes to's value. The event is not triggered if `to` property is changed programmatically.
  */
-@customElement('ef-slider', {
-  alias: 'coral-slider'
-})
+@customElement('ef-slider')
 export class Slider extends ControlElement {
 
   /**

@@ -64,9 +64,7 @@ enum Navigation {
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
  */
-@customElement('ef-select', {
-  alias: 'coral-select'
-})
+@customElement('ef-select')
 export class Select extends ControlElement implements MultiValue {
 
   /**

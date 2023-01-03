@@ -26,9 +26,7 @@ import '../label/index.js';
  *
  * @fires clear - Fired when the user clicks on clear button.
  */
-@customElement('ef-tab', {
-  alias: 'coral-tab'
-})
+@customElement('ef-tab')
 export class Tab extends ControlElement {
 
   /**

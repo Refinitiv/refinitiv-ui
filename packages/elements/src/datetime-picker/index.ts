@@ -99,9 +99,7 @@ const INPUT_FORMAT = {
  * @slot footer - Slot to add custom contents at the bottom of popup
  * @slot left - Slot to add custom contents at the left of popup
  */
-@customElement('ef-datetime-picker', {
-  alias: 'emerald-datetime-picker'
-})
+@customElement('ef-datetime-picker')
 export class DatetimePicker extends ControlElement implements MultiValue {
 
   /**

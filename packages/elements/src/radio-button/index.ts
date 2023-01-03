@@ -37,9 +37,7 @@ import {
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-radio-button', {
-  alias: 'coral-radio-button'
-})
+@customElement('ef-radio-button')
 export class RadioButton extends ControlElement {
 
   /**

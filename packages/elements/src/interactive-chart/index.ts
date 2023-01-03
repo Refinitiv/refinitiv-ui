@@ -63,9 +63,7 @@ const NO_DATA_POINT = '--';
  * @slot legend - Slot to use for implementing custom legend.
  * @fires initialized - Fired when chart is initialized
  */
-@customElement('ef-interactive-chart', {
-  alias: 'sapphire-interactive-chart'
-})
+@customElement('ef-interactive-chart')
 export class InteractiveChart extends ResponsiveElement {
 
   /**

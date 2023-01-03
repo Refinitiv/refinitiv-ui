@@ -47,9 +47,7 @@ import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
  * @attr {string} value - Input's value
  * @prop {string} [value=""] - Input's value
  */
-@customElement('ef-email-field', {
-  alias: 'coral-email-field'
-})
+@customElement('ef-email-field')
 export class EmailField extends TextField {
   /**
    * Set to multiple mode, allows multiple emails in a single input

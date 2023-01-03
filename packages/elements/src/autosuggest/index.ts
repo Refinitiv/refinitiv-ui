@@ -99,9 +99,7 @@ export {
  * @slot header - Slot to add custom contents at the top of autosuggest popup
  * @slot footer - Slot to add custom contents at the bottom of autosuggest popup
  */
-@customElement('ef-autosuggest', {
-  alias: 'emerald-autosuggest'
-})
+@customElement('ef-autosuggest')
 export class Autosuggest extends Overlay {
 
   /**

@@ -49,9 +49,7 @@ let isEyeOffPreloadRequested = false;
  * @attr {string} value - Input's value
  * @prop {string} [value=""] - Input's value
  */
-@customElement('ef-password-field', {
-  alias: 'coral-password-field'
-})
+@customElement('ef-password-field')
 export class PasswordField extends TextField {
   /**
    * Used for translations

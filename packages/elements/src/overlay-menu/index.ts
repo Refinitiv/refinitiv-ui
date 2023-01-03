@@ -71,9 +71,7 @@ export type { OverlayMenuData };
  * @attr {Position[] | undefined} position - Set position and align against the attach target.
  * @prop {Position[] | undefined} position - Set position and align against the attach target.
  */
-@customElement('ef-overlay-menu', {
-  alias: 'emerald-popup-menu'
-})
+@customElement('ef-overlay-menu')
 export class OverlayMenu extends Overlay {
 
   /**

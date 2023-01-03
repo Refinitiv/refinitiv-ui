@@ -32,9 +32,7 @@ import '../icon/index.js';
  *
  * @fires clear - Fired when the user taps on clear button.
  */
-@customElement('ef-pill', {
-  alias: 'coral-pill'
-})
+@customElement('ef-pill')
 export class Pill extends ControlElement {
 
   /**

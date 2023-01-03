@@ -19,9 +19,7 @@ import '../icon/index.js';
  *
  * @fires clear - Fired when the user taps clear button.
  */
-@customElement('ef-appstate-bar', {
-  alias: 'amber-appstate-bar'
-})
+@customElement('ef-appstate-bar')
 export class AppstateBar extends BasicElement {
   /**
    * Element version number

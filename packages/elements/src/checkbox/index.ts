@@ -24,9 +24,7 @@ import '../icon/index.js';
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-checkbox', {
-  alias: 'coral-checkbox'
-})
+@customElement('ef-checkbox')
 export class Checkbox extends ControlElement {
   /**
    * Element version number

@@ -58,9 +58,7 @@ import '@refinitiv-ui/phrasebook/locale/en/color-dialog.js';
  *
  * @prop {boolean} [withShadow=true] - False to remove shadow for dialog component.
  */
-@customElement('ef-color-dialog', {
-  alias: 'emerald-color-dialog'
-})
+@customElement('ef-color-dialog')
 export class ColorDialog extends Dialog {
 
   /**

@@ -5,7 +5,8 @@ import {
   TemplateResult,
   CSSResultGroup,
   PropertyValues,
-  ElementSize
+  ElementSize,
+  triggerResize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -101,9 +102,7 @@ const shouldRefitProperties: string[] = ['position', 'x', 'y', 'positionTarget',
  * @fires refit - Fired when refit algorithm finishes calculations
  * @fires opened-changed - Fired when the user changes open state of overlay e.g. when the user presses escape key or uses close button to close the overlay. The event is not triggered if `opened` property is changed programmatically.
  */
-@customElement('ef-overlay', {
-  alias: 'coral-popup-panel'
-})
+@customElement('ef-overlay')
 export class Overlay extends ResponsiveElement {
 
   /**
@@ -770,14 +769,7 @@ export class Overlay extends ResponsiveElement {
       this.redrawThrottler.schedule(() => this.updateVariable('--redraw', `${Date.now()}`));
     }
 
-    /*
-    https://github.com/juggle/resize-observer/issues/42
-
-    This event ensures that ResizeObserver picks up resize events
-    when overlay is deeply nested inside shadow root.
-    TODO: remove this workaround once ResizeObserver handles shadow root scenario
-    */
-    window.dispatchEvent(new Event('animationiteration'));
+    triggerResize();
   }
 
   /**

@@ -2,7 +2,8 @@ import {
   html,
   TemplateResult,
   CSSResultGroup,
-  css
+  css,
+  triggerResize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -51,9 +52,7 @@ const POPUP_POSITION = ['bottom-start', 'top-start'];
  * @fires query-changed - Fired when the user changes value in the input to change a query word. If `query-debounce-rate` is set, this event will be triggered after debounce completion. The event is not triggered if `query` property is changed programmatically.
  * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
  */
-@customElement('ef-tree-select', {
-  alias: 'emerald-multi-select'
-})
+@customElement('ef-tree-select')
 export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
   /**
@@ -624,7 +623,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       // unlike CCB, we do not close EMS when there is no matches for filter
     }
 
-    this.forcePopupLayout();
+    triggerResize();
   }
 
   /**
