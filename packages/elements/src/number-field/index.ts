@@ -29,8 +29,8 @@ enum Direction {
 /**
  * Form control element for numbers.
  *
- * @fires value-changed - Dispatched when value changes
- * @fires error-changed - Dispatched when error state changes
+ * @fires value-changed - Fired when user commits a value change. The event is not triggered if `value` property is changed programmatically.
+ * @fires error-changed - Fired when user inputs invalid value. The event is not triggered if `error` property is changed programmatically.
  *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
@@ -53,9 +53,7 @@ enum Direction {
  * @attr {string} value - Input's value
  * @prop {string} [value=""] - Input's value
  */
-@customElement('ef-number-field', {
-  alias: 'coral-number-field'
-})
+@customElement('ef-number-field')
 export class NumberField extends FormFieldElement {
 
   /**
@@ -240,7 +238,7 @@ export class NumberField extends FormFieldElement {
     if (Math.floor(value) === value || isNaN(value) || !isFinite(value)) {
       return 0;
     }
-    return value.toString().split('.')[1].length || 0;
+    return new Intl.NumberFormat('en', { minimumSignificantDigits: 1 }).format(value).split('.')[1].length || 0;
   }
 
   /**

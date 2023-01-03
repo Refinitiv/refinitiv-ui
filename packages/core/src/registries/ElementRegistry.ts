@@ -2,11 +2,6 @@ import type { ElementConstructor } from '../interfaces/ElementConstructor';
 import { ready } from '../utils/elementReady.js';
 import { CustomStyleRegistry } from './CustomStyleRegistry.js';
 import { DuplicateElementError } from '../errors/DuplicateElementError.js';
-import { Notice } from '../notices/Notice.js';
-
-type ElementRegistryOptions = {
-  alias?: string;
-};
 
 class ElementRegistrationItem {
   creations = 0;
@@ -25,18 +20,6 @@ const upgrade = (name: string, definition: ElementConstructor): void => {
   customElements.define(name, definition);
 };
 
-const upgradeAlias = (name: string, alias: string, definition: ElementConstructor): void => {
-  // Re, themes are must be defined at this point from main upgrade
-  const AliasDefinition = class extends definition {
-    private static elementDeprecated = new Notice(`The tag name <${alias}></${alias}> will be deprecated in the next major release. To silence this message, update all references to <${name}></${name}> instead.`);
-    constructor () {
-      super();
-      AliasDefinition.elementDeprecated.once();
-    }
-  };
-  customElements.define(alias, AliasDefinition);
-};
-
 export abstract class ElementRegistry {
   /**
    * Define a new custom element into the registry.
@@ -45,7 +28,7 @@ export abstract class ElementRegistry {
    * @param [options] element definition parameters
    * @returns {void}
    */
-  public static define (name: string, definition: ElementConstructor, options: ElementRegistryOptions = {}): void {
+  public static define (name: string, definition: ElementConstructor): void {
     if (register.has(name)) {
       // Allow the application to still load
       setTimeout(() => {
@@ -53,15 +36,12 @@ export abstract class ElementRegistry {
       });
     }
     else {
-      const { alias } = options;
       const registrationItem = new ElementRegistrationItem(definition);
 
       register.set(name, registrationItem);
-      alias && register.set(alias, registrationItem);
 
       ready(name, () => {
         upgrade(name, definition);
-        alias && upgradeAlias(name, alias, definition);
       });
     }
   }

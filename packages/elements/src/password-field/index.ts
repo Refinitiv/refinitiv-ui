@@ -17,9 +17,8 @@ let isEyeOffPreloadRequested = false;
 /**
  * A form control element for password.
  *
- * @fires value-changed - Dispatched when value changes
- * @fires error-changed - Dispatched when error state changes
- * @fires icon-click - Dispatched when icon is clicked
+ * @fires value-changed - Fired when user commits a value change. The event is not triggered if `value` property is changed programmatically.
+ * @fires error-changed - Fired when user inputs an invalid value. The event is not triggered if `error` property is changed programmatically.
  *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
@@ -50,9 +49,7 @@ let isEyeOffPreloadRequested = false;
  * @attr {string} value - Input's value
  * @prop {string} [value=""] - Input's value
  */
-@customElement('ef-password-field', {
-  alias: 'coral-password-field'
-})
+@customElement('ef-password-field')
 export class PasswordField extends TextField {
   /**
    * Used for translations

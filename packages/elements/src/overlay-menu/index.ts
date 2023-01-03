@@ -28,8 +28,8 @@ export type { OverlayMenuData };
 
 /**
  * Overlay that supports single-level and multi-level menus
- * @fires item-trigger - Dispatched when user clicks on item
- * @fires opened-changed - Dispatched when when opened attribute changes internally. Prevent default to stop opening/closing pipeline
+ * @fires item-trigger - Fired when the user taps on item.
+ * @fires opened-changed - Fired when the user changes open state of the overlay e.g. when the user presses escape key or uses close button to close the overlay. The event is not triggered if `opened` property is changed programmatically.
  *
  * @attr {boolean} opened - True if the menu is currently displayed
  * @prop {boolean} [opened=false] - True if the menu is currently displayed
@@ -71,9 +71,7 @@ export type { OverlayMenuData };
  * @attr {Position[] | undefined} position - Set position and align against the attach target.
  * @prop {Position[] | undefined} position - Set position and align against the attach target.
  */
-@customElement('ef-overlay-menu', {
-  alias: 'emerald-popup-menu'
-})
+@customElement('ef-overlay-menu')
 export class OverlayMenu extends Overlay {
 
   /**

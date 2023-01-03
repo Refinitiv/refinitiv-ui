@@ -26,23 +26,11 @@ const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === und
 /**
  * An input control component to display a selection of pills
  *
- * @event value-changed - Fired when new value of text field is changed.
- * Property `detail.value` will be the new value.
- *
- * @event error-changed - Dispatched when error state changes.
- * Property `detail.error` is error from validation.
- *
- * @event item-added - Fired when new pill is added.
- * Property `detail.item` is new added pill.
- * Property `detail.items` is new list of all pills.
- *
- * @event item-removed - Fired when item is removed.
- * Property `detail.item` is pill that removed.
- * Property `detail.items` is new list of all pills.
- *
- * @event item-error - Fired when item that attempt to add is invalid.
- * Property `detail.item` is item with an error.
- * Property `detail.items` a current list of pills.
+ * @fires value-changed - Fired when the user adds new pill or removes pill. The event is not triggered if `value` property is changed programmatically.
+ * @fires error-changed - Fired when the user causes error at the control. The event is not triggered if `error` property is changed programmatically.
+ * @fires item-added - Fired when the user adds new pill. The event is not triggered if the new item is added programmatically.
+ * @fires item-removed - Fired when the user removes pill. The event is not triggered if the item is removed programmatically.
+ * @fires item-error - Fired when item attempting to add is invalid.
  *
  * @prop {boolean} [readonly=false] - Hides text field and clear icon from all pills
  * @attr {boolean} readonly - Hides text field and clear icon from all pills
@@ -54,9 +42,7 @@ const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === und
  * @attr {string} value - Current value of text field
  *
  */
-@customElement('ef-multi-input', {
-  alias: 'coral-multi-input'
-})
+@customElement('ef-multi-input')
 export class MultiInput extends ControlElement implements MultiValue {
 
   /**

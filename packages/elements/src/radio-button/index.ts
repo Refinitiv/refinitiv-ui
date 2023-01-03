@@ -23,7 +23,7 @@ import {
 /**
  * Basic radio button
  *
- * @fires checked-changed - Fired when the `checked` property changes.
+ * @fires checked-changed - Fired when the user checks or unchecks the radio. The event is not fired if the `checked` property is changed programmatically.
  *
  * @attr {string} value - Value of the radio button
  * @prop {string} [value=""] - Value of the radio button
@@ -37,9 +37,7 @@ import {
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-radio-button', {
-  alias: 'coral-radio-button'
-})
+@customElement('ef-radio-button')
 export class RadioButton extends ControlElement {
 
   /**
