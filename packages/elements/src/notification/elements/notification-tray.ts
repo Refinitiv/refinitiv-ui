@@ -12,9 +12,7 @@ import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import type { Notification } from './notification';
 import type { Task, TaskOptions } from '../helpers/types';
 
-@customElement('ef-notification-tray', {
-  alias: 'amber-notification-tray'
-})
+@customElement('ef-notification-tray')
 export class NotificationTray extends ResponsiveElement {
 
   /**

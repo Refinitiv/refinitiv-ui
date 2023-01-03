@@ -16,9 +16,7 @@ import '@refinitiv-ui/browser-sparkline';
 import type { BrowserSparklineChart } from '@refinitiv-ui/browser-sparkline';
 import type { StaticDataConfig, ThemeConfig } from '@refinitiv-ui/browser-sparkline/lib/browserSparklineCanvas';
 
-@customElement('ef-sparkline', {
-  alias: 'sapphire-sparkline'
-})
+@customElement('ef-sparkline')
 export class Sparkline extends ResponsiveElement {
   /**
    * Element version number

@@ -46,15 +46,13 @@ const POPUP_POSITION = ['bottom-start', 'top-start'];
  * @attr {string} placeholder - Set placeholder text
  * @prop {string} [placeholder=""] - Set placeholder text
  * @prop {TreeSelectData[]} [data=[]] - Data object to be used for creating tree
- * @fires confirm - Fired when selection is confirmed
- * @fires cancel - Fired when selection is cancelled
- * @fires query-changed - Fired when query in input box changed
- * @fires value-changed - Fired when value of control changed
- * @fires opened-changed - Fires when opened state changes
+ * @fires confirm - Fired when the user closes a popup by confirming the new selection.
+ * @fires cancel - Fired when the user closes a popup by cancelling the new selection.
+ * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
+ * @fires query-changed - Fired when the user changes value in the input to change a query word. If `query-debounce-rate` is set, this event will be triggered after debounce completion. The event is not triggered if `query` property is changed programmatically.
+ * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
  */
-@customElement('ef-tree-select', {
-  alias: 'emerald-multi-select'
-})
+@customElement('ef-tree-select')
 export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
   /**
