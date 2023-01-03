@@ -84,7 +84,7 @@ export {
  * Autosuggest supports various use cases such as
  * custom rendering, pagination, asynchronous data request, etc.
  *
- * @fires item-highlight - Fired when the user highlight an item or removes highlight from the item.
+ * @fires item-highlight - Fired when the user highlights an item or removes highlight from the item.
  * @fires add-attach-target-events - Fired when `attach` has been set to bind the control with any custom inputs.
  * @fires remove-attach-target-events - Fired when `attach` has been removed to unbind the control with the inputs.
  * @fires item-select - Fired when the user selects an item on autosuggest.
