@@ -25,9 +25,7 @@ const SECTION_DIVIDER = 5; // To separate led-gauge to 5 sections
  * A component used to show data in a LED-like
  * horizontal bar visualization.
  */
-@customElement('ef-led-gauge', {
-  alias: 'sapphire-led-gauge'
-})
+@customElement('ef-led-gauge')
 export class LedGauge extends BasicElement {
 
   /**

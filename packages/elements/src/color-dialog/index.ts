@@ -29,8 +29,8 @@ import '@refinitiv-ui/phrasebook/locale/en/color-dialog.js';
  * Displays a colour picker dialog,
  * for selecting a predefined range of colours.
  *
- * @fires value-changed - Fired when the `value` property changes.
- * @fires opened-changed - Fired when the `opened` property changes.
+ * @fires value-changed - Fired when the user commits a value change. The event is not triggered if the value is changed programmatically.
+ * @fires opened-changed - Fired when the user changes open state of the dialog e.g. when the user presses escape key or uses close button to close the dialog. The event is not triggered if `opened` property is changed programmatically.
  *
  * @attr {string | null} header - Set Header/Title of the color dialog
  * @prop {string | null} [header=null] - Set Header/Title of the color dialog
@@ -58,9 +58,7 @@ import '@refinitiv-ui/phrasebook/locale/en/color-dialog.js';
  *
  * @prop {boolean} [withShadow=true] - False to remove shadow for dialog component.
  */
-@customElement('ef-color-dialog', {
-  alias: 'emerald-color-dialog'
-})
+@customElement('ef-color-dialog')
 export class ColorDialog extends Dialog {
 
   /**

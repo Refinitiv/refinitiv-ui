@@ -67,13 +67,11 @@ const freeTextMultipleWarning = new WarningNotice('"free-text" mode is not compa
  * @attr {string} name - Set name of the element
  * @prop {string} [name=''] - Set name of the element
  *
- * @fires value-changed - Dispatched when value changes
- * @fires query-changed - Dispatched when query changes
- * @fires opened-changed - Dispatched when opened state changes
+ * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
+ * @fires query-changed - Fired when the user changes value in the input to change a query word. If `query-debounce-rate` is set, this event will be triggered after debounce completion. The event is not triggered if `query` property is changed programmatically.
+ * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
  */
-@customElement('ef-combo-box', {
-  alias: 'coral-combo-box'
-})
+@customElement('ef-combo-box')
 export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
   /**
