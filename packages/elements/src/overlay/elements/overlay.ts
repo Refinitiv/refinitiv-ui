@@ -414,9 +414,9 @@ export class Overlay extends ResponsiveElement {
   /**
    * Set position and align against the attach target.
    * Position may contain a single word or a comma separated list to set the priority.
-   * Position is not applied if `attachTarget` is not HTML Element.
-   * For instance: `[bottom-middle, top-middle]` - default position is bottom-middle, if cannot fit position top-middle;
-   * or `[left, right]` - align is not set, set best position on the left or right
+   * Position is not applied if `positionTarget` is not an HTML Element.
+   * For instance: `bottom-middle, top-middle` - default position is `bottom-middle`, if cannot fit then position would be `top-middle`;
+   * or `left, right` - align is not set, set best position on the `left` or `right`
    *
    * Position can be: `top`, `right`, `bottom`, `left`, `center`
    * Align can be: `start`, `middle`, `end`
