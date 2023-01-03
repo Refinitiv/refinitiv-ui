@@ -24,7 +24,7 @@ import '../label/index.js';
  * @attr {string} value - Tab's value
  * @prop {string} [value=""] - Tab's value
  *
- * @fires clear - Fired when the user clicks on clear button.
+ * @fires clear - Fired when the user clicks on clear button
  */
 @customElement('ef-tab')
 export class Tab extends ControlElement {
