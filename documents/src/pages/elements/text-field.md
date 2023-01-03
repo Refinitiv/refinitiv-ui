@@ -117,6 +117,8 @@ console.log(textInput.value); // "Sarah Connor"
 
 You can also listen for the `value-changed` event. This event triggers when user interactions change the value.
 
+@> This example simply demonstrades the event trigger. It shall not be used as a design reference.
+
 ::
 
 ```javascript
