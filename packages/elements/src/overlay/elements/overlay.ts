@@ -97,10 +97,10 @@ const shouldRefitProperties: string[] = ['position', 'x', 'y', 'positionTarget',
 
 /**
  * Element to help building modals, dialogs and other overlay content
- * @fires closed - Dispatched when overlay becomes invisible and close animation finishes
- * @fires opened - Dispatched when the overlay becomes visible and the open animation finishes
- * @fires refit - Dispatched when refit algorithm finishes calculations
- * @fires opened-changed - Dispatched when when open attribute changes internally. Prevent default to stop opening/closing pipeline
+ * @fires closed - Fired when overlay becomes invisible and close animation finished
+ * @fires opened - Fired when overlay becomes visible and the open animation finished
+ * @fires refit - Fired when refit algorithm finishes calculations
+ * @fires opened-changed - Fired when the user changes open state of overlay e.g. when the user presses escape key or uses close button to close the overlay. The event is not triggered if `opened` property is changed programmatically.
  */
 @customElement('ef-overlay')
 export class Overlay extends ResponsiveElement {
@@ -414,9 +414,9 @@ export class Overlay extends ResponsiveElement {
   /**
    * Set position and align against the attach target.
    * Position may contain a single word or a comma separated list to set the priority.
-   * Position is not applied if `attachTarget` is not HTML Element.
-   * For instance: `[bottom-middle, top-middle]` - default position is bottom-middle, if cannot fit position top-middle;
-   * or `[left, right]` - align is not set, set best position on the left or right
+   * Position is not applied if `positionTarget` is not an HTML Element.
+   * For instance: `bottom-middle, top-middle` - default position is `bottom-middle`, if cannot fit then position would be `top-middle`;
+   * or `left, right` - align is not set, set best position on the `left` or `right`
    *
    * Position can be: `top`, `right`, `bottom`, `left`, `center`
    * Align can be: `start`, `middle`, `end`
