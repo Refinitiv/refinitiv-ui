@@ -113,38 +113,12 @@ console.log(textInput.value); // "Sarah Connor"
 
 You can also listen for the `value-changed` event. This event triggers when user interactions change the value.
 
-@> This example simply demonstrates the event trigger. It shall not be used as a design reference.
-
-::
-
-```javascript
-::text-field::
-const element = document.getElementById("full-name");
-const valueChangedText = document.getElementById('value-text');
-
-element.addEventListener("value-changed", (e) => {
-  valueChangedText.textContent = e.detail.value;
-});
-```
-
-```css
-ef-text-field {
-  width: 250px;
-}
-```
-
-```html
-<label for="full-name">Full Name</label>
-<ef-text-field id="full-name" placeholder="Your name as shown on your passport"></ef-text-field>
-<p>Value: <code id="value-text"></code></p>
-```
-
-::
-
 ```html
 <label for="full-name">full Name</label>
-<ef-text-field id="full-name" placeholder="Your name as shown on your passport"></ef-text-field>
-<p>Value: <code id="value-text"></code></p>
+<ef-text-field
+  id="full-name" 
+  placeholder="Your name as shown on your passport">
+</ef-text-field>
 ```
 
 ```javascript
