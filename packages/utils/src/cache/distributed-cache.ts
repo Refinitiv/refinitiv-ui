@@ -3,7 +3,7 @@ import { IndexedDBStorage } from './storages/indexeddb.js';
 import { CacheMessenger, type Message } from './messenger.js';
 import type { CacheStorage } from './interfaces/CacheStorage';
 import { uuid } from '../uuid.js';
-import { Distribution, type DistributionState } from './Distribution.js';
+import { Distribution, type DistributionState } from './distribution.js';
 export interface DistributedCacheConfig {
   storage: 'localstorage' | 'indexeddb';
 }
