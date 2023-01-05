@@ -1,18 +1,12 @@
 import { LocalStorage } from './storages/localstorage.js';
 import { IndexedDBStorage } from './storages/indexeddb.js';
 import { CacheMessenger, type Message } from './messenger.js';
-import { CACHE_PREFIX } from './constants.js';
 import type { CacheStorage } from './interfaces/CacheStorage';
 import { uuid } from '../uuid.js';
+import { Distribution, type DistributionState } from './Distribution.js';
 export interface DistributedCacheConfig {
   storage: 'localstorage' | 'indexeddb';
 }
-
-type stateNames = {
-  request: `${string}[request]`,
-  leader: `${string}[leader]`,
-  unloaded: `${string}[unloaded]`
-};
 
 type Requests = {
   [key: string]: string
@@ -46,12 +40,12 @@ export class DistributedCache {
   /**
    * Names for manage all states temporary
    */
-  protected stateNames: stateNames;
+  protected state: DistributionState;
 
   /**
-   * Request coodinator is exist to working with
+   * Names for manage all states temporary
    */
-  protected coordinator = false;
+  protected distribution: Distribution;
 
   /**
    * Constructor
@@ -76,55 +70,27 @@ export class DistributedCache {
       throw new TypeError('Unknown storage type');
     }
 
-    const stateName = `[${CACHE_PREFIX}][${name}]`;
-
-    this.stateNames = {
-      request: `${stateName}[request]`,
-      leader: `${stateName}[leader]`,
-      unloaded: `${stateName}[unloaded]`
-    };
-
-    // Create messenger and add event listener
     this.messenger = new CacheMessenger(name);
+    this.distribution = new Distribution(name, this.messenger);
+    this.state = this.distribution.state;
     this.handleUnload();
-    this.listen();
-
-    // Send message to resonance across messengers
-    this.messenger.notify('coordinator', 'true');
+    this.listenMessenger();
   }
 
   /**
    * Initialize listening events from messenger and storage
    * @returns {void}
    */
-  private listen (): void {
-    // Listen storage event for leader election
-    window.addEventListener('storage', ({ key, newValue }) => {
-      // Handle request event
-      if (key?.startsWith(this.stateNames.request) && newValue) {
-        const itemKey = key.replace(`${this.stateNames.request}-`, '');
-        const leaderKey = `${this.stateNames.leader}-${itemKey}`;
-        // Set a new leader if does not exists
-        if (!localStorage.getItem(leaderKey)) {
-          // Save Leader
-          localStorage.setItem(leaderKey, newValue);
-          // Notify election results to leader
-          this.messenger.notify(`${this.stateNames.leader}-${itemKey}`, newValue);
-        }
-      }
-    });
+  private listenMessenger (): void {
     // Listen messenger message
     this.messenger.onMessage = (message) => {
       const { key, value } = message;
-      // Set coordinator true when found the response message
-      if (!this.coordinator && key === 'coordinator') {
-        this.coordinator = true;
-        // Resonance across messengers
-        this.messenger.notify('coordinator', 'true');
+      // Handle distribution message
+      if (this.distribution.handleDistribution(key)) {
         return;
       }
       // Handle leader message
-      if (key?.startsWith(this.stateNames.leader)) {
+      if (key?.startsWith(this.state.leader)) {
         this.handleLeaderMessage(message);
       }
       else {
@@ -143,7 +109,7 @@ export class DistributedCache {
    * @returns {void}
    */
   private handleLeaderMessage ({ key, value }: Message): void {
-    const itemKey = key.replace(`${this.stateNames.leader}-`, '');
+    const itemKey = key.replace(`${this.state.leader}-`, '');
     // Check the request is belong to itself
     if (value && this.requests[itemKey] === value) {
       const resolve = this.waiting.get(itemKey);
@@ -183,14 +149,14 @@ export class DistributedCache {
     window.addEventListener('beforeunload', (event) => {
       event.preventDefault();
       if (this.getStateKeys().length !== 0) {
-        localStorage.setItem(this.stateNames.unloaded, 'true');
+        localStorage.setItem(this.state.unloaded, 'true');
       }
       return true;
     });
 
     // After user refresh (unload), all state should be cleaned by delete state from previous round
-    if (localStorage.getItem(this.stateNames.unloaded) === 'true') {
-      localStorage.removeItem(this.stateNames.unloaded);
+    if (localStorage.getItem(this.state.unloaded) === 'true') {
+      localStorage.removeItem(this.state.unloaded);
       this.clean();
     }
   }
@@ -235,7 +201,7 @@ export class DistributedCache {
       return item.value;
     }
     // Return null to load it self when do not have coordinator
-    if (!this.coordinator) {
+    if (!this.distribution.coordinator) {
       return null;
     }
     // Add to request list if not exist
@@ -272,7 +238,7 @@ export class DistributedCache {
   protected addRequest (key: string): void {
     const id = uuid();
     this.requests[key] = id;
-    localStorage.setItem(`${this.stateNames.request}-${key}`, id);
+    localStorage.setItem(`${this.state.request}-${key}`, id);
   }
 
   /**
@@ -287,7 +253,7 @@ export class DistributedCache {
       return true;
     }
     else {
-      result = localStorage.getItem(`${this.stateNames.request}-${key}`) !== null;
+      result = localStorage.getItem(`${this.state.request}-${key}`) !== null;
       if (result) {
         // Cache a request state for reduce checking on localStorage
         this.requests[key] = 'waiting';
@@ -308,12 +274,12 @@ export class DistributedCache {
 
   /**
    * Return state keys
-   * @returns {string[]} localhostStorage keys that contains stateNames
+   * @returns {string[]} localhostStorage keys that contains state name
    */
   protected getStateKeys (): string[] {
     return Object.keys(localStorage)
-    .filter(key => [this.stateNames.leader, this.stateNames.request, this.stateNames.unloaded]
-      .some(prefix => key.startsWith(prefix)));
+      .filter(key => [this.state.leader, this.state.request, this.state.unloaded]
+        .some(prefix => key.startsWith(prefix)));
   }
 
   /**
@@ -335,8 +301,8 @@ export class DistributedCache {
    * @returns {void}
    */
   private cleanItem (key: string): void {
-    localStorage.removeItem(`${this.stateNames.request}-${key}`);
-    localStorage.removeItem(`${this.stateNames.leader}-${key}`);
+    localStorage.removeItem(`${this.state.request}-${key}`);
+    localStorage.removeItem(`${this.state.leader}-${key}`);
     delete this.requests[key];
     this.waiting.delete(key);
   }
