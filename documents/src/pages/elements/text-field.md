@@ -46,6 +46,54 @@ p {
 
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius sed et rem quibusdam animi hic, iusto, minus magnam illum non laborum, in molestiae commodi sint nemo! Porro nam voluptas, commodi, perferendis aliquid totam delectus rem explicabo hic, facere doloribus incidunt. Repudiandae error porro, similique delectus aut at quidem. Voluptas, voluptatibus.
 
+### Look and Feel
+
+This is how `<text-field>` in Halo dark theme looks like:
+
+::
+
+```javascript
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements/text-field?min';
+import { haloDark } from '/theme-loader.js';
+haloDark('text-field');
+```
+
+```css
+ef-text-field {
+  width: 250px;
+}
+```
+
+```html
+  <label for="first-name">First Name</label>
+  <ef-text-field id="first-name" placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
+```
+
+::
+
+This is how `<text-field>` in Halo light theme looks like:
+
+::
+
+```javascript
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements/text-field?min';
+import { haloLight } from '/theme-loader.js';
+haloLight('text-field');
+```
+
+```css
+ef-text-field {
+  width: 250px;
+}
+```
+
+```html
+  <label for="first-name">First Name</label>
+  <ef-text-field id="first-name" placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
+```
+
+::
+
 ### Error validation
 
 ::
