@@ -87,7 +87,7 @@ export class Chart extends BasicElement {
   /**
    * Chart.js object
    */
-  private chart: ChartJS | null = null;
+  public chart: ChartJS | null = null;
 
   /**
    * Chart configurations. Same configuration as ChartJS
