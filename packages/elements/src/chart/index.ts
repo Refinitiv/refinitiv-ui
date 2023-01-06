@@ -73,9 +73,7 @@ export type { ChartConfig, ChartUpdateProps };
 /**
  * Charting component that use ChartJS library
  */
-@customElement('ef-chart', {
-  alias: 'sapphire-chart'
-})
+@customElement('ef-chart')
 export class Chart extends BasicElement {
 
   /**
@@ -89,7 +87,7 @@ export class Chart extends BasicElement {
   /**
    * Chart.js object
    */
-  private chart: ChartJS | null = null;
+  public chart: ChartJS | null = null;
 
   /**
    * Chart configurations. Same configuration as ChartJS

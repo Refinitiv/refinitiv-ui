@@ -16,9 +16,7 @@ import { Button } from '../button/index.js';
 /**
  * Used to display multiple buttons to create a list of commands bar.
  */
-@customElement('ef-button-bar', {
-  alias: 'coral-split-button'
-})
+@customElement('ef-button-bar')
 export class ButtonBar extends BasicElement {
 
   /**

@@ -162,7 +162,7 @@ menu.addEventListener('mouseout', (event) => {
 </div>
 ```
 
-Both `label` and `sub-label` are not displayed if `ef-item` has children.
+Both `label` and `sub-label` are not displayed if there is content in `ef-item`.
 
 ```html
 <ef-item label="This text will not be displayed" sub-label="This text will not be displayed">

@@ -94,8 +94,8 @@ export {
 /**
  * Standard calendar element
  *
- * @fires value-changed - Fired when the `value` changes.
- * @fires view-changed - Fired when the `view` changes.
+ * @fires value-changed - Fired when the user commits a date change. The event is not triggered if `value` is changed programmatically.
+ * @fires view-changed - Fired when the user changes a view of calendar e.g. changed to next month page. The event is not triggered if `view` property is changed programmatically.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
@@ -105,9 +105,7 @@ export {
  *
  * @slot footer - Adds slotted content into the footer of the calendar control
  */
-@customElement('ef-calendar', {
-  alias: 'coral-calendar'
-})
+@customElement('ef-calendar')
 export class Calendar extends ControlElement implements MultiValue {
   /**
    * Element version number
