@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.3.2...@refinitiv-ui/halo-theme@6.4.0) (2023-01-06)
+
+
+### Features
+
+* change all elements font size from rem unit to px and remove fixed font size on html tag ([#563](https://github.com/Refinitiv/refinitiv-ui/issues/563)) ([63de786](https://github.com/Refinitiv/refinitiv-ui/commit/63de786572e6adefbb054a7e545b6fd5198a34f5))
+
+
+
+
+
 ## [6.3.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.3.1...@refinitiv-ui/halo-theme@6.3.2) (2022-12-01)
 
 **Note:** Version bump only for package @refinitiv-ui/halo-theme

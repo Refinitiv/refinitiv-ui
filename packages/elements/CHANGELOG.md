@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.6.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.5.3...@refinitiv-ui/elements@6.6.0) (2023-01-06)
+
+
+### Bug Fixes
+
+* **chart:** change chart property access modifier from private to public ([#565](https://github.com/Refinitiv/refinitiv-ui/issues/565)) ([a25a506](https://github.com/Refinitiv/refinitiv-ui/commit/a25a506e334dead2004ebaca4a815bbf284e9990))
+* **color-dialog:** can not change between default and black color ([#557](https://github.com/Refinitiv/refinitiv-ui/issues/557)) ([27d9f2c](https://github.com/Refinitiv/refinitiv-ui/commit/27d9f2c81336c5cc4ba5bde1b7e5b3918f8c78c8))
+
+
+### Features
+
+* remove alias ([#553](https://github.com/Refinitiv/refinitiv-ui/issues/553)) ([32ce300](https://github.com/Refinitiv/refinitiv-ui/commit/32ce300e6ea0f730abd95f305b15cce406dab1c7))
+
+
+
+
+
 ## [6.5.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.5.2...@refinitiv-ui/elements@6.5.3) (2022-12-19)
 
 
