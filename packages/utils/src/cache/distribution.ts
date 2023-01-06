@@ -15,6 +15,11 @@ export class Distribution {
   protected messenger: CacheMessenger;
 
   /**
+   * Cache leader messenger for distribute cache
+   */
+  protected leaderMessenger: CacheMessenger;
+
+  /**
    * Names for manage all states temporary
    */
   public state: DistributionState;
@@ -24,19 +29,20 @@ export class Distribution {
    */
   public coordinator = false;
 
-  constructor (name: string, messenger: CacheMessenger) {
+  constructor (name: string, leaderMessenger: CacheMessenger) {
     const stateName = `[${CACHE_PREFIX}][${name}]`;
-    this.messenger = messenger;
+    this.messenger = new CacheMessenger(`${name}-distribution`);
+    this.leaderMessenger = leaderMessenger;
     this.state = {
       request: `${stateName}[request]`,
       leader: `${stateName}[leader]`,
       unloaded: `${stateName}[unloaded]`
     };
-    this.listenLocalStorage();
+    this.listen();
     // Send message to resonance across messengers
     this.messenger.notify('coordinator', 'true');
   }
-  private listenLocalStorage (): void {
+  private listen (): void {
     // Listen storage event for leader election
     window.addEventListener('storage', ({ key, newValue }) => {
       // Handle request event
@@ -48,20 +54,22 @@ export class Distribution {
           // Save Leader
           localStorage.setItem(leaderKey, newValue);
           // Notify election results to leader
-          this.messenger.notify(`${this.state.leader}-${itemKey}`, newValue);
+          this.leaderMessenger.notify(`${this.state.leader}-${itemKey}`, newValue);
         }
       }
     });
+    this.messenger.onMessage = () => {
+      this.handleDistribution();
+    };
   }
 
-  public handleDistribution (key: string) {
+  public handleDistribution (): void {
     // Set coordinator true when found the response message
-    if (!this.coordinator && key === 'coordinator') {
+    if (!this.coordinator) {
       this.coordinator = true;
       // Resonance across messengers
       this.messenger.notify('coordinator', 'true');
-      return true;
+      this.messenger.close();
     }
-    return false;
   }
 }

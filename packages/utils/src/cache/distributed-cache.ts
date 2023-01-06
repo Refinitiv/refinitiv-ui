@@ -69,12 +69,11 @@ export class DistributedCache {
     else {
       throw new TypeError('Unknown storage type');
     }
-
     this.messenger = new CacheMessenger(name);
     this.distribution = new Distribution(name, this.messenger);
+    this.listenMessenger();
     this.state = this.distribution.state;
     this.handleUnload();
-    this.listenMessenger();
   }
 
   /**
@@ -86,7 +85,8 @@ export class DistributedCache {
     this.messenger.onMessage = (message) => {
       const { key, value } = message;
       // Handle distribution message
-      if (this.distribution.handleDistribution(key)) {
+      this.distribution.handleDistribution();
+      if (key === 'coordinator') {
         return;
       }
       // Handle leader message
@@ -200,13 +200,14 @@ export class DistributedCache {
     if (item && item.expires > Date.now()) {
       return item.value;
     }
-    // Return null to load it self when do not have coordinator
-    if (!this.distribution.coordinator) {
-      return null;
-    }
+    const hasRequest = this.hasRequest(key);
     // Add to request list if not exist
-    else if (!this.hasRequest(key)) {
+    if (!hasRequest) {
       this.addRequest(key);
+    }
+    // Return null to load it self when do not have coordinator
+    if (!hasRequest && !this.distribution.coordinator) {
+      return null;
     }
     // Return promise and wait to resolve in waiting list
     return new Promise<string | null>(resolve => this.addWaiting(key, resolve));
