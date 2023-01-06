@@ -44,8 +44,6 @@ p {
 
 ## Design
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius sed et rem quibusdam animi hic, iusto, minus magnam illum non laborum, in molestiae commodi sint nemo! Porro nam voluptas, commodi, perferendis aliquid totam delectus rem explicabo hic, facere doloribus incidunt. Repudiandae error porro, similique delectus aut at quidem. Voluptas, voluptatibus.
-
 ### Look and Feel
 
 This is how `<text-field>` in Halo dark theme looks like:
@@ -94,36 +92,60 @@ ef-text-field {
 
 ::
 
-### Error validation
+### Multiple Example in one `<code-sandbox>`
 
 ::
 
 ```javascript
 ::text-field::
-const element = document.getElementById("username");
+const element = document.getElementById("nickname");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
   if (e.detail.value) {
-    errorChangedText.textContent = "Value length must be between 5-8 characters";
-  } else {
+    errorChangedText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
+  }
+  else {
     errorChangedText.textContent = "";
   }
 });
 ```
 
 ```css
+.explainer {
+  border: 2px dashed green;
+}
+
 #error-text {
   color:#d94255;
 }
 ef-text-field {
-  width: 200px;
+  width: 300px;
+}
+label {
+  display: block;
 }
 ```
 
 ```html
-<label for="username">Username</label>
-<ef-text-field id="username" aria-describedby="error-text" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
+<p class="explainer">Validate input using pattern example</p>
+<label for="nickname">Nickname</label>
+<ef-text-field
+  id="nickname"
+  aria-describedby="error-text"
+  pattern="[a-z]{4,8}"
+  placeholder="Must be lowercase letters between 4-8 characters">
+</ef-text-field>
 <p id="error-text"></p>
+
+<hr>
+
+<p class="explainer">Show icon example</p>
+<label for="feedback">Feedback</label>
+<ef-text-field id="feedback" icon="email" placeholder="We appreciate your feedback!"></ef-text-field>
+
+<hr>
+
+<img class="explainer" src="https://articulateusercontent.com/rise/courses/dlwkm37773iuEoCPFByqAqPBkD3NB-uS/w3jNXAy9TaHSPnbs.svg">
 ```
 
 ::
