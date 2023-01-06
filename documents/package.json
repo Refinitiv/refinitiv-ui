@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/docs",
-  "version": "6.4.2",
+  "version": "6.4.4",
   "private": true,
   "description": "Element Framework Documentation",
   "engines": {
@@ -32,7 +32,7 @@
     "serve": "^14.0.0"
   },
   "dependencies": {
-    "@refinitiv-ui/elements": "^6.5.2",
+    "@refinitiv-ui/elements": "^6.6.0",
     "fast-glob": "^3.2.7",
     "fs-extra": "^10.0.0"
   }

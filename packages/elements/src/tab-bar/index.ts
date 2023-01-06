@@ -22,11 +22,9 @@ const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 /**
  * Container for tabs
  *
- * @fires value-changed - Fired when the `value` changes.
+ * @fires value-changed - Fired when the user changes an active tab. The event is not triggered if `value` property is changed programmatically.
  */
-@customElement('ef-tab-bar', {
-  alias: 'coral-tab-bar'
-})
+@customElement('ef-tab-bar')
 export class TabBar extends BasicElement {
 
   /**

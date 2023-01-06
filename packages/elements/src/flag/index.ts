@@ -23,9 +23,7 @@ const EmptyTemplate = svg``;
  * @prop {string | null} src - Src location of a svg flag
  *
  */
-@customElement('ef-flag', {
-  alias: 'coral-flag'
-})
+@customElement('ef-flag')
 export class Flag extends BasicElement {
 
   /**

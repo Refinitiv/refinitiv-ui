@@ -16,7 +16,7 @@ import '../icon/index.js';
 
 /**
  * Form control for selecting one or several options
- * @fires checked-changed - Fired when the `checked` property changes.
+ * @fires checked-changed - Fired when the user checks or unchecks the checkbox. The event is not fired if the `checked` property is changed programmatically.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
@@ -24,9 +24,7 @@ import '../icon/index.js';
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  */
-@customElement('ef-checkbox', {
-  alias: 'coral-checkbox'
-})
+@customElement('ef-checkbox')
 export class Checkbox extends ControlElement {
   /**
    * Element version number
