@@ -7,6 +7,8 @@ layout: default
 
 # Text Field
 
+@> Content with dashed green border are not interactive. They serve as explanations or illustrations only.
+
 ::
 
 ```javascript
