@@ -84,11 +84,6 @@ export class DistributedCache {
     // Listen messenger message
     this.messenger.onMessage = (message) => {
       const { key, value } = message;
-      // Handle distribution message
-      this.distribution.handleDistribution();
-      if (key === 'coordinator') {
-        return;
-      }
       // Handle leader message
       if (key?.startsWith(this.state.leader)) {
         this.handleLeaderMessage(message);

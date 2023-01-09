@@ -59,17 +59,14 @@ export class Distribution {
       }
     });
     this.messenger.onMessage = () => {
-      this.handleDistribution();
+      // Set coordinator true when found the response message
+      if (!this.coordinator) {
+        this.coordinator = true;
+        // Resonance across messengers
+        this.messenger.notify('coordinator', 'true');
+        // Close distribution messenger
+        this.messenger.close();
+      }
     };
-  }
-
-  public handleDistribution (): void {
-    // Set coordinator true when found the response message
-    if (!this.coordinator) {
-      this.coordinator = true;
-      // Resonance across messengers
-      this.messenger.notify('coordinator', 'true');
-      this.messenger.close();
-    }
   }
 }
