@@ -281,11 +281,20 @@ The icon can become actionable by adding the `icon-has-action` attribute to the 
 
 ```javascript
 ::text-field::
-const element = document.getElementById("feedback");
-element.addEventListener("icon-click", (e) => {
-  element.value = ""
-  element.placeholder = "Feedback sent. Thanks!";
-  element.icon = "tick";
+const feedback = document.getElementById("feedback");
+feedback.addEventListener("icon-click", (e) => {
+  feedback.value = "";
+  feedback.icon = "";
+  feedback.iconHasAction = false;
+});
+feedback.addEventListener("value-changed", (e) => {
+  if (feedback.value) {
+    feedback.icon = "cross";
+    feedback.iconHasAction = true;
+  } else {
+    feedback.icon = "";
+    feedback.iconHasAction = false;
+  }
 });
 ```
 
@@ -299,8 +308,9 @@ ef-text-field {
 <label for="feedback">Feedback</label>
 <ef-text-field
   id="feedback"
+  value="nice job!"
   placeholder="Type your feedback and click the icon"
-  icon="email"
+  icon="cross"
   icon-has-action>
 </ef-text-field>
 ```
@@ -311,18 +321,19 @@ ef-text-field {
 <label for="feedback">Feedback</label>
 <ef-text-field
   id="feedback"
+  value="nice job!"
   placeholder="Type your feedback and click the icon"
-  icon="email"
+  icon="cross"
   icon-has-action>
 </ef-text-field>
 ```
 
 ```javascript
-const element = document.getElementById("feedback");
-element.addEventListener("icon-click", (e) => {
-  element.value = ""
-  element.placeholder = "Feedback sent. Thanks!";
-  element.icon = "tick";
+const feedback = document.getElementById("feedback");
+feedback.addEventListener("icon-click", (e) => {
+  feedback.value = "";
+  feedback.icon = "";
+  feedback.iconHasAction = false;
 });
 ```
 
