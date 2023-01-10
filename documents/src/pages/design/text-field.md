@@ -5,54 +5,6 @@ name: text-field-design
 
 ## Design
 
-### Look and Feel
-
-This is how `<text-field>` in Halo dark theme looks like:
-
-::
-
-```javascript
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/text-field?min';
-import { haloDark } from '/theme-loader.js';
-haloDark('text-field');
-```
-
-```css
-ef-text-field {
-  width: 250px;
-}
-```
-
-```html
-  <label for="first-name">First Name</label>
-  <ef-text-field id="first-name" placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
-```
-
-::
-
-This is how `<text-field>` in Halo light theme looks like:
-
-::
-
-```javascript
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/text-field?min';
-import { haloLight } from '/theme-loader.js';
-haloLight('text-field');
-```
-
-```css
-ef-text-field {
-  width: 250px;
-}
-```
-
-```html
-  <label for="first-name">First Name</label>
-  <ef-text-field id="first-name" placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
-```
-
-::
-
 ### Multiple Example in one `<code-sandbox>`
 
 ::
@@ -103,10 +55,6 @@ label {
 <p class="explainer">Show icon example</p>
 <label for="feedback">Feedback</label>
 <ef-text-field id="feedback" icon="email" placeholder="We appreciate your feedback!"></ef-text-field>
-
-<hr>
-
-<img class="explainer" src="https://articulateusercontent.com/rise/courses/dlwkm37773iuEoCPFByqAqPBkD3NB-uS/w3jNXAy9TaHSPnbs.svg">
 ```
 
 ::

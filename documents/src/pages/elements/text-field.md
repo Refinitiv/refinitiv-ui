@@ -7,8 +7,6 @@ layout: default
 
 # Text Field
 
-@> Content with dashed green border are not interactive. They serve as explanations or illustrations only.
-
 ::
 
 ```javascript
@@ -43,8 +41,6 @@ p {
 ::
 
 `ef-text-field` is a form element for text.
-
-::text-field-design::
 
 ## Implementation
 
@@ -341,3 +337,5 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
 ```
 
 ::a11y-end::
+
+::text-field-design::
