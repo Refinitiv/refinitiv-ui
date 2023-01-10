@@ -7,8 +7,6 @@ layout: default
 
 # Text Field
 
-@> Content with dashed green border are not interactive. They serve as explanations or illustrations only.
-
 ::
 
 ```javascript
@@ -44,123 +42,7 @@ p {
 
 `ef-text-field` is a form element for text.
 
-## Design
-
-### Look and Feel
-
-This is how `<text-field>` in Halo dark theme looks like:
-
-::
-
-```javascript
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/text-field?min';
-import { haloDark } from '/theme-loader.js';
-haloDark('text-field');
-```
-
-```css
-ef-text-field {
-  width: 250px;
-}
-```
-
-```html
-  <label for="first-name">First Name</label>
-  <ef-text-field id="first-name" placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
-```
-
-::
-
-This is how `<text-field>` in Halo light theme looks like:
-
-::
-
-```javascript
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/text-field?min';
-import { haloLight } from '/theme-loader.js';
-haloLight('text-field');
-```
-
-```css
-ef-text-field {
-  width: 250px;
-}
-```
-
-```html
-  <label for="first-name">First Name</label>
-  <ef-text-field id="first-name" placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
-```
-
-::
-
-### Multiple Example in one `<code-sandbox>`
-
-::
-
-```javascript
-::text-field::
-const element = document.getElementById("nickname");
-const errorChangedText = document.getElementById("error-text");
-element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
-  }
-  else {
-    errorChangedText.textContent = "";
-  }
-});
-```
-
-```css
-.explainer {
-  border: 2px dashed green;
-}
-
-#error-text {
-  color:#d94255;
-}
-ef-text-field {
-  width: 300px;
-}
-label {
-  display: block;
-}
-```
-
-```html
-<p class="explainer">Validate input using pattern example</p>
-<label for="nickname">Nickname</label>
-<ef-text-field
-  id="nickname"
-  aria-describedby="error-text"
-  pattern="[a-z]{4,8}"
-  placeholder="Must be lowercase letters between 4-8 characters">
-</ef-text-field>
-<p id="error-text"></p>
-
-<hr>
-
-<p class="explainer">Show icon example</p>
-<label for="feedback">Feedback</label>
-<ef-text-field id="feedback" icon="email" placeholder="We appreciate your feedback!"></ef-text-field>
-
-<hr>
-
-<img class="explainer" src="https://articulateusercontent.com/rise/courses/dlwkm37773iuEoCPFByqAqPBkD3NB-uS/w3jNXAy9TaHSPnbs.svg">
-```
-
-::
-
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius sed et rem quibusdam animi hic, iusto, minus magnam illum non laborum, in molestiae commodi sint nemo! Porro nam voluptas, commodi, perferendis aliquid totam delectus rem explicabo hic, facere doloribus incidunt. Repudiandae error porro, similique delectus aut at quidem. Voluptas, voluptatibus.
-
-### Typography
-
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius sed et rem quibusdam animi hic, iusto, minus magnam illum non laborum, in molestiae commodi sint nemo! Porro nam voluptas, commodi, perferendis aliquid totam delectus rem explicabo hic, facere doloribus incidunt. Repudiandae error porro, similique delectus aut at quidem. Voluptas, voluptatibus.
-
-## Implementation
-
-### Usage
+## Usage
 
 Text field is used to accept text input from users and has similar behaviors to the native text input.
 
@@ -169,7 +51,7 @@ Text field is used to accept text input from users and has similar behaviors to 
 <ef-text-field id="full-name" placeholder="Your name as shown on your passport"></ef-text-field>
 ```
 
-### Getting value
+## Getting value
 
 The field's value can be accessed using the `value` property.
 
@@ -201,7 +83,7 @@ element.addEventListener("value-changed", (e) => {
 });
 ```
 
-### Input validation
+## Input validation
 
 Validation occurs when constraints are provided and the value changes. If the error state changes, it will dispatch an `error-changed` event along with current error state.
 
@@ -209,7 +91,7 @@ Alternatively, you can check the `error` property to confirm if the input is val
 
 See the [Input Length](/elements/text-field#input-length) example for more detail.
 
-### Input length
+## Input length
 
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
 
@@ -263,7 +145,7 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-### Validate input using pattern
+## Validate input using pattern
 
 You can use a regular expression to validate the input value by setting it with the `pattern` attribute.
 
@@ -332,7 +214,7 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-### Show icon
+## Show icon
 
 An inline icon can be set to display inside the input using the `icon` attribute.
 
@@ -406,7 +288,7 @@ element.addEventListener("icon-click", (e) => {
 });
 ```
 
-### Accessibility
+## Accessibility
 
 ::a11y-intro::
 
