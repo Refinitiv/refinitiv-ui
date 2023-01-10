@@ -7,112 +7,227 @@ layout: default
 
 # Text Field
 
+@> Content with dashed green border are not interactive. They serve as explanations or illustrations only.
+
 ::
+
 ```javascript
 ::text-field::
 import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
 halo('panel');
 ```
+
 ```css
 ef-panel {
   max-width: 450px;
 }
-ef-text-field{
+ef-text-field {
   width: 250px;
 }
 p {
   margin-bottom: 4px;
 }
 ```
+
 ```html
 <ef-panel spacing>
-  <p>First name</p>
-  <ef-text-field placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
+  <label for="first-name">First Name</label>
+  <ef-text-field id="first-name" placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
   <br/>
   <br/>
-  <p>Last name</p>
-  <ef-text-field placeholder="Must be letters and at least 5 characters" pattern="[a-zA-Z]{5,}"></ef-text-field>
+  <label for="last-name">Last Name</label>
+  <ef-text-field id="last-name" placeholder="Must be letters and at least 5 characters" pattern="[a-zA-Z]{5,}"></ef-text-field>
 </ef-panel>
 ```
+
 ::
 
 `ef-text-field` is a form element for text.
 
-## Usage
+## Design
+
+### Look and Feel
+
+This is how `<text-field>` in Halo dark theme looks like:
+
+::
+
+```javascript
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements/text-field?min';
+import { haloDark } from '/theme-loader.js';
+haloDark('text-field');
+```
+
+```css
+ef-text-field {
+  width: 250px;
+}
+```
+
+```html
+  <label for="first-name">First Name</label>
+  <ef-text-field id="first-name" placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
+```
+
+::
+
+This is how `<text-field>` in Halo light theme looks like:
+
+::
+
+```javascript
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements/text-field?min';
+import { haloLight } from '/theme-loader.js';
+haloLight('text-field');
+```
+
+```css
+ef-text-field {
+  width: 250px;
+}
+```
+
+```html
+  <label for="first-name">First Name</label>
+  <ef-text-field id="first-name" placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
+```
+
+::
+
+### Multiple Example in one `<code-sandbox>`
+
+::
+
+```javascript
+::text-field::
+const element = document.getElementById("nickname");
+const errorChangedText = document.getElementById("error-text");
+element.addEventListener("error-changed", (e) => {
+  if (e.detail.value) {
+    errorChangedText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
+  }
+  else {
+    errorChangedText.textContent = "";
+  }
+});
+```
+
+```css
+.explainer {
+  border: 2px dashed green;
+}
+
+#error-text {
+  color:#d94255;
+}
+ef-text-field {
+  width: 300px;
+}
+label {
+  display: block;
+}
+```
+
+```html
+<p class="explainer">Validate input using pattern example</p>
+<label for="nickname">Nickname</label>
+<ef-text-field
+  id="nickname"
+  aria-describedby="error-text"
+  pattern="[a-z]{4,8}"
+  placeholder="Must be lowercase letters between 4-8 characters">
+</ef-text-field>
+<p id="error-text"></p>
+
+<hr>
+
+<p class="explainer">Show icon example</p>
+<label for="feedback">Feedback</label>
+<ef-text-field id="feedback" icon="email" placeholder="We appreciate your feedback!"></ef-text-field>
+
+<hr>
+
+<img class="explainer" src="https://articulateusercontent.com/rise/courses/dlwkm37773iuEoCPFByqAqPBkD3NB-uS/w3jNXAy9TaHSPnbs.svg">
+```
+
+::
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius sed et rem quibusdam animi hic, iusto, minus magnam illum non laborum, in molestiae commodi sint nemo! Porro nam voluptas, commodi, perferendis aliquid totam delectus rem explicabo hic, facere doloribus incidunt. Repudiandae error porro, similique delectus aut at quidem. Voluptas, voluptatibus.
+
+### Typography
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius sed et rem quibusdam animi hic, iusto, minus magnam illum non laborum, in molestiae commodi sint nemo! Porro nam voluptas, commodi, perferendis aliquid totam delectus rem explicabo hic, facere doloribus incidunt. Repudiandae error porro, similique delectus aut at quidem. Voluptas, voluptatibus.
+
+## Implementation
+
+### Usage
 
 Text field is used to accept text input from users and has similar behaviors to the native text input.
 
 ```html
-<ef-text-field placeholder="Type something..."></ef-text-field>
+<label for="full-name">Full Name</label>
+<ef-text-field id="full-name" placeholder="Your name as shown on your passport"></ef-text-field>
 ```
 
-## Getting value
+### Getting value
 
 The field's value can be accessed using the `value` property.
 
 ```html
-<ef-text-field id="text-input" value="Hello World"></ef-text-field>
+<label for="full-name">Full Name</label>
+<ef-text-field id="full-name" value="Sarah Connor"></ef-text-field>
 ```
+
 ```javascript
-const textInput = document.getElementById("text-input");
-console.log(textInput.value); // "Hello World"
+const textInput = document.getElementById("full-name");
+console.log(textInput.value); // "Sarah Connor"
 ```
 
-You can also listen for the `value-changed` event, which triggers when user interactions change the value.
-
-::
-```javascript
-::text-field::
-const element = document.getElementById("input");
-const valueChangedText = document.getElementById('value-text');
-
-element.addEventListener("value-changed", (e) => {
-  valueChangedText.innerHTML = e.detail.value;
-});
-```
-```html
-<ef-text-field id="input" placeholder="Type something here .."></ef-text-field>
-<p>Value: <code id="value-text"></code></p>
-```
-::
+You can also listen for the `value-changed` event. This event triggers when user interactions change the value.
 
 ```html
-<ef-text-field id="input" placeholder="Type something here .."></ef-text-field>
-<p>Value: <code id="value-text"></code></p>
+<label for="full-name">full Name</label>
+<ef-text-field
+  id="full-name" 
+  placeholder="Your name as shown on your passport">
+</ef-text-field>
 ```
 
 ```javascript
-const element = document.getElementById("input");
+const element = document.getElementById("full-name");
 
 element.addEventListener("value-changed", (e) => {
   console.log(e.detail.value);
 });
 ```
 
-## Input validation
+### Input validation
 
 Validation occurs when constraints are provided and the value changes. If the error state changes, it will dispatch an `error-changed` event along with current error state.
 
 Alternatively, you can check the `error` property to confirm if the input is valid or not.
 
-## Input length
+See the [Input Length](/elements/text-field#input-length) example for more detail.
+
+### Input length
 
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
 
 ::
+
 ```javascript
 ::text-field::
-const element = document.getElementById("textInput");
+const element = document.getElementById("username");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
-    if (e.detail.value) {
-      errorChangedText.innerHTML = "Value length must be between 5 -8 characters";
-    }
-    else {
-      errorChangedText.innerHTML = "";
-    }
+  if (e.detail.value) {
+    errorChangedText.textContent = "Value length must be between 5-8 characters";
+  } else {
+    errorChangedText.textContent = "";
+  }
 });
 ```
+
 ```css
 #error-text {
   color:#d94255;
@@ -121,80 +236,85 @@ ef-text-field {
   width: 200px;
 }
 ```
+
 ```html
-<ef-text-field id="textInput" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
+<label for="username">Username</label>
+<ef-text-field id="username" aria-describedby="error-text" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
 <p id="error-text"></p>
 ```
+
 ::
 
 ```html
-<ef-text-field
-  minlength="5"
-  maxlength="8"
-  placeholder="Between 5 to 8 characters">
-</ef-text-field>
+<label for="username">Username</label>
+<ef-text-field id="username" aria-describedby="error-text" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
 <p id="error-text"></p>
 ```
 
 ```javascript
-const element = document.getElementById("textInput");
+const element = document.getElementById("username");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
   if (e.detail.value) {
-    errorChangedText.innerHTML = "Value length must be between 5 -8 characters.";
-  }
-  else {
-    errorChangedText.innerHTML = "";
+    errorChangedText.textContent = "Value length must be between 5-8 characters";
+  } else {
+    errorChangedText.textContent = "";
   }
 });
 ```
 
-## Validate input using pattern
+### Validate input using pattern
 
 You can use a regular expression to validate the input value by setting it with the `pattern` attribute.
 
 ::
+
 ```javascript
 ::text-field::
 const element = document.getElementById("nickname");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
   if (e.detail.value) {
-    errorChangedText.innerHTML = "Nickname must be lowercase letters and 4-8 characters.";
+    errorChangedText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
   }
   else {
-    errorChangedText.innerHTML = "";
+    errorChangedText.textContent = "";
   }
 });
 ```
+
 ```css
 #error-text {
   color:#d94255;
 }
 ef-text-field {
-  width: 275px;
+  width: 300px;
 }
 label {
   display: block;
 }
 ```
+
 ```html
 <label for="nickname">Nickname</label>
 <ef-text-field
   id="nickname"
+  aria-describedby="error-text"
   pattern="[a-z]{4,8}"
-  placeholder="Must be lowercase letters and 4-8 characters">
+  placeholder="Must be lowercase letters between 4-8 characters">
 </ef-text-field>
 <p id="error-text"></p>
 ```
+
 ::
 
 ```html
 <label for="nickname">Nickname:</label>
 <ef-text-field
   id="nickname"
+  aria-describedby="error-text"
   pattern="[a-z]{4,8}"
-  placeholder="Must be lowercase letters and 4-8 characters">
+  placeholder="Must be lowercase letters between 4-8 characters">
 </ef-text-field>
 <p id="error-text"></p>
 ```
@@ -204,39 +324,46 @@ const element = document.getElementById("nickname");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
   if (e.detail.value) {
-    errorChangedText.innerHTML = "Nickname must be lowercase letters and 4-8 characters.";
+    errorChangedText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
   }
   else {
-    errorChangedText.innerHTML = "";
+    errorChangedText.textContent = "";
   }
 });
 ```
 
-## Show icon
+### Show icon
 
 An inline icon can be set to display inside the input using the `icon` attribute.
 
 ::
+
 ```javascript
 ::text-field::
 ```
+
 ```css
 ef-text-field {
   width: 200px;
 }
 ```
+
 ```html
-<ef-text-field icon="email" placeholder="We appreciate your feedback!"></ef-text-field>
+<label for="feedback">Feedback</label>
+<ef-text-field id="feedback" icon="email" placeholder="We appreciate your feedback!"></ef-text-field>
 ```
+
 ::
 
 ```html
-<ef-text-field icon="email"></ef-text-field>
+<label for="feedback">Feedback</label>
+<ef-text-field id="feedback" icon="email"></ef-text-field>
 ```
 
 The icon can become actionable by adding the `icon-has-action` attribute to the element, so that `ef-text-field` will fire the `icon-click` event when users click on the icon. You can add an event listener to this event to execute your code.
 
 ::
+
 ```javascript
 ::text-field::
 const element = document.getElementById("feedback");
@@ -246,17 +373,22 @@ element.addEventListener("icon-click", (e) => {
   element.icon = "tick";
 });
 ```
+
 ```css
 ef-text-field {
   width: 250px;
 }
 ```
+
 ```html
+<label for="feedback">Feedback</label>
 <ef-text-field id="feedback" placeholder="Type your feedback and click the icon" icon="email" icon-has-action></ef-text-field>
 ```
+
 ::
 
 ```html
+<label for="feedback">Feedback</label>
 <ef-text-field
   id="feedback"
   placeholder="Type your feedback and click the icon"
@@ -268,41 +400,56 @@ ef-text-field {
 ```javascript
 const element = document.getElementById("feedback");
 element.addEventListener("icon-click", (e) => {
-    element.value = ""
-    element.placeholder = "Feedback sent. Thanks!";
-    element.icon = "tick";
+  element.value = ""
+  element.placeholder = "Feedback sent. Thanks!";
+  element.icon = "tick";
 });
 ```
 
-## Accessibility
+### Accessibility
+
 ::a11y-intro::
 
 `ef-text-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state.
 
-`ef-text-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+`ef-text-field` has already managed the role and states but you must ensure that the element has associated label by using `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`.
+
+`placeholder` attributes should not be used as a label. Use `placeholder` for supporting information only.
+
+If there is an element displaying error of `ef-text-field`, `aria-describedby` should be added to the text field.
 
 ```html
-<ef-text-field placeholder="Enter your full name"></ef-text-field>
-```
-```html
 <ef-text-field 
-  aria-label="Enter your full name"
-  placeholder="Enter your full name">
+  aria-label="Full name"
+  placeholder="Your name as shown on your passport">
 </ef-text-field>
 ```
+
 ```html
-<label id="name">Enter your full name</label>
+<label id="name">Full Name</label>
 <ef-text-field 
   aria-labelledby="name"
-  placeholder="Enter your full name">
+  placeholder="Your name as shown on your passport">
 </ef-text-field>
 ```
+
 ```html
-<label for="name">Enter your full name</label>
+<label for="name">Full Name</label>
 <ef-text-field
   id="name"
-  placeholder="Enter your full name">
+  placeholder="Your name as shown on your passport">
 </ef-text-field>
+```
+
+```html
+<label for="name">Full Name</label>
+<ef-text-field
+  id="name"
+  aria-describedby="error-text"
+  pattern="[a-zA-Z]{3,}"
+  placeholder="Your name as shown on your passport">
+</ef-text-field>
+<p id="error-text">Must be letters at least 3 characters</p> 
 ```
 
 ::a11y-end::
