@@ -3,7 +3,7 @@ type: template
 name: text-field-design
 -->
 
-## Design
+## Design (edit)
 
 ### Multiple Example in one `<code-sandbox>`
 
