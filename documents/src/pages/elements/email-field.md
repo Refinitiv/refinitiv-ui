@@ -33,6 +33,8 @@ p {
 
 `ef-email-field` is a form control to confidently obtain an email input from users.
 
+::email-field-design::
+
 ## Usage
 `ef-email-field` has similar behaviors to the native email input type.
 

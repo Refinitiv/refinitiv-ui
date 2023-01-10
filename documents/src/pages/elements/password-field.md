@@ -82,6 +82,8 @@ ul {
 
 `ef-password-field` is a form control for passwords with a built-in show/hide toggle functionality.
 
+::password-field-design::
+
 ## Usage
 `ef-password-field` behaves similarly to the native password input. It has password masking that allows users to securely type their passwords into the input.
 

@@ -49,6 +49,8 @@ ef-number-field {
 
 `ef-number-field` is a form control element for numerical values.
 
+::number-field-design::
+
 ## Usage
 Number field can be used in a similar fashion to the native number input.
 

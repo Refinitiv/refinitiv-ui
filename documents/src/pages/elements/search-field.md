@@ -20,6 +20,8 @@ halo('panel');
 
 `ef-search-field` is a form control input designed to receive search query input from users.
 
+::search-field-design::
+
 ## Usage
 `ef-search-field` has identical behavior to native text input and `ef-text-field`, except that the icon isn't customizable.
 
