@@ -30,11 +30,19 @@ p {
 ```html
 <ef-panel spacing>
   <label for="first-name">First Name</label>
-  <ef-text-field id="first-name" placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
+  <ef-text-field
+    id="first-name"
+    placeholder="Must be letters and at least 5 characters"
+    pattern="[a-zA-Z]{5,}">
+  </ef-text-field>
   <br/>
   <br/>
   <label for="last-name">Last Name</label>
-  <ef-text-field id="last-name" placeholder="Must be letters and at least 5 characters" pattern="[a-zA-Z]{5,}"></ef-text-field>
+  <ef-text-field
+    id="last-name"
+    placeholder="Must be letters and at least 5 characters"
+    pattern="[a-zA-Z]{5,}">
+  </ef-text-field>
 </ef-panel>
 ```
 
@@ -48,7 +56,10 @@ Text field is used to accept text input from users and has similar behaviors to 
 
 ```html
 <label for="full-name">Full Name</label>
-<ef-text-field id="full-name" placeholder="Your name as shown on your passport"></ef-text-field>
+<ef-text-field
+  id="full-name"
+  placeholder="Your name as shown on your passport">
+</ef-text-field>
 ```
 
 ## Getting value
@@ -57,7 +68,10 @@ The field's value can be accessed using the `value` property.
 
 ```html
 <label for="full-name">Full Name</label>
-<ef-text-field id="full-name" value="Sarah Connor"></ef-text-field>
+<ef-text-field
+  id="full-name"
+  value="Sarah Connor">
+</ef-text-field>
 ```
 
 ```javascript
@@ -121,7 +135,13 @@ ef-text-field {
 
 ```html
 <label for="username">Username</label>
-<ef-text-field id="username" aria-describedby="error-text" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
+<ef-text-field
+  id="username"
+  aria-describedby="error-text"
+  minlength="5"
+  maxlength="8"
+  placeholder="Between 5 to 8 characters">
+</ef-text-field>
 <p id="error-text"></p>
 ```
 
@@ -129,7 +149,13 @@ ef-text-field {
 
 ```html
 <label for="username">Username</label>
-<ef-text-field id="username" aria-describedby="error-text" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
+<ef-text-field
+  id="username"
+  aria-describedby="error-text"
+  minlength="5"
+  maxlength="8"
+  placeholder="Between 5 to 8 characters">
+</ef-text-field>
 <p id="error-text"></p>
 ```
 
@@ -232,14 +258,21 @@ ef-text-field {
 
 ```html
 <label for="feedback">Feedback</label>
-<ef-text-field id="feedback" icon="email" placeholder="We appreciate your feedback!"></ef-text-field>
+<ef-text-field
+  id="feedback"
+  icon="email"
+  placeholder="We appreciate your feedback!">
+</ef-text-field>
 ```
 
 ::
 
 ```html
 <label for="feedback">Feedback</label>
-<ef-text-field id="feedback" icon="email"></ef-text-field>
+<ef-text-field
+  id="feedback"
+  icon="email">
+</ef-text-field>
 ```
 
 The icon can become actionable by adding the `icon-has-action` attribute to the element, so that `ef-text-field` will fire the `icon-click` event when users click on the icon. You can add an event listener to this event to execute your code.
@@ -264,7 +297,12 @@ ef-text-field {
 
 ```html
 <label for="feedback">Feedback</label>
-<ef-text-field id="feedback" placeholder="Type your feedback and click the icon" icon="email" icon-has-action></ef-text-field>
+<ef-text-field
+  id="feedback"
+  placeholder="Type your feedback and click the icon"
+  icon="email"
+  icon-has-action>
+</ef-text-field>
 ```
 
 ::
