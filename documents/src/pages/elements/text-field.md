@@ -300,7 +300,7 @@ feedback.addEventListener("value-changed", (e) => {
 
 ```css
 ef-text-field {
-  width: 250px;
+  width: 200px;
 }
 ```
 
