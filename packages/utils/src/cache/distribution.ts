@@ -1,72 +1,139 @@
-import { CacheMessenger } from './messenger.js';
 import { CACHE_PREFIX } from './constants.js';
+import type { CacheStorage } from './interfaces/CacheStorage';
+import { CacheMessenger, type Message } from './messenger.js';
+import { Coordinator } from './coordinator.js';
 
 export type DistributionState = {
-  request: `${string}[request]`,
-  leader: `${string}[leader]`,
+  loading: `${string}[loading]`,
   unloaded: `${string}[unloaded]`
 };
 
 export class Distribution {
 
+  protected lockRequests = new Map<string, boolean>();
+
+  /**
+   * Storage to store data
+   */
+  protected storage!: CacheStorage;
+
   /**
    * Cache messenger for distribute cache
    */
-  protected messenger: CacheMessenger;
+  protected requestMsg: CacheMessenger;
 
   /**
-   * Cache leader messenger for distribute cache
+   * Cache messenger for distribute cache
    */
-  protected leaderMessenger: CacheMessenger;
+  protected cacheMsg: CacheMessenger;
 
   /**
    * Names for manage all states temporary
    */
   public state: DistributionState;
 
-  /**
-   * Request coodinator is exist to working with
-   */
-  public coordinator = false;
+  private coordinator: Coordinator;
 
-  constructor (name: string, leaderMessenger: CacheMessenger) {
+  /**
+   * List of promise needed be resolved by messaging
+   */
+  protected resolvePool = new Map<string, CallableFunction>();
+
+  constructor (name: string, storage: CacheStorage) {
     const stateName = `[${CACHE_PREFIX}][${name}]`;
-    this.messenger = new CacheMessenger(`${name}-distribution`);
-    this.leaderMessenger = leaderMessenger;
+    
+    this.requestMsg = new CacheMessenger(`${name}-request`);
+    this.cacheMsg = new CacheMessenger(`${name}-cache`);
+    this.storage = storage;
     this.state = {
-      request: `${stateName}[request]`,
-      leader: `${stateName}[leader]`,
+      loading: `${stateName}[loading]`,
       unloaded: `${stateName}[unloaded]`
     };
     this.listen();
-    // Send message to resonance across messengers
-    this.messenger.notify('coordinator', 'true');
+    this.coordinator = new Coordinator(stateName);
   }
   private listen (): void {
-    // Listen storage event for leader election
-    window.addEventListener('storage', ({ key, newValue }) => {
-      // Handle request event
-      if (key?.startsWith(this.state.request) && newValue) {
-        const itemKey = key.replace(`${this.state.request}-`, '');
-        const leaderKey = `${this.state.leader}-${itemKey}`;
-        // Set a new leader if does not exists
-        if (!localStorage.getItem(leaderKey)) {
-          // Save Leader
-          localStorage.setItem(leaderKey, newValue);
-          // Notify election results to leader
-          this.leaderMessenger.notify(`${this.state.leader}-${itemKey}`, newValue);
+    this.requestMsg.onMessage = (message: Message) => {
+      const { key, value } = message;
+      if (this.coordinator.isReceiver(key)) {
+        const requester = key.split('|')[1];
+        if (this.resolvePool.has(value) && !this.lockRequests.has(value)) {
+          const resolve = this.resolvePool.get(value);
+          if (resolve) {
+            this.lockRequest(value);
+            resolve(null);
+          }
+        }
+        else if (!this.lockRequests.has(value)) {
+          this.lockRequest(value);
+          this.requestMsg.notify(`${requester}|${this.coordinator.id}`, value);
         }
       }
-    });
-    this.messenger.onMessage = () => {
-      // Set coordinator true when found the response message
-      if (!this.coordinator) {
-        this.coordinator = true;
-        // Resonance across messengers
-        this.messenger.notify('coordinator', 'true');
-        // Close distribution messenger
-        this.messenger.close();
+    };
+
+    this.cacheMsg.onMessage = (message: Message) => {
+      const { key, value } = message;
+      if (!this.storage.hasActive(key)) {
+        this.setActiveCache(key, value);
+      }
+      if (this.resolvePool.has(key)) {
+        const resolve = this.resolvePool.get(key);
+        if (resolve) {
+          resolve(value);
+          // Clean request state and waiting list from key
+          this.resolvePool.delete(key);
+          this.lockRequests.delete(key);
+        }
       }
     };
+  }
+
+  public processRequest (key: string, resolve: CallableFunction): void {
+    const loadingKey = `${this.state.loading}-${key}`;
+    const isLoading = localStorage.getItem(loadingKey);
+    if (this.coordinator.isHost() && !this.resolvePool.has(key) && !this.lockRequests.has(key)) {
+      if (!isLoading) {
+        localStorage.setItem(loadingKey, 'true');
+        this.lockRequest(key);
+        resolve(null);
+      }
+      else {
+        this.resolvePool.set(key, resolve);
+      }
+    }
+    else if (!this.resolvePool.has(key)) {
+      this.resolvePool.set(key, resolve);
+      if (!isLoading) {
+        localStorage.setItem(loadingKey, 'true');
+        this.requestMsg.notify(`${this.coordinator.getHost()}|${this.coordinator.id}`, key);
+      }
+    }
+  }
+
+  public messageCache (key: string, value: string): void {
+    this.setActiveCache(key, value);
+    this.resolvePool.delete(key);
+    this.cacheMsg.notify(key, value);
+  }
+
+  /**
+   * Caches a value to memory cache without writing to storage
+   * @param key Cache key
+   * @param value Data to store in cache
+   * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
+   * @returns {void}
+   */
+  public setActiveCache (key: string, value: string, expires = 432000): void {
+    const modified = Date.now();
+    const data = {
+      value: value,
+      modified: Date.now(),
+      expires: modified + expires * 1000
+    };
+    this.storage.setActive(key, data);
+  }
+
+  private lockRequest (key: string): void {
+    this.lockRequests.set(key, true);
   }
 }

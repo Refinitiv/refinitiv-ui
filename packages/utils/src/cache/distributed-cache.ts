@@ -1,15 +1,9 @@
 import { LocalStorage } from './storages/localstorage.js';
 import { IndexedDBStorage } from './storages/indexeddb.js';
-import { CacheMessenger, type Message } from './messenger.js';
 import type { CacheStorage } from './interfaces/CacheStorage';
-import { uuid } from '../uuid.js';
 import { Distribution, type DistributionState } from './distribution.js';
 export interface DistributedCacheConfig {
   storage: 'localstorage' | 'indexeddb';
-}
-
-type Requests = {
-  [key: string]: string
 }
 
 /**
@@ -21,21 +15,6 @@ export class DistributedCache {
    * Storage to store data
    */
   protected storage!: CacheStorage;
-
-  /**
-   * Requests cached from localStorage
-   */
-  protected requests: Requests = {};
-
-  /**
-   * List of promise needed be resolved by messaging
-   */
-  protected waiting = new Map<string, CallableFunction>();
-
-  /**
-   * Cache messenger for distribute cache
-   */
-  protected messenger: CacheMessenger;
 
   /**
    * Names for manage all states temporary
@@ -69,68 +48,9 @@ export class DistributedCache {
     else {
       throw new TypeError('Unknown storage type');
     }
-    this.messenger = new CacheMessenger(name);
-    this.distribution = new Distribution(name, this.messenger);
-    this.listenMessenger();
+    this.distribution = new Distribution(name, this.storage);
     this.state = this.distribution.state;
     this.handleUnload();
-  }
-
-  /**
-   * Initialize listening events from messenger and storage
-   * @returns {void}
-   */
-  private listenMessenger (): void {
-    // Listen messenger message
-    this.messenger.onMessage = (message) => {
-      const { key, value } = message;
-      // Handle leader message
-      if (key?.startsWith(this.state.leader)) {
-        this.handleLeaderMessage(message);
-      }
-      else {
-        // Set message value to active cache
-        if (!this.storage.hasActive(key)) {
-          this.setActiveCache(key, value);
-        }
-        this.handleFollowerMessage(message);
-      }
-    };
-  }
-
-  /**
-   * Leader Action: load when receive a matched message
-   * @param message messenger message
-   * @returns {void}
-   */
-  private handleLeaderMessage ({ key, value }: Message): void {
-    const itemKey = key.replace(`${this.state.leader}-`, '');
-    // Check the request is belong to itself
-    if (value && this.requests[itemKey] === value) {
-      const resolve = this.waiting.get(itemKey);
-      if (resolve) {
-        // Resolve null to load as a leader
-        resolve(null);
-      }
-    }
-  }
-
-  /**
-   * Follower Action: resolve value when receive a matched message
-   * @param message messenger message
-   * @returns {void}
-   */
-  private handleFollowerMessage ({ key, value }: Message): void {
-    // Check the message is matched to waiting list
-    if (this.waiting.has(key)) {
-      const resolve = this.waiting.get(key);
-      if (resolve) {
-        resolve(value);
-        // Clean request state and waiting list from key
-        delete this.requests[key];
-        this.waiting.delete(key);
-      }
-    }
   }
 
   /**
@@ -172,8 +92,7 @@ export class DistributedCache {
         modified,
         expires: modified + expires * 1000
       };
-      // Notify data to follower
-      this.messenger.notify(key, cacheValue);
+      this.distribution.messageCache(key, cacheValue);
       // Set data to cache
       await this.storage.set(key, data);
       // Clean up temporary state
@@ -195,77 +114,7 @@ export class DistributedCache {
     if (item && item.expires > Date.now()) {
       return item.value;
     }
-    const hasRequest = this.hasRequest(key);
-    // Add to request list if not exist
-    if (!hasRequest) {
-      this.addRequest(key);
-    }
-    // Return null to load it self when do not have coordinator
-    if (!hasRequest && !this.distribution.coordinator) {
-      return null;
-    }
-    // Return promise and wait to resolve in waiting list
-    return new Promise<string | null>(resolve => this.addWaiting(key, resolve));
-  }
-
-  /**
-   * Caches a value to memory cache without writing to storage
-   * @param key Cache key
-   * @param value Data to store in cache
-   * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
-   * @returns {void}
-   */
-  protected setActiveCache (key: string, value: string, expires = 432000): void {
-    const modified = Date.now();
-    const data = {
-      value: value,
-      modified: Date.now(),
-      expires: modified + expires * 1000
-    };
-
-    this.storage.setActive(key, data);
-  }
-
-  /**
-   * Add the started request to the state that is used in checking a duplicated request across other messengers
-   * @param key item key
-   * @return {void}
-   */
-  protected addRequest (key: string): void {
-    const id = uuid();
-    this.requests[key] = id;
-    localStorage.setItem(`${this.state.request}-${key}`, id);
-  }
-
-  /**
-   * Check key is already started request across messengers
-   * @param key resource name
-   * @returns true if resource has started request
-   */
-  protected hasRequest (key: string): boolean {
-    let result = false;
-    // Checking from caching states first, if not found then check on localStorage
-    if (key in this.requests) {
-      return true;
-    }
-    else {
-      result = localStorage.getItem(`${this.state.request}-${key}`) !== null;
-      if (result) {
-        // Cache a request state for reduce checking on localStorage
-        this.requests[key] = 'waiting';
-      }
-      return result;
-    }
-  }
-
-  /**
-   * Add an item to the waiting list
-   * @param key item key
-   * @param value callback function
-   * @returns {void}
-   */
-  protected addWaiting (key: string, value: CallableFunction): void {
-    this.waiting.set(key, value);
+    return new Promise<string | null>(resolve => this.distribution.processRequest(key, resolve));
   }
 
   /**
@@ -274,7 +123,7 @@ export class DistributedCache {
    */
   protected getStateKeys (): string[] {
     return Object.keys(localStorage)
-      .filter(key => [this.state.leader, this.state.request, this.state.unloaded]
+      .filter(key => [this.state.loading, this.state.unloaded]
         .some(prefix => key.startsWith(prefix)));
   }
 
@@ -287,8 +136,6 @@ export class DistributedCache {
       localStorage.removeItem(key);
     });
 
-    this.requests = {};
-    this.waiting.clear();
   }
 
   /**
@@ -297,10 +144,7 @@ export class DistributedCache {
    * @returns {void}
    */
   private cleanItem (key: string): void {
-    localStorage.removeItem(`${this.state.request}-${key}`);
-    localStorage.removeItem(`${this.state.leader}-${key}`);
-    delete this.requests[key];
-    this.waiting.delete(key);
+    localStorage.removeItem(`${this.state.loading}-${key}`);
   }
 
   /**
