@@ -1,7 +1,6 @@
 import { uuid } from '../uuid.js';
 import { CacheMessenger, type Message } from './messenger.js';
 
-
 export class Coordinator {
 
   private hostKey;
@@ -10,33 +9,33 @@ export class Coordinator {
 
   public id;
 
-  protected hostMsg: CacheMessenger;
+  protected messenger: CacheMessenger;
 
 
   constructor (stateName: string) {
     this.hostKey = `${stateName}[coordinator]`;
     const id = uuid();
     this.id = id;
-    this.hostMsg = new CacheMessenger(`${stateName}-host`);
+    this.messenger = new CacheMessenger(`${stateName}-host`);
     this.listen();
 
     const host = localStorage.getItem(this.hostKey);
     if (host) {
-      this.hostMsg.notify('ping_to_host', host);
+      this.messenger.notify('ping_to_host', host);
     }
     else {
       // Set ourself as Host
       localStorage.setItem(this.hostKey, this.id);
       this.host = this.id;
-      this.hostMsg.notify('host_response', this.id);
+      this.messenger.notify('host_response', this.id);
     }
   }
 
   private listen (): void {
-    this.hostMsg.onMessage = (message: Message) => {
+    this.messenger.onMessage = (message: Message) => {
       const { key, value } = message;
       if (key === 'ping_to_host' && value === this.id) {
-        this.hostMsg.notify('host_response', this.id);
+        this.messenger.notify('host_response', this.id);
       }
       else if (key === 'host_response') {
         if (this.host && this.host !== value) {
@@ -45,7 +44,7 @@ export class Coordinator {
             this.host = host;
           }
           else {
-            this.hostMsg.notify('host_response', this.id);
+            this.messenger.notify('host_response', this.id);
           }
         }
         else if (!this.host) {
@@ -63,7 +62,7 @@ export class Coordinator {
   }
   public getHost (): string {
     if (this.host !== this.id) {
-      this.hostMsg.close();
+      this.messenger.close();
     }
     if (this.host) {
       return this.host;

@@ -10,7 +10,10 @@ export type DistributionState = {
 
 export class Distribution {
 
-  protected lockRequests = new Map<string, boolean>();
+  /**
+   * List of locked request to prevent duplicate request
+   */
+  protected lockedRequests = new Map<string, boolean>();
 
   /**
    * Storage to store data
@@ -18,32 +21,35 @@ export class Distribution {
   protected storage!: CacheStorage;
 
   /**
-   * Cache messenger for distribute cache
+   * Request messenger for distribute cache
    */
-  protected requestMsg: CacheMessenger;
+  protected requestMsgr: CacheMessenger;
 
   /**
    * Cache messenger for distribute cache
    */
-  protected cacheMsg: CacheMessenger;
+  protected cacheMsgr: CacheMessenger;
 
   /**
    * Names for manage all states temporary
    */
   public state: DistributionState;
 
+  /**
+   * Find coordinator host
+   */
   private coordinator: Coordinator;
 
   /**
    * List of promise needed be resolved by messaging
    */
-  protected resolvePool = new Map<string, CallableFunction>();
+  protected waiting = new Map<string, CallableFunction>();
 
   constructor (name: string, storage: CacheStorage) {
     const stateName = `[${CACHE_PREFIX}][${name}]`;
     
-    this.requestMsg = new CacheMessenger(`${name}-request`);
-    this.cacheMsg = new CacheMessenger(`${name}-cache`);
+    this.requestMsgr = new CacheMessenger(`${name}-request`);
+    this.cacheMsgr = new CacheMessenger(`${name}-cache`);
     this.storage = storage;
     this.state = {
       loading: `${stateName}[loading]`,
@@ -53,36 +59,36 @@ export class Distribution {
     this.coordinator = new Coordinator(stateName);
   }
   private listen (): void {
-    this.requestMsg.onMessage = (message: Message) => {
+    this.requestMsgr.onMessage = (message: Message) => {
       const { key, value } = message;
-      if (this.coordinator.isReceiver(key)) {
+      if (!this.lockedRequests.has(value) && this.coordinator.isReceiver(key)) {
         const requester = key.split('|')[1];
-        if (this.resolvePool.has(value) && !this.lockRequests.has(value)) {
-          const resolve = this.resolvePool.get(value);
+        if (this.waiting.has(value)) {
+          const resolve = this.waiting.get(value);
           if (resolve) {
             this.lockRequest(value);
             resolve(null);
           }
         }
-        else if (!this.lockRequests.has(value)) {
+        else {
           this.lockRequest(value);
-          this.requestMsg.notify(`${requester}|${this.coordinator.id}`, value);
+          this.requestMsgr.notify(`${requester}|${this.coordinator.id}`, value);
         }
       }
     };
 
-    this.cacheMsg.onMessage = (message: Message) => {
+    this.cacheMsgr.onMessage = (message: Message) => {
       const { key, value } = message;
       if (!this.storage.hasActive(key)) {
         this.setActiveCache(key, value);
       }
-      if (this.resolvePool.has(key)) {
-        const resolve = this.resolvePool.get(key);
+      if (this.waiting.has(key)) {
+        const resolve = this.waiting.get(key);
         if (resolve) {
           resolve(value);
           // Clean request state and waiting list from key
-          this.resolvePool.delete(key);
-          this.lockRequests.delete(key);
+          this.waiting.delete(key);
+          this.lockedRequests.delete(key);
         }
       }
     };
@@ -91,29 +97,25 @@ export class Distribution {
   public processRequest (key: string, resolve: CallableFunction): void {
     const loadingKey = `${this.state.loading}-${key}`;
     const isLoading = localStorage.getItem(loadingKey);
-    if (this.coordinator.isHost() && !this.resolvePool.has(key) && !this.lockRequests.has(key)) {
-      if (!isLoading) {
+    if (!this.lockedRequests.has(key) && !this.waiting.has(key)) {
+      if (this.coordinator.isHost() && !isLoading) {
         localStorage.setItem(loadingKey, 'true');
         this.lockRequest(key);
         resolve(null);
+        return;
       }
-      else {
-        this.resolvePool.set(key, resolve);
-      }
-    }
-    else if (!this.resolvePool.has(key)) {
-      this.resolvePool.set(key, resolve);
+      this.waiting.set(key, resolve);
       if (!isLoading) {
         localStorage.setItem(loadingKey, 'true');
-        this.requestMsg.notify(`${this.coordinator.getHost()}|${this.coordinator.id}`, key);
+        this.requestMsgr.notify(`${this.coordinator.getHost()}|${this.coordinator.id}`, key);
       }
     }
   }
 
   public messageCache (key: string, value: string): void {
     this.setActiveCache(key, value);
-    this.resolvePool.delete(key);
-    this.cacheMsg.notify(key, value);
+    this.waiting.delete(key);
+    this.cacheMsgr.notify(key, value);
   }
 
   /**
@@ -134,6 +136,6 @@ export class Distribution {
   }
 
   private lockRequest (key: string): void {
-    this.lockRequests.set(key, true);
+    this.lockedRequests.set(key, true);
   }
 }
