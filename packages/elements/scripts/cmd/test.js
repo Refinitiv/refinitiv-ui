@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const { execSync } = require('child_process');
+const { exit } = require('process');
 const {
   defaultBrowsers,
   availableBrowsers,
@@ -65,7 +66,7 @@ exports.handler = (argv) => {
   const browsers = argv.browsers.join(' ');
   const browserstack = argv.browserstack ? argv.browserstack.join(' ') : null;
 
-  info(watch ? `Start Karma Server: ${ element }` : `Test: ${ element }`);
+  info(watch ? `Start Dev Server: ${ element }` : `Test: ${ element }`);
 
   if (snapshots) {
     info(`Update and prune snapshots: ${ element }`);
@@ -73,12 +74,15 @@ exports.handler = (argv) => {
 
   try {
     execSync('node cli build --sourceMap --declarationMap');
-    const command = ['karma', 'start', 'karma.config.js', `--package=${PACKAGE_NAME}`];
-    watch && command.push('--watch');
-    snapshots && command.push('--snapshots');
-    browserstack && command.push(`--browserstack ${browserstack}`);
-    !browserstack && browsers && command.push(`-b ${browsers}`);
-    command.push(`--output ${argv.output}`);
+    const command = ['wtr', `--config="web-test-runner.config.js"`, `--package=${PACKAGE_NAME}`];
+
+    // TODO: need to make the WTR support the options below
+    // const command = ['karma', 'start', 'karma.config.js', `--package=${PACKAGE_NAME}`];
+    // watch && command.push('--watch');
+    // snapshots && command.push('--snapshots');
+    // browserstack && command.push(`--browserstack ${browserstack}`);
+    // !browserstack && browsers && command.push(`-b ${browsers}`);
+    // command.push(`--output ${argv.output}`);
 
     execSync(command.join(' '), {
       stdio: 'inherit',
