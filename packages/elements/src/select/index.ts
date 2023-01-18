@@ -129,6 +129,7 @@ export class Select extends ControlElement implements MultiValue {
         right: 0;
         bottom: 0;
         left: 0;
+        cursor: pointer;
       }
       #select {
         position: absolute;
