@@ -7,10 +7,11 @@ export class Coordinator {
 
   private host: string | undefined;
 
+  private lastCoordinator: string | undefined;
+
   public id;
 
   protected messenger: CacheMessenger;
-
 
   constructor (stateName: string) {
     this.hostKey = `${stateName}[coordinator]`;
@@ -21,7 +22,7 @@ export class Coordinator {
 
     const host = localStorage.getItem(this.hostKey);
     if (host) {
-      this.messenger.notify('ping_to_host', host);
+      this.messenger.notify('ping_to_host', `${host}|${this.id}`);
     }
     else {
       // Set ourself as Host
@@ -34,8 +35,14 @@ export class Coordinator {
   private listen (): void {
     this.messenger.onMessage = (message: Message) => {
       const { key, value } = message;
-      if (key === 'ping_to_host' && value === this.id) {
-        this.messenger.notify('host_response', this.id);
+      if (key === 'ping_to_host') {
+        const [requestHost, requester] = value.split('|');
+        if (requestHost === this.id) {
+          this.messenger.notify('host_response', this.id);
+        }
+        else {
+          this.lastCoordinator = requester;
+        }
       }
       else if (key === 'host_response') {
         if (this.host && this.host !== value) {
@@ -55,16 +62,22 @@ export class Coordinator {
   }
 
   public isReceiver (key: string): boolean {
-    return key?.startsWith(this.id);
+    return key === this.id;
   }
+  
   public isHost (): boolean {
     return this.getHost() === this.id;
   }
+
   public getHost (): string {
     if (this.host !== this.id) {
       this.messenger.close();
     }
     if (this.host) {
+      return this.host;
+    }
+    else if (this.lastCoordinator) {
+      this.host = this.lastCoordinator;
       return this.host;
     }
     localStorage.setItem(this.hostKey, this.id);

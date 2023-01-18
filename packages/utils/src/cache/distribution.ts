@@ -4,7 +4,7 @@ import { CacheMessenger, type Message } from './messenger.js';
 import { Coordinator } from './coordinator.js';
 
 export type DistributionState = {
-  loading: `${string}[loading]`,
+  locked: `${string}[locked]`,
   unloaded: `${string}[unloaded]`
 };
 
@@ -47,12 +47,11 @@ export class Distribution {
 
   constructor (name: string, storage: CacheStorage) {
     const stateName = `[${CACHE_PREFIX}][${name}]`;
-    
     this.requestMsgr = new CacheMessenger(`${name}-request`);
     this.cacheMsgr = new CacheMessenger(`${name}-cache`);
     this.storage = storage;
     this.state = {
-      loading: `${stateName}[loading]`,
+      locked: `${stateName}[locked]`,
       unloaded: `${stateName}[unloaded]`
     };
     this.listen();
@@ -61,19 +60,31 @@ export class Distribution {
   private listen (): void {
     this.requestMsgr.onMessage = (message: Message) => {
       const { key, value } = message;
-      if (!this.lockedRequests.has(value) && this.coordinator.isReceiver(key)) {
-        const requester = key.split('|')[1];
-        if (this.waiting.has(value)) {
-          const resolve = this.waiting.get(value);
-          if (resolve) {
-            this.lockRequest(value);
-            resolve(null);
+      const [requestType, receiver, requester] = key.split('|');
+      if (this.coordinator.isReceiver(receiver)) {
+        if (requestType === 'RequestLeader' && !this.lockedRequests.has(value)) {
+          if (this.waiting.has(value)) {
+            const resolve = this.waiting.get(value);
+            if (resolve) {
+              resolve(null);
+            }
+          }
+          else {
+            this.requestMsgr.notify(`LeaderRequest|${requester}|${this.coordinator.id}`, value);
           }
         }
-        else {
-          this.lockRequest(value);
-          this.requestMsgr.notify(`${requester}|${this.coordinator.id}`, value);
+        else if (requestType === 'LeaderRequest') {
+          if (this.isRequestOwner(value, receiver)) {
+            const resolve = this.waiting.get(value);
+            if (resolve) {
+              resolve(null);
+            }
+          }
+          else {
+            this.requestMsgr.notify(`LeaderRequest|${localStorage.getItem(`${this.state.locked}-${value}`) || ''}|${this.coordinator.id}`, value);
+          }
         }
+        this.lockLocalRequest(value);
       }
     };
 
@@ -89,26 +100,24 @@ export class Distribution {
           // Clean request state and waiting list from key
           this.waiting.delete(key);
           this.lockedRequests.delete(key);
+          localStorage.removeItem(`${this.state.locked}-${key}`);
         }
       }
     };
   }
 
   public processRequest (key: string, resolve: CallableFunction): void {
-    const loadingKey = `${this.state.loading}-${key}`;
-    const isLoading = localStorage.getItem(loadingKey);
-    if (!this.lockedRequests.has(key) && !this.waiting.has(key)) {
-      if (this.coordinator.isHost() && !isLoading) {
-        localStorage.setItem(loadingKey, 'true');
-        this.lockRequest(key);
+    if (!this.waiting.has(key)) {
+      this.waiting.set(key, resolve);
+    }
+    if (!this.isLockedRequests(key)) {
+      this.lockRequest(key);
+      const isHost = this.coordinator.isHost();
+      if (isHost) {
         resolve(null);
         return;
       }
-      this.waiting.set(key, resolve);
-      if (!isLoading) {
-        localStorage.setItem(loadingKey, 'true');
-        this.requestMsgr.notify(`${this.coordinator.getHost()}|${this.coordinator.id}`, key);
-      }
+      this.requestMsgr.notify(`RequestLeader|${this.coordinator.getHost()}|${this.coordinator.id}`, key);
     }
   }
 
@@ -116,6 +125,10 @@ export class Distribution {
     this.setActiveCache(key, value);
     this.waiting.delete(key);
     this.cacheMsgr.notify(key, value);
+  }
+
+  public isRequestOwner (key: string, id: string): boolean {
+    return localStorage.getItem(`${this.state.locked}-${key}`) === id;
   }
 
   /**
@@ -136,6 +149,19 @@ export class Distribution {
   }
 
   private lockRequest (key: string): void {
+    this.lockLocalRequest(key);
+    localStorage.setItem(`${this.state.locked}-${key}`, this.coordinator.id);
+  }
+  private lockLocalRequest (key: string): void {
     this.lockedRequests.set(key, true);
+  }
+
+  private isLockedRequests (key: string): boolean {
+    if (this.lockedRequests.has(key)) {
+      return true;
+    }
+    else {
+      return localStorage.getItem(`${this.state.locked}-${key}`) !== null;
+    }
   }
 }

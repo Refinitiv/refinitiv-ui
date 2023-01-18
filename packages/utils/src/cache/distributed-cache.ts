@@ -123,7 +123,7 @@ export class DistributedCache {
    */
   protected getStateKeys (): string[] {
     return Object.keys(localStorage)
-      .filter(key => [this.state.loading, this.state.unloaded]
+      .filter(key => [this.state.locked, this.state.unloaded]
         .some(prefix => key.startsWith(prefix)));
   }
 
@@ -135,7 +135,6 @@ export class DistributedCache {
     this.getStateKeys().forEach(key => {
       localStorage.removeItem(key);
     });
-
   }
 
   /**
@@ -144,7 +143,7 @@ export class DistributedCache {
    * @returns {void}
    */
   private cleanItem (key: string): void {
-    localStorage.removeItem(`${this.state.loading}-${key}`);
+    localStorage.removeItem(`${this.state.locked}-${key}`);
   }
 
   /**
