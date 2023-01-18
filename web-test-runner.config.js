@@ -19,6 +19,7 @@ const testAll = packageName === 'all' || packageName === undefined;
 module.exports = {
   files: [path.join(PACKAGES_ROOT, `${ testAll ? '*' : packageName }/__test__/**/*.test.js`)],
   nodeResolve: true,
+  concurrentBrowsers: 3,
   browsers: [
     playwrightLauncher({ product: 'chromium' }, {
       headless: true,
@@ -28,6 +29,9 @@ module.exports = {
       ]
     }),
     playwrightLauncher({ product: 'firefox' }, {
+      headless: true,
+    }),
+    playwrightLauncher({ product: 'webkit' }, {
       headless: true,
     }),
   ],

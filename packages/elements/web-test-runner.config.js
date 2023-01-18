@@ -8,6 +8,7 @@ const testAll = ELEMENT === 'all' || ELEMENT === undefined;
 module.exports = {
   files: [path.join(ELEMENTS_ROOT, 'src', `${ testAll ? '*' : ELEMENT }/__test__/**/*.test.js`)],
   nodeResolve: true,
+  concurrentBrowsers: 3,
   browsers: [
     playwrightLauncher({ product: 'chromium' }, {
       headless: true,
@@ -17,6 +18,9 @@ module.exports = {
       ]
     }),
     playwrightLauncher({ product: 'firefox' }, {
+      headless: true,
+    }),
+    playwrightLauncher({ product: 'webkit' }, {
       headless: true,
     }),
   ],
