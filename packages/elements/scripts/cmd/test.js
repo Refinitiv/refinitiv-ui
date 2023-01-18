@@ -77,7 +77,6 @@ exports.handler = (argv) => {
     const command = ['wtr', `--config="web-test-runner.config.js"`, `--package=${PACKAGE_NAME}`];
 
     // TODO: need to make the WTR support the options below
-    // const command = ['karma', 'start', 'karma.config.js', `--package=${PACKAGE_NAME}`];
     // watch && command.push('--watch');
     // snapshots && command.push('--snapshots');
     // browserstack && command.push(`--browserstack ${browserstack}`);

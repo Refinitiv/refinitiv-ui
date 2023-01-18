@@ -13,7 +13,7 @@ if (isWin) {
 }
 
 if (isDarwin) {
-  // defaultBrowsers.push('safari'); /* there is a bug https://github.com/karma-runner/karma-safari-launcher/issues/29, so do not include it by default  */
+  defaultBrowsers.push('safari');
   availableBrowsers.push('safari');
 }
 
