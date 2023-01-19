@@ -257,7 +257,7 @@ describe('button/Button', () => {
 
     it('should have aria-pressed="true" when it is pressed', async () => {
       const el = await fixture(`<ef-button toggles active>Toggle</ef-button>`);
-      expect(el).to.be.accessible({
+      await expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr', 'color-contrast']
       });
       await expect(el.getAttribute('aria-pressed')).to.equal('true');
