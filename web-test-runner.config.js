@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const path = require('path');
 const { playwrightLauncher } = require('@web/test-runner-playwright');
-const { ROOT, PACKAGES_ROOT, PACKAGES } = require('./scripts/helpers');
+const { ROOT, PACKAGES_ROOT } = require('./scripts/helpers');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 
@@ -19,6 +19,18 @@ const testAll = packageName === 'all' || packageName === undefined;
 module.exports = {
   files: [path.join(PACKAGES_ROOT, `${ testAll ? '*' : packageName }/__test__/**/*.test.js`)],
   nodeResolve: true,
+  coverage: true,
+  coverageConfig: {
+    include: [path.join(PACKAGES_ROOT, 'lib', '/**/*')],
+    report: true,
+    reportDir: 'coverage',
+    threshold: {
+      statements: 80,
+      branches: 80,
+      functions: 80,
+      lines: 80,
+    },
+  },
   concurrentBrowsers: 3,
   browsers: [
     playwrightLauncher({ product: 'chromium' }, {
