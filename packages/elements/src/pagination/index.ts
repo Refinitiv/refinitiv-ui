@@ -16,7 +16,6 @@ import { VERSION } from '../version.js';
 import '../button/index.js';
 import '../button-bar/index.js';
 import '../layout/index.js';
-import '../text-field/index.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/pagination.js';
 import { translate, Translate, TranslateDirectiveResult } from '@refinitiv-ui/translate';

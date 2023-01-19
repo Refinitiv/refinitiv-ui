@@ -16,7 +16,6 @@ import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 
 import '../icon/index.js';
-import '../text-field/index.js';
 import '../pill/index.js';
 import '../button/index.js';
 import '../checkbox/index.js';
