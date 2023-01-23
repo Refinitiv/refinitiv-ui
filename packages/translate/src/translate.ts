@@ -156,7 +156,7 @@ const translate = function (options?: string | DecoratorOptions): TranslateFunct
     // Cannot use an element itself as a key.
     // Element may have multiple translate directives with different scope
     // Therefore we need a truly unique key
-    const keys = new WeakMap<HTMLElement, ObserverKey>();
+    const keys = new WeakMap<BasicElement, ObserverKey>();
     const connectedCallback = prototype.connectedCallback;
 
     prototype.connectedCallback = function (): void {
