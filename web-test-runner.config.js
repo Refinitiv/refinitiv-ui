@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const path = require('path');
 const { playwrightLauncher } = require('@web/test-runner-playwright');
+const { defaultReporter, summaryReporter } = require('@web/test-runner');
 const { ROOT, PACKAGES_ROOT } = require('./scripts/helpers');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
@@ -10,6 +11,13 @@ const argv = yargs(hideBin(process.argv))
     type: 'string',
     alias: 'p',
     description: 'Package name'
+  })
+  .option('output', {
+    type: 'string',
+    alias: 'o',
+    default: 'full',
+    choices: ['full', 'minimal'],
+    description: 'Print output to the console'
   })
   .argv
 
@@ -32,6 +40,10 @@ module.exports = {
       lines: 80,
     },
   },
+  reporters: [
+    defaultReporter({ reportTestResults: true, reportTestProgress: true }),
+    argv.output === 'full' ? summaryReporter() : ''
+  ],
   concurrentBrowsers: 3,
   browsers: [
     playwrightLauncher({ product: 'chromium' }, {

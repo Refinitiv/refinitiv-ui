@@ -81,7 +81,7 @@ exports.handler = (argv) => {
     // TODO: need to make the WTR support the options below
     // browserstack && command.push(`--browserstack ${browserstack}`);
     // !browserstack && browsers && command.push(`-b ${browsers}`);
-    // command.push(`--output ${argv.output}`);
+    command.push(`--output=${argv.output}`);
 
     execSync(command.join(' '), {
       stdio: 'inherit',
