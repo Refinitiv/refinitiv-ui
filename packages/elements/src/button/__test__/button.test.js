@@ -7,7 +7,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-button';
 describe('button/Button', () => {
   it('should be created', async () => {
     const el = await fixture(html`<ef-button>Button</ef-button>`);
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('should be instance of HTMLElement', async () => {
