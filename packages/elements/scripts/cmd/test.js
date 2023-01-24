@@ -77,7 +77,7 @@ exports.handler = (argv) => {
     const command = ['wtr', `--config="web-test-runner.config.js"`, `--package=${PACKAGE_NAME}`];
 
     // TODO: need to make the WTR support the options below
-    // watch && command.push('--watch');
+    watch && command.push('--watch');
     // snapshots && command.push('--snapshots');
     // browserstack && command.push(`--browserstack ${browserstack}`);
     // !browserstack && browsers && command.push(`-b ${browsers}`);
