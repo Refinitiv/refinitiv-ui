@@ -76,9 +76,9 @@ exports.handler = (argv) => {
     execSync('node cli build --sourceMap --declarationMap');
     const command = ['wtr', `--config="web-test-runner.config.js"`, `--package=${PACKAGE_NAME}`];
 
-    // TODO: need to make the WTR support the options below
     watch && command.push('--watch');
-    // snapshots && command.push('--snapshots');
+    snapshots && command.push('--update-snapshots');
+    // TODO: need to make the WTR support the options below
     // browserstack && command.push(`--browserstack ${browserstack}`);
     // !browserstack && browsers && command.push(`-b ${browsers}`);
     // command.push(`--output ${argv.output}`);
