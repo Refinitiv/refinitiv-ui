@@ -11,7 +11,7 @@ config.files = [
   path.join(ELEMENTS_ROOT, 'src', `${ testAll ? '*' : ELEMENT }/__test__/**/*.test.js`),
   '!**/node_modules/**/*', // exclude any node modules
 ];
-config.coverageConfig.include = [path.join(ELEMENTS_ROOT, 'lib', ELEMENT, '/**/*')];
+config.coverageConfig.include = [path.join(ELEMENTS_ROOT, 'lib', `${ testAll ? '' : ELEMENT }/**/*`)];
 config.coverageConfig.reportDir = path.join('coverage', ELEMENT);
 
 module.exports = config;
