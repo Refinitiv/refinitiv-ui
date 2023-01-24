@@ -15,13 +15,14 @@ const argv = yargs(hideBin(process.argv))
 
 const packageName = argv.package || path.basename(process.cwd()); // if no package provided, try to guess
 const testAll = packageName === 'all' || packageName === undefined;
+const basePath = path.join(PACKAGES_ROOT, testAll ? '*' : packageName);
 
 module.exports = {
-  files: [path.join(PACKAGES_ROOT, `${ testAll ? '*' : packageName }/__test__/**/*.test.js`)],
+  files: [path.join(basePath , '/__test__/**/*.test.js')],
   nodeResolve: true,
   coverage: true,
   coverageConfig: {
-    include: [path.join(PACKAGES_ROOT, 'lib', '/**/*')],
+    include: [path.join(basePath , 'lib/**/*.js')],
     report: true,
     reportDir: 'coverage',
     threshold: {
