@@ -132,11 +132,9 @@ const observeTranslations = function (this: BasicElement, scope = this.localName
  * @param key Observe key from the `observeTranslations` function
  * @returns {void}
  */
-const disconnectTranslations = function (this: BasicElement, key: ObserverKey | undefined): void {
+const disconnectTranslations = function (this: BasicElement, key: ObserverKey): void {
   LangAttributeObserver.disconnect(this);
-  if (key) {
-    Phrasebook.disconnect(key);
-  }
+  Phrasebook.disconnect(key);
 };
 
 /**
@@ -167,7 +165,7 @@ const translate = function (options?: string | DecoratorOptions): TranslateFunct
     const disconnectedCallback = prototype.disconnectedCallback;
     prototype.disconnectedCallback = function (): void {
       disconnectedCallback.call(this);
-      disconnectTranslations.call(this, keys.get(this));
+      disconnectTranslations.call(this, keys.get(this) || '');
       keys.delete(this);
     };
 
