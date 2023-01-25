@@ -30,7 +30,7 @@ module.exports = {
   nodeResolve: true,
   coverage: true,
   coverageConfig: {
-    include: [path.join(basePath , 'lib/**/*.js')],
+    include: [`**/${ packageName }/lib/**/*.js`],
     report: true,
     reportDir: 'coverage',
     threshold: {
