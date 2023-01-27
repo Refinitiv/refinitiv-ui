@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.3.0...@refinitiv-ui/elemental-theme@6.3.1) (2023-01-27)
+
+
+### Bug Fixes
+
+* **elements:** default overflow tooltip not working on TextField Button and Pill ([#573](https://github.com/Refinitiv/refinitiv-ui/issues/573)) ([a0919ef](https://github.com/Refinitiv/refinitiv-ui/commit/a0919efe646b5154af88c35c50c81f438334944b))
+* **select:** unset cursor of header items ([#571](https://github.com/Refinitiv/refinitiv-ui/issues/571)) ([eff8a75](https://github.com/Refinitiv/refinitiv-ui/commit/eff8a75a68f23348178f05c716db673c97acf2f1))
+
+
+
+
+
 # [6.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.2.2...@refinitiv-ui/elemental-theme@6.3.0) (2023-01-06)
 
 

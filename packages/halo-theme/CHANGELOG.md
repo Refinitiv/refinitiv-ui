@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.4.0...@refinitiv-ui/halo-theme@6.4.1) (2023-01-27)
+
+
+### Bug Fixes
+
+* **select:** unset cursor of header items ([#571](https://github.com/Refinitiv/refinitiv-ui/issues/571)) ([eff8a75](https://github.com/Refinitiv/refinitiv-ui/commit/eff8a75a68f23348178f05c716db673c97acf2f1))
+
+
+
+
+
 # [6.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.3.2...@refinitiv-ui/halo-theme@6.4.0) (2023-01-06)
 
 

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.6.0...@refinitiv-ui/elements@6.6.1) (2023-01-27)
+
+
+### Bug Fixes
+
+* **list:** renderer key property typescript issue ([#575](https://github.com/Refinitiv/refinitiv-ui/issues/575)) ([1a960c9](https://github.com/Refinitiv/refinitiv-ui/commit/1a960c9234fb4a370b60d3901e65b437b1444823))
+* **pagination, tree-select:** remove unused element imports ([#572](https://github.com/Refinitiv/refinitiv-ui/issues/572)) ([0bfc2f5](https://github.com/Refinitiv/refinitiv-ui/commit/0bfc2f5eccd0a6ea50c3927d71d545df20c79d90))
+* **select:** unset cursor of header items ([#571](https://github.com/Refinitiv/refinitiv-ui/issues/571)) ([eff8a75](https://github.com/Refinitiv/refinitiv-ui/commit/eff8a75a68f23348178f05c716db673c97acf2f1))
+
+
+
+
+
 # [6.6.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.5.3...@refinitiv-ui/elements@6.6.0) (2023-01-06)
 
 
