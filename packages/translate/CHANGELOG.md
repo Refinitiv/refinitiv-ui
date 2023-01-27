@@ -9,13 +9,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 * **translate:** memory leak translate directive removing wrong observer key ([#577](https://github.com/Refinitiv/refinitiv-ui/issues/577)) ([1224bdf](https://github.com/Refinitiv/refinitiv-ui/commit/1224bdf54f480df1a8960b4bd12a58961ad44bd9))
-* **translate:** use Map to save key instead of plain object to prevent it from being replaced when a new element is created. ([#574](https://github.com/Refinitiv/refinitiv-ui/issues/574)) ([53cc22d](https://github.com/Refinitiv/refinitiv-ui/commit/53cc22d4c3913027b6369f1cde5d7af6d8800102))
-
-
-### Reverts
-
-* Revert "fix(translate): use Map to save key instead of plain object to prevent it from being replaced when a new element is created. (#574)" (#576) ([592aebc](https://github.com/Refinitiv/refinitiv-ui/commit/592aebc6ab616d32eab6a79e77d0dca0a4eaa9e7)), closes [#574](https://github.com/Refinitiv/refinitiv-ui/issues/574) [#576](https://github.com/Refinitiv/refinitiv-ui/issues/576)
-
 
 
 
