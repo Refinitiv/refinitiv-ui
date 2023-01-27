@@ -16,7 +16,6 @@ import { VERSION } from '../version.js';
 import '../button/index.js';
 import '../button-bar/index.js';
 import '../layout/index.js';
-import '../text-field/index.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/pagination.js';
 import { translate, Translate, TranslateDirectiveResult } from '@refinitiv-ui/translate';
@@ -28,7 +27,7 @@ enum Direction {
 
 /**
  * Used to control and navigate through multiple pages
- * @fires value-changed - Fired when the `value` property is changed
+ * @fires value-changed - Fired when the user interacts with the control to change pages and so the `value` property changed. The event is not triggered if `value` is changed programmatically.
  */
 @customElement('ef-pagination')
 export class Pagination extends BasicElement {

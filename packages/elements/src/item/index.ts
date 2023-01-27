@@ -76,7 +76,7 @@ export class Item extends ControlElement {
 
   /**
    * The text for the label indicating the meaning of the item.
-   * By having both `label` and content, `label` always takes priority
+   * By having both `label` and content, content always takes priority
    */
   @property({ type: String })
   public label: string | null = null;
@@ -114,6 +114,7 @@ export class Item extends ControlElement {
 
   /**
    * The`subLabel` property represents the text beneath the label.
+   * By having both `subLabel` and content, content always takes priority
    */
   @property({ type: String, reflect: true, attribute: 'sub-label' })
   public subLabel: string | null = null;
@@ -228,7 +229,6 @@ export class Item extends ControlElement {
    * @returns return item content from slot or label and sub-label
    */
   private getItemContent (): string {
-    
     if (this.isSlotEmpty) {
       let text = '';
       if (this.label) {
