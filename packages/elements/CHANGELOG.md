@@ -8,7 +8,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **list:** renderer key property typescript issue ([#575](https://github.com/Refinitiv/refinitiv-ui/issues/575)) ([1a960c9](https://github.com/Refinitiv/refinitiv-ui/commit/1a960c9234fb4a370b60d3901e65b437b1444823))
+* **list:** error custom renderer requires key ([#575](https://github.com/Refinitiv/refinitiv-ui/issues/575)) ([1a960c9](https://github.com/Refinitiv/refinitiv-ui/commit/1a960c9234fb4a370b60d3901e65b437b1444823))
 * **pagination, tree-select:** remove unused element imports ([#572](https://github.com/Refinitiv/refinitiv-ui/issues/572)) ([0bfc2f5](https://github.com/Refinitiv/refinitiv-ui/commit/0bfc2f5eccd0a6ea50c3927d71d545df20c79d90))
 * **select:** unset cursor of header items ([#571](https://github.com/Refinitiv/refinitiv-ui/issues/571)) ([eff8a75](https://github.com/Refinitiv/refinitiv-ui/commit/eff8a75a68f23348178f05c716db673c97acf2f1))
 
