@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.2.1...@refinitiv-ui/core@6.3.0) (2023-01-06)
+
+
+### Features
+
+* remove alias ([#553](https://github.com/Refinitiv/refinitiv-ui/issues/553)) ([32ce300](https://github.com/Refinitiv/refinitiv-ui/commit/32ce300e6ea0f730abd95f305b15cce406dab1c7))
+
+
+
+
+
 ## [6.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.2.0...@refinitiv-ui/core@6.2.1) (2022-12-01)
 
 **Note:** Version bump only for package @refinitiv-ui/core

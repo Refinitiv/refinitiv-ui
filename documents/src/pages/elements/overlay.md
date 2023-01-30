@@ -48,23 +48,6 @@ section {
 
 `ef-overlay` is a base modal container for components. It helps create dialogs, tooltips, menus and other elements that should appear on top of the main application window. It is highly configurable, including positioning, attaching to elements, transition styles, backdrops and much more.
 
-## Usage
-
-* [Position against window](./elements/overlay#position-against-window)
-* [Attach to target](./elements/overlay#attach-to-target)
-* [Position against target](./elements/overlay#position-against-target)
-* [Position strategy](./elements/overlay#position-strategy)
-* [Customize behavior](./elements/overlay#customize-behavior)
-
-## Advanced usage
-* [Advanced attributes](./elements/overlay#advanced-attributes)
-* [Control focus behavior](./elements/overlay#control-focus-behavior)
-* [Control focus behavior](./elements/overlay#control-focus-behavior)
-
----
-
-<br>
-
 ## Using overlay
 
 `ef-overlay` is typically initiated by a user action. The overlay can be opened by setting the `opened` property. Remove the property to close the overlay. In addition, the user can close the overlay by clicking outside overlay area or by pressing the ESC key.
@@ -395,11 +378,6 @@ section {
 | slide-left-down   | Slide down from the top right to bottom left |
 | slide-left-up     | Slide up from the bottom right to top left   |
 
-<br>
-
-## Advanced Usage
-
----
 ## Applying exotic CSS properties
 
 `ef-overlay` calculates `x` and `y` coordinates based on screen dimension and position target (if any). An overlay using `position: fixed` is removed from the normal document flow and is positioned relative to the initial containing block established by the viewport. The positioning algorithm assumes that overlay, viewport and positionTarget are located within the same coordinate system.

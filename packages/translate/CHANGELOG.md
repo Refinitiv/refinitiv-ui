@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.14](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.13...@refinitiv-ui/translate@6.0.14) (2023-01-27)
+
+
+### Bug Fixes
+
+* **translate:** memory leak translate directive removing wrong observer key ([#577](https://github.com/Refinitiv/refinitiv-ui/issues/577)) ([1224bdf](https://github.com/Refinitiv/refinitiv-ui/commit/1224bdf54f480df1a8960b4bd12a58961ad44bd9))
+
+
+
+
+## [6.0.13](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.12...@refinitiv-ui/translate@6.0.13) (2023-01-06)
+
+**Note:** Version bump only for package @refinitiv-ui/translate
+
+
+
+
+
 ## [6.0.12](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.11...@refinitiv-ui/translate@6.0.12) (2022-12-01)
 
 **Note:** Version bump only for package @refinitiv-ui/translate
