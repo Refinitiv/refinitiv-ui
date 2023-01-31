@@ -1,11 +1,8 @@
-# `overlay-menu/Snapshot`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `Snapshot Test`
-
-####   `DOM structure with flatData is correct`
-
-```html
-<ef-item
+snapshots["overlay-menu/Snapshot Snapshot Test DOM structure with flatData is correct"] = 
+`<ef-item
   aria-selected="false"
   role="presentation"
   style="pointer-events: none;"
@@ -49,13 +46,11 @@
   tabindex="0"
 >
 </ef-item>
+`;
+/* end snapshot overlay-menu/Snapshot Snapshot Test DOM structure with flatData is correct */
 
-```
-
-####   `DOM structure with flatMarkup is correct`
-
-```html
-<ef-item
+snapshots["overlay-menu/Snapshot Snapshot Test DOM structure with flatMarkup is correct"] = 
+`<ef-item
   aria-selected="false"
   style="pointer-events: none;"
   tabindex="-1"
@@ -110,6 +105,6 @@
 >
   Item Hidden
 </ef-item>
-
-```
+`;
+/* end snapshot overlay-menu/Snapshot Snapshot Test DOM structure with flatMarkup is correct */
 
