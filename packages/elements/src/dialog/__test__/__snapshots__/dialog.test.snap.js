@@ -1,9 +1,8 @@
-# `dialog/Dialog`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-#### `Should renders DOM structure correctly`
-
-```html
-<ef-header
+snapshots["dialog/Dialog Should renders DOM structure correctly"] = 
+`<ef-header
   drag-handle=""
   level="2"
   part="header"
@@ -46,6 +45,6 @@
     </div>
   </slot>
 </div>
-
-```
+`;
+/* end snapshot dialog/Dialog Should renders DOM structure correctly */
 

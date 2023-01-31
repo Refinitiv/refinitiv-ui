@@ -10,7 +10,7 @@ describe('dialog/Dialog', () => {
   it('Should renders DOM structure correctly', async () => {
     const el = await fixture('<ef-dialog></ef-dialog>');
 
-    expect(el).shadowDom.to.equalSnapshot({
+    await expect(el).shadowDom.to.equalSnapshot({
       ignoreAttributes: ['class', 'tabindex']
     });
   });
