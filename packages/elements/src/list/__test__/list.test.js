@@ -60,7 +60,7 @@ const iterateKeyboardEvent = async (el, scope, keys = [], highlighted = []) => {
 describe('list/List', () => {
   describe('Label and DOM structure is correct', async () => {
 
-    it('Light DOM', async () => {
+    it('DOM', async () => {
       const el = await fixture('<ef-list></ef-list>');
       await expect(el).to.equalSnapshot();
     });
@@ -76,7 +76,7 @@ describe('list/List', () => {
   });
 
   describe('Supports setting a data array', async () => {
-    it('Light DOM', async () => {
+    it('DOM', async () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await expect(el).to.equalSnapshot();
@@ -89,7 +89,7 @@ describe('list/List', () => {
   });
 
   describe('Supports setting a data composer', async () => {
-    it('Light DOM', async () => {
+    it('DOM', async () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = new CollectionComposer(data);
       await expect(el).to.equalSnapshot();
@@ -102,7 +102,7 @@ describe('list/List', () => {
   });
 
   describe('Supports setting null data', async () => {
-    it('Light DOM', async () => {
+    it('DOM', async () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = null;
       await expect(el).to.equalSnapshot();
