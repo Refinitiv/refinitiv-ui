@@ -13,13 +13,13 @@ describe('number-field/NumberField', () => {
   describe('Dom Structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-number-field></ef-number-field>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure without spinner is correct', async () => {
       const el = await fixture('<ef-number-field></ef-number-field>');
       el.setAttribute('no-spinner', true);
       await elementUpdated();
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
@@ -83,9 +83,7 @@ describe('number-field/NumberField', () => {
     });
     it('Should display correct placeholder when it is set directly', async () => {
       const el = await fixture('<ef-number-field></ef-number-field>');
-      const PLACEHOLDER_TEXT = 'This is placeholder';
-
-      el.placeholder = PLACEHOLDER_TEXT;
+      el.placeholder = 'This is placeholder';
       await elementUpdated(el);
       expect(el.getAttribute('placeholder')).to.equal(null);
     });
