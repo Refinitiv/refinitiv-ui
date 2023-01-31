@@ -1,13 +1,53 @@
-# `tornado-chart/TornadoChartItem`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `TornadoItem`
+snapshots["tornado-chart/TornadoChartItem TornadoItem Snapshots DOM structure with values, labels and highlighted state is correct"] = 
+`<ef-layout
+  flex=""
+  nowrap=""
+  part="container"
+>
+  <ef-layout
+    flex=""
+    size="25%"
+  >
+    <div part="label">
+      <slot>
+      </slot>
+    </div>
+  </ef-layout>
+  <ef-layout
+    basis="40%"
+    flex=""
+  >
+    <ef-progress-bar
+      alignment="right"
+      label="5%"
+      part="primary-bar"
+      value="5"
+    >
+    </ef-progress-bar>
+  </ef-layout>
+  <div part="seperator">
+  </div>
+  <ef-layout
+    basis="40%"
+    flex=""
+  >
+    <ef-progress-bar
+      alignment="left"
+      label="95%"
+      part="secondary-bar"
+      value="95"
+    >
+    </ef-progress-bar>
+  </ef-layout>
+</ef-layout>
+`;
+/* end snapshot tornado-chart/TornadoChartItem TornadoItem Snapshots DOM structure with values, labels and highlighted state is correct */
 
-##   `Snapshots`
-
-####     `DOM structure is correct`
-
-```html
-<ef-layout
+snapshots["tornado-chart/TornadoChartItem TornadoItem Snapshots DOM structure is correct"] = 
+`<ef-layout
   flex=""
   nowrap=""
   part="container"
@@ -44,13 +84,56 @@
     </ef-progress-bar>
   </ef-layout>
 </ef-layout>
+`;
+/* end snapshot tornado-chart/TornadoChartItem TornadoItem Snapshots DOM structure is correct */
 
-```
+snapshots["tornado-chart/TornadoChartItem TornadoItem Snapshots DOM structure with values and labels is correct"] = 
+`<ef-layout
+  flex=""
+  nowrap=""
+  part="container"
+>
+  <ef-layout
+    flex=""
+    size="25%"
+  >
+    <div part="label">
+      <slot>
+      </slot>
+    </div>
+  </ef-layout>
+  <ef-layout
+    basis="40%"
+    flex=""
+  >
+    <ef-progress-bar
+      alignment="right"
+      label="5%"
+      part="primary-bar"
+      value="5"
+    >
+    </ef-progress-bar>
+  </ef-layout>
+  <div part="seperator">
+  </div>
+  <ef-layout
+    basis="40%"
+    flex=""
+  >
+    <ef-progress-bar
+      alignment="left"
+      label="95%"
+      part="secondary-bar"
+      value="95"
+    >
+    </ef-progress-bar>
+  </ef-layout>
+</ef-layout>
+`;
+/* end snapshot tornado-chart/TornadoChartItem TornadoItem Snapshots DOM structure with values and labels is correct */
 
-####     `DOM structure with vertical property is correct`
-
-```html
-<ef-layout
+snapshots["tornado-chart/TornadoChartItem TornadoItem Snapshots DOM structure with vertical property is correct"] = 
+`<ef-layout
   container=""
   flex=""
   nowrap=""
@@ -79,100 +162,6 @@
     </ef-progress-bar>
   </ef-layout>
 </ef-layout>
-
-```
-
-####     `DOM structure with values and labels is correct`
-
-```html
-<ef-layout
-  flex=""
-  nowrap=""
-  part="container"
->
-  <ef-layout
-    flex=""
-    size="25%"
-  >
-    <div part="label">
-      <slot>
-      </slot>
-    </div>
-  </ef-layout>
-  <ef-layout
-    basis="40%"
-    flex=""
-  >
-    <ef-progress-bar
-      alignment="right"
-      label="5%"
-      part="primary-bar"
-      value="5"
-    >
-    </ef-progress-bar>
-  </ef-layout>
-  <div part="seperator">
-  </div>
-  <ef-layout
-    basis="40%"
-    flex=""
-  >
-    <ef-progress-bar
-      alignment="left"
-      label="95%"
-      part="secondary-bar"
-      value="95"
-    >
-    </ef-progress-bar>
-  </ef-layout>
-</ef-layout>
-
-```
-
-####     `DOM structure with values, labels and highlighted state is correct`
-
-```html
-<ef-layout
-  flex=""
-  nowrap=""
-  part="container"
->
-  <ef-layout
-    flex=""
-    size="25%"
-  >
-    <div part="label">
-      <slot>
-      </slot>
-    </div>
-  </ef-layout>
-  <ef-layout
-    basis="40%"
-    flex=""
-  >
-    <ef-progress-bar
-      alignment="right"
-      label="5%"
-      part="primary-bar"
-      value="5"
-    >
-    </ef-progress-bar>
-  </ef-layout>
-  <div part="seperator">
-  </div>
-  <ef-layout
-    basis="40%"
-    flex=""
-  >
-    <ef-progress-bar
-      alignment="left"
-      label="95%"
-      part="secondary-bar"
-      value="95"
-    >
-    </ef-progress-bar>
-  </ef-layout>
-</ef-layout>
-
-```
+`;
+/* end snapshot tornado-chart/TornadoChartItem TornadoItem Snapshots DOM structure with vertical property is correct */
 

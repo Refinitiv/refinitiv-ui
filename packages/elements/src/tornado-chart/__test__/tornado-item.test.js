@@ -6,16 +6,9 @@ import '@refinitiv-ui/elemental-theme/light/ef-tornado-chart.js';
 describe('tornado-chart/TornadoChartItem', () => {
   describe('TornadoItem', () => {
     describe('Snapshots', () => {
-      const IGNORE = {
-        ignoreAttributes: [
-          { tags: ['ef-progress-bar'], attributes: ['class'] },
-          { tags: ['ef-layout'], attributes: ['class', 'style'] }
-        ]
-      };
-
       it('DOM structure is correct', async () => {
         const el = await fixture('<ef-tornado-item></ef-tornado-item>');
-        expect(el).shadowDom.to.equalSnapshot({
+        await expect(el).shadowDom.to.equalSnapshot({
           ignoreAttributes: [{
             tags: ['ef-layout'], attributes: ['style']
           }]
@@ -23,7 +16,7 @@ describe('tornado-chart/TornadoChartItem', () => {
       });
       it('DOM structure with vertical property is correct', async () => {
         const el = await fixture('<ef-tornado-item vertical></ef-tornado-item>');
-        expect(el).shadowDom.to.equalSnapshot({
+        await expect(el).shadowDom.to.equalSnapshot({
           ignoreAttributes: [{
             tags: ['ef-layout'], attributes: ['style']
           }]
@@ -39,7 +32,7 @@ describe('tornado-chart/TornadoChartItem', () => {
       >
         Finland
       </ef-tornado-item>`);
-        expect(el).shadowDom.to.equalSnapshot({
+        await expect(el).shadowDom.to.equalSnapshot({
           ignoreAttributes: [{
             tags: ['ef-layout'], attributes: ['style']
           }]
@@ -56,7 +49,7 @@ describe('tornado-chart/TornadoChartItem', () => {
       >
         Finland
       </ef-tornado-item>`);
-        expect(el).shadowDom.to.equalSnapshot({
+        await expect(el).shadowDom.to.equalSnapshot({
           ignoreAttributes: [{
             tags: ['ef-layout'], attributes: ['style']
           }]

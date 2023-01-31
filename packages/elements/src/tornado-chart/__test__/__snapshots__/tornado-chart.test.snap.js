@@ -1,11 +1,8 @@
-# `tornado-chart/TornadoChart`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `Snapshots`
-
-####   `DOM structure is correct`
-
-```html
-<slot name="header">
+snapshots["tornado-chart/TornadoChart Snapshots DOM structure is correct"] = 
+`<slot name="header">
 </slot>
 <div part="legend">
   <div part="legend-item">
@@ -27,6 +24,6 @@
 </slot>
 <slot name="footer">
 </slot>
-
-```
+`;
+/* end snapshot tornado-chart/TornadoChart Snapshots DOM structure is correct */
 
