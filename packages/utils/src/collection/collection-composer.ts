@@ -490,6 +490,8 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
     let index = this.items.indexOf(item);
     while (index > 0) {
       const next = this.items[index -= 1];
+      /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+      // @ts-ignore
       if (next.items?.includes(item)) {
         return next;
       }

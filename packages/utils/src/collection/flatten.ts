@@ -29,6 +29,8 @@ const processNested = <T extends CollectionItem>(items: T[], result = new FlatRe
     const item = items[i];
     result.items.push(item);
     result.depths.push(depth);
+    /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+    // @ts-ignore
     item.items && processNested(item.items, result, depth + 1);
   }
   return result;

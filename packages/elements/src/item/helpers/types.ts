@@ -2,7 +2,7 @@ import type { DataItem } from '@refinitiv-ui/utils/collection.js';
 
 type ItemType = 'text' | 'header' | 'divider';
 
-interface CommonItem extends DataItem {
+interface CommonItem extends DataItem<ItemData> {
   /**
    * Type of item. Value can be `text`, `header`, `divider`
    */

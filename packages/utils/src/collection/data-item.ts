@@ -4,7 +4,7 @@ import { CollectionItem } from './collection-item.js';
  * Basic-level data item,
  * used for all elements which accept a `data` property
  */
-export interface DataItem extends CollectionItem {
+export interface DataItem<T = void> extends CollectionItem<T> {
   /**
    * Value of the data item.
    * This is usually the value which is returned,
