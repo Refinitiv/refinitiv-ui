@@ -1,9 +1,8 @@
-# `sidebar-layout/SidebarLayout`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-#### `Has correct shadow dom structure`
-
-```html
-<ef-layout
+snapshots["sidebar-layout/SidebarLayout Has correct shadow dom structure"] = 
+`<ef-layout
   flex=""
   nowrap=""
   part="container"
@@ -44,6 +43,6 @@
     </ef-layout>
   </ef-layout>
 </ef-layout>
-
-```
+`;
+/* end snapshot sidebar-layout/SidebarLayout Has correct shadow dom structure */
 
