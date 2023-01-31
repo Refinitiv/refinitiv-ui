@@ -9,27 +9,27 @@ describe('tab/Tab', () => {
   describe('DOM Structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-tab></ef-tab>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure with label is correct', async () => {
       const el = await fixture('<ef-tab label="Home"></ef-tab>');
-      expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class', 'style'] });
+      await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class', 'style'] });
     });
     it('DOM structure with sub label is correct', async () => {
       const el = await fixture('<ef-tab label="Home" sub-label="Secondary Info"></ef-tab>');
-      expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class', 'style'] });
+      await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class', 'style'] });
     });
     it('DOM structure with slotted content is correct', async () => {
       const el = await fixture('<ef-tab>Slotted Content</ef-tab>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure with icon is correct', async () => {
       const el = await fixture('<ef-tab icon="home"></ef-tab>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure with clear button is correct', async () => {
       const el = await fixture('<ef-tab clears></ef-tab>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
   describe('Label', () => {
