@@ -1,11 +1,8 @@
-# `datetime-picker/DOMStructure`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `DOM Structure`
-
-####   `DOM structure is correct`
-
-```html
-<div part="input-wrapper">
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct"] = 
+`<div part="input-wrapper">
   <ef-text-field
     id="input"
     part="input"
@@ -19,75 +16,11 @@
   part="icon"
 >
 </ef-icon>
+`;
+/* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct */
 
-```
-
-####   `DOM structure is correct when opened`
-
-```html
-<div part="input-wrapper">
-  <ef-text-field
-    id="input"
-    part="input"
-    tabindex="0"
-    transparent=""
-  >
-  </ef-text-field>
-</div>
-<ef-icon
-  icon="calendar"
-  part="icon"
->
-</ef-icon>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
-  first-resize-done=""
-  no-autofocus=""
-  no-cancel-on-esc-key=""
-  opened=""
-  part="list"
-  tabindex="0"
-  with-shadow=""
->
-  <div>
-    <slot name="header">
-    </slot>
-  </div>
-  <div part="body">
-    <div>
-      <slot name="left">
-      </slot>
-    </div>
-    <div part="selectors-wrapper">
-      <div part="calendar-wrapper">
-        <ef-calendar
-          id="calendar"
-          lang="en-gb"
-          part="calendar"
-          role="group"
-          tabindex="0"
-        >
-        </ef-calendar>
-      </div>
-    </div>
-    <div>
-      <slot name="right">
-      </slot>
-    </div>
-  </div>
-  <div>
-    <slot name="footer">
-    </slot>
-  </div>
-</ef-overlay>
-
-```
-
-####   `DOM structure is correct when range`
-
-```html
-<div part="input-wrapper">
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when range"] = 
+`<div part="input-wrapper">
   <ef-text-field
     id="input"
     part="input"
@@ -153,83 +86,11 @@
     </slot>
   </div>
 </ef-overlay>
+`;
+/* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when range */
 
-```
-
-####   `DOM structure is correct when duplex`
-
-```html
-<div part="input-wrapper">
-  <ef-text-field
-    id="input"
-    part="input"
-    tabindex="0"
-    transparent=""
-  >
-  </ef-text-field>
-</div>
-<ef-icon
-  icon="calendar"
-  part="icon"
->
-</ef-icon>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
-  first-resize-done=""
-  no-autofocus=""
-  no-cancel-on-esc-key=""
-  opened=""
-  part="list"
-  tabindex="0"
-  with-shadow=""
->
-  <div>
-    <slot name="header">
-    </slot>
-  </div>
-  <div part="body">
-    <div>
-      <slot name="left">
-      </slot>
-    </div>
-    <div part="selectors-wrapper">
-      <div part="calendar-wrapper">
-        <ef-calendar
-          id="calendar"
-          lang="en-gb"
-          part="calendar"
-          role="group"
-          tabindex="0"
-        >
-        </ef-calendar>
-        <ef-calendar
-          id="calendar-to"
-          lang="en-gb"
-          part="calendar"
-          role="group"
-          tabindex="0"
-        >
-        </ef-calendar>
-      </div>
-    </div>
-    <div>
-      <slot name="right">
-      </slot>
-    </div>
-  </div>
-  <div>
-    <slot name="footer">
-    </slot>
-  </div>
-</ef-overlay>
-
-```
-
-####   `DOM structure is correct when timepicker`
-
-```html
-<div part="input-wrapper">
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when opened"] = 
+`<div part="input-wrapper">
   <ef-text-field
     id="input"
     part="input"
@@ -274,15 +135,6 @@
         >
         </ef-calendar>
       </div>
-      <div part="timepicker-wrapper">
-        <ef-time-picker
-          id="timepicker"
-          part="time-picker"
-          role="group"
-          tabindex="0"
-        >
-        </ef-time-picker>
-      </div>
     </div>
     <div>
       <slot name="right">
@@ -294,13 +146,11 @@
     </slot>
   </div>
 </ef-overlay>
+`;
+/* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when opened */
 
-```
-
-####   `DOM structure is correct when timepicker and with-seconds`
-
-```html
-<div part="input-wrapper">
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when timepicker and with-seconds"] = 
+`<div part="input-wrapper">
   <ef-text-field
     id="input"
     part="input"
@@ -365,13 +215,11 @@
     </slot>
   </div>
 </ef-overlay>
+`;
+/* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when timepicker and with-seconds */
 
-```
-
-####   `DOM structure is correct when range timepicker`
-
-```html
-<div part="input-wrapper">
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when range timepicker"] = 
+`<div part="input-wrapper">
   <ef-text-field
     id="input"
     part="input"
@@ -455,6 +303,143 @@
     </slot>
   </div>
 </ef-overlay>
+`;
+/* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when range timepicker */
 
-```
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when duplex"] = 
+`<div part="input-wrapper">
+  <ef-text-field
+    id="input"
+    part="input"
+    tabindex="0"
+    transparent=""
+  >
+  </ef-text-field>
+</div>
+<ef-icon
+  icon="calendar"
+  part="icon"
+>
+</ef-icon>
+<ef-overlay-viewport>
+</ef-overlay-viewport>
+<ef-overlay
+  first-resize-done=""
+  no-autofocus=""
+  no-cancel-on-esc-key=""
+  opened=""
+  part="list"
+  tabindex="0"
+  with-shadow=""
+>
+  <div>
+    <slot name="header">
+    </slot>
+  </div>
+  <div part="body">
+    <div>
+      <slot name="left">
+      </slot>
+    </div>
+    <div part="selectors-wrapper">
+      <div part="calendar-wrapper">
+        <ef-calendar
+          id="calendar"
+          lang="en-gb"
+          part="calendar"
+          role="group"
+          tabindex="0"
+        >
+        </ef-calendar>
+        <ef-calendar
+          id="calendar-to"
+          lang="en-gb"
+          part="calendar"
+          role="group"
+          tabindex="0"
+        >
+        </ef-calendar>
+      </div>
+    </div>
+    <div>
+      <slot name="right">
+      </slot>
+    </div>
+  </div>
+  <div>
+    <slot name="footer">
+    </slot>
+  </div>
+</ef-overlay>
+`;
+/* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when duplex */
+
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when timepicker"] = 
+`<div part="input-wrapper">
+  <ef-text-field
+    id="input"
+    part="input"
+    tabindex="0"
+    transparent=""
+  >
+  </ef-text-field>
+</div>
+<ef-icon
+  icon="calendar"
+  part="icon"
+>
+</ef-icon>
+<ef-overlay-viewport>
+</ef-overlay-viewport>
+<ef-overlay
+  first-resize-done=""
+  no-autofocus=""
+  no-cancel-on-esc-key=""
+  opened=""
+  part="list"
+  tabindex="0"
+  with-shadow=""
+>
+  <div>
+    <slot name="header">
+    </slot>
+  </div>
+  <div part="body">
+    <div>
+      <slot name="left">
+      </slot>
+    </div>
+    <div part="selectors-wrapper">
+      <div part="calendar-wrapper">
+        <ef-calendar
+          id="calendar"
+          lang="en-gb"
+          part="calendar"
+          role="group"
+          tabindex="0"
+        >
+        </ef-calendar>
+      </div>
+      <div part="timepicker-wrapper">
+        <ef-time-picker
+          id="timepicker"
+          part="time-picker"
+          role="group"
+          tabindex="0"
+        >
+        </ef-time-picker>
+      </div>
+    </div>
+    <div>
+      <slot name="right">
+      </slot>
+    </div>
+  </div>
+  <div>
+    <slot name="footer">
+    </slot>
+  </div>
+</ef-overlay>
+`;
+/* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when timepicker */
 
