@@ -1,11 +1,8 @@
-# `card/Card`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `DOM structure`
-
-####   `Basic DOM structure`
-
-```html
-<div part="header">
+snapshots["card/Card DOM structure Basic DOM structure"] = 
+`<div part="header">
   <div part="header-body">
     <slot name="header">
     </slot>
@@ -21,13 +18,11 @@
     </slot>
   </div>
 </div>
+`;
+/* end snapshot card/Card DOM structure Basic DOM structure */
 
-```
-
-####   `DOM structure with header and footer`
-
-```html
-<div part="header has-content">
+snapshots["card/Card DOM structure DOM structure with header and footer"] = 
+`<div part="header has-content">
   <div part="header-body">
     <slot name="header">
     </slot>
@@ -52,13 +47,11 @@
     </ef-label>
   </div>
 </div>
+`;
+/* end snapshot card/Card DOM structure DOM structure with header and footer */
 
-```
-
-####   `DOM structure with slotted content`
-
-```html
-<div part="header has-content">
+snapshots["card/Card DOM structure DOM structure with slotted content"] = 
+`<div part="header has-content">
   <div part="header-body">
     <slot name="header">
     </slot>
@@ -74,13 +67,11 @@
     </slot>
   </div>
 </div>
+`;
+/* end snapshot card/Card DOM structure DOM structure with slotted content */
 
-```
-
-####   `DOM structure with menu`
-
-```html
-<div part="header has-content">
+snapshots["card/Card DOM structure DOM structure with menu Should contain menu data"] = 
+`<div part="header has-content">
   <div part="header-body">
     <slot name="header">
     </slot>
@@ -119,11 +110,11 @@
     </slot>
   </div>
 </div>
+`;
+/* end snapshot card/Card DOM structure DOM structure with menu Should contain menu data */
 
-```
-
-```html
-<div part="header">
+snapshots["card/Card DOM structure DOM structure with menu Should not contain menu data when unset the menu data"] = 
+`<div part="header">
   <div part="header-body">
     <slot name="header">
     </slot>
@@ -139,6 +130,6 @@
     </slot>
   </div>
 </div>
-
-```
+`;
+/* end snapshot card/Card DOM structure DOM structure with menu Should not contain menu data when unset the menu data */
 

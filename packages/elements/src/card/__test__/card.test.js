@@ -10,12 +10,12 @@ describe('card/Card', () => {
   describe('DOM structure', () => {
     it('Basic DOM structure', async () => {
       const el = await fixture('<ef-card lang="en-gb">Card</ef-card>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('DOM structure with header and footer', async () => {
       const el = await fixture('<ef-card header="Header" footer="Footer" lang="en-gb">Card</ef-card>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('DOM structure with slotted content', async () => {
@@ -26,22 +26,35 @@ describe('card/Card', () => {
           <div slot="footer">Footer</div>
         </ef-card>`);
 
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('DOM structure with menu', async () => {
-      const el = await fixture('<ef-card lang="en-gb">Card</ef-card>');
-      el.config = {
-        menu: {
-          data: menuData
-        }
-      };
-      await elementUpdated(el);
-      expect(el).shadowDom.to.equalSnapshot();
+    describe('DOM structure with menu', async () => {
+      it('Should contain menu data', async () => {
+        const el = await fixture('<ef-card lang="en-gb">Card</ef-card>');
+        el.config = {
+          menu: {
+            data: menuData
+          }
+        };
+        await elementUpdated(el);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
+      it('Should not contain menu data when unset the menu data', async () => {
+        const el = await fixture('<ef-card lang="en-gb">Card</ef-card>');
+        el.config = {
+          menu: {
+            data: menuData
+          }
+        };
+        await elementUpdated(el);
+        expect(el.config).to.not.equal(null)
 
-      el.config = {};
-      await elementUpdated(el);
-      expect(el).shadowDom.to.equalSnapshot();
+        el.config = {};
+        await elementUpdated(el);
+        expect(JSON.stringify(el.config)).to.be.equal('{}')
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
     });
   });
 
