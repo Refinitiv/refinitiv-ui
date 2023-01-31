@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, oneEvent } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/search-field';
@@ -7,7 +7,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-search-field';
 describe('search-field/SearchField', () => {
   it('Default DOM structure and properties are correct', async () => {
     const el = await fixture('<ef-search-field></ef-search-field>');
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Can click on icon if it has icon-has-action', async () => {
