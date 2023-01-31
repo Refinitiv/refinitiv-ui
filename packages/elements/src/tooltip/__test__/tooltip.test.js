@@ -18,7 +18,6 @@ const mouseMove = async (config = {}) => {
     target = document,
     x = 0,
     y = 0,
-    tooltip,
     showDelay = ShowDelay,
     hideDelay = HideDelay,
     transitionTime = TransitionTime
@@ -42,7 +41,7 @@ const mouseMove = async (config = {}) => {
 describe('tooltip/Tooltip', () => {
   it('DOM structure is correct', async () => {
     const el = await fixture('<ef-tooltip></ef-tooltip>');
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Default title override works as expected', async () => {
