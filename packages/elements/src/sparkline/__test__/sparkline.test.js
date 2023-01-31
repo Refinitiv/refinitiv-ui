@@ -49,7 +49,7 @@ describe('sparkline/Sparkline', () => {
     });
 
     it('DOM structure is correct', async () => {
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Should have the correct part', () => {
