@@ -4,7 +4,8 @@ import {
   arrowRight,
   arrowLeft,
   arrowUp,
-  arrowDown
+  arrowDown,
+  isSafari
 } from './utils';
 import { DateTimeFormat, utcFormat } from '@refinitiv-ui/utils/date.js';
 
@@ -65,14 +66,8 @@ const startDate = () => {
   return utcFormat(date, DateTimeFormat.yyyMMddTHHmmssSSS);
 }
 
-// Indicates if this is Safari. Put version parameter to specific version.
-const isSafari = (version = undefined) => {
-  const safari = !(/Chrome/).test(navigator.userAgent) && (/Apple Computer/).test(navigator.vendor);
-  if (version) {
-    return safari && (navigator.userAgent.indexOf(`Version\/${String(version)}`) > -1);
-  }
-  return safari;
-};
+
+
 
 describe('datetime-field/Navigation', () => {
   describe('Part Selection', () => {
