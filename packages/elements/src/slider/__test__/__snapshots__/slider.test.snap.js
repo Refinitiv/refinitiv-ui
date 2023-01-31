@@ -1,9 +1,8 @@
-# `slider/Slider`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-#### `DOM structure is correct`
-
-```html
-<div part="slider-wrapper">
+snapshots["slider/Slider DOM structure is correct"] = 
+`<div part="slider-wrapper">
   <div part="slider">
     <div part="track-wrapper">
       <div
@@ -46,6 +45,6 @@
     </div>
   </div>
 </div>
-
-```
+`;
+/* end snapshot slider/Slider DOM structure is correct */
 
