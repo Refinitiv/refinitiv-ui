@@ -1,11 +1,8 @@
-# `clock/Clock`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `DOM structure`
-
-####   `DOM structure is correct`
-
-```html
-<div part="segment hours">
+snapshots["clock/Clock DOM structure DOM structure is correct"] = 
+`<div part="segment hours">
   00
   <div
     aria-hidden="true"
@@ -41,13 +38,11 @@
   >
   </div>
 </div>
+`;
+/* end snapshot clock/Clock DOM structure DOM structure is correct */
 
-```
-
-####   `DOM structure of analogue is correct`
-
-```html
-<div part="hands">
+snapshots["clock/Clock DOM structure DOM structure of analogue is correct"] = 
+`<div part="hands">
   <div part="digital">
     <div part="segment hours">
       00
@@ -97,13 +92,11 @@
   >
   </div>
 </div>
+`;
+/* end snapshot clock/Clock DOM structure DOM structure of analogue is correct */
 
-```
-
-####   `DOM structure of small size analogue is correct`
-
-```html
-<div part="hands">
+snapshots["clock/Clock DOM structure DOM structure of small size analogue is correct"] = 
+`<div part="hands">
   <div
     part="hand hour"
     style="transform: rotate(0deg)"
@@ -115,6 +108,6 @@
   >
   </div>
 </div>
-
-```
+`;
+/* end snapshot clock/Clock DOM structure DOM structure of small size analogue is correct */
 
