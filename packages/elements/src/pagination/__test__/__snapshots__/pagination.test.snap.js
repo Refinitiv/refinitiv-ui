@@ -1,11 +1,8 @@
-# `pagination/Pagination`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `Snapshots`
-
-####   `DOM structure is correct`
-
-```html
-<ef-layout
+snapshots["pagination/Pagination Snapshots DOM structure is correct"] = 
+`<ef-layout
   flex=""
   nowrap=""
   part="container"
@@ -83,6 +80,6 @@
     </ef-button>
   </ef-button-bar>
 </ef-layout>
-
-```
+`;
+/* end snapshot pagination/Pagination Snapshots DOM structure is correct */
 
