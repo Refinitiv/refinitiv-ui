@@ -30,7 +30,7 @@ describe('layout/Layout', function () {
 
   it('Should have correct Shadow DOM structure', async () => {
     const el = await fixture(defaultLayout);
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Should be at a default state', async () => {
