@@ -1,9 +1,8 @@
-# `tab-bar/TabBar`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-#### `DOM structure is correct`
-
-```html
-<ef-button
+snapshots["tab-bar/TabBar DOM structure is correct"] = 
+`<ef-button
   aria-hidden="true"
   empty=""
   icon="left"
@@ -27,6 +26,6 @@
   textpos="after"
 >
 </ef-button>
-
-```
+`;
+/* end snapshot tab-bar/TabBar DOM structure is correct */
 
