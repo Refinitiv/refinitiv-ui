@@ -1,11 +1,8 @@
-# `color-picker/ColorPicker`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `DOM structure`
-
-####   `DOM structure is correct`
-
-```html
-<div
+snapshots["color-picker/ColorPicker DOM structure DOM structure is correct"] = 
+`<div
   aria-label=""
   aria-live="polite"
   part="aria-selection"
@@ -17,13 +14,11 @@
   style="background-color:#001EFF;"
 >
 </div>
+`;
+/* end snapshot color-picker/ColorPicker DOM structure DOM structure is correct */
 
-```
-
-####   `DOM structure is correct when opened`
-
-```html
-<div
+snapshots["color-picker/ColorPicker DOM structure DOM structure is correct when opened"] = 
+`<div
   aria-label=""
   aria-live="polite"
   part="aria-selection"
@@ -44,6 +39,6 @@
   with-shadow=""
 >
 </ef-color-dialog>
-
-```
+`;
+/* end snapshot color-picker/ColorPicker DOM structure DOM structure is correct when opened */
 
