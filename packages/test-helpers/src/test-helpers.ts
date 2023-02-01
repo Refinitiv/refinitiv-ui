@@ -18,3 +18,11 @@ export {
   fixtureCleanup,
   elementUpdated
 } from '@open-wc/testing';
+
+export const isSafari = (version = undefined) => { // Indicates if this is Safari. Put version parameter to specific version.
+  const safari = !(/Chrome/).test(navigator.userAgent) && (/Apple Computer/).test(navigator.vendor);
+  if (version) {
+    return safari && (navigator.userAgent.indexOf(`Version\/${String(version)}`) > -1);
+  }
+  return safari;
+};
