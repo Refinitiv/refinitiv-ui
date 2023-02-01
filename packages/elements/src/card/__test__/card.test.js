@@ -52,7 +52,7 @@ describe('card/Card', () => {
 
         el.config = {};
         await elementUpdated(el);
-        expect(JSON.stringify(el.config)).to.be.equal('{}')
+        expect(Object.keys(el.config).length).to.be.equal(0)
         await expect(el).shadowDom.to.equalSnapshot();
       });
     });
