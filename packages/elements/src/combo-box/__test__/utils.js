@@ -12,7 +12,7 @@ export const snapshotIgnore = {
 export const openedUpdated = async (el) => {
   await elementUpdated(el);
   await nextFrame();
-  await nextFrame(); // IE11 needs a second iframe, otherwise resize observer is not run;
+  await nextFrame(); // IE11 needs another frame, otherwise resize observer is not run;
 };
 
 export const data = [{
@@ -54,4 +54,11 @@ export const makeQueryRequest = async (el, textInput) => {
   await oneEvent(el, 'query-changed');
   await elementUpdated(el);
   await aTimeout(100);
+};
+
+export const dispatchCustomEvent = (el, eventName) => {
+  el.dispatchEvent(new CustomEvent(eventName, {
+    bubbles: true,
+    composed: true
+  }));
 };
