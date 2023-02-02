@@ -1,11 +1,8 @@
-# `tree-select/TreeSelect`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `Defaults`
-
-####   `DOM structure is correct`
-
-```html
-<div part="input-wrapper">
+snapshots["tree-select/TreeSelect Defaults DOM structure is correct"] = 
+`<div part="input-wrapper">
   <input
     aria-autocomplete="list"
     aria-expanded="false"
@@ -27,6 +24,6 @@
     </ef-icon>
   </div>
 </div>
-
-```
+`;
+/* end snapshot tree-select/TreeSelect Defaults DOM structure is correct */
 

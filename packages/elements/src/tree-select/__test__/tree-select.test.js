@@ -10,7 +10,7 @@ describe('tree-select/TreeSelect', () => {
   describe('Defaults', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Does not render popup content initially', async () => {
