@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/solar-theme",
-  "version": "6.2.2",
+  "version": "6.3.1",
   "description": "Solar theme for the Element Framework",
   "author": "LSEG",
   "license": "SEE LICENSE IN LICENSE",
@@ -19,15 +19,15 @@
     "build:pearl": "theme-compiler pearl --variant=pearl --registration=event",
     "build": "npm run build:charcoal && npm run build:pearl",
     "build:prod": "npm run build",
-    "watch": "watch \"npm run build\" src --wait=10",
+    "watch": "chokidar '**/*.less' --command \"npm run build\" --debounce=5000",
     "prepack": "npm run version",
     "version": "node ../../scripts/version"
   },
   "dependencies": {
-    "@refinitiv-ui/elemental-theme": "^6.2.2"
+    "@refinitiv-ui/elemental-theme": "^6.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/theme-compiler": "^6.1.1"
+    "@refinitiv-ui/theme-compiler": "^6.2.0"
   },
   "publishConfig": {
     "access": "public"

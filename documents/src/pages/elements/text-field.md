@@ -32,11 +32,19 @@ p {
 ```html
 <ef-panel spacing>
   <label for="first-name">First Name</label>
-  <ef-text-field id="first-name" placeholder="Must be letters and at least 5 characters"  pattern="[a-zA-Z]{5,}"></ef-text-field>
+  <ef-text-field
+    id="first-name"
+    placeholder="Must be letters and at least 5 characters"
+    pattern="[a-zA-Z]{5,}">
+  </ef-text-field>
   <br/>
   <br/>
   <label for="last-name">Last Name</label>
-  <ef-text-field id="last-name" placeholder="Must be letters and at least 5 characters" pattern="[a-zA-Z]{5,}"></ef-text-field>
+  <ef-text-field
+    id="last-name"
+    placeholder="Must be letters and at least 5 characters"
+    pattern="[a-zA-Z]{5,}">
+  </ef-text-field>
 </ef-panel>
 ```
 
@@ -166,7 +174,10 @@ Text field is used to accept text input from users and has similar behaviors to 
 
 ```html
 <label for="full-name">Full Name</label>
-<ef-text-field id="full-name" placeholder="Your name as shown on your passport"></ef-text-field>
+<ef-text-field
+  id="full-name"
+  placeholder="Your name as shown on your passport">
+</ef-text-field>
 ```
 
 ### Getting value
@@ -175,7 +186,10 @@ The field's value can be accessed using the `value` property.
 
 ```html
 <label for="full-name">Full Name</label>
-<ef-text-field id="full-name" value="Sarah Connor"></ef-text-field>
+<ef-text-field
+  id="full-name"
+  value="Sarah Connor">
+</ef-text-field>
 ```
 
 ```javascript
@@ -207,9 +221,9 @@ Validation occurs when constraints are provided and the value changes. If the er
 
 Alternatively, you can check the `error` property to confirm if the input is valid or not.
 
-See the [Input Length](/elements/text-field#input-length) example for more detail.
+See the [Input Length](/elements/text-field#input-length) example below for more detail.
 
-### Input length
+## Input length
 
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
 
@@ -239,7 +253,13 @@ ef-text-field {
 
 ```html
 <label for="username">Username</label>
-<ef-text-field id="username" aria-describedby="error-text" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
+<ef-text-field
+  id="username"
+  aria-describedby="error-text"
+  minlength="5"
+  maxlength="8"
+  placeholder="Between 5 to 8 characters">
+</ef-text-field>
 <p id="error-text"></p>
 ```
 
@@ -247,7 +267,13 @@ ef-text-field {
 
 ```html
 <label for="username">Username</label>
-<ef-text-field id="username" aria-describedby="error-text" minlength="5" maxlength="8" placeholder="Between 5 to 8 characters"></ef-text-field>
+<ef-text-field
+  id="username"
+  aria-describedby="error-text"
+  minlength="5"
+  maxlength="8"
+  placeholder="Between 5 to 8 characters">
+</ef-text-field>
 <p id="error-text"></p>
 ```
 
@@ -350,14 +376,21 @@ ef-text-field {
 
 ```html
 <label for="feedback">Feedback</label>
-<ef-text-field id="feedback" icon="email" placeholder="We appreciate your feedback!"></ef-text-field>
+<ef-text-field
+  id="feedback"
+  icon="email"
+  placeholder="We appreciate your feedback!">
+</ef-text-field>
 ```
 
 ::
 
 ```html
 <label for="feedback">Feedback</label>
-<ef-text-field id="feedback" icon="email"></ef-text-field>
+<ef-text-field
+  id="feedback"
+  icon="email">
+</ef-text-field>
 ```
 
 The icon can become actionable by adding the `icon-has-action` attribute to the element, so that `ef-text-field` will fire the `icon-click` event when users click on the icon. You can add an event listener to this event to execute your code.
@@ -366,11 +399,20 @@ The icon can become actionable by adding the `icon-has-action` attribute to the 
 
 ```javascript
 ::text-field::
-const element = document.getElementById("feedback");
-element.addEventListener("icon-click", (e) => {
-  element.value = ""
-  element.placeholder = "Feedback sent. Thanks!";
-  element.icon = "tick";
+const feedback = document.getElementById("feedback");
+feedback.addEventListener("icon-click", (e) => {
+  feedback.value = "";
+  feedback.icon = "";
+  feedback.iconHasAction = false;
+});
+feedback.addEventListener("value-changed", (e) => {
+  if (feedback.value) {
+    feedback.icon = "cross";
+    feedback.iconHasAction = true;
+  } else {
+    feedback.icon = "";
+    feedback.iconHasAction = false;
+  }
 });
 ```
 
@@ -382,7 +424,13 @@ ef-text-field {
 
 ```html
 <label for="feedback">Feedback</label>
-<ef-text-field id="feedback" placeholder="Type your feedback and click the icon" icon="email" icon-has-action></ef-text-field>
+<ef-text-field
+  id="feedback"
+  value="nice job!"
+  placeholder="Type your feedback and click the icon"
+  icon="cross"
+  icon-has-action>
+</ef-text-field>
 ```
 
 ::
@@ -391,22 +439,23 @@ ef-text-field {
 <label for="feedback">Feedback</label>
 <ef-text-field
   id="feedback"
+  value="nice job!"
   placeholder="Type your feedback and click the icon"
-  icon="email"
+  icon="cross"
   icon-has-action>
 </ef-text-field>
 ```
 
 ```javascript
-const element = document.getElementById("feedback");
-element.addEventListener("icon-click", (e) => {
-  element.value = ""
-  element.placeholder = "Feedback sent. Thanks!";
-  element.icon = "tick";
+const feedback = document.getElementById("feedback");
+feedback.addEventListener("icon-click", (e) => {
+  feedback.value = "";
+  feedback.icon = "";
+  feedback.iconHasAction = false;
 });
 ```
 
-### Accessibility
+## Accessibility
 
 ::a11y-intro::
 
