@@ -59,7 +59,10 @@ describe('combo-box/Value', () => {
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Free text: Set any value via API', async () => {
+  });
+  describe('Free Text mode', () => {
+
+    it('Set any value via API', async () => {
       const el = await fixture('<ef-combo-box free-text value="AF" opened lang="en"></ef-combo-box>');
       el.data = getData();
       await openedUpdated(el);
@@ -76,7 +79,7 @@ describe('combo-box/Value', () => {
       expect(el.value).to.equal('Any', 'Value must be "Any" string');
     });
 
-    it('Free text: Set any value via API then select value in the list', async () => {
+    it('Set any value via API then select value in the list', async () => {
       // set value via attribute
       const el = await fixture('<ef-combo-box free-text value="attribute" opened lang="en"></ef-combo-box>');
       el.data = getData();
@@ -111,7 +114,7 @@ describe('combo-box/Value', () => {
       expect(propertyEvent.detail.value).to.equal('AL', `value-changed event's value doesn't equal selected value`);
     });
 
-    it('Free text: Reset value via API', async () => {
+    it('Reset value via API', async () => {
       const el = await fixture('<ef-combo-box free-text value="AF" opened lang="en"></ef-combo-box>');
       el.data = getData();
       await openedUpdated(el);
