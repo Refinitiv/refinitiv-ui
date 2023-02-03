@@ -6,8 +6,9 @@ export const snapshotIgnore = {
 
 /**
  * Cross browser function to wait while select element becomes opened/closed and resized
+ * @async
  * @param {Select} el Select
- * @returns {void}
+ * @returns {Promise<void>} Empty promise
  */
 export const openedUpdated = async (el) => {
   await elementUpdated(el);
