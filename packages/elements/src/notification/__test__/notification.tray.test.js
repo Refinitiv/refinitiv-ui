@@ -21,7 +21,7 @@ describe('notification/NotificationTray', () => {
     });
 
     it('DOM structure is correct', async () => {
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
 
