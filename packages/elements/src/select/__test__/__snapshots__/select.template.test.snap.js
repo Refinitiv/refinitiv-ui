@@ -1,11 +1,8 @@
-# `select/Template`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `Template Parts`
-
-####   `Empty DOM has all required parts`
-
-```html
-<div id="box">
+snapshots["select/Template Template Parts Empty DOM has all required parts"] = 
+`<div id="box">
   <div id="text">
     <div part="placeholder">
     </div>
@@ -22,13 +19,11 @@
   <slot>
   </slot>
 </div>
+`;
+/* end snapshot select/Template Template Parts Empty DOM has all required parts */
 
-```
-
-####   `Placeholder is rendered`
-
-```html
-<div id="box">
+snapshots["select/Template Template Parts Placeholder is rendered"] = 
+`<div id="box">
   <div id="text">
     <div part="placeholder">
       Placeholder
@@ -46,33 +41,11 @@
   <slot>
   </slot>
 </div>
+`;
+/* end snapshot select/Template Template Parts Placeholder is rendered */
 
-```
-
-```html
-<div id="box">
-  <div id="text">
-    <div part="placeholder">
-      New Placeholder
-    </div>
-  </div>
-  <ef-icon
-    icon="down"
-    part="icon"
-  >
-  </ef-icon>
-</div>
-<div id="trigger">
-</div>
-<div>
-  <slot>
-  </slot>
-</div>
-
-```
-
-```html
-<div id="box">
+snapshots["select/Template Template Parts Lazy Render: options"] = 
+`<div id="box">
   <div id="text">
     <div part="placeholder">
     </div>
@@ -89,13 +62,44 @@
   <slot>
   </slot>
 </div>
+`;
+/* end snapshot select/Template Template Parts Lazy Render: options */
 
-```
+snapshots["select/Template Template Parts Lazy Render: options opened"] = 
+`<div id="box">
+  <div id="text">
+    <div part="placeholder">
+    </div>
+  </div>
+  <ef-icon
+    icon="down"
+    part="icon"
+  >
+  </ef-icon>
+</div>
+<div id="trigger">
+</div>
+<ef-overlay-viewport>
+</ef-overlay-viewport>
+<ef-overlay
+  first-resize-done=""
+  focused=""
+  id="menu"
+  lock-position-target=""
+  opened=""
+  part="list"
+  role="listbox"
+  tabindex="-1"
+  with-shadow=""
+>
+  <slot>
+  </slot>
+</ef-overlay>
+`;
+/* end snapshot select/Template Template Parts Lazy Render: options opened */
 
-####   `Lazy Render: options`
-
-```html
-<div id="box">
+snapshots["select/Template Template Parts Lazy Render: data"] = 
+`<div id="box">
   <div id="text">
     <div part="placeholder">
     </div>
@@ -112,11 +116,11 @@
   <slot>
   </slot>
 </div>
+`;
+/* end snapshot select/Template Template Parts Lazy Render: data */
 
-```
-
-```html
-<div id="box">
+snapshots["select/Template Template Parts Lazy Render: data opened"] = 
+`<div id="box">
   <div id="text">
     <div part="placeholder">
     </div>
@@ -133,7 +137,207 @@
 </ef-overlay-viewport>
 <ef-overlay
   first-resize-done=""
-  focused="visible"
+  focused=""
+  id="menu"
+  lock-position-target=""
+  opened=""
+  part="list"
+  role="listbox"
+  tabindex="-1"
+  with-shadow=""
+>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="presentation"
+    tabindex="-1"
+    type="header"
+  >
+  </ef-item>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="option"
+    tabindex="0"
+  >
+  </ef-item>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="option"
+    tabindex="0"
+  >
+  </ef-item>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="presentation"
+    tabindex="-1"
+    type="divider"
+  >
+  </ef-item>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="option"
+    tabindex="0"
+  >
+  </ef-item>
+</ef-overlay>
+`;
+/* end snapshot select/Template Template Parts Lazy Render: data opened */
+
+snapshots["select/Template Template Parts Data is reflected to render"] = 
+`<div id="box">
+  <div id="text">
+    <div part="placeholder">
+    </div>
+  </div>
+  <ef-icon
+    icon="down"
+    part="icon"
+  >
+  </ef-icon>
+</div>
+<div id="trigger">
+</div>
+<ef-overlay-viewport>
+</ef-overlay-viewport>
+<ef-overlay
+  first-resize-done=""
+  focused=""
+  id="menu"
+  lock-position-target=""
+  opened=""
+  part="list"
+  role="listbox"
+  tabindex="-1"
+  with-shadow=""
+>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="presentation"
+    tabindex="-1"
+    type="header"
+  >
+  </ef-item>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="option"
+    tabindex="0"
+  >
+  </ef-item>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="option"
+    tabindex="0"
+  >
+  </ef-item>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="presentation"
+    tabindex="-1"
+    type="divider"
+  >
+  </ef-item>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="option"
+    tabindex="0"
+  >
+  </ef-item>
+</ef-overlay>
+`;
+/* end snapshot select/Template Template Parts Data is reflected to render */
+
+snapshots["select/Template Template Parts Data is reflected to reverse render"] = 
+`<div id="box">
+  <div id="text">
+    <div part="placeholder">
+    </div>
+  </div>
+  <ef-icon
+    icon="down"
+    part="icon"
+  >
+  </ef-icon>
+</div>
+<div id="trigger">
+</div>
+<ef-overlay-viewport>
+</ef-overlay-viewport>
+<ef-overlay
+  id="menu"
+  lock-position-target=""
+  opened=""
+  part="list"
+  role="listbox"
+  tabindex="-1"
+  with-shadow=""
+>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="option"
+    tabindex="0"
+  >
+  </ef-item>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="presentation"
+    tabindex="-1"
+    type="divider"
+  >
+  </ef-item>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="option"
+    tabindex="0"
+  >
+  </ef-item>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="option"
+    tabindex="0"
+  >
+  </ef-item>
+  <ef-item
+    aria-selected="false"
+    part="item"
+    role="presentation"
+    tabindex="-1"
+    type="header"
+  >
+  </ef-item>
+</ef-overlay>
+`;
+/* end snapshot select/Template Template Parts Data is reflected to reverse render */
+
+snapshots["select/Template Template Parts Data is reflected to render null data"] = 
+`<div id="box">
+  <div id="text">
+    <div part="placeholder">
+    </div>
+  </div>
+  <ef-icon
+    icon="down"
+    part="icon"
+  >
+  </ef-icon>
+</div>
+<div id="trigger">
+</div>
+<ef-overlay-viewport>
+</ef-overlay-viewport>
+<ef-overlay
   id="menu"
   lock-position-target=""
   opened=""
@@ -145,429 +349,6 @@
   <slot>
   </slot>
 </ef-overlay>
-
-```
-
-```html
-<div id="box">
-  <div id="text">
-    <div part="placeholder">
-    </div>
-  </div>
-  <ef-icon
-    icon="down"
-    part="icon"
-  >
-  </ef-icon>
-</div>
-<div id="trigger">
-</div>
-<ef-overlay
-  focused="visible"
-  id="menu"
-  lock-position-target=""
-  part="list"
-  role="listbox"
-  tabindex="-1"
-  with-shadow=""
->
-  <slot>
-  </slot>
-</ef-overlay>
-
-```
-
-####   `Lazy Render: data`
-
-```html
-<div id="box">
-  <div id="text">
-    <div part="placeholder">
-    </div>
-  </div>
-  <ef-icon
-    icon="down"
-    part="icon"
-  >
-  </ef-icon>
-</div>
-<div id="trigger">
-</div>
-<div>
-  <slot>
-  </slot>
-</div>
-
-```
-
-```html
-<div id="box">
-  <div id="text">
-    <div part="placeholder">
-    </div>
-  </div>
-  <ef-icon
-    icon="down"
-    part="icon"
-  >
-  </ef-icon>
-</div>
-<div id="trigger">
-</div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
-  first-resize-done=""
-  focused="visible"
-  id="menu"
-  lock-position-target=""
-  opened=""
-  part="list"
-  role="listbox"
-  tabindex="-1"
-  with-shadow=""
->
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="header"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="divider"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-</ef-overlay>
-
-```
-
-```html
-<div id="box">
-  <div id="text">
-    <div part="placeholder">
-    </div>
-  </div>
-  <ef-icon
-    icon="down"
-    part="icon"
-  >
-  </ef-icon>
-</div>
-<div id="trigger">
-</div>
-<ef-overlay
-  focused="visible"
-  id="menu"
-  lock-position-target=""
-  part="list"
-  role="listbox"
-  tabindex="-1"
-  with-shadow=""
->
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="header"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="divider"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-</ef-overlay>
-
-```
-
-####   `Data is reflected to render`
-
-```html
-<div id="box">
-  <div id="text">
-    <div part="placeholder">
-    </div>
-  </div>
-  <ef-icon
-    icon="down"
-    part="icon"
-  >
-  </ef-icon>
-</div>
-<div id="trigger">
-</div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
-  first-resize-done=""
-  focused="visible"
-  id="menu"
-  lock-position-target=""
-  opened=""
-  part="list"
-  role="listbox"
-  tabindex="-1"
-  with-shadow=""
->
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="header"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="divider"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-</ef-overlay>
-
-```
-
-```html
-<div id="box">
-  <div id="text">
-    <div part="placeholder">
-    </div>
-  </div>
-  <ef-icon
-    icon="down"
-    part="icon"
-  >
-  </ef-icon>
-</div>
-<div id="trigger">
-</div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
-  first-resize-done=""
-  focused="visible"
-  id="menu"
-  lock-position-target=""
-  opened=""
-  part="list"
-  role="listbox"
-  tabindex="-1"
-  with-shadow=""
->
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="divider"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="header"
-  >
-  </ef-item>
-</ef-overlay>
-
-```
-
-```html
-<div id="box">
-  <div id="text">
-    <div part="placeholder">
-    </div>
-  </div>
-  <ef-icon
-    icon="down"
-    part="icon"
-  >
-  </ef-icon>
-</div>
-<div id="trigger">
-</div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
-  first-resize-done=""
-  focused="visible"
-  id="menu"
-  lock-position-target=""
-  opened=""
-  part="list"
-  role="listbox"
-  tabindex="-1"
-  with-shadow=""
->
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="divider"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="header"
-  >
-  </ef-item>
-</ef-overlay>
-
-```
-
-```html
-<div id="box">
-  <div id="text">
-    <div part="placeholder">
-    </div>
-  </div>
-  <ef-icon
-    icon="down"
-    part="icon"
-  >
-  </ef-icon>
-</div>
-<div id="trigger">
-</div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
-  first-resize-done=""
-  focused="visible"
-  id="menu"
-  lock-position-target=""
-  opened=""
-  part="list"
-  role="listbox"
-  tabindex="-1"
-  with-shadow=""
->
-  <slot>
-  </slot>
-</ef-overlay>
-
-```
+`;
+/* end snapshot select/Template Template Parts Data is reflected to render null data */
 

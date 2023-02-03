@@ -1,11 +1,8 @@
-# `select/Value`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `Selection by Value Attribute`
-
-####   `Options Selected: Afghanistan`
-
-```html
-<div id="box">
+snapshots["select/Selection Selection by Selected Property Options Selected: Afghanistan"] = 
+`<div id="box">
   <div id="text">
     <div part="label">
       Afghanistan
@@ -23,7 +20,7 @@
 </ef-overlay-viewport>
 <ef-overlay
   first-resize-done=""
-  focused="visible"
+  focused=""
   id="menu"
   lock-position-target=""
   opened=""
@@ -35,115 +32,11 @@
   <slot>
   </slot>
 </ef-overlay>
+`;
+/* end snapshot select/Selection Selection by Selected Property Options Selected: Afghanistan */
 
-```
-
-```html
-<div id="box">
-  <div id="text">
-    <div part="placeholder">
-      Placeholder
-    </div>
-  </div>
-  <ef-icon
-    icon="down"
-    part="icon"
-  >
-  </ef-icon>
-</div>
-<div id="trigger">
-</div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
-  first-resize-done=""
-  focused="visible"
-  id="menu"
-  lock-position-target=""
-  opened=""
-  part="list"
-  role="listbox"
-  tabindex="-1"
-  with-shadow=""
->
-  <slot>
-  </slot>
-</ef-overlay>
-
-```
-
-```html
-<div id="box">
-  <div id="text">
-    <div part="label">
-      Albania
-    </div>
-  </div>
-  <ef-icon
-    icon="down"
-    part="icon"
-  >
-  </ef-icon>
-</div>
-<div id="trigger">
-</div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
-  first-resize-done=""
-  focused="visible"
-  id="menu"
-  lock-position-target=""
-  opened=""
-  part="list"
-  role="listbox"
-  tabindex="-1"
-  with-shadow=""
->
-  <slot>
-  </slot>
-</ef-overlay>
-
-```
-
-```html
-<div id="box">
-  <div id="text">
-    <div part="placeholder">
-      Placeholder
-    </div>
-  </div>
-  <ef-icon
-    icon="down"
-    part="icon"
-  >
-  </ef-icon>
-</div>
-<div id="trigger">
-</div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
-  first-resize-done=""
-  focused="visible"
-  id="menu"
-  lock-position-target=""
-  opened=""
-  part="list"
-  role="listbox"
-  tabindex="-1"
-  with-shadow=""
->
-  <slot>
-  </slot>
-</ef-overlay>
-
-```
-
-####   `Data Selected: Afghanistan`
-
-```html
-<div id="box">
+snapshots["select/Selection Selection by Selected Property Data Selected: Afghanistan"] = 
+`<div id="box">
   <div id="text">
     <div part="label">
       Afghanistan
@@ -161,7 +54,7 @@
 </ef-overlay-viewport>
 <ef-overlay
   first-resize-done=""
-  focused="visible"
+  focused=""
   id="menu"
   lock-position-target=""
   opened=""
@@ -210,11 +103,11 @@
   >
   </ef-item>
 </ef-overlay>
+`;
+/* end snapshot select/Selection Selection by Selected Property Data Selected: Afghanistan */
 
-```
-
-```html
-<div id="box">
+snapshots["select/Selection Selection by Selected Property Data Selected change"] = 
+`<div id="box">
   <div id="text">
     <div part="label">
       Albania
@@ -232,7 +125,7 @@
 </ef-overlay-viewport>
 <ef-overlay
   first-resize-done=""
-  focused="visible"
+  focused=""
   id="menu"
   lock-position-target=""
   opened=""
@@ -281,11 +174,11 @@
   >
   </ef-item>
 </ef-overlay>
+`;
+/* end snapshot select/Selection Selection by Selected Property Data Selected change */
 
-```
-
-```html
-<div id="box">
+snapshots["select/Selection Selection by Selected Property Data Unselected"] = 
+`<div id="box">
   <div id="text">
     <div part="placeholder">
       Placeholder
@@ -303,7 +196,7 @@
 </ef-overlay-viewport>
 <ef-overlay
   first-resize-done=""
-  focused="visible"
+  focused=""
   id="menu"
   lock-position-target=""
   opened=""
@@ -351,6 +244,6 @@
   >
   </ef-item>
 </ef-overlay>
-
-```
+`;
+/* end snapshot select/Selection Selection by Selected Property Data Unselected */
 
