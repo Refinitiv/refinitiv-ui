@@ -208,14 +208,14 @@ describe('text-field/TextField', () => {
       const el = await fixture('<ef-text-field id="text"></ef-text-field>');
       await expect(el).to.be.accessible();
     });
-    it('Should delegate `aria-description` attribute to input correctly', async () => {
+    it('Should propagate `aria-description` attribute to input correctly', async () => {
       const el = await fixture('<ef-text-field aria-description="Text Field"></ef-text-field>');
 
       const input = el.shadowRoot.querySelector('[part=input]');
       expect(input.getAttribute('aria-description')).to.be.equal('Text Field');
     });
 
-    it('Should delegate `aria-describedby` attribute to input correctly', async () => {
+    it('Should propagate `aria-describedby` attribute to input correctly', async () => {
       const helperMessage = await fixture('<span id="helper-message">Field description</label>');
       const errorMessage = await fixture('<span id="error-message">Error</label>');
       const el = await fixture('<ef-text-field aria-describedby="helper-message error-message"></ef-text-field>');
