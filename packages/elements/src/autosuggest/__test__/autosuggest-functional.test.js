@@ -1,5 +1,10 @@
 import { elementUpdated, expect, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
+import '@refinitiv-ui/elements/autosuggest';
+import '@refinitiv-ui/elements/text-field';
+import '@refinitiv-ui/elemental-theme/light/ef-autosuggest';
+import '@refinitiv-ui/elemental-theme/light/ef-text-field';
+
 import {
   blurAction,
   createFixture,

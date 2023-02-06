@@ -1,11 +1,8 @@
-# `color-dialog/ColorDialog`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `Default Color Dialog`
-
-####   `DOM structure is correct`
-
-```html
-<ef-header
+snapshots["color-dialog/ColorDialog Default Color Dialog DOM structure is correct"] = 
+`<ef-header
   drag-handle=""
   level="2"
   part="header"
@@ -124,6 +121,6 @@
     Close
   </ef-button>
 </div>
-
-```
+`;
+/* end snapshot color-dialog/ColorDialog Default Color Dialog DOM structure is correct */
 

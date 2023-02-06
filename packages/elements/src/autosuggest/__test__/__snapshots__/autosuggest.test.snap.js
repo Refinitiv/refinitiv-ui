@@ -1,9 +1,8 @@
-# `autosuggest/Autosuggest`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-#### `DOM structure is correct`
-
-```html
-<div part="header">
+snapshots["autosuggest/Autosuggest DOM structure is correct"] = 
+`<div part="header">
   <slot
     id="headerSlot"
     name="header"
@@ -56,6 +55,6 @@
   >
   </ef-loader>
 </div>
-
-```
+`;
+/* end snapshot autosuggest/Autosuggest DOM structure is correct */
 
