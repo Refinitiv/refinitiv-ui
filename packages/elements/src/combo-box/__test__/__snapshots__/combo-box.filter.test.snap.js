@@ -1,11 +1,8 @@
-# `combo-box/Filter`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `Can Filter Data`
-
-####   `Default filter filters data`
-
-```html
-<div part="input-wrapper">
+snapshots["combo-box/Filter Can Filter Data Default filter filters data"] = 
+`<div part="input-wrapper">
   <input
     aria-activedescendant="AX"
     aria-autocomplete="list"
@@ -67,11 +64,11 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+`;
+/* end snapshot combo-box/Filter Can Filter Data Default filter filters data */
 
-```
-
-```html
-<div part="input-wrapper">
+snapshots["combo-box/Filter Can Filter Data Default filter filters data: changed"] = 
+`<div part="input-wrapper">
   <input
     aria-activedescendant="AX"
     aria-autocomplete="list"
@@ -127,6 +124,6 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
-
-```
+`;
+/* end snapshot combo-box/Filter Can Filter Data Default filter filters data: changed */
 

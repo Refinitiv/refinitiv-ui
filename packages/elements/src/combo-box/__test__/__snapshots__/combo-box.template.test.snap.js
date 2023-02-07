@@ -1,11 +1,8 @@
-# `combo-box/Template`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `Template Parts`
-
-####   `Empty DOM has all required parts`
-
-```html
-<div part="input-wrapper">
+snapshots["combo-box/Template Template Parts Empty DOM has all required parts"] = 
+`<div part="input-wrapper">
   <input
     aria-autocomplete="list"
     aria-expanded="false"
@@ -27,95 +24,11 @@
     </ef-icon>
   </div>
 </div>
+`;
+/* end snapshot combo-box/Template Template Parts Empty DOM has all required parts */
 
-```
-
-####   `Placeholder is rendered`
-
-```html
-<div part="input-wrapper">
-  <input
-    aria-autocomplete="list"
-    aria-expanded="false"
-    aria-haspopup="listbox"
-    aria-owns="internal-list"
-    autocomplete="off"
-    part="input"
-    placeholder="Placeholder"
-    role="combobox"
-    type="text"
-  >
-  <div
-    id="toggle-button"
-    part="button button-toggle"
-  >
-    <ef-icon
-      icon="down"
-      part="icon icon-toggle"
-    >
-    </ef-icon>
-  </div>
-</div>
-
-```
-
-```html
-<div part="input-wrapper">
-  <input
-    aria-autocomplete="list"
-    aria-expanded="false"
-    aria-haspopup="listbox"
-    aria-owns="internal-list"
-    autocomplete="off"
-    part="input"
-    placeholder="New Placeholder"
-    role="combobox"
-    type="text"
-  >
-  <div
-    id="toggle-button"
-    part="button button-toggle"
-  >
-    <ef-icon
-      icon="down"
-      part="icon icon-toggle"
-    >
-    </ef-icon>
-  </div>
-</div>
-
-```
-
-```html
-<div part="input-wrapper">
-  <input
-    aria-autocomplete="list"
-    aria-expanded="false"
-    aria-haspopup="listbox"
-    aria-owns="internal-list"
-    autocomplete="off"
-    part="input"
-    role="combobox"
-    type="text"
-  >
-  <div
-    id="toggle-button"
-    part="button button-toggle"
-  >
-    <ef-icon
-      icon="down"
-      part="icon icon-toggle"
-    >
-    </ef-icon>
-  </div>
-</div>
-
-```
-
-####   `Lazy Render: data`
-
-```html
-<div part="input-wrapper">
+snapshots["combo-box/Template Template Parts Lazy Render: data"] = 
+`<div part="input-wrapper">
   <input
     aria-activedescendant="AF"
     aria-autocomplete="list"
@@ -183,80 +96,11 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+`;
+/* end snapshot combo-box/Template Template Parts Lazy Render: data */
 
-```
-
-```html
-<div part="input-wrapper">
-  <input
-    aria-autocomplete="list"
-    aria-expanded="false"
-    aria-haspopup="listbox"
-    aria-owns="internal-list"
-    autocomplete="off"
-    part="input"
-    role="combobox"
-    type="text"
-  >
-  <div
-    id="toggle-button"
-    part="button button-toggle"
-  >
-    <ef-icon
-      icon="down"
-      part="icon icon-toggle"
-    >
-    </ef-icon>
-  </div>
-</div>
-<ef-overlay
-  no-autofocus=""
-  no-focus-management=""
-  no-overlap=""
-  part="list"
-  tabindex="-1"
-  with-shadow=""
->
-  <ef-list
-    aria-multiselectable="false"
-    id="internal-list"
-    role="listbox"
-    tabindex=""
-  >
-    <ef-list-item
-      aria-selected="false"
-      role="presentation"
-      type="header"
-    >
-    </ef-list-item>
-    <ef-list-item
-      aria-selected="false"
-      highlighted=""
-      id="AF"
-      role="option"
-    >
-    </ef-list-item>
-    <ef-list-item
-      aria-selected="false"
-      id="AX"
-      role="option"
-    >
-    </ef-list-item>
-    <ef-list-item
-      aria-selected="false"
-      id="AL"
-      role="option"
-    >
-    </ef-list-item>
-  </ef-list>
-</ef-overlay>
-
-```
-
-####   `Data is reflected to render`
-
-```html
-<div part="input-wrapper">
+snapshots["combo-box/Template Template Parts Data is reflected to render"] = 
+`<div part="input-wrapper">
   <input
     aria-activedescendant="AF"
     aria-autocomplete="list"
@@ -324,11 +168,11 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+`;
+/* end snapshot combo-box/Template Template Parts Data is reflected to render */
 
-```
-
-```html
-<div part="input-wrapper">
+snapshots["combo-box/Template Template Parts Data is reflected to render: reverse"] = 
+`<div part="input-wrapper">
   <input
     aria-activedescendant="AL"
     aria-autocomplete="list"
@@ -388,19 +232,13 @@
       role="option"
     >
     </ef-list-item>
-    <ef-list-item
-      aria-selected="false"
-      role="presentation"
-      type="header"
-    >
-    </ef-list-item>
   </ef-list>
 </ef-overlay>
+`;
+/* end snapshot combo-box/Template Template Parts Data is reflected to render: reverse */
 
-```
-
-```html
-<div part="input-wrapper">
+snapshots["combo-box/Template Template Parts Data is reflected to render: empty"] = 
+`<div part="input-wrapper">
   <input
     aria-activedescendant=""
     aria-autocomplete="list"
@@ -443,6 +281,6 @@
     No results found.
   </ef-list-item>
 </ef-overlay>
-
-```
+`;
+/* end snapshot combo-box/Template Template Parts Data is reflected to render: empty */
 
