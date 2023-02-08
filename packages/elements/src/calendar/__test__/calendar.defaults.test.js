@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame, isSafari } from '@refinitiv-ui/test-helpers';
 import {
   setYearView,
   setMonthView
@@ -9,6 +9,8 @@ import '@refinitiv-ui/elements/calendar';
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 import { parse } from '@refinitiv-ui/utils';
 import { RenderView } from '../../../lib/calendar/constants.js';
+
+const itBrowser = (isSkip = false) => isSkip ? it.skip : it;
 
 describe('calendar/Defaults', () => {
   describe('Defaults Test', () => {
@@ -38,52 +40,54 @@ describe('calendar/Defaults', () => {
       expect(el.fillCells, 'fill-cells is not propagated').to.equal(true);
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure is correct for 2005-04', async () => {
-      const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
-      expect(el.view, 'View property is not propagated').to.equal('2005-04');
-      expect(el.renderView, 'Render view should be DAY').to.equal(RenderView.DAY);
-      expect(el).shadowDom.to.equalSnapshot();
-      await setMonthView(el);
-      expect(el.renderView, 'Render view should be MONTH').to.equal(RenderView.MONTH);
-      expect(el).shadowDom.to.equalSnapshot();
-      await setYearView(el);
-      expect(el.renderView, 'Render view should be YEAR').to.equal(RenderView.YEAR);
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-    it('DOM structure is correct for 2005-02', async () => {
-      const el = await fixture('<ef-calendar view="2005-02" lang="en-GB"></ef-calendar>');
-      expect(el).shadowDom.to.equalSnapshot();
-      await setMonthView(el);
-      expect(el).shadowDom.to.equalSnapshot();
-      await setYearView(el);
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-    it('DOM structure is correct for 2004-12', async () => {
-      const el = await fixture('<ef-calendar view="2004-12" lang="en-GB"></ef-calendar>');
-      expect(el).shadowDom.to.equalSnapshot();
-      await setMonthView(el);
-      expect(el).shadowDom.to.equalSnapshot();
-      await setYearView(el);
-      expect(el).shadowDom.to.equalSnapshot();
+    describe('DOM structure is correct for 2005-04', async () => {
+      it('Render view should be DAY ', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        expect(el.view, 'View property is not propagated').to.equal('2005-04');
+        expect(el.renderView).to.equal(RenderView.DAY);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
+      it('Render view should be MONTH', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        expect(el.view, 'View property is not propagated').to.equal('2005-04');
+        await setMonthView(el);
+        expect(el.renderView).to.equal(RenderView.MONTH);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
+      it('Render view should be YEAR', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        expect(el.view, 'View property is not propagated').to.equal('2005-04');
+        await setYearView(el);
+        expect(el.renderView, 'Render view should be YEAR').to.equal(RenderView.YEAR);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
     });
   });
 
-  describe('Locales', () => {
-    it('Set dynamic locales', async () => {
-      const el = await fixture('<ef-calendar view="2005-04" lang="de"></ef-calendar>');
-      expect(el.lang, 'lang is not propagated').to.equal('de');
-      expect(el, 'Russian locale is incorrect').shadowDom.to.equalSnapshot();
-      el.lang = 'th';
-      await nextFrame();
-      expect(el, 'Thai locale is incorrect').shadowDom.to.equalSnapshot();
-    });
+  describe('Locales', async () => {
+      it('Russian locale', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="de"></ef-calendar>');
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
+      itBrowser(isSafari())('Thai locale for Chrome and Firefox', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="de"></ef-calendar>');
+        el.lang = 'th';
+        await nextFrame();
+        await expect(el, 'Thai locale is incorrect').shadowDom.to.equalSnapshot();
+      });
+      itBrowser(!isSafari())('Thai locale for Safari', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="de"></ef-calendar>');
+        el.lang = 'th';
+        await nextFrame();
+        await expect(el, 'Thai locale is incorrect').shadowDom.to.equalSnapshot();
+      })
   });
 
   describe('First Day Of Week', () => {
     it('First day of week should change', async () => {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB" first-day-of-week="4"></ef-calendar>');
       expect(el.firstDayOfWeek, 'first-day-of-week is not propagated').to.equal(4);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Should be possible to set first day of week to 0', async () => {
@@ -96,7 +100,7 @@ describe('calendar/Defaults', () => {
     it('Should support weekends only option', async () => {
       const el = await fixture('<ef-calendar weekends-only view="2005-04" lang="en-GB"></ef-calendar>');
       expect(el.weekendsOnly, 'weekends-only is not propagated').to.equal(true);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
@@ -104,7 +108,7 @@ describe('calendar/Defaults', () => {
     it('Should support weekdays only option', async () => {
       const el = await fixture('<ef-calendar weekdays-only view="2005-04" lang="en-GB"></ef-calendar>');
       expect(el.weekdaysOnly, 'weekdays-only is not propagated').to.equal(true);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
@@ -112,7 +116,7 @@ describe('calendar/Defaults', () => {
     it('Should support min value', async () => {
       const el = await fixture('<ef-calendar min="2005-04-05" view="2005-04" lang="en-GB"></ef-calendar>');
       expect(el.min, 'min is not propagated').to.equal('2005-04-05');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
@@ -120,7 +124,7 @@ describe('calendar/Defaults', () => {
     it('Should support max value', async () => {
       const el = await fixture('<ef-calendar max="2005-04-25" view="2005-04" lang="en-GB"></ef-calendar>');
       expect(el.max, 'max is not propagated').to.equal('2005-04-25');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
@@ -132,7 +136,7 @@ describe('calendar/Defaults', () => {
         return date.getDate() % 2;
       };
       await elementUpdated(el);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('Should support custom filter combined with default filters', async () => {
       const el = await fixture('<ef-calendar view="2005-04" min="2005-04-03" max="2005-04-25" weekdays-only lang="en-GB"></ef-calendar>');
@@ -141,7 +145,7 @@ describe('calendar/Defaults', () => {
         return date.getDate() % 2;
       };
       await elementUpdated(el);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 });

@@ -11,6 +11,10 @@ import {
   setYearView
 } from './utils';
 
+// import element and theme
+import '@refinitiv-ui/elements/calendar';
+import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
+
 const cellIndex = (calendarEl) => String(calendarEl.activeCellIndex); // access private property
 
 describe('calendar/KeyboardNavigation', () => {
@@ -33,14 +37,22 @@ describe('calendar/KeyboardNavigation', () => {
       await home(renderRoot);
       expect(cellIndex(el)).to.equal('4,0', 'Home: 01/04/2005 should be selected');
     });
-    it('Can switch months using arrow keys', async () => {
-      const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
-      const renderRoot = el.renderRoot;
-      await right(renderRoot);
-      await left(renderRoot);
-      expect(el).shadowDom.to.equalSnapshot();
-      await right(renderRoot);
-      expect(el).shadowDom.to.equalSnapshot();
+    describe('Can switch months using arrow keys', async () => {
+      it('Should switch months forward when use left arrow key', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        const renderRoot = el.renderRoot;
+        await right(renderRoot);
+        await left(renderRoot);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
+      it('Should switch months forward when use right arrow key', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        const renderRoot = el.renderRoot;
+        await right(renderRoot);
+        await left(renderRoot);
+        await right(renderRoot);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
     });
     it('Cannot navigate over disabled dates', async () => {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB" weekends-only></ef-calendar>');
@@ -75,15 +87,24 @@ describe('calendar/KeyboardNavigation', () => {
       await home(renderRoot);
       expect(cellIndex(el)).to.equal('0,0', 'Home: 11/2004 should be selected');
     });
-    it('Can switch years using arrow keys', async () => {
-      const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
-      await setMonthView(el);
-      const renderRoot = el.renderRoot;
-      await right(renderRoot);
-      await left(renderRoot);
-      expect(el).shadowDom.to.equalSnapshot();
-      await right(renderRoot);
-      expect(el).shadowDom.to.equalSnapshot();
+    describe('Can switch years using arrow keys', async () => {
+      it('Should switch year forward when use left arrow key', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        await setMonthView(el);
+        const renderRoot = el.renderRoot;
+        await right(renderRoot);
+        await left(renderRoot);
+        await expect(el).shadowDom.to.equalSnapshot();
+      })
+      it('Should switch year forward when use right arrow key', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        await setMonthView(el);
+        const renderRoot = el.renderRoot;
+        await right(renderRoot);
+        await left(renderRoot);
+        await right(renderRoot);
+        await expect(el).shadowDom.to.equalSnapshot();
+      })
     });
   });
 
@@ -107,15 +128,24 @@ describe('calendar/KeyboardNavigation', () => {
       await home(renderRoot);
       expect(cellIndex(el)).to.equal('0,0', 'Home: 2000 should be selected');
     });
-    it('Can switch decades using arrow keys', async () => {
-      const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
-      await setYearView(el);
-      const renderRoot = el.renderRoot;
-      await right(renderRoot);
-      await left(renderRoot);
-      expect(el).shadowDom.to.equalSnapshot();
-      await right(renderRoot);
-      expect(el).shadowDom.to.equalSnapshot();
+    describe('Can switch decades using arrow keys', async () => {
+      it('Should switch decades back when use left arrow key', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        await setYearView(el);
+        const renderRoot = el.renderRoot;
+        await right(renderRoot);
+        await left(renderRoot);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
+      it('Should switch decades forward when use right arrow key', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        await setYearView(el);
+        const renderRoot = el.renderRoot;
+        await right(renderRoot);
+        await left(renderRoot);
+        await right(renderRoot);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
     });
   });
 });

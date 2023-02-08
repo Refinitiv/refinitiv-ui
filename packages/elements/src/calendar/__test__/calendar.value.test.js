@@ -21,22 +21,33 @@ const listenValueChangeEvent = (el) => {
 
 describe('calendar/Value', () => {
   describe('Value Is Selected', () => {
-    it('Selected value should be highlighted when set as attribute', async () => {
-      const el = await fixture('<ef-calendar value="2005-04-21" lang="en-GB"></ef-calendar>');
-      expect(el).shadowDom.to.equalSnapshot();
-      await setMonthView(el);
-      expect(el).shadowDom.to.equalSnapshot();
-      await setYearView(el);
-      expect(el).shadowDom.to.equalSnapshot();
-      expect(el.value, 'value is not reflected to property').to.equal('2005-04-21');
-      expect(el.values.join(','), 'values is not reflected to value').to.equal('2005-04-21');
+    describe('Selected value should be highlighted when set as attribute', () => {
+      it('Selected value should be reflected to property', async () => {
+        const el = await fixture('<ef-calendar value="2005-04-21" lang="en-GB"></ef-calendar>');
+        expect(el.value, 'value is not reflected to property').to.equal('2005-04-21');
+        expect(el.values.join(','), 'values is not reflected to value').to.equal('2005-04-21');
+      });
+      it('Selected value should be highlighted in day view', async () => {
+        const el = await fixture('<ef-calendar value="2005-04-21" lang="en-GB"></ef-calendar>');
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
+      it('Selected value should be highlighted in day month', async () => {
+        const el = await fixture('<ef-calendar value="2005-04-21" lang="en-GB"></ef-calendar>');
+        await setMonthView(el);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
+      it('Selected value should be highlighted in day year', async () => {
+        const el = await fixture('<ef-calendar value="2005-04-21" lang="en-GB"></ef-calendar>');
+        await setYearView(el);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
     });
     it('Selected value should be highlighted when set as property', async () => {
       const el = await fixture('<ef-calendar lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
       el.value = '2005-04-21';
       await elementUpdated(el);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
       expect(values.join(','), 'External value change should not fire value-changed').to.equal('');
       expect(el.values.join(','), 'values is not reflected to value').to.equal('2005-04-21');
     });
@@ -47,49 +58,73 @@ describe('calendar/Value', () => {
       expect(el.value, 'value is not clear').to.equal('');
       expect(el.shadowRoot.querySelector('[selected]'), 'selected flag is not removed').to.equal(null);
     });
-    it('AD/BC selected value should be highlighted', async () => {
-      const el = await fixture('<ef-calendar value="-000011-04-21" lang="en-GB"></ef-calendar>');
-      expect(el).shadowDom.to.equalSnapshot();
-      await setMonthView(el);
-      expect(el).shadowDom.to.equalSnapshot();
-      await setYearView(el);
-      expect(el).shadowDom.to.equalSnapshot();
-      expect(el.value, 'value is not reflected to property').to.equal('-000011-04-21');
-      expect(el.values.join(','), 'values is not reflected to value').to.equal('-000011-04-21');
+    describe('AD/BC selected value should be highlighted', () => {
+      it('Selected value should be reflected to property', async () => {
+        const el = await fixture('<ef-calendar value="-000011-04-21" lang="en-GB"></ef-calendar>');
+        expect(el.value, 'value is not reflected to property').to.equal('-000011-04-21');
+        expect(el.values.join(','), 'values is not reflected to value').to.equal('-000011-04-21');
+      });
+      it('Selected value should be highlighted in day view', async () => {
+        const el = await fixture('<ef-calendar value="-000011-04-21" lang="en-GB"></ef-calendar>');
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
+      it('Selected value should be highlighted in day month', async () => {
+        const el = await fixture('<ef-calendar value="-000011-04-21" lang="en-GB"></ef-calendar>');
+        await setMonthView(el);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
+      it('Selected value should be highlighted in day year', async () => {
+        const el = await fixture('<ef-calendar value="-000011-04-21" lang="en-GB"></ef-calendar>');
+        await setYearView(el);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
     });
   });
 
   describe('Navigation Value', () => {
-    it('It should be possible to select value on click', async () => {
-      const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
-      const values = listenValueChangeEvent(el);
-      const cells = getDateCells(el);
-      cells[0].click(); // April 01
-      await elementUpdated(el);
-      expect(el.value, 'value is not set').to.equal('2005-04-01');
-      expect(el).shadowDom.to.equalSnapshot();
-      cells[29].click(); // April 30
-      await elementUpdated(el);
-      expect(el).shadowDom.to.equalSnapshot();
-      expect(values.join(','), 'value-changed should fire on click').to.equal('2005-04-01,2005-04-30');
-      expect(el.value, 'value is not set').to.equal('2005-04-30');
-      expect(el.values.join(','), 'values is not set').to.equal('2005-04-30');
+    describe('It should be possible to select value on click', () => {
+      it('Selected value should be reflected to property when clicked', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        const values = listenValueChangeEvent(el);
+        const cells = getDateCells(el);
+        cells[0].click(); // April 01
+        await elementUpdated(el);
+        expect(el.value, 'value is not set').to.equal('2005-04-01');
+        cells[29].click(); // April 30
+        await elementUpdated(el);
+        expect(values.join(','), 'value-changed should fire on click').to.equal('2005-04-01,2005-04-30');
+        expect(el.value, 'value is not set').to.equal('2005-04-30');
+        expect(el.values.join(','), 'values is not set').to.equal('2005-04-30');
+      });
+      it('Selected value should be highlighted when clicked', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        const cells = getDateCells(el);
+        cells[0].click(); // April 01
+        await elementUpdated(el);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
     });
-
-    it('AD/BC It should be possible to select value on click', async () => {
-      const el = await fixture('<ef-calendar view="-000011-04" lang="en-GB"></ef-calendar>');
-      const values = listenValueChangeEvent(el);
-      const cells = getDateCells(el);
-      cells[0].click(); // April 01
-      await elementUpdated(el);
-      expect(el.value, 'value is not set').to.equal('-000011-04-01');
-      expect(el).shadowDom.to.equalSnapshot();
-      cells[29].click(); // April 30
-      await elementUpdated(el);
-      expect(el).shadowDom.to.equalSnapshot();
-      expect(values.join(','), 'value-changed should fire on click').to.equal('-000011-04-01,-000011-04-30');
-      expect(el.value, 'value is not set').to.equal('-000011-04-30');
-      expect(el.values.join(','), 'values is not set').to.equal('-000011-04-30');
+    describe('AD/BC It should be possible to select value on click', () => {
+      it('Selected value should be reflected to property when clicked', async () => {
+        const el = await fixture('<ef-calendar view="-000011-04" lang="en-GB"></ef-calendar>');
+        const values = listenValueChangeEvent(el);
+        const cells = getDateCells(el);
+        cells[0].click(); // April 01
+        await elementUpdated(el);
+        expect(el.value, 'value is not set').to.equal('-000011-04-01');
+        cells[29].click(); // April 30
+        await elementUpdated(el);
+        expect(values.join(','), 'value-changed should fire on click').to.equal('-000011-04-01,-000011-04-30');
+        expect(el.value, 'value is not set').to.equal('-000011-04-30');
+        expect(el.values.join(','), 'values is not set').to.equal('-000011-04-30');
+      });
+      it('Selected value should be highlighted when clicked', async () => {
+        const el = await fixture('<ef-calendar view="-000011-04" lang="en-GB"></ef-calendar>');
+        const cells = getDateCells(el);
+        cells[0].click(); // April 01
+        await elementUpdated(el);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
     });
 
     it('It should be possible to select value on Spacebar', async () => {
