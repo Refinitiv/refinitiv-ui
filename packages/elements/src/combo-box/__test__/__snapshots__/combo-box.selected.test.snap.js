@@ -1,11 +1,8 @@
-# `combo-box/Selected`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-## `Selection By Selected Property`
-
-####   `Data Selected: Afghanistan`
-
-```html
-<div part="input-wrapper">
+snapshots["combo-box/Selected Selection By Selected Property Data Selected: Afghanistan"] = 
+`<div part="input-wrapper">
   <input
     aria-activedescendant="AF"
     aria-autocomplete="list"
@@ -74,11 +71,11 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+`;
+/* end snapshot combo-box/Selected Selection By Selected Property Data Selected: Afghanistan */
 
-```
-
-```html
-<div part="input-wrapper">
+snapshots["combo-box/Selected Selection By Selected Property Data Selected: change Afghanistan to Albania"] = 
+`<div part="input-wrapper">
   <input
     aria-activedescendant="AL"
     aria-autocomplete="list"
@@ -147,11 +144,11 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+`;
+/* end snapshot combo-box/Selected Selection By Selected Property Data Selected: change Afghanistan to Albania */
 
-```
-
-```html
-<div part="input-wrapper">
+snapshots["combo-box/Selected Selection By Selected Property Data Selected: unselected"] = 
+`<div part="input-wrapper">
   <input
     aria-activedescendant="AF"
     aria-autocomplete="list"
@@ -219,13 +216,11 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+`;
+/* end snapshot combo-box/Selected Selection By Selected Property Data Selected: unselected */
 
-```
-
-####   `Multiple. Data Selected: Afghanistan, Albania`
-
-```html
-<div part="input-wrapper">
+snapshots["combo-box/Selected Selection By Selected Property Multiple. Data Selected: Afghanistan, Albania"] = 
+`<div part="input-wrapper">
   <input
     aria-activedescendant="AF"
     aria-autocomplete="list"
@@ -305,11 +300,11 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+`;
+/* end snapshot combo-box/Selected Selection By Selected Property Multiple. Data Selected: Afghanistan, Albania */
 
-```
-
-```html
-<div part="input-wrapper">
+snapshots["combo-box/Selected Selection By Selected Property Multiple. Data Selected: change to Aland Islands"] = 
+`<div part="input-wrapper">
   <input
     aria-activedescendant="AX"
     aria-autocomplete="list"
@@ -382,11 +377,11 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+`;
+/* end snapshot combo-box/Selected Selection By Selected Property Multiple. Data Selected: change to Aland Islands */
 
-```
-
-```html
-<div part="input-wrapper">
+snapshots["combo-box/Selected Selection By Selected Property Multiple. Data Selected: unselected"] = 
+`<div part="input-wrapper">
   <input
     aria-activedescendant="AF"
     aria-autocomplete="list"
@@ -458,6 +453,6 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
-
-```
+`;
+/* end snapshot combo-box/Selected Selection By Selected Property Multiple. Data Selected: unselected */
 
