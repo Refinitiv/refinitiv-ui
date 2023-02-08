@@ -1,11 +1,10 @@
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame, isSafari } from '@refinitiv-ui/test-helpers';
 import {
   focusInput,
   arrowRight,
   arrowLeft,
   arrowUp,
-  arrowDown,
-  isSafari
+  arrowDown
 } from './utils';
 import { DateTimeFormat, utcFormat } from '@refinitiv-ui/utils/date.js';
 
