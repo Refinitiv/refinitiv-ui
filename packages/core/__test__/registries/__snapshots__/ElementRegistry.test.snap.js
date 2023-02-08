@@ -1,11 +1,10 @@
-# `TestCustomElement`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-#### `Test create and exec decorator with no theme twice`
+snapshots["TestElementRegistry Test define twice same name"] = 
+`Only one version of a Custom Element can be registered in the browser
 
-```html
-Only one version of a Custom Element can be registered in the browser
-
-[test-custom-element-2-tag] has already been defined.
+[test-element-registry-3-tag] has already been defined.
 
 Potential causes:
 1. No deduplication task has been performed
@@ -17,6 +16,6 @@ Recommended fix:
 2. Rebuild your project
 
 https://ui.refinitiv.com/kb/duplicate-element
-
-```
+`;
+/* end snapshot TestElementRegistry Test define twice same name */
 

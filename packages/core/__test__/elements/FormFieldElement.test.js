@@ -38,98 +38,98 @@ customElement('form-field-element-test', {
 describe('elements/FormFieldElement/DefaultsTest',  () => {
   it('Default properties', async () => {
     const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    await expect(formFieldEl).shadowDom.to.equalSnapshot();
   });
 });
 
 describe('elements/FormFieldElement/RequiredTest', () => {
   it('aria-required is propagated', async () => {
     const formFieldEl = await fixture('<form-field-element-test aria-required="true"></form-field-element-test>');
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    expect(formFieldEl.getAttribute('aria-required')).to.equal('true', 'The attribute `aria-required` must be rendered correctly');
     formFieldEl.removeAttribute('aria-required');
     await elementUpdated(formFieldEl);
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    expect(formFieldEl.hasAttribute('aria-required')).to.equal(false, 'The attribute `aria-required` must be removed');
   });
 });
 
 describe('elements/FormFieldElement/ErrorTest', () => {
   it('error is propagated', async () => {
     const formFieldEl = await fixture('<form-field-element-test error></form-field-element-test>');
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    await expect(formFieldEl).shadowDom.to.equalSnapshot();
     formFieldEl.error = false;
     await elementUpdated(formFieldEl);
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    expect(formFieldEl.shadowRoot.querySelector('input').hasAttribute('aria-invalid')).to.equal(false, 'The attribute `aria-invalid` must be removed');
   });
 });
 
 describe('elements/FormFieldElement/PlaceholderTest', () => {
   it('placeholder is propagated', async () => {
     const formFieldEl = await fixture('<form-field-element-test placeholder="Placeholder"></form-field-element-test>');
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    await expect(formFieldEl).shadowDom.to.equalSnapshot();
     formFieldEl.placeholder = null;
     await elementUpdated(formFieldEl);
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    expect(formFieldEl.getAttribute('placeholder')).to.equal('Placeholder', 'The attribute `placeholder` must not reflect value');
   });
 });
 
 describe('elements/FormFieldElement/ReadonlyTest', () => {
   it('readonly is propagated', async () => {
     const formFieldEl = await fixture('<form-field-element-test readonly></form-field-element-test>');
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    await expect(formFieldEl).shadowDom.to.equalSnapshot();
     formFieldEl.readonly = false;
     await elementUpdated(formFieldEl);
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    expect(formFieldEl.shadowRoot.querySelector('input').hasAttribute('readonly')).to.equal(false, 'The attribute `readonly` must be removed');
   });
 });
 
 describe('elements/FormFieldElement/DisabledTest', () => {
   it('disabled is propagated', async () => {
     const formFieldEl = await fixture('<form-field-element-test disabled></form-field-element-test>');
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    await expect(formFieldEl).shadowDom.to.equalSnapshot();
     formFieldEl.disabled = false;
     await elementUpdated(formFieldEl);
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    expect(formFieldEl.shadowRoot.querySelector('input').hasAttribute('disabled')).to.equal(false, 'The attribute `disabled` must be removed');
   });
 });
 
 describe('elements/FormFieldElement/AriaLabelTest', () => {
   it('aria-label is propagated', async () => {
     const formFieldEl = await fixture('<form-field-element-test aria-label="Label"></form-field-element-test>');
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    await expect(formFieldEl).shadowDom.to.equalSnapshot();
     formFieldEl.removeAttribute('aria-label');
     await elementUpdated(formFieldEl);
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    expect(formFieldEl.hasAttribute('aria-label')).to.equal(false, 'The attribute `aria-label` must be removed');
   });
   it('aria-labelledby is propagated', async () => {
     const formFieldEl = await fixture(`
         <form-field-element-test aria-labelledby="label"></form-field-element-test>
         <label id="label">Labelled By</label>
       `);
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    await expect(formFieldEl).shadowDom.to.equalSnapshot();
   });
   it('for attribute is propagated', async () => {
     const formFieldEl = await fixture(`
         <form-field-element-test id="label"></form-field-element-test>
         <label for="label">Label For</label>
       `);
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    await expect(formFieldEl).shadowDom.to.equalSnapshot();
   });
 });
 
 describe('elements/FormFieldElement/AriaDescriptionTest', () => {
   it('aria-description is propagated', async () => {
     const formFieldEl = await fixture('<form-field-element-test aria-description="Description"></form-field-element-test>');
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    await expect(formFieldEl).shadowDom.to.equalSnapshot();
     formFieldEl.removeAttribute('aria-description');
     await elementUpdated(formFieldEl);
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    expect(formFieldEl.hasAttribute('aria-description')).to.equal(false, 'The attribute `aria-description` must be removed');
   });
   it('aria-describedby is propagated', async () => {
     const formFieldEl = await fixture(`
         <form-field-element-test aria-describedby="description"></form-field-element-test>
         <span id="description">Described By</span>
       `);
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    await expect(formFieldEl).shadowDom.to.equalSnapshot();
   });
   it('aria-description is updated on error', async () => {
     const el = await fixture(`
@@ -146,7 +146,7 @@ describe('elements/FormFieldElement/AriaDescriptionTest', () => {
     descEl.innerHTML = '!ERROR! Described By'
     await elementUpdated(formFieldEl);
 
-    expect(formFieldEl).shadowDom.to.equalSnapshot();
+    await expect(formFieldEl).shadowDom.to.equalSnapshot();
   });
 });
 

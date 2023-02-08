@@ -1,9 +1,8 @@
-# `TestCustomStyleRegistry`
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
 
-#### `Test define twice same name`
-
-```html
-Only one theme file can be loaded per element
+snapshots["TestCustomStyleRegistry Test define twice same name"] = 
+`Only one theme file can be loaded per element
 
 [TestCustomStyleRegistry_2] has already been defined.
 
@@ -12,6 +11,6 @@ Potential causes:
 2. You have loaded multiple or duplicate themes in your application bundle
 
 https://ui.refinitiv.com/kb/duplicate-styles
-
-```
+`;
+/* end snapshot TestCustomStyleRegistry Test define twice same name */
 

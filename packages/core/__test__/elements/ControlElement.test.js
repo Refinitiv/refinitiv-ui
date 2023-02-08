@@ -61,11 +61,14 @@ describe('TestControlElement', () => {
     }).to.not.throw();
   });
 
-  it('Needs to have correct DOM structure', async () => {
+  it('Needs to have correct Shadow DOM structure', async () => {
     const el = await fixture('<control-element-test></control-element-test>');
+    await expect(el).shadowDom.to.equalSnapshot();
+  });
 
-    expect(el).shadowDom.to.equalSnapshot();
-    expect(el).lightDom.to.equalSnapshot();
+  it('Needs to have correct Light DOM structure', async () => {
+    const el = await fixture('<control-element-test></control-element-test>');
+    await expect(el).lightDom.to.equalSnapshot();
   });
 
   describe('Test properties and attributes', async () => {
