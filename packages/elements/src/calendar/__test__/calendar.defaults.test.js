@@ -38,7 +38,7 @@ describe('calendar/Defaults', () => {
     it('fill-cells should fill empty cells', async () => {
       const el = await fixture('<ef-calendar view="2005-04" fill-cells lang="en-GB"></ef-calendar>');
       expect(el.fillCells, 'fill-cells is not propagated').to.equal(true);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     describe('DOM structure is correct for 2005-04', async () => {
       it('Render view should be DAY ', async () => {

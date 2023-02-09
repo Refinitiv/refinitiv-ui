@@ -12,7 +12,7 @@ describe('canvas/Canvas', () => {
   });
 
   it('DOM structure is correct', async () => {
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Contains the correct structure', () => {
