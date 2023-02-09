@@ -177,7 +177,7 @@ export class TextField extends FormFieldElement {
    * @param changedProperties Properties that has changed
    * @returns True if input should be re-validated
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   protected shouldValidateInput (changedProperties: PropertyValues): boolean {
     // TODO: This validation should be refactored
     return (changedProperties.has('pattern') || !!(this.pattern && changedProperties.has('value')))
@@ -220,7 +220,7 @@ export class TextField extends FormFieldElement {
    */
   protected validateInput (): void {
     let error = !this.inputElement?.checkValidity();
-    /* istanbul ignore next */
+    /* c8 ignore next */
     if (this.shouldValidateForMinLength(error)) {
       error = !!this.minLength && (this.minLength > this.value.length);
     }
@@ -232,7 +232,7 @@ export class TextField extends FormFieldElement {
    * @param error existing state of error
    * @returns true if there is no error and browser is IE11 and minLength more than 0 and value exists
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   protected shouldValidateForMinLength (error: boolean): boolean {
     return !!(!error && isIE && this.minLength && !!this.value);
   }

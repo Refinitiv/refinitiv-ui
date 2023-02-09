@@ -75,7 +75,7 @@ export class EmailField extends TextField {
    * @param changedProperties Properties that has changed
    * @returns True if input should be re-validated
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   protected shouldValidateInput (changedProperties: PropertyValues): boolean {
     // TODO: This validation should be refactored
     return changedProperties.has('value')

@@ -258,7 +258,7 @@ export class Dialog extends Overlay {
    * @param [maxHeight] Maximum height of content element
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   private restrictContentMaxHeight (maxHeight?: number): void {
     if (!isIE) {
       return;
@@ -277,7 +277,7 @@ export class Dialog extends Overlay {
    * @param size Size of the dialog
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   private calculateContentMaxHeight (size: ElementSize): void {
     if (!isIE) {
       return;

@@ -252,7 +252,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   * @ignore
   * @param multiple Multiple
   */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   @property({ type: Boolean })
   public set multiple (multiple: boolean) {
     new WarningNotice('multiple is not currently supported').show();

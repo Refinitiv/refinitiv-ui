@@ -346,7 +346,7 @@ export class NumberField extends FormFieldElement {
    * @param event before input event
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   protected onBeforeInputChange (event: InputEvent): void {
     // The event is not supported in IE11 and old browsers
     // Therefore just try to prevent some of invalid characters to be entered
@@ -725,7 +725,7 @@ export class NumberField extends FormFieldElement {
    * @ignore
    * @inheritDoc
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   public override get selectionStart (): number | null {
     return null;
   }
@@ -734,7 +734,7 @@ export class NumberField extends FormFieldElement {
    * @ignore
    * @inheritDoc
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   public override set selectionStart (index: number | null) {
     throw new Error('Failed to set the \'selectionStart\' property on \'NumberField\': The element does not support selection.');
   }
@@ -743,7 +743,7 @@ export class NumberField extends FormFieldElement {
    * @ignore
    * @inheritDoc
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   public override get selectionEnd (): number | null {
     return null;
   }
@@ -752,7 +752,7 @@ export class NumberField extends FormFieldElement {
    * @ignore
    * @inheritDoc
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   public override set selectionEnd (index: number | null) {
     throw new Error('Failed to set the \'selectionEnd\' property on \'NumberField\': The element does not support selection.');
   }
@@ -761,7 +761,7 @@ export class NumberField extends FormFieldElement {
    * @ignore
    * @inheritDoc
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   public override get selectionDirection (): SelectionDirection | null {
     return null;
   }
@@ -770,7 +770,7 @@ export class NumberField extends FormFieldElement {
    * @ignore
    * @inheritDoc
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   public override set selectionDirection (direction: SelectionDirection | null) {
     throw new Error('Failed to set the \'selectionDirection\' property on \'NumberField\': The element does not support selection.');
   }
@@ -779,7 +779,7 @@ export class NumberField extends FormFieldElement {
    * @ignore
    * @inheritDoc
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public override setSelectionRange (startSelection: number | null, endSelection: number | null, selectionDirection?: SelectionDirection): void {
     throw new Error('Failed to execute \'setSelectionRange\' on \'NumberField\': The element does not support selection.');

@@ -30,7 +30,7 @@ const getPrevTheme = (): string => {
   return Themes[(Themes.indexOf(getCurrentTheme()) + Themes.length - 1) % Themes.length];
 };
 
-/* istanbul ignore next */
+/* c8 ignore next */
 const changeTheme = (theme: string): void => {
   sessionStorage.setItem('elf-demo-theme', theme);
   location.reload();
@@ -46,7 +46,7 @@ themeLoader.src = `/node_modules/@refinitiv-ui/${currentTheme}/es5/all-elements.
 document.head.appendChild(themeLoader);
 console.info('Theme:', currentTheme);
 
-/* istanbul ignore next */
+/* c8 ignore next */
 themeLoader.onload = (): void => {
   const body = document.body;
   const bgColor = getComputedStyle(body).getPropertyValue('background-color');

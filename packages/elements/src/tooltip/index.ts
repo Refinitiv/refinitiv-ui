@@ -520,7 +520,7 @@ class Tooltip extends BasicElement {
   private onMouseOut = ({ relatedTarget }: MouseEvent): void => {
     // document mouesemove, mouseleave and blur are not fired over iframe
     // therefore create a special case for iframe to hide the tooltip
-    /* istanbul ignore next */
+    /* c8 ignore next */
     if (Tooltip.isIframe(relatedTarget as HTMLElement)) {
       this.resetTooltip();
     }

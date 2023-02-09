@@ -23,7 +23,7 @@ export class CloseManager {
   private getTopOverlay (): OverlayClose | null {
     const overlay = this.overlays[0];
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     if (!overlay) {
       return null;
     }
@@ -48,7 +48,7 @@ export class CloseManager {
   private onEscKey (): void {
     const topOverlay = this.getTopOverlay();
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     if (!topOverlay) {
       return;
     }
@@ -74,7 +74,7 @@ export class CloseManager {
   private onTapStart = (event: TapEvent): void => {
     const topOverlay = this.getTopOverlay();
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     if (!topOverlay) {
       return;
     }

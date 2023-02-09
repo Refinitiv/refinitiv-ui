@@ -726,7 +726,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @param event Key down event object
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   protected onKeyDown (event: KeyboardEvent): void {
     // There are three areas, which have different reaction on key press:
     // 1) search field
@@ -761,7 +761,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @param event keyboard event
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   protected up (event: KeyboardEvent): void {
     super.up(event);
     this.focusOnSelectionArea();
@@ -773,7 +773,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @param event keyboard event
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   protected down (event: KeyboardEvent): void {
     super.down(event);
     this.focusOnSelectionArea();
@@ -784,7 +784,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * so the user can then use left/right/Enter keys for keyboard navigation
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   private focusOnSelectionArea (): void {
     // The logic needs to happen after the update cycle
     // as otherwise focus logic may contradict with other components

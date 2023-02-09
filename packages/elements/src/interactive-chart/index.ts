@@ -707,7 +707,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param param MouseEventParams
    * @returns {void} return undefined has out of boundary chart
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   private handleCrosshairMoved = (param: MouseEventParams): void => {
     if (!param) {
       return;
@@ -792,7 +792,7 @@ export class InteractiveChart extends ResponsiveElement {
       /* Update value legend element on subscribeCrosshairMove.
        * Don't need to be updated if chart has no data.
        */
-      /* istanbul ignore next */
+      /* c8 ignore next */
       else if (rowLegend && dataSet.length) {
         let value;
         let priceColor = '';

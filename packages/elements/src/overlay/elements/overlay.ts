@@ -551,7 +551,7 @@ export class Overlay extends ResponsiveElement {
 
     let defaultPosition;
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     switch (positionTarget) {
       case 'top left':
       case 'left top':
@@ -760,7 +760,7 @@ export class Overlay extends ResponsiveElement {
     // These hacks are required in order to solve a problem when IE11 or Edge does not display
     // the component, even if all CSS properties are set correctly
     // The reason of such behaviour is unknown, but may be related to polyfills
-    /* istanbul ignore next */
+    /* c8 ignore next */
     if (isIE) {
       this.redrawThrottler.schedule(() => this.style.setProperty('clear', 'none'));
     }
