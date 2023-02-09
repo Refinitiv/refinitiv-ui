@@ -1,4 +1,4 @@
-import { elementUpdated, expect, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, isSafari, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/autosuggest';
 import '@refinitiv-ui/elements/text-field';
@@ -139,6 +139,9 @@ describe('autosuggest/Functional', () => {
     }, 4000);
 
     it('Test suggestions-query and suggestions-fetch-requested', async function () {
+      if (isSafari()) { // Safari reach 2000ms timeout exceeded
+        this.skip();
+      }
       const input = await createInputElement();
       const autoSuggest = await createFixture('reason');
 
