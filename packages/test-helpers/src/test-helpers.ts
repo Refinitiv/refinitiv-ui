@@ -19,6 +19,7 @@ export {
   elementUpdated
 } from '@open-wc/testing';
 
+/* c8 ignore next */
 export const isSafari = (version = undefined) => { // Indicates if this is Safari. Put version parameter to specific version.
   const safari = !(/Chrome/).test(navigator.userAgent) && (/Apple Computer/).test(navigator.vendor);
   if (version) {
