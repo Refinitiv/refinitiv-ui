@@ -50,25 +50,111 @@ p {
 
 `ef-text-field` is a form element for text.
 
-## Design
+## Design Usage Rules
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius sed et rem quibusdam animi hic, iusto, minus magnam illum non laborum, in molestiae commodi sint nemo! Porro nam voluptas, commodi, perferendis aliquid totam delectus rem explicabo hic, facere doloribus incidunt. Repudiandae error porro, similique delectus aut at quidem. Voluptas, voluptatibus.
+### Content principles
 
-### Typography
+* Users should understand the state of the field quickly and easily
+* Placeholder text should not contain instructions. If these are needed supportive text should be provided
+* Label text can wrap onto multiple lines if needed. Avoid truncating, where possible  
+* Supportive  text should be used only where needed
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius sed et rem quibusdam animi hic, iusto, minus magnam illum non laborum, in molestiae commodi sint nemo! Porro nam voluptas, commodi, perferendis aliquid totam delectus rem explicabo hic, facere doloribus incidunt. Repudiandae error porro, similique delectus aut at quidem. Voluptas, voluptatibus.
+### Formatting
 
-#### Heading 4 of A
+Form labels should be visible and there are 3 variants:
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+#### Stacked
 
-##### Heading 5 of A-first
+Stacked is the default form label location
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+::
 
-###### Heading 6 of A-first-1
+```javascript
+::text-field::
+```
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+```css
+label {
+  display: block;
+}
+ef-text-field {
+  width: 240px;
+}
+```
+
+```html
+<label id="name">Full Name</label>
+<ef-text-field 
+  aria-labelledby="name"
+  placeholder="Your name as shown on your passport">
+</ef-text-field>
+```
+
+::
+
+#### Left Label
+
+Use a left form label when space is vertically limited
+
+::
+
+```javascript
+::text-field::
+```
+
+```css
+ef-text-field {
+  width: 240px;
+}
+```
+
+```html
+<label id="name">Full Name</label>
+<ef-text-field 
+  aria-labelledby="name"
+  placeholder="Your name as shown on your passport">
+</ef-text-field>
+```
+
+::
+
+#### Hidden Label
+
+The form label can be hidden when needed as long as an aria-label is included
+
+::
+
+```javascript
+::text-field::
+```
+
+```css
+ef-text-field {
+  width: 240px;
+}
+```
+
+```html
+<ef-text-field 
+  aria-label="Full name"
+  placeholder="Your name as shown on your passport">
+</ef-text-field>
+```
+
+::
+
+### Copy and UX Writing
+
+See the <a href="https://lsegroup.sharepoint.com/sites/ProductDesignTeam/SitePages/Content-Design.aspx" target="_blank" rel="noreferrer">Content Design Style Guide (internal only)</a>
+
+### Touch Devices and Virtual Keyboards
+
+When interacting with `ef-text-field` using a mobile or touch device ensure that the correct virtual keyboard is activated upon user focus.
+
+### Validation and Errors
+
+Inline validation is when validation messages are shown immediately after the user types in data to form fields.
+> **still work in progress**
 
 ## Implementation
 
