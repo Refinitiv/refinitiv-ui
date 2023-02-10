@@ -28,6 +28,7 @@ const basePath = path.join(PACKAGES_ROOT, testAll ? '*' : packageName);
 module.exports = {
   files: [path.join(basePath , '/__test__/**/*.test.js')],
   nodeResolve: true,
+  preserveSymlinks: true,
   coverage: true,
   coverageConfig: {
     include: [`**/${ packageName }/lib/**/*.js`],

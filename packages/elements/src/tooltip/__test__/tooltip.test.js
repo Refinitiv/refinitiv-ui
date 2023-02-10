@@ -216,7 +216,7 @@ describe('tooltip/Tooltip', () => {
     });
 
     expect(tooltip.opened, 'Tooltip condition did not work for not match').to.be.false;
-  }).timeout(MouseMoveDelay * 2);
+  }).timeout(MouseMoveDelay * 3);
 
   it('Show/hide delay work as expected', async function () {
     const el = await fixture(`

@@ -10,8 +10,6 @@ import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 import { parse } from '@refinitiv-ui/utils';
 import { RenderView } from '../../../lib/calendar/constants.js';
 
-const itBrowser = (isSkip = false) => isSkip ? it.skip : it;
-
 describe('calendar/Defaults', () => {
   describe('Defaults Test', () => {
     it('Check default properties', async () => {
@@ -65,22 +63,18 @@ describe('calendar/Defaults', () => {
   });
 
   describe('Locales', async () => {
-      it('Russian locale', async () => {
+      it('German locale', async () => {
         const el = await fixture('<ef-calendar view="2005-04" lang="de"></ef-calendar>');
         await expect(el).shadowDom.to.equalSnapshot();
       });
-      itBrowser(isSafari())('Thai locale for Chrome and Firefox', async () => {
+
+      it('Thai locale', async function () {
+        isSafari() && this.skip(); // Safari render text different from other browsers
         const el = await fixture('<ef-calendar view="2005-04" lang="de"></ef-calendar>');
         el.lang = 'th';
         await nextFrame();
         await expect(el, 'Thai locale is incorrect').shadowDom.to.equalSnapshot();
       });
-      itBrowser(!isSafari())('Thai locale for Safari', async () => {
-        const el = await fixture('<ef-calendar view="2005-04" lang="de"></ef-calendar>');
-        el.lang = 'th';
-        await nextFrame();
-        await expect(el, 'Thai locale is incorrect').shadowDom.to.equalSnapshot();
-      })
   });
 
   describe('First Day Of Week', () => {
