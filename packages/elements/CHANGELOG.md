@@ -5,7 +5,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [6.6.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.6.1...@refinitiv-ui/elements@6.6.2) (2023-02-14)
 
-**Note:** Version bump only for package @refinitiv-ui/elements
+### Bug Fixes
+
+* **combo-box:** fix value-changed event of free text mode ([#583](https://github.com/Refinitiv/refinitiv-ui/pull/583))  ([bae20f0](https://github.com/Refinitiv/refinitiv-ui/commit/bae20f0854d9f95d8c10985f8b2c5a9619922004))
 
 
 
