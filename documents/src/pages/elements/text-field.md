@@ -213,7 +213,7 @@ Alternatively, you can check the `error` property to confirm if the input is val
 
 See the [Input Length](/elements/text-field#input-length) example below for more detail.
 
-## Input length
+### Input length
 
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
 
@@ -445,7 +445,7 @@ feedback.addEventListener("icon-click", (e) => {
 });
 ```
 
-## Accessibility
+### Accessibility
 
 ::a11y-intro::
 
