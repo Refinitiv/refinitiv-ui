@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const chalk = require('chalk');
+import fs from 'node:fs';
+import path from 'node:path';
+import chalk from 'chalk';
 import { expect } from 'chai';
 import { describe } from 'mocha';
 
@@ -54,17 +54,17 @@ const getDirList = (dir) => {
   return dirList.filter(file => path.extname(path.resolve(dir, file)) === '.js');
 };
 
-const assembleImports = () => {
+const assembleImports = async () => {
   const langImportMap = new Map();
   try {
     // load all the components per lang
     for (const lang of Supported) {
       langImportMap.set(lang, new Map());
-      let langMap = langImportMap.get(lang);
-      let componentsList = getDirList(`./${DEFAULT_LANG_DIR}/${lang}`);
+      const langMap = langImportMap.get(lang);
+      const componentsList = getDirList(`./${DEFAULT_LANG_DIR}/${lang}`);
       if(componentsList) {
         for (const component of componentsList) {
-          let imported = require(`../${DEFAULT_LANG_DIR}/${lang}/${component}`);
+          const imported = await import(`../${DEFAULT_LANG_DIR}/${lang}/${component}`);
           langMap.set(component, imported.default);
         }
       }
@@ -87,9 +87,8 @@ Supported.forEach((lang) => {
 });
 
 describe('Langs', () => {
-  before((done) => {
-    assembledImports = assembleImports();
-    done();
+  before(async () => {
+    assembledImports = await assembleImports();
   });
   after(() => {
     if (missing.length || missingTrans.length || additional.length || unexpected.length) {
