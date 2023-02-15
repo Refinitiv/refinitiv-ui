@@ -29,8 +29,8 @@ enum Direction {
 /**
  * Form control element for numbers.
  *
- * @fires value-changed - Dispatched when value changes
- * @fires error-changed - Dispatched when error state changes
+ * @fires value-changed - Fired when user commits a value change. The event is not triggered if `value` property is changed programmatically.
+ * @fires error-changed - Fired when user inputs invalid value. The event is not triggered if `error` property is changed programmatically.
  *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state

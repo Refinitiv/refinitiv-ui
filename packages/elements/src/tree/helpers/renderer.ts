@@ -12,12 +12,11 @@ type RendererScope = {
 
 export class TreeRenderer extends Renderer {
 
-  /**
-   * Renderer key prefix, used in combination with item value to give unique id to each item
-   */
-  public key: string = uuid();
-
   constructor (scope?: unknown) {
+    /**
+     * Renderer key prefix, used in combination with item value to give unique id to each item
+     */
+    const key: string = uuid();
 
     let manager: TreeManager<TreeDataItem>;
     let currentMode: TreeManagerMode;
@@ -36,7 +35,7 @@ export class TreeRenderer extends Renderer {
 
       element.multiple = multiple;
       element.item = item;
-      element.id = getItemId(this.key, item.value);
+      element.id = getItemId(key, item.value);
       element.depth = composer.getItemDepth(item);
       element.parent = composer.getItemChildren(item).length > 0;
       element.expanded = manager.isItemExpanded(item);

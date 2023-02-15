@@ -1,5 +1,5 @@
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-import { getData, openedUpdated, snapshotIgnore, makeQueryRequest } from './utils';
+import { fixture, expect, elementUpdated, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+import { getData, openedUpdated, snapshotIgnore, makeQueryRequest, dispatchCustomEvent } from './utils';
 
 import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
@@ -54,7 +54,10 @@ describe('combo-box/Value', () => {
       expect(el.inputElement.value).to.equal('', 'Input is not reflected for ""');
     });
 
-    it('Free text. Set any value via API', async () => {
+  });
+  describe('Free Text mode', () => {
+
+    it('Set any value via API', async () => {
       const el = await fixture('<ef-combo-box free-text value="AF" opened lang="en"></ef-combo-box>');
       el.data = getData();
       await openedUpdated(el);
@@ -71,7 +74,42 @@ describe('combo-box/Value', () => {
       expect(el.value).to.equal('Any', 'Value must be "Any" string');
     });
 
-    it('Free text. Reset value via API', async () => {
+    it('Set any value via API then select value in the list', async () => {
+      // set value via attribute
+      const el = await fixture('<ef-combo-box free-text value="attribute" opened lang="en"></ef-combo-box>');
+      el.data = getData();
+      await openedUpdated(el);
+
+      let afItem = el.listEl.querySelectorAll('ef-list-item')[1]; // AF, Afghanistan
+      setTimeout(() => dispatchCustomEvent(afItem, 'tap'));
+
+      const attributeEvent = await oneEvent(el, 'value-changed');
+      expect(attributeEvent.detail.value).to.equal('AF', `value-changed event's value doesn't equal selected value`);
+
+      // set value via input element
+      await makeQueryRequest(el, 'A');
+
+      const axItem = el.listEl.querySelectorAll('ef-list-item')[2]; // AX, AAland Islands
+      setTimeout(() => dispatchCustomEvent(axItem, 'tap'));
+
+      const inputEvent = await oneEvent(el, 'value-changed');
+      expect(inputEvent.detail.value).to.equal('AX', `value-changed event's value doesn't equal selected value`);
+
+      // set value via property
+      // cleanup first
+      el.value = '';
+      await elementUpdated(el);
+
+      el.value = 'property';
+
+      const alItem = el.listEl.querySelectorAll('ef-list-item')[3]; // AL, Albania
+      setTimeout(() => dispatchCustomEvent(alItem, 'tap'));
+
+      const propertyEvent = await oneEvent(el, 'value-changed');
+      expect(propertyEvent.detail.value).to.equal('AL', `value-changed event's value doesn't equal selected value`);
+    });
+
+    it('Reset value via API', async () => {
       const el = await fixture('<ef-combo-box free-text value="AF" opened lang="en"></ef-combo-box>');
       el.data = getData();
       await openedUpdated(el);

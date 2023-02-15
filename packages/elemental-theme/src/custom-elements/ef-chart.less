@@ -2,9 +2,7 @@
 @import 'element:ef-layout';
 
 :host {
-
-  font-size: 15rem;
-
+  font-size: @global-text-size;
   --grid-line-color: fade(@grid-border-color, 50%);
   --zero-line-color: fade(@grid-border-color, 50%);
   --animation-duration: 1000;
@@ -30,5 +28,4 @@
   --chart-color-6: @dataviz-color-6;
   --chart-color-7: @dataviz-color-7;
   --chart-color-8: @dataviz-color-8;
-
 }
