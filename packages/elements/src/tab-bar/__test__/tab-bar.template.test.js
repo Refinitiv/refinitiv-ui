@@ -9,6 +9,7 @@ const getElementStyle = (elem, prop) => {
 
 const scrollUpdated = async () => {
   await aTimeout(300);
+  await nextFrame(); // Firefox require extra frame when performance drop by testing all packages
 };
 
 describe('tab-bar/TabBar', () => {
@@ -127,7 +128,7 @@ describe('tab-bar/TabBar', () => {
 
       expect(Math.round(content.scrollLeft)).equal(BAR_TRAVEL_DISTANCE);
       expect(getElementStyle(leftScrollBtn, 'display')).equal('flex');
-    });
+    }).timeout(3000);
 
     it('Should scroll correctly when clicked on left scroll button', async () => {
       rightScrollBtn.dispatchEvent(new CustomEvent('tap'));
