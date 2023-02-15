@@ -2,6 +2,7 @@ import { Client } from './controller.js';
 import { Messenger,
   type Message,
   type HostRequest,
+  type HostReplacement,
   type HostResponse,
   type HostReload,
   type ClientRequest,
@@ -76,6 +77,10 @@ export class Store {
       if (!host) {
         return;
       }
+      // Host changed from ourself to another
+      if (this.host?.address === this.client.address && this.host?.address !== host.address) {
+        this.hostReplacement(host.address);
+      }
       this.host = host;
       // Process backlog when host change
       this.processBacklog();
@@ -84,6 +89,31 @@ export class Store {
     this.messenger = new Messenger(this.client.address);
     this.listenMessage();
     this.handleBrowserUnload();
+  }
+
+  /**
+   * Move client backlog request to new host
+   * @param address new host address
+   * @returns {void}
+   */
+  private hostReplacement (address: string): void {
+    this.messenger.send(address, {
+      action: 'host_replacement',
+      items: this.backlogRequestFromClient
+    });
+    this.backlogRequestFromClient.clear();
+  }
+
+  /**
+   * Handle client backlog request from previous host
+   * @param data host replacement data
+   * @returns {void}
+   */
+  private hostHandleReplacement (data: HostReplacement): void {
+    data.items.forEach((sender, key) => this.backlogRequestFromClient.set(key, sender));
+    if (this.host) {
+      this.hostProcessBacklog();
+    }
   }
 
   /**
@@ -114,7 +144,12 @@ export class Store {
   private hostHandleRequest (sender: string, data: ClientRequest): void {
     data.keys.forEach((key: string) => this.backlogRequestFromClient.set(key, sender));
     if (this.host) {
-      this.hostProcessBacklog();
+      if (this.client.isHost) {
+        this.hostProcessBacklog();
+      }
+      else {
+        this.hostReplacement(this.host.address);
+      }
     }
   }
 
@@ -194,6 +229,8 @@ export class Store {
           return this.hostHandleResponse(data);
         case 'client_unload':
           return this.hostHandleUnload(data);
+        case 'host_replacement':
+          return this.hostHandleReplacement(data);
         // client action
         case 'host_request':
           return this.clientHandleRequest(data);
@@ -290,13 +327,12 @@ export class Store {
    */
   private hostProcessClientBacklog (backlog: Record<string, string[]>) {
     for (const [client, keys] of Object.entries(backlog)) {
-      if (this.client.address === this.host?.address) {
-        keys.forEach(key => this.setPending(key));
-        this.messenger.send(client, {
-          action: 'host_request',
-          keys
-        });
-      }
+      keys.forEach(key => this.setPending(key));
+      this.messenger.send(client, {
+        action: 'host_request',
+        keys
+      });
+      keys.forEach(key => this.backlogRequestFromClient.delete(key));
     }
   }
 

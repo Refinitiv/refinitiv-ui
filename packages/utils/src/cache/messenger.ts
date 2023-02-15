@@ -2,13 +2,17 @@ import { MESSAGE_SERVICE } from './utils/service-ids.js';
 
 export type Message = {
   sender: string;
-  data: HostRequest | HostResponse | HostReload | ClientRequest | ClientResponse | ClientUnload;
+  data: HostRequest | HostResponse | HostReload | ClientRequest | ClientResponse | ClientUnload | HostReplacement;
   recipients: string;
 }
 
 export type HostRequest = {
   action: 'host_request',
   keys: string[];
+}
+export type HostReplacement = {
+  action: 'host_replacement',
+  items: Map<string, string>;
 }
 
 export type HostResponse = {
