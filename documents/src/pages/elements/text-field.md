@@ -48,7 +48,7 @@ p {
 
 ::
 
-`ef-text-field` is a form element for text.
+`ef-text-field` is a form element for text. This basic text input enables the user to type a small amount of text and submit it into Workspace.
 
 ## Design Usage Rules
 
@@ -153,8 +153,9 @@ When interacting with `ef-text-field` using a mobile or touch device ensure that
 
 ### Validation and Errors
 
+Use inline validation where possible. For example, if the user typed an email address into a name field. Show the user an error message when we know the user has made an error. If it is not possible to use inline validation, then validate when the user submits the entry. For example, on a form.
+
 Inline validation is when validation messages are shown immediately after the user types in data to form fields.
-> **still work in progress**
 
 ## Implementation
 
