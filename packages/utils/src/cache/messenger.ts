@@ -1,81 +1,78 @@
-import { MESSENGER_PREFIX } from './constants.js';
+import { MESSAGE_SERVICE } from './utils/service-ids.js';
 
 export type Message = {
+  sender: string;
+  data: HostRequest | HostResponse | HostReload | ClientRequest | ClientResponse | ClientUnload;
+  recipients: string;
+}
+
+export type HostRequest = {
+  action: 'host_request',
+  keys: string[];
+}
+
+export type HostResponse = {
+  action: 'host_response',
+  items: { key: string, value: string }[];
+}
+
+export type HostReload = {
+  action: 'host_reload',
+  keys: string[];
+}
+
+export type ClientRequest = {
+  action: 'client_request',
+  keys: string[];
+}
+
+export type ClientResponse = {
+  action: 'client_response',
   key: string;
   value: string;
 }
 
+export type ClientUnload = {
+  action: 'client_unload',
+  keys: string[];
+}
+
 export type OnMessageCallback = (message: Message) => void;
-export type OnCompleteCallback = () => void;
 
-/**
- * Cache messenger manage post/receive to others cache messenger
- */
-export class CacheMessenger {
-
-  /**
-   * Channel to send message
-   */
-  protected broadcastChannel?: BroadcastChannel;
-
-  /**
-   * Messaging callback
-   */
+export class Messenger {
+  private id: string;
+  private broadcastChannel?: BroadcastChannel;
   public onMessage: OnMessageCallback | undefined = undefined;
 
-  /**
-   * Channel name for broadcasting
-   */
-  protected channel = '';
-
-  /**
-   * Constructor
-   * @param name messenger name
-   */
-  constructor (name: string) {
-    this.channel = `[${MESSENGER_PREFIX}][${name}]`;
+  constructor (id: string) {
+    this.id = id;
     this.open();
   }
 
-  /**
-   * Open connection and listening to events from messages and storage
-   * @returns {void}
-   */
-  public open (): void {
-    this.broadcastChannel = new BroadcastChannel(this.channel);
-    // Listen message from others messenger
+  open (): void {
+    this.broadcastChannel = new BroadcastChannel(MESSAGE_SERVICE);
     this.broadcastChannel.onmessage = (event: MessageEvent<Message>) => {
-      // Run callback function
       if (this.onMessage instanceof Function) {
-        this.onMessage(event.data);
+        if ([this.id, '*'].some(cond => event.data.recipients.includes(cond))) {
+          this.onMessage(event.data);
+        }
       }
     };
   }
 
-  /**
-   * Close listening
-   * @returns {void}
-   */
   public close (): void {
     this.broadcastChannel?.close();
     this.broadcastChannel = undefined;
   }
 
-  /**
-   * Distribute message
-   * @param key item key
-   * @param value data to send via message
-   * @returns {void}
-   */
-  public notify (key: string, value: string): void {
+  public send (to: string | string[], data: unknown): void {
     if (!this.broadcastChannel) {
       this.open();
     }
-    if (this.broadcastChannel) {
-      this.broadcastChannel.postMessage({ key, value });
-    }
-    else {
-      throw new Error('Cache Messenger: BroadcastChannel not found');
-    }
+    this.broadcastChannel?.postMessage({
+      recipients: Array.isArray(to) ? to : [to],
+      sender: this.id,
+      data
+    });
   }
 }

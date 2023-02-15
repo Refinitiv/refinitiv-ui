@@ -1,7 +1,7 @@
 import { LocalStorage } from './storages/localstorage.js';
 import { IndexedDBStorage } from './storages/indexeddb.js';
 import type { CacheStorage } from './interfaces/CacheStorage';
-import { Distribution, type DistributionState } from './distribution.js';
+import { Store } from './store.js';
 export interface DistributedCacheConfig {
   storage: 'localstorage' | 'indexeddb';
 }
@@ -16,15 +16,7 @@ export class DistributedCache {
    */
   protected storage!: CacheStorage;
 
-  /**
-   * Names for manage all states temporary
-   */
-  protected state: DistributionState;
-
-  /**
-   * Names for manage all states temporary
-   */
-  protected distribution: Distribution;
+  store = new Store();
 
   /**
    * Constructor
@@ -48,32 +40,6 @@ export class DistributedCache {
     else {
       throw new TypeError('Unknown storage type');
     }
-    this.distribution = new Distribution(name, this.storage);
-    this.state = this.distribution.state;
-    this.handleUnload();
-  }
-
-  /**
-   * Clean up by resetting all requesting states,
-   * if found unload event that makes the current states is not correct
-   * in case users interupt a browser by refresh page
-   * @returns {void}
-   */
-  private handleUnload (): void {
-    // Listen this event to detect user try to refresh page
-    window.addEventListener('beforeunload', (event) => {
-      event.preventDefault();
-      if (this.getStateKeys().length !== 0) {
-        localStorage.setItem(this.state.unloaded, 'true');
-      }
-      return true;
-    });
-
-    // After user refresh (unload), all state should be cleaned by delete state from previous round
-    if (localStorage.getItem(this.state.unloaded) === 'true') {
-      localStorage.removeItem(this.state.unloaded);
-      this.clean();
-    }
   }
 
   /**
@@ -92,11 +58,9 @@ export class DistributedCache {
         modified,
         expires: modified + expires * 1000
       };
-      this.distribution.messageCache(key, cacheValue);
+      this.store.set(key, cacheValue);
       // Set data to cache
       await this.storage.set(key, data);
-      // Clean up temporary state
-      this.cleanItem(key);
     }
     else {
       // eslint-disable-next-line no-console
@@ -114,36 +78,7 @@ export class DistributedCache {
     if (item && item.expires > Date.now()) {
       return item.value;
     }
-    return new Promise<string | null>(resolve => this.distribution.processRequest(key, resolve));
-  }
-
-  /**
-   * Return state keys
-   * @returns {string[]} localhostStorage keys that contains state name
-   */
-  protected getStateKeys (): string[] {
-    return Object.keys(localStorage)
-      .filter(key => [this.state.locked, this.state.unloaded]
-        .some(prefix => key.startsWith(prefix)));
-  }
-
-  /**
-   * Clean up all temporary states
-   * @returns {void}
-   */
-  private clean (): void {
-    this.getStateKeys().forEach(key => {
-      localStorage.removeItem(key);
-    });
-  }
-
-  /**
-   * Clean up one item from temporary states
-   * @param key item key
-   * @returns {void}
-   */
-  private cleanItem (key: string): void {
-    localStorage.removeItem(`${this.state.locked}-${key}`);
+    return this.store.get(key);
   }
 
   /**
