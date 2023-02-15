@@ -23,7 +23,7 @@ import {
 /**
  * Basic radio button
  *
- * @fires checked-changed - Fired when the `checked` property changes.
+ * @fires checked-changed - Fired when the user checks or unchecks the radio. The event is not fired if the `checked` property is changed programmatically.
  *
  * @attr {string} value - Value of the radio button
  * @prop {string} [value=""] - Value of the radio button

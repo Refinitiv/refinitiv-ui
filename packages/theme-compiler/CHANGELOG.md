@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@6.1.1...@refinitiv-ui/theme-compiler@6.2.0) (2023-01-06)
+
+
+### Features
+
+* upgrade `css-select` to version 5 ([#491](https://github.com/Refinitiv/refinitiv-ui/issues/491)) ([c647b0a](https://github.com/Refinitiv/refinitiv-ui/commit/c647b0ae02a57cca7ebd27b8ad8e57b4afd86ab0))
+
+
+
+
+
 ## [6.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@6.1.0...@refinitiv-ui/theme-compiler@6.1.1) (2022-11-07)
 
 **Note:** Version bump only for package @refinitiv-ui/theme-compiler

@@ -84,14 +84,14 @@ export {
  * Autosuggest supports various use cases such as
  * custom rendering, pagination, asynchronous data request, etc.
  *
- * @fires item-highlight Fired when an item gets highlighted or highlight is removed
- * @fires add-attach-target-events Fired when attach has been set
- * @fires remove-attach-target-events Fired when attach has been removed
- * @fires item-select Fired when an item gets selected
- * @fires suggestions-fetch-requested Fired when auto suggest requests the data
- * @fires suggestions-clear-requested Fired when auto suggest requests to clear the data. If used in reactive application, prevent default and set suggestions to []
- * @fires suggestions-query Fired when input value has changed and the query must be set
- * @fires suggestions-changed Fired when suggestions changed
+ * @fires item-highlight - Fired when the user highlights an item or removes highlight from the item.
+ * @fires add-attach-target-events - Fired when `attach` has been set to bind the control with any custom inputs.
+ * @fires remove-attach-target-events - Fired when `attach` has been removed to unbind the control with the inputs.
+ * @fires item-select - Fired when the user selects an item on autosuggest.
+ * @fires suggestions-fetch-requested - Fired when autosuggest requests the data. The event will be triggered when the value of the attached control has changed or when keyboard navigation is performed.
+ * @fires suggestions-clear-requested - Fired when autosuggest requests to clear the data. If used in reactive application, prevent default and set suggestions to [].
+ * @fires suggestions-query - Fired when the user changes value in input control and you might need to update suggestion items accordingly.
+ * @fires suggestions-changed - Fired when suggestion items changed.
  *
  * @attr {boolean} opened - Set to open auto suggest popup
  * @prop {boolean} [opened=false] -  Auto suggest popup's open state

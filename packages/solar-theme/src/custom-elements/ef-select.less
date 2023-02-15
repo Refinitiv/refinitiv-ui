@@ -9,6 +9,8 @@
 
   // #region - Extend from ef-button styles
   &:extend(:host);
+  // pointer cursor style would be applied internally to trigger element instead
+  cursor: unset;
   &:not([readonly]):hover {
     &:extend(:host:hover);
   }

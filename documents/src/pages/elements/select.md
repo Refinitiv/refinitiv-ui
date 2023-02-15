@@ -110,6 +110,7 @@ section {
 }
 ```
 ```html
+<section>
   <ef-select>
   <ef-item type="header">Drinks</ef-item>
   <ef-item value="1">Cola</ef-item>

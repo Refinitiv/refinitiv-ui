@@ -224,6 +224,12 @@ describe('color-dialog/ColorDialog', () => {
       await elementUpdated();
       expect(confirmBtn.disabled).to.equal(false);
     });
+    it('should enabled confirmed button when change from default color to black color', async () => {
+      hexInput.value = '000000';
+      hexInput.dispatchEvent(new Event('value-changed'));
+      await elementUpdated();
+      expect(confirmBtn.disabled).to.equal(false);
+    });
     it('should enabled confirmed button when r,g,b is valid', async () => {
       redInput.value = '255';
       greenInput.value = '200';

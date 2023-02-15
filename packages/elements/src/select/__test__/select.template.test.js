@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils';
 
 import '@refinitiv-ui/elements/select';
@@ -60,6 +60,7 @@ describe('select/Template', () => {
       await openedUpdated(el);
       expect(el.hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected');
       expect(getMenuEl(el).hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected on popup');
+      await nextFrame(); // Firefox require extra frame when performance drop by testing all packages
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
 
       el.opened = false;

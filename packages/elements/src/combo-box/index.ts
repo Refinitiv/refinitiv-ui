@@ -8,7 +8,8 @@ import {
   TemplateResult,
   WarningNotice,
   FocusedPropertyKey,
-  StyleMap
+  StyleMap,
+  triggerResize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -66,9 +67,9 @@ const freeTextMultipleWarning = new WarningNotice('"free-text" mode is not compa
  * @attr {string} name - Set name of the element
  * @prop {string} [name=''] - Set name of the element
  *
- * @fires value-changed - Dispatched when value changes
- * @fires query-changed - Dispatched when query changes
- * @fires opened-changed - Dispatched when opened state changes
+ * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
+ * @fires query-changed - Fired when the user changes value in the input to change a query word. If `query-debounce-rate` is set, this event will be triggered after debounce completion. The event is not triggered if `query` property is changed programmatically.
+ * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
  */
 @customElement('ef-combo-box')
 export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
@@ -623,7 +624,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     // If data is set asynchronously while popup is opened
     // list might not trigger popup update
     if (changedProperties.has('data') && this.opened) {
-      this.forcePopupLayout();
+      triggerResize();
     }
 
     super.update(changedProperties);
@@ -847,7 +848,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       });
     }
 
-    this.forcePopupLayout();
+    triggerResize();
   }
 
   /**
@@ -891,18 +892,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     }
 
     return canHighlight;
-  }
-
-  /**
-   * https://github.com/juggle/resize-observer/issues/42
-   *
-   * This event ensures that ResizeObserver picks up resize events
-   * when popup is deeply nested inside shadow root.
-   * TODO: remove this workaround once ResizeObserver handles shadow root scenario
-   * @returns {void}
-  */
-  protected forcePopupLayout (): void {
-    window.dispatchEvent(new Event('animationiteration'));
   }
 
   /**
@@ -979,8 +968,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   protected onListValueChanged (): void {
     // cascade value changed event
-    this.notifyPropertyChange('value', this.value);
     this.onListInteraction();
+    this.notifyPropertyChange('value', this.value);
   }
 
   /**

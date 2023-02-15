@@ -154,18 +154,19 @@ const translate = function (options?: string | DecoratorOptions): TranslateFunct
     // Cannot use an element itself as a key.
     // Element may have multiple translate directives with different scope
     // Therefore we need a truly unique key
-    let key: ObserverKey;
+    const keys = new Map<BasicElement, ObserverKey>();
     const connectedCallback = prototype.connectedCallback;
 
     prototype.connectedCallback = function (): void {
       connectedCallback.call(this);
-      key = observeTranslations.call(this, scope);
+      keys.set(this, observeTranslations.call(this, scope));
     };
 
     const disconnectedCallback = prototype.disconnectedCallback;
     prototype.disconnectedCallback = function (): void {
       disconnectedCallback.call(this);
-      disconnectTranslations.call(this, key);
+      disconnectTranslations.call(this, keys.get(this) || '');
+      keys.delete(this);
     };
 
     const descriptor = mode === 'promise'
