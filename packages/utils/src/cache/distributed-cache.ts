@@ -60,7 +60,7 @@ export class DistributedCache {
       };
       this.store.set(key, cacheValue);
       // Set data to cache
-      await this.storage.set(key, data);
+      void this.storage.set(key, data);
     }
     else {
       // eslint-disable-next-line no-console
