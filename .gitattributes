@@ -1,3 +1,0 @@
-# Declare files that will always have LF line endings on checkout.
-*.test.js text eol=lf
-*.test.snap.js text eol=lf
