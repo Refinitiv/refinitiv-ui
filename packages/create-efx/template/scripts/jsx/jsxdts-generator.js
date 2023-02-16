@@ -38,7 +38,7 @@ const handler = async () => {
     path.join(PACKAGE_ROOT, ELEMENT_DIST, JSX_TYPE_DECLARATION)
   );
 
-  const files = await getElementList(path.join(PACKAGE_ROOT, ELEMENT_DIST));
+  const files = getElementList(path.join(PACKAGE_ROOT, ELEMENT_DIST));
 
   for (const file of files) {
     const elementName = getElementTagName(file);
