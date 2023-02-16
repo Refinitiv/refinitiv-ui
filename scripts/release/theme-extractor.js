@@ -26,7 +26,7 @@ const THEMES_DIRECTORY = 'themes';
  * @returns {[{ dir: string, elements: string[], dependencies: string[]]} DependencyMap
  */
 const createDependencyMap = async () => {
-  const paths = await getElementList(path.join(process.cwd(), ELEMENT_DIST));
+  const paths = getElementList(path.join(process.cwd(), ELEMENT_DIST));
 
   const elements = paths.reduce((entries, path) => {
     const elementTagName = getElementTagName(path);
@@ -119,13 +119,13 @@ const getThemes = async (elements) => {
  * @returns {void}
  */
 const handler = async () => {
-  const dependencyMap = await createDependencyMap();
+  const dependencyMap = createDependencyMap();
 
   // DEBUG: This will log the dependency tree of all elements
   // console.log(dependencyMap);
 
   for (const { dir, elements, dependencies } of dependencyMap) {
-    const themes = await getThemes(elements);
+    const themes = getThemes(elements);
 
     for (const variant of themes) {
       /**
