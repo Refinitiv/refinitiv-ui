@@ -353,7 +353,13 @@ export class Chart extends BasicElement {
 
     this.datasets.forEach((dataset) => {
       const info = this.datasetInfo(dataset);
-
+      // {
+      //   type,
+      //   borderColor: borderColor || colors.solid,
+      //   backgroundColor: isSolidFill ? colors.solid : colors.opaque,
+      //   pointBorderColor: colors.solid,
+      //   pointBackgroundColor: colors.solid
+      // }
       // make sure that colours are defined for every dataset e.g. when new dataset is added
       extendColorsIfRequired(dataset.borderColor, info.borderColor);
       extendColorsIfRequired(dataset.backgroundColor, info.backgroundColor);
