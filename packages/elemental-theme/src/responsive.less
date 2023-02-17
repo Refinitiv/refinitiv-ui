@@ -16,12 +16,6 @@
     }
 }
 
-.ie-specific(@styles) {
-    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-        @styles();
-    }
-}
-
 .all-browsers(@styles) {
     @media all {
         @styles();
