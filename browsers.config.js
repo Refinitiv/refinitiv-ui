@@ -1,21 +1,5 @@
-const osType = require('os').type();
-
-const isWin = osType === 'Windows_NT';
-const isDarwin = osType === 'Darwin'; /* macOS, iOS, iPadOS */
-
-// Local browsers
-const defaultBrowsers = ['chrome', 'firefox'];
-const availableBrowsers = ['chrome', 'firefox', 'opera'];
-
-// do not perform browser check as it is slow and never required
-if (isWin) {
-  availableBrowsers.push('ie');
-}
-
-if (isDarwin) {
-  defaultBrowsers.push('safari');
-  availableBrowsers.push('safari');
-}
+// Playwright browsers
+const playwrightBrowsers = ['chrome', 'firefox', 'safari'];
 
 // BrowserStack browsers
 const BrowserStack = {
@@ -72,7 +56,6 @@ BrowserStack.config = {
 };
 
 module.exports = {
-  defaultBrowsers,
-  availableBrowsers,
+  playwrightBrowsers,
   BrowserStack
 };

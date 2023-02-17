@@ -2,8 +2,7 @@
 const { execSync } = require('child_process');
 const { exit } = require('process');
 const {
-  defaultBrowsers,
-  availableBrowsers,
+  playwrightBrowsers,
   BrowserStack
 } = require('../../browsers.config');
 
@@ -39,8 +38,8 @@ exports.builder = yargs => {
     .option('browsers', {
       alias: 'b',
       type: 'array',
-      default: defaultBrowsers,
-      choices: availableBrowsers,
+      default: playwrightBrowsers,
+      choices: playwrightBrowsers,
       description: 'Specific browser(s) to run units test'
     })
     .option('browserstack', {
@@ -80,13 +79,13 @@ exports.handler = (argv) => {
     snapshots && command.push('--update-snapshots');
     // TODO: need to make the WTR support the options below
     // browserstack && command.push(`--browserstack ${browserstack}`);
-    // !browserstack && browsers && command.push(`-b ${browsers}`);
     command.push(`--output=${argv.output}`);
 
     execSync(command.join(' '), {
       stdio: 'inherit',
       env: Object.assign({}, process.env, {
-        ELEMENT: element
+        ELEMENT: element,
+        BROWSERS: browsers
       })
     });
   }
