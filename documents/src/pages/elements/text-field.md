@@ -48,7 +48,7 @@ p {
 
 ::
 
-`ef-text-field` is a form element for text. This basic text input enables the user to type a small amount of text and submit it into Workspace.
+`ef-text-field` is a form element for text. This basic text input enables the user to type a small amount of text and submit it.
 
 ## Design Usage Rules
 
