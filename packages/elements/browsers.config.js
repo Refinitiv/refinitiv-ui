@@ -1,9 +1,9 @@
 const {
-  playwrightBrowsers,
+  DefaultBrowsers,
   BrowserStack
 } = require('../../browsers.config');
 
 module.exports = {
-  playwrightBrowsers,
+  DefaultBrowsers,
   BrowserStack
 };

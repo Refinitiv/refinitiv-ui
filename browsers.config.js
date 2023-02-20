@@ -1,5 +1,5 @@
-// Playwright browsers
-const playwrightBrowsers = ['chrome', 'firefox', 'safari'];
+// Default browsers
+const DefaultBrowsers = ['chrome', 'firefox', 'safari'];
 
 // BrowserStack browsers
 const BrowserStack = {
@@ -56,6 +56,6 @@ BrowserStack.config = {
 };
 
 module.exports = {
-  playwrightBrowsers,
+  DefaultBrowsers,
   BrowserStack
 };

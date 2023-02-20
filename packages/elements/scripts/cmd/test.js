@@ -2,7 +2,7 @@
 const { execSync } = require('child_process');
 const { exit } = require('process');
 const {
-  playwrightBrowsers,
+  DefaultBrowsers,
   BrowserStack
 } = require('../../browsers.config');
 
@@ -38,8 +38,8 @@ exports.builder = yargs => {
     .option('browsers', {
       alias: 'b',
       type: 'array',
-      default: playwrightBrowsers,
-      choices: playwrightBrowsers,
+      default: DefaultBrowsers,
+      choices: DefaultBrowsers,
       description: 'Specific browser(s) to run units test'
     })
     .option('browserstack', {
