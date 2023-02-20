@@ -22,7 +22,7 @@ npm run build
 
 Once theme is built successfully, it will generate output files in `./dark` and `./light` folder which will contain custom theme of every Element Framework components. 
 
-In the custom theme project, it shows you how to customise theme to use `san-sarif` font, changed primary color and changed styles of `ef-toggle`.
+Custom theme sample project shows you how to customise theme to use `san-sarif` font, changed primary color and changed styles of `ef-toggle`.
 
 Run `npm start` to launch demo page to see the changes.
 
@@ -103,7 +103,7 @@ body {
 
 ## Customise component styles
 
-When styles of components are needed to be customised, you can customise styles of an individual Element Framework component by adding less file(s) in `custom-elements` folder. In the custom theme sample project, it shows how you can customise styles of host and an internal part of `ef-toggle`.
+When styles of components are needed to be customised, you can customise styles of an individual Element Framework component by adding less file(s) in `custom-elements` folder. Custom theme sample project shows how you can customise styles of host and an internal part of `ef-toggle`.
 
 ```less
 :host {
