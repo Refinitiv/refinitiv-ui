@@ -10,12 +10,13 @@ layout: default
 ::
 
 ```javascript
-::text-field::
+::text-field-javascript::
 import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
 halo('panel');
 ```
 
 ```css
+::text-field-css::
 ef-panel {
   max-width: 450px;
 }
@@ -70,20 +71,18 @@ Stacked is the default form label location
 ::
 
 ```javascript
-::text-field::
+::text-field-javascript::
 ```
 
 ```css
-label {
-  display: block;
-}
+::text-field-css::
 ef-text-field {
   width: 240px;
 }
 ```
 
 ```html
-<label id="name">Full Name</label>
+<label class="stacked" id="name">Full Name</label>
 <ef-text-field 
   aria-labelledby="name"
   placeholder="Your name as shown on your passport">
@@ -99,10 +98,11 @@ Use a left form label when space is vertically limited
 ::
 
 ```javascript
-::text-field::
+::text-field-javascript::
 ```
 
 ```css
+::text-field-css::
 ef-text-field {
   width: 240px;
 }
@@ -125,10 +125,11 @@ The form label can be hidden when needed as long as an aria-label is included
 ::
 
 ```javascript
-::text-field::
+::text-field-javascript::
 ```
 
 ```css
+::text-field-css::
 ef-text-field {
   width: 240px;
 }
@@ -221,7 +222,7 @@ The `maxlength` attribute limits the number of characters that users can type in
 ::
 
 ```javascript
-::text-field::
+::text-field-javascript::
 const element = document.getElementById("username");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
@@ -234,6 +235,7 @@ element.addEventListener("error-changed", (e) => {
 ```
 
 ```css
+::text-field-css::
 #error-text {
   color:#d94255;
 }
@@ -287,7 +289,7 @@ You can use a regular expression to validate the input value by setting it with 
 ::
 
 ```javascript
-::text-field::
+::text-field-javascript::
 const element = document.getElementById("nickname");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
@@ -301,19 +303,17 @@ element.addEventListener("error-changed", (e) => {
 ```
 
 ```css
+::text-field-css::
 #error-text {
   color:#d94255;
 }
 ef-text-field {
   width: 300px;
 }
-label {
-  display: block;
-}
 ```
 
 ```html
-<label for="nickname">Nickname</label>
+<label class="stacked" for="nickname">Nickname</label>
 <ef-text-field
   id="nickname"
   aria-describedby="error-text"
@@ -356,10 +356,11 @@ An inline icon can be set to display inside the input using the `icon` attribute
 ::
 
 ```javascript
-::text-field::
+::text-field-javascript::
 ```
 
 ```css
+::text-field-css::
 ef-text-field {
   width: 200px;
 }
@@ -389,7 +390,7 @@ The icon can become actionable by adding the `icon-has-action` attribute to the 
 ::
 
 ```javascript
-::text-field::
+::text-field-javascript::
 const feedback = document.getElementById("feedback");
 feedback.addEventListener("icon-click", (e) => {
   feedback.value = "";
@@ -408,6 +409,7 @@ feedback.addEventListener("value-changed", (e) => {
 ```
 
 ```css
+::text-field-css::
 ef-text-field {
   width: 250px;
 }
