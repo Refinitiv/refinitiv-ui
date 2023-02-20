@@ -27,17 +27,17 @@ BROWSERS.split(" ").forEach((browser) => {
   browserLists.push(config.browsers.filter((browsers) => {
     switch (browser) {
       case 'chrome':
-        browser = 'chromium'
+        browser = 'chromium';
         break;
       case 'safari':
-        browser = 'webkit'
+        browser = 'webkit';
         break;
       default:
         break;
     }
     return browsers.product === browser;
-  }))
-})
+  }));
+});
 config.browsers = browserLists.flat();
 
 module.exports = config;
