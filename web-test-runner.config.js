@@ -12,6 +12,11 @@ const argv = yargs(hideBin(process.argv))
     alias: 'p',
     description: 'Package name'
   })
+  .option('include-coverage', {
+    type: 'boolean',
+    default: true,
+    description: 'Include coverage testing'
+  })
   .option('output', {
     type: 'string',
     alias: 'o',
@@ -29,7 +34,7 @@ module.exports = {
   files: [path.join(basePath , '/__test__/**/*.test.js')],
   nodeResolve: true,
   preserveSymlinks: true,
-  coverage: true,
+  coverage:  argv.includeCoverage,
   coverageConfig: {
     include: [`**/${ packageName }/lib/**/*.js`],
     report: true,
