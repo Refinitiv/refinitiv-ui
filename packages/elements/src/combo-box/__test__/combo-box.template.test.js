@@ -11,18 +11,17 @@ describe('combo-box/Template', () => {
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Placeholder is rendered', async () => {
-      const el = await fixture('<ef-combo-box placeholder="Placeholder" lang="en"></ef-combo-box>');
-      expect(el.placeholder).to.equal('Placeholder', 'Incorrect placeholder value');
-
-      el.placeholder = 'New Placeholder';
-      await elementUpdated(el);
-      expect(el.placeholder).equal('New Placeholder', 'Incorrect placeholder value');
-      expect(el.getAttribute('placeholder')).equal('Placeholder', 'Placeholder value must not reflect to attribute');
-
-      el.placeholder = null;
-      await elementUpdated(el);
-      expect(el.getAttribute('placeholder')).equal('Placeholder', 'Placeholder value must not reflect to attribute');
+    describe('Placeholder is rendered', () => {
+      it('placeholder must be rendered correctly', async () => {
+        const el = await fixture('<ef-combo-box placeholder="Placeholder" lang="en"></ef-combo-box>');
+        await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      });
+      it('placeholder must be removed', async () => {
+        const el = await fixture('<ef-combo-box placeholder="Placeholder" lang="en"></ef-combo-box>');
+        el.placeholder = null;
+        await elementUpdated(el);
+        await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      });
     });
 
     it('Lazy Render: data', async () => {
