@@ -43,62 +43,92 @@ describe('elements/FormFieldElement/DefaultsTest',  () => {
 });
 
 describe('elements/FormFieldElement/RequiredTest', () => {
-  it('aria-required is propagated', async () => {
-    const formFieldEl = await fixture('<form-field-element-test aria-required="true"></form-field-element-test>');
-    expect(formFieldEl.getAttribute('aria-required')).to.equal('true', 'The attribute `aria-required` must be rendered correctly');
-    formFieldEl.removeAttribute('aria-required');
-    await elementUpdated(formFieldEl);
-    expect(formFieldEl.hasAttribute('aria-required')).to.equal(false, 'The attribute `aria-required` must be removed');
+  describe('aria-required is propagated', () => {
+    it('attribute `aria-required` must be rendered correctly', async () => {
+      const formFieldEl = await fixture('<form-field-element-test aria-required="true"></form-field-element-test>');
+      expect(formFieldEl).shadowDom.to.equalSnapshot();
+    });
+    it('attribute `aria-required` must be removed', async () => {
+      const formFieldEl = await fixture('<form-field-element-test aria-required="true"></form-field-element-test>');
+      formFieldEl.removeAttribute('aria-required');
+      await elementUpdated(formFieldEl);
+      expect(formFieldEl).shadowDom.to.equalSnapshot();
+    });
   });
 });
 
 describe('elements/FormFieldElement/ErrorTest', () => {
-  it('error is propagated', async () => {
-    const formFieldEl = await fixture('<form-field-element-test error></form-field-element-test>');
-    await expect(formFieldEl).shadowDom.to.equalSnapshot();
-    formFieldEl.error = false;
-    await elementUpdated(formFieldEl);
-    expect(formFieldEl.shadowRoot.querySelector('input').hasAttribute('aria-invalid')).to.equal(false, 'The attribute `aria-invalid` must be removed');
+  describe('error is propagated', () => {
+    it('attribute `aria-invalid` must be rendered correctly', async () => {
+      const formFieldEl = await fixture('<form-field-element-test error></form-field-element-test>');
+      await expect(formFieldEl).shadowDom.to.equalSnapshot();
+    });
+    it('attribute `aria-invalid` must be removed', async () => {
+      const formFieldEl = await fixture('<form-field-element-test error></form-field-element-test>');
+      formFieldEl.error = false;
+      await elementUpdated(formFieldEl);
+      await expect(formFieldEl).shadowDom.to.equalSnapshot()
+    });
   });
 });
 
 describe('elements/FormFieldElement/PlaceholderTest', () => {
-  it('placeholder is propagated', async () => {
-    const formFieldEl = await fixture('<form-field-element-test placeholder="Placeholder"></form-field-element-test>');
-    await expect(formFieldEl).shadowDom.to.equalSnapshot();
-    formFieldEl.placeholder = null;
-    await elementUpdated(formFieldEl);
-    expect(formFieldEl.getAttribute('placeholder')).to.equal('Placeholder', 'The attribute `placeholder` must not reflect value');
+  describe('placeholder is propagated', () => {
+    it('attribute `placeholder` must be rendered correctly', async () => {
+      const formFieldEl = await fixture('<form-field-element-test placeholder="Placeholder"></form-field-element-test>');
+      await expect(formFieldEl).shadowDom.to.equalSnapshot();
+    });
+    it('attribute `placeholder` must be removed', async () => {
+      const formFieldEl = await fixture('<form-field-element-test placeholder="Placeholder"></form-field-element-test>');
+      formFieldEl.placeholder = null;
+      await elementUpdated(formFieldEl);
+      await expect(formFieldEl).shadowDom.to.equalSnapshot();
+    });
   });
 });
 
 describe('elements/FormFieldElement/ReadonlyTest', () => {
-  it('readonly is propagated', async () => {
-    const formFieldEl = await fixture('<form-field-element-test readonly></form-field-element-test>');
-    await expect(formFieldEl).shadowDom.to.equalSnapshot();
-    formFieldEl.readonly = false;
-    await elementUpdated(formFieldEl);
-    expect(formFieldEl.shadowRoot.querySelector('input').hasAttribute('readonly')).to.equal(false, 'The attribute `readonly` must be removed');
+  describe('readonly is propagated', () => {
+    it('attribute `readonly` must be rendered correctly', async () => {
+      const formFieldEl = await fixture('<form-field-element-test readonly></form-field-element-test>');
+      await expect(formFieldEl).shadowDom.to.equalSnapshot();
+    });
+    it('attribute `readonly` must be removed', async () => {
+      const formFieldEl = await fixture('<form-field-element-test readonly></form-field-element-test>');
+      formFieldEl.readonly = false;
+      await elementUpdated(formFieldEl);
+      await expect(formFieldEl).shadowDom.to.equalSnapshot();
+    });
   });
 });
 
 describe('elements/FormFieldElement/DisabledTest', () => {
-  it('disabled is propagated', async () => {
-    const formFieldEl = await fixture('<form-field-element-test disabled></form-field-element-test>');
-    await expect(formFieldEl).shadowDom.to.equalSnapshot();
-    formFieldEl.disabled = false;
-    await elementUpdated(formFieldEl);
-    expect(formFieldEl.shadowRoot.querySelector('input').hasAttribute('disabled')).to.equal(false, 'The attribute `disabled` must be removed');
+  describe('disabled is propagated', () => {
+    it('attribute `disabled` must be rendered correctly', async () => {
+      const formFieldEl = await fixture('<form-field-element-test disabled></form-field-element-test>');
+      await expect(formFieldEl).shadowDom.to.equalSnapshot();
+    });
+    it('attribute `disabled` must be removed', async () => {
+      const formFieldEl = await fixture('<form-field-element-test disabled></form-field-element-test>');
+      formFieldEl.disabled = false;
+      await elementUpdated(formFieldEl);
+      await expect(formFieldEl).shadowDom.to.equalSnapshot();
+    });
   });
 });
 
 describe('elements/FormFieldElement/AriaLabelTest', () => {
-  it('aria-label is propagated', async () => {
-    const formFieldEl = await fixture('<form-field-element-test aria-label="Label"></form-field-element-test>');
-    await expect(formFieldEl).shadowDom.to.equalSnapshot();
-    formFieldEl.removeAttribute('aria-label');
-    await elementUpdated(formFieldEl);
-    expect(formFieldEl.hasAttribute('aria-label')).to.equal(false, 'The attribute `aria-label` must be removed');
+  describe('aria-label is propagated', () => {
+    it('attribute `aria-label` must be rendered correctly', async () => {
+      const formFieldEl = await fixture('<form-field-element-test aria-label="Label"></form-field-element-test>');
+      await expect(formFieldEl).shadowDom.to.equalSnapshot();
+    });
+    it('attribute `aria-label` must be removed', async () => {
+      const formFieldEl = await fixture('<form-field-element-test aria-label="Label"></form-field-element-test>');
+      formFieldEl.removeAttribute('aria-label');
+      await elementUpdated(formFieldEl);
+      await expect(formFieldEl).shadowDom.to.equalSnapshot();
+    });
   });
   it('aria-labelledby is propagated', async () => {
     const formFieldEl = await fixture(`
@@ -117,12 +147,17 @@ describe('elements/FormFieldElement/AriaLabelTest', () => {
 });
 
 describe('elements/FormFieldElement/AriaDescriptionTest', () => {
-  it('aria-description is propagated', async () => {
-    const formFieldEl = await fixture('<form-field-element-test aria-description="Description"></form-field-element-test>');
-    await expect(formFieldEl).shadowDom.to.equalSnapshot();
-    formFieldEl.removeAttribute('aria-description');
-    await elementUpdated(formFieldEl);
-    expect(formFieldEl.hasAttribute('aria-description')).to.equal(false, 'The attribute `aria-description` must be removed');
+  describe('aria-description is propagated', () => {
+    it('attribute `aria-description` must be rendered correctly', async () => {
+      const formFieldEl = await fixture('<form-field-element-test aria-description="Description"></form-field-element-test>');
+      await expect(formFieldEl).shadowDom.to.equalSnapshot();
+    });
+    it('attribute `aria-description` must be removed', async () => {
+      const formFieldEl = await fixture('<form-field-element-test aria-description="Description"></form-field-element-test>');
+      formFieldEl.removeAttribute('aria-description');
+      await elementUpdated(formFieldEl);
+      await expect(formFieldEl).shadowDom.to.equalSnapshot();
+    });
   });
   it('aria-describedby is propagated', async () => {
     const formFieldEl = await fixture(`
@@ -217,7 +252,6 @@ describe('elements/FormFieldElement/SelectionTest', () => {
     expect(formFieldEl.selectionStart).to.equal(1, 'selectionStart');
     expect(formFieldEl.selectionEnd).to.equal(2, 'selectionEnd');
 
-    const valueLength = formFieldEl.inputValue.length;
     formFieldEl.setSelectionRange(1, 2, 'backward');
     await elementUpdated(formFieldEl);
     expect(formFieldEl.selectionDirection).to.equal('backward');
