@@ -327,7 +327,7 @@
     "start": "node cli start",
     "test": "node cli test",
     "test:watch": "node cli test --watch",
-    "test:snapshots": "node cli test --snapshots",
+    "test:snapshots": "node cli test --update-snapshots",
     "lint": "node cli lint",
     "lint:fix": "node cli lint --fix",
     "prepublishOnly": "node scripts/release",

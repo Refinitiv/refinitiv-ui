@@ -29,7 +29,7 @@ exports.builder = yargs => {
       default: false,
       description: 'Run test and watch file change'
     })
-    .option('snapshots', {
+    .option('update-snapshots', {
       alias: 's',
       type: 'boolean',
       default: false,
@@ -49,6 +49,11 @@ exports.builder = yargs => {
       description: 'Run units test on BrowserStack and specific browser(s)'
     })
     .requiresArg('browserstack')
+    .option('include-coverage', {
+      type: 'boolean',
+      default: true,
+      description: 'Include coverage testing'
+    })
     .option('output', {
       type: 'string',
       alias: 'o',
@@ -60,8 +65,8 @@ exports.builder = yargs => {
 };
 exports.handler = (argv) => {
   const element = argv.element || 'all';
-  const watch = !!argv.watch;
-  const snapshots = !!argv.snapshots;
+  const watch = argv.watch;
+  const snapshots = argv.updateSnapshots;
   const browsers = argv.browsers.join(' ');
   const browserstack = argv.browserstack ? argv.browserstack.join(' ') : null;
 
@@ -85,7 +90,8 @@ exports.handler = (argv) => {
       stdio: 'inherit',
       env: Object.assign({}, process.env, {
         ELEMENT: element,
-        BROWSERS: browsers
+        BROWSERS: browsers,
+        COVERAGE: argv.includeCoverage
       })
     });
   }

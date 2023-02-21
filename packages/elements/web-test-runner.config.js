@@ -5,6 +5,7 @@ const config = require('../../web-test-runner.config');
 const { ELEMENTS_ROOT } = require('./scripts/helpers');
 const ELEMENT = process.env.ELEMENT;
 const BROWSERS = process.env.BROWSERS;
+const COVERAGE = process.env.COVERAGE === 'true' ? true : false;
 const testAll = ELEMENT === 'all' || ELEMENT === undefined;
 const browserLists = [];
 
@@ -15,7 +16,8 @@ config.files = [
 ];
 
 // Coverage include paths must be glob pattern (Absolute path does not work on Windows)
-if (!testAll){
+config.coverage = COVERAGE;
+if (COVERAGE && !testAll){
   config.coverageConfig.include = [`**/lib/${ ELEMENT }/**/*.js`];
   config.coverageConfig.reportDir = `coverage/${ ELEMENT }`;
 } else {
