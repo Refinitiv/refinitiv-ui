@@ -5267,7 +5267,7 @@
     tabindex="0"
     textpos="before"
   >
-    เมษายน ค.ศ. 2005
+    เมษายน 2005
   </ef-button>
   <ef-button
     aria-label="Next month"
