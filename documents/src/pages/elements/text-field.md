@@ -49,7 +49,7 @@ p {
 
 ::
 
-`ef-text-field` is a form element for text. This basic text input enables the user to type a small amount of text and submit it.
+`ef-text-field` is a form element for text. This basic text input enables the user to type a small amount of text and submit it in a form.
 
 ## Design Usage Rules
 
