@@ -49,6 +49,11 @@ exports.builder = yargs => {
       description: 'Run units test on BrowserStack and specific browser(s)'
     })
     .requiresArg('browserstack')
+    .option('include-coverage', {
+      type: 'boolean',
+      default: true,
+      description: 'Include coverage testing'
+    })
     .option('output', {
       type: 'string',
       alias: 'o',
@@ -85,7 +90,8 @@ exports.handler = (argv) => {
       stdio: 'inherit',
       env: Object.assign({}, process.env, {
         ELEMENT: element,
-        BROWSERS: browsers
+        BROWSERS: browsers,
+        COVERAGE: argv.includeCoverage
       })
     });
   }
