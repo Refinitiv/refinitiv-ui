@@ -86,11 +86,13 @@ In the sample custom theme project, it overrides theme primary colour, tertiary 
 
 List of all less variables that you could override are in [Elemental Theme](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elemental-theme/src/variables.less) and [Halo Theme](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/halo-theme/src/variants/dark/variables.less).
 
-@> Elemental Theme is super base theme of every themes in Element Framework, including Halo Theme. With the same concept as creating custom theme, Halo Theme is created by extending from Elemental Theme and overriding less variables, [see example](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/halo-theme/src/variants/dark/overrides.less).
+@> Elemental theme is a base theme of every themes in Element Framework, including Halo theme. Similarly, the same concept applies when creating custom theme, Halo theme is created by extending from Elemental theme and overriding less variables, [see example](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/halo-theme/src/variants/dark/overrides.less).
 
 ## Customise theme native styles
 
-Some styles are required to be applied in native HTML elements such as font-family. Those styles can be set in less files in `native-elements` folder. For example, in the custom theme sample project, font-family and padding are customised for body HTML tag.
+Some styles are required to be applied into native HTML elements such as `font-family` to `body` tag. To do so, you can add less files with the same name as HTML tag into `native-elements` folder.
+
+For example, in the sample project, `font-family` and `padding` are customised for body HTML tag.
 
 ```less
 // import native component style from base theme
@@ -105,9 +107,11 @@ body {
 
 ## Customise component styles
 
-When styles of components are needed to be customised, you can customise styles of an individual Element Framework component by adding less file(s) in `custom-elements` folder. Custom theme sample project shows how you can customise styles of host and an internal part of `ef-toggle`.
+To customise a component styles, add `less` file with the same name as component's name into `custom-elements` folder. The sample project shows how you can customise styles of host and an internal part of `ef-toggle`.
 
 ```less
+@import "@refinitiv-ui/halo-theme/src/custom-elements/ef-toggle";
+
 :host {
   border-radius: 10px;
 
@@ -119,6 +123,6 @@ When styles of components are needed to be customised, you can customise styles 
 }
 ```
 
-You only need to create less file for components that you need to customise. Any components that do not need any customisation, theme compiler will automatically extends it directly from Halo Theme and output the files in `./dark` and `./light` folder.
+You only need to create less file for components that you need to customise. The rest of components that do not need further customisation will be automatically extended from Halo theme.
 
 
