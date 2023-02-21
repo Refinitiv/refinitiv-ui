@@ -968,8 +968,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   protected onListValueChanged (): void {
     // cascade value changed event
-    this.notifyPropertyChange('value', this.value);
     this.onListInteraction();
+    this.notifyPropertyChange('value', this.value);
   }
 
   /**
