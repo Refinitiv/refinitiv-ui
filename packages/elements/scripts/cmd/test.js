@@ -29,7 +29,7 @@ exports.builder = yargs => {
       default: false,
       description: 'Run test and watch file change'
     })
-    .option('snapshots', {
+    .option('update-snapshots', {
       alias: 's',
       type: 'boolean',
       default: false,
@@ -65,8 +65,8 @@ exports.builder = yargs => {
 };
 exports.handler = (argv) => {
   const element = argv.element || 'all';
-  const watch = !!argv.watch;
-  const snapshots = !!argv.snapshots;
+  const watch = argv.watch;
+  const snapshots = argv.updateSnapshots;
   const browsers = argv.browsers.join(' ');
   const browserstack = argv.browserstack ? argv.browserstack.join(' ') : null;
 
