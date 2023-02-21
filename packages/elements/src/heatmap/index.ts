@@ -21,8 +21,8 @@ import { Track } from './helpers/track.js';
 import { blend, brighten, darken, isLight, interpolate } from './helpers/color.js';
 import { getResponsiveFontSize, getMaximumTextWidth, MIN_FONT_SIZE } from './helpers/text.js';
 
-const CELL_PADDING = 0.06;
-const CELL_MAX_TEXT_WIDTH = (1 - (CELL_PADDING * 2));
+const CELL_PADDING = 0.12;
+const CELL_MAX_TEXT_WIDTH = 1 - CELL_PADDING;
 const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
 
 import type { HeatmapXAxis, HeatmapCell, HeatmapConfig, HeatmapYAxis, HeatmapCustomisableProperties, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
