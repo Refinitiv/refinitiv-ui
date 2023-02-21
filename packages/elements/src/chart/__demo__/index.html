@@ -14,7 +14,114 @@
     import '@refinitiv-ui/demo-block';
   </script>
 
-  <demo-block layout="normal" header="Line Chart - No Legend">
+  <demo-block layout="normal" header="Basic line">
+    <ef-chart id="line"></ef-chart>
+    <script>
+      const addTitle = () => {
+        line.config.options.plugins.title.display = true;
+        line.config.options.plugins.title.text = 'Price of TRI.N in 2016';
+        line.updateChart();
+      };
+      const removeTitle = () => {
+        line.config.options.plugins.title.display = false;
+        line.config.options.plugins.title.text = '';
+        line.updateChart();
+      };
+      const line = document.getElementById('line');
+      const data = [
+        { year: 'ABC', count: 10 },
+        { year: 'BEC', count: 20 },
+        { year: 'DEF', count: 15 },
+        { year: 'FBA', count: 25 }
+      ];
+      const data2 = [
+        { year: 'ABC', count: 30 },
+        { year: 'BEC', count: 15 },
+        { year: 'DEF', count: 10 },
+        { year: 'FBA', count: 15 }
+      ];
+
+      const config = {
+        type: 'bar',
+        data: {
+          labels: data.map(row => row.year),
+          datasets: [
+            {
+              label: 'Acquisitions by year',
+              data: data.map(row => row.count),
+              backgroundColor: 'rgb(0, 0, 0)'
+            },
+            {
+              label: 'Acquisitions by year(2)',
+              data: data2.map(row => row.count)
+            }
+          ]
+        },
+        options: {
+          response: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              ticks: {
+                font: {
+                  family: 'Comic Sans MS'
+                }
+              }
+            },
+            x: {
+              ticks: {
+                font: {
+                  family: 'Comic Sans MS'
+                }
+              }
+            }
+          },
+          plugins: {
+            // colors: {
+            //   enabled: true,
+            //   // data: {
+            //   //   datasets: [{
+            //   //     backgroundColor: 'rgb(255, 0, 0)',
+            //   //   }, {
+            //   //     backgroundColor: 'rgb(255, 150, 0)',
+            //   //   }, {
+            //   //     backgroundColor: 'rgb(255, 255, 0)',
+            //   //   }, {
+            //   //     backgroundColor: 'rgb(150, 255, 0)',
+            //   //   }]
+            // },
+            title: {
+              display: true,
+              text: 'Hello world',
+              font: {
+                family: 'Comic Sans MS'
+              }
+            },
+            legend: {
+              labels: {
+                font: {
+                  family: 'Comic Sans MS'
+                }
+              }
+            },
+            tooltip: {
+              titleFont: {
+                family: 'Comic Sans MS'
+              },
+              bodyFont: {
+                family: 'Comic Sans MS'
+              },
+              footerFont: {
+                family: 'Comic Sans MS'
+              }
+            }
+          },
+        }
+      };
+      line.config = config;
+    </script>
+  </demo-block>
+  <!-- <demo-block layout="normal" header="Line Chart - No Legend">
     <ef-chart id="line"></ef-chart>
     <script>
       var line = document.getElementById('line');
@@ -1129,7 +1236,7 @@
       addDataChart.config = initConfig;
       /* eslint-enable no-unused-vars */
     </script>
-  </demo-block>
+  </demo-block> -->
 
 </body>
 
