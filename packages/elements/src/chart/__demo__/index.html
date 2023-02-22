@@ -17,16 +17,6 @@
   <demo-block layout="normal" header="Basic line">
     <ef-chart id="line"></ef-chart>
     <script>
-      const addTitle = () => {
-        line.config.options.plugins.title.display = true;
-        line.config.options.plugins.title.text = 'Price of TRI.N in 2016';
-        line.updateChart();
-      };
-      const removeTitle = () => {
-        line.config.options.plugins.title.display = false;
-        line.config.options.plugins.title.text = '';
-        line.updateChart();
-      };
       const line = document.getElementById('line');
       const data = [
         { year: 'ABC', count: 10 },

@@ -18,6 +18,7 @@ import {
 
 import {
   Chart as ChartJS
+// TODO: import only common types and let user registers specific type
 // eslint-disable-next-line import/extensions
 } from 'chart.js/auto';
 
@@ -26,6 +27,7 @@ import type { ChartConfiguration, ChartOptions, UpdateMode } from 'chart.js';
 import type { Header } from '../header';
 import '../header/index.js';
 
+// TODO: import only common types and let user registers specific type
 export * from 'chart.js';
 
 const CSS_COLOR_PREFIX = '--chart-color-';
@@ -200,6 +202,7 @@ export class Chart extends BasicElement {
    */
   protected createChart (): void {
     if (this.canvas && this.config) {
+      this.destroyChart();
       this.decorateConfig();
       this.manageTitle();
 
