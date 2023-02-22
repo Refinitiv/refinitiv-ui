@@ -115,7 +115,11 @@ export class SVGLoader extends CDNLoader {
       const response = await this.load(src);
       const svg = await extractSafeSVG(response);
       const svgBody = svg?.outerHTML;
-      svgBody && cache.set(src, svgBody);
+
+      if (svgBody) {
+        await cache.set(src, svgBody);
+      }
+
       return svgBody;
     }
 
