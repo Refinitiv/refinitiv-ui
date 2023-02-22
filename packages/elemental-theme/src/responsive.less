@@ -11,13 +11,7 @@
 }
 
 .desktop-specific(@styles) {
-    @media (-ms-high-contrast:none), (pointer:fine) {
-        @styles();
-    }
-}
-
-.ie-specific(@styles) {
-    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @media (pointer:fine) {
         @styles();
     }
 }

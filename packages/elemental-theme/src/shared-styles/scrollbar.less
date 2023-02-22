@@ -1,4 +1,4 @@
-// Helper Mixins. Shared between IE & Webkit.
+// Helper Mixins for Webkit.
 .scrollbar-corner-background(@property: background) {
   @{property}: @scrollbar-corner-background-color;
 }
@@ -186,19 +186,6 @@
   }
 }
 
-// Basic colouring for IE
-.ie-scrollbars() {
-  & {
-    .scrollbar-thumb-background(scrollbar-face-color);
-    .scrollbar-thumb-background(scrollbar-shadow-color);
-    .scrollbar-thumb-background(scrollbar-highlight-color);
-    .scrollbar-thumb-background(scrollbar-arrow-color);
-    .scrollbar-track-background(scrollbar-track-color);
-    .scrollbar-corner-background(scrollbar-3dlight-color);
-    .scrollbar-corner-background(scrollbar-darkshadow-color);
-  }
-}
-
 .mozilla-scrollbars () {
   & {
     scrollbar-color: @scrollbar-thumb-background-color @scrollbar-track-background-color;
@@ -207,5 +194,4 @@
 
 .scrollbars() {
   .webkit-scrollbars();
-  .ie-scrollbars();
 }
