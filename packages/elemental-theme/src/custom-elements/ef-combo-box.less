@@ -42,12 +42,6 @@
     flex-flow: column nowrap;
   }
 
-  .ie-specific({
-    [part~=list] ::slotted(ef-list) {
-      max-height: inherit;
-    }
-  });
-
   [part=selection-badge] {
     flex-shrink: 0;
   }
@@ -56,9 +50,7 @@
     opacity: 0.4;
   }
 
-  .ie-scrollbars();
   .mozilla-scrollbars();
-
 }
 
 .webkit-scrollbars();

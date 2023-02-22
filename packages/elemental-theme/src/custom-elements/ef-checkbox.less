@@ -40,10 +40,9 @@
     opacity: 0.65;
   }
 
-  @media (-ms-high-contrast:none), (pointer:fine){
+  .desktop-specific({
     &:focus [part="container"] {
       .container-focus-styles;
     }
-  }
-
+  });
 }
