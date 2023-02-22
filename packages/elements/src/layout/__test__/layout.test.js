@@ -87,6 +87,7 @@ describe('layout/Layout', function () {
     el.style.width = el.clientWidth + 10 + 'px';
 
     await aTimeout(100);
+
     assert.equal(eventCount, 1, 'Event should have been called once');
 
     let parentElement = el.parentElement;
@@ -98,12 +99,14 @@ describe('layout/Layout', function () {
     el.style.width = el.clientWidth + 10 + 'px';
 
     await aTimeout(100);
+
     assert.ok(eventCount === 2, 'Events should still fire');
 
     parentElement.removeChild(el);
     el.style.width = el.clientWidth + 10 + 'px';
 
     await aTimeout(100);
+
     assert.ok(eventCount === 2, 'Events should not fire when detached');
   });
 
