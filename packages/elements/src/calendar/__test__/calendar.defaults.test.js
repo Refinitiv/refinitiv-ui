@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, nextFrame, isSafari } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame, isSafari, isFirefox } from '@refinitiv-ui/test-helpers';
 import {
   setYearView,
   setMonthView
@@ -69,7 +69,7 @@ describe('calendar/Defaults', () => {
       });
 
       it('Thai locale', async function () {
-        isSafari() && this.skip(); // Safari render text different from other browsers
+        (isFirefox() || isSafari()) && this.skip(); // Safari and Firefox 109 render text different from other browsers
         const el = await fixture('<ef-calendar view="2005-04" lang="de"></ef-calendar>');
         el.lang = 'th';
         await nextFrame();
