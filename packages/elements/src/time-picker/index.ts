@@ -831,7 +831,7 @@ export class TimePicker extends ControlElement {
         flex-flow: row nowrap;
         align-items: center;
         justify-content: center;
-        user-select:none;
+        user-select: none;
         position: relative;
       }
       input {

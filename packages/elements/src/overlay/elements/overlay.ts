@@ -140,7 +140,7 @@ export class Overlay extends ResponsiveElement {
 
       :host(:not([first-resize-done])) {
         pointer-events: none !important; /* needs for Mobile to prevent tap while overlay is not yet on the screen */
-        opacity: 0 !important; /* visibility does not work in IE11 */
+        visibility: hidden;
       }
 
       :host(:not([animation-ready])) {
@@ -663,6 +663,7 @@ export class Overlay extends ResponsiveElement {
   private set firstResizeDone (firstResizeDone: boolean) {
     if (this._firstResizeDone !== firstResizeDone) {
       this._firstResizeDone = firstResizeDone;
+      /* Toggling the attribute first-resize-done on the element. */
       toggleAttribute(this, 'first-resize-done', firstResizeDone);
     }
   }

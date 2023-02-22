@@ -43,15 +43,10 @@ export class Layout extends ResponsiveElement {
         max-width: var(--max-width, none);
         max-height: var(--max-height, none);
         flex: var(--flex, 1 1 auto);
-        -webkit-flex: var(--flex, 1 1 auto);
-        -ms-flex: var(--flex, 1 1 auto);
       }
 
       :host([flex]) {
         display: flex;
-        display: -webkit-flex;
-        display: flexbox;
-        display: -ms-flexbox;
         flex-flow: row wrap;
         align-items: stretch;
         align-content: flex-start;
@@ -59,9 +54,6 @@ export class Layout extends ResponsiveElement {
 
       :host([flex][container]) {
         flex-flow: column nowrap;
-        -ms-flex-flow: column nowrap;
-        -webkit-flex-flow: column nowrap;
-        -webkit-flex-flow: column none;
       }
 
       :host([scrollable]) {
@@ -71,15 +63,10 @@ export class Layout extends ResponsiveElement {
 
       :host([noflex]) {
         flex: 0 0 auto;
-        -ms-flex: 0 0 auto;
-        -webkit: 0 0 auto;
       }
 
       :host([flex][nowrap]) {
         flex-wrap: nowrap;
-        -ms-flex-wrap: nowrap;
-        -webkit-flex-wrap: nowrap;
-        -webkit-flex-wrap: none;
       }
     `;
   }
