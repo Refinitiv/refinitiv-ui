@@ -75,14 +75,16 @@ export class EmailField extends TextField {
    * @param changedProperties Properties that has changed
    * @returns True if input should be re-validated
    */
-  /* c8 ignore next */
+  /* c8 ignore start */
   protected shouldValidateInput (changedProperties: PropertyValues): boolean {
     // TODO: This validation should be refactored
     return changedProperties.has('value')
       || changedProperties.has('multiple')
       || super.shouldValidateInput(changedProperties);
   }
+  /* c8 ignore stop */
 }
+
 
 declare global {
   interface HTMLElementTagNameMap {

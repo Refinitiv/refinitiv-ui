@@ -58,10 +58,11 @@ class AsyncTranslateDirective extends AsyncDirective {
         this.setValue(key);
 
         // the code may fail if polyfills are not available in IE11 or translate syntax is wrong
-        /* c8 ignore next */
+        /* c8 ignore start */
         setTimeout(() => {
           throw error instanceof Error ? error : new Error(String(error));
         });
+        /* c8 ignore stop */
       });
 
     return noChange;
@@ -77,11 +78,12 @@ const translatePromise = (scope: string, locale: string, key: string, options?: 
   })
   .catch(error => {
     // the code may fail if polyfills are not available in IE11 or translate syntax is wrong
-    /* c8 ignore next */
+    /* c8 ignore start */
     setTimeout(() => {
       throw error instanceof Error ? error : new Error(String(error));
     });
     return key;
+    /* c8 ignore stop */
   });
 };
 

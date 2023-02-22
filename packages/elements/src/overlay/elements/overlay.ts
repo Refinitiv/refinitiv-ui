@@ -552,7 +552,7 @@ export class Overlay extends ResponsiveElement {
 
     let defaultPosition;
 
-    /* c8 ignore next */
+    /* c8 ignore start */
     switch (positionTarget) {
       case 'top left':
       case 'left top':
@@ -608,6 +608,7 @@ export class Overlay extends ResponsiveElement {
         top = viewHeight / 2 + y;
         defaultPosition = ['center', 'middle'];
     }
+    /* c8 ignore stop */
 
     return {
       rect: {
@@ -761,13 +762,14 @@ export class Overlay extends ResponsiveElement {
     // These hacks are required in order to solve a problem when IE11 or Edge does not display
     // the component, even if all CSS properties are set correctly
     // The reason of such behaviour is unknown, but may be related to polyfills
-    /* c8 ignore next */
+    /* c8 ignore start */
     if (isIE) {
       this.redrawThrottler.schedule(() => this.style.setProperty('clear', 'none'));
     }
     else if (isEdge) {
       this.redrawThrottler.schedule(() => this.updateVariable('--redraw', `${Date.now()}`));
     }
+    /* c8 ignore stop */
 
     triggerResize();
   }

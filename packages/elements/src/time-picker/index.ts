@@ -389,10 +389,11 @@ export class TimePicker extends ControlElement {
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
-    /* c8 ignore next */
+    /* c8 ignore start */
     if (TimePicker.hasTimeChanged(changedProperties) && this.isMobile) {
       this.updateMobileTimePickerValue();
     }
+    /* c8 ignore stop */
 
     if (this.selectedSegment && changedProperties.has('selectedSegment')) {
       void this.selectSegment();
@@ -505,21 +506,23 @@ export class TimePicker extends ControlElement {
    * @param event Event Object
    * @returns {void}
    */
-  /* c8 ignore next */
+  /* c8 ignore start */
   private onMobileTimeChange (event: Event): void {
     this.value = (event.target as HTMLInputElement).value;
   }
+  /* c8 ignore stop */
 
   /**
    * Helper, used to update the mobile time picker value
    * @returns {void}
    */
-  /* c8 ignore next */
+  /* c8 ignore start */
   private updateMobileTimePickerValue (): void {
     if (this.mtpInput) {
       this.mtpInput.value = this.value;
     }
   }
+  /* c8 ignore stop */
 
   /**
    * Handles action when input focused change
@@ -543,10 +546,11 @@ export class TimePicker extends ControlElement {
 
     this.selectedSegment = focused && segment ? segment : null;
 
-    /* c8 ignore next */
+    /* c8 ignore start */
     if (!segment || this.readonly) {
       return;
     }
+    /* c8 ignore stop */
 
     const value = target.value;
     if (value) {

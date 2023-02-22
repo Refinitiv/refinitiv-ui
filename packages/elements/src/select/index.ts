@@ -454,7 +454,7 @@ export class Select extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private restrictPopupWidth (): void {
-    /* c8 ignore next */
+    /* c8 ignore start */
     if (this.offsetWidth === 0) {
       // this code might happen only when opened has been set during initialisation
       // or when display is set to none
@@ -467,6 +467,7 @@ export class Select extends ControlElement implements MultiValue {
 
       return;
     }
+    /* c8 ignore stop */
 
     const maxWidth = this.getComputedVariable('--list-max-width', 'none');
     let minWidth = this.offsetWidth;
@@ -816,10 +817,11 @@ export class Select extends ControlElement implements MultiValue {
   private getSelectableElements (): Item[] {
     const root = this.hasDataItems() ? this.menuRef.value : this;
 
-    /* c8 ignore next */
+    /* c8 ignore start */
     if (!root) {
       return [];
     }
+    /* c8 ignore stop */
 
     const items: Item[] = [];
     const rootChildren = root.children;
