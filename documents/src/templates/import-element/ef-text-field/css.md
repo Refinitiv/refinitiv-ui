@@ -15,3 +15,8 @@ label.stacked {
   display: block;
   margin-bottom: 4px;
 }
+
+span.supportive-text {
+  display: block;
+  margin-bottom: 2px;
+}

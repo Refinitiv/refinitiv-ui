@@ -83,9 +83,9 @@ ef-text-field {
 
 ```html
 <label class="stacked" id="name">Full Name</label>
+<span class="supportive-text" id="support">Your name as shown on your passport</span>
 <ef-text-field 
-  aria-labelledby="name"
-  placeholder="Your name as shown on your passport">
+  aria-labelledby="name" aria-describedby="support">
 </ef-text-field>
 ```
 
@@ -313,7 +313,7 @@ ef-text-field {
 ```
 
 ```html
-<label class="stacked" for="nickname">Nickname</label>
+<label for="nickname">Nickname</label>
 <ef-text-field
   id="nickname"
   aria-describedby="error-text"
