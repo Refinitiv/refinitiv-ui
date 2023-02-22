@@ -1,4 +1,4 @@
-import { elementUpdated, expect, isSafari, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, nextFrame, oneEvent, isSafari, isFirefox } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/autosuggest';
 import '@refinitiv-ui/elements/text-field';
@@ -11,7 +11,7 @@ import {
   createInputElement,
   data,
   focusAction,
-  inputAction, isFirefox,
+  inputAction,
   pressKey,
   tapAction
 } from './helpers/helpers';
