@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame, replaceWhitespace } from '@refinitiv-ui/test-helpers';
 import '../lib/test/test-translate';
 
 import {
@@ -103,9 +103,8 @@ describe('Elf Translate Element Lang Test', () => {
     const elRU = await fixture('<test-translate lang="ru"></test-translate>');
 
     expect(elGB.dateEl.innerText).to.equal('Date: The date is: Tuesday, 21 July 2020, 23:59:50', 'en-GB: date');
-    expect(elUS.dateEl.innerText).to.equal('Date: The date is: Tuesday, July 21, 2020, 11:59:50 PM', 'en-US: date');
-    expect(elRU.dateEl.innerText.replace(' ', ' ')) // Remove U+00a0 whitespace charactor from Safari
-      .to.equal('Date: Дата: вторник, 21 июля 2020 г., 23:59:50', 'ru: date');
+    expect(replaceWhitespace(elUS.dateEl.innerText)).to.equal('Date: The date is: Tuesday, July 21, 2020, 11:59:50 PM', 'en-US: date');
+    expect(replaceWhitespace(elRU.dateEl.innerText)).to.equal('Date: Дата: вторник, 21 июля 2020 г., 23:59:50', 'ru: date');
   });
 
 });

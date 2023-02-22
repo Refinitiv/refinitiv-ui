@@ -1,4 +1,4 @@
-import { fixture, expect, oneEvent } from '../lib/test-helpers';
+import { fixture, expect, oneEvent, replaceWhitespace } from '../lib/test-helpers';
 
 describe('TestHelpersTest', () => {
 
@@ -48,4 +48,10 @@ describe('TestHelpersTest', () => {
     });
   });
 
+  describe('Test Method helper', () => {
+    it('Replace spacial whitespace to normal whitespace correctly', () => {
+      const specialWhitespaces = '  ';
+      expect(replaceWhitespace(specialWhitespaces)).to.equal('  ', 'Remove whitespace should work correctly');
+    });
+  });
 });

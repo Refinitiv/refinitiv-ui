@@ -19,8 +19,25 @@ export {
   elementUpdated
 } from '@open-wc/testing';
 
+/**
+ * Replace special whitespace with normal whitespace
+ * @param text string with whitespace for replace
+ * @returns string
+ */
+export const replaceWhitespace = (text: string): string => {
+  return text
+    .replace(' ', ' ') // Remove U+202F whitespace charactor rendered from Chrome 111
+    .replace(' ', ' '); // Remove U+00A0 whitespace charactor rendered from Safari
+};
+
 /* c8 ignore start */
-export const isSafari = (version = undefined) => { // Indicates if this is Safari. Put version parameter to specific version.
+
+/**
+ * Check browser is Safari
+ * @param version select version to checking
+ * @returns boolean
+ */
+export const isSafari = (version = undefined): boolean => { // Indicates if this is Safari. Put version parameter to specific version.
   const safari = !(/Chrome/).test(navigator.userAgent) && (/Apple Computer/).test(navigator.vendor);
   if (version) {
     return safari && (navigator.userAgent.indexOf(`Version\/${String(version)}`) > -1);
@@ -28,5 +45,9 @@ export const isSafari = (version = undefined) => { // Indicates if this is Safar
   return safari;
 };
 
-export const isFirefox = () => (/firefox/i).test(navigator.userAgent);
+/**
+ * Check browser is Firefox
+ * @returns boolean
+ */
+export const isFirefox = (): boolean => (/firefox/i).test(navigator.userAgent);
 /* c8 ignore stop */
