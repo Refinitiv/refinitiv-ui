@@ -242,8 +242,6 @@ export class Overlay extends ResponsiveElement {
 
       /* shadow comes from theme */
       :host([transparent]) {
-        -webkit-box-shadow: none !important;
-        -moz-box-shadow: none !important;
         box-shadow: none !important;
         background: none !important;
         border-color: transparent !important;
