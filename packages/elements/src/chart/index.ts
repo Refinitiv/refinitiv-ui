@@ -201,7 +201,8 @@ export class Chart extends BasicElement {
    * @returns {void}
    */
   protected createChart (): void {
-    if (this.canvas && this.config) {
+    const ctx = this.canvas.getContext('2d');
+      if (ctx && this.config) {
       this.destroyChart();
       this.decorateConfig();
       this.manageTitle();
