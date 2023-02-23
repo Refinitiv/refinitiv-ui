@@ -102,9 +102,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       [part~=input] {
         cursor: text;
       }
-      [part~=input]::-ms-clear {
-        display: none;
-      }
       [hidden] {
         display: none !important;
       }
