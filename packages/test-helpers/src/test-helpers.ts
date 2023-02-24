@@ -35,7 +35,7 @@ export const replaceWhitespace = (text: string): string => text.replace(/\s/g, '
  * @returns boolean
  */
 export const isSafari = (version = undefined): boolean => { // Indicates if this is Safari. Put version parameter to specific version.
-  const safari = !(/Chrome/).test(navigator.userAgent) && (/Apple Computer/).test(navigator.vendor);
+  const safari = (/Safari/).test(navigator.userAgent) && !(/Chrome/).test(navigator.userAgent);
   if (version) {
     return safari && (navigator.userAgent.indexOf(`Version\/${String(version)}`) > -1);
   }
