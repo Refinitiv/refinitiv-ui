@@ -50,6 +50,7 @@ describe('TestHelpersTest', () => {
 
   describe('Test Method helper', () => {
     it('Replace spacial whitespace to normal whitespace correctly', () => {
+      // Remove whitespace charactor U+202F from Chrome 111 and U+00A0 from Safari
       const specialWhitespaces = '  ';
       expect(replaceWhitespace(specialWhitespaces)).to.equal('  ', 'Remove whitespace should work correctly');
     });

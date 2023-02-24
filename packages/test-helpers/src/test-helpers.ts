@@ -24,11 +24,8 @@ export {
  * @param text string with whitespace for replace
  * @returns string
  */
-export const replaceWhitespace = (text: string): string => {
-  return text
-    .replace(' ', ' ') // Remove U+202F whitespace charactor rendered from Chrome 111
-    .replace(' ', ' '); // Remove U+00A0 whitespace charactor rendered from Safari
-};
+export const replaceWhitespace = (text: string): string => text.replace(/\s/g, ' ');
+
 
 /* c8 ignore start */
 
