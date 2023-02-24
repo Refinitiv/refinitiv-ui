@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["SapphireSwingGaugeTest DOM structure is correct"] = 
+snapshots["swing-gauge/SwingGauge DOM structure is correct"] = 
 `<div part="container">
   <div part="canvas-container">
     <ef-canvas
@@ -38,5 +38,5 @@ snapshots["SapphireSwingGaugeTest DOM structure is correct"] =
   </div>
 </div>
 `;
-/* end snapshot SapphireSwingGaugeTest DOM structure is correct */
+/* end snapshot swing-gauge/SwingGauge DOM structure is correct */
 
