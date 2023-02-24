@@ -24,19 +24,6 @@
   }
 }
 
-// this should probably not exist
-.placeholder(@rules) {
-
-  &::-webkit-input-placeholder {
-    @rules();
-  }
-  &::-moz-placeholder {
-    @rules();
-  }
-  &:-ms-input-placeholder {
-    @rules();
-  }
-}
 .solar-states (@isHost, @border-color: @input-border-color, @text-color: @input-text-color, @background-color: @input-background-color) {
   @input-border-color: @border-color;
   @input-text-color: @text-color;

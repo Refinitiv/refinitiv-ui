@@ -18,19 +18,5 @@
     polygon {
       vector-effect: non-scaling-stroke;
     }
-    
-    .ie-specific({
-      g,
-      path,
-      rect,
-      line,
-      circle,
-      ellipse,
-      polyline,
-      polygon {
-        vector-effect: none;
-        stroke-width: calc(@icon-size/0.01em); // Absolute hack for IE to enable stroke scaling!
-      }
-    });
   }
 }
