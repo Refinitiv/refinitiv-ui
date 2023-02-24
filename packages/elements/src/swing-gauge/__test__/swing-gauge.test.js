@@ -1,10 +1,26 @@
-import { fixture, expect, elementUpdated, aTimeout } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, aTimeout, nextFrame } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/swing-gauge';
 import '@refinitiv-ui/elemental-theme/light/ef-swing-gauge.js';
 
-describe('SapphireSwingGaugeTest', () => {
+describe('swing-gauge/SwingGauge', () => {
+
+  it('DOM structure is correct', async () => {
+    const el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+    await elementUpdated(el);
+    await nextFrame();
+    await expect(el).shadowDom.to.equalSnapshot();
+  });
+  it('Label and DOM structure is correct', async () => {
+    const el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+    await elementUpdated(el);
+    await nextFrame();
+    const canvas = el.shadowRoot.querySelector('ef-canvas');
+
+    expect(canvas).to.not.equal(null);
+  });
+
   describe('Value', () => {
     let el;
     beforeEach(async () => {

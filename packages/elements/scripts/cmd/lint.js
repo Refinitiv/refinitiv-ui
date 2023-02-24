@@ -29,9 +29,10 @@ exports.builder = yargs => {
     })
     .completion('completion', () => elements);
 };
+
 exports.handler = (argv) => {
   const element = argv.element || 'all';
-  const fix = !!argv.fix;
+  const fix = argv.fix;
 
   info(`Linting${fix ? ' and fixing' : ''}: ${ element }`);
 

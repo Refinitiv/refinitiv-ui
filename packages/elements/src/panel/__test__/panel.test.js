@@ -21,7 +21,7 @@ const hasPadding = el => {
 describe('panel/Panel', () => {
   it('Should have correct Shadow DOM structure', async () => {
     const el = await fixture('<ef-panel></ef-panel>');
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Should show content inside a slot', async () => {

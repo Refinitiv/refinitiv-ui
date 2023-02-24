@@ -124,22 +124,22 @@ describe('time-picker/TimePicker', () => {
     /* cannot test default as value is set to current time */
     it('DOM structure: readonly', async () => {
       const el = await fixture(timePickerReadonly);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('DOM structure: disabled', async () => {
       const el = await fixture(timePickerDisabled);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('DOM structure: value, no seconds', async () => {
       const el = await fixture(timePickerValueNumberWithoutSec);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('DOM structure: value, with seconds', async () => {
       const el = await fixture(timePickerValueNumberWithSec);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('DOM structure: value, am/pm no seconds', async () => {
@@ -149,12 +149,12 @@ describe('time-picker/TimePicker', () => {
        * but in the real DOM it is lower case that make this test case fail on the
        * Edge browser only, In others browser are works fine, we need to ignore this weird behavior.
        */
-      expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['aria-label'] });
+      await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['aria-label'] });
     });
 
     it('DOM structure: role=none', async () => {
       const el = await fixture(timePickerRoleNone);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 

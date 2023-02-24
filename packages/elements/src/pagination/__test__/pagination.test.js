@@ -30,7 +30,7 @@ describe('pagination/Pagination', () => {
   describe('Snapshots', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-pagination lang="en-gb" lang="en-gb"></ef-pagination>');
-      expect(el).shadowDom.to.equalSnapshot({
+      await expect(el).shadowDom.to.equalSnapshot({
         ignoreAttributes: [{
           tags: ['ef-layout'], attributes: ['style', 'class']
         }]

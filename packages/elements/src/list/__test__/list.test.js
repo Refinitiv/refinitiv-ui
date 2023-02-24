@@ -58,11 +58,16 @@ const iterateKeyboardEvent = async (el, scope, keys = [], highlighted = []) => {
 // TODO: Actually test results. These are just placeholders for coverage.
 
 describe('list/List', () => {
+  describe('Label and DOM structure is correct', async () => {
 
-  it('Label and DOM structure is correct', async () => {
-    const el = await fixture('<ef-list></ef-list>');
-    expect(el).to.equalSnapshot();
-    expect(el).shadowDom.to.equalSnapshot();
+    it('Light DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      await expect(el).to.equalSnapshot();
+    });
+    it('Shadow DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
   });
 
   it('Sets default value to be an empty string', async () => {
@@ -70,25 +75,43 @@ describe('list/List', () => {
     expect(el.value).to.equal('');
   });
 
-  it('Supports setting a data array', async () => {
-    const el = await fixture('<ef-list></ef-list>');
-    el.data = data;
-    expect(el).to.equalSnapshot();
-    expect(el).shadowDom.to.equalSnapshot();
+  describe('Supports setting a data array', async () => {
+    it('Light DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = data;
+      await expect(el).to.equalSnapshot();
+    });
+    it('Shadow DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = data;
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
   });
 
-  it('Supports setting a data composer', async () => {
-    const el = await fixture('<ef-list></ef-list>');
-    el.data = new CollectionComposer(data);
-    expect(el).to.equalSnapshot();
-    expect(el).shadowDom.to.equalSnapshot();
+  describe('Supports setting a data composer', async () => {
+    it('Light DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = new CollectionComposer(data);
+      await expect(el).to.equalSnapshot();
+    });
+    it('Shadow DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = new CollectionComposer(data);
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
   });
 
-  it('Supports setting null data', async () => {
-    const el = await fixture('<ef-list></ef-list>');
-    el.data = null;
-    expect(el).to.equalSnapshot();
-    expect(el).shadowDom.to.equalSnapshot();
+  describe('Supports setting null data', async () => {
+    it('Light DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = null;
+      await expect(el).to.equalSnapshot();
+    });
+    it('Shadow DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = null;
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
   });
 
   it('Supports switching data between different types', async () => {

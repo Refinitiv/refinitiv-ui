@@ -18,7 +18,7 @@ describe('led-gauge/LedGauge', () => {
 
   it('DOM structure is correct', async () => {
     const el = await fixture(normal);
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Label and DOM structure is correct', async () => {

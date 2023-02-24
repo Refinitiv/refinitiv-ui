@@ -8,7 +8,7 @@ describe('tornado-chart/TornadoChart', () => {
   describe('Snapshots', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-tornado-chart primary="7+ hours" secondary="less than 7 hours"></ef-tornado-chart>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 

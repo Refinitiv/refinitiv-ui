@@ -28,25 +28,25 @@ describe('checkbox/Checkbox', () => {
   describe('Accessiblity', () => {
     it('should fail without label', async () => {
       const el = await fixture(noLabel);
-      expect(el).not.to.be.accessible();
+      await expect(el).not.to.be.accessible();
     });
     it('should pass a11y test with aria-label', async () => {
       const el = await fixture(`<ef-checkbox aria-label="Checkbox without label"></ef-checkbox>`);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
     });
     it('should pass a11y test with slotted label', async () => {
       const el = await fixture(unchecked);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
       expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
     });
     it('should pass a11y test when in checked state', async () => {
       const el = await fixture(checked);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
       expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
     });
     it('should pass a11y test when in indeterminate state and has aria-checked="mixed"', async () => {
       const el = await fixture(indeterminate);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
       expect(el.getAttribute('aria-checked')).to.equal('mixed');
     });
     it('should have aria-checked equals to false when indeterminate changes to false', async () => {
@@ -54,7 +54,7 @@ describe('checkbox/Checkbox', () => {
       el.indeterminate = false;
       await elementUpdated(el);
 
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
       expect(el.checked).to.equal(false);
       expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
     });
@@ -63,7 +63,7 @@ describe('checkbox/Checkbox', () => {
       el.checked = true;
       await elementUpdated(el);
 
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
       expect(el.checked).to.equal(true);
       expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
     });
@@ -72,24 +72,24 @@ describe('checkbox/Checkbox', () => {
       el.indeterminate = true;
       await elementUpdated(el);
 
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
       expect(el.checked).to.equal(false);
       expect(el.getAttribute('aria-checked')).to.equal('mixed');
     });
     it('should pass a11y test when disabled', async () => {
       const el = await fixture(disabled);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
     });
     it('should pass a11y test when readonly', async () => {
       const el = await fixture(readonly);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
     });
   })
 
   describe('Basic Structure And State', () => {
     it('DOM structure is correct', async () => {
       el = await fixture(unchecked);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('contains the correct structure', async () => {
       el = await fixture(unchecked);

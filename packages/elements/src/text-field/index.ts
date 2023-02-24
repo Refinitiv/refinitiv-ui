@@ -177,13 +177,14 @@ export class TextField extends FormFieldElement {
    * @param changedProperties Properties that has changed
    * @returns True if input should be re-validated
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   protected shouldValidateInput (changedProperties: PropertyValues): boolean {
     // TODO: This validation should be refactored
     return (changedProperties.has('pattern') || !!(this.pattern && changedProperties.has('value')))
       || (changedProperties.has('minLength') || !!(this.minLength && changedProperties.has('value')))
       || (changedProperties.has('maxLength') || !!(this.maxLength && changedProperties.has('value')));
   }
+  /* c8 ignore stop */
 
   /**
    * Runs on input element `input` event
@@ -220,11 +221,11 @@ export class TextField extends FormFieldElement {
    */
   protected validateInput (): void {
     let error = !this.inputElement?.checkValidity();
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (this.shouldValidateForMinLength(error)) {
       error = !!this.minLength && (this.minLength > this.value.length);
     }
-
+    /* c8 ignore stop */
     this.notifyErrorChange(error);
   }
 
@@ -232,10 +233,11 @@ export class TextField extends FormFieldElement {
    * @param error existing state of error
    * @returns true if there is no error and browser is IE11 and minLength more than 0 and value exists
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   protected shouldValidateForMinLength (error: boolean): boolean {
     return !!(!error && isIE && this.minLength && !!this.value);
   }
+  /* c8 ignore stop */
 
   /**
    * Fires event on `icon` click

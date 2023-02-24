@@ -258,7 +258,7 @@ export class Dialog extends Overlay {
    * @param [maxHeight] Maximum height of content element
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private restrictContentMaxHeight (maxHeight?: number): void {
     if (!isIE) {
       return;
@@ -271,13 +271,14 @@ export class Dialog extends Overlay {
       this.contentElement.style.removeProperty('max-height');
     }
   }
+  /* c8 ignore stop */
 
   /**
    * IE11 only: Calculate the maxHeight of content element
    * @param size Size of the dialog
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private calculateContentMaxHeight (size: ElementSize): void {
     if (!isIE) {
       return;
@@ -296,6 +297,7 @@ export class Dialog extends Overlay {
       this.restrictContentMaxHeight(dialogHeight - footerHeight - headerHeight);
     }
   }
+  /* c8 ignore stop */
 
   /**
    * Default handler for confirm click
