@@ -1,11 +1,9 @@
 const {
-  defaultBrowsers,
-  availableBrowsers,
+  DefaultBrowsers,
   BrowserStack
 } = require('../../browsers.config');
 
 module.exports = {
-  defaultBrowsers,
-  availableBrowsers,
+  DefaultBrowsers,
   BrowserStack
 };

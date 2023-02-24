@@ -16,7 +16,7 @@ describe('button-bar/ButtonBar', () => {
   it('should be created', async () => {
     const el = await fixture(html`<ef-button-bar></ef-button-bar>`);
     expect(el).is.instanceOf(HTMLElement);
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   describe('The Managed Property', () => {

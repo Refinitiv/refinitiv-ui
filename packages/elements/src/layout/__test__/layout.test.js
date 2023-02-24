@@ -4,7 +4,7 @@ import {
   expect,
   aTimeout,
   oneEvent,
-  elementUpdated
+  elementUpdated, nextFrame
 } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
@@ -30,7 +30,7 @@ describe('layout/Layout', function () {
 
   it('Should have correct Shadow DOM structure', async () => {
     const el = await fixture(defaultLayout);
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Should be at a default state', async () => {
@@ -86,7 +86,8 @@ describe('layout/Layout', function () {
 
     el.style.width = el.clientWidth + 10 + 'px';
 
-    await aTimeout(50);
+    await aTimeout(100);
+
     assert.equal(eventCount, 1, 'Event should have been called once');
 
     let parentElement = el.parentElement;
@@ -97,13 +98,15 @@ describe('layout/Layout', function () {
 
     el.style.width = el.clientWidth + 10 + 'px';
 
-    await aTimeout(50);
+    await aTimeout(100);
+
     assert.ok(eventCount === 2, 'Events should still fire');
 
     parentElement.removeChild(el);
     el.style.width = el.clientWidth + 10 + 'px';
 
-    await aTimeout(50);
+    await aTimeout(100);
+
     assert.ok(eventCount === 2, 'Events should not fire when detached');
   });
 

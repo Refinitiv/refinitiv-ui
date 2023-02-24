@@ -757,7 +757,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns {void}
    */
   protected restrictPopupWidth (): void {
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (this.offsetWidth === 0) {
       // this code might happen only when opened has been set during initialisation
       // or when display is set to none
@@ -769,7 +769,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       });
       return;
     }
-
+    /* c8 ignore stop */
     const maxWidth = parseFloat(this.getComputedVariable('--list-max-width', 'none'));
     let minWidth = this.offsetWidth;
 
@@ -1180,12 +1180,12 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   protected reTargetEvent (event: KeyboardEvent, target: HTMLElement): CustomKeyboardEvent {
     const path = event.composedPath();
 
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (path[0] === target) {
       // this must not happen, but keep it here to avoid infinitive loop
       return event;
     }
-
+    /* c8 ignore stop */
     const keyboardEvent = new CustomKeyboardEvent(event.type, event);
     target.dispatchEvent(keyboardEvent);
 

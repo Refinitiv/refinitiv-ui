@@ -58,6 +58,10 @@ runs:
       uses: ./.github/actions/setup
       id: setup
 
+    - name: Install playwright browsers
+      shell: bash
+      run: npx playwright install --with-deps
+
     - name: Setup browsers or browserstack command line option
       shell:
       run: |
@@ -78,13 +82,13 @@ runs:
       run: |
         [[ "${{ inputs.mode }}" == "affected" ]] && export OPTIONS="--base=${{ inputs.base }}"
         [[ "${{ inputs.mode }}" == "all" ]] && export OPTIONS="--skip-nx-cache"
-        npm run test:${{ inputs.mode }} -- $OPTIONS --parallel=${{ inputs.parallel }} ${{ env.BROWSERS_OPTION }} --includeCoverage ${{ inputs.coverage }} --output minimal
+        npm run test:${{ inputs.mode }} -- $OPTIONS --parallel=${{ inputs.parallel }} ${{ env.BROWSERS_OPTION }} --includeCoverage=${{ inputs.coverage }} --output=minimal
 
     - name: Test Package or Element
       if: ${{ inputs.target != '' }}
       shell: bash
       run: |
-        npm run test ${{ inputs.target }} -- ${{ env.BROWSERS_OPTION }} --includeCoverage ${{ inputs.coverage }}
+        npm run test ${{ inputs.target }} -- ${{ env.BROWSERS_OPTION }} --includeCoverage=${{ inputs.coverage }}
 
     - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
       if: ${{ inputs.browserstack == 'true' }}

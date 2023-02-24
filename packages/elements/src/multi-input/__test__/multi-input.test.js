@@ -40,7 +40,7 @@ describe('multi-input/MultiInput', () => {
 
   it('should be created', async () => {
     const el = await fixture(html`<ef-multi-input></ef-multi-input>`);
-    expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class', 'size', 'style'] });
+    await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class', 'size', 'style'] });
   });
 
   describe('Test Properties and Attributes', () => {

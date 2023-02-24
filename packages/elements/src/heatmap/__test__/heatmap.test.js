@@ -1,5 +1,5 @@
 import { Track } from '../../../lib/heatmap/helpers/track.js';
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame, aTimeout } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/heatmap';
 import '@refinitiv-ui/elemental-theme/light/ef-heatmap.js';
@@ -20,6 +20,7 @@ const CONFIG = {
 const canvasUpdated = async () => {
   await nextFrame();
   await nextFrame();
+  await aTimeout(50); // Safari need more to update canvas
 };
 
 
@@ -27,29 +28,27 @@ describe('heatmap/Heatmap', () => {
   describe('DOM Structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-heatmap></ef-heatmap>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure with tooltip config is correct', async () => {
       const el = await fixture('<ef-heatmap></ef-heatmap>');
       el.config = CONFIG;
       el.tooltipCallback = function (cell) {
         const tooltip = document.createElement('div');
-        const template = ` <div>Value: ${cell.value}</div>`;
+        const template = `<div>Value: ${cell.value}</div>`;
         tooltip.innerHTML = template;
         return tooltip;
       };
 
       await elementUpdated(el);
-
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure with axes config is correct', async () => {
       const el = await fixture('<ef-heatmap></ef-heatmap>');
       el.config = CONFIG;
 
       await elementUpdated(el);
-
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 

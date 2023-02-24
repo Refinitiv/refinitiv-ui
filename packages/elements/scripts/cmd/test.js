@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 const { execSync } = require('child_process');
+const { exit } = require('process');
 const {
-  defaultBrowsers,
-  availableBrowsers,
+  DefaultBrowsers,
   BrowserStack
 } = require('../../browsers.config');
 
@@ -29,7 +29,7 @@ exports.builder = yargs => {
       default: false,
       description: 'Run test and watch file change'
     })
-    .option('snapshots', {
+    .option('update-snapshots', {
       alias: 's',
       type: 'boolean',
       default: false,
@@ -38,8 +38,8 @@ exports.builder = yargs => {
     .option('browsers', {
       alias: 'b',
       type: 'array',
-      default: defaultBrowsers,
-      choices: availableBrowsers,
+      default: DefaultBrowsers,
+      choices: DefaultBrowsers,
       description: 'Specific browser(s) to run units test'
     })
     .option('browserstack', {
@@ -49,6 +49,11 @@ exports.builder = yargs => {
       description: 'Run units test on BrowserStack and specific browser(s)'
     })
     .requiresArg('browserstack')
+    .option('include-coverage', {
+      type: 'boolean',
+      default: true,
+      description: 'Include coverage testing'
+    })
     .option('output', {
       type: 'string',
       alias: 'o',
@@ -60,12 +65,12 @@ exports.builder = yargs => {
 };
 exports.handler = (argv) => {
   const element = argv.element || 'all';
-  const watch = !!argv.watch;
-  const snapshots = !!argv.snapshots;
+  const watch = argv.watch;
+  const snapshots = argv.updateSnapshots;
   const browsers = argv.browsers.join(' ');
   const browserstack = argv.browserstack ? argv.browserstack.join(' ') : null;
 
-  info(watch ? `Start Karma Server: ${ element }` : `Test: ${ element }`);
+  info(watch ? `Start Dev Server: ${ element }` : `Test: ${ element }`);
 
   if (snapshots) {
     info(`Update and prune snapshots: ${ element }`);
@@ -73,17 +78,20 @@ exports.handler = (argv) => {
 
   try {
     execSync('node cli build --sourceMap --declarationMap');
-    const command = ['karma', 'start', 'karma.config.js', `--package=${PACKAGE_NAME}`];
+    const command = ['wtr', `--config="web-test-runner.config.js"`, `--package=${PACKAGE_NAME}`];
+
     watch && command.push('--watch');
-    snapshots && command.push('--snapshots');
-    browserstack && command.push(`--browserstack ${browserstack}`);
-    !browserstack && browsers && command.push(`-b ${browsers}`);
-    command.push(`--output ${argv.output}`);
+    snapshots && command.push('--update-snapshots');
+    // TODO: need to make the WTR support the options below
+    // browserstack && command.push(`--browserstack ${browserstack}`);
+    command.push(`--output=${argv.output}`);
 
     execSync(command.join(' '), {
       stdio: 'inherit',
       env: Object.assign({}, process.env, {
-        ELEMENT: element
+        ELEMENT: element,
+        BROWSERS: browsers,
+        COVERAGE: argv.includeCoverage
       })
     });
   }

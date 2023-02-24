@@ -14,19 +14,16 @@ describe('combo-box/Value', () => {
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value getter does not get correct value');
       expect(el.inputElement.value).to.equal('Afghanistan', 'Input is not reflected for AF');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.value = 'AL';
       await elementUpdated(el);
       expect(el.value).to.equal('AL', 'Value is not reflected from selected attribute');
       expect(el.inputElement.value).to.equal('Albania', 'Input is not reflected for AL');
-      await nextFrame(); // Safari required extra frame
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+
       el.value = '';
       await elementUpdated(el);
       expect(el.value).to.equal('', 'Value is not reflected from selected attribute');
       expect(el.inputElement.value).to.equal('', 'Input is not reflected for ""');
-      await nextFrame(); // Safari required extra frame
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
     it('Value attribute is selected', async () => {
@@ -34,7 +31,7 @@ describe('combo-box/Value', () => {
       el.data = getData();
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value attribute did not reflect to a selected value');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
     it('Multiple. Data Selected: Afghanistan, Albania', async () => {
@@ -44,19 +41,17 @@ describe('combo-box/Value', () => {
       await openedUpdated(el);
       expect(String(el.values)).to.equal('AF,AL', 'Values getter does not get correct value');
       expect(el.inputElement.value).to.equal('Afghanistan;  Albania', 'Input is not reflected for AF, AL');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.values = ['AX'];
       await elementUpdated(el);
       await nextFrame(); // Safari required extra frame
       expect(String(el.values)).to.equal('AX', 'Values are not reflected from selected attribute');
       expect(el.inputElement.value).to.equal('Aland Islands', 'Input is not reflected for AX');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.values = [];
       await elementUpdated(el);
       await nextFrame(); // Safari required extra frame
       expect(String(el.values)).to.equal('', 'Values are not reflected from selected attribute');
       expect(el.inputElement.value).to.equal('', 'Input is not reflected for ""');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
   });

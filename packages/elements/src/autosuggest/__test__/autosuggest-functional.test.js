@@ -1,4 +1,9 @@
-import { elementUpdated, expect, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, nextFrame, oneEvent, isSafari, isFirefox } from '@refinitiv-ui/test-helpers';
+
+import '@refinitiv-ui/elements/autosuggest';
+import '@refinitiv-ui/elements/text-field';
+import '@refinitiv-ui/elemental-theme/light/ef-autosuggest';
+import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 
 import {
   blurAction,
@@ -6,7 +11,7 @@ import {
   createInputElement,
   data,
   focusAction,
-  inputAction, isFirefox,
+  inputAction,
   pressKey,
   tapAction
 } from './helpers/helpers';
@@ -134,6 +139,9 @@ describe('autosuggest/Functional', () => {
     }, 4000);
 
     it('Test suggestions-query and suggestions-fetch-requested', async function () {
+      if (isSafari()) { // Safari reach 2000ms timeout exceeded
+        this.skip();
+      }
       const input = await createInputElement();
       const autoSuggest = await createFixture('reason');
 

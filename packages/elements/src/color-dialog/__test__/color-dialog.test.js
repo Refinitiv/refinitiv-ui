@@ -35,7 +35,7 @@ describe('color-dialog/ColorDialog', () => {
     });
 
     it('DOM structure is correct', async () => {
-      expect(defaultColorDialog).shadowDom.to.equalSnapshot({
+      await expect(defaultColorDialog).shadowDom.to.equalSnapshot({
         ignoreAttributes: ['class', 'tabindex']
       });
     });

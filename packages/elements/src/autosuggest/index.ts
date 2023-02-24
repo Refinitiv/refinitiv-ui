@@ -393,7 +393,7 @@ export class Autosuggest extends Overlay {
    */
   public onInputValueChange (event: Event): void {
     if (!this.suspended) { // avoid circular
-      /* istanbul ignore next */
+      /* c8 ignore next */
       if (isMobile) {
         this.lastActiveElement = event.target as HTMLElement;
       }
@@ -422,7 +422,7 @@ export class Autosuggest extends Overlay {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public onInputFocus (event: FocusEvent): void {
-    /* istanbul ignore next */
+    /* c8 ignore next */
     if (this.focusSuspended) {
       // see _onItemMousedown, it is an IE fix for scrollbar
       return;
@@ -537,7 +537,7 @@ export class Autosuggest extends Overlay {
     this.suggestionMap.clear();
 
     nodes.forEach((node, idx) => {
-      /* istanbul ignore next */
+      /* c8 ignore next */
       if (node.nodeType !== Node.ELEMENT_NODE) {
         return;
       }
@@ -568,7 +568,7 @@ export class Autosuggest extends Overlay {
   protected itemSelectAction (event: AutosuggestSelectItemEvent): void {
     const { detail: { query, suggestion } } = event;
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     if (this.attachTarget) {
       this.attachTarget.value = suggestion && suggestion?.label || query;
     }
@@ -625,7 +625,7 @@ export class Autosuggest extends Overlay {
   protected attachEventsAddAction (event: CustomEvent): void {
     const attachTarget = this.attachTarget;
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     if (!attachTarget) {
       return;
     }
@@ -799,7 +799,7 @@ export class Autosuggest extends Overlay {
       return;
     }
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     if (this.loading) {
       return;
     }
@@ -828,7 +828,7 @@ export class Autosuggest extends Overlay {
       return;
     }
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     if (this.loading) {
       return;
     }
@@ -846,7 +846,7 @@ export class Autosuggest extends Overlay {
       return;
     }
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     if (this.loading) {
       return;
     }
@@ -961,7 +961,7 @@ export class Autosuggest extends Overlay {
    * Fired when mouse leave event happens. Remove highlight from the item
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   protected onItemMouseLeave (): void {
     this.highlightItem(); // remove highlight
   }
@@ -1300,7 +1300,7 @@ export class Autosuggest extends Overlay {
     for (let i = 0; i <= path.length; i += 1) {
       const node = path[i] as HTMLElement;
 
-      /* istanbul ignore next */
+      /* c8 ignore next */
       if (node.nodeType !== Node.ELEMENT_NODE) {
         continue;
       }
@@ -1309,7 +1309,7 @@ export class Autosuggest extends Overlay {
         return node;
       }
 
-      /* istanbul ignore next */
+      /* c8 ignore next */
       if (node === this) {
         return event.target as HTMLElement;
       }
@@ -1409,7 +1409,7 @@ export class Autosuggest extends Overlay {
     // do not loose focus from input when click happens on the popup
     // note, in IE when scrolling the focus is lost regardless, so
     // do hacking here and with on blur
-    /* istanbul ignore next */
+    /* c8 ignore next */
     requestAnimationFrame(() => {
       // Ignore any focus query events!
       this.focusSuspended = true;
@@ -1486,7 +1486,7 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
 
-  /* istanbul ignore next */
+  /* c8 ignore next */
   private restrictContentMaxHeight (maxHeight?: number): void {
     const contentElement = this.contentElementRef.value;
 
@@ -1507,7 +1507,7 @@ export class Autosuggest extends Overlay {
    * @param size Size of the dialog
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore next */
   private calculateContentMaxHeight (size: ElementSize): void {
     if (!isIE) {
       return;

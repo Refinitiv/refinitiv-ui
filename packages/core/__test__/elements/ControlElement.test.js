@@ -61,11 +61,14 @@ describe('TestControlElement', () => {
     }).to.not.throw();
   });
 
-  it('Needs to have correct DOM structure', async () => {
+  it('Needs to have correct Shadow DOM structure', async () => {
     const el = await fixture('<control-element-test></control-element-test>');
+    await expect(el).shadowDom.to.equalSnapshot();
+  });
 
-    expect(el).shadowDom.to.equalSnapshot();
-    expect(el).lightDom.to.equalSnapshot();
+  it('Needs to have correct Light DOM structure', async () => {
+    const el = await fixture('<control-element-test></control-element-test>');
+    await expect(el).lightDom.to.equalSnapshot();
   });
 
   describe('Test properties and attributes', async () => {
@@ -164,6 +167,54 @@ describe('TestControlElement', () => {
 
         expect(el.getAttribute('focused')).to.equal('', 'attribute "focused" should equal empty string');
         expect(el.hasAttribute('focused')).to.equal(true, 'attribute "focused" should be present');
+      });
+    });
+
+    describe('Test "autofocus" property and attribute', async () => {
+      it('Should have correct property and attribute "autofocus" by default', async () => {
+        const el = await fixture('<control-element-test></control-element-test>');
+
+        expect(el.autofocus).to.equal(false, 'property "autofocus" should be false by default');
+        expect(el.getAttribute('autofocus')).to.equal(null, 'attribute "autofocus" should equal null by default');
+        expect(el.hasAttribute('autofocus')).to.equal(false, 'attribute "autofocus" should not be exists by default');
+
+        el.setAttribute('autofocus', '');
+        await elementUpdated(el);
+
+        expect(el.autofocus).to.equal(true, 'property "autofocus" should be equal true');
+        expect(el.hasAttribute('autofocus')).to.equal(true, 'attribute "autofocus" should be exists');
+        expect(el.getAttribute('autofocus')).to.equal('', 'attribute "autofocus" should equal ""');
+
+        expect(el.hasAttribute('tabindex')).to.equal(true, 'attribute "tabindex" should be exists by default');
+        expect(el.getAttribute('tabindex')).to.equal('0', 'attribute "tabindex" should not be "0" by default');
+        expect(el.tabIndex).to.equal(0, 'property tabIndex should stay 0 by default');
+
+        expect(el.hasAttribute('focused')).to.equal(false, 'attribute "focused" should not be added if autofocus changed');
+
+        el.autofocus = false;
+        await elementUpdated(el);
+
+        expect(el.autofocus).to.equal(false, 'property "autofocus" need to be set false');
+        expect(el.getAttribute('autofocus')).to.equal(null, 'property "autofocus" should reflected');
+        expect(el.hasAttribute('autofocus')).to.equal(false, 'property "autofocus" should reflected');
+      });
+
+      it('Should have correct property and attribute "autofocus"', async () => {
+        const el = await fixture('<control-element-test autofocus></control-element-test>');
+        await elementUpdated(el);
+
+        await asyncFrames();
+
+        expect(el.autofocus).to.equal(true, 'property "autofocus" should be setted');
+        expect(el.getAttribute('autofocus')).to.equal('', 'attribute "autofocus" should equal empty string');
+        expect(el.hasAttribute('autofocus')).to.equal(true, 'attribute "autofocus" should be present');
+
+        expect(el.hasAttribute('tabindex')).to.equal(true, 'attribute "tabindex" should be exists by default');
+        expect(el.getAttribute('tabindex')).to.equal('0', 'attribute "tabindex" should be "0" by default');
+        expect(el.tabIndex).to.equal(0, 'property tabIndex should stay 0 by default');
+
+        expect(el.hasAttribute('focused')).to.equal(true, 'attribute "focused" should not be added if autofocus set');
+        expect(el.getAttribute('focused')).to.equal('', 'attribute "focused" should be empty string');
       });
     });
 

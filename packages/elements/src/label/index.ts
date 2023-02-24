@@ -31,7 +31,7 @@ const _ = ' ';
 /**
  * Determines if the browser is legacy or modern.
  */
-/* istanbul ignore next */
+/* c8 ignore next */
 const browserType = isIE ? 'legacy' : 'modern';
 
 /**
@@ -229,13 +229,14 @@ export class Label extends BasicElement {
       '-webkit-line-clamp': `${this.lineClamp}`,
       wordBreak: this.lineClamp === 1 ? 'break-all' : ''
     };
-    /* istanbul ignore if */
+    /* c8 ignore start */
     if (browserType === 'legacy') {
       const cs = getComputedStyle(this);
       const lineHeight = parseFloat(cs.lineHeight) || 1.2/* css default */;
       styles.maxHeight = `calc(1em * ${lineHeight} * ${this.lineClamp})`; // faux clamp in legacy browsers
       styles.whiteSpace = this.lineClamp === 1 ? 'nowrap' : ''; // show ellipsis in legacy browsers
     }
+    /* c8 ignore stop */
     return html`
       <span class="clamp ${browserType}" style="${styleMap(styles)}">${this.text}</span>
     `;
@@ -249,12 +250,12 @@ export class Label extends BasicElement {
   protected render (): TemplateResult {
     const template = this.lineClamp ? this.clampTemplate : this.truncateTemplate;
 
-    /* istanbul ignore if */
+    /* c8 ignore start */
     if (browserType === 'legacy') {
       // Mutation observer does not fire in IE11 if slot is not present
       return html`${ template }<span style="display: none !important;"><slot></slot></span>`;
     }
-
+    /* c8 ignore stop */
     return template;
   }
 }
