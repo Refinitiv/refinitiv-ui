@@ -37,7 +37,6 @@ import {
 } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/locale/en/time-picker.js';
 
-
 enum Segment {
   HOURS = 'hours',
   MINUTES = 'minutes',
