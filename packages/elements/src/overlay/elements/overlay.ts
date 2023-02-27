@@ -140,7 +140,7 @@ export class Overlay extends ResponsiveElement {
 
       :host(:not([first-resize-done])) {
         pointer-events: none !important; /* needs for Mobile to prevent tap while overlay is not yet on the screen */
-        visibility: hidden;
+        opacity: 0;
       }
 
       :host(:not([animation-ready])) {
