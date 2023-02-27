@@ -10,12 +10,13 @@ layout: default
 ::
 
 ```javascript
-::text-field::
+::text-field-javascript::
 import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/panel?min';
 halo('panel');
 ```
 
 ```css
+::text-field-css::
 ef-panel {
   max-width: 450px;
 }
@@ -48,9 +49,118 @@ p {
 
 ::
 
-`ef-text-field` is a form element for text.
+`ef-text-field` is a form element for text. This basic text input enables the user to type a small amount of text and submit it in a form.
 
-## Usage
+## Design Usage Rules
+
+### Content principles
+
+* Users should understand the state of the field quickly and easily
+* Placeholder text should not contain instructions. If these are needed supportive text should be provided
+* Label text can wrap onto multiple lines if needed. Avoid truncating, where possible  
+* Supportive  text should be used only where needed
+
+### Formatting
+
+Form labels should be visible and there are 3 variants:
+
+#### Stacked
+
+Stacked is the default form label location
+
+::
+
+```javascript
+::text-field-javascript::
+```
+
+```css
+::text-field-css::
+ef-text-field {
+  width: 240px;
+}
+```
+
+```html
+<label class="stacked" id="name">Full Name</label>
+<span class="supportive-text" id="support">Your name as shown on your passport</span>
+<ef-text-field 
+  aria-labelledby="name" aria-describedby="support">
+</ef-text-field>
+```
+
+::
+
+#### Left Label
+
+Use a left form label when space is vertically limited
+
+::
+
+```javascript
+::text-field-javascript::
+```
+
+```css
+::text-field-css::
+ef-text-field {
+  width: 240px;
+}
+```
+
+```html
+<label id="name">Full Name</label>
+<ef-text-field 
+  aria-labelledby="name"
+  placeholder="Your name as shown on your passport">
+</ef-text-field>
+```
+
+::
+
+#### Hidden Label
+
+The form label can be hidden when needed as long as an aria-label is included
+
+::
+
+```javascript
+::text-field-javascript::
+```
+
+```css
+::text-field-css::
+ef-text-field {
+  width: 240px;
+}
+```
+
+```html
+<ef-text-field 
+  aria-label="Full name"
+  placeholder="Your name as shown on your passport">
+</ef-text-field>
+```
+
+::
+
+### Copy and UX Writing
+
+See the <a href="https://lsegroup.sharepoint.com/sites/ProductDesignTeam/SitePages/Content-Design.aspx" target="_blank" rel="noreferrer">Content Design Style Guide (internal only)</a>
+
+### Touch Devices and Virtual Keyboards
+
+When interacting with `ef-text-field` using a mobile or touch device ensure that the correct virtual keyboard is activated upon user focus.
+
+### Validation and Errors
+
+Use inline validation where possible. For example, if the user typed an email address into a name field. Show the user an error message when we know the user has made an error. If it is not possible to use inline validation, then validate when the user submits the entry. For example, on a form.
+
+Inline validation is when validation messages are shown immediately after the user types in data to form fields.
+
+## Implementation
+
+### Usage
 
 Text field is used to accept text input from users and has similar behaviors to the native text input.
 
@@ -62,7 +172,7 @@ Text field is used to accept text input from users and has similar behaviors to 
 </ef-text-field>
 ```
 
-## Getting value
+### Getting value
 
 The field's value can be accessed using the `value` property.
 
@@ -97,7 +207,7 @@ element.addEventListener("value-changed", (e) => {
 });
 ```
 
-## Input validation
+### Input validation
 
 Validation occurs when constraints are provided and the value changes. If the error state changes, it will dispatch an `error-changed` event along with current error state.
 
@@ -105,14 +215,14 @@ Alternatively, you can check the `error` property to confirm if the input is val
 
 See the [Input Length](/elements/text-field#input-length) example below for more detail.
 
-## Input length
+### Input length
 
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
 
 ::
 
 ```javascript
-::text-field::
+::text-field-javascript::
 const element = document.getElementById("username");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
@@ -125,6 +235,7 @@ element.addEventListener("error-changed", (e) => {
 ```
 
 ```css
+::text-field-css::
 #error-text {
   color:#d94255;
 }
@@ -171,14 +282,14 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-## Validate input using pattern
+### Validate input using pattern
 
 You can use a regular expression to validate the input value by setting it with the `pattern` attribute.
 
 ::
 
 ```javascript
-::text-field::
+::text-field-javascript::
 const element = document.getElementById("nickname");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
@@ -192,14 +303,12 @@ element.addEventListener("error-changed", (e) => {
 ```
 
 ```css
+::text-field-css::
 #error-text {
   color:#d94255;
 }
 ef-text-field {
   width: 300px;
-}
-label {
-  display: block;
 }
 ```
 
@@ -240,17 +349,18 @@ element.addEventListener("error-changed", (e) => {
 });
 ```
 
-## Show icon
+### Show icon
 
 An inline icon can be set to display inside the input using the `icon` attribute.
 
 ::
 
 ```javascript
-::text-field::
+::text-field-javascript::
 ```
 
 ```css
+::text-field-css::
 ef-text-field {
   width: 200px;
 }
@@ -280,7 +390,7 @@ The icon can become actionable by adding the `icon-has-action` attribute to the 
 ::
 
 ```javascript
-::text-field::
+::text-field-javascript::
 const feedback = document.getElementById("feedback");
 feedback.addEventListener("icon-click", (e) => {
   feedback.value = "";
@@ -299,6 +409,7 @@ feedback.addEventListener("value-changed", (e) => {
 ```
 
 ```css
+::text-field-css::
 ef-text-field {
   width: 250px;
 }
@@ -337,7 +448,7 @@ feedback.addEventListener("icon-click", (e) => {
 });
 ```
 
-## Accessibility
+### Accessibility
 
 ::a11y-intro::
 
