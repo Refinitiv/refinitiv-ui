@@ -389,7 +389,7 @@ export class ColorDialog extends Dialog {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected get contentRegion (): TemplateResult {
+  protected get contentTemplate (): TemplateResult {
     if (!this.lazyRendered) {
       return html``;
     }
@@ -475,7 +475,7 @@ export class ColorDialog extends Dialog {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected get footerRegion (): TemplateResult {
+  protected get footerTemplate (): TemplateResult {
     if (!this.lazyRendered) {
       return html``;
     }
