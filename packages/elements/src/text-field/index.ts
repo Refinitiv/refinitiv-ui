@@ -12,7 +12,6 @@ import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 import { VERSION } from '../version.js';
-import { isIE } from '@refinitiv-ui/utils/browser.js';
 import '../icon/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 
@@ -231,11 +230,11 @@ export class TextField extends FormFieldElement {
 
   /**
    * @param error existing state of error
-   * @returns true if there is no error and browser is IE11 and minLength more than 0 and value exists
+   * @returns true if there is no error and minLength more than 0 and value exists
    */
   /* c8 ignore start */
   protected shouldValidateForMinLength (error: boolean): boolean {
-    return !!(!error && isIE && this.minLength && !!this.value);
+    return !!(!error && this.minLength && !!this.value);
   }
   /* c8 ignore stop */
 
