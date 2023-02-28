@@ -1025,10 +1025,10 @@ export class Calendar extends ControlElement implements MultiValue {
    */
   private viewFormattedDate (segment: DateSegment, includeMonth = false): TemplateResult {
     const year = segment.year;
-    const includeEra = year <= 0;
+    const isBC = year <= 0;
     const date = utcParse(segment);
 
-    return html`${this.dateT('VIEW_FORMAT', { date, includeMonth, includeEra }, ViewFormatTranslateParams)}`;
+    return html`${this.dateT('VIEW_FORMAT', { date, includeMonth, includeEra: isBC }, ViewFormatTranslateParams)}`;
   }
 
   /**
