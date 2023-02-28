@@ -51,7 +51,6 @@ import {
   monthInfo,
   weekdaysNames,
   monthsNames,
-  formatLocaleDate,
   ViewFormatTranslateParams
 } from './utils.js';
 import {
