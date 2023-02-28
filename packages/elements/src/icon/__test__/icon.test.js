@@ -39,7 +39,6 @@ describe('icon/Icon', () => {
       const el = await createAndWaitForLoad(`<ef-icon icon="${iconName}"></ef-icon>`);
       const svg = el.shadowRoot.querySelector('svg');
       const CDNPrefix = el.getComputedVariable('--cdn-prefix');
-      await aTimeout(100);
       expect(el.src).to.equal(`${CDNPrefix}${iconName}.svg`);
       expect(svg).to.not.equal(null, 'SVG element should exist for valid icon attribute');
       expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
