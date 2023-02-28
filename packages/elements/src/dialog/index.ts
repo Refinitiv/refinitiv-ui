@@ -149,6 +149,14 @@ export class Dialog extends Overlay {
   @property({ type: Boolean, reflect: true, attribute: 'with-shadow' })
   public withShadow = true;
 
+  /**
+   * Clear all cached values and fit the popup.
+   * @returns {void}
+   */
+  public refit (): void {
+    super.refit();
+  }
+
   public disconnectedCallback (): void {
     super.disconnectedCallback();
     draggableDeregister(this);
