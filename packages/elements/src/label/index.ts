@@ -10,7 +10,6 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { VERSION } from '../version.js';
-import { isIE } from '@refinitiv-ui/utils/browser.js';
 import { addTooltipCondition, removeTooltipCondition } from '../tooltip/index.js';
 
 /**
@@ -27,12 +26,6 @@ const observerOptions = {
  * Reusable SPACE
  */
 const _ = ' ';
-
-/**
- * Determines if the browser is legacy or modern.
- */
-/* c8 ignore next */
-const browserType = isIE ? 'legacy' : 'modern';
 
 /**
  * Displays a text with alternative truncation
@@ -69,22 +62,16 @@ export class Label extends BasicElement {
         overflow: hidden;
         white-space: nowrap;
       }
-      .left.modern {
+      .left {
         word-break: break-all;
         white-space: normal;
-      }
-      .left.legacy {
-        text-overflow: ellipsis;
       }
       .center {
         flex: 0 100 auto;
       }
-      .right.modern {
+      .right {
         direction: rtl;
         text-overflow: ellipsis;
-      }
-      .right.legacy span {
-        float: right;
       }
       .clamp {
         overflow: hidden;
@@ -145,7 +132,7 @@ export class Label extends BasicElement {
     super.connectedCallback();
     addTooltipCondition(this.tooltipCondition, this.tooltipRenderer);
     this.mutationObserver.observe(this, observerOptions);
-    !isIE && this.recalculate(); // In IE the mutation will trigger
+    this.recalculate();
   }
 
   /**
@@ -202,11 +189,12 @@ export class Label extends BasicElement {
     const left: string[] = [];
     const right: string[] = [];
     const isSingleWord = words.length === 1;
+
     if (isSingleWord) {
       const word = words[0];
       const split = Math.round(word.length / 2);
-      left.push(word.substr(0, split));
-      right.push(word.substr(split));
+      left.push(word.substring(0, split));
+      right.push(word.substring(split));
     }
     else {
       const split = Math.round(words.length / 2);
@@ -214,9 +202,11 @@ export class Label extends BasicElement {
         (i < split ? left : right).push(words[i]);
       }
     }
-    const leftPart = html`<div class="split left ${browserType}">${left.join(_)}</div>`;
+
+    const leftPart = html`<div class="split left">${left.join(_)}</div>`;
     const centerPart = isSingleWord ? undefined : html`<div class="split center">&nbsp;</div>`;
-    const rightPart = right.length ? html`<div class="split right ${browserType}"><span dir="ltr">${right.join(_)}</span></div>` : undefined;
+    const rightPart = right.length ? html`<div class="split right"><span dir="ltr">${right.join(_)}</span></div>` : undefined;
+
     return html`${leftPart}${centerPart}${rightPart}`;
   }
 
@@ -224,21 +214,13 @@ export class Label extends BasicElement {
    * Template for when line clamp is set
    */
   protected get clampTemplate (): TemplateResult {
-    const styles:StyleMap = {
+    const styles: StyleMap = {
       lineClamp: `${this.lineClamp}`,
       '-webkit-line-clamp': `${this.lineClamp}`,
       wordBreak: this.lineClamp === 1 ? 'break-all' : ''
     };
-    /* c8 ignore start */
-    if (browserType === 'legacy') {
-      const cs = getComputedStyle(this);
-      const lineHeight = parseFloat(cs.lineHeight) || 1.2/* css default */;
-      styles.maxHeight = `calc(1em * ${lineHeight} * ${this.lineClamp})`; // faux clamp in legacy browsers
-      styles.whiteSpace = this.lineClamp === 1 ? 'nowrap' : ''; // show ellipsis in legacy browsers
-    }
-    /* c8 ignore stop */
     return html`
-      <span class="clamp ${browserType}" style="${styleMap(styles)}">${this.text}</span>
+      <span class="clamp" style="${styleMap(styles)}">${this.text}</span>
     `;
   }
 
@@ -248,15 +230,7 @@ export class Label extends BasicElement {
    * @return Render template
    */
   protected render (): TemplateResult {
-    const template = this.lineClamp ? this.clampTemplate : this.truncateTemplate;
-
-    /* c8 ignore start */
-    if (browserType === 'legacy') {
-      // Mutation observer does not fire in IE11 if slot is not present
-      return html`${ template }<span style="display: none !important;"><slot></slot></span>`;
-    }
-    /* c8 ignore stop */
-    return template;
+    return this.lineClamp ? this.clampTemplate : this.truncateTemplate;
   }
 }
 
