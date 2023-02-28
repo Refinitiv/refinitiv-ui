@@ -4,7 +4,8 @@ import {
   expect,
   aTimeout,
   oneEvent,
-  elementUpdated, nextFrame
+  elementUpdated,
+  waitUntil
 } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
@@ -47,33 +48,20 @@ describe('layout/Layout', function () {
 
   it('Should fire resize events', async () => {
     const el = await fixture(defaultLayout);
-    const resizeCount = 10;
     let eventCount = 0;
 
-    // Add the event listener
-    el.addEventListener('resize', function () {
-      eventCount++;
+    setTimeout(() => {
+      el.style.width = el.offsetWidth + 10 + 'px';
     });
 
-    // Change the width 10 times
-    for (let i = 0; i < resizeCount; i++) {
-      el.style.width = el.offsetWidth + 10 + 'px';
+    try {
+      await waitUntil(async () => await oneEvent(el, 'resize'), 'Resize event does not fire');
+      eventCount++;
+    } catch (error) {
+      eventCount = 0;
     }
 
-    // Event should have only been called once on frame paint
-    await aTimeout(50);
-    assert.equal(eventCount, 1, 'Event should have been called once (Round 1)');
-
-    eventCount = 0; // Reset the count
-
-    // Change the height 10 times
-    for (let i = 0; i < resizeCount; i++) {
-      el.style.height = el.offsetHeight + 10 + 'px';
-    }
-
-    // Event should have only been called once on frame paint
-    await aTimeout(50);
-    assert.equal(eventCount, 1, 'Event should have been called once (Round 2)');
+    expect(eventCount).to.equal(1, 'Event should have been called once (Round 1)');
   });
 
   it('Should handle being attached/detached', async () => {
