@@ -749,19 +749,15 @@ export class Calendar extends ControlElement implements MultiValue {
           break;
         }
         return;
-      case 'Up': // IE11
       case 'ArrowUp':
         void this.onNavigation('ArrowUp');
         break;
-      case 'Down':
       case 'ArrowDown':
         void this.onNavigation('ArrowDown');
         break;
-      case 'Left':
       case 'ArrowLeft':
         void this.onNavigation('ArrowLeft');
         break;
-      case 'Right':
       case 'ArrowRight':
         void this.onNavigation('ArrowRight');
         break;
@@ -1368,7 +1364,7 @@ export class Calendar extends ControlElement implements MultiValue {
       ?range-to=${cell.rangeTo}>
         <div role="${ifDefined(cell.value ? 'button' : undefined)}"
              tabindex=${ifDefined(isSelectable ? (cell.active ? 0 : -1) : undefined)}
-             aria-label="${ifDefined(isSelectable ? this.t(this.getCellLabelKey(cell), { /* IE11 has significant performance hit, disable */
+             aria-label="${ifDefined(isSelectable ? this.t(this.getCellLabelKey(cell), {
                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                value: parse(cell.value!),
                view: this.renderView
@@ -1440,7 +1436,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns template result
    */
   private get selectionTemplate (): TemplateResult | undefined {
-    if (!this.announceValues) { /* IE11 has significant performance complications */
+    if (!this.announceValues) {
       return;
     }
     return html`<div
