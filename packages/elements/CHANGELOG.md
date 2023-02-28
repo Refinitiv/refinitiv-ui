@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.7.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.6.2...@refinitiv-ui/elements@6.7.0) (2023-02-27)
+
+
+### Features
+
+* **heatmap:** increase heatmap font-size threshold & scaling factor and decrease cell padding ([#589](https://github.com/Refinitiv/refinitiv-ui/issues/589)) ([31f5b57](https://github.com/Refinitiv/refinitiv-ui/commit/31f5b57df0ec2b1f1d25c9c27e0be35f8c7f3812))
+
+
+
+
+
 ## [6.6.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.6.1...@refinitiv-ui/elements@6.6.2) (2023-02-14)
 
 ### Bug Fixes

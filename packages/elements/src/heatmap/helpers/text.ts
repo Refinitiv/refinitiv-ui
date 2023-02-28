@@ -1,6 +1,6 @@
 import type { HeatmapCell } from './types';
 
-const MIN_FONT_SIZE = 10;
+const MIN_FONT_SIZE = 12;
 const MAX_FONT_SIZE = 16;
 
 /**
