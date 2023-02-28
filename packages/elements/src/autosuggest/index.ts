@@ -434,18 +434,14 @@ export class Autosuggest extends Overlay {
 
     switch (event.key) {
       case 'ArrowUp':
-      case 'Up':
         this.onUpKey();
         break;
       case 'ArrowDown':
-      case 'Down':
         this.onDownKey();
         break;
       case 'Escape':
-      case 'Esc':
         this.onEscKey();
         break;
-      case 'Return':
       case 'Enter':
         this.onEnterKey(event);
         break;
