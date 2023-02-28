@@ -741,7 +741,6 @@ export class Calendar extends ControlElement implements MultiValue {
     }
 
     switch (event.key) {
-      case 'Esc':
       case 'Escape':
         if (this.renderView === RenderView.YEAR || this.renderView === RenderView.MONTH) {
           this.renderView = RenderView.DAY;
