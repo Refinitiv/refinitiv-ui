@@ -66,7 +66,6 @@ export class TextField extends FormFieldElement {
       :host {
         display: inline-block;
       }
-
       :host(:focus), :host input:focus {
         outline: none;
       }
@@ -214,29 +213,13 @@ export class TextField extends FormFieldElement {
   }
 
   /**
-   * Validate input according `pattern`, `minLength` and `maxLength` properties
-   * change state of `error` property according pattern validation
+   * Uses native `checkValidity()` function to validate input
    * @returns {void}
    */
   protected validateInput (): void {
-    let error = !this.inputElement?.checkValidity();
-    /* c8 ignore start */
-    if (this.shouldValidateForMinLength(error)) {
-      error = !!this.minLength && (this.minLength > this.value.length);
-    }
-    /* c8 ignore stop */
+    const error = !this.inputElement?.checkValidity();
     this.notifyErrorChange(error);
   }
-
-  /**
-   * @param error existing state of error
-   * @returns true if there is no error and minLength more than 0 and value exists
-   */
-  /* c8 ignore start */
-  protected shouldValidateForMinLength (error: boolean): boolean {
-    return !!(!error && this.minLength && !!this.value);
-  }
-  /* c8 ignore stop */
 
   /**
    * Fires event on `icon` click
