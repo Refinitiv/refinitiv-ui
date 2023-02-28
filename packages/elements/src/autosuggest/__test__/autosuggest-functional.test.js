@@ -482,7 +482,7 @@ describe('autosuggest/Functional', () => {
       autoSuggest.opened = false;
       await elementUpdated(autoSuggest);
 
-      setTimeout(() => pressKey(input, 'Return'));
+      setTimeout(() => pressKey(input, 'Enter'));
       await oneEvent(autoSuggest, 'opened-changed');
       expect(autoSuggest.opened).to.equal(true);
 
