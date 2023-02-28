@@ -7,7 +7,6 @@ type: menu
   * [Using Elements in React](./tutorials/react)
   * [Using Elements in Vue](./tutorials/vue)
   * [Creating Custom Elements](./custom-components/tutorial)
-  * [Creating Custom Theme](./guides/custom-theme)
 
 * Support
   * [Q&A](https://community.developers.refinitiv.com/spaces/391/index.html)

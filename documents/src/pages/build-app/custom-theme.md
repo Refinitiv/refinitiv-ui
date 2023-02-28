@@ -7,6 +7,8 @@ layout: default
 
 # Build Custom Theme
 
+!>This tutorial is specifically designed for creating a new theme with unique branding or design languages. If your product is required to adhere to the Halo theme standard, this approach should not be used.
+
 Theming in Element Framework is extensible. It allows you to create a custom theme by extending from Element Framework standard theme ([@refinitiv-ui/halo-theme](https://www.npmjs.com/package/@refinitiv-ui/halo-theme)).
 
 ## Tutorial
