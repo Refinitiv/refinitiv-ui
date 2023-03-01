@@ -114,7 +114,7 @@ const ViewFormatTranslateParams: TranslateParams = {
   unicodeExtensions: {
     // while latest Chrome, FF and Intl.DateTimeFormat polyfill support
     // calendar option to format date,
-    // older browsers as Safari and IE11 need this to be provided as
+    // older browsers as Safari version < 14.1 need this to be provided as
     // unicode extension, e.g. lang="th-u-ca-gregory"
     ca: 'gregory'
   },
