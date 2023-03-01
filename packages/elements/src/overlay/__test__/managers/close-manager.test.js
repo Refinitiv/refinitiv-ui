@@ -231,7 +231,7 @@ describe('overlay/manager/CloseManager', () => {
 
         it('Test document keydown', async () => {
           setTimeout(() => {
-            fireKeydownEvent(document, 'Esc');
+            fireKeydownEvent(document, 'Escape');
           });
 
           await oneEvent(element2, 'opened-changed');

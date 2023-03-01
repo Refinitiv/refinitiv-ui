@@ -68,21 +68,21 @@ describe('select/Navigation', () => {
     });
     it('Options: Up key', async () => {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
-      await iterate(el, el, ['Up', 'Up', 'Up', 'Up', 'ArrowUp'], [4, 2, 1, 4, 2]);
+      await iterate(el, el, ['ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowUp'], [4, 2, 1, 4, 2]);
     });
     it('Data: Up key', async () => {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
-      await iterate(el, getMenuEl(el), ['Up', 'Up', 'Up', 'Up', 'ArrowUp'], [4, 2, 1, 4, 2]);
+      await iterate(el, getMenuEl(el), ['ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowUp'], [4, 2, 1, 4, 2]);
     });
     it('Options: Down key', async () => {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
-      await iterate(el, el, ['Down', 'Down', 'Down', 'Down', 'ArrowDown'], [1, 2, 4, 1, 2]);
+      await iterate(el, el, ['ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown'], [1, 2, 4, 1, 2]);
     });
     it('Data: Down key', async () => {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
-      await iterate(el, getMenuEl(el), ['Down', 'Down', 'Down', 'Down', 'ArrowDown'], [1, 2, 4, 1, 2]);
+      await iterate(el, getMenuEl(el), ['ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown'], [1, 2, 4, 1, 2]);
     });
     it('Options: Tab key', async () => {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
