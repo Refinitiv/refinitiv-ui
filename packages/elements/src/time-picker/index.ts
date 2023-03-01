@@ -29,7 +29,6 @@ import {
   padNumber,
   parse
 } from '@refinitiv-ui/utils/date.js';
-import { isIE } from '@refinitiv-ui/utils/browser.js';
 import '../number-field/index.js';
 import type { NumberField } from '../number-field';
 import {
@@ -37,7 +36,6 @@ import {
   TranslateDirective
 } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/locale/en/time-picker.js';
-
 
 enum Segment {
   HOURS = 'hours',
@@ -861,7 +859,7 @@ export class TimePicker extends ControlElement {
     return html`<ef-number-field
         id="hours"
         part="input"
-        aria-label="${ifDefined(!isIE ? this.t('SELECT_HOURS', { value: this.periodHours }) : undefined)}"
+        aria-label="${this.t('SELECT_HOURS', { value: this.periodHours })}"
         no-spinner
         transparent
         min="${this.amPm ? 1 : MIN_UNIT}"
@@ -882,7 +880,7 @@ export class TimePicker extends ControlElement {
     const minutes = this.formattedMinutes;
     return html`<ef-number-field
         id="minutes"
-        aria-label="${ifDefined(!isIE ? this.t('SELECT_MINUTES', { value: this.minutes }) : undefined)}"
+        aria-label="${this.t('SELECT_MINUTES', { value: this.minutes })}"
         part="input"
         no-spinner
         min="${MIN_UNIT}"
@@ -906,7 +904,7 @@ export class TimePicker extends ControlElement {
       <ef-number-field
         id="seconds"
         part="input"
-        aria-label="${ifDefined(!isIE ? this.t('SELECT_SECONDS', { value: this.seconds }) : undefined)}"
+        aria-label="${this.t('SELECT_SECONDS', { value: this.seconds })}"
         no-spinner
         min="${MIN_UNIT}"
         max="${MAX_SECONDS}"
@@ -964,7 +962,7 @@ export class TimePicker extends ControlElement {
    * @returns template result
    */
   private get selectionTemplate (): TemplateResult | undefined {
-    if (isIE || !this.announceValues) {
+    if (!this.announceValues) {
       return;
     }
     const value = this.value;
