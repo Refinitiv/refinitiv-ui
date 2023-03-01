@@ -10,7 +10,6 @@ export {
   defineCE,
   aTimeout,
   waitUntil,
-  nextFrame,
   litFixture,
   litFixtureSync,
   fixture,
@@ -18,6 +17,7 @@ export {
   fixtureCleanup,
   elementUpdated
 } from '@open-wc/testing';
+import { nextFrame as _nextFrame } from '@open-wc/testing';
 
 /**
  * Replace special whitespace with normal whitespace
@@ -26,6 +26,17 @@ export {
  */
 export const replaceWhitespace = (text: string): string => text.replace(/\s/g, ' ');
 
+/**
+ * Resolves after requestAnimationFrame.
+ * @param [frameCount = 1] number of animationFrame to be requested
+ *
+ * @returns {Promise<void>} Promise that resolved after requestAnimationFrame
+ */
+export const nextFrame = async (frameCount = 1): Promise<void> => {
+  for (let i = 0; i < frameCount; i++) {
+    await _nextFrame();
+  }
+};
 
 /* c8 ignore start */
 
