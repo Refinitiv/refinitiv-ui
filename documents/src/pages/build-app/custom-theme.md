@@ -22,7 +22,7 @@ npm install
 npm run build
 ```
 
-Once theme is built successfully, it will generate output files in `./dark` and `./light` folder which will contain custom theme of every Element Framework components. 
+Once you have built your theme, it will generate output files in `./dark` and `./light` folders. These folders will contain custom themes of every Element Framework component. 
 
 Run npm start command to launch demo page to see the changes.
 
@@ -40,11 +40,11 @@ import './custom-theme/dark/imports/native-elements.js';
 import './custom-theme/dark/ef-toggle.js';
 ```
 
-!> You can't use custom theme together with Halo theme within your project. It will result a duplicate styles error.
+!> You cannot use a custom theme together with a Halo theme within your project. It will result in a duplicate styles error.
 
 ## Project structure
 
-A structure of custom theme project is illustrated as below.
+See an illustration of a custom theme project structure below.
 
 ```console
 ├── src
@@ -70,14 +70,14 @@ A structure of custom theme project is illustrated as below.
 | variants/dark/variables.less  | Customise value of base theme less variable and new less variables of your dark theme     |
 | variants/light/variables.less | Customise value of base theme less variable and new less variables of your light theme    |
 | src/colors.less               | Colour palette to use in your custom theme                                                |
-| index.less                    | Less entry point which import base theme, colour palette and variables from each variants |
+| index.less                    | Less entry point which imports base theme, colour palette and variables from each variant |
 
 
 ## Customise theme global variables
 
-To customise styles for your theme, it is often done by overriding value of less global variables. For example, to change primary color for your dark theme, you can override value of `@scheme-color-primary` inside `./variants/dark/variables.less`.
+To customise styles for your theme, you can often override the value of less global variables. For example, to change primary color for your dark theme you can override value of `@scheme-color-primary` inside `./variants/dark/variables.less`.
 
-In the sample custom theme project, it overrides theme primary colour, tertiary color and some colours of button for dark theme.
+In the sample custom theme project, it overrides the theme primary color, tertiary color and some button colors for dark theme.
 
 ```less
 @scheme-color-primary: @color-seafoam-400;
@@ -86,9 +86,9 @@ In the sample custom theme project, it overrides theme primary colour, tertiary 
 @button-pressed-background-color: @scheme-color-primary;
 ```
 
-List of all less variables that you could override are in [Elemental Theme](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elemental-theme/src/variables.less) and [Halo Theme](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/halo-theme/src/variants/dark/variables.less).
+Lists of all less variables that you can override are in [Elemental Theme](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elemental-theme/src/variables.less) and [Halo Theme](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/halo-theme/src/variants/dark/variables.less).
 
-@> Elemental theme is a base theme of every themes in Element Framework, including Halo theme. Similarly, the same concept applies when creating custom theme, Halo theme is created by extending from Elemental theme and overriding less variables, [see example](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/halo-theme/src/variants/dark/overrides.less).
+@> Elemental theme is a base theme of every theme in Element Framework, including Halo theme. Halo theme is created by extending from Elemental theme and overriding less variables, [see example](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/halo-theme/src/variants/dark/overrides.less).
 
 ## Customise theme native styles
 
@@ -109,7 +109,7 @@ body {
 
 ## Customise component styles
 
-To customise a component styles, add `less` file with the same name as component's name into `custom-elements` folder. The sample project shows how you can customise styles of host and an internal part of `ef-toggle`.
+To customise a component style, add `less` file with the same name as component's name into `custom-elements` folder. The sample project shows how you can customise styles of host and an internal part of `ef-toggle`.
 
 ```less
 @import "@refinitiv-ui/halo-theme/src/custom-elements/ef-toggle";
@@ -125,6 +125,6 @@ To customise a component styles, add `less` file with the same name as component
 }
 ```
 
-You only need to create less file for components that you need to customise. The rest of components that do not need further customisation will be automatically extended from Halo theme.
+You only need to create less file for components that you need to customise. Any components that do not need further customisation will be automatically extended from Halo theme.
 
 
