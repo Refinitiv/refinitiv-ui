@@ -139,7 +139,7 @@ export class Pill extends ControlElement {
    * @returns {void}
    */
   private onKeyDown (event: KeyboardEvent): void {
-    if ((event.key === 'Delete' || event.key === 'Del') && (this.clears && !this.readonly)) {
+    if (event.key === 'Delete' && (this.clears && !this.readonly)) {
       this.dispatchEvent(new CustomEvent('clear'));
     }
   }

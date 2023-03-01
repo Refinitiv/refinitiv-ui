@@ -799,7 +799,7 @@ export class Slider extends ControlElement {
       return;
     }
 
-    if (event.key === ' ' || event.key === 'Spacebar' || event.key === 'Enter') {
+    if (event.key === ' ' || event.key === 'Enter') {
       (event.target as NumberField).blur();
     }
   }
