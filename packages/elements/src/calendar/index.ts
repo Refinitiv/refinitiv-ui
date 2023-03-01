@@ -16,7 +16,6 @@ import { cache } from '@refinitiv-ui/core/directives/cache.js';
 import { guard } from '@refinitiv-ui/core/directives/guard.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
-import { isIE } from '@refinitiv-ui/utils/browser.js';
 import {
   DateSegment,
   DateFormat,
@@ -52,7 +51,6 @@ import {
   monthInfo,
   weekdaysNames,
   monthsNames,
-  formatLocaleDate,
   ViewFormatTranslateParams
 } from './utils.js';
 import {
@@ -1026,16 +1024,9 @@ export class Calendar extends ControlElement implements MultiValue {
   private viewFormattedDate (segment: DateSegment, includeMonth = false): TemplateResult {
     const year = segment.year;
     const isBC = year <= 0;
-    const includeEra = isBC;
     const date = utcParse(segment);
 
-    // Unfortunately IE11 does not support date formatting for year <= 0
-    // Do manual conversion instead
-    if (isIE && isBC) {
-      return html`${formatLocaleDate(date, getLocale(this), includeMonth, includeEra)}`;
-    }
-
-    return html`${this.dateT('VIEW_FORMAT', { date, includeMonth, includeEra }, ViewFormatTranslateParams)}`;
+    return html`${this.dateT('VIEW_FORMAT', { date, includeMonth, includeEra: isBC }, ViewFormatTranslateParams)}`;
   }
 
   /**
@@ -1371,7 +1362,7 @@ export class Calendar extends ControlElement implements MultiValue {
       ?range-to=${cell.rangeTo}>
         <div role="${ifDefined(cell.value ? 'button' : undefined)}"
              tabindex=${ifDefined(isSelectable ? (cell.active ? 0 : -1) : undefined)}
-             aria-label="${ifDefined(isSelectable && !isIE ? this.t(this.getCellLabelKey(cell), { /* IE11 has significant performance hit, disable */
+             aria-label="${ifDefined(isSelectable ? this.t(this.getCellLabelKey(cell), {
                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                value: parse(cell.value!),
                view: this.renderView
@@ -1443,7 +1434,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns template result
    */
   private get selectionTemplate (): TemplateResult | undefined {
-    if (isIE || !this.announceValues) { /* IE11 has significant performance complications */
+    if (!this.announceValues) {
       return;
     }
     return html`<div
