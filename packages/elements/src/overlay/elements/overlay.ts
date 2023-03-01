@@ -1179,12 +1179,7 @@ export class Overlay extends ResponsiveElement {
       });
     };
 
-    const {
-      height,
-      width
-    } = this.sizingRect; /* need this for IE, as width and height is 0 on first render */
-
-    if (this.refitString && this.refitString === getRefitString() || (!height || !width)) {
+    if (this.refitString && this.refitString === getRefitString()) {
       return;
     }
 
