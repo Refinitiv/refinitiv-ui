@@ -46,7 +46,6 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-cancel-on-esc-key=""
   opened=""
@@ -107,7 +106,6 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-cancel-on-esc-key=""
   opened=""
@@ -167,7 +165,6 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-cancel-on-esc-key=""
   opened=""
@@ -245,7 +242,6 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-cancel-on-esc-key=""
   opened=""
@@ -324,7 +320,6 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-cancel-on-esc-key=""
   opened=""
@@ -392,7 +387,6 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-cancel-on-esc-key=""
   opened=""

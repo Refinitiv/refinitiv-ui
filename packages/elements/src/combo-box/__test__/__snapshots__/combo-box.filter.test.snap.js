@@ -28,7 +28,6 @@ snapshots["combo-box/Filter Can Filter Data Default filter filters data"] =
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
@@ -94,7 +93,6 @@ snapshots["combo-box/Filter Can Filter Data Default filter filters data: changed
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""

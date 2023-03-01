@@ -138,11 +138,6 @@ export class Overlay extends ResponsiveElement {
         display: none !important;
       }
 
-      :host(:not([first-resize-done])) {
-        pointer-events: none !important; /* needs for Mobile to prevent tap while overlay is not yet on the screen */
-        opacity: 0;
-      }
-
       :host(:not([animation-ready])) {
         animation: none  !important;
         transition: none !important;
@@ -653,23 +648,6 @@ export class Overlay extends ResponsiveElement {
     toggleAttribute(this, 'animation-position', animationPosition);
   }
 
-  private _firstResizeDone = false;
-  /**
-   * Used to set attribute after the initial callback has been fired
-   * A function is here to sort IE11 flickering problem
-   * @param firstResizeDone True if the initial resize has happened
-   */
-  private set firstResizeDone (firstResizeDone: boolean) {
-    if (this._firstResizeDone !== firstResizeDone) {
-      this._firstResizeDone = firstResizeDone;
-      /* Toggling the attribute first-resize-done on the element. */
-      toggleAttribute(this, 'first-resize-done', firstResizeDone);
-    }
-  }
-  private get firstResizeDone (): boolean {
-    return this._firstResizeDone;
-  }
-
   /**
    * Used internally to keep calculated positions
    */
@@ -885,7 +863,6 @@ export class Overlay extends ResponsiveElement {
    * @returns {void}
    */
   private onFullyClosed (): void {
-    this.firstResizeDone = false;
     applyLock();
     this.resetSizingInfo();
     this.clearCached();
@@ -1642,8 +1619,7 @@ export class Overlay extends ResponsiveElement {
       this.setResizeSizingInfo();
       this.fitNonThrottled();
 
-      if (this.opened && this.firstResizeDone === false) {
-        this.firstResizeDone = true;
+      if (this.opened) {
         if (this._fullyOpened === OpenedState.CLOSED) { /* cannot set to opening if the overlay has not been fully closed */
           this._fullyOpened = OpenedState.OPENING;
         }
