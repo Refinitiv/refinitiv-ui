@@ -19,7 +19,6 @@ snapshots["select/Selection Selection by Selected Property Options Selected: Afg
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   focused=""
   id="menu"
   lock-position-target=""
@@ -53,7 +52,6 @@ snapshots["select/Selection Selection by Selected Property Data Selected: Afghan
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   focused=""
   id="menu"
   lock-position-target=""
@@ -124,7 +122,6 @@ snapshots["select/Selection Selection by Selected Property Data Selected change"
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   focused=""
   id="menu"
   lock-position-target=""
@@ -195,7 +192,6 @@ snapshots["select/Selection Selection by Selected Property Data Unselected"] =
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   focused=""
   id="menu"
   lock-position-target=""

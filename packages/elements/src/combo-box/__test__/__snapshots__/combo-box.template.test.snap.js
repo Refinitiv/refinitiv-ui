@@ -54,7 +54,6 @@ snapshots["combo-box/Template Template Parts Lazy Render: data"] =
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
@@ -126,7 +125,6 @@ snapshots["combo-box/Template Template Parts Data is reflected to render"] =
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
@@ -198,7 +196,6 @@ snapshots["combo-box/Template Template Parts Data is reflected to render: revers
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
@@ -264,7 +261,6 @@ snapshots["combo-box/Template Template Parts Data is reflected to render: empty"
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""

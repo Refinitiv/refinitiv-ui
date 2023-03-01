@@ -82,7 +82,6 @@ snapshots["select/Template Template Parts Lazy Render: options opened"] =
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   focused=""
   id="menu"
   lock-position-target=""
@@ -136,7 +135,6 @@ snapshots["select/Template Template Parts Lazy Render: data opened"] =
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   focused=""
   id="menu"
   lock-position-target=""
@@ -204,7 +202,6 @@ snapshots["select/Template Template Parts Data is reflected to render"] =
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   focused=""
   id="menu"
   lock-position-target=""
