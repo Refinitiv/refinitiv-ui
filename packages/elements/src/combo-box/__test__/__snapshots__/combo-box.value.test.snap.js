@@ -28,7 +28,6 @@ snapshots["combo-box/Value Selection by Value Attribute Data Selected: Afghanist
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
@@ -101,7 +100,6 @@ snapshots["combo-box/Value Selection by Value Attribute Value attribute is selec
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
@@ -180,7 +178,6 @@ snapshots["combo-box/Value Selection by Value Attribute Multiple. Data Selected:
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""

@@ -28,7 +28,6 @@ snapshots["combo-box/AsyncFilter Setting Data Asynchronously Should be possible 
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
