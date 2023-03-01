@@ -19,7 +19,6 @@ snapshots["select/Value Selection by Value Attribute Options Selected: Afghanist
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   focused=""
   id="menu"
   lock-position-target=""
@@ -53,7 +52,6 @@ snapshots["select/Value Selection by Value Attribute Data Selected: Afghanistan"
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   focused=""
   id="menu"
   lock-position-target=""

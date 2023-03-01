@@ -28,7 +28,6 @@ snapshots["combo-box/Selected Selection By Selected Property Data Selected: Afgh
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
@@ -101,7 +100,6 @@ snapshots["combo-box/Selected Selection By Selected Property Data Selected: chan
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
@@ -174,7 +172,6 @@ snapshots["combo-box/Selected Selection By Selected Property Data Selected: unse
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
@@ -252,7 +249,6 @@ snapshots["combo-box/Selected Selection By Selected Property Multiple. Data Sele
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
@@ -330,7 +326,6 @@ snapshots["combo-box/Selected Selection By Selected Property Multiple. Data Sele
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
@@ -407,7 +402,6 @@ snapshots["combo-box/Selected Selection By Selected Property Multiple. Data Sele
 <ef-overlay-viewport>
 </ef-overlay-viewport>
 <ef-overlay
-  first-resize-done=""
   no-autofocus=""
   no-focus-management=""
   no-overlap=""
