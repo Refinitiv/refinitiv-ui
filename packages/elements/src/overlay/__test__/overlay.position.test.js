@@ -18,11 +18,11 @@ const getPosition = (el) => {
 
   return {
     top: top === 0,
-    bottom: bottom - screenHeight < 1, /* this is to cover fractional pixels */
+    bottom: Math.abs(bottom - screenHeight) < 1, /* this is to cover fractional pixels */
     left: left === 0,
-    right: right - screenWidth < 1,
-    centreH: left - screenWidth / 2 - width / 2 < 1,
-    centreV: top - screenHeight / 2 - height / 2 < 1
+    right: Math.abs(right - screenWidth) < 1,
+    centreH: Math.abs(left - (screenWidth - width) / 2) < 1,
+    centreV: Math.abs(top - (screenHeight - height) / 2) < 1
   };
 };
 
