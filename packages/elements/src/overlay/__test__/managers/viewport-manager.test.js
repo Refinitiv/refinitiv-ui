@@ -73,7 +73,7 @@ describe('overlay/manager/ViewportManager', () => {
       });
     });
 
-    xdescribe('Test clear', () => {
+    describe('Test clear', () => {
       it('Test clear', async () => {
         const element2 = await createFixture();
 
