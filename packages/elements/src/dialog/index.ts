@@ -3,6 +3,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
+import { translate, Translate, TranslatePropertyKey } from '@refinitiv-ui/translate';
 import { deregister as draggableDeregister, register as draggableRegister } from './draggable-element.js';
 
 import { Overlay } from '../overlay/index.js';
@@ -11,7 +12,6 @@ import '../panel/index.js';
 import '../header/index.js';
 import '../button/index.js';
 
-import { translate, Translate, TranslatePropertyKey } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/locale/en/dialog.js';
 
 /**
