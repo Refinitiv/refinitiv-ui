@@ -650,15 +650,11 @@ export class Slider extends ControlElement {
 
     switch (event.key) {
       case 'ArrowDown':
-      case 'Down':
       case 'ArrowLeft':
-      case 'Left':
         this.onApplyStep(Direction.Down, thumbName);
         break;
       case 'ArrowUp':
-      case 'Up':
       case 'ArrowRight':
-      case 'Right':
         this.onApplyStep(Direction.Up, thumbName);
         break;
       case 'Home':

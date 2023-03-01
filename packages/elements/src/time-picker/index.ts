@@ -637,16 +637,13 @@ export class TimePicker extends ControlElement {
     }
 
     switch (event.key) {
-      case 'Up': // IE
       case 'ArrowUp':
         this.handleUpKey(event);
         break;
-      case 'Down': // IE
       case 'ArrowDown':
         this.handleDownKey(event);
         break;
       case 'Enter':
-      case 'Spacebar':
       case ' ':
         this.handleEnterKey(event);
         break;

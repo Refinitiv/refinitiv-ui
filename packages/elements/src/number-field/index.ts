@@ -289,11 +289,9 @@ export class NumberField extends FormFieldElement {
     }
 
     switch (event.key) {
-      case 'Up':
       case 'ArrowUp':
         this.onApplyStep(Direction.Up);
         break;
-      case 'Down':
       case 'ArrowDown':
         this.onApplyStep(Direction.Down);
         break;

@@ -743,26 +743,21 @@ export class Calendar extends ControlElement implements MultiValue {
     }
 
     switch (event.key) {
-      case 'Esc':
       case 'Escape':
         if (this.renderView === RenderView.YEAR || this.renderView === RenderView.MONTH) {
           this.renderView = RenderView.DAY;
           break;
         }
         return;
-      case 'Up': // IE11
       case 'ArrowUp':
         void this.onNavigation('ArrowUp');
         break;
-      case 'Down':
       case 'ArrowDown':
         void this.onNavigation('ArrowDown');
         break;
-      case 'Left':
       case 'ArrowLeft':
         void this.onNavigation('ArrowLeft');
         break;
-      case 'Right':
       case 'ArrowRight':
         void this.onNavigation('ArrowRight');
         break;
