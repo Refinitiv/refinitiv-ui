@@ -1,7 +1,6 @@
 import {
   css,
   CSSResultGroup,
-  ElementSize,
   html,
   PropertyValues,
   TemplateResult
@@ -13,7 +12,7 @@ import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
 import { VERSION } from '../version.js';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
-import { isIE, isMobile } from '@refinitiv-ui/utils/browser.js';
+import { isMobile } from '@refinitiv-ui/utils/browser.js';
 import {
   translate,
   TranslateDirective,
@@ -283,8 +282,6 @@ export class Autosuggest extends Overlay {
 
   private preservedQueryValue: AutosuggestQuery | null = null;
 
-  private focusSuspended = false;
-
   private jobRunner = new TimeoutTaskRunner(this.debounceRate);
 
   private attachChangeRunner = new AnimationTaskRunner();
@@ -422,12 +419,6 @@ export class Autosuggest extends Overlay {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public onInputFocus (event: FocusEvent): void {
-    /* c8 ignore next */
-    if (this.focusSuspended) {
-      // see _onItemMousedown, it is an IE fix for scrollbar
-      return;
-    }
-
     this.requestOnFocus && this.requestSuggestions('input-focus');
   }
 
@@ -443,18 +434,14 @@ export class Autosuggest extends Overlay {
 
     switch (event.key) {
       case 'ArrowUp':
-      case 'Up':
         this.onUpKey();
         break;
       case 'ArrowDown':
-      case 'Down':
         this.onDownKey();
         break;
       case 'Escape':
-      case 'Esc':
         this.onEscKey();
         break;
-      case 'Return':
       case 'Enter':
         this.onEnterKey(event);
         break;
@@ -466,24 +453,12 @@ export class Autosuggest extends Overlay {
   }
 
   /**
-   * @ignore
-   * Called when the element's dimensions have changed
-   * @param size dimension details
-   * @returns {void}
-   */
-  public resizedCallback (size: ElementSize): void {
-    super.resizedCallback(size);
-    this.calculateContentMaxHeight(size);
-  }
-
-  /**
    * Called once after the component is first rendered
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-
     this.addEventListener('tapstart', this.onItemMousedown);
   }
 
@@ -493,11 +468,8 @@ export class Autosuggest extends Overlay {
    * @returns shouldUpdate
    */
   protected shouldUpdate (changedProperties: PropertyValues): boolean {
-    let result = super.shouldUpdate(changedProperties);
-
-    result = result || this.shouldAutosuggestUpdate(changedProperties);
-
-    return result;
+    const shouldUpdate = super.shouldUpdate(changedProperties);
+    return shouldUpdate || this.shouldAutosuggestUpdate(changedProperties);
   }
 
   /**
@@ -516,10 +488,6 @@ export class Autosuggest extends Overlay {
   }
 
   /**
-   * inheritance callbacks
-   */
-
-  /**
    * Run when the slot has changed.
    * @param event Slot change query
    * @returns {void}
@@ -536,13 +504,13 @@ export class Autosuggest extends Overlay {
     this.highlightItem(); // hide highlight
     this.suggestionMap.clear();
 
-    nodes.forEach((node, idx) => {
+    nodes.forEach((node, index) => {
       /* c8 ignore next */
       if (node.nodeType !== Node.ELEMENT_NODE) {
         return;
       }
 
-      const suggestion = suggestions[idx];
+      const suggestion = suggestions[index];
 
       if (this.highlightable(suggestion, node as HTMLElement)) {
         this.suggestionMap.set(node as HTMLElement, suggestion);
@@ -570,7 +538,7 @@ export class Autosuggest extends Overlay {
 
     /* c8 ignore next */
     if (this.attachTarget) {
-      this.attachTarget.value = suggestion && suggestion?.label || query;
+      this.attachTarget.value = suggestion && suggestion.label || query;
     }
   }
 
@@ -718,13 +686,13 @@ export class Autosuggest extends Overlay {
     const query = this.xmlSerializer.serializeToString(document.createTextNode(this.query ? this.query.toString() : ''));
 
     return html`
-      <span part="more-results-text">${this.moreSearchText
-      ? unsafeHTML(this.moreSearchText.replace(/{0\}/g, `<mark>${query}</mark>`))
-      : this.t('MORE_RESULTS', {
-        query,
-        mark: (chunks: string) => `<mark>${chunks}</mark>`
-      })
-    }</span>
+      <span part="more-results-text">
+        ${this.moreSearchText ? unsafeHTML(this.moreSearchText.replace(/{0\}/g, `<mark>${query}</mark>`))
+        : this.t('MORE_RESULTS', {
+          query,
+          mark: (chunks: string) => `<mark>${chunks}</mark>`
+        })}
+      </span>
       <span part="more-results-keys" slot="right"><kbd>SHIFT</kbd> + <kbd>ENTER</kbd></span>
     `;
   }
@@ -772,7 +740,6 @@ export class Autosuggest extends Overlay {
    */
   protected onOpened (): void {
     super.onOpened();
-
     document.addEventListener('tapstart', this.onOutsideClick);
   }
 
@@ -783,8 +750,6 @@ export class Autosuggest extends Overlay {
    */
   protected onClosed (): void {
     super.onClosed();
-    this.restrictContentMaxHeight();
-
     document.removeEventListener('tapstart', this.onOutsideClick);
   }
 
@@ -944,11 +909,11 @@ export class Autosuggest extends Overlay {
    * @returns renderedSuggestions
    */
   protected get renderedSuggestions (): Array<HTMLElement> {
-    const keys = [];
+    const keys: HTMLElement[] = [];
 
-    this.suggestionMap.forEach((value, key) => { // support IE11
+    for (const [key] of this.suggestionMap) {
       keys.push(key);
-    });
+    }
 
     if (this.moreResults && this.moreResultsItem) {
       keys.push(this.moreResultsItem);
@@ -1343,7 +1308,7 @@ export class Autosuggest extends Overlay {
 
     if (focusElement) {
       this.highlightItem(focusElement, false);
-      focusElement.scrollIntoView({ // TODO: this has different behaviour in IE11
+      focusElement.scrollIntoView({
         behavior: 'auto',
         block: 'nearest'
       });
@@ -1379,8 +1344,8 @@ export class Autosuggest extends Overlay {
   }
 
   private generateSuggestionsFragment (fragment: DocumentFragment, suggestion: AutosuggestItem): DocumentFragment {
-    const el = this.renderer(suggestion, this.preservedQueryValue);
-    fragment.appendChild(el);
+    const element = this.renderer(suggestion, this.preservedQueryValue);
+    fragment.appendChild(element);
 
     return fragment;
   }
@@ -1396,8 +1361,6 @@ export class Autosuggest extends Overlay {
       const rect = this.positionTarget.getBoundingClientRect();
       this.style.minWidth = `${rect.width}px`;
     }
-
-    this.restrictContentMaxHeight();
   }
 
   /**
@@ -1406,17 +1369,6 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
   private onItemMousedown (event: Event): void {
-    // do not loose focus from input when click happens on the popup
-    // note, in IE when scrolling the focus is lost regardless, so
-    // do hacking here and with on blur
-    /* c8 ignore next */
-    requestAnimationFrame(() => {
-      // Ignore any focus query events!
-      this.focusSuspended = true;
-      this.attachTarget && this.attachTarget.focus();
-      this.focusSuspended = false;
-    });
-
     event.stopPropagation();
     event.preventDefault();
   }
@@ -1445,10 +1397,12 @@ export class Autosuggest extends Overlay {
     }
 
     return html`
-      <ef-item tabIndex="-1"
-               role="option"
-               id="moreResults"
-               part="more-results">${this.moreResultsTextTemplate}</ef-item>
+      <ef-item
+        tabIndex="-1"
+        role="option"
+        id="moreResults"
+        part="more-results">${this.moreResultsTextTemplate}
+      </ef-item>
     `;
   }
 
@@ -1478,57 +1432,6 @@ export class Autosuggest extends Overlay {
         </div>
         ${this.loaderTemplate}
     `;
-  }
-
-  /**
-   * IE11 only: Restrict maximum height of content element
-   * @param [maxHeight] Maximum height of content element
-   * @returns {void}
-   */
-
-  /* c8 ignore next */
-  private restrictContentMaxHeight (maxHeight?: number): void {
-    const contentElement = this.contentElementRef.value;
-
-    if (!isIE || !contentElement) {
-      return;
-    }
-
-    if (maxHeight) {
-      contentElement.style.setProperty('max-height', `${maxHeight}px`);
-    }
-    else {
-      contentElement.style.removeProperty('max-height');
-    }
-  }
-
-  /**
-   * IE11 only: Calculate the maxHeight of content element
-   * @param size Size of the dialog
-   * @returns {void}
-   */
-  /* c8 ignore next */
-  private calculateContentMaxHeight (size: ElementSize): void {
-    if (!isIE) {
-      return;
-    }
-
-    const headerElement = this.headerElementRef.value;
-    const footerElement = this.footerElementRef.value;
-    const contentElement = this.contentElementRef.value;
-
-    const headerRect = headerElement?.getBoundingClientRect();
-    const footerRect = footerElement?.getBoundingClientRect();
-    const contentRect = contentElement?.getBoundingClientRect();
-
-    const dialogHeight = size.height;
-    const headerHeight = headerRect ? headerRect.height : 0;
-    const footerHeight = footerRect ? footerRect.height : 0;
-    const contentHeight = contentRect ? contentRect.height : 0;
-
-    if (headerHeight + footerHeight + contentHeight > dialogHeight) {
-      this.restrictContentMaxHeight(dialogHeight - footerHeight - headerHeight);
-    }
   }
 }
 
