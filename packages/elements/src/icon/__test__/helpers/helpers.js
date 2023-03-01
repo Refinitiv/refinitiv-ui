@@ -25,7 +25,7 @@ export const generateUniqueName = name => `${name}_${iconId+=1}`;
 
 export const createMockSrc = icon => `https://mock.cdn.com/icons/${icon}.svg`;
 
-export const createFakeResponse = async (body, config = responseConfigSuccess) => {
+export const createFakeResponse = (body, config = responseConfigSuccess) => {
   const { ok, status, headers} = config;
   const response = new window.Response(body, {
     ok,
