@@ -1,4 +1,4 @@
-import { fixture, expect, oneEvent, replaceWhitespace } from '../lib/test-helpers';
+import { fixture, expect, oneEvent, replaceWhitespace, isEqual } from '../lib/test-helpers';
 
 describe('TestHelpersTest', () => {
 
