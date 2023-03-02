@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, nextFrame, isEqual } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/overlay';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
@@ -18,11 +18,11 @@ const getPosition = (el) => {
 
   return {
     top: top === 0,
-    bottom: Math.abs(bottom - screenHeight) < 1, /* this is to cover fractional pixels */
+    bottom: isEqual(bottom, screenHeight, 1, false), /* this is to cover fractional pixels */
     left: left === 0,
-    right: Math.abs(right - screenWidth) < 1,
-    centreH: Math.abs(left - (screenWidth - width) / 2) < 1,
-    centreV: Math.abs(top - (screenHeight - height) / 2) < 1
+    right: isEqual(right, screenWidth, 1, false),
+    centreH: isEqual(left, (screenWidth - width) / 2, 1, false),
+    centreV: isEqual(top, (screenHeight - height) / 2, 1, false)
   };
 };
 

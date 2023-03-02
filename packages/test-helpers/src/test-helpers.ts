@@ -38,6 +38,21 @@ export const nextFrame = async (frameCount = 1): Promise<void> => {
   }
 };
 
+/**
+ * Check equality of 2 number.
+ * If the value difference is within tolerance value, they are considered equal.
+ * @param a number to be checked
+ * @param b number to be checked
+ * @param [tolerance = 0] tolerance value of the equality check, must equal or greater than 0
+ * @param [inclusive = true] `true`: "smaller than or equal" check, `false`: "smaller than" check
+ *
+ * @returns {boolean} equality result
+ */
+export const isEqual = (a: number, b: number, tolerance = 0, inclusive = true): boolean => {
+  const diff = Math.abs(a - b);
+  return inclusive ? diff <= tolerance : diff < tolerance;
+};
+
 /* c8 ignore start */
 
 /**
