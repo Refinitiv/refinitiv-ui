@@ -936,12 +936,14 @@ export class TimePicker extends ControlElement {
         <div
           aria-label="${this.t('BEFORE_MIDDAY')}"
           role="option"
+          aria-selected="${this.isAM()}"
           id="toggle-am"
           part="toggle-item"
           ?active=${hasHours && this.isAM()}>AM</div>
         <div
           aria-label="${this.t('AFTER_MIDDAY')}"
           role="option"
+          aria-selected="${this.isPM()}"
           id="toggle-pm"
           part="toggle-item"
           ?active=${hasHours && this.isPM()}>PM</div>

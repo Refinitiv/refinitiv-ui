@@ -1322,7 +1322,7 @@ export class Slider extends ControlElement {
         name="${name}"
         role="slider"
         aria-label="${this.t(name.toUpperCase())}"
-        tabindex="1"
+        tabindex="0"
         aria-valuemin=${valueMin}
         aria-valuemax=${valueMax}
         aria-valuenow=${valueNow}

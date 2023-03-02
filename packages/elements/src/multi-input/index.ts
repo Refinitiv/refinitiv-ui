@@ -458,7 +458,7 @@ export class MultiInput extends ControlElement implements MultiValue {
     return html`
         <ef-text-field
           ${ref(this.searchRef)}
-          tabindex="1"
+          tabindex="0"
           part="search"
           transparent
           ?disabled="${this.disabled}"

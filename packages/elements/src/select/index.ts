@@ -1004,14 +1004,16 @@ export class Select extends ControlElement implements MultiValue {
           .label=${item.label}></ef-item>`;
       // no default
     }
-    return html`<ef-item
-      role="option"
-      part="item"
-      .value=${item.value}
-      .label=${item.label}
-      ?selected=${this.composer.getItemPropertyValue(item, 'selected') as boolean}
-      ?disabled=${item.disabled}
-    ></ef-item>`;
+    return html`
+      <ef-item
+        role="option"
+        aria-selected="false"
+        part="item"
+        .value=${item.value}
+        .label=${item.label}
+        ?selected=${this.composer.getItemPropertyValue(item, 'selected') as boolean}
+        ?disabled=${item.disabled}>
+      </ef-item>`;
   }
 
   /**

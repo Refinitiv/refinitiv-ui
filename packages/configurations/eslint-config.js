@@ -4,22 +4,22 @@ module.exports = {
     "es6": true,
     "node": true
   },
-
   "globals": {
     "document": false,
     "navigator": false,
     "window": false
   },
-
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2020
   },
-
   "plugins": [
+    "lit-a11y",
     "eslint-plugin-html"
   ],
-
+  "extends": [
+    "plugin:lit-a11y/recommended"
+  ],
   "rules": {
     "no-alert": 0,
     "no-array-constructor": 2,
