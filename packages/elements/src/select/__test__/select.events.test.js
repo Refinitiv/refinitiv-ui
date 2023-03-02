@@ -102,7 +102,7 @@ describe('select/Events', () => {
     it('opened-changed event on keyboard pressed', async () => {
       const el = await fixture(`<ef-select>${getOptions()}</ef-select>`);
       el.focus();
-      await nextFrame(el);
+      await nextFrame();
       let counter = 0;
       let opened = false;
 
