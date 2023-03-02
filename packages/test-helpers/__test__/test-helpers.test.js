@@ -55,4 +55,36 @@ describe('TestHelpersTest', () => {
       expect(replaceWhitespace(specialWhitespaces)).to.equal('  ', 'Remove whitespace should work correctly');
     });
   });
+  describe('Test isEqual helper', () => {
+    it('Calling isEqual with numbers to be checked only', async () => {
+      expect(isEqual(1, 1)).to.equal(true);
+      expect(isEqual(1, 2)).to.equal(false);
+      expect(isEqual(-1, 1)).to.equal(false);
+      expect(isEqual(-1,-1)).to.equal(true);
+    });
+
+    it('Calling isEqual with numbers & tolerance', async () => {
+      expect(isEqual(10, 10, 0)).to.equal(true);
+      expect(isEqual(10, 10.1, 0)).to.equal(false);
+      expect(isEqual(10, 13, 5)).to.equal(true);
+      expect(isEqual(10, 15, 5)).to.equal(true);
+      expect(isEqual(10, 15.1, 5)).to.equal(false);
+    });
+
+    it('Calling isEqual with numbers, tolerance & inclusive as true', async () => {
+      expect(isEqual(10, 10, 0, true)).to.equal(true);
+      expect(isEqual(10, 10.1, 0, true)).to.equal(false);
+      expect(isEqual(10, 13, 5, true)).to.equal(true);
+      expect(isEqual(10, 15, 5, true)).to.equal(true);
+      expect(isEqual(10, 15.1, 5, true)).to.equal(false);
+    });
+
+    it('Calling isEqual with numbers, tolerance & inclusive as false', async () => {
+      expect(isEqual(10, 10, 0, false)).to.equal(true);
+      expect(isEqual(10, 10.1, 0, false)).to.equal(false);
+      expect(isEqual(10, 13, 5, false)).to.equal(true);
+      expect(isEqual(10, 15, 5, false)).to.equal(false);
+      expect(isEqual(10, 15.1, 5, false)).to.equal(false);
+    });
+  });
 });

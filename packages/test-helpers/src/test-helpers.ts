@@ -49,6 +49,9 @@ export const nextFrame = async (frameCount = 1): Promise<void> => {
  * @returns {boolean} equality result
  */
 export const isEqual = (a: number, b: number, tolerance = 0, inclusive = true): boolean => {
+  if (tolerance === 0) {
+    inclusive = true;
+  }
   const diff = Math.abs(a - b);
   return inclusive ? diff <= tolerance : diff < tolerance;
 };
