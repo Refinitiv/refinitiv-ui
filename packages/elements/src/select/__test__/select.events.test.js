@@ -115,7 +115,7 @@ describe('select/Events', () => {
       await openedUpdated(el);
       expect(counter).to.equal(0, 'opened-changed should not fire for A key');
 
-      const openEvents = ['Up', 'ArrowUp', 'Down', 'ArrowDown', 'Enter', 'Spacebar', ' '];
+      const openEvents = ['ArrowUp', 'ArrowDown', 'Enter', ' '];
 
       for (let i = 0; i < openEvents.length; i += 1) {
         const key = openEvents[i];
@@ -138,7 +138,7 @@ describe('select/Events', () => {
         opened = value;
       });
 
-      const closeEvents = ['Esc', 'Escape'];
+      const closeEvents = ['Escape'];
       for (let i = 0; i < closeEvents.length; i += 1) {
         el.opened = true;
         await openedUpdated(el);
@@ -160,7 +160,7 @@ describe('select/Events', () => {
         opened = value;
       });
 
-      const closeEvents = [' ', 'Spacebar', 'Enter'];
+      const closeEvents = [' ', 'Enter'];
       for (let i = 0; i < closeEvents.length; i += 1) {
         el.opened = true;
         await openedUpdated(el);
@@ -231,7 +231,7 @@ describe('select/Events', () => {
 
       counter = 0;
 
-      const valueChangedEvents = [' ', 'Spacebar', 'Enter'];
+      const valueChangedEvents = [' ', 'Enter'];
       for (let i = 0; i < valueChangedEvents.length; i += 1) {
         el.value = '';
         el.opened = true;

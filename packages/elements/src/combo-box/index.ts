@@ -1083,11 +1083,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       case 'Enter':
         this.enter(event);
         break;
-      case 'Up':
       case 'ArrowUp':
         this.up(event);
         break;
-      case 'Down':
       case 'ArrowDown':
         this.down(event);
         break;

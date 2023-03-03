@@ -744,9 +744,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     else {
       // up/down to selection area
       switch (event.key) {
-        case 'Up':
         case 'ArrowUp':
-        case 'Down':
         case 'ArrowDown':
           super.onKeyDown(event);
           break;

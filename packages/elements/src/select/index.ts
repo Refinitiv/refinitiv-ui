@@ -634,12 +634,9 @@ export class Select extends ControlElement implements MultiValue {
    */
   private onKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
-      case 'Up':
       case 'ArrowUp':
-      case 'Down':
       case 'ArrowDown':
       case 'Enter':
-      case 'Spacebar':
       case ' ':
         this.setOpened(true);
         break;
@@ -658,15 +655,12 @@ export class Select extends ControlElement implements MultiValue {
   private onPopupKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
       case ' ':
-      case 'Spacebar':
       case 'Enter':
         this.highlightedItem?.click();
         break;
-      case 'Up':
       case 'ArrowUp':
         this.focusElement(Navigation.PREVIOUS);
         break;
-      case 'Down':
       case 'ArrowDown':
         this.focusElement(Navigation.NEXT);
         break;

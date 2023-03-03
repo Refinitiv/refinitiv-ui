@@ -449,7 +449,7 @@ describe('pagination/Pagination', () => {
       inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(inputPart.value).to.equal('2');
 
-      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Up' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(inputPart.value).to.equal('3');
 
       inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
@@ -468,7 +468,7 @@ describe('pagination/Pagination', () => {
       inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(inputPart.value).to.equal('6');
 
-      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Down' }));
+      inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(inputPart.value).to.equal('5');
 
       inputPart.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));

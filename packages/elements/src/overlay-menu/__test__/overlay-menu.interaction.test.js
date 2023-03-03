@@ -161,7 +161,7 @@ describe('overlay-menu/Interaction', () => {
       it('Ignores input when closed', async () => {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');
-        triggerKeyEvent(menus[0], 'Down');
+        triggerKeyEvent(menus[0], 'ArrowDown');
         expect(menus[0].opened).to.be.false;
       });
 
@@ -184,16 +184,16 @@ describe('overlay-menu/Interaction', () => {
         let menus = el.querySelectorAll('ef-overlay-menu');
         menus[0].opened = true;
         await openedUpdated(el);
-        triggerKeyEvent(menus[0], 'Down');
+        triggerKeyEvent(menus[0], 'ArrowDown');
         await elementUpdated(el);
         const item = el.querySelector('ef-item[highlighted]');
         expect(item === null, 'Item is highlighted').to.be.false;
-        triggerKeyEvent(menus[0], 'Down');
+        triggerKeyEvent(menus[0], 'ArrowDown');
         await elementUpdated(el);
         const secondItem = el.querySelector('ef-item[highlighted]');
         expect(secondItem !== item).to.be.true;
         expect(secondItem === undefined).to.be.false;
-        triggerKeyEvent(menus[0], 'Up');
+        triggerKeyEvent(menus[0], 'ArrowUp');
         await elementUpdated(el);
         const thirdItem = el.querySelector('ef-item[highlighted]');
         expect(thirdItem === item, '3rd highlight is 1st').to.be.true;
@@ -270,26 +270,26 @@ describe('overlay-menu/Interaction', () => {
         let items;
         menus[0].opened = true;
         await openedUpdated(el);
-        triggerKeyEvent(menus[0], 'Down');
-        triggerKeyEvent(menus[0], 'Down');
-        triggerKeyEvent(menus[0], 'Down');
+        triggerKeyEvent(menus[0], 'ArrowDown');
+        triggerKeyEvent(menus[0], 'ArrowDown');
+        triggerKeyEvent(menus[0], 'ArrowDown');
         await elementUpdated(el);
         items = [...el.querySelectorAll('ef-item[highlighted]')];
         expect(items.length).to.equal(1);
         // move to sub menu
-        triggerKeyEvent(menus[0], 'Down');
-        triggerKeyEvent(menus[0], 'Right');
+        triggerKeyEvent(menus[0], 'ArrowDown');
+        triggerKeyEvent(menus[0], 'ArrowRight');
         await elementUpdated(el);
         await openedUpdated(el);
         menus = el.querySelectorAll('ef-overlay-menu');
         expect(menus[1].opened).to.be.true;
-        triggerKeyEvent(menus[1], 'Down');
+        triggerKeyEvent(menus[1], 'ArrowDown');
         await elementUpdated(el);
         items = [...el.querySelectorAll('ef-item[highlighted]')];
         expect(items.length).to.equal(2);
 
-        triggerKeyEvent(menus[1], 'Up');
-        triggerKeyEvent(menus[1], 'Left');
+        triggerKeyEvent(menus[1], 'ArrowUp');
+        triggerKeyEvent(menus[1], 'ArrowLeft');
         await openedUpdated(el);
         expect(menus[1].opened).to.be.false;
 
@@ -304,26 +304,26 @@ describe('overlay-menu/Interaction', () => {
         let items;
         menus[0].opened = true;
         await openedUpdated(el);
-        triggerKeyEvent(menus[0], 'Down');
-        triggerKeyEvent(menus[0], 'Down');
-        triggerKeyEvent(menus[0], 'Down');
+        triggerKeyEvent(menus[0], 'ArrowDown');
+        triggerKeyEvent(menus[0], 'ArrowDown');
+        triggerKeyEvent(menus[0], 'ArrowDown');
         await elementUpdated(el);
         items = [...el.querySelectorAll('ef-item[highlighted]')];
         expect(items.length).to.equal(1);
 
-        triggerKeyEvent(menus[0], 'Down');
-        triggerKeyEvent(menus[0], 'Right');
+        triggerKeyEvent(menus[0], 'ArrowDown');
+        triggerKeyEvent(menus[0], 'ArrowRight');
         await elementUpdated(el);
         await openedUpdated(el);
         menus = el.querySelectorAll('ef-overlay-menu');
         expect(menus[1].opened).to.be.true;
-        triggerKeyEvent(menus[1], 'Down');
+        triggerKeyEvent(menus[1], 'ArrowDown');
         await elementUpdated(el);
         items = [...el.querySelectorAll('ef-item[highlighted]')];
         expect(items.length).to.equal(2);
 
-        triggerKeyEvent(menus[1], 'Up');
-        triggerKeyEvent(menus[1], 'Left');
+        triggerKeyEvent(menus[1], 'ArrowUp');
+        triggerKeyEvent(menus[1], 'ArrowLeft');
         await openedUpdated(el);
         expect(menus[1].opened).to.be.false;
 

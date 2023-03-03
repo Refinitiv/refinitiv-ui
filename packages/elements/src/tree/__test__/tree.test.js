@@ -5,10 +5,10 @@ import '@refinitiv-ui/elements/tree';
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import { multiLevelData } from './mock_data/multi-level';
 
-const keyArrowUp = new KeyboardEvent('keydown', { key: 'Up' });
-const keyArrowDown = new KeyboardEvent('keydown', { key: 'Down' });
-const keyArrowLeft = new KeyboardEvent('keydown', { key: 'Left' });
-const keyArrowRight = new KeyboardEvent('keydown', { key: 'Right' });
+const keyArrowUp = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+const keyArrowDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+const keyArrowLeft = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
+const keyArrowRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
 const keyEnter = new KeyboardEvent('keydown', { key: 'Enter' });
 
 const flatData = [{

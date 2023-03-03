@@ -10,27 +10,9 @@ import { getData, getNewItem } from './values.mock';
  */
 export const getSearchEl = select => select.searchRef.value;
 
-const createBackspaceEvent = () => {
-  const event = document.createEvent('Events');
-  event.initEvent('keydown', true, true);
-  event.keyCode = 8;
-  event.which = 8;
-  event.charCode = 8;
-  event.key = 'Backspace';
-  event.code = 'Backspace';
-  return event;
-};
+const createEnterEvent = () => new KeyboardEvent('keydown', { key: 'Enter' })
+const createBackspaceEvent = () => new KeyboardEvent('keydown', { key: 'Backspace' })
 
-const createEnterEvent = () => {
-  const event = document.createEvent('Events');
-  event.initEvent('keydown', true, true);
-  event.keyCode = 13;
-  event.which = 13;
-  event.charCode = 13;
-  event.key = 'Enter';
-  event.code = 'Enter';
-  return event;
-};
 
 describe('multi-input/MultiInput', () => {
   let data;
