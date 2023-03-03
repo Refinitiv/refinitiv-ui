@@ -1,4 +1,4 @@
-import { fixture, expect, oneEvent, replaceWhitespace, isEqual, nextFrame } from '../lib/test-helpers';
+import { fixture, expect, oneEvent, replaceWhitespace, isNear, nextFrame } from '../lib/test-helpers';
 import { createSandbox } from 'sinon';
 
 describe('TestHelpersTest', () => {
@@ -82,36 +82,29 @@ describe('TestHelpersTest', () => {
     });
   });
 
-  describe('Test isEqual helper', () => {
-    it('Calling isEqual with numbers to be checked only', async () => {
-      expect(isEqual(1, 1)).to.equal(true);
-      expect(isEqual(1, 2)).to.equal(false);
-      expect(isEqual(-1, 1)).to.equal(false);
-      expect(isEqual(-1,-1)).to.equal(true);
+  describe('Test isNear helper', () => {
+    it('Calling isNear with numbers & tolerance', async () => {
+      expect(isNear(10, 10, 0)).to.equal(true);
+      expect(isNear(10, 10.1, 0)).to.equal(false);
+      expect(isNear(10, 13, 5)).to.equal(true);
+      expect(isNear(10, 15, 5)).to.equal(true);
+      expect(isNear(10, 15.1, 5)).to.equal(false);
     });
 
-    it('Calling isEqual with numbers & tolerance', async () => {
-      expect(isEqual(10, 10, 0)).to.equal(true);
-      expect(isEqual(10, 10.1, 0)).to.equal(false);
-      expect(isEqual(10, 13, 5)).to.equal(true);
-      expect(isEqual(10, 15, 5)).to.equal(true);
-      expect(isEqual(10, 15.1, 5)).to.equal(false);
+    it('Calling isNear with numbers, tolerance & inclusive as true', async () => {
+      expect(isNear(10, 10, 0, true)).to.equal(true);
+      expect(isNear(10, 10.1, 0, true)).to.equal(false);
+      expect(isNear(10, 13, 5, true)).to.equal(true);
+      expect(isNear(10, 15, 5, true)).to.equal(true);
+      expect(isNear(10, 15.1, 5, true)).to.equal(false);
     });
 
-    it('Calling isEqual with numbers, tolerance & inclusive as true', async () => {
-      expect(isEqual(10, 10, 0, true)).to.equal(true);
-      expect(isEqual(10, 10.1, 0, true)).to.equal(false);
-      expect(isEqual(10, 13, 5, true)).to.equal(true);
-      expect(isEqual(10, 15, 5, true)).to.equal(true);
-      expect(isEqual(10, 15.1, 5, true)).to.equal(false);
-    });
-
-    it('Calling isEqual with numbers, tolerance & inclusive as false', async () => {
-      expect(isEqual(10, 10, 0, false)).to.equal(true);
-      expect(isEqual(10, 10.1, 0, false)).to.equal(false);
-      expect(isEqual(10, 13, 5, false)).to.equal(true);
-      expect(isEqual(10, 15, 5, false)).to.equal(false);
-      expect(isEqual(10, 15.1, 5, false)).to.equal(false);
+    it('Calling isNear with numbers, tolerance & inclusive as false', async () => {
+      expect(isNear(10, 10, 0, false)).to.equal(true);
+      expect(isNear(10, 10.1, 0, false)).to.equal(false);
+      expect(isNear(10, 13, 5, false)).to.equal(true);
+      expect(isNear(10, 15, 5, false)).to.equal(false);
+      expect(isNear(10, 15.1, 5, false)).to.equal(false);
     });
   });
 });

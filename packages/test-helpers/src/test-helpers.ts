@@ -39,21 +39,22 @@ export const nextFrame = async (frameCount = 1): Promise<void> => {
 };
 
 /**
- * Check equality of 2 number.
- * If the value difference is within tolerance value, they are considered equal.
- * @param a number to be checked
- * @param b number to be checked
- * @param [tolerance = 0] tolerance value of the equality check, must equal or greater than 0
- * @param [inclusive = true] `true`: "smaller than or equal" check, `false`: "smaller than" check. If tolerance is 0, inclusive would be overwritten as `true`.
+ * Check value difference between 2 number.
+ * If it's within `distance` value, they are near.
+ * @param a 1 of the 2 numbers to be checked
+ * @param b 1 of the 2 numbers to be checked
+ * @param distance maximum value difference of `a` & `b` to be considered near, must equal or greater than 0
+ * @param [inclusive = true] `true`: value difference must be smaller or equal to `distance` , `false`: value difference must be smaller than `distance`
+ *  If `distance` is 0, inclusive would be overwritten as `true`.
  *
  * @returns {boolean} equality result
  */
-export const isEqual = (a: number, b: number, tolerance = 0, inclusive = true): boolean => {
-  if (tolerance === 0) {
+export const isNear = (a: number, b: number, distance: number, inclusive = true): boolean => {
+  if (distance === 0) {
     inclusive = true;
   }
   const diff = Math.abs(a - b);
-  return inclusive ? diff <= tolerance : diff < tolerance;
+  return inclusive ? diff <= distance : diff < distance;
 };
 
 /* c8 ignore start */
