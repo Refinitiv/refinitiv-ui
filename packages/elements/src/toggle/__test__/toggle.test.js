@@ -249,7 +249,7 @@ describe('toggle/Toggle', () => {
   describe('Enter keypress', () => {
     let enterEvent;
     beforeEach(() => {
-      enterEvent = createKeyboardEvent(13);
+      enterEvent = createKeyboardEvent('Enter');
     });
 
     describe('Checked value & event', () => {
@@ -288,7 +288,7 @@ describe('toggle/Toggle', () => {
   describe('Spacebar keypress', () => {
     let spacebarEvent;
     beforeEach(() => {
-      spacebarEvent = createKeyboardEvent(32);
+      spacebarEvent = createKeyboardEvent(' ');
     });
 
     describe('Checked value & event', () => {
@@ -327,7 +327,7 @@ describe('toggle/Toggle', () => {
 
 const createKeyboardEvent = (key) => {
   return new KeyboardEvent('keydown', {
-    keyCode: key,
+    key,
     which: key
   });
 };

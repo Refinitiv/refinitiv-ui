@@ -1,11 +1,4 @@
-import {
-  fixture,
-  expect,
-  elementUpdated,
-  oneEvent,
-  triggerFocusFor,
-  triggerBlurFor
-} from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, triggerFocusFor, triggerBlurFor } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/time-picker';
@@ -19,89 +12,55 @@ describe('time-picker/TimePicker', () => {
 
   const InputKey = {
     arrowLeft: {
-      key: 'ArrowLeft',
-      which: 37,
-      keyCode: 37
+      key: 'ArrowLeft'
     },
     arrowUp: {
-      key: 'ArrowUp',
-      which: 38,
-      keyCode: 38
+      key: 'ArrowUp'
     },
     arrowRight: {
-      key: 'ArrowRight',
-      which: 39,
-      keyCode: 39
+      key: 'ArrowRight'
     },
     arrowDown: {
-      key: 'ArrowDown',
-      which: 40,
-      keyCode: 40
+      key: 'ArrowDown'
     },
     tab: {
-      key: 'Tab',
-      which: 9,
-      keyCode: 9
+      key: 'Tab'
     },
     enter: {
-      key: 'Enter',
-      which: 13,
-      keyCode: 13
+      key: 'Enter'
     },
     num0: {
-      key: '0',
-      which: 48,
-      keyCode: 48
+      key: '0'
     },
     num1: {
-      key: '1',
-      which: 49,
-      keyCode: 49
+      key: '1'
     },
     num2: {
-      key: '2',
-      which: 50,
-      keyCode: 50
+      key: '2'
     },
     num3: {
-      key: '3',
-      which: 51,
-      keyCode: 51
+      key: '3'
     },
     num4: {
-      key: '4',
-      which: 52,
-      keyCode: 52
+      key: '4'
     },
     num5: {
-      key: '5',
-      which: 53,
-      keyCode: 53
+      key: '5'
     },
     num6: {
-      key: '6',
-      which: 54,
-      keyCode: 54
+      key: '6'
     },
     num7: {
-      key: '7',
-      which: 55,
-      keyCode: 55
+      key: '7'
     },
     num8: {
-      key: '8',
-      which: 56,
-      keyCode: 56
+      key: '8'
     },
     num9: {
-      key: '9',
-      which: 57,
-      keyCode: 57
+      key: '9'
     },
     charA: {
-      key: 'a',
-      which: 65,
-      keyCode: 65
+      key: 'a'
     }
   };
 
@@ -159,7 +118,6 @@ describe('time-picker/TimePicker', () => {
   });
 
   describe('Defaults', () => {
-
     beforeEach(async () => {
       el = await fixture(timePickerDefaults);
     });
@@ -515,7 +473,7 @@ describe('time-picker/TimePicker', () => {
       for (let i = 24; i > 0; i--) {
         createKeyboardEvent(hoursPart, InputKey.arrowDown);
         await elementUpdated(el);
-        expect(el.hours).to.equal((i - 1));
+        expect(el.hours).to.equal(i - 1);
       }
     });
 
@@ -535,7 +493,7 @@ describe('time-picker/TimePicker', () => {
       for (let i = 60; i > 0; i--) {
         createKeyboardEvent(minutesPart, InputKey.arrowDown);
         await elementUpdated(el);
-        expect(el.minutes).to.equal((i - 1));
+        expect(el.minutes).to.equal(i - 1);
       }
     });
 
@@ -555,7 +513,7 @@ describe('time-picker/TimePicker', () => {
       for (let i = 60; i > 0; i--) {
         createKeyboardEvent(secondsPart, InputKey.arrowDown);
         await elementUpdated(el);
-        expect(el.seconds).to.equal((i - 1));
+        expect(el.seconds).to.equal(i - 1);
       }
     });
 

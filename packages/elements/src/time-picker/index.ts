@@ -642,7 +642,6 @@ export class TimePicker extends ControlElement {
         this.handleDownKey(event);
         break;
       case 'Enter':
-      case 'Spacebar':
       case ' ':
         this.handleEnterKey(event);
         break;

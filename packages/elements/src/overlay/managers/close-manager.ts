@@ -39,7 +39,6 @@ export class CloseManager {
 
   private onKeyDown = ({ key }: KeyboardEvent): void => {
     switch (key) {
-      case 'Esc':
       case 'Escape':
         this.onEscKey();
       // no default

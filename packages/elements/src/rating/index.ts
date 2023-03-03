@@ -182,14 +182,10 @@ export class Rating extends BasicElement {
     }
 
     switch (event.key) {
-      case 'Right':
-      case 'Up':
       case 'ArrowRight':
       case 'ArrowUp':
         this.stepUp();
         break;
-      case 'Left':
-      case 'Down':
       case 'ArrowLeft':
       case 'ArrowDown':
         this.stepDown();
