@@ -44,7 +44,7 @@ export const nextFrame = async (frameCount = 1): Promise<void> => {
  * @param a number to be checked
  * @param b number to be checked
  * @param [tolerance = 0] tolerance value of the equality check, must equal or greater than 0
- * @param [inclusive = true] `true`: "smaller than or equal" check, `false`: "smaller than" check
+ * @param [inclusive = true] `true`: "smaller than or equal" check, `false`: "smaller than" check. If tolerance is 0, inclusive would be overwritten as `true`.
  *
  * @returns {boolean} equality result
  */
