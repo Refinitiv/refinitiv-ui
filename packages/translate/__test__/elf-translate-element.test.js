@@ -47,7 +47,7 @@ describe('Elf Translate Element Lang Test', () => {
     expect(el.defaultEl.innerText).to.equal('Региональные настройки: ru');
     el.lang = 'en';
     await elementUpdated(el);
-    await nextFrame(el);
+    await nextFrame();
     expect(el.defaultEl.innerText).to.equal('This is en locale');
   });
 
@@ -56,11 +56,11 @@ describe('Elf Translate Element Lang Test', () => {
     expect(el.numberEl.innerText).to.equal('Long number: 0');
     el.number = 1000;
     await elementUpdated(el);
-    await nextFrame(el);
+    await nextFrame();
     expect(el.numberEl.innerText).to.equal('Long number: 1,000');
     el.number = 1000000;
     await elementUpdated(el);
-    await nextFrame(el);
+    await nextFrame();
     expect(el.numberEl.innerText).to.equal('Long number: 1,000,000');
   });
 
