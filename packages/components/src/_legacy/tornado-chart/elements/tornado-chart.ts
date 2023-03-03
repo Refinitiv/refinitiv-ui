@@ -9,7 +9,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../../version.js.js';
+import { VERSION } from '../../../version.js';
 import './tornado-item.js';
 import type { TornadoItem } from './tornado-item';
 

@@ -2,7 +2,7 @@ import { css, CSSResultGroup, html, TemplateResult, ElementSize, PropertyValues 
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import { isIE } from '@refinitiv-ui/utils/browser.js';
 import { deregister as draggableDeregister, register as draggableRegister } from './draggable-element.js';
 import { Overlay } from '../overlay/index.js';

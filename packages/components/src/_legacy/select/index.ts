@@ -13,7 +13,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import '../overlay/index.js';
 import '../item/index.js';
 import '../icon/index.js';
@@ -24,7 +24,7 @@ import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import type { Overlay } from '../overlay';
 import type { SelectData, SelectDataItem } from './helpers/types';
-import type { OpenedChangedEvent } from '../events';
+import type { OpenedChangedEvent } from '../../events.js';
 
 export type { SelectData, SelectDataItem };
 

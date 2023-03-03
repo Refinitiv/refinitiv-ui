@@ -9,7 +9,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
 import '../overlay/index.js';
 import type { OverlayTransitionStyle as TooltipTransitionStyle, Overlay, OverlayPosition } from '../overlay';

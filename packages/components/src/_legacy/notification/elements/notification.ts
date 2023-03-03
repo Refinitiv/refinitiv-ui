@@ -9,7 +9,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
-import { VERSION } from '../../version.js.js';
+import { VERSION } from '../../../version.js';
 import '@refinitiv-ui/phrasebook/locale/en/notification.js';
 
 import '../../icon/index.js';

@@ -11,7 +11,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import type { Pill } from '../pill';
 import type { TextField } from '../text-field';

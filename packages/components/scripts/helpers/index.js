@@ -17,7 +17,7 @@ const {
  * The name of the package
  * @type {string}
  */
-const PACKAGE_NAME = 'elements';
+const PACKAGE_NAME = 'components';
 
 /**
  * Resolved path to elements package root

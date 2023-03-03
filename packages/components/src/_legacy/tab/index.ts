@@ -11,7 +11,7 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
 import { triggerResize } from '@refinitiv-ui/core';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 
 import '../icon/index.js';
 import '../label/index.js';

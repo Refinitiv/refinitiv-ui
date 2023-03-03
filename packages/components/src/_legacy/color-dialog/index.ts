@@ -11,7 +11,7 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { rgb, isHex, removeHashSign } from '@refinitiv-ui/utils/color.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import type { NumberField } from '../number-field';
 import type { TextField } from '../text-field';
 import type { Palettes } from './elements/palettes';

@@ -8,7 +8,7 @@ import {
   PropertyValues
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import { VERSION } from '../../version.js.js';
+import { VERSION } from '../../../version.js';
 import { Palettes } from './palettes.js';
 import { COLOR_ITEMS } from '../helpers/color-helpers.js';
 

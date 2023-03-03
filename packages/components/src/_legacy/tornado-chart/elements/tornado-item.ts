@@ -8,7 +8,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
-import { VERSION } from '../../version.js.js';
+import { VERSION } from '../../../version.js';
 import '../../progress-bar/index.js';
 import '../../layout/index.js';
 

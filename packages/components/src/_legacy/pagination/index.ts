@@ -12,7 +12,7 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import '../button/index.js';
 import '../button-bar/index.js';
 import '../layout/index.js';

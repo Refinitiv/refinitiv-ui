@@ -15,7 +15,7 @@ import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { cache } from '@refinitiv-ui/core/directives/cache.js';
 import { guard } from '@refinitiv-ui/core/directives/guard.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import { isIE } from '@refinitiv-ui/utils/browser.js';
 import {
   DateSegment,
@@ -81,7 +81,7 @@ import type {
   NavigationDirection,
   WeekdayName
 } from './types';
-import type { TapEvent } from '../events';
+import type { TapEvent } from '../../events.js';
 import type { Button } from '../button';
 import './locales.js';
 import '../button/index.js';

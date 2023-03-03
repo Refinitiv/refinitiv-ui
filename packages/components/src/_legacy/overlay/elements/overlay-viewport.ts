@@ -6,7 +6,7 @@ import {
   html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import { VERSION } from '../../version.js.js';
+import { VERSION } from '../../../version.js';
 
 /**
  * A private element to find overlay size boundaries

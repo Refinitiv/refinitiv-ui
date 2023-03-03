@@ -13,8 +13,8 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
-import { VERSION } from '../version.js.js';
-import type { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent } from '../events';
+import { VERSION } from '../../version.js';
+import type { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent } from '../../events.js';
 import type {
   DatetimePickerDuplex,
   DatetimePickerFilter

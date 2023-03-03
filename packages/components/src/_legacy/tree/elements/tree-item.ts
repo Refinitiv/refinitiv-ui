@@ -6,7 +6,7 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../../version.js.js';
+import { VERSION } from '../../../version.js';
 import '../../icon/index.js';
 import { preload } from '../../icon/index.js';
 import '../../checkbox/index.js';

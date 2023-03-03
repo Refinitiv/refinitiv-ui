@@ -17,7 +17,7 @@ import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/locale/en/slider.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import '../number-field/index.js';
 import type { NumberField } from '../number-field';
 

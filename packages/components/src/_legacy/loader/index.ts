@@ -1,6 +1,6 @@
 import { BasicElement, html, PropertyValues, TemplateResult } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 
 /**
  * Global cache for loader template parts

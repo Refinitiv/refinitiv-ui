@@ -10,7 +10,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import { color } from '@refinitiv-ui/utils/color.js';
 import '@refinitiv-ui/browser-sparkline';
 import type { BrowserSparklineChart } from '@refinitiv-ui/browser-sparkline';

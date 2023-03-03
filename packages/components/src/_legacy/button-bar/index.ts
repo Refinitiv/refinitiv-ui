@@ -10,7 +10,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import { Button } from '../button/index.js';
 
 /**

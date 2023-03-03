@@ -7,7 +7,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 import '../icon/index.js';

@@ -5,7 +5,7 @@ import {
 } from '@refinitiv-ui/core';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../../version.js.js';
+import { VERSION } from '../../../version.js';
 import { rgb, isHex } from '@refinitiv-ui/utils/color.js';
 
 /**

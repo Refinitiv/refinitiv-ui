@@ -37,7 +37,7 @@ import {
   getNextSelectedPartIndex,
   selectPart
 } from './utils.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import '@refinitiv-ui/phrasebook/locale/en/datetime-field.js';
 
 /**

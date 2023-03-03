@@ -9,7 +9,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import { FlagLoader } from './utils/FlagLoader.js';
 
 export { preload } from './utils/FlagLoader.js';

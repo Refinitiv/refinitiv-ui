@@ -11,7 +11,7 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { repeat } from '@refinitiv-ui/core/directives/repeat.js';
 import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 
@@ -22,7 +22,7 @@ import '../checkbox/index.js';
 import '../tree/index.js';
 import type { Overlay } from '../overlay';
 import { ComboBox, ComboBoxFilter as TreeSelectFilter } from '../combo-box/index.js';
-import type { CheckChangedEvent } from '../events';
+import type { CheckChangedEvent } from '../../events.js';
 import { TreeRenderer as TreeSelectRenderer } from '../tree/index.js';
 import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager.js';
 

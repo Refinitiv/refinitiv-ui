@@ -11,7 +11,7 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { isIE, isMobile } from '@refinitiv-ui/utils/browser.js';
 import {
@@ -19,7 +19,7 @@ import {
   TranslateDirective,
   TranslatePropertyKey
 } from '@refinitiv-ui/translate';
-import type { TapEvent } from '../events';
+import type { TapEvent } from '../../events.js';
 import type {
   AutosuggestTargetElement,
   AutosuggestHighlightable,

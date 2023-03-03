@@ -10,7 +10,7 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../../version.js.js';
+import { VERSION } from '../../../version.js';
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 import type { ItemData } from '../../item';
 import type { ListData } from '../helpers/types';

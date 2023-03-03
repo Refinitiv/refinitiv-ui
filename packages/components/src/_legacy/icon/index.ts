@@ -10,7 +10,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';
 

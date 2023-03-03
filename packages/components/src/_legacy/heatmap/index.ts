@@ -9,7 +9,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import { MicroTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { color, ColorCommonInstance } from '@refinitiv-ui/utils/color.js';
 

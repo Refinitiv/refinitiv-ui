@@ -12,7 +12,7 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import type { Icon } from '../icon';
 
 import '../icon/index.js';

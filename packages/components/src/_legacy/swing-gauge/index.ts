@@ -13,7 +13,7 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
-import { VERSION } from '../version.js.js';
+import { VERSION } from '../../version.js';
 import type { Canvas } from '../canvas';
 import '../canvas/index.js';
 import '../label/index.js';
