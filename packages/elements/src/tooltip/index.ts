@@ -373,7 +373,7 @@ class Tooltip extends BasicElement {
    */
   private renderContentNode (contentNode: Text | HTMLElement | DocumentFragment): void {
     if (contentNode instanceof Text && this.textContent === contentNode.textContent) {
-      return; /* Do not re-render the same text. Due to IE11 limitation we have to operate with text nodes */
+      return; /* Do not re-render the same text */
     }
 
     if (this.contentNodes?.length) {

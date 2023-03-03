@@ -97,7 +97,7 @@ const isEnterKey = (event: KeyboardEvent) => event.key === 'Enter';
  * @param event Keyboard event
  * @returns true is `space` key
  */
-const isSpaceKey = (event: KeyboardEvent) => event.key === ' ' || event.key === 'Spacebar';
+const isSpaceKey = (event: KeyboardEvent) => event.key === ' ';
 
 /**
  * Get top most event target for the composed path

@@ -117,7 +117,7 @@ describe('color-picker/ColorPicker', () => {
     });
     it('Should open dialog when press spacebar key', async () => {
       const el = await fixture('<ef-color-picker></ef-color-picker>');
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Spacebar' }));
+      el.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
       await elementUpdated(el);
       expect(getDialogEl(el).opened).to.be.equal(true, 'Spacebar should open dialog');
     });

@@ -12,7 +12,6 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
 import { MicroTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
-import { isIE, isEdge } from '@refinitiv-ui/utils/browser.js';
 import {
   TransitionStyle,
   PositionTarget,
@@ -736,18 +735,6 @@ export class Overlay extends ResponsiveElement {
       }
     }
 
-    // These hacks are required in order to solve a problem when IE11 or Edge does not display
-    // the component, even if all CSS properties are set correctly
-    // The reason of such behaviour is unknown, but may be related to polyfills
-    /* c8 ignore start */
-    if (isIE) {
-      this.redrawThrottler.schedule(() => this.style.setProperty('clear', 'none'));
-    }
-    else if (isEdge) {
-      this.redrawThrottler.schedule(() => this.updateVariable('--redraw', `${Date.now()}`));
-    }
-    /* c8 ignore stop */
-
     triggerResize();
   }
 
@@ -1169,12 +1156,7 @@ export class Overlay extends ResponsiveElement {
       });
     };
 
-    const {
-      height,
-      width
-    } = this.sizingRect; /* need this for IE, as width and height is 0 on first render */
-
-    if (this.refitString && this.refitString === getRefitString() || (!height || !width)) {
+    if (this.refitString && this.refitString === getRefitString()) {
       return;
     }
 

@@ -2,7 +2,7 @@ name: Bundle size report
 
 on:
   pull_request:
-    branches: [v6]
+    branches: [v7]
 
 jobs:
   size-report:
