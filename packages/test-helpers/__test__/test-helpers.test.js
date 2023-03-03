@@ -1,4 +1,5 @@
-import { fixture, expect, oneEvent, replaceWhitespace, isEqual } from '../lib/test-helpers';
+import { fixture, expect, oneEvent, replaceWhitespace, isEqual, nextFrame } from '../lib/test-helpers';
+import { createSandbox } from 'sinon';
 
 describe('TestHelpersTest', () => {
 
@@ -55,6 +56,32 @@ describe('TestHelpersTest', () => {
       expect(replaceWhitespace(specialWhitespaces)).to.equal('  ', 'Remove whitespace should work correctly');
     });
   });
+
+  describe('Test nextFrame helper', () => {
+    const sandbox = createSandbox();
+
+    beforeEach(async () => {
+      sandbox.spy(window, "requestAnimationFrame");
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+    });
+
+    it('Calling nextFrame without param', async () => {
+      await nextFrame();
+      expect(window.requestAnimationFrame.calledOnce).to.equal(true, 'requestAnimationFrame should be called once');
+    });
+    it('Calling nextFrame with 1 as param', async () => {
+      await nextFrame(1);
+      expect(window.requestAnimationFrame.calledOnce).to.equal(true, 'requestAnimationFrame should be called once');
+    });
+    it('Calling nextFrame with 2 as param', async () => {
+      await nextFrame(2);
+      expect(window.requestAnimationFrame.calledTwice).to.equal(true, 'requestAnimationFrame should be called twice');
+    });
+  });
+
   describe('Test isEqual helper', () => {
     it('Calling isEqual with numbers to be checked only', async () => {
       expect(isEqual(1, 1)).to.equal(true);
