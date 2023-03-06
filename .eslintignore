@@ -1,9 +1,0 @@
-**/*.*
-node_modules/
-__snapshots__/
-coverage/
-lib/
-!**/*.ts
-!**/*.html
-!test/*.js
-**/*.d.ts
