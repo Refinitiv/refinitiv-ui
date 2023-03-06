@@ -23,11 +23,12 @@ export class Checkbox extends ControlElement {
   static get styles (): CSSResultGroup {
     return css`
       :host {
-        display: inline-block;
+        display: inline-flex;
       }
       [part='label'] {
         cursor: default;
-        vertical-align: middle;
+        display: inline-flex;
+        align-items: center;
       }
     `;
   }
