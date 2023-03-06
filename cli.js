@@ -29,7 +29,7 @@ const options = argvNoBin.slice(2);
 // Element or package
 try {
   const isElement = !fs.existsSync(path.resolve(PACKAGES_ROOT, argv.package));
-  const workspace = isElement ? 'elements' : argv.package;
+  const workspace = isElement ? 'components' : argv.package;
   const elementName = isElement ? argv.package : undefined;
 
   // For workspace package real name is required
