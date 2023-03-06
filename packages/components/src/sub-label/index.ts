@@ -3,7 +3,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
 
-@customElement('ds-sub-label')
+@customElement('ds-sub-label', { theme: false })
 export class SubLabel extends BasicElement {
   /**
    * Element version number
