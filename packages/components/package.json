@@ -31,6 +31,7 @@
     },
     "./version": "./lib/version.js",
     "./icon": "./lib/icon/index.js",
+    "./sub-label": "./lib/sub-label/index.js",
     "./sub-checkbox": "./lib/sub-checkbox/index.js"
   },
   "scripts": {
