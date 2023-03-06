@@ -26,7 +26,7 @@ export class Checkbox extends ControlElement {
         display: inline-block;
       }
       [part='label'] {
-        cursor: pointer;
+        cursor: default;
         vertical-align: middle;
       }
     `;
