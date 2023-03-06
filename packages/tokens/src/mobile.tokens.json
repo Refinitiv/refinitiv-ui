@@ -1,0 +1,16 @@
+{
+  "$type": "dimension",
+  "font": {
+    "size": {
+      "$value": "28px"
+    }
+  },
+  "control": {
+    "size": {
+      "$value": "32px"
+    },
+    "padding": {
+      "$value": "6px"
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "brand": {
+    "color": {
+      "$value": "{cyan.900}"
+    }
+  },
+  "primary": {
+    "color": {
+      "$value": "{brand.color}"
+    }
+  },
+  "text": {
+    "header": {
+      "color": {
+        "$value": "{grey.900}"
+      }
+    },
+    "body": {
+      "color": {
+        "$value": "{grey.800}"
+      }
+    }
+  },
+  "background": {
+    "color": {
+      "$value": "{grey.100}"
+    }
+  },
+  "font": {
+    "size": {
+      "$type": "dimension",
+      "$value": "20px"
+    }
+  },
+  "control": {
+    "size": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "padding": {
+      "$type": "dimension",
+      "$value": "4px"
+    },
+    "radius": {
+      "$type": "dimension",
+      "$value": "0px"
+    },
+    "border": {
+      "$type": "border",
+      "$value": {
+        "color": "{grey.400}",
+        "width": "1px",
+        "style": "solid"
+      }
+    },
+    "disabled": {
+      "color": {
+        "$type": "color",
+        "$value": "{cyan.200}"
+      },
+      "border": {
+        "color": {
+          "$type": "color",
+          "$value": "{grey.300}"
+        }
+      }
+    },
+    "focus": {
+      "color": {
+        "$type": "color",
+        "$value": "{primary.color}"
+      },
+      "border": {
+        "$type": "border",
+        "$value": {
+          "color": "{control.focus.color}",
+          "width": "2px",
+          "style": "solid"
+        }
+      }
+    }
+  },
+  "checkbox": {
+    "size": {
+      "$value": "{control.size}"
+    },
+    "padding": {
+      "$value": "{control.padding}"
+    },
+    "border": {
+      "$value": "{control.border}"
+    },
+    "radius": {
+      "$value": "{control.radius}"
+    },
+    "focus": {
+      "border": {
+        "$value": "{control.focus.border}"
+      }
+    },
+    "disabled": {
+      "color": {
+        "$value": "{control.disabled.color}"
+      },
+      "border": {
+        "$type": "border",
+        "$value": {
+          "color": "{control.disabled.border.color}",
+          "width": "1px",
+          "style": "solid"
+        }
+      }
+    }
+  }
+}
