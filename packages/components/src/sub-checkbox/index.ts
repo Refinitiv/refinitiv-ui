@@ -45,15 +45,20 @@ export class SubCheckbox extends ControlElement {
       outline: var(--ds-checkbox-focus-border);
     }
     [part=check] {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       visibility: hidden;
+    }
+    [part=icon] {
+      width: 100%;
+      height: 100%;
     }
     :host([checked]) [part=check],
     :host([indeterminate]) [part=check] {
+      width: 100%;
+      height: 100%;
       visibility: inherit;
-    }
-    [part=container] {
-      display: inline-block;
-      vertical-align: middle;
     }
     [disabled] {
       color: var(--ds-checkbox-disabled-color);
@@ -119,10 +124,8 @@ export class SubCheckbox extends ControlElement {
 
   protected render () {
     return html`
-      <div part="container">
-        <div part="check">
-          ${!this.indeterminate ? html`<ds-icon icon="tick"></ds-icon>` : null }
-        </div>
+      <div part="check">
+        ${!this.indeterminate ? html`<ds-icon icon="tick" part="icon"></ds-icon>` : null }
       </div>
       <slot></slot>
     `;
