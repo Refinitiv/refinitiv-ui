@@ -25,6 +25,9 @@ export class Checkbox extends ControlElement {
       :host {
         display: inline-flex;
       }
+      :host(:focus-visible) {
+        outline: var(--ds-checkbox-focus-border);
+      }
       [part='label'] {
         cursor: default;
         display: inline-flex;
@@ -104,7 +107,7 @@ export class Checkbox extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-      <ds-sub-checkbox aria-labelledby="label" ?checked=${this.checked}></ds-sub-checkbox>
+      <ds-sub-checkbox tabindex="-1" aria-labelledby="label" ?checked=${this.checked}></ds-sub-checkbox>
       <ds-sub-label id="label" part="label"><slot></slot></ds-sub-label>
     `;
   }
