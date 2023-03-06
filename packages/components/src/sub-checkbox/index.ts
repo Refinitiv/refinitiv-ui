@@ -1,14 +1,32 @@
-import { ControlElement, html, css } from '@refinitiv-ui/core';
+import { ControlElement, html, css, PropertyValues, TapEvent } from '@refinitiv-ui/core';
+import { VERSION } from '../version.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+import '../icon/index.js';
 
 @customElement('ds-sub-checkbox', { theme: false })
 export class SubCheckbox extends ControlElement {
-  @property({ type: Boolean })
+  /**
+   * Element version number
+   * @returns version number
+   */
+  static get version (): string {
+    return VERSION;
+  }
+
+  protected readonly defaultRole: string | null = 'checkbox';
+
+  /**
+   * Value of checkbox
+   */
+  @property({ type: Boolean, reflect: true })
   public checked = false;
 
-  @property({ type: Boolean })
-  public disabled = false;
+  /**
+   * Set state to indeterminate
+   */
+  @property({ type: Boolean, reflect: true })
+  public indeterminate = false;
 
   public static styles = css`
     :host {
@@ -26,40 +44,87 @@ export class SubCheckbox extends ControlElement {
     :host(:focus-visible) {
       outline: var(--ds-checkbox-focus-border);
     }
+    [part=check] {
+      visibility: hidden;
+    }
+    :host([checked]) [part=check],
+    :host([indeterminate]) [part=check] {
+      visibility: inherit;
+    }
+    [part=container] {
+      display: inline-block;
+      vertical-align: middle;
+    }
     [disabled] {
       color: var(--ds-checkbox-disabled-color);
-    }
-    [type='checkbox'] {
-      display: none;
-    }
-    svg {
-      width: 100%;
-      height: 100%;
-    }
-    [disabled] {
       border: var(--ds-checkbox-disabled-border);
     }
   `;
 
-  public connectedCallback (): void {
-    super.connectedCallback();
-    this.addEventListener('click', () => {
-      if (!this.disabled) {
-        this.checked = !this.checked;
-      }
-    });
+  /**
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+
+    this.addEventListener('tap', this.onTap);
+    this.addEventListener('keydown', this.onKeyDown);
   }
 
-  private renderTick () {
-    return html`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor" version="1.1" viewBox="0 0 490 490" xml:space="preserve">
-      <polygon points="452.253,28.326 197.831,394.674 29.044,256.875 0,292.469 207.253,461.674 490,54.528 " />
-    </svg>`;
+  /**
+   * Run when checkbox is tapped
+   * @param event Tap event
+   * @returns {void}
+   */
+  private onTap (event: TapEvent): void {
+    if (this.disabled || this.readonly || event.defaultPrevented) {
+      return;
+    }
+    this.handleChangeChecked();
+  }
+
+  /**
+   * Handles key down event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyDown (event: KeyboardEvent): void {
+    if (this.disabled || this.readonly || event.defaultPrevented) {
+      return;
+    }
+
+    switch (event.key) {
+      case ' ':
+      case 'Spacebar':
+        this.handleChangeChecked();
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+  }
+
+  /**
+   * Change checked state and fire
+   * checked-changed event
+   * @return {void}
+   */
+  private handleChangeChecked (): void {
+    this.checked = !this.checked;
+    this.notifyPropertyChange('checked', this.checked);
   }
 
   protected render () {
     return html`
-      <input id="checkbox" type="checkbox" ?checked=${this.checked} ?disabled=${this.disabled} />
-      ${this.checked ? this.renderTick() : null}
+      <div part="container">
+        <div part="check">
+          ${!this.indeterminate ? html`<ds-icon icon="tick"></ds-icon>` : null }
+        </div>
+      </div>
+      <slot></slot>
     `;
   }
 }
