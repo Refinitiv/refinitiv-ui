@@ -1,7 +1,6 @@
 import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/checkbox';
-import '@refinitiv-ui/elemental-theme/light/ds-checkbox';
 
 const createEnterKeyboardEvent = () => new KeyboardEvent('keydown', { key: 'Enter' });
 const createSpacebarKeyboardEvent = () => new KeyboardEvent('keydown', { key: ' ' });
@@ -83,9 +82,9 @@ describe('checkbox/Checkbox', () => {
       it('can be checked / unchecked by tap on the checkbox', async () => {
         el = await fixture(unchecked);
 
-        await tapAndWait(el); // checked
+        await tapAndWait(el);
         expect(el.checked).to.equal(true);
-        await tapAndWait(el); // unchecked
+        await tapAndWait(el);
         expect(el.checked).to.equal(false);
       });
       it('can be checked / unchecked by tap on the label of checkbox', async () => {
@@ -233,10 +232,10 @@ describe('checkbox/Checkbox', () => {
     describe('Check / Unchecked State', () => {
       it('can be check / unchecked by attribute', async () => {
         el = await fixture(unchecked);
-        el.setAttribute('checked', true); // checked
+        el.setAttribute('checked', true);
         await elementUpdated(el);
         expect(el.checked).to.equal(true);
-        el.removeAttribute('checked'); // unchecked
+        el.removeAttribute('checked');
         await elementUpdated(el);
         expect(el.checked).to.equal(false);
       });
