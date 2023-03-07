@@ -22,12 +22,6 @@ export class SubCheckbox extends ControlElement {
   @property({ type: Boolean, reflect: true })
   public checked = false;
 
-  /**
-   * Set state to indeterminate
-   */
-  @property({ type: Boolean, reflect: true })
-  public indeterminate = false;
-
   public static styles = css`
     :host {
       display: inline-flex;
@@ -75,6 +69,19 @@ export class SubCheckbox extends ControlElement {
 
     this.addEventListener('tap', this.onTap);
     this.addEventListener('keydown', this.onKeyDown);
+  }
+
+  /**
+   * Called before update() to compute values needed during the update.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('checked')) {
+      this.setAttribute('aria-checked', String(this.checked));
+    }
   }
 
   /**

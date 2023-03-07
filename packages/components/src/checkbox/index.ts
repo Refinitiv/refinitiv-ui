@@ -57,6 +57,19 @@ export class Checkbox extends ControlElement {
   }
 
   /**
+   * Called before update() to compute values needed during the update.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('checked')) {
+      this.setAttribute('aria-checked', String(this.checked));
+    }
+  }
+
+  /**
    * Fired when mouse click event happens. Select an item
    * @param event Mouse click event
    * @returns {void}
