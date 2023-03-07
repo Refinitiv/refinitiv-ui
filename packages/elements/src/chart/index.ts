@@ -29,7 +29,8 @@ import {
   Plugin,
   ChartType,
   ChartDataset,
-  Color
+  Color,
+  LineControllerDatasetOptions
 // TODO: import only common types and let user registers specific type
 // eslint-disable-next-line import/extensions
 } from 'chart.js/auto';
@@ -45,6 +46,9 @@ export * from 'chart.js';
 const CSS_COLOR_PREFIX = '--chart-color-';
 const CHART_TYPE_OPAQUE = ['line', 'bubble', 'radar', 'polarArea'];
 
+/* Make ChartJS to know our plugin
+ * https://www.chartjs.org/docs/latest/developers/plugins.html#typescript-typings
+ */
 declare module 'chart.js' {
   interface PluginOptionsByType<TType extends ChartType> {
     efchart?: {
@@ -136,29 +140,93 @@ export class Chart extends BasicElement {
           }
         };
         merge(chart.config.options as unknown as MergeObject, option, true);
-
-        const extendColorsIfRequired = (currentColors: Color, infoColors: Color): void => {
-          if (Array.isArray(currentColors) && Array.isArray(infoColors) && currentColors.length < infoColors.length) {
-            merge(currentColors, infoColors);
-          }
-        };
-
-        datasets.forEach((dataset) => {
-          const info = this.datasetInfo(dataset);
-
-          // make sure that colours are defined for every dataset e.g. when new dataset is added
-          extendColorsIfRequired((dataset as ChartDatasetNew).borderColor, info.borderColor);
-          extendColorsIfRequired((dataset as ChartDatasetNew).backgroundColor, info.backgroundColor);
-          extendColorsIfRequired((dataset as ChartDatasetNew).pointBorderColor, info.pointBorderColor);
-          extendColorsIfRequired((dataset as ChartDatasetNew).pointBackgroundColor, info.pointBackgroundColor);
-
-          dataset.borderColor = dataset.borderColor || info.borderColor;
-          dataset.backgroundColor = dataset.backgroundColor || info.backgroundColor;
-          (dataset as ChartDatasetNew).pointBackgroundColor = (dataset as ChartDatasetNew).pointBackgroundColor || info.pointBackgroundColor;
-          (dataset as ChartDatasetNew).pointBorderColor = (dataset as ChartDatasetNew).pointBorderColor || info.pointBorderColor;
-        });
-      }
+      },
+      beforeUpdate: (chart: ChartJS) => this.decorateColors(chart)
     };
+  }
+
+  private decorateColors (chart: ChartJS): void {
+    chart.config.data.datasets.forEach((dataset, datasetIndex) => {
+      let colors;
+      let borderColor;
+      let backgroundColor;
+      const isMultipleDatasets = (chart.config.data.datasets.length > 1);
+      switch (dataset.type || this.config?.type) {
+        case 'line':
+        case 'bubble':
+        case 'radar':
+        case 'scatter':
+          colors = this.generateColors(false, 1, datasetIndex);
+          if (!dataset.borderColor) {
+            dataset.borderColor = colors.solid as Color;
+          }
+          // Only this chart type are backgroundColor opaque
+          if (!dataset.backgroundColor) {
+            dataset.backgroundColor = colors.opaque as Color;
+          }
+          if (!(dataset as LineControllerDatasetOptions).pointBackgroundColor) {
+            (dataset as LineControllerDatasetOptions).pointBackgroundColor = colors.solid as Color;
+          }
+          if (!(dataset as LineControllerDatasetOptions).pointBorderColor) {
+            (dataset as LineControllerDatasetOptions).pointBorderColor = colors.solid as Color;
+          }
+          break;
+
+        // For doughnut and pie chart, backgroundColor is set to an array of colors
+        case 'doughnut':
+        case 'pie':
+        case 'polarArea':
+          const index = isMultipleDatasets ? 0 : datasetIndex;
+          colors = this.generateColors(true, dataset.data ? dataset.data.length : 1, index);
+          borderColor = isMultipleDatasets ? this.getComputedVariable('--multi-dataset-border-color', '#fff') : colors.solid;
+          backgroundColor = colors.solid;
+          if (!dataset.borderColor) {
+            dataset.borderColor = borderColor;
+          }
+          if (!dataset.backgroundColor) {
+            dataset.backgroundColor = backgroundColor;
+          }
+          // Add more color if items doesn't enough
+          if (Array.isArray(dataset.borderColor) && Array.isArray(borderColor) && dataset.borderColor.length < borderColor.length) {
+            merge(dataset.borderColor, borderColor);
+          }
+          if (Array.isArray(dataset.backgroundColor) && Array.isArray(backgroundColor) && dataset.backgroundColor.length < backgroundColor.length) {
+            merge(dataset.backgroundColor, backgroundColor);
+          }
+          break;
+
+        // Bar chart backgroundColor is possible to be string or array
+        case 'bar':
+          colors = this.generateColors(!isMultipleDatasets, !isMultipleDatasets && dataset.data ? dataset.data.length : 1, datasetIndex);
+          borderColor = colors.solid;
+          backgroundColor = colors.solid;
+          if (!dataset.borderColor) {
+            dataset.borderColor = colors.solid;
+          }
+          if (!dataset.backgroundColor) {
+            dataset.backgroundColor = colors.solid;
+          }
+          // Add more color if items doesn't enough
+          if (Array.isArray(dataset.borderColor) && Array.isArray(borderColor) && dataset.borderColor.length < borderColor.length) {
+            merge(dataset.borderColor, borderColor);
+          }
+
+          if (Array.isArray(dataset.backgroundColor) && Array.isArray(backgroundColor) && dataset.backgroundColor.length < backgroundColor.length) {
+            merge(dataset.backgroundColor, backgroundColor);
+          }
+          break;
+        // For the other chart
+        default:
+          colors = this.generateColors(false, dataset.data.length, datasetIndex);
+          if (!dataset.borderColor) {
+            dataset.borderColor = colors.solid;
+          }
+          if (!dataset.backgroundColor) {
+            dataset.backgroundColor = colors.opaque;
+          }
+          break;
+      }
+    });
   }
 
   /**
