@@ -34,6 +34,9 @@
     "./checkbox": "./lib/checkbox/index.js",
     "./sub-label": "./lib/sub-label/index.js",
     "./sub-checkbox": "./lib/sub-checkbox/index.js",
+    "./field": "./lib/field/index.js",
+    "./sub-text-field": "./lib/sub-text-field/index.js",
+    "./sub-password-field": "./lib/sub-password-field/index.js",
     "./sub-overlay": "./lib/sub-overlay/index.js"
   },
   "scripts": {
