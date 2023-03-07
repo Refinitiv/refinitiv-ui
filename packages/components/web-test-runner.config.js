@@ -41,5 +41,9 @@ BROWSERS.split(" ").forEach((browser) => {
   }));
 });
 config.browsers = browserLists.flat();
+config.testRunnerHtml = () =>
+  `<html>
+    <link type="text/css" rel="stylesheet" href="./node_modules/@refinitiv-ui/tokens/lib/base.tokens.css">
+  </html>`
 
 module.exports = config;
