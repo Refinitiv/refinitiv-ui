@@ -10,19 +10,31 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
+import { color as parseColor } from '@refinitiv-ui/utils/color.js';
+
+type DatasetColors = {
+  solid: string | string[];
+  opaque: string | string[];
+};
 
 import {
+  legendHelper,
+  ChartDatasetNew,
   merge,
   MergeObject
 } from './helpers/index.js';
 
 import {
-  Chart as ChartJS
+  Chart as ChartJS,
+  Plugin,
+  ChartType,
+  ChartDataset,
+  Color
 // TODO: import only common types and let user registers specific type
 // eslint-disable-next-line import/extensions
 } from 'chart.js/auto';
 
-import type { ChartConfiguration, ChartOptions, UpdateMode } from 'chart.js';
+import type { ChartConfiguration, ChartOptions, UpdateMode, LegendItem } from 'chart.js';
 
 import type { Header } from '../header';
 import '../header/index.js';
@@ -31,12 +43,123 @@ import '../header/index.js';
 export * from 'chart.js';
 
 const CSS_COLOR_PREFIX = '--chart-color-';
+const CHART_TYPE_OPAQUE = ['line', 'bubble', 'radar', 'polarArea'];
+
+declare module 'chart.js' {
+  interface PluginOptionsByType<TType extends ChartType> {
+    efchart?: {
+      enable: boolean
+    }
+  }
+}
 
 /**
  * Charting component that use ChartJS library
  */
 @customElement('ef-chart')
 export class Chart extends BasicElement {
+
+  // TODO: remove any type
+  private plugin (): Plugin {
+    const cssStyle = getComputedStyle(this);
+    // TODO: Try and remove the need for global object modification.
+    // It's easier to cover all areas by modifying the global object,
+    // however, if possible, we should look to try and just modify local configs.
+
+    // Set font globals
+    ChartJS.defaults.color = cssStyle.getPropertyValue('color');
+    ChartJS.defaults.font.family = cssStyle.getPropertyValue('font-family');
+    ChartJS.defaults.font.size = Number(cssStyle.getPropertyValue('font-size').replace('px', ''));
+    ChartJS.defaults.font.style = cssStyle.getPropertyValue('font-style') as 'normal' | 'italic' | 'oblique' | 'initial' | 'inherit' | undefined;
+    // Set global grid color
+    ChartJS.defaults.scale.grid.color = (line) => {
+      return line.index === 0 ? this.getComputedVariable('--zero-line-color', 'transparent') : this.getComputedVariable('--grid-line-color', 'transparent');
+    };
+
+    return {
+      id: 'efchart',
+      beforeInit: (chart: ChartJS) => {
+        const datasets = chart.config.data.datasets;
+        const option: ChartOptions = {
+          animation: {
+            duration: this.cssVarAsNumber('--animation-duration', '0')
+          },
+          elements: {
+            line: {
+              borderWidth: this.cssVarAsNumber('--line-width', '1'),
+              tension: this.cssVarAsNumber('--line-tension', '0.5')
+            }
+          },
+          plugins: {
+            tooltip: {
+              backgroundColor: this.getComputedVariable('--tooltip-background-color', 'transparent'),
+              titleColor: this.getComputedVariable('--tooltip-title-color', 'transparent'),
+              bodyColor: this.getComputedVariable('--tooltip-body-color', 'transparent'),
+              cornerRadius: this.cssVarAsNumber('--tooltip-border-radius', '0'),
+              caretSize: this.cssVarAsNumber('--tooltip-caret-size', '0'),
+              padding: {
+                x: this.cssVarAsNumber('--tooltip-padding-x', '--tooltip-padding', '0'),
+                y: this.cssVarAsNumber('--tooltip-padding-y', '--tooltip-padding', '0')
+              },
+              titleSpacing: this.cssVarAsNumber('--tooltip-title-spacing', '0'),
+              displayColors: false
+            },
+            legend: {
+              position: ['pie', 'doughnut'].includes(this.config?.type || '') ? 'right' : 'top',
+              labels: {
+                boxWidth: this.cssVarAsNumber('--legend-key-box-width', '10'),
+                generateLabels: (chart: ChartJS): LegendItem[] => {
+
+                  if (!this.config?.type) {
+                    return [];
+                  }
+
+                  return datasets.map((dataset, i): LegendItem => {
+                    const solidFill = !CHART_TYPE_OPAQUE.includes(dataset.type || this.config?.type as string);
+                    const usePointStyle = chart.options?.plugins?.legend?.labels?.usePointStyle || false;
+
+                    return {
+                      fontColor: cssStyle.getPropertyValue('color'),
+                      text: dataset.label || '',
+                      fillStyle: legendHelper.getLegendFillStyle(dataset as ChartDatasetNew, usePointStyle, solidFill),
+                      hidden: !chart.isDatasetVisible(i),
+                      lineWidth: Number(dataset.borderWidth) || 0,
+                      strokeStyle: legendHelper.getLegendStrokeStyle(dataset as ChartDatasetNew, usePointStyle),
+
+                      // Below is extra data used for toggling the datasets
+                      datasetIndex: i
+                    };
+                  });
+                }
+              }
+            }
+          }
+        };
+        merge(chart.config.options as unknown as MergeObject, option, true);
+
+        const extendColorsIfRequired = (currentColors: Color, infoColors: Color): void => {
+          if (Array.isArray(currentColors) && Array.isArray(infoColors) && currentColors.length < infoColors.length) {
+            merge(currentColors, infoColors);
+          }
+        };
+
+        datasets.forEach((dataset) => {
+          const info = this.datasetInfo(dataset);
+
+          // make sure that colours are defined for every dataset e.g. when new dataset is added
+          extendColorsIfRequired((dataset as ChartDatasetNew).borderColor, info.borderColor);
+          extendColorsIfRequired((dataset as ChartDatasetNew).backgroundColor, info.backgroundColor);
+          extendColorsIfRequired((dataset as ChartDatasetNew).pointBorderColor, info.pointBorderColor);
+          extendColorsIfRequired((dataset as ChartDatasetNew).pointBackgroundColor, info.pointBackgroundColor);
+
+          dataset.borderColor = dataset.borderColor || info.borderColor;
+          dataset.backgroundColor = dataset.backgroundColor || info.backgroundColor;
+          (dataset as ChartDatasetNew).pointBackgroundColor = (dataset as ChartDatasetNew).pointBackgroundColor || info.pointBackgroundColor;
+          (dataset as ChartDatasetNew).pointBorderColor = (dataset as ChartDatasetNew).pointBorderColor || info.pointBorderColor;
+        });
+      }
+    };
+  }
 
   /**
    * Element version number
@@ -82,6 +205,9 @@ export class Chart extends BasicElement {
       plugins: {
         title: {
           display: false
+        },
+        efchart: {
+          enable: true
         }
       }
     };
@@ -114,6 +240,14 @@ export class Chart extends BasicElement {
     }
 
     return '';
+  }
+
+  /**
+   * Safely returns a dataset array
+   * @returns dataset array
+   */
+  protected get datasets (): ChartDataset[] {
+    return this.config?.data?.datasets || [];
   }
 
   /**
@@ -161,6 +295,15 @@ export class Chart extends BasicElement {
   }
 
   /**
+   * Get as CSS variable and tries to convert it into a usable number
+   * @returns {(number|undefined)} The value as a number, or, undefined if NaN.
+   */
+  protected cssVarAsNumber (...args: string[]): number | undefined {
+    const result = Number(this.getComputedVariable(...args).replace(/\D+$/, ''));
+    return isNaN(result) ? undefined : result;
+  }
+
+  /**
    * Merges all the different layers of the config.
    * @returns {void}
    */
@@ -170,7 +313,7 @@ export class Chart extends BasicElement {
     }
 
     // TODO: unknown type
-    merge(this.config as unknown as MergeObject, { options: this.requiredConfig } as MergeObject, true);
+    merge(this.config as unknown as MergeObject, { plugins: [this.plugin()], options: this.requiredConfig } as MergeObject, true);
   }
 
   /**
@@ -179,6 +322,66 @@ export class Chart extends BasicElement {
    */
   protected decorateConfig (): void {
     this.mergeConfigs();
+  }
+
+  /**
+   * Returns usable information about a dataset
+   * @param {ChartDataset} dataset Chart dataset
+   * @returns {Chart.ChartDataSets} Information about the dataset
+   */
+  protected datasetInfo (dataset: ChartDataset): ChartDatasetNew {
+    const type = dataset.type || this.config?.type;
+    let index = this.datasets.indexOf(dataset);
+    const isColorArray = (!!type && ['pie', 'doughnut', 'polarArea'].includes(type)) || type === 'bar' && this.datasets.length === 1;
+    const isSolidFill = !!type && !CHART_TYPE_OPAQUE.includes(type);
+
+    // Doughnut chart using same color sequence for each data in datasets
+    let borderColor = null;
+    if (['pie', 'doughnut'].includes(type as string) && this.datasets.length > 1) {
+      index = 0;
+      borderColor = this.getComputedVariable('--multi-dataset-border-color', '#fff');
+    }
+
+    const colors = this.generateColors(isColorArray, isColorArray && dataset.data ? dataset.data.length : 1, index);
+
+    return {
+      type,
+      borderColor: borderColor || colors.solid as Color,
+      backgroundColor: isSolidFill ? colors.solid as Color : colors.opaque as Color,
+      pointBorderColor: colors.solid as Color,
+      pointBackgroundColor: colors.solid as Color
+    } as ChartDatasetNew;
+  }
+
+  /**
+   * Generates internal solid and opaque color set for a dataset
+   * @param {boolean} isArray Flag to return result in array or not e.g. doughnut, pie, etc
+   * @param {number} amount Amount of colors required
+   * @param {number} shift Positional shift of the color start point
+   * @returns {DatasetColors} Solid and opaque color values
+   */
+  protected generateColors (isArray: boolean, amount: number, shift: number): DatasetColors {
+    let color;
+    const solid = [];
+    const opaque = [];
+    const alpha = Number(this.getComputedVariable('--fill-opacity', '0.2'));
+
+    amount = isArray ? amount : 1;
+
+    for (let i = shift; i < amount + shift; i++) {
+      color = this.colors[i % this.colors.length];
+      solid.push(color);
+
+      const opaqueColor = parseColor(color);
+      if (opaqueColor) {
+        opaqueColor.opacity = alpha;
+        opaque.push(opaqueColor.toString());
+      }
+    }
+    return {
+      solid: isArray ? solid : solid[0],
+      opaque: isArray ? opaque : opaque[0]
+    };
   }
 
   /**

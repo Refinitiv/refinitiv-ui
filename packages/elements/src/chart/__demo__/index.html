@@ -14,135 +14,41 @@
     import '@refinitiv-ui/demo-block';
   </script>
 
-  <demo-block layout="normal" header="Basic line">
+  <demo-block layout="normal" header="Area Chart - No Legend">
     <ef-chart id="line"></ef-chart>
     <script>
       const line = document.getElementById('line');
-      const data = [
-        { year: 'ABC', count: 10 },
-        { year: 'BEC', count: 20 },
-        { year: 'DEF', count: 15 },
-        { year: 'FBA', count: 25 }
-      ];
-      const data2 = [
-        { year: 'ABC', count: 30 },
-        { year: 'BEC', count: 15 },
-        { year: 'DEF', count: 10 },
-        { year: 'FBA', count: 15 }
-      ];
-
-      const config = {
-        type: 'bar',
-        data: {
-          labels: data.map(row => row.year),
-          datasets: [
-            {
-              label: 'Acquisitions by year',
-              data: data.map(row => row.count),
-              backgroundColor: 'rgb(0, 0, 0)'
-            },
-            {
-              label: 'Acquisitions by year(2)',
-              data: data2.map(row => row.count)
-            }
-          ]
-        },
-        options: {
-          response: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              ticks: {
-                font: {
-                  family: 'Comic Sans MS'
-                }
-              }
-            },
-            x: {
-              ticks: {
-                font: {
-                  family: 'Comic Sans MS'
-                }
-              }
-            }
-          },
-          plugins: {
-            // colors: {
-            //   enabled: true,
-            //   // data: {
-            //   //   datasets: [{
-            //   //     backgroundColor: 'rgb(255, 0, 0)',
-            //   //   }, {
-            //   //     backgroundColor: 'rgb(255, 150, 0)',
-            //   //   }, {
-            //   //     backgroundColor: 'rgb(255, 255, 0)',
-            //   //   }, {
-            //   //     backgroundColor: 'rgb(150, 255, 0)',
-            //   //   }]
-            // },
-            title: {
-              display: true,
-              text: 'Hello world',
-              font: {
-                family: 'Comic Sans MS'
-              }
-            },
-            legend: {
-              labels: {
-                font: {
-                  family: 'Comic Sans MS'
-                }
-              }
-            },
-            tooltip: {
-              titleFont: {
-                family: 'Comic Sans MS'
-              },
-              bodyFont: {
-                family: 'Comic Sans MS'
-              },
-              footerFont: {
-                family: 'Comic Sans MS'
-              }
-            }
-          },
-        }
-      };
-      line.config = config;
-    </script>
-  </demo-block>
-  <!-- <demo-block layout="normal" header="Line Chart - No Legend">
-    <ef-chart id="line"></ef-chart>
-    <script>
-      var line = document.getElementById('line');
       line.config = {
         type: 'line',
         data: {
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
           datasets: [{
             label: 'Price',
-            data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09]
+            data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09],
+            fill: true
           }]
         },
         options: {
-          title: {
-            text: 'Price of TRI.N in 2016'
-          },
-          legend: {
-            display: false // not display legend
+          plugins: {
+            title: {
+              text: 'Price of TRI.N in 2016'
+            },
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: (tooltipItem) => {
+                  return tooltipItem.formattedValue + ' $';
+                }
+              }
+            }
           },
           scales: {
-            yAxes: [{
-              scaleLabel: {
+            y: {
+              title: {
                 display: true,
-                labelString: 'Price ($)'
-              }
-            }]
-          },
-          tooltips: {
-            callbacks: {
-              label: function (tooltipItem, data) {
-                return tooltipItem.yLabel + ' $';
+                text: 'Price ($)'
               }
             }
           }
@@ -154,29 +60,25 @@
   <demo-block layout="normal" header="Multi-line Chart">
     <ef-chart id="multipleLines"></ef-chart>
     <script>
-      var multipleLines = document.getElementById('multipleLines');
-      var multipleLinesDatasets = [{
+      const multipleLines = document.getElementById('multipleLines');
+      const multipleLinesDatasets = [{
         label: '.DJI',
         data: [16466, 16517, 17685, 17774, 17787, 17930, 18432],
-        fill: false,
         pointBackgroundColor: 'transparent',
         pointBorderColor: 'transparent'
       }, {
         label: '.N225',
         data: [17518, 16027, 16759, 16666, 17235, 15576, 16569],
-        fill: false,
         pointBackgroundColor: 'transparent',
         pointBorderColor: 'transparent'
       }, {
         label: '.FTMIB',
         data: [18657, 17623, 18117, 18601, 18025, 16198, 16847],
-        fill: false,
         pointBackgroundColor: 'transparent',
         pointBorderColor: 'transparent'
       }, {
         label: '.HSI',
         data: [19683, 19112, 20777, 21067, 20815, 20794, 21891],
-        fill: false,
         pointBackgroundColor: 'transparent',
         pointBorderColor: 'transparent'
       }];
@@ -187,29 +89,21 @@
           datasets: multipleLinesDatasets
         },
         options: {
-          title: {
-            text: 'Top Equity Indices 2016 Review'
-          },
-          scales: {
-            yAxes: [{
-              ticks: {
-                stepSize: 1000,
-                callback: function (label, index) {
-                  return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          plugins: {
+            title: {
+              text: 'Top Equity Indices 2016 Review'
+            },
+            tooltip: {
+              callbacks: {
+                title: (tooltipItems) => {
+                  return multipleLinesDatasets[tooltipItems[0].datasetIndex].label;
+                },
+                label: (tooltipItem) => {
+                  const month = tooltipItem.label;
+                  let value = tooltipItem.raw;
+                  value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                  return month + ': ' + value;
                 }
-              }
-            }]
-          },
-          tooltips: {
-            callbacks: {
-              title: function (tooltipItems, data) {
-                return data.datasets[tooltipItems[0].datasetIndex].label;
-              },
-              label: function (tooltipItem, data) {
-                var month = tooltipItem.xLabel;
-                var value = tooltipItem.yLabel;
-                value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                return month + ': ' + value;
               }
             }
           }
@@ -221,7 +115,7 @@
   <demo-block layout="normal" header="Bar Chart">
     <ef-chart id="bar"></ef-chart>
     <script>
-      var bar = document.getElementById('bar');
+      const bar = document.getElementById('bar');
       bar.config = {
         type: 'bar',
         data: {
@@ -238,35 +132,37 @@
           }]
         },
         options: {
-          title: {
-            text: 'Revenue of GOOGL.O, AAPL.O and MSFT.O'
+          plugins: {
+            title: {
+              text: 'Revenue of GOOGL.O, AAPL.O and MSFT.O'
+            },
+            tooltip: {
+              callbacks: {
+                title: (tooltipItems) => {
+                  return 'Revenue';
+                },
+                label: (tooltipItem) => {
+                  const year = tooltipItem.label;
+                  let rev = tooltipItem.raw;
+                  rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                  return year + ': ' + rev;
+                }
+              }
+            }
           },
           scales: {
-            yAxes: [{
+            y: {
+              min: 0,
+              max: 180000,
               ticks: {
-                min: 0,
-                max: 180000,
                 stepSize: 30000,
-                callback: function (label, index) {
+                callback: (label, index) => {
                   return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                 }
               },
-              scaleLabel: {
+              title: {
                 display: true,
-                labelString: 'Revenue (in millions $)'
-              }
-            }]
-          },
-          tooltips: {
-            callbacks: {
-              title: function (tooltipItems, data) {
-                return 'Revenue';
-              },
-              label: function (tooltipItem, data) {
-                var year = tooltipItem.xLabel;
-                var rev = tooltipItem.yLabel;
-                rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                return year + ': ' + rev;
+                text: 'Revenue (in millions $)'
               }
             }
           }
@@ -278,7 +174,7 @@
   <demo-block layout="normal" header="Bar Chart - Single dataset">
     <ef-chart id="singleSetBar"></ef-chart>
     <script>
-      var singleSetBar = document.getElementById('singleSetBar');
+      const singleSetBar = document.getElementById('singleSetBar');
       singleSetBar.config = {
         type: 'bar',
         data: {
@@ -290,11 +186,9 @@
         },
         options: {
           scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
+            y: {
+              beginAtZero: true
+            }
           }
         }
       };
@@ -304,7 +198,8 @@
   <demo-block layout="normal" header="Bar Chart - Single dataset (Mono Colour)">
     <ef-chart id="singleSetBarMono"></ef-chart>
     <script>
-      var singleSetBarMono = document.getElementById('singleSetBarMono');
+      const singleSetBarMono = document.getElementById('singleSetBarMono');
+      // TODO: why we need this customElements? setTimeout?
       customElements.whenDefined('ef-chart').then(() => {
         setTimeout(() => {
           singleSetBarMono.config = {
@@ -319,11 +214,9 @@
             },
             options: {
               scales: {
-                yAxes: [{
-                  ticks: {
-                    beginAtZero: true
-                  }
-                }]
+                y: {
+                  beginAtZero: true
+                }
               }
             }
           };
@@ -336,7 +229,7 @@
   <demo-block layout="normal" header="Stacked Bar Chart">
     <ef-chart id="stackedBar"></ef-chart>
     <script>
-      var stackedBar = document.getElementById('stackedBar');
+      const stackedBar = document.getElementById('stackedBar');
       stackedBar.config = {
         type: 'bar',
         data: {
@@ -353,38 +246,40 @@
           }]
         },
         options: {
-          title: {
-            text: 'Revenue of GOOGL.O, AAPL.O and MSFT.O'
+          plugins: {
+            title: {
+              text: 'Revenue of GOOGL.O, AAPL.O and MSFT.O'
+            },
+            tooltip: {
+              callbacks: {
+                title: (tooltipItems) => {
+                  return tooltipItems[0].chart.data.datasets[tooltipItems[0].datasetIndex].label;
+                },
+                label: function (tooltipItem, data) {
+                  const year = tooltipItem.label;
+                  let rev = tooltipItem.raw;
+                  rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                  return year + ': ' + rev;
+                }
+              }
+            }
           },
           scales: {
-            xAxes: [{
+            x: {
               stacked: true
-            }],
-            yAxes: [{
+            },
+            y: {
+              min: 0,
               stacked: true,
               ticks: {
-                min: 0,
                 stepSize: 50000,
-                callback: function (label, index) {
+                callback: (label, index) => {
                   return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                 }
               },
-              scaleLabel: {
+              title: {
                 display: true,
-                labelString: 'Revenue (in millions $)'
-              }
-            }]
-          },
-          tooltips: {
-            callbacks: {
-              title: function (tooltipItems, data) {
-                return data.datasets[tooltipItems[0].datasetIndex].label;
-              },
-              label: function (tooltipItem, data) {
-                var year = tooltipItem.xLabel;
-                var rev = tooltipItem.yLabel;
-                rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                return year + ': ' + rev;
+                text: 'Revenue (in millions $)'
               }
             }
           }
@@ -396,19 +291,19 @@
   <demo-block layout="normal" header="Combo Chart - Bar &amp; Line">
     <ef-chart id="combo"></ef-chart>
     <script>
-      var comboDatasets = [{
+      const comboDatasets = [{
         type: 'line',
         label: 'Price',
         data: [37.40, 36.60, 40.48, 41.13, 42.05, 40.42],
-        yAxisID: 'y-axis-1',
-        fill: true // not fill the area under the line
+        yAxisID: 'yAxis1',
+        fill: true
       }, {
         type: 'bar',
         label: 'Volume',
         data: [8.09, 8.79, 7.77, 6.77, 6.52, 6.77],
-        yAxisID: 'y-axis-2'
+        yAxisID: 'yAxis2'
       }];
-      var combo = document.getElementById('combo');
+      const combo = document.getElementById('combo');
       combo.config = {
         type: 'bar',
         data: {
@@ -416,61 +311,65 @@
           datasets: comboDatasets
         },
         options: {
-          title: {
-            text: 'Price & Volume of TRI.N in 2016'
+          plugins: {
+            title: {
+              text: 'Price & Volume of TRI.N in 2016'
+            },
+            tooltip: {
+              callbacks: {
+                title: (tooltipItems) => {
+                  return 'TRI.N';
+                },
+                label: (tooltipItem, data) => {
+                  const yLabel = tooltipItem.raw;
+                  if (tooltipItem.datasetIndex === 0) {
+                    return 'Price: ' + yLabel;
+                  }
+                  else {
+                    return 'Volume: ' + yLabel + 'M';
+                  }
+                }
+              }
+            }
           },
           scales: {
-            yAxes: [{
+            y: {
+              display: false
+            },
+            yAxis1: {
               display: true,
               position: 'left',
-              id: 'y-axis-1',
+              min: 36,
+              max: 43,
               ticks: {
-                min: 36,
-                max: 43,
                 stepSize: 1
               },
-              scaleLabel: {
+              title: {
                 display: true,
-                labelString: 'Price ($)'
+                text: 'Price ($)'
               }
-            }, {
+            },
+            yAxis2: {
               display: true,
               position: 'right',
-              id: 'y-axis-2',
-              gridLines: {
+              grid: {
                 drawOnChartArea: false // only want the grid lines for one axis to show up
               },
+              min: 6.0,
+              max: 9.5,
               ticks: {
-                min: 6.0,
-                max: 9.5,
                 stepSize: 0.5,
-                callback: function (label, index) {
-                  var val = label.toString();
+                callback: (label, index) => {
+                  let val = label.toString();
                   if (val.indexOf('.') === -1) {
                     val += '.0';
                   }
                   return val + 'M';
                 }
               },
-              scaleLabel: {
+              title: {
                 display: true,
-                labelString: 'Volume'
-              }
-            }]
-          },
-          tooltips: {
-            callbacks: {
-              title: function (tooltipItems, data) {
-                return 'TRI.N';
-              },
-              label: function (tooltipItem, data) {
-                var yLabel = tooltipItem.yLabel;
-                if (tooltipItem.datasetIndex === 0) {
-                  return 'Price: ' + yLabel;
-                }
-                else {
-                  return 'Volume: ' + yLabel + 'M';
-                }
+                text: 'Volume'
               }
             }
           }
@@ -479,7 +378,7 @@
     </script>
   </demo-block>
 
-  <demo-block layout="normal" header="Pie Chart">
+  <!-- <demo-block layout="normal" header="Pie Chart">
     <ef-chart id="pie"></ef-chart>
     <script>
       var pieDatasets = [{
