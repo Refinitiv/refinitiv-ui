@@ -55,7 +55,7 @@ describe('checkbox/Checkbox', () => {
     });
     it('contains the correct label', async () => {
       el = await fixture(unchecked);
-      expect(el.textContent.trim()).to.equal(label, 'correct text');
+      expect(el.textContent.trim()).to.equal(LABEL, 'correct text');
     });
     it('should show label when updated a label with contents', async () => {
       el = await fixture(noLabel);
