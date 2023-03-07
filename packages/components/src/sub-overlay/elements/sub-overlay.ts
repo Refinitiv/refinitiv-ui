@@ -248,7 +248,7 @@ export class Overlay extends ResponsiveElement {
       }
 
       &[transition-style] {
-        animation-duration: var(--global-transition-duration);
+        animation-duration: var(--ds-global-transition-duration);
       }
 
       &[with-shadow] {
