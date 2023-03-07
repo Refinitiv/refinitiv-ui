@@ -23,15 +23,15 @@ export class Checkbox extends ControlElement {
   static get styles (): CSSResultGroup {
     return css`
       :host {
-        display: inline-flex;
+        display: inline-block;
+        padding: var(--ds-checkbox-padding);
       }
       :host(:focus-visible) {
         outline: var(--ds-checkbox-focus-border);
       }
       [part='label'] {
         cursor: default;
-        display: inline-flex;
-        align-items: center;
+        padding-left: var(--ds-control-padding);
       }
     `;
   }
@@ -107,7 +107,7 @@ export class Checkbox extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-      <ds-sub-checkbox tabindex="-1" aria-labelledby="label" ?checked=${this.checked}></ds-sub-checkbox>
+      <ds-sub-checkbox part="checkbox" tabindex="-1" aria-labelledby="label" ?checked=${this.checked}></ds-sub-checkbox>
       <ds-sub-label id="label" part="label"><slot></slot></ds-sub-label>
     `;
   }
