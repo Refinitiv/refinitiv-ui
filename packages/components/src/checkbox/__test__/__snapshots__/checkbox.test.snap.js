@@ -3,6 +3,7 @@ export const snapshots = {};
 
 snapshots["checkbox/Checkbox Basic Structure And State DOM structure is correct"] = 
 `<ds-sub-checkbox
+  aria-checked="false"
   aria-labelledby="label"
   part="checkbox"
   role="checkbox"
