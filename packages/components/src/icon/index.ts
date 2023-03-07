@@ -52,6 +52,26 @@ export class Icon extends BasicElement {
         width: 100%;
         height: 100%;
       }
+      g[fill]:not([fill=none]),
+      path[fill]:not([fill=none]),
+      rect[fill]:not([fill=none]),
+      line[fill]:not([fill=none]),
+      circle[fill]:not([fill=none]),
+      ellipse[fill]:not([fill=none]),
+      polyline[fill]:not([fill=none]),
+      polygon[fill]:not([fill=none]) {
+        fill: currentColor;
+      }
+      g[stroke]:not([stroke=none]),
+      path[stroke]:not([stroke=none]),
+      rect[stroke]:not([stroke=none]),
+      line[stroke]:not([stroke=none]),
+      circle[stroke]:not([stroke=none]),
+      ellipse[stroke]:not([stroke=none]),
+      polyline[stroke]:not([stroke=none]),
+      polygon[stroke]:not([stroke=none]) {
+        stroke: currentColor;
+      }
     `;
   }
 

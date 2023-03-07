@@ -47,6 +47,7 @@ export class SubCheckbox extends ControlElement {
       visibility: hidden;
     }
     [part=icon] {
+      font-size: initial;
       width: 100%;
       height: 100%;
     }
