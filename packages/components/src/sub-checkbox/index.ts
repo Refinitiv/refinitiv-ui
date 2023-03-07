@@ -45,6 +45,8 @@ export class SubCheckbox extends ControlElement {
       outline: var(--ds-checkbox-focus-border);
     }
     [part=check] {
+      width: 100%;
+      height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -55,8 +57,6 @@ export class SubCheckbox extends ControlElement {
       height: 100%;
     }
     :host([checked]) [part=check] {
-      width: 100%;
-      height: 100%;
       visibility: inherit;
     }
     [disabled] {
