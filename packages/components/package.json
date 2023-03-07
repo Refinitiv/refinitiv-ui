@@ -33,7 +33,8 @@
     "./icon": "./lib/icon/index.js",
     "./checkbox": "./lib/checkbox/index.js",
     "./sub-label": "./lib/sub-label/index.js",
-    "./sub-checkbox": "./lib/sub-checkbox/index.js"
+    "./sub-checkbox": "./lib/sub-checkbox/index.js",
+    "./sub-overlay": "./lib/sub-overlay/index.js"
   },
   "scripts": {
     "build": "node cli build --sourceMap --declarationMap",

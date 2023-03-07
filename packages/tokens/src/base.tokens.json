@@ -111,5 +111,12 @@
         }
       }
     }
+  },
+  "overlay": {
+    "background": {
+      "color": {
+        "$value": "{grey.50}"
+      }
+    }
   }
 }
