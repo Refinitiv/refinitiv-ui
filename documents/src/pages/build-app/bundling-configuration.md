@@ -1,11 +1,11 @@
 <!--
 type: page
-title: Bundling Configuration
+title: Bundling Configuration Guide
 location: ./guides/bundling-configuration
 layout: default
 -->
 
-# Bundling Configuration
+# Bundling Configuration Guide
 EF elements are Web Component. They can be used with JavaScript frameworks or without a framework. This guideline provides how you can use EF elements with bundling tool.
 
 ## Vite
