@@ -225,6 +225,6 @@ export class SubTextField extends FormFieldElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sub-text-field': SubTextField;
+    'ds-sub-text-field': SubTextField;
   }
 }
