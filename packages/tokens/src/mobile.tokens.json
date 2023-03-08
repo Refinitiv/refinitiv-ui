@@ -2,12 +2,12 @@
   "$type": "dimension",
   "font": {
     "size": {
-      "$value": "28px"
+      "$value": "20px"
     }
   },
   "control": {
     "size": {
-      "$value": "32px"
+      "$value": "28px"
     },
     "padding": {
       "$value": "6px"
