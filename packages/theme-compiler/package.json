@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.2",
+    "browserslist": "^4.21.5",
     "chalk": "^4.1.1",
     "clean-css": "^4.2.1",
     "css-select": "^5.1.0",
