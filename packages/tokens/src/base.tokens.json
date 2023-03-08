@@ -32,6 +32,12 @@
       "$value": "20px"
     }
   },
+  "transition": {
+    "duration": {
+      "$type": "duration",
+      "$value": "200ms"
+    }
+  },
   "control": {
     "size": {
       "$type": "dimension",
@@ -115,8 +121,14 @@
   "overlay": {
     "background": {
       "color": {
-        "$value": "{grey.50}"
+        "$value": "{background.color}"
       }
+    },
+    "opacity": {
+      "$value": "0.6"
+    },
+    "box-shadow": {
+      "$value": "rgb(0 0 0 / 25%) 0px 2px 8px"
     }
   }
 }
