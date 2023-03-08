@@ -3,9 +3,14 @@ const dependencyPattern = new RegExp(`${prefix.source}|\\.less$`, 'g');
 const ElementsFileManager = require('./fileManager');
 const NpmImportPlugin = require('less-plugin-npm-import');
 const LessPluginInlineSvg = require('./less-plugin-inline-svg');
-const autoprefixer = require('postcss')().use(require('autoprefixer'));
 const clean = new (require('clean-css'))({ returnPromise: true, level: '2' });
 const path = require('path');
+const browserslist = require('browserslist');
+
+// PostCss processor, setup Autoprefixer and Browserslist configurations
+const browserListConfig = browserslist.findConfig(process.cwd()); // Get config on current directory of node process path
+const autoPrefixerConfig = browserListConfig && browserListConfig.defaults.length ? { overrideBrowserslist: browserListConfig.defaults } : {};
+const processor = require('postcss')().use(require('autoprefixer')(autoPrefixerConfig));
 
 /**
  * Return injector code in form of string
@@ -22,7 +27,7 @@ const wrap = (name, style, isEvent) => {
   return `elf.${eventName}Styles.define('${name}', '${style.replace(/'/g, '\\\'')}');\n`;
 }
 
-const cleanCSS = css => autoprefixer.process(css, { from: false })
+const cleanCSS = css => processor.process(css, { from: false })
 .then(o => clean.minify(o.css)).then(o => o.styles);
 
 const wrapHostSelectors = css => Promise
@@ -89,7 +94,7 @@ const getElementNameFromLess = (filename) => {
 /**
  * Return object that use for parser
  * @param {string} filename element source
- * @param {string} output less file source 
+ * @param {string} output less file source
  * @param {string} variables option variables that include using event condition
  * @returns {object}
  */
