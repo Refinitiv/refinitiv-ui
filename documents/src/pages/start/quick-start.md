@@ -50,7 +50,7 @@ Start using components by importing their definitions and themes in your HTML fi
 ::proximanovawarning::
 
 ## Build your first app
-Start building your first application using EF with your favourite frameworks: [Angular](./tutorials/angular), [React](./tutorials/react), [Vue](./tutorials/vue) or without using framework, [Vanilla](./tutorials/vanilla-js).
+Start building your first application using EF with your favourite frameworks: [Angular](./tutorials/angular), [React](./tutorials/react), [Vue](./tutorials/vue). For bundling guideline, see [Bundling Configuration](./guides/bundling-configuration).
 
 
 ::footer::
