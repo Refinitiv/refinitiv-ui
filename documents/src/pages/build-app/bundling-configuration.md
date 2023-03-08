@@ -1,6 +1,6 @@
 <!--
 type: page
-title: Bundling Configuration Guide
+title: Bundling Configuration
 location: ./guides/bundling-configuration
 layout: default
 -->
