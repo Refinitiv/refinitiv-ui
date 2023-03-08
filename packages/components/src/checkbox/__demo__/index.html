@@ -1,36 +1,25 @@
 <!DOCTYPE html>
 <html lang="en-GB">
-
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link type="text/css" rel="stylesheet" media="" href="../../../node_modules/@refinitiv-ui/tokens/lib/base.tokens.css">
-  <link type="text/css" rel="stylesheet" media="(max-width: 768px)"
-    href="../../../node_modules/@refinitiv-ui/tokens/lib/mobile.tokens.css">
-  <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)"
-    href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.palette.css">
-  <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: light)"
-    href="../../../node_modules/@refinitiv-ui/tokens/lib/light.palette.css">
-  <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
-  <title>Checkbox</title>
-</head>
-<style>
-  body {
-    font-size: var(--ds-font-size);
-    color: var(--ds-text-body-color);
-    background-color: var(--ds-background-color);
-    will-change: background-color;
-    transition: background-color 100ms;
-  }
-</style>
-
-<body>
-  <script type="module">
-    import '@refinitiv-ui/elements/checkbox';
-  </script>
-  <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
-  <ds-checkbox>Unchecked</ds-checkbox>
-  <ds-checkbox checked>Checked</ds-checkbox>
-</body>
-
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link type="text/css" rel="stylesheet" media="" href="../../../node_modules/@refinitiv-ui/tokens/lib/base.tokens.css">
+    <link type="text/css" rel="stylesheet" media="(max-width: 768px)"
+      href="../../../node_modules/@refinitiv-ui/tokens/lib/mobile.tokens.css">
+    <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)"
+      href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.palette.css">
+    <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: light)"
+      href="../../../node_modules/@refinitiv-ui/tokens/lib/light.palette.css">
+    <link type="text/css" rel="stylesheet" href="./src/demo.css">
+    <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
+    <title>Checkbox</title>
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/checkbox';
+    </script>
+    <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
+    <ds-checkbox>Unchecked</ds-checkbox>
+    <ds-checkbox checked>Checked</ds-checkbox>
+  </body>
 </html>
