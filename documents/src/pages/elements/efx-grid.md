@@ -5,14 +5,14 @@ location: ./elements/grid
 layout: default
 -->
 
-@> Plugins are components that built with Element Framework by **Developer Community**. This component is built and maintained by dedicate team who is specialised on Grid.
-@> Contact [Grid Support](mailto:grid-support@lseg.com) for helps and supports.
-
 # Grid
 
 EFX Grid provides simple ways to display and manipulate data in table layout. All HTML native properties and events are available in EFX Grid.
 
+!> Grid is only available to active Refinitiv Subscription License holders. For more information, please check [the license](https://refinitiv.github.io/efx-grid/book/en/license.html)
+
 ## Installation
+
 EFX Grid element and extensions are published under single package.
 
 ```bash
@@ -26,9 +26,11 @@ npm install @refinitiv-ui/halo-theme
 ```
 
 ## Documentation
+
 See list of APIs, demo and more usage guide by visiting [EFX Grid document](https://refinitiv.github.io/efx-grid)
 
 ## Usage
+
 Import EFX Grid and its themes into your application. To follow Refinitiv design system, it is required styles of some native elements e.g. typography.
 
 ```javascript
@@ -55,7 +57,6 @@ Now the EFX Grid can be easily created by just writing the tag and setting the c
 </body>
 ```
 
-## License
-You can check out the full license [here](https://refinitiv.github.io/efx-grid/book/en/license.html)
+## Support
 
-
+Grid is one of plugins built with Element Framework by **Developer Community**. This component is built and maintained by dedicate team who is specialised on Grid. Contact [Grid Support](mailto:grid-support@lseg.com) for helps and supports.
