@@ -57,8 +57,7 @@ export class Item extends ControlElement {
         align-items: center;
         cursor: pointer;
         box-sizing: border-box;
-        padding: 0 var(--ds-item-padding);
-        min-height: var(--ds-item-min-height);
+        padding: var(--ds-item-padding);
       }
       [part=checkbox] {
         pointer-events: none;
@@ -83,6 +82,22 @@ export class Item extends ControlElement {
       :host([focused]),
       :host([highlighted]) {
         background-color: var(--ds-item-focus-background-color);
+      }
+      :host[type="header"] {
+        color: var(--ds-item-header-text-color);
+        background-color: var(--ds-item-header-background-color);
+        font-size: var(--ds-item-header-font-size);
+        font-weight: var(--ds-item-header-font-weight);
+        border: var(--ds-item-header-boder);
+        align-items: flex-end;
+        margin: 0;
+        min-height: 0;
+        text-transform: uppercase;
+      }
+      :host[type="divider"] {
+        border: none;
+        padding: 0;
+        margin: 0;
       }
     `;
   }

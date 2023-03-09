@@ -247,11 +247,11 @@ export class Overlay extends ResponsiveElement {
         border-color: transparent !important;
       }
 
-      &[transition-style] {
+      :host([transition-style]) {
         animation-duration: var(--ds-transition-duration);
       }
 
-      &[with-shadow] {
+      :host([with-shadow]) {
         box-shadow: var(--ds-overlay-box-shadow);
       }
     `;
