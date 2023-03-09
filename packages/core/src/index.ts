@@ -5,6 +5,7 @@ export {
   html,
   svg,
   css,
+  nothing,
   unsafeCSS,
   render
 } from 'lit';

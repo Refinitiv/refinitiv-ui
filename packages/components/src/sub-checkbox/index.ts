@@ -138,3 +138,9 @@ export class SubCheckbox extends ControlElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ds-sub-checkbox': SubCheckbox;
+  }
+}
