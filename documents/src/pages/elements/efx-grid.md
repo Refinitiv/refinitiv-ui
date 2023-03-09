@@ -9,7 +9,7 @@ layout: default
 
 EFX Grid provides simple ways to display and manipulate data in table layout. All HTML native properties and events are available in EFX Grid.
 
-!> Grid is only available to active Refinitiv Subscription License holders. For more information, please check [the license](https://refinitiv.github.io/efx-grid/book/en/license.html)
+!> Grid is only available to active Refinitiv Subscription License holders. For more information, please check [the license](https://refinitiv.github.io/efx-grid/book/en/license.html).
 
 ## Installation
 
