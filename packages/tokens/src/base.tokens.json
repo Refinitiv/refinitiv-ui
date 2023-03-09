@@ -113,14 +113,12 @@
       },
       "border": {
         "color": {
-          "$type": "color",
           "$value": "{grey.300}"
         }
       }
     },
     "focus": {
       "color": {
-        "$type": "color",
         "$value": "{primary.color}"
       },
       "border": {
@@ -180,6 +178,7 @@
       "$value": "{control.size}"
     },
     "width": {
+      "$type": "dimension",
       "$value": "152px"
     },
     "padding": {
