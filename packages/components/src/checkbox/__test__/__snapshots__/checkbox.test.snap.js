@@ -7,7 +7,7 @@ snapshots["checkbox/Checkbox Basic Structure And State DOM structure is correct"
   aria-labelledby="label"
   part="checkbox"
   role="checkbox"
-  tabindex="-1"
+  tabindex="0"
 >
 </ds-sub-checkbox>
 <ds-sub-label
