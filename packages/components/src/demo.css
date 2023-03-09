@@ -1,4 +1,5 @@
 body {
+  padding: 24px;
   font-size: var(--ds-font-size);
   font-family: var(--ds-font-family);
   color: var(--ds-text-body-color);
