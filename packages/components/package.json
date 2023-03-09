@@ -38,7 +38,8 @@
     "./field": "./lib/field/index.js",
     "./sub-text-field": "./lib/sub-text-field/index.js",
     "./sub-password-field": "./lib/sub-password-field/index.js",
-    "./sub-overlay": "./lib/sub-overlay/index.js"
+    "./sub-overlay": "./lib/sub-overlay/index.js",
+    "./sub-item": "./lib/sub-item/index.js"
   },
   "scripts": {
     "build": "node cli build --sourceMap --declarationMap",

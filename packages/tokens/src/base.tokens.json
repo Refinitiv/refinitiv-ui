@@ -130,5 +130,23 @@
     "box-shadow": {
       "$value": "rgb(0 0 0 / 25%) 0px 2px 8px"
     }
+  },
+  "item": {
+    "size": {
+      "$value": "{control.size}"
+    },
+    "padding": {
+      "$value": "{control.padding}"
+    },
+    "focus": {
+      "border": {
+        "$value": "{control.focus.border}"
+      },
+      "background": {
+        "color": {
+          "$value": "{primary.color}"
+        }
+      }
+    }
   }
 }

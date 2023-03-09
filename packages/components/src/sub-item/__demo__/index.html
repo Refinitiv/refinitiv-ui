@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sub Item</title>
+    <link type="text/css" rel="stylesheet" media="" href="../../../node_modules/@refinitiv-ui/tokens/lib/base.tokens.css">
+    <link type="text/css" rel="stylesheet" media="(max-width: 768px)"
+        href="../../../node_modules/@refinitiv-ui/tokens/lib/mobile.tokens.css">
+    <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)"
+        href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.palette.css">
+    <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: light)"
+        href="../../../node_modules/@refinitiv-ui/tokens/lib/light.palette.css">
+    <link type="text/css" rel="stylesheet" href="src/demo.css">
+    <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
+    <style>
+      .truncated {
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/sub-item';
+    </script>
+    <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
+    <demo-block header="Label, content and types usage" layout="normal" tags="header,divider,label,truncated">
+      <ds-sub-item type="header" label="Header Label"></ds-sub-item>
+      <ds-sub-item type="header">Header Content</ds-sub-item>
+      <ds-sub-item type="header" label="Header label">Header Content with label</ds-sub-item>
+      <ds-sub-item class="truncated" type="header" label="Header label">Header Content  with label will be truncated. Header Content  with label will be truncated</ds-sub-item>
+      <ds-sub-item type="divider"></ds-sub-item>
+      <ds-sub-item label="Label Content"></ds-sub-item>
+      <ds-sub-item label="This text should not be displayed">Item Content with label</ds-sub-item>
+      <ds-sub-item>Long content inside item that should not be truncated</ds-sub-item>
+      <ds-sub-item type="divider"></ds-sub-item>
+      <ds-sub-item class="truncated" label="This long label will be truncated at some point"></ds-sub-item>
+      <ds-sub-item class="truncated" label="Item Label">This long Content with Label will be truncated at some point</ds-sub-item>
+      <ds-sub-item class="truncated">This long content will be truncated at some point</ds-sub-item>
+    </demo-block>
+    <demo-block header="Usage" layout="normal" tags="icon,disabled,selected,type,highlighted,readonly,divider">
+      <ds-sub-item icon="menu">Item with icon</ds-sub-item>
+      <ds-sub-item disabled icon="tick">Disabled item with icon</ds-sub-item>
+      <ds-sub-item type="divider"></ds-sub-item>
+      <ds-sub-item selected>Selected Item</ds-sub-item>
+      <ds-sub-item highlighted>Highlighted Item</ds-sub-item>
+      <ds-sub-item type="divider"></ds-sub-item>
+      <ds-sub-item disabled>Disabled Item</ds-sub-item>
+      <ds-sub-item readonly>Readonly Item</ds-sub-item>
+      <ds-sub-item type="divider"></ds-sub-item>
+      <ds-sub-item multiple>Multiple Item</ds-sub-item>
+      <ds-sub-item multiple selected>Multiple Selected Item</ds-sub-item>
+      <ds-sub-item type="divider"></ds-sub-item>
+    </demo-block>
+    <demo-block header="Slots and icons" layout="normal" tags="slots,icon">
+      <ds-sub-item>
+        <div slot="left">Left Slot</div>
+        Center Slot Content
+        <div slot="right">Right Slot</div>
+      </ds-sub-item>
+      <ds-sub-item icon="settings">
+        <div slot="left"><u>Left slot</u></div>
+        <span>Test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap test text wrap</span>
+        <div slot="right"><u>Right Slot</u></div>
+      </ds-sub-item>
+      <ds-sub-item icon="search" label="Icon with slot">
+        <div slot="left">Left</div>
+        <div slot="right">Right</div>
+      </ds-sub-item>
+    </demo-block>
+    <demo-block header="Item types usage with sublabel" layout="normal" tags="header,divider,label,truncated,subLabel">
+      <ds-sub-item type="header" label="Header Label with sub label" sub-label="This is the sub label"></ds-sub-item>
+      <ds-sub-item type="divider" sub-label="This is the sub label"></ds-sub-item>
+      <ds-sub-item label="Label Content with sub label" sub-label="This is the sub label"></ds-sub-item>
+      <ds-sub-item sub-label="This is the sub label">Item content with sub-label</ds-sub-item>
+      <ds-sub-item class="truncated" label="Label Content with truncated sub label" sub-label="This is the sub label which should be truncated at some point"></ds-sub-item>
+      <ds-sub-item sub-label="This is the sub label without label or content"></ds-sub-item>
+    </demo-block>
+    <demo-block header="Items with special conditions" layout="normal" tags="special">
+      <ds-sub-item for="element_id">Open menu for</ds-sub-item>
+    </demo-block>
+  </body>
+</html>
