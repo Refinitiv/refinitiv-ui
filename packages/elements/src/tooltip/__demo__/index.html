@@ -235,6 +235,15 @@
         </ef-item>
 
         <ef-tooltip id="item-tooltip" selector="#custom-renderer ef-item"></ef-tooltip>
+        <script type="module">
+          import { deregisterOverflowTooltip } from '@refinitiv-ui/elements/tooltip';
+          setTimeout(() => { // deregister these elements from the default overflow tooltip as a custom renderer would do that instead.
+            const coralItemList = document.querySelectorAll('#custom-renderer ef-item');
+            coralItemList.forEach(element => {
+              deregisterOverflowTooltip(element);
+            });
+          }, 50);
+
           (function () {
             const tooltip = document.getElementById('item-tooltip');
 
