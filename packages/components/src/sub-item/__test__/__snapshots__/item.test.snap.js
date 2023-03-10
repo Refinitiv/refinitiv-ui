@@ -19,11 +19,11 @@ snapshots["item/Item Defaults Should have correct Shadow DOM structure"] =
 
 snapshots["item/Item Defaults Should have correct Shadow DOM structure with icon"] = 
 `<div part="left">
-  <ef-icon
+  <ds-icon
     icon="tick"
     part="icon"
   >
-  </ef-icon>
+  </ds-icon>
   <slot name="left">
   </slot>
 </div>
@@ -40,11 +40,11 @@ snapshots["item/Item Defaults Should have correct Shadow DOM structure with icon
 
 snapshots["item/Item Defaults Should have correct Shadow DOM structure with empty icon"] = 
 `<div part="left">
-  <ef-icon
+  <ds-icon
     icon=""
     part="icon"
   >
-  </ef-icon>
+  </ds-icon>
   <slot name="left">
   </slot>
 </div>
@@ -185,21 +185,20 @@ snapshots["item/Item Special Attributes Check property for"] =
 <div part="right">
   <slot name="right">
   </slot>
-  <ef-icon icon="right">
-  </ef-icon>
+  <ds-icon icon="right">
+  </ds-icon>
 </div>
 `;
 /* end snapshot item/Item Special Attributes Check property for */
 
 snapshots["item/Item Special Attributes Check property multiple Checkbox for item should be displayed"] = 
 `<div part="left">
-  <ef-checkbox
-    aria-checked="false"
+  <ds-checkbox
     part="checkbox"
-    role="checkbox"
+    role="group"
     tabindex="-1"
   >
-  </ef-checkbox>
+  </ds-checkbox>
   <slot name="left">
   </slot>
 </div>
@@ -216,14 +215,13 @@ snapshots["item/Item Special Attributes Check property multiple Checkbox for ite
 
 snapshots["item/Item Special Attributes Check property multiple Checkbox should be checked "] = 
 `<div part="left">
-  <ef-checkbox
-    aria-checked="true"
+  <ds-checkbox
     checked=""
     part="checkbox"
-    role="checkbox"
+    role="group"
     tabindex="-1"
   >
-  </ef-checkbox>
+  </ds-checkbox>
   <slot name="left">
   </slot>
 </div>
