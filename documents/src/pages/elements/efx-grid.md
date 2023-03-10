@@ -5,7 +5,7 @@ location: ./elements/grid
 layout: default
 -->
 
-@> Grid is one of plugins built with Element Framework by **Developer Community**. This component is built and maintained by dedicate team who is specialised on Grid. Contact [Grid Support](mailto:grid-support@lseg.com) for helps and supports.
+@> Plugins are components built with Element Framework by **Developer Community**. This component is built and maintained by dedicate team who is specialised on Grid. Contact [Grid Support](mailto:grid-support@lseg.com) for helps and supports.
 
 # Grid
 
