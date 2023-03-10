@@ -60,6 +60,7 @@ export class Item extends ControlElement {
         outline: none;
         padding: var(--ds-item-padding);
         color: var(--ds-item-color);
+        min-height: var(--ds-item-min-height);
       }
       [part=checkbox] {
         pointer-events: none;
@@ -103,6 +104,7 @@ export class Item extends ControlElement {
         border: none;
         padding: 0;
         margin: 0;
+        min-height: auto;
         height: var(--ds-item-divider-height);
         background: var(--ds-item-divider-background);
       }

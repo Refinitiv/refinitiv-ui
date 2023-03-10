@@ -352,7 +352,7 @@
     "color": {
       "$value": "{text.body.color}"
     },
-    "size": {
+    "min-height": {
       "$value": "{control.size}"
     },
     "icon": {
