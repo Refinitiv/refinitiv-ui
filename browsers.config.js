@@ -22,7 +22,8 @@ const BrowserStack = {
   defaultBrowsers: ['chrome', 'firefox', 'safari'],
   supportedBrowsers: [
     'chrome', 'firefox', 'safari', 'edge',
-    'chrome_previous', 'firefox_previous', 'safari_previous', 'edge_previous'
+    // 'chrome_previous', // exclude temporary to prevent unicode problem on Chrome 109
+    'firefox_previous', 'safari_previous', 'edge_previous'
   ],
   availableBrowsers: [
     'default', // default browsers alias
