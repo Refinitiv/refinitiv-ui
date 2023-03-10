@@ -24,12 +24,12 @@ export class SubLabel extends BasicElement {
       :host {
         display: inline-block;
       }
-      :host[error],
-      :host[error][warning] {
-        color: (--ds-color-error);
+      :host([error]),
+      :host([error][warning]) {
+        color: var(--ds-label-error-color);
       }
-      :host[warning] {
-        color: (--ds-color-warning);
+      :host([warning]) {
+        color: var(--ds-label-warning-color);
       }
     `;
   }
