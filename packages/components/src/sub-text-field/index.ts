@@ -130,7 +130,13 @@ export class SubTextField extends FormFieldElement {
   public warning = false;
 
   /**
-   * Set state to warning
+   * Disable input
+   */
+  @property({ type: Boolean, reflect: true })
+  public readonly = false;
+
+  /**
+   * Disable input
    */
   @property({ type: Boolean, reflect: true })
   public disabled = false;
