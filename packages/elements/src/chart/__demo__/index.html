@@ -255,7 +255,7 @@
                 title: (tooltipItems) => {
                   return tooltipItems[0].chart.data.datasets[tooltipItems[0].datasetIndex].label;
                 },
-                label: function (tooltipItem, data) {
+                label: function (tooltipItem) {
                   const year = tooltipItem.label;
                   let rev = tooltipItem.raw;
                   rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -320,7 +320,7 @@
                 title: (tooltipItems) => {
                   return 'TRI.N';
                 },
-                label: (tooltipItem, data) => {
+                label: (tooltipItem) => {
                   const yLabel = tooltipItem.raw;
                   if (tooltipItem.datasetIndex === 0) {
                     return 'Price: ' + yLabel;
@@ -378,7 +378,7 @@
     </script>
   </demo-block>
 
-  <!-- <demo-block layout="normal" header="Pie Chart">
+  <demo-block layout="normal" header="Pie Chart">
     <ef-chart id="pie"></ef-chart>
     <script>
       var pieDatasets = [{
@@ -392,15 +392,17 @@
           datasets: pieDatasets
         },
         options: {
-          title: {
-            text: 'Operating Segments of AAPL.O in 2014'
-          },
-          tooltips: {
-            callbacks: {
-              label: function (tooltipItem, data) {
-                var title = data.labels[tooltipItem.index];
-                var result = data.datasets[0].data[tooltipItem.index];
-                return title + ': ' + result + '%';
+          plugins: {
+            title: {
+              text: 'Operating Segments of AAPL.O in 2014'
+            },
+            tooltip: {
+              callbacks: {
+                label: (tooltipItem) => {
+                  const title = tooltipItem.label;
+                  const result = tooltipItem.raw;
+                  return title + ': ' + result + '%';
+                }
               }
             }
           }
@@ -408,8 +410,8 @@
       };
     </script>
   </demo-block>
-
-  <demo-block layout="normal" header="Doughnut Chart">
+-->
+  <!-- <demo-block layout="normal" header="Doughnut Chart">
     <ef-chart id="doughnut"></ef-chart>
     <script>
       var doughnutDataSets = [{
@@ -1125,7 +1127,28 @@
       addDataChart.config = initConfig;
       /* eslint-enable no-unused-vars */
     </script>
-  </demo-block> -->
+  </demo-block>
+-->
+  <demo-block layout="normal" header="Polar area">
+    <ef-chart id="polarArea"></ef-chart>
+    <script>
+      const polarArea = document.getElementById('polarArea');
+      const data = {
+        labels: [ 'Red', 'Green', 'Yellow', 'Grey', 'Blue'],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [11, 16, 7, 3, 14],
+          backgroundColor: [
+            'rgb(255, 0, 0)'
+          ]
+        }]
+      };
+      polarArea.config = {
+        type: 'polarArea',
+        data
+      }
+    </script>
+  </demo-block>
 
 </body>
 

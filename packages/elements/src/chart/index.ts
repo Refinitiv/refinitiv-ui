@@ -18,8 +18,6 @@ type DatasetColors = {
 };
 
 import {
-  legendHelper,
-  ChartDatasetNew,
   merge,
   MergeObject
 } from './helpers/index.js';
@@ -44,7 +42,6 @@ import '../header/index.js';
 export * from 'chart.js';
 
 const CSS_COLOR_PREFIX = '--chart-color-';
-const CHART_TYPE_OPAQUE = ['line', 'bubble', 'radar', 'polarArea'];
 
 /* Make ChartJS to know our plugin
  * https://www.chartjs.org/docs/latest/developers/plugins.html#typescript-typings
@@ -62,172 +59,6 @@ declare module 'chart.js' {
  */
 @customElement('ef-chart')
 export class Chart extends BasicElement {
-
-  // TODO: remove any type
-  private plugin (): Plugin {
-    const cssStyle = getComputedStyle(this);
-    // TODO: Try and remove the need for global object modification.
-    // It's easier to cover all areas by modifying the global object,
-    // however, if possible, we should look to try and just modify local configs.
-
-    // Set font globals
-    ChartJS.defaults.color = cssStyle.getPropertyValue('color');
-    ChartJS.defaults.font.family = cssStyle.getPropertyValue('font-family');
-    ChartJS.defaults.font.size = Number(cssStyle.getPropertyValue('font-size').replace('px', ''));
-    ChartJS.defaults.font.style = cssStyle.getPropertyValue('font-style') as 'normal' | 'italic' | 'oblique' | 'initial' | 'inherit' | undefined;
-    // Set global grid color
-    ChartJS.defaults.scale.grid.color = (line) => {
-      return line.index === 0 ? this.getComputedVariable('--zero-line-color', 'transparent') : this.getComputedVariable('--grid-line-color', 'transparent');
-    };
-
-    return {
-      id: 'efchart',
-      beforeInit: (chart: ChartJS) => {
-        const datasets = chart.config.data.datasets;
-        const option: ChartOptions = {
-          animation: {
-            duration: this.cssVarAsNumber('--animation-duration', '0')
-          },
-          elements: {
-            line: {
-              borderWidth: this.cssVarAsNumber('--line-width', '1'),
-              tension: this.cssVarAsNumber('--line-tension', '0.5')
-            }
-          },
-          plugins: {
-            tooltip: {
-              backgroundColor: this.getComputedVariable('--tooltip-background-color', 'transparent'),
-              titleColor: this.getComputedVariable('--tooltip-title-color', 'transparent'),
-              bodyColor: this.getComputedVariable('--tooltip-body-color', 'transparent'),
-              cornerRadius: this.cssVarAsNumber('--tooltip-border-radius', '0'),
-              caretSize: this.cssVarAsNumber('--tooltip-caret-size', '0'),
-              padding: {
-                x: this.cssVarAsNumber('--tooltip-padding-x', '--tooltip-padding', '0'),
-                y: this.cssVarAsNumber('--tooltip-padding-y', '--tooltip-padding', '0')
-              },
-              titleSpacing: this.cssVarAsNumber('--tooltip-title-spacing', '0'),
-              displayColors: false
-            },
-            legend: {
-              position: ['pie', 'doughnut'].includes(this.config?.type || '') ? 'right' : 'top',
-              labels: {
-                boxWidth: this.cssVarAsNumber('--legend-key-box-width', '10'),
-                generateLabels: (chart: ChartJS): LegendItem[] => {
-
-                  if (!this.config?.type) {
-                    return [];
-                  }
-
-                  return datasets.map((dataset, i): LegendItem => {
-                    const solidFill = !CHART_TYPE_OPAQUE.includes(dataset.type || this.config?.type as string);
-                    const usePointStyle = chart.options?.plugins?.legend?.labels?.usePointStyle || false;
-
-                    return {
-                      fontColor: cssStyle.getPropertyValue('color'),
-                      text: dataset.label || '',
-                      fillStyle: legendHelper.getLegendFillStyle(dataset as ChartDatasetNew, usePointStyle, solidFill),
-                      hidden: !chart.isDatasetVisible(i),
-                      lineWidth: Number(dataset.borderWidth) || 0,
-                      strokeStyle: legendHelper.getLegendStrokeStyle(dataset as ChartDatasetNew, usePointStyle),
-
-                      // Below is extra data used for toggling the datasets
-                      datasetIndex: i
-                    };
-                  });
-                }
-              }
-            }
-          }
-        };
-        merge(chart.config.options as unknown as MergeObject, option, true);
-      },
-      beforeUpdate: (chart: ChartJS) => this.decorateColors(chart)
-    };
-  }
-
-  private decorateColors (chart: ChartJS): void {
-    chart.config.data.datasets.forEach((dataset, datasetIndex) => {
-      let colors;
-      let borderColor;
-      let backgroundColor;
-      const isMultipleDatasets = (chart.config.data.datasets.length > 1);
-      switch (dataset.type || this.config?.type) {
-        case 'line':
-        case 'bubble':
-        case 'radar':
-        case 'scatter':
-          colors = this.generateColors(false, 1, datasetIndex);
-          if (!dataset.borderColor) {
-            dataset.borderColor = colors.solid as Color;
-          }
-          // Only this chart type are backgroundColor opaque
-          if (!dataset.backgroundColor) {
-            dataset.backgroundColor = colors.opaque as Color;
-          }
-          if (!(dataset as LineControllerDatasetOptions).pointBackgroundColor) {
-            (dataset as LineControllerDatasetOptions).pointBackgroundColor = colors.solid as Color;
-          }
-          if (!(dataset as LineControllerDatasetOptions).pointBorderColor) {
-            (dataset as LineControllerDatasetOptions).pointBorderColor = colors.solid as Color;
-          }
-          break;
-
-        // For doughnut and pie chart, backgroundColor is set to an array of colors
-        case 'doughnut':
-        case 'pie':
-        case 'polarArea':
-          const index = isMultipleDatasets ? 0 : datasetIndex;
-          colors = this.generateColors(true, dataset.data ? dataset.data.length : 1, index);
-          borderColor = isMultipleDatasets ? this.getComputedVariable('--multi-dataset-border-color', '#fff') : colors.solid;
-          backgroundColor = colors.solid;
-          if (!dataset.borderColor) {
-            dataset.borderColor = borderColor;
-          }
-          if (!dataset.backgroundColor) {
-            dataset.backgroundColor = backgroundColor;
-          }
-          // Add more color if items doesn't enough
-          if (Array.isArray(dataset.borderColor) && Array.isArray(borderColor) && dataset.borderColor.length < borderColor.length) {
-            merge(dataset.borderColor, borderColor);
-          }
-          if (Array.isArray(dataset.backgroundColor) && Array.isArray(backgroundColor) && dataset.backgroundColor.length < backgroundColor.length) {
-            merge(dataset.backgroundColor, backgroundColor);
-          }
-          break;
-
-        // Bar chart backgroundColor is possible to be string or array
-        case 'bar':
-          colors = this.generateColors(!isMultipleDatasets, !isMultipleDatasets && dataset.data ? dataset.data.length : 1, datasetIndex);
-          borderColor = colors.solid;
-          backgroundColor = colors.solid;
-          if (!dataset.borderColor) {
-            dataset.borderColor = colors.solid;
-          }
-          if (!dataset.backgroundColor) {
-            dataset.backgroundColor = colors.solid;
-          }
-          // Add more color if items doesn't enough
-          if (Array.isArray(dataset.borderColor) && Array.isArray(borderColor) && dataset.borderColor.length < borderColor.length) {
-            merge(dataset.borderColor, borderColor);
-          }
-
-          if (Array.isArray(dataset.backgroundColor) && Array.isArray(backgroundColor) && dataset.backgroundColor.length < backgroundColor.length) {
-            merge(dataset.backgroundColor, backgroundColor);
-          }
-          break;
-        // For the other chart
-        default:
-          colors = this.generateColors(false, dataset.data.length, datasetIndex);
-          if (!dataset.borderColor) {
-            dataset.borderColor = colors.solid;
-          }
-          if (!dataset.backgroundColor) {
-            dataset.backgroundColor = colors.opaque;
-          }
-          break;
-      }
-    });
-  }
 
   /**
    * Element version number
@@ -351,6 +182,77 @@ export class Chart extends BasicElement {
   }
 
   /**
+   * Create plugin to set our theme into chartjs lifecycle
+   * @returns {Plugin} plugin
+   */
+  private plugin (): Plugin {
+    const cssStyle = getComputedStyle(this);
+    // TODO: Try and remove the need for global object modification.
+    // It's easier to cover all areas by modifying the global object,
+    // however, if possible, we should look to try and just modify local configs.
+
+    // Set font globals
+    ChartJS.defaults.color = cssStyle.getPropertyValue('color');
+    ChartJS.defaults.font.family = cssStyle.getPropertyValue('font-family');
+    ChartJS.defaults.font.size = Number(cssStyle.getPropertyValue('font-size').replace('px', ''));
+    ChartJS.defaults.font.style = cssStyle.getPropertyValue('font-style') as 'normal' | 'italic' | 'oblique' | 'initial' | 'inherit' | undefined;
+    // Set global grid color
+    ChartJS.defaults.scale.grid.color = (line) => {
+      return line.index === 0 ? this.getComputedVariable('--zero-line-color', 'transparent') : this.getComputedVariable('--grid-line-color', 'transparent');
+    };
+
+    return {
+      id: 'efchart',
+      beforeInit: (chart: ChartJS) => {
+        const option: ChartOptions = this.themableConfig;
+        merge(chart.config.options as unknown as MergeObject, option, true);
+      },
+      beforeUpdate: this.decorateColors
+    };
+  }
+
+  /**
+   * Themable parts of the config.
+   * This will be merged into the configuration object.
+   * @returns {ChartOptions} chart config with theme
+   */
+  protected get themableConfig (): ChartOptions {
+    return {
+      animation: {
+        duration: this.cssVarAsNumber('--animation-duration', '0')
+      },
+      elements: {
+        line: {
+          borderWidth: this.cssVarAsNumber('--line-width', '1'),
+          tension: this.cssVarAsNumber('--line-tension', '0.5')
+        }
+      },
+      plugins: {
+        tooltip: {
+          backgroundColor: this.getComputedVariable('--tooltip-background-color', 'transparent'),
+          titleColor: this.getComputedVariable('--tooltip-title-color', 'transparent'),
+          bodyColor: this.getComputedVariable('--tooltip-body-color', 'transparent'),
+          cornerRadius: this.cssVarAsNumber('--tooltip-border-radius', '0'),
+          caretSize: this.cssVarAsNumber('--tooltip-caret-size', '0'),
+          padding: {
+            x: this.cssVarAsNumber('--tooltip-padding-x', '--tooltip-padding', '0'),
+            y: this.cssVarAsNumber('--tooltip-padding-y', '--tooltip-padding', '0')
+          },
+          titleSpacing: this.cssVarAsNumber('--tooltip-title-spacing', '0'),
+          displayColors: false
+        },
+        legend: {
+          position: ['pie', 'doughnut'].includes(this.config?.type || '') ? 'right' : 'top',
+          labels: {
+            boxWidth: this.cssVarAsNumber('--legend-key-box-width', '10'),
+            generateLabels: this.generateLegendLabels
+          }
+        }
+      }
+    };
+  }
+
+  /**
    * Handles a change of configuration object.
    * This does not fire when a property of the config object changes,
    * for this use this.updateChart() to apply changes.
@@ -372,6 +274,148 @@ export class Chart extends BasicElement {
   }
 
   /**
+   * Inject theme color into each datasets
+   * @param {ChartJS} chart Chart.js instance
+   * @returns {void}
+   */
+  protected decorateColors = (chart: ChartJS): void => {
+    chart.config.data.datasets.forEach((dataset, datasetIndex) => {
+      let colors;
+      let borderColor;
+      let backgroundColor;
+      const isMultipleDatasets = (chart.config.data.datasets.length > 1);
+      // From old requirement, Only line, radar, scatter, polarArea type are opaque backgroundColor
+      switch (dataset.type || this.config?.type) {
+        case 'line':
+        case 'radar':
+        case 'scatter':
+          colors = this.generateColors(false, 1, datasetIndex);
+          if (!dataset.borderColor) {
+            dataset.borderColor = colors.solid;
+          }
+          if (!dataset.backgroundColor) {
+            dataset.backgroundColor = colors.opaque;
+          }
+          if (!(dataset as LineControllerDatasetOptions).pointBackgroundColor) {
+            (dataset as LineControllerDatasetOptions).pointBackgroundColor = colors.solid;
+          }
+          if (!(dataset as LineControllerDatasetOptions).pointBorderColor) {
+            (dataset as LineControllerDatasetOptions).pointBorderColor = colors.solid;
+          }
+          break;
+
+        // This type, Colors is set to an array.
+        case 'doughnut':
+        case 'pie':
+        case 'polarArea':
+          const index = isMultipleDatasets ? 0 : datasetIndex;
+          colors = this.generateColors(true, dataset.data ? dataset.data.length : 1, index);
+          borderColor = isMultipleDatasets ? this.getComputedVariable('--multi-dataset-border-color', '#fff') : colors.solid;
+          backgroundColor = this.config?.type === 'polarArea' ? colors.opaque : colors.solid;
+          if (!dataset.borderColor) {
+            dataset.borderColor = borderColor;
+          }
+          if (!dataset.backgroundColor) {
+            dataset.backgroundColor = backgroundColor;
+          }
+          // Add more color if items doesn't enough
+          if (Array.isArray(dataset.borderColor) && Array.isArray(borderColor) && dataset.borderColor.length < borderColor.length) {
+            merge(dataset.borderColor, borderColor);
+          }
+          if (Array.isArray(dataset.backgroundColor) && Array.isArray(backgroundColor) && dataset.backgroundColor.length < backgroundColor.length) {
+            merge(dataset.backgroundColor, backgroundColor);
+          }
+          break;
+
+        // This type, Colors is possible to be string or array
+        case 'bar':
+        case 'bubble':
+          colors = this.generateColors(!isMultipleDatasets, !isMultipleDatasets && dataset.data ? dataset.data.length : 1, datasetIndex);
+          borderColor = colors.solid;
+          backgroundColor = colors.solid;
+          if (!dataset.borderColor) {
+            dataset.borderColor = colors.solid;
+          }
+          if (!dataset.backgroundColor) {
+            dataset.backgroundColor = colors.solid;
+          }
+          // Add more color if items doesn't enough
+          if (Array.isArray(dataset.borderColor) && Array.isArray(borderColor) && dataset.borderColor.length < borderColor.length) {
+            merge(dataset.borderColor, borderColor);
+          }
+
+          if (Array.isArray(dataset.backgroundColor) && Array.isArray(backgroundColor) && dataset.backgroundColor.length < backgroundColor.length) {
+            merge(dataset.backgroundColor, backgroundColor);
+          }
+          break;
+        // For the other chart
+        default:
+          colors = this.generateColors(false, dataset.data.length, datasetIndex);
+          if (!dataset.borderColor) {
+            dataset.borderColor = colors.solid;
+          }
+          if (!dataset.backgroundColor) {
+            dataset.backgroundColor = colors.opaque;
+          }
+          break;
+      }
+    });
+  };
+
+  /**
+   * Generates the legend labels on a given chart
+   * @param {ChartJS} chart Chart.js instance
+   * @returns {LegendItem[]} Array of label configurations
+   */
+  protected generateLegendLabels = (chart: ChartJS): LegendItem[] => {
+    const chartType = (chart.config as ChartConfiguration).type;
+    if (!chartType) {
+      return [];
+    }
+
+    let legends: LegendItem[] = [];
+    const datasets = chart.config.data.datasets;
+
+    if (
+      datasets.length
+      && chart?.config?.options?.plugins?.legend
+      && Array.isArray(datasets[0].backgroundColor)
+    ) {
+
+      if (ChartJS.overrides.pie.plugins.legend.labels.generateLabels) {
+        legends = ChartJS.overrides.pie.plugins.legend.labels.generateLabels(chart);
+      }
+
+      // Customize for doughnut chart change border color to background color
+      if (['pie', 'doughnut'].includes(chartType) && this.datasets.length > 1) {
+        legends.forEach((label: LegendItem)=> {
+          label.strokeStyle = label.fillStyle;
+        });
+      }
+
+      return legends;
+    }
+
+    if (ChartJS.defaults.plugins.legend.labels.generateLabels) {
+      legends = ChartJS.defaults.plugins.legend.labels.generateLabels(chart);
+    }
+    legends.forEach((legend, i) => {
+      legend.lineWidth = Number(datasets[i].borderWidth) || 0;
+      switch (datasets[i].type || chartType) {
+        case 'line':
+        case 'radar':
+        case 'scatter':
+          legend.fillStyle = (datasets[i] as LineControllerDatasetOptions).borderColor as Color;
+          break;
+        // For the other chart
+        default:
+          break;
+      }
+    });
+    return legends;
+  };
+
+  /**
    * Merges all the different layers of the config.
    * @returns {void}
    */
@@ -390,35 +434,6 @@ export class Chart extends BasicElement {
    */
   protected decorateConfig (): void {
     this.mergeConfigs();
-  }
-
-  /**
-   * Returns usable information about a dataset
-   * @param {ChartDataset} dataset Chart dataset
-   * @returns {Chart.ChartDataSets} Information about the dataset
-   */
-  protected datasetInfo (dataset: ChartDataset): ChartDatasetNew {
-    const type = dataset.type || this.config?.type;
-    let index = this.datasets.indexOf(dataset);
-    const isColorArray = (!!type && ['pie', 'doughnut', 'polarArea'].includes(type)) || type === 'bar' && this.datasets.length === 1;
-    const isSolidFill = !!type && !CHART_TYPE_OPAQUE.includes(type);
-
-    // Doughnut chart using same color sequence for each data in datasets
-    let borderColor = null;
-    if (['pie', 'doughnut'].includes(type as string) && this.datasets.length > 1) {
-      index = 0;
-      borderColor = this.getComputedVariable('--multi-dataset-border-color', '#fff');
-    }
-
-    const colors = this.generateColors(isColorArray, isColorArray && dataset.data ? dataset.data.length : 1, index);
-
-    return {
-      type,
-      borderColor: borderColor || colors.solid as Color,
-      backgroundColor: isSolidFill ? colors.solid as Color : colors.opaque as Color,
-      pointBorderColor: colors.solid as Color,
-      pointBackgroundColor: colors.solid as Color
-    } as ChartDatasetNew;
   }
 
   /**
