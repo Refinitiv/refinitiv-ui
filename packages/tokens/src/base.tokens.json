@@ -52,6 +52,16 @@
         "Verdana",
         "sans-serif"
       ]
+    },
+    "weight": {
+      "default": {
+        "$type": "fontWeight",
+        "$value": 500
+      },
+      "bold": {
+        "$type": "fontWeight",
+        "$value": 600
+      }
     }
   },
   "transition": {
@@ -339,13 +349,29 @@
     }
   },
   "item": {
+    "color": {
+      "$value": "{text.body.color}"
+    },
     "size": {
       "$value": "{control.size}"
+    },
+    "icon": {
+      "margin": {
+        "$value": "0.5em"
+      }
     },
     "padding": {
       "$value": "{control.padding}"
     },
+    "selected": {
+      "color": {
+        "$value": "white"
+      }
+    },
     "focus": {
+      "color": {
+        "$value": "white"
+      },
       "border": {
         "$value": "{control.focus.border}"
       },
@@ -353,6 +379,39 @@
         "color": {
           "$value": "{primary.color}"
         }
+      }
+    },
+    "header": {
+      "color": {
+        "$value": "{grey.700}"
+      },
+      "background": {
+        "color": {
+          "$value": "{background.color}"
+        }
+      },
+      "font": {
+        "size": {
+          "$type": "dimension",
+          "$value": "0.8em"
+        },
+        "weight": {
+          "$type": "fontWeight",
+          "$value": "{font.weight.bold}"
+        }
+      }
+    },
+    "divider": {
+      "background": {
+        "$value": "linear-gradient(rgb(64, 64, 64), rgb(64, 64, 64)) 0px center / calc(100% - 0px) 1px no-repeat"
+      },
+      "height": {
+        "$value": "5px"
+      }
+    },
+    "disabled": {
+      "color": {
+        "$value": "{text.disabled.color}"
       }
     }
   }

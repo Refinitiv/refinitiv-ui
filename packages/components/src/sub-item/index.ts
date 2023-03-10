@@ -57,7 +57,9 @@ export class Item extends ControlElement {
         align-items: center;
         cursor: pointer;
         box-sizing: border-box;
+        outline: none;
         padding: var(--ds-item-padding);
+        color: var(--ds-item-color);
       }
       [part=checkbox] {
         pointer-events: none;
@@ -70,34 +72,42 @@ export class Item extends ControlElement {
       [part=center] {
         flex: 1;
       }
+      :host [part=icon] {
+        margin: 0 var(--ds-item-icon-margin) 0 0;
+      }
       :host([type=divider]) > * {
         display: none;
       }
       :host([selected]) {
-        color: var(--ds-item-selected-text-color);
+        color: var(--ds-item-selected-color);
       }
       :host([readonly]) {
         cursor: default;
       }
       :host([focused]),
       :host([highlighted]) {
+        color: var(--ds-item-focus-color);
         background-color: var(--ds-item-focus-background-color);
       }
-      :host[type="header"] {
-        color: var(--ds-item-header-text-color);
+      :host([type="header"]) {
+        color: var(--ds-item-header-color);
         background-color: var(--ds-item-header-background-color);
         font-size: var(--ds-item-header-font-size);
         font-weight: var(--ds-item-header-font-weight);
-        border: var(--ds-item-header-boder);
         align-items: flex-end;
         margin: 0;
         min-height: 0;
         text-transform: uppercase;
       }
-      :host[type="divider"] {
+      :host([type="divider"]) {
         border: none;
         padding: 0;
         margin: 0;
+        height: var(--ds-item-divider-height);
+        background: var(--ds-item-divider-background);
+      }
+      :host([disabled]) {
+        color: var(--ds-item-disabled-color);
       }
     `;
   }
@@ -117,7 +127,7 @@ export class Item extends ControlElement {
   public type: ItemType | null = null;
 
   /**
-   * Set the icon name from the ef-icon list
+   * Set the icon name from the ds-icon list
    */
   @property({ type: String, reflect: true })
   public icon: string | null = null;
@@ -245,7 +255,7 @@ export class Item extends ControlElement {
    * Get icon template if icon attribute is defined
    */
   private get iconTemplate (): TemplateResult | undefined {
-    return this.icon !== null && this.icon !== undefined ? html`<ef-icon part="icon" .icon="${this.icon}"></ef-icon>` : undefined;
+    return this.icon !== null && this.icon !== undefined ? html`<ds-icon part="icon" .icon="${this.icon}"></ds-icon>` : undefined;
   }
 
   /**
@@ -275,7 +285,7 @@ export class Item extends ControlElement {
    * This is usually used with menus when an item needs to reference an element
    */
   private get forTemplate (): TemplateResult | undefined {
-    return this.for ? html`<ef-icon icon="right"></ef-icon>` : undefined;
+    return this.for ? html`<ds-icon icon="right"></ds-icon>` : undefined;
   }
 
   /**
@@ -284,7 +294,7 @@ export class Item extends ControlElement {
    */
   private get multipleTemplate (): TemplateResult | undefined {
     const multiple = this.multiple && (!this.type || this.type === 'text');
-    return multiple ? html`<ef-checkbox part="checkbox" .checked="${this.selected}" tabindex="-1"></ef-checkbox>` : undefined;
+    return multiple ? html`<ds-checkbox part="checkbox" .checked="${this.selected}" tabindex="-1"></ds-checkbox>` : undefined;
   }
 
   /**
