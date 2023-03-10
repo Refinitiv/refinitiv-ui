@@ -32,7 +32,7 @@
     },
     "disabled": {
       "color": {
-        "$value": "{grey.700}"
+        "$value": "{grey.500}"
       }
     }
   },
