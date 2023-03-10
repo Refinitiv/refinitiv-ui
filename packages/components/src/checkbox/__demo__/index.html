@@ -24,8 +24,20 @@
     <ds-checkbox>Unchecked</ds-checkbox>
     <ds-checkbox checked>Checked</ds-checkbox>
 
-    <p>Dsiabled</p>
+    <p>Disabled</p>
     <ds-checkbox disabled>Disabled unchecked</ds-checkbox>
-    <ds-checkbox disabled checked>Dsiabled checked</ds-checkbox>
+    <ds-checkbox disabled checked>Disabled checked</ds-checkbox>
+
+    <p>Event</p>
+    <ds-checkbox id="check-event">Event Listener</ds-checkbox>
+    <br>
+    <code id="checked"></code>
+    <script>
+      const text= document.getElementById('checked');
+      const checkbox = document.getElementById('check-event');
+      checkbox.addEventListener('checked-changed', (event) => {
+        text.innerHTML = event.detail.value
+      });
+    </script>
   </body>
 </html>
