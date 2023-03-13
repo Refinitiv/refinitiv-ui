@@ -31,7 +31,7 @@ export class SubCheckbox extends ControlElement {
       padding: var(--ds-checkbox-padding);
       width: var(--ds-checkbox-size);
       height: var(--ds-checkbox-size);
-      color: var(--ds-primary-color);
+      color: var(--ds-checkbox-color);
       border: var(--ds-checkbox-border);
       border-radius: var(--ds-checkbox-radius);
     }
