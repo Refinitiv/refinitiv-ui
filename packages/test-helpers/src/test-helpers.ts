@@ -56,3 +56,10 @@ export const keyboardEvent = (type: string, init: KeyboardEventInit = {}): Keybo
 
   return event;
 };
+
+/**
+ * Replace special whitespace with normal whitespace
+ * @param text string with whitespace for replace
+ * @returns string
+ */
+export const replaceWhitespace = (text: string): string => text.replace(/\s/g, ' ');
