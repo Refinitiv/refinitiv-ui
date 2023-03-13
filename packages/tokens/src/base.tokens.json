@@ -39,6 +39,11 @@
       "color": {
         "$value": "{grey.800}"
       },
+      "hover": {
+        "color": {
+          "$value": "{grey.900}"
+        }
+      },
       "size": {
         "$value": "{font.size.small}"
       }
@@ -118,6 +123,42 @@
       }
     }
   },
+  "size": {
+    "$type": "dimension",
+    "form-border": {
+      "$value": "1px"
+    },
+    "xxx-small": {
+      "$value": "8px"
+    },
+    "xx-small": {
+      "$value": "10px"
+    },
+    "x-small": {
+      "$value": "16px"
+    },
+    "small": {
+      "$value": "20px"
+    },
+    "medium": {
+      "$value": "24px"
+    },
+    "large": {
+      "$value": "30px"
+    },
+    "x-large": {
+      "$value": "36px"
+    },
+    "xx-large": {
+      "$value": "48px"
+    },
+    "xxx-large": {
+      "$value": "72px"
+    },
+    "xxxx-large": {
+      "$value": "144px"
+    }
+  },
   "space": {
     "$type": "dimension",
     "xxx-small": {
@@ -146,9 +187,6 @@
     },
     "xxx-large": {
       "$value": "48px"
-    },
-    "xxxx-large": {
-      "$value": "72px"
     }
   },
   "border-radius": {
@@ -167,15 +205,20 @@
     }
   },
   "transition": {
-    "duration": {
-      "$type": "duration",
+    "$type": "duration",
+    "quickly": {
+      "$value": "200ms"
+    },
+    "slowly": {
       "$value": "200ms"
     }
   },
   "control": {
-    "size": {
-      "$type": "dimension",
-      "$value": "24px"
+    "height": {
+      "$value": "{size.medium}"
+    },
+    "width": {
+      "$value": "{size.xxxx-large}"
     },
     "padding": {
       "$value": "{space.xx-small}"
@@ -188,8 +231,7 @@
       "$value": "solid"
     },
     "border-width": {
-      "$type": "dimension",
-      "$value": "1px"
+      "$value": "{size.form-border}"
     },
     "border": {
       "$type": "border",
@@ -249,6 +291,9 @@
       }
     },
     "hover": {
+      "color": {
+        "$value": "{text.body.hover.color}"
+      },
       "border": {
         "$type": "border",
         "$value": {
@@ -293,11 +338,10 @@
       }
     },
     "height": {
-      "$value": "{control.size}"
+      "$value": "{control.height}"
     },
     "width": {
-      "$type": "dimension",
-      "$value": "152px"
+      "$value": "{control.width}"
     },
     "padding": {
       "$value": "{control.padding}"
@@ -410,7 +454,7 @@
       "$value": "{primary.color}"
     },
     "size": {
-      "$value": "{control.size}"
+      "$value": "{control.height}"
     },
     "padding": {
       "$value": "{control.padding}"
@@ -476,7 +520,7 @@
       "$value": "{text.body.color}"
     },
     "min-height": {
-      "$value": "{control.size}"
+      "$value": "{control.height}"
     },
     "icon": {
       "margin": {
