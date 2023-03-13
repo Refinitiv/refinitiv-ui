@@ -11,13 +11,36 @@
   },
   "text": {
     "header": {
+      "font-family": {
+        "$value": "{font.family.header}"
+      },
       "color": {
         "$value": "{grey.900}"
+      },
+      "size": {
+        "$value": "{font.size.x-large}"
+      }
+    },
+    "sub-header": {
+      "font-family": {
+        "$value": "{font.family.header}"
+      },
+      "color": {
+        "$value": "{grey.900}"
+      },
+      "size": {
+        "$value": "{font.size.large}"
       }
     },
     "body": {
+      "font-family": {
+        "$value": "{font.family.body}"
+      },
       "color": {
         "$value": "{grey.800}"
+      },
+      "size": {
+        "$value": "{font.size.small}"
       }
     },
     "selection": {
@@ -44,14 +67,45 @@
   "font": {
     "size": {
       "$type": "dimension",
-      "$value": "14px"
+      "xx-small": {
+        "$value": "10px"
+      },
+      "x-small": {
+        "$value": "12px"
+      },
+      "small": {
+        "$value": "14px"
+      },
+      "medium": {
+        "$value": "16px"
+      },
+      "large": {
+        "$value": "20px"
+      },
+      "x-large": {
+        "$value": "24px"
+      },
+      "xx-large": {
+        "$value": "36px"
+      },
+      "xxx-large": {
+        "$value": "48px"
+      }
     },
     "family": {
       "$type": "fontFamily",
-      "$value": [
-        "Verdana",
-        "sans-serif"
-      ]
+      "header": {
+        "$value": [
+          "Georgia",
+          "serif"
+        ]
+      },
+      "body": {
+        "$value": [
+          "Verdana",
+          "sans-serif"
+        ]
+      }
     },
     "weight": {
       "default": {
@@ -206,7 +260,7 @@
       }
     },
     "icon": {
-      "focus" :{
+      "focus": {
         "border": {
           "$value": "{control.focus.border}"
         },
@@ -333,13 +387,13 @@
     }
   },
   "label": {
-    "error":{
-      "color" : {
+    "error": {
+      "color": {
         "$value": "{control.error.color}"
       }
     },
-    "warning":{
-      "color" : {
+    "warning": {
+      "color": {
         "$value": "{control.warning.color}"
       }
     }

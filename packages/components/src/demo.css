@@ -1,7 +1,12 @@
+h1,h2 {
+  font-size: var(--ds-text-header-size);
+  font-family: var(--ds-text-header-font-family);
+  color: var(--ds-text-header-color);
+}
 body {
   padding: 24px;
-  font-size: var(--ds-font-size);
-  font-family: var(--ds-font-family);
+  font-size: var(--ds-text-body-size);
+  font-family: var(--ds-text-body-font-family);
   color: var(--ds-text-body-color);
   background-color: var(--ds-background-color);
   will-change: background-color;

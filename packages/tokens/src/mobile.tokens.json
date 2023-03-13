@@ -1,8 +1,20 @@
 {
   "$type": "dimension",
-  "font": {
-    "size": {
-      "$value": "20px"
+  "text": {
+    "header": {
+      "size": {
+        "$value": "{font.size.xx-large}"
+      }
+    },
+    "sub-header": {
+      "size": {
+        "$value": "{font.size.x-large}"
+      }
+    },
+    "body": {
+      "size": {
+        "$value": "{font.size.medium}"
+      }
     }
   },
   "control": {
