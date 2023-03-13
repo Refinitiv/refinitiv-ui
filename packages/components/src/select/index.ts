@@ -106,7 +106,7 @@ export class Select extends ControlElement implements MultiValue {
         max-width: var(--ds-select-list-max-width);
         max-height: var(--ds-select-list-max-height);
       }
-      :host [part="list"] ::slotted(:not(ds-item)) {
+      :host [part="list"] ::slotted(:not(ds-sub-item)) {
         display: none;
       }
       #box {
@@ -1077,11 +1077,6 @@ export class Select extends ControlElement implements MultiValue {
         @opened="${this.onPopupOpened}"
         @refit=${this.onPopupRefit}
         @closed="${this.onPopupClosed}">${this.hasDataItems() ? this.dataContent : this.slottedContent}</ds-sub-overlay>`;
-    }
-    else {
-      // This code is required because IE11 polyfill need items to be within a slot
-      // to make MutationObserver to observe items correctly
-      return html`<div style="display: none !important;"><slot></slot></div>`;
     }
   }
 
