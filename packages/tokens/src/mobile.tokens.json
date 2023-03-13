@@ -18,11 +18,11 @@
     }
   },
   "control": {
-    "size": {
-      "$value": "28px"
+    "height": {
+      "$value": "{size.large}"
     },
     "padding": {
-      "$value": "6px"
+      "$value": "{space.x-small}"
     }
   }
 }

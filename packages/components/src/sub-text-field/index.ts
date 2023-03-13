@@ -38,22 +38,22 @@ export class SubTextField extends FormFieldElement {
         background-color: var(--ds-field-background-color);
         padding: 0px var(--ds-field-padding);
       }
-      :host([focused]) {
+      :host(:focus) {
         border: var(--ds-field-focus-border);
       }
-      :host(:not([readonly]):not([error]):not([warning]):not([focused]):hover) {
+      :host(:not([readonly]):not([error]):not([warning]):not(:focus):hover) {
         border: var(--ds-control-hover-border);
       }
-      :host([error]:not([focused])), :host([error][warning]:not([focused])) {
+      :host([error]:not(:focus)), :host([error][warning]:not(:focus)) {
         border: var(--ds-field-error-border);
       }
-      :host([error]:hover:not([readonly]):not([focused])) {
+      :host([error]:hover:not([readonly]):not(:focus)) {
         border: var(--ds-field-error-hover-border);
       }
-      :host([warning]:not([focused])) {
+      :host([warning]:not(:focus)) {
         border: var(--ds-field-warning-border);
       }
-      :host([warning]:hover:not([readonly]):not([focused])) {
+      :host([warning]:hover:not([readonly]):not(:focus)) {
         border: var(--ds-field-warning-hover-border);
       }
       :host([disabled]) {
@@ -64,7 +64,7 @@ export class SubTextField extends FormFieldElement {
       :host([disabled]) [part='input'] {
         user-select: none;
       }
-      :host([readonly]:not([focused])) {
+      :host([readonly]:not(:focus)) {
         color: var(--ds-field-readonly-color);
         border: var(--ds-field-readonly-border);
         background-color: var(--ds-field-readonly-background-color);
