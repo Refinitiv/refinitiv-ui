@@ -118,6 +118,54 @@
       }
     }
   },
+  "space": {
+    "$type": "dimension",
+    "xxx-small": {
+      "$value": "2px"
+    },
+    "xx-small": {
+      "$value": "4px"
+    },
+    "x-small": {
+      "$value": "8px"
+    },
+    "small": {
+      "$value": "12px"
+    },
+    "medium": {
+      "$value": "16px"
+    },
+    "large": {
+      "$value": "20px"
+    },
+    "x-large": {
+      "$value": "28px"
+    },
+    "xx-large": {
+      "$value": "36px"
+    },
+    "xxx-large": {
+      "$value": "48px"
+    },
+    "xxxx-large": {
+      "$value": "72px"
+    }
+  },
+  "border-radius": {
+    "$type": "dimension",
+    "sharp": {
+      "$value": "0px"
+    },
+    "pill": {
+      "$value": "20rem"
+    },
+    "curve": {
+      "$value": "4px"
+    },
+    "circle": {
+      "$value": "50%"
+    }
+  },
   "transition": {
     "duration": {
       "$type": "duration",
@@ -130,19 +178,25 @@
       "$value": "24px"
     },
     "padding": {
-      "$type": "dimension",
-      "$value": "4px"
+      "$value": "{space.xx-small}"
     },
     "radius": {
+      "$value": "{border-radius.sharp}"
+    },
+    "border-style": {
+      "$type": "strokeStyle",
+      "$value": "solid"
+    },
+    "border-width": {
       "$type": "dimension",
-      "$value": "0px"
+      "$value": "1px"
     },
     "border": {
       "$type": "border",
       "$value": {
         "color": "{grey.400}",
-        "width": "1px",
-        "style": "solid"
+        "width": "{control.border-width}",
+        "style": "{control.border-style}"
       }
     },
     "background": {
@@ -189,8 +243,8 @@
         "$type": "border",
         "$value": {
           "color": "{control.focus.color}",
-          "width": "1px",
-          "style": "solid"
+          "width": "{control.border-width}",
+          "style": "{control.border-style}"
         }
       }
     },
@@ -199,8 +253,8 @@
         "$type": "border",
         "$value": {
           "color": "{control.focus.color}",
-          "width": "1px",
-          "style": "solid"
+          "width": "{control.border-width}",
+          "style": "{control.border-style}"
         }
       }
     },
@@ -282,8 +336,8 @@
         "$type": "border",
         "$value": {
           "color": "{control.disabled.border.color}",
-          "width": "1px",
-          "style": "solid"
+          "width": "{control.border-width}",
+          "style": "{control.border-style}"
         }
       }
     },
@@ -300,8 +354,8 @@
         "$type": "border",
         "$value": {
           "color": "{control.readonly.border.color}",
-          "width": "1px",
-          "style": "solid"
+          "width": "{control.border-width}",
+          "style": "{control.border-style}"
         }
       }
     },
@@ -315,8 +369,8 @@
         "$type": "border",
         "$value": {
           "color": "{control.error.color}",
-          "width": "1px",
-          "style": "solid"
+          "width": "{control.border-width}",
+          "style": "{control.border-style}"
         }
       },
       "hover": {
@@ -324,8 +378,8 @@
           "$type": "border",
           "$value": {
             "color": "{control.error.hover.color}",
-            "width": "1px",
-            "style": "solid"
+            "width": "{control.border-width}",
+            "style": "{control.border-style}"
           }
         }
       }
@@ -335,8 +389,8 @@
         "$type": "border",
         "$value": {
           "color": "{control.warning.color}",
-          "width": "1px",
-          "style": "solid"
+          "width": "{control.border-width}",
+          "style": "{control.border-style}"
         }
       },
       "hover": {
@@ -344,8 +398,8 @@
           "$type": "border",
           "$value": {
             "color": "{control.warning.hover.color}",
-            "width": "1px",
-            "style": "solid"
+            "width": "{control.border-width}",
+            "style": "{control.border-style}"
           }
         }
       }
@@ -380,8 +434,8 @@
         "$type": "border",
         "$value": {
           "color": "{control.disabled.border.color}",
-          "width": "1px",
-          "style": "solid"
+          "width": "{control.border-width}",
+          "style": "{control.border-style}"
         }
       }
     }
