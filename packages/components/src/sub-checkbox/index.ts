@@ -22,11 +22,11 @@ export class SubCheckbox extends ControlElement {
 
   public static styles = css`
     :host {
+      cursor: pointer;
       display: inline-flex;
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
-      cursor: pointer;
       width: var(--ds-checkbox-size);
       height: var(--ds-checkbox-size);
       color: var(--ds-checkbox-color);
@@ -54,8 +54,14 @@ export class SubCheckbox extends ControlElement {
       visibility: inherit;
     }
     :host([disabled]) {
+      cursor: default;
       color: var(--ds-checkbox-disabled-color);
       border: var(--ds-checkbox-disabled-border);
+    }
+    :host([readonly]) {
+      cursor: default;
+      color: var(--ds-checkbox-readonly-color);
+      border: var(--ds-checkbox-readonly-border);
     }
   `;
 

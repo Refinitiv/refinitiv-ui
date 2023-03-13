@@ -27,13 +27,25 @@ export class Checkbox extends ControlElement {
       :host {
         cursor: pointer;
         display: inline-block;
-        padding: var(--ds-checkbox-padding);
       }
       :host(:focus-visible) {
         outline: var(--ds-checkbox-focus-border);
       }
-      [part='label'] {
+      [part=label] {
         padding-left: var(--ds-control-padding);
+      }
+      :host(:hover) {
+        color: var(--ds-checkbox-hover-color);
+      }
+      :host(:hover:not([readonly])) [part=checkbox] {
+        border: var(--ds-checkbox-hover-border);
+        color: var(--ds-checkbox-hover-color);
+      }
+      :host([disabled]) {
+        color: var(--ds-checkbox-disabled-color);
+      }
+      :host([readonly]) {
+        color: var(--ds-checkbox-readonly-color)
       }
     `;
   }

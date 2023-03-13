@@ -490,6 +490,19 @@
           "style": "{control.border-style}"
         }
       }
+    },
+    "readonly": {
+      "color": {
+        "$value": "{control.readonly.color}"
+      },
+      "border": {
+        "$type": "border",
+        "$value": {
+          "color": "{control.readonly.border.color}",
+          "width": "{control.border-width}",
+          "style": "{control.border-style}"
+        }
+      }
     }
   },
   "label": {
