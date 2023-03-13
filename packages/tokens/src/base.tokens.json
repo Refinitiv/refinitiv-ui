@@ -414,5 +414,12 @@
         "$value": "{text.disabled.color}"
       }
     }
+  },
+  "select": {
+    "list": {
+      "max-width": {
+        "$value": "300px"
+      }
+    }
   }
 }
