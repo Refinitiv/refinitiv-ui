@@ -64,13 +64,6 @@
       }
     }
   },
-  "icon": {
-    "hover": {
-      "color": {
-        "$value": "red"
-      }
-    }
-  },
   "background": {
     "color": {
       "$value": "{grey.100}"
@@ -221,6 +214,9 @@
     }
   },
   "control": {
+    "color": {
+      "$value": "{text.body.color}"
+    },
     "height": {
       "$value": "{size.medium}"
     },
@@ -337,7 +333,7 @@
   },
   "field": {
     "color": {
-      "$value": "{text.body.color}"
+      "$value": "{control.color}"
     },
     "background": {
       "color": {
@@ -458,13 +454,10 @@
   },
   "checkbox": {
     "color": {
-      "$value": "{primary.color}"
+      "$value": "{control.color}"
     },
     "size": {
       "$value": "{control.height}"
-    },
-    "padding": {
-      "$value": "{control.padding}"
     },
     "border": {
       "$value": "{control.border}"
@@ -474,7 +467,7 @@
     },
     "hover": {
       "color": {
-        "$value": "{icon.hover.color}"
+        "$value": "{control.hover.color}"
       },
       "border": {
         "$value": "{control.hover.border}"

@@ -27,7 +27,6 @@ export class SubCheckbox extends ControlElement {
       align-items: center;
       box-sizing: border-box;
       cursor: pointer;
-      padding: var(--ds-checkbox-padding);
       width: var(--ds-checkbox-size);
       height: var(--ds-checkbox-size);
       color: var(--ds-checkbox-color);
@@ -50,11 +49,6 @@ export class SubCheckbox extends ControlElement {
       justify-content: center;
       align-items: center;
       visibility: hidden;
-    }
-    [part=icon] {
-      font-size: initial;
-      width: 100%;
-      height: 100%;
     }
     :host([checked]) [part=check] {
       visibility: inherit;
