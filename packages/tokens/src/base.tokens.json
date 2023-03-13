@@ -332,6 +332,18 @@
       }
     }
   },
+  "label": {
+    "error":{
+      "color" : {
+        "$value": "{control.error.color}"
+      }
+    },
+    "warning":{
+      "color" : {
+        "$value": "{control.warning.color}"
+      }
+    }
+  },
   "overlay": {
     "background": {
       "color": {

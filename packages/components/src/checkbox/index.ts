@@ -1,4 +1,4 @@
-import { html, css, TemplateResult, PropertyValues, CSSResultGroup, ControlElement, TapEvent, BasicElement } from '@refinitiv-ui/core';
+import { html, css, TemplateResult, CSSResultGroup, ControlElement, TapEvent } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
@@ -6,6 +6,8 @@ import '../sub-checkbox/index.js';
 
 @customElement('ds-checkbox', { theme: false })
 export class Checkbox extends ControlElement {
+  protected readonly defaultRole: string | null = 'group';
+
   /**
    * Element version number
    * @returns version number
@@ -40,8 +42,6 @@ export class Checkbox extends ControlElement {
     `;
   }
 
-  protected readonly defaultRole: string | null = 'group';
-
   /**
    * Value of checkbox
    */
@@ -57,7 +57,7 @@ export class Checkbox extends ControlElement {
     if (this.disabled || this.readonly || event.defaultPrevented) {
       return;
     }
-    this.handleChangeChecked();
+    this.handleCheckedChanged();
   }
 
   /**
@@ -65,7 +65,7 @@ export class Checkbox extends ControlElement {
    * checked-changed event
    * @return {void}
    */
-  private handleChangeChecked (): void {
+  private handleCheckedChanged (): void {
     this.checked = !this.checked;
     this.notifyPropertyChange('checked', this.checked);
   }
@@ -80,6 +80,7 @@ export class Checkbox extends ControlElement {
       <ds-sub-checkbox
         part="checkbox"
         aria-labelledby="label"
+        @checked-changed=${this.handleCheckedChanged}
         .checked=${this.checked}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly}>
