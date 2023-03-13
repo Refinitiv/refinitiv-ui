@@ -14,19 +14,16 @@
     <link type="text/css" rel="stylesheet" href="src/demo.css">
     <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
   </head>
-  <style>
-    ds-sub-checkbox {
-      margin: 10px;
-    }
-  </style>
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/sub-checkbox';
     </script>
     <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
-    <h1>sub-checkbox</h1>
+    <h1>Sub Checkbox</h1>
+    <p>Default</p>
     <ds-sub-checkbox></ds-sub-checkbox>
-    <ds-sub-checkbox></ds-sub-checkbox>
-    <ds-sub-checkbox></ds-sub-checkbox>
+    <ds-sub-checkbox checked></ds-sub-checkbox>
+    <p>Disabled</p>
+    <ds-sub-checkbox disabled></ds-sub-checkbox>
   </body>
 </html>

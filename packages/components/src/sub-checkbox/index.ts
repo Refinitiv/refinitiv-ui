@@ -14,8 +14,6 @@ export class SubCheckbox extends ControlElement {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'checkbox';
-
   /**
    * Value of checkbox
    */
@@ -28,12 +26,19 @@ export class SubCheckbox extends ControlElement {
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
+      cursor: pointer;
       padding: var(--ds-checkbox-padding);
       width: var(--ds-checkbox-size);
       height: var(--ds-checkbox-size);
       color: var(--ds-checkbox-color);
       border: var(--ds-checkbox-border);
       border-radius: var(--ds-checkbox-radius);
+    }
+    :host(:hover) {
+      border: var(--ds-checkbox-hover-border);
+    }
+    :host(:hover) [part=icon] {
+      color: var(--ds-checkbox-hover-color);
     }
     :host(:focus-visible) {
       outline: var(--ds-checkbox-focus-border);
@@ -54,7 +59,7 @@ export class SubCheckbox extends ControlElement {
     :host([checked]) [part=check] {
       visibility: inherit;
     }
-    [disabled] {
+    :host([disabled]) {
       color: var(--ds-checkbox-disabled-color);
       border: var(--ds-checkbox-disabled-border);
     }
@@ -73,19 +78,6 @@ export class SubCheckbox extends ControlElement {
   }
 
   /**
-   * Called before update() to compute values needed during the update.
-   * @param changedProperties Properties that has changed
-   * @returns {void}
-   */
-  protected willUpdate (changedProperties: PropertyValues): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('checked')) {
-      this.setAttribute('aria-checked', String(this.checked));
-    }
-  }
-
-  /**
    * Run when checkbox is tapped
    * @param event Tap event
    * @returns {void}
@@ -94,7 +86,7 @@ export class SubCheckbox extends ControlElement {
     if (this.disabled || this.readonly || event.defaultPrevented) {
       return;
     }
-    this.handleChangeChecked();
+    this.handleCheckedChange();
   }
 
   /**
@@ -110,7 +102,7 @@ export class SubCheckbox extends ControlElement {
     switch (event.key) {
       case ' ':
       case 'Spacebar':
-        this.handleChangeChecked();
+        this.handleCheckedChange();
         break;
       default:
         return;
@@ -124,7 +116,7 @@ export class SubCheckbox extends ControlElement {
    * checked-changed event
    * @return {void}
    */
-  private handleChangeChecked (): void {
+  private handleCheckedChange (): void {
     this.checked = !this.checked;
     this.notifyPropertyChange('checked', this.checked);
   }

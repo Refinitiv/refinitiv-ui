@@ -59,6 +59,13 @@
       }
     }
   },
+  "icon": {
+    "hover": {
+      "color": {
+        "$value": "red"
+      }
+    }
+  },
   "background": {
     "color": {
       "$value": "{grey.100}"
@@ -420,6 +427,14 @@
     },
     "radius": {
       "$value": "{control.radius}"
+    },
+    "hover": {
+      "color": {
+        "$value": "{icon.hover.color}"
+      },
+      "border": {
+        "$value": "{control.hover.border}"
+      }
     },
     "focus": {
       "border": {

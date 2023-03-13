@@ -1,4 +1,4 @@
-import { html, css, TemplateResult, CSSResultGroup, ControlElement, TapEvent } from '@refinitiv-ui/core';
+import { html, css, TemplateResult, CSSResultGroup, ControlElement, TapEvent, PropertyValues } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
@@ -6,7 +6,7 @@ import '../sub-checkbox/index.js';
 
 @customElement('ds-checkbox', { theme: false })
 export class Checkbox extends ControlElement {
-  protected readonly defaultRole: string | null = 'group';
+  protected readonly defaultRole: string | null = 'checkbox';
 
   /**
    * Element version number
@@ -25,18 +25,14 @@ export class Checkbox extends ControlElement {
   static get styles (): CSSResultGroup {
     return css`
       :host {
+        cursor: pointer;
         display: inline-block;
         padding: var(--ds-checkbox-padding);
       }
-      :host(:focus-within) {
+      :host(:focus-visible) {
         outline: var(--ds-checkbox-focus-border);
       }
-      [part='checkbox']:focus-visible {
-        outline: none;
-        border: var(--ds-checkbox-border);
-      }
       [part='label'] {
-        cursor: default;
         padding-left: var(--ds-control-padding);
       }
     `;
@@ -49,6 +45,31 @@ export class Checkbox extends ControlElement {
   public checked = false;
 
   /**
+   * Called before update() to compute values needed during the update.
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    if (changedProperties.has('checked')) {
+      this.setAttribute('aria-checked', String(this.checked));
+    }
+  }
+
+  /**
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+
+    this.addEventListener('tap', this.onTap);
+    this.addEventListener('keydown', this.onKeyDown);
+  }
+  
+  /**
    * Fired when mouse click event happens. Select an item
    * @param event Mouse click event
    * @returns {void}
@@ -58,6 +79,28 @@ export class Checkbox extends ControlElement {
       return;
     }
     this.handleCheckedChanged();
+  }
+
+  /**
+   * Handles key down event
+   * @param event Key down event object
+   * @returns {void}
+   */
+  private onKeyDown (event: KeyboardEvent): void {
+    if (this.disabled || this.readonly || event.defaultPrevented) {
+      return;
+    }
+
+    switch (event.key) {
+      case ' ':
+      case 'Spacebar':
+        this.handleCheckedChanged();
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
   }
 
   /**
@@ -78,14 +121,13 @@ export class Checkbox extends ControlElement {
   protected render (): TemplateResult {
     return html`
       <ds-sub-checkbox
+        tabindex="-1"
         part="checkbox"
-        aria-labelledby="label"
-        @checked-changed=${this.handleCheckedChanged}
         .checked=${this.checked}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly}>
       </ds-sub-checkbox>
-      <ds-sub-label id="label" part="label" @tap=${this.onTap}>
+      <ds-sub-label part="label">
         <slot></slot>
       </ds-sub-label>
     `;
