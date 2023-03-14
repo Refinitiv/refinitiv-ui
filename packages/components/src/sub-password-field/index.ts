@@ -24,6 +24,14 @@ export class SubPasswordField extends SubTextField {
         :host [part=icon] {
           cursor: pointer;
         }
+        :host [part=icon]:hover {
+          color: var(--ds-field-icon-hover-color);
+          outline: var(--ds-field-icon-hover-border);
+        }
+        :host [part=icon]:focus-visible {
+          outline: var(--ds-field-icon-focus-border);
+          border-radius: var(--ds-field-icon-focus-radius);
+        }
       `
     ];
   }
@@ -78,7 +86,7 @@ export class SubPasswordField extends SubTextField {
    * Renders icon element
    * @returns {void}
    */
-  protected override renderIcon (): TemplateResult | typeof nothing {
+  protected override renderIcon (): TemplateResult {
     return html`
       <ds-icon
         part="icon"

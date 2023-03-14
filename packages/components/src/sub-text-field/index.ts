@@ -30,39 +30,44 @@ export class SubTextField extends FormFieldElement {
         vertical-align: middle;
 
         height: var(--ds-field-height);
-        width: var(--ds-field-width); // TODO
+        width: var(--ds-field-width);
 
         color: var(--ds-field-color);
         border: var(--ds-field-border);
         border-radius: var(--ds-field-radius);
         background-color: var(--ds-field-background-color);
-        padding: 0px var(--ds-field-padding);
+        padding: 0px var(--ds-field-padding); // TODO: improve token naming
       }
       :host(:focus) {
         border: var(--ds-field-focus-border);
       }
       :host(:not([readonly]):not([error]):not([warning]):not(:focus):hover) {
-        border: var(--ds-control-hover-border);
+        border: var(--ds-field-hover-border);
       }
       :host([error]:not(:focus)), :host([error][warning]:not(:focus)) {
+        color: var(--ds-field-error-color);
         border: var(--ds-field-error-border);
+        background-color: var(--ds-field-error-background-color);
       }
       :host([error]:hover:not([readonly]):not(:focus)) {
+        color: var(--ds-field-error-hover-color);
         border: var(--ds-field-error-hover-border);
+        background-color: var(--ds-field-error-hover-background-color);
       }
       :host([warning]:not(:focus)) {
+        color: var(--ds-field-warning-color);
         border: var(--ds-field-warning-border);
+        background-color: var(--ds-field-warning-background-color);
       }
       :host([warning]:hover:not([readonly]):not(:focus)) {
+        color: var(--ds-field-warning-hover-color);
         border: var(--ds-field-warning-hover-border);
+        background-color: var(--ds-field-warning-hover-background-color);
       }
       :host([disabled]) {
         color: var(--ds-field-disabled-color);
         border: var(--ds-field-disabled-border);
         background-color: var(--ds-field-disabled-background-color);
-      }
-      :host([disabled]) [part='input'] {
-        user-select: none;
       }
       :host([readonly]:not(:focus)) {
         color: var(--ds-field-readonly-color);
@@ -82,7 +87,7 @@ export class SubTextField extends FormFieldElement {
         background: none;
         border: none;
       }
-      :host(:focus), :host [part='input']:focus {
+      :host [part='input']:focus {
         outline: none;
       }
       :host [part='input']::selection {
@@ -91,15 +96,18 @@ export class SubTextField extends FormFieldElement {
       }
       :host([icon]) [part=icon]{
         display: flex;
-        margin-left: 2px; // TODO: use variable
+        margin-left: var(--ds-space-xxx-small); // TODO: use better token
         color: var(--ds-field-color);
       }
       :host([icon][icon-has-action]) [part=icon] {
         cursor: pointer;
       }
+      :host([icon][icon-has-action]) [part=icon]:hover {
+        color: var(--ds-field-icon-hover-color);
+        outline: var(--ds-field-icon-hover-border);
+      }
       :host([icon][icon-has-action]) [part=icon]:focus-visible {
-        outline: none;
-        border: var(--ds-field-icon-focus-border);
+        outline: var(--ds-field-icon-focus-border);
         border-radius: var(--ds-field-icon-focus-radius);
       }
     `;
