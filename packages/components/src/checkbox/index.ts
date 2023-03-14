@@ -29,23 +29,24 @@ export class Checkbox extends ControlElement {
         display: inline-block;
       }
       :host(:focus-visible) {
-        outline: var(--ds-checkbox-focus-border);
+        outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
       }
       [part=label] {
         padding-left: var(--ds-control-padding);
       }
       :host(:hover) {
-        color: var(--ds-checkbox-hover-color);
+        color: var(--ds-control-hover-color);
       }
       :host(:hover:not([readonly])) [part=checkbox] {
-        border: var(--ds-checkbox-hover-border);
-        color: var(--ds-checkbox-hover-color);
+        color: var(--ds-control-hover-color);
+        border-color: var(--ds-control-hover-border-color);
       }
       :host([disabled]) {
-        color: var(--ds-checkbox-disabled-color);
+        color: var(--ds-control-disabled-color);
       }
       :host([readonly]) {
-        color: var(--ds-checkbox-readonly-color)
+        cursor: default;
+        color: var(--ds-control-readonly-color)
       }
     `;
   }
@@ -80,7 +81,7 @@ export class Checkbox extends ControlElement {
     this.addEventListener('tap', this.onTap);
     this.addEventListener('keydown', this.onKeyDown);
   }
-  
+
   /**
    * Fired when mouse click event happens. Select an item
    * @param event Mouse click event

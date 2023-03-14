@@ -29,50 +29,51 @@ export class SubTextField extends FormFieldElement {
         box-sizing: border-box;
         vertical-align: middle;
 
-        height: var(--ds-field-height);
-        width: var(--ds-field-width);
+        height: var(--ds-control-height);
+        width: var(--ds-control-width);
 
-        color: var(--ds-field-color);
-        border: var(--ds-field-border);
-        border-radius: var(--ds-field-radius);
-        background-color: var(--ds-field-background-color);
-        padding: 0px var(--ds-field-padding); // TODO: improve token naming
+        color: var(--ds-control-color);
+        border: var(--ds-control-border);
+        border-radius: var(--ds-control-border-radius);
+        background-color: var(--ds-control-background-color);
+        padding: 0px var(--ds-space-x-small);
       }
       :host(:focus) {
-        border: var(--ds-field-focus-border);
+        border-color: var(--ds-control-focus-border-color);
       }
       :host(:not([readonly]):not([error]):not([warning]):not(:focus):hover) {
-        border: var(--ds-field-hover-border);
+        color: var(--ds-control-hover-color);
+        border-color: var(--ds-control-hover-border-color);
       }
       :host([error]:not(:focus)), :host([error][warning]:not(:focus)) {
-        color: var(--ds-field-error-color);
-        border: var(--ds-field-error-border);
-        background-color: var(--ds-field-error-background-color);
+        color: var(--ds-control-color);
+        border-color: var(--ds-control-error-border-color);
+        background-color: var(--ds-control-error-background-color);
       }
       :host([error]:hover:not([readonly]):not(:focus)) {
-        color: var(--ds-field-error-hover-color);
-        border: var(--ds-field-error-hover-border);
+        color: var(--ds-control-hover-color);
+        border-color: var(--ds-control-error-hover-border-color);
         background-color: var(--ds-field-error-hover-background-color);
       }
       :host([warning]:not(:focus)) {
-        color: var(--ds-field-warning-color);
-        border: var(--ds-field-warning-border);
-        background-color: var(--ds-field-warning-background-color);
+        color: var(--ds-control-warning-color);
+        border-color: var(--ds-control-warning-border-color);
+        background-color: var(--ds-control-warning-background-color);
       }
       :host([warning]:hover:not([readonly]):not(:focus)) {
-        color: var(--ds-field-warning-hover-color);
-        border: var(--ds-field-warning-hover-border);
-        background-color: var(--ds-field-warning-hover-background-color);
+        color: var(--ds-control-hover-color);
+        border-color: var(--ds-control-warning-hover-border-color);
+        background-color: var(--ds-control-warning-hover-background-color);
       }
       :host([disabled]) {
-        color: var(--ds-field-disabled-color);
-        border: var(--ds-field-disabled-border);
-        background-color: var(--ds-field-disabled-background-color);
+        color: var(--ds-control-disabled-color);
+        border-color: var(--ds-control-disabled-border-color);
+        background-color: var(--ds-control-disabled-background-color);
       }
       :host([readonly]:not(:focus)) {
-        color: var(--ds-field-readonly-color);
-        border: var(--ds-field-readonly-border);
-        background-color: var(--ds-field-readonly-background-color);
+        color: var(--ds-control-readonly-color);
+        border-color: var(--ds-control-readonly-border-color);
+        background-color: var(--ds-control-readonly-background-color);
       }
       :host [part='input'] {
         color: inherit;
@@ -84,7 +85,7 @@ export class SubTextField extends FormFieldElement {
         appearance: none;
         text-overflow: ellipsis;
         font: inherit;
-        font-size: var(--ds-field-font-size);
+        font-size: var(--ds-text-body-size);
         background: none;
         border: none;
       }
@@ -98,18 +99,17 @@ export class SubTextField extends FormFieldElement {
       :host([icon]) [part=icon]{
         display: flex;
         margin-left: var(--ds-space-xxx-small); // TODO: use better token
-        color: var(--ds-field-color);
+        color: var(--ds-control-color);
       }
       :host([icon][icon-has-action]) [part=icon] {
         cursor: pointer;
       }
       :host([icon][icon-has-action]) [part=icon]:hover {
-        color: var(--ds-field-icon-hover-color);
-        outline: var(--ds-field-icon-hover-border);
+        color: var(--ds-control-hover-color);
       }
       :host([icon][icon-has-action]) [part=icon]:focus-visible {
-        outline: var(--ds-field-icon-focus-border);
-        border-radius: var(--ds-field-icon-focus-radius);
+        outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
+        border-radius: var(--ds-control-border-radius);
       }
     `;
   }

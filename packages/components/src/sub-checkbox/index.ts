@@ -27,20 +27,20 @@ export class SubCheckbox extends ControlElement {
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
-      width: var(--ds-checkbox-size);
-      height: var(--ds-checkbox-size);
-      color: var(--ds-checkbox-color);
-      border: var(--ds-checkbox-border);
-      border-radius: var(--ds-checkbox-radius);
+      width: var(--ds-control-height);
+      height: var(--ds-control-height);
+      color: var(--ds-control-color);
+      border: var(--ds-control-border);
+      border-radius: var(--ds-control-border-radius);
     }
     :host(:hover) {
-      border: var(--ds-checkbox-hover-border);
+      border-color: var(--ds-control-hover-border-color);
     }
-    :host(:hover) [part=icon] {
-      color: var(--ds-checkbox-hover-color);
+    :host(:not([readonly]):hover) [part=icon] {
+      color: var(--ds-control-hover-color);
     }
     :host(:focus-visible) {
-      outline: var(--ds-checkbox-focus-border);
+      outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
     }
     [part=check] {
       width: 100%;
@@ -55,13 +55,13 @@ export class SubCheckbox extends ControlElement {
     }
     :host([disabled]) {
       cursor: default;
-      color: var(--ds-checkbox-disabled-color);
-      border: var(--ds-checkbox-disabled-border);
+      color: var(--ds-control-disabled-color);
+      border-color: var(--ds-control-disabled-border-color);
     }
     :host([readonly]) {
       cursor: default;
-      color: var(--ds-checkbox-readonly-color);
-      border: var(--ds-checkbox-readonly-border);
+      color: var(--ds-control-readonly-color);
+      border-color: var(--ds-control-readonly-border-color);
     }
   `;
 

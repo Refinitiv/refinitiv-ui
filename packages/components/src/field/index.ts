@@ -23,13 +23,13 @@ export class Field extends ControlElement {
       :host {
         display: flex;
         flex-direction: column;
-        margin: 8px 0; // TODO:
+        margin: var(--ds-space-x-small) 0;
       }
       :host [part=label] {
-        margin: 8px 0; // TODO:
+        margin: var(--ds-space-x-small) 0;
       }
       :host [part=error-message] {
-        margin: 4px 0; // TODO:
+        margin: var(--ds-space-xx-small) 0;
       }
     `;
   }

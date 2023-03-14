@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from '@refinitiv-ui/core';
+import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from '@refinitiv-ui/core';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
@@ -25,12 +25,11 @@ export class SubPasswordField extends SubTextField {
           cursor: pointer;
         }
         :host [part=icon]:hover {
-          color: var(--ds-field-icon-hover-color);
-          outline: var(--ds-field-icon-hover-border);
+          color: var(--ds-control-hover-color);
         }
         :host [part=icon]:focus-visible {
-          outline: var(--ds-field-icon-focus-border);
-          border-radius: var(--ds-field-icon-focus-radius);
+          outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
+          border-radius: var(--ds-control-border-radius);
         }
       `
     ];
