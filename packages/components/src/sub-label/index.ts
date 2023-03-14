@@ -23,6 +23,8 @@ export class SubLabel extends BasicElement {
     return css`
       :host {
         display: inline-block;
+        color: var(--ds-label-color);
+        font-size: var(--ds-label-font-size);
       }
       :host([error]),
       :host([error][warning]) {

@@ -23,13 +23,13 @@ export class Field extends ControlElement {
       :host {
         display: flex;
         flex-direction: column;
-        margin: 8px 0;
+        margin: 8px 0; // TODO:
       }
-      :host [part='label'] {
-        margin: 4px 0 ;
+      :host [part=label] {
+        margin: 8px 0; // TODO:
       }
-      :host [part='error-message'] {
-        margin: 4px 0 ;
+      :host [part=error-message] {
+        margin: 4px 0; // TODO:
       }
     `;
   }
@@ -104,7 +104,8 @@ export class Field extends ControlElement {
       case 'text':
         return html`
         <ds-sub-text-field
-          aria-labelledby="label"
+          aria-labelledby=${this.label ? 'label' : nothing}
+          aria-describedby=${this.errorMessage ? 'error-label' : nothing}
 
           .disabled=${this.disabled}
           .readonly=${this.readonly}
@@ -122,7 +123,17 @@ export class Field extends ControlElement {
       case 'password':
         return html`
         <ds-sub-password-field
-          aria-labelledby="label"
+          aria-labelledby=${this.label ? 'label' : nothing}
+          aria-describedby=${this.errorMessage ? 'error-label' : nothing}
+
+          .disabled=${this.disabled}
+          .readonly=${this.readonly}
+          ?error=${this.error}
+          ?warning=${this.warning}
+
+          pattern=${this.pattern ? this.pattern : nothing}
+          minlength=${this.minLength !== null ? this.minLength : nothing}
+          maxlength=${this.maxLength !== null ? this.maxLength : nothing}
 
           @value-changed=${this.handleValueChanged}
           @error-changed=${this.handleErrorChanged}
@@ -149,7 +160,7 @@ export class Field extends ControlElement {
    * @return Render template
    */
   protected get renderErrorMessage (): TemplateResult | typeof nothing {
-    return html`<ds-sub-label error part="error-message">${this.errorMessage}</ds-sub-label>`;
+    return html`<ds-sub-label error id="error-label" part="error-message">${this.errorMessage}</ds-sub-label>`;
   }
 
   /**

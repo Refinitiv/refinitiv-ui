@@ -214,6 +214,9 @@
     }
   },
   "control": {
+    "font-size" : {
+      "$value":"{text.body.size}"
+    },
     "color": {
       "$value": "{text.body.color}"
     },
@@ -332,6 +335,9 @@
     }
   },
   "field": {
+    "font-size" : {
+      "$value":"{control.font-size}"
+    },
     "color": {
       "$value": "{control.color}"
     },
@@ -551,6 +557,12 @@
     }
   },
   "label": {
+    "color" : {
+      "$value":"{text.body.color}"
+    },
+    "font-size" : {
+      "$value":"{text.body.size}"
+    },
     "error": {
       "color": {
         "$value": "{control.error.color}"

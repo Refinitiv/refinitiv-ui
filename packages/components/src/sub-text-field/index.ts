@@ -84,6 +84,7 @@ export class SubTextField extends FormFieldElement {
         appearance: none;
         text-overflow: ellipsis;
         font: inherit;
+        font-size: var(--ds-field-font-size);
         background: none;
         border: none;
       }
