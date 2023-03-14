@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.7.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.7.0...@refinitiv-ui/elements@6.7.1) (2023-03-14)
+
+
+### Bug Fixes
+
+* **tooltip:** custom renderer demo block ([#621](https://github.com/Refinitiv/refinitiv-ui/issues/621)) ([3156ccd](https://github.com/Refinitiv/refinitiv-ui/commit/3156ccdad5d369955c63830b50e1dcd25265744c))
+
+
+
+
+
 # [6.7.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.6.2...@refinitiv-ui/elements@6.7.0) (2023-02-27)
 
 
