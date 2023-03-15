@@ -1,14 +1,192 @@
-h1,h2 {
-  font-size: var(--ds-text-header-size);
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  color: var(--ds-text-selection-color);
+  background-color: var(--ds-text-selection-background-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--ds-font-weight-bold);
   font-family: var(--ds-text-header-font-family);
   color: var(--ds-text-header-color);
 }
+
+h1 {
+  font-size: var(--ds-font-size-xx-large);
+  margin-bottom: var(--ds-space-large);
+}
+
+h2 {
+  font-size: var(--ds-font-size-x-large);
+  margin-bottom: var(--ds-space-medium);
+}
+
+h3 {
+  font-size: var(--ds-font-size-large);
+  margin-bottom: var(--ds-space-small);
+}
+
+h4 {
+  font-size: var(--ds-font-size-medium);
+  margin-bottom: var(--ds-space-x-small);
+}
+
+h5 {
+  font-size: var(--ds-font-size-small);
+  margin-bottom: var(--ds-space-xx-small);
+}
+
+h6 {
+  font-size: var(--ds-font-size-x-small);
+  margin-bottom: var(--ds-space-xxx-small);
+}
+
+h4,
+h5,
+h6 {
+  text-transform: uppercase;
+}
+
+header {
+  color: var(--ds-text-header-color);
+  background-color: var(--ds-background-empathize);
+  padding: var(--ds-space-medium);
+  height: var(--ds-space-control-height);
+  font-size: var(--ds-font-size-large);
+  white-space: nowrap;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+a {
+  color: var(--ds-primary-color);
+  font-weight: var(--ds-font-weight-default);
+  font-family: var(--ds-text-body-font-family);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  color: var(--ds-primary-color);
+}
+
+a:focus {
+  outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
+}
+
+p {
+  font-weight: var(--ds-font-weight-default);
+  font-family: var(--ds-text-body-font-family);
+  margin-bottom: var(--ds-space-xxx-small);
+}
+
+mark {
+  padding: var(--ds-space-xxx-small);
+  background: var(--ds-primary-color);
+}
+
+kbd {
+  border-radius: var(--ds-control-border-radius);
+  padding: var(--ds-space-xxx-small);
+  background: var(--ds-background-empathize);
+}
+
+hr {
+  border: none;
+  height: var(--ds-space-xxx-small);
+  background: var(--ds-background-empathize);
+  margin: var(--ds-space-small) 0;
+}
+
+input {
+  appearance: none;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  padding: 0 var(--ds-space-xx-small);
+  border: var(--ds-control-border);
+  height: var(--ds-control-height);
+  width: var(--ds-control-width);
+  color: var(--ds-text-body-color);
+  background-color: var(--ds-control-background-color);
+}
+
+input:focus {
+  outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
+}
+
+select {
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  border: var(--ds-control-border);
+  height: var(--ds-control-height);
+  width: var(--ds-control-width);
+  color: var(--ds-text-body-color);
+  background-color: var(--ds-control-background-color);
+}
+
+select:focus {
+  outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
+}
+
+textarea {
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  padding: 0px var(--ds-space-xx-small);
+  border: var(--ds-control-border);
+  width: var(--ds-control-width);
+  color: var(--ds-text-body-color);
+  background-color: var(--ds-control-background-color);
+}
+
+textarea:focus {
+  outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
+}
+
+table {
+  font-size: inherit;
+  font-weight: inherit;
+  width: 100%;
+  border-collapse: collapse;
+  border: var(--ds-control-border);
+}
+
+th {
+  background-color: var(--ds-background-empathize);
+}
+
+th,
+td {
+  text-align: left;
+  padding: var(--ds-space-xx-small);
+  border: var(--ds-control-border);
+}
+
+label {
+  display: block;
+  margin-bottom: var(--ds-space-x-small);
+}
+
 body {
   padding: 24px;
   font-size: var(--ds-text-body-size);
+  font-weight: var(--ds-font-weight-default);
   font-family: var(--ds-text-body-font-family);
   color: var(--ds-text-body-color);
-  background-color: var(--ds-background-color);
+  background-color: var(--ds-background-default);
   will-change: background-color;
   transition: background-color 100ms;
 }
