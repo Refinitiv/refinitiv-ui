@@ -12,15 +12,13 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
 import { color as parseColor } from '@refinitiv-ui/utils/color.js';
 
-type DatasetColors = {
-  solid: string | string[];
-  opaque: string | string[];
-};
-
 import {
   merge,
   MergeObject
 } from './helpers/index.js';
+import type {
+  DatasetColors
+} from './helpers/types';
 
 import {
   Chart as ChartJS,
@@ -48,7 +46,7 @@ const CSS_COLOR_PREFIX = '--chart-color-';
  */
 declare module 'chart.js' {
   interface PluginOptionsByType<TType extends ChartType> {
-    efchart?: {
+    'ef-chart'?: {
       enable: boolean
     }
   }
@@ -105,7 +103,7 @@ export class Chart extends BasicElement {
         title: {
           display: false
         },
-        efchart: {
+        'ef-chart': {
           enable: true
         }
       }
@@ -128,7 +126,7 @@ export class Chart extends BasicElement {
   }
 
   /**
-   * Safely returns the chart title
+   * Returns the chart title
    * @returns chart title
    */
   protected get chartTitle (): string {
@@ -142,7 +140,7 @@ export class Chart extends BasicElement {
   }
 
   /**
-   * Safely returns a dataset array
+   * Returns a dataset array
    * @returns dataset array
    */
   protected get datasets (): ChartDataset[] {
@@ -185,26 +183,11 @@ export class Chart extends BasicElement {
    * Create plugin to set our theme into chartjs lifecycle
    * @returns {Plugin} plugin
    */
-  private plugin (): Plugin {
-    const cssStyle = getComputedStyle(this);
-    // TODO: Try and remove the need for global object modification.
-    // It's easier to cover all areas by modifying the global object,
-    // however, if possible, we should look to try and just modify local configs.
-
-    // Set font globals
-    ChartJS.defaults.color = cssStyle.getPropertyValue('color');
-    ChartJS.defaults.font.family = cssStyle.getPropertyValue('font-family');
-    ChartJS.defaults.font.size = Number(cssStyle.getPropertyValue('font-size').replace('px', ''));
-    ChartJS.defaults.font.style = cssStyle.getPropertyValue('font-style') as 'normal' | 'italic' | 'oblique' | 'initial' | 'inherit' | undefined;
-    // Set global grid color
-    ChartJS.defaults.scale.grid.color = (line) => {
-      return line.index === 0 ? this.getComputedVariable('--zero-line-color', 'transparent') : this.getComputedVariable('--grid-line-color', 'transparent');
-    };
-
+  private get createPlugin (): Plugin {
     return {
-      id: 'efchart',
+      id: 'ef-chart',
       beforeInit: (chart: ChartJS) => {
-        const option: ChartOptions = this.themableConfig;
+        const option: ChartOptions = this.themableChartOption;
         merge(chart.config.options as unknown as MergeObject, option, true);
       },
       beforeUpdate: this.decorateColors
@@ -216,7 +199,7 @@ export class Chart extends BasicElement {
    * This will be merged into the configuration object.
    * @returns {ChartOptions} chart config with theme
    */
-  protected get themableConfig (): ChartOptions {
+  protected get themableChartOption (): ChartOptions {
     return {
       animation: {
         duration: this.cssVarAsNumber('--animation-duration', '0')
@@ -304,7 +287,7 @@ export class Chart extends BasicElement {
           }
           break;
 
-        // This type, Colors is set to an array.
+        // These types, Colors is set to an array.
         case 'doughnut':
         case 'pie':
         case 'polarArea':
@@ -318,7 +301,7 @@ export class Chart extends BasicElement {
           if (!dataset.backgroundColor) {
             dataset.backgroundColor = backgroundColor;
           }
-          // Add more color if items doesn't enough
+          // Add more colors if items aren't enough
           if (Array.isArray(dataset.borderColor) && Array.isArray(borderColor) && dataset.borderColor.length < borderColor.length) {
             merge(dataset.borderColor, borderColor);
           }
@@ -327,7 +310,7 @@ export class Chart extends BasicElement {
           }
           break;
 
-        // This type, Colors is possible to be string or array
+        // These types, Colors could be string or array
         case 'bar':
         case 'bubble':
           colors = this.generateColors(!isMultipleDatasets, !isMultipleDatasets && dataset.data ? dataset.data.length : 1, datasetIndex);
@@ -348,7 +331,7 @@ export class Chart extends BasicElement {
             merge(dataset.backgroundColor, backgroundColor);
           }
           break;
-        // For the other chart
+        // For other types
         default:
           colors = this.generateColors(false, dataset.data.length, datasetIndex);
           if (!dataset.borderColor) {
@@ -407,7 +390,7 @@ export class Chart extends BasicElement {
         case 'scatter':
           legend.fillStyle = (datasets[i] as LineControllerDatasetOptions).borderColor as Color;
           break;
-        // For the other chart
+        // For other chart types
         default:
           break;
       }
@@ -425,7 +408,7 @@ export class Chart extends BasicElement {
     }
 
     // TODO: unknown type
-    merge(this.config as unknown as MergeObject, { plugins: [this.plugin()], options: this.requiredConfig } as MergeObject, true);
+    merge(this.config as unknown as MergeObject, { plugins: [this.createPlugin], options: this.requiredConfig } as MergeObject, true);
   }
 
   /**
@@ -433,6 +416,21 @@ export class Chart extends BasicElement {
    * @returns {void}
    */
   protected decorateConfig (): void {
+    const cssStyle = getComputedStyle(this);
+    // TODO: Try and remove the need for global object modification.
+    // It's easier to cover all areas by modifying the global object,
+    // however, if possible, we should look to try and just modify local configs.
+
+    // Set font globals
+    ChartJS.defaults.color = cssStyle.getPropertyValue('color');
+    ChartJS.defaults.font.family = cssStyle.getPropertyValue('font-family');
+    ChartJS.defaults.font.size = Number(cssStyle.getPropertyValue('font-size').replace('px', ''));
+    ChartJS.defaults.font.style = cssStyle.getPropertyValue('font-style') as 'normal' | 'italic' | 'oblique' | 'initial' | 'inherit' | undefined;
+    // Set global grid color
+    ChartJS.defaults.scale.grid.color = (line) => {
+      return line.index === 0 ? this.getComputedVariable('--zero-line-color', 'transparent') : this.getComputedVariable('--grid-line-color', 'transparent');
+    };
+
     this.mergeConfigs();
   }
 
@@ -444,7 +442,6 @@ export class Chart extends BasicElement {
    * @returns {DatasetColors} Solid and opaque color values
    */
   protected generateColors (isArray: boolean, amount: number, shift: number): DatasetColors {
-    let color;
     const solid = [];
     const opaque = [];
     const alpha = Number(this.getComputedVariable('--fill-opacity', '0.2'));
@@ -452,7 +449,7 @@ export class Chart extends BasicElement {
     amount = isArray ? amount : 1;
 
     for (let i = shift; i < amount + shift; i++) {
-      color = this.colors[i % this.colors.length];
+      const color = this.colors[i % this.colors.length];
       solid.push(color);
 
       const opaqueColor = parseColor(color);
