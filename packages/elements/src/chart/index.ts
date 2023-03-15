@@ -309,7 +309,7 @@ export class Chart extends BasicElement {
           }
           break;
 
-        // These types, Colors is set to an array.
+        // These types, Colors are set to an array.
         case 'doughnut':
         case 'pie':
         case 'polarArea':
