@@ -169,6 +169,18 @@ export class SubTextField extends FormFieldElement {
   public minLength: number | null = null;
 
   /**
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+
+    // TODO: Workaround to prevent screen reader from reading this host
+    this.setAttribute('aria-hidden', 'true');
+  }
+
+  /**
    * Called when the element’s DOM has been updated and rendered
    * @param changedProperties Properties that has changed
    * @returns shouldUpdate
