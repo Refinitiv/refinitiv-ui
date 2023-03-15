@@ -19,6 +19,8 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    */
   public readonly delegatesFocus: boolean = true;
 
+  static shadowRootOptions = { ...BasicElement.shadowRootOptions, mode: 'closed' as ShadowRootMode, delegatesFocus: true };
+
   /**
    * Name of the element.
    */
