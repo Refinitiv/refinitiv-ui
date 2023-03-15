@@ -92,6 +92,8 @@ p {
 }
 
 mark {
+  /* Inverted */
+  color: var(--ds-grey-100);
   padding: var(--ds-space-xxx-small);
   background: var(--ds-primary-color);
 }
