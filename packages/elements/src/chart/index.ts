@@ -13,7 +13,8 @@ import { VERSION } from '../version.js';
 import { color as parseColor } from '@refinitiv-ui/utils/color.js';
 
 import {
-  merge
+  merge,
+  MergeObject
 } from './helpers/index.js';
 import type {
   DatasetColors
@@ -164,6 +165,7 @@ export class Chart extends BasicElement {
    */
   public connectedCallback (): void {
     super.connectedCallback();
+    this.setGlobalConfig();
     if (this.canvas) {
       this.createChart();
     }
@@ -182,12 +184,12 @@ export class Chart extends BasicElement {
    * Create plugin to set our theme into chartjs lifecycle
    * @returns {Plugin} plugin
    */
-  private get createPlugin (): Plugin {
+  private createPlugin (): Plugin {
     return {
       id: 'ef-chart',
       beforeInit: (chart: ChartJS) => {
         const option: ChartOptions = this.themableChartOption;
-        merge<ChartOptions>(chart.config.options || {}, option, true);
+        merge(chart.config.options as unknown as MergeObject, option, true);
       },
       beforeUpdate: this.decorateColors
     };
@@ -231,6 +233,27 @@ export class Chart extends BasicElement {
           }
         }
       }
+    };
+  }
+
+  /**
+   * Set global configuration of ChartJS
+   * @returns {void}
+   */
+  // TODO: Try and remove the need for global object modification.
+  // It's easier to cover all areas by modifying the global object,
+  // however, if possible, we should look to try and just modify local configs.
+  private setGlobalConfig (): void {
+    const cssStyle = getComputedStyle(this);
+
+    // Set font globals
+    ChartJS.defaults.color = cssStyle.getPropertyValue('color');
+    ChartJS.defaults.font.family = cssStyle.getPropertyValue('font-family');
+    ChartJS.defaults.font.size = Number(cssStyle.getPropertyValue('font-size').replace('px', ''));
+    ChartJS.defaults.font.style = cssStyle.getPropertyValue('font-style') as 'normal' | 'italic' | 'oblique' | 'initial' | 'inherit' | undefined;
+    // Set global grid color
+    ChartJS.defaults.scale.grid.color = (line) => {
+      return line.index === 0 ? this.getComputedVariable('--zero-line-color', 'transparent') : this.getComputedVariable('--grid-line-color', 'transparent');
     };
   }
 
@@ -406,31 +429,9 @@ export class Chart extends BasicElement {
       return;
     }
 
-    merge<ChartConfiguration>(this.config, { plugins: [this.createPlugin], options: this.requiredConfig } as ChartConfiguration, true);
+    merge(this.config as unknown as MergeObject, { plugins: [this.createPlugin()], options: this.requiredConfig } as MergeObject, true);
   }
 
-  /**
-   * Themes the passed-in configuration object
-   * @returns {void}
-   */
-  protected decorateConfig (): void {
-    const cssStyle = getComputedStyle(this);
-    // TODO: Try and remove the need for global object modification.
-    // It's easier to cover all areas by modifying the global object,
-    // however, if possible, we should look to try and just modify local configs.
-
-    // Set font globals
-    ChartJS.defaults.color = cssStyle.getPropertyValue('color');
-    ChartJS.defaults.font.family = cssStyle.getPropertyValue('font-family');
-    ChartJS.defaults.font.size = Number(cssStyle.getPropertyValue('font-size').replace('px', ''));
-    ChartJS.defaults.font.style = cssStyle.getPropertyValue('font-style') as 'normal' | 'italic' | 'oblique' | 'initial' | 'inherit' | undefined;
-    // Set global grid color
-    ChartJS.defaults.scale.grid.color = (line) => {
-      return line.index === 0 ? this.getComputedVariable('--zero-line-color', 'transparent') : this.getComputedVariable('--grid-line-color', 'transparent');
-    };
-
-    this.mergeConfigs();
-  }
 
   /**
    * Generates internal solid and opaque color set for a dataset
@@ -485,7 +486,7 @@ export class Chart extends BasicElement {
     const ctx = this.canvas.getContext('2d');
     if (ctx && this.config) {
       this.destroyChart();
-      this.decorateConfig();
+      this.mergeConfigs();
       this.manageTitle();
 
       this.chart = new ChartJS(this.canvas, this.config);
@@ -518,7 +519,7 @@ export class Chart extends BasicElement {
 
     // Stop any chart.js animations
     this.chart.stop();
-    this.decorateConfig();
+    this.mergeConfigs();
     this.manageTitle();
 
     // Update the chart
