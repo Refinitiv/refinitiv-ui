@@ -58,8 +58,10 @@ export class SubItem extends ControlElement {
         box-sizing: border-box;
         outline: none;
         padding: var(--ds-space-x-small);
-        color: var(--ds-control-color);
         min-height: var(--ds-control-height);
+        color: var(--ds-control-color);
+        border: var(--ds-control-border-width) var(--ds-control-border-style) transparent;
+        border-radius: var(--ds-control-border-radius);
       }
       [part=checkbox] {
         pointer-events: none;
@@ -72,11 +74,8 @@ export class SubItem extends ControlElement {
       [part=center] {
         flex: 1;
       }
-      :host [part=icon] {
+      [part=icon] {
         margin: 0 var(--ds-space-xx-small) 0 0;
-      }
-      :host([type=divider]) > * {
-        display: none;
       }
       :host([selected]) {
         color: var(--ds-control-color);
@@ -87,28 +86,32 @@ export class SubItem extends ControlElement {
       :host(:focus),
       :host([highlighted]) {
         color: var(--ds-control-focus-color);
+        border-color: var(--ds-control-focus-border-color);
         background-color: var(--ds-control-focus-background-color);
       }
       :host([type="header"]) {
-        color: var(--ds-text-sub-header-color);
-        background-color: var(--ds-background-empathize);
-        font-size: var(--ds-item-header-font-size);
-        font-weight: var(--ds-font-weight-bold);
         align-items: flex-end;
         margin: 0;
         min-height: 0;
         text-transform: uppercase;
+        color: var(--ds-text-sub-header-color);
+        background-color: var(--ds-background-default);
+        font-weight: var(--ds-font-weight-bold);
       }
       :host([type="divider"]) {
         border: none;
         padding: 0;
         margin: 0;
         min-height: auto;
-        height: var(--ds-item-divider-height);
-        background: var(--ds-item-divider-background);
+        height: var(--ds-space-xxx-small);
+        background: var(--ds-background-empathize);
+      }
+      :host([type=divider]) > * {
+        display: none;
       }
       :host([disabled]) {
         color: var(--ds-control-disabled-color);
+        background-color: var(--ds-control-disabled-background-color);
       }
     `;
   }

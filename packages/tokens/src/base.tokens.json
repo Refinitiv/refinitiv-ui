@@ -65,8 +65,11 @@
     }
   },
   "background": {
-    "color": {
+    "default": {
       "$value": "{grey.100}"
+    },
+    "empathize": {
+      "$value": "{grey.200}"
     }
   },
   "font": {
@@ -113,12 +116,11 @@
       }
     },
     "weight": {
+      "$type": "fontWeight",
       "default": {
-        "$type": "fontWeight",
-        "$value": 500
+        "$value": 400
       },
       "bold": {
-        "$type": "fontWeight",
         "$value": 600
       }
     }
@@ -250,7 +252,7 @@
     },
     "background": {
       "color": {
-        "$value": "{background.color}"
+        "$value": "{background.default}"
       }
     },
     "disabled": {
