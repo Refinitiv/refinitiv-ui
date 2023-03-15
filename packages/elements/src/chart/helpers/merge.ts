@@ -8,7 +8,7 @@ type MergeObject = UnknownObject | Array<unknown>;
  * Merge objects recursively
  *
  * @param {MergeObject} object The destination object.
- * @param {MergeObject} sources The source objects.
+ * @param {MergeObject} sources The source object.
  * @param {boolean} force Force merge if a key of destination object is already exists and a value is not object
  * @param {MergeObject[]} record The record object which record merged objects recursively
  * @returns voids
