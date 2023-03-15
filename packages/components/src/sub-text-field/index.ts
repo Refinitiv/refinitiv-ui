@@ -16,6 +16,8 @@ const hasChanged = (value: unknown, oldValue: unknown): boolean => oldValue === 
 
 @customElement('ds-sub-text-field', { theme: false })
 export class SubTextField extends FormFieldElement {
+  static shadowRootOptions = { ...FormFieldElement.shadowRootOptions, delegatesFocus: true };
+
   /**
    * A `CSSResultGroup` that will be used to style the host,
    * slotted children and the internal template of the element.

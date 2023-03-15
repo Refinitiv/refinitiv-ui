@@ -14,6 +14,11 @@ export class Field extends ControlElement {
   protected defaultRole: string | null = 'group';
 
   /**
+   * Delegate focus to input
+   */
+  static shadowRootOptions = { ...ControlElement.shadowRootOptions, delegatesFocus: true };
+
+  /**
    * A `CSSResultGroup` that will be used to style the host,
    * slotted children and the internal template of the element.
    * @returns CSS template

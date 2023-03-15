@@ -35,8 +35,7 @@ const isAllWhitespaceTextNode = (node: Node): boolean =>
  * @slot right - Used to render the content on the right of the label.
  */
 @customElement('ds-sub-item', { theme: false })
-export class Item extends ControlElement {
-
+export class SubItem extends ControlElement {
   /**
    * Element version number
    * @returns version number
@@ -58,9 +57,9 @@ export class Item extends ControlElement {
         cursor: pointer;
         box-sizing: border-box;
         outline: none;
-        padding: var(--ds-item-padding);
-        color: var(--ds-item-color);
-        min-height: var(--ds-item-min-height);
+        padding: var(--ds-space-x-small);
+        color: var(--ds-control-color);
+        min-height: var(--ds-control-height);
       }
       [part=checkbox] {
         pointer-events: none;
@@ -74,27 +73,27 @@ export class Item extends ControlElement {
         flex: 1;
       }
       :host [part=icon] {
-        margin: 0 var(--ds-item-icon-margin) 0 0;
+        margin: 0 var(--ds-space-xx-small) 0 0;
       }
       :host([type=divider]) > * {
         display: none;
       }
       :host([selected]) {
-        color: var(--ds-item-selected-color);
+        color: var(--ds-control-color);
       }
       :host([readonly]) {
         cursor: default;
       }
-      :host([focused]),
+      :host(:focus),
       :host([highlighted]) {
-        color: var(--ds-item-focus-color);
-        background-color: var(--ds-item-focus-background-color);
+        color: var(--ds-control-focus-color);
+        background-color: var(--ds-control-focus-background-color);
       }
       :host([type="header"]) {
-        color: var(--ds-item-header-color);
-        background-color: var(--ds-item-header-background-color);
+        color: var(--ds-text-sub-header-color);
+        background-color: var(--ds-background-empathize);
         font-size: var(--ds-item-header-font-size);
-        font-weight: var(--ds-item-header-font-weight);
+        font-weight: var(--ds-font-weight-bold);
         align-items: flex-end;
         margin: 0;
         min-height: 0;
@@ -109,7 +108,7 @@ export class Item extends ControlElement {
         background: var(--ds-item-divider-background);
       }
       :host([disabled]) {
-        color: var(--ds-item-disabled-color);
+        color: var(--ds-control-disabled-color);
       }
     `;
   }
@@ -335,6 +334,6 @@ export class Item extends ControlElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-sub-item': Item;
+    'ds-sub-item': SubItem;
   }
 }
