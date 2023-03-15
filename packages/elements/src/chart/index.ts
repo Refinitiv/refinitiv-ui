@@ -13,8 +13,7 @@ import { VERSION } from '../version.js';
 import { color as parseColor } from '@refinitiv-ui/utils/color.js';
 
 import {
-  merge,
-  MergeObject
+  merge
 } from './helpers/index.js';
 import type {
   DatasetColors
@@ -188,7 +187,7 @@ export class Chart extends BasicElement {
       id: 'ef-chart',
       beforeInit: (chart: ChartJS) => {
         const option: ChartOptions = this.themableChartOption;
-        merge(chart.config.options as unknown as MergeObject, option, true);
+        merge<ChartOptions>(chart.config.options || {}, option, true);
       },
       beforeUpdate: this.decorateColors
     };
@@ -322,7 +321,7 @@ export class Chart extends BasicElement {
           if (!dataset.backgroundColor) {
             dataset.backgroundColor = colors.solid;
           }
-          // Add more color if items doesn't enough
+          // Add more colors if items aren't enough
           if (Array.isArray(dataset.borderColor) && Array.isArray(borderColor) && dataset.borderColor.length < borderColor.length) {
             merge(dataset.borderColor, borderColor);
           }
@@ -407,8 +406,7 @@ export class Chart extends BasicElement {
       return;
     }
 
-    // TODO: unknown type
-    merge(this.config as unknown as MergeObject, { plugins: [this.createPlugin], options: this.requiredConfig } as MergeObject, true);
+    merge<ChartConfiguration>(this.config, { plugins: [this.createPlugin], options: this.requiredConfig } as ChartConfiguration, true);
   }
 
   /**
