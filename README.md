@@ -35,3 +35,7 @@ For questions or issues, please refer to documentation (see Documentation sectio
 
 # Contributing
 See [CONTRIBUTING](./CONTRIBUTING.md).
+
+# Sponsoring Services
+
+[BrowserStack](https://www.browserstack.com/) Thank you for a great service let us test on real browsers.
