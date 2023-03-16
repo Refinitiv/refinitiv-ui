@@ -17,7 +17,7 @@ import { VERSION } from '../version.js';
 import '../sub-overlay/index.js';
 import '../sub-item/index.js';
 import '../icon/index.js';
-import { Item } from '../sub-item/index.js';
+import { SubItem } from '../sub-item/index.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 
@@ -74,6 +74,8 @@ export class Select extends ControlElement implements MultiValue {
     return VERSION;
   }
 
+  static shadowRootOptions = { ...ControlElement.shadowRootOptions, mode: 'open' as ShadowRootMode };
+
   protected readonly defaultRole: string | null = 'button';
 
   /**
@@ -88,8 +90,51 @@ export class Select extends ControlElement implements MultiValue {
         outline: none;
         position: relative;
         user-select: none;
-        -webkit-user-select: none;
-        display: inline-block;
+        display: inline-flex;
+        height: var(--ds-control-height);
+        width: var(--ds-control-width);
+        color: var(--ds-control-color);
+        border: var(--ds-control-border);
+        border-radius: var(--ds-control-border-radius);
+        background-color: var(--ds-control-background-color);
+        padding: 0px var(--ds-space-x-small);
+      }
+      :host(:focus) {
+        border-color: var(--ds-control-focus-border-color);
+      }
+      :host(:not([readonly]):not([error]):not([warning]):not(:focus):hover) {
+        color: var(--ds-control-hover-color);
+        border-color: var(--ds-control-hover-border-color);
+      }
+      :host([error]:not(:focus)), :host([error][warning]:not(:focus)) {
+        color: var(--ds-control-color);
+        border-color: var(--ds-control-error-border-color);
+        background-color: var(--ds-control-error-background-color);
+      }
+      :host([error]:hover:not([readonly]):not(:focus)) {
+        color: var(--ds-control-hover-color);
+        border-color: var(--ds-control-error-hover-border-color);
+        background-color: var(--ds-field-error-hover-background-color);
+      }
+      :host([warning]:not(:focus)) {
+        color: var(--ds-control-color);
+        border-color: var(--ds-control-warning-border-color);
+        background-color: var(--ds-control-warning-background-color);
+      }
+      :host([warning]:hover:not([readonly]):not(:focus)) {
+        color: var(--ds-control-hover-color);
+        border-color: var(--ds-control-warning-hover-border-color);
+        background-color: var(--ds-control-warning-hover-background-color);
+      }
+      :host([disabled]) {
+        color: var(--ds-control-disabled-color);
+        border-color: var(--ds-control-disabled-border-color);
+        background-color: var(--ds-control-disabled-background-color);
+      }
+      :host([readonly]:not(:focus)) {
+        color: var(--ds-control-readonly-color);
+        border-color: var(--ds-control-readonly-border-color);
+        background-color: var(--ds-control-readonly-background-color);
       }
 
       [part=label],
@@ -103,8 +148,8 @@ export class Select extends ControlElement implements MultiValue {
       }
       :host [part=list] {
         overflow-y: auto;
-        max-width: var(--ds-select-list-max-width);
-        max-height: var(--ds-select-list-max-height);
+        max-width: var(--ds-select-list-max-width, 100px);
+        max-height: var(--ds-select-list-max-height, 100px);
       }
       :host [part="list"] ::slotted(:not(ds-sub-item)) {
         display: none;
@@ -155,7 +200,7 @@ export class Select extends ControlElement implements MultiValue {
   private lazyRendered = false; /* speed up rendering by not populating popup window on first load */
   private popupScrollTop = 0; /* remember scroll position on popup refit actions */
   private observingMutations = false;
-  private highlightedItem?: Item;
+  private highlightedItem?: SubItem;
   private keySearchTerm = ''; /* used for quick search */
   private keySearchThrottler = new TimeoutTaskRunner(KEY_SEARCH_DEBOUNCER);
   private resizeThrottler = new AnimationTaskRunner();
@@ -476,7 +521,7 @@ export class Select extends ControlElement implements MultiValue {
         minWidth = 0;
       }
     }
-    
+
     this.popupDynamicStyles.minWidth = `${minWidth}px`;
   }
 
@@ -754,7 +799,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param [item] An item to highlight
    * @returns {void}
    */
-  private setItemHighlight (item?: Item): void {
+  private setItemHighlight (item?: SubItem): void {
     if (this.highlightedItem === item) {
       return;
     }
@@ -804,7 +849,7 @@ export class Select extends ControlElement implements MultiValue {
    */
   private isSelectableElement (element: Element): boolean {
     // TODO: remove disabled && readonly check once ControlElement tabIndex issue is fixed
-    return element instanceof Item && element.tabIndex >= 0 && !element.disabled && !element.readonly;
+    return element instanceof SubItem && element.tabIndex >= 0 && !element.disabled && !element.readonly;
   }
 
   /**
@@ -812,7 +857,7 @@ export class Select extends ControlElement implements MultiValue {
    * *Can be used only when select is opened*
    * @returns A list of selectable HTML elements
    */
-  private getSelectableElements (): Item[] {
+  private getSelectableElements (): SubItem[] {
     const root = this.hasDataItems() ? this.menuRef.value : this;
 
     /* c8 ignore start */
@@ -821,13 +866,13 @@ export class Select extends ControlElement implements MultiValue {
     }
     /* c8 ignore stop */
 
-    const items: Item[] = [];
+    const items: SubItem[] = [];
     const rootChildren = root.children;
 
     for (let i = 0; i < rootChildren.length; i += 1) {
       const item = rootChildren[i];
       if (this.isSelectableElement(item)) {
-        items.push(item as Item);
+        items.push(item as SubItem);
       }
     }
 
@@ -839,7 +884,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param event Event to check
    * @returns The first selectable element or undefined
    */
-  private findSelectableElement (event: Event): Item | undefined {
+  private findSelectableElement (event: Event): SubItem | undefined {
     const path = event.composedPath();
     for (let i = 0; i < path.length; i += 1) {
       const element = path[i] as Element;
@@ -847,7 +892,7 @@ export class Select extends ControlElement implements MultiValue {
         return;
       }
       if (this.isSelectableElement(element)) {
-        return element as Item;
+        return element as SubItem;
       }
     }
   }
@@ -857,7 +902,7 @@ export class Select extends ControlElement implements MultiValue {
    * *Can be used only when select is opened*
    * @returns A list of selected elements
    */
-  private getSelectedElements (): Item[] {
+  private getSelectedElements (): SubItem[] {
     return this.getSelectableElements().filter(item => item.selected);
   }
 
@@ -897,7 +942,7 @@ export class Select extends ControlElement implements MultiValue {
 
   /**
    * Mark data item as selected
-   * @param value Item value
+   * @param value SubItem value
    * @returns true if corresponding item is found and item selected
    */
   private selectDataItem (value: string): boolean {
@@ -912,7 +957,7 @@ export class Select extends ControlElement implements MultiValue {
 
   /**
    * Mark slotted item as selected
-   * @param value Item value, item label or item text content
+   * @param value SubItem value, item label or item text content
    * @returns true if corresponding item is found and item selected
    */
   private selectSlotItem (value: string): boolean {
@@ -932,7 +977,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param item select item
    * @returns value
    */
-  private getItemValue (item: Item): string {
+  private getItemValue (item: SubItem): string {
     return item.value || (item.hasAttribute('value') ? '' : this.getItemLabel(item));
   }
 
@@ -941,7 +986,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param item select item
    * @returns value
    */
-  private getItemLabel (item: Item): string {
+  private getItemLabel (item: SubItem): string {
     return item.label || item.textContent || '';
   }
 
@@ -965,7 +1010,7 @@ export class Select extends ControlElement implements MultiValue {
    * Retrieve the selected items
    * @returns Selected data item
    */
-  private get selectedSlotItems (): Item[] {
+  private get selectedSlotItems (): SubItem[] {
     return this.getSelectedElements();
   }
 

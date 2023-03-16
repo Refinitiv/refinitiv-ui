@@ -19,6 +19,10 @@ const toChangedEvent = (name: string): string => `${name.replace(NOTIFY_REGEXP, 
  * @fires focused-changed Fired when `focused` property changes
  */
 export abstract class BasicElement extends LitElement {
+  /**
+   * Uses closed ShadowRoot
+   */
+  static shadowRootOptions = { ...LitElement.shadowRootOptions, mode: 'closed' as ShadowRootMode };
 
   /**
    * Creates and registers instance of Element.

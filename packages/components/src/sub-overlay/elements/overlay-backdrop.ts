@@ -44,9 +44,9 @@ export class OverlayBackdrop extends BasicElement {
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: var(--ds-overlay-background-color);
-        opacity: var(--ds-overlay-opacity);
-        transition: opacity var(--ds-transition-duration);
+        background-color: var(--ds-container-background-color);
+        opacity: 0.8;
+        transition: opacity var(--ds-transition-500);
       }
     `;
   }

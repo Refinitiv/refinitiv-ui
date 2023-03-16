@@ -16,6 +16,8 @@ const hasChanged = (value: unknown, oldValue: unknown): boolean => oldValue === 
 
 @customElement('ds-sub-text-field', { theme: false })
 export class SubTextField extends FormFieldElement {
+  static shadowRootOptions = { ...FormFieldElement.shadowRootOptions, delegatesFocus: true };
+
   /**
    * A `CSSResultGroup` that will be used to style the host,
    * slotted children and the internal template of the element.
@@ -56,7 +58,7 @@ export class SubTextField extends FormFieldElement {
         background-color: var(--ds-field-error-hover-background-color);
       }
       :host([warning]:not(:focus)) {
-        color: var(--ds-control-warning-color);
+        color: var(--ds-control-color);
         border-color: var(--ds-control-warning-border-color);
         background-color: var(--ds-control-warning-background-color);
       }
@@ -167,6 +169,18 @@ export class SubTextField extends FormFieldElement {
    */
   @property({ type: Number, attribute: 'minlength', reflect: true, hasChanged })
   public minLength: number | null = null;
+
+  /**
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+
+    // TODO: Workaround to prevent screen reader from reading this host
+    this.setAttribute('aria-hidden', 'true');
+  }
 
   /**
    * Called when the element’s DOM has been updated and rendered
