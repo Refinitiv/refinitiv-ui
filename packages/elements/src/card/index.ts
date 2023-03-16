@@ -155,7 +155,7 @@ export class Card extends BasicElement {
 
   /**
    * Close menu
-   * @param event Custom event
+   * @param event ItemTriggerEvent
    * @returns {void}
    */
   private closeMenu (event: ItemTriggerEvent): void {
