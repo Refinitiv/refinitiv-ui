@@ -125,6 +125,18 @@
       }
     }
   },
+  "shadow": {
+    "$type": "shadow",
+    "default": {
+      "$value": {
+        "color": "rgba(0, 0, 0, 0.5)",
+        "offsetX": "",
+        "offsetY": "0px",
+        "blur": "2px",
+        "spread": "12px"
+      }
+    }
+  },
   "size": {
     "$type": "dimension",
     "form-border": {
@@ -208,11 +220,20 @@
   },
   "transition": {
     "$type": "duration",
-    "quickly": {
+    "100": {
+      "$value": "100ms"
+    },
+    "200": {
       "$value": "200ms"
     },
-    "slowly": {
-      "$value": "200ms"
+    "300": {
+      "$value": "300ms"
+    },
+    "400": {
+      "$value": "400ms"
+    },
+    "500": {
+      "$value": "500ms"
     }
   },
   "control": {
@@ -362,6 +383,28 @@
           "$value": "{control.warning.hover.color}"
         }
       }
+    }
+  },
+  "container": {
+    "background": {
+      "color": {
+        "$value": "{background.empathize}"
+      }
+    },
+    "border": {
+      "$type": "border",
+      "$value": {
+        "color": "transparent",
+        "width": "0px",
+        "style": "solid"
+      }
+    },
+    "border-radius": {
+      "$value": "{border-radius.sharp}"
+    },
+    "padding": {
+      "$type": "dimension",
+      "$value": "{space.x-small}"
     }
   }
 }

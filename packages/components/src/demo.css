@@ -8,7 +8,7 @@ body {
   font-size: var(--ds-text-body-size);
   font-family: var(--ds-text-body-font-family);
   color: var(--ds-text-body-color);
-  background-color: var(--ds-background-color);
+  background-color: var(--ds-background-default);
   will-change: background-color;
   transition: background-color 100ms;
 }

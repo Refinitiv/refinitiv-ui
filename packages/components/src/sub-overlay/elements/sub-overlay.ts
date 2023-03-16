@@ -132,6 +132,9 @@ export class Overlay extends ResponsiveElement {
         position: fixed;
         touch-action: manipulation;
         outline: none;
+        border: var(--ds-container-border);
+        border-radius: var(--ds-container-border-radius);
+        background-color: var(--ds-container-background-color);
       }
 
       :host(:not([opened]):not([animation-ready])) {
@@ -153,7 +156,7 @@ export class Overlay extends ResponsiveElement {
 
       :host([transition-style]) {
         transition-timing-function: ease-out;
-        animation-duration: 500ms;
+        animation-duration: var(--ds-transition-500);
       }
 
       :host([transition-style][animation-reverse]) {
@@ -247,12 +250,12 @@ export class Overlay extends ResponsiveElement {
         border-color: transparent !important;
       }
 
-      :host([transition-style]) {
-        animation-duration: var(--ds-transition-duration);
+      :host([spacing]) {
+        padding: var(--ds-container-padding);
       }
 
       :host([with-shadow]) {
-        box-shadow: var(--ds-overlay-box-shadow);
+        box-shadow: var(--ds-shadow-default);
       }
     `;
   }
