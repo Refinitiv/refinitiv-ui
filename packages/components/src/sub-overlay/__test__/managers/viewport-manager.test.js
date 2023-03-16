@@ -1,12 +1,12 @@
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
 
-import '@refinitiv-ui/elements/overlay';
+import '@refinitiv-ui/elements/sub-overlay';
 
 import { openedUpdated } from './../mocks/helper';
 
-import { clear, deregister, register, size, ViewportManager } from '../../../../lib/overlay/managers/viewport-manager.js';
-import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
+import { clear, deregister, register, size, ViewportManager } from '../../../../lib/sub-overlay/managers/viewport-manager.js';
+import * as zIndexManager from '../../../../lib/sub-overlay/managers/zindex-manager.js';
 
 const createFixture = async (zIndex) => {
   return (typeof zIndex === 'undefined') ? fixture('<ds-overlay opened>test</ds-overlay>') :

@@ -3,7 +3,7 @@ import { createSandbox, restore, spy } from 'sinon';
 
 import { openedUpdated } from './../mocks/helper';
 
-import '@refinitiv-ui/elements/overlay';
+import '@refinitiv-ui/elements/sub-overlay';
 
 import {
   clear,
@@ -15,7 +15,7 @@ import {
   toFront,
   ZIndex,
   ZIndexManager
-} from '../../../../lib/overlay/managers/zindex-manager.js';
+} from '../../../../lib/sub-overlay/managers/zindex-manager.js';
 
 const createFixture = async (zIndex) => {
   return (typeof zIndex === 'undefined') ? fixture('<ds-overlay opened>test</ds-overlay>') :

@@ -2,8 +2,8 @@ import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
 import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
 
-import { clear, deregister, FocusManager, register, size } from '../../../../lib/overlay/managers/focus-manager.js';
-import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
+import { clear, deregister, FocusManager, register, size } from '../../../../lib/sub-overlay/managers/focus-manager.js';
+import * as zIndexManager from '../../../../lib/sub-overlay/managers/zindex-manager.js';
 import { Overlay } from '@refinitiv-ui/elements/sub-overlay';
 
 const createFixture = async (zIndex) => {
