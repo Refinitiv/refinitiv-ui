@@ -42,7 +42,7 @@ const observerOptions = {
   ]
 };
 
-const LABEL_SEPARATOR = ', '; // TODO: for multiselect
+const LABEL_SEPARATOR = ', ';
 const POPUP_POSITION = ['bottom-start', 'top-start'];
 const KEY_SEARCH_DEBOUNCER = 300;
 
@@ -91,6 +91,7 @@ export class Select extends ControlElement implements MultiValue {
         position: relative;
         user-select: none;
         display: inline-flex;
+        box-sizing: border-box;
         height: var(--ds-control-height);
         width: var(--ds-control-width);
         color: var(--ds-control-color);
@@ -148,11 +149,14 @@ export class Select extends ControlElement implements MultiValue {
       }
       :host [part=list] {
         overflow-y: auto;
-        max-width: var(--ds-select-list-max-width, 100px);
-        max-height: var(--ds-select-list-max-height, 100px);
+        max-width: var(--ds-select-list-max-width);
+        max-height: var(--ds-select-list-max-height, 200px);
       }
       :host [part="list"] ::slotted(:not(ds-sub-item)) {
         display: none;
+      }
+      :host [part=sub-item] {
+        padding: var(--ds-space-xxx-small) var(--ds-space-x-small);
       }
       #box {
         align-items: center;
@@ -848,7 +852,6 @@ export class Select extends ControlElement implements MultiValue {
    * @returns true if element can be selected
    */
   private isSelectableElement (element: Element): boolean {
-    // TODO: remove disabled && readonly check once ControlElement tabIndex issue is fixed
     return element instanceof SubItem && element.tabIndex >= 0 && !element.disabled && !element.readonly;
   }
 
