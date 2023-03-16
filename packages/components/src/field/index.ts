@@ -1,21 +1,17 @@
 import { css, nothing, CSSResultGroup, html, TemplateResult, ControlElement } from '@refinitiv-ui/core';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { templateMap, TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { ErrorChangedEvent, ValueChangedEvent } from '../events.js';
 
 import '../sub-label/index.js';
 import '../sub-text-field/index.js';
 import '../sub-password-field/index.js';
-import { ErrorChangedEvent, ValueChangedEvent } from '../events.js';
 
 const hasChanged = (value: unknown, oldValue: unknown): boolean => oldValue === undefined ? false : value !== oldValue;
 
 @customElement('ds-field', { theme: false })
 export class Field extends ControlElement {
-  protected defaultRole: string | null = 'group';
-
-  /**
-   * Delegate focus to input
-   */
   static shadowRootOptions = { ...ControlElement.shadowRootOptions, delegatesFocus: true };
 
   /**
@@ -33,7 +29,7 @@ export class Field extends ControlElement {
       :host [part=label] {
         margin: var(--ds-space-x-small) 0;
       }
-      :host [part=error-message] {
+      :host [part=hint] {
         margin: var(--ds-space-xx-small) 0;
       }
     `;
@@ -46,47 +42,26 @@ export class Field extends ControlElement {
   public label = '';
 
   @property({ type: String })
-  public errorMessage = '';
+  public hint = '';
 
-  /**
-   * Specify icon to display in input. Value can be icon name
-   */
   @property({ type: String, reflect: true })
   public icon: string | null = null;
 
-  /**
-   * Specify when icon need to be clickable
-   */
   @property({ type: Boolean, reflect: true, attribute: 'icon-has-action' })
   public iconHasAction = false;
 
-  /**
-   * Set state to error
-   */
   @property({ type: Boolean, reflect: true })
   public error = false;
 
-  /**
-   * Set state to warning
-   */
   @property({ type: Boolean, reflect: true })
   public warning = false;
 
-  /**
-   * Set regular expression for input validation
-   */
   @property({ type: String, hasChanged })
   public pattern = '';
 
-  /**
-   * Set character max limit
-   */
   @property({ type: Number, attribute: 'maxlength', reflect: true })
   public maxLength: number | null = null;
 
-  /**
-   * Set character min limit
-   */
   @property({ type: Number, attribute: 'minlength', reflect: true, hasChanged })
   public minLength: number | null = null;
 
@@ -99,6 +74,22 @@ export class Field extends ControlElement {
     this.notifyPropertyChange('error', this.error);
   }
 
+  protected get decorateField (): TemplateMap {
+    return {
+      'aria-labelledby': this.label ? 'label' : null,
+      'aria-describedby': this.hint ? 'hint' : null,
+      'disabled': this.disabled,
+      'readonly': this.readonly,
+      'error': this.error || null,
+      'warning': this.warning || null,
+      'pattern': this.pattern || null,
+      'minlength': this.minLength || null,
+      'maxlength': this.maxLength || null,
+      '@value-changed': this.handleValueChanged,
+      '@error-changed': this.handleErrorChanged
+    };
+  }
+
   /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
@@ -106,47 +97,11 @@ export class Field extends ControlElement {
    */
   protected get renderField (): TemplateResult {
     switch (this.type) {
-      case 'text':
-        return html`
-        <ds-sub-text-field
-          aria-labelledby=${this.label ? 'label' : nothing}
-          aria-describedby=${this.errorMessage ? 'error-label' : nothing}
-
-          .disabled=${this.disabled}
-          .readonly=${this.readonly}
-          ?error=${this.error}
-          ?warning=${this.warning}
-
-          pattern=${this.pattern ? this.pattern : nothing}
-          minlength=${this.minLength !== null ? this.minLength : nothing}
-          maxlength=${this.maxLength !== null ? this.maxLength : nothing}
-
-          @value-changed=${this.handleValueChanged}
-          @error-changed=${this.handleErrorChanged}
-        >
-        </ds-sub-text-field>`;
       case 'password':
-        return html`
-        <ds-sub-password-field
-          aria-labelledby=${this.label ? 'label' : nothing}
-          aria-describedby=${this.errorMessage ? 'error-label' : nothing}
-
-          .disabled=${this.disabled}
-          .readonly=${this.readonly}
-          ?error=${this.error}
-          ?warning=${this.warning}
-
-          pattern=${this.pattern ? this.pattern : nothing}
-          minlength=${this.minLength !== null ? this.minLength : nothing}
-          maxlength=${this.maxLength !== null ? this.maxLength : nothing}
-
-          @value-changed=${this.handleValueChanged}
-          @error-changed=${this.handleErrorChanged}
-        >
-        </ds-sub-password-field>
-        `;
+        return html`<ds-sub-password-field ${templateMap(this.decorateField)}></ds-sub-password-field>`;
       default:
-        return html``;
+        return html`<ds-sub-text-field ${templateMap(this.decorateField)}></ds-sub-text-field>`;
+      // no default
     }
   }
 
@@ -164,8 +119,8 @@ export class Field extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected get renderErrorMessage (): TemplateResult | typeof nothing {
-    return html`<ds-sub-label error id="error-label" part="error-message">${this.errorMessage}</ds-sub-label>`;
+  protected get renderHint (): TemplateResult | typeof nothing {
+    return html`<ds-sub-label error id="hint" part="hint">${this.hint}</ds-sub-label>`;
   }
 
   /**
@@ -177,7 +132,7 @@ export class Field extends ControlElement {
     return html`
       ${this.label ? this.renderLabel : nothing}
       ${this.renderField}
-      ${this.errorMessage ? this.renderErrorMessage : nothing}
+      ${this.hint ? this.renderHint : nothing}
     `;
   }
 }
