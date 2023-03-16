@@ -15,7 +15,7 @@ import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
 import type { Button } from '../button';
 import type { OverlayMenu, OverlayMenuData } from '../overlay-menu';
 import type { CardConfig } from './helpers/types';
-import type { OpenedChangedEvent } from '../events';
+import type { OpenedChangedEvent, ItemTriggerEvent } from '../events';
 import '../label/index.js';
 import '../button/index.js';
 import '../overlay-menu/index.js';
@@ -155,10 +155,11 @@ export class Card extends BasicElement {
 
   /**
    * Close menu
+   * @param event ItemTriggerEvent
    * @returns {void}
    */
-  private closeMenu (): void {
-    if (this.menuElement?.opened) {
+  private closeMenu (event: ItemTriggerEvent): void {
+    if (this.menuElement?.opened && event.detail.value) {
       this.menuElement.opened = false;
       this.menuOpened = false;
     }
@@ -225,8 +226,7 @@ export class Card extends BasicElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-
-    this.addEventListener('item-trigger', this.closeMenu); // Here to cover nested menus
+    this.addEventListener('item-trigger', (event) => this.closeMenu(event as ItemTriggerEvent)); // Here to cover nested menus
   }
 
   /**

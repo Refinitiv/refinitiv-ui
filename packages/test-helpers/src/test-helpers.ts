@@ -87,3 +87,10 @@ export const isNear = (a: number, b: number, distance: number, inclusive = true)
   const diff = Math.abs(a - b);
   return inclusive ? diff <= distance : diff < distance;
 };
+
+/**
+ * Replace special whitespace with normal whitespace
+ * @param text string with whitespace for replace
+ * @returns string
+ */
+export const replaceWhitespace = (text: string): string => text.replace(/\s/g, ' ');
