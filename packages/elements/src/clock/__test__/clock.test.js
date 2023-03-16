@@ -25,7 +25,7 @@ describe('clock/Clock', () => {
       el = await fixture('<ef-clock analogue></ef-clock>');
       el.style.width = '129px';
       await elementUpdated(el);
-      await nextFrame();
+      await nextFrame(2); // Chrome 111 & Firefox 111 needs another frame to complete rendering
 
       expect(el).shadowDom.to.equalSnapshot();
     });
