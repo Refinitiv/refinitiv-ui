@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, aTimeout } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, aTimeout, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tab-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
@@ -100,6 +100,7 @@ describe('tab-bar/TabBar', () => {
     });
 
     it('Should show only right scroll button', async () => {
+      await nextFrame(); // wait for rendering
       expect(getElementStyle(leftScrollBtn, 'display')).equal('none');
       expect(getElementStyle(rightScrollBtn, 'display')).equal('flex');
     });
