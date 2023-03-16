@@ -1,4 +1,10 @@
 #!/usr/bin/env node
+
+/**
+ * ! This file must be CommonJS because the `web-component-analyzer`
+ * need TypeScript parser when use ESM import, so this helpers
+ * can be used for both ESM and CommonJS
+ */
 const path = require('path');
 
 /**

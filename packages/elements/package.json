@@ -322,18 +322,18 @@
     "./tree-select/themes/solar/pearl": "./lib/tree-select/themes/solar/pearl/index.js"
   },
   "scripts": {
-    "build": "node cli build --sourceMap --declarationMap",
-    "build:prod": "node cli build",
-    "start": "node cli start",
-    "test": "node cli test",
-    "test:watch": "node cli test --watch",
-    "test:snapshots": "node cli test --update-snapshots",
-    "lint": "node cli lint",
-    "lint:fix": "node cli lint --fix",
-    "prepublishOnly": "node scripts/release",
-    "api-analyzer": "node ../../scripts/release/api-analyzer.js",
+    "build": "node cli.mjs build --sourceMap --declarationMap",
+    "build:prod": "node cli.mjs build",
+    "start": "node cli.mjs start",
+    "test": "node cli.mjs test",
+    "test:watch": "node cli.mjs test --watch",
+    "test:snapshots": "node cli.mjs test --update-snapshots",
+    "lint": "node cli.mjs lint",
+    "lint:fix": "node cli.mjs lint --fix",
+    "prepublishOnly": "node scripts/release/index.mjs",
+    "api-analyzer": "node ../../scripts/release/api-analyzer.cjs",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version"
+    "version": "node ../../scripts/version/index.mjs"
   },
   "dependencies": {
     "@refinitiv-ui/browser-sparkline": "1.1.8",

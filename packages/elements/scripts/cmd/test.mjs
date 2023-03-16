@@ -1,22 +1,17 @@
 #!/usr/bin/env node
-const { execSync } = require('child_process');
-const { exit } = require('process');
-const {
-  DefaultBrowsers,
-  BrowserStack
-} = require('../../browsers.config');
-
-const {
+import { execSync } from 'node:child_process';
+import { DefaultBrowsers, BrowserStack } from '../../browsers.config.mjs';
+import {
   getElements,
   info,
   errorHandler,
   PACKAGE_NAME
-} = require('../helpers');
+} from '../helpers/index.mjs';
 
 const elements = ['all', 'utils', ...getElements()];
-exports.command = 'test [element]';
-exports.desc = 'Test package';
-exports.builder = yargs => {
+export const command = 'test [element]';
+export const desc = 'Test package';
+export const builder = yargs => {
   yargs
     .positional('element', {
       desc: 'Element name',
@@ -38,7 +33,6 @@ exports.builder = yargs => {
     .option('browsers', {
       alias: 'b',
       type: 'array',
-      default: DefaultBrowsers,
       choices: DefaultBrowsers,
       description: 'Specific browser(s) to run units test'
     })
@@ -63,12 +57,13 @@ exports.builder = yargs => {
     })
     .completion('completion', () => elements);
 };
-exports.handler = (argv) => {
+export const handler = (argv) => {
+
   const element = argv.element || 'all';
   const watch = argv.watch;
   const snapshots = argv.updateSnapshots;
-  const browsers = argv.browsers.join(' ');
-  const browserstack = argv.browserstack ? argv.browserstack.join(' ') : null;
+  const browsers = argv.browsers ? argv.browsers.join(' '): '';
+  const browserstack = argv.browserstack ? argv.browserstack.join(' ') : '';
 
   info(watch ? `Start Dev Server: ${ element }` : `Test: ${ element }`);
 
@@ -77,20 +72,21 @@ exports.handler = (argv) => {
   }
 
   try {
-    execSync('node cli build --sourceMap --declarationMap');
-    const command = ['wtr', `--config="web-test-runner.config.js"`, `--package=${PACKAGE_NAME}`];
+    execSync('node cli.mjs build --sourceMap --declarationMap');
+    // execSync('node cli.mjs build --sourceMap --declarationMap');
+    const command = ['wtr', `--config="web-test-runner.config.mjs"`, `--package=${PACKAGE_NAME}`];
 
     watch && command.push('--watch');
     snapshots && command.push('--update-snapshots');
-    // TODO: need to make the WTR support the options below
-    // browserstack && command.push(`--browserstack ${browserstack}`);
-    command.push(`--output=${argv.output}`);
+
+    command.push(`--output=${argv.output} `);
 
     execSync(command.join(' '), {
       stdio: 'inherit',
       env: Object.assign({}, process.env, {
         ELEMENT: element,
         BROWSERS: browsers,
+        BROWSERSTACK: browserstack,
         COVERAGE: argv.includeCoverage
       })
     });

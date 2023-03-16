@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList } = require('./util');
-const { log, errorHandler, success } = require('../helpers');
+import fs from 'node:fs';
+import path from 'node:path';
+import { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList } from './util.cjs';
+import { log, errorHandler, success } from '../helpers/index.mjs';
+import { fileDirName } from '../../scripts/helpers/index.mjs';
 
 /**
  * Remove hyphen and transform to upper case
@@ -24,6 +25,7 @@ const toPascalCase = (text) => text.replace(/(^\w|-\w)/g, clearAndUpper);
  * @returns {void}
  */
 const handler = async () => {
+  const { __dirname } = fileDirName(import.meta);
   const JSX_MERGE_TEMPLATE = path.join(__dirname, 'interface', 'jsxTemplate.d.ts');
 
   const JSX_TYPE_DECLARATION = 'jsx.d.ts';

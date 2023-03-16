@@ -4,8 +4,8 @@ const path = require('path');
 const fg = require('fast-glob');
 const wca = require('web-component-analyzer');
 
-const { log, errorHandler, success, error } = require('../helpers');
-const { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT } = require('./util');
+const { log, errorHandler, success, error } = require('../helpers/index.cjs');
+const { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT } = require('./util.cjs');
 
 console.log('PACKAGE_ROOT', PACKAGE_ROOT);
 

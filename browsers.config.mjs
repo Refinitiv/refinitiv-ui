@@ -26,9 +26,9 @@ BrowserStack.availableBrowsers = [
 ];
 
 // BrowserStack Base Config
-const defaultDevice = { base: 'BrowserStack', real_mobile: 'true'};
-const defaultWindows = { base: 'BrowserStack', os: 'Windows', os_version: '11' };
-const defaultOSX = { base: 'BrowserStack', os: 'OS X', os_version: 'Monterey' };
+const defaultDevice = { real_mobile: 'true'};
+const defaultWindows = { os: 'Windows', os_version: '11' };
+const defaultOSX = { os: 'OS X', os_version: 'Monterey' };
 
 // BrowserStack Browsers Config
 BrowserStack.config = {
@@ -55,7 +55,7 @@ BrowserStack.config = {
   samsung_previous: { ...defaultDevice, browser: 'samsung', device : 'Samsung Galaxy S21', os: 'android', os_version : '11.0' }
 };
 
-module.exports = {
+export {
   DefaultBrowsers,
   BrowserStack
-};
+}

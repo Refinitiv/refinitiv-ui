@@ -1,16 +1,18 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const fg = require('fast-glob');
+import fs from 'fs';
+import path from 'path';
+import fg from 'fast-glob';
 
-const { log, errorHandler, success, ROOT } = require('../helpers');
-const { ELEMENT_DIST, PACKAGE_ROOT, getElementList, getElementTagName } = require('./util');
+import { log, errorHandler, success, ROOT } from '../helpers/index.mjs';
+import { ELEMENT_DIST, PACKAGE_ROOT, getElementList, getElementTagName } from './util.cjs';
 
 // List of themes to be extracted
 const THEMES = ['halo', 'solar'];
 
 // Element package scope
-const PACKAGE_NAME = require(`${PACKAGE_ROOT}/package.json`).name;
+const PACKAGE_NAME = JSON.parse(
+  await fs.promises.readFile(new URL(`${PACKAGE_ROOT}/package.json`, import.meta.url))
+).name;
 
 // Where to look for theme files
 const THEME_SOURCE = `${ROOT}/node_modules/${PACKAGE_NAME.split('/')[0]}/`;
