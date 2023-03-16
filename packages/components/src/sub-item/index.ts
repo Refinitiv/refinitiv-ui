@@ -57,7 +57,7 @@ export class SubItem extends ControlElement {
         cursor: pointer;
         box-sizing: border-box;
         outline: none;
-        padding: var(--ds-space-x-small);
+        padding: var(--ds-space-xxx-small) var(--ds-space-x-small);
         min-height: var(--ds-control-height);
         color: var(--ds-control-color);
         border: var(--ds-control-border-width) var(--ds-control-border-style) transparent;
