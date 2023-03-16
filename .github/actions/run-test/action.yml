@@ -60,7 +60,7 @@ runs:
 
     - name: Install playwright browsers
       shell: bash
-      run: npx playwright install
+      run: npx playwright install --with-deps
 
     - name: Setup browsers or browserstack command line option
       shell:
