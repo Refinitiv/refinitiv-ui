@@ -5,23 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Select</title>
-  <link type="text/css" rel="stylesheet" media="" href="../../../node_modules/@refinitiv-ui/tokens/lib/base.tokens.css">
-  <link type="text/css" rel="stylesheet" media="(max-width: 768px)"
-      href="../../../node_modules/@refinitiv-ui/tokens/lib/mobile.tokens.css">
-  <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)"
-      href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.palette.css">
-  <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: light)"
-      href="../../../node_modules/@refinitiv-ui/tokens/lib/light.palette.css">
+  <!-- theme of components have imported from dev-server -->
   <link type="text/css" rel="stylesheet" href="src/demo.css">
   <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
   <script src="countries.js"></script>
 </head>
+<style>
+  ds-select {
+    margin: 10px 0;
+  }
+</style>
 <body>
-<script type="module">
+  <script type="module">
     import '@refinitiv-ui/elements/select';
-</script>
-
-<dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
+  </script>
+  <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
+  <h1>Select</h1>
+  <p>Default</p>
   <ds-select placeholder="Pick item..." class="short">
     <ds-sub-item role="presentation" type="header">Drinks</ds-sub-item>
     <ds-sub-item role="option" value="1">Cola</ds-sub-item>
@@ -42,18 +42,36 @@
     <ds-sub-item role="option" value="15">Raspberry</ds-sub-item>
   </ds-select>
 
-
-
-  <!-- <div>
+  <div>
     <p id="country-label">Choose a country: </p>
-    <ds-select id="country" aria-labelledby="country-label country">
-    </ds-select>
+    <ds-select id="country" aria-labelledby="country-label country"></ds-select>
   </div>
   <script>
       const el = document.getElementById('country');
       el.data = window.countries;
       el.value = 'GB';
-  </script> -->
+  </script>
 
+  <p>Error & Warning</p>
+  <ds-select placeholder="Pick item..." class="short" error>
+    <ds-sub-item role="presentation" type="header">Drinks</ds-sub-item>
+    <ds-sub-item role="option" value="1">Cola</ds-sub-item>
+  </ds-select>
+  <ds-select placeholder="Pick item..." class="short" warning>
+    <ds-sub-item role="presentation" type="header">Drinks</ds-sub-item>
+    <ds-sub-item role="option" value="1">Cola</ds-sub-item>
+  </ds-select>
+
+  <p>Disabled</p>
+  <ds-select placeholder="Pick item..." class="short" disabled>
+    <ds-sub-item role="presentation" type="header">Drinks</ds-sub-item>
+    <ds-sub-item role="option" value="1">Cola</ds-sub-item>
+  </ds-select>
+
+  <p>Readonly</p>
+  <ds-select placeholder="Pick item..." class="short" readonly>
+    <ds-sub-item role="presentation" type="header">Drinks</ds-sub-item>
+    <ds-sub-item role="option" value="1">Cola</ds-sub-item>
+  </ds-select>
 </body>
 </html>

@@ -74,6 +74,8 @@ export class Select extends ControlElement implements MultiValue {
     return VERSION;
   }
 
+  static shadowRootOptions = { ...ControlElement.shadowRootOptions, mode: 'open' as ShadowRootMode };
+
   protected readonly defaultRole: string | null = 'button';
 
   /**
@@ -88,8 +90,51 @@ export class Select extends ControlElement implements MultiValue {
         outline: none;
         position: relative;
         user-select: none;
-        -webkit-user-select: none;
-        display: inline-block;
+        display: inline-flex;
+        height: var(--ds-control-height);
+        width: var(--ds-control-width);
+        color: var(--ds-control-color);
+        border: var(--ds-control-border);
+        border-radius: var(--ds-control-border-radius);
+        background-color: var(--ds-control-background-color);
+        padding: 0px var(--ds-space-x-small);
+      }
+      :host(:focus) {
+        border-color: var(--ds-control-focus-border-color);
+      }
+      :host(:not([readonly]):not([error]):not([warning]):not(:focus):hover) {
+        color: var(--ds-control-hover-color);
+        border-color: var(--ds-control-hover-border-color);
+      }
+      :host([error]:not(:focus)), :host([error][warning]:not(:focus)) {
+        color: var(--ds-control-color);
+        border-color: var(--ds-control-error-border-color);
+        background-color: var(--ds-control-error-background-color);
+      }
+      :host([error]:hover:not([readonly]):not(:focus)) {
+        color: var(--ds-control-hover-color);
+        border-color: var(--ds-control-error-hover-border-color);
+        background-color: var(--ds-field-error-hover-background-color);
+      }
+      :host([warning]:not(:focus)) {
+        color: var(--ds-control-color);
+        border-color: var(--ds-control-warning-border-color);
+        background-color: var(--ds-control-warning-background-color);
+      }
+      :host([warning]:hover:not([readonly]):not(:focus)) {
+        color: var(--ds-control-hover-color);
+        border-color: var(--ds-control-warning-hover-border-color);
+        background-color: var(--ds-control-warning-hover-background-color);
+      }
+      :host([disabled]) {
+        color: var(--ds-control-disabled-color);
+        border-color: var(--ds-control-disabled-border-color);
+        background-color: var(--ds-control-disabled-background-color);
+      }
+      :host([readonly]:not(:focus)) {
+        color: var(--ds-control-readonly-color);
+        border-color: var(--ds-control-readonly-border-color);
+        background-color: var(--ds-control-readonly-background-color);
       }
 
       [part=label],
@@ -103,8 +148,8 @@ export class Select extends ControlElement implements MultiValue {
       }
       :host [part=list] {
         overflow-y: auto;
-        max-width: var(--ds-select-list-max-width);
-        max-height: var(--ds-select-list-max-height);
+        max-width: var(--ds-select-list-max-width, 100px);
+        max-height: var(--ds-select-list-max-height, 100px);
       }
       :host [part="list"] ::slotted(:not(ds-sub-item)) {
         display: none;
