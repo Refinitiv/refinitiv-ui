@@ -82,7 +82,7 @@ describe('card/Card', () => {
       await oneEvent(el, 'item-trigger');
       expect(menu.opened).to.equal(false, 'Menu should close when item is selected');
     });
-    it('Should open menu and not close when clicked on non value item', async () => {
+    it('Should open menu and not close when clicked on non value item', async function () {
       const el = await fixture('<ef-card lang="en-gb">Card</ef-card>');
       el.config = {
         menu: {
