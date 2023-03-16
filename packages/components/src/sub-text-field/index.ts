@@ -58,7 +58,7 @@ export class SubTextField extends FormFieldElement {
         background-color: var(--ds-field-error-hover-background-color);
       }
       :host([warning]:not(:focus)) {
-        color: var(--ds-control-warning-color);
+        color: var(--ds-control-color);
         border-color: var(--ds-control-warning-border-color);
         background-color: var(--ds-control-warning-background-color);
       }
