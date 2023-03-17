@@ -1,5 +1,5 @@
 {
-  "name": "@refinitiv-ui/elements",
+  "name": "@refinitiv-ui/components",
   "version": "7.0.0-next.0",
   "description": "Element Framework Elements",
   "author": "LSEG",
@@ -11,7 +11,7 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
-    "directory": "packages/elements"
+    "directory": "packages/components"
   },
   "engines": {
     "node": ">=16.11.0",

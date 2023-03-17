@@ -1,5 +1,5 @@
 import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-import '@refinitiv-ui/elements/sub-label';
+import '@refinitiv-ui/components/sub-label';
 
 describe('DOM Structure', () => {
   it('Should have correct DOM structure', async () => {
@@ -45,7 +45,7 @@ describe('Property', () => {
   describe('Should error property reflect with attribute', () => {
     it('When add error attribute to label', async () => {
       const el = await fixture(`<ds-sub-label error>Label</ds-sub-label`)
-    
+
       await expect(el.error).to.be.true;
     });
     it('When remove error attribute from label', async() => {
@@ -59,7 +59,7 @@ describe('Property', () => {
   describe('Should warning property reflect with attribute', () => {
     it('When add warning attribute to label', async () => {
       const el = await fixture(`<ds-sub-label warning>Label</ds-sub-label`)
-      
+
       await expect(el.warning).to.be.true;
     });
     it('When remove warning attribute from label', async() => {

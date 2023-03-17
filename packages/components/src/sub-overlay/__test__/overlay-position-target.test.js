@@ -1,6 +1,6 @@
 import { elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import '@refinitiv-ui/elements/overlay';
+import '@refinitiv-ui/components/overlay';
 
 import {
   createPositionTargetFixture,

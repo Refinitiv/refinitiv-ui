@@ -1,6 +1,6 @@
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 // import element and theme
-import '@refinitiv-ui/elements/sub-item';
+import '@refinitiv-ui/components/sub-item';
 
 const createFixture = (type = '') => {
   switch (type) {

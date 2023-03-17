@@ -5,7 +5,7 @@ const path = require('path');
 const chalk = require('chalk');
 const { Source, Build } = require('./paths');
 
-const PACKAGE_ROOT = '../node_modules/@refinitiv-ui/elements/lib';
+const PACKAGE_ROOT = '../node_modules/@refinitiv-ui/components/lib';
 const ELEMENT_API_FILENAME = 'custom-elements.md';
 const API_REFERENCE_TITLES = ['## Properties', '## Methods', '## Events', '## Slots'];
 const FOOTER_TITLE = '::footer::';
@@ -38,7 +38,7 @@ const handler = async () => {
       else {
         content += elementContent;
       }
-      
+
       content += apiStyleSheetLink;
 
       const apiReferenceIndices = API_REFERENCE_TITLES.map(title => apiContent.indexOf(title));

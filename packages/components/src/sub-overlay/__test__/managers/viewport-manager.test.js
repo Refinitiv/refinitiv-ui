@@ -1,7 +1,7 @@
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
 
-import '@refinitiv-ui/elements/overlay';
+import '@refinitiv-ui/components/overlay';
 
 import { openedUpdated } from './../mocks/helper';
 
