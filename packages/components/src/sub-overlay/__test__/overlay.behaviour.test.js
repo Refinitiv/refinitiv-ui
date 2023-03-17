@@ -1,6 +1,6 @@
 import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 
-import '@refinitiv-ui/elements/sub-overlay';
+import '@refinitiv-ui/components/sub-overlay';
 
 describe('overlay/Behaviour', () => {
   describe('User Interaction Test', () => {

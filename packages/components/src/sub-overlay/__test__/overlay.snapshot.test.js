@@ -1,6 +1,6 @@
 import { fixture, expect } from '@refinitiv-ui/test-helpers';
 
-import '@refinitiv-ui/elements/sub-overlay';
+import '@refinitiv-ui/components/sub-overlay';
 
 describe('overlay/Snapshot', () => {
   describe('Snapshot Test', () => {

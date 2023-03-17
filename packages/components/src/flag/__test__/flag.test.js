@@ -1,7 +1,7 @@
 import { elementUpdated, expect } from '@refinitiv-ui/test-helpers';
 // import element and theme
-import '@refinitiv-ui/elements/flag';
-import { preload } from '@refinitiv-ui/elements/flag';
+import '@refinitiv-ui/components/flag';
+import { preload } from '@refinitiv-ui/components/flag';
 
 import {
   createAndWaitForLoad,
@@ -172,7 +172,7 @@ describe('flag/Flag', () => {
 
       expect(CDNPrefix, 'CDN prefix should exist to create the src based on the flag').to.exist;
       const expectedSrc = `${CDNPrefix}${uniqueFlagName}.svg`;
-      
+
       expect(fetch.callCount).to.equal(1, 'Should make one request');
       expect(checkRequestedUrl(fetch.args, expectedSrc)).to.equal(true, `requested URL should be ${expectedSrc} for the flag ${uniqueFlagName}`);
     });
@@ -203,7 +203,7 @@ describe('flag/Flag', () => {
       const secondUniqueFlagSrc = createMockSrc(secondUniqueFlag);
       const uniqueInvalidFlagSrc = `${CDNPrefix}${uniqueInvalidFlag}.svg`;
 
-      createFakeResponse(gbSvg, responseConfigSuccess);      
+      createFakeResponse(gbSvg, responseConfigSuccess);
       let preloadedFlags = await Promise.all(
         preload(firstUniqueFlag, secondUniqueFlagSrc)
       );

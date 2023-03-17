@@ -20,11 +20,6 @@ const toChangedEvent = (name: string): string => `${name.replace(NOTIFY_REGEXP, 
  */
 export abstract class BasicElement extends LitElement {
   /**
-   * Uses closed ShadowRoot
-   */
-  static shadowRootOptions = { ...LitElement.shadowRootOptions, mode: 'closed' as ShadowRootMode };
-
-  /**
    * Creates and registers instance of Element.
    */
   public constructor () {

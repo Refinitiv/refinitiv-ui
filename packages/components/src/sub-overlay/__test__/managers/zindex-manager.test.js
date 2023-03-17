@@ -3,7 +3,7 @@ import { createSandbox, restore, spy } from 'sinon';
 
 import { openedUpdated } from './../mocks/helper';
 
-import '@refinitiv-ui/elements/sub-overlay';
+import '@refinitiv-ui/components/sub-overlay';
 
 import {
   clear,

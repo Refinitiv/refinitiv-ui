@@ -1,7 +1,7 @@
 import { fixture, expect, elementUpdated, aTimeout, nextFrame } from '@refinitiv-ui/test-helpers';
 import { getOptions, openedUpdated, getData, getMenuEl } from './utils';
 
-import '@refinitiv-ui/elements/select';
+import '@refinitiv-ui/components/select';
 import '@refinitiv-ui/elemental-theme/light/ef-select';
 
 const keyBoardEvent = async (el, key, options = {}) => {

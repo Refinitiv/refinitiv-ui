@@ -1,6 +1,6 @@
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import '@refinitiv-ui/elements/sub-overlay';
+import '@refinitiv-ui/components/sub-overlay';
 
 import { openedUpdated } from '../mocks/helper';
 

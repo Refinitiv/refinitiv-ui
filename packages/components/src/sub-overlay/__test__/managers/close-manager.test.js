@@ -5,7 +5,7 @@ import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
 
 import { clear, CloseManager, deregister, register, size } from '../../../../lib/sub-overlay/managers/close-manager.js';
 import * as zIndexManager from '../../../../lib/sub-overlay/managers/zindex-manager.js';
-import { Overlay } from '@refinitiv-ui/elements/sub-overlay';
+import { Overlay } from '@refinitiv-ui/components/sub-overlay';
 
 const createFixture = async (zIndex) => {
   return (typeof zIndex === 'undefined') ? fixture('<ds-sub-overlay opened >test</ds-sub-overlay>') :

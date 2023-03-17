@@ -57,9 +57,10 @@ export class SubItem extends ControlElement {
         cursor: pointer;
         box-sizing: border-box;
         outline: none;
-        padding: var(--ds-space-x-small);
+        padding: var(--ds-space-xxx-small) var(--ds-space-x-small);
         min-height: var(--ds-control-height);
         color: var(--ds-control-color);
+        background-color: var(--ds-control-background-color);
         border: var(--ds-control-border-width) var(--ds-control-border-style) transparent;
         border-radius: var(--ds-control-border-radius);
       }
@@ -143,44 +144,15 @@ export class SubItem extends ControlElement {
   public selected = false;
 
   /**
-   * Is the item part of a multiple selection
-   */
-  @property({ type: Boolean, reflect: true })
-  public multiple = false;
-
-  /**
    * Highlight the item
    */
   @property({ type: Boolean, reflect: true })
   public highlighted = false;
 
   /**
-   * The`subLabel` property represents the text beneath the label.
-   * By having both `subLabel` and content, content always takes priority
-   */
-  @property({ type: String, reflect: true, attribute: 'sub-label' })
-  public subLabel: string | null = null;
-
-  /**
-   * Specifies which element an item is bound to
-   */
-  @property({ type: String, reflect: true })
-  public for: string | null = null;
-
-  /**
    * Reference to the label element
    */
   private labelRef: Ref<HTMLDivElement> = createRef();
-
-  /**
-   * Reference to the subLabel element
-   */
-  private subLabelRef: Ref<HTMLDivElement> = createRef();
-
-  /**
-   * Reference to the slot element
-   */
-  private slotRef: Ref<HTMLSlotElement> = createRef();
 
   /**
    * True, if there is no slotted content
@@ -208,20 +180,11 @@ export class SubItem extends ControlElement {
   };
 
   /**
-   * Handles aria-selected or aria-checked when toggle between single and multiple selection mode
-   * @returns {void}
-   **/
-  private multipleChanged (): void {
-    this.removeAttribute(this.multiple ? 'aria-selected' : 'aria-checked');
-    this.selectedChanged();
-  }
-
-  /**
    * Handles aria when selected state changes
    * @returns {void}
    */
   private selectedChanged (): void {
-    this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', String(this.selected));
+    this.setAttribute('aria-selected', String(this.selected));
   }
 
   /**
@@ -247,9 +210,6 @@ export class SubItem extends ControlElement {
     if (changedProperties.has('type')) {
       this.typeChanged();
     }
-    if (changedProperties.has('multiple')) {
-      this.multipleChanged();
-    }
     else if (changedProperties.has('selected')) {
       this.selectedChanged();
     }
@@ -263,42 +223,10 @@ export class SubItem extends ControlElement {
   }
 
   /**
-   * Get subLabel template if it is defined and no slot content present
-   */
-  private get subLabelTemplate (): TemplateResult | undefined {
-    return html`<div part="sub-label" ${ref(this.subLabelRef)}>${this.subLabel}</div>`;
-  }
-
-  /**
    * Get label template if it is defined and no slot content present
    */
   private get labelTemplate (): TemplateResult | undefined {
     return html`${this.label}`;
-  }
-
-  /**
-   * Get slot content
-   */
-  private get slotContent (): string {
-    const nodes = this.slotRef.value?.assignedNodes() || [];
-    return nodes.map(node => node.textContent).join(' ').trim();
-  }
-
-  /**
-   * Get template for `for` attribute.
-   * This is usually used with menus when an item needs to reference an element
-   */
-  private get forTemplate (): TemplateResult | undefined {
-    return this.for ? html`<ds-icon icon="right"></ds-icon>` : undefined;
-  }
-
-  /**
-   * Get template for `multiple` attribute.
-   * This is usually used with lists, when an item can be part of a multiple selection
-   */
-  private get multipleTemplate (): TemplateResult | undefined {
-    const multiple = this.multiple && (!this.type || this.type === 'text');
-    return multiple ? html`<ds-checkbox part="checkbox" .checked="${this.selected}" tabindex="-1"></ds-checkbox>` : undefined;
   }
 
   /**
@@ -319,17 +247,14 @@ export class SubItem extends ControlElement {
     return html`
       <div part="left">
         ${this.iconTemplate}
-        ${this.multipleTemplate}
         <slot name="left"></slot>
       </div>
       <div part="center" ${ref(this.labelRef)}>
         ${this.label && this.isSlotEmpty ? this.labelTemplate : undefined}
-        <slot ${ref(this.slotRef)} @slotchange="${this.checkSlotChildren}"></slot>
-        ${this.subLabel && this.isSlotEmpty ? this.subLabelTemplate : undefined}
+        <slot @slotchange="${this.checkSlotChildren}"></slot>
       </div>
       <div part="right">
         <slot name="right"></slot>
-        ${this.forTemplate}
       </div>
     `;
   }

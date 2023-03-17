@@ -63,7 +63,7 @@ export class SubTextField extends FormFieldElement {
         background-color: var(--ds-control-warning-background-color);
       }
       :host([warning]:hover:not([readonly]):not(:focus)) {
-        color: var(--ds-control-hover-color);
+        color: var(--ds-control-color);
         border-color: var(--ds-control-warning-hover-border-color);
         background-color: var(--ds-control-warning-hover-background-color);
       }
@@ -285,17 +285,16 @@ export class SubTextField extends FormFieldElement {
    */
   protected renderIcon (): TemplateResult | typeof nothing {
     return this.icon ? html`
-    <ds-icon
-        role="${this.iconHasAction ? 'button' : nothing}"
-        tabindex="${this.iconHasAction ? '0' : nothing}"
-        aria-label="${this.iconHasAction ? this.icon : nothing}"
-        part="icon"
-        icon="${this.icon}"
-        ?readonly="${this.readonly}"
-        ?disabled="${this.disabled}"
-        @tap="${this.iconClick}"
-      ></ds-icon>
-    ` : nothing;
+      <ds-icon
+          role="${this.iconHasAction ? 'button' : nothing}"
+          tabindex="${this.iconHasAction ? '0' : nothing}"
+          aria-label="${this.iconHasAction ? this.icon : nothing}"
+          part="icon"
+          icon="${this.icon}"
+          ?readonly="${this.readonly}"
+          ?disabled="${this.disabled}"
+          @tap="${this.iconClick}">
+      </ds-icon>` : nothing;
   }
 
   protected get decorateInputMap (): TemplateMap {

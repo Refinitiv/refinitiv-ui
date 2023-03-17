@@ -5,12 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sub checkbox</title>
     <link type="text/css" rel="stylesheet" href="src/demo.css">
-    <!-- theme of components have imported from dev-server -->
-    <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
+    <link type="text/css" rel="stylesheet" href="src/default-theme.css">
+    <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)" href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css">
   </head>
   <body>
+    <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
     <script type="module">
-      import '@refinitiv-ui/elements/sub-checkbox';
+      import '@refinitiv-ui/components/sub-checkbox';
     </script>
     <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
     <h1>Sub Checkbox</h1>

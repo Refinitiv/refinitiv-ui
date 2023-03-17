@@ -1,6 +1,6 @@
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import '@refinitiv-ui/elements/sub-overlay';
+import '@refinitiv-ui/components/sub-overlay';
 
 const width = 100;
 const height = 100;
