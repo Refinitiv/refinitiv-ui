@@ -1,0 +1,28 @@
+{
+  "$type": "dimension",
+  "text": {
+    "header": {
+      "size": {
+        "$value": "{font.size.small}"
+      }
+    },
+    "sub-header": {
+      "size": {
+        "$value": "{font.size.small}"
+      }
+    },
+    "body": {
+      "size": {
+        "$value": "{font.size.x-small}"
+      }
+    }
+  },
+  "control": {
+    "height": {
+      "$value": "{size.small}"
+    },
+    "padding": {
+      "$value": "{space.xx-small}"
+    }
+  }
+}
