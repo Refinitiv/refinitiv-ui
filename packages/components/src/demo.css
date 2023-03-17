@@ -35,17 +35,17 @@ h3 {
 
 h4 {
   font-size: var(--ds-font-size-medium);
-  margin-bottom: var(--ds-space-x-small);
+  margin-bottom: var(--ds-space-small);
 }
 
 h5 {
   font-size: var(--ds-font-size-small);
-  margin-bottom: var(--ds-space-xx-small);
+  margin-bottom: var(--ds-space-x-small);
 }
 
 h6 {
   font-size: var(--ds-font-size-x-small);
-  margin-bottom: var(--ds-space-xxx-small);
+  margin-bottom: var(--ds-space-xx-small);
 }
 
 h4,
@@ -88,7 +88,7 @@ a:focus {
 p {
   font-weight: var(--ds-font-weight-default);
   font-family: var(--ds-text-body-font-family);
-  margin-bottom: var(--ds-space-xxx-small);
+  margin-bottom: var(--ds-space-x-small);
 }
 
 mark {
