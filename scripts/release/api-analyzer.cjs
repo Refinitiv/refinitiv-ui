@@ -25,12 +25,10 @@ const getDeclarationMethods = (meta) => {
 };
 
 const generateParamByInfo = (info, result) => {
-  if (info) {
+  if (info && info.node) {
     result.description = info.node.comment;
     if (
-      info
-      && info.node
-      && info.node.typeExpression
+      info.node.typeExpression
       && info.node.typeExpression.type
       && info.node.typeExpression.type.typeName
     ) {

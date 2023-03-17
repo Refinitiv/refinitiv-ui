@@ -25,7 +25,7 @@ const THEMES_DIRECTORY = 'themes';
 
 /**
  * Create a dependency map for all elements
- * @returns {[{ dir: string, elements: string[], dependencies: string[]]} DependencyMap
+ * @returns {Promise<[{ dir: string, elements: string[], dependencies: string[] }]>} DependencyMap
  */
 const createDependencyMap = async () => {
   const paths = await getElementList(path.join(process.cwd(), ELEMENT_DIST));
@@ -90,7 +90,7 @@ const extractThemeDependency = (themePath) => {
   if (!themePath) return [];
 
   const themeContent = fs.readFileSync(themePath).toString();
-  const importRegex = new RegExp(`^import .*`, 'gm');
+  const importRegex = /^import .*/gm;
   return themeContent
     .match(importRegex)
     .filter((matched) => !matched.includes('native-elements'))
