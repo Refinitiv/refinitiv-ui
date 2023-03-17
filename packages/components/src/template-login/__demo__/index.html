@@ -13,29 +13,17 @@
     href="../../../node_modules/@refinitiv-ui/tokens/lib/light.tokens.css">
   <link type="text/css" rel="stylesheet" href="./src/demo.css">
   <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
-  <title>Sub text field</title>
+  <title>Login Template</title>
 </head>
 
 <body>
   <script type="module">
-    import '@refinitiv-ui/elements/sub-text-field';
+    import '@refinitiv-ui/elements/template-login';
   </script>
   <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
-  <h1>Sub text-field</h1>
+  <h1>Login Template</h1>
   <p>Default</p>
-  <ds-sub-text-field value="Default"></ds-sub-text-field>
-  <p>Error</p>
-  <ds-sub-text-field value="x" minlength="10" error></ds-sub-text-field>
-  <p>Warning</p>
-  <ds-sub-text-field warning></ds-sub-text-field>
-  <p>Disabled</p>
-  <ds-sub-text-field value="xxxxx" disabled></ds-sub-text-field>
-  <p>Readonly</p>
-  <ds-sub-text-field readonly value="Readonly"></ds-sub-text-field>
-  <p>Icon</p>
-  <ds-sub-text-field icon="home"></ds-sub-text-field>
-  <p>Icon has action</p>
-  <ds-sub-text-field icon="home" icon-has-action></ds-sub-text-field>
+  <dst-login></dst-login>
 </body>
 
 </html>

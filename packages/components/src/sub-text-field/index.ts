@@ -285,17 +285,16 @@ export class SubTextField extends FormFieldElement {
    */
   protected renderIcon (): TemplateResult | typeof nothing {
     return this.icon ? html`
-    <ds-icon
-        role="${this.iconHasAction ? 'button' : nothing}"
-        tabindex="${this.iconHasAction ? '0' : nothing}"
-        aria-label="${this.iconHasAction ? this.icon : nothing}"
-        part="icon"
-        icon="${this.icon}"
-        ?readonly="${this.readonly}"
-        ?disabled="${this.disabled}"
-        @tap="${this.iconClick}"
-      ></ds-icon>
-    ` : nothing;
+      <ds-icon
+          role="${this.iconHasAction ? 'button' : nothing}"
+          tabindex="${this.iconHasAction ? '0' : nothing}"
+          aria-label="${this.iconHasAction ? this.icon : nothing}"
+          part="icon"
+          icon="${this.icon}"
+          ?readonly="${this.readonly}"
+          ?disabled="${this.disabled}"
+          @tap="${this.iconClick}">
+      </ds-icon>` : nothing;
   }
 
   protected get decorateInputMap (): TemplateMap {

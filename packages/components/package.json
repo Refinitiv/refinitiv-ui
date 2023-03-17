@@ -30,17 +30,20 @@
       "default": "./lib/index.js"
     },
     "./version": "./lib/version.js",
+    "./button": "./lib/button/index.js",
     "./checkbox": "./lib/checkbox/index.js",
     "./icon": "./lib/icon/index.js",
     "./flag": "./lib/flag/index.js",
-    "./field": "./lib/field/index.js",
+    "./input-field": "./lib/input-field/index.js",
     "./select": "./lib/select/index.js",
     "./sub-label": "./lib/sub-label/index.js",
     "./sub-checkbox": "./lib/sub-checkbox/index.js",
     "./sub-text-field": "./lib/sub-text-field/index.js",
     "./sub-password-field": "./lib/sub-password-field/index.js",
     "./sub-overlay": "./lib/sub-overlay/index.js",
-    "./sub-item": "./lib/sub-item/index.js"
+    "./sub-item": "./lib/sub-item/index.js",
+    "./template-login": "./lib/template-login/index.js",
+    "./*.js": "./lib/*/index.js"
   },
   "scripts": {
     "build": "node cli build --sourceMap --declarationMap",
