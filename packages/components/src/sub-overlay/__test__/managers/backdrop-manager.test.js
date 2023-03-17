@@ -9,8 +9,8 @@ import { OverlayBackdrop } from '../../../../lib/sub-overlay/elements/overlay-ba
 import { Overlay } from '@refinitiv-ui/elements/sub-overlay';
 
 const createFixture = async (zIndex) => {
-  return (typeof zIndex === 'undefined') ? fixture('<ds-overlay opened with-backdrop>test</ds-overlay>') :
-    fixture(`<ds-overlay z-index="${zIndex}" opened with-backdrop>test</ds-overlay>`);
+  return (typeof zIndex === 'undefined') ? fixture('<ds-sub-overlay opened with-backdrop>test</ds-sub-overlay>') :
+    fixture(`<ds-sub-overlay z-index="${zIndex}" opened with-backdrop>test</ds-sub-overlay>`);
 };
 
 describe('overlay/manager/BackdropManager', () => {
