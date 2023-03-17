@@ -1,2 +1,2 @@
-import '@refinitiv-ui/elements/template-login.js';
-import '@refinitiv-ui/elements/checkbox.js';
+import '@refinitiv-ui/components/template-login.js';
+import '@refinitiv-ui/components/checkbox.js';

@@ -11,7 +11,7 @@
     "start:dev": "concurrently \"pandora src dist --watch\" \"serve dist -s\"",
     "start": "serve dist -s",
     "copy:resources": "cp src/_redirects dist/_redirects && cp -r resources dist/resources",
-    "build:api": "lerna run --scope @refinitiv-ui/elements api-analyzer --stream && node ./scripts/element.injector.js",
+    "build:api": "lerna run --scope @refinitiv-ui/components api-analyzer --stream && node ./scripts/element.injector.js",
     "build": "rm -rf build && npm run build:api && pandora build dist --clean && npm run copy:resources"
   },
   "repository": {
@@ -32,7 +32,7 @@
     "serve": "^14.0.0"
   },
   "dependencies": {
-    "@refinitiv-ui/elements": "7.0.0-next.0",
+    "@refinitiv-ui/components": "7.0.0-next.0",
     "fast-glob": "^3.2.7",
     "fs-extra": "^10.0.0"
   }

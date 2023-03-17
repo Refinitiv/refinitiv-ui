@@ -1,7 +1,7 @@
 import { aTimeout, elementUpdated, expect } from '@refinitiv-ui/test-helpers';
 
-import '@refinitiv-ui/elements/icon';
-import { preload } from '@refinitiv-ui/elements/icon';
+import '@refinitiv-ui/components/icon';
+import { preload } from '@refinitiv-ui/components/icon';
 
 import {
   createAndWaitForLoad,

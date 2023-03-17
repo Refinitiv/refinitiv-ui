@@ -1,7 +1,7 @@
 import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils';
 
-import '@refinitiv-ui/elements/select';
+import '@refinitiv-ui/components/select';
 import '@refinitiv-ui/elemental-theme/light/ef-select';
 
 describe('select/Template', () => {
