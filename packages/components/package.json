@@ -30,10 +30,11 @@
       "default": "./lib/index.js"
     },
     "./version": "./lib/version.js",
+    "./button": "./lib/button/index.js",
     "./checkbox": "./lib/checkbox/index.js",
     "./icon": "./lib/icon/index.js",
     "./flag": "./lib/flag/index.js",
-    "./field": "./lib/field/index.js",
+    "./input-field": "./lib/input-field/index.js",
     "./select": "./lib/select/index.js",
     "./sub-label": "./lib/sub-label/index.js",
     "./sub-checkbox": "./lib/sub-checkbox/index.js",
