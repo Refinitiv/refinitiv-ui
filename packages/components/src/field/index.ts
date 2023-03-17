@@ -10,8 +10,8 @@ import '../sub-password-field/index.js';
 
 const hasChanged = (value: unknown, oldValue: unknown): boolean => oldValue === undefined ? false : value !== oldValue;
 
-@customElement('ds-field', { theme: false })
-export class Field extends ControlElement {
+@customElement('ds-input-field', { theme: false })
+export class InputField extends ControlElement {
   static shadowRootOptions = { ...ControlElement.shadowRootOptions, delegatesFocus: true };
 
   /**
@@ -139,6 +139,6 @@ export class Field extends ControlElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-field': Field;
+    'ds-input-field': InputField;
   }
 }
