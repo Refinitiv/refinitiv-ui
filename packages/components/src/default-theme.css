@@ -1,0 +1,7 @@
+@import '../../node_modules/@refinitiv-ui/tokens/lib/default.tokens.css';
+@import '../../node_modules/@refinitiv-ui/tokens/lib/comfort.tokens.css' screen and (min-width: 0px) and (max-width: 639px);
+@import '../../node_modules/@refinitiv-ui/tokens/lib/dense.tokens.css' screen and (min-width: 640px) and (max-width: 1023px);
+@import '../../node_modules/@refinitiv-ui/tokens/lib/comfort.tokens.css' screen and (min-width: 1920px);
+@import '../../node_modules/@refinitiv-ui/tokens/lib/mobile.tokens.css' screen and (hover: none) and (pointer: coarse);
+@import '../../node_modules/@refinitiv-ui/tokens/lib/light.tokens.css';
+
