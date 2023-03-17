@@ -1,4 +1,4 @@
-import { fixture, expect, keyboardEvent, oneEvent, isNear, nextFrame  } from '../lib/test-helpers';
+import { fixture, expect, keyboardEvent, oneEvent, isNear, nextFrame, replaceWhitespace  } from '../lib/test-helpers';
 import { createSandbox } from 'sinon';
 
 describe('TestHelpersTest', () => {
@@ -97,6 +97,14 @@ describe('TestHelpersTest', () => {
       expect(isNear(10, 14.9, 5, false)).to.equal(true, 'isNear within boundary distance greater than 0 should be true');
       expect(isNear(10, 15, 5, false)).to.equal(false, 'isNear at boundary distance greater than 0 should be true');
       expect(isNear(10, 15.1, 5, false)).to.equal(false, 'isNear beyond boundary distance greater than 0 should be true');
+    });
+  });
+
+  describe('Test Method helper', () => {
+    it('Replace spacial whitespace to normal whitespace correctly', () => {
+      // Remove whitespace character U+202F from Chrome 111 and U+00A0 from Safari
+      const specialWhitespace = '  ';
+      expect(replaceWhitespace(specialWhitespace)).to.equal('  ', 'Remove whitespace should work correctly');
     });
   });
 
