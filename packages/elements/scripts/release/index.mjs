@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { fork } from 'child_process';
+import { fork } from 'node:child_process';
 import path from 'path';
 import { ELEMENTS_ROOT, RELEASE_SCRIPTS_PATH } from '../helpers/index.mjs';
 
