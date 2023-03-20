@@ -2,7 +2,7 @@
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
 import { errorHandler, info } from './scripts/helpers/index.mjs';
-import { commands } from './scripts/cmd/index.mjs'
+import { commands } from './scripts/cmd/index.mjs';
 
 yargs(hideBin(process.argv))
   .usage('Element Framework CLI Commands\n\nUsage: $0 <command> [options]')

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fg from 'fast-glob';
 import fs from 'node:fs';
-import path from 'path';
+import path from 'node:path';
 import { PACKAGE_ROOT } from './util.cjs';
 import { log, errorHandler, success } from '../helpers/index.mjs';
 

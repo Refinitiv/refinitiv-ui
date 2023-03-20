@@ -73,7 +73,6 @@ export const handler = (argv) => {
 
   try {
     execSync('node cli.mjs build --sourceMap --declarationMap');
-    // execSync('node cli.mjs build --sourceMap --declarationMap');
     const command = ['wtr', `--config="web-test-runner.config.mjs"`, `--package=${PACKAGE_NAME}`];
 
     watch && command.push('--watch');
