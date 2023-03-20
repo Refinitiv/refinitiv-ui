@@ -18,4 +18,4 @@ yargs(hideBin(process.argv))
     info('\nSpecify --help for available options.\n');
     process.exit(1);
   })
-  .argv;
+  .parse();
