@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
-import path from 'path';
+import path from 'node:path';
 import fg from 'fast-glob';
 
 import { log, errorHandler, success, ROOT } from '../helpers/index.mjs';
