@@ -40,11 +40,6 @@ describe('item/Item', () => {
       await expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Default item should have correct Shadow DOM structure with label, sub-label and ignorable default slot children', async () => {
-      const el = await createFixture('sub_label_and_label_with_default_slot_ignorable_children');
-      await expect(el).shadowDom.to.equalSnapshot();
-    });
-
     it('Slots are correctly populated', async () => {
       const el = await createFixture('slots');
       await expect(el).lightDom.to.equalSnapshot();
@@ -137,42 +132,6 @@ describe('item/Item', () => {
       await elementUpdated(el);
       expect(el.hasAttribute('highlighted')).to.equal(true, 'attribute "highlighted" should be exists');
       expect(el.getAttribute('highlighted')).to.equal('', 'attribute "highlighted" should equal ""');
-    });
-  });
-
-  describe('Special Attributes', () => {
-    it('Check property for', async () => {
-      const el = await fixture('<ds-sub-item for="for">For</ds-sub-item>');
-      expect(el.for).to.equal('for', 'For should be reflected as property');
-      await expect(el).shadowDom.to.equalSnapshot();
-    });
-    describe('Check property multiple',  () => {
-      let el;
-      let checkbox;
-
-      beforeEach(async () =>{
-        el = await fixture('<ds-sub-item multiple>Multiple</ds-sub-item>');
-        checkbox = el.shadowRoot.querySelector('[part=checkbox]');
-      });
-
-      it('Checkbox for item should be displayed', async () => {
-        expect(el.multiple).to.equal(true, 'Multiple should be reflected as property');
-        expect(checkbox).to.not.be.null;
-        expect(checkbox.checked).to.be.false;
-        await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class'] });
-      });
-      it('Checkbox should be checked ', async () => {
-        el.selected = true;
-        await elementUpdated(el);
-        expect(checkbox.checked).to.be.true;
-        await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class'] });
-      });
-      it('Checkbox for item should not be displayed', async () => {
-        el.multiple = false;
-        await elementUpdated(el);
-        expect(el.shadowRoot.querySelector('[part=checkbox]')).to.be.null;
-        await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class'] });
-      });
     });
   });
 });

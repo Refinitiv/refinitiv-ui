@@ -142,6 +142,9 @@
     "form-border": {
       "$value": "1px"
     },
+    "empathize-border": {
+      "$value": "2px"
+    },
     "xxx-small": {
       "$value": "8px"
     },
@@ -405,6 +408,120 @@
     "padding": {
       "$type": "dimension",
       "$value": "{space.x-small}"
+    }
+  },
+  "action": {
+    "border": {
+      "$type": "border",
+      "primary": {
+        "default": {
+          "$value": {
+            "color": "#808080",
+            "width": "{size.form-border}",
+            "style": "solid"
+          }
+        },
+        "hover": {
+          "$value": {
+            "color": "{action.background.primary.hover}",
+            "width": "{size.form-border}",
+            "style": "solid"
+          }
+        },
+        "focused": {
+          "$value": {
+            "color": "#0D0D0D",
+            "width": "{size.form-border}",
+            "style": "solid"
+          }
+        },
+        "pressed": {
+          "$value": {
+            "color": "{action.background.primary.hover}",
+            "width": "{size.form-border}",
+            "style": "solid"
+          }
+        }
+      },
+      "secondary": {
+        "default": {
+          "$value": {
+            "color": "#0D0D0D",
+            "width": "{size.form-border}",
+            "style": "solid"
+          }
+        },
+        "hover": {
+          "$value": "{action.border.primary.hover}"
+        },
+        "focused": {
+          "$value": "{action.border.primary.focused}"
+        },
+        "pressed": {
+          "$value": "{action.border.primary.pressed}"
+        }
+      }
+    },
+    "background": {
+      "$type": "color",
+      "primary": {
+        "default": {
+          "$value": "#0D0D0D"
+        },
+        "hover": {
+          "$value": "#1429BD"
+        },
+        "focused": {
+          "$value": "#FFFFFF"
+        },
+        "pressed": {
+          "$value": "#0F1E8A"
+        }
+      },
+      "secondary": {
+        "default": {
+          "$value": "#333333"
+        },
+        "hover": {
+          "$value": "{action.background.primary.hover}"
+        },
+        "focused": {
+          "$value": "{action.background.primary.focused}"
+        },
+        "pressed": {
+          "$value": "{action.background.primary.pressed}"
+        }
+      }
+    },
+    "content": {
+      "primary": {
+        "default": {
+          "$value": "{text.body.color}"
+        },
+        "hover": {
+          "$value": "#FFFFFF"
+        },
+        "focused": {
+          "$value": "#0D0D0D"
+        },
+        "pressed": {
+          "$value": "#FFFFFF"
+        }
+      },
+      "secondary": {
+        "default": {
+          "$value": "{text.body.color}"
+        },
+        "hover": {
+          "$value": "#FFFFFF"
+        },
+        "focused": {
+          "$value": "#0D0D0D"
+        },
+        "pressed": {
+          "$value": "#FFFFFF"
+        }
+      }
     }
   }
 }

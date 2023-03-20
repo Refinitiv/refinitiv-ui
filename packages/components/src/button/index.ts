@@ -1,12 +1,5 @@
-import {
-  ControlElement,
-  html,
-  nothing,
-  PropertyValues,
-  TemplateResult
-} from '@refinitiv-ui/core';
+import { ControlElement, html, css, CSSResultGroup, nothing, PropertyValues, TemplateResult } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import '../icon/index.js';
 
@@ -17,81 +10,82 @@ import '../icon/index.js';
  * @prop {boolean} [disabled=false] - Set state to disabled
  * @fires active-changed - Fired when `active` property changed by user taps on toggled button. It will not be triggered if `active` state is changed programmatically.
  */
-@customElement('ds-button')
+@customElement('ds-button', { theme: false })
 export class Button extends ControlElement {
   protected readonly defaultRole = 'button';
 
   /**
-   * Customises text alignment when specified alongside `icon` property
-   * Value can be `before` or `after`
+   * A `CSSResultGroup` that will be used to style the host,
+   * slotted children and the internal template of the element.
+   * @returns CSS template
    */
-  @property({ type: String, reflect: true })
-  public textpos: 'before' | 'after' = 'after';
+  static get styles (): CSSResultGroup {
+    return css`
+      :host {
+        cursor: pointer;
+        outline: none;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
 
-  /**
-   * Removes background when specified alongside `icon` property
-   */
-  @property({ type: Boolean, reflect: true })
-  public transparent = false;
+        text-transform: uppercase;
+
+        padding: var(--ds-space-x-small);
+
+        color: var(--ds-action-content-primary-default);
+        border: var(--ds-action-border-primary-default);
+        background-color: var(--ds-action-background-primary-default);
+        border-radius: var(--ds-control-border-radius);
+      }
+      :host(:hover) {
+        color: var(--ds-action-content-primary-hover);
+        border: var(--ds-action-border-primary-hover);
+        background-color: var(--ds-action-background-primary-hover);
+      }
+      :host(:focus-visible) {
+        text-decoration: underline;
+        text-underline-offset: var(--ds-space-xx-small);
+        text-decoration-thickness: var(--ds-size-empathize-border);
+
+        color: var(--ds-action-content-primary-focused);
+        border: var(--ds-action-border-primary-focused);
+        background-color: var(--ds-action-background-primary-focused);
+      }
+      :host([pressed]) {
+        color: var(--ds-action-content-primary-pressed);
+        border: var(--ds-action-border-primary-pressed);
+        background-color: var(--ds-action-background-primary-pressed);
+      }
+      :host([secondary]) {
+        color: var(--ds-action-content-secondary-default);
+        border: var(--ds-action-border-secondary-default);
+        background-color: var(--ds-action-background-secondary-default);
+      }
+      :host([secondary]:hover) {
+        color: var(--ds-action-content-secondary-hover);
+        border: var(--ds-action-border-secondary-hover);
+        background-color: var(--ds-action-background-secondary-hover);
+      }
+      :host([secondary]:focus-visible) {
+          color: var(--ds-action-content-secondary-focused);
+        border: var(--ds-action-border-secondary-focused);
+        background-color: var(--ds-action-background-secondary-focused);
+      }
+      :host([secondary][pressed]) {
+        color: var(--ds-action-content-secondary-pressed);
+        border: var(--ds-action-border-secondary-pressed);
+        background-color: var(--ds-action-background-secondary-pressed);
+      }
+      :host [part='icon'] { }
+    `;
+  }
 
   /**
    * Specify icon to display in button. Value can be icon name
    */
   @property({ type: String, reflect: true })
   public icon: string | null = null;
-
-  /**
-   * Specify icon to display when hovering. Value can be icon name
-   */
-  @property({ type: String, reflect: true, attribute: 'hover-icon' })
-  public hoverIcon: string | null = null;
-
-  /**
-   * Set state to call-to-action
-   */
-  @property({ type: Boolean, reflect: true })
-  public cta = false;
-
-  /**
-   * Enable or disable ability to be toggled
-   */
-  @property({ type: Boolean, reflect: true })
-  public toggles = false;
-
-  /**
-   * An active or inactive state, can only be used with toggles property/attribute
-   */
-  @property({ type: Boolean, reflect: true })
-  public active = false;
-
-  /**
-   * Use by theme to detect when no content inside button
-   */
-  private empty = false;
-
-  /**
-   * Get native label element from shadow roots
-   */
-  @query('[part="label"]')
-  private labelElement!: HTMLSpanElement;
-
-  /**
-   * Called before update() to compute values needed during the update.
-   * @param changedProperties Properties that has changed
-   * @returns {void}
-   */
-  protected willUpdate (changedProperties: PropertyValues): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('active') && this.toggles || changedProperties.has('toggles') && this.toggles) {
-      if (this.getAttribute('role') === 'radio') {
-        this.setAttribute('aria-checked', String(this.active));
-      }
-      else {
-        this.setAttribute('aria-pressed', String(this.active));
-      }
-    }
-  }
 
   /**
    * the lifecycle method called when properties changed first time
@@ -101,33 +95,8 @@ export class Button extends ControlElement {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
-    this.addEventListener('tap', this.toggleActive);
     this.addEventListener('tapstart', this.setPressed);
     this.addEventListener('tapend', this.unsetPressed);
-
-    this.emptyComputed();
-  }
-
-  /**
-   * Handle the slotchange event of default slot
-   * @returns {void}
-   */
-  private onDefaultSlotChangeHandler (): void {
-    this.emptyComputed();
-  }
-
-  /**
-   * Handle active property, when toggles is true
-   * @returns {void}
-   */
-  private toggleActive (): void {
-    if (this.toggles) {
-      this.active = !this.active;
-      /**
-       * Fired on changing `active` property state by taping on button when property `toggles` is true.
-       */
-      this.notifyPropertyChange('active', this.active);
-    }
   }
 
   /**
@@ -136,6 +105,7 @@ export class Button extends ControlElement {
    */
   private setPressed (): void {
     this.setAttribute('pressed', '');
+    this.setAttribute('aria-pressed', 'true');
   }
 
   /**
@@ -144,28 +114,7 @@ export class Button extends ControlElement {
    */
   private unsetPressed (): void {
     this.removeAttribute('pressed');
-  }
-
-  /**
-   * Compute empty property based on textContent
-   * @returns {void}
-   */
-  private emptyComputed (): void {
-    this.empty = this.textContent ? this.textContent.length === 0 : true;
-    this.switchEmptyAttribute();
-  }
-
-  /**
-   * Set or remove attribute "empty" based on slot present
-   * @returns {void}
-   */
-  private switchEmptyAttribute (): void {
-    if (this.empty) {
-      this.setAttribute('empty', '');
-    }
-    else {
-      this.removeAttribute('empty');
-    }
+    this.setAttribute('aria-pressed', 'false');
   }
 
   /**
@@ -177,25 +126,16 @@ export class Button extends ControlElement {
   }
 
   /**
-   * Returns hover icon template if exists
-   * @return {TemplateResult | nothing}  Render template
-   */
-  private get hoverIconTemplate (): TemplateResult | typeof nothing {
-    const hoverIcon = this.hoverIcon || this.icon;
-    return hoverIcon ? html`<ds-icon part="icon" icon="${hoverIcon}" id="hover-icon"></ds-icon>` : nothing;
-  }
-
-  /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
   protected render (): TemplateResult {
     return html`
-      ${this.hoverIcon ? html`${this.iconTemplate} ${this.hoverIconTemplate}` : this.iconTemplate}
       <span part="label">
-        <slot @slotchange="${this.onDefaultSlotChangeHandler}"></slot>
+        <slot></slot>
       </span>
+      ${this.iconTemplate}
     `;
   }
 }

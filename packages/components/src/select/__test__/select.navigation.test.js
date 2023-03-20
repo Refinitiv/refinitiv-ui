@@ -73,7 +73,6 @@ describe('select/Navigation', () => {
     });
     it('Data: Up key', async () => {
       const el = await fixture('<ds-select opened></ds-select>');
-      const data = getData();
       el.data = getData();
       await iterate(el, getMenuEl(el), ['Up', 'Up', 'Up', 'Up', 'ArrowUp'], [4, 2, 1, 4, 2]);
     });
