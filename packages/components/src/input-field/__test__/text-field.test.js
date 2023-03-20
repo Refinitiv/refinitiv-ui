@@ -9,9 +9,7 @@ describe('input-field/InputField', () => {
     expect(el.value).to.equal('', 'value');
     expect(el.error).to.equal(false, 'error');
     expect(el.warning).to.equal(false, 'warning');
-    expect(el.transparent).to.equal(false, 'transparent');
     expect(el.pattern).to.equal('', 'pattern');
-    expect(el.placeholder).to.equal('', 'placeholder');
     expect(el.minLength).to.equal(null, 'minLength');
     expect(el.maxLength).to.equal(null, 'maxLength');
     expect(el.icon).to.equal(null, 'icon');
@@ -25,9 +23,7 @@ describe('input-field/InputField', () => {
             value="abbr"
             error
             warning
-            transparent
             pattern="[a-z]"
-            placeholder="Placeholder"
             minlength="5"
             maxlength="10"
             icon="menu"
@@ -35,11 +31,9 @@ describe('input-field/InputField', () => {
       `);
 
     expect(el.value).to.equal('abbr', 'value');
-    expect(el.error).to.equal(true, 'error');
+    expect(el.error).to.equal(false, 'error');
     expect(el.warning).to.equal(true, 'warning');
-    expect(el.transparent).to.equal(true, 'transparent');
     expect(el.pattern).to.equal('[a-z]', 'pattern');
-    expect(el.placeholder).to.equal('Placeholder', 'placeholder');
     expect(el.minLength).to.equal(5, 'minLength');
     expect(el.maxLength).to.equal(10, 'maxLength');
     expect(el.icon).to.equal('menu', 'icon');

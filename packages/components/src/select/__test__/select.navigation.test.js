@@ -2,7 +2,6 @@ import { fixture, expect, elementUpdated, aTimeout, nextFrame } from '@refinitiv
 import { getOptions, openedUpdated, getData, getMenuEl } from './utils';
 
 import '@refinitiv-ui/components/select';
-import '@refinitiv-ui/elemental-theme/light/ef-select';
 
 const keyBoardEvent = async (el, key, options = {}) => {
   getMenuEl(el).dispatchEvent(new KeyboardEvent('keydown', Object.assign({ key }, options)));
@@ -13,7 +12,7 @@ const keyBoardEvent = async (el, key, options = {}) => {
 
 const iterate = async (el, scope, keys = [], highlighted = [], options = {}) => {
   await openedUpdated(el);
-  const children = scope.querySelectorAll('ef-item'); // 1, 2, 4 can be selected
+  const children = scope.querySelectorAll('ds-sub-item'); // 1, 2, 4 can be selected
 
   for (let i = 0; i < keys.length; i += 1) {
     const key = keys[i];
@@ -25,7 +24,7 @@ const iterate = async (el, scope, keys = [], highlighted = [], options = {}) => 
 
 const emulateMouseMove = async (el, scope) => {
   await openedUpdated(el);
-  const children = scope.querySelectorAll('ef-item'); // 1, 2, 4 can be selected
+  const children = scope.querySelectorAll('ds-sub-item'); // 1, 2, 4 can be selected
 
   children[1].dispatchEvent(new MouseEvent('mousemove', {
     bubbles: true
@@ -49,78 +48,78 @@ const emulateMouseMove = async (el, scope) => {
 describe('select/Navigation', () => {
   describe('Navigation', () => {
     it('Default highlighted', async () => {
-      const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
+      const el = await fixture(`<ds-select opened>${getOptions()}</ds-select>`);
       await openedUpdated(el);
       expect(el.querySelector('[highlighted]')).to.equal(null, 'No items are highlighted by default');
     });
     it('Options: default highlighted', async () => {
-      const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
+      const el = await fixture(`<ds-select opened>${getOptions()}</ds-select>`);
       el.value = 'AL';
       await openedUpdated(el);
       expect(el.querySelector('[highlighted]').value).to.equal('AL', 'Selected value should be highlighted by default');
     });
     it('Data: default highlighted', async () => {
-      const el = await fixture('<ef-select opened></ef-select>');
+      const el = await fixture('<ds-select opened></ds-select>');
       el.data = getData();
       el.value = 'AL';
       await openedUpdated(el);
       expect(getMenuEl(el).querySelector('[highlighted]').value).to.equal('AL', 'Selected value should be highlighted by default');
     });
     it('Options: Up key', async () => {
-      const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
+      const el = await fixture(`<ds-select opened>${getOptions()}</ds-select>`);
       await iterate(el, el, ['Up', 'Up', 'Up', 'Up', 'ArrowUp'], [4, 2, 1, 4, 2]);
     });
     it('Data: Up key', async () => {
-      const el = await fixture('<ef-select opened></ef-select>');
+      const el = await fixture('<ds-select opened></ds-select>');
       el.data = getData();
       await iterate(el, getMenuEl(el), ['Up', 'Up', 'Up', 'Up', 'ArrowUp'], [4, 2, 1, 4, 2]);
     });
     it('Options: Down key', async () => {
-      const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
+      const el = await fixture(`<ds-select opened>${getOptions()}</ds-select>`);
       await iterate(el, el, ['Down', 'Down', 'Down', 'Down', 'ArrowDown'], [1, 2, 4, 1, 2]);
     });
     it('Data: Down key', async () => {
-      const el = await fixture('<ef-select opened></ef-select>');
+      const el = await fixture('<ds-select opened></ds-select>');
       el.data = getData();
       await iterate(el, getMenuEl(el), ['Down', 'Down', 'Down', 'Down', 'ArrowDown'], [1, 2, 4, 1, 2]);
     });
     it('Options: Tab key', async () => {
-      const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
+      const el = await fixture(`<ds-select opened>${getOptions()}</ds-select>`);
       await iterate(el, el, ['Tab', 'Tab', 'Tab', 'Tab'], [1, 2, 4, 1]);
     });
     it('Data: Tab key', async () => {
-      const el = await fixture('<ef-select opened></ef-select>');
+      const el = await fixture('<ds-select opened></ds-select>');
       el.data = getData();
       await iterate(el, getMenuEl(el), ['Tab', 'Tab', 'Tab', 'Tab'], [1, 2, 4, 1]);
     });
     it('Options: Shift+Tab key', async () => {
-      const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
+      const el = await fixture(`<ds-select opened>${getOptions()}</ds-select>`);
       await iterate(el, el, ['Tab', 'Tab', 'Tab', 'Tab'], [4, 2, 1, 4], {
         shiftKey: true
       });
     });
     it('Data: Shift+Tab key', async () => {
-      const el = await fixture('<ef-select opened></ef-select>');
+      const el = await fixture('<ds-select opened></ds-select>');
       el.data = getData();
       await iterate(el, getMenuEl(el), ['Tab', 'Tab', 'Tab', 'Tab'], [4, 2, 1, 4], {
         shiftKey: true
       });
     });
     it('Options: Home key', async () => {
-      const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
+      const el = await fixture(`<ds-select opened>${getOptions()}</ds-select>`);
       await iterate(el, el, ['Tab', 'Tab', 'Home'], [1, 2, 1]);
     });
     it('Data: Home key', async () => {
-      const el = await fixture('<ef-select opened></ef-select>');
+      const el = await fixture('<ds-select opened></ds-select>');
       el.data = getData();
       await iterate(el, getMenuEl(el), ['Tab', 'Tab', 'Home'], [1, 2, 1]);
     });
     it('Options: End key', async () => {
-      const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
+      const el = await fixture(`<ds-select opened>${getOptions()}</ds-select>`);
       await iterate(el, el, ['End'], [4]);
     });
     it('Data: End key', async () => {
-      const el = await fixture('<ef-select opened></ef-select>');
+      const el = await fixture('<ds-select opened></ds-select>');
       el.data = getData();
       await iterate(el, getMenuEl(el), ['End'], [4]);
     });
@@ -128,11 +127,11 @@ describe('select/Navigation', () => {
 
   describe('Mouse Interaction', () => {
     it('Options: Mouse move event highlights the item', async () => {
-      const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
+      const el = await fixture(`<ds-select opened>${getOptions()}</ds-select>`);
       await emulateMouseMove(el, el);
     });
     it('Date: Mouse move event highlights the item', async () => {
-      const el = await fixture('<ef-select opened></ef-select>');
+      const el = await fixture('<ds-select opened></ds-select>');
       el.data = getData();
       await emulateMouseMove(el, getMenuEl(el));
     });
@@ -143,7 +142,7 @@ describe('select/Navigation', () => {
 
     const emulateQuickSearch = async (el, scope) => {
       await openedUpdated(el);
-      const children = scope.querySelectorAll('ef-item'); // 1, 2, 4 can be selected
+      const children = scope.querySelectorAll('ds-sub-item'); // 1, 2, 4 can be selected
 
       await keyBoardEvent(el, 'Shift');
       expect(scope.querySelector('[highlighted]') === null).to.equal(true, 'Quick search should not highlight on special keys');
@@ -169,12 +168,12 @@ describe('select/Navigation', () => {
     };
 
     it('Options: quick search highlights the item', async () => {
-      const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
+      const el = await fixture(`<ds-select opened>${getOptions()}</ds-select>`);
       await emulateQuickSearch(el, el);
     });
 
     it('Date: quick search highlights the item', async () => {
-      const el = await fixture('<ef-select opened></ef-select>');
+      const el = await fixture('<ds-select opened></ds-select>');
       el.data = getData();
       await emulateQuickSearch(el, getMenuEl(el));
     });

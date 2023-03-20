@@ -7,17 +7,13 @@ snapshots["select/Template Template Parts Empty DOM has all required parts"] =
     <div part="placeholder">
     </div>
   </div>
-  <ef-icon
+  <ds-icon
     icon="down"
     part="icon"
   >
-  </ef-icon>
+  </ds-icon>
 </div>
 <div id="trigger">
-</div>
-<div>
-  <slot>
-  </slot>
 </div>
 `;
 /* end snapshot select/Template Template Parts Empty DOM has all required parts */
@@ -29,17 +25,13 @@ snapshots["select/Template Template Parts Placeholder is rendered"] =
       Placeholder
     </div>
   </div>
-  <ef-icon
+  <ds-icon
     icon="down"
     part="icon"
   >
-  </ef-icon>
+  </ds-icon>
 </div>
 <div id="trigger">
-</div>
-<div>
-  <slot>
-  </slot>
 </div>
 `;
 /* end snapshot select/Template Template Parts Placeholder is rendered */
@@ -50,17 +42,13 @@ snapshots["select/Template Template Parts Lazy Render: options"] =
     <div part="placeholder">
     </div>
   </div>
-  <ef-icon
+  <ds-icon
     icon="down"
     part="icon"
   >
-  </ef-icon>
+  </ds-icon>
 </div>
 <div id="trigger">
-</div>
-<div>
-  <slot>
-  </slot>
 </div>
 `;
 /* end snapshot select/Template Template Parts Lazy Render: options */
@@ -71,17 +59,17 @@ snapshots["select/Template Template Parts Lazy Render: options opened"] =
     <div part="placeholder">
     </div>
   </div>
-  <ef-icon
+  <ds-icon
     icon="down"
     part="icon"
   >
-  </ef-icon>
+  </ds-icon>
 </div>
 <div id="trigger">
 </div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
+<ds-overlay-viewport>
+</ds-overlay-viewport>
+<ds-sub-overlay
   first-resize-done=""
   focused=""
   id="menu"
@@ -94,7 +82,7 @@ snapshots["select/Template Template Parts Lazy Render: options opened"] =
 >
   <slot>
   </slot>
-</ef-overlay>
+</ds-sub-overlay>
 `;
 /* end snapshot select/Template Template Parts Lazy Render: options opened */
 
@@ -104,17 +92,13 @@ snapshots["select/Template Template Parts Lazy Render: data"] =
     <div part="placeholder">
     </div>
   </div>
-  <ef-icon
+  <ds-icon
     icon="down"
     part="icon"
   >
-  </ef-icon>
+  </ds-icon>
 </div>
 <div id="trigger">
-</div>
-<div>
-  <slot>
-  </slot>
 </div>
 `;
 /* end snapshot select/Template Template Parts Lazy Render: data */
@@ -125,17 +109,17 @@ snapshots["select/Template Template Parts Lazy Render: data opened"] =
     <div part="placeholder">
     </div>
   </div>
-  <ef-icon
+  <ds-icon
     icon="down"
     part="icon"
   >
-  </ef-icon>
+  </ds-icon>
 </div>
 <div id="trigger">
 </div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
+<ds-overlay-viewport>
+</ds-overlay-viewport>
+<ds-sub-overlay
   first-resize-done=""
   focused=""
   id="menu"
@@ -146,44 +130,39 @@ snapshots["select/Template Template Parts Lazy Render: data opened"] =
   tabindex="-1"
   with-shadow=""
 >
-  <ef-item
-    aria-selected="false"
+  <ds-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="header"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="divider"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ef-item>
-</ef-overlay>
+  </ds-sub-item>
+</ds-sub-overlay>
 `;
 /* end snapshot select/Template Template Parts Lazy Render: data opened */
 
@@ -193,17 +172,17 @@ snapshots["select/Template Template Parts Data is reflected to render"] =
     <div part="placeholder">
     </div>
   </div>
-  <ef-icon
+  <ds-icon
     icon="down"
     part="icon"
   >
-  </ef-icon>
+  </ds-icon>
 </div>
 <div id="trigger">
 </div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
+<ds-overlay-viewport>
+</ds-overlay-viewport>
+<ds-sub-overlay
   first-resize-done=""
   focused=""
   id="menu"
@@ -214,44 +193,39 @@ snapshots["select/Template Template Parts Data is reflected to render"] =
   tabindex="-1"
   with-shadow=""
 >
-  <ef-item
-    aria-selected="false"
+  <ds-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="header"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="divider"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ef-item>
-</ef-overlay>
+  </ds-sub-item>
+</ds-sub-overlay>
 `;
 /* end snapshot select/Template Template Parts Data is reflected to render */
 
@@ -261,17 +235,17 @@ snapshots["select/Template Template Parts Data is reflected to reverse render"] 
     <div part="placeholder">
     </div>
   </div>
-  <ef-icon
+  <ds-icon
     icon="down"
     part="icon"
   >
-  </ef-icon>
+  </ds-icon>
 </div>
 <div id="trigger">
 </div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
+<ds-overlay-viewport>
+</ds-overlay-viewport>
+<ds-sub-overlay
   id="menu"
   lock-position-target=""
   opened=""
@@ -280,44 +254,39 @@ snapshots["select/Template Template Parts Data is reflected to reverse render"] 
   tabindex="-1"
   with-shadow=""
 >
-  <ef-item
-    aria-selected="false"
+  <ds-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="divider"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="header"
   >
-  </ef-item>
-</ef-overlay>
+  </ds-sub-item>
+</ds-sub-overlay>
 `;
 /* end snapshot select/Template Template Parts Data is reflected to reverse render */
 
@@ -327,17 +296,17 @@ snapshots["select/Template Template Parts Data is reflected to render null data"
     <div part="placeholder">
     </div>
   </div>
-  <ef-icon
+  <ds-icon
     icon="down"
     part="icon"
   >
-  </ef-icon>
+  </ds-icon>
 </div>
 <div id="trigger">
 </div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
+<ds-overlay-viewport>
+</ds-overlay-viewport>
+<ds-sub-overlay
   id="menu"
   lock-position-target=""
   opened=""
@@ -348,7 +317,7 @@ snapshots["select/Template Template Parts Data is reflected to render null data"
 >
   <slot>
   </slot>
-</ef-overlay>
+</ds-sub-overlay>
 `;
 /* end snapshot select/Template Template Parts Data is reflected to render null data */
 
