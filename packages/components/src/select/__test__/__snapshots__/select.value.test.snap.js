@@ -8,17 +8,17 @@ snapshots["select/Value Selection by Value Attribute Options Selected: Afghanist
       Afghanistan
     </div>
   </div>
-  <ef-icon
+  <ds-icon
     icon="down"
     part="icon"
   >
-  </ef-icon>
+  </ds-icon>
 </div>
 <div id="trigger">
 </div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
+<ds-overlay-viewport>
+</ds-overlay-viewport>
+<ds-sub-overlay
   first-resize-done=""
   focused=""
   id="menu"
@@ -31,7 +31,7 @@ snapshots["select/Value Selection by Value Attribute Options Selected: Afghanist
 >
   <slot>
   </slot>
-</ef-overlay>
+</ds-sub-overlay>
 `;
 /* end snapshot select/Value Selection by Value Attribute Options Selected: Afghanistan */
 
@@ -42,17 +42,17 @@ snapshots["select/Value Selection by Value Attribute Data Selected: Afghanistan"
       Afghanistan
     </div>
   </div>
-  <ef-icon
+  <ds-icon
     icon="down"
     part="icon"
   >
-  </ef-icon>
+  </ds-icon>
 </div>
 <div id="trigger">
 </div>
-<ef-overlay-viewport>
-</ef-overlay-viewport>
-<ef-overlay
+<ds-overlay-viewport>
+</ds-overlay-viewport>
+<ds-sub-overlay
   first-resize-done=""
   focused=""
   id="menu"
@@ -63,46 +63,41 @@ snapshots["select/Value Selection by Value Attribute Data Selected: Afghanistan"
   tabindex="-1"
   with-shadow=""
 >
-  <ef-item
-    aria-selected="false"
+  <ds-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="header"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="true"
+  </ds-sub-item>
+  <ds-sub-item
     highlighted=""
     part="item"
     role="option"
     selected=""
     tabindex="0"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="divider"
   >
-  </ef-item>
-  <ef-item
-    aria-selected="false"
+  </ds-sub-item>
+  <ds-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ef-item>
-</ef-overlay>
+  </ds-sub-item>
+</ds-sub-overlay>
 `;
 /* end snapshot select/Value Selection by Value Attribute Data Selected: Afghanistan */
 
