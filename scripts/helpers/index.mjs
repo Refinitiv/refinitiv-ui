@@ -3,9 +3,9 @@ import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 
 export const fileDirName = meta => {
-  const __filename = fileURLToPath(meta.url);
-  const __dirname = dirname(__filename);
-  return { __dirname, __filename };
+  const filename = fileURLToPath(meta.url);
+  const dirname = dirname(filename);
+  return { dirname, filename };
 }
 
 export * from './index.cjs';

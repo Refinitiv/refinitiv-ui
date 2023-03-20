@@ -25,11 +25,11 @@ const toPascalCase = (text) => text.replace(/(^\w|-\w)/g, clearAndUpper);
  * @returns {void}
  */
 const handler = async () => {
-  const { __dirname } = fileDirName(import.meta);
-  const JSX_MERGE_TEMPLATE = path.join(__dirname, 'interface', 'jsxTemplate.d.ts');
+  const { dirname } = fileDirName(import.meta);
+  const JSX_MERGE_TEMPLATE = path.join(dirname, 'interface', 'jsxTemplate.d.ts');
 
   const JSX_TYPE_DECLARATION = 'jsx.d.ts';
-  const JSX_TYPE_DECLARATION_PATH = path.join(__dirname, 'interface', JSX_TYPE_DECLARATION);
+  const JSX_TYPE_DECLARATION_PATH = path.join(dirname, 'interface', JSX_TYPE_DECLARATION);
 
   // Copy jsx.d.ts into the root of outDir
   fs.copyFileSync(
