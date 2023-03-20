@@ -16,12 +16,13 @@ export const fileDirName = meta => {
 
 /**
  * Get JSON data from url path
- * @param string url path to JSON file
+ * @param string url the absolute or relative input URL to parse
+ * @param string meta the base URL to resolve against if the input is not absolute
  * @returns object
  */
-export const getJSON = async url => {
+export const getJSON = async (url, meta = undefined) => {
   return JSON.parse(
-    await fs.promises.readFile(new URL(url, import.meta.url))
+    await fs.promises.readFile(new URL(url, meta ? meta.url : undefined))
   );
 };
 
