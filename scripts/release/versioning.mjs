@@ -3,7 +3,7 @@ import fg from 'fast-glob';
 import fs from 'node:fs';
 import path from 'node:path';
 import { PACKAGE_ROOT } from './util.cjs';
-import { log, errorHandler, success } from '../helpers/index.mjs';
+import { log, errorHandler, success, getJSON } from '../helpers/index.mjs';
 
 /**
  * Placeholder of element version
@@ -16,10 +16,7 @@ const PLACEHOLDER_VERSION = 'PUBLISH_VERSION';
 const FILE_OPTIONS = { encoding: 'utf8' };
 
 const handler = async () => {
-  const packageJson = JSON.parse(
-    await fs.promises.readFile(new URL(path.resolve(PACKAGE_ROOT, 'package.json'), import.meta.url))
-  );
-
+  const packageJson = await getJSON(path.resolve(PACKAGE_ROOT, 'package.json'));
   const elementName = packageJson.name;
   const newVersion = packageJson.version;
 

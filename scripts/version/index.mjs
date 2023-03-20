@@ -1,9 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { getJSON } from '../helpers/index.mjs';
 const packageJsonFilename = path.resolve('./package.json');
-const json = JSON.parse(
-  await fs.promises.readFile(new URL(packageJsonFilename, import.meta.url))
-);
+const json = await getJSON(packageJsonFilename);
 
 const devDependencies = json.devDependencies || {};
 const peerDependencies = json.peerDependencies || {};

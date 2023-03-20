@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import { execSync } from 'node:child_process';
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
-import { PACKAGES_ROOT, errorHandler } from './scripts/helpers/index.mjs';
+import { PACKAGES_ROOT, errorHandler, getJSON } from './scripts/helpers/index.mjs';
 
 const argvNoBin = hideBin(process.argv);
 const argv = yargs(argvNoBin)
@@ -33,9 +33,7 @@ try {
   const elementName = isElement ? argv.package : undefined;
 
   // For workspace package real name is required
-  const packageJson = fs.readFileSync(path.resolve(PACKAGES_ROOT, workspace, 'package.json'));
-  const packageName = JSON.parse(packageJson).name;
-
+  const packageName = (await getJSON(path.resolve(PACKAGES_ROOT, workspace, 'package.json'))).name;
   const command = ['npm', 'run', argv.reflect, `--workspace=${packageName}`];
   elementName && command.push(elementName);
   options.length > 0 && command.push('--')

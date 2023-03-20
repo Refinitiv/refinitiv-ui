@@ -3,16 +3,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import fg from 'fast-glob';
 
-import { log, errorHandler, success, ROOT } from '../helpers/index.mjs';
+import { log, errorHandler, success, ROOT, getJSON } from '../helpers/index.mjs';
 import { ELEMENT_DIST, PACKAGE_ROOT, getElementList, getElementTagName } from './util.cjs';
 
 // List of themes to be extracted
 const THEMES = ['halo', 'solar'];
 
 // Element package scope
-const PACKAGE_NAME = JSON.parse(
-  await fs.promises.readFile(new URL(`${PACKAGE_ROOT}/package.json`, import.meta.url))
-).name;
+const PACKAGE_NAME = (await getJSON(`${PACKAGE_ROOT}/package.json`)).name;
 
 // Where to look for theme files
 const THEME_SOURCE = `${ROOT}/node_modules/${PACKAGE_NAME.split('/')[0]}/`;
