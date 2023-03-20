@@ -47,6 +47,11 @@ config.testRunnerHtml = (testFramework) =>
     <body>
       <script type="module" src="${testFramework}"></script>
     </body>
+    <style>
+      html {
+        height: 100%;
+      }
+    </style>
   </html>`
 
 module.exports = config;

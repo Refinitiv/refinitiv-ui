@@ -2,17 +2,16 @@ import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-h
 import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils';
 
 import '@refinitiv-ui/components/select';
-import '@refinitiv-ui/elemental-theme/light/ef-select';
 
 describe('select/Template', () => {
   describe('Template Parts', () => {
     it('Empty DOM has all required parts', async () => {
-      const el = await fixture('<ef-select></ef-select>');
+      const el = await fixture('<ds-select></ds-select>');
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
     it('Placeholder is rendered', async () => {
-      const el = await fixture('<ef-select placeholder="Placeholder"></ef-select>');
+      const el = await fixture('<ds-select placeholder="Placeholder"></ds-select>');
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
 
       el.setAttribute('placeholder', 'New Placeholder');
@@ -26,12 +25,12 @@ describe('select/Template', () => {
     });
 
     it('Lazy Render: options', async () => {
-      const el = await fixture(`<ef-select>${getOptions()}</ef-select>`);
+      const el = await fixture(`<ds-select>${getOptions()}</ds-select>`);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
     it('Lazy Render: options opened', async () => {
-      const el = await fixture(`<ef-select>${getOptions()}</ef-select>`);
+      const el = await fixture(`<ds-select>${getOptions()}</ds-select>`);
       el.opened = true;
       await openedUpdated(el);
       expect(el.hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected');
@@ -45,14 +44,14 @@ describe('select/Template', () => {
     });
 
     it('Lazy Render: data', async () => {
-      const el = await fixture('<ef-select></ef-select>');
+      const el = await fixture('<ds-select></ds-select>');
       el.data = getData();
       await elementUpdated(el);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
     it('Lazy Render: data opened', async () => {
-      const el = await fixture('<ef-select></ef-select>');
+      const el = await fixture('<ds-select></ds-select>');
       el.data = getData();
       await elementUpdated(el);
 
@@ -70,21 +69,21 @@ describe('select/Template', () => {
     });
 
     it('Data is reflected to render', async () => {
-      const el = await fixture('<ef-select opened></ef-select>');
+      const el = await fixture('<ds-select opened></ds-select>');
       el.data = getData();
       await openedUpdated(el);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
     it('Data is reflected to reverse render', async () => {
-      const el = await fixture('<ef-select opened></ef-select>');
+      const el = await fixture('<ds-select opened></ds-select>');
       el.data = getData().reverse();
       await elementUpdated(el);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
     it('Data is reflected to render null data', async () => {
-      const el = await fixture('<ef-select opened></ef-select>');
+      const el = await fixture('<ds-select opened></ds-select>');
       el.data = getData();
       await elementUpdated(el);
       expect(el.data).not.to.be.null;
@@ -96,7 +95,7 @@ describe('select/Template', () => {
     });
 
     it('--list-max-width recalculates popup width', async function () {
-      const el = await fixture(`<ef-select style="--list-max-width: 50px;" opened>${getOptions()}</ef-select>`);
+      const el = await fixture(`<ds-select style="--ds-select-list-max-width: 50px;" opened>${getOptions()}</ds-select>`);
       await openedUpdated(el);
       const styles = window.getComputedStyle(getMenuEl(el));
       expect(styles.maxWidth).to.equal('50px', 'CSS Variable is not passed');

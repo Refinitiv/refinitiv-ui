@@ -6,7 +6,6 @@ import {
   CSSResultGroup,
   PropertyValues,
   MultiValue,
-  FocusedPropertyKey,
   StyleMap
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
@@ -210,18 +209,18 @@ export class Select extends ControlElement implements MultiValue {
   private resizeThrottler = new AnimationTaskRunner();
 
   /**
-  * Current text content of the selected value
-  * @readonly
-  */
+   * Current text content of the selected value
+   * @readonly
+   */
   @property({ type: String, attribute: false })
   public get label (): string {
     return this.labels[0];
   }
   /**
-  * Current text content of the selected values
-  * @ignore
-  * @readonly
-  */
+   * Current text content of the selected values
+   * @ignore
+   * @readonly
+   */
   @property({ type: Array, attribute: false })
   public get labels (): string[] {
     if (this.hasDataItems()) {
@@ -232,50 +231,50 @@ export class Select extends ControlElement implements MultiValue {
   }
 
   /**
-  * Placeholder to display when no value is set
-  */
+   * Placeholder to display when no value is set
+   */
   @property({ type: String })
   public placeholder = '';
 
   /**
-  * Toggles the opened state of the list
-  */
+   * Toggles the opened state of the list
+   */
   @property({ type: Boolean, reflect: true })
   public opened = false;
 
   /**
-  * Set state to error
-  */
+   * Set state to error
+   */
   @property({ type: Boolean, reflect: true })
   public error = false;
 
   /**
-  * Set state to warning
-  */
+   * Set state to warning
+   */
   @property({ type: Boolean, reflect: true })
   public warning = false;
 
   /**
-  * Switch to multiple select input
-  * @ignore
-  * @param multiple True if element needs to support multi selection
-  */
+   * Switch to multiple select input
+   * @ignore
+   * @param multiple True if element needs to support multi selection
+   */
   @property({ type: Boolean })
   public set multiple (multiple: boolean) {
     // TODO: not implemented
   }
   /**
-  * @ignore
-  */
+   * @ignore
+   */
   public get multiple (): boolean {
     return false;
   }
 
   /**
-  * Construct the menu from data object. Cannot be used with slotted content
-  * @type {SelectData | null}
-  * @default null
-  */
+   * Construct the menu from data object. Cannot be used with slotted content
+   * @type {SelectData | null}
+   * @default null
+   */
   @property({ attribute: false })
   public get data (): SelectData | null {
     return this._data;
@@ -310,10 +309,10 @@ export class Select extends ControlElement implements MultiValue {
   private cachedValue = '';
 
   /**
-  * Value of the element
-  * @param value Element value
-  * @default -
-  */
+   * Value of the element
+   * @param value Element value
+   * @default -
+   */
   @property({ type: String, attribute: false })
   public set value (value: string) {
     value = this.castValue(value);
@@ -367,6 +366,12 @@ export class Select extends ControlElement implements MultiValue {
 
     // Indicating that this select has a popup of type listbox
     this.setAttribute('aria-haspopup', 'listbox');
+    this.addEventListener('focus', () => {
+      if (document.activeElement === this && this.shouldOpenOnFocus) {
+        this.setOpened(true);
+      }
+      this.shouldOpenOnFocus = false;
+    });
   }
 
   /**
@@ -376,17 +381,6 @@ export class Select extends ControlElement implements MultiValue {
    */
   protected update (changedProperties: PropertyValues): void {
     this.cachedValue = ''; /* reset cached value as it is only valid when value and data are set the same time */
-
-    const focusedChanged = changedProperties.has(FocusedPropertyKey);
-
-    // the opened logic is bound to focus state
-    if (focusedChanged) {
-      // When focus changes the popup can open only on tapstart
-      if (this.focused && this.shouldOpenOnFocus) {
-        this.setOpened(true);
-      }
-      this.shouldOpenOnFocus = false;
-    }
 
     if (changedProperties.has('opened')) {
 
@@ -496,7 +490,7 @@ export class Select extends ControlElement implements MultiValue {
   };
 
   /**
-   * Popup has to use max width if --list-max-width specified
+   * Popup has to use max width if --ds-select-list-max-width specified
    * otherwise, popup should have same width as control or wider
    * @returns {void}
    */
@@ -516,7 +510,7 @@ export class Select extends ControlElement implements MultiValue {
     }
     /* c8 ignore stop */
 
-    const maxWidth = this.getComputedVariable('--list-max-width', 'none');
+    const maxWidth = this.getComputedVariable('--ds-select-list-max-width', 'none');
     let minWidth = this.offsetWidth;
 
     if (maxWidth !== 'none') {
@@ -552,7 +546,7 @@ export class Select extends ControlElement implements MultiValue {
       return;
     }
 
-    if (this.focused) {
+    if (document.activeElement === this) {
       this.setOpened(true);
       return;
     }

@@ -133,7 +133,9 @@ export abstract class ControlElement extends BasicElement implements IControlPro
       this.tabIndex = -1;
     }
 
-    this.hasAttribute('focused') && this.blur();
+    if (document.activeElement === this) {
+      this.blur();
+    }
   }
 
   /**
