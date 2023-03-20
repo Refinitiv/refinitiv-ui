@@ -1,8 +1,8 @@
 import path from 'node:path';
 import { fileDirName } from '../../scripts/helpers/index.mjs';
 
-const { dirname } = fileDirName(import.meta);
-const root = path.resolve(dirname, '../');
+const { dirName } = fileDirName(import.meta);
+const root = path.resolve(dirName, '../');
 
 const Source = {}
 Source.root = path.join(root, 'src');
