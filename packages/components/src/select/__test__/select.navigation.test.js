@@ -13,12 +13,14 @@ const keyBoardEvent = async (el, key, options = {}) => {
 const iterate = async (el, scope, keys = [], highlighted = [], options = {}) => {
   await openedUpdated(el);
   const children = scope.querySelectorAll('ds-sub-item'); // 1, 2, 4 can be selected
+  el.focus();
 
   for (let i = 0; i < keys.length; i += 1) {
     const key = keys[i];
     await keyBoardEvent(el, key, options);
     expect(scope.querySelector('[highlighted]') === children[highlighted[i]]).to.equal(true, `Incorrect item highlighted for nr.${i} ${key}`);
-    expect(scope.querySelector('[focused]') === children[highlighted[i]]).to.equal(true, `Incorrect item focused for nr.${i} ${key}`);
+    const activeElement = el === scope ? document.activeElement : el.shadowRoot.activeElement;
+    expect(activeElement === children[highlighted[i]]).to.equal(true, `Incorrect item focused for nr.${i} ${key}`);
   }
 };
 

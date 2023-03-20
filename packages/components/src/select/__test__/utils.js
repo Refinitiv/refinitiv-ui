@@ -12,7 +12,7 @@ export const snapshotIgnore = {
 export const openedUpdated = async (el) => {
   await elementUpdated(el);
   await nextFrame();
-  await nextFrame(); // IE11 needs a second iframe, otherwise resize observer is not run;
+  await nextFrame();
 };
 
 export const data = [{

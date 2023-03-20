@@ -14,7 +14,6 @@ export const asyncFrames = async () => {
 
 export const elementUpdatedWithAsyncFrames = async (element) => {
   await elementUpdated(element);
-
   await asyncFrames();
 };
 

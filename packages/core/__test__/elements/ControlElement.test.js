@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, html, oneEvent, triggerFocusFor } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, html, nextFrame, oneEvent, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 import { ControlElement } from '../../lib/elements/ControlElement';
 import { customElement } from '../../lib/decorators/custom-element';
 import { elementUpdatedWithAsyncFrames, isChrome, asyncFrames } from '../helper';
@@ -151,22 +151,10 @@ describe('TestControlElement', () => {
     describe('Test "focused" property and attribute', async () => {
       it('Should have correct property and attribute "focused" by default', async () => {
         const el = await fixture('<control-element-test></control-element-test>');
-
-        expect(el.getAttribute('focused')).to.equal(null, 'attribute "focused" should equal null by default');
-        expect(el.hasAttribute('focused')).to.equal(false, 'attribute "focused" should not be exists by default');
-
-        el.setAttribute('focused', '');
+        expect(document.activeElement === el).to.equal(false, 'element should not be focused by default');
+        el.focus();
         await elementUpdated(el);
-
-        expect(el.hasAttribute('focused')).to.equal(true, 'attribute "focused" should be exists');
-        expect(el.getAttribute('focused')).to.equal('', 'attribute "focused" should equal ""');
-      });
-
-      it('Should have correct property and attribute "focused"', async () => {
-        const el = await fixture('<control-element-test focused></control-element-test>');
-
-        expect(el.getAttribute('focused')).to.equal('', 'attribute "focused" should equal empty string');
-        expect(el.hasAttribute('focused')).to.equal(true, 'attribute "focused" should be present');
+        expect(document.activeElement === el).to.equal(true, 'active element should be correct');
       });
     });
 
@@ -189,7 +177,7 @@ describe('TestControlElement', () => {
         expect(el.getAttribute('tabindex')).to.equal('0', 'attribute "tabindex" should not be "0" by default');
         expect(el.tabIndex).to.equal(0, 'property tabIndex should stay 0 by default');
 
-        expect(el.hasAttribute('focused')).to.equal(false, 'attribute "focused" should not be added if autofocus changed');
+        expect(document.activeElement === el).to.equal(false);
 
         el.autofocus = false;
         await elementUpdated(el);
@@ -213,8 +201,7 @@ describe('TestControlElement', () => {
         expect(el.getAttribute('tabindex')).to.equal('0', 'attribute "tabindex" should be "0" by default');
         expect(el.tabIndex).to.equal(0, 'property tabIndex should stay 0 by default');
 
-        expect(el.hasAttribute('focused')).to.equal(true, 'attribute "focused" should not be added if autofocus set');
-        expect(el.getAttribute('focused')).to.equal('', 'attribute "focused" should be empty string');
+        expect(document.activeElement === el).to.equal(true);
       });
     });
 
@@ -682,12 +669,10 @@ describe('TestControlElement', () => {
         const el = await fixture('<control-element-test autofocus></control-element-test>');
         await elementUpdatedWithAsyncFrames(el);
 
-        expect(el.hasAttribute('focused')).to.equal(true, 'element attribute focused should be set to true');
+        expect(document.activeElement === el).to.equal(true);
 
         setTimeout(() => {
           el.disabled = true;
-          // for Firefox it need to be something like
-          // el.shadowRoot.activeElement.blur();
         });
 
         const blurEvent = await oneEvent(el, 'blur');
@@ -696,7 +681,7 @@ describe('TestControlElement', () => {
 
         expect(el.disabled).to.equal(true, 'property disabled should be equal true');
         await asyncFrames();
-        expect(el.hasAttribute('focused')).to.equal(false, 'element attribute focused should be set to false when disabled');
+        expect(document.activeElement === el).to.equal(false);
         expect(el.style.pointerEvents).to.equal('none', 'pointer events should be set to none when disabled');
         expect(el.tabIndex).to.equal(-1, 'tabIndex should be set to -1');
         expect(el.getAttribute('aria-disabled')).to.equal('true', 'attribute aria-disabled should be set to "true" for disabled element');

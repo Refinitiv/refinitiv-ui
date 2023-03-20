@@ -71,7 +71,6 @@ snapshots["select/Template Template Parts Lazy Render: options opened"] =
 </ds-overlay-viewport>
 <ds-sub-overlay
   first-resize-done=""
-  focused=""
   id="menu"
   lock-position-target=""
   opened=""
@@ -121,7 +120,6 @@ snapshots["select/Template Template Parts Lazy Render: data opened"] =
 </ds-overlay-viewport>
 <ds-sub-overlay
   first-resize-done=""
-  focused=""
   id="menu"
   lock-position-target=""
   opened=""
@@ -184,7 +182,6 @@ snapshots["select/Template Template Parts Data is reflected to render"] =
 </ds-overlay-viewport>
 <ds-sub-overlay
   first-resize-done=""
-  focused=""
   id="menu"
   lock-position-target=""
   opened=""

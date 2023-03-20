@@ -93,5 +93,13 @@ describe('select/Template', () => {
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
 
     });
+
+    it('--list-max-width recalculates popup width', async function () {
+      const el = await fixture(`<ds-select style="--ds-select-list-max-width: 50px;" opened>${getOptions()}</ds-select>`);
+      await openedUpdated(el);
+      const styles = window.getComputedStyle(getMenuEl(el));
+      expect(styles.maxWidth).to.equal('50px', 'CSS Variable is not passed');
+      expect(styles.minWidth).to.equal('0px', 'min width is not reset');
+    });
   });
 });

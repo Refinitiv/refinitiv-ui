@@ -20,7 +20,6 @@ snapshots["select/Value Selection by Value Attribute Options Selected: Afghanist
 </ds-overlay-viewport>
 <ds-sub-overlay
   first-resize-done=""
-  focused=""
   id="menu"
   lock-position-target=""
   opened=""
@@ -54,7 +53,6 @@ snapshots["select/Value Selection by Value Attribute Data Selected: Afghanistan"
 </ds-overlay-viewport>
 <ds-sub-overlay
   first-resize-done=""
-  focused=""
   id="menu"
   lock-position-target=""
   opened=""

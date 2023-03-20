@@ -20,7 +20,6 @@ snapshots["select/Selection Selection by Selected Property Data Selected: Afghan
 </ds-overlay-viewport>
 <ds-sub-overlay
   first-resize-done=""
-  focused=""
   id="menu"
   lock-position-target=""
   opened=""
@@ -86,7 +85,6 @@ snapshots["select/Selection Selection by Selected Property Data Selected change"
 </ds-overlay-viewport>
 <ds-sub-overlay
   first-resize-done=""
-  focused=""
   id="menu"
   lock-position-target=""
   opened=""
@@ -154,7 +152,6 @@ snapshots["select/Selection Selection by Selected Property Data Unselected"] =
 </ds-overlay-viewport>
 <ds-sub-overlay
   first-resize-done=""
-  focused=""
   id="menu"
   lock-position-target=""
   opened=""
@@ -220,7 +217,6 @@ snapshots["select/Selection Selection by Selected Property Options Selected: Afg
 </ds-overlay-viewport>
 <ds-sub-overlay
   first-resize-done=""
-  focused=""
   id="menu"
   lock-position-target=""
   opened=""

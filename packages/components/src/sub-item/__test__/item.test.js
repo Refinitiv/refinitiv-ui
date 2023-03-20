@@ -18,13 +18,6 @@ const createFixture = (type = '') => {
       return fixture('<ds-sub-item icon="tick">With settings icon</ds-sub-item>');
     case 'with_empty_icon':
       return fixture('<ds-sub-item icon>With empty icon</ds-sub-item>');
-    case 'default_with_label_and_subLabel':
-    case 'sub_label_and_label_with_default_slot_ignorable_children':
-      return fixture(`
-        <ds-sub-item label="tiger" sub-label="tiger">
-          <!--this is a comment node and linebreaks-->
-        </ds-sub-item>
-      `);
     default:
       return fixture('<ds-sub-item>Default</ds-sub-item>');
   }
@@ -46,15 +39,7 @@ describe('item/Item', () => {
       const el = await createFixture('with_empty_icon');
       await expect(el).shadowDom.to.equalSnapshot();
     });
-    it('Default item should have correct Shadow DOM structure with content and subLabel', async () => {
-      const el = await createFixture('default_with_content_and_subLabel');
-      await expect(el).shadowDom.to.equalSnapshot();
-    });
 
-    it('Default item should have correct Shadow DOM structure with subLabel, if there is no content or label', async () => {
-      const el = await createFixture('default_only_subLabel');
-      await expect(el).shadowDom.to.equalSnapshot();
-    });
     it('Slots are correctly populated', async () => {
       const el = await createFixture('slots');
       await expect(el).lightDom.to.equalSnapshot();
