@@ -2,7 +2,6 @@ import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-h
 import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils';
 
 import '@refinitiv-ui/components/select';
-import '@refinitiv-ui/elemental-theme/light/ef-select';
 
 describe('select/Template', () => {
   describe('Template Parts', () => {

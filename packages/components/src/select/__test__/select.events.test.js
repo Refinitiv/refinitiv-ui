@@ -2,7 +2,6 @@ import { fixture, expect, elementUpdated, nextFrame, triggerFocusFor } from '@re
 import { getOptions, openedUpdated, getData, getMenuEl } from './utils';
 
 import '@refinitiv-ui/components/select';
-import '@refinitiv-ui/elemental-theme/light/ef-select';
 
 describe('select/Events', () => {
   describe('opened-changed event is fired only on internal actions', () => {

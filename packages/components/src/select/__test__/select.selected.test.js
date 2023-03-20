@@ -2,7 +2,6 @@ import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 import { getData, getOptions, openedUpdated, snapshotIgnore } from './utils';
 
 import '@refinitiv-ui/components/select';
-import '@refinitiv-ui/elemental-theme/light/ef-select';
 
 describe('select/Selection', () => {
   describe('Selection by Selected Property', () => {

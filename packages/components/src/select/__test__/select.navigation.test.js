@@ -2,7 +2,6 @@ import { fixture, expect, elementUpdated, aTimeout, nextFrame } from '@refinitiv
 import { getOptions, openedUpdated, getData, getMenuEl } from './utils';
 
 import '@refinitiv-ui/components/select';
-import '@refinitiv-ui/elemental-theme/light/ef-select';
 
 const keyBoardEvent = async (el, key, options = {}) => {
   getMenuEl(el).dispatchEvent(new KeyboardEvent('keydown', Object.assign({ key }, options)));

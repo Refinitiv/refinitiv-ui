@@ -90,13 +90,11 @@ describe('overlay/elements/Overlay', () => {
         const rect = overlay.getBoundingClientRect();
         const screenWidth = document.documentElement.clientWidth;
         const screenHeight = document.documentElement.clientHeight;
-        console.log('test', screenHeight, screenWidth);
-        debugger;
 
-        expect(Math.floor(rect.top)).to.equal(0, '1');
-        expect(Math.floor(rect.right)).to.equal(screenWidth, '2');
-        expect(Math.floor(rect.bottom)).to.equal(screenHeight, '3');
-        expect(Math.floor(rect.left)).to.equal(0, '4');
+        expect(Math.floor(rect.top)).to.equal(0);
+        expect(Math.floor(rect.right)).to.equal(screenWidth);
+        expect(Math.floor(rect.bottom)).to.equal(screenHeight);
+        expect(Math.floor(rect.left)).to.equal(0);
       });
 
       it('Test refit method with closed window', async () => {

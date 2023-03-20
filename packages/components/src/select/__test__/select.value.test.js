@@ -2,7 +2,6 @@ import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils';
 
 import '@refinitiv-ui/components/select';
-import '@refinitiv-ui/elemental-theme/light/ef-select';
 
 describe('select/Value', () => {
   describe('Selection by Value Attribute', () => {
