@@ -19,12 +19,26 @@
 
   <h1>Input Field</h1>
 
-  <ds-input-field type="text" label="Email"></ds-input-field>
+  <ds-input-field type="text" label="Default"></ds-input-field>
+
+  <ds-input-field type="text" value="John" label="Value"></ds-input-field>
+
+  <ds-input-field type="text" icon="home" label="Icon"></ds-input-field>
+
+  <ds-input-field id="icon-has-action" type="text" icon="home" label="Icon-has-action" icon-has-action></ds-input-field>
+  <code id="is-clicked"></code>
+  <script>
+    const isClicked = document.getElementById('is-clicked');
+    const iconActionField = document.getElementById('icon-has-action');
+    iconActionField.addEventListener('icon-click', (event) => {
+      isClicked.innerHTML = 'clicked!';
+    });
+  </script>
+
 
   <ds-input-field type="password" label="Password"></ds-input-field>
 
   <ds-input-field id="value-event" type="text" label="Event: value-changed"></ds-input-field>
-  <br>
   <code id="value"></code>
   <script>
     const value = document.getElementById('value');
@@ -35,7 +49,6 @@
   </script>
 
   <ds-input-field id="error-event" type="text" minlength="5" label="Event: error-changed"></ds-input-field>
-  <br>
   <code id="error"></code>
   <script>
     const error = document.getElementById('error');

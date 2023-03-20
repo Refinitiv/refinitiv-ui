@@ -8,6 +8,8 @@ import '../icon/index.js';
 import { preload } from '../icon/index.js';
 import { SubTextField } from '../sub-text-field/index.js';
 
+import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
+
 let isEyeOffPreloadRequested = false;
 
 @customElement('ds-sub-password-field', { theme: false })
