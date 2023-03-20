@@ -4,8 +4,8 @@ const path = require('path');
 const fg = require('fast-glob');
 const wca = require('web-component-analyzer');
 
-const { log, errorHandler, success, error } = require('../helpers');
-const { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT } = require('./util');
+const { log, errorHandler, success, error } = require('../helpers/index.cjs');
+const { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT } = require('./util.cjs');
 
 console.log('PACKAGE_ROOT', PACKAGE_ROOT);
 
@@ -25,12 +25,10 @@ const getDeclarationMethods = (meta) => {
 };
 
 const generateParamByInfo = (info, result) => {
-  if (info) {
+  if (info && info.node) {
     result.description = info.node.comment;
     if (
-      info
-      && info.node
-      && info.node.typeExpression
+      info.node.typeExpression
       && info.node.typeExpression.type
       && info.node.typeExpression.type.typeName
     ) {

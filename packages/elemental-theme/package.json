@@ -21,7 +21,7 @@
     "build:prod": "npm run build",
     "watch": "chokidar '**/*.less' --command \"npm run build\" --debounce=5000",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version"
+    "version": "node ../../scripts/version/index.mjs"
   },
   "devDependencies": {
     "@refinitiv-ui/theme-compiler": "^7.0.0-next.0"
