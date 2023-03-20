@@ -68,9 +68,6 @@ snapshots["item/Item Defaults Header item should have correct Shadow DOM structu
   tiger
   <slot>
   </slot>
-  <div part="sub-label">
-    tiger
-  </div>
 </div>
 <div part="right">
   <slot name="right">
@@ -88,9 +85,6 @@ snapshots["item/Item Defaults Default item should have correct Shadow DOM struct
   tiger
   <slot>
   </slot>
-  <div part="sub-label">
-    tiger
-  </div>
 </div>
 <div part="right">
   <slot name="right">
@@ -123,9 +117,6 @@ snapshots["item/Item Defaults Default item should have correct Shadow DOM struct
 <div part="center">
   <slot>
   </slot>
-  <div part="sub-label">
-    tiger
-  </div>
 </div>
 <div part="right">
   <slot name="right">
@@ -143,9 +134,6 @@ snapshots["item/Item Defaults Default item should have correct Shadow DOM struct
   tiger
   <slot>
   </slot>
-  <div part="sub-label">
-    tiger
-  </div>
 </div>
 <div part="right">
   <slot name="right">
@@ -172,69 +160,6 @@ snapshots["item/Item Defaults Slots are correctly populated"] =
 </div>
 `;
 /* end snapshot item/Item Defaults Slots are correctly populated */
-
-snapshots["item/Item Special Attributes Check property for"] = 
-`<div part="left">
-  <slot name="left">
-  </slot>
-</div>
-<div part="center">
-  <slot>
-  </slot>
-</div>
-<div part="right">
-  <slot name="right">
-  </slot>
-  <ds-icon icon="right">
-  </ds-icon>
-</div>
-`;
-/* end snapshot item/Item Special Attributes Check property for */
-
-snapshots["item/Item Special Attributes Check property multiple Checkbox for item should be displayed"] = 
-`<div part="left">
-  <ds-checkbox
-    part="checkbox"
-    role="group"
-    tabindex="-1"
-  >
-  </ds-checkbox>
-  <slot name="left">
-  </slot>
-</div>
-<div part="center">
-  <slot>
-  </slot>
-</div>
-<div part="right">
-  <slot name="right">
-  </slot>
-</div>
-`;
-/* end snapshot item/Item Special Attributes Check property multiple Checkbox for item should be displayed */
-
-snapshots["item/Item Special Attributes Check property multiple Checkbox should be checked "] = 
-`<div part="left">
-  <ds-checkbox
-    checked=""
-    part="checkbox"
-    role="group"
-    tabindex="-1"
-  >
-  </ds-checkbox>
-  <slot name="left">
-  </slot>
-</div>
-<div part="center">
-  <slot>
-  </slot>
-</div>
-<div part="right">
-  <slot name="right">
-  </slot>
-</div>
-`;
-/* end snapshot item/Item Special Attributes Check property multiple Checkbox should be checked  */
 
 snapshots["item/Item Special Attributes Check property multiple Checkbox for item should not be displayed"] = 
 `<div part="left">
