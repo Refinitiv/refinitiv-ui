@@ -1,20 +1,20 @@
 #!/usr/bin/env node
-const { execSync } = require('child_process');
+import { execSync } from 'node:child_process';
 
-const {
+import {
   getElements,
   info,
   success,
   errorHandler,
   getElementPath,
   ELEMENTS_ROOT
-} = require('../helpers');
+} from '../helpers/index.mjs';
 
 const elements = ['all', ...getElements()];
 
-exports.command = 'lint [element]';
-exports.desc = 'Linting';
-exports.builder = yargs => {
+export const command = 'lint [element]';
+export const desc = 'Linting';
+export const builder = yargs => {
   yargs
     .positional('element', {
       desc: 'Element name',
@@ -30,7 +30,7 @@ exports.builder = yargs => {
     .completion('completion', () => elements);
 };
 
-exports.handler = (argv) => {
+export const handler = (argv) => {
   const element = argv.element || 'all';
   const fix = argv.fix;
 

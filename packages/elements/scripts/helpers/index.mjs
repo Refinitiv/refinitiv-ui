@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const {
+import fs from 'node:fs';
+import path from 'node:path';
+import {
   log,
   error,
   info,
@@ -11,7 +11,7 @@ const {
   PACKAGES,
   PACKAGES_ROOT,
   RELEASE_SCRIPTS_PATH
-} = require('../../../../scripts/helpers');
+} from '../../../../scripts/helpers/esm.mjs';
 
 /**
  * The name of the package
@@ -69,7 +69,7 @@ const checkElement = (name) => {
  */
 const getElements = () => fs.readdirSync(path.resolve(ELEMENTS_ROOT, 'src')).filter(checkElement);
 
-module.exports = {
+export {
   ELEMENTS_ROOT,
   ROOT,
   MONOREPO_ELEMENTS,

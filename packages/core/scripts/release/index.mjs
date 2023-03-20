@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-const { fork } = require('child_process');
-const path = require('path');
-const {
+import { fork } from 'node:child_process';
+import path from 'node:path';
+import {
   RELEASE_SCRIPTS_PATH,
   PACKAGES_ROOT
-} = require('../../../../scripts/helpers');
+} from '../../../../scripts/helpers/index.mjs';
 
 const scripts = [
-  path.resolve(RELEASE_SCRIPTS_PATH, 'versioning.js')
+  path.resolve(RELEASE_SCRIPTS_PATH, 'versioning.mjs')
 ];
 
 scripts.forEach(script => fork(script, {
