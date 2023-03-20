@@ -19,7 +19,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start": "npm run build && concurrently \"npm run build:watch\" \"web-dev-server --config ../../server.config.mjs --app-index __demo__\"",
-    "test": "npm run build && wtr --config ../../web-test-runner.config.mjs --package=translate",
+    "test": "npm run build && node ../../scripts/tests/run.mjs  --package=translate",
     "test:snapshots": "npm run test -- --update-snapshots",
     "test:watch": "npm run test -- --watch",
     "prepack": "npm run version",

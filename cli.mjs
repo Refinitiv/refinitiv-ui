@@ -9,12 +9,10 @@ import { PACKAGES_ROOT, errorHandler, getJSON } from './scripts/helpers/esm.mjs'
 const argvNoBin = hideBin(process.argv);
 const argv = yargs(argvNoBin)
   .command('$0 <reflect> <package>', 'reflect the command', yargs => {
-    yargs.require('reflect')
     yargs.positional('reflect', {
       describe: 'npm command to reflect',
       type: 'string'
     })
-    yargs.require('package')
     yargs.positional('package', {
       describe: 'Package or element name',
       type: 'string'
@@ -35,13 +33,16 @@ try {
   // For workspace package real name is required
   const packageName = (await getJSON(path.resolve(PACKAGES_ROOT, workspace, 'package.json'), import.meta)).name;
   const command = ['npm', 'run', argv.reflect, `--workspace=${packageName}`];
-  elementName && command.push(elementName);
+
+  // Add element name to command
+  if (workspace === 'elements') {
+    command.push(elementName ? elementName : 'elements');
+  }
+
   options.length > 0 && command.push('--')
   command.push(...options);
 
-  execSync(command.join(' '), {
-    stdio: 'inherit'
-  });
+  execSync(command.join(' '), { stdio: 'inherit' });
 }
 catch (error) {
   errorHandler(error);
