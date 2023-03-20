@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import fg from 'fast-glob';
 
-import { log, errorHandler, success, ROOT, getJSON } from '../helpers/index.mjs';
+import { log, errorHandler, success, ROOT, getJSON } from '../helpers/esm.mjs';
 import { ELEMENT_DIST, PACKAGE_ROOT, getElementList, getElementTagName } from './util.cjs';
 
 // List of themes to be extracted

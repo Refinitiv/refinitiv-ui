@@ -2,8 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList } from './util.cjs';
-import { log, errorHandler, success } from '../helpers/index.mjs';
-import { fileDirName } from '../../scripts/helpers/index.mjs';
+import { log, errorHandler, success, fileDirName } from '../helpers/esm.mjs';
 
 /**
  * Remove hyphen and transform to upper case

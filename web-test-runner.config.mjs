@@ -3,7 +3,7 @@ import path from 'node:path';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { browserstackLauncher } from '@web/test-runner-browserstack';
 import { defaultReporter, summaryReporter } from '@web/test-runner';
-import { ROOT, PACKAGES_ROOT } from './scripts/helpers/index.mjs';
+import { ROOT, PACKAGES_ROOT } from './scripts/helpers/esm.mjs';
 import { BrowserStack } from './browsers.config.mjs';
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';

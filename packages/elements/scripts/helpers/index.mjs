@@ -11,7 +11,7 @@ import {
   PACKAGES,
   PACKAGES_ROOT,
   RELEASE_SCRIPTS_PATH
-} from '../../../../scripts/helpers/index.mjs';
+} from '../../../../scripts/helpers/esm.mjs';
 
 /**
  * The name of the package

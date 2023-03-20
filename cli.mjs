@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import { execSync } from 'node:child_process';
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
-import { PACKAGES_ROOT, errorHandler, getJSON } from './scripts/helpers/index.mjs';
+import { PACKAGES_ROOT, errorHandler, getJSON } from './scripts/helpers/esm.mjs';
 
 const argvNoBin = hideBin(process.argv);
 const argv = yargs(argvNoBin)

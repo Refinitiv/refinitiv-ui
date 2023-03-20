@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { getJSON } from '../helpers/index.mjs';
+import { getJSON } from '../helpers/esm.mjs';
 const packageJsonFilename = path.resolve('./package.json');
 const json = await getJSON(packageJsonFilename);
 
