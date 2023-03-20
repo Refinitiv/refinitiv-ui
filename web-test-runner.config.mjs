@@ -47,7 +47,6 @@ let browsers = [];
 
 // Test on BrowserStack`
 if (browserstack) {
-
   const sharedCapabilities = {
     'browserstack.user': process.env.BROWSERSTACK_USERNAME,
     'browserstack.key': process.env.BROWSERSTACK_ACCESS_KEY,
@@ -58,7 +57,7 @@ if (browserstack) {
   };
 
   /**
-   * TODO: Check this issue and the fix still has the problem in playwright or not, if not remove code below
+   * TODO: Check this issue and the fix still has the problem in Web Test Runner or not, if not remove code below
    * Reusing only one local tunnel,
    * The two config `startTunnel` and `localIdentifier` are required
    * to prevent `browserstack launcher` create multiple tunnel and test will failed
@@ -74,9 +73,7 @@ if (browserstack) {
   argv.browserstack.forEach((option) => {
     switch (option) {
       case 'default':
-        BrowserStack.defaultBrowsers.forEach(browser => {
-          launchers.push(BrowserStack.config[browser]);
-        });
+        BrowserStack.defaultBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
         break;
       case 'supported':
         BrowserStack.supportedBrowsers.forEach(browser => {

@@ -3,7 +3,7 @@ const DefaultBrowsers = ['chrome', 'firefox', 'safari'];
 
 // BrowserStack browsers
 const BrowserStack = {
-  defaultBrowsers: ['chrome', 'firefox', 'safari'],
+  defaultBrowsers: DefaultBrowsers,
   supportedBrowsers: [
     'chrome', 'firefox', 'safari', 'edge',
     // 'chrome_previous', 'edge_previous', 'firefox_previous' // exclude temporary to prevent unicode problem on version 109
@@ -29,7 +29,7 @@ BrowserStack.availableBrowsers = [
 // BrowserStack Base Config
 const defaultDevice = { real_mobile: 'true'};
 const defaultWindows = { os: 'Windows', os_version: '11' };
-const defaultOSX = { os: 'OS X', os_version: 'Monterey' };
+const defaultOSX = { os: 'OS X', os_version: 'Ventura' };
 
 // BrowserStack Browsers Config
 BrowserStack.config = {
@@ -43,7 +43,7 @@ BrowserStack.config = {
   chrome_previous: { ...defaultWindows, browser: 'chrome', browser_version: 'latest-1' },
   firefox_previous: { ...defaultWindows, browser: 'firefox', browser_version: 'latest-1' },
   edge_previous:   { ...defaultWindows, browser: 'edge',   browser_version: 'latest-1' },
-  safari_previous: { ...defaultOSX,     browser: 'safari', os_version: 'Big Sur' },
+  safari_previous: { ...defaultOSX,     browser: 'safari', os_version: 'Monterey' },
 
   // Mobile Devices
   ios:     { ...defaultDevice, browser: 'iphone',  device : 'iPhone 14',          os: 'ios',     os_version : '16' },

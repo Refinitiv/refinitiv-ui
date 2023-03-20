@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { execSync } from 'node:child_process';
-import { DefaultBrowsers, BrowserStack } from '../../browsers.config.mjs';
+import { DefaultBrowsers, BrowserStack } from '../../../../browsers.config.mjs';
 import {
   getElements,
   info,
@@ -63,8 +63,7 @@ export const handler = (argv) => {
   const watch = argv.watch;
   const snapshots = argv.updateSnapshots;
   const browsers = argv.browsers ? argv.browsers.join(' '): '';
-  const browserstack = argv.browserstack ? argv.browserstack.join(' ') : '';
-
+  const browserstack = argv.browserstack ? argv.browserstack : null;
   info(watch ? `Start Dev Server: ${ element }` : `Test: ${ element }`);
 
   if (snapshots) {
@@ -73,10 +72,18 @@ export const handler = (argv) => {
 
   try {
     execSync('node cli.mjs build --sourceMap --declarationMap');
-    const command = ['wtr', `--config="web-test-runner.config.mjs"`, `--package=${PACKAGE_NAME}`];
 
+    const command = ['wtr', `--config="web-test-runner.config.mjs"`, `--package=${PACKAGE_NAME}`];
     watch && command.push('--watch');
     snapshots && command.push('--update-snapshots');
+
+    /**
+     * The Web Test Runner CLI has  a conflict in options with the yargs when passing the option as an array,
+     * so it must to workaround by pass option multiple times,
+     */
+    if (browserstack) {
+      command.push(browserstack.map(browser => `--browserstack=${browser}`).join(' '));
+    }
 
     command.push(`--output=${argv.output}`);
 
@@ -85,7 +92,6 @@ export const handler = (argv) => {
       env: Object.assign({}, process.env, {
         ELEMENT: element,
         BROWSERS: browsers,
-        BROWSERSTACK: browserstack,
         COVERAGE: argv.includeCoverage
       })
     });
