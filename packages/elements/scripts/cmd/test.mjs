@@ -79,7 +79,7 @@ export const handler = (argv) => {
     watch && command.push('--watch');
     snapshots && command.push('--update-snapshots');
 
-    command.push(`--output=${argv.output} `);
+    command.push(`--output=${argv.output}`);
 
     execSync(command.join(' '), {
       stdio: 'inherit',
