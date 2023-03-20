@@ -1,7 +1,7 @@
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import '@refinitiv-ui/elements/overlay';
-import '../../../../lib/overlay/elements/overlay-backdrop.js';
+import '@refinitiv-ui/components/sub-overlay';
+import '../../../../lib/sub-overlay/elements/overlay-backdrop.js';
 
 describe('overlay/elements/OverlayBackdrop', () => {
   describe('Overlay Backdrop', () => {

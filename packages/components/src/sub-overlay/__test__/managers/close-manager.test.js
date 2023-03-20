@@ -3,13 +3,13 @@ import { createSandbox, restore, spy } from 'sinon';
 
 import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
 
-import { clear, CloseManager, deregister, register, size } from '../../../../lib/overlay/managers/close-manager.js';
-import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
-import { Overlay } from '@refinitiv-ui/elements/sub-overlay';
+import { clear, CloseManager, deregister, register, size } from '../../../../lib/sub-overlay/managers/close-manager.js';
+import * as zIndexManager from '../../../../lib/sub-overlay/managers/zindex-manager.js';
+import { Overlay } from '@refinitiv-ui/components/sub-overlay';
 
 const createFixture = async (zIndex) => {
-  return (typeof zIndex === 'undefined') ? fixture('<ds-overlay opened >test</ds-overlay>') :
-    fixture(`<ds-overlay z-index="${zIndex}" opened>test</ds-overlay>`);
+  return (typeof zIndex === 'undefined') ? fixture('<ds-sub-overlay opened >test</ds-sub-overlay>') :
+    fixture(`<ds-sub-overlay z-index="${zIndex}" opened>test</ds-sub-overlay>`);
 };
 
 describe('overlay/manager/CloseManager', () => {

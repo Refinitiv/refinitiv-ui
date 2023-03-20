@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link type="text/css" rel="stylesheet" href="src/demo.css">
+  <link type="text/css" rel="stylesheet" href="src/default-theme.css">
+  <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)" href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css">
+  <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
+  <title>Login Template</title>
+</head>
+
+<body>
+  <script type="module">
+    import '@refinitiv-ui/components/template-login';
+  </script>
+  <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
+  <h1>Login Template</h1>
+  <p>Default</p>
+  <dst-login></dst-login>
+</body>
+
+</html>

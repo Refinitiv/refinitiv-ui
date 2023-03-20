@@ -1,16 +1,16 @@
 import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
 
-import '@refinitiv-ui/elements/overlay';
+import '@refinitiv-ui/components/sub-overlay';
 
-import { BackdropManager, clear, deregister, register, size } from '../../../../lib/overlay/managers/backdrop-manager.js';
-import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
-import { OverlayBackdrop } from '../../../../lib/overlay/elements/overlay-backdrop.js';
-import { Overlay } from '@refinitiv-ui/elements/overlay';
+import { BackdropManager, clear, deregister, register, size } from '../../../../lib/sub-overlay/managers/backdrop-manager.js';
+import * as zIndexManager from '../../../../lib/sub-overlay/managers/zindex-manager.js';
+import { OverlayBackdrop } from '../../../../lib/sub-overlay/elements/overlay-backdrop.js';
+import { Overlay } from '@refinitiv-ui/components/sub-overlay';
 
 const createFixture = async (zIndex) => {
-  return (typeof zIndex === 'undefined') ? fixture('<ds-overlay opened with-backdrop>test</ds-overlay>') :
-    fixture(`<ds-overlay z-index="${zIndex}" opened with-backdrop>test</ds-overlay>`);
+  return (typeof zIndex === 'undefined') ? fixture('<ds-sub-overlay opened with-backdrop>test</ds-sub-overlay>') :
+    fixture(`<ds-sub-overlay z-index="${zIndex}" opened with-backdrop>test</ds-sub-overlay>`);
 };
 
 describe('overlay/manager/BackdropManager', () => {

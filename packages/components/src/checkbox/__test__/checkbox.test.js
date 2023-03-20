@@ -1,6 +1,6 @@
 import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import '@refinitiv-ui/elements/checkbox';
+import '@refinitiv-ui/components/checkbox';
 
 const createEnterKeyboardEvent = () => new KeyboardEvent('keydown', { key: 'Enter' });
 const createSpacebarKeyboardEvent = () => new KeyboardEvent('keydown', { key: ' ' });

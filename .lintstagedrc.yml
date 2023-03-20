@@ -1,2 +1,2 @@
-'**/*.+(js|ts)':
-  - 'eslint --fix'
+'*.ts':
+  - 'eslint'

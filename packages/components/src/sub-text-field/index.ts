@@ -16,6 +16,8 @@ const hasChanged = (value: unknown, oldValue: unknown): boolean => oldValue === 
 
 @customElement('ds-sub-text-field', { theme: false })
 export class SubTextField extends FormFieldElement {
+  static shadowRootOptions = { ...FormFieldElement.shadowRootOptions, delegatesFocus: true };
+
   /**
    * A `CSSResultGroup` that will be used to style the host,
    * slotted children and the internal template of the element.
@@ -56,12 +58,12 @@ export class SubTextField extends FormFieldElement {
         background-color: var(--ds-field-error-hover-background-color);
       }
       :host([warning]:not(:focus)) {
-        color: var(--ds-control-warning-color);
+        color: var(--ds-control-color);
         border-color: var(--ds-control-warning-border-color);
         background-color: var(--ds-control-warning-background-color);
       }
       :host([warning]:hover:not([readonly]):not(:focus)) {
-        color: var(--ds-control-hover-color);
+        color: var(--ds-control-color);
         border-color: var(--ds-control-warning-hover-border-color);
         background-color: var(--ds-control-warning-hover-background-color);
       }
@@ -169,6 +171,18 @@ export class SubTextField extends FormFieldElement {
   public minLength: number | null = null;
 
   /**
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
+   * @returns {void}
+   */
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+
+    // TODO: Workaround to prevent screen reader from reading this host
+    this.setAttribute('aria-hidden', 'true');
+  }
+
+  /**
    * Called when the element’s DOM has been updated and rendered
    * @param changedProperties Properties that has changed
    * @returns shouldUpdate
@@ -271,17 +285,16 @@ export class SubTextField extends FormFieldElement {
    */
   protected renderIcon (): TemplateResult | typeof nothing {
     return this.icon ? html`
-    <ds-icon
-        role="${this.iconHasAction ? 'button' : nothing}"
-        tabindex="${this.iconHasAction ? '0' : nothing}"
-        aria-label="${this.iconHasAction ? this.icon : nothing}"
-        part="icon"
-        icon="${this.icon}"
-        ?readonly="${this.readonly}"
-        ?disabled="${this.disabled}"
-        @tap="${this.iconClick}"
-      ></ds-icon>
-    ` : nothing;
+      <ds-icon
+          role="${this.iconHasAction ? 'button' : nothing}"
+          tabindex="${this.iconHasAction ? '0' : nothing}"
+          aria-label="${this.iconHasAction ? this.icon : nothing}"
+          part="icon"
+          icon="${this.icon}"
+          ?readonly="${this.readonly}"
+          ?disabled="${this.disabled}"
+          @tap="${this.iconClick}">
+      </ds-icon>` : nothing;
   }
 
   protected get decorateInputMap (): TemplateMap {

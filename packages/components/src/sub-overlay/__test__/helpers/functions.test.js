@@ -1,6 +1,6 @@
 import { expect } from '@refinitiv-ui/test-helpers';
 
-import { valueOrNull, valueOrZero } from '../../../../lib/overlay/helpers/functions.js';
+import { valueOrNull, valueOrZero } from '../../../../lib/sub-overlay/helpers/functions.js';
 
 describe('overlay/helpers/Functions', () => {
   describe('Functions From Helpers', () => {

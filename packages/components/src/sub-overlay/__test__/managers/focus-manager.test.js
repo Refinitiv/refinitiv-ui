@@ -2,13 +2,13 @@ import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
 import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
 
-import { clear, deregister, FocusManager, register, size } from '../../../../lib/overlay/managers/focus-manager.js';
-import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
-import { Overlay } from '@refinitiv-ui/elements/sub-overlay';
+import { clear, deregister, FocusManager, register, size } from '../../../../lib/sub-overlay/managers/focus-manager.js';
+import * as zIndexManager from '../../../../lib/sub-overlay/managers/zindex-manager.js';
+import { Overlay } from '@refinitiv-ui/components/sub-overlay';
 
 const createFixture = async (zIndex) => {
-  return (typeof zIndex === 'undefined') ? fixture('<ds-overlay opened>test</ds-overlay>') :
-    fixture(`<ds-overlay z-index="${zIndex}" opened>test</ds-overlay>`);
+  return (typeof zIndex === 'undefined') ? fixture('<ds-sub-overlay opened>test</ds-sub-overlay>') :
+    fixture(`<ds-sub-overlay z-index="${zIndex}" opened>test</ds-sub-overlay>`);
 };
 
 describe('overlay/manager/FocusManager', () => {
@@ -117,7 +117,7 @@ describe('overlay/manager/FocusManager', () => {
       });
 
       it('Test focus `tab` on overlay with single element', async () => {
-        const element = await fixture('<ds-overlay opened><button id="first">first</button></ds-overlay>');
+        const element = await fixture('<ds-sub-overlay opened><button id="first">first</button></ds-sub-overlay>');
         const first = element.querySelector('#first');
 
         element.focus();
@@ -132,7 +132,7 @@ describe('overlay/manager/FocusManager', () => {
         let first, second, third;
 
         beforeEach(async () => {
-          element = await fixture('<ds-overlay opened><button id="first">first</button><button id="second">second</button><button id="third">third</button></ds-overlay>');
+          element = await fixture('<ds-sub-overlay opened><button id="first">first</button><button id="second">second</button><button id="third">third</button></ds-sub-overlay>');
           first = element.querySelector('#first');
           second = element.querySelector('#second');
           third = element.querySelector('#third');
@@ -184,8 +184,8 @@ describe('overlay/manager/FocusManager', () => {
         let first, second;
 
         beforeEach(async () => {
-          element = await fixture('<ds-overlay opened><button id="first">first</button></ds-overlay>');
-          element2 = await fixture('<ds-overlay opened><button id="second">second</button></ds-overlay>');
+          element = await fixture('<ds-sub-overlay opened><button id="first">first</button></ds-sub-overlay>');
+          element2 = await fixture('<ds-sub-overlay opened><button id="second">second</button></ds-sub-overlay>');
           first = element.querySelector('#first');
           second = element2.querySelector('#second');
         });

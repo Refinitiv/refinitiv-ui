@@ -12,6 +12,8 @@ let isEyeOffPreloadRequested = false;
 
 @customElement('ds-sub-password-field', { theme: false })
 export class SubPasswordField extends SubTextField {
+  static shadowRootOptions = { ...SubTextField.shadowRootOptions, delegatesFocus: true };
+
   /**
    * A `CSSResultGroup` that will be used to style the host,
    * slotted children and the internal template of the element.

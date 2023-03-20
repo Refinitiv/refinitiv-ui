@@ -19,7 +19,6 @@ const toChangedEvent = (name: string): string => `${name.replace(NOTIFY_REGEXP, 
  * @fires focused-changed Fired when `focused` property changes
  */
 export abstract class BasicElement extends LitElement {
-
   /**
    * Creates and registers instance of Element.
    */

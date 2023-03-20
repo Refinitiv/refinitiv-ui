@@ -2,7 +2,7 @@ import { css } from 'toko/formats.js';
 
 export default [
   {
-    inputs: ['./src/variants/dark.palette.json', './src/base.tokens.json'],
+    inputs: ['./src/schemes/dark.tokens.json', './src/default.tokens.json'],
     outputs: [
       css({
         prefix: 'ds'
@@ -10,7 +10,7 @@ export default [
     ]
   },
   {
-    inputs: ['./src/variants/dark.palette.json', './src/base.tokens.json', './src/mobile.tokens.json'],
+    inputs: ['./src/schemes/dark.tokens.json', './src/default.tokens.json', './src/densities/mobile.tokens.json'],
     outputs: [
       css({
         prefix: 'ds'
@@ -18,7 +18,7 @@ export default [
     ]
   },
   {
-    inputs: ['./src/variants/dark.palette.json'],
+    inputs: ['./src/schemes/dark.tokens.json', './src/default.tokens.json', './src/densities/comfort.tokens.json'],
     outputs: [
       css({
         prefix: 'ds'
@@ -26,7 +26,23 @@ export default [
     ]
   },
   {
-    inputs: ['./src/variants/light.palette.json'],
+    inputs: ['./src/schemes/dark.tokens.json', './src/default.tokens.json', './src/densities/dense.tokens.json'],
+    outputs: [
+      css({
+        prefix: 'ds'
+      })
+    ]
+  },
+  {
+    inputs: ['./src/schemes/dark.tokens.json'],
+    outputs: [
+      css({
+        prefix: 'ds'
+      })
+    ]
+  },
+  {
+    inputs: ['./src/schemes/light.tokens.json'],
     outputs: [
       css({
         prefix: 'ds'

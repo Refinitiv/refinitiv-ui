@@ -35,8 +35,7 @@ const isAllWhitespaceTextNode = (node: Node): boolean =>
  * @slot right - Used to render the content on the right of the label.
  */
 @customElement('ds-sub-item', { theme: false })
-export class Item extends ControlElement {
-
+export class SubItem extends ControlElement {
   /**
    * Element version number
    * @returns version number
@@ -58,9 +57,12 @@ export class Item extends ControlElement {
         cursor: pointer;
         box-sizing: border-box;
         outline: none;
-        padding: var(--ds-item-padding);
-        color: var(--ds-item-color);
-        min-height: var(--ds-item-min-height);
+        padding: var(--ds-space-xxx-small) var(--ds-space-x-small);
+        min-height: var(--ds-control-height);
+        color: var(--ds-control-color);
+        background-color: var(--ds-control-background-color);
+        border: var(--ds-control-border-width) var(--ds-control-border-style) transparent;
+        border-radius: var(--ds-control-border-radius);
       }
       [part=checkbox] {
         pointer-events: none;
@@ -73,43 +75,44 @@ export class Item extends ControlElement {
       [part=center] {
         flex: 1;
       }
-      :host [part=icon] {
-        margin: 0 var(--ds-item-icon-margin) 0 0;
-      }
-      :host([type=divider]) > * {
-        display: none;
+      [part=icon] {
+        margin: 0 var(--ds-space-xx-small) 0 0;
       }
       :host([selected]) {
-        color: var(--ds-item-selected-color);
+        color: var(--ds-control-color);
       }
       :host([readonly]) {
         cursor: default;
       }
-      :host([focused]),
+      :host(:focus),
       :host([highlighted]) {
-        color: var(--ds-item-focus-color);
-        background-color: var(--ds-item-focus-background-color);
+        color: var(--ds-control-focus-color);
+        border-color: var(--ds-control-focus-border-color);
+        background-color: var(--ds-control-focus-background-color);
       }
       :host([type="header"]) {
-        color: var(--ds-item-header-color);
-        background-color: var(--ds-item-header-background-color);
-        font-size: var(--ds-item-header-font-size);
-        font-weight: var(--ds-item-header-font-weight);
         align-items: flex-end;
         margin: 0;
         min-height: 0;
         text-transform: uppercase;
+        color: var(--ds-text-sub-header-color);
+        background-color: var(--ds-background-default);
+        font-weight: var(--ds-font-weight-bold);
       }
       :host([type="divider"]) {
         border: none;
         padding: 0;
         margin: 0;
         min-height: auto;
-        height: var(--ds-item-divider-height);
-        background: var(--ds-item-divider-background);
+        height: var(--ds-space-xxx-small);
+        background: var(--ds-background-empathize);
+      }
+      :host([type=divider]) > * {
+        display: none;
       }
       :host([disabled]) {
-        color: var(--ds-item-disabled-color);
+        color: var(--ds-control-disabled-color);
+        background-color: var(--ds-control-disabled-background-color);
       }
     `;
   }
@@ -141,44 +144,15 @@ export class Item extends ControlElement {
   public selected = false;
 
   /**
-   * Is the item part of a multiple selection
-   */
-  @property({ type: Boolean, reflect: true })
-  public multiple = false;
-
-  /**
    * Highlight the item
    */
   @property({ type: Boolean, reflect: true })
   public highlighted = false;
 
   /**
-   * The`subLabel` property represents the text beneath the label.
-   * By having both `subLabel` and content, content always takes priority
-   */
-  @property({ type: String, reflect: true, attribute: 'sub-label' })
-  public subLabel: string | null = null;
-
-  /**
-   * Specifies which element an item is bound to
-   */
-  @property({ type: String, reflect: true })
-  public for: string | null = null;
-
-  /**
    * Reference to the label element
    */
   private labelRef: Ref<HTMLDivElement> = createRef();
-
-  /**
-   * Reference to the subLabel element
-   */
-  private subLabelRef: Ref<HTMLDivElement> = createRef();
-
-  /**
-   * Reference to the slot element
-   */
-  private slotRef: Ref<HTMLSlotElement> = createRef();
 
   /**
    * True, if there is no slotted content
@@ -206,20 +180,11 @@ export class Item extends ControlElement {
   };
 
   /**
-   * Handles aria-selected or aria-checked when toggle between single and multiple selection mode
-   * @returns {void}
-   **/
-  private multipleChanged (): void {
-    this.removeAttribute(this.multiple ? 'aria-selected' : 'aria-checked');
-    this.selectedChanged();
-  }
-
-  /**
    * Handles aria when selected state changes
    * @returns {void}
    */
   private selectedChanged (): void {
-    this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', String(this.selected));
+    this.setAttribute('aria-selected', String(this.selected));
   }
 
   /**
@@ -245,9 +210,6 @@ export class Item extends ControlElement {
     if (changedProperties.has('type')) {
       this.typeChanged();
     }
-    if (changedProperties.has('multiple')) {
-      this.multipleChanged();
-    }
     else if (changedProperties.has('selected')) {
       this.selectedChanged();
     }
@@ -261,42 +223,10 @@ export class Item extends ControlElement {
   }
 
   /**
-   * Get subLabel template if it is defined and no slot content present
-   */
-  private get subLabelTemplate (): TemplateResult | undefined {
-    return html`<div part="sub-label" ${ref(this.subLabelRef)}>${this.subLabel}</div>`;
-  }
-
-  /**
    * Get label template if it is defined and no slot content present
    */
   private get labelTemplate (): TemplateResult | undefined {
     return html`${this.label}`;
-  }
-
-  /**
-   * Get slot content
-   */
-  private get slotContent (): string {
-    const nodes = this.slotRef.value?.assignedNodes() || [];
-    return nodes.map(node => node.textContent).join(' ').trim();
-  }
-
-  /**
-   * Get template for `for` attribute.
-   * This is usually used with menus when an item needs to reference an element
-   */
-  private get forTemplate (): TemplateResult | undefined {
-    return this.for ? html`<ds-icon icon="right"></ds-icon>` : undefined;
-  }
-
-  /**
-   * Get template for `multiple` attribute.
-   * This is usually used with lists, when an item can be part of a multiple selection
-   */
-  private get multipleTemplate (): TemplateResult | undefined {
-    const multiple = this.multiple && (!this.type || this.type === 'text');
-    return multiple ? html`<ds-checkbox part="checkbox" .checked="${this.selected}" tabindex="-1"></ds-checkbox>` : undefined;
   }
 
   /**
@@ -317,17 +247,14 @@ export class Item extends ControlElement {
     return html`
       <div part="left">
         ${this.iconTemplate}
-        ${this.multipleTemplate}
         <slot name="left"></slot>
       </div>
       <div part="center" ${ref(this.labelRef)}>
         ${this.label && this.isSlotEmpty ? this.labelTemplate : undefined}
-        <slot ${ref(this.slotRef)} @slotchange="${this.checkSlotChildren}"></slot>
-        ${this.subLabel && this.isSlotEmpty ? this.subLabelTemplate : undefined}
+        <slot @slotchange="${this.checkSlotChildren}"></slot>
       </div>
       <div part="right">
         <slot name="right"></slot>
-        ${this.forTemplate}
       </div>
     `;
   }
@@ -335,6 +262,6 @@ export class Item extends ControlElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-sub-item': Item;
+    'ds-sub-item': SubItem;
   }
 }

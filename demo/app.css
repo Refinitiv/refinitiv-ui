@@ -1,0 +1,15 @@
+@import '@refinitiv-ui/tokens/base';
+@import '@refinitiv-ui/tokens/density/comfort' screen and (min-width: 0px) and (max-width: 639px);
+@import '@refinitiv-ui/tokens/density/dense' screen and (min-width: 640px) and (max-width: 1023px);
+@import '@refinitiv-ui/tokens/density/comfort' screen and (min-width: 1920px);
+@import '@refinitiv-ui/tokens/density/mobile' screen and (hover: none) and (pointer: coarse);
+@import '@refinitiv-ui/tokens/variant/light';
+@import '@refinitiv-ui/tokens/variant/dark' (prefers-color-scheme: dark);
+
+body {
+  padding: 2em;
+  font-size: var(--ds-text-body-size);
+  font-family: var(--ds-text-body-font-family);
+  color: var(--ds-text-body-color);
+  background-color: var(--ds-background-default);
+}

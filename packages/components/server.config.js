@@ -11,6 +11,6 @@ const demoPath = path.join(MONOREPO_ELEMENTS, getDemoPath(ELEMENT));
 module.exports = deepmerge(baseConfig, {
   rootDir: ROOT,
   middleware: [
-    middlewareOverrideDemoPath(MONOREPO_ELEMENTS, demoPath)
+    middlewareOverrideDemoPath(MONOREPO_ELEMENTS, demoPath),
   ]
 });
