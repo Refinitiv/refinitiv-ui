@@ -16,7 +16,7 @@ const PLACEHOLDER_VERSION = 'PUBLISH_VERSION';
 const FILE_OPTIONS = { encoding: 'utf8' };
 
 const handler = async () => {
-  const packageJson = await getJSON(path.resolve(PACKAGE_ROOT, 'package.json'));
+  const packageJson = await getJSON(path.resolve(PACKAGE_ROOT, 'package.json'), import.meta);
   const elementName = packageJson.name;
   const newVersion = packageJson.version;
 

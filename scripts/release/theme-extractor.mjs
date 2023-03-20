@@ -10,7 +10,7 @@ import { ELEMENT_DIST, PACKAGE_ROOT, getElementList, getElementTagName } from '.
 const THEMES = ['halo', 'solar'];
 
 // Element package scope
-const PACKAGE_NAME = (await getJSON(`${PACKAGE_ROOT}/package.json`)).name;
+const PACKAGE_NAME = (await getJSON(`${PACKAGE_ROOT}/package.json`, import.meta)).name;
 
 // Where to look for theme files
 const THEME_SOURCE = `${ROOT}/node_modules/${PACKAGE_NAME.split('/')[0]}/`;
