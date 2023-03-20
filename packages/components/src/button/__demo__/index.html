@@ -6,7 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link type="text/css" rel="stylesheet" href="src/demo.css">
   <link type="text/css" rel="stylesheet" href="src/default-theme.css">
-  <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)" href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css">
+  <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)"
+    href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css">
   <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
   <title>Button</title>
 </head>
@@ -19,8 +20,28 @@
   <h1>Button</h1>
 
   <p>Default</p>
-  <ds-button>Default</ds-button>
 
+  <ds-button>Primary</ds-button>
+  <ds-button secondary>Secondary</ds-button>
+
+  <p>With icon</p>
+
+  <ds-button icon="right">Primary</ds-button>
+  <ds-button secondary icon="right">Secondary</ds-button>
+
+  <p>Event</p>
+  <ds-button id="event">Event</ds-button>
+  <br>
+  Tap: <code id="state">0</code>
+  <script>
+    const button = document.getElementById('event');
+    const isClicked = document.getElementById('state');
+    let clicks = isClicked.innerHTML;
+    button.addEventListener('tap', (event) => {
+      clicks++;
+      isClicked.innerHTML = clicks;
+    });
+  </script>
 </body>
 
 </html>
