@@ -16,18 +16,23 @@
   <script type="module">
     import '@refinitiv-ui/components/button';
   </script>
+  <style>
+    ds-button {
+      margin: 0.5rem;
+    }
+  </style>
   <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
   <h1>Button</h1>
 
   <p>Default</p>
 
   <ds-button>Primary</ds-button>
-  <ds-button secondary>Secondary</ds-button>
+  <ds-button variant="secondary">Secondary</ds-button>
 
-  <p>With icon</p>
+  <p>With icon-end</p>
 
-  <ds-button icon="right">Primary</ds-button>
-  <ds-button secondary icon="right">Secondary</ds-button>
+  <ds-button icon-end="right">Primary</ds-button>
+  <ds-button variant="secondary" icon-end="right">Secondary</ds-button>
 
   <p>Event</p>
   <ds-button id="event">Event</ds-button>
