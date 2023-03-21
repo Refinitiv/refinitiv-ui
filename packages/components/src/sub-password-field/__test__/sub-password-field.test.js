@@ -1,6 +1,6 @@
 import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 
-import '@refinitiv-ui/elements/sub-password-field';
+import '@refinitiv-ui/components/sub-password-field';
 
 describe('ds-sub-password-field/PasswordField', () => {
   it('Default DOM structure and properties are correct', async () => {

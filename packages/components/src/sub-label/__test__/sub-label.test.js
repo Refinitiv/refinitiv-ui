@@ -1,5 +1,5 @@
 import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-import '@refinitiv-ui/elements/sub-label';
+import '@refinitiv-ui/components/sub-label';
 
 describe('ds-sub-label', () => {
 

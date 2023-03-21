@@ -1,14 +1,14 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["password-field/PasswordField Default DOM structure and properties are correct"] = 
+snapshots["ds-sub-password-field/PasswordField Default DOM structure and properties are correct"] = 
 `<input
   autocomplete="off"
   part="input"
   type="password"
 >
 <ds-icon
-  aria-label="SHOW_PASSWORD"
+  aria-label="Show password"
   icon="eye"
   part="icon"
   role="button"
@@ -16,16 +16,16 @@ snapshots["password-field/PasswordField Default DOM structure and properties are
 >
 </ds-icon>
 `;
-/* end snapshot password-field/PasswordField Default DOM structure and properties are correct */
+/* end snapshot ds-sub-password-field/PasswordField Default DOM structure and properties are correct */
 
-snapshots["password-field/PasswordField Can toggle password field"] = 
+snapshots["ds-sub-password-field/PasswordField Can toggle password field"] = 
 `<input
   autocomplete="off"
   part="input"
   type="text"
 >
 <ds-icon
-  aria-label="HIDE_PASSWORD"
+  aria-label="Hide password"
   icon="eye-off"
   part="icon"
   role="button"
@@ -33,5 +33,5 @@ snapshots["password-field/PasswordField Can toggle password field"] =
 >
 </ds-icon>
 `;
-/* end snapshot password-field/PasswordField Can toggle password field */
+/* end snapshot ds-sub-password-field/PasswordField Can toggle password field */
 
