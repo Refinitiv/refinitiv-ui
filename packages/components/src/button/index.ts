@@ -34,6 +34,8 @@ export class Button extends ControlElement {
         box-sizing: border-box;
         text-transform: uppercase;
 
+        line-height: var(--ds-space-large);
+
         padding: var(--ds-space-x-small);
         min-height: var(--ds-size-x-large);
 
@@ -106,6 +108,7 @@ export class Button extends ControlElement {
         background-color: var(--ds-action-background-secondary-pressed);
       }
       :host [part=icon] {
+        margin-left: var(--ds-space-button-icon-margin-x-small);
         min-width: var(--ds-size-x-small);
       }
     `;
