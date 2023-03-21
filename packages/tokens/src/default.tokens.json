@@ -411,6 +411,23 @@
     }
   },
   "action": {
+    "focused": {
+      "$type": "border",
+      "ring": {
+        "$value": {
+          "color": "#334BFF",
+          "width": "{size.empathize-border}",
+          "style": "solid"
+        }
+      },
+      "ring-oninvert": {
+        "$value": {
+          "color": "#FFFFFF",
+          "width": "{size.empathize-border}",
+          "style": "solid"
+        }
+      }
+    },
     "border": {
       "$type": "border",
       "primary": {
@@ -437,7 +454,7 @@
         },
         "pressed": {
           "$value": {
-            "color": "{action.background.primary.hover}",
+            "color": "{action.background.primary.pressed}",
             "width": "{size.form-border}",
             "style": "solid"
           }
