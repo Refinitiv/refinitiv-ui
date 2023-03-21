@@ -36,6 +36,10 @@ import type { ChartConfiguration, ChartOptions, UpdateMode, LegendItem } from 'c
 import type { Header } from '../header';
 import '../header/index.js';
 
+// Register plugins
+import doughnutCenterPlugin from './plugins/doughnut-center-label.js';
+ChartJS.register(doughnutCenterPlugin);
+
 // TODO: import only common types and let user registers specific type
 export * from 'chart.js';
 

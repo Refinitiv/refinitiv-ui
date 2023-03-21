@@ -255,7 +255,7 @@
                 title: (tooltipItems) => {
                   return tooltipItems[0].chart.data.datasets[tooltipItems[0].datasetIndex].label;
                 },
-                label: function (tooltipItem) {
+                label: (tooltipItem) => {
                   const year = tooltipItem.label;
                   let rev = tooltipItem.raw;
                   rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -381,10 +381,10 @@
   <demo-block layout="normal" header="Pie Chart">
     <ef-chart id="pie"></ef-chart>
     <script>
-      var pieDatasets = [{
-        data: [36, 22, 16, 8.2, 5.7, 12]
+      const pieDatasets = [{
+        data: [100, 22, 16, 8.2, 5.7, 12]
       }];
-      var pie = document.getElementById('pie');
+      const pie = document.getElementById('pie');
       pie.config = {
         type: 'pie',
         data: {
@@ -398,6 +398,7 @@
             },
             tooltip: {
               callbacks: {
+                title : () => null,
                 label: (tooltipItem) => {
                   const title = tooltipItem.label;
                   const result = tooltipItem.raw;
@@ -411,13 +412,13 @@
     </script>
   </demo-block>
 
-  <!-- <demo-block layout="normal" header="Doughnut Chart">
+  <demo-block layout="normal" header="Doughnut Chart">
     <ef-chart id="doughnut"></ef-chart>
     <script>
-      var doughnutDataSets = [{
+      const doughnutDataSets = [{
         data: [36, 22, 16, 8.2, 5.7, 12]
       }];
-      var doughnut = document.getElementById('doughnut');
+      const doughnut = document.getElementById('doughnut');
       doughnut.config = {
         type: 'doughnut',
         data: {
@@ -425,15 +426,18 @@
           datasets: doughnutDataSets
         },
         options: {
-          title: {
-            text: 'Operating Segments of AAPL.O in 2014'
-          },
-          tooltips: {
-            callbacks: {
-              label: function (tooltipItem, data) {
-                var title = data.labels[tooltipItem.index];
-                var result = data.datasets[0].data[tooltipItem.index];
-                return title + ': ' + result + '%';
+          plugins: {
+            title: {
+              text: 'Operating Segments of AAPL.O in 2014'
+            },
+            tooltip: {
+              callbacks: {
+                title : () => null,
+                label: (tooltipItem) => {
+                  const title = tooltipItem.label;
+                  const result = tooltipItem.raw;
+                  return title + ': ' + result + '%';
+                }
               }
             }
           }
@@ -445,24 +449,30 @@
   <demo-block layout="normal" header="Donut Chart - Center Label">
     <ef-chart id="doughnut-center-label"></ef-chart>
     <script>
-      var doughnutDataSets = [{
+      const doughnutCenterLabelDataSets = [{
         data: [36, 22, 16, 8.2, 5.7, 12]
       }];
-      var doughnut = document.getElementById('doughnut-center-label');
-      doughnut.config = {
+      const doughnutCenterLabel = document.getElementById('doughnut-center-label');
+      doughnutCenterLabel.config = {
         type: 'doughnut',
         data: {
           labels: ['Americas', 'Europe', 'Greater China', 'Japan', 'Asia Pacific', 'Retail'],
-          datasets: doughnutDataSets
+          datasets: doughnutCenterLabelDataSets
         },
         options: {
-          onHover: function (chart, chartItem) {
-            console.log('hover: ', chartItem); // eslint-disable-line
+          onHover: (event, elements, chart) => {
+            console.log('hover: ', event, elements, chart); // eslint-disable-line
           },
-          onClick: function (chart, chartItem) {
-            console.log('click: ', chartItem); // eslint-disable-line
+          onClick: (event, elements, chart) => {
+            console.log('click: ', event, elements, chart); // eslint-disable-line
           },
           plugins: {
+            title: {
+              text: 'Operating Segments of AAPL.O in 2014'
+            },
+            tooltip: {
+              enabled: true
+            },
             centerLabel: {
               defaultText: [
                 {
@@ -477,9 +487,9 @@
                 if (chartItems.length) {
                   const chartItem = chartItems[0];
                   const data = chart.data;
-                  const title = data.labels[chartItem._index];
-                  const value = data.datasets[chartItem._datasetIndex].data[chartItem._index];
-                  const total = data.datasets[chartItem._datasetIndex].data.reduce((total, num) => total + num);
+                  const title = data.labels[chartItem.index];
+                  const value = data.datasets[chartItem.datasetIndex].data[chartItem.index];
+                  const total = data.datasets[chartItem.datasetIndex].data.reduce((total, num) => total + num);
                   const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
 
                   return [{
@@ -495,12 +505,7 @@
               }
             }
           },
-          title: {
-            text: 'Operating Segments of AAPL.O in 2014'
-          },
-          tooltips: {
-            enabled: true
-          }
+          
         }
       };
 
@@ -510,7 +515,7 @@
   <demo-block layout="normal" header="Donut Chart - Center Label - Multiple Dataset">
     <ef-chart id="doughnut-multiple-dataset"></ef-chart>
     <script>
-      var doughnutDataSets = [
+      const doughnutCenterLabelMultiDataSets = [
         {
           label: '2020',
           data: [36, 22, 16, 8.2, 5.7, 12]
@@ -524,16 +529,22 @@
           data: [12, 5.7, 8.2, 16, 22, 36]
         }
       ];
-      var doughnut = document.getElementById('doughnut-multiple-dataset');
-      doughnut.config = {
+      const doughnutCenterLabelMulti = document.getElementById('doughnut-multiple-dataset');
+      doughnutCenterLabelMulti.config = {
         type: 'doughnut',
         data: {
           labels: ['Americas', 'Europe', 'Greater China', 'Japan', 'Asia Pacific', 'Retail'],
-          datasets: doughnutDataSets
+          datasets: doughnutCenterLabelMultiDataSets
         },
         options: {
           hover: { animationDuration: 0 },
           plugins: {
+            title: {
+              text: 'Operating Segments of AAPL.O in 2020'
+            },
+            tooltips: {
+              enabled: true
+            },
             centerLabel: {
               defaultText: [
                 {
@@ -549,14 +560,14 @@
                 if (chartItems.length) {
                   const chartItem = chartItems[0];
                   const data = chart.data;
-                  const title = data.labels[chartItem._index];
-                  const value = data.datasets[chartItem._datasetIndex].data[chartItem._index];
-                  const total = data.datasets[chartItem._datasetIndex].data.reduce((total, num) => total + num);
+                  const title = data.labels[chartItem.index];
+                  const value = data.datasets[chartItem.datasetIndex].data[chartItem.index];
+                  const total = data.datasets[chartItem.datasetIndex].data.reduce((total, num) => total + num);
                   const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
                   let labels = [{ label: title, bold: true }];
 
                   if (data.datasets.length > 1) {
-                    const datasetLebel = data.datasets[chartItem._datasetIndex].label;
+                    const datasetLebel = data.datasets[chartItem.datasetIndex].label;
                     if (datasetLebel) {
                       labels.push({ label: datasetLebel });
                     }
@@ -573,12 +584,6 @@
               }
             }
           },
-          title: {
-            text: 'Operating Segments of AAPL.O in 2020'
-          },
-          tooltips: {
-            enabled: true
-          }
         }
       };
     </script>
@@ -587,12 +592,12 @@
   <demo-block layout="normal" header="Pie Chart - Custom Colors">
     <ef-chart id="customize-color"></ef-chart>
     <script>
-      var doughnutCustomDataSets = [{
+      const doughnutCustomDataSets = [{
         data: [36, 30, 22, 16, 8.2, 5.7, 3.1, 2.4, 1.4, 0.9],
         backgroundColor: ['#0D47A1', '#1565C0', '#1976D2', '#1E88E5', '#2196F3', '#42A5F5', '#64B5F6', '#90CAF9', '#BBDEFB', '#E3F2FD'],
         borderWidth: 0
       }];
-      var doughnutCustom = document.getElementById('customize-color');
+      const doughnutCustom = document.getElementById('customize-color');
       doughnutCustom.config = {
         type: 'doughnut',
         data: {
@@ -600,18 +605,21 @@
           datasets: doughnutCustomDataSets
         },
         options: {
-          title: {
-            text: 'Operating Segments of AAPL.O in 2014'
-          },
-          tooltips: {
-            callbacks: {
-              label: function (tooltipItem, data) {
-                var title = data.labels[tooltipItem.index];
-                var result = data.datasets[0].data[tooltipItem.index];
-                return title + ': ' + result + '%';
+          plugins: {
+            title: {
+              text: 'Operating Segments of AAPL.O in 2014'
+            },
+            tooltip: {
+              callbacks: {
+                title: () => null,
+                label: (tooltipItem) => {
+                  const title = tooltipItem.label;
+                  const result = tooltipItem.raw;
+                  return title + ': ' + result + '%';
+                }
               }
             }
-          }
+          },
         }
       };
     </script>
@@ -620,7 +628,7 @@
   <demo-block layout="normal" header="Time Scale">
     <ef-chart id="timeScale"></ef-chart>
     <script>
-      var timeScale = document.getElementById('timeScale');
+      const timeScale = document.getElementById('timeScale');
       timeScale.config = {
         type: 'line',
         data: {
@@ -640,38 +648,39 @@
           }]
         },
         options: {
-          title: {
-            text: 'Hourly Price of AAPL.O on 7 Sep 2016 (iPhone 7 release date)'
-          },
-          legend: {
-            display: false // Not display legend
-          },
-          scales: {
-            xAxes: [{
-              type: 'time', // Set type of scale as time
-              time: {
-                displayFormats: {
-                  hour: 'hA' // Set custom format for hour unit
-                },
-                unit: 'hour',
-                tooltipFormat: 'D MMM YYYY - hA'
-              }
-            }],
-            yAxes: [{
-              scaleLabel: {
-                display: true,
-                labelString: 'Price ($)'
-              }
-            }]
-          },
-          tooltips: {
-            callbacks: {
-              label: function (tooltipItem, data) {
-                var result = data.datasets[0].data[tooltipItem.index];
-                return 'Price: $' + result;
+          plugins: {
+            title: {
+              text: 'Hourly Price of AAPL.O on 7 Sep 2016 (iPhone 7 release date)'
+            },
+            legend: {
+              display: false // Not display legend
+            },
+            tooltip: {
+              callbacks: {
+                label: (tooltipItem) => {
+                  return 'Price: $' + tooltipItem.raw;
+                }
               }
             }
-          }
+          },
+          scales: {
+            // xAxes: {
+            //   type: 'time', // Set type of scale as time
+            //   time: {
+            //     displayFormats: {
+            //       hour: 'hA' // Set custom format for hour unit
+            //     },
+            //     unit: 'hour',
+            //     tooltipFormat: 'D MMM YYYY - hA'
+            //   }
+            // },
+            // yAxes: [{
+            //   scaleLabel: {
+            //     display: true,
+            //     labelString: 'Price ($)'
+            //   }
+            // }]
+          },
         }
       };
     </script>
@@ -680,8 +689,8 @@
   <demo-block layout="normal" header="Time Scale - Multi-line">
     <ef-chart id="multipleLinesTimeScale"></ef-chart>
     <script>
-      var multipleLinesTimeScale = document.getElementById('multipleLinesTimeScale');
-      var datasets = [{
+      const multipleLinesTimeScale = document.getElementById('multipleLinesTimeScale');
+      const TimeScaleDatasets = [{
         label: 'GOOGL.O',
         data: [0, 11, 66.68, -25.84, 49.44, 43.17, 55.69, 70.51, 170.14, 155.58, 274.71],
         fill: false,
@@ -734,42 +743,18 @@
             new Date(2014, 12, 31),
             new Date(2015, 12, 31)
           ],
-          datasets: datasets
+          datasets: TimeScaleDatasets
         },
         options: {
-          title: {
-            text: 'Yearly Price Change of Major Technology Companies'
-          },
-          scales: {
-            xAxes: [{
-              type: 'time',
-              time: {
-                displayFormats: {
-                  year: '\'YY' // Set custom format for hour unit
-                },
-                unit: 'year',
-                round: 'year', // Set round as year for starting of this unit
-                tooltipFormat: 'YYYY'
-              }
-            }],
-            yAxes: [{
-              scaleLabel: {
-                display: true,
-                labelString: 'Price Changes'
-              },
-              ticks: {
-                stepSize: 50,
-                callback: function (label, index) {
-                  return label + '%';
-                }
-              }
-            }]
-          },
-          tooltips: {
+          plugins: {
+            title: {
+              text: 'Yearly Price Change of Major Technology Companies'
+            },
+            tooltip: {
             callbacks: {
-              title: function (tooltipItem, data) {
-                var item = tooltipItem[0];
-                var year = item.xLabel;
+              title: (tooltipItems) => {
+                const item = tooltipItems[0];
+                var year = item.label;
                 var datasets = data.datasets[item.datasetIndex];
                 var label = datasets.label;
                 return year + ' - ' + label;
@@ -780,6 +765,32 @@
               }
             }
           }
+          },
+          scales: {
+            x: {
+              // type: 'time',
+              // time: {
+              //   displayFormats: {
+              //     year: '\'YY' // Set custom format for hour unit
+              //   },
+              //   unit: 'year',
+              //   round: 'year', // Set round as year for starting of this unit
+              //   tooltipFormat: 'YYYY'
+              // }
+            },
+            y: {
+              // scaleLabel: {
+              //   display: true,
+              //   labelString: 'Price Changes'
+              // },
+              // ticks: {
+              //   stepSize: 50,
+              //   callback: function (label, index) {
+              //     return label + '%';
+              //   }
+              // }
+            }
+          },
         }
       };
     </script>
@@ -835,24 +846,20 @@
             text: 'Price of Oil vs Russian Ruble'
           },
           scales: {
-            xAxes: [
-              {
-                type: 'linear',
-                position: 'bottom',
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Price of Oil ($)'
-                }
+            x: {
+              type: 'linear',
+              position: 'bottom',
+              title: {
+                display: true,
+                text: 'Price of Oil ($)'
               }
-            ],
-            yAxes: [
-              {
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Russian ruble (per $)'
-                }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Russian ruble (per $)'
               }
-            ]
+            }
           },
           tooltips: {
             callbacks: {
@@ -877,12 +884,8 @@
   <demo-block layout="normal" header="Bubble Chart">
     <ef-chart id="bubble"></ef-chart>
     <script>
-      var bubble = document.getElementById('bubble');
-
-      bubble.config = {
-        type: 'bubble',
-        data: {
-          datasets: [
+      const bubble = document.getElementById('bubble');
+      const bubbleDataset = [
             {
               label: 'Zimbabwe',
               data: [{ x: 450, y: 46, r: 3 }]
@@ -912,59 +915,59 @@
               data: [{ x: 45000, y: 78, r: 12 }]
             }
           ]
+      bubble.config = {
+        type: 'bubble',
+        data: {
+          datasets: bubbleDataset
         },
         options: {
           title: {
             text: 'GDP vs. Life Expectancy (Size = Popuation)'
           },
           scales: {
-            xAxes: [
-              {
-                type: 'logarithmic',
-                position: 'bottom',
-                ticks: {
-                  min: 450,
-                  max: 50000,
-                  maxRotation: 10,
-                  callback: function (label, index) {
-                    var xLabels = ['500', '1000', '2000', '5000', '10,000', '20000', '50000'];
-                    return xLabels.indexOf(label.toString()) > -1 ? label : '';
-                  }
-                },
-                scaleLabel: {
-                  display: true,
-                  labelString: 'GDP per person in US dollars (log scale)'
-                }
-              }
-            ],
-            yAxes: [
-              {
-                ticks: {
-                  min: 45,
-                  max: 85,
-                  stepSize: 5
-                },
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Life expectancy at birth (years)'
-                }
-              }
-            ]
+            // x: {
+            //   type: 'logarithmic',
+            //   position: 'bottom',
+            //   ticks: {
+            //     min: 450,
+            //     max: 50000,
+            //     maxRotation: 10,
+            //     callback: function (label, index) {
+            //       var xLabels = ['500', '1000', '2000', '5000', '10,000', '20000', '50000'];
+            //       return xLabels.indexOf(label.toString()) > -1 ? label : '';
+            //     }
+            //   },
+            //   scaleLabel: {
+            //     display: true,
+            //     labelString: 'GDP per person in US dollars (log scale)'
+            //   }
+            // },
+            // y: {
+            //   ticks: {
+            //     min: 45,
+            //     max: 85,
+            //     stepSize: 5
+            //   },
+            //   scaleLabel: {
+            //     display: true,
+            //     labelString: 'Life expectancy at birth (years)'
+            //   }
+            // }
           },
-          tooltips: {
-            callbacks: {
-              title: function (tooltipItem, data) {
-                var item = tooltipItem[0];
-                var dataset = data.datasets[item.datasetIndex];
-                return dataset.label;
+          plugins: {
+            tooltip: {
+              callbacks: {
+                title: (tooltipItems) => {
+                  const item = tooltipItems[0];
+                  const dataset = bubbleDataset[item.datasetIndex];
+                  return dataset.label;
+                }
               },
-              label: function (tooltipItem, data) {
-                var x = tooltipItem.xLabel;
-                return 'GDP per Capita : ' + x + '$';
+              label: (tooltipItem) => {
+                return 'GDP per Capita : ' + tooltipItem.label + '$';
               },
-              afterLabel: function (tooltipItem, data) {
-                var y = tooltipItem.yLabel;
-                return 'Life expectancy : ' + y + ' Yrs';
+              afterLabel: (tooltipItem) => {
+                return 'Life expectancy : ' + tooltipItem.raw + ' Yrs';
               }
             }
           }
@@ -976,51 +979,36 @@
   <demo-block layout="normal" header="Radar Chart">
     <ef-chart id="radar"></ef-chart>
     <script>
-      var radar = document.getElementById('radar');
-
+      const radar = document.getElementById('radar');
       radar.config = {
         type: 'radar',
         data: {
           labels: [['Eating', 'Dinner'], ['Drinking', 'Water'], 'Sleeping', ['Designing', 'Graphics'], 'Coding', 'Cycling', 'Running'],
           datasets: [{
             label: 'Humanoid A',
-            data: [
-              13,
-              10,
-              9,
-              14,
-              9,
-              5,
-              10
-            ]
+            data: [13, 10, 9, 14, 9, 5, 10]
           },
           {
             label: 'Humanoid B',
-            data: [
-              8,
-              5,
-              9,
-              7,
-              17,
-              11,
-              4
-            ]
+            data: [8, 5, 9, 7, 17, 11, 4]
           }]
         },
         options: {
-          legend: {
-            position: 'right'
-          },
-          title: {
-            display: true,
-            text: 'Humanoid Profile Comparison'
+          plugins: {
+            legend: {
+              position: 'right'
+            },
+            title: {
+              display: true,
+              text: 'Humanoid Profile Comparison'
+            }
           }
         }
       };
     </script>
   </demo-block>
 
-  <demo-block layout="normal" header="Toggle Chart Type">
+  <!-- <demo-block layout="normal" header="Toggle Chart Type">
     <ef-chart id="avgVolumeRicChart"></ef-chart>
     <button onClick="showBar()">BAR</button>
     <button onClick="showDoughnut()">PIE</button>
@@ -1096,7 +1084,7 @@
       };
       /* eslint-enable no-unused-vars */
     </script>
-  </demo-block>
+  </demo-block> -->
 
   <demo-block layout="normal" header="Add New Data">
     <ef-chart id="addNewDataSet"></ef-chart>
@@ -1116,7 +1104,6 @@
         }
       };
 
-      /* eslint-disable no-unused-vars */
       let addData = () => {
         addDataChart.config.data.datasets[0].data.push(400);
         addDataChart.config.data.labels.push('New Data');
@@ -1125,10 +1112,9 @@
 
       let addDataChart = document.getElementById('addNewDataSet');
       addDataChart.config = initConfig;
-      /* eslint-enable no-unused-vars */
     </script>
   </demo-block>
--->
+
   <demo-block layout="normal" header="Polar area">
     <ef-chart id="polarArea"></ef-chart>
     <script>
