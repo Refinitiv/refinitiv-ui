@@ -12,7 +12,7 @@ import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
 
 let isEyeOffPreloadRequested = false;
 
-@customElement('ds-sub-password-field', { theme: false })
+@customElement('ui-sub-password-field', { theme: false })
 export class SubPasswordField extends SubTextField {
   static shadowRootOptions = { ...SubTextField.shadowRootOptions, delegatesFocus: true };
 
@@ -42,7 +42,7 @@ export class SubPasswordField extends SubTextField {
   /**
    * Used for translations
    */
-  @translate({ scope: 'ds-sub-password-field' })
+  @translate({ scope: 'ui-sub-password-field' })
   protected t!: Translate;
 
   /**
@@ -91,7 +91,7 @@ export class SubPasswordField extends SubTextField {
    */
   protected override renderIcon (): TemplateResult {
     return html`
-      <ds-icon
+     <ui-icon
         part="icon"
         role="button"
         tabindex="0"
@@ -100,13 +100,13 @@ export class SubPasswordField extends SubTextField {
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         @tap="${this.togglePasswordVisibility}"
-      ></ds-icon>
+      ></ui-icon>
     `;
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-sub-password-field': SubPasswordField;
+    'ui-sub-password-field': SubPasswordField;
   }
 }

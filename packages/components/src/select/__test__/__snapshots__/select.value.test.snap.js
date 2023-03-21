@@ -8,17 +8,17 @@ snapshots["select/Value Selection by Value Attribute Options Selected: Afghanist
       Afghanistan
     </div>
   </div>
-  <ds-icon
+ <ui-icon
     icon="down"
     part="icon"
   >
-  </ds-icon>
+  </ui-icon>
 </div>
 <div id="trigger">
 </div>
-<ds-overlay-viewport>
-</ds-overlay-viewport>
-<ds-sub-overlay
+<ui-overlay-viewport>
+</ui-overlay-viewport>
+<ui-sub-overlay
   first-resize-done=""
   id="menu"
   lock-position-target=""
@@ -30,7 +30,7 @@ snapshots["select/Value Selection by Value Attribute Options Selected: Afghanist
 >
   <slot>
   </slot>
-</ds-sub-overlay>
+</ui-sub-overlay>
 `;
 /* end snapshot select/Value Selection by Value Attribute Options Selected: Afghanistan */
 
@@ -41,17 +41,17 @@ snapshots["select/Value Selection by Value Attribute Data Selected: Afghanistan"
       Afghanistan
     </div>
   </div>
-  <ds-icon
+ <ui-icon
     icon="down"
     part="icon"
   >
-  </ds-icon>
+  </ui-icon>
 </div>
 <div id="trigger">
 </div>
-<ds-overlay-viewport>
-</ds-overlay-viewport>
-<ds-sub-overlay
+<ui-overlay-viewport>
+</ui-overlay-viewport>
+<ui-sub-overlay
   first-resize-done=""
   id="menu"
   lock-position-target=""
@@ -61,41 +61,41 @@ snapshots["select/Value Selection by Value Attribute Data Selected: Afghanistan"
   tabindex="-1"
   with-shadow=""
 >
-  <ds-sub-item
+ <ui-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="header"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     highlighted=""
     part="item"
     role="option"
     selected=""
     tabindex="0"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="divider"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ds-sub-item>
-</ds-sub-overlay>
+  </ui-sub-item>
+</ui-sub-overlay>
 `;
 /* end snapshot select/Value Selection by Value Attribute Data Selected: Afghanistan */
 

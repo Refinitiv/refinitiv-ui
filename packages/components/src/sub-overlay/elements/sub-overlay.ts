@@ -102,7 +102,7 @@ const shouldRefitProperties: string[] = ['position', 'x', 'y', 'positionTarget',
  * @fires refit - Fired when refit algorithm finishes calculations
  * @fires opened-changed - Fired when the user changes open state of overlay e.g. when the user presses escape key or uses close button to close the overlay. The event is not triggered if `opened` property is changed programmatically.
  */
-@customElement('ds-sub-overlay', { theme: false })
+@customElement('ui-sub-overlay', { theme: false })
 export class Overlay extends ResponsiveElement {
 
   /**
@@ -488,7 +488,7 @@ export class Overlay extends ResponsiveElement {
       if (!strategy[1]) {
         const defaultAlign = DEFAULT_ALIGN.get(strategy[0]);
         if (!defaultAlign) {
-          throw new Error(`ds-sub-overlay: incorrect position provided: ${strategy[0]}`);
+          throw new Error(`ui-sub-overlay: incorrect position provided: ${strategy[0]}`);
         }
         strategy.push(defaultAlign);
       }
@@ -1704,6 +1704,6 @@ export class Overlay extends ResponsiveElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-sub-overlay': Overlay;
+    'ui-sub-overlay': Overlay;
   }
 }

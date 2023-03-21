@@ -6,23 +6,23 @@ import '@refinitiv-ui/components/select';
 describe('select/Selection', () => {
   describe('Selection by Selected Property', () => {
     it('Options Selected: Afghanistan', async () => {
-      const el = await fixture(`<ds-select opened placeholder="Placeholder">${getOptions([1])}</ds-select>`);
+      const el = await fixture(`<ui-select opened placeholder="Placeholder">${getOptions([1])}</ui-select>`);
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value is not reflected from selected');
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
 
-      el.querySelector('ds-sub-item[value=AF]').selected = false;
-      el.querySelector('ds-sub-item[value=AL]').selected = true;
+      el.querySelector('ui-option[value=AF]').selected = false;
+      el.querySelector('ui-option[value=AL]').selected = true;
       await elementUpdated(el);
       expect(el.value).to.equal('AL', 'Value is not reflected from selected');
 
-      el.querySelector('ds-sub-item[value=AL]').selected = false;
+      el.querySelector('ui-option[value=AL]').selected = false;
       await elementUpdated(el);
       expect(el.value).to.equal('', 'Value is not reset to empty string');
     });
 
     it('Data Selected: Afghanistan', async () => {
-      const el = await fixture('<ds-select opened placeholder="Placeholder"></ds-select>');
+      const el = await fixture('<ui-select opened placeholder="Placeholder"></ui-select>');
       el.data = getData([1]);
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value is not reflected from selected');
@@ -30,7 +30,7 @@ describe('select/Selection', () => {
     });
 
     it('Data Selected change', async () => {
-      const el = await fixture('<ds-select opened placeholder="Placeholder"></ds-select>');
+      const el = await fixture('<ui-select opened placeholder="Placeholder"></ui-select>');
       el.data = getData([1]);
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value is not reflected from selected');
@@ -42,7 +42,7 @@ describe('select/Selection', () => {
     });
 
     it('Data Unselected', async () => {
-      const el = await fixture('<ds-select opened placeholder="Placeholder"></ds-select>');
+      const el = await fixture('<ui-select opened placeholder="Placeholder"></ui-select>');
       el.data = getData([1]);
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value is not reflected from selected');

@@ -18,8 +18,8 @@ import {
 } from '../../../../lib/sub-overlay/managers/zindex-manager.js';
 
 const createFixture = async (zIndex) => {
-  return (typeof zIndex === 'undefined') ? fixture('<ds-sub-overlay opened>test</ds-sub-overlay>') :
-    fixture(`<ds-sub-overlay z-index="${zIndex}" opened>test</ds-sub-overlay>`);
+  return (typeof zIndex === 'undefined') ? fixture('<ui-sub-overlay opened>test</ui-sub-overlay>') :
+    fixture(`<ui-sub-overlay z-index="${zIndex}" opened>test</ui-sub-overlay>`);
 };
 
 describe('overlay/manager/ZIndexManager', () => {
@@ -233,7 +233,7 @@ describe('overlay/manager/ZIndexManager', () => {
       });
 
       it('Test deregister not registered element', async () => {
-        const element = await fixture('<ds-sub-overlay>test</ds-sub-overlay>');
+        const element = await fixture('<ui-sub-overlay>test</ui-sub-overlay>');
         const initialZIndex = element.zIndex;
         const initialStyleZIndex = element.style.zIndex;
 
@@ -300,7 +300,7 @@ describe('overlay/manager/ZIndexManager', () => {
 
     describe('Test toFront', () => {
       it('Test not registered element', async () => {
-        const element = await fixture('<ds-sub-overlay></ds-sub-overlay>');
+        const element = await fixture('<ui-sub-overlay></ui-sub-overlay>');
 
         toFront(element);
 

@@ -5,7 +5,6 @@ import {
   TemplateResult,
   CSSResultGroup,
   PropertyValues,
-  MultiValue,
   StyleMap
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
@@ -21,10 +20,7 @@ import { Option } from '../option/index.js';
 import { TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 
 import type { Overlay } from '../sub-overlay';
-import type { SelectData, SelectDataItem } from './helpers/types';
 import type { OpenedChangedEvent } from '../events.js';
-
-export type { SelectData, SelectDataItem };
 
 // Observer config for items
 const observerOptions = {
@@ -61,7 +57,7 @@ enum Navigation {
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
  */
-@customElement('ds-select', { theme: false })
+@customElement('ui-select', { theme: false })
 export class Select extends ControlElement {
 
   /**
@@ -147,10 +143,10 @@ export class Select extends ControlElement {
       }
       :host [part=list] {
         overflow-y: auto;
-        max-width: var(--ds-select-list-max-width);
-        max-height: var(--ds-select-list-max-height, 200px);
+        max-width: var(--ui-select-list-max-width);
+        max-height: var(--ui-select-list-max-height, 200px);
       }
-      :host [part="list"] ::slotted(:not(ds-option)) {
+      :host [part="list"] ::slotted(:not(ui-option)) {
         display: none;
       }
       :host [part=sub-item] {
@@ -195,7 +191,6 @@ export class Select extends ControlElement {
     `;
   }
 
-  private _data: SelectData | null = null;
   private mutationObserver?: MutationObserver;
   private popupDynamicStyles: StyleMap = {}; /* set popup min-width based on select width or CSS vars */
   private lazyRendered = false; /* speed up rendering by not populating popup window on first load */
@@ -422,7 +417,7 @@ export class Select extends ControlElement {
   };
 
   /**
-   * Popup has to use max width if --ds-select-list-max-width specified
+   * Popup has to use max width if --ui-select-list-max-width specified
    * otherwise, popup should have same width as control or wider
    * @returns {void}
    */
@@ -442,7 +437,7 @@ export class Select extends ControlElement {
     }
     /* c8 ignore stop */
 
-    const maxWidth = this.getComputedVariable('--ds-select-list-max-width', 'none');
+    const maxWidth = this.getComputedVariable('--ui-select-list-max-width', 'none');
     let minWidth = this.offsetWidth;
 
     if (maxWidth !== 'none') {
@@ -954,7 +949,7 @@ export class Select extends ControlElement {
   */
   private get popupTemplate (): TemplateResult | undefined {
     if (this.lazyRendered) {
-      return html`<ds-sub-overlay
+      return html`<ui-sub-overlay
         ${ref(this.menuRef)}
         tabindex="-1"
         id="menu"
@@ -972,7 +967,7 @@ export class Select extends ControlElement {
         @opened-changed="${this.onPopupOpenedChanged}"
         @opened="${this.onPopupOpened}"
         @refit=${this.onPopupRefit}
-        @closed="${this.onPopupClosed}">${this.slottedContent}</ds-sub-overlay>`;
+        @closed="${this.onPopupClosed}">${this.slottedContent}</ui-sub-overlay>`;
     }
   }
 
@@ -987,7 +982,7 @@ export class Select extends ControlElement {
       <div id="text">
         ${this.placeholderHidden() ? this.labelTemplate : this.placeholderTemplate}
       </div>
-      <ds-icon icon="down" part="icon"></ds-icon>
+     <ui-icon icon="down" part="icon"></ui-icon>
     </div>
     ${this.editTemplate}`;
   }
@@ -995,6 +990,6 @@ export class Select extends ControlElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-select': Select;
+    'ui-select': Select;
   }
 }

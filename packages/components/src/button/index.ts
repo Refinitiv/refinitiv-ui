@@ -11,7 +11,7 @@ import '../icon/index.js';
  * @prop {boolean} [disabled=false] - Set state to disabled
  * @fires active-changed - Fired when `active` property changed by user taps on toggled button. It will not be triggered if `active` state is changed programmatically.
  */
-@customElement('ds-button', { theme: false })
+@customElement('ui-button', { theme: false })
 export class Button extends ControlElement {
   protected readonly defaultRole = 'button';
 
@@ -157,7 +157,7 @@ export class Button extends ControlElement {
    * @return {TemplateResult | nothing}  Render template
    */
   private get iconEndTemplate (): TemplateResult | typeof nothing {
-    return this.iconEnd ? html`<ds-icon aria-hidden="true" part="icon" icon="${this.iconEnd}" id="icon"></ds-icon>` : nothing;
+    return this.iconEnd ? html`<ui-icon aria-hidden="true" part="icon" icon="${this.iconEnd}" id="icon"></ui-icon>` : nothing;
   }
 
   /**
@@ -177,6 +177,6 @@ export class Button extends ControlElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-button': Button;
+    'ui-button': Button;
   }
 }

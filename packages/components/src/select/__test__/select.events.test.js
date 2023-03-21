@@ -6,7 +6,7 @@ import '@refinitiv-ui/components/select';
 describe('select/Events', () => {
   describe('opened-changed event is fired only on internal actions', () => {
     it('opened-changed is not fired when opened flag changed externally', async () => {
-      const el = await fixture(`<ds-select>${getOptions()}</ds-select>`);
+      const el = await fixture(`<ui-select>${getOptions()}</ui-select>`);
       let counter = 0;
       el.addEventListener('opened-changed', () => {
         counter += 1;
@@ -22,7 +22,7 @@ describe('select/Events', () => {
     });
 
     it('opened-changed is fired when trigger is pressed', async function () {
-      const el = await fixture(`<ds-select>${getOptions()}</ds-select>`);
+      const el = await fixture(`<ui-select>${getOptions()}</ui-select>`);
       await triggerFocusFor(el);
       const trigger = el.shadowRoot.querySelector('#trigger');
       let counter = 0;
@@ -45,7 +45,7 @@ describe('select/Events', () => {
     });
 
     it('opened-changed is fired on document tap', async () => {
-      const el = await fixture(`<ds-select>${getOptions()}</ds-select>`);
+      const el = await fixture(`<ui-select>${getOptions()}</ui-select>`);
       let counter = 0;
       let opened = false;
 
@@ -64,8 +64,8 @@ describe('select/Events', () => {
     });
 
     it('opened-changed event on item tap', async () => {
-      const el = await fixture(`<ds-select>${getOptions(undefined, [1], [2])}</ds-select>`);
-      const options = el.querySelectorAll('ds-sub-item');
+      const el = await fixture(`<ui-select>${getOptions(undefined, [1], [2])}</ui-select>`);
+      const options = el.querySelectorAll('ui-option');
       let counter = 0;
       let opened = false;
 
@@ -99,7 +99,7 @@ describe('select/Events', () => {
     });
 
     it('opened-changed event on keyboard pressed', async () => {
-      const el = await fixture(`<ds-select>${getOptions()}</ds-select>`);
+      const el = await fixture(`<ui-select>${getOptions()}</ui-select>`);
       el.focus();
       await nextFrame(el);
       let counter = 0;
@@ -128,7 +128,7 @@ describe('select/Events', () => {
     });
 
     it('opened-changed event on popup keyboard pressed', async () => {
-      const el = await fixture(`<ds-select>${getOptions()}</ds-select>`);
+      const el = await fixture(`<ui-select>${getOptions()}</ui-select>`);
       let counter = 0;
       let opened = false;
 
@@ -150,7 +150,7 @@ describe('select/Events', () => {
     });
 
     it('opened-changed event on popup keyboard pressed when item highlighted', async () => {
-      const el = await fixture(`<ds-select>${getOptions([1])}</ds-select>`);
+      const el = await fixture(`<ui-select>${getOptions([1])}</ui-select>`);
       let counter = 0;
       let opened = false;
 
@@ -174,8 +174,8 @@ describe('select/Events', () => {
 
   describe('value-changed event is fired only on internal actions', () => {
     it('Options: value-changed is not fired when value is set externally', async () => {
-      const el = await fixture(`<ds-select>${getOptions()}</ds-select>`);
-      const options = el.querySelectorAll('ds-sub-item');
+      const el = await fixture(`<ui-select>${getOptions()}</ui-select>`);
+      const options = el.querySelectorAll('ui-option');
       let counter = 0;
 
       el.addEventListener('value-changed', () => {
@@ -193,7 +193,7 @@ describe('select/Events', () => {
     });
 
     it('Data: value-changed is not fired when value is set externally', async () => {
-      const el = await fixture(`<ds-select>${getData()}</ds-select>`);
+      const el = await fixture(`<ui-select>${getData()}</ui-select>`);
       let counter = 0;
 
       el.addEventListener('value-changed', () => {
@@ -205,11 +205,11 @@ describe('select/Events', () => {
     });
 
     it('Data: value-changed on mouse and keyboard interactions', async () => {
-      const el = await fixture(`<ds-select opened>${getOptions()}</ds-select>`);
+      const el = await fixture(`<ui-select opened>${getOptions()}</ui-select>`);
       let counter = 0;
       let changedValue = '';
 
-      const options = el.querySelectorAll('ds-sub-item');
+      const options = el.querySelectorAll('ui-option');
 
       el.addEventListener('value-changed', ({ detail: { value } }) => {
         counter += 1;

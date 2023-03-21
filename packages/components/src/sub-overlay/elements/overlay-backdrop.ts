@@ -16,7 +16,7 @@ import type {
 /**
  * A private element to show backdrop for overlay
  */
-@customElement('ds-overlay-backdrop', { theme: false })
+@customElement('ui-overlay-backdrop', { theme: false })
 export class OverlayBackdrop extends BasicElement {
 
   /**
@@ -77,6 +77,6 @@ export class OverlayBackdrop extends BasicElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-overlay-backdrop': OverlayBackdrop;
+    'ui-overlay-backdrop': OverlayBackdrop;
   }
 }

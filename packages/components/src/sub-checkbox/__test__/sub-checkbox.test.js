@@ -4,13 +4,13 @@ import '@refinitiv-ui/elements/sub-checkbox';
 const createEnterKeyboardEvent = () => new KeyboardEvent('keydown', { key: 'Enter' });
 const createSpacebarKeyboardEvent = () => new KeyboardEvent('keydown', { key: ' ' });
 
-describe('ds-sub-checkbox', () => {
-  const unchecked = `<ds-sub-checkbox></ds-sub-checkbox>`;
-  const checked = `<ds-sub-checkbox checked></ds-sub-checkbox>`;
-  const disabled = `<ds-sub-checkbox disabled></ds-sub-checkbox>`;
-  const disabledChecked = `<ds-sub-checkbox disabled checked></ds-sub-checkbox>`;
-  const readonly = `<ds-sub-checkbox readonly></ds-sub-checkbox>`;
-  const readonlyChecked = `<ds-sub-checkbox readonly checked></ds-sub-checkbox>`;
+describe('ui-sub-checkbox', () => {
+  const unchecked = `<ui-sub-checkbox></ui-sub-checkbox>`;
+  const checked = `<ui-sub-checkbox checked></ui-sub-checkbox>`;
+  const disabled = `<ui-sub-checkbox disabled></ui-sub-checkbox>`;
+  const disabledChecked = `<ui-sub-checkbox disabled checked></ui-sub-checkbox>`;
+  const readonly = `<ui-sub-checkbox readonly></ui-sub-checkbox>`;
+  const readonlyChecked = `<ui-sub-checkbox readonly checked></ui-sub-checkbox>`;
 
   describe('DOM Structure', () => {
     it('default DOM is correct', async () => {

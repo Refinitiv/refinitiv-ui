@@ -2,15 +2,15 @@
 export const snapshots = {};
 
 snapshots["checkbox/Checkbox Basic Structure And State DOM structure is correct"] = 
-`<ds-sub-checkbox
+`<ui-sub-checkbox
   part="checkbox"
   tabindex="-1"
 >
-</ds-sub-checkbox>
-<ds-sub-label part="label">
+</ui-sub-checkbox>
+<ui-sub-label part="label">
   <slot>
   </slot>
-</ds-sub-label>
+</ui-sub-label>
 `;
 /* end snapshot checkbox/Checkbox Basic Structure And State DOM structure is correct */
 

@@ -8,17 +8,17 @@ snapshots["select/Selection Selection by Selected Property Data Selected: Afghan
       Afghanistan
     </div>
   </div>
-  <ds-icon
+ <ui-icon
     icon="down"
     part="icon"
   >
-  </ds-icon>
+  </ui-icon>
 </div>
 <div id="trigger">
 </div>
-<ds-overlay-viewport>
-</ds-overlay-viewport>
-<ds-sub-overlay
+<ui-overlay-viewport>
+</ui-overlay-viewport>
+<ui-sub-overlay
   first-resize-done=""
   id="menu"
   lock-position-target=""
@@ -28,41 +28,41 @@ snapshots["select/Selection Selection by Selected Property Data Selected: Afghan
   tabindex="-1"
   with-shadow=""
 >
-  <ds-sub-item
+ <ui-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="header"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     highlighted=""
     part="item"
     role="option"
     selected=""
     tabindex="0"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="divider"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ds-sub-item>
-</ds-sub-overlay>
+  </ui-sub-item>
+</ui-sub-overlay>
 `;
 /* end snapshot select/Selection Selection by Selected Property Data Selected: Afghanistan */
 
@@ -73,17 +73,17 @@ snapshots["select/Selection Selection by Selected Property Data Selected change"
       Albania
     </div>
   </div>
-  <ds-icon
+ <ui-icon
     icon="down"
     part="icon"
   >
-  </ds-icon>
+  </ui-icon>
 </div>
 <div id="trigger">
 </div>
-<ds-overlay-viewport>
-</ds-overlay-viewport>
-<ds-sub-overlay
+<ui-overlay-viewport>
+</ui-overlay-viewport>
+<ui-sub-overlay
   first-resize-done=""
   id="menu"
   lock-position-target=""
@@ -93,43 +93,43 @@ snapshots["select/Selection Selection by Selected Property Data Selected change"
   tabindex="-1"
   with-shadow=""
 >
-  <ds-sub-item
+ <ui-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="header"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     aria-selected="false"
     highlighted=""
     part="item"
     role="option"
     tabindex="0"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="divider"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     aria-selected="true"
     part="item"
     role="option"
     selected=""
     tabindex="0"
   >
-  </ds-sub-item>
-</ds-sub-overlay>
+  </ui-sub-item>
+</ui-sub-overlay>
 `;
 /* end snapshot select/Selection Selection by Selected Property Data Selected change */
 
@@ -140,17 +140,17 @@ snapshots["select/Selection Selection by Selected Property Data Unselected"] =
       Placeholder
     </div>
   </div>
-  <ds-icon
+ <ui-icon
     icon="down"
     part="icon"
   >
-  </ds-icon>
+  </ui-icon>
 </div>
 <div id="trigger">
 </div>
-<ds-overlay-viewport>
-</ds-overlay-viewport>
-<ds-sub-overlay
+<ui-overlay-viewport>
+</ui-overlay-viewport>
+<ui-sub-overlay
   first-resize-done=""
   id="menu"
   lock-position-target=""
@@ -160,41 +160,41 @@ snapshots["select/Selection Selection by Selected Property Data Unselected"] =
   tabindex="-1"
   with-shadow=""
 >
-  <ds-sub-item
+ <ui-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="header"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     aria-selected="false"
     highlighted=""
     part="item"
     role="option"
     tabindex="0"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     part="item"
     role="presentation"
     tabindex="-1"
     type="divider"
   >
-  </ds-sub-item>
-  <ds-sub-item
+  </ui-sub-item>
+ <ui-sub-item
     part="item"
     role="option"
     tabindex="0"
   >
-  </ds-sub-item>
-</ds-sub-overlay>
+  </ui-sub-item>
+</ui-sub-overlay>
 `;
 /* end snapshot select/Selection Selection by Selected Property Data Unselected */
 
@@ -205,17 +205,17 @@ snapshots["select/Selection Selection by Selected Property Options Selected: Afg
       Afghanistan
     </div>
   </div>
-  <ds-icon
+ <ui-icon
     icon="down"
     part="icon"
   >
-  </ds-icon>
+  </ui-icon>
 </div>
 <div id="trigger">
 </div>
-<ds-overlay-viewport>
-</ds-overlay-viewport>
-<ds-sub-overlay
+<ui-overlay-viewport>
+</ui-overlay-viewport>
+<ui-sub-overlay
   first-resize-done=""
   id="menu"
   lock-position-target=""
@@ -227,7 +227,7 @@ snapshots["select/Selection Selection by Selected Property Options Selected: Afg
 >
   <slot>
   </slot>
-</ds-sub-overlay>
+</ui-sub-overlay>
 `;
 /* end snapshot select/Selection Selection by Selected Property Options Selected: Afghanistan */
 
