@@ -44,6 +44,7 @@ config.browsers = browserLists.flat();
 config.testRunnerHtml = (testFramework) =>
   `<html>
     <link type="text/css" rel="stylesheet" href="./node_modules/@refinitiv-ui/tokens/lib/default.tokens.css">
+    <link type="text/css" rel="stylesheet" href="./node_modules/@refinitiv-ui/tokens/lib/light.tokens.css">
     <body>
       <script type="module" src="${testFramework}"></script>
     </body>
