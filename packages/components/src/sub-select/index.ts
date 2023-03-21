@@ -162,12 +162,6 @@ export class SubSelect extends ControlElement {
   private resizeThrottler = new AnimationTaskRunner();
 
   /**
-   * Placeholder to display when no value is set
-   */
-  @property({ type: String })
-  public placeholder = '';
-
-  /**
    * Toggles the opened state of the list
    */
   @property({ type: Boolean, reflect: true })
@@ -740,21 +734,6 @@ export class SubSelect extends ControlElement {
   }
 
   /**
-   * Calculating whether the placeholder should be hidden
-   * @returns result
-   */
-  private placeholderHidden (): boolean {
-    return !!(this.label.length > 0 || this.value);
-  }
-
-  /**
-   * Template for placeholder
-   */
-  private get placeholderTemplate (): TemplateResult {
-    return html`<div part="placeholder">${this.placeholder}</div>`;
-  }
-
-  /**
    * Template for label
    */
   private get labelTemplate (): TemplateResult {
@@ -816,7 +795,7 @@ export class SubSelect extends ControlElement {
     return html`
     <div id="box">
       <div id="text">
-        ${this.placeholderHidden() ? this.labelTemplate : this.placeholderTemplate}
+        ${this.labelTemplate}
       </div>
       <ui-sub-icon icon="down" part="icon"></ui-sub-icon>
     </div>
