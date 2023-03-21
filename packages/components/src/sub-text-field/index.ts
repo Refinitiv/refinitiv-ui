@@ -10,7 +10,7 @@ import {
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import '../icon/index.js';
+import '../sub-icon/index.js';
 
 const hasChanged = (value: unknown, oldValue: unknown): boolean => oldValue === undefined ? false : value !== oldValue;
 
@@ -285,7 +285,7 @@ export class SubTextField extends FormFieldElement {
    */
   protected renderIcon (): TemplateResult | typeof nothing {
     return this.icon ? html`
-     <ui-icon
+     <ui-sub-icon
       role="${this.iconHasAction ? 'button' : nothing}"
       tabindex="${this.iconHasAction ? '0' : nothing}"
       aria-label="${this.iconHasAction ? this.icon : nothing}"
@@ -294,7 +294,7 @@ export class SubTextField extends FormFieldElement {
       ?readonly="${this.readonly}"
       ?disabled="${this.disabled}"
       @tap="${this.iconClick}">
-    </ui-icon>` : nothing;
+    </ui-sub-icon>` : nothing;
   }
 
   protected get decorateInputMap (): TemplateMap {

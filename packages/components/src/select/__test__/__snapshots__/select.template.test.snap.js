@@ -7,11 +7,11 @@ snapshots["select/Template Template Parts Empty DOM has all required parts"] =
     <div part="placeholder">
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>
@@ -25,11 +25,11 @@ snapshots["select/Template Template Parts Placeholder is rendered"] =
       Placeholder
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>
@@ -42,11 +42,11 @@ snapshots["select/Template Template Parts Lazy Render: options"] =
     <div part="placeholder">
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>
@@ -59,11 +59,11 @@ snapshots["select/Template Template Parts Lazy Render: options opened"] =
     <div part="placeholder">
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>
@@ -91,11 +91,11 @@ snapshots["select/Template Template Parts Lazy Render: data"] =
     <div part="placeholder">
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>
@@ -108,11 +108,11 @@ snapshots["select/Template Template Parts Lazy Render: data opened"] =
     <div part="placeholder">
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>
@@ -170,11 +170,11 @@ snapshots["select/Template Template Parts Data is reflected to render"] =
     <div part="placeholder">
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>
@@ -232,11 +232,11 @@ snapshots["select/Template Template Parts Data is reflected to reverse render"] 
     <div part="placeholder">
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>
@@ -293,11 +293,11 @@ snapshots["select/Template Template Parts Data is reflected to render null data"
     <div part="placeholder">
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>

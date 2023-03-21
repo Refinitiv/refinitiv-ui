@@ -2,7 +2,7 @@ import { ControlElement, html, css, PropertyValues, TapEvent } from '@refinitiv-
 import { VERSION } from '../version.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import '../icon/index.js';
+import '../sub-icon/index.js';
 
 @customElement('ui-sub-checkbox', { theme: false })
 export class SubCheckbox extends ControlElement {
@@ -124,7 +124,7 @@ export class SubCheckbox extends ControlElement {
   protected render () {
     return html`
       <div part="check">
-       <ui-icon icon="tick" part="icon"></ui-icon>
+       <ui-sub-icon icon="tick" part="icon"></ui-sub-icon>
       </div>
       <slot></slot>
     `;

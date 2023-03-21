@@ -8,11 +8,11 @@ snapshots["select/Value Selection by Value Attribute Options Selected: Afghanist
       Afghanistan
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>
@@ -41,11 +41,11 @@ snapshots["select/Value Selection by Value Attribute Data Selected: Afghanistan"
       Afghanistan
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>

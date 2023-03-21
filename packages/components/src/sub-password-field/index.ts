@@ -4,8 +4,8 @@ import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
 
-import '../icon/index.js';
-import { preload } from '../icon/index.js';
+import '../sub-icon/index.js';
+import { preload } from '../sub-icon/index.js';
 import { SubTextField } from '../sub-text-field/index.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
@@ -91,7 +91,7 @@ export class SubPasswordField extends SubTextField {
    */
   protected override renderIcon (): TemplateResult {
     return html`
-     <ui-icon
+     <ui-sub-icon
         part="icon"
         role="button"
         tabindex="0"
@@ -100,7 +100,7 @@ export class SubPasswordField extends SubTextField {
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         @tap="${this.togglePasswordVisibility}"
-      ></ui-icon>
+      ></ui-sub-icon>
     `;
   }
 }

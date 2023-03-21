@@ -2,7 +2,7 @@ import { ControlElement, html, css, CSSResultGroup, nothing, PropertyValues, Tem
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { PropertyValueMap } from 'lit';
-import '../icon/index.js';
+import '../sub-icon/index.js';
 
 /**
  * Use button for actions in forms, dialogs,
@@ -157,7 +157,7 @@ export class Button extends ControlElement {
    * @return {TemplateResult | nothing}  Render template
    */
   private get iconEndTemplate (): TemplateResult | typeof nothing {
-    return this.iconEnd ? html`<ui-icon aria-hidden="true" part="icon" icon="${this.iconEnd}" id="icon"></ui-icon>` : nothing;
+    return this.iconEnd ? html`<ui-sub-icon aria-hidden="true" part="icon" icon="${this.iconEnd}" id="icon"></ui-sub-icon>` : nothing;
   }
 
   /**

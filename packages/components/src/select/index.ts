@@ -12,7 +12,7 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
-import '../icon/index.js';
+import '../sub-icon/index.js';
 import '../sub-overlay/index.js';
 import '../option/index.js';
 
@@ -982,7 +982,7 @@ export class Select extends ControlElement {
       <div id="text">
         ${this.placeholderHidden() ? this.labelTemplate : this.placeholderTemplate}
       </div>
-     <ui-icon icon="down" part="icon"></ui-icon>
+     <ui-sub-icon icon="down" part="icon"></ui-sub-icon>
     </div>
     ${this.editTemplate}`;
   }

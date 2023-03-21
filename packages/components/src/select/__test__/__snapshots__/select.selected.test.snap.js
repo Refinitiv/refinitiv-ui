@@ -8,11 +8,11 @@ snapshots["select/Selection Selection by Selected Property Data Selected: Afghan
       Afghanistan
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>
@@ -73,11 +73,11 @@ snapshots["select/Selection Selection by Selected Property Data Selected change"
       Albania
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>
@@ -140,11 +140,11 @@ snapshots["select/Selection Selection by Selected Property Data Unselected"] =
       Placeholder
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>
@@ -205,11 +205,11 @@ snapshots["select/Selection Selection by Selected Property Options Selected: Afg
       Afghanistan
     </div>
   </div>
- <ui-icon
+ <ui-sub-icon
     icon="down"
     part="icon"
   >
-  </ui-icon>
+  </ui-sub-icon>
 </div>
 <div id="trigger">
 </div>

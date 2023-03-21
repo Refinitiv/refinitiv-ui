@@ -23,7 +23,7 @@ const EmptyTemplate = svg``;
  */
 const iconTemplateCache = new Map<string, Promise<SVGTemplateResult>>();
 
-@customElement('ui-icon', { theme: false })
+@customElement('ui-sub-icon', { theme: false })
 export class Icon extends BasicElement {
   /**
    * Element version number
@@ -208,6 +208,6 @@ export class Icon extends BasicElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ui-icon': Icon;
+    'ui-sub-icon': Icon;
   }
 }
