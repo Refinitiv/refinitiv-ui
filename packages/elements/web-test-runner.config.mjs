@@ -3,13 +3,14 @@ import path from 'node:path';
 import config from '../../web-test-runner.config.mjs';
 import { ELEMENTS_ROOT } from './scripts/helpers/index.mjs';
 
+// extract test script options passed from ./script/cmd/test.mjs via environment variables
 const ELEMENT = process.env.ELEMENT;
 const BROWSERS = process.env.BROWSERS;
-const COVERAGE = process.env.COVERAGE === 'true' ? true : false;
+const COVERAGE = process.env.COVERAGE === 'true';
 const testAll = ELEMENT === 'all' || ELEMENT === undefined;
 const browserLists = [];
 
-// Update configs for running elements package
+// Update file list configs for testing elements package
 config.files = [
   path.join(ELEMENTS_ROOT, 'src', `${ testAll ? '*' : ELEMENT }/__test__/**/*.test.js`),
   '!**/node_modules/**/*', // exclude any node modules
@@ -24,21 +25,21 @@ if (COVERAGE && !testAll){
   config.coverageConfig.reportDir = 'coverage/elements';
 }
 
-// Specific browser to run the unit test
+// Specify browser to run the unit test & convert browser naming to playwright's one
 if (BROWSERS) {
-  BROWSERS.split(" ").forEach((browser) => {
-    browserLists.push(config.browsers.filter((browsers) => {
-      switch (browser) {
+  BROWSERS.split(" ").forEach((optionBrowser) => {
+    browserLists.push(config.browsers.filter((configBrowser) => {
+      switch (optionBrowser) {
         case 'chrome':
-          browser = 'chromium';
+          optionBrowser = 'chromium';
           break;
         case 'safari':
-          browser = 'webkit';
+          optionBrowser = 'webkit';
           break;
         default:
           break;
       }
-      return browsers.product === browser;
+      return configBrowser.product === optionBrowser;
     }));
   });
   config.browsers = browserLists.flat();
