@@ -834,7 +834,7 @@ describe('interactive-chart/InteractiveChart', () => {
   it('Should has dynamic left position in legend when the chart set y axis at left', async () => {
     el.config = linePositionLeft;
     await elementUpdated(el);
-    await nextFrame(3); // Chrome 111 & Firefox 111 requires 3 frames to complete rendering
+    await nextFrame(3); // wait for resize observer & rendering completion
 
     expect(el.chart).to.not.be.undefined;
     expect(el.chart).to.not.be.null;
@@ -847,7 +847,7 @@ describe('interactive-chart/InteractiveChart', () => {
   it('Should has dynamic left position in legend when the chart set y axis at both edge', async () => {
     el.config = twoPriceScales;
     await elementUpdated(el);
-    await nextFrame(3); // Chrome 111 & Firefox 111 requires 3 frames to complete rendering
+    await nextFrame(3); // wait for resize observer & rendering completion
 
     expect(el.chart).to.not.be.undefined;
     expect(el.chart).to.not.be.null;
@@ -860,7 +860,7 @@ describe('interactive-chart/InteractiveChart', () => {
   it('Should has fixed left position in legend when the chart set y axis at right edge', async () => {
     el.config = line;
     await elementUpdated(el);
-    await nextFrame(3); // Chrome 111 & Firefox 111 requires 3 frames to complete rendering
+    await nextFrame(3); // wait for resize observer & rendering completion
 
     expect(el.chart).to.not.be.undefined;
     expect(el.chart).to.not.be.null;
@@ -876,7 +876,7 @@ describe('interactive-chart/InteractiveChart', () => {
 
       el.config = line;
       await elementUpdated(el);
-      await nextFrame(2); // Chrome 111 & Firefox 111 requires 2 frames to complete rendering
+      await nextFrame(2); // wait for resize observer & rendering completion
 
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
@@ -893,7 +893,7 @@ describe('interactive-chart/InteractiveChart', () => {
 
       el.config = line;
       await elementUpdated(el);
-      await nextFrame(2); // Chrome 111 & Firefox 111 requires 2 frames to complete rendering
+      await nextFrame(2); // wait for resize observer & rendering completion
 
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;

@@ -111,7 +111,7 @@ describe('led-gauge/LedGauge', () => {
 
   it('Should be able to set topValue and bottomValue via property', async () => {
     const el = await fixture(full);
-    await nextFrame(2); // Chrome 111 & Firefox 111 needs another frame to complete rendering
+    await nextFrame(2); // wait for resize observer & rendering completion
     top = el.shadowRoot.querySelector('#top');
     bottom = el.shadowRoot.querySelector('#bottom');
     let topTextPos = parseInt(window.getComputedStyle(top).getPropertyValue('left'), 10);
@@ -133,7 +133,7 @@ describe('led-gauge/LedGauge', () => {
 
   it('Should be able to set topValue and bottomValue via attribute', async () => {
     const el = await fixture(full);
-    await nextFrame(2); // Chrome 111 & Firefox 111 needs another frame to complete rendering
+    await nextFrame(2); // wait for resize observer & rendering completion
     top = el.shadowRoot.querySelector('#top');
     bottom = el.shadowRoot.querySelector('#bottom');
     let topTextPos = parseInt(window.getComputedStyle(top).getPropertyValue('left'), 10);

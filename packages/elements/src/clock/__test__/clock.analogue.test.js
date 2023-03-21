@@ -52,7 +52,7 @@ describe('clock/Analogue', () => {
       // make size smaller than defined break point
       el.style.width = '129px';
       await elementUpdated(el);
-      await nextFrame(2); // Chrome 111 & Firefox 111 needs another frame to complete rendering
+      await nextFrame(2); // wait for resize observer & rendering completion
 
       expect(el.shadowRoot.querySelector('[part="digital"]'), 'digital clock should not display inside small clock').to.be.null;
       expect(el.amPm, 'am-pm should be hidden by default on small clock').to.be.equal(false);

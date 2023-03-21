@@ -100,7 +100,7 @@ describe('tab-bar/TabBar', () => {
     });
 
     it('Should show only right scroll button', async () => {
-      await nextFrame(); // wait for rendering
+      await nextFrame(); // wait for resize observer & rendering completion
       expect(getElementStyle(leftScrollBtn, 'display')).equal('none');
       expect(getElementStyle(rightScrollBtn, 'display')).equal('flex');
     });
