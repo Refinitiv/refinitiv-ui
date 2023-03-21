@@ -13,11 +13,11 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
-import '../sub-overlay/index.js';
-import '../sub-item/index.js';
 import '../icon/index.js';
-import { SubItem } from '../sub-item/index.js';
-import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import '../sub-overlay/index.js';
+import '../option/index.js';
+
+import { Option } from '../option/index.js';
 import { TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 
 import type { Overlay } from '../sub-overlay';
@@ -41,7 +41,6 @@ const observerOptions = {
   ]
 };
 
-const LABEL_SEPARATOR = ', ';
 const POPUP_POSITION = ['bottom-start', 'top-start'];
 const KEY_SEARCH_DEBOUNCER = 300;
 
@@ -63,7 +62,7 @@ enum Navigation {
  * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
  */
 @customElement('ds-select', { theme: false })
-export class Select extends ControlElement implements MultiValue {
+export class Select extends ControlElement {
 
   /**
    * Element version number
@@ -151,7 +150,7 @@ export class Select extends ControlElement implements MultiValue {
         max-width: var(--ds-select-list-max-width);
         max-height: var(--ds-select-list-max-height, 200px);
       }
-      :host [part="list"] ::slotted(:not(ds-sub-item)) {
+      :host [part="list"] ::slotted(:not(ds-option)) {
         display: none;
       }
       :host [part=sub-item] {
@@ -196,14 +195,13 @@ export class Select extends ControlElement implements MultiValue {
     `;
   }
 
-  private composer: CollectionComposer<SelectDataItem> = new CollectionComposer([]);
   private _data: SelectData | null = null;
   private mutationObserver?: MutationObserver;
   private popupDynamicStyles: StyleMap = {}; /* set popup min-width based on select width or CSS vars */
   private lazyRendered = false; /* speed up rendering by not populating popup window on first load */
   private popupScrollTop = 0; /* remember scroll position on popup refit actions */
   private observingMutations = false;
-  private highlightedItem?: SubItem;
+  private highlightedItem?: Option;
   private keySearchTerm = ''; /* used for quick search */
   private keySearchThrottler = new TimeoutTaskRunner(KEY_SEARCH_DEBOUNCER);
   private resizeThrottler = new AnimationTaskRunner();
@@ -223,10 +221,6 @@ export class Select extends ControlElement implements MultiValue {
    */
   @property({ type: Array, attribute: false })
   public get labels (): string[] {
-    if (this.hasDataItems()) {
-      return this.selectedDataItems.map(item => this.composer.getItemPropertyValue(item, 'label') as string);
-    }
-
     return this.selectedSlotItems.map(item => this.getItemLabel(item));
   }
 
@@ -253,53 +247,6 @@ export class Select extends ControlElement implements MultiValue {
    */
   @property({ type: Boolean, reflect: true })
   public warning = false;
-
-  /**
-   * Switch to multiple select input
-   * @ignore
-   * @param multiple True if element needs to support multi selection
-   */
-  @property({ type: Boolean })
-  public set multiple (multiple: boolean) {
-    // TODO: not implemented
-  }
-  /**
-   * @ignore
-   */
-  public get multiple (): boolean {
-    return false;
-  }
-
-  /**
-   * Construct the menu from data object. Cannot be used with slotted content
-   * @type {SelectData | null}
-   * @default null
-   */
-  @property({ attribute: false })
-  public get data (): SelectData | null {
-    return this._data;
-  }
-  public set data (value: SelectData | null) {
-    const oldValue = this._data;
-    if (oldValue === value) {
-      return;
-    }
-    else if (Array.isArray(value)) {
-      this.composer = new CollectionComposer<SelectDataItem>(value);
-    }
-    else {
-      this.composer = new CollectionComposer<SelectDataItem>([]);
-    }
-    this._data = value;
-
-    // check if new set of data contains selected, which becomes the new value
-    // otherwise try to set current value
-    if (!this.selectedDataItems.length) {
-      this.value = this.cachedValue;
-    }
-
-    this.requestUpdate('data', oldValue);
-  }
 
   /**
    * This variable is here to ensure that the value and data are in sync when data is set after the value.
@@ -340,10 +287,6 @@ export class Select extends ControlElement implements MultiValue {
    */
   @property({ attribute: false })
   public get values (): string[] {
-    if (this.hasDataItems()) {
-      return this.selectedDataItems.map(item => this.composer.getItemPropertyValue(item, 'value') as string);
-    }
-
     return this.selectedSlotItems.map(item => this.getItemValue(item));
   }
 
@@ -386,9 +329,6 @@ export class Select extends ControlElement implements MultiValue {
 
       if (this.opened) {
         this.opening();
-      }
-      else {
-        this.closing();
       }
 
       this.setAttribute('aria-expanded', this.opened ? 'true' : 'false');
@@ -437,14 +377,6 @@ export class Select extends ControlElement implements MultiValue {
   }
 
   /**
-   * Run when popup is closing
-   * @returns {void}
-   */
-  private closing (): void {
-    // no content
-  }
-
-  /**
    * Observe any changes to Light DOM
    * This observer is self contained and should
    * be garbage collected when there are no element references.
@@ -452,7 +384,7 @@ export class Select extends ControlElement implements MultiValue {
    */
   private observeMutations (): void {
     // Start watching for any new mutations if slotted content is used
-    if (!this.observingMutations && !this.hasDataItems()) {
+    if (!this.observingMutations) {
       if (!this.mutationObserver) {
         this.mutationObserver = new MutationObserver(this.handleMutations);
       }
@@ -797,7 +729,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param [item] An item to highlight
    * @returns {void}
    */
-  private setItemHighlight (item?: SubItem): void {
+  private setItemHighlight (item?: Option): void {
     if (this.highlightedItem === item) {
       return;
     }
@@ -846,7 +778,7 @@ export class Select extends ControlElement implements MultiValue {
    * @returns true if element can be selected
    */
   private isSelectableElement (element: Element): boolean {
-    return element instanceof SubItem && element.tabIndex >= 0 && !element.disabled && !element.readonly;
+    return element instanceof Option && element.tabIndex >= 0 && !element.disabled && !element.readonly;
   }
 
   /**
@@ -854,22 +786,20 @@ export class Select extends ControlElement implements MultiValue {
    * *Can be used only when select is opened*
    * @returns A list of selectable HTML elements
    */
-  private getSelectableElements (): SubItem[] {
-    const root = this.hasDataItems() ? this.menuRef.value : this;
-
+  private getSelectableElements (): Option[] {
     /* c8 ignore start */
-    if (!root) {
+    if (!this) {
       return [];
     }
     /* c8 ignore stop */
 
-    const items: SubItem[] = [];
-    const rootChildren = root.children;
+    const items: Option[] = [];
+    const rootChildren = this.children;
 
     for (let i = 0; i < rootChildren.length; i += 1) {
       const item = rootChildren[i];
       if (this.isSelectableElement(item)) {
-        items.push(item as SubItem);
+        items.push(item as Option);
       }
     }
 
@@ -881,7 +811,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param event Event to check
    * @returns The first selectable element or undefined
    */
-  private findSelectableElement (event: Event): SubItem | undefined {
+  private findSelectableElement (event: Event): Option | undefined {
     const path = event.composedPath();
     for (let i = 0; i < path.length; i += 1) {
       const element = path[i] as Element;
@@ -889,7 +819,7 @@ export class Select extends ControlElement implements MultiValue {
         return;
       }
       if (this.isSelectableElement(element)) {
-        return element as SubItem;
+        return element as Option;
       }
     }
   }
@@ -899,7 +829,7 @@ export class Select extends ControlElement implements MultiValue {
    * *Can be used only when select is opened*
    * @returns A list of selected elements
    */
-  private getSelectedElements (): SubItem[] {
+  private getSelectedElements (): Option[] {
     return this.getSelectableElements().filter(item => item.selected);
   }
 
@@ -908,14 +838,9 @@ export class Select extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private clearSelection (): void {
-    if (this.hasDataItems()) {
-      this.selectedDataItems.forEach((item: SelectDataItem) => this.composer.setItemPropertyValue(item, 'selected', false));
-    }
-    else {
-      this.selectedSlotItems.forEach(item => {
-        item.selected = false;
-      });
-    }
+    this.selectedSlotItems.forEach(item => {
+      item.selected = false;
+    });
     this.requestUpdate();
   }
 
@@ -926,27 +851,7 @@ export class Select extends ControlElement implements MultiValue {
    */
   protected selectValue (value: string): boolean {
     if (!this.values.includes(value)) {
-      if (this.hasDataItems()) {
-        return this.selectDataItem(value);
-      }
-      else {
-        return this.selectSlotItem(value);
-      }
-    }
-
-    return false;
-  }
-
-  /**
-   * Mark data item as selected
-   * @param value SubItem value
-   * @returns true if corresponding item is found and item selected
-   */
-  private selectDataItem (value: string): boolean {
-    const item = this.composer.queryItemsByPropertyValue('value', value)[0];
-    if (item) {
-      this.composer.setItemPropertyValue(item, 'selected', true);
-      return true;
+      return this.selectSlotItem(value);
     }
 
     return false;
@@ -954,7 +859,7 @@ export class Select extends ControlElement implements MultiValue {
 
   /**
    * Mark slotted item as selected
-   * @param value SubItem value, item label or item text content
+   * @param value Option value, item label or item text content
    * @returns true if corresponding item is found and item selected
    */
   private selectSlotItem (value: string): boolean {
@@ -974,7 +879,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param item select item
    * @returns value
    */
-  private getItemValue (item: SubItem): string {
+  private getItemValue (item: Option): string {
     return item.value || (item.hasAttribute('value') ? '' : this.getItemLabel(item));
   }
 
@@ -983,31 +888,15 @@ export class Select extends ControlElement implements MultiValue {
    * @param item select item
    * @returns value
    */
-  private getItemLabel (item: SubItem): string {
-    return item.label || item.textContent || '';
-  }
-
-  /**
-   * Check whether select is working with data or slotted content
-   * @returns True if working with data
-   */
-  private hasDataItems (): boolean {
-    return !!this.data?.length;
-  }
-
-  /**
-   * Retrieve the selected data items
-   * @returns Selected data item
-   */
-  private get selectedDataItems (): SelectData {
-    return this.composer.queryItemsByPropertyValue('selected', true) as SelectData;
+  private getItemLabel (item: Option): string {
+    return item.textContent || '';
   }
 
   /**
    * Retrieve the selected items
    * @returns Selected data item
    */
-  private get selectedSlotItems (): SubItem[] {
+  private get selectedSlotItems (): Option[] {
     return this.getSelectedElements();
   }
 
@@ -1016,7 +905,7 @@ export class Select extends ControlElement implements MultiValue {
    * @returns Label
    */
   private get labelText (): string {
-    return this.multiple ? this.labels.join(LABEL_SEPARATOR) : this.label;
+    return this.label;
   }
 
   /**
@@ -1025,34 +914,6 @@ export class Select extends ControlElement implements MultiValue {
    */
   private placeholderHidden (): boolean {
     return !!(this.labels.length > 0 || this.value);
-  }
-
-  /**
-   * Create template for menu item
-   * @param item JSON object to parse
-   * @returns template result
-   */
-  private toItem (item: SelectDataItem): TemplateResult {
-    switch (item.type) {
-      case 'divider':
-        return html`<ds-sub-item role="presentation" part="item" type="divider"></ds-sub-item>`;
-      case 'header':
-        return html`<ds-sub-item
-          role="presentation"
-          part="item"
-          type="header"
-          .label=${item.label}></ds-sub-item>`;
-      // no default
-    }
-    // eslint-disable-next-line lit-a11y/role-has-required-aria-attrs
-    return html`<ds-sub-item
-      role="option"
-      part="item"
-      .value=${item.value}
-      .label=${item.label}
-      ?selected=${this.composer.getItemPropertyValue(item, 'selected') as boolean}
-      ?disabled=${item.disabled}
-    ></ds-sub-item>`;
   }
 
   /**
@@ -1089,13 +950,6 @@ export class Select extends ControlElement implements MultiValue {
   }
 
   /**
-   * Get data iterator template
-   */
-  private get dataContent (): TemplateResult {
-    return html`${(this.composer.queryItems(() => true) as SelectData).map(item => this.toItem(item))}`;
-  }
-
-  /**
   * Edit template when select is not readonly or disabled
   */
   private get popupTemplate (): TemplateResult | undefined {
@@ -1118,7 +972,7 @@ export class Select extends ControlElement implements MultiValue {
         @opened-changed="${this.onPopupOpenedChanged}"
         @opened="${this.onPopupOpened}"
         @refit=${this.onPopupRefit}
-        @closed="${this.onPopupClosed}">${this.hasDataItems() ? this.dataContent : this.slottedContent}</ds-sub-overlay>`;
+        @closed="${this.onPopupClosed}">${this.slottedContent}</ds-sub-overlay>`;
     }
   }
 
