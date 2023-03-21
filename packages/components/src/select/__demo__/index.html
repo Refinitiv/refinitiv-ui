@@ -9,7 +9,6 @@
   <link type="text/css" rel="stylesheet" href="src/default-theme.css">
   <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)" href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css">
   <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
-  <script src="countries.js"></script>
 </head>
 <style>
   ds-select {
@@ -24,55 +23,20 @@
   <h1>Select</h1>
   <p>Default</p>
   <ds-select placeholder="Pick item..." class="short">
-    <ds-sub-item role="presentation" type="header">Drinks</ds-sub-item>
-    <ds-sub-item role="option" value="1">Cola</ds-sub-item>
-    <ds-sub-item role="option" selected value="2">Lemonade</ds-sub-item>
-    <ds-sub-item role="option" value="3">Orange Juice</ds-sub-item>
-    <ds-sub-item role="option" value="4" disabled>Apple Juice</ds-sub-item>
-    <ds-sub-item role="option" value="5">Iced Tea</ds-sub-item>
-    <ds-sub-item role="option" value="6">Water</ds-sub-item>
-    <ds-sub-item role="presentation" type="header">Ice Cream</ds-sub-item>
-    <ds-sub-item role="option" value="7">Vanilla</ds-sub-item>
-    <ds-sub-item role="option" value="8">Chocolate</ds-sub-item>
-    <ds-sub-item role="option" value="9">Honey &amp; Walnut</ds-sub-item>
-    <ds-sub-item role="option" value="10">Pistachio</ds-sub-item>
-    <ds-sub-item role="option" value="11">Salted Caramel</ds-sub-item>
-    <ds-sub-item role="option" value="12">Mint Choc Chip</ds-sub-item>
-    <ds-sub-item role="option" value="13">Hazelnut</ds-sub-item>
-    <ds-sub-item role="option" value="14">Strawberry</ds-sub-item>
-    <ds-sub-item role="option" value="15">Raspberry</ds-sub-item>
-  </ds-select>
-
-  <div>
-    <p id="country-label">Choose a country: </p>
-    <ds-select opened id="country" aria-labelledby="country-label country"></ds-select>
-  </div>
-  <script>
-      const el = document.getElementById('country');
-      el.data = window.countries;
-      el.value = 'GB';
-  </script>
-
-  <p>Error & Warning</p>
-  <ds-select placeholder="Pick item..." class="short" error>
-    <ds-sub-item role="presentation" type="header">Drinks</ds-sub-item>
-    <ds-sub-item role="option" value="1">Cola</ds-sub-item>
-  </ds-select>
-  <ds-select placeholder="Pick item..." class="short" warning>
-    <ds-sub-item role="presentation" type="header">Drinks</ds-sub-item>
-    <ds-sub-item role="option" value="1">Cola</ds-sub-item>
-  </ds-select>
-
-  <p>Disabled</p>
-  <ds-select placeholder="Pick item..." class="short" disabled>
-    <ds-sub-item role="presentation" type="header">Drinks</ds-sub-item>
-    <ds-sub-item role="option" value="1">Cola</ds-sub-item>
-  </ds-select>
-
-  <p>Readonly</p>
-  <ds-select placeholder="Pick item..." class="short" readonly>
-    <ds-sub-item role="presentation" type="header">Drinks</ds-sub-item>
-    <ds-sub-item role="option" value="1">Cola</ds-sub-item>
+    <ds-option value="1">Cola</ds-option>
+    <ds-option selected value="2">Lemonade</ds-option>
+    <ds-option value="3">Orange Juice</ds-option>
+    <ds-option value="4" disabled>Apple Juice</ds-option>
+    <ds-option value="5">Iced Tea</ds-option>
+    <ds-option value="6">Water</ds-option>
+    <ds-option value="8">Chocolate</ds-option>
+    <ds-option value="9">Honey &amp; Walnut</ds-option>
+    <ds-option value="10">Pistachio</ds-option>
+    <ds-option value="11">Salted Caramel</ds-option>
+    <ds-option value="12">Mint Choc Chip</ds-option>
+    <ds-option value="13">Hazelnut</ds-option>
+    <ds-option value="14">Strawberry</ds-option>
+    <ds-option value="15">Raspberry</ds-option>
   </ds-select>
 </body>
 </html>
