@@ -17,7 +17,7 @@ import '../sub-overlay/index.js';
 import '../option/index.js';
 
 import { Option } from '../option/index.js';
-import { TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 
 import type { Overlay } from '../sub-overlay';
 import type { OpenedChangedEvent } from '../events.js';
@@ -38,8 +38,6 @@ const observerOptions = {
 };
 
 const POPUP_POSITION = ['bottom-start', 'top-start'];
-const KEY_SEARCH_DEBOUNCER = 300;
-
 enum Navigation {
   FIRST = 'First',
   LAST = 'Last',
@@ -57,8 +55,8 @@ enum Navigation {
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
  */
-@customElement('ui-select', { theme: false })
-export class Select extends ControlElement {
+@customElement('ui-sub-select', { theme: false })
+export class SubSelect extends ControlElement {
 
   /**
    * Element version number
@@ -67,8 +65,6 @@ export class Select extends ControlElement {
   static get version (): string {
     return VERSION;
   }
-
-  static shadowRootOptions = { ...ControlElement.shadowRootOptions, mode: 'open' as ShadowRootMode };
 
   protected readonly defaultRole: string | null = 'button';
 
@@ -97,29 +93,9 @@ export class Select extends ControlElement {
       :host(:focus) {
         border-color: var(--ds-control-focus-border-color);
       }
-      :host(:not([readonly]):not([error]):not([warning]):not(:focus):hover) {
+      :host(:not([readonly]):not([error]):not(:focus):hover) {
         color: var(--ds-control-hover-color);
         border-color: var(--ds-control-hover-border-color);
-      }
-      :host([error]:not(:focus)), :host([error][warning]:not(:focus)) {
-        color: var(--ds-control-color);
-        border-color: var(--ds-control-error-border-color);
-        background-color: var(--ds-control-error-background-color);
-      }
-      :host([error]:hover:not([readonly]):not(:focus)) {
-        color: var(--ds-control-hover-color);
-        border-color: var(--ds-control-error-hover-border-color);
-        background-color: var(--ds-field-error-hover-background-color);
-      }
-      :host([warning]:not(:focus)) {
-        color: var(--ds-control-color);
-        border-color: var(--ds-control-warning-border-color);
-        background-color: var(--ds-control-warning-background-color);
-      }
-      :host([warning]:hover:not([readonly]):not(:focus)) {
-        color: var(--ds-control-hover-color);
-        border-color: var(--ds-control-warning-hover-border-color);
-        background-color: var(--ds-control-warning-hover-background-color);
       }
       :host([disabled]) {
         color: var(--ds-control-disabled-color);
@@ -131,7 +107,6 @@ export class Select extends ControlElement {
         border-color: var(--ds-control-readonly-border-color);
         background-color: var(--ds-control-readonly-background-color);
       }
-
       [part=label],
       [part=placeholder] {
         white-space: nowrap;
@@ -146,7 +121,7 @@ export class Select extends ControlElement {
         max-width: var(--ui-select-list-max-width);
         max-height: var(--ui-select-list-max-height, 200px);
       }
-      :host [part="list"] ::slotted(:not(ui-option)) {
+      :host [part=list] ::slotted(:not(ui-option)) {
         display: none;
       }
       :host [part=sub-item] {
@@ -175,19 +150,6 @@ export class Select extends ControlElement {
         left: 0;
         cursor: pointer;
       }
-      #select {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        border: none;
-        padding: 0;
-        margin: 0;
-      }
     `;
   }
 
@@ -197,27 +159,7 @@ export class Select extends ControlElement {
   private popupScrollTop = 0; /* remember scroll position on popup refit actions */
   private observingMutations = false;
   private highlightedItem?: Option;
-  private keySearchTerm = ''; /* used for quick search */
-  private keySearchThrottler = new TimeoutTaskRunner(KEY_SEARCH_DEBOUNCER);
   private resizeThrottler = new AnimationTaskRunner();
-
-  /**
-   * Current text content of the selected value
-   * @readonly
-   */
-  @property({ type: String, attribute: false })
-  public get label (): string {
-    return this.labels[0];
-  }
-  /**
-   * Current text content of the selected values
-   * @ignore
-   * @readonly
-   */
-  @property({ type: Array, attribute: false })
-  public get labels (): string[] {
-    return this.selectedSlotItems.map(item => this.getItemLabel(item));
-  }
 
   /**
    * Placeholder to display when no value is set
@@ -232,25 +174,6 @@ export class Select extends ControlElement {
   public opened = false;
 
   /**
-   * Set state to error
-   */
-  @property({ type: Boolean, reflect: true })
-  public error = false;
-
-  /**
-   * Set state to warning
-   */
-  @property({ type: Boolean, reflect: true })
-  public warning = false;
-
-  /**
-   * This variable is here to ensure that the value and data are in sync when data is set after the value.
-   * This is developer error to use both, selected and value to control the selections.
-   * Therefore as soon as value has been set externally, selected state in data setter is ignored
-   */
-  private cachedValue = '';
-
-  /**
    * Value of the element
    * @param value Element value
    * @default -
@@ -258,9 +181,6 @@ export class Select extends ControlElement {
   @property({ type: String, attribute: false })
   public set value (value: string) {
     value = this.castValue(value);
-
-    this.cachedValue = value;
-
     const oldValue = this.value;
     if (value !== oldValue) {
       this.stopObserveMutations();
@@ -272,28 +192,13 @@ export class Select extends ControlElement {
     }
   }
   public get value (): string {
-    return this.values[0] || '';
-  }
-
-  /**
-   * Array of selected items` values
-   * @ignore
-   * @readonly
-   */
-  @property({ attribute: false })
-  public get values (): string[] {
-    return this.selectedSlotItems.map(item => this.getItemValue(item));
+    return this.selectedSlotItems.map(item => this.getItemValue(item))[0] || '';
   }
 
   /**
    * Reference to the menu element
    */
   private menuRef: Ref<Overlay> = createRef();
-
-  /**
-   * Reference to the label element
-   */
-  private labelRef: Ref<HTMLDivElement> = createRef();
 
   /**
    * Called when connected to DOM
@@ -318,19 +223,11 @@ export class Select extends ControlElement {
    * @returns {void}
    */
   protected update (changedProperties: PropertyValues): void {
-    this.cachedValue = ''; /* reset cached value as it is only valid when value and data are set the same time */
-
     if (changedProperties.has('opened')) {
-
       if (this.opened) {
         this.opening();
       }
-
       this.setAttribute('aria-expanded', this.opened ? 'true' : 'false');
-    }
-
-    if (changedProperties.has('error')) {
-      this.setAttribute('aria-invalid', this.error ? 'true' : 'false');
     }
 
     super.update(changedProperties);
@@ -359,6 +256,10 @@ export class Select extends ControlElement {
       // Start watching for any child mutations
       this.observeMutations();
     });
+  }
+
+  private get label (): string {
+    return this.selectedSlotItems.map(item => this.getItemLabel(item))[0];
   }
 
   /**
@@ -548,12 +449,7 @@ export class Select extends ControlElement {
    * @returns {void}
    */
   private onPopupClosed ({ target }: CustomEvent): void {
-    const eventOptions = { /* need this for IE11, otherwise the event is not removed */
-      capture: true,
-      passive: true
-    };
-
-    target?.removeEventListener('scroll', this.onPopupScroll, eventOptions);
+    target?.removeEventListener('scroll', this.onPopupScroll);
     this.setItemHighlight();
     this.popupScrollTop = 0;
   }
@@ -608,7 +504,6 @@ export class Select extends ControlElement {
       case 'ArrowDown':
       case 'Enter':
       case 'Spacebar':
-      case ' ':
         this.setOpened(true);
         break;
       default:
@@ -625,7 +520,6 @@ export class Select extends ControlElement {
    */
   private onPopupKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
-      case ' ':
       case 'Spacebar':
       case 'Enter':
         this.highlightedItem?.click();
@@ -647,30 +541,11 @@ export class Select extends ControlElement {
       case 'End':
         this.focusElement(Navigation.LAST);
         break;
-      default:
-        if (this.isValidFilterKey(event)) {
-          this.onKeySearch(event.key);
-          break;
-        }
-        return;
       // no default
     }
 
     event.preventDefault();
     event.stopPropagation(); /* must be her to not reach self key listener */
-  }
-
-  /**
-   * Check if keyboard keydown can be used for data searching
-   * @param event Keyboard event
-   * @returns true if a valid key
-   */
-  private isValidFilterKey (event: KeyboardEvent): boolean {
-    // all printable keys have length of 1. This is better than regexp as we cover all non latin characters
-    return event.key.length === 1
-      && !event.ctrlKey
-      && !event.altKey
-      && !event.metaKey;
   }
 
   /**
@@ -737,33 +612,6 @@ export class Select extends ControlElement {
 
     if (item) {
       item.highlighted = true;
-    }
-  }
-
-  /**
-   * A simple search that highlight elements on key press
-   * @param key A key pressed
-   * @returns {void}
-   */
-  private onKeySearch (key: string): void {
-    this.keySearchTerm += key.toLowerCase();
-    this.keySearchThrottler.schedule(() => {
-      this.keySearchTerm = '';
-    });
-
-    // start from highlighted and continue in circles
-    let selectableElements = this.getSelectableElements();
-    const highlightedIdx = this.highlightedItem ? selectableElements.indexOf(this.highlightedItem) : -1;
-    selectableElements = selectableElements.concat(selectableElements.splice(0, highlightedIdx));
-
-    const focusElement = selectableElements.find(item => {
-      const label = this.getItemLabel(item).toLowerCase();
-      return label.startsWith(this.keySearchTerm) && item !== this.highlightedItem;
-    });
-
-    if (focusElement) {
-      focusElement.focus();
-      this.setItemHighlight(focusElement);
     }
   }
 
@@ -845,11 +693,7 @@ export class Select extends ControlElement {
    * @returns true if corresponding item is found and item selected
    */
   protected selectValue (value: string): boolean {
-    if (!this.values.includes(value)) {
-      return this.selectSlotItem(value);
-    }
-
-    return false;
+    return this.selectSlotItem(value);
   }
 
   /**
@@ -896,19 +740,11 @@ export class Select extends ControlElement {
   }
 
   /**
-   * Get text for labels
-   * @returns Label
-   */
-  private get labelText (): string {
-    return this.label;
-  }
-
-  /**
    * Calculating whether the placeholder should be hidden
    * @returns result
    */
   private placeholderHidden (): boolean {
-    return !!(this.labels.length > 0 || this.value);
+    return !!(this.label.length > 0 || this.value);
   }
 
   /**
@@ -922,7 +758,7 @@ export class Select extends ControlElement {
    * Template for label
    */
   private get labelTemplate (): TemplateResult {
-    return html`<div part="label" ${ref(this.labelRef)}>${this.labelText}</div>`;
+    return html`<div part="label">${this.label}</div>`;
   }
 
   /**
@@ -982,7 +818,7 @@ export class Select extends ControlElement {
       <div id="text">
         ${this.placeholderHidden() ? this.labelTemplate : this.placeholderTemplate}
       </div>
-     <ui-sub-icon icon="down" part="icon"></ui-sub-icon>
+      <ui-sub-icon icon="down" part="icon"></ui-sub-icon>
     </div>
     ${this.editTemplate}`;
   }
@@ -990,6 +826,6 @@ export class Select extends ControlElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ui-select': Select;
+    'ui-sub-select': SubSelect;
   }
 }

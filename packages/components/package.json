@@ -37,6 +37,7 @@
     "./input-field": "./lib/input-field/index.js",
     "./option": "./lib/option/index.js",
     "./select": "./lib/select/index.js",
+    "./sub-select": "./lib/sub-select/index.js",
     "./sub-icon": "./lib/sub-icon/index.js",
     "./sub-label": "./lib/sub-label/index.js",
     "./sub-checkbox": "./lib/sub-checkbox/index.js",

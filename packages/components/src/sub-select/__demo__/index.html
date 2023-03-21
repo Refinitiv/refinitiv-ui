@@ -11,18 +11,19 @@
   <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
 </head>
 <style>
-  ui-select {
+  ui-sub-select {
     margin: 10px 0;
   }
 </style>
 <body>
   <script type="module">
-    import '@refinitiv-ui/components/select';
+    import '@refinitiv-ui/components/sub-select';
+    import '@refinitiv-ui/components/option';
   </script>
   <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
   <h1>Select</h1>
   <p>Default</p>
- <ui-select placeholder="Pick item..." class="short">
+ <ui-sub-select placeholder="Pick item..." class="short">
    <ui-option value="1">Cola</ui-option>
    <ui-option selected value="2">Lemonade</ui-option>
    <ui-option value="3">Orange Juice</ui-option>
@@ -37,6 +38,6 @@
    <ui-option value="13">Hazelnut</ui-option>
    <ui-option value="14">Strawberry</ui-option>
    <ui-option value="15">Raspberry</ui-option>
-  </ui-select>
+  </ui-sub-select>
 </body>
 </html>
