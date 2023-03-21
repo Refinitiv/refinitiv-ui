@@ -16,18 +16,18 @@
   <script type="module">
     import '@refinitiv-ui/components/button';
   </script>
-  <style>
-    ui-button {
-      margin: 0.5rem;
-    }
-  </style>
   <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
   <h1>Button</h1>
 
   <p>Default</p>
 
- <ui-button>Primary</ui-button>
- <ui-button variant="secondary">Secondary</ui-button>
+  <ui-button>Primary</ui-button>
+  <ui-button variant="secondary">Secondary</ui-button>
+
+  <p>Max-width</p>
+
+  <ui-button style="width: 100%; margin-bottom: 1rem;">Primary</ui-button>
+  <ui-button style="width: 100%;" variant="secondary">Secondary</ui-button>
 
   <p>With icon-end</p>
 
@@ -47,6 +47,9 @@
       isClicked.innerHTML = clicks;
     });
   </script>
+
+  <p>Long Text</p>
+  <ui-button icon-end="right">rule of 3: tribble button copy to demonstrate behaviour as the label gets very long - icon stays centred</ui-button>
 </body>
 
 </html>
