@@ -31,6 +31,7 @@
     },
     "./version": "./lib/version.js",
     "./button": "./lib/button/index.js",
+    "./card": "./lib/card/index.js",
     "./checkbox": "./lib/checkbox/index.js",
     "./icon": "./lib/icon/index.js",
     "./flag": "./lib/flag/index.js",
