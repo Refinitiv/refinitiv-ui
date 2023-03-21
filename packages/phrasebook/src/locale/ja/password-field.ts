@@ -5,6 +5,6 @@ const translations = {
   HIDE_PASSWORD: 'パスワードを非表示'
 };
 
-Phrasebook.define('ja', 'ef-password-field', translations);
+Phrasebook.define('ja', 'ds-sub-password-field', translations);
 
 export default translations;

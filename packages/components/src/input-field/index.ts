@@ -74,6 +74,12 @@ export class InputField extends ControlElement {
     this.notifyPropertyChange('error', this.error);
   }
 
+  private handleIconClick (): void {
+    if (this.iconHasAction && !this.disabled) {
+      this.dispatchEvent(new CustomEvent('icon-click', { bubbles: false }));
+    }
+  }
+
   protected get decorateField (): TemplateMap {
     return {
       'aria-labelledby': this.label ? 'label' : null,
@@ -83,8 +89,12 @@ export class InputField extends ControlElement {
       'error': this.error || null,
       'warning': this.warning || null,
       'pattern': this.pattern || null,
+      'value': this.value || null,
+      'icon': this.icon || null,
+      'icon-has-action': this.iconHasAction || null,
       'minlength': this.minLength || null,
       'maxlength': this.maxLength || null,
+      '@icon-click': this.handleIconClick,
       '@value-changed': this.handleValueChanged,
       '@error-changed': this.handleErrorChanged
     };
