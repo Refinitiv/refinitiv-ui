@@ -111,7 +111,7 @@ hr {
   margin: var(--ds-space-small) 0;
 }
 
-input {
+input[type=text] {
   appearance: none;
   font-size: inherit;
   font-weight: inherit;
@@ -124,7 +124,7 @@ input {
   background-color: var(--ds-control-background-color);
 }
 
-input:focus {
+input[type=text]:focus {
   outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
 }
 
