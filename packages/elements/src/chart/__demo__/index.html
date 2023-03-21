@@ -255,7 +255,7 @@
                 title: (tooltipItems) => {
                   return tooltipItems[0].chart.data.datasets[tooltipItems[0].datasetIndex].label;
                 },
-                label: (tooltipItem) => {
+                label: function (tooltipItem) {
                   const year = tooltipItem.label;
                   let rev = tooltipItem.raw;
                   rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -625,10 +625,10 @@
     </script>
   </demo-block>
 
-  <demo-block layout="normal" header="Time Scale">
+  <!-- <demo-block layout="normal" header="Time Scale">
     <ef-chart id="timeScale"></ef-chart>
     <script>
-      const timeScale = document.getElementById('timeScale');
+      var timeScale = document.getElementById('timeScale');
       timeScale.config = {
         type: 'line',
         data: {
@@ -648,39 +648,38 @@
           }]
         },
         options: {
-          plugins: {
-            title: {
-              text: 'Hourly Price of AAPL.O on 7 Sep 2016 (iPhone 7 release date)'
-            },
-            legend: {
-              display: false // Not display legend
-            },
-            tooltip: {
-              callbacks: {
-                label: (tooltipItem) => {
-                  return 'Price: $' + tooltipItem.raw;
-                }
-              }
-            }
+          title: {
+            text: 'Hourly Price of AAPL.O on 7 Sep 2016 (iPhone 7 release date)'
+          },
+          legend: {
+            display: false // Not display legend
           },
           scales: {
-            // xAxes: {
-            //   type: 'time', // Set type of scale as time
-            //   time: {
-            //     displayFormats: {
-            //       hour: 'hA' // Set custom format for hour unit
-            //     },
-            //     unit: 'hour',
-            //     tooltipFormat: 'D MMM YYYY - hA'
-            //   }
-            // },
-            // yAxes: [{
-            //   scaleLabel: {
-            //     display: true,
-            //     labelString: 'Price ($)'
-            //   }
-            // }]
+            xAxes: [{
+              type: 'time', // Set type of scale as time
+              time: {
+                displayFormats: {
+                  hour: 'hA' // Set custom format for hour unit
+                },
+                unit: 'hour',
+                tooltipFormat: 'D MMM YYYY - hA'
+              }
+            }],
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Price ($)'
+              }
+            }]
           },
+          tooltips: {
+            callbacks: {
+              label: function (tooltipItem, data) {
+                var result = data.datasets[0].data[tooltipItem.index];
+                return 'Price: $' + result;
+              }
+            }
+          }
         }
       };
     </script>
@@ -689,8 +688,8 @@
   <demo-block layout="normal" header="Time Scale - Multi-line">
     <ef-chart id="multipleLinesTimeScale"></ef-chart>
     <script>
-      const multipleLinesTimeScale = document.getElementById('multipleLinesTimeScale');
-      const TimeScaleDatasets = [{
+      var multipleLinesTimeScale = document.getElementById('multipleLinesTimeScale');
+      var datasets = [{
         label: 'GOOGL.O',
         data: [0, 11, 66.68, -25.84, 49.44, 43.17, 55.69, 70.51, 170.14, 155.58, 274.71],
         fill: false,
@@ -743,18 +742,42 @@
             new Date(2014, 12, 31),
             new Date(2015, 12, 31)
           ],
-          datasets: TimeScaleDatasets
+          datasets: datasets
         },
         options: {
-          plugins: {
-            title: {
-              text: 'Yearly Price Change of Major Technology Companies'
-            },
-            tooltip: {
+          title: {
+            text: 'Yearly Price Change of Major Technology Companies'
+          },
+          scales: {
+            xAxes: [{
+              type: 'time',
+              time: {
+                displayFormats: {
+                  year: '\'YY' // Set custom format for hour unit
+                },
+                unit: 'year',
+                round: 'year', // Set round as year for starting of this unit
+                tooltipFormat: 'YYYY'
+              }
+            }],
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Price Changes'
+              },
+              ticks: {
+                stepSize: 50,
+                callback: function (label, index) {
+                  return label + '%';
+                }
+              }
+            }]
+          },
+          tooltips: {
             callbacks: {
-              title: (tooltipItems) => {
-                const item = tooltipItems[0];
-                var year = item.label;
+              title: function (tooltipItem, data) {
+                var item = tooltipItem[0];
+                var year = item.xLabel;
                 var datasets = data.datasets[item.datasetIndex];
                 var label = datasets.label;
                 return year + ' - ' + label;
@@ -765,32 +788,6 @@
               }
             }
           }
-          },
-          scales: {
-            x: {
-              // type: 'time',
-              // time: {
-              //   displayFormats: {
-              //     year: '\'YY' // Set custom format for hour unit
-              //   },
-              //   unit: 'year',
-              //   round: 'year', // Set round as year for starting of this unit
-              //   tooltipFormat: 'YYYY'
-              // }
-            },
-            y: {
-              // scaleLabel: {
-              //   display: true,
-              //   labelString: 'Price Changes'
-              // },
-              // ticks: {
-              //   stepSize: 50,
-              //   callback: function (label, index) {
-              //     return label + '%';
-              //   }
-              // }
-            }
-          },
         }
       };
     </script>
@@ -846,20 +843,24 @@
             text: 'Price of Oil vs Russian Ruble'
           },
           scales: {
-            x: {
-              type: 'linear',
-              position: 'bottom',
-              title: {
-                display: true,
-                text: 'Price of Oil ($)'
+            xAxes: [
+              {
+                type: 'linear',
+                position: 'bottom',
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Price of Oil ($)'
+                }
               }
-            },
-            y: {
-              title: {
-                display: true,
-                text: 'Russian ruble (per $)'
+            ],
+            yAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Russian ruble (per $)'
+                }
               }
-            }
+            ]
           },
           tooltips: {
             callbacks: {
@@ -884,8 +885,12 @@
   <demo-block layout="normal" header="Bubble Chart">
     <ef-chart id="bubble"></ef-chart>
     <script>
-      const bubble = document.getElementById('bubble');
-      const bubbleDataset = [
+      var bubble = document.getElementById('bubble');
+
+      bubble.config = {
+        type: 'bubble',
+        data: {
+          datasets: [
             {
               label: 'Zimbabwe',
               data: [{ x: 450, y: 46, r: 3 }]
@@ -915,59 +920,59 @@
               data: [{ x: 45000, y: 78, r: 12 }]
             }
           ]
-      bubble.config = {
-        type: 'bubble',
-        data: {
-          datasets: bubbleDataset
         },
         options: {
           title: {
             text: 'GDP vs. Life Expectancy (Size = Popuation)'
           },
           scales: {
-            // x: {
-            //   type: 'logarithmic',
-            //   position: 'bottom',
-            //   ticks: {
-            //     min: 450,
-            //     max: 50000,
-            //     maxRotation: 10,
-            //     callback: function (label, index) {
-            //       var xLabels = ['500', '1000', '2000', '5000', '10,000', '20000', '50000'];
-            //       return xLabels.indexOf(label.toString()) > -1 ? label : '';
-            //     }
-            //   },
-            //   scaleLabel: {
-            //     display: true,
-            //     labelString: 'GDP per person in US dollars (log scale)'
-            //   }
-            // },
-            // y: {
-            //   ticks: {
-            //     min: 45,
-            //     max: 85,
-            //     stepSize: 5
-            //   },
-            //   scaleLabel: {
-            //     display: true,
-            //     labelString: 'Life expectancy at birth (years)'
-            //   }
-            // }
-          },
-          plugins: {
-            tooltip: {
-              callbacks: {
-                title: (tooltipItems) => {
-                  const item = tooltipItems[0];
-                  const dataset = bubbleDataset[item.datasetIndex];
-                  return dataset.label;
+            xAxes: [
+              {
+                type: 'logarithmic',
+                position: 'bottom',
+                ticks: {
+                  min: 450,
+                  max: 50000,
+                  maxRotation: 10,
+                  callback: function (label, index) {
+                    var xLabels = ['500', '1000', '2000', '5000', '10,000', '20000', '50000'];
+                    return xLabels.indexOf(label.toString()) > -1 ? label : '';
+                  }
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'GDP per person in US dollars (log scale)'
                 }
+              }
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  min: 45,
+                  max: 85,
+                  stepSize: 5
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Life expectancy at birth (years)'
+                }
+              }
+            ]
+          },
+          tooltips: {
+            callbacks: {
+              title: function (tooltipItem, data) {
+                var item = tooltipItem[0];
+                var dataset = data.datasets[item.datasetIndex];
+                return dataset.label;
               },
-              label: (tooltipItem) => {
-                return 'GDP per Capita : ' + tooltipItem.label + '$';
+              label: function (tooltipItem, data) {
+                var x = tooltipItem.xLabel;
+                return 'GDP per Capita : ' + x + '$';
               },
-              afterLabel: (tooltipItem) => {
-                return 'Life expectancy : ' + tooltipItem.raw + ' Yrs';
+              afterLabel: function (tooltipItem, data) {
+                var y = tooltipItem.yLabel;
+                return 'Life expectancy : ' + y + ' Yrs';
               }
             }
           }
@@ -979,36 +984,51 @@
   <demo-block layout="normal" header="Radar Chart">
     <ef-chart id="radar"></ef-chart>
     <script>
-      const radar = document.getElementById('radar');
+      var radar = document.getElementById('radar');
+
       radar.config = {
         type: 'radar',
         data: {
           labels: [['Eating', 'Dinner'], ['Drinking', 'Water'], 'Sleeping', ['Designing', 'Graphics'], 'Coding', 'Cycling', 'Running'],
           datasets: [{
             label: 'Humanoid A',
-            data: [13, 10, 9, 14, 9, 5, 10]
+            data: [
+              13,
+              10,
+              9,
+              14,
+              9,
+              5,
+              10
+            ]
           },
           {
             label: 'Humanoid B',
-            data: [8, 5, 9, 7, 17, 11, 4]
+            data: [
+              8,
+              5,
+              9,
+              7,
+              17,
+              11,
+              4
+            ]
           }]
         },
         options: {
-          plugins: {
-            legend: {
-              position: 'right'
-            },
-            title: {
-              display: true,
-              text: 'Humanoid Profile Comparison'
-            }
+          legend: {
+            position: 'right'
+          },
+          title: {
+            display: true,
+            text: 'Humanoid Profile Comparison'
           }
         }
       };
     </script>
   </demo-block>
 
-  <!-- <demo-block layout="normal" header="Toggle Chart Type">
+  <demo-block layout="normal" header="Toggle Chart Type">
     <ef-chart id="avgVolumeRicChart"></ef-chart>
     <button onClick="showBar()">BAR</button>
     <button onClick="showDoughnut()">PIE</button>
@@ -1084,7 +1104,7 @@
       };
       /* eslint-enable no-unused-vars */
     </script>
-  </demo-block> -->
+  </demo-block>
 
   <demo-block layout="normal" header="Add New Data">
     <ef-chart id="addNewDataSet"></ef-chart>
@@ -1104,6 +1124,7 @@
         }
       };
 
+      /* eslint-disable no-unused-vars */
       let addData = () => {
         addDataChart.config.data.datasets[0].data.push(400);
         addDataChart.config.data.labels.push('New Data');
@@ -1112,9 +1133,10 @@
 
       let addDataChart = document.getElementById('addNewDataSet');
       addDataChart.config = initConfig;
+      /* eslint-enable no-unused-vars */
     </script>
   </demo-block>
-
+-->
   <demo-block layout="normal" header="Polar area">
     <ef-chart id="polarArea"></ef-chart>
     <script>
