@@ -4,7 +4,7 @@ import path from 'node:path';
 import {
   RELEASE_SCRIPTS_PATH,
   PACKAGES_ROOT
-} from '../../../../scripts/helpers/index.mjs';
+} from '../../../../scripts/helpers/esm.mjs';
 
 const scripts = [
   path.resolve(RELEASE_SCRIPTS_PATH, 'jsxdts-generator.mjs'),

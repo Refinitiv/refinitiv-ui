@@ -3,7 +3,7 @@
  * Generic configuration for web-server.
  * Extend as required
  */
-import { ROOT } from './scripts/helpers/index.mjs';
+import { ROOT } from './scripts/helpers/esm.mjs';
 
 export default {
   rootDir: ROOT,
