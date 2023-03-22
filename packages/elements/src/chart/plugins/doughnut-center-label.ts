@@ -127,7 +127,9 @@ const plugins: Plugin = {
         else {
           chart._select = [];
         }
-        chart.draw();
+        // Trigger update to re render the chart
+        // Cannot use draw() because the chart doesn't redraw border of unselected datasets
+        chart.update();
         break;
       default:
         break;
