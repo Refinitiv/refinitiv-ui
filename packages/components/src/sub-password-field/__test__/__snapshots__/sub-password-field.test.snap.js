@@ -35,3 +35,37 @@ snapshots["ui-sub-password-field/PasswordField Can toggle password field"] =
 `;
 /* end snapshot ui-sub-password-field/PasswordField Can toggle password field */
 
+snapshots["ui-sub-password-field Can toggle password field"] = 
+`<input
+  autocomplete="off"
+  part="input"
+  type="text"
+>
+<ui-sub-icon
+  aria-label="HIDE_PASSWORD"
+  icon="eye-off"
+  part="icon"
+  role="button"
+  tabindex="0"
+>
+</ui-sub-icon>
+`;
+/* end snapshot ui-sub-password-field Can toggle password field */
+
+snapshots["ui-sub-password-field DOM Structure Default DOM is correct"] = 
+`<input
+  autocomplete="off"
+  part="input"
+  type="password"
+>
+<ui-sub-icon
+  aria-label="SHOW_PASSWORD"
+  icon="eye"
+  part="icon"
+  role="button"
+  tabindex="0"
+>
+</ui-sub-icon>
+`;
+/* end snapshot ui-sub-password-field DOM Structure Default DOM is correct */
+

@@ -36,7 +36,6 @@ describe('ui-sub-checkbox', () => {
         await expect(el.hasAttribute('checked')).to.be.false;
       });
     });
-
   });
 
   describe('Events', () => {
