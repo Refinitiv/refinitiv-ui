@@ -89,12 +89,11 @@ const bottomRight = async el => {
 
 const withHeightStyle = `style="width: ${width}px; height: ${height}px;"`;
 
-describe('overlay/Position', () => {
+describe('ui-sub-overlay/Properties/position', () => {
   describe('Position Target Screen Test', () => {
     it('Default Screen Position Target', async () => {
       await centerCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened>Default Position</ui-sub-overlay>`));
     });
-
     it('Invalid Screen Position Target', async () => {
       await centerCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="invalid position">Invalid Position</ui-sub-overlay>`));
     });
