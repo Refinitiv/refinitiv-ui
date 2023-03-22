@@ -4,15 +4,15 @@ import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
 
-import '../icon/index.js';
-import { preload } from '../icon/index.js';
+import '../sub-icon/index.js';
+import { preload } from '../sub-icon/index.js';
 import { SubTextField } from '../sub-text-field/index.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
 
 let isEyeOffPreloadRequested = false;
 
-@customElement('ds-sub-password-field', { theme: false })
+@customElement('ui-sub-password-field', { theme: false })
 export class SubPasswordField extends SubTextField {
   static shadowRootOptions = { ...SubTextField.shadowRootOptions, delegatesFocus: true };
 
@@ -42,7 +42,7 @@ export class SubPasswordField extends SubTextField {
   /**
    * Used for translations
    */
-  @translate({ scope: 'ds-sub-password-field' })
+  @translate({ scope: 'ui-sub-password-field' })
   protected t!: Translate;
 
   /**
@@ -91,7 +91,7 @@ export class SubPasswordField extends SubTextField {
    */
   protected override renderIcon (): TemplateResult {
     return html`
-      <ds-icon
+     <ui-sub-icon
         part="icon"
         role="button"
         tabindex="0"
@@ -100,13 +100,13 @@ export class SubPasswordField extends SubTextField {
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         @tap="${this.togglePasswordVisibility}"
-      ></ds-icon>
+      ></ui-sub-icon>
     `;
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-sub-password-field': SubPasswordField;
+    'ui-sub-password-field': SubPasswordField;
   }
 }

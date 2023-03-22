@@ -4,7 +4,7 @@ import '@refinitiv-ui/components/sub-overlay';
 
 import { openedUpdated } from '../mocks/helper';
 
-describe('ds-sub-overlay', () => {
+describe('ui-sub-overlay', () => {
   describe('Methods', () => {
     let originWarn = null;
     const customWarn = () => {
@@ -22,7 +22,7 @@ describe('ds-sub-overlay', () => {
 
     describe('Properties and Attributes', () => {
       it('Test fullyOpened property', async () => {
-        const overlay = await fixture('<ds-sub-overlay>test</ds-sub-overlay>');
+        const overlay = await fixture('<ui-sub-overlay>test</ui-sub-overlay>');
 
         overlay.opened = true;
 
@@ -39,7 +39,7 @@ describe('ds-sub-overlay', () => {
 
       // TODO: add transitioning=true check
       it('Test transitioning property', async () => {
-        const overlay = await fixture('<ds-sub-overlay opened>test</ds-sub-overlay>');
+        const overlay = await fixture('<ui-sub-overlay opened>test</ui-sub-overlay>');
 
         await openedUpdated(overlay);
 
@@ -49,7 +49,7 @@ describe('ds-sub-overlay', () => {
 
     describe('General Functionality', () => {
       it('Test animation style', async () => {
-        const overlay = await fixture('<ds-sub-overlay transition-style="fade">test</ds-sub-overlay>');
+        const overlay = await fixture('<ui-sub-overlay transition-style="fade">test</ui-sub-overlay>');
 
         await openedUpdated(overlay);
 
@@ -67,7 +67,7 @@ describe('ds-sub-overlay', () => {
       });
 
       it('Test fullscreen property', async () => {
-        const overlay = await fixture('<ds-sub-overlay full-screen>test</ds-sub-overlay>');
+        const overlay = await fixture('<ui-sub-overlay full-screen>test</ui-sub-overlay>');
         await openedUpdated(overlay);
 
         const config = overlay.positionTargetConfig;
@@ -80,7 +80,7 @@ describe('ds-sub-overlay', () => {
       });
 
       it('Test fullscreen property with opened state', async () => {
-        const overlay = await fixture('<ds-sub-overlay opened>test</ds-sub-overlay>');
+        const overlay = await fixture('<ui-sub-overlay opened>test</ui-sub-overlay>');
         await openedUpdated(overlay);
 
         overlay.fullScreen = true;
@@ -98,7 +98,7 @@ describe('ds-sub-overlay', () => {
       });
 
       it('Test refit method with closed window', async () => {
-        const overlay = await fixture('<ds-sub-overlay>test</ds-sub-overlay>');
+        const overlay = await fixture('<ui-sub-overlay>test</ui-sub-overlay>');
         await openedUpdated(overlay);
 
         let callCount = 0;
@@ -114,7 +114,7 @@ describe('ds-sub-overlay', () => {
       });
 
       it('Test fit method with closed window', async () => {
-        const overlay = await fixture('<ds-sub-overlay>test</ds-sub-overlay>');
+        const overlay = await fixture('<ui-sub-overlay>test</ui-sub-overlay>');
         await openedUpdated(overlay);
 
         let callCount = 0;
@@ -130,7 +130,7 @@ describe('ds-sub-overlay', () => {
       });
 
       it('Test prevent opened-changed event', async () => {
-        const overlay = await fixture('<ds-sub-overlay full-screen>test</ds-sub-overlay>');
+        const overlay = await fixture('<ui-sub-overlay full-screen>test</ui-sub-overlay>');
         await openedUpdated(overlay);
 
         overlay.addEventListener('opened-changed', (event) => {

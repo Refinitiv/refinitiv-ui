@@ -2,16 +2,16 @@
 export const snapshots = {};
 
 snapshots["input-field/InputField Default DOM structure and properties are correct"] = 
-`<ds-sub-text-field
+`<ui-sub-text-field
   aria-hidden="true"
   tabindex="0"
 >
-</ds-sub-text-field>
+</ui-sub-text-field>
 `;
 /* end snapshot input-field/InputField Default DOM structure and properties are correct */
 
 snapshots["input-field/InputField DOM structure and properties are correct"] = 
-`<ds-sub-text-field
+`<ui-sub-text-field
   aria-hidden="true"
   error=""
   icon="menu"
@@ -22,12 +22,12 @@ snapshots["input-field/InputField DOM structure and properties are correct"] =
   value="abbr"
   warning=""
 >
-</ds-sub-text-field>
+</ui-sub-text-field>
 `;
 /* end snapshot input-field/InputField DOM structure and properties are correct */
 
-snapshots["ds-input-field DOM structure and properties are correct"] = 
-`<ds-sub-text-field
+snapshots["ui-input-field DOM structure and properties are correct"] = 
+`<ui-sub-text-field
   aria-hidden="true"
   error=""
   icon="menu"
@@ -38,21 +38,21 @@ snapshots["ds-input-field DOM structure and properties are correct"] =
   value="abbr"
   warning=""
 >
-</ds-sub-text-field>
+</ui-sub-text-field>
 `;
-/* end snapshot ds-input-field DOM structure and properties are correct */
+/* end snapshot ui-input-field DOM structure and properties are correct */
 
-snapshots["ds-input-field DOM Structure DOM default is correct"] = 
-`<ds-sub-text-field
+snapshots["ui-input-field DOM Structure DOM default is correct"] = 
+`<ui-sub-text-field
   aria-hidden="true"
   tabindex="0"
 >
-</ds-sub-text-field>
+</ui-sub-text-field>
 `;
-/* end snapshot ds-input-field DOM Structure DOM default is correct */
+/* end snapshot ui-input-field DOM Structure DOM default is correct */
 
-snapshots["ds-input-field DOM Structure DOM with attributes are correct"] = 
-`<ds-sub-text-field
+snapshots["ui-input-field DOM Structure DOM with attributes are correct"] = 
+`<ui-sub-text-field
   aria-hidden="true"
   error=""
   icon="menu"
@@ -63,7 +63,7 @@ snapshots["ds-input-field DOM Structure DOM with attributes are correct"] =
   value="abbr"
   warning=""
 >
-</ds-sub-text-field>
+</ui-sub-text-field>
 `;
-/* end snapshot ds-input-field DOM Structure DOM with attributes are correct */
+/* end snapshot ui-input-field DOM Structure DOM with attributes are correct */
 

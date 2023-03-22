@@ -10,11 +10,11 @@ import {
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import '../icon/index.js';
+import '../sub-icon/index.js';
 
 const hasChanged = (value: unknown, oldValue: unknown): boolean => oldValue === undefined ? false : value !== oldValue;
 
-@customElement('ds-sub-text-field', { theme: false })
+@customElement('ui-sub-text-field', { theme: false })
 export class SubTextField extends FormFieldElement {
   static shadowRootOptions = { ...FormFieldElement.shadowRootOptions, delegatesFocus: true };
 
@@ -285,16 +285,16 @@ export class SubTextField extends FormFieldElement {
    */
   protected renderIcon (): TemplateResult | typeof nothing {
     return this.icon ? html`
-      <ds-icon
-          role="${this.iconHasAction ? 'button' : nothing}"
-          tabindex="${this.iconHasAction ? '0' : nothing}"
-          aria-label="${this.iconHasAction ? this.icon : nothing}"
-          part="icon"
-          icon="${this.icon}"
-          ?readonly="${this.readonly}"
-          ?disabled="${this.disabled}"
-          @tap="${this.iconClick}">
-      </ds-icon>` : nothing;
+     <ui-sub-icon
+      role="${this.iconHasAction ? 'button' : nothing}"
+      tabindex="${this.iconHasAction ? '0' : nothing}"
+      aria-label="${this.iconHasAction ? this.icon : nothing}"
+      part="icon"
+      icon="${this.icon}"
+      ?readonly="${this.readonly}"
+      ?disabled="${this.disabled}"
+      @tap="${this.iconClick}">
+    </ui-sub-icon>` : nothing;
   }
 
   protected get decorateInputMap (): TemplateMap {
@@ -323,6 +323,6 @@ export class SubTextField extends FormFieldElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-sub-text-field': SubTextField;
+    'ui-sub-text-field': SubTextField;
   }
 }

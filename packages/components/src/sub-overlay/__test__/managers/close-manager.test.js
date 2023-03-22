@@ -8,8 +8,8 @@ import * as zIndexManager from '../../../../lib/sub-overlay/managers/zindex-mana
 import { Overlay } from '@refinitiv-ui/components/sub-overlay';
 
 const createFixture = async (zIndex) => {
-  return (typeof zIndex === 'undefined') ? fixture('<ds-sub-overlay opened >test</ds-sub-overlay>') :
-    fixture(`<ds-sub-overlay z-index="${zIndex}" opened>test</ds-sub-overlay>`);
+  return (typeof zIndex === 'undefined') ? fixture('<ui-sub-overlay opened >test</ui-sub-overlay>') :
+    fixture(`<ui-sub-overlay z-index="${zIndex}" opened>test</ui-sub-overlay>`);
 };
 
 describe('overlay/manager/CloseManager', () => {

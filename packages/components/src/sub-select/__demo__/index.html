@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Select</title>
+  <link type="text/css" rel="stylesheet" href="src/demo.css">
+  <link type="text/css" rel="stylesheet" href="src/default-theme.css">
+  <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)" href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css">
+  <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
+</head>
+<style>
+  ui-sub-select {
+    margin: 10px 0;
+  }
+</style>
+<body>
+  <script type="module">
+    import '@refinitiv-ui/components/sub-select';
+    import '@refinitiv-ui/components/option';
+  </script>
+  <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
+  <h1>Select</h1>
+  <p>Default</p>
+ <ui-sub-select placeholder="Pick item..." class="short">
+   <ui-option value="1">Cola</ui-option>
+   <ui-option selected value="2">Lemonade</ui-option>
+   <ui-option value="3">Orange Juice</ui-option>
+   <ui-option value="4" disabled>Apple Juice</ui-option>
+   <ui-option value="5">Iced Tea</ui-option>
+   <ui-option value="6">Water</ui-option>
+   <ui-option value="8">Chocolate</ui-option>
+   <ui-option value="9">Honey &amp; Walnut</ui-option>
+   <ui-option value="10">Pistachio</ui-option>
+   <ui-option value="11">Salted Caramel</ui-option>
+   <ui-option value="12">Mint Choc Chip</ui-option>
+   <ui-option value="13">Hazelnut</ui-option>
+   <ui-option value="14">Strawberry</ui-option>
+   <ui-option value="15">Raspberry</ui-option>
+  </ui-sub-select>
+</body>
+</html>

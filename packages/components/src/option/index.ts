@@ -6,10 +6,9 @@ import { VERSION } from '../version.js';
 /**
  * An option for select
  */
-@customElement('ds-option', { theme: false })
+@customElement('ui-option', { theme: false })
 export class Option extends ControlElement {
   protected readonly defaultRole = 'option';
-
   /**
    * Element version number
    * @returns version number
@@ -76,6 +75,6 @@ export class Option extends ControlElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-option': Option;
+    'ui-option': Option;
   }
 }

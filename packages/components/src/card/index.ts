@@ -5,7 +5,7 @@ import { VERSION } from '../version.js';
 /**
  * A card frame component.
  */
-@customElement('ds-card', { theme: false })
+@customElement('ui-card', { theme: false })
 export class Card extends BasicElement {
 
   /**
@@ -48,6 +48,6 @@ export class Card extends BasicElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-card': Card;
+    'ui-card': Card;
   }
 }

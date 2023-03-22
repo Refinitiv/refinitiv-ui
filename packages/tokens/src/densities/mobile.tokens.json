@@ -1,28 +1,15 @@
 {
   "$type": "dimension",
-  "text": {
-    "header": {
-      "size": {
-        "$value": "{font.size.xx-large}"
-      }
-    },
-    "sub-header": {
-      "size": {
-        "$value": "{font.size.x-large}"
-      }
-    },
-    "body": {
-      "size": {
-        "$value": "{font.size.medium}"
-      }
+  "size": {
+    "$type": "dimension",
+    "x-large": {
+      "$value": "54px"
     }
   },
-  "control": {
-    "height": {
-      "$value": "{size.large}"
-    },
-    "padding": {
-      "$value": "{space.x-small}"
+  "space": {
+    "$type": "dimension",
+    "x-small": {
+      "$value": "16px"
     }
   }
 }

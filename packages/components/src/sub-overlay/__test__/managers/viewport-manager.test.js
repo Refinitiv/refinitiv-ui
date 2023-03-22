@@ -9,8 +9,8 @@ import { clear, deregister, register, size, ViewportManager } from '../../../../
 import * as zIndexManager from '../../../../lib/sub-overlay/managers/zindex-manager.js';
 
 const createFixture = async (zIndex) => {
-  return (typeof zIndex === 'undefined') ? fixture('<ds-sub-overlay opened>test</ds-sub-overlay>') :
-    fixture(`<ds-sub-overlay z-index="${zIndex}" opened>test</ds-sub-overlay>`);
+  return (typeof zIndex === 'undefined') ? fixture('<ui-sub-overlay opened>test</ui-sub-overlay>') :
+    fixture(`<ui-sub-overlay z-index="${zIndex}" opened>test</ui-sub-overlay>`);
 };
 
 describe('overlay/manager/ViewportManager', () => {

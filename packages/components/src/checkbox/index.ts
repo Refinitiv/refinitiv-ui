@@ -4,7 +4,7 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
 import '../sub-checkbox/index.js';
 
-@customElement('ds-checkbox', { theme: false })
+@customElement('ui-checkbox', { theme: false })
 export class Checkbox extends ControlElement {
   protected readonly defaultRole: string | null = 'checkbox';
 
@@ -133,22 +133,22 @@ export class Checkbox extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-      <ds-sub-checkbox
+     <ui-sub-checkbox
         tabindex="-1"
         part="checkbox"
         .checked=${this.checked}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly}>
-      </ds-sub-checkbox>
-      <ds-sub-label part="label">
+      </ui-sub-checkbox>
+     <ui-sub-label part="label">
         <slot></slot>
-      </ds-sub-label>
+      </ui-sub-label>
     `;
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-checkbox': Checkbox;
+    'ui-checkbox': Checkbox;
   }
 }

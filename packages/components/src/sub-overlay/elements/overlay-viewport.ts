@@ -11,7 +11,7 @@ import { VERSION } from '../../version.js';
 /**
  * A private element to find overlay size boundaries
  */
-@customElement('ds-overlay-viewport', {
+@customElement('ui-overlay-viewport', {
   theme: false
 })
 export class OverlayViewport extends ResponsiveElement {
@@ -59,6 +59,6 @@ export class OverlayViewport extends ResponsiveElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-overlay-viewport': OverlayViewport;
+    'ui-overlay-viewport': OverlayViewport;
   }
 }

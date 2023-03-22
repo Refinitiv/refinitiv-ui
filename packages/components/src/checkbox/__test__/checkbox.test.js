@@ -13,13 +13,11 @@ describe('Checkbox', () => {
     return el.shadowRoot.querySelector(q);
   };
 
-  const noLabel = '<ds-checkbox></ds-checkbox>';
-  const unchecked = `<ds-checkbox>${LABEL}</ds-checkbox>`;
-  const checked = `<ds-checkbox checked>${LABEL}</ds-checkbox>`;
-  const disabled = `<ds-checkbox disabled>${LABEL}</ds-checkbox>`;
-  const readonly = `<ds-checkbox readonly>${LABEL}</ds-checkbox>`;
-  const disabledChecked = `<ds-checkbox disabled checked>${LABEL}</ds-checkbox>`;
-  const readonlyChecked = `<ds-checkbox readonly checked>${LABEL}</ds-checkbox>`;
+  const noLabel = '<ui-checkbox></ui-checkbox>';
+  const unchecked = `<ui-checkbox>${LABEL}</ui-checkbox>`;
+  const checked = `<ui-checkbox checked>${LABEL}</ui-checkbox>`;
+  const disabled = `<ui-checkbox disabled>${LABEL}</ui-checkbox>`;
+  const readonly = `<ui-checkbox readonly>${LABEL}</ui-checkbox>`;
 
 
   describe('Basic Structure', () => {
@@ -297,7 +295,7 @@ describe('Checkbox', () => {
       await expect(el).not.to.be.accessible();
     });
     it('should be passed with aria-label', async () => {
-      const el = await fixture(`<ds-checkbox aria-label="Checkbox without label"></ds-checkbox>`);
+      const el = await fixture(`<ui-checkbox aria-label="Checkbox without label"></ui-checkbox>`);
       await expect(el).to.be.accessible();
     });
     it('should aria-checked should be reflect with checked state', async () => {

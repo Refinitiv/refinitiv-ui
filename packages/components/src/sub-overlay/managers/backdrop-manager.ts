@@ -9,7 +9,7 @@ import '../elements/overlay-backdrop.js';
  */
 export class BackdropManager {
   private registry: Set<Overlay> = new Set();
-  private backdropElement = document.createElement('ds-overlay-backdrop');
+  private backdropElement = document.createElement('ui-overlay-backdrop');
 
   private get overlays (): OverlayLayer[] {
     return getOverlayLayers().filter(({ overlay }) => this.registry.has(overlay));

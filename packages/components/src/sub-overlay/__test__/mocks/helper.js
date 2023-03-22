@@ -65,7 +65,7 @@ export const createPositionTargetFixture = async (x, y, position, widthSize = ta
   const elements = {};
 
   elements.target = await fixture(`<button id="target-element" ${targetStyle}>test</button>`);
-  elements.panel = await fixture(`<ds-sub-overlay id="panel-element" ${panelStyle} position="${position}" position-target="#target-element">Panel</ds-sub-overlay>`);
+  elements.panel = await fixture(`<ui-sub-overlay id="panel-element" ${panelStyle} position="${position}" position-target="#target-element">Panel</ui-sub-overlay>`);
 
   elements.panel.positionTarget = elements.target;
 

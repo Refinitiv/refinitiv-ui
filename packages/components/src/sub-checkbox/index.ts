@@ -2,9 +2,9 @@ import { ControlElement, html, css, PropertyValues, TapEvent } from '@refinitiv-
 import { VERSION } from '../version.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import '../icon/index.js';
+import '../sub-icon/index.js';
 
-@customElement('ds-sub-checkbox', { theme: false })
+@customElement('ui-sub-checkbox', { theme: false })
 export class SubCheckbox extends ControlElement {
   /**
    * Element version number
@@ -124,7 +124,7 @@ export class SubCheckbox extends ControlElement {
   protected render () {
     return html`
       <div part="check">
-        <ds-icon icon="tick" part="icon"></ds-icon>
+       <ui-sub-icon icon="tick" part="icon"></ui-sub-icon>
       </div>
       <slot></slot>
     `;
@@ -133,6 +133,6 @@ export class SubCheckbox extends ControlElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-sub-checkbox': SubCheckbox;
+    'ui-sub-checkbox': SubCheckbox;
   }
 }

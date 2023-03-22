@@ -89,105 +89,105 @@ const bottomRight = async el => {
 
 const withHeightStyle = `style="width: ${width}px; height: ${height}px;"`;
 
-describe('ds-sub-overlay/Properties/position', () => {
+describe('ui-sub-overlay/Properties/position', () => {
   describe('Position Target Screen Test', () => {
     it('Default Screen Position Target', async () => {
-      await centerCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened>Default Position</ds-sub-overlay>`));
+      await centerCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened>Default Position</ui-sub-overlay>`));
     });
     it('Invalid Screen Position Target', async () => {
-      await centerCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="invalid position">Invalid Position</ds-sub-overlay>`));
+      await centerCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="invalid position">Invalid Position</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: center center', async () => {
-      await centerCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="center center">Center Center</ds-sub-overlay>`));
+      await centerCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="center center">Center Center</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: center', async () => {
-      await centerCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="center">Center</ds-sub-overlay>`));
+      await centerCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="center">Center</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: top', async () => {
-      await topCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="top">Top</ds-sub-overlay>`));
+      await topCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="top">Top</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: right', async () => {
-      await rightCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="right">Right</ds-sub-overlay>`));
+      await rightCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="right">Right</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: bottom', async () => {
-      await bottomCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="bottom">Bottom</ds-sub-overlay>`));
+      await bottomCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="bottom">Bottom</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: left', async () => {
-      await leftCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="left">Left</ds-sub-overlay>`));
+      await leftCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="left">Left</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: top left', async () => {
-      await topLeft(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="top left">Top Left</ds-sub-overlay>`));
+      await topLeft(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="top left">Top Left</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: left top', async () => {
-      await topLeft(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="left top">Left Top</ds-sub-overlay>`));
+      await topLeft(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="left top">Left Top</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: top center', async () => {
-      await topCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="top center">Top Center</ds-sub-overlay>`));
+      await topCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="top center">Top Center</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: center top', async () => {
-      await topCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="center top">Center Top</ds-sub-overlay>`));
+      await topCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="center top">Center Top</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: top right', async () => {
-      await topRight(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="top right">Top Right</ds-sub-overlay>`));
+      await topRight(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="top right">Top Right</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: right top', async () => {
-      await topRight(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="right top">Right Top</ds-sub-overlay>`));
+      await topRight(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="right top">Right Top</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: bottom left', async () => {
-      await bottomLeft(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="bottom left">Bottom Left</ds-sub-overlay>`));
+      await bottomLeft(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="bottom left">Bottom Left</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: left bottom', async () => {
-      await bottomLeft(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="left bottom">Left Bottom</ds-sub-overlay>`));
+      await bottomLeft(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="left bottom">Left Bottom</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: bottom center', async () => {
-      await bottomCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="bottom center">Bottom Center</ds-sub-overlay>`));
+      await bottomCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="bottom center">Bottom Center</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: center bottom', async () => {
-      await bottomCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="center bottom">Center Bottom</ds-sub-overlay>`));
+      await bottomCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="center bottom">Center Bottom</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: bottom right', async () => {
-      await bottomRight(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="bottom right">Bottom Right</ds-sub-overlay>`));
+      await bottomRight(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="bottom right">Bottom Right</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: right bottom', async () => {
-      await bottomRight(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="right bottom">Right Bottom</ds-sub-overlay>`));
+      await bottomRight(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="right bottom">Right Bottom</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: center left', async () => {
-      await leftCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="center left">Center Left</ds-sub-overlay>`));
+      await leftCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="center left">Center Left</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: left center', async () => {
-      await leftCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="left center">Left Center</ds-sub-overlay>`));
+      await leftCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="left center">Left Center</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: center right', async () => {
-      await rightCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="center right">Center Right</ds-sub-overlay>`));
+      await rightCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="center right">Center Right</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: right center', async () => {
-      await rightCenter(await fixture(`<ds-sub-overlay ${withHeightStyle} opened position-target="right center">Right Center</ds-sub-overlay>`));
+      await rightCenter(await fixture(`<ui-sub-overlay ${withHeightStyle} opened position-target="right center">Right Center</ui-sub-overlay>`));
     });
 
     it('Screen Position Target: position can be changed', async () => {
-      const el = await fixture(`<ds-sub-overlay ${withHeightStyle} opened>Changed Position</ds-sub-overlay>`);
+      const el = await fixture(`<ui-sub-overlay ${withHeightStyle} opened>Changed Position</ui-sub-overlay>`);
       await centerCenter(el);
       let rect = el.getBoundingClientRect();
       expect(rect.width, 'dynamic position 0: width must not change').to.equal(100);
@@ -213,11 +213,11 @@ describe('ds-sub-overlay/Properties/position', () => {
     it('Default Position', async () => {
       const wrapper = await fixture(`<div>
       <button>Target</button>
-      <ds-sub-overlay>Overlay</ds-sub-overlay>
+     <ui-sub-overlay>Overlay</ui-sub-overlay>
     </div>`);
 
       const target = wrapper.querySelector('button');
-      const overlay = wrapper.querySelector('ds-sub-overlay');
+      const overlay = wrapper.querySelector('ui-sub-overlay');
 
       overlay.positionTarget = target;
       overlay.opened = true;

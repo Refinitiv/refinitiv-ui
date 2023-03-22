@@ -3,7 +3,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
 
-@customElement('ds-sub-label', { theme: false })
+@customElement('ui-sub-label', { theme: false })
 export class SubLabel extends BasicElement {
   /**
    * Element version number
@@ -60,6 +60,6 @@ export class SubLabel extends BasicElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-sub-label': SubLabel;
+    'ui-sub-label': SubLabel;
   }
 }

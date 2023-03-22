@@ -10,7 +10,7 @@ import '../sub-password-field/index.js';
 
 const hasChanged = (value: unknown, oldValue: unknown): boolean => oldValue === undefined ? false : value !== oldValue;
 
-@customElement('ds-input-field', { theme: false })
+@customElement('ui-input-field', { theme: false })
 export class InputField extends ControlElement {
   static shadowRootOptions = { ...ControlElement.shadowRootOptions, delegatesFocus: true };
 
@@ -108,9 +108,9 @@ export class InputField extends ControlElement {
   protected get renderField (): TemplateResult {
     switch (this.type) {
       case 'password':
-        return html`<ds-sub-password-field ${templateMap(this.decorateField)}></ds-sub-password-field>`;
+        return html`<ui-sub-password-field ${templateMap(this.decorateField)}></ui-sub-password-field>`;
       default:
-        return html`<ds-sub-text-field ${templateMap(this.decorateField)}></ds-sub-text-field>`;
+        return html`<ui-sub-text-field ${templateMap(this.decorateField)}></ui-sub-text-field>`;
     }
   }
 
@@ -120,7 +120,7 @@ export class InputField extends ControlElement {
    * @return Render template
    */
   protected get renderLabel (): TemplateResult | typeof nothing {
-    return html`<ds-sub-label id="label" part="label">${this.label}</ds-sub-label>`;
+    return html`<ui-sub-label id="label" part="label">${this.label}</ui-sub-label>`;
   }
 
   /**
@@ -129,7 +129,7 @@ export class InputField extends ControlElement {
    * @return Render template
    */
   protected get renderHint (): TemplateResult | typeof nothing {
-    return html`<ds-sub-label error id="hint" part="hint">${this.hint}</ds-sub-label>`;
+    return html`<ui-sub-label error id="hint" part="hint">${this.hint}</ui-sub-label>`;
   }
 
   /**
@@ -148,6 +148,6 @@ export class InputField extends ControlElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-input-field': InputField;
+    'ui-input-field': InputField;
   }
 }

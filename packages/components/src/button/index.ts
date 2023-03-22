@@ -1,8 +1,7 @@
 import { ControlElement, html, css, CSSResultGroup, nothing, PropertyValues, TemplateResult } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { PropertyValueMap } from 'lit';
-import '../icon/index.js';
+import '../sub-icon/index.js';
 
 /**
  * Use button for actions in forms, dialogs,
@@ -11,7 +10,7 @@ import '../icon/index.js';
  * @prop {boolean} [disabled=false] - Set state to disabled
  * @fires active-changed - Fired when `active` property changed by user taps on toggled button. It will not be triggered if `active` state is changed programmatically.
  */
-@customElement('ds-button', { theme: false })
+@customElement('ui-button', { theme: false })
 export class Button extends ControlElement {
   protected readonly defaultRole = 'button';
 
@@ -32,11 +31,13 @@ export class Button extends ControlElement {
         box-sizing: border-box;
         user-select: none;
         vertical-align: bottom;
-        /* overflow: hidden; */
         box-sizing: border-box;
         text-transform: uppercase;
 
+        line-height: var(--ds-space-large);
+
         padding: var(--ds-space-x-small);
+        min-height: var(--ds-size-x-large);
 
         color: var(--ds-action-content-primary-default);
         border: var(--ds-action-border-primary-default);
@@ -48,7 +49,7 @@ export class Button extends ControlElement {
         border: var(--ds-action-border-primary-hover);
         background-color: var(--ds-action-background-primary-hover);
       }
-      :host(:focus-visible:not([pressed])) {
+      :host(:focus-visible:not(:active)) {
         text-decoration: underline;
         text-underline-offset: var(--ds-space-xx-small);
         text-decoration-thickness: var(--ds-size-empathize-border);
@@ -59,7 +60,7 @@ export class Button extends ControlElement {
 
         outline: var(--ds-action-focused-ring-oninvert);
       }
-      :host(:focus-visible:not([pressed]))::before, :host(:hover:focus-visible:not([pressed]))::before {
+      :host(:focus-visible:not(:active))::before, :host(:hover:focus-visible:not(:active))::before {
         content: '';
         position: absolute;
         display: block;
@@ -67,14 +68,14 @@ export class Button extends ControlElement {
         inset: -5px;
         border: var(--ds-action-focused-ring);
       }
-      :host(:hover:focus-visible:not([pressed])) {
+      :host(:hover:focus-visible:not(:active)) {
         color: var(--ds-action-content-primary-hover);
         border: var(--ds-action-border-primary-hover);
         background-color: var(--ds-action-background-primary-hover);
 
         outline: var(--ds-action-focused-ring-oninvert);
       }
-      :host([pressed]) {
+      :host(:active) {
         color: var(--ds-action-content-primary-pressed);
         border: var(--ds-action-border-primary-pressed);
         background-color: var(--ds-action-background-primary-pressed);
@@ -89,24 +90,27 @@ export class Button extends ControlElement {
         border: var(--ds-action-border-secondary-hover);
         background-color: var(--ds-action-background-secondary-hover);
       }
-      :host([variant=secondary]:focus-visible:not([pressed])) {
+      :host([variant=secondary]:focus-visible:not(:active)) {
         color: var(--ds-action-content-secondary-focused);
         border: var(--ds-action-border-secondary-focused);
         background-color: var(--ds-action-background-secondary-focused);
       }
-      :host([variant=secondary]:hover:focus-visible:not([pressed])) {
+      :host([variant=secondary]:hover:focus-visible:not(:active)) {
         color: var(--ds-action-content-secondary-hover);
         border: var(--ds-action-border-secondary-hover);
         background-color: var(--ds-action-background-secondary-hover);
 
         outline: var(--ds-action-focused-ring-oninvert);
       }
-      :host([variant=secondary][pressed]) {
+      :host([variant=secondary]:active) {
         color: var(--ds-action-content-secondary-pressed);
         border: var(--ds-action-border-secondary-pressed);
         background-color: var(--ds-action-background-secondary-pressed);
       }
-      :host [part=icon] { }
+      :host [part=icon] {
+        margin-left: var(--ds-space-button-icon-margin-x-small);
+        min-width: var(--ds-size-x-small);
+      }
     `;
   }
 
@@ -134,21 +138,11 @@ export class Button extends ControlElement {
     this.addEventListener('tapend', this.unsetPressed);
   }
 
-  /**
-   * Set pressed attribute
-   * @returns {void}
-   */
   private setPressed (): void {
-    this.setAttribute('pressed', '');
     this.setAttribute('aria-pressed', 'true');
   }
 
-  /**
-   * Remove pressed attribute
-   * @returns {void}
-   */
   private unsetPressed (): void {
-    this.removeAttribute('pressed');
     this.setAttribute('aria-pressed', 'false');
   }
 
@@ -157,7 +151,7 @@ export class Button extends ControlElement {
    * @return {TemplateResult | nothing}  Render template
    */
   private get iconEndTemplate (): TemplateResult | typeof nothing {
-    return this.iconEnd ? html`<ds-icon aria-hidden="true" part="icon" icon="${this.iconEnd}" id="icon"></ds-icon>` : nothing;
+    return this.iconEnd ? html`<ui-sub-icon aria-hidden="true" part="icon" icon="${this.iconEnd}" id="icon"></ui-sub-icon>` : nothing;
   }
 
   /**
@@ -177,6 +171,6 @@ export class Button extends ControlElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ds-button': Button;
+    'ui-button': Button;
   }
 }

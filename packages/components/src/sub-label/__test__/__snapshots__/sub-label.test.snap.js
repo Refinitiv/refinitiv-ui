@@ -1,24 +1,24 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["ds-sub-label DOM Structure default DOM is correct"] = 
-`<ds-sub-label>
+snapshots["ui-sub-label DOM Structure default DOM is correct"] = 
+`<ui-sub-label>
   Label
-</ds-sub-label>
+</ui-sub-label>
 `;
-/* end snapshot ds-sub-label DOM Structure default DOM is correct */
+/* end snapshot ui-sub-label DOM Structure default DOM is correct */
 
-snapshots["ds-sub-label DOM Structure error DOM is correct"] = 
-`<ds-sub-label error="">
+snapshots["ui-sub-label DOM Structure error DOM is correct"] = 
+`<ui-sub-label error="">
   Label
-</ds-sub-label>
+</ui-sub-label>
 `;
-/* end snapshot ds-sub-label DOM Structure error DOM is correct */
+/* end snapshot ui-sub-label DOM Structure error DOM is correct */
 
-snapshots["ds-sub-label DOM Structure warning DOM is correct"] = 
-`<ds-sub-label warning="">
+snapshots["ui-sub-label DOM Structure warning DOM is correct"] = 
+`<ui-sub-label warning="">
   Label
-</ds-sub-label>
+</ui-sub-label>
 `;
-/* end snapshot ds-sub-label DOM Structure warning DOM is correct */
+/* end snapshot ui-sub-label DOM Structure warning DOM is correct */
 

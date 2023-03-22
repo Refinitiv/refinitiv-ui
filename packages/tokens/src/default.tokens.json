@@ -45,7 +45,7 @@
         }
       },
       "size": {
-        "$value": "{font.size.small}"
+        "$value": "{font.size.medium}"
       }
     },
     "selection": {
@@ -110,8 +110,7 @@
       },
       "body": {
         "$value": [
-          "Verdana",
-          "sans-serif"
+          "Proxima Nova Fin"
         ]
       }
     },
@@ -164,7 +163,7 @@
       "$value": "30px"
     },
     "x-large": {
-      "$value": "36px"
+      "$value": "38px"
     },
     "xx-large": {
       "$value": "48px"
@@ -184,6 +183,9 @@
     "xx-small": {
       "$value": "4px"
     },
+    "button-icon-margin-x-small": {
+      "$value": "8px"
+    },
     "x-small": {
       "$value": "8px"
     },
@@ -194,7 +196,7 @@
       "$value": "16px"
     },
     "large": {
-      "$value": "20px"
+      "$value": "22px"
     },
     "x-large": {
       "$value": "28px"

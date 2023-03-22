@@ -2,10 +2,10 @@ import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-he
 
 import '@refinitiv-ui/components/sub-text-field';
 
-describe('ds-sub-text-field', () => {
-  const textfieldDefault = `<ds-sub-text-field></ds-sub-text-field>`;
+describe('ui-sub-text-field', () => {
+  const textfieldDefault = `<ui-sub-text-field></ui-sub-text-field>`;
   const textfieldAttributes = `
-  <ds-sub-text-field
+  <ui-sub-text-field
       value="abbr"
       error
       warning
@@ -13,7 +13,7 @@ describe('ds-sub-text-field', () => {
       minlength="5"
       maxlength="10"
       icon="menu"
-  ></ds-sub-text-field>
+  ></ui-sub-text-field>
 `;
 
   describe('DOM Structure', () => {
@@ -44,13 +44,13 @@ describe('ds-sub-text-field', () => {
         await expect(el.getAttribute('value')).to.equal('abbr');
       });
       it('should correct value with input value', async () => {
-        const el = await fixture('<ds-sub-text-field value="abbr"></ds-sub-text-field>');
+        const el = await fixture('<ui-sub-text-field value="abbr"></ui-sub-text-field>');
         const input = el.shadowRoot.querySelector('[part=input]');
         await expect(el.value).to.equal('abbr');
         await expect(input.value).to.equal('abbr');
       });
       it('should reflect value with input value', async () => {
-        const el = await fixture('<ds-sub-text-field value="abbr"></ds-sub-text-field>');
+        const el = await fixture('<ui-sub-text-field value="abbr"></ui-sub-text-field>');
         const input = el.shadowRoot.querySelector('[part=input]');
         el.value = 'valg';
         await elementUpdated(el);
@@ -74,18 +74,18 @@ describe('ds-sub-text-field', () => {
         await expect(el.hasAttribute('error')).to.be.false;
       });
       it('show error state when value does not match pattern expression', async () => {
-        const el = await fixture('<ds-sub-text-field value="123" pattern="[a-z]{4}"></ds-sub-text-field>');
+        const el = await fixture('<ui-sub-text-field value="123" pattern="[a-z]{4}"></ui-sub-text-field>');
         await expect(el.error).to.be.true;
       });
       it('set error state when input value does not match pattern expression', async () => {
-        const el = await fixture('<ds-sub-text-field pattern="[a-z]"></ds-sub-text-field>');
+        const el = await fixture('<ui-sub-text-field pattern="[a-z]"></ui-sub-text-field>');
         const input = el.shadowRoot.querySelector('[part=input]');
         input.value = '12345';
         el.validateInput();
         await expect(el.error).to.be.true;
       });
       it('remove error state when input value does match pattern expression', async () => {
-        const el = await fixture('<ds-sub-text-field value="123" pattern="[a-z]{4}"></ds-sub-text-field>');
+        const el = await fixture('<ui-sub-text-field value="123" pattern="[a-z]{4}"></ui-sub-text-field>');
         const input = el.shadowRoot.querySelector('[part=input]');
         input.value = 'test';
         await elementUpdated(el);
@@ -178,7 +178,7 @@ describe('ds-sub-text-field', () => {
   describe('Events', () => {
     describe('error-changed', () => {
       it('Error-changed from true to false for pattern', async () => {
-        const el = await fixture('<ds-sub-text-field pattern="[a-z]" value="1"></ds-sub-text-field>');
+        const el = await fixture('<ui-sub-text-field pattern="[a-z]" value="1"></ui-sub-text-field>');
         await expect(el.error).to.be.true;
         setTimeout(() => {
           el.value = 'a';
@@ -189,7 +189,7 @@ describe('ds-sub-text-field', () => {
       });
 
       it('Error-changed from false to true for pattern', async () => {
-        const el = await fixture('<ds-sub-text-field></ds-sub-text-field>');
+        const el = await fixture('<ui-sub-text-field></ui-sub-text-field>');
         el.value = '1';
         await elementUpdated(el);
         await expect(el.error).to.be.false;
@@ -204,7 +204,7 @@ describe('ds-sub-text-field', () => {
 
     describe('icon-click', () => {
       it('Icon should not be clickable by default', async () => {
-        const el = await fixture('<ds-sub-text-field icon="menu"></ds-sub-text-field>');
+        const el = await fixture('<ui-sub-text-field icon="menu"></ui-sub-text-field>');
         const icon = el.shadowRoot.querySelector('[part=icon]');
         let clickCount = 0;
         el.addEventListener('icon-click', () => {
@@ -214,7 +214,7 @@ describe('ds-sub-text-field', () => {
         await expect(clickCount).to.equal(0);
       });
       it('icon-click with icon-has-action', async () => {
-        const el = await fixture('<ds-sub-text-field icon="menu" icon-has-action></ds-sub-text-field>');
+        const el = await fixture('<ui-sub-text-field icon="menu" icon-has-action></ui-sub-text-field>');
         const icon = el.shadowRoot.querySelector('[part=icon]');
         let clickCount = 0;
         el.addEventListener('icon-click', () => {
@@ -224,7 +224,7 @@ describe('ds-sub-text-field', () => {
         await expect(clickCount).to.equal(1, 'Icon should be clickable');
       });
       it('icon-click with icon-has-action and disabled', async () => {
-        const el = await fixture('<ds-sub-text-field icon="menu" icon-has-action disabled></ds-sub-text-field>');
+        const el = await fixture('<ui-sub-text-field icon="menu" icon-has-action disabled></ui-sub-text-field>');
         const icon = el.shadowRoot.querySelector('[part=icon]');
         let clickCount = 0;
         el.addEventListener('icon-click', () => {
@@ -234,7 +234,7 @@ describe('ds-sub-text-field', () => {
         await expect(clickCount).to.equal(0, 'Icon should not be clickable when disabled');
       });
       it('icon-click with icon-has-action and press `tab` should not fire event', async () => {
-        const el = await fixture('<ds-sub-text-field icon="menu" icon-has-action></ds-sub-text-field>');
+        const el = await fixture('<ui-sub-text-field icon="menu" icon-has-action></ui-sub-text-field>');
         const icon = el.shadowRoot.querySelector('[part=icon]');
         let clickCount = 0;
         el.addEventListener('icon-click', () => {
@@ -246,7 +246,7 @@ describe('ds-sub-text-field', () => {
     });
     describe('value-changed', () => {
       it('should change value and fire value-changed', async () => {
-        const el = await fixture('<ds-sub-text-field value="abbr"></ds-sub-text-field>');
+        const el = await fixture('<ui-sub-text-field value="abbr"></ui-sub-text-field>');
         const input = el.shadowRoot.querySelector('[part=input]');
         input.value = 'test';
         await elementUpdated(el);
