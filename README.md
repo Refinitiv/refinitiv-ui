@@ -38,4 +38,7 @@ See [CONTRIBUTING](./CONTRIBUTING.md).
 
 # Sponsoring Services
 
+![GitHub-Mark-Light](/documents/resources/images/browserstack-darkmode.svg#gh-dark-mode-only)
+![GitHub-Mark-Dark](/documents/resources/images/browserstack-lightmode.svg#gh-light-mode-only)
+
 [BrowserStack](https://www.browserstack.com/) Thank you for a great service let us test on real browsers.
