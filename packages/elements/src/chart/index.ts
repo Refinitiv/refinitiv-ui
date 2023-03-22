@@ -38,7 +38,6 @@ import '../header/index.js';
 
 // Register plugins
 import doughnutCenterPlugin from './plugins/doughnut-center-label.js';
-ChartJS.register(doughnutCenterPlugin);
 
 // TODO: import only common types and let user registers specific type
 export * from 'chart.js';
@@ -433,7 +432,13 @@ export class Chart extends BasicElement {
       return;
     }
 
-    merge(this.config as unknown as MergeObject, { plugins: [this.createPlugin()], options: this.requiredConfig } as MergeObject, true);
+    merge(this.config as unknown as MergeObject,
+      {
+        plugins: [this.createPlugin(), doughnutCenterPlugin],
+        options: this.requiredConfig
+      } as MergeObject,
+      true
+    );
   }
 
 

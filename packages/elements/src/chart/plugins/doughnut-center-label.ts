@@ -9,7 +9,8 @@ import {
   ArcOptions,
   ArcElement
 } from 'chart.js';
-import { color as parseColor } from '@refinitiv-ui/utils/color.js';
+// eslint-disable-next-line import/extensions
+import { getHoverColor } from 'chart.js/helpers';
 
 interface Selectable {
   _select: ActiveElement[];
@@ -55,45 +56,45 @@ const drawItemBorder = function (chart: ChartJS, active: ActiveElement[]): void 
     return;
   }
 
-  if (active?.length) {
-    const ctx = chart.ctx;
-    const chartItem = active[0];
-    const element = chartItem.element as ArcElement;
-    const vm = chartItem.element.options as ArcOptions;
-    const datasets = chart.data.datasets[chartItem.datasetIndex];
+  if (!active?.length) {
+    return;
+  }
 
-    if (Array.isArray(datasets.backgroundColor)) {
-      vm.backgroundColor = datasets.backgroundColor[chartItem.index] as string;
-      const color = parseColor(vm.backgroundColor);
-      if (color) {
-        vm.backgroundColor = color.darker(0.5).toString();
-      }
-    }
-    // vm.backgroundColor = CHART.helpers.getHoverColor(vm.backgroundColor); // we need to make color bolder
-    vm.borderWidth = vm.borderWidth || (datasets.borderWidth || chart.config.options?.elements?.arc?.borderWidth) as number;
-    vm.borderColor = (getComputedStyle(chart.canvas).getPropertyValue('--doughnut-border-color') || ChartJS.defaults.color) as string;
+  const ctx = chart.ctx;
+  const chartItem = active[0];
+  const element = chartItem.element as ArcElement;
+  const arcOptions = chartItem.element.options as ArcOptions;
+  const datasets = chart.data.datasets[chartItem.datasetIndex];
 
-    const sA = element.startAngle;
-    const eA = element.endAngle;
+  // Need to make color bolder
+  if (Array.isArray(datasets.backgroundColor)) {
+    arcOptions.backgroundColor = datasets.backgroundColor[chartItem.index] as string;
+    arcOptions.backgroundColor = getHoverColor(arcOptions.backgroundColor);
+  }
 
-    if (ctx) {
-      ctx.beginPath();
+  arcOptions.borderWidth = arcOptions.borderWidth || (datasets.borderWidth || chart.config.options?.elements?.arc?.borderWidth) as number;
+  arcOptions.borderColor = (getComputedStyle(chart.canvas).getPropertyValue('--doughnut-border-color') || ChartJS.defaults.color) as string;
 
-      ctx.arc(element.x, element.y, element.outerRadius, sA, eA);
-      ctx.arc(element.x, element.y, element.innerRadius, eA, sA, true);
+  const sA = element.startAngle;
+  const eA = element.endAngle;
 
-      ctx.closePath();
+  if (ctx) {
+    ctx.beginPath();
 
-      ctx.strokeStyle = vm.borderColor;
-      ctx.lineWidth = vm.borderWidth;
-      ctx.fillStyle = vm.backgroundColor;
+    ctx.arc(element.x, element.y, element.outerRadius, sA, eA);
+    ctx.arc(element.x, element.y, element.innerRadius, eA, sA, true);
 
-      ctx.fill();
+    ctx.closePath();
 
-      ctx.lineJoin = 'bevel';
-      if (vm.borderWidth) {
-        ctx.stroke();
-      }
+    ctx.strokeStyle = arcOptions.borderColor;
+    ctx.lineWidth = arcOptions.borderWidth;
+    ctx.fillStyle = arcOptions.backgroundColor;
+
+    ctx.fill();
+
+    ctx.lineJoin = 'bevel';
+    if (arcOptions.borderWidth) {
+      ctx.stroke();
     }
   }
 };
@@ -140,9 +141,13 @@ const plugins: Plugin = {
     }
 
     // Set render hook function
-    let active:ActiveElement[] = chart.getActiveElements();
+    let active:ActiveElement[] = [];
+    chart.getActiveElements();
     if (chart._select) {
       active = chart._select;
+    }
+    if (chart.getActiveElements().length > 0) {
+      active = chart.getActiveElements();
     }
 
     const renderText = config.onRenderLabel(chart, active);
@@ -170,6 +175,7 @@ const plugins: Plugin = {
     const centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
     const centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
 
+    // Radius of central circular hole
     const innerRadius = (chart.getDatasetMeta(chart.data.datasets.length - 1).data[0] as unknown as DoughnutController).innerRadius;
 
     // Render center background color
@@ -255,7 +261,6 @@ const plugins: Plugin = {
   afterDatasetsDraw: function (chart: ChartJS & Selectable): void {
     if (getPluginConfig(chart)) {
       // Draw active element
-      // Note: use logic from chart.js - chart.js/src/elements/element.arc.js :draw()
 
       // hover
       drawItemBorder(chart, chart.getActiveElements());
