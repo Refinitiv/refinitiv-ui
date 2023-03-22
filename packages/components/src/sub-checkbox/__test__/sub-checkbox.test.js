@@ -25,15 +25,20 @@ describe('ui-sub-checkbox', () => {
         const el = await fixture(unchecked);
         await expect(el.hasAttribute('checked')).to.be.false;
       });
-      it('checked attribute should be reflected with property', async () => {
-        const el = await fixture(checked);
-        await expect(el.checked).to.be.true;
-      });
       it('checked attribute should be reflected when property value has change', async () => {
         const el = await fixture(checked);
         el.checked = false;
         await elementUpdated(el);
         await expect(el.hasAttribute('checked')).to.be.false;
+      });
+    });
+  });
+
+  describe('Properties', () => {
+    describe('checked', () => {
+      it('checked property should be reflected with attribute', async () => {
+        const el = await fixture(checked);
+        await expect(el.checked).to.be.true;
       });
     });
   });
