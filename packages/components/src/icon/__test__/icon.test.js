@@ -25,14 +25,12 @@ describe('icon/Icon', () => {
   afterEach(() => {
     window.fetch.restore();  //remove stub
   });
-  describe('Should Have Correct DOM Structure', () => {
-
+  describe('DOM Structure', () => {
     it('without icon or src attributes', async () => {
       const el = await createAndWaitForLoad('<ds-icon></ds-icon>');
       const svg = el.shadowRoot.querySelector('svg');
       expect(svg).to.equal(null, 'No SVG element should not exist if there is nothing to load');
     });
-
     it('with valid icon attribute', async () => {
       createFakeResponse(tickSvg, responseConfigSuccess);
       const el = await createAndWaitForLoad(`<ds-icon icon="${iconName}"></ds-icon>`);
@@ -43,23 +41,19 @@ describe('icon/Icon', () => {
       expect(svg).to.not.equal(null, 'SVG element should exist for valid icon attribute');
       expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
     });
-
     it('with valid src attribute', async () => {
       createFakeResponse(tickSvg, responseConfigSuccess);
       const el = await createAndWaitForLoad('<ds-icon src="https://mock.cdn.com/icons/ticks.svg"></ds-icon>');
       const svg = el.shadowRoot.querySelector('svg');
-
       expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');
       expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
     });
-
     it('with invalid icon attribute', async () => {
       createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ds-icon icon="invalid"></ds-icon>');
       const svg = el.shadowRoot.querySelector('svg');
       expect(svg).to.equal(null, 'SVG element should not exist for invalid icon attribute');
     });
-
     it('with invalid src attribute', async () => {
       createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ds-icon src="https://mock.cdn.com/icons/invalid.svg"></ds-icon>');
@@ -67,19 +61,16 @@ describe('icon/Icon', () => {
 
       expect(svg).to.equal(null, 'SVG element should not exist for invalid src attribute');
     });
-
     it('with empty icon attribute', async () => {
       createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ds-icon icon=""></ds-icon>');
       const svg = el.shadowRoot.querySelector('svg');
       expect(svg).to.equal(null, 'SVG element should not exist for empty icon attribute');
     });
-
     it('with empty src attribute', async () => {
       createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ds-icon src=""></ds-icon>');
       const svg = el.shadowRoot.querySelector('svg');
-
       expect(svg).to.equal(null, 'SVG element should not exist for empty src attribute');
     });
 
