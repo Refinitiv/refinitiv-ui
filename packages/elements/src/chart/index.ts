@@ -191,7 +191,7 @@ export class Chart extends BasicElement {
       id: 'ef-chart',
       beforeInit: (chart: ChartJS) => {
         const option: ChartOptions = this.themableChartOption;
-        merge(chart.config.options as unknown as MergeObject, option, true);
+        merge(chart.config.options as unknown as MergeObject, option);
       },
       beforeUpdate: this.decorateColors
     };
@@ -339,12 +339,12 @@ export class Chart extends BasicElement {
         case 'bubble':
           colors = this.generateColors(!isMultipleDatasets, !isMultipleDatasets && dataset.data ? dataset.data.length : 1, datasetIndex);
           borderColor = colors.solid;
-          backgroundColor = colors.solid;
+          backgroundColor = this.config?.type === 'bubble' ? colors.opaque : colors.solid;
           if (!dataset.borderColor) {
-            dataset.borderColor = colors.solid;
+            dataset.borderColor = borderColor;
           }
           if (!dataset.backgroundColor) {
-            dataset.backgroundColor = colors.solid;
+            dataset.backgroundColor = backgroundColor;
           }
           // Add more colors if items aren't enough
           if (Array.isArray(dataset.borderColor) && Array.isArray(borderColor) && dataset.borderColor.length < borderColor.length) {
@@ -412,6 +412,7 @@ export class Chart extends BasicElement {
         case 'line':
         case 'radar':
         case 'scatter':
+        case 'bubble':
           legend.fillStyle = (datasets[i] as LineControllerDatasetOptions).borderColor as Color;
           break;
         // For other chart types
