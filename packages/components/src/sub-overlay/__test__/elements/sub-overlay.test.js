@@ -4,7 +4,7 @@ import '@refinitiv-ui/components/sub-overlay';
 
 import { openedUpdated } from '../mocks/helper';
 
-describe('overlay/elements/Overlay', () => {
+describe('ui-sub-overlay', () => {
   describe('Methods', () => {
     let originWarn = null;
     const customWarn = () => {

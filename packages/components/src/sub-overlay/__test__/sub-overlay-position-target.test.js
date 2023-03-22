@@ -27,7 +27,7 @@ const screenHeight = document.documentElement.clientHeight;
 
 const screenCenter = { left: screenWidth / 2, top: screenHeight / 2 };
 
-describe('overlay/PositionTarget', () => {
+describe('ui-sub-overlay/Properties/PositionTarget', () => {
   describe(`Test Positions (screen width: ${screenWidth}, height: ${screenHeight})`, () => {
     describe('Test with position target in center without fallback', () => {
       for (let widthSize of widthSizes) {

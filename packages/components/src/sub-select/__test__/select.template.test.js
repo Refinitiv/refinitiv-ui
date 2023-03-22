@@ -95,7 +95,7 @@ describe('select/Template', () => {
     });
 
     it('--list-max-width recalculates popup width', async function () {
-      const el = await fixture(`<ui-select style="--ds-select-list-max-width: 50px;" opened>${getOptions()}</ui-select>`);
+      const el = await fixture(`<ui-select style="--ui-select-list-max-width: 50px;" opened>${getOptions()}</ui-select>`);
       await openedUpdated(el);
       const styles = window.getComputedStyle(getMenuEl(el));
       expect(styles.maxWidth).to.equal('50px', 'CSS Variable is not passed');
