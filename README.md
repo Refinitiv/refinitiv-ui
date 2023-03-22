@@ -38,7 +38,10 @@ See [CONTRIBUTING](./CONTRIBUTING.md).
 
 # Sponsoring Services
 
-![GitHub-Mark-Light](/documents/resources/images/browserstack-darkmode.svg#gh-dark-mode-only)
-![GitHub-Mark-Dark](/documents/resources/images/browserstack-lightmode.svg#gh-light-mode-only)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="/documents/resources/images/browserstack-darkmode.svg">
+  <source media="(prefers-color-scheme: light)" srcset="/documents/resources/images/browserstack-lightmode.svg">
+  <img alt="BrowserStack logo" src="/documents/resources/images/browserstack-lightmode.svg" width="200" height="85">
+</picture>
 
 [BrowserStack](https://www.browserstack.com/) Thank you for a great service let us test on real browsers.
