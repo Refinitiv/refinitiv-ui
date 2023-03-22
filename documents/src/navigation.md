@@ -10,6 +10,7 @@ type: nav
     - [Button](./components/button)
     - [Card](./components/card)
     - [Checkbox](./components/checkbox)
+    - [SubCheckbox](./components/sub-checkbox)
     - [Flag](./components/flag)
     - [Icon](./components/icon)
     - [Tooltip](./components/tooltip)
