@@ -18,12 +18,6 @@ export class Option extends ControlElement {
   }
 
   /**
-   * Highlight the option
-   */
-  @property({ type: Boolean, reflect: true })
-  public highlighted = false;
-
-  /**
    * Indicates that the option is selected
    */
   @property({ type: Boolean, reflect: true })
@@ -49,14 +43,15 @@ export class Option extends ControlElement {
         border: var(--ds-control-border-width) var(--ds-control-border-style) transparent;
         border-radius: var(--ds-control-border-radius);
       }
+      :host(:focus),
+      :host(:hover),
       :host([selected]) {
         color: var(--ds-control-color);
-      }
-      :host(:focus),
-      :host([highlighted]) {
-        color: var(--ds-control-focus-color);
         border-color: var(--ds-control-focus-border-color);
         background-color: var(--ds-control-focus-background-color);
+      }
+      :host([selected]) {
+        color: var(--ds-control-focus-color);
       }
     `;
   }

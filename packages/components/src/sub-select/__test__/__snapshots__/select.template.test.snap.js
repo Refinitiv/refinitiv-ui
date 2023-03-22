@@ -7,7 +7,7 @@ snapshots["select/Template Template Parts Empty DOM has all required parts"] =
     <div part="placeholder">
     </div>
   </div>
- <ui-sub-icon
+  <ui-sub-icon
     icon="down"
     part="icon"
   >
@@ -25,7 +25,7 @@ snapshots["select/Template Template Parts Placeholder is rendered"] =
       Placeholder
     </div>
   </div>
- <ui-sub-icon
+  <ui-sub-icon
     icon="down"
     part="icon"
   >
@@ -42,7 +42,7 @@ snapshots["select/Template Template Parts Lazy Render: options"] =
     <div part="placeholder">
     </div>
   </div>
- <ui-sub-icon
+  <ui-sub-icon
     icon="down"
     part="icon"
   >
@@ -59,7 +59,7 @@ snapshots["select/Template Template Parts Lazy Render: options opened"] =
     <div part="placeholder">
     </div>
   </div>
- <ui-sub-icon
+  <ui-sub-icon
     icon="down"
     part="icon"
   >
@@ -91,7 +91,7 @@ snapshots["select/Template Template Parts Lazy Render: data"] =
     <div part="placeholder">
     </div>
   </div>
- <ui-sub-icon
+  <ui-sub-icon
     icon="down"
     part="icon"
   >
@@ -108,7 +108,7 @@ snapshots["select/Template Template Parts Lazy Render: data opened"] =
     <div part="placeholder">
     </div>
   </div>
- <ui-sub-icon
+  <ui-sub-icon
     icon="down"
     part="icon"
   >
@@ -128,38 +128,8 @@ snapshots["select/Template Template Parts Lazy Render: data opened"] =
   tabindex="-1"
   with-shadow=""
 >
- <ui-sub-item
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="header"
-  >
-  </ui-sub-item>
- <ui-sub-item
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ui-sub-item>
- <ui-sub-item
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ui-sub-item>
- <ui-sub-item
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="divider"
-  >
-  </ui-sub-item>
- <ui-sub-item
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ui-sub-item>
+  <slot>
+  </slot>
 </ui-sub-overlay>
 `;
 /* end snapshot select/Template Template Parts Lazy Render: data opened */
@@ -170,7 +140,7 @@ snapshots["select/Template Template Parts Data is reflected to render"] =
     <div part="placeholder">
     </div>
   </div>
- <ui-sub-icon
+  <ui-sub-icon
     icon="down"
     part="icon"
   >
@@ -190,38 +160,8 @@ snapshots["select/Template Template Parts Data is reflected to render"] =
   tabindex="-1"
   with-shadow=""
 >
- <ui-sub-item
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="header"
-  >
-  </ui-sub-item>
- <ui-sub-item
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ui-sub-item>
- <ui-sub-item
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ui-sub-item>
- <ui-sub-item
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="divider"
-  >
-  </ui-sub-item>
- <ui-sub-item
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ui-sub-item>
+  <slot>
+  </slot>
 </ui-sub-overlay>
 `;
 /* end snapshot select/Template Template Parts Data is reflected to render */
@@ -232,7 +172,7 @@ snapshots["select/Template Template Parts Data is reflected to reverse render"] 
     <div part="placeholder">
     </div>
   </div>
- <ui-sub-icon
+  <ui-sub-icon
     icon="down"
     part="icon"
   >
@@ -251,38 +191,8 @@ snapshots["select/Template Template Parts Data is reflected to reverse render"] 
   tabindex="-1"
   with-shadow=""
 >
- <ui-sub-item
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ui-sub-item>
- <ui-sub-item
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="divider"
-  >
-  </ui-sub-item>
- <ui-sub-item
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ui-sub-item>
- <ui-sub-item
-    part="item"
-    role="option"
-    tabindex="0"
-  >
-  </ui-sub-item>
- <ui-sub-item
-    part="item"
-    role="presentation"
-    tabindex="-1"
-    type="header"
-  >
-  </ui-sub-item>
+  <slot>
+  </slot>
 </ui-sub-overlay>
 `;
 /* end snapshot select/Template Template Parts Data is reflected to reverse render */
@@ -293,7 +203,7 @@ snapshots["select/Template Template Parts Data is reflected to render null data"
     <div part="placeholder">
     </div>
   </div>
- <ui-sub-icon
+  <ui-sub-icon
     icon="down"
     part="icon"
   >
