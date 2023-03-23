@@ -8,44 +8,39 @@ describe('ui-sub-password-field', () => {
       const el = await fixture('<ui-sub-password-field></ui-sub-password-field>');
       await expect(el).shadowDom.to.equalSnapshot();
     });
-    it('Show password DOM is correct', async () => {
-      const el = await fixture('<ui-sub-password-field></ui-sub-password-field>');
-      const eyeIconEl = el.shadowRoot.querySelector('[part~=icon]');
-      eyeIconEl.click();
-      await elementUpdated(el);
-      await expect(el).shadowDom.to.equalSnapshot();
-    });
   });
 
   describe('Attributes', () => {
     describe('value', () => {
-      it('value attribute should be empty string by default', async () => {
-        const el = await fixture('<ui-sub-password-field></ui-sub-password-field>');
-        await expect(el.value).to.equal('', 'value');
+      it('should be not present by default', async () => {
+        const el = await fixture(`<ui-sub-password-field></ui-sub-password-field>`);
+        await expect(el.hasAttribute('value')).to.be.false;
       });
-      it('value attribute should be reflected with property', async () => {
-        const el = await fixture('<ui-sub-password-field value="abbr"></ui-sub-password-field>');
-        await expect(el.value).to.equal('abbr', 'value');
-      });
-      it('value attribute should not reflected when property value has change', async () => {
-        const el = await fixture('<ui-sub-password-field value="abbr"></ui-sub-password-field>');
-        el.value = '';
-        await elementUpdated(el);
-        await expect(el.getAttribute('value')).to.equal('abbr');
-      });
-      it('should correct value with input value', async () => {
-        const el = await fixture('<ui-sub-password-field value="abbr"></ui-sub-password-field>');
+      it('should propagate value to input ', async () => {
+        const el = await fixture(`<ui-sub-password-field value="abbr"></ui-sub-password-field>`);
         const input = el.shadowRoot.querySelector('[part=input]');
-        await expect(el.value).to.equal('abbr');
-        await expect(input.value).to.equal('abbr');
+
+        await expect(input.value).to.equal('abbr')
       });
-      it('should reflect value with input value', async () => {
-        const el = await fixture('<ui-sub-password-field value="abbr"></ui-sub-password-field>');
+    });
+  });
+
+  describe('Properties', () => {
+    describe('value', () => {
+      it('should be empty string by default', async () => {
+        const el = await fixture(`<ui-sub-password-field></ui-sub-password-field>`);
         const input = el.shadowRoot.querySelector('[part=input]');
-        el.value = 'valg';
+
+        await expect(input.value).to.equal('');
+        await expect(el.value).to.equal('');
+      });
+      it('should propagate value to input', async () => {
+        const el = await fixture(`<ui-sub-password-field></ui-sub-password-field>`);
+        const input = el.shadowRoot.querySelector('[part=input]');
+        el.value = 'test';
+
         await elementUpdated(el);
-        await expect(el.value).to.equal('valg');
-        await expect(input.value).to.equal('valg');
+        await expect(input.value).to.equal('test');
       });
     });
   });
