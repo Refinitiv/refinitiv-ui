@@ -8,6 +8,14 @@ describe('ui-sub-password-field', () => {
       const el = await fixture('<ui-sub-password-field></ui-sub-password-field>');
       await expect(el).shadowDom.to.equalSnapshot();
     });
+    it('Show password DOM is correct', async () => {
+      const el = await fixture('<ui-sub-password-field></ui-sub-password-field>');
+      const eyeIconEl = el.shadowRoot.querySelector('[part~=icon]');
+      eyeIconEl.click();
+
+      await elementUpdated(el);
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
   });
 
   describe('Attributes', () => {
