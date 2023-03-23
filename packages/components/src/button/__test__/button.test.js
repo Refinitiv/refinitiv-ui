@@ -31,9 +31,9 @@ describe('ui-button', () => {
     });
 
     describe('variant', () => {
-      it('variant attribute should be primary by default', async () => {
+      it('variant attribute should be secondary by default', async () => {
         const el = await fixture('<ui-button></ui-button>');
-        await expect(el.getAttribute('variant')).to.equal('primary');
+        await expect(el.getAttribute('variant')).to.equal('secondary');
       });
     });
   });
@@ -48,8 +48,8 @@ describe('ui-button', () => {
     
     describe('variant', () => {
       it('variant property should be reflected with attribute', async () => {
-        const el = await fixture(html`<ui-button variant="secondary"></ui-button>`);
-        await expect(el.variant).to.equal('secondary');
+        const el = await fixture(html`<ui-button variant="primary"></ui-button>`);
+        await expect(el.variant).to.equal('primary');
       });
     });
   });
