@@ -1,4 +1,4 @@
-import { fixture, expect, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, oneEvent, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/tornado-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-tornado-chart.js';
@@ -48,6 +48,7 @@ describe('tornado-chart/TornadoChart', () => {
       const legend = element.shadowRoot.querySelector('[part="legend"]');
 
       await oneEvent(element, 'resize');
+      await elementUpdated(element);
 
       expect(legend.hasAttribute('vertical')).to.equal(true);
     });
@@ -61,6 +62,7 @@ describe('tornado-chart/TornadoChart', () => {
       );
 
       await oneEvent(element, 'resize');
+      await elementUpdated(element);
       await nextFrame();
 
       const items = element.querySelectorAll('ef-tornado-item');

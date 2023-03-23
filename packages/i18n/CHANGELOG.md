@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.11](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/i18n@6.0.10...@refinitiv-ui/i18n@6.0.11) (2023-03-23)
+
+**Note:** Version bump only for package @refinitiv-ui/i18n
+
+
+
+
+
 ## [6.0.10](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/i18n@6.0.9...@refinitiv-ui/i18n@6.0.10) (2023-03-14)
 
 **Note:** Version bump only for package @refinitiv-ui/i18n

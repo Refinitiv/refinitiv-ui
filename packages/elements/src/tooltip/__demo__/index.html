@@ -110,6 +110,26 @@
         </custom-style>
     </demo-block>
 
+    <demo-block layout="normal" header="Tooltip Opening" tags="tooltip, position, show, moving">
+      side by side buttons: testing tooltip display
+      <style>
+          .container {
+            display: flex;
+            justify-content: center;
+
+          }
+          .container > ef-button {
+            height: 50px;
+            width: 100px;
+          }
+      </style>
+      </div>
+      <div class="container">
+        <ef-button title="Hello tooltip1">Tooltip1</ef-button>
+        <ef-button title="Hello tooltip2">Tooltip2</ef-button>
+      </div>
+    </demo-block>
+
     <demo-block layout="normal" header="Transition styles"  tags="tooltip, transition">
         <div>Tooltip can have different transition styles, which may be overridden by changing `transitionStyle`.</div>
         <br/>

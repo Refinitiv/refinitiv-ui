@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.7.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.7.1...@refinitiv-ui/elements@6.7.2) (2023-03-23)
+
+
+### Bug Fixes
+
+* **card:** Card can not expand nested overlay-menu in touch devices ([#623](https://github.com/Refinitiv/refinitiv-ui/issues/623)) ([09a95c6](https://github.com/Refinitiv/refinitiv-ui/commit/09a95c665b1622b7112da12cf8fb138d0738a5b5))
+* **tooltip:** fix missing tooltip in consecutive buttons ([#601](https://github.com/Refinitiv/refinitiv-ui/issues/601)) ([be77306](https://github.com/Refinitiv/refinitiv-ui/commit/be773067b542cafdcdbec92ba660d8464cc7f422))
+
+
+
+
+
 ## [6.7.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.7.0...@refinitiv-ui/elements@6.7.1) (2023-03-14)
 
 

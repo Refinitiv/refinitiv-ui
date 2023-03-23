@@ -56,7 +56,7 @@ describe('led-gauge/LedGauge', () => {
     el.setAttribute('top-label', 'NewTopLabel');
     el.setAttribute('bottom-label', 'NewBottomLabel');
 
-    await elementUpdated();
+    await elementUpdated(el);
     top = el.shadowRoot.querySelector('#top');
     bottom = el.shadowRoot.querySelector('#bottom');
 
@@ -72,7 +72,7 @@ describe('led-gauge/LedGauge', () => {
     el.topLabel = 'NewTopLabel';
     el.bottomLabel = 'NewBottomLabel';
 
-    await elementUpdated();
+    await elementUpdated(el);
     top = el.shadowRoot.querySelector('#top');
     bottom = el.shadowRoot.querySelector('#bottom');
 
@@ -87,7 +87,7 @@ describe('led-gauge/LedGauge', () => {
 
     el.removeAttribute('top-label');
     el.removeAttribute('bottom-label');
-    await elementUpdated();
+    await elementUpdated(el);
     top = el.shadowRoot.querySelector('#top');
     bottom = el.shadowRoot.querySelector('#bottom');
 
@@ -111,8 +111,7 @@ describe('led-gauge/LedGauge', () => {
 
   it('Should be able to set topValue and bottomValue via property', async () => {
     const el = await fixture(full);
-    await nextFrame();
-    await nextFrame();
+    await nextFrame(2); // wait for resize observer & rendering completion
     top = el.shadowRoot.querySelector('#top');
     bottom = el.shadowRoot.querySelector('#bottom');
     let topTextPos = parseInt(window.getComputedStyle(top).getPropertyValue('left'), 10);
@@ -123,7 +122,7 @@ describe('led-gauge/LedGauge', () => {
 
     el.topValue = 50;
     el.bottomValue = -50;
-    await elementUpdated();
+    await elementUpdated(el);
     let newTopTextPos = parseInt(window.getComputedStyle(top).getPropertyValue('left'), 10);
     let newBottomTextPos = parseInt(window.getComputedStyle(bottom).getPropertyValue('left'), 10);
 
@@ -134,8 +133,7 @@ describe('led-gauge/LedGauge', () => {
 
   it('Should be able to set topValue and bottomValue via attribute', async () => {
     const el = await fixture(full);
-    await nextFrame();
-    await nextFrame();
+    await nextFrame(2); // wait for resize observer & rendering completion
     top = el.shadowRoot.querySelector('#top');
     bottom = el.shadowRoot.querySelector('#bottom');
     let topTextPos = parseInt(window.getComputedStyle(top).getPropertyValue('left'), 10);
@@ -146,7 +144,7 @@ describe('led-gauge/LedGauge', () => {
 
     el.setAttribute('top-value', '50');
     el.setAttribute('bottom-value', '-50');
-    await elementUpdated();
+    await elementUpdated(el);
     let newTopTextPos = parseInt(window.getComputedStyle(top).getPropertyValue('left'), 10);
     let newBottomTextPos = parseInt(window.getComputedStyle(bottom).getPropertyValue('left'), 10);
 
@@ -163,7 +161,7 @@ describe('led-gauge/LedGauge', () => {
   it('Should update range label when range-label changed by attribute', async () => {
     const el = await fixture(rangeFixture);
     el.setAttribute('range-label', 'NewRangeLabel');
-    await elementUpdated();
+    await elementUpdated(el);
     range = el.shadowRoot.querySelector('#range');
 
     expect(range).to.not.equal(null);
@@ -173,7 +171,7 @@ describe('led-gauge/LedGauge', () => {
   it('Should update range label when range-label changed by property', async () => {
     const el = await fixture(rangeFixture);
     el.rangeLabel = 'NewRangeLabel';
-    await elementUpdated();
+    await elementUpdated(el);
     range = el.shadowRoot.querySelector('#range');
 
     expect(range).to.not.equal(null);
@@ -188,7 +186,7 @@ describe('led-gauge/LedGauge', () => {
     expect(range).to.not.equal(null);
 
     el.setAttribute('bottom-label', 'Bottom Text');
-    await elementUpdated();
+    await elementUpdated(el);
     expect(bottom).to.equal(null);
     expect(range).to.not.equal(null);
   });
@@ -202,20 +200,20 @@ describe('led-gauge/LedGauge', () => {
   it('Should have min=0 and max=100 when set zero=left by property', async () => {
     const el = await fixture(zero);
     el.zero = 'left';
-    await elementUpdated();
+    await elementUpdated(el);
     expect(el.zero).to.equal('left');
   });
 
   it('Should set zero to center when invalid value is set', async () => {
     const el = await fixture(zero);
     el.zero = 'left';
-    await elementUpdated();
+    await elementUpdated(el);
     expect(el.zero).to.equal('left');
     expect(el.min).to.equal(0);
     expect(el.max).to.equal(100);
 
     el.zero = 'invalid';
-    await elementUpdated();
+    await elementUpdated(el);
     expect(el.zero).to.equal('center');
     expect(el.min).to.equal(-100);
     expect(el.max).to.equal(100);

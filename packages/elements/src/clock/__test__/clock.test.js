@@ -25,8 +25,7 @@ describe('clock/Clock', () => {
       el = await fixture('<ef-clock analogue></ef-clock>');
       el.style.width = '129px';
       await elementUpdated(el);
-      await nextFrame();
-      await nextFrame();
+      await nextFrame(2); // wait for resize observer & rendering completion
 
       await expect(el).shadowDom.to.equalSnapshot();
     });
