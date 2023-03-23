@@ -13,151 +13,49 @@ describe('ui-button', () => {
       const el = await fixture(html`<ui-button>Button</ui-button>`);
       expect(el).to.be.instanceOf(HTMLElement);
     });
+    it('should have the "Button" string in the textContent field if the slot has the "Button" string', async () => {
+      const el = await fixture(html`<ui-button>Button</ui-button>`);
+      expect(el.textContent.trim()).to.equal('Button');
+    });
+    it('should have the empty string if the slot is empty', async () => {
+      const el = await fixture(html`<ui-button></ui-button>`);
+      expect(el.textContent.trim()).to.equal('');
+    });
   });
 
   describe('Attributes', () => {
-    describe('transparent', () => {
-      it('should exist if the transparent property sets to true', async () => {
-        const el = await fixture(html`<ui-button></ui-button>`);
-        el.transparent = true;
-        await elementUpdated(el);
-        expect(el.hasAttribute('transparent')).to.exist;
+    describe('icon-end', () => {
+      it('should have the "tick" icon when set the icon-end attribute', async () => {
+        const el = await fixture(html`<ui-button icon-end="tick"></ui-button>`);
       });
     });
 
-    describe('cta(call-to-action)', () => {
-      it('should have cta attribute set to true if the cta property sets to true', async () => {
-        const el = await fixture(html`<ui-button></ui-button>`);
-        el.cta = true;
-        expect(el.hasAttribute('cta')).to.exist;
-      });
-    });
-
-    describe('toggles', () => {
-      it('should have attribute set to true if the toggles property sets to true', async () => {
-        const el = await fixture(html`<ui-button></ui-button>`);
-        el.toggles = true;
-        expect(el.hasAttribute('toggles')).to.exist;
-      });
-    });
-
-    describe('icon', () => {
-      it('should have the "tick" icon and set the icon property to ef-icon with icon id', async () => {
-        const el = await fixture(html`<ui-button icon="tick"></ui-button>`);
-        const iconEl = el.shadowRoot.querySelector('#icon');
-        expect(iconEl.getAttribute('icon')).to.equal('tick');
-      });
-  
-      it('should have the "tick" icon and set the icon property to ef-icon with hover-icon id', async () => {
-        const el = await fixture(html`<ui-button icon="search" hover-icon="tick"></ui-button>`);
-        const iconEl = el.shadowRoot.querySelector('#hover-icon');
-        expect(iconEl.getAttribute('icon')).to.equal('tick');
-      });
-    });
-
-    describe('active', () => {
-      it('should have attribute set to true if the active property sets to true', async () => {
-        const el = await fixture(html`<ui-button></ui-button>`);
-        el.active = true;
-        await elementUpdated(el);
-        expect(el.hasAttribute('active')).to.be.equal(true);
-      });
-    });
-
-    describe('textpos', () => {
-      it('should have default value to "after"', async () => {
-        const el = await fixture(html`<ui-button></ui-button>`);
-        expect(el.textpos).to.equal('after');
-        expect(el.hasAttribute('textpos')).to.be.exist;
+    describe('variant', () => {
+      it('variant attribute should be primary by default', async () => {
+        const el = await fixture('<ui-button></ui-button>');
+        await expect(el.getAttribute('variant')).to.equal('primary');
       });
     });
   });
-
+  
   describe('Properties', () => {
-    describe('transparent', () => {
-      it('should set to false if the transparent attribute doesn\'t exist', async () => {
-        const el = await fixture(html`<ui-button></ui-button>`);
-        expect(el.transparent).to.equal(false);
-      });
-      it('should set to true if the transparent attribute exists', async () => {
-        const el = await fixture(html`<ui-button transparent></ui-button>`);
-        expect(el.transparent).to.equal(true);
+    describe('icon-end', () => {
+      it('should have the "tick" icon when set the icon-end attribute', async () => {
+        const el = await fixture(html`<ui-button icon-end="tick"></ui-button>`);
+        expect(el.iconEnd).to.equal('tick');
       });
     });
-
-    describe('cta(call-to-action)', () => {
-      it('should set to true if the cta attribute exists', async () => {
-        const el = await fixture(html`<ui-button cta></ui-button>`);
-        expect(el.cta).to.equal(true);
-      });
     
-      it('should set to false if the cta attribute doesn\'t exist', async () => {
-        const el = await fixture(html`<ui-button></ui-button>`);
-        expect(el.cta).to.equal(false);
-      });
-    });
-
-    describe('empty', () => {
-      it('should set to true if the empty attribute exists', async () => {
-        const el = await fixture(html`<ui-button></ui-button>`);
-        expect(el.empty).to.equal(true);
-      });
-      it('should set to false if the default slot is not empty', async () => {
-        const el = await fixture(html`<ui-button>Button</ui-button>`);
-        expect(el.empty).to.equal(false);
-      });
-    });
-
-    describe('toggles', () => {
-      it('should set to true if the toggles attribute exists', async () => {
-        const el = await fixture(html`<ui-button toggles></ui-button>`);
-        expect(el.toggles).to.equal(true);
-      });
-      it('should set to false if the toggles attribute doesn\'t exist', async () => {
-        const el = await fixture(html`<ui-button></ui-button>`);
-        expect(el.toggles).to.equal(false);
-      });
-    });
-
-    describe('active', () => {
-      it('should set to true if the the active attribute exists', async () => {
-        const el = await fixture(html`<ui-button toggles active></ui-button>`);
-        expect(el.active).to.equal(true);
-      });
-      it('should set to false if the active attribute doesn\'t exist', async () => {
-        const el = await fixture(html`<ui-button></ui-button>`);
-        expect(el.active).to.equal(false);
-      });
-    });
-  
-    describe('textpos', () => {
-      it('should set to "after" the active attribute sets "after"', async () => {
-        const el = await fixture(html`<ui-button textpos="after"></ui-button>`);
-        expect(el.textpos).to.equal('after');
-      });
-      it('should be able to set textpos accordingly', async () => {
-        const el = await fixture(html`<ui-button textpos="before"></ui-button>`);
-        el.textpos = 'after';
-        await elementUpdated(el);
-        expect(el.textpos).to.equal('after');
-      });
-    });
-
-    describe('Default Slot', () => {
-      it('should have the "Button" string in the textContent field if the slot has the "Button" string', async () => {
-        const el = await fixture(html`<ui-button>Button</ui-button>`);
-        expect(el.textContent.trim()).to.equal('Button');
-      });
-  
-      it('should have the empty string if the slot is empty', async () => {
-        const el = await fixture(html`<ui-button></ui-button>`);
-        expect(el.textContent.trim()).to.equal('');
+    describe('variant', () => {
+      it('variant property should be reflected with attribute', async () => {
+        const el = await fixture(html`<ui-button variant="secondary"></ui-button>`);
+        await expect(el.variant).to.equal('secondary');
       });
     });
   });
 
   describe('Keyboard', () => {
-        if ((/Trident/g).test(navigator.userAgent)) {
+    if ((/Trident/g).test(navigator.userAgent)) {
       window.KeyboardEvent = class extends Event {
         constructor (type, data) {
           super(type, data);
@@ -174,54 +72,11 @@ describe('ui-button', () => {
       });
     });
 
-
     describe('tap', () => {
       it('should be called when tap is dispatched', async () => {
         const el = await fixture(html`<ui-button></ui-button>`);
         setTimeout(() => el.dispatchEvent(new Event('tap')));
         await oneEvent(el, 'tap');
-      });
-    });
-
-    describe('toggles tap', () => {
-      it('should set the active property to true if the element with toggles attribute is taped', async () => {
-        const el = await fixture(html`<ui-button toggles icon="icon.png" hover-icon="hover-icon.png"></ui-button>`);
-        setTimeout(() => el.dispatchEvent(new Event('tap')));
-        await oneEvent(el, 'tap');
-        expect(el.active).to.equal(true);
-      });
-      it('should set the active property to false if the element with toggles and active attributes are taped', async () => {
-        const el = await fixture(html`<ui-button toggles active icon="icon.png" hover-icon="hover-icon.png"></ui-button>`);
-        setTimeout(() => el.dispatchEvent(new Event('tap')));
-        await oneEvent(el, 'tap');
-        expect(el.active).to.equal(false);
-      });
-    });
-
-    describe('toggles tap for role=radio', () => {
-      it('should set the active property to true if the element with toggles attribute is taped', async () => {
-        const el = await fixture(html`<ui-button toggles role="radio" icon="icon.png" hover-icon="hover-icon.png"></ui-button>`);
-        setTimeout(() => el.dispatchEvent(new Event('tap')));
-        await oneEvent(el, 'tap');
-        expect(el.active).to.equal(true);
-      });
-      it('should set the active property to false if the element with toggles and active attributes are taped', async () => {
-        const el = await fixture(html`<ui-button toggles active role="radio" icon="icon.png" hover-icon="hover-icon.png"></ui-button>`);
-        setTimeout(() => el.dispatchEvent(new Event('tap')));
-        await oneEvent(el, 'tap');
-        expect(el.active).to.equal(false);
-      });
-    });
-
-    describe('pressed', () => {
-      it('should have `pressed` attribute reflected when `tapstart` and removed when `tapend`', async () => {
-        const el = await fixture(html`<ui-button></ui-button>`);
-        el.dispatchEvent(new Event('tapstart'));
-        await elementUpdated(el);
-        expect(el.getAttribute('pressed')).to.equal('');
-        el.dispatchEvent(new Event('tapend'));
-        await elementUpdated(el);
-        expect(el.getAttribute('pressed')).to.equal(null);
       });
     });
 
@@ -243,42 +98,13 @@ describe('ui-button', () => {
       const el = await fixture(`<ui-button></ui-button>`);
       await expect(el).not.to.be.accessible();
     });
-
     it('should pass a11y requirement when text content is provided', async () => {
       const el = await fixture(`<ui-button>TEST</ui-button>`);
-      await expect(el).to.be.accessible({
-        ignoredRules: ['aria-allowed-attr', 'color-contrast']
-      });
+      await expect(el).to.be.accessible();
     });
-
-    it('should pass a11y requirement when aria-label is provided instead of text content', async () => {
-      const el = await fixture(`<ui-button aria-label="Tick Icon" icon="tick"></ui-button>`);
-      await expect(el).to.be.accessible({
-        ignoredRules: ['aria-allowed-attr']
-      });
-    });
-
-    it('should have aria-pressed="false" when it is not pressed', async () => {
-      const el = await fixture(`<ui-button toggles>Toggle</ui-button>`);
-      await expect(el).to.be.accessible({
-        ignoredRules: ['aria-allowed-attr', 'color-contrast']
-      });
-      await expect(el.getAttribute('aria-pressed')).to.equal('false');
-    });
-
-    it('should have aria-pressed="true" when it is pressed', async () => {
-      const el = await fixture(`<ui-button toggles active>Toggle</ui-button>`);
-      await expect(el).to.be.accessible({
-        ignoredRules: ['aria-allowed-attr', 'color-contrast']
-      });
-      await expect(el.getAttribute('aria-pressed')).to.equal('true');
-    });
-
-    it('should have aria-pressed instead of aria-checked when button has role="radio"', async () => {
-      const el = await fixture(`<ui-button role='radio' toggles></ui-button>`);
-      expect(el.hasAttribute('aria-checked')).to.be.true;
-      expect(el.hasAttribute('aria-pressed')).to.be.false;
+    it('should pass a11y requirement when text content and icon-end are provided', async () => {
+      const el = await fixture(`<ui-button icon-end="tick">TEST</ui-button>`);
+      await expect(el).to.be.accessible();
     });
   });
 });
-
