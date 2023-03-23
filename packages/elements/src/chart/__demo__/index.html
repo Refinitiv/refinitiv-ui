@@ -381,10 +381,10 @@
   <demo-block layout="normal" header="Pie Chart">
     <ef-chart id="pie"></ef-chart>
     <script>
-      var pieDatasets = [{
-        data: [36, 22, 16, 8.2, 5.7, 12]
+      const pieDatasets = [{
+        data: [100, 22, 16, 8.2, 5.7, 12]
       }];
-      var pie = document.getElementById('pie');
+      const pie = document.getElementById('pie');
       pie.config = {
         type: 'pie',
         data: {
@@ -398,6 +398,7 @@
             },
             tooltip: {
               callbacks: {
+                title: () => null,
                 label: (tooltipItem) => {
                   const title = tooltipItem.label;
                   const result = tooltipItem.raw;
@@ -411,13 +412,13 @@
     </script>
   </demo-block>
 
-  <!-- <demo-block layout="normal" header="Doughnut Chart">
+  <demo-block layout="normal" header="Doughnut Chart">
     <ef-chart id="doughnut"></ef-chart>
     <script>
-      var doughnutDataSets = [{
+      const doughnutDataSets = [{
         data: [36, 22, 16, 8.2, 5.7, 12]
       }];
-      var doughnut = document.getElementById('doughnut');
+      const doughnut = document.getElementById('doughnut');
       doughnut.config = {
         type: 'doughnut',
         data: {
@@ -425,15 +426,18 @@
           datasets: doughnutDataSets
         },
         options: {
-          title: {
-            text: 'Operating Segments of AAPL.O in 2014'
-          },
-          tooltips: {
-            callbacks: {
-              label: function (tooltipItem, data) {
-                var title = data.labels[tooltipItem.index];
-                var result = data.datasets[0].data[tooltipItem.index];
-                return title + ': ' + result + '%';
+          plugins: {
+            title: {
+              text: 'Operating Segments of AAPL.O in 2014'
+            },
+            tooltip: {
+              callbacks: {
+                title: () => null,
+                label: (tooltipItem) => {
+                  const title = tooltipItem.label;
+                  const result = tooltipItem.raw;
+                  return title + ': ' + result + '%';
+                }
               }
             }
           }
@@ -445,24 +449,30 @@
   <demo-block layout="normal" header="Donut Chart - Center Label">
     <ef-chart id="doughnut-center-label"></ef-chart>
     <script>
-      var doughnutDataSets = [{
+      const doughnutCenterLabelDataSets = [{
         data: [36, 22, 16, 8.2, 5.7, 12]
       }];
-      var doughnut = document.getElementById('doughnut-center-label');
-      doughnut.config = {
+      const doughnutCenterLabel = document.getElementById('doughnut-center-label');
+      doughnutCenterLabel.config = {
         type: 'doughnut',
         data: {
           labels: ['Americas', 'Europe', 'Greater China', 'Japan', 'Asia Pacific', 'Retail'],
-          datasets: doughnutDataSets
+          datasets: doughnutCenterLabelDataSets
         },
         options: {
-          onHover: function (chart, chartItem) {
-            console.log('hover: ', chartItem); // eslint-disable-line
+          onHover: (event, elements, chart) => {
+            console.log('hover: ', event, elements, chart); // eslint-disable-line
           },
-          onClick: function (chart, chartItem) {
-            console.log('click: ', chartItem); // eslint-disable-line
+          onClick: (event, elements, chart) => {
+            console.log('click: ', event, elements, chart); // eslint-disable-line
           },
           plugins: {
+            title: {
+              text: 'Operating Segments of AAPL.O in 2014'
+            },
+            tooltip: {
+              enabled: true
+            },
             centerLabel: {
               defaultText: [
                 {
@@ -477,9 +487,9 @@
                 if (chartItems.length) {
                   const chartItem = chartItems[0];
                   const data = chart.data;
-                  const title = data.labels[chartItem._index];
-                  const value = data.datasets[chartItem._datasetIndex].data[chartItem._index];
-                  const total = data.datasets[chartItem._datasetIndex].data.reduce((total, num) => total + num);
+                  const title = data.labels[chartItem.index];
+                  const value = data.datasets[chartItem.datasetIndex].data[chartItem.index];
+                  const total = data.datasets[chartItem.datasetIndex].data.reduce((total, num) => total + num);
                   const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
 
                   return [{
@@ -494,12 +504,6 @@
                 }
               }
             }
-          },
-          title: {
-            text: 'Operating Segments of AAPL.O in 2014'
-          },
-          tooltips: {
-            enabled: true
           }
         }
       };
@@ -510,7 +514,7 @@
   <demo-block layout="normal" header="Donut Chart - Center Label - Multiple Dataset">
     <ef-chart id="doughnut-multiple-dataset"></ef-chart>
     <script>
-      var doughnutDataSets = [
+      const doughnutCenterLabelMultiDataSets = [
         {
           label: '2020',
           data: [36, 22, 16, 8.2, 5.7, 12]
@@ -524,16 +528,22 @@
           data: [12, 5.7, 8.2, 16, 22, 36]
         }
       ];
-      var doughnut = document.getElementById('doughnut-multiple-dataset');
-      doughnut.config = {
+      const doughnutCenterLabelMulti = document.getElementById('doughnut-multiple-dataset');
+      doughnutCenterLabelMulti.config = {
         type: 'doughnut',
         data: {
           labels: ['Americas', 'Europe', 'Greater China', 'Japan', 'Asia Pacific', 'Retail'],
-          datasets: doughnutDataSets
+          datasets: doughnutCenterLabelMultiDataSets
         },
         options: {
           hover: { animationDuration: 0 },
           plugins: {
+            title: {
+              text: 'Operating Segments of AAPL.O in 2020'
+            },
+            tooltips: {
+              enabled: true
+            },
             centerLabel: {
               defaultText: [
                 {
@@ -549,14 +559,14 @@
                 if (chartItems.length) {
                   const chartItem = chartItems[0];
                   const data = chart.data;
-                  const title = data.labels[chartItem._index];
-                  const value = data.datasets[chartItem._datasetIndex].data[chartItem._index];
-                  const total = data.datasets[chartItem._datasetIndex].data.reduce((total, num) => total + num);
+                  const title = data.labels[chartItem.index];
+                  const value = data.datasets[chartItem.datasetIndex].data[chartItem.index];
+                  const total = data.datasets[chartItem.datasetIndex].data.reduce((total, num) => total + num);
                   const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
                   let labels = [{ label: title, bold: true }];
 
                   if (data.datasets.length > 1) {
-                    const datasetLebel = data.datasets[chartItem._datasetIndex].label;
+                    const datasetLebel = data.datasets[chartItem.datasetIndex].label;
                     if (datasetLebel) {
                       labels.push({ label: datasetLebel });
                     }
@@ -572,12 +582,6 @@
                 }
               }
             }
-          },
-          title: {
-            text: 'Operating Segments of AAPL.O in 2020'
-          },
-          tooltips: {
-            enabled: true
           }
         }
       };
@@ -587,12 +591,12 @@
   <demo-block layout="normal" header="Pie Chart - Custom Colors">
     <ef-chart id="customize-color"></ef-chart>
     <script>
-      var doughnutCustomDataSets = [{
+      const doughnutCustomDataSets = [{
         data: [36, 30, 22, 16, 8.2, 5.7, 3.1, 2.4, 1.4, 0.9],
         backgroundColor: ['#0D47A1', '#1565C0', '#1976D2', '#1E88E5', '#2196F3', '#42A5F5', '#64B5F6', '#90CAF9', '#BBDEFB', '#E3F2FD'],
         borderWidth: 0
       }];
-      var doughnutCustom = document.getElementById('customize-color');
+      const doughnutCustom = document.getElementById('customize-color');
       doughnutCustom.config = {
         type: 'doughnut',
         data: {
@@ -600,15 +604,18 @@
           datasets: doughnutCustomDataSets
         },
         options: {
-          title: {
-            text: 'Operating Segments of AAPL.O in 2014'
-          },
-          tooltips: {
-            callbacks: {
-              label: function (tooltipItem, data) {
-                var title = data.labels[tooltipItem.index];
-                var result = data.datasets[0].data[tooltipItem.index];
-                return title + ': ' + result + '%';
+          plugins: {
+            title: {
+              text: 'Operating Segments of AAPL.O in 2014'
+            },
+            tooltip: {
+              callbacks: {
+                title: () => null,
+                label: (tooltipItem) => {
+                  const title = tooltipItem.label;
+                  const result = tooltipItem.raw;
+                  return title + ': ' + result + '%';
+                }
               }
             }
           }
@@ -617,7 +624,7 @@
     </script>
   </demo-block>
 
-  <demo-block layout="normal" header="Time Scale">
+  <!-- <demo-block layout="normal" header="Time Scale">
     <ef-chart id="timeScale"></ef-chart>
     <script>
       var timeScale = document.getElementById('timeScale');
@@ -1134,7 +1141,7 @@
     <script>
       const polarArea = document.getElementById('polarArea');
       const data = {
-        labels: [ 'Red', 'Green', 'Yellow', 'Grey', 'Blue'],
+        labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue'],
         datasets: [{
           label: 'My First Dataset',
           data: [11, 16, 7, 3, 14],
@@ -1146,7 +1153,7 @@
       polarArea.config = {
         type: 'polarArea',
         data
-      }
+      };
     </script>
   </demo-block>
 
