@@ -50,6 +50,7 @@ const getPluginConfig = (chart: ChartJS): CenterLabelConfig => {
  * @param {MetaData[]} active active data
  * @returns {void}
  */
+// Note: use logic from chart.js - chart.js/src/elements/element.arc.js :draw()
 const drawItemBorder = function (chart: ChartJS, active: ActiveElement[]): void {
 
   if (!chart.data.datasets) {
@@ -144,12 +145,12 @@ const plugins: Plugin = {
 
     // Set render hook function
     let active:ActiveElement[] = [];
-    chart.getActiveElements();
     if (chart._select) {
       active = chart._select;
     }
-    if (chart.getActiveElements().length > 0) {
-      active = chart.getActiveElements();
+    const activeElements = chart.getActiveElements();
+    if (activeElements.length > 0) {
+      active = activeElements;
     }
 
     const renderText = config.onRenderLabel(chart, active);
@@ -177,7 +178,7 @@ const plugins: Plugin = {
     const centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
     const centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
 
-    // Radius of central circular hole
+    // Radius of circular hole in the middle of the chart
     const innerRadius = (chart.getDatasetMeta(chart.data.datasets.length - 1).data[0] as unknown as DoughnutController).innerRadius;
 
     // Render center background color
