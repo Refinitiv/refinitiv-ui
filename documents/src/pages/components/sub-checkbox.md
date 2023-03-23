@@ -11,12 +11,8 @@ Look ma, no CDN!
 
 ::
 ```html
+<link href="./resources/components.css" rel="stylesheet"/>
 <ui-sub-checkbox></ui-sub-checkbox>
-```
-```css
-html,body{
-	background-color: blue;
-}
 ```
 ```js
 import "./resources/components.js"
