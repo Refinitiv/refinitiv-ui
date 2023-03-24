@@ -12,20 +12,11 @@ import { Collapse } from '../collapse/index.js';
 
 /**
  * Finds closest accordion parent of element.
- * Created, because IE11 doesn't support closest() method.
  * @param element - potential child of accordion
  * @returns found accordion parent or null, if not found
  */
-const getClosestAccordion = (element: Element | null): Accordion | null => {
-  while (element) {
-    if (element instanceof Accordion) {
-      return element;
-    }
-    else {
-      element = element.parentElement;
-    }
-  }
-  return null;
+const getClosestAccordion = (element: Element): Accordion | null => {
+  return element.closest<Accordion>('ef-accordion');
 };
 
 /**
