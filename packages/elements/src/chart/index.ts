@@ -259,6 +259,7 @@ export class Chart extends BasicElement {
     ChartJS.defaults.scale.grid.color = (line) => {
       return line.index === 0 ? this.getComputedVariable('--zero-line-color', 'transparent') : this.getComputedVariable('--grid-line-color', 'transparent');
     };
+    ChartJS.defaults.scales.radialLinear.ticks.showLabelBackdrop = false;
   }
 
   /**
