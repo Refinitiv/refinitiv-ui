@@ -6,7 +6,7 @@ import '@refinitiv-ui/components/select';
 describe('select/Value', () => {
   describe('Selection by Value Attribute', () => {
     it('Options Selected: Afghanistan', async () => {
-      const el = await fixture(`<ui-select opened placeholder="Placeholder">${getOptions()}</ui-select>`);
+      const el = await fixture(`<ui-sub-select opened placeholder="Placeholder">${getOptions()}</ui-sub-select>`);
       el.value = 'AF';
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value getter does not get correct value');
@@ -33,7 +33,7 @@ describe('select/Value', () => {
     });
 
     it('Data Selected: Afghanistan', async () => {
-      const el = await fixture('<ui-select opened placeholder="Placeholder"></ui-select>');
+      const el = await fixture('<ui-sub-select opened placeholder="Placeholder"></ui-sub-select>');
       el.value = 'AF';
       el.data = getData();
       await openedUpdated(el);

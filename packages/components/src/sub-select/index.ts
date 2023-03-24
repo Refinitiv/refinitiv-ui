@@ -82,6 +82,7 @@ export class SubSelect extends ControlElement {
         user-select: none;
         display: inline-flex;
         box-sizing: border-box;
+        vertical-align: middle;
         height: var(--ds-control-height);
         width: var(--ds-control-width);
         color: var(--ds-control-color);
@@ -158,7 +159,6 @@ export class SubSelect extends ControlElement {
   private lazyRendered = false; /* speed up rendering by not populating popup window on first load */
   private popupScrollTop = 0; /* remember scroll position on popup refit actions */
   private observingMutations = false;
-  private highlightedItem?: Option;
   private resizeThrottler = new AnimationTaskRunner();
 
   /**
@@ -428,8 +428,11 @@ export class SubSelect extends ControlElement {
    */
   private onPopupOpened ({ target }: CustomEvent): void {
     this.scrollToSelected();
-    this.setItemHighlight(this.getSelectedElements()[0]);
-
+    const selectedItem = this.getSelectedElements()[0];
+    if (selectedItem) {
+      selectedItem.selected = true;
+      selectedItem.focus();
+    }
     const eventOptions = {
       capture: true,
       passive: true
@@ -444,7 +447,6 @@ export class SubSelect extends ControlElement {
    */
   private onPopupClosed ({ target }: CustomEvent): void {
     target?.removeEventListener('scroll', this.onPopupScroll);
-    this.setItemHighlight();
     this.popupScrollTop = 0;
   }
 
@@ -474,14 +476,9 @@ export class SubSelect extends ControlElement {
    * @param event mouse move event
    * @returns {void}
    */
-  private onPopupMouseMove (event: MouseEvent): void {
+  private onPopupMouseMove (): void {
     if (this.menuRef.value) {
       this.menuRef.value.focus();
-    }
-
-    const item = this.findSelectableElement(event);
-    if (item) {
-      this.setItemHighlight(item);
     }
   }
 
@@ -516,7 +513,9 @@ export class SubSelect extends ControlElement {
     switch (event.key) {
       case 'Spacebar':
       case 'Enter':
-        this.highlightedItem?.click();
+        if (event.target instanceof Option) {
+          event.target.click();
+        }
         break;
       case 'Up':
       case 'ArrowUp':
@@ -548,15 +547,13 @@ export class SubSelect extends ControlElement {
    * @returns {void}
    */
   private focusElement (direction: Navigation): void {
-    const highlightedItem = this.highlightedItem || this.getSelectedElements()[0];
     const selectableElements = this.getSelectableElements();
 
     if (selectableElements.length === 0) {
       return;
     }
 
-    const index = highlightedItem ? selectableElements.indexOf(highlightedItem) : -1;
-
+    const index = selectableElements.findIndex(item => item === document.activeElement);
     const firstElement = selectableElements[0];
     const lastElement = selectableElements[selectableElements.length - 1];
 
@@ -584,28 +581,6 @@ export class SubSelect extends ControlElement {
 
     if (element) {
       element.focus();
-      this.setItemHighlight(element);
-    }
-  }
-
-  /**
-   * Highlight or remove highlight from an item
-   * @param [item] An item to highlight
-   * @returns {void}
-   */
-  private setItemHighlight (item?: Option): void {
-    if (this.highlightedItem === item) {
-      return;
-    }
-
-    if (this.highlightedItem) {
-      this.highlightedItem.highlighted = false;
-    }
-
-    this.highlightedItem = item;
-
-    if (item) {
-      item.highlighted = true;
     }
   }
 

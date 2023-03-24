@@ -5,3 +5,4 @@
 @import '@refinitiv-ui/tokens/lib/mobile.tokens.css' screen and (hover: none) and (pointer: coarse);
 @import '@refinitiv-ui/tokens/lib/light.tokens.css';
 @import '@refinitiv-ui/tokens/lib/dark.tokens.css' (prefers-color-scheme: dark);
+@import './fonts.css';

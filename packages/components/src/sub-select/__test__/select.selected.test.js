@@ -6,7 +6,7 @@ import '@refinitiv-ui/components/select';
 describe('select/Selection', () => {
   describe('Selection by Selected Property', () => {
     it('Options Selected: Afghanistan', async () => {
-      const el = await fixture(`<ui-select opened placeholder="Placeholder">${getOptions([1])}</ui-select>`);
+      const el = await fixture(`<ui-sub-select opened placeholder="Placeholder">${getOptions([1])}</ui-sub-select>`);
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value is not reflected from selected');
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
@@ -22,7 +22,7 @@ describe('select/Selection', () => {
     });
 
     it('Data Selected: Afghanistan', async () => {
-      const el = await fixture('<ui-select opened placeholder="Placeholder"></ui-select>');
+      const el = await fixture('<ui-sub-select opened placeholder="Placeholder"></ui-sub-select>');
       el.data = getData([1]);
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value is not reflected from selected');
@@ -30,7 +30,7 @@ describe('select/Selection', () => {
     });
 
     it('Data Selected change', async () => {
-      const el = await fixture('<ui-select opened placeholder="Placeholder"></ui-select>');
+      const el = await fixture('<ui-sub-select opened placeholder="Placeholder"></ui-sub-select>');
       el.data = getData([1]);
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value is not reflected from selected');
@@ -42,7 +42,7 @@ describe('select/Selection', () => {
     });
 
     it('Data Unselected', async () => {
-      const el = await fixture('<ui-select opened placeholder="Placeholder"></ui-select>');
+      const el = await fixture('<ui-sub-select opened placeholder="Placeholder"></ui-sub-select>');
       el.data = getData([1]);
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value is not reflected from selected');
