@@ -340,8 +340,9 @@
     "@refinitiv-ui/halo-theme": "^7.0.0-next.0",
     "@refinitiv-ui/solar-theme": "^7.0.0-next.0",
     "chart.js": "^4.2.1",
+    "chartjs-adapter-date-fns": "^3.0.0",
     "d3-interpolate": "^3.0.1",
-    "date-fns": "^2.22.1",
+    "date-fns": "^2.29.3",
     "lightweight-charts": "^3.8.0",
     "tslib": "^2.3.1"
   },
