@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.17](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.16...@refinitiv-ui/translate@6.0.17) (2023-03-23)
+
+
+### Bug Fixes
+
+* **tooltip:** fix missing tooltip in consecutive buttons ([#601](https://github.com/Refinitiv/refinitiv-ui/issues/601)) ([be77306](https://github.com/Refinitiv/refinitiv-ui/commit/be773067b542cafdcdbec92ba660d8464cc7f422))
+
+
+
+
+
 ## [6.0.16](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.15...@refinitiv-ui/translate@6.0.16) (2023-03-14)
 
 **Note:** Version bump only for package @refinitiv-ui/translate

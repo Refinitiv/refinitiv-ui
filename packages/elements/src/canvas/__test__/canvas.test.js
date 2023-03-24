@@ -45,8 +45,7 @@ describe('canvas/Canvas', () => {
     Object.defineProperty(window, 'devicePixelRatio', {
       value: null
     });
-    await nextFrame();
-    await nextFrame();
+    await nextFrame(2); // wait for resize observer & rendering completion
     expect(el.canvas.width).equal(Math.floor(el.width * dpr));
     expect(el.canvas.height).equal(Math.floor(el.height * dpr));
   });
@@ -56,8 +55,7 @@ describe('canvas/Canvas', () => {
     Object.defineProperty(window, 'devicePixelRatio', {
       value: 3
     });
-    await nextFrame();
-    await nextFrame();
+    await nextFrame(2); // wait for resize observer & rendering completion
     expect(el.canvas.width).equal(Math.floor(el.width * devicePixelRatio));
     expect(el.canvas.height).equal(Math.floor(el.height * devicePixelRatio));
     Object.defineProperty(window, 'devicePixelRatio', {

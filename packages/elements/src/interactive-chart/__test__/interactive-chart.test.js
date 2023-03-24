@@ -833,9 +833,9 @@ describe('interactive-chart/InteractiveChart', () => {
 
   it('Should has dynamic left position in legend when the chart set y axis at left', async () => {
     el.config = linePositionLeft;
-    await elementUpdated();
-    await nextFrame();
-    await nextFrame();
+    await elementUpdated(el);
+    await nextFrame(3); // wait for resize observer & rendering completion
+
     expect(el.chart).to.not.be.undefined;
     expect(el.chart).to.not.be.null;
 
@@ -848,9 +848,9 @@ describe('interactive-chart/InteractiveChart', () => {
 
   it('Should has dynamic left position in legend when the chart set y axis at both edge', async () => {
     el.config = twoPriceScales;
-    await elementUpdated();
-    await nextFrame();
-    await nextFrame();
+    await elementUpdated(el);
+    await nextFrame(3); // wait for resize observer & rendering completion
+
     expect(el.chart).to.not.be.undefined;
     expect(el.chart).to.not.be.null;
 
@@ -863,9 +863,9 @@ describe('interactive-chart/InteractiveChart', () => {
 
   it('Should has fixed left position in legend when the chart set y axis at right edge', async () => {
     el.config = line;
-    await elementUpdated();
-    await nextFrame();
-    await nextFrame();
+    await elementUpdated(el);
+    await nextFrame(3); // wait for resize observer & rendering completion
+
     expect(el.chart).to.not.be.undefined;
     expect(el.chart).to.not.be.null;
 
@@ -881,15 +881,16 @@ describe('interactive-chart/InteractiveChart', () => {
       el = await fixture('<ef-interactive-chart legendstyle="horizontal"></ef-interactive-chart>');
 
       el.config = line;
-      await elementUpdated();
-      await nextFrame();
+      await elementUpdated(el);
+      await nextFrame(2); // wait for resize observer & rendering completion
+
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
 
       el.setAttribute('legendstyle','vertical');
 
-      await elementUpdated();
       await nextFrame();
+      await elementUpdated(el);
       expect(el.getAttribute('legend-style')).to.null;
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
     });
@@ -897,16 +898,17 @@ describe('interactive-chart/InteractiveChart', () => {
       el = await fixture('<ef-interactive-chart legendstyle="horizontal"></ef-interactive-chart>');
 
       el.config = line;
-      await elementUpdated();
-      await nextFrame();
+      await elementUpdated(el);
+      await nextFrame(2); // wait for resize observer & rendering completion
+
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.getAttribute('legendstyle')).to.equal('horizontal');
 
       el.setAttribute('legend-style','vertical');
 
-      await elementUpdated();
       await nextFrame();
+      await elementUpdated(el);
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
     });
   });

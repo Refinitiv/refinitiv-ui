@@ -1024,7 +1024,7 @@ export class OverlayMenu extends Overlay {
       .label=${label}
       .subLabel=${subLabel}
       .icon=${icon}
-      .value=${value}
+      .value=${ifDefined(value || undefined)}
       .for=${ifDefined(forMenu || undefined)}>
     </ef-item>`;
   }

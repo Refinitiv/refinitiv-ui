@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/test-helpers@6.0.7...@refinitiv-ui/test-helpers@6.0.8) (2023-03-23)
+
+
+### Bug Fixes
+
+* **tooltip:** fix missing tooltip in consecutive buttons ([#601](https://github.com/Refinitiv/refinitiv-ui/issues/601)) ([be77306](https://github.com/Refinitiv/refinitiv-ui/commit/be773067b542cafdcdbec92ba660d8464cc7f422))
+
+
+
+
+
 ## [6.0.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/test-helpers@6.0.6...@refinitiv-ui/test-helpers@6.0.7) (2023-03-14)
 
 **Note:** Version bump only for package @refinitiv-ui/test-helpers

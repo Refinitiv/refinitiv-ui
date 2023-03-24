@@ -3,7 +3,7 @@ import { elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
 /**
  * Cross browser function to wait while select element becomes opened/closed and resized
  * @param {TreeSelect} el Tree select
- * @returns {void}
+ * @returns {Promise<void>}
  */
 export const openedUpdated = async (el) => {
   await elementUpdated(el);
