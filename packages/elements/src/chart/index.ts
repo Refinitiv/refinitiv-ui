@@ -36,6 +36,8 @@ import type { ChartConfiguration, ChartOptions, UpdateMode, LegendItem } from 'c
 import type { Header } from '../header';
 import '../header/index.js';
 
+// Register plugins
+import doughnutCenterPlugin from './plugins/doughnut-center-label.js';
 import 'chartjs-adapter-date-fns';
 
 // TODO: import only common types and let user registers specific type
@@ -432,7 +434,13 @@ export class Chart extends BasicElement {
       return;
     }
 
-    merge(this.config as unknown as MergeObject, { plugins: [this.createPlugin()], options: this.requiredConfig } as MergeObject, true);
+    merge(this.config as unknown as MergeObject,
+      {
+        plugins: [this.createPlugin(), doughnutCenterPlugin],
+        options: this.requiredConfig
+      } as MergeObject,
+      true
+    );
   }
 
 
