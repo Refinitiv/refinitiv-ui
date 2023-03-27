@@ -35,13 +35,16 @@ try {
   // For workspace package real name is required
   const packageName = (await getJSON(path.resolve(PACKAGES_ROOT, workspace, 'package.json'), import.meta)).name;
   const command = ['npm', 'run', argv.reflect, `--workspace=${packageName}`];
-  elementName && command.push(elementName);
+
+  // Add element name to command
+  if (workspace === 'elements') {
+    command.push(elementName ? elementName : 'elements');
+  }
+
   options.length > 0 && command.push('--')
   command.push(...options);
 
-  execSync(command.join(' '), {
-    stdio: 'inherit'
-  });
+  execSync(command.join(' '), { stdio: 'inherit' });
 }
 catch (error) {
   errorHandler(error);

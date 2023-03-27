@@ -16,7 +16,7 @@
     "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "npm run build && wtr --config ../../web-test-runner.config.mjs --package=i18n --include-snapshots=false",
+    "test": "npm run build && node ../../scripts/tests/run.mjs  --package=i18n",
     "test:watch": "npm run test -- --watch",
     "prepack": "npm run version",
     "version": "node ../../scripts/version/index.mjs"
