@@ -36,9 +36,9 @@ export abstract class FocusableHelper {
    * @returns needsSort
    */
   private static collectTabbableNodes (node: Node, result: HTMLElement[], delegatedList: DelegatedList): boolean {
-    // If not an element or not visible, no need to explore children.
     const element = node as HTMLElement;
 
+    // If not an element or not visible, no need to explore children.
     if (node.nodeType !== Node.ELEMENT_NODE || !this.isVisible(element)) {
       return false;
     }
@@ -58,7 +58,7 @@ export abstract class FocusableHelper {
       children = element.shadowRoot.children;
     }
     else {
-      children = element.children || []; // in IE11 for SVG elements can be undefined
+      children = element.children || [];
     }
 
     let childrenNeedSort = false;
