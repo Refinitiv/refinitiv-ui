@@ -203,12 +203,6 @@ export class SubSelect extends ControlElement {
 
     // Indicating that this select has a popup of type listbox
     this.setAttribute('aria-haspopup', 'listbox');
-    this.addEventListener('focus', () => {
-      if (document.activeElement === this && this.shouldOpenOnFocus) {
-        this.setOpened(true);
-      }
-      this.shouldOpenOnFocus = false;
-    });
   }
 
   /**
@@ -357,25 +351,6 @@ export class SubSelect extends ControlElement {
     }
   }
 
-  private shouldOpenOnFocus = false;
-  /**
-   * This flag is required to remove the frame gap
-   * between tap start and opening the popup
-   * @returns {void}
-   */
-  protected openOnFocus (): void {
-    if (this.opened) {
-      return;
-    }
-
-    if (document.activeElement === this) {
-      this.setOpened(true);
-      return;
-    }
-
-    this.shouldOpenOnFocus = true;
-  }
-
   /**
    * Toggles the opened state of the list
    * @returns {void}
@@ -385,7 +360,7 @@ export class SubSelect extends ControlElement {
       this.setOpened(false);
     }
     else {
-      this.openOnFocus();
+      this.setOpened(true);
     }
   }
 
@@ -595,27 +570,28 @@ export class SubSelect extends ControlElement {
 
   /**
    * Get a list of selectable HTML Elements
-   * *Can be used only when select is opened*
+   * queryAssignedNodes decorator not work with lazy-rendered slots
    * @returns A list of selectable HTML elements
    */
   private getSelectableElements (): Option[] {
-    /* c8 ignore start */
-    if (!this) {
-      return [];
-    }
-    /* c8 ignore stop */
+    const selectableElements: Option[] = [];
 
-    const items: Option[] = [];
-    const rootChildren = this.children;
-
-    for (let i = 0; i < rootChildren.length; i += 1) {
-      const item = rootChildren[i];
-      if (this.isSelectableElement(item)) {
-        items.push(item as Option);
+    const addSelectableElements = (element: HTMLElement | Text): void => {
+      if (element instanceof HTMLElement && this.isSelectableElement(element)) {
+        selectableElements.push(element as Option);
       }
-    }
-
-    return items;
+      else if (element instanceof HTMLSlotElement) {
+        const assignedNodes = element.assignedNodes({ flatten: true });
+        assignedNodes.forEach((node) => addSelectableElements(node as HTMLElement | Text));
+      }
+      else if (element.childNodes.length > 0) {
+        element.childNodes.forEach((childNode) => addSelectableElements(childNode as HTMLElement | Text));
+      }
+    };
+  
+    this.childNodes.forEach((childNode) => addSelectableElements(childNode as HTMLElement | Text));
+  
+    return selectableElements;
   }
 
   /**
