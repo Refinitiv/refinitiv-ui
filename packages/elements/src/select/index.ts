@@ -43,6 +43,13 @@ const observerOptions = {
   ]
 };
 
+// the same event listener options should be used with both addEventListener() & removeEventListener()
+// https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener#matching_event_listeners_for_removal
+const eventListenerOptions = {
+  capture: true,
+  passive: true
+};
+
 const LABEL_SEPARATOR = ', '; // TODO: for multiselect
 const POPUP_POSITION = ['bottom-start', 'top-start'];
 const KEY_SEARCH_DEBOUNCER = 300;
@@ -567,12 +574,7 @@ export class Select extends ControlElement implements MultiValue {
     this.scrollToSelected();
     this.setItemHighlight(this.getSelectedElements()[0]);
 
-    const eventOptions = {
-      capture: true,
-      passive: true
-    };
-
-    target?.addEventListener('scroll', this.onPopupScroll, eventOptions);
+    target?.addEventListener('scroll', this.onPopupScroll, eventListenerOptions);
   }
 
   /**
@@ -580,12 +582,7 @@ export class Select extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onPopupClosed ({ target }: CustomEvent): void {
-    const eventOptions = { /* need this for IE11, otherwise the event is not removed */
-      capture: true,
-      passive: true
-    };
-
-    target?.removeEventListener('scroll', this.onPopupScroll, eventOptions);
+    target?.removeEventListener('scroll', this.onPopupScroll, eventListenerOptions);
     this.setItemHighlight();
     this.popupScrollTop = 0;
   }
