@@ -4,25 +4,23 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sub checkbox</title>
+    <link type="text/css" rel="stylesheet" href="../../../node_modules/@refinitiv-ui/workspace-theme/lib/index.css">
     <link type="text/css" rel="stylesheet" href="src/demo.css">
-    <link type="text/css" rel="stylesheet" href="src/default-theme.css">
-    <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)" href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css">
+    <script type="module" src="src/theme-switcher.js"></script>
   </head>
   <body>
-    <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
     <script type="module">
       import '@refinitiv-ui/components/sub-checkbox';
     </script>
-    <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
     <h1>Sub Checkbox</h1>
     <p>Default</p>
-   <ui-sub-checkbox></ui-sub-checkbox>
-   <ui-sub-checkbox checked></ui-sub-checkbox>
-    <p>Disabled</p>
-   <ui-sub-checkbox disabled></ui-sub-checkbox>
-   <ui-sub-checkbox disabled checked></ui-sub-checkbox>
-    <p>Readonly</p>
-   <ui-sub-checkbox readonly></ui-sub-checkbox>
-   <ui-sub-checkbox readonly checked></ui-sub-checkbox>
+    <ui-sub-checkbox></ui-sub-checkbox>
+    <ui-sub-checkbox checked></ui-sub-checkbox>
+      <p>Disabled</p>
+    <ui-sub-checkbox disabled></ui-sub-checkbox>
+    <ui-sub-checkbox disabled checked></ui-sub-checkbox>
+      <p>Readonly</p>
+    <ui-sub-checkbox readonly></ui-sub-checkbox>
+    <ui-sub-checkbox readonly checked></ui-sub-checkbox>
   </body>
 </html>

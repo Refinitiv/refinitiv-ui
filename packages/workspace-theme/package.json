@@ -5,9 +5,17 @@
   "license": "Apache-2.0",
   "type": "module",
   "exports": {
-    ".": "./index.css"
+    ".": "./lib/index.css"
+  },
+  "scripts": {
+    "build": "lessc index.less ./lib/index.less && lessc ./lib/index.less ./lib/index.css",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@refinitiv-ui/tokens": "^7.0.0-next.0"
+  },
+  "devDependencies": {
+    "less": "^4.1.3"
   }
 }
+

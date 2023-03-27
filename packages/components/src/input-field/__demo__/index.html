@@ -4,10 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link type="text/css" rel="stylesheet" href="../../../node_modules/@refinitiv-ui/workspace-theme/lib/index.css">
   <link type="text/css" rel="stylesheet" href="src/demo.css">
-  <link type="text/css" rel="stylesheet" href="src/default-theme.css">
-  <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)" href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css">
-  <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
+  <script type="module" src="src/theme-switcher.js"></script>
   <title>Field</title>
 </head>
 
@@ -15,17 +14,16 @@
   <script type="module">
     import '@refinitiv-ui/components/input-field';
   </script>
-  <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
 
   <h1>Input Field</h1>
 
- <ui-input-field type="text" label="Default"></ui-input-field>
+  <ui-input-field type="text" label="Default"></ui-input-field>
 
- <ui-input-field type="text" value="John" label="Value"></ui-input-field>
+  <ui-input-field type="text" value="John" label="Value"></ui-input-field>
 
- <ui-input-field type="text" icon="home" label="Icon"></ui-input-field>
+  <ui-input-field type="text" icon="home" label="Icon"></ui-input-field>
 
- <ui-input-field id="icon-has-action" type="text" icon="home" label="Icon-has-action" icon-has-action></ui-input-field>
+  <ui-input-field id="icon-has-action" type="text" icon="home" label="Icon-has-action" icon-has-action></ui-input-field>
   <code id="is-clicked"></code>
   <script>
     const isClicked = document.getElementById('is-clicked');
@@ -36,9 +34,9 @@
   </script>
 
 
- <ui-input-field type="password" label="Password"></ui-input-field>
+  <ui-input-field type="password" label="Password"></ui-input-field>
 
- <ui-input-field id="value-event" type="text" label="Event: value-changed"></ui-input-field>
+  <ui-input-field id="value-event" type="text" label="Event: value-changed"></ui-input-field>
   <code id="value"></code>
   <script>
     const value = document.getElementById('value');
@@ -48,7 +46,7 @@
     });
   </script>
 
- <ui-input-field id="error-event" type="text" minlength="5" label="Event: error-changed"></ui-input-field>
+  <ui-input-field id="error-event" type="text" minlength="5" label="Event: error-changed"></ui-input-field>
   <code id="error"></code>
   <script>
     const error = document.getElementById('error');
