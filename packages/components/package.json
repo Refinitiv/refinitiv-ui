@@ -44,6 +44,7 @@
     "./sub-text-field": "./lib/sub-text-field/index.js",
     "./sub-password-field": "./lib/sub-password-field/index.js",
     "./sub-overlay": "./lib/sub-overlay/index.js",
+    "./sub-footer": "./lib/sub-footer/index.js",
     "./template-login": "./lib/template-login/index.js",
     "./*.js": "./lib/*/index.js"
   },
