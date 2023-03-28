@@ -319,11 +319,11 @@ const applyEvent = (target: Global): void => {
 
   /**
    * Listen to `click` events on the target.
-   * Use this to fire tap events, if `enter` or `space` was pressed on button
+   * Use this to fire tap events, if `enter` or `space` key was pressed
    */
   target.addEventListener('click', (event: MouseEvent | PointerEvent) => {
-    // check for click, dbclick, mousedown, mouseup events
-    // as described in https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail
+    // check for events triggered by enter or space key
+    // https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail
     if (event.detail === 0) {
       const tapTarget = topPathTarget(event);
 
