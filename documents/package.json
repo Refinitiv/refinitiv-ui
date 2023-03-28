@@ -31,6 +31,7 @@
     "concurrently": "^6.4.0",
 		"esbuild": "^0.17.12",
     "pandora-book": "file:tools/pandora-book-3.0.0-68.tgz",
+    "@refinitiv-ui/workspace-theme": "7.0.0-next.0",
     "serve": "^14.0.0"
   },
   "dependencies": {
