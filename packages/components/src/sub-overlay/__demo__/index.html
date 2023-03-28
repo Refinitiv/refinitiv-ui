@@ -5,10 +5,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Sub Overlay</title>
+  <link type="text/css" rel="stylesheet" href="../../../node_modules/@refinitiv-ui/workspace-theme/lib/index.css">
   <link type="text/css" rel="stylesheet" href="src/demo.css">
-  <link type="text/css" rel="stylesheet" href="src/default-theme.css">
-  <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)" href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css">
-  <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
+  <script type="module" src="src/theme-switcher.js"></script>
   <style>
     #basic {
       margin: 10px;
@@ -178,7 +177,6 @@
       };
     })();
   </script>
-  <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
   <div id="basic" header="Basic" layout="normal">
     <div class="demo-wrapper">
       <div>

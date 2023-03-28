@@ -5,6 +5,7 @@ export default [
     inputs: ['./src/schemes/dark.tokens.json', './src/default.tokens.json'],
     outputs: [
       css({
+        selector: '&',
         prefix: 'ds'
       })
     ]
@@ -13,6 +14,7 @@ export default [
     inputs: ['./src/schemes/dark.tokens.json', './src/default.tokens.json', './src/densities/mobile.tokens.json'],
     outputs: [
       css({
+        selector: '&',
         prefix: 'ds'
       })
     ]
@@ -21,6 +23,7 @@ export default [
     inputs: ['./src/schemes/dark.tokens.json', './src/default.tokens.json', './src/densities/comfort.tokens.json'],
     outputs: [
       css({
+        selector: '&',
         prefix: 'ds'
       })
     ]
@@ -29,6 +32,7 @@ export default [
     inputs: ['./src/schemes/dark.tokens.json', './src/default.tokens.json', './src/densities/dense.tokens.json'],
     outputs: [
       css({
+        selector: '&',
         prefix: 'ds'
       })
     ]
@@ -37,6 +41,7 @@ export default [
     inputs: ['./src/schemes/dark.tokens.json'],
     outputs: [
       css({
+        selector: '&',
         prefix: 'ds'
       })
     ]
@@ -45,6 +50,7 @@ export default [
     inputs: ['./src/schemes/light.tokens.json'],
     outputs: [
       css({
+        selector: '&',
         prefix: 'ds'
       })
     ]

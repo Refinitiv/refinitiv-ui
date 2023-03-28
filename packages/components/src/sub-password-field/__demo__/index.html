@@ -4,10 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link type="text/css" rel="stylesheet" href="../../../node_modules/@refinitiv-ui/workspace-theme/lib/index.css">
   <link type="text/css" rel="stylesheet" href="src/demo.css">
-  <link type="text/css" rel="stylesheet" href="src/default-theme.css">
-  <link type="text/css" rel="stylesheet" media="(prefers-color-scheme: dark)" href="../../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css">
-  <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
+  <script type="module" src="src/theme-switcher.js"></script>
   <title>Sub password field</title>
 </head>
 
@@ -15,14 +14,13 @@
   <script type="module">
     import '@refinitiv-ui/components/sub-password-field';
   </script>
-  <dark-mode-toggle legend="Theme Switcher" appearance="switch" dark="Dark " light="Light "></dark-mode-toggle>
   <h1>Sub password-field</h1>
   <p>Default</p>
- <ui-sub-password-field></ui-sub-password-field>
+  <ui-sub-password-field></ui-sub-password-field>
   <p>Disabled</p>
- <ui-sub-password-field disabled></ui-sub-password-field>
+  <ui-sub-password-field disabled></ui-sub-password-field>
   <p>Readonly</p>
- <ui-sub-password-field readonly></ui-sub-password-field>
+  <ui-sub-password-field readonly></ui-sub-password-field>
 </body>
 
 </html>

@@ -10,28 +10,28 @@
   <script type="module" src="src/theme-switcher.js"></script>
 </head>
 <style>
-  ui-sub-select {
+  ui-select {
     margin: 10px 0;
   }
 </style>
 <body>
   <script type="module">
-    import '@refinitiv-ui/components/sub-select';
+    import '@refinitiv-ui/components/select';
   </script>
   <h1>Select</h1>
   <p>Default</p>
-  <ui-sub-select placeholder="Pick item..." class="short">
-    <ui-option value="1">Cola</ui-option>
-    <ui-option value="2">Lemonade</ui-option>
-    <ui-option value="3">Orange Juice</ui-option>
-    <ui-option value="4">Apple Juice</ui-option>
-    <ui-option value="5">Iced Tea</ui-option>
-  </ui-sub-select>
-  <ui-sub-select placeholder="Pick item..." class="short">
+  <ui-select placeholder="Pick item..." class="short" label="Select">
+   <ui-option value="1">Cola</ui-option>
+   <ui-option value="2">Lemonade</ui-option>
+   <ui-option value="3">Orange Juice</ui-option>
+   <ui-option value="4">Apple Juice</ui-option>
+   <ui-option value="5">Iced Tea</ui-option>
+  </ui-select>
+  <ui-select placeholder="Pick item..." class="short">
     <ui-option value="1">Cola</ui-option>
     <ui-option selected value="2">Lemonade</ui-option>
     <ui-option value="3">Orange Juice</ui-option>
     <ui-option value="4">Apple Juice</ui-option>
-  </ui-sub-select>
+  </ui-select>
 </body>
 </html>
