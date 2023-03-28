@@ -3,19 +3,19 @@
     "bg": {
       "$type": "color",
       "primary": {
-        "$value": "{color-mine-shaft}"
+        "$value": "{color.mine-shaft}"
       },
       "secondary": {
-        "$value": "{color-lights-out}"
+        "$value": "{color.lights-out}"
       },
       "emphasis": {
-        "$value": "{color-lights-out}"
+        "$value": "{color.lights-out}"
       }
     },
     "content": {
       "$type": "color",
       "primary": {
-        "$value": "{color-silver}"
+        "$value": "{color.silver}"
       }
     }
   },
@@ -24,30 +24,30 @@
       "$type": "color",
       "primary": {
         "default": {
-          "$value": "{color-lights-out}"
+          "$value": "{color.lights-out}"
         },
         "hover": {
-          "$value": "{color-persian-blue}"
+          "$value": "{color.persian-blue}"
         },
         "focused": {
-          "$value": "{color-concrete}"
+          "$value": "{color.concrete}"
         },
         "pressed": {
-          "$value": "{color-torea-bay}"
+          "$value": "{color.torea-bay}"
         }
       },
       "secondary": {
         "default": {
-          "$value": "{color-charcoal}"
+          "$value": "{color.charcoal}"
         },
         "hover": {
-          "$value": "{color-persian-blue}"
+          "$value": "{color.persian-blue}"
         },
         "focused": {
-          "$value": "{color-concrete}"
+          "$value": "{color.concrete}"
         },
         "pressed": {
-          "$value": "{color-torea-bay}"
+          "$value": "{color.torea-bay}"
         }
       }
     },
@@ -56,28 +56,28 @@
       "primary": {
         "default": {
           "$value": {
-            "color": "{color-grey}",
+            "color": "{color.grey}",
             "width": "1px",
             "style": "solid"
           }
         },
         "hover": {
           "$value": {
-            "color": "{color-persian-blue}",
+            "color": "{color.persian-blue}",
             "width": "1px",
             "style": "solid"
           }
         },
         "focused": {
           "$value": {
-            "color": "{color-lights-out}",
+            "color": "{color.lights-out}",
             "width": "1px",
             "style": "solid"
           }
         },
         "pressed": {
           "$value": {
-            "color": "{color-torea-bay}",
+            "color": "{color.torea-bay}",
             "width": "1px",
             "style": "solid"
           }
@@ -86,28 +86,28 @@
       "secondary": {
         "default": {
           "$value": {
-            "color": "{color-lights-out}",
+            "color": "{color.lights-out}",
             "width": "1px",
             "style": "solid"
           }
         },
         "hover": {
           "$value": {
-            "color": "{color-persian-blue}",
+            "color": "{color.persian-blue}",
             "width": "1px",
             "style": "solid"
           }
         },
         "focused": {
           "$value": {
-            "color": "{color-lights-out}",
+            "color": "{color.lights-out}",
             "width": "1px",
             "style": "solid"
           }
         },
         "pressed": {
           "$value": {
-            "color": "{color-torea-bay}",
+            "color": "{color.torea-bay}",
             "width": "1px",
             "style": "solid"
           }
@@ -118,30 +118,30 @@
       "$type": "color",
       "primary": {
         "default": {
-          "$value": "{color-silver}"
+          "$value": "{color.silver}"
         },
         "hover": {
-          "$value": "{color-white}"
+          "$value": "{color.white}"
         },
         "focused": {
-          "$value": "{color-lights-out}"
+          "$value": "{color.lights-out}"
         },
         "pressed": {
-          "$value": "{color-white}"
+          "$value": "{color.white}"
         }
       },
       "secondary": {
         "default": {
-          "$value": "{color-silver}"
+          "$value": "{color.silver}"
         },
         "hover": {
-          "$value": "{color-white}"
+          "$value": "{color.white}"
         },
         "focused": {
-          "$value": "{color-lights-out}"
+          "$value": "{color.lights-out}"
         },
         "pressed": {
-          "$value": "{color-white}"
+          "$value": "{color.white}"
         }
       }
     }
