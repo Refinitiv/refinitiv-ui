@@ -5,7 +5,7 @@ import '@refinitiv-ui/components/checkbox';
 const createEnterKeyboardEvent = () => new KeyboardEvent('keydown', { key: 'Enter' });
 const createSpacebarKeyboardEvent = () => new KeyboardEvent('keydown', { key: ' ' });
 
-describe('Checkbox', () => {
+describe('ui-checkbox', () => {
   let el;
   const LABEL = 'Checkbox label';
 
@@ -18,7 +18,7 @@ describe('Checkbox', () => {
   const checked = `<ui-checkbox checked>${LABEL}</ui-checkbox>`;
 
 
-  describe('Basic Structure', () => {
+  describe('DOM Structure', () => {
     it('default DOM with no label is correct', async () => {
       el = await fixture(noLabel);
       await expect(el).to.equalSnapshot();
