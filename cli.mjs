@@ -6,8 +6,14 @@ import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
 import { PACKAGES_ROOT, errorHandler, getJSON } from './scripts/helpers/esm.mjs';
 
-const argvNoBin = hideBin(process.argv);
+const nodeArgv = process.argv.filter(item => {
+  return true;
+});
+
+console.log(nodeArgv);
+const argvNoBin = hideBin(nodeArgv);
 const argv = yargs(argvNoBin)
+  .scriptName("refinitiv-ui")
   .command('$0 <reflect> <package>', 'reflect the command', yargs => {
     yargs.positional('reflect', {
       describe: 'npm command to reflect',
@@ -19,7 +25,7 @@ const argv = yargs(argvNoBin)
     })
   })
   .demandCommand()
-  .help()
+  .help(false)
   .argv
 
 const options = argvNoBin.slice(2);
