@@ -96,6 +96,15 @@
       },
       "text-transform": {
         "$value": "none"
+      },
+      "all": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{copy.md.font-family}",
+          "fontSize": "{copy.md.font-size}",
+          "fontWeight": "{copy.md.font-weight}",
+          "lineHeight": "{copy.md.line-height}"
+        }
       }
     },
     "md-emphasis": {
@@ -295,7 +304,7 @@
         "$value": "{color.white}"
       },
       "secondary": {
-        "$value": "{color.lights-out}"
+        "$value": "{color.silver}"
       },
       "emphasis": {
         "$value": "{color.lights-out}"
