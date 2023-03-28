@@ -127,6 +127,31 @@ export class Button extends ControlElement {
 
     this.addEventListener('tapstart', this.setPressed);
     this.addEventListener('tapend', this.unsetPressed);
+    this.addEventListener('click', this.onClick);
+  }
+
+  /**
+   * Event handler for onclick
+   * @param event Click event
+   * @returns {void}
+   */
+  protected onClick (event: MouseEvent): void {
+    // TODO (Trem): check to see if there is a better way of doing this
+    // Allow event object to pass through all listeners before checking status.
+    setTimeout(() => !event.defaultPrevented && this.processClick());
+  }
+
+  /**
+   * Processes click event
+   * @returns {void}
+   */
+  protected processClick (): void {
+    if (this.getAttribute('type') === 'reset') {
+      this.internals.form?.reset();
+    }
+    else if (this.getAttribute('type') !== 'button') {
+      this.internals.form?.requestSubmit();
+    }
   }
 
   private setPressed (): void {
