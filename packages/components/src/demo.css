@@ -193,7 +193,3 @@ body {
   transition: background-color 100ms;
 }
 
-dark-mode-toggle {
-  margin-bottom: 20px;
-  text-align: right;
-}
