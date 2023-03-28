@@ -8,15 +8,15 @@ layout: default
 # Sub Icon
 
 ```html
-<ui-sub-icon icon="arrow-down"></ui-sub-icon>
+<ui-sub-icon icon="flame"></ui-sub-icon>
 ```
 
-?>See list of available icons in [EFv6 Icon List](https://ui.refinitiv.com/elements/icon#icon-list).
+!>See list of available icons in [EFv6 Icon List](https://ui.refinitiv.com/elements/icon#icon-list).
 
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-icon icon="arrow-down"></ui-sub-icon>
+<ui-sub-icon icon="flame"></ui-sub-icon>
 ```
 ```js
 import "./resources/components.js"
@@ -28,7 +28,7 @@ import "./resources/components.js"
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-icon icon="arrow-down"></ui-sub-icon>
+<ui-sub-icon icon="flame"></ui-sub-icon>
 ```
 ```js
 import "./resources/components.js"
@@ -40,7 +40,7 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-icon icon="arrow-down"></ui-sub-icon>
+<ui-sub-icon icon="flame"></ui-sub-icon>
 ```
 ```js
 import "./resources/components.js"
