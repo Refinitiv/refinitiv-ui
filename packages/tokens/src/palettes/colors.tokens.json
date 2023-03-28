@@ -1,249 +1,251 @@
 {
   "$type": "color",
-  "color-black": {
-    "$value": "#000000"
-  },
-  "color-lights-out": {
-    "$value": "#0d0d0d"
-  },
-  "color-cod-grey": {
-    "$value": "#1a1a1a"
-  },
-  "color-mine-shaft": {
-    "$value": "#262626"
-  },
-  "color-charcoal": {
-    "$value": "#333333"
-  },
-  "color-tundora": {
-    "$value": "#404040"
-  },
-  "color-emperor": {
-    "$value": "#4d4d4d"
-  },
-  "color-scorpion": {
-    "$value": "#595959"
-  },
-  "color-dove-grey": {
-    "$value": "#737373"
-  },
-  "color-grey": {
-    "$value": "#808080"
-  },
-  "color-dusty-grey": {
-    "$value": "#999999"
-  },
-  "color-nobel": {
-    "$value": "#bfbfbf"
-  },
-  "color-silver": {
-    "$value": "#cccccc"
-  },
-  "color-alto": {
-    "$value": "#d9d9d9"
-  },
-  "color-desert-storm": {
-    "$value": "#e0e0e0"
-  },
-  "color-mercury": {
-    "$value": "#e6e6e6"
-  },
-  "color-concrete": {
-    "$value": "#f2f2f2"
-  },
-  "color-alabaster": {
-    "$value": "#fafafa"
-  },
-  "color-white": {
-    "$value": "#ffffff"
-  },
-  "color-petite-orchid": {
-    "$value": "#dba08d"
-  },
-  "color-mule-fawn": {
-    "$value": "#88442d"
-  },
-  "color-crail": {
-    "$value": "#c36241"
-  },
-  "color-brown-rust": {
-    "$value": "#af583a"
-  },
-  "color-oregon": {
-    "$value": "#993000"
-  },
-  "color-grenadier": {
-    "$value": "#cc4000"
-  },
-  "color-inter-orange": {
-    "$value": "#ff5000"
-  },
-  "color-atomic-tangerine": {
-    "$value": "#ff9666"
-  },
-  "color-buddha-gold": {
-    "$value": "#cca000"
-  },
-  "color-supernova": {
-    "$value": "#ffc800"
-  },
-  "color-dandelion": {
-    "$value": "#ffde66"
-  },
-  "color-sparkler": {
-    "$value": "#ffe999"
-  },
-  "color-barley-white": {
-    "$value": "#fff4cc"
-  },
-  "color-olive": {
-    "$value": "#7f6400"
-  },
-  "color-saddle-brown": {
-    "$value": "#4c3c00"
-  },
-  "color-everglade": {
-    "$value": "#246b3e"
-  },
-  "color-vista-blue": {
-    "$value": "#83d6a2"
-  },
-  "color-sea-green": {
-    "$value": "#309054"
-  },
-  "color-algae-green": {
-    "$value": "#87dca7"
-  },
-  "color-emerald": {
-    "$value": "#39c46e"
-  },
-  "color-green-pea": {
-    "$value": "#227542"
-  },
-  "color-kaitoke-green": {
-    "$value": "#00432f"
-  },
-  "color-spray": {
-    "$value": "#6cefc8"
-  },
-  "color-caribbean-green": {
-    "$value": "#00c389"
-  },
-  "color-rain-forest": {
-    "$value": "#007653"
-  },
-  "color-neptune": {
-    "$value": "#75baba"
-  },
-  "color-genoa": {
-    "$value": "#147070"
-  },
-  "color-elm": {
-    "$value": "#198c8c"
-  },
-  "color-eden": {
-    "$value": "#116262"
-  },
-  "color-sherpa-blue": {
-    "$value": "#004e4f"
-  },
-  "color-turquoise-blue": {
-    "$value": "#59dfe1"
-  },
-  "color-teal": {
-    "$value": "#007678"
-  },
-  "color-persian-green": {
-    "$value": "#009ea1"
-  },
-  "color-robins-egg": {
-    "$value": "#00d0d4"
-  },
-  "color-mint-tulip": {
-    "$value": "#afeff1"
-  },
-  "color-dodger-blue": {
-    "$value": "#3bbaff"
-  },
-  "color-chathams-blue": {
-    "$value": "#174a66"
-  },
-  "color-jelly-bean": {
-    "$value": "#236f99"
-  },
-  "color-anakiwa": {
-    "$value": "#89d5ff"
-  },
-  "color-persian-blue": {
-    "$value": "#1429bd"
-  },
-  "color-black-pearl": {
-    "$value": "#050a2e"
-  },
-  "color-torea-bay": {
-    "$value": "#0f1e8a"
-  },
-  "color-refinitiv-blue": {
-    "$value": "#001eff"
-  },
-  "color-blue-ribbon": {
-    "$value": "#334bff"
-  },
-  "color-cornflower-blue": {
-    "$value": "#6678ff"
-  },
-  "color-periwinkle": {
-    "$value": "#ccd2ff"
-  },
-  "color-butterfly": {
-    "$value": "#71549f"
-  },
-  "color-victoria": {
-    "$value": "#563f77"
-  },
-  "color-light-wisteria": {
-    "$value": "#bca2e1"
-  },
-  "color-amethyst": {
-    "$value": "#9064cd"
-  },
-  "color-cerise-red": {
-    "$value": "#d22962"
-  },
-  "color-mauvelous": {
-    "$value": "#f281a7"
-  },
-  "color-maroon-flush": {
-    "$value": "#a3204c"
-  },
-  "color-illusion": {
-    "$value": "#f6abc4"
-  },
-  "color-heath": {
-    "$value": "#5d122b"
-  },
-  "color-amaranth": {
-    "$value": "#ea2e6c"
-  },
-  "color-chestnut-rose": {
-    "$value": "#b63243"
-  },
-  "color-carbaret": {
-    "$value": "#d94255"
-  },
-  "color-sea-pink": {
-    "$value": "#eeacb4"
-  },
-  "color-tall-poppy": {
-    "$value": "#b72536"
-  },
-  "color-carnation": {
-    "$value": "#f5475b"
-  },
-  "color-mexican-red": {
-    "$value": "#a01c2b"
-  },
-  "color-rose-bud": {
-    "$value": "#faa8b1"
+  "color": {
+    "black": {
+      "$value": "#000000"
+    },
+    "lights-out": {
+      "$value": "#0d0d0d"
+    },
+    "cod-grey": {
+      "$value": "#1a1a1a"
+    },
+    "mine-shaft": {
+      "$value": "#262626"
+    },
+    "charcoal": {
+      "$value": "#333333"
+    },
+    "tundora": {
+      "$value": "#404040"
+    },
+    "emperor": {
+      "$value": "#4d4d4d"
+    },
+    "scorpion": {
+      "$value": "#595959"
+    },
+    "dove-grey": {
+      "$value": "#737373"
+    },
+    "grey": {
+      "$value": "#808080"
+    },
+    "dusty-grey": {
+      "$value": "#999999"
+    },
+    "nobel": {
+      "$value": "#bfbfbf"
+    },
+    "silver": {
+      "$value": "#cccccc"
+    },
+    "alto": {
+      "$value": "#d9d9d9"
+    },
+    "desert-storm": {
+      "$value": "#e0e0e0"
+    },
+    "mercury": {
+      "$value": "#e6e6e6"
+    },
+    "concrete": {
+      "$value": "#f2f2f2"
+    },
+    "alabaster": {
+      "$value": "#fafafa"
+    },
+    "white": {
+      "$value": "#ffffff"
+    },
+    "petite-orchid": {
+      "$value": "#dba08d"
+    },
+    "mule-fawn": {
+      "$value": "#88442d"
+    },
+    "crail": {
+      "$value": "#c36241"
+    },
+    "brown-rust": {
+      "$value": "#af583a"
+    },
+    "oregon": {
+      "$value": "#993000"
+    },
+    "grenadier": {
+      "$value": "#cc4000"
+    },
+    "inter-orange": {
+      "$value": "#ff5000"
+    },
+    "atomic-tangerine": {
+      "$value": "#ff9666"
+    },
+    "buddha-gold": {
+      "$value": "#cca000"
+    },
+    "supernova": {
+      "$value": "#ffc800"
+    },
+    "dandelion": {
+      "$value": "#ffde66"
+    },
+    "sparkler": {
+      "$value": "#ffe999"
+    },
+    "barley-white": {
+      "$value": "#fff4cc"
+    },
+    "olive": {
+      "$value": "#7f6400"
+    },
+    "saddle-brown": {
+      "$value": "#4c3c00"
+    },
+    "everglade": {
+      "$value": "#246b3e"
+    },
+    "vista-blue": {
+      "$value": "#83d6a2"
+    },
+    "sea-green": {
+      "$value": "#309054"
+    },
+    "algae-green": {
+      "$value": "#87dca7"
+    },
+    "emerald": {
+      "$value": "#39c46e"
+    },
+    "green-pea": {
+      "$value": "#227542"
+    },
+    "kaitoke-green": {
+      "$value": "#00432f"
+    },
+    "spray": {
+      "$value": "#6cefc8"
+    },
+    "caribbean-green": {
+      "$value": "#00c389"
+    },
+    "rain-forest": {
+      "$value": "#007653"
+    },
+    "neptune": {
+      "$value": "#75baba"
+    },
+    "genoa": {
+      "$value": "#147070"
+    },
+    "elm": {
+      "$value": "#198c8c"
+    },
+    "eden": {
+      "$value": "#116262"
+    },
+    "sherpa-blue": {
+      "$value": "#004e4f"
+    },
+    "turquoise-blue": {
+      "$value": "#59dfe1"
+    },
+    "teal": {
+      "$value": "#007678"
+    },
+    "persian-green": {
+      "$value": "#009ea1"
+    },
+    "robins-egg": {
+      "$value": "#00d0d4"
+    },
+    "mint-tulip": {
+      "$value": "#afeff1"
+    },
+    "dodger-blue": {
+      "$value": "#3bbaff"
+    },
+    "chathams-blue": {
+      "$value": "#174a66"
+    },
+    "jelly-bean": {
+      "$value": "#236f99"
+    },
+    "anakiwa": {
+      "$value": "#89d5ff"
+    },
+    "persian-blue": {
+      "$value": "#1429bd"
+    },
+    "black-pearl": {
+      "$value": "#050a2e"
+    },
+    "torea-bay": {
+      "$value": "#0f1e8a"
+    },
+    "refinitiv-blue": {
+      "$value": "#001eff"
+    },
+    "blue-ribbon": {
+      "$value": "#334bff"
+    },
+    "cornflower-blue": {
+      "$value": "#6678ff"
+    },
+    "periwinkle": {
+      "$value": "#ccd2ff"
+    },
+    "butterfly": {
+      "$value": "#71549f"
+    },
+    "victoria": {
+      "$value": "#563f77"
+    },
+    "light-wisteria": {
+      "$value": "#bca2e1"
+    },
+    "amethyst": {
+      "$value": "#9064cd"
+    },
+    "cerise-red": {
+      "$value": "#d22962"
+    },
+    "mauvelous": {
+      "$value": "#f281a7"
+    },
+    "maroon-flush": {
+      "$value": "#a3204c"
+    },
+    "illusion": {
+      "$value": "#f6abc4"
+    },
+    "heath": {
+      "$value": "#5d122b"
+    },
+    "amaranth": {
+      "$value": "#ea2e6c"
+    },
+    "chestnut-rose": {
+      "$value": "#b63243"
+    },
+    "carbaret": {
+      "$value": "#d94255"
+    },
+    "sea-pink": {
+      "$value": "#eeacb4"
+    },
+    "tall-poppy": {
+      "$value": "#b72536"
+    },
+    "carnation": {
+      "$value": "#f5475b"
+    },
+    "mexican-red": {
+      "$value": "#a01c2b"
+    },
+    "rose-bud": {
+      "$value": "#faa8b1"
+    }
   }
 }
