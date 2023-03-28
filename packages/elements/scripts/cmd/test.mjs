@@ -2,6 +2,7 @@
 import { execSync } from 'node:child_process';
 import { useTestOptions } from '../../../../scripts/tests/cli-options.mjs';
 import { getElements, errorHandler } from '../helpers/index.mjs';
+import { hideBin } from 'yargs/helpers';
 
 const elements =  ['elements', ...getElements()];
 
@@ -20,8 +21,8 @@ export const builder = yargs => {
   useTestOptions(yargs);
 };
 export const handler = (argv) => {
-  // Get params and forward to main test file
-  let params = process.argv.slice(3);
+  // Remove command and forward params only to main test file
+  let params = hideBin(process.argv).slice(1)
 
   try {
     // Build before run test everytime.
