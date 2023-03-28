@@ -10,7 +10,6 @@ const nodeArgv = process.argv.filter(item => {
   return true;
 });
 
-console.log(nodeArgv);
 const argvNoBin = hideBin(nodeArgv);
 const argv = yargs(argvNoBin)
   .scriptName("refinitiv-ui")
