@@ -17,7 +17,7 @@ import {
 } from './helpers/helpers';
 import sinon from 'sinon';
 
-describe('icon/Icon', () => {
+describe('ui-sub-icon', () => {
   let fetch;
   beforeEach(() => {
     fetch = sinon.stub(window, 'fetch');
@@ -83,73 +83,139 @@ describe('icon/Icon', () => {
     });
   });
 
-  describe('Should Have Correct Properties', () => {
-    it('icon', async () => {
-      createFakeResponse(tickSvg, responseConfigSuccess);
-      const el = await createAndWaitForLoad('<ui-sub-icon></ui-sub-icon>');
+  describe('Attributes', () => {
+    describe('icon', () => {
+      it('should not be presented by default', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const el = await createAndWaitForLoad('<ui-sub-icon></ui-sub-icon>');
+  
+        expect(el.hasAttribute('icon')).to.equal(false);
+      });
+      it('should have the icon attribute when set', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const el = await createAndWaitForLoad('<ui-sub-icon></ui-sub-icon>');
 
-      expect(el.hasAttribute('icon')).to.equal(false, 'Icon should not have the icon attribute by default');
-      expect(el.icon).to.equal(null, 'Icon should not have the icon property by default');
+        el.setAttribute('icon', iconName);
+        await elementUpdated(el);
 
-      el.setAttribute('icon', iconName);
-      await elementUpdated(el);
+        expect(el.hasAttribute('icon')).to.equal(true);
+      });
+      it('should have correct icon name when set', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const el = await createAndWaitForLoad('<ui-sub-icon></ui-sub-icon>');
 
-      expect(el.hasAttribute('icon')).to.equal(true, 'Icon should have the icon attribute when set');
-      expect(el.getAttribute('icon')).to.equal(iconName, 'Icon should have the same icon attribute as was set');
-      expect(el.icon).to.equal(iconName, 'Icon should reflect the icon attribute to property');
+        el.setAttribute('icon', iconName);
+        await elementUpdated(el);
 
-      el.removeAttribute('icon');
-      await elementUpdated(el);
+        expect(el.icon).to.equal(iconName);
+      });
+      it('should not presented after it was removed', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const el = await createAndWaitForLoad(`<ui-sub-icon icon="${iconName}"></ui-sub-icon>`);
 
-      expect(el.hasAttribute('icon')).to.equal(false, 'Icon should not have the icon attribute after it was removed');
-      expect(el.icon).to.equal(null, 'Icon should not have the icon property after attribute was removed');
+        el.removeAttribute('icon');
+        await elementUpdated(el);
 
-      el.icon = iconName;
-      await elementUpdated(el);
+        expect(el.hasAttribute('icon')).to.equal(false);
+      });
+      it('should be reflected when property value has change', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const el = await createAndWaitForLoad(`<ui-sub-icon icon="${iconName}"></ui-sub-icon>`);
 
-      expect(el.getAttribute('icon')).to.equal(iconName, 'Icon should reflect the icon attribute to property');
+        el.icon = ''
+        await elementUpdated(el);
 
-      el.icon = '';
-      await elementUpdated(el);
+        expect(el.getAttribute('icon')).to.equal('');
+      });
+      it('should not presented when property value has change to null', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const el = await createAndWaitForLoad(`<ui-sub-icon icon="${iconName}"></ui-sub-icon>`);
 
-      expect(el.getAttribute('icon')).to.equal('', 'Icon attribute should be empty (boolean state)');
+        el.icon = null;
+        await elementUpdated(el);
 
-      el.icon = null;
-      await elementUpdated(el);
-
-      expect(el.hasAttribute('icon')).to.equal(false, 'Attribute should be removed when null is passed');
+        expect(el.hasAttribute('icon')).to.equal(false);
+      });
     });
+    describe('src', () => {
+      it('should not be presented by default', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const el = await createAndWaitForLoad('<ui-sub-icon></ui-sub-icon>');
+  
+        expect(el.hasAttribute('src')).to.equal(false);
+      });
+      it('should have the src attribute when set', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const el = await createAndWaitForLoad('<ui-sub-icon></ui-sub-icon>');
+        const srcValue = createMockSrc(iconName);
 
-    it('src', async () => {
-      createFakeResponse(tickSvg, responseConfigSuccess);
-      const el = await createAndWaitForLoad('<ui-sub-icon></ui-sub-icon>');
-      const srcValue = createMockSrc(iconName);
+        el.setAttribute('src', srcValue);
+        await elementUpdated(el);
 
-      expect(el.hasAttribute('src')).to.equal(false, 'Icon should not have the src attribute by default');
-      expect(el.src).to.equal(null, 'Icon should not have the src property by default');
+        expect(el.hasAttribute('src')).to.equal(true);
+      });
+      it('should have correct icon when set', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const el = await createAndWaitForLoad('<ui-sub-icon></ui-sub-icon>');
+        const srcValue = createMockSrc(iconName);
 
-      el.setAttribute('src', srcValue);
-      await elementUpdated(el);
+        el.setAttribute('src', srcValue);
+        await elementUpdated(el);
 
-      expect(el.hasAttribute('src')).to.equal(true, 'Icon should have the src attribute when set');
-      expect(el.getAttribute('src')).to.equal(srcValue, 'Icon should have the same src attribute as was set');
-      expect(el.src).to.equal(srcValue, 'Icon should reflect the src attribute to property');
+        expect(el.getAttribute('src')).to.equal(srcValue);
+      });
+      it('should not presented after it was removed', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const srcValue = createMockSrc(iconName);
+        const el = await createAndWaitForLoad(`<ui-sub-icon src="${srcValue}"></ui-sub-icon>`);
 
-      el.removeAttribute('src');
-      await elementUpdated(el);
+        el.removeAttribute('src');
+        await elementUpdated(el);
 
-      expect(el.hasAttribute('src')).to.equal(false, 'Icon should not have the src attribute after it was removed');
-      expect(el.src).to.equal(null, 'Icon should not have the src property after attribute was removed');
-
-      el.src = srcValue;
-      await elementUpdated(el);
-
-      expect(el.src).to.equal(srcValue, 'Icon should have the same src property as was set');
-      expect(el.hasAttribute('src')).to.equal(false, 'Icon should not reflect the src property to the attribute');
+        expect(el.hasAttribute('src')).to.equal(false);
+      });
     });
   });
 
-  describe('Functional Tests', () => {
+  describe('Properties', () => {
+    describe('icon', () => {
+      it('should not be presented by default', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const el = await createAndWaitForLoad('<ui-sub-icon></ui-sub-icon>');
+
+        expect(el.icon).to.equal(null);
+      });
+      it('should have the icon property when set', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const el = await createAndWaitForLoad('<ui-sub-icon></ui-sub-icon>');
+
+        el.icon = iconName;
+        await elementUpdated(el);
+
+        expect(el.icon).to.equal(iconName);
+      });
+    });
+    describe('src', () => {
+      it('should not be presented by default', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const el = await createAndWaitForLoad('<ui-sub-icon></ui-sub-icon>');
+  
+        expect(el.src).to.equal(null);
+      });
+      it('should have the src property when set', async () => {
+        createFakeResponse(tickSvg, responseConfigSuccess);
+        const el = await createAndWaitForLoad('<ui-sub-icon></ui-sub-icon>');
+        const srcValue = createMockSrc(iconName);
+
+        el.setAttribute('src', srcValue);
+        await elementUpdated(el);
+
+        expect(el.src).to.equal(srcValue);
+      });
+    });
+  });
+
+  describe('Functional', () => {
     it('should set the src property based on the icon and CDN prefix', async () => {
       createFakeResponse(tickSvg, responseConfigSuccess);
       const el = await createAndWaitForLoad(`<ui-sub-icon icon="${iconName}"></ui-sub-icon>`);
@@ -227,4 +293,3 @@ describe('icon/Icon', () => {
     });
   });
 });
-
