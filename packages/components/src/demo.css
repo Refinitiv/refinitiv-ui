@@ -18,7 +18,7 @@ h6 {
   color: var(--ds-text-header-color);
 }
 
-h1 {
+/* h1 {
   font-size: var(--ds-font-size-xx-large);
   margin-bottom: var(--ds-space-large);
 }
@@ -46,7 +46,7 @@ h5 {
 h6 {
   font-size: var(--ds-font-size-x-small);
   margin-bottom: var(--ds-space-xx-small);
-}
+} */
 
 h4,
 h5,
@@ -128,7 +128,7 @@ input[type=text]:focus {
   outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
 }
 
-select {
+/* select {
   font-size: inherit;
   font-weight: inherit;
   font-family: inherit;
@@ -141,7 +141,7 @@ select {
 
 select:focus {
   outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
-}
+} */
 
 textarea {
   font-size: inherit;
@@ -186,10 +186,7 @@ body {
   padding: 24px;
   font-size: var(--ds-text-body-size);
   font-weight: var(--ds-font-weight-default);
-  font-family: var(--ds-text-body-font-family);
-  color: var(--ds-text-body-color);
-  background-color: var(--ds-background-default);
-  will-change: background-color;
-  transition: background-color 100ms;
+  font-family: 'Proxima Nova Fin';
+  color: var(--base-content-primary);
+  background-color: var(--base-bg-primary);
 }
-

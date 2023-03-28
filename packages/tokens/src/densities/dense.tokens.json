@@ -1,32 +1,11 @@
 {
   "$type": "dimension",
-  "font": {
-    "size": {
-      "medium": {
-        "$value": "14px"
-      }
-    }
-  },
-  "size": {
-    "x-large": {
-      "$value": "26px"
-    }
-  },
   "space": {
-    "xx-small": {
-      "$value": "3px"
+    "010": {
+      "$value": "2px"
     },
-    "button-icon-margin-x-small": {
+    "020": {
       "$value": "4px"
-    },
-    "x-small": {
-      "$value": "4px"
-    },
-    "large": {
-      "$value": "18px"
-    },
-    "x-large": {
-      "$value": "26px"
     }
   }
 }
