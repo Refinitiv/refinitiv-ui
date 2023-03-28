@@ -28,12 +28,15 @@ const testAll = packageName === 'all' || packageName === undefined;
 const basePath = path.join(PACKAGES_ROOT, testAll ? '*' : packageName);
 const watch = argv.watch;
 const snapshots = argv.updateSnapshots;
+const optionBrowser = argv.browsers;
 const browserstack = argv.browserstack && !watch;
 const testCoverage = argv.includeCoverage;
 let testTarget = packageName;
 
-// Environment variables to use for overriding config script
-env.testCoverage = testCoverage;
+/**
+ * Environment variables to use for overriding test configuration in each package or sub directory.
+ */
+env.testCoverage = testCoverage; // use in packages elements/web-test-runner.mjs
 
 // Target package or element
 const target = argv._[0];
@@ -49,7 +52,7 @@ if (getElements().includes(target)) {
 const config = {
   ...wtrConfig,
   files: [path.join(basePath , '/__test__/**/*.test.js')],
-  watch: argv.watch,
+  watch,
   coverage:  testCoverage,
   coverageConfig: {
     include: [`**/${ packageName }/lib/**/*.js`],
@@ -67,8 +70,7 @@ if (browserstack) {
     'browserstack.key': env.BROWSERSTACK_ACCESS_KEY,
     project: env.BROWSERSTACK_PROJECT_NAME || 'Refinitiv UI',
     name: testTarget,
-    build: `build ${env.BROWSERSTACK_BUILD || 'unknown'}`,
-    timeout: 1800, // Maximum
+    build: `build ${env.BROWSERSTACK_BUILD || 'unknown'}`
   };
 
   // Add BrowserStack launchers to config
@@ -79,12 +81,7 @@ if (browserstack) {
         BrowserStack.defaultBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
         break;
       case 'supported':
-        BrowserStack.supportedBrowsers.forEach(browser => {
-          // Disable testing on Safari, we have to check all test cases are passed before enabling it again
-          if (!browser.includes('safari')) {
-            launchers.push(BrowserStack.config[browser]);
-          }
-        });
+        BrowserStack.supportedBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
         break;
       default:
         launchers.push(BrowserStack.config[option]);
@@ -102,7 +99,6 @@ if (browserstack) {
 }
 
 // Specify browser to run the unit test & convert browser naming to playwright's one
-const optionBrowser = argv.browsers;
 if (optionBrowser && optionBrowser.length) {
   config.browsers = config.browsers.filter((configBrowser) => {
     let browser;
@@ -121,13 +117,14 @@ if (optionBrowser && optionBrowser.length) {
   });
 }
 
-// Strip argv (options) out to prevent them pass to the web-test-runner cli
+// Strip argv (options) out to prevent web-test-runner picking them up
 process.argv = process.argv.slice(0, 2);
 
 info(watch ? `Start Dev Server: ${ testTarget }` : `Test: ${ testTarget }`);
 
 if (snapshots) {
   info(`Update and prune snapshots: ${ testTarget }`);
+  // Web Test Runner does not provide a config to update snapshots, so the CLI option is the only way.
   process.argv.push('--update-snapshots');
 }
 

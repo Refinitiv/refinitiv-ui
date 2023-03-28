@@ -1,14 +1,13 @@
 #!/usr/bin/env node
-
 import { BrowserStack, DefaultBrowsers } from '../../browsers.config.mjs';
 
 /**
  * Use standard options for the yargs CLI
- * @param {Argv} yargs argv
- * @returns {Argv} yargs argv
+ * @param {yargs.Argv} yargs argv
+ * @returns {void}
  */
-export const useTestOptions = (argv) => {
-  return argv.option('include-coverage', {
+export const useTestOptions = yargs => {
+  yargs.option('include-coverage', {
     type: 'boolean',
     default: true,
     description: 'Include coverage testing'
@@ -24,7 +23,7 @@ export const useTestOptions = (argv) => {
       type: 'boolean',
       default: false,
       description: 'Update and prune snapshots'
-    })
+  })
   .option('browsers', {
     type: 'array',
     alias: 'b',

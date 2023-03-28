@@ -20,8 +20,8 @@ export const builder = yargs => {
   // Use shared test options for the CLI
   useTestOptions(yargs);
 };
-export const handler = (argv) => {
-  // Remove command and forward params only to main test file
+export const handler = () => {
+  // Remove command and forward all test options to main test file
   let params = hideBin(process.argv).slice(1)
 
   try {
