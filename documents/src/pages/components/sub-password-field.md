@@ -1,20 +1,20 @@
 <!--
 type: page
-title: Sub CheckBox
-location: ./components/sub-checkbox
+title: Sub Password Field
+location: ./components/sub-password-field
 layout: default
 -->
 
-# Sub Checkbox
+# Sub Password Field
 
 ```html
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-password-field></ui-sub-password-field>
 ```
 
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-password-field></ui-sub-password-field>
 ```
 ```js
 import "./resources/components.js"
@@ -26,7 +26,7 @@ import "./resources/components.js"
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-password-field></ui-sub-password-field>
 ```
 ```js
 import "./resources/components.js"
@@ -38,7 +38,7 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-password-field></ui-sub-password-field>
 ```
 ```js
 import "./resources/components.js"

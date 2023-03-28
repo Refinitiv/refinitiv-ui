@@ -1,20 +1,29 @@
 <!--
 type: page
-title: Sub CheckBox
-location: ./components/sub-checkbox
+title: Sub Overlay
+location: ./components/sub-overlay
 layout: default
 -->
 
-# Sub Checkbox
+# Sub Overlay
 
 ```html
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-overlay opened>
+  <div>Overlay Content</div>
+</ui-sub-overlay>
 ```
 
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<style>
+  body {
+    height: 300px;
+  }
+</style>
+<ui-sub-overlay opened>
+  <div>Overlay Content</div>
+</ui-sub-overlay>
 ```
 ```js
 import "./resources/components.js"
@@ -26,7 +35,14 @@ import "./resources/components.js"
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<style>
+  body {
+    height: 300px;
+  }
+</style>
+<ui-sub-overlay opened>
+  <div>Overlay Content</div>
+</ui-sub-overlay>
 ```
 ```js
 import "./resources/components.js"
@@ -38,7 +54,14 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<style>
+  body {
+    height: 300px;
+  }
+</style>
+<ui-sub-overlay opened>
+  <div>Overlay Content</div>
+</ui-sub-overlay>
 ```
 ```js
 import "./resources/components.js"

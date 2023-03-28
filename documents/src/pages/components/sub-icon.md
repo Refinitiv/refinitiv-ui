@@ -1,20 +1,22 @@
 <!--
 type: page
-title: Sub CheckBox
-location: ./components/sub-checkbox
+title: Sub Icon
+location: ./components/sub-icon
 layout: default
 -->
 
-# Sub Checkbox
+# Sub Icon
 
 ```html
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-icon icon="arrow-down"></ui-sub-icon>
 ```
+
+?>See list of available icons in [EFv6 Icon List](https://ui.refinitiv.com/elements/icon#icon-list).
 
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-icon icon="arrow-down"></ui-sub-icon>
 ```
 ```js
 import "./resources/components.js"
@@ -26,7 +28,7 @@ import "./resources/components.js"
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-icon icon="arrow-down"></ui-sub-icon>
 ```
 ```js
 import "./resources/components.js"
@@ -38,7 +40,7 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-icon icon="arrow-down"></ui-sub-icon>
 ```
 ```js
 import "./resources/components.js"

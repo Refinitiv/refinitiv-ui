@@ -1,20 +1,24 @@
 <!--
 type: page
-title: Sub CheckBox
-location: ./components/sub-checkbox
+title: Sub Footer
+location: ./components/sub-footer
 layout: default
 -->
 
-# Sub Checkbox
+# Sub Footer
 
 ```html
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-footer>
+  <div>Footer Content</div>
+</ui-sub-footer>
 ```
 
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-footer>
+  <div>Footer Content</div>
+</ui-sub-footer>
 ```
 ```js
 import "./resources/components.js"
@@ -26,7 +30,9 @@ import "./resources/components.js"
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-footer>
+  <div>Footer Content</div>
+</ui-sub-footer>
 ```
 ```js
 import "./resources/components.js"
@@ -38,7 +44,9 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-footer>
+  <div>Footer Content</div>
+</ui-sub-footer>
 ```
 ```js
 import "./resources/components.js"

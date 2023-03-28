@@ -1,32 +1,34 @@
 <!--
 type: page
-title: Sub CheckBox
-location: ./components/sub-checkbox
+title: Input Field
+location: ./components/input-field
 layout: default
 -->
 
-# Sub Checkbox
+# Input Field
 
 ```html
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-input-field label="User ID"></ui-input-field>
+<ui-input-field label="Password" type="password"></ui-input-field>
 ```
 
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-input-field label="User ID"></ui-input-field>
+<ui-input-field label="Password" type="password"></ui-input-field>
 ```
 ```js
 import "./resources/components.js"
 ```
 ::
 
-
 ## Density = Dense
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-input-field label="User ID"></ui-input-field>
+<ui-input-field label="Password" type="password"></ui-input-field>
 ```
 ```js
 import "./resources/components.js"
@@ -38,7 +40,8 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-input-field label="User ID"></ui-input-field>
+<ui-input-field label="Password" type="password"></ui-input-field>
 ```
 ```js
 import "./resources/components.js"

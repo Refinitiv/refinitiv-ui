@@ -1,20 +1,20 @@
 <!--
 type: page
-title: Sub CheckBox
-location: ./components/sub-checkbox
+title: Sub Label
+location: ./components/sub-label
 layout: default
 -->
 
-# Sub Checkbox
+# Sub Label
 
 ```html
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-label>Sample Label</ui-sub-label>
 ```
 
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-label>Sample Label</ui-sub-label>
 ```
 ```js
 import "./resources/components.js"
@@ -26,7 +26,7 @@ import "./resources/components.js"
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-label>Sample Label</ui-sub-label>
 ```
 ```js
 import "./resources/components.js"
@@ -38,7 +38,7 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ::
 ```html
 <link href="./resources/components.css" rel="stylesheet"/>
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-label>Sample Label</ui-sub-label>
 ```
 ```js
 import "./resources/components.js"
