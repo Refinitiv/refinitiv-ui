@@ -89,7 +89,7 @@ if (browserstack) {
     }
   });
 
-  // Add BrowserStack launchers to config
+  // Create BrowserStack launchers
   const browsers = [];
   launchers.forEach(launcher => {
     browsers.push(browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher } }));
