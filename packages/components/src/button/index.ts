@@ -34,14 +34,14 @@ export class Button extends ControlElement {
         box-sizing: border-box;
         text-transform: uppercase;
 
-        line-height: var(--ds-space-large);
+        /* line-height: var(--ds-space-large); */
 
         padding: var(--ds-space-x-small);
         min-height: var(--ds-size-x-large);
 
-        color: var(--ds-action-content-primary-default);
+        color: var(--action-content-default);
         border: var(--ds-action-border-primary-default);
-        background-color: var(--ds-action-background-primary-default);
+        background-color: var(--action-bg-primary-default);
         border-radius: var(--ds-control-border-radius);
       }
       :host(:hover) {

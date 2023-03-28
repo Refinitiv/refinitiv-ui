@@ -1,81 +1,90 @@
 {
-  "$type": "color",
-  "grey": {
-    "$description": "Grey color scale",
-    "50": {
-      "$value": "#1d1d1d"
+  "base": {
+    "bg": {
+      "$type": "color",
+      "primary": {
+        "$value": "{color-lights-out}"
+      },
+      "secondary": {
+        "$value": "{color-lights-out}"
+      },
+      "emphasis": {
+        "$value": "{color-lights-out}"
+      }
     },
-    "75": {
-      "$value": "#262626"
-    },
-    "100": {
-      "$value": "#323232"
-    },
-    "200": {
-      "$value": "#3f3f3f"
-    },
-    "300": {
-      "$value": "#545454"
-    },
-    "400": {
-      "$value": "#707070"
-    },
-    "500": {
-      "$value": "#909090"
-    },
-    "600": {
-      "$value": "#b2b2b2"
-    },
-    "700": {
-      "$value": "#d1d1d1"
-    },
-    "800": {
-      "$value": "#ebebeb"
-    },
-    "900": {
-      "$value": "#fff"
+    "content": {
+      "$type": "color",
+      "primary": {
+        "$value": "{color-lights-out}"
+      }
     }
   },
-  "cyan": {
-    "$description": "Cyan color scale",
-    "1300": {
-      "$value": "#d7faff"
+  "action": {
+    "bg": {
+      "$type": "color",
+      "primary": {
+        "default": {
+          "$value": "{color-lights-out}"
+        },
+        "hover": {
+          "$value": "{color-persian-blue}"
+        },
+        "focused": {
+          "$value": "{color-white}"
+        },
+        "pressed": {
+          "$value": "{color-torea-bay}"
+        }
+      },
+      "secondary": {
+        "default": {
+          "$value": "{color-charcoal}"
+        },
+        "hover": {
+          "$value": "{color-lights-out}"
+        },
+        "focused": {
+          "$value": "{color-lights-out}"
+        },
+        "pressed": {
+          "$value": "{color-lights-out}"
+        }
+      }
     },
-    "1200": {
-      "$value": "#a7f1ff"
+    "border": {
+      "$type": "color",
+      "secondary": {
+        "default": {
+          "$value": "#333333"
+        },
+        "hover": {
+          "$value": "#0D0D0D"
+        },
+        "focused": {
+          "$value": "#0D0D0D"
+        },
+        "pressed": {
+          "$value": "#0D0D0D"
+        }
+      }
     },
-    "1100": {
-      "$value": "#7fe4f9"
-    },
-    "1000": {
-      "$value": "#54d3f1"
-    },
-    "900": {
-      "$value": "#2cc1e6"
-    },
-    "800": {
-      "$value": "#0eadd7"
-    },
-    "700": {
-      "$value": "#0099c6"
-    },
-    "600": {
-      "$value": "#0086b4"
-    },
-    "500": {
-      "$value": "#0074a2"
-    },
-    "400": {
-      "$value": "#006491"
-    },
-    "300": {
-      "$value": "#00557f"
-    },
-    "200": {
-      "$value": "#00476f"
-    },
-    "100": {
-      "$value": "#003d62"
+    "content": {
+      "$type": "color",
+      "default": {
+        "$value": "{color-silver}"
+      },
+      "hover": {
+        "$value": "#FFFFFF"
+      },
+      "focused": {
+        "$value": "#0D0D0D"
+      },
+      "visited": {
+        "$value": "#FFFFFF"
+      },
+      "pressed": {
+        "$value": "#FFFFFF"
+      }
     }
   }
 }
