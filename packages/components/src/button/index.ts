@@ -46,7 +46,7 @@ export class Button extends ControlElement {
       }
       :host(:focus-visible:not(:active)) {
         text-decoration: underline;
-        text-underline-offset: var(--space-010);
+        text-underline-offset: var(--width-010);
         text-decoration-thickness: var(--width-fixed2);
         color: var(--action-content-primary-focused);
         border: var(--action-border-primary-focused);

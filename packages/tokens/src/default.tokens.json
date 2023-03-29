@@ -333,10 +333,10 @@
         "$value": "{color.white}"
       },
       "secondary": {
-        "$value": "{color.silver}"
+        "$value": "{color.white}"
       },
       "emphasis": {
-        "$value": "{color.lights-out}"
+        "$value": "{color.white}"
       }
     },
     "content": {
