@@ -9,8 +9,8 @@ layout: default
 
 ```html
 <ui-button>Label</ui-button>
-<ui-button icon-end="arrow-right">Label</ui-button>
-<ui-button icon-end="arrow-right" variant="primary">Label</ui-button>
+<ui-button icon-end="right">Label</ui-button>
+<ui-button icon-end="right" variant="primary">Label</ui-button>
 ```
 
 Buttons allow the user to submit information or initiate actions. You can use <ui-button> for actions in forms or dialogs. 
