@@ -153,6 +153,15 @@
       },
       "text-transform": {
         "$value": "none"
+      },
+      "all": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{copy.md-emphasis.font-family}",
+          "fontSize": "{copy.md-emphasis.font-size}",
+          "fontWeight": "{copy.md-emphasis.font-weight}",
+          "lineHeight": "{copy.md-emphasis.line-height}"
+        }
       }
     },
     "md-loud": {
@@ -185,6 +194,36 @@
         }
       }
     },
+    "sm": {
+      "font-family": {
+        "$type": "fontFamily",
+        "$value": "Proxima Nova Fin"
+      },
+      "font-size": {
+        "$type": "dimension",
+        "$value": "14px"
+      },
+      "line-height": {
+        "$type": "dimension",
+        "$value": "20px"
+      },
+      "font-weight": {
+        "$type": "fontWeight",
+        "$value": "400"
+      },
+      "text-transform": {
+        "$value": "none"
+      },
+      "all": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{copy.sm.font-family}",
+          "fontSize": "{copy.sm.font-size}",
+          "fontWeight": "{copy.sm.font-weight}",
+          "lineHeight": "{copy.sm.line-height}"
+        }
+      }
+    },
     "sm-emphasis": {
       "font-family": {
         "$type": "fontFamily",
@@ -204,6 +243,15 @@
       },
       "text-transform": {
         "$value": "none"
+      },
+      "all": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{copy.sm-emphasis.font-family}",
+          "fontSize": "{copy.sm-emphasis.font-size}",
+          "fontWeight": "{copy.sm-emphasis.font-weight}",
+          "lineHeight": "{copy.sm-emphasis.line-height}"
+        }
       }
     },
     "sm-loud": {
@@ -225,6 +273,15 @@
       },
       "text-transform": {
         "$value": "uppercase"
+      },
+      "all": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{copy.sm-loud.font-family}",
+          "fontSize": "{copy.sm-loud.font-size}",
+          "fontWeight": "{copy.sm-loud.font-weight}",
+          "lineHeight": "{copy.sm-loud.line-height}"
+        }
       }
     },
     "xs": {
@@ -246,6 +303,15 @@
       },
       "text-transform": {
         "$value": "none"
+      },
+      "all": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{copy.xs-loud.font-family}",
+          "fontSize": "{copy.xs-loud.font-size}",
+          "fontWeight": "{copy.xs-loud.font-weight}",
+          "lineHeight": "{copy.xs-loud.line-height}"
+        }
       }
     },
     "xs-emphasis": {
@@ -302,6 +368,13 @@
   },
   "code-only": {
     "typography": {
+      "control": {
+        "content": {
+          "default": {
+            "$value": "{copy.sm.all}"
+          }
+        }
+      },
       "action": {
         "content": {
           "default": {

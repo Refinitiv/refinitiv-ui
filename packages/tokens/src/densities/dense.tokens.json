@@ -10,6 +10,13 @@
   },
   "code-only": {
     "typography": {
+      "control": {
+        "content": {
+          "default": {
+            "$value": "{copy.xs.all}"
+          }
+        }
+      },
       "action": {
         "content": {
           "default": {

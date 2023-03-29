@@ -40,28 +40,28 @@
       "default": {
         "$value": {
           "color": "{color.scorpion}",
-          "width": "{width.fixed1}",
+          "width": "1px",
           "style": "solid"
         }
       },
       "hover": {
         "$value": {
           "color": "{color.persian-blue}",
-          "width": "{width.fixed1}",
+          "width": "1px",
           "style": "solid"
         }
       },
       "focused": {
         "$value": {
           "color": "{color.lights-out}",
-          "width": "{width.fixed1}",
+          "width": "1px",
           "style": "solid"
         }
       },
       "selected": {
         "$value": {
           "color": "{color.blue-ribbon}",
-          "width": "{width.fixed1}",
+          "width": "1px",
           "style": "solid"
         }
       }
@@ -95,7 +95,7 @@
         "$type": "border",
         "$value": {
           "color": "{color.blue-ribbon}",
-          "width": "{width.fixed2}",
+          "width": "2px",
           "style": "solid"
         }
       },
@@ -103,7 +103,7 @@
         "$type": "border",
         "$value": {
           "color": "{color.white}",
-          "width": "{width.fixed2}",
+          "width": "2px",
           "style": "solid"
         }
       }
