@@ -1,10 +1,5 @@
 :root {
   @import (inline) '../../node_modules/@refinitiv-ui/tokens/lib/default.tokens.css';
-  @import (inline) '../../node_modules/@refinitiv-ui/tokens/lib/light.tokens.css';
-  
-  &:not([prefers-color-scheme]) {
-    @import (inline) '../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css' (prefers-color-scheme: dark);
-  }
 
   &:not([prefers-density]) {
     @import (inline) '../../node_modules/@refinitiv-ui/tokens/lib/comfort.tokens.css' screen and (min-width: 0px) and (max-width: 639px);
@@ -20,13 +15,13 @@
   &[prefers-density=dense] {
     @import (inline, multiple) '../../node_modules/@refinitiv-ui/tokens/lib/dense.tokens.css';
   }
+  
+  &:not([prefers-color-scheme]) {
+    @import (inline) '../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css' (prefers-color-scheme: dark);
+  }
 
   &[prefers-color-scheme=dark] {
     @import (inline, multiple) '../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css';
-  }
-
-  &[prefers-color-scheme=light] {
-    @import (inline, multiple) '../../node_modules/@refinitiv-ui/tokens/lib/light.tokens.css';
   }
 }
 

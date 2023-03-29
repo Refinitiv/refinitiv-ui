@@ -2,7 +2,7 @@ import { css } from 'toko/formats.js';
 
 export default [
   {
-    inputs: ['./src/palettes/colors.tokens.json','./src/schemes/dark.tokens.json', './src/default.tokens.json'],
+    inputs: ['./src/palettes/colors.tokens.json','./src/schemes/light.tokens.json', './src/default.tokens.json'],
     outputs: [
       css({
         selector: '&',
@@ -10,7 +10,7 @@ export default [
     ]
   },
   {
-    inputs: ['./src/palettes/colors.tokens.json', './src/schemes/dark.tokens.json', './src/default.tokens.json', './src/densities/mobile.tokens.json'],
+    inputs: ['./src/palettes/colors.tokens.json', './src/schemes/light.tokens.json', './src/default.tokens.json', './src/densities/mobile.tokens.json'],
     outputs: [
       css({
         selector: '&',
@@ -18,7 +18,7 @@ export default [
     ]
   },
   {
-    inputs: ['./src/palettes/colors.tokens.json', './src/schemes/dark.tokens.json', './src/default.tokens.json', './src/densities/comfort.tokens.json'],
+    inputs: ['./src/palettes/colors.tokens.json', './src/schemes/light.tokens.json', './src/default.tokens.json', './src/densities/comfort.tokens.json'],
     outputs: [
       css({
         selector: '&',
@@ -26,7 +26,7 @@ export default [
     ]
   },
   {
-    inputs: ['./src/palettes/colors.tokens.json', './src/schemes/dark.tokens.json', './src/default.tokens.json', './src/densities/dense.tokens.json'],
+    inputs: ['./src/palettes/colors.tokens.json', './src/schemes/light.tokens.json', './src/default.tokens.json', './src/densities/dense.tokens.json'],
     outputs: [
       css({
         selector: '&',

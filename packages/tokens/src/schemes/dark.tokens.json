@@ -23,16 +23,16 @@
     "bg": {
       "$type": "color",
       "default": {
-        "$value": "{color.white}"
+        "$value": "{color.black}"
       },
       "hover": {
-        "$value": "{color.white}"
+        "$value": "{color.black}"
       },
       "focused": {
-        "$value": "{color.white}"
+        "$value": "{color.black}"
       },
       "selected": {
-        "$value": "{color.white}"
+        "$value": "{color.black}"
       }
     },
     "border": {
