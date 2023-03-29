@@ -67,8 +67,6 @@
 
 
   <script>
-    const isIE = (/Trident/g).test(navigator.userAgent);
-
     var generateData = function (r, c, minPoint = -1, maxPoint = 1) {
       var rows = Array(r);
       for (let i = 0; i < rows.length; i++) {
@@ -169,12 +167,7 @@
           }
         };
 
-        if (!isIE) {
-          el.addEventListener('contextmenu', handleContextMenu);
-        }
-        else {
-          document.oncontextmenu = handleContextMenu;
-        }
+        el.addEventListener('contextmenu', handleContextMenu);
 
         menu.addEventListener('item-trigger', ({ detail: { value } }) => {
           if (value === 'show-cell') {

@@ -181,14 +181,6 @@ describe('button/Button', () => {
   });
 
   describe('Tap Method', () => {
-    if ((/Trident/g).test(navigator.userAgent)) {
-      window.KeyboardEvent = class extends Event {
-        constructor (type, data) {
-          super(type, data);
-          this.key = data.key;
-        }
-      };
-    }
     it('should be called when tap is dispatched', async () => {
       const el = await fixture(html`<ef-button></ef-button>`);
       setTimeout(() => el.dispatchEvent(new Event('tap')));
