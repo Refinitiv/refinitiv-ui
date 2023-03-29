@@ -88,7 +88,7 @@ export class SubSelect extends ControlElement {
         color: var(--ds-control-color);
         border: var(--ds-control-border);
         border-radius: var(--ds-control-border-radius);
-        background-color: var(--ds-control-background-color);
+        background-color: var(--control-bg-default);
         padding: 0px var(--ds-space-x-small);
       }
       :host(:focus) {
@@ -121,6 +121,7 @@ export class SubSelect extends ControlElement {
         overflow-y: auto;
         max-width: var(--ui-select-list-max-width);
         max-height: var(--ui-select-list-max-height, 200px);
+        background: var(--base-bg-primary);
       }
       :host [part=list] ::slotted(:not(ui-option)) {
         display: none;

@@ -19,7 +19,7 @@ export class Select extends ControlElement {
   static get styles (): CSSResultGroup {
     return css`
       :host {
-        display: flex;
+        display: inline-flex;
         flex-direction: column;
         margin: var(--ds-space-x-small) 0;
       }
