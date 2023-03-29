@@ -21,7 +21,8 @@ import { Track } from './helpers/track.js';
 import { blend, brighten, darken, isLight, interpolate } from './helpers/color.js';
 import { getResponsiveFontSize, getMaximumTextWidth, MIN_FONT_SIZE } from './helpers/text.js';
 
-const MAX_CELL_WIDTH_RATIO = 0.85;
+const CELL_PADDING = 0.12;
+const CELL_MAX_TEXT_WIDTH = 1 - CELL_PADDING;
 const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
 
 import type { HeatmapXAxis, HeatmapCell, HeatmapConfig, HeatmapYAxis, HeatmapCustomisableProperties, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
@@ -123,12 +124,11 @@ export class Heatmap extends ResponsiveElement {
    * @private
    */
   @property({ type: Object, attribute: false })
-  /* istanbul ignore next */
+  /* c8 ignore start */
   public get hoverCell (): HeatmapCell | null {
     return this._hoverCell;
   }
 
-  /* istanbul ignore next */
   public set hoverCell (hoverCell: HeatmapCell | null) {
     const previousHoverCell = this._hoverCell;
     this._hoverCell = hoverCell;
@@ -138,6 +138,7 @@ export class Heatmap extends ResponsiveElement {
       this.hoverCellChanged(this._hoverCell, previousHoverCell);
     }
   }
+  /* c8 ignore stop */
 
   /**
    * Minimum point of the cell coloring
@@ -174,10 +175,11 @@ export class Heatmap extends ResponsiveElement {
    * @param event an event that occur while the user interacting with element
    * @returns data of cell
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   public getCellDataAtEvent (event: MouseEvent): HeatmapCell | null {
     return this.hitTest(event);
   }
+  /* c8 ignore stop */
 
   /**
    * A callback function that allows tooltip rendering on cell hover
@@ -423,7 +425,7 @@ export class Heatmap extends ResponsiveElement {
    * @param event mousemove event
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private onMouseMove (event: MouseEvent): void {
     if (event.composedPath().includes(this.canvas) || this.tooltipCallback && this.tooltipOverlay === event.target) {
       this.hoverCell = this.hitTest(event);
@@ -432,16 +434,18 @@ export class Heatmap extends ResponsiveElement {
       this.hoverCell = null;
     }
   }
+  /* c8 ignore stop */
 
   /**
    * Handles when mouse moving outside element
    * @param event mouseleave event
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private onMouseLeave (): void {
     this.hoverCell = null;
   }
+  /* c8 ignore stop */
 
   /**
    * Handles heatmap resizes
@@ -500,7 +504,7 @@ export class Heatmap extends ResponsiveElement {
    * @param event mouse event
    * @returns cell
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private hitTest (event: MouseEvent): HeatmapCell | null {
     const box = this.canvas.getBoundingClientRect();
     const x = event.clientX - box.left;
@@ -510,6 +514,7 @@ export class Heatmap extends ResponsiveElement {
 
     return this.getCellByLocation(row, column);
   }
+  /* c8 ignore stop */
 
   /**
    * Get a cell, using row and column coordinates
@@ -517,7 +522,7 @@ export class Heatmap extends ResponsiveElement {
    * @param column column index
    * @returns cell
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private getCellByLocation (row: number, column: number): HeatmapCell | null {
     if (row < 0 || row >= this.rowCount) {
       return null;
@@ -528,13 +533,14 @@ export class Heatmap extends ResponsiveElement {
 
     return this.cells[row * this.columnCount + column] || null;
   }
+  /* c8 ignore stop */
 
   /**
    * Update overlay position
    * @param cell cell information for correct overlay
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private updateTooltipOverlayPosition (cell: HeatmapCell): void {
     // Compensate x-axis height for overlay when x-axis is at top position
     let marginOverlayTop = 0;
@@ -548,6 +554,7 @@ export class Heatmap extends ResponsiveElement {
     this.tooltipOverlay.style.width = `${cell.width}px`;
     this.tooltipOverlay.style.height = `${cell.height}px`;
   }
+  /* c8 ignore stop */
 
   /**
    * Called upon active cell changes i.e cell hovering
@@ -555,7 +562,7 @@ export class Heatmap extends ResponsiveElement {
    * @param previousCell previous active cell
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private hoverCellChanged (cell: HeatmapCell | null, previousCell: HeatmapCell | null): void {
     if (cell && cell.value !== null) {
 
@@ -576,6 +583,7 @@ export class Heatmap extends ResponsiveElement {
       this.fade(previousCell, previousCell.backgroundColor, this.getBackgroundColor(previousCell.value), 300);
     }
   }
+  /* c8 ignore stop */
 
   /**
    * Called upon label-hidden attribute changes
@@ -614,12 +622,13 @@ export class Heatmap extends ResponsiveElement {
    * @param {HeatmapCell} cell cell to stop the animation on
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private stopAnimation (cell: HeatmapCell): void {
     if (cell.animationFrame) {
       cancelAnimationFrame(cell.animationFrame);
     }
   }
+  /* c8 ignore stop */
 
   /**
    * Stops all animations on a cell
@@ -634,7 +643,7 @@ export class Heatmap extends ResponsiveElement {
    * @param cell cell object
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private resetCell (cell: HeatmapCell): void {
     this.canvasContext?.clearRect(
       cell.x,
@@ -643,6 +652,7 @@ export class Heatmap extends ResponsiveElement {
       cell.height
     );
   }
+  /* c8 ignore stop */
 
   /**
    * Fades a cell's background from one color to another
@@ -653,7 +663,7 @@ export class Heatmap extends ResponsiveElement {
    * @param delay fading animation delay
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private fade (cell: HeatmapCell, from: string, to: string, duration: number): void {
     const start = performance.now();
     const end = start + duration;
@@ -689,6 +699,7 @@ export class Heatmap extends ResponsiveElement {
 
     cell.animationFrame = requestAnimationFrame(fadingAnimation);
   }
+  /* c8 ignore stop */
 
   /**
    * Converts the input data into usable cell data
@@ -838,7 +849,7 @@ export class Heatmap extends ResponsiveElement {
    * Check if the text (label / header and label) can be paint on the cell
    * @returns true if text is within cell's boundary
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private canPaintText (): boolean {
     const canvas = this.canvasContext;
 
@@ -846,7 +857,7 @@ export class Heatmap extends ResponsiveElement {
       return false;
     }
 
-    const fontRatio = this.responsiveHeight ? 0.3 : 0.4;
+    const fontRatio = this.responsiveHeight ? 0.4 : 0.5;
     const fontFamily = getComputedStyle(this).fontFamily;
 
     const contentWidth = this.colTrack.getContentSize(0);
@@ -863,13 +874,14 @@ export class Heatmap extends ResponsiveElement {
     canvas.textBaseline = 'middle';
     canvas.font = `${fontSize}px ${fontFamily}`;
 
-    let isWithinMinCellWidth = ((this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth) < MAX_CELL_WIDTH_RATIO;
 
-    // If label width is still more than 85% of the cell width, try to reduce to smallest possible font-size to display label.
+    let isWithinMinCellWidth = ((this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth) <= CELL_MAX_TEXT_WIDTH;
+
+    // Tries to get the largest possible font size that is within `CELL_MAX_TEXT_WIDTH`
     if (!isWithinMinCellWidth && fontSize !== MIN_FONT_SIZE) {
       while (!isWithinMinCellWidth) {
         canvas.font = `${fontSize}px ${fontFamily}`; // Should assigned new font size to canvas before calculated again.
-        isWithinMinCellWidth = ((this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth) < MAX_CELL_WIDTH_RATIO;
+        isWithinMinCellWidth = ((this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth) <= CELL_MAX_TEXT_WIDTH;
 
         // Stops when reaches minimum font-size
         if (fontSize === MIN_FONT_SIZE) {
@@ -887,13 +899,14 @@ export class Heatmap extends ResponsiveElement {
     this.contentWithinCellBoundary = isWithinMinCellWidth && isWithinMinCellHeight;
     return this.contentWithinCellBoundary;
   }
+  /* c8 ignore stop */
 
   /**
    * Calculate cell background color based on the current cell data value
    * @param value cell value
    * @returns calculated color
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private getBackgroundColor (value: number | null): string {
     if (value === null) {
       return this.backgroundColor;
@@ -921,6 +934,7 @@ export class Heatmap extends ResponsiveElement {
       return interpolate(this.midPointColor, this.belowPointColor)(-factor);
     }
   }
+  /* c8 ignore stop */
 
   /**
    * Calculate the color mixing factor from 0 - 1
@@ -928,7 +942,7 @@ export class Heatmap extends ResponsiveElement {
    * @param saturation color saturation level
    * @returns factor
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private calculateColorFactor (value: number, saturation: number): number {
     if (value >= this.maxPoint) {
       return 1;
@@ -951,6 +965,7 @@ export class Heatmap extends ResponsiveElement {
       return ((value - this.midPoint) / (this.midPoint - this.minPoint) * saturateRatio) - saturation;
     }
   }
+  /* c8 ignore stop */
 
   /**
    * Get and stores canvas color from computed canvas style
@@ -1030,7 +1045,7 @@ export class Heatmap extends ResponsiveElement {
    * @param cell object
    * @returns {void}
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private paintCell (cell: HeatmapCell): void {
     this.paintCellBackground(cell);
 
@@ -1042,6 +1057,7 @@ export class Heatmap extends ResponsiveElement {
       this.paintHeader(cell);
     }
   }
+  /* c8 ignore stop */
 
   /**
    * Paints all cells background colour
@@ -1257,7 +1273,7 @@ export class Heatmap extends ResponsiveElement {
    * Tooltip renderer function
    * @returns tooltip template to be render
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private tooltipRenderer (): HTMLElement | undefined {
     if (this.hoverCell && this.canvasContext && this.tooltipCallback) {
       return this.tooltipCallback(this.hoverCell);
@@ -1265,16 +1281,18 @@ export class Heatmap extends ResponsiveElement {
 
     return undefined;
   }
+  /* c8 ignore stop */
 
   /**
    * Checks if the tooltip should display or not
    * @param target element target
    * @returns if the canvas target within canvas
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private tooltipCondition (target: Element): boolean {
     return target === this.tooltipOverlay;
   }
+  /* c8 ignore stop */
 
   /**
    * A `TemplateResult` that will be used

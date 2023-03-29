@@ -13,7 +13,7 @@ describe('autosuggest/Autosuggest', () => {
   it('DOM structure is correct', async () => {
     await createInputElement();
     const el = await createFixture('snapshot');
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   describe('Test Properties And Attributes Assign Value', async () => {

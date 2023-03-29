@@ -19,20 +19,32 @@ const listenValueChangeEvent = (el) => {
 
 describe('calendar/Multiple', () => {
   describe('Multiple Test', () => {
-    it('Multiple: selected values should be highlighted', async () => {
-      const el = await fixture('<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-GB"></ef-calendar>');
-      expect(el.value, 'Value should pick first from values').to.equal('2005-04-21');
-      expect(el.values.join(','), 'values is not reflected').to.equal('2005-04-21,2005-04-24,2009-01-25');
-      expect(el).shadowDom.to.equalSnapshot();
-      await setMonthView(el);
-      expect(el).shadowDom.to.equalSnapshot();
-      await setYearView(el);
-      expect(el).shadowDom.to.equalSnapshot();
+    describe('Multiple: selected values should be highlighted', async () => {
+      it('Value should be reflected', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-GB"></ef-calendar>');
+        expect(el.value, ).to.equal('2005-04-21');
+        expect(el.values.join(',')).to.equal('2005-04-21,2005-04-24,2009-01-25');
+      });
+      it('Selected days should be highlighted', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-GB"></ef-calendar>');
+        await  expect(el).shadowDom.to.equalSnapshot();
+      });
+      it('Selected months should be highlighted', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-GB"></ef-calendar>');
+        await setMonthView(el);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
+      it('Selected years should be highlighted', async () => {
+        const el = await fixture('<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-GB"></ef-calendar>');
+        await setYearView(el);
+        await expect(el).shadowDom.to.equalSnapshot();
+      });
+
     });
     it('Multiple: should be possible to select values by passing property', async () => {
       const el = await fixture('<ef-calendar view="2005-04" multiple lang="en-GB"></ef-calendar>');
       el.values = ['2005-04-21', '2005-04-24'];
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 

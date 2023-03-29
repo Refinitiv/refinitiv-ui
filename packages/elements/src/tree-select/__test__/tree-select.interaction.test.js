@@ -147,7 +147,7 @@ describe('tree-select/Interaction', () => {
       el.data = flatData;
       el.opened = true;
       changeItemSelection(el, flatSelection);
-      await nextFrame();
+      await openedUpdated(el);
       await nextFrame();
       const elementToRemove = [...el.shadowRoot.querySelectorAll('ef-pill')].find(el => el.value === itemToRemove.value); // Austria
       elementToRemove.dispatchEvent(new CustomEvent('clear', {

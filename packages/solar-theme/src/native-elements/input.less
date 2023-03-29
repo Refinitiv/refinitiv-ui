@@ -18,7 +18,9 @@ input[type=file] {
   .input-solar;
   color: inherit;
   &[disabled] {
-    .placeholder({ color: @input-disabled-placeholder-color });
+    &::placeholder {
+      color: @input-disabled-placeholder-color;
+    }
   }
   &:focus {
     .input-focus;

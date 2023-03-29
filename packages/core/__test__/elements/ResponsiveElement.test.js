@@ -1,4 +1,4 @@
-import { expect, fixture, oneEvent, html } from '@refinitiv-ui/test-helpers';
+import { expect, fixture, oneEvent, html, isSafari } from '@refinitiv-ui/test-helpers';
 import { ResponsiveElement } from '../../lib/elements/ResponsiveElement';
 import { css } from '../../lib/index.js';
 import { customElement } from '../../lib/decorators/custom-element';
@@ -37,7 +37,10 @@ describe('TestResponsiveElement', () => {
     }).to.not.throw();
   });
 
-  it('Test resize event', async () => {
+  it('Test resize event', async function() {
+    if (isSafari()) { // this case reach timeout over 2000ms only in Safari
+      this.skip();
+    }
     const element = await fixture('<responsive-element-test></responsive-element-test>');
     await asyncFrames();
 

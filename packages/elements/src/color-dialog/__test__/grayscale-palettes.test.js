@@ -1,4 +1,9 @@
 import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
+
+import '@refinitiv-ui/elements/color-dialog';
+import '@refinitiv-ui/elemental-theme/light/ef-color-dialog';
+import '@refinitiv-ui/elemental-theme/light/ef-text-field';
+import '@refinitiv-ui/elemental-theme/light/ef-number-field';
 import { GRAYSCALE_ITEMS, NOCOLOR_POINTS } from '../../../lib/color-dialog/helpers/color-helpers.js';
 
 describe('color-dialog/GrayscalePalettes', () => {

@@ -8,7 +8,7 @@ describe('progress-bar/ProgressBar', () => {
 
   it('DOM structure is correct', async () => {
     const el = await fixture('<ef-progress-bar></ef-progress-bar>');
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Default value is correct', async () => {

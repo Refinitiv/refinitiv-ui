@@ -7,7 +7,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-button';
 describe('button/Button', () => {
   it('should be created', async () => {
     const el = await fixture(html`<ef-button>Button</ef-button>`);
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('should be instance of HTMLElement', async () => {
@@ -230,26 +230,26 @@ describe('button/Button', () => {
   describe('Accessibility', () => {
     it('should not be accessible without label', async () => {
       const el = await fixture(`<ef-button></ef-button>`);
-      expect(el).not.to.be.accessible();
+      await expect(el).not.to.be.accessible();
     });
 
     it('should pass a11y requirement when text content is provided', async () => {
       const el = await fixture(`<ef-button>TEST</ef-button>`);
-      expect(el).to.be.accessible({
+      await expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr', 'color-contrast']
       });
     });
 
     it('should pass a11y requirement when aria-label is provided instead of text content', async () => {
       const el = await fixture(`<ef-button aria-label="Tick Icon" icon="tick"></ef-button>`);
-      expect(el).to.be.accessible({
+      await expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr']
       });
     });
 
     it('should have aria-pressed="false" when it is not pressed', async () => {
       const el = await fixture(`<ef-button toggles>Toggle</ef-button>`);
-      expect(el).to.be.accessible({
+      await expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr', 'color-contrast']
       });
       await expect(el.getAttribute('aria-pressed')).to.equal('false');
@@ -257,7 +257,7 @@ describe('button/Button', () => {
 
     it('should have aria-pressed="true" when it is pressed', async () => {
       const el = await fixture(`<ef-button toggles active>Toggle</ef-button>`);
-      expect(el).to.be.accessible({
+      await expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr', 'color-contrast']
       });
       await expect(el.getAttribute('aria-pressed')).to.equal('true');

@@ -53,10 +53,10 @@ const triggerResize = (entry: ResizeObserverEntry): void => {
 
 /**
  * Trigger Resize all entries from ResizeObserver
- * @param entries array of resize observer entry
+ * @param entries array of ResizeObserverEntry
  * @returns {void}
  */
-const entriesResize = (entries: ResizeObserverEntry[]) => {
+const entriesResize = (entries: ResizeObserverEntry[]): void => {
   entries.forEach(entry => triggerResize(entry));
 };
 

@@ -9,12 +9,13 @@ const getElementStyle = (elem, prop) => {
 
 const scrollUpdated = async () => {
   await aTimeout(300);
+  await nextFrame(); // Firefox require extra frame when performance drop by testing all packages
 };
 
 describe('tab-bar/TabBar', () => {
   it('DOM structure is correct', async () => {
     const el = await fixture('<ef-tab-bar></ef-tab-bar>');
-    expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['style'] });
+    await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['style'] });
   });
 
   describe('level', () => {
@@ -100,7 +101,7 @@ describe('tab-bar/TabBar', () => {
     });
 
     it('Should show only right scroll button', async () => {
-      await nextFrame();
+      await nextFrame(); // wait for resize observer & rendering completion
       expect(getElementStyle(leftScrollBtn, 'display')).equal('none');
       expect(getElementStyle(rightScrollBtn, 'display')).equal('flex');
     });
@@ -127,7 +128,7 @@ describe('tab-bar/TabBar', () => {
 
       expect(Math.round(content.scrollLeft)).equal(BAR_TRAVEL_DISTANCE);
       expect(getElementStyle(leftScrollBtn, 'display')).equal('flex');
-    });
+    }).timeout(3000);
 
     it('Should scroll correctly when clicked on left scroll button', async () => {
       rightScrollBtn.dispatchEvent(new CustomEvent('tap'));

@@ -1,6 +1,7 @@
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/overlay';
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 import { openedUpdated } from '../mocks/helper';
 
 describe('overlay/elements/Overlay', () => {

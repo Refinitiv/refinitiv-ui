@@ -58,11 +58,16 @@ const iterateKeyboardEvent = async (el, scope, keys = [], highlighted = []) => {
 // TODO: Actually test results. These are just placeholders for coverage.
 
 describe('list/List', () => {
+  describe('Label and DOM structure is correct', async () => {
 
-  it('Label and DOM structure is correct', async () => {
-    const el = await fixture('<ef-list></ef-list>');
-    expect(el).to.equalSnapshot();
-    expect(el).shadowDom.to.equalSnapshot();
+    it('Light DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      await expect(el).to.equalSnapshot();
+    });
+    it('Shadow DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
   });
 
   it('Sets default value to be an empty string', async () => {
@@ -70,25 +75,43 @@ describe('list/List', () => {
     expect(el.value).to.equal('');
   });
 
-  it('Supports setting a data array', async () => {
-    const el = await fixture('<ef-list></ef-list>');
-    el.data = data;
-    expect(el).to.equalSnapshot();
-    expect(el).shadowDom.to.equalSnapshot();
+  describe('Supports setting a data array', async () => {
+    it('Light DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = data;
+      await expect(el).to.equalSnapshot();
+    });
+    it('Shadow DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = data;
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
   });
 
-  it('Supports setting a data composer', async () => {
-    const el = await fixture('<ef-list></ef-list>');
-    el.data = new CollectionComposer(data);
-    expect(el).to.equalSnapshot();
-    expect(el).shadowDom.to.equalSnapshot();
+  describe('Supports setting a data composer', async () => {
+    it('Light DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = new CollectionComposer(data);
+      await expect(el).to.equalSnapshot();
+    });
+    it('Shadow DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = new CollectionComposer(data);
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
   });
 
-  it('Supports setting null data', async () => {
-    const el = await fixture('<ef-list></ef-list>');
-    el.data = null;
-    expect(el).to.equalSnapshot();
-    expect(el).shadowDom.to.equalSnapshot();
+  describe('Supports setting null data', async () => {
+    it('Light DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = null;
+      await expect(el).to.equalSnapshot();
+    });
+    it('Shadow DOM', async () => {
+      const el = await fixture('<ef-list></ef-list>');
+      el.data = null;
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
   });
 
   it('Supports switching data between different types', async () => {
@@ -124,28 +147,28 @@ describe('list/List', () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
-      await iterateKeyboardEvent(el, el, ['Up', 'Up', 'ArrowUp'], [0, 4, 3]);
+      await iterateKeyboardEvent(el, el, ['ArrowUp', 'ArrowUp', 'ArrowUp'], [0, 4, 3]);
     });
 
     it('Keypress Down/ArrowDown event', async () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
-      await iterateKeyboardEvent(el, el, ['Down', 'Down', 'ArrowDown'], [0, 1, 2]);
+      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', 'ArrowDown'], [0, 1, 2]);
     });
 
     it('Keypress Down should loop back to the first item', async () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
-      await iterateKeyboardEvent(el, el, ['Down', 'Down', 'Down', 'Down', 'Down', 'Down'], [0, 1, 2, 3, 4, 0]);
+      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown'], [0, 1, 2, 3, 4, 0]);
     });
 
     it('Keypress Home event', async () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
-      await iterateKeyboardEvent(el, el, ['Down', 'ArrowDown', 'Home'], [0, 1, 0]);
+      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', 'Home'], [0, 1, 0]);
     });
 
     it('Keypress End event', async () => {
@@ -153,7 +176,7 @@ describe('list/List', () => {
       el.data = data;
       await elementUpdated(el);
 
-      await iterateKeyboardEvent(el, el, ['Down', 'End'], [0, 4]);
+      await iterateKeyboardEvent(el, el, ['ArrowDown', 'End'], [0, 4]);
     });
 
     it('Keypress Enter event', async () => {
@@ -161,7 +184,7 @@ describe('list/List', () => {
       el.data = data;
       await elementUpdated(el);
 
-      await iterateKeyboardEvent(el, el, ['Down', 'Down', 'Enter'], [0 , 1, 1]);
+      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', 'Enter'], [0 , 1, 1]);
       expect(el.value).to.equal('bye');
     });
 
@@ -170,7 +193,7 @@ describe('list/List', () => {
       el.data = data;
       await elementUpdated(el);
 
-      await iterateKeyboardEvent(el, el, ['Down', 'Down', 'Spacebar'], [0 , 1, 1]);
+      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', ' '], [0 , 1, 1]);
       expect(el.value).to.equal('bye');
     });
 
@@ -179,7 +202,7 @@ describe('list/List', () => {
       el.data = data;
       await elementUpdated(el);
 
-      await iterateKeyboardEvent(el, el, ['Down', 'Down', ' '], [0 , 1, 1]);
+      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', ' '], [0 , 1, 1]);
       expect(el.value).to.equal('bye');
     });
 
@@ -188,7 +211,7 @@ describe('list/List', () => {
       el.data = data;
       await elementUpdated(el);
 
-      await iterateKeyboardEvent(el, el,  ['Down', 'Down', 'x'], [0, 1, 1]);
+      await iterateKeyboardEvent(el, el,  ['ArrowDown', 'ArrowDown', 'x'], [0, 1, 1]);
     });
   });
 

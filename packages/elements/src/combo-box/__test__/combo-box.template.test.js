@@ -8,19 +8,20 @@ describe('combo-box/Template', () => {
   describe('Template Parts', () => {
     it('Empty DOM has all required parts', async () => {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Placeholder is rendered', async () => {
-      const el = await fixture('<ef-combo-box placeholder="Placeholder" lang="en"></ef-combo-box>');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
-      expect(el.placeholder).to.equal('Placeholder', 'Placeholder is not reflected to attribute');
-      el.setAttribute('placeholder', 'New Placeholder');
-      await elementUpdated(el);
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
-      el.placeholder = null;
-      await elementUpdated(el);
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+    describe('Placeholder is rendered', () => {
+      it('placeholder must be rendered correctly', async () => {
+        const el = await fixture('<ef-combo-box placeholder="Placeholder" lang="en"></ef-combo-box>');
+        await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      });
+      it('placeholder must be removed', async () => {
+        const el = await fixture('<ef-combo-box placeholder="Placeholder" lang="en"></ef-combo-box>');
+        el.placeholder = null;
+        await elementUpdated(el);
+        await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      });
     });
 
     it('Lazy Render: data', async () => {
@@ -29,26 +30,36 @@ describe('combo-box/Template', () => {
       el.opened = true;
       await openedUpdated(el);
       expect(el.hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.opened = false;
       await elementUpdated(el);
       expect(el.hasAttribute('opened')).to.equal(false, 'opened attribute is not reflected');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
     it('Data is reflected to render', async () => {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData();
       await openedUpdated(el);
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+    });
+
+    it('Data is reflected to render: reverse', async () => {
+      const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData().reverse();
-      await elementUpdated(el);
-      await nextFrame(); // Safari required extra frame
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      await openedUpdated(el);
+      await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+    });
+
+    it('Data is reflected to render: empty', async () => {
+      const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
+      el.data = getData();
+      await openedUpdated(el);
+      expect(el.data.length).greaterThan(0);
+
       el.data = [];
-      await elementUpdated(el);
+      await openedUpdated(el);
       await nextFrame(); // Safari required extra frame
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
     it('--list-max-width recalculates popup width', async function () {

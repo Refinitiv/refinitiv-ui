@@ -252,11 +252,12 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   * @ignore
   * @param multiple Multiple
   */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   @property({ type: Boolean })
   public set multiple (multiple: boolean) {
     new WarningNotice('multiple is not currently supported').show();
   }
+  /* c8 ignore stop */
   /**
   * @ignore
   */
@@ -813,11 +814,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private onKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
-      case 'Down':
       case 'ArrowDown':
         this.setOpened(true);
         break;
-      case 'Up':
       case 'ArrowUp':
         !event.defaultPrevented && this.setOpened(false);
         break;
@@ -835,7 +834,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private onCalendarKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
-      case 'Esc':
       case 'Escape':
         this.resetViews();
         this.setOpened(false);
@@ -854,7 +852,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private onInputKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
-      case 'Esc':
       case 'Escape':
         !this.opened && this.blur();
         this.setOpened(false);

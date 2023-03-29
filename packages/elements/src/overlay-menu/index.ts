@@ -664,7 +664,6 @@ export class OverlayMenu extends Overlay {
 
     switch (event.key) {
       case ' ': // space
-      case 'Spacebar': // space
       case 'Enter':
         this.onEnter();
         break;
@@ -686,19 +685,15 @@ export class OverlayMenu extends Overlay {
     }
 
     switch (event.key) {
-      case 'Down':
       case 'ArrowDown':
         this.focusElement(Navigation.NEXT, true);
         break;
-      case 'Up':
       case 'ArrowUp':
         this.focusElement(Navigation.PREVIOUS, true);
         break;
-      case 'Left':
       case 'ArrowLeft':
         this.onArrowLeft();
         break;
-      case 'Right':
       case 'ArrowRight':
         this.onArrowRight();
         break;
@@ -1029,7 +1024,7 @@ export class OverlayMenu extends Overlay {
       .label=${label}
       .subLabel=${subLabel}
       .icon=${icon}
-      .value=${value}
+      .value=${ifDefined(value || undefined)}
       .for=${ifDefined(forMenu || undefined)}>
     </ef-item>`;
   }

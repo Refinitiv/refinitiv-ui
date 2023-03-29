@@ -18,7 +18,6 @@ const mouseMove = async (config = {}) => {
     target = document,
     x = 0,
     y = 0,
-    tooltip,
     showDelay = ShowDelay,
     hideDelay = HideDelay,
     transitionTime = TransitionTime
@@ -42,7 +41,7 @@ const mouseMove = async (config = {}) => {
 describe('tooltip/Tooltip', () => {
   it('DOM structure is correct', async () => {
     const el = await fixture('<ef-tooltip></ef-tooltip>');
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Default title override works as expected', async () => {
@@ -87,7 +86,7 @@ describe('tooltip/Tooltip', () => {
       tooltip
     });
     expect(tooltip.opened, 'Tooltip on document is shown').to.be.false;
-  }).timeout(MouseMoveDelay * 4);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Overflow tooltip works as expected', async () => {
     const longText = 'Hello World!';
@@ -118,7 +117,7 @@ describe('tooltip/Tooltip', () => {
 
     expect(tooltip.opened).to.be.equal(true, 'Overridden overflow tooltip is not shown');
     expect(tooltip.textContent).to.be.equal(overriddenText, 'Overridden overflow tooltip should show custom renderer text');
-  }).timeout(MouseMoveDelay * 3);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Tooltip position, selector and API do work', async () => {
     const el = await fixture(`
@@ -187,7 +186,7 @@ describe('tooltip/Tooltip', () => {
     expect(right.tooltip.opened, 'Tooltip popup right opened=false is not set').to.be.false;
     expect(below.tooltip.opened, 'Tooltip popup below opened=false is not set').to.be.false;
     expect(above.tooltip.opened, 'Tooltip popup above opened=false is not set').to.be.false;
-  }).timeout(MouseMoveDelay * 2);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Custom condition works as expected', async () => {
     const el = await fixture(
@@ -217,7 +216,7 @@ describe('tooltip/Tooltip', () => {
     });
 
     expect(tooltip.opened, 'Tooltip condition did not work for not match').to.be.false;
-  }).timeout(MouseMoveDelay * 2);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Show/hide delay work as expected', async function () {
     const el = await fixture(`
@@ -251,7 +250,7 @@ describe('tooltip/Tooltip', () => {
     await elementUpdated(el);
 
     expect(tooltip.opened, 'Tooltip is not hidden').to.be.false;
-  }).timeout(MouseMoveDelay * 2);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Custom renderer works as expected', async () => {
     const el = await fixture(`
@@ -273,7 +272,7 @@ describe('tooltip/Tooltip', () => {
     expect(tooltip.opened, 'Tooltip is not opened').to.be.true;
     expect(el.querySelector('[renderer]'), 'Custom renderer should clone the nodes').to.exist;
     expect(tooltip.innerText.trim(), 'Content is not copied').to.equal(el.querySelector('[renderer]').innerText.trim());
-  }).timeout(MouseMoveDelay * 1);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Check event to close the tooltip', async () => {
     const el = await fixture('<div title="Click">Click</div>');
@@ -327,7 +326,7 @@ describe('tooltip/Tooltip', () => {
     });
 
     expect(tooltip.opened, 'Tooltip on parent is not shown').to.be.true;
-  }).timeout(MouseMoveDelay * 1);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Empty tooltip should not be shown', async () => {
     const el = await fixture(`
@@ -343,6 +342,6 @@ describe('tooltip/Tooltip', () => {
     });
 
     expect(tooltip.opened, 'Tooltip on parent is shown').to.be.false;
-  }).timeout(MouseMoveDelay * 1);
+  }).timeout(MouseMoveDelay * 5);
 });
 

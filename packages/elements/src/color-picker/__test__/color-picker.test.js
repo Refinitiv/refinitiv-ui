@@ -13,11 +13,11 @@ describe('color-picker/ColorPicker', () => {
   describe('DOM structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-color-picker value="#001EFF"></ef-color-picker>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure is correct when opened', async () => {
       const el = await fixture('<ef-color-picker value="#001EFF" opened></ef-color-picker>');
-      expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class', 'style'] });
+      await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class', 'style'] });
     });
   });
 
@@ -117,7 +117,7 @@ describe('color-picker/ColorPicker', () => {
     });
     it('Should open dialog when press spacebar key', async () => {
       const el = await fixture('<ef-color-picker></ef-color-picker>');
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Spacebar' }));
+      el.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
       await elementUpdated(el);
       expect(getDialogEl(el).opened).to.be.equal(true, 'Spacebar should open dialog');
     });

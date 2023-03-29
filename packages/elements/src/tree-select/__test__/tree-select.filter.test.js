@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/tree-select';
@@ -118,7 +118,12 @@ describe('tree-select/Filter', () => {
       el.data = flatData;
       el.opened = true;
       await openedUpdated(el);
-      el.query = 'xxx';
+
+      setTimeout(() => el.query = 'xxx' ); // Safari need more time to handle the query change
+
+      await elementUpdated(el);
+      await aTimeout(100); // Safari need more time to handle the query change
+
       expect(el.treeManager.visibleItems.length).to.equal(0, 'No item is shown');
     });
 
