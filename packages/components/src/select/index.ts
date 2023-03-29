@@ -41,24 +41,6 @@ export class Select extends ControlElement {
   @property({ type: Boolean, reflect: true })
   public opened = false;
 
-  /**
-   * Value of the element
-   * @param value Element value
-   * @default -
-   */
-  @property({ type: String, attribute: false })
-  public set value (value: string) {
-    const oldValue = this.value;
-    // TODO
-    if (oldValue !== value && this.subSelectElement) {
-      this.subSelectElement.value = value;
-    }
-    this.requestUpdate('value', oldValue);
-  }
-  public get value (): string {
-    return this.subSelectElement ? this.subSelectElement.value : '';
-  }
-
   private handleValueChanged (event: ValueChangedEvent): void {
     this.setValueAndNotify(event.detail.value);
   }
