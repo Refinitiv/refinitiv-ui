@@ -9,3 +9,11 @@ snapshots["button/Button should be created"] =
 `;
 /* end snapshot button/Button should be created */
 
+snapshots["ui-button DOM Structure Default DOM is correct"] = 
+`<span part="label">
+  <slot>
+  </slot>
+</span>
+`;
+/* end snapshot ui-button DOM Structure Default DOM is correct */
+

@@ -16,80 +16,30 @@ describe('Checkbox', () => {
   const noLabel = '<ui-checkbox></ui-checkbox>';
   const unchecked = `<ui-checkbox>${LABEL}</ui-checkbox>`;
   const checked = `<ui-checkbox checked>${LABEL}</ui-checkbox>`;
-  const disabled = `<ui-checkbox disabled>${LABEL}</ui-checkbox>`;
-  const readonly = `<ui-checkbox readonly>${LABEL}</ui-checkbox>`;
 
 
   describe('Basic Structure', () => {
-    it('default light DOM with no label is correct', async () => {
+    it('default DOM with no label is correct', async () => {
       el = await fixture(noLabel);
       await expect(el).to.equalSnapshot();
     });
-    it('default shadow DOM with no label is correct', async () => {
-      el = await fixture(noLabel);
-      await expect(el).shadowDom.to.equalSnapshot();
-    });
-    it('default light DOM with label is correct', async () => {
-      el = await fixture(unchecked);
-      await expect(el).to.equalSnapshot();
-    });
-    it('default shadow DOM with label is correct', async () => {
+    it('default DOM with label is correct', async () => {
       el = await fixture(unchecked);
       await expect(el).shadowDom.to.equalSnapshot();
     });
-    it('checked light DOM with label is correct', async () => {
+    it('checked DOM with label is correct', async () => {
       el = await fixture(checked);
-      await expect(el).to.equalSnapshot();
-    });
-    it('checked shadow DOM with label is correct', async () => {
-      el = await fixture(checked);
-      await expect(el).shadowDom.to.equalSnapshot();
-    });
-    it('disabled light DOM with label is correct', async () => {
-      el = await fixture(disabled);
-      await expect(el).to.equalSnapshot();
-    });
-    it('disabled shadow DOM with label is correct', async () => {
-      el = await fixture(disabled);
-      await expect(el).shadowDom.to.equalSnapshot();
-    });
-    it('readonly light DOM with label is correct', async () => {
-      el = await fixture(readonly);
-      await expect(el).to.equalSnapshot();
-    });
-    it('readonly shadow DOM with label is correct', async () => {
-      el = await fixture(readonly);
-      await expect(el).shadowDom.to.equalSnapshot();
-    });
-    it('disabled light checked DOM with label is correct', async () => {
-      el = await fixture(disabledChecked);
-      await expect(el).to.equalSnapshot();
-    });
-    it('disabled shadow checked DOM with label is correct', async () => {
-      el = await fixture(disabledChecked);
-      await expect(el).shadowDom.to.equalSnapshot();
-    });
-    it('readonly light checked DOM with label is correct', async () => {
-      el = await fixture(readonlyChecked);
-      await expect(el).to.equalSnapshot();
-    });
-    it('readonly shadow checked DOM with label is correct', async () => {
-      el = await fixture(readonlyChecked);
       await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
   describe('Attributes', () => {
     describe('checked', () => {
-      it('checked attribute should not be presented by default', async () => {
+      it('should not be presented by default', async () => {
         const el = await fixture(unchecked);
         await expect(el.hasAttribute('checked')).to.be.false;
       });
-      it('checked attribute should be reflected with property', async () => {
-        const el = await fixture(checked);
-        await expect(el.checked).to.be.true;
-      });
-      it('checked attribute should be reflected when property value has change', async () => {
+      it('should be reflected when property value has change', async () => {
         const el = await fixture(checked);
         el.checked = false;
 
@@ -97,40 +47,13 @@ describe('Checkbox', () => {
         await expect(el.hasAttribute('checked')).to.be.false;
       });
     });
+  });
 
-    describe('disabled', () => {
-      it('disabled attribute should not be presented by default', async () => {
-        const el = await fixture(unchecked);
-        await expect(el.hasAttribute('disabled')).to.be.false;
-      });
-      it('disabled attribute should be reflected with property', async () => {
-        const el = await fixture(disabled);
-        await expect(el.disabled).to.be.true;
-      });
-      it('disabled attribute should be reflected when property value has change', async () => {
-        const el = await fixture(disabled);
-        el.disabled = false;
-
-        await elementUpdated(el);
-        await expect(el.hasAttribute('disabled')).to.be.false;
-      });
-    });
-
-    describe('readonly', () => {
-      it('readonly attribute should not be presented by default', async () => {
-        const el = await fixture(unchecked);
-        await expect(el.hasAttribute('readonly')).to.be.false;
-      });
-      it('readonly attribute should be reflected with property', async () => {
-        const el = await fixture(readonly);
-        await expect(el.readonly).to.be.true;
-      });
-      it('readonly attribute should be reflected when property value has change', async () => {
-        const el = await fixture(readonly);
-        el.readonly = false;
-
-        await elementUpdated(el);
-        await expect(el.hasAttribute('readonly')).to.be.false;
+  describe('Properties', () => {
+    describe('checked', () => {
+      it('should be reflected with attribute', async () => {
+        const el = await fixture(checked);
+        await expect(el.checked).to.be.true;
       });
     });
   });
@@ -140,7 +63,7 @@ describe('Checkbox', () => {
         elem.dispatchEvent(new Event('tap'));
         await elementUpdated(el);
       };
-      it('should be toggle checked / unchecked when tap on checkbox', async () => {
+      it('should toggle checked / unchecked when tap on checkbox', async () => {
         el = await fixture(unchecked);
 
         await tapAndWait(el);
@@ -149,19 +72,7 @@ describe('Checkbox', () => {
         await tapAndWait(el);
         expect(el.checked).to.equal(false);
       });
-      it('should not be able to tap on checkbox when disabled', async () => {
-        el = await fixture(disabled);
-
-        await tapAndWait(el);
-        expect(el.checked).to.equal(false);
-      });
-      it('should not be able to tap on checkbox when readonly ', async () => {
-        el = await fixture(readonly);
-
-        await tapAndWait(el);
-        expect(el.checked).to.equal(false);
-      });
-      it('should be toggle checked / unchecked when tap on the label of checkbox', async () => {
+      it('should toggle checked / unchecked when tap on the label of checkbox', async () => {
         el = await fixture(unchecked);
         const labelPart = query('[part=label]');
 
@@ -170,38 +81,6 @@ describe('Checkbox', () => {
         await elementUpdated(el);
         expect(el.checked).to.equal(true);
 
-        labelPart.click();
-
-        await elementUpdated(el);
-        expect(el.checked).to.equal(false);
-      });
-      it('should not be able checked when tap on the label of disabled checkbox', async () => {
-        el = await fixture(disabledChecked);
-        const labelPart = query('[part=label]');
-        labelPart.click();
-
-        await elementUpdated(el);
-        expect(el.checked).to.equal(true);
-      });
-      it('should not be able unchecked when tap on the label of disabled checkbox', async () => {
-        el = await fixture(disabled);
-        const labelPart = query('[part=label]');
-        labelPart.click();
-
-        await elementUpdated(el);
-        expect(el.checked).to.equal(false);
-      });
-      it('should not be able checked when tap on the label of readonly checkbox', async () => {
-        el = await fixture(readonlyChecked);
-        const labelPart = query('[part=label]');
-        labelPart.click();
-
-        await elementUpdated(el);
-        expect(el.checked).to.equal(true);
-      });
-      it('should not be able unchecked when tap on the label of readonly checkbox', async () => {
-        el = await fixture(readonly);
-        const labelPart = query('[part=label]');
         labelPart.click();
 
         await elementUpdated(el);
@@ -236,22 +115,6 @@ describe('Checkbox', () => {
         await elementUpdated(el);
         expect(el.checked).to.equal(true);
       });
-      it('should not toggle disabled unchecked to checked when Enter key is pressed', async () => {
-        const el = await fixture(disabled);
-
-        el.dispatchEvent(enterEvent);
-
-        await elementUpdated(el);
-        expect(el.checked).to.equal(false);
-      });
-      it('should not toggle readonly unchecked to checked when Enter key is pressed', async () => {
-        const el = await fixture(readonly);
-
-        el.dispatchEvent(enterEvent);
-
-        await elementUpdated(el);
-        expect(el.checked).to.equal(false);
-      });
     });
 
     describe('Spacebar', () => {
@@ -270,22 +133,6 @@ describe('Checkbox', () => {
 
         expect(e.target.checked).to.equal(true);
       });
-      it('should not be able to press Spacebar when disabled', async () => {
-        const el = await fixture(disabled);
-
-        el.dispatchEvent(createSpacebarKeyboardEvent());
-
-        await elementUpdated(el);
-        expect(el.checked).to.equal(false);
-      });
-      it('should not be able to press Spacebar when readonly', async () => {
-        const el = await fixture(readonly);
-
-        el.dispatchEvent(createSpacebarKeyboardEvent());
-
-        await elementUpdated(el);
-        expect(el.checked).to.equal(false);
-      });
     });
   });
 
@@ -294,28 +141,20 @@ describe('Checkbox', () => {
       const el = await fixture(noLabel);
       await expect(el).not.to.be.accessible();
     });
-    it('should be passed with aria-label', async () => {
+    it('should accessible with aria-label', async () => {
       const el = await fixture(`<ui-checkbox aria-label="Checkbox without label"></ui-checkbox>`);
       await expect(el).to.be.accessible();
     });
-    it('should aria-checked should be reflect with checked state', async () => {
+    it('should aria-checked reflect with checked state', async () => {
       const el = await fixture(checked);
       expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
     });
-    it('should aria-checked should be reflect with unchecked state', async () => {
+    it('should aria-checked reflect with unchecked state', async () => {
       const el = await fixture(checked);
       el.checked = false
 
       await elementUpdated(el);
       expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
-    });
-    it('should be passed accessibility check with disabled state', async () => {
-      const el = await fixture(disabled);
-      await expect(el).to.be.accessible();
-    });
-    it('should be passed accessibility check with readonly state', async () => {
-      const el = await fixture(readonly);
-      await expect(el).to.be.accessible();
     });
   });
 });

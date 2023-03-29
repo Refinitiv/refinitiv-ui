@@ -6,23 +6,24 @@
   @import (inline) '../../node_modules/@refinitiv-ui/tokens/lib/mobile.tokens.css' screen and (hover: none) and (pointer: coarse);
   @import (inline) '../../node_modules/@refinitiv-ui/tokens/lib/light.tokens.css';
   @import (inline) '../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css' (prefers-color-scheme: dark);
-}
 
-html[prefers-density=comfort] {
-  @import (inline, multiple) '../../node_modules/@refinitiv-ui/tokens/lib/comfort.tokens.css';
-}
+  &[prefers-density=comfort] {
+    @import (inline, multiple) '../../node_modules/@refinitiv-ui/tokens/lib/comfort.tokens.css';
+  }
 
-html[prefers-density=dense] {
-  @import (inline, multiple) '../../node_modules/@refinitiv-ui/tokens/lib/dense.tokens.css';
-}
+  &[prefers-density=dense] {
+    @import (inline, multiple) '../../node_modules/@refinitiv-ui/tokens/lib/dense.tokens.css';
+  }
 
-html[prefers-color-scheme=dark] {
-  @import (inline, multiple) '../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css';
-}
+  &[prefers-color-scheme=dark] {
+    @import (inline, multiple) '../../node_modules/@refinitiv-ui/tokens/lib/dark.tokens.css';
+  }
 
-html[prefers-color-scheme=light] {
-  @import (inline, multiple) '../../node_modules/@refinitiv-ui/tokens/lib/light.tokens.css';
+  &[prefers-color-scheme=light] {
+    @import (inline, multiple) '../../node_modules/@refinitiv-ui/tokens/lib/light.tokens.css';
+  }
 }
 
 @import (inline) './fonts.css';
 
+@import './inbuilt.less';

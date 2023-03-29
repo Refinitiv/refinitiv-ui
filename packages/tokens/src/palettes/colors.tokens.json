@@ -1,0 +1,251 @@
+{
+  "$type": "color",
+  "color": {
+    "black": {
+      "$value": "#000000"
+    },
+    "lights-out": {
+      "$value": "#0d0d0d"
+    },
+    "cod-grey": {
+      "$value": "#1a1a1a"
+    },
+    "mine-shaft": {
+      "$value": "#262626"
+    },
+    "charcoal": {
+      "$value": "#333333"
+    },
+    "tundora": {
+      "$value": "#404040"
+    },
+    "emperor": {
+      "$value": "#4d4d4d"
+    },
+    "scorpion": {
+      "$value": "#595959"
+    },
+    "dove-grey": {
+      "$value": "#737373"
+    },
+    "grey": {
+      "$value": "#808080"
+    },
+    "dusty-grey": {
+      "$value": "#999999"
+    },
+    "nobel": {
+      "$value": "#bfbfbf"
+    },
+    "silver": {
+      "$value": "#cccccc"
+    },
+    "alto": {
+      "$value": "#d9d9d9"
+    },
+    "desert-storm": {
+      "$value": "#e0e0e0"
+    },
+    "mercury": {
+      "$value": "#e6e6e6"
+    },
+    "concrete": {
+      "$value": "#f2f2f2"
+    },
+    "alabaster": {
+      "$value": "#fafafa"
+    },
+    "white": {
+      "$value": "#ffffff"
+    },
+    "petite-orchid": {
+      "$value": "#dba08d"
+    },
+    "mule-fawn": {
+      "$value": "#88442d"
+    },
+    "crail": {
+      "$value": "#c36241"
+    },
+    "brown-rust": {
+      "$value": "#af583a"
+    },
+    "oregon": {
+      "$value": "#993000"
+    },
+    "grenadier": {
+      "$value": "#cc4000"
+    },
+    "inter-orange": {
+      "$value": "#ff5000"
+    },
+    "atomic-tangerine": {
+      "$value": "#ff9666"
+    },
+    "buddha-gold": {
+      "$value": "#cca000"
+    },
+    "supernova": {
+      "$value": "#ffc800"
+    },
+    "dandelion": {
+      "$value": "#ffde66"
+    },
+    "sparkler": {
+      "$value": "#ffe999"
+    },
+    "barley-white": {
+      "$value": "#fff4cc"
+    },
+    "olive": {
+      "$value": "#7f6400"
+    },
+    "saddle-brown": {
+      "$value": "#4c3c00"
+    },
+    "everglade": {
+      "$value": "#246b3e"
+    },
+    "vista-blue": {
+      "$value": "#83d6a2"
+    },
+    "sea-green": {
+      "$value": "#309054"
+    },
+    "algae-green": {
+      "$value": "#87dca7"
+    },
+    "emerald": {
+      "$value": "#39c46e"
+    },
+    "green-pea": {
+      "$value": "#227542"
+    },
+    "kaitoke-green": {
+      "$value": "#00432f"
+    },
+    "spray": {
+      "$value": "#6cefc8"
+    },
+    "caribbean-green": {
+      "$value": "#00c389"
+    },
+    "rain-forest": {
+      "$value": "#007653"
+    },
+    "neptune": {
+      "$value": "#75baba"
+    },
+    "genoa": {
+      "$value": "#147070"
+    },
+    "elm": {
+      "$value": "#198c8c"
+    },
+    "eden": {
+      "$value": "#116262"
+    },
+    "sherpa-blue": {
+      "$value": "#004e4f"
+    },
+    "turquoise-blue": {
+      "$value": "#59dfe1"
+    },
+    "teal": {
+      "$value": "#007678"
+    },
+    "persian-green": {
+      "$value": "#009ea1"
+    },
+    "robins-egg": {
+      "$value": "#00d0d4"
+    },
+    "mint-tulip": {
+      "$value": "#afeff1"
+    },
+    "dodger-blue": {
+      "$value": "#3bbaff"
+    },
+    "chathams-blue": {
+      "$value": "#174a66"
+    },
+    "jelly-bean": {
+      "$value": "#236f99"
+    },
+    "anakiwa": {
+      "$value": "#89d5ff"
+    },
+    "persian-blue": {
+      "$value": "#1429bd"
+    },
+    "black-pearl": {
+      "$value": "#050a2e"
+    },
+    "torea-bay": {
+      "$value": "#0f1e8a"
+    },
+    "refinitiv-blue": {
+      "$value": "#001eff"
+    },
+    "blue-ribbon": {
+      "$value": "#334bff"
+    },
+    "cornflower-blue": {
+      "$value": "#6678ff"
+    },
+    "periwinkle": {
+      "$value": "#ccd2ff"
+    },
+    "butterfly": {
+      "$value": "#71549f"
+    },
+    "victoria": {
+      "$value": "#563f77"
+    },
+    "light-wisteria": {
+      "$value": "#bca2e1"
+    },
+    "amethyst": {
+      "$value": "#9064cd"
+    },
+    "cerise-red": {
+      "$value": "#d22962"
+    },
+    "mauvelous": {
+      "$value": "#f281a7"
+    },
+    "maroon-flush": {
+      "$value": "#a3204c"
+    },
+    "illusion": {
+      "$value": "#f6abc4"
+    },
+    "heath": {
+      "$value": "#5d122b"
+    },
+    "amaranth": {
+      "$value": "#ea2e6c"
+    },
+    "chestnut-rose": {
+      "$value": "#b63243"
+    },
+    "carbaret": {
+      "$value": "#d94255"
+    },
+    "sea-pink": {
+      "$value": "#eeacb4"
+    },
+    "tall-poppy": {
+      "$value": "#b72536"
+    },
+    "carnation": {
+      "$value": "#f5475b"
+    },
+    "mexican-red": {
+      "$value": "#a01c2b"
+    },
+    "rose-bud": {
+      "$value": "#faa8b1"
+    }
+  }
+}

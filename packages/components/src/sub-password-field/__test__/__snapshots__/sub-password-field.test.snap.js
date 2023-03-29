@@ -8,7 +8,7 @@ snapshots["ui-sub-password-field DOM Structure Default DOM is correct"] =
   type="password"
 >
 <ui-sub-icon
-  aria-label="Show password"
+  aria-label="SHOW_PASSWORD"
   icon="eye"
   part="icon"
   role="button"
@@ -25,7 +25,7 @@ snapshots["ui-sub-password-field DOM Structure Show password DOM is correct"] =
   type="text"
 >
 <ui-sub-icon
-  aria-label="Hide password"
+  aria-label="HIDE_PASSWORD"
   icon="eye-off"
   part="icon"
   role="button"

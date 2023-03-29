@@ -8,8 +8,14 @@
   <title>Login</title>
 </head>
 <body>
-  <dst-login></dst-login>
-  <ui-checkbox>Dark</ui-checkbox>
+  <main>
+    <dst-login id="sign-in"></dst-login>
+  </main>
+  <footer aria-hidden="true">
+    <ui-select label="Theme">
+      <ui-option>Workspace</ui-option>
+    </ui-select>
+  </footer>
   <script src="app.ts" type="module"></script>
 </body>
 </html>
