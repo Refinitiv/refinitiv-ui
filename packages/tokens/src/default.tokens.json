@@ -31,6 +31,15 @@
       },
       "text-transform": {
         "$value": "none"
+      },
+      "all": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{heading.md.font-family}",
+          "fontSize": "{heading.md.font-size}",
+          "fontWeight": "{heading.md.font-weight}",
+          "lineHeight": "{heading.md.line-height}"
+        }
       }
     },
     "lg": {
@@ -52,6 +61,15 @@
       },
       "text-transform": {
         "$value": "none"
+      },
+      "all": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{heading.lg.font-family}",
+          "fontSize": "{heading.lg.font-size}",
+          "fontWeight": "{heading.lg.font-weight}",
+          "lineHeight": "{heading.lg.line-height}"
+        }
       }
     },
     "xl": {
@@ -73,6 +91,15 @@
       },
       "text-transform": {
         "$value": "none"
+      },
+      "all": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{heading.xl.font-family}",
+          "fontSize": "{heading.xl.font-size}",
+          "fontWeight": "{heading.xl.font-weight}",
+          "lineHeight": "{heading.xl.line-height}"
+        }
       }
     }
   },

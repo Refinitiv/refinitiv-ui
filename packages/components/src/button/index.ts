@@ -100,7 +100,7 @@ export class Button extends ControlElement {
         background-color: var(--action-bg-secondary-pressed);
       }
       :host [part=icon] {
-        margin-left: var(--space-010);
+        margin-left: var(--space-020);
         min-width: 1em;
       }
     `;
