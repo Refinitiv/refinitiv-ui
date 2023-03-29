@@ -5,7 +5,6 @@ import { errorHandler, info } from './scripts/helpers/index.mjs';
 import { commands } from './scripts/cmd/index.mjs';
 
 yargs(hideBin(process.argv))
-  .scriptName("elements")
   .usage('Element Framework CLI Commands\n\nUsage: $0 <command> [options]')
   .command(commands)
   .demandCommand(1, 'You need at least one command.')

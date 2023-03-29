@@ -8,7 +8,6 @@ import { PACKAGES_ROOT, errorHandler, getJSON } from './scripts/helpers/esm.mjs'
 
 const argvNoBin = hideBin(process.argv);
 const argv = yargs(argvNoBin)
-  .scriptName("refinitiv-ui")
   .command('$0 <reflect> <package>', 'reflect the command', yargs => {
     yargs.positional('reflect', {
       describe: 'npm command to reflect',
