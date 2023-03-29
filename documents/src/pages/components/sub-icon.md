@@ -1,20 +1,22 @@
 <!--
 type: page
-title: Sub CheckBox
-location: ./components/sub-checkbox
+title: Sub Icon
+location: ./components/sub-icon
 layout: default
 -->
 
-# Sub Checkbox
+# Sub Icon
 
 ```html
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-icon icon="flame"></ui-sub-icon>
 ```
+
+!>See list of available icons in [EFv6 Icon List](https://ui.refinitiv.com/elements/icon#icon-list).
 
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-icon icon="flame"></ui-sub-icon>
 ```
 ```js
 ::import-components::
@@ -26,7 +28,7 @@ layout: default
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-icon icon="flame"></ui-sub-icon>
 ```
 ```js
 ::import-components::
@@ -38,7 +40,7 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-sub-icon icon="flame"></ui-sub-icon>
 ```
 ```js
 ::import-components::

@@ -1,32 +1,31 @@
 <!--
 type: page
-title: Sub CheckBox
-location: ./components/sub-checkbox
+title: Option
+location: ./components/option
 layout: default
 -->
 
-# Sub Checkbox
+# Option
 
 ```html
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-option value="banana">Banana</ui-option>
 ```
 
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-option value="banana">Banana</ui-option>
 ```
 ```js
 ::import-components::
 ```
 ::
 
-
 ## Density = Dense
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-option value="banana">Banana</ui-option>
 ```
 ```js
 ::import-components::
@@ -38,7 +37,7 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-option value="banana">Banana</ui-option>
 ```
 ```js
 ::import-components::

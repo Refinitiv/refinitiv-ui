@@ -1,32 +1,33 @@
 <!--
 type: page
-title: Sub CheckBox
-location: ./components/sub-checkbox
+title: Brand Logo
+location: ./components/brand-logo
 layout: default
 -->
 
-# Sub Checkbox
+# Brand Logo
 
 ```html
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-brand-logo></ui-brand-logo>
 ```
+
 
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-brand-logo></ui-brand-logo>
 ```
 ```js
 ::import-components::
 ```
 ::
 
-
 ## Density = Dense
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-brand-logo></ui-brand-logo>
+
 ```
 ```js
 ::import-components::
@@ -38,7 +39,8 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-brand-logo></ui-brand-logo>
+
 ```
 ```js
 ::import-components::

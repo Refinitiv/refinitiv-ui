@@ -1,32 +1,35 @@
 <!--
 type: page
-title: Sub CheckBox
-location: ./components/sub-checkbox
+title: Check Box
+location: ./components/checkbox
 layout: default
 -->
 
-# Sub Checkbox
+# Check Box
 
 ```html
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-checkbox checked>Task 1</ui-checkbox>
+<ui-checkbox>Task 2</ui-checkbox>
 ```
 
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-checkbox checked>Task 1</ui-checkbox>
+<ui-checkbox>Task 2</ui-checkbox>
+
 ```
 ```js
 ::import-components::
 ```
 ::
 
-
 ## Density = Dense
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-checkbox checked>Task 1</ui-checkbox>
+<ui-checkbox>Task 2</ui-checkbox>
 ```
 ```js
 ::import-components::
@@ -38,7 +41,8 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-checkbox checked>Task 1</ui-checkbox>
+<ui-checkbox>Task 2</ui-checkbox>
 ```
 ```js
 ::import-components::
