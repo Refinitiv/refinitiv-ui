@@ -74,7 +74,7 @@ export class Select extends ControlElement {
    * @return Render template
    */
   protected get renderLabel (): TemplateResult | typeof nothing {
-    return this.label ? html`<ui-sub-label id="label" part="label">${this.label}</ui-sub-label>` : nothing;
+    return this.label ? html`<ui-sub-label id="label" part="label" aria-hidden="true">${this.label}</ui-sub-label>` : nothing;
   }
 
   /**

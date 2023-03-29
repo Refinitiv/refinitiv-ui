@@ -120,7 +120,7 @@ export class InputField extends ControlElement {
    * @return Render template
    */
   protected get renderLabel (): TemplateResult | typeof nothing {
-    return html`<ui-sub-label id="label" part="label">${this.label}</ui-sub-label>`;
+    return html`<ui-sub-label id="label" part="label" aria-hidden="true">${this.label}</ui-sub-label>`;
   }
 
   /**
