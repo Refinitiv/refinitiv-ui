@@ -7,11 +7,19 @@ layout: default
 
 # Button
 
+::
 ```html
-<ui-button>Label</ui-button>
-<ui-button icon-end="right">Label</ui-button>
-<ui-button icon-end="right" variant="primary">Label</ui-button>
+::import-themes::
+<ui-button variant="primary">BUTTON</ui-button>
+<ui-button>BUTTON</ui-button>
+<ui-button icon-end="right" variant="primary">BUTTON</ui-button>
+<ui-button icon-end="right">BUTTON</ui-button>
 ```
+
+```js
+::import-components::
+```
+::
 
 Buttons allow the user to submit information or initiate actions. You can use <ui-button> for actions in forms or dialogs. 
 
@@ -115,3 +123,10 @@ N/A
 * Secondary Button 
 * End-Icon 
 * Wrapping behaviour 
+
+```html
+<ui-button variant="primary">BUTTON</ui-button>
+<ui-button>BUTTON</ui-button>
+<ui-button icon-end="right" variant="primary">BUTTON</ui-button>
+<ui-button icon-end="right">BUTTON</ui-button>
+```
