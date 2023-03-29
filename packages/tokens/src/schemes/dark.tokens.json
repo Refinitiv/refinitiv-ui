@@ -19,6 +19,96 @@
       }
     }
   },
+  "control": {
+    "bg": {
+      "$type": "color",
+      "default": {
+        "$value": "{color.white}"
+      },
+      "hover": {
+        "$value": "{color.white}"
+      },
+      "focused": {
+        "$value": "{color.white}"
+      },
+      "selected": {
+        "$value": "{color.white}"
+      }
+    },
+    "border": {
+      "$type": "border", 
+      "default": {
+        "$value": {
+          "color": "{color.scorpion}",
+          "width": "{width.fixed1}",
+          "style": "solid"
+        }
+      },
+      "hover": {
+        "$value": {
+          "color": "{color.persian-blue}",
+          "width": "{width.fixed1}",
+          "style": "solid"
+        }
+      },
+      "focused": {
+        "$value": {
+          "color": "{color.lights-out}",
+          "width": "{width.fixed1}",
+          "style": "solid"
+        }
+      },
+      "selected": {
+        "$value": {
+          "color": "{color.blue-ribbon}",
+          "width": "{width.fixed1}",
+          "style": "solid"
+        }
+      }
+    },
+    "content": {
+      "$type": "color",
+      "primary": {
+        "$value": "{color.lights-out}"
+      },
+      "secondary": {
+        "$value": "{color.tundora}"
+      },
+      "decorative": {
+        "$value": "{color.dove-grey}"
+      },
+      "default": {
+        "$value": "{color.tundora}"
+      },
+      "hover": {
+        "$value": "{color.lights-out}"
+      },
+      "focused": {
+        "$value": "{color.lights-out}"
+      },
+      "selected": {
+        "$value": "{color.blue-ribbon}"
+      }
+    },
+    "focused": {
+      "ring": {
+        "$type": "border",
+        "$value": {
+          "color": "{color.blue-ribbon}",
+          "width": "{width.fixed2}",
+          "style": "solid"
+        }
+      },
+      "ring-onInvert": {
+        "$type": "border",
+        "$value": {
+          "color": "{color.white}",
+          "width": "{width.fixed2}",
+          "style": "solid"
+        }
+      }
+    }
+  },
   "action": {
     "bg": {
       "$type": "color",

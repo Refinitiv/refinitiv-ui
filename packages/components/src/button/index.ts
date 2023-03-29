@@ -33,7 +33,7 @@ export class Button extends ControlElement {
         vertical-align: bottom;
         box-sizing: border-box;
         text-transform: uppercase;
-        padding: var(--space-010) var(--space-020);
+        padding: var(--space-020);
         color: var(--action-content-secondary-default);
         border: var(--action-border-secondary-default);
         font: var(--code-only-typography-action-content-default);
