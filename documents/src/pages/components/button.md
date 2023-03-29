@@ -35,7 +35,7 @@ The button content wraps when it results in a larger button width than the paren
 
 ::
 ```html
-<link href="./resources/components.css" rel="stylesheet"/>
+::import-themes::
 <style>
   ui-button {
     width: 300px;
@@ -45,7 +45,7 @@ The button content wraps when it results in a larger button width than the paren
 <ui-button icon-end="right">DEMONSTRATE BEHAVIOUR WHEN THE LABEL GETS VERY LONG</ui-button>
 ```
 ```js
-import "./resources/components.js"
+::import-components::
 ```
 ::
 
@@ -64,7 +64,7 @@ For all breakpoints full-width buttons can be optionally used
 
 ::
 ```html
-<link href="./resources/components.css" rel="stylesheet"/>
+::import-themes::
 <style>
   ui-button {
     width: 100%;
@@ -73,7 +73,7 @@ For all breakpoints full-width buttons can be optionally used
 <ui-button>DEMONSTRATE FULL-WIDTH BUTTON</ui-button>
 ```
 ```js
-import "./resources/components.js"
+::import-components::
 ```
 ::
 

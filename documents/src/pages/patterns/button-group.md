@@ -16,14 +16,14 @@ layout: default
 
 ::
 ```html
-<link href="./resources/components.css" rel="stylesheet"/>
+::import-themes::
 <ui-pattern-button-group>
   <ui-button variant="primary">Sign In</ui-button>
   <ui-button>Cancel</ui-button>
 </ui-pattern-button-group>
 ```
 ```js
-import "./resources/components.js"
+::import-components::
 ```
 ::
 
@@ -31,14 +31,14 @@ import "./resources/components.js"
 ## Density = Dense
 ::
 ```html
-<link href="./resources/components.css" rel="stylesheet"/>
+::import-themes::
 <ui-pattern-button-group>
   <ui-button variant="primary">Sign In</ui-button>
   <ui-button>Cancel</ui-button>
 </ui-pattern-button-group>
 ```
 ```js
-import "./resources/components.js"
+::import-components::
 document.documentElement.setAttribute("prefers-density", "dense")
 ```
 ::
@@ -46,14 +46,14 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ## Density = Compact
 ::
 ```html
-<link href="./resources/components.css" rel="stylesheet"/>
+::import-themes::
 <ui-pattern-button-group>
   <ui-button variant="primary">Sign In</ui-button>
   <ui-button>Cancel</ui-button>
 </ui-pattern-button-group>
 ```
 ```js
-import "./resources/components.js"
+::import-components::
 document.documentElement.setAttribute("prefers-density", "compact")
 ```
 ::

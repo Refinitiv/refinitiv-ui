@@ -11,7 +11,7 @@
     "start:dev": "concurrently \"pandora src dist --watch\" \"serve dist -s\"",
     "start": "serve dist -s",
     "copy:resources": "cp src/_redirects dist/_redirects && cp -r resources dist/resources",
-		"build:components": "esbuild --bundle ./scripts/components.js --outdir=resources",
+		"build:components": "esbuild --bundle ./resources/components/components.js --outdir=resources/components/bundles",
     "build:api": "lerna run --scope @refinitiv-ui/components api-analyzer --stream && node ./scripts/element.injector.js",
     "build": "rm -rf build && npm run build:api && pandora build dist --clean && npm run build:components && npm run copy:resources"
   },

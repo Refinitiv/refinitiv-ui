@@ -15,13 +15,13 @@ layout: default
 
 ::
 ```html
-<link href="./resources/components.css" rel="stylesheet"/>
+::import-themes::
 <ui-sub-footer>
   <div>Footer Content</div>
 </ui-sub-footer>
 ```
 ```js
-import "./resources/components.js"
+::import-components::
 ```
 ::
 
@@ -29,13 +29,13 @@ import "./resources/components.js"
 ## Density = Dense
 ::
 ```html
-<link href="./resources/components.css" rel="stylesheet"/>
+::import-themes::
 <ui-sub-footer>
   <div>Footer Content</div>
 </ui-sub-footer>
 ```
 ```js
-import "./resources/components.js"
+::import-components::
 document.documentElement.setAttribute("prefers-density", "dense")
 ```
 ::
@@ -43,13 +43,13 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ## Density = Compact
 ::
 ```html
-<link href="./resources/components.css" rel="stylesheet"/>
+::import-themes::
 <ui-sub-footer>
   <div>Footer Content</div>
 </ui-sub-footer>
 ```
 ```js
-import "./resources/components.js"
+::import-components::
 document.documentElement.setAttribute("prefers-density", "compact")
 ```
 ::
