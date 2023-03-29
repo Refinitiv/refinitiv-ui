@@ -147,6 +147,15 @@
       },
       "text-transform": {
         "$value": "uppercase"
+      },
+      "all": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{copy.md-loud.font-family}",
+          "fontSize": "{copy.md-loud.font-size}",
+          "fontWeight": "{copy.md-loud.font-weight}",
+          "lineHeight": "{copy.md-loud.line-height}"
+        }
       }
     },
     "sm-emphasis": {
@@ -252,6 +261,26 @@
       },
       "text-transform": {
         "$value": "uppercase"
+      },
+      "all": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{copy.xs-loud.font-family}",
+          "fontSize": "{copy.xs-loud.font-size}",
+          "fontWeight": "{copy.xs-loud.font-weight}",
+          "lineHeight": "{copy.xs-loud.line-height}"
+        }
+      }
+    }
+  },
+  "code-only": {
+    "typography": {
+      "action": {
+        "content": {
+          "default": {
+            "$value": "{copy.md-loud.all}"
+          }
+        }
       }
     }
   },

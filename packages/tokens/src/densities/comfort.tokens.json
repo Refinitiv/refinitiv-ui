@@ -7,5 +7,16 @@
     "020": {
       "$value": "12px"
     }
+  },
+  "code-only": {
+    "typography": {
+      "action": {
+        "content": {
+          "default": {
+            "$value": "{copy.md-loud.all}"
+          }
+        }
+      }
+    }
   }
 }

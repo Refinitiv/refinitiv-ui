@@ -2,10 +2,21 @@
   "$type": "dimension",
   "space": {
     "010": {
-      "$value": "2px"
+      "$value": "4px"
     },
     "020": {
-      "$value": "4px"
+      "$value": "8px"
+    }
+  },
+  "code-only": {
+    "typography": {
+      "action": {
+        "content": {
+          "default": {
+            "$value": "{copy.xs-loud.all}"
+          }
+        }
+      }
     }
   }
 }
