@@ -12,6 +12,16 @@
     }
   },
   "code-only": {
+    "checkbox": {
+      "width": {
+        "$type": "dimension",
+        "$value": "18px"
+      },
+      "height": {
+        "$type": "dimension",
+        "$value": "18px"
+      }
+    },
     "control": {
       "content": {
         "default": {

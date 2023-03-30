@@ -23,24 +23,45 @@ export class SubCheckbox extends ControlElement {
   public static styles = css`
     :host {
       cursor: pointer;
+      position: relative;
       display: inline-flex;
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
-      width: var(--ds-control-height);
-      height: var(--ds-control-height);
-      color: var(--ds-control-color);
-      border: var(--ds-control-border);
-      border-radius: var(--ds-control-border-radius);
+      width: var(--code-only-checkbox-width);
+      height: var(--code-only-checkbox-height);
+      color: var(--control-content-selected);
+      border: var(--control-border-default);
     }
     :host(:hover) {
-      border-color: var(--ds-control-hover-border-color);
+      border: var(--control-border-hover);
+    }
+    :host([checked]) {
+      border: var(--control-border-selected);
     }
     :host(:not([readonly]):hover) [part=icon] {
-      color: var(--ds-control-hover-color);
+      color: var(--control-content-hover);
     }
-    :host(:focus-visible) {
-      outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
+    :host(:focus-visible:not(:active)) {
+      text-decoration: underline;
+      text-underline-offset: var(--width-010);
+      text-decoration-thickness: var(--width-fixed2);
+      border: var(--control-border-focused);
+      background-color: var(--control-bg-focused);
+      outline: var(--control-focused-ring-on-invert);
+    }
+    :host(:focus-visible:not(:active))::before, :host(:hover:focus-visible:not(:active))::before {
+      content: '';
+      position: absolute;
+      display: block;
+      z-index: 1;
+      inset: -5px;
+      border: var(--control-focused-ring);
+    }
+    :host(:hover:focus-visible:not(:active)) {
+      border: var(--control-border-hover);
+      background-color: var(--control-bg-hover);
+      outline: var(--control-focused-ring-on-invert);
     }
     [part=check] {
       width: 100%;
@@ -53,15 +74,8 @@ export class SubCheckbox extends ControlElement {
     :host([checked]) [part=check] {
       visibility: inherit;
     }
-    :host([disabled]) {
+    :host([disabled]), :host([readonly]) {
       cursor: default;
-      color: var(--ds-control-disabled-color);
-      border-color: var(--ds-control-disabled-border-color);
-    }
-    :host([readonly]) {
-      cursor: default;
-      color: var(--ds-control-readonly-color);
-      border-color: var(--ds-control-readonly-border-color);
     }
   `;
 

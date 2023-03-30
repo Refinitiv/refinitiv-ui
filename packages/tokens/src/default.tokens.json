@@ -367,6 +367,16 @@
     }
   },
   "code-only": {
+    "checkbox": {
+      "width": {
+        "$type": "dimension",
+        "$value": "22px"
+      },
+      "height": {
+        "$type": "dimension",
+        "$value": "22px"
+      }
+    },
     "control": {
       "content": {
         "default": {
