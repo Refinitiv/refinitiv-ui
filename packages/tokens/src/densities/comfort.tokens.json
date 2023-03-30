@@ -22,6 +22,12 @@
         "$value": "26px"
       }
     },
+    "field": {
+      "height": {
+        "$type": "dimension",
+        "$value": "38px"
+      }
+    },
     "control": {
       "content": {
         "default": {

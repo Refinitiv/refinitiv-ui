@@ -31,53 +31,32 @@ export class SubTextField extends FormFieldElement {
         box-sizing: border-box;
         vertical-align: middle;
 
-        height: var(--ds-control-height);
-        width: var(--ds-control-width);
+        padding: var(--space-010);
 
-        color: var(--ds-control-color);
-        border: var(--ds-control-border);
-        border-radius: var(--ds-control-border-radius);
-        background-color: var(--ds-control-background-color);
-        padding: 0px var(--ds-space-x-small);
+        width: var(--code-only-field-width);
+        height: var(--code-only-field-height);
+
+        color: var(--control-content-default);
+        border: var(--control-border-default);
+        background-color: var(--control-bg-default);
       }
       :host(:focus) {
-        border-color: var(--ds-control-focus-border-color);
+        color: var(--control-content-focused);
+        border: var(--control-border-focused);
+        background-color: var(--control-bg-focused);
       }
-      :host(:not([readonly]):not([error]):not([warning]):not(:focus):hover) {
-        color: var(--ds-control-hover-color);
-        border-color: var(--ds-control-hover-border-color);
-      }
-      :host([error]:not(:focus)), :host([error][warning]:not(:focus)) {
-        color: var(--ds-control-color);
-        border-color: var(--ds-control-error-border-color);
-        background-color: var(--ds-control-error-background-color);
-      }
-      :host([error]:hover:not([readonly]):not(:focus)) {
-        color: var(--ds-control-hover-color);
-        border-color: var(--ds-control-error-hover-border-color);
-        background-color: var(--ds-field-error-hover-background-color);
-      }
-      :host([warning]:not(:focus)) {
-        color: var(--ds-control-color);
-        border-color: var(--ds-control-warning-border-color);
-        background-color: var(--ds-control-warning-background-color);
-      }
-      :host([warning]:hover:not([readonly]):not(:focus)) {
-        color: var(--ds-control-color);
-        border-color: var(--ds-control-warning-hover-border-color);
-        background-color: var(--ds-control-warning-hover-background-color);
+      :host(:not([readonly]):not(:focus):hover) {
+        color: var(--control-content-hover);
+        border: var(--control-border-hover);
+        border-color: var(--control-border-hover);
       }
       :host([disabled]) {
-        color: var(--ds-control-disabled-color);
-        border-color: var(--ds-control-disabled-border-color);
-        background-color: var(--ds-control-disabled-background-color);
+        // TODO
       }
       :host([readonly]:not(:focus)) {
-        color: var(--ds-control-readonly-color);
-        border-color: var(--ds-control-readonly-border-color);
-        background-color: var(--ds-control-readonly-background-color);
+        // TODO
       }
-      :host [part='input'] {
+      :host [part=input] {
         color: inherit;
         text-align: inherit;
         height: 100%;
@@ -86,89 +65,52 @@ export class SubTextField extends FormFieldElement {
         margin: 0;
         appearance: none;
         text-overflow: ellipsis;
-        font: inherit;
-        font-size: var(--ds-text-body-size);
         background: none;
         border: none;
+
+        font: var(--code-only-control-content-default);
       }
-      :host [part='input']:focus {
+      :host [part=input]:focus {
         outline: none;
       }
-      :host [part='input']::selection {
-        color: var(--ds-text-selection-color);
-        background-color: var(--ds-text-selection-background-color);
+      :host [part=input]::selection {
+        color: var(--control-content-selected);
+        background-color: var(--control-bg-selected);
       }
       :host([icon]) [part=icon]{
         display: flex;
-        margin-left: var(--ds-space-xxx-small); // TODO: use better token
-        color: var(--ds-control-color);
+        min-width: 1em;
+        box-sizing: border-box;
+        color: var(--control-content-decorative);
+        font-size: var(--code-only-action-line-height-default);
+      }
+      :host([icon]) [part=input]{
+        padding-left: var(--space-010);
       }
       :host([icon][icon-has-action]) [part=icon] {
         cursor: pointer;
       }
       :host([icon][icon-has-action]) [part=icon]:hover {
-        color: var(--ds-control-hover-color);
+        color: var(--control-content-hover);
+        background-color: var(--control-bg-hover);
       }
       :host([icon][icon-has-action]) [part=icon]:focus-visible {
-        outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
-        border-radius: var(--ds-control-border-radius);
+        // TODO
       }
     `;
   }
 
-  /**
-   * Specify icon to display in input. Value can be icon name
-   */
   @property({ type: String, reflect: true })
   public icon: string | null = null;
 
-  /**
-   * Specify when icon need to be clickable
-   */
   @property({ type: Boolean, reflect: true, attribute: 'icon-has-action' })
   public iconHasAction = false;
 
-  /**
-   * Set state to error
-   */
-  @property({ type: Boolean, reflect: true })
-  public error = false;
-
-  /**
-   * Set state to warning
-   */
-  @property({ type: Boolean, reflect: true })
-  public warning = false;
-
-  /**
-   * Disable input
-   */
   @property({ type: Boolean, reflect: true })
   public readonly = false;
 
-  /**
-   * Disable input
-   */
   @property({ type: Boolean, reflect: true })
   public disabled = false;
-
-  /**
-   * Set regular expression for input validation
-   */
-  @property({ type: String, hasChanged })
-  public pattern = '';
-
-  /**
-   * Set character max limit
-   */
-  @property({ type: Number, attribute: 'maxlength', reflect: true })
-  public maxLength: number | null = null;
-
-  /**
-   * Set character min limit
-   */
-  @property({ type: Number, attribute: 'minlength', reflect: true, hasChanged })
-  public minLength: number | null = null;
 
   /**
    * Called once after the component is first rendered
@@ -192,10 +134,6 @@ export class SubTextField extends FormFieldElement {
 
     if (this.shouldSyncInputValue(changedProperties)) {
       this.syncInputValue(changedProperties);
-    }
-
-    if (this.shouldValidateInput(changedProperties)) {
-      this.validateInput();
     }
   }
 
@@ -231,17 +169,6 @@ export class SubTextField extends FormFieldElement {
   }
 
   /**
-   * Check if input should be re-validated
-   * @param changedProperties Properties that has changed
-   * @returns True if input should be re-validated
-   */
-  protected shouldValidateInput (changedProperties: PropertyValues): boolean {
-    return (changedProperties.has('pattern') || !!(this.pattern && changedProperties.has('value')))
-      || (changedProperties.has('minLength') || !!(this.minLength && changedProperties.has('value')))
-      || (changedProperties.has('maxLength') || !!(this.maxLength && changedProperties.has('value')));
-  }
-
-  /**
    * Runs on input element `input` event
    * @param event `input` event
    * @returns {void}
@@ -270,16 +197,6 @@ export class SubTextField extends FormFieldElement {
   }
 
   /**
-   * Validate input according `pattern`, `minLength` and `maxLength` properties
-   * change state of `error` property according pattern validation
-   * @returns {void}
-   */
-  protected validateInput (): void {
-    const error = !this.inputElement?.checkValidity();
-    this.notifyErrorChange(error);
-  }
-
-  /**
    * Renders icon element if property present
    * @returns {void}
    */
@@ -301,10 +218,7 @@ export class SubTextField extends FormFieldElement {
     return {
       ...super.decorateInputMap,
       'type': 'text',
-      'part': 'input',
-      'maxlength': this.maxLength,
-      'minlength': this.minLength,
-      'pattern': this.pattern || null
+      'part': 'input'
     };
   }
 
@@ -315,8 +229,8 @@ export class SubTextField extends FormFieldElement {
    */
   protected render (): TemplateResult {
     return html`
-      ${super.render()}
       ${this.renderIcon()}
+      ${super.render()}
     `;
   }
 }

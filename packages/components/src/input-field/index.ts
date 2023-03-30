@@ -24,13 +24,9 @@ export class InputField extends ControlElement {
       :host {
         display: flex;
         flex-direction: column;
-        margin: var(--ds-space-x-small) 0;
       }
       :host [part=label] {
-        margin: var(--ds-space-x-small) 0;
-      }
-      :host [part=hint] {
-        margin: var(--ds-space-xx-small) 0;
+        margin: var(--space-010) 0;
       }
     `;
   }
@@ -40,9 +36,6 @@ export class InputField extends ControlElement {
 
   @property({ type: String })
   public label = '';
-
-  @property({ type: String })
-  public hint = '';
 
   @property({ type: String, reflect: true })
   public icon: string | null = null;
@@ -83,7 +76,6 @@ export class InputField extends ControlElement {
   protected get decorateField (): TemplateMap {
     return {
       'aria-labelledby': this.label ? 'label' : null,
-      'aria-describedby': this.hint ? 'hint' : null,
       'disabled': this.disabled,
       'readonly': this.readonly,
       'error': this.error || null,
@@ -128,20 +120,10 @@ export class InputField extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected get renderHint (): TemplateResult | typeof nothing {
-    return html`<ui-sub-label error id="hint" part="hint">${this.hint}</ui-sub-label>`;
-  }
-
-  /**
-   * A `TemplateResult` that will be used
-   * to render the updated internal template.
-   * @return Render template
-   */
   protected render (): TemplateResult {
     return html`
       ${this.label ? this.renderLabel : nothing}
       ${this.renderField}
-      ${this.hint ? this.renderHint : nothing}
     `;
   }
 }
