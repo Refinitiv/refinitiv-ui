@@ -42,6 +42,9 @@
         "default": {
           "$value": "{copy.md.all}"
         }
+      },
+      "line-height": {
+        "$value": "{copy.md-emphasis.line-height}"
       }
     },
     "action": {

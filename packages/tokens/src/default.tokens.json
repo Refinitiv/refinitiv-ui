@@ -410,6 +410,11 @@
         "default": {
           "$value": "{copy.sm.all}"
         }
+      },
+      "line-height": {
+        "default": {
+          "$value": "{copy.sm-emphasis.line-height}"
+        }
       }
     },
     "action": {

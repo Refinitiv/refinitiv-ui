@@ -42,6 +42,9 @@
         "default": {
           "$value": "{copy.xs.all}"
         }
+      },
+      "line-height": {
+        "$value": "{copy.xs-emphasis.line-height}"
       }
     },
     "action": {
