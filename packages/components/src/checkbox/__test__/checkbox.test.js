@@ -145,6 +145,14 @@ describe('ui-checkbox', () => {
       const el = await fixture(`<ui-checkbox aria-label="Checkbox without label"></ui-checkbox>`);
       await expect(el).to.be.accessible();
     });
+    it('should accessible with disabled state', async () => {
+      const el = await fixture(`<ui-checkbox disabled>Disabled unchecked</ui-checkbox>`);
+      await expect(el).to.be.accessible();
+    });
+    it('should accessible with readonly state', async () => {
+      const el = await fixture(`<ui-checkbox readonly>Readonly unchecked</ui-checkbox>`);
+      await expect(el).to.be.accessible();
+    });
     it('should aria-checked reflect with checked state', async () => {
       const el = await fixture(checked);
       expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
