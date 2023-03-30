@@ -4,7 +4,7 @@ const fg = require('fast-glob');
 
 // Element built files
 const PACKAGE_ROOT = process.env.PACKAGE_ROOT || process.cwd();
-const ELEMENT_PREFIX = 'ds';
+const ELEMENT_PREFIX = 'ui';
 const ELEMENT_DIST = 'lib';
 
 /**

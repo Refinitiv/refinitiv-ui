@@ -16,6 +16,7 @@
     "build:affected": "nx affected:build --parallel",
     "build:docs": "nx run @refinitiv-ui/docs:build",
     "build:prod": "nx run-many --target build:prod --all",
+    "build-theme:watch": "chokidar './packages/tokens/src/*.json' './packages/workspace-theme/index.less' -c \"nx run @refinitiv-ui/tokens:build && nx run @refinitiv-ui/workspace-theme:build\" --debounce=500",
     "start": "node cli start",
     "start:docs": "nx run @refinitiv-ui/docs:start",
     "test": "node cli test",

@@ -1,15 +1,29 @@
 {
   "$type": "dimension",
-  "size": {
-    "$type": "dimension",
-    "x-large": {
-      "$value": "54px"
+  "space": {
+    "010": {
+      "$value": "8px"
+    },
+    "020": {
+      "$value": "16px"
     }
   },
-  "space": {
-    "$type": "dimension",
-    "x-small": {
-      "$value": "16px"
+  "code-only": {
+    "typography": {
+      "control": {
+        "content": {
+          "default": {
+            "$value": "{copy.md.all}"
+          }
+        }
+      },
+      "action": {
+        "content": {
+          "default": {
+            "$value": "{copy.md-loud.all}"
+          }
+        }
+      }
     }
   }
 }

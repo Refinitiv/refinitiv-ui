@@ -1,20 +1,23 @@
 <!--
 type: page
-title: Sub CheckBox
-location: ./components/sub-checkbox
+title: Sign In
+location: ./patterns/sign-in
 layout: default
 -->
 
-# Sub Checkbox
+# Sign In
 
 ```html
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-pattern-sign-in>
+</ui-pattern-sign-in>
 ```
 
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-pattern-sign-in>
+</ui-pattern-sign-in>
+
 ```
 ```js
 ::import-components::
@@ -26,7 +29,8 @@ layout: default
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-pattern-sign-in>
+</ui-pattern-sign-in>
 ```
 ```js
 ::import-components::
@@ -38,7 +42,8 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-pattern-sign-in>
+</ui-pattern-sign-in>
 ```
 ```js
 ::import-components::

@@ -1,32 +1,37 @@
 <!--
 type: page
-title: Sub CheckBox
-location: ./components/sub-checkbox
+title: Card
+location: ./components/card
 layout: default
 -->
 
-# Sub Checkbox
+# Card
 
 ```html
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-card>
+  <div>Card Content</div>
+</ui-card>
 ```
 
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-card>
+  <div>Card Content</div>
+</ui-card>
 ```
 ```js
 ::import-components::
 ```
 ::
 
-
 ## Density = Dense
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-card>
+  <div>Card Content</div>
+</ui-card>
 ```
 ```js
 ::import-components::
@@ -38,7 +43,9 @@ document.documentElement.setAttribute("prefers-density", "dense")
 ::
 ```html
 ::import-themes::
-<ui-sub-checkbox></ui-sub-checkbox>
+<ui-card>
+  <div>Card Content</div>
+</ui-card>
 ```
 ```js
 ::import-components::
