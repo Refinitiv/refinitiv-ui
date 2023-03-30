@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-const yargs = require('yargs/yargs');
-const { hideBin } = require('yargs/helpers');
-const { errorHandler, info } = require('./scripts/helpers');
+import yargs from 'yargs/yargs';
+import { hideBin } from 'yargs/helpers';
+import { errorHandler, info } from './scripts/helpers/index.mjs';
+import { commands } from './scripts/cmd/index.mjs';
 
 yargs(hideBin(process.argv))
   .usage('Element Framework CLI Commands\n\nUsage: $0 <command> [options]')
-  .commandDir('./scripts/cmd')
+  .command(commands)
   .demandCommand(1, 'You need at least one command.')
   .version(false)
   .help('help').alias('help', 'h')
@@ -17,4 +18,4 @@ yargs(hideBin(process.argv))
     info('\nSpecify --help for available options.\n');
     process.exit(1);
   })
-  .argv;
+  .parse();

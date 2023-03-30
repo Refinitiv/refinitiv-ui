@@ -1,9 +1,9 @@
-const { execSync } = require('child_process');
-const { info, success, errorHandler } = require('../helpers');
+import { execSync } from 'node:child_process';
+import { info, success, errorHandler } from '../helpers/index.mjs';
 
-exports.command = 'build';
-exports.desc = 'Build package';
-exports.builder = yargs => {
+export const command = 'build';
+export const desc = 'Build package';
+export const builder = yargs => {
   yargs
     .option('watch', {
       alias: 'w',
@@ -22,7 +22,7 @@ exports.builder = yargs => {
       description: 'Create sourcemaps for d.ts files.'
     });
 };
-exports.handler = (argv) => {
+export const handler = (argv) => {
   const watch = !!argv.watch;
   const sourceMap = !!argv.sourceMap;
   const declarationMap = !!argv.declarationMap;

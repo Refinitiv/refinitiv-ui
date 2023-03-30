@@ -53,12 +53,12 @@
     "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "npm run build && wtr --config ../../web-test-runner.config.js --package=core",
+    "test": "npm run build && node ../../scripts/tests/run.mjs --package=core",
     "test:snapshots": "npm run test -- --update-snapshots",
     "test:watch": "npm run build && npm run test -- --watch",
-    "prepublishOnly": "node scripts/release",
+    "prepublishOnly": "node scripts/release/index.mjs",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version"
+    "version": "node ../../scripts/version/index.mjs"
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.3.1",
