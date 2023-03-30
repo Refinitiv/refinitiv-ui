@@ -1,4 +1,8 @@
 {
+  "token-name": {
+    "$value": "default",
+    "$description": "use for testing purpose only"
+  },
   "space": {
     "$type": "dimension",
     "010": {
@@ -414,7 +418,12 @@
           "$value": "{copy.md-loud.all}"
         }
       },
-      "padding": {
+      "padding-horizontal": {
+        "default": {
+          "$value": "{space.020}"
+        }
+      },
+      "padding-vertical": {
         "default": {
           "$value": "{space.020}"
         }
