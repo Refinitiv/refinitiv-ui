@@ -25,15 +25,17 @@ export class SubPasswordField extends SubTextField {
     return [
       super.styles,
       css`
-        :host [part=icon] {
+        :host [part=password-icon] {
           cursor: pointer;
-        }
-        :host [part=icon]:hover {
-          color: var(--ds-control-hover-color);
-        }
-        :host [part=icon]:focus-visible {
-          outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
-          border-radius: var(--ds-control-border-radius);
+
+          min-width: 1em;
+          box-sizing: border-box;
+
+          font-size: var(--code-only-action-line-height-default);
+
+          margin-left: var(--space-010);
+          border: var(--action-border-secondary-default);
+          background-color: var(--action-bg-secondary-default);
         }
       `
     ];
@@ -89,10 +91,10 @@ export class SubPasswordField extends SubTextField {
    * Renders icon element
    * @returns {void}
    */
-  protected override renderIcon (): TemplateResult {
+  protected renderPasswordTogglerIcon (): TemplateResult {
     return html`
      <ui-sub-icon
-        part="icon"
+        part="password-icon"
         role="button"
         tabindex="0"
         aria-label="${this.isPasswordVisible ? this.t('HIDE_PASSWORD') : this.t('SHOW_PASSWORD')}"
@@ -101,6 +103,19 @@ export class SubPasswordField extends SubTextField {
         ?disabled="${this.disabled}"
         @tap="${this.togglePasswordVisibility}"
       ></ui-sub-icon>
+    `;
+  }
+
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return Render template
+   */
+  protected render (): TemplateResult {
+    return html`
+      ${this.renderIcon()}
+      ${super.render()}
+      ${this.renderPasswordTogglerIcon()}
     `;
   }
 }

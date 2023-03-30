@@ -386,6 +386,16 @@
         "$value": "22px"
       }
     },
+    "field": {
+      "width": {
+        "$type": "dimension",
+        "$value": "300px"
+      },
+      "height": {
+        "$type": "dimension",
+        "$value": "30px"
+      }
+    },
     "control": {
       "label": {
         "default": {
@@ -500,7 +510,7 @@
       }
     },
     "border": {
-      "$type": "border", 
+      "$type": "border",
       "default": {
         "$value": {
           "color": "{color.scorpion}",
