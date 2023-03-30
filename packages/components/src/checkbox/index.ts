@@ -29,25 +29,47 @@ export class Checkbox extends ControlElement {
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        outline: none;
         font: var(--code-only-control-label-default);
         color: var(--control-content-default);
       }
+      :host(:hover),
       :host(:focus-visible) {
-        outline: none;
+        color: var(--control-content-hover);
+      }
+      :host(:not([checked]):hover) [part=checkbox] {
+        border: var(--control-border-hover);
+      }
+      :host(:not([readonly]):hover) [part=checkbox],
+      :host([checked]:focus-visible) [part=checkbox] {
+        color: var(--control-content-hover);
+      }
+      :host(:focus-visible) [part=checkbox] {
+        text-decoration: underline;
+        text-underline-offset: var(--width-010);
+        text-decoration-thickness: var(--width-fixed2);
+        border: var(--control-border-focused);
+        background-color: var(--control-bg-focused);
+        outline: var(--control-focused-ring-on-invert);
+      }
+      :host(:focus-visible) [part=checkbox]::before, :host(:hover:focus-visible) [part=checkbox]::before{
+        content: '';
+        position: absolute;
+        display: block;
+        z-index: 1;
+        inset: -5px;
+        border: var(--control-focused-ring);
+      }
+      :host(:hover:focus-visible) [part=checkbox] {
+        border: var(--control-border-hover);
+        background-color: var(--control-bg-hover);
+        outline: var(--control-focused-ring-on-invert);
       }
       :host [part=label] {
         margin-left: var(--space-030);
       }
       :host(:empty) [part="label"] {
         display: none;
-      }
-      :host(:hover),
-      :host(:focus-visible) {
-        color: var(--control-content-hover);
-      }
-      :host(:hover:not([readonly])) [part=checkbox] {
-        color: var(--control-hover-color);
-        border-color: var(--control-hover-border-color);
       }
       :host([disabled]), :host([readonly]) {
         cursor: default;

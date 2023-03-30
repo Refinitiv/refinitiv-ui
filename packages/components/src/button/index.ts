@@ -111,7 +111,7 @@ export class Button extends ControlElement {
    * Specify icon to display in button. Value can be icon name
    */
   @property({ type: String, reflect: true })
-  public variant: 'primary' | 'secondary' = 'secondary';
+  public variant: 'primary' | 'secondary' | '' = '';
 
   /**
    * Specify icon to display in button. Value can be icon name
