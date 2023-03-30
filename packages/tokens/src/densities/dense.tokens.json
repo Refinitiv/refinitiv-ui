@@ -2,26 +2,37 @@
   "$type": "dimension",
   "space": {
     "010": {
-      "$value": "4px"
+      "$value": "2px"
     },
     "020": {
+      "$value": "4px"
+    },
+    "030": {
       "$value": "8px"
     }
   },
   "code-only": {
-    "typography": {
-      "control": {
-        "content": {
-          "default": {
-            "$value": "{copy.xs.all}"
-          }
+    "control": {
+      "content": {
+        "default": {
+          "$value": "{copy.xs.all}"
+        }
+      }
+    },
+    "action": {
+      "content": {
+        "default": {
+          "$value": "{copy.xs-loud.all}"
         }
       },
-      "action": {
-        "content": {
-          "default": {
-            "$value": "{copy.xs-loud.all}"
-          }
+      "padding": {
+        "default": {
+          "$value": "{space.020}"
+        }
+      },
+      "line-height": {
+        "default": {
+          "$value": "{copy.xs-loud.line-height}"
         }
       }
     }

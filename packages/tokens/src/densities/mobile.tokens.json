@@ -6,22 +6,33 @@
     },
     "020": {
       "$value": "16px"
+    },
+    "030": {
+      "$value": "20px"
     }
   },
   "code-only": {
-    "typography": {
-      "control": {
-        "content": {
-          "default": {
-            "$value": "{copy.md.all}"
-          }
+    "control": {
+      "content": {
+        "default": {
+          "$value": "{copy.md.all}"
+        }
+      }
+    },
+    "action": {
+      "content": {
+        "default": {
+          "$value": "{copy.md-loud.all}"
         }
       },
-      "action": {
-        "content": {
-          "default": {
-            "$value": "{copy.md-loud.all}"
-          }
+      "padding": {
+        "default": {
+          "$value": "{space.020}"
+        }
+      },
+      "line-height": {
+        "default": {
+          "$value": "{copy.md-loud.line-height}"
         }
       }
     }

@@ -367,19 +367,27 @@
     }
   },
   "code-only": {
-    "typography": {
-      "control": {
-        "content": {
-          "default": {
-            "$value": "{copy.sm.all}"
-          }
+    "control": {
+      "content": {
+        "default": {
+          "$value": "{copy.sm.all}"
+        }
+      }
+    },
+    "action": {
+      "content": {
+        "default": {
+          "$value": "{copy.md-loud.all}"
         }
       },
-      "action": {
-        "content": {
-          "default": {
-            "$value": "{copy.md-loud.all}"
-          }
+      "padding": {
+        "default": {
+          "$value": "{space.020}"
+        }
+      },
+      "line-height": {
+        "default": {
+          "$value": "{copy.md-loud.line-height}"
         }
       }
     }
