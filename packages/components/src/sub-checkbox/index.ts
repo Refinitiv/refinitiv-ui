@@ -32,12 +32,13 @@ export class SubCheckbox extends ControlElement {
       height: var(--code-only-checkbox-height);
       color: var(--control-content-selected);
       border: var(--control-border-default);
-    }
-    :host(:hover) {
-      border: var(--control-border-hover);
+      outline: none;
     }
     :host([checked]) {
       border: var(--control-border-selected);
+    }
+    :host(:not([checked]):hover) {
+      border: var(--control-border-hover);
     }
     :host(:not([readonly]):hover) [part=icon] {
       color: var(--control-content-hover);

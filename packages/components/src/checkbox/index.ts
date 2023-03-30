@@ -31,7 +31,7 @@ export class Checkbox extends ControlElement {
         justify-content: center;
       }
       :host(:focus-visible) {
-        outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
+        outline: none;
       }
       :host [part=label] {
         padding-left: var(--ds-control-padding);
@@ -139,7 +139,6 @@ export class Checkbox extends ControlElement {
   protected render (): TemplateResult {
     return html`
      <ui-sub-checkbox
-        tabindex="-1"
         part="checkbox"
         .checked=${this.checked}
         ?disabled=${this.disabled}
