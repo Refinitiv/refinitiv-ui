@@ -307,10 +307,10 @@
       "all": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{copy.xs-loud.font-family}",
-          "fontSize": "{copy.xs-loud.font-size}",
-          "fontWeight": "{copy.xs-loud.font-weight}",
-          "lineHeight": "{copy.xs-loud.line-height}"
+          "fontFamily": "{copy.xs.font-family}",
+          "fontSize": "{copy.xs.font-size}",
+          "fontWeight": "{copy.xs.font-weight}",
+          "lineHeight": "{copy.xs.line-height}"
         }
       }
     },
@@ -333,6 +333,15 @@
       },
       "text-transform": {
         "$value": "none"
+      },
+      "all": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{copy.xs-emphasis.font-family}",
+          "fontSize": "{copy.xs-emphasis.font-size}",
+          "fontWeight": "{copy.xs-emphasis.font-weight}",
+          "lineHeight": "{copy.xs-emphasis.line-height}"
+        }
       }
     },
     "xs-loud": {
@@ -378,6 +387,11 @@
       }
     },
     "control": {
+      "label": {
+        "default": {
+          "$value": "{copy.sm-emphasis.all}"
+        }
+      },
       "content": {
         "default": {
           "$value": "{copy.sm.all}"

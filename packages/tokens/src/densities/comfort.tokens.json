@@ -23,6 +23,11 @@
       }
     },
     "control": {
+      "label": {
+        "default": {
+          "$value": "{copy.md-emphasis.all}"
+        }
+      },
       "content": {
         "default": {
           "$value": "{copy.md.all}"

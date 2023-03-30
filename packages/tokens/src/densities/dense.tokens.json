@@ -23,6 +23,11 @@
       }
     },
     "control": {
+      "label": {
+        "default": {
+          "$value": "{copy.xs-emphasis.all}"
+        }
+      },
       "content": {
         "default": {
           "$value": "{copy.xs.all}"

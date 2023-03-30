@@ -29,29 +29,28 @@ export class Checkbox extends ControlElement {
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        font: var(--code-only-control-label-default);
+        color: var(--control-content-default);
       }
       :host(:focus-visible) {
         outline: none;
       }
       :host [part=label] {
-        padding-left: var(--ds-control-padding);
+        margin-left: var(--space-030);
       }
       :host(:empty) [part="label"] {
         display: none;
       }
-      :host(:hover) {
-        color: var(--ds-control-hover-color);
+      :host(:hover),
+      :host(:focus-visible) {
+        color: var(--control-content-hover);
       }
       :host(:hover:not([readonly])) [part=checkbox] {
-        color: var(--ds-control-hover-color);
-        border-color: var(--ds-control-hover-border-color);
+        color: var(--control-hover-color);
+        border-color: var(--control-hover-border-color);
       }
-      :host([disabled]) {
-        color: var(--ds-control-disabled-color);
-      }
-      :host([readonly]) {
+      :host([disabled]), :host([readonly]) {
         cursor: default;
-        color: var(--ds-control-readonly-color)
       }
     `;
   }
@@ -139,6 +138,7 @@ export class Checkbox extends ControlElement {
   protected render (): TemplateResult {
     return html`
      <ui-sub-checkbox
+        tabindex="-1"
         part="checkbox"
         .checked=${this.checked}
         ?disabled=${this.disabled}
