@@ -10,24 +10,26 @@ let line = {
     }]
   },
   options: {
-    title: {
-      text: 'Line Chart - Price of TRI.N in 2016'
-    },
-    legend: {
-      display: false // not display legend
+    plugins: {
+      title: {
+        text: 'Line Chart - Price of TRI.N in 2016'
+      },
+      legend: {
+        display: false // not display legend
+      },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => {
+            return tooltipItem.raw + ' $';
+          }
+        }
+      }
     },
     scales: {
-      yAxes: [{
-        scaleLabel: {
+      y: {
+        title: {
           display: true,
-          labelString: 'Price ($)'
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        label: function(tooltipItem, data) {
-          return tooltipItem.yLabel + ' $';
+          text: 'Price ($)'
         }
       }
     }
@@ -66,29 +68,31 @@ let multilines = {
     }]
   },
   options: {
-    title: {
-      text: 'Multiple Lines Chart - Top Equity Indices 2016 Review'
-    },
-    scales: {
-      yAxes: [{
-        ticks: {
-          stepSize: 1000,
-          callback: function(label, index) {
-            return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    plugins: {
+      title: {
+        text: 'Multiple Lines Chart - Top Equity Indices 2016 Review'
+      },
+      tooltip: {
+        callbacks: {
+          title: (tooltipItems, data) => {
+            return tooltipItems[0].chart.data.datasets[tooltipItems[0].datasetIndex].label;
+          },
+          label: function(tooltipItem, data) {
+            let month = tooltipItem.xLabel;
+            let value = tooltipItem.yLabel;
+            value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return month + ': ' + value;
           }
         }
-      }]
+      }
     },
-    tooltips: {
-      callbacks: {
-        title: function(tooltipItems, data) {
-          return data.datasets[tooltipItems[0].datasetIndex].label;
-        },
-        label: function(tooltipItem, data) {
-          let month = tooltipItem.xLabel;
-          let value = tooltipItem.yLabel;
-          value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          return month + ': ' + value;
+    scales: {
+      y: {
+        ticks: {
+          stepSize: 1000,
+          callback: (label, index) => {
+            return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          }
         }
       }
     }
@@ -112,35 +116,36 @@ let bar = {
     }]
   },
   options: {
-    title: {
-      text: 'Bar Chart - Revenue of GOOGL.O, AAPL.O and MSFT.O'
+    plugins: {
+      title: {
+        text: 'Bar Chart - Revenue of GOOGL.O, AAPL.O and MSFT.O'
+      },
+      tooltip: {
+        callbacks: {
+          title: (tooltipItems) => {
+            return 'Revenue';
+          },
+          label: (tooltipItem) => {
+            let rev = tooltipItem.raw;
+            rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return tooltipItem.label + ': ' + rev;
+          }
+        }
+      }
     },
     scales: {
-      yAxes: [{
+      y: {
+        min: 0,
+        max: 180000,
         ticks: {
-          min: 0,
-          max: 180000,
           stepSize: 30000,
-          callback: function(label, index) {
+          callback: (label, index) => {
             return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
           }
         },
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Revenue (in millions $)'
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        title: function(tooltipItems, data) {
-          return 'Revenue';
-        },
-        label: function(tooltipItem, data) {
-          let year = tooltipItem.xLabel;
-          let rev = tooltipItem.yLabel;
-          rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          return year + ': ' + rev;
+          text: 'Revenue (in millions $)'
         }
       }
     }
@@ -158,11 +163,11 @@ let singlesetbar = {
   },
   options: {
     scales: {
-      yAxes: [{
+      y: {
         ticks: {
           beginAtZero: true
         }
-      }]
+      }
     }
   }
 };
@@ -184,38 +189,40 @@ let stackbar = {
     }]
   },
   options: {
-    title: {
-      text: 'Stacked Bar Chart - Revenue of GOOGL.O, AAPL.O and MSFT.O'
+    plugins: {
+      title: {
+        text: 'Stacked Bar Chart - Revenue of GOOGL.O, AAPL.O and MSFT.O'
+      },
+      tooltip: {
+        callbacks: {
+          title: (tooltipItems) => {
+            return data.datasets[tooltipItems[0].datasetIndex].label;
+          },
+          label: (tooltipItem, data) => {
+            const year = tooltipItem.label;
+            let rev = tooltipItem.raw;
+            rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return year + ': ' + rev;
+          }
+        }
+      }
     },
     scales: {
-      xAxes: [{
+      x: {
         stacked: true
-      }],
-      yAxes: [{
+      },
+      y: {
         stacked: true,
+        min: 0,
         ticks: {
-          min: 0,
           stepSize: 50000,
-          callback: function(label, index) {
+          callback: (label, index) => {
             return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
           }
         },
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Revenue (in millions $)'
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        title: function(tooltipItems, data) {
-          return data.datasets[tooltipItems[0].datasetIndex].label;
-        },
-        label: function(tooltipItem, data) {
-          let year = tooltipItem.xLabel;
-          let rev = tooltipItem.yLabel;
-          rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          return year + ': ' + rev;
+          text: 'Revenue (in millions $)'
         }
       }
     }
@@ -231,45 +238,64 @@ let combo = {
       type: 'line',
       label: 'Price',
       data: [37.40, 36.60, 40.48, 41.13, 42.05, 40.42],
-      yAxisID: 'y-axis-1',
+      yAxisID: 'yAxis1',
       fill: true // not fill the area under the line
     }, {
       type: 'bar',
       label: 'Volume',
       data: [8.09, 8.79, 7.77, 6.77, 6.52, 6.77],
-      yAxisID: 'y-axis-2'
+      yAxisID: 'yAxis2'
     }]
   },
   options: {
-    title: {
-      text: 'Combo Bar and Line Chart - Price & Volume of TRI.N in 2016'
+    plugins: {
+      title: {
+        text: 'Combo Bar and Line Chart - Price & Volume of TRI.N in 2016'
+      },
+      tooltip: {
+        callbacks: {
+          title: (tooltipItems) => {
+            return 'TRI.N';
+          },
+          label: (tooltipItem) => {
+            const yLabel = tooltipItem.raw;
+            if (tooltipItem.datasetIndex === 0) {
+              return 'Price: ' + yLabel;
+            } else {
+              return 'Volume: ' + yLabel + 'M';
+            }
+          }
+        }
+      }
     },
     scales: {
-      yAxes: [{
+      y: {
+        display: false
+      },
+      yAxis1: {
         display: true,
         position: 'left',
-        id: 'y-axis-1',
+        min: 36,
+        max: 43,
         ticks: {
-          min: 36,
-          max: 43,
           stepSize: 1
         },
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Price ($)'
+          text: 'Price ($)'
         }
-      }, {
+      },
+      yAxis2: {
         display: true,
         position: 'right',
-        id: 'y-axis-2',
-        gridLines: {
+        grid: {
           drawOnChartArea: false // only want the grid lines for one axis to show up
         },
+        min: 6.0,
+        max: 9.5,
         ticks: {
-          min: 6.0,
-          max: 9.5,
           stepSize: 0.5,
-          callback: function(label, index) {
+          callback: (label, index) => {
             let val = label.toString();
             if (val.indexOf('.') === -1) {
               val += '.0';
@@ -277,24 +303,9 @@ let combo = {
             return val + 'M';
           }
         },
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Volume'
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        title: function(tooltipItems, data) {
-          return 'TRI.N';
-        },
-        label: function(tooltipItem, data) {
-          let yLabel = tooltipItem.yLabel;
-          if (tooltipItem.datasetIndex === 0) {
-            return 'Price: ' + yLabel;
-          } else {
-            return 'Volume: ' + yLabel + 'M';
-          }
+          text: 'Volume'
         }
       }
     }
@@ -311,15 +322,18 @@ let pie = {
     }]
   },
   options: {
-    title: {
-      text: 'Pie Chart - Operating Segments of AAPL.O in 2014'
-    },
-    tooltips: {
-      callbacks: {
-        label: function(tooltipItem, data) {
-          let title = data.labels[tooltipItem.index];
-          let result = data.datasets[0].data[tooltipItem.index];
-          return title + ': ' + result + '%';
+    plugins: {
+      title: {
+        text: 'Pie Chart - Operating Segments of AAPL.O in 2014'
+      },
+      tooltip: {
+        callbacks: {
+          title: () => null,
+          label: (tooltipItem) => {
+            const title = tooltipItem.label;
+            const result = tooltipItem.raw;
+            return title + ': ' + result + '%';
+          }
         }
       }
     }
@@ -336,15 +350,18 @@ let doughnut = {
     }]
   },
   options: {
-    title: {
-      text: 'Doughnut Chart - Operating Segments of AAPL.O in 2014'
-    },
-    tooltips: {
-      callbacks: {
-        label: function(tooltipItem, data) {
-          let title = data.labels[tooltipItem.index];
-          let result = data.datasets[0].data[tooltipItem.index];
-          return title + ': ' + result + '%';
+    plugins: {
+      title: {
+        text: 'Doughnut Chart - Operating Segments of AAPL.O in 2014'
+      },
+      tooltip: {
+        callbacks: {
+          title: () => null,
+          label: (tooltipItem) => {
+            const title = tooltipItem.label;
+            const result = tooltipItem.raw;
+            return title + ': ' + result + '%';
+          }
         }
       }
     }
@@ -366,40 +383,42 @@ let timescale = {
       new Date(2016, 8, 7, 17, 0, 0)
     ],
     datasets: [{
+      fill: true,
       label: 'Price',
       data: [107.53, 107.32, 107.35, 107.41, 107.56, 107.23, 108.37, 108.36]
     }]
   },
   options: {
-    title: {
-      text: 'Time Scale - Hourly Price of AAPL.O on 7 Sep 2016 (iPhone 7 release date)'
-    },
-    legend: {
-      display: false // Not display legend
+    plugins: {
+      title: {
+        text: 'Time Scale - Hourly Price of AAPL.O on 7 Sep 2016 (iPhone 7 release date)'
+      },
+      legend: {
+        display: false // Not display legend
+      },
+      tooltips: {
+        callbacks: {
+          label: (tooltipItem) => {
+            return 'Price: $' + tooltipItem.raw;
+          }
+        }
+      }
     },
     scales: {
-      xAxes: [{
+      x: {
         type: 'time', // Set type of scale as time
         time: {
           displayFormats: {
-            hour: 'hA' // Set custom format for hour unit
+            hour: 'haa' // Set custom format for hour unit
           },
           unit: 'hour',
-          tooltipFormat: 'D MMM YYYY - hA'
+          tooltipFormat: 'D MMM YYYY - haa'
         }
-      }],
-      yAxes: [{
-        scaleLabel: {
+      },
+      y: {
+        title: {
           display: true,
-          labelString: 'Price ($)'
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        label: function(tooltipItem, data) {
-          let result = data.datasets[0].data[tooltipItem.index];
-          return 'Price: $' + result;
+          text: 'Price ($)'
         }
       }
     }
@@ -462,46 +481,46 @@ let multilineTimescale = {
     }]
   },
   options: {
-    title: {
-      text: 'Multiple Lines Chart With Time Scale'
+    plugins: {
+      title: {
+        text: 'Multiple Lines Chart With Time Scale'
+      },
+      tooltip: {
+        callbacks: {
+          title: (tooltipItem, data) => {
+            const item = tooltipItems[0];
+            const year = item.label;
+            const label = item.dataset.label;
+            return year + ' - ' + label;
+          },
+          label: (tooltipItem) => {
+            return 'Change: ' + tooltipItem.raw + '%';
+          }
+        }
+      }
     },
     scales: {
-      xAxes: [{
+      x: {
         type: 'time',
         time: {
           displayFormats: {
-            year: '\'YY' // Set custom format for hour unit
+            year: 'yy' // Set custom format for hour unit
           },
           unit: 'year',
           round: 'year', // Set round as year for starting of this unit
-          tooltipFormat: 'YYYY'
+          tooltipFormat: 'yyyy'
         }
-      }],
-      yAxes: [{
-        scaleLabel: {
+      },
+      y: {
+        title: {
           display: true,
-          labelString: 'Price Changes'
+          text: 'Price Changes'
         },
         ticks: {
           stepSize: 50,
-          callback: function(label, index) {
+          callback: (label, index) => {
             return label + '%';
           }
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        title: function(tooltipItem, data) {
-          let item = tooltipItem[0];
-          let year = item.xLabel;
-          let datasets = data.datasets[item.datasetIndex];
-          let label = datasets.label;
-          return year + ' - ' + label;
-        },
-        label: function(tooltipItem, data) {
-          let result = data.datasets[0].data[tooltipItem.index];
-          return 'Change: ' + result + '%';
         }
       }
     }
@@ -541,45 +560,43 @@ let scatter = {
         { x: 47.98, y: 64.75 },
         { x: 47.64, y: 64.74 }
       ],
-      pointRadius: 1
+      pointRadius: 1,
+      showLine: false
     }]
   },
   options: {
-    showLines: false,
-    legend: {
-      display: false // not display legend
-    },
-    title: {
-      text: 'Scatter Plot - Price of Oil vs Russian Ruble'
+    plugins: {
+      legend: {
+        display: false // not display legend
+      },
+      title: {
+        text: 'Scatter Plot - Price of Oil vs Russian Ruble'
+      },
+      tooltip: {
+        callbacks: {
+          title: () => null,
+          label: (tooltipItem) => {
+            return 'Oil\'s price : ' + tooltipItem.raw.x + ' $';
+          },
+          afterLabel: (tooltipItem) => {
+            return 'Ruble : ' + tooltipItem.raw.y;
+          }
+        }
+      }
     },
     scales: {
-      xAxes: [{
+      x: {
         type: 'linear',
         position: 'bottom',
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Price of Oil ($)'
+          text: 'Price of Oil ($)'
         }
-      }],
-      yAxes: [{
-        scaleLabel: {
+      },
+      y: {
+        title: {
           display: true,
-          labelString: 'Russian ruble (per $)'
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        title: function() {
-          return '';
-        },
-        label: function(tooltipItem, data) {
-          let x = tooltipItem.xLabel;
-          return 'Oil\'s price : ' + x + ' $';
-        },
-        afterLabel: function(tooltipItem, data) {
-          let y = tooltipItem.yLabel;
-          return 'Ruble : ' + y;
+          text: 'Russian ruble (per $)'
         }
       }
     }
@@ -621,53 +638,52 @@ let bubble = {
     ]
   },
   options: {
-    title: {
-      text: 'GDP vs. Life Expectancy (Size = Popuation)'
+    plugins: {
+      title: {
+        text: 'GDP vs. Life Expectancy (Size = Popuation)'
+      },
+      tooltip: {
+        callbacks: {
+          title: (tooltipItems) => {
+            const item = tooltipItems[0];
+            return item.dataset.label;
+          },
+          label: (tooltipItem) => {
+            return 'GDP per Capita : ' + tooltipItem.raw.x + '$';
+          },
+          afterLabel: (tooltipItem) => {
+            return 'Life expectancy : ' + tooltipItem.raw.y + ' Yrs';
+          }
+        }
+      }
     },
     scales: {
-      xAxes: [{
+      x: {
         type: 'logarithmic',
         position: 'bottom',
+        min: 450,
+        max: 50000,
         ticks: {
-          min: 450,
-          max: 50000,
           maxRotation: 10,
-          callback: function(label, index) {
-            let xLabels = ['500', '1000', '2000', '5000', '10,000', '20000', '50000'];
+          callback: (label, index) => {
+            const xLabels = ['500', '1000', '2000', '5000', '10,000', '20000', '50000'];
             return xLabels.indexOf(label.toString()) > -1 ? label : '';
           }
         },
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'GDP per person in US dollars (log scale)'
+          text: 'GDP per person in US dollars (log scale)'
         }
-      }],
-      yAxes: [{
+      },
+      y: {
+        min: 45,
+        max: 85,
         ticks: {
-          min: 45,
-          max: 85,
           stepSize: 5
         },
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Life expectancy at birth (years)'
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        title: function(tooltipItem, data) {
-          let item = tooltipItem[0];
-          let dataset = data.datasets[item.datasetIndex];
-          return dataset.label;
-        },
-        label: function(tooltipItem, data) {
-          let x = tooltipItem.xLabel;
-          return 'GDP per Capita : ' + x + '$';
-        },
-        afterLabel: function(tooltipItem, data) {
-          let y = tooltipItem.yLabel;
-          return 'Life expectancy : ' + y + ' Yrs';
+          text: 'Life expectancy at birth (years)'
         }
       }
     }
@@ -709,12 +725,14 @@ let radar = {
     ]
   },
   options: {
-    legend: {
-      position: 'right'
-    },
-    title: {
-      display: true,
-      text: 'Radar Chart - Humanoid Profile Comparison'
+    plugins: {
+      legend: {
+        position: 'right'
+      },
+      title: {
+        display: true,
+        text: 'Radar Chart - Humanoid Profile Comparison'
+      }
     }
   }
 };
@@ -754,66 +772,68 @@ let polarArea = {
     ]
   },
   options: {
-    legend: {
-      position: 'right'
-    },
-    title: {
-      display: true,
-      text: 'Radar Chart - Humanoid Profile Comparison'
+    plugins: {
+      legend: {
+        position: 'right'
+      },
+      title: {
+        display: true,
+        text: 'Radar Chart - Humanoid Profile Comparison'
+      }
     }
   }
 };
 
+// TODO: จุดประสงค์คืออะไร ทำไมต้องใส่annotation มีใช้usepointstyleผลคือlegendไม่เหมือนเดิม ยังไม่เสร็จ
 // user use case
 let uc1 = {
   type: 'line',
   data: {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [{
-        label: 'Price',
-        data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09],
-        pointBorderColor: 'white',
-        pointBackgroundColor: 'blue',
-        borderColor: 'orange',
-        fill: false
-        // backgroundColor: 'rgba(255, 153, 51, 0.2)'
-      },
-      {
-        label: 'Another Price',
-        data: [10.5, 15.9, 56.7, 52.1, 30.0, 35.1, 36.0],
-        pointBorderColor: 'red',
-        pointBackgroundColor: 'black',
-        borderColor: 'orange',
-        fill: false
-        // backgroundColor: 'rgba(255, 153, 51, 0.2)'
-      }
-    ]
+      label: 'Price',
+      data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09],
+      pointBorderColor: 'white',
+      pointBackgroundColor: 'blue',
+      borderColor: 'orange',
+      fill: false
+      // backgroundColor: 'rgba(255, 153, 51, 0.2)'
+    },
+    {
+      label: 'Another Price',
+      data: [10.5, 15.9, 56.7, 52.1, 30.0, 35.1, 36.0],
+      pointBorderColor: 'red',
+      pointBackgroundColor: 'black',
+      borderColor: 'orange',
+      fill: false
+      // backgroundColor: 'rgba(255, 153, 51, 0.2)'
+    }]
   },
-
   options: {
     maintainAspectRatio: true,
-    title: {
-      display: true,
-      text: 'Trades / Amount (USt) for GBP.USD'
-    },
-    legend: {
-      labels: {
-        usePointStyle: true
+    plugins: {
+      title: {
+        display: true,
+        text: 'Trades / Amount (USt) for GBP.USD'
+      },
+      legend: {
+        labels: {
+          usePointStyle: true
+        }
       }
     },
     scales: {
-      yAxes: [{
-        id: 'y-axis-1',
+      y: {
         position: 'left',
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Trades'
+          text: 'Trades'
         }
-      }],
-      xAxes: [{
-        id: 'x-axis-1',
-      }]
-    },
+      },
+      // xAxes: [{
+      //   id: 'x-axis-1',
+      // }]
+    }
   },
   annotation: {
     annotations: [{
@@ -876,63 +896,63 @@ let uc2 = {
       duration: 0
     },
     maintainAspectRatio: false,
-    tooltips: {
-      callbacks: {
+    plugins: {
+      tooltips: {
+        callbacks: {
 
-      }
-    },
-    legend: {
-      labels: {
-        usePointStyle: true
+        }
+      },
+      legend: {
+        labels: {
+          usePointStyle: true
+        }
       }
     },
     scales: {
-      xAxes: [{
-        id: 'xAxis',
+      x: {
         position: 'bottom',
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Hour of Day (London time)'
+          text: 'Hour of Day (London time)'
         },
         ticks: {
           display: true
         }
-      }],
-      yAxes: [{
-          id: 'yAxis1',
-          position: 'left',
-          scaleLabel: {
-            display: true,
-            labelString: 'Percentage from Minimum'
-          },
-          ticks: {
-            display: true,
-            callback: (label, index) => {
-              let newNumber = label * 100.0;
-              return newNumber.toLocaleString('en-GB', {
-                useGrouping: true,
-                minimumFractionDigits: 1,
-                maximumFractionDigits: 1
-              }) + '%';
-            }
-          }
+      },
+      yAxis1: {
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Percentage from Minimum'
         },
-        {
-          id: 'yAxis2',
-          position: 'right',
-          scaleLabel: {
-            display: true,
-            labelString: 'Number of Trades'
-          },
-          ticks: {
-            display: true
-          },
-          gridLines: {
-            drawBorder: true,
-            drawOnChartArea: false
+        ticks: {
+          display: true,
+          callback: (label, index) => {
+            let newNumber = label * 100.0;
+            return newNumber.toLocaleString('en-GB', {
+              useGrouping: true,
+              minimumFractionDigits: 1,
+              maximumFractionDigits: 1
+            }) + '%';
           }
         }
-      ]
+      },
+      yAxis2: {
+        position: 'right',
+        title: {
+          display: true,
+          text: 'Number of Trades'
+        },
+        ticks: {
+          display: true
+        },
+        border: {
+          display: true
+        },
+        grid: {
+          drawOnChartArea: false
+        }
+      }
     }
   },
   data: {
@@ -962,132 +982,132 @@ let uc2 = {
       '4'
     ],
     datasets: [{
-        data: [0.5121,
-          0.6121,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          0.0121,
-          0.1121,
-          0.2121,
-          0.3121,
-          0.4121
-        ],
-        yAxisID: 'yAxis1',
-        label: 'Average Spread USD 0 to 5m',
-        fill: false,
-        pointStyle: 'rectRot',
-        pointRadius: 4,
-        type: 'line'
-      },
-      {
-        data: [0.5122,
-          0.6122,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          0.0122,
-          0.1122,
-          0.2122,
-          0.3122,
-          0.4122
-        ],
-        yAxisID: 'yAxis1',
-        label: 'Average Spread USD 5 to 25m',
-        fill: false,
-        pointStyle: 'triangle',
-        pointRadius: 4,
-        type: 'line'
-      },
-      {
-        data: [5123,
-          6123,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          123,
-          1123,
-          2123,
-          3123,
-          4123
-        ],
-        yAxisID: 'yAxis2',
-        label: 'Number of Trades USD 0 to 5m',
-        fill: true
-      },
-      {
-        data: [5124,
-          6124,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          124,
-          1124,
-          2124,
-          3124,
-          4124
-        ],
-        yAxisID: 'yAxis2',
-        label: 'Number of Trades USD 5 to 25m',
-        fill: true
-      }
-    ]
+      data: [
+        0.5121,
+        0.6121,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0.0121,
+        0.1121,
+        0.2121,
+        0.3121,
+        0.4121
+      ],
+      yAxisID: 'yAxis1',
+      label: 'Average Spread USD 0 to 5m',
+      fill: false,
+      pointStyle: 'rectRot',
+      pointRadius: 4,
+      type: 'line'
+    },
+    {
+      data: [0.5122,
+        0.6122,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0.0122,
+        0.1122,
+        0.2122,
+        0.3122,
+        0.4122
+      ],
+      yAxisID: 'yAxis1',
+      label: 'Average Spread USD 5 to 25m',
+      fill: false,
+      pointStyle: 'triangle',
+      pointRadius: 4,
+      type: 'line'
+    },
+    {
+      data: [5123,
+        6123,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        123,
+        1123,
+        2123,
+        3123,
+        4123
+      ],
+      yAxisID: 'yAxis2',
+      label: 'Number of Trades USD 0 to 5m',
+      fill: true
+    },
+    {
+      data: [5124,
+        6124,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        124,
+        1124,
+        2124,
+        3124,
+        4124
+      ],
+      yAxisID: 'yAxis2',
+      label: 'Number of Trades USD 5 to 25m',
+      fill: true
+    }]
   }
 };
 
@@ -1112,8 +1132,8 @@ let centerLabelPlugins = {
           if (chartItems.length) {
             const chartItem = chartItems[0];
             const data = chart.data;
-            const title = data.labels[chartItem._index];
-            const value = data.datasets[0].data[chartItem._index];
+            const title = data.labels[chartItem.index];
+            const value = data.datasets[0].data[chartItem.index];
             const total = data.datasets[0].data.reduce((total, num) => total + num);
             const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
 
@@ -1133,7 +1153,7 @@ let centerLabelPlugins = {
     title: {
       text: 'Operating Segments of AAPL.O in 2014'
     },
-    tooltips: {
+    tooltip: {
       enabled: false
     }
   }
