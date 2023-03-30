@@ -52,12 +52,12 @@
       },
       "padding-horizontal": {
         "default": {
-          "$value": "{space.010}"
+          "$value": "{space.020}"
         }
       },
       "padding-vertical": {
         "default": {
-          "$value": "{space.010}"
+          "$value": "{space.020}"
         }
       },
       "line-height": {
