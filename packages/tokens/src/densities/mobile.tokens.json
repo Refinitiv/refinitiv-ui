@@ -27,7 +27,7 @@
       },
       "padding": {
         "default": {
-          "$value": "{space.020}"
+          "$value": "{space.010}"
         }
       },
       "line-height": {

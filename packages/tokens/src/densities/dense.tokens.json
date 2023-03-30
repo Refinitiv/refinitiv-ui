@@ -30,6 +30,11 @@
           "$value": "{space.020}"
         }
       },
+      "item-spacing": {
+        "default": {
+          "$value": "{space.020}"
+        }
+      },
       "line-height": {
         "default": {
           "$value": "{copy.xs-loud.line-height}"
