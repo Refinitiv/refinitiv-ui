@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "lessc index.less ./lib/index.less && lessc ./lib/index.less ./lib/index.css",
+    "build:watch": "chokidar index.less --command \"npm run build\" --debounce=500",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {

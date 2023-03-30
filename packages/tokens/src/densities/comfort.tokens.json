@@ -1,13 +1,29 @@
 {
   "$type": "dimension",
   "space": {
-    "x-small": {
+    "010": {
+      "$value": "8px"
+    },
+    "020": {
       "$value": "12px"
     }
   },
-  "size": {
-    "x-large": {
-      "$value": "46px"
+  "code-only": {
+    "typography": {
+      "control": {
+        "content": {
+          "default": {
+            "$value": "{copy.md.all}"
+          }
+        }
+      },
+      "action": {
+        "content": {
+          "default": {
+            "$value": "{copy.md-loud.all}"
+          }
+        }
+      }
     }
   }
 }

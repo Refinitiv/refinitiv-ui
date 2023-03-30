@@ -2,7 +2,6 @@ const THEME_PREFIX = 'prefers-color-scheme';
 const DENSITY_PREFIX = 'prefers-density';
 
 const defaultTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-const defaultDensity = 'comfort';
 
 // Create the Theme selector and label
 const toolbar = document.createElement('div');
@@ -24,6 +23,7 @@ densitySelectorLabel.innerText = 'Density:';
 const densitySelector = document.createElement('select');
 densitySelector.id = 'density-selector';
 densitySelector.innerHTML = `
+  <option value="auto">Auto</option>
   <option value="comfort">Comfort</option>
   <option value="dense">Dense</option>
 `;
@@ -34,7 +34,6 @@ document.body.prepend(toolbar);
 
 // Set the default values for theme and density
 document.documentElement.setAttribute(THEME_PREFIX, defaultTheme);
-document.documentElement.setAttribute(DENSITY_PREFIX, defaultDensity);
 
 // Add event listeners to update theme and density attributes on change
 themeSelector.addEventListener('change', (event) => {
@@ -42,6 +41,9 @@ themeSelector.addEventListener('change', (event) => {
 });
 
 densitySelector.addEventListener('change', (event) => {
+  if (event.target.value === 'auto') {
+    document.documentElement.removeAttribute(DENSITY_PREFIX);
+  }
   document.documentElement.setAttribute(DENSITY_PREFIX, event.target.value);
 });
 

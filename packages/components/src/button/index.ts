@@ -33,32 +33,25 @@ export class Button extends ControlElement {
         vertical-align: bottom;
         box-sizing: border-box;
         text-transform: uppercase;
-
-        line-height: var(--ds-space-large);
-
-        padding: var(--ds-space-x-small);
-        min-height: var(--ds-size-x-large);
-
-        color: var(--ds-action-content-primary-default);
-        border: var(--ds-action-border-primary-default);
-        background-color: var(--ds-action-background-primary-default);
-        border-radius: var(--ds-control-border-radius);
+        padding: var(--space-020);
+        color: var(--action-content-secondary-default);
+        border: var(--action-border-secondary-default);
+        font: var(--code-only-typography-action-content-default);
+        background-color: var(--action-bg-secondary-default);
       }
       :host(:hover) {
-        color: var(--ds-action-content-primary-hover);
-        border: var(--ds-action-border-primary-hover);
-        background-color: var(--ds-action-background-primary-hover);
+        color: var(--action-content-primary-hover);
+        border: var(--action-border-primary-hover);
+        background-color: var(--action-bg-primary-hover);
       }
       :host(:focus-visible:not(:active)) {
         text-decoration: underline;
-        text-underline-offset: var(--ds-space-xx-small);
-        text-decoration-thickness: var(--ds-size-empathize-border);
-
-        color: var(--ds-action-content-primary-focused);
-        border: var(--ds-action-border-primary-focused);
-        background-color: var(--ds-action-background-primary-focused);
-
-        outline: var(--ds-action-focused-ring-oninvert);
+        text-underline-offset: var(--width-010);
+        text-decoration-thickness: var(--width-fixed2);
+        color: var(--action-content-primary-focused);
+        border: var(--action-border-primary-focused);
+        background-color: var(--action-bg-primary-focused);
+        outline: var(--action-focused-ring-on-invert);
       }
       :host(:focus-visible:not(:active))::before, :host(:hover:focus-visible:not(:active))::before {
         content: '';
@@ -66,50 +59,49 @@ export class Button extends ControlElement {
         display: block;
         z-index: 1;
         inset: -5px;
-        border: var(--ds-action-focused-ring);
+        border: var(--action-focused-ring);
       }
       :host(:hover:focus-visible:not(:active)) {
-        color: var(--ds-action-content-primary-hover);
-        border: var(--ds-action-border-primary-hover);
-        background-color: var(--ds-action-background-primary-hover);
+        color: var(--action-content-primary-hover);
+        border: var(--action-border-primary-hover);
+        background-color: var(--action-bg-primary-hover);
 
-        outline: var(--ds-action-focused-ring-oninvert);
+        outline: var(--action-focused-ring-on-invert);
       }
       :host(:active) {
-        color: var(--ds-action-content-primary-pressed);
-        border: var(--ds-action-border-primary-pressed);
-        background-color: var(--ds-action-background-primary-pressed);
+        color: var(--action-content-primary-pressed);
+        border: var(--action-border-primary-pressed);
+        background-color: var(--action-bg-primary-pressed);
       }
-      :host([variant=secondary]) {
-        color: var(--ds-action-content-secondary-default);
-        border: var(--ds-action-border-secondary-default);
-        background-color: var(--ds-action-background-secondary-default);
+      :host([variant=primary]) {
+        color: var(--action-content-primary-default);
+        border: var(--action-border-primary-default);
+        background-color: var(--action-bg-primary-default);
       }
-      :host([variant=secondary]:hover) {
-        color: var(--ds-action-content-secondary-hover);
-        border: var(--ds-action-border-secondary-hover);
-        background-color: var(--ds-action-background-secondary-hover);
+      :host([variant=primary]:hover) {
+        color: var(--action-content-primary-hover);
+        border: var(--action-border-primary-hover);
+        background-color: var(--action-bg-primary-hover);
       }
-      :host([variant=secondary]:focus-visible:not(:active)) {
-        color: var(--ds-action-content-secondary-focused);
-        border: var(--ds-action-border-secondary-focused);
-        background-color: var(--ds-action-background-secondary-focused);
+      :host([variant=primary]:focus-visible:not(:active)) {
+        color: var(--action-content-primary-focused);
+        border: var(--action-border-primary-focused);
+        background-color: var(--action-bg-secondary-focused);
       }
-      :host([variant=secondary]:hover:focus-visible:not(:active)) {
-        color: var(--ds-action-content-secondary-hover);
-        border: var(--ds-action-border-secondary-hover);
-        background-color: var(--ds-action-background-secondary-hover);
-
-        outline: var(--ds-action-focused-ring-oninvert);
+      :host([variant=primary]:hover:focus-visible:not(:active)) {
+        color: var(--action-content-secondary-hover);
+        border: var(--action-border-secondary-hover);
+        background-color: var(--action-bg-secondary-hover);
+        outline: var(--action-focused-ring-on-invert);
       }
-      :host([variant=secondary]:active) {
-        color: var(--ds-action-content-secondary-pressed);
-        border: var(--ds-action-border-secondary-pressed);
-        background-color: var(--ds-action-background-secondary-pressed);
+      :host([variant=primary]:active) {
+        color: var(--action-content-secondary-pressed);
+        border: var(--action-border-secondary-pressed);
+        background-color: var(--action-bg-secondary-pressed);
       }
       :host [part=icon] {
-        margin-left: var(--ds-space-button-icon-margin-x-small);
-        min-width: var(--ds-size-x-small);
+        margin-left: var(--space-020);
+        min-width: 1em;
       }
     `;
   }
@@ -118,7 +110,7 @@ export class Button extends ControlElement {
    * Specify icon to display in button. Value can be icon name
    */
   @property({ type: String, reflect: true })
-  public variant: 'primary' | 'secondary' = 'primary';
+  public variant: 'primary' | 'secondary' = 'secondary';
 
   /**
    * Specify icon to display in button. Value can be icon name
@@ -136,6 +128,31 @@ export class Button extends ControlElement {
 
     this.addEventListener('tapstart', this.setPressed);
     this.addEventListener('tapend', this.unsetPressed);
+    this.addEventListener('click', this.onClick);
+  }
+
+  /**
+   * Event handler for onclick
+   * @param event Click event
+   * @returns {void}
+   */
+  protected onClick (event: MouseEvent): void {
+    // TODO (Trem): check to see if there is a better way of doing this
+    // Allow event object to pass through all listeners before checking status.
+    setTimeout(() => !event.defaultPrevented && this.processClick());
+  }
+
+  /**
+   * Processes click event
+   * @returns {void}
+   */
+  protected processClick (): void {
+    if (this.getAttribute('type') === 'reset') {
+      this.internals.form?.reset();
+    }
+    else if (this.getAttribute('type') !== 'button') {
+      this.internals.form?.requestSubmit();
+    }
   }
 
   private setPressed (): void {
