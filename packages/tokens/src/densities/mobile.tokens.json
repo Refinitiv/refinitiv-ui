@@ -60,6 +60,11 @@
           "$value": "{space.020}"
         }
       },
+      "item-spacing": {
+        "default": {
+          "$value": "{space.010}"
+        }
+      },
       "line-height": {
         "default": {
           "$value": "{copy.md-loud.line-height}"
