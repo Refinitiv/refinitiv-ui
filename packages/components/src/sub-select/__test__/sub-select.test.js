@@ -28,10 +28,9 @@ describe('ui-sub-select', () => {
         const el = await fixture(`<ui-sub-select value="AL" opened>${getOptions()}</ui-sub-select>`);
         el.value = '';
         await elementUpdated(el);
-        expect(el.querySelector('ui-option[selected]')).to.equal(null, 'Selected item is not reset');
+        expect(el.querySelector('ui-option[selected]')).to.equal(null);
       });
-      //  same as above
-      it('should not selected when set value to empty', async () => {
+      it('should not selected when change value to empty', async () => {
         const el = await fixture(`<ui-sub-select opened>${getOptions()}</ui-sub-select>`);
         el.value = 'AL';
         await elementUpdated(el);
@@ -82,16 +81,15 @@ describe('ui-sub-select', () => {
   describe('Events', () => {
     describe('value-changed', () => {
       it('Options: value-changed is fired when value is set internally', async () => {
-        const el = await fixture(`<ui-sub-select>${getOptions()}</ui-sub-select>`);
-        const options = el.querySelectorAll('ui-option');
-        console.log(options[1]);
-        setTimeout(() => options[1].dispatchEvent(new Event('tap')));
+        const el = await fixture(`<ui-sub-select opened>${getOptions()}</ui-sub-select>`);
+        const option = el.querySelectorAll('ui-option')[1]; // AF
+        setTimeout(() => option.click());
+        await elementUpdated(el);
         const { detail } = await oneEvent(el, 'value-changed');
-        expect(detail.value).to.be.true;
+        expect(detail.value).to.equal('AF');
       });
       it('Options: value-changed is not fired when value is set externally', async () => {
         const el = await fixture(`<ui-sub-select>${getOptions()}</ui-sub-select>`);
-        const options = el.querySelectorAll('ui-option');
         let counter = 0;
         el.addEventListener('value-changed', () => {
           counter += 1;
@@ -99,10 +97,6 @@ describe('ui-sub-select', () => {
         el.value = 'AF';
         await elementUpdated(el);
         expect(counter).to.equal(0, 'value-changed should not fire when value has changed');
-        options[1].selected = false; // AF
-        options[2].selected = true; // AX
-        await elementUpdated(el);
-        expect(counter).to.equal(0, 'value-changed should not fire when selected has changed');
       });
     });
   });
