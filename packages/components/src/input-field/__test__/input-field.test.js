@@ -87,6 +87,7 @@ describe('ui-input-field', () => {
       });
     });
   });
+
   describe('Properties', () => {
     describe('value', () => {
       it('should be empty string by default', async () => {
@@ -134,24 +135,24 @@ describe('ui-input-field', () => {
   });
 
   describe('Events', () => {
-    // got error about timeout excess, we will back to check this later
-    // describe('value-changed', () => {
-    //   it('should change value and fire value-changed', async () => {
-    //     const el = await fixture('<ui-input-field value="abbr"></ui-input-field>');
-    //     const input = el.shadowRoot.querySelector('ui-sub-text-field');
-    //     input.value = 'test';
-    //     await elementUpdated(el);
-    //     setTimeout(() => {
-    //       input.dispatchEvent(new Event('input', {
-    //         bubbles: true,
-    //         cancelable: true
-    //       }));
-    //     });
-    //     const { detail } = await oneEvent(el, 'value-changed');
-    //     await expect(detail.value).to.equal('test');
-    //   });
-    // });
+    describe('value-changed', () => {
+      it('should change value and fire value-changed', async () => {
+        const el = await fixture('<ui-input-field value="abbr"></ui-input-field>');
+        const input = el.shadowRoot.querySelector('ui-sub-text-field').shadowRoot.querySelector('[part=input');
+        input.value = 'test';
+        await elementUpdated(el);
+        setTimeout(() => {
+          input.dispatchEvent(new Event('input', {
+            bubbles: true,
+            cancelable: true
+          }));
+        });
+        const { detail } = await oneEvent(el, 'value-changed');
+        await expect(detail.value).to.equal('test');
+      });
+    });
   });
+
   describe('Accessibility', () => {
     it('should accessible with default type', async () => {
       const el = await fixture('<ui-input-field label="text"></ui-input-field>');
