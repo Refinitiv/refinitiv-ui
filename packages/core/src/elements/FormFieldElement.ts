@@ -35,6 +35,8 @@ const ObservedAriaRequired = ['aria-required'];
  * Adds support for assistive technologies, `error` and `warning` states
  */
 export abstract class FormFieldElement extends ControlElement {
+  static shadowRootOptions = { ...ControlElement.shadowRootOptions, delegatesFocus: true };
+
   /**
    * @inheritDoc
    */
