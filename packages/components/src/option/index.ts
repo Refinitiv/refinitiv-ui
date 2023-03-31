@@ -37,12 +37,12 @@ export class Option extends ControlElement {
         outline: none;
         position: relative;
         cursor: pointer;
-        width: var(--code-only-field-width);
-        height: var(--code-only-field-height);
+        width: var(--code-only-dimension-control-width);
+        height: var(--code-only-dimension-control-height);
         color: var(--control-content-default);
         border-bottom: var(--control-border-default);
         background-color: var(--control-bg-default);
-        padding: var(--code-only-field-padding-vertical) var(--code-only-field-padding-horizontal);
+        padding: var(--code-only-dimension-control-padding-vertical) var(--code-only-dimension-control-padding-horizontal);
       }
       :host(:hover) {
         color: var(--control-content-hover-on-invert);

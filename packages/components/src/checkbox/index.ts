@@ -30,7 +30,7 @@ export class Checkbox extends ControlElement {
         align-items: center;
         justify-content: center;
         outline: none;
-        font: var(--code-only-control-label-default);
+        font: var(--code-only-typography-control-label-default);
         color: var(--control-content-default);
       }
       :host(:hover),
@@ -41,7 +41,7 @@ export class Checkbox extends ControlElement {
         border: var(--control-border-hover);
       }
       :host [part=checkbox] {
-        font-size: var(--code-only-control-line-height-default);
+        font-size: var(--code-only-dimension-control-line-height-default);
       }
       :host(:not([checked]):hover) [part=checkbox] {
         border: var(--control-border-hover);

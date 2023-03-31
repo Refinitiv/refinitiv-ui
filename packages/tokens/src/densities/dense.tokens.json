@@ -16,6 +16,62 @@
     }
   },
   "code-only": {
+    "dimension": {
+      "$type": "dimension",
+      "control": {
+        "height": {
+          "$type": "dimension",
+          "$value": "26px"
+        },
+        "line-height": {
+          "$value": "{copy.xs-emphasis.line-height}"
+        }
+      },
+      "action": {
+        "padding-horizontal": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "padding-vertical": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "item-spacing": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "line-height": {
+          "default": {
+            "$value": "{copy.xs-loud.line-height}"
+          }
+        }
+      }
+    },
+    "typography": {
+      "$type": "typography",
+      "control": {
+        "label": {
+          "default": {
+            "$value": "{copy.xs-emphasis.all}"
+          }
+        },
+        "content": {
+          "default": {
+            "$value": "{copy.xs.all}"
+          }
+        }
+      },
+      "action": {
+        "content": {
+          "default": {
+            "$value": "{copy.xs-loud.all}"
+          }
+        }
+      }
+    },
     "checkbox": {
       "width": {
         "$type": "dimension",
@@ -35,54 +91,6 @@
             "width": "{width.010}",
             "style": "solid"
           }
-        }
-      }
-    },
-    "field": {
-      "height": {
-        "$type": "dimension",
-        "$value": "26px"
-      }
-    },
-    "control": {
-      "label": {
-        "default": {
-          "$value": "{copy.xs-emphasis.all}"
-        }
-      },
-      "content": {
-        "default": {
-          "$value": "{copy.xs.all}"
-        }
-      },
-      "line-height": {
-        "$value": "{copy.xs-emphasis.line-height}"
-      }
-    },
-    "action": {
-      "content": {
-        "default": {
-          "$value": "{copy.xs-loud.all}"
-        }
-      },
-      "padding-horizontal": {
-        "default": {
-          "$value": "{space.020}"
-        }
-      },
-      "padding-vertical": {
-        "default": {
-          "$value": "{space.020}"
-        }
-      },
-      "item-spacing": {
-        "default": {
-          "$value": "{space.020}"
-        }
-      },
-      "line-height": {
-        "default": {
-          "$value": "{copy.xs-loud.line-height}"
         }
       }
     }

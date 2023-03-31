@@ -23,7 +23,7 @@ export class SubLabel extends BasicElement {
       :host {
         display: inline-block;
         color: var(--control-content-primary);
-        font: var(--code-only-control-label-default);
+        font: var(--code-only-typography-control-label-default);
       }
     `;
   }
