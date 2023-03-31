@@ -30,7 +30,7 @@ export class SubTextField extends FormFieldElement {
 
         padding: var(--code-only-field-padding-vertical) var(--code-only-field-padding-horizontal);
 
-        width: var(--code-only-field-width);
+        width: inherit;
         height: var(--code-only-field-height);
 
         color: var(--control-content-default);
