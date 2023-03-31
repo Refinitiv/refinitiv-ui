@@ -55,8 +55,8 @@ export class SubCheckbox extends ControlElement {
       content: '';
       position: absolute;
       display: block;
-      z-index: 1;
       inset: -5px;
+      pointer-events: none;
       border: var(--control-focused-ring);
     }
     :host(:hover:focus-visible:not(:active)) {

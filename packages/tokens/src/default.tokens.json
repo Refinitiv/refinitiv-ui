@@ -393,11 +393,19 @@
     "field": {
       "width": {
         "$type": "dimension",
-        "$value": "300px"
+        "$value": "200px"
       },
       "height": {
         "$type": "dimension",
         "$value": "30px"
+      },
+      "padding-horizontal" : {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "padding-vertical" : {
+        "$type": "dimension",
+        "$value": "4px"
       }
     },
     "control": {
@@ -521,6 +529,9 @@
       },
       "selected": {
         "$value": "{color.white}"
+      },
+      "selected-focused": {
+        "$value": "#324AFF"
       }
     },
     "border": {
@@ -576,6 +587,9 @@
       },
       "selected": {
         "$value": "{color.blue-ribbon}"
+      },
+      "selected-onInvert": {
+        "$value": "{color.white}"
       }
     },
     "focused": {
