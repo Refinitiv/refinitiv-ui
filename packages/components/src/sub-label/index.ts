@@ -1,6 +1,5 @@
 import { BasicElement, html, css, TemplateResult, CSSResultGroup } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
 
 @customElement('ui-sub-label', { theme: false })
