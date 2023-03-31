@@ -1,19 +1,16 @@
 #!/usr/bin/env node
-const concurrently = require('concurrently');
-const {
-  execSync
-} = require('child_process');
-
-const {
+import { execSync } from 'node:child_process';
+import concurrently from 'concurrently';
+import {
   getElements,
   error,
   info,
   errorHandler
-} = require('../helpers');
+} from '../helpers/index.mjs';
 
-exports.command = 'start [element]';
-exports.desc = 'Starting the development server';
-exports.builder = yargs => {
+export const command = 'start [element]';
+export const desc = 'Starting the development server';
+export const builder = yargs => {
   yargs
     .require('element')
     .positional('element', {
@@ -23,21 +20,21 @@ exports.builder = yargs => {
     })
     .completion('completion', () => getElements());
 };
-exports.handler = (argv) => {
+export const handler = (argv) => {
   const element = argv.element;
 
   info(`Start: ${element}`);
 
   const commands = [
     {
-      command: `web-dev-server --config server.config.js --element=${element}`,
+      command: `web-dev-server --config server.config.mjs --element=${element}`,
       prefixColor: '#D5B60A',
       name: `${element}: WebDevServer`,
       env: {
         ELEMENT: element
       }
     }, {
-      command: 'node cli build --watch --sourceMap --declarationMap',
+      command: 'node cli.mjs build --watch --sourceMap --declarationMap',
       prefixColor: '#007ACC',
       name: `${element}: TypeScript`
     }
@@ -46,7 +43,7 @@ exports.handler = (argv) => {
   try {
     // Must do this step first to make sure that the first
     // start of the server contains up to date code
-    execSync('node cli build --sourceMap --declarationMap');
+    execSync('node cli.mjs build --sourceMap --declarationMap');
 
     concurrently(
       commands,

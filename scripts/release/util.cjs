@@ -30,7 +30,7 @@ const DECORATE_SYNTAX = '__decorate([\n    customElement';
 /**
  * Get list of element file path which contain element defining syntax
  * @param {string} directory directory's name
- * @returns {string[]} a list of element file path
+ * @returns {Promise<string[]>} a list of element file path
  */
 const getElementList = async (directory) => {
   // All js files in source folder

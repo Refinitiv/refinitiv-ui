@@ -1,16 +1,16 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const fg = require('fast-glob');
+import fs from 'node:fs';
+import path from 'node:path';
+import fg from 'fast-glob';
 
-const { log, errorHandler, success, ROOT } = require('../helpers');
-const { ELEMENT_DIST, PACKAGE_ROOT, getElementList, getElementTagName } = require('./util');
+import { log, errorHandler, success, ROOT, getJSON } from '../helpers/esm.mjs';
+import { ELEMENT_DIST, PACKAGE_ROOT, getElementList, getElementTagName } from './util.cjs';
 
 // List of themes to be extracted
 const THEMES = ['halo', 'solar'];
 
 // Element package scope
-const PACKAGE_NAME = require(`${PACKAGE_ROOT}/package.json`).name;
+const PACKAGE_NAME = (await getJSON(`${PACKAGE_ROOT}/package.json`, import.meta)).name;
 
 // Where to look for theme files
 const THEME_SOURCE = `${ROOT}/node_modules/${PACKAGE_NAME.split('/')[0]}/`;
@@ -23,7 +23,7 @@ const THEMES_DIRECTORY = 'themes';
 
 /**
  * Create a dependency map for all elements
- * @returns {[{ dir: string, elements: string[], dependencies: string[]]} DependencyMap
+ * @returns {Promise<[{ dir: string, elements: string[], dependencies: string[] }]>} DependencyMap
  */
 const createDependencyMap = async () => {
   const paths = await getElementList(path.join(process.cwd(), ELEMENT_DIST));
@@ -88,7 +88,7 @@ const extractThemeDependency = (themePath) => {
   if (!themePath) return [];
 
   const themeContent = fs.readFileSync(themePath).toString();
-  const importRegex = new RegExp(`^import .*`, 'gm');
+  const importRegex = /^import .*/gm;
   return themeContent
     .match(importRegex)
     .filter((matched) => !matched.includes('native-elements'))

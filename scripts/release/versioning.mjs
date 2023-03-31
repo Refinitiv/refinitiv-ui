@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-const fg = require('fast-glob');
-const fs = require('fs');
-const path = require('path');
-const { PACKAGE_ROOT } = require('./util');
-const { log, errorHandler, success } = require('../helpers');
+import fg from 'fast-glob';
+import fs from 'node:fs';
+import path from 'node:path';
+import { PACKAGE_ROOT } from './util.cjs';
+import { log, errorHandler, success, getJSON } from '../helpers/esm.mjs';
 
 /**
  * Placeholder of element version
@@ -16,7 +16,7 @@ const PLACEHOLDER_VERSION = 'PUBLISH_VERSION';
 const FILE_OPTIONS = { encoding: 'utf8' };
 
 const handler = async () => {
-  const packageJson = require(path.resolve(PACKAGE_ROOT, 'package.json'));
+  const packageJson = await getJSON(path.resolve(PACKAGE_ROOT, 'package.json'), import.meta);
   const elementName = packageJson.name;
   const newVersion = packageJson.version;
 

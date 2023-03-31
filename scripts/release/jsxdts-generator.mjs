@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList } = require('./util');
-const { log, errorHandler, success } = require('../helpers');
+import fs from 'node:fs';
+import path from 'node:path';
+import { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList } from './util.cjs';
+import { log, errorHandler, success, fileDirName } from '../helpers/esm.mjs';
 
 /**
  * Remove hyphen and transform to upper case
@@ -24,10 +24,11 @@ const toPascalCase = (text) => text.replace(/(^\w|-\w)/g, clearAndUpper);
  * @returns {void}
  */
 const handler = async () => {
-  const JSX_MERGE_TEMPLATE = path.join(__dirname, 'interface', 'jsxTemplate.d.ts');
+  const { dirName } = fileDirName(import.meta);
+  const JSX_MERGE_TEMPLATE = path.join(dirName, 'interface', 'jsxTemplate.d.ts');
 
   const JSX_TYPE_DECLARATION = 'jsx.d.ts';
-  const JSX_TYPE_DECLARATION_PATH = path.join(__dirname, 'interface', JSX_TYPE_DECLARATION);
+  const JSX_TYPE_DECLARATION_PATH = path.join(dirName, 'interface', JSX_TYPE_DECLARATION);
 
   // Copy jsx.d.ts into the root of outDir
   fs.copyFileSync(

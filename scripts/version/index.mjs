@@ -1,9 +1,12 @@
-const fs = require('fs');
-const path = require('path');
-const packageJsonFilename = path.resolve('package.json');
-const json = require(packageJsonFilename);
+import fs from 'node:fs';
+import path from 'node:path';
+import { getJSON } from '../helpers/esm.mjs';
+const packageJsonFilename = path.resolve('./package.json');
+const json = await getJSON(packageJsonFilename, import.meta);
+
 const devDependencies = json.devDependencies || {};
 const peerDependencies = json.peerDependencies || {};
+
 let peers = 0;
 for (const key in peerDependencies) {
   if (key in devDependencies) {

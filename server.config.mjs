@@ -3,9 +3,9 @@
  * Generic configuration for web-server.
  * Extend as required
  */
-const { ROOT } = require('./scripts/helpers');
+import { ROOT } from './scripts/helpers/esm.mjs';
 
-module.exports = {
+export default {
   rootDir: ROOT,
   open: true,
   watch: false,

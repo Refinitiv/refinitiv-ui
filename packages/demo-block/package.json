@@ -11,13 +11,13 @@
     "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "start": "npm run build && concurrently \"npm run build:watch\" \"web-dev-server --config ../../server.config.js --app-index __demo__\"",
-    "test": "npm run build && wtr --config ../../web-test-runner.config.js --package=demo-block",
+    "start": "npm run build && concurrently \"npm run build:watch\" \"web-dev-server --config ../../server.config.mjs --app-index __demo__\"",
+    "test": "npm run build && node ../../scripts/tests/run.mjs  --package=demo-block",
     "test:snapshots": "npm run test -- --update-snapshots",
     "test:watch": "npm run test -- --watch",
-    "prepublishOnly": "node scripts/release",
+    "prepublishOnly": "node scripts/release/index.mjs",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version"
+    "version": "node ../../scripts/version/index.mjs"
   },
   "repository": {
     "type": "git",

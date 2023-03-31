@@ -1,9 +1,9 @@
-const fs = require('fs');
-const fg = require('fast-glob');
-const fse = require('fs-extra');
-const path = require('path');
-const chalk = require('chalk');
-const { Source, Build } = require('./paths');
+import path from 'node:path';
+import fs from 'node:fs';
+import fg from 'fast-glob';
+import fse from 'fs-extra';
+import chalk from 'chalk';
+import { Source, Build } from './paths.mjs';
 
 const PACKAGE_ROOT = '../node_modules/@refinitiv-ui/elements/lib';
 const ELEMENT_API_FILENAME = 'custom-elements.md';
@@ -38,7 +38,7 @@ const handler = async () => {
       else {
         content += elementContent;
       }
-      
+
       content += apiStyleSheetLink;
 
       const apiReferenceIndices = API_REFERENCE_TITLES.map(title => apiContent.indexOf(title));

@@ -1,20 +1,18 @@
 #!/usr/bin/env node
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
-const yargs = require('yargs/yargs');
-const { hideBin } = require('yargs/helpers');
-const { PACKAGES_ROOT, errorHandler } = require('./scripts/helpers');
+import path from 'node:path';
+import fs from 'node:fs';
+import { execSync } from 'node:child_process';
+import yargs from 'yargs/yargs';
+import { hideBin } from 'yargs/helpers';
+import { PACKAGES_ROOT, errorHandler, getJSON } from './scripts/helpers/esm.mjs';
 
 const argvNoBin = hideBin(process.argv);
 const argv = yargs(argvNoBin)
   .command('$0 <reflect> <package>', 'reflect the command', yargs => {
-    yargs.require('reflect')
     yargs.positional('reflect', {
       describe: 'npm command to reflect',
       type: 'string'
     })
-    yargs.require('package')
     yargs.positional('package', {
       describe: 'Package or element name',
       type: 'string'
@@ -33,20 +31,18 @@ try {
   const elementName = isElement ? argv.package : undefined;
 
   // For workspace package real name is required
-  const packageJson = fs.readFileSync(path.resolve(PACKAGES_ROOT, workspace, 'package.json'));
-
-  const packageName = JSON.parse(packageJson).name;
-
+  const packageName = (await getJSON(path.resolve(PACKAGES_ROOT, workspace, 'package.json'), import.meta)).name;
   const command = ['npm', 'run', argv.reflect, `--workspace=${packageName}`];
-  elementName && command.push(elementName);
+
+  // Add element name to command
+  if (workspace === 'elements') {
+    command.push(elementName ? elementName : 'elements');
+  }
+
   options.length > 0 && command.push('--')
   command.push(...options);
 
-  console.log(command.join(' '));
-
-  execSync(command.join(' '), {
-    stdio: 'inherit'
-  });
+  execSync(command.join(' '), { stdio: 'inherit' });
 }
 catch (error) {
   errorHandler(error);

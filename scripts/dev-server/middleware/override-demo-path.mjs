@@ -19,7 +19,7 @@
  * @param {string} demoPath An element demo directory
  * @returns {Function} override function
  */
-const overrideDemoPath = (elementDir, demoPath) => {
+const middlewareOverrideDemoPath = (elementDir, demoPath) => {
   return function (context, next) {
     const url = context.url;
 
@@ -36,4 +36,4 @@ const overrideDemoPath = (elementDir, demoPath) => {
   };
 };
 
-module.exports = overrideDemoPath;
+export default middlewareOverrideDemoPath;

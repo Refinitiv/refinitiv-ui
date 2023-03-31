@@ -9,7 +9,7 @@
   },
   "scripts": {
     "prepack": "npm run version",
-    "version": "node ../../scripts/version"
+    "version": "node ../../scripts/version/index.mjs"
   },
   "keywords": [
     "Element Framework",
