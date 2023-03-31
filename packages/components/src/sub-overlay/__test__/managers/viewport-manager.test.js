@@ -71,16 +71,5 @@ describe('overlay/manager/ViewportManager', () => {
         expect(size()).to.equal(0, 'element should be deregistered just once');
       });
     });
-
-    xdescribe('Test clear', () => {
-      it('Test clear', async () => {
-        const element2 = await createFixture();
-
-        clear();
-
-        expect(manager.clear).to.have.callCount(1);
-        expect(size()).to.equal(0, 'all element should be moved from registry');
-      });
-    });
   });
 });
