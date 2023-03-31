@@ -19,7 +19,7 @@ export class InputField extends ControlElement {
   static get styles (): CSSResultGroup {
     return css`
       :host {
-        display: flex;
+        display: inline-flex;
         flex-direction: column;
       }
       :host [part=label] {
