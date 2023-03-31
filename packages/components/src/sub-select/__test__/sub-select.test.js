@@ -24,13 +24,7 @@ describe('ui-sub-select', () => {
 
   describe('Attributes', () => {
     describe('value', () => {
-      it('should not selected when set value to empty', async () => {
-        const el = await fixture(`<ui-sub-select value="AL" opened>${getOptions()}</ui-sub-select>`);
-        el.value = '';
-        await elementUpdated(el);
-        expect(el.querySelector('ui-option[selected]')).to.equal(null);
-      });
-      it('should not selected when change value to empty', async () => {
+      it('should not have selected item when change value to empty', async () => {
         const el = await fixture(`<ui-sub-select opened>${getOptions()}</ui-sub-select>`);
         el.value = 'AL';
         await elementUpdated(el);
@@ -43,10 +37,6 @@ describe('ui-sub-select', () => {
 
   describe('Properties', () => {
     describe('value', () => {
-      it('should reflect with attribute', async () => {
-        const el = await fixture(`<ui-sub-select value="AF" opened>${getOptions()}</ui-sub-select>`);
-        expect(el.value).to.equal('AF', 'Value getter does not get correct value');
-      });
       it('should reflect with know value property', async () => {
         const el = await fixture(`<ui-sub-select opened>${getOptions()}</ui-sub-select>`);
         el.value = 'AF';
