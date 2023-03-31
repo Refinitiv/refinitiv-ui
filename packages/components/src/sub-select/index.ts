@@ -83,30 +83,41 @@ export class SubSelect extends ControlElement {
         display: inline-flex;
         box-sizing: border-box;
         vertical-align: middle;
-        height: var(--ds-control-height);
-        width: var(--ds-control-width);
-        color: var(--ds-control-color);
-        border: var(--ds-control-border);
-        border-radius: var(--ds-control-border-radius);
-        background-color: var(--ds-control-background-color);
-        padding: 0px var(--ds-space-x-small);
+        font: var(--code-only-control-content-default);
+        width: var(--code-only-field-width);
+        height: var(--code-only-field-height);
+        color: var(--control-content-default);
+        border: var(--control-border-default);
+        background-color: var(--control-bg-default);
+        padding: var(--space-010);
       }
+      :host([opened]) [part=icon] {
+        transform: rotate(180deg);
+      }
+      :host([opened]),
       :host(:focus) {
-        border-color: var(--ds-control-focus-border-color);
+        color: var(--control-content-focused);
+        border: var(--control-border-focused);
+        background-color: var(--control-bg-focused);
       }
-      :host(:not([readonly]):not([error]):not(:focus):hover) {
-        color: var(--ds-control-hover-color);
-        border-color: var(--ds-control-hover-border-color);
+      :host(:not([readonly]):not(:focus):hover) {
+        color: var(--control-content-hover);
+        border: var(--control-border-hover);
+        border-color: var(--control-border-hover);
       }
-      :host([disabled]) {
-        color: var(--ds-control-disabled-color);
-        border-color: var(--ds-control-disabled-border-color);
-        background-color: var(--ds-control-disabled-background-color);
+      :host([opened])::before, :host([opened]:hover:focus)::before,
+      :host(:focus)::before, :host(:hover:focus)::before {
+        content: '';
+        pointer-events: none;
+        position: absolute;
+        display: block;
+        z-index: 1;
+        inset: -5px;
+        border: var(--control-focused-ring);
       }
-      :host([readonly]:not(:focus)) {
-        color: var(--ds-control-readonly-color);
-        border-color: var(--ds-control-readonly-border-color);
-        background-color: var(--ds-control-readonly-background-color);
+      :host [part=input]::selection {
+        color: var(--control-content-selected);
+        background-color: var(--control-bg-selected);
       }
       [part=label],
       [part=placeholder] {
@@ -116,17 +127,23 @@ export class SubSelect extends ControlElement {
       }
       [part=icon] {
         flex: none;
+        min-width: 1em;
+        box-sizing: border-box;
+        color: var(--control-content-decorative);
+        font-size: var(--code-only-action-line-height-default);
       }
       :host [part=list] {
         overflow-y: auto;
+        /* padding: 4px; */
         max-width: var(--ui-select-list-max-width);
         max-height: var(--ui-select-list-max-height, 200px);
+        border: var(--control-border-selected);
       }
       :host [part=list] ::slotted(:not(ui-option)) {
         display: none;
       }
-      :host [part=sub-item] {
-        padding: var(--ds-space-xxx-small) var(--ds-space-x-small);
+      :host [part=list] ::slotted(:last-child) {
+        border: none; 
       }
       #box {
         align-items: center;
@@ -727,6 +744,7 @@ export class SubSelect extends ControlElement {
         .positionTarget=${this}
         .position=${POPUP_POSITION}
         ?opened=${this.opened}
+        offset="8"
         @tap=${this.onPopupTap}
         @mousemove=${this.onPopupMouseMove}
         @keydown=${this.onPopupKeyDown}

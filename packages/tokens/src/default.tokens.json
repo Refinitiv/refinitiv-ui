@@ -390,6 +390,18 @@
         "$value": "22px"
       }
     },
+    "option": {
+      "border": {
+        "selected": {
+          "$type": "border",
+          "$value": {
+            "color": "{color.blue-ribbon}",
+            "width": "{width.010}",
+            "style": "solid"
+          }
+        }
+      }
+    },
     "field": {
       "width": {
         "$type": "dimension",
@@ -521,6 +533,9 @@
       },
       "selected": {
         "$value": "{color.white}"
+      },
+      "hover-on-invert": {
+        "$value": "{color.persian-blue}"
       }
     },
     "border": {
@@ -576,6 +591,9 @@
       },
       "selected": {
         "$value": "{color.blue-ribbon}"
+      },
+      "hover-on-invert": {
+        "$value": "{color.white}"
       }
     },
     "focused": {

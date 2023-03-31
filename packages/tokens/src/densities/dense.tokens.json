@@ -26,6 +26,18 @@
         "$value": "18px"
       }
     },
+    "option": {
+      "border": {
+        "selected": {
+          "$type": "border",
+          "$value": {
+            "color": "{color.blue-ribbon}",
+            "width": "{width.010}",
+            "style": "solid"
+          }
+        }
+      }
+    },
     "field": {
       "height": {
         "$type": "dimension",

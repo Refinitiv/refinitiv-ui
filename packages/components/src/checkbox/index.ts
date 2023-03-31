@@ -57,6 +57,7 @@ export class Checkbox extends ControlElement {
       }
       :host(:focus-visible) [part=checkbox]::before, :host(:hover:focus-visible) [part=checkbox]::before{
         content: '';
+        pointer-events: none;
         position: absolute;
         display: block;
         z-index: 1;
