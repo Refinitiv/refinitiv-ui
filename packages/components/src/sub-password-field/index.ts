@@ -34,9 +34,7 @@ export class SubPasswordField extends SubTextField {
           min-width: 1em;
           height: var(--code-only-action-line-height-default);
           font-size: var(--code-only-action-line-height-default);
-
           margin-left: var(--code-only-field-padding-horizontal);
-
         }
       `
     ];
@@ -89,6 +87,14 @@ export class SubPasswordField extends SubTextField {
   }
 
   /**
+   * Removes focus ring at the host element
+   * @return void
+   */
+  protected onPasswordToggerFocus (): void {
+    this.classList.remove('focus-ring');
+  }
+
+  /**
    * Renders icon element
    * @returns {void}
    */
@@ -99,6 +105,7 @@ export class SubPasswordField extends SubTextField {
         aria-label="${this.isPasswordVisible ? this.t('HIDE_PASSWORD') : this.t('SHOW_PASSWORD')}"
         icon-end=${this.isPasswordVisible ? 'eye-off' : 'eye'}
         @tap="${this.togglePasswordVisibility}"
+        @focus="${this.onPasswordToggerFocus}"
       ></ui-button>
     `;
   }

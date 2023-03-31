@@ -37,13 +37,13 @@ export class SubTextField extends FormFieldElement {
         border: var(--control-border-default);
         background-color: var(--control-bg-default);
       }
-      :host(:focus) {
+      :host(.focus-ring) {
         color: var(--control-content-focused);
         border: var(--control-border-focused);
         background-color: var(--control-bg-focused);
         outline: var(--control-focused-ring-on-invert);
       }
-      :host(:focus)::before, :host(:hover:focus)::before {
+      :host(.focus-ring)::before, :host(.focus-ring:hover)::before {
         content: '';
         position: absolute;
         display: block;
@@ -103,6 +103,13 @@ export class SubTextField extends FormFieldElement {
 
     // TODO: Workaround to prevent screen reader from reading this host
     this.setAttribute('aria-hidden', 'true');
+
+    this.inputElement?.addEventListener('focus', () => {
+      this.classList.add('focus-ring');
+    });
+    this.inputElement?.addEventListener('blur', () => {
+      this.classList.remove('focus-ring');
+    });
   }
 
   /**
