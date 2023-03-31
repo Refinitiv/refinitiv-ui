@@ -42,6 +42,7 @@ export class Option extends ControlElement {
         color: var(--control-content-default);
         border-bottom: var(--control-border-default);
         background-color: var(--control-bg-default);
+        padding: var(--code-only-field-padding-vertical) var(--code-only-field-padding-horizontal);
       }
       :host(:hover) {
         color: var(--control-content-hover-on-invert);
@@ -53,6 +54,9 @@ export class Option extends ControlElement {
         height: 100%;
         inset: 0;
         border-left: var(--code-only-option-border-selected);
+      }
+      :host([selected]:hover)::before {
+        border-color: var(--control-bg-hover-on-invert);
       }
       :host(:focus-visible) {
         color: var(--control-content-focused);

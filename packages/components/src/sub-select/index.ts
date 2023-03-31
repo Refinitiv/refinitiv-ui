@@ -89,7 +89,7 @@ export class SubSelect extends ControlElement {
         color: var(--control-content-default);
         border: var(--control-border-default);
         background-color: var(--control-bg-default);
-        padding: var(--space-010);
+        padding: var(--code-only-field-padding-vertical) var(--code-only-field-padding-horizontal);
       }
       :host([opened]) [part=icon] {
         transform: rotate(180deg);

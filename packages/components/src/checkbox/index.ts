@@ -37,6 +37,9 @@ export class Checkbox extends ControlElement {
       :host(:focus-visible) {
         color: var(--control-content-hover);
       }
+      :host([checked]:hover) [part=checkbox] {
+        border: var(--control-border-hover);
+      }
       :host [part=checkbox] {
         font-size: var(--code-only-control-line-height-default);
       }
