@@ -12,12 +12,8 @@ import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import '../sub-icon/index.js';
 
-const hasChanged = (value: unknown, oldValue: unknown): boolean => oldValue === undefined ? false : value !== oldValue;
-
 @customElement('ui-sub-text-field', { theme: false })
 export class SubTextField extends FormFieldElement {
-  static shadowRootOptions = { ...FormFieldElement.shadowRootOptions, delegatesFocus: true };
-
   /**
    * A `CSSResultGroup` that will be used to style the host,
    * slotted children and the internal template of the element.
@@ -29,55 +25,38 @@ export class SubTextField extends FormFieldElement {
         display: inline-flex;
         align-items: center;
         box-sizing: border-box;
+        position: relative;
         vertical-align: middle;
 
-        height: var(--ds-control-height);
-        width: var(--ds-control-width);
+        padding: var(--code-only-field-padding-vertical) var(--code-only-field-padding-horizontal);
 
-        color: var(--ds-control-color);
-        border: var(--ds-control-border);
-        border-radius: var(--ds-control-border-radius);
-        background-color: var(--ds-control-background-color);
-        padding: 0px var(--ds-space-x-small);
+        width: var(--code-only-field-width);
+        height: var(--code-only-field-height);
+
+        color: var(--control-content-default);
+        border: var(--control-border-default);
+        background-color: var(--control-bg-default);
       }
-      :host(:focus) {
-        border-color: var(--ds-control-focus-border-color);
+      :host(.focus-ring) {
+        color: var(--control-content-focused);
+        border: var(--control-border-focused);
+        background-color: var(--control-bg-focused);
+        outline: var(--control-focused-ring-on-invert);
       }
-      :host(:not([readonly]):not([error]):not([warning]):not(:focus):hover) {
-        color: var(--ds-control-hover-color);
-        border-color: var(--ds-control-hover-border-color);
+      :host(.focus-ring)::before, :host(.focus-ring:hover)::before {
+        content: '';
+        position: absolute;
+        display: block;
+        inset: -5px;
+        pointer-events: none;
+        border: var(--control-focused-ring);
       }
-      :host([error]:not(:focus)), :host([error][warning]:not(:focus)) {
-        color: var(--ds-control-color);
-        border-color: var(--ds-control-error-border-color);
-        background-color: var(--ds-control-error-background-color);
+      :host(:not([readonly]):not(:focus):hover) {
+        color: var(--control-content-hover);
+        border: var(--control-border-hover);
+        background-color: var(--control-bg-hover);
       }
-      :host([error]:hover:not([readonly]):not(:focus)) {
-        color: var(--ds-control-hover-color);
-        border-color: var(--ds-control-error-hover-border-color);
-        background-color: var(--ds-field-error-hover-background-color);
-      }
-      :host([warning]:not(:focus)) {
-        color: var(--ds-control-color);
-        border-color: var(--ds-control-warning-border-color);
-        background-color: var(--ds-control-warning-background-color);
-      }
-      :host([warning]:hover:not([readonly]):not(:focus)) {
-        color: var(--ds-control-color);
-        border-color: var(--ds-control-warning-hover-border-color);
-        background-color: var(--ds-control-warning-hover-background-color);
-      }
-      :host([disabled]) {
-        color: var(--ds-control-disabled-color);
-        border-color: var(--ds-control-disabled-border-color);
-        background-color: var(--ds-control-disabled-background-color);
-      }
-      :host([readonly]:not(:focus)) {
-        color: var(--ds-control-readonly-color);
-        border-color: var(--ds-control-readonly-border-color);
-        background-color: var(--ds-control-readonly-background-color);
-      }
-      :host [part='input'] {
+      :host [part=input] {
         color: inherit;
         text-align: inherit;
         height: 100%;
@@ -86,89 +65,49 @@ export class SubTextField extends FormFieldElement {
         margin: 0;
         appearance: none;
         text-overflow: ellipsis;
-        font: inherit;
-        font-size: var(--ds-text-body-size);
         background: none;
         border: none;
+
+        font: var(--code-only-control-content-default);
       }
-      :host [part='input']:focus {
+      :host [part=input]:focus {
         outline: none;
       }
-      :host [part='input']::selection {
-        color: var(--ds-text-selection-color);
-        background-color: var(--ds-text-selection-background-color);
+      :host [part=input]::selection {
+        color: var(--control-content-selected-on-invert);
+        background-color: var(--control-bg-selected-focused);
       }
       :host([icon]) [part=icon]{
         display: flex;
-        margin-left: var(--ds-space-xxx-small); // TODO: use better token
-        color: var(--ds-control-color);
+        min-width: 1em;
+        box-sizing: border-box;
+        color: var(--control-content-decorative);
+        font-size: var(--code-only-action-line-height-default);
       }
-      :host([icon][icon-has-action]) [part=icon] {
-        cursor: pointer;
-      }
-      :host([icon][icon-has-action]) [part=icon]:hover {
-        color: var(--ds-control-hover-color);
-      }
-      :host([icon][icon-has-action]) [part=icon]:focus-visible {
-        outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
-        border-radius: var(--ds-control-border-radius);
+      :host([icon]) [part=input]{
+        padding-left: var(--code-only-field-padding-horizontal);
       }
     `;
   }
 
-  /**
-   * Specify icon to display in input. Value can be icon name
-   */
   @property({ type: String, reflect: true })
   public icon: string | null = null;
 
   /**
-   * Specify when icon need to be clickable
+   * Called once after the component is first rendered
+   * @param changedProperties map of changed properties with old values
+   * @returns {void}
    */
-  @property({ type: Boolean, reflect: true, attribute: 'icon-has-action' })
-  public iconHasAction = false;
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
 
-  /**
-   * Set state to error
-   */
-  @property({ type: Boolean, reflect: true })
-  public error = false;
-
-  /**
-   * Set state to warning
-   */
-  @property({ type: Boolean, reflect: true })
-  public warning = false;
-
-  /**
-   * Disable input
-   */
-  @property({ type: Boolean, reflect: true })
-  public readonly = false;
-
-  /**
-   * Disable input
-   */
-  @property({ type: Boolean, reflect: true })
-  public disabled = false;
-
-  /**
-   * Set regular expression for input validation
-   */
-  @property({ type: String, hasChanged })
-  public pattern = '';
-
-  /**
-   * Set character max limit
-   */
-  @property({ type: Number, attribute: 'maxlength', reflect: true })
-  public maxLength: number | null = null;
-
-  /**
-   * Set character min limit
-   */
-  @property({ type: Number, attribute: 'minlength', reflect: true, hasChanged })
-  public minLength: number | null = null;
+    this.inputElement?.addEventListener('focus', () => {
+      this.classList.add('focus-ring');
+    });
+    this.inputElement?.addEventListener('blur', () => {
+      this.classList.remove('focus-ring');
+    });
+  }
 
   /**
    * Called when the element’s DOM has been updated and rendered
@@ -180,20 +119,6 @@ export class SubTextField extends FormFieldElement {
 
     if (this.shouldSyncInputValue(changedProperties)) {
       this.syncInputValue(changedProperties);
-    }
-
-    if (this.shouldValidateInput(changedProperties)) {
-      this.validateInput();
-    }
-  }
-
-  /**
-   * Fires event on `icon` click
-   * @returns {void}
-   */
-  protected iconClick (): void {
-    if (this.iconHasAction && !this.disabled) {
-      this.dispatchEvent(new CustomEvent('icon-click', { bubbles: false }));
     }
   }
 
@@ -216,17 +141,6 @@ export class SubTextField extends FormFieldElement {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected syncInputValue (changedProperties: PropertyValues): void {
     this.inputValue = this.value;
-  }
-
-  /**
-   * Check if input should be re-validated
-   * @param changedProperties Properties that has changed
-   * @returns True if input should be re-validated
-   */
-  protected shouldValidateInput (changedProperties: PropertyValues): boolean {
-    return (changedProperties.has('pattern') || !!(this.pattern && changedProperties.has('value')))
-      || (changedProperties.has('minLength') || !!(this.minLength && changedProperties.has('value')))
-      || (changedProperties.has('maxLength') || !!(this.maxLength && changedProperties.has('value')));
   }
 
   /**
@@ -258,41 +172,18 @@ export class SubTextField extends FormFieldElement {
   }
 
   /**
-   * Validate input according `pattern`, `minLength` and `maxLength` properties
-   * change state of `error` property according pattern validation
-   * @returns {void}
-   */
-  protected validateInput (): void {
-    const error = !this.inputElement?.checkValidity();
-    this.notifyErrorChange(error);
-  }
-
-  /**
    * Renders icon element if property present
    * @returns {void}
    */
   protected renderIcon (): TemplateResult | typeof nothing {
-    return this.icon ? html`
-     <ui-sub-icon
-      role="${this.iconHasAction ? 'button' : nothing}"
-      tabindex="${this.iconHasAction ? '0' : nothing}"
-      aria-label="${this.iconHasAction ? this.icon : nothing}"
-      part="icon"
-      icon="${this.icon}"
-      ?readonly="${this.readonly}"
-      ?disabled="${this.disabled}"
-      @tap="${this.iconClick}">
-    </ui-sub-icon>` : nothing;
+    return this.icon ? html`<ui-sub-icon aria-hidden="true" part="icon" icon="${this.icon}"></ui-sub-icon>` : nothing;
   }
 
   protected get decorateInputMap (): TemplateMap {
     return {
       ...super.decorateInputMap,
       'type': 'text',
-      'part': 'input',
-      'maxlength': this.maxLength,
-      'minlength': this.minLength,
-      'pattern': this.pattern || null
+      'part': 'input'
     };
   }
 
@@ -303,8 +194,8 @@ export class SubTextField extends FormFieldElement {
    */
   protected render (): TemplateResult {
     return html`
-      ${super.render()}
       ${this.renderIcon()}
+      ${super.render()}
     `;
   }
 }

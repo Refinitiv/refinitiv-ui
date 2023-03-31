@@ -1,8 +1,6 @@
 const THEME_PREFIX = 'prefers-color-scheme';
 const DENSITY_PREFIX = 'prefers-density';
 
-const defaultTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-
 // Create the Theme selector and label
 const toolbar = document.createElement('div');
 toolbar.style = 'display:flex; justify-content: flex-end; align-items: center; position: fixed; right: 20px;';
@@ -12,8 +10,9 @@ themeSelectorLabel.innerText = 'Theme:';
 const themeSelector = document.createElement('select');
 themeSelector.id = 'theme-selector';
 themeSelector.innerHTML = `
-  <option value="light" selected=${defaultTheme === 'light'}>Light</option>
-  <option value="dark" selected=${defaultTheme === 'dark'}>Dark</option>
+  <option value="auto" selected>Auto</option>
+  <option value="light">Light</option>
+  <option value="dark">Dark</option>
 `;
 themeSelectorLabel.setAttribute('for', 'theme-selector');
 
@@ -24,25 +23,29 @@ const densitySelector = document.createElement('select');
 densitySelector.id = 'density-selector';
 densitySelector.innerHTML = `
   <option value="auto">Auto</option>
+  <option value="default">Default</option>
   <option value="comfort">Comfort</option>
   <option value="dense">Dense</option>
+  <option value="mobile">Mobile</option>
 `;
 densitySelectorLabel.setAttribute('for', 'density-selector');
 toolbar.append(densitySelectorLabel, densitySelector, themeSelectorLabel, themeSelector);
 // Prepend the selectors and labels to the body
 document.body.prepend(toolbar);
 
-// Set the default values for theme and density
-document.documentElement.setAttribute(THEME_PREFIX, defaultTheme);
-
 // Add event listeners to update theme and density attributes on change
 themeSelector.addEventListener('change', (event) => {
+  if (event.target.value === 'auto') {
+    document.documentElement.removeAttribute(THEME_PREFIX);
+    return;
+  }
   document.documentElement.setAttribute(THEME_PREFIX, event.target.value);
 });
 
 densitySelector.addEventListener('change', (event) => {
   if (event.target.value === 'auto') {
     document.documentElement.removeAttribute(DENSITY_PREFIX);
+    return;
   }
   document.documentElement.setAttribute(DENSITY_PREFIX, event.target.value);
 });

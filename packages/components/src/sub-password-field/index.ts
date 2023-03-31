@@ -4,6 +4,7 @@ import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
 
+import '../button/index.js';
 import '../sub-icon/index.js';
 import { preload } from '../sub-icon/index.js';
 import { SubTextField } from '../sub-text-field/index.js';
@@ -14,8 +15,6 @@ let isEyeOffPreloadRequested = false;
 
 @customElement('ui-sub-password-field', { theme: false })
 export class SubPasswordField extends SubTextField {
-  static shadowRootOptions = { ...SubTextField.shadowRootOptions, delegatesFocus: true };
-
   /**
    * A `CSSResultGroup` that will be used to style the host,
    * slotted children and the internal template of the element.
@@ -25,15 +24,17 @@ export class SubPasswordField extends SubTextField {
     return [
       super.styles,
       css`
-        :host [part=icon] {
+        :host [part=password-icon] {
           cursor: pointer;
-        }
-        :host [part=icon]:hover {
-          color: var(--ds-control-hover-color);
-        }
-        :host [part=icon]:focus-visible {
-          outline: var(--ds-control-border-style) var(--ds-control-border-width) var(--ds-control-focus-border-color);
-          border-radius: var(--ds-control-border-radius);
+          outline: none;
+          position: relative;
+          box-sizing: border-box;
+
+          padding: 0;
+          min-width: 1em;
+          height: var(--code-only-action-line-height-default);
+          font-size: var(--code-only-action-line-height-default);
+          margin-left: var(--code-only-field-padding-horizontal);
         }
       `
     ];
@@ -86,21 +87,38 @@ export class SubPasswordField extends SubTextField {
   }
 
   /**
+   * Removes focus ring at the host element
+   * @return void
+   */
+  protected onPasswordToggerFocus (): void {
+    this.classList.remove('focus-ring');
+  }
+
+  /**
    * Renders icon element
    * @returns {void}
    */
-  protected override renderIcon (): TemplateResult {
+  protected renderPasswordTogglerIcon (): TemplateResult {
     return html`
-     <ui-sub-icon
-        part="icon"
-        role="button"
-        tabindex="0"
+     <ui-button
+        part="password-icon"
         aria-label="${this.isPasswordVisible ? this.t('HIDE_PASSWORD') : this.t('SHOW_PASSWORD')}"
-        icon=${this.isPasswordVisible ? 'eye-off' : 'eye'}
-        ?readonly="${this.readonly}"
-        ?disabled="${this.disabled}"
+        icon-end=${this.isPasswordVisible ? 'eye-off' : 'eye'}
         @tap="${this.togglePasswordVisibility}"
-      ></ui-sub-icon>
+        @focus="${this.onPasswordToggerFocus}"
+      ></ui-button>
+    `;
+  }
+
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return Render template
+   */
+  protected render (): TemplateResult {
+    return html`
+      ${super.render()}
+      ${this.renderPasswordTogglerIcon()}
     `;
   }
 }

@@ -1,27 +1,96 @@
 {
-  "$type": "dimension",
+  "token-name": {
+    "$value": "comfort",
+    "$description": "use for testing purpose only"
+  },
   "space": {
+    "$type": "dimension",
     "010": {
       "$value": "8px"
     },
     "020": {
       "$value": "12px"
+    },
+    "030": {
+      "$value": "16px"
     }
   },
   "code-only": {
-    "typography": {
-      "control": {
-        "content": {
-          "default": {
-            "$value": "{copy.md.all}"
+    "checkbox": {
+      "width": {
+        "$type": "dimension",
+        "$value": "26px"
+      },
+      "height": {
+        "$type": "dimension",
+        "$value": "26px"
+      }
+    },
+    "option": {
+      "border": {
+        "selected": {
+          "$type": "border",
+          "$value": {
+            "color": "{color.blue-ribbon}",
+            "width": "{width.020}",
+            "style": "solid"
           }
         }
+      }
+    },
+    "field": {
+      "height": {
+        "$type": "dimension",
+        "$value": "38px"
       },
-      "action": {
-        "content": {
-          "default": {
-            "$value": "{copy.md-loud.all}"
-          }
+      "padding-horizontal" : {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "padding-vertical" : {
+        "$type": "dimension",
+        "$value": "8px"
+      }
+    },
+    "control": {
+      "label": {
+        "default": {
+          "$value": "{copy.md-emphasis.all}"
+        }
+      },
+      "content": {
+        "default": {
+          "$value": "{copy.md.all}"
+        }
+      },
+      "line-height": {
+        "$value": "{copy.md-emphasis.line-height}"
+      }
+    },
+    "action": {
+      "content": {
+        "default": {
+          "$value": "{copy.md-loud.all}"
+        }
+      },
+      "padding-horizontal": {
+        "default": {
+          "$value": "{space.030}"
+        }
+      },
+      "padding-vertical": {
+        "default": {
+          "$value": "{space.020}"
+        }
+      },
+      "item-spacing": {
+        "default": {
+          "$value": "{space.010}"
+        }
+      },
+      "line-height": {
+        "default": {
+          "$value": "{copy.md-loud.line-height}"
         }
       }
     }
