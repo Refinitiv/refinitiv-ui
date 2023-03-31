@@ -20,7 +20,7 @@ main {
 
 aside {
   background: rgba(124, 124, 124, 0.2);
-  min-height: 220px;
+  min-height: 240px;
   overflow: hidden;
   padding: 1em;
   padding-left: 2em;

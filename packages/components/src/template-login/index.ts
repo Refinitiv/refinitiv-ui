@@ -27,15 +27,23 @@ export class LoginTemplate extends BasicElement {
         ui-input-field {
           width: 100%;
         }
-        ui-button-group {
+        ul {
           display: flex;
           flex-flow: row wrap;
+          margin: 0;
           margin-left: -0.5em;
           margin-right: -0.5em;
+          padding: 0;
         }
-        ui-button {
+        li {
           flex: 1 0 160px;
           margin: 0.5em;
+          list-style: none;
+          padding: 0;
+          margin: 0.5em;
+        }
+        ui-button {
+          width: 100%;
         }
       `;
   }
@@ -79,13 +87,14 @@ export class LoginTemplate extends BasicElement {
       <p>
         <ui-checkbox checked>Sign me in automatically</ui-checkbox>
       </p>
-      <p>
-        <ui-button-group>
+      <ul>
+        <li>
           <ui-button variant="primary">Sign In</ui-button>
-          <span></span>
+        </li>
+        <li>
           <ui-button type="button">Cancel</ui-button>
-        </ui-button-group>
-      </p>
+        </li>
+      </ul>
     </form>
     <ui-sub-footer></ui-sub-footer>
     `;
