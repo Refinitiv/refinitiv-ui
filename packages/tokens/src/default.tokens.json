@@ -1,4 +1,8 @@
 {
+  "token-name": {
+    "$value": "default",
+    "$description": "use for testing purpose only"
+  },
   "space": {
     "$type": "dimension",
     "010": {
@@ -307,10 +311,10 @@
       "all": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{copy.xs-loud.font-family}",
-          "fontSize": "{copy.xs-loud.font-size}",
-          "fontWeight": "{copy.xs-loud.font-weight}",
-          "lineHeight": "{copy.xs-loud.line-height}"
+          "fontFamily": "{copy.xs.font-family}",
+          "fontSize": "{copy.xs.font-size}",
+          "fontWeight": "{copy.xs.font-weight}",
+          "lineHeight": "{copy.xs.line-height}"
         }
       }
     },
@@ -333,6 +337,15 @@
       },
       "text-transform": {
         "$value": "none"
+      },
+      "all": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{copy.xs-emphasis.font-family}",
+          "fontSize": "{copy.xs-emphasis.font-size}",
+          "fontWeight": "{copy.xs-emphasis.font-weight}",
+          "lineHeight": "{copy.xs-emphasis.line-height}"
+        }
       }
     },
     "xs-loud": {
@@ -367,19 +380,67 @@
     }
   },
   "code-only": {
-    "typography": {
-      "control": {
-        "content": {
-          "default": {
-            "$value": "{copy.sm.all}"
-          }
+    "checkbox": {
+      "width": {
+        "$type": "dimension",
+        "$value": "22px"
+      },
+      "height": {
+        "$type": "dimension",
+        "$value": "22px"
+      }
+    },
+    "field": {
+      "width": {
+        "$type": "dimension",
+        "$value": "300px"
+      },
+      "height": {
+        "$type": "dimension",
+        "$value": "30px"
+      }
+    },
+    "control": {
+      "label": {
+        "default": {
+          "$value": "{copy.sm-emphasis.all}"
         }
       },
-      "action": {
-        "content": {
-          "default": {
-            "$value": "{copy.md-loud.all}"
-          }
+      "content": {
+        "default": {
+          "$value": "{copy.sm.all}"
+        }
+      },
+      "line-height": {
+        "default": {
+          "$value": "{copy.sm-emphasis.line-height}"
+        }
+      }
+    },
+    "action": {
+      "content": {
+        "default": {
+          "$value": "{copy.md-loud.all}"
+        }
+      },
+      "padding-horizontal": {
+        "default": {
+          "$value": "{space.020}"
+        }
+      },
+      "padding-vertical": {
+        "default": {
+          "$value": "{space.020}"
+        }
+      },
+      "item-spacing": {
+        "default": {
+          "$value": "{space.020}"
+        }
+      },
+      "line-height": {
+        "default": {
+          "$value": "{copy.md-loud.line-height}"
         }
       }
     }
@@ -463,7 +524,7 @@
       }
     },
     "border": {
-      "$type": "border", 
+      "$type": "border",
       "default": {
         "$value": {
           "color": "{color.scorpion}",

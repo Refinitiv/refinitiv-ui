@@ -33,10 +33,10 @@ export class Button extends ControlElement {
         vertical-align: bottom;
         box-sizing: border-box;
         text-transform: uppercase;
-        padding: var(--space-020);
+        padding: var(--code-only-action-padding-vertical-default) var(--code-only-action-padding-horizontal-default);
         color: var(--action-content-secondary-default);
         border: var(--action-border-secondary-default);
-        font: var(--code-only-typography-action-content-default);
+        font: var(--code-only-action-content-default);
         background-color: var(--action-bg-secondary-default);
       }
       :host(:hover) {
@@ -100,7 +100,8 @@ export class Button extends ControlElement {
         background-color: var(--action-bg-secondary-pressed);
       }
       :host [part=icon] {
-        margin-left: var(--space-020);
+        margin-left: var(--code-only-action-item-spacing-default);
+        font-size: var(--code-only-action-line-height-default);
         min-width: 1em;
       }
     `;
@@ -110,7 +111,7 @@ export class Button extends ControlElement {
    * Specify icon to display in button. Value can be icon name
    */
   @property({ type: String, reflect: true })
-  public variant: 'primary' | 'secondary' = 'secondary';
+  public variant: 'primary' | 'secondary' | '' = '';
 
   /**
    * Specify icon to display in button. Value can be icon name
