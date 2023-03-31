@@ -42,6 +42,14 @@
       "height": {
         "$type": "dimension",
         "$value": "38px"
+      },
+      "padding-horizontal" : {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "padding-vertical" : {
+        "$type": "dimension",
+        "$value": "8px"
       }
     },
     "control": {

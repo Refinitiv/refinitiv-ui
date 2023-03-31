@@ -12,12 +12,8 @@ import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import '../sub-icon/index.js';
 
-const hasChanged = (value: unknown, oldValue: unknown): boolean => oldValue === undefined ? false : value !== oldValue;
-
 @customElement('ui-sub-text-field', { theme: false })
 export class SubTextField extends FormFieldElement {
-  static shadowRootOptions = { ...FormFieldElement.shadowRootOptions, delegatesFocus: true };
-
   /**
    * A `CSSResultGroup` that will be used to style the host,
    * slotted children and the internal template of the element.
@@ -29,9 +25,10 @@ export class SubTextField extends FormFieldElement {
         display: inline-flex;
         align-items: center;
         box-sizing: border-box;
+        position: relative;
         vertical-align: middle;
 
-        padding: var(--space-010);
+        padding: var(--code-only-field-padding-vertical) var(--code-only-field-padding-horizontal);
 
         width: var(--code-only-field-width);
         height: var(--code-only-field-height);
@@ -44,17 +41,20 @@ export class SubTextField extends FormFieldElement {
         color: var(--control-content-focused);
         border: var(--control-border-focused);
         background-color: var(--control-bg-focused);
+        outline: var(--control-focused-ring-on-invert);
+      }
+      :host(:focus)::before, :host(:hover:focus)::before {
+        content: '';
+        position: absolute;
+        display: block;
+        inset: -5px;
+        pointer-events: none;
+        border: var(--control-focused-ring);
       }
       :host(:not([readonly]):not(:focus):hover) {
         color: var(--control-content-hover);
         border: var(--control-border-hover);
-        border-color: var(--control-border-hover);
-      }
-      :host([disabled]) {
-        // TODO
-      }
-      :host([readonly]:not(:focus)) {
-        // TODO
+        background-color: var(--control-bg-hover);
       }
       :host [part=input] {
         color: inherit;
@@ -74,8 +74,8 @@ export class SubTextField extends FormFieldElement {
         outline: none;
       }
       :host [part=input]::selection {
-        color: var(--control-content-selected);
-        background-color: var(--control-bg-selected);
+        color: var(--control-content-selected-on-invert);
+        background-color: var(--control-bg-selected-focused);
       }
       :host([icon]) [part=icon]{
         display: flex;
@@ -85,32 +85,13 @@ export class SubTextField extends FormFieldElement {
         font-size: var(--code-only-action-line-height-default);
       }
       :host([icon]) [part=input]{
-        padding-left: var(--space-010);
-      }
-      :host([icon][icon-has-action]) [part=icon] {
-        cursor: pointer;
-      }
-      :host([icon][icon-has-action]) [part=icon]:hover {
-        color: var(--control-content-hover);
-        background-color: var(--control-bg-hover);
-      }
-      :host([icon][icon-has-action]) [part=icon]:focus-visible {
-        // TODO
+        padding-left: var(--code-only-field-padding-horizontal);
       }
     `;
   }
 
   @property({ type: String, reflect: true })
   public icon: string | null = null;
-
-  @property({ type: Boolean, reflect: true, attribute: 'icon-has-action' })
-  public iconHasAction = false;
-
-  @property({ type: Boolean, reflect: true })
-  public readonly = false;
-
-  @property({ type: Boolean, reflect: true })
-  public disabled = false;
 
   /**
    * Called once after the component is first rendered
@@ -134,16 +115,6 @@ export class SubTextField extends FormFieldElement {
 
     if (this.shouldSyncInputValue(changedProperties)) {
       this.syncInputValue(changedProperties);
-    }
-  }
-
-  /**
-   * Fires event on `icon` click
-   * @returns {void}
-   */
-  protected iconClick (): void {
-    if (this.iconHasAction && !this.disabled) {
-      this.dispatchEvent(new CustomEvent('icon-click', { bubbles: false }));
     }
   }
 
@@ -201,17 +172,7 @@ export class SubTextField extends FormFieldElement {
    * @returns {void}
    */
   protected renderIcon (): TemplateResult | typeof nothing {
-    return this.icon ? html`
-     <ui-sub-icon
-      role="${this.iconHasAction ? 'button' : nothing}"
-      tabindex="${this.iconHasAction ? '0' : nothing}"
-      aria-label="${this.iconHasAction ? this.icon : nothing}"
-      part="icon"
-      icon="${this.icon}"
-      ?readonly="${this.readonly}"
-      ?disabled="${this.disabled}"
-      @tap="${this.iconClick}">
-    </ui-sub-icon>` : nothing;
+    return this.icon ? html`<ui-sub-icon aria-hidden="true" part="icon" icon="${this.icon}"></ui-sub-icon>` : nothing;
   }
 
   protected get decorateInputMap (): TemplateMap {

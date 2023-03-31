@@ -57,8 +57,8 @@ export class Button extends ControlElement {
         content: '';
         position: absolute;
         display: block;
-        z-index: 1;
         inset: -5px;
+        pointer-events: none;
         border: var(--action-focused-ring);
       }
       :host(:hover:focus-visible:not(:active)) {
@@ -103,6 +103,9 @@ export class Button extends ControlElement {
         margin-left: var(--code-only-action-item-spacing-default);
         font-size: var(--code-only-action-line-height-default);
         min-width: 1em;
+      }
+      :host(:empty) [part=icon] {
+        margin: 0;
       }
     `;
   }

@@ -405,11 +405,19 @@
     "field": {
       "width": {
         "$type": "dimension",
-        "$value": "300px"
+        "$value": "200px"
       },
       "height": {
         "$type": "dimension",
         "$value": "30px"
+      },
+      "padding-horizontal" : {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "padding-vertical" : {
+        "$type": "dimension",
+        "$value": "4px"
       }
     },
     "control": {
@@ -536,6 +544,9 @@
       },
       "hover-on-invert": {
         "$value": "{color.persian-blue}"
+      },
+      "selected-focused": {
+        "$value": "#324AFF"
       }
     },
     "border": {
@@ -593,6 +604,9 @@
         "$value": "{color.blue-ribbon}"
       },
       "hover-on-invert": {
+        "$value": "{color.white}"
+      },
+      "selected-onInvert": {
         "$value": "{color.white}"
       }
     },
