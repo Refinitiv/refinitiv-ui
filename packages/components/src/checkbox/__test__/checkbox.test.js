@@ -5,7 +5,7 @@ import '@refinitiv-ui/components/checkbox';
 const createEnterKeyboardEvent = () => new KeyboardEvent('keydown', { key: 'Enter' });
 const createSpacebarKeyboardEvent = () => new KeyboardEvent('keydown', { key: ' ' });
 
-describe('Checkbox', () => {
+describe('ui-checkbox', () => {
   let el;
   const LABEL = 'Checkbox label';
 
@@ -18,7 +18,7 @@ describe('Checkbox', () => {
   const checked = `<ui-checkbox checked>${LABEL}</ui-checkbox>`;
 
 
-  describe('Basic Structure', () => {
+  describe('DOM Structure', () => {
     it('default DOM with no label is correct', async () => {
       el = await fixture(noLabel);
       await expect(el).to.equalSnapshot();
@@ -143,6 +143,14 @@ describe('Checkbox', () => {
     });
     it('should accessible with aria-label', async () => {
       const el = await fixture(`<ui-checkbox aria-label="Checkbox without label"></ui-checkbox>`);
+      await expect(el).to.be.accessible();
+    });
+    it('should accessible with disabled state', async () => {
+      const el = await fixture(`<ui-checkbox disabled>Disabled unchecked</ui-checkbox>`);
+      await expect(el).to.be.accessible();
+    });
+    it('should accessible with readonly state', async () => {
+      const el = await fixture(`<ui-checkbox readonly>Readonly unchecked</ui-checkbox>`);
       await expect(el).to.be.accessible();
     });
     it('should aria-checked reflect with checked state', async () => {

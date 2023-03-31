@@ -10,7 +10,7 @@ describe('ui-sub-password-field', () => {
     });
     it('Show password DOM is correct', async () => {
       const el = await fixture('<ui-sub-password-field></ui-sub-password-field>');
-      const eyeIconEl = el.shadowRoot.querySelector('[part~=icon]');
+      const eyeIconEl = el.shadowRoot.querySelector('[part~=password-icon]');
       eyeIconEl.click();
 
       await elementUpdated(el);
