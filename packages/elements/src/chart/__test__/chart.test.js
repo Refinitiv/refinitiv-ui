@@ -1,13 +1,22 @@
 import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
+import { color as parseColor } from '@refinitiv-ui/utils/color.js';
 
 // import element and theme
 import '@refinitiv-ui/elements/chart';
 import '@refinitiv-ui/elemental-theme/light/ef-chart.js';
 
-import * as config from './mock-config.js';
+import createMock from './mock-config.js';
+
+const isOpacity = (color) => {
+  if (Array.isArray(color)) {
+    return color.every(i => parseColor(i).opacity < 1)
+  }
+  return parseColor(color).opacity < 1;
+}
 
 describe('chart/Chart', () => {
   let el;
+  let config;
 
   const chartRendered = async (el) => {
     await elementUpdated(el);
@@ -18,6 +27,7 @@ describe('chart/Chart', () => {
 
     beforeEach(async () => {
       el = await fixture('<ef-chart></ef-chart>');
+      config = createMock();
     });
 
     it('DOM structure is correct', async () => {
@@ -146,17 +156,18 @@ describe('chart/Chart', () => {
 
     beforeEach(async () => {
       el = await fixture('<ef-chart style="width:500px;height:450px;"></ef-chart>');
+      config = createMock();
     });
 
     it('Should show correct title', async () => {
       el.config = config.line;
       await chartRendered(el);
       header = el.shadowRoot.querySelector('ef-header');
-      expect(el.chartTitle).to.equal(config.line.options.title.text);
-      expect(header.textContent).to.equal(config.line.options.title.text);
+      expect(el.chartTitle).to.equal(config.line.options.plugins.title.text);
+      expect(header.textContent).to.equal(config.line.options.plugins.title.text);
 
       let newTitle = 'New Title';
-      el.config.options.title.text = newTitle;
+      el.config.options.plugins.title.text = newTitle;
       expect(el.chartTitle).to.equal(newTitle);
       el.updateChart();
       await chartRendered(el);
@@ -169,7 +180,7 @@ describe('chart/Chart', () => {
       header = el.shadowRoot.querySelector('ef-header');
 
       let newTitle = '';
-      el.config.options.title.text = newTitle;
+      el.config.options.plugins.title.text = newTitle;
       expect(el.chartTitle).to.equal(newTitle);
       el.updateChart();
       await chartRendered(el);
@@ -179,7 +190,7 @@ describe('chart/Chart', () => {
 
     it('Should show correct chart when pass a new config', async () => {
       // check if the chart has been resized correctly after update the config
-      // update config shouldn't need to call updateChart()
+      // update the config property shouldn't need to call updateChart()
       let canvas;
       let height;
       let width;
@@ -188,17 +199,15 @@ describe('chart/Chart', () => {
       await chartRendered(el);
 
       canvas = el.shadowRoot.querySelector('canvas');
-      height = canvas.height;
-      width = canvas.width;
+      height = canvas.offsetHeight;
+      width = canvas.offsetWidth;
       el.config = config.radar;
       await chartRendered(el);
 
       canvas = el.shadowRoot.querySelector('canvas');
-      height = canvas.height;
-      width = canvas.width;
       expect(el.config.type).to.equal('radar');
-      expect(canvas.height).to.equal(height);
-      expect(canvas.width).to.equal(width);
+      expect(canvas.offsetHeight).to.equal(height);
+      expect(canvas.offsetWidth).to.equal(width);
     });
 
     it('Should not use solid fill for backgroundColor by default for line, bubble, radar, and polarArea', async () => {
@@ -215,23 +224,19 @@ describe('chart/Chart', () => {
         pointBackgroundColor = el.config.data.datasets[0].pointBackgroundColor;
         expect(pointBorderColor).to.equal(pointBackgroundColor);
         expect(pointBorderColor).to.not.equal(backgroundColor);
+        expect(isOpacity(backgroundColor)).to.equal(true)
       }
     });
 
     it('Should not solid fill for backgroundColor by default for pie, bar, doughnut', async () => {
       let arr = [config.pie, config.bar, config.doughnut];
       let backgroundColor;
-      let pointBackgroundColor;
-      let pointBorderColor;
 
       for (let i = 0; i < arr.length; i++) {
         el.config = arr[i];
         await chartRendered(el);
         backgroundColor = el.config.data.datasets[0].backgroundColor;
-        pointBorderColor = el.config.data.datasets[0].pointBorderColor;
-        pointBackgroundColor = el.config.data.datasets[0].pointBackgroundColor;
-        expect(pointBorderColor).to.equal(pointBackgroundColor);
-        expect(pointBorderColor).to.equal(backgroundColor);
+        expect(isOpacity(backgroundColor)).to.equal(false)
       }
     });
 
@@ -277,8 +282,6 @@ describe('chart/Chart', () => {
       let dataSize = config.doughnut.data.datasets[0].data.length;
       let check = el.chart.data.datasets[0].backgroundColor.length === dataSize;
       check = check && el.chart.data.datasets[0].borderColor.length === dataSize;
-      check = check && el.chart.data.datasets[0].pointBackgroundColor.length === dataSize;
-      check = check && el.chart.data.datasets[0].pointBorderColor.length === dataSize;
       expect(check).to.equal(true, 'Number of colors and number of data should always be the same');
 
       // add another data
@@ -291,8 +294,6 @@ describe('chart/Chart', () => {
       check = false;
       check = el.chart.data.datasets[0].backgroundColor.length === dataSize;
       check = check && el.chart.data.datasets[0].borderColor.length === dataSize;
-      check = check && el.chart.data.datasets[0].pointBackgroundColor.length === dataSize;
-      check = check && el.chart.data.datasets[0].pointBorderColor.length === dataSize;
       expect(check).to.equal(true, 'Number of colors and number of data should always be the same');
     });
 
@@ -338,7 +339,7 @@ describe('chart/Chart', () => {
           labelstrokeStyle = borderColor;
         }
 
-        labels = el.config.options.legend.labels.generateLabels(el.chart);
+        labels = el.config.options.plugins.legend.labels.generateLabels(el.chart);
         expect(labelFillStyle).to.equal(labels[0].fillStyle);
         expect(labelstrokeStyle).to.equal(labels[0].strokeStyle);
       }
@@ -350,6 +351,7 @@ describe('chart/Chart', () => {
 
     beforeEach(async () => {
       el = await fixture('<ef-chart></ef-chart>');
+      config = createMock();
     });
 
     it('Should support center label plugin', async () => {
