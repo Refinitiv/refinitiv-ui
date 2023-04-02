@@ -454,7 +454,7 @@ export class Select extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private restrictPopupWidth (): void {
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (this.offsetWidth === 0) {
       // this code might happen only when opened has been set during initialisation
       // or when display is set to none
@@ -467,6 +467,7 @@ export class Select extends ControlElement implements MultiValue {
 
       return;
     }
+    /* c8 ignore stop */
 
     const maxWidth = this.getComputedVariable('--list-max-width', 'none');
     let minWidth = this.offsetWidth;
@@ -633,12 +634,9 @@ export class Select extends ControlElement implements MultiValue {
    */
   private onKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
-      case 'Up':
       case 'ArrowUp':
-      case 'Down':
       case 'ArrowDown':
       case 'Enter':
-      case 'Spacebar':
       case ' ':
         this.setOpened(true);
         break;
@@ -657,15 +655,12 @@ export class Select extends ControlElement implements MultiValue {
   private onPopupKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
       case ' ':
-      case 'Spacebar':
       case 'Enter':
         this.highlightedItem?.click();
         break;
-      case 'Up':
       case 'ArrowUp':
         this.focusElement(Navigation.PREVIOUS);
         break;
-      case 'Down':
       case 'ArrowDown':
         this.focusElement(Navigation.NEXT);
         break;
@@ -816,10 +811,11 @@ export class Select extends ControlElement implements MultiValue {
   private getSelectableElements (): Item[] {
     const root = this.hasDataItems() ? this.menuRef.value : this;
 
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (!root) {
       return [];
     }
+    /* c8 ignore stop */
 
     const items: Item[] = [];
     const rootChildren = root.children;

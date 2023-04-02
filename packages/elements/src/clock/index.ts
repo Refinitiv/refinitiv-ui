@@ -522,19 +522,15 @@ export class Clock extends ResponsiveElement {
     }
 
     switch (event.key) {
-      case 'Up': // IE
       case 'ArrowUp':
         this.handleUpKey();
         break;
-      case 'Down': // IE
       case 'ArrowDown':
         this.handleDownKey();
         break;
-      case 'Left': // IE
       case 'ArrowLeft':
         this.activeSegment = Segment.HOURS;
         break;
-      case 'Right': // IE
       case 'ArrowRight':
         this.activeSegment = Segment.MINUTES;
         break;

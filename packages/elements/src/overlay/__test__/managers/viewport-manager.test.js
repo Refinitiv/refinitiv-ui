@@ -1,6 +1,9 @@
 import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
 
+import '@refinitiv-ui/elements/overlay';
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
+
 import { openedUpdated } from './../mocks/helper';
 
 import { clear, deregister, register, size, ViewportManager } from '../../../../lib/overlay/managers/viewport-manager.js';
@@ -70,7 +73,7 @@ describe('overlay/manager/ViewportManager', () => {
       });
     });
 
-    xdescribe('Test clear', () => {
+    describe('Test clear', () => {
       it('Test clear', async () => {
         const element2 = await createFixture();
 

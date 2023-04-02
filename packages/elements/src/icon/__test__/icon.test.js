@@ -1,4 +1,4 @@
-import { elementUpdated, expect } from '@refinitiv-ui/test-helpers';
+import { aTimeout, elementUpdated, expect } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/icon';
 import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
@@ -175,7 +175,7 @@ describe('icon/Icon', () => {
       expect(el.src).to.equal(null, 'The src property should be null when icon removed');
     });
 
-    it('should make a correct server request based on cdn prefix and the icon if icon is specified', async () => {      
+    it('should make a correct server request based on cdn prefix and the icon if icon is specified', async () => {
       createFakeResponse(tickSvg, responseConfigSuccess);
       const uniqueIconName = generateUniqueName(iconName); // to avoid caching
       const el = await createAndWaitForLoad(`<ef-icon icon="${uniqueIconName}"></ef-icon>`);
@@ -213,7 +213,7 @@ describe('icon/Icon', () => {
       const secondUniqueIconSrc = createMockSrc(secondUniqueIcon);
       const uniqueInvalidIconSrc = `${CDNPrefix}${uniqueInvalidIcon}.svg`;
 
-      createFakeResponse(tickSvg, responseConfigSuccess);      
+      createFakeResponse(tickSvg, responseConfigSuccess);
       let preloadedIcons = await Promise.all(
         preload(firstUniqueIcon, secondUniqueIconSrc)
       );

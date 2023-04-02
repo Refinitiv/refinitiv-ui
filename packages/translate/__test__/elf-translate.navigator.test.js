@@ -12,13 +12,13 @@ describe('Elf Translate Navigator Test', () => {
     expect(el.defaultEl.innerText).to.equal('Региональные настройки: ru', 'Navigator locale is not taken into account');
 
     document.documentElement.lang = 'en-US';
-    await nextFrame(el);
+    await nextFrame();
 
     expect(el.defaultEl.innerText).to.equal('This is en-US locale', 'Document locale should take priority over navigator');
 
     el.lang = 'en-GB';
     await elementUpdated(el);
-    await nextFrame(el);
+    await nextFrame();
     expect(el.defaultEl.innerText).to.equal('This is en locale', 'Element locale should take priority over document locale');
   });
 });

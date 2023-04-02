@@ -17,12 +17,12 @@ describe('label/Label', () => {
     it('Should default to use the truncate template', async function () {
       el = await fixture(`<ef-label style="width: 50px">${LONG_LABEL}</ef-label>`);
       await nextFrame();
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('Should switch to line clamp template if line-clamp is set', async function () {
       el = await fixture(`<ef-label style="width: 50px" line-clamp="1">${LONG_LABEL}</ef-label>`);
       await nextFrame();
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 

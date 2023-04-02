@@ -6,8 +6,9 @@ let iconId = 0;
 
 export const createAndWaitForLoad = async template => {
   const el = await fixture(template);
-  await aTimeout(50);
   await nextFrame();
+  await nextFrame();
+  await aTimeout(50);
   return el;
 };
 

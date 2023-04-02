@@ -500,13 +500,11 @@ export class Pagination extends BasicElement {
         this.inputElement && this.setPage(this.inputElement.value);
         event.preventDefault();
         break;
-      case 'Up':
       case 'ArrowUp':
         this.inputElement && this.hasNextPage(Number(this.inputElement.value || 1)) && this.updateInputValue(1, Direction.increment);
         this.inputElement?.select();
         event.preventDefault();
         break;
-      case 'Down':
       case 'ArrowDown':
         this.inputElement && this.hasPreviousPage(Number(this.inputElement.value || 1)) && this.updateInputValue(1, Direction.decrement);
         this.inputElement?.select();

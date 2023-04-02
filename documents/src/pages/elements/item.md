@@ -302,12 +302,10 @@ const select = (item) => {
 
 menu.addEventListener('keydown', (event) => {
   switch (event.key) {
-    case 'Down':
     case 'ArrowDown':
     case 'Tab':
       highlightNextFocusableItem(event, 1);
       break;
-    case 'Up':
     case 'ArrowUp':
       highlightNextFocusableItem(event, -1);
       break;

@@ -8,15 +8,15 @@ describe('toggle/Toggle', () => {
   describe('DOM Structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-toggle></ef-toggle>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('Label DOM structure is correct', async () => {
       const el = await fixture('<ef-toggle label="ON" checked-label="OFF"></ef-toggle>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('Checked Label DOM structure is correct', async () => {
       const el = await fixture('<ef-toggle checked label="ON" checked-label="OFF"></ef-toggle>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
@@ -28,41 +28,41 @@ describe('toggle/Toggle', () => {
 
     it('Should failed without any visible text', async () => {
       el = await fixture('<ef-toggle></ef-toggle>');
-      expect(el).not.to.be.accessible();
+      await expect(el).not.to.be.accessible();
     });
     it('Should be accessible when custom label is provided', async () => {
       el.label = 'Disable';
       el.checkedLabel = 'Enable';
 
       await elementUpdated(el);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
     });
     it('Should be accessible when aria-label is provided', async () => {
       el = await fixture('<ef-toggle aria-label="Bluetooth"></ef-toggle>');
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
     });
     it('Should pass a11y test when in unchecked state', async () => {
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
       expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
     });
     it('Should pass a11y test when in checked state', async () => {
       el.checked = true;
 
       await elementUpdated(el);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
       expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
     });
     it('Should pass a11y test when disabled', async () => {
       el.disabled = true;
 
       await elementUpdated(el);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
     });
     it('Should pass a11y test when readonly', async () => {
       el.readonly = true;
 
       await elementUpdated(el);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
     });
   })
 
@@ -85,8 +85,7 @@ describe('toggle/Toggle', () => {
     });
     it('Checked', async () => {
       const el = await fixture('<ef-toggle></ef-toggle>');
-      const checked = true;
-      el.checked = checked;
+      el.checked = true;
       await elementUpdated(el);
 
       expect(el.getAttribute('checked')).to.equal('');
@@ -250,7 +249,7 @@ describe('toggle/Toggle', () => {
   describe('Enter keypress', () => {
     let enterEvent;
     beforeEach(() => {
-      enterEvent = createKeyboardEvent(13);
+      enterEvent = createKeyboardEvent('Enter');
     });
 
     describe('Checked value & event', () => {
@@ -289,7 +288,7 @@ describe('toggle/Toggle', () => {
   describe('Spacebar keypress', () => {
     let spacebarEvent;
     beforeEach(() => {
-      spacebarEvent = createKeyboardEvent(32);
+      spacebarEvent = createKeyboardEvent(' ');
     });
 
     describe('Checked value & event', () => {
@@ -328,7 +327,7 @@ describe('toggle/Toggle', () => {
 
 const createKeyboardEvent = (key) => {
   return new KeyboardEvent('keydown', {
-    keyCode: key,
+    key,
     which: key
   });
 };

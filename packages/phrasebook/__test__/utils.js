@@ -1,6 +1,6 @@
 import {
   Phrasebook
-} from '../lib';
+} from '../lib/index.js';
 
 /**
  * Phrasebook is a singleton. Just clear private maps for testing purposes
