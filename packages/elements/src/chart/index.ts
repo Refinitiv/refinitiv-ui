@@ -205,6 +205,11 @@ export class Chart extends BasicElement {
    * @returns {ChartOptions} chart config with theme
    */
   protected get themableChartOption (): ChartOptions {
+    let boxHeight = Number(getComputedStyle(this).getPropertyValue('font-size').replace('px', ''));
+    if (this.config?.options?.plugins?.legend?.labels?.usePointStyle) {
+      boxHeight = this.cssVarAsNumber('--legend-key-box-width', '10') as number;
+    }
+
     return {
       animation: {
         duration: this.cssVarAsNumber('--animation-duration', '0')
@@ -233,6 +238,7 @@ export class Chart extends BasicElement {
           position: ['pie', 'doughnut'].includes(this.config?.type || '') ? 'right' : 'top',
           labels: {
             boxWidth: this.cssVarAsNumber('--legend-key-box-width', '10'),
+            boxHeight,
             generateLabels: this.generateLegendLabels
           }
         }
@@ -365,7 +371,7 @@ export class Chart extends BasicElement {
             dataset.borderColor = colors.solid;
           }
           if (!dataset.backgroundColor) {
-            dataset.backgroundColor = colors.opaque;
+            dataset.backgroundColor = colors.solid;
           }
           break;
       }
@@ -414,8 +420,8 @@ export class Chart extends BasicElement {
       switch (datasets[i].type || chartType) {
         case 'line':
         case 'radar':
-        case 'scatter':
         case 'bubble':
+        case 'polarArea':
           legend.fillStyle = (datasets[i] as LineControllerDatasetOptions).borderColor as Color;
           break;
         // For other chart types
