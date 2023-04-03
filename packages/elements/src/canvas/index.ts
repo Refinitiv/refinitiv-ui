@@ -96,10 +96,11 @@ export class Canvas extends ResponsiveElement {
    * @type {CanvasRenderingContext2D | null}
    */
   public get ctx (): CanvasRenderingContext2D | null {
-    /* istanbul ignore if  */
+    /* c8 ignore start */
     if (!this.canvas) {
       return null;
     }
+    /* c8 ignore stop */
     return this.canvas.getContext('2d');
   }
 

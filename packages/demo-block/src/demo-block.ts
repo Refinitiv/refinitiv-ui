@@ -30,11 +30,12 @@ const getPrevTheme = (): string => {
   return Themes[(Themes.indexOf(getCurrentTheme()) + Themes.length - 1) % Themes.length];
 };
 
-/* istanbul ignore next */
+/* c8 ignore start */
 const changeTheme = (theme: string): void => {
   sessionStorage.setItem('elf-demo-theme', theme);
   location.reload();
 };
+/* c8 ignore stop */
 
 const removePrefixName = (name: string): string => {
   return name.replace('elf-theme-', '');
@@ -46,15 +47,15 @@ themeLoader.src = `/node_modules/@refinitiv-ui/${currentTheme}/es5/all-elements.
 document.head.appendChild(themeLoader);
 console.info('Theme:', currentTheme);
 
-/* istanbul ignore next */
+/* c8 ignore start */
 themeLoader.onload = (): void => {
   const body = document.body;
   const bgColor = getComputedStyle(body).getPropertyValue('background-color');
   const bgStyle = document.createElement('style');
   bgStyle.textContent = `body { background-color: transparent !important; --demo-block-background: ${bgColor}; visibility: visible; }`;
   document.head.appendChild(bgStyle);
-
 };
+/* c8 ignore stop */
 
 // Next Theme
 const nextBtn = document.createElement('span');

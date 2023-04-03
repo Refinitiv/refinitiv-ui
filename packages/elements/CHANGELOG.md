@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.7.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.7.1...@refinitiv-ui/elements@6.7.2) (2023-03-23)
+
+
+### Bug Fixes
+
+* **card:** Card can not expand nested overlay-menu in touch devices ([#623](https://github.com/Refinitiv/refinitiv-ui/issues/623)) ([09a95c6](https://github.com/Refinitiv/refinitiv-ui/commit/09a95c665b1622b7112da12cf8fb138d0738a5b5))
+* **tooltip:** fix missing tooltip in consecutive buttons ([#601](https://github.com/Refinitiv/refinitiv-ui/issues/601)) ([be77306](https://github.com/Refinitiv/refinitiv-ui/commit/be773067b542cafdcdbec92ba660d8464cc7f422))
+
+
+
+
+
+## [6.7.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.7.0...@refinitiv-ui/elements@6.7.1) (2023-03-14)
+
+
+### Bug Fixes
+
+* **tooltip:** custom renderer demo block ([#621](https://github.com/Refinitiv/refinitiv-ui/issues/621)) ([3156ccd](https://github.com/Refinitiv/refinitiv-ui/commit/3156ccdad5d369955c63830b50e1dcd25265744c))
+
+
+
+
+
+# [6.7.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.6.2...@refinitiv-ui/elements@6.7.0) (2023-02-27)
+
+
+### Features
+
+* **heatmap:** increase heatmap font-size threshold & scaling factor and decrease cell padding ([#589](https://github.com/Refinitiv/refinitiv-ui/issues/589)) ([31f5b57](https://github.com/Refinitiv/refinitiv-ui/commit/31f5b57df0ec2b1f1d25c9c27e0be35f8c7f3812))
+
+
+
+
+
 ## [6.6.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.6.1...@refinitiv-ui/elements@6.6.2) (2023-02-14)
 
 ### Bug Fixes

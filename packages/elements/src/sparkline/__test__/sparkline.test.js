@@ -49,7 +49,7 @@ describe('sparkline/Sparkline', () => {
     });
 
     it('DOM structure is correct', async () => {
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Should have the correct part', () => {
@@ -76,8 +76,7 @@ describe('sparkline/Sparkline', () => {
 
       el.data = data;
       await elementUpdated(el);
-      await nextFrame();
-      await nextFrame();
+      await nextFrame(2); // wait for rendering completion
       expect(countDataChanged).to.equal(1);
       expect(countDataError).to.equal(0);
       expect(isCanvasBlank(canvas)).to.be.false;

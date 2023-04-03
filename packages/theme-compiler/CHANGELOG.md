@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@6.2.0...@refinitiv-ui/theme-compiler@6.3.0) (2023-03-14)
+
+
+### Bug Fixes
+
+* remove invalid params function call ([#591](https://github.com/Refinitiv/refinitiv-ui/issues/591)) ([4a1d374](https://github.com/Refinitiv/refinitiv-ui/commit/4a1d37484911ee2576f9789f3233557efe592a37))
+
+
+### Features
+
+* **theme-compiler:** support Browserslist config ([#618](https://github.com/Refinitiv/refinitiv-ui/issues/618)) ([f3c4c77](https://github.com/Refinitiv/refinitiv-ui/commit/f3c4c777b136c06b4025a64e674f8de977910b54))
+
+
+
+
+
 # [6.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@6.1.1...@refinitiv-ui/theme-compiler@6.2.0) (2023-01-06)
 
 

@@ -6,22 +6,22 @@ import '@refinitiv-ui/elemental-theme/light/ef-pill';
 describe('pill/Pill', () => {
   it('Should have correct default Shadow DOM structure', async () => {
     const el = await fixture(html`<ef-pill>Tiger</ef-pill>`);
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Should have correct "clears" Shadow DOM structure', async () => {
     const el = await fixture(html`<ef-pill clears>Tiger</ef-pill>`);
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Should have correct default Light DOM structure for a slot', async () => {
     const el = await fixture(html`<ef-pill>Tiger</ef-pill>`);
-    expect(el).lightDom.to.equalSnapshot();
+    await expect(el).lightDom.to.equalSnapshot();
   });
 
   it('Should have correct "clears" Light DOM structure for a slot', async () => {
     const el = await fixture(html`<ef-pill clears>Tiger</ef-pill>`);
-    expect(el).lightDom.to.equalSnapshot();
+    await expect(el).lightDom.to.equalSnapshot();
   });
 
   it('Should contains the correct structure', async () => {

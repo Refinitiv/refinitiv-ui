@@ -10,7 +10,7 @@ describe('dialog/Dialog', () => {
   it('Should renders DOM structure correctly', async () => {
     const el = await fixture('<ef-dialog></ef-dialog>');
 
-    expect(el).shadowDom.to.equalSnapshot({
+    await expect(el).shadowDom.to.equalSnapshot({
       ignoreAttributes: ['class', 'tabindex']
     });
   });
@@ -71,11 +71,11 @@ describe('dialog/Dialog', () => {
       expect(el.opened).to.equal(false);
     });
 
-    it('Should fire cancel event on press esc key', async () => {
+    it('Should fire cancel event on press Escape key', async () => {
       const el = await fixture('<ef-dialog></ef-dialog>');
       el.opened = true;
       await elementUpdated(el);
-      const keyUpEvent = new KeyboardEvent('keydown', { key: 'Esc' });
+      const keyUpEvent = new KeyboardEvent('keydown', { key: 'Escape' });
       setTimeout(() => el.dispatchEvent(keyUpEvent));
       await oneEvent(el, 'cancel');
       expect(el.opened).to.equal(false);

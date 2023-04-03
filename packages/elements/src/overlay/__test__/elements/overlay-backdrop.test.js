@@ -1,5 +1,7 @@
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
+import '@refinitiv-ui/elements/overlay';
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 import '../../../../lib/overlay/elements/overlay-backdrop.js';
 
 describe('overlay/elements/OverlayBackdrop', () => {
@@ -7,7 +9,7 @@ describe('overlay/elements/OverlayBackdrop', () => {
     describe('shadowDOM Correctness', () => {
       it('DOM structure is correct', async () => {
         const el = await fixture('<ef-overlay-backdrop></ef-overlay-backdrop>');
-        expect(el).shadowDom.to.equalSnapshot();
+        await expect(el).shadowDom.to.equalSnapshot();
       });
     });
 

@@ -1,6 +1,7 @@
 {
   "name": "@refinitiv-ui/phrasebook",
   "version": "7.0.0-next.0",
+  "type": "module",
   "description": "Collection of messages in EF components for translation",
   "author": "LSEG",
   "license": "Apache-2.0",
@@ -118,14 +119,14 @@
     "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "npm run build && mocha __test__/**/*.js --require esm",
+    "test": "npm run build && mocha __test__/**/*.test.js --require esm",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version"
+    "version": "node ../../scripts/version/index.mjs"
   },
   "devDependencies": {
-    "chai": "^4.3.4",
+    "chai": "^4.3.7",
     "esm": "^3.2.25",
-    "mocha": "^8.4.0"
+    "mocha": "^10.2.0"
   },
   "publishConfig": {
     "access": "public"

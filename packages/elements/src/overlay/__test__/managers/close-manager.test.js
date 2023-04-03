@@ -6,6 +6,7 @@ import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
 import { clear, CloseManager, deregister, register, size } from '../../../../lib/overlay/managers/close-manager.js';
 import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
 import { Overlay } from '@refinitiv-ui/elements/overlay';
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 
 const createFixture = async (zIndex) => {
   return (typeof zIndex === 'undefined') ? fixture('<ef-overlay opened >test</ef-overlay>') :
@@ -230,7 +231,7 @@ describe('overlay/manager/CloseManager', () => {
 
         it('Test document keydown', async () => {
           setTimeout(() => {
-            fireKeydownEvent(document, 'Esc');
+            fireKeydownEvent(document, 'Escape');
           });
 
           await oneEvent(element2, 'opened-changed');

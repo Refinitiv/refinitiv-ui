@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, nextFrame, isNear } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/overlay';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
@@ -18,71 +18,72 @@ const getPosition = (el) => {
 
   return {
     top: top === 0,
-    bottom: bottom - screenHeight < 1, /* this is to cover fractional pixels */
+    bottom: isNear(bottom, screenHeight, 1, false), /* this is to cover fractional pixels */
     left: left === 0,
-    right: right - screenWidth < 1,
-    centreH: left - screenWidth / 2 - width / 2 < 1,
-    centreV: top - screenHeight / 2 - height / 2 < 1
+    right: isNear(right, screenWidth, 1, false),
+    centreH: isNear(left, (screenWidth - width) / 2, 1, false),
+    centreV: isNear(top, (screenHeight - height) / 2, 1, false)
   };
 };
 
 const centerCenter = async el => {
-  await nextFrame();
+  await nextFrame(2); // Chrome 110, Firefox 110, Safari 16.3 require 2 frames to complete rendering
   const position = getPosition(el);
   expect(position.centreV, 'Overlay is not at center vertically').to.equal(true);
   expect(position.centreH, 'Overlay is not at center horizontally').to.equal(true);
 };
 
 const topLeft = async el => {
-  await nextFrame();
+  await nextFrame(2); // Chrome 110, Firefox 110, Safari 16.3 require 2 frames to complete rendering
   const position = getPosition(el);
   expect(position.top, 'Overlay is not at top').to.equal(true);
   expect(position.left, 'Overlay is not at left').to.equal(true);
 };
 
 const topCenter = async el => {
+  await nextFrame(2); // Chrome 110, Firefox 110, Safari 16.3 require 2 frames to complete rendering
   const position = getPosition(el);
   expect(position.top, 'Overlay is not at top').to.equal(true);
   expect(position.centreH, 'Overlay is not at center horizontally').to.equal(true);
 };
 
 const topRight = async el => {
-  await nextFrame();
+  await nextFrame(2); // Chrome 110, Firefox 110, Safari 16.3 require 2 frames to complete rendering
   const position = getPosition(el);
   expect(position.top, 'Overlay is not at top').to.equal(true);
   expect(position.right, 'Overlay is not at right').to.equal(true);
 };
 
 const leftCenter = async el => {
-  await nextFrame();
+  await nextFrame(2); // Chrome 110, Firefox 110, Safari 16.3 require 2 frames to complete rendering
   const position = getPosition(el);
   expect(position.centreV, 'Overlay is not at center vertically').to.equal(true);
   expect(position.left, 'Overlay is not at left').to.equal(true);
 };
 
 const rightCenter = async el => {
-  await nextFrame();
+  await nextFrame(2); // Chrome 110, Firefox 110, Safari 16.3 require 2 frames to complete rendering
   const position = getPosition(el);
   expect(position.centreV, 'Overlay is not at center vertically').to.equal(true);
   expect(position.right, 'Overlay is not at right').to.equal(true);
 };
 
 const bottomLeft = async el => {
-  await nextFrame();
+  await nextFrame(2); // Chrome 110, Firefox 110, Safari 16.3 require 2 frames to complete rendering
   const position = getPosition(el);
   expect(position.bottom, 'Overlay is not at bottom').to.equal(true);
   expect(position.left, 'Overlay is not at left').to.equal(true);
 };
 
 const bottomCenter = async el => {
-  await nextFrame();
+  await nextFrame(2); // Chrome 110, Firefox 110, Safari 16.3 require 2 frames to complete rendering
   const position = getPosition(el);
   expect(position.bottom, 'Overlay is not at bottom').to.equal(true);
   expect(position.centreH, 'Overlay is not at center horizontally').to.equal(true);
 };
 
 const bottomRight = async el => {
-  await nextFrame();
+  await nextFrame(2); // Chrome 110, Firefox 110, Safari 16.3 require 2 frames to complete rendering
   const position = getPosition(el);
   expect(position.bottom, 'Overlay is not at bottom').to.equal(true);
   expect(position.right, 'Overlay is not at right').to.equal(true);

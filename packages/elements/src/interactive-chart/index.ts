@@ -707,13 +707,14 @@ export class InteractiveChart extends ResponsiveElement {
    * @param param MouseEventParams
    * @returns {void} return undefined has out of boundary chart
    */
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private handleCrosshairMoved = (param: MouseEventParams): void => {
     if (!param) {
       return;
     }
     this.createRowLegend(this.rowLegend, param);
   };
+  /* c8 ignore stop */
 
   /**
    * Callback uses for sizeChange event
@@ -792,7 +793,7 @@ export class InteractiveChart extends ResponsiveElement {
       /* Update value legend element on subscribeCrosshairMove.
        * Don't need to be updated if chart has no data.
        */
-      /* istanbul ignore next */
+      /* c8 ignore start */
       else if (rowLegend && dataSet.length) {
         let value;
         let priceColor = '';
@@ -823,6 +824,7 @@ export class InteractiveChart extends ResponsiveElement {
         // Render legend by series type
         this.renderTextLegend(chartType, rowLegend, value as (number | string), priceColor, idx);
       }
+      /* c8 ignore stop */
     }
   }
 
