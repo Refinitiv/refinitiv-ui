@@ -56,6 +56,22 @@
             "$value": "{copy.md-loud.line-height}"
           }
         }
+      },
+      "checkbox": {
+        "width": {
+          "$type": "dimension",
+          "$value": "18px"
+        },
+        "height": {
+          "$type": "dimension",
+          "$value": "18px"
+        },
+        "padding-vertical": {
+          "$value": "{space.010}"
+        },
+        "padding-horizontal": {
+          "$value": "12px"
+        }
       }
     },
     "typography": {
@@ -78,16 +94,6 @@
             "$value": "{copy.md-loud.all}"
           }
         }
-      }
-    },
-    "checkbox": {
-      "width": {
-        "$type": "dimension",
-        "$value": "26px"
-      },
-      "height": {
-        "$type": "dimension",
-        "$value": "26px"
       }
     },
     "option": {
