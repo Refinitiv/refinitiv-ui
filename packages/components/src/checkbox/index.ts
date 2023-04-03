@@ -27,11 +27,21 @@ export class Checkbox extends ControlElement {
       :host {
         cursor: pointer;
         display: inline-flex;
+        position: relative;
         align-items: center;
         justify-content: center;
         outline: none;
         font: var(--code-only-typography-control-label-default);
         color: var(--control-content-default);
+      }
+      :host::before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        padding: var(--code-only-dimension-checkbox-padding-vertical) var(--code-only-dimension-checkbox-padding-horizontal);
+        padding-left: 0;
+        left: 0;
       }
       :host(:hover),
       :host(:focus-visible) {
