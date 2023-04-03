@@ -21,6 +21,7 @@ export class Select extends ControlElement {
       :host {
         display: flex;
         flex-direction: column;
+        width: var(--code-only-dimension-control-width);
       }
     `;
   }
