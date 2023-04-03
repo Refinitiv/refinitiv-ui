@@ -107,6 +107,13 @@
       }
     }
   },
+  "link": {
+    "md-emphasis": {
+      "all": {
+        "$value": "{copy.md-emphasis.all}"
+      }
+    }
+  },
   "copy": {
     "md": {
       "font-family": {
@@ -524,13 +531,16 @@
         "$value": "{color.white}"
       },
       "emphasis": {
-        "$value": "{color.white}"
+        "$value": "{color.blue-ribbon}"
       }
     },
     "content": {
       "$type": "color",
       "primary": {
         "$value": "{color.lights-out}"
+      },
+      "primary-onInvert": {
+        "$value": "{color.white}"
       }
     }
   },
@@ -779,6 +789,20 @@
           "style": "solid"
         }
       }
+    }
+  },
+  "footer": {
+    "height": {
+      "$value": "38px"
+    },
+    "padding-between" : {
+      "$value": "12px"
+    },
+    "padding-vertical" : {
+      "$value": "8px"
+    },
+    "padding-horizontal" : {
+      "$value": "40px"
     }
   }
 }

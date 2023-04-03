@@ -9,13 +9,16 @@
         "$value": "{color.lights-out}"
       },
       "emphasis": {
-        "$value": "{color.lights-out}"
+        "$value": "{color.white}"
       }
     },
     "content": {
       "$type": "color",
       "primary": {
         "$value": "{color.silver}"
+      },
+      "primary-onInvert": {
+        "$value": "{color.torea-bay}"
       }
     }
   },
@@ -42,7 +45,7 @@
       }
     },
     "border": {
-      "$type": "border", 
+      "$type": "border",
       "default": {
         "$value": {
           "color": "{color.grey}",
