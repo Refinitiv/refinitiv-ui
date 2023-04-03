@@ -443,16 +443,20 @@
             "$value": "{copy.md-loud.line-height}"
           }
         }
-      }
-    },
-    "checkbox": {
-      "width": {
-        "$type": "dimension",
-        "$value": "22px"
       },
-      "height": {
-        "$type": "dimension",
-        "$value": "22px"
+      "checkbox": {
+        "width": {
+          "$value": "22px"
+        },
+        "height": {
+          "$value": "22px"
+        },
+        "padding-vertical": {
+          "$value": "{space.010}"
+        },
+        "padding-horizontal": {
+          "$value": "{space.020}"
+        }
       }
     },
     "option": {
