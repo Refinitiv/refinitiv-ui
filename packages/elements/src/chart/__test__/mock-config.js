@@ -857,10 +857,7 @@ const uc1 = () => {
             display: true,
             text: 'Trades'
           }
-        },
-        // xAxes: [{
-        //   id: 'x-axis-1',
-        // }]
+        }
       }
     },
     annotation: {
@@ -927,11 +924,6 @@ const uc2 = () => {
       },
       maintainAspectRatio: false,
       plugins: {
-        tooltips: {
-          callbacks: {
-
-          }
-        },
         legend: {
           labels: {
             usePointStyle: true
@@ -1192,7 +1184,7 @@ const centerLabelPlugins = () => {
   }
 };
 
-const createMock = () => {
+const createMockConfig = () => {
   return {
     line: line(),
     multilines: multilines(),
@@ -1214,4 +1206,4 @@ const createMock = () => {
   }
 };
 
-export default createMock;
+export default createMockConfig;

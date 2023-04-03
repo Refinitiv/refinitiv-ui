@@ -5,7 +5,7 @@ import { color as parseColor } from '@refinitiv-ui/utils/color.js';
 import '@refinitiv-ui/elements/chart';
 import '@refinitiv-ui/elemental-theme/light/ef-chart.js';
 
-import createMock from './mock-config.js';
+import createMockConfig from './mock-config.js';
 
 const isOpacity = (color) => {
   if (Array.isArray(color)) {
@@ -27,12 +27,12 @@ describe('chart/Chart', () => {
 
     beforeEach(async () => {
       el = await fixture('<ef-chart></ef-chart>');
-      config = createMock();
+      config = createMockConfig();
     });
 
     it('DOM structure is correct', async () => {
       await chartRendered(el);
-      await expect(el).shadowDom.to.equalSnapshot({
+      expect(el).shadowDom.to.equalSnapshot({
         ignoreAttributes: ['width', 'height', 'style']
       });
     });
@@ -40,7 +40,7 @@ describe('chart/Chart', () => {
     it('DOM structure of chart with config is correct', async () => {
       el.config = config.line;
       await chartRendered(el);
-      await expect(el).shadowDom.to.equalSnapshot({
+      expect(el).shadowDom.to.equalSnapshot({
         ignoreAttributes: ['width', 'height', 'style']
       });
     });
@@ -156,7 +156,7 @@ describe('chart/Chart', () => {
 
     beforeEach(async () => {
       el = await fixture('<ef-chart style="width:500px;height:450px;"></ef-chart>');
-      config = createMock();
+      config = createMockConfig();
     });
 
     it('Should show correct title', async () => {
@@ -351,7 +351,7 @@ describe('chart/Chart', () => {
 
     beforeEach(async () => {
       el = await fixture('<ef-chart></ef-chart>');
-      config = createMock();
+      config = createMockConfig();
     });
 
     it('Should support center label plugin', async () => {
