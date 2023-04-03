@@ -26,10 +26,6 @@ export class SubFooter extends BasicElement {
       :host {
         display: flex;
         flex-flow: column nowrap;
-        background-color: var(--ds-container-background-color);
-        padding: var(--ds-container-padding);
-        border: var(--ds-container-border);
-        border-radius: var(--ds-container-border-radius);
       }
     `;
   }

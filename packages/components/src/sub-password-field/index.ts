@@ -4,6 +4,7 @@ import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
 
+import '../button/index.js';
 import '../sub-icon/index.js';
 import { preload } from '../sub-icon/index.js';
 import { SubTextField } from '../sub-text-field/index.js';
@@ -14,8 +15,6 @@ let isEyeOffPreloadRequested = false;
 
 @customElement('ui-sub-password-field', { theme: false })
 export class SubPasswordField extends SubTextField {
-  static shadowRootOptions = { ...SubTextField.shadowRootOptions, delegatesFocus: true };
-
   /**
    * A `CSSResultGroup` that will be used to style the host,
    * slotted children and the internal template of the element.
@@ -27,15 +26,15 @@ export class SubPasswordField extends SubTextField {
       css`
         :host [part=password-icon] {
           cursor: pointer;
-
-          min-width: 1em;
+          outline: none;
+          position: relative;
           box-sizing: border-box;
 
-          font-size: var(--code-only-action-line-height-default);
-
-          margin-left: var(--space-010);
-          border: var(--action-border-secondary-default);
-          background-color: var(--action-bg-secondary-default);
+          padding: 0;
+          min-width: 1em;
+          height: var(--code-only-dimension-action-line-height-default);
+          font-size: var(--code-only-dimension-action-line-height-default);
+          margin-left: var(--code-only-dimension-control-padding-horizontal);
         }
       `
     ];
@@ -88,21 +87,26 @@ export class SubPasswordField extends SubTextField {
   }
 
   /**
+   * Removes focus ring at the host element
+   * @return void
+   */
+  protected onPasswordToggerFocus (): void {
+    this.classList.remove('focus-ring');
+  }
+
+  /**
    * Renders icon element
    * @returns {void}
    */
   protected renderPasswordTogglerIcon (): TemplateResult {
     return html`
-     <ui-sub-icon
+     <ui-button
         part="password-icon"
-        role="button"
-        tabindex="0"
         aria-label="${this.isPasswordVisible ? this.t('HIDE_PASSWORD') : this.t('SHOW_PASSWORD')}"
-        icon=${this.isPasswordVisible ? 'eye-off' : 'eye'}
-        ?readonly="${this.readonly}"
-        ?disabled="${this.disabled}"
+        icon-end=${this.isPasswordVisible ? 'eye-off' : 'eye'}
         @tap="${this.togglePasswordVisibility}"
-      ></ui-sub-icon>
+        @focus="${this.onPasswordToggerFocus}"
+      ></ui-button>
     `;
   }
 
@@ -113,7 +117,6 @@ export class SubPasswordField extends SubTextField {
    */
   protected render (): TemplateResult {
     return html`
-      ${this.renderIcon()}
       ${super.render()}
       ${this.renderPasswordTogglerIcon()}
     `;

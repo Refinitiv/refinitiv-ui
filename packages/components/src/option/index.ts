@@ -33,25 +33,44 @@ export class Option extends ControlElement {
       :host {
         display: flex;
         align-items: center;
-        cursor: pointer;
         box-sizing: border-box;
         outline: none;
-        padding: var(--ds-space-xxx-small) var(--ds-space-x-small);
-        min-height: var(--ds-control-height);
-        color: var(--ds-control-color);
-        background-color: var(--ds-control-background-color);
-        border: var(--ds-control-border-width) var(--ds-control-border-style) transparent;
-        border-radius: var(--ds-control-border-radius);
+        position: relative;
+        cursor: pointer;
+        width: var(--code-only-dimension-control-width);
+        height: var(--code-only-dimension-control-height);
+        color: var(--control-content-default);
+        border-bottom: var(--control-border-default);
+        background-color: var(--control-bg-default);
+        padding: var(--code-only-dimension-control-padding-vertical) var(--code-only-dimension-control-padding-horizontal);
       }
-      :host(:focus),
-      :host(:hover),
-      :host([selected]) {
-        color: var(--ds-control-color);
-        border-color: var(--ds-control-focus-border-color);
-        background-color: var(--ds-control-focus-background-color);
+      :host(:hover) {
+        color: var(--control-content-hover-on-invert);
+        background-color: var(--control-bg-hover-on-invert);
       }
-      :host([selected]) {
-        color: var(--ds-control-focus-color);
+      :host([selected])::before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        inset: 0;
+        border-left: var(--code-only-option-border-selected);
+      }
+      :host([selected]:hover)::before {
+        border-color: var(--control-bg-hover-on-invert);
+      }
+      :host(:focus-visible) {
+        color: var(--control-content-focused);
+        border: var(--control-border-focused);
+        background-color: var(--control-bg-focused);
+      }
+      :host(:focus-visible)::before, :host(:hover:focus-visible)::before {
+        content: '';
+        pointer-events: none;
+        position: absolute;
+        display: block;
+        z-index: 1;
+        inset: -5px;
+        border: var(--control-focused-ring);
       }
     `;
   }

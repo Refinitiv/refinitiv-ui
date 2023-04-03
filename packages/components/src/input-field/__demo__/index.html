@@ -17,25 +17,12 @@
 
   <h1>Input Field</h1>
 
-  <ui-input-field type="text" label="Default"></ui-input-field>
-
-  <ui-input-field type="text" value="John" label="Value"></ui-input-field>
-
-  <ui-input-field type="text" icon="home" label="Icon"></ui-input-field>
-
-  <ui-input-field id="icon-has-action" type="text" icon="home" label="Icon-has-action" icon-has-action></ui-input-field>
-  <code id="is-clicked"></code>
-  <script>
-    const isClicked = document.getElementById('is-clicked');
-    const iconActionField = document.getElementById('icon-has-action');
-    iconActionField.addEventListener('icon-click', (event) => {
-      isClicked.innerHTML = 'clicked!';
-    });
-  </script>
-
-
-  <ui-input-field type="password" label="Password"></ui-input-field>
-
+  <ui-input-field type="text" icon="profile" value="John" label="Icon"></ui-input-field>
+  <br>
+  <br>
+  <ui-input-field type="password" icon="lock" label="Password"></ui-input-field>
+  <br>
+  <br>
   <ui-input-field id="value-event" type="text" label="Event: value-changed"></ui-input-field>
   <code id="value"></code>
   <script>
@@ -43,17 +30,6 @@
     const field = document.getElementById('value-event');
     field.addEventListener('value-changed', (event) => {
       value.innerHTML = event.detail.value
-    });
-  </script>
-
-  <ui-input-field id="error-event" type="text" minlength="5" label="Event: error-changed"></ui-input-field>
-  <code id="error"></code>
-  <script>
-    const error = document.getElementById('error');
-    const errorField = document.getElementById('error-event');
-    errorField.addEventListener('error-changed', (event) => {
-      error.innerHTML = event.detail.value;
-      errorField.errorMessage = event.detail.value ? 'Text must be at least 5 characters' : ''
     });
   </script>
 </body>

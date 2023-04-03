@@ -33,10 +33,10 @@ export class Button extends ControlElement {
         vertical-align: bottom;
         box-sizing: border-box;
         text-transform: uppercase;
-        padding: var(--code-only-action-padding-vertical-default) var(--code-only-action-padding-horizontal-default);
+        padding: var(--code-only-dimension-action-padding-vertical-default) var(--code-only-dimension-action-padding-horizontal-default);
         color: var(--action-content-secondary-default);
         border: var(--action-border-secondary-default);
-        font: var(--code-only-action-content-default);
+        font: var(--code-only-typography-action-content-default);
         background-color: var(--action-bg-secondary-default);
       }
       :host(:hover) {
@@ -57,8 +57,8 @@ export class Button extends ControlElement {
         content: '';
         position: absolute;
         display: block;
-        z-index: 1;
         inset: -5px;
+        pointer-events: none;
         border: var(--action-focused-ring);
       }
       :host(:hover:focus-visible:not(:active)) {
@@ -100,9 +100,12 @@ export class Button extends ControlElement {
         background-color: var(--action-bg-secondary-pressed);
       }
       :host [part=icon] {
-        margin-left: var(--code-only-action-item-spacing-default);
-        font-size: var(--code-only-action-line-height-default);
+        margin-left: var(--code-only-dimension-action-item-spacing-default);
+        font-size: var(--code-only-dimension-action-line-height-default);
         min-width: 1em;
+      }
+      :host(:empty) [part=icon] {
+        margin: 0;
       }
     `;
   }

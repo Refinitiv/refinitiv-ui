@@ -1,6 +1,5 @@
 import { BasicElement, html, css, TemplateResult, CSSResultGroup } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
 
 @customElement('ui-sub-label', { theme: false })
@@ -23,30 +22,11 @@ export class SubLabel extends BasicElement {
     return css`
       :host {
         display: inline-block;
-        color: var(--ds-text-body-color);
-        font-size: var(--ds-text-body-size);
-      }
-      :host([error]),
-      :host([error][warning]) {
-        color: var(--ds-control-error-color);
-      }
-      :host([warning]) {
-        color: var(--ds-control-warning-color);
+        color: var(--control-content-primary);
+        font: var(--code-only-typography-control-label-default);
       }
     `;
   }
-
-  /**
-   * Set state to error
-   */
-  @property({ type: Boolean, reflect: true })
-  public error = false;
-
-  /**
-   * Set state to warning
-   */
-  @property({ type: Boolean, reflect: true })
-  public warning = false;
 
   /**
    * A `TemplateResult` that will be used

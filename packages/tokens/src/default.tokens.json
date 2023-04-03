@@ -380,6 +380,71 @@
     }
   },
   "code-only": {
+    "typography": {
+      "control": {
+        "label": {
+          "default": {
+            "$value": "{copy.sm-emphasis.all}"
+          }
+        },
+        "content": {
+          "default": {
+            "$value": "{copy.sm.all}"
+          }
+        }
+      },
+      "action": {
+        "content": {
+          "default": {
+            "$value": "{copy.md-loud.all}"
+          }
+        }
+      }
+    },
+    "dimension": {
+      "$type": "dimension",
+      "control": {
+        "line-height": {
+          "default": {
+            "$value": "{copy.sm-emphasis.line-height}"
+          }
+        },
+        "height": {
+          "$value": "30px"
+        },
+        "width": {
+          "$value": "200px"
+        },
+        "padding-horizontal": {
+          "$value": "4px"
+        },
+        "padding-vertical": {
+          "$value": "4px"
+        }
+      },
+      "action": {
+        "padding-horizontal": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "padding-vertical": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "item-spacing": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "line-height": {
+          "default": {
+            "$value": "{copy.md-loud.line-height}"
+          }
+        }
+      }
+    },
     "checkbox": {
       "width": {
         "$type": "dimension",
@@ -390,57 +455,15 @@
         "$value": "22px"
       }
     },
-    "field": {
-      "width": {
-        "$type": "dimension",
-        "$value": "300px"
-      },
-      "height": {
-        "$type": "dimension",
-        "$value": "30px"
-      }
-    },
-    "control": {
-      "label": {
-        "default": {
-          "$value": "{copy.sm-emphasis.all}"
-        }
-      },
-      "content": {
-        "default": {
-          "$value": "{copy.sm.all}"
-        }
-      },
-      "line-height": {
-        "default": {
-          "$value": "{copy.sm-emphasis.line-height}"
-        }
-      }
-    },
-    "action": {
-      "content": {
-        "default": {
-          "$value": "{copy.md-loud.all}"
-        }
-      },
-      "padding-horizontal": {
-        "default": {
-          "$value": "{space.020}"
-        }
-      },
-      "padding-vertical": {
-        "default": {
-          "$value": "{space.020}"
-        }
-      },
-      "item-spacing": {
-        "default": {
-          "$value": "{space.020}"
-        }
-      },
-      "line-height": {
-        "default": {
-          "$value": "{copy.md-loud.line-height}"
+    "option": {
+      "border": {
+        "selected": {
+          "$type": "border",
+          "$value": {
+            "color": "{color.blue-ribbon}",
+            "width": "{width.010}",
+            "style": "solid"
+          }
         }
       }
     }
@@ -521,6 +544,12 @@
       },
       "selected": {
         "$value": "{color.white}"
+      },
+      "hover-on-invert": {
+        "$value": "{color.persian-blue}"
+      },
+      "selected-focused": {
+        "$value": "#324AFF"
       }
     },
     "border": {
@@ -576,6 +605,12 @@
       },
       "selected": {
         "$value": "{color.blue-ribbon}"
+      },
+      "hover-on-invert": {
+        "$value": "{color.white}"
+      },
+      "selected-onInvert": {
+        "$value": "{color.white}"
       }
     },
     "focused": {

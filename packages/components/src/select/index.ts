@@ -21,10 +21,6 @@ export class Select extends ControlElement {
       :host {
         display: flex;
         flex-direction: column;
-        margin: var(--ds-space-x-small) 0;
-      }
-      :host [part=label] {
-        margin: var(--ds-space-x-small) 0;
       }
     `;
   }
