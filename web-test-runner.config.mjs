@@ -19,31 +19,15 @@ export default {
   ],
   concurrentBrowsers: 3,
   browsers: [
-    playwrightLauncher({
-      product: 'chromium',
-      launchOptions: {
-        // Use file path from step 2
-        executablePath: 'C:\\Users\\UC255417\\chrome.exe'
-      }
-    }, {
+    playwrightLauncher({ product: 'chromium' }, {
       headless: true,
       args: [
         '--disable-setuid-sandbox',
         '--disable-extensions'
       ]
     }),
-    playwrightLauncher({
-      product: 'firefox',
-      launchOptions: {
-        executablePath: 'C:\\Users\\UC255417\\Downloads\\test\\firefox-1372\\firefox\\firefox.exe'
-      }
-    }, { headless: true }),
-    playwrightLauncher({
-      product: 'webkit',
-      launchOptions: {
-        executablePath: 'C:\\Users\\UC255417\\Downloads\\test\\webkit-1767\\Playwright.exe'
-      }
-    }, { headless: true }),
+    playwrightLauncher({ product: 'firefox' }, { headless: true }),
+    playwrightLauncher({ product: 'webkit' }, { headless: true }),
   ],
   // in a monorepo you need to set set the root dir to resolve modules
   rootDir: ROOT,
