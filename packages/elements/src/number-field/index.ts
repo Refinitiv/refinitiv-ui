@@ -346,8 +346,7 @@ export class NumberField extends FormFieldElement {
    */
   /* c8 ignore start */
   protected onBeforeInputChange (event: InputEvent): void {
-    // The event is not supported in IE11 and old browsers
-    // Therefore just try to prevent some of invalid characters to be entered
+    // Try to prevent some of invalid characters to be entered
     // but still do full validation on actual `input` and `change` events
     const inputType = event.inputType;
 
