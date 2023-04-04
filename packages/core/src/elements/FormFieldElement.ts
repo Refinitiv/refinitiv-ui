@@ -91,7 +91,7 @@ export abstract class FormFieldElement extends ControlElement {
    * Used to get `aria-label` field for internal <input>
    * Calculated from `aria-label`, `aria-labelledby` and `label[for="<element.id>"]`
    */
-  @state()
+  @property()
   protected inputAriaLabel: string | null = null;
 
   /**
@@ -199,7 +199,7 @@ export abstract class FormFieldElement extends ControlElement {
    * @returns {void}
    */
   protected setInheritedAria (): void {
-    this.inputAriaLabel = inputLabel(this);
+    // this.inputAriaLabel = inputLabel(this);
     this.inputAriaDescription = inputDescription(this);
     // no need for required or error here, as it is sufficient to recalculate these on attributeChanged
   }

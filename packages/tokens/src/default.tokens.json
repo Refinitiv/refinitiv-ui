@@ -528,7 +528,7 @@
         "$value": "{color.white}"
       },
       "secondary": {
-        "$value": "{color.white}"
+        "$value": "{color.silver}"
       },
       "emphasis": {
         "$value": "{color.blue-ribbon}"

@@ -19,7 +19,7 @@ export class Select extends ControlElement {
   static get styles (): CSSResultGroup {
     return css`
       :host {
-        display: flex;
+        display: inline-flex;
         flex-direction: column;
         width: var(--code-only-dimension-control-width);
       }
@@ -38,24 +38,6 @@ export class Select extends ControlElement {
   @property({ type: Boolean, reflect: true })
   public opened = false;
 
-  /**
-   * Value of the element
-   * @param value Element value
-   * @default -
-   */
-  @property({ type: String, attribute: false })
-  public set value (value: string) {
-    const oldValue = this.value;
-    // TODO
-    if (oldValue !== value && this.subSelectElement) {
-      this.subSelectElement.value = value;
-    }
-    this.requestUpdate('value', oldValue);
-  }
-  public get value (): string {
-    return this.subSelectElement ? this.subSelectElement.value : '';
-  }
-
   private handleValueChanged (event: ValueChangedEvent): void {
     this.setValueAndNotify(event.detail.value);
   }
@@ -71,7 +53,7 @@ export class Select extends ControlElement {
    * @return Render template
    */
   protected get renderLabel (): TemplateResult | typeof nothing {
-    return this.label ? html`<ui-sub-label id="label" part="label">${this.label}</ui-sub-label>` : nothing;
+    return this.label ? html`<ui-sub-label id="label" part="label" aria-hidden="true">${this.label}</ui-sub-label>` : nothing;
   }
 
   /**
