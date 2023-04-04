@@ -59,7 +59,7 @@
       },
       "focused": {
         "$value": {
-          "color": "{color.silver}",
+          "color": "{color.lights-out}",
           "width": "1px",
           "style": "solid"
         }
