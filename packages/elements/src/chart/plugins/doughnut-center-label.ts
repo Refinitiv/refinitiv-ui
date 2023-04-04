@@ -2,7 +2,6 @@ import {
   Chart as ChartJS,
   Plugin,
   ChartEvent,
-  PluginOptionsByType,
   ChartType,
   DoughnutController,
   ActiveElement,
@@ -35,6 +34,7 @@ interface CenterLabelConfig {
 }
 
 declare module 'chart.js' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface PluginOptionsByType<TType extends ChartType> {
     'centerLabel'?: CenterLabelConfig
   }

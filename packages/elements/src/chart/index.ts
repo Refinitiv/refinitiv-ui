@@ -49,6 +49,7 @@ const CSS_COLOR_PREFIX = '--chart-color-';
  * https://www.chartjs.org/docs/latest/developers/plugins.html#typescript-typings
  */
 declare module 'chart.js' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface PluginOptionsByType<TType extends ChartType> {
     'ef-chart'?: {
       enable: boolean
@@ -205,9 +206,10 @@ export class Chart extends BasicElement {
    * @returns {ChartOptions} chart config with theme
    */
   protected get themableChartOption (): ChartOptions {
+    const boxWidth = this.cssVarAsNumber('--legend-key-box-width', '10') as number;
     let boxHeight = Number(getComputedStyle(this).getPropertyValue('font-size').replace('px', ''));
     if (this.config?.options?.plugins?.legend?.labels?.usePointStyle) {
-      boxHeight = this.cssVarAsNumber('--legend-key-box-width', '10') as number;
+      boxHeight = boxWidth;
     }
 
     return {
@@ -237,7 +239,7 @@ export class Chart extends BasicElement {
         legend: {
           position: ['pie', 'doughnut'].includes(this.config?.type || '') ? 'right' : 'top',
           labels: {
-            boxWidth: this.cssVarAsNumber('--legend-key-box-width', '10'),
+            boxWidth,
             boxHeight,
             generateLabels: this.generateLegendLabels
           }
