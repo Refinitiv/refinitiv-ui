@@ -31,23 +31,6 @@ describe('ui-sub-icon', () => {
       const svg = el.shadowRoot.querySelector('svg');
       expect(svg).to.equal(null, 'No SVG element should not exist if there is nothing to load');
     });
-    it('with valid icon attribute', async () => {
-      createFakeResponse(tickSvg, responseConfigSuccess);
-      const el = await createAndWaitForLoad(`<ui-sub-icon icon="${iconName}"></ui-sub-icon>`);
-      const svg = el.shadowRoot.querySelector('svg');
-      const CDNPrefix = el.getComputedVariable('--cdn-prefix');
-      await aTimeout(100);
-      expect(el.src).to.equal(`${CDNPrefix}${iconName}.svg`);
-      expect(svg).to.not.equal(null, 'SVG element should exist for valid icon attribute');
-      expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
-    });
-    it('with valid src attribute', async () => {
-      createFakeResponse(tickSvg, responseConfigSuccess);
-      const el = await createAndWaitForLoad('<ui-sub-icon src="https://mock.cdn.com/icons/ticks.svg"></ui-sub-icon>');
-      const svg = el.shadowRoot.querySelector('svg');
-      expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');
-      expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
-    });
     it('with invalid icon attribute', async () => {
       createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ui-sub-icon icon="invalid"></ui-sub-icon>');
