@@ -1,4 +1,3 @@
-import { AfterRenderTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { TapEvent } from '@refinitiv-ui/core';
 import type { Item } from '../../item';
 import { OverlayMenu } from '../index.js';
@@ -10,7 +9,6 @@ import { getOverlays } from '../../overlay/managers/zindex-manager.js';
  * that only a single menu tree can be opened
  */
 abstract class OpenedMenusManager {
-  private static focusThrottler = new AfterRenderTaskRunner();
   private static registry: Set<OverlayMenu> = new Set();
   private static crossMenu: Map<OverlayMenu, NestedMenu> = new Map();
   private static overlayStack: OverlayMenu[] = [];
@@ -102,9 +100,7 @@ abstract class OpenedMenusManager {
    */
   private static closeMenuFor (parent: OverlayMenu): boolean {
     if (this._closeMenuFor(parent)) {
-      this.focusThrottler.schedule(() => { /* must be throttled for IE11 */
-        parent.opened && parent.focus();
-      });
+      parent.opened && parent.focus();
       return true;
     }
 
