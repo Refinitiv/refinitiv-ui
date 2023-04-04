@@ -1,4 +1,4 @@
-import '@refinitiv-ui/components/template-login';
+import '@refinitiv-ui/components/pattern-sign-in';
 import '@refinitiv-ui/components/select';
 import { Select } from '@refinitiv-ui/components/select';
 

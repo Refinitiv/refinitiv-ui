@@ -45,7 +45,7 @@
     "./sub-password-field": "./lib/sub-password-field/index.js",
     "./sub-overlay": "./lib/sub-overlay/index.js",
     "./sub-footer": "./lib/sub-footer/index.js",
-    "./template-login": "./lib/template-login/index.js"
+    "./pattern-sign-in": "./lib/pattern-sign-in/index.js"
   },
   "scripts": {
     "build": "node cli build --sourceMap --declarationMap",
