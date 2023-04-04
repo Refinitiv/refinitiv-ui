@@ -29,7 +29,8 @@ const basePath = path.join(PACKAGES_ROOT, testAll ? '*' : packageName);
 const watch = argv.watch;
 const snapshots = argv.updateSnapshots;
 const optionBrowser = argv.browsers;
-const browserstack = argv.browserstack && !watch;
+let browserstack = argv.browserstack;
+const useBrowserStack = argv.browserstack && !watch;
 const testCoverage = argv.includeCoverage;
 let testTarget = packageName;
 
@@ -64,10 +65,17 @@ if (argv.output === 'full') {
 }
 
 // Test on BrowserStack`
-if (browserstack) {
+if (useBrowserStack) {
+
+  // Set default browsers if not specify any browsers
+  browserstack = browserstack.length ? browserstack : BrowserStack.defaultBrowsers;
+
   const sharedCapabilities = {
     'browserstack.user': env.BROWSERSTACK_USERNAME,
     'browserstack.key': env.BROWSERSTACK_ACCESS_KEY,
+    'browserstack.idleTimeout': 1800,
+    // 'browserstack.networkLogs': true,
+    // 'browserstack.browserstack.consoleLogs': 'errors',
     project: env.BROWSERSTACK_PROJECT_NAME || 'Refinitiv UI',
     name: testTarget,
     build: `build ${env.BROWSERSTACK_BUILD || 'unknown'}`
@@ -75,7 +83,7 @@ if (browserstack) {
 
   // Add BrowserStack launchers to config
   const launchers = [];
-  argv.browserstack.forEach((option) => {
+  browserstack.forEach((option) => {
     switch (option) {
       case 'default':
         BrowserStack.defaultBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
@@ -92,8 +100,13 @@ if (browserstack) {
   // Create BrowserStack launchers
   const browsers = [];
   launchers.forEach(launcher => {
-    browsers.push(browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher } }));
-  })
+    // Create browserName to show as a label in the progress bar reporter
+    let browserName = `${ launcher.browser ?? launcher.browserName ?? launcher.device ?? 'unknown' }${
+      launcher.browser_version ? ` ${launcher.browser_version}` : '' }` + ` (${launcher.os} ${launcher.os_version})`;
+      browserName = browserName.charAt(0).toUpperCase() + browserName.slice(1);
+
+    browsers.push(browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher, browserName }}));
+  });
 
   config.browsers = browsers; // Set all browsers to use BrowserStack
 }
@@ -128,18 +141,12 @@ if (snapshots) {
   process.argv.push('--update-snapshots');
 }
 
-// Handle runner stopping with correct exit code
-let runner = undefined;
-const stopRunner = () => {
-  if (runner) {
-    runner.stop();
-    process.exit(0);
-  } else {
-    process.exit(1);
+process.on('uncaughtException', (error) => {
+  console.error(`uncaughtException: ${error}`);
+  if (error?.stack !== undefined) {
+    console.error(error.stack);
   }
-};
-process.on('SIGINT', stopRunner);
-process.on('exit', stopRunner);
+});
 
 // Run testing
-runner = await startTestRunner({ config });
+await startTestRunner({ config });

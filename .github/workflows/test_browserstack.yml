@@ -171,7 +171,4 @@ jobs:
           browsers: ${{ env.BROWSERS }}
           target: ${{ env.TARGET }}
           mode: 'all'
-          browserstack: 'true'
-          username: ${{ env.BROWSERSTACK_USERNAME }}
-          access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
           parallel: 3

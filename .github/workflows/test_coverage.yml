@@ -3,7 +3,6 @@ on:
   push:
     branches: [v6]
 env:
-  USE_BROWSERSTACK: ${{ secrets.USE_BROWSERSTACK }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Test Coverage ${{ github.run_number }}"
@@ -41,23 +40,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Need this step for support feature toggle testing on BrowserStack on/off
-      - name: Setup browser versions to testing
-        run: |
-          [[ "${{ env.USE_BROWSERSTACK }}" == "true" ]] && export BROWSERS="chrome" || export BROWSERS="default"
-          [[ "${{ env.USE_BROWSERSTACK }}" == "true" ]] && export PARALLEL=3 || export PARALLEL=1
-          echo "BROWSERS=\"$BROWSERS\"" >> $GITHUB_ENV
-          echo "PARALLEL=\"$PARALLEL\"" >> $GITHUB_ENV
-
       - name: Test
         uses: ./.github/actions/run-test
         with:
-          browsers: ${{ env.BROWSERS }}
+          browsers: 'chrome' # Use coverage data from Chrome only
           mode: 'all'
-          parallel: ${{ env.PARALLEL }}
-          browserstack: ${{ env.USE_BROWSERSTACK }}
-          username: ${{ env.BROWSERSTACK_USERNAME }}
-          access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
+          parallel: 3
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master

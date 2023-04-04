@@ -24,74 +24,40 @@ inputs:
     required: false
     # Default value 3 is OK for every browsers except Safari need to be one to make it stable
     default: 1
-  base:
-    description: 'Base SHA for test affected mode'
-    required: false
-  browserstack:
-    description: 'Run test on BrowserStack'
-    required: false
-    default: 'false'
-  username:
-    description: 'BrowserStack username'
-    required: false
-  access-key:
-    description: 'BrowserStack access key'
-    required: false
 runs:
   using: "composite"
   steps:
-    - name: 'BrowserStack Environment Setup' # Invokes the setup-env action
-      if: ${{ inputs.browserstack == 'true' }}
-      uses: browserstack/github-actions/setup-env@master
-      with:
-        username: ${{ inputs.username }}
-        access-key: ${{ inputs.access-key }}
-
-    - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
-      if: ${{ inputs.browserstack == 'true' }}
-      uses: browserstack/github-actions/setup-local@master
-      with:
-        local-testing: start
-        local-identifier: random
-
     - name: Setup resources and environment
       uses: ./.github/actions/setup
       id: setup
 
-    - name: Install playwright browsers
-      shell: bash
-      run: npx playwright install --with-deps
+    - name: 'BrowserStack Env Setup'
+      uses: 'browserstack/github-actions/setup-env@master'
+      with:
+        username: ${{ env.BROWSERSTACK_USERNAME }}
+        access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
 
-    - name: Setup browsers or browserstack command line option
-      shell:
-      run: |
-        [[ "${{ inputs.browserstack }}" == "true" ]] && export BROWSER=browserstack || export BROWSER=browsers
-        echo "BROWSERS_OPTION=--$BROWSER='${{ inputs.browsers }}'" >> $GITHUB_ENV
-
-    # Workaround fix NX cannot send param to Karma CLI in some packages
-    - name: Update browsers option
-      shell:
-      run: |
-        [[ "${{ inputs.browserstack }}" == "false" && "${{ inputs.browsers }}" == "default" ]] && echo "BROWSERS_OPTION=" >> $GITHUB_ENV
-        echo "Updated"
+    - name: 'BrowserStackLocal Setup'
+      uses: 'browserstack/github-actions/setup-local@master'
+      with:
+        local-testing: start
+        local-identifier: random
 
     - name: Test
       if: ${{ inputs.target == '' || inputs.target == 'all' }}
       shell: bash
       # Prevent NX caching for mode `all` because it must run all testing, even though the code has not changed.
       run: |
-        [[ "${{ inputs.mode }}" == "affected" ]] && export OPTIONS="--base=${{ inputs.base }}"
-        [[ "${{ inputs.mode }}" == "all" ]] && export OPTIONS="--skip-nx-cache"
-        npm run test:${{ inputs.mode }} -- $OPTIONS --parallel=${{ inputs.parallel }} ${{ env.BROWSERS_OPTION }} --includeCoverage=${{ inputs.coverage }} --output=minimal
+        [[ "${{ inputs.mode }}" == "all" ]] && export NX_SKIP_NX_CACHE=true && unset NX_BASE
+        npm run test:${{ inputs.mode }} -- --browserstack=${{ inputs.browsers }} --includeCoverage=${{ inputs.coverage }} --output=minimal --parallel=${{ inputs.parallel }}
 
     - name: Test Package or Element
-      if: ${{ inputs.target != '' }}
+      if: ${{ inputs.target != '' && inputs.target != 'all' }}
       shell: bash
       run: |
-        npm run test ${{ inputs.target }} -- ${{ env.BROWSERS_OPTION }} --includeCoverage=${{ inputs.coverage }}
+        npm run test ${{ inputs.target }} -- --browserstack ${{ inputs.browsers }} --includeCoverage=${{ inputs.coverage }}
 
-    - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
-      if: ${{ inputs.browserstack == 'true' }}
-      uses: browserstack/github-actions/setup-local@master
+    - name: 'BrowserStackLocal Stop'
+      uses: 'browserstack/github-actions/setup-local@master'
       with:
         local-testing: stop
