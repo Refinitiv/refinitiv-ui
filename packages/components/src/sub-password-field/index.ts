@@ -32,9 +32,9 @@ export class SubPasswordField extends SubTextField {
 
           padding: 0;
           min-width: 1em;
-          height: var(--code-only-action-line-height-default);
-          font-size: var(--code-only-action-line-height-default);
-          margin-left: var(--code-only-field-padding-horizontal);
+          height: var(--code-only-dimension-action-line-height-default);
+          font-size: var(--code-only-dimension-action-line-height-default);
+          margin-left: var(--code-only-dimension-control-padding-horizontal);
         }
       `
     ];

@@ -21,6 +21,7 @@ export class InputField extends ControlElement {
       :host {
         display: inline-flex;
         flex-direction: column;
+        width: var(--code-only-dimension-control-width);
       }
       :host [part=label] {
         margin: var(--space-010) 0;

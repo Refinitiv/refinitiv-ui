@@ -83,13 +83,13 @@ export class SubSelect extends ControlElement {
         display: inline-flex;
         box-sizing: border-box;
         vertical-align: middle;
-        font: var(--code-only-control-content-default);
-        width: var(--code-only-field-width);
-        height: var(--code-only-field-height);
+        font: var(--code-only-typography-control-content-default);
+        width: inherit;
+        height: var(--code-only-dimension-control-height);
         color: var(--control-content-default);
         border: var(--control-border-default);
         background-color: var(--control-bg-default);
-        padding: var(--code-only-field-padding-vertical) var(--code-only-field-padding-horizontal);
+        padding: var(--code-only-dimension-control-padding-vertical) var(--code-only-dimension-control-padding-horizontal);
       }
       :host([opened]) [part=icon] {
         transform: rotate(180deg);
@@ -130,7 +130,7 @@ export class SubSelect extends ControlElement {
         min-width: 1em;
         box-sizing: border-box;
         color: var(--control-content-decorative);
-        font-size: var(--code-only-action-line-height-default);
+        font-size: var(--code-only-dimension-action-line-height-default);
       }
       :host [part=list] {
         overflow-y: auto;
@@ -143,7 +143,7 @@ export class SubSelect extends ControlElement {
         display: none;
       }
       :host [part=list] ::slotted(:last-child) {
-        border: none; 
+        border: none;
       }
       #box {
         align-items: center;
@@ -605,9 +605,9 @@ export class SubSelect extends ControlElement {
         element.childNodes.forEach((childNode) => addSelectableElements(childNode as HTMLElement | Text));
       }
     };
-  
+
     this.childNodes.forEach((childNode) => addSelectableElements(childNode as HTMLElement | Text));
-  
+
     return selectableElements;
   }
 

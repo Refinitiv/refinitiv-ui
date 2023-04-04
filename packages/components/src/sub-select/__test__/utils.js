@@ -47,7 +47,7 @@ export const getOptions = (selected = [], disabled = [], readonly = []) => {
     const isDisabled = disabled.indexOf(idx) !== -1 ? 'disabled' : '';
     const isReadonly = readonly.indexOf(idx) !== -1 ? 'readonly' : '';
     const attributes = [type, value, isSelected, isDisabled, isReadonly].join(' ');
-    return `<ui-sub-item ${attributes}>${item.label || ''}</ui-sub-item>`;
+    return `<ui-option ${attributes}>${item.label || ''}</ui-option>`;
   });
   return options.join('');
 };

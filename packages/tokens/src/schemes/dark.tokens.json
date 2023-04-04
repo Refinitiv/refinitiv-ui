@@ -9,13 +9,16 @@
         "$value": "{color.lights-out}"
       },
       "emphasis": {
-        "$value": "{color.lights-out}"
+        "$value": "{color.white}"
       }
     },
     "content": {
       "$type": "color",
       "primary": {
         "$value": "{color.silver}"
+      },
+      "primary-onInvert": {
+        "$value": "{color.torea-bay}"
       }
     }
   },
@@ -23,30 +26,36 @@
     "bg": {
       "$type": "color",
       "default": {
-        "$value": "{color.black}"
+        "$value": "{color.lights-out}"
       },
       "hover": {
-        "$value": "{color.black}"
+        "$value": "{color.lights-out}"
       },
       "focused": {
-        "$value": "{color.black}"
+        "$value": "{color.lights-out}"
       },
       "selected": {
-        "$value": "{color.black}"
+        "$value": "{color.lights-out}"
+      },
+      "hover-on-invert": {
+        "$value": "{color.lights-out}"
+      },
+      "selected-focused": {
+        "$value": "{color.lights-out}"
       }
     },
     "border": {
-      "$type": "border", 
+      "$type": "border",
       "default": {
         "$value": {
-          "color": "{color.scorpion}",
+          "color": "{color.grey}",
           "width": "1px",
           "style": "solid"
         }
       },
       "hover": {
         "$value": {
-          "color": "{color.persian-blue}",
+          "color": "#99A5FF",
           "width": "1px",
           "style": "solid"
         }
@@ -60,7 +69,7 @@
       },
       "selected": {
         "$value": {
-          "color": "{color.blue-ribbon}",
+          "color": "{color.silver}",
           "width": "1px",
           "style": "solid"
         }
@@ -78,23 +87,26 @@
         "$value": "{color.dove-grey}"
       },
       "default": {
-        "$value": "{color.tundora}"
+        "$value": "{color.silver}"
       },
       "hover": {
-        "$value": "{color.lights-out}"
+        "$value": "{color.white}"
       },
       "focused": {
-        "$value": "{color.lights-out}"
+        "$value": "{color.white}"
       },
       "selected": {
-        "$value": "{color.blue-ribbon}"
+        "$value": "{color.white}"
+      },
+      "selected-onInvert": {
+        "$value": "{color.lights-out}"
       }
     },
     "focused": {
       "ring": {
         "$type": "border",
         "$value": {
-          "color": "{color.blue-ribbon}",
+          "color": "{color.white}",
           "width": "2px",
           "style": "solid"
         }
@@ -102,7 +114,7 @@
       "ring-onInvert": {
         "$type": "border",
         "$value": {
-          "color": "{color.white}",
+          "color": "{color.blue-ribbon}",
           "width": "2px",
           "style": "solid"
         }

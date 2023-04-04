@@ -28,8 +28,8 @@ export class SubCheckbox extends ControlElement {
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
-      width: var(--code-only-checkbox-width);
-      height: var(--code-only-checkbox-height);
+      width: var(--code-only-dimension-checkbox-width);
+      height: var(--code-only-dimension-checkbox-height);
       color: var(--control-content-selected);
       border: var(--control-border-default);
       outline: none;

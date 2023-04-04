@@ -16,14 +16,76 @@
     }
   },
   "code-only": {
-    "checkbox": {
-      "width": {
-        "$type": "dimension",
-        "$value": "18px"
+    "dimension": {
+      "$type": "dimension",
+      "control": {
+        "height": {
+          "$type": "dimension",
+          "$value": "26px"
+        },
+        "line-height": {
+          "$value": "{copy.xs-emphasis.line-height}"
+        }
       },
-      "height": {
-        "$type": "dimension",
-        "$value": "18px"
+      "action": {
+        "padding-horizontal": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "padding-vertical": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "item-spacing": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "line-height": {
+          "default": {
+            "$value": "{copy.xs-loud.line-height}"
+          }
+        }
+      },
+      "checkbox": {
+        "width": {
+          "$type": "dimension",
+          "$value": "18px"
+        },
+        "height": {
+          "$type": "dimension",
+          "$value": "18px"
+        },
+        "padding-vertical": {
+          "$value": "{space.010}"
+        },
+        "padding-horizontal": {
+          "$value": "{space.020}"
+        }
+      }
+    },
+    "typography": {
+      "$type": "typography",
+      "control": {
+        "label": {
+          "default": {
+            "$value": "{copy.xs-emphasis.all}"
+          }
+        },
+        "content": {
+          "default": {
+            "$value": "{copy.xs.all}"
+          }
+        }
+      },
+      "action": {
+        "content": {
+          "default": {
+            "$value": "{copy.xs-loud.all}"
+          }
+        }
       }
     },
     "option": {
@@ -37,54 +99,20 @@
           }
         }
       }
+    }
+  },
+  "footer": {
+    "height": {
+      "$value": "30px"
     },
-    "field": {
-      "height": {
-        "$type": "dimension",
-        "$value": "26px"
-      }
+    "padding-between" : {
+      "$value": "8px"
     },
-    "control": {
-      "label": {
-        "default": {
-          "$value": "{copy.xs-emphasis.all}"
-        }
-      },
-      "content": {
-        "default": {
-          "$value": "{copy.xs.all}"
-        }
-      },
-      "line-height": {
-        "$value": "{copy.xs-emphasis.line-height}"
-      }
+    "padding-vertical" : {
+      "$value": "4px"
     },
-    "action": {
-      "content": {
-        "default": {
-          "$value": "{copy.xs-loud.all}"
-        }
-      },
-      "padding-horizontal": {
-        "default": {
-          "$value": "{space.020}"
-        }
-      },
-      "padding-vertical": {
-        "default": {
-          "$value": "{space.020}"
-        }
-      },
-      "item-spacing": {
-        "default": {
-          "$value": "{space.020}"
-        }
-      },
-      "line-height": {
-        "default": {
-          "$value": "{copy.xs-loud.line-height}"
-        }
-      }
+    "padding-horizontal" : {
+      "$value": "24px"
     }
   }
 }

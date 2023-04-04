@@ -28,10 +28,10 @@ export class SubTextField extends FormFieldElement {
         position: relative;
         vertical-align: middle;
 
-        padding: var(--code-only-field-padding-vertical) var(--code-only-field-padding-horizontal);
+        padding: var(--code-only-dimension-control-padding-vertical) var(--code-only-dimension-control-padding-horizontal);
 
-        width: var(--code-only-field-width);
-        height: var(--code-only-field-height);
+        width: inherit;
+        height: var(--code-only-dimension-control-height);
 
         color: var(--control-content-default);
         border: var(--control-border-default);
@@ -68,7 +68,7 @@ export class SubTextField extends FormFieldElement {
         background: none;
         border: none;
 
-        font: var(--code-only-control-content-default);
+        font: var(--code-only-typography-control-content-default);
       }
       :host [part=input]:focus {
         outline: none;
@@ -82,10 +82,10 @@ export class SubTextField extends FormFieldElement {
         min-width: 1em;
         box-sizing: border-box;
         color: var(--control-content-decorative);
-        font-size: var(--code-only-action-line-height-default);
+        font-size: var(--code-only-dimension-action-line-height-default);
       }
       :host([icon]) [part=input]{
-        padding-left: var(--code-only-field-padding-horizontal);
+        padding-left: var(--code-only-dimension-control-padding-horizontal);
       }
     `;
   }

@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["Checkbox Basic Structure default DOM with no label is correct"] = 
+snapshots["ui-checkbox DOM Structure default DOM with no label is correct"] = 
 `<ui-checkbox
   aria-checked="false"
   role="checkbox"
@@ -9,9 +9,9 @@ snapshots["Checkbox Basic Structure default DOM with no label is correct"] =
 >
 </ui-checkbox>
 `;
-/* end snapshot Checkbox Basic Structure default DOM with no label is correct */
+/* end snapshot ui-checkbox DOM Structure default DOM with no label is correct */
 
-snapshots["Checkbox Basic Structure default DOM with label is correct"] = 
+snapshots["ui-checkbox DOM Structure default DOM with label is correct"] = 
 `<ui-sub-checkbox
   part="checkbox"
   tabindex="-1"
@@ -22,9 +22,9 @@ snapshots["Checkbox Basic Structure default DOM with label is correct"] =
   </slot>
 </div>
 `;
-/* end snapshot Checkbox Basic Structure default DOM with label is correct */
+/* end snapshot ui-checkbox DOM Structure default DOM with label is correct */
 
-snapshots["Checkbox Basic Structure checked DOM with label is correct"] = 
+snapshots["ui-checkbox DOM Structure checked DOM with label is correct"] = 
 `<ui-sub-checkbox
   checked=""
   part="checkbox"
@@ -36,5 +36,5 @@ snapshots["Checkbox Basic Structure checked DOM with label is correct"] =
   </slot>
 </div>
 `;
-/* end snapshot Checkbox Basic Structure checked DOM with label is correct */
+/* end snapshot ui-checkbox DOM Structure checked DOM with label is correct */
 

@@ -31,9 +31,9 @@ describe('ui-button', () => {
     });
 
     describe('variant', () => {
-      it('variant attribute should be secondary by default', async () => {
+      it('should not be presented by default', async () => {
         const el = await fixture('<ui-button></ui-button>');
-        await expect(el.getAttribute('variant')).to.equal('secondary');
+        await expect(el.hasAttribute('variant')).to.equal(false);
       });
     });
   });
@@ -98,12 +98,20 @@ describe('ui-button', () => {
       const el = await fixture(`<ui-button></ui-button>`);
       await expect(el).not.to.be.accessible();
     });
-    it('should pass a11y requirement when text content is provided', async () => {
+    it('should be accessible when text content is provided', async () => {
       const el = await fixture(`<ui-button>TEST</ui-button>`);
       await expect(el).to.be.accessible();
     });
-    it('should pass a11y requirement when text content and icon-end are provided', async () => {
+    it('should be accessible when text content and icon-end are provided', async () => {
       const el = await fixture(`<ui-button icon-end="tick">TEST</ui-button>`);
+      await expect(el).to.be.accessible();
+    });
+    it('should be accessible with primary variant', async () => {
+      const el = await fixture(`<ui-button variant="primary" icon-end="tick">TEST</ui-button>`);
+      await expect(el).to.be.accessible();
+    });
+    it('should be accessible with secondary variant', async () => {
+      const el = await fixture(`<ui-button variant="secondary" icon-end="tick">TEST</ui-button>`);
       await expect(el).to.be.accessible();
     });
   });
