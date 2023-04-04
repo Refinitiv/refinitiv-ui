@@ -166,7 +166,7 @@ export class Icon extends BasicElement {
       iconTemplateCache.set(
         src,
         IconLoader.loadSVG(src)
-        .then(body => svg`${unsafeSVG(body)}`)
+        .then(body => svg`${unsafeSVG(body?.replace('<svg ', '<svg aria-hidden="true" '))}`)
       );
       return this.loadAndRenderIcon(src); // Load again and await cache result
     }

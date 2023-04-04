@@ -44,7 +44,8 @@ export class InputField extends ControlElement {
 
   protected get decorateField (): TemplateMap {
     return {
-      'aria-labelledby': this.label ? 'label' : null,
+      '.inputAriaLabel': this.label || null,
+      // 'aria-describedby': this.hint ? 'hint' : null,
       'disabled': this.disabled,
       'readonly': this.readonly,
       'value': this.value || null,
@@ -73,7 +74,7 @@ export class InputField extends ControlElement {
    * @return Render template
    */
   protected get renderLabel (): TemplateResult | typeof nothing {
-    return html`<ui-sub-label id="label" part="label">${this.label}</ui-sub-label>`;
+    return html`<ui-sub-label id="label" part="label" aria-hidden="true">${this.label}</ui-sub-label>`;
   }
 
   /**

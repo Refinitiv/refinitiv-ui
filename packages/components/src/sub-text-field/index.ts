@@ -101,9 +101,6 @@ export class SubTextField extends FormFieldElement {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
-    // TODO: Workaround to prevent screen reader from reading this host
-    this.setAttribute('aria-hidden', 'true');
-
     this.inputElement?.addEventListener('focus', () => {
       this.classList.add('focus-ring');
     });

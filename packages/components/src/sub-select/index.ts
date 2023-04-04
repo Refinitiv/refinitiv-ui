@@ -762,7 +762,7 @@ export class SubSelect extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-    <div id="box">
+    <div id="box" aria-hidden="true">
       <div id="text">
         ${this.labelTemplate}
       </div>
