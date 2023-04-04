@@ -30,37 +30,24 @@ export class SubFooter extends BasicElement {
         align-items: center;
         box-sizing: border-box;
         width: 100%;
-
-        --seperator-width: 4px;
-
         height: var(--footer-height);
         padding: var(--footer-padding-vertical) var(--footer-padding-horizontal);
         font: var(--link-md-emphasis-all);
         background-color: var(--base-bg-emphasis);
       }
-      ::slotted(a) {
-        position: relative;
-
+      ::slotted(*) {
         font: var(--copy-md-emphasis-all);
         color: var(--base-content-primary-on-invert);
+      }
+      ::slotted(a) {
         text-underline-offset: var(--width-fixed3);
         text-decoration-thickness: var(--width-fixed1)
-      }
-      ::slotted(a:not(:last-child)):after {
-        content: '|';
-        position: absolute;
-        width: var(--seperator-width);
-        text-align: center;
-
-        --width-to-seperator: calc(var(--footer-padding-between) + var(--seperator-width));
-
-        right: calc(var(--width-to-seperator) * -1);
       }
       ::slotted(a:focus-visible) {
         outline: var(--control-focused-ring-on-invert);
       }
       ::slotted(a:not(:last-child)) {
-        margin-right: calc(var(--footer-padding-between) + var(--seperator-width));
+        margin-right: var(--footer-padding-between);
       }
       ::slotted(a:not(:first-child)) {
         margin-left: var(--footer-padding-between);
