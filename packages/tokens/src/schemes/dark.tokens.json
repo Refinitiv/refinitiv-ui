@@ -78,7 +78,7 @@
     "content": {
       "$type": "color",
       "primary": {
-        "$value": "{color.lights-out}"
+        "$value": "{color.silver}"
       },
       "secondary": {
         "$value": "{color.tundora}"
