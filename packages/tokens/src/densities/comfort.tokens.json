@@ -106,5 +106,19 @@
         }
       }
     }
+  },
+  "footer": {
+    "height": {
+      "$value": "46px"
+    },
+    "padding-between" : {
+      "$value": "20px"
+    },
+    "padding-vertical" : {
+      "$value": "12px"
+    },
+    "padding-horizontal" : {
+      "$value": "60px"
+    }
   }
 }

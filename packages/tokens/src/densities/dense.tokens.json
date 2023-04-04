@@ -100,5 +100,19 @@
         }
       }
     }
+  },
+  "footer": {
+    "height": {
+      "$value": "30px"
+    },
+    "padding-between" : {
+      "$value": "8px"
+    },
+    "padding-vertical" : {
+      "$value": "4px"
+    },
+    "padding-horizontal" : {
+      "$value": "24px"
+    }
   }
 }

@@ -8,6 +8,8 @@ import { VERSION } from '../version.js';
 @customElement('ui-sub-footer', { theme: false })
 export class SubFooter extends BasicElement {
 
+  protected defaultRole: string | null = 'contentinfo';
+
   /**
    * Element version number
    * @returns version number
@@ -25,7 +27,43 @@ export class SubFooter extends BasicElement {
     return css`
       :host {
         display: flex;
-        flex-flow: column nowrap;
+        align-items: center;
+        box-sizing: border-box;
+        width: 100%;
+
+        --seperator-width: 4px;
+
+        height: var(--footer-height);
+        padding: var(--footer-padding-vertical) var(--footer-padding-horizontal);
+        font: var(--link-md-emphasis-all);
+        background-color: var(--base-bg-emphasis);
+      }
+      ::slotted(a) {
+        position: relative;
+
+        font: var(--copy-md-emphasis-all);
+        color: var(--base-content-primary-on-invert);
+        text-underline-offset: var(--width-fixed3);
+        text-decoration-thickness: var(--width-fixed1)
+      }
+      ::slotted(a:not(:last-child)):after {
+        content: '|';
+        position: absolute;
+        width: var(--seperator-width);
+        text-align: center;
+
+        --width-to-seperator: calc(var(--footer-padding-between) + var(--seperator-width));
+
+        right: calc(var(--width-to-seperator) * -1);
+      }
+      ::slotted(a:focus-visible) {
+        outline: var(--control-focused-ring-on-invert);
+      }
+      ::slotted(a:not(:last-child)) {
+        margin-right: calc(var(--footer-padding-between) + var(--seperator-width));
+      }
+      ::slotted(a:not(:first-child)) {
+        margin-left: var(--footer-padding-between);
       }
     `;
   }
@@ -36,9 +74,7 @@ export class SubFooter extends BasicElement {
    * @return {TemplateResult}  Render template
    */
   protected render (): TemplateResult {
-    return html`
-      <slot></slot>
-    `;
+    return html`<slot></slot>`;
   }
 }
 
