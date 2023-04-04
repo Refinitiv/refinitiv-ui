@@ -22,6 +22,32 @@
       }
     }
   },
+  "link": {
+    "content":{
+      "primary": {
+        "$type":"color",
+        "$value": "{color.melrose}"
+      },
+      "focused": {
+        "$value": "${color.white}"
+      },
+      "focused-onInvert": {
+        "$value": "${color.lights-out}"
+      },
+      "hover": {
+        "$value": "${color.cornflower-blue}"
+      },
+      "hover-onInvert": {
+        "$value": "${color.blue-ribbon}"
+      },
+      "visited": {
+        "$value": "{color.heather-hint}"
+      },
+      "visited-onInvert": {
+        "$value": "{color.butterfly}"
+      }
+    }
+  },
   "control": {
     "bg": {
       "$type": "color",
