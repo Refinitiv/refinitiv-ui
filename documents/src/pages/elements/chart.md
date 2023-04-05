@@ -102,7 +102,7 @@ ef-chart {
 ```
 ::
 
-`ef-chart` is a charting component that leverages the [Chart.js](http://chartjs.org) library. See Chart.js [documentation](https://www.chartjs.org/docs/2.9.4/) for full chart configuration.
+`ef-chart` is a charting component that leverages the [Chart.js](http://chartjs.org) library. See Chart.js [documentation](https://www.chartjs.org/docs/latest/) for full chart configuration.
 
 The styling of `ef-chart` is inherited from the theme, but you can customize styling at the individual chart level.
 
@@ -291,15 +291,10 @@ line.config.data.datasets[0].data = [31.4, 6.6, 43.48, 40.13, 44.05, 46.42, 47.0
 line.updateChart();
 ```
 
-You can also control animation on the update process by using additional configurations. You can find more details at [Chart.js API](https://www.chartjs.org/docs/2.9.4/developers/api.html#updateconfig).
+You can change transition animation on the update process by passing a mode. You can find more details at [Chart.js API](https://www.chartjs.org/docs/latest/developers/api.html#update-mode).
 
-<!-- TODO: ถามพี่ว่าv4มันเปลี่ยนไป เอาไงดี จะdocง่ายๆว่าline.updateChart(mode) หรือจะต้องรองรับduration,lazy,easing -->
 ```javascript
-line.updateChart({
-    duration: 800,
-    lazy: false, // If true, the animation can be interrupted by other animation
-    easing: 'easeOutBounce'
-});
+line.updateChart('active');
 ```
 
 ## Chartjs instance
@@ -318,8 +313,6 @@ To create a doughnut with a center label, define the `plugins.centerLabel` prope
 - `plugins.centerLabel.onRenderLabel` is a callback function to define the center text when hovering and clicking on each segment.
 - `plugins.centerLabel.selected` selects a chart item when chart is initialised. You can set `index` and `datasetIndex` to use in the selection.
 
-<!-- TODO: doc ว่า ไม่มี _index และ datasetIndex แล้ว -->
-<!-- TODO: doc ว่า onHover onClick เปลี่ยนจาก onClick: (event, chartItem) เป็น onHover: (event, elements, chart) -->
 ::
 ```javascript
 ::chart::
@@ -927,7 +920,6 @@ div {
 ```
 ::
 
-<!-- TODO: write doc that current are using datejs not moment. it change from hA to haa -->
 ::
 ```javascript
 ::chart::
