@@ -216,7 +216,6 @@ export class SubSelect extends ControlElement {
    */
   public connectedCallback (): void {
     super.connectedCallback();
-    this.removeAttribute('aria-label');
     this.getSelectableElements().forEach(option => {
       option.setAttribute('aria-selected', String(this.value === option.value));
     });
@@ -246,6 +245,8 @@ export class SubSelect extends ControlElement {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown); /* keydown when select is closed */
+    this.triggerElement?.setAttribute('aria-label', this.ariaLabel || '');
+    this.removeAttribute('aria-label');
   }
 
   /**
@@ -765,7 +766,7 @@ export class SubSelect extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-    <button aria-label="${this.ariaLabel}" part="trigger" aria-haspopup="listbox" aria-controls="menu" aria-expanded="false" @tapstart="${this.toggleOpened}">
+    <button part="trigger" aria-haspopup="listbox" aria-controls="menu" aria-expanded="false" @tapstart="${this.toggleOpened}">
       <div part="label" aria-hidden="true">  
         ${this.label}
       </div>
