@@ -47,21 +47,28 @@ export class PatternSignIn extends BasicElement {
         }
         a {
           outline-offset: 0;
-          padding: var(--width-fixed4);
-          border: var(--width-fixed2) solid transparent;
+          box-sizing: border-box;
 
           font: var(--link-md-emphasis-all);
           color: var(--link-content-primary);
-          text-underline-offset: var(--width-fixed4);
-          text-decoration-thickness: var(--width-fixed2);
+          border: var(--width-fixed2) solid transparent;
+
+          text-underline-offset: var(--width-fixed2);
+          text-decoration-thickness: var(--width-fixed1);
         }
         a:focus-visible {
           color: var(--link-content-focused);
           border: var(--control-focused-ring-on-invert);
           outline: var(--control-focused-ring);
+
+          text-decoration-thickness: var(--width-fixed2);
         }
         a:visited {
           color: var(--link-content-visited);
+        }
+        a:hover {
+          color: var(--link-content-hover);
+          text-decoration-thickness: var(--width-fixed2);
         }
       `;
   }
