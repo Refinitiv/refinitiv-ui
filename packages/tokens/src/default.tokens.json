@@ -414,6 +414,14 @@
     }
   },
   "code-only": {
+    "url": {
+      "brand-logo": {
+        "$value": "url(/resources/logo.workspace.svg?url)"
+      },
+      "banner": {
+        "$value": "url(/resources/banner.png?url)"
+      }
+    },
     "typography": {
       "control": {
         "label": {

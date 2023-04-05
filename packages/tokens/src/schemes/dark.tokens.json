@@ -273,5 +273,15 @@
         }
       }
     }
+  },
+  "code-only": {
+    "url": {
+      "brand-logo": {
+        "$value": "url(/resources/logo.workspace.dark.svg?url)"
+      },
+      "banner": {
+        "$value": "url(/resources/banner.dark.png?url)"
+      }
+    }
   }
 }

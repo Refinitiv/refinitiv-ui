@@ -19,7 +19,7 @@
     "dimension": {
       "$type": "dimension",
       "pattern-sign-in-width": {
-        "$value": "360px"
+        "$value": "100%"
       },
       "control": {
         "height": {

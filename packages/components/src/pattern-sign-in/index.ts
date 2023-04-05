@@ -54,6 +54,7 @@ export class PatternSignIn extends BasicElement {
         }
         .left img {
           max-width: 100%;
+          content: var(--code-only-url-brand-logo);
         }
         .right img {
           position: absolute;
@@ -62,6 +63,7 @@ export class PatternSignIn extends BasicElement {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          content: var(--code-only-url-banner);
         }
         ui-sub-footer {
           flex: 1 0 100%;
@@ -146,15 +148,17 @@ export class PatternSignIn extends BasicElement {
   public render (): TemplateResult {
     return html`
     <div class="left">
-      <h1 style="font-size:0;margin:0;padding:0">Sign In</h1>
-      <ui-select label="${this.t('LANGUAGE')}" @value-changed=${this.onLanguageChange}>
-        <ui-option selected value="en">English</ui-option>
-        <ui-option value="ja">日本語</ui-option>
-        <ui-option value="zh">中文简体</ui-option>
-      </ui-select>
+      <h1>Sign into Workspace</h1>
+      <p>
+        <ui-select label="${this.t('LANGUAGE')}" @value-changed=${this.onLanguageChange}>
+          <ui-option selected value="en">English</ui-option>
+          <ui-option value="ja">日本語</ui-option>
+          <ui-option value="zh">中文简体</ui-option>
+        </ui-select>
+      </p>
       <p>
         <ui-brand-logo></ui-brand-logo>
-        <img alt="Brand logo of Refinitiv Workspace" src="/resources/logo.workspace.svg"/>
+        <img alt="Brand logo of Refinitiv Workspace"/>
       </p>
       <form method="dialog" @submit="${this.onSubmit}" aria-label="Sign-in">
         <p>
@@ -180,7 +184,7 @@ export class PatternSignIn extends BasicElement {
       </form>
     </div>
     <div class="right">
-      <img alt="Workspace desktop application with Monitor and Charting applications shown on screen" src="/resources/banner.png"/>
+      <img alt="Workspace desktop application with Monitor and Charting applications shown on screen"/>
     </div>
     <ui-sub-footer>
       <a href="#">${this.t('CONTACT_US')}</a>

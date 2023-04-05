@@ -45,3 +45,7 @@ aside ui-select {
   flex: 1 1 calc(200px - 2em);
   margin: 1em 2em 0 0;
 }
+
+aside ui-select[disabled] {
+  opacity: 0.5;
+}

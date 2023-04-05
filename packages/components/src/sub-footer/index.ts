@@ -76,28 +76,6 @@ export class SubFooter extends BasicElement {
       ::slotted(a:not(:first-child)) {
         margin-left: var(--code-only-dimension-footer-padding-between);
       }
-      @media screen and (max-width: 639px) {
-        :host [part=footer] {
-          height: var(--code-only-dimension-footer-xs-height);
-          padding: var(--code-only-dimension-footer-xs-padding-vertical) var(--code-only-dimension-footer-xs-padding-horizontal);
-        }
-        ::slotted(a) {
-          flex-grow: 1;
-          text-align: center;
-        }
-        ::slotted(a:not(:last-child):not(:first-child)) {
-          margin-right: 0;
-        }
-        ::slotted(a:nth-child(2))::after {
-          display: none;
-        }
-        ::slotted(a:last-child) {
-          margin-left: 0;
-          margin-right: 50%;
-          margin-top: var(--code-only-dimension-footer-xs-link-spacing);
-          min-width: 50%;
-        }
-      }
     `;
   }
 

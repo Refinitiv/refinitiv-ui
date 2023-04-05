@@ -107,7 +107,7 @@
           "$value": "12px"
         },
         "padding-horizontal" : {
-          "$value": "60px"
+          "$value": "32px"
         }
       }
     },
