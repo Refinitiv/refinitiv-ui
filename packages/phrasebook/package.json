@@ -51,7 +51,7 @@
     "./locale/en/dialog.js": "./lib/locale/en/dialog.js",
     "./locale/en/pagination.js": "./lib/locale/en/pagination.js",
     "./locale/en/password-field.js": "./lib/locale/en/password-field.js",
-    "./locale/en/pattern-sign-in.js": "./lib/locale/ja/pattern-sign-in.js",
+    "./locale/en/pattern-sign-in.js": "./lib/locale/en/pattern-sign-in.js",
     "./locale/en/search-field.js": "./lib/locale/en/search-field.js",
     "./locale/en/shared.js": "./lib/locale/en/shared.js",
     "./locale/en/time-picker.js": "./lib/locale/en/time-picker.js",
