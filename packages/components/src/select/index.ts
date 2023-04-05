@@ -23,6 +23,9 @@ export class Select extends ControlElement {
         flex-direction: column;
         width: var(--code-only-dimension-control-width);
       }
+      :host [part=label] {
+        margin: var(--space-010) 0;
+      }
     `;
   }
 
@@ -66,7 +69,7 @@ export class Select extends ControlElement {
       ${this.renderLabel}
       <ui-sub-select
         part="select"
-        aria-label=${this.label}
+        .selectAriaLabel=${this.label}
         .value=${this.value}
         ?opened=${this.opened} 
         @value-changed=${this.handleValueChanged}

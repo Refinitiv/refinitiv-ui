@@ -67,7 +67,7 @@
         "$value": "{color.lights-out}"
       },
       "selected-focused": {
-        "$value": "{color.lights-out}"
+        "$value": "{color.melrose}"
       }
     },
     "border": {
@@ -81,7 +81,7 @@
       },
       "hover": {
         "$value": {
-          "color": "#99A5FF",
+          "color": "{color.melrose}",
           "width": "1px",
           "style": "solid"
         }

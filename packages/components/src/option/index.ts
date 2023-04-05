@@ -42,7 +42,7 @@ export class Option extends ControlElement {
         color: var(--control-content-default);
         border-bottom: var(--control-border-default);
         background-color: var(--control-bg-default);
-        padding: var(--code-only-dimension-control-padding-vertical) var(--code-only-dimension-control-padding-horizontal);
+        padding: var(--code-only-dimension-control-padding-vertical) var(--space-030);
       }
       :host(:hover) {
         color: var(--control-content-hover-on-invert);

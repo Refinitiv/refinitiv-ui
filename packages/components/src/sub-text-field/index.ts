@@ -31,27 +31,35 @@ export class SubTextField extends FormFieldElement {
         padding: var(--code-only-dimension-control-padding-vertical) var(--code-only-dimension-control-padding-horizontal);
 
         width: inherit;
+        min-width: 200px;
         height: var(--code-only-dimension-control-height);
 
         color: var(--control-content-default);
         border: var(--control-border-default);
         background-color: var(--control-bg-default);
       }
-      :host(.focus-ring) {
-        color: var(--control-content-focused);
-        border: var(--control-border-focused);
-        background-color: var(--control-bg-focused);
-        outline: var(--control-focused-ring-on-invert);
-      }
-      :host(.focus-ring)::before, :host(.focus-ring:hover)::before {
+      :host span {
         content: '';
         position: absolute;
-        display: block;
-        inset: -5px;
+        inset: 0px;
         pointer-events: none;
+      }
+      :host [part=input]:focus-visible {
+        outline: none;
+        color: var(--control-content-focused);
+        background-color: var(--control-bg-focused);
+      }
+      :host [part=input]:focus-visible + span {
+        border: var(--control-border-focused);
+        outline: var(--control-focused-ring-on-invert);
+      }
+      :host [part=input]:focus-visible + span::after, :host [part=input]:focus-visible:hover + span::after {
+        content: '';
+        position: absolute;
+        inset: -5px;
         border: var(--control-focused-ring);
       }
-      :host(:not([readonly]):not(:focus):hover) {
+      :host(:not([readonly]):not(:focus-visible):hover) {
         color: var(--control-content-hover);
         border: var(--control-border-hover);
         background-color: var(--control-bg-hover);
@@ -92,22 +100,6 @@ export class SubTextField extends FormFieldElement {
 
   @property({ type: String, reflect: true })
   public icon: string | null = null;
-
-  /**
-   * Called once after the component is first rendered
-   * @param changedProperties map of changed properties with old values
-   * @returns {void}
-   */
-  protected firstUpdated (changedProperties: PropertyValues): void {
-    super.firstUpdated(changedProperties);
-
-    this.inputElement?.addEventListener('focus', () => {
-      this.classList.add('focus-ring');
-    });
-    this.inputElement?.addEventListener('blur', () => {
-      this.classList.remove('focus-ring');
-    });
-  }
 
   /**
    * Called when the element’s DOM has been updated and rendered
@@ -196,6 +188,7 @@ export class SubTextField extends FormFieldElement {
     return html`
       ${this.renderIcon()}
       ${super.render()}
+      <span></span>
     `;
   }
 }

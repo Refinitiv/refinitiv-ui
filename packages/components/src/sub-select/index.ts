@@ -184,6 +184,13 @@ export class SubSelect extends ControlElement {
   public opened = false;
 
   /**
+   * Used to get `aria-label` field for internal <select>
+   * Calculated from `aria-label`, `aria-labelledby` and `label[for="<element.id>"]`
+   */
+  @property()
+  protected selectAriaLabel: string | null = null;
+
+  /**
    * Value of the element
    * @param value Element value
    * @default -
@@ -216,7 +223,6 @@ export class SubSelect extends ControlElement {
    */
   public connectedCallback (): void {
     super.connectedCallback();
-
     this.getSelectableElements().forEach(option => {
       option.setAttribute('aria-selected', String(this.value === option.value));
     });
@@ -765,7 +771,7 @@ export class SubSelect extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-    <button aria-label="${this.ariaLabel}" part="trigger" aria-haspopup="listbox" aria-controls="menu" aria-expanded="false" @tapstart="${this.toggleOpened}">
+    <button aria-label="${this.selectAriaLabel}" part="trigger" aria-haspopup="listbox" aria-controls="menu" aria-expanded="false" @tapstart="${this.toggleOpened}">
       <div part="label" aria-hidden="true">  
         ${this.label}
       </div>
