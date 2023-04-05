@@ -739,7 +739,7 @@ export class SubSelect extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-    <button part="trigger" aria-haspopup="listbox" aria-controls="menu" aria-expanded="false" @tapstart="${this.toggleOpened}">
+    <button aria-label="${this.ariaLabel}" part="trigger" aria-haspopup="listbox" aria-controls="menu" aria-expanded="false" @tapstart="${this.toggleOpened}">
       <div part="label" aria-hidden="true">  
         ${this.label}
       </div>

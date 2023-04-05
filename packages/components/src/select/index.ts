@@ -66,7 +66,7 @@ export class Select extends ControlElement {
       ${this.renderLabel}
       <ui-sub-select
         part="select"
-        aria-labelledby=${this.label ? 'label' : null}
+        aria-label=${this.label}
         .value=${this.value}
         ?opened=${this.opened} 
         @value-changed=${this.handleValueChanged}
