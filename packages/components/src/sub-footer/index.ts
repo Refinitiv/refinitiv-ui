@@ -27,9 +27,11 @@ export class SubFooter extends BasicElement {
         flex-wrap: wrap;
         align-items: center;
         box-sizing: border-box;
+
         width: 100%;
-        height: var(--footer-height);
-        padding: var(--footer-padding-vertical) var(--footer-padding-horizontal);
+
+        height: var(--code-only-dimension-footer-height);
+        padding: var(--code-only-dimension-footer-padding-vertical) var(--code-only-dimension-footer-padding-horizontal);
         font: var(--link-md-emphasis-all);
         background-color: var(--base-bg-emphasis);
       }
@@ -39,7 +41,7 @@ export class SubFooter extends BasicElement {
         box-sizing: border-box;
 
         font: var(--link-md-emphasis-all);
-        color: var(--link-content-primary-on-invert);
+        color: var(--link-content-default-on-invert);
         border: var(--width-fixed2) solid transparent;
 
         text-underline-offset: var(--width-fixed2);
@@ -51,9 +53,9 @@ export class SubFooter extends BasicElement {
         top: 4px;
         left: 0px;
 
-        width: calc(var(--footer-padding-between) + 100%);
+        width: calc(var(--code-only-dimension-footer-padding-between) + 100%);
         height: 12px;
-        border-right: var(--width-fixed2) solid var(--link-content-primary-on-invert);
+        border-right: var(--width-fixed2) solid var(--link-content-default-on-invert);
       }
       ::slotted(a:visited) {
         color: var(--link-content-visited-on-invert);
@@ -69,19 +71,19 @@ export class SubFooter extends BasicElement {
         outline: none;
       }
       ::slotted(a:not(:last-child)) {
-        margin-right: var(--footer-padding-between);
+        margin-right: var(--code-only-dimension-footer-padding-between);
       }
       ::slotted(a:not(:first-child)) {
-        margin-left: var(--footer-padding-between);
+        margin-left: var(--code-only-dimension-footer-padding-between);
       }
       @media screen and (max-width: 639px) {
         :host [part=footer] {
-          height: var(--footer-xs-height);
-          padding: var(--footer-xs-padding-vertical) var(--footer-xs-padding-horizontal);
+          height: var(--code-only-dimension-footer-xs-height);
+          padding: var(--code-only-dimension-footer-xs-padding-vertical) var(--code-only-dimension-footer-xs-padding-horizontal);
         }
         ::slotted(a) {
+          flex-grow: 1;
           text-align: center;
-          /* min-width: var(--footer-xs-link-width); */
         }
         ::slotted(a:not(:last-child):not(:first-child)) {
           margin-right: 0;
@@ -91,9 +93,9 @@ export class SubFooter extends BasicElement {
         }
         ::slotted(a:last-child) {
           margin-left: 0;
-          margin-right: 100%;
-          margin-top: var(--footer-xs-link-spacing);
-          min-width: max-content;
+          margin-right: 50%;
+          margin-top: var(--code-only-dimension-footer-xs-link-spacing);
+          min-width: 50%;
         }
       }
     `;
