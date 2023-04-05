@@ -7,8 +7,8 @@ import '../select/index.js';
 import '../input-field/index.js';
 import '../sub-footer/index.js';
 
-@customElement('dst-login', { theme: false })
-export class LoginTemplate extends BasicElement {
+@customElement('ui-pattern-sign-in', { theme: false })
+export class PatternSignIn extends BasicElement {
 
   /**
    * A `CSSResultGroup` that will be used to style the host,
@@ -44,6 +44,31 @@ export class LoginTemplate extends BasicElement {
         }
         ui-button {
           width: 100%;
+        }
+        a {
+          outline-offset: 0;
+          box-sizing: border-box;
+
+          font: var(--link-md-emphasis-all);
+          color: var(--link-content-primary);
+          border: var(--width-fixed2) solid transparent;
+
+          text-underline-offset: var(--width-fixed2);
+          text-decoration-thickness: var(--width-fixed1);
+        }
+        a:focus-visible {
+          color: var(--link-content-focused);
+          border: var(--control-focused-ring-on-invert);
+          outline: var(--control-focused-ring);
+
+          text-decoration-thickness: var(--width-fixed2);
+        }
+        a:visited {
+          color: var(--link-content-visited);
+        }
+        a:hover {
+          color: var(--link-content-hover);
+          text-decoration-thickness: var(--width-fixed2);
         }
       `;
   }
@@ -103,6 +128,6 @@ export class LoginTemplate extends BasicElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'dst-login': LoginTemplate;
+    'ui-pattern-sign-in': PatternSignIn;
   }
 }

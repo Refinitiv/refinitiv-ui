@@ -49,6 +49,12 @@
     "mercury": {
       "$value": "#e6e6e6"
     },
+    "melrose": {
+      "$value": "#99A5FF"
+    },
+    "heather-hint": {
+      "$value": "#E8E0F5"
+    },
     "concrete": {
       "$value": "#f2f2f2"
     },

@@ -111,8 +111,8 @@
     "height": {
       "$value": "46px"
     },
-    "padding-between" : {
-      "$value": "20px"
+    "xs-height": {
+      "$value": "94px"
     },
     "padding-vertical" : {
       "$value": "12px"

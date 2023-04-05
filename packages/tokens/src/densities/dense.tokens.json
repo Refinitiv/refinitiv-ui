@@ -105,8 +105,11 @@
     "height": {
       "$value": "30px"
     },
-    "padding-between" : {
-      "$value": "8px"
+    "xs-height": {
+      "$value": "62px"
+    },
+    "xs-link-width": {
+      "$value": "128px"
     },
     "padding-vertical" : {
       "$value": "4px"

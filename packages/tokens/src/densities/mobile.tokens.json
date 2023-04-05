@@ -108,5 +108,13 @@
         }
       }
     }
+  },
+  "footer": {
+    "height": {
+      "$value": "94px"
+    },
+    "xs-height": {
+      "$value": "94px"
+    }
   }
 }

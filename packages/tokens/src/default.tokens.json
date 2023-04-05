@@ -112,6 +112,33 @@
       "all": {
         "$value": "{copy.md-emphasis.all}"
       }
+    },
+    "content":{
+      "$type": "color",
+      "primary": {
+        "$value": "{color.torea-bay}"
+      },
+      "primary-onInvert": {
+        "$value": "{base.content.primary-onInvert}"
+      },
+      "focused": {
+        "$value": "${color.lights-out}"
+      },
+      "focused-onInvert": {
+        "$value": "${color.white}"
+      },
+      "hover": {
+        "$value": "${color.blue-ribbon}"
+      },
+      "hover-onInvert": {
+        "$value": "${color.white}"
+      },
+      "visited": {
+        "$value": "{color.butterfly}"
+      },
+      "visited-onInvert": {
+        "$value": "{color.heather-hint}"
+      }
     }
   },
   "copy": {
@@ -493,6 +520,9 @@
     "fixed3": {
       "$value": "3px"
     },
+    "fixed4": {
+      "$value": "4px"
+    },
     "010": {
       "$value": "4px"
     },
@@ -792,17 +822,33 @@
     }
   },
   "footer": {
+    "$type": "dimension",
     "height": {
       "$value": "38px"
     },
+    "xs-height": {
+      "$value": "78px"
+    },
+    "xs-link-spacing": {
+      "$value": "2px"
+    },
+    "xs-link-width": {
+      "$value": "116px"
+    },
     "padding-between" : {
-      "$value": "12px"
+      "$value": "16px"
     },
     "padding-vertical" : {
       "$value": "8px"
     },
     "padding-horizontal" : {
       "$value": "40px"
+    },
+    "xs-padding-vertical" : {
+      "$value": "0px"
+    },
+    "xs-padding-horizontal" : {
+      "$value": "16px"
     }
   }
 }
