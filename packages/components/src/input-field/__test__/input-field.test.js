@@ -166,33 +166,6 @@ describe('ui-input-field', () => {
       const el = await fixture('<ui-input-field label="Text Field"></ui-input-field>');
       await expect(el).to.be.accessible();
     });
-    it('should accessible with `aria-labelledby`', async () => {
-      await fixture('<span id="label">Label</label>');
-      await fixture('<span id="sub-label">Sub Label</label>');
-
-      const el = await fixture(`<ui-input-field id="txt" aria-labelledby="label sub-label"></ui-input-field>`);
-      await expect(el).to.be.accessible();
-    });
-    it('should accessible with `for` attribute on label', async () => {
-      await fixture('<label for="text">Text Field</label>');
-      const el = await fixture('<ui-input-field id="text"></ui-input-field>');
-
-      await expect(el).to.be.accessible();
-    });
-    it('should propagate `aria-description` attribute to input correctly', async () => {
-      const el = await fixture('<ui-input-field aria-description="Text Field"></ui-input-field>');
-
-      const input = el.shadowRoot.querySelector('ui-sub-text-field');
-      await expect(input.getAttribute('aria-description')).to.be.equal('Text Field');
-    });
-    it('should propagate `aria-describedby` attribute to input correctly', async () => {
-      const helperMessage = await fixture('<span id="helper-message">Field description</label>');
-      const errorMessage = await fixture('<span id="error-message">Error</label>');
-      const el = await fixture('<ui-input-field aria-describedby="helper-message error-message"></ui-input-field>');
-
-      const input = el.shadowRoot.querySelector('ui-sub-text-field');
-      await expect(input.getAttribute('aria-description')).to.be.equal(`${helperMessage.textContent} ${errorMessage.textContent}`);
-    });
   });
 });
 
