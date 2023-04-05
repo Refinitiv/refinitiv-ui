@@ -89,6 +89,7 @@
     "./locale/zh/dialog.js": "./lib/locale/zh/dialog.js",
     "./locale/zh/pagination.js": "./lib/locale/zh/pagination.js",
     "./locale/zh/password-field.js": "./lib/locale/zh/password-field.js",
+    "./locale/zh/pattern-sign-in.js": "./lib/locale/zh/pattern-sign-in.js",
     "./locale/zh/search-field.js": "./lib/locale/zh/search-field.js",
     "./locale/zh/shared.js": "./lib/locale/zh/shared.js",
     "./locale/zh/time-picker.js": "./lib/locale/zh/time-picker.js",

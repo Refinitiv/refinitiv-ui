@@ -3,6 +3,13 @@ import { Phrasebook } from '../../translation.js';
 import './shared.js';
 
 const translations = {
+  USER_ID: 'ユーザーID',
+  PASSWORD: 'パスワード',
+  FORGOTTEN_PASSWORD: 'パスワードをお忘れの場合',
+  AUTO_SIGN_IN: 'サインインを自動にする',
+  SIGN_IN: 'サインイン',
+  CONTACT_US: 'お問い合わせ',
+  PRIVACY: 'プライバシー'
 };
 
 Phrasebook.define('ja', 'ui-pattern-sign-in', translations);

@@ -14,9 +14,11 @@ import { translate, Translate } from '@refinitiv-ui/translate';
 
 import '@refinitiv-ui/phrasebook/locale/en/pattern-sign-in.js';
 import '@refinitiv-ui/phrasebook/locale/ja/pattern-sign-in.js';
+import '@refinitiv-ui/phrasebook/locale/zh/pattern-sign-in.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
 import '@refinitiv-ui/phrasebook/locale/ja/password-field.js';
+import '@refinitiv-ui/phrasebook/locale/zh/password-field.js';
 
 @customElement('ui-pattern-sign-in', { theme: false })
 export class PatternSignIn extends BasicElement {
@@ -116,7 +118,8 @@ export class PatternSignIn extends BasicElement {
     <h1 style="font-size:0;margin:0;padding:0">Sign In</h1>
     <ui-select label="Language" @value-changed=${this.onLanguageChange}>
       <ui-option selected value="en">English</ui-option>
-      <ui-option value="ja">Japanese</ui-option>
+      <ui-option value="ja">日本語</ui-option>
+      <ui-option value="zh">中文简体</ui-option>
     </ui-select>
     <p>
       <ui-brand-logo></ui-brand-logo>
@@ -124,20 +127,20 @@ export class PatternSignIn extends BasicElement {
     </p>
     <form method="dialog" @submit="${this.onSubmit}" aria-label="Sign-in">
       <p>
-        <ui-input-field name="id" type="text" label="User ID"></ui-input-field>
+        <ui-input-field name="id" type="text" label="${this.t('USER_ID')}"></ui-input-field>
       </p>
       <p>
-        <ui-input-field name="password" type="password" label="Password"></ui-input-field>
+        <ui-input-field name="password" type="password" label="${this.t('PASSWORD')}"></ui-input-field>
       </p>
       <p>
-        <a href="/account/reset-password">Forgotten your password?</a>
+        <a href="/account/reset-password">${this.t('FORGOTTEN_PASSWORD')}</a>
       </p>
       <p>
-        <ui-checkbox checked>Sign me in automatically</ui-checkbox>
+        <ui-checkbox checked>${this.t('AUTO_SIGN_IN')}</ui-checkbox>
       </p>
       <ul>
         <li>
-          <ui-button variant="primary">Sign In</ui-button>
+          <ui-button variant="primary">${this.t('SIGN_IN')}</ui-button>
         </li>
         <li>
           <ui-button type="button">${this.t('CANCEL')}</ui-button>
@@ -145,9 +148,8 @@ export class PatternSignIn extends BasicElement {
       </ul>
     </form>
     <ui-sub-footer>
-      <a href="#">Contact us</a>
-      <a href="#">Privacy</a>
-      <a href="#">3rd link</a>
+      <a href="#">${this.t('CONTACT_US')}</a>
+      <a href="#">${this.t('PRIVACY')}</a>
     </ui-sub-footer>
     `;
   }
