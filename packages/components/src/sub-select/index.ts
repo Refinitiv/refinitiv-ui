@@ -40,6 +40,7 @@ const observerOptions = {
 
 const POPUP_POSITION = ['bottom-start', 'top-start'];
 const HORIZONTAL_OFFSET = 4; // use to styles focus ring of option items
+const VERTICAL_OFFSET = 2;
 enum Navigation {
   FIRST = 'First',
   LAST = 'Last',
@@ -93,18 +94,19 @@ export class SubSelect extends ControlElement {
       :host([opened]) [part=icon] {
         transform: rotate(180deg);
       }
-      :host(:focus) {
+      :host [part=trigger]:focus-visible {
         color: var(--control-content-focused);
         border: var(--control-border-focused);
         background-color: var(--control-bg-focused);
         outline: var(--control-focused-ring-on-invert);
       }
-      :host(:not([readonly]):not(:focus):hover) {
+      :host(:not([readonly]):not(:focus-visible):hover) {
         color: var(--control-content-hover);
         border: var(--control-border-hover);
         border-color: var(--control-border-hover);
       }
-      :host(:focus)::before, :host(:hover:focus)::before {
+      :host [part=trigger]:focus-visible::before,
+      :host [part=trigger]:hover:focus-visible::before {
         content: '';
         pointer-events: none;
         position: absolute;
@@ -718,7 +720,7 @@ export class SubSelect extends ControlElement {
         .positionTarget=${this}
         .position=${POPUP_POSITION}
         ?opened=${this.opened}
-        vertical-offset=5
+        vertical-offset=${VERTICAL_OFFSET}
         horizontal-offset=${-HORIZONTAL_OFFSET}
         @tap=${this.onPopupTap}
         @mousemove=${this.onPopupMouseMove}
