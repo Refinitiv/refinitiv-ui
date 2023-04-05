@@ -1,0 +1,51 @@
+@import '@refinitiv-ui/workspace-theme';
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+main {
+  flex: 1 0 auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+aside {
+  background: rgba(124, 124, 124, 0.2);
+  min-height: 240px;
+  overflow: hidden;
+  padding: 1em;
+  padding-left: 2em;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+}
+
+aside .center {
+  max-width: 900px;
+  margin: 2em auto;
+}
+
+aside .wrap {
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1 1 200px;
+  min-width: 40px;
+}
+
+aside ui-select {
+  width: 100%;
+  flex: 1 1 calc(200px - 2em);
+  margin: 1em 2em 0 0;
+}
+
+aside ui-select[disabled] {
+  opacity: 0.5;
+}

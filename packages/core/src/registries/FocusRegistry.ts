@@ -1,10 +1,7 @@
 import type { BasicElement } from '../elements/BasicElement';
-import type { FocusedChangedEvent } from '../types/events';
 import { isBasicElement } from '../utils/helpers.js';
 
 const register = new Set<BasicElement>(); /* Track all active elements */
-const focusedMap = new Map<BasicElement, 'visible'|''>(); /* Track all focused elements */
-const FocusedPropertyKey = Symbol('focused');
 
 let autoFocusFrame: number | null = null;
 const autoFocus = (element: BasicElement): void => {
@@ -134,56 +131,6 @@ const shouldDelegateOnFocus = (target: HTMLElement | null): boolean => {
 };
 
 /**
- * Dispatch `focused-changed` event
- * @param element Element to dispatch event for
- * @param focused Focused state
- * @returns {void}
- */
-const dispatchFocusedChangedEvent = (element: HTMLElement, focused: boolean): void => {
-  const event: FocusedChangedEvent = new CustomEvent('focused-changed', {
-    detail: {
-      value: focused
-    }
-  });
-  element.dispatchEvent(event);
-};
-
-let syncAnimationFrame: number | null = null;
-/**
- * Set element `focused` state in asynchronous way
- * @returns {void}
- */
-const updateFocusedState = (): void => {
-  if (syncAnimationFrame) {
-    cancelAnimationFrame(syncAnimationFrame);
-  }
-
-  const focused = isKey ? 'visible' : '';
-  syncAnimationFrame = requestAnimationFrame(() => {
-    syncAnimationFrame = null;
-    const activeElement = getActiveElement(true);
-    const focusedPath = activeElement ? getRegisteredPath(activeElement, true) : [];
-    focusedMap.forEach((state, el) => {
-      if (!focusedPath.includes(el)) {
-        focusedMap.delete(el);
-        el.removeAttribute('focused');
-        dispatchFocusedChangedEvent(el, false);
-        el.requestUpdate(FocusedPropertyKey, true);
-      }
-    });
-    focusedPath.forEach(el => {
-      const focusedChanged = !focusedMap.has(el);
-      if (!focusedChanged || focusedMap.get(el) !== focused) {
-        focusedMap.set(el, focused);
-        el.setAttribute('focused', focused);
-        dispatchFocusedChangedEvent(el, true);
-        focusedChanged && el.requestUpdate(FocusedPropertyKey, false);
-      }
-    });
-  });
-};
-
-/**
  * Run on focus event
  * @param event Focus event
  * @returns {void}
@@ -191,19 +138,9 @@ const updateFocusedState = (): void => {
 const onFocus = (event: FocusEvent): void => {
   const target = event.target as HTMLElement | null;
   shouldDelegateOnFocus(target) && delegateFocus(target as BasicElement);
-  updateFocusedState();
-};
-
-/**
- * Run on blur event
- * @returns {void}
- */
-const onBlur = (): void => {
-  updateFocusedState();
 };
 
 const onDocumentFocus = (event: FocusEvent): void => onFocus(event);
-const onDocumentBlur = (): void => onBlur();
 const onDocumentKeyUp = (): void => resetKeys();
 const onWindowBlur = (): void => resetKeys();
 
@@ -220,8 +157,6 @@ const onShadowRootBlur = function (this: ShadowRoot): void {
       if (getActiveElement(true) === element) {
         delegateFocus(element);
       }
-
-      updateFocusedState();
     });
   }
 };
@@ -237,7 +172,6 @@ abstract class FocusRegistry {
       document.addEventListener('keydown', onDocumentKeyDown, true);
       document.addEventListener('keyup', onDocumentKeyUp, true);
       document.addEventListener('focus', onDocumentFocus, true);
-      document.addEventListener('blur', onDocumentBlur, true);
       window.addEventListener('blur', onWindowBlur);
     }
 
@@ -263,13 +197,11 @@ abstract class FocusRegistry {
       document.removeEventListener('keydown', onDocumentKeyDown, true);
       document.removeEventListener('keyup', onDocumentKeyUp, true);
       document.removeEventListener('focus', onDocumentFocus, true);
-      document.removeEventListener('blur', onDocumentBlur, true);
       window.removeEventListener('blur', onWindowBlur);
     }
   }
 }
 
 export {
-  FocusedPropertyKey,
   FocusRegistry
 };

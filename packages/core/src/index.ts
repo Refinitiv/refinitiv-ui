@@ -5,6 +5,7 @@ export {
   html,
   svg,
   css,
+  nothing,
   unsafeCSS,
   render
 } from 'lit';
@@ -46,8 +47,6 @@ export { DeprecationNotice } from './notices/DeprecationNotice.js';
  * Export events
  */
 export { TapEvent } from './events/TapEvent.js';
-import type { FocusedChangedEvent } from './types/events';
-export type { FocusedChangedEvent };
 
 /**
  * Export common interfaces
@@ -65,12 +64,6 @@ export type { StyleInfo };
 export { FocusableHelper } from './utils/focusableHelper.js';
 export { isBasicElement } from './utils/helpers.js';
 export { triggerResize } from './utils/resizeHelper.js';
-
-/**
- * Export focused key.
- * Used to observe `focused` attribute changes
- */
-export { FocusedPropertyKey } from './registries/FocusRegistry.js';
 
 import { CustomStyleRegistry } from './registries/CustomStyleRegistry.js';
 import { NativeStyleRegistry } from './registries/NativeStyleRegistry.js';

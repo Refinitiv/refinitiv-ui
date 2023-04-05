@@ -1,0 +1,22 @@
+{
+  "name": "@refinitiv-ui/workspace-theme",
+  "version": "7.0.0-next.0",
+  "author": "LSEG",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    ".": "./lib/index.css"
+  },
+  "scripts": {
+    "build": "lessc index.less ./lib/index.less && lessc ./lib/index.less ./lib/index.css",
+    "build:watch": "chokidar index.less --command \"npm run build\" --debounce=500",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@refinitiv-ui/tokens": "^7.0.0-next.0"
+  },
+  "devDependencies": {
+    "less": "^4.1.3"
+  }
+}
+

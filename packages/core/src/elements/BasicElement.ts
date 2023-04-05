@@ -16,10 +16,8 @@ const toChangedEvent = (name: string): string => `${name.replace(NOTIFY_REGEXP, 
  * Basic element base class.
  * Usually used for creating low-level elements.
  *
- * @fires focused-changed Fired when `focused` property changes
  */
 export abstract class BasicElement extends LitElement {
-
   /**
    * Creates and registers instance of Element.
    */
@@ -70,14 +68,6 @@ export abstract class BasicElement extends LitElement {
    */
   @property({ type: Boolean, attribute: 'autofocus', reflect: true })
   public autofocus = false;
-
-  /**
-   * Get focused state of an element:
-   * @readonly
-   */
-  public get focused (): boolean {
-    return this.hasAttribute('focused');
-  }
 
   /**
   * Gets any defined css variables by name/key

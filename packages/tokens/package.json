@@ -1,0 +1,23 @@
+{
+  "name": "@refinitiv-ui/tokens",
+  "version": "7.0.0-next.0",
+  "author": "LSEG",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    "./base": "./lib/default.tokens.css",
+    "./density/mobile": "./lib/mobile.tokens.css",
+    "./density/comfort": "./lib/comfort.tokens.css",
+    "./density/dense": "./lib/dense.tokens.css",
+    "./variant/light": "./lib/light.tokens.css",
+    "./variant/dark": "./lib/dark.tokens.css"
+  },
+  "scripts": {
+    "build": "rm -rf lib && toko -c toko.config.js -d lib",
+    "build:watch": "chokidar '**/*.json' --command \"npm run build\" --debounce=500",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "toko": "^0.1.0"
+  }
+}

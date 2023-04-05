@@ -1,0 +1,123 @@
+{
+  "token-name": {
+    "$value": "mobile",
+    "$description": "use for testing purpose only"
+  },
+  "space": {
+    "$type": "dimension",
+    "010": {
+      "$value": "8px"
+    },
+    "020": {
+      "$value": "16px"
+    },
+    "030": {
+      "$value": "20px"
+    }
+  },
+  "code-only": {
+    "dimension": {
+      "$type": "dimension",
+      "pattern-sign-in-width": {
+        "$value": "100%"
+      },
+      "control": {
+        "height": {
+          "$type": "dimension",
+          "$value": "46px"
+        },
+        "padding-horizontal": {
+          "$type": "dimension",
+          "$value": "8px"
+        },
+        "padding-vertical": {
+          "$type": "dimension",
+          "$value": "12px"
+        },
+        "line-height": {
+          "$value": "{copy.md-emphasis.line-height}"
+        }
+      },
+      "action": {
+        "padding-horizontal": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "padding-vertical": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "item-spacing": {
+          "default": {
+            "$value": "{space.010}"
+          }
+        },
+        "line-height": {
+          "default": {
+            "$value": "{copy.md-loud.line-height}"
+          }
+        }
+      },
+      "checkbox": {
+        "width": {
+          "$type": "dimension",
+          "$value": "18px"
+        },
+        "height": {
+          "$type": "dimension",
+          "$value": "18px"
+        },
+        "padding-vertical": {
+          "$value": "{space.010}"
+        },
+        "padding-horizontal": {
+          "$value": "12px"
+        }
+      },
+      "footer": {
+        "height": {
+          "$value": "94px"
+        },
+        "xs-height": {
+          "$value": "94px"
+        }
+      }
+    },
+    "typography": {
+      "$type": "typography",
+      "control": {
+        "label": {
+          "default": {
+            "$value": "{copy.md-emphasis.all}"
+          }
+        },
+        "content": {
+          "default": {
+            "$value": "{copy.md.all}"
+          }
+        }
+      },
+      "action": {
+        "content": {
+          "default": {
+            "$value": "{copy.md-loud.all}"
+          }
+        }
+      }
+    },
+    "option": {
+      "border": {
+        "selected": {
+          "$type": "border",
+          "$value": {
+            "color": "{color.blue-ribbon}",
+            "width": "{width.020}",
+            "style": "solid"
+          }
+        }
+      }
+    }
+  }
+}

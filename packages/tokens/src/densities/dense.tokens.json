@@ -1,0 +1,124 @@
+{
+  "token-name": {
+    "$value": "dense",
+    "$description": "use for testing purpose only"
+  },
+  "space": {
+    "$type": "dimension",
+    "010": {
+      "$value": "2px"
+    },
+    "020": {
+      "$value": "4px"
+    },
+    "030": {
+      "$value": "8px"
+    }
+  },
+  "code-only": {
+    "dimension": {
+      "$type": "dimension",
+      "pattern-sign-in-width": {
+        "$value": "296px"
+      },
+      "control": {
+        "height": {
+          "$type": "dimension",
+          "$value": "26px"
+        },
+        "line-height": {
+          "$value": "{copy.xs-emphasis.line-height}"
+        }
+      },
+      "action": {
+        "padding-horizontal": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "padding-vertical": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "item-spacing": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "line-height": {
+          "default": {
+            "$value": "{copy.xs-loud.line-height}"
+          }
+        }
+      },
+      "checkbox": {
+        "width": {
+          "$type": "dimension",
+          "$value": "18px"
+        },
+        "height": {
+          "$type": "dimension",
+          "$value": "18px"
+        },
+        "padding-vertical": {
+          "$value": "{space.010}"
+        },
+        "padding-horizontal": {
+          "$value": "{space.020}"
+        }
+      },
+      "footer": {
+        "height": {
+          "$value": "30px"
+        },
+        "xs-height": {
+          "$value": "62px"
+        },
+        "xs-link-width": {
+          "$value": "128px"
+        },
+        "padding-vertical": {
+          "$value": "4px"
+        },
+        "padding-horizontal": {
+          "$value": "24px"
+        }
+      }
+    },
+    "typography": {
+      "$type": "typography",
+      "control": {
+        "label": {
+          "default": {
+            "$value": "{copy.xs-emphasis.all}"
+          }
+        },
+        "content": {
+          "default": {
+            "$value": "{copy.xs.all}"
+          }
+        }
+      },
+      "action": {
+        "content": {
+          "default": {
+            "$value": "{copy.xs-loud.all}"
+          }
+        }
+      }
+    },
+    "option": {
+      "border": {
+        "selected": {
+          "$type": "border",
+          "$value": {
+            "color": "{color.blue-ribbon}",
+            "width": "{width.010}",
+            "style": "solid"
+          }
+        }
+      }
+    }
+  }
+}

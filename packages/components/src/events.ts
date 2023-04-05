@@ -1,7 +1,6 @@
 import type {
   TapEvent,
-  ResizeEvent,
-  FocusedChangedEvent
+  ResizeEvent
 } from '@refinitiv-ui/core';
 
 /**
@@ -151,6 +150,5 @@ export {
   FromChangedEvent,
   ToChangedEvent,
   TapEvent,
-  ResizeEvent,
-  FocusedChangedEvent
+  ResizeEvent
 };

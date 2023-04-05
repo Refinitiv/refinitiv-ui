@@ -4,8 +4,6 @@ export declare namespace JSXInterface {
     alt?: string;
     autoComplete?: string;
     autocomplete?: string;
-    autoFocus?: boolean;
-    autofocus?: boolean | string;
     capture?: string;
     checked?: boolean;
     crossOrigin?: string;

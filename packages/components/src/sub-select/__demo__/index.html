@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Sub Select</title>
+  <link type="text/css" rel="stylesheet" href="../../../node_modules/@refinitiv-ui/workspace-theme/lib/index.css">
+  <link type="text/css" rel="stylesheet" href="src/demo.css">
+  <script type="module" src="src/theme-switcher.js"></script>
+</head>
+<style>
+  ui-sub-select {
+    margin: 10px 0;
+  }
+</style>
+<body>
+  <script type="module">
+    import '@refinitiv-ui/components/sub-select';
+  </script>
+  <h1>Sub Select</h1>
+  <p>Default</p>
+  <ui-sub-select>
+    <ui-option value="1">Cola</ui-option>
+    <ui-option value="2">Lemonade</ui-option>
+    <ui-option value="3">Orange Juice</ui-option>
+    <ui-option value="4">Apple Juice</ui-option>
+    <ui-option value="5">Iced Tea</ui-option>
+  </ui-sub-select>
+  <ui-sub-select>
+    <ui-option value="1">Cola</ui-option>
+    <ui-option selected value="2">Lemonade</ui-option>
+    <ui-option value="3">Orange Juice</ui-option>
+    <ui-option value="4">Apple Juice</ui-option>
+  </ui-sub-select>
+</body>
+</html>

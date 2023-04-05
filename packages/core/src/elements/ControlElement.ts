@@ -9,6 +9,13 @@ import { WarningNotice } from '../notices/WarningNotice.js';
  * Usually used for creating form-style elements.
  */
 export abstract class ControlElement extends BasicElement implements IControlProperties {
+
+  internals = this.attachInternals(); // Safari 16.4+
+
+  static get formAssociated () {
+    return true;
+  }
+
   /**
    * All control element by default need to be focusable
    */
@@ -45,6 +52,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
     }
     if (oldValue !== value) {
       this._value = value;
+      this.internals.setFormValue(this.value);
       this.requestUpdate('value', oldValue);
     }
   }
@@ -133,7 +141,9 @@ export abstract class ControlElement extends BasicElement implements IControlPro
       this.tabIndex = -1;
     }
 
-    this.hasAttribute('focused') && this.blur();
+    if (document.activeElement === this) {
+      this.blur();
+    }
   }
 
   /**

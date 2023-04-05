@@ -1,0 +1,287 @@
+{
+  "base": {
+    "bg": {
+      "$type": "color",
+      "primary": {
+        "$value": "{color.mine-shaft}"
+      },
+      "secondary": {
+        "$value": "{color.lights-out}"
+      },
+      "emphasis": {
+        "$value": "{color.white}"
+      }
+    },
+    "content": {
+      "$type": "color",
+      "primary": {
+        "$value": "{color.silver}"
+      },
+      "primary-onInvert": {
+        "$value": "{color.torea-bay}"
+      }
+    }
+  },
+  "link": {
+    "content":{
+      "primary": {
+        "$type":"color",
+        "$value": "{color.melrose}"
+      },
+      "focused": {
+        "$value": "${color.white}"
+      },
+      "focused-onInvert": {
+        "$value": "${color.lights-out}"
+      },
+      "hover": {
+        "$value": "${color.cornflower-blue}"
+      },
+      "hover-onInvert": {
+        "$value": "${color.blue-ribbon}"
+      },
+      "visited": {
+        "$value": "{color.heather-hint}"
+      },
+      "visited-onInvert": {
+        "$value": "{color.butterfly}"
+      }
+    }
+  },
+  "control": {
+    "bg": {
+      "$type": "color",
+      "default": {
+        "$value": "{color.lights-out}"
+      },
+      "hover": {
+        "$value": "{color.lights-out}"
+      },
+      "focused": {
+        "$value": "{color.lights-out}"
+      },
+      "selected": {
+        "$value": "{color.lights-out}"
+      },
+      "hover-on-invert": {
+        "$value": "{color.lights-out}"
+      },
+      "selected-focused": {
+        "$value": "{color.melrose}"
+      }
+    },
+    "border": {
+      "$type": "border",
+      "default": {
+        "$value": {
+          "color": "{color.grey}",
+          "width": "1px",
+          "style": "solid"
+        }
+      },
+      "hover": {
+        "$value": {
+          "color": "{color.melrose}",
+          "width": "1px",
+          "style": "solid"
+        }
+      },
+      "focused": {
+        "$value": {
+          "color": "{color.lights-out}",
+          "width": "1px",
+          "style": "solid"
+        }
+      },
+      "selected": {
+        "$value": {
+          "color": "{color.silver}",
+          "width": "1px",
+          "style": "solid"
+        }
+      }
+    },
+    "content": {
+      "$type": "color",
+      "primary": {
+        "$value": "{color.silver}"
+      },
+      "secondary": {
+        "$value": "{color.tundora}"
+      },
+      "decorative": {
+        "$value": "{color.dove-grey}"
+      },
+      "default": {
+        "$value": "{color.silver}"
+      },
+      "hover": {
+        "$value": "{color.white}"
+      },
+      "focused": {
+        "$value": "{color.white}"
+      },
+      "selected": {
+        "$value": "{color.white}"
+      },
+      "selected-onInvert": {
+        "$value": "{color.lights-out}"
+      }
+    },
+    "focused": {
+      "ring": {
+        "$type": "border",
+        "$value": {
+          "color": "{color.white}",
+          "width": "2px",
+          "style": "solid"
+        }
+      },
+      "ring-onInvert": {
+        "$type": "border",
+        "$value": {
+          "color": "{color.blue-ribbon}",
+          "width": "2px",
+          "style": "solid"
+        }
+      }
+    }
+  },
+  "action": {
+    "bg": {
+      "$type": "color",
+      "primary": {
+        "default": {
+          "$value": "{color.lights-out}"
+        },
+        "hover": {
+          "$value": "{color.persian-blue}"
+        },
+        "focused": {
+          "$value": "{color.concrete}"
+        },
+        "pressed": {
+          "$value": "{color.torea-bay}"
+        }
+      },
+      "secondary": {
+        "default": {
+          "$value": "{color.charcoal}"
+        },
+        "hover": {
+          "$value": "{color.persian-blue}"
+        },
+        "focused": {
+          "$value": "{color.concrete}"
+        },
+        "pressed": {
+          "$value": "{color.torea-bay}"
+        }
+      }
+    },
+    "border": {
+      "$type": "border",
+      "primary": {
+        "default": {
+          "$value": {
+            "color": "{color.grey}",
+            "width": "1px",
+            "style": "solid"
+          }
+        },
+        "hover": {
+          "$value": {
+            "color": "{color.persian-blue}",
+            "width": "1px",
+            "style": "solid"
+          }
+        },
+        "focused": {
+          "$value": {
+            "color": "{color.lights-out}",
+            "width": "1px",
+            "style": "solid"
+          }
+        },
+        "pressed": {
+          "$value": {
+            "color": "{color.torea-bay}",
+            "width": "1px",
+            "style": "solid"
+          }
+        }
+      },
+      "secondary": {
+        "default": {
+          "$value": {
+            "color": "{color.lights-out}",
+            "width": "1px",
+            "style": "solid"
+          }
+        },
+        "hover": {
+          "$value": {
+            "color": "{color.persian-blue}",
+            "width": "1px",
+            "style": "solid"
+          }
+        },
+        "focused": {
+          "$value": {
+            "color": "{color.lights-out}",
+            "width": "1px",
+            "style": "solid"
+          }
+        },
+        "pressed": {
+          "$value": {
+            "color": "{color.torea-bay}",
+            "width": "1px",
+            "style": "solid"
+          }
+        }
+      }
+    },
+    "content": {
+      "$type": "color",
+      "primary": {
+        "default": {
+          "$value": "{color.silver}"
+        },
+        "hover": {
+          "$value": "{color.white}"
+        },
+        "focused": {
+          "$value": "{color.lights-out}"
+        },
+        "pressed": {
+          "$value": "{color.white}"
+        }
+      },
+      "secondary": {
+        "default": {
+          "$value": "{color.silver}"
+        },
+        "hover": {
+          "$value": "{color.white}"
+        },
+        "focused": {
+          "$value": "{color.lights-out}"
+        },
+        "pressed": {
+          "$value": "{color.white}"
+        }
+      }
+    }
+  },
+  "code-only": {
+    "url": {
+      "brand-logo": {
+        "$value": "url(/resources/logo.workspace.dark.svg?url)"
+      },
+      "banner": {
+        "$value": "url(/resources/banner.dark.png?url)"
+      }
+    }
+  }
+}

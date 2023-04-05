@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link type="text/css" rel="stylesheet" href="../../../node_modules/@refinitiv-ui/workspace-theme/lib/index.css">
+  <link type="text/css" rel="stylesheet" href="src/demo.css">
+  <script type="module" src="src/theme-switcher.js"></script>
+  <title>Checkbox</title>
+</head>
+<style>
+  ui-checkbox {
+    margin-left: 20px;
+  }
+</style>
+<body>
+  <script type="module">
+    import '@refinitiv-ui/components/checkbox';
+  </script>
+  <h1>Checkbox</h1>
+
+  <p>Default</p>
+  <ui-checkbox>Unchecked</ui-checkbox>
+  <ui-checkbox checked>Checked</ui-checkbox>
+
+  <p>Event</p>
+  <ui-checkbox id="check-event">Event Listener</ui-checkbox>
+  <br>
+  <code id="checked"></code>
+  <script>
+    const text = document.getElementById('checked');
+    const checkbox = document.getElementById('check-event');
+    checkbox.addEventListener('checked-changed', (event) => {
+      text.innerHTML = event.detail.value
+    });
+  </script>
+</body>
+
+</html>

@@ -126,14 +126,6 @@ packages/*/.DS_Store
 packages/**/lib
 packages/**/node_modules
 
-# Themes
-packages/elemental-theme/dark
-packages/elemental-theme/light
-packages/solar-theme/charcoal
-packages/solar-theme/pearl
-packages/halo-theme/dark
-packages/halo-theme/light
-
 # Doc
 custom-elements.json
 

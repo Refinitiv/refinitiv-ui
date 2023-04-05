@@ -1,18 +1,30 @@
 {
   "root": true,
-  "extends": ["./node_modules/@refinitiv-ui/configurations/typescript.eslint-config.js"],
+  "extends": [
+    "./node_modules/@refinitiv-ui/configurations/typescript.eslint-config.js"
+  ],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "rules": {
     "@typescript-eslint/no-namespace": 0,
-    "import/extensions": ["error", "always"]
+    "import/extensions": [
+      "error",
+      "always"
+    ]
   },
   "ignorePatterns": [
-    "packages/**/lib",
-    "packages/**/scripts",
-    "*.config.js",
+    "node_modules/",
+    "scripts",
     "__test__",
-    "*.md"
-  ] // .eslintignore resolves relative to working dir, this is needed to ignore files in workspaces
+    "__snapshots__/",
+    "__demo__",
+    "lib",
+    "coverage",
+    "**/*.md",
+    "!**/*.ts",
+    "!**/*.html",
+    "**/*.d.ts",
+    "*.config.*"
+  ]
 }

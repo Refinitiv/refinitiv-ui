@@ -1,4 +1,4 @@
-import { expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
 import { customElement } from './../lib/decorators/custom-element';
 import { LitElement } from '../lib/index.js';
 import { CustomStyleRegistry } from '../lib/registries/CustomStyleRegistry.js';

@@ -1,9 +1,0 @@
-<svg width="15px" height="13px" viewBox="0 0 15 13" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="checked" transform="translate(-3.000000, -5.000000)">
-            <rect id="Rectangle" x="0" y="0" width="22" height="22"></rect>
-            <path d="M5.24856414,14.2994494 L8.96342498,14.3250327" id="Line" stroke="#535DE9" stroke-width="3" stroke-linecap="square" transform="translate(6.968273, 14.818813) rotate(40.000000) translate(-6.968273, -14.818813) "></path>
-            <path d="M11.9624224,6.83767661 L11.9624224,17.1479622" id="Line" stroke="#535DE9" stroke-width="3" stroke-linecap="square" transform="translate(12.345739, 12.110439) rotate(40.000000) translate(-12.345739, -12.110439) "></path>
-        </g>
-    </g>
-</svg>

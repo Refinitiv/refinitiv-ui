@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link type="text/css" rel="stylesheet" href="../../../node_modules/@refinitiv-ui/workspace-theme/lib/index.css">
+  <link type="text/css" rel="stylesheet" href="src/demo.css">
+  <script type="module" src="src/theme-switcher.js"></script>
+  <title>Button</title>
+</head>
+
+<body>
+  <script type="module">
+    import '@refinitiv-ui/components/button';
+  </script>
+  <h1>Button</h1>
+
+  <p>Default</p>
+
+  <ui-button variant="primary">Primary</ui-button>
+  <ui-button variant="secondary">Secondary</ui-button>
+
+  <p>Max-width</p>
+
+  <ui-button style="width: 100%; margin-bottom: 1rem;" variant="primary">Primary</ui-button>
+  <ui-button style="width: 100%;" variant="secondary">Secondary</ui-button>
+
+  <p>With icon-end</p>
+
+ <ui-button icon-end="right" variant="primary">Primary</ui-button>
+ <ui-button variant="secondary" icon-end="right">Secondary</ui-button>
+
+  <p>Event</p>
+ <ui-button id="event">Event</ui-button>
+  <br>
+  Tap: <code id="state">0</code>
+  <script>
+    const button = document.getElementById('event');
+    const isClicked = document.getElementById('state');
+    let clicks = isClicked.innerHTML;
+    button.addEventListener('tap', (event) => {
+      clicks++;
+      isClicked.innerHTML = clicks;
+    });
+  </script>
+
+  <p>Long Text</p>
+  <ui-button icon-end="right">rule of 3: tribble button copy to demonstrate behaviour as the label gets very long - icon stays centred</ui-button>
+</body>
+
+</html>

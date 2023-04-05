@@ -5,6 +5,6 @@ const translations = {
   HIDE_PASSWORD: '隱藏密碼'
 };
 
-Phrasebook.define('zh-Hant', 'ef-password-field', translations);
+Phrasebook.define('zh-Hant', 'ui-sub-password-field', translations);
 
 export default translations;

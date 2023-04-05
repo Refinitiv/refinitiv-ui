@@ -10,11 +10,13 @@
     "npm": ">=8.0.0"
   },
   "scripts": {
+    "dev": "vite demo",
     "lerna": "lerna",
     "build": "nx run-many --target build --parallel --all",
     "build:affected": "nx affected:build --parallel",
     "build:docs": "nx run @refinitiv-ui/docs:build",
     "build:prod": "nx run-many --target build:prod --all",
+    "build-theme:watch": "chokidar './packages/tokens/src/*.json' './packages/workspace-theme/index.less' -c \"nx run @refinitiv-ui/tokens:build && nx run @refinitiv-ui/workspace-theme:build\" --debounce=500",
     "start": "node cli start",
     "start:docs": "nx run @refinitiv-ui/docs:start",
     "test": "node cli test",
@@ -49,7 +51,8 @@
     "micromatch": "^4.0.4",
     "request": "^2.88.2",
     "sinon": "^9.2.4",
-    "typescript": "^4.8.3",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.4",
     "web-component-analyzer": "2.0.0-next.4",
     "yargs": "^17.0.1"
   }

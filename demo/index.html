@@ -4,9 +4,45 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <link rel="stylesheet" href="/app.css">
+  <title>Sign In</title>
 </head>
 <body>
-  
+  <main>
+    <ui-pattern-sign-in id="sign-in"></ui-pattern-sign-in>
+  </main>
+  <aside>
+    <section class="center">
+      <h2>POC Controls</h2>
+      <section class="wrap">
+        <section class="wrap">
+          <ui-select label="Theme" id="setting-theme" disabled>
+            <ui-option selected>Workspace</ui-option>
+            <ui-option>UBS</ui-option>
+          </ui-select>
+          <ui-select label="Mode" id="setting-mode">
+            <ui-option value="" selected>Auto</ui-option>
+            <ui-option value="light">Light</ui-option>
+            <ui-option value="dark">Dark</ui-option>
+          </ui-select>
+        </section>
+        <section class="wrap">
+          <ui-select label="Density" id="setting-density">
+            <ui-option value="" selected>Auto</ui-option>
+            <ui-option value="dense">Dense</ui-option>
+            <ui-option value="default">Default</ui-option>
+            <ui-option value="comfort">Comfort</ui-option>
+          </ui-select>
+          <ui-select label="Motion" id="setting-motion" disabled>
+            <ui-option selected>Auto</ui-option>
+            <ui-option>On</ui-option>
+            <ui-option>Reduced</ui-option>
+            <ui-option>Off</ui-option>
+          </ui-select>
+        </section>
+      </section>
+    </section>
+  </aside>
+  <script src="/app.ts" type="module"></script>
 </body>
 </html>

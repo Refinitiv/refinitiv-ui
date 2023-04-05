@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Sub Overlay</title>
+  <link type="text/css" rel="stylesheet" href="../../../node_modules/@refinitiv-ui/workspace-theme/lib/index.css">
+  <link type="text/css" rel="stylesheet" href="src/demo.css">
+  <script type="module" src="src/theme-switcher.js"></script>
+  <style>
+    #basic {
+      margin: 10px;
+    }
+
+    .center-button {
+      text-align: center;
+    }
+
+    .content {
+      text-align: center;
+      max-width: 350px;
+      min-width: 200px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .content-button-bar {
+      display: flex;
+      box-sizing: border-box;
+      padding: 20px;
+      width: 100%;
+    }
+
+    .content-button-bar>*:not(:last-child) {
+      margin-right: 10px;
+    }
+
+    .content-button-bar>*:last-child {
+      margin-left: auto;
+    }
+
+    [full-screen] .content {
+      width: 100%;
+    }
+
+    #outer-rel {
+      position: relative;
+      height: 100px;
+      padding: 0;
+    }
+
+    #inner-abs {
+      background: deeppink;
+      height: 50px;
+      width: 100%;
+      z-index: 2000;
+      padding: 0;
+    }
+
+    .demo-wrapper {
+      display: flex;
+    }
+
+    .demo-wrapper>*:not(:last-child) {
+      margin-right: 20px;
+    }
+
+    .transformed {
+      transform: translate3d(0, 0, 0);
+    }
+
+    .transformed::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border: 3px dashed red;
+      pointer-events: none;
+    }
+
+    .filtered {
+      filter: drop-shadow(20px 20px 20px red);
+    }
+
+    .zoomed {
+      zoom: 0.5;
+    }
+
+    .label {
+      display: flex;
+    }
+
+    .label>input {
+      flex: none;
+    }
+
+    #interactiveElementsDemo input:hover {
+      outline: 2px solid red;
+    }
+  </style>
+</head>
+
+<body>
+  <script type="module">
+    import '@refinitiv-ui/components/sub-overlay';
+    import '@refinitiv-ui/components/sub-checkbox';
+  </script>
+  <h1>sub-overlay</h1>
+  <script type="text/javascript">
+    (function () {
+      window.getRandomColor = function () {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i += 1) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      };
+
+      window.overlayAction = function (el, action, callFirst) {
+        el = document.getElementById(el);
+        if (callFirst) {
+          callFirst(el);
+        }
+        if (action === 'open') {
+          el.opened = true;
+        }
+        else if (action === 'close') {
+          el.opened = false;
+        }
+      };
+      window.linkOverlay = function (overlayId, targetId) {
+        const layeredOverlay = document.getElementById(overlayId);
+        layeredOverlay.positionTarget = document.getElementById(targetId);
+        layeredOverlay.position = ['center-middle'];
+      };
+      window.setCheckboxProperty = function (ch, overlay) {
+        const set = function () {
+          overlay[ch.getAttribute('ref')] = ch.checked || false;
+        };
+        set();
+        ch.addEventListener('change', set);
+      };
+      window.addContent = function (overlayId) {
+        const overlay = document.getElementById(overlayId);
+        const node = document.createElement('div');
+        node.style.minHeight = '50px';
+        node.style.margin = '20px';
+        node.style.border = '1px solid ' + getRandomColor();
+        node.setAttribute('ref', 'dynamic-content');
+
+        overlay.appendChild(node);
+      };
+
+      window.removeContent = function (overlayId) {
+        const overlay = document.getElementById(overlayId);
+        const node = overlay.querySelector('div[ref=dynamic-content]');
+
+        if (node) {
+          node.parentNode.removeChild(node);
+        }
+      };
+
+      window.setTransform = (el, enable) => {
+        el.classList.toggle('transformed', enable);
+      };
+
+      window.setZoom = (el, enable) => {
+        el.classList.toggle('zoomed', enable);
+      };
+
+      window.setFilter = (el, enable) => {
+        el.classList.toggle('filtered', enable);
+      };
+    })();
+  </script>
+  <div id="basic" header="Basic" layout="normal">
+    <div class="demo-wrapper">
+      <div>
+        <button onclick="overlayAction('default-overlay', 'open')">Open</button>
+       <ui-sub-overlay id="default-overlay">
+          <div class="content">
+            Default panel
+          </div>
+          <div class="content-button-bar">
+            <button onclick="addContent('default-overlay')">Add</button>
+            <button onclick="removeContent('default-overlay')">Remove</button>
+            <button onclick="overlayAction('default-overlay', 'close')">Close</button>
+          </div>
+        </ui-sub-overlay>
+      </div>
+      <div class="demo-wrapper">
+        <div>
+          <div class="label"><input type="checkbox" ref="transparent" name="basic-transparent"><label
+              for="basic-transparent">Make overlay transparent</label></div>
+          <div class="label"><input type="checkbox" ref="withShadow" name="basic-withShadow"><label
+              for="basic-withShadow">Show overlay shadow</label></div>
+          <div class="label"><input type="checkbox" ref="noCancelOnOutsideClick"
+              name="basic-noCancelOnOutsideClick"><label for="basic-noCancelOnOutsideClick">No auto hide. You close
+              button only</label></div>
+          <div class="label"><input type="checkbox" ref="noCancelOnEscKey" name="basic-noCancelOnEscKey"><label
+              for="basic-noCancelOnEscKey">Do not hide on ESC key</label></div>
+          <div class="label"><input type="checkbox" ref="withBackdrop" name="basic-withBackdrop"><label
+              for="basic-withBackdrop">Show backdrop for the overlay</label></div>
+        </div>
+        <div>
+          <div class="label"><input type="checkbox" ref="spacing" name="basic-spacing"><label for="basic-spacing">Show
+              spacing inside the overlay</label></div>
+          <div class="label"><input type="checkbox" ref="fullScreen" name="basic-fullScreen"><label
+              for="basic-fullScreen">Show overlay in full screen mode</label></div>
+          <div class="label"><input type="checkbox" ref="noInteractionLock" name="basic-noInteractionLock"><label
+              for="basic-noInteractionLock">Do not lock body interaction when overlay is opened</label></div>
+          <div class="label"><input type="checkbox" ref="noAutoFocus" name="basic-noAutoFocus"><label
+              for="basic-noAutoFocus">Do not focus on overlay</label></div>
+          <div class="label"><input type="checkbox" ref="noFocusManagement" name="basic-noFocusManagement"><label
+              for="basic-noFocusManagement">Do not provide focus management</label></div>
+          <div class="label"><input type="checkbox" id="body-transform" name="body-transform"><label
+              for="body-transform">Add Transform to body: translate3d(0, 0, 0);</label></div>
+          <div class="label"><input type="checkbox" id="body-filter" name="body-filter"><label for="body-filter">Add
+              Filter to body: drop-shadow;</label></div>
+          <div class="label"><input type="checkbox" id="body-zoom" name="body-zoom"><label for="body-zoom">Add Zoom to
+              body: zoom: 0.5;</label></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        const overlay = document.getElementById('default-overlay');
+        document.querySelectorAll('#basic input[type=checkbox][ref]').forEach(function (ch) {
+          setCheckboxProperty(ch, overlay);
+        });
+        document.getElementById('body-transform').addEventListener('change', ({ target }) => setTransform(document.body, target.checked));
+        document.getElementById('body-filter').addEventListener('change', ({ target }) => setFilter(document.body, target.checked));
+        document.getElementById('body-zoom').addEventListener('change', ({ target }) => setZoom(document.body, target.checked));
+      })();
+    </script>
+  </div>
+</body>
+
+</html>

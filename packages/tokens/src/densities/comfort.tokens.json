@@ -1,0 +1,127 @@
+{
+  "token-name": {
+    "$value": "comfort",
+    "$description": "use for testing purpose only"
+  },
+  "space": {
+    "$type": "dimension",
+    "010": {
+      "$value": "8px"
+    },
+    "020": {
+      "$value": "12px"
+    },
+    "030": {
+      "$value": "16px"
+    }
+  },
+  "code-only": {
+    "typography": {
+      "control": {
+        "label": {
+          "default": {
+            "$value": "{copy.md-emphasis.all}"
+          }
+        },
+        "content": {
+          "default": {
+            "$value": "{copy.md.all}"
+          }
+        }
+      },
+      "action": {
+        "content": {
+          "default": {
+            "$value": "{copy.md-loud.all}"
+          }
+        }
+      }
+    },
+    "dimension": {
+      "pattern-sign-in-width": {
+        "$value": "1040px"
+      },
+      "control": {
+        "line-height": {
+          "$value": "{copy.md-emphasis.line-height}"
+        },
+        "height": {
+          "$type": "dimension",
+          "$value": "38px"
+        },
+        "padding-horizontal": {
+          "$type": "dimension",
+          "$value": "8px"
+        },
+        "padding-vertical": {
+          "$type": "dimension",
+          "$value": "8px"
+        }
+      },
+      "action": {
+        "padding-horizontal": {
+          "default": {
+            "$value": "{space.030}"
+          }
+        },
+        "padding-vertical": {
+          "default": {
+            "$value": "{space.020}"
+          }
+        },
+        "item-spacing": {
+          "default": {
+            "$value": "{space.010}"
+          }
+        },
+        "line-height": {
+          "default": {
+            "$value": "{copy.md-loud.line-height}"
+          }
+        }
+      },
+      "checkbox": {
+        "width": {
+          "$type": "dimension",
+          "$value": "26px"
+        },
+        "height": {
+          "$type": "dimension",
+          "$value": "26px"
+        },
+        "padding-vertical": {
+          "$value": "{space.010}"
+        },
+        "padding-horizontal": {
+          "$value": "{space.020}"
+        }
+      },
+      "footer": {
+        "height": {
+          "$value": "46px"
+        },
+        "xs-height": {
+          "$value": "94px"
+        },
+        "padding-vertical" : {
+          "$value": "12px"
+        },
+        "padding-horizontal" : {
+          "$value": "32px"
+        }
+      }
+    },
+    "option": {
+      "border": {
+        "selected": {
+          "$type": "border",
+          "$value": {
+            "color": "{color.blue-ribbon}",
+            "width": "{width.020}",
+            "style": "solid"
+          }
+        }
+      }
+    }
+  }
+}
