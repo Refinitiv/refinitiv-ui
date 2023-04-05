@@ -111,20 +111,11 @@
     "xs-link-width": {
       "$value": "128px"
     },
-    "padding-between" : {
-      "$value": "8px"
-    },
     "padding-vertical" : {
       "$value": "4px"
     },
     "padding-horizontal" : {
       "$value": "24px"
-    },
-    "xs-padding-vertical" : {
-      "$value": "4px"
-    },
-    "xs-padding-horizontal" : {
-      "$value": "20px"
     }
   }
 }

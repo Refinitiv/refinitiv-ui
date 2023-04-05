@@ -114,20 +114,11 @@
     "xs-height": {
       "$value": "94px"
     },
-    "padding-between" : {
-      "$value": "20px"
-    },
     "padding-vertical" : {
       "$value": "12px"
     },
     "padding-horizontal" : {
       "$value": "60px"
-    },
-    "xs-padding-vertical" : {
-      "$value": "12px"
-    },
-    "xs-padding-horizontal" : {
-      "$value": "24px"
     }
   }
 }

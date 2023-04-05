@@ -822,17 +822,21 @@
     }
   },
   "footer": {
+    "$type": "dimension",
     "height": {
       "$value": "38px"
     },
     "xs-height": {
       "$value": "78px"
     },
+    "xs-link-spacing": {
+      "$value": "2px"
+    },
     "xs-link-width": {
       "$value": "116px"
     },
     "padding-between" : {
-      "$value": "12px"
+      "$value": "16px"
     },
     "padding-vertical" : {
       "$value": "8px"
@@ -841,10 +845,10 @@
       "$value": "40px"
     },
     "xs-padding-vertical" : {
-      "$value": "8px"
+      "$value": "0px"
     },
     "xs-padding-horizontal" : {
-      "$value": "24px"
+      "$value": "16px"
     }
   }
 }

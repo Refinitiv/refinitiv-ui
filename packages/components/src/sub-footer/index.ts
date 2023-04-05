@@ -7,9 +7,6 @@ import { VERSION } from '../version.js';
  */
 @customElement('ui-sub-footer', { theme: false })
 export class SubFooter extends BasicElement {
-
-  protected defaultRole: string | null = 'contentinfo';
-
   /**
    * Element version number
    * @returns version number
@@ -25,7 +22,7 @@ export class SubFooter extends BasicElement {
    */
   static get styles (): CSSResultGroup {
     return css`
-      :host {
+      :host [part=footer] {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -78,7 +75,7 @@ export class SubFooter extends BasicElement {
         margin-left: var(--footer-padding-between);
       }
       @media screen and (max-width: 639px) {
-        :host {
+        :host [part=footer] {
           height: var(--footer-xs-height);
           padding: var(--footer-xs-padding-vertical) var(--footer-xs-padding-horizontal);
         }
@@ -95,6 +92,7 @@ export class SubFooter extends BasicElement {
         ::slotted(a:last-child) {
           margin-left: 0;
           margin-right: 100%;
+          margin-top: var(--footer-xs-link-spacing);
           min-width: max-content;
         }
       }
@@ -107,7 +105,7 @@ export class SubFooter extends BasicElement {
    * @return {TemplateResult}  Render template
    */
   protected render (): TemplateResult {
-    return html`<slot></slot>`;
+    return html`<footer part="footer"><slot></slot></footer>`;
   }
 }
 
