@@ -481,7 +481,7 @@ ef-chart {
 
 
 ## Chart types
-You can create various chart types as per chartjs configurations. Samples are on [this page](https://www.chartjs.org/docs/4.2.1/samples/information.html).
+You can create various chart types as per chartjs configurations. Samples are on [this page](https://www.chartjs.org/docs/4.2.1/samples).
 
 ::
 ```javascript
