@@ -184,6 +184,13 @@ export class SubSelect extends ControlElement {
   public opened = false;
 
   /**
+   * Used to get `aria-label` field for internal <select>
+   * Calculated from `aria-label`, `aria-labelledby` and `label[for="<element.id>"]`
+   */
+  @property()
+  protected selectAriaLabel: string | null = null;
+
+  /**
    * Value of the element
    * @param value Element value
    * @default -
@@ -245,8 +252,6 @@ export class SubSelect extends ControlElement {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown); /* keydown when select is closed */
-    this.triggerElement?.setAttribute('aria-label', this.ariaLabel || '');
-    this.removeAttribute('aria-label');
   }
 
   /**
@@ -766,7 +771,7 @@ export class SubSelect extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-    <button part="trigger" aria-haspopup="listbox" aria-controls="menu" aria-expanded="false" @tapstart="${this.toggleOpened}">
+    <button aria-label="${this.selectAriaLabel}" part="trigger" aria-haspopup="listbox" aria-controls="menu" aria-expanded="false" @tapstart="${this.toggleOpened}">
       <div part="label" aria-hidden="true">  
         ${this.label}
       </div>
