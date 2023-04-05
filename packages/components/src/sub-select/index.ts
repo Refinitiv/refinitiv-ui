@@ -216,7 +216,7 @@ export class SubSelect extends ControlElement {
    */
   public connectedCallback (): void {
     super.connectedCallback();
-
+    this.removeAttribute('aria-label');
     this.getSelectableElements().forEach(option => {
       option.setAttribute('aria-selected', String(this.value === option.value));
     });
