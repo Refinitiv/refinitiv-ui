@@ -1,11 +1,22 @@
 import { BasicElement, css, CSSResultGroup, html, TemplateResult } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+
+import { ValueChangedEvent } from '../events.js';
+
 import '../button/index.js';
 import '../checkbox/index.js';
 import '../select/index.js';
 // import '../brand-logo/index.js';
 import '../input-field/index.js';
 import '../sub-footer/index.js';
+
+import { translate, Translate } from '@refinitiv-ui/translate';
+
+import '@refinitiv-ui/phrasebook/locale/en/pattern-sign-in.js';
+import '@refinitiv-ui/phrasebook/locale/ja/pattern-sign-in.js';
+
+import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
+import '@refinitiv-ui/phrasebook/locale/ja/password-field.js';
 
 @customElement('ui-pattern-sign-in', { theme: false })
 export class PatternSignIn extends BasicElement {
@@ -73,6 +84,17 @@ export class PatternSignIn extends BasicElement {
       `;
   }
 
+  /**
+   * Used for translations
+   */
+  @translate({ scope: 'ui-pattern-sign-in' })
+  protected t!: Translate;
+
+
+  private onLanguageChange (event: ValueChangedEvent) {
+    document.documentElement.setAttribute('lang', event.detail.value);
+  }
+
   protected onSubmit (event: SubmitEvent) {
     const data = new FormData(event.target as HTMLFormElement);
     const detail: Record<string, FormDataEntryValue> = {};
@@ -92,8 +114,9 @@ export class PatternSignIn extends BasicElement {
   public render (): TemplateResult {
     return html`
     <h1 style="font-size:0;margin:0;padding:0">Sign In</h1>
-    <ui-select label="Language">
-      <ui-option selected>English</ui-option>
+    <ui-select label="Language" @value-changed=${this.onLanguageChange}>
+      <ui-option selected value="en">English</ui-option>
+      <ui-option value="ja">Japanese</ui-option>
     </ui-select>
     <p>
       <ui-brand-logo></ui-brand-logo>
@@ -117,7 +140,7 @@ export class PatternSignIn extends BasicElement {
           <ui-button variant="primary">Sign In</ui-button>
         </li>
         <li>
-          <ui-button type="button">Cancel</ui-button>
+          <ui-button type="button">${this.t('CANCEL')}</ui-button>
         </li>
       </ul>
     </form>
