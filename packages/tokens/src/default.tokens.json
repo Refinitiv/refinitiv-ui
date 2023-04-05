@@ -115,10 +115,10 @@
     },
     "content":{
       "$type": "color",
-      "primary": {
+      "default": {
         "$value": "{color.torea-bay}"
       },
-      "primary-onInvert": {
+      "default-onInvert": {
         "$value": "{base.content.primary-onInvert}"
       },
       "focused": {
@@ -491,6 +491,32 @@
         "padding-horizontal": {
           "$value": "{space.020}"
         }
+      },
+      "footer": {
+        "height": {
+          "$value": "38px"
+        },
+        "xs-height": {
+          "$value": "78px"
+        },
+        "xs-link-spacing": {
+          "$value": "2px"
+        },
+        "padding-between" : {
+          "$value": "16px"
+        },
+        "padding-vertical" : {
+          "$value": "8px"
+        },
+        "padding-horizontal" : {
+          "$value": "40px"
+        },
+        "xs-padding-vertical" : {
+          "$value": "0px"
+        },
+        "xs-padding-horizontal" : {
+          "$value": "16px"
+        }
       }
     },
     "option": {
@@ -819,36 +845,6 @@
           "style": "solid"
         }
       }
-    }
-  },
-  "footer": {
-    "$type": "dimension",
-    "height": {
-      "$value": "38px"
-    },
-    "xs-height": {
-      "$value": "78px"
-    },
-    "xs-link-spacing": {
-      "$value": "2px"
-    },
-    "xs-link-width": {
-      "$value": "116px"
-    },
-    "padding-between" : {
-      "$value": "16px"
-    },
-    "padding-vertical" : {
-      "$value": "8px"
-    },
-    "padding-horizontal" : {
-      "$value": "40px"
-    },
-    "xs-padding-vertical" : {
-      "$value": "0px"
-    },
-    "xs-padding-horizontal" : {
-      "$value": "16px"
     }
   }
 }

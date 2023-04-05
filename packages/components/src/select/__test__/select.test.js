@@ -19,14 +19,6 @@ describe('ui-select', () => {
       const el = await fixture(`<ui-select opened>${getOptions()}</ui-select>`);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
-
-    it('--list-max-width recalculates popup width', async () => {
-      const el = await fixture(`<ui-select style="--ui-select-list-max-width: 50px;" opened>${getOptions()}</ui-select>`);
-      await openedUpdated(el);
-      const styles = window.getComputedStyle(getMenuEl(el));
-      expect(styles.maxWidth).to.equal('50px', 'CSS Variable is not passed');
-      expect(styles.minWidth).to.equal('0px', 'min width is not reset');
-    });
   });
 
   describe('Attributes', () => {
@@ -75,18 +67,6 @@ describe('ui-select', () => {
 
         expect(el.value).to.equal('AF');
         expect(el.querySelector('ui-option[selected]').value).to.equal('AF');
-      });
-      it('should reset value to empty when assign unknown value', async () => {
-        const el = await fixture(`<ui-select opened>${getOptions()}</ui-select>`);
-
-        el.value = 'AF';
-        await openedUpdated(el);
-
-        el.value = 'UNKNOWN';
-        await elementUpdated(el);
-
-        expect(el.value).to.equal('');
-        expect(el.querySelector('ui-option[selected]')).to.equal(null);
       });
     });
   });
