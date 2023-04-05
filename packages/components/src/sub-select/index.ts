@@ -9,6 +9,7 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
@@ -38,6 +39,7 @@ const observerOptions = {
 };
 
 const POPUP_POSITION = ['bottom-start', 'top-start'];
+const HORIZONTAL_OFFSET = 4; // use to styles focus ring of option items
 enum Navigation {
   FIRST = 'First',
   LAST = 'Last',
@@ -66,8 +68,6 @@ export class SubSelect extends ControlElement {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'button';
-
   /**
    * A `CSSResultGroup` that will be used
    * to style the host, slotted children
@@ -89,23 +89,21 @@ export class SubSelect extends ControlElement {
         color: var(--control-content-default);
         border: var(--control-border-default);
         background-color: var(--control-bg-default);
-        padding: var(--code-only-dimension-control-padding-vertical) var(--code-only-dimension-control-padding-horizontal);
       }
       :host([opened]) [part=icon] {
         transform: rotate(180deg);
       }
-      :host([opened]),
       :host(:focus) {
         color: var(--control-content-focused);
         border: var(--control-border-focused);
         background-color: var(--control-bg-focused);
+        outline: var(--control-focused-ring-on-invert);
       }
       :host(:not([readonly]):not(:focus):hover) {
         color: var(--control-content-hover);
         border: var(--control-border-hover);
         border-color: var(--control-border-hover);
       }
-      :host([opened])::before, :host([opened]:hover:focus)::before,
       :host(:focus)::before, :host(:hover:focus)::before {
         content: '';
         pointer-events: none;
@@ -119,8 +117,9 @@ export class SubSelect extends ControlElement {
         color: var(--control-content-selected);
         background-color: var(--control-bg-selected);
       }
-      [part=label],
-      [part=placeholder] {
+      [part=label] {
+        display: flex;
+        flex: 1 1 auto;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -133,40 +132,34 @@ export class SubSelect extends ControlElement {
         font-size: var(--code-only-dimension-action-line-height-default);
       }
       :host [part=list] {
-        overflow-y: auto;
-        /* padding: 4px; */
+        padding: 4px;
         max-width: var(--ui-select-list-max-width);
         max-height: var(--ui-select-list-max-height, 200px);
-        border: var(--control-border-selected);
       }
       :host [part=list] ::slotted(:not(ui-option)) {
         display: none;
       }
-      :host [part=list] ::slotted(:last-child) {
-        border: none;
+      :host [part=list] ::slotted(:not(:focus-visible)) {
+        border-left: var(--control-border-selected);
+        border-right: var(--control-border-selected);
       }
-      #box {
-        align-items: center;
-        display: inline-flex;
-        flex-flow: row nowrap;
-        overflow: hidden;
-        flex: 1 1 100%;
+      :host [part=list] ::slotted(:first-child:not(:focus-visible)) {
+        border-top: var(--control-border-selected);
       }
-      #text {
-        position: relative;
+      :host [part=trigger] {
+        cursor: pointer;
         flex: 1 1 auto;
         height: 100%;
+        color: inherit;
         display: flex;
         align-items: center;
+        position: relative;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        padding: var(--code-only-dimension-control-padding-vertical) var(--code-only-dimension-control-padding-horizontal);
         min-width: 0;
-      }
-      #trigger {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        cursor: pointer;
+        margin: 0;
       }
     `;
   }
@@ -177,6 +170,9 @@ export class SubSelect extends ControlElement {
   private popupScrollTop = 0; /* remember scroll position on popup refit actions */
   private observingMutations = false;
   private resizeThrottler = new AnimationTaskRunner();
+
+  @query('[part=trigger]')
+  private triggerElement: HTMLButtonElement | undefined;
 
   /**
    * Toggles the opened state of the list
@@ -218,8 +214,9 @@ export class SubSelect extends ControlElement {
   public connectedCallback (): void {
     super.connectedCallback();
 
-    // Indicating that this select has a popup of type listbox
-    this.setAttribute('aria-haspopup', 'listbox');
+    this.getSelectableElements().forEach(option => {
+      option.setAttribute('aria-selected', String(this.value === option.value));
+    });
   }
 
   /**
@@ -232,7 +229,7 @@ export class SubSelect extends ControlElement {
       if (this.opened) {
         this.opening();
       }
-      this.setAttribute('aria-expanded', this.opened ? 'true' : 'false');
+      this.triggerElement?.setAttribute('aria-expanded', this.opened ? 'true' : 'false');
     }
 
     super.update(changedProperties);
@@ -344,8 +341,7 @@ export class SubSelect extends ControlElement {
     /* c8 ignore stop */
 
     const maxWidth = this.getComputedVariable('--ui-select-list-max-width', 'none');
-    let minWidth = this.offsetWidth;
-
+    let minWidth = this.offsetWidth + HORIZONTAL_OFFSET * 2; // include offset
     if (maxWidth !== 'none') {
       // reset min-width if max-width less than min-width, otherwise browser won't apply max-width
       if (parseInt(maxWidth, 10) < minWidth) {
@@ -487,6 +483,7 @@ export class SubSelect extends ControlElement {
       case 'ArrowDown':
       case 'Enter':
       case 'Spacebar':
+      case ' ':
         this.setOpened(true);
         break;
       default:
@@ -504,6 +501,7 @@ export class SubSelect extends ControlElement {
   private onPopupKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
       case 'Spacebar':
+      case ' ':
       case 'Enter':
         if (event.target instanceof Option) {
           event.target.click();
@@ -645,6 +643,7 @@ export class SubSelect extends ControlElement {
   private clearSelection (): void {
     this.selectedSlotItems.forEach(item => {
       item.selected = false;
+      item.removeAttribute('aria-selected');
     });
     this.requestUpdate();
   }
@@ -669,6 +668,7 @@ export class SubSelect extends ControlElement {
       const item = items[i];
       if (this.getItemValue(item) === value) {
         item.selected = true;
+        item.setAttribute('aria-selected', 'true');
         return true;
       }
     }
@@ -702,32 +702,6 @@ export class SubSelect extends ControlElement {
   }
 
   /**
-   * Template for label
-   */
-  private get labelTemplate (): TemplateResult {
-    return html`<div part="label">${this.label}</div>`;
-  }
-
-  /**
-   * Edit template when select is not readonly or disabled
-   */
-  private get editTemplate (): TemplateResult | undefined {
-    if (!this.readonly && !this.disabled) {
-      return html`
-        <div id="trigger" @tapstart="${this.toggleOpened}"></div>
-        ${this.popupTemplate}
-      `;
-    }
-  }
-
-  /**
-   * Get default slot template
-   */
-  private get slottedContent (): TemplateResult {
-    return html`<slot></slot>`;
-  }
-
-  /**
   * Edit template when select is not readonly or disabled
   */
   private get popupTemplate (): TemplateResult | undefined {
@@ -744,14 +718,15 @@ export class SubSelect extends ControlElement {
         .positionTarget=${this}
         .position=${POPUP_POSITION}
         ?opened=${this.opened}
-        offset="8"
+        vertical-offset=5
+        horizontal-offset=${-HORIZONTAL_OFFSET}
         @tap=${this.onPopupTap}
         @mousemove=${this.onPopupMouseMove}
         @keydown=${this.onPopupKeyDown}
         @opened-changed="${this.onPopupOpenedChanged}"
         @opened="${this.onPopupOpened}"
         @refit=${this.onPopupRefit}
-        @closed="${this.onPopupClosed}">${this.slottedContent}</ui-sub-overlay>`;
+        @closed="${this.onPopupClosed}"><slot></slot></ui-sub-overlay>`;
     }
   }
 
@@ -762,13 +737,13 @@ export class SubSelect extends ControlElement {
    */
   protected render (): TemplateResult {
     return html`
-    <div id="box" aria-hidden="true">
-      <div id="text">
-        ${this.labelTemplate}
+    <button part="trigger" aria-haspopup="listbox" aria-controls="menu" aria-expanded="false" @tapstart="${this.toggleOpened}">
+      <div part="label" aria-hidden="true">  
+        ${this.label}
       </div>
-      <ui-sub-icon icon="down" part="icon"></ui-sub-icon>
-    </div>
-    ${this.editTemplate}`;
+      <ui-sub-icon icon="down" part="icon" aria-hidden="true"></ui-sub-icon>
+    </button>
+    ${this.popupTemplate}`;
   }
 }
 

@@ -37,7 +37,7 @@ export class Option extends ControlElement {
         outline: none;
         position: relative;
         cursor: pointer;
-        width: var(--code-only-dimension-control-width);
+        width: 100%;
         height: var(--code-only-dimension-control-height);
         color: var(--control-content-default);
         border-bottom: var(--control-border-default);
@@ -62,8 +62,9 @@ export class Option extends ControlElement {
         color: var(--control-content-focused);
         border: var(--control-border-focused);
         background-color: var(--control-bg-focused);
+        outline: var(--control-focused-ring-on-invert);
       }
-      :host(:focus-visible)::before, :host(:hover:focus-visible)::before {
+      :host(:focus-visible)::after, :host(:hover:focus-visible)::after {
         content: '';
         pointer-events: none;
         position: absolute;
