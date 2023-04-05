@@ -116,7 +116,7 @@ export class PatternSignIn extends BasicElement {
   public render (): TemplateResult {
     return html`
     <h1 style="font-size:0;margin:0;padding:0">Sign In</h1>
-    <ui-select label="Language" @value-changed=${this.onLanguageChange}>
+    <ui-select label="${this.t('LANGUAGE')}" @value-changed=${this.onLanguageChange}>
       <ui-option selected value="en">English</ui-option>
       <ui-option value="ja">日本語</ui-option>
       <ui-option value="zh">中文简体</ui-option>

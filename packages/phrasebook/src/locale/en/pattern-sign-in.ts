@@ -3,6 +3,7 @@ import { Phrasebook } from '../../translation.js';
 import './shared.js';
 
 const translations = {
+  LANGUAGE: 'Language',
   USER_ID: 'User ID',
   PASSWORD: 'Password',
   FORGOTTEN_PASSWORD: 'Forgotten your password?',
