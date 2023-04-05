@@ -31,9 +31,9 @@ describe('ui-button', () => {
     });
 
     describe('variant', () => {
-      it('should not be presented by default', async () => {
+      it('should not have value by default', async () => {
         const el = await fixture('<ui-button></ui-button>');
-        await expect(el.hasAttribute('variant')).to.equal(false);
+        await expect(el.getAttribute('variant')).to.equal('');
       });
     });
   });
