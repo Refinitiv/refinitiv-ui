@@ -106,6 +106,16 @@
                 }
               }
             }
+          },
+          scales: {
+            y: {
+              ticks: {
+                stepSize: 1000,
+                callback: (label, index) => {
+                  return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                }
+              }
+            }
           }
         }
       };

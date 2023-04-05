@@ -102,7 +102,7 @@ ef-chart {
 ```
 ::
 
-`ef-chart` is a charting component that leverages the [Chart.js](http://chartjs.org) library. See Chart.js [documentation](https://www.chartjs.org/docs/latest/) for full chart configuration.
+`ef-chart` is a charting component that leverages the [Chart.js](http://chartjs.org) library. See Chart.js [documentation](https://www.chartjs.org/docs/4.2.1/) for full chart configuration.
 
 The styling of `ef-chart` is inherited from the theme, but you can customize styling at the individual chart level.
 
@@ -291,7 +291,7 @@ line.config.data.datasets[0].data = [31.4, 6.6, 43.48, 40.13, 44.05, 46.42, 47.0
 line.updateChart();
 ```
 
-You can change transition animation on the update process by passing a mode. You can find more details at [Chart.js API](https://www.chartjs.org/docs/latest/developers/api.html#update-mode).
+You can indicate transition configuration on the update process by passing `mode`. You can find more details at [Chart.js API](https://www.chartjs.org/docs/4.2.1/developers/api.html#update-mode).
 
 ```javascript
 line.updateChart('active');
@@ -527,6 +527,16 @@ multipleLines.config = {
             let value = tooltipItem.raw;
             value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             return month + ': ' + value;
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        ticks: {
+          stepSize: 1000,
+          callback: (label, index) => {
+            return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
           }
         }
       }
