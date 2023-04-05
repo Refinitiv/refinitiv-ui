@@ -38,6 +38,9 @@
       }
     },
     "dimension": {
+      "pattern-sign-in-width": {
+        "$value": "1040px"
+      },
       "control": {
         "line-height": {
           "$value": "{copy.md-emphasis.line-height}"

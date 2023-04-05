@@ -29,11 +29,41 @@ export class PatternSignIn extends BasicElement {
   static get styles (): CSSResultGroup {
     return css`
         :host {
-          display: block;
-          padding: 2em;
+          display: inline-flex;
           background: var(--base-bg-primary);
-          max-width: 340px;
+          max-width: 1000px;
+          flex-flow: row wrap;
+          width: var(--code-only-dimension-pattern-sign-in-width);
+        }
+        h1, h2 {
+          font-size: 0;
+          margin: 0;
+          padding: 0;
+          line-height: 0;
+        }
+        .left {
+          padding: 2em;
+          flex: 1 1 400px;
+          box-sizing: border-box;
+        }
+        .right {
+          flex: 1 1 400px;
+          position: relative;
+        }
+        .left img {
+          max-width: 100%;
+        }
+        .right img {
+          position: absolute;
+          top: 0;
+          left: 0;
           width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        ui-sub-footer {
+          flex: 1 0 100%;
+          width: 0;
         }
         ui-input-field {
           width: 100%;
@@ -113,37 +143,42 @@ export class PatternSignIn extends BasicElement {
 
   public render (): TemplateResult {
     return html`
-    <h1 style="font-size:0;margin:0;padding:0">Sign In</h1>
-    <ui-select label="Language" @value-changed=${this.onLanguageChange}>
-      <ui-option selected value="en">English</ui-option>
-      <ui-option value="ja">Japanese</ui-option>
-    </ui-select>
-    <p>
-      <ui-brand-logo></ui-brand-logo>
-      <img alt="Brand logo of Refinitiv Workspace" src="/resources/logo.workspace.svg"/>
-    </p>
-    <form method="dialog" @submit="${this.onSubmit}" aria-label="Sign-in">
+    <div class="left">
+      <h1>Sign In</h1>
+      <ui-select label="Language" @value-changed=${this.onLanguageChange}>
+        <ui-option selected value="en">English</ui-option>
+        <ui-option value="ja">Japanese</ui-option>
+      </ui-select>
       <p>
-        <ui-input-field name="id" type="text" label="User ID"></ui-input-field>
+        <ui-brand-logo></ui-brand-logo>
+        <img alt="Brand logo of Refinitiv Workspace" src="/resources/logo.workspace.svg"/>
       </p>
-      <p>
-        <ui-input-field name="password" type="password" label="Password"></ui-input-field>
-      </p>
-      <p>
-        <a href="/account/reset-password">Forgotten your password?</a>
-      </p>
-      <p>
-        <ui-checkbox checked>Sign me in automatically</ui-checkbox>
-      </p>
-      <ul>
-        <li>
-          <ui-button variant="primary">Sign In</ui-button>
-        </li>
-        <li>
-          <ui-button type="button">${this.t('CANCEL')}</ui-button>
-        </li>
-      </ul>
-    </form>
+      <form method="dialog" @submit="${this.onSubmit}" aria-label="Sign-in">
+        <p>
+          <ui-input-field name="id" type="text" label="User ID"></ui-input-field>
+        </p>
+        <p>
+          <ui-input-field name="password" type="password" label="Password"></ui-input-field>
+        </p>
+        <p>
+          <a href="/account/reset-password">Forgotten your password?</a>
+        </p>
+        <p>
+          <ui-checkbox checked>Sign me in automatically</ui-checkbox>
+        </p>
+        <ul>
+          <li>
+            <ui-button variant="primary">Sign In</ui-button>
+          </li>
+          <li>
+            <ui-button type="button">${this.t('CANCEL')}</ui-button>
+          </li>
+        </ul>
+      </form>
+    </div>
+    <div class="right">
+      <img alt="Workspace desktop application with Monitor and Charting applications shown on screen" src="/resources/banner.png"/>
+    </div>
     <ui-sub-footer>
       <a href="#">Contact us</a>
       <a href="#">Privacy</a>

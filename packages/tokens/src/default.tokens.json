@@ -437,6 +437,9 @@
     },
     "dimension": {
       "$type": "dimension",
+      "pattern-sign-in-width": {
+        "$value": "480px"
+      },
       "control": {
         "line-height": {
           "default": {

@@ -18,6 +18,9 @@
   "code-only": {
     "dimension": {
       "$type": "dimension",
+      "pattern-sign-in-width": {
+        "$value": "296px"
+      },
       "control": {
         "height": {
           "$type": "dimension",
