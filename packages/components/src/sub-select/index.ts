@@ -172,6 +172,7 @@ export class SubSelect extends ControlElement {
   private popupScrollTop = 0; /* remember scroll position on popup refit actions */
   private observingMutations = false;
   private resizeThrottler = new AnimationTaskRunner();
+  private highlightedItem?: Option;
 
   @query('[part=trigger]')
   private triggerElement: HTMLButtonElement | undefined;
@@ -422,6 +423,8 @@ export class SubSelect extends ControlElement {
     if (selectedItem) {
       selectedItem.selected = true;
       selectedItem.focus();
+      selectedItem.setAttribute('highlighted', '');
+      this.highlightedItem = selectedItem;
     }
     const eventOptions = {
       capture: true,
@@ -539,13 +542,14 @@ export class SubSelect extends ControlElement {
    * @returns {void}
    */
   private focusElement (direction: Navigation): void {
+    const highlightedItem = this.highlightedItem || this.getSelectedElements()[0];
     const selectableElements = this.getSelectableElements();
 
     if (selectableElements.length === 0) {
       return;
     }
 
-    const index = selectableElements.findIndex(item => item === document.activeElement);
+    const index = highlightedItem ? selectableElements.indexOf(highlightedItem) : -1;
     const firstElement = selectableElements[0];
     const lastElement = selectableElements[selectableElements.length - 1];
 
@@ -573,6 +577,28 @@ export class SubSelect extends ControlElement {
 
     if (element) {
       element.focus();
+      this.setItemHighlight(element);
+    }
+  }
+
+  /**
+   * Highlight or remove highlight from an item
+   * @param [item] An item to highlight
+   * @returns {void}
+   */
+  private setItemHighlight (item?: Option): void {
+    if (this.highlightedItem === item) {
+      return;
+    }
+
+    if (this.highlightedItem) {
+      this.highlightedItem.removeAttribute('highlighted');
+    }
+
+    this.highlightedItem = item;
+
+    if (item) {
+      item.setAttribute('highlighted', '');
     }
   }
 
