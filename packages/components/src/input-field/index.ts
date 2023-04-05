@@ -45,7 +45,6 @@ export class InputField extends ControlElement {
   protected get decorateField (): TemplateMap {
     return {
       '.inputAriaLabel': this.label || null,
-      // 'aria-describedby': this.hint ? 'hint' : null,
       'disabled': this.disabled,
       'readonly': this.readonly,
       'value': this.value || null,
