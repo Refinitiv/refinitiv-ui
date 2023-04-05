@@ -11,17 +11,17 @@ layout: default
 ::chart::
 
 const comboDatasets = [{
-    type: 'line',
-    label: 'Price',
-    data: [37.40, 36.60, 40.48, 41.13, 42.05, 40.42],
-    yAxisID: 'y-axis-1',
-    fill: true // not fill the area under the line
-  }, {
-    type: 'bar',
-    label: 'Volume',
-    data: [8.09, 8.79, 7.77, 6.77, 6.52, 6.77],
-    yAxisID: 'y-axis-2'
-  }];
+  type: 'line',
+  label: 'Price',
+  data: [37.40, 36.60, 40.48, 41.13, 42.05, 40.42],
+  yAxisID: 'yAxis1',
+  fill: true // not fill the area under the line
+}, {
+  type: 'bar',
+  label: 'Volume',
+  data: [8.09, 8.79, 7.77, 6.77, 6.52, 6.77],
+  yAxisID: 'yAxis2'
+}];
 const combo = document.getElementById('combo');
 combo.config = {
   type: 'bar',
@@ -31,29 +31,31 @@ combo.config = {
   },
   options: {
     scales: {
-      yAxes: [{
+      y: {
+        display: false
+      },
+      yAxis1: {
         display: true,
         position: 'left',
-        id: 'y-axis-1',
+        min: 36,
+        max: 43,
         ticks: {
-          min: 36,
-          max: 43,
           stepSize: 1
         },
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Price (£)'
+          text: 'Price ($)'
         }
-      }, {
+      },
+      yAxis2: {
         display: true,
         position: 'right',
-        id: 'y-axis-2',
-        gridLines: {
+        grid: {
           drawOnChartArea: false // only want the grid lines for one axis to show up
         },
+        min: 6.0,
+        max: 9.5,
         ticks: {
-          min: 6.0,
-          max: 9.5,
           stepSize: 0.5,
           callback: (label, index) => {
             let val = label.toString();
@@ -63,22 +65,26 @@ combo.config = {
             return val + 'M';
           }
         },
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Volume'
+          text: 'Volume'
         }
-      }]
+      }
     },
-    tooltips: {
-      callbacks: {
-        title: (tooltipItems, data) => 'TRI.N',
-        label: (tooltipItem, data) => {
-          const yLabel = tooltipItem.yLabel;
-          if (tooltipItem.datasetIndex === 0) {
-            return 'Price: ' + yLabel;
-          }
-          else {
-            return 'Volume: ' + yLabel + 'M';
+    plugins: {
+      tooltip: {
+        callbacks: {
+          title: (tooltipItems) => {
+            return 'TRI.N';
+          },
+          label: (tooltipItem) => {
+            const yLabel = tooltipItem.raw;
+            if (tooltipItem.datasetIndex === 0) {
+              return 'Price: ' + yLabel;
+            }
+            else {
+              return 'Volume: ' + yLabel + 'M';
+            }
           }
         }
       }
@@ -96,7 +102,7 @@ ef-chart {
 ```
 ::
 
-`ef-chart` is a charting component that leverages the [Chart.js](http://chartjs.org) library. See Chart.js [documentation](https://www.chartjs.org/docs/2.9.4/) for full chart configuration.
+`ef-chart` is a charting component that leverages the [Chart.js](http://chartjs.org) library. See Chart.js [documentation](https://www.chartjs.org/docs/4.2.1/) for full chart configuration.
 
 The styling of `ef-chart` is inherited from the theme, but you can customize styling at the individual chart level.
 
@@ -114,27 +120,32 @@ line.config = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [{
       label: 'Price',
-      data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09]
+      data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09],
+      fill: true
     }]
   },
   options: {
-    title: {
-      text: 'Line chart'
-    },
-    legend: {
-      display: true
+    plugins: {
+      title: {
+        text: 'Line chart'
+      },
+      legend: {
+        display: false
+      },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => {
+            return tooltipItem.formattedValue + ' $';
+          }
+        }
+      }
     },
     scales: {
-      yAxes: [{
-        scaleLabel: {
+      y: {
+        title: {
           display: true,
-          labelString: 'Price (£)'
+          text: 'Price ($)'
         }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        label: (tooltipItem, data) => tooltipItem.yLabel + ' £'
       }
     }
   }
@@ -162,27 +173,31 @@ line.config = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [{
       label: 'Price',
-      data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09]
+      data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09],
+      fill: true
     }]
   },
   options: {
-    title: {
-      text: 'Line chart'
-    },
-    legend: {
-      display: false
+    plugins: {
+      title: {
+        text: 'Line chart'
+      },
+      legend: {
+        display: false
+      },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => {
+            return tooltipItem.formattedValue + ' $';
+          }
+        }
+      }
     },
     scales: {
-      yAxes: [{
-        scaleLabel: {
+      y: {
+        title: {
           display: true,
-          labelString: 'Price (£)'
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        label: (tooltipItem, data) => tooltipItem.yLabel + ' £'
+          text: 'Price ($)'
         }
       }
     }
@@ -216,25 +231,28 @@ line.config = {
     datasets: [{
       label: 'Price',
       data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09],
-      lineTension: 0.3
+      lineTension: 0.3,
+      fill: true
     }]
   },
   options: {
-    legend: {
-      display: false
+    plugins: {
+      legend: {
+        display: false
+      },
     },
     scales: {
-      yAxes: [{
-        scaleLabel: {
+      y: {
+        title: {
           display: true,
-          labelString: 'Price (£)'
+          text: 'Price (£)'
         },
+        beginAtZero: true,
+        max: 100,
         ticks: {
-            beginAtZero: true,
-            steps: 10,
-            max: 100
+          stepSize: 10
         }
-      }]
+      }
     },
     tooltips: {
       callbacks: {
@@ -273,14 +291,10 @@ line.config.data.datasets[0].data = [31.4, 6.6, 43.48, 40.13, 44.05, 46.42, 47.0
 line.updateChart();
 ```
 
-You can also control animation on the update process by using additional configurations. You can find more details at [Chart.js API](https://www.chartjs.org/docs/2.9.4/developers/api.html#updateconfig).
+You can indicate transition configuration on the update process by passing `mode`. You can find more details at [Chart.js API](https://www.chartjs.org/docs/4.2.1/developers/api.html#update-mode).
 
 ```javascript
-line.updateChart({
-    duration: 800,
-    lazy: false, // If true, the animation can be interrupted by other animation
-    easing: 'easeOutBounce'
-});
+line.updateChart('active');
 ```
 
 ## Chartjs instance
@@ -312,14 +326,14 @@ doughnut.config = {
   type: 'doughnut',
   data: {
     labels: ['Americas', 'Europe', 'Greater China', 'Japan', 'Asia Pacific', 'Retail'],
-    datasets: doughnutDataSets,
+    datasets: doughnutCenterLabelDataSets
   },
   options: {
-    onHover: (event, chartItem) => {
-      // console.log('hover: ', chartItem);
+    onHover: (event, elements, chart) => {
+      // console.log('hover: ', elements);
     },
-    onClick: (event, chartItem) => {
-      // console.log('click: ', chartItem);
+    onClick: (event, elements, chart) => {
+      // console.log('click: ', elements);
     },
     plugins: {
       centerLabel: {
@@ -336,9 +350,9 @@ doughnut.config = {
           if (chartItems.length) {
             const chartItem = chartItems[0];
             const data = chart.data;
-            const title = data.labels[chartItem._index];
-            const value = data.datasets[chartItem._datasetIndex].data[chartItem._index];
-            const total = data.datasets[chartItem._datasetIndex].data.reduce((total, num) => total + num);
+            const title = data.labels[chartItem.index];
+            const value = data.datasets[chartItem.datasetIndex].data[chartItem.index];
+            const total = data.datasets[chartItem.datasetIndex].data.reduce((total, num) => total + num);
             const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
 
             return [{
@@ -346,10 +360,10 @@ doughnut.config = {
               bold: true
             },
             {
-              label: value
+              label: 'value: ' + value
             }, {
               label: percent + ' %'
-            }]
+            }];
           }
         },
         selected: {
@@ -357,9 +371,9 @@ doughnut.config = {
           index: 4
         },
       },
-    },
-    tooltips: {
-      enabled: false
+      tooltip: {
+        enabled: false
+      }
     }
   }
 };
@@ -400,9 +414,9 @@ doughnut.config = {
           if (chartItems.length) {
             const chartItem = chartItems[0];
             const data = chart.data;
-            const title = data.labels[chartItem._index];
-            const value = data.datasets[chartItem._datasetIndex].data[chartItem._index];
-            const total = data.datasets[chartItem._datasetIndex].data.reduce((total, num) => total + num);
+            const title = data.labels[chartItem.index];
+            const value = data.datasets[chartItem.datasetIndex].data[chartItem.index];
+            const total = data.datasets[chartItem.datasetIndex].data.reduce((total, num) => total + num);
             const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
 
             return [{
@@ -410,7 +424,7 @@ doughnut.config = {
               bold: true
             },
             {
-              label: value
+              label: 'value: ' + value
             }, {
               label: percent + ' %'
             }];
@@ -436,11 +450,11 @@ doughnut.config = {
     ...
   },
   options: {
-    onHover: (event, chartItem) => {
-      console.log('hover: ', chartItem);
+    onHover: (event, elements, chart) => {
+      console.log('hover: ', elements);
     },
-    onClick: (event, chartItem) => {
-      console.log('click: ', chartItem);
+    onClick: (event, elements, chart) => {
+      console.log('click: ', elements);
     },
     plugins: {
       ...
@@ -467,7 +481,7 @@ ef-chart {
 
 
 ## Chart types
-You can create various chart types as per chartjs configurations. Samples are on [this page](http://www.chartjs.org/samples/latest/).
+You can create various chart types as per chartjs configurations. Samples are on [this page](https://www.chartjs.org/docs/4.2.1/samples).
 
 ::
 ```javascript
@@ -477,25 +491,21 @@ const multipleLines = document.getElementById('multipleLines');
 const multipleLinesDatasets = [{
   label: '.DJI',
   data: [16466, 16517, 17685, 17774, 17787, 17930, 18432],
-  fill: false,
   pointBackgroundColor: 'transparent',
   pointBorderColor: 'transparent'
 }, {
   label: '.N225',
   data: [17518, 16027, 16759, 16666, 17235, 15576, 16569],
-  fill: false,
   pointBackgroundColor: 'transparent',
   pointBorderColor: 'transparent'
 }, {
   label: '.FTMIB',
   data: [18657, 17623, 18117, 18601, 18025, 16198, 16847],
-  fill: false,
   pointBackgroundColor: 'transparent',
   pointBorderColor: 'transparent'
 }, {
   label: '.HSI',
   data: [19683, 19112, 20777, 21067, 20815, 20794, 21891],
-  fill: false,
   pointBackgroundColor: 'transparent',
   pointBorderColor: 'transparent'
 }];
@@ -506,26 +516,28 @@ multipleLines.config = {
     datasets: multipleLinesDatasets
   },
   options: {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          title: (tooltipItems) => {
+            return multipleLinesDatasets[tooltipItems[0].datasetIndex].label;
+          },
+          label: (tooltipItem) => {
+            const month = tooltipItem.label;
+            let value = tooltipItem.raw;
+            value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return month + ': ' + value;
+          }
+        }
+      }
+    },
     scales: {
-      yAxes: [{
+      y: {
         ticks: {
           stepSize: 1000,
           callback: (label, index) => {
             return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
           }
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        title: (tooltipItems, data) => {
-          return data.datasets[tooltipItems[0].datasetIndex].label;
-        },
-        label: (tooltipItem, data) => {
-          const month = tooltipItem.xLabel;
-          let value = tooltipItem.yLabel;
-          value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          return month + ': ' + value;
         }
       }
     }
@@ -563,30 +575,34 @@ bar.config = {
     }]
   },
   options: {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          title: (tooltipItems) => {
+            return 'Revenue';
+          },
+          label: (tooltipItem) => {
+            const year = tooltipItem.label;
+            let rev = tooltipItem.raw;
+            rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return year + ': ' + rev;
+          }
+        }
+      }
+    },
     scales: {
-      yAxes: [{
+      y: {
+        min: 0,
+        max: 180000,
         ticks: {
-          min: 0,
-          max: 180000,
           stepSize: 30000,
           callback: (label, index) => {
             return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
           }
         },
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Revenue (in millions £)'
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        title: (tooltipItems, data) => 'Revenue',
-        label: (tooltipItem, data) => {
-          const year = tooltipItem.xLabel;
-          let rev = tooltipItem.yLabel;
-          rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          return year + ': ' + rev;
+          text: 'Revenue (in millions £)'
         }
       }
     }
@@ -624,33 +640,37 @@ stackedBar.config = {
     }]
   },
   options: {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          title: (tooltipItems) => {
+            return tooltipItems[0].chart.data.datasets[tooltipItems[0].datasetIndex].label;
+          },
+          label: (tooltipItem) => {
+            const year = tooltipItem.label;
+            let rev = tooltipItem.raw;
+            rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return year + ': ' + rev;
+          }
+        }
+      }
+    },
     scales: {
-      xAxes: [{
+      x: {
         stacked: true
-      }],
-      yAxes: [{
+      },
+      y: {
+        min: 0,
         stacked: true,
         ticks: {
-          min: 0,
           stepSize: 50000,
           callback: (label, index) => {
             return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
           }
         },
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Revenue (in millions £)'
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        title: (tooltipItems, data) => data.datasets[tooltipItems[0].datasetIndex].label,
-        label: (tooltipItem, data) => {
-          const year = tooltipItem.xLabel;
-          let rev = tooltipItem.yLabel;
-          rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          return year + ': ' + rev;
+          text: 'Revenue (in millions £)'
         }
       }
     }
@@ -671,16 +691,16 @@ ef-chart {
 ```javascript
 ::chart::
 const comboDatasets = [{
-    type: 'line',
-    label: 'Price',
-    data: [37.40, 36.60, 40.48, 41.13, 42.05, 40.42],
-    yAxisID: 'y-axis-1',
-    fill: true // not fill the area under the line
-  }, {
-    type: 'bar',
-    label: 'Volume',
-    data: [8.09, 8.79, 7.77, 6.77, 6.52, 6.77],
-    yAxisID: 'y-axis-2'
+  type: 'line',
+  label: 'Price',
+  data: [37.40, 36.60, 40.48, 41.13, 42.05, 40.42],
+  yAxisID: 'yAxis1',
+  fill: true
+}, {
+  type: 'bar',
+  label: 'Volume',
+  data: [8.09, 8.79, 7.77, 6.77, 6.52, 6.77],
+  yAxisID: 'yAxis2'
 }];
 
 const combo = document.getElementById('combo');
@@ -692,30 +712,50 @@ combo.config = {
     datasets: comboDatasets
   },
   options: {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          title: (tooltipItems) => {
+            return 'TRI.N';
+          },
+          label: (tooltipItem) => {
+            const yLabel = tooltipItem.raw;
+            if (tooltipItem.datasetIndex === 0) {
+              return 'Price: ' + yLabel;
+            }
+            else {
+              return 'Volume: ' + yLabel + 'M';
+            }
+          }
+        }
+      }
+    },
     scales: {
-      yAxes: [{
+      y: {
+        display: false
+      },
+      yAxis1: {
         display: true,
         position: 'left',
-        id: 'y-axis-1',
+        min: 36,
+        max: 43,
         ticks: {
-          min: 36,
-          max: 43,
           stepSize: 1
         },
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Price (£)'
+          text: 'Price (£)'
         }
-      }, {
+      },
+      yAxis2: {
         display: true,
         position: 'right',
-        id: 'y-axis-2',
-        gridLines: {
+        grid: {
           drawOnChartArea: false // only want the grid lines for one axis to show up
         },
+        min: 6.0,
+        max: 9.5,
         ticks: {
-          min: 6.0,
-          max: 9.5,
           stepSize: 0.5,
           callback: (label, index) => {
             let val = label.toString();
@@ -725,23 +765,9 @@ combo.config = {
             return val + 'M';
           }
         },
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'Volume'
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        title: (tooltipItems, data) => 'TRI.N',
-        label: (tooltipItem, data) => {
-          let yLabel = tooltipItem.yLabel;
-          if (tooltipItem.datasetIndex === 0) {
-            return 'Price: ' + yLabel;
-          }
-          else {
-            return 'Volume: ' + yLabel + 'M';
-          }
+          text: 'Volume'
         }
       }
     }
@@ -774,12 +800,15 @@ pie.config = {
     datasets: pieDatasets
   },
   options: {
-    tooltips: {
-      callbacks: {
-        label: (tooltipItem, data) => {
-          const title = data.labels[tooltipItem.index];
-          const result = data.datasets[0].data[tooltipItem.index];
-          return title + ': ' + result + '%';
+    plugins: {
+      tooltip: {
+        callbacks: {
+          title: () => null,
+          label: (tooltipItem) => {
+            const title = tooltipItem.label;
+            const result = tooltipItem.raw;
+            return title + ': ' + result + '%';
+          }
         }
       }
     }
@@ -812,12 +841,15 @@ doughnut.config = {
     datasets: doughnutDataSets
   },
   options: {
-    tooltips: {
-      callbacks: {
-        label: (tooltipItem, data) => {
-          const title = data.labels[tooltipItem.index];
-          const result = data.datasets[0].data[tooltipItem.index];
-          return title + ': ' + result + '%';
+    plugins: {
+      tooltip: {
+        callbacks: {
+          title: () => null,
+          label: (tooltipItem) => {
+            const title = tooltipItem.label;
+            const result = tooltipItem.raw;
+            return title + ': ' + result + '%';
+          }
         }
       }
     }
@@ -837,17 +869,16 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-
-const doughnutDataSets = [{
-    data: [36, 22, 16, 8.2, 5.7, 12]
+const doughnutCenterLabelDataSets = [{
+  data: [36, 22, 16, 8.2, 5.7, 12]
 }];
 
-const doughnut = document.getElementById('doughnut');
+const doughnutCenterLabel = document.getElementById('doughnut-center-label');
 
-doughnut.config = {
+doughnutCenterLabel.config = {
   type: 'doughnut',
   data: {
-    datasets: doughnutDataSets
+    datasets: doughnutCenterLabelDataSets
   },
   options: {
     plugins: {
@@ -859,8 +890,8 @@ doughnut.config = {
           if (chartItems.length) {
             const chartItem = chartItems[0];
             const data = chart.data;
-            const value = data.datasets[chartItem._datasetIndex].data[chartItem._index];
-            const total = data.datasets[chartItem._datasetIndex].data.reduce((total, num) => total + num);
+            const value = data.datasets[chartItem.datasetIndex].data[chartItem.index];
+            const total = data.datasets[chartItem.datasetIndex].data.reduce((total, num) => total + num);
             const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
 
             return [{
@@ -869,10 +900,10 @@ doughnut.config = {
             }];
           }
         }
-      }
-    },
-    tooltips: {
-      enabled: false
+      },
+      tooltip: {
+        enabled: false
+      },
     }
   }
 };
@@ -894,7 +925,7 @@ div {
 ```
 ```html
 <div>
-  <ef-chart id="doughnut"></ef-chart>
+  <ef-chart id="doughnut-center-label"></ef-chart>
 </div>
 ```
 ::
@@ -919,35 +950,40 @@ timeScale.config = {
       new Date(2016, 8, 7, 17, 0, 0)
     ],
     datasets: [{
+      fill: true,
       label: 'Price',
       data: [107.53, 107.32, 107.35, 107.41, 107.56, 107.23, 108.37, 108.36]
     }]
   },
   options: {
-    legend: {
-      display: false // Not display legend
+    plugins: {
+      legend: {
+        display: false // Not display legend
+      },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => {
+            return 'Price: £' + tooltipItem.raw;
+          }
+        }
+      }
     },
     scales: {
-      xAxes: [{
+      x: {
         type: 'time', // Set type of scale as time
         time: {
           displayFormats: {
-            hour: 'hA' // Set custom format for hour unit
+            hour: 'haa' // Set custom format for hour unit
           },
           unit: 'hour',
-          tooltipFormat: 'D MMM YYYY - hA'
+          tooltipFormat: 'd MMM yyyy - haa'
         }
-      }],
-      yAxes: [{
-        scaleLabel: {
+      },
+      y: {
+        title: {
           display: true,
-          labelString: 'Price (£)'
+          text: 'Price (£)'
         }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        label: (tooltipItem, data) => 'Price: £' + data.datasets[0].data[tooltipItem.index]
       }
     }
   }
@@ -966,10 +1002,8 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-
-const scatterplot = document.getElementById('scatterplot');
-
-scatterplot.config = {
+const scatterPlot = document.getElementById('scatterplot');
+scatterPlot.config = {
   type: 'line',
   data: {
     datasets: [
@@ -1002,40 +1036,42 @@ scatterplot.config = {
           { x: 47.98, y: 64.75 },
           { x: 47.64, y: 64.74 }
         ],
-        pointRadius: 1
+        pointRadius: 1,
+        showLine: false
       }
     ]
   },
   options: {
-    showLines: false,
-    legend: {
-      display: false // not display legend
+    plugins: {
+      legend: {
+        display: false // not display legend
+      },
+      tooltip: {
+        callbacks: {
+          title: () => null,
+          label: (tooltipItem) => {
+            return 'Oil\'s price : ' + tooltipItem.raw.x + ' £';
+          },
+          afterLabel: (tooltipItem) => {
+            return 'Ruble : ' + tooltipItem.raw.y;
+          }
+        }
+      }
     },
     scales: {
-      xAxes: [
-        {
-          type: 'linear',
-          position: 'bottom',
-          scaleLabel: {
-            display: true,
-            labelString: 'Price of Oil (£)'
-          }
+      x: {
+        type: 'linear',
+        position: 'bottom',
+        title: {
+          display: true,
+          text: 'Price of Oil (£)'
         }
-      ],
-      yAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: 'Russian ruble (per £)'
-          }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Russian ruble (per £)'
         }
-      ]
-    },
-    tooltips: {
-      callbacks: {
-        title: () => '',
-        label: (tooltipItem, data) => 'Oil\'s price : ' + tooltipItem.xLabel + ' £',
-        afterLabel: (tooltipItem, data) => 'Ruble : ' + tooltipItem.yLabel
       }
     }
   }
@@ -1093,48 +1129,49 @@ bubble.config = {
   },
   options: {
     scales: {
-      xAxes: [
-        {
-          type: 'logarithmic',
-          position: 'bottom',
-          ticks: {
-            min: 450,
-            max: 50000,
-            maxRotation: 10,
-            callback: (label, index) => {
-              const xLabels = ['500', '1000', '2000', '5000', '10,000', '20000', '50000'];
-              return xLabels.indexOf(label.toString()) > -1 ? label : '';
-            }
-          },
-          scaleLabel: {
-            display: true,
-            labelString: 'GDP per person in US dollars (log scale)'
+      x: {
+        type: 'logarithmic',
+        position: 'bottom',
+        min: 450,
+        max: 50000,
+        ticks: {
+          maxRotation: 10,
+          callback: (label, index) => {
+            const xLabels = ['500', '1000', '2000', '5000', '10,000', '20000', '50000'];
+            return xLabels.indexOf(label.toString()) > -1 ? label : '';
           }
-        }
-      ],
-      yAxes: [
-        {
-          ticks: {
-            min: 45,
-            max: 85,
-            stepSize: 5
-          },
-          scaleLabel: {
-            display: true,
-            labelString: 'Life expectancy at birth (years)'
-          }
-        }
-      ]
-    },
-    tooltips: {
-      callbacks: {
-        title: (tooltipItem, data) => {
-          const item = tooltipItem[0];
-          const dataset = data.datasets[item.datasetIndex];
-          return dataset.label;
         },
-        label: (tooltipItem, data) => 'GDP per Capita : £' + tooltipItem.xLabel,
-        afterLabel: (tooltipItem, data) => 'Life expectancy : ' + tooltipItem.yLabel + ' Yrs'
+        title: {
+          display: true,
+          text: 'GDP per person in US dollars (log scale)'
+        }
+      },
+      y: {
+        min: 45,
+        max: 85,
+        ticks: {
+          stepSize: 5
+        },
+        title: {
+          display: true,
+          text: 'Life expectancy at birth (years)'
+        }
+      }
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          title: (tooltipItems) => {
+            const item = tooltipItems[0];
+            return item.dataset.label;
+          },
+          label: (tooltipItem) => {
+            return 'GDP per Capita : £' + tooltipItem.raw.x;
+          },
+          afterLabel: (tooltipItem) => {
+            return 'Life expectancy : ' + tooltipItem.raw.y + ' Yrs';
+          }
+        }
       }
     }
   }
@@ -1162,32 +1199,18 @@ radar.config = {
     labels: [['Eating', 'Dinner'], ['Drinking', 'Water'], 'Sleeping', ['Designing', 'Graphics'], 'Coding', 'Cycling', 'Running'],
     datasets: [{
       label: 'Humanoid A',
-      data: [
-        13,
-        10,
-        9,
-        14,
-        9,
-        5,
-        10
-      ]
+      data: [13, 10, 9, 14, 9, 5, 10]
     },
     {
       label: 'Humanoid B',
-      data: [
-        8,
-        5,
-        9,
-        7,
-        17,
-        11,
-        4
-      ]
+      data: [8, 5, 9, 7, 17, 11, 4]
     }]
   },
   options: {
-    legend: {
-      position: 'right'
+    plugins: {
+      legend: {
+        position: 'right'
+      }
     }
   }
 };
