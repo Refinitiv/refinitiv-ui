@@ -39,7 +39,7 @@
             tooltip: {
               callbacks: {
                 label: (tooltipItem) => {
-                  return tooltipItem.formattedValue + ' $';
+                  return tooltipItem.formattedValue + ' £';
                 }
               }
             }
@@ -48,7 +48,7 @@
             y: {
               title: {
                 display: true,
-                text: 'Price ($)'
+                text: 'Price (£)'
               }
             }
           }
@@ -162,7 +162,7 @@
               },
               title: {
                 display: true,
-                text: 'Revenue (in millions $)'
+                text: 'Revenue (in millions £)'
               }
             }
           }
@@ -247,9 +247,6 @@
         },
         options: {
           plugins: {
-            title: {
-              text: 'Revenue of GOOGL.O, AAPL.O and MSFT.O'
-            },
             tooltip: {
               callbacks: {
                 title: (tooltipItems) => {
@@ -279,7 +276,7 @@
               },
               title: {
                 display: true,
-                text: 'Revenue (in millions $)'
+                text: 'Revenue (in millions £)'
               }
             }
           }
@@ -346,7 +343,7 @@
               },
               title: {
                 display: true,
-                text: 'Price ($)'
+                text: 'Price (£)'
               }
             },
             yAxis2: {
@@ -382,7 +379,7 @@
     <ef-chart id="pie"></ef-chart>
     <script>
       const pieDatasets = [{
-        data: [100, 22, 16, 8.2, 5.7, 12]
+        data: [36, 22, 16, 8.2, 5.7, 12]
       }];
       const pie = document.getElementById('pie');
       pie.config = {
@@ -483,7 +480,7 @@
               selected: {
                 index: 2
               },
-              onRenderLabel: function (chart, chartItems) {
+              onRenderLabel: (chart, chartItems) => {
                 if (chartItems.length) {
                   const chartItem = chartItems[0];
                   const data = chart.data;
@@ -555,7 +552,7 @@
                 datasetIndex: 2,
                 index: 4
               },
-              onRenderLabel: function (chart, chartItems) {
+              onRenderLabel: (chart, chartItems) => {
                 if (chartItems.length) {
                   const chartItem = chartItems[0];
                   const data = chart.data;
@@ -658,7 +655,7 @@
             tooltip: {
               callbacks: {
                 label: (tooltipItem) => {
-                  return 'Price: $' + tooltipItem.raw;
+                  return 'Price: £' + tooltipItem.raw;
                 }
               }
             }
@@ -677,7 +674,7 @@
             y: {
               title: {
                 display: true,
-                text: 'Price ($)'
+                text: 'Price (£)'
               }
             }
           }
@@ -848,7 +845,7 @@
               callbacks: {
                 title: () => null,
                 label: (tooltipItem) => {
-                  return 'Oil\'s price : ' + tooltipItem.raw.x + ' $';
+                  return 'Oil\'s price : ' + tooltipItem.raw.x + ' £';
                 },
                 afterLabel: (tooltipItem) => {
                   return 'Ruble : ' + tooltipItem.raw.y;
@@ -862,13 +859,13 @@
               position: 'bottom',
               title: {
                 display: true,
-                text: 'Price of Oil ($)'
+                text: 'Price of Oil (£)'
               }
             },
             y: {
               title: {
                 display: true,
-                text: 'Russian ruble (per $)'
+                text: 'Russian ruble (per £)'
               }
             }
           }
@@ -957,7 +954,7 @@
                   return item.dataset.label;
                 },
                 label: (tooltipItem) => {
-                  return 'GDP per Capita : ' + tooltipItem.raw.x + '$';
+                  return 'GDP per Capita : £' + tooltipItem.raw.x;
                 },
                 afterLabel: (tooltipItem) => {
                   return 'Life expectancy : ' + tooltipItem.raw.y + ' Yrs';
