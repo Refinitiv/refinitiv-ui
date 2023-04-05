@@ -45,28 +45,28 @@ export class PatternSignIn extends BasicElement {
         ui-button {
           width: 100%;
         }
-        a {
+        :not(ui-sub-footer) a {
           outline-offset: 0;
           box-sizing: border-box;
 
           font: var(--link-md-emphasis-all);
-          color: var(--link-content-primary);
+          color: var(--link-content-default);
           border: var(--width-fixed2) solid transparent;
 
           text-underline-offset: var(--width-fixed2);
           text-decoration-thickness: var(--width-fixed1);
         }
-        a:focus-visible {
+        :not(ui-sub-footer) a:focus-visible {
           color: var(--link-content-focused);
           border: var(--control-focused-ring-on-invert);
           outline: var(--control-focused-ring);
 
           text-decoration-thickness: var(--width-fixed2);
         }
-        a:visited {
+        :not(ui-sub-footer) a:visited {
           color: var(--link-content-visited);
         }
-        a:hover {
+        :not(ui-sub-footer) a:hover {
           color: var(--link-content-hover);
           text-decoration-thickness: var(--width-fixed2);
         }
@@ -121,7 +121,11 @@ export class PatternSignIn extends BasicElement {
         </li>
       </ul>
     </form>
-    <ui-sub-footer></ui-sub-footer>
+    <ui-sub-footer>
+      <a href="#">Contact us</a>
+      <a href="#">Privacy</a>
+      <a href="#">3rd link</a>
+    </ui-sub-footer>
     `;
   }
 }

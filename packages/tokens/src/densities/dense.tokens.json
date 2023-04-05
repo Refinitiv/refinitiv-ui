@@ -64,6 +64,23 @@
         "padding-horizontal": {
           "$value": "{space.020}"
         }
+      },
+      "footer": {
+        "height": {
+          "$value": "30px"
+        },
+        "xs-height": {
+          "$value": "62px"
+        },
+        "xs-link-width": {
+          "$value": "128px"
+        },
+        "padding-vertical": {
+          "$value": "4px"
+        },
+        "padding-horizontal": {
+          "$value": "24px"
+        }
       }
     },
     "typography": {
@@ -99,23 +116,6 @@
           }
         }
       }
-    }
-  },
-  "footer": {
-    "height": {
-      "$value": "30px"
-    },
-    "xs-height": {
-      "$value": "62px"
-    },
-    "xs-link-width": {
-      "$value": "128px"
-    },
-    "padding-vertical" : {
-      "$value": "4px"
-    },
-    "padding-horizontal" : {
-      "$value": "24px"
     }
   }
 }
