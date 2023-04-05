@@ -103,7 +103,6 @@ export class SubSelect extends ControlElement {
       :host(:not([readonly]):not(:focus-visible):hover) {
         color: var(--control-content-hover);
         border: var(--control-border-hover);
-        border-color: var(--control-border-hover);
       }
       :host [part=trigger]:focus-visible::before,
       :host [part=trigger]:hover:focus-visible::before {
