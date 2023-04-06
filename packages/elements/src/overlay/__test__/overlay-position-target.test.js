@@ -27,8 +27,11 @@ const screenHeight = document.documentElement.clientHeight;
 
 const screenCenter = { left: screenWidth / 2, top: screenHeight / 2 };
 
-describe('overlay/PositionTarget', function () {
-  isFirefox() && this.skip(); // Firefox has the page navigated interrupt on BrowserStack
+describe('overlay/PositionTarget', () => {
+  before(function() {
+    isFirefox() && this.skip(); // Firefox has the page navigated interrupt on BrowserStack
+  });
+
   describe(`Test Positions (screen width: ${screenWidth}, height: ${screenHeight})`, () => {
     describe('Test with position target in center without fallback', () => {
       for (let widthSize of widthSizes) {
@@ -40,7 +43,7 @@ describe('overlay/PositionTarget', function () {
             const y = screenCenter.top - targetSize.height / 2;
 
             for (let possiblePosition of possiblePositions) {
-              it(`Test position ${possiblePosition}`, async function () {
+              it(`Test position ${possiblePosition}`, async () => {
                 const { target, panel } = await createPositionTargetFixture(x, y, possiblePosition, widthSize, heightSize);
 
                 const matchExactResult = matchExact(target, panel, possiblePosition);
@@ -66,7 +69,7 @@ describe('overlay/PositionTarget', function () {
             const y = screenCenter.top - targetSize.height / 2;
 
             for (let possiblePosition of possiblePositions) {
-              it(`Test position ${possiblePosition}`, async function () {
+              it(`Test position ${possiblePosition}`, async () => {
                 const fallbackPosition = 'top-middle';
                 const { target, panel } = await createPositionTargetFixture(x, y, `${possiblePosition}, ${fallbackPosition}`, widthSize, heightSize);
 
@@ -98,7 +101,7 @@ describe('overlay/PositionTarget', function () {
               describe(`Test Position ${possiblePosition}`, () => {
                 for (let xOffset of xOffsets) {
                   for (let yOffset of yOffsets) {
-                    it(`Test offset x: ${xOffset} y: ${yOffset}`, async function () {
+                    it(`Test offset x: ${xOffset} y: ${yOffset}`, async () => {
                       const { target, panel } = await createPositionTargetFixture(xOffset, yOffset, possiblePosition, widthSize, heightSize, false);
                       target.style.top = `${yOffset}px`;
                       target.style.left = `${xOffset}px`;
