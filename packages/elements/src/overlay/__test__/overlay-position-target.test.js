@@ -1,4 +1,4 @@
-import { elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, nextFrame, fixtureCleanup, isFirefox } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/overlay';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
@@ -18,7 +18,7 @@ import {
   widthSizes,
   targetWidthEqualToPanelWidth,
   targetHeightEqualToPanelHeight
-} from './mocks/helper';
+} from './mocks/helper.js';
 
 initPossiblePositions();
 
@@ -27,12 +27,13 @@ const screenHeight = document.documentElement.clientHeight;
 
 const screenCenter = { left: screenWidth / 2, top: screenHeight / 2 };
 
-describe('overlay/PositionTarget', () => {
+describe('overlay/PositionTarget', function () {
+  isFirefox() && this.skip(); // Firefox has the page navigated interrupt on BrowserStack
   describe(`Test Positions (screen width: ${screenWidth}, height: ${screenHeight})`, () => {
     describe('Test with position target in center without fallback', () => {
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
-          describe(`Test ${widthSize} and ${heightSize}`, async () => {
+          describe(`Test ${widthSize} and ${heightSize}`, () => {
             const { targetSize } = getSizes(widthSize, heightSize);
 
             const x = screenCenter.left - targetSize.width / 2;
@@ -52,12 +53,13 @@ describe('overlay/PositionTarget', () => {
           });
         }
       }
+      fixtureCleanup();
     });
 
     describe('Test with position target in center with fallback', () => {
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
-          describe(`Test ${widthSize} and ${heightSize}`, async () => {
+          describe(`Test ${widthSize} and ${heightSize}`, () => {
             const { targetSize } = getSizes(widthSize, heightSize);
 
             const x = screenCenter.left - targetSize.width / 2;
@@ -78,6 +80,7 @@ describe('overlay/PositionTarget', () => {
           });
         }
       }
+      fixtureCleanup();
     });
 
     describe('Test with position target x and y offsets', () => {
@@ -92,7 +95,7 @@ describe('overlay/PositionTarget', () => {
             const { targetSize, panelSize } = getSizes(widthSize, heightSize);
 
             for (let possiblePosition of possiblePositions) {
-              describe(`Test Position ${possiblePosition}`, async () => {
+              describe(`Test Position ${possiblePosition}`, () => {
                 for (let xOffset of xOffsets) {
                   for (let yOffset of yOffsets) {
                     it(`Test offset x: ${xOffset} y: ${yOffset}`, async function () {
@@ -132,6 +135,7 @@ describe('overlay/PositionTarget', () => {
           });
         }
       }
+      fixtureCleanup();
     });
 
     describe('Overlap', () => {
