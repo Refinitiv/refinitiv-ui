@@ -3,7 +3,7 @@ const dependencyPattern = new RegExp(`${prefix.source}|\\.less$`, 'g');
 const ElementsFileManager = require('./fileManager');
 const NpmImportPlugin = require('less-plugin-npm-import');
 const LessPluginInlineSvg = require('./less-plugin-inline-svg');
-const clean = new (require('clean-css'))({ returnPromise: true, level: '2' });
+const CleanCSS = require('clean-css');
 const path = require('path');
 const browserslist = require('browserslist');
 
@@ -21,17 +21,24 @@ const processor = require('postcss')().use(require('autoprefixer')(autoPrefixerC
  */
 const wrap = (name, style, isEvent) => {
   const eventName = name.indexOf('-') > 0 ? 'custom' : 'native';
-  if(isEvent) {
+  if (isEvent) {
     return `dispatchEvent(new CustomEvent('ef.${eventName}Styles.define', { detail: { name: '${name}', styles: '${style.replace(/'/g, '\\\'')}' }}));\n`;
   }
   return `elf.${eventName}Styles.define('${name}', '${style.replace(/'/g, '\\\'')}');\n`;
 }
 
-const cleanCSS = css => processor.process(css, { from: false })
-.then(o => clean.minify(o.css)).then(o => o.styles);
+const autoPrefix = css => processor.process(css, { from: false }).then(o => o.css);
 
-const wrapHostSelectors = css => Promise
-.resolve(css.replace(/(:host)([.:[#][^\s,{]+)/g, '$1($2)'));
+const cleanCSS = (css, semicolonAfterLastProperty = false) => {
+  let option = { level: '2' };
+  if (semicolonAfterLastProperty) {
+    option = { ...option, format: { semicolonAfterLastProperty: true } }
+  };
+  const output = new CleanCSS(option).minify(css);
+  return output.styles;
+}
+
+const wrapHostSelectors = css => css.replace(/(:host)([.:[#][^\s,{]+)/g, '$1($2)');
 
 /**
  * Return less option template
@@ -48,13 +55,13 @@ const generateLessOptions = (entrypoint, filename, variables) => ({
   relativeUrls: true,
   modifyVars: variables,
   plugins: [
-      new NpmImportPlugin({ prefix: '~' }),
-      new NpmImportPlugin({ prefix: '~/' }),
-      {
-        install: function (less, pluginManager) {
-          let fm = new ElementsFileManager(less, {
-            filename,
-            isEntrypoint: filename === entrypoint
+    new NpmImportPlugin({ prefix: '~' }),
+    new NpmImportPlugin({ prefix: '~/' }),
+    {
+      install: function (less, pluginManager) {
+        let fm = new ElementsFileManager(less, {
+          filename,
+          isEntrypoint: filename === entrypoint
         });
         pluginManager.addFileManager(fm);
       }
@@ -76,7 +83,7 @@ const generateLessOptions = (entrypoint, filename, variables) => ({
 const generateJsInfo = (name, css, dependencies, variables) => {
   let importString = 'import \'./imports/native-elements.js\';\n';
   importString += dependencies.filter(name => name.indexOf('-') !== -1)
-  .map(dep => `import './${dep}.js';`).join('\n') + '\n';
+    .map(dep => `import './${dep}.js';`).join('\n') + '\n';
   return {
     importString,
     injectorString: wrap(name, css.replace(/([^\\])\\([^\\])/g, '$1\\\\$2'), variables.registration === 'event')
@@ -99,18 +106,28 @@ const getElementNameFromLess = (filename) => {
  * @returns {object}
  */
 const generateOutput = (filename, output, variables) => {
-  return cleanCSS(output.css).then(wrapHostSelectors).then(css => {
+  return autoPrefix(output.css).then(prefixedCSS => {
+    const minifiedCSS =  cleanCSS(prefixedCSS);
+    const fullSemicolonMinifiedCSS = cleanCSS(prefixedCSS, true);
+    return { minifiedCSS, fullSemicolonMinifiedCSS };
+  }).then(({ minifiedCSS, fullSemicolonMinifiedCSS }) => {
+    return {
+      minifiedCSS: wrapHostSelectors(minifiedCSS),
+      fullSemicolonMinifiedCSS: wrapHostSelectors(fullSemicolonMinifiedCSS)
+    }
+  }).then(({ minifiedCSS, fullSemicolonMinifiedCSS }) => {
     let name = path.basename(filename).replace(/\.less$/, '');
     let dependencies = output.imports
-    .filter(filename => prefix.test(filename))
-    .map(filename => filename.replace(dependencyPattern, ''));
-    let styleInfo = generateJsInfo(name, css, dependencies, variables);
+      .filter(filename => prefix.test(filename))
+      .map(filename => filename.replace(dependencyPattern, ''));
+    let styleInfo = generateJsInfo(name, minifiedCSS, dependencies, variables);
     return {
       name,
       dependencies,
       injector: styleInfo.injectorString,
       contents: generateJs(styleInfo),
-      css
+      css: minifiedCSS,
+      fullSemicolonCSS: fullSemicolonMinifiedCSS
     };
   });
 };

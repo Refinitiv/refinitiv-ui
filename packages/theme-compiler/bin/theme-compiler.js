@@ -11,11 +11,15 @@ const chalk = require('chalk');
 
   const options = require('../src/cli-options');
   const cssOutDir = path.join(options.outdir, 'css');
+  const lessOutDir = path.join(options.outdir, 'less');
   const importsOutDir = path.join(options.outdir, 'imports');
   const compiledOutDir = path.join(options.outdir, 'es5');
 
   let stylesES5 = ''; // for all-elements bundle
-  let nativeCss = ''; // for native-elements css
+  let nativeCSS = ''; // for native-elements css
+  // This css is generated as less as a workaround for a less parser bug described in https://github.com/less/less.js/pull/3700
+  // For Less 4.1.3, the PR has been merged but the fix is yet to be released.
+  let fullSemicolonCSS = ''; // for full semicolon native-elements less
 
   console.log(chalk.grey(`ELF Theme Compiler (${chalk.green(version)})\n`));
 
@@ -30,7 +34,8 @@ const chalk = require('chalk');
   await fs.ensureDir(options.outdir);
   await Promise.all(elementStyles.map(style => {
     if (style.name.indexOf('-') === -1) {
-      nativeCss += (style.css + '\n');
+      nativeCSS += (style.css + '\n');
+      fullSemicolonCSS += (style.fullSemicolonCSS + '\n');
     }
     stylesES5 += style.injector + '\n';
     const filename = path.join(options.outdir, style.name + '.js');
@@ -42,11 +47,17 @@ const chalk = require('chalk');
   await fs.ensureDir(compiledOutDir);
   await fs.writeFile(path.join(compiledOutDir, 'all-elements.js'), stylesES5);
 
-  // Save native CSS
+  // Save native-elements CSS
   await fs.ensureDir(cssOutDir);
   const cssFilename = path.join(cssOutDir, 'native-elements.css');
   console.log(chalk.yellow('Output'), cssFilename);
-  await fs.writeFile(cssFilename, nativeCss);
+  await fs.writeFile(cssFilename, nativeCSS);
+
+  // Save native-elements less
+  await fs.ensureDir(lessOutDir);
+  const lessFilename = path.join(lessOutDir, 'native-elements.less');
+  console.log(chalk.yellow('Output'), lessFilename);
+  await fs.writeFile(lessFilename, fullSemicolonCSS);
 
   // Generate combined import files
   let importStr;
