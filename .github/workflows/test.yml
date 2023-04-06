@@ -58,8 +58,6 @@ jobs:
 
       - name: Test
         uses: ./.github/actions/run-test
-        with:
-          browsers: 'supported'
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master

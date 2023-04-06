@@ -29,19 +29,6 @@ runs:
   steps:
     - name: Setup resources and environment
       uses: ./.github/actions/setup
-      id: setup
-
-    - name: 'BrowserStack Env Setup'
-      uses: 'browserstack/github-actions/setup-env@master'
-      with:
-        username: ${{ env.BROWSERSTACK_USERNAME }}
-        access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
-
-    - name: 'BrowserStackLocal Setup'
-      uses: 'browserstack/github-actions/setup-local@master'
-      with:
-        local-testing: start
-        local-identifier: random
 
     - name: Test
       if: ${{ inputs.target == '' || inputs.target == 'all' }}
@@ -56,8 +43,3 @@ runs:
       shell: bash
       run: |
         npm run test ${{ inputs.target }} -- --browserstack ${{ inputs.browsers }} --includeCoverage=${{ inputs.coverage }}
-
-    - name: 'BrowserStackLocal Stop'
-      uses: 'browserstack/github-actions/setup-local@master'
-      with:
-        local-testing: stop

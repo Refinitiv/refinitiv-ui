@@ -19,15 +19,20 @@ on:
         # Mobile browsers
         - ios
         - android
-        - samsung
-        # Previous version
-        - chrome_previous
-        - firefox_previous
-        - safari_previous
-        - edge_previous
-        - ios_previous
-        - android_previous
-        - samsung_previous
+        # Latest - 1
+        - chrome_minus1
+        - firefox_minus1
+        - safari_minus1
+        - edge_minus1
+        - ios_minus1
+        - android_minus1
+        # Latest - 2
+        - chrome_minus2
+        - firefox_minus2
+        - safari_minus2
+        - edge_minus2
+        - ios_minus2
+        - android_minus2
       target:
         description: 'Packages/Elements'
         required: true
@@ -153,7 +158,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Lint
-        run: npm run lint:affected -- --base=$BASE_SHA
+        run: npm run lint:all
 
   test:
     needs: lint

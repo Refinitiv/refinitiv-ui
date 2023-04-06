@@ -61,7 +61,9 @@ const config = {
 };
 
 if (argv.output === 'full') {
-  config.reporters.push(summaryReporter())
+  config.reporters.push(summaryReporter());
+} else {
+  config.browserLogs = false;
 }
 
 // Test on BrowserStack`
@@ -74,8 +76,6 @@ if (useBrowserStack) {
     'browserstack.user': env.BROWSERSTACK_USERNAME,
     'browserstack.key': env.BROWSERSTACK_ACCESS_KEY,
     'browserstack.idleTimeout': 1800,
-    // 'browserstack.networkLogs': true,
-    // 'browserstack.browserstack.consoleLogs': 'errors',
     project: env.BROWSERSTACK_PROJECT_NAME || 'Refinitiv UI',
     name: testTarget,
     build: `build ${env.BROWSERSTACK_BUILD || 'unknown'}`
@@ -141,12 +141,14 @@ if (snapshots) {
   process.argv.push('--update-snapshots');
 }
 
-process.on('uncaughtException', (error) => {
-  console.error(`uncaughtException: ${error}`);
-  if (error?.stack !== undefined) {
-    console.error(error.stack);
-  }
-});
+// Handle runner stopping with correct exit code
+let runner = undefined;
+const stopRunner = () => {
+  if (runner.running) runner.stop();
+  runner.passed ? process.exit(0) : process.exit(1);
+};
+process.on('SIGINT', stopRunner);
+process.on('exit', stopRunner);
 
 // Run testing
-await startTestRunner({ config });
+runner = await startTestRunner({ config });

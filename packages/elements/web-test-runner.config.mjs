@@ -8,6 +8,7 @@ const element = env.testElement;
 const testAll = element === 'all';
 
 const config = {
+  concurrentBrowsers: 3,
   files: [
     path.join(ELEMENTS_ROOT, 'src', `${ testAll ? '*' : element }/__test__/**/*.test.js`),
     '!**/node_modules/**/*', // exclude any node modules
