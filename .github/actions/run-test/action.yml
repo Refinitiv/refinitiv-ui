@@ -30,6 +30,11 @@ runs:
     - name: Setup resources and environment
       uses: ./.github/actions/setup
 
+    # Need to test for Safari locally
+    - name: Install playwright browsers
+      shell: bash
+      run: npx playwright install --with-deps
+
     - name: Test
       if: ${{ inputs.target == '' || inputs.target == 'all' }}
       shell: bash

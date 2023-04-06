@@ -3,7 +3,7 @@ const DefaultBrowsers = ['chrome', 'firefox', 'safari'];
 
 // BrowserStack browsers
 const BrowserStack = {
-  defaultBrowsers: ['chrome', 'firefox'],
+  defaultBrowsers: ['chrome', 'firefox', 'safari'],
   supportedBrowsers: [
     'chrome', 'chrome_minus1',
     'firefox', 'firefox_minus1', 'firefox_minus2',

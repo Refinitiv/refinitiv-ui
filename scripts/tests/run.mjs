@@ -3,6 +3,7 @@ import { env } from 'node:process';
 import path from 'node:path';
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
+import { playwrightLauncher } from '@web/test-runner-playwright';
 import { browserstackLauncher } from '@web/test-runner-browserstack';
 import { startTestRunner, summaryReporter } from "@web/test-runner";
 import { PACKAGES_ROOT, info } from '../helpers/esm.mjs';
@@ -105,7 +106,12 @@ if (useBrowserStack) {
       launcher.browser_version ? ` ${launcher.browser_version}` : '' }` + ` (${launcher.os} ${launcher.os_version})`;
       browserName = browserName.charAt(0).toUpperCase() + browserName.slice(1);
 
-    browsers.push(browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher, browserName }}));
+    // Safari testing does not work on BrowserStack, need to test on PlayWright for now.
+    if (launcher.browser === 'safari') {
+      browsers.push(playwrightLauncher({ product: 'webkit' }, { headless: true }));
+    } else {
+      browsers.push(browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher, browserName }}));
+    }
   });
 
   config.browsers = browsers; // Set all browsers to use BrowserStack
