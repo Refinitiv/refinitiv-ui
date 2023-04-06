@@ -106,9 +106,9 @@ if (useBrowserStack) {
       launcher.browser_version ? ` ${launcher.browser_version}` : '' }` + ` (${launcher.os} ${launcher.os_version})`;
       browserName = browserName.charAt(0).toUpperCase() + browserName.slice(1);
 
-    // Safari testing does not work on BrowserStack, need to test on PlayWright for now.
-    if (launcher.browser === 'safari') {
-      browsers.push(playwrightLauncher({ product: 'webkit' }, { headless: true }));
+    // It has the connection issue and test cases failed with BrowserStack, need to test two browsers on PlayWright for now.
+    if (launcher.browser === 'firefox' || launcher.browser === 'safari') {
+      browsers.push(playwrightLauncher({ product: launcher.browser == 'safari' ? 'webkit' : launcher.browser }, { headless: true }));
     } else {
       browsers.push(browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher, browserName }}));
     }
