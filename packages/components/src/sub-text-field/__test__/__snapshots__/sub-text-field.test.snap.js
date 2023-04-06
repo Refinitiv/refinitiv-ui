@@ -7,6 +7,8 @@ snapshots["ui-sub-text-field DOM Structure DOM default is correct"] =
   part="input"
   type="text"
 >
+<span>
+</span>
 `;
 /* end snapshot ui-sub-text-field DOM Structure DOM default is correct */
 

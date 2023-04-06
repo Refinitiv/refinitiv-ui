@@ -25,8 +25,6 @@ export const data = [{
   value: 'AX', /* 2 */
   label: 'Aland Islands'
 }, {
-  type: 'divider' /* 3 */
-}, {
   value: 'AL', /* 4 */
   label: 'Albania'
 }];

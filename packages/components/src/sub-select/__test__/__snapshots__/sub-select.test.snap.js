@@ -2,65 +2,84 @@
 export const snapshots = {};
 
 snapshots["ui-sub-select DOM Structure Empty DOM has all required parts"] = 
-`<div id="box">
-  <div id="text">
-    <div part="label">
-    </div>
+`<button
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-label=""
+  part="trigger"
+>
+  <div
+    aria-hidden="true"
+    part="label"
+  >
   </div>
   <ui-sub-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
   </ui-sub-icon>
-</div>
-<div id="trigger">
-</div>
+</button>
 `;
 /* end snapshot ui-sub-select DOM Structure Empty DOM has all required parts */
 
 snapshots["ui-sub-select DOM Structure Lazy Render: options"] = 
-`<div id="box">
-  <div id="text">
-    <div part="label">
-    </div>
+`<button
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-label=""
+  part="trigger"
+>
+  <div
+    aria-hidden="true"
+    part="label"
+  >
   </div>
   <ui-sub-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
   </ui-sub-icon>
-</div>
-<div id="trigger">
-</div>
+</button>
 `;
 /* end snapshot ui-sub-select DOM Structure Lazy Render: options */
 
 snapshots["ui-sub-select DOM Structure Options Selected: Afghanistan"] = 
-`<div id="box">
-  <div id="text">
-    <div part="label">
-      Afghanistan
-    </div>
+`<button
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-label=""
+  part="trigger"
+>
+  <div
+    aria-hidden="true"
+    part="label"
+  >
+    Afghanistan
   </div>
   <ui-sub-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
   </ui-sub-icon>
-</div>
-<div id="trigger">
-</div>
+</button>
 <ui-overlay-viewport>
 </ui-overlay-viewport>
 <ui-sub-overlay
   first-resize-done=""
+  horizontal-offset="-4"
   id="menu"
   lock-position-target=""
-  offset="8"
   opened=""
   part="list"
   role="listbox"
   tabindex="-1"
+  vertical-offset="2"
   with-shadow=""
 >
   <slot>
@@ -70,31 +89,38 @@ snapshots["ui-sub-select DOM Structure Options Selected: Afghanistan"] =
 /* end snapshot ui-sub-select DOM Structure Options Selected: Afghanistan */
 
 snapshots["ui-sub-select Properties value Options Selected: Afghanistan"] = 
-`<div id="box">
-  <div id="text">
-    <div part="label">
-      Afghanistan
-    </div>
+`<button
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-label=""
+  part="trigger"
+>
+  <div
+    aria-hidden="true"
+    part="label"
+  >
+    Afghanistan
   </div>
   <ui-sub-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
   </ui-sub-icon>
-</div>
-<div id="trigger">
-</div>
+</button>
 <ui-overlay-viewport>
 </ui-overlay-viewport>
 <ui-sub-overlay
   first-resize-done=""
+  horizontal-offset="-4"
   id="menu"
   lock-position-target=""
-  offset="8"
   opened=""
   part="list"
   role="listbox"
   tabindex="-1"
+  vertical-offset="2"
   with-shadow=""
 >
   <slot>

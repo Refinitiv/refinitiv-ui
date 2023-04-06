@@ -22,7 +22,7 @@ describe('ui-sub-select', () => {
     });
   });
 
-  describe('Attributes', () => {
+  describe('Properties', () => {
     describe('value', () => {
       it('should not have selected item when change value to empty', async () => {
         const el = await fixture(`<ui-sub-select opened>${getOptions()}</ui-sub-select>`);
@@ -32,11 +32,6 @@ describe('ui-sub-select', () => {
         await elementUpdated(el);
         expect(el.querySelector('ui-option[selected]')).to.equal(null, 'Selected item is not reset');
       });
-    });
-  });
-
-  describe('Properties', () => {
-    describe('value', () => {
       it('should reflect with know value property', async () => {
         const el = await fixture(`<ui-sub-select opened>${getOptions()}</ui-sub-select>`);
         el.value = 'AF';
@@ -49,7 +44,6 @@ describe('ui-sub-select', () => {
         await elementUpdated(el);
         expect(el.value).to.equal('', 'Unknown value should reset');
       });
-
       it('Options Selected: Afghanistan', async () => {
         const el = await fixture(`<ui-sub-select opened placeholder="Placeholder">${getOptions([1])}</ui-sub-select>`);
         await openedUpdated(el);

@@ -7,6 +7,8 @@ snapshots["ui-sub-password-field DOM Structure Default DOM is correct"] =
   part="input"
   type="password"
 >
+<span>
+</span>
 <ui-button
   aria-label="Show password"
   icon-end="eye"
@@ -25,6 +27,8 @@ snapshots["ui-sub-password-field DOM Structure Show password DOM is correct"] =
   part="input"
   type="text"
 >
+<span>
+</span>
 <ui-button
   aria-label="Hide password"
   icon-end="eye-off"
