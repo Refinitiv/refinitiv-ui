@@ -29,6 +29,7 @@ const getPosition = (el) => {
 const centerCenter = async el => {
   await nextFrame(2); // Chrome 110, Firefox 110, Safari 16.3 require 2 frames to complete rendering
   const position = getPosition(el);
+  await nextFrame(2); // BrowserStack need extra frames
   expect(position.centreV, 'Overlay is not at center vertically').to.equal(true);
   expect(position.centreH, 'Overlay is not at center horizontally').to.equal(true);
 };

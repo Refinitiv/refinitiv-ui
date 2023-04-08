@@ -1,4 +1,4 @@
-import { elementUpdated, expect, nextFrame, fixtureCleanup, isFirefox } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, nextFrame, isFirefox } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/overlay';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
@@ -28,10 +28,6 @@ const screenHeight = document.documentElement.clientHeight;
 const screenCenter = { left: screenWidth / 2, top: screenHeight / 2 };
 
 describe('overlay/PositionTarget', () => {
-  before(function() {
-    isFirefox() && this.skip(); // Firefox has the page navigated interrupt on BrowserStack
-  });
-
   describe(`Test Positions (screen width: ${screenWidth}, height: ${screenHeight})`, () => {
     describe('Test with position target in center without fallback', () => {
       for (let widthSize of widthSizes) {
@@ -56,7 +52,6 @@ describe('overlay/PositionTarget', () => {
           });
         }
       }
-      fixtureCleanup();
     });
 
     describe('Test with position target in center with fallback', () => {
@@ -83,10 +78,12 @@ describe('overlay/PositionTarget', () => {
           });
         }
       }
-      fixtureCleanup();
     });
 
     describe('Test with position target x and y offsets', () => {
+      before(function() {
+        isFirefox() && this.skip(); // Firefox has the page navigated interrupt issue on BrowserStack (no workaround)
+      });
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
           describe(`Test ${widthSize} and ${heightSize}`, () => {
@@ -110,7 +107,11 @@ describe('overlay/PositionTarget', () => {
 
                       await elementUpdated(panel);
 
-                      await nextFrame();
+                      /**
+                       * ! Using Web Test Runner on BrowserStack need request one frame only,
+                       * otherwise it will throw the error message "Tests were interrupted because the page navigated to ...".
+                       * Chrome need only one frame but Firefox throw the error on when request `nextFrame()` so need to skip Firefox for now
+                       */
                       await nextFrame();
 
                       const matchExactPositionWordResult = matchExactPositionWord(target, panel, possiblePosition);
@@ -138,7 +139,6 @@ describe('overlay/PositionTarget', () => {
           });
         }
       }
-      fixtureCleanup();
     });
 
     describe('Overlap', () => {
