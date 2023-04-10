@@ -15,7 +15,7 @@ import {
   responseConfigSuccess,
   responseConfigError,
   isEqualSvg
-} from './helpers/helpers';
+} from './helpers/helpers.js';
 import sinon from 'sinon';
 
 describe('flag/Flag', () => {
