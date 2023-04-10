@@ -7,24 +7,24 @@ import { ELEMENTS_ROOT } from './scripts/helpers/index.mjs';
 const element = env.testElement;
 const testAll = element === 'all';
 
-const firstTestElements = [];
-if (testAll) {
-  // Force test overlay element first to prevent noise which make test failed on BrowserStack
-  firstTestElements.push(path.join(ELEMENTS_ROOT, 'src', `overlay/__test__/**/*.test.js`));
-}
+const files = [
+  '!**/node_modules/**/*', // exclude any node modules
+]
 
 const config = {
   concurrency: 1,
   concurrentBrowsers: 3,
-  files: [
-    ...firstTestElements,
-    path.join(ELEMENTS_ROOT, 'src', `${ testAll ? '*' : element }/__test__/**/*.test.js`),
-    '!**/node_modules/**/*', // exclude any node modules
-  ],
   coverageConfig: {
     reportDir: 'coverage/elements'
   }
 };
+
+if (!testAll) {
+  config.files = [
+    path.join(ELEMENTS_ROOT, 'src', `${ element }/__test__/**/*.test.js`),
+    ...files
+  ];
+}
 
 // Replace coverage config if testing on single element.
 if (env.testCoverage && !testAll){

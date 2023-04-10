@@ -6,10 +6,10 @@ import { hideBin } from 'yargs/helpers';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { browserstackLauncher } from '@web/test-runner-browserstack';
 import { startTestRunner, summaryReporter } from "@web/test-runner";
-import { PACKAGES_ROOT, info } from '../helpers/esm.mjs';
+import { PACKAGES_ROOT, info, log } from '../helpers/esm.mjs';
 import { BrowserStack } from '../../browsers.config.mjs';
 import wtrConfig from '../../web-test-runner.config.mjs';
-import { getElements } from '../../packages/elements/scripts/helpers/index.mjs';
+import { ELEMENTS_ROOT, getElements } from '../../packages/elements/scripts/helpers/index.mjs';
 import { useTestOptions } from './cli-options.mjs';
 
 // Create CLI
@@ -150,11 +150,71 @@ if (snapshots) {
 // Handle runner stopping with correct exit code
 let runner = undefined;
 const stopRunner = () => {
-  if (runner.running) runner.stop();
-  runner.passed ? process.exit(0) : process.exit(1);
+  if (runner) {
+    if (runner.running) runner.stop();
+    runner.passed ? process.exit(0) : process.exit(1);
+  }
 };
 process.on('SIGINT', stopRunner);
 process.on('exit', stopRunner);
 
+const setBrowserStackSessionName = browsers => {
+  browsers.forEach(launcher => {
+    if (launcher.capabilities) {
+      launcher.capabilities.name = `elements: ${firstElement}`;
+    }
+  });
+}
+
 // Run testing
-runner = await startTestRunner({ config });
+(async () => {
+  // Test each element on individule test runner.
+  if (testTarget === 'elements') {
+    const handleNextTest = async () => {
+      // Remove finished test runner from queue
+      if (testQueue.has(runner.config.element)) {
+        testQueue.delete(runner.config.element);
+      }
+
+      // Start next runner if still have runner in queue
+      if (testQueue.size >= 1) {
+        const [firstElement] = testQueue.keys();
+        const nextTestFiles = testQueue.get(firstElement);
+
+        log(`Element: ${firstElement}`, 'magenta');
+        setBrowserStackSessionName(config.browsers);
+
+        // Apply test file for the element
+        config.element = firstElement;
+        config.files = nextTestFiles;
+
+        runner = await startTestRunner({ config, autoExitProcess: false });
+        runner.on('stopped', handleNextTest);
+      }
+    }
+
+    const testQueue = new Map();
+    const elements = getElements();
+    for (const element of elements) {
+      const elementTestFiles = [
+        path.join(ELEMENTS_ROOT, 'src', `${ element }/__test__/**/*.test.js`),
+        '!**/node_modules/**/*', // exclude any node modules
+      ];
+
+      if (!runner) {
+        config.element = element;
+        config.files = elementTestFiles;
+
+        log(`Element: ${element}`, 'magenta');
+        setBrowserStackSessionName(config.browsers);
+
+        runner = await startTestRunner({ config, autoExitProcess: false });
+        runner.on('stopped', handleNextTest);
+      } else {
+        testQueue.set(element, elementTestFiles); // Add runner to queue
+      }
+    }
+  } else {
+    runner = await startTestRunner({ config, autoExitProcess: false });
+  }
+})();
