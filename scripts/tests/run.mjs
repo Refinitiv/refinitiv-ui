@@ -158,18 +158,34 @@ const stopRunner = () => {
 process.on('SIGINT', stopRunner);
 process.on('exit', stopRunner);
 
-const setBrowserStackSessionName = browsers => {
-  browsers.forEach(launcher => {
-    if (launcher.capabilities) {
-      launcher.capabilities.name = `elements: ${firstElement}`;
-    }
-  });
-}
+
+const startTest = async config => await startTestRunner({ config, autoExitProcess: false });
 
 // Run testing
 (async () => {
   // Test each element on individule test runner.
   if (testTarget === 'elements') {
+
+    const startTestQueue = async function (element, config, testFiles) {
+      log(`Element: ${element}`, 'magenta');
+
+      // Setup BrowserStack session name
+      config.browsers.forEach(launcher => {
+        if (launcher.capabilities) {
+          launcher.capabilities.name = `elements: ${element}`;
+        }
+      });
+
+      config.element = element;
+      config.files = testFiles; // Apply test file for the element
+
+      // Start test runner
+      runner = await startTest(config);
+      runner.on('stopped', handleNextTest);
+
+      return runner;
+    }
+
     const handleNextTest = async () => {
       // Remove finished test runner from queue
       if (testQueue.has(runner.config.element)) {
@@ -180,16 +196,7 @@ const setBrowserStackSessionName = browsers => {
       if (testQueue.size >= 1) {
         const [firstElement] = testQueue.keys();
         const nextTestFiles = testQueue.get(firstElement);
-
-        log(`Element: ${firstElement}`, 'magenta');
-        setBrowserStackSessionName(config.browsers);
-
-        // Apply test file for the element
-        config.element = firstElement;
-        config.files = nextTestFiles;
-
-        runner = await startTestRunner({ config, autoExitProcess: false });
-        runner.on('stopped', handleNextTest);
+        runner = await startTestQueue(firstElement, config, nextTestFiles);
       }
     }
 
@@ -201,20 +208,15 @@ const setBrowserStackSessionName = browsers => {
         '!**/node_modules/**/*', // exclude any node modules
       ];
 
+      // Start first runner or add it to queue
       if (!runner) {
-        config.element = element;
-        config.files = elementTestFiles;
-
-        log(`Element: ${element}`, 'magenta');
-        setBrowserStackSessionName(config.browsers);
-
-        runner = await startTestRunner({ config, autoExitProcess: false });
-        runner.on('stopped', handleNextTest);
+        runner = await startTestQueue(element, config, elementTestFiles);
       } else {
         testQueue.set(element, elementTestFiles); // Add runner to queue
       }
     }
   } else {
-    runner = await startTestRunner({ config, autoExitProcess: false });
+    runner = await startTest(config);
   }
+
 })();
