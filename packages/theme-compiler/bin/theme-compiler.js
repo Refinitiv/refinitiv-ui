@@ -17,9 +17,7 @@ const chalk = require('chalk');
 
   let stylesES5 = ''; // for all-elements bundle
   let nativeCSS = ''; // for native-elements css
-  // This css is generated as less as a workaround for a less parser bug described in https://github.com/less/less.js/pull/3700
-  // For Less 4.1.3, the PR has been merged but the fix is yet to be released.
-  let fullSemicolonCSS = ''; // for full semicolon native-elements less
+  let allSemicolonCSS = ''; // for native-elements less
 
   console.log(chalk.grey(`ELF Theme Compiler (${chalk.green(version)})\n`));
 
@@ -35,7 +33,7 @@ const chalk = require('chalk');
   await Promise.all(elementStyles.map(style => {
     if (style.name.indexOf('-') === -1) {
       nativeCSS += (style.css + '\n');
-      fullSemicolonCSS += (style.fullSemicolonCSS + '\n');
+      allSemicolonCSS += (style.allSemicolonCSS + '\n');
     }
     stylesES5 += style.injector + '\n';
     const filename = path.join(options.outdir, style.name + '.js');
@@ -54,10 +52,13 @@ const chalk = require('chalk');
   await fs.writeFile(cssFilename, nativeCSS);
 
   // Save native-elements less
+  // This less has 1 difference compared to its CSS version: a semicolon after last property
+  // This extra semicolon is a workaround for a less-parser bug described in https://github.com/less/less.js/pull/3700
+  // The PR has been merged but it's not released yet as of less 4.1.3.
   await fs.ensureDir(lessOutDir);
   const lessFilename = path.join(lessOutDir, 'native-elements.less');
   console.log(chalk.yellow('Output'), lessFilename);
-  await fs.writeFile(lessFilename, fullSemicolonCSS);
+  await fs.writeFile(lessFilename, allSemicolonCSS);
 
   // Generate combined import files
   let importStr;

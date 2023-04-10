@@ -107,15 +107,16 @@ const getElementNameFromLess = (filename) => {
  */
 const generateOutput = (filename, output, variables) => {
   return autoPrefix(output.css).then(prefixedCSS => {
-    const minifiedCSS =  cleanCSS(prefixedCSS);
-    const fullSemicolonMinifiedCSS = cleanCSS(prefixedCSS, true);
-    return { minifiedCSS, fullSemicolonMinifiedCSS };
-  }).then(({ minifiedCSS, fullSemicolonMinifiedCSS }) => {
+    return {
+      minifiedCSS: cleanCSS(prefixedCSS),
+      allSemicolonMinifiedCSS: cleanCSS(prefixedCSS, true)
+    };
+  }).then(({ minifiedCSS, allSemicolonMinifiedCSS }) => {
     return {
       minifiedCSS: wrapHostSelectors(minifiedCSS),
-      fullSemicolonMinifiedCSS: wrapHostSelectors(fullSemicolonMinifiedCSS)
-    }
-  }).then(({ minifiedCSS, fullSemicolonMinifiedCSS }) => {
+      allSemicolonMinifiedCSS: wrapHostSelectors(allSemicolonMinifiedCSS)
+    };
+  }).then(({ minifiedCSS, allSemicolonMinifiedCSS }) => {
     let name = path.basename(filename).replace(/\.less$/, '');
     let dependencies = output.imports
       .filter(filename => prefix.test(filename))
@@ -127,7 +128,7 @@ const generateOutput = (filename, output, variables) => {
       injector: styleInfo.injectorString,
       contents: generateJs(styleInfo),
       css: minifiedCSS,
-      fullSemicolonCSS: fullSemicolonMinifiedCSS
+      allSemicolonCSS: allSemicolonMinifiedCSS
     };
   });
 };
