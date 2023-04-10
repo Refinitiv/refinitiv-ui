@@ -105,6 +105,9 @@ const getElementNameFromLess = (filename) => {
  * @param {string} variables option variables that include using event condition
  * @returns {object}
  */
+// Generate both regular minified CSS & a similar version with a semicolon after last property
+// A workaround for a less-parser bug described in https://github.com/less/less.js/pull/3700
+// The PR has been merged but it's not released yet as of less 4.1.3.
 const generateOutput = (filename, output, variables) => {
   return autoPrefix(output.css).then(prefixedCSS => {
     return {

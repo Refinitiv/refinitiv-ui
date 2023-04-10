@@ -53,7 +53,7 @@ const chalk = require('chalk');
 
   // Save native-elements less
   // This less has 1 difference compared to its CSS version: a semicolon after last property
-  // This extra semicolon is a workaround for a less-parser bug described in https://github.com/less/less.js/pull/3700
+  // A workaround for a less-parser bug described in https://github.com/less/less.js/pull/3700
   // The PR has been merged but it's not released yet as of less 4.1.3.
   await fs.ensureDir(lessOutDir);
   const lessFilename = path.join(lessOutDir, 'native-elements.less');
