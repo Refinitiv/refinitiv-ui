@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/test-helpers",
-  "version": "6.0.6",
+  "version": "6.0.8",
   "description": "Helper methods for writing tests in EF elements",
   "main": "./lib/test-helpers.js",
   "module": "./lib/test-helpers.js",

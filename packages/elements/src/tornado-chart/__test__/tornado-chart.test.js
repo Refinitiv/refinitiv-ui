@@ -48,7 +48,7 @@ describe('tornado-chart/TornadoChart', () => {
       const legend = element.shadowRoot.querySelector('[part="legend"]');
 
       await oneEvent(element, 'resize');
-      await elementUpdated();
+      await elementUpdated(element);
 
       expect(legend.hasAttribute('vertical')).to.equal(true);
     });
@@ -62,7 +62,7 @@ describe('tornado-chart/TornadoChart', () => {
       );
 
       await oneEvent(element, 'resize');
-      await elementUpdated();
+      await elementUpdated(element);
 
       const items = element.querySelectorAll('ef-tornado-item');
       items.forEach((item) => {
