@@ -102,6 +102,11 @@ export class ViewportManager {
     // since screenViewport is applied on html element, it does not include body zoom
     // Zoom is a legacy feature and must not be used by any means.
     // Kept here for compatibility with old apps
+
+    // only Chromium-based browsers update css zoom property after using ctrl/cmd + (+) or (-)
+    // Firefox doesn't implement this property.
+    // Safari does but zooming doesn't update this property value
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument

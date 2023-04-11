@@ -46,7 +46,6 @@ export const keyboardEvent = async (el, key, type = 'keydown') => {
 
   el.dispatchEvent(event);
   await elementUpdated(el);
-  await nextFrame(); // need this for IE11 to ensure focus is set
 
   return event;
 };

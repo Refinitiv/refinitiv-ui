@@ -2,7 +2,6 @@
 <html lang="">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Autosuggest</title>
     <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
     <style type="text/css">
@@ -599,7 +598,6 @@
 
               autoSuggest.innerHTML = '';
 
-              // innerHTML does not work in IE11 when adding custom elements, so do a hack
               const documentFragment = data.reduce((fragment, { type = 'text', label, value }) => {
                 const el = document.createElement('ef-item');
                 el.type = type;
