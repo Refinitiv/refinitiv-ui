@@ -186,7 +186,9 @@ const startTest = async config => await startTestRunner({ config, autoExitProces
       return runner;
     }
 
-    const handleNextTest = async () => {
+    const handleNextTest = async (passed) => {
+      if (!passed) process.exit(1); // Stop process if found test failed
+
       // Remove finished test runner from queue
       if (testQueue.has(runner.config.element)) {
         testQueue.delete(runner.config.element);
