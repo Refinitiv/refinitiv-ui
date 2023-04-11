@@ -1,4 +1,4 @@
-import { aTimeout, elementUpdated, expect, aTimeout } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, aTimeout } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/icon';
 import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
