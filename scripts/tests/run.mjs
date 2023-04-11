@@ -158,7 +158,11 @@ const stopRunner = () => {
 process.on('SIGINT', stopRunner);
 process.on('exit', stopRunner);
 
-
+/**
+ * Start Test runner
+ * @param {Object} config Web Test Runner config
+ * @returns {Promise<TestRunner>} Web Test Runner instance
+ */
 const startTest = async config => await startTestRunner({ config, autoExitProcess: false });
 
 // Run testing
@@ -166,7 +170,15 @@ const startTest = async config => await startTestRunner({ config, autoExitProces
   // Test each element on individule test runner.
   if (testTarget === 'elements') {
 
-    const startTestQueue = async function (element, config, testFiles) {
+    /**
+     * Start next runner in queue
+     *
+     * @param {string} element element name
+     * @param {Object} config config using for start the test
+     * @param {Array} testFiles string glob pattern for finding the tests
+     * @returns {Promise<TestRunner>} Web Test Runner
+     */
+    const startNextRunner = async function (element, config, testFiles) {
       log(`Element: ${element}`, 'magenta');
 
       // Setup BrowserStack session name
@@ -176,20 +188,26 @@ const startTest = async config => await startTestRunner({ config, autoExitProces
         }
       });
 
+      // Change test files and name to for next element
       config.element = element;
-      config.files = testFiles; // Apply test file for the element
+      config.files = testFiles;
 
       // Start test runner
       runner = await startTest(config);
-      runner.on('stopped', handleNextTest);
+      runner.on('stopped', handleNextQueue);
 
       return runner;
     }
 
-    const handleNextTest = async (passed) => {
-      if (!passed) process.exit(1); // Stop process if found test failed
+    /**
+     * Handle runner in queue to start next
+     *
+     * @param {boolean} passed result of current runner
+     */
+    const handleNextQueue = async (passed) => {
+      if (!passed) process.exit(1); // Stop process, if found test failed from result of current runner
 
-      // Remove finished test runner from queue
+      // Remove current test runner (finished) from queue
       if (testQueue.has(runner.config.element)) {
         testQueue.delete(runner.config.element);
       }
@@ -198,27 +216,29 @@ const startTest = async config => await startTestRunner({ config, autoExitProces
       if (testQueue.size >= 1) {
         const [firstElement] = testQueue.keys();
         const nextTestFiles = testQueue.get(firstElement);
-        runner = await startTestQueue(firstElement, config, nextTestFiles);
+        runner = await startNextRunner(firstElement, config, nextTestFiles);
       }
     }
 
     const testQueue = new Map();
     const elements = getElements();
+
+    // Start test runner for all element one by one
     for (const element of elements) {
+      // Create test files pattern for current element
       const elementTestFiles = [
         path.join(ELEMENTS_ROOT, 'src', `${ element }/__test__/**/*.test.js`),
         '!**/node_modules/**/*', // exclude any node modules
       ];
 
-      // Start first runner or add it to queue
+      // Start runner or add it to queue if it is already exists
       if (!runner) {
-        runner = await startTestQueue(element, config, elementTestFiles);
+        runner = await startNextRunner(element, config, elementTestFiles);
       } else {
         testQueue.set(element, elementTestFiles); // Add runner to queue
       }
     }
   } else {
-    runner = await startTest(config);
+    runner = await startTest(config); // Start single runner (no queue)
   }
-
 })();
