@@ -31,7 +31,7 @@ try {
   const elementName = isElement ? argv.package : undefined;
 
   // For workspace package real name is required
-  const packageName = (await getJSON(path.resolve(PACKAGES_ROOT, workspace, 'package.json'))).name;
+  const packageName = (await getJSON(path.resolve(PACKAGES_ROOT, workspace, 'package.json'), import.meta)).name;
   const command = ['npm', 'run', argv.reflect, `--workspace=${packageName}`];
 
   // Add element name to command
