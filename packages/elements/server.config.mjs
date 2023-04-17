@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import path from 'node:path';
 import deepmerge from 'deepmerge';
-import { middlewareOverrideDemoPath } from '../../scripts/dev-server/index.mjs';
+import { middlewareOverrideDemoPath, pluginJsBufferToString } from '../../scripts/dev-server/index.mjs';
 import baseConfig from '../../server.config.mjs';
 import { getDemoPath, MONOREPO_ELEMENTS, ROOT } from './scripts/helpers/index.mjs';
 
@@ -12,5 +12,6 @@ export default deepmerge(baseConfig, {
   rootDir: ROOT,
   middleware: [
     middlewareOverrideDemoPath(MONOREPO_ELEMENTS, demoPath)
-  ]
+  ],
+  plugins: [pluginJsBufferToString]
 });

@@ -24,10 +24,10 @@
   "author": "LSEG",
   "license": "Apache-2.0",
   "dependencies": {
-    "@formatjs/icu-messageformat-parser": "^2.1.7",
-    "@formatjs/intl-utils": "^3.8.4",
+    "@formatjs/ecma402-abstract": "1.14.3",
+    "@formatjs/icu-messageformat-parser": "^2.3.1",
     "intl-format-cache": "^4.3.1",
-    "intl-messageformat": "^10.1.4",
+    "intl-messageformat": "^10.3.4",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
