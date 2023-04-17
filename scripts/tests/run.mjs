@@ -12,6 +12,7 @@ import wtrConfig from '../../web-test-runner.config.mjs';
 import { ELEMENTS_ROOT, getElements } from '../../packages/elements/scripts/helpers/index.mjs';
 import { useTestOptions } from './cli-options.mjs';
 import { startTestRunner, startQueueRunner } from './runner.mjs';
+import { pluginJsBufferToString } from '../dev-server/index.mjs';
 
 // Create CLI
 const cli = yargs(hideBin(process.argv))
@@ -59,7 +60,8 @@ const config = {
   coverage:  testCoverage,
   coverageConfig: {
     include: [`**/${ packageName }/lib/**/*.js`],
-  }
+  },
+  plugins: [pluginJsBufferToString]
 };
 
 if (argv.output === 'full') {
