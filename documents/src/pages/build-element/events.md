@@ -27,8 +27,6 @@ The tap event enables consistent functionality across both touch and pointer dev
 
 ### Focus Event
 
-There are many inconsistencies with focusing across different browsers. Polyfilled browsers, in particular, struggle due to not being able to support the focusing requirements of Web Components.
-
 This event is here to align all browsers, providing a reliable event to use for any focus/blur logic.
 
 | Event           | Native Counterparts |
