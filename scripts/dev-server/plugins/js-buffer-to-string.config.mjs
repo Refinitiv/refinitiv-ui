@@ -1,3 +1,5 @@
+import { Buffer } from 'node:buffer';
+
 // Workaround for issue UTF-8 wide characters are unsupported
 // from https://github.com/modernweb-dev/web/issues/1888
 export const pluginJsBufferToString = {
