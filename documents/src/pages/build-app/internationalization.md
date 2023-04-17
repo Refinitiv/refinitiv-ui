@@ -72,7 +72,7 @@ Including translations in such a way will increase the bundle size, but has the 
 If your application supports [dynamic module resolution](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import), you can load translations on demand.  For instance:
 
 ``` js
-import { supportedLocales } from '@formatjs/intl-utils';
+import { SupportedLocales } from '@formatjs/ecma402-abstract';
 
 // load language from your app's service
 App.Settings.Language.read(value => {
@@ -80,7 +80,7 @@ App.Settings.Language.read(value => {
   document.documentElement.lang = value;
   // resolve regional locale into support locale.
   // for instance: if value === 'de-AT', then locale = 'de'
-  const locale = supportedLocales(['ja', 'de'], [value])[0];
+  const locale = SupportedLocales(new Set(['ja', 'de']), [value])[0];
   if (locale) {
     // use dynamic import. Element will update itself once locale is loaded
     import(`@refinitiv-ui/phrasebook/locale/${locale}/pagination.js`);
@@ -93,11 +93,11 @@ App.Settings.Language.read(value => {
 You can store translations as JSON on the app server or CDN. In this case you may want to extract JSON content to upload to the server.
 
 ``` js
-import { supportedLocales } from '@formatjs/intl-utils';
+import { SupportedLocales } from '@formatjs/ecma402-abstract';
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
 
 // resolve locale from HTML lang attribute or navigator language
-const locale = supportedLocales(['ja', 'de'], [document.documentElement.lang || navigator.language])[0];
+const locale = SupportedLocales(new Set(['ja', 'de']), [document.documentElement.lang || navigator.language])[0];
 
 // fetch locale
 fetch(`static/locale/${locale}/pagination.json`).then(translations => {

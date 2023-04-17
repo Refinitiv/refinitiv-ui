@@ -10,6 +10,7 @@ import { BrowserStack } from '../../browsers.config.mjs';
 import wtrConfig from '../../web-test-runner.config.mjs';
 import { getElements } from '../../packages/elements/scripts/helpers/index.mjs';
 import { useTestOptions } from './cli-options.mjs';
+import { pluginJsBufferToString } from '../dev-server/index.mjs';
 
 // Create CLI
 const cli = yargs(hideBin(process.argv))
@@ -56,7 +57,8 @@ const config = {
   coverage:  testCoverage,
   coverageConfig: {
     include: [`**/${ packageName }/lib/**/*.js`],
-  }
+  },
+  plugins: [pluginJsBufferToString]
 };
 
 if (argv.output === 'full') {
@@ -130,13 +132,9 @@ if (snapshots) {
 
 // Handle runner stopping with correct exit code
 let runner = undefined;
-const stopRunner = () => {
-  if (runner) {
-    runner.stop();
-    process.exit(0);
-  } else {
-    process.exit(1);
-  }
+const stopRunner = (code) => {
+  if (runner) runner.stop();
+  process.exit(code);
 };
 process.on('SIGINT', stopRunner);
 process.on('exit', stopRunner);
