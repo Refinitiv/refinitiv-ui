@@ -132,13 +132,9 @@ if (snapshots) {
 
 // Handle runner stopping with correct exit code
 let runner = undefined;
-const stopRunner = () => {
-  if (runner) {
-    runner.stop();
-    process.exit(0);
-  } else {
-    process.exit(1);
-  }
+const stopRunner = (code) => {
+  if (runner) runner.stop();
+  process.exit(code);
 };
 process.on('SIGINT', stopRunner);
 process.on('exit', stopRunner);
