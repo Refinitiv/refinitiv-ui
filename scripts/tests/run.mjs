@@ -5,12 +5,13 @@ import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { browserstackLauncher } from '@web/test-runner-browserstack';
-import { startTestRunner, summaryReporter } from "@web/test-runner";
-import { PACKAGES_ROOT, info, log } from '../helpers/esm.mjs';
+import { summaryReporter } from "@web/test-runner";
+import { PACKAGES_ROOT, info } from '../helpers/esm.mjs';
 import { BrowserStack } from '../../browsers.config.mjs';
 import wtrConfig from '../../web-test-runner.config.mjs';
 import { ELEMENTS_ROOT, getElements } from '../../packages/elements/scripts/helpers/index.mjs';
 import { useTestOptions } from './cli-options.mjs';
+import { startTestRunner, startQueueRunner } from './runner.mjs';
 
 // Create CLI
 const cli = yargs(hideBin(process.argv))
@@ -147,83 +148,11 @@ if (snapshots) {
   process.argv.push('--update-snapshots');
 }
 
-// Handle runner stopping with correct exit code
-let runner = undefined;
-const stopRunner = () => {
-  if (runner) {
-    if (runner.running) runner.stop();
-    runner.passed ? process.exit(0) : process.exit(1);
-  }
-};
-process.on('SIGINT', stopRunner);
-process.on('exit', stopRunner);
-
-/**
- * Start Test runner
- * @param {Object} config Web Test Runner config
- * @returns {Promise<TestRunner>} Web Test Runner instance
- */
-const startTest = async config => await startTestRunner({ config, autoExitProcess: false });
-
-// Run testing
+// Run unit testing
 (async () => {
-  // Test each element on individule test runner.
+  // Test each element individually for the package `elements` only.
   if (testTarget === 'elements') {
-
-    /**
-     * Start next runner in queue
-     *
-     * @param {string} element element name
-     * @param {Object} config config using for start the test
-     * @param {Array} testFiles string glob pattern for finding the tests
-     * @returns {Promise<TestRunner>} Web Test Runner
-     */
-    const startNextRunner = async function (element, config, testFiles) {
-      log(`Element: ${element}`, 'magenta');
-
-      // Setup BrowserStack session name
-      config.browsers.forEach(launcher => {
-        if (launcher.capabilities) {
-          launcher.capabilities.name = `elements: ${element}`;
-        }
-      });
-
-      // Change test files and name to for next element
-      config.element = element;
-      config.files = testFiles;
-
-      // Start test runner
-      runner = await startTest(config);
-      runner.on('stopped', handleNextQueue);
-
-      return runner;
-    }
-
-    /**
-     * Handle runner in queue to start next
-     *
-     * @param {boolean} passed result of current runner
-     */
-    const handleNextQueue = async (passed) => {
-      if (!passed) process.exit(1); // Stop process, if found test failed from result of current runner
-
-      // Remove current test runner (finished) from queue
-      if (testQueue.has(runner.config.element)) {
-        testQueue.delete(runner.config.element);
-      }
-
-      // Start next runner if still have runner in queue
-      if (testQueue.size >= 1) {
-        const [firstElement] = testQueue.keys();
-        const nextTestFiles = testQueue.get(firstElement);
-        runner = await startNextRunner(firstElement, config, nextTestFiles);
-      }
-    }
-
-    const testQueue = new Map();
     const elements = getElements();
-
-    // Start test runner for all element one by one
     for (const element of elements) {
       // Create test files pattern for current element
       const elementTestFiles = [
@@ -231,14 +160,9 @@ const startTest = async config => await startTestRunner({ config, autoExitProces
         '!**/node_modules/**/*', // exclude any node modules
       ];
 
-      // Start runner or add it to queue if it is already exists
-      if (!runner) {
-        runner = await startNextRunner(element, config, elementTestFiles);
-      } else {
-        testQueue.set(element, elementTestFiles); // Add runner to queue
-      }
+      await startQueueRunner(element, config, elementTestFiles);
     }
   } else {
-    runner = await startTest(config); // Start single runner (no queue)
+    await startTestRunner(config); // Start single runner (no queue)
   }
 })();
