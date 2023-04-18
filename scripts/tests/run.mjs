@@ -9,10 +9,9 @@ import { summaryReporter } from "@web/test-runner";
 import { PACKAGES_ROOT, info } from '../helpers/esm.mjs';
 import { BrowserStack } from '../../browsers.config.mjs';
 import wtrConfig from '../../web-test-runner.config.mjs';
-import { ELEMENTS_ROOT, getElements } from '../../packages/elements/scripts/helpers/index.mjs';
+import { ELEMENTS_ROOT, getElements, checkElement } from '../../packages/elements/scripts/helpers/index.mjs';
 import { useTestOptions } from './cli-options.mjs';
-import { startTestRunner, startQueueRunner } from './runner.mjs';
-import { pluginJsBufferToString } from '../dev-server/index.mjs';
+import { startTestRunner, startQueueTestRunner } from './runner.mjs';
 
 // Create CLI
 const cli = yargs(hideBin(process.argv))
@@ -35,24 +34,12 @@ const optionBrowser = argv.browsers;
 let browserstack = argv.browserstack;
 const useBrowserStack = argv.browserstack && !watch;
 const testCoverage = argv.includeCoverage;
-let testTarget = packageName;
-
-/**
- * Environment variables to use for overriding test configuration in each package or sub directory.
- */
-env.testCoverage = testCoverage; // use in packages elements/web-test-runner.mjs
 
 // Target package or element
 const target = argv._[0];
+const testTarget = getElements().includes(target) ? target : packageName;
 
-// Handle if target is test for element or all elements
-if (getElements().includes(target)) {
-  testTarget = target;
-  env.testElement = target;
-} else if (packageName === 'elements') {
-  env.testElement = 'all';
-}
-
+// Merge the base config and the config option from CLI
 const config = {
   ...wtrConfig,
   files: [path.join(basePath , '/__test__/**/*.test.js')],
@@ -60,10 +47,10 @@ const config = {
   coverage:  testCoverage,
   coverageConfig: {
     include: [`**/${ packageName }/lib/**/*.js`],
-  },
-  plugins: [pluginJsBufferToString]
+  }
 };
 
+// Handle outputs
 if (argv.output === 'full') {
   config.reporters.push(summaryReporter());
 } else {
@@ -72,7 +59,6 @@ if (argv.output === 'full') {
 
 // Test on BrowserStack`
 if (useBrowserStack) {
-
   // Set default browsers if not specify any browsers
   browserstack = browserstack.length ? browserstack : BrowserStack.defaultBrowsers;
 
@@ -152,17 +138,17 @@ if (snapshots) {
 
 // Run unit testing
 (async () => {
-  // Test each element individually for the package `elements` only.
-  if (testTarget === 'elements') {
-    const elements = getElements();
+  const singleElement = checkElement(testTarget);
+  if (testTarget === 'elements' || singleElement) {
+    // Test each element individually for the elements package.
+    const elements = singleElement ? [testTarget] : getElements();
     for (const element of elements) {
       // Create test files pattern for current element
       const elementTestFiles = [
         path.join(ELEMENTS_ROOT, 'src', `${ element }/__test__/**/*.test.js`),
         '!**/node_modules/**/*', // exclude any node modules
       ];
-
-      await startQueueRunner(element, config, elementTestFiles);
+      await startQueueTestRunner(element, config, elementTestFiles);
     }
   } else {
     await startTestRunner(config); // Start single runner (no queue)
