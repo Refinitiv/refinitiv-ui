@@ -38,7 +38,7 @@ const startQueueTestRunner = async (element, config, testFiles) => {
     }
   });
 
-  // Add test to queue if runner already exits and running
+  // Add test to queue if runner already exists and running
   if (runner && !runner.stopped) {
     testRunnerQueue.set(element, testFiles); // Add runner to queue
     return;
@@ -93,10 +93,16 @@ const handleNextQueue = async passed => {
  */
 const stopRunner = () => {
   if (!runner) return;
-  if (runner.running) runner.stop();
-  runner.passed ? process.exit(0) : process.exit(1);
+  if (!runner.running){
+    runner.passed ? process.exit(0) : process.exit(1);
+  } else {
+    runner.stop();
+  }
 };
-process.on('SIGINT', stopRunner);
+process.on('SIGINT', () => {
+  stopRunner();
+  process.exit(0);
+});
 process.on('exit', stopRunner);
 
 export {

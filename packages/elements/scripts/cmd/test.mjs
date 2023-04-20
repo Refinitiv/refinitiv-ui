@@ -34,6 +34,7 @@ export const handler = () => {
   }
   catch (error) {
     errorHandler(error);
-    process.exit(1);
+    process.on('SIGINT', () => process.exit(0)); // Cancel command with success exit code
+    process.on('exit', () => process.exit(1)); // Handle child process error to exit code in current process
   }
 };
