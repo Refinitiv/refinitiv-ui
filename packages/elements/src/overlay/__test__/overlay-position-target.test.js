@@ -1,4 +1,4 @@
-import { elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, nextFrame, isFirefox } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/overlay';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
@@ -18,7 +18,7 @@ import {
   widthSizes,
   targetWidthEqualToPanelWidth,
   targetHeightEqualToPanelHeight
-} from './mocks/helper';
+} from './mocks/helper.js';
 
 initPossiblePositions();
 
@@ -32,14 +32,14 @@ describe('overlay/PositionTarget', () => {
     describe('Test with position target in center without fallback', () => {
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
-          describe(`Test ${widthSize} and ${heightSize}`, async () => {
+          describe(`Test ${widthSize} and ${heightSize}`, () => {
             const { targetSize } = getSizes(widthSize, heightSize);
 
             const x = screenCenter.left - targetSize.width / 2;
             const y = screenCenter.top - targetSize.height / 2;
 
             for (let possiblePosition of possiblePositions) {
-              it(`Test position ${possiblePosition}`, async function () {
+              it(`Test position ${possiblePosition}`, async () => {
                 const { target, panel } = await createPositionTargetFixture(x, y, possiblePosition, widthSize, heightSize);
 
                 const matchExactResult = matchExact(target, panel, possiblePosition);
@@ -57,14 +57,14 @@ describe('overlay/PositionTarget', () => {
     describe('Test with position target in center with fallback', () => {
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
-          describe(`Test ${widthSize} and ${heightSize}`, async () => {
+          describe(`Test ${widthSize} and ${heightSize}`, () => {
             const { targetSize } = getSizes(widthSize, heightSize);
 
             const x = screenCenter.left - targetSize.width / 2;
             const y = screenCenter.top - targetSize.height / 2;
 
             for (let possiblePosition of possiblePositions) {
-              it(`Test position ${possiblePosition}`, async function () {
+              it(`Test position ${possiblePosition}`, async () => {
                 const fallbackPosition = 'top-middle';
                 const { target, panel } = await createPositionTargetFixture(x, y, `${possiblePosition}, ${fallbackPosition}`, widthSize, heightSize);
 
@@ -81,6 +81,9 @@ describe('overlay/PositionTarget', () => {
     });
 
     describe('Test with position target x and y offsets', () => {
+      before(function() {
+        isFirefox() && this.skip(); // Firefox has the page navigated interrupt issue on BrowserStack (no workaround)
+      });
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
           describe(`Test ${widthSize} and ${heightSize}`, () => {
@@ -92,10 +95,10 @@ describe('overlay/PositionTarget', () => {
             const { targetSize, panelSize } = getSizes(widthSize, heightSize);
 
             for (let possiblePosition of possiblePositions) {
-              describe(`Test Position ${possiblePosition}`, async () => {
+              describe(`Test Position ${possiblePosition}`, () => {
                 for (let xOffset of xOffsets) {
                   for (let yOffset of yOffsets) {
-                    it(`Test offset x: ${xOffset} y: ${yOffset}`, async function () {
+                    it(`Test offset x: ${xOffset} y: ${yOffset}`, async () => {
                       const { target, panel } = await createPositionTargetFixture(xOffset, yOffset, possiblePosition, widthSize, heightSize, false);
                       target.style.top = `${yOffset}px`;
                       target.style.left = `${xOffset}px`;
@@ -104,7 +107,11 @@ describe('overlay/PositionTarget', () => {
 
                       await elementUpdated(panel);
 
-                      await nextFrame();
+                      /**
+                       * ! Using Web Test Runner on BrowserStack need request one frame only,
+                       * otherwise it will throw the error message "Tests were interrupted because the page navigated to ...".
+                       * Chrome need only one frame but Firefox throw the error on when request `nextFrame()` so need to skip Firefox for now
+                       */
                       await nextFrame();
 
                       const matchExactPositionWordResult = matchExactPositionWord(target, panel, possiblePosition);

@@ -3,14 +3,15 @@ import { env } from 'node:process';
 import path from 'node:path';
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
+import { playwrightLauncher } from '@web/test-runner-playwright';
 import { browserstackLauncher } from '@web/test-runner-browserstack';
-import { startTestRunner, summaryReporter } from "@web/test-runner";
+import { summaryReporter } from "@web/test-runner";
 import { PACKAGES_ROOT, info } from '../helpers/esm.mjs';
 import { BrowserStack } from '../../browsers.config.mjs';
 import wtrConfig from '../../web-test-runner.config.mjs';
-import { getElements } from '../../packages/elements/scripts/helpers/index.mjs';
+import { ELEMENTS_ROOT, getElements, checkElement } from '../../packages/elements/scripts/helpers/index.mjs';
 import { useTestOptions } from './cli-options.mjs';
-import { pluginJsBufferToString } from '../dev-server/index.mjs';
+import { startTestRunner, startQueueTestRunner } from './runner.mjs';
 
 // Create CLI
 const cli = yargs(hideBin(process.argv))
@@ -30,46 +31,41 @@ const basePath = path.join(PACKAGES_ROOT, testAll ? '*' : packageName);
 const watch = argv.watch;
 const snapshots = argv.updateSnapshots;
 const optionBrowser = argv.browsers;
-const browserstack = argv.browserstack && !watch;
+let browserstack = argv.browserstack;
+const useBrowserStack = argv.browserstack && !watch;
 const testCoverage = argv.includeCoverage;
-let testTarget = packageName;
-
-/**
- * Environment variables to use for overriding test configuration in each package or sub directory.
- */
-env.testCoverage = testCoverage; // use in packages elements/web-test-runner.mjs
 
 // Target package or element
 const target = argv._[0];
+const testTarget = getElements().includes(target) ? target : packageName;
 
-// Handle if target is test for element or all elements
-if (getElements().includes(target)) {
-  testTarget = target;
-  env.testElement = target;
-} else if (packageName === 'elements') {
-  env.testElement = 'all';
-}
-
+// Merge the base config and the config option from CLI
 const config = {
   ...wtrConfig,
-  files: [path.join(basePath , '/__test__/**/*.test.js')],
+  files: [path.join(basePath, '/__test__/**/*.test.js')],
   watch,
-  coverage:  testCoverage,
+  coverage: testCoverage,
   coverageConfig: {
-    include: [`**/${ packageName }/lib/**/*.js`],
-  },
-  plugins: [pluginJsBufferToString]
+    include: [`**/${packageName}/lib/**/*.js`],
+  }
 };
 
+// Handle outputs
 if (argv.output === 'full') {
-  config.reporters.push(summaryReporter())
+  config.reporters.push(summaryReporter());
+} else if (argv.output === 'minimal') {
+  config.browserLogs = false;
 }
 
 // Test on BrowserStack`
-if (browserstack) {
+if (useBrowserStack) {
+  // Set default browsers if not specify any browsers
+  browserstack = browserstack.length ? browserstack : BrowserStack.defaultBrowsers;
+
   const sharedCapabilities = {
     'browserstack.user': env.BROWSERSTACK_USERNAME,
     'browserstack.key': env.BROWSERSTACK_ACCESS_KEY,
+    'browserstack.idleTimeout': 1800,
     project: env.BROWSERSTACK_PROJECT_NAME || 'Refinitiv UI',
     name: testTarget,
     build: `build ${env.BROWSERSTACK_BUILD || 'unknown'}`
@@ -77,7 +73,7 @@ if (browserstack) {
 
   // Add BrowserStack launchers to config
   const launchers = [];
-  argv.browserstack.forEach((option) => {
+  browserstack.forEach((option) => {
     switch (option) {
       case 'default':
         BrowserStack.defaultBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
@@ -94,8 +90,17 @@ if (browserstack) {
   // Create BrowserStack launchers
   const browsers = [];
   launchers.forEach(launcher => {
-    browsers.push(browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher } }));
-  })
+    // Create browserName to show as a label in the progress bar reporter
+    let browserName = `${launcher.browser ?? launcher.browserName ?? launcher.device ?? 'unknown'}${launcher.browser_version ? ` ${launcher.browser_version}` : ''}` + ` (${launcher.os} ${launcher.os_version})`;
+    browserName = browserName.charAt(0).toUpperCase() + browserName.slice(1);
+
+    // Safari has the connection issue and test cases failed with BrowserStack, need to test Safari on PlayWright for now.
+    if (launcher.browser.startsWith('safari')) {
+      browsers.push(playwrightLauncher({ product: 'webkit' }, { headless: true }));
+    } else {
+      browsers.push(browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher, browserName } }));
+    }
+  });
 
   config.browsers = browsers; // Set all browsers to use BrowserStack
 }
@@ -122,22 +127,27 @@ if (optionBrowser && optionBrowser.length) {
 // Strip argv (options) out to prevent web-test-runner picking them up
 process.argv = process.argv.slice(0, 2);
 
-info(watch ? `Start Dev Server: ${ testTarget }` : `Test: ${ testTarget }`);
+info(watch ? `Start Dev Server: ${testTarget}` : `Test: ${testTarget}`);
 
 if (snapshots) {
-  info(`Update and prune snapshots: ${ testTarget }`);
+  info(`Update and prune snapshots: ${testTarget}`);
   // Web Test Runner does not provide a config to update snapshots, so the CLI option is the only way.
   process.argv.push('--update-snapshots');
 }
 
-// Handle runner stopping with correct exit code
-let runner = undefined;
-const stopRunner = (code) => {
-  if (runner) runner.stop();
-  process.exit(code);
-};
-process.on('SIGINT', stopRunner);
-process.on('exit', stopRunner);
-
-// Run testing
-runner = await startTestRunner({ config });
+// Run unit testing
+const singleElement = checkElement(testTarget);
+if (testTarget === 'elements' || singleElement) {
+  // Test each element individually for the elements package.
+  const elements = singleElement ? [testTarget] : getElements();
+  for (const element of elements) {
+    // Create test files pattern for current element
+    const elementTestFiles = [
+      path.join(ELEMENTS_ROOT, 'src', `${element}/__test__/**/*.test.js`),
+      '!**/node_modules/**/*', // exclude any node modules
+    ];
+    await startQueueTestRunner(element, config, elementTestFiles);
+  }
+} else {
+  await startTestRunner(config); // Start single runner (no queue)
+}

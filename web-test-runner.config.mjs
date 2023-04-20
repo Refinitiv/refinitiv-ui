@@ -3,11 +3,15 @@ import path from 'node:path';
 import { defaultReporter } from '@web/test-runner';
 import { ROOT, PACKAGES_ROOT } from './scripts/helpers/esm.mjs';
 import { playwrightLauncher } from '@web/test-runner-playwright';
+import { pluginJsBufferToString } from './scripts/dev-server/index.mjs';
 
 export default {
   files: [path.join(PACKAGES_ROOT , '*/__test__/**/*.test.js')],
   nodeResolve: true,
   preserveSymlinks: true,
+  testFramework: {
+    config: { timeout: 5000 }, // Mocha timeout 5 seconds
+  },
   coverage: true,
   coverageConfig: {
     report: true,
@@ -31,4 +35,8 @@ export default {
   ],
   // in a monorepo you need to set set the root dir to resolve modules
   rootDir: ROOT,
+  browserStartTimeout: 120000, // 2 minutes
+  testsStartTimeout: 120000, // 2 minutes
+  testsFinishTimeout: 300000, // 5 minutes
+  plugins: [ pluginJsBufferToString ]
 };

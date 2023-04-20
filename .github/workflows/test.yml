@@ -1,8 +1,7 @@
 name: Test
 on: [pull_request] # Triggers on any branch
 env:
-  BASE_SHA: ${{ github.event.pull_request.base.sha }}
-  USE_BROWSERSTACK: ${{ secrets.USE_BROWSERSTACK }}
+  NX_BASE: ${{ github.event.pull_request.base.sha }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Test ${{ github.run_number }}"
@@ -31,7 +30,7 @@ jobs:
 
       - name: Build
         if: steps.setup.outputs.cache-build-hit != 'true'
-        run: npm run build:affected -- --base=$BASE_SHA
+        run: npm run build:affected
 
   lint:
     needs: build
@@ -59,12 +58,6 @@ jobs:
 
       - name: Test
         uses: ./.github/actions/run-test
-        with:
-          browsers: 'default'
-          base: $BASE_SHA
-          browserstack: $USE_BROWSERSTACK
-          username: $BROWSERSTACK_USERNAME
-          access-key: $BROWSERSTACK_ACCESS_KEY
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master

@@ -14,7 +14,7 @@ import {
   inputAction,
   pressKey,
   tapAction
-} from './helpers/helpers';
+} from './helpers/helpers.js';
 
 describe('autosuggest/Functional', () => {
   describe('Functionality', async () => {

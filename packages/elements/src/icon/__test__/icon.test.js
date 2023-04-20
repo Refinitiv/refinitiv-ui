@@ -1,4 +1,4 @@
-import { aTimeout, elementUpdated, expect } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, aTimeout } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/icon';
 import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
@@ -15,7 +15,7 @@ import {
   responseConfigSuccess,
   responseConfigError,
   isEqualSvg
-} from './helpers/helpers';
+} from './helpers/helpers.js';
 import sinon from 'sinon';
 
 describe('icon/Icon', () => {
@@ -47,6 +47,7 @@ describe('icon/Icon', () => {
     it('with valid src attribute', async () => {
       createFakeResponse(tickSvg, responseConfigSuccess);
       const el = await createAndWaitForLoad('<ef-icon src="https://mock.cdn.com/icons/ticks.svg"></ef-icon>');
+      await aTimeout(1000); // BrowserStack need more time
       const svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');

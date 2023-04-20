@@ -2,10 +2,7 @@ import { elementUpdated, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 export const openedUpdated = async (element) => {
   await elementUpdated(element);
-
-  await nextFrame();
-  await nextFrame();
-  await nextFrame();
+  await nextFrame(3);
 };
 export const fireKeydownEvent = (element, key, shiftKey = false) => {
   let event = new KeyboardEvent('keydown', { key, shiftKey });
