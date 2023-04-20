@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>i18n Translate Benchmark</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  </head>
+  <style>
+    demo-block::part(body) {
+      flex-direction: column;
+      justify-content: center;
+    }
+  </style>
+  <body>
+    <script type="module">
+      import 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js';
+      import 'https://cdn.jsdelivr.net/npm/benchmark@2.1.4/benchmark.min.js';
+      import '@refinitiv-ui/demo-block';
+      import { Phrasebook } from '@refinitiv-ui/phrasebook';
+      import { t, DEFAULT_LOCALE } from '@refinitiv-ui/i18n';
+
+      const scope = 'i18n-translate-benchmark';
+
+      // Define test phrasebooks
+      Phrasebook.define(DEFAULT_LOCALE, scope, {
+        OK: 'default: OK',
+        NUMBER: 'default: { count }'
+      });
+      Phrasebook.define('es', scope, {
+        OK: 'es: OK',
+        NUMBER: 'es: { count }'
+      });
+      Phrasebook.define('es-US', scope, {
+        OK: 'es-US: OK',
+        NUMBER: 'es-US: { count }'
+      });
+      Phrasebook.define('th', scope, {
+        DATE: '{date, date, ::yyyy}'
+      });
+      // 2020-Jan-01 00:00:00 local time
+      const date = new Date();
+      date.setHours(0, 0, 0, 0);
+      date.setFullYear(2020, 0, 1);
+
+      globalThis.runBenchmark = () => {
+        new Benchmark.Suite()
+          .add('translate message in different locales', async function () {
+            await t(scope, 'es', 'OK');
+          })
+          .add('translate message in different locales with parameters', async function () {
+            await t(scope, 'es-US', 'NUMBER', { count: 3 });
+          })
+          .add('fallback translation if high level locale is defined', async function () {
+            await t(scope, 'es-ES', 'OK');
+          })
+          .add('get unknown locale should return the default locale', async function () {
+            await t(scope, 'un-LO', 'OK');
+          })
+          .add('get unknown key should return the key', async function () {
+            await t(scope, DEFAULT_LOCALE, 'UNKNOWN_KEY');
+          })
+          .add('Unicode extensions', async function () {
+            await t(scope, 'th', 'DATE', { date }, {
+              unicodeExtensions: {
+                ca: 'gregory'
+              }
+            });
+          })
+          .add('override unicode extensions', async function () {
+            await t(scope, 'th-u-ca-indian', 'DATE', { date }, {
+              unicodeExtensions: {
+                ca: 'gregory'
+              }
+            });
+          })
+          .on('cycle', function (event) {
+            // eslint-disable-next-line no-console
+            console.log(String(event.target));
+          })
+          .on('start', function () {
+            // eslint-disable-next-line no-console
+            console.log('=== benchmark started ===');
+          })
+          .on('complete', function () {
+            // eslint-disable-next-line no-console
+            console.log('=== benchmark complete ===');
+          })
+          .run({ async: true });
+      };
+    </script>
+
+    <demo-block header="Translate Function Benchmark" tags="performance,benchmark">
+      <button id="start">Start Benchmark</button>
+      <p>
+        Benchmark the performance of translate function based on its unit test.
+        Open console to check the result.
+      </p>
+      <script>
+        const startButton = document.getElementById('start');
+        startButton.addEventListener('click', () => {
+          globalThis.runBenchmark();
+        });
+      </script>
+    </demo-block>
+
+  </body>
+</html>

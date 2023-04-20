@@ -16,6 +16,7 @@
     "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "start": "npm run build && concurrently \"npm run build:watch\" \"web-dev-server --config ../../server.config.mjs --app-index __demo__\"",
     "test": "npm run build && node ../../scripts/tests/run.mjs  --package=i18n",
     "test:watch": "npm run test -- --watch",
     "prepack": "npm run version",
