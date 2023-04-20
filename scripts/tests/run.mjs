@@ -137,20 +137,18 @@ if (snapshots) {
 }
 
 // Run unit testing
-(async () => {
-  const singleElement = checkElement(testTarget);
-  if (testTarget === 'elements' || singleElement) {
-    // Test each element individually for the elements package.
-    const elements = singleElement ? [testTarget] : getElements();
-    for (const element of elements) {
-      // Create test files pattern for current element
-      const elementTestFiles = [
-        path.join(ELEMENTS_ROOT, 'src', `${ element }/__test__/**/*.test.js`),
-        '!**/node_modules/**/*', // exclude any node modules
-      ];
-      await startQueueTestRunner(element, config, elementTestFiles);
-    }
-  } else {
-    await startTestRunner(config); // Start single runner (no queue)
+const singleElement = checkElement(testTarget);
+if (testTarget === 'elements' || singleElement) {
+  // Test each element individually for the elements package.
+  const elements = singleElement ? [testTarget] : getElements();
+  for (const element of elements) {
+    // Create test files pattern for current element
+    const elementTestFiles = [
+      path.join(ELEMENTS_ROOT, 'src', `${ element }/__test__/**/*.test.js`),
+      '!**/node_modules/**/*', // exclude any node modules
+    ];
+    await startQueueTestRunner(element, config, elementTestFiles);
   }
-})();
+} else {
+  await startTestRunner(config); // Start single runner (no queue)
+}

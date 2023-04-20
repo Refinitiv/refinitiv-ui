@@ -3,7 +3,7 @@ import { startTestRunner as startTest } from "@web/test-runner";
 import { log } from '../helpers/esm.mjs';
 
 let runner = null; // Current `TestRunner` instance
-let baseQueueConfig = null; // Base queue config
+let configCache = null; // Cache for Web Test Runner config
 const testRunnerQueue = new Map(); // If current runner is running the test will add to queue
 
 /**
@@ -29,10 +29,10 @@ const startTestRunner = async config => {
  */
 const startQueueTestRunner = async (element, config, testFiles) => {
   // Cache base config for share to a next queue
-  if (!baseQueueConfig) baseQueueConfig = config;
+  if (!configCache) configCache = config;
 
   // Setup BrowserStack session name
-  baseQueueConfig.browsers.forEach(launcher => {
+  configCache.browsers.forEach(launcher => {
     if (launcher.capabilities) {
       launcher.capabilities.name = `elements: ${element}`;
     }
@@ -47,7 +47,7 @@ const startQueueTestRunner = async (element, config, testFiles) => {
   // Start test runner by change the new test files and coverage config
   log(`Element: ${element}`, 'magenta');
   runner = await startTestRunner({
-    ...baseQueueConfig,
+    ...configCache,
     element,
     files: testFiles,
     concurrency: 1, // Prevent unstable test and runner
@@ -80,11 +80,11 @@ const handleNextQueue = async passed => {
   if (testRunnerQueue.size >= 1) {
     const [nextElement] = testRunnerQueue.keys(); // Get the first item in queue
     const nextTestFiles = testRunnerQueue.get(nextElement);
-    runner = await startQueueTestRunner(nextElement, baseQueueConfig, nextTestFiles);
+    runner = await startQueueTestRunner(nextElement, configCache, nextTestFiles);
   }
 
   // Clear base config for queue runner
-  if (testRunnerQueue.size === 1) baseQueueConfig = null;
+  if (testRunnerQueue.size === 1) configCache = null;
 }
 
 /**
@@ -93,15 +93,22 @@ const handleNextQueue = async passed => {
  */
 const stopRunner = () => {
   if (!runner) return;
-  if (!runner.running){
-    runner.passed ? process.exit(0) : process.exit(1);
+  let code = null;
+
+  // Stop the runner and get the exit code
+  if (!runner.running) {
+    code = runner.passed ? 0 : 1; // use test result for exit code
   } else {
     runner.stop();
+    code = 0;
   }
+
+  // Clear current runner and end process
+  runner = null;
+  process.exit(code);
 };
 process.on('SIGINT', () => {
   stopRunner();
-  process.exit(0);
 });
 process.on('exit', stopRunner);
 
