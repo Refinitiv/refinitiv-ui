@@ -90,10 +90,13 @@
       };
     </script>
 
-    <demo-block header="Start Benchmark" tags="performance,benchmark">
+    <demo-block header="Translate Function Benchmark" tags="performance,benchmark">
       <button id="start">Start Benchmark</button>
-      <p>Check the benchmark result in console.</p>
-      <script type="module">
+      <p>
+        Benchmark the performance of translate function based on its unit test.
+        Open console to check the result.
+      </p>
+      <script>
         const startButton = document.getElementById('start');
         startButton.addEventListener('click', () => {
           globalThis.runBenchmark();
