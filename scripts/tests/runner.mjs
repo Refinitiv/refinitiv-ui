@@ -52,8 +52,8 @@ const startQueueTestRunner = async (element, config, testFiles) => {
     files: testFiles,
     concurrency: 1, // Prevent unstable test and runner
     coverageConfig: {
-      include: [`**/lib/${ element }/**/*.js`],
-      reportDir: `coverage/${ element }`
+      include: [`**/lib/${element}/**/*.js`],
+      reportDir: `coverage/${element}`
     }
   });
 
@@ -107,9 +107,7 @@ const stopRunner = () => {
   runner = null;
   process.exit(code);
 };
-process.on('SIGINT', () => {
-  stopRunner();
-});
+process.on('SIGINT', stopRunner);
 process.on('exit', stopRunner);
 
 export {
