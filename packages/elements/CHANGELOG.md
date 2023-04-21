@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.7.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.7.2...@refinitiv-ui/elements@6.7.3) (2023-04-21)
+
+
+### Bug Fixes
+
+* **calendar:** unexpected `blur` event fired when view changes ([#655](https://github.com/Refinitiv/refinitiv-ui/issues/655)) ([fae9141](https://github.com/Refinitiv/refinitiv-ui/commit/fae9141ed0e0832fc51175bfc3e90dbb35d82497))
+
+
+
+
+
 ## [6.7.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.7.1...@refinitiv-ui/elements@6.7.2) (2023-03-23)
 
 
