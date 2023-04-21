@@ -102,8 +102,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       [part~=input] {
         cursor: text;
       }
-      [hidden] {
-        display: none !important;
+      [part~=input]::-ms-clear {
+        display: none;
       }
     `;
   }
@@ -1197,12 +1197,12 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns Popup template or undefined
    */
   protected get clearButtonTemplate (): TemplateResult | undefined {
-    if (this.clears) {
+    const hasText = (this.label || this.query || this.freeTextValue || this.inputText);
+    if (this.clears && hasText) {
       return html`
         <div
           id="clears-button"
-          part="button button-clear"
-          ?hidden=${!this.label && !this.query && !this.freeTextValue && !this.inputText}><ef-icon part="icon icon-clear" icon="cross"></ef-icon>
+          part="button button-clear"><ef-icon part="icon icon-clear" icon="cross"></ef-icon>
         </div>
       `;
     }
