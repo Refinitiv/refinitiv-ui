@@ -208,7 +208,7 @@ line.config = {
 ## Update chart data or configurations
 To update chart datasets or configurations, you can modify the value in the `config` property and then call `updateChart()`.
 
-However, you do not have to call `updateChart()` if you set a new `config` object for the chart.
+However, if you want to renew a `config` object to the chart, you do not need to call 'updateChart()'.
 
 ::
 ```javascript

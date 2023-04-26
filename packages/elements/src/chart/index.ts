@@ -13,35 +13,31 @@ import { VERSION } from '../version.js';
 import { color as parseColor } from '@refinitiv-ui/utils/color.js';
 
 import {
-  merge,
-  MergeObject
-} from './helpers/index.js';
-import type {
-  DatasetColors
-} from './helpers/types';
-
-import {
-  Chart as ChartJS,
-  Plugin,
-  ChartType,
+  ChartConfiguration,
   ChartDataset,
+  Chart as ChartJS,
+  ChartOptions,
+  ChartType,
   Color,
-  LineControllerDatasetOptions
-// TODO: import only common types and let user registers specific type
-// eslint-disable-next-line import/extensions
+  LegendItem,
+  LineControllerDatasetOptions,
+  Plugin,
+  UpdateMode
+  // TODO: import only common types and let user registers specific type
+  // eslint-disable-next-line import/extensions
 } from 'chart.js/auto';
-
-import type { ChartConfiguration, ChartOptions, UpdateMode, LegendItem } from 'chart.js';
-
-import type { Header } from '../header';
-import '../header/index.js';
-
 // Register plugins
 import doughnutCenterPlugin from './plugins/doughnut-center-label.js';
 import 'chartjs-adapter-date-fns';
 
-// TODO: import only common types and let user registers specific type
-export * from 'chart.js';
+import {
+  merge,
+  MergeObject,
+  DatasetColors
+} from './helpers/index.js';
+
+import type { Header } from '../header';
+import '../header/index.js';
 
 const CSS_COLOR_PREFIX = '--chart-color-';
 
@@ -51,9 +47,7 @@ const CSS_COLOR_PREFIX = '--chart-color-';
 declare module 'chart.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface PluginOptionsByType<TType extends ChartType> {
-    'ef-chart'?: {
-      enable: boolean
-    }
+    'ef-chart': object;
   }
 }
 
@@ -73,6 +67,7 @@ export class Chart extends BasicElement {
 
   /**
    * Chart.js object
+   * @type {ChartJS | null}
    */
   public chart: ChartJS | null = null;
 
@@ -91,12 +86,6 @@ export class Chart extends BasicElement {
   protected canvas!: HTMLCanvasElement;
 
   /**
-   * Get canvas element from shadow roots
-   */
-  @query('ef-header')
-  protected titleElement!: Header;
-
-  /**
    * Required properties, needed for chart to work correctly.
    * @returns config
    */
@@ -107,9 +96,6 @@ export class Chart extends BasicElement {
       plugins: {
         title: {
           display: false
-        },
-        'ef-chart': {
-          enable: true
         }
       }
     };
@@ -194,7 +180,7 @@ export class Chart extends BasicElement {
       id: 'ef-chart',
       beforeInit: (chart: ChartJS) => {
         const option: ChartOptions = this.themableChartOption;
-        merge(chart.config.options as unknown as MergeObject, option);
+        merge(chart.config.options as ChartOptions, option);
       },
       beforeUpdate: this.decorateColors
     };
@@ -406,7 +392,7 @@ export class Chart extends BasicElement {
 
       // Customize for doughnut chart change border color to background color
       if (['pie', 'doughnut'].includes(chartType) && this.datasets.length > 1) {
-        legends.forEach((label: LegendItem)=> {
+        legends.forEach((label: LegendItem) => {
           label.strokeStyle = label.fillStyle;
         });
       }
@@ -443,9 +429,21 @@ export class Chart extends BasicElement {
       return;
     }
 
+    let plugins: Plugin[] = [
+      this.createPlugin(),
+      doughnutCenterPlugin
+    ];
+    
+    if (this.config.plugins && this.config.plugins?.length > 0) {
+      plugins = [
+        ...plugins,
+        ...this.config.plugins
+      ];
+    }
+
     merge(this.config as unknown as MergeObject,
       {
-        plugins: [this.createPlugin(), doughnutCenterPlugin],
+        plugins,
         options: this.requiredConfig
       } as MergeObject,
       true
@@ -484,20 +482,6 @@ export class Chart extends BasicElement {
   }
 
   /**
-   * Manages the custom title element
-   * @returns {void}
-   */
-  private manageTitle (): void {
-    this.titleElement.textContent = this.chartTitle;
-    if (this.chartTitle) {
-      this.titleElement.style.removeProperty('display');
-    }
-    else {
-      this.titleElement.style.display = 'none';
-    }
-  }
-
-  /**
    * Creates a chart after config has changed,
    * or, the element has been connected to the DOM
    * @returns {void}
@@ -507,7 +491,6 @@ export class Chart extends BasicElement {
     if (ctx && this.config) {
       this.destroyChart();
       this.mergeConfigs();
-      this.manageTitle();
 
       this.chart = new ChartJS(this.canvas, this.config);
     }
@@ -528,11 +511,11 @@ export class Chart extends BasicElement {
   }
 
   /**
-   * Re-renders the chart based on its config
-   * @param {UpdateMode} updateMode Additional configuration object for the update process.
+   * Update all data, title, scales, legends and re-render the chart based on its config
+   * @param {UpdateMode} updateMode Additional configuration for control an animation in the update process.
    * @returns {void}
    */
-  private renderChart (updateMode: UpdateMode): void {
+  public updateChart (updateMode: UpdateMode): void {
     if (!this.chart || !this.config) {
       return;
     }
@@ -540,19 +523,22 @@ export class Chart extends BasicElement {
     // Stop any chart.js animations
     this.chart.stop();
     this.mergeConfigs();
-    this.manageTitle();
 
     // Update the chart
     this.chart?.update(updateMode);
   }
 
   /**
-   * Update all data, title, scales, legends and re-render the chart based on its config
-   * @param {UpdateMode} updateMode Additional configuration for control an animation in the update process.
-   * @returns {void}
+   * Template for title
+   * Rendered when `config.plugins.title.text` is set
+   * @returns Header template from title of config
    */
-  public updateChart (updateMode: UpdateMode): void {
-    this.renderChart(updateMode);
+  protected get titleTemplate (): TemplateResult | undefined {
+    if (this.chartTitle) {
+      return html`
+        <ef-header>${this.chartTitle}</ef-header>
+      `;
+    }
   }
 
   /**
@@ -609,7 +595,7 @@ export class Chart extends BasicElement {
   protected render (): TemplateResult {
     return html`
       <div container>
-        <ef-header></ef-header>
+        ${this.titleTemplate}
         <div part="chart">
           <canvas id="canvas"></canvas>
         </div>
