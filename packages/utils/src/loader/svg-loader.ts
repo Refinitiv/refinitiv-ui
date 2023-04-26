@@ -81,11 +81,6 @@ const extractSafeSVG = async (response: Response | undefined): Promise<SVGElemen
  */
 export class SVGLoader extends CDNLoader {
   /**
-   * Used to serialise SVG to string in order to cache
-   */
-  private xmlSerializer: XMLSerializer = new XMLSerializer();
-
-  /**
    * Creates complete source using CDN prefix and src.
    * Waits for CDN prefix to be set.
    * @param name - resource path for download
