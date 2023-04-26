@@ -4,8 +4,7 @@ import {
   css,
   CSSResultGroup,
   TemplateResult,
-  SVGTemplateResult,
-  PropertyValues
+  SVGTemplateResult
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -90,9 +89,11 @@ export class Icon extends BasicElement {
   public set src (value: string | null) {
     if (this.src !== value) {
       this._src = value;
-      this.clearIcon();
       if (value) {
         void this.loadAndRenderIcon(value);
+      }
+      else {
+        this.clearIcon();
       }
     }
   }
@@ -113,16 +114,11 @@ export class Icon extends BasicElement {
   }
 
   /**
-   * Called after the component is first rendered
-   * @param changedProperties Properties which have changed
+   * Called when connected to DOM
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
-    super.firstUpdated(changedProperties);
-    /**
-     * We have to call this here because
-     * polyfilled browsers only get variables at this point.
-     */
+  public connectedCallback (): void {
+    super.connectedCallback();
     this.setPrefix();
   }
 
