@@ -1,0 +1,49 @@
+name: Black Duck Scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      production:
+        description: Production
+        type: boolean
+        default: true
+
+jobs:
+  scan-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+      - name: Install Dependencies
+        run: npm ci --ignore-scripts --audit=false --fund=false
+      - name: Scanning
+        run: |
+          DETECT_FILE="synopsys.jar"
+          curl https://sig-repo.synopsys.com/artifactory/bds-integrations-release/com/synopsys/integration/synopsys-detect/${{ vars.SYNOPSYS_DETECT_VERSION }}/synopsys-detect-${{ vars.SYNOPSYS_DETECT_VERSION }}.jar -o $DETECT_FILE
+          mkdir appsec || true
+          mv $DETECT_FILE appsec/
+
+          if [[ "${{ inputs.production }}" == "true" ]]; then  export RELEASE_TYPE="PROD"; export VERSION_ID="Release_${GITHUB_REF#refs/heads/}"; fi
+          if [[ "${{ inputs.production }}" == "false" ]]; then export RELEASE_TYPE="DEV"; export VERSION_ID="Development-SINGLE"; fi
+          if [[ -z "${{ vars.BLACKDUCK_APP_ID }}" ]]; then  echo "[BLACKDUCK] APP_ID must be set";  exit 1; fi
+          if [[ -z "${{ vars.BLACKDUCK_PROJECT_ID }}" ]]; then echo "[BLACKDUCK] PROJECT_ID must be set"; exit 1; fi
+          if [[ -z "${{ secrets.BLACKDUCK_APP_TOKEN }}" ]]; then echo "[BLACKDUCK] BLACKDUCK_APP_TOKEN must be set"; exit 1; fi
+
+          java -jar appsec/$DETECT_FILE \
+          --detect.project.application.id="${{ vars.BLACKDUCK_APP_ID }}" \
+          --detect.project.name="${{ vars.BLACKDUCK_APP_ID }}-${{ vars.BLACKDUCK_PROJECT_ID }}-${RELEASE_TYPE}" \
+          --detect.project.user.groups="${{ vars.BLACKDUCK_APP_ID }}-AppSec-Dev" \
+          --detect.project.version.name="${VERSION_ID}" \
+          --detect.code.location.name="${{ vars.BLACKDUCK_APP_ID }}-${{ vars.BLACKDUCK_PROJECT_ID }}-${VERSION_ID}" \
+          --detect.source.path="." \
+          --detect.clone.project.version.latest=true \
+          --detect.excluded.directories=appsec \
+          --detect.blackduck.signature.scanner.exclusion.name.patterns=appsec \
+          --detect.detector.search.exclusion=appsec \
+          --blackduck.api.token="${{ secrets.BLACKDUCK_APP_TOKEN }}" \
+          --blackduck.url="${{ vars.BLACKDUCK_URL }}" \
+          --blackduck.trust.cert=true
