@@ -523,6 +523,7 @@ export class Chart extends BasicElement {
     // Stop any chart.js animations
     this.chart.stop();
     this.mergeConfigs();
+    this.requestUpdate();
 
     // Update the chart
     this.chart?.update(updateMode);

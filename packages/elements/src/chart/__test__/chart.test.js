@@ -185,7 +185,7 @@ describe('chart/Chart', () => {
       el.updateChart();
       await chartRendered(el);
       header = el.shadowRoot.querySelector('ef-header');
-      expect(window.getComputedStyle(header).getPropertyValue('display')).to.equal('none');
+      expect(header).to.equal(null);
     });
 
     it('Should show correct chart when pass a new config', async () => {
