@@ -36,7 +36,6 @@ import {
   DatasetColors
 } from './helpers/index.js';
 
-import type { Header } from '../header';
 import '../header/index.js';
 
 const CSS_COLOR_PREFIX = '--chart-color-';
@@ -535,11 +534,8 @@ export class Chart extends BasicElement {
    * @returns Header template from title of config
    */
   protected get titleTemplate (): TemplateResult | undefined {
-    if (this.chartTitle) {
-      return html`
-        <ef-header>${this.chartTitle}</ef-header>
-      `;
-    }
+    return this.chartTitle
+      ? html`<ef-header>${this.chartTitle}</ef-header>` : undefined;
   }
 
   /**
