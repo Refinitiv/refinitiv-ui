@@ -96,7 +96,7 @@
       el.tooltipCallback = function (cell) {
         var tooltip = document.createElement('div');
         var template = `
-              <div style="font-weight: bold">Actual value:</div>
+              <div style="font-weight: 600">Actual value:</div>
               <div style="color:${cell.color}">${cell.value}</div>
               <ef-sparkline data="[${generateSparkline().join()}]" style="width: 100%;margin-top:5px;"></ef-sparkline>
             `;
