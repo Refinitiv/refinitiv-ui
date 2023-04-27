@@ -80,6 +80,7 @@ export class Flag extends BasicElement {
   /**
    * Src location of an svg flag.
    * @example https://cdn.io/flags/gb.svg
+   * @deprecated Use `flag` instead
    * @default null
    */
   @property({ type: String })
