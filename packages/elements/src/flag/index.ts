@@ -90,9 +90,11 @@ export class Flag extends BasicElement {
   public set src (value: string | null) {
     if (this.src !== value) {
       this._src = value;
-      this.clearFlag();
       if (value) {
         void this.loadAndRenderFlag(value);
+      }
+      else {
+        this.clearFlag();
       }
     }
   }
@@ -119,10 +121,6 @@ export class Flag extends BasicElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    /**
-     * We have to call this here because
-     * polyfilled browsers only get variables at this point.
-     */
     this.setPrefix();
   }
 
