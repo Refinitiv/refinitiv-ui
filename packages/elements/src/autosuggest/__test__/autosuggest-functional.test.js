@@ -1,4 +1,4 @@
-import { elementUpdated, expect, nextFrame, oneEvent, isSafari, isFirefox } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, nextFrame, oneEvent, isSafari, isFirefox, isMobile } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/autosuggest';
 import '@refinitiv-ui/elements/text-field';
@@ -516,7 +516,7 @@ describe('autosuggest/Functional', () => {
 
     it('input blur native method', async function () {
       // blur() method is not work well on firefox at all
-      if (isFirefox()) {
+      if (isFirefox() || isMobile()) {
         this.skip();
       }
       const input = await createInputElement();

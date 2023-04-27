@@ -7,7 +7,7 @@ const BrowserStack = {
   supportedBrowsers: [
     'chrome', 'chrome_minus1',
     'firefox', 'firefox_minus1', 'firefox_minus2',
-    'ios', 'ios_minus1', 'ios_minus2',
+    'ios', 'ios_minus1',
     'android', 'android_minus1','android_minus2'
   ],
   availableBrowsers: [
@@ -20,6 +20,9 @@ const BrowserStack = {
 
     // Safari are moved out from default and supported temporary because BrowserStack connection issue
     'safari', 'safari_minus1', 'safari_minus2',
+
+    // IOS 14 has the problem with issue undefined ResizeObserver is undefined
+    'ios_minus2'
   ]
 };
 // combine default, supported & aliases into complete available browsers
