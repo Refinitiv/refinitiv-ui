@@ -4,7 +4,8 @@ import {
   css,
   CSSResultGroup,
   TemplateResult,
-  SVGTemplateResult
+  SVGTemplateResult,
+  PropertyValues
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -114,11 +115,12 @@ export class Icon extends BasicElement {
   }
 
   /**
-   * Called when connected to DOM
+   * Called after the component is first rendered
+   * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  public connectedCallback (): void {
-    super.connectedCallback();
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
     this.setPrefix();
   }
 
