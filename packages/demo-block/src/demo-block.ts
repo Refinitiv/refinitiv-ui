@@ -106,7 +106,7 @@ themeLabel.style.fontSize = '15px';
 themeLabel.style.left = '10px';
 themeLabel.style.top = '10px';
 themeLabel.style.padding = '2px 4px';
-themeLabel.style.fontWeight = 'bold';
+themeLabel.style.fontWeight = '600';
 themeLabel.style.textTransform = 'uppercase';
 themeLabel.innerHTML = removePrefixName(currentTheme);
 
