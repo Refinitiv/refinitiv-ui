@@ -13,7 +13,7 @@ The techniques for implementing theme switching can vary, depending on how the a
 
  We recommend splitting components and themes into different bundle files, so you can load another theme without having to reload the component bundle. That approach will reduce duplicate code in the bundle and keep the overall bundle size in your application smaller.
 
-@> Due to a limitation of the Web Components, theme switching requires page reload.
+@> Due to a limitation of our theming implementation to support legacy browsers, theme switching requires page reload.
 
 ---
 
