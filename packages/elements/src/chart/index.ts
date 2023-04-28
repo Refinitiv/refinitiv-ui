@@ -433,7 +433,7 @@ export class Chart extends BasicElement {
       doughnutCenterPlugin
     ];
     
-    if (this.config.plugins && this.config.plugins?.length > 0) {
+    if (this.config.plugins?.length > 0) {
       plugins = [
         ...plugins,
         ...this.config.plugins
