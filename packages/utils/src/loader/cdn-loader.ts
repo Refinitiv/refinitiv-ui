@@ -63,10 +63,10 @@ export class CDNLoader {
       else if (e instanceof Response) {
         errorMessage = e.statusText;
       }
-      return Promise.resolve({
+      return {
         status: 0,
         statusText: errorMessage
-      } as Response);
+      } as Response;
     }
   }
 
