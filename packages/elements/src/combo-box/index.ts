@@ -1218,7 +1218,13 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       // benefit of being localised too
       if (this.focused || selectionLength > 1) {
         return html`
-          <ef-counter part="selection-badge" tabindex="-1" .value=${selectionLength} title=${ifDefined(selectionLength > 999 ? selectionLength.toLocaleString() : undefined)} max="999"></ef-counter>
+          <ef-counter
+            part="selection-badge"
+            tabindex="-1"
+            .value=${selectionLength}
+            title=${ifDefined(selectionLength > 999 ? selectionLength.toLocaleString() : undefined)}
+            max="999"
+          ></ef-counter>
         `;
       }
     }
@@ -1238,7 +1244,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         .data="${this.composer}"
         .multiple="${this.multiple}"
         .renderer="${this.renderer}"
-        ></ef-list>
+      ></ef-list>
     `;
   }
 
