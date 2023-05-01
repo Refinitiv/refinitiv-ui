@@ -84,6 +84,7 @@ import type { Button } from '../button';
 import './locales.js';
 import '../button/index.js';
 import '@refinitiv-ui/phrasebook/locale/en/calendar.js';
+import { PropertyValueMap } from 'lit';
 
 export {
   CalendarFilter
@@ -480,6 +481,22 @@ export class Calendar extends ControlElement implements MultiValue {
   }
 
   /**
+   * Invoked before update() to compute values needed during the update.
+   * Implement willUpdate to compute property values that depend on other properties and are used in the rest of the update process.
+   * @param changedProperties  Properties that will change
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
+    super.willUpdate(changedProperties);
+
+    // This code is here to ensure that focus is not lost
+    // while navigating through the render views using keyboard
+    if (this.focused && changedProperties.has('renderView') && this.viewBtnRef.value && this.activeElement !== this.viewBtnRef.value) {
+      this.viewBtnRef.value.focus();
+    }
+  }
+
+  /**
   * Updates the element
   * @param changedProperties Properties that has changed
   * @returns {void}
@@ -508,12 +525,6 @@ export class Calendar extends ControlElement implements MultiValue {
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
-
-    // This code is here to ensure that focus is not lost
-    // while navigating through the render views using keyboard
-    if (this.focused && changedProperties.has('renderView') && this.viewBtnRef.value && this.activeElement !== this.viewBtnRef.value) {
-      this.viewBtnRef.value.focus();
-    }
 
     const cellIndex = this.activeCellIndex;
     if (cellIndex && changedProperties.has('activeCellIndex')) {
