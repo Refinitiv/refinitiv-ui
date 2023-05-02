@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent, isNear } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/overlay';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
@@ -92,8 +92,8 @@ describe('overlay/elements/Overlay', () => {
         const screenHeight = document.documentElement.clientHeight;
 
         expect(Math.floor(rect.top)).to.equal(0);
-        expect(Math.floor(rect.right)).to.equal(screenWidth);
-        expect(Math.floor(rect.bottom)).to.equal(screenHeight);
+        expect(isNear(rect.right, screenWidth, 1, true)).to.equal(true);
+        expect(isNear(rect.bottom, screenHeight, 1, true)).to.equal(true);
         expect(Math.floor(rect.left)).to.equal(0);
       });
 

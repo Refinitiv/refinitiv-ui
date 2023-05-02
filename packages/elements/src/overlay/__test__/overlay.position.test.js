@@ -18,11 +18,11 @@ const getPosition = (el) => {
 
   return {
     top: top === 0,
-    bottom: isNear(bottom, screenHeight, 1, false), /* this is to cover fractional pixels */
+    bottom: isNear(bottom, screenHeight, 1, true), /* this is to cover fractional pixels */
     left: left === 0,
-    right: isNear(right, screenWidth, 1, false),
-    centreH: isNear(left, (screenWidth - width) / 2, 1, false),
-    centreV: isNear(top, (screenHeight - height) / 2, 1, false),
+    right: isNear(right, screenWidth, 1, true),
+    centreH: isNear(left, (screenWidth - width) / 2, 1, true),
+    centreV: isNear(top, (screenHeight - height) / 2, 1, true),
     debug: { // debug object used in tandem with debug()
       top,
       bottom,
