@@ -408,7 +408,7 @@ const generateData = (r, c) => {
 
 el.tooltipCallback = (cell) => {
   const tooltip = document.createElement('div');
-  const template = "<div style='font-weight: bold'>Actual value:</div><div style='color:"+ cell.color +"'>" + cell.value + "</div>";
+  const template = "<div style='font-weight: 600'>Actual value:</div><div style='color:"+ cell.color +"'>" + cell.value + "</div>";
   tooltip.innerHTML = template;
   return tooltip;
 };
@@ -435,7 +435,7 @@ const el = document.querySelector("ef-heatmap");
 el.tooltipCallback = (cell) => {
   const tooltip = document.createElement("div");
   const template = `
-    <div style="font-weight: bold">Actual value:</div>
+    <div style="font-weight: 600">Actual value:</div>
     <div style="color:${cell.color}">${cell.value}</div>
   `;
   tooltip.innerHTML = template;
