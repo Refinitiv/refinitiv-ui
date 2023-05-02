@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["chart/Chart Check chart types DOM structure is correct"] = 
 `<div container="">
-  <ef-header level="2">
-  </ef-header>
   <div part="chart">
     <canvas id="canvas">
     </canvas>
