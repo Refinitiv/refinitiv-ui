@@ -51,7 +51,7 @@
   </code>
 
   <demo-block layout="normal" header="Click" tags="event, click">
-    <ef-heatmap id="click-test"></ef-heatmap>    
+    <ef-heatmap id="click-test"></ef-heatmap>
   </demo-block>
 
   <demo-block layout="normal" header="Double Click" tags="event, dblclick">
@@ -64,14 +64,14 @@
       <ef-item value="menu1">Menu 1</ef-item>
       <ef-item value="menu2" disabled>Menu 2</ef-item>
       <ef-item type="divider"></ef-item>
-      <ef-item value="show-cell" >Show Cell Data</ef-item>      
+      <ef-item value="show-cell" >Show Cell Data</ef-item>
     </ef-overlay-menu>
   </demo-block>
 
   <ef-dialog id="dlg" header="Heatmap Cell"></ef-dialog>
-  
 
-  <script>    
+
+  <script>
     const isIE = (/Trident/g).test(navigator.userAgent);
 
     var generateData = function (r, c, minPoint = -1, maxPoint = 1) {
@@ -108,7 +108,7 @@
       el.tooltipCallback = function (cell) {
         var tooltip = document.createElement('div');
         var template = `
-            <div style="font-weight: bold">Actual value:</div>
+            <div style="font-weight: 600">Actual value:</div>
             <div style="color:${cell.color}">${cell.value}</div>
             <ef-sparkline data="[${generateSparkline().join()}]" style="width: 100%;margin-top:5px;"></ef-sparkline>
           `;

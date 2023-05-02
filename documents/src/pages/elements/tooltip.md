@@ -254,7 +254,7 @@ const tooltip = document.getElementById('symbol-tooltip');
 tooltip.renderer = (target) => {
   const ret = document.createElement('div');
   const title = document.createElement('div');
-  title.style.fontWeight = 'bold';
+  title.style.fontWeight = '600';
   title.style.paddingBottom = '3px';
   const price = document.createElement('div');
   ret.appendChild(title);
@@ -310,7 +310,7 @@ const tooltip = document.getElementById('symbol-tooltip');
 tooltip.renderer = (target) => {
   const ret = document.createElement('div');
   const title = document.createElement('div');
-  title.style.fontWeight = 'bold';
+  title.style.fontWeight = '600';
   title.style.paddingBottom = '3px';
   const price = document.createElement('div');
   ret.appendChild(title);
