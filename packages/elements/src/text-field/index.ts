@@ -1,6 +1,7 @@
 import {
   FormFieldElement,
   css,
+  nothing,
   CSSResultGroup,
   html,
   PropertyValues,
@@ -8,7 +9,6 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 import { VERSION } from '../version.js';
@@ -274,14 +274,14 @@ export class TextField extends FormFieldElement {
   protected renderIcon (): TemplateResult | null {
     return this.icon ? html`
     <ef-icon
-        role="${ifDefined(this.iconHasAction ? 'button' : undefined)}"
+        role="${this.iconHasAction ? 'button' : nothing}"
+        tabindex="${this.iconHasAction ? '0' : nothing}"
+        aria-label="${this.iconHasAction ? this.icon : nothing}"
         part="icon"
         icon="${this.icon}"
-        aria-label="${ifDefined(this.iconHasAction ? this.icon : undefined)}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         @tap="${this.iconClick}"
-        tabindex="${ifDefined(this.iconHasAction ? '0' : undefined)}"
       ></ef-icon>
     ` : null;
   }
