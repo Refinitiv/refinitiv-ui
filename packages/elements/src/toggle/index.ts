@@ -132,9 +132,6 @@ export class Toggle extends ControlElement {
     if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
       this.handleCheckedChange();
     }
-    else if (event.keyCode && event.keyCode === 13 || event.keyCode === 32) { // For older browsers
-      this.handleCheckedChange();
-    }
   }
 
   /**
