@@ -537,7 +537,7 @@ export class DatetimeField extends TextField {
    * @param parts The list of parts
    * @returns {void}
    */
-  protected selectPart (index = 0, parts: DateTimeFormatPart[]): void {
+  protected selectPart (index: number, parts: DateTimeFormatPart[]): void {
     const { selectionStart, selectionEnd } = selectPart(index, parts);
     this.partLabel = parts[index] ? parts[index].type : '';
     this.setSelectionRange(selectionStart, selectionEnd);
