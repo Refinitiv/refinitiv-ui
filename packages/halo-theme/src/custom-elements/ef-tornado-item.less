@@ -1,1 +1,12 @@
 @import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-tornado-item';
+
+:host {
+  &[highlighted] {
+    [part=label],
+    [part=primary-bar],
+    [part=secondary-bar] {
+        font-weight: 600;
+    }
+  }  
+}
+
