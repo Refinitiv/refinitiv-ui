@@ -102,8 +102,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       [part~=input] {
         cursor: text;
       }
-      [hidden] {
-        display: none !important;
+      [part~=input]::-ms-clear {
+        display: none;
       }
     `;
   }
@@ -1197,14 +1197,15 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns Popup template or undefined
    */
   protected get clearButtonTemplate (): TemplateResult | undefined {
-    return this.clears
-      ? html`
+    const hasText = (this.label || this.query || this.freeTextValue || this.inputText);
+    if (this.clears && hasText) {
+      return html`
         <div
           id="clears-button"
-          part="button button-clear"
-          ?hidden=${!this.label && !this.query && !this.freeTextValue && !this.inputText}><ef-icon part="icon icon-clear" icon="cross"></ef-icon>
+          part="button button-clear"><ef-icon part="icon icon-clear" icon="cross"></ef-icon>
         </div>
-      ` : undefined;
+      `;
+    }
   }
 
   /**
@@ -1218,17 +1219,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       // benefit of being localised too
       if (this.focused || selectionLength > 1) {
         return html`
-          <ef-counter
-            part="selection-badge"
-            tabindex="-1"
-            .value=${selectionLength}
-            title=${ifDefined(selectionLength > 999 ? selectionLength.toLocaleString() : undefined)}
-            max="999"
-          ></ef-counter>
-        `;
+        <ef-counter part="selection-badge" tabindex="-1" .value=${selectionLength} title=${ifDefined(selectionLength > 999 ? selectionLength.toLocaleString() : undefined)} max="999"></ef-counter>
+      `;
       }
     }
-    return undefined;
   }
 
   /**
@@ -1244,7 +1238,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         .data="${this.composer}"
         .multiple="${this.multiple}"
         .renderer="${this.renderer}"
-      ></ef-list>
+        ></ef-list>
     `;
   }
 
@@ -1253,8 +1247,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Called when freeText mode is off and all items are filtered out
    */
   protected get noItemsTemplate (): TemplateResult | undefined {
-    return !this.freeText
-      ? html`<ef-list-item disabled>${this.t('NO_OPTIONS')}</ef-list-item>` : undefined;
+    if (!this.freeText) {
+      return html`<ef-list-item disabled>${this.t('NO_OPTIONS')}</ef-list-item>`;
+    }
   }
 
   /**
@@ -1281,7 +1276,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         @focusin="${this.shiftFocus}"
       >${hasVisibleItems ? this.listTemplate : this.noItemsTemplate}</ef-overlay>`;
     }
-    return undefined;
   }
 
   /**

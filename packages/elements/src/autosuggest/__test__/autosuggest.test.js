@@ -6,7 +6,7 @@ import '@refinitiv-ui/elements/text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-autosuggest';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 
-import { createFixture, createInputElement } from './helpers/helpers';
+import { createFixture, createInputElement } from './helpers/helpers.js';
 
 describe('autosuggest/Autosuggest', () => {
 

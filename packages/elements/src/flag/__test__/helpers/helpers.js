@@ -6,8 +6,7 @@ let flagId = 0;
 
 export const createAndWaitForLoad = async template => {
     const el = await fixture(template);
-    await nextFrame();
-    await nextFrame();
+    await nextFrame(3);
     await aTimeout(50);
     return el;
 };

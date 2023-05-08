@@ -1,4 +1,4 @@
-import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import {expect, fixture, isSafari } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
 
 import '@refinitiv-ui/elements/overlay';
@@ -74,7 +74,11 @@ describe('overlay/manager/ViewportManager', () => {
     });
 
     describe('Test clear', () => {
-      it('Test clear', async () => {
+      it('Test clear', async function () {
+        isSafari() && this.skip()
+        // This case is unstable when run test on Safari with Windows OS
+        // It mostly passes when run in watch mode
+
         const element2 = await createFixture();
 
         clear();

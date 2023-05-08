@@ -34,6 +34,7 @@ export const handler = () => {
   }
   catch (error) {
     errorHandler(error);
-    process.exit(1);
+    // Handle child process error for using in current process
+    process.on('exit', () => process.exit(1));
   }
 };

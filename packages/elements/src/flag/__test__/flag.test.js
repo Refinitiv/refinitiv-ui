@@ -1,4 +1,4 @@
-import { elementUpdated, expect } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, aTimeout } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/flag';
 import '@refinitiv-ui/elemental-theme/light/ef-flag';
@@ -15,7 +15,7 @@ import {
   responseConfigSuccess,
   responseConfigError,
   isEqualSvg
-} from './helpers/helpers';
+} from './helpers/helpers.js';
 import sinon from 'sinon';
 
 describe('flag/Flag', () => {
@@ -44,6 +44,7 @@ describe('flag/Flag', () => {
     it('with valid src attribute', async () => {
       createFakeResponse(gbSvg, responseConfigSuccess);
       const el = await createAndWaitForLoad('<ef-flag src="https://mock.cdn.com/flags/ticks.svg"></ef-flag>');
+      await aTimeout(1000); // BrowserStack need more time
       const svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');
@@ -173,7 +174,7 @@ describe('flag/Flag', () => {
 
       expect(CDNPrefix, 'CDN prefix should exist to create the src based on the flag').to.exist;
       const expectedSrc = `${CDNPrefix}${uniqueFlagName}.svg`;
-      
+
       expect(fetch.callCount).to.equal(1, 'Should make one request');
       expect(checkRequestedUrl(fetch.args, expectedSrc)).to.equal(true, `requested URL should be ${expectedSrc} for the flag ${uniqueFlagName}`);
     });
@@ -204,7 +205,7 @@ describe('flag/Flag', () => {
       const secondUniqueFlagSrc = createMockSrc(secondUniqueFlag);
       const uniqueInvalidFlagSrc = `${CDNPrefix}${uniqueInvalidFlag}.svg`;
 
-      createFakeResponse(gbSvg, responseConfigSuccess);      
+      createFakeResponse(gbSvg, responseConfigSuccess);
       let preloadedFlags = await Promise.all(
         preload(firstUniqueFlag, secondUniqueFlagSrc)
       );

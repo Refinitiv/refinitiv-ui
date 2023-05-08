@@ -1,7 +1,9 @@
-// see https://github.com/formatjs/formatjs/tree/main/packages/intl-format-cache
-// to understand more why memoiser is required
+// Creating instances of Intl formats is an expensive operation.
+// Memoizer caches these instances for reuse improving performance.
+// Although, IntlMessageFormat provides memoizers internally,
+// performance can still be further improved by caching IntlMessageFormat itself
 import IntlMessageFormat from 'intl-messageformat';
-import memoizeFormatConstructor from 'intl-format-cache';
+import { memoize, strategies } from '@formatjs/fast-memoize';
 import type {
   TranslateOptions,
   TranslateMessage,
@@ -90,7 +92,11 @@ abstract class Memoiser {
     // set the formatter first
     if (!memoised) {
       memoised = {
-        formatter: memoizeFormatConstructor(IntlMessageFormat),
+        formatter: memoize(
+          (...args: ConstructorParameters<typeof IntlMessageFormat>) =>
+            new IntlMessageFormat(...args),
+          { strategy: strategies.variadic }
+        ),
         keys: {},
         time: 0
       };

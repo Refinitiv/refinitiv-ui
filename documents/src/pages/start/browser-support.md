@@ -16,7 +16,6 @@ Element Framework (EF) elements are built as web components and published using 
 <td align="center"><img src="/resources/images/firefox.png"></img></td>
 <td align="center"><img src="/resources/images/edge.png"></img></td>
 <td align="center"><img src="/resources/images/electron.png"></img></td>
-<td align="center"><img src="/resources/images/ie.png"></img></td>
 </tr>
 <tr>
 <td align="center">Chrome 90+</td>
@@ -24,7 +23,6 @@ Element Framework (EF) elements are built as web components and published using 
 <td align="center">Firefox 88+</td>
 <td align="center">Edge 90+</td>
 <td align="center">Electron</td>
-<td align="center">IE11*</td>
 </tr></tbody>
 </table>
 

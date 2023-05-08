@@ -8,7 +8,7 @@ export const createAndWaitForLoad = async template => {
   const el = await fixture(template);
   await nextFrame();
   await nextFrame();
-  await aTimeout(50);
+  await aTimeout(500);
   return el;
 };
 

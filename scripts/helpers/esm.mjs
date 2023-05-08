@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname } from 'node:path';
 import fs from 'node:fs';
 
 /**
  * Get file and directory name of meta url
- * @param string meta node meta url
+ * @param meta meta node meta url
  * @returns objects directory name and filename of meta url
  */
 export const fileDirName = meta => {
@@ -16,13 +16,14 @@ export const fileDirName = meta => {
 
 /**
  * Get JSON data from url path
- * @param string url the absolute or relative input URL to parse
- * @param string meta the base URL to resolve against if the input is not absolute
+ * @param url the absolute or relative input URL to parse
+ * @param meta the base URL to resolve against if the input is not absolute
  * @returns object
  */
 export const getJSON = async (url, meta = undefined) => {
+  const _url = pathToFileURL(url);
   return JSON.parse(
-    await fs.promises.readFile(new URL(url, meta ? meta.url : undefined))
+    await fs.promises.readFile(new URL(_url, meta ? meta.url : undefined))
   );
 };
 
