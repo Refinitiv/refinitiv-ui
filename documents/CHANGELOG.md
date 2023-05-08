@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.4.10...@refinitiv-ui/docs@6.5.0) (2023-05-08)
+
+
+### Features
+
+* remove font bold ([#665](https://github.com/Refinitiv/refinitiv-ui/issues/665)) ([a8f9015](https://github.com/Refinitiv/refinitiv-ui/commit/a8f9015ac194c8f6125220eea4689f10f43a9e23))
+
+
+
+
+
 ## [6.4.10](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.4.9...@refinitiv-ui/docs@6.4.10) (2023-04-21)
 
 **Note:** Version bump only for package @refinitiv-ui/docs
