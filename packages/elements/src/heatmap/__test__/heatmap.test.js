@@ -1,5 +1,6 @@
 import { Track } from '../../../lib/heatmap/helpers/track.js';
 import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
+import '@refinitiv-ui/test-helpers/resize-observer-loop-handler';
 
 import '@refinitiv-ui/elements/heatmap';
 import '@refinitiv-ui/elemental-theme/light/ef-heatmap.js';
