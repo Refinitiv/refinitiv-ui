@@ -13,12 +13,6 @@ describe('canvas/Canvas', () => {
   });
 
   it('DOM structure is correct', async () => {
-    window.dispatchEvent(new ErrorEvent('error', {
-      message: 'ResizeObserver loop completed with undelivered notifications',
-      error: new Error('ResizeObserver loop completed with undelivered notifications')
-    }))
-
-
     expect(el).shadowDom.to.equalSnapshot();
   });
 
