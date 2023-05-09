@@ -1,4 +1,5 @@
 import { fixture, assert, expect, nextFrame, elementUpdated } from '@refinitiv-ui/test-helpers';
+import '@refinitiv-ui/test-helpers/resize-observer-loop-handler';
 
 // import element and theme
 import '@refinitiv-ui/elements/canvas';
@@ -12,6 +13,12 @@ describe('canvas/Canvas', () => {
   });
 
   it('DOM structure is correct', async () => {
+    window.dispatchEvent(new ErrorEvent('error', {
+      message: 'ResizeObserver loop completed with undelivered notifications',
+      error: new Error('ResizeObserver loop completed with undelivered notifications')
+    }))
+
+
     expect(el).shadowDom.to.equalSnapshot();
   });
 
