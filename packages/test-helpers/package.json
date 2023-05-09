@@ -12,6 +12,12 @@
   },
   "author": "LSEG",
   "license": "Apache-2.0",
+  "exports": {
+    ".": {
+      "default": "./lib/test-helpers.js"
+    },
+    "./resize-observer-loop-handler": "./lib/resize-observer-loop-handler.js"
+  },
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",
     "build:watch": "npm run build -- --watch --preserveWatchOutput",
