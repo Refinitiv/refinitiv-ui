@@ -1,5 +1,6 @@
-import { expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
+import '@refinitiv-ui/test-helpers/resize-observer-loop-handler';
 
 import { BackdropManager, clear, deregister, register, size } from '../../../../lib/overlay/managers/backdrop-manager.js';
 import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';

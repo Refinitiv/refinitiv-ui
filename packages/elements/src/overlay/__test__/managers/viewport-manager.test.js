@@ -1,5 +1,6 @@
-import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
+import '@refinitiv-ui/test-helpers/resize-observer-loop-handler';
 
 import { openedUpdated } from './../mocks/helper';
 

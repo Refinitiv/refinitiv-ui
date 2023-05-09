@@ -1,4 +1,5 @@
 import { elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
+import '@refinitiv-ui/test-helpers/resize-observer-loop-handler';
 
 import '@refinitiv-ui/elements/overlay';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';

@@ -1,5 +1,6 @@
 import { elementUpdated, expect, fixture, isIE } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
+import '@refinitiv-ui/test-helpers/resize-observer-loop-handler';
 
 import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
 
