@@ -1,5 +1,6 @@
 import { oneEvent, expect } from '@refinitiv-ui/test-helpers';
 import { info, confirm, warn, error } from '@refinitiv-ui/elements/notification';
+import '@refinitiv-ui/test-helpers/resize-observer-loop-handler';
 
 describe('notification/Helpers', () => {
   describe('Helpers', () => {
