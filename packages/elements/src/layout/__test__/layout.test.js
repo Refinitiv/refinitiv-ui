@@ -6,6 +6,7 @@ import {
   oneEvent,
   elementUpdated
 } from '@refinitiv-ui/test-helpers';
+import '@refinitiv-ui/test-helpers/resize-observer-loop-handler';
 
 // import element and theme
 import '@refinitiv-ui/elements/layout';
