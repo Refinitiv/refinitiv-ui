@@ -2,6 +2,7 @@ html {
   font-family: Arial, Helvetica, sans-serif;
   background: #515c61;
   height: 100%;
+  --demo-block-background: var(--color-scheme-ticktext, 'transparent');
 }
 
 body {
