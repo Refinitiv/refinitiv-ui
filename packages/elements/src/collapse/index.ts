@@ -2,13 +2,13 @@ import {
   BasicElement,
   css,
   CSSResultGroup,
+  nothing,
   html,
   PropertyValues,
   TemplateResult
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
@@ -209,14 +209,18 @@ export class Collapse extends BasicElement {
   protected render (): TemplateResult {
     return html`
       <ef-header part="header" level="${this.level}">
-        <div part="heading" role="heading" aria-level="${ifDefined(this.headingLevel || undefined)}">
-          <div id="header-toggle"
-               part="header-toggle"
-               role="button"
-               tabindex="0"
-               aria-expanded="${this.expanded}"
-               aria-controls="content"
-               @tap=${this.toggle}>${this.header}</div>
+        <div part="heading" role="heading" aria-level="${this.headingLevel || nothing}">
+          <div
+            id="header-toggle"
+            part="header-toggle"
+            role="button"
+            tabindex="0"
+            aria-expanded="${this.expanded}"
+            aria-controls="content"
+            @tap=${this.toggle}
+          >
+            ${this.header}
+          </div>
         </div>
         <ef-icon icon="right" part="toggle" slot="left" aria-hidden="true"></ef-icon>
         <slot name="header-left" slot="left"></slot>
