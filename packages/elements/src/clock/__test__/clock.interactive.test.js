@@ -1,5 +1,4 @@
 import { fixture, expect, elementUpdated, oneEvent, keyboardEvent, nextFrame, isIE } from '@refinitiv-ui/test-helpers';
-import '@refinitiv-ui/test-helpers/resize-observer-loop-handler';
 
 import '@refinitiv-ui/elements/clock';
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';

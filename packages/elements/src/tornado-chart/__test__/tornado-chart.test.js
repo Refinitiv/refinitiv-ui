@@ -1,5 +1,4 @@
 import { fixture, expect, oneEvent, elementUpdated } from '@refinitiv-ui/test-helpers';
-import '@refinitiv-ui/test-helpers/resize-observer-loop-handler';
 
 import '@refinitiv-ui/elements/tornado-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-tornado-chart.js';

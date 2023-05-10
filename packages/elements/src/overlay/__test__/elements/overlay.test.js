@@ -1,5 +1,4 @@
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
-import '@refinitiv-ui/test-helpers/resize-observer-loop-handler';
 
 import '@refinitiv-ui/elements/overlay';
 import { openedUpdated } from '../mocks/helper';

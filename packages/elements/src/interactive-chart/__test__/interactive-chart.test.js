@@ -1,5 +1,4 @@
 import { fixture, fixtureSync, expect, elementUpdated, oneEvent, nextFrame, aTimeout } from '@refinitiv-ui/test-helpers';
-import '@refinitiv-ui/test-helpers/resize-observer-loop-handler';
 
 // import element and theme
 import { InteractiveChart } from '@refinitiv-ui/elements/interactive-chart';
