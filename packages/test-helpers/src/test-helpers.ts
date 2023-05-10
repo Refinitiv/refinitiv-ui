@@ -47,11 +47,11 @@ export const keyboardEvent = (type: string, init: KeyboardEventInit = {}): Keybo
       cancelable: true,
       composed: true
     }) as CustomKeyboardEvent;
-    event.key = init.key || '';
-    event.shiftKey = init.shiftKey || false;
-    event.altKey = init.altKey || false;
-    event.ctrlKey = init.ctrlKey || false;
-    event.metaKey = init.metaKey || false;
+    event.key = init.key ?? '';
+    event.shiftKey = init.shiftKey ?? false;
+    event.altKey = init.altKey ?? false;
+    event.ctrlKey = init.ctrlKey ?? false;
+    event.metaKey = init.metaKey ?? false;
 
     return event;
   }
