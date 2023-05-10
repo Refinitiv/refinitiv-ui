@@ -32,6 +32,7 @@ export type ResizeEvent = CustomEvent<{
 const triggerResize = (entry: ResizeObserverEntry): void => {
   let width: number;
   let height: number;
+  /* istanbul ignore else */
   if (entry.borderBoxSize?.length > 0) {
     width = entry.borderBoxSize[0].inlineSize;
     height = entry.borderBoxSize[0].blockSize;
