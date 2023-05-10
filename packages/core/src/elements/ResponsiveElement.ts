@@ -1,4 +1,5 @@
 import { BasicElement } from './BasicElement.js';
+import { isSafari } from '@refinitiv-ui/utils';
 // If ResizeObserver native API works fine, this package should be removed in future
 import { ResizeObserver as PolyfillResizeObserver } from '@juggle/resize-observer';
 
@@ -62,7 +63,9 @@ const entriesResize = (entries: ResizeObserverEntry[]): void => {
  * Global resize observer,
  * used to watch changes in element dimensions
  */
-const resizeObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(entriesResize) : new PolyfillResizeObserver(entriesResize);
+const resizeObserver = typeof ResizeObserver === 'function'
+  ? (isSafari('<15.4') ? new PolyfillResizeObserver(entriesResize) : new ResizeObserver(entriesResize))
+  : new PolyfillResizeObserver(entriesResize);
 
 
 /**
