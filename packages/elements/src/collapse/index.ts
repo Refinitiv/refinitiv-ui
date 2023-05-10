@@ -57,7 +57,6 @@ export class Collapse extends BasicElement {
       }
       [part~=header] {
         position: relative;
-        z-index: 0;
       }
       [part~=header-toggle]::before {
         content: '';
@@ -67,7 +66,6 @@ export class Collapse extends BasicElement {
         right: 0;
         bottom: 0;
         left: 0;
-        z-index: -1;
       }
       [part~=content]  {
         overflow: hidden;
