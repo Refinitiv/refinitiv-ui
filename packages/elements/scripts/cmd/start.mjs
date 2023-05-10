@@ -45,10 +45,12 @@ export const handler = (argv) => {
     // start of the server contains up to date code
     execSync('node cli.mjs build --sourceMap --declarationMap');
 
-    concurrently(
+    const { result } = concurrently(
       commands,
       { killOthers: ['failure', 'success'] }
-    ).then(
+    );
+
+    result.then(
       () => info(`Stop: ${element}`),
       () => error(`Cannot start ${element}`)
     );
