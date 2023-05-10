@@ -1,5 +1,4 @@
 import { BasicElement } from './BasicElement.js';
-import { isSafari } from '@refinitiv-ui/utils';
 // If ResizeObserver native API works fine, this package should be removed in future
 import { ResizeObserver as PolyfillResizeObserver } from '@juggle/resize-observer';
 
@@ -31,7 +30,15 @@ export type ResizeEvent = CustomEvent<{
  * @returns {void}
  */
 const triggerResize = (entry: ResizeObserverEntry): void => {
-  const { inlineSize: width, blockSize: height } = entry.borderBoxSize[0];
+  let width; let height;
+  if (entry.borderBoxSize?.length > 0) {
+    width = entry.borderBoxSize[0].inlineSize;
+    height = entry.borderBoxSize[0].blockSize;
+  }
+  else {
+    width = entry.contentRect.width;
+    height = entry.contentRect.height;
+  }
   const event = new CustomEvent('resize', {
     bubbles: false,
     cancelable: false,
@@ -63,10 +70,7 @@ const entriesResize = (entries: ResizeObserverEntry[]): void => {
  * Global resize observer,
  * used to watch changes in element dimensions
  */
-const resizeObserver = typeof ResizeObserver === 'function'
-  ? (isSafari('<15.4') ? new PolyfillResizeObserver(entriesResize) : new ResizeObserver(entriesResize))
-  : new PolyfillResizeObserver(entriesResize);
-
+const resizeObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(entriesResize) : new PolyfillResizeObserver(entriesResize);
 
 /**
  * Responsive element base class.
