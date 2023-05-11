@@ -5,27 +5,21 @@ const DefaultBrowsers = ['chrome', 'firefox', 'safari'];
 const BrowserStack = {
   defaultBrowsers: DefaultBrowsers,
   supportedBrowsers: [
-    'chrome', 'chrome_minus1',
+    'chrome', 'chrome_minus1', 'chrome_minus2',
     'firefox', 'firefox_minus1', 'firefox_minus2',
-    'ios',
-    'android', 'android_minus1',
+    'android', 'android_minus1', 'android_minus2',
+    'ios'
   ],
   availableBrowsers: [
     'default', // default browsers alias
     'supported', // supported browsers alias
     'edge', 'edge_minus1', 'edge_minus2',
 
-    // Exclude temporary to prevent unicode problem on version 109
-    'chrome_minus2',
-
     // Safari are moved out from default and supported temporary because BrowserStack connection issue
     'safari', 'safari_minus1', 'safari_minus2',
 
     // iOS 14, 15 has the problem with issue undefined ResizeObserver is undefined
-    'ios_minus1', 'ios_minus2',
-
-    // Android 11 hast the issue render date format in calendar
-    'android_minus2'
+    'ios_minus1', 'ios_minus2'
   ]
 };
 // combine default, supported & aliases into complete available browsers
