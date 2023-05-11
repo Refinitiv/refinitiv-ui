@@ -33,13 +33,14 @@ const getPrevTheme = (): string => {
   return Themes[(Themes.indexOf(getCurrentTheme()) + Themes.length - 1) % Themes.length];
 };
 
-/* istanbul ignore next */
+/* c8 ignore start */
 const changeTheme = (theme: string): void => {
   const searchParams = theme.split('/');
   url.searchParams.set('theme', searchParams[0]);
   url.searchParams.set('variant', searchParams[1]);
   window.location.search = url.searchParams.toString();
 };
+/* c8 ignore stop */
 
 const removePrefixName = (name: string): string => {
   return name.replace('elf-theme-', '');
