@@ -77,3 +77,4 @@ export const isSafari = (version = undefined): boolean => { // Indicates if this
  * @returns boolean
  */
 export const isFirefox = (): boolean => (/firefox/i).test(navigator.userAgent);
+/* c8 ignore stop */
