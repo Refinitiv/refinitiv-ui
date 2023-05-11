@@ -7,8 +7,7 @@ const BrowserStack = {
   supportedBrowsers: [
     'chrome', 'chrome_minus1', 'chrome_minus2',
     'firefox', 'firefox_minus1', 'firefox_minus2',
-    'android', 'android_minus1', 'android_minus2',
-    'ios'
+    'android', 'android_minus1', 'android_minus2'
   ],
   availableBrowsers: [
     'default', // default browsers alias
@@ -19,7 +18,7 @@ const BrowserStack = {
     'safari', 'safari_minus1', 'safari_minus2',
 
     // iOS 14, 15 has the problem with issue undefined ResizeObserver is undefined
-    'ios_minus1', 'ios_minus2'
+    'ios', 'ios_minus1', 'ios_minus2'
   ]
 };
 // combine default, supported & aliases into complete available browsers
