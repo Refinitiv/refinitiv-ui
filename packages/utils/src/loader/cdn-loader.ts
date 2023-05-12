@@ -1,5 +1,7 @@
 import { Deferred } from './deferred.js';
 
+const FETCH_API_TIMEOUT = 5_000;
+
 /**
  * Caches and provides any load results, Loaded either by name from CDN or directly by URL.
  */
@@ -50,8 +52,11 @@ export class CDNLoader {
    * @returns Promise of the SVG body
    */
   private async loadContent (href: string): Promise<Response> {
+    let response: Response;
+    const abortController = new AbortController();
+    const timeoutId = setTimeout(() => abortController.abort(), FETCH_API_TIMEOUT);
     try {
-      return await fetch(href);
+      response = await fetch(href, { signal: abortController.signal });
     }
     catch (e) {
       // Failed response. Prevent the item attached in cache.
@@ -63,11 +68,15 @@ export class CDNLoader {
       else if (e instanceof Response) {
         errorMessage = e.statusText;
       }
-      return {
+      response = {
         status: 0,
         statusText: errorMessage
       } as Response;
     }
+    finally {
+      clearTimeout(timeoutId);
+    }
+    return response;
   }
 
   /**
