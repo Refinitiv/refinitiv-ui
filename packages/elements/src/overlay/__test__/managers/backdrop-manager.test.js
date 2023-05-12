@@ -1,4 +1,4 @@
-import { expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
 
 import { BackdropManager, clear, deregister, register, size } from '../../../../lib/overlay/managers/backdrop-manager.js';

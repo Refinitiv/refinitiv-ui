@@ -47,11 +47,11 @@ export const keyboardEvent = (type: string, init: KeyboardEventInit = {}): Keybo
       cancelable: true,
       composed: true
     }) as CustomKeyboardEvent;
-    event.key = init.key || '';
-    event.shiftKey = init.shiftKey || false;
-    event.altKey = init.altKey || false;
-    event.ctrlKey = init.ctrlKey || false;
-    event.metaKey = init.metaKey || false;
+    event.key = init.key ?? '';
+    event.shiftKey = init.shiftKey ?? false;
+    event.altKey = init.altKey ?? false;
+    event.ctrlKey = init.ctrlKey ?? false;
+    event.metaKey = init.metaKey ?? false;
 
     return event;
   }
@@ -94,3 +94,25 @@ export const isNear = (a: number, b: number, distance: number, inclusive = true)
  * @returns string
  */
 export const replaceWhitespace = (text: string): string => text.replace(/\s/g, ' ');
+
+// ResizeObserver loop error is considered benign as discussed in https://github.com/w3c/csswg-drafts/issues/5023
+// This module converts the error into a warning instead
+// Note that, mocha must be available in an imported context
+before(function () {
+  const originalOnError = window.onerror;
+  window.onerror = function (event, ...args) {
+    // Firefox: `ResizeObserver loop completed with undelivered notifications.`
+    // Chrome: `ResizeObserver loop limit exceeded`
+    // Safari: `ResizeObserver loop completed with undelivered notifications`
+    // Each browser logs a slightly different messages yet they all start with `ResizeObserver loop`
+    /* istanbul ignore else */
+    if (typeof event === 'string' && event.startsWith('ResizeObserver loop')) {
+      // eslint-disable-next-line no-console
+      console.warn(`warning: ${event}`);
+      return true;
+    }
+    else {
+      return originalOnError ? originalOnError(event, ...args) as boolean : false;
+    }
+  };
+});
