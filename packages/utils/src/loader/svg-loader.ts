@@ -1,11 +1,20 @@
 import { CDNLoader } from './cdn-loader.js';
 
+const iconMap = new Map<string, string>();
+
 /**
  * Checks a string to see if it's a valid URL
  * @param str String to test
  * @returns is URL
  */
 const isUrl = (str: string): boolean => (/^(https?:\/{2}|\.?\/)/i).test(str);
+
+/**
+ * Checks a string to see if it's a base64 URL
+ * @param str String to test
+ * @returns is Base64
+ */
+const isBase64svg = (str: string): boolean => (/^(data:image\/[svg,svg+xml]+;base64,[a-zA-Z0-9,+,/]+={0,2})/i).test(str);
 
 /**
  * Strips any event attributes which could be used to
@@ -77,14 +86,23 @@ const extractSafeSVG = (response: XMLHttpRequest | undefined): SVGElement | null
 export class SVGLoader extends CDNLoader {
 
   /**
+  * @ignore
+  */
+  public get iconMap (): Map<string, string> {
+    return iconMap;
+  }
+  /**
    * Creates complete source using CDN prefix and src.
    * Waits for CDN prefix to be set.
    * @param name - resource path for download
    * @returns Promise, which will be resolved with complete source.
    */
   public async getSrc (name: string): Promise<string> {
-    if (isUrl(name)) {
+    if (isUrl(name) || isBase64svg(name)) {
       return name;
+    }
+    else if (iconMap.has(name)) {
+      return iconMap.get(name)!;
     }
     return name ? `${await this.getCdnPrefix()}${name}.svg` : '';
   }

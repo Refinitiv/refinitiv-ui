@@ -26,6 +26,11 @@ const iconTemplateCache = new Map<string, Promise<SVGTemplateResult>>();
 @customElement('ef-icon')
 export class Icon extends BasicElement {
 
+  constructor () {
+    super();
+    this.cacheIconMap();
+  }
+
   /**
    * Element version number
    * @returns version number
@@ -125,6 +130,21 @@ export class Icon extends BasicElement {
      */
     this.setPrefix();
   }
+
+  /**
+   * Helper method, used to cache the icon map.
+   * @returns {void}
+   */
+  private cacheIconMap = (): void => {
+    if (IconLoader.iconMap.size) {
+      return;
+    }
+    for (const icon of document.querySelectorAll('ef-icon-map icon')) {
+      if (icon instanceof HTMLElement && icon.dataset.name && icon.dataset.src) {
+        IconLoader.iconMap.set(icon.dataset.name, icon.dataset.src);
+      }
+    }
+  };
 
   /**
    * Helper method, used to set the icon src.
