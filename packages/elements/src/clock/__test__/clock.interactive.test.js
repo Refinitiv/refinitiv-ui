@@ -145,7 +145,7 @@ describe('clock/Interactive', () => {
       expect(offsetChangedCount, 'offset-changed count should be 1').to.be.equal(1);
       expect(offsetEvent.detail.value, '  should be 60').to.be.equal(60);
     });
-    
+
     describe('Accessibility', () => {
       it('Should have role="spinbutton", be focusable, and aria attributes', async () => {
         expect(el.getAttribute('role')).to.be.equal('spinbutton');
@@ -165,7 +165,7 @@ describe('clock/Interactive', () => {
         createKeyboardEvent(el, InputKey.ArrowUp);
         await elementUpdated(el);
         await nextFrame();
-  
+
         expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 01:00');
         expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
       });
@@ -174,7 +174,7 @@ describe('clock/Interactive', () => {
         createKeyboardEvent(el, InputKey.ArrowDown);
         await elementUpdated(el);
         await nextFrame();
-  
+
         expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 23:00');
         expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
       });
@@ -183,7 +183,7 @@ describe('clock/Interactive', () => {
         createKeyboardEvent(el, InputKey.ArrowUp);
         await elementUpdated(el);
         await nextFrame();
-  
+
         expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 00:01');
         expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
       });
@@ -192,7 +192,7 @@ describe('clock/Interactive', () => {
         createKeyboardEvent(el, InputKey.ArrowUp);
         await elementUpdated(el);
         await nextFrame();
-  
+
         expect(el.getAttribute('aria-valuetext')).to.be.equal('Time: 00:01');
         expect(el.getAttribute('aria-valuenow')).to.be.equal(el.displayTime.toString());
       });
