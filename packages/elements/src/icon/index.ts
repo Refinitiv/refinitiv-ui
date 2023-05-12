@@ -151,7 +151,8 @@ export class Icon extends BasicElement {
    * @returns {void}
    */
   private async setIconSrc (): Promise<void> {
-    this.src = this.icon ? await IconLoader.getSrc(this.icon) : null;
+    // updating from/to empty string and null should result in empty template
+    this.src = this.icon ? await IconLoader.getSrc(this.icon) : this.icon;
   }
 
   /**
