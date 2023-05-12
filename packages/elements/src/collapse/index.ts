@@ -210,7 +210,7 @@ export class Collapse extends BasicElement {
         part="header"
         role="heading"
         level=${this.level}
-        aria-level=${this.headingLevel || nothing}
+        aria-level=${this.headingLevel ?? nothing}
         @tap=${this.toggle}>
           <div
             id="header-label"
