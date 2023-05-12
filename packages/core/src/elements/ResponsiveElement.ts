@@ -31,14 +31,23 @@ export type ResizeEvent = CustomEvent<{
  * @returns {void}
  */
 const triggerResize = (entry: ResizeObserverEntry): void => {
-
-  const { inlineSize: width, blockSize: height } = entry.borderBoxSize[0];
+  let width: number;
+  let height: number;
+  /* istanbul ignore else */
+  if (entry.borderBoxSize?.length > 0) {
+    width = entry.borderBoxSize[0].inlineSize;
+    height = entry.borderBoxSize[0].blockSize;
+  }
+  else {
+    width = entry.contentRect.width;
+    height = entry.contentRect.height;
+  }
   const event = new CustomEvent('resize', {
     bubbles: false,
     cancelable: false,
     detail: {
-      width: width,
-      height: height
+      width,
+      height
     }
   });
 
