@@ -4,8 +4,7 @@ import {
   css,
   CSSResultGroup,
   TemplateResult,
-  SVGTemplateResult,
-  PropertyValues
+  SVGTemplateResult
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -69,6 +68,7 @@ export class Icon extends BasicElement {
   public set icon (value: string | null) {
     const oldValue = this._icon;
     if (oldValue !== value) {
+      void this.enqueueIconReady();
       this._icon = value;
       void this.setIconSrc();
       this.requestUpdate('icon', oldValue);
@@ -89,6 +89,7 @@ export class Icon extends BasicElement {
   }
   public set src (value: string | null) {
     if (this.src !== value) {
+      void this.enqueueIconReady();
       this._src = value;
       if (value) {
         void this.loadAndRenderIcon(value);
@@ -114,14 +115,35 @@ export class Icon extends BasicElement {
     }
   }
 
+  private iconPending = false;
+  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+  private resolveIconReady (_requestedUpdate: boolean) { }
+  private iconReady: Promise<boolean> = Promise.resolve(true);
+
   /**
-   * Called after the component is first rendered
-   * @param changedProperties Properties which have changed
+   * Registers the connection to the DOM
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
-    super.firstUpdated(changedProperties);
+  public connectedCallback (): void {
+    super.connectedCallback();
     this.setPrefix();
+  }
+
+  override async getUpdateComplete (): Promise<boolean> {
+    const result = await super.getUpdateComplete();
+    await this.iconReady;
+    return result;
+  }
+
+
+  private enqueueIconReady () {
+    if (this.iconPending) {
+      return;
+    }
+    this.iconReady = new Promise(resolve => {
+      this.resolveIconReady = resolve;
+    });
+    this.iconPending = true;
   }
 
   /**
@@ -149,6 +171,8 @@ export class Icon extends BasicElement {
       return this.loadAndRenderIcon(src); // Load again and await cache result
     }
     this.template = await iconTemplateCacheItem;
+    this.iconPending = false;
+    this.resolveIconReady(true);
   }
 
   /**
@@ -172,6 +196,8 @@ export class Icon extends BasicElement {
    */
   private clearIcon (): void {
     this.template = EmptyTemplate;
+    this.iconPending = false;
+    this.resolveIconReady(true);
   }
 
   /**
