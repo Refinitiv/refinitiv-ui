@@ -213,8 +213,7 @@ export class Collapse extends BasicElement {
         aria-level=${this.headingLevel || nothing}
         @tap=${this.toggle}>
           <div
-            id="header-toggle"
-            part="header-toggle"
+            id="header-label"
             role="button"
             tabindex="0"
             aria-expanded="${this.expanded}"
@@ -225,7 +224,7 @@ export class Collapse extends BasicElement {
         <slot name="header-left" slot="left" @tap=${this.handleSlotTap}></slot>
         <slot name="header-right" slot="right" @tap=${this.handleSlotTap}></slot>
       </ef-header>
-      <div ${ref(this.panelHolderRef)} id="content" part="content" role="region" aria-labelledby="header-toggle">
+      <div ${ref(this.panelHolderRef)} id="content" part="content" role="region" aria-labelledby="header-label">
         <ef-panel ${ref(this.panelRef)} part="content-data" ?spacing="${this.spacing}" transparent>
           <slot></slot>
         </ef-panel>
