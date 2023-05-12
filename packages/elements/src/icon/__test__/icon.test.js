@@ -1,4 +1,4 @@
-import { elementUpdated, expect, aTimeout } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/icon';
 import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
@@ -31,6 +31,7 @@ describe('icon/Icon', () => {
     it('without icon or src attributes', async () => {
       const el = await createAndWaitForLoad('<ef-icon></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
+
       expect(svg).to.equal(null, 'No SVG element should not exist if there is nothing to load');
     });
 
@@ -39,6 +40,7 @@ describe('icon/Icon', () => {
       const el = await createAndWaitForLoad(`<ef-icon icon="${iconName}"></ef-icon>`);
       const svg = el.shadowRoot.querySelector('svg');
       const CDNPrefix = el.getComputedVariable('--cdn-prefix');
+
       expect(el.src).to.equal(`${CDNPrefix}${iconName}.svg`);
       expect(svg).to.not.equal(null, 'SVG element should exist for valid icon attribute');
       expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
@@ -47,7 +49,6 @@ describe('icon/Icon', () => {
     it('with valid src attribute', async () => {
       createFakeResponse(tickSvg, responseConfigSuccess);
       const el = await createAndWaitForLoad('<ef-icon src="https://mock.cdn.com/icons/ticks.svg"></ef-icon>');
-      await aTimeout(1000); // BrowserStack need more time
       const svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');
@@ -58,6 +59,7 @@ describe('icon/Icon', () => {
       createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ef-icon icon="invalid"></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
+
       expect(svg).to.equal(null, 'SVG element should not exist for invalid icon attribute');
     });
 
@@ -73,6 +75,7 @@ describe('icon/Icon', () => {
       createFakeResponse('', responseConfigError);
       const el = await createAndWaitForLoad('<ef-icon icon=""></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
+
       expect(svg).to.equal(null, 'SVG element should not exist for empty icon attribute');
     });
 
