@@ -1,6 +1,6 @@
 import { Deferred } from './deferred.js';
 
-const FETCH_API_TIMEOUT = 5_000;
+const FETCH_API_TIMEOUT = 60_000;
 
 /**
  * Caches and provides any load results, Loaded either by name from CDN or directly by URL.
