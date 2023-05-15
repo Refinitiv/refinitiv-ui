@@ -803,7 +803,9 @@ export class Slider extends ControlElement {
       return;
     }
 
-    if (event.key === ' ' || event.key === 'Spacebar' || event.key === 'Enter') {
+    if (
+      (event.keyCode === 13 || event.keyCode === 32)
+      || (event.key === ' ' || event.key === 'Spacebar' || event.key === 'Enter')) {
       (event.target as NumberField).blur();
     }
   }

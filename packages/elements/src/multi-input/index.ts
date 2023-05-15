@@ -551,7 +551,7 @@ export class MultiInput extends ControlElement implements MultiValue {
     if (event.key === 'Backspace') {
       this.removeLastItemByKeyboard(event);
     }
-    else if (event.key === 'Enter') {
+    else if (event.key === 'Enter' || event.keyCode === 13) {
       this.addItemByKeyboard();
     }
   }
