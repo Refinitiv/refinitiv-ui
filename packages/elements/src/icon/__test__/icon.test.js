@@ -1,6 +1,5 @@
 import sinon from 'sinon';
-import { elementUpdated, expect, isIE } from '@refinitiv-ui/test-helpers';
-
+import { elementUpdated, expect, isIE, fixture } from '@refinitiv-ui/test-helpers';
 import '@refinitiv-ui/elements/icon';
 import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
 import { preload } from '@refinitiv-ui/elements/icon';
@@ -13,10 +12,14 @@ import {
   generateUniqueName,
   iconName,
   tickSvg,
+  tickSvgBase64,
   checkRequestedUrl
 } from './helpers/helpers';
 
 describe('icon/Icon', () => {
+  before(async () => {
+    await fixture(`<ef-icon-map><icon data-name="tick-svg" data-src="${tickSvgBase64}"></icon></ef-icon-map>`)
+  });
   describe('Should Have Correct DOM Structure', () => {
     it('without icon or src attributes', async () => {
       const el = await createAndWaitForLoad('<ef-icon></ef-icon>');
@@ -92,6 +95,11 @@ describe('icon/Icon', () => {
       const script = el.shadowRoot.querySelector('script');
 
       expect(script).to.equal(null, 'should strip unsafe nodes');
+    });
+
+    it('should support custom base64 icon', async () => {
+      const el = await createAndWaitForLoad(`<ef-icon icon="tick-svg"></ef-icon>`);
+      expect(el.src).to.equal(tickSvgBase64, 'Icon should not have the base64 src property by default')
     });
   });
 
