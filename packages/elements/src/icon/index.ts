@@ -117,6 +117,11 @@ export class Icon extends BasicElement {
     }
   }
 
+  /**
+   * A deferred promise representing icon ready.
+   * It would be resolved when the icon svg has been fetched and parsed, or
+   * when the icon svg is unavailable/invalid.
+   */
   private iconReady!:Deferred<void>;
 
   constructor () {
@@ -135,13 +140,17 @@ export class Icon extends BasicElement {
     this.setPrefix();
   }
 
-  override async getUpdateComplete (): Promise<boolean> {
+  protected async getUpdateComplete (): Promise<boolean> {
     const result = await super.getUpdateComplete();
     await this.iconReady.promise;
     return result;
   }
 
-  private markIconReadyAsPending () {
+  /**
+   * instantiate a new deferred promise for icon ready if it's not pending already
+   * @returns {void}
+   */
+  private markIconReadyAsPending (): void {
     if (this.iconReady.isPending()) {
       return;
     }
