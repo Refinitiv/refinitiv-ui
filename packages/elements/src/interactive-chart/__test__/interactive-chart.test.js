@@ -4,8 +4,11 @@ import { fixture, fixtureSync, expect, elementUpdated, oneEvent, nextFrame, aTim
 import { InteractiveChart } from '@refinitiv-ui/elements/interactive-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-interactive-chart.js';
 import * as mockConfig from './mock-config.js';
-
+import { isSafari, isMobile } from "@refinitiv-ui/utils";
 describe('interactive-chart/InteractiveChart', function () {
+  if (isMobile && isSafari()) {
+    this.skip() // Seem like we got the problem about the memory excced in iOS, so we need to skip it for now
+  }
   const generateData = function (total, start, init) {
     let initVal = init || 20;
     let startDate = start || new Date();
