@@ -53,7 +53,7 @@ In the same directory, create a theme loader that dynamically imports the theme 
 // theme-loader.js
 export function loadTheme() {
   const theme = document.body.getAttribute("theme"); // value can be `light` or `dark`
-  return import(`./theme.${theme}`); // provided that theme.light.js & theme.dark.js are in the same directory
+  return import(`./theme.${theme}.js`); // provided that theme.light.js & theme.dark.js are in the same directory
 }
 ```
 

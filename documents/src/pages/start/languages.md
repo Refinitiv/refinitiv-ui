@@ -37,7 +37,7 @@ import { halo } from '/theme-loader.js';
 halo('panel');
 import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
 
-document.documentElement.setAttribute('lang', 'zh-CN');
+document.documentElement.setAttribute('lang', 'ja-JP');
 ```
 ::
 
