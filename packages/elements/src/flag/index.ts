@@ -70,7 +70,7 @@ export class Flag extends BasicElement {
   }
   public set flag (value: string | null) {
     if (this.flag !== value) {
-      this.markFlagReadyAsPending();
+      this.deferFlagReady();
       this._flag = value;
       void this.setFlagSrc();
     }
@@ -90,7 +90,7 @@ export class Flag extends BasicElement {
   }
   public set src (value: string | null) {
     if (this.src !== value) {
-      this.markFlagReadyAsPending();
+      this.deferFlagReady();
       this._src = value;
       if (value) {
         void this.loadAndRenderFlag(value);
@@ -149,7 +149,7 @@ export class Flag extends BasicElement {
    * instantiate a new deferred promise for flag ready if it's not pending already
    * @returns {void}
    */
-  private markFlagReadyAsPending (): void {
+  private deferFlagReady (): void {
     if (this.flagReady.isPending()) {
       return;
     }

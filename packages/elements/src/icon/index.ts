@@ -70,7 +70,7 @@ export class Icon extends BasicElement {
   public set icon (value: string | null) {
     const oldValue = this._icon;
     if (oldValue !== value) {
-      this.markIconReadyAsPending();
+      this.deferIconReady();
       this._icon = value;
       void this.setIconSrc();
       this.requestUpdate('icon', oldValue);
@@ -91,7 +91,7 @@ export class Icon extends BasicElement {
   }
   public set src (value: string | null) {
     if (this.src !== value) {
-      this.markIconReadyAsPending();
+      this.deferIconReady();
       this._src = value;
       if (value) {
         void this.loadAndRenderIcon(value);
@@ -150,7 +150,7 @@ export class Icon extends BasicElement {
    * instantiate a new deferred promise for icon ready if it's not pending already
    * @returns {void}
    */
-  private markIconReadyAsPending (): void {
+  private deferIconReady (): void {
     if (this.iconReady.isPending()) {
       return;
     }
