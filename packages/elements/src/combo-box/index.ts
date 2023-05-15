@@ -9,14 +9,14 @@ import {
   WarningNotice,
   FocusedPropertyKey,
   StyleMap,
-  triggerResize
+  triggerResize,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { eventOptions } from '@refinitiv-ui/core/decorators/event-options.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { VERSION } from '../version.js';
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
@@ -1221,7 +1221,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       // benefit of being localised too
       if (this.focused || selectionLength > 1) {
         return html`
-        <ef-counter part="selection-badge" tabindex="-1" .value=${selectionLength} title=${ifDefined(selectionLength > 999 ? selectionLength.toLocaleString() : undefined)} max="999"></ef-counter>
+        <ef-counter part="selection-badge" tabindex="-1" .value=${selectionLength} title=${selectionLength > 999 ? selectionLength.toLocaleString() : nothing} max="999"></ef-counter>
       `;
       }
     }

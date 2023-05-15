@@ -1,6 +1,7 @@
 import {
   html,
   css,
+  nothing,
   ControlElement,
   TemplateResult,
   CSSResultGroup,
@@ -12,7 +13,6 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
@@ -1318,7 +1318,7 @@ export class Slider extends ControlElement {
         ${ref(this[`${name as SliderDataName}ThumbRef`])}
         @focus=${this.onThumbFocus}
         @blur=${this.onThumbBlur}
-        active=${ifDefined(isActive || undefined)}
+        active=${isActive || nothing}
         name="${name}"
         role="slider"
         aria-label="${this.t(name.toUpperCase())}"

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.0...@refinitiv-ui/demo-block@6.1.1) (2023-05-12)
+
+**Note:** Version bump only for package @refinitiv-ui/demo-block
+
+
+
+
+
+# [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.0.17...@refinitiv-ui/demo-block@6.1.0) (2023-05-08)
+
+
+### Features
+
+* remove font bold ([#665](https://github.com/Refinitiv/refinitiv-ui/issues/665)) ([a8f9015](https://github.com/Refinitiv/refinitiv-ui/commit/a8f9015ac194c8f6125220eea4689f10f43a9e23))
+
+
+
+
+
 ## [6.0.17](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.0.16...@refinitiv-ui/demo-block@6.0.17) (2023-03-23)
 
 **Note:** Version bump only for package @refinitiv-ui/demo-block

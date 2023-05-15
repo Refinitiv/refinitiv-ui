@@ -2,12 +2,12 @@ import {
   BasicElement,
   html,
   css,
+  nothing,
   TemplateResult,
   CSSResultGroup
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../../version.js';
 import '../../progress-bar/index.js';
 import '../../layout/index.js';
@@ -192,26 +192,26 @@ export class TornadoItem extends BasicElement {
   protected render (): TemplateResult {
     return html`
       <ef-layout part="container" flex nowrap ?container="${this.isContainer}">
-        <ef-layout flex size="${ifDefined(this.labelLayoutSize)}">
+        <ef-layout flex size="${this.labelLayoutSize || nothing}">
           <div part="label">
             <slot></slot>
           </div>
         </ef-layout>
-        <ef-layout flex basis="${ifDefined(this.primaryLayoutFlexBasis)}">
+        <ef-layout flex basis="${this.primaryLayoutFlexBasis || nothing}">
           <ef-progress-bar
             part="primary-bar"
             alignment=${this.primaryBarAlignment}
-            label="${ifDefined(this.primaryLabel || undefined)}"
-            value="${ifDefined(this.primaryValue || undefined)}">
+            label="${this.primaryLabel || nothing}"
+            value="${this.primaryValue || nothing}">
           </ef-progress-bar>
         </ef-layout>
         <div part="seperator"></div>
-        <ef-layout flex basis="${ifDefined(this.secondaryLayoutFlexBasis)}">
+        <ef-layout flex basis="${this.secondaryLayoutFlexBasis || nothing}">
           <ef-progress-bar
             part="secondary-bar"
             alignment="${this.secondaryBarAlignment}"
-            label="${ifDefined(this.secondaryLabel || undefined)}"
-            value="${ifDefined(this.secondaryValue || undefined)}">
+            label="${this.secondaryLabel || nothing}"
+            value="${this.secondaryValue || nothing}">
           </ef-progress-bar>
         </ef-layout>
       </ef-layout>
