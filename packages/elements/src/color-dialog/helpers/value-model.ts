@@ -28,10 +28,7 @@ class ValueModel {
   }
 
   private getHexValue (): string {
-    if (this.red === '' && this.green === '' && this.blue === '') {
-      return '';
-    }
-    else if (!this.isValidRGB()) {
+    if (!this.isValidRGB() || this.red === '' && this.green === '' && this.blue === '') {
       return '';
     }
 
