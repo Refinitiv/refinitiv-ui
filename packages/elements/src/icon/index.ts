@@ -4,11 +4,13 @@ import {
   css,
   CSSResultGroup,
   TemplateResult,
-  SVGTemplateResult
+  SVGTemplateResult,
+  PropertyValues
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
+import { Deferred } from '@refinitiv-ui/utils/loader.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';
@@ -68,7 +70,7 @@ export class Icon extends BasicElement {
   public set icon (value: string | null) {
     const oldValue = this._icon;
     if (oldValue !== value) {
-      void this.enqueueIconReady();
+      this.markIconReadyAsPending();
       this._icon = value;
       void this.setIconSrc();
       this.requestUpdate('icon', oldValue);
@@ -89,7 +91,7 @@ export class Icon extends BasicElement {
   }
   public set src (value: string | null) {
     if (this.src !== value) {
-      void this.enqueueIconReady();
+      this.markIconReadyAsPending();
       this._src = value;
       if (value) {
         void this.loadAndRenderIcon(value);
@@ -115,35 +117,35 @@ export class Icon extends BasicElement {
     }
   }
 
-  private iconPending = false;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
-  private resolveIconReady (_requestedUpdate: boolean) { }
-  private iconReady: Promise<boolean> = Promise.resolve(true);
+  private iconReady!:Deferred<void>;
+
+  constructor () {
+    super();
+    this.iconReady = new Deferred<void>();
+    this.iconReady.resolve();
+  }
 
   /**
-   * Registers the connection to the DOM
+   * Called after the component is first rendered
+   * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  public connectedCallback (): void {
-    super.connectedCallback();
+  protected firstUpdated (changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
     this.setPrefix();
   }
 
   override async getUpdateComplete (): Promise<boolean> {
     const result = await super.getUpdateComplete();
-    await this.iconReady;
+    await this.iconReady.promise;
     return result;
   }
 
-
-  private enqueueIconReady () {
-    if (this.iconPending) {
+  private markIconReadyAsPending () {
+    if (this.iconReady.isPending()) {
       return;
     }
-    this.iconReady = new Promise(resolve => {
-      this.resolveIconReady = resolve;
-    });
-    this.iconPending = true;
+    this.iconReady = new Deferred<void>();
   }
 
   /**
@@ -151,7 +153,7 @@ export class Icon extends BasicElement {
    * @returns {void}
    */
   private async setIconSrc (): Promise<void> {
-    // updating from/to empty string and null should result in empty template
+    // keep `src` in-sync with `icon` so that icon svg would be resolved after every `icon` update
     this.src = this.icon ? await IconLoader.getSrc(this.icon) : this.icon;
   }
 
@@ -172,8 +174,7 @@ export class Icon extends BasicElement {
       return this.loadAndRenderIcon(src); // Load again and await cache result
     }
     this.template = await iconTemplateCacheItem;
-    this.iconPending = false;
-    this.resolveIconReady(true);
+    this.iconReady.resolve();
   }
 
   /**
@@ -197,8 +198,7 @@ export class Icon extends BasicElement {
    */
   private clearIcon (): void {
     this.template = EmptyTemplate;
-    this.iconPending = false;
-    this.resolveIconReady(true);
+    this.iconReady.resolve();
   }
 
   /**
