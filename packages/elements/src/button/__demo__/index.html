@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Button</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
     <style type="text/css">
       .demos {
         list-style-type: none;
@@ -37,10 +36,26 @@
   <body>
     <script type="module">
       import '@refinitiv-ui/demo-block';
-      import '@refinitiv-ui/elements/icon';
+      import '@refinitiv-ui/demo-block/demo.css';
       import '@refinitiv-ui/elements/button';
-    </script>
+      import '@refinitiv-ui/elements/icon';
+  
+      // Dynamic import theme files from search params of the URL
+      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      const url = new URL(window.location);
+      const theme = url.searchParams.get('theme') || 'halo';
+      const variant = url.searchParams.get('variant') || 'light';
 
+      if (!window.location.search) {
+        url.searchParams.set('theme', theme);
+        url.searchParams.append('variant', variant);
+        window.location.search = url.searchParams.toString();
+      }
+
+      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-button.js`);
+    </script>
+ 
     <!-- DEFAULT -->
     <demo-block layout="normal" header="Default" tags="default, disabled">
       <ul class="demos">
