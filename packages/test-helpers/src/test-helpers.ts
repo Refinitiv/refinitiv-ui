@@ -94,9 +94,10 @@ before(function () {
       console.warn(`warning: ${event}`);
       return true;
     }
-    /* c8 ignore next 3 */
+    /* c8 ignore start */
     else {
       return originalOnError ? originalOnError(event, ...args) as boolean : false;
     }
+    /* c8 ignore stop */
   };
 });

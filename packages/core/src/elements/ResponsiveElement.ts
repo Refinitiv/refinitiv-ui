@@ -37,11 +37,12 @@ const triggerResize = (entry: ResizeObserverEntry): void => {
     width = entry.borderBoxSize[0].inlineSize;
     height = entry.borderBoxSize[0].blockSize;
   }
-  /* c8 ignore next 4 */
+  /* c8 ignore start */
   else {
     width = entry.contentRect.width;
     height = entry.contentRect.height;
   }
+  /* c8 ignore stop */
   const event = new CustomEvent('resize', {
     bubbles: false,
     cancelable: false,
