@@ -89,12 +89,12 @@ before(function () {
     // Chrome: `ResizeObserver loop limit exceeded`
     // Safari: `ResizeObserver loop completed with undelivered notifications`
     // Each browser logs a slightly different messages yet they all start with `ResizeObserver loop`
-    /* istanbul ignore else */
     if (typeof event === 'string' && event.startsWith('ResizeObserver loop')) {
       // eslint-disable-next-line no-console
       console.warn(`warning: ${event}`);
       return true;
     }
+    /* c8 ignore next 3 */
     else {
       return originalOnError ? originalOnError(event, ...args) as boolean : false;
     }
