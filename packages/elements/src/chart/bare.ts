@@ -22,21 +22,9 @@ import {
   LegendItem,
   LineControllerDatasetOptions,
   Plugin,
-  UpdateMode,
-  LineController,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  LinearScale
+  UpdateMode
   // eslint-disable-next-line import/extensions
 } from 'chart.js';
-ChartJS.register(
-  LineController,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  LinearScale
-);
 
 // Register plugins
 export * from './plugins/doughnut-center-label.js';
