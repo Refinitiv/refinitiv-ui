@@ -8,7 +8,7 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
 import { color as parseColor } from '@refinitiv-ui/utils/color.js';
 
@@ -91,10 +91,8 @@ export class Chart extends BasicElement {
 
   /**
    * Html canvas element
-   * @type {HTMLCanvasElement}
    */
-  @query('canvas')
-  protected canvas!: HTMLCanvasElement;
+  protected canvas: Ref<HTMLCanvasElement> = createRef();
 
   /**
    * Required properties, needed for chart to work correctly.
@@ -168,7 +166,7 @@ export class Chart extends BasicElement {
   public connectedCallback (): void {
     super.connectedCallback();
     this.setGlobalConfig();
-    if (this.canvas) {
+    if (this.canvas.value) {
       this.createChart();
     }
   }
@@ -499,12 +497,12 @@ export class Chart extends BasicElement {
    * @returns {void}
    */
   protected createChart (): void {
-    const ctx = this.canvas.getContext('2d');
+    const ctx = this.canvas.value;
     if (ctx && this.config) {
       this.destroyChart();
       this.mergeConfigs();
 
-      this.chart = new ChartJS(this.canvas, this.config);
+      this.chart = new ChartJS(ctx, this.config);
     }
   }
 
@@ -607,7 +605,7 @@ export class Chart extends BasicElement {
       <div class="container">
         ${this.titleTemplate}
         <div part="chart">
-          <canvas id="canvas"></canvas>
+          <canvas ${ref(this.canvas)}></canvas>
         </div>
       </div>`;
   }
