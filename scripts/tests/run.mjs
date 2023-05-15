@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import { env } from 'node:process';
+import process from 'node:process';
+import fs from 'node:fs';
 import path from 'node:path';
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
@@ -135,19 +137,32 @@ if (snapshots) {
   process.argv.push('--update-snapshots');
 }
 
+process.on('uncaughtException', (err, origin) => {
+  fs.writeSync(
+    process.stderr.fd,
+    `Caught exception: ${err}\n` +
+    `Exception origin: ${origin}`,
+  );
+});
+
 // Run unit testing
-const singleElement = checkElement(testTarget);
-if (testTarget === 'elements' || singleElement) {
-  // Test each element individually for the elements package.
-  const elements = singleElement ? [testTarget] : getElements();
-  for (const element of elements) {
-    // Create test files pattern for current element
-    const elementTestFiles = [
-      path.join(ELEMENTS_ROOT, 'src', `${element}/__test__/**/*.test.js`),
-      '!**/node_modules/**/*', // exclude any node modules
-    ];
-    await startQueueTestRunner(element, config, elementTestFiles);
+try {
+  const singleElement = checkElement(testTarget);
+  if (testTarget === 'elements' || singleElement) {
+    // Test each element individually for the elements package.
+    const elements = singleElement ? [testTarget] : getElements();
+    for (const element of elements) {
+      // Create test files pattern for current element
+      const elementTestFiles = [
+        path.join(ELEMENTS_ROOT, 'src', `${element}/__test__/**/*.test.js`),
+        '!**/node_modules/**/*', // exclude any node modules
+      ];
+      await startQueueTestRunner(element, config, elementTestFiles);
+    }
+  } else {
+    await startTestRunner(config); // Start single runner (no queue)
   }
-} else {
-  await startTestRunner(config); // Start single runner (no queue)
+} catch (error) {
+  console.error(error);
+  process.exit(1);
 }
