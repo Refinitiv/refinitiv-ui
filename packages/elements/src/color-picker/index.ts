@@ -6,13 +6,13 @@ import {
   TemplateResult,
   TapEvent,
   CSSResult,
-  WarningNotice
+  WarningNotice,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import type { OpenedChangedEvent, ValueChangedEvent } from '../events';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
 import { isHex, readableColor } from '@refinitiv-ui/utils/color.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
@@ -295,7 +295,7 @@ export class ColorPicker extends ControlElement {
       return html`<ef-color-dialog
       offset="4"
       ${ref(this.dialogRef)}
-      .lang=${ifDefined(this.lang || undefined)}
+      .lang=${this.lang || nothing}
       .value=${this.value}
       .focusBoundary=${this}
       .positionTarget=${this}

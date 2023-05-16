@@ -15,11 +15,10 @@
     opacity: 1;
   }
 
-  [part~=header][focused="visible"],
   [part="header"]:hover,
+  [part~=header][focused="visible"],
   &[expanded] [part="header"] {
     color: @input-hover-text-color;
-    cursor: pointer;
 
     // use to modify header color when hover and expaned
     @dark-modifier: 10%;
