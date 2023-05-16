@@ -122,7 +122,7 @@ export class Icon extends BasicElement {
    * It would be resolved when the icon svg has been fetched and parsed, or
    * when the icon svg is unavailable/invalid.
    */
-  private iconReady!:Deferred<void>;
+  private iconReady!: Deferred<void>;
 
   constructor () {
     super();
