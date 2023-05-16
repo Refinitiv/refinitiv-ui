@@ -1,6 +1,7 @@
 import {
   html,
   css,
+  nothing,
   TemplateResult,
   CSSResultGroup,
   PropertyValues,
@@ -9,7 +10,6 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
 import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
@@ -996,14 +996,14 @@ export class OverlayMenu extends Overlay {
     }
 
     const tooltip = composer.getItemPropertyValue(item, 'tooltip');
-    const label = composer.getItemPropertyValue(item, 'label');
-    const icon = composer.getItemPropertyValue(item, 'icon');
+    const label = composer.getItemPropertyValue(item, 'label') as string;
+    const icon = composer.getItemPropertyValue(item, 'icon') as string;
 
     if (type === 'header') {
       return html`<ef-item
         role="presentation"
         type="header"
-        title=${ifDefined(tooltip || undefined)}
+        title=${tooltip || nothing}
         .label=${label}
         .icon=${icon}></ef-item>`;
     }
@@ -1019,9 +1019,9 @@ export class OverlayMenu extends Overlay {
     // type text
     return html`<ef-item
       role="menuitem"
-      aria-haspopup=${ifDefined(forMenu ? true : undefined)}
-      aria-expanded=${ifDefined(forMenu ? false : undefined)}
-      title=${ifDefined(tooltip || undefined)}
+      aria-haspopup=${forMenu ? true : nothing}
+      aria-expanded=${forMenu ? false : nothing}
+      title=${tooltip || nothing}
       ?disabled=${disabled}
       ?selected=${selected}
       ?highlighted=${highlighted}
@@ -1029,8 +1029,8 @@ export class OverlayMenu extends Overlay {
       .label=${label}
       .subLabel=${subLabel}
       .icon=${icon}
-      .value=${ifDefined(value || undefined)}
-      .for=${ifDefined(forMenu || undefined)}>
+      .value=${value || nothing}
+      .for=${forMenu || nothing}>
     </ef-item>`;
   }
 
