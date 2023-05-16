@@ -10,13 +10,9 @@ enum PromiseState {
  * Creates pending promise, that can be resolved or rejected manually
  */
 export class Deferred<T> {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private _resolve: PromiseField<T> = () => {
-  };
+  private _resolve!: PromiseField<T>;
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private _reject: PromiseField<T> = () => {
-  };
+  private _reject!: PromiseField<T>;
 
   private state = PromiseState.pending;
 
