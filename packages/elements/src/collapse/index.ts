@@ -2,10 +2,11 @@ import {
   BasicElement,
   css,
   CSSResultGroup,
-  html,
   nothing,
+  html,
   PropertyValues,
-  TemplateResult
+  TemplateResult,
+  TapEvent
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -54,20 +55,6 @@ export class Collapse extends BasicElement {
       }
       :host(:not([expanded])) [part~=content] {
         visibility: hidden;
-      }
-      [part~=header] {
-        position: relative;
-        z-index: 0;
-      }
-      [part~=header-toggle]::before {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: -1;
       }
       [part~=content]  {
         overflow: hidden;
@@ -204,27 +191,40 @@ export class Collapse extends BasicElement {
   }
 
   /**
+   * Prevents expanding collapse when interactive element in slot is tapped
+   * @param event Tap event
+   * @returns {void}
+   */
+  private handleSlotTap (event: TapEvent): void {
+    event.stopPropagation();
+  }
+
+  /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
    * @return Render template
    */
   protected render (): TemplateResult {
     return html`
-      <ef-header part="header" level="${this.level}">
-        <div part="heading" role="heading" aria-level="${this.headingLevel || nothing}">
-          <div id="header-toggle"
-               part="header-toggle"
-               role="button"
-               tabindex="0"
-               aria-expanded="${this.expanded}"
-               aria-controls="content"
-               @tap=${this.toggle}>${this.header}</div>
-        </div>
+      <ef-header
+        part="header"
+        role="heading"
+        level=${this.level}
+        aria-level=${this.headingLevel ?? nothing}
+        @tap=${this.toggle}>
+          <div
+            id="header-label"
+            role="button"
+            tabindex="0"
+            aria-expanded="${this.expanded}"
+            aria-controls="content">
+            ${this.header}
+          </div>
         <ef-icon icon="right" part="toggle" slot="left" aria-hidden="true"></ef-icon>
-        <slot name="header-left" slot="left"></slot>
-        <slot name="header-right" slot="right"></slot>
+        <slot name="header-left" slot="left" @tap=${this.handleSlotTap}></slot>
+        <slot name="header-right" slot="right" @tap=${this.handleSlotTap}></slot>
       </ef-header>
-      <div ${ref(this.panelHolderRef)} id="content" part="content" role="region" aria-labelledby="header-toggle">
+      <div ${ref(this.panelHolderRef)} id="content" part="content" role="region" aria-labelledby="header-label">
         <ef-panel ${ref(this.panelRef)} part="content-data" ?spacing="${this.spacing}" transparent>
           <slot></slot>
         </ef-panel>

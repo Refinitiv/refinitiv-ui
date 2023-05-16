@@ -29,7 +29,7 @@ import {
   deregister as deregisterOverflowTooltip
 } from './helpers/overflow-tooltip.js';
 
-const TooltipPositionMap: TooltipPositionMap = {
+const PositionMap: TooltipPositionMap = {
   'auto': ['bottom-start', 'top-start'],
   'above': ['top-middle'],
   'right': ['right-middle'],
@@ -531,7 +531,7 @@ class Tooltip extends BasicElement {
    * Get popup position based on tooltip position
    */
   private get tipPosition (): OverlayPosition[] {
-    return TooltipPositionMap[this.position];
+    return PositionMap[this.position];
   }
 
   /**

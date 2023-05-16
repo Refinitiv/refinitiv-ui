@@ -18,15 +18,16 @@
   }
 
   [part~=header] {
+    .touch-action();
+    cursor: pointer;
+
     padding: 0;
     &[focused="visible"] {
       background-color: @button-hover-background-color;
     }
   }
 
-  [part="header-toggle"] {
-    .touch-action();
-    cursor: pointer;
+  [part="header-label"] {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
