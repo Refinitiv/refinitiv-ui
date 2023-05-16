@@ -533,12 +533,12 @@ export class DatetimeField extends TextField {
 
   /**
    * Select part
-   * @param index Part index
    * @param parts The list of parts
+   * @param index Part index
    * @returns {void}
    */
-  protected selectPart (index = 0, parts: DateTimeFormatPart[]): void {
-    const { selectionStart, selectionEnd } = selectPart(index, parts);
+  protected selectPart (parts: DateTimeFormatPart[], index = 0): void {
+    const { selectionStart, selectionEnd } = selectPart(parts, index);
     this.partLabel = parts[index] ? parts[index].type : '';
     this.setSelectionRange(selectionStart, selectionEnd);
   }
@@ -589,7 +589,7 @@ export class DatetimeField extends TextField {
 
     // If no segments selected, select the segment where the cursor is
     if (this.selectionStart === this.selectionEnd) {
-      this.selectPart(selectedPartIndex, parts);
+      this.selectPart(parts, selectedPartIndex);
       event.preventDefault();
       return;
     }
@@ -624,16 +624,16 @@ export class DatetimeField extends TextField {
           }
           this.setValueAndNotify(newValue);
           this.syncInputValue();
-          this.selectPart(selectedPartIndex, this.formatToParts(newValue));
+          this.selectPart(this.formatToParts(newValue), selectedPartIndex);
           this.resetError();
           event.preventDefault();
         }
         break;
       case 'ArrowRight':
       case 'ArrowLeft':
-        const nextPartIdx = getNextSelectedPartIndex(selection, parts, this.inputValue, key === 'ArrowLeft' ? Direction.Down : Direction.Up);
+        const nextPartIndex = getNextSelectedPartIndex(selection, parts, this.inputValue, key === 'ArrowLeft' ? Direction.Down : Direction.Up);
         this.selectPartFrame.schedule(() => {
-          this.selectPart(nextPartIdx, parts);
+          this.selectPart(parts, nextPartIndex);
         });
         break;
       // no default
