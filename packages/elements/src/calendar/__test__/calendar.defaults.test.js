@@ -1,4 +1,5 @@
-import { fixture, expect, elementUpdated, nextFrame, isSafari, isFirefox } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame, isFirefox } from '@refinitiv-ui/test-helpers';
+import { isSafari } from "@refinitiv-ui/utils";
 import {
   setYearView,
   setMonthView

@@ -1,4 +1,5 @@
-import { expect, fixture, isSafari } from '@refinitiv-ui/test-helpers';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
+import { isSafari } from "@refinitiv-ui/utils";
 import { createSandbox, restore, spy } from 'sinon';
 
 import '@refinitiv-ui/elements/overlay';

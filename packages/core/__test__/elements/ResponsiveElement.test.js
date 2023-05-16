@@ -1,4 +1,5 @@
-import { expect, fixture, oneEvent, html, isSafari } from '@refinitiv-ui/test-helpers';
+import { expect, fixture, oneEvent, html } from '@refinitiv-ui/test-helpers';
+import { isSafari } from "@refinitiv-ui/utils";
 import { ResponsiveElement } from '../../lib/elements/ResponsiveElement';
 import { css } from '../../lib/index.js';
 import { customElement } from '../../lib/decorators/custom-element';

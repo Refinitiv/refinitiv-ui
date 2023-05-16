@@ -58,20 +58,6 @@ export const isNear = (a: number, b: number, distance: number, inclusive = true)
 };
 
 /* c8 ignore start */
-
-/**
- * Check browser is Safari
- * @param version select version to checking
- * @returns boolean
- */
-export const isSafari = (version = undefined): boolean => { // Indicates if this is Safari. Put version parameter to specific version.
-  const safari = (/Safari/).test(navigator.userAgent) && !(/Chrome/).test(navigator.userAgent);
-  if (version) {
-    return safari && (navigator.userAgent.indexOf(`Version\/${String(version)}`) > -1);
-  }
-  return safari;
-};
-
 /**
  * Check browser is Firefox
  * @returns boolean
