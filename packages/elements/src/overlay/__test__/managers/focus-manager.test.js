@@ -1,4 +1,5 @@
-import { elementUpdated, expect, fixture, isSafari } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+import { isSafari } from "@refinitiv-ui/utils";
 import { createSandbox, restore, spy } from 'sinon';
 import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
 

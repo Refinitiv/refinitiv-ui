@@ -1,4 +1,5 @@
-import { fixture, expect, elementUpdated, isSafari, replaceWhitespace } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, replaceWhitespace } from '@refinitiv-ui/test-helpers';
+import { isSafari } from "@refinitiv-ui/utils";
 import { inputValue } from './utils';
 
 // import element and theme
