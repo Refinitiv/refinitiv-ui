@@ -126,6 +126,8 @@ export class Flag extends BasicElement {
   constructor () {
     super();
     this.flagReady = new Deferred<void>();
+    // `flagReady` resolves at this stage so that `updateComplete` would be resolvable
+    // even in the case that both `flag` and `src` attribute are missing.
     this.flagReady.resolve();
   }
 
