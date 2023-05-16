@@ -29,7 +29,7 @@ const compareVersion = (targetVersion: string, browserVersion: string): boolean 
  * @param targetVersion target version of Safari that can include operator(<,>,=) to compare e.g. '>15.4'
  * @returns boolean
  */
-const isSafari = (targetVersion: string): boolean => {
+const isSafari = (targetVersion = undefined): boolean => {
   const safari = (/Safari/).test(navigator.userAgent) && !(/Chrome/).test(navigator.userAgent);
   if (!safari) {
     return false;

@@ -1,4 +1,5 @@
-import { elementUpdated, expect, nextFrame, oneEvent, isSafari, isFirefox } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, nextFrame, oneEvent, isFirefox } from '@refinitiv-ui/test-helpers';
+import { isSafari } from "@refinitiv-ui/utils";
 
 import '@refinitiv-ui/elements/autosuggest';
 import '@refinitiv-ui/elements/text-field';
