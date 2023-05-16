@@ -331,7 +331,7 @@ export class NumberField extends FormFieldElement {
    */
   protected onApplyStep (direction: Direction): void {
     try {
-      this.applyStepDirection(undefined, direction);
+      this.applyStepDirection(direction);
       this.setSilentlyValueAndNotify();
     }
     catch (error) {
@@ -590,11 +590,11 @@ export class NumberField extends FormFieldElement {
 
   /**
    * Apply step up or step down on the input
-   * @param stepIncrement step increment factor
    * @param direction either go up or down
+   * @param stepIncrement step increment factor
    * @returns {void}
    */
-  private applyStepDirection (stepIncrement: number | undefined = 1, direction: Direction): void {
+  private applyStepDirection (direction: Direction, stepIncrement = 1): void {
     const min = this.stringToNumber(this.min);
     const max = this.stringToNumber(this.max);
 
@@ -661,7 +661,7 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   public stepUp (stepIncrement?: number): void {
-    this.applyStepDirection(stepIncrement, Direction.Up);
+    this.applyStepDirection(Direction.Up, stepIncrement);
   }
 
   /**
@@ -670,7 +670,7 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   public stepDown (stepIncrement?: number): void {
-    this.applyStepDirection(stepIncrement, Direction.Down);
+    this.applyStepDirection(Direction.Down, stepIncrement);
   }
 
   /**
