@@ -80,6 +80,12 @@ if (useBrowserStack) {
       case 'default':
         BrowserStack.defaultBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
         break;
+      case 'latest':
+        BrowserStack.latestBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
+        break;
+      case 'old':
+        BrowserStack.oldBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
+        break;
       case 'supported':
         BrowserStack.supportedBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
         break;
@@ -91,14 +97,19 @@ if (useBrowserStack) {
 
   // Create BrowserStack launchers
   const browsers = [];
+  const defaultLauncherNames = {
+    'chrome': 'Chromium',
+    'firefox': 'Firefox',
+    'safari': 'Webkit'
+  };
   launchers.forEach(launcher => {
     // Create browserName to show as a label in the progress bar reporter
     let browserName = `${launcher.browser ?? launcher.browserName ?? launcher.device ?? 'unknown'}${launcher.browser_version ? ` ${launcher.browser_version}` : ''}` + ` (${launcher.os} ${launcher.os_version})`;
     browserName = browserName.charAt(0).toUpperCase() + browserName.slice(1);
-
-    // Safari has the connection issue and test cases failed with BrowserStack, need to test Safari on PlayWright for now.
-    if (launcher.browser.startsWith('safari')) {
-      browsers.push(playwrightLauncher({ product: 'webkit' }, { headless: true }));
+    // Default desktop browsers (latest) must use launcher from the default config
+    if (launcher.browser in defaultLauncherNames) {
+      const defaultLauncher = config.browsers.find(browser => browser.name === defaultLauncherNames[launcher.browser]);
+      browsers.push(defaultLauncher);
     } else {
       browsers.push(browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher, browserName } }));
     }

@@ -58,9 +58,24 @@ jobs:
 
       - name: Test
         uses: ./.github/actions/run-test
+        with:
+          browsers: 'latest'
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  test-old:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'old'
