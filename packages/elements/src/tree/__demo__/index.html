@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Tree</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
     <style>
       ef-tree {
         max-height: 400px;
@@ -12,9 +11,27 @@
   </head>
   <body>
     <script type="module">
-      import { TreeRenderer } from '@refinitiv-ui/elements/tree';
-      import '@refinitiv-ui/elements/tree';
       import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/demo-block/demo.css';
+      import '@refinitiv-ui/elements/tree';
+  
+      // Dynamic import theme files from search params of the URL
+      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      const url = new URL(window.location);
+      const theme = url.searchParams.get('theme') || 'halo';
+      const variant = url.searchParams.get('variant') || 'light';
+  
+      if (!window.location.search) {
+        url.searchParams.set('theme', theme);
+        url.searchParams.append('variant', variant);
+        window.location.search = url.searchParams.toString();
+      }
+
+      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-tree.js`);
+    </script>
+    <script type="module">
+      import { TreeRenderer } from '@refinitiv-ui/elements/tree';
       let nextId = 0;
       const makeData = (depth = 0, detail = { count: 0 }) => {
         if (!detail.count) {

@@ -2,6 +2,7 @@ import {
   BasicElement,
   html,
   css,
+  nothing,
   PropertyValues,
   TemplateResult,
   CSSResultGroup
@@ -9,8 +10,8 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js';
 import { color as parseColor } from '@refinitiv-ui/utils/color.js';
+import { VERSION } from '../version.js';
 
 import {
   ChartConfiguration,
@@ -23,10 +24,8 @@ import {
   LineControllerDatasetOptions,
   Plugin,
   UpdateMode
-  // eslint-disable-next-line import/extensions
 } from 'chart.js';
 
-// Register plugins
 export * from './plugins/doughnut-center-label.js';
 import 'chartjs-adapter-date-fns';
 
@@ -65,6 +64,52 @@ export class Chart extends BasicElement {
   }
 
   /**
+   * A `CSSResultGroup` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @return CSS template
+   */
+  static get styles (): CSSResultGroup {
+    return css`
+      :host {
+        display: block;
+        overflow: hidden;
+        position: relative;
+      }
+      :host::before {
+        content: '';
+        display: block;
+        padding-top: 60%;
+        min-height: 300px;
+        box-sizing: border-box;
+      }
+      [part=container] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      [part=chart] {
+        flex: 1 1 auto;
+        position: relative;
+      }
+      [part=title] {
+        margin-bottom: 12px;
+      }
+      canvas {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    `;
+  }
+
+  /**
    * Chart.js object
    * @type {ChartJS | null}
    */
@@ -72,13 +117,13 @@ export class Chart extends BasicElement {
 
   /**
    * Chart configurations. Same configuration as ChartJS
-   * @type {ChartConfiguration}
+   * @type {ChartConfiguration | null}
    */
   @property({ type: Object })
   public config: ChartConfiguration | null = null;
 
   /**
-   * Html canvas element
+   * Canvas element used to render Chart
    */
   protected canvas: Ref<HTMLCanvasElement> = createRef();
 
@@ -101,15 +146,19 @@ export class Chart extends BasicElement {
   /**
    * List of available chart colors
    * @type {string[]}
-   * @returns {string[]} List of available chart colors
+   * @returns {string[]}List of available chart colors
    */
   public get colors (): string[] {
-    let color;
-    let index = 0;
-    const colors = [];
-    while ((color = this.getComputedVariable(`${CSS_COLOR_PREFIX}${++index}`))) {
+    const colors: string[] = [];
+
+    for (let index = 1; ; index++) {
+      const color = this.getComputedVariable(`${CSS_COLOR_PREFIX}${index}`);
+      if (!color) {
+        break;
+      }
       colors.push(color);
     }
+
     return colors;
   }
 
@@ -137,7 +186,7 @@ export class Chart extends BasicElement {
 
   /**
    * Invoked whenever the element is updated
-   * @param {PropertyValues} changedProperties Map of changed properties with old values
+   * @param changedProperties Map of changed properties with old values
    * @returns {void}
    */
   protected updated (changedProperties: PropertyValues): void {
@@ -169,8 +218,8 @@ export class Chart extends BasicElement {
   }
 
   /**
-   * Create plugin to set our theme into chartjs lifecycle
-   * @returns {Plugin} plugin
+   * Create plugin to set our theme into ChartJS lifecycle
+   * @returns Created plugin
    */
   private createPlugin (): Plugin {
     return {
@@ -186,7 +235,7 @@ export class Chart extends BasicElement {
   /**
    * Themable parts of the config.
    * This will be merged into the configuration object.
-   * @returns {ChartOptions} chart config with theme
+   * @returns Chart option with theme
    */
   protected get themableChartOption (): ChartOptions {
     const boxWidth = this.cssVarAsNumber('--legend-key-box-width', '10') as number;
@@ -269,7 +318,7 @@ export class Chart extends BasicElement {
 
   /**
    * Get as CSS variable and tries to convert it into a usable number
-   * @returns {(number|undefined)} The value as a number, or, undefined if NaN.
+   * @returns The value as a number, or, undefined if NaN.
    */
   protected cssVarAsNumber (...args: string[]): number | undefined {
     const result = Number(this.getComputedVariable(...args).replace(/\D+$/, ''));
@@ -278,7 +327,7 @@ export class Chart extends BasicElement {
 
   /**
    * Inject theme color into each datasets
-   * @param {ChartJS} chart Chart.js instance
+   * @param chart Chart.js instance
    * @returns {void}
    */
   protected decorateColors = (chart: ChartJS): void => {
@@ -367,8 +416,8 @@ export class Chart extends BasicElement {
 
   /**
    * Generates the legend labels on a given chart
-   * @param {ChartJS} chart Chart.js instance
-   * @returns {LegendItem[]} Array of label configurations
+   * @param chart Chart.js instance
+   * @returns Array of label configurations
    */
   protected generateLegendLabels = (chart: ChartJS): LegendItem[] => {
     const chartType = (chart.config as ChartConfiguration).type;
@@ -431,7 +480,7 @@ export class Chart extends BasicElement {
     let plugins: Plugin[] = [
       this.createPlugin()
     ];
-    
+
     if (Array.isArray(this.config.plugins) && this.config.plugins.length > 0) {
       plugins = [
         ...plugins,
@@ -448,13 +497,12 @@ export class Chart extends BasicElement {
     );
   }
 
-
   /**
    * Generates internal solid and opaque color set for a dataset
-   * @param {boolean} isArray Flag to return result in array or not e.g. doughnut, pie, etc
-   * @param {number} amount Amount of colors required
-   * @param {number} shift Positional shift of the color start point
-   * @returns {DatasetColors} Solid and opaque color values
+   * @param isArray Flag to return result in array or not e.g. doughnut, pie, etc
+   * @param amount Amount of colors required
+   * @param shift Positional shift of the color start point
+   * @returns Solid and opaque color values
    */
   protected generateColors (isArray: boolean, amount: number, shift: number): DatasetColors {
     const solid = [];
@@ -485,12 +533,12 @@ export class Chart extends BasicElement {
    * @returns {void}
    */
   protected createChart (): void {
-    const ctx = this.canvas.value;
-    if (ctx && this.config) {
+    const canvas = this.canvas.value;
+    if (canvas && this.config) {
       this.destroyChart();
       this.mergeConfigs();
 
-      this.chart = new ChartJS(ctx, this.config);
+      this.chart = new ChartJS(canvas, this.config);
     }
   }
 
@@ -500,7 +548,6 @@ export class Chart extends BasicElement {
    */
   protected destroyChart (): boolean {
     if (this.chart) {
-      // Destroy the chart
       this.chart.destroy();
       this.chart = null;
       return true;
@@ -510,7 +557,7 @@ export class Chart extends BasicElement {
 
   /**
    * Update all data, title, scales, legends and re-render the chart based on its config
-   * @param {UpdateMode} updateMode Additional configuration for control an animation in the update process.
+   * @param updateMode Additional configuration for control an animation in the update process.
    * @returns {void}
    */
   public updateChart (updateMode: UpdateMode): void {
@@ -518,12 +565,10 @@ export class Chart extends BasicElement {
       return;
     }
 
-    // Stop any chart.js animations
     this.chart.stop();
     this.mergeConfigs();
     this.requestUpdate();
 
-    // Update the chart
     this.chart?.update(updateMode);
   }
 
@@ -532,55 +577,8 @@ export class Chart extends BasicElement {
    * Rendered when `config.plugins.title.text` is set
    * @returns Header template from title of config
    */
-  protected get titleTemplate (): TemplateResult | undefined {
-    return this.chartTitle
-      ? html`<ef-header>${this.chartTitle}</ef-header>` : undefined;
-  }
-
-  /**
-   * A `CSSResultGroup` that will be used
-   * to style the host, slotted children
-   * and the internal template of the element.
-   * @return CSS template
-   */
-  static get styles (): CSSResultGroup {
-    return css`
-      :host {
-        display: block;
-        overflow: hidden;
-        position: relative;
-      }
-      :host::before {
-        content: '';
-        display: block;
-        padding-top: 60%;
-        min-height: 300px;
-        box-sizing: border-box;
-      }
-      .container {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        display: flex;
-        flex-direction: column;
-      }
-      [part=chart] {
-        flex: 1 1 auto;
-        position: relative;
-      }
-      ef-header {
-        margin-bottom: 12px;
-      }
-      canvas {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-      }
-    `;
+  protected get titleTemplate (): TemplateResult | typeof nothing {
+    return this.chartTitle ? html`<ef-header part="title">${this.chartTitle}</ef-header>` : nothing;
   }
 
   /**
@@ -590,7 +588,7 @@ export class Chart extends BasicElement {
    */
   protected render (): TemplateResult {
     return html`
-      <div class="container">
+      <div part="container">
         ${this.titleTemplate}
         <div part="chart">
           <canvas ${ref(this.canvas)}></canvas>

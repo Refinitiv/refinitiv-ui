@@ -3,33 +3,45 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  <style type="text/css">
+    ef-sparkline[custom-line-color] {
+      --line-color: #f12ce8;
+    }
+    ef-sparkline[custom-threshold-color] {
+      --upper-line-color: #4286f4;
+      --lower-line-color: #f4b541;
+      --reference-line-color: #74f441;
+      --previous-line-color: #f12ce8;
+      --fill-color-style: solid;
+    }
 
-  <custom-style>
-    <style type="text/css">
-      ef-sparkline[custom-line-color] {
-        --line-color: #f12ce8;
-      }
-      ef-sparkline[custom-threshold-color] {
-        --upper-line-color: #4286f4;
-        --lower-line-color: #f4b541;
-        --reference-line-color: #74f441;
-        --previous-line-color: #f12ce8;
-        --fill-color-style: solid;
-      }
-
-      ef-sparkline:not(#default) {
-        width: 100%;
-        height: 160px;
-      }
-    </style>
-  </custom-style>
+    ef-sparkline:not(#default) {
+      width: 100%;
+      height: 160px;
+    }
+  </style>
 </head>
 
 <body>
   <script type="module">
-    import '@refinitiv-ui/elements/sparkline';
     import '@refinitiv-ui/demo-block';
+    import '@refinitiv-ui/demo-block/demo.css';
+    import '@refinitiv-ui/elements/sparkline';
+
+    // Dynamic import theme files from search params of the URL
+    // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+    const url = new URL(window.location);
+    const theme = url.searchParams.get('theme') || 'halo';
+    const variant = url.searchParams.get('variant') || 'light';
+
+    if (!window.location.search) {
+      url.searchParams.set('theme', theme);
+      url.searchParams.append('variant', variant);
+      window.location.search = url.searchParams.toString();
+    }
+
+    import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+    import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-sparkline.js`);
   </script>
 
   <demo-block header="Default Size" layout="normal">

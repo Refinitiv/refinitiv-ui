@@ -11,7 +11,9 @@ EF provides packages for elements and themes separately. This decoupling allows 
 
 The techniques for implementing theme switching can vary, depending on how the application is structured. This guideline shows one approach.
 
-In this example, we recommend splitting components and themes into different bundle files, so you can load another theme without having to reload the component bundle. That approach will reduce duplicate code in the bundle and keep the overall bundle size in your application smaller.
+ We recommend splitting components and themes into different bundle files, so you can load another theme without having to reload the component bundle. That approach will reduce duplicate code in the bundle and keep the overall bundle size in your application smaller.
+
+@> Due to a limitation of our theming implementation to support legacy browsers, theme switching requires page reload.
 
 ---
 
@@ -51,7 +53,7 @@ In the same directory, create a theme loader that dynamically imports the theme 
 // theme-loader.js
 export function loadTheme() {
   const theme = document.body.getAttribute("theme"); // value can be `light` or `dark`
-  return import(`./theme.${theme}`); // provided that theme.light.js & theme.dark.js are in the same directory
+  return import(`./theme.${theme}.js`); // provided that theme.light.js & theme.dark.js are in the same directory
 }
 ```
 
@@ -67,5 +69,7 @@ import { loadTheme } from './theme-loader';
 
 function onThemeChanges() {
   loadTheme();
+  // requires page reload after load new theme
+  window.location.reload(); 
 }
 ```
