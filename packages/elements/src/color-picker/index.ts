@@ -61,7 +61,7 @@ export class ColorPicker extends ControlElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static get styles (): CSSResult {
     return css`
       :host {
         display: inline-block;
@@ -158,8 +158,10 @@ export class ColorPicker extends ControlElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
+
     this.addEventListener('tap', this.onTap);
     this.addEventListener('keydown', this.onKeyDown);
+
     void this.updateColorAriaLabel();
   }
 
@@ -282,39 +284,39 @@ export class ColorPicker extends ControlElement {
    * @returns template result
    */
   private get selectionTemplate (): TemplateResult | typeof nothing {
-    if (!this.value) {
-      return nothing;
+    if (this.value) {
+      return html`<div
+        part="aria-selection"
+        role="status"
+        aria-live="polite"
+        aria-label="${this.colorAriaLabel}">
+      </div>`;
     }
 
-    return html`<div
-      part="aria-selection"
-      role="status"
-      aria-live="polite"
-      aria-label="${this.colorAriaLabel}">
-    </div>`;
+    return nothing;
   }
 
   /**
    * Color dialog template
    */
   private get dialogTemplate (): TemplateResult | typeof nothing {
-    if (!this.lazyRendered) {
-      return nothing;
+    if (this.lazyRendered) {
+      return html`<ef-color-dialog
+        offset="4"
+        ${ref(this.dialogRef)}
+        .lang=${this.lang || nothing}
+        .value=${this.value}
+        .focusBoundary=${this}
+        .positionTarget=${this}
+        .position=${DIALOG_POSITION}
+        .withBackdrop=${false}
+        ?opened=${this.opened}
+        ?allow-nocolor=${this.allowNocolor}
+        @opened-changed=${this.onColorDialogOpenedChanged}
+        @value-changed=${this.onColorDialogValueChanged}></ef-color-dialog>`;
     }
 
-    return html`<ef-color-dialog
-      offset="4"
-      ${ref(this.dialogRef)}
-      .lang=${this.lang || nothing}
-      .value=${this.value}
-      .focusBoundary=${this}
-      .positionTarget=${this}
-      .position=${DIALOG_POSITION}
-      .withBackdrop=${false}
-      ?opened=${this.opened}
-      ?allow-nocolor=${this.allowNocolor}
-      @opened-changed=${this.onColorDialogOpenedChanged}
-      @value-changed=${this.onColorDialogValueChanged}></ef-color-dialog>`;
+    return nothing;
   }
 
   /**
