@@ -13,6 +13,8 @@ import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';
+import { consume } from '@lit-labs/context';
+import { efConfig, type Icon as IconType } from '../config/index.js';
 
 const EmptyTemplate = svg``;
 
@@ -33,6 +35,9 @@ export class Icon extends BasicElement {
   static get version (): string {
     return VERSION;
   }
+
+  @consume({ context: efConfig })
+    iconMap: IconType = {};
 
   /**
    * A `CSSResultGroup` that will be used
@@ -91,7 +96,10 @@ export class Icon extends BasicElement {
     if (this.src !== value) {
       this._src = value;
       this.clearIcon();
-      if (value) {
+      if (this.icon && this.iconMap[this.icon]) {
+        void this.loadAndRenderIcon(this.iconMap[this.icon]);
+      }
+      else if (value) {
         void this.loadAndRenderIcon(value);
       }
     }
@@ -119,6 +127,7 @@ export class Icon extends BasicElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
+    
     /**
      * We have to call this here because
      * polyfilled browsers only get variables at this point.

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Config</title>
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/config';
+      import '@refinitiv-ui/elements/icon';
+      import '@refinitiv-ui/demo-block';
+
+    </script>
+
+    <demo-block header="Custom icons config">
+      <ef-config>
+        <ef-icon icon="pdf"></ef-icon>
+        <ef-icon icon="flame"></ef-icon>
+      </ef-config>
+    </demo-block>
+    <script>
+      const config = document.querySelector('ef-config');
+      config.iconMap = { "pdf": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBzdHJva2U9IiMwMDAiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHBhdGggZD0iTTkuNzkzIDIuNUgzLjV2MTFoOVY1LjIwN0w5Ljc5MyAyLjV6Ii8+PHBhdGggZD0iTTkuNSAyLjV2M2gzTTcgMTFsLjUtNi0uNS0uNUg1LjVWNWw0LjUgNS41aC41di0yTDEwIDhsLTQuNSAydjEuNWguNjl6Ii8+PC9nPjwvc3ZnPg=='}
+    </script>
+
+  </body>
+</html>
