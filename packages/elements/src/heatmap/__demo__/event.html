@@ -4,16 +4,16 @@
 <head>
   <meta charset="utf-8">
   <title>ef-heatmap</title>
-  <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
 </head>
 
 <body>
   <script type="module">
+    import '@refinitiv-ui/demo-block';
+    import '@refinitiv-ui/demo-block/demo.css';
     import '@refinitiv-ui/elements/heatmap';
     import '@refinitiv-ui/elements/dialog';
     import '@refinitiv-ui/elements/overlay-menu';
     import '@refinitiv-ui/elements/sparkline';
-    import '@refinitiv-ui/demo-block';
   </script>
   <style>
     demo-block {
@@ -101,7 +101,7 @@
       el.tooltipCallback = function (cell) {
         var tooltip = document.createElement('div');
         var template = `
-            <div style="font-weight: bold">Actual value:</div>
+            <div style="font-weight: 600">Actual value:</div>
             <div style="color:${cell.color}">${cell.value}</div>
             <ef-sparkline data="[${generateSparkline().join()}]" style="width: 100%;margin-top:5px;"></ef-sparkline>
           `;

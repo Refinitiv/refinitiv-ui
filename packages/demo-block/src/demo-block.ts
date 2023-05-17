@@ -10,16 +10,19 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 
 const Themes = [
-  'elemental-theme/light',
-  'elemental-theme/dark',
-  'halo-theme/light',
-  'halo-theme/dark',
-  'solar-theme/pearl',
-  'solar-theme/charcoal'
+  'elemental/light',
+  'elemental/dark',
+  'halo/light',
+  'halo/dark',
+  'solar/pearl',
+  'solar/charcoal'
 ];
 
+const url = new URL(window.location as unknown as string);
+
 const getCurrentTheme = (): string => {
-  return sessionStorage.getItem('elf-demo-theme') || Themes[0];
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+  return `${url.searchParams.get('theme')}/${url.searchParams.get('variant')}` || Themes[0];
 };
 
 const getNextTheme = (): string => {
@@ -32,8 +35,10 @@ const getPrevTheme = (): string => {
 
 /* c8 ignore start */
 const changeTheme = (theme: string): void => {
-  sessionStorage.setItem('elf-demo-theme', theme);
-  location.reload();
+  const searchParams = theme.split('/');
+  url.searchParams.set('theme', searchParams[0]);
+  url.searchParams.set('variant', searchParams[1]);
+  window.location.search = url.searchParams.toString();
 };
 /* c8 ignore stop */
 
@@ -42,20 +47,6 @@ const removePrefixName = (name: string): string => {
 };
 
 const currentTheme = getCurrentTheme();
-const themeLoader = document.createElement('script');
-themeLoader.src = `/node_modules/@refinitiv-ui/${currentTheme}/es5/all-elements.js`;
-document.head.appendChild(themeLoader);
-console.info('Theme:', currentTheme);
-
-/* c8 ignore start */
-themeLoader.onload = (): void => {
-  const body = document.body;
-  const bgColor = getComputedStyle(body).getPropertyValue('background-color');
-  const bgStyle = document.createElement('style');
-  bgStyle.textContent = `body { background-color: transparent !important; --demo-block-background: ${bgColor}; visibility: visible; }`;
-  document.head.appendChild(bgStyle);
-};
-/* c8 ignore stop */
 
 // Next Theme
 const nextBtn = document.createElement('span');
@@ -94,15 +85,9 @@ themeLabel.style.fontSize = '15px';
 themeLabel.style.left = '10px';
 themeLabel.style.top = '10px';
 themeLabel.style.padding = '2px 4px';
-themeLabel.style.fontWeight = 'bold';
+themeLabel.style.fontWeight = '600';
 themeLabel.style.textTransform = 'uppercase';
 themeLabel.innerHTML = removePrefixName(currentTheme);
-
-const versionTag = document.createElement('span');
-versionTag.innerHTML = 'V6';
-versionTag.style.marginLeft = '8px';
-versionTag.style.color = '#334BFF';
-themeLabel.appendChild(versionTag);
 
 document.body.appendChild(nextBtn);
 document.body.appendChild(prevBtn);

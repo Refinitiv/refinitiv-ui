@@ -13,7 +13,7 @@ layout: default
 const makeData = () => {
   return Array(1000).fill(0).map((_, i) => {
     return {
-      type: i % 10 === 0 ? 'header' : 'item',
+      type: i % 10 === 0 ? 'header' : 'text',
       label: i % 10 === 0 ? i + '\'s' : 'Item number ' + i,
       value: i.toString(),
       disabled: i % 10 === 7,
