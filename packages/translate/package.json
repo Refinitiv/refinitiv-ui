@@ -18,7 +18,7 @@
     "build:watch": "npm run build -- --watch --preserveWatchOutput",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "start": "npm run build && concurrently \"npm run build:watch\" \"web-dev-server --config ../../server.config.mjs --app-index __demo__\"",
+    "start": "npm run build && concurrently \"npm run build:watch\" \"vite serve __demo__ --open --force\"",
     "test": "npm run build && node ../../scripts/tests/run.mjs  --package=translate",
     "test:snapshots": "npm run test -- --update-snapshots",
     "test:watch": "npm run test -- --watch",

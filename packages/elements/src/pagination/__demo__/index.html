@@ -3,12 +3,10 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
 </head>
 
 <body>
   <script type="module">
-
     // Translations
     import '@refinitiv-ui/phrasebook/locale/de/pagination.js';
     import '@refinitiv-ui/phrasebook/locale/ja/pagination.js';
@@ -17,8 +15,24 @@
   </script>
 
   <script type="module">
-    import '@refinitiv-ui/elements/pagination';
     import '@refinitiv-ui/demo-block';
+    import '@refinitiv-ui/demo-block/demo.css';
+    import '@refinitiv-ui/elements/pagination';
+
+    // Dynamic import theme files from search params of the URL
+    // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+    const url = new URL(window.location);
+    const theme = url.searchParams.get('theme') || 'halo';
+    const variant = url.searchParams.get('variant') || 'light';
+
+    if (!window.location.search) {
+      url.searchParams.set('theme', theme);
+      url.searchParams.append('variant', variant);
+      window.location.search = url.searchParams.toString();
+    }
+
+    import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+    import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-pagination.js`);
   </script>
 
   <demo-block layout="normal" header="Default" tags="default">
