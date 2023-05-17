@@ -10,16 +10,18 @@ import {
   nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import type { OpenedChangedEvent, ValueChangedEvent } from '../events';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { VERSION } from '../version.js';
 import { isHex, readableColor } from '@refinitiv-ui/utils/color.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import '../color-dialog/index.js';
-import type { ColorDialog } from '../color-dialog/index.js';
+
 import '@refinitiv-ui/phrasebook/locale/en/color-picker.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
+
+import type { ColorDialog } from '../color-dialog/index.js';
+import type { OpenedChangedEvent, ValueChangedEvent } from '../events';
 
 import {
   translate,
@@ -27,12 +29,12 @@ import {
   TranslatePropertyKey
 } from '@refinitiv-ui/translate';
 
-
 const DIALOG_POSITION = ['right-start', 'right-end', 'right-middle', 'left-start', 'left-end', 'left-middle'];
 
 /**
  *
- * Color picker control
+ *  Color picker control
+ *
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  *
  * @attr {boolean} readonly - Set readonly state
@@ -52,6 +54,26 @@ export class ColorPicker extends ControlElement {
   }
 
   protected readonly defaultRole: string | null = 'button';
+
+  /**
+   * A `CSSResult` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @returns CSS template
+   */
+  static get styles (): CSSResult | CSSResult[] {
+    return css`
+      :host {
+        display: inline-block;
+      }
+      [part=color-item][no-color] {
+        background: linear-gradient(to bottom right, transparent calc(50% - 1px),
+        var(--no-color-line-color, #ff0000) calc(50% - 1px),
+        var(--no-color-line-color, #ff0000) calc(50% + 1px),
+        transparent calc(50% + 1px));
+      }
+    `;
+  }
 
   /**
    * Color Description for aria-label
@@ -79,31 +101,14 @@ export class ColorPicker extends ControlElement {
   protected colorTPromise!: TranslatePromise;
 
   /**
-   * A `CSSResult` that will be used
-   * to style the host, slotted children
-   * and the internal template of the element.
-   * @returns CSS template
-   */
-  static get styles (): CSSResult | CSSResult[] {
-    return css`
-      :host {
-        display: inline-block;
-      }
-      [part=color-item][no-color] {
-        background: linear-gradient(to bottom right, transparent calc(50% - 1px),
-        var(--no-color-line-color, #ff0000) calc(50% - 1px),
-        var(--no-color-line-color, #ff0000) calc(50% + 1px),
-        transparent calc(50% + 1px));
-      }
-    `;
-  }
-
-  /**
    * Reference to the color dialog
    */
   private dialogRef: Ref<ColorDialog> = createRef();
 
-  private lazyRendered = false; /* speed up rendering by not populating color dialog on first load */
+  /*
+   * Speeds up rendering by not populating color dialog on first load
+   */
+  private lazyRendered = false;
 
   /**
    * Toggles the opened state of the dialog
@@ -249,21 +254,6 @@ export class ColorPicker extends ControlElement {
   }
 
   /**
-   * A template used to notify currently selected value for screen readers
-   * @returns template result
-   */
-  private get selectionTemplate (): TemplateResult | null {
-    if (!this.value) {
-      return null;
-    }
-    return html`<div
-    part="aria-selection"
-    role="status"
-    aria-live="polite"
-    aria-label="${this.colorAriaLabel}"></div>`;
-  }
-
-  /**
    * Helper method, used to set the color description.
    * @returns {void}
    */
@@ -288,11 +278,31 @@ export class ColorPicker extends ControlElement {
   }
 
   /**
+   * A template used to notify currently selected value for screen readers
+   * @returns template result
+   */
+  private get selectionTemplate (): TemplateResult | typeof nothing {
+    if (!this.value) {
+      return nothing;
+    }
+
+    return html`<div
+      part="aria-selection"
+      role="status"
+      aria-live="polite"
+      aria-label="${this.colorAriaLabel}">
+    </div>`;
+  }
+
+  /**
    * Color dialog template
    */
-  private get dialogTemplate (): TemplateResult | undefined {
-    if (this.lazyRendered) {
-      return html`<ef-color-dialog
+  private get dialogTemplate (): TemplateResult | typeof nothing {
+    if (!this.lazyRendered) {
+      return nothing;
+    }
+
+    return html`<ef-color-dialog
       offset="4"
       ${ref(this.dialogRef)}
       .lang=${this.lang || nothing}
@@ -305,13 +315,12 @@ export class ColorPicker extends ControlElement {
       ?allow-nocolor=${this.allowNocolor}
       @opened-changed=${this.onColorDialogOpenedChanged}
       @value-changed=${this.onColorDialogValueChanged}></ef-color-dialog>`;
-    }
   }
 
   /**
    * Color item template
    */
-  private get colorItemTemplate (): TemplateResult | undefined {
+  private get colorItemTemplate (): TemplateResult {
     return html`<div part="color-item" ?no-color=${!this.value} style=${styleMap({ backgroundColor: this.value })}></div>`;
   }
 
@@ -325,6 +334,6 @@ export class ColorPicker extends ControlElement {
       ${this.selectionTemplate}
       ${this.colorItemTemplate}
       ${this.dialogTemplate}
-      `;
+    `;
   }
 }
