@@ -11,7 +11,6 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { color as parseColor } from '@refinitiv-ui/utils/color.js';
-
 import { VERSION } from '../version.js';
 
 import {
@@ -112,11 +111,13 @@ export class Chart extends BasicElement {
 
   /**
    * Chart.js object
+   * @type {ChartJS | null}
    */
   public chart: ChartJS | null = null;
 
   /**
    * Chart configurations. Same configuration as ChartJS
+   * @type {ChartConfiguration | null}
    */
   @property({ type: Object })
   public config: ChartConfiguration | null = null;
@@ -144,7 +145,8 @@ export class Chart extends BasicElement {
 
   /**
    * List of available chart colors
-   * @returns List of available chart colors
+   * @type {string[]}
+   * @returns {string[]}List of available chart colors
    */
   public get colors (): string[] {
     const colors: string[] = [];
