@@ -1229,6 +1229,29 @@ ef-chart {
 
 Although `import "@refinitiv-ui/chart";` is easy to use as it provides all components of chart.js, you application might not be using all of them. To import only what is needed, start with `import "@refinitiv-ui/chart/bare";`. Then, import more components from chart.js manually according to your need. Check [Chart.js Bundle Optimization](https://www.chartjs.org/docs/4.2.1/getting-started/integration.html#bundle-optimization) for what needed to be import for each chart type. This could reduce your bundle size related to chart.js by around 20%.
 
+For example, to use simple line chart:
+
+```javascript
+import '@refinitiv-ui/elements/chart/bare';
+
+import {
+  Chart as ChartJS,
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale
+} from 'chart.js';
+
+ChartJS.register(
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale
+);
+```
+
 For example, to use doughnutCenterLabel plugin with doughnut chart:
 
 ```javascript
@@ -1240,6 +1263,7 @@ import {
   DoughnutController,
   ArcElement
 } from 'chart.js';
+
 ChartJS.register(
   DoughnutController,
   ArcElement,
