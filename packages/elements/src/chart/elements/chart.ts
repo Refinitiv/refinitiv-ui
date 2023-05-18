@@ -336,7 +336,7 @@ export class Chart extends BasicElement {
       let backgroundColor;
       const isMultipleDatasets = (chart.config.data.datasets.length > 1);
       // From old requirement, Only line, radar, scatter, polarArea type are opaque backgroundColor
-      switch (dataset.type || this.config?.type) {
+      switch (dataset.type ?? this.config?.type) {
         case 'line':
         case 'radar':
         case 'scatter':
