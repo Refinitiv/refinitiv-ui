@@ -1240,7 +1240,7 @@ import {
   ArcElement
 } from 'chart.js';
 ChartJS.register(
-  DoughnutController
+  DoughnutController,
   ArcElement,
   doughnutCenterLabelPlugin
 );
