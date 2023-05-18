@@ -143,10 +143,10 @@ const handler = async (elementsFolderPath) => {
        * Entrypoint, using lib for backward compatibility
        * @example import '@refinitiv-ui/elements/lib/ef-icon/halo/dark';
        */
-      const entrypoint = path.join(ELEMENT_DIST, dir, THEMES_DIRECTORY, variantPath);
+      let entrypoint = path.join(ELEMENT_DIST, dir, THEMES_DIRECTORY, variantPath);
 
       if (elementsFolderPath) {
-        path.join(elementsFolderPath, entrypoint);
+        entrypoint = path.join(elementsFolderPath, entrypoint);
       }
 
       // Prepare folders structure
