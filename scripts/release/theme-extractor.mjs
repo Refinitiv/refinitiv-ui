@@ -25,10 +25,10 @@ const THEMES_DIRECTORY = 'themes';
  * Create a dependency map for all elements
  * @returns {Promise<[{ dir: string, elements: string[], dependencies: string[] }]>} DependencyMap
  */
-const createDependencyMap = async () => {
-  const paths = await getElementList(path.join(process.cwd(), ELEMENT_DIST));
+const createDependencyMap = async (elementsFolderPath) => {
+  const dependencyPaths = await getElementList(path.join(process.cwd(), elementsFolderPath, ELEMENT_DIST));
 
-  const elements = paths.reduce((entries, path) => {
+  const elements = dependencyPaths.reduce((entries, path) => {
     const elementTagName = getElementTagName(path);
     const currentDir = path.split(`${ELEMENT_DIST}/`)[1].split('/')[0];
 
@@ -89,8 +89,13 @@ const extractThemeDependency = (themePath) => {
 
   const themeContent = fs.readFileSync(themePath).toString();
   const importRegex = /^import .*/gm;
-  return themeContent
-    .match(importRegex)
+  const matchedImports = themeContent.match(importRegex);
+
+  if (!matchedImports) {
+    return [];
+  }
+
+  return matchedImports
     .filter((matched) => !matched.includes('native-elements'))
     .map((matched) => matched.replace(`import './`, '').replace(".js';", ''));
 };
@@ -118,8 +123,8 @@ const getThemes = async (elements) => {
  * import '@refinitiv-ui/elements/lib/ef-icon/themes/halo/dark';
  * @returns {void}
  */
-const handler = async () => {
-  const dependencyMap = await createDependencyMap();
+const handler = async (elementsFolderPath) => {
+  const dependencyMap = await createDependencyMap(elementsFolderPath);
 
   // DEBUG: This will log the dependency tree of all elements
   // console.log(dependencyMap);
@@ -139,6 +144,10 @@ const handler = async () => {
        * @example import '@refinitiv-ui/elements/lib/ef-icon/halo/dark';
        */
       const entrypoint = path.join(ELEMENT_DIST, dir, THEMES_DIRECTORY, variantPath);
+
+      if (elementsFolderPath) {
+        path.join(elementsFolderPath, entrypoint);
+      }
 
       // Prepare folders structure
       fs.mkdirSync(path.dirname(entrypoint), {
@@ -189,7 +198,8 @@ const handler = async () => {
 
 try {
   log('Extracting themes...');
-  handler();
+  const elementsFolderPath = process.argv[2];
+  handler(elementsFolderPath);
 } catch (error) {
   errorHandler(`Theme Extractor Error: ${error}`);
 }

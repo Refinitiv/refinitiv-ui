@@ -27,7 +27,7 @@ export const handler = (argv) => {
 
   const commands = [
     {
-      command: `vite serve src/${element}/__demo__ --open --config ./vite.config.js --force`,
+      command: `vite serve src/${element}/__demo__ --open --force`,
       prefixColor: '#D5B60A',
       name: `${element}: WebDevServer`,
       env: {
