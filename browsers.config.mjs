@@ -1,32 +1,30 @@
 // Browsers for local testing with WTR
 const DefaultBrowsers = ['chrome', 'firefox', 'safari'];
-const DefaultMobileBrowsers = ['android', 'ios'];
+const DefaultMobileBrowsers = ['android'];
 
 // BrowserStack browsers
 const BrowserStack = {
   defaultBrowsers: DefaultBrowsers,
-  latestBrowsers: [...DefaultBrowsers, ...DefaultMobileBrowsers],
-  oldBrowsers: [
+  latestBrowsers: [
+    ...DefaultBrowsers,
+    ...DefaultMobileBrowsers
+  ],
+  supportedBrowsers: [
+    ...DefaultBrowsers,
+    ...DefaultMobileBrowsers,
     'chrome_minus1', 'chrome_minus2',
     'firefox_minus1', 'firefox_minus2',
     'android_minus1', 'android_minus2'
   ],
   availableBrowsers: [
-    // Alias
-    'default', 'latest', 'old', 'supported',
-
+    'default', 'latest', 'supported', // Alias
     'edge', 'edge_minus1', 'edge_minus2',
-
-    // Safari are moved out from default and supported temporary because BrowserStack connection issue
-    'safari', 'safari_minus1', 'safari_minus2',
-
-    // iOS 14, 15 has the problem with issue undefined ResizeObserver is undefined
-    'ios', 'ios_minus1', 'ios_minus2'
+    'safari', 'safari_minus1', 'safari_minus2', // Safari are moved out from default and supported temporary because BrowserStack connection issue
+    'ios', 'ios_minus1', 'ios_minus2' // iOS 14, 15 has the problem with issue undefined ResizeObserver is undefined
   ]
 };
-// Combine default, supported & aliases into complete available browsers
+// Combine supported & aliases into complete available browsers
 // CLI param would be validated with this list of browsers
-BrowserStack.supportedBrowsers = [ ...BrowserStack.latestBrowsers, ...BrowserStack.oldBrowsers];
 BrowserStack.availableBrowsers = [ ...BrowserStack.supportedBrowsers, ...BrowserStack.availableBrowsers];
 
 // base platform config

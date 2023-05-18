@@ -83,9 +83,6 @@ if (useBrowserStack) {
       case 'latest':
         BrowserStack.latestBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
         break;
-      case 'old':
-        BrowserStack.oldBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
-        break;
       case 'supported':
         BrowserStack.supportedBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
         break;
