@@ -49,7 +49,7 @@ declare module 'chart.js' {
 }
 
 /**
- * Charting component that use ChartJS library
+ * Charting component that uses ChartJS library
  */
 @customElement('ef-chart')
 export class Chart extends BasicElement {
