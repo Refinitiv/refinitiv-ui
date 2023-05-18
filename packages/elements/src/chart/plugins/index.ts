@@ -1,4 +1,1 @@
-import doughnutCenterLabelPlugin from './doughnut-center-label.js';
-export {
-  doughnutCenterLabelPlugin
-};
+export * from './doughnut-center-label.js';
