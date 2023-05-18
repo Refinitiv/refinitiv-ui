@@ -282,4 +282,4 @@ const plugins: Plugin = {
   }
 };
 
-export default plugins;
+export { plugins as doughnutCenterLabelPlugin };
