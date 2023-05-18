@@ -25,7 +25,7 @@ const THEMES_DIRECTORY = 'themes';
  * Create a dependency map for all elements
  * @returns {Promise<[{ dir: string, elements: string[], dependencies: string[] }]>} DependencyMap
  */
-const createDependencyMap = async (elementsFolderPath) => {
+const createDependencyMap = async (elementsFolderPath = '') => {
   const dependencyPaths = await getElementList(path.join(process.cwd(), elementsFolderPath, ELEMENT_DIST));
 
   const elements = dependencyPaths.reduce((entries, path) => {
