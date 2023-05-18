@@ -36,8 +36,12 @@ export class Icon extends BasicElement {
     return VERSION;
   }
 
+  /**
+   * Icon map from ef-config
+   * @ignore
+   */
   @consume({ context: efConfig })
-    iconMap: IconType = {};
+  public iconMap: IconType = {};
 
   /**
    * A `CSSResultGroup` that will be used
