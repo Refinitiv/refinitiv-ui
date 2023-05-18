@@ -283,9 +283,6 @@ export class Chart extends BasicElement {
    * Set global configuration of ChartJS
    * @returns {void}
    */
-  // TODO: Try and remove the need for global object modification.
-  // It's easier to cover all areas by modifying the global object,
-  // however, if possible, we should look to try and just modify local configs.
   private setGlobalConfig (): void {
     const cssStyle = getComputedStyle(this);
 
