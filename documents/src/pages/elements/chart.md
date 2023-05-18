@@ -1227,20 +1227,22 @@ ef-chart {
 
 ## Reduce bundle size
 
-By default, we deliver all features from Chart.js. But if you can try to decrease the bundle file size that reduce around ~20%. Apply `@refinitiv-ui/chart/bare` entry point and register only essential Chart.js features. Here is a list of nessessary of each chart type, https://www.chartjs.org/docs/4.3.0/getting-started/integration.html. 
+`import "@refinitiv-ui/chart";` is a default way to add a module. This means your bundle file size will be needlessly large. Because it will get all features of Chart.js. To reduce it, `import "@refinitiv-ui/chart/bare";` is optional way to 
+add nessassary features by your request. This way can most likely reduce the size around ~20%. Here is a list of nessessary of each chart type, [Chart.js integration](https://www.chartjs.org/docs/4.2.1/getting-started/integration.html). 
 
 ```javascript
-// Examples of using the entrypoint of doughnut centerLabel chart  
+// Examples of using doughnutCenterLabel plugin with doughnut chart.  
 import '@refinitiv-ui/elements/chart/bare';
+import { doughnutCenterLabelPlugin } from '@refinitiv-ui/elements/chart/plugins';
+
 import {
-  Chart as ChartJS
-  DoughnutController
+  Chart as ChartJS,
+  DoughnutController,
   ArcElement
 } from 'chart.js';
-import { doughnutCenterPlugin } from '@refinitiv-ui/elements/chart/bare';
-Chart.register(
+ChartJS.register(
   DoughnutController
   ArcElement,
-  doughnutCenterPlugin
+  doughnutCenterLabelPlugin
 );
 ```
