@@ -452,7 +452,7 @@ export class Chart extends BasicElement {
     }
     legends.forEach((legend, i) => {
       legend.lineWidth = Number(datasets[i].borderWidth) || 0;
-      switch (datasets[i].type || chartType) {
+      switch (datasets[i].type ?? chartType) {
         case 'line':
         case 'radar':
         case 'bubble':
