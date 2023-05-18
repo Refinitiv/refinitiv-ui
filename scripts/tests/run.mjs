@@ -5,7 +5,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
-import { playwrightLauncher } from '@web/test-runner-playwright';
 import { browserstackLauncher } from '@web/test-runner-browserstack';
 import { summaryReporter } from "@web/test-runner";
 import { PACKAGES_ROOT, info } from '../helpers/esm.mjs';
@@ -156,7 +155,7 @@ process.on('uncaughtException', (err, origin) => {
 // Run unit testing
 try {
   const singleElement = checkElement(testTarget);
-  if (testTarget === 'elements' || singleElement) {
+  if (env.TEST_SEPARATE_ELEMENT && testTarget === 'elements' || singleElement) {
     // Test each element individually for the elements package.
     const elements = singleElement ? [testTarget] : getElements();
     for (const element of elements) {
@@ -168,6 +167,9 @@ try {
       await startQueueTestRunner(element, config, elementTestFiles);
     }
   } else {
+    if (testTarget === 'elements') {
+      config.files = [path.join(ELEMENTS_ROOT, 'src', `**/__test__/**/*.test.js`)]
+    }
     await startTestRunner(config); // Start single runner (no queue)
   }
 } catch (error) {
