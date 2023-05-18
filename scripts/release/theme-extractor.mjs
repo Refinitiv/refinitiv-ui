@@ -2,12 +2,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import fg from 'fast-glob';
+import yargs from 'yargs/yargs';
+import { hideBin } from 'yargs/helpers';
 
 import { log, errorHandler, success, ROOT, getJSON } from '../helpers/esm.mjs';
 import { ELEMENT_DIST, PACKAGE_ROOT, getElementList, getElementTagName } from './util.cjs';
-
-// List of themes to be extracted
-const THEMES = ['halo', 'solar'];
 
 // Element package scope
 const PACKAGE_NAME = (await getJSON(`${PACKAGE_ROOT}/package.json`, import.meta)).name;
@@ -21,12 +20,32 @@ const THEME_POSTFIX = '-theme';
 // Where all the themes are, relative to each element's outDir
 const THEMES_DIRECTORY = 'themes';
 
+const options = yargs(hideBin(process.argv))
+  .command('$0 [src]', 'Specify the source of the script', (yargs) => {
+    return yargs.positional('src', {
+      describe: 'Source of the script',
+      type: 'string',
+      default: '',
+    });
+  })
+  .option('themes', {
+    alias: 't',
+    describe: 'Themes separated by commas',
+    type: 'string',
+    default: 'halo,solar',
+  })
+  .argv;
+
+// Extract the src and themes argument
+const { themes, src } = options;
+const THEMES = themes && themes.split(',');
+
 /**
  * Create a dependency map for all elements
  * @returns {Promise<[{ dir: string, elements: string[], dependencies: string[] }]>} DependencyMap
  */
-const createDependencyMap = async (elementsFolderPath = '') => {
-  const dependencyPaths = await getElementList(path.join(process.cwd(), elementsFolderPath, ELEMENT_DIST));
+const createDependencyMap = async () => {
+  const dependencyPaths = await getElementList(path.join(process.cwd(), src, ELEMENT_DIST));
 
   const elements = dependencyPaths.reduce((entries, path) => {
     const elementTagName = getElementTagName(path);
@@ -123,8 +142,8 @@ const getThemes = async (elements) => {
  * import '@refinitiv-ui/elements/lib/ef-icon/themes/halo/dark';
  * @returns {void}
  */
-const handler = async (elementsFolderPath) => {
-  const dependencyMap = await createDependencyMap(elementsFolderPath);
+const handler = async () => {
+  const dependencyMap = await createDependencyMap();
 
   // DEBUG: This will log the dependency tree of all elements
   // console.log(dependencyMap);
@@ -145,14 +164,19 @@ const handler = async (elementsFolderPath) => {
        */
       let entrypoint = path.join(ELEMENT_DIST, dir, THEMES_DIRECTORY, variantPath);
 
-      if (elementsFolderPath) {
-        entrypoint = path.join(elementsFolderPath, entrypoint);
+      if (src) {
+        entrypoint = path.join(src, entrypoint);
       }
 
       // Prepare folders structure
       fs.mkdirSync(path.dirname(entrypoint), {
         recursive: true,
       });
+
+      // Clean up file
+      if (fs.existsSync(entrypoint)) {
+        fs.unlinkSync(entrypoint);
+      }
 
       // Appending dependencies to each entrypoint
       for (const dependency of dependencies) {
@@ -161,7 +185,7 @@ const handler = async (elementsFolderPath) => {
         const variant = path.dirname(variantPath);
         const dependencyImport = `import '${path.join(PACKAGE_NAME, dep, THEMES_DIRECTORY, variant)}';\n`;
 
-        // Skip if file already contain the same import
+        // Clean up file
         if (fs.existsSync(entrypoint)) {
           if (fs.readFileSync(entrypoint).toString().includes(dependencyImport)) continue;
         }

@@ -10,6 +10,8 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 
 const Themes = [
+  'elemental/light',
+  'elemental/dark',
   'halo/light',
   'halo/dark',
   'solar/pearl',

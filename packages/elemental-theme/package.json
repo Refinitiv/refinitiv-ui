@@ -17,8 +17,8 @@
   "scripts": {
     "build:light": "theme-compiler light --variant=light --registration=event",
     "build:dark": "theme-compiler dark --variant=dark --registration=event",
-    "build": "npm run build:light && npm run build:dark",
-    "build:prod": "npm run build",
+    "build": "npm run build:light && npm run build:dark && node ../../scripts/release/theme-extractor.mjs ../elements --themes=halo,solar,elemental",
+    "build:prod": "npm run build:light && npm run build:dark",
     "watch": "chokidar '**/*.less' --command \"npm run build\" --debounce=5000",
     "prepack": "npm run version",
     "version": "node ../../scripts/version/index.mjs"
