@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/extensions
 import { Chart } from 'chart.js/auto';
-import doughnutCenterPlugin from './plugins/doughnut-center-label.js';
+import { doughnutCenterLabelPlugin } from './plugins/index.js';
 
-Chart.register(doughnutCenterPlugin);
+Chart.register(doughnutCenterLabelPlugin);
 
-export * from './bare.js';
+export * from './elements/chart.js';

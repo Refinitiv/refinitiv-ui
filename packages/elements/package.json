@@ -72,6 +72,7 @@
     "./card/themes/solar/pearl": "./lib/card/themes/solar/pearl/index.js",
     "./chart": "./lib/chart/index.js",
     "./chart/bare": "./lib/chart/bare.js",
+    "./chart/plugins": "./lib/chart/plugins/index.js",
     "./chart/themes/halo/dark": "./lib/chart/themes/halo/dark/index.js",
     "./chart/themes/halo/light": "./lib/chart/themes/halo/light/index.js",
     "./chart/themes/solar/charcoal": "./lib/chart/themes/solar/charcoal/index.js",

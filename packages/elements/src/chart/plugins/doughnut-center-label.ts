@@ -1,5 +1,7 @@
 import {
-  Chart as ChartJS,
+  Chart as ChartJS
+} from 'chart.js';
+import type {
   Plugin,
   ChartEvent,
   ChartType,
