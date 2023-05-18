@@ -14,7 +14,7 @@ import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';
 import { consume } from '@lit-labs/context';
-import { efConfig, type Icon as IconType } from '../config/index.js';
+import { efConfig, type Config } from '../config/index.js';
 
 const EmptyTemplate = svg``;
 
@@ -41,7 +41,7 @@ export class Icon extends BasicElement {
    * @ignore
    */
   @consume({ context: efConfig })
-  public iconMap: IconType = {};
+  public config?: Config;
 
   /**
    * A `CSSResultGroup` that will be used
@@ -100,8 +100,8 @@ export class Icon extends BasicElement {
     if (this.src !== value) {
       this._src = value;
       this.clearIcon();
-      if (this.icon && this.iconMap[this.icon]) {
-        void this.loadAndRenderIcon(this.iconMap[this.icon]);
+      if (this.icon && this.iconMap) {
+        void this.loadAndRenderIcon(this.iconMap);
       }
       else if (value) {
         void this.loadAndRenderIcon(value);
@@ -124,6 +124,14 @@ export class Icon extends BasicElement {
     }
   }
 
+  /**
+   * Check if the autosuggest has content
+   * @returns content exists
+   */
+  private get iconMap (): string | null {
+    return this.icon && this.config?.icon.map[this.icon] || null;
+  }
+  
   /**
    * Called after the component is first rendered
    * @param changedProperties Properties which have changed

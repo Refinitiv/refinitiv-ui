@@ -1,2 +1,2 @@
 export * from './elements/config.js';
-export { efConfig, type Icon } from './helpers/context.js';
+export { efConfig, type Config } from './helpers/context.js';

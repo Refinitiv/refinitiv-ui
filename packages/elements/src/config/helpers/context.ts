@@ -1,6 +1,11 @@
 import { createContext } from '@lit-labs/context';
 
-export type Icon = {
-  [key: string]: string
+export type IconMap = {
+  [key: string]: string,
 }
-export const efConfig = createContext<Icon>('ef-config');
+export type Config = {
+  icon: {
+    map: IconMap
+  }
+}
+export const efConfig = createContext<Config>('ef-config');
