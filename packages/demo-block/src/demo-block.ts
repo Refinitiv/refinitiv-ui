@@ -74,6 +74,7 @@ const nextBtn = document.createElement('span');
 nextBtn.id = 'change-theme';
 nextBtn.setAttribute('title', getNextTheme());
 nextBtn.style.backgroundColor = '#f5f5f6';
+nextBtn.style.lineHeight = 'normal';
 nextBtn.style.position = 'fixed';
 nextBtn.style.right = '10px';
 nextBtn.style.top = '10px';
