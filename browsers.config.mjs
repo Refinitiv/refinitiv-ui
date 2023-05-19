@@ -53,7 +53,7 @@ BrowserStack.config = {
   safari_minus2: { ...macOSConfig, browser: 'safari', os_version: 'Big Sur' },
 
   // Mobile Devices
-  ios: { ...deviceConfig, browser: 'iphone', device: 'iPhone 14', os: 'ios', os_version: '16' },
+  ios: { real_mobile: 'false' , browser: 'iphone', device: 'iPhone 14', os: 'ios', os_version: '16' },
   android: { ...deviceConfig, browser: 'android', device: 'Samsung Galaxy S23', os: 'android', os_version: '13.0' },
 
   // Mobile Devices minus1 versions
