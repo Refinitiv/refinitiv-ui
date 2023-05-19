@@ -104,7 +104,7 @@ if (useBrowserStack) {
    * @param {Object} BrowserStack launcher config
    * @returns boolean
    */
-  const isLatestDestopBrowser = (launcher) => {
+  const isLatestDesktopBrowser = (launcher) => {
     return launcher.browser in defaultLauncherNames
       && launcher.browser_version === 'latest'
       || launcher.os_version === BrowserStack.config.safari.os_version; // for Safari use os version to checking latest
