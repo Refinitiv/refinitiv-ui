@@ -10,6 +10,8 @@ import { VERSION } from '../../version.js';
 import { efConfig, type Config as ConfigType, type ConfigIcon } from '../helpers/context.js';
 import { provide } from '@lit-labs/context';
 
+const DEFAULT_CONFIG: ConfigType = { icon: { map: {} } };
+
 @customElement('ef-config', { theme: false })
 export class Config extends BasicElement {
 
@@ -23,7 +25,7 @@ export class Config extends BasicElement {
 
   @provide({ context: efConfig })
   @state()
-    config: ConfigType = {};
+    config: ConfigType = DEFAULT_CONFIG;
 
   @property({ type: Object })
   set icon (icon: ConfigIcon) {

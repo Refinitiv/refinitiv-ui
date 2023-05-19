@@ -7,6 +7,6 @@ export type ConfigIcon = {
   map: IconMap
 }
 export type Config = {
-  icon?: ConfigIcon,
+  icon: ConfigIcon,
 }
 export const efConfig = createContext<Config>('ef-config');

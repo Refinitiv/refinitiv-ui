@@ -55,14 +55,13 @@
       }
     </style>
     <demo-block header="Custom icons config" tags="Colour Changing">
-      <ef-config>
+      <ef-config id="config">
         <ef-icon icon="tick"></ef-icon>
         <ef-icon icon="flame"></ef-icon>
       </ef-config>
     </demo-block>
     <script>
-      const el = document.querySelector('ef-config');
-      el.icon = { map: { 
+      config.icon = { map: { 
         "tick": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xNCA0bC04LjI1IDguMjVMMiA4LjUiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==',
         "flame": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOS4zNjQgMTVzLjkwOS0xLjQuOTA5LTEuODY3YzAtMi4wNTMtMS44MTgtMy43MzMtMS44MTgtMy43MzN2MS44NjdMNy41NDUgOS40VjcuNTMzUzUuNzI3IDkuODY3IDUuNzI3IDEyLjJjMCAyLjA1MyAxLjgxOCAyLjggMS44MTggMi44aC0uOTA5UzMgMTQuMTYgMyAxMC4zMzNjMC0xLjY4IDEuMjczLTMuMDggMS44MTgtMy43MzMuNDU1LS41NiAxLjgxOC0yLjYxMyAxLjgxOC01LjYgMCAwIDMuNjM3IDEuODY3IDMuNjM3IDcuNDY3IDAgMCAuOTA5LS40NjcuOTA5LTMuNzM0IDAgMCAuNzI3LjU2LjkwOS45MzQuNTQ1IDEuMDI2LjkwOSAyLjg5My45MDkgNC42NjZDMTMgMTMuNTA3IDkuMzY0IDE1IDkuMzY0IDE1eiIgZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+',
       }}

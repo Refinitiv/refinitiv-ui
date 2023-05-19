@@ -40,8 +40,8 @@ export class Icon extends BasicElement {
    * Icon map from ef-config
    * @ignore
    */
-  @consume({ context: efConfig })
-  public config?: Config;
+  @consume({ context: efConfig, subscribe: true })
+  public config!: Config;
 
   /**
    * A `CSSResultGroup` that will be used
@@ -129,7 +129,7 @@ export class Icon extends BasicElement {
    * @returns content exists
    */
   private get iconMap (): string | null {
-    return this.icon && this.config?.icon?.map[this.icon] || null;
+    return this.icon && this.config.icon.map[this.icon] || null;
   }
   
   /**
