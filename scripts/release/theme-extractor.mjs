@@ -5,11 +5,11 @@ import fg from 'fast-glob';
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
 
-import { log, errorHandler, success, ROOT, getJSON } from '../helpers/esm.mjs';
-import { ELEMENT_DIST, PACKAGE_ROOT, getElementList, getElementTagName } from './util.cjs';
+import { log, errorHandler, success, ROOT } from '../helpers/esm.mjs';
+import { ELEMENT_DIST, getElementList, getElementTagName } from './util.cjs';
 
 // Element package scope
-const PACKAGE_NAME = (await getJSON(`${PACKAGE_ROOT}/package.json`, import.meta)).name;
+const PACKAGE_NAME = 'elements';
 
 // Where to look for theme files
 const THEME_SOURCE = `${ROOT}/node_modules/${PACKAGE_NAME.split('/')[0]}/`;
