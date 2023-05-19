@@ -13,16 +13,60 @@
       import '@refinitiv-ui/demo-block';
     </script>
 
-    <demo-block header="Custom icons config">
+    <style>
+      @keyframes hue {
+        0% {
+          color: #1133ff;
+        }
+        20% {
+          color: #25af91;
+        }
+        40% {
+          color: #94b600;
+        }
+        60% {
+          color: #d47a03;
+        }
+        80% {
+          color: #c71515;
+        }
+        100% {
+          color: #ff11f3;
+        }
+      }
+      demo-block:first-of-type {
+        animation: hue 2s infinite alternate linear;
+      }
+      demo-block:first-of-type {
+        font-size: 128px;
+      }
+      demo-block ef-icon {
+        border: 1px solid rgba(120, 120, 120, 0.4);
+        margin: 0 -1px -1px 0;
+        font-size: inherit;
+        position: relative;
+      }
+      demo-block ef-icon:hover {
+        z-index: 1;
+        border-color: red;
+      }
+      demo-block {
+        line-height: 0;
+      }
+    </style>
+    <demo-block header="Custom icons config" tags="Colour Changing">
       <ef-config>
-        <ef-icon icon="pdf"></ef-icon>
+        <ef-icon icon="tick"></ef-icon>
         <ef-icon icon="flame"></ef-icon>
       </ef-config>
     </demo-block>
     <script>
       const el = document.querySelector('ef-config');
-      // el.config.icon.map = { "pdf": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBzdHJva2U9IiMwMDAiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHBhdGggZD0iTTkuNzkzIDIuNUgzLjV2MTFoOVY1LjIwN0w5Ljc5MyAyLjV6Ii8+PHBhdGggZD0iTTkuNSAyLjV2M2gzTTcgMTFsLjUtNi0uNS0uNUg1LjVWNWw0LjUgNS41aC41di0yTDEwIDhsLTQuNSAydjEuNWguNjl6Ii8+PC9nPjwvc3ZnPg=='}
-      el.config = { icon: { map: { "pdf": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBzdHJva2U9IiMwMDAiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHBhdGggZD0iTTkuNzkzIDIuNUgzLjV2MTFoOVY1LjIwN0w5Ljc5MyAyLjV6Ii8+PHBhdGggZD0iTTkuNSAyLjV2M2gzTTcgMTFsLjUtNi0uNS0uNUg1LjVWNWw0LjUgNS41aC41di0yTDEwIDhsLTQuNSAydjEuNWguNjl6Ii8+PC9nPjwvc3ZnPg=='}}}
+      el.icon = { map: { 
+        "tick": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xNCA0bC04LjI1IDguMjVMMiA4LjUiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==',
+        "flame": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOS4zNjQgMTVzLjkwOS0xLjQuOTA5LTEuODY3YzAtMi4wNTMtMS44MTgtMy43MzMtMS44MTgtMy43MzN2MS44NjdMNy41NDUgOS40VjcuNTMzUzUuNzI3IDkuODY3IDUuNzI3IDEyLjJjMCAyLjA1MyAxLjgxOCAyLjggMS44MTggMi44aC0uOTA5UzMgMTQuMTYgMyAxMC4zMzNjMC0xLjY4IDEuMjczLTMuMDggMS44MTgtMy43MzMuNDU1LS41NiAxLjgxOC0yLjYxMyAxLjgxOC01LjYgMCAwIDMuNjM3IDEuODY3IDMuNjM3IDcuNDY3IDAgMCAuOTA5LS40NjcuOTA5LTMuNzM0IDAgMCAuNzI3LjU2LjkwOS45MzQuNTQ1IDEuMDI2LjkwOSAyLjg5My45MDkgNC42NjZDMTMgMTMuNTA3IDkuMzY0IDE1IDkuMzY0IDE1eiIgZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+',
+      }}
     </script>
   </body>
 </html>
+

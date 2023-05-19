@@ -4,9 +4,10 @@ import {
   html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
-import { efConfig, type Config as ConfigType } from '../helpers/context.js';
+import { efConfig, type Config as ConfigType, type ConfigIcon } from '../helpers/context.js';
 import { provide } from '@lit-labs/context';
 
 @customElement('ef-config', { theme: false })
@@ -20,11 +21,14 @@ export class Config extends BasicElement {
     return VERSION;
   }
 
-  public test1 = 'test1';
-
   @provide({ context: efConfig })
-  @property({ type: Object, attribute: false })
-    config: ConfigType = { icon: { map: { 'atom': 'test' } } };
+  @state()
+    config: ConfigType = {};
+
+  @property({ type: Object })
+  set icon (icon: ConfigIcon) {
+    this.config = { ...this.config, icon };
+  }
 
   /**
    * A `TemplateResult` that will be used

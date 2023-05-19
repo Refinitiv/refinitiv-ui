@@ -129,7 +129,7 @@ export class Icon extends BasicElement {
    * @returns content exists
    */
   private get iconMap (): string | null {
-    return this.icon && this.config?.icon.map[this.icon] || null;
+    return this.icon && this.config?.icon?.map[this.icon] || null;
   }
   
   /**
