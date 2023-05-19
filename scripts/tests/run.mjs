@@ -125,7 +125,7 @@ if (useBrowserStack) {
     browserName = browserName.charAt(0).toUpperCase() + browserName.slice(1);
     // Default desktop browsers (latest) must use Playwright launcher in the default config
     let browserLauncher = undefined;
-    if (isLatestDestopBrowser(launcher)) {
+    if (isLatestDesktopBrowser(launcher)) {
       browserLauncher = getDefaultLauncher(launcher.browser);
     } else {
       browserLauncher = browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher, browserName } });
