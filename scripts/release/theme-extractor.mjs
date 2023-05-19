@@ -9,7 +9,7 @@ import { log, errorHandler, success, ROOT } from '../helpers/esm.mjs';
 import { ELEMENT_DIST, getElementList, getElementTagName } from './util.cjs';
 
 // Element package scope
-const PACKAGE_NAME = 'elements';
+const PACKAGE_NAME = '@refinitiv-ui/elements';
 
 // Where to look for theme files
 const THEME_SOURCE = `${ROOT}/node_modules/${PACKAGE_NAME.split('/')[0]}/`;
@@ -114,9 +114,7 @@ const extractThemeDependency = (themePath) => {
     return [];
   }
 
-  return matchedImports
-    .filter((matched) => !matched.includes('native-elements'))
-    .map((matched) => matched.replace(`import './`, '').replace(".js';", ''));
+  return matchedImports.map((matched) => matched.replace(`import './`, '').replace(".js';", ''));
 };
 
 /**
