@@ -98,17 +98,39 @@ if (useBrowserStack) {
     'firefox': 'Firefox',
     'safari': 'Webkit'
   };
+
+  /**
+   * Check the launcher is test on latest desktop browser
+   * @param {Object} BrowserStack launcher config
+   * @returns boolean
+   */
+  const isLatestDestopBrowser = (launcher) => {
+    return launcher.browser in defaultLauncherNames
+      && launcher.browser_version === 'latest'
+      || launcher.os_version === BrowserStack.config.safari.os_version; // for Safari use os version to checking latest
+  };
+
+  /**
+   * Get launcher in default config
+   * @param {string} browserName name to check with default config
+   * @returns {Object} launcher config
+   */
+  const getDefaultLauncher = (browserName) => {
+    return config.browsers.find(browser => browser.name === defaultLauncherNames[browserName]);
+  };
+
   launchers.forEach(launcher => {
     // Create browserName to show as a label in the progress bar reporter
     let browserName = `${launcher.browser ?? launcher.browserName ?? launcher.device ?? 'unknown'}${launcher.browser_version ? ` ${launcher.browser_version}` : ''}` + ` (${launcher.os} ${launcher.os_version})`;
     browserName = browserName.charAt(0).toUpperCase() + browserName.slice(1);
-    // Default desktop browsers (latest) must use launcher from the default config
-    if (launcher.browser in defaultLauncherNames) {
-      const defaultLauncher = config.browsers.find(browser => browser.name === defaultLauncherNames[launcher.browser]);
-      browsers.push(defaultLauncher);
+    // Default desktop browsers (latest) must use Playwright launcher in the default config
+    let browserLauncher = undefined;
+    if (isLatestDestopBrowser(launcher)) {
+      browserLauncher = getDefaultLauncher(launcher.browser);
     } else {
-      browsers.push(browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher, browserName } }));
+      browserLauncher = browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher, browserName } });
     }
+    browsers.push(browserLauncher);
   });
 
   config.browsers = browsers; // Set all browsers to use BrowserStack
