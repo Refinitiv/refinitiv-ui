@@ -25,7 +25,7 @@ export class Config extends BasicElement {
 
   @provide({ context: efConfig })
   @state()
-    config: ConfigType = DEFAULT_CONFIG;
+  public config: ConfigType = DEFAULT_CONFIG;
 
   @property({ type: Object })
   set icon (icon: ConfigIcon) {
