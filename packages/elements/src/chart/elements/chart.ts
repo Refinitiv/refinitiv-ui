@@ -317,7 +317,7 @@ export class Chart extends BasicElement {
    * @returns The value as a number, or, undefined if NaN.
    */
   protected cssVarAsNumber (...args: string[]): number | undefined {
-    const result = Number(this.getComputedVariable(...args).replace(/\D+$/, ''));
+    const result = Number(this.getComputedVariable(...args).replace(/[^0-9]+$/, ''));
     return isNaN(result) ? undefined : result;
   }
 
