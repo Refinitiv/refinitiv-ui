@@ -1,7 +1,7 @@
 import { fixture, fixtureSync, expect, elementUpdated, oneEvent, nextFrame, aTimeout } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
-import '@refinitiv-ui/elements/interactive-chart';
+import { InteractiveChart } from '@refinitiv-ui/elements/interactive-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-interactive-chart.js';
 import * as mockConfig from './mock-config.js';
 import { isSafari, isMobile } from "@refinitiv-ui/utils";
