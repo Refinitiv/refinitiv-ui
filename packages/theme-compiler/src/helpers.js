@@ -74,7 +74,7 @@ const generateLessOptions = (entrypoint, filename, variables) => ({
  * @returns {object} injector code
  */
 const generateJsInfo = (name, css, dependencies, variables) => {
-  let importString = 'import \'./imports/native-elements.js\';\n';
+  let importString = '';
   importString += dependencies.filter(name => name.indexOf('-') !== -1)
   .map(dep => `import './${dep}.js';`).join('\n') + '\n';
   return {
