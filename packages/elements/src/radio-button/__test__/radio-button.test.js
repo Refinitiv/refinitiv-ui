@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
 import '@refinitiv-ui/elements/radio-button';
 import '@refinitiv-ui/elemental-theme/light/ef-radio-button';
 import './radio-wrapper-mockup.js';
@@ -495,6 +495,7 @@ describe('radio-button/RadioButton', () => {
       expect(option2.checked).to.equal(true);
       setTimeout(() => option2.dispatchEvent(keyArrowLeft()));
       const event = await oneEvent(option2, 'keydown');
+      await nextFrame()
       expect(event.key).to.equal('ArrowLeft');
       expect(option1.checked).to.equal(true);
       expect(option2.checked).to.equal(false);
@@ -508,6 +509,7 @@ describe('radio-button/RadioButton', () => {
 
       setTimeout(() => option1.dispatchEvent(keyArrowLeft()));
       const event = await oneEvent(option1, 'keydown');
+      await nextFrame()
       expect(event.key).to.equal('ArrowLeft');
       expect(option1.checked).to.equal(false);
       expect(option2.checked).to.equal(true);
@@ -520,6 +522,7 @@ describe('radio-button/RadioButton', () => {
 
       setTimeout(() => option1.dispatchEvent(keyArrowRight()));
       const event = await oneEvent(option1, 'keydown');
+      await nextFrame()
       expect(event.key).to.equal('ArrowRight');
       expect(option1.checked).to.equal(false);
       expect(option2.checked).to.equal(true);
@@ -531,6 +534,7 @@ describe('radio-button/RadioButton', () => {
         expect(option2.checked).to.equal(true);
         setTimeout(() => option2.dispatchEvent(keyArrowRight()));
         const event = await oneEvent(option2, 'keydown');
+        await nextFrame()
         expect(event.key).to.equal('ArrowRight');
         expect(option1.checked).to.equal(true);
         expect(option2.checked).to.equal(false);

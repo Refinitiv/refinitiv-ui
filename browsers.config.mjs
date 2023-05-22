@@ -1,6 +1,6 @@
 // Browsers for local testing with WTR
 const DefaultBrowsers = ['chrome', 'firefox', 'safari'];
-const DefaultMobileBrowsers = ['android'];
+const DefaultMobileBrowsers = ['android', 'ios'];
 
 // BrowserStack browsers
 const BrowserStack = {
@@ -14,13 +14,13 @@ const BrowserStack = {
     ...DefaultMobileBrowsers,
     'chrome_minus1', 'chrome_minus2',
     'firefox_minus1', 'firefox_minus2',
-    'android_minus1', 'android_minus2'
+    'android_minus1', 'android_minus2',
+    'ios_minus1', 'ios_minus2'
   ],
   availableBrowsers: [
     'default', 'latest', 'supported', // Alias
     'edge', 'edge_minus1', 'edge_minus2',
     'safari', 'safari_minus1', 'safari_minus2', // Safari are moved out from default and supported temporary because BrowserStack connection issue
-    'ios', 'ios_minus1', 'ios_minus2' // iOS 14, 15 has the problem with issue undefined ResizeObserver is undefined
   ]
 };
 // Combine supported & aliases into complete available browsers

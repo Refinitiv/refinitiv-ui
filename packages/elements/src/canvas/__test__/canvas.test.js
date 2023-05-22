@@ -1,4 +1,5 @@
-import { fixture, assert, expect, nextFrame, elementUpdated, isSafari } from '@refinitiv-ui/test-helpers';
+import { fixture, assert, expect, nextFrame, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { isSafari } from "@refinitiv-ui/utils";
 
 // import element and theme
 import '@refinitiv-ui/elements/canvas';
