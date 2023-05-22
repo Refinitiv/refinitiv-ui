@@ -2,7 +2,7 @@ const isMobile = (/iPhone|iPad|iPod|Android/i).test(window.navigator.userAgent);
 
 /**
  * Compare target version of browser with current version of browser
- * @param targetVersion target version of browser that can include operator(<,>,=) to compare e.g. '>15.4'
+ * @param targetVersion target version of browser that can include operator(<,>) to compare e.g. '>15.4'
  * @param browserVersion current version of browser that use to render the component
  * @returns boolean
  */
@@ -26,7 +26,7 @@ const compareVersion = (targetVersion: string, browserVersion: string): boolean 
 
 /**
  * Check browser is Safari and compare version of Safari
- * @param targetVersion target version of Safari that can include operator(<,>,=) to compare e.g. '>15.4'
+ * @param targetVersion target version of Safari that can include operator(<,>) to compare e.g. '>15.4'
  * @returns boolean
  */
 const isSafari = (targetVersion = undefined): boolean => {
