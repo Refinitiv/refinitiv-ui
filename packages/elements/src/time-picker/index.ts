@@ -962,10 +962,11 @@ export class TimePicker extends ControlElement {
    * A template used to notify currently selected value for screen readers
    * @returns template result
    */
-  private get selectionTemplate (): TemplateResult | undefined {
+  private get selectionTemplate (): TemplateResult | typeof nothing {
     if (isIE || !this.announceValues) {
-      return;
+      return nothing;
     }
+
     const value = this.value;
     const showSeconds = this.isShowSeconds;
     const amPm = this.amPm;
@@ -974,10 +975,13 @@ export class TimePicker extends ControlElement {
       part="aria-selection"
       role="status"
       aria-live="polite"
-      aria-label="${this.t('SELECTED', {
-        value: value ? parse(value) : null,
-        showSeconds,
-        amPm })}"></div>`;
+      aria-label="${this.t('SELECTED',
+        {
+          value: value ? parse(value) : null,
+          showSeconds,
+          amPm
+        })
+      }"></div>`;
   }
 
   /**

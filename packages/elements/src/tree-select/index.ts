@@ -931,7 +931,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Pills template
    * @returns Render template
    */
-  protected get pillsTemplate (): TemplateResult | undefined {
+  protected get pillsTemplate (): TemplateResult | typeof nothing {
     // always injected when we have show pills vs injecting and re-injecting partial
     // visibility will typically be controlled by styling: display: none / block or similar
     if (this.showPills && this.hasPills && this.hasSelectable) {
@@ -947,6 +947,8 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
         )}
       </div>`;
     }
+
+    return nothing;
   }
 
   /**
@@ -954,7 +956,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Lazy loads the popup
    * @returns Popup template or undefined
    */
-  protected get popupTemplate (): TemplateResult | undefined {
+  protected get popupTemplate (): TemplateResult | typeof nothing {
     if (this.lazyRendered) {
       return html`
       <ef-overlay
@@ -993,6 +995,8 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       </ef-overlay>
       `;
     }
+
+    return nothing;
   }
 }
 

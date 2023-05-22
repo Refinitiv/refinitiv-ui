@@ -1050,9 +1050,9 @@ export class OverlayMenu extends Overlay {
    * Construct back item for compact menu
    * @returns {TemplateResult} Template result
    */
-  private compactBackItem (): TemplateResult | undefined {
+  private compactBackItem (): TemplateResult | typeof nothing {
     if (!this.compact || !OpenedMenusManager.isNested(this)) {
-      return undefined;
+      return nothing;
     }
 
     return html`

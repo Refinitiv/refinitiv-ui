@@ -1457,19 +1457,37 @@ export class Calendar extends ControlElement implements MultiValue {
    * A template used to notify currently selected value for screen readers
    * @returns template result
    */
-  private get selectionTemplate (): TemplateResult | undefined {
+  private get selectionTemplate (): TemplateResult | typeof nothing {
     if (isIE || !this.announceValues) { /* IE11 has significant performance complications */
-      return;
+      return nothing;
     }
-    return html`<div
-      part="aria-selection"
-      role="status"
-      aria-live="polite"
-      aria-label="${this.value
-        ? this.range
-          ? this.t('SELECTED_RANGE', { from: parse(this.values[0]), to: this.values[1] ? parse(this.values[1]) : null })
-          : this.t('SELECTED_DATE', { value: parse(this.value), count: this.values.length })
-        : this.t('SELECTED_NONE', { multiple: this.multiple, range: this.range })}"></div>`;
+
+    let label;
+    if (this.value) {
+      if (this.range) {
+        const from = parse(this.values[0]);
+        const to = this.values[1] ? parse(this.values[1]) : null;
+        label = this.t('SELECTED_RANGE', { from, to });
+      }
+      else {
+        const value = parse(this.value);
+        const count = this.values.length;
+        label = this.t('SELECTED_DATE', { value, count });
+      }
+    }
+    else {
+      const multiple = this.multiple;
+      const range = this.range;
+      label = this.t('SELECTED_NONE', { multiple, range });
+    }
+
+    return html`
+      <div
+        part="aria-selection"
+        role="status"
+        aria-live="polite"
+        aria-label="${label}">
+      </div>`;
   }
 
   /**

@@ -1252,7 +1252,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   /**
   * Popup panel template
   */
-  private get popupTemplate (): TemplateResult | undefined {
+  private get popupTemplate (): TemplateResult | typeof nothing {
     if (this.lazyRendered) {
       return html`<ef-overlay
         tabindex="0"
@@ -1280,6 +1280,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
           <div><slot name="footer"></div>
         </ef-overlay>`;
     }
+
+    return nothing;
   }
 
   /**

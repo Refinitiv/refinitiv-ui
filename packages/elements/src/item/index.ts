@@ -3,6 +3,7 @@ import {
   css,
   CSSResultGroup,
   html,
+  nothing,
   PropertyValues,
   TemplateResult
 } from '@refinitiv-ui/core';
@@ -264,21 +265,21 @@ export class Item extends ControlElement {
   /**
    * Get icon template if icon attribute is defined
    */
-  private get iconTemplate (): TemplateResult | undefined {
-    return this.icon !== null && this.icon !== undefined ? html`<ef-icon part="icon" .icon="${this.icon}"></ef-icon>` : undefined;
+  private get iconTemplate (): TemplateResult | typeof nothing {
+    return this.icon !== null && this.icon !== undefined ? html`<ef-icon part="icon" .icon="${this.icon}"></ef-icon>` : nothing;
   }
 
   /**
    * Get subLabel template if it is defined and no slot content present
    */
-  private get subLabelTemplate (): TemplateResult | undefined {
+  private get subLabelTemplate (): TemplateResult {
     return html`<div part="sub-label" ${ref(this.subLabelRef)}>${this.subLabel}</div>`;
   }
 
   /**
    * Get label template if it is defined and no slot content present
    */
-  private get labelTemplate (): TemplateResult | undefined {
+  private get labelTemplate (): TemplateResult {
     return html`${this.label}`;
   }
 
@@ -294,17 +295,17 @@ export class Item extends ControlElement {
    * Get template for `for` attribute.
    * This is usually used with menus when an item needs to reference an element
    */
-  private get forTemplate (): TemplateResult | undefined {
-    return this.for ? html`<ef-icon icon="right"></ef-icon>` : undefined;
+  private get forTemplate (): TemplateResult | typeof nothing {
+    return this.for ? html`<ef-icon icon="right"></ef-icon>` : nothing;
   }
 
   /**
    * Get template for `multiple` attribute.
    * This is usually used with lists, when an item can be part of a multiple selection
    */
-  private get multipleTemplate (): TemplateResult | undefined {
+  private get multipleTemplate (): TemplateResult | typeof nothing {
     const multiple = this.multiple && (!this.type || this.type === 'text');
-    return multiple ? html`<ef-checkbox part="checkbox" .checked="${this.selected}" tabindex="-1"></ef-checkbox>` : undefined;
+    return multiple ? html`<ef-checkbox part="checkbox" .checked="${this.selected}" tabindex="-1"></ef-checkbox>` : nothing;
   }
 
   /**

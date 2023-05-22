@@ -1198,7 +1198,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Rendered when `clears` attribute is set
    * @returns Popup template or undefined
    */
-  protected get clearButtonTemplate (): TemplateResult | undefined {
+  protected get clearButtonTemplate (): TemplateResult | typeof nothing {
     const hasText = (this.label || this.query || this.freeTextValue || this.inputText);
     if (this.clears && hasText) {
       return html`
@@ -1208,13 +1208,15 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         </div>
       `;
     }
+
+    return nothing;
   }
 
   /**
    * Template for selection badge in multiple mode
    * @returns Selection badge template or undefined
    */
-  protected get selectionBadgeTemplate (): TemplateResult | undefined {
+  protected get selectionBadgeTemplate (): TemplateResult | typeof nothing {
     if (this.multiple) {
       const selectionLength = this.selectionCount;
       // TODO Make this a short format number using i18n which has specific support for this +
@@ -1225,6 +1227,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       `;
       }
     }
+
+    return nothing;
   }
 
   /**
@@ -1248,10 +1252,12 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Returns a template showing no options text
    * Called when freeText mode is off and all items are filtered out
    */
-  protected get noItemsTemplate (): TemplateResult | undefined {
+  protected get noItemsTemplate (): TemplateResult | typeof nothing {
     if (!this.freeText) {
       return html`<ef-list-item disabled>${this.t('NO_OPTIONS')}</ef-list-item>`;
     }
+
+    return nothing;
   }
 
   /**
@@ -1259,7 +1265,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Lazy loads the popup
    * @returns Popup template or undefined
    */
-  protected get popupTemplate (): TemplateResult | undefined {
+  protected get popupTemplate (): TemplateResult | typeof nothing {
     if (this.lazyRendered) {
       const hasVisibleItems = this.listHasVisibleItems;
       return html`<ef-overlay
@@ -1278,6 +1284,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         @focusin="${this.shiftFocus}"
       >${hasVisibleItems ? this.listTemplate : this.noItemsTemplate}</ef-overlay>`;
     }
+
+    return nothing;
   }
 
   /**

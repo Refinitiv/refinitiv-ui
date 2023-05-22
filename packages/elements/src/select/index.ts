@@ -7,7 +7,8 @@ import {
   PropertyValues,
   MultiValue,
   FocusedPropertyKey,
-  StyleMap
+  StyleMap,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -1029,13 +1030,15 @@ export class Select extends ControlElement implements MultiValue {
   /**
    * Edit template when select is not readonly or disabled
    */
-  private get editTemplate (): TemplateResult | undefined {
+  private get editTemplate (): TemplateResult | typeof nothing {
     if (!this.readonly && !this.disabled) {
       return html`
         <div id="trigger" @tapstart="${this.toggleOpened}"></div>
         ${this.popupTemplate}
       `;
     }
+
+    return nothing;
   }
 
   /**
@@ -1055,7 +1058,7 @@ export class Select extends ControlElement implements MultiValue {
   /**
   * Edit template when select is not readonly or disabled
   */
-  private get popupTemplate (): TemplateResult | undefined {
+  private get popupTemplate (): TemplateResult {
     if (this.lazyRendered) {
       return html`<ef-overlay
         ${ref(this.menuRef)}
