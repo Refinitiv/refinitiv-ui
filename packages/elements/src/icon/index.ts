@@ -115,6 +115,7 @@ export class Icon extends BasicElement {
       this._template = value;
       this.requestUpdate();
     }
+    this.iconReady.resolve();
   }
 
   /**
@@ -185,7 +186,6 @@ export class Icon extends BasicElement {
       return this.loadAndRenderIcon(src); // Load again and await cache result
     }
     this.template = await iconTemplateCacheItem;
-    this.iconReady.resolve();
   }
 
   /**
@@ -209,7 +209,6 @@ export class Icon extends BasicElement {
    */
   private clearIcon (): void {
     this.template = EmptyTemplate;
-    this.iconReady.resolve();
   }
 
   /**
