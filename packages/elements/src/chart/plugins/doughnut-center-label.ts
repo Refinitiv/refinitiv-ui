@@ -1,5 +1,7 @@
 import {
-  Chart as ChartJS,
+  Chart as ChartJS
+} from 'chart.js';
+import type {
   Plugin,
   ChartEvent,
   ChartType,
@@ -280,4 +282,4 @@ const plugins: Plugin = {
   }
 };
 
-export default plugins;
+export { plugins as doughnutCenterLabelPlugin };
