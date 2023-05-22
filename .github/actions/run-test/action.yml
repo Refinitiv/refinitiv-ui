@@ -30,7 +30,6 @@ runs:
     - name: Setup resources and environment
       uses: ./.github/actions/setup
 
-    # Need to test for Safari locally
     - name: Install playwright browsers
       shell: bash
       run: npx playwright install --with-deps
@@ -41,7 +40,7 @@ runs:
       # Prevent NX caching for mode `all` because it must run all testing, even though the code has not changed.
       run: |
         [[ "${{ inputs.mode }}" == "all" ]] && export NX_SKIP_NX_CACHE=true && unset NX_BASE
-        npm run test:${{ inputs.mode }} -- --browserstack=${{ inputs.browsers }} --includeCoverage=${{ inputs.coverage }} --output=minimal --parallel=${{ inputs.parallel }}
+        npm run test:${{ inputs.mode }} -- --browserstack ${{ inputs.browsers }} --includeCoverage=${{ inputs.coverage }} --output=minimal --parallel=${{ inputs.parallel }}
 
     - name: Test Package or Element
       if: ${{ inputs.target != '' && inputs.target != 'all' }}
