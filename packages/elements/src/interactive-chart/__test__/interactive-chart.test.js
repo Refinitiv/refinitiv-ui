@@ -54,7 +54,7 @@ describe('interactive-chart/InteractiveChart', () => {
   let el;
   beforeEach(async function() {
     if (isMobile && isSafari()) {
-      this.skip(); // Seem like we got the problem about the memory excced in iOS, so we need to skip it for now
+      this.skip(); // Seem like we got the problem about the memory exceed in iOS, so we need to skip it for now
     }
     el = await fixtureSync('<ef-interactive-chart></ef-interactive-chart>');
   });
