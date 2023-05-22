@@ -220,8 +220,7 @@ const handler = async () => {
 
 try {
   log('Extracting themes...');
-  const elementsFolderPath = process.argv[2];
-  handler(elementsFolderPath);
+  handler();
 } catch (error) {
   errorHandler(`Theme Extractor Error: ${error}`);
 }
