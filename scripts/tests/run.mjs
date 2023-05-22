@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 import { env } from 'node:process';
+import process from 'node:process';
+import fs from 'node:fs';
 import path from 'node:path';
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
-import { playwrightLauncher } from '@web/test-runner-playwright';
 import { browserstackLauncher } from '@web/test-runner-browserstack';
 import { summaryReporter } from "@web/test-runner";
 import { PACKAGES_ROOT, info } from '../helpers/esm.mjs';
@@ -78,6 +79,9 @@ if (useBrowserStack) {
       case 'default':
         BrowserStack.defaultBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
         break;
+      case 'latest':
+        BrowserStack.latestBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
+        break;
       case 'supported':
         BrowserStack.supportedBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
         break;
@@ -89,17 +93,44 @@ if (useBrowserStack) {
 
   // Create BrowserStack launchers
   const browsers = [];
+  const defaultLauncherNames = {
+    'chrome': 'Chromium',
+    'firefox': 'Firefox',
+    'safari': 'Webkit'
+  };
+
+  /**
+   * Check the launcher is test on latest desktop browser
+   * @param {Object} BrowserStack launcher config
+   * @returns boolean
+   */
+  const isLatestDesktopBrowser = (launcher) => {
+    return launcher.browser in defaultLauncherNames
+      && launcher.browser_version === 'latest'
+      || launcher.os_version === BrowserStack.config.safari.os_version; // for Safari use os version to checking latest
+  };
+
+  /**
+   * Get launcher in default config
+   * @param {string} browserName name to check with default config
+   * @returns {Object} launcher config
+   */
+  const getDefaultLauncher = (browserName) => {
+    return config.browsers.find(browser => browser.name === defaultLauncherNames[browserName]);
+  };
+
   launchers.forEach(launcher => {
     // Create browserName to show as a label in the progress bar reporter
     let browserName = `${launcher.browser ?? launcher.browserName ?? launcher.device ?? 'unknown'}${launcher.browser_version ? ` ${launcher.browser_version}` : ''}` + ` (${launcher.os} ${launcher.os_version})`;
     browserName = browserName.charAt(0).toUpperCase() + browserName.slice(1);
-
-    // Safari has the connection issue and test cases failed with BrowserStack, need to test Safari on PlayWright for now.
-    if (launcher.browser.startsWith('safari')) {
-      browsers.push(playwrightLauncher({ product: 'webkit' }, { headless: true }));
+    // Default desktop browsers (latest) must use Playwright launcher in the default config
+    let browserLauncher = undefined;
+    if (isLatestDesktopBrowser(launcher)) {
+      browserLauncher = getDefaultLauncher(launcher.browser);
     } else {
-      browsers.push(browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher, browserName } }));
+      browserLauncher = browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher, browserName } });
     }
+    browsers.push(browserLauncher);
   });
 
   config.browsers = browsers; // Set all browsers to use BrowserStack
@@ -135,19 +166,35 @@ if (snapshots) {
   process.argv.push('--update-snapshots');
 }
 
+process.on('uncaughtException', (err, origin) => {
+  fs.writeSync(
+    process.stderr.fd,
+    `Caught exception: ${err}\n` +
+    `Exception origin: ${origin}`,
+  );
+});
+
 // Run unit testing
-const singleElement = checkElement(testTarget);
-if (testTarget === 'elements' || singleElement) {
-  // Test each element individually for the elements package.
-  const elements = singleElement ? [testTarget] : getElements();
-  for (const element of elements) {
-    // Create test files pattern for current element
-    const elementTestFiles = [
-      path.join(ELEMENTS_ROOT, 'src', `${element}/__test__/**/*.test.js`),
-      '!**/node_modules/**/*', // exclude any node modules
-    ];
-    await startQueueTestRunner(element, config, elementTestFiles);
+try {
+  const singleElement = checkElement(testTarget);
+  if (env.TEST_SEPARATE_ELEMENT && testTarget === 'elements' || singleElement) {
+    // Test each element individually for the elements package.
+    const elements = singleElement ? [testTarget] : getElements();
+    for (const element of elements) {
+      // Create test files pattern for current element
+      const elementTestFiles = [
+        path.join(ELEMENTS_ROOT, 'src', `${element}/__test__/**/*.test.js`),
+        '!**/node_modules/**/*', // exclude any node modules
+      ];
+      await startQueueTestRunner(element, config, elementTestFiles);
+    }
+  } else {
+    if (testTarget === 'elements') {
+      config.files = [path.join(ELEMENTS_ROOT, 'src', `**/__test__/**/*.test.js`)]
+    }
+    await startTestRunner(config); // Start single runner (no queue)
   }
-} else {
-  await startTestRunner(config); // Start single runner (no queue)
+} catch (error) {
+  console.error(error);
+  process.exit(1);
 }
