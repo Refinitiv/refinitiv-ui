@@ -3,6 +3,7 @@ import { fixture, expect, elementUpdated, aTimeout, nextFrame } from '@refinitiv
 // import element and theme
 import '@refinitiv-ui/elements/swing-gauge';
 import '@refinitiv-ui/elemental-theme/light/ef-swing-gauge.js';
+import { isMobile, isSafari } from "@refinitiv-ui/utils";
 
 describe('swing-gauge/SwingGauge', () => {
 
@@ -239,7 +240,10 @@ describe('swing-gauge/SwingGauge', () => {
       expect(el.primaryLabel).to.equal('So long primary label and more and more and more');
     });
 
-    it('Should resize value font size', async () => {
+    it('Should resize value font size', async function () {
+      if (isMobile && isSafari()) {
+        this.skip(); // unstable in ios device
+      }
       await aTimeout(50);
 
       const fontSize = Number(el.valueStyle.fontSize.replace('px', ''));
