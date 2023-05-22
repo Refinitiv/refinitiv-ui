@@ -46,8 +46,8 @@ export default {
   ],
   // in a monorepo you need to set set the root dir to resolve modules
   rootDir: ROOT,
-  browserStartTimeout: 120000, // 2 minutes
-  testsStartTimeout: 120000, // 2 minutes
+  browserStartTimeout: 300000, // 5 minutes
+  testsStartTimeout: 300000, // 5 minutes
   testsFinishTimeout: 300000, // 5 minutes
   plugins: [ pluginJsBufferToString ]
 };

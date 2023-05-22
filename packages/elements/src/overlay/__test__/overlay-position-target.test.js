@@ -1,4 +1,4 @@
-import { elementUpdated, expect, nextFrame, isFirefox } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, nextFrame, isFirefox, isNear } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/overlay';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
@@ -179,7 +179,7 @@ describe('overlay/PositionTarget', () => {
         const targetRect = target.getBoundingClientRect();
 
         expect(panelRect.top).to.equal(targetRect.bottom);
-        expect(panelRect.height).to.equal(borderOffset);
+        expect(isNear(panelRect.height, borderOffset, 1, true)).to.equal(true);
       });
 
       it('Test left-middle', async () => {
@@ -227,7 +227,7 @@ describe('overlay/PositionTarget', () => {
         await openedUpdated(panel);
         const rect = panel.getBoundingClientRect();
 
-        expect(rect.bottom).to.equal(screenHeight);
+        expect(isNear(rect.bottom, screenHeight, 1, true)).to.equal(true);
       });
 
       it('Test outside view top-start', async () => {

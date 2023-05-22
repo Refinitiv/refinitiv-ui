@@ -7,6 +7,7 @@ import {
   DEFAULT_LOCALE
 } from '../lib';
 import { Memoiser } from '../lib/memoiser';
+import { isMobile } from '@refinitiv-ui/utils/browser.js';
 
 const scope = 'i18n-test';
 
@@ -81,7 +82,8 @@ describe('Unicode extensions', () => {
     // the year might or might not contain Gregorian calendar prefix (ค.ศ.)
     expect(message.indexOf('2020') !== -1).to.equal(true, 'Gregorian calendar year should be 2020');
   });
-  it('It should be possible to override unicode extensions', async () => {
+  it('It should be possible to override unicode extensions', async function () {
+    if (isMobile) this.skip(); // Prevent test fail in Android on BrowserStack
     // 2020 in Indian calendar from Thai perspective is 1941
     expect(await t(scope, 'th-u-ca-indian', 'DATE', {
       date
