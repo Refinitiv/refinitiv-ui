@@ -25,53 +25,38 @@ const toCamelCase = (string: string) => {
  * @return {void}
  */
 const renameFiles = async function (root: string, newName: string, templateName: string) {
-  // Rename element files to new name
-  const entries = await fg([`**/${templateName}.*`], { cwd: root, objectMode: true });
+  try {
+    // Rename element files to new name
+    const entries = await fg([`**/${templateName}.*`], { cwd: root, objectMode: true });
 
-  if (!entries || !entries.length) {
-    throw new Error('Element files are not found for rename');
+    if (!entries?.length) {
+      throw new Error('Element files are not found for rename');
+    }
+
+    await Promise.all(entries.map(async (entry) => {
+      let fileExt = path.extname(entry.name);
+      if (entry.name.includes('.test')) {
+        fileExt = '.test' + fileExt;
+      }
+      const oldFilename = path.join(root, entry.path);
+      const newFilename = oldFilename.replace(entry.name, `${newName}${fileExt}`);
+      await fs.rename(oldFilename, newFilename);
+    }));
+
+    // Remove .template extension from files
+    const suffix = '.template';
+    const suffixEntries = await fg([`.*${suffix}`, `*${suffix}`], { cwd: root, objectMode: true });
+
+    await Promise.all(suffixEntries.map(async (suffixEntry: { path: string }) => {
+      const oldFilename = path.join(root, suffixEntry.path);
+      const newFilename = oldFilename.substring(0, oldFilename.indexOf(suffix));
+      await fs.rename(oldFilename, newFilename);
+    }));
   }
-
-  const renameElementFile = new Promise<void>((resolve, reject) => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      entries.forEach(async (entry) => {
-        let fileExt = path.extname(entry.name);
-        if (entry.name.includes('.test')) {
-          fileExt = '.test' + fileExt;
-        }
-        const oldFilename = path.join(root, entry.path);
-        const newFilename = oldFilename.replace(entry.name, `${newName}${fileExt}`);
-        await fs.rename(oldFilename, newFilename);
-      });
-      resolve();
-    }
-    catch (err) {
-      reject(err);
-    }
-  });
-
-  // Remove .template extension from files
-  const suffix = '.template';
-  const suffixEntries = await fg([`.*${suffix}`, `*${suffix}`], { cwd: root, objectMode: true });
-  const removeSuffix = new Promise<void>((resolve, reject) => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      suffixEntries.forEach(async (suffixEntry: { path: string; }, index) => {
-        const oldFilename = path.join(root, suffixEntry.path);
-        const newFilename = oldFilename.substring(0, oldFilename.indexOf(suffix));
-        await fs.rename(oldFilename, newFilename);
-        if (index === suffixEntries.length - 1) {
-          resolve();
-        }
-      });
-    }
-    catch (err) {
-      reject(err);
-    }
-  });
-
-  return Promise.all([renameElementFile, removeSuffix]);
+  catch (error) {
+    console.error('Unable to rename files');
+    throw error;
+  }
 };
 
 /**
