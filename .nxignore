@@ -1,8 +1,8 @@
 samples/
-__demo__/
 
-# document file
-documents/
+packages/**/__demo__
+
+# document files
 LICENSE
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
