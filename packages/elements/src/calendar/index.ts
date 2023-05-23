@@ -1370,7 +1370,7 @@ export class Calendar extends ControlElement implements MultiValue {
     const isSelection = cell.value !== undefined;
     const isSelectable = isSelection && !cell.disabled;
     const isSelected = cell.selected ? 'true' : 'false';
-    const isActive = (cell.active ? 0 : -1);
+    const isActive = cell.active ? 0 : -1;
 
     return html`<div
       role="gridcell"
