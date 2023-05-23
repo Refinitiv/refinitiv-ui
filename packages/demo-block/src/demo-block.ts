@@ -104,6 +104,7 @@ themeLabel.style.backgroundColor = '#f5f5f6';
 themeLabel.style.color = '#3e444f';
 themeLabel.style.position = 'fixed';
 themeLabel.style.fontSize = '15px';
+themeLabel.style.lineHeight = 'normal';
 themeLabel.style.left = '10px';
 themeLabel.style.top = '10px';
 themeLabel.style.padding = '2px 4px';
