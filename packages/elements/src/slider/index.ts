@@ -1314,13 +1314,11 @@ export class Slider extends ControlElement {
     if (this.range) {
       if (name === SliderDataName.from) {
         valueNow = this.from;
-        valueMin = this.min;
         valueMax = String(this.toNumber - this.minRangeNumber);
       }
       else {
         valueNow = this.to;
         valueMin = String(this.fromNumber + this.minRangeNumber);
-        valueMax = this.max;
       }
     }
 
