@@ -1,6 +1,4 @@
-samples/
-
-packages/**/__demo__
+__demo__/
 
 # document files
 LICENSE
