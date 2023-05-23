@@ -29,6 +29,7 @@ describe('flag/Flag', () => {
     it('without flag or src attributes', async () => {
       const el = await fixture('<ef-flag></ef-flag>');
       const svg = el.shadowRoot.querySelector('svg');
+
       expect(svg).to.equal(null, 'No SVG element should not exist if there is nothing to load');
     });
 
@@ -36,6 +37,7 @@ describe('flag/Flag', () => {
       createFakeResponse(gbSvg, responseConfigSuccess);
       const el = await fixture(`<ef-flag flag="${flagName}"></ef-flag>`);
       const svg = el.shadowRoot.querySelector('svg');
+
       expect(svg).to.not.equal(null, 'SVG element should exist for valid flag attribute');
       expect(isEqualSvg(svg.outerHTML, gbSvg)).to.equal(true, 'Should render SVG, from the server response');
     });
@@ -79,6 +81,37 @@ describe('flag/Flag', () => {
       const svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.equal(null, 'SVG element should not exist for empty src attribute');
+    });
+
+    it('with valid flag attribute to invalid one', async function () {
+      createFakeResponse(gbSvg, responseConfigSuccess);
+      const el = await fixture(`<ef-flag flag="${flagName}"></ef-flag>`);
+      let svg = el.shadowRoot.querySelector('svg');
+
+      expect(svg).to.not.equal(null, 'SVG element should exist for valid flag attribute');
+      expect(isEqualSvg(svg.outerHTML, gbSvg)).to.equal(true, 'Should render SVG, from the server response');
+
+      el.setAttribute('flag', 'invalid');
+      await elementUpdated(el);
+      svg = el.shadowRoot.querySelector('svg');
+
+      expect(svg).to.equal(null, 'SVG element should not exist for invalid flag attribute');
+    });
+
+    it('with valid src attribute to invalid one', async function () {
+      createFakeResponse(gbSvg, responseConfigSuccess);
+      const el = await fixture('<ef-flag src="https://mock.cdn.com/flags/ticks.svg"></ef-flag>');
+      let svg = el.shadowRoot.querySelector('svg');
+
+      expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');
+      expect(isEqualSvg(svg.outerHTML, gbSvg)).to.equal(true, 'Should render SVG, from the server response');
+
+      createFakeResponse('', responseConfigError);
+      el.setAttribute('src', 'https://mock.cdn.com/invalid');
+      await elementUpdated(el);
+      svg = el.shadowRoot.querySelector('svg');
+
+      expect(svg).to.equal(null, 'SVG element should not exist for invalid src attribute');
     });
 
     it('with unsafe nodes in response', async () => {

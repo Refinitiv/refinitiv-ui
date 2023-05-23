@@ -93,6 +93,37 @@ describe('icon/Icon', () => {
 
       expect(script).to.equal(null, 'should strip unsafe nodes');
     });
+
+    it('with valid icon attribute to invalid one', async function () {
+      createFakeResponse(tickSvg, responseConfigSuccess);
+      const el = await fixture(`<ef-icon icon="${iconName}"></ef-icon>`);
+      let svg = el.shadowRoot.querySelector('svg');
+
+      expect(svg).to.not.equal(null, 'SVG element should exist for valid icon attribute');
+      expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
+
+      el.setAttribute('icon', 'invalid');
+      await elementUpdated(el);
+      svg = el.shadowRoot.querySelector('svg');
+
+      expect(svg).to.equal(null, 'SVG element should not exist for invalid icon attribute');
+    });
+
+    it('with valid src attribute to invalid one', async function () {
+      createFakeResponse(tickSvg, responseConfigSuccess);
+      const el = await fixture('<ef-icon src="https://mock.cdn.com/icons/ticks.svg"></ef-icon>');
+      let svg = el.shadowRoot.querySelector('svg');
+
+      expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');
+      expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
+
+      createFakeResponse('', responseConfigError);
+      el.setAttribute('src', 'https://mock.cdn.com/invalid');
+      await elementUpdated(el);
+      svg = el.shadowRoot.querySelector('svg');
+
+      expect(svg).to.equal(null, 'SVG element should not exist for invalid src attribute');
+    });
   });
 
   describe('Should Have Correct Properties', () => {
