@@ -114,6 +114,7 @@ export class Flag extends BasicElement {
       this._template = value;
       this.requestUpdate();
     }
+    this.flagReady.resolve();
   }
 
   /**
@@ -175,10 +176,7 @@ export class Flag extends BasicElement {
    */
   private async loadAndRenderFlag (src: string): Promise<void> {
     const svgBody = await FlagLoader.loadSVG(src);
-    if (svgBody) {
-      this.template = svg`${unsafeHTML(svgBody)}`;
-    }
-    this.flagReady.resolve();
+    this.template = svgBody ? svg`${unsafeHTML(svgBody)}` : EmptyTemplate;
   }
 
   /**
@@ -203,7 +201,6 @@ export class Flag extends BasicElement {
    */
   private clearFlag (): void {
     this.template = EmptyTemplate;
-    this.flagReady.resolve();
   }
 
   /**
