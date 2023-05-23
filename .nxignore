@@ -1,8 +1,17 @@
 __demo__/
 
+# release process
+.npmignore
+.npmrc
+.editorconfig
+**/scripts/dev-server/
+**/scripts/release/
+**/scripts/version/
+
 # document files
-LICENSE
+*.pdf
+CHANGELOG.md
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
+LICENSE
 README.md
-CHANGELOG.md
