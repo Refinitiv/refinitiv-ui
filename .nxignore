@@ -1,1 +1,10 @@
 samples/
+__demo__/
+
+# document file
+documents/
+LICENSE
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+README.md
+CHANGELOG.md
