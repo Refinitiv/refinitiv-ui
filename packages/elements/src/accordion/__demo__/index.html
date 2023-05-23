@@ -35,10 +35,15 @@
         window.location.search = url.searchParams.toString();
       }
 
+      // In order to test elemental theme please uncomment these lines
+      // import '@refinitiv-ui/elemental-theme/light/ef-accordion';
+      // import '@refinitiv-ui/elemental-theme/light/ef-button';
+      // import '@refinitiv-ui/elemental-theme/light/ef-checkbox';
+
       import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-accordion.js`);
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-button.js`);
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-checkbox.js`);
+      import (`../../../lib/accordion/themes/${theme}/${variant}/index.js`);
+      import (`../../../lib/button/themes/${theme}/${variant}/index.js`);
+      import (`../../../lib/checkbox/themes/${theme}/${variant}/index.js`); 
     </script>
 
     <!-- DEFAULT -->

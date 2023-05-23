@@ -3,355 +3,8 @@ import { fixture, fixtureSync, expect, elementUpdated, oneEvent, nextFrame, aTim
 // import element and theme
 import { InteractiveChart } from '@refinitiv-ui/elements/interactive-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-interactive-chart.js';
-
-let line = {
-  series: [
-    {
-      type: 'line',
-      data: [
-        { time: '2019-04-11', value: 80.01 },
-        { time: '2019-04-12', value: 96.63 },
-        { time: '2019-04-13', value: 76.64 },
-        { time: '2019-04-14', value: 81.89 },
-        { time: '2019-04-15', value: 74.43 },
-        { time: '2019-04-16', value: 80.01 },
-        { time: '2019-04-17', value: 96.63 },
-        { time: '2019-04-18', value: 76.64 },
-        { time: '2019-04-19', value: 81.89 }
-      ]
-    }
-  ]
-};
-
-let linePositionLeft = {
-  series: [
-    {
-      symbol: 'Elf',
-      type: 'line',
-      data: [
-        { time: '2019-04-11', value: 80.01 },
-        { time: '2019-04-12', value: 96.63 },
-        { time: '2019-04-13', value: 76.64 },
-        { time: '2019-04-14', value: 81.89 },
-        { time: '2019-04-15', value: 74.43 },
-        { time: '2019-04-16', value: 80.01 },
-        { time: '2019-04-17', value: 96.63 },
-        { time: '2019-04-18', value: 76.64 },
-        { time: '2019-04-19', value: 81.89 }
-      ],
-      seriesOptions: {
-        priceScaleId: 'left'
-      }
-    }
-  ],
-  options: {
-    leftPriceScale: {
-      visible: true
-    },
-    rightPriceScale: {
-      visible: false
-    }
-  }
-};
-
-let noData = {
-  series: [
-    {
-      type: 'line',
-      data: [
-        { time: '2019-04-11', value: 80.01 },
-        { time: '2019-04-12', value: 96.63 },
-        { time: '2019-04-13', value: 76.64 },
-        { time: '2019-04-14', value: 81.89 },
-        { time: '2019-04-15', value: 74.43 },
-        { time: '2019-04-16', value: 80.01 },
-        { time: '2019-04-17', value: 96.63 },
-        { time: '2019-04-18', value: 76.64 },
-        { time: '2019-04-19', value: 81.89 }
-      ]
-    },
-    {
-      type: 'area',
-      data: []
-    }
-  ]
-};
-
-let multiLine = {
-  series: [
-    {
-      type: 'line',
-      data: [
-        { time: '2019-04-11', value: 80.01 },
-        { time: '2019-04-12', value: 96.63 },
-        { time: '2019-04-13', value: 76.64 },
-        { time: '2019-04-14', value: 81.89 },
-        { time: '2019-04-15', value: 74.43 },
-        { time: '2019-04-16', value: 80.01 },
-        { time: '2019-04-17', value: 96.63 },
-        { time: '2019-04-18', value: 76.64 },
-        { time: '2019-04-19', value: 81.89 }
-      ]
-    }, {
-      type: 'line',
-      data: [
-        { time: '2019-04-11', value: 10.01 },
-        { time: '2019-04-12', value: 26.63 },
-        { time: '2019-04-13', value: 36.64 },
-        { time: '2019-04-14', value: 61.89 },
-        { time: '2019-04-15', value: 44.43 },
-        { time: '2019-04-16', value: 20.01 },
-        { time: '2019-04-17', value: 6.63 },
-        { time: '2019-04-18', value: 6.64 },
-        { time: '2019-04-19', value: 99.89 }
-      ]
-    },
-    {
-      type: 'line',
-      data: [
-        { time: '2019-04-11', value: 1.01 },
-        { time: '2019-04-12', value: 5.63 },
-        { time: '2019-04-13', value: 26.64 },
-        { time: '2019-04-14', value: 31.89 },
-        { time: '2019-04-15', value: 14.43 },
-        { time: '2019-04-16', value: 50.01 },
-        { time: '2019-04-17', value: 6.63 },
-        { time: '2019-04-18', value: 66.64 },
-        { time: '2019-04-19', value: 19.89 }
-      ]
-    }
-  ]
-};
-
-
-let area = {
-  series: [
-    {
-      type: 'area',
-      data: [
-        { time: '2018-12-22', value: 32.51 },
-        { time: '2018-12-23', value: 31.11 },
-        { time: '2018-12-24', value: 27.02 },
-        { time: '2018-12-25', value: 27.32 },
-        { time: '2018-12-26', value: 25.17 },
-        { time: '2018-12-27', value: 28.89 },
-        { time: '2018-12-28', value: 25.46 },
-        { time: '2018-12-29', value: 23.92 },
-        { time: '2018-12-30', value: 22.68 },
-        { time: '2018-12-31', value: 22.67 }
-      ]
-    }
-  ]
-};
-
-let bar = {
-  series: [
-    {
-      type: 'bar',
-      data: [
-        { time: '2018-12-19', open: 141.77, high: 170.39, low: 120.25, close: 145.72 },
-        { time: '2018-12-20', open: 145.72, high: 147.99, low: 100.11, close: 108.19 },
-        { time: '2018-12-21', open: 108.19, high: 118.43, low: 74.22, close: 75.16 },
-        { time: '2018-12-22', open: 75.16, high: 82.84, low: 36.16, close: 45.72 },
-        { time: '2018-12-23', open: 45.12, high: 53.90, low: 45.12, close: 48.09 },
-        { time: '2018-12-24', open: 60.71, high: 60.71, low: 53.39, close: 59.29 },
-        { time: '2018-12-25', open: 68.26, high: 68.26, low: 59.04, close: 60.50 },
-        { time: '2018-12-26', open: 67.71, high: 105.85, low: 66.67, close: 91.04 },
-        { time: '2018-12-27', open: 91.04, high: 121.40, low: 82.70, close: 111.40 },
-        { time: '2018-12-28', open: 111.51, high: 142.83, low: 103.34, close: 131.25 },
-        { time: '2018-12-29', open: 131.33, high: 151.17, low: 77.68, close: 96.43 },
-        { time: '2018-12-30', open: 106.33, high: 110.20, low: 90.39, close: 98.10 },
-        { time: '2018-12-31', open: 109.87, high: 114.69, low: 85.66, close: 111.26 }
-      ]
-    }
-  ]
-};
-
-let candlestick = {
-  series: [
-    {
-      type: 'candlestick',
-      data: [
-        { time: '2018-12-19', open: 141.77, high: 170.39, low: 120.25, close: 145.72 },
-        { time: '2018-12-20', open: 145.72, high: 147.99, low: 100.11, close: 108.19 },
-        { time: '2018-12-21', open: 108.19, high: 118.43, low: 74.22, close: 75.16 },
-        { time: '2018-12-22', open: 75.16, high: 82.84, low: 36.16, close: 45.72 },
-        { time: '2018-12-23', open: 45.12, high: 53.90, low: 45.12, close: 48.09 },
-        { time: '2018-12-24', open: 60.71, high: 60.71, low: 53.39, close: 59.29 },
-        { time: '2018-12-25', open: 68.26, high: 68.26, low: 59.04, close: 60.50 },
-        { time: '2018-12-26', open: 67.71, high: 105.85, low: 66.67, close: 91.04 },
-        { time: '2018-12-27', open: 91.04, high: 121.40, low: 82.70, close: 111.40 },
-        { time: '2018-12-28', open: 111.51, high: 142.83, low: 103.34, close: 131.25 },
-        { time: '2018-12-29', open: 131.33, high: 151.17, low: 77.68, close: 96.43 },
-        { time: '2018-12-30', open: 106.33, high: 110.20, low: 90.39, close: 98.10 },
-        { time: '2018-12-31', open: 109.87, high: 114.69, low: 85.66, close: 111.26 }
-      ]
-    }
-  ]
-};
-
-let volume = {
-  series: [
-    {
-      type: 'volume',
-      data: [
-        { time: '2018-12-20', value: 20.31 },
-        { time: '2018-12-21', value: 30.27 },
-        { time: '2018-12-22', value: 70.28 },
-        { time: '2018-12-23', value: 49.29 },
-        { time: '2018-12-24', value: 40.64 },
-        { time: '2018-12-25', value: 57.46 },
-        { time: '2018-12-26', value: 50.55 },
-        { time: '2018-12-27', value: 34.85 },
-        { time: '2018-12-28', value: 56.68 },
-        { time: '2018-12-29', value: 51.60 },
-        { time: '2018-12-30', value: 75.33 },
-        { time: '2018-12-31', value: 54.85, color: 'red' }
-      ]
-    }
-  ]
-};
-
-let multiSeries = {
-  series: [
-    {
-      type: 'line',
-      data: [
-        { time: '2019-04-11', value: 80.01 },
-        { time: '2019-04-12', value: 96.63 },
-        { time: '2019-04-13', value: 76.64 },
-        { time: '2019-04-14', value: 81.89 },
-        { time: '2019-04-15', value: 74.43 },
-        { time: '2019-04-16', value: 80.01 },
-        { time: '2019-04-17', value: 96.63 },
-        { time: '2019-04-18', value: 76.64 },
-        { time: '2019-04-19', value: 81.89 }
-      ]
-    },
-    {
-      type: 'area',
-      data: [
-        { time: '2019-04-11', value: 80.01 },
-        { time: '2019-04-12', value: 76.63 },
-        { time: '2019-04-13', value: 76.64 },
-        { time: '2019-04-14', value: 81.89 },
-        { time: '2019-04-15', value: 64.43 },
-        { time: '2019-04-16', value: 80.01 },
-        { time: '2019-04-17', value: 96.63 },
-        { time: '2019-04-18', value: 56.64 },
-        { time: '2019-04-19', value: 81.89 }
-      ]
-    },
-    {
-      type: 'volume',
-      data: [
-        { time: '2019-04-11', value: 20.31 },
-        { time: '2019-04-12', value: 30.27 },
-        { time: '2019-04-13', value: 70.28 },
-        { time: '2019-04-14', value: 49.29 },
-        { time: '2019-04-16', value: 40.64 },
-        { time: '2019-04-17', value: 57.46 },
-        { time: '2019-04-18', value: 50.55 },
-        { time: '2019-04-19', value: 34.85 },
-        { time: '2019-04-19', value: 60.85 }
-      ]
-    }
-  ]
-};
-
-const twoPriceScales = {
-  series: [
-    {
-      symbol: 'AAPL',
-      type: 'area',
-      data: [
-        { time: '2018-12-22', value: 32.51 },
-        { time: '2018-12-23', value: 31.11 },
-        { time: '2018-12-24', value: 27.02 },
-        { time: '2018-12-25', value: 27.32 },
-        { time: '2018-12-26', value: 25.17 },
-        { time: '2018-12-27', value: 28.89 },
-        { time: '2018-12-28', value: 25.46 },
-        { time: '2018-12-29', value: 23.92 },
-        { time: '2018-12-30', value: 22.68 },
-        { time: '2018-12-31', value: 22.67 }
-      ],
-      seriesOptions: {
-        priceScaleId: 'left'
-      }
-    },
-    {
-      symbol: 'AAPL2',
-      type: 'area',
-      data: [
-        { time: '2018-12-22', value: 42.51 },
-        { time: '2018-12-23', value: 51.11 },
-        { time: '2018-12-24', value: 67.02 },
-        { time: '2018-12-25', value: 17.32 },
-        { time: '2018-12-26', value: 45.17 },
-        { time: '2018-12-27', value: 38.89 },
-        { time: '2018-12-28', value: 75.46 },
-        { time: '2018-12-29', value: 13.92 },
-        { time: '2018-12-30', value: 9.68 },
-        { time: '2018-12-31', value: 11.67 }
-      ],
-      seriesOptions: {
-        priceScaleId: 'right'
-      }
-    }
-  ],
-  options: {
-    leftPriceScale: {
-      visible: true
-    },
-    rightPriceScale: {
-      visible: true
-    }
-  }
-};
-
-let customLegendAreaChart = {
-  series: [{
-    symbol: 'AAPL',
-    legendPriceFormatter: price => '$' + price.toFixed(3),
-    type: 'area',
-    data: [
-      { time: '2018-12-22', value: 32.51 },
-      { time: '2018-12-23', value: 31.11 },
-      { time: '2018-12-24', value: 27.02 },
-      { time: '2018-12-25', value: 27.32 },
-      { time: '2018-12-26', value: 25.17 },
-      { time: '2018-12-27', value: 28.89 },
-      { time: '2018-12-28', value: 25.46 },
-      { time: '2018-12-29', value: 23.92 },
-      { time: '2018-12-30', value: 22.68 },
-      { time: '2018-12-31', value: 22.67 }
-    ]
-  }]
-};
-
-let customLegendCandlestickChart = {
-  series: [{
-    symbol: 'EUR/USD',
-    type: 'candlestick',
-    legendPriceFormatter: price => '$' + price.toFixed(3),
-    data: [
-      { time: '2018-12-19', open: 141.77, high: 170.39, low: 120.25, close: 145.72 },
-      { time: '2018-12-20', open: 145.72, high: 147.99, low: 100.11, close: 108.19 },
-      { time: '2018-12-21', open: 108.19, high: 118.43, low: 74.22, close: 75.16 },
-      { time: '2018-12-22', open: 75.16, high: 82.84, low: 36.16, close: 45.72 },
-      { time: '2018-12-23', open: 45.12, high: 53.90, low: 45.12, close: 48.09 },
-      { time: '2018-12-24', open: 60.71, high: 60.71, low: 53.39, close: 59.29 },
-      { time: '2018-12-25', open: 68.26, high: 68.26, low: 59.04, close: 60.50 },
-      { time: '2018-12-26', open: 67.71, high: 105.85, low: 66.67, close: 91.04 },
-      { time: '2018-12-27', open: 91.04, high: 121.40, low: 82.70, close: 111.40 },
-      { time: '2018-12-28', open: 111.51, high: 142.83, low: 103.34, close: 131.25 },
-      { time: '2018-12-29', open: 131.33, high: 151.17, low: 77.68, close: 96.43 },
-      { time: '2018-12-30', open: 106.33, high: 110.20, low: 90.39, close: 98.10 },
-      { time: '2018-12-31', open: 109.87, high: 114.69, low: 85.66, close: 111.26 }
-    ]
-  }]
-};
+import * as mockConfig from './mock-config.js';
+import { isSafari, isMobile } from "@refinitiv-ui/utils";
 
 describe('interactive-chart/InteractiveChart', () => {
   const generateData = function (total, start, init) {
@@ -399,12 +52,15 @@ describe('interactive-chart/InteractiveChart', () => {
   };
 
   let el;
-  beforeEach(async () => {
+  beforeEach(async function() {
+    if (isMobile && isSafari()) {
+      this.skip(); // Seem like we got the problem about the memory exceed in iOS, so we need to skip it for now
+    }
     el = await fixtureSync('<ef-interactive-chart></ef-interactive-chart>');
   });
 
   describe('Functional', () => {
-    it('convertColorToString should be {} if giving wrong params', async () => {
+    it('convertColorToString should be {} if giving wrong params', () => {
       const result = el.convertColorToString(null, null);
       expect(Object.keys(result)).to.lengthOf(0);
     });
@@ -449,7 +105,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('Should support line chart', async () => {
-      el.config = line;
+      el.config = mockConfig.line;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
@@ -458,16 +114,16 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('Should support multi line chart', async () => {
-      el.config = multiLine;
+      el.config = mockConfig.multiLine;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
-      expect(el.seriesList.length).to.equal(multiLine.series.length);
+      expect(el.seriesList.length).to.equal(mockConfig.multiLine.series.length);
     });
 
     it('Should support transparent color in line chart', async () => {
-      let newConfigData = line;
+      let newConfigData = mockConfig.line;
       newConfigData.series[0].seriesOptions = {
         color: 'transparent'
       };
@@ -480,7 +136,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('Should support area chart', async () => {
-      el.config = area;
+      el.config = mockConfig.area;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
@@ -489,7 +145,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('Should support transparent color in area chart ', async () => {
-      let newConfigData = area;
+      let newConfigData = mockConfig.area;
       newConfigData.series[0].seriesOptions = {
         lineColor: 'transparent',
         topColor: 'transparent',
@@ -504,7 +160,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('Should support candlestick chart', async () => {
-      el.config = candlestick;
+      el.config = mockConfig.candlestick;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
@@ -513,7 +169,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('Should support transparent color in candlestick chart', async () => {
-      let newConfigData = candlestick;
+      let newConfigData = mockConfig.candlestick;
       newConfigData.series[0].seriesOptions = {
         upColor: 'transparent',
         downColor: 'transparent',
@@ -531,7 +187,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('Should support bar chart', async () => {
-      el.config = bar;
+      el.config = mockConfig.bar;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
@@ -540,7 +196,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('Should support transparent color in bar chart ', async () => {
-      let newConfigData = bar;
+      let newConfigData = mockConfig.bar;
       newConfigData.series[0].seriesOptions = {
         upColor: 'transparent',
         downColor: 'transparent'
@@ -554,7 +210,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('Should support volume chart', async () => {
-      el.config = volume;
+      el.config = mockConfig.volume;
       // when having config type volume, then chart type in lightweight-charts have been a histogram.
       await nextFrame();
       await elementUpdated();
@@ -564,7 +220,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('Should support transparent color in volume chart ', async () => {
-      let newConfigData = volume;
+      let newConfigData = mockConfig.volume;
       newConfigData.series[0].seriesOptions = {
         color: 'transparent'
       };
@@ -577,21 +233,21 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('Should support multi series chart', async () => {
-      el.config = multiSeries;
+      el.config = mockConfig.multiSeries;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
-      expect(el.seriesList.length).to.equal(multiSeries.series.length);
+      expect(el.seriesList.length).to.equal(mockConfig.multiSeries.series.length);
     });
 
     it('Should support no data series chart', async () => {
-      el.config = noData;
+      el.config = mockConfig.noData;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
-      expect(el.seriesList.length).to.equal(noData.series.length);
+      expect(el.seriesList.length).to.equal(mockConfig.noData.series.length);
     });
 
   });
@@ -599,14 +255,14 @@ describe('interactive-chart/InteractiveChart', () => {
   describe('Features', () => {
 
     it('When pass new data after chart create', async () => {
-      el.config = multiSeries;
+      el.config = mockConfig.multiSeries;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
-      expect(el.seriesList.length).to.equal(multiSeries.series.length);
+      expect(el.seriesList.length).to.equal(mockConfig.multiSeries.series.length);
 
-      el.config = line;
+      el.config = mockConfig.line;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
@@ -617,7 +273,7 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('When pass new data after chart create', async () => {
 
-      el.config = linePositionLeft;
+      el.config = mockConfig.linePositionLeft;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
@@ -626,7 +282,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('When show disabled legend in chart', async () => {
-      el.config = line;
+      el.config = mockConfig.line;
       await nextFrame();
       await elementUpdated();
       el.disabledLegend = true;
@@ -640,7 +296,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('When hide legend in chart series', async () => {
-      const config = line;
+      const config = mockConfig.line;
       config.series[0].legendVisible = false;
       el.config = config;
       await nextFrame();
@@ -651,20 +307,21 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('When hide some legend in chart series', async () => {
-      const config = multiLine;
+      const config = mockConfig.multiLine;
       config.series[0].legendVisible = false;
       el.config = config;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
-      expect(el.shadowRoot.querySelectorAll('[part=legend] > .row:not(:empty)').length).to.equal(multiLine.series.length - 1);
+      expect(el.shadowRoot.querySelectorAll('[part=legend] > .row:not(:empty)').length).to.equal(mockConfig.multiLine.series.length - 1);
     });
 
     it('Legend is not horizontal by default', async () => {
-      el.config = line;
+      el.config = mockConfig.line;
       await nextFrame();
       await elementUpdated();
+
       expect(el.chart).to.not.be.null;
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
 
@@ -672,17 +329,17 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('Legend should have horizontal style class when set legend-style="horizontal" via attribute', async () => {
       el = await fixture('<ef-interactive-chart legend-style="horizontal"></ef-interactive-chart>');
-      el.config = line;
+      el.config = mockConfig.line;
       await elementUpdated();
       await nextFrame();
-
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.include('horizontal');
     });
+
     it('Legend should not have horizontal style class when set legend-style="vertical" via attribute', async () => {
       el = await fixture('<ef-interactive-chart legend-style="vertical"></ef-interactive-chart>');
-      el.config = line;
+      el.config = mockConfig.line;
       await elementUpdated();
       await nextFrame();
 
@@ -692,7 +349,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('LegendStyle should able to switch between horizontal and vertical', async () => {
-      el.config = line;
+      el.config = mockConfig.line;
       await nextFrame();
       await elementUpdated();
 
@@ -712,7 +369,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('When toggle jump button in chart', async () => {
-      el.config = line;
+      el.config = mockConfig.line;
       await nextFrame();
       await elementUpdated();
       el.disabledJumpButton = true;
@@ -731,7 +388,7 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('When click jump button in chart', async () => {
 
-      el.config = linePositionLeft;
+      el.config = mockConfig.linePositionLeft;
       await nextFrame();
       await elementUpdated();
       el.timeScale.scrollToPosition(-10);
@@ -756,7 +413,7 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('When custom style chart', async () => {
       let custom = {
-        series: line.series,
+        series: mockConfig.line.series,
         options: {
           layout: {
             backgroundColor: '#e3e3e3'
@@ -774,7 +431,7 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('When pass data two price scales', async () => {
 
-      el.config = twoPriceScales;
+      el.config = mockConfig.twoPriceScales;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
@@ -807,81 +464,81 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
     });
-  });
 
-  it('When custom legend formatter in area chart', async () => {
-    el.config = customLegendAreaChart;
-    await nextFrame();
-    await elementUpdated();
-    const legendText = el.shadowRoot.querySelector('[part=legend]').querySelector('.price').innerText;
-    expect(el.chart).to.not.be.undefined;
-    expect(el.chart).to.not.be.null;
-    expect(legendText.indexOf('$')).to.equal(0);
-  });
+    it('When custom legend formatter in area chart', async () => {
+      el.config = mockConfig.customLegendAreaChart;
+      await nextFrame();
+      await elementUpdated();
+      const legendText = el.shadowRoot.querySelector('[part=legend]').querySelector('.price').innerText;
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
+      expect(legendText.indexOf('$')).to.equal(0);
+    });
 
-  it('When custom legend formatter in candlestick chart', async () => {
-    el.config = customLegendCandlestickChart;
-    await nextFrame();
-    await elementUpdated();
-    const legendText = el.shadowRoot.querySelector('[part=legend]').querySelectorAll('.price');
-    expect(el.chart).to.not.be.undefined;
-    expect(el.chart).to.not.be.null;
-    expect(legendText[0].innerText.indexOf('$')).to.equal(0); // open
-    expect(legendText[1].innerText.indexOf('$')).to.equal(0); // high
-    expect(legendText[2].innerText.indexOf('$')).to.equal(0); // low
-    expect(legendText[3].innerText.indexOf('$')).to.equal(0); // close
-  });
+    it('When custom legend formatter in candlestick chart', async () => {
+      el.config = mockConfig.customLegendCandlestickChart;
+      await nextFrame();
+      await elementUpdated();
+      const legendText = el.shadowRoot.querySelector('[part=legend]').querySelectorAll('.price');
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
+      expect(legendText[0].innerText.indexOf('$')).to.equal(0); // open
+      expect(legendText[1].innerText.indexOf('$')).to.equal(0); // high
+      expect(legendText[2].innerText.indexOf('$')).to.equal(0); // low
+      expect(legendText[3].innerText.indexOf('$')).to.equal(0); // close
+    });
 
-  it('Should has dynamic left position in legend when the chart set y axis at left', async () => {
-    el.config = linePositionLeft;
-    await elementUpdated(el);
-    await nextFrame(3); // wait for resize observer & rendering completion
+    it('Should has dynamic left position in legend when the chart set y axis at left', async () => {
+      el.config = mockConfig.linePositionLeft;
+      await elementUpdated(el);
+      await nextFrame(3); // wait for resize observer & rendering completion
 
-    expect(el.chart).to.not.be.undefined;
-    expect(el.chart).to.not.be.null;
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
 
-    await nextFrame();
-    const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'));
-    const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')));
-    expect(legendStyle.position).to.equal('absolute');
-    expect(legendLeftPosition).to.greaterThan(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
-  });
+      await nextFrame();
+      const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'));
+      const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')));
+      expect(legendStyle.position).to.equal('absolute');
+      expect(legendLeftPosition).to.greaterThan(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
+    });
 
-  it('Should has dynamic left position in legend when the chart set y axis at both edge', async () => {
-    el.config = twoPriceScales;
-    await elementUpdated(el);
-    await nextFrame(3); // wait for resize observer & rendering completion
+    it('Should has dynamic left position in legend when the chart set y axis at both edge', async () => {
+      el.config = mockConfig.twoPriceScales;
+      await elementUpdated(el);
+      await nextFrame(3); // wait for resize observer & rendering completion
 
-    expect(el.chart).to.not.be.undefined;
-    expect(el.chart).to.not.be.null;
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
 
-    await nextFrame();
-    const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
-    const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
-    expect(legendStyle.position).to.equal('absolute');
-    expect(legendLeftPosition).to.greaterThan(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
-  });
+      await nextFrame();
+      const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
+      const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
+      expect(legendStyle.position).to.equal('absolute');
+      expect(legendLeftPosition).to.greaterThan(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
+    });
 
-  it('Should has fixed left position in legend when the chart set y axis at right edge', async () => {
-    el.config = line;
-    await elementUpdated(el);
-    await nextFrame(3); // wait for resize observer & rendering completion
+    it('Should has fixed left position in legend when the chart set y axis at right edge', async () => {
+      el.config = mockConfig.line;
+      await elementUpdated(el);
+      await nextFrame(3); // wait for resize observer & rendering completion
 
-    expect(el.chart).to.not.be.undefined;
-    expect(el.chart).to.not.be.null;
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
 
-    await nextFrame();
-    const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
-    const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
-    expect(legendStyle.position).to.equal('absolute');
-    expect(legendLeftPosition).to.equal(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
+      await nextFrame();
+      const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
+      const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
+      expect(legendStyle.position).to.equal('absolute');
+      expect(legendLeftPosition).to.equal(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
+    });
   });
 
   describe('Test deprecated attribute', () => {
     it('Switch attribute legendstyle horizontal to vertical, it should display vertical style', async () => {
       el = await fixture('<ef-interactive-chart legendstyle="horizontal"></ef-interactive-chart>');
 
-      el.config = line;
+      el.config = mockConfig.line;
       await elementUpdated(el);
       await nextFrame(2); // wait for resize observer & rendering completion
 
@@ -898,7 +555,7 @@ describe('interactive-chart/InteractiveChart', () => {
     it('Set legend-style to vertical when legendstyle horizontal, it should display vertical style', async () => {
       el = await fixture('<ef-interactive-chart legendstyle="horizontal"></ef-interactive-chart>');
 
-      el.config = line;
+      el.config = mockConfig.line;
       await elementUpdated(el);
       await nextFrame(2); // wait for resize observer & rendering completion
 
