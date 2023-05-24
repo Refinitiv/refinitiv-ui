@@ -9,9 +9,9 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
+import { Deferred } from '@refinitiv-ui/utils/loader.js';
 import { VERSION } from '../version.js';
 import { FlagLoader } from './utils/FlagLoader.js';
-
 export { preload } from './utils/FlagLoader.js';
 
 const EmptyTemplate = svg``;
@@ -70,6 +70,7 @@ export class Flag extends BasicElement {
   }
   public set flag (value: string | null) {
     if (this.flag !== value) {
+      this.deferFlagReady();
       this._flag = value;
       void this.setFlagSrc();
     }
@@ -89,6 +90,7 @@ export class Flag extends BasicElement {
   }
   public set src (value: string | null) {
     if (this.src !== value) {
+      this.deferFlagReady();
       this._src = value;
       if (value) {
         void this.loadAndRenderFlag(value);
@@ -112,6 +114,22 @@ export class Flag extends BasicElement {
       this._template = value;
       this.requestUpdate();
     }
+    this.flagReady.resolve();
+  }
+
+  /**
+   * A deferred promise representing flag ready.
+   * It would be resolved when the flag svg has been fetched and parsed, or
+   * when the flag svg is unavailable/invalid.
+   */
+  private flagReady!:Deferred<void>;
+
+  constructor () {
+    super();
+    this.flagReady = new Deferred<void>();
+    // `flagReady` resolves at this stage so that `updateComplete` would be resolvable
+    // even in the case that both `flag` and `src` attribute are missing.
+    this.flagReady.resolve();
   }
 
   /**
@@ -124,12 +142,30 @@ export class Flag extends BasicElement {
     this.setPrefix();
   }
 
+  protected async getUpdateComplete (): Promise<boolean> {
+    const result = await super.getUpdateComplete();
+    await this.flagReady.promise;
+    return result;
+  }
+
+  /**
+   * instantiate a new deferred promise for flag ready if it's not pending already
+   * @returns {void}
+   */
+  private deferFlagReady (): void {
+    if (this.flagReady.isPending()) {
+      return;
+    }
+    this.flagReady = new Deferred<void>();
+  }
+
   /**
    * Helper method, used to set the flag src.
    * @returns {void}
    */
   private async setFlagSrc (): Promise<void> {
-    this.src = this.flag ? await FlagLoader.getSrc(this.flag) : null;
+  // keep `src` in-sync with `flag` so that flag svg would be resolved after every `flag` update
+    this.src = this.flag ? await FlagLoader.getSrc(this.flag) : this.flag;
   }
 
   /**
@@ -139,11 +175,8 @@ export class Flag extends BasicElement {
    * @returns {void}
    */
   private async loadAndRenderFlag (src: string): Promise<void> {
-
     const svgBody = await FlagLoader.loadSVG(src);
-    if (svgBody) {
-      this.template = svg`${unsafeHTML(svgBody)}`;
-    }
+    this.template = svgBody ? svg`${unsafeHTML(svgBody)}` : EmptyTemplate;
   }
 
   /**
