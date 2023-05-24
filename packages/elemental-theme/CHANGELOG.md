@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.3.2...@refinitiv-ui/elemental-theme@6.3.3) (2023-05-24)
+
+
+### Bug Fixes
+
+* remove `z-index` from collapse implementation ([#682](https://github.com/Refinitiv/refinitiv-ui/issues/682)) ([c3b6f76](https://github.com/Refinitiv/refinitiv-ui/commit/c3b6f76b178a0339de8f3bc153e1378398d68831))
+* update `line-height` to match Halo specification ([#697](https://github.com/Refinitiv/refinitiv-ui/issues/697)) ([1a80b5d](https://github.com/Refinitiv/refinitiv-ui/commit/1a80b5d1cf1d5658c86cc636604b423d2a72f42d))
+
+
+
+
+
 ## [6.3.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.3.1...@refinitiv-ui/elemental-theme@6.3.2) (2023-03-14)
 
 **Note:** Version bump only for package @refinitiv-ui/elemental-theme
