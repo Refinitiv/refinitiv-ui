@@ -1,24 +1,19 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is correct with spacing"] =
+snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is correct with spacing"] = 
 `<ef-header
   level="3"
   part="header"
+  role="heading"
 >
   <div
-    part="heading"
-    role="heading"
+    aria-controls="content"
+    aria-expanded="false"
+    id="header-label"
+    role="button"
+    tabindex="0"
   >
-    <div
-      aria-controls="content"
-      aria-expanded="false"
-      id="header-toggle"
-      part="header-toggle"
-      role="button"
-      tabindex="0"
-    >
-    </div>
   </div>
   <ef-icon
     aria-hidden="true"
@@ -39,7 +34,7 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
   </slot>
 </ef-header>
 <div
-  aria-labelledby="header-toggle"
+  aria-labelledby="header-label"
   id="content"
   part="content"
   role="region"
@@ -55,24 +50,19 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
 `;
 /* end snapshot collapse/Collapse Should Have Correct DOM Label and DOM structure is correct with spacing */
 
-snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is correct with level"] =
+snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is correct with level"] = 
 `<ef-header
   level="1"
   part="header"
+  role="heading"
 >
   <div
-    part="heading"
-    role="heading"
+    aria-controls="content"
+    aria-expanded="false"
+    id="header-label"
+    role="button"
+    tabindex="0"
   >
-    <div
-      aria-controls="content"
-      aria-expanded="false"
-      id="header-toggle"
-      part="header-toggle"
-      role="button"
-      tabindex="0"
-    >
-    </div>
   </div>
   <ef-icon
     aria-hidden="true"
@@ -93,7 +83,7 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
   </slot>
 </ef-header>
 <div
-  aria-labelledby="header-toggle"
+  aria-labelledby="header-label"
   id="content"
   part="content"
   role="region"
@@ -109,24 +99,19 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
 `;
 /* end snapshot collapse/Collapse Should Have Correct DOM Label and DOM structure is correct with level */
 
-snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is correct without level"] =
+snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is correct without level"] = 
 `<ef-header
   level=""
   part="header"
+  role="heading"
 >
   <div
-    part="heading"
-    role="heading"
+    aria-controls="content"
+    aria-expanded="false"
+    id="header-label"
+    role="button"
+    tabindex="0"
   >
-    <div
-      aria-controls="content"
-      aria-expanded="false"
-      id="header-toggle"
-      part="header-toggle"
-      role="button"
-      tabindex="0"
-    >
-    </div>
   </div>
   <ef-icon
     aria-hidden="true"
@@ -147,7 +132,7 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
   </slot>
 </ef-header>
 <div
-  aria-labelledby="header-toggle"
+  aria-labelledby="header-label"
   id="content"
   part="content"
   role="region"
@@ -163,25 +148,20 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
 `;
 /* end snapshot collapse/Collapse Should Have Correct DOM Label and DOM structure is correct without level */
 
-snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is correct with header"] =
+snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is correct with header"] = 
 `<ef-header
   level="3"
   part="header"
+  role="heading"
 >
   <div
-    part="heading"
-    role="heading"
+    aria-controls="content"
+    aria-expanded="false"
+    id="header-label"
+    role="button"
+    tabindex="0"
   >
-    <div
-      aria-controls="content"
-      aria-expanded="false"
-      id="header-toggle"
-      part="header-toggle"
-      role="button"
-      tabindex="0"
-    >
-      Header
-    </div>
+    Header
   </div>
   <ef-icon
     aria-hidden="true"
@@ -202,7 +182,7 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
   </slot>
 </ef-header>
 <div
-  aria-labelledby="header-toggle"
+  aria-labelledby="header-label"
   id="content"
   part="content"
   role="region"
@@ -218,24 +198,19 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
 `;
 /* end snapshot collapse/Collapse Should Have Correct DOM Label and DOM structure is correct with header */
 
-snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is correct"] =
+snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is correct"] = 
 `<ef-header
   level="3"
   part="header"
+  role="heading"
 >
   <div
-    part="heading"
-    role="heading"
+    aria-controls="content"
+    aria-expanded="false"
+    id="header-label"
+    role="button"
+    tabindex="0"
   >
-    <div
-      aria-controls="content"
-      aria-expanded="false"
-      id="header-toggle"
-      part="header-toggle"
-      role="button"
-      tabindex="0"
-    >
-    </div>
   </div>
   <ef-icon
     aria-hidden="true"
@@ -256,7 +231,7 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
   </slot>
 </ef-header>
 <div
-  aria-labelledby="header-toggle"
+  aria-labelledby="header-label"
   id="content"
   part="content"
   role="region"
