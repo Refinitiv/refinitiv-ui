@@ -10,7 +10,7 @@ layout: default
 ::
 ```javascript
 ::search-field::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/panel?min';
 halo('panel');
 ```
 ```html
@@ -235,9 +235,7 @@ By listening to the `keyup` event, you can add a search action when the user pre
 ```javascript
 const searchInput = document.querySelector("ef-search-field");
 searchInput.addEventListener("keyup", (e) => {
-  // keyCode 13 is the "Enter" key
-  if (e.keyCode === 13) {
-    // Calls search API
+  if (e.key === 'Enter') {
   }
 });
 ```

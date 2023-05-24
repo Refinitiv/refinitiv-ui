@@ -1,4 +1,4 @@
-import { elementUpdated, expect, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import { itemHighlightable, renderer } from '../../../lib/autosuggest/index.js';
 import { Autosuggest } from '@refinitiv-ui/elements/autosuggest';
@@ -6,14 +6,14 @@ import '@refinitiv-ui/elements/text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-autosuggest';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 
-import { createFixture, createInputElement } from './helpers/helpers';
+import { createFixture, createInputElement } from './helpers/helpers.js';
 
 describe('autosuggest/Autosuggest', () => {
 
   it('DOM structure is correct', async () => {
     await createInputElement();
     const el = await createFixture('snapshot');
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   describe('Test Properties And Attributes Assign Value', async () => {
@@ -136,9 +136,6 @@ describe('autosuggest/Autosuggest', () => {
 
     describe('Test Query Field', async () => {
       it('Test query attribute and reflecting to property', async function () {
-        if (isIE()) {
-          this.skip();
-        }
         expect(autoSuggest.getAttribute('query')).to.equal(null, 'Attribute query should not exists');
 
         autoSuggest.setAttribute('query', 'some-super-text');

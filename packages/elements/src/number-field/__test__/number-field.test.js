@@ -1,4 +1,4 @@
-import { fixture, expect, oneEvent, elementUpdated, nextFrame, isIE, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, oneEvent, elementUpdated } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/number-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
@@ -13,13 +13,13 @@ describe('number-field/NumberField', () => {
   describe('Dom Structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-number-field></ef-number-field>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure without spinner is correct', async () => {
       const el = await fixture('<ef-number-field></ef-number-field>');
       el.setAttribute('no-spinner', true);
       await elementUpdated();
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
@@ -83,9 +83,7 @@ describe('number-field/NumberField', () => {
     });
     it('Should display correct placeholder when it is set directly', async () => {
       const el = await fixture('<ef-number-field></ef-number-field>');
-      const PLACEHOLDER_TEXT = 'This is placeholder';
-
-      el.placeholder = PLACEHOLDER_TEXT;
+      el.placeholder = 'This is placeholder';
       await elementUpdated(el);
       expect(el.getAttribute('placeholder')).to.equal(null);
     });
@@ -197,26 +195,20 @@ describe('number-field/NumberField', () => {
       expect(el.value).to.equal('');
     });
     it('Should not increase the value when it is disabled', async () => {
-      // IE11 cannot fire tap event
-      if (!isIE()) {
-        el.setAttribute('disabled', true);
-        await elementUpdated();
+      el.setAttribute('disabled', true);
+      await elementUpdated();
 
-        setTimeout(() => dispatchTapEvent(spinnerUpEl));
-        await oneEvent(spinnerUpEl, 'tap');
-        expect(el.value).to.equal('');
-      }
+      setTimeout(() => dispatchTapEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tap');
+      expect(el.value).to.equal('');
     });
     it('Should not decrease the value when it is disabled', async () => {
-      // IE11 cannot fire tap event
-      if (!isIE()) {
-        el.setAttribute('disabled', true);
-        await elementUpdated();
+      el.setAttribute('disabled', true);
+      await elementUpdated();
 
-        setTimeout(() => dispatchTapEvent(spinnerDownEl));
-        await oneEvent(spinnerDownEl, 'tap');
-        expect(el.value).to.equal('');
-      }
+      setTimeout(() => dispatchTapEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tap');
+      expect(el.value).to.equal('');
     });
     it('Should increase the value by 0.01', async () => {
       el.setAttribute('step', '0.01');
@@ -311,26 +303,26 @@ describe('number-field/NumberField', () => {
   describe('Keyboard Events', () => {
     it('ArrowUp should increase value', async () => {
       const el = await fixture('<ef-number-field value="2"></ef-number-field>');
-      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(el.value).to.be.equal('3');
     });
     it('ArrowDown should decrease value', async () => {
       const el = await fixture('<ef-number-field value="2"></ef-number-field>');
-      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(el.value).to.be.equal('1');
     });
     it('ArrowUp/Down should do nothing when disabled', async () => {
       const el = await fixture('<ef-number-field value="2" disabled></ef-number-field>');
-      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(el.value).to.be.equal('2');
-      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(el.value).to.be.equal('2');
     });
     it('ArrowUp/Down should do nothing when readonly', async () => {
       const el = await fixture('<ef-number-field value="2" readonly></ef-number-field>');
-      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowUp' }));
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
       expect(el.value).to.be.equal('2');
-      el.inputElement.dispatchEvent(keyboardEvent('keydown', { key: 'ArrowDown' }));
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(el.value).to.be.equal('2');
     });
   });
@@ -878,11 +870,11 @@ describe('number-field/NumberField', () => {
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
         expect(el.value).to.equal('0.86', 'Value should be decrease by 1 and decimal value should keep stay');
-        
+
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
         expect(el.value).to.equal('-0.14', 'Value should be decrease by 1 and decimal value should keep stay');
-        
+
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
         expect(el.value).to.equal('-1.14', 'Value should be decrease by 1 and decimal value should keep stay');

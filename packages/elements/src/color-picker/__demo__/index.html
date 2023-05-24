@@ -2,9 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Color Picker</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
   </head>
   <body>
     <script type="module">
@@ -14,8 +12,24 @@
       import '@refinitiv-ui/phrasebook/locale/zh-hant/color-picker.js';
     </script>
     <script type="module">
-      import '@refinitiv-ui/elements/color-picker';
       import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/demo-block/demo.css';
+      import '@refinitiv-ui/elements/color-picker';
+  
+      // Dynamic import theme files from search params of the URL
+      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      const url = new URL(window.location);
+      const theme = url.searchParams.get('theme') || 'halo';
+      const variant = url.searchParams.get('variant') || 'light';
+  
+      if (!window.location.search) {
+        url.searchParams.set('theme', theme);
+        url.searchParams.append('variant', variant);
+        window.location.search = url.searchParams.toString();
+      }
+
+      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import (`../../../lib/color-picker/themes/${theme}/${variant}/index.js`);
     </script>
     <style>
       .output {
@@ -36,7 +50,7 @@
     <demo-block header="Default" layout="normal" tags="default">
       <ef-color-picker id="defaultColorPicker"></ef-color-picker>
       <div>
-        Default Hex Value (Optional): <input id="hexInputDefault" class="hex-input" value=""> 
+        Default Hex Value (Optional): <input id="hexInputDefault" class="hex-input" value="">
       </div>
       <div>
         <p> Output: <span id="readbleColor"></span></p>

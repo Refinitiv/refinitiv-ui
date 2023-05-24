@@ -2,14 +2,28 @@
 <html lang="en-GB">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Counter</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
   </head>
   <body>
     <script type="module">
-      import '@refinitiv-ui/elements/counter';
       import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/demo-block/demo.css';
+      import '@refinitiv-ui/elements/counter';
+    
+      // Dynamic import theme files from search params of the URL
+      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      const url = new URL(window.location);
+      const theme = url.searchParams.get('theme') || 'halo';
+      const variant = url.searchParams.get('variant') || 'light';
+    
+      if (!window.location.search) {
+        url.searchParams.set('theme', theme);
+        url.searchParams.append('variant', variant);
+        window.location.search = url.searchParams.toString();
+      }
+    
+      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import (`../../../lib/counter/themes/${theme}/${variant}/index.js`);
     </script>
 
     <demo-block header="Default Counter" layout="normal">

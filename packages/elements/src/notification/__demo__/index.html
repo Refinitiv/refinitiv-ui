@@ -2,22 +2,18 @@
 <html lang="en-GB">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Notification</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
   </head>
   <body>
-    <shady-css-scoped>
-      <style type="text/css">
-        #noti1 {
-          --bar-height: 50px;
-          margin-bottom: 2px;
-        }
-        #noti2 {
-          --bar-height: 30px;
-        }
-      </style>
-    </shady-css-scoped>
+    <style type="text/css">
+      #noti1 {
+        --bar-height: 50px;
+        margin-bottom: 2px;
+      }
+      #noti2 {
+        --bar-height: 30px;
+      }
+    </style>
     <demo-block layout="normal" header="Standard Notifications" tags="info, confirm, error, warn">
       <ef-notification message="This is a standard notification."></ef-notification>
       <ef-notification confirm message="This is a confirmation notification."></ef-notification>
@@ -51,8 +47,27 @@
     </demo-block>
 
     <script type="module">
-      import '@refinitiv-ui/elements/notification';
       import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/demo-block/demo.css';
+      import '@refinitiv-ui/elements/notification';
+  
+      // Dynamic import theme files from search params of the URL
+      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      const url = new URL(window.location);
+      const theme = url.searchParams.get('theme') || 'halo';
+      const variant = url.searchParams.get('variant') || 'light';
+  
+      if (!window.location.search) {
+        url.searchParams.set('theme', theme);
+        url.searchParams.append('variant', variant);
+        window.location.search = url.searchParams.toString();
+      }
+  
+      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import (`../../../lib/notification/themes/${theme}/${variant}/index.js`);
+    </script>
+
+    <script type="module">
       import { info, confirm, warn, error } from '@refinitiv-ui/elements/notification';
 
       document.querySelector('[tray]').addEventListener('click', (e) => info(e.target.message));

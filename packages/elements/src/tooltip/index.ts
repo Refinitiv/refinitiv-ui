@@ -4,8 +4,7 @@ import {
   css,
   TemplateResult,
   CSSResultGroup,
-  PropertyValues,
-  matches
+  PropertyValues
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -284,7 +283,7 @@ class Tooltip extends BasicElement {
     }
 
     if (this.selector) {
-      return matches(element, this.selector);
+      return element.matches(this.selector);
     }
 
     return false;
@@ -374,7 +373,7 @@ class Tooltip extends BasicElement {
    */
   private renderContentNode (contentNode: Text | HTMLElement | DocumentFragment): void {
     if (contentNode instanceof Text && this.textContent === contentNode.textContent) {
-      return; /* Do not re-render the same text. Due to IE11 limitation we have to operate with text nodes */
+      return; /* Do not re-render the same text */
     }
 
     if (this.contentNodes?.length) {
@@ -521,10 +520,11 @@ class Tooltip extends BasicElement {
   private onMouseOut = ({ relatedTarget }: MouseEvent): void => {
     // document mouesemove, mouseleave and blur are not fired over iframe
     // therefore create a special case for iframe to hide the tooltip
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (Tooltip.isIframe(relatedTarget as HTMLElement)) {
       this.resetTooltip();
     }
+    /* c8 ignore stop */
   };
 
   /**

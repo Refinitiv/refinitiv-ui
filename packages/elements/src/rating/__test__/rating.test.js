@@ -13,7 +13,7 @@ describe('rating/Rating', () => {
   });
 
   it('DOM structure is correct', async () => {
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Contains the correct structure', async () => {
@@ -218,7 +218,7 @@ describe('rating/Rating', () => {
       await elementUpdated(el);
       el.dispatchEvent(keyArrowLeft);
       expect(el.value).to.equal('1');
-      
+
       el.value = '3.75';
       el.max = '3.5';
       await elementUpdated(el);
@@ -271,15 +271,15 @@ describe('rating/Rating', () => {
 
       setTimeout(() => el.dispatchEvent(keyArrowLeft));
       event = await oneEvent(el, 'value-changed');
-      expect(event.detail.value).to.equal('2');;
+      expect(event.detail.value).to.equal('2');
 
       setTimeout(() => el.dispatchEvent(keyEnd));
       event = await oneEvent(el, 'value-changed');
-      expect(event.detail.value).to.equal('5');;
+      expect(event.detail.value).to.equal('5');
 
       setTimeout(() => el.dispatchEvent(keyHome));
       event = await oneEvent(el, 'value-changed');
-      expect(event.detail.value).to.equal('1');;
+      expect(event.detail.value).to.equal('1');
     });
     it('Should not fired value-changed event', async () => {
       let isFired = false;
@@ -343,7 +343,7 @@ describe('rating/Rating', () => {
     });
     it('Should update aria-valuemax when max value updated', async () => {
       expect(el.getAttribute('aria-valuemax')).to.equal(el.MAX_VALUE);
-  
+
       valueUpdated('10', el, 'max');
       await nextFrame();
       expect(el.getAttribute('aria-valuemax')).to.equal('10');

@@ -13,7 +13,7 @@ describe('accordion/Accordion', () => {
   describe('Should Have A Correct DOM', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-accordion></ef-accordion>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Should have correct structure', async () => {

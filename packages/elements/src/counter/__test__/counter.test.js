@@ -8,11 +8,11 @@ import '@refinitiv-ui/elemental-theme/light/ef-counter';
 describe('counter/Counter', () => {
   it('Should have correct default Shadow DOM structure', async () => {
     const el = await fixture(html`<ef-counter></ef-counter>`);
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   describe('Value attributes and properties', () => {
-    
+
     it('Should display 0 and return its value as empty string if value is not set', async () => {
       const el = await fixture(html`<ef-counter></ef-counter>`);
       expect(el.value).to.equal('');
@@ -46,12 +46,12 @@ describe('counter/Counter', () => {
       const el = await fixture(html`<ef-counter value="0"></ef-counter>`);
       expect(el.value).to.equal('0');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal("0");
-      
+
       el.value = 10;
       await elementUpdated(el);
       expect(el.value).to.equal('10');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal("10");
-    });    
+    });
   });
 
   describe('Max attributes and properties', () => {
@@ -85,7 +85,7 @@ describe('counter/Counter', () => {
         expect(el.max).to.equal('100');
         expect(el.value).to.equal('100');
         expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal("100");
-  
+
         el.value = 200;
         el.max = 200;
         await elementUpdated(el);
@@ -93,19 +93,19 @@ describe('counter/Counter', () => {
         expect(el.max).to.equal('200');
         expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal("200");
       });
-  
+
       it('Value is less than max', async () => {
         const el = await fixture(html`<ef-counter max="200" value="100"></ef-counter>`);
         expect(el.max).to.equal('200');
         expect(el.value).to.equal('100');
         expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal("100");
       });
-  
+
       it('Value is greater than max', async () => {
         const el = await fixture(html`<ef-counter max="100" value="200"></ef-counter>`);
         expect(el.max).to.equal('100');
         expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal("100+");
-  
+
         el.max = 150;
         await elementUpdated(el);
         expect(el.max).to.equal('150');
@@ -279,7 +279,7 @@ describe('CompactNotation Util Test', () => {
     expect(value).to.equal('-1000000000');
 
     value = convertToCompactNotation(-1000000000000);
-    expect(value).to.equal('-1000000000000');    
+    expect(value).to.equal('-1000000000000');
   });
 
   describe('Should format value correctly if it is positive', () => {
@@ -312,7 +312,7 @@ describe('CompactNotation Util Test', () => {
         value = convertToCompactNotation(99999);
         expect(value).to.equal('99K');
       });
-      
+
       it('Value equal or greater than 100K but less than 1M', async () => {
         let value = convertToCompactNotation(100000);
         expect(value).to.equal('100K');

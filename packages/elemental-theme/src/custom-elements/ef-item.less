@@ -14,14 +14,6 @@
   box-sizing: border-box;
   .touch-action();
 
-  .ie-specific({
-    &:after { /* IE11 fix for flex */
-      content: '';
-      min-height: inherit;
-      font-size: 0;
-    }
-  });
-
   &[selected] {
     color: @list-item-selected-text-color;
   }

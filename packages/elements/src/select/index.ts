@@ -43,6 +43,13 @@ const observerOptions = {
   ]
 };
 
+// the same event listener options should be used with both addEventListener() & removeEventListener()
+// https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener#matching_event_listeners_for_removal
+const eventListenerOptions = {
+  capture: true,
+  passive: true
+};
+
 const LABEL_SEPARATOR = ', '; // TODO: for multiselect
 const POPUP_POSITION = ['bottom-start', 'top-start'];
 const KEY_SEARCH_DEBOUNCER = 300;
@@ -454,7 +461,7 @@ export class Select extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private restrictPopupWidth (): void {
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (this.offsetWidth === 0) {
       // this code might happen only when opened has been set during initialisation
       // or when display is set to none
@@ -467,6 +474,7 @@ export class Select extends ControlElement implements MultiValue {
 
       return;
     }
+    /* c8 ignore stop */
 
     const maxWidth = this.getComputedVariable('--list-max-width', 'none');
     let minWidth = this.offsetWidth;
@@ -566,12 +574,7 @@ export class Select extends ControlElement implements MultiValue {
     this.scrollToSelected();
     this.setItemHighlight(this.getSelectedElements()[0]);
 
-    const eventOptions = {
-      capture: true,
-      passive: true
-    };
-
-    target?.addEventListener('scroll', this.onPopupScroll, eventOptions);
+    target?.addEventListener('scroll', this.onPopupScroll, eventListenerOptions);
   }
 
   /**
@@ -579,12 +582,7 @@ export class Select extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onPopupClosed ({ target }: CustomEvent): void {
-    const eventOptions = { /* need this for IE11, otherwise the event is not removed */
-      capture: true,
-      passive: true
-    };
-
-    target?.removeEventListener('scroll', this.onPopupScroll, eventOptions);
+    target?.removeEventListener('scroll', this.onPopupScroll, eventListenerOptions);
     this.setItemHighlight();
     this.popupScrollTop = 0;
   }
@@ -633,12 +631,9 @@ export class Select extends ControlElement implements MultiValue {
    */
   private onKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
-      case 'Up':
       case 'ArrowUp':
-      case 'Down':
       case 'ArrowDown':
       case 'Enter':
-      case 'Spacebar':
       case ' ':
         this.setOpened(true);
         break;
@@ -657,15 +652,12 @@ export class Select extends ControlElement implements MultiValue {
   private onPopupKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
       case ' ':
-      case 'Spacebar':
       case 'Enter':
         this.highlightedItem?.click();
         break;
-      case 'Up':
       case 'ArrowUp':
         this.focusElement(Navigation.PREVIOUS);
         break;
-      case 'Down':
       case 'ArrowDown':
         this.focusElement(Navigation.NEXT);
         break;
@@ -816,10 +808,11 @@ export class Select extends ControlElement implements MultiValue {
   private getSelectableElements (): Item[] {
     const root = this.hasDataItems() ? this.menuRef.value : this;
 
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (!root) {
       return [];
     }
+    /* c8 ignore stop */
 
     const items: Item[] = [];
     const rootChildren = root.children;

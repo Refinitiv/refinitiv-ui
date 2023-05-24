@@ -1,11 +1,12 @@
-import { elementUpdated, expect, fixture, isIE } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+import { isSafari } from "@refinitiv-ui/utils";
 import { createSandbox, restore, spy } from 'sinon';
-
 import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
 
 import { clear, deregister, FocusManager, register, size } from '../../../../lib/overlay/managers/focus-manager.js';
 import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
 import { Overlay } from '@refinitiv-ui/elements/overlay';
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 
 const createFixture = async (zIndex) => {
   return (typeof zIndex === 'undefined') ? fixture('<ef-overlay opened>test</ef-overlay>') :
@@ -73,7 +74,9 @@ describe('overlay/manager/FocusManager', () => {
           expect(size()).to.equal(0, 'element should be deregistered');
         });
 
-        xit('Test with activeElement', async () => {
+        it('Test with activeElement', async function () {
+          isSafari() && this.skip(); // Failed when run on CI
+
           expect(document.activeElement).to.be.exist;
 
           const activeElement = document.activeElement;
@@ -108,10 +111,7 @@ describe('overlay/manager/FocusManager', () => {
     });
 
     describe('Test Functionality', () => {
-      const describeBrowser = isIE() ? xdescribe : describe;
-      const itBrowser = isIE() ? xit : it;
-
-      itBrowser('Test focus `tab` on empty overlay', async () => {
+      it('Test focus `tab` on empty overlay', async () => {
         const element = await createFixture();
         element.focus();
 
@@ -120,7 +120,7 @@ describe('overlay/manager/FocusManager', () => {
         expect(document.activeElement).to.equal(element);
       });
 
-      itBrowser('Test focus `tab` on overlay with single element', async () => {
+      it('Test focus `tab` on overlay with single element', async () => {
         const element = await fixture('<ef-overlay opened><button id="first">first</button></ef-overlay>');
         const first = element.querySelector('#first');
 
@@ -131,7 +131,7 @@ describe('overlay/manager/FocusManager', () => {
         expect(document.activeElement).to.equal(first);
       });
 
-      describeBrowser('Test focus on overlay with three elements inside', () => {
+      describe('Test focus on overlay with three elements inside', () => {
         let element;
         let first, second, third;
 
@@ -183,7 +183,7 @@ describe('overlay/manager/FocusManager', () => {
         });
       });
 
-      describeBrowser('Test two overlays', () => {
+      describe('Test two overlays', () => {
         let element, element2;
         let first, second;
 
@@ -233,7 +233,6 @@ describe('overlay/manager/FocusManager', () => {
 
           expect(document.activeElement).to.equal(second);
         });
-
       });
     });
   });

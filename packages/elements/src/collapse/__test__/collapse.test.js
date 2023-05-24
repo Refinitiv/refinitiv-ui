@@ -9,27 +9,27 @@ describe('collapse/Collapse', () => {
   describe('Should Have Correct DOM', () => {
     it('Label and DOM structure is correct', async () => {
       const el = await fixture('<ef-collapse></ef-collapse>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Label and DOM structure is correct with spacing', async () => {
       const el = await fixture('<ef-collapse spasing></ef-collapse>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Label and DOM structure is correct with header', async () => {
       const el = await fixture('<ef-collapse header="Header"></ef-collapse>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Label and DOM structure is correct with level', async () => {
       const el = await fixture('<ef-collapse level="1"></ef-collapse>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Label and DOM structure is correct without level', async () => {
       const el = await fixture('<ef-collapse level></ef-collapse>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 

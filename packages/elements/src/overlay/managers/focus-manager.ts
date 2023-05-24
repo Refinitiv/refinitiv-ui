@@ -203,10 +203,11 @@ export class FocusManager {
       if (!this.registry.size) {
         document.removeEventListener('keydown', this.onDocumentKeyDown, { capture: true });
 
-        /* istanbul ignore next */
+        /* c8 ignore start */
         if (this.restoreFocusElement) {
           this.restoreFocusElement.focus();
         }
+        /* c8 ignore stop */
 
         this.restoreFocusElement = null;
       }

@@ -122,25 +122,20 @@ export class ButtonBar extends BasicElement {
         this.manageTabIndex();
         break;
       case ' ':
-      case 'Spacebar':
       case 'Enter':
         this.onTapHandler(event as unknown as TapEvent);
         break;
-      case 'Right':
       case 'ArrowRight':
         // Prevent calling twice if this component is nested
         !this.isNested() && this.navigateToSibling('next');
         break;
-      case 'Down':
       case 'ArrowDown':
         // Managed works as role radiogroup so `Up` and `Down` key can navigate among radios in the group
         this.managed && this.navigateToSibling('next');
         break;
-      case 'Left':
       case 'ArrowLeft':
         !this.isNested() && this.navigateToSibling('previous');
         break;
-      case 'Up':
       case 'ArrowUp':
         this.managed && this.navigateToSibling('previous');
         break;

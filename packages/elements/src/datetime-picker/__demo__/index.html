@@ -2,9 +2,7 @@
 <html lang="en-GB">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Datetime Picker</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
     <style type="text/css">
       ef-datetime-picker[range][timepicker] {
         width: 400px;
@@ -19,13 +17,34 @@
   </head>
   <body>
     <script type="module">
-      import '@refinitiv-ui/elements/datetime-picker';
       import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/demo-block/demo.css';
+      import '@refinitiv-ui/elements/datetime-picker';
       import '@refinitiv-ui/elements/button';
       import '@refinitiv-ui/elements/checkbox';
       import '@refinitiv-ui/elements/select';
       import '@refinitiv-ui/elements/item';
       import '@refinitiv-ui/elements/radio-button';
+  
+      // Dynamic import theme files from search params of the URL
+      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      const url = new URL(window.location);
+      const theme = url.searchParams.get('theme') || 'halo';
+      const variant = url.searchParams.get('variant') || 'light';
+  
+      if (!window.location.search) {
+        url.searchParams.set('theme', theme);
+        url.searchParams.append('variant', variant);
+        window.location.search = url.searchParams.toString();
+      }
+  
+      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import (`../../../lib/datetime-picker/themes/${theme}/${variant}/index.js`);
+      import (`../../../lib/button/themes/${theme}/${variant}/index.js`);
+      import (`../../../lib/checkbox/themes/${theme}/${variant}/index.js`);
+      import (`../../../lib/select/themes/${theme}/${variant}/index.js`);
+      import (`../../../lib/item/themes/${theme}/${variant}/index.js`);
+      import (`../../../lib/radio-button/themes/${theme}/${variant}/index.js`);
     </script>
 
     <demo-block header="Date Time Picker" tags="default,configurator">

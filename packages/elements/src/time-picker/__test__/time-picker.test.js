@@ -1,12 +1,4 @@
-import {
-  fixture,
-  expect,
-  elementUpdated,
-  oneEvent,
-  triggerFocusFor,
-  triggerBlurFor,
-  keyboardEvent
-} from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, triggerFocusFor, triggerBlurFor } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/time-picker';
@@ -20,113 +12,62 @@ describe('time-picker/TimePicker', () => {
 
   const InputKey = {
     arrowLeft: {
-      ieKey: 'Left',
-      key: 'ArrowLeft',
-      which: 37,
-      keyCode: 37
+      key: 'ArrowLeft'
     },
     arrowUp: {
-      ieKey: 'Up',
-      key: 'ArrowUp',
-      which: 38,
-      keyCode: 38
+      key: 'ArrowUp'
     },
     arrowRight: {
-      ieKey: 'Right',
-      key: 'ArrowRight',
-      which: 39,
-      keyCode: 39
+      key: 'ArrowRight'
     },
     arrowDown: {
-      ieKey: 'Down',
-      key: 'ArrowDown',
-      which: 40,
-      keyCode: 40
+      key: 'ArrowDown'
     },
     tab: {
-      ieKey: 'Tab',
-      key: 'Tab',
-      which: 9,
-      keyCode: 9
+      key: 'Tab'
     },
     enter: {
-      ieKey: 'Enter',
-      key: 'Enter',
-      which: 13,
-      keyCode: 13
+      key: 'Enter'
     },
     num0: {
-      ieKey: '0',
-      key: '0',
-      which: 48,
-      keyCode: 48
+      key: '0'
     },
     num1: {
-      ieKey: '1',
-      key: '1',
-      which: 49,
-      keyCode: 49
+      key: '1'
     },
     num2: {
-      ieKey: '2',
-      key: '2',
-      which: 50,
-      keyCode: 50
+      key: '2'
     },
     num3: {
-      ieKey: '3',
-      key: '3',
-      which: 51,
-      keyCode: 51
+      key: '3'
     },
     num4: {
-      ieKey: '4',
-      key: '4',
-      which: 52,
-      keyCode: 52
+      key: '4'
     },
     num5: {
-      ieKey: '5',
-      key: '5',
-      which: 53,
-      keyCode: 53
+      key: '5'
     },
     num6: {
-      ieKey: '6',
-      key: '6',
-      which: 54,
-      keyCode: 54
+      key: '6'
     },
     num7: {
-      ieKey: '7',
-      key: '7',
-      which: 55,
-      keyCode: 55
+      key: '7'
     },
     num8: {
-      ieKey: '8',
-      key: '8',
-      which: 56,
-      keyCode: 56
+      key: '8'
     },
     num9: {
-      ieKey: '9',
-      key: '9',
-      which: 57,
-      keyCode: 57
+      key: '9'
     },
     charA: {
-      ieKey: 'a',
-      key: 'a',
-      which: 65,
-      keyCode: 65
+      key: 'a'
     }
   };
 
   const createKeyboardEvent = (elem, keyOption) => {
-    elem.dispatchEvent(keyboardEvent('keydown', keyOption));
-    elem.dispatchEvent(keyboardEvent('keypress', keyOption));
-    elem.dispatchEvent(keyboardEvent('keyup', keyOption));
+    elem.dispatchEvent(new KeyboardEvent('keydown', keyOption));
+    elem.dispatchEvent(new KeyboardEvent('keypress', keyOption));
+    elem.dispatchEvent(new KeyboardEvent('keyup', keyOption));
   };
 
   const timePickerDefaults = '<ef-time-picker></ef-time-picker>';
@@ -142,22 +83,22 @@ describe('time-picker/TimePicker', () => {
     /* cannot test default as value is set to current time */
     it('DOM structure: readonly', async () => {
       const el = await fixture(timePickerReadonly);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('DOM structure: disabled', async () => {
       const el = await fixture(timePickerDisabled);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('DOM structure: value, no seconds', async () => {
       const el = await fixture(timePickerValueNumberWithoutSec);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('DOM structure: value, with seconds', async () => {
       const el = await fixture(timePickerValueNumberWithSec);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('DOM structure: value, am/pm no seconds', async () => {
@@ -167,17 +108,16 @@ describe('time-picker/TimePicker', () => {
        * but in the real DOM it is lower case that make this test case fail on the
        * Edge browser only, In others browser are works fine, we need to ignore this weird behavior.
        */
-      expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['aria-label'] });
+      await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['aria-label'] });
     });
 
     it('DOM structure: role=none', async () => {
       const el = await fixture(timePickerRoleNone);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
   describe('Defaults', () => {
-
     beforeEach(async () => {
       el = await fixture(timePickerDefaults);
     });
@@ -342,10 +282,10 @@ describe('time-picker/TimePicker', () => {
     it('Should able to toggle am/pm', async () => {
       const el = await fixture(timePickerAMPM);
       const toggleEl = el.renderRoot.querySelector('#toggle');
-      toggleEl.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' }));
+      toggleEl.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       await elementUpdated(el);
       expect(el.value).to.equal('01:30');
-      toggleEl.dispatchEvent(keyboardEvent('keydown', { key: ' ' }));
+      toggleEl.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
       await elementUpdated(el);
       expect(el.value).to.equal('13:30');
     });
@@ -533,7 +473,7 @@ describe('time-picker/TimePicker', () => {
       for (let i = 24; i > 0; i--) {
         createKeyboardEvent(hoursPart, InputKey.arrowDown);
         await elementUpdated(el);
-        expect(el.hours).to.equal((i - 1));
+        expect(el.hours).to.equal(i - 1);
       }
     });
 
@@ -553,7 +493,7 @@ describe('time-picker/TimePicker', () => {
       for (let i = 60; i > 0; i--) {
         createKeyboardEvent(minutesPart, InputKey.arrowDown);
         await elementUpdated(el);
-        expect(el.minutes).to.equal((i - 1));
+        expect(el.minutes).to.equal(i - 1);
       }
     });
 
@@ -573,7 +513,7 @@ describe('time-picker/TimePicker', () => {
       for (let i = 60; i > 0; i--) {
         createKeyboardEvent(secondsPart, InputKey.arrowDown);
         await elementUpdated(el);
-        expect(el.seconds).to.equal((i - 1));
+        expect(el.seconds).to.equal(i - 1);
       }
     });
 

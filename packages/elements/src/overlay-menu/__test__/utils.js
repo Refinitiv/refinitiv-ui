@@ -1,4 +1,4 @@
-import { elementUpdated, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 
 
 /**
@@ -9,7 +9,6 @@ import { elementUpdated, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
 const openedUpdated = async (el) => {
   await elementUpdated(el);
   await nextFrame();
-  await nextFrame(); // IE11 needs a second iframe, otherwise resize observer is not run;
 };
 
 const getMenuTriggers = (itemList) => {
@@ -25,22 +24,9 @@ const triggerMouseMove = (el) => {
 };
 
 const triggerKeyEvent = (el, key, type = 'keydown') => {
-  let event;
-  if (isIE()) {
-    event = new CustomEvent(type, {
-      detail: 0,
-      bubbles: true,
-      cancelable: true,
-      composed: true
-    });
-
-    event.key = key || '';
-  }
-  else {
-    event = new KeyboardEvent(type, {
+  const event = new KeyboardEvent(type, {
       key: key
     });
-  }
   el.dispatchEvent(event);
 };
 

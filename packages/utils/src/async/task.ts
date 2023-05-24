@@ -9,7 +9,7 @@ let Tasks = new Set<Task>();
 const flush = (): void => {
   const tasks = Tasks;
 
-  Tasks = new Set<Task>(); /* IE11 does not support Set iterables */
+  Tasks = new Set<Task>();
 
   for (const task of tasks) {
     task.fulfil();

@@ -1,11 +1,5 @@
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-// Translations polyfills
-import '@formatjs/intl-locale/polyfill.iife';
-import '@formatjs/intl-getcanonicallocales/polyfill.iife';
-import '@formatjs/intl-pluralrules/polyfill.iife';
-import '@formatjs/intl-pluralrules/locale-data/en';
-
 // import element and theme
 import '@refinitiv-ui/elements/tree-select';
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';

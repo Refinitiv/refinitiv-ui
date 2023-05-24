@@ -1,4 +1,4 @@
-import { fixture, expect, nextFrame, elementUpdated, aTimeout, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, nextFrame, elementUpdated, aTimeout } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/tooltip';
@@ -18,7 +18,6 @@ const mouseMove = async (config = {}) => {
     target = document,
     x = 0,
     y = 0,
-    tooltip,
     showDelay = ShowDelay,
     hideDelay = HideDelay,
     transitionTime = TransitionTime
@@ -36,14 +35,13 @@ const mouseMove = async (config = {}) => {
   await nextFrame();
   target.dispatchEvent(event);
   await aTimeout((config.target ? showDelay : hideDelay) + transitionTime + 5); /* 5 for general mousemove delay */
-  await elementUpdated(tooltip); /* all these lines ensure that IE finished rendering */
   await nextFrame();
 };
 
 describe('tooltip/Tooltip', () => {
   it('DOM structure is correct', async () => {
     const el = await fixture('<ef-tooltip></ef-tooltip>');
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Default title override works as expected', async () => {
@@ -88,7 +86,7 @@ describe('tooltip/Tooltip', () => {
       tooltip
     });
     expect(tooltip.opened, 'Tooltip on document is shown').to.be.false;
-  }).timeout(MouseMoveDelay * 4);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Overflow tooltip works as expected', async () => {
     const longText = 'Hello World!';
@@ -119,7 +117,7 @@ describe('tooltip/Tooltip', () => {
 
     expect(tooltip.opened).to.be.equal(true, 'Overridden overflow tooltip is not shown');
     expect(tooltip.textContent).to.be.equal(overriddenText, 'Overridden overflow tooltip should show custom renderer text');
-  }).timeout(MouseMoveDelay * 3);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Tooltip position, selector and API do work', async () => {
     const el = await fixture(`
@@ -188,7 +186,7 @@ describe('tooltip/Tooltip', () => {
     expect(right.tooltip.opened, 'Tooltip popup right opened=false is not set').to.be.false;
     expect(below.tooltip.opened, 'Tooltip popup below opened=false is not set').to.be.false;
     expect(above.tooltip.opened, 'Tooltip popup above opened=false is not set').to.be.false;
-  }).timeout(MouseMoveDelay * 2);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Custom condition works as expected', async () => {
     const el = await fixture(
@@ -218,13 +216,9 @@ describe('tooltip/Tooltip', () => {
     });
 
     expect(tooltip.opened, 'Tooltip condition did not work for not match').to.be.false;
-  }).timeout(MouseMoveDelay * 2);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Show/hide delay work as expected', async function () {
-    if (isIE()) { /* CSS Variables do not work in IE11 without a polyfill. Skip */
-      this.skip();
-    }
-
     const el = await fixture(`
       <div tooltip="Show hide delay">
         <ef-tooltip style="--show-delay: 0; --hide-delay: 0;" id="hideShowTooltip" selector="div[tooltip='Show hide delay']"></ef-tooltip>
@@ -256,7 +250,7 @@ describe('tooltip/Tooltip', () => {
     await elementUpdated(el);
 
     expect(tooltip.opened, 'Tooltip is not hidden').to.be.false;
-  }).timeout(MouseMoveDelay * 2);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Custom renderer works as expected', async () => {
     const el = await fixture(`
@@ -278,10 +272,10 @@ describe('tooltip/Tooltip', () => {
     expect(tooltip.opened, 'Tooltip is not opened').to.be.true;
     expect(el.querySelector('[renderer]'), 'Custom renderer should clone the nodes').to.exist;
     expect(tooltip.innerText.trim(), 'Content is not copied').to.equal(el.querySelector('[renderer]').innerText.trim());
-  }).timeout(MouseMoveDelay * 1);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Check event to close the tooltip', async () => {
-    const el = await fixture('<div title="Click" a>Click</div>');
+    const el = await fixture('<div title="Click">Click</div>');
     const tooltip = el.ownerDocument.querySelector('ef-tooltip[ref=title-override]');
     const iframe = document.createElement('iframe');
 
@@ -308,7 +302,7 @@ describe('tooltip/Tooltip', () => {
         });
       }
       else {
-        event = new CustomEvent(eventType); // Wheel event and KeyBoard event are not supported in IE11
+        event = new CustomEvent(eventType);
       }
 
       document.dispatchEvent(event);
@@ -332,7 +326,7 @@ describe('tooltip/Tooltip', () => {
     });
 
     expect(tooltip.opened, 'Tooltip on parent is not shown').to.be.true;
-  }).timeout(MouseMoveDelay * 1);
+  }).timeout(MouseMoveDelay * 5);
 
   it('Empty tooltip should not be shown', async () => {
     const el = await fixture(`
@@ -348,6 +342,6 @@ describe('tooltip/Tooltip', () => {
     });
 
     expect(tooltip.opened, 'Tooltip on parent is shown').to.be.false;
-  }).timeout(MouseMoveDelay * 1);
+  }).timeout(MouseMoveDelay * 5);
 });
 

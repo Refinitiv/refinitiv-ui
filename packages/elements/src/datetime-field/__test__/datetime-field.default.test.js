@@ -9,18 +9,18 @@ describe('datetime-field/Default', () => {
   describe('DOM structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-datetime-field lang="en-gb" value="1988-04-21"></ef-datetime-field>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure is correct when focused', async () => {
       const el = await fixture('<ef-datetime-field lang="en-gb" value="1988-04-21"></ef-datetime-field>');
       await focusInput(el);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure is correct when part selected', async () => {
       const el = await fixture('<ef-datetime-field lang="en-gb" value="1988-04-21"></ef-datetime-field>');
       await focusInput(el);
       await arrowRight(el);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 

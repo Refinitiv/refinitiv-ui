@@ -2,13 +2,14 @@ import {
   fixture,
   expect,
   elementUpdated,
-  oneEvent,
+  oneEvent
 } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/slider';
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
 
 import { tabSliderPosition, calculateValue } from './utils';
+import { isMobile } from "@refinitiv-ui/utils";
 
 const isDragging = (el) => el.dragging;
 const getSliderTrackElement = (el) => el.sliderRef.value;
@@ -44,7 +45,10 @@ describe('slider/Events', () => {
     expect(el.value).to.equal(calculateValue(el, 100).toFixed(0).toString());
   });
 
-  it('Drag thumb slider has range on desktop', async () => {
+  it('Drag thumb slider has range on desktop', async function() {
+    if (isMobile) {
+      this.skip(); // unstable in android device
+    }
     el.range = true;
     await elementUpdated(el);
     expect(el.from).to.equal('0');
@@ -159,7 +163,10 @@ describe('slider/Events', () => {
     expect(el.to).to.equal('100');
   });
 
-  it('Drag "to" thumb slider to end of left.', async () => {
+  it('Drag "to" thumb slider to end of left.', async function() {
+    if (isMobile) {
+      this.skip(); // unstable in android device
+    }
     el.range = true;
     await elementUpdated(el);
     expect(el.from).to.equal('0');

@@ -74,7 +74,7 @@
     [part=content] {
       ::slotted(ef-tab) {
         border-bottom-color: transparent;
-        border-right: none !important; // won't work on IE11 without important
+        border-right: none;
         background: linear-gradient(@tab-bar-background-color, @tab-bar-background-color) left @border-position / @border-side-size no-repeat,
                     linear-gradient(@tab-bar-background-color, @tab-bar-background-color) right @border-position / @border-side-size no-repeat,
                     linear-gradient(@tab-vertical-border-color, @tab-vertical-border-color) center @border-position / @border-center-size no-repeat;

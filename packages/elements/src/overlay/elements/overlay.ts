@@ -12,7 +12,6 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
 import { MicroTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
-import { isIE, isEdge } from '@refinitiv-ui/utils/browser.js';
 import {
   TransitionStyle,
   PositionTarget,
@@ -138,11 +137,6 @@ export class Overlay extends ResponsiveElement {
         display: none !important;
       }
 
-      :host(:not([first-resize-done])) {
-        pointer-events: none !important; /* needs for Mobile to prevent tap while overlay is not yet on the screen */
-        opacity: 0 !important; /* visibility does not work in IE11 */
-      }
-
       :host(:not([animation-ready])) {
         animation: none  !important;
         transition: none !important;
@@ -242,8 +236,6 @@ export class Overlay extends ResponsiveElement {
 
       /* shadow comes from theme */
       :host([transparent]) {
-        -webkit-box-shadow: none !important;
-        -moz-box-shadow: none !important;
         box-shadow: none !important;
         background: none !important;
         border-color: transparent !important;
@@ -552,7 +544,7 @@ export class Overlay extends ResponsiveElement {
 
     let defaultPosition;
 
-    /* istanbul ignore next */
+    /* c8 ignore start */
     switch (positionTarget) {
       case 'top left':
       case 'left top':
@@ -608,6 +600,7 @@ export class Overlay extends ResponsiveElement {
         top = viewHeight / 2 + y;
         defaultPosition = ['center', 'middle'];
     }
+    /* c8 ignore stop */
 
     return {
       rect: {
@@ -652,22 +645,6 @@ export class Overlay extends ResponsiveElement {
    */
   private set animationPosition (animationPosition: string) {
     toggleAttribute(this, 'animation-position', animationPosition);
-  }
-
-  private _firstResizeDone = false;
-  /**
-   * Used to set attribute after the initial callback has been fired
-   * A function is here to sort IE11 flickering problem
-   * @param firstResizeDone True if the initial resize has happened
-   */
-  private set firstResizeDone (firstResizeDone: boolean) {
-    if (this._firstResizeDone !== firstResizeDone) {
-      this._firstResizeDone = firstResizeDone;
-      toggleAttribute(this, 'first-resize-done', firstResizeDone);
-    }
-  }
-  private get firstResizeDone (): boolean {
-    return this._firstResizeDone;
   }
 
   /**
@@ -756,17 +733,6 @@ export class Overlay extends ResponsiveElement {
       else {
         this.onFullyClosed();
       }
-    }
-
-    // These hacks are required in order to solve a problem when IE11 or Edge does not display
-    // the component, even if all CSS properties are set correctly
-    // The reason of such behaviour is unknown, but may be related to polyfills
-    /* istanbul ignore next */
-    if (isIE) {
-      this.redrawThrottler.schedule(() => this.style.setProperty('clear', 'none'));
-    }
-    else if (isEdge) {
-      this.redrawThrottler.schedule(() => this.updateVariable('--redraw', `${Date.now()}`));
     }
 
     triggerResize();
@@ -884,7 +850,6 @@ export class Overlay extends ResponsiveElement {
    * @returns {void}
    */
   private onFullyClosed (): void {
-    this.firstResizeDone = false;
     applyLock();
     this.resetSizingInfo();
     this.clearCached();
@@ -1191,12 +1156,7 @@ export class Overlay extends ResponsiveElement {
       });
     };
 
-    const {
-      height,
-      width
-    } = this.sizingRect; /* need this for IE, as width and height is 0 on first render */
-
-    if (this.refitString && this.refitString === getRefitString() || (!height || !width)) {
+    if (this.refitString && this.refitString === getRefitString()) {
       return;
     }
 
@@ -1641,8 +1601,7 @@ export class Overlay extends ResponsiveElement {
       this.setResizeSizingInfo();
       this.fitNonThrottled();
 
-      if (this.opened && this.firstResizeDone === false) {
-        this.firstResizeDone = true;
+      if (this.opened) {
         if (this._fullyOpened === OpenedState.CLOSED) { /* cannot set to opening if the overlay has not been fully closed */
           this._fullyOpened = OpenedState.OPENING;
         }

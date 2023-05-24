@@ -58,7 +58,7 @@ if (document.body) {
   appendTitleTooltip();
 }
 else {
-  /* istanbul ignore next */
+  /* c8 ignore next */
   document.addEventListener('DOMContentLoaded', appendTitleTooltip, { once: true });
 }
 

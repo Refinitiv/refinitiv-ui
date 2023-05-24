@@ -206,11 +206,9 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    */
   protected onKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
-      case 'Left':
       case 'ArrowLeft':
         this.left();
         break;
-      case 'Right':
       case 'ArrowRight':
         this.right();
         break;

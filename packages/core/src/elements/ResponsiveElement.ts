@@ -1,4 +1,5 @@
 import { BasicElement } from './BasicElement.js';
+
 // If ResizeObserver native API works fine, this package should be removed in future
 import { ResizeObserver as PolyfillResizeObserver } from '@juggle/resize-observer';
 
@@ -32,15 +33,16 @@ export type ResizeEvent = CustomEvent<{
 const triggerResize = (entry: ResizeObserverEntry): void => {
   let width: number;
   let height: number;
-  /* istanbul ignore else */
   if (entry.borderBoxSize?.length > 0) {
     width = entry.borderBoxSize[0].inlineSize;
     height = entry.borderBoxSize[0].blockSize;
   }
+  /* c8 ignore start */
   else {
     width = entry.contentRect.width;
     height = entry.contentRect.height;
   }
+  /* c8 ignore stop */
   const event = new CustomEvent('resize', {
     bubbles: false,
     cancelable: false,

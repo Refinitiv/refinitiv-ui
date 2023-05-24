@@ -1,9 +1,7 @@
 import {
   ResponsiveElement,
   css,
-  CSSResultGroup,
-  TemplateResult,
-  html
+  CSSResultGroup
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { VERSION } from '../../version.js';
@@ -23,8 +21,6 @@ export class OverlayViewport extends ResponsiveElement {
   static get version (): string {
     return VERSION;
   }
-
-  private static Template = html``; /* IE11 need empty template */
 
   /**
    * A `CSSResultGroup` that will be used
@@ -47,14 +43,6 @@ export class OverlayViewport extends ResponsiveElement {
     `;
   }
 
-  /**
-   * A `TemplateResult` that will be used
-   * to render the updated internal template.
-   * @return Render template
-   */
-  public render (): TemplateResult {
-    return OverlayViewport.Template;
-  }
 }
 
 declare global {

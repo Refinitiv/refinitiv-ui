@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, html, nextFrame, oneEvent, isIE } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, html, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/multi-input';
 import '@refinitiv-ui/elemental-theme/light/ef-multi-input';
@@ -10,27 +10,9 @@ import { getData, getNewItem } from './values.mock';
  */
 export const getSearchEl = select => select.searchRef.value;
 
-const createBackspaceEvent = () => {
-  const event = document.createEvent('Events');
-  event.initEvent('keydown', true, true);
-  event.keyCode = 8;
-  event.which = 8;
-  event.charCode = 8;
-  event.key = 'Backspace';
-  event.code = 'Backspace';
-  return event;
-};
+const createEnterEvent = () => new KeyboardEvent('keydown', { key: 'Enter' })
+const createBackspaceEvent = () => new KeyboardEvent('keydown', { key: 'Backspace' })
 
-const createEnterEvent = () => {
-  const event = document.createEvent('Events');
-  event.initEvent('keydown', true, true);
-  event.keyCode = 13;
-  event.which = 13;
-  event.charCode = 13;
-  event.key = 'Enter';
-  event.code = 'Enter';
-  return event;
-};
 
 describe('multi-input/MultiInput', () => {
   let data;
@@ -40,7 +22,7 @@ describe('multi-input/MultiInput', () => {
 
   it('should be created', async () => {
     const el = await fixture(html`<ef-multi-input></ef-multi-input>`);
-    expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class', 'size', 'style'] });
+    await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class', 'size', 'style'] });
   });
 
   describe('Test Properties and Attributes', () => {
@@ -616,9 +598,6 @@ describe('multi-input/MultiInput', () => {
   describe('Selection Range', () => {
 
     it('Applies selectionStart', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const el = await fixture('<ef-multi-input value="1234567890abcd"></ef-multi-input>');
       el.focus();
       const selectionStart = 3;
@@ -629,9 +608,6 @@ describe('multi-input/MultiInput', () => {
     });
 
     it('Applies selectionEnd', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const el = await fixture('<ef-multi-input value="1234567890abcd"></ef-multi-input>');
       el.focus();
       const selectionEnd = 5;
@@ -642,9 +618,6 @@ describe('multi-input/MultiInput', () => {
     });
 
     it('Applies selectionStart and selectionEnd', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const el = await fixture('<ef-multi-input value="1234567890abcd"></ef-multi-input>');
       el.focus();
       const selectionStart = 2;
@@ -659,9 +632,6 @@ describe('multi-input/MultiInput', () => {
     });
 
     it('Applies selection range using API', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const el = await fixture('<ef-multi-input value="1234567890abcd"></ef-multi-input>');
       el.focus();
       const selectionStart = 4;
@@ -673,9 +643,6 @@ describe('multi-input/MultiInput', () => {
     });
 
     it('test select method select all content of text-field', async function () {
-      if (isIE()) {
-        this.skip();
-      }
       const el = await fixture('<ef-multi-input value="1234567890abcd"></ef-multi-input>');
       el.focus();
       el.select();

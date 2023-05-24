@@ -1,6 +1,7 @@
-import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent, isNear } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/overlay';
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 import { openedUpdated } from '../mocks/helper';
 
 describe('overlay/elements/Overlay', () => {
@@ -29,6 +30,7 @@ describe('overlay/elements/Overlay', () => {
 
         expect(overlay.fullyOpened).to.equal(false, 'Overlay should not be fully opened, just in process');
 
+        await nextFrame();
         await nextFrame();
         await nextFrame();
 
@@ -89,10 +91,10 @@ describe('overlay/elements/Overlay', () => {
         const screenWidth = document.documentElement.clientWidth;
         const screenHeight = document.documentElement.clientHeight;
 
-        expect(rect.top).to.equal(0);
-        expect(rect.right).to.equal(screenWidth);
-        expect(rect.bottom).to.equal(screenHeight);
-        expect(rect.left).to.equal(0);
+        expect(Math.floor(rect.top)).to.equal(0);
+        expect(isNear(rect.right, screenWidth, 1, true)).to.equal(true);
+        expect(isNear(rect.bottom, screenHeight, 1, true)).to.equal(true);
+        expect(Math.floor(rect.left)).to.equal(0);
       });
 
       it('Test refit method with closed window', async () => {

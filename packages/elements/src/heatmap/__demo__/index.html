@@ -3,43 +3,54 @@
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>ef-heatmap</title>
-  <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
 </head>
 
 <body>
   <script type="module">
+    import '@refinitiv-ui/demo-block';
+    import '@refinitiv-ui/demo-block/demo.css';
     import '@refinitiv-ui/elements/heatmap';
     import '@refinitiv-ui/elements/sparkline';
-    import '@refinitiv-ui/demo-block';
+
+    // Dynamic import theme files from search params of the URL
+    // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+    const url = new URL(window.location);
+    const theme = url.searchParams.get('theme') || 'halo';
+    const variant = url.searchParams.get('variant') || 'light';
+
+    if (!window.location.search) {
+      url.searchParams.set('theme', theme);
+      url.searchParams.append('variant', variant);
+      window.location.search = url.searchParams.toString();
+    }
+
+    import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+    import (`../../../lib/heatmap/themes/${theme}/${variant}/index.js`);
+    import (`../../../lib/sparkline/themes/${theme}/${variant}/index.js`);
   </script>
+  <style>
+    /* demo-block {
+      max-width: none !important;
+      width: 100% !important;
+    } */
 
-  <shady-css-scoped>
-    <style>
-      /* demo-block {
-        max-width: none !important;
-        width: 100% !important;
-      } */
+    #spacing {
+      --spacing: 12px;
+    }
 
-      #spacing {
-        --spacing: 12px;
-      }
+    ef-heatmap {
+      height: 400px;
+    }
 
-      ef-heatmap {
-        height: 400px;
-      }
+    #normal {
+      height: inherit;
+    }
 
-      #normal {
-        height: inherit;
-      }
-
-      #large {
-        height: 1900px;
-      }
-    </style>
-  </shady-css-scoped>
-
+    #large {
+      height: 1900px;
+    }
+  </style>
   <h3>EF Heatmap</h3>
   <code>
     <a href="./index.html"><button>Basics</button></a>

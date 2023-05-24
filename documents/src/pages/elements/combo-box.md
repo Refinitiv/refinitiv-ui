@@ -393,9 +393,9 @@ comboBox.renderer = (item, composer, element) => {
 ::
 ```javascript
 ::combo-box::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/flag?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/flag?min';
 halo('flag');
-import { ComboBoxRenderer } from "https://cdn.skypack.dev/@refinitiv-ui/elements/combo-box?min";
+import { ComboBoxRenderer } from "https://cdn.skypack.dev/@refinitiv-ui/elements@next/combo-box?min";
 
 const comboBox = document.querySelector('ef-combo-box');
 comboBox.data = [

@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/i18n",
-  "version": "6.0.12",
+  "version": "7.0.0-next.0",
   "description": "i18n support for Web Components",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -16,26 +16,27 @@
     "build:prod": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "npm run build && karma start ../../karma.config.js --package=i18n --include-snapshots=false",
+    "start": "npm run build && concurrently \"npm run build:watch\" \"vite serve __demo__ --open --force\"",
+    "test": "npm run build && node ../../scripts/tests/run.mjs  --package=i18n",
     "test:watch": "npm run test -- --watch",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version"
+    "version": "node ../../scripts/version/index.mjs"
   },
   "author": "LSEG",
   "license": "Apache-2.0",
   "dependencies": {
-    "@formatjs/icu-messageformat-parser": "^2.1.7",
-    "@formatjs/intl-utils": "^3.8.4",
+    "@formatjs/ecma402-abstract": "1.14.3",
+    "@formatjs/icu-messageformat-parser": "^2.3.1",
     "intl-format-cache": "^4.3.1",
-    "intl-messageformat": "^10.1.4",
+    "intl-messageformat": "^10.3.4",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/phrasebook": "^6.3.1",
-    "@refinitiv-ui/test-helpers": "^6.0.9"
+    "@refinitiv-ui/phrasebook": "^7.0.0-next.0",
+    "@refinitiv-ui/test-helpers": "^7.0.0-next.0"
   },
   "peerDependencies": {
-    "@refinitiv-ui/phrasebook": "^6.3.1"
+    "@refinitiv-ui/phrasebook": "^7.0.0-next.0"
   },
   "publishConfig": {
     "access": "public"

@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, nextFrame, isNear } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/overlay';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
@@ -18,72 +18,105 @@ const getPosition = (el) => {
 
   return {
     top: top === 0,
-    bottom: bottom - screenHeight < 1, /* this is to cover fractional pixels in IE */
+    bottom: isNear(bottom, screenHeight, 1, true), /* this is to cover fractional pixels */
     left: left === 0,
-    right: right - screenWidth < 1,
-    centreH: left - screenWidth / 2 - width / 2 < 1,
-    centreV: top - screenHeight / 2 - height / 2 < 1
+    right: isNear(right, screenWidth, 1, true),
+    centreH: isNear(left, (screenWidth - width) / 2, 1, true),
+    centreV: isNear(top, (screenHeight - height) / 2, 1, true),
+    debug: { // debug object used in tandem with debug()
+      top,
+      bottom,
+      left,
+      right,
+      screenHeight,
+      screenWidth
+    }
   };
 };
 
+/**
+ * use for unit test debugging
+ * log position object returned by getPosition() if either of the position boolean is false
+ * @param {'top' | 'bottom' | 'left' | 'right' | 'centerH' | 'centerV'} a position name returned by getPosition()
+ * @param {'top' | 'bottom' | 'left' | 'right' | 'centerH' | 'centerV'} b position name returned by getPosition()
+ * @param {*} _position returned object of getPosition()
+ */
+const debug = (a, b, _position) => {
+    if (!_position[a] || !_position[b]) {
+    const position = _position.debug;
+    console.warn(`testing: ${a},${b}`);
+    console.warn({position});
+  }
+}
+
 const centerCenter = async el => {
-  await nextFrame();
+  await nextFrame(4); // BrowserStack need quite a number of frames to complete rendering
   const position = getPosition(el);
+  debug('centreV', 'centreH', position);
   expect(position.centreV, 'Overlay is not at center vertically').to.equal(true);
   expect(position.centreH, 'Overlay is not at center horizontally').to.equal(true);
 };
 
 const topLeft = async el => {
-  await nextFrame();
+  await nextFrame(4); // BrowserStack need quite a number of frames to complete rendering
   const position = getPosition(el);
+  debug('top', 'left', position);
   expect(position.top, 'Overlay is not at top').to.equal(true);
   expect(position.left, 'Overlay is not at left').to.equal(true);
 };
 
 const topCenter = async el => {
+  await nextFrame(4); // BrowserStack need quite a number of frames to complete rendering
   const position = getPosition(el);
+  debug('top', 'centreH', position);
   expect(position.top, 'Overlay is not at top').to.equal(true);
   expect(position.centreH, 'Overlay is not at center horizontally').to.equal(true);
 };
 
 const topRight = async el => {
-  await nextFrame();
+  await nextFrame(4); // BrowserStack need quite a number of frames to complete rendering
   const position = getPosition(el);
+  debug('top', 'right', position);
   expect(position.top, 'Overlay is not at top').to.equal(true);
   expect(position.right, 'Overlay is not at right').to.equal(true);
 };
 
 const leftCenter = async el => {
-  await nextFrame();
+  await nextFrame(4); // BrowserStack need quite a number of frames to complete rendering
   const position = getPosition(el);
+  debug('centreV', 'left', position);
   expect(position.centreV, 'Overlay is not at center vertically').to.equal(true);
   expect(position.left, 'Overlay is not at left').to.equal(true);
 };
 
 const rightCenter = async el => {
-  await nextFrame();
+  await nextFrame(4); // BrowserStack need quite a number of frames to complete rendering
   const position = getPosition(el);
+  debug('centreV', 'right', position);
   expect(position.centreV, 'Overlay is not at center vertically').to.equal(true);
   expect(position.right, 'Overlay is not at right').to.equal(true);
 };
 
 const bottomLeft = async el => {
-  await nextFrame();
+  await nextFrame(4); // BrowserStack need quite a number of frames to complete rendering
   const position = getPosition(el);
+  debug('bottom', 'left', position);
   expect(position.bottom, 'Overlay is not at bottom').to.equal(true);
   expect(position.left, 'Overlay is not at left').to.equal(true);
 };
 
 const bottomCenter = async el => {
-  await nextFrame();
+  await nextFrame(4); // BrowserStack need quite a number of frames to complete rendering
   const position = getPosition(el);
+  debug('bottom', 'centreH', position);
   expect(position.bottom, 'Overlay is not at bottom').to.equal(true);
   expect(position.centreH, 'Overlay is not at center horizontally').to.equal(true);
 };
 
 const bottomRight = async el => {
-  await nextFrame();
+  await nextFrame(4); // BrowserStack need quite a number of frames to complete rendering
   const position = getPosition(el);
+  debug('bottom', 'right', position);
   expect(position.bottom, 'Overlay is not at bottom').to.equal(true);
   expect(position.right, 'Overlay is not at right').to.equal(true);
 };

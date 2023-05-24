@@ -1,16 +1,17 @@
-import { css, CSSResultGroup, html, TemplateResult, ElementSize, PropertyValues } from '@refinitiv-ui/core';
+import { css, CSSResultGroup, html, TemplateResult, PropertyValues } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { VERSION } from '../version.js';
-import { isIE } from '@refinitiv-ui/utils/browser.js';
+import { translate, Translate, TranslatePropertyKey } from '@refinitiv-ui/translate';
 import { deregister as draggableDeregister, register as draggableRegister } from './draggable-element.js';
+
 import { Overlay } from '../overlay/index.js';
 import '../icon/index.js';
 import '../panel/index.js';
 import '../header/index.js';
 import '../button/index.js';
-import { translate, Translate, TranslatePropertyKey } from '@refinitiv-ui/translate';
+
 import '@refinitiv-ui/phrasebook/locale/en/dialog.js';
 
 /**
@@ -78,25 +79,21 @@ export class Dialog extends Overlay {
         flex-shrink: 1;
         flex-basis: auto;
       }
-
       [part=content] {
         flex: 1 1 auto;
         overflow-x: hidden;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
       }
-
-      [part="default-buttons"] {
+      [part=default-buttons] {
         display: flex;
         justify-content: flex-end;
         align-items: center;
       }
-
       [part=header],
       [part=footer] {
         flex: none;
       }
-
       [part=close] {
         flex: none;
         cursor: pointer;
@@ -129,24 +126,6 @@ export class Dialog extends Overlay {
   private handle!: HTMLElement;
 
   /**
-   * Content element
-   */
-  @query('[part=content]')
-  private contentElement!: HTMLElement;
-
-  /**
-   * Header element
-   */
-  @query('[part=header]')
-  private headerElement!: HTMLElement;
-
-  /**
-   * Footer Element
-   */
-  @query('[part=footer]')
-  private footerElement!: HTMLElement;
-
-  /**
    * Flag to say whether the dialog has been confirmed and closed.
    */
   protected confirmed = false;
@@ -170,30 +149,17 @@ export class Dialog extends Overlay {
   @property({ type: Boolean, reflect: true, attribute: 'with-shadow' })
   public withShadow = true;
 
-  public disconnectedCallback (): void {
-    super.disconnectedCallback();
-    draggableDeregister(this);
-  }
-
   /**
    * Clear all cached values and fit the popup.
-   * Use this function only if maxWidth, maxHeight, minWidth, minHeight, height, width are changed
    * @returns {void}
    */
   public refit (): void {
     super.refit();
-    this.restrictContentMaxHeight();
   }
 
-  /**
-   * Called when the element's dimensions have changed
-   * @ignore
-   * @param size dimension details
-   * @returns {void}
-   */
-  public resizedCallback (size: ElementSize): void {
-    super.resizedCallback(size);
-    this.calculateContentMaxHeight(size);
+  public disconnectedCallback (): void {
+    super.disconnectedCallback();
+    draggableDeregister(this);
   }
 
   /**
@@ -213,7 +179,7 @@ export class Dialog extends Overlay {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  public willUpdate (changedProperties: PropertyValues): void {
+  protected willUpdate (changedProperties: PropertyValues): void {
     // dialog only update when it is opened, so also checking `opened` change.
     if (changedProperties.has('opened') || changedProperties.has('noInteractionLock')) {
       this.setAttribute('aria-modal', String(!this.noInteractionLock));
@@ -250,51 +216,6 @@ export class Dialog extends Overlay {
    */
   protected onClosed (): void {
     super.onClosed();
-    this.restrictContentMaxHeight();
-  }
-
-  /**
-   * IE11 only: Restrict maximum height of content element
-   * @param [maxHeight] Maximum height of content element
-   * @returns {void}
-   */
-  /* istanbul ignore next */
-  private restrictContentMaxHeight (maxHeight?: number): void {
-    if (!isIE) {
-      return;
-    }
-
-    if (maxHeight) {
-      this.contentElement.style.setProperty('max-height', `${maxHeight}px`);
-    }
-    else {
-      this.contentElement.style.removeProperty('max-height');
-    }
-  }
-
-  /**
-   * IE11 only: Calculate the maxHeight of content element
-   * @param size Size of the dialog
-   * @returns {void}
-   */
-  /* istanbul ignore next */
-  private calculateContentMaxHeight (size: ElementSize): void {
-    if (!isIE) {
-      return;
-    }
-
-    const headerRect = this.headerElement.getBoundingClientRect();
-    const footerRect = this.footerElement.getBoundingClientRect();
-    const contentRect = this.contentElement.getBoundingClientRect();
-
-    const dialogHeight = size.height;
-    const headerHeight = headerRect ? headerRect.height : 0;
-    const footerHeight = footerRect ? footerRect.height : 0;
-    const contentHeight = contentRect ? contentRect.height : 0;
-
-    if (headerHeight + footerHeight + contentHeight > dialogHeight) {
-      this.restrictContentMaxHeight(dialogHeight - footerHeight - headerHeight);
-    }
   }
 
   /**
@@ -371,18 +292,18 @@ export class Dialog extends Overlay {
   }
 
   /**
-   * Get the default content region
+   * Get the default content template
    * @return {TemplateResult} Render template
    */
-  protected get contentRegion (): TemplateResult {
+  protected get contentTemplate (): TemplateResult {
     return html`<slot></slot>`;
   }
 
   /**
-   * Get the default footer region
+   * Get the default footer template
    * @return {TemplateResult} Render template
    */
-  protected get footerRegion (): TemplateResult {
+  protected get footerTemplate (): TemplateResult {
     return html`<slot name="footer">
       <div part="default-buttons">
         <ef-button part="default-button" cta @tap="${this.defaultConfirm}">${this.t('OK')}</ef-button>
@@ -392,10 +313,10 @@ export class Dialog extends Overlay {
   }
 
   /**
-   * Get the default header region
+   * Get the default header template
    * @return {TemplateResult} Render template
    */
-  protected get headerRegion (): TemplateResult {
+  protected get headerTemplate (): TemplateResult {
     return html`
       ${this.header === null ? this.t('HEADER') : this.header}
       <ef-icon aria-hidden="true" part="close" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
@@ -409,9 +330,15 @@ export class Dialog extends Overlay {
    */
   protected render (): TemplateResult {
     return html`
-      <ef-header drag-handle part="header">${this.headerRegion}</ef-header>
-      <ef-panel part="content" spacing transparent>${this.contentRegion}</ef-panel>
-      <div part="footer">${this.footerRegion}</div>
+      <ef-header drag-handle part="header">
+        ${this.headerTemplate}
+      </ef-header>
+      <ef-panel part="content" spacing transparent>
+        ${this.contentTemplate}
+      </ef-panel>
+      <div part="footer">
+        ${this.footerTemplate}
+      </div>
     `;
   }
 }

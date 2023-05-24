@@ -2,9 +2,7 @@
 <html lang="en-GB">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>ef-sidebar-layout</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
     <style>
       ef-sidebar-layout {
         height: 250px;
@@ -20,11 +18,30 @@
   </head>
   <body>
     <script type="module">
+      import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/demo-block/demo.css';
       import '@refinitiv-ui/elements/sidebar-layout';
       import '@refinitiv-ui/elements/panel';
       import '@refinitiv-ui/elements/button';
       import '@refinitiv-ui/elements/header';
-      import '@refinitiv-ui/demo-block';
+
+      // Dynamic import theme files from search params of the URL
+      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      const url = new URL(window.location);
+      const theme = url.searchParams.get('theme') || 'halo';
+      const variant = url.searchParams.get('variant') || 'light';
+  
+      if (!window.location.search) {
+        url.searchParams.set('theme', theme);
+        url.searchParams.append('variant', variant);
+        window.location.search = url.searchParams.toString();
+      }
+  
+      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import (`../../../lib/sidebar-layout/themes/${theme}/${variant}/index.js`);
+      import (`../../../lib/panel/themes/${theme}/${variant}/index.js`);
+      import (`../../../lib/button/themes/${theme}/${variant}/index.js`);
+      import (`../../../lib/header/themes/${theme}/${variant}/index.js`);
     </script>
 
     <demo-block header="Basic" layout="normal">

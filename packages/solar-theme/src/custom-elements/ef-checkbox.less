@@ -1,4 +1,5 @@
 @import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-checkbox';
+@import '../responsive';
 
 :host {
   [part=container] {
@@ -42,9 +43,9 @@
     background-color: @input-disabled-background-color;
   }
 
-  @media (-ms-high-contrast:none), (pointer:fine){
+  .desktop-specific({
     &:focus [part=container] {
       border: @input-border-width @input-focused-border-style @input-focused-border-color;
     }
-  }
+  });
 }

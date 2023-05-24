@@ -1,4 +1,4 @@
-/* istanbul ignore file */
+/* c8 ignore start */
 
 import { color, rgb, hsl, ColorCommonInstance } from '@refinitiv-ui/utils/color.js';
 import { interpolate } from 'd3-interpolate';
@@ -81,3 +81,5 @@ const blend = (
 };
 
 export { blend, brighten, darken, isLight, interpolate };
+
+/* c8 ignore stop */

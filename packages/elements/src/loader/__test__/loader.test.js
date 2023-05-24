@@ -33,7 +33,7 @@ describe('loader/Loader', () => {
 
   it('Should have correct Shadow DOM structure', async () => {
     const el = await fixture(defaultLoader);
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('All dots are visible in default loader', async () => {

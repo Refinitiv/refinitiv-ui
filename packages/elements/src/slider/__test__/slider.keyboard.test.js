@@ -1,17 +1,12 @@
-import {
-  fixture,
-  expect,
-  keyboardEvent,
-  elementUpdated
-} from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/slider';
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
 
-const ArrowUpEvent = keyboardEvent('keydown', { key: 'ArrowUp' });
-const ArrowDownEvent = keyboardEvent('keydown', { key: 'ArrowDown' });
-const HomeEvent = keyboardEvent('keydown', { key: 'Home' });
-const EndEvent = keyboardEvent('keydown', { key: 'End' });
+const ArrowUpEvent = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+const ArrowDownEvent = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+const HomeEvent = new KeyboardEvent('keydown', { key: 'Home' });
+const EndEvent = new KeyboardEvent('keydown', { key: 'End' });
 
 const getThumbs = (el) => el.shadowRoot.querySelectorAll('[part=thumb-container]');
 

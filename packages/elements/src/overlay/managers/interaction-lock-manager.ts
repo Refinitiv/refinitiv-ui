@@ -205,7 +205,7 @@ export class ScrollLockManager {
 
     const scrollEventConf = {
       capture: true,
-      passive: true /* passive improves scrolling performance. See https://developers.google.com/web/tools/lighthouse/audits/passive-event-listeners how. This does not work in IE11 */
+      passive: true /* passive improves scrolling performance. See https://developers.google.com/web/tools/lighthouse/audits/passive-event-listeners how. */
     };
 
     document.addEventListener('scroll', this.onScroll, scrollEventConf);

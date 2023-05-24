@@ -9,8 +9,8 @@ layout: default
 ::
 ```javascript
 ::sidebar-layout::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/header?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/header?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/panel?min';
 halo('header');
 halo('panel');
 ```
@@ -53,8 +53,8 @@ The header slots can be omitted. Also, the component will automatically provide 
 ::
 ```javascript
 ::sidebar-layout::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/header?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/header?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/panel?min';
 halo('header');
 halo('panel');
 ```
@@ -98,9 +98,9 @@ Menus on header could be implemented by using slots of `ef-header`.
 ::
 ```javascript
 ::sidebar-layout::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/header?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/header?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/panel?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('header');
 halo('panel');
 halo('button');
@@ -149,9 +149,9 @@ Sidebar can be hidden by adding the `collapsed` attribute. A toggle button to co
 ::
 ```javascript
 ::sidebar-layout::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/header?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/header?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/panel?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('header');
 halo('panel');
 halo('button');

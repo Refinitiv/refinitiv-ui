@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, isIE, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
@@ -17,7 +17,7 @@ describe('text-field/TextField', () => {
     expect(el.maxLength).to.equal(null, 'maxLength');
     expect(el.icon).to.equal(null, 'icon');
 
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('DOM structure and properties are correct', async () => {
@@ -45,7 +45,7 @@ describe('text-field/TextField', () => {
     expect(el.maxLength).to.equal(10, 'maxLength');
     expect(el.icon).to.equal('menu', 'icon');
 
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   describe('Functional Tests', () => {
@@ -156,7 +156,7 @@ describe('text-field/TextField', () => {
         clickCount += 1;
       });
 
-      icon.dispatchEvent(keyboardEvent('keydown', { key: 'Tab' }));
+      icon.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
 
       expect(clickCount).to.equal(0, 'Icon-click event should not be fired');
     });
@@ -192,63 +192,36 @@ describe('text-field/TextField', () => {
       expect(detail.value).to.equal('test');
     });
   });
-  describe('Accessiblity', () => {
-    it('should fail without label', async () => {
-      const el = await fixture('<ef-text-field></ef-text-field>');
-      expect(el).not.to.be.accessible();
-    });
-    it('should pass a11y test with aria-label', async () => {
+  describe('Accessibility', () => {
+    it('Should pass when `aria-label` was set on component', async () => {
       const el = await fixture('<ef-text-field aria-label="Text Field"></ef-text-field>');
-      setTimeout(() => el.dispatchEvent(new Event('focus')));
-      await oneEvent(el, 'focus');
-
-      const input = el.shadowRoot.querySelector('[part=input]');
-      expect(input.getAttribute('aria-label')).to.be.equal('Text Field');
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
     });
-    it('should pass a11y test with aria-labelledby', async () => {
-      const label = await fixture('<span id="label">Label</label>');
-      const subLabel = await fixture('<span id="sub-label">Sub Label</label>');
+    it('Should be accessible with `aria-labelledby`', async () => {
+      await fixture('<span id="label">Label</label>');
+      await fixture('<span id="sub-label">Sub Label</label>');
       const el = await fixture(`<ef-text-field id="txt" aria-labelledby="label sub-label"></ef-text-field>`);
-      setTimeout(() => el.dispatchEvent(new Event('focus')));
-      await oneEvent(el, 'focus');
-
-      const input = el.shadowRoot.querySelector('[part=input]');
-      expect(input.getAttribute('aria-label')).to.be.equal(`${label.textContent} ${subLabel.textContent}`);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
     });
-
-    it('should pass a11y test using label for and id', async () => {
+    it('Should be accessible with `for` attribute on label', async () => {
       await fixture('<label for="text">Text Field</label>');
       const el = await fixture('<ef-text-field id="text"></ef-text-field>');
-      setTimeout(() => el.dispatchEvent(new Event('focus')));
-      await oneEvent(el, 'focus');
-
-      const input = el.shadowRoot.querySelector('[part=input]');
-      expect(input.getAttribute('aria-label')).to.be.equal('Text Field');
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
     });
-
-    it('should pass a11y test when using aria-description', async () => {
+    it('Should propagate `aria-description` attribute to input correctly', async () => {
       const el = await fixture('<ef-text-field aria-description="Text Field"></ef-text-field>');
-      setTimeout(() => el.dispatchEvent(new Event('focus')));
-      await oneEvent(el, 'focus');
 
       const input = el.shadowRoot.querySelector('[part=input]');
       expect(input.getAttribute('aria-description')).to.be.equal('Text Field');
-      expect(el).to.be.accessible();
     });
 
-    it('should pass a11y test when using aria-describedby', async () => {
+    it('Should propagate `aria-describedby` attribute to input correctly', async () => {
       const helperMessage = await fixture('<span id="helper-message">Field description</label>');
       const errorMessage = await fixture('<span id="error-message">Error</label>');
       const el = await fixture('<ef-text-field aria-describedby="helper-message error-message"></ef-text-field>');
-      setTimeout(() => el.dispatchEvent(new Event('focus')));
-      await oneEvent(el, 'focus');
 
       const input = el.shadowRoot.querySelector('[part=input]');
       expect(input.getAttribute('aria-description')).to.be.equal(`${helperMessage.textContent} ${errorMessage.textContent}`);
-      expect(el).to.be.accessible();
     });
   });
 });

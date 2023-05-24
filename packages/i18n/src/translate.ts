@@ -1,7 +1,7 @@
 import {
   Phrasebook
 } from '@refinitiv-ui/phrasebook';
-import { supportedLocales } from '@formatjs/intl-utils';
+import { SupportedLocales } from '@formatjs/ecma402-abstract';
 import {
   DEFAULT_LOCALE
 } from './constants.js';
@@ -35,10 +35,10 @@ const resolveLocale = (scope: string, locale: string): string => {
     return '';
   }
 
-  const supported = Phrasebook.supported(scope);
+  const supported = new Set(Phrasebook.supported(scope));
 
   // pick the first available locale in priority.
-  return supportedLocales(supported, [locale])[0] || '';
+  return SupportedLocales(supported, [locale])[0] || '';
 };
 
 /**

@@ -8,7 +8,7 @@ describe('header/Header', () => {
   it('Should renders DOM structure correctly', async () => {
     const el = await fixture('<ef-header></ef-header>');
 
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Should renders text content correctly', async () => {

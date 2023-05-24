@@ -1,12 +1,12 @@
-import { fixture, expect, elementUpdated, oneEvent, keyboardEvent, isIE } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
 import '@refinitiv-ui/elements/radio-button';
 import '@refinitiv-ui/elemental-theme/light/ef-radio-button';
 import './radio-wrapper-mockup.js';
 
-const createEnterKeyboardEvent = () => keyboardEvent('keydown', { key: 'Enter' });
-const createSpacebarKeyboardEvent = () => keyboardEvent('keydown', { key: isIE() ? 'Spacebar' : ' ' });
-const keyArrowLeft = () => keyboardEvent('keydown', { key: isIE() ? 'Left' : 'ArrowLeft'});
-const keyArrowRight = () => keyboardEvent('keydown', { key: isIE() ? 'Right' : 'ArrowRight'});
+const createEnterKeyboardEvent = () => new KeyboardEvent('keydown', { key: 'Enter' });
+const createSpacebarKeyboardEvent = () => new KeyboardEvent('keydown', { key: ' ' });
+const keyArrowLeft = () => new KeyboardEvent('keydown', { key: 'ArrowLeft'});
+const keyArrowRight = () => new KeyboardEvent('keydown', { key: 'ArrowRight'});
 
 const updateGroup = async (group) => {
   for (let i = 0; i < group.length; i += 1) {
@@ -18,15 +18,15 @@ describe('radio-button/RadioButton', () => {
   describe('DOM structure', () => {
     it('DOM structure unchecked is correct', async () => {
       const el = await fixture('<ef-radio-button>unchecked</ef-radio-button>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure of checked is correct', async () => {
       const el = await fixture('<ef-radio-button checked>checked</ef-radio-button>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure of no label is correct', async () => {
       const el = await fixture('<ef-radio-button></ef-radio-button>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('Contains the correct label', async () => {
       const checked = await fixture('<ef-radio-button checked>checked</ef-radio-button>');
@@ -495,6 +495,7 @@ describe('radio-button/RadioButton', () => {
       expect(option2.checked).to.equal(true);
       setTimeout(() => option2.dispatchEvent(keyArrowLeft()));
       const event = await oneEvent(option2, 'keydown');
+      await nextFrame()
       expect(event.key).to.equal('ArrowLeft');
       expect(option1.checked).to.equal(true);
       expect(option2.checked).to.equal(false);
@@ -508,6 +509,7 @@ describe('radio-button/RadioButton', () => {
 
       setTimeout(() => option1.dispatchEvent(keyArrowLeft()));
       const event = await oneEvent(option1, 'keydown');
+      await nextFrame()
       expect(event.key).to.equal('ArrowLeft');
       expect(option1.checked).to.equal(false);
       expect(option2.checked).to.equal(true);
@@ -520,6 +522,7 @@ describe('radio-button/RadioButton', () => {
 
       setTimeout(() => option1.dispatchEvent(keyArrowRight()));
       const event = await oneEvent(option1, 'keydown');
+      await nextFrame()
       expect(event.key).to.equal('ArrowRight');
       expect(option1.checked).to.equal(false);
       expect(option2.checked).to.equal(true);
@@ -531,6 +534,7 @@ describe('radio-button/RadioButton', () => {
         expect(option2.checked).to.equal(true);
         setTimeout(() => option2.dispatchEvent(keyArrowRight()));
         const event = await oneEvent(option2, 'keydown');
+        await nextFrame()
         expect(event.key).to.equal('ArrowRight');
         expect(option1.checked).to.equal(true);
         expect(option2.checked).to.equal(false);
@@ -711,26 +715,26 @@ describe('radio-button/RadioButton', () => {
   describe('Accessiblity', () => {
     it('should fail without label', async () => {
       const el = await fixture('<ef-radio-button></ef-radio-button>');
-      expect(el).not.to.be.accessible();
+      await expect(el).not.to.be.accessible();
     });
     it('should pass a11y test with aria-label', async () => {
       const el = await fixture(`<ef-radio-button aria-label="Radio Button"></ef-checkbox>`);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
       expect(el.getAttribute('aria-checked')).to.be.equal(String(el.checked));
     });
     it('should pass a11y test with slotted label', async () => {
       const el = await fixture(`<ef-radio-button>Radio Button</ef-checkbox>`);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
       expect(el.getAttribute('aria-checked')).to.be.equal(String(el.checked));
     });
     it('should pass a11y test when radio button is checked', async () => {
       const el = await fixture(`<ef-radio-button checked>Radio Button</ef-checkbox>`);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
       expect(el.getAttribute('aria-checked')).to.be.equal(String(el.checked));
     });
     it('should pass a11y test when disabled', async () => {
       const el = await fixture(`<ef-radio-button disabled>Radio Button</ef-checkbox>`);
-      expect(el).to.be.accessible();
+      await expect(el).to.be.accessible();
     });
   });
 });

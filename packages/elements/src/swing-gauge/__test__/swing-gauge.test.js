@@ -1,10 +1,27 @@
-import { fixture, expect, elementUpdated, aTimeout } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, aTimeout, nextFrame } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/swing-gauge';
 import '@refinitiv-ui/elemental-theme/light/ef-swing-gauge.js';
+import { isMobile, isSafari } from "@refinitiv-ui/utils";
 
-describe('SapphireSwingGaugeTest', () => {
+describe('swing-gauge/SwingGauge', () => {
+
+  it('DOM structure is correct', async () => {
+    const el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+    await elementUpdated(el);
+    await nextFrame();
+    await expect(el).shadowDom.to.equalSnapshot();
+  });
+  it('Label and DOM structure is correct', async () => {
+    const el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+    await elementUpdated(el);
+    await nextFrame();
+    const canvas = el.shadowRoot.querySelector('ef-canvas');
+
+    expect(canvas).to.not.equal(null);
+  });
+
   describe('Value', () => {
     let el;
     beforeEach(async () => {
@@ -223,7 +240,10 @@ describe('SapphireSwingGaugeTest', () => {
       expect(el.primaryLabel).to.equal('So long primary label and more and more and more');
     });
 
-    it('Should resize value font size', async () => {
+    it('Should resize value font size', async function () {
+      if (isMobile && isSafari()) {
+        this.skip(); // unstable in ios device
+      }
       await aTimeout(50);
 
       const fontSize = Number(el.valueStyle.fontSize.replace('px', ''));

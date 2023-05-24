@@ -5,7 +5,7 @@ import '@refinitiv-ui/elements/panel';
 import '@refinitiv-ui/elemental-theme/light/ef-panel';
 
 /*
-* In FireFox and IE doesn't seem to support shorthand css e.g. 'padding'
+* In FireFox doesn't seem to support shorthand css e.g. 'padding'
 * Need this function to check all padding size
 * @returns {Boolean} hasPadding
 */
@@ -21,7 +21,7 @@ const hasPadding = el => {
 describe('panel/Panel', () => {
   it('Should have correct Shadow DOM structure', async () => {
     const el = await fixture('<ef-panel></ef-panel>');
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Should show content inside a slot', async () => {

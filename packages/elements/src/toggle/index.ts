@@ -129,7 +129,7 @@ export class Toggle extends ControlElement {
    * @returns {void}
    */
   private handleKeyDown (event: KeyboardEvent): void {
-    if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+    if (event.key === 'Enter' || event.key === ' ') {
       this.handleCheckedChange();
     }
   }

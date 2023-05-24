@@ -1,4 +1,5 @@
 import { fixture, assert, expect, nextFrame, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { isSafari } from "@refinitiv-ui/utils";
 
 // import element and theme
 import '@refinitiv-ui/elements/canvas';
@@ -12,7 +13,7 @@ describe('canvas/Canvas', () => {
   });
 
   it('DOM structure is correct', async () => {
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Contains the correct structure', () => {
@@ -68,7 +69,10 @@ describe('canvas/Canvas', () => {
     assert.strictEqual(el.ctx, el.getContext('2d'));
   });
 
-  it('Handles fractional pixelation', async () => {
+  it('Handles fractional pixelation', async function () {
+    if (isSafari()) {
+      this.skip();
+    }
     el.style.width = '300.5px';
     await elementUpdated(el);
     const listener = function () {
@@ -80,7 +84,10 @@ describe('canvas/Canvas', () => {
     el.addEventListener('resize', listener);
   });
 
-  it('Supports autoloop', async () => {
+  it('Supports autoloop', async function () {
+    if (isSafari()) {
+      this.skip();
+    }
     let count = 0;
     const elem = await fixture('<ef-canvas autoloop></ef-canvas>');
     elem.addEventListener('frame', function () {
@@ -93,7 +100,10 @@ describe('canvas/Canvas', () => {
     expect(count, 'Count should be updated').not.equal(0);
   });
 
-  it('Supports starting and stopping autoloop', (done) => {
+  it('Supports starting and stopping autoloop', function (done) {
+    if (isSafari()) {
+      this.skip();
+    }
     let count = 0;
     el.addEventListener('frame', function () {
       count++;

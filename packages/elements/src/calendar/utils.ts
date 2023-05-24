@@ -108,38 +108,13 @@ const monthsNames = (locale: string, width: Intl.DateTimeFormatOptions['month'] 
 };
 
 /**
- * @deprecated
- * Some old browsers (as IE11) do not support formatting of old dates before BC
- * Instead simply convert the date manually to match Translate function
- * @param date Date
- * @param locale locale
- * @param [includeMonth=false] true to include month
- * @param [includeEra=false] tru to include era descriptor
- * @returns formatted dates
- */
-const formatLocaleDate = (date: Date, locale: string, includeMonth = false, includeEra = false): string => {
-  locale = getLocale(locale);
-
-  const monthNames = monthsNames(locale, 'long');
-  const year = date.getUTCFullYear();
-  const month = date.getUTCMonth();
-
-  // BC flags are not supported. Always use English
-  return `${
-    includeMonth ? `${monthNames[month]} ` : ''
-  } ${
-    year > 0 ? year : year === 0 ? '1' : Math.abs(year - 1)
-  }${includeEra ? year <= 0 ? ' BC' : ' AD' : ''}`;
-};
-
-/**
  * Used to format views
  */
 const ViewFormatTranslateParams: TranslateParams = {
   unicodeExtensions: {
     // while latest Chrome, FF and Intl.DateTimeFormat polyfill support
     // calendar option to format date,
-    // older browsers as Safari and IE11 need this to be provided as
+    // older browsers as Safari version < 14.1 need this to be provided as
     // unicode extension, e.g. lang="th-u-ca-gregory"
     ca: 'gregory'
   },
@@ -150,6 +125,5 @@ export {
   monthInfo,
   weekdaysNames,
   monthsNames,
-  formatLocaleDate,
   ViewFormatTranslateParams
 };

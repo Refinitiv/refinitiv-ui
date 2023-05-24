@@ -13,6 +13,12 @@
     "packages/**/scripts",
     "*.config.js",
     "__test__",
-    "*.md"
+    "*.md",
+    "cli.js",
+    "**/lib",
+    "__demo__",
+    "__snapshots__",
+    "scripts",
+    "samples"
   ] // .eslintignore resolves relative to working dir, this is needed to ignore files in workspaces
 }

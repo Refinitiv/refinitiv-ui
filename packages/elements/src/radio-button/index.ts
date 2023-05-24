@@ -198,20 +198,15 @@ export class RadioButton extends ControlElement {
 
     switch (event.key) {
       case ' ':
-      case 'Spacebar':
         if (this.readonly) {
           return;
         }
         this.handleChangeChecked();
         break;
-      case 'Right':
-      case 'Down':
       case 'ArrowRight':
       case 'ArrowDown':
         this.navigateToSibling('next');
         break;
-      case 'Left':
-      case 'Up':
       case 'ArrowLeft':
       case 'ArrowUp':
         this.navigateToSibling('previous');

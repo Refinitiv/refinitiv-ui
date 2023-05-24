@@ -3,45 +3,40 @@
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>ef-heatmap</title>
-  <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
 </head>
 
 <body>
   <script type="module">
+    import '@refinitiv-ui/demo-block';
+    import '@refinitiv-ui/demo-block/demo.css';
     import '@refinitiv-ui/elements/heatmap';
     import '@refinitiv-ui/elements/dialog';
     import '@refinitiv-ui/elements/overlay-menu';
     import '@refinitiv-ui/elements/sparkline';
-    import '@refinitiv-ui/demo-block';
   </script>
+  <style>
+    demo-block {
+      max-width: none !important;
+      width: 100% !important;
+    }
 
-  <shady-css-scoped>
-    <style>
-      demo-block {
-        max-width: none !important;
-        width: 100% !important;
-      }
+    #spacing {
+      --spacing: 12px;
+    }
 
-      #spacing {
-        --spacing: 12px;
-      }
+    ef-heatmap {
+      height: 400px;
+    }
 
-      ef-heatmap {
-        height: 400px;
-      }
+    #normal {
+      height: inherit;
+    }
 
-      #normal {
-        height: inherit;
-      }
-
-      #large {
-        height: 1900px;
-      }
-    </style>
-  </shady-css-scoped>
-
+    #large {
+      height: 1900px;
+    }
+  </style>
   <h3>Sapphire Heatmap</h3>
   <code>
     <a href="./index.html"><button>Basics</button></a>
@@ -72,8 +67,6 @@
 
 
   <script>
-    const isIE = (/Trident/g).test(navigator.userAgent);
-
     var generateData = function (r, c, minPoint = -1, maxPoint = 1) {
       var rows = Array(r);
       for (let i = 0; i < rows.length; i++) {
@@ -174,12 +167,7 @@
           }
         };
 
-        if (!isIE) {
-          el.addEventListener('contextmenu', handleContextMenu);
-        }
-        else {
-          document.oncontextmenu = handleContextMenu;
-        }
+        el.addEventListener('contextmenu', handleContextMenu);
 
         menu.addEventListener('item-trigger', ({ detail: { value } }) => {
           if (value === 'show-cell') {

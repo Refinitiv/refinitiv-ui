@@ -19,7 +19,7 @@ describe('Elf Translate Document Lang Test', () => {
     document.documentElement.lang = 'en';
     await elementUpdated(el);
     await elementUpdated(enUSEl);
-    await nextFrame(); // need for IE11
+    await nextFrame();
 
     expect(el.defaultEl.innerText).to.equal('This is en locale');
     expect(enUSEl.defaultEl.innerText).to.equal('This is en-US locale', 'Document locale should not affect element locale');

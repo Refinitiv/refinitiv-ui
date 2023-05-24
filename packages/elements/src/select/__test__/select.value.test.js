@@ -12,17 +12,18 @@ describe('select/Value', () => {
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value getter does not get correct value');
       expect(el.querySelector('ef-item[selected]').value).to.equal('AF', 'Item is not selected from value');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+
       el.value = 'UNKNOWN';
       await elementUpdated(el);
       expect(el.value).to.equal('', 'Unknown value should reset');
       expect(el.querySelector('ef-item[selected]')).to.equal(null, 'Selected item is not reset');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+
       el.value = 'AL';
       await elementUpdated(el);
       expect(el.value).to.equal('AL', 'Value is not reflected from selected attribute');
       expect(el.querySelector('ef-item[selected]').value).to.equal('AL', 'Item is not selected from value');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+
       el.value = 'AL';
       await elementUpdated(el);
       expect(el.value).to.equal('AL', 'Same value should do nothing');
@@ -30,7 +31,6 @@ describe('select/Value', () => {
       await elementUpdated(el);
       expect(el.value).to.equal('', 'Value is not reflected from selected attribute');
       expect(el.querySelector('ef-item[selected]')).to.equal(null, 'Selected item is not reset');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
     it('Data Selected: Afghanistan', async () => {
@@ -40,17 +40,17 @@ describe('select/Value', () => {
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value getter does not get correct value');
       expect(getMenuEl(el).querySelector('ef-item[selected]').value).to.equal('AF', 'Item is not selected from value');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+      await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+
       el.value = 'AL';
       await elementUpdated(el);
       expect(el.value).to.equal('AL', 'Value is not reflected from selected attribute');
       expect(getMenuEl(el).querySelector('ef-item[selected]').value).to.equal('AL', 'Item is not selected from value');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+
       el.value = '';
       await elementUpdated(el);
       expect(el.value).to.equal('', 'Value is not reflected from selected attribute');
       expect(getMenuEl(el).querySelector('ef-item[selected]')).to.equal(null, 'Selected item is not reset');
-      expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
   });
 });

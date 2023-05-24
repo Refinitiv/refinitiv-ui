@@ -672,23 +672,18 @@ export class DatetimeField extends TextField {
     }
 
     switch (event.key) {
-      case 'Up': // IE11
       case 'ArrowUp':
         this.onNavigation('ArrowUp', event);
         break;
-      case 'Down':
       case 'ArrowDown':
         this.onNavigation('ArrowDown', event);
         break;
-      case 'Left':
       case 'ArrowLeft':
         this.onNavigation('ArrowLeft', event);
         break;
-      case 'Right':
       case 'ArrowRight':
         this.onNavigation('ArrowRight', event);
         break;
-      case 'Esc':
       case 'Escape':
         this.onNavigation('Escape', event);
         break;

@@ -8,8 +8,8 @@ Please search through open and closed issues to see if a similar issue already e
 ## Pull Requests
 In the event you have coding suggestions and you would like to create pull request to this repository, it is required that you read and sign the following:
 
-* Individual Contributor License Agreement ([Download](https://github.com/Refinitiv/refinitiv-ui/blob/v6/Workspace%20SDK%20Refinitiv-UI%20Individual%20Contributor%20License%20Agreement.pdf))
-* Entity Contributor License Agreement ([Download](https://github.com/Refinitiv/refinitiv-ui/blob/v6/Workspace%20SDK%20Refinitiv-UI%20Entity%20Contributor%20License%20Agreement.pdf))
+* Individual Contributor License Agreement ([Download](https://github.com/Refinitiv/refinitiv-ui/blob/v7/Workspace%20SDK%20Refinitiv-UI%20Individual%20Contributor%20License%20Agreement.pdf))
+* Entity Contributor License Agreement ([Download](https://github.com/Refinitiv/refinitiv-ui/blob/v7/Workspace%20SDK%20Refinitiv-UI%20Entity%20Contributor%20License%20Agreement.pdf))
 
 Please email a signed and scanned copy to [ef-support@lseg.com](mailto:ef-support@lseg.com). If you require that a signed agreement has to be physically mailed to us, please email the request for a mailing address and we will get back to you on where you can send the signed documents.
 
@@ -28,7 +28,6 @@ Element Framework is using monorepo. This repository has elements, supporting mo
 * `packages/halo-theme` - LSEG Workspace design system theme
 * `packages/i18n` - Wrappers and APIs of formatjs
 * `packages/phrasebook` - All messages (english and non-english) that use within elements
-* `packages/polyfills` - Curated polyfills for browsers that are not support web component natively
 * `packages/solar-theme` - Legacy theme
 * `packages/test-helpers` - Helpers function for unit testing of each elements
 * `packages/theme-compiler` - LESS compiler for generating theme package
@@ -99,8 +98,8 @@ npm run lint:all
 | `--browsers` or `-b`      | You can specific browser(s) to run the unit test. List of available browsers are following: `chrome`, `firefox` and `ie` <br>You can check the list of available browsers by add option `--help`.  <br>Usage: `npm run test button -- --browsers chrome firefox` |
 | `--browserstack` or `--bs` | You can run test on BrowserStack with specific browser(s). List of available browsers are following: `chrome`, `firefox`, `edge_previous`, and aliases `default`, `supported`, and etc. <br>This command option required BrowserStack API Key you must setting the three environment variables `BROWSERSTACK_USERNAME`, `BROWSERSTACK_ACCESS_KEY`, and `BROWSERSTACK_BUILD`(specify a name for a logical group of tests, set your name if run command on local machine). You can create API key from [here](https://www.browserstack.com/accounts/profile) <br>Usage: `npm run test button -- --browserstack chrome firefox_previous`
 | `--watch` or `-w`         | Run test and watch file change. <br>Usage: `npm run test button -- --watch`                                                                                                                                                                                      |
-| `--snapshots` or `-s`     | Update and prune snapshots (`--browsers` must be chrome). <br>Usage:`npm run test button -- --snapshots --browsers chrome`                                                                                                                                       |
-| `--fix`  or `-f`           | Run linting and fix the issues that can lead to bugs or inconsistencies with code health and style. <br>Usage:`npm run test button --fix`                                                                                                                        |
+| `--update-snapshots` or `-s`     | Update and prune snapshots (`--browsers` must be chrome). <br>Usage:`npm run test button -- --update-snapshots --browsers chrome`                                                                                                                                       |
+| `--fix`  or `-f`           | Run linting and fix the issues that can lead to bugs or inconsistencies with code health and style. <br>Usage:`npm run lint button -- --fix`                                                                                                                        |
 
 ### Commit prefixes
 

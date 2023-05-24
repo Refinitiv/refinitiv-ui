@@ -45,30 +45,12 @@ describe('datetime-picker/Navigation', () => {
       fireKeydownEvent(el, 'ArrowUp');
       await elementUpdated(el);
       expect(el.opened).to.be.equal(false, 'Arrow up should close calendar');
-      fireKeydownEvent(el, 'Down');
-      await elementUpdated(el);
-      expect(el.opened).to.be.equal(true, 'Down should open calendar');
-      fireKeydownEvent(el, 'Up');
-      await elementUpdated(el);
-      expect(el.opened).to.be.equal(false, 'Up should close calendar');
-    });
-    it('Esc should close calendar', async () => {
-      const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
-      fireKeydownEvent(el.calendarEl, 'Esc');
-      await elementUpdated(el);
-      expect(el.opened).to.be.equal(false, 'Esc should close calendar');
     });
     it('Escape should close calendar', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
       fireKeydownEvent(el.calendarEl, 'Escape');
       await elementUpdated(el);
       expect(el.opened).to.be.equal(false, 'Escape should close calendar');
-    });
-    it('Esc on input should close calendar', async () => {
-      const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
-      fireKeydownEvent(el.inputEl, 'Esc');
-      await elementUpdated(el);
-      expect(el.opened).to.be.equal(false, 'Esc should close calendar');
     });
     it('Escape on input should close calendar', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');

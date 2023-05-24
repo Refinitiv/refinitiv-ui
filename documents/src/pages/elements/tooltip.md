@@ -9,7 +9,7 @@ layout: default
 ::
 ```javascript
 ::tooltip::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 ```
 ```html
@@ -63,7 +63,7 @@ To customize the behavior of `ef-tooltip`, use `selector` to specify the CSS sel
 ::
 ```javascript
 ::tooltip::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 ```
 ```html
@@ -193,7 +193,7 @@ Custom content can be added to a tooltip instead of just text.
 ::
 ```javascript
 ::tooltip::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('button');
 ```
 ```html
@@ -368,7 +368,7 @@ Use custom condition to trigger a tooltip only when a condition is met.
 ::
 ```javascript
 ::tooltip::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/text-field?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/text-field?min';
 halo('text-field');
 const input = document.getElementById('amount');
 const tooltip = document.getElementById('amount-tooltip');

@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, html, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/pill';
 import '@refinitiv-ui/elemental-theme/light/ef-pill';
@@ -6,22 +6,22 @@ import '@refinitiv-ui/elemental-theme/light/ef-pill';
 describe('pill/Pill', () => {
   it('Should have correct default Shadow DOM structure', async () => {
     const el = await fixture(html`<ef-pill>Tiger</ef-pill>`);
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Should have correct "clears" Shadow DOM structure', async () => {
     const el = await fixture(html`<ef-pill clears>Tiger</ef-pill>`);
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Should have correct default Light DOM structure for a slot', async () => {
     const el = await fixture(html`<ef-pill>Tiger</ef-pill>`);
-    expect(el).lightDom.to.equalSnapshot();
+    await expect(el).lightDom.to.equalSnapshot();
   });
 
   it('Should have correct "clears" Light DOM structure for a slot', async () => {
     const el = await fixture(html`<ef-pill clears>Tiger</ef-pill>`);
-    expect(el).lightDom.to.equalSnapshot();
+    await expect(el).lightDom.to.equalSnapshot();
   });
 
   it('Should contains the correct structure', async () => {
@@ -316,7 +316,7 @@ describe('pill/Pill', () => {
 
     it('should fire clear event when press delete', async () => {
       const el = await fixture(html`<ef-pill clears></ef-pill>`);
-      const event = keyboardEvent('keydown', { key: 'Delete' });
+      const event = new KeyboardEvent('keydown', { key: 'Delete' });
 
       setTimeout(() => el.dispatchEvent(event));
       const ev = await oneEvent(el, 'clear');

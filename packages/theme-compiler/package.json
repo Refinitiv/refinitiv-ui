@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/theme-compiler",
-  "version": "6.3.0",
+  "version": "7.0.0-next.0",
   "description": "Compiles Element Framework themes into usable JavaScript",
   "author": "LSEG",
   "license": "Apache-2.0",
@@ -14,7 +14,7 @@
   },
   "scripts": {
     "prepack": "npm run version",
-    "version": "node ../../scripts/version"
+    "version": "node ../../scripts/version/index.mjs"
   },
   "dependencies": {
     "autoprefixer": "^10.4.2",
@@ -27,7 +27,7 @@
     "glob": "^7.1.5",
     "glob-promise": "^3.4.0",
     "htmlparser2": "^4.0.0",
-    "less": "3.11.1",
+    "less": "^4.1.3",
     "less-plugin-npm-import": "^2.1.0",
     "postcss": "^8.4.6",
     "yargs-parser": "^15.0.0"

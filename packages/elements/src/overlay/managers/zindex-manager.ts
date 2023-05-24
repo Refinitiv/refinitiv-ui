@@ -43,7 +43,7 @@ export class ZIndexManager {
   }
 
   private get sorted (): OverlayLayer[] {
-    const overlays: OverlayLayer[] = []; /* IE does not support entries */
+    const overlays: OverlayLayer[] = [];
 
     this.registry.forEach((zIndex, overlay) => {
       overlays.push({

@@ -17,7 +17,7 @@ describe('appstate-bar/AppstateBar', () => {
   });
 
   it('DOM structure is correct', async () => {
-    expect(el).shadowDom.to.equalSnapshot();
+    await expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('Should change content in heading when heading attribute changed', async () => {

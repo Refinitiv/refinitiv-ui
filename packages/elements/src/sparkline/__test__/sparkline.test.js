@@ -49,7 +49,7 @@ describe('sparkline/Sparkline', () => {
     });
 
     it('DOM structure is correct', async () => {
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('Should have the correct part', () => {
@@ -82,7 +82,7 @@ describe('sparkline/Sparkline', () => {
       expect(isCanvasBlank(canvas)).to.be.false;
 
       el.data = [10, 30, -20];
-      await elementUpdated();
+      await elementUpdated(el);
       expect(countDataChanged).to.equal(2);
       expect(countDataError).to.equal(0);
       expect(isCanvasBlank(canvas)).to.be.false;
@@ -94,13 +94,13 @@ describe('sparkline/Sparkline', () => {
       expect(isCanvasBlank(canvas)).to.be.true;
 
       el.data = [10];
-      await elementUpdated();
+      await elementUpdated(el);
       expect(countDataChanged).to.equal(0);
       expect(countDataError).to.equal(1);
       expect(isCanvasBlank(canvas)).to.be.true;
 
       el.data = [];
-      await elementUpdated();
+      await elementUpdated(el);
       expect(countDataChanged).to.equal(0);
       expect(countDataError).to.equal(2);
       expect(isCanvasBlank(canvas)).to.be.true;
@@ -144,7 +144,7 @@ describe('sparkline/Sparkline', () => {
       expect(el.referenceValue).to.equal(10);
 
       el.referenceValue = 0;
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.referenceValue).to.equal(0);
     });
   });

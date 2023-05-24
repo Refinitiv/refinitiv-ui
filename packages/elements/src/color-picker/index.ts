@@ -203,7 +203,6 @@ export class ColorPicker extends ControlElement {
     switch (event.key) {
       case 'Enter':
       case ' ':
-      case 'Spacebar':
         this.setOpened(true);
         break;
       default:

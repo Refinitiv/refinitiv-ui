@@ -432,15 +432,12 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   protected onKeyDown (event: KeyboardEvent): void {
     switch (event.key) {
       case ' ':
-      case 'Spacebar':
       case 'Enter':
         this.triggerActiveItem();
         break;
-      case 'Up':
       case 'ArrowUp':
         this.up();
         break;
-      case 'Down':
       case 'ArrowDown':
         this.down();
         break;

@@ -23,10 +23,11 @@ export class CloseManager {
   private getTopOverlay (): OverlayClose | null {
     const overlay = this.overlays[0];
 
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (!overlay) {
       return null;
     }
+    /* c8 ignore stop */
 
     const closeCallback = this.registry.get(overlay) as CloseCallback;
 
@@ -38,7 +39,6 @@ export class CloseManager {
 
   private onKeyDown = ({ key }: KeyboardEvent): void => {
     switch (key) {
-      case 'Esc':
       case 'Escape':
         this.onEscKey();
       // no default
@@ -48,10 +48,11 @@ export class CloseManager {
   private onEscKey (): void {
     const topOverlay = this.getTopOverlay();
 
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (!topOverlay) {
       return;
     }
+    /* c8 ignore stop */
 
     const {
       overlay,
@@ -74,10 +75,11 @@ export class CloseManager {
   private onTapStart = (event: TapEvent): void => {
     const topOverlay = this.getTopOverlay();
 
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (!topOverlay) {
       return;
     }
+    /* c8 ignore stop */
 
     const {
       overlay,

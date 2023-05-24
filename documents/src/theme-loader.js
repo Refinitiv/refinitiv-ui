@@ -3,7 +3,7 @@ const themeVariant = document.documentElement.getAttribute('prefers-color-scheme
 const HaloThemePackage = 'https://cdn.skypack.dev/@refinitiv-ui/halo-theme';
 const SolarThemePackage = 'https://cdn.skypack.dev/@refinitiv-ui/solar-theme';
 const CorePackage = 'https://cdn.skypack.dev/@refinitiv-ui/core?min';
-const ElementsPackage = 'https://cdn.skypack.dev/@refinitiv-ui/elements';
+const ElementsPackage = 'https://cdn.skypack.dev/@refinitiv-ui/elements@next';
 
 const ThemePackage = {
   halo: {

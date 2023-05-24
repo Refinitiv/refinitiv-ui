@@ -1,4 +1,4 @@
-import { elementUpdated, isIE, keyboardEvent } from "@refinitiv-ui/test-helpers";
+import { elementUpdated } from "@refinitiv-ui/test-helpers";
 
 /**
  * Update value and wait update complete
@@ -12,12 +12,12 @@ const valueUpdated = async (value, el, key = 'value') => {
   await elementUpdated(el);
 }
 
-const keyArrowLeft = keyboardEvent('keydown', { key: isIE() ? 'Left' : 'ArrowLeft'});
-const keyArrowRight = keyboardEvent('keydown', { key: isIE() ? 'Right' : 'ArrowRight' });
-const keyArrowDown = keyboardEvent('keydown', { key: isIE() ? 'Down' : 'ArrowDown' });
-const keyArrowUp = keyboardEvent('keydown', { key: isIE() ? 'Up' : 'ArrowUp'});
-const keyHome = keyboardEvent('keydown', { key: 'Home'});
-const keyEnd = keyboardEvent('keydown', { key: 'End'});
+const keyArrowLeft = new KeyboardEvent('keydown', { key: 'ArrowLeft'});
+const keyArrowRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+const keyArrowDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+const keyArrowUp = new KeyboardEvent('keydown', { key: 'ArrowUp'});
+const keyHome = new KeyboardEvent('keydown', { key: 'Home'});
+const keyEnd = new KeyboardEvent('keydown', { key: 'End'});
 
 export {
   valueUpdated,

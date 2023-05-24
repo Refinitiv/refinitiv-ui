@@ -1,5 +1,3 @@
-import { isIE, nextFrame as _nextFrame } from '@open-wc/testing';
-
 export {
   html,
   unsafeStatic,
@@ -9,7 +7,6 @@ export {
   triggerBlurFor,
   triggerFocusFor,
   oneEvent,
-  isIE,
   defineCE,
   aTimeout,
   waitUntil,
@@ -20,42 +17,14 @@ export {
   fixtureCleanup,
   elementUpdated
 } from '@open-wc/testing';
-
-export interface CustomKeyboardEvent extends CustomEvent {
-  key: string;
-  shiftKey: boolean;
-  altKey: boolean;
-  ctrlKey: boolean;
-  metaKey: boolean;
-}
+import { nextFrame as _nextFrame } from '@open-wc/testing';
 
 /**
- * Create a new keyboard event object support modern web browsers and IE 11
- * @param {string} type event type
- * @param {KeyboardEventInit} init initial values
- * @returns {KeyboardEvent|CustomKeyboardEvent} keyboard event
+ * Replace special whitespace with normal whitespace
+ * @param text string with whitespace for replace
+ * @returns string
  */
-export const keyboardEvent = (type: string, init: KeyboardEventInit = {}): KeyboardEvent|CustomKeyboardEvent => {
-  /* istanbul ignore else */
-  if (!isIE()) {
-    return new KeyboardEvent(type, init);
-  }
-  else {
-    const event = new CustomEvent(type, {
-      detail: 0,
-      bubbles: true,
-      cancelable: true,
-      composed: true
-    }) as CustomKeyboardEvent;
-    event.key = init.key ?? '';
-    event.shiftKey = init.shiftKey ?? false;
-    event.altKey = init.altKey ?? false;
-    event.ctrlKey = init.ctrlKey ?? false;
-    event.metaKey = init.metaKey ?? false;
-
-    return event;
-  }
-};
+export const replaceWhitespace = (text: string): string => text.replace(/\s/g, ' ');
 
 /**
  * Resolves after requestAnimationFrame.
@@ -88,12 +57,13 @@ export const isNear = (a: number, b: number, distance: number, inclusive = true)
   return inclusive ? diff <= distance : diff < distance;
 };
 
+/* c8 ignore start */
 /**
- * Replace special whitespace with normal whitespace
- * @param text string with whitespace for replace
- * @returns string
+ * Check browser is Firefox
+ * @returns boolean
  */
-export const replaceWhitespace = (text: string): string => text.replace(/\s/g, ' ');
+export const isFirefox = (): boolean => (/firefox/i).test(navigator.userAgent);
+/* c8 ignore stop */
 
 // ResizeObserver loop error is considered benign as discussed in https://github.com/w3c/csswg-drafts/issues/5023
 // This module converts the error into a warning instead
@@ -105,14 +75,15 @@ before(function () {
     // Chrome: `ResizeObserver loop limit exceeded`
     // Safari: `ResizeObserver loop completed with undelivered notifications`
     // Each browser logs a slightly different messages yet they all start with `ResizeObserver loop`
-    /* istanbul ignore else */
     if (typeof event === 'string' && event.startsWith('ResizeObserver loop')) {
       // eslint-disable-next-line no-console
       console.warn(`warning: ${event}`);
       return true;
     }
+    /* c8 ignore start */
     else {
       return originalOnError ? originalOnError(event, ...args) as boolean : false;
     }
+    /* c8 ignore stop */
   };
 });

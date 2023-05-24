@@ -15,11 +15,11 @@ describe('clock/Clock', () => {
   describe('DOM structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-clock></ef-clock>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure of analogue is correct', async () => {
       const el = await fixture('<ef-clock analogue></ef-clock>');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure of small size analogue is correct', async () => {
       el = await fixture('<ef-clock analogue></ef-clock>');
@@ -27,7 +27,7 @@ describe('clock/Clock', () => {
       await elementUpdated(el);
       await nextFrame(2); // wait for resize observer & rendering completion
 
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 

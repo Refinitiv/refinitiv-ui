@@ -35,7 +35,7 @@ describe('sidebar-layout/SidebarLayout', () => {
 
   it('Has correct shadow dom structure', async () => {
     const el = await fixture(defaultLayout);
-    expect(el).shadowDom.to.equalSnapshot({
+    await expect(el).shadowDom.to.equalSnapshot({
       ignoreAttributes: ['class', 'size', 'style']
     });
   });
