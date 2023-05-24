@@ -1,9 +1,9 @@
 import {
   html,
+  nothing,
   TemplateResult
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import '../icon/index.js';
 import { TextField } from '../text-field/index.js';
@@ -78,13 +78,13 @@ export class SearchField extends TextField {
     return html`
       <ef-icon
         part="icon"
-        role="${ifDefined(this.iconHasAction ? 'button' : undefined)}"
+        role="${this.iconHasAction ? 'button' : nothing}"
+        tabindex="${this.iconHasAction ? '0' : nothing}"
         icon="search"
         aria-label="${this.t('SEARCH')}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         @tap="${this.iconClick}"
-        tabindex="${ifDefined(this.iconHasAction ? '0' : undefined)}"
       ></ef-icon>
     `;
   }

@@ -2,6 +2,7 @@ import {
   BasicElement,
   html,
   css,
+  nothing,
   PropertyValues,
   TemplateResult,
   CSSResultGroup,
@@ -10,7 +11,6 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
 import '../button/index.js';
@@ -557,7 +557,7 @@ export class Pagination extends BasicElement {
           role="spinbutton"
           aria-valuenow=${this.internalValue}
           aria-valuemin="1"
-          aria-valuemax=${ifDefined(this.max || undefined)}
+          aria-valuemax=${this.max || nothing}
           .value=${this.inputValue}
           .disabled=${this.disabled}
           @focus=${this.onFocusedChanged}

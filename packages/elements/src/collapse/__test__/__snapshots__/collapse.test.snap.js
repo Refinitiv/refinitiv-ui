@@ -5,20 +5,15 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
 `<ef-header
   level="3"
   part="header"
+  role="heading"
 >
   <div
-    part="heading"
-    role="heading"
+    aria-controls="content"
+    aria-expanded="false"
+    id="header-label"
+    role="button"
+    tabindex="0"
   >
-    <div
-      aria-controls="content"
-      aria-expanded="false"
-      id="header-toggle"
-      part="header-toggle"
-      role="button"
-      tabindex="0"
-    >
-    </div>
   </div>
   <ef-icon
     aria-hidden="true"
@@ -39,7 +34,7 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
   </slot>
 </ef-header>
 <div
-  aria-labelledby="header-toggle"
+  aria-labelledby="header-label"
   id="content"
   part="content"
   role="region"
@@ -59,20 +54,15 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
 `<ef-header
   level="1"
   part="header"
+  role="heading"
 >
   <div
-    part="heading"
-    role="heading"
+    aria-controls="content"
+    aria-expanded="false"
+    id="header-label"
+    role="button"
+    tabindex="0"
   >
-    <div
-      aria-controls="content"
-      aria-expanded="false"
-      id="header-toggle"
-      part="header-toggle"
-      role="button"
-      tabindex="0"
-    >
-    </div>
   </div>
   <ef-icon
     aria-hidden="true"
@@ -93,7 +83,7 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
   </slot>
 </ef-header>
 <div
-  aria-labelledby="header-toggle"
+  aria-labelledby="header-label"
   id="content"
   part="content"
   role="region"
@@ -113,20 +103,15 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
 `<ef-header
   level=""
   part="header"
+  role="heading"
 >
   <div
-    part="heading"
-    role="heading"
+    aria-controls="content"
+    aria-expanded="false"
+    id="header-label"
+    role="button"
+    tabindex="0"
   >
-    <div
-      aria-controls="content"
-      aria-expanded="false"
-      id="header-toggle"
-      part="header-toggle"
-      role="button"
-      tabindex="0"
-    >
-    </div>
   </div>
   <ef-icon
     aria-hidden="true"
@@ -147,7 +132,7 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
   </slot>
 </ef-header>
 <div
-  aria-labelledby="header-toggle"
+  aria-labelledby="header-label"
   id="content"
   part="content"
   role="region"
@@ -167,21 +152,16 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
 `<ef-header
   level="3"
   part="header"
+  role="heading"
 >
   <div
-    part="heading"
-    role="heading"
+    aria-controls="content"
+    aria-expanded="false"
+    id="header-label"
+    role="button"
+    tabindex="0"
   >
-    <div
-      aria-controls="content"
-      aria-expanded="false"
-      id="header-toggle"
-      part="header-toggle"
-      role="button"
-      tabindex="0"
-    >
-      Header
-    </div>
+    Header
   </div>
   <ef-icon
     aria-hidden="true"
@@ -202,7 +182,7 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
   </slot>
 </ef-header>
 <div
-  aria-labelledby="header-toggle"
+  aria-labelledby="header-label"
   id="content"
   part="content"
   role="region"
@@ -222,20 +202,15 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
 `<ef-header
   level="3"
   part="header"
+  role="heading"
 >
   <div
-    part="heading"
-    role="heading"
+    aria-controls="content"
+    aria-expanded="false"
+    id="header-label"
+    role="button"
+    tabindex="0"
   >
-    <div
-      aria-controls="content"
-      aria-expanded="false"
-      id="header-toggle"
-      part="header-toggle"
-      role="button"
-      tabindex="0"
-    >
-    </div>
   </div>
   <ef-icon
     aria-hidden="true"
@@ -256,7 +231,7 @@ snapshots["collapse/Collapse Should Have Correct DOM Label and DOM structure is 
   </slot>
 </ef-header>
 <div
-  aria-labelledby="header-toggle"
+  aria-labelledby="header-label"
   id="content"
   part="content"
   role="region"

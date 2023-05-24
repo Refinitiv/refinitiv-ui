@@ -31,9 +31,9 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.2",
     "@commitlint/config-conventional": "^17.0.2",
-    "@nrwl/cli": "latest",
-    "@nrwl/tao": "latest",
-    "@nrwl/workspace": "latest",
+    "@nrwl/cli": "^15.4.2",
+    "@nrwl/tao": "^15.4.2",
+    "@nrwl/workspace": "^15.4.2",
     "@web/dev-server-esbuild": "^0.3.6",
     "@web/test-runner": "^0.15.3",
     "@web/test-runner-browserstack": "^0.6.1",

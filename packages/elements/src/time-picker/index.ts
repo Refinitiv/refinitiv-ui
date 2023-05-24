@@ -2,11 +2,11 @@ import {
   ControlElement,
   html,
   css,
+  nothing,
   TemplateResult,
   CSSResultGroup,
   PropertyValues
 } from '@refinitiv-ui/core';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { guard } from '@refinitiv-ui/core/directives/guard.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -865,7 +865,7 @@ export class TimePicker extends ControlElement {
         min="${this.amPm ? 1 : MIN_UNIT}"
         max="${this.amPm ? HOURS_OF_NOON : MAX_HOURS}"
         .value="${hours}"
-        placeholder="${ifDefined(hours ? undefined : Placeholder.HOURS)}"
+        placeholder="${hours ? nothing : Placeholder.HOURS}"
         ?disabled="${this.disabled}"
         ?readonly="${this.readonly}"
         @value-changed="${this.onInputValueChanged}"
@@ -886,7 +886,7 @@ export class TimePicker extends ControlElement {
         min="${MIN_UNIT}"
         max="${MAX_MINUTES}"
         .value="${minutes}"
-        placeholder="${ifDefined(minutes ? undefined : Placeholder.MINUTES)}"
+        placeholder="${minutes ? nothing : Placeholder.MINUTES}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         transparent
@@ -909,7 +909,7 @@ export class TimePicker extends ControlElement {
         min="${MIN_UNIT}"
         max="${MAX_SECONDS}"
         .value="${seconds}"
-        placeholder="${ifDefined(seconds ? undefined : Placeholder.SECONDS)}"
+        placeholder="${seconds ? nothing : Placeholder.SECONDS}"
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         transparent
@@ -927,7 +927,7 @@ export class TimePicker extends ControlElement {
     return this.amPm ? html`
       <div role="listbox"
            aria-label="${this.t('TOGGLE_TIME_PERIOD')}"
-           aria-activedescendant="${ifDefined(hasHours ? this.isAM() ? 'toggle-am' : 'toggle-pm' : undefined)}"
+           aria-activedescendant="${hasHours ? this.isAM() ? 'toggle-am' : 'toggle-pm' : nothing}"
            id="toggle"
            part="toggle"
            @tap=${this.toggle}

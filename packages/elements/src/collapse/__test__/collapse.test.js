@@ -143,7 +143,7 @@ describe('collapse/Collapse', () => {
 
   it('aria-level is reflected', async () => {
     const el = await fixture('<ef-collapse aria-level="4"></ef-collapse>');
-    const heading = el.shadowRoot.querySelector('[part=heading]');
+    const heading = el.shadowRoot.querySelector('[part=header]');
     expect(heading.getAttribute('aria-level')).to.equal('4', 'aria-level should reflected');
 
     el.setAttribute('aria-level', '3');
@@ -177,7 +177,7 @@ describe('collapse/Collapse', () => {
   describe('Should Handle Click', () => {
     it('Should fire expanded-changed event when tap header to expand', async () => {
       const el = await fixture('<ef-collapse></ef-collapse>');
-      const header = el.shadowRoot.querySelector('[part=header-toggle]');
+      const header = el.shadowRoot.querySelector('[part=header]');
 
       setTimeout(() => header.dispatchEvent(new Event('tap', { bubbles: true })));
       const { detail } = await oneEvent(el, 'expanded-changed');
@@ -219,7 +219,7 @@ describe('collapse/Collapse', () => {
   describe('Cancel expanded-changed event', () => {
     it('Should not change expanded property', async () => {
       const el = await fixture('<ef-collapse expanded></ef-collapse>');
-      const header = el.shadowRoot.querySelector('[part=header-toggle]');
+      const header = el.shadowRoot.querySelector('[part=header]');
       const expanded = el.expanded;
 
       const onExpandedEvent = (e) => e.preventDefault();

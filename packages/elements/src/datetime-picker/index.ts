@@ -7,12 +7,12 @@ import {
   PropertyValues,
   CSSResultGroup,
   TapEvent,
-  WarningNotice
+  WarningNotice,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
 import type { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent } from '../events';
 import type {
@@ -1156,7 +1156,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     return html`<ef-calendar
       part="calendar"
       id=${id}
-      lang=${ifDefined(this.lang || undefined)}
+      lang=${this.lang || nothing}
       .fillCells=${!this.isDuplex()}
       .range=${this.range}
       .multiple=${this.multiple}
@@ -1164,7 +1164,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       .max=${this.maxDate}
       .weekdaysOnly=${this.weekdaysOnly}
       .weekendsOnly=${this.weekendsOnly}
-      .firstDayOfWeek=${ifDefined(this.firstDayOfWeek)}
+      .firstDayOfWeek=${this.firstDayOfWeek || nothing}
       .values=${this.calendarValues}
       .filter=${this.filter}
       .view=${view}
