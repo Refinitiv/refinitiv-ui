@@ -10,7 +10,7 @@
     "npm": ">=8.0.0"
   },
   "scripts": {
-    "lerna": "lerna",
+    "nx": "nx",
     "build": "nx run-many --target build --parallel --all",
     "build:affected": "nx affected:build --parallel",
     "build:docs": "nx run @refinitiv-ui/docs:build",
@@ -29,13 +29,12 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.2",
-    "@commitlint/config-conventional": "^17.0.2",
-    "@nrwl/cli": "^15.4.2",
-    "@nrwl/tao": "^15.4.2",
-    "@nrwl/workspace": "^15.4.2",
-    "@web/dev-server-esbuild": "^0.3.6",
-    "@web/test-runner": "^0.15.3",
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
+    "@lerna/publish": "^6.6.2",
+    "@lerna/version": "^6.6.2",
+    "@web/dev-server-esbuild": "^0.4.1",
+    "@web/test-runner": "^0.16.1",
     "@web/test-runner-browserstack": "^0.6.1",
     "@web/test-runner-playwright": "^0.10.0",
     "chalk": "^5.2.0",
@@ -44,12 +43,12 @@
     "deepmerge": "^4.3.1",
     "fast-glob": "^3.2.12",
     "husky": "^8.0.3",
-    "lerna": "^5.5.2",
-    "lint-staged": "^13.2.1",
-    "sinon": "^15.0.4",
+    "lint-staged": "^13.2.2",
+    "nx": "16.2.2",
+    "sinon": "^15.1.0",
     "typescript": "^4.8.3",
-    "vite": "^4.3.3",
+    "vite": "^4.3.8",
     "web-component-analyzer": "2.0.0-next.4",
-    "yargs": "^17.7.1"
+    "yargs": "^17.7.2"
   }
 }
