@@ -7,7 +7,8 @@ Core functionality for building Element Framework elements, it exports the follo
 A base class for extending simple element that have minimal functionality.
 
 ```js
-import { BasicElement, customElement } from '@refinitiv-ui/core';
+import { BasicElement } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 
 @customElement('my-avatar')
 class MyAvatar extends BasicElement {
@@ -20,7 +21,8 @@ class MyAvatar extends BasicElement {
 A base class for extending control element, usually referred to as form elements. These controls have additional functionality, such as, disabled and read-only states.
 
 ```js
-import { ControlElement, customElement } from '@refinitiv-ui/core';
+import { ControlElement } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 
 @customElement('my-button')
 class MyButton extends ControlElement {
@@ -33,7 +35,8 @@ class MyButton extends ControlElement {
 A base class for extending element which needs to respond to their dimensions e.g data visualizations. The base class provides resize observer callback which will trigger whenever that the element's dimensions are changed.
 
 ```js
-import { ResponsiveElement, customElement } from '@refinitiv-ui/core';
+import { ResponsiveElement } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 
 @customElement('my-chart')
 class MyChart extends ResponsiveElement {

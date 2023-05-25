@@ -30,8 +30,8 @@ Custom elements built using Element Framework should be prefixed with `efx-`, es
 ```ts
 import {
   BasicElement,
-  customElement
 } from '@refinitiv-ui/elements';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 
 @customElement('efx-todo', { theme: false })
 export class TodoElement extends BasicElement { ... }
@@ -55,9 +55,9 @@ To add a template to your element, add a `render()` method.
 import {
   html,
   BasicElement,
-  customElement,
   TemplateResult
 } from '@refinitiv-ui/elements';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 
 @customElement('efx-todo', { theme: false })
 export class TodoElement extends BasicElement {
