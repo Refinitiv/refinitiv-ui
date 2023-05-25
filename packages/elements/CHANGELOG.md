@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.8.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.1...@refinitiv-ui/elements@6.8.2) (2023-05-24)
+
+
+### Bug Fixes
+
+* remove `z-index` from collapse implementation ([#682](https://github.com/Refinitiv/refinitiv-ui/issues/682)) ([c3b6f76](https://github.com/Refinitiv/refinitiv-ui/commit/c3b6f76b178a0339de8f3bc153e1378398d68831))
+
+
+
+
+
 ## [6.8.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.0...@refinitiv-ui/elements@6.8.1) (2023-05-12)
 
 **Note:** Version bump only for package @refinitiv-ui/elements
