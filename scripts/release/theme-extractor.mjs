@@ -12,7 +12,7 @@ import { ELEMENT_DIST, getElementList, getElementTagName } from './util.cjs';
 const PACKAGE_NAME = '@refinitiv-ui/elements';
 
 // Where to look for theme files
-const THEME_SOURCE = `${ROOT}/node_modules/${PACKAGE_NAME.split('/')[0]}/`;
+const THEME_SOURCE = `${ROOT}/node_modules/${PACKAGE_NAME.split('/')[0]}/`.replace(/\\/g, '/');
 
 // Post-fix of theme name
 const THEME_POSTFIX = '-theme';
@@ -78,7 +78,7 @@ const createDependencyMap = async () => {
     for (let j = 0; j < group.elements.length; j++) {
       // Assuming all themes have the same set of dependency
       const themeRepositoryName = THEMES[0] + THEME_POSTFIX;
-      const themesFound = await fg(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${group.elements[j]}.js`);
+      const themesFound = await fg(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${group.elements[j]}.js`.replace(/\\/g, '/'));
 
       for (const theme of themesFound) {
         dependencies = dependencies
@@ -126,7 +126,7 @@ const getThemes = async (elements) => {
   let themes = [];
   for (const theme of THEMES) {
     const themeRepositoryName = theme + THEME_POSTFIX;
-    themes = themes.concat(await fg(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${elements[0]}.js`));
+    themes = themes.concat(await fg(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${elements[0]}.js`.replace(/\\/g, '/')));
   }
 
   return themes;
@@ -160,10 +160,10 @@ const handler = async () => {
        * Entrypoint, using lib for backward compatibility
        * @example import '@refinitiv-ui/elements/lib/ef-icon/halo/dark';
        */
-      let entrypoint = path.join(ELEMENT_DIST, dir, THEMES_DIRECTORY, variantPath);
+      let entrypoint = path.join(ELEMENT_DIST, dir, THEMES_DIRECTORY, variantPath).replace(/\\/g, '/');
 
       if (src) {
-        entrypoint = path.join(src, entrypoint);
+        entrypoint = path.join(src, entrypoint).replace(/\\/g, '/');
       }
 
       // Prepare folders structure
@@ -181,7 +181,7 @@ const handler = async () => {
         // Strip element prefix
         const dep = dependency.replace(`${dependency.split('-')[0]}-`, '');
         const variant = path.dirname(variantPath);
-        const dependencyImport = `import '${path.join(PACKAGE_NAME, dep, THEMES_DIRECTORY, variant)}';\n`;
+        const dependencyImport = `import '${path.join(PACKAGE_NAME, dep, THEMES_DIRECTORY, variant)}';\n`.replace(/\\/g, '/');
 
         // Clean up file
         if (fs.existsSync(entrypoint)) {

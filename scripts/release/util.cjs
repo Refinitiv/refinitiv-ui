@@ -25,7 +25,7 @@ const getElementTagName = (path) => {
 
 // This is a compiled syntax of decorator we used to define our elements
 // This will help to detect if the JavaScript file is an element or not
-const DECORATE_SYNTAX = '__decorate([\n    customElement';
+const DECORATE_SYNTAX = '    customElement';
 
 /**
  * Get list of element file path which contain element defining syntax
@@ -34,7 +34,7 @@ const DECORATE_SYNTAX = '__decorate([\n    customElement';
  */
 const getElementList = async (directory) => {
   // All js files in source folder
-  const files = await fg([`${directory}/**/*.js`], { unique: true });
+  const files = await fg([`${directory}/**/*.js`.replace(/\\/g, '/')], { unique: true });
 
   // Filter out incompatible elements
   return files
