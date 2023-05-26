@@ -1369,11 +1369,13 @@ export class Calendar extends ControlElement implements MultiValue {
   private renderCell (cell: Cell): TemplateResult {
     const isSelection = cell.value !== undefined;
     const isSelectable = isSelection && !cell.disabled;
+    const isSelected = cell.selected ? 'true' : 'false';
+    const isActive = cell.active ? 0 : -1;
 
     return html`<div
       role="gridcell"
       part="cell ${cell.view}"
-      aria-selected="${isSelectable ? (cell.selected ? 'true' : 'false') : nothing}"
+      aria-selected="${isSelectable ? isSelected : nothing}"
       ?active=${cell.active}
       ?disabled=${cell.disabled}
       ?idle=${cell.idle}
@@ -1385,7 +1387,7 @@ export class Calendar extends ControlElement implements MultiValue {
       ?range-from=${cell.rangeFrom}
       ?range-to=${cell.rangeTo}>
         <div role="${cell.value ? 'button' : nothing}"
-             tabindex=${isSelectable ? (cell.active ? 0 : -1) : nothing}
+             tabindex=${isSelectable ? isActive : nothing}
              aria-label="${isSelectable && !isIE ? this.t(this.getCellLabelKey(cell), { /* IE11 has significant performance hit, disable */
                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                value: parse(cell.value!),
