@@ -8,6 +8,9 @@ outputs:
   cache-build-hit:
     description: "Use build output scripts cache"
     value: ${{ steps.cache-build.outputs.cache-hit }}
+  cache-test-result-hit:
+    description: "Use test result output cache"
+    value: ${{ steps.cache-test-result.outputs.cache-hit }}
 
 runs:
   using: "composite"
@@ -26,7 +29,6 @@ runs:
           */node_modules
           */*/node_modules
         key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
     - name: Setup caching build
       uses: actions/cache@v3
@@ -37,4 +39,10 @@ runs:
           packages/*-theme/**/*.js
           packages/*-theme/**/*.css
         key: ${{ runner.os }}-build-${{ github.sha }}
-        restore-keys: ${{ runner.os }}-build-${{ github.sha }}
+
+    - name: Setup caching test result
+      uses: actions/cache@v3
+      id: cache-test-result
+      with:
+        path: packages/*/coverage
+        key: ${{ runner.os }}-test-result-${{ github.sha }}
