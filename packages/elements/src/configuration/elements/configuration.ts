@@ -12,7 +12,7 @@ import { provide } from '@lit-labs/context';
 
 const DEFAULT_CONFIG: ConfigType = { icon: { map: {} } };
 
-@customElement('ef-config', { theme: false })
+@customElement('ef-configuration', { theme: false })
 export class Config extends BasicElement {
 
   /**
@@ -21,6 +21,14 @@ export class Config extends BasicElement {
    */
   static get version (): string {
     return VERSION;
+  }
+  
+  /**
+   * Render slot as light DOM
+   * @returns Element
+   */
+  protected createRenderRoot () {
+    return this;
   }
 
   @provide({ context: efConfig })
@@ -44,6 +52,6 @@ export class Config extends BasicElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ef-config': Config;
+    'ef-configuration': Config;
   }
 }

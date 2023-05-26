@@ -9,6 +9,7 @@
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/config';
+      import '@refinitiv-ui/elements/calendar';
       import '@refinitiv-ui/elements/icon';
       import '@refinitiv-ui/demo-block';
     </script>
@@ -55,15 +56,27 @@
       }
     </style>
     <demo-block header="Custom icons config" tags="Colour Changing">
-      <ef-config id="config">
+      <ef-configuration id="demo1">
         <ef-icon icon="tick"></ef-icon>
         <ef-icon icon="flame"></ef-icon>
-      </ef-config>
+      </ef-configuration>
+    </demo-block>
+    <demo-block header="Custom icon calendar config">
+      <ef-configuration id="demo2">
+        <ef-calendar value="2020-04-21"></ef-calendar>
+      </ef-configuration>
     </demo-block>
     <script>
-      config.icon = { map: { 
+      demo1.icon = { map: { 
         "tick": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xNCA0bC04LjI1IDguMjVMMiA4LjUiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==',
         "flame": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOS4zNjQgMTVzLjkwOS0xLjQuOTA5LTEuODY3YzAtMi4wNTMtMS44MTgtMy43MzMtMS44MTgtMy43MzN2MS44NjdMNy41NDUgOS40VjcuNTMzUzUuNzI3IDkuODY3IDUuNzI3IDEyLjJjMCAyLjA1MyAxLjgxOCAyLjggMS44MTggMi44aC0uOTA5UzMgMTQuMTYgMyAxMC4zMzNjMC0xLjY4IDEuMjczLTMuMDggMS44MTgtMy43MzMuNDU1LS41NiAxLjgxOC0yLjYxMyAxLjgxOC01LjYgMCAwIDMuNjM3IDEuODY3IDMuNjM3IDcuNDY3IDAgMCAuOTA5LS40NjcuOTA5LTMuNzM0IDAgMCAuNzI3LjU2LjkwOS45MzQuNTQ1IDEuMDI2LjkwOSAyLjg5My45MDkgNC42NjZDMTMgMTMuNTA3IDkuMzY0IDE1IDkuMzY0IDE1eiIgZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+',
+      }}
+      demo2.icon = { map: { 
+        "up": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xMy41IDEwLjVMOCA1LjVsLTUuNSA1IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=',
+        "down": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0yLjUgNS41bDUuNSA1IDUuNS01IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=',
+        "left": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xMC41IDIuNUw1LjUgOGw1IDUuNSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+',
+        "right": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik01LjUgMTMuNWw1LTUuNS01LTUuNSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+',
+        
       }}
     </script>
   </body>

@@ -6,7 +6,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
 
 describe('config/Icon', () => {
   it('should pass config to icon correctly', async () => {
-    const elConfig = await fixture('<ef-config><ef-icon></ef-icon></ef-config>');
+    const elConfig = await fixture('<ef-configuration><ef-icon></ef-icon></ef-configuration>');
     elConfig.icon = { map: { "tick": tickSvgBase64 }}
     const elIcon = elConfig.querySelector('ef-icon');
     elIcon.icon = 'tick';

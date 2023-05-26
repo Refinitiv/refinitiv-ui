@@ -9,4 +9,4 @@ export type ConfigIcon = {
 export type Config = {
   icon: ConfigIcon,
 }
-export const efConfig = createContext<Config>('ef-config');
+export const efConfig = createContext<Config>('ef-configuration');

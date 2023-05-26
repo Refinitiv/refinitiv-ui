@@ -14,7 +14,7 @@ import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';
 import { consume } from '@lit-labs/context';
-import { efConfig, type Config } from '../config/index.js';
+import { efConfig, type Config } from '../configuration/index.js';
 
 const EmptyTemplate = svg``;
 
@@ -37,7 +37,7 @@ export class Icon extends BasicElement {
   }
 
   /**
-   * Icon map from ef-config
+   * Icon map from ef-configuration
    * @ignore
    */
   @consume({ context: efConfig, subscribe: true })
