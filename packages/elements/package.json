@@ -105,7 +105,7 @@
     "./combo-box/themes/halo/light": "./lib/combo-box/themes/halo/light/index.js",
     "./combo-box/themes/solar/charcoal": "./lib/combo-box/themes/solar/charcoal/index.js",
     "./combo-box/themes/solar/pearl": "./lib/combo-box/themes/solar/pearl/index.js",
-    "./config": "./lib/config/index.js",
+    "./configuration": "./lib/configuration/index.js",
     "./counter": "./lib/counter/index.js",
     "./counter/themes/halo/dark": "./lib/counter/themes/halo/dark/index.js",
     "./counter/themes/halo/light": "./lib/counter/themes/halo/light/index.js",

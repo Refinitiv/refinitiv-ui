@@ -1,6 +1,6 @@
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 import { tickSvgBase64 } from './helpers/helpers.js'
-import '@refinitiv-ui/elements/config';
+import '@refinitiv-ui/elements/configuration';
 import '@refinitiv-ui/elements/icon';
 import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
 
