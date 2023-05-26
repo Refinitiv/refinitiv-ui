@@ -27,6 +27,9 @@ const getElementTagName = (path) => {
 // This will help to detect if the JavaScript file is an element or not
 const DECORATE_SYNTAX = '    customElement';
 
+// Helper function to convert path separators
+const normalizePathSeparators = (filePath) => filePath.replace(/\\/g, '/');
+
 /**
  * Get list of element file path which contain element defining syntax
  * @param {string} directory directory's name
@@ -34,7 +37,7 @@ const DECORATE_SYNTAX = '    customElement';
  */
 const getElementList = async (directory) => {
   // All js files in source folder
-  const files = await fg([`${directory}/**/*.js`.replace(/\\/g, '/')], { unique: true });
+  const files = await fg([normalizePathSeparators(`${directory}/**/*.js`)], { unique: true });
 
   // Filter out incompatible elements
   return files
@@ -50,5 +53,6 @@ module.exports = {
   ELEMENT_PREFIX,
   PACKAGE_ROOT,
   getElementTagName,
-  getElementList
+  getElementList,
+  normalizePathSeparators
 };
