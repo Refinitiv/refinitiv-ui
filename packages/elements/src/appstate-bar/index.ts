@@ -25,7 +25,7 @@ export class AppstateBar extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -36,7 +36,7 @@ export class AppstateBar extends BasicElement {
    *
    * @returns CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -67,7 +67,7 @@ export class AppstateBar extends BasicElement {
    * @param {PropertyValues} changedProperties Map of changed properties with old values
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     // Call this.updateStyles() to update css variables
@@ -93,7 +93,7 @@ export class AppstateBar extends BasicElement {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <div part="heading">${this.heading}</div>
       <div part="message"><slot></slot></div>

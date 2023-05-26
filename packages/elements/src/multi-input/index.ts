@@ -49,7 +49,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -59,7 +59,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -363,7 +363,7 @@ export class MultiInput extends ControlElement implements MultiValue {
   * @param value Element value
   */
   @property({ type: String })
-  public set value (value: string) {
+  public override set value (value: string) {
     const oldValue = this.oldValue;
     value = this.castValue(value);
     if (!this.shouldValidateForMaxLength(value)) {
@@ -375,7 +375,7 @@ export class MultiInput extends ControlElement implements MultiValue {
       this.requestUpdate('value', oldValue);
     }
   }
-  public get value (): string {
+  public override get value (): string {
     return this.oldValue;
   }
 
@@ -395,7 +395,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * @param changedProperties Properties that has changed
    * @returns shouldUpdate
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (this.shouldValidateInput(changedProperties)) {
@@ -438,7 +438,7 @@ export class MultiInput extends ControlElement implements MultiValue {
    * render this component
    * @returns the main template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <div id="list" part="list">
         ${this.pillsTemplate()}

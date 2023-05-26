@@ -85,7 +85,7 @@ export class DatetimeField extends TextField {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -214,7 +214,7 @@ export class DatetimeField extends TextField {
    * @default -
    */
   @property({ type: String })
-  public set value (value: string) {
+  public override set value (value: string) {
     this.interimValueState = true;
     super.value = value;
 
@@ -222,7 +222,7 @@ export class DatetimeField extends TextField {
     // This is to ensure that value and inputValue never run out of sync
     this.requestUpdate('interimValueState', false);
   }
-  public get value (): string {
+  public override get value (): string {
     return super.value;
   }
 
@@ -317,7 +317,7 @@ export class DatetimeField extends TextField {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  public willUpdate (changedProperties: PropertyValues): void {
+  public override willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has(TranslatePropertyKey)) {
@@ -352,10 +352,8 @@ export class DatetimeField extends TextField {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected override syncInputValue (changedProperties: PropertyValues): void;
-  protected syncInputValue (): void;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected syncInputValue (changedProperties?: PropertyValues): void {
+  protected override syncInputValue (changedProperties?: PropertyValues): void {
     this.interimValueState = false;
     const inputValue = this.toInputValue(this.value);
     if (inputValue !== this.inputValue) {
@@ -732,7 +730,7 @@ export class DatetimeField extends TextField {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       ${super.render()}
       ${this.screenReaderTemplate}

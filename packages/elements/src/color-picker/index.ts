@@ -47,11 +47,11 @@ export class ColorPicker extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'button';
+  protected override readonly defaultRole: string | null = 'button';
 
   /**
    * Color Description for aria-label
@@ -70,7 +70,7 @@ export class ColorPicker extends ControlElement {
    * @ignore
    */
   @property({ type: String })
-  public lang = '';
+  public override lang = '';
 
   /**
    * Color picker internal translation strings
@@ -84,7 +84,7 @@ export class ColorPicker extends ControlElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static override get styles (): CSSResult | CSSResult[] {
     return css`
       :host {
         display: inline-block;
@@ -116,7 +116,7 @@ export class ColorPicker extends ControlElement {
    * @param value Value to check
    * @returns true if value is valid
    */
-  protected isValidValue (value: string): boolean {
+  protected override isValidValue (value: string): boolean {
     return value === '' || isHex(value);
   }
 
@@ -125,7 +125,7 @@ export class ColorPicker extends ControlElement {
    * @param value that is invalid
    * @returns {void}
    */
-  protected warnInvalidValue (value: string): void {
+  protected override warnInvalidValue (value: string): void {
     new WarningNotice(`The specified value "${value}" is not valid value. The correct value should look like "#fff" or "#ffffff".`).show();
   }
 
@@ -140,7 +140,7 @@ export class ColorPicker extends ControlElement {
    * Called when connected to DOM
    * @returns {void}
    */
-  public connectedCallback (): void {
+  public override connectedCallback (): void {
     super.connectedCallback();
     // Indicating that this color picker has a dialog
     this.setAttribute('aria-haspopup', 'dialog');
@@ -151,7 +151,7 @@ export class ColorPicker extends ControlElement {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.onTap);
     this.addEventListener('keydown', this.onKeyDown);
@@ -163,7 +163,7 @@ export class ColorPicker extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  protected override update (changedProperties: PropertyValues): void {
     if (changedProperties.has(TranslatePropertyKey) || changedProperties.has('value')) {
       void this.updateColorAriaLabel();
     }
@@ -320,7 +320,7 @@ export class ColorPicker extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       ${this.selectionTemplate}
       ${this.colorItemTemplate}

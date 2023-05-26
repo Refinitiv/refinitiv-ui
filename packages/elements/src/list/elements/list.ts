@@ -38,11 +38,11 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'listbox';
+  protected override readonly defaultRole: string | null = 'listbox';
 
   /**
    * Used to timestamp renders.
@@ -78,7 +78,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Element focus delegation.
    * Set to `false` and relies on native focusing.
    */
-  public readonly delegatesFocus = false;
+  public override readonly delegatesFocus = false;
 
   /**
    * Renderer used to render list item elements
@@ -139,10 +139,10 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @default -
    */
   @property({ type: String })
-  public get value (): string {
+  public override get value (): string {
     return this.values[0] || '';
   }
-  public set value (value: string) {
+  public override set value (value: string) {
     const oldValue = this.value;
     if (value !== oldValue || this.values.length > 1) {
       this.clearSelection();
@@ -635,7 +635,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param changeProperties changed properties
    * @returns {void}
    */
-  protected firstUpdated (changeProperties: PropertyValues): void {
+  protected override firstUpdated (changeProperties: PropertyValues): void {
     super.firstUpdated(changeProperties);
 
     this.addEventListener('keydown', this.onKeyDown);
@@ -650,7 +650,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param changeProperties changed properties
    * @returns {void}
    */
-  protected willUpdate (changeProperties: PropertyValues): void {
+  protected override willUpdate (changeProperties: PropertyValues): void {
     if (changeProperties.has('multiple')) {
       this.renderTimestamp.clear(); // force render of all items
       this.setAttribute('aria-multiselectable', this.multiple ? 'true' : 'false');
@@ -663,7 +663,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -679,7 +679,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     this.renderLightDOM();
     return html`<slot></slot>`;
   }

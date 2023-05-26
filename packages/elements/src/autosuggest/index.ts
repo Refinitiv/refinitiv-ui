@@ -106,11 +106,11 @@ export class Autosuggest extends Overlay {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'listbox';
+  protected override readonly defaultRole: string | null = 'listbox';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -118,7 +118,7 @@ export class Autosuggest extends Overlay {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return [
       super.styles,
       css`
@@ -381,7 +381,7 @@ export class Autosuggest extends Overlay {
     this.onOutsideClick = this.onOutsideClick.bind(this);
   }
 
-  public disconnectedCallback (): void {
+  public override disconnectedCallback (): void {
     this.dispatchAttachEventsRemoveAction();
     super.disconnectedCallback();
   }
@@ -471,7 +471,7 @@ export class Autosuggest extends Overlay {
    * @param size dimension details
    * @returns {void}
    */
-  public resizedCallback (size: ElementSize): void {
+  public override resizedCallback (size: ElementSize): void {
     super.resizedCallback(size);
     this.calculateContentMaxHeight(size);
   }
@@ -481,7 +481,7 @@ export class Autosuggest extends Overlay {
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.addEventListener('tapstart', this.onItemMousedown);
@@ -492,7 +492,7 @@ export class Autosuggest extends Overlay {
    * @param changedProperties Properties that has changed
    * @returns shouldUpdate
    */
-  protected shouldUpdate (changedProperties: PropertyValues): boolean {
+  protected override shouldUpdate (changedProperties: PropertyValues): boolean {
     let result = super.shouldUpdate(changedProperties);
 
     result = result || this.shouldAutosuggestUpdate(changedProperties);
@@ -505,7 +505,7 @@ export class Autosuggest extends Overlay {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (changedProperties.has('suggestions')) {
@@ -770,7 +770,7 @@ export class Autosuggest extends Overlay {
    * Protected method that can be used by managers or subclasses
    * @returns {void}
    */
-  protected onOpened (): void {
+  protected override onOpened (): void {
     super.onOpened();
 
     document.addEventListener('tapstart', this.onOutsideClick);
@@ -781,7 +781,7 @@ export class Autosuggest extends Overlay {
    * and closing transition has finished
    * @returns {void}
    */
-  protected onClosed (): void {
+  protected override onClosed (): void {
     super.onClosed();
     this.restrictContentMaxHeight();
 
@@ -1389,7 +1389,7 @@ export class Autosuggest extends Overlay {
    * Set the width
    * @returns {void}
    */
-  public refit (): void {
+  public override refit (): void {
     super.refit();
 
     if (this.positionTarget && this.positionTarget instanceof HTMLElement) {
@@ -1457,7 +1457,7 @@ export class Autosuggest extends Overlay {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
         <div ${ref(this.headerElementRef)}
              part="header">
