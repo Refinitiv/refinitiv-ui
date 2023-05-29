@@ -127,8 +127,6 @@ jobs:
 
       - name: Check out repository code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: Setup resources and environment
         uses: ./.github/actions/setup
@@ -151,8 +149,6 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Setup resources and environment
         uses: ./.github/actions/setup
@@ -167,8 +163,6 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: "Test on BrowserStack"
         uses: ./.github/actions/run-test
