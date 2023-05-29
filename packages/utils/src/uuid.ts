@@ -8,6 +8,7 @@ const hex = () => {
 
 /**
  * Creates an insecure v4 uuid.
+ * DO NOT use in function where high level of security is required
  * @returns v4 uuid string
  */
 const uuid = (): string => {
