@@ -1,14 +1,7 @@
 # develop process
-.husky/
-.commitlintrc.yml
-.editorconfig
 __demo__/
-server.config.js
 
 # document files
-*.pdf
 CHANGELOG.md
-CODE_OF_CONDUCT.md
-CONTRIBUTING.md
 LICENSE
 README.md
