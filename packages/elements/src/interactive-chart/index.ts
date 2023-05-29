@@ -56,6 +56,17 @@ export type {
 
 const NOT_AVAILABLE_DATA = 'N/A';
 const NO_DATA_POINT = '--';
+let OLD_WIDTH = 0;
+let OLD_HEIGHT = 0;
+
+// Indicates if this is Safari. Put version parameter to specific version.
+const isSafari = (version = undefined) => {
+  const safari = !(/Chrome/).test(navigator.userAgent) && (/Apple Computer/).test(navigator.vendor);
+  if (version) {
+    return safari && (navigator.userAgent.indexOf(`Version\/${String(version)}`) > -1);
+  }
+  return safari;
+};
 
 /**
  * A charting component that allows you to create several use cases of financial chart.
@@ -224,6 +235,45 @@ export class InteractiveChart extends ResponsiveElement {
       this.onLegendStyleChange(this.legendStyle, oldLegendStyle);
     }
   }
+
+  /**
+   * Called when the element has been appended to the DOM
+   * @returns {void}
+   */
+  public connectedCallback () {
+    if (isSafari()) {
+      if (OLD_WIDTH > 0 && OLD_HEIGHT > 0) {
+        this.resizedCallback({ width: OLD_WIDTH, height: OLD_HEIGHT });
+      }
+      window.addEventListener('beforeunload', this.handleMemoryUsage);
+    }
+
+    super.connectedCallback();
+  }
+
+  /**
+   * Called when the element has been disconnected from the DOM
+   * @returns {void}
+   */
+  public disconnectedCallback (): void {
+    if (isSafari()) {
+      // Safari doesn't clear memory after refreshing page
+      // workaround: Need to minimize size of element to 1x1 to reduce memory usage
+      OLD_HEIGHT = this.height;
+      OLD_WIDTH = this.width;
+      this.resizedCallback({ width: 1, height: 1 });
+      window.removeEventListener('beforeunload', this.handleMemoryUsage);
+    }
+    super.disconnectedCallback();
+  }
+
+  /**
+   * Handle memory usage in Safari that it doesn't clear memory after refresh
+   * @returns {void}
+   */
+  private handleMemoryUsage = (): void => {
+    this.resizedCallback({ width: 1, height: 1 });
+  };
 
   /**
    * Change chart size or re-create chart
