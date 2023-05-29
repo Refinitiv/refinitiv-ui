@@ -12,6 +12,16 @@ describe('configuration/Configuration', () => {
     elIcon.icon = 'tick-base64';
     await nextFrame(2);
     const svg = elIcon.shadowRoot.querySelector('svg');
-   await expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
+    await expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
+  });
+
+  it('should not pass config when to icon incorrectly', async () => {
+    const elConfig = await fixture('<ef-configuration><ef-icon></ef-icon></ef-configuration>');
+    elConfig.icon = { map: { "tick-base64": 'invalid' + tickSvgBase64 }};
+    const elIcon = elConfig.querySelector('ef-icon'); 
+    elIcon.icon = 'tick-base64';
+    await nextFrame(2);
+    const svg = elIcon.shadowRoot.querySelector('svg');
+    await expect(svg).to.equal(null, 'SVG element should not exist for invalid icon attribute');
   });
 });
