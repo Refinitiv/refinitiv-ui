@@ -247,7 +247,6 @@ export class InteractiveChart extends ResponsiveElement {
       }
       window.addEventListener('beforeunload', this.handleMemoryUsage);
     }
-
     super.connectedCallback();
   }
 
@@ -258,7 +257,7 @@ export class InteractiveChart extends ResponsiveElement {
   public disconnectedCallback (): void {
     if (isSafari()) {
       // Safari doesn't clear memory after refreshing page
-      // workaround: Need to minimize size of element to 1x1 to reduce memory usage
+      // workaround: Need to minimize size of element to 1x1 to reduce canvas memory usage
       OLD_HEIGHT = this.height;
       OLD_WIDTH = this.width;
       this.resizedCallback({ width: 1, height: 1 });
