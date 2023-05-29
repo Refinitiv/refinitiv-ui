@@ -12,9 +12,36 @@
           "build",
           "lint",
           "test",
+          "package",
           "prepare"
         ]
       }
     }
+  },
+  "targetDefaults": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ],
+    "build:prod": [
+      {
+        "target": "build:prod",
+        "projects": "dependencies"
+      }
+    ],
+    "prepare": [
+      {
+        "target": "prepare",
+        "projects": "dependencies"
+      }
+    ],
+    "package": [
+      {
+        "target": "package",
+        "projects": "dependencies"
+      }
+    ]
   }
 }
