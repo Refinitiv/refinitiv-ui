@@ -30,7 +30,6 @@
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@types/chalk": "^2.2.0",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.11.17",
     "@types/prompts": "^2.0.14"
