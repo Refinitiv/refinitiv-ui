@@ -1,3 +1,6 @@
 {
   "extends": "./packages/configurations/tsconfig.json",
+  "compilerOptions": {
+    "incremental": true
+  }
 }
