@@ -1,17 +1,9 @@
 # develop process
-.github/
 .husky/
-__demo__/
-server.config.js
-
-# release process
 .commitlintrc.yml
 .editorconfig
-.npmignore
-.npmrc
-**/scripts/dev-server/
-**/scripts/release/
-**/scripts/version/
+__demo__/
+server.config.js
 
 # document files
 *.pdf
@@ -20,4 +12,3 @@ CODE_OF_CONDUCT.md
 CONTRIBUTING.md
 LICENSE
 README.md
-documents/
