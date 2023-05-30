@@ -75,11 +75,11 @@ import { preload } from '@refinitiv-ui/elements/icon';
 // preload function supports both icon name or svg location, either single icon or multiple.
 preload('eye');
 preload('https://cdn.io/eye.svg');
-preload('eye', 'heart', 'like', 'arrow-up');
+preload('eye', 'home', 'like-empty', 'arrow-up');
 preload(
   'https://cdn.io/eye.svg',
-  'https://cdn.io/heart.svg',
-  'https://cdn.io/like.svg',
+  'https://cdn.io/home.svg',
+  'https://cdn.io/like-empty.svg',
   'https://cdn.io/arrow-up.svg'
 );
 ```
