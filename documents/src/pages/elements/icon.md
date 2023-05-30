@@ -29,7 +29,7 @@ ef-icon {
 Icons are provided as part of a theme. Icons also support pointing to urls of svg files. The size and coloring of icons can be changed using standard CSS.
 
 ## Usage
-You can set an icon's name using the `icon` attribute. See list of icons in [Icon List](#icon-list). Alternatively, you can set the url of an svg file or relative path to your svg file.
+You can set an icon's name using the `icon` attribute. See list of icons in [Icon List](./elements/icon#icon-list). Alternatively, you can set the url of an svg file or relative path to your svg file.
 
 ```html
 <ef-icon icon="tick"></ef-icon>

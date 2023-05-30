@@ -30,7 +30,7 @@ ef-flag {
 
 ## Usage
 
-You can set a flag's code via the `flag` attribute to display the flag. See list of flags in [Flag List](#flag-list). Alternatively, you can set the url of an svg file or relative path to your svg file.
+You can set a flag's code via the `flag` attribute to display the flag. See list of flags in [Flag List](./elements/flag#flag-list). Alternatively, you can set the url of an svg file or relative path to your svg file.
 
 ```html
 <ef-flag flag="br"></ef-flag>
