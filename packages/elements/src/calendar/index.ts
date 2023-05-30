@@ -2,6 +2,7 @@ import {
   ControlElement,
   html,
   css,
+  nothing,
   TemplateResult,
   CSSResultGroup,
   PropertyValues,
@@ -11,7 +12,6 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { cache } from '@refinitiv-ui/core/directives/cache.js';
 import { guard } from '@refinitiv-ui/core/directives/guard.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
@@ -84,7 +84,6 @@ import type { Button } from '../button';
 import './locales.js';
 import '../button/index.js';
 import '@refinitiv-ui/phrasebook/locale/en/calendar.js';
-import { PropertyValueMap } from 'lit';
 
 export {
   CalendarFilter
@@ -486,7 +485,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param changedProperties  Properties that will change
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
+  protected willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     // This code is here to ensure that focus is not lost
@@ -1356,11 +1355,13 @@ export class Calendar extends ControlElement implements MultiValue {
   private renderCell (cell: Cell): TemplateResult {
     const isSelection = cell.value !== undefined;
     const isSelectable = isSelection && !cell.disabled;
+    const isSelected = cell.selected ? 'true' : 'false';
+    const isActive = cell.active ? 0 : -1;
 
     return html`<div
       role="gridcell"
       part="cell ${cell.view}"
-      aria-selected="${ifDefined(isSelectable ? (cell.selected ? 'true' : 'false') : undefined)}"
+      aria-selected="${isSelectable ? isSelected : nothing}"
       ?active=${cell.active}
       ?disabled=${cell.disabled}
       ?idle=${cell.idle}
@@ -1371,13 +1372,13 @@ export class Calendar extends ControlElement implements MultiValue {
       ?range=${cell.range}
       ?range-from=${cell.rangeFrom}
       ?range-to=${cell.rangeTo}>
-        <div role="${ifDefined(cell.value ? 'button' : undefined)}"
-             tabindex=${ifDefined(isSelectable ? (cell.active ? 0 : -1) : undefined)}
-             aria-label="${ifDefined(isSelectable ? this.t(this.getCellLabelKey(cell), {
+      <div role="${cell.value ? 'button' : nothing}"
+             tabindex="${isSelectable ? String(isActive) : nothing}"
+             aria-label="${isSelectable ? this.t(this.getCellLabelKey(cell), {
                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                value: parse(cell.value!),
                view: this.renderView
-             }) : undefined)}"
+             }) : nothing}"
              part="cell-content${isSelection ? ' selection' : ''}${isSelectable ? ' selectable' : ''}"
              .value=${cell.value}
              .index=${cell.index}>${cell.text}</div>

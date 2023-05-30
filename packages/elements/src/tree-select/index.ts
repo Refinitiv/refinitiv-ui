@@ -3,6 +3,7 @@ import {
   TemplateResult,
   CSSResultGroup,
   css,
+  nothing,
   triggerResize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
@@ -10,7 +11,6 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { repeat } from '@refinitiv-ui/core/directives/repeat.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { VERSION } from '../version.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
@@ -861,7 +861,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
               @tap="${this.fullClickHandler}">${this.t('FULL_LIST')}</div>
             <div
               role="button"
-              tabindex="${ifDefined(this.hasActiveSelection ? 0 : undefined)}"
+              tabindex="${this.hasActiveSelection ? 0 : nothing}"
               part="control selected-filter${this.selectionFilterState ? ' active' : ''}${!this.hasActiveSelection ? ' disabled' : ''}"
               @tap="${this.selectedClickHandler}">${this.t('SELECTED')}</div>
           </div>` : html``}

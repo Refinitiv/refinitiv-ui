@@ -64,7 +64,7 @@ describe('toggle/Toggle', () => {
       await elementUpdated(el);
       await expect(el).to.be.accessible();
     });
-  })
+  });
 
   describe('Reflect attribute', () => {
     it('Label', async () => {
@@ -247,20 +247,15 @@ describe('toggle/Toggle', () => {
   });
 
   describe('Enter keypress', () => {
-    let enterEvent;
-    beforeEach(() => {
-      enterEvent = createKeyboardEvent('Enter');
-    });
-
     describe('Checked value & event', () => {
       it('Should toggle checked value', async () => {
         const el = await fixture('<ef-toggle></ef-toggle>');
-        el.dispatchEvent(enterEvent);
+        el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
         expect(el.checked).to.equal(true);
       });
       it('Should fired an checked-changed event on Enter keypress and change checked value', async () => {
         const el = await fixture('<ef-toggle></ef-toggle>');
-        setTimeout(() => el.dispatchEvent(enterEvent));
+        setTimeout(() => el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' })));
         const event = await oneEvent(el, 'checked-changed');
         expect(event.target.checked).to.equal(true);
       });
@@ -270,7 +265,7 @@ describe('toggle/Toggle', () => {
         const el = await fixture('<ef-toggle disabled></ef-toggle>');
         expect(el.disabled).to.equal(true);
         expect(el.checked).to.equal(false);
-        el.dispatchEvent(enterEvent);
+        el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
         expect(el.checked).to.equal(false);
       });
     });
@@ -279,27 +274,22 @@ describe('toggle/Toggle', () => {
         const el = await fixture('<ef-toggle readonly></ef-toggle>');
         expect(el.readonly).to.equal(true);
         expect(el.checked).to.equal(false);
-        el.dispatchEvent(enterEvent);
+        el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
         expect(el.checked).to.equal(false);
       });
     });
   });
 
   describe('Spacebar keypress', () => {
-    let spacebarEvent;
-    beforeEach(() => {
-      spacebarEvent = createKeyboardEvent(' ');
-    });
-
     describe('Checked value & event', () => {
       it('Should toggle checked value', async () => {
         const el = await fixture('<ef-toggle></ef-toggle>');
-        el.dispatchEvent(spacebarEvent);
+        el.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
         expect(el.checked).to.equal(true);
       });
       it('Should fired an checked-changed event on Spacebar keypress and change checked value', async () => {
         const el = await fixture('<ef-toggle></ef-toggle>');
-        setTimeout(() => el.dispatchEvent(spacebarEvent));
+        setTimeout(() => el.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' })));
         const event = await oneEvent(el, 'checked-changed');
         expect(event.target.checked).to.equal(true);
       });
@@ -309,7 +299,7 @@ describe('toggle/Toggle', () => {
         const el = await fixture('<ef-toggle disabled></ef-toggle>');
         expect(el.disabled).to.equal(true);
         expect(el.checked).to.equal(false);
-        el.dispatchEvent(spacebarEvent);
+        el.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
         expect(el.checked).to.equal(false);
       });
     });
@@ -318,16 +308,10 @@ describe('toggle/Toggle', () => {
         const el = await fixture('<ef-toggle readonly></ef-toggle>');
         expect(el.readonly).to.equal(true);
         expect(el.checked).to.equal(false);
-        el.dispatchEvent(spacebarEvent);
+        el.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
         expect(el.checked).to.equal(false);
       });
     });
   });
 });
 
-const createKeyboardEvent = (key) => {
-  return new KeyboardEvent('keydown', {
-    key,
-    which: key
-  });
-};

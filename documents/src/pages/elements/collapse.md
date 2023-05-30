@@ -175,7 +175,7 @@ The slots feature uses a combination of the Button and Checkbox components.
 `ef-collapse` has provided role and keyboard navigation. However, you need to set an appropriate `aria-level` attribute to the element, depending on your page structure. Typically, on the page, it should reserve `aria-level="1"` for main page's heading (h1) so you may want to set `aria-level` from `aria-level="2"` onwards.
 
 ```html
-<ef-collapse header="SpaceX Dragon" aria=level="2">
+<ef-collapse header="SpaceX Dragon" aria-level="2">
   The Earth was small, light blue, and so touchingly alone, our home that must be defended like a holy relic. The Earth was absolutely round. I believe I never knew what the word round meant until I saw Earth from space.
 </ef-collapse>
 ```

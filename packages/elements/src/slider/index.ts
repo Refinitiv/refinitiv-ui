@@ -1,6 +1,7 @@
 import {
   html,
   css,
+  nothing,
   ControlElement,
   TemplateResult,
   CSSResultGroup,
@@ -12,7 +13,6 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { translate, TranslateDirective } from '@refinitiv-ui/translate';
@@ -1303,18 +1303,30 @@ export class Slider extends ControlElement {
     const isActive = this.activeThumb?.getAttribute('name') === name;
     const isChanged = this.changedThumb?.getAttribute('name') === name;
 
-    const valueNow = this.range ? name === SliderDataName.from ? this.from : this.to : this.value;
-    const valueMin = this.range ? name === SliderDataName.from ? this.min : this.fromNumber + this.minRangeNumber : this.min;
-    const valueMax = this.range ? name === SliderDataName.from ? this.toNumber - this.minRangeNumber : this.max : this.max;
+    let valueNow = this.value;
+    let valueMin = this.min;
+    let valueMax = this.max;
 
-    const thumbStyle = { left: `${thumbPosition}%`, zIndex: this.range ? isChanged ? '4' : '3' : null };
+    if (this.range) {
+      if (name === SliderDataName.from) {
+        valueNow = this.from;
+        valueMax = String(this.toNumber - this.minRangeNumber);
+      }
+      else {
+        valueNow = this.to;
+        valueMin = String(this.fromNumber + this.minRangeNumber);
+      }
+    }
+
+    const thumbZIndex = this.range ? (isChanged ? '4' : '3') : null;
+    const thumbStyle = { left: `${thumbPosition}%`, zIndex: thumbZIndex };
 
     return html`
       <div
         ${ref(this[`${name as SliderDataName}ThumbRef`])}
         @focus=${this.onThumbFocus}
         @blur=${this.onThumbBlur}
-        active=${ifDefined(isActive || undefined)}
+        active=${isActive || nothing}
         name="${name}"
         role="slider"
         aria-label="${this.t(name.toUpperCase())}"
