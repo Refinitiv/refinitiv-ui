@@ -52,7 +52,6 @@ const startQueueTestRunner = async (element, config, testFiles) => {
     ...configCache,
     element,
     files: testFiles,
-    concurrency: 1, // Prevent unstable test and runner
     coverageConfig: {
       include: [`**/lib/${element}/**/*.js`],
       reportDir: `coverage/${element}`

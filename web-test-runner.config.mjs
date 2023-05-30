@@ -24,6 +24,7 @@ export default {
     config: { timeout: 5000 }, // Mocha timeout 5 seconds
   },
   coverage: true,
+  concurrency: 1, // Prevent unstable test e.g. ef-overlay and focusing
   coverageConfig: {
     report: true,
     reportDir: 'coverage',
