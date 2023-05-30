@@ -54,7 +54,7 @@ export class Flag extends BasicElement {
   private _flag: string | null = null;
 
   /**
-   * Name of a known flag to render or URL of flag SVG file.
+   * Code of a known flag to render or URL of flag SVG file.
    * @example gb | https://cdn.io/flags/gb.svg
    * @default null
    */
