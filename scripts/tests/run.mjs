@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 import { env } from 'node:process';
 import process from 'node:process';
-import fs from 'node:fs';
 import path from 'node:path';
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
 import { browserstackLauncher } from '@web/test-runner-browserstack';
 import { summaryReporter } from "@web/test-runner";
-import { PACKAGES_ROOT, info } from '../helpers/esm.mjs';
+import { PACKAGES_ROOT, error, info } from '../helpers/esm.mjs';
 import { BrowserStack } from '../../browsers.config.mjs';
 import wtrConfig from '../../web-test-runner.config.mjs';
 import { ELEMENTS_ROOT, getElements, checkElement } from '../../packages/elements/scripts/helpers/index.mjs';
@@ -166,12 +165,12 @@ if (snapshots) {
   process.argv.push('--update-snapshots');
 }
 
-process.on('uncaughtException', (err, origin) => {
-  fs.writeSync(
-    process.stderr.fd,
-    `Caught exception: ${err}\n` +
-    `Exception origin: ${origin}`,
-  );
+process.on('uncaughtExceptionMonitor', (err) => {
+  if (err.message) {
+    error(err.message);
+  } else {
+    console.error(err);
+  }
 });
 
 // Run unit testing
@@ -194,7 +193,7 @@ try {
     }
     await startTestRunner(config); // Start single runner (no queue)
   }
-} catch (error) {
-  console.error(error);
+} catch (err) {
+  error(err);
   process.exit(1);
 }
