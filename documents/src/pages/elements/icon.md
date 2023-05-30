@@ -21,23 +21,23 @@ ef-icon {
 <ef-icon icon="search"></ef-icon>
 <ef-icon icon="word"></ef-icon>
 <ef-icon icon="excel"></ef-icon>
-<ef-icon id="powerpoint" src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/buzz.svg"></ef-icon>
-<ef-icon id="pdf" src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/chart-area.svg"></ef-icon>
+<ef-icon icon="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/buzz.svg"></ef-icon>
+<ef-icon icon="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/chart-area.svg"></ef-icon>
 ```
 ::
 
 Icons are provided as part of a theme. Icons also support pointing to urls of svg files. The size and coloring of icons can be changed using standard CSS.
 
 ## Usage
-You can set an icon's name using the `ef-icon` attribute. Alternatively, you can set the url of an svg file or relative path to your svg file using the `src` attribute.
+You can set an icon's name using the `icon` attribute. See list of icons in [Icon List](#icon-list). Alternatively, you can set the url of an svg file or relative path to your svg file.
 
 ```html
 <ef-icon icon="tick"></ef-icon>
 <ef-icon icon="search"></ef-icon>
 <ef-icon icon="save"></ef-icon>
-<ef-icon id="filter" src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/filter.svg"></ef-icon>
-<ef-icon id="favorites" src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg"></ef-icon>
-<ef-icon id="help" src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/help.svg"></ef-icon>
+<ef-icon icon="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/filter.svg"></ef-icon>
+<ef-icon icon="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg"></ef-icon>
+<ef-icon icon="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/help.svg"></ef-icon>
 ```
 
 
@@ -64,7 +64,7 @@ The size and color of an icon can be changed using standard CSS styling.
 <ef-icon class="large" icon="flag-2"></ef-icon>
 ```
 
-## Icon preloading
+## Preloading
 `ef-icon` has a helper function to preload a set of icons. Icons can be loaded faster if you have a known set of icons for use in the app.
 
 Preloading icons will be deferred until the first `ef-icon` component is created.
