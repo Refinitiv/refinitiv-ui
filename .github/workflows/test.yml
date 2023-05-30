@@ -50,7 +50,7 @@ jobs:
 
   test-desktop:
     name: "test desktop"
-    needs: lint
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -63,7 +63,7 @@ jobs:
 
   test-mobile:
     name: "test mobile"
-    needs: lint
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
