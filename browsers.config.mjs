@@ -1,5 +1,5 @@
 // Browsers for local testing with WTR
-const DefaultBrowsers = ['chrome', 'firefox', 'safari'];
+const DefaultBrowsers = ['chrome', 'firefox'];
 const DefaultMobileBrowsers = ['android', 'ios'];
 
 // BrowserStack browsers
