@@ -12,12 +12,12 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup Node.js
+    - name: Setup Node.js this is v7
       uses: actions/setup-node@v3
       with:
         node-version: 18.14.0
 
-    - name: Setup caching dependencies
+    - name: Setup caching dependencies this is v7
       uses: actions/cache@v3
       id: cache-npm
       with:
