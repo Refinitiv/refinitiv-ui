@@ -93,7 +93,7 @@ jobs:
         with:
           browsers: 'safari'
 
-  test-mobile:
+  test-ios:
     name: "test ios"
     needs: lint
     runs-on: ubuntu-latest
@@ -108,7 +108,7 @@ jobs:
         with:
           browsers: 'ios'
 
-  test-mobile:
+  test-android:
     name: "test android"
     needs: lint
     runs-on: ubuntu-latest
