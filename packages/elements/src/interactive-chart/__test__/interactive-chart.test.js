@@ -52,12 +52,17 @@ describe('interactive-chart/InteractiveChart', () => {
   };
 
   let el;
-  beforeEach(async function() {
-    if (isMobile && isSafari()) {
-      this.skip(); // Seem like we got the problem about the memory exceed in iOS, so we need to skip it for now
-    }
+  beforeEach(async () => {
     el = await fixtureSync('<ef-interactive-chart></ef-interactive-chart>');
   });
+  afterEach(async () => {
+    // Safari has a memory limit for canvas and does not clear the memory after refreshing.
+    // Therefore, we need to minimize the size of the canvas that accumulates in memory.
+    // It most commonly happens on mobile devices because it typically has less memory compared to desktop.
+    if (isMobile && isSafari()) {
+      el.resizedCallback({ width: 1, height: 1});
+    }
+  })
 
   describe('Functional', () => {
     it('convertColorToString should be {} if giving wrong params', () => {
