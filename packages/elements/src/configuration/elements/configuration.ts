@@ -31,6 +31,10 @@ export class Config extends BasicElement {
     return this;
   }
 
+  /**
+   * Configuration data
+   * @ignore
+   */
   @provide({ context: efConfig })
   @state()
   public config: ConfigType = DEFAULT_CONFIG;
