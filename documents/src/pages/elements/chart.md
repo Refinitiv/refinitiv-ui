@@ -1270,3 +1270,30 @@ ChartJS.register(
   doughnutCenterLabelPlugin
 );
 ```
+
+## Localisation
+
+To get started, set `adapters.date` of `options.scales[scaleId]` with [date-fns](https://date-fns.org) locale.
+
+```javascript
+// import date-fns locale:
+import { de } from 'date-fns/locale';
+
+const config = {
+  options: {
+    ...,
+    scales: {
+      x: {
+        ...,
+        adapters: {
+          date: {
+            locale: de // set locale to German
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+You can learn more on [chart.js configuration documentation](https://github.com/chartjs/chartjs-adapter-date-fns#configuration).
