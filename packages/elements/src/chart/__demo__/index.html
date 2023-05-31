@@ -24,8 +24,8 @@
       window.location.search = url.searchParams.toString();
     }
 
-    import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-    import (`../../../lib/chart/themes/${theme}/${variant}/index.js`);
+    import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+    import(`../../../lib/chart/themes/${theme}/${variant}/index.js`);
   </script>
 
   <demo-block layout="normal" header="Area Chart - No Legend">
@@ -647,7 +647,8 @@
 
   <demo-block layout="normal" header="Time Scale">
     <ef-chart id="timeScale"></ef-chart>
-    <script>
+    <script type="module">
+      import { ja } from 'date-fns/locale';
       const timeScale = document.getElementById('timeScale');
       timeScale.config = {
         type: 'line',
@@ -686,6 +687,11 @@
           },
           scales: {
             x: {
+              adapters: {
+                date: {
+                  locale: ja
+                }
+              },
               type: 'time', // Set type of scale as time
               time: {
                 displayFormats: {
