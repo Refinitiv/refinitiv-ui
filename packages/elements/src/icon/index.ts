@@ -60,7 +60,7 @@ export class Icon extends BasicElement {
 
   /**
    * Name of a known icon to render or URL of SVG icon.
-   * @example heart | https://cdn.io/icons/heart.svg
+   * @example home | https://cdn.io/icons/home.svg
    * @default null
    */
   @property({ type: String, reflect: true })
@@ -81,7 +81,8 @@ export class Icon extends BasicElement {
 
   /**
    * Src location of an svg icon.
-   * @example https://cdn.io/icons/heart.svg
+   * @ignore
+   * @example https://cdn.io/icons/home.svg
    * @deprecated Use `icon` instead
    * @default null
    */
@@ -89,6 +90,10 @@ export class Icon extends BasicElement {
   public get src (): string | null {
     return this._src;
   }
+  /**
+    * @ignore
+    * @param value Location of an svg
+    */
   public set src (value: string | null) {
     if (this.src !== value) {
       this.deferIconReady();
