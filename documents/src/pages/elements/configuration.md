@@ -9,7 +9,7 @@ layout: default
 `ef-configuration` is a provider container that can provide a default configuration that consumes by elements.
 
 ## Usage
-You can wrap any elements with `ef-configuration`. Even though shadow dom or nested elements, it will definitely detect it.
+You can wrap any elements with `ef-configuration`. Even though shadow dom or nested elements, consumer will definitely detect it.
 
 ### Icon
 The icon element supports the icon map from the configuration. You either custom icon map for the new icon or even override the existing icon. Icon map now supports Base64 SVG format.
