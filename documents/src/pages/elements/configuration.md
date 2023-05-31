@@ -35,7 +35,7 @@ The icon element supports the icon map from the configuration. You either custom
 Using icon as a slotted
 
 ```html
-<ef-configuration>
+<ef-configuration id="config">
   <ef-icon icon="tick-base64"></ef-icon>
 </ef-configuration>
 ```
