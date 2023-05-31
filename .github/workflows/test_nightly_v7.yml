@@ -1,12 +1,13 @@
-name: Nightly Test v6
+name: Nightly Test v7
 on:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: '0 0 * * *'
 env:
   USE_BROWSERSTACK: "true"
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Nightly Test ${{ github.run_number }}"
+  BROWSERSTACK_LATEST_BROWSERS_LAUNCHER: "Playwright"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,6 +18,7 @@ jobs:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           # Pulls all commits (needed for Lerna)
           fetch-depth: 0
+          ref: v7
 
       - name: Setup resources and environment
         uses: ./.github/actions/setup
@@ -41,6 +43,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Setup resources and environment
         uses: ./.github/actions/setup
@@ -57,6 +60,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       # Need this step for support feature toggle testing on BrowserStack on/off
       - name: Setup browser versions to testing
