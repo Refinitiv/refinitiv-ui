@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { isSafari } from "@refinitiv-ui/utils";
 import { createSandbox, restore, spy } from 'sinon';
 import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
@@ -82,7 +82,8 @@ describe('overlay/manager/FocusManager', () => {
           const activeElement = document.activeElement;
 
           element.opened = false;
-          await openedUpdated(element);
+          await elementUpdated(element);
+          await nextFrame(); // Must be only one frame
 
           expect(document.activeElement).to.equal(activeElement);
         });

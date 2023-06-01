@@ -13,6 +13,7 @@ const BrowserStack = {
     ...DefaultBrowsers,
     ...DefaultMobileBrowsers,
     'chrome_minus1', 'chrome_minus2',
+    'safari_minus2',
     'firefox_minus1', 'firefox_minus2',
     'android_minus1', 'android_minus2',
     'ios_minus1', 'ios_minus2'
