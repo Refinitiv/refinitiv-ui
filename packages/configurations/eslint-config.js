@@ -166,7 +166,7 @@ module.exports = {
     'object-shorthand': 0,
     'one-var': [2, 'never'],
     'operator-assignment': [2, 'always'],
-    'operator-linebreak': [2, 'after'],
+    'operator-linebreak': [2, 'before'],
     'padded-blocks': 0,
     'prefer-const': 0,
     'prefer-spread': 0,
@@ -191,7 +191,6 @@ module.exports = {
     'valid-typeof': 2,
     'vars-on-top': 0,
     'wrap-iife': [2, 'any'],
-    'wrap-regex': 2,
     yoda: [2, 'never']
   }
 };
