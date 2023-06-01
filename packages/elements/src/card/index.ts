@@ -1,11 +1,4 @@
-import {
-  BasicElement,
-  html,
-  css,
-  TemplateResult,
-  CSSResultGroup,
-  PropertyValues
-} from '@refinitiv-ui/core';
+import { BasicElement, html, css, TemplateResult, CSSResultGroup, PropertyValues } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
@@ -35,12 +28,11 @@ export type { CardConfig };
  */
 @customElement('ef-card')
 export class Card extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -50,20 +42,21 @@ export class Card extends BasicElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: flex;
         flex-flow: column nowrap;
       }
-      [part~=header] {
+      [part~='header'] {
         display: flex;
       }
-      [part~=header-body] {
+      [part~='header-body'] {
         flex: 1;
         min-width: 0px;
       }
-      [part~=footer]:not([part~="has-content"]), [part~=header]:not([part~="has-content"]) {
+      [part~='footer']:not([part~='has-content']),
+      [part~='header']:not([part~='has-content']) {
         display: none;
       }
     `;
@@ -89,10 +82,10 @@ export class Card extends BasicElement {
    * @default {}
    */
   @property({ type: Object, attribute: false })
-  public get config (): CardConfig {
+  public get config(): CardConfig {
     return this._config;
   }
-  public set config (config: CardConfig) {
+  public set config(config: CardConfig) {
     const data = config?.menu?.data;
     if (data !== this.menuData) {
       this.menuData = data;
@@ -146,7 +139,7 @@ export class Card extends BasicElement {
    * Open menu
    * @returns {void}
    */
-  private openMenu (): void {
+  private openMenu(): void {
     if (this.menuElement && !(this.menuElement.fullyOpened || this.menuElement.transitioning)) {
       this.menuElement.opened = true;
       this.menuOpened = true;
@@ -158,7 +151,7 @@ export class Card extends BasicElement {
    * @param event ItemTriggerEvent
    * @returns {void}
    */
-  private closeMenu (event: ItemTriggerEvent): void {
+  private closeMenu(event: ItemTriggerEvent): void {
     if (this.menuElement?.opened && event.detail.value) {
       this.menuElement.opened = false;
       this.menuOpened = false;
@@ -170,7 +163,7 @@ export class Card extends BasicElement {
    * @param event Footer slotchange event
    * @returns {void}
    */
-  private onHeaderSlotChange (event: Event): void {
+  private onHeaderSlotChange(event: Event): void {
     this.headerHasContent = isSlotEmpty(event.target as HTMLSlotElement);
   }
 
@@ -179,7 +172,7 @@ export class Card extends BasicElement {
    * @param event Header slotchange event
    * @returns {void}
    */
-  private onFooterSlotChange (event: Event): void {
+  private onFooterSlotChange(event: Event): void {
     this.footerHasContent = isSlotEmpty(event.target as HTMLSlotElement);
   }
 
@@ -188,21 +181,21 @@ export class Card extends BasicElement {
    * @param event overlay menu opened changed event
    * @returns {void}
    */
-  private onMenuOpenChanged (event: OpenedChangedEvent): void {
+  private onMenuOpenChanged(event: OpenedChangedEvent): void {
     this.menuOpened = event.detail.value;
   }
 
   /**
    * True if card has header
    */
-  private get withHeader (): boolean {
+  private get withHeader(): boolean {
     return this.headerHasContent || !!this.header || !!this.menuData;
   }
 
   /**
    * True if card has footer
    */
-  private get withFooter (): boolean {
+  private get withFooter(): boolean {
     return this.footerHasContent || !!this.footer;
   }
 
@@ -211,7 +204,7 @@ export class Card extends BasicElement {
    * @param changedProperties Properties which have changed
    * @return {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (changedProperties.has('menuData') && this.menuElement) {
@@ -224,7 +217,7 @@ export class Card extends BasicElement {
    * @param changedProperties Properties which have changed
    * @return {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('item-trigger', (event) => this.closeMenu(event as ItemTriggerEvent)); // Here to cover nested menus
   }
@@ -233,37 +226,40 @@ export class Card extends BasicElement {
    * Template of menu
    * @return menu template
    */
-  protected get menuTemplate (): TemplateResult {
-    return html`${this.menuData ? html`
-      <ef-button
-        part="menu-button"
-        icon="more-vertical"
-        transparent
-        aria-label=${this.t('OPEN_MENU')}
-        aria-haspopup="true"
-        aria-controls="menu-popup"
-        aria-expanded=${this.menuOpened}
-        @tap=${this.openMenu}
-      ></ef-button>
-      <ef-overlay-menu
-        id="menu-popup"
-        part="menu-popup"
-        .data=${this.menuData}
-        position="bottom-end"
-        @opened-changed=${this.onMenuOpenChanged}></ef-overlay-menu>` : undefined }
-    `;
+  protected get menuTemplate(): TemplateResult {
+    return html`${this.menuData ?
+      html` <ef-button
+            part="menu-button"
+            icon="more-vertical"
+            transparent
+            aria-label=${this.t('OPEN_MENU')}
+            aria-haspopup="true"
+            aria-controls="menu-popup"
+            aria-expanded=${this.menuOpened}
+            @tap=${this.openMenu}
+          ></ef-button>
+          <ef-overlay-menu
+            id="menu-popup"
+            part="menu-popup"
+            .data=${this.menuData}
+            position="bottom-end"
+            @opened-changed=${this.onMenuOpenChanged}
+          ></ef-overlay-menu>` :
+      undefined} `;
   }
 
   /**
    * Template of header
    * @return header template
    */
-  protected get headerTemplate (): TemplateResult {
+  protected get headerTemplate(): TemplateResult {
     return html`
       <div part="header${this.withHeader ? ' has-content' : ''}">
         <div part="header-body">
           <slot name="header" @slotchange="${this.onHeaderSlotChange}"></slot>
-          ${!this.headerHasContent && this.header ? html`<ef-label line-clamp="3" part="header-text">${this.header}</ef-label>` : null}
+          ${!this.headerHasContent && this.header ?
+            html`<ef-label line-clamp="3" part="header-text">${this.header}</ef-label>` :
+            null}
         </div>
         ${this.menuTemplate}
       </div>
@@ -274,12 +270,14 @@ export class Card extends BasicElement {
    * Template of footer
    * @return footer template
    */
-  protected get footerTemplate (): TemplateResult {
+  protected get footerTemplate(): TemplateResult {
     return html`
       <div part="footer${this.withFooter ? ' has-content' : ''}">
         <div part="footer-body">
           <slot name="footer" @slotchange="${this.onFooterSlotChange}"></slot>
-          ${!this.footerHasContent && this.footer ? html`<ef-label line-clamp="3">${this.footer}</ef-label>` : undefined}
+          ${!this.footerHasContent && this.footer ?
+            html`<ef-label line-clamp="3">${this.footer}</ef-label>` :
+            undefined}
         </div>
       </div>
     `;
@@ -290,7 +288,7 @@ export class Card extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       ${this.headerTemplate}
       <div part="body"><slot></slot></div>

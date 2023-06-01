@@ -34,12 +34,11 @@ import '../icon/index.js';
  */
 @customElement('ef-pill')
 export class Pill extends ControlElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -54,17 +53,17 @@ export class Pill extends ControlElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
-    :host {
-      display: inline-block;
-      position: relative;
-    }
-    [part=content] {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
+      :host {
+        display: inline-block;
+        position: relative;
+      }
+      [part='content'] {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
     `;
   }
 
@@ -102,7 +101,7 @@ export class Pill extends ControlElement {
    */
   private labelRef: Ref<HTMLDivElement> = createRef();
 
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.addEventListener('tap', this.onTapHandler);
@@ -111,7 +110,9 @@ export class Pill extends ControlElement {
     this.addEventListener('mouseleave', this.onEndPress);
     this.addEventListener('keydown', this.onKeyDown);
 
-    registerOverflowTooltip(this, undefined, () => this.labelRef.value ? isElementOverflown(this.labelRef.value) : false);
+    registerOverflowTooltip(this, undefined, () =>
+      this.labelRef.value ? isElementOverflown(this.labelRef.value) : false
+    );
   }
 
   /**
@@ -120,14 +121,13 @@ export class Pill extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('toggles') || changedProperties.has('active')) {
       if (this.toggles) {
         this.setAttribute('aria-pressed', String(this.active));
-      }
-      else {
+      } else {
         this.removeAttribute('aria-pressed');
       }
     }
@@ -138,19 +138,22 @@ export class Pill extends ControlElement {
    * @param event Key down event object
    * @returns {void}
    */
-  private onKeyDown (event: KeyboardEvent): void {
-    if (event.key === 'Delete' && (this.clears && !this.readonly)) {
+  private onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Delete' && this.clears && !this.readonly) {
       this.dispatchEvent(new CustomEvent('clear'));
     }
   }
 
-  private get closeTemplate (): TemplateResult | null {
-    return this.clears && !this.readonly ? html`<ef-icon
-      ${ref(this.closeIconRef)}
-      part="close"
-      icon="cross"
-      aria-hidden="true"
-      @tap="${this.clear}"></ef-icon>` : null;
+  private get closeTemplate(): TemplateResult | null {
+    return this.clears && !this.readonly ?
+      html`<ef-icon
+          ${ref(this.closeIconRef)}
+          part="close"
+          icon="cross"
+          aria-hidden="true"
+          @tap="${this.clear}"
+        ></ef-icon>` :
+      null;
   }
 
   /**
@@ -158,7 +161,7 @@ export class Pill extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       <div ${ref(this.labelRef)} part="content" role="none">
         <slot>...</slot>
@@ -172,7 +175,7 @@ export class Pill extends ControlElement {
    * @param event tapstart event
    * @returns {void}
    */
-  private onStartPress (event: TapEvent): void {
+  private onStartPress(event: TapEvent): void {
     if (this.couldBePressed(event)) {
       this.pressed = true;
     }
@@ -182,7 +185,7 @@ export class Pill extends ControlElement {
    * @param event tapstart
    * @returns true if element property pressed could be set
    */
-  private couldBePressed (event: Event): boolean {
+  private couldBePressed(event: Event): boolean {
     const closeIconEl = this.closeIconRef.value;
 
     return !this.readonly && (!closeIconEl || !event.composedPath().includes(closeIconEl));
@@ -192,7 +195,7 @@ export class Pill extends ControlElement {
    * change state of `pressed` property to be false if mouse leave pill or tap is end on pill
    * @returns {void}
    */
-  private onEndPress (): void {
+  private onEndPress(): void {
     if (this.pressed) {
       this.pressed = false;
     }
@@ -202,7 +205,7 @@ export class Pill extends ControlElement {
    * handle when `clears` icon is tapped
    * @returns {void}
    */
-  private onTapHandler (): void {
+  private onTapHandler(): void {
     if (this.toggles && !this.readonly) {
       this.active = !this.active;
     }
@@ -212,7 +215,7 @@ export class Pill extends ControlElement {
    * @param event event from close button
    * @returns {void}
    */
-  private clear (event: TapEvent): void {
+  private clear(event: TapEvent): void {
     event.stopPropagation();
 
     /**

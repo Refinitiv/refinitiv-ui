@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Email Field</title>
   </head>
   <body>
@@ -9,21 +9,21 @@
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
       import '@refinitiv-ui/elements/email-field';
-  
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-  
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
-  
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/email-field/themes/${theme}/${variant}/index.js`);
+
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/email-field/themes/${theme}/${variant}/index.js`);
     </script>
 
     <!-- DEFAULT -->
@@ -44,9 +44,13 @@
 
     <!-- DEFAULT (IN LINE ICON, FIXED WIDTH) -->
     <demo-block layout="normal" header="Default (In Line Icon, Fixed Width)" tags="icon, fixed width">
-      <p><ef-email-field style="width:200px;" placeholder="Default" icon="email"></ef-email-field></p>
-      <p><ef-email-field style="width:200px;" placeholder="Disabled" disabled icon="email"></ef-email-field></p>
-      <p><ef-email-field style="width:200px;" placeholder="Read Only" readonly icon="email"></ef-email-field></p>
+      <p><ef-email-field style="width: 200px" placeholder="Default" icon="email"></ef-email-field></p>
+      <p>
+        <ef-email-field style="width: 200px" placeholder="Disabled" disabled icon="email"></ef-email-field>
+      </p>
+      <p>
+        <ef-email-field style="width: 200px" placeholder="Read Only" readonly icon="email"></ef-email-field>
+      </p>
     </demo-block>
 
     <!-- ERROR -->
@@ -65,10 +69,16 @@
 
     <!-- MIN LENGTH -->
     <demo-block layout="normal" header="Minlength" tags="minlength">
-      <p><ef-email-field class="minLengthValidation" placeholder="Minlength set to 5" minlength="5" value=""></ef-email-field></p>
+      <p>
+        <ef-email-field
+          class="minLengthValidation"
+          placeholder="Minlength set to 5"
+          minlength="5"
+          value=""
+        ></ef-email-field>
+      </p>
       <p class="isLongEnough"></p>
     </demo-block>
-
 
     <!-- MAX LENGTH -->
     <demo-block layout="normal" header="Maxlength" tags="maxlength">
@@ -77,21 +87,38 @@
 
     <!-- PATTERN -->
     <demo-block layout="normal" header="Pattern expression" tags="pattern">
-      <p><ef-email-field style="width:300px;" class="patternValidation" pattern='.+@mail.com' placeholder="Current pattern: .+@mail.com"></ef-email-field></p>
+      <p>
+        <ef-email-field
+          style="width: 300px"
+          class="patternValidation"
+          pattern=".+@mail.com"
+          placeholder="Current pattern: .+@mail.com"
+        ></ef-email-field>
+      </p>
       <p class="isValid"></p>
       <script>
         let patternValidationInput = document.querySelector('.patternValidation');
         let isValidPTag = document.querySelector('.isValid');
 
-        patternValidationInput.addEventListener('error-changed', function (e) {
-          isValidPTag.innerHTML = `isValid: ${!e.detail.value}`;
-        }, false);
+        patternValidationInput.addEventListener(
+          'error-changed',
+          function (e) {
+            isValidPTag.innerHTML = `isValid: ${!e.detail.value}`;
+          },
+          false
+        );
       </script>
     </demo-block>
 
     <!-- MULTIPLE -->
     <demo-block layout="normal" header="Multiple" tags="multiple">
-      <p><ef-email-field placeholder="Enter comma separated email addresses" multiple value=""></ef-email-field></p>
+      <p>
+        <ef-email-field
+          placeholder="Enter comma separated email addresses"
+          multiple
+          value=""
+        ></ef-email-field>
+      </p>
     </demo-block>
 
     <!-- FOCUS/BLUR -->
@@ -106,25 +133,40 @@
         const focusblur = document.querySelector('.focusblur');
         const focusblurevent = document.querySelector('.focusblurevent');
 
-        focusblur.addEventListener('blur', function () {
-          focusblurevent.innerHTML = '`blur` event triggered';
-        }, false);
+        focusblur.addEventListener(
+          'blur',
+          function () {
+            focusblurevent.innerHTML = '`blur` event triggered';
+          },
+          false
+        );
 
-        focusblur.addEventListener('focus', function () {
-          focusblurevent.innerHTML = '`focus` event triggered';
-        }, false);
+        focusblur.addEventListener(
+          'focus',
+          function () {
+            focusblurevent.innerHTML = '`focus` event triggered';
+          },
+          false
+        );
       </script>
     </demo-block>
 
     <!-- ICON HAS ACTION -->
     <demo-block layout="normal" header="Icon Has Action" tags="icon-has-action">
       <p>
-        <ef-email-field class="icon-has-no-action" icon="calendar"
-                          placeholder="Icon Has No Action"></ef-email-field>
+        <ef-email-field
+          class="icon-has-no-action"
+          icon="calendar"
+          placeholder="Icon Has No Action"
+        ></ef-email-field>
       </p>
       <p>
-        <ef-email-field class="icon-has-action" icon="calendar" placeholder="Icon Has Action"
-                          icon-has-action></ef-email-field>
+        <ef-email-field
+          class="icon-has-action"
+          icon="calendar"
+          placeholder="Icon Has Action"
+          icon-has-action
+        ></ef-email-field>
       </p>
       <p class="icon-click-event"></p>
       <script>
@@ -134,7 +176,7 @@
         let counter = 0;
 
         const loggerFunc = () => {
-          iconActionLogger.innerHTML = `clicked: ${counter += 1} times`;
+          iconActionLogger.innerHTML = `clicked: ${(counter += 1)} times`;
         };
 
         fieldWithoutAction.addEventListener('icon-click', loggerFunc);

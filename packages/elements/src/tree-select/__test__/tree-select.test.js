@@ -35,6 +35,5 @@ describe('tree-select/TreeSelect', () => {
       await nextFrame();
       expect(el.shadowRoot.querySelector('[part=pills]') === null).to.equal(false, 'Pills is present');
     });
-
   });
 });

@@ -11,11 +11,11 @@ export class BackdropManager {
   private registry: Set<Overlay> = new Set();
   private backdropElement = document.createElement('ef-overlay-backdrop');
 
-  private get overlays (): OverlayLayer[] {
+  private get overlays(): OverlayLayer[] {
     return getOverlayLayers().filter(({ overlay }) => this.registry.has(overlay));
   }
 
-  private removeBackdropElement (): void {
+  private removeBackdropElement(): void {
     const backdropElement = this.backdropElement;
     if (backdropElement.parentNode) {
       backdropElement.parentNode.removeChild(backdropElement);
@@ -30,10 +30,7 @@ export class BackdropManager {
       return;
     }
 
-    const {
-      overlay,
-      zIndex
-    } = overlays[0];
+    const { overlay, zIndex } = overlays[0];
 
     const backdropElement = this.backdropElement;
 
@@ -50,7 +47,7 @@ export class BackdropManager {
     overlay.parentNode.insertBefore(backdropElement, overlay);
   };
 
-  public register (overlay: Overlay): void {
+  public register(overlay: Overlay): void {
     if (!this.registry.has(overlay)) {
       overlay.addEventListener('focus', this.position);
       this.registry.add(overlay);
@@ -59,7 +56,7 @@ export class BackdropManager {
     this.position();
   }
 
-  public deregister (overlay: Overlay): void {
+  public deregister(overlay: Overlay): void {
     if (this.registry.has(overlay)) {
       overlay.removeEventListener('focus', this.position);
       this.registry.delete(overlay);
@@ -70,7 +67,7 @@ export class BackdropManager {
   /**
    * @returns count of elements inside manager
    */
-  public size (): number {
+  public size(): number {
     return this.registry.size;
   }
 
@@ -78,8 +75,8 @@ export class BackdropManager {
    * applies deregister for each element in registry
    * @returns {void}
    */
-  public clear (): void {
-    this.registry.forEach(overlay => this.deregister(overlay));
+  public clear(): void {
+    this.registry.forEach((overlay) => this.deregister(overlay));
   }
 }
 

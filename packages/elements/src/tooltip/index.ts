@@ -1,11 +1,4 @@
-import {
-  BasicElement,
-  html,
-  css,
-  TemplateResult,
-  CSSResultGroup,
-  PropertyValues
-} from '@refinitiv-ui/core';
+import { BasicElement, html, css, TemplateResult, CSSResultGroup, PropertyValues } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
@@ -16,12 +9,7 @@ import type { OverlayTransitionStyle as TooltipTransitionStyle, Overlay, Overlay
 
 import './elements/title-tooltip.js';
 import { register, deregister } from './managers/tooltip-manager.js';
-import {
-  TooltipCondition,
-  TooltipRenderer,
-  TooltipPosition,
-  TooltipPositionMap
-} from './helpers/types.js';
+import { TooltipCondition, TooltipRenderer, TooltipPosition, TooltipPositionMap } from './helpers/types.js';
 import { tooltipRenderer } from './helpers/renderer.js';
 import {
   register as registerOverflowTooltip,
@@ -29,11 +17,11 @@ import {
 } from './helpers/overflow-tooltip.js';
 
 const PositionMap: TooltipPositionMap = {
-  'auto': ['bottom-start', 'top-start'],
-  'above': ['top-middle'],
-  'right': ['right-middle'],
-  'below': ['bottom-middle'],
-  'left': ['left-middle']
+  auto: ['bottom-start', 'top-start'],
+  above: ['top-middle'],
+  right: ['right-middle'],
+  below: ['bottom-middle'],
+  left: ['left-middle']
 };
 
 /**
@@ -42,12 +30,11 @@ const PositionMap: TooltipPositionMap = {
  */
 @customElement('ef-tooltip')
 class Tooltip extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -57,7 +44,7 @@ class Tooltip extends BasicElement {
   private hideDelay = 150;
   private clicked = false;
   private timerTimeout?: number;
-  private contentNodes?: (Node)[];
+  private contentNodes?: Node[];
 
   protected readonly defaultRole: string | null = 'tooltip';
 
@@ -67,7 +54,7 @@ class Tooltip extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: contents;
@@ -79,11 +66,11 @@ class Tooltip extends BasicElement {
         flex: none;
         visibility: hidden;
       }
-      [part=tooltip] {
+      [part='tooltip'] {
         visibility: visible;
         overflow: visible;
       }
-      [part=position-adjuster] {
+      [part='position-adjuster'] {
         position: fixed;
         z-index: -1;
         top: 0;
@@ -98,7 +85,7 @@ class Tooltip extends BasicElement {
    * @param relatedTarget Element to check
    * @returns isIframe
    */
-  private static isIframe (relatedTarget: HTMLElement | null): boolean {
+  private static isIframe(relatedTarget: HTMLElement | null): boolean {
     return relatedTarget !== null && relatedTarget.localName === 'iframe';
   }
 
@@ -108,7 +95,7 @@ class Tooltip extends BasicElement {
    * @param lastMatchTarget Previous match target
    * @returns matches
    */
-  private static elementHasMoved (matchTargetRect: ClientRect, lastMatchTarget: ClientRect | null): boolean {
+  private static elementHasMoved(matchTargetRect: ClientRect, lastMatchTarget: ClientRect | null): boolean {
     if (lastMatchTarget === null) {
       return true;
     }
@@ -117,45 +104,45 @@ class Tooltip extends BasicElement {
   }
 
   /**
-  * CSS selector to match the tooltip
-  */
+   * CSS selector to match the tooltip
+   */
   @property({ type: String })
   public selector = '';
 
   /**
-  * Provide a function to test against the target.
-  * Return `true` if the target matches
-  * @type {TooltipCondition}
-  */
+   * Provide a function to test against the target.
+   * Return `true` if the target matches
+   * @type {TooltipCondition}
+   */
   @property({ type: Function, attribute: false })
   public condition: TooltipCondition | undefined;
 
   /**
-  * A renderer to define tooltip internal content.
-  * Return undefined, `String`, `HTMLElement` or `DocumentFragment`.
-  * If the content is not present, tooltip will not be displayed
-  * @type {TooltipRenderer}
-  */
+   * A renderer to define tooltip internal content.
+   * Return undefined, `String`, `HTMLElement` or `DocumentFragment`.
+   * If the content is not present, tooltip will not be displayed
+   * @type {TooltipRenderer}
+   */
   @property({ type: Function, attribute: false })
   public renderer: TooltipRenderer | undefined;
 
   /**
-  * The position of the tooltip. Use the following values:
-  * `auto` (default) - display based on mouse enter coordinates
-  * `above` - display above the element
-  * `right` - display to the right of the element
-  * `below` - display beneath the element
-  * `left` - display to the left of the element
-  */
+   * The position of the tooltip. Use the following values:
+   * `auto` (default) - display based on mouse enter coordinates
+   * `above` - display above the element
+   * `right` - display to the right of the element
+   * `below` - display beneath the element
+   * `left` - display to the left of the element
+   */
   @property({ type: String })
   public position: 'auto' | 'above' | 'right' | 'below' | 'left' = 'auto';
 
   /**
-  * Set the transition style.
-  * Value can be `fade`, `zoom`, `slide-down`, `slide-up`, `slide-right`,
-  * `slide-left`, `slide-right-down`, `slide-right-up`, `slide-left-down`, `slide-left-up`, or null in case of no transition
-  *  @type {TooltipTransitionStyle}
-  */
+   * Set the transition style.
+   * Value can be `fade`, `zoom`, `slide-down`, `slide-up`, `slide-right`,
+   * `slide-left`, `slide-right-down`, `slide-right-up`, `slide-left-down`, `slide-left-up`, or null in case of no transition
+   *  @type {TooltipTransitionStyle}
+   */
   @property({ type: String, attribute: 'transition-style' })
   public transitionStyle: TooltipTransitionStyle | null = 'fade';
 
@@ -181,7 +168,7 @@ class Tooltip extends BasicElement {
    * Set tooltip y coordinate
    * @param x X coordinate
    */
-  private set x (x: number) {
+  private set x(x: number) {
     const oldX = this._x;
     if (oldX !== x) {
       this._x = x;
@@ -194,7 +181,7 @@ class Tooltip extends BasicElement {
    * Set tooltip y coordinate
    * @param y Y coordinate
    */
-  private set y (y: number) {
+  private set y(y: number) {
     const oldY = this._y;
     if (oldY !== y) {
       this._y = y;
@@ -207,7 +194,7 @@ class Tooltip extends BasicElement {
    * Set tooltip position target
    * @param positionTarget Position target
    */
-  private set positionTarget (positionTarget: HTMLElement | null) {
+  private set positionTarget(positionTarget: HTMLElement | null) {
     const oldPositionTarget = this._positionTarget;
     if (positionTarget !== oldPositionTarget) {
       this._positionTarget = positionTarget;
@@ -221,7 +208,7 @@ class Tooltip extends BasicElement {
    * @param opened True if popup should be opened
    * @returns {void}
    */
-  private setOpened (opened: boolean): void {
+  private setOpened(opened: boolean): void {
     const oldOpened = this._opened;
     if (oldOpened !== opened) {
       this._opened = opened;
@@ -229,7 +216,7 @@ class Tooltip extends BasicElement {
     }
   }
 
-  public connectedCallback (): void {
+  public connectedCallback(): void {
     super.connectedCallback();
     register(this, {
       mousemove: this.reset,
@@ -243,7 +230,7 @@ class Tooltip extends BasicElement {
     });
   }
 
-  public disconnectedCallback (): void {
+  public disconnectedCallback(): void {
     deregister(this);
     this.setOpened(false);
 
@@ -255,7 +242,7 @@ class Tooltip extends BasicElement {
     super.disconnectedCallback();
   }
 
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.showDelay = parseInt(this.getComputedVariable('--show-delay', '300'), 10);
@@ -277,7 +264,7 @@ class Tooltip extends BasicElement {
    * @param paths Event paths
    * @returns true if element matches
    */
-  private isMatchElement (element: HTMLElement, paths: EventTarget[]): boolean {
+  private isMatchElement(element: HTMLElement, paths: EventTarget[]): boolean {
     if (this.condition) {
       return this.condition(element, paths);
     }
@@ -294,7 +281,7 @@ class Tooltip extends BasicElement {
    * @param paths Target to match against
    * @returns matched element or null
    */
-  private getMatchedElement (paths: EventTarget[]): HTMLElement | null {
+  private getMatchedElement(paths: EventTarget[]): HTMLElement | null {
     if (!this.condition && !this.selector) {
       return null;
     }
@@ -327,7 +314,7 @@ class Tooltip extends BasicElement {
    * @returns {Boolean} content exists
    * @private
    */
-  private hasSlotContent (): boolean {
+  private hasSlotContent(): boolean {
     if (this.contentNodes) {
       /* show the slot. Default slotted content cannot work with tooltip or renderer */
       return false;
@@ -341,13 +328,12 @@ class Tooltip extends BasicElement {
    * @param target Target to check against
    * @returns contentNode or null
    */
-  private getContentNode (target: HTMLElement): Text | HTMLElement | DocumentFragment | null {
-    let content: string| HTMLElement | DocumentFragment | null | undefined;
+  private getContentNode(target: HTMLElement): Text | HTMLElement | DocumentFragment | null {
+    let content: string | HTMLElement | DocumentFragment | null | undefined;
 
     if (typeof this.renderer === 'function') {
       content = this.renderer(target);
-    }
-    else {
+    } else {
       content = tooltipRenderer(target);
     }
 
@@ -371,7 +357,7 @@ class Tooltip extends BasicElement {
    * @param contentNode Content node to set
    * @returns {void}
    */
-  private renderContentNode (contentNode: Text | HTMLElement | DocumentFragment): void {
+  private renderContentNode(contentNode: Text | HTMLElement | DocumentFragment): void {
     if (contentNode instanceof Text && this.textContent === contentNode.textContent) {
       return; /* Do not re-render the same text */
     }
@@ -384,8 +370,7 @@ class Tooltip extends BasicElement {
 
     if (contentNode instanceof DocumentFragment) {
       this.contentNodes = [...contentNode.childNodes];
-    }
-    else {
+    } else {
       this.contentNodes = [contentNode];
     }
 
@@ -396,7 +381,7 @@ class Tooltip extends BasicElement {
    * Hide tooltip
    * @returns {void}
    */
-  private hideTooltip (): void {
+  private hideTooltip(): void {
     this.reset();
     this.matchTarget = null;
     this.matchTargetRect = null;
@@ -429,7 +414,7 @@ class Tooltip extends BasicElement {
    * @param y Y mouse coordinate
    * @returns {void}
    */
-  private showTooltip (paths: EventTarget[], x: number, y: number): void {
+  private showTooltip(paths: EventTarget[], x: number, y: number): void {
     // composedPath is only available on the direct event
     this.timerTimeout = window.setTimeout(() => {
       const lastMatchTarget = this.matchTarget;
@@ -443,7 +428,10 @@ class Tooltip extends BasicElement {
 
       const matchTargetRect = matchTarget.getBoundingClientRect();
 
-      if (lastMatchTarget === matchTarget && !Tooltip.elementHasMoved(matchTargetRect, this.matchTargetRect)) {
+      if (
+        lastMatchTarget === matchTarget &&
+        !Tooltip.elementHasMoved(matchTargetRect, this.matchTargetRect)
+      ) {
         return;
       }
 
@@ -474,7 +462,7 @@ class Tooltip extends BasicElement {
   /**
    * Get the delay to show tooltip
    */
-  private get getTooltipShowDelay (): number {
+  private get getTooltipShowDelay(): number {
     return this.clicked ? Math.round(this.hideDelay / 2) : this.opened ? this.hideDelay : this.showDelay;
   }
 
@@ -485,7 +473,7 @@ class Tooltip extends BasicElement {
    * @param y Y coordinate
    * @returns {void}
    */
-  private showTooltipAtPosition (matchTarget: HTMLElement, x: number, y: number): void {
+  private showTooltipAtPosition(matchTarget: HTMLElement, x: number, y: number): void {
     switch (this.position) {
       case 'above':
       case 'right':
@@ -530,7 +518,7 @@ class Tooltip extends BasicElement {
   /**
    * Get popup position based on tooltip position
    */
-  private get tipPosition (): OverlayPosition[] {
+  private get tipPosition(): OverlayPosition[] {
     return PositionMap[this.position];
   }
 
@@ -539,27 +527,30 @@ class Tooltip extends BasicElement {
    * to render the updated internal template.
    * @returns Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`<ef-overlay
-      part="tooltip"
-      .noCancelOnEscKey=${true}
-      .noCancelOnOutsideClick=${true}
-      .withShadow=${true}
-      .noInteractionLock=${true}
-      .noFocusManagement=${true}
-      ?opened=${this._opened}
-      .position=${this.tipPosition}
-      .transitionStyle=${this.transitionStyle}
-      .positionTarget=${this._positionTarget}
-      .x=${this._x}
-      .y=${this._y}><slot id="contentSlot"></slot></ef-overlay><div part="position-adjuster"></div>`;
+        part="tooltip"
+        .noCancelOnEscKey=${true}
+        .noCancelOnOutsideClick=${true}
+        .withShadow=${true}
+        .noInteractionLock=${true}
+        .noFocusManagement=${true}
+        ?opened=${this._opened}
+        .position=${this.tipPosition}
+        .transitionStyle=${this.transitionStyle}
+        .positionTarget=${this._positionTarget}
+        .x=${this._x}
+        .y=${this._y}
+        ><slot id="contentSlot"></slot
+      ></ef-overlay>
+      <div part="position-adjuster"></div>`;
   }
 
   /**
    * true if tooltip is opened, false otherwise
    * @returns opened
    */
-  private get opened (): boolean {
+  private get opened(): boolean {
     return this._opened;
   }
 }

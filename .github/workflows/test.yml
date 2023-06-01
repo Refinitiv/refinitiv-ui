@@ -4,8 +4,8 @@ env:
   NX_BASE: ${{ github.event.pull_request.base.sha }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-  BROWSERSTACK_BUILD: "Test ${{ github.run_number }}"
-  BROWSERSTACK_LATEST_BROWSERS_LAUNCHER: "Playwright"
+  BROWSERSTACK_BUILD: 'Test ${{ github.run_number }}'
+  BROWSERSTACK_LATEST_BROWSERS_LAUNCHER: 'Playwright'
 
 jobs:
   build:
@@ -65,5 +65,5 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

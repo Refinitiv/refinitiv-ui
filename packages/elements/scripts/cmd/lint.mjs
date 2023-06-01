@@ -14,7 +14,7 @@ const elements = ['all', ...getElements()];
 
 export const command = 'lint [element]';
 export const desc = 'Linting';
-export const builder = yargs => {
+export const builder = (yargs) => {
   yargs
     .positional('element', {
       desc: 'Element name',
@@ -34,7 +34,7 @@ export const handler = (argv) => {
   const element = argv.element || 'all';
   const fix = argv.fix;
 
-  info(`Linting${fix ? ' and fixing' : ''}: ${ element }`);
+  info(`Linting${fix ? ' and fixing' : ''}: ${element}`);
 
   try {
     const command = ['eslint', element === 'all' ? ELEMENTS_ROOT : getElementPath(element)];
@@ -42,8 +42,7 @@ export const handler = (argv) => {
 
     execSync(command.join(' '), { stdio: 'inherit' });
     success('Linting: Passed');
-  }
-  catch (error) {
+  } catch (error) {
     errorHandler(error);
     process.exit(1);
   }

@@ -136,22 +136,24 @@ describe('accordion/Accordion', () => {
     const collapse = el.querySelector('ef-collapse');
     const tree = el.querySelector('ef-tree');
 
-    tree.data = [{
-      label: 'Item 1',
-      value: '1',
-      expanded: true,
-      items: [{
-        label: 'Item 1.1',
-        value: '1.1'
+    tree.data = [
+      {
+        label: 'Item 1',
+        value: '1',
+        expanded: true,
+        items: [
+          {
+            label: 'Item 1.1',
+            value: '1.1'
+          }
+        ]
       }
-      ]
-    }]
+    ];
     await elementUpdated(el);
     expect(collapse.expanded).to.equal(true);
     tree.children[0].click();
     await elementUpdated(el);
     expect(collapse.expanded).to.equal(true);
-
   });
 
   describe('Should Have Correct Properties', () => {
@@ -159,8 +161,14 @@ describe('accordion/Accordion', () => {
       const el = await fixture('<ef-accordion></ef-accordion>');
 
       expect(el.autoCollapseDisabled).to.equal(false);
-      expect(el.hasAttribute('autoCollapseDisabled')).to.equal(false, 'attribute "autoCollapseDisabled" should not be exists');
-      expect(el.getAttribute('autoCollapseDisabled')).to.equal(null, 'attribute "autoCollapseDisabled" should equal null');
+      expect(el.hasAttribute('autoCollapseDisabled')).to.equal(
+        false,
+        'attribute "autoCollapseDisabled" should not be exists'
+      );
+      expect(el.getAttribute('autoCollapseDisabled')).to.equal(
+        null,
+        'attribute "autoCollapseDisabled" should equal null'
+      );
 
       expect(el.spacing).to.equal(false);
       expect(el.hasAttribute('spacing')).to.equal(false, 'attribute "spacing" should not be exists');
@@ -184,30 +192,43 @@ describe('accordion/Accordion', () => {
       expect(el.spacing).to.equal(false);
       expect(el.hasAttribute('spacing')).to.equal(false, 'property "spacing" should not reflected');
       expect(el.getAttribute('spacing')).to.equal(null, 'property "spacing" should not reflected');
-
     });
 
     it('autoCollapseDisabled property', async () => {
       const el = await fixture('<ef-accordion></ef-accordion>');
 
       expect(el.autoCollapseDisabled).to.equal(false);
-      expect(el.hasAttribute('auto-collapse-disabled')).to.equal(false, 'attribute "auto-collapse-disabled" should not be exists');
-      expect(el.getAttribute('auto-collapse-disabled')).to.equal(null, 'attribute "auto-collapse-disabled" should equal null');
+      expect(el.hasAttribute('auto-collapse-disabled')).to.equal(
+        false,
+        'attribute "auto-collapse-disabled" should not be exists'
+      );
+      expect(el.getAttribute('auto-collapse-disabled')).to.equal(
+        null,
+        'attribute "auto-collapse-disabled" should equal null'
+      );
 
       el.setAttribute('auto-collapse-disabled', '');
       expect(el.autoCollapseDisabled).to.equal(true);
-      expect(el.hasAttribute('auto-collapse-disabled')).to.equal(true, 'attribute "auto-collapse-disabled" should be exists');
-      expect(el.getAttribute('auto-collapse-disabled')).to.equal('', 'attribute "auto-collapse-disabled" should equal ""');
+      expect(el.hasAttribute('auto-collapse-disabled')).to.equal(
+        true,
+        'attribute "auto-collapse-disabled" should be exists'
+      );
+      expect(el.getAttribute('auto-collapse-disabled')).to.equal(
+        '',
+        'attribute "auto-collapse-disabled" should equal ""'
+      );
 
       el.autoCollapseDisabled = false;
       await elementUpdated(el);
       expect(el.autoCollapseDisabled).to.equal(false);
-      expect(el.hasAttribute('auto-collapse-disabled')).to.equal(true, 'property "auto-collapse-disabled" should not reflected');
-      expect(el.getAttribute('auto-collapse-disabled')).to.equal('', 'property "auto-collapse-disabled" should not reflected');
-
+      expect(el.hasAttribute('auto-collapse-disabled')).to.equal(
+        true,
+        'property "auto-collapse-disabled" should not reflected'
+      );
+      expect(el.getAttribute('auto-collapse-disabled')).to.equal(
+        '',
+        'property "auto-collapse-disabled" should not reflected'
+      );
     });
-
   });
-
 });
-

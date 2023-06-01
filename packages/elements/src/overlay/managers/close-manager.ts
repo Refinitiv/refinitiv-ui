@@ -16,11 +16,11 @@ type OverlayClose = {
 export class CloseManager {
   private registry: Map<Overlay, CloseCallback> = new Map();
 
-  private get overlays (): Overlay[] {
-    return getOverlays().filter(overlay => this.registry.has(overlay));
+  private get overlays(): Overlay[] {
+    return getOverlays().filter((overlay) => this.registry.has(overlay));
   }
 
-  private getTopOverlay (): OverlayClose | null {
+  private getTopOverlay(): OverlayClose | null {
     const overlay = this.overlays[0];
 
     /* c8 ignore start */
@@ -45,7 +45,7 @@ export class CloseManager {
     }
   };
 
-  private onEscKey (): void {
+  private onEscKey(): void {
     const topOverlay = this.getTopOverlay();
 
     /* c8 ignore start */
@@ -54,10 +54,7 @@ export class CloseManager {
     }
     /* c8 ignore stop */
 
-    const {
-      overlay,
-      closeCallback
-    } = topOverlay;
+    const { overlay, closeCallback } = topOverlay;
 
     // Do nothing
     if (overlay.noCancelOnEscKey) {
@@ -81,10 +78,7 @@ export class CloseManager {
     }
     /* c8 ignore stop */
 
-    const {
-      overlay,
-      closeCallback
-    } = topOverlay;
+    const { overlay, closeCallback } = topOverlay;
 
     const path = event.composedPath();
     const focusBoundary = overlay.focusBoundary || overlay;
@@ -99,7 +93,8 @@ export class CloseManager {
     }
   };
 
-  public register (overlay: Overlay, closeCallback: CloseCallback): void { /* we must pass closeCallback as it is a private function for overlay */
+  public register(overlay: Overlay, closeCallback: CloseCallback): void {
+    /* we must pass closeCallback as it is a private function for overlay */
     if (!this.registry.size) {
       const eventOptions = {
         capture: true,
@@ -113,7 +108,7 @@ export class CloseManager {
     this.registry.set(overlay, closeCallback);
   }
 
-  public deregister (overlay: Overlay): void {
+  public deregister(overlay: Overlay): void {
     this.registry.delete(overlay);
 
     if (!this.registry.size) {
@@ -130,7 +125,7 @@ export class CloseManager {
   /**
    * @returns count of elements inside manager
    */
-  public size (): number {
+  public size(): number {
     return this.registry.size;
   }
 
@@ -138,7 +133,7 @@ export class CloseManager {
    * applies deregister for each element in registry
    * @returns {void}
    */
-  public clear (): void {
+  public clear(): void {
     const registryArray = [...this.registry.keys()];
     for (let i = 0; i < registryArray.length; i++) {
       this.deregister(registryArray[i]);

@@ -1,13 +1,7 @@
-import {
-  html,
-  TemplateResult
-} from '@refinitiv-ui/core';
+import { html, TemplateResult } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import {
-  translate,
-  TranslateDirective
-} from '../translate.js';
+import { translate, TranslateDirective } from '../translate.js';
 
 import { TestTranslate } from './test-translate.js';
 
@@ -24,7 +18,7 @@ export class TestInherited extends TestTranslate {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       ${super.render()}
       <div id="inherit">${this.inheritedT('INHERIT')}</div>

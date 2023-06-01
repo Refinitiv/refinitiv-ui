@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Toggle</title>
   </head>
   <body>
@@ -9,21 +9,21 @@
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
       import '@refinitiv-ui/elements/toggle';
-  
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-  
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
 
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/toggle/themes/${theme}/${variant}/index.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/toggle/themes/${theme}/${variant}/index.js`);
     </script>
 
     <demo-block header="Default" layout="normal" tags="default">
@@ -38,7 +38,7 @@
     <demo-block header="Long text" layout="normal" tags="long text">
       <p><ef-toggle label="disable" checked-label="enable"></ef-toggle></p>
       <p><ef-toggle label="disable" checked-label="enable" checked></ef-toggle></p>
-      <p><ef-toggle label="disable" checked-label="enable" style="width: 90px;"></ef-toggle></p>
+      <p><ef-toggle label="disable" checked-label="enable" style="width: 90px"></ef-toggle></p>
     </demo-block>
 
     <demo-block header="Disabled" layout="normal" tags="disabled">
@@ -52,8 +52,9 @@
       <p><ef-toggle label="On" checked readonly></ef-toggle></p>
     </demo-block>
     <demo-block header="Event" layout="normal" tags="event">
-      <div style="display: flex; align-items: center;">
-        <ef-toggle id="toggle"></ef-toggle><div style="margin-left: 1em;">Switch <span id="text">OFF</span></div>
+      <div style="display: flex; align-items: center">
+        <ef-toggle id="toggle"></ef-toggle>
+        <div style="margin-left: 1em">Switch <span id="text">OFF</span></div>
       </div>
       <script>
         var text = document.getElementById('text');

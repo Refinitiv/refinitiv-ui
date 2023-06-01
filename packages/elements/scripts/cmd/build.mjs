@@ -3,7 +3,7 @@ import { info, success, errorHandler } from '../helpers/index.mjs';
 
 export const command = 'build';
 export const desc = 'Build package';
-export const builder = yargs => {
+export const builder = (yargs) => {
   yargs
     .option('watch', {
       alias: 'w',
@@ -38,8 +38,7 @@ export const handler = (argv) => {
     execSync(command.join(' '), { stdio: 'inherit' });
 
     success('Successfully built all elements');
-  }
-  catch (err) {
+  } catch (err) {
     errorHandler(err);
     process.exit(1);
   }

@@ -1,15 +1,12 @@
 import { Task, TaskClass, TaskCallback } from './task.js';
 
-
-
 class Runner {
-
   private Task: TaskClass;
   private args: unknown[];
   private _processing = false;
   private _task: Task | undefined;
 
-  constructor (Task: TaskClass, ...args: unknown[]) {
+  constructor(Task: TaskClass, ...args: unknown[]) {
     this.Task = Task;
     this.args = args;
   }
@@ -20,7 +17,7 @@ class Runner {
    * @returns {void}
    */
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  schedule (callback: TaskCallback): void {
+  schedule(callback: TaskCallback): void {
     // placeholder
   }
 
@@ -28,7 +25,7 @@ class Runner {
    * Cancel the task
    * @returns {void}
    */
-  cancel (): void {
+  cancel(): void {
     if (this.task) {
       this.task.cancel();
     }
@@ -38,7 +35,7 @@ class Runner {
    * Immediately fulfil the task
    * @returns {void}
    */
-  fulfil (): void {
+  fulfil(): void {
     if (this.task) {
       this.task.fulfil();
     }
@@ -49,7 +46,7 @@ class Runner {
    * @param callback Task callback function
    * @returns {void}
    */
-  createTask (callback: TaskCallback): void {
+  createTask(callback: TaskCallback): void {
     this._task = new this.Task(callback, ...this.args);
   }
 
@@ -58,17 +55,15 @@ class Runner {
    * @param callback The callback to execute
    * @returns {void}
    */
-  runCallback (callback: TaskCallback): void {
+  runCallback(callback: TaskCallback): void {
     this._processing = true;
     try {
       callback();
-    }
-    catch (e) {
+    } catch (e) {
       setTimeout(() => {
         throw e;
       });
-    }
-    finally {
+    } finally {
       this._processing = false;
     }
   }
@@ -77,7 +72,7 @@ class Runner {
    * Checks to see whether the
    * runner is currently processing the task
    */
-  get processing (): boolean {
+  get processing(): boolean {
     return this._processing;
   }
 
@@ -85,11 +80,9 @@ class Runner {
    * Checks to see whether the
    * runner is currently processing the task
    */
-  get task (): Task | undefined {
+  get task(): Task | undefined {
     return this._task;
   }
 }
 
-export {
-  Runner
-};
+export { Runner };

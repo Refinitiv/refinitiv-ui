@@ -35,6 +35,4 @@ describe('header/Header', () => {
     expect(el.level).to.equal('3');
     expect(el.getAttribute('level')).to.equal('3');
   });
-
 });
-

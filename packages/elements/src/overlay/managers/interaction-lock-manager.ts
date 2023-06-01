@@ -9,11 +9,11 @@ type TouchPosition = {
 };
 
 /**
-* Check if two arrays are shallow equal
-* @param left Left side array
-* @param right Right side array
-* @returns true if arrays are equal
-*/
+ * Check if two arrays are shallow equal
+ * @param left Left side array
+ * @param right Right side array
+ * @returns true if arrays are equal
+ */
 const equal = (left: HTMLElement[], right: HTMLElement[]): boolean => {
   const length = left.length;
   if (length !== right.length) {
@@ -39,7 +39,7 @@ export class ScrollLockManager {
    * @param overlay Overlay to check
    * @returns interactive elements
    */
-  private static getInteractiveElements (overlay?: Overlay): HTMLElement[] {
+  private static getInteractiveElements(overlay?: Overlay): HTMLElement[] {
     if (!overlay) {
       return [];
     }
@@ -74,8 +74,8 @@ export class ScrollLockManager {
    * The list of active overlays, which participate
    * in lock management
    */
-  private get overlays (): Overlay[] {
-    return getOverlays().filter(overlay => !overlay.noInteractionLock);
+  private get overlays(): Overlay[] {
+    return getOverlays().filter((overlay) => !overlay.noInteractionLock);
   }
 
   /**
@@ -83,7 +83,7 @@ export class ScrollLockManager {
    * and its position target interactive
    * @returns {void}
    */
-  public applyLock (): void {
+  public applyLock(): void {
     const topOverlay = this.overlays[0];
     const oldInteractiveElements = this.interactiveElements;
     const newInteractiveElements = ScrollLockManager.getInteractiveElements(topOverlay);
@@ -98,8 +98,7 @@ export class ScrollLockManager {
       this.saveScrollPosition();
       this.lockEvents();
       this.applyLockBackdrop();
-    }
-    else if (oldInteractiveElements.length && !newInteractiveElements.length) {
+    } else if (oldInteractiveElements.length && !newInteractiveElements.length) {
       // unlock the screen
       this.unlockEvents();
       this.removeLockBackdrop();
@@ -124,7 +123,7 @@ export class ScrollLockManager {
    * @param [value=auto] Value of pointer events
    * @returns {void}
    */
-  private setPointerEvents (el: HTMLElement, value = 'auto'): void {
+  private setPointerEvents(el: HTMLElement, value = 'auto'): void {
     if (el) {
       this.pointerEventsMap.set(el, el.style.pointerEvents);
       el.style.setProperty('pointer-events', value);
@@ -136,14 +135,13 @@ export class ScrollLockManager {
    * @param el Element to restore
    * @returns {void}
    */
-  private restorePointerEvents (el: HTMLElement): void {
+  private restorePointerEvents(el: HTMLElement): void {
     if (el) {
       const pointerEvents = this.pointerEventsMap.get(el);
       this.pointerEventsMap.delete(el);
       if (pointerEvents) {
         el.style.setProperty('pointer-events', pointerEvents);
-      }
-      else {
+      } else {
         el.style.removeProperty('pointer-events');
       }
     }
@@ -153,7 +151,7 @@ export class ScrollLockManager {
    * Get the top most interactive element
    * @returns element
    */
-  private get interactiveElement (): HTMLElement {
+  private get interactiveElement(): HTMLElement {
     return this.interactiveElements[this.interactiveElements.length - 1];
   }
 
@@ -161,12 +159,11 @@ export class ScrollLockManager {
    * Memoize the scroll position of the outside scrolling element.
    * @returns {void}
    */
-  private saveScrollPosition (): void {
+  private saveScrollPosition(): void {
     if (document.scrollingElement) {
       this.scrollTop = document.scrollingElement.scrollTop;
       this.scrollLeft = document.scrollingElement.scrollLeft;
-    }
-    else {
+    } else {
       // Since we don't know if is the body or html, get max.
       this.scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
       this.scrollLeft = Math.max(document.documentElement.scrollLeft, document.body.scrollLeft);
@@ -177,12 +174,11 @@ export class ScrollLockManager {
    * Resets the scroll position of the outside scrolling element.
    * @returns {void}
    */
-  private restoreScrollPosition (): void {
+  private restoreScrollPosition(): void {
     if (document.scrollingElement) {
       document.scrollingElement.scrollTop = this.scrollTop;
       document.scrollingElement.scrollLeft = this.scrollLeft;
-    }
-    else {
+    } else {
       // Since we don't know if is the body or html, set both.
       document.documentElement.scrollTop = document.body.scrollTop = this.scrollTop;
       document.documentElement.scrollLeft = document.body.scrollLeft = this.scrollLeft;
@@ -193,7 +189,7 @@ export class ScrollLockManager {
    * Listen for scroll and wheel events, to apply the correct lock logic
    * @returns {void}
    */
-  private lockEvents (): void {
+  private lockEvents(): void {
     const wheelEventConf = {
       capture: true,
       passive: false
@@ -205,7 +201,8 @@ export class ScrollLockManager {
 
     const scrollEventConf = {
       capture: true,
-      passive: true /* passive improves scrolling performance. See https://developers.google.com/web/tools/lighthouse/audits/passive-event-listeners how. */
+      passive:
+        true /* passive improves scrolling performance. See https://developers.google.com/web/tools/lighthouse/audits/passive-event-listeners how. */
     };
 
     document.addEventListener('scroll', this.onScroll, scrollEventConf);
@@ -221,7 +218,7 @@ export class ScrollLockManager {
    * Remove scroll and wheel listeners
    * @returns {void}
    */
-  private unlockEvents (): void {
+  private unlockEvents(): void {
     const wheelEventConf = {
       capture: true,
       passive: false
@@ -249,15 +246,18 @@ export class ScrollLockManager {
    * Add locking backdrop and prevent pointer events on document
    * @returns {void}
    */
-  private applyLockBackdrop (): void {
-    this.setPointerEvents(document.documentElement, 'none'); /* prevent scrolling on all other scrollable elements */
+  private applyLockBackdrop(): void {
+    this.setPointerEvents(
+      document.documentElement,
+      'none'
+    ); /* prevent scrolling on all other scrollable elements */
   }
 
   /**
    * Remove locking backdrop and prevent pointer events on document
    * @returns {void}
    */
-  private removeLockBackdrop (): void {
+  private removeLockBackdrop(): void {
     this.restorePointerEvents(document.documentElement);
   }
 
@@ -290,7 +290,8 @@ export class ScrollLockManager {
    * @returns {void}
    */
   private removeScrollLock = (): void => {
-    this.scrollThrottler.schedule(() => { /* must be the delayed task, otherwise scroll might happen in rare scenarios after mouseup */
+    this.scrollThrottler.schedule(() => {
+      /* must be the delayed task, otherwise scroll might happen in rare scenarios after mouseup */
       this.lockScroll = false;
     });
   };
@@ -314,7 +315,8 @@ export class ScrollLockManager {
    * @returns {void}
    */
   private onTouchScroll = (event: TouchEvent): void => {
-    if (event.cancelable && this.shouldCancelTouch(event)) { /* Not all touch events can be cancelled */
+    if (event.cancelable && this.shouldCancelTouch(event)) {
+      /* Not all touch events can be cancelled */
       event.preventDefault();
     }
   };
@@ -324,12 +326,8 @@ export class ScrollLockManager {
    * @param event Touch event
    * @return shouldCancelTouch True if the touch event should be cancelled
    */
-  private shouldCancelTouch (event: TouchEvent): boolean {
-    const {
-      targetTouches,
-      type,
-      target
-    } = event;
+  private shouldCancelTouch(event: TouchEvent): boolean {
+    const { targetTouches, type, target } = event;
 
     if (type === 'touchend') {
       this.lastTouchPosition = undefined;
@@ -365,11 +363,8 @@ export class ScrollLockManager {
    * @param event Wheel event
    * @return shouldCancelWheel True if the scroll event should be cancelled
    */
-  private shouldCancelWheel (event: WheelEvent): boolean {
-    const {
-      deltaX,
-      deltaY
-    } = event;
+  private shouldCancelWheel(event: WheelEvent): boolean {
+    const { deltaX, deltaY } = event;
 
     return this.shouldCancelScroll(event, deltaY, deltaX);
   }
@@ -381,7 +376,7 @@ export class ScrollLockManager {
    * @param deltaX Scroll delta on X axis
    * @return shouldCancel True if the event should be cancelled
    */
-  private shouldCancelScroll (event: Event, deltaY: number, deltaX: number): boolean {
+  private shouldCancelScroll(event: Event, deltaY: number, deltaX: number): boolean {
     const isVerticalScroll = Math.abs(deltaY) >= Math.abs(deltaX);
     const path: EventTarget[] = [...event.composedPath()];
 
@@ -400,25 +395,31 @@ export class ScrollLockManager {
 
     const checkSlice = path.slice(0, idx + 1);
 
-    const canScroll = isVerticalScroll ? (element: HTMLElement): boolean => {
-      const style = window.getComputedStyle(element);
+    const canScroll = isVerticalScroll ?
+      (element: HTMLElement): boolean => {
+        const style = window.getComputedStyle(element);
 
-      if (style.overflowY === 'scroll' || style.overflowY === 'auto') {
-        // delta < 0 is scroll up, delta > 0 is scroll down.
-        return deltaY < 0 ? element.scrollTop > 0 : element.scrollTop < element.scrollHeight - element.clientHeight;
-      }
+        if (style.overflowY === 'scroll' || style.overflowY === 'auto') {
+          // delta < 0 is scroll up, delta > 0 is scroll down.
+          return deltaY < 0 ?
+            element.scrollTop > 0 :
+            element.scrollTop < element.scrollHeight - element.clientHeight;
+        }
 
-      return false;
-    } : (element: HTMLElement): boolean => {
-      const style = window.getComputedStyle(element);
+        return false;
+      } :
+      (element: HTMLElement): boolean => {
+        const style = window.getComputedStyle(element);
 
-      if (style.overflowX === 'scroll' || style.overflowX === 'auto') {
-        // delta < 0 is scroll left, delta > 0 is scroll right.
-        return deltaX < 0 ? element.scrollLeft > 0 : element.scrollLeft < element.scrollWidth - element.clientWidth;
-      }
+        if (style.overflowX === 'scroll' || style.overflowX === 'auto') {
+          // delta < 0 is scroll left, delta > 0 is scroll right.
+          return deltaX < 0 ?
+            element.scrollLeft > 0 :
+            element.scrollLeft < element.scrollWidth - element.clientWidth;
+        }
 
-      return false;
-    };
+        return false;
+      };
 
     while (checkSlice.length) {
       const node = checkSlice.shift() as Node;
@@ -439,10 +440,10 @@ export class ScrollLockManager {
 const locker = new ScrollLockManager(); /* Locker is a singleton */
 
 /**
-* Lock the screen and make top most overlay
-* and its position target interactive
-* @returns {void}
-*/
+ * Lock the screen and make top most overlay
+ * and its position target interactive
+ * @returns {void}
+ */
 export const applyLock = (): void => {
   locker.applyLock();
 };

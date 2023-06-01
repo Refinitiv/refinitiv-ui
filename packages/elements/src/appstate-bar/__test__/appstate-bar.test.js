@@ -5,7 +5,6 @@ import '@refinitiv-ui/elements/appstate-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-appstate-bar.js';
 
 describe('appstate-bar/AppstateBar', () => {
-
   let el;
   let headingPart;
   let closePart;
@@ -26,7 +25,10 @@ describe('appstate-bar/AppstateBar', () => {
     expect(headingPart.textContent).to.equal('Test');
     el.setAttribute('heading', 'newHeading');
     await elementUpdated(el);
-    expect(headingPart.textContent).to.equal('newHeading', 'Heading is not updated when heading attribute changed.');
+    expect(headingPart.textContent).to.equal(
+      'newHeading',
+      'Heading is not updated when heading attribute changed.'
+    );
   });
 
   it('Should change content in heading when heading property changed', async () => {
@@ -35,7 +37,10 @@ describe('appstate-bar/AppstateBar', () => {
     expect(headingPart.textContent).to.equal('Test');
     el.heading = 'newHeading';
     await elementUpdated(el);
-    expect(headingPart.textContent).to.equal('newHeading', 'Heading is not updated when heading attribute changed.');
+    expect(headingPart.textContent).to.equal(
+      'newHeading',
+      'Heading is not updated when heading attribute changed.'
+    );
   });
 
   it('Should change heading background color when state is changed via attribute', async () => {
@@ -49,7 +54,10 @@ describe('appstate-bar/AppstateBar', () => {
     await elementUpdated(el);
     newBackgroundColor = el.getComputedVariable('--heading-background-color');
     expect(el.state).to.equal('highlight');
-    expect(beforeBackgroundColor).to.not.equal(newBackgroundColor, 'Heading background color does not change when state changed');
+    expect(beforeBackgroundColor).to.not.equal(
+      newBackgroundColor,
+      'Heading background color does not change when state changed'
+    );
   });
 
   it('Should changed heading background to default color when invalid state is set', () => {
@@ -62,7 +70,10 @@ describe('appstate-bar/AppstateBar', () => {
     el.setAttribute('state', 'invalid');
     newBackgroundColor = el.getComputedVariable('--heading-background-color');
     expect(el.state).to.equal('invalid');
-    expect(beforeBackgroundColor).to.equal(newBackgroundColor, 'Heading background color does not reset to default when state value is invalid');
+    expect(beforeBackgroundColor).to.equal(
+      newBackgroundColor,
+      'Heading background color does not reset to default when state value is invalid'
+    );
   });
 
   it('Should hide itself when clear button is clicked', () => {
@@ -79,6 +90,4 @@ describe('appstate-bar/AppstateBar', () => {
     const event = await oneEvent(el, 'clear');
     expect(event.type).to.equal('clear');
   });
-
 });
-

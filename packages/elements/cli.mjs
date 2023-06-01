@@ -9,7 +9,8 @@ yargs(hideBin(process.argv))
   .command(commands)
   .demandCommand(1, 'You need at least one command.')
   .version(false)
-  .help('help').alias('help', 'h')
+  .help('help')
+  .alias('help', 'h')
   .fail(function (msg, err, yargs) {
     if (msg) {
       errorHandler(msg);

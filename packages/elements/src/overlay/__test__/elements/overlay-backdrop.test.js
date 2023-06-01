@@ -32,14 +32,20 @@ describe('overlay/elements/OverlayBackdrop', () => {
         await elementUpdated(el);
 
         expect(el.zIndex).to.equal(undefined, 'zIndex property should have just setter');
-        expect(el.style.zIndex).to.equal('', 'zIndex style property should be empty string while number is not set');
+        expect(el.style.zIndex).to.equal(
+          '',
+          'zIndex style property should be empty string while number is not set'
+        );
       });
       it('Test zIndex set attribute zIndex=1', async () => {
         const el = await fixture('<ef-overlay-backdrop z-index="1"></ef-overlay-backdrop>');
 
         expect(el.zIndex).to.equal(undefined, 'zIndex property should have just setter');
-        expect(el.style.zIndex).to.equal('', 'zIndex style property should be empty string cause attribute should not be taken');
+        expect(el.style.zIndex).to.equal(
+          '',
+          'zIndex style property should be empty string cause attribute should not be taken'
+        );
       });
-    })
+    });
   });
 });

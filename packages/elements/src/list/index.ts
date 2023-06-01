@@ -4,4 +4,3 @@ export { ListRenderer } from './helpers/renderer.js';
 
 import type { ListData } from './helpers/types';
 export type { ListData };
-

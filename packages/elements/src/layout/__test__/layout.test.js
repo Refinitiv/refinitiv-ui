@@ -40,7 +40,11 @@ describe('layout/Layout', function () {
     assert.equal(style.display, 'block', 'Display should be block');
     assert.equal(style.overflow, 'hidden', 'Overflow should be hidden');
     assert.equal(style.position, 'relative', 'Position should be relative');
-    assert.equal(style.width, getComputedStyle(document.body).getPropertyValue('width'), 'Width should be 100%');
+    assert.equal(
+      style.width,
+      getComputedStyle(document.body).getPropertyValue('width'),
+      'Width should be 100%'
+    );
     assert.equal(style.height, '0px', 'Height should be 0');
     expect(el.attached, 'There should be no attached function as this get created dynamically').to.not.exist;
     expect(el.detached, 'There should be no detached function as this get created dynamically').to.not.exist;
@@ -103,7 +107,7 @@ describe('layout/Layout', function () {
     const style = getComputedStyle(el);
     assert.equal(style.width, document.body.clientWidth + 'px', 'Width should be 100%');
     assert.equal(style.height, '0px', 'Height should be 0');
-    assert.match(style.display, (/flex|flexbox|\-ms\-flexbox/), 'Display should be flex');
+    assert.match(style.display, /flex|flexbox|\-ms\-flexbox/, 'Display should be flex');
     expect(style['flex-direction']).to.equal('row', 'Flex direction should be row');
     expect(style['flex-wrap']).to.equal('wrap', 'Flex direction should be row');
   });
@@ -119,7 +123,7 @@ describe('layout/Layout', function () {
     const style = getComputedStyle(el);
     assert.equal(style.width, document.body.clientWidth + 'px', 'Width should be 100%');
     assert.equal(style.height, '0px', 'Height should be 0');
-    assert.match(style.display, (/flex|flexbox|\-ms\-flexbox/), 'Display should be flex');
+    assert.match(style.display, /flex|flexbox|\-ms\-flexbox/, 'Display should be flex');
     expect(style['flex-direction']).to.equal('column', 'Flex direction should be column');
     expect(style['flex-wrap']).to.equal('nowrap', 'Flex direction should be nowrap');
   });
@@ -181,7 +185,9 @@ describe('layout/Layout', function () {
     setTimeout(() => {
       el.style.width = '100px';
     });
-    const { detail: { width, height } } = await oneEvent(el, 'resize');
+    const {
+      detail: { width, height }
+    } = await oneEvent(el, 'resize');
     const { offsetWidth, offsetHeight } = el;
     expect(width, 'Width should be equall to offsetWidth').to.equal(offsetWidth);
     expect(height, 'Height should be equall to offsetHeight').to.equal(offsetHeight);
@@ -209,7 +215,9 @@ describe('layout/Layout', function () {
     const el = await fixture(defaultLayout);
     el.container = true;
     await elementUpdated(el);
-    expect(el.hasAttribute('container'), 'container property should be reflected to attribute').to.equal(true);
+    expect(el.hasAttribute('container'), 'container property should be reflected to attribute').to.equal(
+      true
+    );
     el.removeAttribute('container');
     expect(el.container, 'container attribute should be reflected to property').to.equal(false);
   });
@@ -236,7 +244,9 @@ describe('layout/Layout', function () {
     const el = await fixture(defaultLayout);
     el.scrollable = true;
     await elementUpdated(el);
-    expect(el.hasAttribute('scrollable'), 'scrollable property should be reflected to attribute').to.equal(true);
+    expect(el.hasAttribute('scrollable'), 'scrollable property should be reflected to attribute').to.equal(
+      true
+    );
     el.removeAttribute('scrollable');
     expect(el.scrollable, 'scrollable attribute should be reflected to property').to.equal(false);
   });
@@ -263,7 +273,9 @@ describe('layout/Layout', function () {
     const el = await fixture(defaultLayout);
     el.minWidth = '10px';
     await elementUpdated(el);
-    expect(el.getAttribute('min-width'), 'minWidth property should be reflected to attribute').to.equal('10px');
+    expect(el.getAttribute('min-width'), 'minWidth property should be reflected to attribute').to.equal(
+      '10px'
+    );
     el.setAttribute('min-width', '20px');
     expect(el.minWidth, 'minWidth attribute should be reflected to property').to.equal('20px');
   });
@@ -272,7 +284,9 @@ describe('layout/Layout', function () {
     const el = await fixture(defaultLayout);
     el.minHeight = '10px';
     await elementUpdated(el);
-    expect(el.getAttribute('min-height'), 'minHeight property should be reflected to attribute').to.equal('10px');
+    expect(el.getAttribute('min-height'), 'minHeight property should be reflected to attribute').to.equal(
+      '10px'
+    );
     el.setAttribute('min-height', '20px');
     expect(el.minHeight, 'minHeight attribute should be reflected to property').to.equal('20px');
   });
@@ -281,7 +295,9 @@ describe('layout/Layout', function () {
     const el = await fixture(defaultLayout);
     el.maxWidth = '10px';
     await elementUpdated(el);
-    expect(el.getAttribute('max-width'), 'maxWidth property should be reflected to attribute').to.equal('10px');
+    expect(el.getAttribute('max-width'), 'maxWidth property should be reflected to attribute').to.equal(
+      '10px'
+    );
     el.setAttribute('max-width', '20px');
     expect(el.maxWidth, 'maxWidth attribute should be reflected to property').to.equal('20px');
   });
@@ -290,9 +306,10 @@ describe('layout/Layout', function () {
     const el = await fixture(defaultLayout);
     el.maxHeight = '10px';
     await elementUpdated(el);
-    expect(el.getAttribute('max-height'), 'minHeight property should be reflected to attribute').to.equal('10px');
+    expect(el.getAttribute('max-height'), 'minHeight property should be reflected to attribute').to.equal(
+      '10px'
+    );
     el.setAttribute('max-height', '20px');
     expect(el.maxHeight, 'maxHeight attribute should be reflected to property').to.equal('20px');
   });
 });
-

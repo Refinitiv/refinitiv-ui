@@ -33,7 +33,7 @@ describe('pill/Pill', () => {
 
   describe('Test attributes and properties', () => {
     describe('Test toggles property and attribute', () => {
-      it('Should be false if the attribute doesn\'t exist', async () => {
+      it("Should be false if the attribute doesn't exist", async () => {
         const el = await fixture(html`<ef-pill></ef-pill>`);
         expect(el.toggles).to.equal(false);
         expect(el.hasAttribute('toggles')).to.equal(false);
@@ -45,7 +45,6 @@ describe('pill/Pill', () => {
         expect(el.toggles).to.equal(true);
         expect(el.hasAttribute('toggles')).to.equal(true);
         expect(el.getAttribute('toggles')).to.equal('');
-
       });
 
       it('Should be true if the attribute exists', async () => {
@@ -64,7 +63,7 @@ describe('pill/Pill', () => {
     });
 
     describe('Test active property and attribute', () => {
-      it('Should be false if the attribute doesn\'t exist', async () => {
+      it("Should be false if the attribute doesn't exist", async () => {
         const el = await fixture(html`<ef-pill></ef-pill>`);
         expect(el.active).to.equal(false);
         expect(el.hasAttribute('active')).to.equal(false);
@@ -76,7 +75,6 @@ describe('pill/Pill', () => {
         expect(el.active).to.equal(true);
         expect(el.hasAttribute('active')).to.equal(true);
         expect(el.getAttribute('active')).to.equal('');
-
       });
 
       it('Should be true if the attribute exists', async () => {
@@ -95,7 +93,7 @@ describe('pill/Pill', () => {
     });
 
     describe('Test clears property and attribute', () => {
-      it('Should be false if the attribute doesn\'t exist', async () => {
+      it("Should be false if the attribute doesn't exist", async () => {
         const el = await fixture(html`<ef-pill></ef-pill>`);
         expect(el.clears).to.equal(false);
         expect(el.hasAttribute('clears')).to.equal(false);
@@ -107,7 +105,6 @@ describe('pill/Pill', () => {
         expect(el.clears).to.equal(true);
         expect(el.hasAttribute('clears')).to.equal(true);
         expect(el.getAttribute('clears')).to.equal('');
-
       });
 
       it('Should be true if the attribute exists', async () => {
@@ -126,7 +123,7 @@ describe('pill/Pill', () => {
     });
 
     describe('Test pressed property and attribute', () => {
-      it('Should be false if the attribute doesn\'t exist', async () => {
+      it("Should be false if the attribute doesn't exist", async () => {
         const el = await fixture(html`<ef-pill></ef-pill>`);
         expect(el.pressed).to.equal(false);
         expect(el.hasAttribute('pressed')).to.equal(false);
@@ -140,7 +137,6 @@ describe('pill/Pill', () => {
         // expect(el.pressed).to.equal(true);
         // expect(el.hasAttribute('pressed')).to.equal(true);
         // expect(el.getAttribute('pressed')).to.equal('');
-
       });
 
       it('Should be true if the attribute exists', async () => {
@@ -171,7 +167,7 @@ describe('pill/Pill', () => {
       expect(ev.type).to.equal('tap');
     });
 
-    it('Shouldn\'t change the active property if the toggles property doesn\'t exist', async () => {
+    it("Shouldn't change the active property if the toggles property doesn't exist", async () => {
       const el = await fixture(html`<ef-pill></ef-pill>`);
 
       setTimeout(() => el.dispatchEvent(new Event('tap')));
@@ -323,6 +319,5 @@ describe('pill/Pill', () => {
 
       expect(ev.type).to.equal('clear');
     });
-
   });
 });

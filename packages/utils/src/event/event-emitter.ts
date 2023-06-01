@@ -55,7 +55,6 @@ export interface EventEmitterListener<T> {
  * ec.test();
  */
 export class EventEmitter<T = DefaultDataMap> {
-
   /**
    * Collection of subscribed event handlers.
    */
@@ -66,7 +65,7 @@ export class EventEmitter<T = DefaultDataMap> {
    * @param name Name of the event
    * @returns Collection of active listeners
    */
-  private getEventListeners<K extends keyof T> (name: K): CallableFunction[] {
+  private getEventListeners<K extends keyof T>(name: K): CallableFunction[] {
     if (!this.events.has(name)) {
       this.events.set(name, []);
     }
@@ -79,7 +78,7 @@ export class EventEmitter<T = DefaultDataMap> {
    * @param data Data that should be passed to the handlers.
    * @returns {void}
    */
-  protected emit<K extends keyof T> (name: K, data: T[K]): void {
+  protected emit<K extends keyof T>(name: K, data: T[K]): void {
     for (const handler of this.getEventListeners(name)) {
       handler(data);
     }
@@ -91,7 +90,7 @@ export class EventEmitter<T = DefaultDataMap> {
    * @param listener Event listener to use
    * @returns {void}
    */
-  public on <K extends keyof T> (name: K, listener: EventEmitterListener<T[K]>): this {
+  public on<K extends keyof T>(name: K, listener: EventEmitterListener<T[K]>): this {
     this.getEventListeners(name).push(listener);
     return this;
   }
@@ -102,7 +101,7 @@ export class EventEmitter<T = DefaultDataMap> {
    * @param listener Original event listener to remove
    * @returns {void}
    */
-  public off <K extends keyof T> (name: K, listener: EventEmitterListener<T[K]>): boolean {
+  public off<K extends keyof T>(name: K, listener: EventEmitterListener<T[K]>): boolean {
     const events = this.getEventListeners(name);
     const index = events.indexOf(listener);
     if (index !== -1) {
@@ -111,5 +110,4 @@ export class EventEmitter<T = DefaultDataMap> {
     }
     return false;
   }
-
 }

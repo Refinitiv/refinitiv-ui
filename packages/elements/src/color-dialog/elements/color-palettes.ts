@@ -18,12 +18,11 @@ import { COLOR_ITEMS } from '../helpers/color-helpers.js';
  */
 @customElement('ef-color-palettes', { theme: false })
 export class ColorPalettes extends Palettes {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -33,7 +32,7 @@ export class ColorPalettes extends Palettes {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -60,10 +59,9 @@ export class ColorPalettes extends Palettes {
    * create color items template from COLOR_ITEMS array
    * @return color items template
    */
-  private get ColorItemsTemplate (): SVGTemplateResult[] {
+  private get ColorItemsTemplate(): SVGTemplateResult[] {
     return COLOR_ITEMS.map((item: string[]) => {
-      return (
-        svg`
+      return svg`
           <polygon
             data-role="color-item"
             stroke=${item[1]}
@@ -74,8 +72,7 @@ export class ColorPalettes extends Palettes {
             @touchmove=${this.onTouchmove}
           >
           </polygon>
-        `
-      );
+        `;
     });
   }
 
@@ -84,14 +81,13 @@ export class ColorPalettes extends Palettes {
    * @param changedProperties Properties that has changed
    * @return {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected updated(changedProperties: PropertyValues): void {
     if (changedProperties.has('value')) {
       const value = this.expandHex(this.value);
       const item = COLOR_ITEMS.find((item: string[]) => item[1] === value);
       if (item) {
         this.showSelector(item[0]);
-      }
-      else {
+      } else {
         this.hideSelector();
       }
     }
@@ -102,11 +98,10 @@ export class ColorPalettes extends Palettes {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       <svg id="colorPalettes" viewBox="-5 -5 245 210">
-        ${this.ColorItemsTemplate}
-        ${this.SelectorTemplate}
+        ${this.ColorItemsTemplate} ${this.SelectorTemplate}
       </svg>
     `;
   }

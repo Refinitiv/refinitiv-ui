@@ -1,12 +1,19 @@
 import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
-import { valueUpdated, keyArrowLeft, keyArrowRight, keyArrowDown, keyArrowUp, keyHome, keyEnd  } from './utils'
+import {
+  valueUpdated,
+  keyArrowLeft,
+  keyArrowRight,
+  keyArrowDown,
+  keyArrowUp,
+  keyHome,
+  keyEnd
+} from './utils';
 
 // import element and theme
 import '@refinitiv-ui/elements/rating';
 import '@refinitiv-ui/elemental-theme/light/ef-rating.js';
 
 describe('rating/Rating', () => {
-
   let el;
   beforeEach(async () => {
     el = await fixture('<ef-rating></ef-rating>');
@@ -99,7 +106,6 @@ describe('rating/Rating', () => {
   });
 
   it('When via value invalid type', async () => {
-
     el.value = 'abcd';
     await elementUpdated(el);
     expect(el.value).to.equal('0');
@@ -118,7 +124,6 @@ describe('rating/Rating', () => {
   });
 
   it('When via max invalid type', async () => {
-
     el.max = 'abcd';
     await elementUpdated(el);
     expect(el.max).to.equal(el.MAX_VALUE);

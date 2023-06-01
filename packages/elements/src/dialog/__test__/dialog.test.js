@@ -6,7 +6,6 @@ import '@refinitiv-ui/elemental-theme/light/ef-dialog';
 import '@refinitiv-ui/elements/overlay';
 
 describe('dialog/Dialog', () => {
-
   it('Should renders DOM structure correctly', async () => {
     const el = await fixture('<ef-dialog></ef-dialog>');
 
@@ -96,7 +95,7 @@ describe('dialog/Dialog', () => {
       el.opened = true;
       el.noCancelOnOutsideClick = false;
       await elementUpdated(el);
-      el.addEventListener('cancel', event => event.preventDefault());
+      el.addEventListener('cancel', (event) => event.preventDefault());
       setTimeout(() => document.dispatchEvent(new CustomEvent('tapstart')));
       await oneEvent(el, 'cancel');
       expect(el.opened).to.equal(true);
@@ -202,4 +201,3 @@ describe('dialog/Dialog', () => {
     });
   });
 });
-

@@ -19,11 +19,18 @@ const isNested = <T extends CollectionItem>(items: T[]): boolean => {
 const processFlat = <T extends CollectionItem>(items: T[]): FlatResult<T> => {
   const result = new FlatResult<T>();
   result.items = items.slice();
-  result.depths = 'fill' in Array.prototype ? Array(result.items.length).fill(0) as number[] : result.items.map(RETURN_ZERO);
+  result.depths =
+    'fill' in Array.prototype ?
+      (Array(result.items.length).fill(0) as number[]) :
+      result.items.map(RETURN_ZERO);
   return result;
 };
 
-const processNested = <T extends CollectionItem>(items: T[], result = new FlatResult<T>(), depth = 0): FlatResult<T> => {
+const processNested = <T extends CollectionItem>(
+  items: T[],
+  result = new FlatResult<T>(),
+  depth = 0
+): FlatResult<T> => {
   // !IMPORTANT: The flattening order should not be modified.
   for (let i = 0; i < items.length; i += 1) {
     const item = items[i];

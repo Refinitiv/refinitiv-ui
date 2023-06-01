@@ -182,10 +182,12 @@ describe('text-field/TextField', () => {
       await elementUpdated(el);
 
       setTimeout(() => {
-        input.dispatchEvent(new Event('input', {
-          bubbles: true,
-          cancelable: true
-        }));
+        input.dispatchEvent(
+          new Event('input', {
+            bubbles: true,
+            cancelable: true
+          })
+        );
       });
 
       const { detail } = await oneEvent(el, 'value-changed');
@@ -218,11 +220,14 @@ describe('text-field/TextField', () => {
     it('Should propagate `aria-describedby` attribute to input correctly', async () => {
       const helperMessage = await fixture('<span id="helper-message">Field description</label>');
       const errorMessage = await fixture('<span id="error-message">Error</label>');
-      const el = await fixture('<ef-text-field aria-describedby="helper-message error-message"></ef-text-field>');
+      const el = await fixture(
+        '<ef-text-field aria-describedby="helper-message error-message"></ef-text-field>'
+      );
 
       const input = el.shadowRoot.querySelector('[part=input]');
-      expect(input.getAttribute('aria-description')).to.be.equal(`${helperMessage.textContent} ${errorMessage.textContent}`);
+      expect(input.getAttribute('aria-description')).to.be.equal(
+        `${helperMessage.textContent} ${errorMessage.textContent}`
+      );
     });
   });
 });
-

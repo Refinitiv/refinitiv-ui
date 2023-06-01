@@ -17,13 +17,11 @@ import {
   utcFormat as utcFormatTime
 } from './time.js';
 
-import {
-  throwInvalidFormat
-} from './utils.js';
+import { throwInvalidFormat } from './utils.js';
 
 /*
-* DateTime segment
-*/
+ * DateTime segment
+ */
 type Segment = DateSegment & TimeSegment;
 
 /**
@@ -36,15 +34,15 @@ enum Format {
   /**
    * yyyy-MM-dd'T'HH:mm (e.g. 1988-04-21T00:00, 0030-04-30T23:59, -0002-12-31T13:32)
    */
-  yyyMMddTHHmm = 'yyyy-MM-dd\'T\'HH:mm',
+  yyyMMddTHHmm = "yyyy-MM-dd'T'HH:mm",
   /**
    * yyyy-MM-dd'T'HH:mm:ss (e.g. 1988-04-21T00:00:00, 0030-04-30T23:59:59, -0002-12-31T13:32:30)
    */
-  yyyMMddTHHmmss = 'yyyy-MM-dd\'T\'HH:mm:ss',
+  yyyMMddTHHmmss = "yyyy-MM-dd'T'HH:mm:ss",
   /**
    * yyyy-MM-dd'T'HH:mm:ss.SSS (e.g. 1988-04-21T00:00:00.000, 0030-04-30T23:59:59.999, -0002-12-31T13:32:30.378)
    */
-  yyyMMddTHHmmssSSS = 'yyyy-MM-dd\'T\'HH:mm:ss.SSS'
+  yyyMMddTHHmmssSSS = "yyyy-MM-dd'T'HH:mm:ss.SSS"
 }
 
 type InputFormat = Format | keyof typeof Format;
@@ -54,7 +52,7 @@ type InputFormat = Format | keyof typeof Format;
  * @param value Datetime string
  * @returns object containing date and time
  */
-const split = (value: string): { date: string, time: string } => {
+const split = (value: string): { date: string; time: string } => {
   const split = value.split('T');
   return {
     date: split[0],
@@ -103,9 +101,11 @@ const isValid = function (value: string, format?: InputFormat | null): boolean {
   const timeFormat = getTimeFormat(time);
   format = format || getFormat(value);
 
-  return (timeFormat === TimeFormat.HHmm && format === Format.yyyMMddTHHmm)
-    || (timeFormat === TimeFormat.HHmmss && format === Format.yyyMMddTHHmmss)
-    || (timeFormat === TimeFormat.HHmmssSSS && format === Format.yyyMMddTHHmmssSSS);
+  return (
+    (timeFormat === TimeFormat.HHmm && format === Format.yyyMMddTHHmm) ||
+    (timeFormat === TimeFormat.HHmmss && format === Format.yyyMMddTHHmmss) ||
+    (timeFormat === TimeFormat.HHmmssSSS && format === Format.yyyMMddTHHmmssSSS)
+  );
 };
 
 /**
@@ -178,7 +178,8 @@ const formatDateTime = (value: Segment | Date, format: InputFormat, isUTC: boole
  * @param [format='yyyy-MM-dd'T'HH:mm'] Date Time format
  * @returns A formatted time
  */
-const format = (value: Segment | Date, format: InputFormat = Format.yyyMMddTHHmm): string => formatDateTime(value, format, false);
+const format = (value: Segment | Date, format: InputFormat = Format.yyyMMddTHHmm): string =>
+  formatDateTime(value, format, false);
 
 /**
  * Format Date or Segment to UTC Date Time string.
@@ -186,7 +187,8 @@ const format = (value: Segment | Date, format: InputFormat = Format.yyyMMddTHHmm
  * @param [format='yyyy-MM-dd'T'HH:mm'] Date Time format
  * @returns A formatted time
  */
-const utcFormat = (value: Segment | Date, format: InputFormat = Format.yyyMMddTHHmm): string => formatDateTime(value, format, true);
+const utcFormat = (value: Segment | Date, format: InputFormat = Format.yyyMMddTHHmm): string =>
+  formatDateTime(value, format, true);
 
 /**
  * @private
@@ -208,8 +210,7 @@ const parseDateTime = (value: string | Segment, isUTC: boolean): Date => {
     date = new Date(0);
     date.setUTCFullYear(value.year, value.month, value.day);
     date.setUTCHours(value.hours, value.minutes, value.seconds, value.milliseconds);
-  }
-  else {
+  } else {
     // the code for Local Dates is inconsistent across different browsers
     date = new Date();
     date.setFullYear(value.year, value.month, value.day);

@@ -23,10 +23,7 @@ export interface Cell extends CellSelectionModel {
 
 export type CalendarFilter = (value: string) => boolean;
 
-export type Comparator = (
-  value: string,
-  compare: string
-) => boolean
+export type Comparator = (value: string, compare: string) => boolean;
 
 export interface DateButtonElement extends HTMLDivElement {
   value: string;

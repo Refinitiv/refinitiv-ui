@@ -1,9 +1,7 @@
 import { fixture, expect, elementUpdated, nextFrame, replaceWhitespace } from '@refinitiv-ui/test-helpers';
 import '../lib/test/test-translate';
 
-import {
-  getHTMLContent
-} from './utils';
+import { getHTMLContent } from './utils';
 
 describe('Elf Translate Element Lang Test', () => {
   it('en-GB: check directive translations', async function () {
@@ -11,7 +9,10 @@ describe('Elf Translate Element Lang Test', () => {
 
     expect(el.defaultEl.innerText).to.equal('This is en locale', 'en-GB: default locale');
     expect(el.customEl.innerText).to.equal('en: custom', 'en-GB: custom t tag');
-    expect(getHTMLContent(el.boldEl)).to.equal('HTML: Part of the text is in <b>bold</b> and <i>italic</i> font', 'en-GB: HTML content');
+    expect(getHTMLContent(el.boldEl)).to.equal(
+      'HTML: Part of the text is in <b>bold</b> and <i>italic</i> font',
+      'en-GB: HTML content'
+    );
   });
 
   it('en-US: check directive translations', async function () {
@@ -19,14 +20,20 @@ describe('Elf Translate Element Lang Test', () => {
 
     expect(el.defaultEl.innerText).to.equal('This is en-US locale', 'en-US: default locale');
     expect(el.customEl.innerText).to.equal('enUS: custom', 'en-US: custom t tag');
-    expect(getHTMLContent(el.boldEl)).to.equal('HTML: Part of the text is in <b>bold</b> and <i>italic</i> font', 'en-US: HTML content');
+    expect(getHTMLContent(el.boldEl)).to.equal(
+      'HTML: Part of the text is in <b>bold</b> and <i>italic</i> font',
+      'en-US: HTML content'
+    );
   });
 
   it('ru: check directive translations', async function () {
     const el = await fixture('<test-translate lang="ru"></test-translate>');
     expect(el.defaultEl.innerText).to.equal('Региональные настройки: ru', 'ru: default locale');
     expect(el.customEl.innerText).to.equal('ru: custom', 'ru: custom t tag');
-    expect(getHTMLContent(el.boldEl)).to.equal('HTML: Часть этого текста написана <b>жирным</b> шрифтом и <i>курсивом</i>', 'ru: HTML content');
+    expect(getHTMLContent(el.boldEl)).to.equal(
+      'HTML: Часть этого текста написана <b>жирным</b> шрифтом и <i>курсивом</i>',
+      'ru: HTML content'
+    );
   });
 
   it('Check that translate can be used as property and attribute', async function () {
@@ -38,8 +45,14 @@ describe('Elf Translate Element Lang Test', () => {
   it('Check fallback language', async function () {
     const el = await fixture('<test-translate lang="it"></test-translate>');
     const enUSCAel = await fixture('<test-translate lang="en-ZA"></test-translate>');
-    expect(el.defaultEl.innerText).to.equal('This is en locale', 'If locale does not exist fallback to default');
-    expect(enUSCAel.defaultEl.innerText).to.equal('This is en locale', 'Locale should fallback to upper level locale');
+    expect(el.defaultEl.innerText).to.equal(
+      'This is en locale',
+      'If locale does not exist fallback to default'
+    );
+    expect(enUSCAel.defaultEl.innerText).to.equal(
+      'This is en locale',
+      'Locale should fallback to upper level locale'
+    );
   });
 
   it('Translations should change dynamically when lang changes', async function () {
@@ -102,9 +115,17 @@ describe('Elf Translate Element Lang Test', () => {
     const elUS = await fixture('<test-translate lang="en-US"></test-translate>');
     const elRU = await fixture('<test-translate lang="ru"></test-translate>');
 
-    expect(elGB.dateEl.innerText).to.equal('Date: The date is: Tuesday, 21 July 2020, 23:59:50', 'en-GB: date');
-    expect(replaceWhitespace(elUS.dateEl.innerText)).to.equal('Date: The date is: Tuesday, July 21, 2020, 11:59:50 PM', 'en-US: date');
-    expect(replaceWhitespace(elRU.dateEl.innerText)).to.equal('Date: Дата: вторник, 21 июля 2020 г., 23:59:50', 'ru: date');
+    expect(elGB.dateEl.innerText).to.equal(
+      'Date: The date is: Tuesday, 21 July 2020, 23:59:50',
+      'en-GB: date'
+    );
+    expect(replaceWhitespace(elUS.dateEl.innerText)).to.equal(
+      'Date: The date is: Tuesday, July 21, 2020, 11:59:50 PM',
+      'en-US: date'
+    );
+    expect(replaceWhitespace(elRU.dateEl.innerText)).to.equal(
+      'Date: Дата: вторник, 21 июля 2020 г., 23:59:50',
+      'ru: date'
+    );
   });
-
 });

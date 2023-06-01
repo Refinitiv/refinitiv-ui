@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Tree Select</title>
     <script src="./countries.js"></script>
   </head>
@@ -10,21 +10,21 @@
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
       import '@refinitiv-ui/elements/tree-select';
-    
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-    
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
-    
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/tree-select/themes/${theme}/${variant}/index.js`);
+
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/tree-select/themes/${theme}/${variant}/index.js`);
     </script>
     <script type="module">
       // Translations
@@ -35,14 +35,16 @@
     </script>
     <script type="module">
       const makeData = (config = {}) => {
-        return Array(config.size || 300).fill(0).map((_, i) => ({
-          type: i % 10 === 0 ? 'header' : 'text',
-          label: i % 10 === 0 ? `${i}'s` : `Item number ${i}`,
-          value: (i).toString(),
-          selected: config.selected || (config.selected === undefined ? i === 5 : false),
-          disabled: !config.disabled ? false : i % 10 === 7,
-          hidden: !config.hidden ? false : i % 10 === 9
-        }));
+        return Array(config.size || 300)
+          .fill(0)
+          .map((_, i) => ({
+            type: i % 10 === 0 ? 'header' : 'text',
+            label: i % 10 === 0 ? `${i}'s` : `Item number ${i}`,
+            value: i.toString(),
+            selected: config.selected || (config.selected === undefined ? i === 5 : false),
+            disabled: !config.disabled ? false : i % 10 === 7,
+            hidden: !config.hidden ? false : i % 10 === 9
+          }));
       };
       document.querySelectorAll('ef-tree-select').forEach((el) => {
         switch (el.id) {

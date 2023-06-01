@@ -6,13 +6,7 @@ import {
   getDaysInMonth
 } from './date/date.js';
 
-export {
-  DateSegment,
-  DateFormat,
-  toDateSegment,
-  isValidDate,
-  getDaysInMonth
-};
+export { DateSegment, DateFormat, toDateSegment, isValidDate, getDaysInMonth };
 
 import {
   Segment as TimeSegment,
@@ -21,12 +15,7 @@ import {
   toSegment as toTimeSegment
 } from './date/time.js';
 
-export {
-  TimeSegment,
-  TimeFormat,
-  isValidTime,
-  toTimeSegment
-};
+export { TimeSegment, TimeFormat, isValidTime, toTimeSegment };
 
 import {
   Segment as DateTimeSegment,
@@ -36,13 +25,7 @@ import {
   split as splitDateTime
 } from './date/datetime.js';
 
-export {
-  DateTimeSegment,
-  DateTimeFormat,
-  isValidDateTime,
-  toDateTimeSegment,
-  splitDateTime
-};
+export { DateTimeSegment, DateTimeFormat, isValidDateTime, toDateTimeSegment, splitDateTime };
 
 export { padNumber } from './date/utils.js';
 

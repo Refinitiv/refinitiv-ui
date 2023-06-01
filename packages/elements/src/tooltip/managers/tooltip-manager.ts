@@ -20,7 +20,7 @@ class TooltipManager {
    * @param paths Event paths
    * @returns {void}
    */
-  private static overrideTitle (paths: EventTarget[]): void {
+  private static overrideTitle(paths: EventTarget[]): void {
     const l = paths.length;
     for (let i = 0; i < l; i += 1) {
       const node = paths[i] as Node;
@@ -100,7 +100,7 @@ class TooltipManager {
     this.registry.forEach(({ blur }) => blur(event));
   };
 
-  public register (tooltip: Tooltip, documentCallbacks: DocumentCallbacks): void {
+  public register(tooltip: Tooltip, documentCallbacks: DocumentCallbacks): void {
     if (!this.registry.size) {
       const eventOptions = { passive: true };
       document.addEventListener('mousemove', this.onMouseMove, eventOptions);
@@ -118,7 +118,7 @@ class TooltipManager {
     this.registry.set(tooltip, documentCallbacks);
   }
 
-  public deregister (tooltip: Tooltip): void {
+  public deregister(tooltip: Tooltip): void {
     this.registry.delete(tooltip);
 
     if (!this.registry.size) {

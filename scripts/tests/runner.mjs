@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import process from 'node:process';
 import fs from 'node:fs';
-import { startTestRunner as startTest } from "@web/test-runner";
+import { startTestRunner as startTest } from '@web/test-runner';
 import { log } from '../helpers/esm.mjs';
 
 let runner = null; // Current `TestRunner` instance
@@ -13,7 +13,7 @@ const testRunnerQueue = new Map(); // If current runner is running the test will
  * @param {Object} config Web Test Runner config
  * @returns {Promise<TestRunner>} Web Test Runner instance
  */
-const startTestRunner = async config => {
+const startTestRunner = async (config) => {
   runner = await startTest({
     config,
     readFileConfig: false, // Use config from params only, prevent auto overriding from file config
@@ -34,7 +34,7 @@ const startQueueTestRunner = async (element, config, testFiles) => {
   if (!configCache) configCache = config;
 
   // Setup BrowserStack session name
-  configCache.browsers.forEach(launcher => {
+  configCache.browsers.forEach((launcher) => {
     if (launcher.capabilities) {
       launcher.capabilities.name = `elements: ${element}`;
     }
@@ -63,14 +63,13 @@ const startQueueTestRunner = async (element, config, testFiles) => {
   runner.on('stopped', handleNextQueue);
 
   return runner;
-}
+};
 
 /**
  * Handle runner in queue to start next
  * @param {boolean} passed result of current runner
  */
-const handleNextQueue = async passed => {
-
+const handleNextQueue = async (passed) => {
   if (!passed) process.exit(1); // Stop process, if found test failed from result of current runner
 
   // Remove current test runner (finished) from queue
@@ -87,7 +86,7 @@ const handleNextQueue = async passed => {
 
   // Clear base config for queue runner
   if (testRunnerQueue.size === 1) configCache = null;
-}
+};
 
 /**
  * Handle runner stopping with correct exit code
@@ -112,14 +111,7 @@ const stopRunner = () => {
 process.on('SIGINT', stopRunner);
 process.on('exit', stopRunner);
 process.on('uncaughtException', (err, origin) => {
-  fs.writeSync(
-    process.stderr.fd,
-    `Caught exception: ${err}\n` +
-    `Exception origin: ${origin}`,
-  );
+  fs.writeSync(process.stderr.fd, `Caught exception: ${err}\n` + `Exception origin: ${origin}`);
 });
 
-export {
-  startTestRunner,
-  startQueueTestRunner
-};
+export { startTestRunner, startQueueTestRunner };

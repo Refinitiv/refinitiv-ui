@@ -47,12 +47,11 @@ import '@refinitiv-ui/phrasebook/locale/en/dialog.js';
  */
 @customElement('ef-dialog')
 export class Dialog extends Overlay {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -67,38 +66,39 @@ export class Dialog extends Overlay {
    * and the internal template of the element.
    * @returns CSS template
    */
-  public static get styles (): CSSResultGroup {
+  public static get styles(): CSSResultGroup {
     return [
       super.styles,
       css`
-      :host {
-        width: 400px;
-        display: flex;
-        flex-flow: column nowrap;
-        flex-grow: 1;
-        flex-shrink: 1;
-        flex-basis: auto;
-      }
-      [part=content] {
-        flex: 1 1 auto;
-        overflow-x: hidden;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      [part=default-buttons] {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-      }
-      [part=header],
-      [part=footer] {
-        flex: none;
-      }
-      [part=close] {
-        flex: none;
-        cursor: pointer;
-      }
-    `];
+        :host {
+          width: 400px;
+          display: flex;
+          flex-flow: column nowrap;
+          flex-grow: 1;
+          flex-shrink: 1;
+          flex-basis: auto;
+        }
+        [part='content'] {
+          flex: 1 1 auto;
+          overflow-x: hidden;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        [part='default-buttons'] {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+        }
+        [part='header'],
+        [part='footer'] {
+          flex: none;
+        }
+        [part='close'] {
+          flex: none;
+          cursor: pointer;
+        }
+      `
+    ];
   }
 
   /**
@@ -153,11 +153,11 @@ export class Dialog extends Overlay {
    * Clear all cached values and fit the popup.
    * @returns {void}
    */
-  public refit (): void {
+  public refit(): void {
     super.refit();
   }
 
-  public disconnectedCallback (): void {
+  public disconnectedCallback(): void {
     super.disconnectedCallback();
     draggableDeregister(this);
   }
@@ -167,10 +167,16 @@ export class Dialog extends Overlay {
    * @param changedProperties properties changed on shouldUpdate lifecycle callback
    * @returns boolean should component update
    */
-  protected shouldUpdate (changedProperties: PropertyValues): boolean {
+  protected shouldUpdate(changedProperties: PropertyValues): boolean {
     const shouldUpdate = super.shouldUpdate(changedProperties);
-    return shouldUpdate
-      || ((changedProperties.has('draggable') || changedProperties.has('header') || changedProperties.has('noInteractionLock') || changedProperties.has(TranslatePropertyKey)) && this.opened);
+    return (
+      shouldUpdate ||
+      ((changedProperties.has('draggable') ||
+        changedProperties.has('header') ||
+        changedProperties.has('noInteractionLock') ||
+        changedProperties.has(TranslatePropertyKey)) &&
+        this.opened)
+    );
   }
 
   /**
@@ -179,7 +185,7 @@ export class Dialog extends Overlay {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected willUpdate(changedProperties: PropertyValues): void {
     // dialog only update when it is opened, so also checking `opened` change.
     if (changedProperties.has('opened') || changedProperties.has('noInteractionLock')) {
       this.setAttribute('aria-modal', String(!this.noInteractionLock));
@@ -191,7 +197,7 @@ export class Dialog extends Overlay {
    * @param changedProperties Properties which have changed
    * @return {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.setAttribute('aria-modal', String(!this.noInteractionLock));
   }
@@ -201,7 +207,7 @@ export class Dialog extends Overlay {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (this.isDraggableBehaviourNeedToBeChanged(changedProperties)) {
@@ -214,7 +220,7 @@ export class Dialog extends Overlay {
    * and closing transition has finished
    * @returns {void}
    */
-  protected onClosed (): void {
+  protected onClosed(): void {
     super.onClosed();
   }
 
@@ -222,7 +228,7 @@ export class Dialog extends Overlay {
    * Default handler for confirm click
    * @returns {void}
    */
-  protected defaultConfirm (): void {
+  protected defaultConfirm(): void {
     this.confirmed = true;
     this.setOpened(false);
   }
@@ -231,7 +237,7 @@ export class Dialog extends Overlay {
    * Default handler for cancel click
    * @returns {void}
    */
-  protected defaultCancel (): void {
+  protected defaultCancel(): void {
     this.confirmed = false;
     this.setOpened(false);
   }
@@ -243,7 +249,7 @@ export class Dialog extends Overlay {
    * @param opened True if opened
    * @returns {void}
    */
-  protected override setOpened (opened: boolean): void {
+  protected override setOpened(opened: boolean): void {
     if (!opened) {
       // if default is prevented, do not proceed to closed
       if (!this.fireCancelOrConfirmEvent(this.confirmed)) {
@@ -258,13 +264,12 @@ export class Dialog extends Overlay {
    * Update draggable behavior looking to properties draggable and opened
    * @returns {void}
    */
-  private updateDraggableBehavior (): void {
+  private updateDraggableBehavior(): void {
     if (this.draggable && this.opened) {
       const handle = this.handle;
 
       handle && draggableRegister(this, handle);
-    }
-    else {
+    } else {
       draggableDeregister(this);
     }
   }
@@ -273,7 +278,7 @@ export class Dialog extends Overlay {
    * @param changedProperties - updated properties map
    * @returns true if needs to update draggable behavior
    */
-  private isDraggableBehaviourNeedToBeChanged (changedProperties: PropertyValues): boolean {
+  private isDraggableBehaviourNeedToBeChanged(changedProperties: PropertyValues): boolean {
     return changedProperties.has('draggable') || changedProperties.has('opened');
   }
 
@@ -282,7 +287,7 @@ export class Dialog extends Overlay {
    * @param isConfirm true to fire `confirm` event. false to fire `cancel` event
    * @returns true if event is successful, false if event is prevented
    */
-  private fireCancelOrConfirmEvent (isConfirm: boolean): boolean {
+  private fireCancelOrConfirmEvent(isConfirm: boolean): boolean {
     const event = new CustomEvent(isConfirm ? 'confirm' : 'cancel', {
       cancelable: true
     });
@@ -295,7 +300,7 @@ export class Dialog extends Overlay {
    * Get the default content template
    * @return {TemplateResult} Render template
    */
-  protected get contentTemplate (): TemplateResult {
+  protected get contentTemplate(): TemplateResult {
     return html`<slot></slot>`;
   }
 
@@ -303,7 +308,7 @@ export class Dialog extends Overlay {
    * Get the default footer template
    * @return {TemplateResult} Render template
    */
-  protected get footerTemplate (): TemplateResult {
+  protected get footerTemplate(): TemplateResult {
     return html`<slot name="footer">
       <div part="default-buttons">
         <ef-button part="default-button" cta @tap="${this.defaultConfirm}">${this.t('OK')}</ef-button>
@@ -316,10 +321,16 @@ export class Dialog extends Overlay {
    * Get the default header template
    * @return {TemplateResult} Render template
    */
-  protected get headerTemplate (): TemplateResult {
+  protected get headerTemplate(): TemplateResult {
     return html`
       ${this.header === null ? this.t('HEADER') : this.header}
-      <ef-icon aria-hidden="true" part="close" icon="cross" slot="right" @tap="${this.defaultCancel}"></ef-icon>
+      <ef-icon
+        aria-hidden="true"
+        part="close"
+        icon="cross"
+        slot="right"
+        @tap="${this.defaultCancel}"
+      ></ef-icon>
     `;
   }
 
@@ -328,17 +339,11 @@ export class Dialog extends Overlay {
    * to render the updated internal template.
    * @return {TemplateResult} Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
-      <ef-header drag-handle part="header">
-        ${this.headerTemplate}
-      </ef-header>
-      <ef-panel part="content" spacing transparent>
-        ${this.contentTemplate}
-      </ef-panel>
-      <div part="footer">
-        ${this.footerTemplate}
-      </div>
+      <ef-header drag-handle part="header"> ${this.headerTemplate} </ef-header>
+      <ef-panel part="content" spacing transparent> ${this.contentTemplate} </ef-panel>
+      <div part="footer">${this.footerTemplate}</div>
     `;
   }
 }

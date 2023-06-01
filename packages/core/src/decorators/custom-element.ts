@@ -25,7 +25,10 @@ type DecoratorFunction = (target: ElementConstructor) => void;
  * @param options element registration options
  * @returns Element registration decorator
  */
-export const customElement = function (name: string, options: ElementOptions = defaultOptions): DecoratorFunction {
+export const customElement = function (
+  name: string,
+  options: ElementOptions = defaultOptions
+): DecoratorFunction {
   options = { ...defaultOptions, ...options };
   return (target: ElementConstructor): void => {
     ElementRegistry.define(name, target);

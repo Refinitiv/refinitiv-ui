@@ -39,8 +39,7 @@ const stripUnsafeNodes = (...elements: Node[]): void => {
     if (el instanceof SVGElement && 'getBBox' in el) {
       stripUnsafeAttributes(el);
       stripUnsafeNodes(...(el as SVGElement).childNodes);
-    }
-    else {
+    } else {
       el.parentNode?.removeChild(el);
     }
   }
@@ -86,7 +85,7 @@ export class SVGLoader extends CDNLoader {
    * @param name - resource path for download
    * @returns Promise, which will be resolved with complete source.
    */
-  public async getSrc (name: string): Promise<string> {
+  public async getSrc(name: string): Promise<string> {
     if (isUrl(name)) {
       return name;
     }
@@ -98,7 +97,7 @@ export class SVGLoader extends CDNLoader {
    * @param name Name of SVG to load
    * @returns SVG body of the response
    */
-  public async loadSVG (name: string): Promise<string | undefined> {
+  public async loadSVG(name: string): Promise<string | undefined> {
     if (!name) {
       return;
     }

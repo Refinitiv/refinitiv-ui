@@ -5,27 +5,27 @@ import { customElement } from '../../lib/decorators/custom-element.js';
 class BasicElementTest extends BasicElement {
   defaultRole = 'button';
 
-  checkNotifyNoCancelable (value) {
+  checkNotifyNoCancelable(value) {
     return this.notifyPropertyChange('fakeName', value, false);
   }
 
-  checkNotifyNoCancelableDefault (value) {
+  checkNotifyNoCancelableDefault(value) {
     return this.notifyPropertyChange('fakeName', value);
   }
 
-  checkNotifyCancelable (value) {
+  checkNotifyCancelable(value) {
     return this.notifyPropertyChange('fakeName', value, true);
   }
 
-  checkGetComputedVariable (...props) {
+  checkGetComputedVariable(...props) {
     return this.getComputedVariable(...props);
   }
 
-  checkCssVariable (...props) {
+  checkCssVariable(...props) {
     return this.cssVariable(...props);
   }
 
-  checkUpdateVariable (key, value) {
+  checkUpdateVariable(key, value) {
     return this.updateVariable(key, value);
   }
 }
@@ -131,8 +131,15 @@ describe('TestBasicElement', () => {
       const defaultValue = element.checkGetComputedVariable('--fake-variable', 'fake-value');
       expect(defaultValue).to.equal('fake-value', 'Not initialized variable should return default value');
 
-      const defaultValueWithFallback = element.checkGetComputedVariable('--fake-variable', '--fake-variable2', 'fake-value');
-      expect(defaultValueWithFallback).to.equal('fake-value', 'Not initialized variables should return default value');
+      const defaultValueWithFallback = element.checkGetComputedVariable(
+        '--fake-variable',
+        '--fake-variable2',
+        'fake-value'
+      );
+      expect(defaultValueWithFallback).to.equal(
+        'fake-value',
+        'Not initialized variables should return default value'
+      );
     });
 
     it('Test css variable', async () => {
@@ -167,10 +174,20 @@ describe('TestBasicElement', () => {
         expect(emptyValue).to.equal('super-fake-value', 'Initialized variable should returns value');
 
         const filledValue = element.checkGetComputedVariable('--fake-variable', 'fake-value');
-        expect(filledValue).to.not.equal('fake-value', 'Initialized variable should not return default value');
+        expect(filledValue).to.not.equal(
+          'fake-value',
+          'Initialized variable should not return default value'
+        );
 
-        const defaultValue = element.checkGetComputedVariable('--fake-variable2', '--fake-variable', 'fake-value');
-        expect(defaultValue).to.not.equal('fake-value', 'Initialized variables should not return default value');
+        const defaultValue = element.checkGetComputedVariable(
+          '--fake-variable2',
+          '--fake-variable',
+          'fake-value'
+        );
+        expect(defaultValue).to.not.equal(
+          'fake-value',
+          'Initialized variables should not return default value'
+        );
       });
 
       it('Test remove property by setting empty value', async function () {
@@ -195,4 +212,3 @@ describe('TestBasicElement', () => {
     });
   });
 });
-

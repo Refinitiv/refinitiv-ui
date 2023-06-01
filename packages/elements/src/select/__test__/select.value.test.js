@@ -39,13 +39,19 @@ describe('select/Value', () => {
       el.data = getData();
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value getter does not get correct value');
-      expect(getMenuEl(el).querySelector('ef-item[selected]').value).to.equal('AF', 'Item is not selected from value');
+      expect(getMenuEl(el).querySelector('ef-item[selected]').value).to.equal(
+        'AF',
+        'Item is not selected from value'
+      );
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
 
       el.value = 'AL';
       await elementUpdated(el);
       expect(el.value).to.equal('AL', 'Value is not reflected from selected attribute');
-      expect(getMenuEl(el).querySelector('ef-item[selected]').value).to.equal('AL', 'Item is not selected from value');
+      expect(getMenuEl(el).querySelector('ef-item[selected]').value).to.equal(
+        'AL',
+        'Item is not selected from value'
+      );
 
       el.value = '';
       await elementUpdated(el);

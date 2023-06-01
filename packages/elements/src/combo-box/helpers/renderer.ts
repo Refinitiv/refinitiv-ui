@@ -9,7 +9,7 @@ import type { Item, ItemData } from '../../item';
  * Extends its behaviour from ListRenderer.
  */
 export class ComboBoxRenderer extends Renderer {
-  constructor (context?: unknown) {
+  constructor(context?: unknown) {
     const listRenderer = new ListRenderer(context);
 
     super((item: ItemData, composer: CollectionComposer<ItemData>, element?: HTMLElement) => {
@@ -20,8 +20,7 @@ export class ComboBoxRenderer extends Renderer {
       // Using value as id for `aria-activedescendant` in combobox
       if (value && element.id !== value) {
         element.id = value;
-      }
-      else if (!value && element.id) {
+      } else if (!value && element.id) {
         element.removeAttribute('id');
       }
 

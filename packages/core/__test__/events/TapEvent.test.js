@@ -42,14 +42,16 @@ const createTouchEvent = (element, eventType) => {
     isTrusted: true,
     detail: 1,
     view: window,
-    changedTouches: [new Touch({
-      screenX: position.left + element.offsetLeft + position.width / 2,
-      screenY: position.top + element.offsetTop + position.height / 2,
-      clientX: position.left + position.width / 2,
-      clientY: position.top + position.height / 2,
-      target: element,
-      identifier: getIdentifier(element)
-    })]
+    changedTouches: [
+      new Touch({
+        screenX: position.left + element.offsetLeft + position.width / 2,
+        screenY: position.top + element.offsetTop + position.height / 2,
+        clientX: position.left + position.width / 2,
+        clientY: position.top + position.height / 2,
+        target: element,
+        identifier: getIdentifier(element)
+      })
+    ]
   });
 };
 
@@ -117,8 +119,9 @@ describe('TestTapEvent', async () => {
 
   describe('Test MouseEvents', async () => {
     it('Test tap on simple element', async () => {
-
-      const element = await fixture(html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`);
+      const element = await fixture(
+        html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
+      );
 
       await click(element, element);
 
@@ -143,10 +146,10 @@ describe('TestTapEvent', async () => {
 
     it('Test tap on parent element where mousedown is child and mouseup is parent', async () => {
       const parent = await fixture(html`
-      <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
-        <div id="child" style="display: block; width: 100px; height: 100px; background-color: green"></div>
-      </div>
-    `);
+        <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
+          <div id="child" style="display: block; width: 100px; height: 100px; background-color: green"></div>
+        </div>
+      `);
 
       const child = parent.querySelector('#child');
 
@@ -173,10 +176,10 @@ describe('TestTapEvent', async () => {
 
     it('Test tap on parent element where mousedown is parent and mouseup is child', async () => {
       const parent = await fixture(html`
-      <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
-        <div id="child" style="display: block; width: 100px; height: 100px; background-color: green"></div>
-      </div>
-    `);
+        <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
+          <div id="child" style="display: block; width: 100px; height: 100px; background-color: green"></div>
+        </div>
+      `);
 
       const child = parent.querySelector('#child');
 
@@ -203,11 +206,11 @@ describe('TestTapEvent', async () => {
 
     it('Test tap on parent element where mousedown is first child and mouseup is second child', async () => {
       const parent = await fixture(html`
-      <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
-        <div id="child1" style="display: block; width: 100px; height: 100px; background-color: green"></div>
-        <div id="child2" style="display: block; width: 100px; height: 100px; background-color: green"></div>
-      </div>
-    `);
+        <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
+          <div id="child1" style="display: block; width: 100px; height: 100px; background-color: green"></div>
+          <div id="child2" style="display: block; width: 100px; height: 100px; background-color: green"></div>
+        </div>
+      `);
 
       const child1 = parent.querySelector('#child1');
       const child2 = parent.querySelector('#child2');
@@ -298,7 +301,9 @@ describe('TestTapEvent', async () => {
       if (!isChrome) {
         this.skip();
       }
-      const element = await fixture(html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`);
+      const element = await fixture(
+        html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
+      );
 
       await touch(element, element);
 
@@ -325,7 +330,9 @@ describe('TestTapEvent', async () => {
       if (!isChrome) {
         this.skip();
       }
-      const element = await fixture(html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`);
+      const element = await fixture(
+        html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
+      );
 
       dispatchTouchEvent(element, 'touchstart');
       await nextFrame();
@@ -356,10 +363,10 @@ describe('TestTapEvent', async () => {
         this.skip();
       }
       const parent = await fixture(html`
-      <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
-        <div id="child" style="display: block; width: 100px; height: 100px; background-color: green"></div>
-      </div>
-    `);
+        <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
+          <div id="child" style="display: block; width: 100px; height: 100px; background-color: green"></div>
+        </div>
+      `);
 
       const child = parent.querySelector('#child');
 
@@ -387,10 +394,10 @@ describe('TestTapEvent', async () => {
         this.skip();
       }
       const parent = await fixture(html`
-      <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
-        <div id="child" style="display: block; width: 100px; height: 100px; background-color: green"></div>
-      </div>
-    `);
+        <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
+          <div id="child" style="display: block; width: 100px; height: 100px; background-color: green"></div>
+        </div>
+      `);
 
       const child = parent.querySelector('#child');
 
@@ -418,11 +425,11 @@ describe('TestTapEvent', async () => {
         this.skip();
       }
       const parent = await fixture(html`
-      <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
-        <div id="child1" style="display: block; width: 100px; height: 100px; background-color: green"></div>
-        <div id="child2" style="display: block; width: 100px; height: 100px; background-color: green"></div>
-      </div>
-    `);
+        <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
+          <div id="child1" style="display: block; width: 100px; height: 100px; background-color: green"></div>
+          <div id="child2" style="display: block; width: 100px; height: 100px; background-color: green"></div>
+        </div>
+      `);
 
       const child1 = parent.querySelector('#child1');
       const child2 = parent.querySelector('#child2');
@@ -452,7 +459,9 @@ describe('TestTapEvent', async () => {
       if (!isChrome) {
         this.skip();
       }
-      const element = await fixture(html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`);
+      const element = await fixture(
+        html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
+      );
 
       await touch(element, element);
       await click(element, element);
@@ -480,16 +489,23 @@ describe('TestTapEvent', async () => {
       if (!isChrome) {
         this.skip();
       }
-      const element = await fixture(html`<button id="handle-enter" style="display: block; width: 100px; height: 100px; background-color: red"></button>`);
+      const element = await fixture(
+        html`<button
+          id="handle-enter"
+          style="display: block; width: 100px; height: 100px; background-color: red"
+        ></button>`
+      );
 
       // element.focus();
 
-      element.dispatchEvent(new KeyboardEvent('click', {
-        bubbles: true,
-        composed: true,
-        cancelable: true,
-        detail: 0
-      }));
+      element.dispatchEvent(
+        new KeyboardEvent('click', {
+          bubbles: true,
+          composed: true,
+          cancelable: true,
+          detail: 0
+        })
+      );
 
       expect(tapEvent).to.exist;
       expect(tapEvent).to.instanceOf(Event);
@@ -502,16 +518,23 @@ describe('TestTapEvent', async () => {
       if (!isChrome) {
         this.skip();
       }
-      const element = await fixture(html`<button id="handle-enter" style="display: block; width: 100px; height: 100px; background-color: red"></button>`);
+      const element = await fixture(
+        html`<button
+          id="handle-enter"
+          style="display: block; width: 100px; height: 100px; background-color: red"
+        ></button>`
+      );
 
       element.focus();
 
-      element.dispatchEvent(new MouseEvent('click', {
-        bubbles: true,
-        composed: true,
-        cancelable: true,
-        detail: 1
-      }));
+      element.dispatchEvent(
+        new MouseEvent('click', {
+          bubbles: true,
+          composed: true,
+          cancelable: true,
+          detail: 1
+        })
+      );
 
       expect(tapEvent).to.not.exist;
       expect(tapEvent).to.equal(null);
@@ -522,16 +545,23 @@ describe('TestTapEvent', async () => {
       if (!isChrome) {
         this.skip();
       }
-      const element = await fixture(html`<button id="handle-enter" style="display: block; width: 100px; height: 100px; background-color: red"></button>`);
+      const element = await fixture(
+        html`<button
+          id="handle-enter"
+          style="display: block; width: 100px; height: 100px; background-color: red"
+        ></button>`
+      );
 
       element.focus();
 
-      element.dispatchEvent(new PointerEvent('click', {
-        bubbles: true,
-        composed: true,
-        cancelable: true,
-        pointerType: null
-      }));
+      element.dispatchEvent(
+        new PointerEvent('click', {
+          bubbles: true,
+          composed: true,
+          cancelable: true,
+          pointerType: null
+        })
+      );
 
       expect(tapEvent).to.exist;
       expect(tapEvent).to.instanceOf(TapEvent);
@@ -540,5 +570,4 @@ describe('TestTapEvent', async () => {
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
     });
   });
-
 });

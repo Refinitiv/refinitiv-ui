@@ -12,19 +12,19 @@
   @panel-width: var(--panel-width, unit((@input-width * 1.5), px));
   @popup-padding: extract(@list-item-padding, 2);
 
-  [part=list] {
+  [part='list'] {
     width: @panel-width;
     min-width: @panel-width;
     max-width: var(--list-max-width, @panel-width);
     max-height: @list-max-height;
   }
 
-  [part~=control-container] {
+  [part~='control-container'] {
     height: @list-item-height;
     padding: 0 @popup-padding;
   }
 
-  [part~=footer] {
+  [part~='footer'] {
     height: @control-height;
     padding: @popup-padding;
     border-top: @separator-width solid @separator-color;
@@ -34,14 +34,14 @@
     box-sizing: content-box;
   }
 
-  [part~=filter-wrapper] {
+  [part~='filter-wrapper'] {
     margin-right: -@popup-padding;
     padding: unit((@popup-padding / 2), px);
     display: flex;
     align-items: center;
   }
 
-  [part~=control] {
+  [part~='control'] {
     display: block;
     position: relative;
     padding: extract(@control-padding, 1) unit((@popup-padding / 2), px);
@@ -56,39 +56,39 @@
     }
   }
 
-  &[focused=visible] [part~=control] {
+  &[focused='visible'] [part~='control'] {
     &:focus {
       border-color: @input-focused-border-color;
     }
   }
 
-  [part~=filter-control] {
+  [part~='filter-control'] {
     align-content: space-between;
     border-bottom: @separator-width solid @separator-color;
     background: @scrollbar-track-background-color;
   }
 
-  [part=match-count-wrapper] {
+  [part='match-count-wrapper'] {
     display: inline-flex;
     margin-right: auto;
   }
 
-  [part~=tree-control] {
+  [part~='tree-control'] {
     justify-content: space-between;
     border-bottom: @separator-width solid @separator-color;
   }
 
-  [part~=control] {
-    &[part~=active] {
+  [part~='control'] {
+    &[part~='active'] {
       color: @scheme-color-complementary;
     }
-    &[part~=disabled] {
+    &[part~='disabled'] {
       cursor: default;
       color: @input-disabled-text-color;
     }
   }
 
-  [part~=full-filter] {
+  [part~='full-filter'] {
     &::after {
       content: '';
       border-right: @control-border;
@@ -99,22 +99,23 @@
     }
   }
 
-  [part=selected-count] {
+  [part='selected-count'] {
     display: inline-flex;
     margin-right: auto;
   }
 
-  [part=cancel-button], [part=done-button] {
+  [part='cancel-button'],
+  [part='done-button'] {
     margin: extract(@control-margin, 1);
   }
 
-  [part~=footer] [part*=-button] {
+  [part~='footer'] [part*='-button'] {
     &:first-child {
       margin-right: 0;
     }
   }
 
-  [part=pills] {
+  [part='pills'] {
     padding: extract(@control-padding, 1);
     border-top: @separator-width solid @separator-color;
     max-height: 72px;

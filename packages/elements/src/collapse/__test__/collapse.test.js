@@ -5,7 +5,6 @@ import '@refinitiv-ui/elements/collapse';
 import '@refinitiv-ui/elemental-theme/light/ef-collapse';
 
 describe('collapse/Collapse', () => {
-
   describe('Should Have Correct DOM', () => {
     it('Label and DOM structure is correct', async () => {
       const el = await fixture('<ef-collapse></ef-collapse>');
@@ -43,7 +42,6 @@ describe('collapse/Collapse', () => {
   });
 
   describe('Should Have Correct Properties', () => {
-
     it('Should have default value of property', async () => {
       const el = await fixture('<ef-collapse></ef-collapse>');
       const header = el.shadowRoot.querySelector('[part=header]');
@@ -79,7 +77,6 @@ describe('collapse/Collapse', () => {
       expect(el.spacing).to.equal(false);
       expect(el.hasAttribute('spacing')).to.equal(true, 'property "spacing" should not reflected');
       expect(el.getAttribute('spacing')).to.equal('', 'property "spacing" should not reflected');
-
     });
 
     it('Header property', async () => {
@@ -195,9 +192,9 @@ describe('collapse/Collapse', () => {
       setTimeout(() => slot.dispatchEvent(new Event('tap', { bubbles: true })));
       oneEvent(el, 'expanded-changed')
         .then(() => {
-          assert.throws('the event doesn\'t have to be called');
+          assert.throws("the event doesn't have to be called");
         })
-        .catch(error => {
+        .catch((error) => {
           expect(error).to.be.exist;
         });
     });

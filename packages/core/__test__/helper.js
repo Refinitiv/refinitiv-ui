@@ -57,4 +57,4 @@ export const setErrors = (errorCount = 0, errorMessage = '') => {
   data.errorMessage = errorMessage;
 };
 
-export const isChrome = (/Chrome/).test(navigator.userAgent) && (/Google Inc/).test(navigator.vendor);
+export const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);

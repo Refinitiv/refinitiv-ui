@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Color Picker</title>
   </head>
   <body>
@@ -15,21 +15,21 @@
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
       import '@refinitiv-ui/elements/color-picker';
-  
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-  
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
 
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/color-picker/themes/${theme}/${variant}/index.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/color-picker/themes/${theme}/${variant}/index.js`);
     </script>
     <style>
       .output {
@@ -49,11 +49,9 @@
     </style>
     <demo-block header="Default" layout="normal" tags="default">
       <ef-color-picker id="defaultColorPicker"></ef-color-picker>
+      <div>Default Hex Value (Optional): <input id="hexInputDefault" class="hex-input" value="" /></div>
       <div>
-        Default Hex Value (Optional): <input id="hexInputDefault" class="hex-input" value="">
-      </div>
-      <div>
-        <p> Output: <span id="readbleColor"></span></p>
+        <p>Output: <span id="readbleColor"></span></p>
         <textarea readonly id="defaultColorOutput"></textarea>
       </div>
       <script>
@@ -62,10 +60,10 @@
         const hexInputDefault = document.getElementById('hexInputDefault');
         const defaultColorOutput = document.getElementById('defaultColorOutput');
         const readbleColor = document.getElementById('readbleColor');
-        hexInputDefault.addEventListener('change', event => {
+        hexInputDefault.addEventListener('change', (event) => {
           defaultColorPicker.setAttribute('value', hexInputDefault.value);
         });
-        defaultColorPicker.addEventListener('value-changed', event => {
+        defaultColorPicker.addEventListener('value-changed', (event) => {
           const value = event.detail.value;
           hexInputDefault.value = value;
           defaultColorOutput.value += 'Value Change : ' + value + '\n';

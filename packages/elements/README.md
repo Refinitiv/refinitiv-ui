@@ -20,7 +20,7 @@ Finally, import both elements that you want to use and its themes into your appl
 
 <br>
 
->The font "Proxima Nova Fin" shall only be used within Refinitiv products or services. The copyright owner must approve any use of such font outside of Refinitiv products or services, which may be subject to a fee. Please see https://www.fontspring.com/lic/fontspring/webfont#license_text
+> The font "Proxima Nova Fin" shall only be used within Refinitiv products or services. The copyright owner must approve any use of such font outside of Refinitiv products or services, which may be subject to a fee. Please see https://www.fontspring.com/lic/fontspring/webfont#license_text
 
 <br>
 
@@ -38,15 +38,15 @@ Now, you can use the elements in your app.
 
 ```css
 .content {
-    width:100%;
-    height: 500px;
+  width: 100%;
+  height: 500px;
 }
 ```
 
 ```html
 <ef-panel class="content" spacing>
-    <h2>Hello EF!</h2>
-    <ef-button cta>OK</ef-button>
+  <h2>Hello EF!</h2>
+  <ef-button cta>OK</ef-button>
 </ef-panel>
 ```
 
@@ -55,4 +55,5 @@ Now, you can use the elements in your app.
 See list of elements, demo and more tutorial by visiting [EF Documentation](https://ui.refinitiv.com/).
 
 # License
+
 Apache License 2.0. However, Halo theme shall only be used within Refinitiv products or services due to license of the font "Proxima Nova Fin".

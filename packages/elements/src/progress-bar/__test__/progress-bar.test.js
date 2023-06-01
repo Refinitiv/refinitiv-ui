@@ -5,7 +5,6 @@ import '@refinitiv-ui/elements/progress-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-progress-bar.js';
 
 describe('progress-bar/ProgressBar', () => {
-
   it('DOM structure is correct', async () => {
     const el = await fixture('<ef-progress-bar></ef-progress-bar>');
     await expect(el).shadowDom.to.equalSnapshot();
@@ -103,6 +102,4 @@ describe('progress-bar/ProgressBar', () => {
     expect(el.value).to.equal('100');
     expect(barWidth).to.equal(elWidth);
   });
-
 });
-

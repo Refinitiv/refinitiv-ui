@@ -63,6 +63,4 @@ describe('TestNotice', () => {
     expect(shownMessage).to.equalSnapshot();
     expect(callCount).to.equal(1, 'Info function called more then once');
   });
-
-
 });

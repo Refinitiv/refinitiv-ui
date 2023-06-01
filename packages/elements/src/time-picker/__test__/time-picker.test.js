@@ -1,4 +1,11 @@
-import { fixture, expect, elementUpdated, oneEvent, triggerFocusFor, triggerBlurFor } from '@refinitiv-ui/test-helpers';
+import {
+  fixture,
+  expect,
+  elementUpdated,
+  oneEvent,
+  triggerFocusFor,
+  triggerBlurFor
+} from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/time-picker';

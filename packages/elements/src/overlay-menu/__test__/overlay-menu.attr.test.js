@@ -8,7 +8,6 @@ import { flatMarkupOpened, nestedMarkup } from './markup';
 
 describe('overlay-menu/Attributes', () => {
   describe('Attributes Test', () => {
-
     it('Uses compact', async () => {
       const el = await fixture('<ef-overlay-menu compact></ef-overlay-menu>');
       el.data = flatData;

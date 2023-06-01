@@ -21,12 +21,11 @@ import type { TornadoItem } from './tornado-item';
  */
 @customElement('ef-tornado-chart')
 export class TornadoChart extends ResponsiveElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -62,7 +61,7 @@ export class TornadoChart extends ResponsiveElement {
    * @param responsive true if items needs to be responsive
    * @returns {void}
    */
-  private setLegendAlignment (responsive: boolean): void {
+  private setLegendAlignment(responsive: boolean): void {
     this.legendAlignment = responsive;
     this.requestUpdate();
   }
@@ -72,7 +71,7 @@ export class TornadoChart extends ResponsiveElement {
    * @param responsive true if items needs to be responsive
    * @returns {void}
    */
-  private setItemAlignment (responsive: boolean): void {
+  private setItemAlignment(responsive: boolean): void {
     this.resizedThrottler.schedule(() => {
       this.querySelectorAll('ef-tornado-item').forEach((item: Element) => {
         (item as TornadoItem).vertical = responsive;
@@ -86,7 +85,7 @@ export class TornadoChart extends ResponsiveElement {
    * @param {ElementSize} size size of the element
    * @returns {void}
    */
-  public resizedCallback (size: ElementSize): void {
+  public resizedCallback(size: ElementSize): void {
     const previousResponsiveValue = this.isResponsive;
     this.isResponsive = size.width < parseInt(this.getComputedVariable('--responsive-width'), 10);
 
@@ -103,7 +102,7 @@ export class TornadoChart extends ResponsiveElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -117,7 +116,7 @@ export class TornadoChart extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       <slot name="header"></slot>
       <div part="legend" ?vertical=${this.legendAlignment}>

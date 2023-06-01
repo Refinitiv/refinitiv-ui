@@ -5,9 +5,7 @@ describe('TestGenericError', () => {
   it('Test generate simple message', () => {
     try {
       throw new GenericError('test error');
-
-    }
-    catch (error) {
+    } catch (error) {
       expect(error).instanceOf(GenericError, 'Not a GenericError instance');
       expect(error.message).to.equal('test error', 'Wrong error message');
     }
@@ -15,9 +13,7 @@ describe('TestGenericError', () => {
   it('Test generate message with url', () => {
     try {
       throw new GenericError('test error', 'test-url');
-
-    }
-    catch (error) {
+    } catch (error) {
       expect(error).instanceOf(GenericError, 'Not a GenericError instance');
       expect(error.message).to.equal('test error\n\ntest-url\n', 'Wrong error message with url');
     }

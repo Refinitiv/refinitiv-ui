@@ -78,16 +78,16 @@ describe('combo-box/Template', () => {
 
       await elementUpdated(el);
 
-      expect(input.disabled).to.be.equal(true)
+      expect(input.disabled).to.be.equal(true);
     });
 
     it('Input should be readonly when readonly attribute is set', async () => {
-        const el = await fixture('<ef-combo-box readonly></ef-combo-box>');
-        const input = el.shadowRoot.querySelector('[part=input]');
+      const el = await fixture('<ef-combo-box readonly></ef-combo-box>');
+      const input = el.shadowRoot.querySelector('[part=input]');
 
-        await elementUpdated(el);
+      await elementUpdated(el);
 
-        expect(input.readOnly).to.be.equal(true)
+      expect(input.readOnly).to.be.equal(true);
     });
-  })
+  });
 });

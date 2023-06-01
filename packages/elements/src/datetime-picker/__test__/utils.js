@@ -8,11 +8,13 @@ export const fireKeydownEvent = (element, key, shiftKey = false) => {
 
 export const typeText = (element, text) => {
   element.value = text;
-  element.dispatchEvent(new CustomEvent('value-changed', {
-    detail: {
-      value: text
-    }
-  }));
+  element.dispatchEvent(
+    new CustomEvent('value-changed', {
+      detail: {
+        value: text
+      }
+    })
+  );
 };
 
 export const addMonths = (date, amount) => {

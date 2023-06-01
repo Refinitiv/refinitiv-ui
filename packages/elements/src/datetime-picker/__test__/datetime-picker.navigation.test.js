@@ -1,9 +1,4 @@
-import {
-  fixture,
-  expect,
-  elementUpdated,
-  oneEvent
-} from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
 import { fireKeydownEvent } from './utils';
 
 // import element and theme

@@ -1,11 +1,4 @@
-import {
-  BasicElement,
-  html,
-  css,
-  nothing,
-  TemplateResult,
-  CSSResultGroup
-} from '@refinitiv-ui/core';
+import { BasicElement, html, css, nothing, TemplateResult, CSSResultGroup } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
@@ -18,12 +11,11 @@ import '../../layout/index.js';
  */
 @customElement('ef-tornado-item')
 export class TornadoItem extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -37,7 +29,7 @@ export class TornadoItem extends BasicElement {
    * @returns {boolean} true if component is in vertical mode
    */
   @property({ type: Boolean, reflect: true })
-  public get vertical (): boolean {
+  public get vertical(): boolean {
     return this._vertical;
   }
 
@@ -45,7 +37,7 @@ export class TornadoItem extends BasicElement {
    * Setter for toggling bar chart alignment
    * @param {boolean} value vertical
    */
-  public set vertical (value: boolean) {
+  public set vertical(value: boolean) {
     const previousValue = this._vertical;
 
     if (value === previousValue) {
@@ -60,8 +52,7 @@ export class TornadoItem extends BasicElement {
      */
     if (value) {
       this.showVerticalMode();
-    }
-    else {
+    } else {
       this.showHorizontalMode();
     }
 
@@ -132,7 +123,7 @@ export class TornadoItem extends BasicElement {
    * Triggers vertical layout mode
    * @returns {void}
    */
-  private showVerticalMode (): void {
+  private showVerticalMode(): void {
     this.isContainer = true;
     this.labelLayoutSize = undefined;
     this.primaryLayoutFlexBasis = undefined;
@@ -146,7 +137,7 @@ export class TornadoItem extends BasicElement {
    * Triggers horizontal layout mode
    * @returns {void}
    */
-  private showHorizontalMode (): void {
+  private showHorizontalMode(): void {
     this.isContainer = false;
     this.labelLayoutSize = '25%';
     this.primaryLayoutFlexBasis = '40%';
@@ -162,23 +153,23 @@ export class TornadoItem extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
       }
-      :host([vertical]) [part=seperator] {
+      :host([vertical]) [part='seperator'] {
         display: none;
       }
-      :host([vertical]) [part=container] {
+      :host([vertical]) [part='container'] {
         align-items: inherit;
       }
-      [part=container] {
+      [part='container'] {
         padding: 0;
         align-items: center;
       }
-      [part=primary-bar],
-      [part=secondary-bar] {
+      [part='primary-bar'],
+      [part='secondary-bar'] {
         width: 100%;
       }
     `;
@@ -189,7 +180,7 @@ export class TornadoItem extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       <ef-layout part="container" flex nowrap ?container="${this.isContainer}">
         <ef-layout flex size="${this.labelLayoutSize || nothing}">
@@ -202,7 +193,8 @@ export class TornadoItem extends BasicElement {
             part="primary-bar"
             alignment=${this.primaryBarAlignment}
             label="${this.primaryLabel || nothing}"
-            value="${this.primaryValue || nothing}">
+            value="${this.primaryValue || nothing}"
+          >
           </ef-progress-bar>
         </ef-layout>
         <div part="seperator"></div>
@@ -211,7 +203,8 @@ export class TornadoItem extends BasicElement {
             part="secondary-bar"
             alignment="${this.secondaryBarAlignment}"
             label="${this.secondaryLabel || nothing}"
-            value="${this.secondaryValue || nothing}">
+            value="${this.secondaryValue || nothing}"
+          >
           </ef-progress-bar>
         </ef-layout>
       </ef-layout>

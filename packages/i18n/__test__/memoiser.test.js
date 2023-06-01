@@ -16,7 +16,10 @@ describe('Memoiser Test', () => {
   it('Memoised function is of valid format', async () => {
     const memoisedFn = Memoiser.get(scope, 'en', key, message);
     expect(memoisedFn).to.be.instanceOf(IntlMessageFormat, 'Wrong message format returned');
-    expect(memoisedFn === Memoiser.get(scope, 'en', key, message)).to.equal(true, 'Memoiser must always return the same instance of callback');
+    expect(memoisedFn === Memoiser.get(scope, 'en', key, message)).to.equal(
+      true,
+      'Memoiser must always return the same instance of callback'
+    );
     Memoiser.clear();
   });
 

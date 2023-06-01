@@ -314,4 +314,3 @@ describe('toggle/Toggle', () => {
     });
   });
 });
-

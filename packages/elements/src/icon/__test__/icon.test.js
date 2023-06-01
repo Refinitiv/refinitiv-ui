@@ -23,10 +23,9 @@ describe('icon/Icon', () => {
     fetch = sinon.stub(window, 'fetch');
   });
   afterEach(() => {
-    window.fetch.restore();  //remove stub
+    window.fetch.restore(); //remove stub
   });
   describe('Should Have Correct DOM Structure', () => {
-
     it('without icon or src attributes', async () => {
       const el = await fixture('<ef-icon></ef-icon>');
       const svg = el.shadowRoot.querySelector('svg');
@@ -42,7 +41,10 @@ describe('icon/Icon', () => {
 
       expect(el.src).to.equal(`${CDNPrefix}${iconName}.svg`);
       expect(svg).to.not.equal(null, 'SVG element should exist for valid icon attribute');
-      expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
+      expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(
+        true,
+        'Should render SVG, from the server response'
+      );
     });
 
     it('with valid src attribute', async () => {
@@ -51,7 +53,10 @@ describe('icon/Icon', () => {
       const svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');
-      expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
+      expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(
+        true,
+        'Should render SVG, from the server response'
+      );
     });
 
     it('with invalid icon attribute', async () => {
@@ -100,7 +105,10 @@ describe('icon/Icon', () => {
       let svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.not.equal(null, 'SVG element should exist for valid icon attribute');
-      expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
+      expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(
+        true,
+        'Should render SVG, from the server response'
+      );
 
       el.setAttribute('icon', 'invalid');
       await elementUpdated(el);
@@ -115,7 +123,10 @@ describe('icon/Icon', () => {
       let svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');
-      expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
+      expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(
+        true,
+        'Should render SVG, from the server response'
+      );
 
       createFakeResponse('', responseConfigError);
       el.setAttribute('src', 'https://mock.cdn.com/invalid');
@@ -138,19 +149,28 @@ describe('icon/Icon', () => {
       await elementUpdated(el);
 
       expect(el.hasAttribute('icon')).to.equal(true, 'Icon should have the icon attribute when set');
-      expect(el.getAttribute('icon')).to.equal(iconName, 'Icon should have the same icon attribute as was set');
+      expect(el.getAttribute('icon')).to.equal(
+        iconName,
+        'Icon should have the same icon attribute as was set'
+      );
       expect(el.icon).to.equal(iconName, 'Icon should reflect the icon attribute to property');
 
       el.removeAttribute('icon');
       await elementUpdated(el);
 
-      expect(el.hasAttribute('icon')).to.equal(false, 'Icon should not have the icon attribute after it was removed');
+      expect(el.hasAttribute('icon')).to.equal(
+        false,
+        'Icon should not have the icon attribute after it was removed'
+      );
       expect(el.icon).to.equal(null, 'Icon should not have the icon property after attribute was removed');
 
       el.icon = iconName;
       await elementUpdated(el);
 
-      expect(el.getAttribute('icon')).to.equal(iconName, 'Icon should reflect the icon attribute to property');
+      expect(el.getAttribute('icon')).to.equal(
+        iconName,
+        'Icon should reflect the icon attribute to property'
+      );
 
       el.icon = '';
       await elementUpdated(el);
@@ -181,14 +201,20 @@ describe('icon/Icon', () => {
       el.removeAttribute('src');
       await elementUpdated(el);
 
-      expect(el.hasAttribute('src')).to.equal(false, 'Icon should not have the src attribute after it was removed');
+      expect(el.hasAttribute('src')).to.equal(
+        false,
+        'Icon should not have the src attribute after it was removed'
+      );
       expect(el.src).to.equal(null, 'Icon should not have the src property after attribute was removed');
 
       el.src = srcValue;
       await elementUpdated(el);
 
       expect(el.src).to.equal(srcValue, 'Icon should have the same src property as was set');
-      expect(el.hasAttribute('src')).to.equal(false, 'Icon should not reflect the src property to the attribute');
+      expect(el.hasAttribute('src')).to.equal(
+        false,
+        'Icon should not reflect the src property to the attribute'
+      );
     });
   });
 
@@ -201,7 +227,10 @@ describe('icon/Icon', () => {
       expect(CDNPrefix, 'CDNPrefix should exist to create the src based on the icon').to.exist;
       const expectedSrc = `${CDNPrefix}${iconName}.svg`;
 
-      expect(el.src).to.equal(expectedSrc, `The src property should be ${expectedSrc} for the icon ${iconName}`);
+      expect(el.src).to.equal(
+        expectedSrc,
+        `The src property should be ${expectedSrc} for the icon ${iconName}`
+      );
 
       el.removeAttribute('icon');
       await elementUpdated(el);
@@ -219,7 +248,10 @@ describe('icon/Icon', () => {
       const expectedSrc = `${CDNPrefix}${uniqueIconName}.svg`;
 
       expect(fetch.callCount).to.equal(1, 'Should make one request');
-      expect(checkRequestedUrl(fetch.args, expectedSrc)).to.equal(true, `requested URL should be ${expectedSrc} for the icon ${uniqueIconName}`);
+      expect(checkRequestedUrl(fetch.args, expectedSrc)).to.equal(
+        true,
+        `requested URL should be ${expectedSrc} for the icon ${uniqueIconName}`
+      );
     });
 
     it('should make a correct server request based on src', async () => {
@@ -236,7 +268,8 @@ describe('icon/Icon', () => {
       const el = await fixture('<ef-icon></ef-icon>');
       const CDNPrefix = el.getComputedVariable('--cdn-prefix');
 
-      expect(CDNPrefix, 'CDN prefix should exist in order for preload to work properly with icon name').to.exist;
+      expect(CDNPrefix, 'CDN prefix should exist in order for preload to work properly with icon name').to
+        .exist;
       expect(fetch.callCount).to.equal(0, 'No request should be sent for empty icon');
 
       const firstUniqueIcon = generateUniqueName(iconName);
@@ -248,19 +281,27 @@ describe('icon/Icon', () => {
       const uniqueInvalidIconSrc = `${CDNPrefix}${uniqueInvalidIcon}.svg`;
 
       createFakeResponse(tickSvg, responseConfigSuccess);
-      let preloadedIcons = await Promise.all(
-        preload(firstUniqueIcon, secondUniqueIconSrc)
-      );
+      let preloadedIcons = await Promise.all(preload(firstUniqueIcon, secondUniqueIconSrc));
       createFakeResponse('', responseConfigError);
-      preloadedIcons = [...preloadedIcons, ...await Promise.all(
-        preload(uniqueInvalidIcon)
-      )];
+      preloadedIcons = [...preloadedIcons, ...(await Promise.all(preload(uniqueInvalidIcon)))];
 
       expect(fetch.callCount).to.equal(3, 'Server requests for all preloaded icons should be made');
-      expect(checkRequestedUrl(fetch.args, firstUniqueIconSrc)).to.equal(true, 'should request icons by name with CDN prefix');
-      expect(checkRequestedUrl(fetch.args, secondUniqueIconSrc)).to.equal(true, 'should request icons with src');
-      expect(checkRequestedUrl(fetch.args, uniqueInvalidIconSrc)).to.equal(true, 'should try to request invalid icon');
-      expect(preloadedIcons[0].length > 0).to.equal(true, 'Should successfully preload icon by name with CDN prefix');
+      expect(checkRequestedUrl(fetch.args, firstUniqueIconSrc)).to.equal(
+        true,
+        'should request icons by name with CDN prefix'
+      );
+      expect(checkRequestedUrl(fetch.args, secondUniqueIconSrc)).to.equal(
+        true,
+        'should request icons with src'
+      );
+      expect(checkRequestedUrl(fetch.args, uniqueInvalidIconSrc)).to.equal(
+        true,
+        'should try to request invalid icon'
+      );
+      expect(preloadedIcons[0].length > 0).to.equal(
+        true,
+        'Should successfully preload icon by name with CDN prefix'
+      );
       expect(preloadedIcons[1].length > 0).to.equal(true, 'Should successfully preload icons with src');
       expect(preloadedIcons[2], 'Should not preload invalid icon').to.be.undefined;
       el.setAttribute('icon', firstUniqueIcon);
@@ -270,4 +311,3 @@ describe('icon/Icon', () => {
     });
   });
 });
-

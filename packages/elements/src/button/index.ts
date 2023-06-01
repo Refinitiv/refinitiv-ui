@@ -1,9 +1,4 @@
-import {
-  ControlElement,
-  html,
-  PropertyValues,
-  TemplateResult
-} from '@refinitiv-ui/core';
+import { ControlElement, html, PropertyValues, TemplateResult } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -25,7 +20,7 @@ export class Button extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -90,14 +85,16 @@ export class Button extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('active') && this.toggles || changedProperties.has('toggles') && this.toggles) {
+    if (
+      (changedProperties.has('active') && this.toggles) ||
+      (changedProperties.has('toggles') && this.toggles)
+    ) {
       if (this.getAttribute('role') === 'radio') {
         this.setAttribute('aria-checked', String(this.active));
-      }
-      else {
+      } else {
         this.setAttribute('aria-pressed', String(this.active));
       }
     }
@@ -108,7 +105,7 @@ export class Button extends ControlElement {
    * @param changedProperties properties it's the Map object which has the updated properties
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.addEventListener('tap', this.toggleActive);
@@ -123,7 +120,7 @@ export class Button extends ControlElement {
    * Handle the slotchange event of default slot
    * @returns {void}
    */
-  private onDefaultSlotChangeHandler (): void {
+  private onDefaultSlotChangeHandler(): void {
     this.emptyComputed();
   }
 
@@ -131,7 +128,7 @@ export class Button extends ControlElement {
    * Handle active property, when toggles is true
    * @returns {void}
    */
-  private toggleActive (): void {
+  private toggleActive(): void {
     if (this.toggles) {
       this.active = !this.active;
       /**
@@ -145,7 +142,7 @@ export class Button extends ControlElement {
    * Set pressed attribute
    * @returns {void}
    */
-  private setPressed (): void {
+  private setPressed(): void {
     this.setAttribute('pressed', '');
   }
 
@@ -153,7 +150,7 @@ export class Button extends ControlElement {
    * Remove pressed attribute
    * @returns {void}
    */
-  private unsetPressed (): void {
+  private unsetPressed(): void {
     this.removeAttribute('pressed');
   }
 
@@ -161,7 +158,7 @@ export class Button extends ControlElement {
    * Compute empty property based on textContent
    * @returns {void}
    */
-  private emptyComputed (): void {
+  private emptyComputed(): void {
     this.empty = this.textContent ? this.textContent.length === 0 : true;
     this.switchEmptyAttribute();
   }
@@ -170,11 +167,10 @@ export class Button extends ControlElement {
    * Set or remove attribute "empty" based on slot present
    * @returns {void}
    */
-  private switchEmptyAttribute (): void {
+  private switchEmptyAttribute(): void {
     if (this.empty) {
       this.setAttribute('empty', '');
-    }
-    else {
+    } else {
       this.removeAttribute('empty');
     }
   }
@@ -183,21 +179,17 @@ export class Button extends ControlElement {
    * Returns icon template if exists
    * @return {TemplateResult | null}  Render template
    */
-  private get iconTemplate (): TemplateResult | null {
-    return this.icon
-      ? html`<ef-icon part="icon" icon="${this.icon}" id="icon"></ef-icon>`
-      : null;
+  private get iconTemplate(): TemplateResult | null {
+    return this.icon ? html`<ef-icon part="icon" icon="${this.icon}" id="icon"></ef-icon>` : null;
   }
 
   /**
    * Returns hover icon template if exists
    * @return {TemplateResult | null}  Render template
    */
-  private get hoverIconTemplate (): TemplateResult | null {
+  private get hoverIconTemplate(): TemplateResult | null {
     const hoverIcon = this.hoverIcon || this.icon;
-    return hoverIcon
-      ? html`<ef-icon part="icon" icon="${hoverIcon}" id="hover-icon"></ef-icon>`
-      : null;
+    return hoverIcon ? html`<ef-icon part="icon" icon="${hoverIcon}" id="hover-icon"></ef-icon>` : null;
   }
 
   /**
@@ -205,7 +197,7 @@ export class Button extends ControlElement {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       ${this.hoverIcon ? html`${this.iconTemplate} ${this.hoverIconTemplate}` : this.iconTemplate}
       <span part="label">

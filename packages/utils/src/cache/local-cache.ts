@@ -16,7 +16,7 @@ export class LocalCache {
    */
   protected storage!: CacheStorage;
 
-  constructor (name: string, config?: LocalCacheConfig) {
+  constructor(name: string, config?: LocalCacheConfig) {
     if (typeof name !== 'string') {
       throw new TypeError('Expected name to be of type string');
     }
@@ -44,7 +44,7 @@ export class LocalCache {
    * @param [expires=432000] Cache expiry in seconds. Defaults to 5 days.
    * @returns {void}
    */
-  public async set (key: string, value: string, expires = 432000): Promise<void> {
+  public async set(key: string, value: string, expires = 432000): Promise<void> {
     const modified = Date.now();
     const data = {
       value,
@@ -59,8 +59,8 @@ export class LocalCache {
    * @param key Cache key
    * @returns Promise string data or `null` if nothing is cached
    */
-  public async get (key: string): Promise<string | null> {
-    const item = await this.storage.get(key) as CacheItem;
+  public async get(key: string): Promise<string | null> {
+    const item = (await this.storage.get(key)) as CacheItem;
     if (item && item.expires > Date.now()) {
       return Promise.resolve(item.value);
     }
@@ -72,7 +72,7 @@ export class LocalCache {
    * @param key Cache key
    * @returns {void}
    */
-  public async remove (key: string): Promise<void> {
+  public async remove(key: string): Promise<void> {
     await this.storage.remove(key);
   }
 
@@ -80,7 +80,7 @@ export class LocalCache {
    * Clear all memory cache
    * @returns {void}
    */
-  public async clear (): Promise<void> {
+  public async clear(): Promise<void> {
     await this.storage.clear();
   }
 }

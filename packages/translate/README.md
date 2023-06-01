@@ -15,20 +15,10 @@ npm install @refinitiv-ui/translate
 A typical element configuration may look as follows.
 
 ```ts
-import {
-  BasicElement,
-  html,
-  customElement,
-  TemplateResult,
-  property,
-} from '@refinitiv-ui/core';
+import { BasicElement, html, customElement, TemplateResult, property } from '@refinitiv-ui/core';
 
 // translate decorator
-import {
-  translate,
-  TranslateDirective,
-  TranslatePromise,
-} from '@refinitiv-ui/translate';
+import { translate, TranslateDirective, TranslatePromise } from '@refinitiv-ui/translate';
 
 // import default English language
 import '@refinitiv-ui/phrasebook/locale/en/my-translate-element.js';
@@ -56,7 +46,7 @@ export class MyTranslateElement extends BasicElement {
   protected render(): TemplateResult {
     return html`<div part="label">
         ${this.t('TRANSLATE_COUNT', {
-          count: this.count,
+          count: this.count
         })}
       </div>
       <slot></slot>`;

@@ -174,7 +174,7 @@ describe('tab-bar/TabBar', () => {
       rightScrollBtn = el.shadowRoot.querySelector('[part=right-btn]');
       expect(getElementStyle(rightScrollBtn, 'display')).equal('none');
       const newTab = document.createElement('ef-tab');
-      newTab.label = "Application";
+      newTab.label = 'Application';
       el.appendChild(newTab);
       await elementUpdated();
       expect(getElementStyle(rightScrollBtn, 'display')).equal('flex');

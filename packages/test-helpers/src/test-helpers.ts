@@ -79,10 +79,9 @@ before(function () {
       // eslint-disable-next-line no-console
       console.warn(`warning: ${event}`);
       return true;
-    }
-    /* c8 ignore start */
-    else {
-      return originalOnError ? originalOnError(event, ...args) as boolean : false;
+    } else {
+      /* c8 ignore start */
+      return originalOnError ? (originalOnError(event, ...args) as boolean) : false;
     }
     /* c8 ignore stop */
   };

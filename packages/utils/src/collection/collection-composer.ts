@@ -22,7 +22,6 @@ const QUERY_ALL = (): true => true;
  * toggling various item options in the most performant way possible.
  */
 export class CollectionComposer<T extends CollectionItem = CollectionItem> extends EventEmitter {
-
   /**
    * The original data which is
    * passed into the constructor.
@@ -74,15 +73,13 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    */
   private vault = new Set<T>();
 
-  constructor (data: T[] | CollectionComposer<T>) {
+  constructor(data: T[] | CollectionComposer<T>) {
     super();
     if (data instanceof CollectionComposer) {
       this.data = this.clone(data);
-    }
-    else if (Array.isArray(data)) {
+    } else if (Array.isArray(data)) {
       this.data = data.slice();
-    }
-    else {
+    } else {
       throw new Error('CollectionComposer expects an array of data');
     }
   }
@@ -91,7 +88,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * Returns the top level items only.
    * To get nested levels, use `getItemChildren()`.
    */
-  private get topLevelItems (): readonly T[] {
+  private get topLevelItems(): readonly T[] {
     return this.queryItems(QUERY_ALL, 0);
   }
 
@@ -99,7 +96,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * Collection of all items.
    * @returns Collection of data items
    */
-  private get items (): T[] {
+  private get items(): T[] {
     if (!this._items) {
       const { items, depths } = flatten(this.data);
       this._items = items;
@@ -113,7 +110,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * Returns the size of the collection.
    * Nested structures will include all descendants.
    */
-  public get size (): number {
+  public get size(): number {
     return this.items.length;
   }
 
@@ -122,7 +119,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns {void}
    */
-  private registerItemModification (item: T): void {
+  private registerItemModification(item: T): void {
     this.timestamps.set(item, performance.now());
     this.emitter.schedule(this.emitModification);
   }
@@ -133,7 +130,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param composer Composer to clone
    * @returns Copy of the original composer's data object
    */
-  private clone (composer: CollectionComposer<T>): T[] {
+  private clone(composer: CollectionComposer<T>): T[] {
     this._items = composer._items?.slice();
     this.depths = composer.depths?.slice();
     this.key = composer.key;
@@ -150,7 +147,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns Unique item key
    */
-  private getItemKey (item: T): string {
+  private getItemKey(item: T): string {
     if (!this.keys.has(item)) {
       const key = (this.key += 1).toString(36) + '.';
       this.keys.set(item, key);
@@ -164,7 +161,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param property Property name
    * @returns Unique item property key
    */
-  private getItemPropertyKey<K extends keyof T> (item: T, property: K): string {
+  private getItemPropertyKey<K extends keyof T>(item: T, property: K): string {
     return this.getItemKey(item) + String(property);
   }
 
@@ -173,7 +170,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item to check
    * @returns True, if the item is valid.
    */
-  private isValidItem (item: T): boolean {
+  private isValidItem(item: T): boolean {
     return this.items.includes(item);
   }
 
@@ -182,7 +179,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item to check
    * @returns True, if the item is invalid.
    */
-  private isInvalidItem (item: T): boolean {
+  private isInvalidItem(item: T): boolean {
     return !this.isValidItem(item);
   }
 
@@ -192,7 +189,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns Start and end index range of item and descendants
    */
-  private getItemIndexRange (item: T): { startIndex: number; endIndex: number } {
+  private getItemIndexRange(item: T): { startIndex: number; endIndex: number } {
     const startIndex = this.items.indexOf(item);
     const endIndex = startIndex + this.getItemDescendants(item).length;
     return { startIndex, endIndex };
@@ -205,7 +202,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param [depth=0] Depth of the item
    * @returns {void}
    */
-  private addItemAtIndex (item: T, index = this.items.length, depth = 0): void {
+  private addItemAtIndex(item: T, index = this.items.length, depth = 0): void {
     this.items.splice(index, 0, item);
     this.depths.splice(index, 0, depth);
   }
@@ -215,7 +212,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param index Index to remove from the collection
    * @returns {void}
    */
-  private removeItemAtIndex (index: number): void {
+  private removeItemAtIndex(index: number): void {
     this.items.splice(index, 1);
     this.depths.splice(index, 1);
   }
@@ -225,21 +222,21 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item New data item
    * @return {void}
    */
-  public addItem (item: T): void
+  public addItem(item: T): void;
   /**
    * Add new item to the main collection at a specific index
    * @param item New data item
    * @param index Index location to add the item
    * @return {void}
    */
-  public addItem (item: T, index: number): void
+  public addItem(item: T, index: number): void;
   /**
    * Add new item to a parent collection
    * @param item New data item
    * @param parent Parent to add the item to
    * @return {void}
    */
-  public addItem (item: T, parent: T): void
+  public addItem(item: T, parent: T): void;
   /**
    * Add new item to a parent collection at a specific index
    * @param item New data item
@@ -247,8 +244,8 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param index Index location to add the item
    * @return {void}
    */
-  public addItem (item: T, parent: T, index: number): void
-  public addItem (item: T, parentOrIndex?: T | number, index: number = parentOrIndex as number): void {
+  public addItem(item: T, parent: T, index: number): void;
+  public addItem(item: T, parentOrIndex?: T | number, index: number = parentOrIndex as number): void {
     const parent = parentOrIndex && typeof parentOrIndex !== 'number' ? parentOrIndex : null;
     if (parent && this.isInvalidItem(parent)) {
       throw new Error('parent item does not belong to this composer');
@@ -281,12 +278,10 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
     if (insertBefore) {
       // inserts the item in front of a sibling
       index = this.items.indexOf(insertBefore);
-    }
-    else if (parent) {
+    } else if (parent) {
       // inserts an item at the end of the parent's items collection
       index = this.getItemIndexRange(parent).endIndex + 1;
-    }
-    else {
+    } else {
       // adds the item to the end of the collection (default)
       index = this.items.length;
     }
@@ -300,7 +295,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Data item to remove
    * @returns {void}
    */
-  public removeItem (item: T): void {
+  public removeItem(item: T): void {
     if (this.isInvalidItem(item)) {
       return;
     }
@@ -318,7 +313,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns Whether the item was added or not
    */
-  public lockItem (item: T): boolean {
+  public lockItem(item: T): boolean {
     if (!this.vault.has(item)) {
       this.vault.add(item);
       this.registerItemModification(item);
@@ -333,7 +328,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns Whether the item was removed or not
    */
-  public unlockItem (item: T): boolean {
+  public unlockItem(item: T): boolean {
     if (this.vault.has(item)) {
       this.vault.delete(item);
       this.registerItemModification(item);
@@ -347,7 +342,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns Locked state
    */
-  public isItemLocked (item: T): boolean {
+  public isItemLocked(item: T): boolean {
     return this.vault.has(item);
   }
 
@@ -357,7 +352,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns Whether the item is a parent or not
    */
-  public isItemParent (item: T): boolean {
+  public isItemParent(item: T): boolean {
     const index = this.items.indexOf(item);
     const depth = this.depths[index];
     const nextDepth = this.depths[index + 1];
@@ -370,7 +365,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns Whether the item is a child or not
    */
-  public isItemChild (item: T): boolean {
+  public isItemChild(item: T): boolean {
     return this.getItemDepth(item) > 0;
   }
 
@@ -380,7 +375,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param property Property name to get the value of
    * @returns Value of the property
    */
-  public getItemPropertyValue<K extends keyof T> (item: T, property: K): T[K] {
+  public getItemPropertyValue<K extends keyof T>(item: T, property: K): T[K] {
     let key = '';
     if (this.keys.has(item)) {
       key = this.getItemPropertyKey(item, property);
@@ -398,12 +393,12 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param value New value of the property
    * @returns {void}
    */
-  public setItemPropertyValue<K extends keyof T> (item: T, property: K, value: T[K]): void {
+  public setItemPropertyValue<K extends keyof T>(item: T, property: K, value: T[K]): void {
     if (this.isItemLocked(item)) {
       return; // do not modify a locked item
     }
     if (property === 'items') {
-      throw new Error('\'items\' property is protected and cannot be set');
+      throw new Error("'items' property is protected and cannot be set");
     }
     const key = this.getItemPropertyKey(item, property);
     const currentValue = this.getItemPropertyValue(item, property);
@@ -418,7 +413,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns Depth of item
    */
-  public getItemDepth (item: T): number {
+  public getItemDepth(item: T): number {
     const index = this.items.indexOf(item);
     if (index !== -1) {
       return this.depths[index];
@@ -432,7 +427,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns Item timestamp
    */
-  public getItemTimestamp (item: T): number {
+  public getItemTimestamp(item: T): number {
     return this.timestamps.get(item) || this.timestamp;
   }
 
@@ -442,7 +437,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns Latest item timestamp
    */
-  public updateItemTimestamp (item: T): number {
+  public updateItemTimestamp(item: T): number {
     this.registerItemModification(item);
     return this.getItemTimestamp(item);
   }
@@ -454,7 +449,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param [depth=0] Depth of nested data to include
    * @returns Matched items
    */
-  public queryItemsByPropertyValue<K extends keyof T> (property: K, value: T[K], depth = 0): readonly T[] {
+  public queryItemsByPropertyValue<K extends keyof T>(property: K, value: T[K], depth = 0): readonly T[] {
     const result: T[] = [];
     for (let i = 0; i < this.items.length; i += 1) {
       const item = this.items[i];
@@ -471,7 +466,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param [depth=0] Depth of nested data to include
    * @returns Matched items
    */
-  public queryItems (engine: (item: T, composer: CollectionComposer<T>) => boolean, depth = 0): readonly T[] {
+  public queryItems(engine: (item: T, composer: CollectionComposer<T>) => boolean, depth = 0): readonly T[] {
     const result: T[] = [];
     for (let i = 0; i < this.items.length; i += 1) {
       const item = this.items[i];
@@ -486,10 +481,10 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns The parent data item, or, `null`.
    */
-  public getItemParent (item: T): T | null {
+  public getItemParent(item: T): T | null {
     let index = this.items.indexOf(item);
     while (index > 0) {
-      const next = this.items[index -= 1];
+      const next = this.items[(index -= 1)];
       if (next.items?.includes(item)) {
         return next;
       }
@@ -502,7 +497,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns Array of data items in the order of shallowest to deepest
    */
-  public getItemAncestors (item: T): readonly T[] {
+  public getItemAncestors(item: T): readonly T[] {
     const result = [];
     let parent = this.getItemParent(item);
     while (parent) {
@@ -517,14 +512,13 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns Array of sibling data items
    */
-  public getItemSiblings (item: T): readonly T[] {
+  public getItemSiblings(item: T): readonly T[] {
     let result: T[] = [];
     const parent = this.getItemParent(item);
     if (parent) {
       result = this.getItemChildren(parent).slice();
       result.splice(result.indexOf(item), 1);
-    }
-    else if (this.items.includes(item)) {
+    } else if (this.items.includes(item)) {
       result = this.topLevelItems.slice();
       result.splice(result.indexOf(item), 1);
     }
@@ -536,7 +530,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param item Original data item
    * @returns Array of child data items
    */
-  public getItemChildren (item: T): readonly T[] {
+  public getItemChildren(item: T): readonly T[] {
     return this.getItemDescendants(item, 1);
   }
 
@@ -546,7 +540,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @param [depth=Infinity] Depth of nested data to include
    * @returns Array of data items in the order of shallowest to deepest
    */
-  public getItemDescendants (item: T, depth = Infinity): readonly T[] {
+  public getItemDescendants(item: T, depth = Infinity): readonly T[] {
     const result = [];
     /**
      * Parent index, if available.

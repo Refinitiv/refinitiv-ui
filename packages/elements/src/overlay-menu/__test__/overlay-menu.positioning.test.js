@@ -28,7 +28,7 @@ describe('overlay-menu/Positioning', () => {
     it('Correct compact child menu positioning', async () => {
       const el = await fixture(nestedMarkup);
       let menus = el.querySelectorAll('ef-overlay-menu');
-      menus.forEach(menu => {
+      menus.forEach((menu) => {
         menu.compact = true;
       });
       menus[0].opened = true;
@@ -45,7 +45,7 @@ describe('overlay-menu/Positioning', () => {
     it('Removes compact child menu positioning', async () => {
       const el = await fixture(nestedMarkup);
       let menus = el.querySelectorAll('ef-overlay-menu');
-      menus.forEach(menu => {
+      menus.forEach((menu) => {
         menu.compact = true;
       });
       menus[0].opened = true;
@@ -60,7 +60,7 @@ describe('overlay-menu/Positioning', () => {
 
       // remove compact
       menus[0].opened = false;
-      menus.forEach(menu => {
+      menus.forEach((menu) => {
         menu.compact = false;
       });
       await openedUpdated(el);

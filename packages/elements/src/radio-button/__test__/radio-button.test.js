@@ -5,8 +5,8 @@ import './radio-wrapper-mockup.js';
 
 const createEnterKeyboardEvent = () => new KeyboardEvent('keydown', { key: 'Enter' });
 const createSpacebarKeyboardEvent = () => new KeyboardEvent('keydown', { key: ' ' });
-const keyArrowLeft = () => new KeyboardEvent('keydown', { key: 'ArrowLeft'});
-const keyArrowRight = () => new KeyboardEvent('keydown', { key: 'ArrowRight'});
+const keyArrowLeft = () => new KeyboardEvent('keydown', { key: 'ArrowLeft' });
+const keyArrowRight = () => new KeyboardEvent('keydown', { key: 'ArrowRight' });
 
 const updateGroup = async (group) => {
   for (let i = 0; i < group.length; i += 1) {
@@ -254,7 +254,7 @@ describe('radio-button/RadioButton', () => {
         await fixture('<ef-radio-button name="group">group</ef-radio-button>'),
         await fixture('<ef-radio-button name="group">group</ef-radio-button>')
       ];
-      group.forEach(el => {
+      group.forEach((el) => {
         expect(el.checked).to.equal(false);
       });
     });
@@ -348,8 +348,8 @@ describe('radio-button/RadioButton', () => {
       ]);
 
       // Groups should start with none checked
-      group1.forEach(el => expect(el.checked).to.equal(false));
-      group2.forEach(el => expect(el.checked).to.equal(false));
+      group1.forEach((el) => expect(el.checked).to.equal(false));
+      group2.forEach((el) => expect(el.checked).to.equal(false));
 
       group1[0].checked = true;
       await updateGroup(group1);
@@ -359,7 +359,7 @@ describe('radio-button/RadioButton', () => {
         expect(el.checked).to.equal(!index);
       });
 
-      group2.forEach(el => expect(el.checked).to.equal(false));
+      group2.forEach((el) => expect(el.checked).to.equal(false));
     });
     it('Should have only one radio checked when new group is created', async () => {
       const notGroup = [
@@ -418,8 +418,7 @@ describe('radio-button/RadioButton', () => {
             <ef-radio-button id="btn1" name="group" checked>1</ef-radio-button>
             <ef-radio-button id="btn2" name="group">2</ef-radio-button>
           </div>
-        </div>`
-      );
+        </div>`);
 
       const wrapper = element.querySelector('#wrapper');
 
@@ -439,13 +438,11 @@ describe('radio-button/RadioButton', () => {
       expect(btn2.checked).to.equal(true);
     });
     it('Should have only 1 checked radio and checked the new radio in a group when append a new checked radio ', async () => {
-      const group = [
-        await fixture('<ef-radio-button name="group" id="btn1" checked>1</ef-radio-button>')
-      ];
+      const group = [await fixture('<ef-radio-button name="group" id="btn1" checked>1</ef-radio-button>')];
       group.push(await fixture('<ef-radio-button name="group" id="btn2" checked>2</ef-radio-button>'));
       await updateGroup(group);
 
-      const checkedRadio = group.find(element => element.checked);
+      const checkedRadio = group.find((element) => element.checked);
       expect(checkedRadio.id).to.equal('btn2');
     });
     it('Should separate scope between shadow DOM and light DOM', async () => {
@@ -495,11 +492,10 @@ describe('radio-button/RadioButton', () => {
       expect(option2.checked).to.equal(true);
       setTimeout(() => option2.dispatchEvent(keyArrowLeft()));
       const event = await oneEvent(option2, 'keydown');
-      await nextFrame()
+      await nextFrame();
       expect(event.key).to.equal('ArrowLeft');
       expect(option1.checked).to.equal(true);
       expect(option2.checked).to.equal(false);
-
     });
     it('Should uncheck the current button and move to check last button', async () => {
       const option1 = await fixture('<ef-radio-button name="group2" checked>Option 1</ef-radio-button>');
@@ -509,7 +505,7 @@ describe('radio-button/RadioButton', () => {
 
       setTimeout(() => option1.dispatchEvent(keyArrowLeft()));
       const event = await oneEvent(option1, 'keydown');
-      await nextFrame()
+      await nextFrame();
       expect(event.key).to.equal('ArrowLeft');
       expect(option1.checked).to.equal(false);
       expect(option2.checked).to.equal(true);
@@ -522,22 +518,22 @@ describe('radio-button/RadioButton', () => {
 
       setTimeout(() => option1.dispatchEvent(keyArrowRight()));
       const event = await oneEvent(option1, 'keydown');
-      await nextFrame()
+      await nextFrame();
       expect(event.key).to.equal('ArrowRight');
       expect(option1.checked).to.equal(false);
       expect(option2.checked).to.equal(true);
     });
     it('Should uncheck the current button and check first button', async () => {
       const option1 = await fixture('<ef-radio-button name="group2">Option 1</ef-radio-button>');
-        const option2 = await fixture('<ef-radio-button name="group2" checked>Option 2</ef-radio-button>');
-        expect(option1.checked).to.equal(false);
-        expect(option2.checked).to.equal(true);
-        setTimeout(() => option2.dispatchEvent(keyArrowRight()));
-        const event = await oneEvent(option2, 'keydown');
-        await nextFrame()
-        expect(event.key).to.equal('ArrowRight');
-        expect(option1.checked).to.equal(true);
-        expect(option2.checked).to.equal(false);
+      const option2 = await fixture('<ef-radio-button name="group2" checked>Option 2</ef-radio-button>');
+      expect(option1.checked).to.equal(false);
+      expect(option2.checked).to.equal(true);
+      setTimeout(() => option2.dispatchEvent(keyArrowRight()));
+      const event = await oneEvent(option2, 'keydown');
+      await nextFrame();
+      expect(event.key).to.equal('ArrowRight');
+      expect(option1.checked).to.equal(true);
+      expect(option2.checked).to.equal(false);
     });
   });
 
@@ -574,27 +570,27 @@ describe('radio-button/RadioButton', () => {
         expect(el.getAttribute('tabIndex')).to.equal(index === 2 ? '0' : '-1');
       });
     });
-    it('Should have correct tabIndex when unchecked radio was removed from group ', async() => {
-        const group = [
-          await fixture('<ef-radio-button name="group1">1</ef-radio-button>'),
-          await fixture('<ef-radio-button name="group1">2</ef-radio-button>'),
-          await fixture('<ef-radio-button name="group1">3</ef-radio-button>')
-        ];
+    it('Should have correct tabIndex when unchecked radio was removed from group ', async () => {
+      const group = [
+        await fixture('<ef-radio-button name="group1">1</ef-radio-button>'),
+        await fixture('<ef-radio-button name="group1">2</ef-radio-button>'),
+        await fixture('<ef-radio-button name="group1">3</ef-radio-button>')
+      ];
 
-        group.forEach((el, index) => {
-          expect(el.checked).to.equal(false);
-          expect(el.getAttribute('tabIndex')).to.equal(index === 0 ? '0' : '-1');
-        });
-        // Remove radio from group
-        group[0].name = '';
-        await updateGroup(group);
+      group.forEach((el, index) => {
+        expect(el.checked).to.equal(false);
+        expect(el.getAttribute('tabIndex')).to.equal(index === 0 ? '0' : '-1');
+      });
+      // Remove radio from group
+      group[0].name = '';
+      await updateGroup(group);
 
-        group.forEach((el, index) => {
-          expect(el.checked).to.equal(false);
-          expect(el.getAttribute('tabIndex')).to.equal(index === 2 ? '-1' : '0');
-        });
+      group.forEach((el, index) => {
+        expect(el.checked).to.equal(false);
+        expect(el.getAttribute('tabIndex')).to.equal(index === 2 ? '-1' : '0');
+      });
     });
-    it('Should have correct tabIndex when checked radio was removed from group ', async() => {
+    it('Should have correct tabIndex when checked radio was removed from group ', async () => {
       const group = [
         await fixture('<ef-radio-button name="group1">1</ef-radio-button>'),
         await fixture('<ef-radio-button name="group1">2</ef-radio-button>'),
@@ -615,7 +611,7 @@ describe('radio-button/RadioButton', () => {
         expect(el.getAttribute('tabIndex')).to.equal(index === 1 ? '-1' : '0');
       });
     });
-    it('Should have correct tabIndex when unchecked radio has moved to another group ', async() => {
+    it('Should have correct tabIndex when unchecked radio has moved to another group ', async () => {
       const group1 = [
         await fixture('<ef-radio-button name="group1">1</ef-radio-button>'),
         await fixture('<ef-radio-button name="group1">2</ef-radio-button>')
@@ -650,7 +646,7 @@ describe('radio-button/RadioButton', () => {
         expect(el.getAttribute('tabIndex')).to.equal('-1');
       });
     });
-    it('Should have correct tabIndex when checked radio has moved to another group ', async() => {
+    it('Should have correct tabIndex when checked radio has moved to another group ', async () => {
       const group1 = [
         await fixture('<ef-radio-button name="group1" checked>1</ef-radio-button>'),
         await fixture('<ef-radio-button name="group1">2</ef-radio-button>')
@@ -685,7 +681,7 @@ describe('radio-button/RadioButton', () => {
         expect(el.getAttribute('tabIndex')).to.equal('0');
       });
     });
-  })
+  });
 
   describe('No label', () => {
     let noLabelRadio;

@@ -273,7 +273,6 @@ describe('color-dialog/ColorDialog', () => {
     let previewColor;
     let confirmBtn;
 
-
     beforeEach(async () => {
       allowNoColorDialog = await fixture('<ef-color-dialog opened allow-nocolor></ef-color-dialog>');
       grayscalePalettes = allowNoColorDialog.shadowRoot.querySelector('ef-grayscale-palettes');
@@ -348,4 +347,3 @@ describe('color-dialog/ColorDialog', () => {
     });
   });
 });
-

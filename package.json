@@ -20,7 +20,7 @@
     "test": "node cli.mjs test",
     "test:affected": "nx affected:test",
     "test:all": "nx affected:test --all",
-    "format": "prettier --write . --config .prettierrc.json",
+    "format": "prettier --write . '**/*.{js,mjs,ts,css,json,html,yml,md}'",
     "lint": "node cli.mjs lint",
     "lint:affected": "nx affected:lint --parallel",
     "lint:all": "nx affected:lint --parallel --all",

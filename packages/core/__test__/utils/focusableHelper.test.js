@@ -4,17 +4,15 @@ import { ifDefined } from '../../lib/directives/if-defined';
 
 const createTabbableNodes = (tabindex1, tabindex2) => {
   return fixture(html`
-  <div>
-    <input tabindex=${ifDefined(tabindex1)} id="first-element" />
-    <input tabindex=${ifDefined(tabindex2)} id="second-element" />
-  </div>
+    <div>
+      <input tabindex=${ifDefined(tabindex1)} id="first-element" />
+      <input tabindex=${ifDefined(tabindex2)} id="second-element" />
+    </div>
   `);
 };
 
 describe('Test FocusableHelper', () => {
-
   describe('Test getTabbableNodes', () => {
-
     it('Test two elements without tabindex', async () => {
       const el = await createTabbableNodes();
       const firstNode = el.querySelector('#first-element');
@@ -82,7 +80,5 @@ describe('Test FocusableHelper', () => {
       expect(nodes.length).to.equal(1, 'One child should be tabbable');
       expect(nodes[0]).to.equal(secondNode, 'Node need to be #second-element');
     });
-
   });
-
 });

@@ -6,7 +6,8 @@ import { CalendarLocaleScope } from './constants.js';
 // 1) different browsers and OS support different locales, and the result might be different.
 // 2) first day of week is different. Currently it is not possible to get this info out of Intl object
 const globals = {
-  VIEW_FORMAT: '{includeMonth, select, true {{includeEra, select, true {{ date, date, calendarMonthEra }} other {{ date, date, calendarMonth }}}} other {{ includeEra, select, true {{ date, date, calendarYearEra }} other {{ date, date, calendarYear }}}}}',
+  VIEW_FORMAT:
+    '{includeMonth, select, true {{includeEra, select, true {{ date, date, calendarMonthEra }} other {{ date, date, calendarMonth }}}} other {{ includeEra, select, true {{ date, date, calendarYearEra }} other {{ date, date, calendarYear }}}}}',
   FIRST_DAY_OF_WEEK: '1'
 };
 

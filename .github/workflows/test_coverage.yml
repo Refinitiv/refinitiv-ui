@@ -1,11 +1,11 @@
-name: "Test Coverage" # To be able to access test coverage of the repository on SonarCloud
+name: 'Test Coverage' # To be able to access test coverage of the repository on SonarCloud
 on:
   push:
     branches: [v6]
 env:
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-  BROWSERSTACK_BUILD: "Test Coverage ${{ github.run_number }}"
+  BROWSERSTACK_BUILD: 'Test Coverage ${{ github.run_number }}'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,7 +13,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: Setup resources and environment
         uses: ./.github/actions/setup
@@ -50,5 +50,5 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

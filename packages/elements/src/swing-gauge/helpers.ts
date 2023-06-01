@@ -5,10 +5,7 @@ let ctx: CanvasRenderingContext2D;
 let data: SwingGaugeData;
 let style: SwingGaugeStyle;
 
-const clear = (
-  canvasSize: SwingGaugeCanvasSize,
-  drawCtx: CanvasRenderingContext2D
-): void => {
+const clear = (canvasSize: SwingGaugeCanvasSize, drawCtx: CanvasRenderingContext2D): void => {
   drawCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
 };
 
@@ -34,13 +31,7 @@ const drawDot = (x: number, y: number): void => {
   ctx.fill();
 };
 
-const drawLine = (
-  startX: number,
-  startY: number,
-  endX: number,
-  endY: number,
-  offset: number
-): void => {
+const drawLine = (startX: number, startY: number, endX: number, endY: number, offset: number): void => {
   ctx.strokeStyle = DefaultStyle.CENTER_LINE_COLOR;
   ctx.lineWidth = 2;
   ctx.setLineDash([5, 3]);
@@ -103,13 +94,7 @@ const draw = (
   ctx.lineWidth = style.strokeWidth;
   ctx.strokeStyle = style.borderColor;
   ctx.beginPath();
-  ctx.arc(
-    data.width / 2,
-    data.height,
-    data.size * data.gaugeUpperBound,
-    0,
-    2 * Math.PI
-  );
+  ctx.arc(data.width / 2, data.height, data.size * data.gaugeUpperBound, 0, 2 * Math.PI);
   ctx.strokeStyle = style.borderColor;
   ctx.stroke();
   ctx.beginPath();
@@ -123,15 +108,13 @@ const draw = (
     ctx.beginPath();
     if (style.centerline === CenterLineStyle.SOLID) {
       ctx.globalAlpha = Number(style.centerlineOpacity);
-    }
-    else if (style.centerline === CenterLineStyle.DOTTED) {
+    } else if (style.centerline === CenterLineStyle.DOTTED) {
       ctx.setLineDash([2, 2]);
-    }
-    else {
+    } else {
       ctx.setLineDash([5, 3]);
     }
     ctx.moveTo(data.width / 2, data.height - data.size * data.gaugeLowerBound);
-    ctx.lineTo(data.width / 2, data.height - (data.size * data.gaugeUpperBound) + style.strokeWidth);
+    ctx.lineTo(data.width / 2, data.height - data.size * data.gaugeUpperBound + style.strokeWidth);
     ctx.strokeStyle = style.centerlineColor;
     ctx.stroke();
     ctx.restore();
@@ -139,20 +122,23 @@ const draw = (
 };
 
 // Helper function for elastic easing
-const elasticOut = ((amplitude: number, period: number): (time: number) => number => {
+const elasticOut = ((amplitude: number, period: number): ((time: number) => number) => {
   const pi2 = Math.PI * 2;
   return function (time: number): number {
     if (time === 0 || time === 1) {
       return time;
     }
     const s = (period / pi2) * Math.asin(1 / amplitude);
-    return (
-      amplitude * Math.pow(2, -10 * time) * Math.sin(((time - s) * pi2) / period) + 1
-    );
+    return amplitude * Math.pow(2, -10 * time) * Math.sin(((time - s) * pi2) / period) + 1;
   };
 })(1.2, 0.5);
 
-const textWidth = (drawCtx: CanvasRenderingContext2D, text: string, fontSize: number, fontFamily: string): number => {
+const textWidth = (
+  drawCtx: CanvasRenderingContext2D,
+  text: string,
+  fontSize: number,
+  fontFamily: string
+): number => {
   drawCtx.font = `${fontSize}px ${fontFamily}`;
   return drawCtx.measureText(text).width;
 };

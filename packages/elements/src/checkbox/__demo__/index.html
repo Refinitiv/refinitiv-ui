@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Checkbox</title>
   </head>
   <body>
@@ -18,21 +18,21 @@
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
       import '@refinitiv-ui/elements/checkbox';
-  
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-  
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
-  
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/checkbox/themes/${theme}/${variant}/index.js`);
+
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/checkbox/themes/${theme}/${variant}/index.js`);
     </script>
     <!-- DEFAULT CHECKBOX -->
     <demo-block header="Default Checkbox">
@@ -55,7 +55,18 @@
     <!-- TRUNCATE CHECKBOX -->
     <demo-block header="Truncate Checkbox">
       <ef-checkbox class="ellipsis">Checkbox with very long long long text</ef-checkbox>
-      <ef-checkbox class="ellipsis">Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever. As Cicero's text doesn't contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.</ef-checkbox>
+      <ef-checkbox class="ellipsis"
+        >Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of
+        English to emphasise design elements over content. It's also called placeholder (or filler) text. It's
+        a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation,
+        eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author
+        and philosopher Cicero. Its words and letters have been changed by addition or removal, so to
+        deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin
+        anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever.
+        As Cicero's text doesn't contain the letters K, W, or Z, alien to latin, these, and others are often
+        inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be
+        found in the original.</ef-checkbox
+      >
     </demo-block>
 
     <!-- NO LABEL CHECKBOX -->
@@ -64,7 +75,7 @@
         <ef-checkbox></ef-checkbox>
         <ef-checkbox></ef-checkbox>
         <ef-checkbox id="checkbox"></ef-checkbox>
-        <input placeholder="input checkbox content" id="checkboxInput"/>
+        <input placeholder="input checkbox content" id="checkboxInput" />
       </div>
     </demo-block>
     <script>

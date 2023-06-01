@@ -25,12 +25,11 @@ import '../layout/index.js';
  */
 @customElement('ef-sidebar-layout')
 export class SidebarLayout extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -40,13 +39,13 @@ export class SidebarLayout extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
       }
 
-      [part=container] {
+      [part='container'] {
         height: 100%;
       }
 
@@ -59,16 +58,16 @@ export class SidebarLayout extends BasicElement {
         height: 100%;
       }
 
-      [part=sidebar] {
+      [part='sidebar'] {
         width: var(--sidebar-width);
       }
 
-      :host([collapsed]:not([sidebar-position])) [part=sidebar],
-      :host([collapsed][sidebar-position=left]) [part=sidebar] {
+      :host([collapsed]:not([sidebar-position])) [part='sidebar'],
+      :host([collapsed][sidebar-position='left']) [part='sidebar'] {
         margin-left: calc(var(--sidebar-width) * -1);
       }
 
-      :host([collapsed][sidebar-position=right]) [part=sidebar] {
+      :host([collapsed][sidebar-position='right']) [part='sidebar'] {
         margin-right: calc(var(--sidebar-width) * -1);
       }
     `;
@@ -105,10 +104,9 @@ export class SidebarLayout extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       <ef-layout flex nowrap part="container">
-
         <ef-layout flex container part="sidebar" size="${this.sidebarWidth || nothing}">
           <ef-layout size="auto">
             <slot name="sidebar-header"></slot>
@@ -126,7 +124,6 @@ export class SidebarLayout extends BasicElement {
             <slot name="main-content"></slot>
           </ef-layout>
         </ef-layout>
-
       </ef-layout>
     `;
   }
@@ -135,7 +132,7 @@ export class SidebarLayout extends BasicElement {
    * @override
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
     if (changedProperties.has('sidebarWidth')) {
       this.updateVariable('--sidebar-width', this.sidebarWidth);

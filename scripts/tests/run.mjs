@@ -6,7 +6,7 @@ import path from 'node:path';
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
 import { browserstackLauncher } from '@web/test-runner-browserstack';
-import { summaryReporter } from "@web/test-runner";
+import { summaryReporter } from '@web/test-runner';
 import { PACKAGES_ROOT, info } from '../helpers/esm.mjs';
 import { BrowserStack } from '../../browsers.config.mjs';
 import wtrConfig from '../../web-test-runner.config.mjs';
@@ -15,12 +15,11 @@ import { useTestOptions } from './cli-options.mjs';
 import { startTestRunner, startQueueTestRunner } from './runner.mjs';
 
 // Create CLI
-const cli = yargs(hideBin(process.argv))
-  .option('package', {
-    type: 'string',
-    alias: 'p',
-    description: 'Package name'
-  });
+const cli = yargs(hideBin(process.argv)).option('package', {
+  type: 'string',
+  alias: 'p',
+  description: 'Package name'
+});
 
 // Use shared test options for the CLI
 useTestOptions(cli);
@@ -47,7 +46,7 @@ const config = {
   watch,
   coverage: testCoverage,
   coverageConfig: {
-    include: [`**/${packageName}/lib/**/*.js`],
+    include: [`**/${packageName}/lib/**/*.js`]
   }
 };
 
@@ -77,13 +76,13 @@ if (useBrowserStack) {
   browserstack.forEach((option) => {
     switch (option) {
       case 'default':
-        BrowserStack.defaultBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
+        BrowserStack.defaultBrowsers.forEach((browser) => launchers.push(BrowserStack.config[browser]));
         break;
       case 'latest':
-        BrowserStack.latestBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
+        BrowserStack.latestBrowsers.forEach((browser) => launchers.push(BrowserStack.config[browser]));
         break;
       case 'supported':
-        BrowserStack.supportedBrowsers.forEach(browser => launchers.push(BrowserStack.config[browser]));
+        BrowserStack.supportedBrowsers.forEach((browser) => launchers.push(BrowserStack.config[browser]));
         break;
       default:
         launchers.push(BrowserStack.config[option]);
@@ -94,9 +93,9 @@ if (useBrowserStack) {
   // Create BrowserStack launchers
   const browsers = [];
   const defaultLauncherNames = {
-    'chrome': 'Chromium',
-    'firefox': 'Firefox',
-    'safari': 'Webkit'
+    chrome: 'Chromium',
+    firefox: 'Firefox',
+    safari: 'Webkit'
   };
 
   /**
@@ -105,9 +104,10 @@ if (useBrowserStack) {
    * @returns boolean
    */
   const isLatestDesktopBrowser = (launcher) => {
-    return launcher.browser in defaultLauncherNames
-      && launcher.browser_version === 'latest'
-      || launcher.os_version === BrowserStack.config.safari.os_version; // for Safari use os version to checking latest
+    return (
+      (launcher.browser in defaultLauncherNames && launcher.browser_version === 'latest') ||
+      launcher.os_version === BrowserStack.config.safari.os_version
+    ); // for Safari use os version to checking latest
   };
 
   /**
@@ -116,19 +116,24 @@ if (useBrowserStack) {
    * @returns {Object} launcher config
    */
   const getDefaultLauncher = (browserName) => {
-    return config.browsers.find(browser => browser.name === defaultLauncherNames[browserName]);
+    return config.browsers.find((browser) => browser.name === defaultLauncherNames[browserName]);
   };
 
-  launchers.forEach(launcher => {
+  launchers.forEach((launcher) => {
     // Create browserName to show as a label in the progress bar reporter
-    let browserName = `${launcher.browser ?? launcher.browserName ?? launcher.device ?? 'unknown'}${launcher.browser_version ? ` ${launcher.browser_version}` : ''}` + ` (${launcher.os} ${launcher.os_version})`;
+    let browserName =
+      `${launcher.browser ?? launcher.browserName ?? launcher.device ?? 'unknown'}${
+        launcher.browser_version ? ` ${launcher.browser_version}` : ''
+      }` + ` (${launcher.os} ${launcher.os_version})`;
     browserName = browserName.charAt(0).toUpperCase() + browserName.slice(1);
     // Default desktop browsers (latest) must use Playwright launcher in the default config
     let browserLauncher = undefined;
     if (env.BROWSERSTACK_LATEST_BROWSERS_LAUNCHER === 'Playwright' && isLatestDesktopBrowser(launcher)) {
       browserLauncher = getDefaultLauncher(launcher.browser);
     } else {
-      browserLauncher = browserstackLauncher({ capabilities: { ...sharedCapabilities, ...launcher, browserName } });
+      browserLauncher = browserstackLauncher({
+        capabilities: { ...sharedCapabilities, ...launcher, browserName }
+      });
     }
     browsers.push(browserLauncher);
   });
@@ -167,30 +172,26 @@ if (snapshots) {
 }
 
 process.on('uncaughtException', (err, origin) => {
-  fs.writeSync(
-    process.stderr.fd,
-    `Caught exception: ${err}\n` +
-    `Exception origin: ${origin}`,
-  );
+  fs.writeSync(process.stderr.fd, `Caught exception: ${err}\n` + `Exception origin: ${origin}`);
 });
 
 // Run unit testing
 try {
   const singleElement = checkElement(testTarget);
-  if (env.TEST_SEPARATE_ELEMENT && testTarget === 'elements' || singleElement) {
+  if ((env.TEST_SEPARATE_ELEMENT && testTarget === 'elements') || singleElement) {
     // Test each element individually for the elements package.
     const elements = singleElement ? [testTarget] : getElements();
     for (const element of elements) {
       // Create test files pattern for current element
       const elementTestFiles = [
         path.join(ELEMENTS_ROOT, 'src', `${element}/__test__/**/*.test.js`),
-        '!**/node_modules/**/*', // exclude any node modules
+        '!**/node_modules/**/*' // exclude any node modules
       ];
       await startQueueTestRunner(element, config, elementTestFiles);
     }
   } else {
     if (testTarget === 'elements') {
-      config.files = [path.join(ELEMENTS_ROOT, 'src', `**/__test__/**/*.test.js`)]
+      config.files = [path.join(ELEMENTS_ROOT, 'src', `**/__test__/**/*.test.js`)];
     }
     await startTestRunner(config); // Start single runner (no queue)
   }

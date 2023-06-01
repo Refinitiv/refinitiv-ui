@@ -1,16 +1,11 @@
 #!/usr/bin/env node
 import { execSync } from 'node:child_process';
 import concurrently from 'concurrently';
-import {
-  getElements,
-  error,
-  info,
-  errorHandler
-} from '../helpers/index.mjs';
+import { getElements, error, info, errorHandler } from '../helpers/index.mjs';
 
 export const command = 'start [element]';
 export const desc = 'Starting the development server';
-export const builder = yargs => {
+export const builder = (yargs) => {
   yargs
     .require('element')
     .positional('element', {
@@ -33,7 +28,8 @@ export const handler = (argv) => {
       env: {
         ELEMENT: element
       }
-    }, {
+    },
+    {
       command: 'node cli.mjs build --watch --sourceMap --declarationMap',
       prefixColor: '#007ACC',
       name: `${element}: TypeScript`
@@ -45,17 +41,13 @@ export const handler = (argv) => {
     // start of the server contains up to date code
     execSync('node cli.mjs build --sourceMap --declarationMap');
 
-    const { result } = concurrently(
-      commands,
-      { killOthers: ['failure', 'success'] }
-    );
+    const { result } = concurrently(commands, { killOthers: ['failure', 'success'] });
 
     result.then(
       () => info(`Stop: ${element}`),
       () => error(`Cannot start ${element}`)
     );
-  }
-  catch (err) {
+  } catch (err) {
     errorHandler(err);
     process.exit(1);
   }

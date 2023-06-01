@@ -16,4 +16,4 @@ Object.defineProperty(HTMLElement.prototype, 'title', {
   }
 });
 
-addTooltipCondition(element => element.matches('[title]'), tooltipRenderer);
+addTooltipCondition((element) => element.matches('[title]'), tooltipRenderer);

@@ -168,6 +168,6 @@ describe('tab-bar/value', () => {
       });
       event = await oneEvent(el, 'value-changed');
       expect(event.detail.value).to.equal('1');
-    })
+    });
   });
 });

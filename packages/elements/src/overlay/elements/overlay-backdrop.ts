@@ -1,27 +1,20 @@
-import {
-  BasicElement,
-  css,
-  CSSResultGroup
-} from '@refinitiv-ui/core';
+import { BasicElement, css, CSSResultGroup } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
 
-import type {
-  NullOrUndefined
-} from '../helpers/types';
+import type { NullOrUndefined } from '../helpers/types';
 
 /**
  * A private element to show backdrop for overlay
  */
 @customElement('ef-overlay-backdrop')
 export class OverlayBackdrop extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -31,7 +24,7 @@ export class OverlayBackdrop extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         pointer-events: all;
@@ -49,15 +42,13 @@ export class OverlayBackdrop extends BasicElement {
    * @param zIndex zIndex value
    */
   @property({ type: Number, attribute: false })
-  public set zIndex (zIndex: number | NullOrUndefined) {
+  public set zIndex(zIndex: number | NullOrUndefined) {
     if (typeof zIndex === 'number') {
       this.style.setProperty('z-index', `${zIndex}`);
-    }
-    else {
+    } else {
       this.style.removeProperty('z-index');
     }
   }
-
 }
 
 declare global {

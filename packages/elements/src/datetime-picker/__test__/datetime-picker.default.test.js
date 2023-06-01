@@ -47,38 +47,65 @@ describe('datetime-picker/DatetimePicker', () => {
     });
 
     it('date-time format is correct', async () => {
-      const el = await fixture('<ef-datetime-picker lang="en-gb" timepicker value="2020-04-21T14:58"></ef-datetime-picker>');
+      const el = await fixture(
+        '<ef-datetime-picker lang="en-gb" timepicker value="2020-04-21T14:58"></ef-datetime-picker>'
+      );
       expect(el.format).to.be.equal(INPUT_FORMAT.DATETIME, 'Datetime format is wrong');
       expect(el.inputEl.value).to.be.equal('21-Apr-2020 14:58', 'Datetime format is not applied');
     });
 
     it('date-time-am-pm format is correct', async () => {
-      const el = await fixture('<ef-datetime-picker lang="en-gb" timepicker am-pm value="2020-04-21T14:58"></ef-datetime-picker>');
+      const el = await fixture(
+        '<ef-datetime-picker lang="en-gb" timepicker am-pm value="2020-04-21T14:58"></ef-datetime-picker>'
+      );
       expect(el.format).to.be.equal(INPUT_FORMAT.DATETIME_AM_PM, 'Datetime AM-PM format is wrong');
       expect(el.inputEl.value).to.be.equal('21-Apr-2020 02:58 pm', 'Datetime AM-PM format is not applied');
     });
 
     it('date-time-seconds format is correct', async () => {
-      const el = await fixture('<ef-datetime-picker lang="en-gb" timepicker show-seconds value="2020-04-21T14:58:59"></ef-datetime-picker>');
+      const el = await fixture(
+        '<ef-datetime-picker lang="en-gb" timepicker show-seconds value="2020-04-21T14:58:59"></ef-datetime-picker>'
+      );
       expect(el.format).to.be.equal(INPUT_FORMAT.DATETIME_SECONDS, 'Datetime with seconds format is wrong');
-      expect(el.inputEl.value).to.be.equal('21-Apr-2020 14:58:59', 'Datetime with seconds format is not applied');
+      expect(el.inputEl.value).to.be.equal(
+        '21-Apr-2020 14:58:59',
+        'Datetime with seconds format is not applied'
+      );
     });
 
     it('date-time-am-pm-seconds format is correct', async () => {
-      const el = await fixture('<ef-datetime-picker lang="en-gb" timepicker show-seconds am-pm value="2020-04-21T14:58:59"></ef-datetime-picker>');
-      expect(el.format).to.be.equal(INPUT_FORMAT.DATETIME_SECONDS_AM_PM, 'Datetime AM-PM with seconds format is wrong');
-      expect(el.inputEl.value).to.be.equal('21-Apr-2020 02:58:59 pm', 'Datetime AM-PM with seconds format is not applied');
+      const el = await fixture(
+        '<ef-datetime-picker lang="en-gb" timepicker show-seconds am-pm value="2020-04-21T14:58:59"></ef-datetime-picker>'
+      );
+      expect(el.format).to.be.equal(
+        INPUT_FORMAT.DATETIME_SECONDS_AM_PM,
+        'Datetime AM-PM with seconds format is wrong'
+      );
+      expect(el.inputEl.value).to.be.equal(
+        '21-Apr-2020 02:58:59 pm',
+        'Datetime AM-PM with seconds format is not applied'
+      );
     });
 
     it('date-time-seconds local format is correct', async () => {
-      const el = await fixture('<ef-datetime-picker lang="ru" timepicker show-seconds value="2020-04-21T14:58:59"></ef-datetime-picker>');
-      expect(el.format).to.be.equal(INPUT_FORMAT.DATETIME_SECONDS, 'Datetime custom locale with seconds format is wrong');
-      expect(el.inputEl.value).to.be.equal('21-апр.-2020 14:58:59', 'Datetime custom locale with seconds format is not applied');
+      const el = await fixture(
+        '<ef-datetime-picker lang="ru" timepicker show-seconds value="2020-04-21T14:58:59"></ef-datetime-picker>'
+      );
+      expect(el.format).to.be.equal(
+        INPUT_FORMAT.DATETIME_SECONDS,
+        'Datetime custom locale with seconds format is wrong'
+      );
+      expect(el.inputEl.value).to.be.equal(
+        '21-апр.-2020 14:58:59',
+        'Datetime custom locale with seconds format is not applied'
+      );
     });
 
     it('Can change format', async () => {
       const customFormat = 'dd-MM-yy HH:mm:ss';
-      const el = await fixture(`<ef-datetime-picker lang="en-gb" format="${customFormat}" timepicker show-seconds value="2020-04-21T14:58:59"></ef-datetime-picker>`);
+      const el = await fixture(
+        `<ef-datetime-picker lang="en-gb" format="${customFormat}" timepicker show-seconds value="2020-04-21T14:58:59"></ef-datetime-picker>`
+      );
       expect(el.format).to.be.equal(customFormat, 'Custom format is not passed');
       expect(el.inputEl.value).to.be.equal('21-04-20 14:58:59', 'Custom format is not applied');
     });
@@ -88,7 +115,10 @@ describe('datetime-picker/DatetimePicker', () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" duplex></ef-datetime-picker>');
       expect(el.placeholder).to.be.equal(INPUT_FORMAT.DATE);
       const input = el.inputEl;
-      expect(input.placeholder).to.be.equal(INPUT_FORMAT.DATE, 'Default placeholder is not passed to to input');
+      expect(input.placeholder).to.be.equal(
+        INPUT_FORMAT.DATE,
+        'Default placeholder is not passed to to input'
+      );
     });
 
     it('Can set custom placeholder', async () => {

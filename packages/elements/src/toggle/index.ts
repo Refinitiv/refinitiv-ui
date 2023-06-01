@@ -38,7 +38,7 @@ export class Toggle extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -77,7 +77,7 @@ export class Toggle extends ControlElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -90,7 +90,7 @@ export class Toggle extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
@@ -104,7 +104,7 @@ export class Toggle extends ControlElement {
    * @param changedProperties Map of changed properties with old values
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.handleCheckedChange);
     this.addEventListener('keydown', this.handleKeyDown);
@@ -114,7 +114,7 @@ export class Toggle extends ControlElement {
    * Called when checked value changes and dispatch the event
    * @returns {void}
    */
-  private handleCheckedChange (): void {
+  private handleCheckedChange(): void {
     if (this.disabled || this.readonly) {
       return;
     }
@@ -128,7 +128,7 @@ export class Toggle extends ControlElement {
    * @param event Keyboard event
    * @returns {void}
    */
-  private handleKeyDown (event: KeyboardEvent): void {
+  private handleKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Enter' || event.key === ' ') {
       this.handleCheckedChange();
     }
@@ -139,9 +139,10 @@ export class Toggle extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
-    return html`
-    <div part="toggle">${this.checked && this.checkedLabel ? this.checkedLabel : this.label}</div>`;
+  protected render(): TemplateResult {
+    return html` <div part="toggle">
+      ${this.checked && this.checkedLabel ? this.checkedLabel : this.label}
+    </div>`;
   }
 }
 

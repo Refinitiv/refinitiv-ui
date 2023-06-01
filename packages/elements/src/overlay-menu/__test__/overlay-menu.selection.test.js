@@ -6,7 +6,6 @@ import { flatMarkup, nestedMarkup } from './markup';
 
 describe('overlay-menu/Selection', () => {
   describe('Selection Test', () => {
-
     it('Selects flat markup', async () => {
       const el = await fixture(flatMarkup);
       const itemtoSelect = el.querySelector('ef-item[value=two]');
@@ -30,6 +29,5 @@ describe('overlay-menu/Selection', () => {
       await elementUpdated(menu);
       expect(String(menu.values)).to.equal(String(['two', 'sm-two', 'ssm-two']));
     });
-
   });
 });

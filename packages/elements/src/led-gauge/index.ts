@@ -1,11 +1,4 @@
-import {
-  BasicElement,
-  html,
-  css,
-  TemplateResult,
-  CSSResultGroup,
-  PropertyValues
-} from '@refinitiv-ui/core';
+import { BasicElement, html, css, TemplateResult, CSSResultGroup, PropertyValues } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../version.js';
@@ -27,18 +20,17 @@ const SECTION_DIVIDER = 5; // To separate led-gauge to 5 sections
  */
 @customElement('ef-led-gauge')
 export class LedGauge extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
   private _zero: string;
 
-  constructor () {
+  constructor() {
     super();
     this._zero = ZERO_MAP.CENTER;
   }
@@ -48,9 +40,8 @@ export class LedGauge extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
-
       :host {
         display: block;
         position: relative;
@@ -59,7 +50,7 @@ export class LedGauge extends BasicElement {
         box-sizing: border-box;
       }
 
-      [part=label] {
+      [part='label'] {
         display: block;
         position: absolute;
         left: 0;
@@ -79,7 +70,8 @@ export class LedGauge extends BasicElement {
         color: var(--top-selected-color, transparent);
       }
 
-      #bottom, #range {
+      #bottom,
+      #range {
         top: 100%;
         bottom: auto;
         color: var(--bottom-selected-color, transparent);
@@ -154,23 +146,22 @@ export class LedGauge extends BasicElement {
    * @default center
    */
   @property({ type: String })
-  public get zero (): string {
+  public get zero(): string {
     return this._zero;
   }
-  public set zero (val: string) {
+  public set zero(val: string) {
     const oldValue = this._zero;
     const value = val.toLowerCase();
     const pos = [ZERO_MAP.LEFT, ZERO_MAP.CENTER, ZERO_MAP.RIGHT];
     if (pos.includes(value)) {
       this._zero = value;
-    }
-    else {
+    } else {
       this._zero = ZERO_MAP.CENTER;
     }
     this.requestUpdate('zero', oldValue);
   }
 
-  private get _shadowRoot (): ShadowRoot {
+  private get _shadowRoot(): ShadowRoot {
     if (!this.shadowRoot) {
       throw new Error('Your browser not support Shadow DOM or your Shadow DOM is closed.');
     }
@@ -180,13 +171,12 @@ export class LedGauge extends BasicElement {
   /**
    * Canvas in ef-canvas
    */
-  private get canvas (): HTMLCanvasElement {
+  private get canvas(): HTMLCanvasElement {
     const efCanvas = this._shadowRoot.querySelector('ef-canvas');
 
     if (efCanvas && efCanvas.shadowRoot) {
       return efCanvas.shadowRoot.getElementById('canvas') as HTMLCanvasElement;
-    }
-    else {
+    } else {
       throw new Error('ef-canvas is not defined.');
     }
   }
@@ -194,7 +184,7 @@ export class LedGauge extends BasicElement {
   /**
    * The 2 dimensional context of the canvas, used for drawing
    */
-  private get ctx (): CanvasRenderingContext2D {
+  private get ctx(): CanvasRenderingContext2D {
     return this.canvas.getContext('2d') as CanvasRenderingContext2D;
   }
 
@@ -202,14 +192,14 @@ export class LedGauge extends BasicElement {
    * Min value of gauge
    * @default 0
    */
-  private get min (): number {
+  private get min(): number {
     return this.zero !== ZERO_MAP.CENTER ? 0 : -this.max;
   }
   /**
    * Max value of gauge
    * @default 100
    */
-  private get max (): number {
+  private get max(): number {
     return MAX_VALUE;
   }
 
@@ -218,7 +208,7 @@ export class LedGauge extends BasicElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  protected update(changedProperties: PropertyValues): void {
     super.update(changedProperties);
     // re-render canvas every time properties,  has been updated
     this.renderBarGauge();
@@ -229,32 +219,31 @@ export class LedGauge extends BasicElement {
    * @param val value for calculate positions
    * @returns value bar index
    */
-  private getValueBarIndex (barCount: number, val: number | null): number | null {
+  private getValueBarIndex(barCount: number, val: number | null): number | null {
     if (val === null) {
       return null;
     }
     if (val < this.min) {
       val = this.min;
-    }
-    else if (val > this.max) {
+    } else if (val > this.max) {
       val = this.max;
     }
 
-    const positions = (barCount - 1);
+    const positions = barCount - 1;
     if (this.zero === ZERO_MAP.LEFT) {
-      return Math.round(positions * val / this.max);
+      return Math.round((positions * val) / this.max);
     }
     if (this.zero === ZERO_MAP.RIGHT) {
-      return Math.round(positions - positions * val / this.max);
+      return Math.round(positions - (positions * val) / this.max);
     }
-    return Math.round(positions * (val / 2 + this.max / 2) / this.max);
+    return Math.round((positions * (val / 2 + this.max / 2)) / this.max);
   }
 
   /**
    * @param varName css variable name
    * @returns {void}
    */
-  private fillBarColor (varName: string): void {
+  private fillBarColor(varName: string): void {
     if (this.ctx) {
       this.ctx.fillStyle = this.getComputedVariable(varName);
     }
@@ -266,28 +255,22 @@ export class LedGauge extends BasicElement {
    * @param barAmount bar amount
    * @returns color variable name
    */
-  private getBarColor (idx: number, sectionLength: number, barAmount: number): string {
+  private getBarColor(idx: number, sectionLength: number, barAmount: number): string {
     let barColor = '';
 
     if (this.neutralColor) {
       barColor = '--neutral-color';
-    }
-    else if (idx < Math.floor(sectionLength)) {
+    } else if (idx < Math.floor(sectionLength)) {
       barColor = '--left-segment-color';
-    }
-    else if (idx < Math.floor(sectionLength * 2)) {
+    } else if (idx < Math.floor(sectionLength * 2)) {
       barColor = '--center-left-segment-color';
-    }
-    else if (idx < Math.floor(sectionLength * 2) + Math.ceil(sectionLength)) {
+    } else if (idx < Math.floor(sectionLength * 2) + Math.ceil(sectionLength)) {
       barColor = '--center-segment-color';
-    }
-    else if (idx >= barAmount - Math.floor(sectionLength)) {
+    } else if (idx >= barAmount - Math.floor(sectionLength)) {
       barColor = '--right-segment-color';
-    }
-    else if (idx >= barAmount - Math.floor(sectionLength * 2)) {
+    } else if (idx >= barAmount - Math.floor(sectionLength * 2)) {
       barColor = '--center-right-segment-color';
-    }
-    else {
+    } else {
       barColor = '--center-segment-color';
     }
 
@@ -299,7 +282,7 @@ export class LedGauge extends BasicElement {
    * @param labelPos position of label in pixel
    * @returns {void}
    */
-  private updateLabelPosition (id: string, labelPos: string): void {
+  private updateLabelPosition(id: string, labelPos: string): void {
     if (!labelPos) {
       return;
     }
@@ -313,7 +296,7 @@ export class LedGauge extends BasicElement {
    * Render a led-gauge bar in canvas
    * @returns {void}
    */
-  private renderBarGauge (): void {
+  private renderBarGauge(): void {
     if (!this.isConnected || !this.canvas) {
       return;
     }
@@ -334,7 +317,7 @@ export class LedGauge extends BasicElement {
     const bottomValueBarIndex = this.getValueBarIndex(barAmount, this.bottomValue);
     const sectionLength = barAmount / SECTION_DIVIDER; // devided gauge to 5 sections
     const spacingOffset = barSpacing / 2;
-    const basePos = width / 2 - barAmount / 2 * barTotalWidth + spacingOffset; // starter point
+    const basePos = width / 2 - (barAmount / 2) * barTotalWidth + spacingOffset; // starter point
     const rangeValueBarIndexes = [];
     let rangeMidIndex = 0;
 
@@ -378,8 +361,7 @@ export class LedGauge extends BasicElement {
         // In case top & bottom value are in the same position
         if (i === topValueBarIndex) {
           this.fillBarColor('--clash-color');
-        }
-        else {
+        } else {
           this.fillBarColor('--bottom-selected-color');
         }
         isHitValue = true;
@@ -390,8 +372,7 @@ export class LedGauge extends BasicElement {
         // Painted range color first to allow override bar color
         if (rangeValueBarIndexes.includes(i)) {
           this.fillBarColor('--range-color');
-        }
-        else {
+        } else {
           const barColor = this.getBarColor(i, sectionLength, barAmount);
           this.fillBarColor(barColor);
         }
@@ -440,7 +421,11 @@ export class LedGauge extends BasicElement {
    * @param id id of template
    * @returns template to render
    */
-  private createLabelTemplate (value: number | number[] | null, label: string, id: string): TemplateResult | null {
+  private createLabelTemplate(
+    value: number | number[] | null,
+    label: string,
+    id: string
+  ): TemplateResult | null {
     if (value === null) {
       return null;
     }
@@ -464,7 +449,7 @@ export class LedGauge extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       <section>
         <ef-canvas @resize=${this.renderBarGauge.bind(this)}></ef-canvas>

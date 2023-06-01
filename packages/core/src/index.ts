@@ -1,14 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-export {
-  html,
-  svg,
-  css,
-  unsafeCSS,
-  render,
-  nothing
-} from 'lit';
+export { html, svg, css, unsafeCSS, render, nothing } from 'lit';
 
 export type {
   TemplateResult,
@@ -28,7 +21,7 @@ export { ControlElement } from './elements/ControlElement.js';
 export { FormFieldElement } from './elements/FormFieldElement.js';
 export { ResponsiveElement, ElementSize, ResizeEvent } from './elements/ResponsiveElement.js';
 export class LitElement extends BasicElement {
-  constructor () {
+  constructor() {
     /* eslint-disable-next-line no-console */
     console.warn('Please use an ELF element type, instead of LitElement');
     super();

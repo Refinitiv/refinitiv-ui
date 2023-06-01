@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <title>Number Field</title>
     <style>
-      #inputVsNative input,  #inputVsNative ef-number-field {
+      #inputVsNative input,
+      #inputVsNative ef-number-field {
         width: 200px;
       }
     </style>
@@ -14,21 +15,21 @@
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
       import '@refinitiv-ui/elements/number-field';
-  
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-  
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
-  
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/number-field/themes/${theme}/${variant}/index.js`);
+
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/number-field/themes/${theme}/${variant}/index.js`);
     </script>
     <demo-block layout="normal" header="Default" tags="default">
       <p><ef-number-field placeholder="Default" no-spinner></ef-number-field></p>
@@ -38,16 +39,29 @@
 
     <demo-block layout="normal" header="Number Field vs Native" tags="native,number,input" id="inputVsNative">
       <div>A playground to compare native number input and number-field</div>
-      <div style="display: flex;">
+      <div style="display: flex">
         <div>
-          <p><label for="inputVsNativeNative">Native Input: </label><input type="number" placeholder="Native Input" id="inputVsNativeNative"></p>
-          <p><label for="inputVsNativeInput">Number Field: </label><ef-number-field type="number" placeholder="Number Field" id="inputVsNativeInput"></ef-number-field></p>
+          <p>
+            <label for="inputVsNativeNative">Native Input: </label
+            ><input type="number" placeholder="Native Input" id="inputVsNativeNative" />
+          </p>
+          <p>
+            <label for="inputVsNativeInput">Number Field: </label
+            ><ef-number-field
+              type="number"
+              placeholder="Number Field"
+              id="inputVsNativeInput"
+            ></ef-number-field>
+          </p>
         </div>
         <div>
-          <p><label for="inputVsNativeStep">Step: </label><input id="inputVsNativeStep" type="number"></p>
-          <p><label for="inputVsNativeMin">Min: </label><input id="inputVsNativeMin" type="number"></p>
-          <p><label for="inputVsNativeMax">Max: </label><input id="inputVsNativeMax" type="number"></p>
-          <p><label for="inputVsNativeValue">Value Attribute: </label><input id="inputVsNativeValue" type="number"></p>
+          <p><label for="inputVsNativeStep">Step: </label><input id="inputVsNativeStep" type="number" /></p>
+          <p><label for="inputVsNativeMin">Min: </label><input id="inputVsNativeMin" type="number" /></p>
+          <p><label for="inputVsNativeMax">Max: </label><input id="inputVsNativeMax" type="number" /></p>
+          <p>
+            <label for="inputVsNativeValue">Value Attribute: </label
+            ><input id="inputVsNativeValue" type="number" />
+          </p>
         </div>
       </div>
       <script>
@@ -68,8 +82,7 @@
             if (!value) {
               inputVsNativeNative.removeAttribute('value');
               inputVsNativeInput.removeAttribute('value');
-            }
-            else {
+            } else {
               inputVsNativeNative.setAttribute('value', value);
               inputVsNativeInput.setAttribute('value', value);
             }
@@ -80,11 +93,17 @@
 
     <demo-block layout="normal" header="Text alignment" tags="appearances">
       <p>text-align: center</p>
-      <p><ef-number-field style="padding: 0; width:24px; text-align: center;" value="20" no-spinner></ef-number-field></p>
+      <p>
+        <ef-number-field
+          style="padding: 0; width: 24px; text-align: center"
+          value="20"
+          no-spinner
+        ></ef-number-field>
+      </p>
       <p>text-align: right without spinner</p>
-      <p><ef-number-field style="width:60px; text-align: right;" value="40" no-spinner></ef-number-field></p>
+      <p><ef-number-field style="width: 60px; text-align: right" value="40" no-spinner></ef-number-field></p>
       <p>text-align: right</p>
-      <p><ef-number-field style="width:84px; text-align: right;" value="30"></ef-number-field></p>
+      <p><ef-number-field style="width: 84px; text-align: right" value="30"></ef-number-field></p>
     </demo-block>
 
     <demo-block layout="normal" header="Transparent" tags="appearances">
@@ -121,7 +140,7 @@
 
     <demo-block layout="normal" header="Value change event" tags="event">
       <ef-number-field id="value-changed" placeholder="Value change event"></ef-number-field>
-      <p> Value: <code id="value-text"></code></p>
+      <p>Value: <code id="value-text"></code></p>
       <script>
         var element = document.getElementById('value-changed');
         var valueChangedText = document.getElementById('value-text');
@@ -134,7 +153,7 @@
 
     <demo-block layout="normal" header="Error change event" tags="event">
       <ef-number-field id="error-changed" min="0" max="10" placeholder="Error change event"></ef-number-field>
-      <p> Error: <code id="error"></code></p>
+      <p>Error: <code id="error"></code></p>
       <script>
         var element = document.getElementById('error-changed');
         var errorChangedText = document.getElementById('error');
@@ -157,13 +176,21 @@
         let focusblur = document.querySelector('.focusblur');
         let focusblurevent = document.querySelector('.focusblurevent');
 
-        focusblur.addEventListener('blur', function () {
-          focusblurevent.innerHTML = '`blur` event triggered';
-        }, false);
+        focusblur.addEventListener(
+          'blur',
+          function () {
+            focusblurevent.innerHTML = '`blur` event triggered';
+          },
+          false
+        );
 
-        focusblur.addEventListener('focus', function () {
-          focusblurevent.innerHTML = '`focus` event triggered';
-        }, false);
+        focusblur.addEventListener(
+          'focus',
+          function () {
+            focusblurevent.innerHTML = '`focus` event triggered';
+          },
+          false
+        );
       </script>
     </demo-block>
   </body>

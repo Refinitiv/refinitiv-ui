@@ -32,8 +32,7 @@ describe('TestNativeStyleRegistry', () => {
 
     try {
       NativeStyleRegistry.define(testName, mockCssString);
-    }
-    catch (error) {
+    } catch (error) {
       expect(error).instanceOf(DuplicateStyleError);
       expect(error.message).to.equalSnapshot();
     }
@@ -54,5 +53,4 @@ describe('TestNativeStyleRegistry', () => {
 
     expect(node).to.not.exist;
   });
-
 });

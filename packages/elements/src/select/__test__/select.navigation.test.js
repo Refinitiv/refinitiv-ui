@@ -18,8 +18,14 @@ const iterate = async (el, scope, keys = [], highlighted = [], options = {}) => 
   for (let i = 0; i < keys.length; i += 1) {
     const key = keys[i];
     await keyBoardEvent(el, key, options);
-    expect(scope.querySelector('[highlighted]') === children[highlighted[i]]).to.equal(true, `Incorrect item highlighted for nr.${i} ${key}`);
-    expect(scope.querySelector('[focused]') === children[highlighted[i]]).to.equal(true, `Incorrect item focused for nr.${i} ${key}`);
+    expect(scope.querySelector('[highlighted]') === children[highlighted[i]]).to.equal(
+      true,
+      `Incorrect item highlighted for nr.${i} ${key}`
+    );
+    expect(scope.querySelector('[focused]') === children[highlighted[i]]).to.equal(
+      true,
+      `Incorrect item focused for nr.${i} ${key}`
+    );
   }
 };
 
@@ -27,21 +33,27 @@ const emulateMouseMove = async (el, scope) => {
   await openedUpdated(el);
   const children = scope.querySelectorAll('ef-item'); // 1, 2, 4 can be selected
 
-  children[1].dispatchEvent(new MouseEvent('mousemove', {
-    bubbles: true
-  }));
+  children[1].dispatchEvent(
+    new MouseEvent('mousemove', {
+      bubbles: true
+    })
+  );
   await elementUpdated(el);
   expect(scope.querySelector('[highlighted]') === children[1]).to.equal(true, 'First item is highlighted');
 
-  children[2].dispatchEvent(new MouseEvent('mousemove', {
-    bubbles: true
-  }));
+  children[2].dispatchEvent(
+    new MouseEvent('mousemove', {
+      bubbles: true
+    })
+  );
   await elementUpdated(el);
   expect(scope.querySelector('[highlighted]') === children[2]).to.equal(true, 'Second item is highlighted');
 
-  children[0].dispatchEvent(new MouseEvent('mousemove', {
-    bubbles: true
-  })); // header
+  children[0].dispatchEvent(
+    new MouseEvent('mousemove', {
+      bubbles: true
+    })
+  ); // header
   await elementUpdated(el);
   expect(scope.querySelector('[highlighted]') === children[2]).to.equal(true, 'Header cannot be highlighted');
 };
@@ -57,14 +69,20 @@ describe('select/Navigation', () => {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
       el.value = 'AL';
       await openedUpdated(el);
-      expect(el.querySelector('[highlighted]').value).to.equal('AL', 'Selected value should be highlighted by default');
+      expect(el.querySelector('[highlighted]').value).to.equal(
+        'AL',
+        'Selected value should be highlighted by default'
+      );
     });
     it('Data: default highlighted', async () => {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
       el.value = 'AL';
       await openedUpdated(el);
-      expect(getMenuEl(el).querySelector('[highlighted]').value).to.equal('AL', 'Selected value should be highlighted by default');
+      expect(getMenuEl(el).querySelector('[highlighted]').value).to.equal(
+        'AL',
+        'Selected value should be highlighted by default'
+      );
     });
     it('Options: Up key', async () => {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
@@ -73,16 +91,31 @@ describe('select/Navigation', () => {
     it('Data: Up key', async () => {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
-      await iterate(el, getMenuEl(el), ['ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowUp'], [4, 2, 1, 4, 2]);
+      await iterate(
+        el,
+        getMenuEl(el),
+        ['ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowUp'],
+        [4, 2, 1, 4, 2]
+      );
     });
     it('Options: Down key', async () => {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
-      await iterate(el, el, ['ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown'], [1, 2, 4, 1, 2]);
+      await iterate(
+        el,
+        el,
+        ['ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown'],
+        [1, 2, 4, 1, 2]
+      );
     });
     it('Data: Down key', async () => {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
-      await iterate(el, getMenuEl(el), ['ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown'], [1, 2, 4, 1, 2]);
+      await iterate(
+        el,
+        getMenuEl(el),
+        ['ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown'],
+        [1, 2, 4, 1, 2]
+      );
     });
     it('Options: Tab key', async () => {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
@@ -146,26 +179,44 @@ describe('select/Navigation', () => {
       const children = scope.querySelectorAll('ef-item'); // 1, 2, 4 can be selected
 
       await keyBoardEvent(el, 'Shift');
-      expect(scope.querySelector('[highlighted]') === null).to.equal(true, 'Quick search should not highlight on special keys');
+      expect(scope.querySelector('[highlighted]') === null).to.equal(
+        true,
+        'Quick search should not highlight on special keys'
+      );
 
       await keyBoardEvent(el, 'A');
-      expect(scope.querySelector('[highlighted]') === children[1]).to.equal(true, 'Item starting with "A" should be highlighted');
+      expect(scope.querySelector('[highlighted]') === children[1]).to.equal(
+        true,
+        'Item starting with "A" should be highlighted'
+      );
 
       await keyBoardEvent(el, 'L'); // quick AL for Albania
       await keyBoardEvent(el, 'B'); // quick ALB for Albania
-      expect(scope.querySelector('[highlighted]') === children[4]).to.equal(true, 'Item starting with "AL" should be highlighted');
+      expect(scope.querySelector('[highlighted]') === children[4]).to.equal(
+        true,
+        'Item starting with "AL" should be highlighted'
+      );
 
       await aTimeout(KEY_SEARCH_DEBOUNCER);
       await keyBoardEvent(el, 'A'); // re-start search, jump back to first item
-      expect(scope.querySelector('[highlighted]') === children[1]).to.equal(true, 'Highlight for quick search should go in rounds');
+      expect(scope.querySelector('[highlighted]') === children[1]).to.equal(
+        true,
+        'Highlight for quick search should go in rounds'
+      );
 
       await aTimeout(KEY_SEARCH_DEBOUNCER);
       await keyBoardEvent(el, 'A'); // Next A
-      expect(scope.querySelector('[highlighted]') === children[2]).to.equal(true, 'Next item matching search criteria should be highlighted');
+      expect(scope.querySelector('[highlighted]') === children[2]).to.equal(
+        true,
+        'Next item matching search criteria should be highlighted'
+      );
 
       await aTimeout(KEY_SEARCH_DEBOUNCER);
       await keyBoardEvent(el, 'B'); // No match
-      expect(scope.querySelector('[highlighted]') === children[2]).to.equal(true, 'If there is no match, previous item should stay highlighted');
+      expect(scope.querySelector('[highlighted]') === children[2]).to.equal(
+        true,
+        'If there is no match, previous item should stay highlighted'
+      );
     };
 
     it('Options: quick search highlights the item', async () => {

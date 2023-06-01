@@ -46,12 +46,11 @@ const getDirList = (dir) => {
   let dirList;
   try {
     dirList = fs.readdirSync(dir);
-  }
-  catch (err) {
+  } catch (err) {
     console.error(err); // eslint-disable-line
   }
 
-  return dirList.filter(file => path.extname(path.resolve(dir, file)) === '.js');
+  return dirList.filter((file) => path.extname(path.resolve(dir, file)) === '.js');
 };
 
 const assembleImports = async () => {
@@ -62,15 +61,14 @@ const assembleImports = async () => {
       langImportMap.set(lang, new Map());
       const langMap = langImportMap.get(lang);
       const componentsList = getDirList(`./${DEFAULT_LANG_DIR}/${lang}`);
-      if(componentsList) {
+      if (componentsList) {
         for (const component of componentsList) {
           const imported = await import(`../${DEFAULT_LANG_DIR}/${lang}/${component}`);
           langMap.set(component, imported.default);
         }
       }
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.error(err); // eslint-disable-line
   }
   return langImportMap;
@@ -123,7 +121,7 @@ describe('Langs', () => {
     it('Has no missing files', () => {
       nonDefaultLangs.forEach((lang) => {
         assembledImports.get(DEFAULT_LANG).forEach((imported, key) => {
-          if(!assembledImports.get(lang).has(key)) {
+          if (!assembledImports.get(lang).has(key)) {
             missing.push({ lang: lang, item: key });
           }
         });
@@ -133,7 +131,7 @@ describe('Langs', () => {
     it(`Langs have no imports not found in ${DEFAULT_LANG}`, () => {
       nonDefaultLangs.forEach((lang) => {
         assembledImports.get(lang).forEach((imported, key) => {
-          if(!assembledImports.get(DEFAULT_LANG).has(key)) {
+          if (!assembledImports.get(DEFAULT_LANG).has(key)) {
             unexpected.push({ lang: lang, item: key });
           }
         });
@@ -143,25 +141,24 @@ describe('Langs', () => {
     it(`Each lang component and shared have ${DEFAULT_LANG} component and shared keys`, () => {
       nonDefaultLangs.forEach((lang) => {
         assembledImports.get(DEFAULT_LANG).forEach((imported, importedKey) => {
-          if(assembledImports.get(lang).has(importedKey)) {
+          if (assembledImports.get(lang).has(importedKey)) {
             for (const key in imported) {
-              if(!assembledImports.get(lang).get(importedKey).hasOwnProperty(key)) {
+              if (!assembledImports.get(lang).get(importedKey).hasOwnProperty(key)) {
                 missingTrans.push({ lang: lang, item: `${importedKey} :: ${key}` });
               }
             }
           }
         });
         expect(missingTrans.length).to.equal(0);
-
       });
     });
 
     it('Each lang component and shared have no extra component or shared keys', () => {
       nonDefaultLangs.forEach((lang) => {
         assembledImports.get(lang).forEach((imported, importedKey) => {
-          if(assembledImports.get(DEFAULT_LANG).has(importedKey)) {
+          if (assembledImports.get(DEFAULT_LANG).has(importedKey)) {
             for (const key in imported) {
-              if(!assembledImports.get(DEFAULT_LANG).get(importedKey).hasOwnProperty(key)) {
+              if (!assembledImports.get(DEFAULT_LANG).get(importedKey).hasOwnProperty(key)) {
                 additional.push({ lang: lang, item: `${importedKey} :: ${key}` });
               }
             }

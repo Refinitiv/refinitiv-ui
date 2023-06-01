@@ -8,7 +8,6 @@ import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
 
 describe('overlay-menu/Events', () => {
   describe('Events Test', () => {
-
     it('Fires opened', async () => {
       const el = await fixture('<ef-overlay-menu></ef-overlay-menu>');
       el.data = flatData;

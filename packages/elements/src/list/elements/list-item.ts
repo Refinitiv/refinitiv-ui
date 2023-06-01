@@ -17,4 +17,3 @@ declare global {
     'ef-list-item': ListItem;
   }
 }
-

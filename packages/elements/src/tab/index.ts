@@ -28,12 +28,11 @@ import '../label/index.js';
  */
 @customElement('ef-tab')
 export class Tab extends ControlElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -45,7 +44,7 @@ export class Tab extends ControlElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-flex;
@@ -114,7 +113,7 @@ export class Tab extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown);
   }
@@ -125,7 +124,7 @@ export class Tab extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('active')) {
@@ -154,7 +153,7 @@ export class Tab extends ControlElement {
    * Omitted lineClamp if subLabel is provided
    * @returns line Clamp value
    */
-  private getLineClamp (): number {
+  private getLineClamp(): number {
     return !this.lineClamp ? 0 : this.subLabel ? 1 : this.lineClamp;
   }
 
@@ -163,7 +162,7 @@ export class Tab extends ControlElement {
    * @param event Key down event object
    * @returns {void}
    */
-  private onKeyDown (event: KeyboardEvent): void {
+  private onKeyDown(event: KeyboardEvent): void {
     if (event.defaultPrevented) {
       return;
     }
@@ -176,7 +175,7 @@ export class Tab extends ControlElement {
    * @param event event from close button
    * @returns {void}
    */
-  private handleClickClear (event: MouseEvent): void {
+  private handleClickClear(event: MouseEvent): void {
     event.stopPropagation();
     /**
      * Fires when click on cross occurs
@@ -188,46 +187,36 @@ export class Tab extends ControlElement {
    * Show Close Button if allow clears
    * @returns close button template
    */
-  private get CloseTemplate (): TemplateResult | null {
-    return this.clears || this.clearsOnHover ? html`
-        <div part="close-container">
-          <ef-icon part="close" icon="cross" @tap="${this.handleClickClear}"></ef-icon>
-        </div>
-      ` : null;
+  private get CloseTemplate(): TemplateResult | null {
+    return this.clears || this.clearsOnHover ?
+      html`
+          <div part="close-container">
+            <ef-icon part="close" icon="cross" @tap="${this.handleClickClear}"></ef-icon>
+          </div>
+        ` :
+      null;
   }
 
   /**
    * Create ef-label template when label is true
    * @returns Label template
    */
-  private get LabelTemplate (): TemplateResult | null {
+  private get LabelTemplate(): TemplateResult | null {
     if (!this.label || this.isSlotHasContent) {
       return null;
     }
-    return html`
-      <ef-label
-        part="label"
-        .lineClamp=${this.getLineClamp()}>
-        ${this.label}
-      </ef-label>
-    `;
+    return html` <ef-label part="label" .lineClamp=${this.getLineClamp()}> ${this.label} </ef-label> `;
   }
 
   /**
    * Create ef-label template when subLabel is true
    * @returns SubLabel template
    */
-  private get SubLabelTemplate (): TemplateResult | null {
+  private get SubLabelTemplate(): TemplateResult | null {
     if (!this.subLabel || this.isSlotHasContent) {
       return null;
     }
-    return html`
-      <ef-label
-      part="sub-label"
-      .lineClamp=${this.getLineClamp()}>
-        ${this.subLabel}
-      </ef-label>
-    `;
+    return html` <ef-label part="sub-label" .lineClamp=${this.getLineClamp()}> ${this.subLabel} </ef-label> `;
   }
 
   /**
@@ -235,14 +224,13 @@ export class Tab extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       ${this.icon ? html`<ef-icon icon=${this.icon} part="icon"></ef-icon>` : null}
-        <div part="label-container">
-          ${this.LabelTemplate}
-          ${this.SubLabelTemplate}
-          <slot @slotchange="${this.onSlotChange}"></slot>
-        </div>
+      <div part="label-container">
+        ${this.LabelTemplate} ${this.SubLabelTemplate}
+        <slot @slotchange="${this.onSlotChange}"></slot>
+      </div>
       ${this.CloseTemplate}
     `;
   }

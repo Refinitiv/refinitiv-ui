@@ -29,7 +29,7 @@ export class TreeManager<T extends TreeDataItem> {
    */
   private mode = TreeManagerMode.RELATIONAL;
 
-  constructor (composer: CollectionComposer<T>, mode = TreeManagerMode.RELATIONAL) {
+  constructor(composer: CollectionComposer<T>, mode = TreeManagerMode.RELATIONAL) {
     this.composer = composer;
     this.mode = mode;
   }
@@ -37,29 +37,29 @@ export class TreeManager<T extends TreeDataItem> {
   /**
    * Is the manager maintaining parent/child relationships
    */
-  private get manageRelationships (): boolean {
+  private get manageRelationships(): boolean {
     return this.mode === TreeManagerMode.RELATIONAL;
   }
 
   /**
    * Returns all items in the tree
    */
-  private get items (): readonly T[] {
+  private get items(): readonly T[] {
     return this.composer.queryItems(() => true, Infinity);
   }
 
   /**
    * Return all items which have children
    */
-  private get parentItems (): readonly T[] {
-    return this.items.filter(item => this.isItemParent(item));
+  private get parentItems(): readonly T[] {
+    return this.items.filter((item) => this.isItemParent(item));
   }
 
   /**
    * Returns all checked items.
    * When managing relationships, this excludes groups/parents from the result.
    */
-  public get checkedItems (): readonly T[] {
+  public get checkedItems(): readonly T[] {
     return this.composer.queryItems((item: T) => {
       if (this.manageRelationships && this.isItemParent(item)) {
         return false;
@@ -72,7 +72,7 @@ export class TreeManager<T extends TreeDataItem> {
    * Items which should be visibly displayed.
    * This can be used to render items.
    */
-  public get editableItems (): readonly T[] {
+  public get editableItems(): readonly T[] {
     const topLevel = this.composer.queryItems(() => true, 0);
     return this.getEditableItems(topLevel);
   }
@@ -83,7 +83,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param result Resulting array of visible items
    * @returns Collection of visible items
    */
-  private getEditableItems (items: readonly T[], result: T[] = []): T[] {
+  private getEditableItems(items: readonly T[], result: T[] = []): T[] {
     for (const item of items) {
       if (this.isItemCheckable(item)) {
         result.push(item);
@@ -98,7 +98,7 @@ export class TreeManager<T extends TreeDataItem> {
    * Items which should be visibly displayed.
    * This can be used to render items.
    */
-  public get visibleItems (): readonly T[] {
+  public get visibleItems(): readonly T[] {
     const topLevel = this.composer.queryItems(() => true, 0);
     return this.getVisibleItems(topLevel);
   }
@@ -109,7 +109,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param result Resulting array of visible items
    * @returns Collection of visible items
    */
-  private getVisibleItems (items: readonly T[], result: T[] = []): T[] {
+  private getVisibleItems(items: readonly T[], result: T[] = []): T[] {
     for (const item of items) {
       if (!this.isItemHidden(item) && result.push(item) && this.isItemExpanded(item)) {
         const children = this.getItemChildren(item);
@@ -124,7 +124,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns `True` if the item is hidden
    */
-  private isItemHidden (item: T): boolean {
+  private isItemHidden(item: T): boolean {
     return this.composer.getItemPropertyValue(item, 'hidden') === true;
   }
 
@@ -133,9 +133,9 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns `True` if the item is checked
    */
-  private isItemChecked (item: T): boolean {
+  private isItemChecked(item: T): boolean {
     if (this.manageRelationships && this.isItemParent(item)) {
-      return !this.getItemChildren(item).some(child => !this.isItemChecked(child));
+      return !this.getItemChildren(item).some((child) => !this.isItemChecked(child));
     }
     return this.composer.getItemPropertyValue(item, 'selected') === true;
   }
@@ -145,9 +145,9 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns `True` if the item has managed relationships and contains checked descendants
    */
-  private isItemCheckedIndeterminate (item: T): boolean {
+  private isItemCheckedIndeterminate(item: T): boolean {
     if (this.manageRelationships && this.isItemParent(item)) {
-      return this.getItemDescendants(item).some(desc => this.isItemChecked(desc));
+      return this.getItemDescendants(item).some((desc) => this.isItemChecked(desc));
     }
     return false;
   }
@@ -157,9 +157,9 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns True if the item can be changed to 'checked'.
    */
-  private canCheckItem (item: T): boolean {
+  private canCheckItem(item: T): boolean {
     if (this.manageRelationships && this.isItemParent(item)) {
-      return this.getItemChildren(item).some(child => this.canCheckItem(child));
+      return this.getItemChildren(item).some((child) => this.canCheckItem(child));
     }
     return this.isItemCheckable(item) && this.composer.getItemPropertyValue(item, 'selected') !== true;
   }
@@ -169,9 +169,9 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns True if the item can be changed to 'unchecked'.
    */
-  private canUncheckItem (item: T): boolean {
+  private canUncheckItem(item: T): boolean {
     if (this.manageRelationships && this.isItemParent(item)) {
-      return this.getItemChildren(item).some(child => this.canUncheckItem(child));
+      return this.getItemChildren(item).some((child) => this.canUncheckItem(child));
     }
     return this.isItemCheckable(item) && this.composer.getItemPropertyValue(item, 'selected') === true;
   }
@@ -181,7 +181,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns {void}
    */
-  private showItem (item: T): void {
+  private showItem(item: T): void {
     this.composer.setItemPropertyValue(item, 'hidden', false);
     this.updateItem(item); // Make sure the item is updated
   }
@@ -191,7 +191,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns {void}
    */
-  private hideItem (item: T): void {
+  private hideItem(item: T): void {
     this.composer.setItemPropertyValue(item, 'hidden', true);
   }
 
@@ -200,9 +200,9 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Item of which to find path
    * @returns {void}
    */
-  private forceUpdateOnPath (item: T): void {
+  private forceUpdateOnPath(item: T): void {
     const path = [...this.getItemAncestors(item), item];
-    path.forEach(item => this.composer.updateItemTimestamp(item));
+    path.forEach((item) => this.composer.updateItemTimestamp(item));
   }
 
   /**
@@ -210,10 +210,10 @@ export class TreeManager<T extends TreeDataItem> {
    * @param mode Tree manager mode
    * @returns {void}
    */
-  public setMode (mode: TreeManagerMode): void {
+  public setMode(mode: TreeManagerMode): void {
     this.mode = mode;
     // Force update of all visible parent items, making sure any indeterminate states are remove.
-    this.parentItems.forEach(item => this.updateItem(item));
+    this.parentItems.forEach((item) => this.updateItem(item));
   }
 
   /**
@@ -221,7 +221,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns {void}
    */
-  public updateItem (item: T): void {
+  public updateItem(item: T): void {
     this.composer.updateItemTimestamp(item);
   }
 
@@ -230,7 +230,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Item to include
    * @returns `True` if the item is newly included
    */
-  public includeItem (item: T): boolean {
+  public includeItem(item: T): boolean {
     const result = this.composer.unlockItem(item);
     this.showItem(item); // Item must be unlocked first
     return result;
@@ -241,7 +241,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Item to exclude
    * @returns `True` if the item is newly excluded
    */
-  public excludeItem (item: T): boolean {
+  public excludeItem(item: T): boolean {
     this.hideItem(item);
     return this.composer.lockItem(item);
   }
@@ -251,10 +251,12 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns `True` if the item is not disabled or readonly
    */
-  public isItemCheckable (item: T): boolean {
-    return !this.composer.isItemLocked(item)
-      && this.composer.getItemPropertyValue(item, 'disabled') !== true
-      && this.composer.getItemPropertyValue(item, 'readonly') !== true;
+  public isItemCheckable(item: T): boolean {
+    return (
+      !this.composer.isItemLocked(item) &&
+      this.composer.getItemPropertyValue(item, 'disabled') !== true &&
+      this.composer.getItemPropertyValue(item, 'readonly') !== true
+    );
   }
 
   /**
@@ -262,9 +264,8 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns `True` if the item is expanded and its children should be visible
    */
-  public isItemExpanded (item: T): boolean {
-    return this.isItemParent(item)
-      && this.composer.getItemPropertyValue(item, 'expanded') === true;
+  public isItemExpanded(item: T): boolean {
+    return this.isItemParent(item) && this.composer.getItemPropertyValue(item, 'expanded') === true;
   }
 
   /**
@@ -272,7 +273,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns `True` if the item has children
    */
-  public isItemParent (item: T): boolean {
+  public isItemParent(item: T): boolean {
     return this.composer.isItemParent(item);
   }
 
@@ -281,7 +282,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns `True` if the item has a parent
    */
-  public isItemChild (item: T): boolean {
+  public isItemChild(item: T): boolean {
     return this.composer.isItemChild(item);
   }
 
@@ -290,7 +291,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns Checked state of the item
    */
-  public getItemCheckedState (item: T): CheckedState {
+  public getItemCheckedState(item: T): CheckedState {
     if (this.isItemChecked(item)) {
       return CheckedState.CHECKED;
     }
@@ -305,7 +306,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns A list of ancestors
    */
-  public getItemAncestors (item: T): readonly T[] {
+  public getItemAncestors(item: T): readonly T[] {
     return this.composer.getItemAncestors(item);
   }
 
@@ -315,7 +316,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param depth Depth to retrieve
    * @returns A list of descendants
    */
-  public getItemDescendants (item: T, depth?: number): readonly T[] {
+  public getItemDescendants(item: T, depth?: number): readonly T[] {
     return this.composer.getItemDescendants(item, depth);
   }
 
@@ -324,7 +325,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns Item parent or `null`
    */
-  public getItemParent (item: T): T | null {
+  public getItemParent(item: T): T | null {
     return this.composer.getItemParent(item);
   }
 
@@ -333,7 +334,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns A list of children
    */
-  public getItemChildren (item: T): readonly T[] {
+  public getItemChildren(item: T): readonly T[] {
     return this.composer.getItemChildren(item);
   }
 
@@ -342,7 +343,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns {void}
    */
-  public expandItem (item: T): void {
+  public expandItem(item: T): void {
     if (this.isItemParent(item)) {
       this.composer.setItemPropertyValue(item, 'expanded', true);
     }
@@ -353,7 +354,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns {void}
    */
-  public collapseItem (item: T): void {
+  public collapseItem(item: T): void {
     if (this.isItemParent(item)) {
       this.composer.setItemPropertyValue(item, 'expanded', false);
     }
@@ -363,16 +364,16 @@ export class TreeManager<T extends TreeDataItem> {
    * Expands all items in the tree
    * @returns {void}
    */
-  public expandAllItems (): void {
-    this.parentItems.forEach(item => this.expandItem(item));
+  public expandAllItems(): void {
+    this.parentItems.forEach((item) => this.expandItem(item));
   }
 
   /**
    * Collapses all items in the tree
    * @returns {void}
    */
-  public collapseAllItems (): void {
-    this.parentItems.forEach(item => this.collapseItem(item));
+  public collapseAllItems(): void {
+    this.parentItems.forEach((item) => this.collapseItem(item));
   }
 
   /**
@@ -380,15 +381,15 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns `True` if the item is modified
    */
-  public checkItem (item: T): boolean {
+  public checkItem(item: T): boolean {
     return this._checkItem(item);
   }
-  private _checkItem (item: T, manageRelationships = this.manageRelationships): boolean {
+  private _checkItem(item: T, manageRelationships = this.manageRelationships): boolean {
     if (this.canCheckItem(item)) {
       this.composer.setItemPropertyValue(item, 'selected', true);
       if (manageRelationships) {
         this.forceUpdateOnPath(item);
-        this.getItemDescendants(item).forEach(descendant => this._checkItem(descendant, false));
+        this.getItemDescendants(item).forEach((descendant) => this._checkItem(descendant, false));
       }
       return true;
     }
@@ -400,15 +401,15 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns `True` if the item is modified
    */
-  public uncheckItem (item: T): boolean {
+  public uncheckItem(item: T): boolean {
     return this._uncheckItem(item);
   }
-  private _uncheckItem (item: T, manageRelationships = this.manageRelationships): boolean {
+  private _uncheckItem(item: T, manageRelationships = this.manageRelationships): boolean {
     if (this.canUncheckItem(item)) {
       this.composer.setItemPropertyValue(item, 'selected', false);
       if (manageRelationships) {
         this.forceUpdateOnPath(item);
-        this.getItemDescendants(item).forEach(descendant => this._uncheckItem(descendant, false));
+        this.getItemDescendants(item).forEach((descendant) => this._uncheckItem(descendant, false));
       }
       this.updateItem(item);
       return true;
@@ -421,7 +422,7 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item Original data item
    * @returns `True` if the item is modified
    */
-  public toggleItem (item: T): boolean {
+  public toggleItem(item: T): boolean {
     return this.checkItem(item) || this.uncheckItem(item);
   }
 
@@ -429,17 +430,17 @@ export class TreeManager<T extends TreeDataItem> {
    * Checks all items
    * @returns {void}
    */
-  public checkAllItems (): void {
-    this.editableItems.forEach(item => this.checkItem(item));
+  public checkAllItems(): void {
+    this.editableItems.forEach((item) => this.checkItem(item));
   }
 
   /**
    * Unchecks all items
    * @returns {void}
    */
-  public uncheckAllItems (): void {
+  public uncheckAllItems(): void {
     // uncheck items from top levels when manage relationships to avoid redundant re-renders
     const items = this.manageRelationships ? this.composer.queryItems(() => true, 0) : this.checkedItems;
-    items.forEach(item => this.uncheckItem(item));
+    items.forEach((item) => this.uncheckItem(item));
   }
 }

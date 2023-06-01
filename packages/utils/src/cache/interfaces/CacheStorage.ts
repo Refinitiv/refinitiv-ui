@@ -2,7 +2,6 @@
  * Structure for any local storage
  */
 export interface CacheStorage {
-
   /**
    * Restore all values into memory cache
    */

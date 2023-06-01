@@ -8,12 +8,12 @@ import type { DataItem, CollectionComposer } from '@refinitiv-ui/utils/collectio
  */
 export interface RenderFunction {
   /**
-     * Renders data items into elements
-     * @param item Data item context
-     * @param composer Composer context
-     * @param element Reusable element. This element tries to be the same as was used before.
-     * @returns List item element
- */
+   * Renders data items into elements
+   * @param item Data item context
+   * @param composer Composer context
+   * @param element Reusable element. This element tries to be the same as was used before.
+   * @returns List item element
+   */
   (item: DataItem, composer: CollectionComposer, element?: HTMLElement): HTMLElement;
 }
 

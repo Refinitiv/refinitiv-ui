@@ -18,5 +18,5 @@ export { iconLoaderInstance as IconLoader };
  * @returns Array of promises, which will be resolved with SVG bodies.
  */
 export const preload = (...attrs: string[]): Promise<string | undefined>[] => {
-  return attrs.map(icon => iconLoaderInstance.loadSVG(icon));
+  return attrs.map((icon) => iconLoaderInstance.loadSVG(icon));
 };

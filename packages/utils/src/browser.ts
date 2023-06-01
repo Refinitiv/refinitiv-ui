@@ -18,9 +18,8 @@ const compareVersion = (targetVersion: string, browserVersion: string): boolean 
       default:
         return Number(browserVersion) === Number(targetVersion);
     }
-  }
-  else {
-    return (navigator.userAgent.indexOf(`Version\/${String(targetVersion)}`) > -1);
+  } else {
+    return navigator.userAgent.indexOf(`Version\/${String(targetVersion)}`) > -1;
   }
 };
 
@@ -44,7 +43,4 @@ const isSafari = (targetVersion = undefined): boolean => {
   return true;
 };
 
-export {
-  isMobile,
-  isSafari
-};
+export { isMobile, isSafari };

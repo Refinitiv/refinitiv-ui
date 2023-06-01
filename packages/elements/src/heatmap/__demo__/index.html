@@ -1,138 +1,165 @@
 <!DOCTYPE html>
 <html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <title>ef-heatmap</title>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <title>ef-heatmap</title>
-</head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/demo-block/demo.css';
+      import '@refinitiv-ui/elements/heatmap';
+      import '@refinitiv-ui/elements/sparkline';
 
-<body>
-  <script type="module">
-    import '@refinitiv-ui/demo-block';
-    import '@refinitiv-ui/demo-block/demo.css';
-    import '@refinitiv-ui/elements/heatmap';
-    import '@refinitiv-ui/elements/sparkline';
+      // Dynamic import theme files from search params of the URL
+      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      const url = new URL(window.location);
+      const theme = url.searchParams.get('theme') || 'halo';
+      const variant = url.searchParams.get('variant') || 'light';
 
-    // Dynamic import theme files from search params of the URL
-    // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
-    const url = new URL(window.location);
-    const theme = url.searchParams.get('theme') || 'halo';
-    const variant = url.searchParams.get('variant') || 'light';
+      if (!window.location.search) {
+        url.searchParams.set('theme', theme);
+        url.searchParams.append('variant', variant);
+        window.location.search = url.searchParams.toString();
+      }
 
-    if (!window.location.search) {
-      url.searchParams.set('theme', theme);
-      url.searchParams.append('variant', variant);
-      window.location.search = url.searchParams.toString();
-    }
-
-    import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-    import (`../../../lib/heatmap/themes/${theme}/${variant}/index.js`);
-    import (`../../../lib/sparkline/themes/${theme}/${variant}/index.js`);
-  </script>
-  <style>
-    /* demo-block {
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/heatmap/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/sparkline/themes/${theme}/${variant}/index.js`);
+    </script>
+    <style>
+      /* demo-block {
       max-width: none !important;
       width: 100% !important;
     } */
 
-    #spacing {
-      --spacing: 12px;
-    }
+      #spacing {
+        --spacing: 12px;
+      }
 
-    ef-heatmap {
-      height: 400px;
-    }
+      ef-heatmap {
+        height: 400px;
+      }
 
-    #normal {
-      height: inherit;
-    }
+      #normal {
+        height: inherit;
+      }
 
-    #large {
-      height: 1900px;
-    }
-  </style>
-  <h3>EF Heatmap</h3>
-  <code>
-    <a href="./index.html"><button>Basics</button></a>
-    <a href="./color.html"><button>Colors</button></a>
-    <a href="./custom-cell.html"><button>Custom cell properties</button></a>
-    <a href="./event.html"><button>Support cell events</button></a>
-  </code>
+      #large {
+        height: 1900px;
+      }
+    </style>
+    <h3>EF Heatmap</h3>
+    <code>
+      <a href="./index.html"><button>Basics</button></a>
+      <a href="./color.html"><button>Colors</button></a>
+      <a href="./custom-cell.html"><button>Custom cell properties</button></a>
+      <a href="./event.html"><button>Support cell events</button></a>
+    </code>
 
-  <demo-block layout="normal" header="EF Heatmap">
-    <ef-heatmap id="normal"></ef-heatmap>
-  </demo-block>
+    <demo-block layout="normal" header="EF Heatmap">
+      <ef-heatmap id="normal"></ef-heatmap>
+    </demo-block>
 
-  <demo-block layout="normal" header="Custom axis position">
-    <ef-heatmap id="custom-axis"></ef-heatmap>
-  </demo-block>
+    <demo-block layout="normal" header="Custom axis position">
+      <ef-heatmap id="custom-axis"></ef-heatmap>
+    </demo-block>
 
-  <demo-block layout="normal" header="Spacing">
-    <ef-heatmap id="spacing"></ef-heatmap>
-  </demo-block>
+    <demo-block layout="normal" header="Spacing">
+      <ef-heatmap id="spacing"></ef-heatmap>
+    </demo-block>
 
-  <demo-block layout="normal" header="2000 cells">
-    <ef-heatmap id="large" axis-hidden blend></ef-heatmap>
-  </demo-block>
+    <demo-block layout="normal" header="2000 cells">
+      <ef-heatmap id="large" axis-hidden blend></ef-heatmap>
+    </demo-block>
 
-  <script>
-    var el;
+    <script>
+      var el;
 
-    var generateData = function (r, c, minPoint = -1, maxPoint = 1) {
-      var rows = Array(r);
-      for (let i = 0; i < rows.length; i++) {
-        var columns = Array(c);
-        for (let ii = 0; ii < columns.length; ii++) {
-          var shift = (i * ii) / (c * r);
-          var value = -1 + shift + (Math.random() / 2 + 0.5 * shift) * (2 - shift) * maxPoint;
+      var generateData = function (r, c, minPoint = -1, maxPoint = 1) {
+        var rows = Array(r);
+        for (let i = 0; i < rows.length; i++) {
+          var columns = Array(c);
+          for (let ii = 0; ii < columns.length; ii++) {
+            var shift = (i * ii) / (c * r);
+            var value = -1 + shift + (Math.random() / 2 + 0.5 * shift) * (2 - shift) * maxPoint;
 
-          columns[ii] = {
-            value: minPoint >= 0 ? Math.abs(value) : value
-          };
+            columns[ii] = {
+              value: minPoint >= 0 ? Math.abs(value) : value
+            };
+          }
+          rows[i] = columns;
         }
-        rows[i] = columns;
-      }
-      return rows;
-    };
+        return rows;
+      };
 
-    var generateSparkline = function () {
-      var result = [];
-      for (var i = 0; i < 10; i++) {
-        result.push(Math.random());
-      }
-      return result;
-    };
-    var initEl = function (id, rows, columns) {
-      el = document.getElementById(id);
-      el.tooltipCallback = function (cell) {
-        var tooltip = document.createElement('div');
-        var template = `
+      var generateSparkline = function () {
+        var result = [];
+        for (var i = 0; i < 10; i++) {
+          result.push(Math.random());
+        }
+        return result;
+      };
+      var initEl = function (id, rows, columns) {
+        el = document.getElementById(id);
+        el.tooltipCallback = function (cell) {
+          var tooltip = document.createElement('div');
+          var template = `
               <div style="font-weight: 600">Actual value:</div>
               <div style="color:${cell.color}">${cell.value}</div>
               <ef-sparkline data="[${generateSparkline().join()}]" style="width: 100%;margin-top:5px;"></ef-sparkline>
             `;
-        tooltip.innerHTML = template;
-        return tooltip;
+          tooltip.innerHTML = template;
+          return tooltip;
+        };
+        el.config = {
+          data: generateData(rows || 10, columns || 12),
+          yAxis: {
+            labels: [
+              '2019',
+              '2018',
+              '2017',
+              '2016',
+              '2015',
+              '2014',
+              '2013',
+              '2012',
+              '2011',
+              '2010',
+              '2009',
+              '2008',
+              '2007',
+              '2006',
+              '2005'
+            ],
+            position: id === 'custom-axis' ? 'right' : 'left'
+          },
+          xAxis: {
+            labels: [
+              'January',
+              'Febuary',
+              'March',
+              'April',
+              'May',
+              'June',
+              'July',
+              'August',
+              'September',
+              'October',
+              'November',
+              'December'
+            ],
+            shortLabels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+            position: id === 'custom-axis' ? 'bottom' : 'top'
+          }
+        };
       };
-      el.config = {
-        data: generateData(rows || 10, columns || 12),
-        yAxis: {
-          labels: ['2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007', '2006', '2005'],
-          position: id === 'custom-axis' ? 'right' : 'left'
-        },
-        xAxis: {
-          labels: ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-          shortLabels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
-          position: id === 'custom-axis' ? 'bottom' : 'top'
-        }
-      };
-    };
 
-    initEl('normal');
-    initEl('custom-axis');
-    initEl('spacing');
-    initEl('large', 80, 25);
-  </script>
-</body>
-
+      initEl('normal');
+      initEl('custom-axis');
+      initEl('spacing');
+      initEl('large', 80, 25);
+    </script>
+  </body>
 </html>

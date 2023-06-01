@@ -36,9 +36,8 @@ const triggerResize = (entry: ResizeObserverEntry): void => {
   if (entry.borderBoxSize?.length > 0) {
     width = entry.borderBoxSize[0].inlineSize;
     height = entry.borderBoxSize[0].blockSize;
-  }
-  /* c8 ignore start */
-  else {
+  } else {
+    /* c8 ignore start */
     width = entry.contentRect.width;
     height = entry.contentRect.height;
   }
@@ -67,14 +66,17 @@ const triggerResize = (entry: ResizeObserverEntry): void => {
  * @returns {void}
  */
 const entriesResize = (entries: ResizeObserverEntry[]): void => {
-  entries.forEach(entry => triggerResize(entry));
+  entries.forEach((entry) => triggerResize(entry));
 };
 
 /**
  * Global resize observer,
  * used to watch changes in element dimensions
  */
-const resizeObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(entriesResize) : new PolyfillResizeObserver(entriesResize);
+const resizeObserver =
+  typeof ResizeObserver === 'function' ?
+    new ResizeObserver(entriesResize) :
+    new PolyfillResizeObserver(entriesResize);
 
 /**
  * Responsive element base class.
@@ -86,7 +88,7 @@ export abstract class ResponsiveElement extends BasicElement {
    * Called when the element has been appended to the DOM
    * @returns {void}
    */
-  public connectedCallback (): void {
+  public connectedCallback(): void {
     super.connectedCallback();
     resizeObserver.observe(this, {
       box: 'border-box' // Observe the outer edges
@@ -97,7 +99,7 @@ export abstract class ResponsiveElement extends BasicElement {
    * Called when the element has been removed from the DOM
    * @returns {void}
    */
-  public disconnectedCallback (): void {
+  public disconnectedCallback(): void {
     resizeObserver.unobserve(this);
     super.disconnectedCallback();
   }
@@ -108,8 +110,7 @@ export abstract class ResponsiveElement extends BasicElement {
    * @returns {void}
    */
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  public resizedCallback (size: ElementSize): void {
+  public resizedCallback(size: ElementSize): void {
     // placeholder
   }
-
 }

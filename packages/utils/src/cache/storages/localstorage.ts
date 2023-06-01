@@ -15,7 +15,6 @@ const getItemKey = (prefix: string, cacheKey: string): string => `${prefix}[${ca
  * Stores data in `localStorage` for use across multiple sessions.
  */
 export class LocalStorage implements CacheStorage {
-
   /**
    * Database name.
    */
@@ -30,7 +29,7 @@ export class LocalStorage implements CacheStorage {
    * Constructor
    * @param name name of the data store
    */
-  constructor (name: string) {
+  constructor(name: string) {
     this.dbName = `[${DatabasePrefix.DEFAULT}][${name}]`;
     void this.getReady();
   }
@@ -39,11 +38,11 @@ export class LocalStorage implements CacheStorage {
    * Prepare memory cache variable and restore all data from databases storage
    * @returns Promise boolean
    */
-  private async getReady (): Promise<void> {
+  private async getReady(): Promise<void> {
     try {
       await this.restore();
-    }
-    catch (e) { // Keep it work. Even if can't connect to storage
+    } catch (e) {
+      // Keep it work. Even if can't connect to storage
       this.cache = new Map();
       // eslint-disable-next-line no-console
       console.error(e);
@@ -56,14 +55,13 @@ export class LocalStorage implements CacheStorage {
    * @param value Data to store in cache
    * @returns {void}
    */
-  public async set (key: string, value: CacheItem): Promise<void> {
+  public async set(key: string, value: CacheItem): Promise<void> {
     const itemKey = getItemKey(this.dbName, key);
     this.cache?.set(itemKey, value);
 
     try {
       localStorage.setItem(itemKey, JSON.stringify(value));
-    }
-    catch (e) {
+    } catch (e) {
       // eslint-disable-next-line no-console
       console.error(`Couldn't store at key: ${itemKey}.`, e);
     }
@@ -75,7 +73,7 @@ export class LocalStorage implements CacheStorage {
    * @param key Cache key
    * @returns CacheItem or `null` if nothing is cached
    */
-  public async get (key: string): Promise<CacheItem | null> {
+  public async get(key: string): Promise<CacheItem | null> {
     const itemKey = getItemKey(this.dbName, key);
     return Promise.resolve(this.cache?.get(itemKey) || null);
   }
@@ -85,7 +83,7 @@ export class LocalStorage implements CacheStorage {
    * @param key Cache key to remove
    * @returns {void}
    */
-  public async remove (key: string): Promise<void> {
+  public async remove(key: string): Promise<void> {
     const itemKey = getItemKey(this.dbName, key);
     return Promise.resolve(localStorage.removeItem(itemKey));
   }
@@ -94,11 +92,12 @@ export class LocalStorage implements CacheStorage {
    * Clears all items in localStorage
    * @returns {void}
    */
-  public async clear (): Promise<void> {
+  public async clear(): Promise<void> {
     const keys = Object.keys(localStorage);
 
-    keys.filter(key => key.startsWith(this.dbName))
-      .forEach(key => {
+    keys
+      .filter((key) => key.startsWith(this.dbName))
+      .forEach((key) => {
         localStorage.removeItem(key);
       });
 
@@ -109,9 +108,9 @@ export class LocalStorage implements CacheStorage {
    * Restores all values into memory cache
    * @returns {void}
    */
-  public async restore (): Promise<void> {
+  public async restore(): Promise<void> {
     const cache: CacheMap = new Map();
-    const keys = Object.keys(localStorage).filter(key => key.startsWith(this.dbName));
+    const keys = Object.keys(localStorage).filter((key) => key.startsWith(this.dbName));
 
     for (let i = 0; i < keys.length; i += 1) {
       const item = this.retrieve(keys[i]);
@@ -128,11 +127,10 @@ export class LocalStorage implements CacheStorage {
    * @param key key to retrieve value
    * @returns data from the key
    */
-  private retrieve (key: string): CacheItem | null {
+  private retrieve(key: string): CacheItem | null {
     try {
       return JSON.parse(localStorage.getItem(key) || '') as CacheItem;
-    }
-    catch (e) {
+    } catch (e) {
       return null;
     }
   }

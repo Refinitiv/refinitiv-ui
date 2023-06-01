@@ -1,10 +1,4 @@
-import {
-  css,
-  CSSResultGroup,
-  html,
-  PropertyValues,
-  TemplateResult
-} from '@refinitiv-ui/core';
+import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -13,11 +7,7 @@ import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
 import { VERSION } from '../version.js';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { isMobile } from '@refinitiv-ui/utils/browser.js';
-import {
-  translate,
-  TranslateDirective,
-  TranslatePropertyKey
-} from '@refinitiv-ui/translate';
+import { translate, TranslateDirective, TranslatePropertyKey } from '@refinitiv-ui/translate';
 import type { TapEvent } from '../events';
 import type {
   AutosuggestTargetElement,
@@ -100,12 +90,11 @@ export {
  */
 @customElement('ef-autosuggest')
 export class Autosuggest extends Overlay {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -117,7 +106,7 @@ export class Autosuggest extends Overlay {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return [
       super.styles,
       css`
@@ -126,13 +115,14 @@ export class Autosuggest extends Overlay {
           display: flex;
           flex-direction: column;
         }
-        [part=content] {
+        [part='content'] {
           flex: 1 1 auto;
           overflow-x: hidden;
           overflow-y: auto;
           -webkit-overflow-scrolling: touch;
         }
-        [part=header], [part=footer] {
+        [part='header'],
+        [part='footer'] {
           flex: none;
         }
       `
@@ -146,7 +136,7 @@ export class Autosuggest extends Overlay {
    * @param [pattern=<mark>$1</mark>] Provide a pattern to replace string
    * @returns innerHTML The text that can be used as innerHTML
    */
-  public static QueryWordSelect (text: string, query = '', pattern = '<mark>$1</mark>'): string {
+  public static QueryWordSelect(text: string, query = '', pattern = '<mark>$1</mark>'): string {
     return queryWordSelect(text, query, pattern);
   }
 
@@ -156,7 +146,7 @@ export class Autosuggest extends Overlay {
    * @param query A query data (usually string, but could be any entity )
    * @returns item
    */
-  public static ItemRenderer (suggestion: AutosuggestItem, query: AutosuggestQuery | null): HTMLElement {
+  public static ItemRenderer(suggestion: AutosuggestItem, query: AutosuggestQuery | null): HTMLElement {
     return renderer(suggestion, query);
   }
 
@@ -165,7 +155,7 @@ export class Autosuggest extends Overlay {
    * @param string A string to process
    * @returns clean string
    */
-  public static EscapeRegExp (string = ''): string {
+  public static EscapeRegExp(string = ''): string {
     return escapeRegExp(string);
   }
 
@@ -175,7 +165,7 @@ export class Autosuggest extends Overlay {
    * @param target item element
    * @returns highlightable
    */
-  public static ItemHighlightable (suggestion: AutosuggestItem, target: HTMLElement): boolean {
+  public static ItemHighlightable(suggestion: AutosuggestItem, target: HTMLElement): boolean {
     return itemHighlightable(suggestion, target);
   }
 
@@ -293,80 +283,80 @@ export class Autosuggest extends Overlay {
   /**
    * creates auto-suggest
    */
-  constructor () {
+  constructor() {
     super();
 
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.position = ['bottom-start', 'top-start', 'right-middle'];
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.noCancelOnEscKey = true;
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.noCancelOnOutsideClick = true;
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.noAutofocus = true;
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.noOverlap = true;
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.withShadow = false;
     /**
      * @ignore
      */
     this.noFocusManagement = true;
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.onInputValueChange = this.onInputValueChange.bind(this);
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.onInputKeyDown = this.onInputKeyDown.bind(this);
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.onInputBlur = this.onInputBlur.bind(this);
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.onInputFocus = this.onInputFocus.bind(this);
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.suggestionsQueryAction = this.suggestionsQueryAction.bind(this);
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.itemSelectAction = this.itemSelectAction.bind(this);
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.itemHighlightAction = this.itemHighlightAction.bind(this);
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.suggestionsFetchRequestedAction = this.suggestionsFetchRequestedAction.bind(this);
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.suggestionsClearRequestedAction = this.suggestionsClearRequestedAction.bind(this);
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.attachEventsAddAction = this.attachEventsAddAction.bind(this);
     /**
-    * @ignore
-    */
+     * @ignore
+     */
     this.attachEventsRemoveAction = this.attachEventsRemoveAction.bind(this);
     /**
      * @ignore
@@ -378,7 +368,7 @@ export class Autosuggest extends Overlay {
     this.onOutsideClick = this.onOutsideClick.bind(this);
   }
 
-  public disconnectedCallback (): void {
+  public disconnectedCallback(): void {
     this.dispatchAttachEventsRemoveAction();
     super.disconnectedCallback();
   }
@@ -388,8 +378,9 @@ export class Autosuggest extends Overlay {
    * @param event by default `value-changed` event is listened
    * @returns {void}
    */
-  public onInputValueChange (event: Event): void {
-    if (!this.suspended) { // avoid circular
+  public onInputValueChange(event: Event): void {
+    if (!this.suspended) {
+      // avoid circular
       /* c8 ignore next */
       if (isMobile) {
         this.lastActiveElement = event.target as HTMLElement;
@@ -404,7 +395,7 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public onInputBlur (event: FocusEvent): void {
+  public onInputBlur(event: FocusEvent): void {
     requestAnimationFrame(() => {
       if (!this.attachTargetFocused) {
         this.setOpened(false);
@@ -418,7 +409,7 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public onInputFocus (event: FocusEvent): void {
+  public onInputFocus(event: FocusEvent): void {
     this.requestOnFocus && this.requestSuggestions('input-focus');
   }
 
@@ -427,7 +418,7 @@ export class Autosuggest extends Overlay {
    * @param event by default `keydown` event is listened
    * @returns {void}
    */
-  public onInputKeyDown (event: KeyboardEvent): void {
+  public onInputKeyDown(event: KeyboardEvent): void {
     if (event.defaultPrevented) {
       return;
     }
@@ -457,7 +448,7 @@ export class Autosuggest extends Overlay {
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('tapstart', this.onItemMousedown);
   }
@@ -467,7 +458,7 @@ export class Autosuggest extends Overlay {
    * @param changedProperties Properties that has changed
    * @returns shouldUpdate
    */
-  protected shouldUpdate (changedProperties: PropertyValues): boolean {
+  protected shouldUpdate(changedProperties: PropertyValues): boolean {
     const shouldUpdate = super.shouldUpdate(changedProperties);
     return shouldUpdate || this.shouldAutosuggestUpdate(changedProperties);
   }
@@ -477,7 +468,7 @@ export class Autosuggest extends Overlay {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (changedProperties.has('suggestions')) {
@@ -493,7 +484,7 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected onSlotChange (event: Event): void {
+  protected onSlotChange(event: Event): void {
     const contentSlot = this.contentSlotRef.value;
     const nodes = contentSlot?.assignedNodes() ?? [];
     this.setOpened(this.attachTargetFocused && this.hasContent);
@@ -524,7 +515,7 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected suggestionsQueryAction (event: CustomEvent): void {
+  protected suggestionsQueryAction(event: CustomEvent): void {
     this.query = this.attachTarget && this.attachTarget.value;
   }
 
@@ -533,12 +524,14 @@ export class Autosuggest extends Overlay {
    * @param event Select action
    * @returns {void}
    */
-  protected itemSelectAction (event: AutosuggestSelectItemEvent): void {
-    const { detail: { query, suggestion } } = event;
+  protected itemSelectAction(event: AutosuggestSelectItemEvent): void {
+    const {
+      detail: { query, suggestion }
+    } = event;
 
     /* c8 ignore next */
     if (this.attachTarget) {
-      this.attachTarget.value = suggestion && suggestion.label || query;
+      this.attachTarget.value = (suggestion && suggestion.label) || query;
     }
   }
 
@@ -547,7 +540,7 @@ export class Autosuggest extends Overlay {
    * @param event Highlight action
    * @returns {void}
    */
-  protected itemHighlightAction (event: AutosuggestHighlightItemEvent): void {
+  protected itemHighlightAction(event: AutosuggestHighlightItemEvent): void {
     const target = event.detail.target;
     const oldTarget = event.detail.oldTarget;
 
@@ -569,7 +562,7 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected suggestionsFetchRequestedAction (event: CustomEvent): void {
+  protected suggestionsFetchRequestedAction(event: CustomEvent): void {
     // do nothing
   }
 
@@ -579,7 +572,7 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected suggestionsClearRequestedAction (event: CustomEvent): void {
+  protected suggestionsClearRequestedAction(event: CustomEvent): void {
     this.suggestions = [];
   }
 
@@ -590,7 +583,7 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected attachEventsAddAction (event: CustomEvent): void {
+  protected attachEventsAddAction(event: CustomEvent): void {
     const attachTarget = this.attachTarget;
 
     /* c8 ignore next */
@@ -611,7 +604,7 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected attachEventsRemoveAction (event: CustomEvent): void {
+  protected attachEventsRemoveAction(event: CustomEvent): void {
     const attachTarget = this.attachTarget;
 
     if (!attachTarget) {
@@ -628,7 +621,7 @@ export class Autosuggest extends Overlay {
    * Call this method to fetch more results
    * @returns {void}
    */
-  protected fetchMoreSuggestions (): void {
+  protected fetchMoreSuggestions(): void {
     this.dispatchSuggestionsFetchRequested('more-results');
   }
 
@@ -638,7 +631,7 @@ export class Autosuggest extends Overlay {
    * @param silent Do not fire a select event on highlight. Select should be fired on keyboard navigation
    * @returns {void}
    */
-  protected highlightItem (target: HTMLElement | null = null, silent = true): void {
+  protected highlightItem(target: HTMLElement | null = null, silent = true): void {
     if (this.highlightedItem !== target) {
       const oldTarget = this.highlightedItem;
       this.highlightedItem = target && this.canSelect(target) ? target : null;
@@ -651,15 +644,18 @@ export class Autosuggest extends Overlay {
        * @param {HTMLElement} [oldTarget] Old highlight target or null
        * @param {*} [oldSuggestion] Old suggestion or null
        */
-      this.dispatchEventDefault(new CustomEvent('item-highlight', {
-        cancelable: true,
-        detail: {
-          target: this.highlightedItem,
-          suggestion: this.getSuggestionFor(this.highlightedItem),
-          oldTarget,
-          oldSuggestion: this.getSuggestionFor(oldTarget)
-        }
-      }), this.itemHighlightAction);
+      this.dispatchEventDefault(
+        new CustomEvent('item-highlight', {
+          cancelable: true,
+          detail: {
+            target: this.highlightedItem,
+            suggestion: this.getSuggestionFor(this.highlightedItem),
+            oldTarget,
+            oldSuggestion: this.getSuggestionFor(oldTarget)
+          }
+        }),
+        this.itemHighlightAction
+      );
 
       if (!silent && target) {
         this.selectItem(target, 'navigation');
@@ -674,7 +670,7 @@ export class Autosuggest extends Overlay {
    * Calculate more search text inner html
    * @returns innerHTML
    */
-  protected get moreResultsTextTemplate (): TemplateResult | null {
+  protected get moreResultsTextTemplate(): TemplateResult | null {
     if (!this.moreResults) {
       return null;
     }
@@ -683,15 +679,18 @@ export class Autosuggest extends Overlay {
       this.xmlSerializer = new XMLSerializer();
     }
 
-    const query = this.xmlSerializer.serializeToString(document.createTextNode(this.query ? this.query.toString() : ''));
+    const query = this.xmlSerializer.serializeToString(
+      document.createTextNode(this.query ? this.query.toString() : '')
+    );
 
     return html`
       <span part="more-results-text">
-        ${this.moreSearchText ? unsafeHTML(this.moreSearchText.replace(/{0\}/g, `<mark>${query}</mark>`))
-        : this.t('MORE_RESULTS', {
-          query,
-          mark: (chunks: string) => `<mark>${chunks}</mark>`
-        })}
+        ${this.moreSearchText ?
+          unsafeHTML(this.moreSearchText.replace(/{0\}/g, `<mark>${query}</mark>`)) :
+          this.t('MORE_RESULTS', {
+              query,
+              mark: (chunks: string) => `<mark>${chunks}</mark>`
+            })}
       </span>
       <span part="more-results-keys" slot="right"><kbd>SHIFT</kbd> + <kbd>ENTER</kbd></span>
     `;
@@ -704,10 +703,11 @@ export class Autosuggest extends Overlay {
    * @param debounce True to debounce
    * @returns {void}
    */
-  protected requestSuggestions (reason: AutosuggestReason, debounce = false): void {
+  protected requestSuggestions(reason: AutosuggestReason, debounce = false): void {
     this.dispatchSuggestionsQuery(reason);
 
-    if (this.preservedQueryValue === this.query) { // if the query is the same do not re-issue the request, instead try to open auto suggest
+    if (this.preservedQueryValue === this.query) {
+      // if the query is the same do not re-issue the request, instead try to open auto suggest
       if (!this.opened && ((this.suggestions && this.suggestions.length) || this.moreResults)) {
         this.setOpened(true);
       }
@@ -738,7 +738,7 @@ export class Autosuggest extends Overlay {
    * Protected method that can be used by managers or subclasses
    * @returns {void}
    */
-  protected onOpened (): void {
+  protected onOpened(): void {
     super.onOpened();
     document.addEventListener('tapstart', this.onOutsideClick);
   }
@@ -748,7 +748,7 @@ export class Autosuggest extends Overlay {
    * and closing transition has finished
    * @returns {void}
    */
-  protected onClosed (): void {
+  protected onClosed(): void {
     super.onClosed();
     document.removeEventListener('tapstart', this.onOutsideClick);
   }
@@ -758,7 +758,7 @@ export class Autosuggest extends Overlay {
    * @param event Enter
    * @returns {void}
    */
-  protected onEnterKey (event: KeyboardEvent): void {
+  protected onEnterKey(event: KeyboardEvent): void {
     if (!this.opened) {
       this.requestSuggestions('enter-pressed');
       return;
@@ -787,7 +787,7 @@ export class Autosuggest extends Overlay {
    * Up key processing
    * @returns {void}
    */
-  protected onUpKey (): void {
+  protected onUpKey(): void {
     if (!this.opened) {
       this.requestSuggestions('suggestions-revealed');
       return;
@@ -805,7 +805,7 @@ export class Autosuggest extends Overlay {
    * Down key processing
    * @returns {void}
    */
-  protected onDownKey (): void {
+  protected onDownKey(): void {
     if (!this.opened) {
       this.requestSuggestions('suggestions-revealed');
       return;
@@ -823,7 +823,7 @@ export class Autosuggest extends Overlay {
    * Esc key processing
    * @returns {void}
    */
-  protected onEscKey (): void {
+  protected onEscKey(): void {
     if (this.opened) {
       // if preserved value exists, set it back
       this.dispatchItemSelect('reset');
@@ -846,7 +846,7 @@ export class Autosuggest extends Overlay {
    * @param event for item
    * @returns {void}
    */
-  protected onItemMouseMove (event: MouseEvent): void {
+  protected onItemMouseMove(event: MouseEvent): void {
     this.highlightItem(this.getTarget(event));
   }
 
@@ -854,7 +854,7 @@ export class Autosuggest extends Overlay {
    * @param target Item to check
    * @returns true if an item can be highlighted and selectable
    */
-  protected canSelect (target: HTMLElement): boolean {
+  protected canSelect(target: HTMLElement): boolean {
     return this.suggestionMap.has(target) || (this.moreResults && target === this.moreResultsItem);
   }
 
@@ -863,7 +863,7 @@ export class Autosuggest extends Overlay {
    * @param target Target to check
    * @returns suggestion
    */
-  protected getSuggestionFor (target: HTMLElement | null): AutosuggestItem {
+  protected getSuggestionFor(target: HTMLElement | null): AutosuggestItem {
     return target && this.suggestionMap.get(target);
   }
 
@@ -873,7 +873,7 @@ export class Autosuggest extends Overlay {
    * @param method 'click', 'enter' or 'navigation'
    * @returns {void}
    */
-  protected selectItem (target: HTMLElement, method: AutosuggestMethodType): void {
+  protected selectItem(target: HTMLElement, method: AutosuggestMethodType): void {
     if (this.canSelect(target)) {
       // more results
       if (target === this.moreResultsItem) {
@@ -908,7 +908,7 @@ export class Autosuggest extends Overlay {
    * Get the list of rendered suggestions
    * @returns renderedSuggestions
    */
-  protected get renderedSuggestions (): Array<HTMLElement> {
+  protected get renderedSuggestions(): Array<HTMLElement> {
     const keys: HTMLElement[] = [];
 
     for (const [key] of this.suggestionMap) {
@@ -927,7 +927,7 @@ export class Autosuggest extends Overlay {
    * @returns {void}
    */
   /* c8 ignore next */
-  protected onItemMouseLeave (): void {
+  protected onItemMouseLeave(): void {
     this.highlightItem(); // remove highlight
   }
 
@@ -936,7 +936,7 @@ export class Autosuggest extends Overlay {
    * @param event Mouse click event
    * @returns {void}
    */
-  protected onItemMouseClick (event: MouseEvent): void {
+  protected onItemMouseClick(event: MouseEvent): void {
     const target = this.getTarget(event);
     if (target) {
       this.selectItem(target, 'click');
@@ -948,14 +948,16 @@ export class Autosuggest extends Overlay {
    * @param changedProperties properties that was changed
    * @returns true if some of changedProperties modified
    */
-  private shouldAutosuggestUpdate (changedProperties: PropertyValues): boolean {
-    return changedProperties.has('attach')
-      || changedProperties.has('suggestions')
-      || changedProperties.has('moreResults')
-      || changedProperties.has('moreSearchText')
-      || changedProperties.has('loading')
-      || changedProperties.has('debounceRate')
-      || changedProperties.has(TranslatePropertyKey);
+  private shouldAutosuggestUpdate(changedProperties: PropertyValues): boolean {
+    return (
+      changedProperties.has('attach') ||
+      changedProperties.has('suggestions') ||
+      changedProperties.has('moreResults') ||
+      changedProperties.has('moreSearchText') ||
+      changedProperties.has('loading') ||
+      changedProperties.has('debounceRate') ||
+      changedProperties.has(TranslatePropertyKey)
+    );
   }
 
   /**
@@ -963,7 +965,7 @@ export class Autosuggest extends Overlay {
    * @param  event object
    * @returns {void}
    */
-  private onOutsideClick (event: TapEvent): void {
+  private onOutsideClick(event: TapEvent): void {
     const path = event.composedPath();
 
     // outside click
@@ -972,7 +974,7 @@ export class Autosuggest extends Overlay {
     }
   }
 
-  private changedCallbacks (changedProperties: PropertyValues): void {
+  private changedCallbacks(changedProperties: PropertyValues): void {
     if (changedProperties.has('attach')) {
       this.attachChangeRunner.schedule(() => {
         this.attachChangeFrameCallback();
@@ -1004,7 +1006,7 @@ export class Autosuggest extends Overlay {
    * handle highlight after open
    * @returns {void}
    */
-  protected handleAfterOpened (): void {
+  protected handleAfterOpened(): void {
     this.highlightItem(); // hide highlight for case more-result
   }
 
@@ -1012,7 +1014,7 @@ export class Autosuggest extends Overlay {
    * recreate debouncer if dobounceRate was changed
    * @returns {void}
    */
-  private debounceRateChange (): void {
+  private debounceRateChange(): void {
     this.jobRunner.fulfil();
 
     this.jobRunner = new TimeoutTaskRunner(this.debounceRate);
@@ -1022,10 +1024,12 @@ export class Autosuggest extends Overlay {
    * fire event and re-init listeners if attach was changed
    * @returns {void}
    */
-  private attachChangeFrameCallback (): void {
+  private attachChangeFrameCallback(): void {
     this.dispatchAttachEventsRemoveAction();
 
-    const attachTarget = (typeof this.attach === 'string' ? document.querySelector(this.attach) : this.attach) as AutosuggestTargetElement;
+    const attachTarget = (
+      typeof this.attach === 'string' ? document.querySelector(this.attach) : this.attach
+    ) as AutosuggestTargetElement;
 
     if (attachTarget && attachTarget.nodeType === document.ELEMENT_NODE) {
       this.attachTarget = attachTarget;
@@ -1039,9 +1043,12 @@ export class Autosuggest extends Overlay {
        * Fired when attach has been set.
        * Add attach target listeners.
        */
-      this.dispatchEventDefault(new CustomEvent('add-attach-target-events', {
-        cancelable: true
-      }), this.attachEventsAddAction);
+      this.dispatchEventDefault(
+        new CustomEvent('add-attach-target-events', {
+          cancelable: true
+        }),
+        this.attachEventsAddAction
+      );
     }
   }
 
@@ -1049,16 +1056,19 @@ export class Autosuggest extends Overlay {
    * Dispatch attach events remove action event
    * @returns {void}
    */
-  private dispatchAttachEventsRemoveAction (): void {
+  private dispatchAttachEventsRemoveAction(): void {
     if (this.attachTarget) {
       /**
        * @event remove-attach-target-events
        * Fired when attach has been removed.
        * Remove attach target listeners.
        */
-      this.dispatchEventDefault(new CustomEvent('remove-attach-target-events', {
-        cancelable: true
-      }), this.attachEventsRemoveAction);
+      this.dispatchEventDefault(
+        new CustomEvent('remove-attach-target-events', {
+          cancelable: true
+        }),
+        this.attachEventsRemoveAction
+      );
 
       this.attachTarget = null;
       this.focusBoundary = null;
@@ -1069,7 +1079,7 @@ export class Autosuggest extends Overlay {
    * set opened state due to status of focus and content
    * @returns {void}
    */
-  private moreResultsFrameCallback (): void {
+  private moreResultsFrameCallback(): void {
     this.setOpened(this.attachTargetFocused && this.hasContent);
   }
 
@@ -1078,13 +1088,18 @@ export class Autosuggest extends Overlay {
    * NB: this function is only run when htmlRenderer is set to false
    * @returns {void}
    */
-  private suggestionsChange (): void {
+  private suggestionsChange(): void {
     const contentSlot = this.contentSlotRef.value;
     contentSlot?.assignedNodes().forEach((node) => {
       node.parentNode?.removeChild(node);
     });
 
-    this.appendChild(this.suggestions.reduce((fragment: DocumentFragment, suggestion) => this.generateSuggestionsFragment(fragment, suggestion), document.createDocumentFragment()));
+    this.appendChild(
+      this.suggestions.reduce(
+        (fragment: DocumentFragment, suggestion) => this.generateSuggestionsFragment(fragment, suggestion),
+        document.createDocumentFragment()
+      )
+    );
   }
 
   /**
@@ -1094,7 +1109,7 @@ export class Autosuggest extends Overlay {
    * @param target Target for suggestion
    * @returns {void}
    */
-  private dispatchItemSelect (method: AutosuggestMethodType, target: HTMLElement | null = null): void {
+  private dispatchItemSelect(method: AutosuggestMethodType, target: HTMLElement | null = null): void {
     this.suspend();
 
     /**
@@ -1105,15 +1120,18 @@ export class Autosuggest extends Overlay {
      * @param {*} [suggestion] Selected suggestion or null
      * @param {*} [query] Saved query object or null
      */
-    this.dispatchEventDefault(new CustomEvent('item-select', {
-      cancelable: true,
-      detail: {
-        method,
-        target,
-        suggestion: this.getSuggestionFor(target),
-        query: method === 'clear' ? null : this.preservedQueryValue
-      }
-    }), this.itemSelectAction);
+    this.dispatchEventDefault(
+      new CustomEvent('item-select', {
+        cancelable: true,
+        detail: {
+          method,
+          target,
+          suggestion: this.getSuggestionFor(target),
+          query: method === 'clear' ? null : this.preservedQueryValue
+        }
+      }),
+      this.itemSelectAction
+    );
 
     this.resume();
   }
@@ -1123,27 +1141,30 @@ export class Autosuggest extends Overlay {
    * @param reason Dispatch reason
    * @returns {void}
    */
-  private dispatchSuggestionsFetchRequested (reason: AutosuggestReason): void {
+  private dispatchSuggestionsFetchRequested(reason: AutosuggestReason): void {
     /**
      * @event suggestions-fetch-requested
      * Fired when auto suggest requests the data.
      * @param {String} query Input query
      * @param {} reason The reason to fetch data
      */
-    this.dispatchEventDefault(new CustomEvent('suggestions-fetch-requested', {
-      cancelable: true,
-      detail: {
-        query: this.query,
-        reason
-      }
-    }), this.suggestionsFetchRequestedAction);
+    this.dispatchEventDefault(
+      new CustomEvent('suggestions-fetch-requested', {
+        cancelable: true,
+        detail: {
+          query: this.query,
+          reason
+        }
+      }),
+      this.suggestionsFetchRequestedAction
+    );
   }
 
   /**
    * fire 'suggestions-clear-requested' event
    * @returns {void}
    */
-  private dispatchSuggestionsClearRequested (): void {
+  private dispatchSuggestionsClearRequested(): void {
     this.preservedQueryValue = null;
 
     /**
@@ -1151,9 +1172,12 @@ export class Autosuggest extends Overlay {
      * Fired when auto suggest requests to clear the data.
      * If used in reactive application, prevent default and set suggestions to []
      */
-    this.dispatchEventDefault(new CustomEvent('suggestions-clear-requested', {
-      cancelable: true
-    }), this.suggestionsClearRequestedAction);
+    this.dispatchEventDefault(
+      new CustomEvent('suggestions-clear-requested', {
+        cancelable: true
+      }),
+      this.suggestionsClearRequestedAction
+    );
   }
 
   /**
@@ -1161,18 +1185,21 @@ export class Autosuggest extends Overlay {
    * @param reason Dispatch reason
    * @returns {void}
    */
-  private dispatchSuggestionsQuery (reason: AutosuggestReason): void {
+  private dispatchSuggestionsQuery(reason: AutosuggestReason): void {
     /**
      * @event suggestions-query
      * Fired when input value has changed and the query must be set.
      * @param reason The reason to request query
      */
-    this.dispatchEventDefault(new CustomEvent('suggestions-query', {
-      cancelable: true,
-      detail: {
-        reason
-      }
-    }), this.suggestionsQueryAction);
+    this.dispatchEventDefault(
+      new CustomEvent('suggestions-query', {
+        cancelable: true,
+        detail: {
+          reason
+        }
+      }),
+      this.suggestionsQueryAction
+    );
   }
 
   /**
@@ -1181,7 +1208,7 @@ export class Autosuggest extends Overlay {
    * @param defaultAction Default action to run
    * @returns {void}
    */
-  private dispatchEventDefault (event: CustomEvent, defaultAction: AutosuggestQueryAction): void {
+  private dispatchEventDefault(event: CustomEvent, defaultAction: AutosuggestQueryAction): void {
     this.dispatchEvent(event);
 
     if (!event.defaultPrevented) {
@@ -1193,8 +1220,10 @@ export class Autosuggest extends Overlay {
    * Check if the attach target is in focus
    * @returns focused true if attach target is focused
    */
-  private get attachTargetFocused (): boolean {
-    return this.isFocused(document.activeElement as HTMLElement) || this.attachTarget === this.lastActiveElement;
+  private get attachTargetFocused(): boolean {
+    return (
+      this.isFocused(document.activeElement as HTMLElement) || this.attachTarget === this.lastActiveElement
+    );
   }
 
   /**
@@ -1202,7 +1231,7 @@ export class Autosuggest extends Overlay {
    * @param activeElement currently active document element
    * @returns true if activeElement is attached target
    */
-  private isFocused (activeElement: HTMLElement | null): boolean {
+  private isFocused(activeElement: HTMLElement | null): boolean {
     if (this.attachTarget === activeElement) {
       return true;
     }
@@ -1218,7 +1247,7 @@ export class Autosuggest extends Overlay {
    * Check if the autosuggest has content
    * @returns content exists
    */
-  private get hasContent (): boolean {
+  private get hasContent(): boolean {
     if (this.moreResults) {
       return true;
     }
@@ -1226,7 +1255,10 @@ export class Autosuggest extends Overlay {
     // Space characters (e.g. space, tab, EOL) don't count as having content
     const contentSlot = this.contentSlotRef.value;
     const nodes = contentSlot?.assignedNodes() ?? [];
-    return nodes.some(({ nodeType, textContent }) => nodeType === Node.ELEMENT_NODE || (textContent && textContent.search(/\S/) >= 0)); // If node is element always return true
+    return nodes.some(
+      ({ nodeType, textContent }) =>
+        nodeType === Node.ELEMENT_NODE || (textContent && textContent.search(/\S/) >= 0)
+    ); // If node is element always return true
   }
 
   /**
@@ -1234,7 +1266,7 @@ export class Autosuggest extends Overlay {
    * Autosuggest is suspended on select
    * @returns {void}
    */
-  private suspend (): void {
+  private suspend(): void {
     this.suspendedKey = true;
   }
 
@@ -1242,7 +1274,7 @@ export class Autosuggest extends Overlay {
    * Resume suspended autosuggest
    * @returns {void}
    */
-  private resume (): void {
+  private resume(): void {
     this.suspendedKey = false;
   }
 
@@ -1250,7 +1282,7 @@ export class Autosuggest extends Overlay {
    * Check if the autosuggest is suspended
    * @returns {Boolean} suspended
    */
-  private get suspended (): boolean {
+  private get suspended(): boolean {
     return this.suspendedKey;
   }
 
@@ -1259,7 +1291,7 @@ export class Autosuggest extends Overlay {
    * @param event Mouse click hover event
    * @returns target
    */
-  private getTarget (event: Event): HTMLElement | null {
+  private getTarget(event: Event): HTMLElement | null {
     const path = event.composedPath();
 
     for (let i = 0; i <= path.length; i += 1) {
@@ -1288,7 +1320,7 @@ export class Autosuggest extends Overlay {
    * @param {Number} direction -1 - up/next; 1 - down/previous
    * @returns {void}
    */
-  private focusElement (direction: number): void {
+  private focusElement(direction: number): void {
     // focus is spread across
     const highlightedItem = this.highlightedItem;
     const children = this.renderedSuggestions;
@@ -1297,8 +1329,7 @@ export class Autosuggest extends Overlay {
     let focusElement;
     if (direction === 1) {
       focusElement = idx === -1 ? children[0] : children[idx + 1];
-    }
-    else {
+    } else {
       focusElement = idx === -1 ? children[children.length - 1] : children[idx - 1];
     }
 
@@ -1319,11 +1350,10 @@ export class Autosuggest extends Overlay {
    * initialize opened state depends on focus and content
    * @returns {void}
    */
-  private loadingFrameCallback (): void {
+  private loadingFrameCallback(): void {
     if (this.loading && !this.opened && this.attachTargetFocused) {
       this.setOpened(true);
-    }
-    else if (!this.loading && this.opened && !this.hasContent) {
+    } else if (!this.loading && this.opened && !this.hasContent) {
       this.setOpened(false);
     }
   }
@@ -1331,19 +1361,24 @@ export class Autosuggest extends Overlay {
   /**
    * @returns {void}
    */
-  private notifySuggestions (): void {
-    this.dispatchEvent(new CustomEvent('suggestions-changed', {
-      detail: {
-        value: this.suggestions
-      }
-    }));
+  private notifySuggestions(): void {
+    this.dispatchEvent(
+      new CustomEvent('suggestions-changed', {
+        detail: {
+          value: this.suggestions
+        }
+      })
+    );
 
     if (!this.htmlRenderer) {
       this.suggestionsChange();
     }
   }
 
-  private generateSuggestionsFragment (fragment: DocumentFragment, suggestion: AutosuggestItem): DocumentFragment {
+  private generateSuggestionsFragment(
+    fragment: DocumentFragment,
+    suggestion: AutosuggestItem
+  ): DocumentFragment {
     const element = this.renderer(suggestion, this.preservedQueryValue);
     fragment.appendChild(element);
 
@@ -1354,7 +1389,7 @@ export class Autosuggest extends Overlay {
    * Set the width
    * @returns {void}
    */
-  public refit (): void {
+  public refit(): void {
     super.refit();
 
     if (this.positionTarget && this.positionTarget instanceof HTMLElement) {
@@ -1368,7 +1403,7 @@ export class Autosuggest extends Overlay {
    * @param event Mouse down event
    * @returns {void}
    */
-  private onItemMousedown (event: Event): void {
+  private onItemMousedown(event: Event): void {
     event.stopPropagation();
     event.preventDefault();
   }
@@ -1376,7 +1411,7 @@ export class Autosuggest extends Overlay {
   /**
    * @returns template of loader if currently query loading
    */
-  protected get loaderTemplate (): TemplateResult | null {
+  protected get loaderTemplate(): TemplateResult | null {
     if (!this.loading) {
       return null;
     }
@@ -1391,17 +1426,14 @@ export class Autosuggest extends Overlay {
   /**
    * @returns template of moreResults
    */
-  protected get moreResultsTemplate (): TemplateResult | null {
+  protected get moreResultsTemplate(): TemplateResult | null {
     if (!this.moreResults) {
       return null;
     }
 
     return html`
-      <ef-item
-        tabIndex="-1"
-        role="option"
-        id="moreResults"
-        part="more-results">${this.moreResultsTextTemplate}
+      <ef-item tabIndex="-1" role="option" id="moreResults" part="more-results"
+        >${this.moreResultsTextTemplate}
       </ef-item>
     `;
   }
@@ -1411,26 +1443,25 @@ export class Autosuggest extends Overlay {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
-        <div ${ref(this.headerElementRef)}
-             part="header">
-          <slot id="headerSlot" name="header"></slot>
-        </div>
-        <div ${ref(this.contentElementRef)}
-             part="content"
-             @mousemove="${this.onItemMouseMove}"
-             @mouseleave="${this.onItemMouseLeave}"
-             @tap="${this.onItemMouseClick}">
-          <slot ${ref(this.contentSlotRef)}
-                @slotchange="${this.onSlotChange}"></slot>
-          ${this.moreResultsTemplate}
-        </div>
-        <div ${ref(this.footerElementRef)}
-             part="footer">
-          <slot id="footerSlot" name="footer"></slot>
-        </div>
-        ${this.loaderTemplate}
+      <div ${ref(this.headerElementRef)} part="header">
+        <slot id="headerSlot" name="header"></slot>
+      </div>
+      <div
+        ${ref(this.contentElementRef)}
+        part="content"
+        @mousemove="${this.onItemMouseMove}"
+        @mouseleave="${this.onItemMouseLeave}"
+        @tap="${this.onItemMouseClick}"
+      >
+        <slot ${ref(this.contentSlotRef)} @slotchange="${this.onSlotChange}"></slot>
+        ${this.moreResultsTemplate}
+      </div>
+      <div ${ref(this.footerElementRef)} part="footer">
+        <slot id="footerSlot" name="footer"></slot>
+      </div>
+      ${this.loaderTemplate}
     `;
   }
 }

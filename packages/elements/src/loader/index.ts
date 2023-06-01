@@ -14,12 +14,11 @@ let cachedParts: readonly string[];
  */
 @customElement('ef-loader')
 export class Loader extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -29,16 +28,20 @@ export class Loader extends BasicElement {
    * Collection of template part names,
    * used to create and theme different loader styles
    */
-  protected get templateParts (): readonly string[] {
-    const parts = cachedParts || this.getComputedVariable('--parts')
-      .split(',').map(part => part.trim()).filter(part => part);
+  protected get templateParts(): readonly string[] {
+    const parts =
+      cachedParts ||
+      this.getComputedVariable('--parts')
+        .split(',')
+        .map((part) => part.trim())
+        .filter((part) => part);
     if (cachedParts !== parts && parts.length) {
       cachedParts = parts;
     }
     return parts;
   }
 
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     !cachedParts && this.requestUpdate(); // polyfilled browsers require a second update
   }
@@ -49,16 +52,12 @@ export class Loader extends BasicElement {
    *
    * @return TemplateResult
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     const dots: TemplateResult[] = [];
     for (const part of this.templateParts) {
-      dots.push(html`
-        <i part="${part}"></i>
-      `);
+      dots.push(html` <i part="${part}"></i> `);
     }
-    return html`
-      <div part="wrapper">${dots}</div>
-    `;
+    return html` <div part="wrapper">${dots}</div> `;
   }
 }
 

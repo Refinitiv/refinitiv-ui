@@ -9,17 +9,23 @@ describe('tornado-chart/TornadoChartItem', () => {
       it('DOM structure is correct', async () => {
         const el = await fixture('<ef-tornado-item></ef-tornado-item>');
         await expect(el).shadowDom.to.equalSnapshot({
-          ignoreAttributes: [{
-            tags: ['ef-layout'], attributes: ['style']
-          }]
+          ignoreAttributes: [
+            {
+              tags: ['ef-layout'],
+              attributes: ['style']
+            }
+          ]
         });
       });
       it('DOM structure with vertical property is correct', async () => {
         const el = await fixture('<ef-tornado-item vertical></ef-tornado-item>');
         await expect(el).shadowDom.to.equalSnapshot({
-          ignoreAttributes: [{
-            tags: ['ef-layout'], attributes: ['style']
-          }]
+          ignoreAttributes: [
+            {
+              tags: ['ef-layout'],
+              attributes: ['style']
+            }
+          ]
         });
       });
       it('DOM structure with values and labels is correct', async () => {
@@ -33,9 +39,12 @@ describe('tornado-chart/TornadoChartItem', () => {
         Finland
       </ef-tornado-item>`);
         await expect(el).shadowDom.to.equalSnapshot({
-          ignoreAttributes: [{
-            tags: ['ef-layout'], attributes: ['style']
-          }]
+          ignoreAttributes: [
+            {
+              tags: ['ef-layout'],
+              attributes: ['style']
+            }
+          ]
         });
       });
       it('DOM structure with values, labels and highlighted state is correct', async () => {
@@ -50,9 +59,12 @@ describe('tornado-chart/TornadoChartItem', () => {
         Finland
       </ef-tornado-item>`);
         await expect(el).shadowDom.to.equalSnapshot({
-          ignoreAttributes: [{
-            tags: ['ef-layout'], attributes: ['style']
-          }]
+          ignoreAttributes: [
+            {
+              tags: ['ef-layout'],
+              attributes: ['style']
+            }
+          ]
         });
       });
     });

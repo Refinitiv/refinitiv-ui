@@ -1,11 +1,4 @@
-import {
-  BasicElement,
-  svg,
-  css,
-  CSSResultGroup,
-  TemplateResult,
-  PropertyValues
-} from '@refinitiv-ui/core';
+import { BasicElement, svg, css, CSSResultGroup, TemplateResult, PropertyValues } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
@@ -16,15 +9,13 @@ export { preload } from './utils/FlagLoader.js';
 
 const EmptyTemplate = svg``;
 
-
 @customElement('ef-flag')
 export class Flag extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -34,7 +25,7 @@ export class Flag extends BasicElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -59,10 +50,10 @@ export class Flag extends BasicElement {
    * @default null
    */
   @property({ type: String })
-  public get flag (): string | null {
+  public get flag(): string | null {
     return this._flag;
   }
-  public set flag (value: string | null) {
+  public set flag(value: string | null) {
     if (this.flag !== value) {
       this.deferFlagReady();
       this._flag = value;
@@ -80,21 +71,20 @@ export class Flag extends BasicElement {
    * @default null
    */
   @property({ type: String })
-  public get src (): string | null {
+  public get src(): string | null {
     return this._src;
   }
   /**
-    * @ignore
-    * @param value Location of an svg
-    */
-  public set src (value: string | null) {
+   * @ignore
+   * @param value Location of an svg
+   */
+  public set src(value: string | null) {
     if (this.src !== value) {
       this.deferFlagReady();
       this._src = value;
       if (value) {
         void this.loadAndRenderFlag(value);
-      }
-      else {
+      } else {
         this.clearFlag();
       }
     }
@@ -105,10 +95,10 @@ export class Flag extends BasicElement {
   /**
    * The flag template to render
    */
-  private get template (): TemplateResult {
+  private get template(): TemplateResult {
     return this._template;
   }
-  private set template (value: TemplateResult) {
+  private set template(value: TemplateResult) {
     if (this._template !== value) {
       this._template = value;
       this.requestUpdate();
@@ -121,9 +111,9 @@ export class Flag extends BasicElement {
    * It would be resolved when the flag svg has been fetched and parsed, or
    * when the flag svg is unavailable/invalid.
    */
-  private flagReady!:Deferred<void>;
+  private flagReady!: Deferred<void>;
 
-  constructor () {
+  constructor() {
     super();
     this.flagReady = new Deferred<void>();
     // `flagReady` resolves at this stage so that `updateComplete` would be resolvable
@@ -136,12 +126,12 @@ export class Flag extends BasicElement {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.setPrefix();
   }
 
-  protected async getUpdateComplete (): Promise<boolean> {
+  protected async getUpdateComplete(): Promise<boolean> {
     const result = await super.getUpdateComplete();
     await this.flagReady.promise;
     return result;
@@ -151,7 +141,7 @@ export class Flag extends BasicElement {
    * instantiate a new deferred promise for flag ready if it's not pending already
    * @returns {void}
    */
-  private deferFlagReady (): void {
+  private deferFlagReady(): void {
     if (this.flagReady.isPending()) {
       return;
     }
@@ -162,8 +152,8 @@ export class Flag extends BasicElement {
    * Helper method, used to set the flag src.
    * @returns {void}
    */
-  private async setFlagSrc (): Promise<void> {
-  // keep `src` in-sync with `flag` so that flag svg would be resolved after every `flag` update
+  private async setFlagSrc(): Promise<void> {
+    // keep `src` in-sync with `flag` so that flag svg would be resolved after every `flag` update
     this.src = this.flag ? await FlagLoader.getSrc(this.flag) : this.flag;
   }
 
@@ -173,7 +163,7 @@ export class Flag extends BasicElement {
    * @param src Source location of the svg flag.
    * @returns {void}
    */
-  private async loadAndRenderFlag (src: string): Promise<void> {
+  private async loadAndRenderFlag(src: string): Promise<void> {
     const svgBody = await FlagLoader.loadSVG(src);
     this.template = svgBody ? svg`${unsafeHTML(svgBody)}` : EmptyTemplate;
   }
@@ -184,11 +174,9 @@ export class Flag extends BasicElement {
    * and should not be configured again via the variable.
    * @returns {void}
    */
-  private setPrefix (): void {
-
+  private setPrefix(): void {
     if (!FlagLoader.isPrefixSet) {
-      const CDNPrefix = this.getComputedVariable('--cdn-prefix')
-        .replace(/^('|")|('|")$/g, '');
+      const CDNPrefix = this.getComputedVariable('--cdn-prefix').replace(/^('|")|('|")$/g, '');
 
       FlagLoader.setCdnPrefix(CDNPrefix);
     }
@@ -198,7 +186,7 @@ export class Flag extends BasicElement {
    * Clears SVG body from the flag template
    * @returns {void}
    */
-  private clearFlag (): void {
+  private clearFlag(): void {
     this.template = EmptyTemplate;
   }
 
@@ -207,7 +195,7 @@ export class Flag extends BasicElement {
    * to render the updated internal template.
    * @return {TemplateResult} Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return this.template;
   }
 }

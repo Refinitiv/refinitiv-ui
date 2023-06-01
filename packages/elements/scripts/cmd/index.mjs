@@ -3,4 +3,4 @@ import * as lint from './lint.mjs';
 import * as test from './test.mjs';
 import * as start from './start.mjs';
 
-export const commands = [ build, lint, test, start ];
+export const commands = [build, lint, test, start];

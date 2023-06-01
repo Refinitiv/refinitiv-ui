@@ -19,8 +19,9 @@ import {
 } from '../../../../lib/overlay/managers/zindex-manager.js';
 
 const createFixture = async (zIndex) => {
-  return (typeof zIndex === 'undefined') ? fixture('<ef-overlay opened>test</ef-overlay>') :
-    fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
+  return typeof zIndex === 'undefined'
+    ? fixture('<ef-overlay opened>test</ef-overlay>')
+    : fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
 };
 
 describe('overlay/manager/ZIndexManager', () => {
@@ -49,7 +50,7 @@ describe('overlay/manager/ZIndexManager', () => {
       await nextFrame();
     });
 
-    describe('Test register method',  () => {
+    describe('Test register method', () => {
       describe('Test add one element', () => {
         it('Test zIndex=undefined', async () => {
           const element = await createFixture();
@@ -57,7 +58,10 @@ describe('overlay/manager/ZIndexManager', () => {
           expect(manager.register).to.have.callCount(1).calledWith(element);
           expect(size()).to.equal(1, 'after adding size of registry should be 1');
           expect(element.zIndex).to.equal(undefined, 'element zIndex should not be changed');
-          expect(Number(element.style.zIndex)).to.equal(ZIndex, 'element style z-index should be initial ZIndex ' + ZIndex);
+          expect(Number(element.style.zIndex)).to.equal(
+            ZIndex,
+            'element style z-index should be initial ZIndex ' + ZIndex
+          );
         });
 
         it('Test zIndex=100', async () => {
@@ -67,7 +71,10 @@ describe('overlay/manager/ZIndexManager', () => {
           expect(manager.register).to.have.callCount(1).calledWith(element);
           expect(size()).to.equal(1, 'after adding size of registry should be 1');
           expect(element.zIndex).to.equal(initialZIndex, 'element zIndex should not be changed');
-          expect(Number(element.style.zIndex)).to.equal(initialZIndex, 'first element style z-index should be initial element zIndex ' + initialZIndex);
+          expect(Number(element.style.zIndex)).to.equal(
+            initialZIndex,
+            'first element style z-index should be initial element zIndex ' + initialZIndex
+          );
         });
       });
 
@@ -81,9 +88,14 @@ describe('overlay/manager/ZIndexManager', () => {
           expect(element.zIndex).to.equal(undefined, 'element zIndex should not be changed');
           expect(element2.zIndex).to.equal(undefined, 'element zIndex should not be changed');
 
-          expect(Number(element.style.zIndex)).to.equal(ZIndex, 'element style z-index should be initial ZIndex ' + ZIndex);
-          expect(Number(element2.style.zIndex)).to.equal(ZIndex + 2, 'element style z-index should be initial ZIndex + 2 ' + Number(ZIndex + 2));
-
+          expect(Number(element.style.zIndex)).to.equal(
+            ZIndex,
+            'element style z-index should be initial ZIndex ' + ZIndex
+          );
+          expect(Number(element2.style.zIndex)).to.equal(
+            ZIndex + 2,
+            'element style z-index should be initial ZIndex + 2 ' + Number(ZIndex + 2)
+          );
         });
 
         it('Test zIndex=(100, undefined)', async () => {
@@ -95,8 +107,14 @@ describe('overlay/manager/ZIndexManager', () => {
           expect(element.zIndex).to.equal(initialZIndex, 'element zIndex should not be changed');
           expect(element2.zIndex).to.equal(undefined, 'element zIndex should not be changed');
 
-          expect(Number(element.style.zIndex)).to.equal(initialZIndex, 'element style z-index should be initial element zIndex ' + initialZIndex);
-          expect(Number(element2.style.zIndex)).to.equal(initialZIndex + 2, 'element style z-index should be first element zIndex + 2 ' + Number(initialZIndex + 2));
+          expect(Number(element.style.zIndex)).to.equal(
+            initialZIndex,
+            'element style z-index should be initial element zIndex ' + initialZIndex
+          );
+          expect(Number(element2.style.zIndex)).to.equal(
+            initialZIndex + 2,
+            'element style z-index should be first element zIndex + 2 ' + Number(initialZIndex + 2)
+          );
         });
 
         it('Test zIndex=(100,200)', async () => {
@@ -110,8 +128,14 @@ describe('overlay/manager/ZIndexManager', () => {
           expect(element.zIndex).to.equal(initialZIndex, 'element zIndex should not be changed');
           expect(element2.zIndex).to.equal(initialZIndex2, 'element zIndex should not be changed');
 
-          expect(Number(element.style.zIndex)).to.equal(initialZIndex, 'element style z-index should be initial element zIndex ' + initialZIndex);
-          expect(Number(element2.style.zIndex)).to.equal(initialZIndex2, 'element style z-index should be initial element zIndex ' + initialZIndex2);
+          expect(Number(element.style.zIndex)).to.equal(
+            initialZIndex,
+            'element style z-index should be initial element zIndex ' + initialZIndex
+          );
+          expect(Number(element2.style.zIndex)).to.equal(
+            initialZIndex2,
+            'element style z-index should be initial element zIndex ' + initialZIndex2
+          );
         });
 
         it('Test zIndex=(200,100)', async () => {
@@ -125,8 +149,14 @@ describe('overlay/manager/ZIndexManager', () => {
           expect(element.zIndex).to.equal(initialZIndex, 'element zIndex should not be changed');
           expect(element2.zIndex).to.equal(initialZIndex2, 'element zIndex should not be changed');
 
-          expect(Number(element.style.zIndex)).to.equal(initialZIndex, 'element style z-index should be initial element zIndex ' + initialZIndex);
-          expect(Number(element2.style.zIndex)).to.equal(initialZIndex + 2, 'element style z-index should be first element zIndex + 2 ' + Number(initialZIndex + 2));
+          expect(Number(element.style.zIndex)).to.equal(
+            initialZIndex,
+            'element style z-index should be initial element zIndex ' + initialZIndex
+          );
+          expect(Number(element2.style.zIndex)).to.equal(
+            initialZIndex + 2,
+            'element style z-index should be first element zIndex + 2 ' + Number(initialZIndex + 2)
+          );
         });
 
         it('Test zIndex=(undefined,100)', async () => {
@@ -139,8 +169,14 @@ describe('overlay/manager/ZIndexManager', () => {
           expect(element.zIndex).to.equal(undefined, 'element zIndex should not be changed');
           expect(element2.zIndex).to.equal(initialZIndex2, 'element zIndex should not be changed');
 
-          expect(Number(element.style.zIndex)).to.equal(ZIndex, 'element style z-index should be initial ZIndex ' + ZIndex);
-          expect(Number(element2.style.zIndex)).to.equal(ZIndex + 2, 'element style z-index should be first element zIndex + 2 ' + Number(ZIndex + 2));
+          expect(Number(element.style.zIndex)).to.equal(
+            ZIndex,
+            'element style z-index should be initial ZIndex ' + ZIndex
+          );
+          expect(Number(element2.style.zIndex)).to.equal(
+            ZIndex + 2,
+            'element style z-index should be first element zIndex + 2 ' + Number(ZIndex + 2)
+          );
         });
 
         it('Test zIndex=(undefined,200)', async () => {
@@ -154,8 +190,14 @@ describe('overlay/manager/ZIndexManager', () => {
           expect(element.zIndex).to.equal(initialZIndex, 'element zIndex should not be changed');
           expect(element2.zIndex).to.equal(initialZIndex2, 'element zIndex should not be changed');
 
-          expect(Number(element.style.zIndex)).to.equal(ZIndex, 'element style z-index should be initial ZIndex ' + ZIndex);
-          expect(Number(element2.style.zIndex)).to.equal(initialZIndex2, 'element style z-index should be initial element zIndex ' + initialZIndex2);
+          expect(Number(element.style.zIndex)).to.equal(
+            ZIndex,
+            'element style z-index should be initial ZIndex ' + ZIndex
+          );
+          expect(Number(element2.style.zIndex)).to.equal(
+            initialZIndex2,
+            'element style z-index should be initial element zIndex ' + initialZIndex2
+          );
         });
       });
 
@@ -164,7 +206,10 @@ describe('overlay/manager/ZIndexManager', () => {
           const element = await createFixture();
           register(element);
           expect(manager.register).to.have.callCount(2);
-          expect(Number(element.style.zIndex)).to.equal(ZIndex, 'after second registration with undefined element zIndex style zIndex should not be changed');
+          expect(Number(element.style.zIndex)).to.equal(
+            ZIndex,
+            'after second registration with undefined element zIndex style zIndex should not be changed'
+          );
         });
         it('Test zIndex=(undefined->100)', async () => {
           const element = await createFixture();
@@ -174,7 +219,10 @@ describe('overlay/manager/ZIndexManager', () => {
           await elementUpdated(element);
           register(element);
           expect(manager.register).to.have.callCount(2);
-          expect(Number(element.style.zIndex)).to.equal(newZIndex, 'after second registration with defined element zIndex style zIndex should be changed to new value');
+          expect(Number(element.style.zIndex)).to.equal(
+            newZIndex,
+            'after second registration with defined element zIndex style zIndex should be changed to new value'
+          );
           expect(registeredZIndex).to.not.equal(newZIndex, 'new zIndex should not be equal to initial one');
         });
         it('Test zIndex=(100->100)', async () => {
@@ -182,7 +230,10 @@ describe('overlay/manager/ZIndexManager', () => {
           const element = await createFixture(initialZIndex);
           register(element);
           expect(manager.register).to.have.callCount(2);
-          expect(Number(element.style.zIndex)).to.equal(initialZIndex, 'after second registration with defined element style zIndex should not be changed');
+          expect(Number(element.style.zIndex)).to.equal(
+            initialZIndex,
+            'after second registration with defined element style zIndex should not be changed'
+          );
         });
       });
     });
@@ -197,7 +248,10 @@ describe('overlay/manager/ZIndexManager', () => {
         expect(manager.deregister).to.have.callCount(1);
         expect(size()).to.equal(0, 'after removing size of registry should be 0');
         expect(element.zIndex).to.equal(undefined, 'element zIndex should not be changed');
-        expect(Number(element.style.zIndex)).to.equal(ZIndex, 'element style z-index should be initial ZIndex ' + ZIndex);
+        expect(Number(element.style.zIndex)).to.equal(
+          ZIndex,
+          'element style z-index should be initial ZIndex ' + ZIndex
+        );
       });
 
       it('Test remove one element zIndex=100', async () => {
@@ -210,7 +264,10 @@ describe('overlay/manager/ZIndexManager', () => {
         expect(manager.deregister).to.have.callCount(1);
         expect(size()).to.equal(0, 'after removing size of registry should be 0');
         expect(element.zIndex).to.equal(initialZIndex, 'element zIndex should not be changed');
-        expect(Number(element.style.zIndex)).to.equal(initialZIndex, 'element style z-index should be initial element zIndex ' + initialZIndex);
+        expect(Number(element.style.zIndex)).to.equal(
+          initialZIndex,
+          'element style z-index should be initial element zIndex ' + initialZIndex
+        );
       });
 
       it('Test remove two elements zIndex=(undefined,200)', async () => {
@@ -229,8 +286,14 @@ describe('overlay/manager/ZIndexManager', () => {
         expect(element.zIndex).to.equal(undefined, 'element zIndex should not be changed');
         expect(element2.zIndex).to.equal(initialZIndex2, 'element zIndex should not be changed');
 
-        expect(Number(element.style.zIndex)).to.equal(ZIndex, 'element style z-index should be initial ZIndex ' + ZIndex);
-        expect(Number(element2.style.zIndex)).to.equal(initialZIndex2, 'element style z-index should be initial ' + initialZIndex2);
+        expect(Number(element.style.zIndex)).to.equal(
+          ZIndex,
+          'element style z-index should be initial ZIndex ' + ZIndex
+        );
+        expect(Number(element2.style.zIndex)).to.equal(
+          initialZIndex2,
+          'element style z-index should be initial ' + initialZIndex2
+        );
       });
 
       it('Test deregister not registered element', async () => {
@@ -243,7 +306,10 @@ describe('overlay/manager/ZIndexManager', () => {
         expect(manager.deregister).to.have.callCount(1).calledWith(element);
         expect(size()).to.equal(0, 'after deregister not existing component size should not be changed');
         expect(element.zIndex).to.equal(initialZIndex, 'element zIndex should not be changed');
-        expect(element.style.zIndex).to.equal(initialStyleZIndex, 'element style z-index should not be changed');
+        expect(element.style.zIndex).to.equal(
+          initialStyleZIndex,
+          'element style z-index should not be changed'
+        );
       });
 
       it('Test deregister already deregistered element', async () => {
@@ -257,7 +323,10 @@ describe('overlay/manager/ZIndexManager', () => {
         expect(manager.deregister).to.have.callCount(2).calledWith(element);
         expect(size()).to.equal(0, 'after deregister not existing component size should not be changed');
         expect(element.zIndex).to.equal(undefined, 'element zIndex should not be changed');
-        expect(Number(element.style.zIndex)).to.equal(ZIndex, 'element style z-index should be initial ZIndex ' + ZIndex);
+        expect(Number(element.style.zIndex)).to.equal(
+          ZIndex,
+          'element style z-index should be initial ZIndex ' + ZIndex
+        );
       });
     });
 
@@ -267,7 +336,10 @@ describe('overlay/manager/ZIndexManager', () => {
         clear();
         expect(size()).to.equal(0, 'after removing size of registry should be 0');
         expect(element.zIndex).to.equal(undefined, 'element zIndex should not be changed');
-        expect(Number(element.style.zIndex)).to.equal(ZIndex, 'element style z-index should be initial ZIndex ' + ZIndex);
+        expect(Number(element.style.zIndex)).to.equal(
+          ZIndex,
+          'element style z-index should be initial ZIndex ' + ZIndex
+        );
       });
 
       it('Test clear one element with zIndex=100', async () => {
@@ -279,7 +351,10 @@ describe('overlay/manager/ZIndexManager', () => {
         expect(manager.clear).to.have.callCount(1);
         expect(size()).to.equal(0, 'after removing size of registry should be 0');
         expect(element.zIndex).to.equal(initialZIndex, 'element zIndex should not be changed');
-        expect(Number(element.style.zIndex)).to.equal(initialZIndex, 'element style z-index should be initial element zIndex ' + initialZIndex);
+        expect(Number(element.style.zIndex)).to.equal(
+          initialZIndex,
+          'element style z-index should be initial element zIndex ' + initialZIndex
+        );
       });
 
       it('Test clear two elements zIndex=(undefined,200)', async () => {
@@ -294,8 +369,14 @@ describe('overlay/manager/ZIndexManager', () => {
         expect(element.zIndex).to.equal(undefined, 'element zIndex should not be changed');
         expect(element2.zIndex).to.equal(initialZIndex2, 'element zIndex should not be changed');
 
-        expect(Number(element.style.zIndex)).to.equal(ZIndex, 'element style z-index should be initial ZIndex ' + ZIndex);
-        expect(Number(element2.style.zIndex)).to.equal(initialZIndex2, 'element style z-index should be initial zIndex ' + initialZIndex2);
+        expect(Number(element.style.zIndex)).to.equal(
+          ZIndex,
+          'element style z-index should be initial ZIndex ' + ZIndex
+        );
+        expect(Number(element2.style.zIndex)).to.equal(
+          initialZIndex2,
+          'element style z-index should be initial zIndex ' + initialZIndex2
+        );
       });
     });
 
@@ -309,7 +390,6 @@ describe('overlay/manager/ZIndexManager', () => {
         // expect(size()).to.equal(0, 'Not registered element should not affect manager');
         expect(element.zIndex).to.equal(undefined, 'Initial element zIndex property should not be changed');
         // expect(element.style.zIndex).to.equal(initialStyleZIndex, 'Initial element zIndex style should not be changed');
-
       });
       it('Test same element', async () => {
         const element = await createFixture();
@@ -318,8 +398,10 @@ describe('overlay/manager/ZIndexManager', () => {
 
         expect(size()).to.equal(1, 'toFront should not change elements count in registry');
         expect(element.zIndex).to.equal(undefined, 'Initial element zIndex property should not be changed');
-        expect(Number(element.style.zIndex)).to.equal(ZIndex, 'Initial element zIndex style should not be changed');
-
+        expect(Number(element.style.zIndex)).to.equal(
+          ZIndex,
+          'Initial element zIndex style should not be changed'
+        );
       });
       it('Test two elements', async () => {
         const initialZIndex2 = 200;
@@ -330,9 +412,15 @@ describe('overlay/manager/ZIndexManager', () => {
 
         expect(size()).to.equal(2, 'toFront should not change elements count in registry');
         expect(element.zIndex).to.equal(undefined, 'Initial element zIndex property should not be changed');
-        expect(Number(element.style.zIndex)).to.equal(initialZIndex2 + 2, 'Initial element zIndex style should be changed to top zIndex + 2');
+        expect(Number(element.style.zIndex)).to.equal(
+          initialZIndex2 + 2,
+          'Initial element zIndex style should be changed to top zIndex + 2'
+        );
         expect(element2.zIndex).to.equal(initialZIndex2, 'element zIndex should not be changed');
-        expect(Number(element2.style.zIndex)).to.equal(initialZIndex2, 'element style z-index should not be changed: ' + initialZIndex2);
+        expect(Number(element2.style.zIndex)).to.equal(
+          initialZIndex2,
+          'element style z-index should not be changed: ' + initialZIndex2
+        );
       });
     });
 
@@ -365,10 +453,22 @@ describe('overlay/manager/ZIndexManager', () => {
         // once on focus first element + twice on focus second element + one time direct call
         // expect(manager.getOverlays).to.have.callCount(4);
         expect(overlays.length).to.equal(2, 'should return array with one element');
-        expect(overlays[0].overlay).to.equal(element2, 'first returned element should contain second registered element');
-        expect(overlays[0].zIndex).to.equal(ZIndex + 2, 'first returned element should have initial ZIndex + 2 ' + Number(ZIndex + 2));
-        expect(overlays[1].overlay).to.equal(element, 'second returned element should contain first registered element');
-        expect(overlays[1].zIndex).to.equal(ZIndex, 'second returned element should have initial ZIndex ' + ZIndex);
+        expect(overlays[0].overlay).to.equal(
+          element2,
+          'first returned element should contain second registered element'
+        );
+        expect(overlays[0].zIndex).to.equal(
+          ZIndex + 2,
+          'first returned element should have initial ZIndex + 2 ' + Number(ZIndex + 2)
+        );
+        expect(overlays[1].overlay).to.equal(
+          element,
+          'second returned element should contain first registered element'
+        );
+        expect(overlays[1].zIndex).to.equal(
+          ZIndex,
+          'second returned element should have initial ZIndex ' + ZIndex
+        );
         expect(size()).to.equal(2, 'manager registry should not be affected');
       });
       it('Test with two elements and change first zIndex=200', async () => {
@@ -384,10 +484,19 @@ describe('overlay/manager/ZIndexManager', () => {
         // once on focus first element + twice on focus second element + one time direct call
         // expect(manager.getOverlays).to.have.callCount(4);
         expect(overlays.length).to.equal(2, 'should return array with one element');
-        expect(overlays[0].overlay).to.equal(element, 'first returned element should contain element with highest zIndex');
+        expect(overlays[0].overlay).to.equal(
+          element,
+          'first returned element should contain element with highest zIndex'
+        );
         expect(overlays[0].zIndex).to.equal(200, 'first returned element should have initial zIndex 200');
-        expect(overlays[1].overlay).to.equal(element2, 'second returned element should contain element with lowest zIndex');
-        expect(overlays[1].zIndex).to.equal(ZIndex + 2, 'second returned element should have initial ZIndex + 2' + Number(ZIndex + 2));
+        expect(overlays[1].overlay).to.equal(
+          element2,
+          'second returned element should contain element with lowest zIndex'
+        );
+        expect(overlays[1].zIndex).to.equal(
+          ZIndex + 2,
+          'second returned element should have initial ZIndex + 2' + Number(ZIndex + 2)
+        );
         expect(size()).to.equal(2, 'manager registry should not be affected');
       });
     });

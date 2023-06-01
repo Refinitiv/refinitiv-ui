@@ -61,12 +61,12 @@ export class EmailField extends TextField {
    * multiple - defined if supports multiple emails
    * @returns template map
    */
-  protected get decorateInputMap (): TemplateMap {
+  protected get decorateInputMap(): TemplateMap {
     return {
       ...super.decorateInputMap,
-      'type': 'email',
-      'inputmode': 'email',
-      'multiple': this.multiple
+      type: 'email',
+      inputmode: 'email',
+      multiple: this.multiple
     };
   }
 
@@ -76,15 +76,16 @@ export class EmailField extends TextField {
    * @returns True if input should be re-validated
    */
   /* c8 ignore start */
-  protected shouldValidateInput (changedProperties: PropertyValues): boolean {
+  protected shouldValidateInput(changedProperties: PropertyValues): boolean {
     // TODO: This validation should be refactored
-    return changedProperties.has('value')
-      || changedProperties.has('multiple')
-      || super.shouldValidateInput(changedProperties);
+    return (
+      changedProperties.has('value') ||
+      changedProperties.has('multiple') ||
+      super.shouldValidateInput(changedProperties)
+    );
   }
   /* c8 ignore stop */
 }
-
 
 declare global {
   interface HTMLElementTagNameMap {

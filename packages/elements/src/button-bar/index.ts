@@ -18,12 +18,11 @@ import { Button } from '../button/index.js';
  */
 @customElement('ef-button-bar')
 export class ButtonBar extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -39,7 +38,7 @@ export class ButtonBar extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-flex;
@@ -65,7 +64,7 @@ export class ButtonBar extends BasicElement {
       :host ::slotted(ef-button:not(:hover):not(:focus)) {
         box-shadow: none;
       }
-      @media (pointer: coarse){
+      @media (pointer: coarse) {
         :host ::slotted(ef-button) {
           box-shadow: none;
         }
@@ -103,7 +102,7 @@ export class ButtonBar extends BasicElement {
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.onTapHandler);
     this.addEventListener('keydown', this.onKeyDown);
@@ -115,7 +114,7 @@ export class ButtonBar extends BasicElement {
    * @param event Key down event object
    * @returns {void}
    */
-  private onKeyDown (event: KeyboardEvent): void {
+  private onKeyDown(event: KeyboardEvent): void {
     switch (event.key) {
       case 'Tab':
         // To prevent inserting button case, make sure there is only one tabIndex=0 in the buttons
@@ -148,7 +147,6 @@ export class ButtonBar extends BasicElement {
       default:
         return;
     }
-
   }
 
   /**
@@ -156,17 +154,18 @@ export class ButtonBar extends BasicElement {
    * @param direction next | down
    * @returns {void}
    */
-  private navigateToSibling (direction: 'next' | 'previous'): void {
+  private navigateToSibling(direction: 'next' | 'previous'): void {
     const buttons = this.getFocusableButtons();
     if (buttons.length <= 0) {
       return;
     }
 
-    const focusedButtonIndex = buttons.findIndex(button => button === document.activeElement);
+    const focusedButtonIndex = buttons.findIndex((button) => button === document.activeElement);
 
-    const nextButton = direction === 'next'
-      ? buttons[focusedButtonIndex + 1] || buttons[0]
-      : buttons[focusedButtonIndex - 1] || buttons[buttons.length - 1];
+    const nextButton =
+      direction === 'next' ?
+        buttons[focusedButtonIndex + 1] || buttons[0] :
+        buttons[focusedButtonIndex - 1] || buttons[buttons.length - 1];
 
     nextButton.focus();
     this.rovingTabIndex(nextButton, buttons);
@@ -176,7 +175,7 @@ export class ButtonBar extends BasicElement {
    * Navigate to the first focusable button
    * @returns {void}
    */
-  private first (): void {
+  private first(): void {
     const buttons = this.getFocusableButtons();
     if (buttons.length <= 0) {
       return;
@@ -189,7 +188,7 @@ export class ButtonBar extends BasicElement {
    * Navigate to the last focusable button
    * @returns {void}
    */
-  private last (): void {
+  private last(): void {
     const buttons = this.getFocusableButtons();
     if (buttons.length <= 0) {
       return;
@@ -204,7 +203,7 @@ export class ButtonBar extends BasicElement {
    * @param buttons Array of Buttons that contains target
    * @returns {void}
    */
-  private rovingTabIndex (target: Button, buttons: Button[]): void {
+  private rovingTabIndex(target: Button, buttons: Button[]): void {
     buttons.forEach((button) => {
       button.tabIndex = -1;
     });
@@ -215,14 +214,14 @@ export class ButtonBar extends BasicElement {
    * Set tabIndex to all buttons
    * @returns {void}
    */
-  private manageTabIndex (): void {
+  private manageTabIndex(): void {
     if (this.isNested()) {
       return;
     }
     const buttons = this.getFocusableButtons();
     if (buttons && buttons.length > 0) {
       // Set tabindex=0 to previous focused button when new button added If not found set it to first button instead
-      let focusedButtonIndex = buttons.findIndex(button => document.activeElement === button);
+      let focusedButtonIndex = buttons.findIndex((button) => document.activeElement === button);
       if (focusedButtonIndex === -1) {
         focusedButtonIndex = 0;
       }
@@ -234,7 +233,7 @@ export class ButtonBar extends BasicElement {
    * Check if button bar is nested, a.k.a. has parent button bar
    * @returns `True` if button bar is nested
    */
-  private isNested (): boolean {
+  private isNested(): boolean {
     return this.parentElement instanceof ButtonBar;
   }
 
@@ -243,7 +242,7 @@ export class ButtonBar extends BasicElement {
    * @param event the param is the event of click and tap handlers
    * @returns {void}
    */
-  private onTapHandler (event: TapEvent): void {
+  private onTapHandler(event: TapEvent): void {
     if (!this.managed) {
       return;
     }
@@ -263,15 +262,15 @@ export class ButtonBar extends BasicElement {
    * @param targetButton an Button item is the target of the event
    * @returns {void}
    */
-  private manageButtons (targetButton: Button): void {
+  private manageButtons(targetButton: Button): void {
     const managedButtons = this.getManagedButtons();
-    const isTargetOfManaged = managedButtons.some(managedButton => managedButton === targetButton);
+    const isTargetOfManaged = managedButtons.some((managedButton) => managedButton === targetButton);
 
     if (!isTargetOfManaged) {
       return;
     }
 
-    managedButtons.forEach(managedButton => {
+    managedButtons.forEach((managedButton) => {
       managedButton.active = managedButton === targetButton;
     });
   }
@@ -280,16 +279,16 @@ export class ButtonBar extends BasicElement {
    * Return the array of Element items which is changed in the default slot
    * @returns the array of Element of the default slot
    */
-  private getElementsOfSlot (): Element[] {
-    return this.defaultSlot.value?.assignedNodes().filter(node => node instanceof Element) as Element[];
+  private getElementsOfSlot(): Element[] {
+    return this.defaultSlot.value?.assignedNodes().filter((node) => node instanceof Element) as Element[];
   }
 
   /**
    * Return the array of Buttons which focusable
    * @returns the array of focusable Buttons
    */
-  private getFocusableButtons (): Button[] {
-    return [...this.querySelectorAll<Button>('ef-button,coral-button')].filter(button => !button.disabled);
+  private getFocusableButtons(): Button[] {
+    return [...this.querySelectorAll<Button>('ef-button,coral-button')].filter((button) => !button.disabled);
   }
 
   /**
@@ -297,9 +296,9 @@ export class ButtonBar extends BasicElement {
    * @param buttons the array of Button items is the converted nodes of the default slot
    * @returns filtered Button items by the toggles property
    */
-  private getManagedButtons (): Button[] {
+  private getManagedButtons(): Button[] {
     const elements = this.getElementsOfSlot();
-    return elements.filter(element => element instanceof Button && element.toggles) as Button[];
+    return elements.filter((element) => element instanceof Button && element.toggles) as Button[];
   }
 
   /**
@@ -307,8 +306,8 @@ export class ButtonBar extends BasicElement {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected render (): TemplateResult {
-    return html`<slot ${ref(this.defaultSlot)} ></slot>`;
+  protected render(): TemplateResult {
+    return html`<slot ${ref(this.defaultSlot)}></slot>`;
   }
 }
 

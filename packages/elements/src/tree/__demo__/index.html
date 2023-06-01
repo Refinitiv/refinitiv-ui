@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Tree</title>
     <style>
       ef-tree {
@@ -14,21 +14,21 @@
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
       import '@refinitiv-ui/elements/tree';
-  
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-  
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
 
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/tree/themes/${theme}/${variant}/index.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/tree/themes/${theme}/${variant}/index.js`);
     </script>
     <script type="module">
       import { TreeRenderer } from '@refinitiv-ui/elements/tree';
@@ -37,32 +37,41 @@
         if (!detail.count) {
           nextId = 0;
         }
-        return Array(depth ? 5 : 4).fill(0).map((_, i) => {
-          detail.count += 1;
-          const disabled = detail.count === 3;
-          const readonly = detail.count === 4;
-          const selected = depth < 3 ? undefined : detail.count === 5;
-          const hidden = i % 10 === 9;
-          const data = {
-            label: depth < 2 ? `Group ${depth + 1}.${i + 1}` : `Item number ${i + 1}${readonly ? ' (readonly)' : ''}`,
-            value: (nextId++).toString(),
-            disabled, readonly, selected, hidden,
-            expanded: i === 1,
-            items: depth < 3 ? makeData(depth + 1, detail) : []
-          };
+        return Array(depth ? 5 : 4)
+          .fill(0)
+          .map((_, i) => {
+            detail.count += 1;
+            const disabled = detail.count === 3;
+            const readonly = detail.count === 4;
+            const selected = depth < 3 ? undefined : detail.count === 5;
+            const hidden = i % 10 === 9;
+            const data = {
+              label:
+                depth < 2
+                  ? `Group ${depth + 1}.${i + 1}`
+                  : `Item number ${i + 1}${readonly ? ' (readonly)' : ''}`,
+              value: (nextId++).toString(),
+              disabled,
+              readonly,
+              selected,
+              hidden,
+              expanded: i === 1,
+              items: depth < 3 ? makeData(depth + 1, detail) : []
+            };
 
-          if(depth === 1) {
-            data['icon'] = (i % 2 === 0) ? 'info' : 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg';
-          }
-          else if(depth === 2) {
-            data['icon'] = (i % 2 === 0) ? 'map-layers' : '';
-          }
-          else if(depth === 3 && i % 2 === 0) {
-            data['icon'] = 'clock-2';
-          }
+            if (depth === 1) {
+              data['icon'] =
+                i % 2 === 0
+                  ? 'info'
+                  : 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg';
+            } else if (depth === 2) {
+              data['icon'] = i % 2 === 0 ? 'map-layers' : '';
+            } else if (depth === 3 && i % 2 === 0) {
+              data['icon'] = 'clock-2';
+            }
 
-          return data;
-        });
+            return data;
+          });
       };
 
       const demoBlocks = document.querySelectorAll('demo-block');
@@ -167,7 +176,7 @@
 
     <demo-block header="Query" layout="normal" tags="query">
       <input id="inputQuery" type="text" placeholder="Input query" />
-      <ef-tree id="queryTree" ></ef-tree>
+      <ef-tree id="queryTree"></ef-tree>
       <button expand>Expand All</button>
       <button collapse>Collapse All</button>
       <button check>Check All</button>
@@ -195,6 +204,5 @@
       <button check>Check All</button>
       <button uncheck>Uncheck All</button>
     </demo-block>
-
   </body>
 </html>

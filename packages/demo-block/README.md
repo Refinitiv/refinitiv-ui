@@ -13,13 +13,11 @@ npm install -D @refinitiv-ui/demo-block
 Include demo styles to `<head>` section and import the module to your page.
 
 ```html
-<link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+<link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
 ```
 
 ```javascript
-<script type="module">
-  import '@refinitiv-ui/demo-block';
-</script>
+<script type="module">import '@refinitiv-ui/demo-block';</script>
 ```
 
 Wrap element or content that you want to show in demo block inside `<demo-block>`.

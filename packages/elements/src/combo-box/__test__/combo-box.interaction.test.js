@@ -94,7 +94,10 @@ describe('combo-box/Interaction', () => {
       expect(el.value).to.equal('AF', 'Tapping on the list did not select the value');
       expect(el.query).to.equal('', 'Tapping on the list did not clear the query');
       expect(el.opened).to.equal(false, 'Tapping on the list did not close the popup');
-      expect(el.inputElement.value).to.equal('Afghanistan', 'Tapping on the list did not set the value of input');
+      expect(el.inputElement.value).to.equal(
+        'Afghanistan',
+        'Tapping on the list did not set the value of input'
+      );
     });
     it('Multiple: on tap should select value in the list', async function () {
       const el = await fixture('<ef-combo-box opened multiple lang="en"></ef-combo-box>');
@@ -109,8 +112,14 @@ describe('combo-box/Interaction', () => {
       expect(String(el.values)).to.equal('AX,AL', 'Multiple: tapping on the list did not select the values');
       expect(el.query).to.equal('Al', 'Multiple: tapping on the list should clear a query');
       expect(el.opened).to.equal(true, 'Multiple: tapping on the list should not close the popup');
-      expect(el.inputElement.value).to.equal('Al', 'Multiple: tapping on the list should not clear input value');
-      expect(el.shadowRoot.querySelector("[part='selection-badge']").value).to.equal('2', 'Multiple: counter on the combo-box did not show correct value');
+      expect(el.inputElement.value).to.equal(
+        'Al',
+        'Multiple: tapping on the list should not clear input value'
+      );
+      expect(el.shadowRoot.querySelector("[part='selection-badge']").value).to.equal(
+        '2',
+        'Multiple: counter on the combo-box did not show correct value'
+      );
     });
     it('Enter should select a value in the list', async function () {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');

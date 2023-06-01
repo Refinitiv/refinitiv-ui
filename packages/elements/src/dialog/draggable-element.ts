@@ -23,7 +23,7 @@ class DraggableManager {
    * @param handle element that will be captured for dragging
    * @returns {void}
    */
-  public register (draggableElement: HTMLElement, handle: HTMLElement): void {
+  public register(draggableElement: HTMLElement, handle: HTMLElement): void {
     if (!this.draggableElements.has(draggableElement)) {
       this.draggableElements.set(draggableElement, {
         mouseDownListener: this.mouseDownListener(draggableElement, handle),
@@ -41,7 +41,7 @@ class DraggableManager {
    * @param draggableElement element for dragging
    * @returns {void}
    */
-  public deregister (draggableElement: HTMLElement): void {
+  public deregister(draggableElement: HTMLElement): void {
     if (this.draggableElements.has(draggableElement)) {
       const handle = this.draggableElements.get(draggableElement)?.handle;
       if (handle) {
@@ -53,7 +53,6 @@ class DraggableManager {
       if (this.draggableElement === draggableElement) {
         this.release();
       }
-
     }
   }
 
@@ -63,7 +62,7 @@ class DraggableManager {
    * @param y Amount to shift the y-axis
    * @returns {void}
    */
-  private shift (x: number, y: number): void {
+  private shift(x: number, y: number): void {
     if (this.draggableElement) {
       // Shift the offsets
       this.xOffset += x;
@@ -88,32 +87,30 @@ class DraggableManager {
    * @param handle element that will be touched for dragging
    * @returns {void}
    */
-  private mouseDownListener = (draggableElement: HTMLElement, handle: HTMLElement): MouseEventListener => (event: MouseEvent): void => {
-    if (event.button === MAIN_MOUSE_BUTTON && event.target === handle) {
-      this.draggableElement = draggableElement;
-      this.setSelectingOfText(false);
+  private mouseDownListener =
+    (draggableElement: HTMLElement, handle: HTMLElement): MouseEventListener =>
+      (event: MouseEvent): void => {
+        if (event.button === MAIN_MOUSE_BUTTON && event.target === handle) {
+          this.draggableElement = draggableElement;
+          this.setSelectingOfText(false);
 
-      document.addEventListener('mouseup', this.onRelease);
-      document.addEventListener('mousemove', this.onMove);
+          document.addEventListener('mouseup', this.onRelease);
+          document.addEventListener('mousemove', this.onMove);
 
-      this.updateOffset();
-      this.drag(event.pageX, event.pageY);
-    }
-  };
+          this.updateOffset();
+          this.drag(event.pageX, event.pageY);
+        }
+      };
 
   /**
    * Styles the handle and listens for mouse events.
    * @param draggableElement element that will be dragged
    * @returns {void}
    */
-  private setHandleListeners (draggableElement: HTMLElement): void {
+  private setHandleListeners(draggableElement: HTMLElement): void {
     const element = this.draggableElements.get(draggableElement);
     if (element) {
-      element.handle
-      .addEventListener(
-        'mousedown',
-        element.mouseDownListener
-      );
+      element.handle.addEventListener('mousedown', element.mouseDownListener);
     }
   }
 
@@ -122,13 +119,10 @@ class DraggableManager {
    * @param draggableElement element that will be dragged
    * @returns {void}
    */
-  private removeHandleListeners (draggableElement: HTMLElement): void {
+  private removeHandleListeners(draggableElement: HTMLElement): void {
     const element = this.draggableElements.get(draggableElement);
     if (element) {
-      element.handle.removeEventListener(
-        'mousedown',
-        element.mouseDownListener
-      );
+      element.handle.removeEventListener('mousedown', element.mouseDownListener);
     }
   }
 
@@ -137,7 +131,7 @@ class DraggableManager {
    * @param handle element that will be touched for dragging
    * @returns {void}
    */
-  private static setHandleCursor (handle: HTMLElement): void {
+  private static setHandleCursor(handle: HTMLElement): void {
     handle.style.cursor = 'move';
   }
 
@@ -146,7 +140,7 @@ class DraggableManager {
    * @param handle element that will be touched for dragging
    * @returns {void}
    */
-  private static removeHandleCursor (handle: HTMLElement): void {
+  private static removeHandleCursor(handle: HTMLElement): void {
     handle.style.removeProperty('cursor');
   }
 
@@ -154,7 +148,7 @@ class DraggableManager {
    * Get the current offset as it may have been changed.
    * @returns {void}
    */
-  private updateOffset (): void {
+  private updateOffset(): void {
     if (this.draggableElement) {
       const style: CSSStyleDeclaration = getComputedStyle(this.draggableElement);
       this.xOffset = parseFloat(style.left.replace(/\D[~.]/g, ''));
@@ -168,7 +162,7 @@ class DraggableManager {
    * @param y Starting mouse y position
    * @returns {void}
    */
-  private drag (x: number, y: number): void {
+  private drag(x: number, y: number): void {
     this.lastX = x;
     this.lastY = y;
   }
@@ -199,14 +193,13 @@ class DraggableManager {
    * @param enable the condition of the user-select state
    * @returns {void}
    */
-  private setSelectingOfText (enable: boolean): void {
+  private setSelectingOfText(enable: boolean): void {
     if (!this.draggableElement) {
       return;
     }
     if (enable) {
       this.draggableElement.style.userSelect = 'auto';
-    }
-    else {
+    } else {
       this.draggableElement.style.userSelect = 'none';
     }
   }
@@ -229,13 +222,10 @@ class DraggableManager {
   private onMove = (event: MouseEvent): void => {
     if (this.draggableElement && event.button === MAIN_MOUSE_BUTTON) {
       this.getDeltaAndShift(event.pageX, event.pageY);
-    }
-    else {
+    } else {
       this.release();
     }
   };
-
-
 }
 
 /**

@@ -6,7 +6,6 @@ import '@refinitiv-ui/elemental-theme/light/ef-notification';
 
 describe('notification/Notification', () => {
   describe('Default', () => {
-
     let el;
 
     beforeEach(async () => {
@@ -18,10 +17,9 @@ describe('notification/Notification', () => {
     });
 
     describe('Attributes/Properties', () => {
-
       it('Should show message and message attribute is correct', async () => {
         const message = 'Hello';
-        el.setAttribute('message', message)
+        el.setAttribute('message', message);
         await elementUpdated(el);
         await nextFrame();
         await nextFrame(); // Safari needed double extra frames

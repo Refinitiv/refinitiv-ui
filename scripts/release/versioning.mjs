@@ -22,7 +22,7 @@ const handler = async () => {
 
   log(`Updating version of ${elementName}`);
   const files = await fg('./lib/**/*.js', { cwd: PACKAGE_ROOT });
-  files.forEach(file => {
+  files.forEach((file) => {
     const curFile = path.join(PACKAGE_ROOT, file);
     const data = fs.readFileSync(curFile, FILE_OPTIONS);
     if (data.includes(PLACEHOLDER_VERSION)) {

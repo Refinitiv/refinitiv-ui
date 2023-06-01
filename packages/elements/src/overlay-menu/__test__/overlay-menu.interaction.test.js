@@ -74,7 +74,6 @@ describe('overlay-menu/Interaction', () => {
       triggerMouseMove(trigger);
       await elementUpdated(el);
       expect(menus[1].isActive, 'Second menu should be active').to.be.true;
-
     });
 
     it('Closes menu on body click', async () => {
@@ -339,7 +338,9 @@ describe('overlay-menu/Interaction', () => {
         triggerKeyEvent(menus[0], 'End');
         await elementUpdated(el);
         const firstMenuItems = menus[0].items;
-        expect(el.querySelector('ef-item[highlighted]').label).to.equal(firstMenuItems[firstMenuItems.length - 1].label);
+        expect(el.querySelector('ef-item[highlighted]').label).to.equal(
+          firstMenuItems[firstMenuItems.length - 1].label
+        );
         triggerKeyEvent(menus[0], 'Home');
         await elementUpdated(el);
         expect(el.querySelector('ef-item[highlighted]').label).to.equal(firstMenuItems[0].label);

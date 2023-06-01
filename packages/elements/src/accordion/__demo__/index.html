@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Accordion</title>
     <style>
       .content {
@@ -22,7 +22,7 @@
       import '@refinitiv-ui/elements/accordion';
       import '@refinitiv-ui/elements/button';
       import '@refinitiv-ui/elements/checkbox';
-  
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
@@ -40,24 +40,20 @@
       // import '@refinitiv-ui/elemental-theme/light/ef-button';
       // import '@refinitiv-ui/elemental-theme/light/ef-checkbox';
 
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/accordion/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/button/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/checkbox/themes/${theme}/${variant}/index.js`); 
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/accordion/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/button/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/checkbox/themes/${theme}/${variant}/index.js`);
     </script>
 
     <!-- DEFAULT -->
     <demo-block header="Default" layout="normal">
       <ef-accordion>
-        <ef-collapse header="Group One">
-          Content for Group One
-        </ef-collapse>
+        <ef-collapse header="Group One"> Content for Group One </ef-collapse>
         <ef-collapse expanded header="Group Two">
           <div style="height: 200px">Content inside a div with a fixed 200px height for Group Two</div>
         </ef-collapse>
-        <ef-collapse header="Group Three">
-          Content for Group Three
-        </ef-collapse>
+        <ef-collapse header="Group Three"> Content for Group Three </ef-collapse>
         <ef-collapse header="Group Four">
           Content for Group Four - has expanded attribute set so will be open initially
         </ef-collapse>
@@ -67,45 +63,27 @@
     <!-- AUTO COLLAPSE DISABLED -->
     <demo-block header="Auto Collapse Disabled" layout="normal" tags="auto-collapse">
       <ef-accordion auto-collapse-disabled>
-        <ef-collapse header="Group One">
-          Content for Group One
-        </ef-collapse>
-        <ef-collapse header="Group Two">
-          Content for Group Two
-        </ef-collapse>
-        <ef-collapse header="Group Three">
-          Content for Group Three
-        </ef-collapse>
+        <ef-collapse header="Group One"> Content for Group One </ef-collapse>
+        <ef-collapse header="Group Two"> Content for Group Two </ef-collapse>
+        <ef-collapse header="Group Three"> Content for Group Three </ef-collapse>
       </ef-accordion>
     </demo-block>
 
     <!-- SET LEVEL -->
     <demo-block header="Set Level" layout="normal" tags="level, auto-collapse">
       <ef-accordion auto-collapse-disabled>
-        <ef-collapse level="1" header="Group One">
-          Content for Group One
-        </ef-collapse>
-        <ef-collapse level="2" header="Group Two">
-          Content for Group Two
-        </ef-collapse>
-        <ef-collapse level="3" header="Group Three">
-          Content for Group Three
-        </ef-collapse>
+        <ef-collapse level="1" header="Group One"> Content for Group One </ef-collapse>
+        <ef-collapse level="2" header="Group Two"> Content for Group Two </ef-collapse>
+        <ef-collapse level="3" header="Group Three"> Content for Group Three </ef-collapse>
       </ef-accordion>
     </demo-block>
 
     <!-- WITH SPACING -->
     <demo-block header="Spacing" layout="normal" tags="spacing">
       <ef-accordion spacing>
-        <ef-collapse header="Group One">
-          Content for Group One
-        </ef-collapse>
-        <ef-collapse header="Group Two">
-          Content for Group Two
-        </ef-collapse>
-        <ef-collapse header="Group Three">
-          Content for Group Three
-        </ef-collapse>
+        <ef-collapse header="Group One"> Content for Group One </ef-collapse>
+        <ef-collapse header="Group Two"> Content for Group Two </ef-collapse>
+        <ef-collapse header="Group Three"> Content for Group Three </ef-collapse>
       </ef-accordion>
     </demo-block>
 

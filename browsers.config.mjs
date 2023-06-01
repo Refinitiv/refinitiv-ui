@@ -5,27 +5,34 @@ const DefaultMobileBrowsers = ['android', 'ios'];
 // BrowserStack browsers
 const BrowserStack = {
   defaultBrowsers: DefaultBrowsers,
-  latestBrowsers: [
-    ...DefaultBrowsers,
-    ...DefaultMobileBrowsers
-  ],
+  latestBrowsers: [...DefaultBrowsers, ...DefaultMobileBrowsers],
   supportedBrowsers: [
     ...DefaultBrowsers,
     ...DefaultMobileBrowsers,
-    'chrome_minus1', 'chrome_minus2',
-    'firefox_minus1', 'firefox_minus2',
-    'android_minus1', 'android_minus2',
-    'ios_minus1', 'ios_minus2'
+    'chrome_minus1',
+    'chrome_minus2',
+    'firefox_minus1',
+    'firefox_minus2',
+    'android_minus1',
+    'android_minus2',
+    'ios_minus1',
+    'ios_minus2'
   ],
   availableBrowsers: [
-    'default', 'latest', 'supported', // Alias
-    'edge', 'edge_minus1', 'edge_minus2',
-    'safari', 'safari_minus1', 'safari_minus2', // Safari are moved out from default and supported temporary because BrowserStack connection issue
+    'default',
+    'latest',
+    'supported', // Alias
+    'edge',
+    'edge_minus1',
+    'edge_minus2',
+    'safari',
+    'safari_minus1',
+    'safari_minus2' // Safari are moved out from default and supported temporary because BrowserStack connection issue
   ]
 };
 // Combine supported & aliases into complete available browsers
 // CLI param would be validated with this list of browsers
-BrowserStack.availableBrowsers = [ ...BrowserStack.supportedBrowsers, ...BrowserStack.availableBrowsers];
+BrowserStack.availableBrowsers = [...BrowserStack.supportedBrowsers, ...BrowserStack.availableBrowsers];
 
 // base platform config
 const deviceConfig = { real_mobile: 'true' };
@@ -54,18 +61,33 @@ BrowserStack.config = {
 
   // Mobile Devices
   ios: { ...deviceConfig, browser: 'iphone', device: 'iPhone 14', os: 'ios', os_version: '16' },
-  android: { ...deviceConfig, browser: 'android', device: 'Samsung Galaxy S23', os: 'android', os_version: '13.0' },
+  android: {
+    ...deviceConfig,
+    browser: 'android',
+    device: 'Samsung Galaxy S23',
+    os: 'android',
+    os_version: '13.0'
+  },
 
   // Mobile Devices minus1 versions
   ios_minus1: { ...deviceConfig, browser: 'iphone', device: 'iPhone 13', os: 'ios', os_version: '15' },
-  android_minus1: { ...deviceConfig, browser: 'android', device: 'Samsung Galaxy S22', os: 'android', os_version: '12.0' },
+  android_minus1: {
+    ...deviceConfig,
+    browser: 'android',
+    device: 'Samsung Galaxy S22',
+    os: 'android',
+    os_version: '12.0'
+  },
 
   // Mobile Devices minus2 versions
   ios_minus2: { ...deviceConfig, browser: 'iphone', device: 'iPhone 12', os: 'ios', os_version: '14' },
-  android_minus2: { ...deviceConfig, browser: 'android', device: 'Samsung Galaxy S21', os: 'android', os_version: '11.0' }
+  android_minus2: {
+    ...deviceConfig,
+    browser: 'android',
+    device: 'Samsung Galaxy S21',
+    os: 'android',
+    os_version: '11.0'
+  }
 };
 
-export {
-  DefaultBrowsers,
-  BrowserStack
-};
+export { DefaultBrowsers, BrowserStack };

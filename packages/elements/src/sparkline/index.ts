@@ -14,7 +14,10 @@ import { VERSION } from '../version.js';
 import { color } from '@refinitiv-ui/utils/color.js';
 import '@refinitiv-ui/browser-sparkline';
 import type { BrowserSparklineChart } from '@refinitiv-ui/browser-sparkline';
-import type { StaticDataConfig, ThemeConfig } from '@refinitiv-ui/browser-sparkline/lib/browserSparklineCanvas';
+import type {
+  StaticDataConfig,
+  ThemeConfig
+} from '@refinitiv-ui/browser-sparkline/lib/browserSparklineCanvas';
 
 @customElement('ef-sparkline')
 export class Sparkline extends ResponsiveElement {
@@ -22,7 +25,7 @@ export class Sparkline extends ResponsiveElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -70,13 +73,15 @@ export class Sparkline extends ResponsiveElement {
   /**
    * Get configuration for theme
    */
-  protected get defaultThemeConfig (): Partial<ThemeConfig> {
+  protected get defaultThemeConfig(): Partial<ThemeConfig> {
     return {
       width: this.width,
       height: this.height,
       lineColor: color(this.getComputedVariable('--line-color', '#ff9933'))?.formatHex(),
       lineWidth: parseInt(this.getComputedVariable('--line-width', '2px'), 10),
-      referenceLineColor: color(this.getComputedVariable('--reference-line-color', 'rgba(120, 120, 130, 0.5)'))?.formatHex(),
+      referenceLineColor: color(
+        this.getComputedVariable('--reference-line-color', 'rgba(120, 120, 130, 0.5)')
+      )?.formatHex(),
       previousLineColor: color(this.getComputedVariable('--previous-line-color', '#bfbfbf'))?.formatHex(),
       upperLineColor: color(this.getComputedVariable('--upper-line-color', '#309054'))?.formatHex(),
       lowerLineColor: color(this.getComputedVariable('--lower-line-color', '#d94255'))?.formatHex(),
@@ -87,7 +92,7 @@ export class Sparkline extends ResponsiveElement {
   /**
    * Get configuration for static data
    */
-  private get staticDataConfig (): StaticDataConfig {
+  private get staticDataConfig(): StaticDataConfig {
     return {
       previousData: this.previousData,
       data: this.data,
@@ -100,7 +105,7 @@ export class Sparkline extends ResponsiveElement {
    * @ignore
    * @return {void}
    */
-  public connectedCallback (): void {
+  public connectedCallback(): void {
     super.connectedCallback();
     this.createChart();
   }
@@ -111,7 +116,7 @@ export class Sparkline extends ResponsiveElement {
    * @param changedProperties changed properties
    * @return {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (changedProperties.get('data')) {
@@ -125,7 +130,7 @@ export class Sparkline extends ResponsiveElement {
    * Fires event `data-changed` by default but will fires event `data-error` if giving data a wrong format
    * @returns {void}
    */
-  private dataChanged (): void {
+  private dataChanged(): void {
     if (!this.data || this.data.length < 2) {
       /* @fires data-error
        * Fired when data has error and chart cannot be updated
@@ -147,7 +152,7 @@ export class Sparkline extends ResponsiveElement {
    * @param size element dimensions
    * @returns {void}
    */
-  public resizedCallback (size: ElementSize): void {
+  public resizedCallback(size: ElementSize): void {
     this.width = size.width;
     this.height = size.height;
 
@@ -155,8 +160,7 @@ export class Sparkline extends ResponsiveElement {
       this.chart.style.width = `${this.width}px`;
       this.chart.style.height = `${this.height}px`;
       this.chart.updateCanvasSize(this.width, this.height);
-    }
-    else {
+    } else {
       this.initialized = true;
       this.createChart();
     }
@@ -167,7 +171,7 @@ export class Sparkline extends ResponsiveElement {
    * @protected
    * @returns {void}
    */
-  protected createChart (): void {
+  protected createChart(): void {
     if (!this.isConnected || !this.initialized || !this.data || this.data.length < 2) {
       return;
     }
@@ -184,7 +188,7 @@ export class Sparkline extends ResponsiveElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         width: 100px;
@@ -192,13 +196,14 @@ export class Sparkline extends ResponsiveElement {
         display: block;
       }
 
-      browser-sparkline-chart, browser-sparkline-canvas {
+      browser-sparkline-chart,
+      browser-sparkline-canvas {
         width: 100%;
         height: 100%;
         display: block;
       }
 
-      [part=chart] {
+      [part='chart'] {
         height: 100%;
       }
     `;
@@ -209,10 +214,8 @@ export class Sparkline extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
-    return html`
-      <browser-sparkline-chart part="chart" id="sparkline"></browser-sparkline-chart>
-    `;
+  protected render(): TemplateResult {
+    return html` <browser-sparkline-chart part="chart" id="sparkline"></browser-sparkline-chart> `;
   }
 }
 

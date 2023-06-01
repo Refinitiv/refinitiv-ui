@@ -43,6 +43,4 @@ const label = (element: HTMLElement): string | null => {
   return null;
 };
 
-export {
-  label
-};
+export { label };

@@ -17,11 +17,11 @@ abstract class OpenedMenusManager {
   /**
    * Get the sorted list of overlays by z-index
    */
-  private static get overlays (): OverlayMenu[] {
+  private static get overlays(): OverlayMenu[] {
     const openedMenus: OverlayMenu[] = [];
     const overlayLayers = getOverlays();
 
-    overlayLayers.forEach(overlay => {
+    overlayLayers.forEach((overlay) => {
       if (overlay instanceof OverlayMenu && this.registry.has(overlay)) {
         openedMenus.push(overlay);
       }
@@ -35,7 +35,7 @@ abstract class OpenedMenusManager {
    * @param event Tap start event
    * @returns {void}
    */
-  private static closeOnOutsideOfMenuTap (event: TapEvent): void {
+  private static closeOnOutsideOfMenuTap(event: TapEvent): void {
     const manager = OpenedMenusManager;
     const paths = [...event.composedPath()];
     while (paths.length) {
@@ -56,7 +56,7 @@ abstract class OpenedMenusManager {
    * This is required for compact menus to change styles
    * @returns {void}
    */
-  private static setActiveMenu (): void {
+  private static setActiveMenu(): void {
     if (this.activeMenu) {
       this.activeMenu.removeAttribute('active');
     }
@@ -72,12 +72,10 @@ abstract class OpenedMenusManager {
    * @param parent Parent menu
    * @returns false if opened event is prevented
    */
-  private static _closeMenuFor (parent: OverlayMenu): boolean {
+  private static _closeMenuFor(parent: OverlayMenu): boolean {
     const childMenu = this.crossMenu.get(parent);
     if (childMenu) {
-      const {
-        menu
-      } = childMenu;
+      const { menu } = childMenu;
 
       if (this.setOpened(menu, false)) {
         childMenu.item.setAttribute('aria-expanded', 'false');
@@ -98,7 +96,7 @@ abstract class OpenedMenusManager {
    * @param parent Parent menu
    * @returns false if opened event is prevented
    */
-  private static closeMenuFor (parent: OverlayMenu): boolean {
+  private static closeMenuFor(parent: OverlayMenu): boolean {
     if (this._closeMenuFor(parent)) {
       parent.opened && parent.focus();
       return true;
@@ -113,7 +111,7 @@ abstract class OpenedMenusManager {
    * @param opened True to make menu opened
    * @returns false if event is prevented
    */
-  private static setOpened (menu: OverlayMenu, opened: boolean): boolean {
+  private static setOpened(menu: OverlayMenu, opened: boolean): boolean {
     if (menu.opened !== opened) {
       const event = new CustomEvent('opened-changed', {
         cancelable: true,
@@ -135,12 +133,12 @@ abstract class OpenedMenusManager {
   }
 
   /**
-  * Register the menu
-  * Can be called multiple times if menu items collection has changed
-  * @param menu Menu
-  * @returns {void}
-  */
-  public static register (menu: OverlayMenu): void {
+   * Register the menu
+   * Can be called multiple times if menu items collection has changed
+   * @param menu Menu
+   * @returns {void}
+   */
+  public static register(menu: OverlayMenu): void {
     if (!this.registry.size) {
       document.addEventListener('tapstart', this.closeOnOutsideOfMenuTap, {
         capture: true,
@@ -154,11 +152,11 @@ abstract class OpenedMenusManager {
   }
 
   /**
-  * Deregister the menu
-  * @param menu Menu
-  * @returns {void}
-  */
-  public static deregister (menu: OverlayMenu): void {
+   * Deregister the menu
+   * @param menu Menu
+   * @returns {void}
+   */
+  public static deregister(menu: OverlayMenu): void {
     const parentMenu = this.getParentMenu(menu);
     if (!this.closeMenuFor(parentMenu || menu)) {
       return;
@@ -184,11 +182,12 @@ abstract class OpenedMenusManager {
    * @param [item] Item to check menu for
    * @returns {void}
    */
-  public static toggleNestedMenuFor (parentMenu: OverlayMenu, item?: Item): void {
+  public static toggleNestedMenuFor(parentMenu: OverlayMenu, item?: Item): void {
     const crossMenu = this.crossMenu.get(parentMenu);
 
     if (crossMenu) {
-      if (crossMenu.item === item) { /* same menu */
+      if (crossMenu.item === item) {
+        /* same menu */
         return;
       }
 
@@ -207,7 +206,9 @@ abstract class OpenedMenusManager {
       return;
     }
 
-    const menu = (parentMenu.getRootNode() as Document | ShadowRoot).getElementById(menuId); /* query within the scope */
+    const menu = (parentMenu.getRootNode() as Document | ShadowRoot).getElementById(
+      menuId
+    ); /* query within the scope */
 
     if (!menu || !(menu instanceof OverlayMenu)) {
       return;
@@ -226,7 +227,7 @@ abstract class OpenedMenusManager {
    * @param childMenu menu to find parent for
    * @returns parent menu or undefined
    */
-  public static getParentMenu (childMenu: OverlayMenu): OverlayMenu | undefined {
+  public static getParentMenu(childMenu: OverlayMenu): OverlayMenu | undefined {
     let parentMenu: OverlayMenu | undefined;
     this.crossMenu.forEach(({ menu }, key) => {
       if (menu === childMenu) {
@@ -242,7 +243,7 @@ abstract class OpenedMenusManager {
    * @param childMenu menu to find parent for
    * @returns parent menu item or undefined
    */
-  public static getParentMenuItem (childMenu: OverlayMenu): Item | undefined {
+  public static getParentMenuItem(childMenu: OverlayMenu): Item | undefined {
     let parentItem: Item | undefined;
     this.crossMenu.forEach(({ item, menu }) => {
       if (menu === childMenu) {
@@ -258,7 +259,7 @@ abstract class OpenedMenusManager {
    * @param menu Menu to check
    * @returns true if menu is nested
    */
-  public static isNested (menu: OverlayMenu): boolean {
+  public static isNested(menu: OverlayMenu): boolean {
     return this.getParentMenu(menu) !== undefined;
   }
 
@@ -267,7 +268,7 @@ abstract class OpenedMenusManager {
    * @param menu Menu to check
    * @returns true if menu is active
    */
-  public static isActiveMenu (menu: OverlayMenu): boolean {
+  public static isActiveMenu(menu: OverlayMenu): boolean {
     return this.overlayStack[0] === menu;
   }
 
@@ -275,11 +276,9 @@ abstract class OpenedMenusManager {
    * Clear all manager items
    * @returns {void}
    */
-  public static clear (): void {
-    this.registry.forEach(menu => this.deregister(menu));
+  public static clear(): void {
+    this.registry.forEach((menu) => this.deregister(menu));
   }
 }
 
-export {
-  OpenedMenusManager
-};
+export { OpenedMenusManager };

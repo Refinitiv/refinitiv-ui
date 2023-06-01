@@ -6,7 +6,6 @@ import '@refinitiv-ui/elemental-theme/light/ef-notification';
 
 describe('notification/NotificationTray', () => {
   describe('Notification Tray', () => {
-
     let el;
 
     const NotificationType = {
@@ -24,7 +23,6 @@ describe('notification/NotificationTray', () => {
       await expect(el).shadowDom.to.equalSnapshot();
     });
 
-
     describe('Attributes/Properties', () => {
       it('Max attribute is correct', async () => {
         let max = 5;
@@ -33,12 +31,12 @@ describe('notification/NotificationTray', () => {
         expect(el.max).to.equal(max);
       });
 
-      it('Assign \'top\' to \'attach\' attribute', async () => {
+      it("Assign 'top' to 'attach' attribute", async () => {
         el = await fixture('<ef-notification-tray attach="top"></ef-notification-tray>');
         expect(el.attach).to.equal('top');
       });
 
-      it('Assign \'bottom\' to \'attach\' attribute', async () => {
+      it("Assign 'bottom' to 'attach' attribute", async () => {
         el = await fixture('<ef-notification-tray attach="bottom"></ef-notification-tray>');
         expect(el.setAttribute('attach', 'bottom'));
       });

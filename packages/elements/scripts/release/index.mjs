@@ -10,9 +10,11 @@ const scripts = [
   path.resolve(RELEASE_SCRIPTS_PATH, 'versioning.mjs')
 ];
 
-scripts.forEach(script => fork(script, {
-  stdio: 'inherit',
-  env: {
-    PACKAGE_ROOT: ELEMENTS_ROOT
-  }
-}));
+scripts.forEach((script) =>
+  fork(script, {
+    stdio: 'inherit',
+    env: {
+      PACKAGE_ROOT: ELEMENTS_ROOT
+    }
+  })
+);

@@ -21,8 +21,17 @@ import type {
 
 import type { RGBColor, HSLColor } from '@refinitiv-ui/utils/color.js';
 
-type SeriesOptions = AreaSeriesPartialOptions | BarSeriesPartialOptions | CandlestickSeriesPartialOptions | HistogramSeriesPartialOptions | LineSeriesPartialOptions;
-type SeriesStyleOptions = LineStyleOptions & AreaStyleOptions & BarStyleOptions & CandlestickStyleOptions & HistogramStyleOptions;
+type SeriesOptions =
+  | AreaSeriesPartialOptions
+  | BarSeriesPartialOptions
+  | CandlestickSeriesPartialOptions
+  | HistogramSeriesPartialOptions
+  | LineSeriesPartialOptions;
+type SeriesStyleOptions = LineStyleOptions &
+  AreaStyleOptions &
+  BarStyleOptions &
+  CandlestickStyleOptions &
+  HistogramStyleOptions;
 
 type SeriesData = LineData[] | BarData[] | HistogramData[];
 type SeriesList = ISeriesApi<SeriesType>;
@@ -30,11 +39,14 @@ type SeriesDataItem = BarData | LineData;
 
 type RowLegend = NodeListOf<Element> | HTMLElement | null;
 
-type ColorToStringFunction = (param: string, ...arg: (string|number|undefined)[]) => RGBColor | HSLColor | null;
+type ColorToStringFunction = (
+  param: string,
+  ...arg: (string | number | undefined)[]
+) => RGBColor | HSLColor | null;
 
 enum LegendStyle {
-  vertical='vertical',
-  horizontal='horizontal'
+  vertical = 'vertical',
+  horizontal = 'horizontal'
 }
 
 interface Time {

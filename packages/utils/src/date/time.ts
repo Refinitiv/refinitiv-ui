@@ -1,8 +1,4 @@
-import {
-  padNumber,
-  throwInvalidFormat,
-  throwInvalidValue
-} from './utils.js';
+import { padNumber, throwInvalidFormat, throwInvalidValue } from './utils.js';
 import {
   MILLISECONDS_IN_DAY,
   MILLISECONDS_IN_HOUR,
@@ -136,7 +132,9 @@ const formatTime = (value: Segment | Date, format: InputFormat, isUTC: boolean):
     case Format.HHmmss:
       return `${padHour(segment.hours)}:${padMinute(segment.minutes)}:${padSecond(segment.seconds || 0)}`;
     case Format.HHmmssSSS:
-      return `${padHour(segment.hours)}:${padMinute(segment.minutes)}:${padSecond(segment.seconds || 0)}.${padMillisecond(segment.milliseconds || 0)}`;
+      return `${padHour(segment.hours)}:${padMinute(segment.minutes)}:${padSecond(
+        segment.seconds || 0
+      )}.${padMillisecond(segment.milliseconds || 0)}`;
     case Format.HHmm:
       return `${padHour(segment.hours)}:${padMinute(segment.minutes)}`;
     // no default
@@ -151,7 +149,8 @@ const formatTime = (value: Segment | Date, format: InputFormat, isUTC: boolean):
  * @param [format='HH:mm'] Time format, one of 'HH:mm' | 'HH:mm:ss' | 'HH:mm:ss.SSS'
  * @returns A formatted time
  */
-const format = (value: Segment | Date, format: InputFormat = Format.HHmm): string => formatTime(value, format, false);
+const format = (value: Segment | Date, format: InputFormat = Format.HHmm): string =>
+  formatTime(value, format, false);
 
 /**
  * Format Date or Segment to UTC Time string.
@@ -159,7 +158,8 @@ const format = (value: Segment | Date, format: InputFormat = Format.HHmm): strin
  * @param [format='HH:mm'] Time format, one of 'HH:mm' | 'HH:mm:ss' | 'HH:mm:ss.SSS'
  * @returns A formatted time
  */
-const utcFormat = (value: Segment | Date, format: InputFormat = Format.HHmm): string => formatTime(value, format, true);
+const utcFormat = (value: Segment | Date, format: InputFormat = Format.HHmm): string =>
+  formatTime(value, format, true);
 
 /**
  * @private
@@ -180,8 +180,7 @@ const parseTime = (value: string | Segment, isUTC: boolean): Date => {
   if (isUTC) {
     date = new Date(0);
     date.setUTCHours(value.hours, value.minutes, value.seconds, value.milliseconds);
-  }
-  else {
+  } else {
     // the code for Local Dates is inconsistent across different browsers
     date = new Date();
     date.setHours(value.hours, value.minutes, value.seconds, value.milliseconds);
@@ -221,24 +220,28 @@ const addOffset = (value: string, amount: number): string => {
   }
 
   const segment = toSegment(value);
-  let duration
-    = segment.hours * MILLISECONDS_IN_HOUR
-    + segment.minutes * MILLISECONDS_IN_MINUTE
-    + (segment.seconds || 0) * MILLISECONDS_IN_SECOND
-    + (segment.milliseconds || 0)
-    + amount;
+  let duration =
+    segment.hours * MILLISECONDS_IN_HOUR +
+    segment.minutes * MILLISECONDS_IN_MINUTE +
+    (segment.seconds || 0) * MILLISECONDS_IN_SECOND +
+    (segment.milliseconds || 0) +
+    amount;
 
   duration %= MILLISECONDS_IN_DAY;
   if (duration < 0) {
     duration = MILLISECONDS_IN_DAY + duration;
   }
 
-  return formatTime({
-    hours: Math.floor((duration / MILLISECONDS_IN_HOUR) % 24),
-    minutes: Math.floor((duration / MILLISECONDS_IN_MINUTE) % 60),
-    seconds: Math.floor((duration / MILLISECONDS_IN_SECOND) % 60),
-    milliseconds: Math.floor(duration % 1000)
-  }, format, false);
+  return formatTime(
+    {
+      hours: Math.floor((duration / MILLISECONDS_IN_HOUR) % 24),
+      minutes: Math.floor((duration / MILLISECONDS_IN_MINUTE) % 60),
+      seconds: Math.floor((duration / MILLISECONDS_IN_SECOND) % 60),
+      milliseconds: Math.floor(duration % 1000)
+    },
+    format,
+    false
+  );
 };
 
 /**

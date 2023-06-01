@@ -6,8 +6,12 @@ import { noChange } from 'lit';
 
 type TemplateMap = { [key: string]: unknown };
 type VariableElement = Element & { [name: string]: unknown };
-type ValueMap = { [key: string]: { value: unknown, scopedValue: unknown } };
-enum MAP_TYPE { ATTRIBUTE, PROPERTY, LISTENER }
+type ValueMap = { [key: string]: { value: unknown; scopedValue: unknown } };
+enum MAP_TYPE {
+  ATTRIBUTE,
+  PROPERTY,
+  LISTENER
+}
 
 /**
  * Get map type as follows
@@ -68,20 +72,18 @@ const setMapped = (element: Element, name: string, value: unknown, oldValue: unk
     case MAP_TYPE.PROPERTY:
       if (value === undefined) {
         delete (element as VariableElement)[name];
-      }
-      else {
+      } else {
         (element as VariableElement)[name] = value;
       }
       break;
     case MAP_TYPE.ATTRIBUTE:
     default:
-      if (value === null || value === undefined || value === false) { // remove with undefined to comply with property
+      if (value === null || value === undefined || value === false) {
+        // remove with undefined to comply with property
         element.removeAttribute(name);
-      }
-      else if (value === true) {
+      } else if (value === true) {
         element.setAttribute(name, '');
-      }
-      else {
+      } else {
         element.setAttribute(name, String(value));
       }
       break;
@@ -91,7 +93,7 @@ const setMapped = (element: Element, name: string, value: unknown, oldValue: unk
 class TemplateMapDirective extends Directive {
   private valueMap: ValueMap = {}; // used to cache values
 
-  constructor (partInfo: PartInfo) {
+  constructor(partInfo: PartInfo) {
     super(partInfo);
 
     if (partInfo.type !== PartType.ELEMENT) {
@@ -105,7 +107,7 @@ class TemplateMapDirective extends Directive {
    * @param attributeMap Attribute map
    * @returns noChange
    */
-  public update (part: ElementPart, [attributeMap]: [TemplateMap]): typeof noChange {
+  public update(part: ElementPart, [attributeMap]: [TemplateMap]): typeof noChange {
     const newValueMap: ValueMap = {};
     const element = part.element;
 
@@ -144,7 +146,7 @@ class TemplateMapDirective extends Directive {
    * @inheritDoc
    * @returns noChange
    */
-  public render (): typeof noChange {
+  public render(): typeof noChange {
     return noChange;
   }
 }
@@ -163,13 +165,9 @@ class TemplateMapDirective extends Directive {
  * }
  * @returns noChange directive result
  */
-const templateMap: (template: TemplateMap) => DirectiveResult<typeof TemplateMapDirective> = directive(TemplateMapDirective);
+const templateMap: (template: TemplateMap) => DirectiveResult<typeof TemplateMapDirective> =
+  directive(TemplateMapDirective);
 
-export {
-  templateMap
-};
+export { templateMap };
 
-export type {
-  TemplateMapDirective,
-  TemplateMap
-};
+export type { TemplateMapDirective, TemplateMap };

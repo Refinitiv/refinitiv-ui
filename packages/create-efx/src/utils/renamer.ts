@@ -1,5 +1,3 @@
-
-
 import path from 'path';
 import fs from 'fs-extra';
 import fg from 'fast-glob';
@@ -11,10 +9,10 @@ import replacer from './replacer.js';
  * @return the camel cased string.
  */
 const toCamelCase = (string: string) => {
-  const modTxt = string.replace(/-([a-z])/g, g => {
+  const modTxt = string.replace(/-([a-z])/g, (g) => {
     return g[1].toUpperCase();
   });
-  return (modTxt[0].toUpperCase() + modTxt.slice(1));
+  return modTxt[0].toUpperCase() + modTxt.slice(1);
 };
 
 /**
@@ -45,8 +43,7 @@ const renameFiles = async function (root: string, newName: string, templateName:
         await fs.rename(oldFilename, newFilename);
       });
       resolve();
-    }
-    catch (err) {
+    } catch (err) {
       reject(err);
     }
   });
@@ -57,7 +54,7 @@ const renameFiles = async function (root: string, newName: string, templateName:
   const removeSuffix = new Promise<void>((resolve, reject) => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      suffixEntries.forEach(async (suffixEntry: { path: string; }, index) => {
+      suffixEntries.forEach(async (suffixEntry: { path: string }, index) => {
         const oldFilename = path.join(root, suffixEntry.path);
         const newFilename = oldFilename.substring(0, oldFilename.indexOf(suffix));
         await fs.rename(oldFilename, newFilename);
@@ -65,8 +62,7 @@ const renameFiles = async function (root: string, newName: string, templateName:
           resolve();
         }
       });
-    }
-    catch (err) {
+    } catch (err) {
       reject(err);
     }
   });
@@ -85,11 +81,7 @@ const renameElements = async function (root: string, newName: string, templateNa
   const camelCasedTemplateName = toCamelCase(templateName);
   const camelCasedName = toCamelCase(newName);
 
-  await replacer.groupReplace(
-    [templateName, camelCasedTemplateName],
-    [newName, camelCasedName],
-    root
-  );
+  await replacer.groupReplace([templateName, camelCasedTemplateName], [newName, camelCasedName], root);
 };
 
 /**

@@ -1,8 +1,4 @@
-import {
-  html,
-  nothing,
-  TemplateResult
-} from '@refinitiv-ui/core';
+import { html, nothing, TemplateResult } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import '../icon/index.js';
@@ -62,11 +58,11 @@ export class SearchField extends TextField {
    * type="search" - always `search`
    * @returns template map
    */
-  protected get decorateInputMap (): TemplateMap {
+  protected get decorateInputMap(): TemplateMap {
     return {
       ...super.decorateInputMap,
-      'type': 'search',
-      'inputmode': 'search'
+      type: 'search',
+      inputmode: 'search'
     };
   }
 
@@ -74,7 +70,7 @@ export class SearchField extends TextField {
    * Renders icon element
    * @returns {void}
    */
-  protected override renderIcon (): TemplateResult | null {
+  protected override renderIcon(): TemplateResult | null {
     return html`
       <ef-icon
         part="icon"

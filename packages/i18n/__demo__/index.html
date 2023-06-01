@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>i18n Translate Benchmark</title>
   </head>
   <style>
@@ -61,18 +61,30 @@
             await t(scope, DEFAULT_LOCALE, 'UNKNOWN_KEY');
           })
           .add('Unicode extensions', async function () {
-            await t(scope, 'th', 'DATE', { date }, {
-              unicodeExtensions: {
-                ca: 'gregory'
+            await t(
+              scope,
+              'th',
+              'DATE',
+              { date },
+              {
+                unicodeExtensions: {
+                  ca: 'gregory'
+                }
               }
-            });
+            );
           })
           .add('override unicode extensions', async function () {
-            await t(scope, 'th-u-ca-indian', 'DATE', { date }, {
-              unicodeExtensions: {
-                ca: 'gregory'
+            await t(
+              scope,
+              'th-u-ca-indian',
+              'DATE',
+              { date },
+              {
+                unicodeExtensions: {
+                  ca: 'gregory'
+                }
               }
-            });
+            );
           })
           .on('cycle', function (event) {
             // eslint-disable-next-line no-console
@@ -93,8 +105,8 @@
     <demo-block header="Translate Function Benchmark" tags="performance,benchmark">
       <button id="start">Start Benchmark</button>
       <p>
-        Benchmark the performance of translate function based on its unit test.
-        Open console to check the result.
+        Benchmark the performance of translate function based on its unit test. Open console to check the
+        result.
       </p>
       <script>
         const startButton = document.getElementById('start');
@@ -103,6 +115,5 @@
         });
       </script>
     </demo-block>
-
   </body>
 </html>

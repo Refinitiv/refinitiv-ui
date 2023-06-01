@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Collapse</title>
     <style>
       .content {
@@ -52,23 +52,23 @@
       import '@refinitiv-ui/elements/collapse';
       import '@refinitiv-ui/elements/checkbox';
       import '@refinitiv-ui/elements/button';
-  
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-  
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
-  
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/collapse/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/checkbox/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/button/themes/${theme}/${variant}/index.js`);
+
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/collapse/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/checkbox/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/button/themes/${theme}/${variant}/index.js`);
     </script>
 
     <demo-block header="Default" layout="normal">
@@ -137,9 +137,7 @@
 
     <demo-block header="Prevent Expanding" layout="normal" tags="cancel event">
       <ef-collapse header="Not allow to collapse" id="cancel-event" expanded>
-        <div class="content">
-          Content is uncollapsed. expanded-changed is canceled.
-        </div>
+        <div class="content">Content is uncollapsed. expanded-changed is canceled.</div>
       </ef-collapse>
       <script>
         const element = document.getElementById('cancel-event');

@@ -1,8 +1,4 @@
-import {
-  fixture,
-  expect,
-  elementUpdated
-} from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/clock';
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
@@ -74,27 +70,42 @@ describe('clock/Value', () => {
       el.showSeconds = true;
       await elementUpdated(el);
 
-      expect(el.shadowRoot.querySelector('[part~=shifted][part~=hours]'), 'hours segment should not color by default').to.be.null;
-      expect(el.shadowRoot.querySelector('[part~=shifted][part~=minutes]'), 'minutes segment should not color by default').to.be.null;
-      expect(el.shadowRoot.querySelector('[part~=shifted][part~=seconds]'), 'seconds segment should not color by default').to.be.null;
+      expect(
+        el.shadowRoot.querySelector('[part~=shifted][part~=hours]'),
+        'hours segment should not color by default'
+      ).to.be.null;
+      expect(
+        el.shadowRoot.querySelector('[part~=shifted][part~=minutes]'),
+        'minutes segment should not color by default'
+      ).to.be.null;
+      expect(
+        el.shadowRoot.querySelector('[part~=shifted][part~=seconds]'),
+        'seconds segment should not color by default'
+      ).to.be.null;
 
       el.offset = 3600;
       await elementUpdated(el);
-      expect(el.shadowRoot.querySelector('[part~=shifted][part~=hours]'), 'hours segment should color').to.be.not.null;
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=hours]'), 'hours segment should color').to.be
+        .not.null;
 
       el.offset = 60;
       await elementUpdated(el);
-      expect(el.shadowRoot.querySelector('[part~=shifted][part~=minutes]'), 'minutes segment should color').to.be.not.null;
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=minutes]'), 'minutes segment should color').to
+        .be.not.null;
 
       el.offset = 5;
       await elementUpdated(el);
-      expect(el.shadowRoot.querySelector('[part~=shifted][part~=seconds]'), 'seconds segment should color').to.be.not.null;
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=seconds]'), 'seconds segment should color').to
+        .be.not.null;
 
       el.offset = 3665;
       await elementUpdated(el);
-      expect(el.shadowRoot.querySelector('[part~=shifted][part~=hours]'), 'hours segment should color').to.be.not.null;
-      expect(el.shadowRoot.querySelector('[part~=shifted][part~=minutes]'), 'minutes segment should color').to.be.not.null;
-      expect(el.shadowRoot.querySelector('[part~=shifted][part~=seconds]'), 'seconds segment should color').to.be.not.null;
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=hours]'), 'hours segment should color').to.be
+        .not.null;
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=minutes]'), 'minutes segment should color').to
+        .be.not.null;
+      expect(el.shadowRoot.querySelector('[part~=shifted][part~=seconds]'), 'seconds segment should color').to
+        .be.not.null;
     });
     it('Should not fire offset-changed when offset is programmatically set', async () => {
       let offsetChangedCount = 0;
@@ -134,24 +145,36 @@ describe('clock/Value', () => {
 
     it('Toggle amPm via programmatically', async () => {
       expect(el.amPm, 'amPm should be true').to.be.true;
-      expect(el.shadowRoot.querySelectorAll('[part~=am-pm]').length, 'am-pm segment should appear').to.be.equal(1);
+      expect(
+        el.shadowRoot.querySelectorAll('[part~=am-pm]').length,
+        'am-pm segment should appear'
+      ).to.be.equal(1);
 
       el.amPm = false;
       await elementUpdated(el);
 
       expect(el.amPm, 'amPm should be false').to.be.false;
-      expect(el.shadowRoot.querySelectorAll('[part~=am-pm]').length, 'am-pm segment should disappear').to.be.equal(0);
+      expect(
+        el.shadowRoot.querySelectorAll('[part~=am-pm]').length,
+        'am-pm segment should disappear'
+      ).to.be.equal(0);
     });
 
     it('Toggle amPm via attribute', async () => {
       expect(el.amPm, 'amPm should be true').to.be.true;
-      expect(el.shadowRoot.querySelectorAll('[part~=am-pm]').length, 'am-pm segment should appear').to.be.equal(1);
+      expect(
+        el.shadowRoot.querySelectorAll('[part~=am-pm]').length,
+        'am-pm segment should appear'
+      ).to.be.equal(1);
 
       el.removeAttribute('am-pm');
       await elementUpdated(el);
 
       expect(el.amPm, 'amPm should be false').to.be.false;
-      expect(el.shadowRoot.querySelectorAll('[part~=am-pm]').length, 'am-pm segment should disappear').to.be.equal(0);
+      expect(
+        el.shadowRoot.querySelectorAll('[part~=am-pm]').length,
+        'am-pm segment should disappear'
+      ).to.be.equal(0);
     });
   });
 });

@@ -242,7 +242,10 @@ describe('select/Events', () => {
         getMenuEl(el).dispatchEvent(new KeyboardEvent('keydown', { key }));
         await openedUpdated(el);
         expect(counter).to.equal(i + 1, `value-changed should fire when item selected for "${key}"`);
-        expect(changedValue).to.equal('AF', `value-changed detail: value should pass the selected value for "${key}"`);
+        expect(changedValue).to.equal(
+          'AF',
+          `value-changed detail: value should pass the selected value for "${key}"`
+        );
       }
     });
   });

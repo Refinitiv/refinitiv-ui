@@ -39,7 +39,11 @@ addTooltipCondition(overflowCondition, tooltipRenderer);
  * @param [condition] Optional overflow condition. By default `scrollWidth` compared to `offsetWidth`
  * @returns {void}
  */
-const register = (target: HTMLElement, renderer: TooltipRenderer = defaultOverflowRenderer, condition: TooltipCondition = defaultOverflowCondition): void => {
+const register = (
+  target: HTMLElement,
+  renderer: TooltipRenderer = defaultOverflowRenderer,
+  condition: TooltipCondition = defaultOverflowCondition
+): void => {
   overflowConditionRegistry.set(target, condition);
   registry.set(target, renderer);
 };
@@ -54,7 +58,4 @@ const deregister = (target: HTMLElement): void => {
   registry.delete(target);
 };
 
-export {
-  register,
-  deregister
-};
+export { register, deregister };

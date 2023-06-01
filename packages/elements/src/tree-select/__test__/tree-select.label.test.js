@@ -7,7 +7,6 @@ import { nestedData } from './mock_data/nested';
 
 describe('tree-select/Label', () => {
   describe('Label Test - Subset of ComboBox Tests', () => {
-
     it('Is blank by default', async () => {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;

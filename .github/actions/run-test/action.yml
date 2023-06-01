@@ -25,7 +25,7 @@ inputs:
     # Default value 3 is OK for every browsers except Safari need to be one to make it stable
     default: 1
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Setup resources and environment
       uses: ./.github/actions/setup

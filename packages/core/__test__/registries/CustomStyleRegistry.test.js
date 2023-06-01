@@ -33,12 +33,9 @@ describe('TestCustomStyleRegistry', () => {
 
     try {
       CustomStyleRegistry.define(testName, mockCssString);
-    }
-    catch (error) {
+    } catch (error) {
       expect(error).instanceOf(DuplicateStyleError);
       expect(error.message).to.equalSnapshot();
     }
   });
-
-
 });

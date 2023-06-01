@@ -38,10 +38,10 @@ Phrasebook.define('zh', scope, globals);
 
 type LangMap = {
   [key: string]: Locale;
-}
+};
 
 const locales: LangMap = {
-  'en': enUS,
+  en: enUS,
   'en-GB': enGB,
   de,
   es,
@@ -52,7 +52,7 @@ const locales: LangMap = {
   pl,
   ru,
   th,
-  'zh': zhCN
+  zh: zhCN
 };
 
 /**
@@ -65,6 +65,4 @@ const getDateFNSLocale = (locale: string): Locale => {
   return locales[locale] || enUS;
 };
 
-export {
-  getDateFNSLocale
-};
+export { getDateFNSLocale };

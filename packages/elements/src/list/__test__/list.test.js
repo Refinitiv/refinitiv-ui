@@ -8,39 +8,40 @@ import { getItemId } from '../../../lib/list/helpers/item-id.js';
 
 import { CollectionComposer } from '@refinitiv-ui/utils';
 
-const data = [{
-  label: 'Hi',
-  value: 'hi'
-},
-{
-  label: 'Hide',
-  value: 'hide',
-  hidden: true
-},
-{
-  label: 'Bye',
-  value: 'bye'
-},
-{
-  label: 'Sigh',
-  value: 'sigh'
-},
-{
-  label: 'Why',
-  value: 'why',
-  selected: true
-},
-{
-  label: 'Lie',
-  value: 'lie',
-  tooltip: 'No lies please'
-},
-{
-  label: 'Cry',
-  value: 'cry',
-  disabled: true
-}];
-
+const data = [
+  {
+    label: 'Hi',
+    value: 'hi'
+  },
+  {
+    label: 'Hide',
+    value: 'hide',
+    hidden: true
+  },
+  {
+    label: 'Bye',
+    value: 'bye'
+  },
+  {
+    label: 'Sigh',
+    value: 'sigh'
+  },
+  {
+    label: 'Why',
+    value: 'why',
+    selected: true
+  },
+  {
+    label: 'Lie',
+    value: 'lie',
+    tooltip: 'No lies please'
+  },
+  {
+    label: 'Cry',
+    value: 'cry',
+    disabled: true
+  }
+];
 
 const iterateKeyboardEvent = async (el, scope, keys = [], highlighted = []) => {
   const children = scope.querySelectorAll('ef-list-item'); // 0, 1, 2, 3, 4 can be selected
@@ -51,7 +52,10 @@ const iterateKeyboardEvent = async (el, scope, keys = [], highlighted = []) => {
     await nextFrame();
     await nextFrame();
 
-    expect(el.querySelector('[highlighted]') === children[highlighted[i]]).to.equal(true, `Incorrect item highlighted`);
+    expect(el.querySelector('[highlighted]') === children[highlighted[i]]).to.equal(
+      true,
+      `Incorrect item highlighted`
+    );
   }
 };
 
@@ -59,7 +63,6 @@ const iterateKeyboardEvent = async (el, scope, keys = [], highlighted = []) => {
 
 describe('list/List', () => {
   describe('Label and DOM structure is correct', async () => {
-
     it('Light DOM', async () => {
       const el = await fixture('<ef-list></ef-list>');
       await expect(el).to.equalSnapshot();
@@ -161,7 +164,12 @@ describe('list/List', () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
-      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown'], [0, 1, 2, 3, 4, 0]);
+      await iterateKeyboardEvent(
+        el,
+        el,
+        ['ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown'],
+        [0, 1, 2, 3, 4, 0]
+      );
     });
 
     it('Keypress Home event', async () => {
@@ -184,7 +192,7 @@ describe('list/List', () => {
       el.data = data;
       await elementUpdated(el);
 
-      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', 'Enter'], [0 , 1, 1]);
+      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', 'Enter'], [0, 1, 1]);
       expect(el.value).to.equal('bye');
     });
 
@@ -193,16 +201,16 @@ describe('list/List', () => {
       el.data = data;
       await elementUpdated(el);
 
-      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', ' '], [0 , 1, 1]);
+      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', ' '], [0, 1, 1]);
       expect(el.value).to.equal('bye');
     });
 
-    it('Keypress \' \' event', async () => {
+    it("Keypress ' ' event", async () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
 
-      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', ' '], [0 , 1, 1]);
+      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', ' '], [0, 1, 1]);
       expect(el.value).to.equal('bye');
     });
 
@@ -211,7 +219,7 @@ describe('list/List', () => {
       el.data = data;
       await elementUpdated(el);
 
-      await iterateKeyboardEvent(el, el,  ['ArrowDown', 'ArrowDown', 'x'], [0, 1, 1]);
+      await iterateKeyboardEvent(el, el, ['ArrowDown', 'ArrowDown', 'x'], [0, 1, 1]);
     });
   });
 
@@ -221,14 +229,14 @@ describe('list/List', () => {
       const value = 'value';
       const id = getItemId(prefix, value);
       expect(id).to.equal(`${prefix}-${value}`);
-    })
+    });
     it('Should return empty string when either parameter is invalid', () => {
       const prefix = 'prefix';
       const value = '';
       const id = getItemId(prefix, value);
       expect(id).to.equal('');
-    })
-  })
+    });
+  });
 
   it('Supports setting value via property', async () => {
     const el = await fixture('<ef-list></ef-list>');
@@ -325,7 +333,9 @@ describe('list/List', () => {
     await elementUpdated(el);
     el.selectItem(data[2]);
     el.selectItem(data[3]);
-    expect(JSON.stringify(el.values)).to.be.equal(JSON.stringify([data[2].value, data[3].value, data[4].value]));
+    expect(JSON.stringify(el.values)).to.be.equal(
+      JSON.stringify([data[2].value, data[3].value, data[4].value])
+    );
   });
 
   it('Highlights on mousemove', async () => {
@@ -371,6 +381,5 @@ describe('list/List', () => {
     firstElement.click();
 
     expect(document.activeElement).to.be.equal(el);
-  })
+  });
 });
-

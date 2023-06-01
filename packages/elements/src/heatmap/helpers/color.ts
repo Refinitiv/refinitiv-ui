@@ -10,7 +10,7 @@ import { interpolate } from 'd3-interpolate';
  */
 const isLight = (col: ColorCommonInstance): boolean => {
   const { r, g, b } = rgb(col);
-  return ((r * 299 + g * 587 + b * 114) / 1000) > 128;
+  return (r * 299 + g * 587 + b * 114) / 1000 > 128;
 };
 
 /**
@@ -41,20 +41,14 @@ const darken = (colorString: string): string => {
  * @param amount color blending amount
  * @returns a new blended color
  */
-const blend = (
-  color1: string,
-  color2: string,
-  backgroundColor: string,
-  amount: number
-): string => {
+const blend = (color1: string, color2: string, backgroundColor: string, amount: number): string => {
   let primaryColor;
   let secondaryColor;
 
   if (amount >= 0) {
     primaryColor = rgb(color2);
     secondaryColor = rgb(color1);
-  }
-  else {
+  } else {
     primaryColor = rgb(color1);
     secondaryColor = rgb(color2);
   }
@@ -73,9 +67,15 @@ const blend = (
 
   const factor = 1 - Math.abs(amount);
 
-  const red = mixRedComponent ? Math.round(interpolate(primaryColor.r, secondaryColor.r)(factor)) : primaryColor.r;
-  const green = mixGreenComponent ? Math.round(interpolate(primaryColor.g, secondaryColor.g)(factor)) : primaryColor.g;
-  const blue = mixBlueComponent ? Math.round(interpolate(primaryColor.b, secondaryColor.b)(factor)) : primaryColor.b;
+  const red = mixRedComponent ?
+    Math.round(interpolate(primaryColor.r, secondaryColor.r)(factor)) :
+    primaryColor.r;
+  const green = mixGreenComponent ?
+    Math.round(interpolate(primaryColor.g, secondaryColor.g)(factor)) :
+    primaryColor.g;
+  const blue = mixBlueComponent ?
+    Math.round(interpolate(primaryColor.b, secondaryColor.b)(factor)) :
+    primaryColor.b;
 
   return color(`rgb(${red}, ${green}, ${blue})`)?.toString() || '';
 };

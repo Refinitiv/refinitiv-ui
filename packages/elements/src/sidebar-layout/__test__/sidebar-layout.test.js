@@ -1,8 +1,4 @@
-import {
-  fixture,
-  expect,
-  elementUpdated
-} from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
 
 // import elements
 import '@refinitiv-ui/elements/sidebar-layout';
@@ -53,7 +49,9 @@ describe('sidebar-layout/SidebarLayout', () => {
     const sidebarPart = el.shadowRoot.querySelector('[part=sidebar]');
     expect(el.hasAttribute('collapsed')).to.equal(true);
     expect(el.collapsed).to.equal(true);
-    expect(window.getComputedStyle(sidebarPart).getPropertyValue('margin-left')).to.equal('-' + sidebarPart.offsetWidth + 'px');
+    expect(window.getComputedStyle(sidebarPart).getPropertyValue('margin-left')).to.equal(
+      '-' + sidebarPart.offsetWidth + 'px'
+    );
   });
 
   it('Sidebar is closed when set collapsed property to true', async () => {
@@ -63,7 +61,9 @@ describe('sidebar-layout/SidebarLayout', () => {
     el.collapsed = true;
     await elementUpdated(el);
     expect(el.hasAttribute('collapsed')).to.equal(true);
-    expect(window.getComputedStyle(sidebarPart).getPropertyValue('margin-left')).to.equal('-' + sidebarPart.offsetWidth + 'px');
+    expect(window.getComputedStyle(sidebarPart).getPropertyValue('margin-left')).to.equal(
+      '-' + sidebarPart.offsetWidth + 'px'
+    );
   });
 
   it('Can set sidebar width with sidebarWidth property', async () => {
@@ -85,13 +85,13 @@ describe('sidebar-layout/SidebarLayout', () => {
     expect(sidebarPart.getAttribute('size')).to.equal(width);
   });
 
-  it('Has access to sidebar part via property', async ()=> {
+  it('Has access to sidebar part via property', async () => {
     const el = await fixture(defaultLayout);
     const sidebarPart = el.shadowRoot.querySelector('[part=sidebar]');
     expect(el.sidebar).to.equal(sidebarPart);
   });
 
-  it('sets property to null when attribute is removed', async ()=> {
+  it('sets property to null when attribute is removed', async () => {
     const el = await fixture(defaultLayout);
     el.setAttribute('sidebar-width', '100px');
     expect(el.sidebarWidth).to.equal('100px');
@@ -100,4 +100,3 @@ describe('sidebar-layout/SidebarLayout', () => {
     expect(el.sidebarWidth).to.equal(null);
   });
 });
-

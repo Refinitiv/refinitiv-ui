@@ -23,7 +23,7 @@ describe('flag/Flag', () => {
     fetch = sinon.stub(window, 'fetch');
   });
   afterEach(() => {
-    window.fetch.restore();  //remove stub
+    window.fetch.restore(); //remove stub
   });
   describe('Should Have Correct DOM Structure', () => {
     it('without flag or src attributes', async () => {
@@ -135,20 +135,29 @@ describe('flag/Flag', () => {
       await elementUpdated(el);
 
       expect(el.hasAttribute('flag')).to.equal(true, 'Flag should have the flag attribute when set');
-      expect(el.getAttribute('flag')).to.equal(flagName, 'Flag should have the same flag attribute as was set');
+      expect(el.getAttribute('flag')).to.equal(
+        flagName,
+        'Flag should have the same flag attribute as was set'
+      );
       expect(el.flag).to.equal(flagName, 'Flag should reflect the flag attribute to property');
 
       el.removeAttribute('flag');
       await elementUpdated(el);
 
-      expect(el.hasAttribute('flag')).to.equal(false, 'Flag should not have the flag attribute after it was removed');
+      expect(el.hasAttribute('flag')).to.equal(
+        false,
+        'Flag should not have the flag attribute after it was removed'
+      );
       expect(el.flag).to.equal(null, 'Flag should not have the flag property after attribute was removed');
 
       el.flag = flagName;
       await elementUpdated(el);
 
       expect(el.flag).to.equal(flagName, 'Flag should have the same flag property as was set');
-      expect(el.hasAttribute('flag')).to.equal(false, 'Flag should not reflect the flag property to the attribute');
+      expect(el.hasAttribute('flag')).to.equal(
+        false,
+        'Flag should not reflect the flag property to the attribute'
+      );
     });
 
     it('src', async () => {
@@ -169,14 +178,20 @@ describe('flag/Flag', () => {
       el.removeAttribute('src');
       await elementUpdated(el);
 
-      expect(el.hasAttribute('src')).to.equal(false, 'Flag should not have the src attribute after it was removed');
+      expect(el.hasAttribute('src')).to.equal(
+        false,
+        'Flag should not have the src attribute after it was removed'
+      );
       expect(el.src).to.equal(null, 'Flag should not have the src property after attribute was removed');
 
       el.src = srcValue;
       await elementUpdated(el);
 
       expect(el.src).to.equal(srcValue, 'Flag should have the same src property as was set');
-      expect(el.hasAttribute('src')).to.equal(false, 'Flag should not reflect the src property to the attribute');
+      expect(el.hasAttribute('src')).to.equal(
+        false,
+        'Flag should not reflect the src property to the attribute'
+      );
     });
   });
 
@@ -189,7 +204,10 @@ describe('flag/Flag', () => {
       expect(CDNPrefix, 'CDNPrefix should exist to create the src based on the flag').to.exist;
       const expectedSrc = `${CDNPrefix}${flagName}.svg`;
 
-      expect(el.src).to.equal(expectedSrc, `The src property should be ${expectedSrc} for the flag ${flagName}`);
+      expect(el.src).to.equal(
+        expectedSrc,
+        `The src property should be ${expectedSrc} for the flag ${flagName}`
+      );
 
       el.removeAttribute('flag');
       await elementUpdated(el);
@@ -207,7 +225,10 @@ describe('flag/Flag', () => {
       const expectedSrc = `${CDNPrefix}${uniqueFlagName}.svg`;
 
       expect(fetch.callCount).to.equal(1, 'Should make one request');
-      expect(checkRequestedUrl(fetch.args, expectedSrc)).to.equal(true, `requested URL should be ${expectedSrc} for the flag ${uniqueFlagName}`);
+      expect(checkRequestedUrl(fetch.args, expectedSrc)).to.equal(
+        true,
+        `requested URL should be ${expectedSrc} for the flag ${uniqueFlagName}`
+      );
     });
 
     it('should make a correct server request based on src', async () => {
@@ -225,7 +246,8 @@ describe('flag/Flag', () => {
       const el = await fixture('<ef-flag></ef-flag>');
       const CDNPrefix = el.getComputedVariable('--cdn-prefix');
 
-      expect(CDNPrefix, 'CDN prefix should exist in order for preload to work properly with flag name').to.exist;
+      expect(CDNPrefix, 'CDN prefix should exist in order for preload to work properly with flag name').to
+        .exist;
       expect(fetch.callCount).to.equal(0, 'No request should be sent for empty flag');
 
       const firstUniqueFlag = generateUniqueName(flagName);
@@ -237,19 +259,27 @@ describe('flag/Flag', () => {
       const uniqueInvalidFlagSrc = `${CDNPrefix}${uniqueInvalidFlag}.svg`;
 
       createFakeResponse(gbSvg, responseConfigSuccess);
-      let preloadedFlags = await Promise.all(
-        preload(firstUniqueFlag, secondUniqueFlagSrc)
-      );
+      let preloadedFlags = await Promise.all(preload(firstUniqueFlag, secondUniqueFlagSrc));
       createFakeResponse('', responseConfigError);
-      preloadedFlags = [...preloadedFlags, ...await Promise.all(
-        preload(uniqueInvalidFlag)
-      )];
+      preloadedFlags = [...preloadedFlags, ...(await Promise.all(preload(uniqueInvalidFlag)))];
 
       expect(fetch.callCount).to.equal(3, 'Server requests for all preloaded flags should be made');
-      expect(checkRequestedUrl(fetch.args, firstUniqueFlagSrc)).to.equal(true, 'should request flags by name with CDN prefix');
-      expect(checkRequestedUrl(fetch.args, secondUniqueFlagSrc)).to.equal(true, 'should request flags with src');
-      expect(checkRequestedUrl(fetch.args, uniqueInvalidFlagSrc)).to.equal(true, 'should try to request invalid flag');
-      expect(preloadedFlags[0].length > 0).to.equal(true, 'Should successfully preload flag by name with CDN prefix');
+      expect(checkRequestedUrl(fetch.args, firstUniqueFlagSrc)).to.equal(
+        true,
+        'should request flags by name with CDN prefix'
+      );
+      expect(checkRequestedUrl(fetch.args, secondUniqueFlagSrc)).to.equal(
+        true,
+        'should request flags with src'
+      );
+      expect(checkRequestedUrl(fetch.args, uniqueInvalidFlagSrc)).to.equal(
+        true,
+        'should try to request invalid flag'
+      );
+      expect(preloadedFlags[0].length > 0).to.equal(
+        true,
+        'Should successfully preload flag by name with CDN prefix'
+      );
       expect(preloadedFlags[1].length > 0).to.equal(true, 'Should successfully preload flags with src');
       expect(preloadedFlags[2], 'Should not preload invalid flag').to.be.undefined;
       el.setAttribute('flag', firstUniqueFlag);
@@ -259,4 +289,3 @@ describe('flag/Flag', () => {
     });
   });
 });
-

@@ -6,27 +6,27 @@ import { elementUpdatedWithAsyncFrames, isChrome, asyncFrames } from '../helper'
 const MOCKED_COMPARE_LENGTH_VALUE = 12;
 
 class ControlElementTest extends ControlElement {
-  constructor () {
+  constructor() {
     super();
 
     this.warnCount = 0;
   }
 
-  get tabbableElements () {
+  get tabbableElements() {
     return this.disabled ? [] : super.tabbableElements;
   }
 
   // here is overriding default functionality to be used in functional test value setter
-  isValidValue (value) {
+  isValidValue(value) {
     return super.isValidValue(value) && value.length < MOCKED_COMPARE_LENGTH_VALUE;
   }
 
-  warnInvalidValue (value) {
+  warnInvalidValue(value) {
     super.warnInvalidValue(value);
     this.warnCount += 1;
   }
 
-  render () {
+  render() {
     return html`
       <style>
         :host {
@@ -87,19 +87,31 @@ describe('TestControlElement', () => {
 
         expect(el.style.pointerEvents).to.equal('none', 'pointer events should be set to "none"');
 
-        expect(el.hasAttribute('aria-disabled')).to.equal(true, 'attribute "aria-disabled" should be present');
+        expect(el.hasAttribute('aria-disabled')).to.equal(
+          true,
+          'attribute "aria-disabled" should be present'
+        );
         expect(el.getAttribute('aria-disabled')).to.equal('true', '"aria-disabled" should be true');
 
         expect(el.tabIndex).to.equal(-1, 'property tabIndex should be changed to -1 if element disabled');
-        expect(el.getAttribute('tabindex')).to.equal('-1', 'attribute "tabindex" should be changed to "-1" if element disabled');
+        expect(el.getAttribute('tabindex')).to.equal(
+          '-1',
+          'attribute "tabindex" should be changed to "-1" if element disabled'
+        );
 
         el.disabled = false;
         await elementUpdated(el);
 
         expect(el.disabled).to.equal(false, 'property "disabled" need to be set false');
 
-        expect(el.tabIndex).to.equal(0, 'property tabIndex should be changed to 0 (default property value) if element enabled');
-        expect(el.getAttribute('tabindex')).to.equal('0', 'attribute "tabindex" should be changed to "0" (default attribute value) if element disabled');
+        expect(el.tabIndex).to.equal(
+          0,
+          'property tabIndex should be changed to 0 (default property value) if element enabled'
+        );
+        expect(el.getAttribute('tabindex')).to.equal(
+          '0',
+          'attribute "tabindex" should be changed to "0" (default attribute value) if element disabled'
+        );
       });
 
       it('Should have correct property and attribute "disabled"', async () => {
@@ -111,11 +123,17 @@ describe('TestControlElement', () => {
 
         expect(el.style.pointerEvents).to.equal('none', 'pointer events should be set to "none"');
 
-        expect(el.hasAttribute('aria-disabled')).to.equal(true, 'attribute "aria-disabled" should be present');
+        expect(el.hasAttribute('aria-disabled')).to.equal(
+          true,
+          'attribute "aria-disabled" should be present'
+        );
         expect(el.getAttribute('aria-disabled')).to.equal('true', '"aria-disabled" should be true');
 
         expect(el.tabIndex).to.equal(-1, 'property tabIndex should be changed to -1 if element disabled');
-        expect(el.getAttribute('tabindex')).to.equal('-1', 'attribute "tabindex" should be changed to "-1" if element disabled');
+        expect(el.getAttribute('tabindex')).to.equal(
+          '-1',
+          'attribute "tabindex" should be changed to "-1" if element disabled'
+        );
       });
     });
 
@@ -144,7 +162,6 @@ describe('TestControlElement', () => {
         expect(el.readonly).to.equal(true, 'property "readonly" should be setted');
         expect(el.getAttribute('readonly')).to.equal('', 'attribute "readonly" should equal empty string');
         expect(el.hasAttribute('readonly')).to.equal(true, 'attribute "readonly" should be present');
-
       });
     });
 
@@ -153,7 +170,10 @@ describe('TestControlElement', () => {
         const el = await fixture('<control-element-test></control-element-test>');
 
         expect(el.getAttribute('focused')).to.equal(null, 'attribute "focused" should equal null by default');
-        expect(el.hasAttribute('focused')).to.equal(false, 'attribute "focused" should not be exists by default');
+        expect(el.hasAttribute('focused')).to.equal(
+          false,
+          'attribute "focused" should not be exists by default'
+        );
 
         el.setAttribute('focused', '');
         await elementUpdated(el);
@@ -175,8 +195,14 @@ describe('TestControlElement', () => {
         const el = await fixture('<control-element-test></control-element-test>');
 
         expect(el.autofocus).to.equal(false, 'property "autofocus" should be false by default');
-        expect(el.getAttribute('autofocus')).to.equal(null, 'attribute "autofocus" should equal null by default');
-        expect(el.hasAttribute('autofocus')).to.equal(false, 'attribute "autofocus" should not be exists by default');
+        expect(el.getAttribute('autofocus')).to.equal(
+          null,
+          'attribute "autofocus" should equal null by default'
+        );
+        expect(el.hasAttribute('autofocus')).to.equal(
+          false,
+          'attribute "autofocus" should not be exists by default'
+        );
 
         el.setAttribute('autofocus', '');
         await elementUpdated(el);
@@ -185,11 +211,20 @@ describe('TestControlElement', () => {
         expect(el.hasAttribute('autofocus')).to.equal(true, 'attribute "autofocus" should be exists');
         expect(el.getAttribute('autofocus')).to.equal('', 'attribute "autofocus" should equal ""');
 
-        expect(el.hasAttribute('tabindex')).to.equal(true, 'attribute "tabindex" should be exists by default');
-        expect(el.getAttribute('tabindex')).to.equal('0', 'attribute "tabindex" should not be "0" by default');
+        expect(el.hasAttribute('tabindex')).to.equal(
+          true,
+          'attribute "tabindex" should be exists by default'
+        );
+        expect(el.getAttribute('tabindex')).to.equal(
+          '0',
+          'attribute "tabindex" should not be "0" by default'
+        );
         expect(el.tabIndex).to.equal(0, 'property tabIndex should stay 0 by default');
 
-        expect(el.hasAttribute('focused')).to.equal(false, 'attribute "focused" should not be added if autofocus changed');
+        expect(el.hasAttribute('focused')).to.equal(
+          false,
+          'attribute "focused" should not be added if autofocus changed'
+        );
 
         el.autofocus = false;
         await elementUpdated(el);
@@ -209,11 +244,17 @@ describe('TestControlElement', () => {
         expect(el.getAttribute('autofocus')).to.equal('', 'attribute "autofocus" should equal empty string');
         expect(el.hasAttribute('autofocus')).to.equal(true, 'attribute "autofocus" should be present');
 
-        expect(el.hasAttribute('tabindex')).to.equal(true, 'attribute "tabindex" should be exists by default');
+        expect(el.hasAttribute('tabindex')).to.equal(
+          true,
+          'attribute "tabindex" should be exists by default'
+        );
         expect(el.getAttribute('tabindex')).to.equal('0', 'attribute "tabindex" should be "0" by default');
         expect(el.tabIndex).to.equal(0, 'property tabIndex should stay 0 by default');
 
-        expect(el.hasAttribute('focused')).to.equal(true, 'attribute "focused" should not be added if autofocus set');
+        expect(el.hasAttribute('focused')).to.equal(
+          true,
+          'attribute "focused" should not be added if autofocus set'
+        );
         expect(el.getAttribute('focused')).to.equal('', 'attribute "focused" should be empty string');
       });
     });
@@ -237,7 +278,10 @@ describe('TestControlElement', () => {
         await elementUpdated(el);
         expect(el.name).to.equal('', 'property "name" should be equal ""');
         expect(el.hasAttribute('name')).to.equal(true, 'attribute "name" should be exists');
-        expect(el.getAttribute('name')).to.equal('super-name', 'attribute "name" should not reflect from property');
+        expect(el.getAttribute('name')).to.equal(
+          'super-name',
+          'attribute "name" should not reflect from property'
+        );
       });
 
       it('Should have correct property and attribute "name"', async () => {
@@ -255,7 +299,10 @@ describe('TestControlElement', () => {
 
         expect(el.tabIndex).to.equal(0, 'property "tabIndex" should be 0 by default');
 
-        expect(el.hasAttribute('tabindex')).to.equal(true, 'attribute "tabindex" should be exists by default');
+        expect(el.hasAttribute('tabindex')).to.equal(
+          true,
+          'attribute "tabindex" should be exists by default'
+        );
         expect(el.getAttribute('tabindex')).to.equal('0', 'attribute "tabindex" should equal "0" by default');
 
         el.setAttribute('tabindex', '1');
@@ -302,13 +349,19 @@ describe('TestControlElement', () => {
 
         expect(el.value).to.equal('super-value', 'property "value" should be equal "super-value"');
         expect(el.hasAttribute('value')).to.equal(true, 'attribute "value" should be exists');
-        expect(el.getAttribute('value')).to.equal('super-value', 'attribute "value" should equal "super-value"');
+        expect(el.getAttribute('value')).to.equal(
+          'super-value',
+          'attribute "value" should equal "super-value"'
+        );
 
         el.value = '';
         await elementUpdated(el);
         expect(el.value).to.equal('', 'property "value" should be equal ""');
         expect(el.hasAttribute('value')).to.equal(true, 'attribute "value" should be exists');
-        expect(el.getAttribute('value')).to.equal('super-value', 'attribute "value" should not reflect from property');
+        expect(el.getAttribute('value')).to.equal(
+          'super-value',
+          'attribute "value" should not reflect from property'
+        );
 
         el.value = 123;
         await elementUpdated(el);
@@ -327,22 +380,34 @@ describe('TestControlElement', () => {
         const el = await fixture('<control-element-test value="super-value"></control-element-test>');
 
         expect(el.value).to.equal('super-value', 'property "value" should be setted');
-        expect(el.getAttribute('value')).to.equal('super-value', 'attribute "value" should not equal empty string');
+        expect(el.getAttribute('value')).to.equal(
+          'super-value',
+          'attribute "value" should not equal empty string'
+        );
         expect(el.hasAttribute('value')).to.equal(true, 'attribute "value" should be present');
       });
 
       it('Should support resetting value to initial value', async () => {
         const el = await fixture('<control-element-test value="super-value"></control-element-test>');
         // Check defaults
-        expect(el.getAttribute('value')).to.equal('super-value', 'attribute "value" should not equal empty string');
+        expect(el.getAttribute('value')).to.equal(
+          'super-value',
+          'attribute "value" should not equal empty string'
+        );
         expect(el.value).to.equal('super-value', 'value property should be in sync with attribute');
         // Update and checks values
         el.value = 'new-value';
-        expect(el.getAttribute('value')).to.equal('super-value', 'attribute "value" should not change after property change');
+        expect(el.getAttribute('value')).to.equal(
+          'super-value',
+          'attribute "value" should not change after property change'
+        );
         expect(el.value).to.equal('new-value', 'value property have updated to "new-value"');
         // Reset value and check state
         expect(el.reset()).to.not.throw;
-        expect(el.getAttribute('value')).to.equal('super-value', 'attribute "value" should not change after reset');
+        expect(el.getAttribute('value')).to.equal(
+          'super-value',
+          'attribute "value" should not change after reset'
+        );
         expect(el.value).to.equal('super-value', 'value property should reset to its initial value');
       });
     });
@@ -406,7 +471,9 @@ describe('TestControlElement', () => {
             el.setValueAndNotify('new-value');
           });
 
-          const { detail: { value } } = await oneEvent(el, 'value-changed');
+          const {
+            detail: { value }
+          } = await oneEvent(el, 'value-changed');
 
           expect(firedCount).to.equal(1, 'value-changed should fire');
           expect(value).to.equal('new-value', 'Correct value need to be shown at value-changed event');
@@ -424,7 +491,9 @@ describe('TestControlElement', () => {
             el.setValueAndNotify(123);
           });
 
-          const { detail: { value } } = await oneEvent(el, 'value-changed');
+          const {
+            detail: { value }
+          } = await oneEvent(el, 'value-changed');
 
           expect(value).to.equal(123, 'Value to be fired at event could be any type');
         });
@@ -435,7 +504,9 @@ describe('TestControlElement', () => {
             el.setValueAndNotify(null);
           });
 
-          const { detail: { value } } = await oneEvent(el, 'value-changed');
+          const {
+            detail: { value }
+          } = await oneEvent(el, 'value-changed');
 
           expect(value).to.equal(null, 'Value to be fired at event could be any type');
         });
@@ -446,7 +517,9 @@ describe('TestControlElement', () => {
             el.setValueAndNotify(undefined);
           });
 
-          const { detail: { value } } = await oneEvent(el, 'value-changed');
+          const {
+            detail: { value }
+          } = await oneEvent(el, 'value-changed');
 
           expect(value).to.equal(undefined, 'Value to be fired at event could be any type');
         });
@@ -460,19 +533,28 @@ describe('TestControlElement', () => {
 
           expect(el.tabIndex).to.equal(0, 'should have default value 0');
           expect(el.hasAttribute('tabindex')).to.equal(true, 'should have attribute tabindex by default');
-          expect(el.getAttribute('tabindex')).to.equal('0', 'tabIndex attribute should be equal "0" by default');
+          expect(el.getAttribute('tabindex')).to.equal(
+            '0',
+            'tabIndex attribute should be equal "0" by default'
+          );
 
           el.tabIndex = 0;
           await elementUpdated(el);
 
           expect(el.tabIndex).to.equal(0, 'property value should stay the same');
-          expect(el.getAttribute('tabindex')).to.equal('0', 'attribute tabindex should now exists and have value');
+          expect(el.getAttribute('tabindex')).to.equal(
+            '0',
+            'attribute tabindex should now exists and have value'
+          );
 
           el.tabIndex = 0;
           await elementUpdated(el);
 
           expect(el.tabIndex).to.equal(0, 'property value should not change');
-          expect(el.getAttribute('tabindex')).to.equal('0', 'attribute tabindex should stay "0" without element updating');
+          expect(el.getAttribute('tabindex')).to.equal(
+            '0',
+            'attribute tabindex should stay "0" without element updating'
+          );
         });
 
         it('Should cast null to correct value for property and reflect to attribute', async () => {
@@ -696,10 +778,16 @@ describe('TestControlElement', () => {
 
         expect(el.disabled).to.equal(true, 'property disabled should be equal true');
         await asyncFrames();
-        expect(el.hasAttribute('focused')).to.equal(false, 'element attribute focused should be set to false when disabled');
+        expect(el.hasAttribute('focused')).to.equal(
+          false,
+          'element attribute focused should be set to false when disabled'
+        );
         expect(el.style.pointerEvents).to.equal('none', 'pointer events should be set to none when disabled');
         expect(el.tabIndex).to.equal(-1, 'tabIndex should be set to -1');
-        expect(el.getAttribute('aria-disabled')).to.equal('true', 'attribute aria-disabled should be set to "true" for disabled element');
+        expect(el.getAttribute('aria-disabled')).to.equal(
+          'true',
+          'attribute aria-disabled should be set to "true" for disabled element'
+        );
       });
 
       it('Test element delegate focus', async function () {

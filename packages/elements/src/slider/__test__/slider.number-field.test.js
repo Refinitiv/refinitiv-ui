@@ -1,9 +1,4 @@
-import {
-  fixture,
-  expect,
-  elementUpdated,
-  oneEvent,
-} from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/slider';
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
@@ -52,7 +47,7 @@ describe('slider/NumberField', () => {
     await elementUpdated(el);
     expect(el.from).to.equal(inputFrom.value);
 
-    const inputTo = getNumberField(el, 'to')
+    const inputTo = getNumberField(el, 'to');
     setTimeout(() => inputTo.dispatchEvent(new Event('focus')));
     await oneEvent(inputTo, 'focus');
     inputTo.value = '20';

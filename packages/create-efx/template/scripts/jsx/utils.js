@@ -39,15 +39,7 @@ const getElementList = async (directory) => {
   // Filter out incompatible elements
   return files
     .filter((file) => !file.includes('__'))
-    .filter((file) =>
-      fs.readFileSync(file, { encoding: 'utf-8' }).includes(DECORATE_SYNTAX)
-    );
+    .filter((file) => fs.readFileSync(file, { encoding: 'utf-8' }).includes(DECORATE_SYNTAX));
 };
 
-export {
-  ELEMENT_DIST,
-  ELEMENT_PREFIX,
-  PACKAGE_ROOT,
-  getElementTagName,
-  getElementList
-};
+export { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList };

@@ -16,22 +16,21 @@ import { VERSION } from '../version.js';
  */
 @customElement('ef-layout')
 export class Layout extends ResponsiveElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
   /**
- * A `CSSResultGroup` that will be used
- * to style the host, slotted children
- * and the internal template of the element.
- * @return CSS template
- */
-  static get styles (): CSSResultGroup {
+   * A `CSSResultGroup` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @return CSS template
+   */
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         box-sizing: border-box;
@@ -161,7 +160,7 @@ export class Layout extends ResponsiveElement {
    * @param {PropertyValues} changedProperties Map of changed properties with old values
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected updated(changedProperties: PropertyValues): void {
     if (changedProperties.has('minWidth')) {
       this.updateVariable('--min-width', this.minWidth);
     }
@@ -183,8 +182,8 @@ export class Layout extends ResponsiveElement {
    * A `TemplateResult` that will be used
    * to render the updated internal template.
    * @return Render template
-    */
-  protected render (): TemplateResult {
+   */
+  protected render(): TemplateResult {
     return html`<slot></slot>`;
   }
 }

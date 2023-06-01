@@ -30,14 +30,11 @@ const getColorTone = (color: Colord): string => {
   const lightness = color.toHsl().l;
   if (lightness >= 80) {
     return 'VERY_LIGHT';
-  }
-  else if (lightness >= 65) {
+  } else if (lightness >= 65) {
     return 'LIGHT';
-  }
-  else if (lightness <= 10) {
+  } else if (lightness <= 10) {
     return 'VERY_DARK';
-  }
-  else if (lightness <= 40) {
+  } else if (lightness <= 40) {
     return 'DARK';
   }
   return '';
@@ -77,20 +74,15 @@ const hueToNcol = (hue: number): string => {
   }
   if (hue < 60) {
     return `R${hue / 0.6}`;
-  }
-  else if (hue < 120) {
+  } else if (hue < 120) {
     return `Y${(hue - 60) / 0.6}`;
-  }
-  else if (hue < 180) {
+  } else if (hue < 180) {
     return `G${(hue - 120) / 0.6}`;
-  }
-  else if (hue < 240) {
+  } else if (hue < 240) {
     return `C${(hue - 180) / 0.6}`;
-  }
-  else if (hue < 300) {
+  } else if (hue < 300) {
     return `B${(hue - 240) / 0.6}`;
-  }
-  else {
+  } else {
     return `M${(hue - 300) / 0.6}`;
   }
 };
@@ -130,7 +122,7 @@ const getColorAdmixture = (ncolwb: NColWB): ColorAdmixture => {
   const ncolCode = ncolwb.ncol[0];
   const percent = parseInt(ncolwb.ncol.slice(1), 10);
   const [color1, color2] = getColorAdmixtureNames(ncolCode);
-  
+
   return defineMainAndMixedColor(color1, color2, percent);
 };
 

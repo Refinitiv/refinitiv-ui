@@ -152,7 +152,11 @@ describe('sparkline/Sparkline', () => {
     beforeEach(async () => {
       data = [-20, 40, 10];
       const previousData = [10, 20];
-      el = await fixture(`<ef-sparkline data="${JSON.stringify(data)}" previous-data="${JSON.stringify(previousData)}"></ef-sparkline>`);
+      el = await fixture(
+        `<ef-sparkline data="${JSON.stringify(data)}" previous-data="${JSON.stringify(
+          previousData
+        )}"></ef-sparkline>`
+      );
       canvas = el.shadowRoot.querySelector('canvas');
       chart = el.shadowRoot.querySelectorAll('[part=chart]');
 

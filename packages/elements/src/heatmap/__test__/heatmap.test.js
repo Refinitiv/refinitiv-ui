@@ -6,7 +6,12 @@ import '@refinitiv-ui/elemental-theme/light/ef-heatmap.js';
 
 const removeUnit = /[^-\d\.]/g;
 const CONFIG = {
-  data: [[{ value: 1, header: 'ABC' }, { value: 0.5, header: 'DEF' }]],
+  data: [
+    [
+      { value: 1, header: 'ABC' },
+      { value: 0.5, header: 'DEF' }
+    ]
+  ],
   yAxis: {
     labels: ['y-axis-label'],
     shortLabels: ['yal']
@@ -22,7 +27,6 @@ const canvasUpdated = async () => {
   await nextFrame();
   await aTimeout(50); // Safari need more to update canvas
 };
-
 
 describe('heatmap/Heatmap', () => {
   describe('DOM Structure', () => {
@@ -116,7 +120,14 @@ describe('heatmap/Heatmap', () => {
     });
 
     it('Should not render any axes', async () => {
-      el.config = { data: [[{ value: 1, header: 'ABC' }, { value: 0.5, header: 'DEF' }]] };
+      el.config = {
+        data: [
+          [
+            { value: 1, header: 'ABC' },
+            { value: 0.5, header: 'DEF' }
+          ]
+        ]
+      };
       await elementUpdated(el);
 
       const crossBox = el.shadowRoot.querySelector('[part=cross-box]');
@@ -236,7 +247,10 @@ describe('heatmap/Heatmap', () => {
 
     it('Should only render y-axis labels until the maximum cell rows', async () => {
       el.config = {
-        data: [[{ value: 1 }, { value: 0.5 }], [{ value: 1 }, { value: 0.5 }]],
+        data: [
+          [{ value: 1 }, { value: 0.5 }],
+          [{ value: 1 }, { value: 0.5 }]
+        ],
         yAxis: {
           labels: ['y-axis-1', 'y-axis-2', 'y-axis-3']
         },
