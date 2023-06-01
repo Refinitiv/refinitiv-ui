@@ -647,7 +647,8 @@
 
   <demo-block layout="normal" header="Time Scale">
     <ef-chart id="timeScale"></ef-chart>
-    <script>
+    <script type="module">
+      import { ja } from 'date-fns/locale';
       const timeScale = document.getElementById('timeScale');
       timeScale.config = {
         type: 'line',
@@ -686,6 +687,11 @@
           },
           scales: {
             x: {
+              adapters: {
+                date: {
+                  locale: ja
+                }
+              },
               type: 'time', // Set type of scale as time
               time: {
                 displayFormats: {
