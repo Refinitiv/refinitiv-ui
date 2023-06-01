@@ -1,0 +1,16 @@
+documents/
+coverage/
+lib/
+__snapshots__/
+
+# Elemental and Halo themes
+**/dark/**/*.js
+**/light/**/*.js
+**/dark/**/*.css
+**/light/**/*.css
+
+# Solar themes
+**/pearl/**/*.js
+**/charcoal/**/*.js
+**/pearl/**/*.css
+**/charcoal/**/*.css
