@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 import process from 'node:process';
-import fs from 'node:fs';
 import { startTestRunner as startTest } from "@web/test-runner";
-import { log } from '../helpers/esm.mjs';
+import { log, error } from '../helpers/esm.mjs';
 
 let runner = null; // Current `TestRunner` instance
 let configCache = null; // Cache for Web Test Runner config
@@ -52,7 +51,6 @@ const startQueueTestRunner = async (element, config, testFiles) => {
     ...configCache,
     element,
     files: testFiles,
-    concurrency: 1, // Prevent unstable test and runner
     coverageConfig: {
       include: [`**/lib/${element}/**/*.js`],
       reportDir: `coverage/${element}`
@@ -111,12 +109,12 @@ const stopRunner = () => {
 };
 process.on('SIGINT', stopRunner);
 process.on('exit', stopRunner);
-process.on('uncaughtException', (err, origin) => {
-  fs.writeSync(
-    process.stderr.fd,
-    `Caught exception: ${err}\n` +
-    `Exception origin: ${origin}`,
-  );
+process.on('uncaughtExceptionMonitor', (err) => {
+  if (err.message) {
+    error(err.message);
+  } else {
+    console.error(err);
+  }
 });
 
 export {

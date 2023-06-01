@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "7.0.0-next.0",
+  "version": "7.0.0-next.1",
   "description": "Element Framework Elements",
   "author": "LSEG",
   "license": "Apache-2.0",
@@ -71,6 +71,8 @@
     "./card/themes/solar/charcoal": "./lib/card/themes/solar/charcoal/index.js",
     "./card/themes/solar/pearl": "./lib/card/themes/solar/pearl/index.js",
     "./chart": "./lib/chart/index.js",
+    "./chart/bare": "./lib/chart/bare.js",
+    "./chart/plugins": "./lib/chart/plugins/index.js",
     "./chart/themes/halo/dark": "./lib/chart/themes/halo/dark/index.js",
     "./chart/themes/halo/light": "./lib/chart/themes/halo/light/index.js",
     "./chart/themes/solar/charcoal": "./lib/chart/themes/solar/charcoal/index.js",
@@ -337,31 +339,31 @@
   },
   "dependencies": {
     "@refinitiv-ui/browser-sparkline": "1.1.8",
-    "@refinitiv-ui/halo-theme": "^7.0.0-next.0",
-    "@refinitiv-ui/solar-theme": "^7.0.0-next.0",
-    "@types/chart.js": "^2.9.31",
-    "chart.js": "~2.9.4",
+    "@refinitiv-ui/halo-theme": "^7.0.0-next.1",
+    "@refinitiv-ui/solar-theme": "^7.0.0-next.1",
+    "chart.js": "^4.3.0",
+    "chartjs-adapter-date-fns": "^3.0.0",
     "d3-interpolate": "^3.0.1",
-    "date-fns": "^2.22.1",
+    "date-fns": "^2.29.3",
     "lightweight-charts": "^3.8.0",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/core": "^7.0.0-next.0",
-    "@refinitiv-ui/demo-block": "^7.0.0-next.0",
-    "@refinitiv-ui/i18n": "^7.0.0-next.0",
-    "@refinitiv-ui/phrasebook": "^7.0.0-next.0",
-    "@refinitiv-ui/test-helpers": "^7.0.0-next.0",
-    "@refinitiv-ui/translate": "^7.0.0-next.0",
-    "@refinitiv-ui/utils": "^7.0.0-next.0",
+    "@refinitiv-ui/core": "^7.0.0-next.1",
+    "@refinitiv-ui/demo-block": "^7.0.0-next.1",
+    "@refinitiv-ui/i18n": "^7.0.0-next.1",
+    "@refinitiv-ui/phrasebook": "^7.0.0-next.1",
+    "@refinitiv-ui/test-helpers": "^7.0.0-next.1",
+    "@refinitiv-ui/translate": "^7.0.0-next.1",
+    "@refinitiv-ui/utils": "^7.0.0-next.1",
     "@types/d3-interpolate": "^3.0.1"
   },
   "peerDependencies": {
-    "@refinitiv-ui/core": "^7.0.0-next.0",
-    "@refinitiv-ui/i18n": "^7.0.0-next.0",
-    "@refinitiv-ui/phrasebook": "^7.0.0-next.0",
-    "@refinitiv-ui/translate": "^7.0.0-next.0",
-    "@refinitiv-ui/utils": "^7.0.0-next.0"
+    "@refinitiv-ui/core": "^7.0.0-next.1",
+    "@refinitiv-ui/i18n": "^7.0.0-next.1",
+    "@refinitiv-ui/phrasebook": "^7.0.0-next.1",
+    "@refinitiv-ui/translate": "^7.0.0-next.1",
+    "@refinitiv-ui/utils": "^7.0.0-next.1"
   },
   "publishConfig": {
     "access": "public"
