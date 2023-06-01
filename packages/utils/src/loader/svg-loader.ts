@@ -8,7 +8,7 @@ const cache = new LocalCache('svg-loader', { storage: 'indexeddb' });
  * @param str String to test
  * @returns is URL
  */
-const isUrl = (str: string): boolean => (/^(https?:\/{2}|\.?\/)/i).test(str);
+const isUrl = (str: string): boolean => /^(https?:\/{2}|\.?\/)/i.test(str);
 
 /**
  * Strips any event attributes which could be used to

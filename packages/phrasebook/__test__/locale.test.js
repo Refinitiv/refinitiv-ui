@@ -1,8 +1,8 @@
+import { expect } from 'chai';
+import chalk from 'chalk';
+import { describe } from 'mocha';
 import fs from 'node:fs';
 import path from 'node:path';
-import chalk from 'chalk';
-import { expect } from 'chai';
-import { describe } from 'mocha';
 
 const DEFAULT_LANG = 'en';
 const DEFAULT_LANG_DIR = 'lib/locale';

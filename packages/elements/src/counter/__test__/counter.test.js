@@ -1,9 +1,9 @@
-import { fixture, expect, html, elementUpdated } from '@refinitiv-ui/test-helpers';
-import { convertToCompactNotation } from '../../../lib/counter/utils';
-
+import '@refinitiv-ui/elemental-theme/light/ef-counter';
 // import element and theme
 import '@refinitiv-ui/elements/counter';
-import '@refinitiv-ui/elemental-theme/light/ef-counter';
+import { elementUpdated, expect, fixture, html } from '@refinitiv-ui/test-helpers';
+
+import { convertToCompactNotation } from '../../../lib/counter/utils';
 
 describe('counter/Counter', () => {
   it('Should have correct default Shadow DOM structure', async () => {

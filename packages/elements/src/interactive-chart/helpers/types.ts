@@ -1,25 +1,24 @@
+import type { HSLColor, RGBColor } from '@refinitiv-ui/utils/color.js';
 import type {
-  LineData,
-  BarData,
-  HistogramData,
-  DeepPartial,
-  ChartOptions,
-  SeriesPartialOptions,
-  LineSeriesPartialOptions,
   AreaSeriesPartialOptions,
-  BarSeriesPartialOptions,
-  CandlestickSeriesPartialOptions,
-  HistogramSeriesPartialOptions,
-  LineStyleOptions,
   AreaStyleOptions,
+  BarData,
+  BarSeriesPartialOptions,
   BarStyleOptions,
+  CandlestickSeriesPartialOptions,
   CandlestickStyleOptions,
+  ChartOptions,
+  DeepPartial,
+  HistogramData,
+  HistogramSeriesPartialOptions,
   HistogramStyleOptions,
   ISeriesApi,
+  LineData,
+  LineSeriesPartialOptions,
+  LineStyleOptions,
+  SeriesPartialOptions,
   SeriesType
 } from 'lightweight-charts';
-
-import type { RGBColor, HSLColor } from '@refinitiv-ui/utils/color.js';
 
 type SeriesOptions =
   | AreaSeriesPartialOptions

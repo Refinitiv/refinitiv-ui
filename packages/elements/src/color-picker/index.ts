@@ -1,27 +1,28 @@
 import {
-  ControlElement,
-  html,
-  css,
-  PropertyValues,
-  TemplateResult,
-  TapEvent,
   CSSResult,
+  ControlElement,
+  PropertyValues,
+  TapEvent,
+  TemplateResult,
   WarningNotice,
+  css,
+  html,
   nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import type { OpenedChangedEvent, ValueChangedEvent } from '../events';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
-import { VERSION } from '../version.js';
-import { isHex, readableColor } from '@refinitiv-ui/utils/color.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import '../color-dialog/index.js';
-import type { ColorDialog } from '../color-dialog/index.js';
-import '@refinitiv-ui/phrasebook/locale/en/color-picker.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
+import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
+import '@refinitiv-ui/phrasebook/locale/en/color-picker.js';
+import { TranslatePromise, TranslatePropertyKey, translate } from '@refinitiv-ui/translate';
+import { isHex, readableColor } from '@refinitiv-ui/utils/color.js';
 
-import { translate, TranslatePromise, TranslatePropertyKey } from '@refinitiv-ui/translate';
+import '../color-dialog/index.js';
+import { VERSION } from '../version.js';
+
+import type { ColorDialog } from '../color-dialog/index.js';
+import type { OpenedChangedEvent, ValueChangedEvent } from '../events';
 
 const DIALOG_POSITION = ['right-start', 'right-end', 'right-middle', 'left-start', 'left-end', 'left-middle'];
 

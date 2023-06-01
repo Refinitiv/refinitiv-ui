@@ -1,12 +1,12 @@
-import { fixture, expect, elementUpdated, nextFrame, isFirefox } from '@refinitiv-ui/test-helpers';
-import { isSafari } from '@refinitiv-ui/utils';
-import { setYearView, setMonthView } from './utils';
-
+import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 // import element and theme
 import '@refinitiv-ui/elements/calendar';
-import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
+import { elementUpdated, expect, fixture, isFirefox, nextFrame } from '@refinitiv-ui/test-helpers';
+import { isSafari } from '@refinitiv-ui/utils';
 import { parse } from '@refinitiv-ui/utils';
+
 import { RenderView } from '../../../lib/calendar/constants.js';
+import { setMonthView, setYearView } from './utils';
 
 describe('calendar/Defaults', () => {
   describe('Defaults Test', () => {

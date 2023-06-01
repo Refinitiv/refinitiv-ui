@@ -1,19 +1,24 @@
 import {
   BasicElement,
-  html,
-  css,
-  nothing,
+  CSSResultGroup,
   PropertyValues,
   TemplateResult,
-  CSSResultGroup
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import { color as parseColor } from '@refinitiv-ui/utils/color.js';
-import { VERSION } from '../../version.js';
 
 import { Chart as ChartJS } from 'chart.js';
+import 'chartjs-adapter-date-fns';
+
+import '../../header/index.js';
+import { VERSION } from '../../version.js';
+import { DatasetColors, MergeObject, merge } from '../helpers/index.js';
+
 import type {
   ChartConfiguration,
   ChartDataset,
@@ -25,12 +30,6 @@ import type {
   Plugin,
   UpdateMode
 } from 'chart.js';
-
-import 'chartjs-adapter-date-fns';
-
-import { merge, MergeObject, DatasetColors } from '../helpers/index.js';
-
-import '../../header/index.js';
 
 const CSS_COLOR_PREFIX = '--chart-color-';
 
@@ -294,9 +293,9 @@ export class Chart extends BasicElement {
       | undefined;
     // Set global grid color
     ChartJS.defaults.scale.grid.color = (line) => {
-      return line.index === 0 ?
-        this.getComputedVariable('--zero-line-color', 'transparent') :
-        this.getComputedVariable('--grid-line-color', 'transparent');
+      return line.index === 0
+        ? this.getComputedVariable('--zero-line-color', 'transparent')
+        : this.getComputedVariable('--grid-line-color', 'transparent');
     };
     if (this.config?.type === 'polarArea' || this.config?.type === 'radar') {
       ChartJS.defaults.scales.radialLinear.ticks.showLabelBackdrop = false;
@@ -361,9 +360,9 @@ export class Chart extends BasicElement {
         case 'polarArea':
           const index = isMultipleDatasets ? 0 : datasetIndex;
           colors = this.generateColors(true, dataset.data ? dataset.data.length : 1, index);
-          borderColor = isMultipleDatasets ?
-            this.getComputedVariable('--multi-dataset-border-color', '#fff') :
-            colors.solid;
+          borderColor = isMultipleDatasets
+            ? this.getComputedVariable('--multi-dataset-border-color', '#fff')
+            : colors.solid;
           backgroundColor = this.config?.type === 'polarArea' ? colors.opaque : colors.solid;
           if (!dataset.borderColor) {
             dataset.borderColor = borderColor;
@@ -373,16 +372,16 @@ export class Chart extends BasicElement {
           }
           // Add more colors if items aren't enough
           if (
-            Array.isArray(dataset.borderColor) &&
-            Array.isArray(borderColor) &&
-            dataset.borderColor.length < borderColor.length
+            Array.isArray(dataset.borderColor)
+            && Array.isArray(borderColor)
+            && dataset.borderColor.length < borderColor.length
           ) {
             merge(dataset.borderColor, borderColor);
           }
           if (
-            Array.isArray(dataset.backgroundColor) &&
-            Array.isArray(backgroundColor) &&
-            dataset.backgroundColor.length < backgroundColor.length
+            Array.isArray(dataset.backgroundColor)
+            && Array.isArray(backgroundColor)
+            && dataset.backgroundColor.length < backgroundColor.length
           ) {
             merge(dataset.backgroundColor, backgroundColor);
           }
@@ -406,17 +405,17 @@ export class Chart extends BasicElement {
           }
           // Add more colors if items aren't enough
           if (
-            Array.isArray(dataset.borderColor) &&
-            Array.isArray(borderColor) &&
-            dataset.borderColor.length < borderColor.length
+            Array.isArray(dataset.borderColor)
+            && Array.isArray(borderColor)
+            && dataset.borderColor.length < borderColor.length
           ) {
             merge(dataset.borderColor, borderColor);
           }
 
           if (
-            Array.isArray(dataset.backgroundColor) &&
-            Array.isArray(backgroundColor) &&
-            dataset.backgroundColor.length < backgroundColor.length
+            Array.isArray(dataset.backgroundColor)
+            && Array.isArray(backgroundColor)
+            && dataset.backgroundColor.length < backgroundColor.length
           ) {
             merge(dataset.backgroundColor, backgroundColor);
           }
@@ -450,9 +449,9 @@ export class Chart extends BasicElement {
     const datasets = chart.config.data.datasets;
 
     if (
-      datasets.length &&
-      chart?.config?.options?.plugins?.legend &&
-      Array.isArray(datasets[0].backgroundColor)
+      datasets.length
+      && chart?.config?.options?.plugins?.legend
+      && Array.isArray(datasets[0].backgroundColor)
     ) {
       if (ChartJS.overrides.pie.plugins.legend.labels.generateLabels) {
         legends = ChartJS.overrides.pie.plugins.legend.labels.generateLabels(chart);

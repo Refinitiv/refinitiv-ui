@@ -1,9 +1,11 @@
-import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
-import type { TreeDataItem } from './types';
-import { TreeManager, TreeManagerMode, CheckedState } from '../managers/tree-manager.js';
-import { Renderer } from '../../list/renderer.js';
+
 import { getItemId } from '../../list/helpers/item-id.js';
+import { Renderer } from '../../list/renderer.js';
+import { CheckedState, TreeManager, TreeManagerMode } from '../managers/tree-manager.js';
+
+import type { TreeDataItem } from './types';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 type RendererScope = {
   multiple?: boolean;
@@ -43,8 +45,8 @@ export class TreeRenderer extends Renderer {
         element.depth = composer.getItemDepth(item);
         element.parent = composer.getItemChildren(item).length > 0;
         element.expanded = manager.isItemExpanded(item);
-        element.checkedState =
-          !multiple && element.parent ? CheckedState.UNCHECKED : manager.getItemCheckedState(item);
+        element.checkedState
+          = !multiple && element.parent ? CheckedState.UNCHECKED : manager.getItemCheckedState(item);
         element.icon = composer.getItemPropertyValue(item, 'icon') as string;
         element.label = composer.getItemPropertyValue(item, 'label') as string;
         element.disabled = composer.getItemPropertyValue(item, 'disabled') === true;

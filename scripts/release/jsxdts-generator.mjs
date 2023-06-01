@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
-import { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList } from './util.cjs';
-import { log, errorHandler, success, fileDirName } from '../helpers/esm.mjs';
+
+import { errorHandler, fileDirName, log, success } from '../helpers/esm.mjs';
+import { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementList, getElementTagName } from './util.cjs';
 
 /**
  * Remove hyphen and transform to upper case

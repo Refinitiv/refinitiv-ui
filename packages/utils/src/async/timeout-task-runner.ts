@@ -1,5 +1,5 @@
-import { Task, TaskCallback } from './task.js';
 import { DebouncerRunner } from './debouncer-runner.js';
+import { Task, TaskCallback } from './task.js';
 
 /**
  * Task to be executed after a defined time

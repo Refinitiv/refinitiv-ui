@@ -1,8 +1,8 @@
-import { fixture, expect, elementUpdated, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
-import { getData, openedUpdated, snapshotIgnore, makeQueryRequest, dispatchCustomEvent } from './utils';
-
-import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
+import '@refinitiv-ui/elements/combo-box';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+
+import { dispatchCustomEvent, getData, makeQueryRequest, openedUpdated, snapshotIgnore } from './utils';
 
 describe('combo-box/Value', () => {
   describe('Selection by Value Attribute', () => {

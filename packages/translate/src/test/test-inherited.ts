@@ -1,8 +1,8 @@
-import { html, TemplateResult } from '@refinitiv-ui/core';
+import { TemplateResult, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { translate, TranslateDirective } from '../translate.js';
 
+import { TranslateDirective, translate } from '../translate.js';
 import { TestTranslate } from './test-translate.js';
 
 @customElement('test-inherited', { theme: false })

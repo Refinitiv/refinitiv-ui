@@ -1,20 +1,23 @@
 import {
-  ControlElement,
-  css,
   CSSResultGroup,
-  html,
+  ControlElement,
   PropertyValues,
-  TemplateResult
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../version.js';
-import '../icon/index.js';
-import '../checkbox/index.js';
-import { registerOverflowTooltip } from '../tooltip/index.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
-import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData } from './helpers/types';
+
+import '../checkbox/index.js';
+import '../icon/index.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import { VERSION } from '../version.js';
+
+import type { ItemData, ItemDivider, ItemHeader, ItemText, ItemType } from './helpers/types';
+
 export type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData };
 
 const isAllWhitespaceTextNode = (node: Node): boolean =>
@@ -264,9 +267,9 @@ export class Item extends ControlElement {
    * Get icon template if icon attribute is defined
    */
   private get iconTemplate(): TemplateResult | undefined {
-    return this.icon !== null && this.icon !== undefined ?
-      html`<ef-icon part="icon" .icon="${this.icon}"></ef-icon>` :
-      undefined;
+    return this.icon !== null && this.icon !== undefined
+      ? html`<ef-icon part="icon" .icon="${this.icon}"></ef-icon>`
+      : undefined;
   }
 
   /**
@@ -308,9 +311,9 @@ export class Item extends ControlElement {
    */
   private get multipleTemplate(): TemplateResult | undefined {
     const multiple = this.multiple && (!this.type || this.type === 'text');
-    return multiple ?
-      html`<ef-checkbox part="checkbox" .checked="${this.selected}" tabindex="-1"></ef-checkbox>` :
-      undefined;
+    return multiple
+      ? html`<ef-checkbox part="checkbox" .checked="${this.selected}" tabindex="-1"></ef-checkbox>`
+      : undefined;
   }
 
   /**

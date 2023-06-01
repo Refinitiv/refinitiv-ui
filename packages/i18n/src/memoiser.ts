@@ -2,9 +2,10 @@
 // Memoizer caches these instances for reuse improving performance.
 // Although, IntlMessageFormat provides memoizers internally,
 // performance can still be further improved by caching IntlMessageFormat itself
-import IntlMessageFormat from 'intl-messageformat';
 import { memoize, strategies } from '@formatjs/fast-memoize';
-import type { TranslateOptions, TranslateMessage, MessageFormats, MessageOptions } from './types';
+import IntlMessageFormat from 'intl-messageformat';
+
+import type { MessageFormats, MessageOptions, TranslateMessage, TranslateOptions } from './types';
 
 type MemoiseRecordKey = {
   [key: string]: IntlMessageFormat;

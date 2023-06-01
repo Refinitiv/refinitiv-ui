@@ -1,5 +1,6 @@
-import { toDateSegment, getDaysInMonth, utcParse } from '@refinitiv-ui/utils/date.js';
-import { DEFAULT_LOCALE, MessageFormats, resolveLocale, TranslateParams } from '@refinitiv-ui/i18n';
+import { DEFAULT_LOCALE, MessageFormats, TranslateParams, resolveLocale } from '@refinitiv-ui/i18n';
+import { getDaysInMonth, toDateSegment, utcParse } from '@refinitiv-ui/utils/date.js';
+
 import { CalendarLocaleScope } from './constants.js';
 
 export type MonthInfo = {

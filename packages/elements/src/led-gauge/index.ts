@@ -1,9 +1,9 @@
-import { BasicElement, html, css, TemplateResult, CSSResultGroup, PropertyValues } from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../version.js';
 
 import '../canvas/index.js';
+import { VERSION } from '../version.js';
 
 const ZERO_MAP = {
   LEFT: 'left',

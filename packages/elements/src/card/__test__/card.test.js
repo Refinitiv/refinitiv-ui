@@ -1,8 +1,7 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-
+import '@refinitiv-ui/elemental-theme/light/ef-card';
 // Import element and theme
 import '@refinitiv-ui/elements/card';
-import '@refinitiv-ui/elemental-theme/light/ef-card';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 const menuData = [
   { label: 'Spain', value: 'Spain' },

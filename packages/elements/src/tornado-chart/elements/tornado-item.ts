@@ -1,9 +1,10 @@
-import { BasicElement, html, css, nothing, TemplateResult, CSSResultGroup } from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, TemplateResult, css, html, nothing } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../../version.js';
-import '../../progress-bar/index.js';
+
 import '../../layout/index.js';
+import '../../progress-bar/index.js';
+import { VERSION } from '../../version.js';
 
 /**
  * A part of <ef-tornado-chart />,

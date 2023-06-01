@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-import path from 'node:path';
-import fs from 'node:fs';
 import { execSync } from 'node:child_process';
-import yargs from 'yargs/yargs';
+import fs from 'node:fs';
+import path from 'node:path';
 import { hideBin } from 'yargs/helpers';
+import yargs from 'yargs/yargs';
+
 import { PACKAGES_ROOT, errorHandler, getJSON } from './scripts/helpers/esm.mjs';
 
 const argvNoBin = hideBin(process.argv);

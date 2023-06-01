@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import fs from 'fs';
 import fg from 'fast-glob';
+import fs from 'fs';
 
 // Element built files
 const PACKAGE_ROOT = process.env.PACKAGE_ROOT || process.cwd();

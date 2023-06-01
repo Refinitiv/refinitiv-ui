@@ -1,7 +1,6 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-
-import '@refinitiv-ui/elements/slider';
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
+import '@refinitiv-ui/elements/slider';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 const getTrackElement = (el) => el.shadowRoot.querySelector('[part=track-wrapper]');
 

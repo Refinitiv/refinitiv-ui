@@ -1,18 +1,19 @@
 #!/usr/bin/env node
-import { env } from 'node:process';
-import process from 'node:process';
+import { summaryReporter } from '@web/test-runner';
+import { browserstackLauncher } from '@web/test-runner-browserstack';
 import fs from 'node:fs';
 import path from 'node:path';
-import yargs from 'yargs/yargs';
+import { env } from 'node:process';
+import process from 'node:process';
 import { hideBin } from 'yargs/helpers';
-import { browserstackLauncher } from '@web/test-runner-browserstack';
-import { summaryReporter } from '@web/test-runner';
-import { PACKAGES_ROOT, info } from '../helpers/esm.mjs';
+import yargs from 'yargs/yargs';
+
 import { BrowserStack } from '../../browsers.config.mjs';
+import { ELEMENTS_ROOT, checkElement, getElements } from '../../packages/elements/scripts/helpers/index.mjs';
 import wtrConfig from '../../web-test-runner.config.mjs';
-import { ELEMENTS_ROOT, getElements, checkElement } from '../../packages/elements/scripts/helpers/index.mjs';
+import { PACKAGES_ROOT, info } from '../helpers/esm.mjs';
 import { useTestOptions } from './cli-options.mjs';
-import { startTestRunner, startQueueTestRunner } from './runner.mjs';
+import { startQueueTestRunner, startTestRunner } from './runner.mjs';
 
 // Create CLI
 const cli = yargs(hideBin(process.argv)).option('package', {

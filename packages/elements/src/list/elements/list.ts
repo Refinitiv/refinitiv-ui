@@ -1,21 +1,23 @@
 import {
-  ControlElement,
-  css,
   CSSResultGroup,
-  html,
+  ControlElement,
   PropertyValues,
   TapEvent,
   TemplateResult,
-  WarningNotice
+  WarningNotice,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../../version.js';
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
-import type { ItemData } from '../../item';
-import type { ListData } from '../helpers/types';
+
+import { VERSION } from '../../version.js';
 import { ListRenderer } from '../helpers/renderer.js';
 import './list-item.js';
+
+import type { ItemData } from '../../item';
+import type { ListData } from '../helpers/types';
 
 /**
  * Key direction
@@ -321,9 +323,9 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    */
   protected getNextHighlightItem(direction: Direction): T | undefined {
     const highlightItem = this.queryItemsByPropertyValue('highlighted', true)[0];
-    const nextElement =
-      this.getNextFocusableItem(direction) ||
-      this.getNextFocusableItem(direction, this.elementFromItem(highlightItem));
+    const nextElement
+      = this.getNextFocusableItem(direction)
+      || this.getNextFocusableItem(direction, this.elementFromItem(highlightItem));
     const backupElement = this.tabbableItems[0];
 
     if (nextElement) {

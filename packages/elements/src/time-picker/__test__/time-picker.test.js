@@ -1,15 +1,14 @@
-import {
-  fixture,
-  expect,
-  elementUpdated,
-  oneEvent,
-  triggerFocusFor,
-  triggerBlurFor
-} from '@refinitiv-ui/test-helpers';
-
+import '@refinitiv-ui/elemental-theme/light/ef-time-picker';
 // import element and theme
 import '@refinitiv-ui/elements/time-picker';
-import '@refinitiv-ui/elemental-theme/light/ef-time-picker';
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  oneEvent,
+  triggerBlurFor,
+  triggerFocusFor
+} from '@refinitiv-ui/test-helpers';
 
 describe('time-picker/TimePicker', () => {
   let el;

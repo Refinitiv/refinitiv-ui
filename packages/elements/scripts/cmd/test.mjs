@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import { execSync } from 'node:child_process';
-import { useTestOptions } from '../../../../scripts/tests/cli-options.mjs';
-import { getElements, errorHandler } from '../helpers/index.mjs';
 import { hideBin } from 'yargs/helpers';
+
+import { useTestOptions } from '../../../../scripts/tests/cli-options.mjs';
+import { errorHandler, getElements } from '../helpers/index.mjs';
 
 const elements = ['elements', ...getElements()];
 

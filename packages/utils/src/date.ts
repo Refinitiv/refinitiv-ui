@@ -1,29 +1,27 @@
 import {
-  Segment as DateSegment,
   Format as DateFormat,
-  toSegment as toDateSegment,
+  Segment as DateSegment,
+  getDaysInMonth,
   isValid as isValidDate,
-  getDaysInMonth
+  toSegment as toDateSegment
 } from './date/date.js';
-
-export { DateSegment, DateFormat, toDateSegment, isValidDate, getDaysInMonth };
-
 import {
-  Segment as TimeSegment,
+  Format as DateTimeFormat,
+  Segment as DateTimeSegment,
+  isValid as isValidDateTime,
+  split as splitDateTime,
+  toSegment as toDateTimeSegment
+} from './date/datetime.js';
+import {
   Format as TimeFormat,
+  Segment as TimeSegment,
   isValid as isValidTime,
   toSegment as toTimeSegment
 } from './date/time.js';
 
-export { TimeSegment, TimeFormat, isValidTime, toTimeSegment };
+export { DateSegment, DateFormat, toDateSegment, isValidDate, getDaysInMonth };
 
-import {
-  Segment as DateTimeSegment,
-  Format as DateTimeFormat,
-  isValid as isValidDateTime,
-  toSegment as toDateTimeSegment,
-  split as splitDateTime
-} from './date/datetime.js';
+export { TimeSegment, TimeFormat, isValidTime, toTimeSegment };
 
 export { DateTimeSegment, DateTimeFormat, isValidDateTime, toDateTimeSegment, splitDateTime };
 

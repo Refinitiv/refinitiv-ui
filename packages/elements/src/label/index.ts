@@ -1,9 +1,10 @@
-import { BasicElement, html, css, TemplateResult, CSSResultGroup, StyleMap } from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, StyleMap, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
-import { VERSION } from '../version.js';
+
 import { addTooltipCondition, removeTooltipCondition } from '../tooltip/index.js';
+import { VERSION } from '../version.js';
 
 /**
  * Configuration object
@@ -199,9 +200,9 @@ export class Label extends BasicElement {
 
     const leftPart = html`<div class="split left">${left.join(_)}</div>`;
     const centerPart = isSingleWord ? undefined : html`<div class="split center">&nbsp;</div>`;
-    const rightPart = right.length ?
-      html`<div class="split right"><span dir="ltr">${right.join(_)}</span></div>` :
-      undefined;
+    const rightPart = right.length
+      ? html`<div class="split right"><span dir="ltr">${right.join(_)}</span></div>`
+      : undefined;
 
     return html`${leftPart}${centerPart}${rightPart}`;
   }

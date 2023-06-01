@@ -1,4 +1,5 @@
 import { expect } from '@refinitiv-ui/test-helpers';
+
 import { Notice } from '../../lib/notices/Notice';
 
 describe('TestNotice', () => {

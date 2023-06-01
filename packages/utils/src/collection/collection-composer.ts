@@ -1,5 +1,5 @@
-import { EventEmitter } from '../event/event-emitter.js';
 import { MicroTaskRunner } from '../async/micro-task-runner.js';
+import { EventEmitter } from '../event/event-emitter.js';
 import { CollectionItem } from './collection-item.js';
 import { flatten } from './flatten.js';
 

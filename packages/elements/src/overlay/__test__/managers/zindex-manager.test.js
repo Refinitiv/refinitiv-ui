@@ -1,22 +1,21 @@
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
+import '@refinitiv-ui/elements/overlay';
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+
 import { createSandbox, restore, spy } from 'sinon';
 
-import { openedUpdated } from './../mocks/helper';
-
-import '@refinitiv-ui/elements/overlay';
-import '@refinitiv-ui/elemental-theme/light/ef-overlay';
-
 import {
+  ZIndex,
+  ZIndexManager,
   clear,
   deregister,
-  getOverlays,
   getOverlayLayers,
+  getOverlays,
   register,
   size,
-  toFront,
-  ZIndex,
-  ZIndexManager
+  toFront
 } from '../../../../lib/overlay/managers/zindex-manager.js';
+import { openedUpdated } from './../mocks/helper';
 
 const createFixture = async (zIndex) => {
   return typeof zIndex === 'undefined'

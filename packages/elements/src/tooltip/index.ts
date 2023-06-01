@@ -1,20 +1,21 @@
-import { BasicElement, html, css, TemplateResult, CSSResultGroup, PropertyValues } from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js';
 import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
-import '../overlay/index.js';
-import type { OverlayTransitionStyle as TooltipTransitionStyle, Overlay, OverlayPosition } from '../overlay';
 
+import '../overlay/index.js';
+import { VERSION } from '../version.js';
 import './elements/title-tooltip.js';
-import { register, deregister } from './managers/tooltip-manager.js';
-import { TooltipCondition, TooltipRenderer, TooltipPosition, TooltipPositionMap } from './helpers/types.js';
-import { tooltipRenderer } from './helpers/renderer.js';
 import {
-  register as registerOverflowTooltip,
-  deregister as deregisterOverflowTooltip
+  deregister as deregisterOverflowTooltip,
+  register as registerOverflowTooltip
 } from './helpers/overflow-tooltip.js';
+import { tooltipRenderer } from './helpers/renderer.js';
+import { TooltipCondition, TooltipPosition, TooltipPositionMap, TooltipRenderer } from './helpers/types.js';
+import { deregister, register } from './managers/tooltip-manager.js';
+
+import type { Overlay, OverlayPosition, OverlayTransitionStyle as TooltipTransitionStyle } from '../overlay';
 
 const PositionMap: TooltipPositionMap = {
   auto: ['bottom-start', 'top-start'],
@@ -429,8 +430,8 @@ class Tooltip extends BasicElement {
       const matchTargetRect = matchTarget.getBoundingClientRect();
 
       if (
-        lastMatchTarget === matchTarget &&
-        !Tooltip.elementHasMoved(matchTargetRect, this.matchTargetRect)
+        lastMatchTarget === matchTarget
+        && !Tooltip.elementHasMoved(matchTargetRect, this.matchTargetRect)
       ) {
         return;
       }

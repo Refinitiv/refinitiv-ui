@@ -1,6 +1,6 @@
+import { AnimationTaskRunner } from './animation-task-runner.js';
 import { Task, TaskCallback } from './task.js';
 import { ThrottlerRunner } from './throttler-runner.js';
-import { AnimationTaskRunner } from './animation-task-runner.js';
 
 const throwErrorAsync = (error: Error): void => {
   setTimeout(() => {

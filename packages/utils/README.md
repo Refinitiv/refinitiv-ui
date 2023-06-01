@@ -39,10 +39,11 @@ Example:
 
 ```js
 import {
+  // Runs task in an animation frame
+  AfterRenderTaskRunner, // Runs task after render has finished // Runs task inside of a timeout
+  AnimationTaskRunner,
   MicroTaskRunner, // Runs task as a MicroTask
-  TimeoutTaskRunner, // Runs task inside of a timeout
-  AnimationTaskRunner, // Runs task in an animation frame
-  AfterRenderTaskRunner // Runs task after render has finished
+  TimeoutTaskRunner
 } from '@refinitiv-ui/utils';
 
 const taskRunner = new MicroTaskRunner();

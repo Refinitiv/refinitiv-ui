@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-import { execSync } from 'node:child_process';
 import concurrently from 'concurrently';
-import { getElements, error, info, errorHandler } from '../helpers/index.mjs';
+import { execSync } from 'node:child_process';
+
+import { error, errorHandler, getElements, info } from '../helpers/index.mjs';
 
 export const command = 'start [element]';
 export const desc = 'Starting the development server';

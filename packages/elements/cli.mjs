@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
-import { errorHandler, info } from './scripts/helpers/index.mjs';
+import yargs from 'yargs/yargs';
+
 import { commands } from './scripts/cmd/index.mjs';
+import { errorHandler, info } from './scripts/helpers/index.mjs';
 
 yargs(hideBin(process.argv))
   .usage('Element Framework CLI Commands\n\nUsage: $0 <command> [options]')

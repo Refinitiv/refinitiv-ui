@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import { fileURLToPath, pathToFileURL } from 'node:url';
-import { dirname } from 'node:path';
 import fs from 'node:fs';
+import { dirname } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 /**
  * Get file and directory name of meta url

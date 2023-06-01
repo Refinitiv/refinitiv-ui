@@ -1,8 +1,7 @@
-import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
-
+import '@refinitiv-ui/elemental-theme/light/ef-notification';
 // import element and theme
 import '@refinitiv-ui/elements/notification';
-import '@refinitiv-ui/elemental-theme/light/ef-notification';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('notification/Notification', () => {
   describe('Default', () => {

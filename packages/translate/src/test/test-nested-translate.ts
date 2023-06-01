@@ -1,7 +1,7 @@
 /**
  * A test element to verify bindings
  */
-import { BasicElement, html, css, CSSResult, TemplateResult } from '@refinitiv-ui/core';
+import { BasicElement, CSSResult, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 

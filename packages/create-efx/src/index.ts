@@ -1,10 +1,10 @@
+import chalk from 'chalk';
 import fs from 'fs';
 import fsExtra from 'fs-extra';
-import path from 'path';
-import chalk from 'chalk';
 import minimist, { ParsedArgs } from 'minimist';
+import path from 'path';
 import prompts from 'prompts';
-import renameAll from './utils/renamer.js';
+
 import {
   emptyDir,
   formatProjectName,
@@ -12,6 +12,7 @@ import {
   isDirExist,
   validateProjectName
 } from './utils/helpers.js';
+import renameAll from './utils/renamer.js';
 
 interface ArgvCommands extends ParsedArgs {
   h?: boolean;

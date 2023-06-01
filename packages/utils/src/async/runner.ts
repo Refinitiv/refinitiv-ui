@@ -1,4 +1,4 @@
-import { Task, TaskClass, TaskCallback } from './task.js';
+import { Task, TaskCallback, TaskClass } from './task.js';
 
 class Runner {
   private Task: TaskClass;

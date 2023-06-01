@@ -1,25 +1,27 @@
-import { PropertyValues, FocusedPropertyKey, WarningNotice, TemplateResult, html } from '@refinitiv-ui/core';
+import { FocusedPropertyKey, PropertyValues, TemplateResult, WarningNotice, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
+import '@refinitiv-ui/phrasebook/locale/en/datetime-field.js';
+import { TranslateDirective, TranslatePropertyKey, getLocale, translate } from '@refinitiv-ui/translate';
 import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 import {
-  utcParse,
-  utcFormat,
+  Locale,
   getFormat,
-  isBefore,
   isAfter,
+  isBefore,
   iterateUnit,
-  Locale
+  utcFormat,
+  utcParse
 } from '@refinitiv-ui/utils/date.js';
-import { translate, getLocale, TranslateDirective, TranslatePropertyKey } from '@refinitiv-ui/translate';
-import { Direction } from './constants.js';
-import type { NavigationKeys, DateTimeFormatPart, InputSelection } from './types';
+
 import { TextField } from '../text-field/index.js';
-import { getSelectedPartIndex, getNextSelectedPartIndex, selectPart } from './utils.js';
 import { VERSION } from '../version.js';
-import '@refinitiv-ui/phrasebook/locale/en/datetime-field.js';
+import { Direction } from './constants.js';
+import { getNextSelectedPartIndex, getSelectedPartIndex, selectPart } from './utils.js';
+
+import type { DateTimeFormatPart, InputSelection, NavigationKeys } from './types';
 
 /**
  * A form control element for datetime input.
@@ -319,13 +321,13 @@ export class DatetimeField extends TextField {
     // Note: changing any of these properties override the input value
     // On blur, if the value is correct makes sure strict format is used
     return (
-      changedProperties.has('interimValueState') ||
-      changedProperties.has(TranslatePropertyKey) ||
-      changedProperties.has('formatOptions') ||
-      changedProperties.has('timepicker') ||
-      changedProperties.has('showSeconds') ||
-      changedProperties.has('amPm') ||
-      (changedProperties.has(FocusedPropertyKey) && this.value !== '' && !this.focused)
+      changedProperties.has('interimValueState')
+      || changedProperties.has(TranslatePropertyKey)
+      || changedProperties.has('formatOptions')
+      || changedProperties.has('timepicker')
+      || changedProperties.has('showSeconds')
+      || changedProperties.has('amPm')
+      || (changedProperties.has(FocusedPropertyKey) && this.value !== '' && !this.focused)
     );
   }
 
@@ -703,17 +705,17 @@ export class DatetimeField extends TextField {
       return null;
     }
     return html`
-      ${this.partLabel && this.value ?
-        html`<div
+      ${this.partLabel && this.value
+        ? html`<div
             aria-label="${this.t(`PICK_${this.partLabel.toUpperCase()}`)}"
             aria-live="polite"
             role="status"
-          ></div>` :
-        undefined}
+          ></div>`
+        : undefined}
       <div
-        aria-label="${this.value ?
-          this.t('VALUE', { value: this.toInputValue(this.value) }) :
-          this.t('NO_VALUE')}"
+        aria-label="${this.value
+          ? this.t('VALUE', { value: this.toInputValue(this.value) })
+          : this.t('NO_VALUE')}"
         aria-live="polite"
         role="status"
       ></div>

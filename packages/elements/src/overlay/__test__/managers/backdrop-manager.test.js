@@ -1,9 +1,11 @@
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
+import '@refinitiv-ui/elements/overlay';
+import { Overlay } from '@refinitiv-ui/elements/overlay';
 import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+
 import { createSandbox, restore, spy } from 'sinon';
 
-import '@refinitiv-ui/elements/overlay';
-import '@refinitiv-ui/elemental-theme/light/ef-overlay';
-
+import { OverlayBackdrop } from '../../../../lib/overlay/elements/overlay-backdrop.js';
 import {
   BackdropManager,
   clear,
@@ -12,8 +14,6 @@ import {
   size
 } from '../../../../lib/overlay/managers/backdrop-manager.js';
 import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
-import { OverlayBackdrop } from '../../../../lib/overlay/elements/overlay-backdrop.js';
-import { Overlay } from '@refinitiv-ui/elements/overlay';
 
 const createFixture = async (zIndex) => {
   return typeof zIndex === 'undefined'

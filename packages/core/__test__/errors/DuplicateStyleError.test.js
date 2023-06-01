@@ -1,4 +1,5 @@
 import { expect } from '@refinitiv-ui/test-helpers';
+
 import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError';
 
 describe('TestDuplicateStyleError', () => {

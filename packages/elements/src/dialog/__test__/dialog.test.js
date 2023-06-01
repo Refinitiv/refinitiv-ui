@@ -1,9 +1,10 @@
-import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
+import '@refinitiv-ui/elemental-theme/light/ef-dialog';
 // import element and theme
 import '@refinitiv-ui/elements/dialog';
-import { MAIN_MOUSE_BUTTON } from '../../../lib/dialog/draggable-element.js';
-import '@refinitiv-ui/elemental-theme/light/ef-dialog';
 import '@refinitiv-ui/elements/overlay';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
+
+import { MAIN_MOUSE_BUTTON } from '../../../lib/dialog/draggable-element.js';
 
 describe('dialog/Dialog', () => {
   it('Should renders DOM structure correctly', async () => {

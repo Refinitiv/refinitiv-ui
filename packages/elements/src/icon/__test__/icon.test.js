@@ -1,21 +1,21 @@
-import { fixture, elementUpdated, expect } from '@refinitiv-ui/test-helpers';
-
-import '@refinitiv-ui/elements/icon';
 import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
+import '@refinitiv-ui/elements/icon';
 import { preload } from '@refinitiv-ui/elements/icon';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import sinon from 'sinon';
 
 import {
+  checkRequestedUrl,
+  createFakeResponse,
   createMockSrc,
   generateUniqueName,
   iconName,
-  tickSvg,
-  checkRequestedUrl,
-  createFakeResponse,
-  responseConfigSuccess,
+  isEqualSvg,
   responseConfigError,
-  isEqualSvg
+  responseConfigSuccess,
+  tickSvg
 } from './helpers/helpers.js';
-import sinon from 'sinon';
 
 describe('icon/Icon', () => {
   let fetch;

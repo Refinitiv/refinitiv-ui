@@ -1,8 +1,7 @@
-import { fixture, expect } from '@refinitiv-ui/test-helpers';
-
+import '@refinitiv-ui/elemental-theme/light/ef-email-field';
 // import element and theme
 import '@refinitiv-ui/elements/email-field';
-import '@refinitiv-ui/elemental-theme/light/ef-email-field';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('email-field/EmailField', () => {
   it('Default DOM structure and properties are correct', async () => {

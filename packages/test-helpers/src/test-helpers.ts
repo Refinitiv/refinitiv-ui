@@ -1,3 +1,5 @@
+import { nextFrame as _nextFrame } from '@open-wc/testing';
+
 export {
   html,
   unsafeStatic,
@@ -17,7 +19,6 @@ export {
   fixtureCleanup,
   elementUpdated
 } from '@open-wc/testing';
-import { nextFrame as _nextFrame } from '@open-wc/testing';
 
 /**
  * Replace special whitespace with normal whitespace
@@ -62,7 +63,7 @@ export const isNear = (a: number, b: number, distance: number, inclusive = true)
  * Check browser is Firefox
  * @returns boolean
  */
-export const isFirefox = (): boolean => (/firefox/i).test(navigator.userAgent);
+export const isFirefox = (): boolean => /firefox/i.test(navigator.userAgent);
 /* c8 ignore stop */
 
 // ResizeObserver loop error is considered benign as discussed in https://github.com/w3c/csswg-drafts/issues/5023

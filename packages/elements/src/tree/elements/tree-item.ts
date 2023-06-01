@@ -1,12 +1,14 @@
-import { html, TemplateResult, ControlElement, PropertyValues } from '@refinitiv-ui/core';
+import { ControlElement, PropertyValues, TemplateResult, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../../version.js';
+
+import '../../checkbox/index.js';
 import '../../icon/index.js';
 import { preload } from '../../icon/index.js';
-import '../../checkbox/index.js';
-import type { TreeDataItem } from '../helpers/types';
+import { VERSION } from '../../version.js';
 import { CheckedState } from '../managers/tree-manager.js';
+
+import type { TreeDataItem } from '../helpers/types';
 
 preload('right');
 

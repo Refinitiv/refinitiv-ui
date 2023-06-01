@@ -1,17 +1,18 @@
 import {
   BasicElement,
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
   PropertyValues,
-  TapEvent
+  TapEvent,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
+
 import { Button } from '../button/index.js';
+import { VERSION } from '../version.js';
 
 /**
  * Used to display multiple buttons to create a list of commands bar.
@@ -162,10 +163,10 @@ export class ButtonBar extends BasicElement {
 
     const focusedButtonIndex = buttons.findIndex((button) => button === document.activeElement);
 
-    const nextButton =
-      direction === 'next' ?
-        buttons[focusedButtonIndex + 1] || buttons[0] :
-        buttons[focusedButtonIndex - 1] || buttons[buttons.length - 1];
+    const nextButton
+      = direction === 'next'
+        ? buttons[focusedButtonIndex + 1] || buttons[0]
+        : buttons[focusedButtonIndex - 1] || buttons[buttons.length - 1];
 
     nextButton.focus();
     this.rovingTabIndex(nextButton, buttons);

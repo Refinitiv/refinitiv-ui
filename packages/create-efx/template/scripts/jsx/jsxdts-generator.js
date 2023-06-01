@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-import path from 'path';
 import chalk from 'chalk';
-import { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList } from './utils.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+import { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementList, getElementTagName } from './utils.js';
 
 /**
  * Remove hyphen and transform to upper case

@@ -1,10 +1,10 @@
 // Keyboard navigation test
-import { expect, fixture } from '@refinitiv-ui/test-helpers';
-import { up, down, left, right, home, end, setMonthView, setYearView } from './utils';
-
+import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 // import element and theme
 import '@refinitiv-ui/elements/calendar';
-import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import { down, end, home, left, right, setMonthView, setYearView, up } from './utils';
 
 const cellIndex = (calendarEl) => String(calendarEl.activeCellIndex); // access private property
 

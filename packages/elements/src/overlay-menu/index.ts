@@ -1,16 +1,15 @@
 import {
-  html,
-  css,
-  nothing,
-  TemplateResult,
   CSSResultGroup,
   PropertyValues,
   TapEvent,
-  WarningNotice
+  TemplateResult,
+  WarningNotice,
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../version.js';
 import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
@@ -20,8 +19,10 @@ import '../item/index.js';
 import { Item, ItemData } from '../item/index.js';
 import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay/index.js';
 import { applyLock } from '../overlay/managers/interaction-lock-manager.js';
-import { OpenedMenusManager } from './managers/menu-manager.js';
+import { VERSION } from '../version.js';
 import { Navigation } from './helpers/constants.js';
+import { OpenedMenusManager } from './managers/menu-manager.js';
+
 import type { OverlayMenuData } from './helpers/types';
 
 export type { OverlayMenuData };
@@ -303,9 +304,9 @@ export class OverlayMenu extends Overlay {
    */
   private getDataDescendants(): ItemData[] {
     return (
-      this.parentDataItem ?
-        this.composer.getItemDescendants(this.parentDataItem, Infinity) :
-        this.composer.queryItems(() => true, Infinity)
+      this.parentDataItem
+        ? this.composer.getItemDescendants(this.parentDataItem, Infinity)
+        : this.composer.queryItems(() => true, Infinity)
     ) as ItemData[];
   }
 
@@ -367,12 +368,12 @@ export class OverlayMenu extends Overlay {
     const shouldUpdate = super.shouldUpdate(changedProperties);
 
     return (
-      shouldUpdate ||
-      changedProperties.size === 0 /* this is to support empty requestUpdate() */ ||
-      changedProperties.has('values') ||
-      changedProperties.has('data') ||
-      (this.opened && changedProperties.has('compact')) ||
-      (this.opened && changedProperties.has('modification'))
+      shouldUpdate
+      || changedProperties.size === 0
+      || /* this is to support empty requestUpdate() */ changedProperties.has('values')
+      || changedProperties.has('data')
+      || (this.opened && changedProperties.has('compact'))
+      || (this.opened && changedProperties.has('modification'))
     );
   }
 
@@ -473,9 +474,9 @@ export class OverlayMenu extends Overlay {
    * @return all MenuItems stored in CollectionComposer
    */
   private getAllComposedData(): ItemData[] {
-    const items = this.parentDataItem ?
-      this.composer.getItemChildren(this.parentDataItem) :
-      this.composer.queryItems(() => true, 0);
+    const items = this.parentDataItem
+      ? this.composer.getItemChildren(this.parentDataItem)
+      : this.composer.queryItems(() => true, 0);
     return items as ItemData[];
   }
 
@@ -850,10 +851,10 @@ export class OverlayMenu extends Overlay {
    * @return {void}
    */
   private setOpenedMenu(menuItem?: Item): void {
-    const menu =
-      menuItem && menuItem.for && this.menuIndex[menuItem.for] ?
-        this.menuIndex[menuItem.for].menu :
-        undefined;
+    const menu
+      = menuItem && menuItem.for && this.menuIndex[menuItem.for]
+        ? this.menuIndex[menuItem.for].menu
+        : undefined;
     menu && this.insertNestedMenu(menu);
 
     OpenedMenusManager.toggleNestedMenuFor(this, menuItem);

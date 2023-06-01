@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { describe } from 'mocha';
-import { Phrasebook } from '../lib/index.js';
 
+import { Phrasebook } from '../lib/index.js';
 import { clearPhrasebook } from './utils.js';
 
 // !!! Note: Phrasebook is a singleton so changes are incremental

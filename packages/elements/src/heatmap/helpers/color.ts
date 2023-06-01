@@ -1,6 +1,6 @@
 /* c8 ignore start */
+import { ColorCommonInstance, color, hsl, rgb } from '@refinitiv-ui/utils/color.js';
 
-import { color, rgb, hsl, ColorCommonInstance } from '@refinitiv-ui/utils/color.js';
 import { interpolate } from 'd3-interpolate';
 
 /**
@@ -67,15 +67,15 @@ const blend = (color1: string, color2: string, backgroundColor: string, amount: 
 
   const factor = 1 - Math.abs(amount);
 
-  const red = mixRedComponent ?
-    Math.round(interpolate(primaryColor.r, secondaryColor.r)(factor)) :
-    primaryColor.r;
-  const green = mixGreenComponent ?
-    Math.round(interpolate(primaryColor.g, secondaryColor.g)(factor)) :
-    primaryColor.g;
-  const blue = mixBlueComponent ?
-    Math.round(interpolate(primaryColor.b, secondaryColor.b)(factor)) :
-    primaryColor.b;
+  const red = mixRedComponent
+    ? Math.round(interpolate(primaryColor.r, secondaryColor.r)(factor))
+    : primaryColor.r;
+  const green = mixGreenComponent
+    ? Math.round(interpolate(primaryColor.g, secondaryColor.g)(factor))
+    : primaryColor.g;
+  const blue = mixBlueComponent
+    ? Math.round(interpolate(primaryColor.b, secondaryColor.b)(factor))
+    : primaryColor.b;
 
   return color(`rgb(${red}, ${green}, ${blue})`)?.toString() || '';
 };

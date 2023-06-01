@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-import process from 'node:process';
-import fs from 'node:fs';
 import { startTestRunner as startTest } from '@web/test-runner';
+import fs from 'node:fs';
+import process from 'node:process';
+
 import { log } from '../helpers/esm.mjs';
 
 let runner = null; // Current `TestRunner` instance

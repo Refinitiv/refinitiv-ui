@@ -1,5 +1,6 @@
-import { BasicElement, html, PropertyValues, TemplateResult } from '@refinitiv-ui/core';
+import { BasicElement, PropertyValues, TemplateResult, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+
 import { VERSION } from '../version.js';
 
 /**
@@ -29,9 +30,9 @@ export class Loader extends BasicElement {
    * used to create and theme different loader styles
    */
   protected get templateParts(): readonly string[] {
-    const parts =
-      cachedParts ||
-      this.getComputedVariable('--parts')
+    const parts
+      = cachedParts
+      || this.getComputedVariable('--parts')
         .split(',')
         .map((part) => part.trim())
         .filter((part) => part);

@@ -1,10 +1,12 @@
-import { ResponsiveElement, ElementSize, html, TemplateResult, PropertyValues } from '@refinitiv-ui/core';
+import { ElementSize, PropertyValues, ResponsiveElement, TemplateResult, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../../version.js';
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
-import type { Notification } from './notification';
+
+import { VERSION } from '../../version.js';
+
 import type { Task, TaskOptions } from '../helpers/types';
+import type { Notification } from './notification';
 
 @customElement('ef-notification-tray')
 export class NotificationTray extends ResponsiveElement {
@@ -68,7 +70,7 @@ export class NotificationTray extends ResponsiveElement {
    * @returns results
    */
   private isValidAttatchPoint(attach: string): boolean {
-    return (/^(top|bottom)$/).test(attach);
+    return /^(top|bottom)$/.test(attach);
   }
 
   /**

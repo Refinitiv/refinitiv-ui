@@ -1,10 +1,11 @@
-import { expect, fixture, elementUpdated } from '@refinitiv-ui/test-helpers';
+import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
 // import element and theme
 import '@refinitiv-ui/elements/overlay-menu';
-import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
 import { flatData, nestedData } from './data';
-import { openedUpdated } from './utils';
 import { flatMarkupOpened, nestedMarkup } from './markup';
+import { openedUpdated } from './utils';
 
 describe('overlay-menu/Attributes', () => {
   describe('Attributes Test', () => {

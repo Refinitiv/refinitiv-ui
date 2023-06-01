@@ -1,8 +1,10 @@
 import { TapEvent } from '@refinitiv-ui/core';
-import type { Item } from '../../item';
-import { OverlayMenu } from '../index.js';
-import type { NestedMenu } from '../helpers/types';
+
 import { getOverlays } from '../../overlay/managers/zindex-manager.js';
+import { OverlayMenu } from '../index.js';
+
+import type { Item } from '../../item';
+import type { NestedMenu } from '../helpers/types';
 
 /**
  * Overlay menu manager monitors menu nesting and ensures

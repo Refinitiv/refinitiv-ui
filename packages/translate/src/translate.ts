@@ -1,12 +1,12 @@
-import type { BasicElement } from '@refinitiv-ui/core';
-import { PartInfo, PartType, DirectiveResult } from 'lit/directive.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { AsyncDirective, directive } from 'lit/async-directive.js';
-import { noChange } from 'lit';
-
 import { LangAttributeObserver, TranslateOptions, TranslateParams, t } from '@refinitiv-ui/i18n';
+import { ObserverKey, Phrasebook } from '@refinitiv-ui/phrasebook';
 
-import { Phrasebook, ObserverKey } from '@refinitiv-ui/phrasebook';
+import { noChange } from 'lit';
+import { AsyncDirective, directive } from 'lit/async-directive.js';
+import { DirectiveResult, PartInfo, PartType } from 'lit/directive.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+
+import type { BasicElement } from '@refinitiv-ui/core';
 
 const TranslatePropertyKey = Symbol('ef-translate');
 
@@ -46,9 +46,9 @@ class AsyncTranslateDirective extends AsyncDirective {
 
     if (
       !(
-        this.partType === PartType.CHILD ||
-        this.partType === PartType.ATTRIBUTE ||
-        this.partType === PartType.PROPERTY
+        this.partType === PartType.CHILD
+        || this.partType === PartType.ATTRIBUTE
+        || this.partType === PartType.PROPERTY
       )
     ) {
       throw new Error(
@@ -189,9 +189,9 @@ const translate = function (options?: string | DecoratorOptions): TranslateFunct
       keys.delete(this);
     };
 
-    const descriptor =
-      mode === 'promise' ?
-        {
+    const descriptor
+      = mode === 'promise'
+        ? {
           get(this: BasicElement): TranslatePromise {
             return (
               key: string,
@@ -207,8 +207,8 @@ const translate = function (options?: string | DecoratorOptions): TranslateFunct
               );
             };
           }
-        } :
-        {
+        }
+        : {
           get(this: BasicElement): TranslateDirective {
             return (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => {
               return translateDirective(

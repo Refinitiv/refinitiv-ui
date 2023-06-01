@@ -1,6 +1,7 @@
 import { expect } from '@refinitiv-ui/test-helpers';
-import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry';
+
 import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError';
+import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry';
 import { mockCssString } from '../helper';
 
 describe('TestCustomStyleRegistry', () => {

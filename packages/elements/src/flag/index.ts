@@ -1,10 +1,12 @@
-import { BasicElement, svg, css, CSSResultGroup, TemplateResult, PropertyValues } from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, PropertyValues, TemplateResult, css, svg } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
 import { Deferred } from '@refinitiv-ui/utils/loader.js';
+
 import { VERSION } from '../version.js';
 import { FlagLoader } from './utils/FlagLoader.js';
+
 export { preload } from './utils/FlagLoader.js';
 
 const EmptyTemplate = svg``;

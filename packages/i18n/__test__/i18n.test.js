@@ -1,8 +1,9 @@
-import { expect } from '@refinitiv-ui/test-helpers';
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
-import { t, clearCache, clearCachedRecord, DEFAULT_LOCALE } from '../lib';
-import { Memoiser } from '../lib/memoiser';
+import { expect } from '@refinitiv-ui/test-helpers';
 import { isMobile } from '@refinitiv-ui/utils/browser.js';
+
+import { DEFAULT_LOCALE, clearCache, clearCachedRecord, t } from '../lib';
+import { Memoiser } from '../lib/memoiser';
 
 const scope = 'i18n-test';
 

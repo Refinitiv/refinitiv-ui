@@ -1,21 +1,23 @@
 import {
-  html,
-  css,
-  TemplateResult,
+  BasicElement,
   CSSResultGroup,
   PropertyValues,
   ResizeEvent,
-  BasicElement
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js';
-import { tweenAnimate } from './helpers/animate.js';
-import { Tab } from '../tab/index.js';
-import type { Button } from '../button';
+
 import '../button/index.js';
 import '../layout/index.js';
+import { Tab } from '../tab/index.js';
+import { VERSION } from '../version.js';
+import { tweenAnimate } from './helpers/animate.js';
+
+import type { Button } from '../button';
 
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 
@@ -391,10 +393,10 @@ export class TabBar extends BasicElement {
     }
 
     const focusedTabIndex = tabList.findIndex((tab) => tab === document.activeElement);
-    const nextTab =
-      direction === 'next' ?
-        tabList[focusedTabIndex + 1] || tabList[0] :
-        tabList[focusedTabIndex - 1] || tabList[tabList.length - 1];
+    const nextTab
+      = direction === 'next'
+        ? tabList[focusedTabIndex + 1] || tabList[0]
+        : tabList[focusedTabIndex - 1] || tabList[tabList.length - 1];
 
     this.focusAndSetActiveTab(nextTab);
     this.rovingTabIndex(nextTab, tabList);
@@ -463,27 +465,27 @@ export class TabBar extends BasicElement {
    */
   protected render(): TemplateResult {
     return html`
-      ${!this.vertical ?
-        html`<ef-button
+      ${!this.vertical
+        ? html`<ef-button
             tabIndex="-1"
             aria-hidden="true"
             icon="left"
             part="left-btn"
             @tap=${this.handleScrollLeft}
-          ></ef-button>` :
-        null}
+          ></ef-button>`
+        : null}
       <ef-layout part="content" @resize=${this.handleResize}>
         <slot @slotchange=${this.onSlotChange}></slot>
       </ef-layout>
-      ${!this.vertical ?
-        html`<ef-button
+      ${!this.vertical
+        ? html`<ef-button
             tabIndex="-1"
             aria-hidden="true"
             icon="right"
             part="right-btn"
             @tap=${this.handleScrollRight}
-          ></ef-button>` :
-        null}
+          ></ef-button>`
+        : null}
     `;
   }
 }

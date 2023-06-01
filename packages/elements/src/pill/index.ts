@@ -1,21 +1,22 @@
 import {
-  ControlElement,
-  css,
   CSSResultGroup,
-  html,
+  ControlElement,
   PropertyValues,
   TapEvent,
-  TemplateResult
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { registerOverflowTooltip } from '../tooltip/index.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
-import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js';
-import type { Icon } from '../icon';
 
 import '../icon/index.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import { VERSION } from '../version.js';
+
+import type { Icon } from '../icon';
 
 /**
  * A small button style component
@@ -145,15 +146,15 @@ export class Pill extends ControlElement {
   }
 
   private get closeTemplate(): TemplateResult | null {
-    return this.clears && !this.readonly ?
-      html`<ef-icon
+    return this.clears && !this.readonly
+      ? html`<ef-icon
           ${ref(this.closeIconRef)}
           part="close"
           icon="cross"
           aria-hidden="true"
           @tap="${this.clear}"
-        ></ef-icon>` :
-      null;
+        ></ef-icon>`
+      : null;
   }
 
   /**

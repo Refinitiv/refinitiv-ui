@@ -1,20 +1,20 @@
 import {
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
   ControlElement,
-  PropertyValues
+  PropertyValues,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
+import { triggerResize } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
-import { triggerResize } from '@refinitiv-ui/core';
-import { VERSION } from '../version.js';
 
 import '../icon/index.js';
 import '../label/index.js';
+import { VERSION } from '../version.js';
 
 /**
  * A building block for individual tab
@@ -188,13 +188,13 @@ export class Tab extends ControlElement {
    * @returns close button template
    */
   private get CloseTemplate(): TemplateResult | null {
-    return this.clears || this.clearsOnHover ?
-      html`
+    return this.clears || this.clearsOnHover
+      ? html`
           <div part="close-container">
             <ef-icon part="close" icon="cross" @tap="${this.handleClickClear}"></ef-icon>
           </div>
-        ` :
-      null;
+        `
+      : null;
   }
 
   /**

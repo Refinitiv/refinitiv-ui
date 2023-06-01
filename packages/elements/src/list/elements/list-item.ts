@@ -1,4 +1,5 @@
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+
 import { Item } from '../../item/index.js';
 
 /**

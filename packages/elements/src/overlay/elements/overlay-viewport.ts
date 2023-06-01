@@ -1,5 +1,6 @@
-import { ResponsiveElement, css, CSSResultGroup } from '@refinitiv-ui/core';
+import { CSSResultGroup, ResponsiveElement, css } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+
 import { VERSION } from '../../version.js';
 
 /**

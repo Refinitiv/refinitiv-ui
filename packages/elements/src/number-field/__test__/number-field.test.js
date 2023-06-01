@@ -1,7 +1,6 @@
-import { fixture, expect, oneEvent, elementUpdated } from '@refinitiv-ui/test-helpers';
-
-import '@refinitiv-ui/elements/number-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
+import '@refinitiv-ui/elements/number-field';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 const dispatchTapEvent = (el) => {
   el.dispatchEvent(

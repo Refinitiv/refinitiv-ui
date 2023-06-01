@@ -1,4 +1,5 @@
-import { fixture, expect, nextFrame, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+
 import '../lib/test/test-translate';
 
 describe('Elf Translate Navigator Test', () => {

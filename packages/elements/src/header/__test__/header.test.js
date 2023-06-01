@@ -1,8 +1,7 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-
+import '@refinitiv-ui/elemental-theme/light/ef-header.js';
 // import element and theme
 import '@refinitiv-ui/elements/header';
-import '@refinitiv-ui/elemental-theme/light/ef-header.js';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('header/Header', () => {
   it('Should renders DOM structure correctly', async () => {

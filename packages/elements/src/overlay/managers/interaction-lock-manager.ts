@@ -1,6 +1,8 @@
 import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
-import type { Overlay } from '../elements/overlay';
+
 import { getOverlays } from './zindex-manager.js';
+
+import type { Overlay } from '../elements/overlay';
 
 type TouchPosition = {
   pageX: number;
@@ -395,27 +397,27 @@ export class ScrollLockManager {
 
     const checkSlice = path.slice(0, idx + 1);
 
-    const canScroll = isVerticalScroll ?
-      (element: HTMLElement): boolean => {
+    const canScroll = isVerticalScroll
+      ? (element: HTMLElement): boolean => {
         const style = window.getComputedStyle(element);
 
         if (style.overflowY === 'scroll' || style.overflowY === 'auto') {
           // delta < 0 is scroll up, delta > 0 is scroll down.
-          return deltaY < 0 ?
-            element.scrollTop > 0 :
-            element.scrollTop < element.scrollHeight - element.clientHeight;
+          return deltaY < 0
+            ? element.scrollTop > 0
+            : element.scrollTop < element.scrollHeight - element.clientHeight;
         }
 
         return false;
-      } :
-      (element: HTMLElement): boolean => {
+      }
+      : (element: HTMLElement): boolean => {
         const style = window.getComputedStyle(element);
 
         if (style.overflowX === 'scroll' || style.overflowX === 'auto') {
           // delta < 0 is scroll left, delta > 0 is scroll right.
-          return deltaX < 0 ?
-            element.scrollLeft > 0 :
-            element.scrollLeft < element.scrollWidth - element.clientWidth;
+          return deltaX < 0
+            ? element.scrollLeft > 0
+            : element.scrollLeft < element.scrollWidth - element.clientWidth;
         }
 
         return false;

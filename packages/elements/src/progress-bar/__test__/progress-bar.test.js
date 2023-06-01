@@ -1,8 +1,7 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-
+import '@refinitiv-ui/elemental-theme/light/ef-progress-bar.js';
 // import element and theme
 import '@refinitiv-ui/elements/progress-bar';
-import '@refinitiv-ui/elemental-theme/light/ef-progress-bar.js';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('progress-bar/ProgressBar', () => {
   it('DOM structure is correct', async () => {

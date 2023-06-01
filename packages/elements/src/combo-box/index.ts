@@ -1,42 +1,42 @@
 import {
-  FormFieldElement,
-  css,
   CSSResultGroup,
-  html,
+  FocusedPropertyKey,
+  FormFieldElement,
   PropertyValues,
+  StyleMap,
   TapEvent,
   TemplateResult,
   WarningNotice,
-  FocusedPropertyKey,
-  StyleMap,
-  triggerResize,
-  nothing
+  css,
+  html,
+  nothing,
+  triggerResize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { eventOptions } from '@refinitiv-ui/core/decorators/event-options.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { eventOptions } from '@refinitiv-ui/core/decorators/event-options.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
-import { VERSION } from '../version.js';
-import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
+import '@refinitiv-ui/phrasebook/locale/en/combo-box.js';
+import { TranslateDirective, translate } from '@refinitiv-ui/translate';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
-import { registerOverflowTooltip } from '../tooltip/index.js';
+import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
-import { ComboBoxRenderer } from './helpers/renderer.js';
+
+import '../counter/index.js';
+import '../icon/index.js';
+import '../list/index.js';
+import '../overlay/index.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import { VERSION } from '../version.js';
 import { defaultFilter } from './helpers/filter.js';
 import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
-import '../icon/index.js';
-import '../overlay/index.js';
-import '../list/index.js';
-import '../counter/index.js';
+import { ComboBoxRenderer } from './helpers/renderer.js';
 
 import type { ItemData } from '../item';
-import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
 import type { List } from '../list';
-
-import { translate, TranslateDirective } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/locale/en/combo-box.js';
+import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
 
 export type { ComboBoxFilter, ComboBoxData };
 export { ComboBoxRenderer };
@@ -352,9 +352,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
     // multiple mode, do according to UX specs
     const output = labels.join(MULTIPLE_LABEL_SEPARATOR);
-    return output.length > MULTIPLE_LABEL_MAX_SIZE ?
-      `${output.slice(0, MULTIPLE_LABEL_MAX_SIZE - 3)}...` :
-      output;
+    return output.length > MULTIPLE_LABEL_MAX_SIZE
+      ? `${output.slice(0, MULTIPLE_LABEL_MAX_SIZE - 3)}...`
+      : output;
   }
 
   /**
@@ -612,8 +612,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
     // Make sure that the first item is always highlighted
     if (
-      this.opened &&
-      (changedProperties.has('opened') || changedProperties.has('data') || changedProperties.has('query'))
+      this.opened
+      && (changedProperties.has('opened') || changedProperties.has('data') || changedProperties.has('query'))
     ) {
       this.highlightFirstItem();
     }
@@ -838,9 +838,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         composer.updateItemTimestamp(item);
 
         if (
-          result &&
-          groupHeaderItem &&
-          composer.getItemParent(groupHeaderItem) === composer.getItemParent(item)
+          result
+          && groupHeaderItem
+          && composer.getItemParent(groupHeaderItem) === composer.getItemParent(item)
         ) {
           composer.setItemPropertyValue(groupHeaderItem, 'hidden', false);
           composer.updateItemTimestamp(groupHeaderItem);
@@ -884,10 +884,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   protected canHighlightItem(item: T, composer: CollectionComposer<T>): boolean {
     let canHighlight = !(
-      composer.getItemPropertyValue(item, 'hidden') === true ||
-      (composer.getItemPropertyValue(item, 'type') || 'text') !== 'text' ||
-      composer.getItemPropertyValue(item, 'disabled') === true ||
-      composer.isItemLocked(item) === true
+      composer.getItemPropertyValue(item, 'hidden') === true
+      || (composer.getItemPropertyValue(item, 'type') || 'text') !== 'text'
+      || composer.getItemPropertyValue(item, 'disabled') === true
+      || composer.isItemLocked(item) === true
     );
 
     // check ancestors

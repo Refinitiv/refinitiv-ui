@@ -1,16 +1,16 @@
-import {
-  fixture,
-  expect,
-  elementUpdated,
-  oneEvent,
-  triggerFocusFor,
-  nextFrame
-} from '@refinitiv-ui/test-helpers';
-import { typeText } from './utils';
-
+import '@refinitiv-ui/elemental-theme/light/ef-datetime-picker';
 // import element and theme
 import '@refinitiv-ui/elements/datetime-picker';
-import '@refinitiv-ui/elemental-theme/light/ef-datetime-picker';
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  nextFrame,
+  oneEvent,
+  triggerFocusFor
+} from '@refinitiv-ui/test-helpers';
+
+import { typeText } from './utils';
 
 describe('datetime-picker/Value', () => {
   describe('Value Test', () => {

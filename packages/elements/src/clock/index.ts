@@ -1,40 +1,38 @@
 import {
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
+  ElementSize,
   PropertyValues,
-  WarningNotice,
-  TapEvent,
   ResponsiveElement,
-  ElementSize
+  TapEvent,
+  TemplateResult,
+  WarningNotice,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { VERSION } from '../version.js';
 import '@refinitiv-ui/phrasebook/locale/en/clock.js';
-
+import { TranslatePromise, TranslatePropertyKey, translate } from '@refinitiv-ui/translate';
 import {
-  MILLISECONDS_IN_SECOND,
-  HOURS_OF_NOON,
-  isValidTime,
-  toTimeSegment,
-  TimeFormat,
-  format,
-  padNumber,
   HOURS_IN_DAY,
+  HOURS_OF_NOON,
+  MILLISECONDS_IN_SECOND,
   MINUTES_IN_HOUR,
-  SECONDS_IN_MINUTE,
   SECONDS_IN_DAY,
   SECONDS_IN_HOUR,
-  parse
+  SECONDS_IN_MINUTE,
+  TimeFormat,
+  format,
+  isValidTime,
+  padNumber,
+  parse,
+  toTimeSegment
 } from '@refinitiv-ui/utils/date.js';
 
-import { translate, TranslatePromise, TranslatePropertyKey } from '@refinitiv-ui/translate';
-
-import { register, deRegister } from './utils/TickManager.js';
+import { VERSION } from '../version.js';
+import { deRegister, register } from './utils/TickManager.js';
 
 const SMALL_SIZE = 130; // Break point for small size clock face.
 enum Direction {
@@ -426,8 +424,8 @@ export class Clock extends ResponsiveElement {
    * @returns {void}
    */
   private shift(direction: Direction, amount: number): void {
-    this.offset =
-      (SECONDS_IN_DAY + this.offset + amount * (direction === Direction.UP ? 1 : -1)) % SECONDS_IN_DAY;
+    this.offset
+      = (SECONDS_IN_DAY + this.offset + amount * (direction === Direction.UP ? 1 : -1)) % SECONDS_IN_DAY;
     this.notifyPropertyChange('offset', this.offset);
   }
 
@@ -699,12 +697,12 @@ export class Clock extends ResponsiveElement {
 
     if (this.interactive) {
       if (
-        !this.hasUpdated ||
-        changedProperties.has('offset') ||
-        changedProperties.has('value') ||
-        changedProperties.has('showSeconds') ||
-        changedProperties.has('amPm') ||
-        changedProperties.has(TranslatePropertyKey)
+        !this.hasUpdated
+        || changedProperties.has('offset')
+        || changedProperties.has('value')
+        || changedProperties.has('showSeconds')
+        || changedProperties.has('amPm')
+        || changedProperties.has(TranslatePropertyKey)
       ) {
         void this.updateAriaValue();
       }
@@ -734,21 +732,21 @@ export class Clock extends ResponsiveElement {
    */
   protected get analogueClockTemplate(): TemplateResult {
     const secAngle = 6 * this.displaySeconds;
-    const minAngle = this.showSeconds ?
-      Number((6 * (this.displayMinutes + (1 / 60) * this.displaySeconds)).toFixed(2)) :
-      6 * this.displayMinutes;
+    const minAngle = this.showSeconds
+      ? Number((6 * (this.displayMinutes + (1 / 60) * this.displaySeconds)).toFixed(2))
+      : 6 * this.displayMinutes;
     const hourAngle = Number((30 * (this.displayHours24 + (1 / 60) * this.displayMinutes)).toFixed(2));
 
     return html`
       <div part="hands">
-        ${this.size === 'small' ?
-          html`${this.amPm ? this.amPmTemplate : undefined}` :
-          html`<div part="digital">${this.digitalClockTemplate}</div>`}
+        ${this.size === 'small'
+          ? html`${this.amPm ? this.amPmTemplate : undefined}`
+          : html`<div part="digital">${this.digitalClockTemplate}</div>`}
         <div part="hand hour" style="transform: rotate(${hourAngle}deg)"></div>
         <div part="hand minute" style="transform: rotate(${minAngle}deg)"></div>
-        ${this.showSeconds ?
-          html`<div part="hand second" style="transform: rotate(${secAngle}deg)"></div>` :
-          undefined}
+        ${this.showSeconds
+          ? html`<div part="hand second" style="transform: rotate(${secAngle}deg)"></div>`
+          : undefined}
       </div>
     `;
   }

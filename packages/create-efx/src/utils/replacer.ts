@@ -1,6 +1,6 @@
-import path from 'path';
-import fs from 'fs-extra';
 import fg from 'fast-glob';
+import fs from 'fs-extra';
+import path from 'path';
 
 /**
  * Find and replace all texts in a single file

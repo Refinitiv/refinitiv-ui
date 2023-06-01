@@ -1,8 +1,8 @@
 /**
  * A directive used to map template attributes, properties and events to element
  */
-import { Directive, directive, PartType, PartInfo, ElementPart, DirectiveResult } from 'lit/directive.js';
 import { noChange } from 'lit';
+import { Directive, DirectiveResult, ElementPart, PartInfo, PartType, directive } from 'lit/directive.js';
 
 type TemplateMap = { [key: string]: unknown };
 type VariableElement = Element & { [name: string]: unknown };
@@ -165,8 +165,8 @@ class TemplateMapDirective extends Directive {
  * }
  * @returns noChange directive result
  */
-const templateMap: (template: TemplateMap) => DirectiveResult<typeof TemplateMapDirective> =
-  directive(TemplateMapDirective);
+const templateMap: (template: TemplateMap) => DirectiveResult<typeof TemplateMapDirective>
+  = directive(TemplateMapDirective);
 
 export { templateMap };
 

@@ -20,12 +20,12 @@
     <script type="module">
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
-      import '@refinitiv-ui/elements/datetime-picker';
       import '@refinitiv-ui/elements/button';
       import '@refinitiv-ui/elements/checkbox';
-      import '@refinitiv-ui/elements/select';
+      import '@refinitiv-ui/elements/datetime-picker';
       import '@refinitiv-ui/elements/item';
       import '@refinitiv-ui/elements/radio-button';
+      import '@refinitiv-ui/elements/select';
 
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
@@ -370,6 +370,7 @@
       <ef-datetime-picker filtered range duplex></ef-datetime-picker>
       <script type="module">
         import { parse } from '@refinitiv-ui/utils/date.js';
+
         (function () {
           document.querySelectorAll('[filtered]').forEach((el) => {
             el.filter = function (date) {
@@ -405,7 +406,7 @@
         </div>
       </ef-datetime-picker>
       <script type="module">
-        import { format, DateTimeFormat } from '@refinitiv-ui/utils/date.js';
+        import { DateTimeFormat, format } from '@refinitiv-ui/utils/date.js';
 
         (function () {
           const toValues = (from, to) => [

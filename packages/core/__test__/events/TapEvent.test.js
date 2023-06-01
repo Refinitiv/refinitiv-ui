@@ -1,4 +1,5 @@
 import { expect, fixture, html, nextFrame } from '@refinitiv-ui/test-helpers';
+
 import { TapEvent } from '../../lib/events/TapEvent';
 import { isChrome } from '../helper.js';
 

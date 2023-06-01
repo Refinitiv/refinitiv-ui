@@ -1,16 +1,15 @@
+import '@refinitiv-ui/elemental-theme/light/ef-pagination';
+import '@refinitiv-ui/elements/pagination';
 import {
-  fixture,
-  expect,
+  aTimeout,
   elementUpdated,
+  expect,
+  fixture,
+  nextFrame,
   oneEvent,
   triggerFocusFor,
-  aTimeout,
-  waitUntil,
-  nextFrame
+  waitUntil
 } from '@refinitiv-ui/test-helpers';
-
-import '@refinitiv-ui/elements/pagination';
-import '@refinitiv-ui/elemental-theme/light/ef-pagination';
 
 const elementFocused = async (el) => {
   await elementUpdated(el);

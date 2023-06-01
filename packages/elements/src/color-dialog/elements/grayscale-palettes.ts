@@ -1,17 +1,18 @@
 import {
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
+  PropertyValues,
   SVGTemplateResult,
-  svg,
-  PropertyValues
+  TemplateResult,
+  css,
+  html,
+  svg
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+
 import { VERSION } from '../../version.js';
-import { Palettes } from './palettes.js';
 import { GRAYSCALE_ITEMS, NOCOLOR_POINTS } from '../helpers/color-helpers.js';
+import { Palettes } from './palettes.js';
 
 /**
  * Component that allows user to select any
@@ -94,8 +95,8 @@ export class GrayscalePalettes extends Palettes {
    * @return no color item template
    */
   private get NoColorItemTemplate(): SVGTemplateResult | null {
-    return this.allowNocolor ?
-      svg`
+    return this.allowNocolor
+      ? svg`
         <polygon
           id="nocolor-item"
           stroke="rgba(0,0,0,0.4)"
@@ -107,8 +108,8 @@ export class GrayscalePalettes extends Palettes {
         >
         </polygon>
         <line x1="15" y1="6" x2="-3" y2="17" stroke="red" stroke-width="2"></line>
-      ` :
-      null;
+      `
+      : null;
   }
 
   /**

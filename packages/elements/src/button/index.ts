@@ -1,11 +1,12 @@
-import { ControlElement, html, PropertyValues, TemplateResult } from '@refinitiv-ui/core';
+import { ControlElement, PropertyValues, TemplateResult, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../version.js';
-import { registerOverflowTooltip } from '../tooltip/index.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
+
 import '../icon/index.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import { VERSION } from '../version.js';
 
 /**
  * Use button for actions in forms, dialogs,
@@ -89,8 +90,8 @@ export class Button extends ControlElement {
     super.willUpdate(changedProperties);
 
     if (
-      (changedProperties.has('active') && this.toggles) ||
-      (changedProperties.has('toggles') && this.toggles)
+      (changedProperties.has('active') && this.toggles)
+      || (changedProperties.has('toggles') && this.toggles)
     ) {
       if (this.getAttribute('role') === 'radio') {
         this.setAttribute('aria-checked', String(this.active));

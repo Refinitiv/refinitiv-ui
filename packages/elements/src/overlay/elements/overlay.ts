@@ -1,53 +1,54 @@
 import {
-  ResponsiveElement,
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
-  PropertyValues,
   ElementSize,
+  PropertyValues,
+  ResponsiveElement,
+  TemplateResult,
+  css,
+  html,
   triggerResize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { AnimationTaskRunner, MicroTaskRunner } from '@refinitiv-ui/utils/async.js';
+
 import { VERSION } from '../../version.js';
-import { MicroTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
+import { valueOrNull, valueOrZero } from '../helpers/functions.js';
 import {
-  TransitionStyle,
-  PositionTarget,
-  Position,
   Calculated,
+  CalculatedPosition,
   DEFAULT_ALIGN,
   DEFAULT_TARGET_STRATEGY,
   NullOrUndefined,
-  SizingInfo,
+  Position,
   PositionStyle,
+  PositionTarget,
   PositionTargetStrategy,
-  CalculatedPosition,
+  SizingInfo,
   SizingInfoRect,
+  TransitionStyle,
   ViewAreaInfo
 } from '../helpers/types.js';
-import { valueOrZero, valueOrNull } from '../helpers/functions.js';
+import {
+  deregister as backdropDeregister,
+  register as backdropRegister
+} from '../managers/backdrop-manager.js';
+import { deregister as closeDeregister, register as closeRegister } from '../managers/close-manager.js';
+import {
+  deregister as focusableDeregister,
+  register as focusableRegister
+} from '../managers/focus-manager.js';
 import { applyLock } from '../managers/interaction-lock-manager.js';
 import {
-  register as viewportRegister,
+  getViewAreaInfo,
   deregister as viewportDeregister,
-  getViewAreaInfo
+  register as viewportRegister
 } from '../managers/viewport-manager.js';
 import {
-  register as zIndexRegister,
+  toFront,
   deregister as zIndexDeregister,
-  toFront
+  register as zIndexRegister
 } from '../managers/zindex-manager.js';
-import {
-  register as backdropRegister,
-  deregister as backdropDeregister
-} from '../managers/backdrop-manager.js';
-import { register as closeRegister, deregister as closeDeregister } from '../managers/close-manager.js';
-import {
-  register as focusableRegister,
-  deregister as focusableDeregister
-} from '../managers/focus-manager.js';
 
 export type { TransitionStyle, PositionTarget, Position, PositionTargetStrategy };
 
@@ -803,8 +804,8 @@ export class Overlay extends ResponsiveElement {
       });
     }
 
-    const enablingFocusManagement =
-      (opening && !this.noFocusManagement) || (opened && !!changedProperties.get('noFocusManagement'));
+    const enablingFocusManagement
+      = (opening && !this.noFocusManagement) || (opened && !!changedProperties.get('noFocusManagement'));
     const disablingFocusManagement = opened && changedProperties.get('noFocusManagement') === false;
     if (enablingFocusManagement) {
       focusableRegister(this);
@@ -813,16 +814,16 @@ export class Overlay extends ResponsiveElement {
     }
 
     if (
-      opening ||
-      changedProperties.has('noInteractionLock') ||
-      changedProperties.has('lockPositionTarget') ||
-      changedProperties.has('interactiveElements')
+      opening
+      || changedProperties.has('noInteractionLock')
+      || changedProperties.has('lockPositionTarget')
+      || changedProperties.has('interactiveElements')
     ) {
       applyLock();
     }
 
-    const enablingBackdrop =
-      (opening && this.withBackdrop) || (opened && changedProperties.get('withBackdrop') === false);
+    const enablingBackdrop
+      = (opening && this.withBackdrop) || (opened && changedProperties.get('withBackdrop') === false);
     const disablingBackdrop = opened && !!changedProperties.get('withBackdrop');
     if (enablingBackdrop) {
       backdropRegister(this);
@@ -1223,8 +1224,8 @@ export class Overlay extends ResponsiveElement {
     const positionList = positionTargetConfig.position;
     const horizontalOffset = this.horizontalOffset;
     const verticalOffset = this.verticalOffset;
-    const positionHorizontalOffset =
-      horizontalOffset + this.offset; /* these offset are used with optional offset against the target */
+    const positionHorizontalOffset
+      = horizontalOffset + this.offset; /* these offset are used with optional offset against the target */
     const positionVerticalOffset = verticalOffset + this.offset;
 
     this.limitToViewArea();
@@ -1235,11 +1236,11 @@ export class Overlay extends ResponsiveElement {
 
     const calculatedPositionList: CalculatedPosition[] = [];
 
-    const isOutsideView =
-      targetRect.bottom < 0 ||
-      targetRect.top > viewHeight ||
-      targetRect.right < 0 ||
-      targetRect.left > viewWidth; /* position target is outside view */
+    const isOutsideView
+      = targetRect.bottom < 0
+      || targetRect.top > viewHeight
+      || targetRect.right < 0
+      || targetRect.left > viewWidth; /* position target is outside view */
 
     const canAlignPosition = (isVertical: boolean, align: string): PositionStyle & { canAlign: boolean } => {
       if (isVertical) {
@@ -1322,10 +1323,10 @@ export class Overlay extends ResponsiveElement {
           const align = strategy[Alignment];
 
           if (
-            (isVertical && isBefore && position === 'bottom') ||
-            (isVertical && !isBefore && position === 'top') ||
-            (!isVertical && isBefore && position === 'right') ||
-            (!isVertical && !isBefore && position === 'left')
+            (isVertical && isBefore && position === 'bottom')
+            || (isVertical && !isBefore && position === 'top')
+            || (!isVertical && isBefore && position === 'right')
+            || (!isVertical && !isBefore && position === 'left')
           ) {
             return align;
           }
@@ -1515,23 +1516,23 @@ export class Overlay extends ResponsiveElement {
 
     const getNewPosition = (): PositionStyle => {
       if (isVertical) {
-        return position === 'bottom' ?
-          {
+        return position === 'bottom'
+          ? {
             bottom: 0 /* position bottom-up */,
             top: null
-          } :
-          {
+          }
+          : {
             bottom: null,
             top: 0 /* position up-bottom */
           };
       }
 
-      return position === 'right' ?
-        {
+      return position === 'right'
+        ? {
           right: 0 /* position right-left */,
           left: null
-        } :
-        {
+        }
+        : {
           right: null,
           left: 0 /* position left-right */
         };

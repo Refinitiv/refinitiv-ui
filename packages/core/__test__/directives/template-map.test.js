@@ -1,7 +1,8 @@
 import { elementUpdated, expect, fixture, html } from '@refinitiv-ui/test-helpers';
-import { BasicElement } from '../../lib/elements/BasicElement';
+
 import { customElement } from '../../lib/decorators/custom-element';
 import { templateMap } from '../../lib/directives/template-map';
+import { BasicElement } from '../../lib/elements/BasicElement';
 
 class TemplateMapTest extends BasicElement {
   static properties = {

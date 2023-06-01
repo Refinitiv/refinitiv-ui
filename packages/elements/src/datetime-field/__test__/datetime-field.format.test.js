@@ -1,10 +1,10 @@
-import { fixture, expect, elementUpdated, replaceWhitespace } from '@refinitiv-ui/test-helpers';
-import { isSafari } from '@refinitiv-ui/utils';
-import { inputValue } from './utils';
-
+import '@refinitiv-ui/elemental-theme/light/ef-datetime-field';
 // import element and theme
 import '@refinitiv-ui/elements/datetime-field';
-import '@refinitiv-ui/elemental-theme/light/ef-datetime-field';
+import { elementUpdated, expect, fixture, replaceWhitespace } from '@refinitiv-ui/test-helpers';
+import { isSafari } from '@refinitiv-ui/utils';
+
+import { inputValue } from './utils';
 
 describe('datetime-field/Format', () => {
   it('Check default format for en-gb', async () => {

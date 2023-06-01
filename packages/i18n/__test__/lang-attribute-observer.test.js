@@ -1,4 +1,5 @@
-import { fixture, expect, nextFrame } from '@refinitiv-ui/test-helpers';
+import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+
 import { LangAttributeObserver } from '../lib/index';
 
 describe('Lang attribute observer', () => {

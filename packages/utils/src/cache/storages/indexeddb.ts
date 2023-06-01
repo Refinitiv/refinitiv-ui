@@ -1,9 +1,11 @@
 import { openDB } from 'idb';
-import type { DBSchema, IDBPDatabase } from 'idb';
-import type { CacheMap } from '../interfaces/CacheMap';
-import type { CacheItem } from '../interfaces/CacheItem';
-import type { CacheStorage } from '../interfaces/CacheStorage';
+
 import { DatabasePrefix } from '../constants.js';
+
+import type { CacheItem } from '../interfaces/CacheItem';
+import type { CacheMap } from '../interfaces/CacheMap';
+import type { CacheStorage } from '../interfaces/CacheStorage';
+import type { DBSchema, IDBPDatabase } from 'idb';
 
 type DBName = `[${DatabasePrefix.DEFAULT}][${string}]`;
 

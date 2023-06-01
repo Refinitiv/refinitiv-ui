@@ -15,13 +15,11 @@ npm install @refinitiv-ui/translate
 A typical element configuration may look as follows.
 
 ```ts
-import { BasicElement, html, customElement, TemplateResult, property } from '@refinitiv-ui/core';
-
-// translate decorator
-import { translate, TranslateDirective, TranslatePromise } from '@refinitiv-ui/translate';
-
+import { BasicElement, TemplateResult, customElement, html, property } from '@refinitiv-ui/core';
 // import default English language
 import '@refinitiv-ui/phrasebook/locale/en/my-translate-element.js';
+// translate decorator
+import { TranslateDirective, TranslatePromise, translate } from '@refinitiv-ui/translate';
 
 @customElement('my-translate-element')
 export class MyTranslateElement extends BasicElement {

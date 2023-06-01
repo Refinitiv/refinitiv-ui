@@ -1,13 +1,12 @@
 /**
  * A test element to verify bindings
  */
-import { BasicElement, html, css, CSSResult, TemplateResult } from '@refinitiv-ui/core';
+import { BasicElement, CSSResult, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 
-import { translate, TranslatePromise } from '../translate.js';
-
-import './test-nested-translate.js';
+import { TranslatePromise, translate } from '../translate.js';
 import './phrasebook.js';
+import './test-nested-translate.js';
 
 @customElement('test-promise', { theme: false })
 export class TestPromise extends BasicElement {

@@ -1,6 +1,6 @@
-import { fixture, expect, elementUpdated, nextFrame, replaceWhitespace } from '@refinitiv-ui/test-helpers';
-import '../lib/test/test-translate';
+import { elementUpdated, expect, fixture, nextFrame, replaceWhitespace } from '@refinitiv-ui/test-helpers';
 
+import '../lib/test/test-translate';
 import { getHTMLContent } from './utils';
 
 describe('Elf Translate Element Lang Test', () => {

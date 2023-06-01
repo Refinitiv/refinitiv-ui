@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-import path from 'node:path';
 import { defaultReporter } from '@web/test-runner';
-import { ROOT, PACKAGES_ROOT } from './scripts/helpers/esm.mjs';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { Buffer } from 'node:buffer';
+import path from 'node:path';
+
+import { PACKAGES_ROOT, ROOT } from './scripts/helpers/esm.mjs';
 
 // Workaround for issue UTF-8 wide characters are unsupported
 // from https://github.com/modernweb-dev/web/issues/1888

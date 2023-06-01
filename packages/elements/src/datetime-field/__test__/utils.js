@@ -1,4 +1,4 @@
-import { triggerFocusFor, nextFrame } from '@refinitiv-ui/test-helpers';
+import { nextFrame, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 
 const inputValue = (el) => el.inputValue; // Access private property
 const inputElement = (el) => el.inputElement; // Access private property

@@ -1,23 +1,25 @@
 import {
-  ControlElement,
-  css,
   CSSResultGroup,
-  html,
-  nothing,
+  ControlElement,
   MultiValue,
+  PropertyValues,
   TemplateResult,
-  PropertyValues
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+
+import '../pill/index.js';
+import '../text-field/index.js';
+import { VERSION } from '../version.js';
+
 import type { Pill } from '../pill';
 import type { TextField } from '../text-field';
 import type { MultiInputData, MultiInputDataItem, MultiInputEvents, SelectionIndex } from './helpers/types';
-import '../pill/index.js';
-import '../text-field/index.js';
 
 export type { MultiInputData, MultiInputDataItem };
 

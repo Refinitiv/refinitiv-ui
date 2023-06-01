@@ -1,11 +1,11 @@
-import { BasicElement, html, css, TemplateResult, CSSResultGroup, PropertyValues } from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { translate, Translate } from '@refinitiv-ui/translate';
-import { VERSION } from '../../version.js';
 import '@refinitiv-ui/phrasebook/locale/en/notification.js';
+import { Translate, translate } from '@refinitiv-ui/translate';
 
 import '../../icon/index.js';
+import { VERSION } from '../../version.js';
 
 /**
  * Used to show informative content when something happens in the application

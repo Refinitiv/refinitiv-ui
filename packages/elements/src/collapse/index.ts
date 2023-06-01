@@ -1,23 +1,25 @@
 import {
   BasicElement,
-  css,
   CSSResultGroup,
-  nothing,
-  html,
   PropertyValues,
+  TapEvent,
   TemplateResult,
-  TapEvent
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js';
-import type { Panel } from '../panel/index.js';
-import { preload } from '../icon/index.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
+
 import '../header/index.js';
-import '../panel/index.js';
+import { preload } from '../icon/index.js';
 import '../icon/index.js';
+import '../panel/index.js';
+import { VERSION } from '../version.js';
+
+import type { Panel } from '../panel/index.js';
 
 preload('right'); /* preload calendar icons for faster loading */
 

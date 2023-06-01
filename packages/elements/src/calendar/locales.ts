@@ -1,4 +1,5 @@
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
+
 import { CalendarLocaleScope } from './constants.js';
 
 // While Intl can support literally all world languages

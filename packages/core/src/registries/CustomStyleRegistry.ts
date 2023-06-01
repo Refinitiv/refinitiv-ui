@@ -1,5 +1,6 @@
 import { DuplicateStyleError } from '../errors/DuplicateStyleError.js';
 import { ready } from '../utils/elementReady.js';
+
 const register = new Map<string, string>();
 
 /**

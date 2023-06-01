@@ -1,8 +1,7 @@
-import { fixture, expect, html, oneEvent, elementUpdated } from '@refinitiv-ui/test-helpers';
-
+import '@refinitiv-ui/elemental-theme/light/ef-button-bar';
 import { Button } from '@refinitiv-ui/elements/button';
 import { ButtonBar } from '@refinitiv-ui/elements/button-bar';
-import '@refinitiv-ui/elemental-theme/light/ef-button-bar';
+import { elementUpdated, expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
 
 const keyArrowLeft = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
 const keyArrowRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });

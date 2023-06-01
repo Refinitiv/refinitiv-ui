@@ -1,7 +1,9 @@
-import type { Overlay } from '../elements/overlay';
+import { FocusableHelper, isBasicElement } from '@refinitiv-ui/core';
 import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
+
 import { getOverlays } from './zindex-manager.js';
-import { isBasicElement, FocusableHelper } from '@refinitiv-ui/core';
+
+import type { Overlay } from '../elements/overlay';
 
 type ActiveTabbableNodes = {
   nodes: HTMLElement[];
@@ -14,8 +16,8 @@ type ActiveTabbableNodes = {
  * @returns {void}
  */
 export class FocusManager {
-  private focusThrottler =
-    new AnimationTaskRunner(); /* used to delay focus to give time for overlay to show up */
+  private focusThrottler
+    = new AnimationTaskRunner(); /* used to delay focus to give time for overlay to show up */
   private registry = new Set<Overlay>();
   private restoreFocusElement: HTMLElement | null = null; /* used to restore focus on close */
   private lastFocused = new WeakMap<Overlay, HTMLElement>(); /* used to store last focused item */
@@ -112,9 +114,9 @@ export class FocusManager {
     }
 
     if (
-      !activeElement ||
-      activeElement === nodes[nodes.length - 1] ||
-      !this.isFocusBoundaryDescendant(activeElement)
+      !activeElement
+      || activeElement === nodes[nodes.length - 1]
+      || !this.isFocusBoundaryDescendant(activeElement)
     ) {
       return nodes[0];
     }
@@ -137,16 +139,16 @@ export class FocusManager {
     let node = element.assignedSlot || element.parentNode;
     while (node) {
       if (
-        (node instanceof HTMLElement || node instanceof ShadowRoot) &&
-        focusBoundaryElements.includes(node)
+        (node instanceof HTMLElement || node instanceof ShadowRoot)
+        && focusBoundaryElements.includes(node)
       ) {
         return true;
       }
       // parenNode is not defined if the node is inside document fragment. Use host instead
-      node =
-        node.nodeType === Node.DOCUMENT_FRAGMENT_NODE ?
-          (node as ShadowRoot).host :
-          (node as Element).assignedSlot || node.parentNode;
+      node
+        = node.nodeType === Node.DOCUMENT_FRAGMENT_NODE
+          ? (node as ShadowRoot).host
+          : (node as Element).assignedSlot || node.parentNode;
     }
 
     return false;
@@ -185,8 +187,8 @@ export class FocusManager {
 
   public register(overlay: Overlay): void {
     if (!this.registry.size) {
-      this.restoreFocusElement =
-        this.getActiveElement(); /* store this only once, as overlay order may change */
+      this.restoreFocusElement
+        = this.getActiveElement(); /* store this only once, as overlay order may change */
       document.addEventListener('keydown', this.onDocumentKeyDown, { capture: true });
     }
 
@@ -225,8 +227,8 @@ export class FocusManager {
         // the next available overlay (top overlay)
         const topOverlay = this.overlays[0];
         if (topOverlay) {
-          const focusNode =
-            this.lastFocused.get(topOverlay) || this.getTabbableElements(topOverlay)[0] || topOverlay;
+          const focusNode
+            = this.lastFocused.get(topOverlay) || this.getTabbableElements(topOverlay)[0] || topOverlay;
           this.focusThrottler.schedule(() => {
             if (!topOverlay.opened) {
               // It is possible that overlay gets closed during throttling

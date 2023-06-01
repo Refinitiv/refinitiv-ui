@@ -1,18 +1,19 @@
 import {
-  html,
-  css,
   CSSResultGroup,
   ControlElement,
-  TemplateResult,
   PropertyValues,
-  TapEvent
+  TapEvent,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js';
+
 import { registerOverflowTooltip } from '../tooltip/index.js';
-import { applyRegistry, removeFromRegistry, getRadioGroup } from './radio-button-registry.js';
+import { VERSION } from '../version.js';
+import { applyRegistry, getRadioGroup, removeFromRegistry } from './radio-button-registry.js';
 
 /**
  * Basic radio button
@@ -131,9 +132,9 @@ export class RadioButton extends ControlElement {
 
     // Ensure only one radio button is checked
     if (
-      this.isConnected &&
-      this.hasUpdated &&
-      (changedProperties.has('checked') || changedProperties.has('name'))
+      this.isConnected
+      && this.hasUpdated
+      && (changedProperties.has('checked') || changedProperties.has('name'))
     ) {
       this.manageGroupState();
     }

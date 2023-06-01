@@ -1,7 +1,8 @@
-import { css, html, CSSResultGroup, TemplateResult, BasicElement, PropertyValues } from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
+
 import { VERSION } from '../version.js';
 
 /**

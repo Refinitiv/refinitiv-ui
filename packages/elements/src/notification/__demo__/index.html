@@ -93,7 +93,7 @@
     </script>
 
     <script type="module">
-      import { info, confirm, warn, error } from '@refinitiv-ui/elements/notification';
+      import { confirm, error, info, warn } from '@refinitiv-ui/elements/notification';
 
       document.querySelector('[tray]').addEventListener('click', (e) => info(e.target.message));
       document.querySelector('[tray][confirm]').addEventListener('click', (e) => confirm(e.target.message));

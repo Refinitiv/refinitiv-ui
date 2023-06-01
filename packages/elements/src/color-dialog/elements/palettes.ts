@@ -1,8 +1,9 @@
-import { BasicElement, svg, SVGTemplateResult } from '@refinitiv-ui/core';
+import { BasicElement, SVGTemplateResult, svg } from '@refinitiv-ui/core';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { isHex, rgb } from '@refinitiv-ui/utils/color.js';
+
 import { VERSION } from '../../version.js';
-import { rgb, isHex } from '@refinitiv-ui/utils/color.js';
 
 /**
  * Element base class usually used

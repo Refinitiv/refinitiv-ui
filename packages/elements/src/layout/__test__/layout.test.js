@@ -1,16 +1,15 @@
-import {
-  fixture,
-  assert,
-  expect,
-  aTimeout,
-  oneEvent,
-  elementUpdated,
-  waitUntil
-} from '@refinitiv-ui/test-helpers';
-
+import '@refinitiv-ui/elemental-theme/light/ef-layout.js';
 // import element and theme
 import '@refinitiv-ui/elements/layout';
-import '@refinitiv-ui/elemental-theme/light/ef-layout.js';
+import {
+  aTimeout,
+  assert,
+  elementUpdated,
+  expect,
+  fixture,
+  oneEvent,
+  waitUntil
+} from '@refinitiv-ui/test-helpers';
 
 describe('layout/Layout', function () {
   const defaultLayout = '<ef-layout></ef-layout>';

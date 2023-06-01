@@ -1,38 +1,40 @@
 import {
-  ControlElement,
-  html,
-  css,
-  nothing,
-  TemplateResult,
   CSSResultGroup,
-  PropertyValues
+  ControlElement,
+  PropertyValues,
+  TemplateResult,
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
-import { guard } from '@refinitiv-ui/core/directives/guard.js';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import type { ValueChangedEvent, FocusedChangedEvent } from '../events';
-import { VERSION } from '../version.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
+import { guard } from '@refinitiv-ui/core/directives/guard.js';
+import '@refinitiv-ui/phrasebook/locale/en/time-picker.js';
+import { TranslateDirective, translate } from '@refinitiv-ui/translate';
 import {
-  isValidTime,
-  toTimeSegment,
+  MILLISECONDS_IN_HOUR,
+  MILLISECONDS_IN_MINUTE,
+  MILLISECONDS_IN_SECOND,
   TimeFormat,
-  getFormat,
+  addOffset,
   format,
+  getFormat,
   isAM,
   isPM,
-  MILLISECONDS_IN_SECOND,
-  MILLISECONDS_IN_MINUTE,
-  MILLISECONDS_IN_HOUR,
-  addOffset,
+  isValidTime,
   padNumber,
-  parse
+  parse,
+  toTimeSegment
 } from '@refinitiv-ui/utils/date.js';
+
 import '../number-field/index.js';
+import { VERSION } from '../version.js';
+
+import type { FocusedChangedEvent, ValueChangedEvent } from '../events';
 import type { NumberField } from '../number-field';
-import { translate, TranslateDirective } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/locale/en/time-picker.js';
 
 enum Segment {
   HOURS = 'hours',
@@ -319,12 +321,12 @@ export class TimePicker extends ControlElement {
     const _hours = this.hours;
     let hours = _hours;
     if (_hours !== null) {
-      hours =
-        this.amPm && _hours > HOURS_OF_NOON ?
-          _hours - HOURS_OF_NOON :
-          this.amPm && !_hours ?
-            HOURS_OF_NOON :
-            _hours;
+      hours
+        = this.amPm && _hours > HOURS_OF_NOON
+          ? _hours - HOURS_OF_NOON
+          : this.amPm && !_hours
+            ? HOURS_OF_NOON
+            : _hours;
     }
 
     return hours;
@@ -461,9 +463,9 @@ export class TimePicker extends ControlElement {
         this.minutes = 0;
       }
       if (
-        this.isShowSeconds &&
-        this.seconds === null &&
-        (segment === Segment.HOURS || segment === Segment.MINUTES)
+        this.isShowSeconds
+        && this.seconds === null
+        && (segment === Segment.HOURS || segment === Segment.MINUTES)
       ) {
         this.seconds = 0;
       }
@@ -818,8 +820,8 @@ export class TimePicker extends ControlElement {
    */
   public toggle(): void {
     if (this.amPm) {
-      const hours =
-        this.hours === null ? new Date().getHours() : (this.hours + HOURS_IN_DAY / 2) % HOURS_IN_DAY;
+      const hours
+        = this.hours === null ? new Date().getHours() : (this.hours + HOURS_IN_DAY / 2) % HOURS_IN_DAY;
       this.setSegmentAndNotify(Segment.HOURS, hours);
     }
   }
@@ -933,8 +935,8 @@ export class TimePicker extends ControlElement {
   private get getAmPmHtml(): TemplateResult | null {
     const hasHours = this.hours !== null;
 
-    return this.amPm ?
-      html`
+    return this.amPm
+      ? html`
           <div
             role="listbox"
             aria-label="${this.t('TOGGLE_TIME_PERIOD')}"
@@ -963,8 +965,8 @@ export class TimePicker extends ControlElement {
               PM
             </div>
           </div>
-        ` :
-      null;
+        `
+      : null;
   }
 
   /**

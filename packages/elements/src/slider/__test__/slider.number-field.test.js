@@ -1,7 +1,6 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-
-import '@refinitiv-ui/elements/slider';
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
+import '@refinitiv-ui/elements/slider';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 const getNumberField = (el, name) => el.shadowRoot.querySelector(`ef-number-field[name=${name}]`);
 

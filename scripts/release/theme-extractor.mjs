@@ -1,11 +1,11 @@
 #!/usr/bin/env node
+import fg from 'fast-glob';
 import fs from 'node:fs';
 import path from 'node:path';
-import fg from 'fast-glob';
-import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
+import yargs from 'yargs/yargs';
 
-import { log, errorHandler, success, ROOT } from '../helpers/esm.mjs';
+import { ROOT, errorHandler, log, success } from '../helpers/esm.mjs';
 import { ELEMENT_DIST, getElementList, getElementTagName, normalizePathSeparators } from './util.cjs';
 
 // Element package scope

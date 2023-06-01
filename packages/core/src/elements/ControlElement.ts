@@ -1,8 +1,9 @@
+import { property } from '../decorators/property.js';
+import { WarningNotice } from '../notices/WarningNotice.js';
+import { BasicElement } from './BasicElement.js';
+
 import type { ControlProperties as IControlProperties } from '../interfaces/ControlProperties';
 import type { PropertyValues } from 'lit';
-import { property } from '../decorators/property.js';
-import { BasicElement } from './BasicElement.js';
-import { WarningNotice } from '../notices/WarningNotice.js';
 
 /**
  * Control element base class.

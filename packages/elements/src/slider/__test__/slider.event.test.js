@@ -1,10 +1,9 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-
-import '@refinitiv-ui/elements/slider';
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
-
-import { tabSliderPosition, calculateValue } from './utils';
+import '@refinitiv-ui/elements/slider';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 import { isMobile } from '@refinitiv-ui/utils';
+
+import { calculateValue, tabSliderPosition } from './utils';
 
 const isDragging = (el) => el.dragging;
 const getSliderTrackElement = (el) => el.sliderRef.value;

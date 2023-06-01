@@ -1,5 +1,5 @@
-import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import type { TreeDataItem } from '../helpers/types';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 export enum CheckedState {
   CHECKED = 1,
@@ -253,9 +253,9 @@ export class TreeManager<T extends TreeDataItem> {
    */
   public isItemCheckable(item: T): boolean {
     return (
-      !this.composer.isItemLocked(item) &&
-      this.composer.getItemPropertyValue(item, 'disabled') !== true &&
-      this.composer.getItemPropertyValue(item, 'readonly') !== true
+      !this.composer.isItemLocked(item)
+      && this.composer.getItemPropertyValue(item, 'disabled') !== true
+      && this.composer.getItemPropertyValue(item, 'readonly') !== true
     );
   }
 

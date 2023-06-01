@@ -1,18 +1,18 @@
-import {
-  fixture,
-  fixtureSync,
-  expect,
-  elementUpdated,
-  oneEvent,
-  nextFrame,
-  aTimeout
-} from '@refinitiv-ui/test-helpers';
-
+import '@refinitiv-ui/elemental-theme/light/ef-interactive-chart.js';
 // import element and theme
 import { InteractiveChart } from '@refinitiv-ui/elements/interactive-chart';
-import '@refinitiv-ui/elemental-theme/light/ef-interactive-chart.js';
+import {
+  aTimeout,
+  elementUpdated,
+  expect,
+  fixture,
+  fixtureSync,
+  nextFrame,
+  oneEvent
+} from '@refinitiv-ui/test-helpers';
+import { isMobile, isSafari } from '@refinitiv-ui/utils';
+
 import * as mockConfig from './mock-config.js';
-import { isSafari, isMobile } from '@refinitiv-ui/utils';
 
 describe('interactive-chart/InteractiveChart', () => {
   const generateData = function (total, start, init) {

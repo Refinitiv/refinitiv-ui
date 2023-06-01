@@ -1,7 +1,7 @@
-import { BasicElement } from './BasicElement.js';
-
 // If ResizeObserver native API works fine, this package should be removed in future
 import { ResizeObserver as PolyfillResizeObserver } from '@juggle/resize-observer';
+
+import { BasicElement } from './BasicElement.js';
 
 export type ElementSize = {
   width: number;
@@ -73,10 +73,10 @@ const entriesResize = (entries: ResizeObserverEntry[]): void => {
  * Global resize observer,
  * used to watch changes in element dimensions
  */
-const resizeObserver =
-  typeof ResizeObserver === 'function' ?
-    new ResizeObserver(entriesResize) :
-    new PolyfillResizeObserver(entriesResize);
+const resizeObserver
+  = typeof ResizeObserver === 'function'
+    ? new ResizeObserver(entriesResize)
+    : new PolyfillResizeObserver(entriesResize);
 
 /**
  * Responsive element base class.

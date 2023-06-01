@@ -1,39 +1,40 @@
 import {
-  ResponsiveElement,
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
-  PropertyValues
+  PropertyValues,
+  ResponsiveElement,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js';
 import { MicroTaskRunner } from '@refinitiv-ui/utils/async.js';
-import { color, ColorCommonInstance } from '@refinitiv-ui/utils/color.js';
+import { ColorCommonInstance, color } from '@refinitiv-ui/utils/color.js';
 
 import '../canvas/index.js';
-import type { Canvas } from '../canvas';
 import '../tooltip/index.js';
-
+import { VERSION } from '../version.js';
+import { blend, brighten, darken, interpolate, isLight } from './helpers/color.js';
+import { MIN_FONT_SIZE, getMaximumTextWidth, getResponsiveFontSize } from './helpers/text.js';
 import { Track } from './helpers/track.js';
-import { blend, brighten, darken, isLight, interpolate } from './helpers/color.js';
-import { getResponsiveFontSize, getMaximumTextWidth, MIN_FONT_SIZE } from './helpers/text.js';
+
+import type { Canvas } from '../canvas';
+// ratio — 4:3
+import type {
+  HeatmapCell,
+  HeatmapConfig,
+  HeatmapCustomisableProperties,
+  HeatmapRenderCallback,
+  HeatmapTooltipCallback,
+  HeatmapXAxis,
+  HeatmapYAxis
+} from './helpers/types';
 
 const CELL_PADDING = 0.12;
 const CELL_MAX_TEXT_WIDTH = 1 - CELL_PADDING;
 const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
 
-import type {
-  HeatmapXAxis,
-  HeatmapCell,
-  HeatmapConfig,
-  HeatmapYAxis,
-  HeatmapCustomisableProperties,
-  HeatmapTooltipCallback,
-  HeatmapRenderCallback
-} from './helpers/types';
 export type {
   HeatmapXAxis,
   HeatmapCell,
@@ -414,14 +415,14 @@ export class Heatmap extends ResponsiveElement {
 
     // Re-paints whole canvas when at least one of the following properties changes
     if (
-      changedProperties.has('config') ||
-      changedProperties.has('blend') ||
-      changedProperties.has('minPoint') ||
-      changedProperties.has('midPoint') ||
-      changedProperties.has('maxPoint') ||
-      changedProperties.has('saturation') ||
-      changedProperties.has('axisHidden') ||
-      changedProperties.has('labelWidth')
+      changedProperties.has('config')
+      || changedProperties.has('blend')
+      || changedProperties.has('minPoint')
+      || changedProperties.has('midPoint')
+      || changedProperties.has('maxPoint')
+      || changedProperties.has('saturation')
+      || changedProperties.has('axisHidden')
+      || changedProperties.has('labelWidth')
     ) {
       this.prepareAndPaint();
     }
@@ -443,8 +444,8 @@ export class Heatmap extends ResponsiveElement {
   /* c8 ignore start */
   private onMouseMove(event: MouseEvent): void {
     if (
-      event.composedPath().includes(this.canvas) ||
-      (this.tooltipCallback && this.tooltipOverlay === event.target)
+      event.composedPath().includes(this.canvas)
+      || (this.tooltipCallback && this.tooltipOverlay === event.target)
     ) {
       this.hoverCell = this.hitTest(event);
     } else {
@@ -886,17 +887,17 @@ export class Heatmap extends ResponsiveElement {
     canvas.textBaseline = 'middle';
     canvas.font = `${fontSize}px ${fontFamily}`;
 
-    let isWithinMinCellWidth =
-      (this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth <=
-      CELL_MAX_TEXT_WIDTH;
+    let isWithinMinCellWidth
+      = (this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth
+      <= CELL_MAX_TEXT_WIDTH;
 
     // Tries to get the largest possible font size that is within `CELL_MAX_TEXT_WIDTH`
     if (!isWithinMinCellWidth && fontSize !== MIN_FONT_SIZE) {
       while (!isWithinMinCellWidth) {
         canvas.font = `${fontSize}px ${fontFamily}`; // Should assigned new font size to canvas before calculated again.
-        isWithinMinCellWidth =
-          (this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth <=
-          CELL_MAX_TEXT_WIDTH;
+        isWithinMinCellWidth
+          = (this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth
+          <= CELL_MAX_TEXT_WIDTH;
 
         // Stops when reaches minimum font-size
         if (fontSize === MIN_FONT_SIZE) {
@@ -909,9 +910,9 @@ export class Heatmap extends ResponsiveElement {
       }
     }
 
-    const isWithinMinCellHeight = this.hasCellHeader ?
-      fontSize * 2 < contentHeight :
-      fontSize < contentHeight;
+    const isWithinMinCellHeight = this.hasCellHeader
+      ? fontSize * 2 < contentHeight
+      : fontSize < contentHeight;
 
     this.contentWithinCellBoundary = isWithinMinCellWidth && isWithinMinCellHeight;
     return this.contentWithinCellBoundary;
@@ -1317,23 +1318,23 @@ export class Heatmap extends ResponsiveElement {
   protected render(): TemplateResult {
     return html`
       <div id="container" @mousemove=${this.onMouseMove} @mouseleave=${this.onMouseLeave}>
-        ${this.config?.yAxis && !this.axisHidden ?
-          html` <div id="y-axis-container">
+        ${this.config?.yAxis && !this.axisHidden
+          ? html` <div id="y-axis-container">
               <div part="cross-box"></div>
               <div part="y-axis"></div>
-            </div>` :
-          null}
+            </div>`
+          : null}
         <div id="canvas-container">
           ${this.config?.xAxis && !this.axisHidden ? html`<div part="x-axis"></div>` : null}
           <ef-canvas part="canvas" @resize=${this.onCanvasResize}></ef-canvas>
           ${this.tooltipCallback ? html`<div id="tooltip-overlay"></div>` : null}
         </div>
       </div>
-      ${this.tooltipCallback ?
-        html`
+      ${this.tooltipCallback
+        ? html`
             <ef-tooltip .condition=${this.tooltipCondition} .renderer=${this.tooltipRenderer}></ef-tooltip>
-          ` :
-        null}
+          `
+        : null}
     `;
   }
 }

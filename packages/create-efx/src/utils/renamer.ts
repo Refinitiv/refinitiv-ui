@@ -1,6 +1,7 @@
-import path from 'path';
-import fs from 'fs-extra';
 import fg from 'fast-glob';
+import fs from 'fs-extra';
+import path from 'path';
+
 import replacer from './replacer.js';
 
 /**

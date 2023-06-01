@@ -1,21 +1,22 @@
-import { fixture, elementUpdated, expect } from '@refinitiv-ui/test-helpers';
+import '@refinitiv-ui/elemental-theme/light/ef-flag';
 // import element and theme
 import '@refinitiv-ui/elements/flag';
-import '@refinitiv-ui/elemental-theme/light/ef-flag';
 import { preload } from '@refinitiv-ui/elements/flag';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import sinon from 'sinon';
 
 import {
-  createMockSrc,
-  generateUniqueName,
-  flagName,
-  gbSvg,
   checkRequestedUrl,
   createFakeResponse,
-  responseConfigSuccess,
+  createMockSrc,
+  flagName,
+  gbSvg,
+  generateUniqueName,
+  isEqualSvg,
   responseConfigError,
-  isEqualSvg
+  responseConfigSuccess
 } from './helpers/helpers.js';
-import sinon from 'sinon';
 
 describe('flag/Flag', () => {
   let fetch;

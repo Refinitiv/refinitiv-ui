@@ -1,5 +1,7 @@
-import { expect, aTimeout } from '@refinitiv-ui/test-helpers';
+import { aTimeout, expect } from '@refinitiv-ui/test-helpers';
+
 import IntlMessageFormat from 'intl-messageformat';
+
 import { Memoiser } from '../lib/memoiser';
 
 const scope = 'memoiser-test';

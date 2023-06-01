@@ -1,24 +1,34 @@
 /**
  * A list of shared functions across date, datetime and time
  */
-
 import {
   Format as DateFormat,
-  InputFormat as InputDateFormat,
   Segment as DateSegment,
+  InputFormat as InputDateFormat,
   format as formatDate,
   getFormat as getDateFormat,
+  getDaysInMonth,
   isValid as isValidDate,
   parse as parseDate,
   toSegment as toDateSegment,
   utcFormat as utcFormatDate,
-  utcParse as utcParseDate,
-  getDaysInMonth
+  utcParse as utcParseDate
 } from './date.js';
-
 import {
-  Format as TimeFormat,
+  Format as DateTimeFormat,
+  Segment as DateTimeSegment,
+  InputFormat as InputDateTimeFormat,
+  format as formatDateTime,
+  getFormat as getDateTimeFormat,
+  isValid as isValidDateTime,
+  parse as parseDateTime,
+  toSegment as toDateTimeSegment,
+  utcFormat as utcFormatDateTime,
+  utcParse as utcParseDateTime
+} from './datetime.js';
+import {
   InputFormat as InputTimeFormat,
+  Format as TimeFormat,
   Segment as TimeSegment,
   format as formatTime,
   getFormat as getTimeFormat,
@@ -28,32 +38,16 @@ import {
   utcFormat as utcFormatTime,
   utcParse as utcParseTime
 } from './time.js';
-
-import {
-  Format as DateTimeFormat,
-  InputFormat as InputDateTimeFormat,
-  Segment as DateTimeSegment,
-  format as formatDateTime,
-  getFormat as getDateTimeFormat,
-  isValid as isValidDateTime,
-  parse as parseDateTime,
-  toSegment as toDateTimeSegment,
-  utcFormat as utcFormatDateTime,
-  utcParse as utcParseDateTime
-} from './datetime.js';
-
-import { throwInvalidFormat, throwInvalidValue, throwInvalidUnit } from './utils.js';
-
-import {
-  HOURS_OF_NOON,
-  MONTHS_IN_YEAR,
-  HOURS_IN_DAY,
-  MINUTES_IN_HOUR,
-  SECONDS_IN_MINUTE,
-  MILLISECONDS_IN_SECOND
-} from './timestamps.js';
-
 import { addOffset as addTimeOffset } from './time.js';
+import {
+  HOURS_IN_DAY,
+  HOURS_OF_NOON,
+  MILLISECONDS_IN_SECOND,
+  MINUTES_IN_HOUR,
+  MONTHS_IN_YEAR,
+  SECONDS_IN_MINUTE
+} from './timestamps.js';
+import { throwInvalidFormat, throwInvalidUnit, throwInvalidValue } from './utils.js';
 
 type Format = InputTimeFormat | InputDateFormat | InputDateTimeFormat;
 type Unit = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond';
@@ -78,11 +72,11 @@ const isTime = (value: string | Segment): boolean => {
   }
 
   return (
-    value.year === undefined &&
-    value.month === undefined &&
-    value.day === undefined &&
-    value.hours !== undefined &&
-    value.minutes !== undefined
+    value.year === undefined
+    && value.month === undefined
+    && value.day === undefined
+    && value.hours !== undefined
+    && value.minutes !== undefined
   );
 };
 
@@ -92,13 +86,13 @@ const isDate = (value: string | Segment): boolean => {
   }
 
   return (
-    value.year !== undefined &&
-    value.month !== undefined &&
-    value.day !== undefined &&
-    value.hours === undefined &&
-    value.minutes === undefined &&
-    value.seconds === undefined &&
-    value.milliseconds === undefined
+    value.year !== undefined
+    && value.month !== undefined
+    && value.day !== undefined
+    && value.hours === undefined
+    && value.minutes === undefined
+    && value.seconds === undefined
+    && value.milliseconds === undefined
   );
 };
 
@@ -108,11 +102,11 @@ const isDateTime = (value: string | Segment): boolean => {
   }
 
   return (
-    value.year !== undefined &&
-    value.month !== undefined &&
-    value.day !== undefined &&
-    value.hours !== undefined &&
-    value.minutes !== undefined
+    value.year !== undefined
+    && value.month !== undefined
+    && value.day !== undefined
+    && value.hours !== undefined
+    && value.minutes !== undefined
   );
 };
 
@@ -299,9 +293,9 @@ const isSameDay = (value: string, compare: string): boolean => {
   const valueSegment = toSegment(value);
   const compareSegment = toSegment(compare);
   return (
-    valueSegment.year === compareSegment.year &&
-    valueSegment.month === compareSegment.month &&
-    valueSegment.day === compareSegment.day
+    valueSegment.year === compareSegment.year
+    && valueSegment.month === compareSegment.month
+    && valueSegment.day === compareSegment.day
   );
 };
 
@@ -552,8 +546,8 @@ const iterateUnit = (value: string, unit: Unit, amount: number): string => {
       break;
     case 'millisecond':
       date.setUTCMilliseconds(
-        (date.getUTCMilliseconds() + ((MILLISECONDS_IN_SECOND + amount) % MILLISECONDS_IN_SECOND)) %
-          MILLISECONDS_IN_SECOND
+        (date.getUTCMilliseconds() + ((MILLISECONDS_IN_SECOND + amount) % MILLISECONDS_IN_SECOND))
+          % MILLISECONDS_IN_SECOND
       );
       break;
     default:

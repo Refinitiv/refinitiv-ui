@@ -1,26 +1,27 @@
 import {
-  ResponsiveElement,
-  css,
   CSSResultGroup,
   PropertyValues,
-  TemplateResult,
-  html,
+  ResponsiveElement,
   StyleMap,
-  WarningNotice
+  TemplateResult,
+  WarningNotice,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
-import { VERSION } from '../version.js';
-import type { Canvas } from '../canvas';
+
 import '../canvas/index.js';
 import '../label/index.js';
-
-import { helpers as canvasHelper } from './helpers.js';
-import type { SwingGaugeData, SwingGaugeCanvasSize, SwingGaugeValueFormatter } from './types';
+import { VERSION } from '../version.js';
 import { DefaultStyle, Segment, TextType } from './const.js';
+import { helpers as canvasHelper } from './helpers.js';
+
+import type { Canvas } from '../canvas';
+import type { SwingGaugeCanvasSize, SwingGaugeData, SwingGaugeValueFormatter } from './types';
 
 export { SwingGaugeValueFormatter };
 
@@ -359,9 +360,9 @@ export class SwingGauge extends ResponsiveElement {
     super.update(changedProperties);
 
     if (
-      changedProperties.has('primaryValue') ||
-      changedProperties.has('secondaryValue') ||
-      (this.primaryValue === 0 && this.secondaryValue === 0)
+      changedProperties.has('primaryValue')
+      || changedProperties.has('secondaryValue')
+      || (this.primaryValue === 0 && this.secondaryValue === 0)
     ) {
       this.canvas.autoloop = true;
 
@@ -378,11 +379,11 @@ export class SwingGauge extends ResponsiveElement {
     }
 
     if (
-      changedProperties.has('primaryValue') ||
-      changedProperties.has('secondaryValue') ||
-      changedProperties.has('primaryLabel') ||
-      changedProperties.has('secondaryLabel') ||
-      changedProperties.has('valueFormatter')
+      changedProperties.has('primaryValue')
+      || changedProperties.has('secondaryValue')
+      || changedProperties.has('primaryLabel')
+      || changedProperties.has('secondaryLabel')
+      || changedProperties.has('valueFormatter')
     ) {
       this.updateGaugePositions();
     }
@@ -429,8 +430,8 @@ export class SwingGauge extends ResponsiveElement {
    */
   private easeTo(to: number, from: number, time: number): void {
     const diff = (this.duration - (time - performance.now())) / this.duration;
-    this.fillPercentage =
-      from + (to - from) * canvasHelper.elasticOut(diff > 1 ? 1 : diff < 0 ? 0 : diff) || 0;
+    this.fillPercentage
+      = from + (to - from) * canvasHelper.elasticOut(diff > 1 ? 1 : diff < 0 ? 0 : diff) || 0;
 
     if (this.fillPercentage !== to) {
       this.cancelFrame(this.requestedAnimationID);
@@ -734,8 +735,8 @@ export class SwingGauge extends ResponsiveElement {
       // buffer for word wrap
       widthScale = 1.1;
 
-      longerLabel =
-        this.primaryLabel.length > this.secondaryLabel.length ? this.primaryLabel : this.secondaryLabel;
+      longerLabel
+        = this.primaryLabel.length > this.secondaryLabel.length ? this.primaryLabel : this.secondaryLabel;
       fontSize = Math.ceil(this.scale * this.canvas.height * GAUGE_LABEL_FONT_SCALE);
     } else {
       maxLine = MAX_VALUE_LINE;
@@ -831,13 +832,13 @@ export class SwingGauge extends ResponsiveElement {
    * @returns {TemplateResult} Legend template or null
    */
   private get legendTemplate(): TemplateResult | null {
-    return this.primaryLegend.length > 0 || this.secondaryLegend.length > 0 ?
-      html`<div part="legend-container-outer">
+    return this.primaryLegend.length > 0 || this.secondaryLegend.length > 0
+      ? html`<div part="legend-container-outer">
           <div part="legend-container-inner">
             ${this.primaryLegendTemplate} ${this.secondaryLegendTemplate}
           </div>
-        </div>` :
-      null;
+        </div>`
+      : null;
   }
 
   /**
@@ -845,14 +846,14 @@ export class SwingGauge extends ResponsiveElement {
    * @returns {TemplateResult} Primary legend template or null
    */
   private get primaryLegendTemplate(): TemplateResult | null {
-    return this.primaryLegend ?
-      html`<div part="primary-legend">
+    return this.primaryLegend
+      ? html`<div part="primary-legend">
           <span part="primary-legend-symbol"></span>
           <ef-label max-line="${MAX_LEGEND_LINE}" line-clamp="${MAX_LEGEND_LINE}"
             >${this.primaryLegend}</ef-label
           >
-        </div>` :
-      null;
+        </div>`
+      : null;
   }
 
   /**
@@ -860,14 +861,14 @@ export class SwingGauge extends ResponsiveElement {
    * @returns {TemplateResult} Secondary legend template or null
    */
   private get secondaryLegendTemplate(): TemplateResult | null {
-    return this.secondaryLegend ?
-      html`<div part="secondary-legend">
+    return this.secondaryLegend
+      ? html`<div part="secondary-legend">
           <span part="secondary-legend-symbol"></span>
           <ef-label max-line="${MAX_LEGEND_LINE}" line-clamp="${MAX_LEGEND_LINE}"
             >${this.secondaryLegend}</ef-label
           >
-        </div>` :
-      null;
+        </div>`
+      : null;
   }
 
   public render(): TemplateResult {
@@ -877,29 +878,29 @@ export class SwingGauge extends ResponsiveElement {
         <div part="canvas-container">
           <ef-canvas part="canvas" @resize=${this.onCanvasResize}></ef-canvas>
           <div part="primary-container" style=${styleMap(this.primaryContainerStyle)}>
-            ${this.primaryLabel ?
-              html` <ef-label
+            ${this.primaryLabel
+              ? html` <ef-label
                     part="primary-label"
                     max-line="${MAX_LABEL_LINE}"
                     line-clamp="${MAX_LABEL_LINE}"
                     style=${styleMap(this.labelStyle)}
                     >${this.primaryLabel} </ef-label
-                  ><br />` :
-              null}
+                  ><br />`
+              : null}
             <ef-label part="primary-value" truncate="" line-clamp="1" style=${styleMap(this.valueStyle)}
               >${this.valueFormatter(this.primaryPercentage, this.primaryValue)}</ef-label
             >
           </div>
           <div part="secondary-container" style=${styleMap(this.secondaryContainerStyle)}>
-            ${this.secondaryLabel ?
-              html` <ef-label
+            ${this.secondaryLabel
+              ? html` <ef-label
                     part="secondary-label"
                     max-line="${MAX_LABEL_LINE}"
                     line-clamp="${MAX_LABEL_LINE}"
                     style=${styleMap(this.labelStyle)}
                     >${this.secondaryLabel} </ef-label
-                  ><br />` :
-              null}
+                  ><br />`
+              : null}
             <ef-label part="secondary-value" truncate="" line-clamp="1" style=${styleMap(this.valueStyle)}
               >${this.valueFormatter(this.secondaryPercentage, this.secondaryValue)}</ef-label
             >

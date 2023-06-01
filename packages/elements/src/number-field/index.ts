@@ -1,19 +1,20 @@
 import {
-  FormFieldElement,
-  html,
-  css,
   CSSResultGroup,
-  TemplateResult,
-  PropertyValues,
   FocusedPropertyKey,
-  TapEvent
+  FormFieldElement,
+  PropertyValues,
+  TapEvent,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
-import { VERSION } from '../version.js';
+
 import '../icon/index.js';
+import { VERSION } from '../version.js';
 
 type SelectionDirection = 'forward' | 'backward' | 'none';
 
@@ -661,9 +662,9 @@ export class NumberField extends FormFieldElement {
     // If either the method invoked was the stepDown() method and value is greater than valueBeforeStepping
     // or the method invoked was the stepUp() method and value is less than valueBeforeStepping, then return.
     if (
-      !isNaN(inputValue) &&
-      ((direction === Direction.Up && value < valueBeforeStepping) ||
-        (direction === Direction.Down && value > valueBeforeStepping))
+      !isNaN(inputValue)
+      && ((direction === Direction.Up && value < valueBeforeStepping)
+        || (direction === Direction.Down && value > valueBeforeStepping))
     ) {
       return;
     }

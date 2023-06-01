@@ -1,14 +1,12 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-
-// import elements
-import '@refinitiv-ui/elements/sidebar-layout';
-import '@refinitiv-ui/elements/panel';
-import '@refinitiv-ui/elements/header';
-
+import '@refinitiv-ui/elemental-theme/light/ef-header.js';
+import '@refinitiv-ui/elemental-theme/light/ef-panel.js';
 // import themes
 import '@refinitiv-ui/elemental-theme/light/ef-sidebar-layout.js';
-import '@refinitiv-ui/elemental-theme/light/ef-panel.js';
-import '@refinitiv-ui/elemental-theme/light/ef-header.js';
+import '@refinitiv-ui/elements/header';
+import '@refinitiv-ui/elements/panel';
+// import elements
+import '@refinitiv-ui/elements/sidebar-layout';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('sidebar-layout/SidebarLayout', () => {
   const defaultLayout = `

@@ -1,18 +1,17 @@
-import { css, CSSResultGroup, html, TemplateResult, PropertyValues } from '@refinitiv-ui/core';
+import { CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js';
-import { translate, Translate, TranslatePropertyKey } from '@refinitiv-ui/translate';
-import { deregister as draggableDeregister, register as draggableRegister } from './draggable-element.js';
-
-import { Overlay } from '../overlay/index.js';
-import '../icon/index.js';
-import '../panel/index.js';
-import '../header/index.js';
-import '../button/index.js';
-
 import '@refinitiv-ui/phrasebook/locale/en/dialog.js';
+import { Translate, TranslatePropertyKey, translate } from '@refinitiv-ui/translate';
+
+import '../button/index.js';
+import '../header/index.js';
+import '../icon/index.js';
+import { Overlay } from '../overlay/index.js';
+import '../panel/index.js';
+import { VERSION } from '../version.js';
+import { deregister as draggableDeregister, register as draggableRegister } from './draggable-element.js';
 
 /**
  * Popup window, designed to contain and show any HTML content.
@@ -170,12 +169,12 @@ export class Dialog extends Overlay {
   protected shouldUpdate(changedProperties: PropertyValues): boolean {
     const shouldUpdate = super.shouldUpdate(changedProperties);
     return (
-      shouldUpdate ||
-      ((changedProperties.has('draggable') ||
-        changedProperties.has('header') ||
-        changedProperties.has('noInteractionLock') ||
-        changedProperties.has(TranslatePropertyKey)) &&
-        this.opened)
+      shouldUpdate
+      || ((changedProperties.has('draggable')
+        || changedProperties.has('header')
+        || changedProperties.has('noInteractionLock')
+        || changedProperties.has(TranslatePropertyKey))
+        && this.opened)
     );
   }
 

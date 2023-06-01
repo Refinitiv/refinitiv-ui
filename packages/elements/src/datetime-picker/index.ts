@@ -1,52 +1,53 @@
 import {
+  CSSResultGroup,
   ControlElement,
-  html,
-  css,
-  TemplateResult,
   MultiValue,
   PropertyValues,
-  CSSResultGroup,
   TapEvent,
+  TemplateResult,
   WarningNotice,
+  css,
+  html,
   nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js';
-import type { OpenedChangedEvent, ViewChangedEvent, ValueChangedEvent } from '../events';
-import type { DatetimePickerDuplex, DatetimePickerFilter } from './types';
-import '../calendar/index.js';
-import '../icon/index.js';
-import '../overlay/index.js';
-import '../text-field/index.js';
-import '../time-picker/index.js';
-import type { Icon } from '../icon';
-import type { Calendar } from '../calendar';
-import { translate, TranslateDirective, getLocale, TranslatePropertyKey } from '@refinitiv-ui/translate';
-import { getDateFNSLocale } from './locales.js';
-import inputFormat from 'date-fns/esm/format/index.js';
-import inputParse from 'date-fns/esm/parse/index.js';
-import isValid from 'date-fns/esm/isValid/index.js';
+import { TranslateDirective, TranslatePropertyKey, getLocale, translate } from '@refinitiv-ui/translate';
 import {
+  DateFormat,
+  DateTimeFormat,
   addMonths,
-  subMonths,
+  format,
   isAfter,
   isBefore,
   isValidDate,
   isValidDateTime,
-  DateFormat,
-  DateTimeFormat,
   parse,
-  format
+  subMonths
 } from '@refinitiv-ui/utils/date.js';
 
+import inputFormat from 'date-fns/esm/format/index.js';
+import isValid from 'date-fns/esm/isValid/index.js';
+import inputParse from 'date-fns/esm/parse/index.js';
+
+import '../calendar/index.js';
+import '../icon/index.js';
+import { preload } from '../icon/index.js';
+import '../overlay/index.js';
+import '../text-field/index.js';
+import '../time-picker/index.js';
+import { VERSION } from '../version.js';
+import { getDateFNSLocale } from './locales.js';
 import { DateTimeSegment, formatToView, getCurrentTime } from './utils.js';
 
-import { preload } from '../icon/index.js';
-import type { TimePicker } from '../time-picker';
-import type { TextField } from '../text-field';
+import type { Calendar } from '../calendar';
+import type { OpenedChangedEvent, ValueChangedEvent, ViewChangedEvent } from '../events';
+import type { Icon } from '../icon';
 import type { Overlay } from '../overlay';
+import type { TextField } from '../text-field';
+import type { TimePicker } from '../time-picker';
+import type { DatetimePickerDuplex, DatetimePickerFilter } from './types';
 
 preload('calendar', 'down', 'left', 'right'); /* preload calendar icons for faster loading */
 
@@ -372,16 +373,16 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
   public get format(): string {
     return (
-      this._format ||
-      (this.timepicker ?
-        this.showSeconds ?
-          this.amPm ?
-            INPUT_FORMAT.DATETIME_SECONDS_AM_PM :
-            INPUT_FORMAT.DATETIME_SECONDS :
-          this.amPm ?
-            INPUT_FORMAT.DATETIME_AM_PM :
-            INPUT_FORMAT.DATETIME :
-        INPUT_FORMAT.DATE)
+      this._format
+      || (this.timepicker
+        ? this.showSeconds
+          ? this.amPm
+            ? INPUT_FORMAT.DATETIME_SECONDS_AM_PM
+            : INPUT_FORMAT.DATETIME_SECONDS
+          : this.amPm
+            ? INPUT_FORMAT.DATETIME_AM_PM
+            : INPUT_FORMAT.DATETIME
+        : INPUT_FORMAT.DATE)
     );
   }
 
@@ -445,11 +446,11 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
     // default duplex mode
     if (
-      this.isDuplexConsecutive() ||
-      !from ||
-      !to ||
-      formatToView(from) === formatToView(to) ||
-      isBefore(to, from)
+      this.isDuplexConsecutive()
+      || !from
+      || !to
+      || formatToView(from) === formatToView(to)
+      || isBefore(to, from)
     ) {
       return this.composeViews(formatToView(from || to || now), !from && to ? 1 : 0, []);
     }
@@ -532,9 +533,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     }
     // Need to check for the attribute to cover the case when
     // timepicker and value attributes are set
-    return this.timepicker || this.hasAttribute('timepicker') ?
-      isValidDateTime(value) :
-      isValidDate(value, DateFormat.yyyyMMdd);
+    return this.timepicker || this.hasAttribute('timepicker')
+      ? isValidDateTime(value)
+      : isValidDate(value, DateFormat.yyyyMMdd);
   }
 
   /**
@@ -582,10 +583,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private shouldValidateValue(changedProperties: PropertyValues): boolean {
     // do not validate default value
     if (
-      (changedProperties.has('_values') && changedProperties.get('_values') !== undefined) ||
-      (changedProperties.has('min') && changedProperties.get('min') !== undefined) ||
-      (changedProperties.has('max') && changedProperties.get('max') !== undefined) ||
-      (changedProperties.has('showSeconds') && changedProperties.get('showSeconds') !== undefined)
+      (changedProperties.has('_values') && changedProperties.get('_values') !== undefined)
+      || (changedProperties.has('min') && changedProperties.get('min') !== undefined)
+      || (changedProperties.has('max') && changedProperties.get('max') !== undefined)
+      || (changedProperties.has('showSeconds') && changedProperties.get('showSeconds') !== undefined)
     ) {
       return true;
     }
@@ -686,11 +687,11 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns formatted string
    */
   private formatSegment(segment: DateTimeSegment): string {
-    return segment.value ?
-      inputFormat(segment.getTime(), this.format, {
+    return segment.value
+      ? inputFormat(segment.getTime(), this.format, {
         locale: getDateFNSLocale(getLocale(this))
-      }) :
-      '';
+      })
+      : '';
   }
 
   /**
@@ -1018,11 +1019,11 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       if (isValid(date)) {
         dateString = inputFormat(
           date,
-          this.timepicker ?
-            this.showSeconds ?
-              DateTimeFormat.yyyMMddTHHmmss :
-              DateTimeFormat.yyyMMddTHHmm :
-            DateFormat.yyyyMMdd
+          this.timepicker
+            ? this.showSeconds
+              ? DateTimeFormat.yyyMMddTHHmmss
+              : DateTimeFormat.yyyMMddTHHmm
+            : DateFormat.yyyyMMdd
         );
         this.resetViews(); /* user input should be treated similar to manually switching the views */
       }
@@ -1284,9 +1285,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
                 ${this.calendarsTemplate}
               </div>
               ${
-                this.timepicker ?
-                  html`<div part="timepicker-wrapper">${this.timepickersTemplate}</div>` :
-                  undefined
+                this.timepicker
+                  ? html`<div part="timepicker-wrapper">${this.timepickersTemplate}</div>`
+                  : undefined
               }
             </div>
             <div><slot name="right"></div>

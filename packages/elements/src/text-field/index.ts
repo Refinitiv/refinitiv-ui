@@ -1,19 +1,20 @@
 import {
-  FormFieldElement,
-  css,
-  nothing,
   CSSResultGroup,
-  html,
+  FormFieldElement,
   PropertyValues,
-  TemplateResult
+  TemplateResult,
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
-import { VERSION } from '../version.js';
+
 import '../icon/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
+import { VERSION } from '../version.js';
 
 const hasChanged = (newVal: unknown, oldVal: unknown): boolean =>
   oldVal === undefined ? false : newVal !== oldVal;
@@ -182,12 +183,12 @@ export class TextField extends FormFieldElement {
   protected shouldValidateInput(changedProperties: PropertyValues): boolean {
     // TODO: This validation should be refactored
     return (
-      changedProperties.has('pattern') ||
-      !!(this.pattern && changedProperties.has('value')) ||
-      changedProperties.has('minLength') ||
-      !!(this.minLength && changedProperties.has('value')) ||
-      changedProperties.has('maxLength') ||
-      !!(this.maxLength && changedProperties.has('value'))
+      changedProperties.has('pattern')
+      || !!(this.pattern && changedProperties.has('value'))
+      || changedProperties.has('minLength')
+      || !!(this.minLength && changedProperties.has('value'))
+      || changedProperties.has('maxLength')
+      || !!(this.maxLength && changedProperties.has('value'))
     );
   }
   /* c8 ignore stop */
@@ -264,8 +265,8 @@ export class TextField extends FormFieldElement {
    * @returns {void}
    */
   protected renderIcon(): TemplateResult | null {
-    return this.icon ?
-      html`
+    return this.icon
+      ? html`
           <ef-icon
             role="${this.iconHasAction ? 'button' : nothing}"
             tabindex="${this.iconHasAction ? '0' : nothing}"
@@ -276,8 +277,8 @@ export class TextField extends FormFieldElement {
             ?disabled="${this.disabled}"
             @tap="${this.iconClick}"
           ></ef-icon>
-        ` :
-      null;
+        `
+      : null;
   }
 
   /**

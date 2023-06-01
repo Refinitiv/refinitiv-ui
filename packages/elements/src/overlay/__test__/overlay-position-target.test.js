@@ -1,7 +1,7 @@
-import { elementUpdated, expect, nextFrame, isFirefox, isNear } from '@refinitiv-ui/test-helpers';
-
-import '@refinitiv-ui/elements/overlay';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
+import '@refinitiv-ui/elements/overlay';
+import { elementUpdated, expect, isFirefox, isNear, nextFrame } from '@refinitiv-ui/test-helpers';
+
 import {
   createPositionTargetFixture,
   expectMatchExactAlignWord,
@@ -16,9 +16,9 @@ import {
   matchExactSize,
   openedUpdated,
   possiblePositions,
-  widthSizes,
+  targetHeightEqualToPanelHeight,
   targetWidthEqualToPanelWidth,
-  targetHeightEqualToPanelHeight
+  widthSizes
 } from './mocks/helper.js';
 
 initPossiblePositions();

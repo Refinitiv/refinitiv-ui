@@ -1,8 +1,7 @@
-import { fixture, expect } from '@refinitiv-ui/test-helpers';
-
+import '@refinitiv-ui/elemental-theme/light/ef-panel';
 // import element and theme
 import '@refinitiv-ui/elements/panel';
-import '@refinitiv-ui/elemental-theme/light/ef-panel';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 /*
  * In FireFox doesn't seem to support shorthand css e.g. 'padding'

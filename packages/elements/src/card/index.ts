@@ -1,20 +1,21 @@
-import { BasicElement, html, css, TemplateResult, CSSResultGroup, PropertyValues } from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { VERSION } from '../version.js';
+import '@refinitiv-ui/phrasebook/locale/en/card.js';
+import { Translate, translate } from '@refinitiv-ui/translate';
 import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
+
+import '../button/index.js';
+import '../label/index.js';
+import '../overlay-menu/index.js';
+import { VERSION } from '../version.js';
+
 import type { Button } from '../button';
+import type { ItemTriggerEvent, OpenedChangedEvent } from '../events';
 import type { OverlayMenu, OverlayMenuData } from '../overlay-menu';
 import type { CardConfig } from './helpers/types';
-import type { OpenedChangedEvent, ItemTriggerEvent } from '../events';
-import '../label/index.js';
-import '../button/index.js';
-import '../overlay-menu/index.js';
-
-import '@refinitiv-ui/phrasebook/locale/en/card.js';
-import { translate, Translate } from '@refinitiv-ui/translate';
 
 export type { CardConfig };
 
@@ -227,8 +228,8 @@ export class Card extends BasicElement {
    * @return menu template
    */
   protected get menuTemplate(): TemplateResult {
-    return html`${this.menuData ?
-      html` <ef-button
+    return html`${this.menuData
+      ? html` <ef-button
             part="menu-button"
             icon="more-vertical"
             transparent
@@ -244,8 +245,8 @@ export class Card extends BasicElement {
             .data=${this.menuData}
             position="bottom-end"
             @opened-changed=${this.onMenuOpenChanged}
-          ></ef-overlay-menu>` :
-      undefined} `;
+          ></ef-overlay-menu>`
+      : undefined} `;
   }
 
   /**
@@ -257,9 +258,9 @@ export class Card extends BasicElement {
       <div part="header${this.withHeader ? ' has-content' : ''}">
         <div part="header-body">
           <slot name="header" @slotchange="${this.onHeaderSlotChange}"></slot>
-          ${!this.headerHasContent && this.header ?
-            html`<ef-label line-clamp="3" part="header-text">${this.header}</ef-label>` :
-            null}
+          ${!this.headerHasContent && this.header
+            ? html`<ef-label line-clamp="3" part="header-text">${this.header}</ef-label>`
+            : null}
         </div>
         ${this.menuTemplate}
       </div>
@@ -275,9 +276,9 @@ export class Card extends BasicElement {
       <div part="footer${this.withFooter ? ' has-content' : ''}">
         <div part="footer-body">
           <slot name="footer" @slotchange="${this.onFooterSlotChange}"></slot>
-          ${!this.footerHasContent && this.footer ?
-            html`<ef-label line-clamp="3">${this.footer}</ef-label>` :
-            undefined}
+          ${!this.footerHasContent && this.footer
+            ? html`<ef-label line-clamp="3">${this.footer}</ef-label>`
+            : undefined}
         </div>
       </div>
     `;

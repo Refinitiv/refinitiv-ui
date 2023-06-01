@@ -1,8 +1,10 @@
-import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
-import type { Item, ItemType, ItemData } from '../../item';
-import { getItemId } from './item-id.js';
+
 import { Renderer } from '../renderer.js';
+import { getItemId } from './item-id.js';
+
+import type { Item, ItemData, ItemType } from '../../item';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 /**
  * Basic render context

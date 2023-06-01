@@ -1,7 +1,6 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-
-import '@refinitiv-ui/elements/number-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
+import '@refinitiv-ui/elements/number-field';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 const UP = 1;
 const DOWN = -1;

@@ -1,20 +1,19 @@
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
+import '@refinitiv-ui/elements/overlay';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 import { isSafari } from '@refinitiv-ui/utils';
+
 import { createSandbox, restore, spy } from 'sinon';
 
-import '@refinitiv-ui/elements/overlay';
-import '@refinitiv-ui/elemental-theme/light/ef-overlay';
-
-import { openedUpdated } from './../mocks/helper';
-
 import {
+  ViewportManager,
   clear,
   deregister,
   register,
-  size,
-  ViewportManager
+  size
 } from '../../../../lib/overlay/managers/viewport-manager.js';
 import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
+import { openedUpdated } from './../mocks/helper';
 
 const createFixture = async (zIndex) => {
   return typeof zIndex === 'undefined'

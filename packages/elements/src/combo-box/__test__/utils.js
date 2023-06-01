@@ -1,4 +1,4 @@
-import { elementUpdated, nextFrame, triggerFocusFor, aTimeout, oneEvent } from '@refinitiv-ui/test-helpers';
+import { aTimeout, elementUpdated, nextFrame, oneEvent, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 
 export const snapshotIgnore = {
   ignoreAttributes: ['style', 'class']

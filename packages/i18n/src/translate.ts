@@ -1,10 +1,11 @@
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
+
 import { SupportedLocales } from '@formatjs/ecma402-abstract';
+
 import { DEFAULT_LOCALE } from './constants.js';
+import { Memoiser } from './memoiser.js';
 
 import type { TranslateOptions, TranslateParams, UnicodeExtensions } from './types';
-
-import { Memoiser } from './memoiser.js';
 
 /**
  * Resolve translation from provided locale. For instance:

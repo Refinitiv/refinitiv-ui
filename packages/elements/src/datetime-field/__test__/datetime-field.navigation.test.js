@@ -1,11 +1,11 @@
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-import { focusInput, arrowRight, arrowLeft, arrowUp, arrowDown } from './utils';
-import { DateTimeFormat, utcFormat } from '@refinitiv-ui/utils/date.js';
-import { isSafari } from '@refinitiv-ui/utils';
-
+import '@refinitiv-ui/elemental-theme/light/ef-datetime-field';
 // import element and theme
 import '@refinitiv-ui/elements/datetime-field';
-import '@refinitiv-ui/elemental-theme/light/ef-datetime-field';
+import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { isSafari } from '@refinitiv-ui/utils';
+import { DateTimeFormat, utcFormat } from '@refinitiv-ui/utils/date.js';
+
+import { arrowDown, arrowLeft, arrowRight, arrowUp, focusInput } from './utils';
 
 const getEl = async (value) => {
   const el = await fixture('<ef-datetime-field lang="en-gb"></ef-datetime-field>');

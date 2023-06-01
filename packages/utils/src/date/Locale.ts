@@ -1,9 +1,9 @@
 import { Format as DateFormat } from './date.js';
-import { Format as TimeFormat } from './time.js';
 import { Format as DateTimeFormat } from './datetime.js';
+import { Format, getFormat, utcFormat, utcParse } from './shared.js';
+import { Format as TimeFormat } from './time.js';
+import { DAYS_IN_WEEK, HOURS_IN_DAY, HOURS_OF_NOON, MONTHS_IN_YEAR, YEARS_IN_CENTURY } from './timestamps.js';
 import { throwInvalidValue } from './utils.js';
-import { utcFormat, utcParse, getFormat, Format } from './shared.js';
-import { HOURS_IN_DAY, YEARS_IN_CENTURY, DAYS_IN_WEEK, MONTHS_IN_YEAR, HOURS_OF_NOON } from './timestamps.js';
 
 // Support weak formatting, when units may start from 0 or 0 can be skipped
 // so both values are the same: 01/01/2022 and 1/1/2022
@@ -437,32 +437,32 @@ class Locale {
     const month = day || options.month !== undefined;
     const year = day || month || options.year !== undefined;
     const millisecond = options.fractionalSecondDigits !== undefined;
-    const second =
-      millisecond ||
-      options.second !== undefined ||
-      options.timeStyle === 'full' ||
-      options.timeStyle === 'long' ||
-      options.timeStyle === 'medium';
+    const second
+      = millisecond
+      || options.second !== undefined
+      || options.timeStyle === 'full'
+      || options.timeStyle === 'long'
+      || options.timeStyle === 'medium';
     const minute = second || options.minute !== undefined || options.timeStyle === 'short';
     const hour = minute || options.hour !== undefined;
 
     if (hour && !year) {
       // time only formats
-      this._resolvedFormat = millisecond ?
-        TimeFormat.HHmmssSSS :
-        second ?
-          TimeFormat.HHmmss :
-          TimeFormat.HHmm;
+      this._resolvedFormat = millisecond
+        ? TimeFormat.HHmmssSSS
+        : second
+          ? TimeFormat.HHmmss
+          : TimeFormat.HHmm;
     } else if (year && !hour) {
       // date only
       this._resolvedFormat = day ? DateFormat.yyyyMMdd : month ? DateFormat.yyyyMM : DateFormat.yyyy;
     } else {
       // datetime or ambiguous
-      this._resolvedFormat = millisecond ?
-        DateTimeFormat.yyyMMddTHHmmssSSS :
-        second ?
-          DateTimeFormat.yyyMMddTHHmmss :
-          DateTimeFormat.yyyMMddTHHmm;
+      this._resolvedFormat = millisecond
+        ? DateTimeFormat.yyyMMddTHHmmssSSS
+        : second
+          ? DateTimeFormat.yyyMMddTHHmmss
+          : DateTimeFormat.yyyMMddTHHmm;
     }
 
     return this._resolvedFormat;

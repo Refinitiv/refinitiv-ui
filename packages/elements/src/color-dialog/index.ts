@@ -1,22 +1,24 @@
-import { html, css, TemplateResult, CSSResultGroup, PropertyValues, WarningNotice } from '@refinitiv-ui/core';
+import { CSSResultGroup, PropertyValues, TemplateResult, WarningNotice, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
-import { rgb, isHex, removeHashSign } from '@refinitiv-ui/utils/color.js';
+import '@refinitiv-ui/phrasebook/locale/en/color-dialog.js';
+import { Translate, translate } from '@refinitiv-ui/translate';
+import { isHex, removeHashSign, rgb } from '@refinitiv-ui/utils/color.js';
+
+import '../button/index.js';
+import { Dialog } from '../dialog/index.js';
+import '../number-field/index.js';
+import '../text-field/index.js';
 import { VERSION } from '../version.js';
+import './elements/color-palettes.js';
+import './elements/grayscale-palettes.js';
+import { ValueModel } from './helpers/value-model.js';
+
 import type { NumberField } from '../number-field';
 import type { TextField } from '../text-field';
 import type { Palettes } from './elements/palettes';
-import { ValueModel } from './helpers/value-model.js';
-import '../button/index.js';
-import '../number-field/index.js';
-import '../text-field/index.js';
-import { Dialog } from '../dialog/index.js';
-import './elements/color-palettes.js';
-import './elements/grayscale-palettes.js';
-import { translate, Translate } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/locale/en/color-dialog.js';
 
 /**
  * Displays a colour picker dialog,
@@ -156,9 +158,9 @@ export class ColorDialog extends Dialog {
   @property({ type: String })
   public set red(red: string) {
     red = String(red);
-    this.value = this.isValidRGB(red) ?
-      rgb(Number(red), Number(this.green), Number(this.blue)).formatHex() :
-      '';
+    this.value = this.isValidRGB(red)
+      ? rgb(Number(red), Number(this.green), Number(this.blue)).formatHex()
+      : '';
   }
   public get red(): string {
     return this.hex ? rgb(`#${this.hex}`).r.toString() : '';
@@ -172,9 +174,9 @@ export class ColorDialog extends Dialog {
   @property({ type: String })
   public set green(green: string) {
     green = String(green);
-    this.value = this.isValidRGB(green) ?
-      rgb(Number(this.red), Number(green), Number(this.blue)).formatHex() :
-      '';
+    this.value = this.isValidRGB(green)
+      ? rgb(Number(this.red), Number(green), Number(this.blue)).formatHex()
+      : '';
   }
   public get green(): string {
     return this.hex ? rgb(`#${this.hex}`).g.toString() : '';
@@ -188,9 +190,9 @@ export class ColorDialog extends Dialog {
   @property({ type: String })
   public set blue(blue: string) {
     blue = String(blue);
-    this.value = this.isValidRGB(blue) ?
-      rgb(Number(this.red), Number(this.green), Number(blue)).formatHex() :
-      '';
+    this.value = this.isValidRGB(blue)
+      ? rgb(Number(this.red), Number(this.green), Number(blue)).formatHex()
+      : '';
   }
   public get blue(): string {
     return this.hex ? rgb(`#${this.hex}`).b.toString() : '';
@@ -228,14 +230,14 @@ export class ColorDialog extends Dialog {
   protected shouldUpdate(changedProperties: PropertyValues): boolean {
     const shouldUpdate = super.shouldUpdate(changedProperties);
     return (
-      shouldUpdate ||
-      changedProperties.has('allowNocolor') ||
-      changedProperties.has('red') ||
-      changedProperties.has('green') ||
-      changedProperties.has('blue') ||
-      changedProperties.has('value') ||
-      changedProperties.has('hex') ||
-      changedProperties.has('enableConfirm')
+      shouldUpdate
+      || changedProperties.has('allowNocolor')
+      || changedProperties.has('red')
+      || changedProperties.has('green')
+      || changedProperties.has('blue')
+      || changedProperties.has('value')
+      || changedProperties.has('hex')
+      || changedProperties.has('enableConfirm')
     );
   }
 
@@ -389,11 +391,11 @@ export class ColorDialog extends Dialog {
    * @returns {boolean} true if disabled
    */
   private isApplyDisabled(): boolean {
-    return this.valueModel.hasChanged() && this.valueModel.isValid() ?
-      this.allowNocolor ?
-        false :
-        this.valueModel.hex === '' :
-      true;
+    return this.valueModel.hasChanged() && this.valueModel.isValid()
+      ? this.allowNocolor
+        ? false
+        : this.valueModel.hex === ''
+      : true;
   }
 
   /**

@@ -1,7 +1,7 @@
-import { oneEvent, expect } from '@refinitiv-ui/test-helpers';
-import '@refinitiv-ui/elements/notification';
 import '@refinitiv-ui/elemental-theme/light/ef-notification';
-import { info, confirm, warn, error } from '@refinitiv-ui/elements/notification';
+import '@refinitiv-ui/elements/notification';
+import { confirm, error, info, warn } from '@refinitiv-ui/elements/notification';
+import { expect, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('notification/Helpers', () => {
   describe('Helpers', () => {

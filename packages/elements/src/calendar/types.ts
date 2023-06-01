@@ -1,4 +1,5 @@
 import { CellIndex } from '@refinitiv-ui/utils/navigation.js';
+
 import { RenderView } from './constants.js';
 
 export interface CellSelectionModel {

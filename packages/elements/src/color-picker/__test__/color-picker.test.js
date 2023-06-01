@@ -1,7 +1,7 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
+import '@refinitiv-ui/elemental-theme/light/ef-color-picker';
 // import element and theme
 import '@refinitiv-ui/elements/color-picker';
-import '@refinitiv-ui/elemental-theme/light/ef-color-picker';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 /**
  * Get private dialog element property

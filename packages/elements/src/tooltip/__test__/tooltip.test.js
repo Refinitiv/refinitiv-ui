@@ -1,9 +1,8 @@
-import { fixture, expect, nextFrame, elementUpdated, aTimeout } from '@refinitiv-ui/test-helpers';
-
+import '@refinitiv-ui/elemental-theme/light/ef-tooltip.js';
 // import element and theme
 import '@refinitiv-ui/elements/tooltip';
 import { registerOverflowTooltip } from '@refinitiv-ui/elements/tooltip';
-import '@refinitiv-ui/elemental-theme/light/ef-tooltip.js';
+import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 const ShowDelay = 300;
 const HideDelay = 150;

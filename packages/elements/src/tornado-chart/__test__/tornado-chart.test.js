@@ -1,7 +1,6 @@
-import { fixture, expect, oneEvent, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-
-import '@refinitiv-ui/elements/tornado-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-tornado-chart.js';
+import '@refinitiv-ui/elements/tornado-chart';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('tornado-chart/TornadoChart', () => {
   describe('Snapshots', () => {

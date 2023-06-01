@@ -1,42 +1,43 @@
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from '@refinitiv-ui/core';
+import { CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
-import { VERSION } from '../version.js';
+import '@refinitiv-ui/phrasebook/locale/en/autosuggest.js';
+import { TranslateDirective, TranslatePropertyKey, translate } from '@refinitiv-ui/translate';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { isMobile } from '@refinitiv-ui/utils/browser.js';
-import { translate, TranslateDirective, TranslatePropertyKey } from '@refinitiv-ui/translate';
+
+import '../item/index.js';
+import '../loader/index.js';
+import { Overlay } from '../overlay/index.js';
+import { VERSION } from '../version.js';
+import { renderer } from './helpers/renderer.js';
+import { escapeRegExp, itemHighlightable, queryWordSelect } from './helpers/utils.js';
+
 import type { TapEvent } from '../events';
 import type {
-  AutosuggestTargetElement,
+  AutosuggestHighlightItemEvent,
   AutosuggestHighlightable,
+  AutosuggestItem,
   AutosuggestMethodType,
   AutosuggestQuery,
-  AutosuggestRenderer,
+  AutosuggestQueryAction,
   AutosuggestReason,
-  AutosuggestItem,
+  AutosuggestRenderer,
   AutosuggestSelectItemEvent,
-  AutosuggestHighlightItemEvent,
-  AutosuggestQueryAction
+  AutosuggestTargetElement
 } from './helpers/types';
-import { escapeRegExp, itemHighlightable, queryWordSelect } from './helpers/utils.js';
-import { renderer } from './helpers/renderer.js';
-import { Overlay } from '../overlay/index.js';
-import '../loader/index.js';
-import '../item/index.js';
-import '@refinitiv-ui/phrasebook/locale/en/autosuggest.js';
-
 import type {
-  ItemHighlightEvent,
   AddAttachTargetEventsEvent,
-  RemoveAttachTargetEventsEvent,
+  ItemHighlightEvent,
   ItemSelectEvent,
-  SuggestionsFetchRequestedEvent,
+  RemoveAttachTargetEventsEvent,
+  SuggestionsChangedEvent,
   SuggestionsClearRequestedEvent,
-  SuggestionsQueryEvent,
-  SuggestionsChangedEvent
+  SuggestionsFetchRequestedEvent,
+  SuggestionsQueryEvent
 } from './helpers/types';
 
 export type {
@@ -685,9 +686,9 @@ export class Autosuggest extends Overlay {
 
     return html`
       <span part="more-results-text">
-        ${this.moreSearchText ?
-          unsafeHTML(this.moreSearchText.replace(/{0\}/g, `<mark>${query}</mark>`)) :
-          this.t('MORE_RESULTS', {
+        ${this.moreSearchText
+          ? unsafeHTML(this.moreSearchText.replace(/{0\}/g, `<mark>${query}</mark>`))
+          : this.t('MORE_RESULTS', {
               query,
               mark: (chunks: string) => `<mark>${chunks}</mark>`
             })}
@@ -950,13 +951,13 @@ export class Autosuggest extends Overlay {
    */
   private shouldAutosuggestUpdate(changedProperties: PropertyValues): boolean {
     return (
-      changedProperties.has('attach') ||
-      changedProperties.has('suggestions') ||
-      changedProperties.has('moreResults') ||
-      changedProperties.has('moreSearchText') ||
-      changedProperties.has('loading') ||
-      changedProperties.has('debounceRate') ||
-      changedProperties.has(TranslatePropertyKey)
+      changedProperties.has('attach')
+      || changedProperties.has('suggestions')
+      || changedProperties.has('moreResults')
+      || changedProperties.has('moreSearchText')
+      || changedProperties.has('loading')
+      || changedProperties.has('debounceRate')
+      || changedProperties.has(TranslatePropertyKey)
     );
   }
 

@@ -1,8 +1,9 @@
-import { BasicElement, html, css, WarningNotice, TemplateResult, CSSResultGroup } from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, TemplateResult, WarningNotice, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+
 import { VERSION } from '../version.js';
-import { truncateDecimal, convertToCompactNotation } from './utils.js';
+import { convertToCompactNotation, truncateDecimal } from './utils.js';
 
 /**
  * Counter is an item count badge,
@@ -124,9 +125,9 @@ export class Counter extends BasicElement {
 
     // Format value if value greater than max
     // If max is null, it will show the value
-    return countValue > maxValue ?
-      `${convertToCompactNotation(maxValue)}+` :
-      convertToCompactNotation(countValue);
+    return countValue > maxValue
+      ? `${convertToCompactNotation(maxValue)}+`
+      : convertToCompactNotation(countValue);
   }
 
   /**

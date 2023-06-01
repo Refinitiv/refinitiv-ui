@@ -1,8 +1,9 @@
-import { colord, extend, Colord } from 'colord';
+import { Colord, colord, extend } from 'colord';
 // eslint-disable-next-line
 import hwbPlugin from 'colord/plugins/hwb';
 // eslint-disable-next-line
 import namesPlugin from 'colord/plugins/names';
+
 extend([hwbPlugin, namesPlugin]);
 
 interface NColWB {

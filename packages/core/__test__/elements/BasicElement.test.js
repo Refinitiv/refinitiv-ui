@@ -1,6 +1,7 @@
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
-import { BasicElement } from '../../lib/elements/BasicElement.js';
+
 import { customElement } from '../../lib/decorators/custom-element.js';
+import { BasicElement } from '../../lib/elements/BasicElement.js';
 
 class BasicElementTest extends BasicElement {
   defaultRole = 'button';

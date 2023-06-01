@@ -1,16 +1,18 @@
 import {
-  ResponsiveElement,
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
-  ElementSize
+  ElementSize,
+  ResponsiveElement,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
+
 import { VERSION } from '../../version.js';
 import './tornado-item.js';
+
 import type { TornadoItem } from './tornado-item';
 
 /**

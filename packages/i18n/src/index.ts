@@ -1,11 +1,12 @@
 import type {
-  TranslateOptions,
-  TranslateMessage,
-  TranslateParams,
-  UnicodeExtensions,
   MessageFormats,
-  MessageOptions
+  MessageOptions,
+  TranslateMessage,
+  TranslateOptions,
+  TranslateParams,
+  UnicodeExtensions
 } from './types';
+
 export type {
   TranslateOptions,
   TranslateMessage,

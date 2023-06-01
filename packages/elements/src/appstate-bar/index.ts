@@ -1,10 +1,11 @@
-import { BasicElement, html, css, TemplateResult, CSSResultGroup } from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../version.js';
-import { translate, Translate } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/locale/en/appstate-bar.js';
+import { Translate, translate } from '@refinitiv-ui/translate';
+
 import '../icon/index.js';
+import { VERSION } from '../version.js';
 
 /**
  * Used to display at the top of application to provide a status or information.

@@ -1,52 +1,52 @@
 import {
-  ResponsiveElement,
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
-  PropertyValues,
+  DeprecationNotice,
   ElementSize,
-  DeprecationNotice
+  PropertyValues,
+  ResponsiveElement,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js';
-import { color as parseColor, RGBColor, HSLColor } from '@refinitiv-ui/utils/color.js';
+import { HSLColor, RGBColor, color as parseColor } from '@refinitiv-ui/utils/color.js';
+
 import {
-  createChart as chart,
-  IChartApi,
-  BarData,
-  MouseEventParams,
-  ITimeScaleApi,
-  SeriesOptions,
-  LineData,
-  HistogramData,
-  ChartOptions,
-  CandlestickSeriesOptions,
-  LineSeriesOptions,
-  BarSeriesOptions,
   AreaSeriesOptions,
+  BarData,
+  BarPrices,
+  BarSeriesOptions,
+  CandlestickSeriesOptions,
+  ChartOptions,
+  HistogramData,
   HistogramSeriesOptions,
-  BarPrices
+  IChartApi,
+  ITimeScaleApi,
+  LineData,
+  LineSeriesOptions,
+  MouseEventParams,
+  SeriesOptions,
+  createChart as chart
 } from 'lightweight-charts';
 
 import '../tooltip/index.js';
+import { VERSION } from '../version.js';
+import { MergeObject, merge } from './helpers/merge.js';
+import { LegendStyle } from './helpers/types.js';
 
 import type {
+  ColorToStringFunction,
   InteractiveChartConfig,
   InteractiveChartSeries,
-  Time,
-  Theme,
   RowLegend,
-  SeriesList,
   SeriesDataItem,
+  SeriesList,
   SeriesStyleOptions,
-  ColorToStringFunction
+  Theme,
+  Time
 } from './helpers/types';
-
-import { LegendStyle } from './helpers/types.js';
-import { merge, MergeObject } from './helpers/merge.js';
 
 export type { InteractiveChartConfig, InteractiveChartSeries, LegendStyle };
 
@@ -217,8 +217,8 @@ export class InteractiveChart extends ResponsiveElement {
       if (changedProperties.has('deprecatedLegendStyle')) {
         this.deprecationNotice.show();
       }
-      const oldLegendStyle = (changedProperties.get('legend-style') ||
-        changedProperties.get('deprecatedLegendStyle')) as LegendStyle;
+      const oldLegendStyle = (changedProperties.get('legend-style')
+        || changedProperties.get('deprecatedLegendStyle')) as LegendStyle;
       this.onLegendStyleChange(this.legendStyle, oldLegendStyle);
     }
   }
@@ -505,8 +505,8 @@ export class InteractiveChart extends ResponsiveElement {
 
       for (let index = 0; index < this.internalConfig.series.length; index++) {
         // Get seriesOptions and type
-        const seriesOptions =
-          (this.internalConfig.series[index].seriesOptions as SeriesOptions<SeriesStyleOptions>) || {};
+        const seriesOptions
+          = (this.internalConfig.series[index].seriesOptions as SeriesOptions<SeriesStyleOptions>) || {};
         const type = this.internalConfig.series[index].type;
 
         let seriesThemeOptions = {};
@@ -557,12 +557,12 @@ export class InteractiveChart extends ResponsiveElement {
 
           // Update color index
           if (
-            !seriesOptions.upColor ||
-            !seriesOptions.downColor ||
-            !seriesOptions.borderUpColor ||
-            !seriesOptions.borderDownColor ||
-            !seriesOptions.wickUpColor ||
-            !seriesOptions.wickDownColor
+            !seriesOptions.upColor
+            || !seriesOptions.downColor
+            || !seriesOptions.borderUpColor
+            || !seriesOptions.borderDownColor
+            || !seriesOptions.wickUpColor
+            || !seriesOptions.wickDownColor
           ) {
             colorIndex++;
           }
@@ -577,8 +577,8 @@ export class InteractiveChart extends ResponsiveElement {
         }
         // Update config seriesOptions not have seriesOptions
         if (!this.internalConfig.series[index].seriesOptions) {
-          this.internalConfig.series[index].seriesOptions =
-            seriesThemeOptions as SeriesOptions<SeriesStyleOptions>;
+          this.internalConfig.series[index].seriesOptions
+            = seriesThemeOptions as SeriesOptions<SeriesStyleOptions>;
         } else {
           merge(seriesOptions as unknown as MergeObject, seriesThemeOptions);
         }
@@ -754,8 +754,8 @@ export class InteractiveChart extends ResponsiveElement {
     for (let idx = 0; idx < this.internalConfig.series.length; idx++) {
       const chartType = this.internalConfig.series[idx].type;
       const dataSet = this.internalConfig.series[idx].data || [];
-      const symbol =
-        this.internalConfig.series[idx].symbolName || this.internalConfig.series[idx].symbol || '';
+      const symbol
+        = this.internalConfig.series[idx].symbolName || this.internalConfig.series[idx].symbol || '';
       const isLegendVisible = this.internalConfig.series[idx].legendVisible !== false;
       // Create row legend element
       if (!rowLegend) {
@@ -766,8 +766,8 @@ export class InteractiveChart extends ResponsiveElement {
           this.hasDataPoint = true;
           const lastData = dataSet[dataSet.length - 1];
           const priceColor = this.getColorInSeries(lastData, chartType, idx);
-          const lastDataValue =
-            chartType === 'bar' || chartType === 'candlestick' ? lastData : (lastData as LineData).value;
+          const lastDataValue
+            = chartType === 'bar' || chartType === 'candlestick' ? lastData : (lastData as LineData).value;
 
           this.renderTextLegend(chartType, rowLegendElem, lastDataValue, priceColor, idx);
         } else {
@@ -803,10 +803,10 @@ export class InteractiveChart extends ResponsiveElement {
           const latestData = dataSet[dataSet.length - 1];
           if (latestData) {
             priceColor = this.getColorInSeries(latestData, chartType, idx);
-            value =
-              chartType === 'bar' || chartType === 'candlestick' ?
-                latestData :
-                (latestData as LineData).value;
+            value
+              = chartType === 'bar' || chartType === 'candlestick'
+                ? latestData
+                : (latestData as LineData).value;
             this.isCrosshairVisible = false;
             this.hasDataPoint = true;
           }
@@ -880,9 +880,9 @@ export class InteractiveChart extends ResponsiveElement {
    */
   private createTextOHLC(rowLegend: RowLegend, rowData: BarData, priceColor: string, index: number): void {
     // Uses price formatter if provided
-    const formatter = this.internalConfig.series[index].hasOwnProperty('legendPriceFormatter') ?
-      this.internalConfig.series[index].legendPriceFormatter :
-      null;
+    const formatter = this.internalConfig.series[index].hasOwnProperty('legendPriceFormatter')
+      ? this.internalConfig.series[index].legendPriceFormatter
+      : null;
     if (formatter) {
       rowData = {
         open: formatter(rowData.open) as number,
@@ -1030,9 +1030,9 @@ export class InteractiveChart extends ResponsiveElement {
     if (chartType === 'line') {
       return this.getLegendPriceColor((this.seriesList[index].options() as LineSeriesOptions).color);
     } else if (chartType === 'candlestick') {
-      const value = seriesData.hasOwnProperty('seriesPrices') ?
-        ((seriesData as MouseEventParams)?.seriesPrices.get(this.seriesList[index]) as BarPrices) :
-        (seriesData as BarData);
+      const value = seriesData.hasOwnProperty('seriesPrices')
+        ? ((seriesData as MouseEventParams)?.seriesPrices.get(this.seriesList[index]) as BarPrices)
+        : (seriesData as BarData);
       const barStyle = this.seriesList[index].options() as CandlestickSeriesOptions;
       const colorBar = value.close > value.open ? barStyle.borderUpColor : barStyle.borderDownColor;
       return colorBar;
@@ -1041,9 +1041,9 @@ export class InteractiveChart extends ResponsiveElement {
     } else if (chartType === 'area') {
       return this.getLegendPriceColor((this.seriesList[index].options() as AreaSeriesOptions).lineColor);
     } else if (chartType === 'volume') {
-      const priceValue = seriesData.hasOwnProperty('seriesPrices') ?
-        ((seriesData as MouseEventParams).seriesPrices.get(this.seriesList[index]) as BarPrices) :
-        (seriesData as HistogramData).value;
+      const priceValue = seriesData.hasOwnProperty('seriesPrices')
+        ? ((seriesData as MouseEventParams).seriesPrices.get(this.seriesList[index]) as BarPrices)
+        : (seriesData as HistogramData).value;
 
       let dataItem = {};
       this.internalConfig.series[index].data.forEach((dataConfig: BarData | HistogramData) => {
@@ -1053,10 +1053,10 @@ export class InteractiveChart extends ResponsiveElement {
         //  if via time point data string format 'yyyy-mm-dd' or object '{ year: 2019, month: 6, day: 1 }'
         if (time.hasOwnProperty('day') && time.hasOwnProperty('month') && time.hasOwnProperty('year')) {
           if (
-            time.day === timeSeriesData.day &&
-            time.month === timeSeriesData.month &&
-            time.year === timeSeriesData.year &&
-            data.value === priceValue
+            time.day === timeSeriesData.day
+            && time.month === timeSeriesData.month
+            && time.year === timeSeriesData.year
+            && data.value === priceValue
           ) {
             dataItem = dataConfig;
           }
@@ -1139,8 +1139,8 @@ export class InteractiveChart extends ResponsiveElement {
         const dataSet = series.data || [];
         const latestData = dataSet[dataSet.length - 1];
         if (latestData) {
-          const value =
-            chartType === 'bar' || chartType === 'candlestick' ? latestData : (latestData as LineData).value; // latestData
+          const value
+            = chartType === 'bar' || chartType === 'candlestick' ? latestData : (latestData as LineData).value; // latestData
           const priceColor = this.getColorInSeries(latestData, chartType, idx);
 
           // Render legend by series type

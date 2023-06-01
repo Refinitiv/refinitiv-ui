@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
-import { expect, fixture, html, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-
-import '@refinitiv-ui/elements/button';
 import '@refinitiv-ui/elemental-theme/light/ef-button';
+import '@refinitiv-ui/elements/button';
+import { elementUpdated, expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('button/Button', () => {
   it('should be created', async () => {

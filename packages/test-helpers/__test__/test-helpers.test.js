@@ -1,5 +1,6 @@
-import { fixture, expect, oneEvent, replaceWhitespace, isNear, nextFrame } from '../lib/test-helpers';
 import { createSandbox } from 'sinon';
+
+import { expect, fixture, isNear, nextFrame, oneEvent, replaceWhitespace } from '../lib/test-helpers';
 
 describe('TestHelpersTest', () => {
   let el;

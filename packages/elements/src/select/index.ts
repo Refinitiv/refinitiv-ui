@@ -1,30 +1,32 @@
 import {
-  ControlElement,
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
-  PropertyValues,
-  MultiValue,
+  ControlElement,
   FocusedPropertyKey,
-  StyleMap
+  MultiValue,
+  PropertyValues,
+  StyleMap,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
-import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js';
-import '../overlay/index.js';
-import '../item/index.js';
-import '../icon/index.js';
-import { Item } from '../item/index.js';
+import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
-import { TimeoutTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
+
+import '../icon/index.js';
+import '../item/index.js';
+import { Item } from '../item/index.js';
+import '../overlay/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
+import { VERSION } from '../version.js';
+
+import type { OpenedChangedEvent } from '../events';
 import type { Overlay } from '../overlay';
 import type { SelectData, SelectDataItem } from './helpers/types';
-import type { OpenedChangedEvent } from '../events';
 
 export type { SelectData, SelectDataItem };
 
@@ -327,8 +329,8 @@ export class Select extends ControlElement implements MultiValue {
    * @returns {void}
    */
   protected update(changedProperties: PropertyValues): void {
-    this.cachedValue =
-      ''; /* reset cached value as it is only valid when value and data are set the same time */
+    this.cachedValue
+      = ''; /* reset cached value as it is only valid when value and data are set the same time */
 
     const focusedChanged = changedProperties.has(FocusedPropertyKey);
 

@@ -1,7 +1,7 @@
-import { elementUpdated, expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
+import '@refinitiv-ui/elemental-theme/light/ef-pill';
 // import element and theme
 import '@refinitiv-ui/elements/pill';
-import '@refinitiv-ui/elemental-theme/light/ef-pill';
+import { elementUpdated, expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('pill/Pill', () => {
   it('Should have correct default Shadow DOM structure', async () => {

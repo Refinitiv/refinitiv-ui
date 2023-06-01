@@ -1,11 +1,13 @@
-import { html, TemplateResult, PropertyValues } from 'lit';
-import { label as inputLabel } from '@refinitiv-ui/utils/accessibility/label.js';
 import { description as inputDescription } from '@refinitiv-ui/utils/accessibility/description.js';
+import { label as inputLabel } from '@refinitiv-ui/utils/accessibility/label.js';
 import { required as inputRequired } from '@refinitiv-ui/utils/accessibility/required.js';
-import { state } from '../decorators/state.js';
+
+import { PropertyValues, TemplateResult, html } from 'lit';
+
 import { property } from '../decorators/property.js';
-import { templateMap, TemplateMap } from '../directives/template-map.js';
-import { createRef, ref, Ref } from '../directives/ref.js';
+import { state } from '../decorators/state.js';
+import { Ref, createRef, ref } from '../directives/ref.js';
+import { TemplateMap, templateMap } from '../directives/template-map.js';
 import { ControlElement } from './ControlElement.js';
 
 type SelectionDirection = 'forward' | 'backward' | 'none';
@@ -167,8 +169,8 @@ export abstract class FormFieldElement extends ControlElement {
 
     // Description is traditionally changed with error, so recalculate on error changed as well
     if (
-      changedProperties.has(AriaDescriptionKey) ||
-      (changedProperties.get('error') !== undefined && changedProperties.has('error'))
+      changedProperties.has(AriaDescriptionKey)
+      || (changedProperties.get('error') !== undefined && changedProperties.has('error'))
     ) {
       this.inputAriaDescription = inputDescription(this);
     }

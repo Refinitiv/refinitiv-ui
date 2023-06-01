@@ -1,7 +1,8 @@
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
 // import element and theme
 import '@refinitiv-ui/elements/overlay-menu';
-import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
 import { flatData, nestedData, numberData } from './data';
 
 describe('overlay-menu/Data', () => {

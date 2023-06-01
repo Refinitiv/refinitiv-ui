@@ -1,24 +1,24 @@
 import {
   BasicElement,
-  html,
-  css,
-  nothing,
+  CSSResultGroup,
   PropertyValues,
   TemplateResult,
-  CSSResultGroup,
-  WarningNotice
+  WarningNotice,
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js';
-import '../button/index.js';
-import '../button-bar/index.js';
-import '../layout/index.js';
-
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import '@refinitiv-ui/phrasebook/locale/en/pagination.js';
-import { translate, Translate, TranslateDirectiveResult } from '@refinitiv-ui/translate';
+import { Translate, TranslateDirectiveResult, translate } from '@refinitiv-ui/translate';
+
+import '../button-bar/index.js';
+import '../button/index.js';
+import '../layout/index.js';
+import { VERSION } from '../version.js';
 
 enum Direction {
   increment = 'increment',
@@ -242,7 +242,7 @@ export class Pagination extends BasicElement {
    * @returns result of validation
    */
   private validatePage(value: string, warning = false, propName = ''): boolean {
-    if ((/^[1-9]([0-9]+)?$/).test(value)) {
+    if (/^[1-9]([0-9]+)?$/.test(value)) {
       return true;
     } else {
       if (value !== null && warning && propName) {
@@ -499,16 +499,16 @@ export class Pagination extends BasicElement {
         event.preventDefault();
         break;
       case 'ArrowUp':
-        this.inputElement &&
-          this.hasNextPage(Number(this.inputElement.value || 1)) &&
-          this.updateInputValue(1, Direction.increment);
+        this.inputElement
+          && this.hasNextPage(Number(this.inputElement.value || 1))
+          && this.updateInputValue(1, Direction.increment);
         this.inputElement?.select();
         event.preventDefault();
         break;
       case 'ArrowDown':
-        this.inputElement &&
-          this.hasPreviousPage(Number(this.inputElement.value || 1)) &&
-          this.updateInputValue(1, Direction.decrement);
+        this.inputElement
+          && this.hasPreviousPage(Number(this.inputElement.value || 1))
+          && this.updateInputValue(1, Direction.decrement);
         this.inputElement?.select();
         event.preventDefault();
         break;

@@ -1,28 +1,29 @@
 import {
-  html,
-  css,
-  nothing,
-  ControlElement,
-  TemplateResult,
   CSSResultGroup,
+  ControlElement,
   PropertyValues,
   StyleMap,
-  WarningNotice
+  TemplateResult,
+  WarningNotice,
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
-import { translate, TranslateDirective } from '@refinitiv-ui/translate';
 import '@refinitiv-ui/phrasebook/locale/en/slider.js';
-import { VERSION } from '../version.js';
-import '../number-field/index.js';
-import type { NumberField } from '../number-field';
+import { TranslateDirective, translate } from '@refinitiv-ui/translate';
 
-import { SliderDataName, SliderPreviousDataName, NumberFieldName, Direction } from './constants.js';
-import { clamp, preventDefault, isDecimalNumber, countDecimalPlace } from './utils.js';
+import '../number-field/index.js';
+import { VERSION } from '../version.js';
+import { Direction, NumberFieldName, SliderDataName, SliderPreviousDataName } from './constants.js';
+import { clamp, countDecimalPlace, isDecimalNumber, preventDefault } from './utils.js';
+
+import type { NumberField } from '../number-field';
 
 /**
  * Allows users to make selections from a range of values
@@ -426,8 +427,8 @@ export class Slider extends ControlElement {
     super.willUpdate(changedProperties);
 
     if (
-      (changedProperties.has('disabled') && changedProperties.get('disabled') !== undefined) ||
-      (changedProperties.has('readonly') && changedProperties.get('readonly') !== undefined)
+      (changedProperties.has('disabled') && changedProperties.get('disabled') !== undefined)
+      || (changedProperties.has('readonly') && changedProperties.get('readonly') !== undefined)
     ) {
       this.prepareSliderTrack();
     }
@@ -880,9 +881,9 @@ export class Slider extends ControlElement {
     }
 
     // check drag desktop or mobile
-    const pageX = (event as TouchEvent).changedTouches ?
-      (event as TouchEvent).changedTouches[0].pageX :
-      (event as MouseEvent).pageX;
+    const pageX = (event as TouchEvent).changedTouches
+      ? (event as TouchEvent).changedTouches[0].pageX
+      : (event as MouseEvent).pageX;
     const positionSize = pageX - sliderRect.left;
 
     if (positionSize <= sliderRect.width) {
@@ -1244,12 +1245,12 @@ export class Slider extends ControlElement {
     };
     const stepContainerStyle = { transform: `translateX(-${translateX}%)` };
 
-    const trackFillStyle: StyleMap = range ?
-      {
+    const trackFillStyle: StyleMap = range
+      ? {
         width: `${this.calculatePosition(this.toNumber) - this.calculatePosition(this.fromNumber)}%`,
         left: `${this.calculatePosition(this.fromNumber)}%`
-      } :
-      { width: `${this.calculatePosition(Number(this.value))}%` };
+      }
+      : { width: `${this.calculatePosition(Number(this.value))}%` };
 
     return html`
       <div part="track-wrapper" ${ref(this.trackRef)}>
@@ -1370,15 +1371,15 @@ export class Slider extends ControlElement {
       <div part="slider-wrapper">
         <div part="slider" ${ref(this.sliderRef)}>
           ${this.renderTrack(this.range)}
-          ${this.range ?
-            this.renderThumb(this.fromNumber, this.toNumber) :
-            this.renderThumb(this.valueNumber)}
+          ${this.range
+            ? this.renderThumb(this.fromNumber, this.toNumber)
+            : this.renderThumb(this.valueNumber)}
         </div>
       </div>
       ${this.range && this.isShowInputField ? this.renderNumberField(this.to, SliderDataName.to) : null}
-      ${!this.range && this.isShowInputField ?
-        this.renderNumberField(this.value, SliderDataName.value) :
-        null}
+      ${!this.range && this.isShowInputField
+        ? this.renderNumberField(this.value, SliderDataName.value)
+        : null}
     `;
   }
 }

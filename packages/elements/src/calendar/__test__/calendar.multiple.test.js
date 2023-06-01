@@ -1,9 +1,9 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-import { setMonthView, setYearView, getDateCells } from './utils';
-
+import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 // import element and theme
 import '@refinitiv-ui/elements/calendar';
-import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import { getDateCells, setMonthView, setYearView } from './utils';
 
 const listenValueChangeEvent = (el) => {
   const values = [];

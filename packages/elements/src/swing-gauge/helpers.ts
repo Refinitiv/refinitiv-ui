@@ -1,4 +1,5 @@
 import { CenterLineStyle, DefaultStyle } from './const.js';
+
 import type { SwingGaugeCanvasSize, SwingGaugeData, SwingGaugeStyle } from './types';
 
 let ctx: CanvasRenderingContext2D;

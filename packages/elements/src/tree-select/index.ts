@@ -1,28 +1,28 @@
-import { html, TemplateResult, CSSResultGroup, css, nothing, triggerResize } from '@refinitiv-ui/core';
+import { CSSResultGroup, TemplateResult, css, html, nothing, triggerResize } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { repeat } from '@refinitiv-ui/core/directives/repeat.js';
-import { VERSION } from '../version.js';
-import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
+import '@refinitiv-ui/phrasebook/locale/en/tree-select.js';
+import { TranslateDirective, translate } from '@refinitiv-ui/translate';
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
-import '../icon/index.js';
-import '../pill/index.js';
 import '../button/index.js';
 import '../checkbox/index.js';
-import '../tree/index.js';
-import type { Overlay } from '../overlay';
 import { ComboBox, ComboBoxFilter as TreeSelectFilter } from '../combo-box/index.js';
-import type { CheckChangedEvent } from '../events';
+import '../icon/index.js';
+import '../pill/index.js';
+import '../tree/index.js';
 import { TreeRenderer as TreeSelectRenderer } from '../tree/index.js';
 import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager.js';
+import { VERSION } from '../version.js';
 
-import type { TreeSelectData, TreeSelectDataItem } from './helpers/types';
+import type { CheckChangedEvent } from '../events';
+import type { Overlay } from '../overlay';
 import type { Pill } from '../pill';
-import { translate, TranslateDirective } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/locale/en/tree-select.js';
+import type { TreeSelectData, TreeSelectDataItem } from './helpers/types';
 
 export { TreeSelectRenderer };
 export type { TreeSelectFilter, TreeSelectDataItem, TreeSelectData };
@@ -846,8 +846,8 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     return html`
       <div part="control-container filter-control">
         <div part="match-count-wrapper">${this.matchCountTemplate}</div>
-        ${this.hasSelectable ?
-          html`<div part="filter-wrapper">
+        ${this.hasSelectable
+          ? html`<div part="filter-wrapper">
               <div
                 role="button"
                 tabindex="0"
@@ -861,15 +861,15 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
                 role="button"
                 tabindex="${this.hasActiveSelection ? 0 : nothing}"
                 part="control selected-filter${this.selectionFilterState ? ' active' : ''}${!this
-                  .hasActiveSelection ?
-                  ' disabled' :
-                  ''}"
+                  .hasActiveSelection
+                  ? ' disabled'
+                  : ''}"
                 @tap="${this.selectedClickHandler}"
               >
                 ${this.t('SELECTED')}
               </div>
-            </div>` :
-          html``}
+            </div>`
+          : html``}
       </div>
     `;
   }
@@ -916,9 +916,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns Render template
    */
   protected get matchCountTemplate(): TemplateResult {
-    return this.query ?
-      html` <span part="match-count">${this.t('MATCHES_NUM', { numMatched: this.filterCount })}</span> ` :
-      html``;
+    return this.query
+      ? html` <span part="match-count">${this.t('MATCHES_NUM', { numMatched: this.filterCount })}</span> `
+      : html``;
   }
 
   /**

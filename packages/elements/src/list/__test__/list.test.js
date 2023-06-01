@@ -1,12 +1,10 @@
-import { fixture, expect, elementUpdated, nextFrame, triggerFocusFor } from '@refinitiv-ui/test-helpers';
-
+import '@refinitiv-ui/elemental-theme/light/ef-list';
 // import element and theme
 import '@refinitiv-ui/elements/list';
-import '@refinitiv-ui/elemental-theme/light/ef-list';
+import { elementUpdated, expect, fixture, nextFrame, triggerFocusFor } from '@refinitiv-ui/test-helpers';
+import { CollectionComposer } from '@refinitiv-ui/utils';
 
 import { getItemId } from '../../../lib/list/helpers/item-id.js';
-
-import { CollectionComposer } from '@refinitiv-ui/utils';
 
 const data = [
   {

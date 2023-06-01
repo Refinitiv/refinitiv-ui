@@ -1,84 +1,86 @@
 import {
-  ControlElement,
-  html,
-  css,
-  nothing,
-  TemplateResult,
   CSSResultGroup,
-  PropertyValues,
+  ControlElement,
   MultiValue,
-  WarningNotice
+  PropertyValues,
+  TemplateResult,
+  WarningNotice,
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { cache } from '@refinitiv-ui/core/directives/cache.js';
 import { guard } from '@refinitiv-ui/core/directives/guard.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
+import '@refinitiv-ui/phrasebook/locale/en/calendar.js';
 import {
-  DateSegment,
+  TranslateDirective,
+  TranslatePromise,
+  TranslatePropertyKey,
+  getLocale,
+  translate
+} from '@refinitiv-ui/translate';
+import {
   DateFormat,
+  DateSegment,
+  addMonths,
   format,
-  utcFormat,
-  utcParse,
-  isValidDate,
-  isWeekend,
   isAfter,
   isBefore,
-  addMonths,
-  subMonths,
-  isToday,
-  isThisMonth,
-  isThisYear,
   isSameDay,
   isSameMonth,
   isSameYear,
+  isThisMonth,
+  isThisYear,
+  isToday,
+  isValidDate,
+  isWeekend,
+  parse,
+  subMonths,
   toDateSegment,
-  parse
+  utcFormat,
+  utcParse
 } from '@refinitiv-ui/utils/date.js';
 import {
-  NavigationGrid,
   CellIndex,
-  left,
-  right,
-  up,
+  NavigationGrid,
   down,
   first,
-  last
+  last,
+  left,
+  right,
+  up
 } from '@refinitiv-ui/utils/navigation.js';
-import { monthInfo, weekdaysNames, monthsNames, ViewFormatTranslateParams } from './utils.js';
+
+import '../button/index.js';
+import { VERSION } from '../version.js';
 import {
-  translate,
-  TranslateDirective,
-  TranslatePromise,
-  getLocale,
-  TranslatePropertyKey
-} from '@refinitiv-ui/translate';
-import {
-  RenderView,
   CalendarLocaleScope,
-  FIRST_DAY_OF_WEEK,
-  YEARS_PER_YEAR_VIEW,
   DAY_VIEW,
-  YEAR_VIEW,
-  MONTH_VIEW
+  FIRST_DAY_OF_WEEK,
+  MONTH_VIEW,
+  RenderView,
+  YEARS_PER_YEAR_VIEW,
+  YEAR_VIEW
 } from './constants.js';
+import './locales.js';
+import { ViewFormatTranslateParams, monthInfo, monthsNames, weekdaysNames } from './utils.js';
+
+import type { Button } from '../button';
+import type { TapEvent } from '../events';
 import type {
-  Cell,
-  Row,
-  Comparator,
   CalendarFilter,
+  Cell,
   CellSelectionModel,
+  Comparator,
   DateButtonElement,
   NavigationDirection,
+  Row,
   WeekdayName
 } from './types';
-import type { TapEvent } from '../events';
-import type { Button } from '../button';
-import './locales.js';
-import '../button/index.js';
-import '@refinitiv-ui/phrasebook/locale/en/calendar.js';
 
 export { CalendarFilter };
 
@@ -267,10 +269,10 @@ export class Calendar extends ControlElement implements MultiValue {
   public get view(): string {
     /* as soon as user interaction has happened, always rely on view */
     return (
-      this._view ||
-      (this.value ?
-        utcFormat(toDateSegment(this.value), DateFormat.yyyyMM) :
-        format(new Date(), DateFormat.yyyyMM))
+      this._view
+      || (this.value
+        ? utcFormat(toDateSegment(this.value), DateFormat.yyyyMM)
+        : format(new Date(), DateFormat.yyyyMM))
     );
   }
 
@@ -494,10 +496,10 @@ export class Calendar extends ControlElement implements MultiValue {
     // This code is here to ensure that focus is not lost
     // while navigating through the render views using keyboard
     if (
-      this.focused &&
-      changedProperties.has('renderView') &&
-      this.viewBtnRef.value &&
-      this.activeElement !== this.viewBtnRef.value
+      this.focused
+      && changedProperties.has('renderView')
+      && this.viewBtnRef.value
+      && this.activeElement !== this.viewBtnRef.value
     ) {
       this.viewBtnRef.value.focus();
     }
@@ -609,11 +611,11 @@ export class Calendar extends ControlElement implements MultiValue {
    */
   private shouldConstructFilters(changedProperties: PropertyValues): boolean {
     return (
-      changedProperties.has('min') ||
-      changedProperties.has('max') ||
-      changedProperties.has('weekdaysOnly') ||
-      changedProperties.has('weekendsOnly') ||
-      changedProperties.has('filter')
+      changedProperties.has('min')
+      || changedProperties.has('max')
+      || changedProperties.has('weekdaysOnly')
+      || changedProperties.has('weekendsOnly')
+      || changedProperties.has('filter')
     );
   }
 
@@ -1390,13 +1392,13 @@ export class Calendar extends ControlElement implements MultiValue {
       <div
         role="${cell.value ? 'button' : nothing}"
         tabindex="${isSelectable ? String(isActive) : nothing}"
-        aria-label="${isSelectable ?
-          this.t(this.getCellLabelKey(cell), {
+        aria-label="${isSelectable
+          ? this.t(this.getCellLabelKey(cell), {
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               value: parse(cell.value!),
               view: this.renderView
-            }) :
-          nothing}"
+            })
+          : nothing}"
         part="cell-content${isSelection ? ' selection' : ''}${isSelectable ? ' selectable' : ''}"
         .value=${cell.value}
         .index=${cell.index}
@@ -1478,14 +1480,14 @@ export class Calendar extends ControlElement implements MultiValue {
       part="aria-selection"
       role="status"
       aria-live="polite"
-      aria-label="${this.value ?
-        this.range ?
-          this.t('SELECTED_RANGE', {
+      aria-label="${this.value
+        ? this.range
+          ? this.t('SELECTED_RANGE', {
               from: parse(this.values[0]),
               to: this.values[1] ? parse(this.values[1]) : null
-            }) :
-          this.t('SELECTED_DATE', { value: parse(this.value), count: this.values.length }) :
-        this.t('SELECTED_NONE', { multiple: this.multiple, range: this.range })}"
+            })
+          : this.t('SELECTED_DATE', { value: parse(this.value), count: this.values.length })
+        : this.t('SELECTED_NONE', { multiple: this.multiple, range: this.range })}"
     ></div>`;
   }
 

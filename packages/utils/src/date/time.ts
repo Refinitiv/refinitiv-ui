@@ -1,10 +1,10 @@
-import { padNumber, throwInvalidFormat, throwInvalidValue } from './utils.js';
 import {
   MILLISECONDS_IN_DAY,
   MILLISECONDS_IN_HOUR,
   MILLISECONDS_IN_MINUTE,
   MILLISECONDS_IN_SECOND
 } from './timestamps.js';
+import { padNumber, throwInvalidFormat, throwInvalidValue } from './utils.js';
 
 /**
  * Time segment
@@ -220,12 +220,12 @@ const addOffset = (value: string, amount: number): string => {
   }
 
   const segment = toSegment(value);
-  let duration =
-    segment.hours * MILLISECONDS_IN_HOUR +
-    segment.minutes * MILLISECONDS_IN_MINUTE +
-    (segment.seconds || 0) * MILLISECONDS_IN_SECOND +
-    (segment.milliseconds || 0) +
-    amount;
+  let duration
+    = segment.hours * MILLISECONDS_IN_HOUR
+    + segment.minutes * MILLISECONDS_IN_MINUTE
+    + (segment.seconds || 0) * MILLISECONDS_IN_SECOND
+    + (segment.milliseconds || 0)
+    + amount;
 
   duration %= MILLISECONDS_IN_DAY;
   if (duration < 0) {

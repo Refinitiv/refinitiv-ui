@@ -1,17 +1,17 @@
-import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
-import {
-  valueUpdated,
-  keyArrowLeft,
-  keyArrowRight,
-  keyArrowDown,
-  keyArrowUp,
-  keyHome,
-  keyEnd
-} from './utils';
-
+import '@refinitiv-ui/elemental-theme/light/ef-rating.js';
 // import element and theme
 import '@refinitiv-ui/elements/rating';
-import '@refinitiv-ui/elemental-theme/light/ef-rating.js';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+
+import {
+  keyArrowDown,
+  keyArrowLeft,
+  keyArrowRight,
+  keyArrowUp,
+  keyEnd,
+  keyHome,
+  valueUpdated
+} from './utils';
 
 describe('rating/Rating', () => {
   let el;
