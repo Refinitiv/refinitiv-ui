@@ -8,7 +8,8 @@ import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { VERSION } from '../../version.js';
 import { efConfig, type Config } from '../helpers/context.js';
 import { provide } from '@lit-labs/context';
-import { createEfConfig } from '../helpers/configuration.js';
+
+const DEFAULT_CONFIG: Config = { icon: { map: {} } };
 
 @customElement('ef-configuration', { theme: false })
 export class Configuration extends BasicElement {
@@ -34,7 +35,7 @@ export class Configuration extends BasicElement {
    */
   @provide({ context: efConfig })
   @state()
-  public config: Config = createEfConfig();
+  public config: Config = DEFAULT_CONFIG;
 
   /**
    * A `TemplateResult` that will be used
