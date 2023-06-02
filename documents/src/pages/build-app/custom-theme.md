@@ -86,9 +86,9 @@ In the sample custom theme project, it overrides the theme primary color, tertia
 @button-pressed-background-color: @scheme-color-primary;
 ```
 
-Lists of all less variables that you can override are in [Elemental Theme](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elemental-theme/src/variables.less) and [Halo Theme](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/halo-theme/src/variants/dark/variables.less).
+Lists of all less variables that you can override are in [Elemental Theme](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elemental-theme/src/variables.less) and [Halo Theme](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/halo-theme/src/variants/dark/variables.less).
 
-@> Elemental theme is a base theme of every theme in Element Framework, including Halo theme. Halo theme is created by extending from Elemental theme and overriding less variables, [see example](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/halo-theme/src/variants/dark/overrides.less).
+@> Elemental theme is a base theme of every theme in Element Framework, including Halo theme. Halo theme is created by extending from Elemental theme and overriding less variables, [see example](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/halo-theme/src/variants/dark/overrides.less).
 
 ## Customise theme native styles
 
