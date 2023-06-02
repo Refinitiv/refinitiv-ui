@@ -8,7 +8,7 @@ const getElementStyle = (elem, prop) => {
 
 const scrollUpdated = async () => {
   await aTimeout(300);
-  await nextFrame(); // Firefox require extra frame when performance drop by testing all packages
+  await nextFrame(2); // Firefox require extra frame when performance drop by testing all packages
 };
 
 describe('tab-bar/TabBar', () => {

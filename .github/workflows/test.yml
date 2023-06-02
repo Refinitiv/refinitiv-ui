@@ -48,7 +48,8 @@ jobs:
       - name: Lint
         run: npm run lint:affected -- --base=$BASE_SHA
 
-  test:
+  test-chrome:
+    name: 'test chrome'
     needs: lint
     runs-on: ubuntu-latest
     steps:
@@ -60,7 +61,79 @@ jobs:
       - name: Test
         uses: ./.github/actions/run-test
         with:
-          browsers: 'latest'
+          browsers: 'chrome'
+
+  test-firefox:
+    name: 'test firefox'
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'firefox'
+
+  test-safari:
+    name: 'test safari'
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'safari'
+
+  test-ios:
+    name: 'test ios'
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'ios'
+
+  test-android:
+    name: 'test android'
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'android'
+
+  scan:
+    needs: test-chrome
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master

@@ -1,4 +1,4 @@
-import { elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated } from '@refinitiv-ui/test-helpers';
 
 import { RenderView } from '../../../lib/calendar/constants.js';
 

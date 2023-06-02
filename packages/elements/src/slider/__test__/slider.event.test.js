@@ -1,7 +1,6 @@
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
 import '@refinitiv-ui/elements/slider';
-import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
-import { isMobile } from '@refinitiv-ui/utils';
+import { elementUpdated, expect, fixture, isNear, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import { calculateValue, tabSliderPosition } from './utils';
 
@@ -32,9 +31,6 @@ describe('slider/Events', () => {
   });
 
   it('Drag thumb slider has range on desktop', async function () {
-    if (isMobile) {
-      this.skip(); // unstable in android device
-    }
     el.range = true;
     await elementUpdated(el);
     expect(el.from).to.equal('0');
@@ -68,8 +64,8 @@ describe('slider/Events', () => {
     await oneEvent(slider, 'mousedown');
     expect(isDragging(el)).to.be.true;
     expect(el.from).to.equal(calculateValue(el, 150).toFixed(0));
-
-    expect(el.to).to.equal(calculateValue(el, window.innerWidth - 100).toString());
+    // Android: Need to test by comparing different value
+    expect(isNear(el.to, calculateValue(el, window.innerWidth - 100).toString(), 1, true)).to.be.true;
 
     setTimeout(() =>
       window.dispatchEvent(
@@ -92,7 +88,8 @@ describe('slider/Events', () => {
     await oneEvent(window, 'mouseup');
     expect(isDragging(el)).to.be.false;
     expect(el.from).to.equal(calculateValue(el, 150).toFixed(0));
-    expect(el.to).to.equal(calculateValue(el, window.innerWidth - 90).toString());
+    // Android: Need to test by comparing different value
+    expect(isNear(el.to, calculateValue(el, window.innerWidth - 90).toString(), 1, true)).to.be.true;
   });
 
   it('Drag "from" thumb slider to end of right.', async () => {
@@ -128,9 +125,6 @@ describe('slider/Events', () => {
   });
 
   it('Drag "to" thumb slider to end of left.', async function () {
-    if (isMobile) {
-      this.skip(); // unstable in android device
-    }
     el.range = true;
     await elementUpdated(el);
     expect(el.from).to.equal('0');
@@ -148,7 +142,9 @@ describe('slider/Events', () => {
     await oneEvent(slider, 'mousedown');
     expect(isDragging(el)).to.be.true;
     expect(el.from).to.equal('0');
-    expect(el.to).to.equal(calculateValue(el, window.innerWidth - 100).toString());
+
+    // Android: Need to test by comparing different value
+    expect(isNear(el.to, calculateValue(el, window.innerWidth - 100).toString(), 1, true)).to.be.true;
 
     setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: 0, clientY: 0 })));
     await oneEvent(window, 'mousemove');

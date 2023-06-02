@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { defaultReporter } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { Buffer } from 'node:buffer';
@@ -25,6 +26,7 @@ export default {
     config: { timeout: 5000 } // Mocha timeout 5 seconds
   },
   coverage: true,
+  concurrency: 1, // Prevent unstable test e.g. ef-overlay and focusing
   coverageConfig: {
     report: true,
     reportDir: 'coverage',
@@ -48,5 +50,8 @@ export default {
   browserStartTimeout: 600000, // 10 minutes
   testsStartTimeout: 600000, // 10 minutes
   testsFinishTimeout: 600000, // 10 minutes
-  plugins: [pluginJsBufferToString]
+  plugins: [
+    esbuildPlugin({ ts: true }), // Workaround: prevent the issue "Could not import module ..." (randomly)
+    pluginJsBufferToString
+  ]
 };
