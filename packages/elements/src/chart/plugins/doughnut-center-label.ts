@@ -11,7 +11,7 @@ import type {
   ArcElement
 } from 'chart.js';
 // eslint-disable-next-line import/extensions
-import { getHoverColor } from 'chart.js/helpers/helpers.js';
+import { getHoverColor } from 'chart.js/helpers/helpers';
 
 interface Selectable {
   _select: ActiveElement[];
