@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 // import element and theme
 import '@refinitiv-ui/elements/overlay';
+
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('overlay/Snapshot', () => {

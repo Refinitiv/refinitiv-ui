@@ -1,5 +1,6 @@
-import '@refinitiv-ui/elemental-theme/light/ef-heatmap.js';
 import '@refinitiv-ui/elements/heatmap';
+
+import '@refinitiv-ui/elemental-theme/light/ef-heatmap.js';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import { Track } from '../../../lib/heatmap/helpers/track.js';

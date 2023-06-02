@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-appstate-bar.js';
 // import element and theme
 import '@refinitiv-ui/elements/appstate-bar';
+
+import '@refinitiv-ui/elemental-theme/light/ef-appstate-bar.js';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('appstate-bar/AppstateBar', () => {

@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-item';
 // import element and theme
 import '@refinitiv-ui/elements/item';
+
+import '@refinitiv-ui/elemental-theme/light/ef-item';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 const createFixture = (type = '') => {

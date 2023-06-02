@@ -1,5 +1,6 @@
-import '@refinitiv-ui/elemental-theme/light/ef-radio-button';
 import '@refinitiv-ui/elements/radio-button';
+
+import '@refinitiv-ui/elemental-theme/light/ef-radio-button';
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import './radio-wrapper-mockup.js';

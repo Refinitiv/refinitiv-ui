@@ -1,5 +1,6 @@
-import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 import '@refinitiv-ui/elements/combo-box';
+
+import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { getData, snapshotIgnore } from './utils';

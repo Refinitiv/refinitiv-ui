@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-layout.js';
 // import element and theme
 import '@refinitiv-ui/elements/layout';
+
+import '@refinitiv-ui/elemental-theme/light/ef-layout.js';
 import {
   aTimeout,
   assert,

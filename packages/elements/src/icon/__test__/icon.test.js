@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
 import '@refinitiv-ui/elements/icon';
 import { preload } from '@refinitiv-ui/elements/icon';
+
+import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import sinon from 'sinon';

@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-toggle';
 // import element and theme
 import '@refinitiv-ui/elements/toggle';
+
+import '@refinitiv-ui/elemental-theme/light/ef-toggle';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('toggle/Toggle', () => {

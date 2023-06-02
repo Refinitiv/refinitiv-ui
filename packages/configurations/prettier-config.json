@@ -4,8 +4,13 @@
   "singleQuote": true,
   "printWidth": 110,
   "trailingComma": "none",
-
-  "importOrder": ["^@refinitiv-ui/(.*)$", "<THIRD_PARTY_MODULES>", "^[./]", "<TS_TYPES>"],
+  "importOrder": [
+    "^@refinitiv-ui/elements",
+    "^@refinitiv-ui/(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^[./]",
+    "<TS_TYPES>"
+  ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
   "importOrderParserPlugins": ["typescript", "decorators-legacy"]

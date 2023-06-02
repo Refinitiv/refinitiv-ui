@@ -1,5 +1,6 @@
-import '@refinitiv-ui/elemental-theme/light/ef-number-field';
 import '@refinitiv-ui/elements/number-field';
+
+import '@refinitiv-ui/elemental-theme/light/ef-number-field';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 const dispatchInputEvent = (el, input = '') => {

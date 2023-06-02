@@ -1,8 +1,9 @@
+// import element and theme
+import '@refinitiv-ui/elements/color-dialog';
+
 import '@refinitiv-ui/elemental-theme/light/ef-color-dialog';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
-// import element and theme
-import '@refinitiv-ui/elements/color-dialog';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 import { removeHashSign, rgb } from '@refinitiv-ui/utils/color.js';
 

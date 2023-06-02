@@ -1,5 +1,6 @@
-import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
 import '@refinitiv-ui/elements/tab-bar';
+
+import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 const getElementStyle = (elem, prop) => {

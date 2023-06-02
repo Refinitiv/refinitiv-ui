@@ -1,7 +1,8 @@
 // Keyboard navigation test
-import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 // import element and theme
 import '@refinitiv-ui/elements/calendar';
+
+import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { down, end, home, left, right, setMonthView, setYearView, up } from './utils';

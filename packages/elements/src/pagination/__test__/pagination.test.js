@@ -1,5 +1,6 @@
-import '@refinitiv-ui/elemental-theme/light/ef-pagination';
 import '@refinitiv-ui/elements/pagination';
+
+import '@refinitiv-ui/elemental-theme/light/ef-pagination';
 import {
   aTimeout,
   elementUpdated,

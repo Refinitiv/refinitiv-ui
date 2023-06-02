@@ -1,7 +1,8 @@
-import '@refinitiv-ui/elemental-theme/light/ef-flag';
 // import element and theme
 import '@refinitiv-ui/elements/flag';
 import { preload } from '@refinitiv-ui/elements/flag';
+
+import '@refinitiv-ui/elemental-theme/light/ef-flag';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import sinon from 'sinon';

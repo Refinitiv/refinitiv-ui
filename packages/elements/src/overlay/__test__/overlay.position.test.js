@@ -1,5 +1,6 @@
-import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 import '@refinitiv-ui/elements/overlay';
+
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 import { elementUpdated, expect, fixture, isNear, nextFrame } from '@refinitiv-ui/test-helpers';
 
 const width = 100;

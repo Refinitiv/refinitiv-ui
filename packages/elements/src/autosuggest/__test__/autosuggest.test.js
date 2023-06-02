@@ -1,8 +1,9 @@
 // import element and theme
-import '@refinitiv-ui/elemental-theme/light/ef-autosuggest';
-import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import { Autosuggest } from '@refinitiv-ui/elements/autosuggest';
 import '@refinitiv-ui/elements/text-field';
+
+import '@refinitiv-ui/elemental-theme/light/ef-autosuggest';
+import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import { elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import { itemHighlightable, renderer } from '../../../lib/autosuggest/index.js';

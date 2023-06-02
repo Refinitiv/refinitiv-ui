@@ -1,5 +1,6 @@
-import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
 import '@refinitiv-ui/elements/tab-bar';
+
+import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 const keyArrowLeft = new KeyboardEvent('keydown', { key: 'ArrowLeft' });

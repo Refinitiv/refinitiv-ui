@@ -1,5 +1,6 @@
-import '@refinitiv-ui/elemental-theme/light/ef-select';
 import '@refinitiv-ui/elements/select';
+
+import '@refinitiv-ui/elemental-theme/light/ef-select';
 import { elementUpdated, expect, fixture, nextFrame, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 
 import { getData, getMenuEl, getOptions, openedUpdated } from './utils';

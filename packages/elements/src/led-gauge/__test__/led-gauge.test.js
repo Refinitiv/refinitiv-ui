@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-led-gauge.js';
 // import element and theme
 import '@refinitiv-ui/elements/led-gauge';
+
+import '@refinitiv-ui/elemental-theme/light/ef-led-gauge.js';
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 describe('led-gauge/LedGauge', () => {

@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 // import element and theme
 import '@refinitiv-ui/elements/calendar';
+
+import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 import { elementUpdated, expect, fixture, isFirefox, nextFrame } from '@refinitiv-ui/test-helpers';
 import { isSafari } from '@refinitiv-ui/utils';
 import { parse } from '@refinitiv-ui/utils';

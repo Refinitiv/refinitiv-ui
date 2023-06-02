@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-collapse';
 // import element and theme
 import '@refinitiv-ui/elements/collapse';
+
+import '@refinitiv-ui/elemental-theme/light/ef-collapse';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('collapse/Collapse', () => {

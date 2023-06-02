@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-swing-gauge.js';
 // import element and theme
 import '@refinitiv-ui/elements/swing-gauge';
+
+import '@refinitiv-ui/elemental-theme/light/ef-swing-gauge.js';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { isMobile, isSafari } from '@refinitiv-ui/utils';
 

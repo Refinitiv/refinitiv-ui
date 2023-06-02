@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-password-field';
 // import element and theme
 import '@refinitiv-ui/elements/password-field';
+
+import '@refinitiv-ui/elemental-theme/light/ef-password-field';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('password-field/PasswordField', () => {

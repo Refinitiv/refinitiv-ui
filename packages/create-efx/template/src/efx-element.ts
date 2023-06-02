@@ -1,8 +1,9 @@
+import '@refinitiv-ui/elements/button';
+import '@refinitiv-ui/elements/panel';
+
 import { BasicElement, CSSResultGroup, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import '@refinitiv-ui/elements/button';
-import '@refinitiv-ui/elements/panel';
 
 /**
  * Replace the text with element description

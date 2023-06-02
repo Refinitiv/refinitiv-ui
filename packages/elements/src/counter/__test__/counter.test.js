@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-counter';
 // import element and theme
 import '@refinitiv-ui/elements/counter';
+
+import '@refinitiv-ui/elemental-theme/light/ef-counter';
 import { elementUpdated, expect, fixture, html } from '@refinitiv-ui/test-helpers';
 
 import { convertToCompactNotation } from '../../../lib/counter/utils';

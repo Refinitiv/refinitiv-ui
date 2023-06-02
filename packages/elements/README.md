@@ -30,6 +30,7 @@ import '@refinitiv-ui/elements/button';
 import '@refinitiv-ui/elements/button/themes/halo/dark';
 import '@refinitiv-ui/elements/panel';
 import '@refinitiv-ui/elements/panel/themes/halo/dark';
+
 // import native styles for typography, css variables, etc.
 import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
 ```

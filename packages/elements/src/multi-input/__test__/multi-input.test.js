@@ -1,5 +1,6 @@
-import '@refinitiv-ui/elemental-theme/light/ef-multi-input';
 import '@refinitiv-ui/elements/multi-input';
+
+import '@refinitiv-ui/elemental-theme/light/ef-multi-input';
 import { elementUpdated, expect, fixture, html, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import { getData, getNewItem } from './values.mock';

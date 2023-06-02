@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 import '@refinitiv-ui/elements/overlay';
 import { Overlay } from '@refinitiv-ui/elements/overlay';
+
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import { createSandbox, restore, spy } from 'sinon';

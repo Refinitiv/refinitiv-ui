@@ -3,6 +3,8 @@ coverage/
 lib/
 __snapshots__/
 
+*.less
+
 # Elemental and Halo themes
 **/dark/**/*.js
 **/light/**/*.js

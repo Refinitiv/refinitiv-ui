@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-loader.js';
 // import element and theme
 import '@refinitiv-ui/elements/loader';
+
+import '@refinitiv-ui/elemental-theme/light/ef-loader.js';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 const areDotsHaveEnoughSpaceInside = (loader) => {

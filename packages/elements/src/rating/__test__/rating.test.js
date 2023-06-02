@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-rating.js';
 // import element and theme
 import '@refinitiv-ui/elements/rating';
+
+import '@refinitiv-ui/elemental-theme/light/ef-rating.js';
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import {

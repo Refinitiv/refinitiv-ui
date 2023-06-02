@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-datetime-picker';
 // import element and theme
 import '@refinitiv-ui/elements/datetime-picker';
+
+import '@refinitiv-ui/elemental-theme/light/ef-datetime-picker';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import { fireKeydownEvent } from './utils';

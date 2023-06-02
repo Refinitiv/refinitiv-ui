@@ -1,7 +1,8 @@
-import '@refinitiv-ui/elemental-theme/light/ef-autosuggest';
-import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import '@refinitiv-ui/elements/autosuggest';
 import '@refinitiv-ui/elements/text-field';
+
+import '@refinitiv-ui/elemental-theme/light/ef-autosuggest';
+import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import { elementUpdated, expect, isFirefox, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 import { isSafari } from '@refinitiv-ui/utils';
 import { isMobile } from '@refinitiv-ui/utils/browser.js';

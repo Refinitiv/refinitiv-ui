@@ -1,6 +1,7 @@
-import '@refinitiv-ui/elemental-theme/light/ef-datetime-field';
 // import element and theme
 import '@refinitiv-ui/elements/datetime-field';
+
+import '@refinitiv-ui/elemental-theme/light/ef-datetime-field';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { arrowRight, focusInput } from './utils';
