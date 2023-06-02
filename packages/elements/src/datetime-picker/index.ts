@@ -373,8 +373,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
   public get format(): string {
     return (
-      this._format
-      || (this.timepicker
+      this._format ||
+      (this.timepicker
         ? this.showSeconds
           ? this.amPm
             ? INPUT_FORMAT.DATETIME_SECONDS_AM_PM
@@ -446,11 +446,11 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
     // default duplex mode
     if (
-      this.isDuplexConsecutive()
-      || !from
-      || !to
-      || formatToView(from) === formatToView(to)
-      || isBefore(to, from)
+      this.isDuplexConsecutive() ||
+      !from ||
+      !to ||
+      formatToView(from) === formatToView(to) ||
+      isBefore(to, from)
     ) {
       return this.composeViews(formatToView(from || to || now), !from && to ? 1 : 0, []);
     }
@@ -583,10 +583,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private shouldValidateValue(changedProperties: PropertyValues): boolean {
     // do not validate default value
     if (
-      (changedProperties.has('_values') && changedProperties.get('_values') !== undefined)
-      || (changedProperties.has('min') && changedProperties.get('min') !== undefined)
-      || (changedProperties.has('max') && changedProperties.get('max') !== undefined)
-      || (changedProperties.has('showSeconds') && changedProperties.get('showSeconds') !== undefined)
+      (changedProperties.has('_values') && changedProperties.get('_values') !== undefined) ||
+      (changedProperties.has('min') && changedProperties.get('min') !== undefined) ||
+      (changedProperties.has('max') && changedProperties.get('max') !== undefined) ||
+      (changedProperties.has('showSeconds') && changedProperties.get('showSeconds') !== undefined)
     ) {
       return true;
     }

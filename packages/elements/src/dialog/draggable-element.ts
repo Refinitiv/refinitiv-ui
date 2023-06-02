@@ -87,8 +87,8 @@ class DraggableManager {
    * @param handle element that will be touched for dragging
    * @returns {void}
    */
-  private mouseDownListener
-    = (draggableElement: HTMLElement, handle: HTMLElement): MouseEventListener =>
+  private mouseDownListener =
+    (draggableElement: HTMLElement, handle: HTMLElement): MouseEventListener =>
       (event: MouseEvent): void => {
         if (event.button === MAIN_MOUSE_BUTTON && event.target === handle) {
           this.draggableElement = draggableElement;

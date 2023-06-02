@@ -430,8 +430,8 @@ class Tooltip extends BasicElement {
       const matchTargetRect = matchTarget.getBoundingClientRect();
 
       if (
-        lastMatchTarget === matchTarget
-        && !Tooltip.elementHasMoved(matchTargetRect, this.matchTargetRect)
+        lastMatchTarget === matchTarget &&
+        !Tooltip.elementHasMoved(matchTargetRect, this.matchTargetRect)
       ) {
         return;
       }

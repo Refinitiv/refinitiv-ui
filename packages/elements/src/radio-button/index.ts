@@ -132,9 +132,9 @@ export class RadioButton extends ControlElement {
 
     // Ensure only one radio button is checked
     if (
-      this.isConnected
-      && this.hasUpdated
-      && (changedProperties.has('checked') || changedProperties.has('name'))
+      this.isConnected &&
+      this.hasUpdated &&
+      (changedProperties.has('checked') || changedProperties.has('name'))
     ) {
       this.manageGroupState();
     }

@@ -40,8 +40,8 @@ const validateProjectName = (name: string) => {
   } else if (name.endsWith('-')) {
     error = 'Project name should not end with a hyphen.';
   } else if (/\./.test(name)) {
-    error
-      = 'Project name should not contain a dot character as it would need to be escaped in a CSS selector.';
+    error =
+      'Project name should not contain a dot character as it would need to be escaped in a CSS selector.';
   } else if (/[^\u0020-\u007E]/.test(name)) {
     error = 'Project name should not contain non-ASCII characters.';
   } else if (/--/.test(name)) {

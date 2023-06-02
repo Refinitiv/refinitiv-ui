@@ -19,8 +19,8 @@ const isNested = <T extends CollectionItem>(items: T[]): boolean => {
 const processFlat = <T extends CollectionItem>(items: T[]): FlatResult<T> => {
   const result = new FlatResult<T>();
   result.items = items.slice();
-  result.depths
-    = 'fill' in Array.prototype
+  result.depths =
+    'fill' in Array.prototype
       ? (Array(result.items.length).fill(0) as number[])
       : result.items.map(RETURN_ZERO);
   return result;

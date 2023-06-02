@@ -46,9 +46,9 @@ class AsyncTranslateDirective extends AsyncDirective {
 
     if (
       !(
-        this.partType === PartType.CHILD
-        || this.partType === PartType.ATTRIBUTE
-        || this.partType === PartType.PROPERTY
+        this.partType === PartType.CHILD ||
+        this.partType === PartType.ATTRIBUTE ||
+        this.partType === PartType.PROPERTY
       )
     ) {
       throw new Error(
@@ -189,8 +189,8 @@ const translate = function (options?: string | DecoratorOptions): TranslateFunct
       keys.delete(this);
     };
 
-    const descriptor
-      = mode === 'promise'
+    const descriptor =
+      mode === 'promise'
         ? {
           get(this: BasicElement): TranslatePromise {
             return (

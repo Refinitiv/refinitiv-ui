@@ -393,8 +393,8 @@ export class TabBar extends BasicElement {
     }
 
     const focusedTabIndex = tabList.findIndex((tab) => tab === document.activeElement);
-    const nextTab
-      = direction === 'next'
+    const nextTab =
+      direction === 'next'
         ? tabList[focusedTabIndex + 1] || tabList[0]
         : tabList[focusedTabIndex - 1] || tabList[tabList.length - 1];
 

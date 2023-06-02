@@ -46,8 +46,8 @@ nextBtn.style.right = '10px';
 nextBtn.style.top = '10px';
 nextBtn.style.fontSize = '0';
 nextBtn.style.cursor = 'pointer';
-nextBtn.innerHTML
-  = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/><path fill="none" d="M0 0h24v24H0V0z"/></svg>';
+nextBtn.innerHTML =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/><path fill="none" d="M0 0h24v24H0V0z"/></svg>';
 nextBtn.addEventListener('click', () => {
   changeTheme(getNextTheme());
 });

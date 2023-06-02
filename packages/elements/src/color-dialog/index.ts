@@ -230,14 +230,14 @@ export class ColorDialog extends Dialog {
   protected shouldUpdate(changedProperties: PropertyValues): boolean {
     const shouldUpdate = super.shouldUpdate(changedProperties);
     return (
-      shouldUpdate
-      || changedProperties.has('allowNocolor')
-      || changedProperties.has('red')
-      || changedProperties.has('green')
-      || changedProperties.has('blue')
-      || changedProperties.has('value')
-      || changedProperties.has('hex')
-      || changedProperties.has('enableConfirm')
+      shouldUpdate ||
+      changedProperties.has('allowNocolor') ||
+      changedProperties.has('red') ||
+      changedProperties.has('green') ||
+      changedProperties.has('blue') ||
+      changedProperties.has('value') ||
+      changedProperties.has('hex') ||
+      changedProperties.has('enableConfirm')
     );
   }
 

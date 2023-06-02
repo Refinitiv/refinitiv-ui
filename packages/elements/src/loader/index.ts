@@ -30,9 +30,9 @@ export class Loader extends BasicElement {
    * used to create and theme different loader styles
    */
   protected get templateParts(): readonly string[] {
-    const parts
-      = cachedParts
-      || this.getComputedVariable('--parts')
+    const parts =
+      cachedParts ||
+      this.getComputedVariable('--parts')
         .split(',')
         .map((part) => part.trim())
         .filter((part) => part);

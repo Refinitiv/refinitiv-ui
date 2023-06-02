@@ -73,8 +73,8 @@ const entriesResize = (entries: ResizeObserverEntry[]): void => {
  * Global resize observer,
  * used to watch changes in element dimensions
  */
-const resizeObserver
-  = typeof ResizeObserver === 'function'
+const resizeObserver =
+  typeof ResizeObserver === 'function'
     ? new ResizeObserver(entriesResize)
     : new PolyfillResizeObserver(entriesResize);
 

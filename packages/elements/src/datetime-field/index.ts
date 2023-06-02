@@ -321,13 +321,13 @@ export class DatetimeField extends TextField {
     // Note: changing any of these properties override the input value
     // On blur, if the value is correct makes sure strict format is used
     return (
-      changedProperties.has('interimValueState')
-      || changedProperties.has(TranslatePropertyKey)
-      || changedProperties.has('formatOptions')
-      || changedProperties.has('timepicker')
-      || changedProperties.has('showSeconds')
-      || changedProperties.has('amPm')
-      || (changedProperties.has(FocusedPropertyKey) && this.value !== '' && !this.focused)
+      changedProperties.has('interimValueState') ||
+      changedProperties.has(TranslatePropertyKey) ||
+      changedProperties.has('formatOptions') ||
+      changedProperties.has('timepicker') ||
+      changedProperties.has('showSeconds') ||
+      changedProperties.has('amPm') ||
+      (changedProperties.has(FocusedPropertyKey) && this.value !== '' && !this.focused)
     );
   }
 

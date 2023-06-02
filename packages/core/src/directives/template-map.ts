@@ -165,8 +165,8 @@ class TemplateMapDirective extends Directive {
  * }
  * @returns noChange directive result
  */
-const templateMap: (template: TemplateMap) => DirectiveResult<typeof TemplateMapDirective>
-  = directive(TemplateMapDirective);
+const templateMap: (template: TemplateMap) => DirectiveResult<typeof TemplateMapDirective> =
+  directive(TemplateMapDirective);
 
 export { templateMap };
 

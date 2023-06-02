@@ -100,9 +100,9 @@ const isValid = function (value: string, format?: InputFormat | null): boolean {
   format = format || getFormat(value);
 
   return (
-    (timeFormat === TimeFormat.HHmm && format === Format.yyyMMddTHHmm)
-    || (timeFormat === TimeFormat.HHmmss && format === Format.yyyMMddTHHmmss)
-    || (timeFormat === TimeFormat.HHmmssSSS && format === Format.yyyMMddTHHmmssSSS)
+    (timeFormat === TimeFormat.HHmm && format === Format.yyyMMddTHHmm) ||
+    (timeFormat === TimeFormat.HHmmss && format === Format.yyyMMddTHHmmss) ||
+    (timeFormat === TimeFormat.HHmmssSSS && format === Format.yyyMMddTHHmmssSSS)
   );
 };
 

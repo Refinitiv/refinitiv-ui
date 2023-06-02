@@ -72,11 +72,11 @@ const isTime = (value: string | Segment): boolean => {
   }
 
   return (
-    value.year === undefined
-    && value.month === undefined
-    && value.day === undefined
-    && value.hours !== undefined
-    && value.minutes !== undefined
+    value.year === undefined &&
+    value.month === undefined &&
+    value.day === undefined &&
+    value.hours !== undefined &&
+    value.minutes !== undefined
   );
 };
 
@@ -86,13 +86,13 @@ const isDate = (value: string | Segment): boolean => {
   }
 
   return (
-    value.year !== undefined
-    && value.month !== undefined
-    && value.day !== undefined
-    && value.hours === undefined
-    && value.minutes === undefined
-    && value.seconds === undefined
-    && value.milliseconds === undefined
+    value.year !== undefined &&
+    value.month !== undefined &&
+    value.day !== undefined &&
+    value.hours === undefined &&
+    value.minutes === undefined &&
+    value.seconds === undefined &&
+    value.milliseconds === undefined
   );
 };
 
@@ -102,11 +102,11 @@ const isDateTime = (value: string | Segment): boolean => {
   }
 
   return (
-    value.year !== undefined
-    && value.month !== undefined
-    && value.day !== undefined
-    && value.hours !== undefined
-    && value.minutes !== undefined
+    value.year !== undefined &&
+    value.month !== undefined &&
+    value.day !== undefined &&
+    value.hours !== undefined &&
+    value.minutes !== undefined
   );
 };
 
@@ -293,9 +293,9 @@ const isSameDay = (value: string, compare: string): boolean => {
   const valueSegment = toSegment(value);
   const compareSegment = toSegment(compare);
   return (
-    valueSegment.year === compareSegment.year
-    && valueSegment.month === compareSegment.month
-    && valueSegment.day === compareSegment.day
+    valueSegment.year === compareSegment.year &&
+    valueSegment.month === compareSegment.month &&
+    valueSegment.day === compareSegment.day
   );
 };
 
@@ -546,8 +546,8 @@ const iterateUnit = (value: string, unit: Unit, amount: number): string => {
       break;
     case 'millisecond':
       date.setUTCMilliseconds(
-        (date.getUTCMilliseconds() + ((MILLISECONDS_IN_SECOND + amount) % MILLISECONDS_IN_SECOND))
-          % MILLISECONDS_IN_SECOND
+        (date.getUTCMilliseconds() + ((MILLISECONDS_IN_SECOND + amount) % MILLISECONDS_IN_SECOND)) %
+          MILLISECONDS_IN_SECOND
       );
       break;
     default:

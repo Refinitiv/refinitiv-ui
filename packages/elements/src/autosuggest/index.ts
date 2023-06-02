@@ -951,13 +951,13 @@ export class Autosuggest extends Overlay {
    */
   private shouldAutosuggestUpdate(changedProperties: PropertyValues): boolean {
     return (
-      changedProperties.has('attach')
-      || changedProperties.has('suggestions')
-      || changedProperties.has('moreResults')
-      || changedProperties.has('moreSearchText')
-      || changedProperties.has('loading')
-      || changedProperties.has('debounceRate')
-      || changedProperties.has(TranslatePropertyKey)
+      changedProperties.has('attach') ||
+      changedProperties.has('suggestions') ||
+      changedProperties.has('moreResults') ||
+      changedProperties.has('moreSearchText') ||
+      changedProperties.has('loading') ||
+      changedProperties.has('debounceRate') ||
+      changedProperties.has(TranslatePropertyKey)
     );
   }
 

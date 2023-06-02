@@ -127,11 +127,11 @@ const onDocumentKeyDown = (event: KeyboardEvent): void => {
  */
 const shouldDelegateOnFocus = (target: HTMLElement | null): boolean => {
   return (
-    !isKeyShift
-    && isBasicElement(target)
-    && register.has(target)
-    && target.delegatesFocus
-    && getActiveElement(true) === target
+    !isKeyShift &&
+    isBasicElement(target) &&
+    register.has(target) &&
+    target.delegatesFocus &&
+    getActiveElement(true) === target
   );
 };
 

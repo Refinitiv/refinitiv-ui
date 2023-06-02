@@ -804,8 +804,8 @@ export class Overlay extends ResponsiveElement {
       });
     }
 
-    const enablingFocusManagement
-      = (opening && !this.noFocusManagement) || (opened && !!changedProperties.get('noFocusManagement'));
+    const enablingFocusManagement =
+      (opening && !this.noFocusManagement) || (opened && !!changedProperties.get('noFocusManagement'));
     const disablingFocusManagement = opened && changedProperties.get('noFocusManagement') === false;
     if (enablingFocusManagement) {
       focusableRegister(this);
@@ -814,16 +814,16 @@ export class Overlay extends ResponsiveElement {
     }
 
     if (
-      opening
-      || changedProperties.has('noInteractionLock')
-      || changedProperties.has('lockPositionTarget')
-      || changedProperties.has('interactiveElements')
+      opening ||
+      changedProperties.has('noInteractionLock') ||
+      changedProperties.has('lockPositionTarget') ||
+      changedProperties.has('interactiveElements')
     ) {
       applyLock();
     }
 
-    const enablingBackdrop
-      = (opening && this.withBackdrop) || (opened && changedProperties.get('withBackdrop') === false);
+    const enablingBackdrop =
+      (opening && this.withBackdrop) || (opened && changedProperties.get('withBackdrop') === false);
     const disablingBackdrop = opened && !!changedProperties.get('withBackdrop');
     if (enablingBackdrop) {
       backdropRegister(this);
@@ -1224,8 +1224,8 @@ export class Overlay extends ResponsiveElement {
     const positionList = positionTargetConfig.position;
     const horizontalOffset = this.horizontalOffset;
     const verticalOffset = this.verticalOffset;
-    const positionHorizontalOffset
-      = horizontalOffset + this.offset; /* these offset are used with optional offset against the target */
+    const positionHorizontalOffset =
+      horizontalOffset + this.offset; /* these offset are used with optional offset against the target */
     const positionVerticalOffset = verticalOffset + this.offset;
 
     this.limitToViewArea();
@@ -1236,11 +1236,11 @@ export class Overlay extends ResponsiveElement {
 
     const calculatedPositionList: CalculatedPosition[] = [];
 
-    const isOutsideView
-      = targetRect.bottom < 0
-      || targetRect.top > viewHeight
-      || targetRect.right < 0
-      || targetRect.left > viewWidth; /* position target is outside view */
+    const isOutsideView =
+      targetRect.bottom < 0 ||
+      targetRect.top > viewHeight ||
+      targetRect.right < 0 ||
+      targetRect.left > viewWidth; /* position target is outside view */
 
     const canAlignPosition = (isVertical: boolean, align: string): PositionStyle & { canAlign: boolean } => {
       if (isVertical) {
@@ -1323,10 +1323,10 @@ export class Overlay extends ResponsiveElement {
           const align = strategy[Alignment];
 
           if (
-            (isVertical && isBefore && position === 'bottom')
-            || (isVertical && !isBefore && position === 'top')
-            || (!isVertical && isBefore && position === 'right')
-            || (!isVertical && !isBefore && position === 'left')
+            (isVertical && isBefore && position === 'bottom') ||
+            (isVertical && !isBefore && position === 'top') ||
+            (!isVertical && isBefore && position === 'right') ||
+            (!isVertical && !isBefore && position === 'left')
           ) {
             return align;
           }

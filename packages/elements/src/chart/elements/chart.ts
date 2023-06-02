@@ -372,16 +372,16 @@ export class Chart extends BasicElement {
           }
           // Add more colors if items aren't enough
           if (
-            Array.isArray(dataset.borderColor)
-            && Array.isArray(borderColor)
-            && dataset.borderColor.length < borderColor.length
+            Array.isArray(dataset.borderColor) &&
+            Array.isArray(borderColor) &&
+            dataset.borderColor.length < borderColor.length
           ) {
             merge(dataset.borderColor, borderColor);
           }
           if (
-            Array.isArray(dataset.backgroundColor)
-            && Array.isArray(backgroundColor)
-            && dataset.backgroundColor.length < backgroundColor.length
+            Array.isArray(dataset.backgroundColor) &&
+            Array.isArray(backgroundColor) &&
+            dataset.backgroundColor.length < backgroundColor.length
           ) {
             merge(dataset.backgroundColor, backgroundColor);
           }
@@ -405,17 +405,17 @@ export class Chart extends BasicElement {
           }
           // Add more colors if items aren't enough
           if (
-            Array.isArray(dataset.borderColor)
-            && Array.isArray(borderColor)
-            && dataset.borderColor.length < borderColor.length
+            Array.isArray(dataset.borderColor) &&
+            Array.isArray(borderColor) &&
+            dataset.borderColor.length < borderColor.length
           ) {
             merge(dataset.borderColor, borderColor);
           }
 
           if (
-            Array.isArray(dataset.backgroundColor)
-            && Array.isArray(backgroundColor)
-            && dataset.backgroundColor.length < backgroundColor.length
+            Array.isArray(dataset.backgroundColor) &&
+            Array.isArray(backgroundColor) &&
+            dataset.backgroundColor.length < backgroundColor.length
           ) {
             merge(dataset.backgroundColor, backgroundColor);
           }
@@ -449,9 +449,9 @@ export class Chart extends BasicElement {
     const datasets = chart.config.data.datasets;
 
     if (
-      datasets.length
-      && chart?.config?.options?.plugins?.legend
-      && Array.isArray(datasets[0].backgroundColor)
+      datasets.length &&
+      chart?.config?.options?.plugins?.legend &&
+      Array.isArray(datasets[0].backgroundColor)
     ) {
       if (ChartJS.overrides.pie.plugins.legend.labels.generateLabels) {
         legends = ChartJS.overrides.pie.plugins.legend.labels.generateLabels(chart);

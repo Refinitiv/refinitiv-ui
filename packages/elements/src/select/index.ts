@@ -329,8 +329,8 @@ export class Select extends ControlElement implements MultiValue {
    * @returns {void}
    */
   protected update(changedProperties: PropertyValues): void {
-    this.cachedValue
-      = ''; /* reset cached value as it is only valid when value and data are set the same time */
+    this.cachedValue =
+      ''; /* reset cached value as it is only valid when value and data are set the same time */
 
     const focusedChanged = changedProperties.has(FocusedPropertyKey);
 

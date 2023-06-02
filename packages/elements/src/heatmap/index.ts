@@ -415,14 +415,14 @@ export class Heatmap extends ResponsiveElement {
 
     // Re-paints whole canvas when at least one of the following properties changes
     if (
-      changedProperties.has('config')
-      || changedProperties.has('blend')
-      || changedProperties.has('minPoint')
-      || changedProperties.has('midPoint')
-      || changedProperties.has('maxPoint')
-      || changedProperties.has('saturation')
-      || changedProperties.has('axisHidden')
-      || changedProperties.has('labelWidth')
+      changedProperties.has('config') ||
+      changedProperties.has('blend') ||
+      changedProperties.has('minPoint') ||
+      changedProperties.has('midPoint') ||
+      changedProperties.has('maxPoint') ||
+      changedProperties.has('saturation') ||
+      changedProperties.has('axisHidden') ||
+      changedProperties.has('labelWidth')
     ) {
       this.prepareAndPaint();
     }
@@ -444,8 +444,8 @@ export class Heatmap extends ResponsiveElement {
   /* c8 ignore start */
   private onMouseMove(event: MouseEvent): void {
     if (
-      event.composedPath().includes(this.canvas)
-      || (this.tooltipCallback && this.tooltipOverlay === event.target)
+      event.composedPath().includes(this.canvas) ||
+      (this.tooltipCallback && this.tooltipOverlay === event.target)
     ) {
       this.hoverCell = this.hitTest(event);
     } else {
@@ -887,17 +887,17 @@ export class Heatmap extends ResponsiveElement {
     canvas.textBaseline = 'middle';
     canvas.font = `${fontSize}px ${fontFamily}`;
 
-    let isWithinMinCellWidth
-      = (this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth
-      <= CELL_MAX_TEXT_WIDTH;
+    let isWithinMinCellWidth =
+      (this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth <=
+      CELL_MAX_TEXT_WIDTH;
 
     // Tries to get the largest possible font size that is within `CELL_MAX_TEXT_WIDTH`
     if (!isWithinMinCellWidth && fontSize !== MIN_FONT_SIZE) {
       while (!isWithinMinCellWidth) {
         canvas.font = `${fontSize}px ${fontFamily}`; // Should assigned new font size to canvas before calculated again.
-        isWithinMinCellWidth
-          = (this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth
-          <= CELL_MAX_TEXT_WIDTH;
+        isWithinMinCellWidth =
+          (this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth <=
+          CELL_MAX_TEXT_WIDTH;
 
         // Stops when reaches minimum font-size
         if (fontSize === MIN_FONT_SIZE) {

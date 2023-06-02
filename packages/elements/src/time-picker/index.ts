@@ -321,8 +321,8 @@ export class TimePicker extends ControlElement {
     const _hours = this.hours;
     let hours = _hours;
     if (_hours !== null) {
-      hours
-        = this.amPm && _hours > HOURS_OF_NOON
+      hours =
+        this.amPm && _hours > HOURS_OF_NOON
           ? _hours - HOURS_OF_NOON
           : this.amPm && !_hours
             ? HOURS_OF_NOON
@@ -463,9 +463,9 @@ export class TimePicker extends ControlElement {
         this.minutes = 0;
       }
       if (
-        this.isShowSeconds
-        && this.seconds === null
-        && (segment === Segment.HOURS || segment === Segment.MINUTES)
+        this.isShowSeconds &&
+        this.seconds === null &&
+        (segment === Segment.HOURS || segment === Segment.MINUTES)
       ) {
         this.seconds = 0;
       }
@@ -820,8 +820,8 @@ export class TimePicker extends ControlElement {
    */
   public toggle(): void {
     if (this.amPm) {
-      const hours
-        = this.hours === null ? new Date().getHours() : (this.hours + HOURS_IN_DAY / 2) % HOURS_IN_DAY;
+      const hours =
+        this.hours === null ? new Date().getHours() : (this.hours + HOURS_IN_DAY / 2) % HOURS_IN_DAY;
       this.setSegmentAndNotify(Segment.HOURS, hours);
     }
   }

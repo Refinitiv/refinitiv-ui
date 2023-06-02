@@ -62,8 +62,8 @@ class ValueModel {
   public hasChanged(): boolean {
     // Avoid the same hex color format of empty string and black color
     return (
-      (this.initialValue !== this.value && (!!this.initialValue && !!this.value) === false)
-      || rgb(this.initialValue).formatHex() !== rgb(this.value).formatHex()
+      (this.initialValue !== this.value && (!!this.initialValue && !!this.value) === false) ||
+      rgb(this.initialValue).formatHex() !== rgb(this.value).formatHex()
     );
   }
 

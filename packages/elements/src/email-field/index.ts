@@ -80,9 +80,9 @@ export class EmailField extends TextField {
   protected shouldValidateInput(changedProperties: PropertyValues): boolean {
     // TODO: This validation should be refactored
     return (
-      changedProperties.has('value')
-      || changedProperties.has('multiple')
-      || super.shouldValidateInput(changedProperties)
+      changedProperties.has('value') ||
+      changedProperties.has('multiple') ||
+      super.shouldValidateInput(changedProperties)
     );
   }
   /* c8 ignore stop */

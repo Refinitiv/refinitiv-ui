@@ -437,12 +437,12 @@ class Locale {
     const month = day || options.month !== undefined;
     const year = day || month || options.year !== undefined;
     const millisecond = options.fractionalSecondDigits !== undefined;
-    const second
-      = millisecond
-      || options.second !== undefined
-      || options.timeStyle === 'full'
-      || options.timeStyle === 'long'
-      || options.timeStyle === 'medium';
+    const second =
+      millisecond ||
+      options.second !== undefined ||
+      options.timeStyle === 'full' ||
+      options.timeStyle === 'long' ||
+      options.timeStyle === 'medium';
     const minute = second || options.minute !== undefined || options.timeStyle === 'short';
     const hour = minute || options.hour !== undefined;
 

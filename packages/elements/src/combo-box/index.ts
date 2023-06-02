@@ -612,8 +612,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
     // Make sure that the first item is always highlighted
     if (
-      this.opened
-      && (changedProperties.has('opened') || changedProperties.has('data') || changedProperties.has('query'))
+      this.opened &&
+      (changedProperties.has('opened') || changedProperties.has('data') || changedProperties.has('query'))
     ) {
       this.highlightFirstItem();
     }
@@ -838,9 +838,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         composer.updateItemTimestamp(item);
 
         if (
-          result
-          && groupHeaderItem
-          && composer.getItemParent(groupHeaderItem) === composer.getItemParent(item)
+          result &&
+          groupHeaderItem &&
+          composer.getItemParent(groupHeaderItem) === composer.getItemParent(item)
         ) {
           composer.setItemPropertyValue(groupHeaderItem, 'hidden', false);
           composer.updateItemTimestamp(groupHeaderItem);
@@ -884,10 +884,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   protected canHighlightItem(item: T, composer: CollectionComposer<T>): boolean {
     let canHighlight = !(
-      composer.getItemPropertyValue(item, 'hidden') === true
-      || (composer.getItemPropertyValue(item, 'type') || 'text') !== 'text'
-      || composer.getItemPropertyValue(item, 'disabled') === true
-      || composer.isItemLocked(item) === true
+      composer.getItemPropertyValue(item, 'hidden') === true ||
+      (composer.getItemPropertyValue(item, 'type') || 'text') !== 'text' ||
+      composer.getItemPropertyValue(item, 'disabled') === true ||
+      composer.isItemLocked(item) === true
     );
 
     // check ancestors

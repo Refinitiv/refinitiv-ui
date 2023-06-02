@@ -69,17 +69,17 @@ export abstract class FocusableHelper {
 
     for (let i = 0; i < children.length; i += 1) {
       // Ensure method is always invoked to collect tabbable children.
-      childrenNeedSort
-        = this.collectTabbableNodes(children[i], tabbableChildren, delegatedList) || childrenNeedSort;
+      childrenNeedSort =
+        this.collectTabbableNodes(children[i], tabbableChildren, delegatedList) || childrenNeedSort;
     }
 
     // If element delegates focus, but does not have any children, the element still can be focused.
     if (
-      isBasicElement(element)
-      && element.delegatesFocus
-      && tabIndex >= 0
-      && tabbableChildren.length
-      && element.hasAttribute('tabindex')
+      isBasicElement(element) &&
+      element.delegatesFocus &&
+      tabIndex >= 0 &&
+      tabbableChildren.length &&
+      element.hasAttribute('tabindex')
     ) {
       // Sort collection immediately as the order is dictated by delegated element
       if (childrenNeedSort) {

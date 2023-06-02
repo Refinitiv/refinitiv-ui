@@ -323,9 +323,9 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    */
   protected getNextHighlightItem(direction: Direction): T | undefined {
     const highlightItem = this.queryItemsByPropertyValue('highlighted', true)[0];
-    const nextElement
-      = this.getNextFocusableItem(direction)
-      || this.getNextFocusableItem(direction, this.elementFromItem(highlightItem));
+    const nextElement =
+      this.getNextFocusableItem(direction) ||
+      this.getNextFocusableItem(direction, this.elementFromItem(highlightItem));
     const backupElement = this.tabbableItems[0];
 
     if (nextElement) {

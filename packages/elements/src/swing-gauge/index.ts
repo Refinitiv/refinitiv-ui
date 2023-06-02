@@ -360,9 +360,9 @@ export class SwingGauge extends ResponsiveElement {
     super.update(changedProperties);
 
     if (
-      changedProperties.has('primaryValue')
-      || changedProperties.has('secondaryValue')
-      || (this.primaryValue === 0 && this.secondaryValue === 0)
+      changedProperties.has('primaryValue') ||
+      changedProperties.has('secondaryValue') ||
+      (this.primaryValue === 0 && this.secondaryValue === 0)
     ) {
       this.canvas.autoloop = true;
 
@@ -379,11 +379,11 @@ export class SwingGauge extends ResponsiveElement {
     }
 
     if (
-      changedProperties.has('primaryValue')
-      || changedProperties.has('secondaryValue')
-      || changedProperties.has('primaryLabel')
-      || changedProperties.has('secondaryLabel')
-      || changedProperties.has('valueFormatter')
+      changedProperties.has('primaryValue') ||
+      changedProperties.has('secondaryValue') ||
+      changedProperties.has('primaryLabel') ||
+      changedProperties.has('secondaryLabel') ||
+      changedProperties.has('valueFormatter')
     ) {
       this.updateGaugePositions();
     }
@@ -430,8 +430,8 @@ export class SwingGauge extends ResponsiveElement {
    */
   private easeTo(to: number, from: number, time: number): void {
     const diff = (this.duration - (time - performance.now())) / this.duration;
-    this.fillPercentage
-      = from + (to - from) * canvasHelper.elasticOut(diff > 1 ? 1 : diff < 0 ? 0 : diff) || 0;
+    this.fillPercentage =
+      from + (to - from) * canvasHelper.elasticOut(diff > 1 ? 1 : diff < 0 ? 0 : diff) || 0;
 
     if (this.fillPercentage !== to) {
       this.cancelFrame(this.requestedAnimationID);
@@ -735,8 +735,8 @@ export class SwingGauge extends ResponsiveElement {
       // buffer for word wrap
       widthScale = 1.1;
 
-      longerLabel
-        = this.primaryLabel.length > this.secondaryLabel.length ? this.primaryLabel : this.secondaryLabel;
+      longerLabel =
+        this.primaryLabel.length > this.secondaryLabel.length ? this.primaryLabel : this.secondaryLabel;
       fontSize = Math.ceil(this.scale * this.canvas.height * GAUGE_LABEL_FONT_SCALE);
     } else {
       maxLine = MAX_VALUE_LINE;

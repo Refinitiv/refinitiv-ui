@@ -368,12 +368,12 @@ export class OverlayMenu extends Overlay {
     const shouldUpdate = super.shouldUpdate(changedProperties);
 
     return (
-      shouldUpdate
-      || changedProperties.size === 0
-      || /* this is to support empty requestUpdate() */ changedProperties.has('values')
-      || changedProperties.has('data')
-      || (this.opened && changedProperties.has('compact'))
-      || (this.opened && changedProperties.has('modification'))
+      shouldUpdate ||
+      changedProperties.size === 0 ||
+      /* this is to support empty requestUpdate() */ changedProperties.has('values') ||
+      changedProperties.has('data') ||
+      (this.opened && changedProperties.has('compact')) ||
+      (this.opened && changedProperties.has('modification'))
     );
   }
 
@@ -851,8 +851,8 @@ export class OverlayMenu extends Overlay {
    * @return {void}
    */
   private setOpenedMenu(menuItem?: Item): void {
-    const menu
-      = menuItem && menuItem.for && this.menuIndex[menuItem.for]
+    const menu =
+      menuItem && menuItem.for && this.menuIndex[menuItem.for]
         ? this.menuIndex[menuItem.for].menu
         : undefined;
     menu && this.insertNestedMenu(menu);

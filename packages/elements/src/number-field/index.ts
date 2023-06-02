@@ -662,9 +662,9 @@ export class NumberField extends FormFieldElement {
     // If either the method invoked was the stepDown() method and value is greater than valueBeforeStepping
     // or the method invoked was the stepUp() method and value is less than valueBeforeStepping, then return.
     if (
-      !isNaN(inputValue)
-      && ((direction === Direction.Up && value < valueBeforeStepping)
-        || (direction === Direction.Down && value > valueBeforeStepping))
+      !isNaN(inputValue) &&
+      ((direction === Direction.Up && value < valueBeforeStepping) ||
+        (direction === Direction.Down && value > valueBeforeStepping))
     ) {
       return;
     }

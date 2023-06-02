@@ -169,12 +169,12 @@ export class Dialog extends Overlay {
   protected shouldUpdate(changedProperties: PropertyValues): boolean {
     const shouldUpdate = super.shouldUpdate(changedProperties);
     return (
-      shouldUpdate
-      || ((changedProperties.has('draggable')
-        || changedProperties.has('header')
-        || changedProperties.has('noInteractionLock')
-        || changedProperties.has(TranslatePropertyKey))
-        && this.opened)
+      shouldUpdate ||
+      ((changedProperties.has('draggable') ||
+        changedProperties.has('header') ||
+        changedProperties.has('noInteractionLock') ||
+        changedProperties.has(TranslatePropertyKey)) &&
+        this.opened)
     );
   }
 

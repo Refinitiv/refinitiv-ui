@@ -427,8 +427,8 @@ export class Slider extends ControlElement {
     super.willUpdate(changedProperties);
 
     if (
-      (changedProperties.has('disabled') && changedProperties.get('disabled') !== undefined)
-      || (changedProperties.has('readonly') && changedProperties.get('readonly') !== undefined)
+      (changedProperties.has('disabled') && changedProperties.get('disabled') !== undefined) ||
+      (changedProperties.has('readonly') && changedProperties.get('readonly') !== undefined)
     ) {
       this.prepareSliderTrack();
     }

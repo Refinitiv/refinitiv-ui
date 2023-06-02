@@ -163,8 +163,8 @@ export class ButtonBar extends BasicElement {
 
     const focusedButtonIndex = buttons.findIndex((button) => button === document.activeElement);
 
-    const nextButton
-      = direction === 'next'
+    const nextButton =
+      direction === 'next'
         ? buttons[focusedButtonIndex + 1] || buttons[0]
         : buttons[focusedButtonIndex - 1] || buttons[buttons.length - 1];
 

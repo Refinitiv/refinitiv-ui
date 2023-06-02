@@ -169,8 +169,8 @@ export abstract class FormFieldElement extends ControlElement {
 
     // Description is traditionally changed with error, so recalculate on error changed as well
     if (
-      changedProperties.has(AriaDescriptionKey)
-      || (changedProperties.get('error') !== undefined && changedProperties.has('error'))
+      changedProperties.has(AriaDescriptionKey) ||
+      (changedProperties.get('error') !== undefined && changedProperties.has('error'))
     ) {
       this.inputAriaDescription = inputDescription(this);
     }

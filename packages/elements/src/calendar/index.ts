@@ -269,8 +269,8 @@ export class Calendar extends ControlElement implements MultiValue {
   public get view(): string {
     /* as soon as user interaction has happened, always rely on view */
     return (
-      this._view
-      || (this.value
+      this._view ||
+      (this.value
         ? utcFormat(toDateSegment(this.value), DateFormat.yyyyMM)
         : format(new Date(), DateFormat.yyyyMM))
     );
@@ -496,10 +496,10 @@ export class Calendar extends ControlElement implements MultiValue {
     // This code is here to ensure that focus is not lost
     // while navigating through the render views using keyboard
     if (
-      this.focused
-      && changedProperties.has('renderView')
-      && this.viewBtnRef.value
-      && this.activeElement !== this.viewBtnRef.value
+      this.focused &&
+      changedProperties.has('renderView') &&
+      this.viewBtnRef.value &&
+      this.activeElement !== this.viewBtnRef.value
     ) {
       this.viewBtnRef.value.focus();
     }
@@ -611,11 +611,11 @@ export class Calendar extends ControlElement implements MultiValue {
    */
   private shouldConstructFilters(changedProperties: PropertyValues): boolean {
     return (
-      changedProperties.has('min')
-      || changedProperties.has('max')
-      || changedProperties.has('weekdaysOnly')
-      || changedProperties.has('weekendsOnly')
-      || changedProperties.has('filter')
+      changedProperties.has('min') ||
+      changedProperties.has('max') ||
+      changedProperties.has('weekdaysOnly') ||
+      changedProperties.has('weekendsOnly') ||
+      changedProperties.has('filter')
     );
   }
 

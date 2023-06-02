@@ -73,11 +73,11 @@ const drawItemBorder = function (chart: ChartJS, active: ActiveElement[]): void 
     arcOptions.backgroundColor = getHoverColor(arcOptions.backgroundColor);
   }
 
-  arcOptions.borderWidth
-    = arcOptions.borderWidth
-    || ((datasets.borderWidth || chart.config.options?.elements?.arc?.borderWidth) as number);
-  arcOptions.borderColor = (getComputedStyle(chart.canvas).getPropertyValue('--doughnut-border-color')
-    || ChartJS.defaults.color) as string;
+  arcOptions.borderWidth =
+    arcOptions.borderWidth ||
+    ((datasets.borderWidth || chart.config.options?.elements?.arc?.borderWidth) as number);
+  arcOptions.borderColor = (getComputedStyle(chart.canvas).getPropertyValue('--doughnut-border-color') ||
+    ChartJS.defaults.color) as string;
 
   const sA = element.startAngle;
   const eA = element.endAngle;
@@ -118,9 +118,9 @@ const plugins: Plugin = {
 
         if (chart.getActiveElements().length) {
           if (
-            chart._select.length
-            && chart._select[0].datasetIndex === chart.getActiveElements()[0].datasetIndex
-            && chart._select[0].index === chart.getActiveElements()[0].index
+            chart._select.length &&
+            chart._select[0].datasetIndex === chart.getActiveElements()[0].datasetIndex &&
+            chart._select[0].index === chart.getActiveElements()[0].index
           ) {
             // reset value if user clicked on selected segment
             chart._select = [];

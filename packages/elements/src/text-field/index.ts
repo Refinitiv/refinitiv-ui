@@ -183,12 +183,12 @@ export class TextField extends FormFieldElement {
   protected shouldValidateInput(changedProperties: PropertyValues): boolean {
     // TODO: This validation should be refactored
     return (
-      changedProperties.has('pattern')
-      || !!(this.pattern && changedProperties.has('value'))
-      || changedProperties.has('minLength')
-      || !!(this.minLength && changedProperties.has('value'))
-      || changedProperties.has('maxLength')
-      || !!(this.maxLength && changedProperties.has('value'))
+      changedProperties.has('pattern') ||
+      !!(this.pattern && changedProperties.has('value')) ||
+      changedProperties.has('minLength') ||
+      !!(this.minLength && changedProperties.has('value')) ||
+      changedProperties.has('maxLength') ||
+      !!(this.maxLength && changedProperties.has('value'))
     );
   }
   /* c8 ignore stop */

@@ -424,8 +424,8 @@ export class Clock extends ResponsiveElement {
    * @returns {void}
    */
   private shift(direction: Direction, amount: number): void {
-    this.offset
-      = (SECONDS_IN_DAY + this.offset + amount * (direction === Direction.UP ? 1 : -1)) % SECONDS_IN_DAY;
+    this.offset =
+      (SECONDS_IN_DAY + this.offset + amount * (direction === Direction.UP ? 1 : -1)) % SECONDS_IN_DAY;
     this.notifyPropertyChange('offset', this.offset);
   }
 
@@ -697,12 +697,12 @@ export class Clock extends ResponsiveElement {
 
     if (this.interactive) {
       if (
-        !this.hasUpdated
-        || changedProperties.has('offset')
-        || changedProperties.has('value')
-        || changedProperties.has('showSeconds')
-        || changedProperties.has('amPm')
-        || changedProperties.has(TranslatePropertyKey)
+        !this.hasUpdated ||
+        changedProperties.has('offset') ||
+        changedProperties.has('value') ||
+        changedProperties.has('showSeconds') ||
+        changedProperties.has('amPm') ||
+        changedProperties.has(TranslatePropertyKey)
       ) {
         void this.updateAriaValue();
       }
