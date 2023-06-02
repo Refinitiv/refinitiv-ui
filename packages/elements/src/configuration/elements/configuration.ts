@@ -5,15 +5,13 @@ import {
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
-import { efConfig, type Config as ConfigType, type ConfigIcon } from '../helpers/context.js';
+import { efConfig, type Config } from '../helpers/context.js';
 import { provide } from '@lit-labs/context';
-
-const DEFAULT_CONFIG: ConfigType = { icon: { map: {} } };
+import { createEfConfig } from '../helpers/configuration.js';
 
 @customElement('ef-configuration', { theme: false })
-export class Config extends BasicElement {
+export class Configuration extends BasicElement {
 
   /**
    * Element version number
@@ -33,16 +31,10 @@ export class Config extends BasicElement {
 
   /**
    * Configuration data
-   * @ignore
    */
   @provide({ context: efConfig })
   @state()
-  public config: ConfigType = DEFAULT_CONFIG;
-
-  @property({ type: Object })
-  set icon (icon: ConfigIcon) {
-    this.config = { ...this.config, icon };
-  }
+  public config: Config = createEfConfig();
 
   /**
    * A `TemplateResult` that will be used
@@ -56,6 +48,6 @@ export class Config extends BasicElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ef-configuration': Config;
+    'ef-configuration': Configuration;
   }
 }

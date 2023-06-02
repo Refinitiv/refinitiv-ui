@@ -1,6 +1,8 @@
 import sinon from 'sinon';
-import { elementUpdated, expect, isIE } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, isIE, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
+import { createEfConfig } from '@refinitiv-ui/elements/configuration';
+import '@refinitiv-ui/elements/configuration';
 import '@refinitiv-ui/elements/icon';
 import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
 import { preload } from '@refinitiv-ui/elements/icon';
@@ -13,10 +15,13 @@ import {
   generateUniqueName,
   iconName,
   tickSvg,
-  checkRequestedUrl
+  tickSvgBase64,
+  checkRequestedUrl,
+  isEqualSvg
 } from './helpers/helpers';
 
 describe('icon/Icon', () => {
+ 
   describe('Should Have Correct DOM Structure', () => {
     it('without icon or src attributes', async () => {
       const el = await createAndWaitForLoad('<ef-icon></ef-icon>');
@@ -35,6 +40,7 @@ describe('icon/Icon', () => {
       if (!isIE) {
         expect(svg.outerHTML).to.equal(tickSvg, 'Should render SVG, from the server response');
       }
+      server.restore();
     });
 
     it('with valid src attribute', async () => {
@@ -47,6 +53,7 @@ describe('icon/Icon', () => {
       if (!isIE) {
         expect(svg.outerHTML).to.equal(tickSvg, 'Should render SVG, from the server response');
       }
+      server.restore();
     });
 
     it('with invalid icon attribute', async () => {
@@ -56,6 +63,7 @@ describe('icon/Icon', () => {
       const svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.equal(null, 'SVG element should not exist for invalid icon attribute');
+      server.restore();
     });
 
     it('with invalid src attribute', async () => {
@@ -65,6 +73,7 @@ describe('icon/Icon', () => {
       const svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.equal(null, 'SVG element should not exist for invalid src attribute');
+      server.restore();
     });
 
     it('with empty icon attribute', async () => {
@@ -74,6 +83,7 @@ describe('icon/Icon', () => {
       const svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.equal(null, 'SVG element should not exist for empty icon attribute');
+      server.restore();
     });
 
     it('with empty src attribute', async () => {
@@ -83,6 +93,7 @@ describe('icon/Icon', () => {
       const svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.equal(null, 'SVG element should not exist for empty src attribute');
+      server.restore();
     });
 
     it('with unsafe nodes in response', async () => {
@@ -92,6 +103,7 @@ describe('icon/Icon', () => {
       const script = el.shadowRoot.querySelector('script');
 
       expect(script).to.equal(null, 'should strip unsafe nodes');
+      server.restore();
     });
   });
 
@@ -131,6 +143,7 @@ describe('icon/Icon', () => {
       await elementUpdated(el);
 
       expect(el.hasAttribute('icon')).to.equal(false, 'Attribute should be removed when null is passed');
+      server.restore();
     });
 
     it('src', async () => {
@@ -160,6 +173,7 @@ describe('icon/Icon', () => {
 
       expect(el.src).to.equal(srcValue, 'Icon should have the same src property as was set');
       expect(el.hasAttribute('src')).to.equal(false, 'Icon should not reflect the src property to the attribute');
+      server.restore();
     });
   });
 
@@ -179,6 +193,7 @@ describe('icon/Icon', () => {
       await elementUpdated(el);
 
       expect(el.src).to.equal(null, 'The src property should be null when icon removed');
+      server.restore();
     });
 
     it('should make a correct server request based on cdn prefix and the icon if icon is specified', async () => {
@@ -193,6 +208,7 @@ describe('icon/Icon', () => {
 
       expect(server.requests.length).to.equal(1, 'Should make one request');
       expect(server.requests[0].url).to.equal(expectedSrc, `requested URL should be ${expectedSrc} for the icon ${uniqueIconName}`);
+      server.restore();
     });
 
     it('should make a correct server request based on src', async () => {
@@ -204,6 +220,7 @@ describe('icon/Icon', () => {
       await createAndWaitForLoad(`<ef-icon src="${uniqueSrc}"></ef-icon>`);
       expect(server.requests.length).to.equal(1, 'Should make one request');
       expect(server.requests[0].url).to.equal(uniqueSrc, `requested URL should be ${uniqueSrc}`);
+      server.restore();
     });
 
     it('should preload icons', async () => {
@@ -241,6 +258,29 @@ describe('icon/Icon', () => {
       await elementUpdated(el);
 
       expect(server.requests.length).to.equal(3, 'no new requests should be made since icons are already preloaded');
+      server.restore();
+    });
+  });
+
+  describe('Should have correct result with configuration', () => {
+    it('should pass config to icon correctly', async () => {
+      const elConfig = await fixture('<ef-configuration><ef-icon></ef-icon></ef-configuration>');
+      elConfig.config = createEfConfig({ icon: { map: { "tick-base64": tickSvgBase64 }}});
+      const elIcon = elConfig.querySelector('ef-icon');
+      elIcon.icon = 'tick-base64';
+      await nextFrame(2);
+      const svg = elIcon.shadowRoot.querySelector('svg');
+      await expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
+    });
+  
+    it('should not pass config when to icon incorrectly', async () => {
+      const elConfig = await fixture('<ef-configuration><ef-icon></ef-icon></ef-configuration>');
+      elConfig.config = createEfConfig({ icon: { map: { "tick-base64": 'invalid' + tickSvgBase64 }}});
+      const elIcon = elConfig.querySelector('ef-icon'); 
+      elIcon.icon = 'tick-base64';
+      await nextFrame(2);
+      const svg = elIcon.shadowRoot.querySelector('svg');
+      await expect(svg).to.equal(null, 'SVG element should not exist for invalid icon attribute');
     });
   });
 });
