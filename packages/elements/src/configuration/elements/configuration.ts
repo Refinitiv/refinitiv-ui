@@ -6,10 +6,11 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { VERSION } from '../../version.js';
-import { efConfig, type Config } from '../helpers/context.js';
+import { efConfig, DEFAULT_CONFIG } from '../helpers/context.js';
+import { type Config } from '../helpers/types.js';
 import { provide } from '@lit-labs/context';
 
-const DEFAULT_CONFIG: Config = { icon: { map: {} } };
+
 
 @customElement('ef-configuration', { theme: false })
 export class Configuration extends BasicElement {
