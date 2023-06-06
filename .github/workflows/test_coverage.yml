@@ -1,7 +1,7 @@
 name: "Test Coverage" # To be able to access test coverage of the repository on SonarCloud
 on:
   push:
-    branches: [v6]
+    branches: [v7]
 env:
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
