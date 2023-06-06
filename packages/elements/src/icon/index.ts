@@ -125,8 +125,8 @@ export class Icon extends BasicElement {
   }
 
   /**
-   * Check if the autosuggest has content
-   * @returns content exists
+   * Check if the icon map configuration has content
+   * @returns icon map if exists
    */
   private get iconMap (): string | null {
     return this.icon && this.config?.icon.map[this.icon] || null;

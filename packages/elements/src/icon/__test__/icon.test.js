@@ -257,7 +257,7 @@ describe('icon/Icon', () => {
       await expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
     });
   
-    it('should not pass config when to icon incorrectly', async () => {
+    it('should not render icon when pass config to icon incorrectly', async () => {
       const elConfig = await fixture('<ef-configuration><ef-icon></ef-icon></ef-configuration>');
       elConfig.config.icon.map = {"tick-base64": 'invalid' + tickSvgBase64 };
       const elIcon = elConfig.querySelector('ef-icon'); 
