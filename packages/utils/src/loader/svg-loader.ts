@@ -8,6 +8,13 @@ import { CDNLoader } from './cdn-loader.js';
 const isUrl = (str: string): boolean => (/^(https?:\/{2}|\.?\/)/i).test(str);
 
 /**
+ * Checks a string to see if it's a base64 URL
+ * @param str String to test
+ * @returns is Base64
+ */
+const isBase64svg = (str: string): boolean => (/^data:image\/(svg|svg\+xml);base64,[a-zA-Z0-9,+,/]+={0,2}/i).test(str);
+
+/**
  * Strips any event attributes which could be used to
  * maliciously hijack the application.
  * @param element Element to check
@@ -83,7 +90,7 @@ export class SVGLoader extends CDNLoader {
    * @returns Promise, which will be resolved with complete source.
    */
   public async getSrc (name: string): Promise<string> {
-    if (isUrl(name)) {
+    if (isUrl(name) || isBase64svg(name)) {
       return name;
     }
     return name ? `${await this.getCdnPrefix()}${name}.svg` : '';
