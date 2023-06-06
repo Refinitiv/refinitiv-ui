@@ -18,7 +18,7 @@ npm install @refinitiv-ui/configuration
 
 Import it to your project.
 
-```js
+```javascript
 import '@refinitiv-ui/configuration';
 ```
 
@@ -33,7 +33,7 @@ Set context to `ef-configuration` via `config` property. Any EF components in it
 <ef-button icon="tick"></ef-button>
 ```
 
-```js
+```javascript
 const customConfig = document.getElementById('custom-config');
 customConfig.config = {
   icon: {
@@ -64,7 +64,7 @@ When `ef-icon` received SVG data of the icon, it will not request SVG icon file 
   <ef-icon icon="tick"></ef-icon>
 </ef-configuration>
 ```
-```js
+```javascript
   const configEl = document.getElementById('config');
   configEl.config = {
     icon: {
@@ -81,7 +81,7 @@ When `ef-icon` received SVG data of the icon, it will not request SVG icon file 
   <ef-icon icon="tick"></ef-icon>
 </ef-configuration>
 ```
-```js
+```javascript
   const configEl = document.getElementById('config');
   configEl.config = {
     icon: {
