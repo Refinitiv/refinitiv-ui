@@ -56,23 +56,21 @@ When `ef-icon` received SVG data of the icon, it will not request SVG icon file 
 
 ::
 ```javascript
-  import 'https://cdn.skypack.dev/@refinitiv-ui/elements/configuration?min';
 ::icon::
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements/configuration?min';
+const configEl = document.getElementById('config');
+configEl.config = {
+  icon: {
+    map: {
+      "tick": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xNCA0bC04LjI1IDguMjVMMiA4LjUiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==',
+    }
+  }
+}
 ```
 ```html
 <ef-configuration id="config">
   <ef-icon icon="tick"></ef-icon>
 </ef-configuration>
-```
-```javascript
-  const configEl = document.getElementById('config');
-  configEl.config = {
-    icon: {
-      map: {
-        "tick": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xNCA0bC04LjI1IDguMjVMMiA4LjUiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==',
-      }
-    }
-  }
 ```
 ::
 
