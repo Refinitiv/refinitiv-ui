@@ -451,8 +451,8 @@ class Locale {
       this._resolvedFormat = millisecond
         ? TimeFormat.HHmmssSSS
         : second
-          ? TimeFormat.HHmmss
-          : TimeFormat.HHmm;
+        ? TimeFormat.HHmmss
+        : TimeFormat.HHmm;
     } else if (year && !hour) {
       // date only
       this._resolvedFormat = day ? DateFormat.yyyyMMdd : month ? DateFormat.yyyyMM : DateFormat.yyyy;
@@ -461,8 +461,8 @@ class Locale {
       this._resolvedFormat = millisecond
         ? DateTimeFormat.yyyMMddTHHmmssSSS
         : second
-          ? DateTimeFormat.yyyMMddTHHmmss
-          : DateTimeFormat.yyyMMddTHHmm;
+        ? DateTimeFormat.yyyMMddTHHmmss
+        : DateTimeFormat.yyyMMddTHHmm;
     }
 
     return this._resolvedFormat;

@@ -380,8 +380,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
             ? INPUT_FORMAT.DATETIME_SECONDS_AM_PM
             : INPUT_FORMAT.DATETIME_SECONDS
           : this.amPm
-            ? INPUT_FORMAT.DATETIME_AM_PM
-            : INPUT_FORMAT.DATETIME
+          ? INPUT_FORMAT.DATETIME_AM_PM
+          : INPUT_FORMAT.DATETIME
         : INPUT_FORMAT.DATE)
     );
   }
@@ -689,8 +689,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   private formatSegment(segment: DateTimeSegment): string {
     return segment.value
       ? inputFormat(segment.getTime(), this.format, {
-        locale: getDateFNSLocale(getLocale(this))
-      })
+          locale: getDateFNSLocale(getLocale(this))
+        })
       : '';
   }
 

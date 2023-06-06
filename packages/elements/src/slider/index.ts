@@ -1247,9 +1247,9 @@ export class Slider extends ControlElement {
 
     const trackFillStyle: StyleMap = range
       ? {
-        width: `${this.calculatePosition(this.toNumber) - this.calculatePosition(this.fromNumber)}%`,
-        left: `${this.calculatePosition(this.fromNumber)}%`
-      }
+          width: `${this.calculatePosition(this.toNumber) - this.calculatePosition(this.fromNumber)}%`,
+          left: `${this.calculatePosition(this.fromNumber)}%`
+        }
       : { width: `${this.calculatePosition(Number(this.value))}%` };
 
     return html`

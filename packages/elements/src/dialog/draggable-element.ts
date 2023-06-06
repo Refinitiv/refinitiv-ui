@@ -89,18 +89,18 @@ class DraggableManager {
    */
   private mouseDownListener =
     (draggableElement: HTMLElement, handle: HTMLElement): MouseEventListener =>
-      (event: MouseEvent): void => {
-        if (event.button === MAIN_MOUSE_BUTTON && event.target === handle) {
-          this.draggableElement = draggableElement;
-          this.setSelectingOfText(false);
+    (event: MouseEvent): void => {
+      if (event.button === MAIN_MOUSE_BUTTON && event.target === handle) {
+        this.draggableElement = draggableElement;
+        this.setSelectingOfText(false);
 
-          document.addEventListener('mouseup', this.onRelease);
-          document.addEventListener('mousemove', this.onMove);
+        document.addEventListener('mouseup', this.onRelease);
+        document.addEventListener('mousemove', this.onMove);
 
-          this.updateOffset();
-          this.drag(event.pageX, event.pageY);
-        }
-      };
+        this.updateOffset();
+        this.drag(event.pageX, event.pageY);
+      }
+    };
 
   /**
    * Styles the handle and listens for mouse events.

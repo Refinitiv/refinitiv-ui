@@ -13,8 +13,6 @@ module.exports = {
     sourceType: 'module',
     ecmaVersion: 2020
   },
-  extends: ['prettier'],
-  plugins: ['eslint-plugin-html'],
   rules: {
     'no-alert': 0,
     'no-array-constructor': 2,
@@ -142,15 +140,6 @@ module.exports = {
     'guard-for-in': 0,
     'handle-callback-err': [2, '^(err|error)$'],
     'id-length': 0,
-    indent: [
-      2,
-      2,
-      {
-        SwitchCase: 1,
-        MemberExpression: 'off',
-        ignoredNodes: ['TemplateLiteral *']
-      }
-    ],
     'init-declarations': 0,
     'key-spacing': [2, { beforeColon: false, afterColon: true }],
     'lines-around-comment': 0,
@@ -191,5 +180,7 @@ module.exports = {
     'vars-on-top': 0,
     'wrap-iife': [2, 'any'],
     yoda: [2, 'never']
-  }
+  },
+  extends: ['prettier'],
+  plugins: ['eslint-plugin-html']
 };

@@ -399,29 +399,29 @@ export class ScrollLockManager {
 
     const canScroll = isVerticalScroll
       ? (element: HTMLElement): boolean => {
-        const style = window.getComputedStyle(element);
+          const style = window.getComputedStyle(element);
 
-        if (style.overflowY === 'scroll' || style.overflowY === 'auto') {
-          // delta < 0 is scroll up, delta > 0 is scroll down.
-          return deltaY < 0
-            ? element.scrollTop > 0
-            : element.scrollTop < element.scrollHeight - element.clientHeight;
+          if (style.overflowY === 'scroll' || style.overflowY === 'auto') {
+            // delta < 0 is scroll up, delta > 0 is scroll down.
+            return deltaY < 0
+              ? element.scrollTop > 0
+              : element.scrollTop < element.scrollHeight - element.clientHeight;
+          }
+
+          return false;
         }
-
-        return false;
-      }
       : (element: HTMLElement): boolean => {
-        const style = window.getComputedStyle(element);
+          const style = window.getComputedStyle(element);
 
-        if (style.overflowX === 'scroll' || style.overflowX === 'auto') {
-          // delta < 0 is scroll left, delta > 0 is scroll right.
-          return deltaX < 0
-            ? element.scrollLeft > 0
-            : element.scrollLeft < element.scrollWidth - element.clientWidth;
-        }
+          if (style.overflowX === 'scroll' || style.overflowX === 'auto') {
+            // delta < 0 is scroll left, delta > 0 is scroll right.
+            return deltaX < 0
+              ? element.scrollLeft > 0
+              : element.scrollLeft < element.scrollWidth - element.clientWidth;
+          }
 
-        return false;
-      };
+          return false;
+        };
 
     while (checkSlice.length) {
       const node = checkSlice.shift() as Node;

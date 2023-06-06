@@ -192,35 +192,35 @@ const translate = function (options?: string | DecoratorOptions): TranslateFunct
     const descriptor =
       mode === 'promise'
         ? {
-          get(this: BasicElement): TranslatePromise {
-            return (
-              key: string,
-              options?: TranslateOptions,
-              translateParams?: TranslateParams
-            ): Promise<string> => {
-              return translatePromise(
-                scope || this.localName,
-                getLocale(this),
-                key,
-                options,
-                translateParams
-              );
-            };
+            get(this: BasicElement): TranslatePromise {
+              return (
+                key: string,
+                options?: TranslateOptions,
+                translateParams?: TranslateParams
+              ): Promise<string> => {
+                return translatePromise(
+                  scope || this.localName,
+                  getLocale(this),
+                  key,
+                  options,
+                  translateParams
+                );
+              };
+            }
           }
-        }
         : {
-          get(this: BasicElement): TranslateDirective {
-            return (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => {
-              return translateDirective(
-                scope || this.localName,
-                getLocale(this),
-                key,
-                options,
-                translateParams
-              );
-            };
-          }
-        };
+            get(this: BasicElement): TranslateDirective {
+              return (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => {
+                return translateDirective(
+                  scope || this.localName,
+                  getLocale(this),
+                  key,
+                  options,
+                  translateParams
+                );
+              };
+            }
+          };
 
     Object.defineProperty(
       prototype,

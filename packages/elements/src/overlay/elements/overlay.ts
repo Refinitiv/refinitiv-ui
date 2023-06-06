@@ -1518,24 +1518,24 @@ export class Overlay extends ResponsiveElement {
       if (isVertical) {
         return position === 'bottom'
           ? {
-            bottom: 0 /* position bottom-up */,
-            top: null
-          }
+              bottom: 0 /* position bottom-up */,
+              top: null
+            }
           : {
-            bottom: null,
-            top: 0 /* position up-bottom */
-          };
+              bottom: null,
+              top: 0 /* position up-bottom */
+            };
       }
 
       return position === 'right'
         ? {
-          right: 0 /* position right-left */,
-          left: null
-        }
+            right: 0 /* position right-left */,
+            left: null
+          }
         : {
-          right: null,
-          left: 0 /* position left-right */
-        };
+            right: null,
+            left: 0 /* position left-right */
+          };
     };
 
     this.calculated.position = position;

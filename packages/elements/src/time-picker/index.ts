@@ -325,8 +325,8 @@ export class TimePicker extends ControlElement {
         this.amPm && _hours > HOURS_OF_NOON
           ? _hours - HOURS_OF_NOON
           : this.amPm && !_hours
-            ? HOURS_OF_NOON
-            : _hours;
+          ? HOURS_OF_NOON
+          : _hours;
     }
 
     return hours;
