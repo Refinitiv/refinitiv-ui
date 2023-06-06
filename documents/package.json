@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/docs",
-  "version": "6.5.4-next.0",
+  "version": "6.5.3",
   "private": true,
   "description": "Element Framework Documentation",
   "engines": {
