@@ -426,7 +426,7 @@ export class Chart extends BasicElement {
     }
 
     // Customize for doughnut chart change border color to background color
-    if (['pie', 'doughnut'].includes(chartType) && this.datasets.length > 1) {
+    if (this.datasets.length > 1) {
       legends.forEach((label: LegendItem) => {
         label.strokeStyle = label.fillStyle;
       });
@@ -452,6 +452,7 @@ export class Chart extends BasicElement {
       datasets.length
       && chart?.config?.options?.plugins?.legend
       && Array.isArray(datasets[0].backgroundColor)
+      && ['pie', 'doughnut'].includes(chartType)
     ) {
       return this.generateArcLegendLabels(legends, chart);
     }
