@@ -19,7 +19,7 @@ const getHTMLContent = (el) => {
     }
   }
 
-  return res;
+  return res.trim();
 };
 
 export { getHTMLContent };
