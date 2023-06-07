@@ -38,11 +38,11 @@ runs:
           packages/*/lib
           packages/*-theme/**/*.js
           packages/*-theme/**/*.css
-        key: ${{ runner.os }}-build-${{ github.sha }}
+        key: ${{ runner.os }}-build-${{ github.sha }}-v7
 
     - name: Setup caching test result
       uses: actions/cache@v3
       id: cache-test-result
       with:
         path: packages/*/coverage
-        key: ${{ runner.os }}-test-result-${{ github.sha }}
+        key: ${{ runner.os }}-test-result-${{ github.sha }}-v7
