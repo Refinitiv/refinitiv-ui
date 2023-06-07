@@ -1,3 +1,6 @@
+import { Overlay } from '@refinitiv-ui/elements/overlay';
+
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { isSafari } from '@refinitiv-ui/utils';
 
