@@ -430,8 +430,11 @@ export class Chart extends BasicElement {
       && Array.isArray(datasets[0].backgroundColor)
     ) {
 
-      if (ChartJS.overrides.pie.plugins.legend.labels.generateLabels) {
+      if (chartType === 'pie' && ChartJS.overrides.pie.plugins.legend.labels.generateLabels) {
         legends = ChartJS.overrides.pie.plugins.legend.labels.generateLabels(chart);
+      }
+      if (chartType === 'doughnut' && ChartJS.overrides.doughnut.plugins.legend.labels.generateLabels) {
+        legends = ChartJS.overrides.doughnut.plugins.legend.labels.generateLabels(chart);
       }
 
       // Customize for doughnut chart change border color to background color
