@@ -7,6 +7,10 @@ on:
         description: Force publish all packages?
         type: boolean
         default: false
+      graduate:
+        description: Graduate next version packages?
+        type: boolean
+        default: false
 
 jobs:
   publish:
@@ -31,15 +35,16 @@ jobs:
       - name: Gather resources and build
         uses: ./.github/actions/checkout-install-and-build
 
-      - name: Bump all package versions and create GitHub release
-        if: ${{ inputs.force }}
-        run: lerna version --create-release github --conventional-commits --force-publish --yes
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Setup command line option
+        shell: bash
+        run: |
+          [[ "${{ inputs.force }}" == "true" ]] && export FORCE=--force-publish || export FORCE=''
+          [[ "${{ inputs.graduate }}" == "true" ]] && export GRADUATE=--conventional-graduate || export GRADUATE=''
+          echo "FORCE_OPTION=$FORCE" >> $GITHUB_ENV
+          echo "GRADUATE_OPTION=$GRADUATE" >> $GITHUB_ENV
 
-      - name: Bump modified package versions and create GitHub release
-        if: ${{ !inputs.force }}
-        run: lerna version --create-release github --conventional-commits --yes
+      - name: Bump package versions and create GitHub release
+        run: lerna version --create-release github --conventional-commits ${{ env.FORCE_OPTION }} ${{ env.GRADUATE_OPTION }} --yes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
