@@ -10,10 +10,11 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
-import { Deferred } from '@refinitiv-ui/utils/loader.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';
+import { consume } from '@lit-labs/context';
+import { efConfig, type Config } from '../configuration/index.js';
 
 const EmptyTemplate = svg``;
 
@@ -34,6 +35,13 @@ export class Icon extends BasicElement {
   static get version (): string {
     return VERSION;
   }
+
+  /**
+   * Icon map from ef-configuration
+   * @ignore
+   */
+  @consume({ context: efConfig, subscribe: true })
+  public config?: Config;
 
   /**
    * A `CSSResultGroup` that will be used
@@ -60,7 +68,7 @@ export class Icon extends BasicElement {
 
   /**
    * Name of a known icon to render or URL of SVG icon.
-   * @example home | https://cdn.io/icons/home.svg
+   * @example heart | https://cdn.io/icons/heart.svg
    * @default null
    */
   @property({ type: String, reflect: true })
@@ -70,7 +78,6 @@ export class Icon extends BasicElement {
   public set icon (value: string | null) {
     const oldValue = this._icon;
     if (oldValue !== value) {
-      this.deferIconReady();
       this._icon = value;
       void this.setIconSrc();
       this.requestUpdate('icon', oldValue);
@@ -81,8 +88,7 @@ export class Icon extends BasicElement {
 
   /**
    * Src location of an svg icon.
-   * @ignore
-   * @example https://cdn.io/icons/home.svg
+   * @example https://cdn.io/icons/heart.svg
    * @deprecated Use `icon` instead
    * @default null
    */
@@ -90,19 +96,15 @@ export class Icon extends BasicElement {
   public get src (): string | null {
     return this._src;
   }
-  /**
-    * @ignore
-    * @param value Location of an svg
-    */
   public set src (value: string | null) {
     if (this.src !== value) {
-      this.deferIconReady();
       this._src = value;
-      if (value) {
-        void this.loadAndRenderIcon(value);
+      this.clearIcon();
+      if (this.icon && this.iconMap) {
+        void this.loadAndRenderIcon(this.iconMap);
       }
-      else {
-        this.clearIcon();
+      else if (value) {
+        void this.loadAndRenderIcon(value);
       }
     }
   }
@@ -120,24 +122,16 @@ export class Icon extends BasicElement {
       this._template = value;
       this.requestUpdate();
     }
-    this.iconReady.resolve();
   }
 
   /**
-   * A deferred promise representing icon ready.
-   * It would be resolved when the icon svg has been fetched and parsed, or
-   * when the icon svg is unavailable/invalid.
+   * Check if the icon map configuration has content
+   * @returns icon map if exists
    */
-  private iconReady!: Deferred<void>;
-
-  constructor () {
-    super();
-    this.iconReady = new Deferred<void>();
-    // `iconReady` resolves at this stage so that `updateComplete` would be resolvable
-    // even in the case that both `icon` and `src` attribute are missing.
-    this.iconReady.resolve();
+  private get iconMap (): string | null {
+    return this.icon && this.config?.icon.map[this.icon] || null;
   }
-
+  
   /**
    * Called after the component is first rendered
    * @param changedProperties Properties which have changed
@@ -145,24 +139,12 @@ export class Icon extends BasicElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
+    
+    /**
+     * We have to call this here because
+     * polyfilled browsers only get variables at this point.
+     */
     this.setPrefix();
-  }
-
-  protected async getUpdateComplete (): Promise<boolean> {
-    const result = await super.getUpdateComplete();
-    await this.iconReady.promise;
-    return result;
-  }
-
-  /**
-   * instantiate a new deferred promise for icon ready if it's not pending already
-   * @returns {void}
-   */
-  private deferIconReady (): void {
-    if (this.iconReady.isPending()) {
-      return;
-    }
-    this.iconReady = new Deferred<void>();
   }
 
   /**
@@ -170,8 +152,7 @@ export class Icon extends BasicElement {
    * @returns {void}
    */
   private async setIconSrc (): Promise<void> {
-    // keep `src` in-sync with `icon` so that icon svg would be resolved after every `icon` update
-    this.src = this.icon ? await IconLoader.getSrc(this.icon) : this.icon;
+    this.src = this.icon ? await IconLoader.getSrc(this.icon) : null;
   }
 
   /**
