@@ -104,7 +104,7 @@ describe('calendar/Range', () => {
       await elementUpdated(el);
       expect(el.values.join(','), 'from should be populated').to.equal('2005-04-06');
     });
-    it('It should be possible to select a range of values within the same day on click', async () => {
+    it('It should be possible to select the same value for From and To', async () => {
       const el = await fixture('<ef-calendar range view="2005-04" lang="en-GB"></ef-calendar>');
       let cells = getDateCells(el);
 
