@@ -6,7 +6,7 @@ location: ./
 layout: default
 -->
 
-=[ef_major_version]: 6
+=[ef_major_version]: 7
 =[npm_dist_tag]: latest
 # Introduction
 
@@ -16,7 +16,9 @@ o> ![core version](https://img.shields.io/npm/v/@refinitiv-ui/core/%npm_dist_tag
 o> ![elements version](https://img.shields.io/npm/v/@refinitiv-ui/elements/%npm_dist_tag%?color=%2339c46e&label=elements)
 o> ![i18n version](https://img.shields.io/npm/v/@refinitiv-ui/i18n/%npm_dist_tag%?color=%2339c46e&label=i18n)
 o> ![translate version](https://img.shields.io/npm/v/@refinitiv-ui/translate/%npm_dist_tag%?color=%2339c46e&label=translate)
-o> ![utils version](https://img.shields.io/npm/v/@refinitiv-ui/utils/%npm_dist_tag%?color=%2339c46e&label=utils)
+o> ![utils version](https://img.shields.io/npm/v/@refinitiv-ui/utils/%npm_dist_tag%?color=%2339c46e&label=utils)\
+o> \
+o> V6 documentation has been moved to [https://v6.ui.refinitiv.com](https://v6.ui.refinitiv.com)
 
 Element Framework (EF) provides components and tooling, aligned with Refinitiv's design system, to help developers build applications faster and more efficiently.
 
