@@ -95,6 +95,20 @@ describe('datetime-picker/Value', () => {
       expect(el.value).to.be.equal('2020-04-01', 'Value has not update');
       expect(el.inputEl.value).to.be.equal('01-Apr-2020', 'Input value has not updated');
     });
+    it('It should not be possible to deselect value by clicking on calendar', async () => {
+      const el = await fixture('<ef-datetime-picker lang="en-gb" opened view="2020-04"></ef-datetime-picker>');
+      const calendarEl = el.calendarEl;
+      await elementUpdated(el);
+      const cell = calendarEl.shadowRoot.querySelectorAll('div[tabindex]')[2]; // 2020-04-01
+      cell.click();
+      await elementUpdated(el);
+      expect(el.value).to.be.equal('2020-04-01', 'Value has not update');
+      expect(el.inputEl.value).to.be.equal('01-Apr-2020', 'Input value has not updated');
+      cell.click();
+      await elementUpdated(el);
+      expect(el.value).to.be.equal('2020-04-01');
+      expect(el.inputEl.value).to.be.equal('01-Apr-2020');
+    });
     it('It should be possible to select value in range duplex mode', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened range duplex></ef-datetime-picker>');
       el.views = ['2020-04', '2020-05'];
