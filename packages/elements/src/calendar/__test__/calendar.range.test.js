@@ -84,9 +84,10 @@ describe('calendar/Range', () => {
       expect(el.values.join(','), 'range should populate through views').to.equal('2005-04-12,2005-05-02');
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('It should be possible to select range values on the same day on click', async () => {
+    it('It should not be possible to deselect all range values', async () => {
       const el = await fixture('<ef-calendar range view="2005-04" lang="en-GB"></ef-calendar>');
       let cells = getDateCells(el);
+
       cells[5].click(); // April 06
       await elementUpdated(el);
       expect(el.values.join(','), 'from should be populated').to.equal('2005-04-06');
@@ -98,6 +99,14 @@ describe('calendar/Range', () => {
       cells[9].click(); // April 10
       await elementUpdated(el);
       expect(el.values.join(','), 'from should be populated').to.equal('2005-04-10');
+
+      cells[5].click(); // April 06
+      await elementUpdated(el);
+      expect(el.values.join(','), 'from should be populated').to.equal('2005-04-06');
+    });
+    it('It should be possible to select a range of values within the same day on click', async () => {
+      const el = await fixture('<ef-calendar range view="2005-04" lang="en-GB"></ef-calendar>');
+      let cells = getDateCells(el);
 
       cells[5].click(); // April 06
       await elementUpdated(el);
