@@ -20,7 +20,7 @@ const createMockClass = () => {
     }
 
     render() {
-      return html` <p>A paragraph</p> `;
+      return html`<p>A paragraph</p>`;
     }
   };
 };
@@ -32,7 +32,7 @@ const createEmptyStyleMockClass = () => {
     }
 
     render() {
-      return html` <p>A paragraph</p> `;
+      return html`<p>A paragraph</p>`;
     }
   };
 };
@@ -59,8 +59,8 @@ describe('TestElementRegistry', () => {
     expect(MockBasicElement.styles).instanceOf(Array);
     expect(MockBasicElement.styles).length(2);
 
-    expect(MockBasicElement.styles[0].cssText).to.equal(staticMockCssString);
-    expect(MockBasicElement.styles[1].cssText).to.equal(mockCssString);
+    expect(MockBasicElement.styles[0].cssText.trim()).to.equal(staticMockCssString);
+    expect(MockBasicElement.styles[1].cssText.trim()).to.equal(mockCssString);
 
     expect(fetchedItem).to.exist;
     expect(fetchedItem.version).to.equal(MockBasicElement.version);
