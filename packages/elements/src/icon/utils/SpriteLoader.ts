@@ -12,8 +12,7 @@ class SvgSpriteLoader extends SVGLoader {
       throw new Error("SvgSpriteLoader: couldn't load SVG sprite source");
     }
 
-    const spriteUrl = new URL(src);
-    const iconName = spriteUrl.hash.replace('#', '');
+    const iconName = new URL(src).hash.replace('#', '');
 
     if (!iconName) {
       throw new Error("SvgSpriteLoader: couldn't detect SVG icon name");
@@ -27,4 +26,6 @@ class SvgSpriteLoader extends SVGLoader {
 
 const instance = new SvgSpriteLoader();
 
-export { instance as SvgSpriteLoader };
+const preload = () => instance.loadSVG('sprite/icons');
+
+export { instance as SvgSpriteLoader, preload };
