@@ -3,6 +3,6 @@ type: template
 name: label
 -->
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/label?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/label?min';
 import { halo } from '/theme-loader.js';
 halo('label');

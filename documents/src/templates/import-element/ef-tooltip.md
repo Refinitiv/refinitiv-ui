@@ -3,6 +3,6 @@ type: template
 name: tooltip
 -->
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/tooltip?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/tooltip?min';
 import { halo } from '/theme-loader.js';
 halo('tooltip');

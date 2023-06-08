@@ -9,7 +9,7 @@ layout: default
 ::
 ```javascript
 ::overlay::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/button?min';
 halo('button');
 
 const openButton = document.getElementById('open-overlay');
@@ -83,7 +83,7 @@ By default `ef-overlay` appears at the centre of the window. You can set `positi
 ::
 ```javascript
 ::overlay::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/button?min';
 halo('button');
 
 const openButton = document.getElementById('open-overlay');
@@ -156,7 +156,7 @@ Overlay can be attached to an element by setting the `positionTarget` property t
 ::
 ```javascript
 ::overlay::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/text-field?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/text-field?min';
 halo('text-field');
 
 const target = document.getElementById('target');
@@ -226,7 +226,7 @@ The first part defines *position*. The optional second part defines *align*. For
 ::
 ```javascript
 ::overlay::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/button?min';
 halo('button');
 
 const openButton = document.getElementById('open-overlay');
@@ -306,9 +306,9 @@ You can use `transition-style` to add a transition.
 ::
 ```javascript
 ::overlay::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/select?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/item?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/select?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/item?min';
 halo('button');
 halo('select');
 halo('item');
