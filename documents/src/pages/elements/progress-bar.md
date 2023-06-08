@@ -163,7 +163,7 @@ You may have to add some CSS to your content, to ensure that it looks nice.
 ::
 ```javascript
 ::progress-bar::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/icon?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/icon?min';
 halo('icon');
 ```
 ```css
