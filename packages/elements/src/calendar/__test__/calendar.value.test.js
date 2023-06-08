@@ -76,6 +76,19 @@ describe('calendar/Value', () => {
       expect(el.values.join(','), 'values is not set').to.equal('2005-04-30');
     });
 
+    it('It should not be possible to deselect value on click', async () => {
+      const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+      const cells = getDateCells(el);
+      cells[0].click(); // April 01
+      await elementUpdated(el);
+      expect(el.values.join(',')).to.equal('2005-04-01');
+      expect(el.value).to.equal('2005-04-01');
+      cells[0].click(); // April 01
+      await elementUpdated(el);
+      expect(el.values.join(',')).to.equal('2005-04-01');
+      expect(el.value, 'value should not be changed').to.equal('2005-04-01');
+    })
+
     it('AD/BC It should be possible to select value on click', async () => {
       const el = await fixture('<ef-calendar view="-000011-04" lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);

@@ -1000,7 +1000,7 @@ export class Calendar extends ControlElement implements MultiValue {
       }
     }
     else {
-      values = this.value === value ? [] : [value];
+      values = [value];
     }
 
     this.notifyValuesChange(values);
