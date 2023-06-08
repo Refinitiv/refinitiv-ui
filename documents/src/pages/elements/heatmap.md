@@ -450,8 +450,8 @@ el.config = {...};
 ::
 ```javascript
 ::heatmap::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/overlay-menu?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/dialog?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/overlay-menu?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/dialog?min';
 halo('overlay-menu');
 halo('dialog');
 
