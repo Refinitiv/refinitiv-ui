@@ -12,7 +12,8 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
 import { Deferred } from '@refinitiv-ui/utils/loader.js';
 import { VERSION } from '../version.js';
-import { IconLoader } from './utils/IconLoader.js';
+import { SvgSpriteLoader } from './utils/SpriteLoader.js';
+// import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';
 
 const EmptyTemplate = svg``;
@@ -171,7 +172,7 @@ export class Icon extends BasicElement {
    */
   private async setIconSrc (): Promise<void> {
     // keep `src` in-sync with `icon` so that icon svg would be resolved after every `icon` update
-    this.src = this.icon ? await IconLoader.getSrc(this.icon) : this.icon;
+    this.src = this.icon ? await SvgSpriteLoader.getSrc(this.icon) : this.icon;
   }
 
   /**
@@ -185,7 +186,7 @@ export class Icon extends BasicElement {
     if (!iconTemplateCacheItem) {
       iconTemplateCache.set(
         src,
-        IconLoader.loadSVG(src)
+        SvgSpriteLoader.use(src)!
         .then(body => svg`${unsafeSVG(body)}`)
       );
       return this.loadAndRenderIcon(src); // Load again and await cache result
@@ -200,11 +201,11 @@ export class Icon extends BasicElement {
    * @returns {void}
    */
   private setPrefix (): void {
-    if (!IconLoader.isPrefixSet) {
+    if (!SvgSpriteLoader.isPrefixSet) {
       const CDNPrefix = this.getComputedVariable('--cdn-prefix')
         .replace(/^('|")|('|")$/g, '');
 
-      IconLoader.setCdnPrefix(CDNPrefix);
+      SvgSpriteLoader.setCdnPrefix(CDNPrefix);
     }
   }
 
