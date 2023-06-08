@@ -134,6 +134,39 @@ describe('datetime-picker/Value', () => {
       expect(el.inputEl.value).to.be.equal('01-Apr-2020', 'Input from value has not updated');
       expect(el.inputToEl.value).to.be.equal('01-May-2020', 'Input to value has not updated');
     });
+    it('It should not be possible to deselect values in range duplex mode', async () => {
+      const el = await fixture('<ef-datetime-picker lang="en-gb" opened range duplex></ef-datetime-picker>');
+      el.views = ['2020-04', '2020-05'];
+      await elementUpdated(el);
+      await nextFrame(2);
+
+      const calendarEl = el.calendarEl;
+      const fromCell = calendarEl.shadowRoot.querySelectorAll('div[tabindex]')[0]; // 2020-04-01
+      fromCell.click();
+      await elementUpdated(el);
+      await nextFrame();
+
+      const calendarToEl = el.calendarToEl;
+      const toCell = calendarToEl.shadowRoot.querySelectorAll('div[tabindex]')[0]; // 2020-05-01
+      toCell.click();
+      await elementUpdated(el);
+      await nextFrame();
+
+      expect(el.values[0]).to.be.equal('2020-04-01', 'Value from has not been updated');
+      expect(el.values[1]).to.be.equal('2020-05-01', 'Value to has not been update');
+
+      expect(el.inputEl.value).to.be.equal('01-Apr-2020', 'Input from value has not updated');
+      expect(el.inputToEl.value).to.be.equal('01-May-2020', 'Input to value has not updated');
+
+      toCell.click();
+      await elementUpdated(el);
+      await nextFrame();
+      expect(el.values.join(',')).to.equal('2020-05-01');
+      toCell.click();
+      await elementUpdated(el);
+      await nextFrame();
+      expect(el.values.join(',')).to.equal('2020-05-01,2020-05-01');
+    });
     it('Timepicker value is populated', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened timepicker with-seconds value="2020-04-21T13:14:15"></ef-datetime-picker>');
       const timePicker = el.timepickerEl;
