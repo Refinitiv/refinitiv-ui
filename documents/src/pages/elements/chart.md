@@ -568,6 +568,87 @@ ef-chart {
 ::chart::
 import {
   Chart as ChartJS,
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip
+);
+
+const lineSegmentStyle = document.getElementById('line-segment-style');
+
+const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
+const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+
+lineSegmentStyle.config = {
+  type: 'line',
+  data: {
+    labels: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July'
+    ],
+    datasets: [{
+      data: [65, 59, NaN, 48, 56, 57, 40],
+      borderColor: 'rgb(75, 192, 192)',
+      segment: {
+        borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+        borderDash: ctx => skipped(ctx, [6, 6]),
+      },
+      spanGaps: true
+    }]
+  },
+  options: {
+    fill: false,
+    interaction: {
+      intersect: false
+    },
+    radius: 0,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Stock Price of Legendary Company'
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'US Dollar ($)'
+        }
+      }
+    }
+  }
+};
+```
+```css
+ef-chart {
+  max-width: 600px;
+}
+```
+```html
+<ef-chart id="line-segment-style"></ef-chart>
+```
+::
+
+::
+```javascript
+::chart::
+import {
+  Chart as ChartJS,
   BarController,
   BarElement,
   CategoryScale,
@@ -942,33 +1023,78 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-const pieDatasets = [{
-    data: [36, 22, 16, 8.2, 5.7, 12]
-}];
-
-const pie = document.getElementById('pie');
-
-pie.config = {
-  type: 'pie',
+import {
+  Chart as ChartJS,
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip
+);
+const scaleStack = document.getElementById('scale-stack');
+const colors = scaleStack.colors;
+scaleStack.config = {
+  type: 'line',
   data: {
-    labels: ['Americas', 'Europe', 'Greater china', 'Japan', 'Asia Pacific', 'Retail'],
-    datasets: pieDatasets
+    labels: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July'
+    ],
+    datasets: [
+      {
+        label: 'Smartphone Usage Hour',
+        data: [10, 30, 50, 20, 25, 44, 15],
+      },
+      {
+        label: 'Push Notification Toggle',
+        data: ['ON', 'ON', 'OFF', 'ON', 'OFF', 'OFF', 'ON'],
+        stepped: true,
+        yAxisID: 'y2',
+      }
+    ]
   },
   options: {
-    plugins: {
-      tooltip: {
-        callbacks: {
-          title: () => null,
-          label: (tooltipItem) => {
-            const title = tooltipItem.label;
-            const result = tooltipItem.raw;
-            return title + ': ' + result + '%';
-          }
+    scales: {
+      y: {
+        type: 'linear',
+        position: 'left',
+        stack: 'demo',
+        stackWeight: 2,
+        border: {
+          color: colors[0]
+        }
+      },
+      y2: {
+        type: 'category',
+        labels: ['ON', 'OFF'],
+        offset: true,
+        position: 'left',
+        stack: 'demo',
+        stackWeight: 1,
+        border: {
+          color: colors[1]
         }
       }
     }
-  }
+  },
 };
+
 ```
 ```css
 ef-chart {
@@ -976,7 +1102,7 @@ ef-chart {
 }
 ```
 ```html
-<ef-chart id="pie"></ef-chart>
+<ef-chart id="scale-stack"></ef-chart>
 ```
 ::
 
