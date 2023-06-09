@@ -22,7 +22,7 @@ layout: default
 `ef-counter` is a badge component which can be used to show a number of selected items.
 
 ## Usage
-The number that displays on the counter can be set via the `value` attribute/property. If `value` is unset, negative or not a string number, it will display '0'. Any decimal value will be truncated e.g. '9.9' will be converted to '9'.
+The number that displays on the counter can be set using the `value` attribute/property. If `value` is unset, negative or not a string number, it will display '0'. Any decimal value will be truncated e.g. '9.9' will be converted to '9'.
 
 ::
 ```javascript

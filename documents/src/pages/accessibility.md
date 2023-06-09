@@ -57,7 +57,7 @@ When developing your UI, be cognizant of the common keyboard interactions noted 
 Keyboard navigation is best implemented in such a way that it promotes logical rules of orientation and navigation (see figure 2 below).
 
 - Focus usually starts from the top-left of the screen when it first loads.
-- Focus can be followed easily via the use of a visually consistent focus indication.
+- Focus can be followed easily using the use of a visually consistent focus indication.
 - Upon activation of a component, focus can automatically be initiated on a logical starting point. For example, when an Overlay Menu or Overlay is highlighted, focus programmatically moves to the first item.
 - Modal components can restrict the focus to remain within the modal region. 
 - When a control is dismissed, focus should be returned to the triggering element. 
