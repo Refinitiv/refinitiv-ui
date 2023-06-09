@@ -1,11 +1,14 @@
 {
-  "packages": ["packages/*"],
   "npmClient": "npm",
   "useWorkspaces": true,
   "version": "independent",
   "command": {
     "publish": {
-      "ignoreChanges": ["**/__test__/**", "**/__demo__/**", "**/__snapshots__/**"],
+      "ignoreChanges": [
+        "**/__test__/**",
+        "**/__demo__/**",
+        "**/__snapshots__/**"
+      ],
       "message": "chore(release): publish [skip ci]",
       "registry": "https://registry.npmjs.org"
     }
