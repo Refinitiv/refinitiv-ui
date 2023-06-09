@@ -13,8 +13,6 @@ import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
 import { Deferred } from '@refinitiv-ui/utils/loader.js';
 import { VERSION } from '../version.js';
 import { SvgSpriteLoader } from './utils/SpriteLoader.js';
-// import { IconLoader } from './utils/IconLoader.js';
-export { preload } from './utils/IconLoader.js';
 
 const EmptyTemplate = svg``;
 
@@ -186,7 +184,7 @@ export class Icon extends BasicElement {
     if (!iconTemplateCacheItem) {
       iconTemplateCache.set(
         src,
-        SvgSpriteLoader.use(src)!
+        SvgSpriteLoader.use(src)
         .then(body => svg`${unsafeSVG(body)}`)
       );
       return this.loadAndRenderIcon(src); // Load again and await cache result
