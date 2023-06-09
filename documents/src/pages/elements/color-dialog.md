@@ -34,7 +34,7 @@ document.getElementById('button').addEventListener('click', () => {
 ```
 ::
 
-`ef-color-dialog` allows users to select any color. You can set the value as a hex color code (short hex is also supported) or as Red/Green/Blue (0 - 255). Users can choose a color directly from a pallete UI or via input boxes in the dialog.
+`ef-color-dialog` allows users to select any color. You can set the value as a hex color code (short hex is also supported) or as Red/Green/Blue (0 - 255). Users can choose a color directly from a pallete UI or using input boxes in the dialog.
 
 ## Usage
 

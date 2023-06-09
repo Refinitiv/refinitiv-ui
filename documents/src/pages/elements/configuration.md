@@ -22,7 +22,7 @@ Import it to your project.
 import '@refinitiv-ui/configuration';
 ```
 
-Set context to `ef-configuration` via `config` property. Any EF components in its scope will receive the context and use it accordingly.
+Set context to `ef-configuration` using `config` property. Any EF components in its scope will receive the context and use it accordingly.
 
 ```html
 <ef-configuration id="custom-config">
@@ -47,7 +47,7 @@ customConfig.config = {
 @>Note that context is also cascaded to any EF components within shadow root. For instance, `config.icon.map` will be cascaded to `ef-icon` in shadow root of `ef-button`.
 
 ## Context List
-List of context that can be set to `ef-configuration` via `config` property.
+List of context that can be set to `ef-configuration` using `config` property.
 
 ### Icon Mapping Context
 `ef-icon` element supports the icon map from the configuration. You either define new icon or override data of the existing EF icons on CDN. Value of icon map should be base64 SVG format.
