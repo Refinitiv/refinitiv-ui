@@ -136,6 +136,126 @@
     </script>
   </demo-block>
 
+  <demo-block layout="normal" header="Line Segment Style">
+    <ef-chart id="line-segment-style"></ef-chart>
+    <script>
+      const lineSegmentStyle = document.getElementById('line-segment-style');
+
+      const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
+      const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+
+      lineSegmentStyle.config = {
+        type: 'line',
+        data: {
+          labels: [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July'
+          ],
+          datasets: [{
+            data: [65, 59, NaN, 48, 56, 57, 40],
+            borderColor: 'rgb(75, 192, 192)',
+            segment: {
+              borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+              borderDash: ctx => skipped(ctx, [6, 6]),
+            },
+            spanGaps: true
+          }]
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: false // not display legend
+            },
+          },
+          fill: false,
+          interaction: {
+            intersect: false
+          },
+          radius: 0,
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Stock Price of Legendary Company'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'US Dollar ($)'
+              }
+            }
+          }
+        }
+      };
+    </script>
+  </demo-block>
+
+  <demo-block layout="normal" header="Scale Stack">
+    <ef-chart id="scale-stack"></ef-chart>
+    <script>
+      const scaleStack = document.getElementById('scale-stack');
+      scaleStack.config = {
+        type: 'line',
+        data: {
+          labels: [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July'
+          ],
+          datasets: [
+            {
+              label: 'Smartphone Usage Hour',
+              data: [10, 30, 50, 20, 25, 44, 15],
+            },
+            {
+              label: 'Push Notification Toggle',
+              data: ['ON', 'ON', 'OFF', 'ON', 'OFF', 'OFF', 'ON'],
+              stepped: true,
+              yAxisID: 'y2',
+            }
+          ]
+        },
+        options: {
+          scales: {
+            y: {
+              type: 'linear',
+              position: 'left',
+              stack: 'demo',
+              stackWeight: 2,
+            },
+            y2: {
+              type: 'category',
+              labels: ['ON', 'OFF'],
+              offset: true,
+              position: 'left',
+              stack: 'demo',
+              stackWeight: 1,
+            }
+          }
+        },
+        plugins: [
+          {
+            beforeInit: function(chart) {
+              const colors = scaleStack.colors;
+              Object.assign(chart.config.options.scales.y.border, { color: colors[0] });
+              Object.assign(chart.config.options.scales.y2.border, { color: colors[1] });
+            }
+          }
+        ]
+      };
+    </script>
+  </demo-block>
+
   <demo-block layout="normal" header="Bar Chart">
     <ef-chart id="bar"></ef-chart>
     <script>
