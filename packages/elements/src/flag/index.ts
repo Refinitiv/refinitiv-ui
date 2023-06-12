@@ -4,7 +4,8 @@ import {
   css,
   CSSResultGroup,
   TemplateResult,
-  PropertyValues
+  PropertyValues,
+  DeprecationNotice
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -75,8 +76,9 @@ export class Flag extends BasicElement {
     }
   }
 
-  private _src: string | null = null;
+  private deprecationNotice = new DeprecationNotice('`src` attribute and property are deprecated. Use `flag` for attribute and property instead.');
 
+  private _src: string | null = null;
   /**
    * Src location of an svg flag.
    * @example https://cdn.io/flags/gb.svg
@@ -93,6 +95,10 @@ export class Flag extends BasicElement {
       if (value) {
         void this.loadAndRenderFlag(value);
       }
+    }
+
+    if (!this.deprecationNotice.shown && value && !this.flag) {
+      this.deprecationNotice.show();
     }
   }
 
