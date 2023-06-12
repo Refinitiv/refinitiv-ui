@@ -585,6 +585,7 @@ ChartJS.register(
 );
 
 const lineSegmentStyle = document.getElementById('line-segment-style');
+const colors = lineSegmentStyle.colors;
 
 const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
 const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
@@ -603,9 +604,11 @@ lineSegmentStyle.config = {
     ],
     datasets: [{
       data: [65, 59, NaN, 48, 56, 57, 40],
-      borderColor: 'rgb(75, 192, 192)',
+      pointBackgroundColor: 'transparent',
+      pointBorderColor: 'transparent',
+      borderColor: colors[6],
       segment: {
-        borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+        borderColor: ctx => skipped(ctx, colors[13]) || down(ctx, colors[7]),
         borderDash: ctx => skipped(ctx, [6, 6]),
       },
       spanGaps: true
@@ -613,9 +616,6 @@ lineSegmentStyle.config = {
   },
   options: {
     fill: false,
-    interaction: {
-      intersect: false
-    },
     radius: 0,
     scales: {
       x: {
