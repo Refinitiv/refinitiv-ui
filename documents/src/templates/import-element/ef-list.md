@@ -3,6 +3,6 @@ type: template
 name: list
 -->
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/list?min';
+import '/@refinitiv-ui/elements/list/index.js';
 import { halo } from '/theme-loader.js';
 halo('list');

@@ -3,6 +3,6 @@ type: template
 name: datetime-picker
 -->
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/datetime-picker?min';
+import '/@refinitiv-ui/elements/datetime-picker/index.js';
 import { halo } from '/theme-loader.js';
 halo('datetime-picker');

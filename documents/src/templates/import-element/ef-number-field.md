@@ -3,6 +3,6 @@ type: template
 name: number-field
 -->
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/number-field?min';
+import '/@refinitiv-ui/elements/number-field/index.js';
 import { halo } from '/theme-loader.js';
 halo('number-field');

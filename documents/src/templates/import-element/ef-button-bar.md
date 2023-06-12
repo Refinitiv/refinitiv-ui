@@ -3,6 +3,6 @@ type: template
 name: button-bar
 -->
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/button-bar?min';
+import '/@refinitiv-ui/elements/button-bar/index.js';
 import { halo } from '/theme-loader.js';
 halo('button-bar');

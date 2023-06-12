@@ -2,15 +2,14 @@
 const fs = require('fs');
 const path = require('path');
 const fg = require('fast-glob');
+const yargs  = require('yargs/yargs');
+const { hideBin } = require('yargs/helpers')
 
-const { log, errorHandler, success, ROOT } = require('../helpers');
-const { ELEMENT_DIST, PACKAGE_ROOT, getElementList, getElementTagName } = require('./util');
-
-// List of themes to be extracted
-const THEMES = ['halo', 'solar'];
+const { log, errorHandler, success, ROOT } = require('../helpers/index.js');
+const { ELEMENT_DIST, getElementList, getElementTagName } = require('./util.js');
 
 // Element package scope
-const PACKAGE_NAME = require(`${PACKAGE_ROOT}/package.json`).name;
+const PACKAGE_NAME = '@refinitiv-ui/elements';
 
 // Where to look for theme files
 const THEME_SOURCE = `${ROOT}/node_modules/${PACKAGE_NAME.split('/')[0]}/`;
@@ -21,14 +20,34 @@ const THEME_POSTFIX = '-theme';
 // Where all the themes are, relative to each element's outDir
 const THEMES_DIRECTORY = 'themes';
 
+const options = yargs(hideBin(process.argv))
+  .command('$0 [src]', 'Specify the source of the script', (yargs) => {
+    return yargs.positional('src', {
+      describe: 'Source of the script',
+      type: 'string',
+      default: '',
+    });
+  })
+  .option('themes', {
+    alias: 't',
+    describe: 'Themes separated by commas',
+    type: 'string',
+    default: 'halo,solar',
+  })
+  .argv;
+
+// Extract the src and themes argument
+const { themes, src } = options;
+const THEMES = themes && themes.split(',');
+
 /**
  * Create a dependency map for all elements
- * @returns {[{ dir: string, elements: string[], dependencies: string[]]} DependencyMap
+ * @returns {Promise<[{ dir: string, elements: string[], dependencies: string[] }]>} DependencyMap
  */
 const createDependencyMap = async () => {
-  const paths = await getElementList(path.join(process.cwd(), ELEMENT_DIST));
+  const dependencyPaths = await getElementList(path.join(process.cwd(), src, ELEMENT_DIST));
 
-  const elements = paths.reduce((entries, path) => {
+  const elements = dependencyPaths.reduce((entries, path) => {
     const elementTagName = getElementTagName(path);
     const currentDir = path.split(`${ELEMENT_DIST}/`)[1].split('/')[0];
 
@@ -88,11 +107,14 @@ const extractThemeDependency = (themePath) => {
   if (!themePath) return [];
 
   const themeContent = fs.readFileSync(themePath).toString();
-  const importRegex = new RegExp(`^import .*`, 'gm');
-  return themeContent
-    .match(importRegex)
-    .filter((matched) => !matched.includes('native-elements'))
-    .map((matched) => matched.replace(`import './`, '').replace(".js';", ''));
+  const importRegex = /^import .*/gm;
+  const matchedImports = themeContent.match(importRegex).filter((matched) => !matched.includes('native-elements'));
+
+  if (!matchedImports) {
+    return [];
+  }
+
+  return matchedImports.map((matched) => matched.replace(`import './`, '').replace(".js';", ''));
 };
 
 /**
@@ -138,12 +160,21 @@ const handler = async () => {
        * Entrypoint, using lib for backward compatibility
        * @example import '@refinitiv-ui/elements/lib/ef-icon/halo/dark';
        */
-      const entrypoint = path.join(ELEMENT_DIST, dir, THEMES_DIRECTORY, variantPath);
+      let entrypoint = path.join(ELEMENT_DIST, dir, THEMES_DIRECTORY, variantPath);
+
+      if (src) {
+        entrypoint = path.join(src, entrypoint);
+      }
 
       // Prepare folders structure
       fs.mkdirSync(path.dirname(entrypoint), {
         recursive: true,
       });
+
+      // Clean up file
+      if (fs.existsSync(entrypoint)) {
+        fs.unlinkSync(entrypoint);
+      }
 
       // Appending dependencies to each entrypoint
       for (const dependency of dependencies) {
@@ -152,7 +183,7 @@ const handler = async () => {
         const variant = path.dirname(variantPath);
         const dependencyImport = `import '${path.join(PACKAGE_NAME, dep, THEMES_DIRECTORY, variant)}';\n`;
 
-        // Skip if file already contain the same import
+        // Clean up file
         if (fs.existsSync(entrypoint)) {
           if (fs.readFileSync(entrypoint).toString().includes(dependencyImport)) continue;
         }

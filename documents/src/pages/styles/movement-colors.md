@@ -183,9 +183,9 @@ td:nth-child(even) {
 }
 ```
 ```javascript
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/panel?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/button?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/button-bar?min';
+import '/@refinitiv-ui/elements/panel/index.js';
+import '/@refinitiv-ui/elements/button/index.js';
+import '/@refinitiv-ui/elements/button-bar/index.js';
 import { halo } from '/theme-loader.js';
 halo('panel', 'button', 'button-bar');
 

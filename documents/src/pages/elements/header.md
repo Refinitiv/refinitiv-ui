@@ -76,8 +76,8 @@ You can include a component in a header by assigning the component to a slot.
 ::
 ```javascript
 ::header::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/button?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/checkbox?min';
+import '/@refinitiv-ui/elements/button/index.js';
+import '/@refinitiv-ui/elements/checkbox/index.js';
 halo('button');
 halo('checkbox');
 ```

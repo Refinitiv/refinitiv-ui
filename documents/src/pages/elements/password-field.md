@@ -9,7 +9,7 @@ layout: default
 ::
 ```javascript
 ::password-field::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/panel?min';
+import '/@refinitiv-ui/elements/panel/index.js';
 halo('panel');
 const pw = document.getElementById('pw');
 const confirmedPw = document.getElementById('confirmedPw');

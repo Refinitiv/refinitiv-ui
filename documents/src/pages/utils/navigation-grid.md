@@ -44,10 +44,10 @@ Click on the table and use _Arrow_, _Home_ and _End_ keys to select cells.
 
 ```javascript
 import { halo } from '/theme-loader.js';
-import { BasicElement, html, css } from 'https://cdn.skypack.dev/@refinitiv-ui/core?min';
-import { customElement } from 'https://cdn.skypack.dev/@refinitiv-ui/core/decorators/custom-element.js?min';
-import { ifDefined } from 'https://cdn.skypack.dev/@refinitiv-ui/core/directives/if-defined.js?min';
-import { first, last, left, right, up, down } from 'https://cdn.skypack.dev/@refinitiv-ui/utils/navigation.js?min';
+import { BasicElement, html, css } from '/@refinitiv-ui/core/index.js';
+import { customElement } from '/@refinitiv-ui/core/decorators/custom-element.js/index.js';
+import { ifDefined } from '/@refinitiv-ui/core/directives/if-defined.js/index.js';
+import { first, last, left, right, up, down } from '/@refinitiv-ui/utils/navigation.js/index.js';
 halo();
 
 // Number of rows and columns to generate random sample matrix

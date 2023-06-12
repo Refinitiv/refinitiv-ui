@@ -9,8 +9,8 @@ layout: default
 ::
 ```javascript
 ::sidebar-layout::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/header?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/panel?min';
+import '/@refinitiv-ui/elements/header/index.js';
+import '/@refinitiv-ui/elements/panel/index.js';
 halo('header');
 halo('panel');
 ```
@@ -53,8 +53,8 @@ The header slots can be omitted. Also, the component will automatically provide 
 ::
 ```javascript
 ::sidebar-layout::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/header?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/panel?min';
+import '/@refinitiv-ui/elements/header/index.js';
+import '/@refinitiv-ui/elements/panel/index.js';
 halo('header');
 halo('panel');
 ```
@@ -98,9 +98,9 @@ Menus on header could be implemented by using slots of `ef-header`.
 ::
 ```javascript
 ::sidebar-layout::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/header?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/panel?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/button?min';
+import '/@refinitiv-ui/elements/header/index.js';
+import '/@refinitiv-ui/elements/panel/index.js';
+import '/@refinitiv-ui/elements/button/index.js';
 halo('header');
 halo('panel');
 halo('button');
@@ -149,9 +149,9 @@ Sidebar can be hidden by adding the `collapsed` attribute. A toggle button to co
 ::
 ```javascript
 ::sidebar-layout::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/header?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/panel?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/button?min';
+import '/@refinitiv-ui/elements/header/index.js';
+import '/@refinitiv-ui/elements/panel/index.js';
+import '/@refinitiv-ui/elements/button/index.js';
 halo('header');
 halo('panel');
 halo('button');
