@@ -57,13 +57,9 @@ import {
   getCurrentTime
 } from './utils.js';
 
-import { preload } from '../icon/index.js';
 import type { TimePicker } from '../time-picker';
 import type { TextField } from '../text-field';
 import type { Overlay } from '../overlay';
-
-
-preload('calendar', 'down', 'left', 'right'); /* preload calendar icons for faster loading */
 
 export type {
   DatetimePickerFilter,
