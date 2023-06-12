@@ -1,6 +1,6 @@
 {
   "name": "create-efx",
-  "version": "7.0.0-next.1",
+  "version": "7.0.0-next.2",
   "description": "Initializer to create new EFX element",
   "main": "lib/index",
   "bin": {
