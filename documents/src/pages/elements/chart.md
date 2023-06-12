@@ -1492,7 +1492,7 @@ ef-chart {
 ```
 ::
 
-Some additional live examples can be found below.
+Here are some additional live examples:
 
 - [Doughnut Chart with Center Label Plugin](https://codesandbox.io/s/doughnut-center-label-plugin-5tlll5)
 - [Time Scale Chart](https://codesandbox.io/s/time-scale-chart-svgl5g)
