@@ -690,6 +690,72 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+const horizontalBar = document.getElementById('horizontalBar');
+
+horizontalBar.config = {
+  type: 'bar',
+  data: {
+    labels: ['2010', '2011', '2012', '2013'],
+    datasets: [{
+      label: 'GOOGL.O',
+      data: [29321, 37905, 50175, 59825]
+    }, {
+      label: 'AAPL.O',
+      data: [65225, 108249, 156508, 170910]
+    }, {
+      label: 'MSFT.O',
+      data: [62484, 69943, 73723, 77849]
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: {
+      tooltip: {
+        callbacks: {
+          title: (tooltipItems) => {
+            return 'Revenue';
+          },
+          label: (tooltipItem) => {
+            const year = tooltipItem.label;
+            let rev = tooltipItem.raw;
+            rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return year + ': ' + rev;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        min: 0,
+        max: 180000,
+        ticks: {
+          stepSize: 30000,
+          callback: (label, index) => {
+            return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          }
+        },
+        title: {
+          display: true,
+          text: 'Revenue (in millions £)'
+        }
+      }
+    }
+  }
+};
+```
+```css
+ef-chart {
+  max-width: 600px;
+}
+```
+```html
+<ef-chart id="horizontalBar"></ef-chart>
+```
+::
+
+::
+```javascript
+::chart::
 const comboDatasets = [{
   type: 'line',
   label: 'Price',
