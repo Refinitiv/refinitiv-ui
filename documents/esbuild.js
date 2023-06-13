@@ -4,7 +4,7 @@ const esbuild = require('esbuild');
 const handler = async () => {
   const elements = fg('../packages/elements/lib/*/index.js');
   const themes = fg('../packages/elements/lib/*/themes/halo/*/index.js');
-  const entryPoints = await Promise.all([elements, themes]).flat();
+  const entryPoints = (await Promise.all([elements, themes])).flat();
 
   await esbuild.build({
     entryPoints: entryPoints,
