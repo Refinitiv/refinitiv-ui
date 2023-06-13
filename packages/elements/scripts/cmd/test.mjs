@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { execSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { useTestOptions } from '../../../../scripts/tests/cli-options.mjs';
 import { getElements, errorHandler } from '../helpers/index.mjs';
 import { hideBin } from 'yargs/helpers';
@@ -26,15 +26,18 @@ export const handler = () => {
 
   try {
     // Build before run test everytime.
-    execSync('node cli.mjs build --sourceMap --declarationMap');
+    spawnSync('node cli.mjs build --sourceMap --declarationMap', {
+      stdio: 'inherit',
+      shell: true
+    });
 
     // Run main test script.
     const command = ['node ../../scripts/tests/run.mjs', ...params];
-    execSync(command.join(' '), { stdio: 'inherit' });
+    spawnSync(command.join(' '), { stdio: 'inherit', shell: true });
   }
   catch (error) {
     errorHandler(error);
-    // Handle child process error for using in current process
-    process.on('exit', () => process.exit(1));
+    // Exit current process if child process error
+    process.exit(1);
   }
 };
