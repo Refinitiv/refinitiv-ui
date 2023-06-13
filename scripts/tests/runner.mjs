@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import process from 'node:process';
 import { startTestRunner as startTest } from "@web/test-runner";
 import { log, error } from '../helpers/esm.mjs';
 
@@ -16,7 +15,6 @@ const startTestRunner = async config => {
   runner = await startTest({
     config,
     readFileConfig: false, // Use config from params only, prevent auto overriding from file config
-    autoExitProcess: false // No auto exit process because of starting next runner in queue after stop runner
   });
   return runner;
 };
@@ -29,6 +27,9 @@ const startTestRunner = async config => {
  * @returns {Promise<TestRunner>} Web Test Runner
  */
 const startQueueTestRunner = async (element, config, testFiles) => {
+  // No auto exit process because of starting next runner in queue after stop runner
+  config.autoExitProcess = false;
+
   // Cache base config for share to a next queue
   if (!configCache) configCache = config;
 
@@ -93,15 +94,9 @@ const handleNextQueue = async passed => {
  */
 const stopRunner = () => {
   if (!runner) return;
-  let code = null;
+  if (!runner.running) runner.stop(); // Stop the runner
 
-  // Stop the runner and get the exit code
-  if (!runner.running) {
-    code = runner.passed ? 0 : 1; // use test result for exit code
-  } else {
-    runner.stop();
-    code = 0;
-  }
+  const code = runner.passed ? 0 : 1; // use test result for exit code
 
   // Clear current runner and end process
   runner = null;
