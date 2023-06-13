@@ -30,6 +30,10 @@ const applyThemeWrapper = () => {
     }
   `;
 
+  const base = document.createElement('base');
+  base.href = '/';
+
+  document.head.appendChild(base);
   document.head.appendChild(sheet);
 };
 
