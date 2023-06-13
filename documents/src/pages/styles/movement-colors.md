@@ -183,9 +183,9 @@ td:nth-child(even) {
 }
 ```
 ```javascript
-import '/@refinitiv-ui/elements/panel/index.js';
-import '/@refinitiv-ui/elements/button/index.js';
-import '/@refinitiv-ui/elements/button-bar/index.js';
+import '/resources/elements/panel/index.js';
+import '/resources/elements/button/index.js';
+import '/resources/elements/button-bar/index.js';
 import { halo } from '/theme-loader.js';
 halo('panel', 'button', 'button-bar');
 

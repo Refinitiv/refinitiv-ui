@@ -137,7 +137,7 @@ Set the `interactive` attribute of `ef-clock` to allow users to interact with it
 ::
 ```javascript
 ::clock::
-import '/@refinitiv-ui/elements/button/index.js';
+import '/resources/elements/button/index.js';
 halo('button');
 
 document.getElementById('reset').addEventListener('click', () => {

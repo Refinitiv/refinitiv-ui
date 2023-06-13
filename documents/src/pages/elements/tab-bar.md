@@ -10,7 +10,7 @@ layout: default
 ::
 ```javascript
 ::tab-bar::
-import '/@refinitiv-ui/elements/panel/index.js';
+import '/resources/elements/panel/index.js';
 halo('panel');
 const tabs = document.getElementById('tabs');
 const title = document.getElementById('title');
@@ -252,7 +252,7 @@ Setting the `vertical` attribute/property to true will change the layout of the 
 ::
 ```javascript
 ::tab-bar::
-import '/@refinitiv-ui/elements/tab/index.js';
+import '/resources/elements/tab/index.js';
 halo('tab');
 const tabs = document.getElementById('tabs');
 

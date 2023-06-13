@@ -9,8 +9,8 @@ layout: default
 ::
 ```javascript
 ::sidebar-layout::
-import '/@refinitiv-ui/elements/header/index.js';
-import '/@refinitiv-ui/elements/panel/index.js';
+import '/resources/elements/header/index.js';
+import '/resources/elements/panel/index.js';
 halo('header');
 halo('panel');
 ```
@@ -53,8 +53,8 @@ The header slots can be omitted. Also, the component will automatically provide 
 ::
 ```javascript
 ::sidebar-layout::
-import '/@refinitiv-ui/elements/header/index.js';
-import '/@refinitiv-ui/elements/panel/index.js';
+import '/resources/elements/header/index.js';
+import '/resources/elements/panel/index.js';
 halo('header');
 halo('panel');
 ```
@@ -98,9 +98,9 @@ Menus on header could be implemented by using slots of `ef-header`.
 ::
 ```javascript
 ::sidebar-layout::
-import '/@refinitiv-ui/elements/header/index.js';
-import '/@refinitiv-ui/elements/panel/index.js';
-import '/@refinitiv-ui/elements/button/index.js';
+import '/resources/elements/header/index.js';
+import '/resources/elements/panel/index.js';
+import '/resources/elements/button/index.js';
 halo('header');
 halo('panel');
 halo('button');
@@ -149,9 +149,9 @@ Sidebar can be hidden by adding the `collapsed` attribute. A toggle button to co
 ::
 ```javascript
 ::sidebar-layout::
-import '/@refinitiv-ui/elements/header/index.js';
-import '/@refinitiv-ui/elements/panel/index.js';
-import '/@refinitiv-ui/elements/button/index.js';
+import '/resources/elements/header/index.js';
+import '/resources/elements/panel/index.js';
+import '/resources/elements/button/index.js';
 halo('header');
 halo('panel');
 halo('button');

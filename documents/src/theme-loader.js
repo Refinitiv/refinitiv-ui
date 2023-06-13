@@ -1,7 +1,7 @@
 const themeVariant = document.documentElement.getAttribute('prefers-color-scheme');
 
-const ElementsPackage = '/@refinitiv-ui/elements';
-const HaloThemePackage = '/@refinitiv-ui/halo-theme';
+const ElementsPackage = '/resources/elements';
+const HaloThemePackage = '/resources/halo-theme';
 
 const ThemePackage = {
   halo: {

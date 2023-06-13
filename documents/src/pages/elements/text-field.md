@@ -11,7 +11,7 @@ layout: default
 
 ```javascript
 ::text-field::
-import '/@refinitiv-ui/elements/panel/index.js';
+import '/resources/elements/panel/index.js';
 halo('panel');
 ```
 

@@ -12,7 +12,7 @@ const handler = async () => {
     bundle: true,
     logLevel: 'error',
     outbase:'../packages/elements/lib',
-    outdir: 'dist/@refinitiv-ui/elements'
+    outdir: 'dist/resources/elements'
   });
 
   const nativeThemes = await fg('../packages/halo-theme/*/imports/native-elements.js');
@@ -22,7 +22,7 @@ const handler = async () => {
     bundle: true,
     minify: true,
     logLevel: 'error',
-    outdir: 'dist/@refinitiv-ui/halo-theme'
+    outdir: 'dist/resources/halo-theme'
   });
 };
 

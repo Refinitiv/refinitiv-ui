@@ -35,7 +35,7 @@ body {
 ```javascript
 import { halo } from '/theme-loader.js';
 halo('panel');
-import '/@refinitiv-ui/elements/panel/index.js';
+import '/resources/elements/panel/index.js';
 
 document.documentElement.setAttribute('lang', 'ja-JP');
 ```
@@ -65,7 +65,7 @@ body {
 ```javascript
 import { halo } from '/theme-loader.js';
 halo('panel');
-import '/@refinitiv-ui/elements/panel/index.js';
+import '/resources/elements/panel/index.js';
 
 document.documentElement.setAttribute('lang', 'zh-CN');
 ```

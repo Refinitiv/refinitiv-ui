@@ -10,7 +10,7 @@ layout: default
 ::
 ```javascript
 ::autosuggest::
-import '/@refinitiv-ui/elements/text-field/index.js';
+import '/resources/elements/text-field/index.js';
 halo('text-field');
 const data = [
   { label: 'Cornelius Martin' },
@@ -107,7 +107,7 @@ Autosuggest uses the item `label` property to display item labels in the popup a
 ::
 ```javascript
 ::autosuggest::
-import '/@refinitiv-ui/elements/text-field/index.js';
+import '/resources/elements/text-field/index.js';
 halo('text-field');
 const data = [
   { label: 'Cornelius Martin' },
@@ -161,7 +161,7 @@ Autosuggest understands the Item object model, allowing the display of non-selec
 ::
 ```javascript
 ::autosuggest::
-import '/@refinitiv-ui/elements/text-field/index.js';
+import '/resources/elements/text-field/index.js';
 halo('text-field');
 const data = [{ label: 'Cornelius Martin', group: 'Core Team' },
   { label: 'Memphis Hoover', group: 'Contractors' },
@@ -276,7 +276,7 @@ This example implements pagination and limits the result to show five suggestion
 ::
 ```javascript
 ::autosuggest::
-import '/@refinitiv-ui/elements/text-field/index.js';
+import '/resources/elements/text-field/index.js';
 halo('text-field');
 const data = [
   { label: 'Cornelius Martin' },
@@ -364,7 +364,7 @@ Optionally, the `debounce-rate` attribute can reduce the number of server calls,
 ::
 ```javascript
 ::autosuggest::
-import '/@refinitiv-ui/elements/text-field/index.js';
+import '/resources/elements/text-field/index.js';
 halo('text-field');
 const data = [
   { label: 'Cornelius Martin' },
@@ -450,8 +450,8 @@ Header and/or footer can be added to autosuggest by using slots.
 ::
 ```javascript
 ::autosuggest::
-import '/@refinitiv-ui/elements/text-field/index.js';
-import '/@refinitiv-ui/elements/header/index.js';
+import '/resources/elements/text-field/index.js';
+import '/resources/elements/header/index.js';
 halo('text-field');
 halo('header');
 const data = [
@@ -522,7 +522,7 @@ Use the `request-on-focus` attribute to request suggestions when the input is fo
 ::
 ```javascript
 ::autosuggest::
-import '/@refinitiv-ui/elements/text-field/index.js';
+import '/resources/elements/text-field/index.js';
 halo('text-field');
 const data = [
   { label: 'Cornelius Martin' },
@@ -581,7 +581,7 @@ For further position customization, `ef-autosuggest` supports attributes and pro
 ::
 ```javascript
 ::autosuggest::
-import '/@refinitiv-ui/elements/text-field/index.js';
+import '/resources/elements/text-field/index.js';
 halo('text-field');
 const data = [
   { label: 'Cornelius Martin' },
@@ -668,7 +668,7 @@ If autosuggest is customized and doesn't use `ef-item` or a descendant, a `highl
 ::
 ```javascript
 ::autosuggest::
-import '/@refinitiv-ui/elements/text-field/index.js';
+import '/resources/elements/text-field/index.js';
 halo('text-field');
 const data = [
   { label: 'Cornelius Martin', group: 'Core Team' },
@@ -823,7 +823,7 @@ While autosuggest natively understands the Item object model, it is data agnosti
 ::
 ```javascript
 ::autosuggest::
-import '/@refinitiv-ui/elements/text-field/index.js';
+import '/resources/elements/text-field/index.js';
 halo('text-field');
 const data = [
   { value: 'Cornelius Martin', readonly: true },
@@ -971,7 +971,7 @@ autoSuggest.addEventListener('item-select', (ev) => {
 ::
 ```javascript
 ::autosuggest::
-import '/@refinitiv-ui/elements/multi-input/index.js';
+import '/resources/elements/multi-input/index.js';
 halo('multi-input');
 const data = [
   { label: 'Cornelius Martin' },
@@ -1099,8 +1099,8 @@ In addition to string-based queries, autosuggest `query` also supports objects, 
 ::
 ```javascript
 ::autosuggest::
-import '/@refinitiv-ui/elements/text-field/index.js';
-import '/@refinitiv-ui/elements/select/index.js';
+import '/resources/elements/text-field/index.js';
+import '/resources/elements/select/index.js';
 halo('text-field');
 halo('select');
 const data = [

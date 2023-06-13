@@ -128,8 +128,8 @@ The header can contain simple text or components such as checkbox, button. These
 ::
 ```javascript
 ::collapse::
-import '/@refinitiv-ui/elements/checkbox/index.js';
-import '/@refinitiv-ui/elements/button/index.js';
+import '/resources/elements/checkbox/index.js';
+import '/resources/elements/button/index.js';
 halo('checkbox');
 halo('button');
 ```

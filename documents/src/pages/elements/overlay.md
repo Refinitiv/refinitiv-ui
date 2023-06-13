@@ -9,7 +9,7 @@ layout: default
 ::
 ```javascript
 ::overlay::
-import '/@refinitiv-ui/elements/button/index.js';
+import '/resources/elements/button/index.js';
 halo('button');
 
 const openButton = document.getElementById('open-overlay');
@@ -83,7 +83,7 @@ By default `ef-overlay` appears at the centre of the window. You can set `positi
 ::
 ```javascript
 ::overlay::
-import '/@refinitiv-ui/elements/button/index.js';
+import '/resources/elements/button/index.js';
 halo('button');
 
 const openButton = document.getElementById('open-overlay');
@@ -156,7 +156,7 @@ Overlay can be attached to an element by setting the `positionTarget` property t
 ::
 ```javascript
 ::overlay::
-import '/@refinitiv-ui/elements/text-field/index.js';
+import '/resources/elements/text-field/index.js';
 halo('text-field');
 
 const target = document.getElementById('target');
@@ -226,7 +226,7 @@ The first part defines *position*. The optional second part defines *align*. For
 ::
 ```javascript
 ::overlay::
-import '/@refinitiv-ui/elements/button/index.js';
+import '/resources/elements/button/index.js';
 halo('button');
 
 const openButton = document.getElementById('open-overlay');
@@ -306,9 +306,9 @@ You can use `transition-style` to add a transition.
 ::
 ```javascript
 ::overlay::
-import '/@refinitiv-ui/elements/button/index.js';
-import '/@refinitiv-ui/elements/select/index.js';
-import '/@refinitiv-ui/elements/item/index.js';
+import '/resources/elements/button/index.js';
+import '/resources/elements/select/index.js';
+import '/resources/elements/item/index.js';
 halo('button');
 halo('select');
 halo('item');

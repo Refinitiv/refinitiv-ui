@@ -393,7 +393,7 @@ comboBox.renderer = (item, composer, element) => {
 ::
 ```javascript
 ::combo-box::
-import '/@refinitiv-ui/elements/flag/index.js';
+import '/resources/elements/flag/index.js';
 halo('flag');
 import { ComboBoxRenderer } from "/@refinitiv-ui/elements/combo-box/index.js";
 

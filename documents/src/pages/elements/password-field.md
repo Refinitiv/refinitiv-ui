@@ -9,7 +9,7 @@ layout: default
 ::
 ```javascript
 ::password-field::
-import '/@refinitiv-ui/elements/panel/index.js';
+import '/resources/elements/panel/index.js';
 halo('panel');
 const pw = document.getElementById('pw');
 const confirmedPw = document.getElementById('confirmedPw');

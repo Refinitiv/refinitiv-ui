@@ -9,7 +9,7 @@ layout: default
 ::
 ```javascript
 ::number-field::
-import '/@refinitiv-ui/elements/panel/index.js';
+import '/resources/elements/panel/index.js';
 halo('panel');
 const curr1 = document.getElementById('curr1');
 const cf = document.getElementById('cf');

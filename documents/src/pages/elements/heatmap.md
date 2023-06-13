@@ -450,8 +450,8 @@ el.config = {...};
 ::
 ```javascript
 ::heatmap::
-import '/@refinitiv-ui/elements/overlay-menu/index.js';
-import '/@refinitiv-ui/elements/dialog/index.js';
+import '/resources/elements/overlay-menu/index.js';
+import '/resources/elements/dialog/index.js';
 halo('overlay-menu');
 halo('dialog');
 
