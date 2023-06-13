@@ -11,7 +11,7 @@
   },
   "scripts": {
     "lerna": "lerna",
-    "build": "nx run-many --target build --parallel --all",
+    "build": "nx run-many --target build --parallel --all --verbose",
     "build:affected": "nx affected:build --parallel",
     "build:docs": "nx run @refinitiv-ui/docs:build",
     "build:prod": "nx run-many --target build:prod --all",
