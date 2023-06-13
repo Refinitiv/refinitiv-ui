@@ -10,8 +10,8 @@ const ThemePackage = {
       dark: () => `${HaloThemePackage}/dark/imports/native-elements.js`
     },
     element: {
-      light: (name) => `${ElementsThemesPackage}/${name}/themes/halo/light/index.js`,
-      dark: (name) => `${ElementsThemesPackage}/${name}/themes/halo/dark/index.js`
+      light: (name) => `${ElementsThemesPackage}/${name}/themes/halo/light/theme.js`,
+      dark: (name) => `${ElementsThemesPackage}/${name}/themes/halo/dark/theme.js`
     }
   }
 };

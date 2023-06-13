@@ -22,6 +22,7 @@ const handler = async () => {
     minify: true,
     treeShaking: true,
     logLevel: 'error',
+    entryNames: '[dir]/theme',
     outbase:'../packages/elements/lib',
     outdir: 'dist/resources/themes'
   });

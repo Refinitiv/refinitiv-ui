@@ -38,7 +38,7 @@ const options = yargs(hideBin(process.argv))
 
 // Extract the src and themes argument
 const { themes, src } = options;
-const THEMES = themes && themes.split(',');
+const THEMES = themes?.split(',');
 
 /**
  * Create a dependency map for all elements
