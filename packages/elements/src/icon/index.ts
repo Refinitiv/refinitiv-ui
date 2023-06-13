@@ -114,7 +114,7 @@ export class Icon extends BasicElement {
       }
     }
 
-    if (!this.deprecationNotice.shown && value && !this.icon) {
+    if (value && !this.icon) {
       this.deprecationNotice.show();
     }
   }
