@@ -1,4 +1,4 @@
-import { fixture, elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, elementUpdated, expect } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/configuration';
 import '@refinitiv-ui/elements/icon';
