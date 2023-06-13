@@ -10,8 +10,6 @@ const handler = async () => {
     entryPoints: entryPoints,
     format: 'esm',
     bundle: true,
-    minify: true,
-    treeShaking: true,
     logLevel: 'error',
     outbase:'../packages/elements/lib',
     outdir: 'dist/@refinitiv-ui/elements'
