@@ -90,6 +90,7 @@ export class Icon extends BasicElement {
 
   /**
    * Src location of an svg icon.
+   * @ignore
    * @example https://cdn.io/icons/heart.svg
    * @deprecated Use `icon` instead
    * @default null
@@ -190,7 +191,7 @@ export class Icon extends BasicElement {
    */
   private async setIconSrc (): Promise<void> {
     // keep `src` in-sync with `icon` so that icon svg would be resolved after every `icon` update
-    this.src = this.icon ? await IconLoader.getSrc(this.icon) : null;
+    this.src = this.icon ? await IconLoader.getSrc(this.icon) : this.icon;
   }
 
   /**
