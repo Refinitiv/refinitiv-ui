@@ -1,7 +1,7 @@
 const themeVariant = document.documentElement.getAttribute('prefers-color-scheme');
 
-const ElementsThemesPackage = '/resources/themes';
-const HaloThemePackage = '/resources/native-themes';
+const ElementsThemesPackage = '/resources/elements';
+const HaloThemePackage = '/resources/halo-theme';
 
 const ThemePackage = {
   halo: {
@@ -10,8 +10,8 @@ const ThemePackage = {
       dark: () => `${HaloThemePackage}/dark/imports/native-elements.js`
     },
     element: {
-      light: (name) => `${ElementsThemesPackage}/${name}/themes/halo/light/theme.js`,
-      dark: (name) => `${ElementsThemesPackage}/${name}/themes/halo/dark/theme.js`
+      light: (name) => `${ElementsThemesPackage}/${name}/themes/halo/light/index.js`,
+      dark: (name) => `${ElementsThemesPackage}/${name}/themes/halo/dark/index.js`
     }
   }
 };
