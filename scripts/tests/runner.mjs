@@ -100,7 +100,7 @@ const stopRunner = () => {
 
   // Clear current runner and end process
   runner = null;
-  process.exit(code);
+  process.exitCode = code;
 };
 process.on('SIGINT', stopRunner);
 process.on('exit', stopRunner);

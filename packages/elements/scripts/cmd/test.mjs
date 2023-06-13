@@ -24,20 +24,15 @@ export const handler = () => {
   // Remove command and forward all test options to main test file
   let params = hideBin(process.argv).slice(1)
 
-  try {
-    // Build before run test everytime.
-    spawnSync('node cli.mjs build --sourceMap --declarationMap', {
-      stdio: 'inherit',
-      shell: true
-    });
+  // Build before run test everytime.
+  const buildProcess = spawnSync('node cli.mjs build --sourceMap --declarationMap', {
+    stdio: 'inherit',
+    shell: true
+  });
+  if (buildProcess.status !== 0) process.exit(testProcess.status);
 
-    // Run main test script.
-    const command = ['node ../../scripts/tests/run.mjs', ...params];
-    spawnSync(command.join(' '), { stdio: 'inherit', shell: true });
-  }
-  catch (error) {
-    errorHandler(error);
-    // Exit current process if child process error
-    process.exit(1);
-  }
+  // Run main test script.
+  const command = ['node ../../scripts/tests/run.mjs', ...params].join(' ');
+  const testProcess = spawnSync(command, { stdio: 'inherit', shell: true });
+  process.exit(testProcess.status);
 };
