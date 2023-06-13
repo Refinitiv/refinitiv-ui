@@ -26,6 +26,7 @@ const applyThemeWrapper = () => {
     :root {
       height: auto;
       min-height: 80px;
+      font-size: calc(.625em / 10);
     }
   `;
   document.head.appendChild(sheet);
