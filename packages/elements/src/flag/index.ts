@@ -102,7 +102,7 @@ export class Flag extends BasicElement {
     }
 
     if (value && !this.flag) {
-      this.deprecationNotice.show();
+      this.deprecationNotice.once();
     }
   }
 
