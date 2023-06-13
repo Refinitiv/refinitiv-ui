@@ -26,9 +26,6 @@ jobs:
         if: steps.setup.outputs.cache-dependencies-hit != 'true'
         run: npm ci --ignore-scripts --audit=false --fund=false
 
-      - name: Reset NX # temporary
-        run: npm run reset
-
       - name: Build
         if: steps.setup.outputs.cache-build-hit != 'true'
         run: npm run build:affected
@@ -46,7 +43,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Lint
-        run: npm run lint:affected -- --base=$BASE_SHA
+        run: npm run lint:affected
 
   test-chrome:
     name: "test chrome"
