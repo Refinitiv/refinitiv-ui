@@ -325,6 +325,8 @@
   "scripts": {
     "build": "node cli build --sourceMap --declarationMap",
     "build:prod": "node cli build",
+    "postbuild": "npm run extract-themes",
+    "postbuild:prod": "npm run extract-themes",
     "start": "node cli start",
     "test": "node cli test",
     "test:watch": "node cli test --watch",
@@ -332,6 +334,7 @@
     "lint": "node cli lint",
     "lint:fix": "node cli lint --fix",
     "prepublishOnly": "node scripts/release",
+    "extract-themes": "node ../../scripts/release/theme-extractor.js .",
     "api-analyzer": "node ../../scripts/release/api-analyzer.js",
     "prepack": "npm run version",
     "version": "node ../../scripts/version"

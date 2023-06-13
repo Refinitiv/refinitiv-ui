@@ -6,7 +6,6 @@ const { ELEMENTS_ROOT, RELEASE_SCRIPTS_PATH } = require('../helpers');
 const scripts = [
   path.resolve(RELEASE_SCRIPTS_PATH, 'api-analyzer.js'),
   path.resolve(RELEASE_SCRIPTS_PATH, 'jsxdts-generator.js'),
-  path.resolve(RELEASE_SCRIPTS_PATH, 'theme-extractor.js'),
   path.resolve(RELEASE_SCRIPTS_PATH, 'versioning.js')
 ];
 
