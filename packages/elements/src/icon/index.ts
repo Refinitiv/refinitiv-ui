@@ -5,7 +5,8 @@ import {
   CSSResultGroup,
   TemplateResult,
   SVGTemplateResult,
-  PropertyValues
+  PropertyValues,
+  DeprecationNotice
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -84,8 +85,13 @@ export class Icon extends BasicElement {
     }
   }
 
-  private _src: string | null = null;
+  /**
+   * Deprecation noticed, used to display a warning message
+   * when deprecated features are used.
+   */
+  private deprecationNotice = new DeprecationNotice('`src` attribute and property are deprecated. Use `icon` for attribute and property instead.');
 
+  private _src: string | null = null;
   /**
    * Src location of an svg icon.
    * @example https://cdn.io/icons/heart.svg
@@ -106,6 +112,10 @@ export class Icon extends BasicElement {
       else if (value) {
         void this.loadAndRenderIcon(value);
       }
+    }
+
+    if (value && !this.icon) {
+      this.deprecationNotice.once();
     }
   }
 
@@ -131,7 +141,7 @@ export class Icon extends BasicElement {
   private get iconMap (): string | null {
     return this.icon && this.config?.icon.map[this.icon] || null;
   }
-  
+
   /**
    * Called after the component is first rendered
    * @param changedProperties Properties which have changed
@@ -139,13 +149,14 @@ export class Icon extends BasicElement {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    
+
     /**
      * We have to call this here because
      * polyfilled browsers only get variables at this point.
      */
     this.setPrefix();
   }
+
 
   /**
    * Helper method, used to set the icon src.
