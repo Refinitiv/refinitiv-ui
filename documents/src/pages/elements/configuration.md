@@ -13,13 +13,13 @@ layout: default
 Install the configuration element in your project.
 
 ```bash
-npm install @refinitiv-ui/configuration
+npm install @refinitiv-ui/elements
 ```
 
 Import it to your project.
 
 ```javascript
-import '@refinitiv-ui/configuration';
+import '@refinitiv-ui/elements/configuration';
 ```
 
 Set context to `ef-configuration` using `config` property. Any EF components in its scope will receive the context and use it accordingly.
