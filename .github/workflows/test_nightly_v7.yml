@@ -1,9 +1,9 @@
 name: Nightly Test v7
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 23 * * *'
 env:
-  USE_BROWSERSTACK: "true"
+  CI: "true"
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Nightly Test ${{ github.run_number }}"
@@ -28,9 +28,6 @@ jobs:
         if: steps.setup.outputs.cache-dependencies-hit != 'true'
         run: npm ci --ignore-scripts --audit=false --fund=false
 
-      - name: Reset NX # temporary
-        run: npm run reset
-
       - name: Build
         # Prevent NX caching it should always build
         run: npm run build -- --skip-nx-cache
@@ -52,7 +49,9 @@ jobs:
         # Prevent NX caching because it must run all linting, even though the code has not chaged.
         run: npm run lint:all -- --skip-nx-cache
 
-  nightly-test:
+#region chrome
+  test-chrome:
+    name: "test chrome"
     needs: lint
     runs-on: ubuntu-latest
     steps:
@@ -62,17 +61,245 @@ jobs:
           fetch-depth: 0
           ref: v7
 
-      # Need this step for support feature toggle testing on BrowserStack on/off
-      - name: Setup browser versions to testing
+      - name: Version
         run: |
-          [[ "${{ env.USE_BROWSERSTACK }}" == "true" ]] && export BROWSERS="supported" || export BROWSERS="default"
-          echo "BROWSERS=\"$BROWSERS\"" >> $GITHUB_ENV
+          node -v
+          npm -v
+          npx playwright --version
 
       - name: Test
         uses: ./.github/actions/run-test
         with:
-          browsers: ${{ env.BROWSERS }}
+          browsers: 'chrome'
           mode: 'all'
-          browserstack: $USE_BROWSERSTACK
-          username: $BROWSERSTACK_USERNAME
-          access-key: $BROWSERSTACK_ACCESS_KEY
+
+
+  test-chrome-minus-1:
+    name: "test chrome minus 1"
+    needs: test-chrome
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: v7
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'chrome_minus1'
+          mode: 'all'
+
+  test-chrome-minus-2:
+    name: "test chrome minus 2"
+    needs: test-chrome-minus-1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: v7
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'chrome_minus2'
+          mode: 'all'
+# endregion
+
+#region firefox
+  test-firefox:
+    name: "test firefox"
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: v7
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'firefox'
+          mode: 'all'
+
+  test-firefox-minus-1:
+    name: "test firefox minus 1"
+    needs: test-firefox
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: v7
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'firefox_minus1'
+          mode: 'all'
+
+  test-firefox-minus-2:
+    name: "test firefox minus 2"
+    needs: test-firefox-minus-1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: v7
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'firefox_minus2'
+          mode: 'all'
+#endregion
+
+#region safari
+  test-safari:
+    name: "test safari"
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: v7
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'safari'
+          mode: 'all'
+
+  test-safari-minus-2:
+    name: "test safari minus 2"
+    needs: test-safari
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: v7
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'safari_minus2'
+          mode: 'all'
+#endregion
+
+#region ios
+  test-ios:
+    name: "test ios"
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: v7
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'ios'
+          mode: 'all'
+
+  test-ios-minus-1:
+    name: "test ios minus 1"
+    needs: test-ios
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: v7
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'ios_minus1'
+          mode: 'all'
+
+  test-ios-minus-2:
+    name: "test ios minus 2"
+    needs: test-ios-minus-1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: v7
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'ios_minus2'
+          mode: 'all'
+#endregion
+
+#region android
+  test-android:
+    name: "test android"
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: v7
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'android'
+          mode: 'all'
+
+  test-android-minus-1:
+    name: "test android minus 1"
+    needs: test-android
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: v7
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'android_minus1'
+          mode: 'all'
+
+  test-android-minus-2:
+    name: "test android minus 2"
+    needs: test-android-minus-1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: v7
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'android_minus2'
+          mode: 'all'
+#endregion
