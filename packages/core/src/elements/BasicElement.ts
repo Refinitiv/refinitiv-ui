@@ -80,18 +80,6 @@ export abstract class BasicElement extends LitElement {
   }
 
   /**
-  * Gets any defined css variables by name/key
-  * @param options options list of variables and fallbacks
-  * @returns value of the css variable, or, fallback if specified, when a a variable is null.
-  * @deprecated
-  */
-  protected cssVariable (...options: (CSSValue)[]): string {
-    /* eslint-disable-next-line no-console */
-    console.warn('this.cssVariable() is deprecated. Use this.getComputedVariable() instead.');
-    return this.getComputedVariable(...options);
-  }
-
-  /**
    * Gets any defined css variables by name/key
    * @param options options list of variables and fallbacks
    * @returns value of the css variable, or, fallback if specified, when a a variable is null.

@@ -77,36 +77,6 @@ export class Icon extends BasicElement {
     }
   }
 
-  private _src: string | null = null;
-
-  /**
-   * Src location of an svg icon.
-   * @ignore
-   * @example https://cdn.io/icons/home.svg
-   * @deprecated Use `icon` instead
-   * @default null
-   */
-  @property({ type: String })
-  public get src (): string | null {
-    return this._src;
-  }
-  /**
-    * @ignore
-    * @param value Location of an svg
-    */
-  public set src (value: string | null) {
-    if (this.src !== value) {
-      this.deferIconReady();
-      this._src = value;
-      if (value) {
-        void this.loadAndRenderIcon(value);
-      }
-      else {
-        this.clearIcon();
-      }
-    }
-  }
-
   private _template: TemplateResult = EmptyTemplate;
 
   /**
@@ -171,7 +141,13 @@ export class Icon extends BasicElement {
    */
   private async setIconSrc (): Promise<void> {
     // keep `src` in-sync with `icon` so that icon svg would be resolved after every `icon` update
-    this.src = this.icon ? await IconLoader.getSrc(this.icon) : this.icon;
+    const value = this.icon ? await IconLoader.getSrc(this.icon) : this.icon;
+    if (value) {
+      await this.loadAndRenderIcon(value);
+    }
+    else {
+      this.clearIcon();
+    }
   }
 
   /**

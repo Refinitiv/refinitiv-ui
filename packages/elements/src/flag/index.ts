@@ -70,36 +70,6 @@ export class Flag extends BasicElement {
     }
   }
 
-  private _src: string | null = null;
-
-  /**
-   * Src location of an svg flag.
-   * @ignore
-   * @example https://cdn.io/flags/gb.svg
-   * @deprecated Use `flag` instead
-   * @default null
-   */
-  @property({ type: String })
-  public get src (): string | null {
-    return this._src;
-  }
-  /**
-    * @ignore
-    * @param value Location of an svg
-    */
-  public set src (value: string | null) {
-    if (this.src !== value) {
-      this.deferFlagReady();
-      this._src = value;
-      if (value) {
-        void this.loadAndRenderFlag(value);
-      }
-      else {
-        this.clearFlag();
-      }
-    }
-  }
-
   private _template: TemplateResult = EmptyTemplate;
 
   /**
@@ -164,7 +134,13 @@ export class Flag extends BasicElement {
    */
   private async setFlagSrc (): Promise<void> {
   // keep `src` in-sync with `flag` so that flag svg would be resolved after every `flag` update
-    this.src = this.flag ? await FlagLoader.getSrc(this.flag) : this.flag;
+    const value = this.flag ? await FlagLoader.getSrc(this.flag) : this.flag;
+    if (value) {
+      await this.loadAndRenderFlag(value);
+    }
+    else {
+      this.clearFlag();
+    }
   }
 
   /**
