@@ -191,7 +191,7 @@ try {
     if (testTarget === 'elements') {
       config.files = [path.join(ELEMENTS_ROOT, 'src', `**/__test__/**/*.test.js`)]
     }
-    await startTestRunner(config); // Start single runner (no queue)
+    await startTestRunner({ config }); // Start single runner (no queue)
   }
 } catch (err) {
   error(err);
