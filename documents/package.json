@@ -33,7 +33,9 @@
     "pandora-book": "file:tools/pandora-book-3.0.0-pride.1.tgz"
   },
   "dependencies": {
+    "@refinitiv-ui/core": "^6.4.3",
     "@refinitiv-ui/elements": "^6.8.5",
+    "@refinitiv-ui/utils": "^6.2.4",
     "@refinitiv-ui/halo-theme": "^6.5.3",
     "fast-glob": "^3.2.12"
   }
