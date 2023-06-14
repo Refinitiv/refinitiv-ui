@@ -325,6 +325,7 @@
   "scripts": {
     "build": "node cli build --sourceMap --declarationMap",
     "build:prod": "node cli build",
+    "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "postbuild": "npm run extract-themes",
     "postbuild:prod": "npm run extract-themes",
     "start": "node cli start",
