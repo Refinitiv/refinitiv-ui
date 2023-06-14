@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
-const { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList } = require('./util');
+const { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList, ELEMENT_SOURCE } = require('./util');
 const { log, errorHandler, success } = require('../helpers');
 
 /**
@@ -35,13 +35,13 @@ const handler = async () => {
     path.join(PACKAGE_ROOT, ELEMENT_DIST, JSX_TYPE_DECLARATION)
   );
 
-  const files = await getElementList(path.join(PACKAGE_ROOT, ELEMENT_DIST));
+  const files = await getElementList(path.join(PACKAGE_ROOT, ELEMENT_SOURCE));
 
   for (const file of files) {
     const elementName = getElementTagName(file);
 
-    // Assuming all JavaScript files will be compiled with TypeScript declaration
-    const typeDeclaration = file.replace('.js', '.d.ts');
+    // Assuming all JavaScript files are compiled with TypeScript declaration
+    const typeDeclaration = file.replace('.ts', '.d.ts').replace(ELEMENT_SOURCE, ELEMENT_DIST);
 
     if (!fs.existsSync(typeDeclaration)){
       return;

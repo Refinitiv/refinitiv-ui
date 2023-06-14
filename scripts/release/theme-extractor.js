@@ -6,7 +6,7 @@ const yargs  = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers')
 
 const { log, errorHandler, success, ROOT } = require('../helpers/index.js');
-const { ELEMENT_DIST, getElementList, getElementTagName } = require('./util.js');
+const { ELEMENT_SOURCE, ELEMENT_DIST, getElementList, getElementTagName } = require('./util.js');
 
 // Element package scope
 const PACKAGE_NAME = '@refinitiv-ui/elements';
@@ -45,11 +45,11 @@ const THEMES = themes?.split(',');
  * @returns {Promise<[{ dir: string, elements: string[], dependencies: string[] }]>} DependencyMap
  */
 const createDependencyMap = async () => {
-  const dependencyPaths = await getElementList(path.join(process.cwd(), src, ELEMENT_DIST));
+  const dependencyPaths = await getElementList(path.join(process.cwd(), src, ELEMENT_SOURCE));
 
   const elements = dependencyPaths.reduce((entries, path) => {
     const elementTagName = getElementTagName(path);
-    const currentDir = path.split(`${ELEMENT_DIST}/`)[1].split('/')[0];
+    const currentDir = path.split(`${ELEMENT_SOURCE}/`)[1].split('/')[0];
 
     // Check if element is from one of the existing directory
     // If yes add it to the existing object
@@ -134,10 +134,20 @@ const getThemes = async (elements) => {
 
 /**
  * Extracts themes to each individual element
- * Each element should be shipped with atleast a theme
+ * Element should be shipped with its theme and its dependency's theme
+ *
  * @example
- * import '@refinitiv-ui/elements/lib/ef-icon';
- * import '@refinitiv-ui/elements/lib/ef-icon/themes/halo/dark';
+ * import '@refinitiv-ui/elements/button';
+ * import '@refinitiv-ui/elements/button/themes/halo/dark';
+ *
+ * This -> import '@refinitiv-ui/elements/button/themes/halo/dark';
+ * Should contain
+ *
+ *      import '@refinitiv-ui/elements/icon/themes/halo/dark';
+ *      import '@refinitiv-ui/elements/tooltip/themes/halo/dark';
+ *
+ * which are dependencies of button along with button's theme.
+ *
  * @returns {void}
  */
 const handler = async () => {
@@ -157,8 +167,8 @@ const handler = async () => {
       const variantPath = variant.split(THEME_SOURCE)[1].replace(THEME_POSTFIX, '').replace(path.basename(variant, '.js'), 'index');
 
       /**
-       * Entrypoint, using lib for backward compatibility
-       * @example import '@refinitiv-ui/elements/lib/ef-icon/halo/dark';
+       * Themes entrypoint
+       * @example lib/appstate-bar/themes/halo/light/index.js
        */
       let entrypoint = path.join(ELEMENT_DIST, dir, THEMES_DIRECTORY, variantPath);
 
@@ -210,7 +220,7 @@ const handler = async () => {
           }
         }
 
-        fs.appendFileSync(entrypoint, `\n${componentThemeDefinition}`);
+        fs.appendFileSync(entrypoint, `${componentThemeDefinition}`);
       }
     }
   }
