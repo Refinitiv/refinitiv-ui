@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { execSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { useTestOptions } from '../../../../scripts/tests/cli-options.mjs';
 import { getElements, errorHandler } from '../helpers/index.mjs';
 import { hideBin } from 'yargs/helpers';
@@ -24,17 +24,15 @@ export const handler = () => {
   // Remove command and forward all test options to main test file
   let params = hideBin(process.argv).slice(1)
 
-  try {
-    // Build before run test everytime.
-    execSync('node cli.mjs build --sourceMap --declarationMap');
+  // Build before run test everytime.
+  const buildProcess = spawnSync('node cli.mjs build --sourceMap --declarationMap', {
+    stdio: 'inherit',
+    shell: true
+  });
+  if (buildProcess.status !== 0) process.exit(testProcess.status);
 
-    // Run main test script.
-    const command = ['node ../../scripts/tests/run.mjs', ...params];
-    execSync(command.join(' '), { stdio: 'inherit' });
-  }
-  catch (error) {
-    errorHandler(error);
-    // Handle child process error for using in current process
-    process.on('exit', () => process.exit(1));
-  }
+  // Run main test script.
+  const command = ['node ../../scripts/tests/run.mjs', ...params].join(' ');
+  const testProcess = spawnSync(command, { stdio: 'inherit', shell: true });
+  process.exit(testProcess.status);
 };
