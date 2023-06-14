@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import process from 'node:process';
 import { startTestRunner as startTest } from "@web/test-runner";
 import { log, error } from '../helpers/esm.mjs';
 
@@ -12,12 +11,9 @@ const testRunnerQueue = new Map(); // If current runner is running the test will
  * @param {Object} config Web Test Runner config
  * @returns {Promise<TestRunner>} Web Test Runner instance
  */
-const startTestRunner = async config => {
-  runner = await startTest({
-    config,
-    readFileConfig: false, // Use config from params only, prevent auto overriding from file config
-    autoExitProcess: false // No auto exit process because of starting next runner in queue after stop runner
-  });
+const startTestRunner = async options => {
+  options.readFileConfig = false; // Use config from params only, prevent auto overriding from file config
+  runner = await startTest(options);
   return runner;
 };
 
@@ -29,6 +25,9 @@ const startTestRunner = async config => {
  * @returns {Promise<TestRunner>} Web Test Runner
  */
 const startQueueTestRunner = async (element, config, testFiles) => {
+  // No use auto exit process because of need to starting next runner in queue after stop runner
+  config.autoExitProcess = false;
+
   // Cache base config for share to a next queue
   if (!configCache) configCache = config;
 
@@ -48,13 +47,16 @@ const startQueueTestRunner = async (element, config, testFiles) => {
   // Start test runner by change the new test files and coverage config
   log(`Element: ${element}`, 'magenta');
   runner = await startTestRunner({
-    ...configCache,
-    element,
-    files: testFiles,
-    coverageConfig: {
-      include: [`**/lib/${element}/**/*.js`],
-      reportDir: `coverage/${element}`
-    }
+    config: {
+      ...configCache,
+      element,
+      files: testFiles,
+      coverageConfig: {
+        include: [`**/lib/${element}/**/*.js`],
+        reportDir: `coverage/${element}`
+      }
+    },
+    autoExitProcess: false
   });
 
   // When test finished check the next queue
@@ -68,7 +70,6 @@ const startQueueTestRunner = async (element, config, testFiles) => {
  * @param {boolean} passed result of current runner
  */
 const handleNextQueue = async passed => {
-
   if (!passed) process.exit(1); // Stop process, if found test failed from result of current runner
 
   // Remove current test runner (finished) from queue
@@ -93,19 +94,13 @@ const handleNextQueue = async passed => {
  */
 const stopRunner = () => {
   if (!runner) return;
-  let code = null;
+  if (!runner.running) runner.stop(); // Stop the runner
 
-  // Stop the runner and get the exit code
-  if (!runner.running) {
-    code = runner.passed ? 0 : 1; // use test result for exit code
-  } else {
-    runner.stop();
-    code = 0;
-  }
+  const code = runner.passed ? 0 : 1; // use test result for exit code
 
   // Clear current runner and end process
   runner = null;
-  process.exit(code);
+  process.exitCode = code;
 };
 process.on('SIGINT', stopRunner);
 process.on('exit', stopRunner);

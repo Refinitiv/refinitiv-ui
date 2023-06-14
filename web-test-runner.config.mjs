@@ -24,6 +24,7 @@ export default {
   testFramework: {
     config: { timeout: 5000 }, // Mocha timeout 5 seconds
   },
+  staticLogging: process.env.CI ? true : false,
   coverage: true,
   concurrency: 1, // Prevent unstable test e.g. ef-overlay and focusing
   coverageConfig: {
