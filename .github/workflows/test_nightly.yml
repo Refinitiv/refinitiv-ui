@@ -24,7 +24,6 @@ jobs:
         id: setup
 
       - name: Install Dependencies
-        if: steps.setup.outputs.cache-dependencies-hit != 'true'
         run: npm ci --ignore-scripts --audit=false --fund=false
 
       - name: Build
