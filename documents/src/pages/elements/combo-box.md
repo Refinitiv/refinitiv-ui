@@ -394,8 +394,8 @@ comboBox.renderer = (item, composer, element) => {
 ```javascript
 ::combo-box::
 import '/resources/elements/flag/index.js';
+import { ComboBoxRenderer } from "/resources/elements/combo-box/index.js";
 halo('flag');
-import { ComboBoxRenderer } from "/@refinitiv-ui/elements/combo-box/index.js";
 
 const comboBox = document.querySelector('ef-combo-box');
 comboBox.data = [
