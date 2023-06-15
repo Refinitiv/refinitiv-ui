@@ -1,5 +1,16 @@
-name: 'Setup Environment and Resources'
-description: 'Setup node.js and caching scoped within a workflow'
+name: 'Setup environment and resources with build'
+description: 'Setup node.js, install dependencies and build.
+  Dependencies and build results are cached scoped within a workflow so they would run once.'
+inputs:
+  build-script:
+    description: build script for be run
+    required: false
+    default: npm run build
+
+  pre-build-script:
+    description: script to be run before build-script
+    required: false
+    default: ''
 
 runs:
   using: "composite"
@@ -20,6 +31,10 @@ runs:
           */*/node_modules
         key: node_modules-${{ github.run_id }}-${{ github.run_attempt }}
 
+    - name: Install dependencies
+      if: steps.cache-node_modules.outputs.cache-hit != 'true'
+      run: npm ci --ignore-scripts --audit=false --fund=false
+
     - name: Setup caching build
       uses: actions/cache@v3
       id: cache-build
@@ -30,9 +45,10 @@ runs:
           packages/*-theme/**/*.css
         key: build-${{ github.run_id }}-${{ github.run_attempt }}
 
-    - name: Setup caching test result
-      uses: actions/cache@v3
-      id: cache-test-result
-      with:
-        path: packages/*/coverage
-        key: test-result-${{ github.run_id }}-${{ github.run_attempt }}
+    - name: Pre-build
+      if: steps.cache-build.outputs.cache-hit != 'true' && inputs.pre-build-script != ''
+      run: ${{ input.pre-build-script }}
+
+    - name: Build
+      if: steps.cache-build.outputs.cache-hit != 'true'
+      run: ${{ input.build-script }}

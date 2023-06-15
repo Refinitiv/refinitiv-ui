@@ -31,7 +31,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup resources and environment
+    - name: Setup environment and resources with build
       uses: ./.github/actions/setup
 
     - name: Install playwright browsers

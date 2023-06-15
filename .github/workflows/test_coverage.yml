@@ -15,19 +15,12 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: Setup resources and environment
+      - name: Setup environment and resources with build
         uses: ./.github/actions/setup
         id: setup
 
-      - name: Install Dependencies
-        run: npm ci --ignore-scripts --audit=false --fund=false
-
-      - name: Build
-        run: npm run build
-
-  sonarcloud:
+  test-coverage:
     needs: build
-    name: TestCoverage
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code

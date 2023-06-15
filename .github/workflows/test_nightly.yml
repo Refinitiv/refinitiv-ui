@@ -21,16 +21,11 @@ jobs:
           # Pulls all commits (needed for Lerna)
           fetch-depth: 0
 
-      - name: Setup resources and environment
+      - name: Setup environment and resources with build
         uses: ./.github/actions/setup
         id: setup
-
-      - name: Install Dependencies
-        run: npm ci --ignore-scripts --audit=false --fund=false
-
-      - name: Build
-        # Prevent NX caching it should always build
-        run: npm run build -- --skip-nx-cache
+        with:
+          build-script: npm run build -- --skip-nx-cache # Prevent NX caching it should always build
 
   lint:
     needs: build
@@ -41,7 +36,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup resources and environment
+      - name: Setup environment and resources with build
         uses: ./.github/actions/setup
 
       - name: Lint

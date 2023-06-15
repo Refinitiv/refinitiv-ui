@@ -20,20 +20,12 @@ jobs:
           fetch-depth: 0
           ref: v7
 
-      - name: Setup resources and environment
+      - name: Setup environment and resources with build
         uses: ./.github/actions/setup
         id: setup
-
-      - name: Install Dependencies
-        if: steps.setup.outputs.cache-dependencies-hit != 'true'
-        run: npm ci --ignore-scripts --audit=false --fund=false
-
-      - name: Reset NX # temporary
-        run: npm run reset
-
-      - name: Build
-        # Prevent NX caching it should always build
-        run: npm run build -- --skip-nx-cache
+        with:
+          pre-build-script: npm run reset # temporary
+          build-script: npm run build -- --skip-nx-cache # Prevent NX caching it should always build
 
   lint:
     needs: build
@@ -45,7 +37,7 @@ jobs:
           fetch-depth: 0
           ref: v7
 
-      - name: Setup resources and environment
+      - name: Setup environment and resources with build
         uses: ./.github/actions/setup
 
       - name: Lint
