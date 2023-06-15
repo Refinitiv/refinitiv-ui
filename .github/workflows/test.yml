@@ -137,6 +137,7 @@ jobs:
 
       - name: Retrieve test coverage
         uses: actions/download-artifact@v3
+        continue-on-error: true
         with:
           name: test-coverage
 
