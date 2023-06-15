@@ -43,7 +43,7 @@ const CSS_COLOR_PREFIX = '--chart-color-';
  */
 declare module 'chart.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface PluginOptionsByType<TType extends ChartType> {
+  interface PluginOptionsByType<TType extends ChartType = ChartType> {
     'ef-chart': object;
   }
 }
@@ -295,7 +295,8 @@ export class Chart extends BasicElement {
     ChartJS.defaults.scale.grid.color = (line) => {
       return line.index === 0 ? this.getComputedVariable('--zero-line-color', 'transparent') : this.getComputedVariable('--grid-line-color', 'transparent');
     };
-    if (this.config?.type === 'polarArea' || this.config?.type === 'radar') {
+
+    if (ChartJS.defaults.scales.radialLinear) {
       ChartJS.defaults.scales.radialLinear.ticks.showLabelBackdrop = false;
     }
   }

@@ -14,6 +14,8 @@ import { Deferred } from '@refinitiv-ui/utils/loader.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';
+import { consume } from '@lit-labs/context';
+import { efConfig, type Config } from '../configuration/index.js';
 
 const EmptyTemplate = svg``;
 
@@ -34,6 +36,13 @@ export class Icon extends BasicElement {
   static get version (): string {
     return VERSION;
   }
+
+  /**
+   * Icon map from ef-configuration
+   * @ignore
+   */
+  @consume({ context: efConfig, subscribe: true })
+  public config?: Config;
 
   /**
    * A `CSSResultGroup` that will be used
@@ -60,7 +69,7 @@ export class Icon extends BasicElement {
 
   /**
    * Name of a known icon to render or URL of SVG icon.
-   * @example home | https://cdn.io/icons/home.svg
+   * @example heart | https://cdn.io/icons/heart.svg
    * @default null
    */
   @property({ type: String, reflect: true })
@@ -109,6 +118,14 @@ export class Icon extends BasicElement {
   }
 
   /**
+   * Check if the icon map configuration has content
+   * @returns icon map if exists
+   */
+  private get iconMap (): string | null {
+    return this.icon && this.config?.icon.map[this.icon] || null;
+  }
+
+  /**
    * Called after the component is first rendered
    * @param changedProperties Properties which have changed
    * @returns {void}
@@ -142,8 +159,11 @@ export class Icon extends BasicElement {
   private async setIconSrc (): Promise<void> {
     // keep `src` in-sync with `icon` so that icon svg would be resolved after every `icon` update
     const value = this.icon ? await IconLoader.getSrc(this.icon) : this.icon;
-    if (value) {
-      await this.loadAndRenderIcon(value);
+    if (value && this.iconMap) {
+      void this.loadAndRenderIcon(this.iconMap);
+    }
+    else if (value) {
+      void this.loadAndRenderIcon(value);
     }
     else {
       this.clearIcon();

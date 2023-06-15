@@ -19,17 +19,17 @@ interface Selectable {
   active: ActiveElement[];
 }
 
-interface CenterLabel {
+export interface CenterLabel {
   label: string;
   bold?: boolean;
 }
 
-interface Selected {
+export interface Selected {
   datasetIndex?: number;
   index: number;
 }
 
-interface CenterLabelConfig {
+export interface CenterLabelConfig {
   defaultText: CenterLabel[];
   selected: Selected;
   onRenderLabel(chart: ChartJS, chartItems: ActiveElement[]): CenterLabel[];
@@ -37,7 +37,7 @@ interface CenterLabelConfig {
 
 declare module 'chart.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface PluginOptionsByType<TType extends ChartType> {
+  interface PluginOptionsByType<TType extends ChartType = ChartType> {
     'centerLabel'?: CenterLabelConfig
   }
 }
