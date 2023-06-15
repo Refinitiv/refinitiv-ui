@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.5.2...@refinitiv-ui/halo-theme@6.5.3) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/halo-theme
+
+
+
+
+
+## [6.5.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.5.1...@refinitiv-ui/halo-theme@6.5.2) (2023-06-06)
+
+
+### Reverts
+
+* body `line-height` ([#726](https://github.com/Refinitiv/refinitiv-ui/issues/726)) ([27e7828](https://github.com/Refinitiv/refinitiv-ui/commit/27e7828e2cc9fcc265e4bfc06487e7e590478a07))
+
+
+
+
+
 ## [6.5.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.5.0...@refinitiv-ui/halo-theme@6.5.1) (2023-05-24)
 
 

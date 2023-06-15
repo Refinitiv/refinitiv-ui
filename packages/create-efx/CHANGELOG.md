@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.3](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@6.1.2...create-efx@6.1.3) (2023-06-06)
+
+**Note:** Version bump only for package create-efx
+
+
+
+
+
 ## [6.1.2](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@6.1.1...create-efx@6.1.2) (2023-01-06)
 
 **Note:** Version bump only for package create-efx
