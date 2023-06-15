@@ -405,7 +405,7 @@ comboBox.data = [
   { label: 'Spain', value: 'es' },
   { label: 'United Kingdom', value: 'gb', selected: true },
   { label: 'APAC', type: 'header' },
-  { label: 'China', value: 'ch' },
+  { label: 'China', value: 'cn' },
   { label: 'Australia', value: 'au' },
   { label: 'India', value: 'in' },
   { label: 'Thailand', value: 'th' },
