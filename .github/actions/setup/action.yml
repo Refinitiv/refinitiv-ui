@@ -49,9 +49,9 @@ runs:
     - name: Pre-build
       shell: bash
       if: steps.cache-build.outputs.cache-hit != 'true' && inputs.pre-build-script != ''
-      run: ${{ input.pre-build-script }}
+      run: ${{ inputs.pre-build-script }}
 
     - name: Build
       shell: bash
       if: steps.cache-build.outputs.cache-hit != 'true'
-      run: ${{ input.build-script }}
+      run: ${{ inputs.build-script }}
