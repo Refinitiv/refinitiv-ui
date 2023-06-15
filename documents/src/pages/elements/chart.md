@@ -9,6 +9,31 @@ layout: default
 ::
 ```javascript
 ::chart::
+import {
+  Chart as ChartJS,
+  LineController,
+  LineElement,
+  BarController,
+  BarElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Filler,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  LineController,
+  LineElement,
+  BarController,
+  BarElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Filler,
+  Tooltip
+);
 
 const comboDatasets = [{
   type: 'line',
@@ -112,6 +137,25 @@ A chart can be created by passing a configuration to the `config` attribute. The
 ::
 ```javascript
 ::chart::
+import {
+  Chart as ChartJS,
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Filler,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Filler,
+  Tooltip
+);
 
 const line = document.getElementById('line');
 line.config = {
@@ -129,7 +173,7 @@ line.config = {
       title: {
         text: 'Line chart'
       },
-      legend: {
+      legend: {  // only required when importing chart.js/auto
         display: false
       },
       tooltip: {
@@ -182,7 +226,7 @@ line.config = {
       title: {
         text: 'Line chart'
       },
-      legend: {
+      legend: {  // only required when importing chart.js/auto
         display: false
       },
       tooltip: {
@@ -213,6 +257,25 @@ However, you do not have to call `updateChart()` if you set a new `config` objec
 ::
 ```javascript
 ::chart::
+import {
+  Chart as ChartJS,
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Filler,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Filler,
+  Tooltip
+);
 
 const random = (number) => {
     let val = [];
@@ -237,7 +300,7 @@ line.config = {
   },
   options: {
     plugins: {
-      legend: {
+      legend: {  // only required when importing chart.js/auto
         display: false
       },
     },
@@ -313,80 +376,7 @@ To create a doughnut with a center label, define the `plugins.centerLabel` prope
 - `plugins.centerLabel.onRenderLabel` is a callback function to define the center text when hovering and clicking on each segment.
 - `plugins.centerLabel.selected` selects a chart item when chart is initialised. You can set `index` and `datasetIndex` to use in the selection.
 
-::
-```javascript
-::chart::
-
-const doughnutDataSets = [{
-    data: [36, 22, 16, 8.2, 5.7, 12],
-  }];
-
-const doughnut = document.getElementById('doughnut-center-label');
-doughnut.config = {
-  type: 'doughnut',
-  data: {
-    labels: ['Americas', 'Europe', 'Greater China', 'Japan', 'Asia Pacific', 'Retail'],
-    datasets: doughnutCenterLabelDataSets
-  },
-  options: {
-    onHover: (event, elements, chart) => {
-      // console.log('hover: ', elements);
-    },
-    onClick: (event, elements, chart) => {
-      // console.log('click: ', elements);
-    },
-    plugins: {
-      centerLabel: {
-        defaultText: [
-          {
-            label: 'AAPL.O',
-            bold: true
-          },
-          {
-            label: 'Segments in 2014'
-          }
-        ],
-        onRenderLabel: (chart, chartItems) => {
-          if (chartItems.length) {
-            const chartItem = chartItems[0];
-            const data = chart.data;
-            const title = data.labels[chartItem.index];
-            const value = data.datasets[chartItem.datasetIndex].data[chartItem.index];
-            const total = data.datasets[chartItem.datasetIndex].data.reduce((total, num) => total + num);
-            const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
-
-            return [{
-              label: title,
-              bold: true
-            },
-            {
-              label: 'value: ' + value
-            }, {
-              label: percent + ' %'
-            }];
-          }
-        },
-        selected: {
-          datasetIndex: 0,
-          index: 4
-        },
-      },
-      tooltip: {
-        enabled: false
-      }
-    }
-  }
-};
-```
-```css
-ef-chart {
-  max-width: 600px;
-}
-```
-```html
-<ef-chart id="doughnut-center-label"></ef-chart>
-```
-::
+Live example of doughnut chart with center label plugin is available [here](https://codesandbox.io/s/doughnut-center-label-plugin-5tlll5).
 
 ```javascript
 const doughnut = document.getElementById('doughnut-center-label');
@@ -479,13 +469,32 @@ ef-chart {
 | --doughnut-center-background-color | Custom background color of center label     |
 | --doughnut-center-font-size        | Custom font size percentage of center label |
 
-
 ## Chart types
 You can create various chart types as per chartjs configurations. Samples are on [this page](https://www.chartjs.org/docs/4.3.0/samples).
 
 ::
 ```javascript
 ::chart::
+import {
+  Chart as ChartJS,
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip
+);
+
 const multipleLines = document.getElementById('multipleLines');
 
 const multipleLinesDatasets = [{
@@ -557,6 +566,105 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+import {
+  Chart as ChartJS,
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip
+);
+
+const lineSegmentStyle = document.getElementById('line-segment-style');
+const colors = lineSegmentStyle.colors;
+
+const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
+const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+
+lineSegmentStyle.config = {
+  type: 'line',
+  data: {
+    labels: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July'
+    ],
+    datasets: [{
+      data: [65, 59, NaN, 48, 56, 57, 40],
+      pointBackgroundColor: 'transparent',
+      pointBorderColor: 'transparent',
+      borderColor: colors[6],
+      segment: {
+        borderColor: ctx => skipped(ctx, colors[13]) || down(ctx, colors[7]),
+        borderDash: ctx => skipped(ctx, [6, 6]),
+      },
+      spanGaps: true
+    }]
+  },
+  options: {
+    fill: false,
+    radius: 0,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Stock Price of Legendary Company'
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'US Dollar ($)'
+        }
+      }
+    }
+  }
+};
+```
+```css
+ef-chart {
+  max-width: 600px;
+}
+```
+```html
+<ef-chart id="line-segment-style"></ef-chart>
+```
+::
+
+::
+```javascript
+::chart::
+import {
+  Chart as ChartJS,
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip
+);
+
 const bar = document.getElementById('bar');
 
 bar.config = {
@@ -622,6 +730,24 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+import {
+  Chart as ChartJS,
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip
+);
+
 const stackedBar = document.getElementById('stackedBar');
 
 stackedBar.config = {
@@ -690,6 +816,24 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+import {
+  Chart as ChartJS,
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip
+);
+
 const horizontalBar = document.getElementById('horizontalBar');
 
 horizontalBar.config = {
@@ -756,6 +900,32 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+import {
+  Chart as ChartJS,
+  LineController,
+  LineElement,
+  BarController,
+  BarElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Filler,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  LineController,
+  LineElement,
+  BarController,
+  BarElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Filler,
+  Tooltip
+);
+
 const comboDatasets = [{
   type: 'line',
   label: 'Price',
@@ -853,6 +1023,106 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+import {
+  Chart as ChartJS,
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip
+);
+const scaleStack = document.getElementById('scale-stack');
+const colors = scaleStack.colors;
+scaleStack.config = {
+  type: 'line',
+  data: {
+    labels: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July'
+    ],
+    datasets: [
+      {
+        label: 'Smartphone Usage Hour',
+        data: [10, 30, 50, 20, 25, 44, 15],
+      },
+      {
+        label: 'Push Notification Toggle',
+        data: ['ON', 'ON', 'OFF', 'ON', 'OFF', 'OFF', 'ON'],
+        stepped: true,
+        yAxisID: 'y2',
+      }
+    ]
+  },
+  options: {
+    scales: {
+      y: {
+        type: 'linear',
+        position: 'left',
+        stack: 'demo',
+        stackWeight: 2,
+        border: {
+          color: colors[0]
+        }
+      },
+      y2: {
+        type: 'category',
+        labels: ['ON', 'OFF'],
+        offset: true,
+        position: 'left',
+        stack: 'demo',
+        stackWeight: 1,
+        border: {
+          color: colors[1]
+        }
+      }
+    }
+  },
+};
+
+```
+```css
+ef-chart {
+  max-width: 600px;
+}
+```
+```html
+<ef-chart id="scale-stack"></ef-chart>
+```
+::
+
+::
+```javascript
+::chart::
+import {
+  Chart as ChartJS,
+  PieController,
+  ArcElement,
+  Legend,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  PieController,
+  ArcElement,
+  Legend,
+  Tooltip
+);
+
 const pieDatasets = [{
     data: [36, 22, 16, 8.2, 5.7, 12]
 }];
@@ -894,6 +1164,20 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+import {
+  Chart as ChartJS,
+  DoughnutController,
+  ArcElement,
+  Legend,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  DoughnutController,
+  ArcElement,
+  Legend,
+  Tooltip
+);
+
 const doughnutDataSets = [{
     data: [36, 22, 16, 8.2, 5.7, 12]
 }];
@@ -935,142 +1219,23 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-const doughnutCenterLabelDataSets = [{
-  data: [36, 22, 16, 8.2, 5.7, 12]
-}];
+import {
+  Chart as ChartJS,
+  ScatterController,
+  PointElement,
+  LinearScale,
+  Tooltip
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  ScatterController,
+  PointElement,
+  LinearScale,
+  Tooltip
+);
 
-const doughnutCenterLabel = document.getElementById('doughnut-center-label');
-
-doughnutCenterLabel.config = {
-  type: 'doughnut',
-  data: {
-    datasets: doughnutCenterLabelDataSets
-  },
-  options: {
-    plugins: {
-      centerLabel: {
-        selected: {
-          index: 2
-        },
-        onRenderLabel: (chart, chartItems) => {
-          if (chartItems.length) {
-            const chartItem = chartItems[0];
-            const data = chart.data;
-            const value = data.datasets[chartItem.datasetIndex].data[chartItem.index];
-            const total = data.datasets[chartItem.datasetIndex].data.reduce((total, num) => total + num);
-            const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
-
-            return [{
-              label: percent * 100,
-              bold: true
-            }];
-          }
-        }
-      },
-      tooltip: {
-        enabled: false
-      },
-    }
-  }
-};
-```
-```css
-ef-chart {
-  width: 150px;
-  height: 150px;
-  --doughnut-center-text-color: #ffffff;
-  --doughnut-center-background-color: #4caf50;
-  --doughnut-center-font-size: 70%;
-}
-
-div {
-  display: flex;
-  justify-content: center;
-  width: 500px;
-}
-```
-```html
-<div>
-  <ef-chart id="doughnut-center-label"></ef-chart>
-</div>
-```
-::
-
-::
-```javascript
-::chart::
-
-const timeScale = document.getElementById('timeScale');
-
-timeScale.config = {
-  type: 'line',
-  data: {
-    labels: [
-      new Date(2016, 8, 7, 10, 0, 0),
-      new Date(2016, 8, 7, 11, 0, 0),
-      new Date(2016, 8, 7, 12, 0, 0),
-      new Date(2016, 8, 7, 13, 0, 0),
-      new Date(2016, 8, 7, 14, 0, 0),
-      new Date(2016, 8, 7, 15, 0, 0),
-      new Date(2016, 8, 7, 16, 0, 0),
-      new Date(2016, 8, 7, 17, 0, 0)
-    ],
-    datasets: [{
-      fill: true,
-      label: 'Price',
-      data: [107.53, 107.32, 107.35, 107.41, 107.56, 107.23, 108.37, 108.36]
-    }]
-  },
-  options: {
-    plugins: {
-      legend: {
-        display: false // Not display legend
-      },
-      tooltip: {
-        callbacks: {
-          label: (tooltipItem) => {
-            return 'Price: £' + tooltipItem.raw;
-          }
-        }
-      }
-    },
-    scales: {
-      x: {
-        type: 'time', // Set type of scale as time
-        time: {
-          displayFormats: {
-            hour: 'haa' // Set custom format for hour unit
-          },
-          unit: 'hour',
-          tooltipFormat: 'd MMM yyyy - haa'
-        }
-      },
-      y: {
-        title: {
-          display: true,
-          text: 'Price (£)'
-        }
-      }
-    }
-  }
-};
-```
-```css
-ef-chart {
-  max-width: 600px;
-}
-```
-```html
-<ef-chart id="timeScale"></ef-chart>
-```
-::
-
-::
-```javascript
-::chart::
 const scatterPlot = document.getElementById('scatterplot');
 scatterPlot.config = {
-  type: 'line',
+  type: 'scatter',
   data: {
     datasets: [
       {
@@ -1156,6 +1321,23 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+import {
+  Chart as ChartJS,
+  BubbleController,
+  PointElement,
+  LinearScale,
+  LogarithmicScale,
+  Tooltip,
+  Legend
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  BubbleController,
+  PointElement,
+  LinearScale,
+  LogarithmicScale,
+  Tooltip,
+  Legend
+);
 
 const bubble = document.getElementById('bubble');
 
@@ -1256,6 +1438,25 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+import {
+  Chart as ChartJS,
+  RadarController,
+  PointElement,
+  LineElement,
+  RadialLinearScale,
+  Tooltip,
+  Legend,
+  Filler
+} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
+ChartJS.register(
+  RadarController,
+  PointElement,
+  LineElement,
+  RadialLinearScale,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 const radar = document.getElementById('radar');
 
@@ -1290,6 +1491,11 @@ ef-chart {
 <ef-chart id="radar"></ef-chart>
 ```
 ::
+
+Here are some additional live examples:
+
+- [Doughnut Chart with Center Label Plugin](https://codesandbox.io/s/doughnut-center-label-plugin-5tlll5)
+- [Time Scale Chart](https://codesandbox.io/s/time-scale-chart-svgl5g)
 
 ## Bundle optimisation
 
