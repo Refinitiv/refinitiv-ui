@@ -43,7 +43,7 @@ const CSS_COLOR_PREFIX = '--chart-color-';
  */
 declare module 'chart.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface PluginOptionsByType<TType extends ChartType> {
+  interface PluginOptionsByType<TType extends ChartType = ChartType> {
     'ef-chart': object;
   }
 }
