@@ -41,23 +41,16 @@ export default {
       product: 'chromium',
       createBrowserContext: ({browser}) => browser.newContext({ignoreHTTPSErrors: true}),
       launchOptions: {
-        headless: true,
         args: ['--incognito', '--allow-insecure-localhost'],
       }
     }),
     playwrightLauncher({
       product: 'firefox',
-      createBrowserContext: ({browser}) => browser.newContext({ignoreHTTPSErrors: true}),
-      launchOptions: {
-        headless: true
-      }
+      createBrowserContext: ({browser}) => browser.newContext({ignoreHTTPSErrors: true})
     }),
     playwrightLauncher({
       product: 'webkit',
-      createBrowserContext: ({browser}) => browser.newContext({ignoreHTTPSErrors: true}),
-      launchOptions: {
-        headless: true
-      }
+      createBrowserContext: ({browser}) => browser.newContext({ignoreHTTPSErrors: true})
     }),
   ],
 
