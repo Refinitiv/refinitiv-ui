@@ -32,6 +32,7 @@ runs:
         key: node_modules-${{ github.run_id }}-${{ github.run_attempt }}
 
     - name: Install dependencies
+      shell: bash
       if: steps.cache-node_modules.outputs.cache-hit != 'true'
       run: npm ci --ignore-scripts --audit=false --fund=false
 
@@ -46,9 +47,11 @@ runs:
         key: build-${{ github.run_id }}-${{ github.run_attempt }}
 
     - name: Pre-build
+      shell: bash
       if: steps.cache-build.outputs.cache-hit != 'true' && inputs.pre-build-script != ''
       run: ${{ input.pre-build-script }}
 
     - name: Build
+      shell: bash
       if: steps.cache-build.outputs.cache-hit != 'true'
       run: ${{ input.build-script }}
