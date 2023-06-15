@@ -1,6 +1,7 @@
 name: Test
 on: [pull_request] # Triggers on any branch
 env:
+  CI: "true"
   NX_BASE: ${{ github.event.pull_request.base.sha }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
@@ -23,14 +24,9 @@ jobs:
         id: setup
 
       - name: Install Dependencies
-        if: steps.setup.outputs.cache-dependencies-hit != 'true'
         run: npm ci --ignore-scripts --audit=false --fund=false
 
-      - name: Reset NX # temporary
-        run: npm run reset
-
       - name: Build
-        if: steps.setup.outputs.cache-build-hit != 'true'
         run: npm run build:affected
 
   lint:
@@ -46,7 +42,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Lint
-        run: npm run lint:affected -- --base=$BASE_SHA
+        run: npm run lint:affected
 
   test-chrome:
     name: "test chrome"
