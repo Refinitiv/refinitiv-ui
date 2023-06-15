@@ -1,12 +1,6 @@
-import { SVGLoader } from '@refinitiv-ui/utils/loader.js';
+import { SVGLoader, isUrl } from '@refinitiv-ui/utils/loader.js';
 const spriteCache = new Map<string, Promise<Document>>();
 
-/**
- * Checks a string to see if it's a valid URL
- * @param str String to test
- * @returns is URL
- */
-const isUrl = (str: string): boolean => (/^(https?:\/{2}|\.?\/)/i).test(str);
 class SvgSpriteLoader extends SVGLoader {
 
   // eslint-disable-next-line
@@ -18,7 +12,7 @@ class SvgSpriteLoader extends SVGLoader {
     // return name ? `${await this.getCdnPrefix()}#${name}` : '';
   }
 
-  async loadSprite (): Promise<Document> {
+  async loadAndParseSprite (): Promise<Document> {
     const sprite = await this.loadSVG('sprite/icons');
     if (!sprite) {
       throw new Error("SvgSpriteLoader: couldn't load SVG sprite source");
@@ -32,7 +26,7 @@ class SvgSpriteLoader extends SVGLoader {
     return icon ? icon.outerHTML : undefined;
   }
 
-  public async use (src: string): Promise<string | undefined> {
+  public async loadSprite (src: string): Promise<string | undefined> {
     const { hash, href } = new URL(await this.getSrc(src));
     const iconName = hash.replace('#', '');
     const cacheKey = href.replace(hash, '');
@@ -40,10 +34,11 @@ class SvgSpriteLoader extends SVGLoader {
       return;
     }
     if (!spriteCache.has(cacheKey)) {
-      spriteCache.set(cacheKey, this.loadSprite());
+      spriteCache.set(cacheKey, this.loadAndParseSprite());
     }
     return this.getIconFragment(spriteCache.get(cacheKey), iconName);
   }
 }
+
 const instance = new SvgSpriteLoader();
 export { instance as SvgSpriteLoader };

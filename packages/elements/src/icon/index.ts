@@ -10,7 +10,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
-import { Deferred } from '@refinitiv-ui/utils/loader.js';
+import { Deferred, isUrl } from '@refinitiv-ui/utils/loader.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';
@@ -67,6 +67,7 @@ export class Icon extends BasicElement {
   }
 
   private _icon: string | null = null;
+  private _src: string | null = null;
 
   /**
    * Name of a known icon to render or URL of SVG icon.
@@ -82,41 +83,9 @@ export class Icon extends BasicElement {
     if (oldValue !== value) {
       this.deferIconReady();
       this._icon = value;
+      this.updateRenderer(value);
       void this.setIconSrc();
       this.requestUpdate('icon', oldValue);
-    }
-  }
-
-  private _src: string | null = null;
-
-  /**
-   * Src location of an svg icon.
-   * @ignore
-   * @example https://cdn.io/icons/heart.svg
-   * @deprecated Use `icon` instead
-   * @default null
-   */
-  @property({ type: String })
-  public get src (): string | null {
-    return this._src;
-  }
-  /**
-   * @ignore
-   * @param value Location of an svg
-   */
-  public set src (value: string | null) {
-    if (this.src !== value) {
-      this.deferIconReady();
-      this._src = value;
-      if (this.icon && this.iconMap) {
-        void this.loadAndRenderIcon(this.iconMap);
-      }
-      else if (value) {
-        void this.loadAndRenderIcon(value);
-      }
-      else {
-        this.clearIcon();
-      }
     }
   }
 
@@ -192,21 +161,38 @@ export class Icon extends BasicElement {
    */
   private async setIconSrc (): Promise<void> {
     // keep `src` in-sync with `icon` so that icon svg would be resolved after every `icon` update
-    this.src = this.icon ? await SvgSpriteLoader.getSrc(this.icon) : this.icon;
+    this._src = this.icon ? await SvgSpriteLoader.getSrc(this.icon) : this.icon;
   }
 
+  private updateRenderer (value: string | null) {
+    if (value) {
+      if (this.iconMap) {
+        void this.loadAndRenderIcon(this.iconMap);
+      }
+      else if (isUrl(value)) {
+        void this.loadAndRenderIcon(value);
+      }
+      else {
+        void this.loadAndRenderIcon(value, true);
+      }
+    }
+    else {
+      this.clearIcon();
+    }
+  }
   /**
    * Tries to load an icon from the url provided
    * and the renders this into the icon template.
    * @param src Source location of the svg icon.
+   * @param isSprite is the sprite icon
    * @returns {void}
    */
-  private async loadAndRenderIcon (src: string): Promise<void> {
+  private async loadAndRenderIcon (src: string, isSprite = false): Promise<void> {
     const iconTemplateCacheItem = iconTemplateCache.get(src);
     if (!iconTemplateCacheItem) {
       iconTemplateCache.set(
         src,
-        SvgSpriteLoader.use(src)
+        (isSprite ? SvgSpriteLoader.loadSprite(src) : IconLoader.loadSVG(src))
         .then(body => svg`${unsafeSVG(body)}`)
       );
       return this.loadAndRenderIcon(src); // Load again and await cache result
