@@ -37,16 +37,30 @@ export default {
   ],
   concurrentBrowsers: 3,
   browsers: [
-    playwrightLauncher({ product: 'chromium' }, {
-      headless: true,
-      args: [
-        '--disable-setuid-sandbox',
-        '--disable-extensions'
-      ]
+    playwrightLauncher({
+      product: 'chromium',
+      createBrowserContext: ({browser}) => browser.newContext({ignoreHTTPSErrors: true}),
+      launchOptions: {
+        headless: true,
+        args: ['--incognito', '--allow-insecure-localhost'],
+      }
     }),
-    playwrightLauncher({ product: 'firefox' }, { headless: true }),
-    playwrightLauncher({ product: 'webkit' }, { headless: true }),
+    playwrightLauncher({
+      product: 'firefox',
+      createBrowserContext: ({browser}) => browser.newContext({ignoreHTTPSErrors: true}),
+      launchOptions: {
+        headless: true
+      }
+    }),
+    playwrightLauncher({
+      product: 'webkit',
+      createBrowserContext: ({browser}) => browser.newContext({ignoreHTTPSErrors: true}),
+      launchOptions: {
+        headless: true
+      }
+    }),
   ],
+
   // in a monorepo you need to set set the root dir to resolve modules
   rootDir: ROOT,
   browserStartTimeout: 600000, // 10 minutes

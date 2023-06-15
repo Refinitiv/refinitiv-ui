@@ -24,6 +24,10 @@ inputs:
     required: false
     # Default value 3 is OK for every browsers except Safari need to be one to make it stable
     default: 1
+  https:
+    description: 'Enable HTTPS on the test server'
+    required: false
+    default: 'true'
 runs:
   using: "composite"
   steps:
@@ -41,9 +45,13 @@ runs:
       run: |
         [[ "${{ inputs.mode }}" == "all" ]] && export NX_SKIP_NX_CACHE=true && unset NX_BASE
         npm run test:${{ inputs.mode }} -- --browserstack ${{ inputs.browsers }} --includeCoverage=${{ inputs.coverage }} --output=minimal --parallel=${{ inputs.parallel }}
+      env:
+        TEST_HTTPS: ${{ inputs.https }}
 
     - name: Test Package or Element
       if: ${{ inputs.target != '' && inputs.target != 'all' }}
       shell: bash
       run: |
         npm run test ${{ inputs.target }} -- --browserstack ${{ inputs.browsers }} --includeCoverage=${{ inputs.coverage }}
+      env:
+        TEST_HTTPS: ${{ inputs.https }}

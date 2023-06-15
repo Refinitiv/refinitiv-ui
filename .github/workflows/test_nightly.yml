@@ -8,6 +8,8 @@ env:
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Nightly Test ${{ github.run_number }}"
   BROWSERSTACK_LATEST_BROWSERS_LAUNCHER: "Playwright"
+  TEST_SSL_CERT: ${{ secrets.TEST_SSL_CERT }}
+  TEST_SSL_KEY: ${{ secrets.TEST_SSL_KEY }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -185,6 +187,7 @@ jobs:
         with:
           browsers: 'safari_minus2'
           mode: 'all'
+          https: 'false'
 #endregion
 
 #region ios
@@ -203,6 +206,7 @@ jobs:
         with:
           browsers: 'ios'
           mode: 'all'
+          https: 'false'
 
   test-ios-minus-1:
     name: "test ios minus 1"
@@ -219,6 +223,7 @@ jobs:
         with:
           browsers: 'ios_minus1'
           mode: 'all'
+          https: 'false'
 
   test-ios-minus-2:
     name: "test ios minus 2"
@@ -235,6 +240,7 @@ jobs:
         with:
           browsers: 'ios_minus2'
           mode: 'all'
+          https: 'false'
 #endregion
 
 #region android
