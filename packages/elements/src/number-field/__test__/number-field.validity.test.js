@@ -27,10 +27,18 @@ describe('number-field/Validity', () => {
 
 describe('Check Floating point', function () {
   // Test Floating point precision issue that results approximation of real number. e.g. 1111111/0.00001 should equal to 111111100000. 
-  it('Input remains valid upon value update with a step of float value', async function () {
-    const el = await fixture('<ef-number-field step="0.00001"></ef-number-field>');
-    el.value="1111111";
-    await elementUpdated(el);
-    expect(el.checkValidity()).to.be.equal(true);
+  describe('Input remains valid upon value update with a step of float value', function () {
+    it('step = 0.00001 and value = 1111111', async function () {
+      const el = await fixture('<ef-number-field step="0.00001"></ef-number-field>');
+      el.value="1111111";
+      await elementUpdated(el);
+      expect(el.checkValidity()).to.be.equal(true);
+    });
+    it('step = 0.14 and value = 7', async function () {
+      const el = await fixture('<ef-number-field step="0.14"></ef-number-field>');
+      el.value="7";
+      await elementUpdated(el);
+      expect(el.checkValidity()).to.be.equal(true);
+    });
   });
 });

@@ -540,7 +540,7 @@ export class NumberField extends FormFieldElement {
   private getPrecision (number: number): number {
     const getDecimalPrecision = (number: string | number): number => {
       const [wholeNumber, decimalNumber] = number.toString().split('.');
-      return (whole.length ?? 0) + (part?.length ?? 0);
+      return (wholeNumber.length ?? 0) + (decimalNumber?.length ?? 0);
     };
 
     const numberString = number.toString();
