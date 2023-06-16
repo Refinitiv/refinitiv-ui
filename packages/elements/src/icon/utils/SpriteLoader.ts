@@ -1,18 +1,13 @@
-import { SVGLoader, isUrl } from '@refinitiv-ui/utils/loader.js';
-const spriteCache = new Map<string, Promise<Document>>();
-
+import { SVGLoader } from '@refinitiv-ui/utils/loader.js';
+const spriteUrl = 'https://cdn.ppe.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/sprites/icons.svg';
+let spriteCache: Promise<Document> | undefined;
 class SvgSpriteLoader extends SVGLoader {
-
   // eslint-disable-next-line
   public async getSrc (name: string): Promise<string> {
-    if (isUrl(name)) {
-      return name;
-    }
-    return name ? `https://cdn.ppe.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/sprites/icons.svg#${name}` : '';
-    // return name ? `${await this.getCdnPrefix()}#${name}` : '';
+    return name ? `${spriteUrl}#${name}` : '';
   }
 
-  async loadAndParseSprite (): Promise<Document> {
+  private async loadSprite (): Promise<Document> {
     const sprite = await this.loadSVG('sprite/icons');
     if (!sprite) {
       throw new Error("SvgSpriteLoader: couldn't load SVG sprite source");
@@ -26,17 +21,14 @@ class SvgSpriteLoader extends SVGLoader {
     return icon ? icon.outerHTML : undefined;
   }
 
-  public async loadSprite (src: string): Promise<string | undefined> {
-    const { hash, href } = new URL(await this.getSrc(src));
-    const iconName = hash.replace('#', '');
-    const cacheKey = href.replace(hash, '');
+  public async loadSpriteSVG (iconName: string): Promise<string | undefined> {
     if (!iconName) {
       return;
     }
-    if (!spriteCache.has(cacheKey)) {
-      spriteCache.set(cacheKey, this.loadAndParseSprite());
+    if (!spriteCache) {
+      spriteCache = this.loadSprite();
     }
-    return this.getIconFragment(spriteCache.get(cacheKey), iconName);
+    return this.getIconFragment(spriteCache, iconName);
   }
 }
 

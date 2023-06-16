@@ -13,7 +13,6 @@ import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
 import { Deferred, isUrl } from '@refinitiv-ui/utils/loader.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
-export { preload } from './utils/IconLoader.js';
 import { consume } from '@lit-labs/context';
 import { efConfig, type Config } from '../configuration/index.js';
 import { SvgSpriteLoader } from './utils/SpriteLoader.js';
@@ -67,7 +66,6 @@ export class Icon extends BasicElement {
   }
 
   private _icon: string | null = null;
-  private _src: string | null = null;
 
   /**
    * Name of a known icon to render or URL of SVG icon.
@@ -83,8 +81,9 @@ export class Icon extends BasicElement {
     if (oldValue !== value) {
       this.deferIconReady();
       this._icon = value;
-      this.updateRenderer(value);
-      void this.setIconSrc();
+      setTimeout(() => {
+        this.updateRenderer(value);
+      });
       this.requestUpdate('icon', oldValue);
     }
   }
@@ -155,21 +154,12 @@ export class Icon extends BasicElement {
     this.iconReady = new Deferred<void>();
   }
 
-  /**
-   * Helper method, used to set the icon src.
-   * @returns {void}
-   */
-  private async setIconSrc (): Promise<void> {
-    // keep `src` in-sync with `icon` so that icon svg would be resolved after every `icon` update
-    this._src = this.icon ? await SvgSpriteLoader.getSrc(this.icon) : this.icon;
-  }
-
   private updateRenderer (value: string | null) {
     if (value) {
       if (this.iconMap) {
         void this.loadAndRenderIcon(this.iconMap);
       }
-      else if (isUrl(value)) {
+      else if (isUrl(value) || IconLoader.isPrefixSet) {
         void this.loadAndRenderIcon(value);
       }
       else {
@@ -192,7 +182,7 @@ export class Icon extends BasicElement {
     if (!iconTemplateCacheItem) {
       iconTemplateCache.set(
         src,
-        (isSprite ? SvgSpriteLoader.loadSprite(src) : IconLoader.loadSVG(src))
+        (isSprite ? SvgSpriteLoader.loadSpriteSVG(src) : IconLoader.loadSVG(src))
         .then(body => svg`${unsafeSVG(body)}`)
       );
       return this.loadAndRenderIcon(src); // Load again and await cache result
@@ -207,11 +197,10 @@ export class Icon extends BasicElement {
    * @returns {void}
    */
   private setPrefix (): void {
-    if (!SvgSpriteLoader.isPrefixSet) {
+    if (!IconLoader.isPrefixSet) {
       const CDNPrefix = this.getComputedVariable('--cdn-prefix')
         .replace(/^('|")|('|")$/g, '');
-
-      SvgSpriteLoader.setCdnPrefix(CDNPrefix);
+      IconLoader.setCdnPrefix(CDNPrefix);
     }
   }
 
