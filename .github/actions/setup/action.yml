@@ -18,7 +18,7 @@ runs:
           node_modules
           */node_modules
           */*/node_modules
-        key: node_modules-${{ github.run_id }}-${{ github.run_attempt }}
+        key: node_modules-${{ github.run_id }}
 
     - name: Setup caching build
       uses: actions/cache@v3
@@ -28,11 +28,11 @@ runs:
           packages/*/lib
           packages/*-theme/**/*.js
           packages/*-theme/**/*.css
-        key: build-${{ github.run_id }}-${{ github.run_attempt }}
+        key: build-${{ github.run_id }}
 
     - name: Setup caching test result
       uses: actions/cache@v3
       id: cache-test-result
       with:
         path: packages/*/coverage
-        key: test-result-${{ github.run_id }}-${{ github.run_attempt }}
+        key: test-result-${{ github.run_id }}
