@@ -10,7 +10,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
-import { Deferred, isUrl } from '@refinitiv-ui/utils/loader.js';
+import { Deferred, isUrl, isBase64svg } from '@refinitiv-ui/utils/loader.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 import { consume } from '@lit-labs/context';
@@ -156,7 +156,7 @@ export class Icon extends BasicElement {
 
   private updateRenderer (value: string | null) {
     if (value) {
-      if (this.iconMap) {
+      if (this.iconMap && isBase64svg(this.iconMap)) {
         void this.loadAndRenderIcon(this.iconMap);
       }
       else if (isUrl(value) || IconLoader.isPrefixSet) {
