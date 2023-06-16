@@ -210,7 +210,7 @@ describe('flag/Flag', () => {
       expect(fetch.callCount).to.equal(2, 'No new requests should be made since flags are already preloaded');
     });
 
-    it('Should preload invalid flag', async () => {
+    it('Should not preload invalid flag', async () => {
       createFakeResponse(gbSvg, responseConfigSuccess);
       const el = await fixture('<ef-flag></ef-flag>');
       const CDNPrefix = el.getComputedVariable('--cdn-prefix');
