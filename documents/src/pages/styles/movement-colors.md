@@ -183,6 +183,7 @@ td:nth-child(even) {
 }
 ```
 ```javascript
+// Imports used for demonstration purposes only
 import '/resources/elements/panel/index.js';
 import '/resources/elements/button/index.js';
 import '/resources/elements/button-bar/index.js';

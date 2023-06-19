@@ -43,6 +43,7 @@ Click on the table and use _Arrow_, _Home_ and _End_ keys to select cells.
 ```
 
 ```javascript
+// Imports used for demonstration purposes only
 import { halo } from '/theme-loader.js';
 import { BasicElement, html, css } from '/resources/core/index.js';
 import { customElement } from '/resources/core/decorators/custom-element.js';
