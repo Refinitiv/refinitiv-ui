@@ -1,5 +1,5 @@
 import { SVGLoader } from '@refinitiv-ui/utils/loader.js';
-const spriteUrl = 'https://cdn.ppe.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/sprites/icons.svg';
+const spriteUrl = 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/sprites/icons.svg';
 let spriteCache: Promise<Document> | undefined;
 class SvgSpriteLoader extends SVGLoader {
   // eslint-disable-next-line
