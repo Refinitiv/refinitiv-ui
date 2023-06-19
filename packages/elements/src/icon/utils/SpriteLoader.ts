@@ -15,20 +15,14 @@ class SvgSpriteLoader extends SVGLoader {
     return new DOMParser().parseFromString(sprite, 'image/svg+xml');
   }
 
-  private async getIconFragment (spritePromise: Promise<Document> | undefined, iconName: string): Promise<string | undefined> {
-    const sprite = await spritePromise;
-    const icon = sprite?.getElementById(iconName);
-    return icon ? icon.outerHTML : undefined;
-  }
-
   public async loadSpriteSVG (iconName: string): Promise<string | undefined> {
-    if (!iconName) {
-      return;
-    }
     if (!spriteCache) {
       spriteCache = this.loadSprite();
     }
-    return this.getIconFragment(spriteCache, iconName);
+
+    const sprite = await spriteCache;
+    const icon = sprite.getElementById(iconName);
+    return icon ? icon.outerHTML : undefined;
   }
 }
 

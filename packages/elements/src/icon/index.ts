@@ -81,9 +81,7 @@ export class Icon extends BasicElement {
     if (oldValue !== value) {
       this.deferIconReady();
       this._icon = value;
-      setTimeout(() => {
-        this.updateRenderer(value);
-      });
+      requestAnimationFrame(() => this.updateRenderer(value));
       this.requestUpdate('icon', oldValue);
     }
   }
@@ -155,21 +153,21 @@ export class Icon extends BasicElement {
   }
 
   private updateRenderer (value: string | null) {
-    if (value) {
-      if (this.iconMap && isBase64svg(this.iconMap)) {
-        void this.loadAndRenderIcon(this.iconMap);
-      }
-      else if (isUrl(value) || IconLoader.isPrefixSet) {
-        void this.loadAndRenderIcon(value);
-      }
-      else {
-        void this.loadAndRenderIcon(value, true);
-      }
+    if (!value) {
+      return this.clearIcon();
+    }
+
+    if (this.iconMap && (isBase64svg(this.iconMap) || isUrl(value))) {
+      void this.loadAndRenderIcon(this.iconMap);
+    }
+    else if (isUrl(value) || IconLoader.isPrefixSet) {
+      void this.loadAndRenderIcon(value);
     }
     else {
-      this.clearIcon();
+      void this.loadAndRenderSpriteIcon(value);
     }
   }
+
   /**
    * Tries to load an icon from the url provided
    * and the renders this into the icon template.
@@ -177,12 +175,31 @@ export class Icon extends BasicElement {
    * @param isSprite is the sprite icon
    * @returns {void}
    */
-  private async loadAndRenderIcon (src: string, isSprite = false): Promise<void> {
+  private async loadAndRenderIcon (src: string): Promise<void> {
     const iconTemplateCacheItem = iconTemplateCache.get(src);
     if (!iconTemplateCacheItem) {
       iconTemplateCache.set(
         src,
-        (isSprite ? SvgSpriteLoader.loadSpriteSVG(src) : IconLoader.loadSVG(src))
+        IconLoader.loadSVG(src)
+        .then(body => svg`${unsafeSVG(body)}`)
+      );
+      return this.loadAndRenderIcon(src); // Load again and await cache result
+    }
+    this.template = await iconTemplateCacheItem;
+  }
+
+  /**
+   * Tries to load an sprite icon from the url provided
+   * and the renders this into the icon template.
+   * @param src Source location of the svg icon.
+   * @returns {void}
+   */
+  private async loadAndRenderSpriteIcon (src: string): Promise<void> {
+    const iconTemplateCacheItem = iconTemplateCache.get(src);
+    if (!iconTemplateCacheItem) {
+      iconTemplateCache.set(
+        src,
+        SvgSpriteLoader.loadSpriteSVG(src)
         .then(body => svg`${unsafeSVG(body)}`)
       );
       return this.loadAndRenderIcon(src); // Load again and await cache result

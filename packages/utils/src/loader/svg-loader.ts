@@ -5,14 +5,14 @@ import { CDNLoader } from './cdn-loader.js';
  * @param str String to test
  * @returns is URL
  */
-export const isUrl = (str: string): boolean => (/^(https?:\/{2}|\.?\/)/i).test(str);
+export const isUrl = (str: string): boolean => (/^(?:https?:\/{2}|\.?\/).*.svg/i).test(str);
 
 /**
  * Checks a string to see if it's a base64 URL
  * @param str String to test
  * @returns is Base64
  */
-export const isBase64svg = (str: string): boolean => (/^data:image\/(svg|svg\+xml);base64,[a-zA-Z0-9,+,/]+={0,2}/i).test(str);
+export const isBase64svg = (str: string): boolean => (/^data:image\/(svg|svg\+xml);base64,[a-zA-Z0-9+/]+={0,2}/i).test(str);
 
 /**
  * Strips any event attributes which could be used to
