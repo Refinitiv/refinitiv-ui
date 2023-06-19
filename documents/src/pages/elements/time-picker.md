@@ -129,6 +129,9 @@ This is useful when implementing `ef-time-picker` with `ef-calendar`.
 ::
 ```javascript
 ::time-picker::
+import '/resources/elements/calendar/index.js';
+halo('calendar');
+
 const calendar = document.querySelector("ef-calendar");
 const timePicker = document.querySelector("ef-time-picker");
 calendar.addEventListener("value-changed", () => {
