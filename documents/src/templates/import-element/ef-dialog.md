@@ -2,7 +2,10 @@
 type: template
 name: dialog
 -->
-// Imports used for demonstration purposes only
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
+
 import '/resources/elements/dialog/index.js';
 import { halo } from '/theme-loader.js';
 halo('dialog');

@@ -33,7 +33,10 @@ body {
 </ef-panel>
 ```
 ```javascript
-// Imports used for demonstration purposes only
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
+
 import '/resources/elements/panel/index.js';
 import { halo } from '/theme-loader.js';
 halo('panel');
@@ -64,7 +67,10 @@ body {
 </ef-panel>
 ```
 ```javascript
-// Imports used for demonstration purposes only
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
+
 import '/resources/elements/panel/index.js';
 import { halo } from '/theme-loader.js';
 halo('panel');

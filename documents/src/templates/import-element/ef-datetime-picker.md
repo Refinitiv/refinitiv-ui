@@ -2,7 +2,10 @@
 type: template
 name: datetime-picker
 -->
-// Imports used for demonstration purposes only
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
+
 import '/resources/elements/datetime-picker/index.js';
 import { halo } from '/theme-loader.js';
 halo('datetime-picker');
