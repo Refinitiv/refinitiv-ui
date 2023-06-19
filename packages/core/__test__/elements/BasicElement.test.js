@@ -21,10 +21,6 @@ class BasicElementTest extends BasicElement {
     return this.getComputedVariable(...props);
   }
 
-  checkCssVariable (...props) {
-    return this.cssVariable(...props);
-  }
-
   checkUpdateVariable (key, value) {
     return this.updateVariable(key, value);
   }
@@ -133,22 +129,6 @@ describe('TestBasicElement', () => {
 
       const defaultValueWithFallback = element.checkGetComputedVariable('--fake-variable', '--fake-variable2', 'fake-value');
       expect(defaultValueWithFallback).to.equal('fake-value', 'Not initialized variables should return default value');
-    });
-
-    it('Test css variable', async () => {
-      const element = await fixture('<basic-element-test></basic-element-test>');
-
-      const emptyValue = element.checkCssVariable('--fake-variable');
-      expect(emptyValue).to.equal('', 'Not initialized variable should returns empty string');
-      expect(warnCallCount).to.equal(1, 'Warning should be shown');
-
-      const filledValue = element.checkCssVariable('--fake-variable', 'fake-value');
-      expect(filledValue).to.equal('fake-value', 'Not initialized variable should return default value');
-      expect(warnCallCount).to.equal(2, 'Warning should be shown');
-
-      const defaultValue = element.checkCssVariable('--fake-variable2', '--fake-variable', 'fake-value');
-      expect(defaultValue).to.equal('fake-value', 'Not initialized variables should return default value');
-      expect(warnCallCount).to.equal(3, 'Warning should be shown');
     });
 
     describe('Test update variable', async () => {

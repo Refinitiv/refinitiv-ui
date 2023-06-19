@@ -153,11 +153,11 @@ export class Icon extends BasicElement {
   }
 
   private updateRenderer (value: string | null) {
-    if (!value) {
+    if (!value || (this.iconMap && (!isBase64svg(this.iconMap) && !isUrl(this.iconMap)))) {
       return this.clearIcon();
     }
 
-    if (this.iconMap && (isBase64svg(this.iconMap) || isUrl(value))) {
+    if (this.iconMap) {
       void this.loadAndRenderIcon(this.iconMap);
     }
     else if (isUrl(value) || IconLoader.isPrefixSet) {

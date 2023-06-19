@@ -19,7 +19,6 @@ class SvgSpriteLoader extends SVGLoader {
     if (!spriteCache) {
       spriteCache = this.loadSprite();
     }
-
     const sprite = await spriteCache;
     const icon = sprite.getElementById(iconName);
     return icon ? icon.outerHTML : undefined;

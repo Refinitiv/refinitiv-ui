@@ -26,14 +26,14 @@ describe('flag/Flag', () => {
     window.fetch.restore();  //remove stub
   });
   describe('Should Have Correct DOM Structure', () => {
-    it('without flag or src attributes', async () => {
+    it('Without flag attribute', async () => {
       const el = await fixture('<ef-flag></ef-flag>');
       const svg = el.shadowRoot.querySelector('svg');
 
       expect(svg).to.equal(null, 'No SVG element should not exist if there is nothing to load');
     });
 
-    it('with valid flag attribute', async () => {
+    it('With valid flag attribute', async () => {
       createFakeResponse(gbSvg, responseConfigSuccess);
       const el = await fixture(`<ef-flag flag="${flagName}"></ef-flag>`);
       const svg = el.shadowRoot.querySelector('svg');
@@ -42,16 +42,7 @@ describe('flag/Flag', () => {
       expect(isEqualSvg(svg.outerHTML, gbSvg)).to.equal(true, 'Should render SVG, from the server response');
     });
 
-    it('with valid src attribute', async () => {
-      createFakeResponse(gbSvg, responseConfigSuccess);
-      const el = await fixture('<ef-flag src="https://mock.cdn.com/flags/ticks.svg"></ef-flag>');
-      const svg = el.shadowRoot.querySelector('svg');
-
-      expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');
-      expect(isEqualSvg(svg.outerHTML, gbSvg)).to.equal(true, 'Should render SVG, from the server response');
-    });
-
-    it('with invalid flag attribute', async () => {
+    it('With invalid flag attribute', async () => {
       createFakeResponse('', responseConfigError);
       const el = await fixture('<ef-flag flag="invalid"></ef-flag>');
       const svg = el.shadowRoot.querySelector('svg');
@@ -59,15 +50,7 @@ describe('flag/Flag', () => {
       expect(svg).to.equal(null, 'SVG element should not exist for invalid flag attribute');
     });
 
-    it('with invalid src attribute', async () => {
-      createFakeResponse('', responseConfigError);
-      const el = await fixture('<ef-flag src="https://mock.cdn.com/flags/invalid.svg"></ef-flag>');
-      const svg = el.shadowRoot.querySelector('svg');
-
-      expect(svg).to.equal(null, 'SVG element should not exist for invalid src attribute');
-    });
-
-    it('with empty flag attribute', async () => {
+    it('With empty flag attribute', async () => {
       createFakeResponse('', responseConfigError);
       const el = await fixture('<ef-flag flag=""></ef-flag>');
       const svg = el.shadowRoot.querySelector('svg');
@@ -75,15 +58,7 @@ describe('flag/Flag', () => {
       expect(svg).to.equal(null, 'SVG element should not exist for empty flag attribute');
     });
 
-    it('with empty src attribute', async () => {
-      createFakeResponse('', responseConfigError);
-      const el = await fixture('<ef-flag src=""></ef-flag>');
-      const svg = el.shadowRoot.querySelector('svg');
-
-      expect(svg).to.equal(null, 'SVG element should not exist for empty src attribute');
-    });
-
-    it('with valid flag attribute to invalid one', async function () {
+    it('With valid flag attribute to invalid one', async function () {
       createFakeResponse(gbSvg, responseConfigSuccess);
       const el = await fixture(`<ef-flag flag="${flagName}"></ef-flag>`);
       let svg = el.shadowRoot.querySelector('svg');
@@ -98,28 +73,12 @@ describe('flag/Flag', () => {
       expect(svg).to.equal(null, 'SVG element should not exist for invalid flag attribute');
     });
 
-    it('with valid src attribute to invalid one', async function () {
-      createFakeResponse(gbSvg, responseConfigSuccess);
-      const el = await fixture('<ef-flag src="https://mock.cdn.com/flags/ticks.svg"></ef-flag>');
-      let svg = el.shadowRoot.querySelector('svg');
-
-      expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');
-      expect(isEqualSvg(svg.outerHTML, gbSvg)).to.equal(true, 'Should render SVG, from the server response');
-
-      createFakeResponse('', responseConfigError);
-      el.setAttribute('src', 'https://mock.cdn.com/invalid');
-      await elementUpdated(el);
-      svg = el.shadowRoot.querySelector('svg');
-
-      expect(svg).to.equal(null, 'SVG element should not exist for invalid src attribute');
-    });
-
-    it('with unsafe nodes in response', async () => {
+    it('With unsafe nodes in response', async () => {
       createFakeResponse('<script></script>', responseConfigSuccess);
       const el = await fixture('<ef-flag flag="malicious"></ef-flag>');
       const script = el.shadowRoot.querySelector('script');
 
-      expect(script).to.equal(null, 'should strip unsafe nodes');
+      expect(script).to.equal(null, 'Should strip unsafe nodes');
     });
   });
 
@@ -150,112 +109,122 @@ describe('flag/Flag', () => {
       expect(el.flag).to.equal(flagName, 'Flag should have the same flag property as was set');
       expect(el.hasAttribute('flag')).to.equal(false, 'Flag should not reflect the flag property to the attribute');
     });
-
-    it('src', async () => {
-      createFakeResponse(gbSvg, responseConfigSuccess);
-      const el = await fixture('<ef-flag></ef-flag>');
-      const srcValue = createMockSrc(flagName);
-
-      expect(el.hasAttribute('src')).to.equal(false, 'Flag should not have the src attribute by default');
-      expect(el.src).to.equal(null, 'Flag should not have the src property by default');
-
-      el.setAttribute('src', srcValue);
-      await elementUpdated(el);
-
-      expect(el.hasAttribute('src')).to.equal(true, 'Flag should have the src attribute when set');
-      expect(el.getAttribute('src')).to.equal(srcValue, 'Flag should have the same src attribute as was set');
-      expect(el.src).to.equal(srcValue, 'Flag should reflect the src attribute to property');
-
-      el.removeAttribute('src');
-      await elementUpdated(el);
-
-      expect(el.hasAttribute('src')).to.equal(false, 'Flag should not have the src attribute after it was removed');
-      expect(el.src).to.equal(null, 'Flag should not have the src property after attribute was removed');
-
-      el.src = srcValue;
-      await elementUpdated(el);
-
-      expect(el.src).to.equal(srcValue, 'Flag should have the same src property as was set');
-      expect(el.hasAttribute('src')).to.equal(false, 'Flag should not reflect the src property to the attribute');
-    });
   });
 
   describe('Functional Tests', () => {
-    it('should set the src property based on the flag and CDN prefix', async () => {
+    it('Should support src link in flag attribute', async () => {
       createFakeResponse(gbSvg, responseConfigSuccess);
-      const el = await fixture(`<ef-flag flag="${flagName}"></ef-flag>`);
-      const CDNPrefix = el.getComputedVariable('--cdn-prefix');
+      const srcValue = createMockSrc(flagName);
+      const el = await fixture(`<ef-flag flag="${srcValue}"></ef-flag>`);
+      const svg = el.shadowRoot.querySelector('svg');
 
-      expect(CDNPrefix, 'CDNPrefix should exist to create the src based on the flag').to.exist;
-      const expectedSrc = `${CDNPrefix}${flagName}.svg`;
-
-      expect(el.src).to.equal(expectedSrc, `The src property should be ${expectedSrc} for the flag ${flagName}`);
-
-      el.removeAttribute('flag');
-      await elementUpdated(el);
-
-      expect(el.src).to.equal(null, 'The src property should be null when flag removed');
+      expect(isEqualSvg(svg.outerHTML, gbSvg)).to.equal(true, 'Should render SVG, from the server response');
     });
 
-    it('should make a correct server request based on cdn prefix and the flag if flag is specified', async () => {
+    it('Should support src link in flag property', async () => {
+      createFakeResponse(gbSvg, responseConfigSuccess);
+      const el = await fixture(`<ef-flag></ef-flag>`);
+      el.flag = createMockSrc(flagName);
+
+      await elementUpdated(el);
+      const svg = el.shadowRoot.querySelector('svg');
+
+      expect(isEqualSvg(svg.outerHTML, gbSvg)).to.equal(true, 'Should render SVG, from the server response');
+    });
+
+    it('Should cdn prefix exist', async () => {
       createFakeResponse(gbSvg, responseConfigSuccess);
       const uniqueFlagName = generateUniqueName(flagName); // to avoid caching
       const el = await fixture(`<ef-flag flag="${uniqueFlagName}"></ef-flag>`);
       const CDNPrefix = el.getComputedVariable('--cdn-prefix');
 
       expect(CDNPrefix, 'CDN prefix should exist to create the src based on the flag').to.exist;
+    });
+
+    it('Should not make request for empty flag', async () => {
+      await fixture('<ef-flag></ef-flag>');
+      expect(fetch.callCount).to.equal(0, 'No request should be sent for empty flag');
+    });
+
+    it('Should make a correct server request based on cdn prefix and the flag if flag is specified', async () => {
+      createFakeResponse(gbSvg, responseConfigSuccess);
+      const uniqueFlagName = generateUniqueName(flagName); // to avoid caching
+      const el = await fixture(`<ef-flag flag="${uniqueFlagName}"></ef-flag>`);
+      const CDNPrefix = el.getComputedVariable('--cdn-prefix');
       const expectedSrc = `${CDNPrefix}${uniqueFlagName}.svg`;
 
       expect(fetch.callCount).to.equal(1, 'Should make one request');
-      expect(checkRequestedUrl(fetch.args, expectedSrc)).to.equal(true, `requested URL should be ${expectedSrc} for the flag ${uniqueFlagName}`);
+      expect(checkRequestedUrl(fetch.args, expectedSrc)).to.equal(true, `Requested URL should be ${expectedSrc} for the flag ${uniqueFlagName}`);
     });
 
-    it('should make a correct server request based on src', async () => {
-      createFakeResponse(gbSvg, responseConfigSuccess);
-      const uniqueFlagName = generateUniqueName(flagName); // to avoid caching
-      const uniqueSrc = createMockSrc(uniqueFlagName);
-
-      await fixture(`<ef-flag src="${uniqueSrc}"></ef-flag>`);
-      expect(fetch.callCount).to.equal(1, 'Should make one request');
-      expect(checkRequestedUrl(fetch.args, uniqueSrc)).to.equal(true, `requested URL should be ${uniqueSrc}`);
-    });
-
-    it('should preload flags', async () => {
+    it('Should preload single flag', async () => {
       createFakeResponse(gbSvg, responseConfigSuccess);
       const el = await fixture('<ef-flag></ef-flag>');
       const CDNPrefix = el.getComputedVariable('--cdn-prefix');
-
-      expect(CDNPrefix, 'CDN prefix should exist in order for preload to work properly with flag name').to.exist;
-      expect(fetch.callCount).to.equal(0, 'No request should be sent for empty flag');
-
-      const firstUniqueFlag = generateUniqueName(flagName);
-      const secondUniqueFlag = generateUniqueName(flagName);
-      const uniqueInvalidFlag = generateUniqueName(flagName);
-
-      const firstUniqueFlagSrc = `${CDNPrefix}${firstUniqueFlag}.svg`;
-      const secondUniqueFlagSrc = createMockSrc(secondUniqueFlag);
-      const uniqueInvalidFlagSrc = `${CDNPrefix}${uniqueInvalidFlag}.svg`;
+      const uniqueFlagName = generateUniqueName(flagName);
+      const uniqueFlagSrc = `${CDNPrefix}${uniqueFlagName}.svg`;
 
       createFakeResponse(gbSvg, responseConfigSuccess);
       let preloadedFlags = await Promise.all(
-        preload(firstUniqueFlag, secondUniqueFlagSrc)
+        preload(uniqueFlagName)
       );
-      createFakeResponse('', responseConfigError);
-      preloadedFlags = [...preloadedFlags, ...await Promise.all(
-        preload(uniqueInvalidFlag)
-      )];
 
-      expect(fetch.callCount).to.equal(3, 'Server requests for all preloaded flags should be made');
-      expect(checkRequestedUrl(fetch.args, firstUniqueFlagSrc)).to.equal(true, 'should request flags by name with CDN prefix');
-      expect(checkRequestedUrl(fetch.args, secondUniqueFlagSrc)).to.equal(true, 'should request flags with src');
-      expect(checkRequestedUrl(fetch.args, uniqueInvalidFlagSrc)).to.equal(true, 'should try to request invalid flag');
+      expect(fetch.callCount).to.equal(1, 'Server requests for all preloaded flags should be made');
+      expect(checkRequestedUrl(fetch.args, uniqueFlagSrc)).to.equal(true, 'Should request flag by name with CDN prefix');
       expect(preloadedFlags[0].length > 0).to.equal(true, 'Should successfully preload flag by name with CDN prefix');
-      expect(preloadedFlags[1].length > 0).to.equal(true, 'Should successfully preload flags with src');
-      expect(preloadedFlags[2], 'Should not preload invalid flag').to.be.undefined;
-      el.setAttribute('flag', firstUniqueFlag);
+
+      el.setAttribute('flag', uniqueFlagName);
       await elementUpdated(el);
 
-      expect(fetch.callCount).to.equal(3, 'no new requests should be made since flags are already preloaded');
+      expect(fetch.callCount).to.equal(1, 'No new requests should be made since flags are already preloaded');
+    });
+
+    it('Should preload multiple flags', async () => {
+      createFakeResponse(gbSvg, responseConfigSuccess);
+      const el1 = await fixture('<ef-flag></ef-flag>');
+      const el2 = await fixture('<ef-flag></ef-flag>');
+      const CDNPrefix = el1.getComputedVariable('--cdn-prefix');
+
+      const firstUniqueFlagName = generateUniqueName(flagName);
+      const secondUniqueFlagName = generateUniqueName(flagName);
+
+      const firstUniqueFlagSrc = `${CDNPrefix}${firstUniqueFlagName}.svg`;
+      const secondUniqueFlagSrc = `${CDNPrefix}${secondUniqueFlagName}.svg`;
+
+      createFakeResponse(gbSvg, responseConfigSuccess);
+      let preloadedFlags = await Promise.all(
+        preload(firstUniqueFlagName, secondUniqueFlagName)
+      );
+
+      expect(fetch.callCount).to.equal(2, 'Server requests for all preloaded flags should be made');
+      expect(checkRequestedUrl(fetch.args, firstUniqueFlagSrc)).to.equal(true, 'Should request first flag by name with CDN prefix');
+      expect(checkRequestedUrl(fetch.args, secondUniqueFlagSrc)).to.equal(true, 'Should request second flag by name with CDN prefix');
+      expect(preloadedFlags[0].length > 0).to.equal(true, 'Should successfully preload first flag by name with CDN prefix');
+      expect(preloadedFlags[1].length > 0).to.equal(true, 'Should successfully preload second flag by name with CDN prefix');
+
+      el1.setAttribute('flag', firstUniqueFlagName);
+      el2.setAttribute('flag', secondUniqueFlagName);
+      await elementUpdated(el1);
+      await elementUpdated(el2);
+
+      expect(fetch.callCount).to.equal(2, 'No new requests should be made since flags are already preloaded');
+    });
+
+    it('Should not preload invalid flag', async () => {
+      createFakeResponse(gbSvg, responseConfigSuccess);
+      const el = await fixture('<ef-flag></ef-flag>');
+      const CDNPrefix = el.getComputedVariable('--cdn-prefix');
+      const uniqueInvalidFlag = generateUniqueName(flagName);
+      const uniqueInvalidFlagSrc = `${CDNPrefix}${uniqueInvalidFlag}.svg`;
+
+      createFakeResponse('', responseConfigError);
+      let preloadedFlags = await Promise.all(
+        preload(uniqueInvalidFlag)
+      );
+
+      expect(fetch.callCount).to.equal(1, 'Server requests for preloaded flag should be made');
+      expect(checkRequestedUrl(fetch.args, uniqueInvalidFlagSrc)).to.equal(true, 'Should try to request invalid flag');
+      expect(preloadedFlags[0], 'Should not preload invalid flag').to.be.undefined;
     });
   });
 });
