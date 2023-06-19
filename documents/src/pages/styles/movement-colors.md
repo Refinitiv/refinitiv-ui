@@ -188,10 +188,9 @@ td:nth-child(even) {
  */
 
 import '/resources/elements/panel/index.js';
-import '/resources/elements/button/index.js';
 import '/resources/elements/button-bar/index.js';
 import { halo } from '/theme-loader.js';
-halo('panel', 'button', 'button-bar');
+halo('panel', 'button-bar');
 
 const changeRegion = region => {
   document.documentElement.setAttribute('movement-color-profile', region);
