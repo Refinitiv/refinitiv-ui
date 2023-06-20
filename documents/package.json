@@ -30,7 +30,7 @@
   "devDependencies": {
     "esbuild": "^0.18.1",
     "serve": "^14.2.0",
-    "pandora-book": "file:tools/pandora-book-3.0.0-pride.1.tgz"
+    "pandora-book": "file:tools/pandora-book-3.0.0-experimental.tgz"
   },
   "dependencies": {
     "@refinitiv-ui/core": "^6.4.3",
