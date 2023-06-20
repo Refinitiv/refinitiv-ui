@@ -5,7 +5,7 @@ on:
     branches: [fix/ci-lerna-auto-update]
 
 jobs:
-  publish:
+  checkLerna:
     environment: development
     runs-on: ubuntu-latest
     steps:
