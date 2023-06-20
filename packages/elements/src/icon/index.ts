@@ -81,7 +81,7 @@ export class Icon extends BasicElement {
     if (oldValue !== value) {
       this.deferIconReady();
       this._icon = value;
-      requestAnimationFrame(() => this.updateRenderer(value));
+      requestAnimationFrame(() => this.updateRenderer());
       this.requestUpdate('icon', oldValue);
     }
   }
@@ -152,19 +152,29 @@ export class Icon extends BasicElement {
     this.iconReady = new Deferred<void>();
   }
 
-  private updateRenderer (value: string | null) {
-    if (!value || (this.iconMap && (!isBase64svg(this.iconMap) && !isUrl(this.iconMap)))) {
+  private isIconValid (): boolean {
+    if (!this._icon) {
+      return false;
+    }
+    if (this.iconMap && (!isBase64svg(this.iconMap) && !isUrl(this.iconMap))) {
+      return false;
+    }
+    return true;
+  }
+
+  private updateRenderer () {
+    if (!this.isIconValid()) {
       return this.clearIcon();
     }
-
+    const iconProperty = this._icon!;
     if (this.iconMap) {
       void this.loadAndRenderIcon(this.iconMap);
     }
-    else if (isUrl(value) || IconLoader.isPrefixSet) {
-      void this.loadAndRenderIcon(value);
+    else if (isUrl(iconProperty) || IconLoader.isPrefixSet) {
+      void this.loadAndRenderIcon(iconProperty);
     }
     else {
-      void this.loadAndRenderSpriteIcon(value);
+      void this.loadAndRenderSpriteIcon(iconProperty);
     }
   }
 
