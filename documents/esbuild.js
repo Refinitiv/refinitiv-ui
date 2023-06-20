@@ -50,6 +50,12 @@ const OPTIONS = {
 };
 
 const handler = async () => {
+  await esbuild.build({
+    entryPoints: ['src/theme-loader.js'],
+    outdir: 'dist',
+    ...OPTIONS,
+  });
+
   const elements = fg('../packages/elements/lib/*/index.js');
   const elementsThemes = fg('../packages/elements/lib/*/themes/halo/*/index.js');
   await esbuild.build({
