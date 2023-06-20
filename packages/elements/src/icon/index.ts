@@ -15,7 +15,7 @@ import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 import { consume } from '@lit-labs/context';
 import { efConfig, type Config } from '../configuration/index.js';
-import { SvgSpriteLoader } from './utils/SpriteLoader.js';
+import { SpriteLoader } from './utils/SpriteLoader.js';
 
 const EmptyTemplate = svg``;
 
@@ -209,7 +209,7 @@ export class Icon extends BasicElement {
     if (!iconTemplateCacheItem) {
       iconTemplateCache.set(
         src,
-        SvgSpriteLoader.loadSpriteSVG(src)
+        SpriteLoader.loadSpriteSVG(src)
         .then(body => svg`${unsafeSVG(body)}`)
       );
       return this.loadAndRenderIcon(src); // Load again and await cache result
@@ -228,6 +228,11 @@ export class Icon extends BasicElement {
       const CDNPrefix = this.getComputedVariable('--cdn-prefix')
         .replace(/^('|")|('|")$/g, '');
       IconLoader.setCdnPrefix(CDNPrefix);
+    }
+    if (!SpriteLoader.isPrefixSet) {
+      const CDNSpritePrefix = this.getComputedVariable('--cdn-sprite-prefix')
+        .replace(/^('|")|('|")$/g, '');
+      SpriteLoader.setCdnPrefix(CDNSpritePrefix);
     }
   }
 
