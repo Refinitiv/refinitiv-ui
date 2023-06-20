@@ -225,13 +225,11 @@ export class Icon extends BasicElement {
    */
   private setPrefix (): void {
     if (!IconLoader.isPrefixSet) {
-      const CDNPrefix = this.getComputedVariable('--cdn-prefix')
-        .replace(/^('|")|('|")$/g, '');
+      const CDNPrefix = this.getComputedVariable('--cdn-prefix');
       IconLoader.setCdnPrefix(CDNPrefix);
     }
     if (!SpriteLoader.isPrefixSet) {
-      const CDNSpritePrefix = this.getComputedVariable('--cdn-sprite-prefix')
-        .replace(/^('|")|('|")$/g, '');
+      const CDNSpritePrefix = this.getComputedVariable('--cdn-sprite-prefix');
       SpriteLoader.setCdnPrefix(CDNSpritePrefix);
     }
   }
