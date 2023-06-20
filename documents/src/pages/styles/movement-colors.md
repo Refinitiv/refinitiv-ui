@@ -187,10 +187,10 @@ td:nth-child(even) {
  * Import paths and theme-loader used for demonstration purposes
  */
 
-import '/resources/elements/panel/index.js';
-import '/resources/elements/button-bar/index.js';
+import '/resources/elements.js';
+import '/resources/elements.js';
 import { halo } from '/theme-loader.js';
-halo('panel', 'button-bar');
+halo();
 
 const changeRegion = region => {
   document.documentElement.setAttribute('movement-color-profile', region);

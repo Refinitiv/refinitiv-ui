@@ -6,6 +6,6 @@ name: accordion
  * Import paths and theme-loader used for demonstration purposes
  */
 
-import '/resources/elements/accordion/index.js';
+import '/resources/elements.js';
 import { halo } from '/theme-loader.js';
-halo('accordion');
+halo();

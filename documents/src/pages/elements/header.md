@@ -76,10 +76,10 @@ You can include a component in a header by assigning the component to a slot.
 ::
 ```javascript
 ::header::
-import '/resources/elements/button/index.js';
-import '/resources/elements/checkbox/index.js';
-halo('button');
-halo('checkbox');
+import '/resources/elements.js';
+import '/resources/elements.js';
+halo();
+halo();
 ```
 ```html
 <ef-header level="1">Header Level 1

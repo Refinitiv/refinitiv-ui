@@ -6,6 +6,6 @@ name: header
  * Import paths and theme-loader used for demonstration purposes
  */
 
-import '/resources/elements/header/index.js';
+import '/resources/elements.js';
 import { halo } from '/theme-loader.js';
-halo('header');
+halo();

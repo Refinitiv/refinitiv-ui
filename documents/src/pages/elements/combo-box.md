@@ -393,9 +393,9 @@ comboBox.renderer = (item, composer, element) => {
 ::
 ```javascript
 ::combo-box::
-import '/resources/elements/flag/index.js';
+import '/resources/elements.js';
 import { ComboBoxRenderer } from "/resources/elements/combo-box/index.js";
-halo('flag');
+halo();
 
 const comboBox = document.querySelector('ef-combo-box');
 comboBox.data = [

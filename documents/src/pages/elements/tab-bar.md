@@ -10,8 +10,8 @@ layout: default
 ::
 ```javascript
 ::tab-bar::
-import '/resources/elements/panel/index.js';
-halo('panel');
+import '/resources/elements.js';
+halo();
 const tabs = document.getElementById('tabs');
 const title = document.getElementById('title');
 tabs.addEventListener('value-changed', (event) => {
@@ -252,8 +252,8 @@ Setting the `vertical` attribute/property to true will change the layout of the 
 ::
 ```javascript
 ::tab-bar::
-import '/resources/elements/tab/index.js';
-halo('tab');
+import '/resources/elements.js';
+halo();
 const tabs = document.getElementById('tabs');
 
 tabs.addEventListener('value-changed', (event) => {

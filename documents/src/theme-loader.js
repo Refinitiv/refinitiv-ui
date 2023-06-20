@@ -1,19 +1,12 @@
-const themeVariant = document.documentElement.getAttribute('prefers-color-scheme');
-
-const ElementsThemesPackage = '/resources/elements';
-const HaloThemePackage = '/resources/halo-theme';
+const themeVariant = document.documentElement.getAttribute(
+  'prefers-color-scheme'
+);
 
 const ThemePackage = {
   halo: {
-    native: {
-      light: () => `${HaloThemePackage}/light/imports/native-elements.js`,
-      dark: () => `${HaloThemePackage}/dark/imports/native-elements.js`
-    },
-    element: {
-      light: (name) => `${ElementsThemesPackage}/${name}/themes/halo/light/index.js`,
-      dark: (name) => `${ElementsThemesPackage}/${name}/themes/halo/dark/index.js`
-    }
-  }
+    light: () => `/resources/light.js`,
+    dark: () => `/resources/dark.js`,
+  },
 };
 
 /**
@@ -33,54 +26,18 @@ const applyThemeWrapper = () => {
 };
 
 /**
- * Load Halo Light theme
- * @param elements The list of element themes to load
- * @returns {Promise<void>}
- */
-const haloLight = async (...elements) => {
-  await Promise.all([
-    import(ThemePackage.halo.native.light()),
-    ...elements.map(element => {
-      import(ThemePackage.halo.element.light(element))
-    })
-  ]);
-};
-
-/**
- * Load Halo Dark theme
- * @param elements The list of element themes to load
- * @returns {Promise<void>}
- */
-const haloDark = async (...elements) => {
-  await Promise.all([
-    import(ThemePackage.halo.native.dark()),
-    ...elements.map(element => {
-      import(ThemePackage.halo.element.dark(element))
-    })
-  ]);
-};
-
-/**
  * Load Halo theme. The variant is based on Documentation
  * @param elements The list of element themes to load
  * @returns {Promise<void>}
  */
-const halo = async (...elements) => {
+const halo = async () => {
   if (themeVariant === 'light') {
-    await haloLight(...elements);
-  }
-  else {
-    await haloDark(...elements);
+    await import(ThemePackage.halo.light());
+  } else {
+    await import(ThemePackage.halo.dark());
   }
 };
-
-
 
 applyThemeWrapper();
 
-export {
-  themeVariant,
-  halo,
-  haloDark,
-  haloLight
-};
+export { themeVariant, halo };

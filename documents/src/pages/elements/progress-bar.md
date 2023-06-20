@@ -163,8 +163,8 @@ You may have to add some CSS to your content, to ensure that it looks nice.
 ::
 ```javascript
 ::progress-bar::
-import '/resources/elements/icon/index.js';
-halo('icon');
+import '/resources/elements.js';
+halo();
 ```
 ```css
 ef-progress-bar {

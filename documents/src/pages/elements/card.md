@@ -67,8 +67,8 @@ Use the `item-trigger` event to detect when users click on any menu item.
 ::
 ```javascript
 ::card::
-import '/resources/elements/interactive-chart/index.js';
-halo('interactive-chart');
+import '/resources/elements.js';
+halo();
 const card = document.getElementById('card');
 const chart = document.getElementById('chart');
 card.config = {

@@ -9,8 +9,8 @@ layout: default
 ::
 ```javascript
 ::tooltip::
-import '/resources/elements/button/index.js';
-halo('button');
+import '/resources/elements.js';
+halo();
 ```
 ```html
 <div style="padding: 20px 0;">
@@ -63,8 +63,8 @@ To customize the behavior of `ef-tooltip`, use `selector` to specify the CSS sel
 ::
 ```javascript
 ::tooltip::
-import '/resources/elements/button/index.js';
-halo('button');
+import '/resources/elements.js';
+halo();
 ```
 ```html
 <div class="navigation" style="padding: 40px 0;">
@@ -193,8 +193,8 @@ Custom content can be added to a tooltip instead of just text.
 ::
 ```javascript
 ::tooltip::
-import '/resources/elements/button/index.js';
-halo('button');
+import '/resources/elements.js';
+halo();
 ```
 ```html
 <div class="navigation" style="padding: 40px 0;">
@@ -368,8 +368,8 @@ Use custom condition to trigger a tooltip only when a condition is met.
 ::
 ```javascript
 ::tooltip::
-import '/resources/elements/text-field/index.js';
-halo('text-field');
+import '/resources/elements.js';
+halo();
 const input = document.getElementById('amount');
 const tooltip = document.getElementById('amount-tooltip');
 const isValid = (val) => isNaN(parseInt(val, 10)) || parseInt(val, 10) < 100;

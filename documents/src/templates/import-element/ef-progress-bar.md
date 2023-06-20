@@ -6,6 +6,6 @@ name: progress-bar
  * Import paths and theme-loader used for demonstration purposes
  */
 
-import '/resources/elements/progress-bar/index.js';
+import '/resources/elements.js';
 import { halo } from '/theme-loader.js';
-halo('progress-bar');
+halo();

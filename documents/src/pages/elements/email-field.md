@@ -9,8 +9,8 @@ layout: default
 ::
 ```javascript
 ::email-field::
-import '/resources/elements/panel/index.js';
-halo('panel');
+import '/resources/elements.js';
+halo();
 ```
 ```css
 ef-panel {

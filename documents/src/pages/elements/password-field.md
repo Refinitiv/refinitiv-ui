@@ -9,8 +9,8 @@ layout: default
 ::
 ```javascript
 ::password-field::
-import '/resources/elements/panel/index.js';
-halo('panel');
+import '/resources/elements.js';
+halo();
 const pw = document.getElementById('pw');
 const confirmedPw = document.getElementById('confirmedPw');
 const passwordMatchError = document.getElementById('password-error');

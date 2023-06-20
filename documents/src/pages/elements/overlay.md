@@ -9,8 +9,8 @@ layout: default
 ::
 ```javascript
 ::overlay::
-import '/resources/elements/button/index.js';
-halo('button');
+import '/resources/elements.js';
+halo();
 
 const openButton = document.getElementById('open-overlay');
 const overlay = document.getElementById('overlay');
@@ -83,8 +83,8 @@ By default `ef-overlay` appears at the centre of the window. You can set `positi
 ::
 ```javascript
 ::overlay::
-import '/resources/elements/button/index.js';
-halo('button');
+import '/resources/elements.js';
+halo();
 
 const openButton = document.getElementById('open-overlay');
 const overlay = document.getElementById('overlay');
@@ -156,8 +156,8 @@ Overlay can be attached to an element by setting the `positionTarget` property t
 ::
 ```javascript
 ::overlay::
-import '/resources/elements/text-field/index.js';
-halo('text-field');
+import '/resources/elements.js';
+halo();
 
 const target = document.getElementById('target');
 const overlay = document.getElementById('overlay');
@@ -226,8 +226,8 @@ The first part defines *position*. The optional second part defines *align*. For
 ::
 ```javascript
 ::overlay::
-import '/resources/elements/button/index.js';
-halo('button');
+import '/resources/elements.js';
+halo();
 
 const openButton = document.getElementById('open-overlay');
 const overlay = document.getElementById('overlay');
@@ -306,12 +306,12 @@ You can use `transition-style` to add a transition.
 ::
 ```javascript
 ::overlay::
-import '/resources/elements/button/index.js';
-import '/resources/elements/select/index.js';
-import '/resources/elements/item/index.js';
-halo('button');
-halo('select');
-halo('item');
+import '/resources/elements.js';
+import '/resources/elements.js';
+import '/resources/elements.js';
+halo();
+halo();
+halo();
 
 const openButton = document.getElementById('open-overlay');
 const transitionStyle = document.getElementById('transition');

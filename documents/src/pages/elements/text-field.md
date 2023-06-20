@@ -11,8 +11,8 @@ layout: default
 
 ```javascript
 ::text-field::
-import '/resources/elements/panel/index.js';
-halo('panel');
+import '/resources/elements.js';
+halo();
 ```
 
 ```css

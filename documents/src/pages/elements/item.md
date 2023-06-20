@@ -177,10 +177,10 @@ Custom content can be added using slots. `ef-item` provides bopth `left` and `ri
 ::
 ```javascript
 ::item::
-import '/resources/elements/checkbox/index.js';
-import '/resources/elements/button/index.js';
-halo('checkbox');
-halo('button');
+import '/resources/elements.js';
+import '/resources/elements.js';
+halo();
+halo();
 ```
 ```css
 #todo {
