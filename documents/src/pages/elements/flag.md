@@ -21,8 +21,8 @@ ef-flag {
 <ef-flag flag="gb"></ef-flag>
 <ef-flag flag="jp"></ef-flag>
 <ef-flag flag="th"></ef-flag>
-<ef-flag src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/bo.svg"></ef-flag>
-<ef-flag src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/pe.svg"></ef-flag>
+<ef-flag flag="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/bo.svg"></ef-flag>
+<ef-flag flag="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/pe.svg"></ef-flag>
 ```
 ::
 
@@ -30,14 +30,14 @@ ef-flag {
 
 ## Usage
 
-You can set a flag's code using the `flag` attribute to display the flag. Alternatively, you can set the url of an svg file or relative path to your svg file using the `src` attribute.
+You can set a flag's code using the `flag` attribute to display the flag. Alternatively, you can set the url of an svg file or relative path to your svg file using the `flag` attribute.
 
 ```html
 <ef-flag flag="br"></ef-flag>
 <ef-flag flag="ar"></ef-flag>
 <ef-flag flag="co"></ef-flag>
-<ef-flag src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/bo.svg"></ef-flag>
-<ef-flag src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/pe.svg"></ef-flag>
+<ef-flag flag="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/bo.svg"></ef-flag>
+<ef-flag flag="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/pe.svg"></ef-flag>
 ```
 
 ## Changing size
