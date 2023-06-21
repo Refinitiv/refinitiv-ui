@@ -3,11 +3,13 @@ on:
   push:
     branches: [v7]
 env:
-  BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-  BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-  BROWSERSTACK_BUILD: "Test Coverage ${{ github.run_number }}"
+  CI: "true"
+  BROWSERSTACK_LATEST_BROWSERS_LAUNCHER: "Playwright"
+  TEST_SSL_CERT: ${{ secrets.TEST_SSL_CERT }}
+  TEST_SSL_KEY: ${{ secrets.TEST_SSL_KEY }}
 jobs:
   build:
+    name: "Build"
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -25,9 +27,10 @@ jobs:
       - name: Build
         run: npm run build
 
-  sonarcloud:
+  # Use coverage data from Chrome only
+  test-chrome:
+    name: "Test / Chrome"
     needs: build
-    name: TestCoverage
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -38,9 +41,18 @@ jobs:
       - name: Test
         uses: ./.github/actions/run-test
         with:
-          browsers: 'chrome' # Use coverage data from Chrome only
+          browsers: 'chrome'
           mode: 'all'
-          parallel: 3
+
+  sonarcloud:
+    name: "Scan / SonarCloud"
+    needs: test-chrome
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
