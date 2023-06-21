@@ -17,13 +17,6 @@ export { preload } from './utils/FlagLoader.js';
 
 const EmptyTemplate = svg``;
 
-/**
- * Provides a collection of flags.
- *
- * @attr {string | null} src - Src location of a svg flag.
- * @prop {string | null} src - Src location of a svg flag
- *
- */
 @customElement('ef-flag')
 export class Flag extends BasicElement {
 
@@ -77,7 +70,7 @@ export class Flag extends BasicElement {
   }
 
   /**
-   * Deprecation noticed, used to display a warning message
+   * Deprecation notice displays a warning message
    * when deprecated features are used.
    */
   private deprecationNotice = new DeprecationNotice('`src` attribute and property are deprecated. Use `flag` for attribute and property instead.');
@@ -86,12 +79,18 @@ export class Flag extends BasicElement {
   /**
    * Src location of an svg flag.
    * @example https://cdn.io/flags/gb.svg
+   * @ignore
    * @default null
    */
   @property({ type: String })
   public get src (): string | null {
     return this._src;
   }
+  /**
+   * @param value - location of an svg flag.
+   * @ignore
+   * @default null
+   */
   public set src (value: string | null) {
     if (this.src !== value) {
       this._src = value;
