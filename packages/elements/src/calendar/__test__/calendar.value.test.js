@@ -151,11 +151,11 @@ describe('calendar/Value', () => {
     it('It should not be possible to deselect value on Spacebar', async () => {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       const cells = getDateCells(el);
-      await keyboardEvent(cells[0], 'Spacebar');
-      await keyboardEvent(cells[0], 'Spacebar', 'keyup'); // April 01
+      await keyboardEvent(cells[0], ' ');
+      await keyboardEvent(cells[0], ' ', 'keyup'); // April 01
       expect(el.value, 'value is not set').to.equal('2005-04-01');
-      await keyboardEvent(cells[0], 'Spacebar');
-      await keyboardEvent(cells[0], 'Spacebar', 'keyup'); // April 01
+      await keyboardEvent(cells[0], ' ');
+      await keyboardEvent(cells[0], ' ', 'keyup'); // April 01
       expect(el.value).to.equal('2005-04-01');
     });
 
