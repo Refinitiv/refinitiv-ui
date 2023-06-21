@@ -252,10 +252,10 @@ const plugins: Plugin = {
 
     const selectedIndex = Number(config.selected?.index);
     const datasetIndex = Number(config.selected.datasetIndex || 0);
-    const visibleIndexes = chart.getVisibleDatasetCount() - 1;
+    const visibleIndex = chart.getVisibleDatasetCount() - 1;
 
     // Validate index and datasetIndex
-    if (isNaN(selectedIndex) || (isNaN(datasetIndex) || datasetIndex < 0 || datasetIndex > visibleIndexes)) {
+    if (isNaN(selectedIndex) || (isNaN(datasetIndex) || datasetIndex < 0 || datasetIndex > visibleIndex)) {
       return;
     }
 

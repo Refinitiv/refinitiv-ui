@@ -67,7 +67,7 @@ A pill can display a clear button, or a small cross icon, when the `clears` attr
 ## Accessibility
 ::a11y-intro::
 
-`ef-pill` is assigned `role="button"` and can have a `pressed` state. Assistive technology users ascertain the purpose that a pill serves via its accessible name, which is computed from the visual label. States such as `disabled` and `pressed` are programmatically updated to match the element’s visual state.
+`ef-pill` is assigned `role="button"` and can have a `pressed` state. Assistive technology users ascertain the purpose that a pill serves using its accessible name, which is computed from the visual label. States such as `disabled` and `pressed` are programmatically updated to match the element’s visual state.
 
 In some scenarios, pills are used for presenting a short text without any users interaction. For that, pill can be assigned `role="none"` or `role="presentation"`.
 

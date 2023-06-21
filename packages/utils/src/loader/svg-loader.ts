@@ -15,7 +15,7 @@ const isUrl = (str: string): boolean => (/^(https?:\/{2}|\.?\/)/i).test(str);
  * @param str String to test
  * @returns is Base64
  */
-const isBase64svg = (str: string): boolean => (/^data:image\/(svg|svg\+xml);base64,[a-zA-Z0-9,+,/]+={0,2}/i).test(str);
+const isBase64svg = (str: string): boolean => (/^data:image\/(?:svg|svg\+xml);base64,[a-zA-Z0-9+/]+={0,2}/i).test(str);
 
 /**
  * Strips any event attributes which could be used to

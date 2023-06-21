@@ -87,7 +87,7 @@ preload(
 ## Accessibility
 ::a11y-intro::
 
-`ef-icon` delegates focus into its internal svg which has native `role="image"`. Assistive technology users ascertain the purpose of the icon via its accessible name.
+`ef-icon` delegates focus into its internal svg which has native `role="image"`. Assistive technology users ascertain the purpose of the icon using its accessible name.
 
 Typically, icon may not be tabbable or focusable. However, if it's required, you can set `tabindex` and use `aria-label` or `title` to add its accessible name.
 

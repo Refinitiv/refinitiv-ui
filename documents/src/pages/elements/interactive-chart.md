@@ -74,7 +74,7 @@ ef-interactive-chart {
 ```
 ::
 
-Interactive Chart is a lightweight chart component that allows you to create different use cases for financial chart. The component uses the [lightweight-charts](https://github.com/tradingview/lightweight-charts) library. You can see a demo of different chart types and the APIs of the lightweight chart library via this [documentation](https://www.tradingview.com/lightweight-charts/).
+Interactive Chart is a lightweight chart component that allows you to create different use cases for financial chart. The component uses the [lightweight-charts](https://github.com/tradingview/lightweight-charts) library. You can see a demo of different chart types and the APIs of the lightweight chart library using this [documentation](https://www.tradingview.com/lightweight-charts/).
 
 ## Usage
 Chart can be create by passing the configuration and initial dataset using the `config` property. Interactive chart supports the following chart types. The `value` must be a number.

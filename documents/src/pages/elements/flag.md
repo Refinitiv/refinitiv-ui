@@ -30,7 +30,7 @@ ef-flag {
 
 ## Usage
 
-You can set a flag's code via the `flag` attribute to display the flag. See list of flags in [Flag List](./elements/flag#flag-list). Alternatively, you can set the url of an svg file or relative path to your svg file.
+You can set a flag's code using the `flag` attribute to display the flag. See list of flags in [Flag List](./elements/flag#flag-list). Alternatively, you can set the url of an svg file or relative path to your svg file.
 
 ```html
 <ef-flag flag="br"></ef-flag>
@@ -85,7 +85,7 @@ preload(
 ## Accessibility
 ::a11y-intro::
 
-`ef-flag` delegates focus into its internal svg which has native `role="image"`. Assistive technology users ascertain the purpose of the flag via its accessible name.
+`ef-flag` delegates focus into its internal svg which has native `role="image"`. Assistive technology users ascertain the purpose of the flag using its accessible name.
 
 Typically, flag may not be tabbable or focusable. However, if it's required, you can set `tabindex` and use `aria-label` or `title` to add its accessible name.
 
