@@ -129,7 +129,7 @@ The header can contain simple text or components such as checkbox, button. These
 ```javascript
 ::collapse::
 import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/checkbox?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/button?min';
+import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
 halo('checkbox');
 halo('button');
 ```
